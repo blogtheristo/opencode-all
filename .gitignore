@@ -1,0 +1,200 @@
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.aab
+*.apk
+output-metadata.json
+
+# Team role docs (local only)
+Team/
+
+# IntelliJ
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
+.env
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.cursor/rules/snyk_rules.mdc
+
+# Python Virtual Environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# --- GDPR & PRIVACY SHIELD ---
+# Block all CSV files (Customer lists, Exports)
+*.csv
+
+# Block Outreach drafts (Emails)
+investor-outreach/ready_to_send*/
+
+# Block specific secrets
+CLOUDFLARE_SECRETS.md
+ADD_TOKEN_TO_GITHUB.md
+
+# --- THESIS WORK (LOCAL ONLY) ---
+docs/metropolia/
+Metropolia2026/
+
+# --- ADMIN & SECRETS ---
+Admin/
+# Exception: Policy documentation (not confidential data, safe to commit)
+!Admin/CONFIDENTIAL-handling-policy.md
+# Exception: Installation documentation (customer delivery guides)
+!Admin/Installation/
+!Admin/Installation/**
+!Admin/Installation/README.md
+!Admin/Installation/Private/
+!Admin/Installation/Private/**
+!Admin/Installation/Public/
+!Admin/Installation/Public/**
+!Admin/Installation/Public/watsonx/
+!Admin/Installation/Public/watsonx/**
+!Admin/Installation/Public/gcr/
+!Admin/Installation/Public/gcr/**
+!Admin/Installation/Public/groq/
+!Admin/Installation/Public/groq/**
+# Exception: Public documentation guides
+!Admin/INSTALLATION_MANUAL.md
+!Admin/TWITTER_AUTOMATION_GUIDE.md
+# Exception: Development setup guides
+!Admin/Installation/Development/
+!Admin/Installation/Development/**
+!Admin/Installation/Development/Win11Pro/
+!Admin/Installation/Development/Win11Pro/**
+!Admin/Installation/Development/CBPlus/
+!Admin/Installation/Development/CBPlus/**
+# Exception: Metropolia Master Thesis & Academic Documentation (public research)
+!Admin/Metropolia/
+!Admin/Metropolia/**
+!Admin/Metropolia/master-thesis/
+!Admin/Metropolia/master-thesis/**
+!Admin/Metropolia/master-thesis/fi/
+!Admin/Metropolia/master-thesis/fi/**
+!Admin/Metropolia/master-thesis/en/
+!Admin/Metropolia/master-thesis/en/**
+# Exception: Public policy pages on website (not actual confidential data)
+!dws10.com/data-handling-policy/
+!dws10.com/data-handling-policy/**
+SFTP_SECRETS.py
+
+# --- AGENT FOUNDRY (BUSINESS CRITICAL - LOCAL ONLY) ---
+# All internal Agent Foundry files are confidential (model specs, architecture, vertical specs)
+AgentFoundry/
+# Exception: PUBLIC customer-facing documentation only
+!AgentFoundry/LIFETIME_AGENT_FOUNDRY_CUSTOMER.md
+# Exception: PUBLIC workflow definitions (if used by GitHub Actions/CI/CD)
+!AgentFoundry/workflows/
+!AgentFoundry/workflows/**
+# Exception: PUBLIC training references (no proprietary info)
+!AgentFoundry/README.md
+# Exception: PUBLIC calculus/methodology papers
+!AgentFoundry/Calculus_for_Training.md
+SFTP_SECRETS.py
+
+# --- CONFIDENTIAL DATA (NEVER COMMIT) ---
+# Encrypted databases
+Admin/Data/*.db
+Admin/Data/*.sqlite
+Admin/Data/*.sqlite3
+Admin/Data/*.encrypted.*
+
+# Encrypted JSON files
+Admin/Data/**/*.encrypted.json
+Admin/Data/**/*.encrypted.txt
+
+# Proton Drive sync files (if synced locally)
+**/Proton Drive/
+**/ProtonDrive/
+
+# Any file with confidential data markers
+**/*confidential*
+**/*CONFIDENTIAL*
+# Exception: Public policy pages on website (not actual confidential data)
+!dws10.com/data-handling-policy/
+!dws10.com/data-handling-policy/**
+**/*customer-data*
+**/*partner-data*
+**/*deal-data*
+**/*financial-data*
+
+# --- MCP HUB ---
+# Environment files with API keys
+.env.mcp
+
+# Claude Code session data
+claude-sessions/
+
+# Docker volumes
+mcp-context-data/
+
+# MCP server logs
+mcp-hub/*.log
+mcp-servers/**/*.log
+
+# --- Node / Next.js ---
+**/node_modules/
+**/.next/
+**/out/
+**/.vercel/
+**/.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- CONFIDENTIAL BUSINESS DATA ---
+/confidential/
+/secrets/
+/investor-materials/
+*.confidential.*
+*-confidential.*
+
+# --- CUSTOMER DATA (GDPR/ISO 27001 COMPLIANCE) ---
+/customer-data/
+/pilot-data/
+/ncc-data/
+/t2h-data/
+
+# --- API KEYS AND CREDENTIALS ---
+.env.local
+.env.*.local
+credentials.json
+service-account-*.json
+
+# --- FINANCIAL MODELS ---
+*financial-model*.xlsx
+*roi-calculator*.xlsx
+*cap-table*.xlsx
+
+# --- DWS IQ PROPRIETARY ALGORITHMS ---
+/dws-core/proprietary/
+/algorithms/confidential/
+
+# --- LOCAL TEAM NOTES (DO NOT COMMIT) ---
+Team/*.md
