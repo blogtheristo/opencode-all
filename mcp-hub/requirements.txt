@@ -1,0 +1,12 @@
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+# CVE-2025-43859 (h11 HTTP request smuggling): Fixed in httpx 0.27.0+ (includes h11 0.16.0+)
+httpx>=0.27.0
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+supabase>=2.3.0
+temporalio>=1.5.0
+
+# Security: Runtime Application Firewall
+# Aikido Zen provides real-time protection against injection attacks
+aikido-zen>=1.2.0
