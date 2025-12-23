@@ -1,0 +1,166 @@
+name: Daily Security Scan - Aikido
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Aikido Results
+        continue-on-error: true
+        run: |
+          curl -s -X GET "https://api.aikido.dev/v1/scans/latest?org=${{ secrets.AIKIDO_ORG_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.AIKIDO_API_TOKEN }}" \
+            -o aikido-results.json || echo "{\"status\":\"unavailable\"}" > aikido-results.json
+
+      - name: Parse Security Results
+        continue-on-error: true
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          
+          results = {
+              "timestamp": datetime.now().isoformat(),
+              "scan_id": "${{ github.run_id }}",
+              "repository": "${{ github.repository }}",
+              "branch": "${{ github.ref }}",
+              "commit": "${{ github.sha }}",
+              "sources": {}
+          }
+          
+          # Parse Aikido
+          try:
+              with open("aikido-results.json") as f:
+                  aikido_data = json.load(f)
+                  results["sources"]["aikido"] = aikido_data
+          except:
+              results["sources"]["aikido"] = {"status": "failed"}
+          
+          with open("merged-results.json", "w") as f:
+              json.dump(results, f, indent=2)
+          
+          print(json.dumps(results, indent=2))
+          EOF
+
+      - name: Create Security Issues
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('merged-results.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not read results:', e);
+              return;
+            }
+            
+            const aikidoIssues = results.sources?.aikido?.vulnerabilities || [];
+            
+            // Create issues for critical/high severity
+            for (const issue of aikidoIssues) {
+              if (['critical', 'high'].includes(issue.severity?.toLowerCase())) {
+                try {
+                  await github.rest.issues.create({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    title: `🔐 [${issue.severity.toUpperCase()}] Security: ${issue.title || 'Unknown'}`,
+                    body: `## Security Finding\n\n**Source:** Aikido Zen\n**Severity:** ${issue.severity}\n**ID:** ${issue.id || 'N/A'}\n\n### Details\n${issue.description || 'See security backlog for details'}\n\n### Related\n- [Security Backlog](../../Admin/Security/SECURITY_BACKLOG_BUG_FIXES.md)`,
+                    labels: ['security', 'aikido']
+                  });
+                  console.log(`Created issue for: ${issue.title}`);
+                } catch (e) {
+                  console.log(`Could not create issue: ${e}`);
+                }
+              }
+            }
+
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: security-scan-results
+          path: |
+            aikido-results.json
+            merged-results.json
+          retention-days: 90
+
+      - name: Post Scan Summary
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('merged-results.json', 'utf8'));
+            } catch (e) {
+              console.log('No results available');
+              return;
+            }
+            
+            const aikidoCount = results.sources?.aikido?.vulnerabilities?.length || 0;
+            
+            core.notice(`✅ Security Scan Complete\n- Aikido Issues: ${aikidoCount}`);
+
+      - name: Comment on Recent PRs
+        if: always()
+        uses: actions/github-script@v6
+        continue-on-error: true
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('merged-results.json', 'utf8'));
+            } catch (e) {
+              return;
+            }
+            
+            const criticalIssues = (results.sources?.aikido?.vulnerabilities || [])
+              .filter(i => i.severity?.toLowerCase() === 'critical');
+            
+            if (criticalIssues.length > 0) {
+              const prs = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                sort: 'updated',
+                direction: 'desc',
+                per_page: 5
+              });
+              
+              const comment = `🔐 **Security Alert**\n\nCritical vulnerabilities detected: ${criticalIssues.length}\n\nPlease review [Security Backlog](../../Admin/Security/SECURITY_BACKLOG_BUG_FIXES.md) for details.`;
+              
+              for (const pr of prs.data) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: comment
+                });
+              }
+            }
+

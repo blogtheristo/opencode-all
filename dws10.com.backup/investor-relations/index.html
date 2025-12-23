@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Relations | DWS IQ Platform | Lifetime Oy</title>
+    <meta name="description"
+        content="Investor Relations for Lifetime Oy and DWS IQ Platform. Growth Score 91, Heat Score 86. AI innovation and Digital Transformation Consultancy Powerhouse.">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d5a87;
+            --accent: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #f1f5f9;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo-section > div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section img {
+            height: 80px;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(30, 41, 59, 0.95);
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 10px 0;
+            display: none;
+            z-index: 100;
+        }
+
+        nav li:hover .dropdown {
+            display: block !important;
+        }
+
+        nav .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        nav .dropdown a:hover {
+            color: #60a5fa !important;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Crunchbase Metrics */
+        .crunchbase-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 5px;
+        }
+
+        .metric-description {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        section h3 {
+            font-size: 2rem;
+            color: #60a5fa;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-card h4 {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .content-card p,
+        .content-card ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .content-card ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            color: #f1f5f9;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-section">
+                <div>
+                    <a href="../index.html">
+                        <img src="../DWS_IQ2026.png" alt="DWS IQ Platform">
+                    </a>
+                    <h1>Investor Relations</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li style="position: relative;">
+                            <a href="#">Products ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="../world-model/">World Model</a></li>
+                                <li><a href="../lifetime-fleet/">Lifetime Fleet</a></li>
+                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;">
+                                    <a href="#" style="color: #94a3b8; font-size: 0.9rem; font-weight: bold;">Industries:</a>
+                                </li>
+                                <li><a href="../construction/">Construction</a></li>
+                                <li><a href="../manufacturing/">Manufacturing</a></li>
+                                <li><a href="../logistics/">Logistics & Supply Chain</a></li>
+                                <li><a href="../energy/">Energy & Utilities</a></li>
+                                <li><a href="../real-estate/">Real Estate Development</a></li>
+                                <li><a href="../architecture/">Architecture & Engineering</a></li>
+                                <li><a href="../waste/">Waste Management</a></li>
+                                <li><a href="../mining/">Mining/Heavy Industry</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://onelifetime.world">Community</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Investor Relations</h2>
+            <p>Lifetime Oy is an AI innovation and Digital Transformation Consultancy Powerhouse. We deliver World-Class
+                Firehorse Products including the DWS IQ 6 Platform.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Crunchbase Metrics</h3>
+            <div class="crunchbase-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">91</div>
+                    <div class="metric-label">Growth Score</div>
+                    <div class="metric-description">Strong growth trajectory</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">86</div>
+                    <div class="metric-label">Heat Score</div>
+                    <div class="metric-description">High market interest</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">104,995</div>
+                    <div class="metric-label">CB Rank</div>
+                    <div class="metric-description">Crunchbase ranking</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.crunchbase.com/organization/lifetime-oy" target="_blank"
+                    class="cta-button">View on Crunchbase →</a>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(15, 23, 42, 0.5);">
+        <div class="container">
+            <h3>Executive Summary</h3>
+            <div class="highlight-box">
+                <p>
+                    Lifetime Oy is building <strong>DWS IQ</strong>, a climate-intelligent AI platform designed for 8
+                    industries with significant carbon footprint reduction potential. We're seeking cloud credits and
+                    partnerships with Google and AWS to accelerate development and training of our specialized edge AI
+                    models.
+                </p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>✅ Current Status</h4>
+                    <ul>
+                        <li>Joined Peachscore Accelerator Cohort 25</li>
+                        <li>Lifetime Fleet operational (MRR €10k)</li>
+                        <li>Partnerships with Uber and Taksi Helsinki</li>
+                        <li>Agent Foundry ready for deployment</li>
+                        <li>Full documentation and automated workflows</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>🎯 Platform Focus</h4>
+                    <ul>
+                        <li>8 high-impact industries</li>
+                        <li>Climate change mitigation</li>
+                        <li>Edge AI with <100ms latency</li>
+                        <li>EU regulatory compliance</li>
+                        <li>Real-time decision-making</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>🚀 Technology Stack</h4>
+                    <ul>
+                        <li>NVIDIA Jetson edge computing</li>
+                        <li>Google Cloud Run + AWS IoT</li>
+                        <li>Groq LPU inference (86% cost reduction)</li>
+                        <li>Lifetime World Model (specialized LLM)</li>
+                        <li>Agent Foundry framework</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Current Traction</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">€10K</div>
+                    <div class="stat-label">Monthly Recurring Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Strategic Partnerships</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Target Industries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$135K</div>
+                    <div class="stat-label">Startup Credits Secured</div>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-top: 40px;">
+                <div class="content-card">
+                    <h4>🤝 Lifetime Fleet</h4>
+                    <p><strong>Status:</strong> Operational</p>
+                    <p><strong>MRR:</strong> €10,000</p>
+                    <p><strong>Partnerships:</strong></p>
+                    <ul>
+                        <li>Uber (ride-sharing integration)</li>
+                        <li>Taksi Helsinki (Kela National Care rides)</li>
+                    </ul>
+                    <p style="margin-top: 15px;">
+                        <a href="https://lifetime.fi/fleet" target="_blank" style="color: #60a5fa;">Learn More →</a>
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h4>🏆 Peachscore Accelerator</h4>
+                    <p><strong>Cohort:</strong> 25</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Access to Nordic VC network</li>
+                        <li>Benchmarking against 500+ Finnish scaleups</li>
+                        <li>Quarterly investor meetups</li>
+                    </ul>
+                    <p style="margin-top: 15px;">
+                        <a href="https://app.peachscore.com/company/lifetime-oy" target="_blank"
+                            style="color: #60a5fa;">View Profile →</a>
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <h4>💻 Technical Infrastructure</h4>
+                    <ul>
+                        <li>GitHub Repository with full documentation</li>
+                        <li>Automated workflows (Cloudflare + GitHub Actions)</li>
+                        <li>Multi-site deployment (dws10.com + onelifetime.world)</li>
+                        <li>EU data residency compliant</li>
+                    </ul>
+                    <p style="margin-top: 15px;">
+                        <a href="https://github.com/blogtheristo/dws6" target="_blank"
+                            style="color: #60a5fa;">View Repository →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(15, 23, 42, 0.5);">
+        <div class="container">
+            <h3>The 8 Industries</h3>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; color: #cbd5e1;">
+                DWS IQ targets 8 industries with high impact on climate change mitigation:
+            </p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>🏗️ Construction</h4>
+                    <p>Embodied carbon tracking, material optimization, waste reduction</p>
+                </div>
+                <div class="content-card">
+                    <h4>🏭 Manufacturing</h4>
+                    <p>Energy optimization, supply chain decarbonization</p>
+                </div>
+                <div class="content-card">
+                    <h4>⚡ Energy</h4>
+                    <p>Renewable integration, grid optimization</p>
+                </div>
+                <div class="content-card">
+                    <h4>🚚 Logistics</h4>
+                    <p>Route optimization, fleet electrification</p>
+                </div>
+                <div class="content-card">
+                    <h4>⛏️ Mining</h4>
+                    <p>Resource efficiency, reclamation planning</p>
+                </div>
+                <div class="content-card">
+                    <h4>♻️ Waste</h4>
+                    <p>Circular economy, recycling optimization</p>
+                </div>
+                <div class="content-card">
+                    <h4>🏢 Real Estate</h4>
+                    <p>Building operations, energy management</p>
+                </div>
+                <div class="content-card">
+                    <h4>🏛️ Architecture</h4>
+                    <p>Design optimization, material selection</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #94a3b8;">
+                <strong>Business Cases:</strong> Under Development (UD)
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Credits & Infrastructure Needs</h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>☁️ Google Cloud Credits</h4>
+                    <p><strong>Purpose:</strong> Training Lifetime World Model for 8 industries</p>
+                    <p><strong>Needs:</strong></p>
+                    <ul>
+                        <li>Vertex AI for specialized LLM training</li>
+                        <li>Google TPUs for large-scale training</li>
+                        <li>Cloud Storage for training data</li>
+                        <li>Compute Engine infrastructure</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>☁️ AWS Cloud Credits</h4>
+                    <p><strong>Purpose:</strong> Edge device support and container management</p>
+                    <p><strong>Needs:</strong></p>
+                    <ul>
+                        <li>AWS IoT Greengrass for edge orchestration</li>
+                        <li>EC2/ECS for container management</li>
+                        <li>S3 for model storage</li>
+                        <li>AWS AI Training for edge solutions</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>💰 Startup Credits Secured</h4>
+                    <ul>
+                        <li>Google for Startups: $100,000 (applied)</li>
+                        <li>AWS for Startups: $25,000 (applied)</li>
+                        <li>Groq for Startups: $10,000 (applied)</li>
+                        <li>GitHub Enterprise: Unlimited repos (active)</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-size: 1.2rem; color: #ffd700;">
+                        <strong>Total: $135,000</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(15, 23, 42, 0.5);">
+        <div class="container">
+            <h3>Investment Ask</h3>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>🎯 Credits Needed</h4>
+                    <p><strong>Google AI Credits:</strong></p>
+                    <ul>
+                        <li>Training Lifetime World Model (8 industries)</li>
+                        <li>Vertex AI and TPU access</li>
+                        <li>Edge model optimization</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>AWS Cloud Credits:</strong></p>
+                    <ul>
+                        <li>Edge device support</li>
+                        <li>Container management</li>
+                        <li>AWS AI training infrastructure</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>🤝 Strategic Partnerships</h4>
+                    <p>We're seeking partnerships with:</p>
+                    <ul>
+                        <li><strong>Google:</strong> LLM training infrastructure and Vertex AI</li>
+                        <li><strong>AWS:</strong> Edge device orchestration and container management</li>
+                        <li><strong>Joint Opportunities:</strong> Co-marketing, case studies, technical integration</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>📊 Cost Optimization</h4>
+                    <p>We use <strong>Groq LPU</strong> for inference, reducing costs by <strong>86%</strong> compared to
+                        traditional cloud inference services.</p>
+                    <p style="margin-top: 15px;">This enables:</p>
+                    <ul>
+                        <li>Cost-effective scaling</li>
+                        <li>Real-time decision-making</li>
+                        <li>Edge-cloud hybrid architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h3 style="color: white;">Ready to Invest or Partner?</h3>
+            <p style="color: white; font-size: 1.2rem; margin-bottom: 30px;">
+                Contact us to learn more about investment opportunities and strategic partnerships
+            </p>
+            <a href="mailto:risto@lifetime.fi?subject=Investor Inquiry" class="cta-button">
+                Contact Investor Relations →
+            </a>
+            <a href="https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs" class="cta-button" target="_blank">
+                Watch Investor Pitch →
+            </a>
+            <a href="https://www.crunchbase.com/organization/lifetime-oy" class="cta-button" target="_blank">
+                View Crunchbase Profile →
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Key Resources</h3>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>🌐 Platform Links</h4>
+                    <ul>
+                        <li><a href="https://dws10.com" target="_blank" style="color: #60a5fa;">DWS IQ Platform</a>
+                        </li>
+                        <li><a href="https://dws10.com/world-model" target="_blank"
+                                style="color: #60a5fa;">Lifetime World Model</a></li>
+                        <li><a href="https://dws10.com/construction" target="_blank"
+                                style="color: #60a5fa;">Agent Foundry</a></li>
+                        <li><a href="https://dws10.com/lifetime-fleet" target="_blank"
+                                style="color: #60a5fa;">Lifetime Fleet</a></li>
+                        <li><a href="https://onelifetime.world" target="_blank"
+                                style="color: #60a5fa;">Community Hub</a></li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>📄 Documentation</h4>
+                    <ul>
+                        <li><a href="https://github.com/blogtheristo/dws6" target="_blank"
+                                style="color: #60a5fa;">GitHub Repository</a></li>
+                        <li><a href="https://app.peachscore.com/company/lifetime-oy" target="_blank"
+                                style="color: #60a5fa;">Peachscore Profile</a></li>
+                        <li><a href="https://www.crunchbase.com/organization/lifetime-oy" target="_blank"
+                                style="color: #60a5fa;">Crunchbase Profile</a></li>
+                        <li><a href="https://lifetime.fi/fleet" target="_blank"
+                                style="color: #60a5fa;">Lifetime Fleet Website</a></li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4>📧 Contact Information</h4>
+                    <p><strong>Company:</strong> Lifetime Oy</p>
+                    <p><strong>Founder & CEO:</strong> Risto Anton Päärni</p>
+                    <p><strong>Email:</strong> <a href="mailto:risto@lifetime.fi"
+                            style="color: #60a5fa;">risto@lifetime.fi</a></p>
+                    <p><strong>Website:</strong> <a href="https://dws10.com" target="_blank"
+                            style="color: #60a5fa;">dws10.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--dark); color: white; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <p>&copy; 2026 Lifetime Oy. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="https://dws10.com" style="color: #60a5fa;">DWS IQ Platform</a> |
+                <a href="https://onelifetime.world" style="color: #60a5fa;">Community</a> |
+                <a href="mailto:risto@lifetime.fi" style="color: #60a5fa;">Contact</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
+

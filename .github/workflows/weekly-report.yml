@@ -1,0 +1,62 @@
+name: Weekly Report Email Automation
+
+on:
+  # Run every Monday at 08:00 UTC (10:00 Helsinki time)
+  schedule:
+    - cron: '0 8 * * 1'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd Reports
+          pip install -r requirements.txt
+
+      - name: Generate PDF reports
+        run: |
+          cd Reports
+          python generate_pdf.py
+
+      - name: Upload to Google Drive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          cd Reports
+          python upload_to_drive.py
+        continue-on-error: true
+
+      - name: Send weekly report via email
+        env:
+          SMTP_SENDER: ${{ secrets.SMTP_SENDER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER || 'smtp.gmail.com' }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
+        run: |
+          cd Reports
+          python send_weekly_report.py
+
+      - name: Notify completion
+        if: success()
+        run: echo "✅ Weekly report sent successfully"
+
+      - name: Notify failure
+        if: failure()
+        run: echo "❌ Failed to send weekly report"

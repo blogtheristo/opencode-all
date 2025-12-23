@@ -61,8 +61,8 @@ class SecurityCorrelator:
         
         try:
             # Sanitize path to prevent traversal attacks
-            audit_path = str(Path(audit_path).resolve())
-            with open(audit_path, 'r') as f:
+            safe_audit_path = Path(audit_path).resolve()
+            with open(safe_audit_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
             # Extract sections for each security practice
@@ -101,9 +101,9 @@ class SecurityCorrelator:
         """Parse Aikido Zen attack data"""
         try:
             # Sanitize path to prevent traversal attacks
-            attacks_path = str(Path(attacks_path).resolve())
-            with open(attacks_path, 'r') as f:
-                if attacks_path.endswith('.json'):
+            safe_attacks_path = Path(attacks_path).resolve()
+            with open(safe_attacks_path, 'r', encoding='utf-8') as f:
+                if str(safe_attacks_path).endswith('.json'):
                     attacks = json.load(f)
                     if isinstance(attacks, dict):
                         attacks = attacks.get('attacks', [])
@@ -432,13 +432,13 @@ class SecurityCorrelator:
         report = self.generate_markdown_report()
         
         # Sanitize path to prevent traversal attacks
-        output_path = str(Path(output_path).resolve())
-        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        safe_output_path = Path(output_path).resolve()
+        safe_output_path.parent.mkdir(parents=True, exist_ok=True)
         
-        with open(output_path, 'w') as f:
+        with open(safe_output_path, 'w', encoding='utf-8') as f:
             f.write(report)
         
-        print(f"✅ Report saved to: {output_path}")
+        print(f"✅ Report saved to: {safe_output_path}")
     
     def get_json_insights(self) -> Dict:
         """Get insights as JSON"""

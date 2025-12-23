@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Security Policy | Lifetime DWS IQ</title>
+    <link rel="stylesheet" href="../static/css/style.css"> 
+    <style>
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 900px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
+        h1, h2, h3 { color: #60a5fa; margin-top: 1.5em; }
+        h1 { border-bottom: 2px solid #334155; padding-bottom: 0.5em; }
+        h4 { color: #94a3b8; margin-top: 1.2em; }
+        a { color: #60a5fa; }
+        ul, ol { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        strong { color: #e2e8f0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border: 1px solid #334155; }
+        th { background: rgba(96, 165, 250, 0.12); color: #60a5fa; }
+        td { background: rgba(15, 23, 42, 0.8); }
+        code { background: rgba(30, 41, 59, 0.8); padding: 2px 6px; border-radius: 4px; color: #cbd5e1; }
+        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
+        
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
+        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
+        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="../" class="nav-brand">
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../">Home</a>
+            <a href="../buy/">Store</a>
+            <div class="nav-dropdown">
+                <a href="../legal/" style="font-weight: bold;">Legal Hub ▾</a>
+                <div class="nav-dropdown-content">
+                    <a href="../legal/"><strong>Legal Hub (Start Here)</strong></a>
+                    <a href="../regulatory-notice/">Investor Notice</a>
+                    <hr style="border:0; border-top:1px solid #334155; margin:5px 0;">
+                    <a href="../privacy-policy/">⭐ Privacy Policy</a>
+                    <a href="../data-security-policy/">⭐ Data Security Policy</a>
+                    <a href="../data-handling-policy/">⭐ Data Handling Policy</a>
+                    <a href="../terms/">Professional Services Terms</a>
+                    <a href="../terms-dws-iq/">DWS IQ Terms</a>
+                    <a href="../terms-firehorse/">Firehorse Terms</a>
+                    <a href="../terms-lifetime-fleet/">Fleet Terms</a>
+                    <a href="../terms-professional/">Professional Terms</a>
+                    <a href="../return-policy/">Return Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Data Security Policy</h1>
+            <p><strong>Version:</strong> 1.1<br>
+            <strong>Date:</strong> December 2025<br>
+            <strong>Owner:</strong> Risto Anton Päärni, CEO<br>
+            <strong>Compliance:</strong> GDPR, EU Data Act, NIS2, EU AI Act</p>
+
+            <h2>1. Lifetime Oy Security Stack</h2>
+
+            <h3>Infrastructure Security</h3>
+
+            <p><strong>Lifetime Oy Security Stack:</strong></p>
+            <ul>
+                <li>🔒 <strong>Email:</strong> Proton Mail (zero-knowledge E2EE, Switzerland)</li>
+                <li>🔒 <strong>File Storage:</strong> Proton Drive (zero-knowledge E2EE, Switzerland)</li>
+                <li>🔒 <strong>Code Repository:</strong> Proton Drive sync (encrypted at rest)</li>
+                <li>🔒 <strong>No US cloud services</strong> for CONFIDENTIAL data (FISA 702 protection)</li>
+            </ul>
+
+            <h3>Email Communication Security</h3>
+
+            <h4>All Business Email via Proton Mail</h4>
+
+            <p><strong>Lifetime Oy policy:</strong></p>
+            <ul>
+                <li>✅ <strong>ALL business email</strong> handled through Proton Mail (risto@lifetime.fi)</li>
+                <li>✅ <strong>Zero-knowledge encryption:</strong> Proton cannot read email contents</li>
+                <li>✅ <strong>Switzerland-based:</strong> Not subject to US FISA 702 surveillance</li>
+                <li>✅ <strong>GDPR-compliant:</strong> Swiss adequacy decision (EU Commission)</li>
+            </ul>
+
+            <h4>Email Classification</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email Type</th>
+                        <th>Proton Mail Features</th>
+                        <th>Security Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CONFIDENTIAL</strong></td>
+                        <td>E2EE to Proton recipients, password-protected to others</td>
+                        <td>🔒🔒🔒 Highest</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INTERNAL</strong></td>
+                        <td>Standard encryption (TLS), no password needed</td>
+                        <td>🔒🔒 High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PUBLIC</strong></td>
+                        <td>Standard encryption (TLS)</td>
+                        <td>🔒 Medium</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Sending CONFIDENTIAL Data via Email</h4>
+
+            <p><strong>Option 1: Recipient has Proton Mail</strong></p>
+            <ol>
+                <li>Compose email in Proton Mail</li>
+                <li>Attach file or write sensitive content</li>
+                <li>Send normally → Automatic E2EE</li>
+                <li>✅ Both sender and recipient encrypted end-to-end</li>
+            </ol>
+
+            <p><strong>Option 2: Recipient uses Gmail/Outlook/Other</strong></p>
+            <ol>
+                <li>Compose email in Proton Mail</li>
+                <li>Enable: "Encrypt for non-Proton users"</li>
+                <li>Set password (share via SMS separately)</li>
+                <li>Recipient clicks link → Enters password → Reads email</li>
+                <li>✅ Message encrypted, recipient cannot forward/copy (security mode)</li>
+            </ol>
+
+            <p><strong>Option 3: Use Proton Drive link (preferred for large files)</strong></p>
+            <ol>
+                <li>Upload file to Proton Drive</li>
+                <li>Create password-protected link</li>
+                <li>Send link via Proton Mail</li>
+                <li>Send password via SMS</li>
+                <li>✅ File never leaves encrypted environment</li>
+            </ol>
+
+            <h4>Email Retention</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Retention Period</th>
+                        <th>Archive Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CONFIDENTIAL</strong></td>
+                        <td>7 years (GDPR/tax law)</td>
+                        <td>Proton Mail Archive (encrypted)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INTERNAL</strong></td>
+                        <td>3 years</td>
+                        <td>Proton Mail Archive</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PUBLIC</strong></td>
+                        <td>1 year</td>
+                        <td>Proton Mail Archive</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>2. EU Compliance Requirements</h2>
+
+            <h3>GDPR (General Data Protection Regulation)</h3>
+
+            <p>Lifetime Oy complies with EU GDPR requirements:</p>
+            <ul>
+                <li>✅ <strong>Data minimization:</strong> Only store necessary personal data</li>
+                <li>✅ <strong>Right to erasure:</strong> Delete personal data on request (Article 17)</li>
+                <li>✅ <strong>Data transfers:</strong> Only to countries with adequacy decision (Switzerland ✅, USA ❌)</li>
+                <li>✅ <strong>Storage:</strong> Encrypted local database + Proton Drive (EU-compliant)</li>
+            </ul>
+
+            <h3>EU AI Act (Regulation 2024/1689)</h3>
+
+            <p>DWS IQ 6 = Limited Risk AI system (Annex III: construction safety)</p>
+            <ul>
+                <li>✅ <strong>Article 10:</strong> Document all AI tools used</li>
+                <li>✅ <strong>Article 52:</strong> Transparency - inform users about AI usage</li>
+                <li>✅ <strong>Article 11:</strong> Technical documentation (AI systems inventory)</li>
+            </ul>
+
+            <h3>NIS2 Directive (EU 2022/2555)</h3>
+
+            <p>Lifetime Oy = Essential entity (construction sector)</p>
+            <ul>
+                <li>✅ <strong>Article 21:</strong> Cybersecurity risk management</li>
+                <li>✅ <strong>Encryption:</strong> E2EE for CONFIDENTIAL data (Proton Drive + SQLCipher)</li>
+                <li>✅ <strong>Access control:</strong> Multi-factor authentication (MFA)</li>
+                <li>✅ <strong>Incident reporting:</strong> Data breaches reported within 24h</li>
+            </ul>
+
+            <h2>3. Data Residency</h2>
+
+            <p>All production data is stored in EU regions:</p>
+            <ul>
+                <li>✅ <strong>Google Cloud:</strong> europe-north1 (Belgium)</li>
+                <li>✅ <strong>Supabase:</strong> eu-central-1 (Frankfurt)</li>
+                <li>✅ <strong>AWS S3:</strong> eu-north-1 (Stockholm)</li>
+                <li>✅ <strong>Proton Services:</strong> Switzerland (EU adequacy decision)</li>
+            </ul>
+
+            <h2>4. Contact and Questions</h2>
+
+            <p><strong>Policy owner:</strong><br>
+            Risto Anton Päärni, CEO<br>
+            Email: risto@lifetime.fi</p>
+
+            <p><strong>Report security incident:</strong><br>
+            Email: security@lifetime.fi (when created)<br>
+            Urgent: CEO directly (risto@lifetime.fi)</p>
+
+            <div class="last-updated">
+                <p><strong>Document history:</strong><br>
+                2025-12-13: v1.0 - Initial policy created<br>
+                2025-12-XX: v1.1 - Updated with security stack, email communication, EU compliance<br>
+                Next review: 2026-03-13 (quarterly)</p>
+            </div>
+        </div>
+
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem; background: #1e293b; border-top: 1px solid #334155;" class="site-footer">
+    <div class="legal-notice">
+        <strong>LEGAL NOTICE</strong><br />
+        <strong>Data Controller:</strong> Lifetime Oy, Laidunmaanraitti 2 A 25, 02330 Espoo, Finland.<br />
+        <strong>Business ID:</strong> 0772407-9 (VAT FI07724079). Registered in the Finnish Trade Register, Uusimaa.<br />
+        <strong>Regulatory Framework:</strong> As of December 2025, our operations adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.<br />
+        <strong>Supervisory Authorities:</strong> Office of the Data Protection Ombudsman (Tietosuojavaltuutetun toimisto) &amp; Finnish Transport and Communications Agency Traficom.<br />
+        If you believe your rights have been infringed, contact <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a> before escalating to the authorities.
+    </div>
+    <div class="copyright">
+        Copyright © 2025 Lifetime Oy. All Rights Reserved.
+    </div>
+</footer>
+</body>
+</html>

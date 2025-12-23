@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifetime Fleet | DWS IQ Platform | Physical Hands for Intelligent Industries</title>
+    <meta name="description"
+        content="Lifetime Fleet: The physical 'hands' of DWS IQ Platform. Robots, drones, and vehicles integrated with AI agents for climate-positive industrial operations.">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d5a87;
+            --accent: #e53e3e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #f1f5f9;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo-section > div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section img {
+            height: 80px;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(30, 41, 59, 0.95);
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 10px 0;
+            display: none;
+            z-index: 100;
+        }
+
+        nav li:hover .dropdown {
+            display: block !important;
+        }
+
+        nav .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        nav .dropdown a:hover {
+            color: #60a5fa !important;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        section h3 {
+            font-size: 2rem;
+            color: #60a5fa;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .integration-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .integration-card h4 {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .integration-card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-section">
+                <div>
+                    <a href="../index.html">
+                        <img src="../DWS_IQ2026.png" alt="DWS IQ Platform">
+                    </a>
+                    <h1>Lifetime Fleet</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li style="position: relative;">
+                            <a href="#">Products ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="../world-model/">World Model</a></li>
+                                <li><a href="../lifetime-fleet/">Lifetime Fleet</a></li>
+                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;">
+                                    <a href="#" style="color: #94a3b8; font-size: 0.9rem; font-weight: bold;">Industries:</a>
+                                </li>
+                                <li><a href="../construction/">Construction</a></li>
+                                <li><a href="../manufacturing/">Manufacturing</a></li>
+                                <li><a href="../logistics/">Logistics & Supply Chain</a></li>
+                                <li><a href="../energy/">Energy & Utilities</a></li>
+                                <li><a href="../real-estate/">Real Estate Development</a></li>
+                                <li><a href="../architecture/">Architecture & Engineering</a></li>
+                                <li><a href="../waste/">Waste Management</a></li>
+                                <li><a href="../mining/">Mining/Heavy Industry</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://onelifetime.world">Community</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Lifetime Fleet: The Physical Hands of DWS IQ</h2>
+            <p>Robots, drones, and vehicles integrated with AI agents. Lifetime Fleet is the physical incarnation brand
+                of Lifetime World, moving atoms in the real world to accelerate climate change mitigation.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Integrated with DWS IQ Platform</h3>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; color: #cbd5e1;">
+                Lifetime Fleet is seamlessly integrated with DWS IQ Platform, providing the physical "hands" that
+                execute decisions made by AI agents across 8 industries.
+            </p>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>🤖 Edge AI Integration</h4>
+                    <p>
+                        Lifetime Fleet robots and devices are powered by NVIDIA Jetson edge computing, enabling
+                        real-time decision-making (<100ms latency) without cloud dependency. Each device runs DWS IQ
+                        agents locally for instant response.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>🌐 Cloud Orchestration</h4>
+                    <p>
+                        Fleet devices connect to DWS IQ Platform via AWS IoT Greengrass and Google Cloud Run,
+                        enabling centralized monitoring, fleet management, and coordinated multi-device operations
+                        across construction sites and industrial facilities.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>🧠 AI Agent Control</h4>
+                    <p>
+                        DWS IQ agents (SiteSense, ScheduleGenius, MaterialOracle) control Lifetime Fleet devices,
+                        directing them to perform tasks like material monitoring, site scanning, waste collection,
+                        and logistics coordination based on real-time AI analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(15, 23, 42, 0.5);">
+        <div class="container">
+            <h3>Current Operations</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">€10K</div>
+                    <div class="stat-label">Monthly Recurring Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Strategic Partnerships</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">Active</div>
+                    <div class="stat-label">Operational Status</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 30px;">
+                <h4 style="color: #60a5fa; margin-bottom: 20px;">Strategic Partnerships</h4>
+                <ul style="list-style: none; color: #cbd5e1; line-height: 2;">
+                    <li>✅ <strong>Uber</strong> - Ride-sharing integration for fleet management</li>
+                    <li>✅ <strong>Taksi Helsinki</strong> - Kela National Care rides partnership</li>
+                </ul>
+                <p style="margin-top: 20px; color: #cbd5e1;">
+                    Lifetime Fleet demonstrates real-world traction with established partnerships in the transportation
+                    and care services sectors. This operational foundation validates our approach to integrating
+                    physical devices with AI-powered decision-making.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Industry Applications</h3>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 40px; color: #cbd5e1;">
+                Lifetime Fleet devices work alongside DWS IQ agents across all 8 target industries:
+            </p>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>🏗️ Construction</h4>
+                    <p>
+                        Site monitoring robots, material handling drones, and automated logistics vehicles controlled by
+                        SiteSense Agent for real-time site optimization.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>🏭 Manufacturing</h4>
+                    <p>
+                        Quality inspection robots, material transport systems, and waste collection devices integrated
+                        with MaterialOracle Agent for supply chain optimization.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>🚚 Logistics</h4>
+                    <p>
+                        Autonomous delivery vehicles, warehouse robots, and route optimization systems powered by DWS IQ
+                        logistics agents for carbon-efficient operations.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>⚡ Energy</h4>
+                    <p>
+                        Maintenance drones, inspection robots, and grid monitoring devices connected to DWS IQ energy
+                        agents for renewable energy optimization.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>🏢 Real Estate</h4>
+                    <p>
+                        Building maintenance robots, HVAC optimization systems, and energy monitoring devices managed by
+                        DWS IQ real estate agents for sustainable building operations.
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>♻️ Waste Management</h4>
+                    <p>
+                        Sorting robots, collection vehicles, and recycling systems coordinated by DWS IQ waste agents for
+                        circular economy optimization.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(15, 23, 42, 0.5);">
+        <div class="container">
+            <h3>Technology Stack</h3>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>Edge Computing</h4>
+                    <p>
+                        <strong>NVIDIA Jetson Orin Nano</strong> - <100ms inference latency, offline operation capability,
+                        solar-powered deployment possible (7-15W per device)
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Cloud Infrastructure</h4>
+                    <p>
+                        <strong>AWS IoT Greengrass</strong> for edge orchestration, <strong>Google Cloud Run</strong> for
+                        platform core, <strong>Groq LPU</strong> for cost-efficient inference
+                    </p>
+                </div>
+
+                <div class="integration-card">
+                    <h4>AI Agents</h4>
+                    <p>
+                        DWS IQ agents (SiteSense, ScheduleGenius, MaterialOracle) running on edge devices and cloud,
+                        providing coordinated decision-making across the fleet
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h3 style="color: white;">Ready to Deploy Lifetime Fleet?</h3>
+            <p style="color: white; font-size: 1.2rem; margin-bottom: 30px;">
+                Integrate Lifetime Fleet with DWS IQ Platform for your industry
+            </p>
+            <a href="mailto:risto@lifetime.fi?subject=Lifetime Fleet Integration Inquiry" class="cta-button">
+                Contact Sales →
+            </a>
+            <a href="https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs" class="cta-button" target="_blank">
+                Watch Investor Pitch →
+            </a>
+            <a href="https://lifetime.fi/fleet" class="cta-button" target="_blank">
+                Learn More →
+            </a>
+        </div>
+    </section>
+
+    <footer style="background: var(--dark); color: white; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <p>&copy; 2026 Lifetime Oy. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="https://dws10.com" style="color: #60a5fa;">DWS IQ Platform</a> |
+                <a href="https://onelifetime.world" style="color: #60a5fa;">Community</a> |
+                <a href="mailto:risto@lifetime.fi" style="color: #60a5fa;">Contact</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
+

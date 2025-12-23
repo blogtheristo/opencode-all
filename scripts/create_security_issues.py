@@ -11,8 +11,11 @@ import os
 import sys
 import re
 from datetime import datetime
-from typing import Dict, List
+from typing import Dict, List, Optional
 from pathlib import Path  # For path sanitization
+
+# Import Github for type hints
+Github = Optional[object]
 
 
 class SecurityIssueCreator:
@@ -26,13 +29,12 @@ class SecurityIssueCreator:
         self.repo_name = self.repo.split('/')[-1] if '/' in self.repo else self.repo
         
         # Try to import GitHub library
+        self.github = None
         try:
-            from github import Github
-            self.Github = Github
-            self.github = Github(self.github_token) if self.github_token else None
+            from github import Github as GithubClient
+            self.github = GithubClient(self.github_token) if self.github_token else None
         except ImportError:
             print("⚠️  PyGithub not installed. Install with: pip install PyGithub")
-            self.github = None
     
     def parse_correlation_report(self, report_path: str) -> List[Dict]:
         """Parse correlation report and extract issues"""
@@ -40,8 +42,8 @@ class SecurityIssueCreator:
         
         try:
             # Sanitize path to prevent traversal attacks
-            report_path = str(Path(report_path).resolve())
-            with open(report_path, 'r') as f:
+            safe_path = Path(report_path).resolve()
+            with open(safe_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
             # Extract critical sections

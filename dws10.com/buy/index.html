@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifetime Firehorse™Store | DWS IQ</title>
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <style>
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
+        h1 { color: #60a5fa; text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .product-card { background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; transition: transform 0.2s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
+        .product-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-title { font-size: 1.4rem; color: #e2e8f0; margin: 0 0 10px 0; }
+        .product-price { font-size: 1.2rem; color: #4ade80; font-weight: bold; margin-bottom: 15px; }
+        .product-excerpt { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; flex-grow: 1; }
+        .buy-btn { display: block; text-align: center; background: #2563eb; color: white; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: auto; }
+        .buy-btn:hover { background: #1d4ed8; }
+        
+        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
+        
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
+        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
+        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="../../" class="nav-brand">
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../../">Home</a>
+            <a href="../../buy/">Store</a>
+            <div class="nav-dropdown">
+                <a href="../../legal/" style="font-weight: bold;">Legal Hub ▾</a>
+                <div class="nav-dropdown-content">
+                    <a href="../../legal/"><strong>Legal Hub (Start Here)</strong></a>
+                    <a href="../../regulatory-notice/">Investor Notice</a>
+                    <hr style="border:0; border-top:1px solid #334155; margin:5px 0;">
+                    <a href="../../privacy-policy/">⭐ Privacy Policy</a>
+                    <a href="../../data-security-policy/">⭐ Data Security Policy</a>
+                    <a href="../../data-handling-policy/">⭐ Data Handling Policy</a>
+                    <a href="../../terms/">Professional Services Terms</a>
+                    <a href="../../terms-dws-iq/">DWS IQ Terms</a>
+                    <a href="../../terms-firehorse/">Firehorse Terms</a>
+                    <a href="../../terms-lifetime-fleet/">Fleet Terms</a>
+                    <a href="../../terms-professional/">Professional Terms</a>
+                    <a href="../../return-policy/">Return Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Lifetime Firehorse™Store</h1>
+        <div class="product-grid">
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Firehorse_Store.jpg" alt="Firehorse Automation" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Automation</h2>
+                    <div class="product-price">€0.00</div>
+                    <div class="product-excerpt">Firehorse Automation
+Price: Custom Quote
+Includes: Analysis of manual bottlenecks, implementation of 3 core automation workflows, and operational dash...</div>
+                    <a href="../products/firehorse-automation.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="Lifetime DWS IQ Platform (Version 6)" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Lifetime DWS IQ Platform (Version 6)</h2>
+                    <div class="product-price">€4999.00</div>
+                    <div class="product-excerpt">Lifetime DWS IQ Platform (Version 6)
+Price: Starting from €4,999 (Standard Deployment)
+Includes: DWS IQ Base deployed in your cloud, one Firehorse Rep...</div>
+                    <a href="../products/dwsiq.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/8_Industries.png" alt="Climate Reporting Starter Bundle" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Climate Reporting Starter Bundle</h2>
+                    <div class="product-price">€6500.00</div>
+                    <div class="product-excerpt">Climate Reporting Starter Bundle
+Price: €6,500 (One-time Setup) + €1,999 / year
+Includes: DWS IQ Base Platform, Firehorse Report Module, and Kickoff W...</div>
+                    <a href="../products/bundle.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Firehorse_Store.jpg" alt="Lifetime DWS IQ Platform (Version 5)" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Lifetime DWS IQ Platform (Version 5)</h2>
+                    <div class="product-price">€0.00</div>
+                    <div class="product-excerpt">Lifetime DWS IQ Platform (Version 5)
+Price: Legacy Support (Contact Sales)
+Includes: Assessment of legacy infrastructure, support for existing DWS IQ ...</div>
+                    <a href="../products/dws-iq5.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Firehorse_Store.jpg" alt="Firehorse™ Omnichannel Next" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse™ Omnichannel Next</h2>
+                    <div class="product-price">€499.00</div>
+                    <div class="product-excerpt">Firehorse™ Omnichannel Next
+Price: €499.00 / campaign cycle
+Includes: one 4‑week test cycle, setup workshop, and final recommendations session.
+Descri...</div>
+                    <a href="../products/firehorse-omnichannel.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Firehorse_Store.jpg" alt="Firehorse Report" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Report</h2>
+                    <div class="product-price">€1999.00</div>
+                    <div class="product-excerpt">Firehorse Report
+Price: €1,999
+Includes: One automated report template, SAP integration setup, and a 4-week validation cycle.
+Description
+Automated re...</div>
+                    <a href="../products/firehorse-reports.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Firehorse_Store.jpg" alt="Firehorse Content Management" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Content Management</h2>
+                    <div class="product-price">€0.00</div>
+                    <div class="product-excerpt">Firehorse Content Management
+Price: Custom Quote
+Includes: Secure Evidence Vault setup, Taxonomy design workshop, and initial data migration.
+Descript...</div>
+                    <a href="../products/firehorse-content-management.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://dws10.com/static/images/Risto_Malta.png" alt="Expert Advisory & Implementation" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Expert Advisory & Implementation</h2>
+                    <div class="product-price">€1500.00</div>
+                    <div class="product-excerpt">Expert Advisory &amp; Implementation
+Price: Retainers from €1,500 / month | Kickoff Package €3,000
+Includes: Dedicated expert time to design reports, ...</div>
+                    <a href="../products/expert-services.html" class="buy-btn">View Details</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem; background: #1e293b; border-top: 1px solid #334155;" class="site-footer">
+    <div class="legal-notice">
+        <strong>LEGAL NOTICE</strong><br />
+        <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).<br />
+        <strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.
+    </div>
+    <div class="copyright">
+        Copyright © 2025 Lifetime Oy. All Rights Reserved.
+    </div>
+</footer>
+</body>
+</html>
