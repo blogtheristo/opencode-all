@@ -17,6 +17,10 @@
         .group:hover .group-hover\:block {
             display: block;
         }
+        /* Force desktop nav hidden; desktop uses hamburger */
+        #desktopNav {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
@@ -80,7 +84,7 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="desktopNav" class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between py-4">
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">

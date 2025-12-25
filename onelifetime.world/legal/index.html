@@ -17,6 +17,10 @@
         .group:hover .group-hover\:block {
             display: block;
         }
+        /* Force desktop nav hidden; desktop uses hamburger */
+        #desktopNav {
+            display: none !important;
+        }
         .legal-content h2 {
             color: #93c5fd;
             font-size: 1.875rem;
@@ -98,7 +102,7 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="desktopNav" class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between py-4">
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">
