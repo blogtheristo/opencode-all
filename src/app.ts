@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
+import { initFirehorsePilot, shutdownFirehorsePilot, firehorseRoutes } from './firehorse/index.js';
 
 dotenv.config();
 
@@ -80,6 +81,9 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
+// Firehorse Pilot routes
+app.use('/api/v1/firehorse', firehorseRoutes);
+
 // ============ ERROR HANDLING ============
 
 // 404 handler
@@ -123,11 +127,20 @@ const server = app.listen(PORT, () => {
   if (process.env.REDIS_URL) {
     logger.info('✓ Redis URL configured');
   }
+
+  // Initialize Firehorse Pilot
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
+    logger.info('🔥 Initializing Firehorse Pilot...');
+    initFirehorsePilot();
+  } else {
+    logger.warn('⚠️  Firehorse Pilot not initialized: Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
+  }
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  shutdownFirehorsePilot();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
@@ -136,6 +149,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  shutdownFirehorsePilot();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);

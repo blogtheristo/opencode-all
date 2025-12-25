@@ -15,6 +15,26 @@ Tämän istunnon tulokset, jotka vaikuttavat autentikointi-arkkitehtuuriin:
 4. **Security Strategy** - .gitignore Agent Foundry specs local only → authentication needs to protect sensitive config files
 5. **NIS2/GDPR Compliance** - Data residency ja incident logging integration (24h raportointi)
 
+### 🔥 Firehorse Omnichannel Next Integration (Week 52, Session 3nsxX)
+
+**Uusi järjestelmä:** Firehorse Omnichannel Next - CustomerPilotLoop v1
+
+**Tarkoitus:** B2B-myyntiautom system for selling DWS IQ 6 + Firehorse pilots to Nordic and CEE construction companies.
+
+**Integraatiopisteet autentikointiin:**
+1. **API Authentication** - Firehorse API endpoints require JWT authentication
+2. **Role-Based Access** - Sales operations require 'Sales' role, admin operations require 'Admin' role
+3. **Database Access** - Firehorse tables (firehorse_leads, firehorse_events, etc.) require row-level security
+4. **Webhook Security** - Email service webhooks require API key validation
+
+**Dokumentaatio:**
+- **Admin Manual**: `/Admin/Firehorse_Omnichannel_Next_Admin_Manual.md` (Complete system guide)
+- **Sales Manifesto**: `DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md`
+- **Workflow Guide**: `FIREHORSE_SALES_WORKFLOW.md`
+- **Investor Templates**: `INVESTOR_EMAIL_TEMPLATES.md`
+
+**Status:** ✅ Production-ready, deployed on branch `claude/firehorse-pilot-automation-3nsxX`
+
 ---
 
 ## 📑 Sisällysluettelo
