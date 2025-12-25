@@ -14,20 +14,77 @@
     </style>
 </head>
 <body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
     <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center gap-4">
+        <!-- Mobile Top Bar -->
+        <div class="sm:hidden flex justify-between items-center px-4 py-3">
+            <!-- Hamburger Menu -->
+            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+            </button>
+            
+            <!-- Logo -->
+            <a href="/" class="flex items-center">
+                <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
+            </a>
+            
+            <!-- See Demo Button (small) -->
+            <a href="https://j6prmljgpvnia.ok.kimi.link/index.html" target="_blank" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
+                Demo
+            </a>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="hidden sm:hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://lifetime.fi" target="_blank" class="block py-1 hover:text-blue-400">→ Auditointi</a>
+                <a href="https://lifetime.fi/factory" target="_blank" class="block py-1 hover:text-blue-400">→ Agenttitehdas</a>
+                <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-blue-400">→ DWS IQ 6</a>
+                <a href="#" class="block py-1 hover:text-blue-400">→ Lifetime Fleet</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal</a>
+                <a href="/pledge/" class="block py-1 hover:text-blue-400">→ 🌍 Sustainability Pledge</a>
+                <a href="https://dws10.com/careers/" class="block py-1 hover:text-blue-400">→ Careers</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🛒 DWS IQ Store</a>
+                <a href="https://lifetime.fi/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🎬 Lifetime Studios</a>
+                <a href="https://lifetime.fi/osta" target="_blank" class="block py-1 hover:text-blue-400">→ 💼 Lifetime Consulting</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
+        </div>
+
+        <!-- Tagline & Divider (Mobile) -->
+        <div class="sm:hidden px-4 py-2 text-center border-t border-gray-700">
+            <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+            <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between py-4">
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center">
                         <a href="/" class="flex items-center group">
-                            <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-10 sm:h-16 w-auto transition-opacity hover:opacity-90" style="filter: brightness(1.1);">
+                            <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-16 w-auto transition-opacity hover:opacity-90" style="filter: brightness(1.1); aspect-ratio: auto;">
                         </a>
-                        <div class="h-8 w-px bg-gray-600"></div>
-                        <a href="https://dws10.com" target="_blank" class="flex items-center group">
-                            <img src="../static/images/dws_iq_logo.png" alt="DWS IQ Platform" class="h-10 w-auto transition-opacity hover:opacity-90">
-                        </a>
+                        <p class="text-xs text-gray-400 italic leading-tight text-center mt-1" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+                        <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mt-2"></div>
                     </div>
-                    <div class="hidden sm:ml-10 sm:flex sm:space-x-8 items-center">
+                    <div class="ml-10 flex space-x-8 items-center">
                         <!-- Solution Dropdown (The Brands) -->
                         <div class="relative group h-full flex items-center">
                             <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
@@ -37,28 +94,35 @@
                                 </svg>
                             </button>
                             <div class="absolute left-0 top-16 hidden group-hover:block w-80 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
-                                <div class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Our Brands</div>
-                                <a href="https://lifetime.fi" target="_blank" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50"><span class="block font-bold text-indigo-600">Auditointi</span>
-                                    <span class="text-xs text-gray-500">Mitä voimme säästää?</span>
+                                <div class="px-4 py-2 text-xs font-semibold text-gray-400 tracking-wider" style="text-transform: none;">Our Brands</div>
+                                <a href="https://lifetime.fi" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Auditointi</span>
+                                    <span class="text-xs text-gray-400">Mitä voimme säästää?</span>
                                 </a>
-                                <a href="https://lifetime.fi/factory" target="_blank" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50"><span class="block font-bold text-indigo-600">Agenttitehdas</span>
-                                    <span class="text-xs text-gray-500">Automatisoi prosessit</span>
+                                <a href="https://lifetime.fi/factory" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Agenttitehdas</span>
+                                    <span class="text-xs text-gray-400">Automatisoi prosessit</span>
                                 </a>
-                                <a href="https://dws10.com" target="_blank" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50">
-                                    <span class="block font-bold text-indigo-600">Lifetime DWS IQ 6</span>
-                                    <span class="text-xs text-gray-500">Industrial AI Platform</span>
+                                <a href="https://dws10.com" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Lifetime DWS IQ 6</span>
+                                    <span class="text-xs text-gray-400">Industrial AI Platform</span>
                                 </a>
-                                <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50 border-l-4 border-indigo-600 bg-indigo-50">
-                                    <span class="block font-bold text-indigo-800">Lifetime Fleet</span>
-                                    <span class="text-xs text-gray-600">Henkilövuokraus & Logistiikka</span>
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700 border-l-4 border-blue-500" style="color: #e2e8f0; background: #334155;">
+                                    <span class="block font-bold text-blue-300">Lifetime Fleet</span>
+                                    <span class="text-xs text-gray-300">Henkilövuokraus & Logistiikka</span>
                                 </a>
-                                <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50">
-                                    <span class="block font-bold text-indigo-600">Partner Consortium</span>
-                                    <span class="text-xs text-gray-500">Ecosystem</span>
+                                <a href="/Partners/" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Partner Consortium</span>
+                                    <span class="text-xs text-gray-400">Ecosystem</span>
                                 </a>
-                                <a href="#" class="block px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50">
-                                    <span class="block font-bold text-indigo-600">Lifetime Agent Foundry</span>
-                                    <span class="text-xs text-gray-500">Service</span>
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Lifetime Agent Foundry</span>
+                                    <span class="text-xs text-gray-400">Service</span>
+                                </a>
+                                <hr style="border-color: #475569; margin: 4px 0;">
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #cbd5e1;">
+                                    <span class="block font-bold text-cyan-400">🔐 Lifetime World Sign In</span>
+                                    <span class="text-xs text-gray-400">Exclusive dashboard</span>
                                 </a>
                             </div>
                         </div>
@@ -72,51 +136,46 @@
                                 </svg>
                             </button>
                             <div class="absolute left-0 top-16 hidden group-hover:block w-72 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Service</a>
-                                <a href="/blog/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-semibold">Lifetime World Journal</a>
+                                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700" style="color: #e2e8f0;">Service</a>
+                                <a href="/blog/" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #93c5fd;">Lifetime Scope Journal (LSJ)</a>
+                                <a href="/pledge/" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #0ea5e9;"><strong>🌍 Sustainability Pledge</strong></a>
                                 <a href="https://dws10.com/careers/" target="_blank" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #93c5fd;"><strong>Careers</strong></a>
                             </div>
                         </div>
 
-                        <!-- Legal Dropdown -->
+                        <!-- Store Dropdown -->
                         <div class="relative group h-full flex items-center">
                             <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
-                                Legal
+                                Store
                                 <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="absolute right-0 top-16 hidden group-hover:block w-80 bg-white shadow-xl ring-1 ring-black ring-opacity-5 py-2 rounded-b-lg">
-                                <a href="/legal/" class="block px-4 py-2 text-sm font-bold text-green-600 bg-gray-50 hover:bg-gray-100">⭐ Legal Hub (Start Here)</a>
-                                <a href="/investment-safety/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-gray-100">⭐ Investment Security</a>
-                                <a href="/privacy-policy/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Privacy Policy</a>
-                                <a href="/terms/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Professional Services Terms</a>
-                                <a href="/terms-dws-iq/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ DWS IQ Terms</a>
-                                <a href="/terms-firehorse/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Firehorse Terms</a>
-                                <a href="/terms-lifetime-fleet/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Fleet Terms</a>
-                                <a href="/terms-professional/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Professional Services</a>
-                                <a href="/return-policy/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Return Policy</a>
-                                <a href="/regulatory-notice/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">⭐ Regulatory Notice</a>
-                            </div>
-                        </div>
-
-                        <a href="#" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
-                            Taistelukykyisin agenttikonsulttitalo
-                        </a>
-                    </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <a href="https://dws10.com/buy" target="_blank" class="text-gray-500 hover:text-gray-900 p-2 transition-colors duration-200 flex items-center" title="Visit Lifetime Firehorse™Store">
-                                <img src="../static/images/Firehorse_Store.jpg" alt="Lifetime Firehorse™Store" class="h-6 w-auto mr-2 rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                            </a>
-                            
-                            <a href="https://j6prmljgpvnia.ok.kimi.link/index.html" target="_blank" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md text-sm font-bold hover:from-cyan-600 hover:to-blue-600 transition">See DWS IQ Demo</a>
+                            <div class="absolute left-0 top-16 hidden group-hover:block w-72 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
+                                <a href="https://dws10.com/buy" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">🛒 DWS IQ Store</span>
+                                    <span class="text-xs text-gray-400">Enterprise AI Platform</span>
+                                </a>
+                                <a href="https://lifetime.fi/buy" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">🎬 Lifetime Studios</span>
+                                    <span class="text-xs text-gray-400">Creative Services</span>
+                                </a>
+                                <a href="https://lifetime.fi/osta" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">💼 Lifetime Consulting</span>
+                                    <span class="text-xs text-gray-400">Professional Services</span>
+                                </a>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Desktop Right Side - Demo Button -->
+                <div class="flex items-center space-x-4">
+                    <a href="https://j6prmljgpvnia.ok.kimi.link/index.html" target="_blank" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md text-sm font-bold hover:from-cyan-600 hover:to-blue-600 transition">
+                        DWS IQ Demo
+                    </a>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
@@ -217,6 +276,8 @@ Risto Anton Päärni, CEO<br />
 </body>
 </html>
 <!-- Last Build: 12/07/2025 14:30:33 -->
+
+
 
 
 
