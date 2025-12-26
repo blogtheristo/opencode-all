@@ -7,6 +7,7 @@ import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { initFirehorsePilot, shutdownFirehorsePilot, firehorseRoutes } from './firehorse/index.js';
+import { investorReportsRouter, investorReportsScheduler } from './investor-reports/index.js';
 
 dotenv.config();
 
@@ -84,6 +85,9 @@ app.use('/api/v1/user', userRoutes);
 // Firehorse Pilot routes
 app.use('/api/v1/firehorse', firehorseRoutes);
 
+// Investor Reports routes
+app.use('/api/v1/investor-reports', investorReportsRouter);
+
 // ============ ERROR HANDLING ============
 
 // 404 handler
@@ -132,8 +136,13 @@ const server = app.listen(PORT, () => {
   if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
     logger.info('🔥 Initializing Firehorse Pilot...');
     initFirehorsePilot();
+
+    // Initialize Investor Reports Scheduler
+    logger.info('📊 Initializing Investor Reports Scheduler...');
+    investorReportsScheduler.start();
   } else {
     logger.warn('⚠️  Firehorse Pilot not initialized: Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
+    logger.warn('⚠️  Investor Reports not initialized: Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
   }
 });
 
@@ -141,6 +150,7 @@ const server = app.listen(PORT, () => {
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   shutdownFirehorsePilot();
+  investorReportsScheduler.stop();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
@@ -150,6 +160,7 @@ process.on('SIGTERM', () => {
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   shutdownFirehorsePilot();
+  investorReportsScheduler.stop();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
