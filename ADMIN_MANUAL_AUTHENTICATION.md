@@ -1,19 +1,66 @@
 # 👨‍💼 ADMIN MANUAL: Authentication System
 
-**Versio:** 1.1
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.2
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: [original] | Date: 15.12.2025 | Changes: Initial creation
+  - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry & Document Management Integration, Firehorse Omnichannel Next integration
+  - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added workflow-based security auditing, daily backup integration, updated thesis
+
+Session Links & References:
+  - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_AUTHENTICATION.md
+
+Document Status:
+  - Created: 15.12.2025
+  - Last Modified: 26.12.2025
+  - Language: Finnish & English (bilingual)
+  - Languages Available: Suomi, English
+  - Publication Status: ✅ ACTIVE
+
+---
+
+**Versio:** 1.2
 **Tarkoitus:** Admin-, ylläpito- ja deployment-opas vapaa-tason autentikoinnille
 **Kohderyhmä:** DevOps, System Administrators, Security Team, IT Operations
-**Päivitetty:** 22.12.2025 (Session Week 52 - Agent Foundry & Document Management Integration)
+**Päivitetty:** 26.12.2025 (Session IjtD0 - Workflow-based Security, Daily Backups)
 
-### 📋 Session Week 52 Updates
+### 📋 Session IjtD0 Updates (December 26, 2025)
 
-Tämän istunnon tulokset, jotka vaikuttavat autentikointi-arkkitehtuuriin:
+**New in this version:**
 
-1. **Agent Foundry Architecture** - Multi-model AI systems (LWM, NCC, 8 verticals) vaikuttavat agent-pohjaisen käyttöoikeuksien hallintaan
-2. **Construction Vertical Specification** - 6 erikoistunutta agentia vaatii role-based access control (RBAC) -päivityksiä
-3. **Document Management System** - VERSION AND AGENT HISTORY -metadata vaikuttaa session persistence -arkkitehtuuriin
-4. **Security Strategy** - .gitignore Agent Foundry specs local only → authentication needs to protect sensitive config files
-5. **NIS2/GDPR Compliance** - Data residency ja incident logging integration (24h raportointi)
+1. **Workflow-Based Security Auditing** - Automated monthly security audits via workflow system
+   - `scripts/security_audit.py` - Comprehensive security audit script
+   - `.github/workflows/monthly-security-audit-enhanced.yml` - Enhanced monthly audits
+   - `.workflows/audit/` - Centralized audit logging
+
+2. **Daily Backup Integration** - Fail-over security for authentication data
+   - Daily backups at 2:00 AM UTC
+   - 30-day retention policy
+   - Automated restoration procedures
+
+3. **Workflow Orchestration** - Centralized security workflow management
+   - 14 tracked workflows including 4 security workflows
+   - Automated failure detection and recovery
+   - Integration with audit and fix agents
+
+4. **Enhanced Monitoring** - Improved security visibility
+   - Real-time workflow status tracking
+   - Daily/weekly/monthly schedule views
+   - Automated security alerts
+
+### 📋 Session Week 52 Updates (December 22, 2025)
+
+Aiemman istunnon tulokset:
+
+1. **Agent Foundry Architecture** - Multi-model AI systems (LWM, NCC, 8 verticals)
+2. **Construction Vertical Specification** - 6 erikoistunutta agentia, RBAC-päivitykset
+3. **Document Management System** - VERSION AND AGENT HISTORY -metadata
+4. **Security Strategy** - .gitignore Agent Foundry specs local only
+5. **NIS2/GDPR Compliance** - Data residency, 24h incident reporting
 
 ### 🔥 Firehorse Omnichannel Next Integration (Week 52, Session 3nsxX)
 
@@ -545,7 +592,65 @@ https://api.dws10.com/health
 
 ## 7. Valvonta ja Lokitus
 
-### 7.1 Lokin Format
+### 7.1 Workflow-Pohjainen Turvallisuusauditointi
+
+**Uusi (Session IjtD0):** Automaattinen turvallisuusauditointi workflow-järjestelmän kautta
+
+#### Kuukausittainen Turvallisuusauditointi
+```bash
+# Automaattinen kuukausittainen auditointi
+# Workflow: .github/workflows/monthly-security-audit-enhanced.yml
+# Ajoaika: 1. päivä klo 02:00 UTC
+# Script: scripts/security_audit.py
+
+# Manuaalinen ajaminen:
+python scripts/security_audit.py > audit-report-$(date +%Y-%m).md
+
+# Tarkista viimeisin auditointi:
+cat .workflows/audit/failures/monthly-security-audit-enhanced-fix.md
+```
+
+#### Auditoinnin Sisältö
+```
+1. Dependency Vulnerabilities - Riippuvuuksien haavoittuvuudet
+2. Secret Scanning - Salaisuuksien skannaus
+3. Code Quality & Security - Koodin laatu ja turvallisuus
+4. Access Controls - Pääsynhallinta
+5. Infrastructure Security - Infrastruktuurin turvallisuus
+```
+
+#### Workflow-Rekisteri
+```bash
+# Tarkista kaikkien turvallisuus-workflowien tila:
+grep -A10 '"tags".*security' .workflows/registry/WORKFLOW_REGISTRY.json
+
+# Tulokset:
+# - security-scan-daily (päivittäinen skannaus)
+# - security-check-pr (PR-tarkistus)
+# - monthly-security-audit (kuukausittainen auditointi)
+# - monthly-security-audit-enhanced (laajennettu auditointi)
+```
+
+### 7.2 Päivittäinen Varmuuskopiointi
+
+**Uusi (Session IjtD0):** Automaattiset päivittäiset varmuuskopiot fail-over-suojaukseen
+
+```bash
+# Automaattiset varmuuskopiot klo 02:00 UTC
+# Workflow: .github/workflows/daily-site-backup.yml
+# Säilytysaika: 30 päivää
+
+# Tarkista viimeisin varmuuskopio:
+ls -lh backups/sites/latest/
+
+# Lue varmuuskopion manifest:
+cat backups/sites/latest/MANIFEST.txt
+
+# Palauta tarvittaessa:
+tar -xzf backups/sites/2025-12-26/[site-name]_*.tar.gz
+```
+
+### 7.3 Lokin Format
 
 Kaikki logit käyttävät Pino-formaattia (strukturoitu JSON):
 
@@ -564,7 +669,7 @@ Kaikki logit käyttävät Pino-formaattia (strukturoitu JSON):
 }
 ```
 
-### 7.2 Monitoring
+### 7.4 Monitoring
 
 ```bash
 # Prometheus metriikat (valmista)
@@ -580,7 +685,7 @@ docker stats auth-backend
 docker-compose exec auth-backend ps aux | grep node
 ```
 
-### 7.3 Alerting
+### 7.5 Alerting
 
 ```bash
 # Setup alerting (Prometheus + AlertManager)

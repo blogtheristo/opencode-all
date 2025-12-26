@@ -35,8 +35,10 @@ jobs:
       - name: Run Monthly Security Audit
         id: audit
         run: |
+          # Ensure script exists and is executable
+          chmod +x scripts/security_audit.py
           python scripts/security_audit.py > audit-report-$(date +%Y-%m).md
-          
+
           # Extract summary
           SCORE=$(grep -oP 'Overall Score:\s+\K[0-9]+' audit-report-*.md | head -1)
           echo "audit_score=$SCORE" >> "$GITHUB_OUTPUT"
