@@ -1,9 +1,32 @@
 # Admin Manual: Files and Folders Structure
 
-**Document Version**: 1.1
-**Last Updated**: December 22, 2025 (Session Week 52)
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.2
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
+  - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
+  - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
+
+Session Links & References:
+  - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md
+
+Document Status:
+  - Created: 09.12.2025
+  - Last Modified: 26.12.2025
+  - Language: English (Suomi thesis included)
+  - Languages Available: English, Suomi (partial)
+  - Publication Status: ✅ ACTIVE
+
+---
+
+**Document Version**: 1.2
+**Last Updated**: December 26, 2025 (Session IjtD0)
 **Maintainer**: Risto Anton Päärni (risto@lifetime.fi)
-**Session Update**: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
+**Session Update**: Site Quality Standards, Workflow Management, Daily Backups, Multi-Site Deployment
 
 ---
 
@@ -47,7 +70,87 @@ Admin/
 
 ---
 
-## Overview
+## Overview / Yleiskatsaus
+
+### 📖 English Thesis
+
+This comprehensive admin manual describes the complete file and folder structure for the DWS IQ Platform project repository. The DWS6 ecosystem now includes:
+
+**Core Systems:**
+- **Next.js Website Projects** - Modern web applications in `in-update-claude/` directory
+- **Site Quality Management** - Shared component architecture and quality standards
+- **Workflow Orchestration** - Automated workflow management, monitoring, and failure recovery
+- **Daily Backup System** - Automated fail-over security with date-stamped backups
+- **Multi-Site Deployment** - Synchronized deployment for dws6.com, dws10.com, and onelifetime.world
+
+**New in Version 1.2 (Session IjtD0 - December 26, 2025):**
+1. **Shared Components Architecture** (`shared/` directory)
+   - Eliminates code duplication across 37+ pages
+   - Single navigation component used site-wide
+   - CTA button standardization
+   - Mobile-first responsive design
+
+2. **Workflow Management System** (`.workflows/` directory)
+   - Central registry tracking 14 workflows
+   - Daily/weekly/monthly scheduling visibility
+   - Automated audit and fix agents
+   - Failure recovery protocols
+
+3. **Daily Backup Procedures** (`scripts/backup-sites.sh`)
+   - Automated daily backups at 2:00 AM UTC
+   - Date-stamped archives (YYYY-MM-DD)
+   - 30-day retention policy
+   - GitHub Actions integration
+
+4. **Multi-Site Deployment** (`landing-pages/` directory)
+   - Synchronized deployment for all 3 sites
+   - Cloudflare Pages integration
+   - Automated rsync on content changes
+
+This manual provides operational guidance for developers, DevOps engineers, system administrators, and IT operations teams maintaining the DWS IQ Platform infrastructure.
+
+---
+
+### 📖 Suomi Tiivistelmä (Finnish Thesis)
+
+Tämä kattava admin-käsikirja kuvaa DWS IQ Platform -projektiarkiston täydellisen tiedosto- ja kansiorakenteen. DWS6-ekosysteemi sisältää nyt:
+
+**Ydinjärjestelmät:**
+- **Next.js-verkkosovellukset** - Modernit web-sovellukset `in-update-claude/` -kansiossa
+- **Sivuston laatuhallinta** - Jaettu komponenttiarkkitehtuuri ja laatustandardit
+- **Workflow-orkestrointi** - Automaattinen työnkulkuhallinta, seuranta ja vianhallinta
+- **Päivittäinen varmuuskopiointi** - Automaattinen fail-over-suojaus päivämäärillä varustetuilla varmuuskopioilla
+- **Monisivuston käyttöönotto** - Synkronoitu deployment dws6.com, dws10.com ja onelifetime.world -sivustoille
+
+**Uutta versiossa 1.2 (Sessio IjtD0 - 26. joulukuuta 2025):**
+1. **Jaettu komponenttiarkkitehtuuri** (`shared/` -kansio)
+   - Poistaa koodin duplikaation 37+ sivulta
+   - Yksi navigointikomponentti kaikille sivuille
+   - CTA-painikkeiden standardointi
+   - Mobile-first responsiivinen suunnittelu
+
+2. **Workflow-hallintajärjestelmä** (`.workflows/` -kansio)
+   - Keskitetty rekisteri 14 työnkululle
+   - Päivittäisen/viikoittaisen/kuukausittaisen aikataulun näkyvyys
+   - Automaattiset audit- ja korjausagentit
+   - Vianhallintaprotokollat
+
+3. **Päivittäiset varmuuskopiot** (`scripts/backup-sites.sh`)
+   - Automaattiset päivittäiset varmuuskopiot klo 2:00 UTC
+   - Päivämäärämerkityt arkistot (VVVV-KK-PP)
+   - 30 päivän säilytysaika
+   - GitHub Actions -integraatio
+
+4. **Monisivuston deployment** (`landing-pages/` -kansio)
+   - Synkronoitu käyttöönotto kaikille 3 sivustolle
+   - Cloudflare Pages -integraatio
+   - Automaattinen rsync sisältömuutoksissa
+
+Tämä käsikirja tarjoaa operatiivista ohjausta kehittäjille, DevOps-insinööreille, järjestelmänvalvojille ja IT-toiminnoille, jotka ylläpitävät DWS IQ Platform -infrastruktuuria.
+
+---
+
+### Original Description
 
 This document describes the file and folder structure for the DWS IQ Platform project repository, with special focus on the `in-update-claude/` directory containing Next.js website projects and related documentation.
 
@@ -445,6 +548,330 @@ nano .env.local  # or use your editor
 # Restart dev server
 npm run dev
 ```
+
+---
+
+## Shared Components Architecture
+
+### Purpose
+The `shared/` directory contains reusable components that eliminate code duplication across all 37+ website pages.
+
+### Directory Structure
+```
+shared/
+├── components/
+│   ├── navigation.html        # Shared navigation component (150+ lines)
+│   ├── navigation.js          # Navigation JavaScript functionality
+│   ├── cta-buttons.css        # CTA button standardization
+│   └── example-page.html      # Component usage example
+└── README.md                  # Component documentation
+```
+
+### Key Benefits
+- **93% Code Reduction** - From 5,550+ lines of duplicate navigation to single component
+- **Consistency** - Same navigation across all pages
+- **Mobile-First** - Responsive design out of the box
+- **WCAG 2.1 AA** - Accessibility compliance built-in
+
+### Usage
+```html
+<!-- Include in any page -->
+<div id="navigation-container"></div>
+<script src="/shared/components/navigation.js"></script>
+<link rel="stylesheet" href="/shared/components/cta-buttons.css">
+```
+
+### Related Files
+- **SITE_QUALITY_STANDARDS.md** - Quality policy and standards
+- **IMPLEMENTATION_GUIDE.md** - Step-by-step implementation guide
+- **IMPLEMENTATION_WORKFLOW.md** - 10-phase update workflow
+- **QUALITY_STANDARDS_README.md** - Executive summary
+
+---
+
+## Workflow Management System
+
+### Purpose
+The `.workflows/` directory provides centralized workflow orchestration, monitoring, and automated failure recovery for all 14 system workflows.
+
+### Directory Structure
+```
+.workflows/
+├── README.md                    # System overview
+├── registry/
+│   ├── WORKFLOW_REGISTRY.json   # Master registry (14 workflows)
+│   ├── github-workflows.json    # GitHub Actions metadata
+│   └── site-workflows.json      # Site quality workflows
+├── schedules/
+│   ├── daily.json              # Today's scheduled workflows
+│   ├── weekly.json             # This week's schedule
+│   └── monthly.json            # This month's schedule
+├── audit/
+│   ├── YYYY-MM-DD/             # Daily audit logs
+│   ├── backups/                # Backup logs
+│   └── failures/               # Failure analysis reports
+├── agents/
+│   ├── audit-agent.js          # Automated failure analysis
+│   ├── fix-agent.js            # Automated fix generation
+│   └── recovery-protocols/     # Recovery procedures
+└── templates/
+    ├── github-action.yml       # Workflow templates
+    └── site-workflow.md
+```
+
+### Key Features
+
+#### 1. Workflow Registry
+Tracks all 14 workflows:
+- 2 daily workflows (backups, security)
+- 2 weekly workflows (reports, cache purge)
+- 3 monthly workflows (audits, investor tracking)
+- 5 on-push workflows (deployment, sync)
+- 1 on-PR workflow (security checks)
+- 1 manual workflow (site quality implementation)
+
+#### 2. Automated Failure Recovery
+```bash
+# When a workflow fails:
+1. Failure detected automatically
+2. Audit agent analyzes root cause
+3. Fix agent proposes solution
+4. Integration with GitHub Copilot for complex issues
+```
+
+#### 3. Visibility Dashboard
+```bash
+# View today's workflows
+cat .workflows/schedules/daily.json
+
+# View this week's schedule
+cat .workflows/schedules/weekly.json
+
+# View workflow registry
+cat .workflows/registry/WORKFLOW_REGISTRY.json
+```
+
+### Common Operations
+
+#### Check Workflow Status
+```bash
+# View all workflows
+grep -A5 '"name":' .workflows/registry/WORKFLOW_REGISTRY.json
+
+# Check failing workflows
+grep -B5 '"status": "failing"' .workflows/registry/WORKFLOW_REGISTRY.json
+```
+
+#### Run Audit Agent
+```bash
+# Audit latest failure
+node .workflows/agents/audit-agent.js --latest
+
+# Audit specific workflow
+node .workflows/agents/audit-agent.js --workflow sync-site-content
+```
+
+#### Run Fix Agent
+```bash
+# Generate fix for latest failure
+node .workflows/agents/fix-agent.js --latest
+
+# Apply fix automatically
+node .workflows/agents/fix-agent.js --latest --apply
+```
+
+### Related Files
+- **.github/workflows/** - All GitHub Actions workflows
+- **scripts/** - Utility scripts used by workflows
+- **GITHUB_COPILOT_GUIDE.md** - Integration instructions
+
+---
+
+## Daily Backup Procedures
+
+### Purpose
+Automated daily backups protect all sites against data loss, accidental deletions, and deployment failures with date-stamped archives.
+
+### Backup Configuration
+
+#### What Gets Backed Up
+- `dws6.com/` - Main DWS6 site
+- `dws10.com/` - Platform site
+- `onelifetime.world/` - Community site
+- `landing-pages/dws6-com/` - DWS6 landing pages
+- `landing-pages/dws10-com/` - Platform landing pages
+- `landing-pages/onelifetime-world/` - Community landing pages
+
+#### Backup Schedule
+- **Frequency:** Daily at 2:00 AM UTC
+- **Retention:** 30 days
+- **Storage:** GitHub Actions artifacts + local `backups/` directory
+
+### Directory Structure
+```
+backups/
+└── sites/
+    ├── 2025-12-26/
+    │   ├── dws6-com_2025-12-26_02-00-00.tar.gz
+    │   ├── dws10-com_2025-12-26_02-00-00.tar.gz
+    │   ├── onelifetime-world_2025-12-26_02-00-00.tar.gz
+    │   ├── [landing-pages backups]
+    │   └── MANIFEST.txt
+    ├── 2025-12-27/
+    └── latest -> 2025-12-27/  # Symlink to latest
+```
+
+### Common Operations
+
+#### Manual Backup
+```bash
+# Run backup script manually
+./scripts/backup-sites.sh
+
+# Backups created in: backups/sites/YYYY-MM-DD/
+```
+
+#### List Backups
+```bash
+# List all backups
+ls -lh backups/sites/
+
+# View latest backups
+ls -lh backups/sites/latest/
+
+# Read manifest
+cat backups/sites/latest/MANIFEST.txt
+```
+
+#### Restore Site
+```bash
+# Example: Restore dws10.com
+tar -xzf backups/sites/2025-12-26/dws10-com_*.tar.gz
+
+# Verify
+ls -la dws10.com/
+
+# Deploy if needed
+git add dws10.com/
+git commit -m "restore: dws10.com from backup"
+git push origin main
+```
+
+### Fail-Over Scenarios
+
+#### Accidental Deletion
+```bash
+# Restore from latest backup
+tar -xzf backups/sites/latest/[site-name]_*.tar.gz
+git add [site-name]/
+git commit -m "restore: recover deleted site"
+git push
+```
+
+#### Bad Deployment
+```bash
+# Rollback to previous day
+tar -xzf backups/sites/2025-12-25/[site-name]_*.tar.gz
+git add [site-name]/
+git commit -m "fix: rollback to working version"
+git push
+```
+
+### Related Files
+- **scripts/backup-sites.sh** - Backup script
+- **.github/workflows/daily-site-backup.yml** - Automated workflow
+- **BACKUP_PROCEDURES.md** - Complete backup documentation
+- **.workflows/audit/backups/** - Backup logs
+
+---
+
+## Multi-Site Deployment
+
+### Purpose
+The `landing-pages/` directory provides synchronized deployment for all three sites (dws6.com, dws10.com, onelifetime.world) with automated rsync and Cloudflare Pages integration.
+
+### Directory Structure
+```
+landing-pages/
+├── dws6-com/           # Synced from dws6.com/
+├── dws10-com/          # Synced from dws10.com/
+└── onelifetime-world/  # Synced from onelifetime.world/
+```
+
+### Sync Workflow
+
+#### Automated Sync
+Triggered when content changes in source directories:
+```yaml
+# .github/workflows/sync-dws6-landing-pages.yml
+on:
+  push:
+    paths:
+      - 'dws6.com/**'
+      - 'dws10.com/**'
+      - 'onelifetime.world/**'
+    paths-ignore:
+      - '.workflows/**'
+      - '**/*.md'
+      - '.github/**'
+```
+
+#### Sync Process
+```bash
+# 1. Create directories
+mkdir -p landing-pages/{dws6-com,dws10-com,onelifetime-world}
+
+# 2. Sync each site
+rsync -av --delete --exclude='.git' --exclude='.workflows' \
+  dws6.com/ landing-pages/dws6-com/
+
+rsync -av --delete --exclude='.git' --exclude='.workflows' \
+  dws10.com/ landing-pages/dws10-com/
+
+rsync -av --delete --exclude='.git' --exclude='.workflows' \
+  onelifetime.world/ landing-pages/onelifetime-world/
+
+# 3. Commit changes
+git add landing-pages/
+git commit -m "chore: sync all landing-pages from source"
+git push origin main
+```
+
+### Deployment Targets
+- **dws6.com** → Cloudflare Pages
+- **dws10.com** → Cloudflare Pages
+- **onelifetime.world** → Cloudflare Pages
+
+### Common Operations
+
+#### Manual Sync
+```bash
+# Sync all sites
+rsync -av --delete --exclude='.git' dws6.com/ landing-pages/dws6-com/
+rsync -av --delete --exclude='.git' dws10.com/ landing-pages/dws10-com/
+rsync -av --delete --exclude='.git' onelifetime.world/ landing-pages/onelifetime-world/
+```
+
+#### Verify Sync
+```bash
+# Compare source and landing-pages
+diff -r dws6.com/ landing-pages/dws6-com/ \
+  --exclude='.git' --exclude='node_modules'
+```
+
+#### Deploy to Cloudflare
+```bash
+# Automatic on push to main
+git push origin main
+
+# Manual trigger
+gh workflow run sync-dws6-landing-pages.yml
+```
+
+### Related Files
+- **.github/workflows/sync-dws6-landing-pages.yml** - Sync workflow
+- **.github/workflows/sync-site-content.yml** - Legacy sync workflow
+- **.workflows/audit/failures/sync-dws6-landing-pages-fix.md** - Sync fixes
 
 ---
 

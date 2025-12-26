@@ -1,96 +1,119 @@
 ---
 title: "Investor Relations"
-date: 2025-12-07
+date: 2025-12-26
 slug: investor-relations
 type: page
 ---
 
-<div class="sqs-html-content" data-sqsp-text-block-content>
-  <p>&nbsp;
-<h1 style="text-align:center;white-space:pre-wrap;">Investor Relations Overview</h1>
-<p>&nbsp;&nbsp;
-<divclass="image-block-outer-wrapperlayout-caption-belowdesign-layout-inlinecombination-animation-fade-inindividual-animation-noneindividual-text-animation-none"data-test="image-block-inline-outer-wrapper">
-<figureclass="sqs-block-image-figureintrinsic"style="max-width:436px;">
-<divclass="image-block-wrapper"data-animation-role="image"data-animation-override>
-<div class="sqs-image-shape-container-elementhas-aspect-ratio" style="position: relative;padding-bottom:85.99221801757812%;overflow: hidden;"><noscript><img src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876692101-N9DXAR7L2UVI0DXZBRM0/Machine.png" alt="Machine.png" /></noscript><img data-image-dimensions="436x384" src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876692101-N9DXAR7L2UVI0DXZBRM0/Machine.png" data-image-focal-point="0.5,0.5" alt="Machine.png" data-load="false" data-type="image" class="thumb-image" data-image-id="5e58c8136e31e45f81209895" data-image="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876692101-N9DXAR7L2UVI0DXZBRM0/Machine.png" /></div>
-</div>
-</figure>
-</div>
-<h3 style="white-space:pre-wrap;">Business Model(s) &amp; key insight data</h3>
-<h3 style="white-space:pre-wrap;"><em>    Dear Investor, Partner </em></h3>
-<p class="" style="white-space:pre-wrap;">we are pleased you are here ! </p>
-<p class="" style="white-space:pre-wrap;">To access our Investor Relations material including </p>
-<ul data-rte-list="default">
-<li>
-<p class="" style="white-space:pre-wrap;">Investor Deck 2020</p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">Valuation Report 2020</p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">Business Plan Q1/2020  </p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">Business Model Canvas Q1/2020</p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">Due Diligence Clean Report Q1/2020 </p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">Agile Status report 04/2020</p>
-</li>
-<li>
-<p class="" style="white-space:pre-wrap;">all the business documentation relevant to Lifetime Group.</p>
-</li>
-</ul>
-<p class="" style="white-space:pre-wrap;">Please contact our Management team and lets begin discuss our joint opportunity to invest and learn and work together. Let’s reserve some peaceful time together to discuss (book your time).</p>
-<divclass="sqs-block-button-container--left"data-animation-role="button"data-alignment="left"data-button-size="small"data-button-type="tertiary"><ahref="https://app.squarespacescheduling.com/schedule.php?appointmentType=13327339&owner=19145916"class="sqs-block-button-element--small sqs-button-element--tertiary sqs-block-button-element">Investor Meetup with CEO</a></div>
-<p>&nbsp;
-<divclass="image-block-outer-wrapperlayout-caption-belowdesign-layout-inlinecombination-animation-fade-inindividual-animation-noneindividual-text-animation-none"data-test="image-block-inline-outer-wrapper">
-<figureclass="sqs-block-image-figureintrinsic"style="max-width:372px;">
-<divclass="image-block-wrapper"data-animation-role="image"data-animation-override>
-<div class="sqs-image-shape-container-elementhas-aspect-ratio" style="position: relative;padding-bottom:90.27237701416016%;overflow: hidden;"><noscript><img src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876771832-HX2KS6EGWESYRZ435S45/Corporate_G.png" alt="Corporate_G.png" /></noscript><img data-image-dimensions="372x340" src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876771832-HX2KS6EGWESYRZ435S45/Corporate_G.png" data-image-focal-point="0.5,0.5" alt="Corporate_G.png" data-load="false" data-type="image" class="thumb-image" data-image-id="5e58c863f1b06058a51d3643" data-image="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876771832-HX2KS6EGWESYRZ435S45/Corporate_G.png" /></div>
-</div>
-</figure>
-</div>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<divclass="image-block-outer-wrapperlayout-caption-belowdesign-layout-inlinecombination-animation-fade-inindividual-animation-noneindividual-text-animation-none"data-test="image-block-inline-outer-wrapper">
-<figureclass="sqs-block-image-figureintrinsic"style="max-width:550px;">
-<divclass="image-block-wrapper"data-animation-role="image"data-animation-override>
-<div class="sqs-image-shape-container-elementhas-aspect-ratio" style="position: relative;padding-bottom:77.04280090332031%;overflow: hidden;"><noscript><img src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582878467187-DKYOH6OTO8KUWP9OD55K/fundraising_Machine.png" alt="fundraising_Machine.png" /></noscript><img data-image-dimensions="550x394" src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582878467187-DKYOH6OTO8KUWP9OD55K/fundraising_Machine.png" data-image-focal-point="0.5,0.5" alt="fundraising_Machine.png" data-load="false" data-type="image" class="thumb-image" data-image-id="5e58cf039df53f4eb31d5df6" data-image="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582878467187-DKYOH6OTO8KUWP9OD55K/fundraising_Machine.png" /></div>
-</div>
-</figure>
-</div>
-<h3 style="white-space:pre-wrap;">Agile Processes led with Open Leadership</h3>
-<h2 style="white-space:pre-wrap;">Corporate Governance at Lifetime Group</h2>
-<blockquote><p class="" style="white-space:pre-wrap;">“Corporate governance stands for responsible, transparent corporate management and supervision that aims to add by long-term value. Good corporate governance is not only the basis for lasting corporate success but also a key condition for strengthening the trust of our shareholders, customers, employees and business partners, as well as the financial markets.”</p>
-</blockquote>
-<p class="" style="white-space:pre-wrap;">A GUIDELINE FOR SUCCESSFUL CORPORATE GOVERNANCE: THE GERMAN CORPORATE GOVERNANCE CODE</p>
-<pre><code>Corporate governance establishes a framework for managing and supervising a company. This includes its organization and values, and the principles and guidelines for its business policy, among other things. <a href="https://www.dcgk.de/en/home.html" target="_blank" rel="noopener">The German Corporate Governance Code </a>contains recommendations and suggestions for good and responsible corporate management and supervision. It was prepared by the government commission established for the purpose on the basis of the material provisions and nationally and internationally accepted standards of corporate governance. </code></pre>
-<pre><code>As a rule, the government commission reviews the Code annually in light of current developments and updates it as necessary. The Management Team base their work on the recommendations and suggestions of the German Corporate Governance Code. We believe that good corporate governance is a key condition for sustainably increasing the Company’s value. It helps strengthen the trust of our shareholders, customers, employees, business partners and investors in our work and meet the steadily increasing demand for information from national and international stakeholders.   </code></pre>
-<h2 style="white-space:pre-wrap;">Get our Due Diligence (a clean report) Report</h2>
-<p class="" style="white-space:pre-wrap;">As ongoing exercise we are ready to be successful in Due Diligence&nbsp; (a clean report) with our investors, we have setup an Internal Audit process in our agile business processes. Internal auditors can see and follow all our business processes, epics, tasks, opportunities, qualified opportunities, leads, qualified leads, sales efforts, marketing efforts, and more so that investor can rely on updated related documentation and time management and reporting capability Lifetime Group offers.</p>
-<p class="" style="white-space:pre-wrap;">This capability built in our Lifetime Digital Workspace 2.0 Platform help you as valued investor to understand and follow our way of organizing processes along the right policies, procedures, MIS systems, controls, security, compliance, sales, marketing, legal and so on. All of this can be followed and audited in our agile business process management platform - Lifetime Digital Workspace 2.0 Platform. </p>
-<pre><code>Want to learn more? Book a <a href="/booking-aws-consulting" target="_blank" rel="noopener">discussion for free here</a>.</code></pre>
-<pre><code>An Internal Audit skills help management team and investors in providing assurance that our agile processes are working as designed by management and report exceptions.  </code></pre>
-<pre><code>As part of this process, we need to hire someone who can sit with the management team, understand and review our 6 agile processes and provide the Management Team right recommendations and CTAs. </code></pre>
-<pre><code>Once the recommendations are implemented, the person need to audit the processes and report exceptions, if any,&nbsp; When found, the right talent, will  document the processes, policies, compliance reporting.</code></pre>
-<hr />&nbsp;
-<divclass="image-block-outer-wrapperlayout-caption-belowdesign-layout-inlinecombination-animation-fade-inindividual-animation-noneindividual-text-animation-none"data-test="image-block-inline-outer-wrapper">
-<figureclass="sqs-block-image-figureintrinsic"style="max-width:420px;">
-<divclass="image-block-wrapper"data-animation-role="image"data-animation-override>
-<div class="sqs-image-shape-container-elementhas-aspect-ratio" style="position: relative;padding-bottom:100%;overflow: hidden;"><noscript><img src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876898588-32SF24OP7K7PSNHA9N0A/GreatExit.png" alt="GreatExit.png" /></noscript><img data-image-dimensions="420x286" src="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876898588-32SF24OP7K7PSNHA9N0A/GreatExit.png" data-image-focal-point="0.5,0.5" alt="GreatExit.png" data-load="false" data-type="image" class="thumb-image" data-image-id="5e58c8e2c5fa991928a2907a" data-image="https://images.squarespace-cdn.com/content/v1/54c48881e4b0d7a7fa7eddf4/1582876898588-32SF24OP7K7PSNHA9N0A/GreatExit.png" /></div>
-</div>
-</figure>
-</div>
-<h3 style="white-space:pre-wrap;">Internal Audit and agile Due Diligence at Lifetime Group</h3>
-<p class="" style="white-space:pre-wrap;">Lifetime Management team has launched Internal Audit on our Investor 2.0 Pipeline as new Epic that is available for external Due Diligence partner on Lifetime Digital Workspace 2.0 Platform. The Investor Pipeline has all necessary documentation but also tasks and time management capabilities. Suggestions to investor pipeline can be made by advisory board member, board member, or Investor trusted persona.</p>
-<p class="" style="white-space:pre-wrap;">Lifetime Digital Workspace 2.0 Platform offers excellent growth and exit possibilities for Lifetime Certified Investor Partner. Join Lifetime Certified Partner Consortium and become <a href="https://lifetime.fi/partners" target="_blank" rel="noopener">Trusted Investor Partner here</a>.</p>
-<p class="" style="white-space:pre-wrap;">Thank you for considering investment to Lifetime Group. I hope we can discuss with You soon. If you like, feel free to <a href="https://app.squarespacescheduling.com/schedule.php?appointmentType=13327339&amp;owner=19145916" target="_blank" rel="noopener">choose appointment time from here</a> for a video conference meeting with a member of Management Team (free of charge) .</p>
-<p class="" style="white-space:pre-wrap;"><em>Risto Anton</em></p>
-<p class="" style="white-space:pre-wrap;">CEO, Business Owner</p>
-<p class="" style="white-space:pre-wrap;">Lifetime Group</p>
-<divclass="sqs-block-button-container--left"data-animation-role="button"data-alignment="left"data-button-size="medium"data-button-type="primary"><a href="https://www.scaledagileframework.com/" class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element" target="_blank" rel="noopener">Learn more about Agile Process Management</a></div>
-<divclass="sqs-block-button-container--center"data-animation-role="button"data-alignment="center"data-button-size="medium"data-button-type="primary"><ahref="https://www.atlassian.com/"class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element">Learn more about Agile Due Diligence</a></div>
-<divclass="sqs-block-button-container--center"data-animation-role="button"data-alignment="center"data-button-size="medium"data-button-type="primary"><ahref="https://lifetime.atlassian.net"class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element">Login Lifetime digital workspace 2.0 the agile due diligence insight investor pipeline 2.0 business process internal audit (accredited access only)</a></div>
-</div>
+# DWS IQ 6: Climate Intelligence for Construction & Infrastructure Portfolios
+
+**Automated compliance reporting for Fit for 55 / CSRD.** We help construction and infrastructure portfolio owners turn chaos into audit-ready reports—without hiring a team of consultants.
+
+## Why This Round Matters
+
+- **€7k MRR live**, path to **€14k MRR** by Q1 2026 (Uber Finland, Bolt Finland, Kela deployed)
+- **100% customer retention** — zero churn on paying customers
+- **Mandatory market**: Fit for 55 / CSRD regulations = forced purchases across 3.5M EU construction firms
+- **€500k SAFE round** to convert 2 construction pilots + scale to 3-5 flagship portfolios
+- **Bridge to Series A**: Clear path to €900k ARR and €15M+ round in 2026
+
+[**Request full deck / intro call**](mailto:investor@dws10.com)
+
+---
+
+## The Problem: Construction Reporting is Broken
+
+**Portfolio owners, CDOs, and CFOs are drowning in compliance chaos.**
+
+Mid-sized construction and infrastructure companies face 40–80 hours of manual Excel work per project. Data is scattered across invoices, fuel receipts, subcontractor reports, and multiple spreadsheets. There's no standardized format, high error rates, and frequent audit failures.
+
+The result? €10,000–€50,000 in fines per project. Delayed projects due to missing CSRD documentation. Lost public tender opportunities. Supply chain partners demanding Scope 3 reports that don't exist.
+
+**Fit for 55 and EPBD mandates hit hard in 2025–2028.** Companies must buy compliance tools or face penalties. The choice is: hire three consultants and build more spreadsheets, or automate the entire workflow.
+
+---
+
+## The Solution: Automation. Better Automation. Reports. Better Reports. Dashboards. Bloody Better Dashboards.
+
+**DWS IQ 6 + Firehorse** is the industrial AI platform that eliminates manual climate reporting for construction and infrastructure portfolios.
+
+### What Changes for Portfolio Owners / CDOs / CFOs:
+
+- **Automation**: Plug into existing SAP/ERP systems, pull emissions data automatically—no manual data entry
+- **Better automation**: AI agents validate data in real-time, flag errors before they reach the board
+- **Reports**: Generate audit-ready CSRD, Fit for 55, and EPBD reports in your exact format
+- **Better reports**: AI writes the narrative behind the numbers, not just charts
+- **Dashboards**: Real-time portfolio-level tracking across all projects and sites
+- **Bloody better dashboards**: Click any number to see source data, full audit trail, zero transcription errors
+
+**Time to value: 4 weeks from contract to audit-ready report.**
+
+The Climate Reporting Starter Bundle includes DWS IQ Base (private cloud instance), Firehorse Report (automated reporting agent), and an 8-hour workshop. Output: Scope 1, 2, 3 emissions calculations, regulatory compliance documentation, project-level tracking, and continuous monitoring.
+
+---
+
+## Traction: Real Revenue, Real Customers, Real Results
+
+- **€7k MRR live** (December 2025) with 5 paying customers
+- **€70k–€120k annual value per logo** in logistics sector
+- **100% retention** — zero churn demonstrates product-market fit
+- **40+ hours/month saved** per customer (manual work eliminated)
+- **2 construction pilots in progress** → converting to +€6k MRR in Q1 2026
+
+### Customer Profile:
+
+| Customer | Vertical | Status | Annual Value |
+|----------|----------|--------|--------------|
+| Uber Finland | Logistics | Paid | €70,000 |
+| Bolt Finland | Logistics | Paid | €60,000 |
+| Kela | Healthcare | Paid | €90,000 |
+| Construction Co. A | Construction | Pilot | €80,000 (projected) |
+| Construction Co. B | Construction | Pilot | €80,000 (projected) |
+
+**Peachscore, Crunchbase, and AWS/Google Cloud credits**: We're backed by validated third-party assessments and €100k+ in cloud infrastructure credits from AWS and Google, demonstrating technical credibility and enterprise readiness.
+
+---
+
+## This Round: €500k SAFE to Scale Construction Vertical
+
+**Raising:** €500,000
+**Instrument:** SAFE
+**Valuation Cap:** €3.8M
+**Target Close:** Q1 2026
+
+### What €500k Buys:
+
+- **3–5 flagship construction/infrastructure portfolios onboarded** (€15k–€25k MRR added)
+- **Productized Fit for 55 reporting module** ready for multi-site deployments
+- **Firehorse workflow automation** scaled across construction vertical (10–20 active projects per customer)
+
+### Why Now:
+
+Regulation is live. Customers have budget. Product works. We have traction. This is the moment to capture construction portfolios before competitors build equivalent solutions.
+
+---
+
+## Why This Team, Why Now
+
+**Founder:** 35+ years in industrial management, enterprise software, and AI infrastructure. Deep expertise in SAP integration, regulatory compliance, and agentic AI orchestration. Track record includes successful enterprise deployments and Fortune 500 client projects.
+
+### Unfair Advantages:
+
+- **Tech stack**: MCP-native platform architecture—extensible, not a point solution. Private cloud, EU-hosted, GDPR/CSRD ready by design.
+- **Network**: Direct access to logistics, construction, and healthcare decision-makers through existing customer relationships.
+- **Regulatory understanding**: Finland implements EU directives faster than most member states. We're first to market with Fit for 55 compliance automation.
+
+**Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, and Nordic innovation ecosystem (Slush, government R&D support). Finland is not just a location—it's investor protection and strategic market access.
+
+---
+
+## How to Engage
+
+**If you are a seed, climate, or infrastructure investor** looking for proven traction in a mandatory compliance market with clear unit economics (LTV:CAC of 10:1+), let's talk.
+
+📧 **Contact:** [investor@dws10.com](mailto:investor@dws10.com)
+📄 **Full deck:** [Request pitch deck](mailto:investor@dws10.com?subject=DWS%20IQ%206%20Pitch%20Deck%20Request)
+🌐 **Crunchbase:** [lifetime.oy](https://www.crunchbase.com/organization/lifetime-oy)
+📊 **Documentation:** [GitHub investor materials](https://github.com/blogtheristo/dws6/tree/main/investor-outreach)
+
+[**Book intro call with CEO**](mailto:investor@dws10.com?subject=Investor%20Call%20Request)

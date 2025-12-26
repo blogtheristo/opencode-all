@@ -1,11 +1,15 @@
 # Agenttimaisen Tekoälyn SaaS-Toteutusopas
 # DWS IQ Platform Versio 6 - Kattava Suunnittelu ja Toteutus
 
-**Dokumentin versio:** 1.1  
-**Viimeksi päivitetty:** 16. marraskuuta 2025  
-**Laatija:** Risto Anton Päärni / Lifetime Consulting  
-**Käytetyt AI-agentit:** Claude Code, Kimi K2, GitHub Copilot, Cursor.ai  
+**Dokumentin versio:** 1.2
+**Viimeksi päivitetty:** 25. joulukuuta 2025
+**Laatija:** Risto Anton Päärni / Lifetime Consulting
+**Käytetyt AI-agentit:** Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
 **Lisenssi:** Omistusoikeus - Lifetime Oy
+
+**Versiohistoria:**
+- v1.1 (16. marraskuuta 2025) - Alkuperäinen kattava suunnitteludokumentti
+- v1.2 (25. joulukuuta 2025) - Lisätty Firehorse Omnichannel Next -myyntiautomatiikka
 
 ---
 
@@ -24,9 +28,10 @@
 11. [Tiimi ja Organisaatio](#tiimi-ja-organisaatio)
 12. [Strategiset Kumppanuudet](#strategiset-kumppanuudet)
 13. [Tietoturva ja Vaatimustenmukaisuus](#tietoturva-ja-vaatimustenmukaisuus)
-14. [Sijoittajakirje](#sijoittajakirje)
-15. [Sanasto](#sanasto)
-16. [Lähteet](#lähteet)
+14. [Firehorse Omnichannel Next - Myyntiautomatiikka](#firehorse-omnichannel-next---myyntiautomatiikka)
+15. [Sijoittajakirje](#sijoittajakirje)
+16. [Sanasto](#sanasto)
+17. [Lähteet](#lähteet)
 
 ---
 
@@ -545,6 +550,235 @@ DWS IQ Platform yhdistää:
 **Vuosisäästö: 270 000 € - 16 725 € = 253 275 €**
 
 **Laitteiston takaisinmaksuaika: 53 700 € ÷ 21 106 €/kk = 2,5 kuukautta**
+
+---
+
+## Firehorse Omnichannel Next - Myyntiautomatiikka
+
+### Yleiskatsaus
+
+**Firehorse Omnichannel Next - CustomerPilotLoop v1** on tuotantovalmis B2B-myyntiautomatiikkajärjestelmä, joka on suunniteltu erityisesti nopeuttamaan DWS IQ 6 + Firehorse -pilottien hankintaa Pohjoismaissa ja Keski-Euroopan rakennusmarkkinoilla.
+
+### Liiketoimintatavoitteet
+
+**Päätavoite:** Hanki 2 uutta DWS IQ 6 + Firehorse -pilottia Q1/2026
+
+**Kohdemarkkinat:**
+- Maantieteellinen fokus: Pohjoismaat (FI, SE, NO, DK) + Saksa (DE)
+- Toimiala: Rakennus- ja infrastruktuuriyritykset
+- Tilistrategia: TOP 30 korkean arvon tilit (150M€+ vuosiliikevaihto)
+
+**Myyntisitoutuminen:**
+- 20 tuntia/viikko myynnille
+- Päivittäinen minimi: 3 LinkedIn-yhteyttä (08:00-09:00)
+- Viikkotavoite: 164 kontaktipistettä TOP 30 -tileillä
+- Konversiopolku: 164 kontaktia → 8-12 demoa → 2 pilottia → 59 900€ liikevaihto
+
+### Tekninen Arkkitehtuuri
+
+**Teknologiapino:**
+- Backend: Node.js 18+ TypeScriptillä
+- Tietokanta: Supabase PostgreSQL reaaliaikaisilla tilauksilla
+- Automatisointi: Node-cron -ajastin
+- Sähköposti: SendGrid/Resend/AWS SES -integraatio
+- API: Express.js REST-päätepisteet
+
+**Ydinkomponentit:**
+
+1. **Tilakonemoottori** (375 riviä TypeScriptiä)
+   - 10 liidien tilaa: New → Cold_1_Sent → ... → Meeting_Booked
+   - Tapahtumavetoiset laukaisimet: Sähköpostin avaus, linkin klikkaus, vastaus, tapaaminen varattu
+   - Automatisoidut seurantasekvenssit: Cold 1 → Cold 2 (3pv) → Cold 3 (5pv)
+
+2. **Tilipohjainen Pakotus** (209 riviä TypeScriptiä)
+   - KULTAINEN SÄÄNTÖ: Ei lähetyksiä TOP 30 -tilien ulkopuolelle
+   - Kooditason validointi estää spray-and-pray-lähestymistavan
+   - Multi-threading-strategia: 5-10 kontaktia kohdetiliä kohden
+
+3. **Monikanavainen Orkestrointi**
+   - Sähköpostiautomatiikka maakohtaisella personoinnilla
+   - LinkedIn-työnkulku (ihmisen kontrollissa oleva seuranta)
+   - Tapaamisen putki tulosten seurannalla
+   - Tarjousten hallinta (luonnos → lähetetty → neuvottelu → voitettu/hävitty)
+
+### Tietokantaskeema
+
+**8 Ydintaulua:**
+- `firehorse_leads` - Liidin yhteystiedot ja tila
+- `firehorse_events` - Tapahtumaloki (sähköposti lähetetty, avattu, klikattu, vastattu)
+- `firehorse_tasks` - Automaation luomat manuaaliset tehtävät
+- `firehorse_templates` - Sähköposti- ja LinkedIn-viestipohjat
+- `firehorse_replies` - Sähköpostivastausten seuranta
+- `firehorse_meetings` - Tapaamisten aikataulutus ja tulokset
+- `firehorse_proposals` - Tarjousputki ja tuottoseuranta
+- `firehorse_linkedin_activities` - LinkedIn-yhteyksien seuranta
+
+**7 Operatiivista Näkymää:**
+- Päivittäiset uudet liidit (30/päivä raja)
+- Cold 2 -ehdokkaat (3 päivän seuranta)
+- Cold 3 -ehdokkaat (5 päivän seuranta)
+- LinkedIn-odottavat yhteydet
+- Tulevat tapaamiset (seuraavat 7 päivää)
+- Aktiiviset tarjoukset
+- Myyntiputken yleiskatsaus
+
+### Keskeiset Ominaisuudet
+
+**1. Maakohtainen Personointi**
+- Suomi (FI): Keskity paikallisiin viittauksiin ja suomalaisiin yrityksiin
+- Ruotsi (SE): Pohjoismainen laajentumisviestintä
+- Saksa (DE): EU-vaatimustenmukaisuuskulma (Fit for 55, EPBD 2028, CSRD)
+- Konteksti injektoitu SQL-funktiolla: `get_country_context(country_code)`
+
+**2. Tilipohjainen Multi-Threading**
+
+Esimerkki: NCC AB (ULTRA-prioriteetti, 8 kontaktitavoite)
+- Toimitusjohtaja (Digitaalinen Transformaatio)
+- COO (Operatiivinen Huippuosaaminen)
+- CDO/CIO (Teknologiajohtajuus)
+- Portfoliojohtaja - Infrastruktuuri
+- Portfoliojohtaja - Asuminen
+- ESG/Kestävyysjohtaja
+- Innovaatiojohtaja
+- Aluejohtaja (Pohjoismaat)
+
+**3. Automatisoidut Sekvenssit Ihmisen Valvonnalla**
+- Automatisointi: Päivittäinen erä 30 Cold 1 -sähköpostia @ 08:00
+- Ihminen: Manuaalinen vastaus kun liidi klikkaa linkkiä (luo tehtävän Ristolle)
+- Automatisointi: Seurannat 3 ja 5 päivän väleillä
+- Ihminen: LinkedIn-yhteydet, tapaamisvalmistelu, tarjousten luominen
+
+**4. Vaatimustenmukaisuus ja Tietosuoja**
+- GDPR-yhteensopiva (oikeutettu intressi B2B-myyntiin)
+- Rivitason turvallisuus kaikissa tauluissa
+- Poisto-oikeus API-päätepisteen kautta
+- Auditloki kaikista sähköposti-interaktioista
+
+### Integraatio DWS IQ Platformiin
+
+**Synergiapisteeet:**
+
+1. **Reunalaskennan Myyntikulma**
+   - Demo: Reaaliaikainen rakennustyön edistymisen seuranta NVIDIA Jetsonilla
+   - ROI: 253 275€/vuosi pilvikustannussäästöissä
+   - Todiste: Turner Construction -pilottitulokset
+
+2. **Pilottihinnoittelun Yhtenäisyys**
+   - Pilotti-taso: 29 950€ (5 kuukautta) = Firehorse-tavoitehinta
+   - Alpha-taso: 55 930€ (12 kuukautta)
+   - Tuotantotaso: 10 950€/kuukausi
+
+3. **Rakennusteollisuuden Fokus**
+   - Jaettu asiakaskunta: NCC, Skanska, PORR, STRABAG, YIT
+   - Jaetut kipupisteet: Reaaliaikatieto, offline-kyky, materiaalihävikki
+   - Jaettu ratkaisu: Reunatekoäly rakennusälykkyyteen
+
+### Toteutuksen Tila
+
+**Koodi Valmis:**
+- 2 296 riviä tuotantovalmista TypeScriptiä
+- 5 Supabase-migraatiota (täydellinen skeema)
+- 12 moduulia täydellä tyyppiturvallisuudella
+
+**Dokumentaatio Valmis:**
+- Hallintaopas: `/Admin/Firehorse_Omnichannel_Next_Admin_Manual.md` (täydellinen ops-opas)
+- Myyntimanifesti: `DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` (Q1-sitoutuminen)
+- Myyntityönkulku: `FIREHORSE_SALES_WORKFLOW.md` (viikottainen tahti)
+- Sijoittajapohjat: `INVESTOR_EMAIL_TEMPLATES.md` (150k€ SAFE-kierros)
+
+**Data Valmis:**
+- TOP 30 -tilit Q1/2026 prioriteettipisteytyksineen
+- 55 ainutlaatuista prospektikontaktia tuotu
+- 164 kontaktipistettä kartoitettu (5,5 keskiarvo per tili)
+
+**Käyttöönottostatus:**
+- Haara: `claude/firehorse-pilot-automation-3nsxX`
+- Tila: ✅ Tuotantovalmis (kaikki commitit pushattu)
+- Seuraava askel: Aja Supabase-migraatiot ja käynnistä päivittäinen automatiikka
+
+### Q1/2026 Toteutussuunnitelma
+
+**Viikko 0 (Asennus):**
+- Käytä Supabase-migraatiot
+- Konfiguroi sähköpostipalvelu (SendGrid/Resend)
+- Tuo TOP 30 -tilit ja prospektikontaktit
+- Testaa automatiikka 3 pilottiliidillä
+
+**Viikko 1-13 (Toteutus):**
+- Päivittäin: 3 LinkedIn-yhteyttä @ 08:00-09:00
+- Päivittäin: 30 automatisoitua Cold 1 -sähköpostia @ 08:00
+- Päivittäin: Manuaaliset vastaukset aktiivisille liideille
+- Viikottain: Perjantai 09:00-10:00 metriikkakatsaus
+
+**Tavoitemetriikat:**
+- Viikko 4: 1. demo aikataulutettu
+- Viikko 8: 2. demo aikataulutettu, 1. pilottineuvottelut
+- Viikko 12: 1. pilotti allekirjoitettu (29 950€)
+- Viikko 13: 2. pilotti allekirjoitettu (29 950€)
+
+**Menestysperusteet:**
+- 2 pilottia allekirjoitettu = 59 900€ liikevaihto
+- 8-12 demoa suoritettu
+- 164 kontaktia tavoitettu
+- 100% vaatimustenmukaisuus KULTAISEN SÄÄNNÖN kanssa (ei lähetyksiä TOP 30:n ulkopuolelle)
+
+### Varainhankintaintegraatio
+
+**Sijoittajatavoittelu-automatiikka:**
+
+Firehorse-järjestelmä tukee myös rinnakkaisia varainhankintaponnisteluja omistautuneilla sähköpostipohji lla:
+
+1. **Ilmasto/Infra-VC:t** - Fokus hiilenvähennys ja ilmastovaikutus
+2. **Operaattorien enkelit** - Entiset rakennustoiminnanjohtajat jotka ymmärtävät tuskan
+3. **Lämpimät esittelyt** - Yhteisten yhteyksien hyödyntäminen
+4. **LinkedIn-DM:t** - Erittäin lyhyt (300 merkkiä) sijoittajatavoittelu
+
+**Tavoite:** 150 000€ SAFE @ 3,8M€ cap, 20% alennus
+
+**Sijoittajapitchin Yhdenmukaistaminen:**
+- Pilottitulot (59 900€) osoittaa tuote-markkina-sovitusta
+- Rakennusteollisuuden vetovoima validoi TAM:n
+- Tilipohjainen lähestymistapa näyttää kurinalaisuutta
+- KULTAISEN SÄÄNNÖN pakotus osoittaa pääomatehokkuutta
+
+### Opit Agenttimaisen Tekoälyn SaaS:lle
+
+**Keskeiset Opetukset:**
+
+1. **Tilipohjainen Tekoäly** - Käytä kooditason pakotusta estääksesi yleisiä virheitä
+   - Älä luota ihmisiin ylläpitämään kurinalaisuutta
+   - Koodaa liiketoimintasäännöt koviksi rajoitteiksi
+   - Tee spray-and-pray-lähestymistavasta fyysisesti mahdotonta
+
+2. **Ihminen-Silmukassa Korkean Kosketuksen Varten** - LinkedIn-yhteydet, tapaamisvalmistelu, tarjousneuvottelut
+   - Automatisoi toistuva (sähköpostisekvenssit, seurannan ajoitus)
+   - Inhimillistä kriittinen (ensimmäiset keskustelut, kauppojen sulkeminen)
+
+3. **Maakohtainen Tekoäly** - Injektoi paikallista kontekstia dynaamisesti
+   - Suomi: Viittaa paikallisiin menestystapauksiin
+   - Ruotsi: Pohjoismainen laajentumiskulma
+   - Saksa: EU-sääntelyvaatimustenmukaisuus
+
+4. **Monikanavainen Tilakone** - Yhtenäinen liiditila sähköpostissa, LinkedInissä, tapaamisissa, tarjouksissa
+   - Yksi totuuden lähde (Supabase-tietokanta)
+   - Tapahtumavetoiset tilasiirtymät
+   - Operatiiviset näkymät päivittäistä toteutusta varten
+
+5. **Metriikkalähtöinen Toteutus** - Viikottainen katsaus estää ajelehtimista
+   - 3 LinkedIn/päivä = 15/viikko (ei-neuvoteltavissa)
+   - 30 sähköpostia/päivä = 150/viikko (automatisoitu)
+   - Demoprosentti = johtava indikaattori putken terveydelle
+
+**Integraatiopotentiaali:**
+
+Firehorse osoittaa kuinka DWS IQ Platformin agenttimaisen tekoälyn kyvykkyydet voidaan soveltaa reunalaskennan lisäksi myyntiautomatiikkaan:
+
+- Reunatekoäly rakentamiseen → Myyntitekoäly rakennusyrityksille
+- Reaaliaikainen päättely → Reaaliaikainen liidien sitoutuminen
+- Offline-kyky → Asynkroniset sähköpostityönkulut
+- Kustannustehokkuus → KULTAINEN SÄÄNTÖ estää haaskausta
+
+Tämä kaksikäyttöisyys validoi laajemman Agenttimaisen Tekoälyn SaaS-teesin: älykäs automatiikka luo arvoa useilla vertikaaleilla kun se on oikein rajoitettu toimialakohtaisilla säännöillä.
 
 ---
 
