@@ -5,241 +5,67 @@
     <link>https://dws10.com</link>
     <description>Industrial AI and Climate Reporting Products</description>
     <item>
-      <g:id>DWS-IQ-005</g:id>
-      <g:title>Lifetime DWS IQ Platform (Version 5)</g:title>
-      <g:description>&lt;h1&gt;Lifetime DWS IQ Platform (Version 5)&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; Legacy Support (Contact Sales)
-&lt;strong&gt;Includes:&lt;/strong&gt; Assessment of legacy infrastructure, support for existing DWS IQ 5 instances, and a migration path consultation.&lt;/p&gt;
-&lt;h2&gt;Description&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Legacy / Alternative Tier.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The proven precursor to DWS IQ 6, supporting established industrial workflows. It remains a robust choice for specific legacy environments.&lt;/p&gt;
-&lt;h2&gt;Why DWS IQ 5?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The Compliance Bridge.&lt;/strong&gt;
-For organizations not yet ready for the full AI-native DWS IQ 6, Version 5 provides a stable bridge to &quot;Fit for 55&quot; compliance. It ensures you aren't left behind as reporting requirements tighten. &lt;strong&gt;It is serious marketing with penalty if not done properly.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;At the end of the day, it keeps your legacy operations compliant while you plan for the future.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;The Bridge Methodology&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;&quot;Stabilize then Modernize.&quot;&lt;/strong&gt;
-DWS IQ 5 focuses on stability and connectivity for older industrial protocols:
-*   &lt;strong&gt;Compatibility:&lt;/strong&gt; Native support for older OPC-UA and Modbus versions.
-*   &lt;strong&gt;Stability:&lt;/strong&gt; Proven, monolithic architecture.
-*   &lt;strong&gt;Path Forward:&lt;/strong&gt; Built-in data exporters to migrate easily to IQ 6.&lt;/p&gt;
-&lt;h2&gt;Usage Scenario: The Retrofit Factory&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;A factory runs on 15-year-old PLCs and cannot support edge AI.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;DWS IQ 5 secures the data:&lt;/strong&gt;
-1.  &lt;strong&gt;Connect:&lt;/strong&gt; It utilizes legacy drivers to poll the PLCs.
-2.  &lt;strong&gt;Buffer:&lt;/strong&gt; It stores data locally to handle unstable internet connections.
-3.  &lt;strong&gt;Report:&lt;/strong&gt; It generates standard CSV reports for the central office.
-4.  &lt;strong&gt;Outcome:&lt;/strong&gt; The factory participates in the corporate carbon reporting without a hardware overhaul.&lt;/p&gt;
-&lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Extended asset life&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Connecting legacy machines to modern reporting.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Risk mitigation&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Ensuring older sites aren't compliance blind spots.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;The 5 DWS IQ 5 Components&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Legacy Poller:&lt;/strong&gt; Reads data from older industrial protocols.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Local Buffer:&lt;/strong&gt; Ensures data integrity during outages.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sync Engine:&lt;/strong&gt; Uploads data to the cloud when available.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Report Generator:&lt;/strong&gt; Basic template-based reporting.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Migration Agent:&lt;/strong&gt; Tools to assist in moving to IQ 6.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;Technical Specifications&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Architecture:&lt;/strong&gt; Monolithic .NET/Java application.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Protocols:&lt;/strong&gt; Modbus, OPC-DA, CSV import.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Requirements:&lt;/strong&gt; Windows Server 2016+ or Linux.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr /&gt;
-&lt;h3&gt;References&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Lifetime Technical Support.&lt;/strong&gt; &lt;em&gt;DWS IQ 5 End of Life Policy&lt;/em&gt;.&lt;/li&gt;
-&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-iq5.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>0.00 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>FH-RPT-001</g:id>
-      <g:title>Firehorse Report</g:title>
-      <g:description>&lt;h1&gt;Firehorse Report&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €1,999
-&lt;strong&gt;Includes:&lt;/strong&gt; One automated report template, SAP integration setup, and a 4-week validation cycle.&lt;/p&gt;
-&lt;h2&gt;Description&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Automated reporting on top of DWS IQ.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Firehorse Report turns the reports your team builds manually into automated, AI‑native outputs in a few weeks. It plugs into SAP/your existing tools, is tailored to your exact format, and usually ends up cheaper than your current SaaS + internal labour combined.&lt;/p&gt;
-&lt;h2&gt;Why Firehorse Report?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Serious Marketing with Penalties.&lt;/strong&gt;
-EU mid‑size industrial, logistics, and construction companies now face strict reporting duties: &lt;strong&gt;Fit for 55, EU ETS, CSRD, EPBD&lt;/strong&gt;. These rules all end up in the &lt;strong&gt;annual report&lt;/strong&gt;. Getting these numbers wrong means real penalties and blocked access to ESG capital.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;At the end of a 4-week cycle, your critical board pack is automated and audit-ready.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;The Last Mile Automation&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;&quot;Why can't my BI tool do this?&quot;&lt;/strong&gt;
-Generic BI tools visualize data, but they don't produce compliance-ready documents. Firehorse Report focuses on the &lt;strong&gt;Last Mile&lt;/strong&gt;:
-*   &lt;strong&gt;Exact Format:&lt;/strong&gt; We output to the exact PPT/PDF/Excel template your board expects.
-*   &lt;strong&gt;Narrative Generation:&lt;/strong&gt; AI writes the &quot;Why&quot; behind the numbers, not just the charts.
-*   &lt;strong&gt;Traceability:&lt;/strong&gt; Click on any number in the PDF to see the source data in DWS IQ.&lt;/p&gt;
-&lt;h2&gt;Usage Scenario: The Monthly Board Pack&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Your team spends 5 days a month building the Climate KPI Board Pack.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Firehorse Report automates the workflow:&lt;/strong&gt;
-1.  &lt;strong&gt;Trigger:&lt;/strong&gt; On the 1st of the month, the Report Agent wakes up.
-2.  &lt;strong&gt;Fetch:&lt;/strong&gt; It queries DWS IQ for the verified emissions and operational data.
-3.  &lt;strong&gt;Generate:&lt;/strong&gt; It populates your specific PowerPoint template, updating charts and text placeholders.
-4.  &lt;strong&gt;Review:&lt;/strong&gt; It sends a draft to the sustainability officer via Teams/Slack.
-5.  &lt;strong&gt;Outcome:&lt;/strong&gt; The officer reviews the draft in 15 minutes, approves it, and it's distributed. &lt;strong&gt;5 days of work becomes 15 minutes.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;90% reduction in reporting man-hours&lt;/strong&gt;¹&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Eliminating manual copy-pasting and formatting.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Elimination of transcription errors&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Direct machine-to-machine data flow.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Faster decision cycles&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Reports are available on Day 1, not Day 10.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;The 5 Firehorse Report Agents&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Report Generator:&lt;/strong&gt; Assembles the final document (PPT, PDF, Excel).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Data Fetcher:&lt;/strong&gt; Retrieves specific metrics from the DWS IQ core.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Visualizer:&lt;/strong&gt; Generates compliance-standard charts and graphs.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Template Matcher:&lt;/strong&gt; Ensures the output perfectly matches your corporate branding.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Audit Logger:&lt;/strong&gt; Records exactly when and how the report was generated.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;Technical Specifications&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Outputs:&lt;/strong&gt; PowerPoint (.pptx), Excel (.xlsx), PDF, HTML.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Integrations:&lt;/strong&gt; DWS IQ Core, Microsoft 365, Google Workspace.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Delivery:&lt;/strong&gt; Email, Slack, Teams, SharePoint.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr /&gt;
-&lt;h3&gt;References&lt;/h3&gt;
-&lt;p&gt;¹ &lt;strong&gt;McKinsey &amp;amp; Company.&lt;/strong&gt; (2024). &lt;em&gt;The economic potential of generative AI&lt;/em&gt;. (Highlights 50-75% productivity gains in document generation tasks).&lt;/p&gt;</g:description>
-      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1999.00 EUR</g:price>
-      <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>LIFETIME-BUNDLE-2026</g:id>
-      <g:title>Climate Reporting Starter Bundle</g:title>
-      <g:description>&lt;h1&gt;Climate Reporting Starter Bundle&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €6,500 (One-time Setup) + €1,999 / year
-&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.&lt;/p&gt;
-&lt;h2&gt;Description&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The Flagship Offer for 2026.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (Firehorse Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
-&lt;h2&gt;What's Inside?&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;DWS IQ Base (Value €4,999):&lt;/strong&gt; The industrial AI platform deployed in your cloud. Validates and stores your operational data.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Firehorse Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Kickoff Package (Value €3,000):&lt;/strong&gt; Expert scoping and setup to ensure the first report is perfect.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Total Value:&lt;/strong&gt; €9,998
-&lt;strong&gt;Bundle Price:&lt;/strong&gt; €6,500 (Setup) + Annual License.&lt;/p&gt;
-&lt;h2&gt;Why this Bundle?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Solve the Problem, Don't Buy Tools.&lt;/strong&gt;
-You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot;a consultant.&quot; You need to pass your audit. This bundle delivers the specific outcome: &lt;strong&gt;A compliant, automated Annual Report.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Usage Scenario&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Month 1:&lt;/strong&gt; We deploy DWS IQ and map your data.
-&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the Firehorse Report template.
-&lt;strong&gt;Month 3:&lt;/strong&gt; You generate your first automated Board Pack.
-&lt;strong&gt;Month 4:&lt;/strong&gt; You pass your audit.&lt;/p&gt;
-&lt;h2&gt;Ideal For&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Mid-sized Industrial/Logistics companies (50-500 employees).&lt;/li&gt;
-&lt;li&gt;Organizations with SAP/ERP data but manual reporting processes.&lt;/li&gt;
-&lt;li&gt;Teams facing immediate &quot;Fit for 55&quot; or CSRD deadlines.&lt;/li&gt;
-&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/bundle.html</g:link>
-      <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>6500.00 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>FH-CMS-001</g:id>
-      <g:title>Firehorse Content Management</g:title>
-      <g:description>&lt;h1&gt;Firehorse Content Management&lt;/h1&gt;
+      <g:id>FH-AUTO-001</g:id>
+      <g:title>Firehorse Automation</g:title>
+      <g:description>&lt;h1&gt;Firehorse Automation&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; Custom Quote
-&lt;strong&gt;Includes:&lt;/strong&gt; Secure Evidence Vault setup, Taxonomy design workshop, and initial data migration.&lt;/p&gt;
+&lt;strong&gt;Includes:&lt;/strong&gt; Analysis of manual bottlenecks, implementation of 3 core automation workflows, and operational dashboard setup.&lt;/p&gt;
 &lt;h2&gt;Description&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Part of the Firehorse Flexible Toolbox.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;A flexible content management solution designed to streamline your digital asset workflows and compliance evidence. It serves as the secure repository for the proofs behind your claims.&lt;/p&gt;
-&lt;h2&gt;Why Firehorse Content Management?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The Evidence Vault for Your Year Book.&lt;/strong&gt;
-Every carbon credit claim needs proof. Certificates, audit logs, and reports need a secure, organized home to feed into your Annual Report. Missing documentation means failed audits and &lt;strong&gt;penalties&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;At the end of the deployment, every green claim you make is one click away from its source proof.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Evidence Vault Methodology&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;&quot;Where is that certificate?&quot;&lt;/strong&gt;
-Stop digging through email chains. Firehorse Content Management treats compliance documents as critical assets:
-*   &lt;strong&gt;Auto-Tagging:&lt;/strong&gt; AI reads your documents and tags them by regulation (e.g., #EU-ETS, #Scope3).
-*   &lt;strong&gt;Expiration Watch:&lt;/strong&gt; Alerts you before a critical green certificate expires.
-*   &lt;strong&gt;Linkage:&lt;/strong&gt; Connects the document directly to the data point in DWS IQ.&lt;/p&gt;
-&lt;h2&gt;Usage Scenario: The Unannounced Audit&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;An auditor demands proof of renewable energy sourcing for Q3.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Firehorse Content Management executes the retrieval:&lt;/strong&gt;
-1.  &lt;strong&gt;Search:&lt;/strong&gt; You type &quot;Energy Certificates Q3&quot; into the vault.
-2.  &lt;strong&gt;Retrieve:&lt;/strong&gt; The Search Agent finds the 3 PDFs provided by your utility provider.
-3.  &lt;strong&gt;Verify:&lt;/strong&gt; It shows the metadata linking these files to the Q3 Carbon Report.
-4.  &lt;strong&gt;Share:&lt;/strong&gt; You generate a secure, temporary link for the auditor.
-5.  &lt;strong&gt;Outcome:&lt;/strong&gt; The auditor validates the claim in minutes. No panic, no lost files.&lt;/p&gt;
+&lt;p&gt;Powerful automation tools to streamline repetitive tasks and integrate your systems. It removes the human bottleneck from your compliance and operational pipelines.&lt;/p&gt;
+&lt;h2&gt;Why Firehorse Automation?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speed is Compliance.&lt;/strong&gt;
+&quot;Fit for 55&quot; reporting cycles are tightening. Manual data entry is too slow and error-prone. If your report is late or wrong because of a typo, it costs millions in penalties. &lt;strong&gt;It is serious marketing with penalty if not done properly.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;At the end of the project, your critical data flows from sensor to report without human touch.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Zero-Touch Compliance Methodology&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&quot;Eliminate the copy-paste.&quot;&lt;/strong&gt;
+Firehorse Automation targets the &quot;swivel chair&quot; integration where humans move data between systems:
+*   &lt;strong&gt;Orchestration:&lt;/strong&gt; Connects DWS IQ, ERP, and IoT.
+*   &lt;strong&gt;Error Handling:&lt;/strong&gt; Intelligently manages API failures or bad data.
+*   &lt;strong&gt;Auditability:&lt;/strong&gt; Every step of the automation is logged.&lt;/p&gt;
+&lt;h2&gt;Usage Scenario: The Broken Sensor&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;A critical flow meter fails on the factory floor.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Firehorse Automation handles the incident:&lt;/strong&gt;
+1.  &lt;strong&gt;Detect:&lt;/strong&gt; The Ingestion Workflow notices the data stream has stopped.
+2.  &lt;strong&gt;Alert:&lt;/strong&gt; It creates a maintenance ticket in your ERP (e.g., SAP PM).
+3.  &lt;strong&gt;Mitigate:&lt;/strong&gt; It flags the data gap in DWS IQ and applies the approved &quot;estimation method&quot; for compliance reporting (flagging it as estimated).
+4.  &lt;strong&gt;Report:&lt;/strong&gt; It adds an incident note to the Monthly Report.
+5.  &lt;strong&gt;Outcome:&lt;/strong&gt; Compliance continuity is maintained, and maintenance is dispatched instantly.&lt;/p&gt;
 &lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Zero lost compliance documents&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Centralized, immutable storage.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Elimination of manual entry errors&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Machine-to-machine integration.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;50% faster audit response times&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Instant retrieval via semantic search.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Real-time incident response&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Instant alerts replacing manual checks.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Proactive compliance&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Automated expiration alerts prevent lapses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reduced operational overhead&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Freeing staff from repetitive tasks.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;The 5 Firehorse Content Agents&lt;/h2&gt;
+&lt;h2&gt;The 5 Firehorse Automation Agents&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Document Classifier:&lt;/strong&gt; AI that reads and categorizes uploads automatically.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Expiration Tracker:&lt;/strong&gt; Monitors dates and sends renewal alerts.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Search Agent:&lt;/strong&gt; Finds documents based on natural language queries.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Access Controller:&lt;/strong&gt; Manages permissions and secure sharing.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Archive Manager:&lt;/strong&gt; Handles retention policies and secure deletion.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Workflow Runner:&lt;/strong&gt; Executes the defined automation logic.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exception Handler:&lt;/strong&gt; Manages errors and retries.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Connector Agent:&lt;/strong&gt; Maintains API sessions with external systems.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Schedule Monitor:&lt;/strong&gt; Ensures time-based jobs run correctly.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Optimization Scout:&lt;/strong&gt; Suggests performance improvements for workflows.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;Technical Specifications&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Storage:&lt;/strong&gt; Secure Cloud Storage (Encryption at Rest).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Search:&lt;/strong&gt; Vector-based Semantic Search.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Format Support:&lt;/strong&gt; PDF, Docx, JPG, PNG, CAD.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Compliance:&lt;/strong&gt; GDPR-ready data retention workflows.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Engine:&lt;/strong&gt; Event-driven Serverless Functions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Connectivity:&lt;/strong&gt; REST, SOAP, MQTT, SQL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reliability:&lt;/strong&gt; 99.9% Uptime SLA.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
 &lt;h3&gt;References&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;ISO 27001.&lt;/strong&gt; &lt;em&gt;Information Security Management Standards&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;McKinsey &amp;amp; Company.&lt;/strong&gt; &lt;em&gt;The automation imperative&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
+      <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
@@ -314,6 +140,111 @@ Unlike generic SaaS, DWS IQ 6 runs in &lt;em&gt;your&lt;/em&gt; cloud environmen
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4999.00 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LIFETIME-BUNDLE-2026</g:id>
+      <g:title>Climate Reporting Starter Bundle</g:title>
+      <g:description>&lt;h1&gt;Climate Reporting Starter Bundle&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €6,500 (One-time Setup) + €1,999 / year
+&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.&lt;/p&gt;
+&lt;h2&gt;Description&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;The Flagship Offer for 2026.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (Firehorse Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
+&lt;h2&gt;What's Inside?&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;DWS IQ Base (Value €4,999):&lt;/strong&gt; The industrial AI platform deployed in your cloud. Validates and stores your operational data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firehorse Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kickoff Package (Value €3,000):&lt;/strong&gt; Expert scoping and setup to ensure the first report is perfect.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Total Value:&lt;/strong&gt; €9,998
+&lt;strong&gt;Bundle Price:&lt;/strong&gt; €6,500 (Setup) + Annual License.&lt;/p&gt;
+&lt;h2&gt;Why this Bundle?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Solve the Problem, Don't Buy Tools.&lt;/strong&gt;
+You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot;a consultant.&quot; You need to pass your audit. This bundle delivers the specific outcome: &lt;strong&gt;A compliant, automated Annual Report.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Usage Scenario&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Month 1:&lt;/strong&gt; We deploy DWS IQ and map your data.
+&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the Firehorse Report template.
+&lt;strong&gt;Month 3:&lt;/strong&gt; You generate your first automated Board Pack.
+&lt;strong&gt;Month 4:&lt;/strong&gt; You pass your audit.&lt;/p&gt;
+&lt;h2&gt;Ideal For&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Mid-sized Industrial/Logistics companies (50-500 employees).&lt;/li&gt;
+&lt;li&gt;Organizations with SAP/ERP data but manual reporting processes.&lt;/li&gt;
+&lt;li&gt;Teams facing immediate &quot;Fit for 55&quot; or CSRD deadlines.&lt;/li&gt;
+&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/bundle.html</g:link>
+      <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>6500.00 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-IQ-005</g:id>
+      <g:title>Lifetime DWS IQ Platform (Version 5)</g:title>
+      <g:description>&lt;h1&gt;Lifetime DWS IQ Platform (Version 5)&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; Legacy Support (Contact Sales)
+&lt;strong&gt;Includes:&lt;/strong&gt; Assessment of legacy infrastructure, support for existing DWS IQ 5 instances, and a migration path consultation.&lt;/p&gt;
+&lt;h2&gt;Description&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Legacy / Alternative Tier.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The proven precursor to DWS IQ 6, supporting established industrial workflows. It remains a robust choice for specific legacy environments.&lt;/p&gt;
+&lt;h2&gt;Why DWS IQ 5?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;The Compliance Bridge.&lt;/strong&gt;
+For organizations not yet ready for the full AI-native DWS IQ 6, Version 5 provides a stable bridge to &quot;Fit for 55&quot; compliance. It ensures you aren't left behind as reporting requirements tighten. &lt;strong&gt;It is serious marketing with penalty if not done properly.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;At the end of the day, it keeps your legacy operations compliant while you plan for the future.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;The Bridge Methodology&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&quot;Stabilize then Modernize.&quot;&lt;/strong&gt;
+DWS IQ 5 focuses on stability and connectivity for older industrial protocols:
+*   &lt;strong&gt;Compatibility:&lt;/strong&gt; Native support for older OPC-UA and Modbus versions.
+*   &lt;strong&gt;Stability:&lt;/strong&gt; Proven, monolithic architecture.
+*   &lt;strong&gt;Path Forward:&lt;/strong&gt; Built-in data exporters to migrate easily to IQ 6.&lt;/p&gt;
+&lt;h2&gt;Usage Scenario: The Retrofit Factory&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;A factory runs on 15-year-old PLCs and cannot support edge AI.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DWS IQ 5 secures the data:&lt;/strong&gt;
+1.  &lt;strong&gt;Connect:&lt;/strong&gt; It utilizes legacy drivers to poll the PLCs.
+2.  &lt;strong&gt;Buffer:&lt;/strong&gt; It stores data locally to handle unstable internet connections.
+3.  &lt;strong&gt;Report:&lt;/strong&gt; It generates standard CSV reports for the central office.
+4.  &lt;strong&gt;Outcome:&lt;/strong&gt; The factory participates in the corporate carbon reporting without a hardware overhaul.&lt;/p&gt;
+&lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Extended asset life&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Connecting legacy machines to modern reporting.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Risk mitigation&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Ensuring older sites aren't compliance blind spots.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The 5 DWS IQ 5 Components&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Legacy Poller:&lt;/strong&gt; Reads data from older industrial protocols.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Local Buffer:&lt;/strong&gt; Ensures data integrity during outages.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sync Engine:&lt;/strong&gt; Uploads data to the cloud when available.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report Generator:&lt;/strong&gt; Basic template-based reporting.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Migration Agent:&lt;/strong&gt; Tools to assist in moving to IQ 6.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Technical Specifications&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Architecture:&lt;/strong&gt; Monolithic .NET/Java application.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Protocols:&lt;/strong&gt; Modbus, OPC-DA, CSV import.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Requirements:&lt;/strong&gt; Windows Server 2016+ or Linux.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Lifetime Technical Support.&lt;/strong&gt; &lt;em&gt;DWS IQ 5 End of Life Policy&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-iq5.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>0.00 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -395,67 +326,136 @@ Marketing in the EU is no longer the Wild West. Firehorse Omnichannel ensures yo
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
-      <g:id>FH-AUTO-001</g:id>
-      <g:title>Firehorse Automation</g:title>
-      <g:description>&lt;h1&gt;Firehorse Automation&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; Custom Quote
-&lt;strong&gt;Includes:&lt;/strong&gt; Analysis of manual bottlenecks, implementation of 3 core automation workflows, and operational dashboard setup.&lt;/p&gt;
+      <g:id>FH-RPT-001</g:id>
+      <g:title>Firehorse Report</g:title>
+      <g:description>&lt;h1&gt;Firehorse Report&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €1,999
+&lt;strong&gt;Includes:&lt;/strong&gt; One automated report template, SAP integration setup, and a 4-week validation cycle.&lt;/p&gt;
 &lt;h2&gt;Description&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Part of the Firehorse Flexible Toolbox.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Powerful automation tools to streamline repetitive tasks and integrate your systems. It removes the human bottleneck from your compliance and operational pipelines.&lt;/p&gt;
-&lt;h2&gt;Why Firehorse Automation?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Speed is Compliance.&lt;/strong&gt;
-&quot;Fit for 55&quot; reporting cycles are tightening. Manual data entry is too slow and error-prone. If your report is late or wrong because of a typo, it costs millions in penalties. &lt;strong&gt;It is serious marketing with penalty if not done properly.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;At the end of the project, your critical data flows from sensor to report without human touch.&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Zero-Touch Compliance Methodology&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;&quot;Eliminate the copy-paste.&quot;&lt;/strong&gt;
-Firehorse Automation targets the &quot;swivel chair&quot; integration where humans move data between systems:
-*   &lt;strong&gt;Orchestration:&lt;/strong&gt; Connects DWS IQ, ERP, and IoT.
-*   &lt;strong&gt;Error Handling:&lt;/strong&gt; Intelligently manages API failures or bad data.
-*   &lt;strong&gt;Auditability:&lt;/strong&gt; Every step of the automation is logged.&lt;/p&gt;
-&lt;h2&gt;Usage Scenario: The Broken Sensor&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;A critical flow meter fails on the factory floor.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Firehorse Automation handles the incident:&lt;/strong&gt;
-1.  &lt;strong&gt;Detect:&lt;/strong&gt; The Ingestion Workflow notices the data stream has stopped.
-2.  &lt;strong&gt;Alert:&lt;/strong&gt; It creates a maintenance ticket in your ERP (e.g., SAP PM).
-3.  &lt;strong&gt;Mitigate:&lt;/strong&gt; It flags the data gap in DWS IQ and applies the approved &quot;estimation method&quot; for compliance reporting (flagging it as estimated).
-4.  &lt;strong&gt;Report:&lt;/strong&gt; It adds an incident note to the Monthly Report.
-5.  &lt;strong&gt;Outcome:&lt;/strong&gt; Compliance continuity is maintained, and maintenance is dispatched instantly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Automated reporting on top of DWS IQ.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Firehorse Report turns the reports your team builds manually into automated, AI‑native outputs in a few weeks. It plugs into SAP/your existing tools, is tailored to your exact format, and usually ends up cheaper than your current SaaS + internal labour combined.&lt;/p&gt;
+&lt;h2&gt;Why Firehorse Report?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Serious Marketing with Penalties.&lt;/strong&gt;
+EU mid‑size industrial, logistics, and construction companies now face strict reporting duties: &lt;strong&gt;Fit for 55, EU ETS, CSRD, EPBD&lt;/strong&gt;. These rules all end up in the &lt;strong&gt;annual report&lt;/strong&gt;. Getting these numbers wrong means real penalties and blocked access to ESG capital.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;At the end of a 4-week cycle, your critical board pack is automated and audit-ready.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;The Last Mile Automation&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&quot;Why can't my BI tool do this?&quot;&lt;/strong&gt;
+Generic BI tools visualize data, but they don't produce compliance-ready documents. Firehorse Report focuses on the &lt;strong&gt;Last Mile&lt;/strong&gt;:
+*   &lt;strong&gt;Exact Format:&lt;/strong&gt; We output to the exact PPT/PDF/Excel template your board expects.
+*   &lt;strong&gt;Narrative Generation:&lt;/strong&gt; AI writes the &quot;Why&quot; behind the numbers, not just the charts.
+*   &lt;strong&gt;Traceability:&lt;/strong&gt; Click on any number in the PDF to see the source data in DWS IQ.&lt;/p&gt;
+&lt;h2&gt;Usage Scenario: The Monthly Board Pack&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Your team spends 5 days a month building the Climate KPI Board Pack.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Firehorse Report automates the workflow:&lt;/strong&gt;
+1.  &lt;strong&gt;Trigger:&lt;/strong&gt; On the 1st of the month, the Report Agent wakes up.
+2.  &lt;strong&gt;Fetch:&lt;/strong&gt; It queries DWS IQ for the verified emissions and operational data.
+3.  &lt;strong&gt;Generate:&lt;/strong&gt; It populates your specific PowerPoint template, updating charts and text placeholders.
+4.  &lt;strong&gt;Review:&lt;/strong&gt; It sends a draft to the sustainability officer via Teams/Slack.
+5.  &lt;strong&gt;Outcome:&lt;/strong&gt; The officer reviews the draft in 15 minutes, approves it, and it's distributed. &lt;strong&gt;5 days of work becomes 15 minutes.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Elimination of manual entry errors&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Machine-to-machine integration.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;90% reduction in reporting man-hours&lt;/strong&gt;¹&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Eliminating manual copy-pasting and formatting.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Real-time incident response&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Instant alerts replacing manual checks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Elimination of transcription errors&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Direct machine-to-machine data flow.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reduced operational overhead&lt;/strong&gt;&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Freeing staff from repetitive tasks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Faster decision cycles&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Reports are available on Day 1, not Day 10.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;The 5 Firehorse Automation Agents&lt;/h2&gt;
+&lt;h2&gt;The 5 Firehorse Report Agents&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Workflow Runner:&lt;/strong&gt; Executes the defined automation logic.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Exception Handler:&lt;/strong&gt; Manages errors and retries.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Connector Agent:&lt;/strong&gt; Maintains API sessions with external systems.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Schedule Monitor:&lt;/strong&gt; Ensures time-based jobs run correctly.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Optimization Scout:&lt;/strong&gt; Suggests performance improvements for workflows.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report Generator:&lt;/strong&gt; Assembles the final document (PPT, PDF, Excel).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Fetcher:&lt;/strong&gt; Retrieves specific metrics from the DWS IQ core.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Visualizer:&lt;/strong&gt; Generates compliance-standard charts and graphs.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Template Matcher:&lt;/strong&gt; Ensures the output perfectly matches your corporate branding.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Audit Logger:&lt;/strong&gt; Records exactly when and how the report was generated.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;Technical Specifications&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Engine:&lt;/strong&gt; Event-driven Serverless Functions.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Connectivity:&lt;/strong&gt; REST, SOAP, MQTT, SQL.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reliability:&lt;/strong&gt; 99.9% Uptime SLA.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Outputs:&lt;/strong&gt; PowerPoint (.pptx), Excel (.xlsx), PDF, HTML.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Integrations:&lt;/strong&gt; DWS IQ Core, Microsoft 365, Google Workspace.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Delivery:&lt;/strong&gt; Email, Slack, Teams, SharePoint.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;p&gt;¹ &lt;strong&gt;McKinsey &amp;amp; Company.&lt;/strong&gt; (2024). &lt;em&gt;The economic potential of generative AI&lt;/em&gt;. (Highlights 50-75% productivity gains in document generation tasks).&lt;/p&gt;</g:description>
+      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1999.00 EUR</g:price>
+      <g:brand>Firehorse</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>FH-CMS-001</g:id>
+      <g:title>Firehorse Content Management</g:title>
+      <g:description>&lt;h1&gt;Firehorse Content Management&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; Custom Quote
+&lt;strong&gt;Includes:&lt;/strong&gt; Secure Evidence Vault setup, Taxonomy design workshop, and initial data migration.&lt;/p&gt;
+&lt;h2&gt;Description&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Part of the Firehorse Flexible Toolbox.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A flexible content management solution designed to streamline your digital asset workflows and compliance evidence. It serves as the secure repository for the proofs behind your claims.&lt;/p&gt;
+&lt;h2&gt;Why Firehorse Content Management?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;The Evidence Vault for Your Year Book.&lt;/strong&gt;
+Every carbon credit claim needs proof. Certificates, audit logs, and reports need a secure, organized home to feed into your Annual Report. Missing documentation means failed audits and &lt;strong&gt;penalties&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;At the end of the deployment, every green claim you make is one click away from its source proof.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Evidence Vault Methodology&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&quot;Where is that certificate?&quot;&lt;/strong&gt;
+Stop digging through email chains. Firehorse Content Management treats compliance documents as critical assets:
+*   &lt;strong&gt;Auto-Tagging:&lt;/strong&gt; AI reads your documents and tags them by regulation (e.g., #EU-ETS, #Scope3).
+*   &lt;strong&gt;Expiration Watch:&lt;/strong&gt; Alerts you before a critical green certificate expires.
+*   &lt;strong&gt;Linkage:&lt;/strong&gt; Connects the document directly to the data point in DWS IQ.&lt;/p&gt;
+&lt;h2&gt;Usage Scenario: The Unannounced Audit&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;An auditor demands proof of renewable energy sourcing for Q3.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Firehorse Content Management executes the retrieval:&lt;/strong&gt;
+1.  &lt;strong&gt;Search:&lt;/strong&gt; You type &quot;Energy Certificates Q3&quot; into the vault.
+2.  &lt;strong&gt;Retrieve:&lt;/strong&gt; The Search Agent finds the 3 PDFs provided by your utility provider.
+3.  &lt;strong&gt;Verify:&lt;/strong&gt; It shows the metadata linking these files to the Q3 Carbon Report.
+4.  &lt;strong&gt;Share:&lt;/strong&gt; You generate a secure, temporary link for the auditor.
+5.  &lt;strong&gt;Outcome:&lt;/strong&gt; The auditor validates the claim in minutes. No panic, no lost files.&lt;/p&gt;
+&lt;h2&gt;Expected Impact &amp;amp; Efficiency&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Zero lost compliance documents&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Centralized, immutable storage.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;50% faster audit response times&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Instant retrieval via semantic search.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Proactive compliance&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;How:&lt;/em&gt; Automated expiration alerts prevent lapses.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The 5 Firehorse Content Agents&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Document Classifier:&lt;/strong&gt; AI that reads and categorizes uploads automatically.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Expiration Tracker:&lt;/strong&gt; Monitors dates and sends renewal alerts.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Search Agent:&lt;/strong&gt; Finds documents based on natural language queries.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Access Controller:&lt;/strong&gt; Manages permissions and secure sharing.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Archive Manager:&lt;/strong&gt; Handles retention policies and secure deletion.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Technical Specifications&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Storage:&lt;/strong&gt; Secure Cloud Storage (Encryption at Rest).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Search:&lt;/strong&gt; Vector-based Semantic Search.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Format Support:&lt;/strong&gt; PDF, Docx, JPG, PNG, CAD.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Compliance:&lt;/strong&gt; GDPR-ready data retention workflows.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
 &lt;h3&gt;References&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;McKinsey &amp;amp; Company.&lt;/strong&gt; &lt;em&gt;The automation imperative&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ISO 27001.&lt;/strong&gt; &lt;em&gt;Information Security Management Standards&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
+      <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
