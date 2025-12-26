@@ -1,5 +1,15 @@
 # €500K Construction Heroes Campaign - Documentation Hub
 
+**Version:** 1.0  
+**Last Updated:** December 26, 2025  
+**Status:** Active  
+**Classification:** Public - Marketing Campaign  
+**Applies To:** Marketing, Sales, Development Teams  
+**Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)  
+**Live Site:** https://dws10.com
+
+---
+
 ## 📁 Hero Folder Contents
 
 This folder contains all documentation and instructions for the Construction Heroes campaign hero section.
@@ -176,4 +186,18 @@ git log --oneline -5
 **Last Updated**: December 26, 2025  
 **Version**: 1.0  
 **Status**: Deployed, awaiting video files
+
+---
+
+## Document Changelog
+
+| Version | Date | Changes | Author |
+|---------|------|---------|--------|
+| 1.0 | Dec 26, 2025 | Initial creation; Campaign documentation hub; Applied DWS document standards | Claude AI |
+
+---
+
+**License:** Proprietary - Lifetime Oy  
+**Maintained by:** Lifetime Oy Marketing & Development Team  
+**Related Documents:** See other files in `Hero/` folder for detailed guides
 
