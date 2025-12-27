@@ -190,4 +190,3 @@ Your €500K campaign will be live at https://dws10.com in under 5 minutes.
 **License:** Proprietary - Lifetime Oy  
 **Maintained by:** Lifetime Oy Development Team  
 **Related Documents:** See `README.md` for overview, `HERO_DEPLOYMENT_STATUS.md` for current status
-

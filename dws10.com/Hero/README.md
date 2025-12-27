@@ -200,4 +200,3 @@ git log --oneline -5
 **License:** Proprietary - Lifetime Oy  
 **Maintained by:** Lifetime Oy Marketing & Development Team  
 **Related Documents:** See other files in `Hero/` folder for detailed guides
-
