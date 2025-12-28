@@ -571,10 +571,195 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* ===============================
+           Campaign Hero (DWS IQ 6 Launch)
+           =============================== */
+        .campaign-hero {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 107, 0, 0.25), transparent 40%),
+                        radial-gradient(circle at 80% 0%, rgba(33, 150, 243, 0.2), transparent 35%),
+                        linear-gradient(135deg, #0a192f 0%, #112d4e 45%, #0b182c 100%);
+            color: #f8fafc;
+            padding: clamp(64px, 8vw, 120px) 0 clamp(48px, 6vw, 96px) 0;
+        }
+
+        .campaign-hero .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: clamp(24px, 4vw, 48px);
+            align-items: center;
+        }
+
+        .campaign-hero__content h1 {
+            font-size: clamp(2.4rem, 4vw, 3.6rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 6px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .campaign-hero__statements p {
+            font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+            margin: 6px 0;
+            color: #ffb347;
+        }
+
+        .campaign-hero__lead {
+            margin: 18px 0 28px 0;
+            font-size: 1.05rem;
+            color: rgba(241, 245, 249, 0.9);
+            max-width: 640px;
+        }
+
+        .campaign-hero__cta-title {
+            font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+            margin: 18px 0 12px 0;
+            font-weight: 700;
+        }
+
+        .campaign-hero__actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .campaign-hero__btn {
+            border: none;
+            border-radius: 8px;
+            padding: 14px 22px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .campaign-hero__btn--primary {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff914d 100%);
+            color: #0b1220;
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.35);
+        }
+
+        .campaign-hero__btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(255, 107, 0, 0.45);
+        }
+
+        .campaign-hero__btn--ghost {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .campaign-hero__btn--ghost:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .campaign-hero__video {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .campaign-hero__video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .campaign-hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+        }
+
+        .campaign-hero__meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            font-size: 0.95rem;
+            color: rgba(241, 245, 249, 0.85);
+        }
+
+        .campaign-hero__meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .campaign-hero__actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .campaign-hero__btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- NEW: DWS IQ 6 Campaign Hero (Top of Page) -->
+    <section class="campaign-hero" aria-label="DWS IQ 6 Construction Campaign">
+        <div class="container">
+            <div class="campaign-hero__content">
+                <div class="campaign-hero__badge">€500k Construction Heroes Campaign</div>
+                <h1>Making you one of the heroes of construction.</h1>
+                <div class="campaign-hero__statements">
+                    <p><strong><em>Automation. Better automation.</em></strong></p>
+                    <p><strong><em>Reports. Better reports.</em></strong></p>
+                    <p><strong><em>Dashboards. Bloody better dashboards.</em></strong></p>
+                </div>
+                <p class="campaign-hero__lead">
+                    We built DWS IQ 6 and Firehorse for real working people – those who work all day and sleep all night –
+                </p>
+                <div class="campaign-hero__cta-title">DWS IQ 6 - get fit for 55. Now.</div>
+                <div class="campaign-hero__actions">
+                    <button class="campaign-hero__btn campaign-hero__btn--primary" onclick="location.href='#contact'">
+                        Start Your Transformation
+                    </button>
+                    <button class="campaign-hero__btn campaign-hero__btn--ghost" onclick="location.href='#features'">
+                        See How It Works
+                    </button>
+                </div>
+                <div class="campaign-hero__meta">
+                    <span>8s product video</span>
+                    <span>Optimized for Cloudflare Pages</span>
+                    <span>Mobile-first, WCAG 2.1 AA</span>
+                </div>
+            </div>
+            <div class="campaign-hero__video" role="region" aria-label="DWS IQ 6 product video">
+                <video playsinline loop muted preload="metadata" poster="/public/videos/construction-poster.jpg" aria-label="8-second DWS IQ 6 product demo">
+                    <source src="/public/videos/gemini_generated_video_EA97318F.mp4" type="video/mp4">
+                    <source src="/public/videos/gemini_generated_video_EA97318F.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
     <header>
         <div class="container">
             <div class="logo-section" style="display: flex; align-items: center; gap: 30px; width: 100%; flex-wrap: wrap;">
@@ -873,9 +1058,13 @@
                         DWS IQ 6 and Firehorse – making you one of the heroes of construction.
                     </p>
                     
-                    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" 
+                    <a href="http://localhost:8080/demo/mobile-v7/" 
                        style="display: block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 16px 32px; font-size: 1.1rem; font-weight: bold; text-decoration: none; border-radius: 50px; text-align: center; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); transition: all 0.3s;">
-                        Book a demo
+                        📱 Try DWS IQ Mobile V7 Demo
+                    </a>
+                    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" 
+                       style="display: block; background: white; color: #10b981; border: 2px solid #10b981; padding: 14px 32px; font-size: 1rem; font-weight: bold; text-decoration: none; border-radius: 50px; text-align: center; margin-top: 12px; transition: all 0.3s;">
+                        📅 Book a Consultation
                     </a>
                 </div>
                 
