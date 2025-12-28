@@ -367,3 +367,63 @@ window.DWS.setOnline = setOnline;
   
   window.DWS.realtime = { connect, disconnect };
 })();
+
+// ===== UI UTILITIES =====
+(function () {
+  const { " " } = window.DWS;
+
+  function updateElement(id, value) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  }
+
+  function updateDebug(key, value) {
+    const element = document.getElementById(`debug-${key}`);
+    if (element) element.textContent = value;
+  }
+
+  function showErrorBanner(message) {
+    const banners = document.getElementById('status-banners');
+    if (banners) {
+      banners.innerHTML = `<div class="error-banner">${message}</div>`;
+      setTimeout(() => { banners.innerHTML = ''; }, 5000);
+    }
+  }
+
+  function showSuccessBanner(message) {
+    const banners = document.getElementById('status-banners');
+    if (banners) {
+      banners.innerHTML = `<div class="success-banner">${message}</div>`;
+      setTimeout(() => { banners.innerHTML = ''; }, 3000);
+    }
+  }
+
+  function toggleDebug() {
+    const panel = document.getElementById('debug-panel');
+    if (panel) panel.classList.toggle('active');
+  }
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebarMenu');
+    const overlay = document.getElementById('overlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
+  }
+
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebarMenu');
+    const overlay = document.getElementById('overlay');
+    if (sidebar) sidebar.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  window.DWS.ui = {
+    updateElement,
+    updateDebug,
+    showErrorBanner,
+    showSuccessBanner,
+    toggleDebug,
+    toggleSidebar,
+    closeSidebar
+  };
+})();
