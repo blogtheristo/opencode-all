@@ -1097,8 +1097,8 @@
                     cpi: parseFloat(project.cpi || 0.96),
                     percentComplete: parseInt(project.percent_complete || 50),
                     safetyRag: project.safety_rag || 'amber',
-                    budget: project.budget || 0,
-                    spent: project.spent || 0
+                    budget: 5000000,
+                    spent: 3500000
                 }));
 
                 window.DWS.log.debug('projects', appState.projects.length);
