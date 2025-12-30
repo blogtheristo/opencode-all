@@ -6,27 +6,90 @@
     <title>Business Case: The Intelligent Fleet Pilot - OneLifetime.World</title>
     <meta name="description" content="OneLifetime.World - Orchestrating the transition to Agentic AI and Intelligent Industries. DWS IQ, Lifetime Fleet, and Firehorse Solutions.">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../ultra/ultra-styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensure group-hover dropdowns work */
+        .group:hover .group-hover\:block {
+            display: block !important;
+        }
+    </style>
     <style>
         .group:hover .group-hover\:block {
             display: block;
         }
+        /* Force desktop nav hidden (desktop uses hamburger) */
+        #desktopNav {
+            display: none !important;
+        }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased flex flex-col min-h-screen">
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center gap-4">
-                        <a href="/" class="flex items-center group">
-                            <img src="../static/images/dws_iq_logo.png" alt="DWS IQ" class="h-10 w-auto transition-opacity hover:opacity-80">
-                        </a>
-                        <div class="h-8 w-px bg-gray-300"></div>
-                        <a href="/" class="flex items-center group">
-                            <img src="../static/images/brand_logo.png" alt="OneLifetime.World" class="h-16 w-auto transition-opacity hover:opacity-80">
-                        </a>
-                    </div>
+<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
+        <!-- Unified Top Bar -->
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+            <!-- Hamburger Menu -->
+            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+            </button>
+            
+            <!-- Logo -->
+            <a href="/" class="flex items-center">
+                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
+            </a>
+            
+            <!-- See Demo Button (small) -->
+            <a href="https://j6prmljgpvnia.ok.kimi.link/index.html" target="_blank" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
+                Demo
+            </a>
+        </div>
+
+        <!-- Hamburger Menu (all breakpoints) -->
+        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-blue-400">→ Auditointi</a>
+                
+                <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-blue-400">→ DWS IQ 6</a>
+                <a href="#" class="block py-1 hover:text-blue-400">→ Lifetime Fleet</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal</a>
+                <a href="/Partners/" class="block py-1 hover:text-blue-400">→ Partner Consortium</a>
+                <a href="/pledge/" class="block py-1 hover:text-blue-400">→ 🌍 Sustainability Pledge</a>
+                <a href="https://dws10.com/careers/" class="block py-1 hover:text-blue-400">→ Careers</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🛒 DWS IQ Store</a>
+                <a href="https://lifetime.fi/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🎬 Lifetime Studios</a>
+                <a href="https://lifetime.fi/osta" target="_blank" class="block py-1 hover:text-blue-400">→ 💼 Lifetime Consulting</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
+        </div>
+
+        <!-- Tagline & Divider -->
+        <div class="px-4 py-2 text-center border-t border-gray-700">
+            <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+            <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div id="desktopNav" class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between py-4">
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center">
                     <div class="hidden sm:ml-10 sm:flex sm:space-x-8 items-center">
                         <!-- Solution Dropdown (The Brands) -->
                         <div class="relative group h-full flex items-center">

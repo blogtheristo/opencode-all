@@ -8,6 +8,7 @@
     <meta name="og:title" content="Lifetime World Climate & Sustainability Pledge">
     <meta name="og:description" content="Join our commitment to climate-resilient infrastructure and measurable sustainability impact.">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../ultra/ultra-styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Ensure group-hover dropdowns work */
@@ -19,7 +20,7 @@
         .group:hover .group-hover\:block {
             display: block;
         }
-        /* Force desktop nav hidden; desktop uses hamburger */
+        /* Force desktop nav hidden (desktop uses hamburger) */
         #desktopNav {
             display: none !important;
         }
@@ -53,8 +54,8 @@
     </script>
 
     <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <!-- Mobile Top Bar -->
-        <div class="sm:hidden flex justify-between items-center px-4 py-3">
+        <!-- Unified Top Bar -->
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
             <!-- Hamburger Menu -->
             <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
                 <span class="w-6 h-0.5 bg-gray-400 block"></span>
@@ -73,8 +74,8 @@
             </a>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobileMenu" class="hidden sm:hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <!-- Hamburger Menu (all breakpoints) -->
+        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
             <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
             <div class="pl-4 space-y-1 text-xs text-gray-400">
                 <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-blue-400">→ Auditointi</a>
@@ -98,8 +99,8 @@
             <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
         </div>
 
-        <!-- Tagline & Divider (Mobile) -->
-        <div class="sm:hidden px-4 py-2 text-center border-t border-gray-700">
+        <!-- Tagline & Divider -->
+        <div class="px-4 py-2 text-center border-t border-gray-700">
             <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
             <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
         </div>

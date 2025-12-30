@@ -6,6 +6,7 @@
     <title>Lifetime Firehorse™Store</title>
     <meta name="description" content="OneLifetime.World - Orchestrating the transition to Agentic AI and Intelligent Industries. DWS IQ, Lifetime Fleet, and Firehorse Solutions.">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../ultra/ultra-styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Ensure group-hover dropdowns work */
@@ -16,6 +17,10 @@
     <style>
         .group:hover .group-hover\:block {
             display: block;
+        }
+        /* Force desktop nav hidden (desktop uses hamburger) */
+        #desktopNav {
+            display: none !important;
         }
     </style>
 </head>
@@ -29,8 +34,8 @@
     </script>
 
     <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <!-- Mobile Top Bar -->
-        <div class="sm:hidden flex justify-between items-center px-4 py-3">
+        <!-- Unified Top Bar -->
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
             <!-- Hamburger Menu -->
             <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
                 <span class="w-6 h-0.5 bg-gray-400 block"></span>
@@ -40,7 +45,7 @@
             
             <!-- Logo -->
             <a href="/" class="flex items-center">
-                <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
+                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
             </a>
             
             <!-- See Demo Button (small) -->
@@ -49,8 +54,8 @@
             </a>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobileMenu" class="hidden sm:hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <!-- Hamburger Menu (all breakpoints) -->
+        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
             <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
             <div class="pl-4 space-y-1 text-xs text-gray-400">
                 <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-blue-400">→ Auditointi</a>
@@ -61,6 +66,7 @@
             <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
             <div class="pl-4 space-y-1 text-xs text-gray-400">
                 <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal</a>
+                <a href="/Partners/" class="block py-1 hover:text-blue-400">→ Partner Consortium</a>
                 <a href="/pledge/" class="block py-1 hover:text-blue-400">→ 🌍 Sustainability Pledge</a>
                 <a href="https://dws10.com/careers/" class="block py-1 hover:text-blue-400">→ Careers</a>
             </div>
@@ -73,14 +79,14 @@
             <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
         </div>
 
-        <!-- Tagline & Divider (Mobile) -->
-        <div class="sm:hidden px-4 py-2 text-center border-t border-gray-700">
+        <!-- Tagline & Divider -->
+        <div class="px-4 py-2 text-center border-t border-gray-700">
             <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
             <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
         </div>
 
         <!-- Desktop Navigation -->
-        <div class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="desktopNav" class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between py-4">
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">
