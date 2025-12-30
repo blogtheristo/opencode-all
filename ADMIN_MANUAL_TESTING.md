@@ -1,23 +1,27 @@
 # Admin Manual: Testing Infrastructure with Vitest
 
 ---
-# VERSION AND AGENT HISTORY
+
+## VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Vitest testing infrastructure documentation
+
+- Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Vitest testing infrastructure documentation
 
 Session Links & References:
-  - GitHub Copilot (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_TESTING.md
+
+- GitHub Copilot (2025-12-30): <https://github.com/blogtheristo/dws6/commits/main>
+- View on GitHub: <https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_TESTING.md>
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 30.12.2025
-  - Language: English & Finnish (bilingual)
-  - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+
+- Created: 30.12.2025
+- Last Modified: 30.12.2025
+- Language: English & Finnish (bilingual)
+- Languages Available: English, Suomi
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -54,6 +58,7 @@ Tämä käsikirja dokumentoi Vitest-testausinfrastruktuurin DWS IQ -alustalle. V
 ### Why Vitest? / Miksi Vitest?
 
 **English:**
+
 - ✅ **Vite-native**: Seamless integration with our Vite-based build system
 - ✅ **Fast**: Instant hot module reload, parallel test execution
 - ✅ **TypeScript**: First-class TypeScript support out of the box
@@ -62,6 +67,7 @@ Tämä käsikirja dokumentoi Vitest-testausinfrastruktuurin DWS IQ -alustalle. V
 - ✅ **Coverage**: Built-in coverage with c8/istanbul
 
 **Suomi:**
+
 - ✅ **Vite-natiivi**: Saumaton integraatio Vite-pohjaiseen build-järjestelmään
 - ✅ **Nopea**: Välitön hot module reload, rinnakkainen testien suoritus
 - ✅ **TypeScript**: Ensimmäisen luokan TypeScript-tuki suoraan
@@ -101,7 +107,7 @@ export default defineConfig({
 ### Key Settings / Keskeiset asetukset
 
 | Setting | Value | Purpose |
-|---------|-------|---------|
+| ------- | ----- | ------- |
 | `globals` | `true` | Enable global test APIs (`describe`, `it`, `expect`) |
 | `environment` | `node` | Node.js test environment (use `jsdom` for browser) |
 | `coverage.provider` | `c8` | Use c8 for native V8 coverage |
@@ -193,6 +199,7 @@ describe('Example Test Suite', () => {
 ### Testing Best Practices / Testauksen parhaat käytännöt
 
 **English:**
+
 1. **Arrange-Act-Assert**: Structure tests clearly
 2. **One assertion per test**: Keep tests focused
 3. **Descriptive names**: Use clear test descriptions
@@ -200,6 +207,7 @@ describe('Example Test Suite', () => {
 5. **Test edge cases**: Cover error scenarios
 
 **Suomi:**
+
 1. **Järjestä-Toimi-Varmista**: Rakenna testit selkeästi
 2. **Yksi assertio per testi**: Pidä testit keskitettyinä
 3. **Kuvaavat nimet**: Käytä selkeitä testikuvauksia
@@ -358,7 +366,7 @@ npm install --save-dev c8
 ### Current Status
 
 | Metric | Target | Current |
-|--------|--------|---------|
+| ------ | ------ | ------- |
 | Test Coverage | 80% | TBD |
 | Total Tests | - | 0 |
 | Passing Tests | 100% | - |
@@ -377,11 +385,13 @@ npm install --save-dev c8
 ## 📞 Support
 
 **English:**
+
 - **Technical Issues:** Create GitHub issue
 - **Testing Questions:** Check Vitest documentation
 - **Coverage Reports:** See coverage/index.html
 
 **Suomi:**
+
 - **Tekniset ongelmat:** Luo GitHub-issue
 - **Testikysymykset:** Katso Vitest-dokumentaatio
 - **Kattavuusraportit:** Katso coverage/index.html

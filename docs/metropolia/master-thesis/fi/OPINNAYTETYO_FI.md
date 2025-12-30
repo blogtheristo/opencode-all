@@ -10,8 +10,8 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with English version
 
 Session Links & References:
-  - GitHub Copilot (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/metropolia/master-thesis/fi/OPINNAYTETYO_FI.md
+  - GitHub Copilot (2025-12-30): <https://github.com/blogtheristo/dws6/commits/main>
+  - View on GitHub: <https://github.com/blogtheristo/dws6/blob/main/docs/metropolia/master-thesis/fi/OPINNAYTETYO_FI.md>
 
 Document Status:
   - Created: 30.12.2025
@@ -528,7 +528,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 ### 4.8.9 Ylläpito ja valvonta
 
 **Päivittäinen valvonta:**
-- Käytettävyyden tarkistus (https://dws6.com)
+- Käytettävyyden tarkistus (<https://dws6.com>)
 - SSL-sertifikaatin tila
 - Virhelokit (4xx, 5xx)
 
@@ -721,4 +721,4 @@ Toteutus osoittaa, että startup voi rakentaa enterprise-tason verkkoinfrastrukt
 - [Liitteet, sanasto ja viittaukset](LIITTEET_SANASTO_VIITTAUKSET.md)
 
 **Lisenssi:** Proprietary - Lifetime Oy  
-**Yhteystieto:** risto@lifetime.fi
+**Yhteystieto:** <risto@lifetime.fi>
