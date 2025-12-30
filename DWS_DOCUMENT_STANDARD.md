@@ -3,10 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
+  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
@@ -37,8 +38,9 @@ Document Status:
 5. [Version Control](#5-version-control)
 6. [Language Policy](#6-language-policy)
 7. [Metadata Requirements](#7-metadata-requirements)
-8. [Examples](#8-examples)
-9. [Enforcement](#9-enforcement)
+8. [PDF Standard](#8-pdf-standard)
+9. [Examples](#9-examples)
+10. [Enforcement](#10-enforcement)
 
 ---
 
@@ -60,6 +62,7 @@ Applies to:
 - Admin manuals
 - Technical specifications
 - Master thesis documents
+- PDF documents (`.pdf`)
 
 ### Principles / Periaatteet
 
@@ -414,9 +417,252 @@ Usage: python script_name.py [args]
 
 ---
 
-## 8. Examples
+## 8. PDF Standard
 
-### 8.1 Complete Document Example
+### 8.1 Purpose / Tarkoitus
+
+Establishes standardized procedures for creating professional PDF documents from markdown sources, ensuring consistent quality and file size optimization.
+
+Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseksi markdown-lähteistä, varmistaen johdonmukaisen laadun ja tiedostokoon optimoinnin.
+
+### 8.2 File Size Requirements
+
+**MANDATORY:**
+- Maximum file size: **10 MB**
+- Target file size: **1-5 MB**
+- Optimization: Enabled for images and fonts
+
+**RATIONALE:**
+- Email compatibility (most servers limit attachments to 10-25 MB)
+- Fast download/upload speeds
+- Professional distribution
+- Cloud storage efficiency
+
+### 8.3 Conversion Methods
+
+#### Method 1: Browser-Based (Recommended) ⭐
+
+**Advantages:**
+- No additional software required
+- Consistent results
+- Professional styling
+- Fast and reliable
+
+**Process:**
+1. Convert markdown to HTML using Python script
+2. Open HTML in browser (Chrome, Edge, Firefox)
+3. Press `Ctrl+P` (Print)
+4. Select "Save as PDF" as printer
+5. Configure settings:
+   - Layout: Portrait
+   - Margins: Default or Minimum
+   - Background graphics: Enabled
+   - Scale: 100% or "Fit to page"
+6. Save with appropriate filename
+
+**Expected Result:** 1-5 MB PDF
+
+#### Method 2: Pandoc with wkhtmltopdf
+
+```powershell
+# Install wkhtmltopdf from: https://wkhtmltopdf.org/downloads.html
+
+pandoc "input.md" -o "output.pdf" \
+  --pdf-engine=wkhtmltopdf \
+  --toc --toc-depth=2
+```
+
+#### Method 3: Pandoc with LaTeX (MiKTeX)
+
+```powershell
+# Install MiKTeX from: https://miktex.org/download
+
+pandoc "input.md" -o "output.pdf" \
+  -V geometry:margin=1in \
+  -V fontsize=11pt \
+  --toc --toc-depth=2
+```
+
+### 8.4 HTML Styling Standard
+
+**Required CSS styling for PDF conversion:**
+
+```css
+@page {
+    size: A4;
+    margin: 2cm;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    page-break-before: always;
+}
+
+h2 {
+    color: #34495e;
+    border-bottom: 2px solid #95a5a6;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    page-break-inside: avoid;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+```
+
+### 8.5 Python Conversion Script
+
+**Standard script location:** `{project-root}/scripts/create_pdf.py`
+
+**Required features:**
+- Markdown to HTML conversion
+- Professional CSS styling
+- Multiple PDF engine support
+- File size validation
+- Error handling with fallback options
+
+**Example implementation:**
+
+```python
+import markdown
+from pathlib import Path
+
+# Convert markdown to HTML
+with open('input.md', 'r', encoding='utf-8') as f:
+    md_content = f.read()
+
+html_content = markdown.markdown(
+    md_content,
+    extensions=['tables', 'fenced_code', 'toc']
+)
+
+# Add professional styling
+styled_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Standard CSS styling */
+    </style>
+</head>
+<body>
+{html_content}
+</body>
+</html>
+"""
+
+# Save HTML
+with open('output.html', 'w', encoding='utf-8') as f:
+    f.write(styled_html)
+```
+
+### 8.6 Quality Checklist
+
+Before finalizing any PDF document, verify:
+
+- [ ] File size < 10 MB (preferably 1-5 MB)
+- [ ] All tables render correctly
+- [ ] Page breaks are appropriate
+- [ ] Headers and footers are consistent
+- [ ] Images are clear and properly sized
+- [ ] Code blocks are formatted and readable
+- [ ] Links are preserved (if applicable)
+- [ ] Table of contents is accurate
+- [ ] Document metadata is included
+- [ ] Professional styling applied
+
+### 8.7 Naming Convention for PDFs
+
+**Format:** `[CATEGORY]-[Project]-[Type]-[Year]-[Version].pdf`
+
+**Examples:**
+- `DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.pdf`
+- `ADMIN-MANUAL-DWS6-COM-2025-v1.pdf`
+- `THESIS-OUTLINE-EN-2025-FINAL.pdf`
+
+**Rules:**
+- Use hyphens between words
+- Include year for version tracking
+- Add descriptive suffixes: OPTIMIZED, FINAL, DRAFT
+- Maintain consistency with source markdown filename
+
+### 8.8 File Organization
+
+```
+project-root/
+├── docs/                          # Source markdown files
+├── docs-pdf/                      # Generated PDF files
+├── scripts/
+│   └── create_pdf.py             # Conversion script
+└── investor-outreach/
+    ├── *.md                       # Markdown sources
+    ├── *.html                     # Generated HTML (intermediate)
+    ├── *.pdf                      # Final PDFs
+    └── PDF_CREATION_GUIDE.md     # Conversion instructions
+```
+
+### 8.9 Automation
+
+**For frequent PDF generation, create GitHub Action:**
+
+```yaml
+name: Generate PDF Documents
+
+on:
+  push:
+    paths:
+      - 'docs/**/*.md'
+      - 'investor-outreach/**/*.md'
+  workflow_dispatch:
+
+jobs:
+  generate-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install markdown weasyprint
+      - name: Generate PDFs
+        run: python scripts/create_pdf.py
+      - name: Commit PDFs
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add *.pdf
+          git commit -m "Auto-generate PDFs from markdown"
+          git push
+```
+
+### 8.10 Distribution
+
+**For investor and client documents:**
+- Store PDFs in appropriate folders (e.g., `investor-outreach/`)
+- Keep file sizes optimized for email distribution
+- Version control PDFs for audit trail
+- Include metadata in filename for easy identification
+
+---
+
+## 9. Examples
+
+### 9.1 Complete Document Example
 
 ```markdown
 # Admin Manual: DWS6.com Deployment
@@ -452,7 +698,7 @@ Document Status:
 [... rest of document ...]
 ```
 
-### 8.2 Complete Workflow Example
+### 9.2 Complete Workflow Example
 
 ```yaml
 # Workflow: Daily Security Scan
@@ -488,7 +734,7 @@ jobs:
         run: echo "Security scan completed"
 ```
 
-### 8.3 Complete Script Example
+### 9.3 Complete Script Example
 
 ```python
 """
@@ -519,9 +765,9 @@ if __name__ == "__main__":
 
 ---
 
-## 9. Enforcement
+## 10. Enforcement
 
-### 9.1 Automated Checks
+### 10.1 Automated Checks
 
 **Pre-commit hooks:**
 ```bash
@@ -538,7 +784,7 @@ if [[ "$file" =~ \.yml$ ]] && [[ ! "$file" =~ -v[0-9]+-[0-9]{4}-[0-9]{2}-[0-9]{2
 fi
 ```
 
-### 9.2 Manual Review Checklist
+### 10.2 Manual Review Checklist
 
 **Before committing any document:**
 
@@ -561,7 +807,7 @@ fi
 - [ ] Purpose is clearly stated
 - [ ] Dependencies are listed
 
-### 9.3 Exceptions
+### 10.3 Exceptions
 
 **Exceptions to this standard:**
 
