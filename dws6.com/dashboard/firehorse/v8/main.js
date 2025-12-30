@@ -1,3 +1,10 @@
+// Supabase Configuration
+const SUPABASE_URL = 'https://kpucuwwfhuwurdxyjjtz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtwdWN1d3dmaHV3dXJkeHlqanR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzMTU4NzgsImV4cCI6MjA1MDg5MTg3OH0.mZtEHU2k4WolHxePGF6g3w_tdkMCWRh';
+
+// Supabase Client (will be initialized when supabase module loads)
+let supabase = null;
+
 // DWS 6 IQ V8 Enhanced Mobile App
 class DWSV8App {
   constructor() {
@@ -10,8 +17,33 @@ class DWSV8App {
   init() {
     this.setupEventListeners();
     this.setupRouter();
-    this.loadInitialData();
     this.updateDebugPanel();
+    // Initialize Supabase (will load data when ready)
+    this.initSupabase();
+  }
+
+  async initSupabase() {
+    try {
+      // Wait for Supabase to be available
+      if (typeof window.supabase === 'undefined') {
+        console.log('Waiting for Supabase library...');
+        setTimeout(() => this.initSupabase(), 100);
+        return;
+      }
+
+      const { createClient } = window.supabase;
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      
+      console.log('✅ Supabase connected');
+      this.updateDebugPanel();
+      
+      // Load initial data from Supabase
+      await this.loadInitialData();
+    } catch (error) {
+      console.error('Supabase initialization failed:', error);
+      this.showErrorBanner('Failed to connect to database');
+      this.renderMockData();
+    }
   }
 
   setupEventListeners() {
@@ -113,50 +145,121 @@ class DWSV8App {
   }
 
   async loadDashboardData() {
-    const { api, cache } = window.DWS;
+    if (!supabase) {
+      console.warn('Supabase not initialized yet, using mock data');
+      this.renderMockData();
+      return;
+    }
     
     try {
-      // Load portfolio summary with SWR
-      const portfolioResult = await cache.swr('portfolio', 
-        () => api.getPortfolioSummary().then(res => res.data),
-        300000
-      );
+      this.isLoading = true;
       
-      if (portfolioResult.data) {
-        this.updatePortfolioCards(portfolioResult.data);
-      }
+      // Load projects from Supabase
+      await this.loadProjectsFromSupabase();
       
-      if (portfolioResult.error) {
-        this.showErrorBanner('Failed to load portfolio data');
-      }
-
-      // Load projects
-      const projectsResult = await cache.swr('projects',
-        () => api.getProjects().then(res => res.data),
-        600000
-      );
+      // Load alerts from Supabase
+      await this.loadAlertsFromSupabase();
       
-      if (projectsResult.data) {
-        this.projects = projectsResult.data.items || [];
-        this.renderProjects();
-      }
-
-      // Load alerts
-      const alertsResult = await cache.swr('alerts',
-        () => api.getAlerts().then(res => res.data),
-        120000
-      );
+      // Calculate portfolio metrics from projects
+      this.updatePortfolioMetrics();
       
-      if (alertsResult.data) {
-        this.alerts = alertsResult.data.items || [];
-        this.renderAlerts();
-      }
-
+      this.isLoading = false;
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
       this.showErrorBanner('Failed to load dashboard data');
       this.renderMockData();
+      this.isLoading = false;
     }
+  }
+
+  async loadProjectsFromSupabase() {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (error) {
+        console.error('Error loading projects:', error);
+        this.showErrorBanner('Failed to load projects');
+        return;
+      }
+
+      if (data && data.length > 0) {
+        this.projects = data.map(project => ({
+          projectId: project.id,
+          name: project.name || 'Unnamed Project',
+          region: project.region || 'Unknown',
+          phase: project.phase || 'Planning',
+          spi: project.spi || 1.0,
+          cpi: project.cpi || 1.0,
+          percentComplete: project.percent_complete || 0,
+          safetyRag: project.safety_rag || 'green'
+        }));
+        this.renderProjects();
+      } else {
+        console.log('No projects found in Supabase');
+        this.renderMockData();
+      }
+    } catch (error) {
+      console.error('Exception loading projects:', error);
+      this.renderMockData();
+    }
+  }
+
+  async loadAlertsFromSupabase() {
+    try {
+      const { data, error } = await supabase
+        .from('alerts')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (error) {
+        console.error('Error loading alerts:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        this.alerts = data.map(alert => ({
+          project: alert.project_name || 'Unknown Project',
+          message: alert.message || 'No message',
+          ageHours: alert.age_hours || 0,
+          type: alert.type || 'info',
+          severity: alert.severity || 'low'
+        }));
+        this.renderAlerts();
+      } else {
+        console.log('No alerts found in Supabase');
+        this.alerts = [];
+        this.renderAlerts();
+      }
+    } catch (error) {
+      console.error('Exception loading alerts:', error);
+    }
+  }
+
+  updatePortfolioMetrics() {
+    if (this.projects.length === 0) return;
+
+    // Calculate average SPI and CPI
+    const avgSpi = this.projects.reduce((sum, p) => sum + (p.spi || 0), 0) / this.projects.length;
+    const avgCpi = this.projects.reduce((sum, p) => sum + (p.cpi || 0), 0) / this.projects.length;
+    
+    // Count projects at risk (SPI or CPI < 0.9)
+    const projectsAtRisk = this.projects.filter(p => p.spi < 0.9 || p.cpi < 0.9).length;
+
+    this.updatePortfolioCards({
+      portfolio: {
+        spi: avgSpi.toFixed(2),
+        spiChange: avgSpi >= 1.0 ? '↑ On track' : '↓ Below target',
+        cpi: avgCpi.toFixed(2),
+        cpiChange: avgCpi >= 1.0 ? '↑ On budget' : '↓ Over budget',
+        activeProjects: this.projects.length,
+        projectsAtRisk: projectsAtRisk
+      }
+    });
   }
 
   loadPortfolioData() {
@@ -212,7 +315,19 @@ class DWSV8App {
       const cpiChangeElement = document.getElementById('portfolio-cpi-change');
       if (cpiChangeElement) cpiChangeElement.textContent = portfolio.cpiChange || 'No change';
       
-      // Update other metrics as needed
+      // Update Active Projects
+      const projectsElement = document.getElementById('portfolio-projects');
+      if (projectsElement) projectsElement.textContent = portfolio.activeProjects || '--';
+      
+      const projectsChangeElement = document.getElementById('portfolio-projects-change');
+      if (projectsChangeElement) projectsChangeElement.textContent = 'Active';
+      
+      // Update Budget at Risk
+      const riskElement = document.getElementById('portfolio-risk');
+      if (riskElement) riskElement.textContent = portfolio.projectsAtRisk || '0';
+      
+      const riskChangeElement = document.getElementById('portfolio-risk-change');
+      if (riskChangeElement) riskChangeElement.textContent = 'Projects at risk';
     }
   }
 
@@ -354,6 +469,12 @@ class DWSV8App {
   updateDebugPanel() {
     const { state } = window.DWS;
     
+    // Database status
+    const dbElement = document.getElementById('debug-db');
+    if (dbElement) {
+      dbElement.textContent = supabase ? '✓ Connected' : '✗ Not connected';
+    }
+    
     // Auth status
     const authElement = document.getElementById('debug-auth');
     if (authElement) {
@@ -366,20 +487,17 @@ class DWSV8App {
       onlineElement.textContent = state.isOnline ? 'Yes' : 'No';
     }
     
-    // WebSocket status
-    const wsElement = document.getElementById('debug-ws');
-    if (wsElement) {
-      wsElement.textContent = state.websocket ? 'Connected' : 'Disconnected';
+    // Projects count
+    const projectsElement = document.getElementById('debug-projects');
+    if (projectsElement) {
+      projectsElement.textContent = this.projects.length;
     }
     
-    // Last API call
-    const apiElement = document.getElementById('last-api');
-    if (apiElement) {
-      const lastFetch = state.lastFetch['portfolio'];
-      apiElement.textContent = lastFetch ? new Date(lastFetch).toLocaleTimeString() : 'Never';
+    // Alerts count
+    const alertsElement = document.getElementById('debug-alerts');
+    if (alertsElement) {
+      alertsElement.textContent = this.alerts.length;
     }
-    
-    this.updateCacheCount();
   }
 
   showLoadingBanner(message) {

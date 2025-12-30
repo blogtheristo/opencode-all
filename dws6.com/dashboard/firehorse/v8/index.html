@@ -463,12 +463,12 @@
 
     <!-- Debug Panel -->
     <div class="debug-panel" id="debug-panel">
-        <div><strong>DWS IQ V8 Debug</strong></div>
+        <div><strong>DWS IQ V8 + Supabase</strong></div>
+        <div>DB: <span id="debug-db">Connecting...</span></div>
         <div>Auth: <span id="debug-auth">No token</span></div>
         <div>Online: <span id="debug-online">Yes</span></div>
-        <div>WS: <span id="debug-ws">Disconnected</span></div>
-        <div>Last API: <span id="debug-api">Never</span></div>
-        <div>Cache items: <span id="debug-cache">0</span></div>
+        <div>Projects: <span id="debug-projects">0</span></div>
+        <div>Alerts: <span id="debug-alerts">0</span></div>
     </div>
 
     <!-- Header -->
@@ -478,7 +478,7 @@
                 <img src="assets/ncc-logo.png" alt="NCC Logo" style="width: 55px; height: 55px; border-radius: 12px;">
                 <div>
                     <h1>DWS 6 IQ</h1>
-                    <div class="header-subtitle">Portfolio Dashboard</div>
+                    <div class="header-subtitle">V8 Dashboard with Supabase</div>
                 </div>
             </div>
             <div class="profile-btn" onclick="window.DWS.auth.beginLogin()">
@@ -539,7 +539,7 @@
         <div class="view active" id="dashboard-view">
             <!-- Projects Section -->
             <div class="section-header">
-                <h2>Active Projects</h2>
+                <h2>Active Projects from Supabase</h2>
                 <button class="see-all" onclick="refreshProjects()">Refresh</button>
             </div>
             
@@ -547,6 +547,9 @@
                 <div style="font-size: 11px; color: #64748b; text-align: center; line-height: 1.4;">
                     <div style="margin-bottom: 4px; font-weight: 600; color: #475569;">
                         DWS IQ 2020-2026 for Construction Industry
+                    </div>
+                    <div style="margin-bottom: 4px; color: #10b981; font-weight: 500;">
+                        <i class="fas fa-database"></i> Real-time Portfolio Data from Supabase PostgreSQL
                     </div>
                     <div style="margin-bottom: 4px;">
                         <a href="https://dws10.com" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: 500;">
@@ -673,8 +676,11 @@
         </button>
     </div>
 
-    <!-- Scripts -->
-    <script src="scripts/dws-bundle.js" defer></script>
-    <script src="main.js" defer></script>
+    <!-- Supabase Client Script (using CDN) - Load first without defer -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0"></script>
+    
+    <!-- Scripts - Load after Supabase -->
+    <script src="scripts/dws-bundle.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
