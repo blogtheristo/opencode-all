@@ -125,6 +125,14 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
+        /* Dashboard and Login Card Hover Effects */
+        a[href^="/dashboard/"]:hover,
+        a[href^="/login/"]:hover,
+        a[href^="/demo/"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -140,30 +148,85 @@
             <a href="https://dws10.com" class="btn btn-secondary">Learn More</a>
         </div>
 
-        <div class="features">
-            <div class="feature">
-                <h3>🚀 DWS IQ Mobile</h3>
-                <p>Field management and construction intelligence</p>
+        <!-- Dashboards Section -->
+        <div style="margin-top: 60px;">
+            <h2 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 30px;">📊 Dashboards</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 40px;">
+                <a href="/dashboard/v9/" style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 10px; padding: 20px; text-decoration: none; color: #10b981; font-weight: bold; transition: all 0.3s;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🚀</div>
+                    <div>V9 Dashboard</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 5px;">Latest - Supabase Integration</div>
+                </a>
+                <a href="/dashboard/dws-iq-v8-enhanced/" style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; border-radius: 10px; padding: 20px; text-decoration: none; color: #3b82f6; font-weight: bold; transition: all 0.3s;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">⚡</div>
+                    <div>V8 Enhanced</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 5px;">DWS IQ Platform</div>
+                </a>
+                <a href="/dashboard/firehorse/v8/" style="background: rgba(249, 115, 22, 0.1); border: 2px solid #f97316; border-radius: 10px; padding: 20px; text-decoration: none; color: #f97316; font-weight: bold; transition: all 0.3s;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">🔥</div>
+                    <div>Firehorse V8</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 5px;">Reports & Analytics</div>
+                </a>
+                <a href="/demo/mobile-v7/" style="background: rgba(168, 85, 247, 0.1); border: 2px solid #a855f7; border-radius: 10px; padding: 20px; text-decoration: none; color: #a855f7; font-weight: bold; transition: all 0.3s;">
+                    <div style="font-size: 1.5rem; margin-bottom: 10px;">📱</div>
+                    <div>V7 Mobile Demo</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 5px;">OK Computer Dashboard</div>
+                </a>
             </div>
-            <div class="feature">
-                <h3>🏪 Store Management</h3>
-                <p>Firehorse product store and inventory</p>
-            </div>
-            <div class="feature">
-                <h3>🏢 Enterprise Portals</h3>
-                <p>Custom dashboards for enterprise clients</p>
-            </div>
-            <div class="feature">
-                <h3>🤖 MCP Hub</h3>
-                <p>AI agent orchestration and management</p>
-            </div>
-            <div class="feature">
-                <h3>🌍 OneLifetime</h3>
-                <p>Community platform and resources</p>
-            </div>
-            <div class="feature">
-                <h3>🔧 API Access</h3>
-                <p>Developer tools and documentation</p>
+        </div>
+
+        <!-- Login Services Section -->
+        <div style="margin-top: 60px;">
+            <h2 style="color: #60a5fa; font-size: 1.8rem; margin-bottom: 30px;">🔐 Login Services (11)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <a href="/login/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🏠</div>
+                    <div style="font-weight: 600;">Multi-Service Login</div>
+                </a>
+                <a href="/login/dws-iq/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🏗️</div>
+                    <div style="font-weight: 600;">DWS IQ Platform</div>
+                </a>
+                <a href="/login/dws-iq-mobile/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">📱</div>
+                    <div style="font-weight: 600;">DWS IQ Mobile</div>
+                </a>
+                <a href="/login/enterprise/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🏢</div>
+                    <div style="font-weight: 600;">Enterprise Portal</div>
+                </a>
+                <a href="/login/enterprise-model/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🏭</div>
+                    <div style="font-weight: 600;">Enterprise Model</div>
+                </a>
+                <a href="/login/lifetime-model/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🌟</div>
+                    <div style="font-weight: 600;">Lifetime Model</div>
+                </a>
+                <a href="/login/onelifetime/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🌍</div>
+                    <div style="font-weight: 600;">OneLifetime</div>
+                </a>
+                <a href="/login/backoffice/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">⚙️</div>
+                    <div style="font-weight: 600;">Backoffice</div>
+                </a>
+                <a href="/login/store/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🏪</div>
+                    <div style="font-weight: 600;">Store</div>
+                </a>
+                <a href="/login/api/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🔧</div>
+                    <div style="font-weight: 600;">API Access</div>
+                </a>
+                <a href="/login/mcp-hub/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🤖</div>
+                    <div style="font-weight: 600;">MCP Hub</div>
+                </a>
+                <a href="/login/watsonx/" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 15px; text-decoration: none; color: #60a5fa; transition: all 0.3s; text-align: center;">
+                    <div style="font-size: 1.2rem; margin-bottom: 5px;">🧠</div>
+                    <div style="font-weight: 600;">Watsonx AI</div>
+                </a>
             </div>
         </div>
 
