@@ -3,7 +3,7 @@
 ## ✅ PROJECT COMPLETE
 
 **Status**: ✅ **FULLY COMPLETE & LIVE**  
-**Dashboard URL**: `http://localhost:8080/dashboard/v9/`  
+**Dashboard URL**: `https://dws6.com/dashboard/v9/` (Production) | `http://localhost:8080/dashboard/v9/` (Local Dev)  
 **Completion Date**: 2025-12-28
 
 ---
