@@ -250,9 +250,31 @@ The dws6.com chapter now exists in:
 
 ---
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Date:** 30. December 2025  
+**Last Updated:** 30. December 2025 (Equalized EN/FI versions)  
 **Status:** ✅ COMPLETE
+
+---
+
+## Update 1.1 (30.12.2025)
+
+**Change:** Equalized English and Finnish thesis files
+
+**Details:**
+- Updated `THESIS_EN.md` to match `OPINNAYTETYO_FI.md` structure exactly
+- All Chapter 4 sections now fully translated (no more abbreviations)
+- Both files now have identical content structure:
+  - 4.1 Product and Business Model ✅ Complete
+  - 4.2 Technical Architecture ✅ Complete
+  - 4.3 Cost Model ✅ Complete
+  - 4.4 Deployment Model ✅ Complete
+  - 4.5 Go-to-Market Strategy ✅ Complete
+  - 4.6 Firehorse Omnichannel ✅ Complete
+  - 4.7 Regulatory Compliance ✅ Complete
+  - 4.8 dws6.com ✅ Complete (2,500+ words each)
+
+**Result:** Finnish and English versions are now equivalent ✅
 
 ---
 
