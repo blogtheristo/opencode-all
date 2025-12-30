@@ -2,7 +2,8 @@ name: Monthly Security Audit - DWS6 5-Practice Compliance
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # First day of every month at midnight UTC
+    # Runs at 00:00 UTC on day 1 of every month
+    - cron: '0 0 1 * *'
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
@@ -219,6 +220,7 @@ jobs:
           
           cat /tmp/practice4_results.json
       
+      # Note: AIKIDO_API_TOKEN and AIKIDO_ORG_ID are optional - step will skip if not configured
       - name: "Practice 4b: Fetch Aikido Vulnerability Data"
         id: practice4b
         continue-on-error: true
@@ -456,6 +458,7 @@ jobs:
       # SEND SLACK NOTIFICATION
       # ============================================
       
+      # Note: SLACK_WEBHOOK_URL is optional - notification will be skipped if not configured
       - name: "Send Slack Notification"
         uses: slackapi/slack-github-action@v1
         if: always()
@@ -542,6 +545,7 @@ jobs:
   # OPTIONAL: EMAIL SUMMARY
   # ============================================
   
+  # Note: All MAIL_* and SECURITY_EMAIL secrets are optional - email will be skipped if not configured
   send-email-report:
     needs: monthly-security-audit
     runs-on: ubuntu-latest

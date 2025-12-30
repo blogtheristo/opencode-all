@@ -528,6 +528,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 ### 4.8.9 Ylläpito ja valvonta
 
 **Päivittäinen valvonta:**
+- Käytettävyyden tarkistus (<https://dws6.com>)
 - Käytettävyyden tarkistus (https://dws6.com)
 - SSL-sertifikaatin tila
 - Virhelokit (4xx, 5xx)

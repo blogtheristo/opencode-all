@@ -2,7 +2,7 @@ name: Daily Site Backup
 
 on:
   schedule:
-    # Run daily at 2:00 AM UTC
+    # Runs at 02:00 UTC daily
     - cron: '0 2 * * *'
   workflow_dispatch:  # Allow manual trigger
 
