@@ -24,7 +24,7 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 1200px;
             text-align: center;
         }
 
@@ -133,6 +133,78 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
+
+        /* Integrations Section */
+        .integrations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .integration-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .integration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+        }
+
+        .integration-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .integration-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .integration-card h3 {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .integration-card p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .integration-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -227,6 +299,58 @@
                     <div style="font-size: 1.2rem; margin-bottom: 5px;">🧠</div>
                     <div style="font-weight: 600;">Watsonx AI</div>
                 </a>
+            </div>
+        </div>
+
+        <!-- Integrations Section -->
+        <div style="margin-top: 80px;">
+            <h2 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 15px; text-align: center;">🔗 Enterprise Integrations</h2>
+            <p style="text-align: center; color: #94a3b8; font-size: 1.05rem; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Seamlessly connect with industry-leading platforms for complete digital transformation
+            </p>
+            
+            <div class="integrations">
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3>SAP</h3>
+                    <p>Enterprise Resource Planning integration for seamless data flow and business process automation across your organization</p>
+                    <div class="integration-badge">ERP Integration</div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="12" y1="18" x2="12" y2="12"></line>
+                            <line x1="9" y1="15" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3>Aspentech</h3>
+                    <p>Advanced process optimization and asset performance management for industrial operations and manufacturing excellence</p>
+                    <div class="integration-badge">Process Engineering</div>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6"></path>
+                            <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"></path>
+                            <path d="M1 12h6m6 0h6"></path>
+                            <path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"></path>
+                        </svg>
+                    </div>
+                    <h3>ABB Robotics</h3>
+                    <p>Industrial robotics and automation control systems for manufacturing, construction, and heavy industry operations</p>
+                    <div class="integration-badge">Robotics & Automation</div>
+                </div>
             </div>
         </div>
 
