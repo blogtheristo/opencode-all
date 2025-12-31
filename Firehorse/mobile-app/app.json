@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Firehorse Mobile",
+    "slug": "firehorse-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#005293"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dws6.firehorse",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#005293"
+      },
+      "package": "com.dws6.firehorse",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "firehorse-mobile-dws6"
+      }
+    },
+    "owner": "dws6",
+    "privacy": "public",
+    "description": "Firehorse Mobile - Nordic Construction Management. Työmaapäiväkirja, Vastaanottotarkastus, EN 15978 Carbon Report. 70% automaatio, Fit for 55 compliance.",
+    "primaryColor": "#005293"
+  }
+}

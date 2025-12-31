@@ -36,8 +36,9 @@ Document Status:
 4. [Deployment Process](#4-deployment-process)
 5. [Site Structure & Navigation](#5-site-structure--navigation)
 6. [Content Management](#6-content-management)
-7. [Troubleshooting](#7-troubleshooting)
-8. [Monitoring & Analytics](#8-monitoring--analytics)
+7. [Supabase Backend Configuration](#7-supabase-backend-configuration)
+8. [Troubleshooting](#8-troubleshooting)
+9. [Monitoring & Analytics](#9-monitoring--analytics)
 
 ---
 
@@ -718,27 +719,498 @@ sudo systemd-resolve --flush-caches
 
 ---
 
-## 📋 Tarkistuslistat / Checklists
+## 7. Supabase Backend Configuration
 
-### Daily Checklist / Päivittäinen tarkistuslista
+### 7.1 Project Overview / Projektin Yleiskatsaus
+
+**Supabase Project:** dws6  
+**Project ID:** `kpucuwwfhuwurdxyjjtz`  
+**Status:** ✅ Active
+
+Supabase provides the backend database and authentication infrastructure for the DWS6 ecosystem.
+
+### 7.2 Architecture / Arkkitehtuuri
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    DWS6 ECOSYSTEM                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                               │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
+│  │  dws6.com    │    │  V9 Dashboard│    │  V8 Dashboard│  │
+│  │  (Frontend)  │    │  (React)     │    │  (Enhanced)  │  │
+│  └──────┬───────┘    └──────┬───────┘    └──────┬───────┘  │
+│         │                   │                    │           │
+│         └───────────────────┴────────────────────┘           │
+│                             │                                │
+│                             ▼                                │
+│                  ┌──────────────────────┐                    │
+│                  │   SUPABASE PROJECT   │                    │
+│                  │  kpucuwwfhuwurdxyjjtz│                    │
+│                  └──────────────────────┘                    │
+│                             │                                │
+│         ┌───────────────────┼───────────────────┐           │
+│         ▼                   ▼                   ▼           │
+│  ┌─────────────┐   ┌──────────────┐   ┌─────────────┐     │
+│  │ PostgreSQL  │   │ Auth System  │   │   Storage   │     │
+│  │  Database   │   │  (RLS)       │   │   (Files)   │     │
+│  └─────────────┘   └──────────────┘   └─────────────┘     │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### 7.3 Database Schema / Tietokantarakenne
+
+#### Current Migrations / Nykyiset Migraatiot
+
+| # | Migration | Purpose / Tarkoitus |
+|---|-----------|---------------------|
+| 001 | `mcp_agent_context.sql` | MCP Agent context management / Agenttienhallinta |
+| 002 | `firehorse_pilot.sql` | Firehorse pilot program / Pilottiohjelma |
+| 003 | `firehorse_linkedin_dm_templates.sql` | LinkedIn DM templates / LinkedIn-viestimallit |
+| 004 | `firehorse_porr_templates.sql` | PORR templates / PORR-raportit |
+| 005 | `firehorse_linkedin_workflow.sql` | LinkedIn workflow / LinkedIn-työnkulku |
+| 006 | `investor_reporting_financial_data.sql` | Investor reporting / Sijoittajaraportointi |
+
+#### Database Tables / Tietokantataulut
+
+**Current Use Cases:**
+
+1. **MCP Hub Integration**
+   - Agent state management
+   - Context storage
+   - Session persistence
+
+2. **Firehorse Operations**
+   - Pilot program data
+   - Customer tracking
+   - LinkedIn automation
+   - PORR generation
+
+3. **Investor Relations**
+   - Financial metrics
+   - Reporting automation
+   - Analytics data
+
+### 7.4 Access & Credentials / Pääsy ja Tunnukset
+
+#### Dashboard Access / Hallintapaneeli
+
+**Main Dashboard:**
+```
+https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz
+```
+
+**Quick Links / Pikalinkit:**
+
+| Resource | URL |
+|----------|-----|
+| Database Tables | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/database/tables |
+| SQL Editor | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/sql/new |
+| API Settings | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/api |
+| Logs | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/logs/explorer |
+| Backups | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/database |
+
+#### API Configuration / API-asetukset
+
+**Project URL:**
+```
+https://kpucuwwfhuwurdxyjjtz.supabase.co
+```
+
+**Environment Variables / Ympäristömuuttujat:**
+
+```bash
+# Add to .env.local (NEVER commit to Git!)
+SUPABASE_PROJECT_ID=kpucuwwfhuwurdxyjjtz
+SUPABASE_URL=https://kpucuwwfhuwurdxyjjtz.supabase.co
+SUPABASE_ANON_KEY=[Get from API Settings]
+SUPABASE_SERVICE_ROLE_KEY=[Get from API Settings - KEEP SECRET!]
+```
+
+**⚠️ Security Warning / Turvallisuusvaroitus:**
+- `SUPABASE_ANON_KEY`: Safe for client-side / Turvallinen asiakaspuolella
+- `SUPABASE_SERVICE_ROLE_KEY`: Server-side ONLY / VAIN palvelinpuolella
+
+### 7.5 Connection Examples / Yhteysesimerkit
+
+#### JavaScript/TypeScript Client
+
+```javascript
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://kpucuwwfhuwurdxyjjtz.supabase.co'
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Example query
+const { data, error } = await supabase
+  .from('your_table')
+  .select('*')
+  .limit(10)
+```
+
+#### Direct PostgreSQL Connection
+
+```bash
+# Connection string
+postgresql://postgres:[password]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/postgres
+
+# Using psql
+psql "postgresql://postgres:[password]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/postgres"
+```
+
+### 7.6 Security Configuration / Turvallisuusasetukset
+
+#### Row Level Security (RLS)
+
+**Check RLS Status:**
+```sql
+SELECT schemaname, tablename, rowsecurity 
+FROM pg_tables 
+WHERE schemaname = 'public';
+```
+
+**Enable RLS:**
+```sql
+ALTER TABLE your_table_name ENABLE ROW LEVEL SECURITY;
+```
+
+**Create Policy:**
+```sql
+CREATE POLICY "Users can view their own data"
+ON your_table_name
+FOR SELECT
+USING (auth.uid() = user_id);
+```
+
+#### Best Practices / Parhaat Käytännöt
+
+✅ **DO / TEE:**
+- ✅ Enable RLS on all tables / Ota RLS käyttöön kaikissa tauluissa
+- ✅ Use environment variables / Käytä ympäristömuuttujia
+- ✅ Keep service_role key server-side / Pidä service_role-avain palvelimella
+- ✅ Regularly review access logs / Tarkista lokit säännöllisesti
+- ✅ Enable 2FA on Supabase account / Ota 2FA käyttöön
+
+❌ **DON'T / ÄLÄ:**
+- ❌ Commit API keys to Git / Tallenna API-avaimia Gitiin
+- ❌ Expose service_role key to clients / Paljasta service_role-avainta asiakkaille
+- ❌ Disable RLS without reason / Poista RLS:ää käytöstä ilman syytä
+- ❌ Share credentials in plain text / Jaa tunnuksia selkotekstinä
+
+### 7.7 Backup & Recovery / Varmuuskopiointi
+
+#### Automated Backups / Automaattiset Varmuuskopiot
+
+Supabase provides daily automated backups:
+
+1. Go to: https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/database
+2. Navigate to **Backups** section
+3. Download or restore as needed
+
+#### Manual Backup / Manuaalinen Varmuuskopiointi
+
+```bash
+# Full database backup
+pg_dump "postgresql://postgres:[password]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/postgres" > backup_$(date +%Y%m%d).sql
+
+# Specific table backup
+pg_dump -t table_name "postgresql://..." > table_backup.sql
+
+# Restore from backup
+psql "postgresql://..." < backup_20251230.sql
+```
+
+### 7.8 Monitoring / Seuranta
+
+#### Key Metrics / Keskeiset Mittarit
+
+Monitor these metrics in the Supabase dashboard:
+
+| Metric | Location | Alert Threshold |
+|--------|----------|-----------------|
+| Database Size | Settings > Database | > 80% of plan limit |
+| API Requests | Home > Usage | > 90% of plan limit |
+| Active Connections | Database > Connections | > 50 connections |
+| Query Performance | Logs > Query Performance | > 1000ms |
+| Error Rate | Logs > Error Logs | > 1% of requests |
+
+#### Health Check / Terveystarkistus
+
+```bash
+# Check if Supabase is accessible
+curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
+
+# Expected response:
+# {"message":"The server is running"}
+```
+
+### 7.9 Project Separation Analysis / Projektien Erottelu
+
+#### Current Setup / Nykyinen Rakenne
+
+**One Project for All:**
+- ✅ Single source of truth
+- ✅ Shared authentication
+- ✅ Easier to manage
+- ✅ Lower cost
+- ❌ All data in one database
+- ❌ Harder to scale independently
+
+#### Recommendation: Single Project / Suositus: Yksi Projekti
+
+**For DWS6, use ONE Supabase project because:**
+
+1. **Shared User Base**
+   - Same users across V8, V9, and People dashboards
+   - Single authentication system
+   - Unified user management
+
+2. **Data Relationships**
+   - Projects span multiple dashboards
+   - KPIs need to be consistent
+   - People data connects to projects
+
+3. **Cost Efficiency**
+   - One project = one subscription
+   - Shared database resources
+   - Simpler billing
+
+4. **Operational Simplicity**
+   - One backup strategy
+   - One security configuration
+   - One monitoring system
+
+#### Database Organization / Tietokannan Organisointi
+
+**Use schemas to separate concerns:**
+
+```sql
+-- Create schemas for different modules
+CREATE SCHEMA IF NOT EXISTS people;
+CREATE SCHEMA IF NOT EXISTS projects;
+CREATE SCHEMA IF NOT EXISTS kpis;
+CREATE SCHEMA IF NOT EXISTS firehorse;
+CREATE SCHEMA IF NOT EXISTS mcp;
+
+-- Example table in schema
+CREATE TABLE people.employees (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL,
+  role TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Grant access
+GRANT USAGE ON SCHEMA people TO authenticated;
+GRANT SELECT ON people.employees TO authenticated;
+```
+
+#### When to Create Separate Projects / Milloin Luoda Erillisiä Projekteja
+
+Consider separate projects ONLY if:
+
+- ✅ **Compliance Requirements**: Different data residency rules
+- ✅ **Customer Isolation**: Multi-tenant SaaS with strict isolation
+- ✅ **Independent Teams**: Completely separate development teams
+- ✅ **Different Environments**: Production vs. Staging (use separate projects)
+
+**For DWS6: NOT needed** - Use schemas instead!
+
+### 7.10 Future Integration Plans / Tulevat Integraatiot
+
+#### Planned Integrations
+
+- [ ] **V9 Dashboard Backend**
+  - Real-time KPI updates
+  - Project data storage
+  - User preferences
+
+- [ ] **V8 Enhanced Backend**
+  - Historical data
+  - Analytics storage
+  - Report generation
+
+- [ ] **People Management**
+  - Employee database
+  - Role assignments
+  - Access control
+
+- [ ] **Authentication System**
+  - Single sign-on (SSO)
+  - Role-based access control (RBAC)
+  - Session management
+
+- [ ] **Real-time Features**
+  - WebSocket connections
+  - Live dashboard updates
+  - Notifications
+
+### 7.11 Troubleshooting / Vianmääritys
+
+#### Common Issues / Yleiset Ongelmat
+
+**Connection Timeout:**
+```bash
+# Test connection
+curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
+
+# Check DNS
+nslookup kpucuwwfhuwurdxyjjtz.supabase.co
+```
+
+**RLS Blocking Queries:**
+```sql
+-- Check policies
+SELECT * FROM pg_policies WHERE tablename = 'your_table';
+
+-- Temporarily disable RLS (dev only!)
+ALTER TABLE your_table DISABLE ROW LEVEL SECURITY;
+```
+
+**Migration Errors:**
+```bash
+# Check migration status
+supabase migration list
+
+# Repair migrations
+supabase migration repair --status applied
+```
+
+### 7.12 Recommended Extensions & Wrappers / Suositellut Laajennukset
+
+#### High Priority / Korkea Prioriteetti
+
+**Stripe Sync Engine** (✅ Recommended)
+- Automatically sync Stripe data to Postgres
+- Real-time revenue and subscription tracking
+- Essential for financial reporting
+
+**Cron** (✅ Recommended)
+- Schedule recurring jobs in Postgres
+- Daily reports, backups, cleanup tasks
+- No external cron service needed
+
+**Database Webhooks** (✅ Recommended)
+- Real-time notifications on data changes
+- Slack alerts, email notifications
+- Dashboard updates
+
+**Queues** (✅ Recommended)
+- Background job processing
+- Report generation, email sending
+- LinkedIn automation (Firehorse)
+
+**See full analysis:** `SUPABASE_WRAPPERS_STRATEGY.md`
+
+### 7.13 Documentation Links / Dokumentaatiolinkit
+
+- **Supabase Docs:** https://supabase.com/docs
+- **PostgreSQL Docs:** https://www.postgresql.org/docs/
+- **RLS Guide:** https://supabase.com/docs/guides/auth/row-level-security
+- **CLI Reference:** https://supabase.com/docs/reference/cli
+- **Wrappers Strategy:** `SUPABASE_WRAPPERS_STRATEGY.md`
+
+---
+
+## 8. Troubleshooting
+
+### 8.1 Common Deployment Issues / Yleiset Deployment-ongelmat
+
+See the main troubleshooting guide: `DWS6_DEPLOYMENT_TROUBLESHOOTING.md`
+
+**Quick Fixes:**
+
+**Error 522 (Connection Timeout):**
+- Verify custom domain is added in Cloudflare Pages project
+- Check DNS records point to correct Pages project
+- Wait 5-10 minutes for DNS propagation
+
+**Output Directory Not Found:**
+- Verify `landing-pages/dws6-com/` exists in repository
+- Check GitHub Actions sync workflow has run
+- Manually trigger workflow if needed
+
+**Build Failures:**
+- Check build logs in Cloudflare Pages dashboard
+- Verify `wrangler.toml` configuration
+- Ensure all required files are in repository
+
+### 8.2 Supabase Issues / Supabase-ongelmat
+
+**Connection Timeout:**
+```bash
+# Test connection
+curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
+```
+
+**RLS Blocking Queries:**
+```sql
+-- Check policies
+SELECT * FROM pg_policies WHERE tablename = 'your_table';
+```
+
+**Migration Errors:**
+```bash
+# Check status
+supabase migration list
+```
+
+---
+
+## 9. Monitoring & Analytics
+
+### 9.1 Cloudflare Analytics / Cloudflare-analytiikka
+
+Access analytics at: https://dash.cloudflare.com/pages
+
+**Key Metrics / Keskeiset Mittarit:**
+- Page views / Sivulataukset
+- Unique visitors / Yksilölliset vierailijat
+- Bandwidth usage / Kaistankäyttö
+- Response times / Vasteajat
+- Error rates / Virhetilastot
+
+### 9.2 Performance Monitoring / Suorituskyvyn Seuranta
+
+Monitor these metrics regularly:
+
+| Metric | Target | Alert Threshold |
+|--------|--------|-----------------|
+| Page Load Time | < 2s | > 3s |
+| Time to Interactive | < 3s | > 5s |
+| Uptime | 99.9% | < 99% |
+| Error Rate | < 0.1% | > 1% |
+
+### 9.3 Checklists / Tarkistuslistat
+
+#### Daily Checklist / Päivittäinen tarkistuslista
 - [ ] Site is accessible (https://dws6.com)
 - [ ] SSL certificate is valid
 - [ ] No 4xx/5xx errors in logs
 - [ ] Deployment status is "Success"
+- [ ] Supabase health check passes
 
-### Weekly Checklist / Viikottainen tarkistuslista
+#### Weekly Checklist / Viikottainen tarkistuslista
 - [ ] Review Cloudflare analytics
 - [ ] Check performance metrics
 - [ ] Review security events
 - [ ] Test all major pages
 - [ ] Verify backup/rollback capability
+- [ ] Check Supabase database size
+- [ ] Review API usage metrics
 
-### Monthly Checklist / Kuukausittainen tarkistuslista
+#### Monthly Checklist / Kuukausittainen tarkistuslista
 - [ ] Review and optimize assets
 - [ ] Update content as needed
 - [ ] Check SSL certificate expiry (auto-renewed)
 - [ ] Review and update documentation
 - [ ] Audit security settings
+- [ ] Review Supabase backups
+- [ ] Optimize database queries
+- [ ] Update dependencies
 
 ---
 
@@ -747,6 +1219,7 @@ sudo systemd-resolve --flush-caches
 ### Links / Linkit
 - **Live Site:** https://dws6.com
 - **Cloudflare Dashboard:** https://dash.cloudflare.com/pages
+- **Supabase Dashboard:** https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz
 - **GitHub Repository:** https://github.com/blogtheristo/dws6
 - **V9 Documentation:** `/dws6.com/V9_FINAL_COMPLETION.md`
 

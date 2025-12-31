@@ -187,6 +187,11 @@ pnpm-debug.log*
 credentials.json
 service-account-*.json
 
+# --- SUPABASE CREDENTIALS ---
+supabase/PROJECT_INFO.md
+supabase/.env
+supabase/.env.local
+
 # --- FINANCIAL MODELS ---
 *financial-model*.xlsx
 *roi-calculator*.xlsx
