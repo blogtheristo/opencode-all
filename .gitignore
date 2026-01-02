@@ -65,6 +65,12 @@ Metropolia2026/
 Admin/
 # Exception: Policy documentation (not confidential data, safe to commit)
 !Admin/CONFIDENTIAL-handling-policy.md
+# Exception: Security documentation (technical docs, non-confidential)
+!Admin/Security/ADMIN_*.md
+!Admin/Security/SECURITY_*.md
+!Admin/Security/SECURITY_*.txt
+!Admin/Security/SIMONWILLISON_*.md
+!Admin/SECURITY_*.md
 # Exception: Installation documentation (customer delivery guides)
 !Admin/Installation/
 !Admin/Installation/**
