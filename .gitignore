@@ -82,6 +82,8 @@ Admin/
 # Exception: Public documentation guides
 !Admin/INSTALLATION_MANUAL.md
 !Admin/TWITTER_AUTOMATION_GUIDE.md
+!Admin/ADMIN_MANUAL.md
+!Admin/SECURITY_AUDIT_REPORT.md
 # Exception: Development setup guides
 !Admin/Installation/Development/
 !Admin/Installation/Development/**
