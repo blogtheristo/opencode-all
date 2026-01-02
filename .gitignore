@@ -243,3 +243,19 @@ dws6.com/shared/config/supabase-config.js
 dws6.com/**/.env.local
 dws6.com/**/.env.*.local
 dws6.com/**/config/*.local.js
+
+# --- SECURITY LOGS (Simon Willison Security Framework) ---
+# Security event logs contain sensitive information about attacks
+logs/security/
+*.security.log
+security_*.log
+
+# Security audit reports
+*-security-report.json
+pip-audit-report.json
+safety-report.json
+sbom.json
+
+# Snyk reports
+snyk.sarif
+.snyk

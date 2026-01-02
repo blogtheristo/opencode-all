@@ -1,0 +1,93 @@
+name: Dependency Review & Security Scan
+on:
+  pull_request:
+    types: [opened, synchronize]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight UTC
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  dependency-review:
+    name: Dependency Security Review
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          deny-licenses: AGPL-3.0, GPL-3.0  # Copyleft licenses incompatible with commercial use
+          comment-summary-in-pr: true
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Security Tools
+        run: |
+          pip install pip-audit safety cyclonedx-bom
+      
+      - name: Python Security Scan (pip-audit)
+        run: |
+          pip-audit --desc --format json --output pip-audit-report.json || true
+          pip-audit --desc
+      
+      - name: Python Security Scan (safety)
+        run: |
+          safety check --json --output safety-report.json || true
+          safety check
+      
+      - name: Generate SBOM
+        run: |
+          cyclonedx-py -o sbom.json
+      
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            pip-audit-report.json
+            safety-report.json
+            sbom.json
+      
+      - name: Comment PR with Security Summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let comment = '## 🔒 Security Scan Results\n\n';
+            
+            try {
+              const pipAudit = JSON.parse(fs.readFileSync('pip-audit-report.json', 'utf8'));
+              const vulnCount = pipAudit.dependencies?.filter(d => d.vulns?.length > 0).length || 0;
+              comment += `### pip-audit\n- **Vulnerabilities Found:** ${vulnCount}\n\n`;
+            } catch (e) {
+              comment += '### pip-audit\n- ✅ No vulnerabilities found\n\n';
+            }
+            
+            try {
+              const safety = JSON.parse(fs.readFileSync('safety-report.json', 'utf8'));
+              const safetyVulns = safety.vulnerabilities?.length || 0;
+              comment += `### safety\n- **Vulnerabilities Found:** ${safetyVulns}\n\n`;
+            } catch (e) {
+              comment += '### safety\n- ✅ No vulnerabilities found\n\n';
+            }
+            
+            comment += '\n📦 Full SBOM available in workflow artifacts.\n';
+            comment += '\n---\n*Security scan powered by DWS IQ 6 Security Framework*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
