@@ -1,7 +1,7 @@
 # DWS IQ Platform - Admin Manual
 
-**Version:** 1.3
-**Last Updated:** December 23, 2025
+**Version:** 1.4
+**Last Updated:** January 3, 2026
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
@@ -16,10 +16,11 @@
 6. [Session History](#session-history)
 7. [Maintenance Plan (Complete)](#maintenance-plan-complete) ⭐ **NEW**
 8. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) ⭐ **NEW**
-9. [Maintenance Tasks](#maintenance-tasks)
-10. [Git Workflow](#git-workflow)
-11. [Sensitive Data Protection](#sensitive-data-protection)
-12. [Emergency Procedures](#emergency-procedures)
+9. [Code Review Process](#code-review-process) ⭐ **NEW in v1.4**
+10. [Maintenance Tasks](#maintenance-tasks)
+11. [Git Workflow](#git-workflow)
+12. [Sensitive Data Protection](#sensitive-data-protection)
+13. [Emergency Procedures](#emergency-procedures)
 
 ---
 
@@ -702,6 +703,103 @@ jobs:
 
 ---
 
+## Code Review Process
+
+### Overview
+
+**Status:** ✅ **STREAMLINED** (as of January 3, 2026)
+
+DWS6 uses an integrated code review process that leverages existing AI tools without additional API costs.
+
+### Review Tools (Current Setup)
+
+| Tool | Purpose | Cost | Status |
+|------|---------|------|--------|
+| **Cursor AI (Claude/GPT)** | Interactive code review | Included in Cursor subscription | ✅ Active |
+| **Snyk MCP** | Security vulnerability scanning | Free/Pro tier | ✅ Active |
+| **GitHub Copilot Review** | Automated PR review | Included in GitHub | ✅ Available |
+| **Ruff** | Python linting & security | Free | ✅ Active |
+
+### Removed Tools
+
+| Tool | Reason | Alternative |
+|------|--------|-------------|
+| **Argus PR Review** | Required separate OpenAI API key (~$20-100/mo) | Cursor AI + Snyk MCP |
+
+**Archive Location:** `Archive/workflows/argus-code-review.yml.DEPRECATED`
+
+### Review Workflow
+
+#### 1. Pre-Commit Review (Local)
+
+```powershell
+# Run before committing
+.\scripts\gdpr-safety-check.ps1    # Security check
+ruff check .                        # Python linting
+npm run lint                        # JS/TS linting (if applicable)
+```
+
+#### 2. AI-Assisted Review (Cursor)
+
+Use Cursor AI for interactive code review:
+
+```
+# Example prompts:
+"Review this diff for security issues"
+"Check this code for OWASP Top 10 vulnerabilities"
+"Analyze this function for performance issues"
+"Review this PR for code quality"
+```
+
+**Benefits:**
+- ✅ Interactive - can ask follow-up questions
+- ✅ Context-aware - sees full codebase
+- ✅ No extra cost - included in Cursor subscription
+- ✅ Multi-model - Claude Opus 4.5, GPT-5.2
+
+#### 3. Security Scanning (Automated)
+
+**Snyk MCP** runs automatically via Cursor:
+
+```
+# Manual scan (if needed)
+snyk code test
+snyk test
+```
+
+**GitHub Actions** run on push/PR:
+- `security-scan-daily.yml` - Daily security scan
+- `security-check-pr.yml` - PR security review
+- `dependency_review.yml` - Dependency vulnerability check
+
+#### 4. GitHub Copilot Review (Optional)
+
+Request automated review on any PR:
+
+```bash
+gh pr review --request-review copilot
+```
+
+### Review Checklist
+
+Before approving/merging a PR:
+
+- [ ] Security scan passed (Snyk/Ruff)
+- [ ] No deployment files included
+- [ ] No secrets or credentials
+- [ ] Tests pass (if applicable)
+- [ ] Code follows project conventions
+- [ ] Documentation updated (if needed)
+
+### Best Practices
+
+1. **Use Cursor AI for complex reviews** - Interactive dialogue reveals issues faster
+2. **Run Snyk before pushing** - Catch vulnerabilities early
+3. **Review deployment file protections** - Pre-commit hook should block sensitive files
+4. **Check GitHub Actions results** - Automated security scans catch what humans miss
+
+---
+
 ## Maintenance Tasks
 
 ### Weekly Tasks
@@ -1090,6 +1188,7 @@ If security vulnerability is actively exploited:
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
 | 1.3 | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore | PxSux |
 | 1.2 | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap | - |
 | 1.1 | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance) | - |
