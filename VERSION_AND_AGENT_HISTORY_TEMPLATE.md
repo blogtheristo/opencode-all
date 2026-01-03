@@ -1,10 +1,10 @@
 # 📋 VERSION AND AGENT HISTORY TEMPLATE
 
-**Version:** 0.3
+**Version:** 0.4
 **Primary Tool:** Claude Code
-**Session ID:** QVvDX
+**Session ID:** Current Session
 **Created:** 16.12.2025
-**Last Modified:** 16.12.2025 16:05
+**Last Modified:** 03.01.2026 12:15
 **Status:** ✅ ACTIVE
 **Language:** English
 
@@ -400,12 +400,120 @@ Check that VERSION AND AGENT HISTORY was updated
 
 ---
 
+## 🔌 AGENT CONNECTION STATUS TRACKING
+
+### Why Track Agent Connections?
+
+Monitor active agent sessions to:
+- Detect delivery/connection errors
+- Identify which agents are currently active
+- Track agent availability and uptime
+- Maintain audit trail of agent-to-task assignments
+
+### Agent Connection Status Template
+
+Add this section to track which agents have been used and their current status:
+
+```yaml
+---
+# AGENT CONNECTION STATUS LOG
+# Track all agents used in this project session
+
+Last Updated: [TODAY DATE & TIME]
+Session Tracking Status: ✅ Active | ⚠️ Intermittent | ❌ Down
+
+Connected Agents:
+  - Agent: Cursor.ai
+    Status: ✅ Connected
+    Session IDs: [R7k9M, ABC123, ...]
+    Last Seen: [TIMESTAMP]
+    Error Status: ✅ No errors | ⚠️ Intermittent | ❌ Disconnected
+    Commits This Session: [NUMBER]
+    
+  - Agent: Claude Code
+    Status: ✅ Connected
+    Session IDs: [QVvDX, ...]
+    Last Seen: [TIMESTAMP]
+    Error Status: ✅ No errors | ⚠️ Intermittent | ❌ Disconnected
+    Commits This Session: [NUMBER]
+    
+  - Agent: Gemini.app
+    Status: ❌ Not Connected
+    Session IDs: None
+    Last Seen: [TIMESTAMP or N/A]
+    Error Status: ✅ No errors | ⚠️ Intermittent | ❌ Disconnected
+    Commits This Session: 0
+
+Delivery Status by Agent:
+  - Cursor.ai: ✅ All deliveries successful
+  - Claude Code: ✅ All deliveries successful
+  - Gemini.app: ⚠️ Last connection error: [DESCRIBE]
+  - Other: [Add as needed]
+
+Connection Error Log:
+  - [TIMESTAMP] - Cursor.ai - Error: "Connection timeout" - Resolved: [YES/NO]
+  - [TIMESTAMP] - Claude Code - Error: [DESCRIPTION] - Resolved: [YES/NO]
+
+---
+```
+
+### How to Use
+
+**Before Starting a Session:**
+```
+1. Open this template
+2. Update "Last Updated" timestamp
+3. Check each agent status
+4. Note any connection errors from previous session
+```
+
+**During Session:**
+```
+1. Record your agent type and session ID
+2. Add to appropriate agent entry
+3. Track any connection drops
+```
+
+**After Session:**
+```
+1. Update delivery status for each agent
+2. Log any errors encountered
+3. Note if errors affected deliveries (commits/pushes)
+4. Commit this file with status updates
+```
+
+### Agent Status Indicators
+
+| Status | Meaning | Action Required |
+|--------|---------|-----------------|
+| ✅ Connected | Agent responding normally | Monitor for issues |
+| ⚠️ Intermittent | Occasional connection drops | Retry operations; log errors |
+| ❌ Disconnected | Agent not responding | Check network; restart if needed |
+| ⚠️ Delivery Error | Commits/pushes failed | Retry; check Git status |
+| ✅ No errors | Session completed successfully | Standard operation |
+
+### Example: Connection Error Investigation
+
+```
+If Cursor.ai shows "connection error has stopped delivery":
+
+1. Check error log: What was the error?
+2. When did it occur? (timestamp)
+3. Did it affect current session? (Check commits)
+4. Was it resolved? (Check recent commits after error)
+5. Update status in this template
+6. Commit: "Agent Connection Status - Cursor.ai error resolved - session ABC123"
+```
+
+---
+
 ## 📞 QUESTIONS?
 
 Refer to:
 - **AI_AGENT_GUIDELINES.md** - General agent guidelines
 - **DOCUMENTATION_PUBLISHING_CHECKLIST.md** - Publishing process
 - **GitHub Commits** - Verify session links work
+- **VERSION_AND_AGENT_HISTORY_TEMPLATE.md** - This file (agent tracking)
 
 ---
 
@@ -416,15 +524,16 @@ Refer to:
 | 0.1 | 16.12.2025 15:30 | Initial template creation | Claude Code / QVvDX |
 | 0.2 | 16.12.2025 15:50 | Added Repository Status section (GitHub links, Protected status, .gitignore, Workflows); added Example 4 for automated workflows | Claude Code / QVvDX |
 | 0.3 | 16.12.2025 16:05 | Added Language/Kieli field in Document Status for version tracking across locales (English, Suomi, etc.) | Claude Code / QVvDX |
+| 0.4 | 03.01.2026 12:15 | Added AGENT CONNECTION STATUS TRACKING section to monitor agent deliveries, detect connection errors, and maintain audit trail of active agents and sessions | Claude Code / Current Session |
 
 ---
 
-**Last Updated:** 16.12.2025 16:05
+**Last Updated:** 03.01.2026 12:15
 **Status:** ✅ ACTIVE & READY FOR USE
-**Audience:** All AI agents creating/modifying documents
+**Audience:** All AI agents creating/modifying documents; Project managers monitoring agent connectivity
 **Language Support:** English, Suomi (templates ready for localization)
-**Next Review:** 16.01.2026
+**Next Review:** 03.02.2026
 
 ---
 
-*This template ensures full traceability of all document versions and their creation/modification history.*
+*This template ensures full traceability of all document versions and their creation/modification history, including agent connection monitoring for delivery verification.*
