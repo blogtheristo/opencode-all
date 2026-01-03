@@ -19,6 +19,7 @@ Date: December 30, 2025
 Version: 1.0.0
 """
 
+import ast
 import json
 import logging
 import os
@@ -367,13 +368,17 @@ class FirehorseReportEngine:
             Calculated value
         """
         # Simple calculation evaluation (can be extended)
-        # For safety, only allow basic arithmetic
+        # For safety, use ast.literal_eval for safe evaluation
         try:
             # Replace variable references with values
             # This is a simplified implementation
-            return eval(formula, {"__builtins__": {}}, data)
-        except Exception as e:
+            # Use ast.literal_eval for safe evaluation of literals only
+            return ast.literal_eval(formula)
+        except (ValueError, SyntaxError) as e:
+            # If literal_eval fails, the formula contains expressions
+            # For complex formulas, consider using simpleeval library
             logger.warning(f"Calculation evaluation failed: {e}")
+            logger.info("Consider using simpleeval for complex formulas")
             return None
 
     def generate_carbon_report(

@@ -116,8 +116,10 @@ def parse_wordpress_xml(xml_path, output_dir):
             file_path = os.path.join(output_dir, filename)
 
             # Create Markdown with Frontmatter
+            # Escape quotes in title (Python 3.11 compatible)
+            escaped_title = title.replace('"', '\\"')
             markdown_content = f"""---
-title: "{title.replace('"', '\\"')}"
+title: "{escaped_title}"
 date: {post_date.strftime("%Y-%m-%d")}
 slug: {slug}
 type: {post_type}

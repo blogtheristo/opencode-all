@@ -201,22 +201,25 @@ class DangerousQueryExamples:
     def vulnerable_get_customer_bad(cursor, customer_id: str):
         """
         ❌ VULNERABLE: f-string SQL injection
+        This is an intentional example of vulnerable code for documentation purposes.
         """
-        query = f"SELECT * FROM customers WHERE id = '{customer_id}'"
+        query = f"SELECT * FROM customers WHERE id = '{customer_id}'"  # noqa: S608
         cursor.execute(query)  # Attacker can inject: ' OR '1'='1
 
     @staticmethod
     def vulnerable_search_bad(cursor, search_term: str):
         """
         ❌ VULNERABLE: .format() SQL injection
+        This is an intentional example of vulnerable code for documentation purposes.
         """
-        query = f"SELECT * FROM reports WHERE content LIKE '%{search_term}%'"
+        query = f"SELECT * FROM reports WHERE content LIKE '%{search_term}%'"  # noqa: S608
         cursor.execute(query)  # Attacker can inject: %'; DROP TABLE reports; --
 
     @staticmethod
     def vulnerable_filter_bad(cursor, region: str):
         """
         ❌ VULNERABLE: % formatting SQL injection
+        This is an intentional example of vulnerable code for documentation purposes.
         """
-        query = "SELECT * FROM projects WHERE region = '%s'" % region
+        query = "SELECT * FROM projects WHERE region = '%s'" % region  # noqa: S608
         cursor.execute(query)  # Attacker can inject: ' UNION SELECT * FROM users --
