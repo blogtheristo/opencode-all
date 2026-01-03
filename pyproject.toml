@@ -4,6 +4,10 @@ version = "0.1.0"
 description = "DWS6 Climate Tech Platform with Agentic AI"
 requires-python = ">=3.11"
 
+[tool.poetry]
+# Disable package mode - we use Poetry only for dependency management
+package-mode = false
+
 [tool.ruff]
 # Same line length as Black
 line-length = 88
