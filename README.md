@@ -2,6 +2,8 @@
 
 ![Lifetime Oy - Firehorse](Firehorse2026.png)
 
+![Lifetime Oy - 8 Industries](8_Industries.png)
+
 ![Lifetime Oy - 16 Industries Fit for 55](FitFor55_16_Industries.png)
 
 ---
@@ -114,6 +116,8 @@ Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Ne
 ---
 
 ## Lifetime Brand Portfolio
+
+![Lifetime 8 Industries](8_Industries.png)
 
 ![Lifetime 16 Industries - Fit for 55](FitFor55_16_Industries.png)
 

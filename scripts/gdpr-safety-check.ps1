@@ -15,21 +15,23 @@ $BLOCKED_FILES = @()
 # Get staged file names once
 $stagedNames = git diff --cached --name-only 2>&1
 
-    # Check for Admin/ folder files (with exceptions for security documentation)
-    $adminFiles = $stagedNames | Where-Object { $_ -like 'Admin/*' }
-    if ($adminFiles -and $adminFiles.Count -gt 0) {
-        # Filter out allowed security documentation
-        $blockedAdminFiles = $adminFiles | Where-Object {
-            $_ -notmatch '^Admin/Security/ADMIN_.*\.md$' -and
-            $_ -notmatch '^Admin/Security/SECURITY_.*\.md$' -and
-            $_ -notmatch '^Admin/Security/SECURITY_.*\.txt$' -and
-            $_ -notmatch '^Admin/Security/SIMONWILLISON_.*\.md$' -and
-            $_ -notmatch '^Admin/Security/DWS-IQ6-.*\.md$' -and
-            $_ -notmatch '^Admin/Security/REORGANIZATION_.*\.md$' -and
-            $_ -notmatch '^Admin/SECURITY_.*\.md$' -and
-            $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
-            $_ -notlike 'Admin/Installation/*'
-        }
+# Check for Admin/ folder files (with exceptions for public documentation)
+$adminFiles = $stagedNames | Where-Object { $_ -like 'Admin/*' }
+if ($adminFiles -and $adminFiles.Count -gt 0) {
+    # Filter out allowed documentation (matches .gitignore exceptions)
+    $blockedAdminFiles = $adminFiles | Where-Object {
+        $_ -notmatch '^Admin/Security/ADMIN_.*\.md$' -and
+        $_ -notmatch '^Admin/Security/SECURITY_.*\.md$' -and
+        $_ -notmatch '^Admin/Security/SECURITY_.*\.txt$' -and
+        $_ -notmatch '^Admin/Security/SIMONWILLISON_.*\.md$' -and
+        $_ -notmatch '^Admin/Security/DWS-IQ6-.*\.md$' -and
+        $_ -notmatch '^Admin/Security/REORGANIZATION_.*\.md$' -and
+        $_ -notmatch '^Admin/SECURITY_.*\.md$' -and
+        $_ -notmatch '^Admin/ADMIN_MANUAL\.md$' -and
+        $_ -notmatch '^Admin/TWITTER_AUTOMATION_GUIDE\.md$' -and
+        $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
+        $_ -notlike 'Admin/Installation/*'
+    }
     
     if ($blockedAdminFiles -and $blockedAdminFiles.Count -gt 0) {
         Write-Host "`n[BLOCKED] Files from Admin/ folder detected!" -ForegroundColor Red
