@@ -19,7 +19,7 @@
 DWS IQ 6 is not a point solution. It is a complete industrial intelligence organism designed to automate climate compliance for 8 industries.
 
 - **🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
-- **💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM) and Enteprise own Models and Tool stack.
+- **💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM) and Enteprise own Models and Tool stack with integrations (SAP, Aspentech, ABB Robotics, NVIDIA).
 - **🏢 BODY (8 Industrial Solutions and Firehorse Apps)**: Vertical-specific applications for Construction, Manufacturing, Logistics, and more.
 - **🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. **(Currently generating €7-14k MRR)**.
 
