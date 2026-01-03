@@ -48,16 +48,16 @@ Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Ne
 - Firehorse™ Omnichannel Next.
 
 ### Technology
-- **Lifetime™Quantum Elements**
-- **Lifetime™Robotics**
-- **Lifetime™Cloud**
+- Lifetime™Quantum Elements
+- Lifetime™Robotics
+- Lifetime™Cloud
 
 ### Digital Assets
 - **Lifetime™World Coin ($LTW)**
 - **Lifetime World Coin®**
 - **LTWCash®**
 - **LTWCertificate®**
-- **LTWCertificate®**
+- **LTW Partners Certificate®**
 
 ---
 
