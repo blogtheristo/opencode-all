@@ -240,7 +240,7 @@ class SecurityCorrelator:
         paths.extend(re.findall(path_pattern, content))
         return paths
 
-    def _analyze_false_negative(self, area: dict, attacks: list[dict]) -> str:
+    def _analyze_false_negative(self, _area: dict, attacks: list[dict]) -> str:
         """Analyze why a "secure" area has attacks"""
         possible_causes = []
 

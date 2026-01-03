@@ -20,7 +20,7 @@ import re
 logger = logging.getLogger(__name__)
 
 try:
-    from PIL import Image, ImageDraw, ImageFont, ImageStat
+    from PIL import Image, ImageDraw, ImageStat
 
     PIL_AVAILABLE = True
 except ImportError:

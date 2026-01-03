@@ -317,7 +317,7 @@ class ZenFree:
                         body = await request.body()
                         if body:
                             data["body"] = body.decode("utf-8", errors="ignore")
-                except:
+                except Exception:
                     pass
 
                 # Check for threats

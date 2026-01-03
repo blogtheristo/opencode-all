@@ -146,11 +146,7 @@ def generate_policy(filename, output_subdir, title_override=None):
     # Split frontmatter if exists
     if content.startswith("---"):
         parts = content.split("---", 2)
-        if len(parts) >= 3:
-            raw_md = parts[2].strip()
-            # metadata = yaml.safe_load(parts[1]) # unused for now
-        else:
-            raw_md = content
+        raw_md = parts[2].strip() if len(parts) >= 3 else content
     else:
         raw_md = content
 

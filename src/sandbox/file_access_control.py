@@ -102,20 +102,19 @@ class FileAccessControl:
         Raises:
             PermissionError: If operation is not allowed
         """
-        if operation in ["write", "delete", "chmod", "chown"]:
-            if not cls.is_write_allowed(path):
-                logger.error(
-                    f"Cross-agent privilege escalation blocked! "
-                    f"Operation: {operation}, Path: {path}"
-                )
-                raise PermissionError(
-                    f"Cross-agent privilege escalation blocked!\n"
-                    f"Operation: {operation}\n"
-                    f"Path: {path}\n\n"
-                    f"Protected system configuration cannot be modified by agents.\n"
-                    f"This is a security protection against malicious prompt injection.\n\n"
-                    f"Reference: https://simonwillison.net/2025/Sep/24/cross-agent-privilege-escalation/"
-                )
+        if operation in ["write", "delete", "chmod", "chown"] and not cls.is_write_allowed(path):
+            logger.error(
+                f"Cross-agent privilege escalation blocked! "
+                f"Operation: {operation}, Path: {path}"
+            )
+            raise PermissionError(
+                f"Cross-agent privilege escalation blocked!\n"
+                f"Operation: {operation}\n"
+                f"Path: {path}\n\n"
+                f"Protected system configuration cannot be modified by agents.\n"
+                f"This is a security protection against malicious prompt injection.\n\n"
+                f"Reference: https://simonwillison.net/2025/Sep/24/cross-agent-privilege-escalation/"
+            )
 
     @classmethod
     def add_protected_path(cls, path: Path) -> None:

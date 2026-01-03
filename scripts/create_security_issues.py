@@ -11,10 +11,9 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path  # For path sanitization
-from typing import Optional
 
 # Import Github for type hints
-Github = Optional[object]
+Github = object | None
 
 
 class SecurityIssueCreator:
