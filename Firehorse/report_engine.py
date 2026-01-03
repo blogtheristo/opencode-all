@@ -29,22 +29,15 @@ from typing import Any
 
 # Third-party imports
 try:
-    import matplotlib.pyplot as plt
     import openpyxl
-    import pandas as pd
     from docx import Document
     from docx.enum.text import WD_ALIGN_PARAGRAPH
-    from docx.shared import Inches, Pt, RGBColor
-    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.styles import Font
     from pptx import Presentation
-    from pptx.util import Inches as PptxInches
-    from pptx.util import Pt as PptxPt
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-    from reportlab.lib.units import mm
     from reportlab.platypus import (
-        PageBreak,
         Paragraph,
         SimpleDocTemplate,
         Spacer,
@@ -356,7 +349,7 @@ class FirehorseReportEngine:
 
         return current
 
-    def _evaluate_calculation(self, formula: str, data: dict) -> Any:
+    def _evaluate_calculation(self, formula: str, _data: dict) -> Any:
         """
         Evaluate calculation formula.
 
@@ -440,7 +433,7 @@ class FirehorseReportEngine:
             logger.error(f"Failed to generate carbon report: {e}")
             raise
 
-    def _generate_pdf(self, template: dict, language: str) -> bytes:
+    def _generate_pdf(self, template: dict, _language: str) -> bytes:
         """
         Generate PDF report using ReportLab.
 
@@ -530,7 +523,7 @@ class FirehorseReportEngine:
         logger.info("PDF report generated successfully")
         return pdf_content
 
-    def _generate_docx(self, template: dict, language: str) -> bytes:
+    def _generate_docx(self, template: dict, _language: str) -> bytes:
         """
         Generate DOCX report using python-docx.
 
@@ -589,7 +582,7 @@ class FirehorseReportEngine:
         logger.info("DOCX report generated successfully")
         return docx_content
 
-    def _generate_xlsx(self, template: dict, language: str) -> bytes:
+    def _generate_xlsx(self, template: dict, _language: str) -> bytes:
         """
         Generate XLSX report using openpyxl.
 
@@ -652,7 +645,7 @@ class FirehorseReportEngine:
         logger.info("XLSX report generated successfully")
         return xlsx_content
 
-    def _generate_pptx(self, template: dict, language: str) -> bytes:
+    def _generate_pptx(self, template: dict, _language: str) -> bytes:
         """
         Generate PPTX presentation using python-pptx.
 
