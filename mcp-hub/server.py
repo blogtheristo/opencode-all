@@ -7,17 +7,18 @@ Protected by Aikido Zen - Runtime Application Firewall
 """
 
 import asyncio
+import logging
 import os
 from datetime import datetime
-from typing import Dict, Any, Optional
-from fastapi import FastAPI, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import httpx
-import logging
+from typing import Any
 
 # Security: Initialize Aikido Zen before any other code
 import aikido_zen
+import httpx
+from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
 aikido_zen.protect()
 
 logging.basicConfig(level=logging.INFO)
@@ -27,7 +28,7 @@ logger.info("🔒 Aikido Zen runtime protection initialized")
 app = FastAPI(
     title="DWS MCP Coordination Hub",
     description="Multi-agent orchestration for DWS IQ 6 development",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # Enable CORS
@@ -50,14 +51,14 @@ MCP_SERVERS = {
 class AgentTask(BaseModel):
     agent: str  # cursor, claude-code, gemini
     task: str
-    context: Optional[Dict[str, Any]] = None
+    context: dict[str, Any] | None = None
     priority: str = "normal"  # low, normal, high, critical
 
 
 class WorkflowRequest(BaseModel):
     workflow_type: str  # fan-out, reflection, sequential
     tasks: list[AgentTask]
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: dict[str, Any] | None = None
 
 
 @app.get("/")
@@ -68,7 +69,7 @@ async def root():
         "version": "1.0.0",
         "status": "operational",
         "mcp_servers": list(MCP_SERVERS.keys()),
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
     }
 
 
@@ -83,7 +84,7 @@ async def health_check():
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
         "mcp_servers": {},
-        "note": "Hub is operational; external services may be unavailable"
+        "note": "Hub is operational; external services may be unavailable",
     }
 
     # Check each MCP server with timeout and no exception propagation
@@ -93,20 +94,19 @@ async def health_check():
                 response = await client.get(f"{server_url}/health", timeout=3.0)
                 health_status["mcp_servers"][server_name] = {
                     "status": "healthy" if response.status_code == 200 else "unhealthy",
-                    "url": server_url
+                    "url": server_url,
                 }
             except Exception as e:
                 # Unavailable services don't cause overall failure
                 health_status["mcp_servers"][server_name] = {
                     "status": "unreachable",
                     "error": str(e)[:100],  # Truncate error for brevity
-                    "url": server_url
+                    "url": server_url,
                 }
 
     # Determine overall status without failing on unavailable dependencies
     healthy_count = sum(
-        1 for s in health_status["mcp_servers"].values()
-        if s["status"] == "healthy"
+        1 for s in health_status["mcp_servers"].values() if s["status"] == "healthy"
     )
     total_count = len(health_status["mcp_servers"])
 
@@ -134,21 +134,17 @@ async def execute_agent_task(task: AgentTask, background_tasks: BackgroundTasks)
     """
     # Log task to Supabase
     background_tasks.add_task(
-        log_agent_activity,
-        agent_name=task.agent,
-        task_desc=task.task,
-        status="started"
+        log_agent_activity, agent_name=task.agent, task_desc=task.task, status="started"
     )
 
-    result = {
+    return {
         "task_id": f"{task.agent}_{datetime.now().timestamp()}",
         "agent": task.agent,
         "status": "queued",
         "priority": task.priority,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
     }
 
-    return result
 
 
 @app.post("/workflow/fan-out")
@@ -161,17 +157,13 @@ async def execute_fan_out_workflow(workflow: WorkflowRequest):
     """
     if workflow.workflow_type != "fan-out":
         raise HTTPException(
-            status_code=400,
-            detail="Invalid workflow type for this endpoint"
+            status_code=400, detail="Invalid workflow type for this endpoint"
         )
 
     # Execute all tasks in parallel
     results = []
     async with httpx.AsyncClient(timeout=300.0) as client:
-        tasks = [
-            execute_task_async(client, task)
-            for task in workflow.tasks
-        ]
+        tasks = [execute_task_async(client, task) for task in workflow.tasks]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
     # Fan-in: Aggregate results
@@ -180,7 +172,7 @@ async def execute_fan_out_workflow(workflow: WorkflowRequest):
         "workflow_type": "fan-out",
         "tasks_count": len(workflow.tasks),
         "results": results,
-        "completed_at": datetime.now().isoformat()
+        "completed_at": datetime.now().isoformat(),
     }
 
 
@@ -194,18 +186,14 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
     """
     if workflow.workflow_type != "reflection":
         raise HTTPException(
-            status_code=400,
-            detail="Invalid workflow type for this endpoint"
+            status_code=400, detail="Invalid workflow type for this endpoint"
         )
 
     max_iterations = 3
     implementation_task = workflow.tasks[0]  # First task is implementation
     evaluation_criteria = workflow.metadata.get("criteria", [])
 
-    results = {
-        "iterations": [],
-        "final_score": 0.0
-    }
+    results = {"iterations": [], "final_score": 0.0}
 
     # Reflection loop
     for iteration in range(max_iterations):
@@ -216,19 +204,18 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
         eval_task = AgentTask(
             agent="gemini",
             task=f"Evaluate implementation against criteria: {evaluation_criteria}",
-            context={
-                "implementation": impl_result,
-                "criteria": evaluation_criteria
-            }
+            context={"implementation": impl_result, "criteria": evaluation_criteria},
         )
 
         eval_result = await execute_task_async(None, eval_task)
 
-        results["iterations"].append({
-            "iteration": iteration + 1,
-            "implementation": impl_result,
-            "evaluation": eval_result
-        })
+        results["iterations"].append(
+            {
+                "iteration": iteration + 1,
+                "implementation": impl_result,
+                "evaluation": eval_result,
+            }
+        )
 
         # Check if score meets threshold
         score = eval_result.get("score", 0.0)
@@ -239,7 +226,7 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
         # Update implementation task with feedback
         implementation_task.context = {
             "previous_implementation": impl_result,
-            "feedback": eval_result.get("feedback", [])
+            "feedback": eval_result.get("feedback", []),
         }
 
     return {
@@ -248,15 +235,12 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
         "iterations_executed": len(results["iterations"]),
         "final_score": results["final_score"],
         "results": results,
-        "completed_at": datetime.now().isoformat()
+        "completed_at": datetime.now().isoformat(),
     }
 
 
 @app.post("/workflow/bim-carbon-pipeline")
-async def execute_bim_carbon_pipeline(
-    project_id: str,
-    bim_file_url: str
-):
+async def execute_bim_carbon_pipeline(project_id: str, bim_file_url: str):
     """
     Specialized workflow for BIM → Carbon Calculation pipeline
 
@@ -271,38 +255,32 @@ async def execute_bim_carbon_pipeline(
     geometry_task = AgentTask(
         agent="cursor",
         task=f"Extract geometry data from BIM file: {bim_file_url}",
-        context={"project_id": project_id, "file_url": bim_file_url}
+        context={"project_id": project_id, "file_url": bim_file_url},
     )
 
     # Step 2: Calculate carbon (simulated - would call Claude Code agent)
     carbon_task = AgentTask(
         agent="claude-code",
         task="Calculate embodied carbon from BIM geometry using EN 15978 methodology",
-        context={"project_id": project_id}
+        context={"project_id": project_id},
     )
 
     # Step 3: Validate compliance (simulated - would call Gemini agent)
     validation_task = AgentTask(
         agent="gemini",
         task="Validate carbon calculations against EU Fit for 55 compliance rules",
-        context={"project_id": project_id, "country": "FI"}
+        context={"project_id": project_id, "country": "FI"},
     )
 
     # Execute sequential pipeline
-    results = {
-        "workflow_id": workflow_id,
-        "project_id": project_id,
-        "steps": []
-    }
+    results = {"workflow_id": workflow_id, "project_id": project_id, "steps": []}
 
     # In real implementation, these would be actual agent calls
     for task in [geometry_task, carbon_task, validation_task]:
         step_result = await execute_task_async(None, task)
-        results["steps"].append({
-            "agent": task.agent,
-            "task": task.task,
-            "result": step_result
-        })
+        results["steps"].append(
+            {"agent": task.agent, "task": task.task, "result": step_result}
+        )
 
     # Store results to Supabase
     async with httpx.AsyncClient() as client:
@@ -312,14 +290,16 @@ async def execute_bim_carbon_pipeline(
                 "agent_name": "bim-carbon-pipeline",
                 "task": f"Complete pipeline for project {project_id}",
                 "status": "completed",
-                "metadata": results
-            }
+                "metadata": results,
+            },
         )
 
     return results
 
 
-async def execute_task_async(client: Optional[httpx.AsyncClient], task: AgentTask) -> Dict[str, Any]:
+async def execute_task_async(
+    client: httpx.AsyncClient | None, task: AgentTask
+) -> dict[str, Any]:
     """
     Execute a single task asynchronously
 
@@ -334,7 +314,7 @@ async def execute_task_async(client: Optional[httpx.AsyncClient], task: AgentTas
         "task": task.task,
         "status": "completed",
         "result": f"Task executed by {task.agent}",
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
     }
 
 
@@ -352,16 +332,21 @@ async def log_agent_activity(agent_name: str, task_desc: str, status: str):
                     "agent_name": agent_name,
                     "task": task_desc,
                     "status": status,
-                    "metadata": {"source": "mcp-hub"}
-                }
+                    "metadata": {"source": "mcp-hub"},
+                },
             )
     except Exception as e:
         # Gracefully handle logging failures without disrupting the hub
         import sys
-        print(f"[WARNING] Failed to log {agent_name} activity: {type(e).__name__}", file=sys.stderr)
+
+        print(
+            f"[WARNING] Failed to log {agent_name} activity: {type(e).__name__}",
+            file=sys.stderr,
+        )
 
 
 if __name__ == "__main__":
     import uvicorn
+
     port = int(os.getenv("PORT", "8765"))
     uvicorn.run(app, host="0.0.0.0", port=port)

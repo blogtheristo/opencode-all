@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """Generate PDF from investor pitch deck markdown"""
 
-from weasyprint import HTML, CSS
-import markdown
 import os
+
+import markdown
+from weasyprint import HTML
+
 
 def generate_pdf():
     # Read the markdown file
-    with open('investor-outreach/investor-pitch-deck.md', 'r', encoding='utf-8') as f:
+    with open("investor-outreach/investor-pitch-deck.md", encoding="utf-8") as f:
         md_content = f.read()
 
     # Convert markdown to HTML
-    html_content = markdown.markdown(md_content, extensions=['tables', 'fenced_code'])
+    html_content = markdown.markdown(md_content, extensions=["tables", "fenced_code"])
 
     # Create a styled HTML document
     full_html = f"""
@@ -121,12 +123,12 @@ def generate_pdf():
     """
 
     # Generate PDF with compression
-    output_path = 'docs/presentations/DWS-IQ6-Investor-Pitch-Deck-2025.pdf'
+    output_path = "docs/presentations/DWS-IQ6-Investor-Pitch-Deck-2025.pdf"
 
     print("Generating PDF...")
     HTML(string=full_html).write_pdf(
         output_path,
-        optimize_size=('fonts', 'images'),
+        optimize_size=("fonts", "images"),
     )
 
     print(f"✅ PDF generated: {output_path}")
@@ -135,5 +137,6 @@ def generate_pdf():
     size_mb = os.path.getsize(output_path) / (1024 * 1024)
     print(f"📄 File size: {size_mb:.2f} MB")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     generate_pdf()

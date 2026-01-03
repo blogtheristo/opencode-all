@@ -4,9 +4,9 @@ Convert DWS IQ6 Investor Pitch Deck from Markdown to PDF
 Optimized to stay below 10MB
 """
 
-import markdown
 import os
-from pathlib import Path
+
+import markdown
 
 # File paths
 input_file = r"d:\Proton\My files\2026\Repos2026\dws6\investor-outreach\DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.md"
@@ -14,13 +14,12 @@ output_html = r"d:\Proton\My files\2026\Repos2026\dws6\investor-outreach\DWS-IQ6
 output_pdf = r"d:\Proton\My files\2026\Repos2026\dws6\investor-outreach\DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.pdf"
 
 # Read markdown content
-with open(input_file, 'r', encoding='utf-8') as f:
+with open(input_file, encoding="utf-8") as f:
     md_content = f.read()
 
 # Convert to HTML with extensions
 html_content = markdown.markdown(
-    md_content,
-    extensions=['tables', 'fenced_code', 'toc', 'meta', 'nl2br']
+    md_content, extensions=["tables", "fenced_code", "toc", "meta", "nl2br"]
 )
 
 # Create styled HTML document
@@ -132,7 +131,7 @@ styled_html = f"""
 """
 
 # Write HTML file
-with open(output_html, 'w', encoding='utf-8') as f:
+with open(output_html, "w", encoding="utf-8") as f:
     f.write(styled_html)
 
 print(f"✅ HTML file created: {output_html}")
@@ -140,24 +139,24 @@ print(f"✅ HTML file created: {output_html}")
 # Try to convert to PDF using weasyprint (no external dependencies)
 try:
     from weasyprint import HTML
-    
+
     print("⏳ Converting HTML to PDF using WeasyPrint...")
     HTML(output_html).write_pdf(
         output_pdf,
-        optimize_size=('fonts', 'images')  # Optimize to reduce file size
+        optimize_size=("fonts", "images"),  # Optimize to reduce file size
     )
-    
+
     # Check file size
     file_size_mb = os.path.getsize(output_pdf) / (1024 * 1024)
     print(f"✅ PDF file created: {output_pdf}")
     print(f"📊 File size: {file_size_mb:.2f} MB")
-    
+
     if file_size_mb < 10:
         print("✅ File size is below 10 MB!")
     else:
         print("⚠️ Warning: File size exceeds 10 MB")
         print("   Consider reducing images or content to stay under 10 MB")
-        
+
 except Exception as e:
     print(f"⚠️ Could not create PDF: {e}")
     print("\n📋 Alternative options:")

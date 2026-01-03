@@ -17,23 +17,22 @@ Usage:
     python scripts/security/check_dependency_domains.py
 """
 
-import requests
 import sys
-from pathlib import Path
-from typing import List, Dict
 import time
 
+import requests
 
-def load_requirements(file_path: str = "requirements.txt") -> List[str]:
+
+def load_requirements(file_path: str = "requirements.txt") -> list[str]:
     """Load package names from requirements.txt."""
     try:
-        with open(file_path, 'r') as f:
+        with open(file_path) as f:
             packages = []
             for line in f:
                 line = line.strip()
-                if line and not line.startswith('#'):
+                if line and not line.startswith("#"):
                     # Extract package name (before ==, >=, etc.)
-                    pkg_name = line.split('==')[0].split('>=')[0].split('<=')[0].strip()
+                    pkg_name = line.split("==")[0].split(">=")[0].split("<=")[0].strip()
                     packages.append(pkg_name)
             return packages
     except FileNotFoundError:
@@ -41,108 +40,103 @@ def load_requirements(file_path: str = "requirements.txt") -> List[str]:
         return []
 
 
-def check_package_domains(package: str) -> Dict:
+def check_package_domains(package: str) -> dict:
     """Check PyPI package for broken domains."""
     try:
-        response = requests.get(
-            f"https://pypi.org/pypi/{package}/json",
-            timeout=10
-        )
-        
+        response = requests.get(f"https://pypi.org/pypi/{package}/json", timeout=10)
+
         if response.status_code == 404:
             return {
                 "package": package,
                 "status": "NOT_FOUND",
-                "issues": ["Package not found on PyPI"]
+                "issues": ["Package not found on PyPI"],
             }
-        
+
         response.raise_for_status()
         metadata = response.json()
-        
-        info = metadata.get('info', {})
+
+        info = metadata.get("info", {})
         issues = []
-        
+
         # Check project URLs
-        project_urls = info.get('project_urls', {})
+        project_urls = info.get("project_urls", {})
         for url_type, url in project_urls.items():
             if url:
                 try:
-                    url_response = requests.head(
-                        url,
-                        allow_redirects=True,
-                        timeout=5
-                    )
+                    url_response = requests.head(url, allow_redirects=True, timeout=5)
                     if url_response.status_code >= 400:
-                        issues.append(f"{url_type} URL is broken: {url} (HTTP {url_response.status_code})")
+                        issues.append(
+                            f"{url_type} URL is broken: {url} (HTTP {url_response.status_code})"
+                        )
                 except requests.RequestException as e:
                     issues.append(f"{url_type} URL unreachable: {url} ({e})")
-        
+
         # Check homepage
-        homepage = info.get('home_page')
+        homepage = info.get("home_page")
         if homepage:
             try:
                 homepage_response = requests.head(
-                    homepage,
-                    allow_redirects=True,
-                    timeout=5
+                    homepage, allow_redirects=True, timeout=5
                 )
                 if homepage_response.status_code >= 400:
-                    issues.append(f"Homepage is broken: {homepage} (HTTP {homepage_response.status_code})")
+                    issues.append(
+                        f"Homepage is broken: {homepage} (HTTP {homepage_response.status_code})"
+                    )
             except requests.RequestException as e:
                 issues.append(f"Homepage unreachable: {homepage} ({e})")
-        
+
         return {
             "package": package,
             "status": "OK" if not issues else "WARNING",
-            "issues": issues
+            "issues": issues,
         }
-        
+
     except Exception as e:
         return {
             "package": package,
             "status": "ERROR",
-            "issues": [f"Failed to check package: {e}"]
+            "issues": [f"Failed to check package: {e}"],
         }
 
 
 def main():
     print("🔍 Checking dependency domains for security issues...\n")
-    
+
     packages = load_requirements()
-    
+
     if not packages:
         print("❌ No packages found to check", file=sys.stderr)
         sys.exit(1)
-    
+
     print(f"Found {len(packages)} packages to check\n")
-    
+
     issues_found = False
-    
+
     for i, package in enumerate(packages, 1):
-        print(f"[{i}/{len(packages)}] Checking {package}...", end=' ')
+        print(f"[{i}/{len(packages)}] Checking {package}...", end=" ")
         result = check_package_domains(package)
-        
-        if result['status'] == 'OK':
+
+        if result["status"] == "OK":
             print("✅")
-        elif result['status'] == 'WARNING':
+        elif result["status"] == "WARNING":
             print("⚠️")
             issues_found = True
-            for issue in result['issues']:
+            for issue in result["issues"]:
                 print(f"  - {issue}")
-        elif result['status'] == 'ERROR':
+        elif result["status"] == "ERROR":
             print("❌")
             issues_found = True
-            for issue in result['issues']:
+            for issue in result["issues"]:
                 print(f"  - {issue}")
-        elif result['status'] == 'NOT_FOUND':
+        elif result["status"] == "NOT_FOUND":
             print("❌ NOT FOUND")
             issues_found = True
-        
+
         # Rate limiting
         time.sleep(0.5)
-    
+
     print()
-    
+
     if issues_found:
         print("⚠️  Some dependencies have domain issues - review above")
         sys.exit(1)

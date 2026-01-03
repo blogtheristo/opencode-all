@@ -13,66 +13,66 @@ Log Categories:
 - Authentication failures
 """
 
-import logging
 import json
+import logging
 from datetime import datetime
-from typing import Dict, Any, Optional
 from pathlib import Path
+from typing import Any
 
 
 class SecurityLogger:
     """
     Centralized security event logger.
     """
-    
-    def __init__(self, log_dir: Optional[Path] = None):
+
+    def __init__(self, log_dir: Path | None = None):
         """
         Initialize security logger.
-        
+
         Args:
             log_dir: Directory for log files (default: logs/security)
         """
         if log_dir is None:
             log_dir = Path("logs/security")
-        
+
         self.log_dir = log_dir
         self.log_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Setup logger
         self.logger = logging.getLogger("dws6.security")
         self.logger.setLevel(logging.INFO)
-        
+
         # File handler for security events
         log_file = self.log_dir / f"security_{datetime.now().strftime('%Y%m%d')}.log"
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(logging.INFO)
-        
+
         # JSON formatter for structured logging
         formatter = logging.Formatter(
             '{"timestamp": "%(asctime)s", "level": "%(levelname)s", "event": "%(message)s"}'
         )
         file_handler.setFormatter(formatter)
-        
+
         self.logger.addHandler(file_handler)
-        
+
         # Console handler for critical events
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.WARNING)
-        console_handler.setFormatter(logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        ))
+        console_handler.setFormatter(
+            logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        )
         self.logger.addHandler(console_handler)
-    
+
     def log_event(
         self,
         event_type: str,
         severity: str,
-        details: Dict[str, Any],
-        customer_id: Optional[str] = None
+        details: dict[str, Any],
+        customer_id: str | None = None,
     ) -> None:
         """
         Log security event.
-        
+
         Args:
             event_type: Type of security event
             severity: Severity level (INFO, WARNING, ERROR, CRITICAL)
@@ -84,11 +84,11 @@ class SecurityLogger:
             "severity": severity,
             "customer_id": customer_id,
             "details": details,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.utcnow().isoformat(),
         }
-        
+
         log_message = json.dumps(event)
-        
+
         if severity == "CRITICAL":
             self.logger.critical(log_message)
         elif severity == "ERROR":
@@ -97,13 +97,13 @@ class SecurityLogger:
             self.logger.warning(log_message)
         else:
             self.logger.info(log_message)
-    
+
     def log_prompt_injection_attempt(
         self,
         source: str,
         content: str,
         patterns_matched: list,
-        customer_id: Optional[str] = None
+        customer_id: str | None = None,
     ) -> None:
         """Log prompt injection attempt."""
         self.log_event(
@@ -113,16 +113,13 @@ class SecurityLogger:
                 "source": source,
                 "content_preview": content[:200],
                 "patterns_matched": patterns_matched,
-                "reference": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+                "reference": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
             },
-            customer_id=customer_id
+            customer_id=customer_id,
         )
-    
+
     def log_data_exfiltration_attempt(
-        self,
-        blocked_url: str,
-        reason: str,
-        customer_id: Optional[str] = None
+        self, blocked_url: str, reason: str, customer_id: str | None = None
     ) -> None:
         """Log data exfiltration attempt."""
         self.log_event(
@@ -131,17 +128,13 @@ class SecurityLogger:
             details={
                 "blocked_url": blocked_url,
                 "reason": reason,
-                "reference": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
+                "reference": "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
             },
-            customer_id=customer_id
+            customer_id=customer_id,
         )
-    
+
     def log_csrf_attempt(
-        self,
-        ip_address: str,
-        user_agent: str,
-        path: str,
-        reason: str
+        self, ip_address: str, user_agent: str, path: str, reason: str
     ) -> None:
         """Log CSRF attack attempt."""
         self.log_event(
@@ -152,15 +145,15 @@ class SecurityLogger:
                 "user_agent": user_agent,
                 "path": path,
                 "reason": reason,
-                "reference": "https://simonwillison.net/2025/Oct/15/csrf-in-go/"
-            }
+                "reference": "https://simonwillison.net/2025/Oct/15/csrf-in-go/",
+            },
         )
-    
+
     def log_sql_injection_attempt(
         self,
         query_preview: str,
         vulnerability_type: str,
-        customer_id: Optional[str] = None
+        customer_id: str | None = None,
     ) -> None:
         """Log SQL injection attempt."""
         self.log_event(
@@ -169,15 +162,13 @@ class SecurityLogger:
             details={
                 "query_preview": query_preview,
                 "vulnerability_type": vulnerability_type,
-                "reference": "https://simonwillison.net/2025/Dec/18/posthog-vulnerability/"
+                "reference": "https://simonwillison.net/2025/Dec/18/posthog-vulnerability/",
             },
-            customer_id=customer_id
+            customer_id=customer_id,
         )
-    
+
     def log_open_redirect_attempt(
-        self,
-        redirect_url: str,
-        customer_id: Optional[str] = None
+        self, redirect_url: str, customer_id: str | None = None
     ) -> None:
         """Log open redirect attempt."""
         self.log_event(
@@ -185,16 +176,13 @@ class SecurityLogger:
             severity="WARNING",
             details={
                 "redirect_url": redirect_url,
-                "reference": "https://simonwillison.net/2025/Nov/5/datasette-open-redirect/"
+                "reference": "https://simonwillison.net/2025/Nov/5/datasette-open-redirect/",
             },
-            customer_id=customer_id
+            customer_id=customer_id,
         )
-    
+
     def log_privilege_escalation_attempt(
-        self,
-        operation: str,
-        path: str,
-        customer_id: Optional[str] = None
+        self, operation: str, path: str, customer_id: str | None = None
     ) -> None:
         """Log cross-agent privilege escalation attempt."""
         self.log_event(
@@ -203,34 +191,21 @@ class SecurityLogger:
             details={
                 "operation": operation,
                 "path": path,
-                "reference": "https://simonwillison.net/2025/Sep/24/cross-agent-privilege-escalation/"
+                "reference": "https://simonwillison.net/2025/Sep/24/cross-agent-privilege-escalation/",
             },
-            customer_id=customer_id
+            customer_id=customer_id,
         )
-    
-    def log_auth_failure(
-        self,
-        username: str,
-        ip_address: str,
-        reason: str
-    ) -> None:
+
+    def log_auth_failure(self, username: str, ip_address: str, reason: str) -> None:
         """Log authentication failure."""
         self.log_event(
             event_type="AUTH_FAILURE",
             severity="INFO",
-            details={
-                "username": username,
-                "ip_address": ip_address,
-                "reason": reason
-            }
+            details={"username": username, "ip_address": ip_address, "reason": reason},
         )
-    
+
     def log_config_modification(
-        self,
-        key: str,
-        old_value: Any,
-        new_value: Any,
-        authorized_by: str
+        self, key: str, old_value: Any, new_value: Any, authorized_by: str
     ) -> None:
         """Log configuration modification."""
         self.log_event(
@@ -240,13 +215,13 @@ class SecurityLogger:
                 "key": key,
                 "old_value": str(old_value),
                 "new_value": str(new_value),
-                "authorized_by": authorized_by
-            }
+                "authorized_by": authorized_by,
+            },
         )
 
 
 # Global security logger instance
-_security_logger: Optional[SecurityLogger] = None
+_security_logger: SecurityLogger | None = None
 
 
 def get_security_logger() -> SecurityLogger:

@@ -1,16 +1,37 @@
 # DWS IQ 6 Security - Admin Manuals Index
 ## Complete Documentation for Security Operations
 
-**Document Version**: 1.0.0  
-**Date**: January 2, 2026  
+**Document Version**: 1.1.0  
+**Date**: January 3, 2026  
 **Classification**: Internal - Admin Only  
 **Maintained By**: Security Team
+
+> 🆕 **January 2026 Update:** Added new security update document for January 3, 2026 session improvements.
 
 ---
 
 ## 📚 Available Admin Manuals
 
 ### Core Security Modules
+
+#### 0. January 2026 Security Update (NEW)
+**File**: `JANUARY_2026_SECURITY_UPDATE.md`  
+**Purpose**: Summary of all security improvements made on January 3, 2026  
+**Key Topics**:
+- Ruff linter adoption (30x faster)
+- 398 code quality issues fixed
+- 16 security vulnerabilities resolved
+- GitHub Actions upgraded to v4
+- CI/CD workflow syntax fixes
+- Knowledge gap analysis (2024 training vs 2026 reality)
+
+**When to Use**:
+- Understanding 2026 security improvements
+- Onboarding new team members
+- Security audit preparation
+- Reviewing deprecated tool versions
+
+---
 
 #### 1. GitHub App Integration & Security
 **File**: `GITHUB_APP_SECURITY_ADMIN.md`  
@@ -431,6 +452,7 @@
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
+| 1.1.0 | 2026-01-03 | Added January 2026 Security Update document | Cursor Agent |
 | 1.0.0 | 2026-01-02 | Initial creation of all admin manuals | Security Team |
 
 ---
@@ -467,7 +489,7 @@ grep "CRITICAL" logs/security/security_$(date +%Y%m%d).log
 
 ---
 
-**Last Updated**: January 2, 2026  
+**Last Updated**: January 3, 2026  
 **Next Review**: April 1, 2026  
 **Document Owner**: Security Team  
 **Maintained By**: security@dws10.com

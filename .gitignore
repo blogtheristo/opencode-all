@@ -70,6 +70,9 @@ Admin/
 !Admin/Security/SECURITY_*.md
 !Admin/Security/SECURITY_*.txt
 !Admin/Security/SIMONWILLISON_*.md
+!Admin/Security/JANUARY_*.md
+!Admin/Security/MASTER_INDEX.md
+!Admin/Security/COMPLETE_*.md
 !Admin/SECURITY_*.md
 # Exception: Installation documentation (customer delivery guides)
 !Admin/Installation/

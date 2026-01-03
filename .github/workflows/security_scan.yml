@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   security-events: write
+  actions: read  # Required for CodeQL upload-sarif to access workflow run metadata
 
 jobs:
   snyk-scan:
