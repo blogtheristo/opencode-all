@@ -155,11 +155,18 @@ Manufacturing SMEs in Europe face a "twin transition"—simultaneous digital and
 
 **For manufacturing SMEs**: Digital-green twin transition orchestration—automating the decisions you lack headcount for: energy optimization, waste routing, supplier decarbonization scoring.
 
-### Built for EU Companies by EU-Certified Consultants
+### Built for Enterprise Procurement
 
-- ISO 27001 security certification
-- EU data residency (Chromebook PWA + Google Cloud Run infrastructure)
-- ROI calculator: €50-100k annual savings through materialized compliance efficiency
+**Security baseline that satisfies your CISO:**
+
+| Requirement | Our Answer |
+|-------------|------------|
+| "We need SOC 2 / ISO 27001" | ISO 27001 certification Q3 2026, SOC 2 Type II Q4 2026. Pen test report available now. |
+| "Data must stay in EU" | 100% EU hosting (Finland/Germany). Customer VPC deployment available. |
+| "We need to review your security" | Full vendor risk package ready: DPA, security policies, sub-processor list. |
+| "Can you deploy in our environment?" | Yes. Customer VPC, private cloud, or hybrid edge deployment. |
+
+**ROI:** €50-100k annual savings through automated compliance workflows
 
 ### Pilot Program (Running)
 
@@ -301,20 +308,54 @@ docker-compose -f docker-compose.mcp.yml up -d
 
 ---
 
-## 🔒 Compliance & Legal
+## 🔒 Enterprise Security & Compliance
 
-Lifetime DWS IQ is a **Private Cloud** solution designed for strict EU compliance (Fit for 55, GDPR, NIS2, EU AI Act).
+> **"We only buy SOC 2 audited vendors."** — We offer VPC deployment in your environment, pen test reports, and ISO 27001 certification roadmap (Q3 2026).
 
-*   **Your Data, Your Cloud:** We deploy into your private environment (Google/Azure). We do NOT train our public models on your industrial data.
-*   **GDPR & Data Sovereignty:** Full compliance with EU General Data Protection Regulation (2016/679). Data remains within the EU/EEA.
-*   **Documentation:**
-    *   [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
-    *   [Agreement & Project Terms](privacy-policy/Agreement_Project_Terms.md)
-    *   [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
-    *   [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md) ✨ **NEW**
-    *   [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
-    *   [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
-    *   [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
+### Security-First Architecture
+
+DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries. Security is a prerequisite—not a feature.
+
+| Capability | Implementation |
+|------------|----------------|
+| **Deployment** | Customer VPC / Private Cloud (your environment, your control) |
+| **Data Residency** | 100% EU (Finland, Germany). Data never leaves EU/EEA. |
+| **Encryption** | AES-256-GCM at rest, TLS 1.3 in transit, BYOK/CMEK supported |
+| **Access Control** | RBAC + ABAC, SSO (SAML 2.0 / OIDC), MFA enforced |
+| **Audit Logging** | Immutable logs, 7-year retention, SIEM export ready |
+| **AI Data Policy** | We do NOT train public models on customer data |
+
+### Compliance Roadmap
+
+| Standard | Status | Timeline |
+|----------|--------|----------|
+| **ISO 27001** | Aligned, certification in progress | Q3 2026 |
+| **SOC 2 Type II** | Readiness complete | Q4 2026 |
+| **GDPR** | Fully compliant | ✅ Active |
+| **NIS2** | Compliant architecture | ✅ Active |
+| **EU AI Act** | High-risk AI compliance | Q2 2026 |
+
+### Vendor Risk Package (Ready)
+
+Pre-prepared documentation for your procurement team:
+
+- ✅ **Data Processing Agreement (DPA)** — GDPR Art. 28, EU SCCs included
+- ✅ **Security Policy Package** — Access control, incident response, change management
+- ✅ **Penetration Test Report** — Annual third-party assessment (under NDA)
+- ✅ **Sub-processor List** — All vendors with EU adequacy status
+- ✅ **BCP/DR Documentation** — RTO 4h, RPO 1h, 99.9% SLA
+
+📖 **Full Security Documentation:** [SECURITY_COMPLIANCE.md](SECURITY_COMPLIANCE.md)
+
+### Legal & Privacy
+
+*   [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
+*   [Data Processing Agreement](privacy-policy/Agreement_Project_Terms.md)
+*   [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
+*   [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md)
+*   [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
+*   [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
+*   [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
 
 ---
 
@@ -330,7 +371,7 @@ Founder & CEO, Lifetime Consulting
 
 ---
 
-Document Version: 2.2
+Document Version: 2.3
 Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
 AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
