@@ -18,11 +18,12 @@ DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries
 
 ### Deployment Options
 
-| Option | Description | Best For |
-|--------|-------------|----------|
-| **Customer VPC** | DWS IQ deployed entirely within your Google Cloud / Azure / AWS environment | Enterprises requiring full data sovereignty |
-| **Dedicated Private Cloud** | Isolated single-tenant EU infrastructure managed by Lifetime | Mid-market companies needing EU compliance without VPC overhead |
-| **Hybrid Edge** | Core platform in your VPC + NVIDIA Jetson edge devices on-site | Construction & manufacturing with offline requirements |
+| Option | Description | Best For | Industry Fit |
+|--------|-------------|----------|--------------|
+| **Customer VPC** | DWS IQ deployed entirely within your Google Cloud / Azure / AWS environment | Enterprises requiring full data sovereignty | 🏗️ Construction HQ, 🏭 Manufacturing IT |
+| **Dedicated Private Cloud** | Isolated single-tenant EU infrastructure managed by Lifetime | Mid-market companies needing EU compliance without VPC overhead | 🏗️ Regional contractors, 🚗 Fleet operators |
+| **Hybrid Edge** | Core platform in your VPC + NVIDIA Jetson edge devices on-site | Offline-capable deployments | 🏗️ Construction sites, 🏭 Factory floor |
+| **OT-Isolated Edge** | Air-gapped edge deployment with unidirectional data export | Critical OT environments | 🏭 Manufacturing OT zones |
 
 ### Data Separation Model
 
@@ -58,33 +59,74 @@ DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries
 
 ## 📋 Compliance Framework
 
-### Standards We Follow
+### Standards by Industry Vertical
 
-| Standard | Status | Timeline |
-|----------|--------|----------|
-| **ISO 27001** | Aligned, certification in progress | Q3 2026 certification target |
-| **SOC 2 Type II** | Readiness assessment complete | Q4 2026 (post-ISO 27001) |
-| **GDPR** | Fully compliant | ✅ Active |
-| **NIS2** | Compliant architecture | ✅ Active |
-| **EU AI Act** | High-risk AI compliance roadmap | Q2 2026 assessment |
+We align our compliance roadmap with the specific requirements of each target industry:
 
-### ISO 27001 Certification Roadmap
+#### 🏗️ Construction (Priority 1)
+*Target: NCC, Skanska, Vinci, Strabag, Bouygues*
+
+| Standard | Status | Why It Matters |
+|----------|--------|----------------|
+| **ISO 27001** | Q3 2026 certification | Primary security standard for EU construction enterprises |
+| **NIS2 Directive** | ✅ Compliant | Critical infrastructure protection for large contractors |
+| **EN 15978 / EN 15804** | ✅ Integrated | Embodied carbon calculation standards (our core product) |
+| **BIM Security (ISO 19650)** | Aligned | Information management for construction projects |
+| **GDPR** | ✅ Active | Worker data, subcontractor data, site monitoring |
+
+#### 🏭 Manufacturing (Priority 2)
+*Target: Kone, Wärtsilä, ABB, Valmet*
+
+| Standard | Status | Why It Matters |
+|----------|--------|----------------|
+| **ISO 27001** | Q3 2026 certification | Information security baseline |
+| **IEC 62443** | Roadmap Q4 2026 | OT/Industrial control system security |
+| **NIS2 Directive** | ✅ Compliant | Essential entity requirements for manufacturing |
+| **ISO 14001** | Aligned | Environmental management integration |
+| **Machinery Regulation (EU) 2023/1230** | Aware | AI in industrial machinery considerations |
+
+**OT-Security Note:** For manufacturing deployments with OT integration, we maintain strict IT/OT network segmentation. Edge devices (NVIDIA Jetson) operate in isolated network zones with unidirectional data flows where required.
+
+#### 🚗 Lifetime Fleet — Vehicles, Robots, IoT (Priority 3)
+*Vehicles, drones, robotics, IoT devices — currently generating €7-14k MRR*
+
+| Standard | Status | Why It Matters |
+|----------|--------|----------------|
+| **SOC 2 Type II** | Q4 2026 certification | Required for fleet management SaaS, US/Nordic customers |
+| **DORA** | Roadmap 2026 | Digital Operational Resilience — if fleet data connects to financial systems |
+| **ISO 27001** | Q3 2026 certification | Baseline for all operations |
+| **GDPR** | ✅ Active | Driver data, GPS tracking, behavioral analytics |
+| **ePrivacy** | ✅ Compliant | Vehicle telematics, location data |
+| **UNECE R155/R156** | Aware | Cybersecurity for connected vehicles (OEM partnerships) |
+
+**DORA Relevance:** If Lifetime Fleet integrates with financial services (leasing companies, insurance telematics, fleet financing), DORA compliance becomes mandatory. Our architecture supports:
+- ICT risk management framework documentation
+- Incident reporting within 24 hours
+- Digital operational resilience testing
+- Third-party risk management (we provide sub-processor documentation)
+
+### Certification Roadmap
 
 ```
-Q1 2026: Gap assessment + ISMS documentation
-Q2 2026: Internal audit + management review
-Q3 2026: Stage 1 audit (documentation review)
-Q4 2026: Stage 2 audit (certification)
+Q1 2026: ISO 27001 gap assessment + ISMS documentation
+Q2 2026: Internal audit + management review + EU AI Act assessment
+Q3 2026: ISO 27001 Stage 1 & 2 audits → CERTIFICATION
+Q4 2026: SOC 2 Type II audit (Lifetime Fleet priority)
+Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 ```
 
-**Certification Body:** TÜV Rheinland (planned)
+**Certification Body:** TÜV Rheinland (ISO 27001), Deloitte/EY (SOC 2) — planned
 
-### Regulatory Alignment
+### Regulatory Alignment Summary
 
-- **GDPR (2016/679):** Data processing agreements, Art. 28 compliant, EU-only processing
-- **NIS2 Directive:** Critical infrastructure security measures implemented
-- **EU AI Act:** High-risk AI system documentation in preparation
-- **Fit for 55 / CSRD:** Our core product automates compliance with these regulations
+| Regulation | Applicability | Our Position |
+|------------|---------------|--------------|
+| **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
+| **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
+| **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
+| **EU AI Act** | All AI components | High-risk assessment Q2 2026 |
+| **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
+| **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
 
 ---
 
@@ -177,7 +219,7 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.0
+**Document Version:** 1.1
 **Last Updated:** January 3, 2026
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi

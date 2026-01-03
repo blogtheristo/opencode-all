@@ -325,15 +325,19 @@ DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries
 | **Audit Logging** | Immutable logs, 7-year retention, SIEM export ready |
 | **AI Data Policy** | We do NOT train public models on customer data |
 
-### Compliance Roadmap
+### Compliance by Industry
 
-| Standard | Status | Timeline |
-|----------|--------|----------|
-| **ISO 27001** | Aligned, certification in progress | Q3 2026 |
-| **SOC 2 Type II** | Readiness complete | Q4 2026 |
-| **GDPR** | Fully compliant | ✅ Active |
-| **NIS2** | Compliant architecture | ✅ Active |
-| **EU AI Act** | High-risk AI compliance | Q2 2026 |
+| Standard | Construction | Manufacturing | Lifetime Fleet |
+|----------|--------------|---------------|----------------|
+| **ISO 27001** | Q3 2026 ⭐ | Q3 2026 ⭐ | Q3 2026 |
+| **NIS2** | ✅ Active | ✅ Active | — |
+| **IEC 62443** | — | Q4 2026 | — |
+| **SOC 2 Type II** | — | — | Q4 2026 ⭐ |
+| **DORA** | — | — | Roadmap 2026 |
+| **GDPR** | ✅ Active | ✅ Active | ✅ Active |
+| **EU AI Act** | Q2 2026 | Q2 2026 | Q2 2026 |
+
+⭐ = Primary anchor standard for that vertical
 
 ### Vendor Risk Package (Ready)
 
@@ -371,7 +375,7 @@ Founder & CEO, Lifetime Consulting
 
 ---
 
-Document Version: 2.3
+Document Version: 2.4
 Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
 AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
