@@ -48,7 +48,7 @@ jobs:
       
       - name: Python Security Scan (safety)
         run: |
-          safety check --output json --save-as safety-report.json || true
+          safety check --save-json safety-report.json || true
           safety check || true
       
       - name: License Compliance Check
@@ -59,7 +59,7 @@ jobs:
       
       - name: Generate SBOM
         run: |
-          cyclonedx-py requirements --output-format json --output-file sbom.json || echo '{"bomFormat":"CycloneDX","specVersion":"1.4","version":1,"components":[]}' > sbom.json
+          cyclonedx-py requirements --outfile sbom.json || echo '{"bomFormat":"CycloneDX","specVersion":"1.4","version":1,"components":[]}' > sbom.json
       
       - name: Upload Security Reports
         uses: actions/upload-artifact@v4
