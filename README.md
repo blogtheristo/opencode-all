@@ -2,7 +2,8 @@
 
 ![Lifetime Oy - Firehorse](Firehorse2026.png)
 
-![Lifetime Oy - Industries](8_Industries.png)
+![Lifetime Oy - 16 Industries Fit for 55](FitFor55_16_Industries.png)
+
 ---
 
 ## 🚀 PILOT PHASE: RUNNING
@@ -17,11 +18,52 @@
 
 > **"The first industrial AI platform that thinks, remembers, executes, AND physically deploys — already generating revenue."**
 
-DWS IQ 6 is not a point solution. It is a complete industrial intelligence organism designed to automate climate compliance for **16 EU-regulated industries**.
+DWS IQ 6 is not a point solution. It is a **complete industrial intelligence organism** designed to automate climate compliance for **16 EU-regulated industries**.
 
-> **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack (ETS, CBAM, CSRD, EPBD, ESR).**
+### 🎯 The De Facto Platform for Fit for 55
+
+> **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack.**
+
+| Regulatory Layer | Coverage | DWS IQ 6 Capability |
+|------------------|----------|---------------------|
+| **ETS** | Emissions Trading System | Allowance tracking, trading, surrender automation |
+| **CBAM** | Carbon Border Adjustment | Import carbon calculations, certificate management |
+| **CSRD** | Sustainability Reporting | ESRS E1 climate disclosures, audit-ready data |
+| **EPBD** | Building Performance | Embodied carbon (EN 15978), lifecycle assessment |
+| **ESR** | Effort Sharing | National target tracking, non-ETS emissions |
+| **LULUCF** | Land Use & Forestry | Carbon sink accounting, forestry compliance |
+| **ReFuelEU** | Aviation & Maritime | SAF mandates, fuel intensity tracking |
+| **NIS2** | Cybersecurity | Secure infrastructure for critical entities |
 
 📖 **Full Industry Coverage:** [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
+
+### 🧠 Thinking Enlargement: From Compliance to Competitive Advantage
+
+DWS IQ 6 doesn't just help you comply — it transforms compliance into strategic advantage:
+
+```
+LEVEL 1: SURVIVAL (Most companies today)
+└── Manual compliance, reactive, scramble before audits
+    └── Risk: Penalties, reputation damage, market access loss
+
+LEVEL 2: EFFICIENCY (DWS IQ 6 Entry)
+└── Automated tracking, real-time monitoring, audit-ready
+    └── Benefit: 50-100k€/year savings, reduced headcount burden
+
+LEVEL 3: OPTIMIZATION (DWS IQ 6 Advanced)
+└── Carbon-optimized decisions, supply chain visibility
+    └── Benefit: Lower material costs, better supplier terms
+
+LEVEL 4: LEADERSHIP (DWS IQ 6 + Strategy)
+└── First-mover positioning, carbon credit generation
+    └── Benefit: New revenue streams, ESG investor attraction
+
+LEVEL 5: TRANSFORMATION (DWS IQ 6 Ecosystem)
+└── Industry standard-setter, ecosystem orchestrator
+    └── Benefit: Market definition, regulatory influence
+```
+
+**Where are you today? Where do you want to be by 2030?**
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -76,7 +118,7 @@ Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generatin
 
 ## Lifetime Brand Portfolio
 
-![Lifetime 8 Industries](8_Industries.png)
+![Lifetime 16 Industries - Fit for 55](FitFor55_16_Industries.png)
 
 **DWS™IQ for intelligent industries**
 
@@ -379,7 +421,7 @@ Founder & CEO, Lifetime Consulting
 
 ---
 
-Document Version: 2.5
+Document Version: 2.6
 Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
 AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
