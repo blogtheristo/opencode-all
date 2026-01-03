@@ -12,7 +12,26 @@
 
 ### Core Security Modules
 
-#### 1. Domain Validator
+#### 1. GitHub App Integration & Security
+**File**: `GITHUB_APP_SECURITY_ADMIN.md`  
+**Purpose**: Managing GitHub App authentication, webhooks, and multi-domain integration  
+**Key Topics**:
+- GitHub App credentials management
+- Webhook security (HMAC SHA-256 verification)
+- Multi-domain coordination (dws10.com, dws6.com, onelifetime.world)
+- Private key and secret rotation
+- Incident response procedures
+
+**When to Use**:
+- Setting up GitHub App integration
+- Rotating credentials (quarterly)
+- Investigating webhook delivery failures
+- Security incident response
+- Automated PR review setup
+
+---
+
+#### 2. Domain Validator
 **File**: `ADMIN_MANUAL_DOMAIN_VALIDATOR.md`  
 **Purpose**: Managing URL allow-lists and preventing data exfiltration  
 **Key Topics**:
@@ -29,7 +48,7 @@
 
 ---
 
-#### 2. Security Testing & Validation
+#### 3. Security Testing & Validation
 **File**: `ADMIN_MANUAL_SECURITY_TESTING.md`  
 **Purpose**: Running and maintaining the security test suite  
 **Key Topics**:

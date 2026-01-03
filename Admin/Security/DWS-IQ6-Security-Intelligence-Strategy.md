@@ -11,7 +11,7 @@
 
 ## Executive Summary
 
-This document establishes a comprehensive security intelligence monitoring program for DWS IQ 6, expanding beyond Simon Willison's research to cover our complete technology stack and threat landscape.
+This document establishes a comprehensive security intelligence monitoring program for DWS IQ 6 to cover our complete technology stack and threat landscape.
 
 **Coverage Areas**:
 - AI/LLM Security (Claude, Groq, MCP agents)
