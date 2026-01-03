@@ -25,10 +25,18 @@ jobs:
         with:
           python-version: '3.11'
       
+      - name: Create consolidated requirements.txt
+        run: |
+          echo "# Consolidated requirements for Snyk scan" > requirements.txt
+          if [ -f requirements-security.txt ]; then cat requirements-security.txt >> requirements.txt; fi
+          if [ -f dev-requirements.txt ]; then cat dev-requirements.txt >> requirements.txt; fi
+          if [ -f mcp-hub/requirements.txt ]; then cat mcp-hub/requirements.txt >> requirements.txt; fi
+          echo "Created requirements.txt for scanning"
+          cat requirements.txt
+      
       - name: Install dependencies
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f dev-requirements.txt ]; then pip install -r dev-requirements.txt; fi
       
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python@master
