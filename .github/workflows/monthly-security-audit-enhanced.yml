@@ -129,14 +129,14 @@ jobs:
 
       # --- PHASE 6: Upload Artifacts ---
       - name: Upload Audit Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-audit-${{ github.run_id }}
           path: audit-report-*.md
           retention-days: 90
 
       - name: Upload Correlation Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-correlation-${{ github.run_id }}
           path: |
@@ -145,7 +145,7 @@ jobs:
           retention-days: 90
 
       - name: Upload Issues
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-issues-${{ github.run_id }}
           path: security-issues-*.json
