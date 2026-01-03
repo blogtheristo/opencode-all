@@ -63,18 +63,15 @@ jobs:
             if (fs.existsSync(reviewFile)) {
               const summary = JSON.parse(fs.readFileSync(reviewFile, 'utf8'));
               
-              const comment = `## 🤖 Argus Code Review Complete
-              
-### Summary
-- **Files Reviewed:** ${summary.filesReviewed || 0}
-- **Issues Found:** ${summary.issuesFound || 0}
-- **Security Issues:** ${summary.securityIssues || 0}
-- **Performance Issues:** ${summary.performanceIssues || 0}
-
-### Review Status
-${summary.status === 'approved' ? '✅ Approved' : '⚠️ Changes Requested'}
-
-[View Full Review](${summary.reviewUrl || ''})`;
+              let comment = '## 🤖 Argus Code Review Complete\n\n';
+              comment += '### Summary\n';
+              comment += `- **Files Reviewed:** ${summary.filesReviewed || 0}\n`;
+              comment += `- **Issues Found:** ${summary.issuesFound || 0}\n`;
+              comment += `- **Security Issues:** ${summary.securityIssues || 0}\n`;
+              comment += `- **Performance Issues:** ${summary.performanceIssues || 0}\n\n`;
+              comment += '### Review Status\n';
+              comment += summary.status === 'approved' ? '✅ Approved\n' : '⚠️ Changes Requested\n';
+              comment += `\n[View Full Review](${summary.reviewUrl || ''})`;
 
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
