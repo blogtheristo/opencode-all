@@ -87,11 +87,7 @@ class FileAccessControl:
                     return False
 
         # Check protected patterns
-        for pattern in cls.PROTECTED_PATTERNS:
-            if path.match(pattern):
-                return False
-
-        return True
+        return all(not path.match(pattern) for pattern in cls.PROTECTED_PATTERNS)
 
     @classmethod
     def validate_file_operation(cls, operation: str, path: Path) -> None:

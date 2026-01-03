@@ -42,7 +42,7 @@ def build_site():
     posts = []
     posts_dir = os.path.join(CONTENT_DIR, "posts")
     if os.path.exists(posts_dir):
-        for root, dirs, files in os.walk(posts_dir):
+        for root, _dirs, files in os.walk(posts_dir):
             for file in files:
                 if file.endswith(".md"):
                     path = os.path.join(root, file)
@@ -91,7 +91,7 @@ def build_site():
     # 4. Process Pages (Landing pages, About, etc.)
     pages_dir = os.path.join(CONTENT_DIR, "pages")
     if os.path.exists(pages_dir):
-        for root, dirs, files in os.walk(pages_dir):
+        for root, _dirs, files in os.walk(pages_dir):
             for file in files:
                 if file.endswith(".md"):
                     path = os.path.join(root, file)

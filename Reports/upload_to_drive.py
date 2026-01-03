@@ -37,8 +37,7 @@ def get_drive_service():
         creds_file, scopes=SCOPES
     )
 
-    service = build("drive", "v3", credentials=credentials)
-    return service
+    return build("drive", "v3", credentials=credentials)
 
 
 def upload_file(service, file_path, folder_id="root"):

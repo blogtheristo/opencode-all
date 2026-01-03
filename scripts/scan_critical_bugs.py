@@ -551,7 +551,7 @@ def main():
     print(f"   Low: {scanner.stats['low']}")
     print("=" * 60)
 
-    report = scanner.generate_report(args.output)
+    scanner.generate_report(args.output)
 
     if args.json:
         scanner.export_json(args.json)

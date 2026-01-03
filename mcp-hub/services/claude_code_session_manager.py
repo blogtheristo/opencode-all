@@ -92,7 +92,7 @@ class ClaudeCodeSessionManager:
         # Deduplicate and format as markdown
         unique_decisions = list(set(all_decisions))
 
-        claude_md = f"""# DWS IQ 6 Project Context
+        return f"""# DWS IQ 6 Project Context
 
 ## Architecture Decisions (Last {days_back} Days)
 
@@ -129,7 +129,6 @@ npm test
 
 Last updated: {datetime.now().isoformat()}
 """
-        return claude_md
 
     def _get_active_files(self, sessions: list[dict]) -> list[str]:
         """Extract frequently referenced files from session history"""

@@ -178,8 +178,8 @@ class SecurityIssueCreator:
 
 ## Finding Details
 
-**Type:** {issue_type.upper().replace("_", " ")}  
-**Component:** {title}  
+**Type:** {issue_type.upper().replace("_", " ")}
+**Component:** {title}
 **Severity:** {"CRITICAL" if attacks_count > 10 else "HIGH" if attacks_count > 5 else "MEDIUM"}
 
 ## Impact Assessment
@@ -209,8 +209,8 @@ class SecurityIssueCreator:
 
 ## Evidence
 
-**Source:** Correlation between monthly security audit and Aikido Zen runtime detection  
-**Generated:** {datetime.now().isoformat()}  
+**Source:** Correlation between monthly security audit and Aikido Zen runtime detection
+**Generated:** {datetime.now().isoformat()}
 **Correlation ID:** {os.getenv("GITHUB_RUN_ID", "unknown")}
 
 ## Related Documentation
@@ -221,7 +221,7 @@ class SecurityIssueCreator:
 
 ---
 
-*Created by automated security workflow*  
+*Created by automated security workflow*
 *Do not manually close - close via security remediation PR*
 """
 

@@ -283,9 +283,8 @@ def markdown_to_html(md_file):
     # Replace emoji status indicators with styled spans
     html = html.replace("🟢", '<span class="status-green">🟢</span>')
     html = html.replace("🟡", '<span class="status-yellow">🟡</span>')
-    html = html.replace("🔴", '<span class="status-red">🔴</span>')
+    return html.replace("🔴", '<span class="status-red">🔴</span>')
 
-    return html
 
 
 def create_logo_placeholder(output_path):

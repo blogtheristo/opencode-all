@@ -721,7 +721,7 @@ class FirehorseReportEngine:
             2D list of table data
         """
         columns = field.get("columns", [])
-        rows = field.get("rows", [])
+        field.get("rows", [])
         value = field.get("value", [])
 
         if not columns:
@@ -815,7 +815,7 @@ class FirehorseReportEngine:
         for rule in validation_rules:
             rule_name = rule.get("rule", "")
             severity = rule.get("severity", "error")
-            message = rule.get("message", f"Validation failed: {rule_name}")
+            rule.get("message", f"Validation failed: {rule_name}")
 
             # Evaluate rule (simplified)
             # In production, implement proper rule evaluation

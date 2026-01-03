@@ -73,7 +73,7 @@ def build_site():
 
     # 3. Process Content
     posts = []
-    for root, dirs, files in os.walk(os.path.join(CONTENT_DIR, "posts")):
+    for root, _dirs, files in os.walk(os.path.join(CONTENT_DIR, "posts")):
         for file in files:
             if file.endswith(".md"):
                 path = os.path.join(root, file)

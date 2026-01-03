@@ -15,7 +15,7 @@ except ImportError:
     from defusedxml import minidom
 
     warnings.warn(
-        "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning
+        "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning, stacklevel=2
     )
 
 # Configuration
@@ -94,7 +94,7 @@ def generate_html(product):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{product["title"]} | Lifetime Firehorse™Store</title>
-    <link rel="stylesheet" href="../static/css/style.css"> 
+    <link rel="stylesheet" href="../static/css/style.css">
     <style>
         body {{ font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }}
         .container {{ max-width: 800px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }}
@@ -102,7 +102,7 @@ def generate_html(product):
         .price {{ font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 20px; }}
         a.buy-btn {{ display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }}
         a.back-link {{ color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }}
-        
+
         .nav-header {{ background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }}
         .nav-brand {{ font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }}
         .nav-links {{ display: flex; gap: 20px; }}
@@ -164,7 +164,7 @@ def generate_policy(filename, output_subdir, title_override=None):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title_override if title_override else filename.replace(".md", "").replace("_", " ")} | Lifetime DWS IQ</title>
-    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <link rel="stylesheet" href="../../static/css/style.css">
     <style>
         body {{ font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }}
         .container {{ max-width: 900px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }}
@@ -179,7 +179,7 @@ def generate_policy(filename, output_subdir, title_override=None):
         .nav-links {{ display: flex; gap: 20px; align-items: center; }}
         .nav-links a {{ color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }}
         .nav-links a:hover {{ color: #60a5fa; }}
-        
+
         /* Dropdown */
         .nav-dropdown {{ position: relative; }}
         .nav-dropdown-content {{ display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }}
@@ -278,7 +278,7 @@ def generate_store_page(products):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lifetime Firehorse™Store | DWS IQ</title>
-    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <link rel="stylesheet" href="../../static/css/style.css">
     <style>
         body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
@@ -293,13 +293,13 @@ def generate_store_page(products):
         .product-excerpt { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; flex-grow: 1; }
         .buy-btn { display: block; text-align: center; background: #2563eb; color: white; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: auto; }
         .buy-btn:hover { background: #1d4ed8; }
-        
+
         .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
         .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
         .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
-        
+
         /* Dropdown */
         .nav-dropdown { position: relative; }
         .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }

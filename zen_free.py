@@ -168,7 +168,7 @@ class ZenFree:
                 threats.extend(self._scan_dict(val, child_path))
 
         elif isinstance(data, str):
-            for threat_type in self.PATTERNS.keys():
+            for threat_type in self.PATTERNS:
                 if self._check(data, threat_type):
                     threats.append(
                         {
@@ -337,8 +337,7 @@ class ZenFree:
                             {"error": "Security threat detected"}, status_code=403
                         )
 
-                response = await call_next(request)
-                return response
+                return await call_next(request)
 
         app.add_middleware(SecurityMiddleware, zen_instance=self)
         return app

@@ -68,7 +68,7 @@ class SecureQueryBuilder:
 
                 if cursor.description:
                     columns = [desc[0] for desc in cursor.description]
-                    return [dict(zip(columns, row)) for row in cursor.fetchall()]
+                    return [dict(zip(columns, row, strict=False)) for row in cursor.fetchall()]
 
                 return []
         except Exception as e:
@@ -221,5 +221,5 @@ class DangerousQueryExamples:
         ❌ VULNERABLE: % formatting SQL injection
         This is an intentional example of vulnerable code for documentation purposes.
         """
-        query = "SELECT * FROM projects WHERE region = '%s'" % region  # noqa: S608
+        query = f"SELECT * FROM projects WHERE region = '{region}'"  # noqa: S608
         cursor.execute(query)  # Attacker can inject: ' UNION SELECT * FROM users --

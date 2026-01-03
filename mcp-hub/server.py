@@ -137,7 +137,7 @@ async def execute_agent_task(task: AgentTask, background_tasks: BackgroundTasks)
         log_agent_activity, agent_name=task.agent, task_desc=task.task, status="started"
     )
 
-    result = {
+    return {
         "task_id": f"{task.agent}_{datetime.now().timestamp()}",
         "agent": task.agent,
         "status": "queued",
@@ -145,7 +145,6 @@ async def execute_agent_task(task: AgentTask, background_tasks: BackgroundTasks)
         "timestamp": datetime.now().isoformat(),
     }
 
-    return result
 
 
 @app.post("/workflow/fan-out")
