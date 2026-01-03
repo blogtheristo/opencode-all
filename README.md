@@ -20,8 +20,8 @@ DWS IQ 6 is not a point solution. It is a complete industrial intelligence organ
 
 - 🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
 - 💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM.Omnibus) and Enteprise own Models and Tool stack with integrations (SAP, Aspentech, ABB Robotics, NVIDIA) trained in industries own specifications and standards.
-- 🏢 BODY (8 Industrial Solutions and Firehorse™Apps): Vertical-specific applications for Construction, Manufacturing, Logistics, and more. Applications are supported with Firehorse Report Engine,
-- Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Next
+- 🏢 BODY (8 Industrial Solutions and Firehorse™Apps): Vertical-specific applications for Construction, Manufacturing, Logistics, and more. Applications are supported with Firehorse™Report Engine,
+Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Next.
 - 🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. (Currently generating €7-14k MRR).
 
 ---
@@ -35,11 +35,17 @@ DWS IQ 6 is not a point solution. It is a complete industrial intelligence organ
 **Lifetime™World. Lifetime Friends. Sustainability™Partner.**
 
 ### Platform Products
-- **DWS™IQ** - Industrial intelligence platform
-- **Lifetime™AIQ** solutions
-- **LTW™Investor Studio**
-- **Lifetime™RAG AI**
-- **Lifetime Studio 2026**
+- DWS™IQ 6 - Industrial Climate Intelligence Platform
+- Lifetime™AIQ solutions
+- LTW™Investor Studio
+- Lifetime™RAG AI
+- Lifetime™Studio 2026
+
+### Firehorse Product line
+- Firehorse™Report Engine,
+- Firehorse™Automation,
+- Firehorse™Content DMS, and
+- Firehorse™ Omnichannel Next.
 
 ### Technology
 - **Lifetime™Quantum Elements**
