@@ -22,6 +22,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -271,8 +272,9 @@ class CriticalBugScanner:
         if quick:
             # Quick scan: only changed files
             try:
+                git_path = shutil.which("git") or "/usr/bin/git"
                 result = subprocess.run(
-                    ["git", "diff", "--name-only", "HEAD"],
+                    [git_path, "diff", "--name-only", "HEAD"],
                     capture_output=True,
                     text=True,
                     cwd=self.root_dir,

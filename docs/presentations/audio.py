@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from gtts import gTTS
@@ -40,10 +41,15 @@ with open("filelist.txt", "w") as f:
 
 # Try to combine using ffmpeg if available, otherwise just keep individual files
 try:
+    # Get absolute path to ffmpeg for security
+    ffmpeg_path = shutil.which("ffmpeg")
+    if not ffmpeg_path:
+        raise FileNotFoundError("ffmpeg not found in PATH")
+
     # Create 5-second silence file using ffmpeg
     subprocess.run(
         [
-            "ffmpeg",
+            ffmpeg_path,
             "-f",
             "lavfi",
             "-i",
@@ -59,7 +65,7 @@ try:
     # Combine all files
     subprocess.run(
         [
-            "ffmpeg",
+            ffmpeg_path,
             "-f",
             "concat",
             "-safe",

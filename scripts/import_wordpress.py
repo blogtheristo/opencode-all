@@ -1,23 +1,11 @@
-import os
-
-# Use defusedxml to prevent XXE attacks when parsing external XML
-try:
-    import defusedxml.ElementTree as ET
-except ImportError:
-    # Fallback to standard ElementTree (VULNERABLE - install defusedxml for production!)
-    import warnings
-    import xml.etree.ElementTree as ET
-
-    warnings.warn(
-        "SECURITY WARNING: Using standard ElementTree for parsing external XML. "
-        "Install 'defusedxml' to protect against XXE attacks: pip install defusedxml",
-        UserWarning,
-        stacklevel=2,
-    )
 import argparse
 import io
+import os
 import re
 from datetime import datetime
+
+# Use defusedxml to prevent XXE attacks when parsing external XML
+import defusedxml.ElementTree as ET
 
 
 def clean_content(content):

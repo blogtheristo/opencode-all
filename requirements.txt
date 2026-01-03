@@ -26,6 +26,9 @@ pip-audit>=2.6.0
 safety>=3.0.0
 cyclonedx-bom>=4.0.0
 
+# Secure XML parsing
+defusedxml>=0.7.1
+
 # ============================================================================
 # DEVELOPMENT DEPENDENCIES (dev-requirements.txt)
 # ============================================================================

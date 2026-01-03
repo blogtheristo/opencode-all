@@ -11,6 +11,7 @@ This is a placeholder implementation. The real audit would:
 - Check for exposed secrets
 """
 
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -25,15 +26,16 @@ def run_security_audit():
 
     # Repository info
     try:
+        git_path = shutil.which("git") or "/usr/bin/git"
         repo_url = subprocess.check_output(
-            ["git", "config", "--get", "remote.origin.url"], text=True
+            [git_path, "config", "--get", "remote.origin.url"], text=True
         ).strip()
         branch = subprocess.check_output(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"], text=True
+            [git_path, "rev-parse", "--abbrev-ref", "HEAD"], text=True
         ).strip()
         print(f"**Repository:** {repo_url}")
         print(f"**Branch:** {branch}")
-    except:
+    except Exception:
         print("**Repository:** Unable to determine")
 
     print("\n## Security Checks\n")

@@ -1,9 +1,9 @@
 import csv
 import os
-from xml.etree.ElementTree import Element, SubElement, tostring
 
 import markdown
 import yaml
+from defusedxml.ElementTree import Element, SubElement, tostring
 
 # Use defusedxml to prevent XXE attacks
 try:
@@ -11,7 +11,8 @@ try:
 except ImportError:
     # Fallback to standard minidom (less secure - install defusedxml for production)
     import warnings
-    from xml.dom import minidom
+
+    from defusedxml import minidom
 
     warnings.warn(
         "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning
