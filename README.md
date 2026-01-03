@@ -7,6 +7,7 @@
 
 ## 🚀 PILOT PHASE: RUNNING
 **Status:** Validating with Tier 1 European Partners
+**Update:** Omnibus pivot 03.01.2026
 **Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
 **Runway:** Fixed (Operational revenue covers core burn)
 **V1.0 Launch:** Feb 23, 2026
