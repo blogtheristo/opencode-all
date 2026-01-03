@@ -8,6 +8,7 @@
 
 ## 🚀 PILOT PHASE: RUNNING
 **Status:** Validating with Tier 1 European Partners
+**Update:** Omnibus pivot 03.01.2026
 **Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
 **Runway:** Fixed (Operational revenue covers core burn)
 **V1.0 Launch:** Feb 23, 2026
@@ -104,15 +105,11 @@ Vertical-specific applications for Construction, Manufacturing, Logistics, and m
 ### 🤖 HANDS (Lifetime Fleet)
 Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generating €7-14k MRR)** — proof of market-product fit.
 
-### Why This Architecture Wins
-
-| Traditional SaaS | DWS IQ 6 Ecosystem |
-|------------------|-------------------|
-| Single-layer software | 4-layer organism (Brain→Hands) |
-| Cloud-only, high latency | Edge AI: <100ms response |
-| Generic AI models | Industry-trained World Model |
-| Software licenses only | Hardware + Software + Services revenue |
-| €0 physical presence | Lifetime Fleet generating €7-14k MRR |
+- 🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
+- 💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM.Omnibus) and Enteprise own Models and Tool stack with integrations (SAP, Aspentech, ABB Robotics, NVIDIA) trained in industries own specifications and standards.
+- 🏢 BODY (8 Industrial Solutions and Firehorse™Apps): Vertical-specific applications for Construction, Manufacturing, Logistics, and more. Applications are supported with Firehorse™Report Engine,
+Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Next.
+- 🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. (Currently generating €7-14k MRR).
 
 ---
 
@@ -125,23 +122,29 @@ Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generatin
 **Lifetime™World. Lifetime Friends. Sustainability™Partner.**
 
 ### Platform Products
-- **DWS™IQ** - Industrial intelligence platform
-- **Lifetime™AIQ** solutions
-- **LTW™Investor Studio**
-- **Lifetime™RAG AI**
-- **Lifetime Studio 2026**
+- DWS™IQ 6 - Industrial Climate Intelligence Platform
+- Lifetime™AIQ solutions
+- LTW™Investor Studio
+- Lifetime™RAG AI
+- Lifetime™Studio 2026
+
+### Firehorse Product line
+- Firehorse™Report Engine,
+- Firehorse™Automation,
+- Firehorse™Content DMS, and
+- Firehorse™ Omnichannel Next.
 
 ### Technology
-- **Lifetime™Quantum Elements**
-- **Lifetime™Robotics**
-- **Lifetime™Cloud**
+- Lifetime™Quantum Elements
+- Lifetime™Robotics
+- Lifetime™Cloud
 
 ### Digital Assets
 - **Lifetime™World Coin ($LTW)**
 - **Lifetime World Coin®**
 - **LTWCash®**
 - **LTWCertificate®**
-- **LTWCertificate®**
+- **LTW Partners Certificate®**
 
 ---
 
