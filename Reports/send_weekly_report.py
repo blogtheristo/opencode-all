@@ -4,14 +4,15 @@ Weekly Report Email Automation
 Sends bilingual reports to risto.paarni2024@lifetime.fi
 """
 
+import glob
 import os
 import smtplib
+from datetime import datetime
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-from datetime import datetime
-import glob
+
 
 def send_weekly_report():
     """Send weekly reports in English and Finnish"""
@@ -41,9 +42,11 @@ def send_weekly_report():
 
     # Create email
     msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    msg['Subject'] = f"DWS6 Weekly Progress Report - {datetime.now().strftime('%Y-%m-%d')}"
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
+    msg["Subject"] = (
+        f"DWS6 Weekly Progress Report - {datetime.now().strftime('%Y-%m-%d')}"
+    )
 
     # Email body
     body = f"""
@@ -77,19 +80,21 @@ Next Steps:
 ---
 Lifetime Group - DWS IQ Platform
 Team Lead: Risto Anton Päärni
-Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+Generated: {datetime.now().strftime("%Y-%m-%d %H:%M")}
 Status: 🟢 ON TRACK
     """
 
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, "plain"))
 
     # Attach English report
     try:
-        with open(en_report, 'rb') as f:
-            part = MIMEBase('application', 'octet-stream')
+        with open(en_report, "rb") as f:
+            part = MIMEBase("application", "octet-stream")
             part.set_payload(f.read())
             encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename=DWS6_Weekly_Report_EN.pdf')
+            part.add_header(
+                "Content-Disposition", "attachment; filename=DWS6_Weekly_Report_EN.pdf"
+            )
             msg.attach(part)
     except Exception as e:
         print(f"❌ Failed to attach English report: {e}")
@@ -97,11 +102,13 @@ Status: 🟢 ON TRACK
 
     # Attach Finnish report
     try:
-        with open(fi_report, 'rb') as f:
-            part = MIMEBase('application', 'octet-stream')
+        with open(fi_report, "rb") as f:
+            part = MIMEBase("application", "octet-stream")
             part.set_payload(f.read())
             encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename=DWS6_Weekly_Report_FI.pdf')
+            part.add_header(
+                "Content-Disposition", "attachment; filename=DWS6_Weekly_Report_FI.pdf"
+            )
             msg.attach(part)
     except Exception as e:
         print(f"❌ Failed to attach Finnish report: {e}")
@@ -112,7 +119,9 @@ Status: 🟢 ON TRACK
         if not sender_password:
             print("⚠️  SMTP_PASSWORD not set. Email not sent (dry run mode).")
             print(f"📧 Would send to: {recipient_email}")
-            print(f"📎 Attachments: {os.path.basename(en_report)}, {os.path.basename(fi_report)}")
+            print(
+                f"📎 Attachments: {os.path.basename(en_report)}, {os.path.basename(fi_report)}"
+            )
             return True
 
         server = smtplib.SMTP(smtp_server, smtp_port)
@@ -122,12 +131,13 @@ Status: 🟢 ON TRACK
         server.quit()
 
         print(f"✅ Weekly report sent to {recipient_email}")
-        print(f"📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
+        print("📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
         return True
 
     except Exception as e:
         print(f"❌ Failed to send email: {e}")
         return False
+
 
 if __name__ == "__main__":
     success = send_weekly_report()

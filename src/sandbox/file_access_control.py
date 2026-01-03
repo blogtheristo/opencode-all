@@ -17,9 +17,8 @@ Attack Scenario:
 This module prevents agents from modifying protected system paths.
 """
 
-from pathlib import Path
-from typing import Set
 import logging
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +28,9 @@ class FileAccessControl:
     Enforce file access restrictions for MCP agents.
     Prevents agents from modifying each other's config files.
     """
-    
+
     # Protected paths (read-only for agents)
-    PROTECTED_PATHS: Set[Path] = {
+    PROTECTED_PATHS: set[Path] = {
         Path.home() / ".config" / "dws6",
         Path.home() / ".config" / "claude",
         Path.home() / ".config" / "cursor",
@@ -44,7 +43,7 @@ class FileAccessControl:
         Path("/bin"),
         Path("/sbin"),
     }
-    
+
     # Additional protected patterns (glob-style)
     PROTECTED_PATTERNS = [
         "*.key",
@@ -59,15 +58,15 @@ class FileAccessControl:
         ".env.*",
         "secrets.*",
     ]
-    
+
     @classmethod
     def is_write_allowed(cls, path: Path) -> bool:
         """
         Check if writing to path is allowed.
-        
+
         Args:
             path: Path to check
-            
+
         Returns:
             True if write is allowed, False otherwise
         """
@@ -76,7 +75,7 @@ class FileAccessControl:
         except Exception as e:
             logger.warning(f"Could not resolve path {path}: {e}")
             return False
-        
+
         # Check protected paths
         for protected in cls.PROTECTED_PATHS:
             try:
@@ -86,28 +85,28 @@ class FileAccessControl:
                 # is_relative_to can raise ValueError on Windows
                 if str(path).startswith(str(protected)):
                     return False
-        
+
         # Check protected patterns
         for pattern in cls.PROTECTED_PATTERNS:
             if path.match(pattern):
                 return False
-        
+
         return True
-    
+
     @classmethod
     def validate_file_operation(cls, operation: str, path: Path) -> None:
         """
         Validate file operation before execution.
         Raises exception if operation is not allowed.
-        
+
         Args:
             operation: Operation type ('read', 'write', 'delete', 'chmod')
             path: Path to operate on
-            
+
         Raises:
             PermissionError: If operation is not allowed
         """
-        if operation in ['write', 'delete', 'chmod', 'chown']:
+        if operation in ["write", "delete", "chmod", "chown"]:
             if not cls.is_write_allowed(path):
                 logger.error(
                     f"Cross-agent privilege escalation blocked! "
@@ -121,24 +120,24 @@ class FileAccessControl:
                     f"This is a security protection against malicious prompt injection.\n\n"
                     f"Reference: https://simonwillison.net/2025/Sep/24/cross-agent-privilege-escalation/"
                 )
-    
+
     @classmethod
     def add_protected_path(cls, path: Path) -> None:
         """
         Add a path to the protected list.
-        
+
         Args:
             path: Path to protect
         """
         cls.PROTECTED_PATHS.add(path.resolve())
         logger.info(f"Added protected path: {path}")
-    
+
     @classmethod
     def remove_protected_path(cls, path: Path) -> None:
         """
         Remove a path from the protected list.
         Use with caution!
-        
+
         Args:
             path: Path to unprotect
         """
@@ -149,17 +148,20 @@ class FileAccessControl:
 def secure_file_wrapper(operation: str):
     """
     Decorator to wrap file operations with access control.
-    
+
     Usage:
         @secure_file_wrapper('write')
         def write_file(path, content):
             with open(path, 'w') as f:
                 f.write(content)
     """
+
     def decorator(func):
         def wrapper(path, *args, **kwargs):
             path_obj = Path(path)
             FileAccessControl.validate_file_operation(operation, path_obj)
             return func(path, *args, **kwargs)
+
         return wrapper
+
     return decorator
