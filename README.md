@@ -17,7 +17,11 @@
 
 > **"The first industrial AI platform that thinks, remembers, executes, AND physically deploys — already generating revenue."**
 
-DWS IQ 6 is not a point solution. It is a complete industrial intelligence organism designed to automate climate compliance for 8 industries.
+DWS IQ 6 is not a point solution. It is a complete industrial intelligence organism designed to automate climate compliance for **16 EU-regulated industries**.
+
+> **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack (ETS, CBAM, CSRD, EPBD, ESR).**
+
+📖 **Full Industry Coverage:** [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -28,7 +32,7 @@ DWS IQ 6 is not a point solution. It is a complete industrial intelligence organ
 │                   💾 MEMORY - Lifetime World Model              │
 │    Climate LLM + Enterprise Integrations (SAP, ABB, NVIDIA)     │
 ├─────────────────────────────────────────────────────────────────┤
-│              🏢 BODY - 8 Industrial Solutions                   │
+│              🏢 BODY - 16 Industrial Solutions                  │
 │   Firehorse™ Report | Automation | Content DMS | Omnichannel    │
 ├─────────────────────────────────────────────────────────────────┤
 │                  🤖 HANDS - Lifetime Fleet                      │
@@ -44,11 +48,11 @@ Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU host
 ### 💾 MEMORY (Lifetime World Model)
 Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM, Omnibus) and Enterprise own Models and Tool stack trained in industries own specifications and standards.
 - **15,000+ EU regulations** indexed and searchable
-- **8 industry standards** pre-trained
+- **16 industry verticals** pre-trained (Fit for 55 coverage)
 
 **Enterprise Integrations:** SAP S/4HANA • Aspentech • ABB Robotics • NVIDIA Omniverse • Microsoft Azure • Google Workspace
 
-### 🏢 BODY (8 Industrial Solutions + Firehorse™ Suite)
+### 🏢 BODY (16 Industrial Solutions + Firehorse™ Suite)
 Vertical-specific applications for Construction, Manufacturing, Logistics, and more:
 - **Firehorse™ Report Engine** – Automated compliance reporting
 - **Firehorse™ Automation** – Workflow orchestration & triggers
@@ -375,7 +379,7 @@ Founder & CEO, Lifetime Consulting
 
 ---
 
-Document Version: 2.4
+Document Version: 2.5
 Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
 AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
