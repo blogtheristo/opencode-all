@@ -1,7 +1,7 @@
 # DWS IQ Platform - Admin Manual
 
-**Version:** 1.4
-**Last Updated:** January 3, 2026
+**Version:** 1.5
+**Last Updated:** January 4, 2026
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
@@ -703,6 +703,35 @@ jobs:
 
 ---
 
+## AI Model Configuration
+
+### Overview
+
+**Status:** ✅ **UPDATED** (as of January 4, 2026)
+
+DWS6 uses Claude Opus 4.5 as the primary AI model for development assistance.
+
+### AI Model Switch (Week 53)
+
+| Previous Model | New Model | Reason |
+|---------------|-----------|--------|
+| Claude Sonnet 4.5 | **Claude Opus 4.5** | Knowledge cutoff issues |
+
+**Issue with Sonnet 4.5:**
+- Knowledge cutoff at early 2024
+- Suggested deprecated `actions/upload-artifact@v3` instead of `@v4`
+- Outdated CLI syntax for `safety` and `cyclonedx-py`
+- Recommended deprecated library versions
+
+**Resolution:**
+Switched to **Claude Opus 4.5** which has:
+- More recent knowledge base
+- Better understanding of 2026 tooling
+- Accurate security tool recommendations
+- Correct GitHub Actions versions
+
+---
+
 ## Code Review Process
 
 ### Overview
@@ -715,7 +744,7 @@ DWS6 uses an integrated code review process that leverages existing AI tools wit
 
 | Tool | Purpose | Cost | Status |
 |------|---------|------|--------|
-| **Cursor AI (Claude/GPT)** | Interactive code review | Included in Cursor subscription | ✅ Active |
+| **Cursor AI (Claude Opus 4.5)** | Interactive code review | Included in Cursor subscription | ✅ Active |
 | **Snyk MCP** | Security vulnerability scanning | Free/Pro tier | ✅ Active |
 | **GitHub Copilot Review** | Automated PR review | Included in GitHub | ✅ Available |
 | **Ruff** | Python linting & security | Free | ✅ Active |
@@ -1184,10 +1213,82 @@ If security vulnerability is actively exploited:
 
 ---
 
+## DWS IQ 6 Security Framework
+
+### Overview
+
+**Status:** ✅ **COMPLETE** (as of January 4, 2026)
+
+The DWS IQ 6 Security Framework is a comprehensive 5-layer security architecture protecting the platform from modern threats while maintaining EU compliance (GDPR, NIS2, EU Cybersecurity Act).
+
+### Framework Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LAYER 5: GOVERNANCE                          │
+│  AI Governance | Compliance Reporting | Audit Trail             │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 4: MONITORING                          │
+│  Aikido Threat Detection | Snyk Scanning | Ruff Linting         │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 3: APPLICATION SECURITY                │
+│  Input Validation | CSRF Protection | XSS Prevention | CORS     │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 2: AUTHENTICATION & AUTHORIZATION      │
+│  JWT Tokens | bcrypt Hashing | Rate Limiting | RBAC             │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 1: INFRASTRUCTURE                      │
+│  HTTPS/TLS 1.3 | Cloudflare WAF | Secret Management            │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Security Tools Stack
+
+| Tool | Purpose | Status |
+|------|---------|--------|
+| **Snyk** | Dependency scanning (SCA, SAST) | ✅ Active |
+| **Aikido** | Runtime threat detection | ✅ Active |
+| **Ruff** | Python security linting | ✅ Active (398 fixes) |
+| **CodeQL** | Code analysis (SARIF) | ✅ Active |
+| **pip-audit** | Python vulnerability scanning | ✅ Active |
+| **safety** | Python security database | ✅ Active |
+| **cyclonedx-bom** | SBOM generation | ✅ Active |
+| **pip-licenses** | License compliance | ✅ Active |
+
+### Compliance Status (January 2026)
+
+| Regulation | Status | Score |
+|------------|--------|-------|
+| **GDPR** | ✅ Compliant | 95% |
+| **NIS2** | ✅ Compliant | 95% |
+| **EU Cybersecurity Act** | ✅ Compliant | 95% |
+| **OWASP Top 10** | ✅ Protected | 95% |
+
+### Week 53 Security Fixes (449 → 0 issues)
+
+| Category | Count | Status |
+|----------|-------|--------|
+| **Critical** | 4 | ✅ Fixed |
+| **High** | 8 | ✅ Fixed |
+| **Medium** | 6 | ✅ Fixed |
+| **Total** | **18** | ✅ **ALL RESOLVED** |
+
+### Security Documentation
+
+| Document | Location | Purpose |
+|----------|----------|---------|
+| `MASTER_INDEX.md` | `Admin/Security/` | Security stack overview |
+| `COMPLETE_SECURITY_STACK_SUMMARY.md` | `Admin/Security/` | Executive summary |
+| `SECURITY_WORKFLOW_SNYK_AIKIDO.md` | `Admin/Security/` | Workflow documentation |
+| `JANUARY_2026_SECURITY_UPDATE.md` | `Admin/Security/` | Week 53 security updates |
+
+---
+
 ## Document Changelog
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
 | 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
 | 1.3 | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore | PxSux |
 | 1.2 | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap | - |

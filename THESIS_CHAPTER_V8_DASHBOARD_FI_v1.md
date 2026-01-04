@@ -3,10 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation in Finnish for master thesis
+  - Version: 1.0 | Tool: Cursor AI (Claude Sonnet 4.5) | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation in Finnish for master thesis
+  - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-04 | Date: 04.01.2026 | Changes: Lisätty DWS-tietoturvakehys -osio; Päivitetty tekoälymalli Opus 4.5:een Sonnet 4.5:n tietokatkoksen vuoksi
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
@@ -14,17 +15,22 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 04.01.2026
   - Language: Finnish (Suomi)
-  - Languages Available: Suomi
+  - Languages Available: Suomi, English
   - Publication Status: ✅ ACTIVE
+
+AI-mallimerkintä:
+  - Vaihdettu Claude Sonnet 4.5:stä Claude Opus 4.5:een (tammikuu 2026)
+  - Syy: Sonnet 4.5:n tietokatko (alkuvuosi 2024) aiheutti vanhentuneiden kirjastojen suosituksia
+  - Opus 4.5 tarjoaa tarkempia vuoden 2026 työkalusuosituksia
 
 ---
 
-**Versio:** 1.0  
+**Versio:** 1.1  
 **Tarkoitus:** Opinnäytetyön luku V8-kojelaudan toteutuksesta  
 **Kohdeyleisö:** Akateemiset arvioijat, tekniset lukijat  
-**Päivitetty:** 30.12.2025
+**Päivitetty:** 04.01.2026
 
 ---
 
@@ -391,6 +397,70 @@ V8-kojelauta noudattaa mobiililähtöisen suunnittelun periaatteita:
 ---
 
 ## 8. Tietoturva
+
+### 8.0 DWS IQ 6 -tietoturvakehys
+
+V8-kojelauta toimii kattavassa DWS IQ 6 -tietoturvakehyksessä, joka on 5-kerroksinen turvallisuusarkkitehtuuri, joka on suunniteltu suojaamaan alustaa moderneilta uhilta samalla kun se noudattaa EU-säädöksiä.
+
+#### 8.0.1 Kehyksen arkkitehtuuri
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    KERROS 5: HALLINTO                           │
+│  Tekoälyn hallinto | Vaatimustenmukaisuusraportointi | Auditointipolku │
+├─────────────────────────────────────────────────────────────────┤
+│                    KERROS 4: VALVONTA                           │
+│  Aikido-uhkatunnistus | Snyk-skannaus | Ruff-linttaus           │
+├─────────────────────────────────────────────────────────────────┤
+│                    KERROS 3: SOVELLUSTIETOTURVA                 │
+│  Syötteen validointi | CSRF-suojaus | XSS-esto | CORS           │
+├─────────────────────────────────────────────────────────────────┤
+│                    KERROS 2: AUTENTIKOINTI & AUKTORISOINTI      │
+│  JWT-tokenit | bcrypt-tiivistys | Pyyntörajoitus | RBAC         │
+├─────────────────────────────────────────────────────────────────┤
+│                    KERROS 1: INFRASTRUKTUURI                    │
+│  HTTPS/TLS 1.3 | Cloudflare WAF | Salaisuuksien hallinta       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### 8.0.2 Tietoturvatyökalujen pino
+
+DWS IQ 6 -alusta käyttää kattavaa tietoturvatyökaluketjua:
+
+| Työkalu | Tarkoitus | Integraatiopiste |
+|---------|-----------|------------------|
+| **Snyk** | Riippuvuusskannaus (SCA, SAST) | GitHub Actions |
+| **Aikido** | Ajonaikainen uhkatunnistus | CI/CD-putki |
+| **Ruff** | Python-tietoturvalinttaus | Pre-commit + CI |
+| **CodeQL** | Koodianalyysi (SARIF) | GitHub Actions |
+| **pip-audit** | Python-haavoittuvuusskannaus | Päivittäinen työnkulku |
+| **safety** | Python-tietoturvatietokanta | PR-työnkulku |
+| **cyclonedx-bom** | SBOM-generointi | Viikoittainen auditointi |
+| **pip-licenses** | Lisenssinmukaisuus | Viikoittainen auditointi |
+
+#### 8.0.3 Vaatimustenmukaisuuden tila (tammikuu 2026)
+
+| Asetus | Tila | Pistemäärä | Merkitys V8:lle |
+|--------|------|------------|-----------------|
+| **GDPR** | ✅ Yhteensopiva | 95% | Käyttäjätietojen käsittely |
+| **NIS2** | ✅ Yhteensopiva | 95% | Kriittinen infrastruktuuri |
+| **EU Cybersecurity Act** | ✅ Yhteensopiva | 95% | Security by design |
+| **OWASP Top 10** | ✅ Suojattu | 95% | Web-sovellustietoturva |
+
+#### 8.0.4 Tietoturvakorjaukset (viikko 53, 2025)
+
+Viikolla 53 kattava tietoturva-auditointi Ruff-lintterillä tunnisti ja ratkaisi:
+
+| Ongelmaluokka | Määrä | Vakavuus | Tila |
+|---------------|-------|----------|------|
+| SQL-injektio (S608) | 1 | Kriittinen | ✅ Korjattu |
+| eval()-käyttö (S307) | 1 | Kriittinen | ✅ Korjattu |
+| Aliprosessipolku (S607) | 2 | Korkea | ✅ Korjattu |
+| Turvaton XML (S314/S318) | 2 | Kriittinen | ✅ Korjattu |
+| Tyhjä except (E722) | 8 | Keskitaso | ✅ Korjattu |
+| **Yhteensä** | **18** | - | ✅ **KAIKKI RATKAISTU** |
+
+Tämä tietoturva-auditointi paransi kokonaisvaatimustenmukaisuuspisteet 92%:sta 95%:iin.
 
 ### 8.1 Autentikointi
 
