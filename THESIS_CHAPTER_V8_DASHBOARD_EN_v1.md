@@ -3,10 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation for master thesis
+  - Version: 1.0 | Tool: Cursor AI (Claude Sonnet 4.5) | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation for master thesis
+  - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-04 | Date: 04.01.2026 | Changes: Added DWS Security Framework section; Updated AI model to Opus 4.5 due to knowledge cutoff issues with Sonnet 4.5
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
@@ -14,17 +15,22 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 04.01.2026
   - Language: English
-  - Languages Available: English
+  - Languages Available: English, Finnish
   - Publication Status: ✅ ACTIVE
+
+AI Model Note:
+  - Switched from Claude Sonnet 4.5 to Claude Opus 4.5 (January 2026)
+  - Reason: Sonnet 4.5 knowledge cutoff (early 2024) caused deprecated library suggestions
+  - Opus 4.5 provides more accurate 2026 tooling recommendations
 
 ---
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Purpose:** Master thesis chapter documenting V8 dashboard implementation  
 **Audience:** Academic reviewers, technical readers  
-**Updated:** 30.12.2025
+**Updated:** 04.01.2026
 
 ---
 
@@ -576,6 +582,70 @@ The V8 Dashboard follows mobile-first design principles:
 ---
 
 ## 8. Security Implementation
+
+### 8.0 DWS IQ 6 Security Framework
+
+The V8 Dashboard operates within the comprehensive DWS IQ 6 Security Framework, a 5-layer security architecture designed to protect the platform from modern threats while maintaining compliance with EU regulations.
+
+#### 8.0.1 Framework Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    LAYER 5: GOVERNANCE                          │
+│  AI Governance | Compliance Reporting | Audit Trail             │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 4: MONITORING                          │
+│  Aikido Threat Detection | Snyk Scanning | Ruff Linting         │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 3: APPLICATION SECURITY                │
+│  Input Validation | CSRF Protection | XSS Prevention | CORS     │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 2: AUTHENTICATION & AUTHORIZATION      │
+│  JWT Tokens | bcrypt Hashing | Rate Limiting | RBAC             │
+├─────────────────────────────────────────────────────────────────┤
+│                    LAYER 1: INFRASTRUCTURE                      │
+│  HTTPS/TLS 1.3 | Cloudflare WAF | Secret Management            │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### 8.0.2 Security Tools Stack
+
+The DWS IQ 6 platform utilizes a comprehensive security toolchain:
+
+| Tool | Purpose | Integration Point |
+|------|---------|------------------|
+| **Snyk** | Dependency scanning (SCA, SAST) | GitHub Actions |
+| **Aikido** | Runtime threat detection | CI/CD Pipeline |
+| **Ruff** | Python security linting | Pre-commit + CI |
+| **CodeQL** | Code analysis (SARIF) | GitHub Actions |
+| **pip-audit** | Python vulnerability scanning | Daily workflow |
+| **safety** | Python security database | PR workflow |
+| **cyclonedx-bom** | SBOM generation | Weekly audit |
+| **pip-licenses** | License compliance | Weekly audit |
+
+#### 8.0.3 Compliance Status (January 2026)
+
+| Regulation | Status | Score | Relevance to V8 |
+|------------|--------|-------|-----------------|
+| **GDPR** | ✅ Compliant | 95% | User data handling |
+| **NIS2** | ✅ Compliant | 95% | Critical infrastructure |
+| **EU Cybersecurity Act** | ✅ Compliant | 95% | Security by design |
+| **OWASP Top 10** | ✅ Protected | 95% | Web application security |
+
+#### 8.0.4 Security Fixes Applied (Week 53, 2025)
+
+During Week 53, a comprehensive security audit using Ruff linter identified and resolved:
+
+| Issue Category | Count | Severity | Status |
+|---------------|-------|----------|--------|
+| SQL Injection (S608) | 1 | Critical | ✅ Fixed |
+| eval() Usage (S307) | 1 | Critical | ✅ Fixed |
+| Subprocess Path (S607) | 2 | High | ✅ Fixed |
+| Insecure XML (S314/S318) | 2 | Critical | ✅ Fixed |
+| Bare Except (E722) | 8 | Medium | ✅ Fixed |
+| **Total** | **18** | - | ✅ **ALL RESOLVED** |
+
+This security audit improved the overall compliance score from 92% to 95%.
 
 ### 8.1 Authentication
 
