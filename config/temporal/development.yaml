@@ -1,0 +1,31 @@
+# Temporal Dynamic Config - Development
+# See: https://docs.temporal.io/references/dynamic-configuration
+
+# Frontend settings
+frontend.enableClientVersionCheck:
+  - value: true
+    constraints: {}
+
+# History settings
+history.maximumSignalNameLength:
+  - value: 1000
+    constraints: {}
+
+# Worker settings
+worker.enableConnector:
+  - value: false
+    constraints: {}
+
+# Matching settings
+matching.numTaskqueueReadPartitions:
+  - value: 5
+    constraints: {}
+
+matching.numTaskqueueWritePartitions:
+  - value: 5
+    constraints: {}
+
+# System settings
+system.forceSearchAttributesCacheRefreshOnRead:
+  - value: true
+    constraints: {}

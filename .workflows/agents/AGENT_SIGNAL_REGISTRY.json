@@ -1,0 +1,342 @@
+{
+  "version": "1.0",
+  "created": "2026-01-03T10:00:00Z",
+  "last_updated": "2026-01-03T10:00:00Z",
+  "launch_date": "2026-02-23",
+  "days_remaining": 51,
+
+  "agents": {
+    "agent-01": {
+      "name": "DWS IQ Login System",
+      "feature": "Authentication",
+      "phase": 1,
+      "status": "running",
+      "priority": "critical",
+      "dependencies": [],
+      "estimated_days": "3-4",
+      "launched_at": "2026-01-03T10:00:00Z",
+      "signals": {
+        "emitted": [],
+        "pending": [
+          "READY:jwt-service",
+          "READY:auth-middleware",
+          "READY:supabase-auth",
+          "READY:login-ui",
+          "READY:oauth-google",
+          "READY:oauth-microsoft",
+          "COMPLETE:v1-auth"
+        ]
+      },
+      "unlocks": ["agent-02", "agent-03", "agent-05", "agent-08"]
+    },
+
+    "agent-02": {
+      "name": "Firehorse Apps",
+      "feature": "Report Engine, Automation, DMS, Omnichannel",
+      "phase": 2,
+      "status": "waiting",
+      "priority": "critical",
+      "dependencies": ["agent-01:READY:supabase-auth", "agent-07:READY:rls-policies"],
+      "estimated_days": "4-6",
+      "signals": {
+        "listening": [
+          "agent-07:READY:rls-policies",
+          "agent-01:READY:supabase-auth"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:report-api",
+          "READY:automation-api",
+          "READY:dms-upload",
+          "COMPLETE:v1-firehorse"
+        ]
+      },
+      "unlocks": ["agent-03", "agent-05"]
+    },
+
+    "agent-03": {
+      "name": "Customer Dashboard",
+      "feature": "Web Frontend (Next.js)",
+      "phase": 3,
+      "status": "waiting",
+      "priority": "critical",
+      "dependencies": [
+        "agent-01:READY:supabase-auth",
+        "agent-02:READY:report-api",
+        "agent-04:READY:customersat"
+      ],
+      "estimated_days": "5-7",
+      "signals": {
+        "listening": [
+          "agent-01:READY:supabase-auth",
+          "agent-02:READY:report-api",
+          "agent-04:READY:customersat"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:nextjs-setup",
+          "READY:dashboard-layout",
+          "READY:project-view",
+          "READY:carbon-dashboard",
+          "READY:agent-chat",
+          "COMPLETE:v1-dashboard"
+        ]
+      },
+      "unlocks": []
+    },
+
+    "agent-04": {
+      "name": "AI Agents",
+      "feature": "MCP Hub, SiteSense, ScheduleGenius, MaterialOracle, CustomerSat",
+      "phase": 2,
+      "status": "waiting",
+      "priority": "critical",
+      "dependencies": ["agent-07:READY:rls-policies"],
+      "estimated_days": "5-7",
+      "signals": {
+        "listening": [
+          "agent-07:READY:rls-policies"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:mcp-hub",
+          "READY:groq-integration",
+          "READY:sitesense",
+          "READY:schedulegenius",
+          "READY:materialoracle",
+          "READY:customersat",
+          "COMPLETE:v1-agents"
+        ]
+      },
+      "unlocks": ["agent-03", "agent-05"]
+    },
+
+    "agent-05": {
+      "name": "Mobile Dashboard",
+      "feature": "React Native/Expo App",
+      "phase": 3,
+      "status": "waiting",
+      "priority": "high",
+      "dependencies": [
+        "agent-01:READY:supabase-auth",
+        "agent-02:READY:report-api",
+        "agent-04:READY:mcp-hub"
+      ],
+      "estimated_days": "10-14",
+      "signals": {
+        "listening": [
+          "agent-01:READY:supabase-auth",
+          "agent-02:READY:report-api",
+          "agent-04:READY:mcp-hub"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:expo-setup",
+          "READY:redux-store",
+          "READY:navigation",
+          "READY:dashboard-screen",
+          "READY:projects-screen",
+          "READY:offline-sync",
+          "COMPLETE:v1-mobile"
+        ]
+      },
+      "unlocks": [],
+      "note": "TestFlight/internal testing acceptable for V1.0"
+    },
+
+    "agent-06": {
+      "name": "Enterprise Integrations",
+      "feature": "SAP, BIM/IFC, Webhooks",
+      "phase": "v1.1",
+      "status": "deferred",
+      "priority": "low",
+      "dependencies": [
+        "agent-02:COMPLETE:v1-firehorse",
+        "agent-04:COMPLETE:v1-agents"
+      ],
+      "estimated_days": "3-4",
+      "signals": {
+        "listening": [],
+        "emitted": [],
+        "pending": [
+          "READY:sap-connector",
+          "READY:bim-parser",
+          "COMPLETE:v1-enterprise"
+        ]
+      },
+      "unlocks": [],
+      "note": "Deferred to V1.1 - not required for Feb 23 launch"
+    },
+
+    "agent-07": {
+      "name": "Supabase Database",
+      "feature": "Production Database, RLS, Migrations",
+      "phase": 1,
+      "status": "running",
+      "priority": "critical",
+      "dependencies": [],
+      "estimated_days": "2",
+      "launched_at": "2026-01-03T10:00:00Z",
+      "signals": {
+        "emitted": [],
+        "pending": [
+          "READY:schema-users",
+          "READY:schema-orgs",
+          "READY:rls-policies",
+          "READY:seed-data",
+          "COMPLETE:v1-database"
+        ]
+      },
+      "unlocks": ["agent-01", "agent-02", "agent-04", "agent-09"]
+    },
+
+    "agent-08": {
+      "name": "Payment Integration",
+      "feature": "Stripe, Subscriptions, Billing",
+      "phase": 4,
+      "status": "waiting",
+      "priority": "medium",
+      "dependencies": [
+        "agent-01:COMPLETE:v1-auth",
+        "agent-07:COMPLETE:v1-database"
+      ],
+      "estimated_days": "3-4",
+      "signals": {
+        "listening": [
+          "agent-01:COMPLETE:v1-auth",
+          "agent-07:COMPLETE:v1-database"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:stripe-setup",
+          "READY:subscription-plans",
+          "READY:billing-ui",
+          "COMPLETE:v1-payments"
+        ]
+      },
+      "unlocks": [],
+      "note": "Optional for V1.0 - can launch without billing"
+    },
+
+    "agent-09": {
+      "name": "Email System",
+      "feature": "Transactional Emails, Notifications",
+      "phase": 2,
+      "status": "waiting",
+      "priority": "high",
+      "dependencies": ["agent-07:READY:schema-users"],
+      "estimated_days": "2",
+      "signals": {
+        "listening": [
+          "agent-07:READY:schema-users"
+        ],
+        "emitted": [],
+        "pending": [
+          "READY:transactional",
+          "READY:notifications",
+          "COMPLETE:v1-email"
+        ]
+      },
+      "unlocks": [],
+      "note": "Required for password reset flow in Agent-01"
+    },
+
+    "agent-10": {
+      "name": "Documentation",
+      "feature": "API Docs, Guides, Legal",
+      "phase": 1,
+      "status": "running",
+      "priority": "low",
+      "dependencies": [],
+      "estimated_days": "ongoing",
+      "launched_at": "2026-01-03T10:00:00Z",
+      "signals": {
+        "emitted": [],
+        "pending": [
+          "READY:api-docs",
+          "READY:integration-guides",
+          "COMPLETE:v1-docs"
+        ]
+      },
+      "unlocks": [],
+      "note": "Mostly complete, maintenance mode"
+    }
+  },
+
+  "phases": {
+    "phase-1": {
+      "name": "Foundation",
+      "agents": ["agent-01", "agent-07", "agent-10"],
+      "status": "running",
+      "started_at": "2026-01-03T10:00:00Z",
+      "parallel": true,
+      "expected_completion": "2026-01-08"
+    },
+    "phase-2": {
+      "name": "Core Backend",
+      "agents": ["agent-02", "agent-04", "agent-09"],
+      "status": "waiting",
+      "depends_on": "phase-1",
+      "parallel": true,
+      "expected_start": "2026-01-06",
+      "expected_completion": "2026-01-19"
+    },
+    "phase-3": {
+      "name": "Frontend",
+      "agents": ["agent-03", "agent-05"],
+      "status": "waiting",
+      "depends_on": "phase-2",
+      "parallel": true,
+      "expected_start": "2026-01-20",
+      "expected_completion": "2026-02-14"
+    },
+    "phase-4": {
+      "name": "Enhancements",
+      "agents": ["agent-08", "agent-06"],
+      "status": "optional",
+      "depends_on": "phase-1",
+      "parallel": true,
+      "note": "Agent-06 deferred to V1.1"
+    }
+  },
+
+  "signal_log": [
+    {
+      "timestamp": "2026-01-03T10:00:00Z",
+      "agent": "agent-01",
+      "type": "LAUNCHED",
+      "message": "Agent-01 (Auth) started in plan mode"
+    },
+    {
+      "timestamp": "2026-01-03T10:00:00Z",
+      "agent": "agent-07",
+      "type": "LAUNCHED",
+      "message": "Agent-07 (Database) started in plan mode"
+    },
+    {
+      "timestamp": "2026-01-03T10:00:00Z",
+      "agent": "agent-10",
+      "type": "LAUNCHED",
+      "message": "Agent-10 (Documentation) started in plan mode"
+    }
+  ],
+
+  "v1_completion_checklist": {
+    "required": [
+      { "agent": "agent-01", "signal": "COMPLETE:v1-auth", "status": "pending" },
+      { "agent": "agent-02", "signal": "COMPLETE:v1-firehorse", "status": "pending" },
+      { "agent": "agent-03", "signal": "COMPLETE:v1-dashboard", "status": "pending" },
+      { "agent": "agent-04", "signal": "COMPLETE:v1-agents", "status": "pending" },
+      { "agent": "agent-07", "signal": "COMPLETE:v1-database", "status": "pending" },
+      { "agent": "agent-09", "signal": "COMPLETE:v1-email", "status": "pending" },
+      { "agent": "agent-10", "signal": "COMPLETE:v1-docs", "status": "pending" }
+    ],
+    "optional": [
+      { "agent": "agent-05", "signal": "COMPLETE:v1-mobile", "status": "pending", "note": "TestFlight OK" },
+      { "agent": "agent-08", "signal": "COMPLETE:v1-payments", "status": "pending", "note": "Can defer" }
+    ],
+    "deferred": [
+      { "agent": "agent-06", "signal": "COMPLETE:v1-enterprise", "status": "v1.1" }
+    ]
+  }
+}

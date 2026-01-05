@@ -1,9 +1,29 @@
 # DWS IQ Platform - Payment Integration Strategy
 ## Revolut Business + PayPal Business
 
-**Document Version:** 1.0
-**Last Updated:** November 16, 2025
+**Document Version:** 1.1
+**Last Updated:** January 5, 2026
 **Prepared by:** Claude Code for Lifetime Oy
+
+---
+
+## ✅ DECISION: APPROVED FOR V1.0
+
+**Decision Date:** January 5, 2026
+
+This Payment Integration plan is **APPROVED** for the V1.0 release.
+
+### Payment Providers for V1.0:
+| Provider | Status | Priority |
+|----------|--------|----------|
+| **Revolut Business** | ✅ Confirmed | Primary (EU customers) |
+| **PayPal Business** | ✅ Confirmed | Secondary (Global customers) |
+| **Google Pay** | 🔄 Evaluate | Add if integration is straightforward |
+
+### Google Pay Consideration:
+- Will evaluate Google Pay integration complexity during implementation
+- If easily integrated with existing Revolut/PayPal flow → Include in V1.0
+- If requires significant additional work → Defer to V1.1
 
 ---
 

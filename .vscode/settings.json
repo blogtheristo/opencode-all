@@ -1,0 +1,17 @@
+{
+  "terminal.integrated.profiles.windows": {
+    "DWS6 Env (pwsh)": {
+      "path": "pwsh",
+      "args": [
+        "-NoExit",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Open-EnvTerminal.ps1",
+        "-ReuseCurrentWindow"
+      ],
+      "overrideName": true
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "DWS6 Env (pwsh)"
+}

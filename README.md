@@ -431,5 +431,5 @@ Founder & CEO, Lifetime Consulting
 Document Version: 2.6
 Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
-AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
+AI Agents Used: Gemini, Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
 License: Proprietary - Lifetime Oy

@@ -1,12 +1,12 @@
 # DWS IQ 6 Security - Admin Manuals Index
 ## Complete Documentation for Security Operations
 
-**Document Version**: 1.1.0  
+**Document Version**: 1.2.0  
 **Date**: January 3, 2026  
 **Classification**: Internal - Admin Only  
 **Maintained By**: Security Team
 
-> 🆕 **January 2026 Update:** Added new security update document for January 3, 2026 session improvements.
+> 🆕 **January 2026 Update:** Added AI Agent Administration Manual with enterprise compliance sections (SOC 2, EU AI Act, NIS2).
 
 ---
 
@@ -14,7 +14,38 @@
 
 ### Core Security Modules
 
-#### 0. January 2026 Security Update (NEW)
+#### 0. AI Agent Administration (NEW - Enterprise)
+**File**: `../ADMIN_MANUAL_AGENTS_EN_v1.md` (English) | `../ADMIN_MANUAL_AGENTS_FI_v1.md` (Finnish)  
+**Purpose**: Enterprise-grade AI agent management with compliance mapping  
+**Key Topics**:
+- SOC 2 Type II control mapping for AI agents
+- EU AI Act classification (Limited Risk - Article 52)
+- NIS2 directive compliance for critical infrastructure
+- Lifetime Scope Signals protocol for agent coordination
+- Enterprise implementation guide (NCC, T2H)
+- Custom agent creation with AgentFoundry
+- RBAC for agent permissions
+- Incident response for AI agent failures
+
+**Compliance Mappings**:
+| Framework | Status | Evidence |
+|-----------|--------|----------|
+| SOC 2 Type II | In Scope | CC6.1, CC6.2, CC7.2, CC8.1, PI1.1 |
+| EU AI Act | Compliant | Limited Risk (Article 52) |
+| GDPR | Compliant | DPA, SCCs, EU data residency |
+| ISO 27001 | Certified | Certificate on request |
+| NIS2 | In Scope | Critical infrastructure |
+
+**When to Use**:
+- Enterprise customer onboarding (CISO/CIO briefings)
+- SOC 2 audit preparation
+- EU AI Act compliance demonstration
+- Deploying custom agents for enterprise customers
+- Agent incident response
+
+---
+
+#### 0b. January 2026 Security Update
 **File**: `JANUARY_2026_SECURITY_UPDATE.md`  
 **Purpose**: Summary of all security improvements made on January 3, 2026  
 **Key Topics**:
@@ -452,6 +483,7 @@
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
+| 1.2.0 | 2026-01-03 | Added AI Agent Administration Manual with enterprise compliance | Cursor Agent |
 | 1.1.0 | 2026-01-03 | Added January 2026 Security Update document | Cursor Agent |
 | 1.0.0 | 2026-01-02 | Initial creation of all admin manuals | Security Team |
 

@@ -1,7 +1,7 @@
 # DWS IQ 6 Platform - Administrator Manual
 
-**Version:** 6.0  
-**Document Date:** December 31, 2025  
+**Version:** 6.1  
+**Document Date:** January 4, 2026  
 **Classification:** Confidential - For System Administrators Only  
 **Platform:** DWS IQ 6 - Industrial Intelligence Platform  
 **Compliance:** Fit for 55, GDPR, ISO 27001
@@ -13,6 +13,7 @@
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 6.0 | 2025-12-31 | DWS IQ Platform Team | Initial V6 Administrator Manual |
+| 6.1 | 2026-01-04 | DWS IQ Platform Team | Added Appendix K: LLM Training Infrastructure |
 
 **Distribution List:**
 - System Administrators
@@ -1440,6 +1441,707 @@ Detailed troubleshooting guide in `TROUBLESHOOTING.md`
 
 Security audit checklist in `SECURITY_CHECKLIST.md`
 
+### Appendix F: AI Provider API Configuration
+
+#### Groq API Setup
+
+**API Endpoint:** `https://api.groq.com/openai/v1/chat/completions`
+
+**Required Network Configuration:**
+
+If using a VPN with split tunneling (e.g., ProtonVPN), you must add the following Groq API server IPs to the split tunnel exclusion list:
+
+| IP Address | Purpose |
+|------------|---------|
+| `172.64.149.20` | Groq API server |
+| `104.18.38.236` | Groq API server |
+
+**Note:** These IPs may change. To get current IPs, run:
+```powershell
+Resolve-DnsName api.groq.com
+```
+
+**Available Models:**
+- `llama-3.3-70b-versatile` (recommended)
+- `llama-3.1-8b-instant`
+- `mixtral-8x7b-32768`
+- `gemma2-9b-it`
+
+**Test Command:**
+```powershell
+$body = @{
+    model = "llama-3.3-70b-versatile"
+    messages = @(@{ role = "user"; content = "Hello" })
+} | ConvertTo-Json -Depth 3
+
+Invoke-RestMethod -Uri "https://api.groq.com/openai/v1/chat/completions" -Method Post -Headers @{
+    "Content-Type" = "application/json"
+    "Authorization" = "Bearer $env:GROQ_API_KEY"
+} -Body $body
+```
+
+#### Anthropic API Setup
+
+**API Endpoint:** `https://api.anthropic.com/v1/messages`
+
+**No special network configuration required.**
+
+**Available Models:**
+- `claude-sonnet-4-20250514` (recommended)
+- `claude-3-5-haiku-20241022`
+- `claude-3-opus-20240229`
+
+**Test Command:**
+```powershell
+$body = @{
+    model = "claude-sonnet-4-20250514"
+    max_tokens = 1024
+    messages = @(@{ role = "user"; content = "Hello" })
+} | ConvertTo-Json -Depth 3
+
+Invoke-RestMethod -Uri "https://api.anthropic.com/v1/messages" -Method Post -Headers @{
+    "x-api-key" = $env:ANTHROPIC_API_KEY
+    "anthropic-version" = "2023-06-01"
+    "content-type" = "application/json"
+} -Body $body
+```
+
+### Appendix G: Firehorse API & Integration Administration
+
+#### Overview
+
+**Firehorse Apps** are add-on applications that extend the DWS IQ 6 Platform. All Firehorse API keys are issued and managed through **dws6.com**.
+
+**Status:** 🚧 *Under Development* - API key management portal coming soon.
+
+#### Firehorse Apps Suite
+
+| App | Description | Integration Type |
+|-----|-------------|------------------|
+| **Firehorse Reports** | Automated report generation | REST API |
+| **Firehorse ContentMS** | Content management system | REST API + Webhooks |
+| **Firehorse Automation** | Workflow automation engine | REST API + Events |
+| **Firehorse Omnichannel** | Multi-channel communication | REST API + Webhooks |
+| **Firehorse Mobile** | Field data collection | REST API + Sync |
+
+#### Proposed: Firehorse Admin Portal
+
+**URL:** `https://dws6.com/admin/firehorse` *(planned)*
+
+##### 1. API Key Management
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ FIREHORSE API KEY MANAGEMENT                                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ API Keys                                    [+ New]  │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │ Name          │ Scope       │ Created    │ Actions  │   │
+│  │───────────────┼─────────────┼────────────┼──────────│   │
+│  │ Production    │ All Apps    │ 2026-01-01 │ ⚙️ 🗑️    │   │
+│  │ Reports Only  │ Reports     │ 2026-01-02 │ ⚙️ 🗑️    │   │
+│  │ Mobile Sync   │ Mobile      │ 2026-01-03 │ ⚙️ 🗑️    │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**API Key Features:**
+- **Scoped access** - Limit keys to specific Firehorse apps
+- **Rate limiting** - Configurable requests per minute/hour
+- **IP allowlisting** - Restrict key usage to specific IPs
+- **Expiration dates** - Auto-expire keys for security
+- **Usage analytics** - Track API calls per key
+- **Audit logging** - Full history of key creation/rotation
+
+##### 2. Integration Hub
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ INTEGRATION HUB                                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Available Integrations:                                    │
+│                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │     SAP      │  │   Procore    │  │   Autodesk   │      │
+│  │   ERP/S4H    │  │  Construction│  │     BIM      │      │
+│  │  [Connect]   │  │  [Connect]   │  │  [Connect]   │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+│                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │   Salesforce │  │   HubSpot    │  │   Custom     │      │
+│  │     CRM      │  │   Marketing  │  │   Webhook    │      │
+│  │  [Connect]   │  │  [Connect]   │  │  [Configure] │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Integration Features:**
+- **Pre-built connectors** - SAP, Procore, Autodesk, Salesforce, HubSpot
+- **Custom webhooks** - Send/receive events to any endpoint
+- **OAuth 2.0 flows** - Secure third-party authentication
+- **Data mapping** - Visual field mapping interface
+- **Sync scheduling** - Real-time, hourly, daily sync options
+- **Error handling** - Retry policies and failure notifications
+
+##### 3. API Endpoints (Planned)
+
+**Base URL:** `https://api.dws6.com/v1`
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/auth/token` | POST | Generate access token |
+| `/firehorse/reports` | GET/POST | Reports API |
+| `/firehorse/content` | GET/POST | ContentMS API |
+| `/firehorse/automation` | GET/POST | Automation API |
+| `/firehorse/omnichannel` | GET/POST | Omnichannel API |
+| `/integrations` | GET | List active integrations |
+| `/webhooks` | GET/POST | Manage webhooks |
+
+##### 4. Environment Configuration
+
+```bash
+# ============================================================================
+# FIREHORSE INTEGRATION CONFIGURATION
+# ============================================================================
+# API keys issued at: https://dws6.com/admin/firehorse
+# ============================================================================
+
+FIREHORSE_API_URL=https://api.dws6.com/v1
+FIREHORSE_API_KEY=fh_live_xxxxxxxxxxxxxxxxxxxx
+
+# Optional: Restrict to specific apps
+FIREHORSE_ENABLED_APPS=reports,contentms,automation,omnichannel,mobile
+
+# Optional: Webhook configuration
+FIREHORSE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxx
+FIREHORSE_WEBHOOK_ENDPOINT=https://your-app.com/webhooks/firehorse
+```
+
+##### 5. Implementation Roadmap
+
+| Phase | Feature | Target |
+|-------|---------|--------|
+| **Phase 1** | API key generation & management | Q1 2026 |
+| **Phase 2** | Scoped access & rate limiting | Q1 2026 |
+| **Phase 3** | Integration Hub (SAP, Procore) | Q2 2026 |
+| **Phase 4** | Custom webhooks & OAuth | Q2 2026 |
+| **Phase 5** | Usage analytics & billing | Q3 2026 |
+
+##### 6. Security Requirements
+
+- All API keys prefixed with `fh_live_` (production) or `fh_test_` (sandbox)
+- Keys stored hashed (bcrypt) - only shown once at creation
+- Mandatory HTTPS for all API calls
+- JWT tokens with 1-hour expiration for session-based access
+- Webhook payloads signed with HMAC-SHA256
+
+### Appendix H: Groq MCP Connectors for Google Workspace
+
+#### Overview
+
+Groq provides **beta MCP Connectors** for Google Workspace, enabling AI agents to interact with Gmail, Google Calendar, and Google Drive via the Responses API - no self-hosted MCP server required.
+
+**Status:** 🧪 *Beta* - Available on GroqCloud
+
+**Documentation:** [console.groq.com/docs/tool-use/remote-mcp/connectors](https://console.groq.com/docs/tool-use/remote-mcp/connectors)
+
+#### Available Connectors
+
+| Connector | Capabilities | OAuth Scope |
+|-----------|--------------|-------------|
+| **Gmail** | Read, search, send emails | `gmail.readonly`, `gmail.send` |
+| **Google Calendar** | View/create events, check availability | `calendar.readonly`, `calendar.events` |
+| **Google Drive** | Search, access, organize files | `drive.readonly`, `drive.file` |
+
+#### Authentication Setup
+
+1. **Create OAuth 2.0 Credentials** in Google Cloud Console
+2. **Configure consent screen** with required scopes
+3. **Store tokens securely** in Secret Manager or `.env`
+
+```bash
+# ============================================================================
+# GROQ MCP CONNECTORS - GOOGLE WORKSPACE
+# ============================================================================
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxx
+
+# Google OAuth (for MCP Connectors)
+GOOGLE_CLIENT_ID=xxxxxxxxxxxx.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=GOCSPX-xxxxxxxxxxxx
+GOOGLE_REFRESH_TOKEN=1//xxxxxxxxxxxx
+```
+
+#### Firehorse Integration Plan
+
+##### Phase 1: Firehorse Omnichannel (Marketing)
+
+| Use Case | Connector | Implementation |
+|----------|-----------|----------------|
+| **Lead Inbox Monitoring** | Gmail | AI scans inbox for prospect emails, extracts intent, scores leads |
+| **Auto-Response Drafts** | Gmail | Generate personalized reply drafts using LLM |
+| **Campaign Tracking** | Gmail | Analyze email thread sentiment and engagement |
+| **Asset Delivery** | Drive | Auto-attach relevant collateral from Drive |
+
+**Workflow Example:**
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
+│ New Email   │────▶│ Groq + Gmail │────▶│ Lead Scored &   │
+│ (Prospect)  │     │ Connector    │     │ Categorized     │
+└─────────────┘     └──────────────┘     └────────┬────────┘
+                                                  │
+                    ┌──────────────┐              ▼
+                    │ Groq LLM     │◀──── Generate Response
+                    │ (llama-3.3)  │      Draft
+                    └──────┬───────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │ CRM Update   │
+                    │ (Salesforce) │
+                    └──────────────┘
+```
+
+##### Phase 2: Firehorse Automation (Sales)
+
+| Use Case | Connector | Implementation |
+|----------|-----------|----------------|
+| **Meeting Scheduler** | Calendar | AI checks availability, proposes times, sends invites |
+| **Follow-up Engine** | Gmail + Calendar | Auto-schedule follow-ups after meetings |
+| **Proposal Builder** | Drive | Pull templates, personalize with AI, save drafts |
+| **Deal Room Setup** | Drive | Create shared folders for prospects |
+
+**Workflow Example:**
+```
+┌─────────────┐     ┌────────────────┐     ┌─────────────────┐
+│ Sales Rep   │────▶│ "Schedule demo │────▶│ Groq + Calendar │
+│ Request     │     │  with Acme Co" │     │ Connector       │
+└─────────────┘     └────────────────┘     └────────┬────────┘
+                                                    │
+                           ┌────────────────────────┘
+                           ▼
+                    ┌──────────────┐
+                    │ Check Avail. │
+                    │ Both Parties │
+                    └──────┬───────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │ Send Invite  │
+                    │ + Agenda     │
+                    └──────────────┘
+```
+
+##### Phase 3: Firehorse ContentMS
+
+| Use Case | Connector | Implementation |
+|----------|-----------|----------------|
+| **Asset Sync** | Drive | Bi-directional sync with marketing Drive folders |
+| **Version Control** | Drive | Track document revisions, notify on updates |
+| **Content Search** | Drive | AI-powered semantic search across all assets |
+| **Template Library** | Drive | Centralized template management |
+
+#### Implementation Timeline
+
+| Phase | Feature | Firehorse App | Target |
+|-------|---------|---------------|--------|
+| **1.1** | Gmail lead monitoring | Omnichannel | Q1 2026 |
+| **1.2** | Auto-response drafts | Omnichannel | Q1 2026 |
+| **2.1** | Calendar meeting scheduler | Automation | Q2 2026 |
+| **2.2** | Proposal builder (Drive) | Automation | Q2 2026 |
+| **3.1** | Drive asset sync | ContentMS | Q2 2026 |
+| **3.2** | Semantic content search | ContentMS | Q3 2026 |
+
+#### Network Requirements
+
+If using VPN with split tunneling, ensure Groq API IPs are accessible (see Appendix F).
+
+### Appendix I: Google Merchant Center Integration
+
+#### Overview
+
+**Google Merchant Center Next** enables product data management for Google Shopping, Performance Max campaigns, and Buy on Google.
+
+**API:** Merchant API (successor to Content API for Shopping)
+
+**Documentation:** [developers.google.com/merchant/api](https://developers.google.com/merchant/api/overview)
+
+#### Use Cases for Firehorse
+
+| App | Use Case | Benefit |
+|-----|----------|---------|
+| **Firehorse Omnichannel** | Product feed sync | Automated product listings on Google Shopping |
+| **Firehorse Automation** | Inventory updates | Real-time stock level sync |
+| **Firehorse ContentMS** | Product content | Manage descriptions, images, pricing |
+| **Firehorse Reports** | Performance analytics | Shopping campaign ROI reporting |
+
+#### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ FIREHORSE + GOOGLE MERCHANT CENTER                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────────┐         ┌──────────────────────────────┐ │
+│  │ Firehorse        │         │ Google Merchant Center       │ │
+│  │ ContentMS        │────────▶│ ├─ Products                  │ │
+│  │ (Product Data)   │   API   │ ├─ Inventory                 │ │
+│  └──────────────────┘         │ ├─ Promotions                │ │
+│                               │ └─ Local Inventory           │ │
+│  ┌──────────────────┐         └──────────────┬───────────────┘ │
+│  │ Firehorse        │                        │                  │
+│  │ Automation       │◀───────────────────────┘                  │
+│  │ (Sync Engine)    │    Webhooks / Polling                    │
+│  └──────────────────┘                                           │
+│                               ┌──────────────────────────────┐ │
+│  ┌──────────────────┐         │ Google Ads                   │ │
+│  │ Firehorse        │◀────────│ ├─ Shopping Campaigns        │ │
+│  │ Reports          │  Stats  │ ├─ Performance Max           │ │
+│  │ (Analytics)      │         │ └─ Free Listings             │ │
+│  └──────────────────┘         └──────────────────────────────┘ │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Merchant API Endpoints
+
+| Resource | Method | Description |
+|----------|--------|-------------|
+| `accounts/{account}/products` | GET/POST | Manage product listings |
+| `accounts/{account}/productInputs` | POST | Submit product data |
+| `accounts/{account}/inventories` | GET/PATCH | Update stock levels |
+| `accounts/{account}/promotions` | GET/POST | Manage promotions |
+| `accounts/{account}/reports` | POST | Generate performance reports |
+
+#### Environment Configuration
+
+```bash
+# ============================================================================
+# GOOGLE MERCHANT CENTER INTEGRATION
+# ============================================================================
+GOOGLE_MERCHANT_ID=123456789
+GOOGLE_MERCHANT_API_VERSION=v1beta
+
+# Service Account (recommended for server-to-server)
+GOOGLE_SERVICE_ACCOUNT_KEY_FILE=/secrets/merchant-service-account.json
+
+# Or OAuth (for user-context operations)
+GOOGLE_MERCHANT_CLIENT_ID=xxxxxxxxxxxx.apps.googleusercontent.com
+GOOGLE_MERCHANT_CLIENT_SECRET=GOCSPX-xxxxxxxxxxxx
+GOOGLE_MERCHANT_REFRESH_TOKEN=1//xxxxxxxxxxxx
+```
+
+#### Implementation Plan
+
+| Phase | Feature | Description | Target |
+|-------|---------|-------------|--------|
+| **1** | Account Setup | Create Merchant Center account, configure API access | Q1 2026 |
+| **2** | Product Sync | ContentMS → Merchant Center product feed | Q1 2026 |
+| **3** | Inventory Sync | Real-time stock updates via Automation | Q2 2026 |
+| **4** | Promotion Engine | Automated promotion creation | Q2 2026 |
+| **5** | Performance Reports | Shopping analytics in Firehorse Reports | Q3 2026 |
+
+#### Data Mapping
+
+| Firehorse Field | Merchant Center Field | Required |
+|-----------------|----------------------|----------|
+| `product.sku` | `offerId` | ✅ Yes |
+| `product.title` | `title` | ✅ Yes |
+| `product.description` | `description` | ✅ Yes |
+| `product.price` | `price.value` | ✅ Yes |
+| `product.currency` | `price.currency` | ✅ Yes |
+| `product.url` | `link` | ✅ Yes |
+| `product.imageUrl` | `imageLink` | ✅ Yes |
+| `product.availability` | `availability` | ✅ Yes |
+| `product.brand` | `brand` | Recommended |
+| `product.gtin` | `gtin` | Recommended |
+| `product.category` | `googleProductCategory` | Recommended |
+
+#### Security & Compliance
+
+- **Service Account** recommended for automated sync (no user interaction)
+- **OAuth 2.0** for admin portal access
+- All credentials stored in **Secret Manager**
+- Audit logging for all product/inventory changes
+- GDPR: No personal data in product feeds
+
+### Appendix J: Combined Integration Roadmap (Marketing & Sales)
+
+#### Q1 2026 - Foundation
+
+| Week | Deliverable | Apps |
+|------|-------------|------|
+| 1-2 | Groq MCP Connector setup (Gmail) | Omnichannel |
+| 3-4 | Lead inbox monitoring MVP | Omnichannel |
+| 5-6 | Google Merchant Center account + API | ContentMS |
+| 7-8 | Product feed sync MVP | ContentMS, Automation |
+
+#### Q2 2026 - Expansion
+
+| Week | Deliverable | Apps |
+|------|-------------|------|
+| 1-2 | Calendar connector (meeting scheduler) | Automation |
+| 3-4 | Drive connector (proposals, assets) | ContentMS |
+| 5-6 | Inventory sync with Merchant Center | Automation |
+| 7-8 | Promotion automation | Omnichannel |
+
+#### Q3 2026 - Analytics & Optimization
+
+| Week | Deliverable | Apps |
+|------|-------------|------|
+| 1-2 | Shopping campaign analytics | Reports |
+| 3-4 | Semantic content search (Drive) | ContentMS |
+| 5-6 | Cross-channel attribution | Reports |
+| 7-8 | AI-powered optimization recommendations | All |
+
+#### Success Metrics
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Lead response time | < 1 hour | Gmail → CRM timestamp |
+| Meeting scheduling time | < 5 min | Request → invite sent |
+| Product feed accuracy | > 99% | Merchant Center diagnostics |
+| Inventory sync latency | < 15 min | Stock change → MC update |
+
+### Appendix K: LLM Training Infrastructure (Lifetime World Model)
+
+#### Overview
+
+The **Lifetime World Model** is a climate-intelligent LLM custom-trained for industrial carbon compliance. This appendix documents the hybrid training infrastructure combining local GPU clusters with cloud burst capacity.
+
+**IaC Location:** `infrastructure/llm-training/`
+
+#### Architecture: Hybrid Training Strategy
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 HYBRID TRAINING ARCHITECTURE                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  LOCAL CLUSTER (2x Acer Veriton GN-100)                                     │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  • NVIDIA GB10 Superchip (Blackwell + Grace, 128GB unified memory)  │   │
+│  │  • Fine-tuning: 7B-13B models (full), 70B models (LoRA/QLoRA)       │   │
+│  │  • Dataset preprocessing & validation                                │   │
+│  │  • Hyperparameter sweeps, model quantization                         │   │
+│  │  • Cost: ~€0.50/hr (electricity only)                                │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                              │                                              │
+│                              ▼ sync-to-gcp.ps1                             │
+│                    ┌─────────────────────────────────┐                     │
+│                    │     Google Cloud Storage        │                     │
+│                    │   lifetime-llm-checkpoints      │                     │
+│                    └─────────────────────────────────┘                     │
+│                              │                                              │
+│                              ▼ terraform apply                             │
+│  CLOUD BURST (GCP A3 Mega)                                                 │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  • 8x NVIDIA H100 80GB per node                                      │   │
+│  │  • Full 70B fine-tuning, distributed training at scale               │   │
+│  │  • Cost: ~€35/hr on-demand, ~€14/hr spot                             │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Strategy Comparison: Hybrid vs Fully Cloud
+
+| Factor | Hybrid | Fully Cloud | Recommendation |
+|--------|--------|-------------|----------------|
+| **70B Total Cost** | €26-43K | €31-53K | ✅ Hybrid |
+| **Dev Iteration Speed** | Fast (local) | Medium | ✅ Hybrid |
+| **Ops Complexity** | Higher | Lower | ⚠️ Cloud |
+| **Data Privacy** | Better | Cloud-only | ✅ Hybrid |
+| **GPU Availability** | Guaranteed | Quota risk | ✅ Hybrid |
+
+**Recommendation:** Hybrid strategy for Lifetime World (40-60% cost savings)
+
+#### Local Training Infrastructure
+
+**File:** `infrastructure/llm-training/local/docker-compose.training.yml`
+
+**Services:**
+| Service | Port | Purpose |
+|---------|------|---------|
+| `training-orchestrator` | 8890 | PyTorch training container |
+| `dataset-processor` | - | Dataset preprocessing |
+| `mlflow` | 5000 | Experiment tracking |
+| `jupyter` | 8888 | Interactive development |
+| `vllm` | 8000 | Inference testing |
+| `quantizer` | - | Model compression |
+
+**Quick Start:**
+```powershell
+# Navigate to local infrastructure
+cd infrastructure/llm-training/local
+
+# Start services
+docker-compose -f docker-compose.training.yml up -d
+
+# Access Jupyter
+# http://localhost:8888 (token: lifetime2026)
+
+# Access MLflow
+# http://localhost:5000
+```
+
+#### Google Cloud Burst Infrastructure
+
+**File:** `infrastructure/llm-training/gcp-burst/main.tf`
+
+**Resources Created:**
+- VPC network with training subnet
+- Firewall rules (SSH via IAP, NCCL)
+- GCS buckets (checkpoints, datasets)
+- Secret Manager secrets
+- Service account with roles
+- A3 Mega compute instances
+
+**Quick Start:**
+```bash
+cd infrastructure/llm-training/gcp-burst
+
+# Configure
+cp training.tfvars.example training.tfvars
+
+# Set credentials
+export TF_VAR_hf_token="hf_xxxxx"
+
+# Deploy
+terraform init
+terraform apply -var-file="training.tfvars"
+
+# SSH to node
+gcloud compute ssh lifetime-llm-training-node-0 \
+  --zone=europe-north1-a --tunnel-through-iap
+
+# IMPORTANT: Destroy when done
+terraform destroy -var-file="training.tfvars"
+```
+
+#### Cost Estimates
+
+##### Training Infrastructure
+
+| Scenario | Infrastructure | Duration | Cost |
+|----------|---------------|----------|------|
+| Local LoRA (7B) | 2x GN-100 | 24 hrs | ~€12 |
+| Local LoRA (70B) | 2x GN-100 | 72 hrs | ~€36 |
+| Cloud Full (70B) | 1x A3 Mega on-demand | 72 hrs | ~€2,520 |
+| Cloud Full (70B) | 1x A3 Mega spot | 72 hrs | ~€1,008 |
+
+##### Complete 70B Project
+
+| Phase | Hybrid | Fully Cloud |
+|-------|--------|-------------|
+| Dataset prep | €24 (local) | €500 |
+| Hyperparameter search | €12 (local) | €2,000 |
+| Final training | €2,520 (cloud) | €2,520 |
+| Quantization & eval | €12 (local) | €200 |
+| **Total** | **~€2,570** | **~€5,220** |
+
+#### Groq Integration: Inference Only
+
+**Important:** Groq LPU is optimized for **inference**, not training.
+
+##### Groq Role in Lifetime World
+
+```
+Training (GN-100/GCP)  →  Fine-tuned Model  →  Groq Cloud (Inference)
+         │                      │                      │
+    Your hardware          Your weights          Ultra-fast API
+    Your data              Your IP               ~500 tok/s
+```
+
+##### Groq Inference Pricing (vs Training Alternatives)
+
+| Provider | Use Case | 70B Cost (per 1M tokens) |
+|----------|----------|--------------------------|
+| **Groq** | Inference | $0.59 input / $0.79 output |
+| OpenAI | Inference | $2.50 input / $10.00 output |
+| Anthropic | Inference | $3.00 input / $15.00 output |
+| **GCP A3** | Training | ~€35/hr (not per-token) |
+| **Local GN-100** | Training | ~€0.50/hr (electricity) |
+
+##### When to Use Groq
+
+| ✅ Use Groq | ❌ Don't Use Groq |
+|------------|-------------------|
+| Production inference API | Model training |
+| Low-latency applications | Fine-tuning |
+| Cost-sensitive inference | Dataset processing |
+| Scaling inference load | Hyperparameter search |
+
+##### Recommended Workflow with Groq
+
+1. **Train locally** (GN-100) for fine-tuning experiments
+2. **Burst to cloud** (GCP A3) for final 70B training
+3. **Quantize model** (AWQ/GPTQ) for efficient inference
+4. **Deploy to Groq** for production inference (50-90% cheaper than OpenAI)
+5. **Fallback to vLLM** on local cluster for sensitive data
+
+#### Training Scripts
+
+**Location:** `infrastructure/llm-training/scripts/`
+
+| Script | Purpose |
+|--------|---------|
+| `train-70b-lora.py` | LoRA/QLoRA fine-tuning for 70B models |
+| `quantize.py` | Convert models to GGUF/AWQ/GPTQ |
+| `sync-to-gcp.ps1` | Sync checkpoints to GCS |
+
+**Example: 70B LoRA Training**
+```bash
+python train-70b-lora.py \
+  --model meta-llama/Llama-3.3-70B-Instruct \
+  --dataset /datasets/climate-compliance.jsonl \
+  --output-dir /checkpoints/lifetime-70b-lora \
+  --epochs 3 \
+  --lora-r 64
+```
+
+**Example: Model Quantization**
+```bash
+python quantize.py \
+  --model /checkpoints/lifetime-70b-lora/final \
+  --format gguf \
+  --bits 4
+```
+
+#### Model Size Feasibility
+
+| Model Size | Local (GN-100) | Cloud (A3 Mega) | Recommended |
+|------------|----------------|-----------------|-------------|
+| 7B | ✅ Full fine-tune | ✅ Full fine-tune | Local |
+| 13B | ✅ Full fine-tune | ✅ Full fine-tune | Local |
+| 30B | ⚠️ QLoRA only | ✅ Full fine-tune | Hybrid |
+| 70B | ⚠️ QLoRA only | ✅ Full fine-tune | Hybrid |
+| 405B+ | ❌ Not feasible | ⚠️ Multi-node | Cloud only |
+| 800B+ | ❌ Not feasible | ❌ Requires 64+ H100 | Partnership |
+
+#### Security & Compliance
+
+- **Credentials:** Google Secret Manager (cloud), `.env.training` (local)
+- **Data Region:** `europe-north1` (Finland) - GDPR compliant
+- **Model Ownership:** Full IP retained - your weights, your model
+- **Audit Logging:** MLflow for all training experiments
+- **Network:** IAP-only SSH access, internal NCCL traffic
+
+#### Implementation Timeline
+
+| Week | Milestone | Deliverable |
+|------|-----------|-------------|
+| 1 | Local setup | Docker Compose + Jupyter running |
+| 2 | 7B experiments | Initial fine-tuning validated |
+| 3 | 70B LoRA (local) | QLoRA training on GN-100 |
+| 4 | GCP burst | Full 70B training on A3 Mega |
+| 5 | Quantization | GGUF + AWQ models ready |
+| 6 | Groq deployment | Inference API operational |
+
 ---
 
 ## Support & Contact
@@ -1459,8 +2161,8 @@ Security audit checklist in `SECURITY_CHECKLIST.md`
 
 ---
 
-**Document Version:** 6.0  
-**Last Updated:** December 31, 2025  
+**Document Version:** 6.1  
+**Last Updated:** January 4, 2026  
 **Next Review:** March 31, 2026  
 **Classification:** Confidential  
 **Owner:** DWS IQ 6 Platform Team

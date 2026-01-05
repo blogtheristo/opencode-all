@@ -505,6 +505,44 @@ If Cursor.ai shows "connection error has stopped delivery":
 6. Commit: "Agent Connection Status - Cursor.ai error resolved - session ABC123"
 ```
 
+### Incident Log · 04.01.2026 · @PowerShell Extension (222–225)
+
+```
+Root Incident
+-------------
+Timestamp: 04.01.2026 08:25 (UTC+2)
+Terminal: @PowerShell Extension (lines 222–225)
+Command: docker-compose -f docker-compose.hybrid.yml up -d.
+Observed Errors:
+  - "The 'env' variable is not set. Defaulting to a blank string."
+  - "The 'SUPABASE_URL' variable is not set. Defaulting to a blank string." (repeated for every secret)
+  - "docker-compose.hybrid.yml: the attribute `version` is obsolete..."
+  - "no such service: ."
+
+Immediate Impact
+---------------
+⚠️ Session delivery paused — containers never started because:
+  1. `.env.mcp` was not sourced (Cursor closed the terminal and stripped session env vars).
+  2. The command ended with a trailing period (`up -d.`) so Docker searched for a service named `.` and aborted.
+
+Resolution Checklist
+--------------------
+1. Re-open PowerShell in project root: `D:\Proton\My files\2026\Repos2026\dws6`.
+2. Load secrets via `scripts\Open-EnvTerminal.ps1` (details below).
+3. Re-run `docker-compose -f docker-compose.hybrid.yml up -d` **without** the trailing period.
+4. Update `Connection Error Log` + `Delivery Status by Agent` in this file.
+5. Commit with `Agent Connection Status - PowerShell env restore - session [SessionID]`.
+
+Automation Hook
+---------------
+Run the helper script whenever the project opens so the terminal inherits `.env.mcp` variables automatically:
+
+```
+pwsh -File .\scripts\Open-EnvTerminal.ps1
+```
+
+The script parses `.env.mcp`, launches a dedicated PowerShell window with all secrets injected, changes directory to the repo root, and prints confirmation before Docker commands run. Log a ✅ follow-up entry once deliveries resume.
+
 ---
 
 ## 📞 QUESTIONS?
@@ -525,10 +563,11 @@ Refer to:
 | 0.2 | 16.12.2025 15:50 | Added Repository Status section (GitHub links, Protected status, .gitignore, Workflows); added Example 4 for automated workflows | Claude Code / QVvDX |
 | 0.3 | 16.12.2025 16:05 | Added Language/Kieli field in Document Status for version tracking across locales (English, Suomi, etc.) | Claude Code / QVvDX |
 | 0.4 | 03.01.2026 12:15 | Added AGENT CONNECTION STATUS TRACKING section to monitor agent deliveries, detect connection errors, and maintain audit trail of active agents and sessions | Claude Code / Current Session |
+| 0.5 | 04.01.2026 09:05 | Logged PowerShell Extension (222–225) env outage, added recovery checklist, and referenced `Open-EnvTerminal.ps1` automation script for loading `.env.mcp` secrets | GPT-5.1 Codex / Current Session |
 
 ---
 
-**Last Updated:** 03.01.2026 12:15
+**Last Updated:** 04.01.2026 09:05
 **Status:** ✅ ACTIVE & READY FOR USE
 **Audience:** All AI agents creating/modifying documents; Project managers monitoring agent connectivity
 **Language Support:** English, Suomi (templates ready for localization)

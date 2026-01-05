@@ -410,3 +410,47 @@ Second, **Kela is your Nordic key**. Government validation unlocks B2B2G procure
 Third, **sub-100ms is your competitive kill shot**. The 1,200-3,000x latency advantage over Siemens and Schneider is not incremental—it’s categorical. Create demonstration moments that make this advantage visceral for technical evaluators.
 
 Execute the 20-action plan in priority order, measure conversion improvements weekly, and expect to reach €60k MRR within 16-18 months with full documentation arsenal deployed.
+
+---
+
+## 🆕 January 2026 Updates: Omnibus Pivot
+
+### New Sales Materials Available
+
+| Document | Location | Purpose |
+|----------|----------|---------|
+| **Omnibus Sales Letter** | `/Sales/Myyntikirje_3_Omnibus_Pivot.md` | Full customer letter with EU Omnibus analysis |
+| **Core Messaging** | `/Sales/Myyntikirje2_Fitfor55meansFitfor55.md` | "Fit for 55 = Fit for 55" |
+| **Enterprise Sandbox** | `/investor-outreach/CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md` | Board-ready + Technical value prop |
+| **Customer Pilot Program** | `/docs/CLOUDFLARE_SANDBOX_PILOT.md` | Vinci, Bouygues, Nordic Steel examples |
+
+### Key Omnibus Message
+
+> **Fit for 55 and CSRD targets did not change after Omnibus – only the paperwork did.**
+
+Boards are still responsible for real emissions, not minimum forms.
+
+### 4 Concrete Promises for Construction Management
+
+1. **One Industrial Climate System of Record** – Replace 100+ supplier Excel files
+2. **Future-Proof Compliance** – Configure once, adapt as regulations tighten
+3. **Controlled Supplier Reporting** – Every contractor reports at your standard
+4. **Enterprise-Grade, EU-Hosted AI** – Data stays under your control
+
+### Two Cockpits
+
+- **Situation Room**: Strategic portfolio view for Board/CSO/CFO – "Compliance without fines"
+- **Control Room**: Operational site view for Project/Ops managers – "Compliance with just-in-time production"
+
+### Objection Handling (Omnibus-Specific)
+
+**"Omnibus means we have more time for compliance."**
+> "You're right – for paperwork. But ETS carbon prices don't wait for paperwork deadlines. Every month you delay, you're accumulating carbon costs."
+
+**"We're now below the 1,000-employee threshold for CSRD."**
+> "But your supply chain partners still need your data for Scope 3 reporting. And ETS carbon price affects your costs regardless of reporting requirements."
+
+---
+
+**Document Version**: 1.1  
+**Last Updated**: January 4, 2026
