@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Boot env terminal",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Open-EnvTerminal.ps1"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen",
+        "runInBackground": true
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared",
+        "clear": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}

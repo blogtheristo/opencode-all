@@ -88,9 +88,19 @@ DWS IQ targets 8 industries with high impact on climate change mitigation:
 
 ### Technical Infrastructure
 - **GitHub Repository**: https://github.com/blogtheristo/dws6
-- **Automated Workflows**: Cloudflare Pages + GitHub Actions
+- **Automated Workflows**: GitHub Actions (17 active workflows)
 - **Documentation**: Full technical documentation available
-- **Sites**: Automatic deployment workflows configured
+- **Cloudflare Pages**: ⚠️ **Setup Required** - Investor reports not auto-publishing (manual publishing in place)
+
+### New Products (January 2026)
+
+| Product | Status | Target |
+|---------|--------|--------|
+| **Lifetime Agent Foundry** | ✅ Available | Enterprise customers |
+| **Agent Administration Platform** | ✅ Available | CISO/CIO teams |
+| **Enterprise Model Training** | 📅 Jan 8, 2026 | Custom LLM needs |
+
+See `Store/PRODUCT_*.md` for detailed product documentation.
 
 ---
 
@@ -265,7 +275,25 @@ We're seeking partnerships with:
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 2026  
+**Document Version:** 1.1  
+**Last Updated:** January 3, 2026  
 **Prepared for:** Google Cloud & AWS Partnership Teams
 
+---
+
+## Appendix: Product Portfolio (January 2026)
+
+### Core Platform
+- **DWS IQ 6**: Agentic AI SaaS platform for climate-positive industries
+
+### New Products
+1. **Lifetime Agent Foundry** - Enterprise AI agent framework (`Store/PRODUCT_AGENT_FOUNDRY.md`)
+2. **Agent Administration Platform** - Enterprise management console (`Store/PRODUCT_AGENT_ADMINISTRATION.md`)
+3. **Enterprise Model Training** - Custom LLM fine-tuning (`Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md`)
+
+### Hardware Timeline
+- **January 8, 2026**: Acer node setup for on-premise training capability
+- **February 23, 2026**: DWS IQ 6 V1.0 launch
+
+### Blockers
+- **Cloudflare Pages**: Setup required for automatic investor report publishing

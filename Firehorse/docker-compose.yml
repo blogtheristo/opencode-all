@@ -1,0 +1,107 @@
+# Firehorse Services - Docker Compose
+# Development and local testing configuration
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Firehorse Report Engine API
+  # ============================================================================
+  firehorse-reports:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: firehorse-reports
+    ports:
+      - "8084:8084"
+    environment:
+      - PORT=8084
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - TEMPLATES_DIR=/app/templates
+      - CORS_ORIGINS=*
+    volumes:
+      - ./templates:/app/templates:ro
+      - ./reports:/app/reports
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8084/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # Firehorse Automation Service
+  # ============================================================================
+  firehorse-automation:
+    build:
+      context: ./automation
+      dockerfile: Dockerfile
+    container_name: firehorse-automation
+    ports:
+      - "8085:8085"
+    environment:
+      - PORT=8085
+      - REPORT_ENGINE_URL=http://firehorse-reports:8084
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - CORS_ORIGINS=*
+    depends_on:
+      - firehorse-reports
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8085/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # Firehorse Content DMS Service
+  # ============================================================================
+  firehorse-dms:
+    build:
+      context: ./dms
+      dockerfile: Dockerfile
+    container_name: firehorse-dms
+    ports:
+      - "8086:8086"
+    environment:
+      - PORT=8086
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - SUPABASE_BUCKET=${SUPABASE_BUCKET:-firehorse-documents}
+      - CORS_ORIGINS=*
+      - SIGNED_URL_EXPIRY_SECONDS=900
+    depends_on:
+      - firehorse-reports
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8086/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # Redis (for job queue and caching)
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: firehorse-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  default:
+    name: firehorse-network
+
+volumes:
+  redis_data:

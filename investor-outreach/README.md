@@ -18,6 +18,13 @@ Use these templates to reach out to investors and grant programs.
 - **[02-vc-seed-round-letter.md](02-vc-seed-round-letter.md)** – VC investor letter for €500K-€1M Seed round
 - **[03-grant-application-letter.md](03-grant-application-letter.md)** – Template for EU grant applications
 
+### Sales Materials (Customer-Facing)
+Key sales documents for customer outreach and business development.
+
+- **[/Sales/Myyntikirje_3_Omnibus_Pivot.md](/Sales/Myyntikirje_3_Omnibus_Pivot.md)** – 🆕 Latest sales letter with EU Omnibus analysis, 4 promises, Situation Room + Control Room
+- **[/Sales/Myyntikirje2_Fitfor55meansFitfor55.md](/Sales/Myyntikirje2_Fitfor55meansFitfor55.md)** – Core sales messaging (Fit for 55 = Fit for 55)
+- **[CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md](CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md)** – Enterprise Sandbox value prop (Board-ready + Technical)
+
 ### Workflows (Step-by-Step Guides)
 Follow these workflows to execute each fundraising track.
 
@@ -225,6 +232,19 @@ For specific guidance on any track, refer to the detailed workflow documents. Fo
 
 ---
 
-**Last updated:** November 30, 2025
+**Last updated:** January 4, 2026
 **Maintained by:** Lifetime Oy team
 **Feedback:** risto@lifetime.fi
+
+---
+
+## 🆕 January 2026 Updates
+
+### Omnibus Pivot (January 3-4, 2026)
+- Added EU Omnibus impact analysis to all sales materials
+- Created `/Sales/Myyntikirje_3_Omnibus_Pivot.md` with updated messaging
+- Added Situation Room + Control Room cockpit positioning
+- Updated enterprise sandbox value proposition
+
+### Key Message: "Fit for 55 Means Fit for 55"
+> Fit for 55 and CSRD targets did not change after Omnibus – only the paperwork did. Boards are still responsible for real emissions, not minimum forms.

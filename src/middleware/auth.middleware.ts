@@ -2,12 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
 
+// Valid user roles for RBAC
+type UserRole = 'owner' | 'admin' | 'member' | 'viewer';
+
 // Extend Express Request to include user info
 declare global {
   namespace Express {
     interface Request {
       userId?: string;
       userEmail?: string;
+      userRole?: UserRole;
+      organizationId?: string;
       token?: string;
     }
   }
@@ -158,6 +163,128 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
 };
 
 /**
+ * Middleware factory to require specific role(s)
+ * Must be used after authenticateToken middleware
+ * 
+ * @param allowedRoles - Array of roles that are allowed to access the route
+ * @returns Express middleware function
+ * 
+ * @example
+ * // Allow only admins and owners
+ * router.get('/admin/users', authenticateToken, requireRole(['admin', 'owner']), handler);
+ * 
+ * @example
+ * // Allow any authenticated member
+ * router.get('/projects', authenticateToken, requireRole(['owner', 'admin', 'member']), handler);
+ */
+export const requireRole = (allowedRoles: UserRole[]) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.userId) {
+        logger.warn('Role check failed: User not authenticated');
+        return res.status(401).json({
+          error: 'Unauthorized',
+          message: 'Authentication required',
+        });
+      }
+
+      // Get user role from request (should be set by prior middleware or token)
+      // In production, this would query the database or be included in the JWT
+      const userRole = req.userRole;
+
+      if (!userRole) {
+        // If role isn't set, try to get it from the user's metadata
+        // This is a fallback - ideally role should be in the token or set by middleware
+        logger.warn('User role not found in request', { userId: req.userId });
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: 'Unable to determine user role',
+        });
+      }
+
+      if (!allowedRoles.includes(userRole)) {
+        logger.warn('Access denied: Insufficient role', {
+          userId: req.userId,
+          userRole,
+          requiredRoles: allowedRoles,
+        });
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: `This action requires one of the following roles: ${allowedRoles.join(', ')}`,
+        });
+      }
+
+      logger.debug('Role check passed', {
+        userId: req.userId,
+        userRole,
+        requiredRoles: allowedRoles,
+      });
+
+      next();
+    } catch (error) {
+      logger.error('Role check failed', { error });
+      res.status(500).json({
+        error: 'Server error',
+        message: 'Failed to verify user role',
+      });
+    }
+  };
+};
+
+/**
+ * Middleware to require organization ownership or admin role
+ * Checks if user has admin/owner role in the specified organization
+ * 
+ * @example
+ * router.put('/organizations/:orgId', authenticateToken, requireOrgAdmin, handler);
+ */
+export const requireOrgAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!req.userId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Authentication required',
+      });
+    }
+
+    const orgId = req.params.orgId || req.body.organizationId || req.organizationId;
+
+    if (!orgId) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Organization ID is required',
+      });
+    }
+
+    // In production, this would query the organization_members table
+    // to check if the user has admin or owner role in the organization
+    // For now, we'll use the role from the request
+    const userRole = req.userRole;
+
+    if (!userRole || !['owner', 'admin'].includes(userRole)) {
+      logger.warn('Organization admin access denied', {
+        userId: req.userId,
+        organizationId: orgId,
+        userRole,
+      });
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Admin or owner role required for this action',
+      });
+    }
+
+    req.organizationId = orgId;
+    next();
+  } catch (error) {
+    logger.error('Org admin check failed', { error });
+    res.status(500).json({
+      error: 'Server error',
+      message: 'Failed to verify organization access',
+    });
+  }
+};
+
+/**
  * Middleware to rate limit login attempts
  */
 export const loginRateLimit = () => {
@@ -251,6 +378,8 @@ export default {
   authenticateTokenFromCookie,
   optionalAuth,
   requireAuth,
+  requireRole,
+  requireOrgAdmin,
   loginRateLimit,
   authLogger,
 };
