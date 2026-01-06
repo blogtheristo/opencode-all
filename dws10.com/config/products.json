@@ -143,6 +143,30 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       }
+    },
+    "consulting-hourly": {
+      "id": "consulting-hourly",
+      "gtin": null,
+      "mpn": "CONSULT-HR-2026",
+      "name": "Consulting - Hourly Rate",
+      "price": 98,
+      "currency": "EUR",
+      "type": "hourly",
+      "description": "Flexible hourly consulting with Risto Anton. Strategic AI advisory, technical architecture reviews, Fit for 55 compliance guidance, and implementation support. Book hours as needed.",
+      "priceNote": "Per hour, VAT excl.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../static/images/Risto_Malta.png",
+      "detailsUrl": "../products/consulting.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
     }
   },
   "settings": {
