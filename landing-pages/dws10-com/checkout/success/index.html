@@ -105,7 +105,7 @@
                 document.getElementById('orderId').textContent = order.orderId || 'Processing...';
                 document.getElementById('productName').textContent = order.product?.name || '-';
                 document.getElementById('orderAmount').textContent = order.product?.price ? `€${order.product.price.toLocaleString()}` : '-';
-                document.getElementById('paymentMethod').textContent = order.paymentMethod === 'revolut' ? 'Revolut' : 'PayPal';
+                document.getElementById('paymentMethod').textContent = order.paymentMethod === 'revolut' ? 'Revolut Business' : 'PayPal Business';
                 
                 // Clear session storage
                 sessionStorage.removeItem('pending_order');
