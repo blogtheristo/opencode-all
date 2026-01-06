@@ -34,7 +34,7 @@
       "type": "one-time",
       "description": "Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.",
       "priceNote": "Per project",
-      "revolutLink": null,
+      "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
       "image": "../static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-automation.html",
