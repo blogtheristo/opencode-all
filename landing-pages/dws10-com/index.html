@@ -1467,56 +1467,105 @@
         </div>
     </section>
 
-    <!-- TIM DRAPER TESTIMONIAL BOX -->
+    <!-- TESTIMONIALS CAROUSEL -->
     <section style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(59, 130, 246, 0.1) 100%); padding: 60px 0;">
         <div class="container">
             <h3 style="text-align: center; margin-bottom: 40px; color: #e2e8f0;">Testimonials</h3>
-            <div style="max-width: 900px; margin: 0 auto; background: rgba(30, 41, 59, 0.9); border-left: 4px solid #ffd700; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); position: relative;">
-                <div style="position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%); color: #0f172a; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
-                    📧 Sent to <a href="https://draper.vc" target="_blank" rel="noopener" style="color: #0f172a; text-decoration: underline;">Tim Draper (Draper.VC)</a>
+            
+            <!-- Carousel Container -->
+            <div id="testimonialCarousel" style="max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; min-height: 380px;">
+                
+                <!-- Slide 1: Tim Draper -->
+                <div class="testimonial-slide" style="position: absolute; width: 100%; opacity: 1; transition: opacity 0.6s ease-in-out;">
+                    <div style="background: rgba(30, 41, 59, 0.9); border-left: 4px solid #ffd700; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); position: relative;">
+                        <div style="position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #ffd700 0%, #f59e0b 100%); color: #0f172a; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
+                            📧 Sent to <a href="https://draper.vc" target="_blank" rel="noopener" style="color: #0f172a; text-decoration: underline;">Tim Draper (Draper.VC)</a>
+                        </div>
+                        <div style="font-size: 3rem; color: #ffd700; line-height: 1; margin-bottom: 10px;">"</div>
+                        <p style="font-size: 1.25rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
+                            Lifetime World's mission is to help heavy industry mitigate the real‑world effects of climate change – droughts, erosion and extreme weather.
+                        </p>
+                        <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 25px;">
+                            Our current product, <strong style="color: #60a5fa;">Lifetime DWS IQ</strong>, is an industrial climate intelligence platform for the <strong style="color: #ffd700;">16 most regulated EU industries</strong>. We turn Fit for 55, CSRD and CBAM from static reports into live <strong style="color: #10b981;">'Situation Room'</strong> intelligence for boards, owners and lenders.
+                        </p>
+                        <div style="text-align: center; margin-top: 30px;">
+                            <a href="https://dws10.com/buy" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: inline-block;">
+                                🛒 View Our Product Line →
+                            </a>
+                        </div>
+                        <div style="font-size: 3rem; color: #ffd700; line-height: 1; text-align: right; margin-top: 10px;">"</div>
+                    </div>
                 </div>
-                
-                <div style="font-size: 3rem; color: #ffd700; line-height: 1; margin-bottom: 10px;">"</div>
-                
-                <p style="font-size: 1.25rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 20px; font-style: italic;">
-                    Lifetime World's mission is to help heavy industry mitigate the real‑world effects of climate change – droughts, erosion and extreme weather.
-                </p>
-                
-                <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 25px;">
-                    Our current product, <strong style="color: #60a5fa;">Lifetime DWS IQ</strong>, is an industrial climate intelligence platform for the <strong style="color: #ffd700;">16 most regulated EU industries</strong>. We turn Fit for 55, CSRD and CBAM from static reports into live <strong style="color: #10b981;">'Situation Room'</strong> intelligence for boards, owners and lenders.
-                </p>
-                
-                <div style="text-align: center; margin-top: 30px;">
-                    <a href="https://dws10.com/buy" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: inline-block;">
-                        🛒 View Our Product Line →
-                    </a>
+
+                <!-- Slide 2: Boardy AI -->
+                <div class="testimonial-slide" style="position: absolute; width: 100%; opacity: 0; transition: opacity 0.6s ease-in-out;">
+                    <div style="background: rgba(30, 41, 59, 0.9); border-left: 4px solid #25D366; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); position: relative;">
+                        <div style="position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
+                            🤖 AI Super-Connector
+                        </div>
+                        <div style="font-size: 3rem; color: #25D366; line-height: 1; margin-bottom: 10px;">"</div>
+                        <p style="font-size: 1.25rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 25px; font-style: italic;">
+                            <strong style="color: #25D366;">Boardy</strong> is an AI super‑connector helping Lifetime turn a complex climate story into sharp investor intros, warm customer leads and funded pilots.
+                        </p>
+                        <div style="text-align: center; margin-top: 30px;">
+                            <a href="https://whatsapp.boardy.ai" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); display: inline-block;">
+                                💬 Connect with Boardy AI →
+                            </a>
+                        </div>
+                        <div style="font-size: 3rem; color: #25D366; line-height: 1; text-align: right; margin-top: 10px;">"</div>
+                    </div>
                 </div>
-                
-                <div style="font-size: 3rem; color: #ffd700; line-height: 1; text-align: right; margin-top: 10px;">"</div>
             </div>
 
-            <!-- BOARDY AI TESTIMONIAL -->
-            <div style="max-width: 900px; margin: 40px auto 0; background: rgba(30, 41, 59, 0.9); border-left: 4px solid #25D366; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); position: relative;">
-                <div style="position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
-                    🤖 AI Super-Connector
-                </div>
-                
-                <div style="font-size: 3rem; color: #25D366; line-height: 1; margin-bottom: 10px;">"</div>
-                
-                <p style="font-size: 1.25rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 25px; font-style: italic;">
-                    <strong style="color: #25D366;">Boardy</strong> is an AI super‑connector helping Lifetime turn a complex climate story into sharp investor intros, warm customer leads and funded pilots.
-                </p>
-                
-                <div style="text-align: center; margin-top: 30px;">
-                    <a href="https://whatsapp.boardy.ai" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); display: inline-block;">
-                        💬 Connect with Boardy AI →
-                    </a>
-                </div>
-                
-                <div style="font-size: 3rem; color: #25D366; line-height: 1; text-align: right; margin-top: 10px;">"</div>
+            <!-- Carousel Dots -->
+            <div style="text-align: center; margin-top: 30px;">
+                <span class="carousel-dot" onclick="goToSlide(0)" style="display: inline-block; width: 12px; height: 12px; background: #ffd700; border-radius: 50%; margin: 0 6px; cursor: pointer; transition: all 0.3s;"></span>
+                <span class="carousel-dot" onclick="goToSlide(1)" style="display: inline-block; width: 12px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 50%; margin: 0 6px; cursor: pointer; transition: all 0.3s;"></span>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 980px; display: flex; justify-content: space-between; pointer-events: none;">
+                <button onclick="prevSlide()" style="pointer-events: auto; background: rgba(255,255,255,0.1); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; transition: all 0.3s;">‹</button>
+                <button onclick="nextSlide()" style="pointer-events: auto; background: rgba(255,255,255,0.1); border: none; color: white; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; transition: all 0.3s;">›</button>
             </div>
         </div>
     </section>
+
+    <script>
+        // Testimonial Carousel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+        const dotColors = ['#ffd700', '#25D366'];
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = i === index ? '1' : '0';
+                slide.style.pointerEvents = i === index ? 'auto' : 'none';
+            });
+            dots.forEach((dot, i) => {
+                dot.style.background = i === index ? dotColors[i] : 'rgba(255,255,255,0.3)';
+                dot.style.transform = i === index ? 'scale(1.2)' : 'scale(1)';
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto-rotate every 6 seconds
+        setInterval(nextSlide, 6000);
+    </script>
 
     <!-- REVOLUT BUSINESS PROMO BOX -->
     <section style="background: linear-gradient(135deg, rgba(0, 122, 255, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%); padding: 60px 0; border-top: 1px solid rgba(0, 122, 255, 0.2); border-bottom: 1px solid rgba(0, 122, 255, 0.2);">
