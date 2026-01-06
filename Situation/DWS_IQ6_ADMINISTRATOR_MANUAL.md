@@ -2161,8 +2161,472 @@ python quantize.py \
 
 ---
 
-**Document Version:** 6.1  
-**Last Updated:** January 4, 2026  
+## Appendix H: E-Commerce Plugin Integration Guide
+
+This appendix provides guidance on integrating Revolut payment processing with e-commerce platforms used by DWS IQ 6 customers across the 16 regulated industries.
+
+### H.1 Platform Selection Matrix
+
+DWS IQ 6 customers span enterprise manufacturers, construction firms, logistics operators, and agricultural cooperatives. Their e-commerce needs vary significantly:
+
+| Platform | Market Share | Best For | Priority |
+|----------|-------------|----------|----------|
+| **WooCommerce** | 43% globally | SMEs, Construction subcontractors, Agriculture, Food processing | ⭐⭐⭐⭐⭐ Primary |
+| **Adobe Commerce (Magento)** | Enterprise leader | Large manufacturers, B2B catalogs, SAP integration | ⭐⭐⭐⭐⭐ Primary |
+| **Shopify** | 28% globally | DTC brands, Food & Beverage retail | ⭐⭐⭐⭐ Secondary |
+| **PrestaShop** | EU stronghold | French/Spanish/Polish markets, EU VAT compliance | ⭐⭐⭐⭐ Secondary |
+| **BigCommerce** | B2B focused | Complex B2B pricing, wholesale | ⭐⭐⭐ Optional |
+| **OpenCart** | Lightweight | Simple SME catalogs | ⭐⭐ Optional |
+
+### H.2 Industry-to-Platform Mapping
+
+| Industry Tier | Typical Platforms | Revolut Plugin Priority |
+|---------------|-------------------|------------------------|
+| **Tier 1: Critical Industries** | | |
+| Power & Heat Generation | Adobe Commerce, Custom | Adobe Commerce |
+| Iron & Steel Production | Adobe Commerce, SAP Commerce | Adobe Commerce |
+| Cement & Lime Production | WooCommerce, Adobe Commerce | Both |
+| Chemicals & Petrochemicals | Adobe Commerce | Adobe Commerce |
+| Aviation | Custom, Shopify Plus | Shopify |
+| Maritime Shipping | Custom | — |
+| Road Transport & Logistics | WooCommerce, Shopify | WooCommerce |
+| Construction & Buildings | WooCommerce, Adobe Commerce | WooCommerce |
+| **Tier 2: Important Industries** | | |
+| Agriculture & Livestock | WooCommerce, PrestaShop | WooCommerce + PrestaShop |
+| Waste Management | WooCommerce | WooCommerce |
+| Aluminium Production | Adobe Commerce | Adobe Commerce |
+| Pulp, Paper & Printing | WooCommerce, Adobe Commerce | Both |
+| Petroleum Refining | Custom | — |
+| Food & Beverage Processing | Shopify, WooCommerce | Shopify + WooCommerce |
+| Glass & Ceramics | WooCommerce | WooCommerce |
+| Mining & Quarrying | WooCommerce, OpenCart | WooCommerce |
+
+### H.3 WooCommerce + Revolut Integration
+
+WooCommerce is WordPress-based and serves the largest share of SME customers in construction, agriculture, and manufacturing supply chains.
+
+#### Installation
+
+1. **Download Plugin:**
+   - Navigate to WordPress Admin → Plugins → Add New
+   - Search for "Revolut Gateway for WooCommerce"
+   - Install and Activate
+
+2. **Configure API Keys:**
+   ```
+   WooCommerce → Settings → Payments → Revolut
+   
+   Production API Key: sk_live_xxxxxxxx
+   Sandbox API Key:    sk_sandbox_xxxxxxxx
+   Webhook Secret:     whsec_xxxxxxxx
+   ```
+
+3. **Webhook Configuration:**
+   - Revolut Dashboard → Developers → Webhooks
+   - Add endpoint: `https://yourstore.com/wc-api/revolut_webhook`
+   - Events: `ORDER_COMPLETED`, `ORDER_FAILED`, `ORDER_CANCELLED`
+
+4. **Test Transaction:**
+   - Enable Sandbox mode
+   - Process test order with card: `4929 0000 0005 5555`
+   - Verify webhook receipt in WooCommerce logs
+
+#### Firehorse Integration Points
+
+```yaml
+# firehorse-woocommerce-config.yaml
+integration:
+  platform: woocommerce
+  webhook_endpoint: /api/firehorse/woocommerce
+  
+events:
+  - order.completed:
+      action: create_compliance_record
+      extract:
+        - customer_email
+        - order_total
+        - product_skus
+        - carbon_data  # Custom WooCommerce field
+  
+  - subscription.renewed:
+      action: extend_license
+      
+carbon_tracking:
+  enabled: true
+  product_meta_field: _carbon_footprint_kg
+  report_to: firehorse-reports
+```
+
+### H.4 Adobe Commerce (Magento) + Revolut Integration
+
+Adobe Commerce serves enterprise customers with complex B2B requirements, ERP integration, and high transaction volumes.
+
+#### Installation
+
+1. **Composer Installation:**
+   ```bash
+   composer require revolut/magento2-payment-gateway
+   bin/magento module:enable Revolut_Payment
+   bin/magento setup:upgrade
+   bin/magento cache:clean
+   ```
+
+2. **Admin Configuration:**
+   ```
+   Stores → Configuration → Sales → Payment Methods → Revolut
+   
+   Enabled: Yes
+   Mode: Production
+   Merchant Public Key: pk_live_xxxxxxxx
+   API Secret Key: sk_live_xxxxxxxx
+   Webhook Signing Secret: whsec_xxxxxxxx
+   ```
+
+3. **B2B Features:**
+   - Enable "Pay on Account" for approved business customers
+   - Configure credit limits per company account
+   - Set up payment terms (Net 30, Net 60)
+
+#### SAP Integration for Enterprise
+
+```python
+# firehorse-magento-sap-bridge.py
+"""
+Bridge Magento orders to SAP for enterprise customers.
+Triggered by Revolut payment confirmation webhook.
+"""
+
+from firehorse.integrations import MagentoClient, SAPClient
+
+async def process_order_paid(order_id: str):
+    # Fetch order from Magento
+    magento = MagentoClient()
+    order = await magento.get_order(order_id)
+    
+    # Create SAP sales order
+    sap = SAPClient()
+    sap_order = await sap.create_sales_order({
+        "customer_id": order.customer.sap_id,
+        "items": [
+            {
+                "material": item.sku,
+                "quantity": item.qty,
+                "price": item.price,
+                "carbon_kg": item.carbon_footprint  # DWS IQ field
+            }
+            for item in order.items
+        ],
+        "payment_reference": order.payment.revolut_id
+    })
+    
+    # Log to DWS IQ for carbon tracking
+    await firehorse.log_transaction(
+        order_id=order_id,
+        sap_reference=sap_order.id,
+        carbon_total_kg=sum(i.carbon_footprint for i in order.items)
+    )
+```
+
+### H.5 Shopify + Revolut Integration
+
+Shopify is popular with Food & Beverage brands and DTC sustainability-focused companies.
+
+#### Installation
+
+1. **Shopify App Store:**
+   - Go to Shopify Admin → Apps → Visit Shopify App Store
+   - Search "Revolut Pay"
+   - Install and authorize
+
+2. **Configuration:**
+   ```
+   Settings → Payments → Revolut Pay
+   
+   - Connect Revolut Business account
+   - Enable Revolut Pay button
+   - Configure express checkout
+   ```
+
+3. **Checkout Customization:**
+   - Add carbon footprint display in checkout
+   - Enable subscription products for recurring compliance services
+
+#### Carbon Tracking Metafields
+
+```liquid
+<!-- In product template -->
+{% if product.metafields.sustainability.carbon_kg %}
+  <div class="carbon-badge">
+    <span class="carbon-value">{{ product.metafields.sustainability.carbon_kg }}kg CO₂</span>
+    <span class="carbon-label">Carbon Footprint</span>
+  </div>
+{% endif %}
+```
+
+### H.6 PrestaShop + Revolut Integration
+
+PrestaShop has strong EU adoption, particularly in France, Spain, and Poland - key markets for construction materials and manufacturing.
+
+#### Installation
+
+1. **Module Installation:**
+   - Download from PrestaShop Addons or Revolut Developer Portal
+   - Back Office → Modules → Upload Module
+   - Install and Configure
+
+2. **Configuration:**
+   ```
+   Modules → Payment → Revolut Gateway
+   
+   API Key: sk_live_xxxxxxxx
+   Merchant ID: merchant_xxxxxxxx
+   Environment: Production
+   Enable Express Checkout: Yes
+   ```
+
+3. **Multi-Currency Setup (EU Compliance):**
+   - Enable EUR, SEK, NOK, DKK, PLN
+   - Configure automatic currency detection
+   - Set up VAT handling per country
+
+### H.7 Webhook Security Best Practices
+
+All e-commerce integrations must verify webhook signatures:
+
+```python
+# firehorse/webhooks/revolut_verify.py
+import hmac
+import hashlib
+
+def verify_revolut_signature(
+    payload: bytes,
+    signature: str,
+    webhook_secret: str
+) -> bool:
+    """
+    Verify Revolut webhook signature.
+    
+    Args:
+        payload: Raw request body
+        signature: X-Revolut-Signature header
+        webhook_secret: From Revolut dashboard
+    
+    Returns:
+        True if signature is valid
+    """
+    expected = hmac.new(
+        webhook_secret.encode(),
+        payload,
+        hashlib.sha256
+    ).hexdigest()
+    
+    return hmac.compare_digest(expected, signature)
+```
+
+### H.8 Implementation Checklist
+
+For each customer e-commerce integration:
+
+- [ ] **Platform Identification:** Confirm which e-commerce platform customer uses
+- [ ] **Revolut Plugin Installation:** Install official Revolut plugin
+- [ ] **API Key Configuration:** Set up production API keys from Revolut Business
+- [ ] **Webhook Setup:** Configure webhooks to Firehorse endpoint
+- [ ] **Signature Verification:** Implement HMAC signature validation
+- [ ] **Carbon Tracking:** Add product carbon footprint fields if applicable
+- [ ] **SAP/ERP Bridge:** Configure integration for enterprise customers
+- [ ] **Testing:** Process sandbox transactions before go-live
+- [ ] **Monitoring:** Set up payment failure alerts in Firehorse
+
+### H.9 Support Resources
+
+| Resource | URL |
+|----------|-----|
+| Revolut Business Developer Docs | https://developer.revolut.com/docs/business |
+| WooCommerce Plugin Documentation | https://developer.revolut.com/docs/woocommerce |
+| Adobe Commerce Integration Guide | https://developer.revolut.com/docs/magento |
+| Shopify App Configuration | https://developer.revolut.com/docs/shopify |
+| PrestaShop Module Guide | https://developer.revolut.com/docs/prestashop |
+| Firehorse Integration Support | support@lifetime.fi |
+
+---
+
+## Appendix I: Google Merchant Center Integration
+
+This appendix documents the Google Merchant Center integration for DWS IQ product listings in Google Shopping.
+
+### I.1 Overview
+
+Google Merchant Center enables:
+- **Google Shopping Ads** — Products appear in Google search results
+- **Price Comparison** — Customers compare your prices with competitors  
+- **Buy on Google** — Direct checkout from Google (select markets)
+- **Product Feeds** — Automated price and inventory updates
+
+### I.2 Product Feed Architecture
+
+```
+dws10.com/
+├── config/
+│   └── products.json         ← Single source of truth (prices, descriptions)
+├── feeds/
+│   ├── google-products.xml   ← Google Merchant feed (auto-generated)
+│   └── generate-feed.js      ← Feed generator script
+└── buy/
+    └── index.html            ← Store page (loads from products.json)
+```
+
+**Key Principle:** All pricing flows from `products.json`. Update prices once, and:
+1. Store page updates automatically
+2. Checkout page uses latest prices
+3. Google feed regenerates with new prices
+
+### I.3 Product Configuration
+
+Each product in `config/products.json` includes Google Merchant fields:
+
+```json
+{
+  "id": "dwsiq-v6",
+  "name": "DWS IQ Platform v6",
+  "price": 4999,
+  "currency": "EUR",
+  "mpn": "DWSIQ-V6-2026",
+  "google": {
+    "productCategory": "Software > Business & Productivity Software",
+    "condition": "new",
+    "availability": "in_stock",
+    "brand": "Lifetime",
+    "targetCountry": "FI",
+    "contentLanguage": "en"
+  }
+}
+```
+
+**Required Google Fields:**
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `id` | Unique product identifier | `dwsiq-v6` |
+| `mpn` | Manufacturer Part Number | `DWSIQ-V6-2026` |
+| `productCategory` | Google taxonomy category | `Software > Business...` |
+| `condition` | Product condition | `new` |
+| `availability` | Stock status | `in_stock` |
+| `brand` | Brand name | `Lifetime` |
+
+### I.4 Feed Generation
+
+**Manual Generation:**
+
+```bash
+cd dws10.com/feeds
+node generate-feed.cjs
+```
+
+**Automated (GitHub Actions):**
+
+```yaml
+# .github/workflows/update-merchant-feed.yml
+name: Update Google Merchant Feed
+on:
+  push:
+    paths:
+      - 'dws10.com/config/products.json'
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM
+
+jobs:
+  generate-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generate feed
+        run: |
+          cd dws10.com/feeds
+          node generate-feed.js
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add dws10.com/feeds/google-products.xml
+          git commit -m "Update Google Merchant feed" || exit 0
+          git push
+```
+
+### I.5 Google Merchant Center Setup
+
+1. **Create Merchant Account:**
+   - Go to https://merchants.google.com
+   - Sign in with Google account
+   - Add business information (Lifetime Oy)
+
+2. **Verify Website:**
+   - Add meta tag or upload HTML file
+   - Verify domain: `dws10.com`
+
+3. **Add Product Feed:**
+   - Products → Feeds → Add feed
+   - Country: Finland (or target countries)
+   - Language: English
+   - Feed type: Scheduled fetch
+   - URL: `https://dws10.com/feeds/google-products.xml`
+   - Fetch schedule: Daily
+
+4. **Link Google Ads:**
+   - Settings → Linked accounts
+   - Link your Google Ads account for Shopping campaigns
+
+### I.6 Target Markets
+
+Configure feeds for Nordic and European markets:
+
+| Country | Language | Feed URL |
+|---------|----------|----------|
+| Finland | English | `/feeds/google-products.xml` |
+| Sweden | English | `/feeds/google-products-se.xml` |
+| Norway | English | `/feeds/google-products-no.xml` |
+| Germany | German | `/feeds/google-products-de.xml` |
+
+For multi-language feeds, extend `generate-feed.js` to create localized versions.
+
+### I.7 Price Synchronization
+
+When you update a price in `products.json`:
+
+1. **Store & Checkout:** Automatically use new price (loaded at runtime)
+2. **Google Feed:** Run `node generate-feed.js` or wait for scheduled update
+3. **Revolut Links:** Create new payment link if price changed significantly
+
+**Important:** Google requires prices to match between feed and landing page. Since both load from `products.json`, they stay synchronized.
+
+### I.8 Monitoring & Diagnostics
+
+In Google Merchant Center:
+
+- **Diagnostics:** Check for feed errors, disapproved products
+- **Products:** View active product listings
+- **Performance:** Track clicks, impressions, conversions
+
+Common issues:
+- **Price mismatch:** Ensure feed matches landing page
+- **Missing images:** Verify image URLs are accessible
+- **Category errors:** Use valid Google product categories
+
+### I.9 Support Resources
+
+| Resource | URL |
+|----------|-----|
+| Google Merchant Center Help | https://support.google.com/merchants |
+| Product Data Specification | https://support.google.com/merchants/answer/7052112 |
+| Feed Diagnostics | https://merchants.google.com/mc/diagnostics |
+| Google Shopping Policies | https://support.google.com/merchants/answer/6149970 |
+
+---
+
+**Document Version:** 6.3  
+**Last Updated:** January 6, 2026  
 **Next Review:** March 31, 2026  
 **Classification:** Confidential  
 **Owner:** DWS IQ 6 Platform Team
