@@ -168,16 +168,16 @@
         "contentLanguage": "en"
       }
     },
-    "consulting-fit55": {
-      "id": "consulting-fit55",
+    "expert-advisory": {
+      "id": "expert-advisory",
       "gtin": null,
-      "mpn": "CONSULT-FIT55-2026",
-      "name": "Consulting Fit for 55 Specialist - Monthly Retainer",
+      "mpn": "EXP-ADV-2026",
+      "name": "Expert Advisory & Implementation",
       "price": 3000,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Dedicated expert time for report design, workflow customization, and strategic advisory. Work directly with Risto Anton, Creator of Lifetime Firehorse and Founder of DWS IQ 6 Platform.",
-      "priceNote": "Monthly retainer",
+      "description": "Dedicated expert time for report design, workflow customization, and strategic advisory.",
+      "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
       "image": "../static/images/Risto_Malta.png",
