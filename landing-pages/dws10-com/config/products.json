@@ -181,6 +181,30 @@
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
       "image": "../static/images/Risto_Malta.png",
+      "detailsUrl": "../products/expert-advisory.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "consulting-fit55": {
+      "id": "consulting-fit55",
+      "gtin": null,
+      "mpn": "CONSULT-FIT55-2026",
+      "name": "Consulting Fit for 55 Specialist",
+      "price": 3000,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "Dedicated expert time for Fit for 55 Compliance, Compliance Report design, Compliance Workflow customization, Agent Coordination, Enterprise Model Planning/Training and Strategic Advisory (Board CxO). You co-work directly with Risto Anton, Creator of Lifetime Firehorse and Founder of DWS IQ 6 Platform.",
+      "priceNote": "Monthly",
+      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "paypalPlanId": null,
+      "image": "../static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting-fit55.html",
       "featured": false,
       "google": {
