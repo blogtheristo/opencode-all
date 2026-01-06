@@ -1,0 +1,165 @@
+{
+  "products": {
+    "dwsiq-v6": {
+      "id": "dwsiq-v6",
+      "gtin": null,
+      "mpn": "DWSIQ-V6-2026",
+      "name": "DWS IQ Platform v6",
+      "price": 4999,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.",
+      "priceNote": "One-time deployment + €499/mo subscription",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "firehorse-auto": {
+      "id": "firehorse-auto",
+      "gtin": null,
+      "mpn": "FH-AUTO-2026",
+      "name": "Firehorse Automation",
+      "price": 4950,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.",
+      "priceNote": "Per project",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-automation.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "climate-bundle": {
+      "id": "climate-bundle",
+      "gtin": null,
+      "mpn": "CLM-BUNDLE-2026",
+      "name": "Climate Reporting Bundle",
+      "price": 6500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.",
+      "priceNote": "One-time + €1,999/year",
+      "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
+      "paypalPlanId": null,
+      "image": "../static/images/8_Industries.png",
+      "detailsUrl": "../products/bundle.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "firehorse-omni": {
+      "id": "firehorse-omni",
+      "gtin": null,
+      "mpn": "FH-OMNI-2026",
+      "name": "Firehorse Omnichannel Next",
+      "price": 4950,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "4-week outbound engine for Nordic and European construction portfolios.",
+      "priceNote": "Per 4-week outbound cycle",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-omnichannel.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "firehorse-report": {
+      "id": "firehorse-report",
+      "gtin": null,
+      "mpn": "FH-REPORT-2026",
+      "name": "Firehorse Report",
+      "price": 1950,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Automated reporting with SAP integration. One report template with 4-week validation.",
+      "priceNote": "Per report template",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-reports.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "expert-services": {
+      "id": "expert-services",
+      "gtin": null,
+      "mpn": "EXP-SVC-2026",
+      "name": "Expert Advisory & Implementation",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "Dedicated expert time for report design, workflow customization, and strategic advisory.",
+      "priceNote": "Monthly retainer | €3,000 Kickoff",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "../static/images/Risto_Malta.png",
+      "detailsUrl": "../products/expert-services.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    }
+  },
+  "settings": {
+    "defaultCurrency": "EUR",
+    "revolutFallbackLink": "https://revolut.me/lifetimeoy",
+    "paypalEmail": "risto.anton@lifetime.fi",
+    "supportEmail": "support@lifetime.fi",
+    "salesEmail": "sales@lifetime.fi"
+  },
+  "merchant": {
+    "google": {
+      "merchantId": null,
+      "feedUrl": "https://dws10.com/feeds/google-products.xml",
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "contentLanguage": "en",
+      "channel": "online"
+    }
+  },
+  "lastUpdated": "2026-01-06T12:00:00Z"
+}
