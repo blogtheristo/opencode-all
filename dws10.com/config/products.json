@@ -10,7 +10,7 @@
       "type": "one-time",
       "description": "The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.",
       "priceNote": "One-time deployment + €499/mo subscription",
-      "revolutLink": null,
+      "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
       "image": "../DWS_IQ2026.png",
       "detailsUrl": "../products/dwsiq.html",
@@ -161,5 +161,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-01-06T12:00:00Z"
+  "lastUpdated": "2026-01-06T07:30:00Z"
 }
