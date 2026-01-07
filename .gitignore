@@ -245,7 +245,7 @@ supabase/.env.local
 Team/*.md
 # --- DWS6.COM AUTHENTICATION ---
 # Protect actual Supabase configuration with real API keys
-dws6.com/shared/config/supabase-config.js
+# dws6.com/shared/config/supabase-config.js  # REMOVED: anon key is public, safe to deploy
 # Allow template configuration (with placeholders - safe to commit)
 !dws6.com/shared/config/supabase-config.template.js
 # Protect any local development overrides
