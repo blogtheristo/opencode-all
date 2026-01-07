@@ -302,9 +302,178 @@
         .section-subtitle {
             font-size: 1rem;
             color: var(--color-gray-500);
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
         }
+
+        /* === CAPTION CONNECTORS SECTION === */
+        .connectors-section {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connectors-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .connectors-section .section-title {
+            color: var(--color-white);
+        }
+
+        .connectors-section .section-subtitle {
+            color: var(--color-gray-300);
+        }
+
+        .connectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .connector-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .connector-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--connector-color, var(--color-accent));
+            transform: scaleX(0);
+            transition: transform var(--transition-base);
+        }
+
+        .connector-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--connector-color, var(--color-accent));
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .connector-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .connector-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .connector-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            background: var(--connector-color, var(--color-accent));
+            flex-shrink: 0;
+        }
+
+        .connector-info {
+            flex: 1;
+        }
+
+        .connector-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: var(--space-1);
+        }
+
+        .connector-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--connector-color, var(--color-accent));
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .connector-desc {
+            font-size: 0.875rem;
+            color: var(--color-gray-400);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .connector-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+        }
+
+        .connector-feature {
+            font-size: 0.75rem;
+            padding: var(--space-1) var(--space-2);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            color: var(--color-gray-300);
+        }
+
+        .connector-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 0.8125rem;
+            color: var(--color-gray-400);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-warning);
+        }
+
+        .status-dot.active {
+            background: var(--color-success);
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Connector brand colors */
+        .connector-card.google { --connector-color: #4285F4; }
+        .connector-card.microsoft { --connector-color: #00A4EF; }
+        .connector-card.apple { --connector-color: #000000; }
+        .connector-card.github { --connector-color: #333333; }
+        .connector-card.linkedin { --connector-color: #0A66C2; }
+        .connector-card.slack { --connector-color: #4A154B; }
+        .connector-card.okta { --connector-color: #007DC1; }
+        .connector-card.azure { --connector-color: #0078D4; }
+        .connector-card.aws { --connector-color: #FF9900; }
+        .connector-card.salesforce { --connector-color: #00A1E0; }
+        .connector-card.sap { --connector-color: #0FAAFF; }
+        .connector-card.oracle { --connector-color: #F80000; }
 
         /* === DASHBOARDS SECTION === */
         .dashboards-section {
@@ -550,6 +719,10 @@
                 justify-content: center;
             }
 
+            .connectors-grid {
+                grid-template-columns: 1fr;
+            }
+
             .login-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -587,6 +760,278 @@
                     <span>🔐</span> Login to Your Account
                 </a>
                 <a href="https://dws10.com" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Caption Connectors Section -->
+    <section class="section connectors-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">🔗 Caption Connectors</h2>
+                <p class="section-subtitle">Enterprise SSO & Identity Providers — Connect with your existing authentication infrastructure</p>
+            </div>
+            
+            <div class="connectors-grid">
+                <!-- Google Workspace -->
+                <div class="connector-card google" onclick="window.location.href='/login/?provider=google'">
+                    <div class="connector-header">
+                        <div class="connector-logo">G</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Google Workspace</div>
+                            <div class="connector-type">OAuth 2.0 / OIDC</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Sign in with Google Workspace accounts. Supports organizational SSO and domain verification.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">SSO</span>
+                        <span class="connector-feature">MFA</span>
+                        <span class="connector-feature">Domain Lock</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot active"></span>
+                        <span>Active — Ready to connect</span>
+                    </div>
+                </div>
+
+                <!-- Microsoft Azure AD -->
+                <div class="connector-card microsoft" onclick="window.location.href='/login/?provider=azure'">
+                    <div class="connector-header">
+                        <div class="connector-logo">M</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Microsoft Entra ID</div>
+                            <div class="connector-type">Azure AD / SAML</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Enterprise identity with Microsoft 365 and Azure Active Directory integration.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">SAML 2.0</span>
+                        <span class="connector-feature">Conditional Access</span>
+                        <span class="connector-feature">B2B</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot active"></span>
+                        <span>Active — Ready to connect</span>
+                    </div>
+                </div>
+
+                <!-- Apple -->
+                <div class="connector-card apple" onclick="window.location.href='/login/?provider=apple'">
+                    <div class="connector-header">
+                        <div class="connector-logo" style="background: #000;">🍎</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Sign in with Apple</div>
+                            <div class="connector-type">Apple ID / OAuth</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Privacy-focused authentication with Apple ID. Hide My Email support included.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">Privacy</span>
+                        <span class="connector-feature">Hide Email</span>
+                        <span class="connector-feature">Face ID</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+
+                <!-- GitHub -->
+                <div class="connector-card github" onclick="window.location.href='/login/?provider=github'">
+                    <div class="connector-header">
+                        <div class="connector-logo" style="background: #333;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </div>
+                        <div class="connector-info">
+                            <div class="connector-name">GitHub</div>
+                            <div class="connector-type">OAuth 2.0</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Developer-friendly authentication with GitHub accounts. Organization access control.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">OAuth</span>
+                        <span class="connector-feature">Org Teams</span>
+                        <span class="connector-feature">2FA</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot active"></span>
+                        <span>Active — Ready to connect</span>
+                    </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="connector-card linkedin" onclick="window.location.href='/login/?provider=linkedin'">
+                    <div class="connector-header">
+                        <div class="connector-logo">in</div>
+                        <div class="connector-info">
+                            <div class="connector-name">LinkedIn</div>
+                            <div class="connector-type">OAuth 2.0</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Professional network authentication. Access profile data and company information.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">Profile</span>
+                        <span class="connector-feature">Email</span>
+                        <span class="connector-feature">Company</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+
+                <!-- Slack -->
+                <div class="connector-card slack" onclick="window.location.href='/login/?provider=slack'">
+                    <div class="connector-header">
+                        <div class="connector-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+                        </div>
+                        <div class="connector-info">
+                            <div class="connector-name">Slack</div>
+                            <div class="connector-type">OAuth 2.0</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Workspace authentication with Slack. Team and channel access integration.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">Workspace</span>
+                        <span class="connector-feature">Channels</span>
+                        <span class="connector-feature">Bot</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Coming Soon</span>
+                    </div>
+                </div>
+
+                <!-- Okta -->
+                <div class="connector-card okta" onclick="window.location.href='/login/?provider=okta'">
+                    <div class="connector-header">
+                        <div class="connector-logo">O</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Okta</div>
+                            <div class="connector-type">SAML / OIDC</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Enterprise identity management with Okta. Universal Directory and lifecycle management.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">SAML</span>
+                        <span class="connector-feature">SCIM</span>
+                        <span class="connector-feature">MFA</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Enterprise Only</span>
+                    </div>
+                </div>
+
+                <!-- SAP -->
+                <div class="connector-card sap" onclick="window.location.href='/login/?provider=sap'">
+                    <div class="connector-header">
+                        <div class="connector-logo">SAP</div>
+                        <div class="connector-info">
+                            <div class="connector-name">SAP Identity</div>
+                            <div class="connector-type">SAML 2.0</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">SAP Cloud Identity Services integration. Connect with SAP S/4HANA and BTP.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">IAS</span>
+                        <span class="connector-feature">BTP</span>
+                        <span class="connector-feature">S/4HANA</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Enterprise Only</span>
+                    </div>
+                </div>
+
+                <!-- Salesforce -->
+                <div class="connector-card salesforce" onclick="window.location.href='/login/?provider=salesforce'">
+                    <div class="connector-header">
+                        <div class="connector-logo">SF</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Salesforce</div>
+                            <div class="connector-type">OAuth 2.0 / SAML</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Salesforce Identity integration. Connect with Sales Cloud, Service Cloud, and Platform.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">Identity</span>
+                        <span class="connector-feature">Communities</span>
+                        <span class="connector-feature">API</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Enterprise Only</span>
+                    </div>
+                </div>
+
+                <!-- AWS Cognito -->
+                <div class="connector-card aws" onclick="window.location.href='/login/?provider=aws'">
+                    <div class="connector-header">
+                        <div class="connector-logo">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-1.073 1.445h.001a1.8 1.8 0 0 1 2.138 0l7.534 4.35a1.794 1.794 0 0 1 .9 1.555v8.7a1.8 1.8 0 0 1-.9 1.556l-7.534 4.35a1.8 1.8 0 0 1-2.138 0l-7.534-4.35a1.794 1.794 0 0 1-.9-1.556v-8.7c0-.64.34-1.232.9-1.555l7.533-4.35z"/></svg>
+                        </div>
+                        <div class="connector-info">
+                            <div class="connector-name">AWS Cognito</div>
+                            <div class="connector-type">OAuth 2.0 / SAML</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Amazon Web Services identity. User pools, federated identities, and IAM integration.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">User Pools</span>
+                        <span class="connector-feature">Federation</span>
+                        <span class="connector-feature">IAM</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Enterprise Only</span>
+                    </div>
+                </div>
+
+                <!-- Oracle -->
+                <div class="connector-card oracle" onclick="window.location.href='/login/?provider=oracle'">
+                    <div class="connector-header">
+                        <div class="connector-logo">O</div>
+                        <div class="connector-info">
+                            <div class="connector-name">Oracle Identity</div>
+                            <div class="connector-type">SAML 2.0 / OIDC</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Oracle Identity Cloud Service. Connect with Oracle Cloud Infrastructure and applications.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">IDCS</span>
+                        <span class="connector-feature">OCI</span>
+                        <span class="connector-feature">Fusion</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Enterprise Only</span>
+                    </div>
+                </div>
+
+                <!-- Custom SAML -->
+                <div class="connector-card" style="--connector-color: #6366f1;" onclick="window.location.href='/login/?provider=saml'">
+                    <div class="connector-header">
+                        <div class="connector-logo" style="background: #6366f1;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                        </div>
+                        <div class="connector-info">
+                            <div class="connector-name">Custom SAML/OIDC</div>
+                            <div class="connector-type">Enterprise SSO</div>
+                        </div>
+                    </div>
+                    <p class="connector-desc">Connect any SAML 2.0 or OpenID Connect identity provider. Full enterprise SSO support.</p>
+                    <div class="connector-features">
+                        <span class="connector-feature">SAML 2.0</span>
+                        <span class="connector-feature">OIDC</span>
+                        <span class="connector-feature">Custom</span>
+                    </div>
+                    <div class="connector-status">
+                        <span class="status-dot"></span>
+                        <span>Contact Sales</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
