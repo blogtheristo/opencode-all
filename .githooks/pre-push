@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+# DWS6 NO-DELETE POLICY
+# Blocks destructive pushes (branch deletions) from local machines.
+#
+# Install once per clone:
+#   git config core.hooksPath .githooks
+#
+# This hook prevents:
+#   git push origin --delete <branch>
+#   git push origin :<branch>
+
+remote_name="$1"
+remote_url="$2"
+
+# Read lines: <local_ref> <local_sha> <remote_ref> <remote_sha>
+# A deletion push has local_sha == 000.. and local_ref == (delete) or empty.
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$local_sha" in
+    0000000000000000000000000000000000000000)
+      echo "ERROR: NO-DELETE POLICY: refusing to delete remote ref '$remote_ref' on '$remote_name' ($remote_url)" 1>&2
+      echo "If you truly need to retire a branch, mark it as archived (e.g., prefix 'archive/') instead of deleting." 1>&2
+      exit 1
+      ;;
+  esac
+done
+
+exit 0
+
