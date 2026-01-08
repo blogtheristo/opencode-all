@@ -39,7 +39,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         #reportCarousel {
-            min-height: 750px; /* Increased height for Week 53 slides with more content */
+            min-height: 650px; /* Increased height for better content visibility */
             max-width: 100%;
             background: transparent !important;
             box-shadow: none !important;
@@ -50,13 +50,13 @@
         }
         @media (max-width: 768px) {
             #reportCarousel {
-                min-height: 700px;
+                min-height: 600px;
                 padding: 15px;
             }
         }
         @media (max-width: 480px) {
             #reportCarousel {
-                min-height: 650px;
+                min-height: 550px;
                 padding: 10px;
             }
         }
@@ -86,11 +86,11 @@
             display: block;
         }
         .report-content {
-            padding: 25px; 
+            padding: 30px; 
             height: 100%; 
             display: flex; 
             flex-direction: column; 
-            justify-content: flex-start; 
+            justify-content: center; 
             align-items: center;
             text-align: center;
             color: white;
@@ -104,46 +104,33 @@
         }
         .report-content h3 {
             color: #60a5fa;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            margin-top: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
         .report-content p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #cbd5e1;
         }
         .report-content ul {
             list-style: none;
             padding: 0;
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: left;
-            width: 90%;
-            max-width: 700px;
-        }
-        .report-content ul ul {
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        .report-content ul ul li {
-            margin-bottom: 4px;
-            font-size: 0.9rem;
+            width: 80%;
+            max-width: 500px;
         }
         .report-content li {
             position: relative;
-            padding-left: 28px;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            font-size: 1rem;
             color: #e2e8f0;
-            line-height: 1.4;
         }
         .report-content li::before {
             content: '✅';
             position: absolute;
             left: 0;
             top: 0;
-        }
-        .report-content > ul > li > ul li::before {
-            content: none;
         }
         .report-content strong {
             color: #60a5fa;
@@ -230,36 +217,36 @@
         <div class="container">
             <div class="logo-section" style="display: flex; align-items: center; gap: 30px; width: 100%; flex-wrap: wrap;">
                 <div style="display: flex; align-items: center; gap: 20px; flex-shrink: 0;">
-                    <a href="../index.html">
-                        <img src="../DWS_IQ2026.png" alt="DWS IQ Platform">
+                    <a href="https://www.crunchbase.com/organization/lifetime-oy">
+                        <img src="DWS_IQ2026.png" alt="DWS IQ Platform">
                     </a>
                     <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem);">DWS IQ Platform Version 6</h1>
                 </div>
                 <nav style="flex-grow: 0;">
                     <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
                         <li style="position: relative;">
-                            <a href="../index.html" style="color: white; text-decoration: none; white-space: nowrap;">Home ▾</a>
+                            <a href="index.html" style="color: white; text-decoration: none; white-space: nowrap;">Home ▾</a>
                             <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
                                 class="dropdown">
-                                <li><a href="../investor-relations/"
+                                <li><a href="investor-relations/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Investors</a>
                                 </li>
-                                <li><a href="../lifetime-fleet/"
+                                <li><a href="lifetime-fleet/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime Fleet</a>
                                 </li>
                                 <li><a href="https://onelifetime.world"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime World</a>
                                 </li>
-                                <li><a href="../careers/"
+                                <li><a href="careers/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Careers</a>
                                 </li>
-                                <li><a href="../progress-report/"
-                                        style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600;">📈 Investor Progress Report</a>
+                                <li><a href="progress-report.html"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Investor Progress Report</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="../investor-relations/" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s;" title="Investor Relations">
+                            <a href="investor-relations/" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s;" title="Investor Relations">
                                 💼 Investors
                             </a>
                         </li>
@@ -267,50 +254,93 @@
                             <a href="#" style="color: white; text-decoration: none; white-space: nowrap;">Products ▾</a>
                             <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
                                 class="dropdown">
-                                <li><a href="../world-model/"
+                                <li><a href="world-model/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">World Model</a>
                                 </li>
-                                <li><a href="../lifetime-fleet/"
+                                <li><a href="lifetime-fleet/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime Fleet</a>
                                 </li>
                                 <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;"><a href="#"
                                         style="display: block; padding: 8px 20px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Industries:</a>
                                 </li>
-                                <li><a href="../construction/"
+                                <li><a href="construction/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Construction</a>
                                 </li>
-                                <li><a href="../manufacturing/"
+                                <li><a href="manufacturing/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Manufacturing</a>
                                 </li>
-                                <li><a href="../logistics/"
+                                <li><a href="logistics/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Logistics
                                         & Supply Chain</a></li>
-                                <li><a href="../energy/"
+                                <li><a href="energy/"
                                         style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Energy
                                         & Utilities</a></li>
+                                <li><a href="real-estate/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Real
+                                        Estate Development</a></li>
+                                <li><a href="architecture/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Architecture
+                                        & Engineering</a></li>
+                                <li><a href="waste/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Waste
+                                        Management</a></li>
+                                <li><a href="mining/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Mining/Heavy
+                                        Industry</a></li>
                             </ul>
                         </li>
                         <li style="position: relative;">
-                            <a href="#" style="color: white; text-decoration: none; white-space: nowrap;">About ▾</a>
-                            <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 220px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
+                            <a href="#" style="color: white; text-decoration: none; white-space: nowrap;">Legal ▾</a>
+                            <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 250px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
                                 class="dropdown">
-                                <li><a href="https://onelifetime.world"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime World</a>
+                                <li><a href="legal/"
+                                        style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600;">⭐ Legal Hub (Start Here)</a>
                                 </li>
-                                <li><a href="../investor-relations/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Investor Relations</a>
+                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;"><a href="investment-safety/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Investment Security</a>
                                 </li>
-                                <li><a href="../legal/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Legal Hub</a>
+                                <li><a href="privacy-policy/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Privacy Policy</a>
                                 </li>
-                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;"><a href="../partners/"
-                                        style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600;">🤝 Certified Partners</a>
+                                <li><a href="terms/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Professional Services Terms</a>
+                                </li>
+                                <li><a href="terms-dws-iq/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ DWS IQ Terms</a>
+                                </li>
+                                <li><a href="terms-firehorse/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Firehorse Terms</a>
+                                </li>
+                                <li><a href="terms-lifetime-fleet/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Fleet Terms</a>
+                                </li>
+                                <li><a href="terms-professional/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Professional Services</a>
+                                </li>
+                                <li><a href="return-policy/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Return Policy</a>
+                                </li>
+                                <li><a href="regulatory-notice/"
+                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Regulatory Notice</a>
                                 </li>
                             </ul>
                         </li>
+                        <li><a href="https://onelifetime.world/blog/"
+                                style="color: white; text-decoration: none;">Blog (LSJ)</a></li>
                         <li>
                             <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s;" title="Login to Dashboard">
                                 🔐 Login
+                            </a>
+                        </li>
+                        <li style="display: flex; align-items: center;">
+                            <a href="https://onelifetime.world" style="text-decoration: none; display: flex; align-items: center;">
+                                <img src="static/images/OneLifetime_Logo_Final.png" alt="OneLifetime.World" style="height: 30px; margin-right: 5px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://dws10.com/buy" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center;" title="Visit Store">
+                                <img src="static/images/Firehorse_Store.jpg" alt="Store" style="height: 24px; margin-right: 8px; border-radius: 4px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                             </a>
                         </li>
                     </ul>
@@ -326,276 +356,186 @@
             <!-- Cover Slide -->
             <div class="carousel-slide active">
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 400px; gap: 30px;">
-                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 120px; width: auto; object-fit: contain;">
+                    <img src="DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 120px; width: auto; object-fit: contain;">
                     <div style="text-align: center;">
                         <h2 style="color: #60a5fa; font-size: 2.5rem; margin: 0 0 10px 0;">Investor Progress Report</h2>
-                        <p style="color: #94a3b8; font-size: 1.1rem; margin-top: 15px;">Transforming €180B Nordic Construction Industry with AI</p>
-                        <p style="color: #60a5fa; font-size: 0.95rem; margin-top: 10px;">📈 Revenue-generating platform • 🌍 3 markets • 💼 Enterprise-ready</p>
+                        <p style="color: #94a3b8; font-size: 1rem; margin-top: 15px;">Real-time tracking of our engineering and commercial velocity</p>
                     </div>
                 </div>
             </div>
             <!-- Week 49 -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(96, 165, 250, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>💰 Week 49: Production Launch & Cost Savings</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 2-8, 2025 | Milestone: 🟢 Revenue Ready</div>
+                    <h3>✅ Week 49: Production Breakthrough</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 2-8, 2025 | Status: 🟢 Excellent</div>
                     <ul>
-                        <li>🚀 <strong>Platform Live:</strong> Enterprise customers can now access DWS IQ in production</li>
-                        <li>💵 <strong>€333,000/year savings:</strong> Edge AI deployment reduces cloud costs by 85%</li>
-                        <li>⚡ <strong>96% faster deployment:</strong> New features reach customers in minutes, not hours</li>
+                        <li>🚀 <strong>Live Production Deployment:</strong> Google Cloud Run + Groq LPU</li>
+                        <li>⚡ <strong>96% Faster CI/CD:</strong> 45min → 1m 34s automated pipeline</li>
+                        <li>💰 <strong>Edge Savings:</strong> €333k/year validated (NVIDIA Jetson vs Cloud)</li>
                     </ul>
                 </div>
             </div>
             <!-- Week 50 -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(96, 165, 250, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🤝 Week 50: Strategic Partnerships & Market Expansion</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 9-15, 2025 | Milestone: 🟢 Partner Network Live</div>
+                    <h3>✅ Week 50: Platform Modernization & Strategic Partnerships</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 9-15, 2025 | Status: 🟢 Excellent</div>
                     <ul>
-                        <li><strong>Revenue Channels Activated:</strong>
+                        <li><strong>Platform Development:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🛍️ <strong>42 products</strong> now selling on Google Shopping & direct store</li>
-                                <li>📅 Booking system live with Google Calendar integration</li>
-                                <li>💬 WhatsApp Business connected for instant customer support</li>
+                                <li>🌐 Squarespace Migration → Custom SSG (Python/Jinja2)</li>
+                                <li>🚛 Fleet Carousel: 6-image cross-fade animation</li>
+                                <li>📅 Conversion Engine: Google Calendar & WhatsApp integrated</li>
                             </ul>
                         </li>
-                        <li style="margin-top: 10px;"><strong>Tier-1 Technology Partners:</strong>
+                        <li style="margin-top: 10px;"><strong>Commercial Expansion:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>☁️ <strong>AWS, Google Cloud, IBM</strong> - Partner Program members</li>
-                                <li>🤖 <strong>Anthropic, NVIDIA, OpenAI</strong> - AI stack providers</li>
-                                <li>🏢 <strong>Microsoft</strong> - Enterprise ecosystem alignment</li>
+                                <li>🛍️ 42 products available online (Stores & Google Merchant)</li>
+                                <li>💳 Multi-channel commerce integration complete</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 10px;"><strong>Build Partnerships Activated:</strong>
+                            <ul style="margin-top: 8px; margin-left: 20px;">
+                                <li>☁️ AWS, Google Cloud, IBM Partner Plus</li>
+                                <li>🤖 Groq, Anthropic, NVIDIA, OpenAI</li>
+                                <li>💻 Microsoft, Cursor.ai, and ecosystem partners</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
             <!-- Week 51 -->
-            <!-- Week 51 Slide 1: Enterprise Security -->
+            <!-- Week 51 Slide 1: Authentication System -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(96, 165, 250, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🔐 Week 51.1: Enterprise-Grade Security</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Milestone: 🟢 Enterprise Ready</div>
+                    <h3>🔐 Week 51.1: Free-Tier Authentication System</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Status: 🟢 PRODUCTION READY</div>
                     <ul>
-                        <li><strong>Customer Value:</strong>
+                        <li><strong>Core Security Features:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>✅ <strong>Secure user authentication</strong> - Bank-level protection</li>
-                                <li>✅ <strong>Zero infrastructure cost</strong> - Free-tier deployment option</li>
-                                <li>✅ <strong>Instant onboarding</strong> - Self-service customer signup</li>
+                                <li>✅ JWT token generation & validation</li>
+                                <li>✅ bcrypt password hashing (12 rounds)</li>
+                                <li>✅ Rate limiting (5/min per IP)</li>
+                                <li>✅ 6/6 API endpoints operational</li>
+                                <li>✅ Session management with Redis</li>
+                                <li>✅ Docker Compose containerization</li>
                             </ul>
                         </li>
-                        <li style="margin-top: 10px;"><strong>Market Advantage:</strong>
+                        <li style="margin-top: 10px;"><strong>Frontend & Backend:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🏆 SOC2-ready architecture from day one</li>
-                                <li>🏆 GDPR-compliant data handling</li>
-                                <li>🏆 Scales to 100,000+ users without changes</li>
+                                <li>✅ DWS IQ Dashboard login page</li>
+                                <li>✅ Community Login (onelifetime.world)</li>
+                                <li>✅ Express.js + Node.js backend</li>
+                                <li>✅ PostgreSQL + Redis infrastructure</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 51 Slide 2: EU Market Access -->
+            <!-- Week 51 Slide 2: EU Compliance & AI Governance -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(99, 102, 241, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🇪🇺 Week 51.2: EU Market Access Secured</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Milestone: 🟢 Regulatory Compliant</div>
+                    <h3>📋 Week 51.2: EU Compliance & AI Governance Framework</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Status: 🟢 COMPLIANCE CERTIFIED</div>
                     <ul>
-                        <li><strong>Why This Matters to Investors:</strong>
+                        <li><strong>EU Regulatory Compliance:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>✅ <strong>NIS2 + GDPR compliant</strong> - Sell to any EU enterprise</li>
-                                <li>✅ <strong>EU AI Act ready</strong> - No regulatory risk for customers</li>
-                                <li>✅ <strong>€500M+ addressable market</strong> in Nordic construction</li>
+                                <li>✅ NIS2 Directive alignment (cybersecurity)</li>
+                                <li>✅ EU Cybersecurity Act readiness</li>
+                                <li>✅ GDPR Article 6 (legal basis) certified</li>
+                                <li>✅ Data minimization & right to erasure</li>
                             </ul>
                         </li>
-                        <li style="margin-top: 10px;"><strong>Competitive Moat:</strong>
+                        <li style="margin-top: 10px;"><strong>DWS IQ AI Governance Framework:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🏆 Full audit trails for enterprise procurement</li>
-                                <li>🏆 Explainable AI for construction decisions</li>
-                                <li>🏆 Compliance documentation complete</li>
+                                <li>✅ Construction Supply Chain AI model</li>
+                                <li>✅ EU AI Act compliance pathway</li>
+                                <li>✅ Audit trail & explainability layer</li>
+                                <li>✅ Risk assessment framework</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 51 Slide 3: IBM Partnership -->
+            <!-- Week 51 Slide 3: Build Partnership & Deliverables -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(14, 165, 233, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🎯 Week 51.3: IBM Watsonx Partnership</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Milestone: 🟢 Enterprise Channel</div>
+                    <h3>🎯 Week 51.3: Watsonx Build Partnership Ready</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Status: 🟢 PARTNERSHIP READY</div>
                     <ul>
-                        <li><strong>Revenue Impact:</strong>
+                        <li><strong>Build Partnership Readiness:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>💼 <strong>IBM Partner Plus</strong> status unlocked</li>
-                                <li>💼 Access to IBM's <strong>Fortune 500 client base</strong></li>
-                                <li>💼 Co-marketing and joint sales opportunities</li>
+                                <li>✅ Watsonx integration roadmap (4-phase)</li>
+                                <li>✅ 95% technical readiness</li>
+                                <li>✅ 100% documentation complete</li>
+                                <li>✅ Compliance alignment verified</li>
+                                <li>✅ Go-to-market strategy prepared</li>
                             </ul>
                         </li>
-                        <li style="margin-top: 10px;"><strong>Go-to-Market Ready:</strong>
+                        <li style="margin-top: 10px;"><strong>Comprehensive Deliverables:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>📄 Enterprise sales collateral complete</li>
-                                <li>📄 Solution architecture documentation</li>
-                                <li>🎯 First customer pilots scheduled for Q1 2026</li>
+                                <li>📄 7 strategic guides + admin manual</li>
+                                <li>📄 551-page master summary</li>
+                                <li>📄 API & deployment documentation</li>
+                                <li>🏗️ Risk-ready architecture</li>
+                                <li>💼 Enterprise-grade security posture</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 51.4: Customer Delivery -->
+            <!-- Week 51.4: Installation & Deployment Structure -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(249, 115, 22, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>📦 Week 51.4: Customer Delivery Ready</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Milestone: 🟢 Customer Onboarding</div>
+                    <h3>📦 Week 51.4: Installation & Deployment Structure</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 15-21, 2025 | Status: 🟢 DELIVERY READY</div>
                     <ul>
-                        <li>✅ <strong>Flexible Deployment:</strong> Cloud, on-premise, or hybrid options</li>
-                        <li>✅ <strong>24-hour onboarding:</strong> Customers go live in one business day</li>
-                        <li>✅ <strong>White-label available:</strong> Partners can rebrand for their markets</li>
+                        <li>✅ <strong>Admin/Installation/ directory</strong> - Complete customer delivery structure</li>
+                        <li>✅ <strong>Private Cloud</strong> - Self-managed infrastructure setup</li>
+                        <li>✅ <strong>Public Cloud Platforms</strong> - Watsonx, GCR, Groq deployment guides</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 52 Slide 1: Digital Presence -->
+            <!-- New Week 52 Slide 1: Website Structure & New Pages -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(96, 165, 250, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🌐 Week 52.1: Market Presence Expanded</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Milestone: 🟢 Brand Visibility</div>
+                    <h3>✨ Week 52.1: Website Structure & New Pages</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Status: 🟢 DEPLOYED</div>
                     <ul>
-                        <li>✅ <strong>Investor Progress Tracking:</strong> Real-time milestone visibility (this page!)</li>
-                        <li>✅ <strong>Fleet Showcase:</strong> €2.1M+ autonomous robotics fleet displayed</li>
-                        <li>✅ <strong>CSRD Sustainability:</strong> ESG reporting ready for enterprise buyers</li>
+                        <li>✅ <strong>Project Progress Report Page:</strong> Dedicated carousel page with navigation menu</li>
+                        <li>✅ <strong>Lifetime Fleet Page:</strong> 6-image carousel showcasing physical robotics integration</li>
+                        <li>✅ <strong>CSRD Compliance Page:</strong> Corporate Sustainability Reporting Directive information</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 52 Slide 2: Customer Experience -->
+            <!-- New Week 52 Slide 2: Navigation & User Experience -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(99, 102, 241, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>📱 Week 52.2: Mobile-First Customer Experience</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Milestone: 🟢 User Engagement</div>
+                    <h3>🎨 Week 52.2: Navigation & User Experience</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Status: 🟢 ENHANCED</div>
                     <ul>
-                        <li>✅ <strong>Works everywhere:</strong> Desktop, tablet, and mobile optimized</li>
-                        <li>✅ <strong>Self-service navigation:</strong> Customers find what they need instantly</li>
-                        <li>✅ <strong>Accessibility compliant:</strong> WCAG 2.1 standards for inclusive access</li>
+                        <li>✅ <strong>Enhanced Home Menu:</strong> Added 3 new pages to dropdown navigation</li>
+                        <li>✅ <strong>Carousel Improvements:</strong> Dynamic slide indicators, 11s cycle with 4s cross-fade</li>
+                        <li>✅ <strong>Responsive Design:</strong> Mobile-optimized carousels with adaptive heights</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Week 52 Slide 3: Operational Excellence -->
+            <!-- New Week 52 Slide 3: Documentation & Repository Management -->
             <div class="carousel-slide">
                 <div class="report-content" style="background: rgba(14, 165, 233, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>📈 Week 52.3: Operational Excellence</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Milestone: 🟢 Scalable Operations</div>
+                    <h3>📋 Week 52.3: Documentation & Repository Management</h3>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 22-28, 2025 | Status: 🟢 ORGANIZED</div>
                     <ul>
-                        <li>✅ <strong>Version-controlled platform:</strong> Every change tracked and auditable</li>
-                        <li>✅ <strong>Automated deployments:</strong> Updates go live without downtime</li>
-                        <li>✅ <strong>Complete documentation:</strong> Enables efficient team scaling</li>
+                        <li>✅ <strong>File Paths Admin Manual:</strong> Created comprehensive page/path mapping documentation</li>
+                        <li>✅ <strong>Folder Structure:</strong> Organized pages into dedicated directories (progress-report/, lifetime-fleet/, csrd/)</li>
+                        <li>✅ <strong>Git Workflow:</strong> Feature branch created, all changes committed and pushed to GitHub</li>
                     </ul>
-                </div>
-            </div>
-
-            <!-- Week 53 Slide 1: Enterprise Security -->
-            <div class="carousel-slide">
-                <div class="report-content" style="background: rgba(16, 185, 129, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🛡️ Week 53.1: Enterprise Security Certified</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Dec 30, 2025 - Jan 4, 2026 | Milestone: 🟢 Security Audit Complete</div>
-                    <ul>
-                        <li><strong>Customer Trust:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>✅ <strong>449 security items audited</strong> - Zero critical issues</li>
-                                <li>✅ <strong>95% compliance score</strong> (up from 92%)</li>
-                                <li>✅ <strong>Enterprise-ready</strong> for Fortune 500 procurement</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 10px;"><strong>Why Customers Choose Us:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🏆 Automated vulnerability scanning 24/7</li>
-                                <li>🏆 Multi-layer threat protection</li>
-                                <li>🏆 Continuous compliance monitoring</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Week 53 Slide 2: AI Excellence -->
-            <div class="carousel-slide">
-                <div class="report-content" style="background: rgba(139, 92, 246, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🤖 Week 53.2: AI Platform Excellence</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Jan 3-4, 2026 | Milestone: 🟢 AI Leadership</div>
-                    <ul>
-                        <li><strong>Cutting-Edge AI:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🚀 <strong>Latest AI models</strong> - Claude Opus 4.5 integration</li>
-                                <li>🚀 <strong>Multi-model architecture</strong> - Best AI for each task</li>
-                                <li>🚀 <strong>2026 standards</strong> - Always current, never outdated</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 10px;"><strong>Customer Value:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>💡 Faster, more accurate project insights</li>
-                                <li>💡 Reduced decision-making time by 40%</li>
-                                <li>💡 Proactive risk alerts save €50K+ per project</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Week 53 Slide 3: Q1 2026 Roadmap -->
-            <div class="carousel-slide">
-                <div class="report-content" style="background: rgba(245, 158, 11, 0.05); padding: 30px; border-radius: 8px;">
-                    <h3>🚀 Week 53.3: Q1 2026 Growth Roadmap</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Jan 4, 2026 | Milestone: 🟢 Scaling Phase</div>
-                    <ul>
-                        <li><strong>Revenue Targets:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>🎯 <strong>5 enterprise pilots</strong> in Finland & Nordics</li>
-                                <li>🎯 <strong>€100K ARR</strong> milestone by March 2026</li>
-                                <li>🎯 <strong>3 reseller partners</strong> signed</li>
-                            </ul>
-                        </li>
-                        <li style="margin-top: 10px;"><strong>Investment Opportunity:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>💰 Seed round opening Q1 2026</li>
-                                <li>💰 €180B Nordic construction market</li>
-                                <li>💰 First-mover advantage in AI-powered project intelligence</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Contact Slide: Media & Investor Enquiries -->
-            <div class="carousel-slide">
-                <div class="report-content" style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%); padding: 30px; border-radius: 8px;">
-                    <h3>📬 Get in Touch</h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Media Enquiries • Investor Relations • Partnerships</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                        <div style="flex: 1; min-width: 250px; text-align: left;">
-                            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">🏢 Company</p>
-                            <p style="margin-bottom: 8px;"><strong>Lifetime Oy</strong></p>
-                            <p style="font-size: 0.9rem; color: #94a3b8;">Finnish Climate Tech Company</p>
-                            <p style="font-size: 0.9rem; color: #94a3b8;">Business ID: 2878704-9</p>
-                        </div>
-                        <div style="flex: 1; min-width: 250px; text-align: left;">
-                            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">📧 Contact</p>
-                            <p style="margin-bottom: 8px;"><strong>Investors:</strong> <a href="mailto:investor@dws10.com" style="color: #60a5fa;">investor@dws10.com</a></p>
-                            <p style="margin-bottom: 8px;"><strong>Media:</strong> <a href="mailto:media@dws10.com" style="color: #60a5fa;">media@dws10.com</a></p>
-                            <p style="margin-bottom: 8px;"><strong>Partnerships:</strong> <a href="mailto:partners@dws10.com" style="color: #60a5fa;">partners@dws10.com</a></p>
-                        </div>
-                        <div style="flex: 1; min-width: 250px; text-align: left;">
-                            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">🌐 Links</p>
-                            <p style="margin-bottom: 8px;"><a href="https://dws10.com/investor-relations" style="color: #60a5fa;">📊 Investor Deck</a></p>
-                            <p style="margin-bottom: 8px;"><a href="https://www.crunchbase.com/organization/lifetime-oy" target="_blank" style="color: #60a5fa;">📈 Crunchbase</a></p>
-                            <p style="margin-bottom: 8px;"><a href="https://www.linkedin.com/company/lifetime-oy" target="_blank" style="color: #60a5fa;">💼 LinkedIn</a></p>
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px; text-align: center;">
-                        <a href="mailto:investor@dws10.com?subject=DWS%20IQ%206%20Investor%20Enquiry" style="display: inline-block; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
-                            📩 Request Investor Meeting
-                        </a>
-                    </div>
                 </div>
             </div>
             
@@ -609,58 +549,6 @@
             <button onclick="shareCurrentSlide()" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); color: #10b981; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s; font-size: 0.9rem;" title="Share this slide">
                 📤 Share
             </button>
-        </div>
-
-        <!-- Project Progress Report Section -->
-        <div style="margin-top: 60px; padding: 40px; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(96, 165, 250, 0.2);">
-            <h2 style="color: #e2e8f0; font-size: 1.8rem; margin-bottom: 20px; text-align: center;">
-                📊 Project Progress Report
-            </h2>
-            <p style="color: #94a3b8; text-align: center; margin-bottom: 30px;">
-                Technical project milestones and engineering deliverables for stakeholders and development teams.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                <!-- Technical Milestones -->
-                <div style="background: rgba(96, 165, 250, 0.1); padding: 25px; border-radius: 10px; border: 1px solid rgba(96, 165, 250, 0.3);">
-                    <h3 style="color: #60a5fa; margin-bottom: 15px;">🔧 Technical Milestones</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ Authentication System (JWT + OAuth)</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ CI/CD Pipeline (96% faster)</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ Docker Containerization</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ Google Cloud Run Deployment</li>
-                        <li style="padding: 8px 0; color: #cbd5e1;">✅ MCP Hub Integration</li>
-                    </ul>
-                </div>
-                
-                <!-- Sprint Status -->
-                <div style="background: rgba(16, 185, 129, 0.1); padding: 25px; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                    <h3 style="color: #10b981; margin-bottom: 15px;">📈 Current Sprint Status</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">🎯 V1.0 Launch: Feb 23, 2026</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">📅 Days Remaining: ~49</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">🚀 10 Development Agents Active</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ Phase 1 (Foundation): Complete</li>
-                        <li style="padding: 8px 0; color: #cbd5e1;">🔄 Phase 2 (Core Backend): In Progress</li>
-                    </ul>
-                </div>
-                
-                <!-- Compliance & Security -->
-                <div style="background: rgba(139, 92, 246, 0.1); padding: 25px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3);">
-                    <h3 style="color: #8b5cf6; margin-bottom: 15px;">🛡️ Compliance & Security</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ EU AI Act Alignment</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ GDPR Article 6 Certified</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ NIS2 Directive Ready</li>
-                        <li style="padding: 8px 0; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.1);">✅ CSRD Compliance Framework</li>
-                        <li style="padding: 8px 0; color: #cbd5e1;">✅ Snyk Security Scanning</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <p style="color: #64748b; text-align: center; margin-top: 30px; font-size: 0.9rem;">
-                <em>For detailed technical documentation, contact the development team or visit the <a href="https://onelifetime.world/Partners/" style="color: #60a5fa;">Partner Consortium</a>.</em>
-            </p>
         </div>
     </div>
 
@@ -708,7 +596,7 @@
                 if (autoplayInterval) clearInterval(autoplayInterval);
                 autoplayInterval = setInterval(nextSlide, interval);
                 isAutoplay = true;
-                const autoplayBtn = document.getElementById('reportAutoplayBtn');
+                const autoplayBtn = document.getElementById(containerId + 'AutoplayBtn');
                 if (autoplayBtn) autoplayBtn.textContent = '⏸ Pause';
             }
             
@@ -718,7 +606,7 @@
                     autoplayInterval = null;
                 }
                 isAutoplay = false;
-                const autoplayBtn = document.getElementById('reportAutoplayBtn');
+                const autoplayBtn = document.getElementById(containerId + 'AutoplayBtn');
                 if (autoplayBtn) autoplayBtn.textContent = '▶ Play';
             }
             
@@ -798,62 +686,5 @@
             initCarousel('reportCarousel', 11000);
         });
     </script>
-
-    <!-- Project Progress Report Section -->
-    <section style="background: rgba(30, 41, 59, 0.6); padding: 60px 20px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1);">
-        <div class="container">
-            <h2 style="color: #e2e8f0; text-align: center; font-size: 2rem; margin-bottom: 40px;">📊 Project Progress Report</h2>
-            <p style="text-align: center; color: #94a3b8; max-width: 800px; margin: 0 auto 40px;">
-                Technical milestones and development progress for DWS IQ 6 platform.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
-                <!-- V1.0 Launch -->
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 25px;">
-                    <h3 style="color: #10b981; margin: 0 0 15px 0; font-size: 1.2rem;">🚀 V1.0 Launch Target</h3>
-                    <p style="color: #e2e8f0; font-size: 2rem; font-weight: bold; margin: 0 0 10px 0;">February 23, 2026</p>
-                    <p style="color: #94a3b8; margin: 0;">46 days remaining</p>
-                </div>
-                
-                <!-- Agents Status -->
-                <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 25px;">
-                    <h3 style="color: #60a5fa; margin: 0 0 15px 0; font-size: 1.2rem;">🤖 Agent Development</h3>
-                    <p style="color: #e2e8f0; font-size: 2rem; font-weight: bold; margin: 0 0 10px 0;">10 Agents</p>
-                    <p style="color: #94a3b8; margin: 0;">3 Running • 6 Waiting • 1 Deferred</p>
-                </div>
-                
-                <!-- Security -->
-                <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 25px;">
-                    <h3 style="color: #a78bfa; margin: 0 0 15px 0; font-size: 1.2rem;">🔐 Security Score</h3>
-                    <p style="color: #e2e8f0; font-size: 2rem; font-weight: bold; margin: 0 0 10px 0;">95%</p>
-                    <p style="color: #94a3b8; margin: 0;">449 items audited • Zero critical</p>
-                </div>
-                
-                <!-- Database -->
-                <div style="background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 12px; padding: 25px;">
-                    <h3 style="color: #fb923c; margin: 0 0 15px 0; font-size: 1.2rem;">🗄️ Database</h3>
-                    <p style="color: #e2e8f0; font-size: 2rem; font-weight: bold; margin: 0 0 10px 0;">Supabase</p>
-                    <p style="color: #94a3b8; margin: 0;">PostgreSQL + pgvector • RLS enabled</p>
-                </div>
-            </div>
-            
-            <!-- Links -->
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="../gamma/" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 10px 10px 0;">
-                    ✨ View Gamma Design
-                </a>
-                <a href="../partners/" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 10px 10px 0;">
-                    🤝 Certified Partners
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer style="background: #0f172a; color: rgba(255,255,255,0.7); padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-        <p>© 2025-2026 Lifetime Oy. All rights reserved.</p>
-        <p style="font-size: 0.875rem; margin-top: 10px;">EU GDPR | NIS2 | DSA | AI Act Compliant</p>
-        <p style="font-size: 0.75rem; margin-top: 10px; color: rgba(255,255,255,0.5);">Last Updated: January 8, 2026</p>
-    </footer>
 </body>
 </html>
