@@ -3,10 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: Current | Date: 30.12.2025 | Changes: Initial creation - dws6.com deployment documentation
+  - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Updated hero text to "DWS 6 IQ Platform Administration Portal"; Added Public Cloud Version V1 branding; Documented portal vs login page distinction
 
 Session Links & References:
   - Cursor AI (Current): https://github.com/blogtheristo/dws6/commits/main
@@ -14,17 +15,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 08.01.2026
   - Language: Finnish & English (bilingual)
   - Languages Available: Suomi, English
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Versio:** 1.0
+**Versio:** 1.1
 **Tarkoitus:** Admin-, ylläpito- ja deployment-opas dws6.com-sivustolle
 **Kohderyhmä:** DevOps, System Administrators, Web Developers, IT Operations
-**Päivitetty:** 30.12.2025
+**Päivitetty:** 08.01.2026
 
 ---
 
@@ -95,8 +96,8 @@ Document Status:
 
 ```
 dws6.com/
-├── / (index.html)                    # Landing page
-├── /login/                           # Multi-service login portal
+├── / (index.html)                    # Administration Portal (Public Cloud V1)
+├── /login/                           # User Login Portal
 │   └── index.html                    # 11 services
 ├── /dashboard/
 │   ├── /v7/                          # V7 OK Computer Dashboard
@@ -109,6 +110,63 @@ dws6.com/
 
 Total: 86 files deployed
 ```
+
+### Portal Architecture Decision (January 8, 2026) / Portaaliarkkitehtuuripäätös
+
+**Decision ID:** ADR-2026-001  
+**Status:** ✅ IMPLEMENTED  
+**Date:** January 8, 2026
+
+#### Context / Konteksti
+
+The dws6.com domain serves as the central authentication and administration hub for the DWS IQ 6 ecosystem. A clear distinction was needed between:
+1. **Administration Portal** (https://dws6.com) - For system administrators
+2. **User Login Portal** (https://dws6.com/login) - For end users
+
+#### Decision / Päätös
+
+| URL | Purpose | Target Audience | Branding |
+|-----|---------|-----------------|----------|
+| `https://dws6.com` | Administration Portal | System Administrators, DevOps, IT Operations | **DWS 6 IQ Platform Administration Portal** |
+| `https://dws6.com/login` | User Login | End Users, Customers, Project Managers | Multi-service login (11 services) |
+
+#### Hero Text Changes / Otsikkotekstin muutokset
+
+**Before (December 2025):**
+```
+Title: "Welcome to DWS6.com"
+Subtitle: "The DWS6 Secure Authentication Service (SAS)"
+Badge: "Secure Authentication Service"
+```
+
+**After (January 8, 2026):**
+```
+Title: "DWS 6 IQ Platform Administration Portal"
+Subtitle: "Enterprise-Grade Construction Intelligence & ESG Compliance Management"
+Badge: "Public Cloud Version V1"
+Services: "Secure Access Control · Real-Time Portfolio Analytics · CSRD/Fit for 55 Compliance · AI-Powered Insights"
+```
+
+#### Rationale / Perustelut
+
+1. **Clear Role Separation**: Administrators see a professional portal; users are directed to login
+2. **Version Branding**: "Public Cloud Version V1" indicates production-ready status
+3. **Business Focus**: Hero text emphasizes enterprise value proposition
+4. **Compliance Messaging**: CSRD/Fit for 55 compliance prominently featured
+5. **Professional Tone**: "Authorized administrators only" establishes access control expectations
+
+#### Implementation / Toteutus
+
+Files modified:
+- `dws6.com/index.html` - Production landing page
+- `landing-pages/dws6-com/index.html` - Source landing page
+
+#### Related Documents / Liittyvät dokumentit
+
+- `THESIS_CHAPTER_V8_DASHBOARD_EN_v1.md` - Academic documentation
+- `THESIS_CHAPTER_V8_DASHBOARD_FI_v1.md` - Finnish academic documentation
+- `INVESTOR_MEMO.md` - Investor communications
+- `WEEKLY_PROGRESS_REPORT_WEEK2.md` - Week 2 progress report
 
 ---
 

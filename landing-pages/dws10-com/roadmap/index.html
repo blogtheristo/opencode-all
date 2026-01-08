@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS Product Roadmap 2026-2028 | Lifetime Oy</title>
+    <meta name="description" content="DWS IQ 6 Product Roadmap - From V1.0 Launch to NVIDIA Inception and beyond. Strategic timeline for industrial AI platform.">
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Gamma Enterprise Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11">
+    
+    <style>
+        /* Roadmap Specific Styles */
+        :root {
+            --roadmap-bg: #0a1628;
+            --lane-1: #76b900;  /* NVIDIA Green - Platform */
+            --lane-2: #0066cc;  /* Enterprise Blue - Products */
+            --lane-3: #ffd700;  /* Gold - AI/ML */
+            --lane-4: #9333ea;  /* Purple - Integrations */
+            --lane-5: #10b981;  /* Emerald - Growth */
+        }
+        
+        .roadmap-hero {
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0d1b2a 100%);
+            color: white;
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+        
+        .roadmap-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #76b900 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .roadmap-hero p {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Timeline Container */
+        .timeline-section {
+            background: var(--roadmap-bg);
+            padding: 60px 20px 100px;
+            overflow-x: auto;
+        }
+        
+        .timeline-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            min-width: 1200px;
+        }
+        
+        /* Quarter Headers */
+        .quarter-headers {
+            display: grid;
+            grid-template-columns: 200px repeat(8, 1fr);
+            gap: 0;
+            margin-bottom: 30px;
+        }
+        
+        .quarter-header {
+            text-align: center;
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+        
+        .quarter-header.current {
+            background: rgba(118, 185, 0, 0.2);
+            border-color: rgba(118, 185, 0, 0.4);
+            color: #76b900;
+        }
+        
+        .quarter-header .year {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        /* Swim Lanes */
+        .swim-lane {
+            display: grid;
+            grid-template-columns: 200px repeat(8, 1fr);
+            gap: 0;
+            margin-bottom: 10px;
+        }
+        
+        .lane-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .lane-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .lane-platform .lane-icon { background: rgba(118, 185, 0, 0.2); }
+        .lane-products .lane-icon { background: rgba(0, 102, 204, 0.2); }
+        .lane-ai .lane-icon { background: rgba(255, 215, 0, 0.2); }
+        .lane-integrations .lane-icon { background: rgba(147, 51, 234, 0.2); }
+        .lane-growth .lane-icon { background: rgba(16, 185, 129, 0.2); }
+        
+        .lane-cell {
+            padding: 10px 5px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 80px;
+            position: relative;
+        }
+        
+        /* Roadmap Items */
+        .roadmap-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .roadmap-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .roadmap-item.platform {
+            background: linear-gradient(135deg, rgba(118, 185, 0, 0.3), rgba(118, 185, 0, 0.1));
+            border-left: 3px solid var(--lane-1);
+            color: #c8f07a;
+        }
+        
+        .roadmap-item.product {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.1));
+            border-left: 3px solid var(--lane-2);
+            color: #7ec8ff;
+        }
+        
+        .roadmap-item.ai {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1));
+            border-left: 3px solid var(--lane-3);
+            color: #ffe066;
+        }
+        
+        .roadmap-item.integration {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(147, 51, 234, 0.1));
+            border-left: 3px solid var(--lane-4);
+            color: #d4a5ff;
+        }
+        
+        .roadmap-item.growth {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+            border-left: 3px solid var(--lane-5);
+            color: #6ee7b7;
+        }
+        
+        .item-status {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+        
+        .status-done { background: rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+        .status-active { background: rgba(255, 215, 0, 0.3); color: #ffd700; }
+        .status-planned { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
+        
+        /* Milestone Markers */
+        .milestone {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #76b900, #ffd700);
+            color: #0a1628;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        /* Legend */
+        .roadmap-legend {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .legend-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        /* Key Milestones Section */
+        .milestones-section {
+            background: #f8fafc;
+            padding: 80px 20px;
+        }
+        
+        .milestones-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #0a1628;
+            margin-bottom: 50px;
+        }
+        
+        .milestones-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .milestone-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid;
+            transition: transform 0.2s ease;
+        }
+        
+        .milestone-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .milestone-card.q1 { border-color: #76b900; }
+        .milestone-card.q2 { border-color: #0066cc; }
+        .milestone-card.q3 { border-color: #ffd700; }
+        .milestone-card.q4 { border-color: #9333ea; }
+        
+        .milestone-date {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .milestone-card h3 {
+            font-size: 1.3rem;
+            color: #0a1628;
+            margin-bottom: 15px;
+        }
+        
+        .milestone-card p {
+            color: #475569;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .roadmap-cta {
+            background: linear-gradient(135deg, #76b900 0%, #5a8f00 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .roadmap-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .roadmap-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-white {
+            background: white;
+            color: #76b900;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .timeline-section {
+                padding: 40px 20px 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enterprise Navigation - Gamma Light Header -->
+    <header style="background: #ffffff; color: #0a1628; padding: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="../index.html" style="display: flex; align-items: center; text-decoration: none;">
+                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 60px; width: auto;">
+                </a>
+                <h1 style="font-size: clamp(1rem, 2.5vw, 1.5rem); color: #0a1628; margin: 0;">🗺️ DWS Roadmap</h1>
+            </div>
+            <nav style="flex-grow: 0;">
+                <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
+                    <!-- Solutions ▾ -->
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Solutions ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="../fit-for-55/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">Fit for 55 ▸</a>
+                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
+                                    <li><a href="../construction/?solution=fit55" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Construction</a></li>
+                                    <li><a href="../logistics/?solution=fit55" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Logistics</a></li>
+                                    <li><a href="../manufacturing/?solution=fit55" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Manufacturing</a></li>
+                                    <li><a href="../energy/?solution=fit55" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Energy</a></li>
+                                </ul>
+                            </li>
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="../csrd/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">CSRD & ESG ▸</a>
+                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
+                                    <li><a href="../construction/?solution=csrd" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Construction</a></li>
+                                    <li><a href="../logistics/?solution=csrd" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Logistics</a></li>
+                                    <li><a href="../manufacturing/?solution=csrd" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Manufacturing</a></li>
+                                    <li><a href="../energy/?solution=csrd" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Energy</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Products ▾ -->
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Products ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li><a href="../products/dwsiq.html" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">DWS IQ Platform v6</a></li>
+                            <li><a href="../products/bundle.html" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Climate Reporting Bundle</a></li>
+                            <li><a href="../products/firehorse-automation.html" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Firehorse Automation</a></li>
+                            <li style="border-top: 1px solid #e2e8f0; margin-top: 5px; padding-top: 5px;"><a href="../world-model/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">Lifetime World Model</a></li>
+                        </ul>
+                    </li>
+                    <!-- About ▾ -->
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">About ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li><a href="https://onelifetime.world" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Lifetime World</a></li>
+                            <li><a href="../partners/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">Certified Partners</a></li>
+                            <li style="position: relative; border-top: 1px solid #e2e8f0; margin-top: 5px; padding-top: 5px;" class="has-submenu">
+                                <a href="#" style="display: block; padding: 8px 20px; color: #76b900; text-decoration: none; font-weight: 600;">🏢 Lifetime Group ▸</a>
+                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
+                                    <li><a href="../lifetime-consulting/" style="display: block; padding: 8px 20px; color: #76b900; text-decoration: none; font-weight: 600;">🚀 DWS Product Family Vision</a></li>
+                                    <li><a href="../lifetime-studios/" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">🎬 Lifetime Studios</a></li>
+                                    <li><a href="../roadmap/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">🗺️ DWS Roadmap</a></li>
+                                </ul>
+                            </li>
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="#" style="display: block; padding: 8px 20px; color: #9333ea; text-decoration: none; font-weight: 600;">🎨 UX Designs ▸</a>
+                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
+                                    <li><a href="../ultra/" style="display: block; padding: 8px 20px; color: #ffd700; text-decoration: none; font-weight: 600;">✨ Ultra</a></li>
+                                    <li><a href="../gamma/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">🏢 Gamma</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../investor-relations/" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Investor Relations</a></li>
+                        </ul>
+                    </li>
+                    <!-- Legal ▾ -->
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Legal ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li><a href="../legal/" style="display: block; padding: 8px 20px; color: #0d7a3e; text-decoration: none; font-weight: 600;">⭐ Legal Hub</a></li>
+                            <li><a href="../investment-safety/" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Investment Security</a></li>
+                        </ul>
+                    </li>
+                    <!-- Client Portal -->
+                    <li>
+                        <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600;">🔐 Client Portal</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <style>
+        nav li:hover > .dropdown { display: block !important; }
+        nav .dropdown li:hover { background: #f8fafc; }
+        nav .has-submenu:hover > .submenu { display: block !important; }
+    </style>
+
+    <!-- Hero -->
+    <section class="roadmap-hero">
+        <h1>DWS Product Roadmap</h1>
+        <p>From V1.0 Launch (Feb 2026) through NVIDIA Inception and Series A readiness. Our strategic path to €60k MRR.</p>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <!-- Quarter Headers -->
+            <div class="quarter-headers">
+                <div class="quarter-header" style="background: transparent; border: none;"></div>
+                <div class="quarter-header current">
+                    <div>Q1</div>
+                    <div class="year">2026</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q2</div>
+                    <div class="year">2026</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q3</div>
+                    <div class="year">2026</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q4</div>
+                    <div class="year">2026</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q1</div>
+                    <div class="year">2027</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q2</div>
+                    <div class="year">2027</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q3</div>
+                    <div class="year">2027</div>
+                </div>
+                <div class="quarter-header">
+                    <div>Q4</div>
+                    <div class="year">2027</div>
+                </div>
+            </div>
+
+            <!-- Platform Lane -->
+            <div class="swim-lane lane-platform">
+                <div class="lane-label">
+                    <div class="lane-icon">🔲</div>
+                    <span>Platform</span>
+                </div>
+                <div class="lane-cell">
+                    <div class="milestone">🚀 V1.0 LAUNCH</div>
+                    <div class="roadmap-item platform">
+                        DWS IQ 6 V1.0
+                        <span class="item-status status-active">Active</span>
+                    </div>
+                    <div class="roadmap-item platform">
+                        Supabase Production
+                        <span class="item-status status-done">Done</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item platform">
+                        V1.1 Enterprise
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item platform">
+                        NVIDIA Inception
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item platform">
+                        Jetson Thor Integration
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="milestone">📈 SERIES A READY</div>
+                    <div class="roadmap-item platform">
+                        V2.0 Platform
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item platform">
+                        Multi-tenant SaaS
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell"></div>
+                <div class="lane-cell"></div>
+                <div class="lane-cell">
+                    <div class="roadmap-item platform">
+                        V3.0 Global
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Lane -->
+            <div class="swim-lane lane-products">
+                <div class="lane-label">
+                    <div class="lane-icon">📦</div>
+                    <span>Products</span>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Firehorse Reports
+                        <span class="item-status status-active">Active</span>
+                    </div>
+                    <div class="roadmap-item product">
+                        Customer Dashboard
+                        <span class="item-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Mobile Dashboard
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item product">
+                        Firehorse DMS
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Omnichannel Next
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Lifetime Fleet v2
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Carbon Dashboard
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item product">
+                        Building Analytics
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell"></div>
+                <div class="lane-cell"></div>
+            </div>
+
+            <!-- AI/ML Lane -->
+            <div class="swim-lane lane-ai">
+                <div class="lane-label">
+                    <div class="lane-icon">🧠</div>
+                    <span>AI / ML</span>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        MCP Hub v1
+                        <span class="item-status status-active">Active</span>
+                    </div>
+                    <div class="roadmap-item ai">
+                        Groq Integration
+                        <span class="item-status status-done">Done</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        CustomerSat Agent
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item ai">
+                        SiteSense Edge
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        ScheduleGenius
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item ai">
+                        MaterialOracle
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        Lifetime World Model
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        On-device Fine-tuning
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item ai">
+                        Digital Twin Simulation
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell"></div>
+                <div class="lane-cell"></div>
+            </div>
+
+            <!-- Integrations Lane -->
+            <div class="swim-lane lane-integrations">
+                <div class="lane-label">
+                    <div class="lane-icon">🔌</div>
+                    <span>Integrations</span>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        Stripe Payments
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        HubSpot CRM
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        OPC UA Connector
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item integration">
+                        Modbus Bridge
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        SAP S/4HANA
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        BIM/IFC Parser
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item integration">
+                        Siemens MindSphere
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell"></div>
+                <div class="lane-cell"></div>
+            </div>
+
+            <!-- Growth Lane -->
+            <div class="swim-lane lane-growth">
+                <div class="lane-label">
+                    <div class="lane-icon">📈</div>
+                    <span>Growth</span>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        €7k → €15k MRR
+                        <span class="item-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        5 → 10 Customers
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        €35k MRR (Break-even)
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        €60k MRR Target
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item growth">
+                        Series A Prep
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        €100k MRR
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        Nordic Expansion
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        DACH Market Entry
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+                <div class="lane-cell">
+                    <div class="roadmap-item growth">
+                        €1M ARR
+                        <span class="item-status status-planned">Planned</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="roadmap-legend">
+            <h3 class="legend-title">Legend</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--lane-1);"></div>
+                    <span>Platform & Infrastructure</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--lane-2);"></div>
+                    <span>Products & Features</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--lane-3);"></div>
+                    <span>AI / Machine Learning</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--lane-4);"></div>
+                    <span>Integrations</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--lane-5);"></div>
+                    <span>Growth & Revenue</span>
+                </div>
+                <div class="legend-item">
+                    <span class="item-status status-done" style="margin: 0;">Done</span>
+                    <span>Completed</span>
+                </div>
+                <div class="legend-item">
+                    <span class="item-status status-active" style="margin: 0;">Active</span>
+                    <span>In Progress</span>
+                </div>
+                <div class="legend-item">
+                    <span class="item-status status-planned" style="margin: 0;">Planned</span>
+                    <span>Upcoming</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Milestones -->
+    <section class="milestones-section">
+        <h2>🎯 Key Milestones</h2>
+        <div class="milestones-grid">
+            <div class="milestone-card q1">
+                <div class="milestone-date">February 23, 2026</div>
+                <h3>🚀 DWS IQ 6 V1.0 Launch</h3>
+                <p>
+                    Production release with Supabase backend, Firehorse Reports, Customer Dashboard, 
+                    and MCP Hub integration. Initial customers: Uber Finland, Bolt, Kela.
+                </p>
+            </div>
+            
+            <div class="milestone-card q2">
+                <div class="milestone-date">Q2 2026</div>
+                <h3>🟢 NVIDIA Inception Acceptance</h3>
+                <p>
+                    Join NVIDIA Inception Program for $150K+ cloud credits, 30% DGX Cloud discount, 
+                    and access to Jetson Thor early access program.
+                </p>
+            </div>
+            
+            <div class="milestone-card q3">
+                <div class="milestone-date">Q3 2026</div>
+                <h3>💰 €35k MRR Break-Even</h3>
+                <p>
+                    Achieve operational break-even with 15+ enterprise customers across fleet logistics, 
+                    construction, and building management verticals.
+                </p>
+            </div>
+            
+            <div class="milestone-card q4">
+                <div class="milestone-date">Q4 2026</div>
+                <h3>📈 Series A Readiness</h3>
+                <p>
+                    €60k+ MRR, 25+ customers, €720k+ ARR trajectory. Preparation for €2-3M Series A 
+                    at €15-20M valuation to accelerate European expansion.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="roadmap-cta">
+        <h2>Ready to Build Together?</h2>
+        <p>
+            Join our certified partner program or explore investment opportunities 
+            as we execute this roadmap.
+        </p>
+        <div class="cta-buttons">
+            <a href="../partners/" class="btn-white">🤝 Partner Program</a>
+            <a href="../investor-relations/" class="btn-outline-white">📊 Investor Relations</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #0a0a0a; color: #94a3b8; padding: 40px 20px; text-align: center;">
+        <p style="margin: 0;">
+            © 2026 Lifetime Oy. All rights reserved. 
+            <a href="../legal/" style="color: #76b900; text-decoration: none;">Legal</a> · 
+            <a href="../privacy-policy/" style="color: #76b900; text-decoration: none;">Privacy</a>
+        </p>
+    </footer>
+</body>
+</html>

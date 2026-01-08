@@ -3,16 +3,17 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 1.1  
-**Last Updated:** December 28, 2025  
-**Status:** Active Fundraising
+**Document Version:** 1.3  
+**Last Updated:** January 8, 2026  
+**Status:** Active Fundraising  
+**Platform Status:** Public Cloud Version V1 - Production Ready
 
 ---
 
 ## Investment Opportunity Overview
 
 **Current Metrics:**
-- MRR: €7k (December 2025)
+- MRR: **€7k live run-rate** (current) / **€10k achieved during pilot** (validation)
 - Paying Customers: 5
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k annual value per logo
@@ -187,6 +188,22 @@ Timeframe:                 ~2 years (2024→2026)
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
 
+### Q1 2026 Technical Progress (Weeks 1-2)
+
+| Milestone | Status | Business Impact |
+|-----------|--------|-----------------|
+| **Public Cloud Version V1** | ✅ Complete | Production-ready platform branding |
+| **Security Framework** | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act |
+| **449 Code Quality Issues** | ✅ Resolved | Enterprise-grade codebase |
+| **18 Security Vulnerabilities** | ✅ Fixed | Zero critical/high issues |
+| **Administration Portal** | ✅ Live | dws6.com - Admin access |
+| **User Login Portal** | ✅ Live | dws6.com/login - Customer access |
+
+**Platform URLs:**
+- **Administration Portal:** https://dws6.com (DWS 6 IQ Platform Administration Portal)
+- **User Login:** https://dws6.com/login (11 service integrations)
+- **Product Information:** https://dws10.com
+
 ---
 
 ## Use of Funds (€500k Round)
@@ -289,8 +306,9 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ---
 
 **Document Control:**
-- Version: 1.1
-- Last Updated: December 28, 2025
+- Version: 1.3
+- Last Updated: January 8, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
 - Confidentiality: For Potential Investors Only
+- Platform Status: Public Cloud Version V1 - Production Ready

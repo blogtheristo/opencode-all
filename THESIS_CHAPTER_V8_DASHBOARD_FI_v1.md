@@ -3,11 +3,12 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI (Claude Sonnet 4.5) | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation in Finnish for master thesis
   - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-04 | Date: 04.01.2026 | Changes: Lisätty DWS-tietoturvakehys -osio; Päivitetty tekoälymalli Opus 4.5:een Sonnet 4.5:n tietokatkoksen vuoksi
+  - Version: 1.2 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Lisätty viikkojen 1 ja 2 2026 kehitystulokset; Päivitetty portaalin brändäys "DWS 6 IQ Platform Administration Portal"; Lisätty Public Cloud Version V1 -virstanpylväs
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
@@ -15,7 +16,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 04.01.2026
+  - Last Modified: 08.01.2026
   - Language: Finnish (Suomi)
   - Languages Available: Suomi, English
   - Publication Status: ✅ ACTIVE
@@ -27,10 +28,10 @@ AI-mallimerkintä:
 
 ---
 
-**Versio:** 1.1  
+**Versio:** 1.2  
 **Tarkoitus:** Opinnäytetyön luku V8-kojelaudan toteutuksesta  
 **Kohdeyleisö:** Akateemiset arvioijat, tekniset lukijat  
-**Päivitetty:** 04.01.2026
+**Päivitetty:** 08.01.2026
 
 ---
 
@@ -567,6 +568,50 @@ Tämä tietoturva-auditointi paransi kokonaisvaatimustenmukaisuuspisteet 92%:sta
 - Datan vienti (PDF, Excel)
 - Mobiilisovellus (React Native)
 
+### 11.2 Vuoden 2026 kehitysedistyminen
+
+#### Viikon 1 tulokset (1.-4. tammikuuta 2026)
+
+| Saavutus | Tila | Vaikutus |
+|----------|------|----------|
+| **Tietoturvakehys valmis** | ✅ | 449 Ruff-linttausongelmaa → 0 |
+| **18 tietoturvahaavoittuvuutta korjattu** | ✅ | 4 kriittistä, 14 korkea/keskitaso ratkaistu |
+| **Tekoälymallin päivitys** | ✅ | Sonnet 4.5 → Opus 4.5 vuoden 2026 työkaluille |
+| **GitHub Actions v4** | ✅ | Kaikki työnkulut päivitetty 2026-standardeihin |
+| **Vaatimustenmukaisuuspisteet** | ✅ | 92% → 95% (GDPR, NIS2, EU Cybersecurity Act) |
+| **Dokumentaatio** | ✅ | 1 900+ riviä tietoturvadokumentaatiota |
+
+**Keskeiset tuotokset:**
+- DWS IQ 6 -tietoturvakehys täysin dokumentoitu
+- Ruff-lintterin integraatio pre-commit-koukkuihin
+- CodeQL, pip-audit, safety, cyclonedx-bom -työnkulut aktiivisia
+- Argus Code Review arkistoitu (kustannusoptimointi)
+
+#### Viikon 2 tulokset (6.-10. tammikuuta 2026)
+
+| Saavutus | Tila | Vaikutus |
+|----------|------|----------|
+| **Portaalin brändäyspäivitys** | ✅ | "DWS 6 IQ Platform Administration Portal" |
+| **Public Cloud Version V1** | ✅ | Tuotantovalmis brändäysvirstanpylväs |
+| **Portaaliarkkitehtuuripäätös** | ✅ | ADR-2026-001 dokumentoitu |
+| **Admin/Käyttäjäportaalin erottelu** | ✅ | Selkeä roolipohjainen pääsyerottelu |
+| **Liiketoiminnan hero-teksti** | ✅ | Yritysarvoehdotuksen viestintä |
+
+**Portaaliarkkitehtuuripäätös (ADR-2026-001):**
+
+| URL | Tarkoitus | Kohderyhmä |
+|-----|-----------|------------|
+| `https://dws6.com` | Hallintaportaali | Järjestelmänvalvojat |
+| `https://dws6.com/login` | Käyttäjän kirjautumisportaali | Loppukäyttäjät, asiakkaat |
+
+**Päivitetty hero-sisältö:**
+```
+Otsikko: "DWS 6 IQ Platform Administration Portal"
+Alaotsikko: "Enterprise-Grade Construction Intelligence & ESG Compliance Management"
+Tunniste: "Public Cloud Version V1"
+Palvelut: "Secure Access Control · Real-Time Portfolio Analytics · CSRD/Fit for 55 Compliance · AI-Powered Insights"
+```
+
 ---
 
 ## 12. Yhteenveto
@@ -612,8 +657,8 @@ V8-kojelauta tarjoaa:
 
 ---
 
-**Dokumentin versio**: 1.0  
-**Viimeksi päivitetty**: 30. joulukuuta 2025  
+**Dokumentin versio**: 1.2  
+**Viimeksi päivitetty**: 8. tammikuuta 2026  
 **Seuraava tarkistus**: Q2 2026
 
 ---
