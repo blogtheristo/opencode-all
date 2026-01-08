@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Lobby with Coffee ☕ | Lifetime Oy</title>
+    <meta name="description" content="A private lobby for approved investors who want to go deeper into Lifetime World and DWS IQ. Request an invitation or enter with an access code.">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Gamma Enterprise Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11">
+
+    <style>
+        body { font-family: var(--font-sans); background: var(--color-gray-50); color: var(--color-primary); margin: 0; }
+        .wrap { max-width: 1100px; margin: 40px auto; padding: 0 20px 60px; }
+        .card { background: #fff; border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 40px; box-shadow: var(--shadow-lg); }
+        h1 { margin: 0 0 10px; font-size: 2.4rem; color: var(--color-primary); }
+        .subtitle { color: var(--color-gray-600); font-size: 1.1rem; line-height: 1.7; max-width: 860px; }
+        .callout { margin-top: 22px; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--color-gray-200); background: var(--color-gray-50); }
+        .callout strong { color: var(--color-accent); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 26px; }
+        .grid-wide { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 18px; }
+        .carousel { border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 18px; background: #fff; }
+        .carousel-head { display:flex; align-items:center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+        .carousel h2 { margin: 0; color: var(--color-accent); font-size: 1.2rem; }
+        .carousel .nav { display:flex; gap: 8px; }
+        .cbtn { padding: 8px 10px; border-radius: 10px; border: 1px solid var(--color-gray-200); background: var(--color-gray-50); cursor: pointer; font-weight: 800; color: var(--color-gray-700); }
+        .slide { display:none; padding: 14px; border-radius: 12px; border: 1px solid var(--color-gray-200); background: var(--color-gray-50); }
+        .slide.active { display:block; }
+        .quote { font-size: 1.05rem; line-height: 1.7; color: var(--color-gray-700); }
+        .by { margin-top: 10px; color: var(--color-gray-500); font-size: 0.95rem; }
+        .tagrow { margin-top: 10px; display:flex; gap: 8px; flex-wrap: wrap; }
+        .tag { display:inline-flex; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(0,102,204,0.25); background: rgba(0,102,204,0.08); color: var(--color-accent); font-weight: 700; font-size: 0.85rem; }
+        .panel { border: 1px solid var(--color-gray-200); border-radius: 16px; padding: 22px; background: #fff; }
+        .panel h2 { margin: 0 0 10px; color: var(--color-accent); font-size: 1.25rem; }
+        label { display: block; font-weight: 600; color: var(--color-gray-700); margin: 12px 0 6px; }
+        input, textarea { width: 100%; padding: 12px 12px; border-radius: 10px; border: 1px solid var(--color-gray-200); font-family: var(--font-sans); font-size: 1rem; }
+        textarea { min-height: 110px; resize: vertical; }
+        .btnrow { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+        .btn { display:inline-flex; align-items:center; gap: 8px; padding: 12px 16px; border-radius: 10px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; }
+        .btn-primary { background: var(--color-success); color: #fff; }
+        .btn-secondary { background: #fff; color: var(--color-accent); border-color: var(--color-accent); }
+        .hint { font-size: 0.9rem; color: var(--color-gray-500); margin-top: 10px; line-height: 1.5; }
+
+        nav li:hover > .dropdown { display: block !important; }
+        nav .has-submenu:hover > .submenu { display: block !important; }
+        nav .dropdown li:hover, nav .submenu li:hover { background: #f8fafc; }
+        nav .dropdown a:hover, nav .submenu a:hover { color: #0066cc !important; }
+    </style>
+</head>
+<body>
+    <header style="background: #ffffff; color: #0a1628; padding: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="../index.html" style="display: flex; align-items: center; text-decoration: none;">
+                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 60px; width: auto;">
+                </a>
+                <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: #0a1628; margin: 0;">DWS IQ Platform Version 6</h1>
+            </div>
+            <nav style="flex-grow: 0;">
+                <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Investor Lobby ☕ ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 260px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li><a href="../investor-relations/" style="display:block; padding: 8px 20px; color:#0066cc; text-decoration:none; font-weight: 600;">Public Investor Relations</a></li>
+                            <li><a href="./" style="display:block; padding: 8px 20px; color:#475569; text-decoration:none;">Investor Lobby with Coffee (this page)</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../investor-relations/" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center;">
+                            💼 Investors
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://dws6.com/login/portal.html" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center;">
+                            🔐 Sign In
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="card">
+            <h1>Investor Lobby with Coffee ☕</h1>
+            <p class="subtitle">
+                Tervetuloa sijoittajien Private Lobbyyn. Tämä on tarkoitettu sijoittajille, jotka haluavat mennä pintaa syvemmälle
+                <strong>Lifetime World</strong>iin ja <strong>DWS IQ</strong>:n strategiaan — rauhassa, kahvikuppi kädessä.
+            </p>
+
+            <div class="callout">
+                <strong>Miksi Lobby?</strong>
+                Suojelemme IP:tä ja asiakkaitamme: jaamme yksityiskohtaiset moat‑kaaviot, world model ‑näkymät, Studios‑prosessin, roadmapin ja talousluvut vain tässä Lobbyssa.
+                Jos sinulla on kutsu tai access code, voit siirtyä sisään alta.
+            </div>
+
+            <div class="grid">
+                <div class="panel">
+                    <h2>Pyydä kutsu (hakemus)</h2>
+                    <p class="hint">
+                        Sijoittajat etsivät sijoituskohteita — me suojelemme rimaa: pääsy Lobbyyn edellyttää perusteltua kiinnostusta ja sopivaa ticketiä.
+                        Täytä alla lyhyt hakemus, niin palaamme nopeasti seuraavasta askeleesta.
+                    </p>
+
+                    <label for="req_name">Nimi *</label>
+                    <input id="req_name" type="text" placeholder="Etunimi Sukunimi">
+
+                    <label for="req_email">Sähköposti *</label>
+                    <input id="req_email" type="email" placeholder="nimi@yritys.com">
+
+                    <label for="req_company">Organisaatio *</label>
+                    <input id="req_company" type="text" placeholder="Yhtiö / Family Office / Rahasto">
+
+                    <label for="req_type">Sijoittajatyyppi *</label>
+                    <input id="req_type" type="text" placeholder="Esim. Business Angel / Family Office / VC / CVC">
+
+                    <label for="req_geo">Maantiede / fokus</label>
+                    <input id="req_geo" type="text" placeholder="Esim. Nordics / EU / Global">
+
+                    <label for="req_ticket">Ticket (suuruusluokka) *</label>
+                    <input id="req_ticket" type="text" placeholder="Esim. €30k / €150k SAFE / €500k SAFE / muu">
+
+                    <label for="req_thesis">Sijoitusteema & tarpeet *</label>
+                    <textarea id="req_thesis" placeholder="Mitä etsit? Miksi DWS / Lifetime? Mitkä signaalit vakuuttavat sinut?"></textarea>
+
+                    <label for="req_esg">ESG / ilmasto‑fokus</label>
+                    <textarea id="req_esg" placeholder="Onko ESG/impact‑mandaatteja? Mitä mittaatte?"></textarea>
+
+                    <label for="req_timeline">Aikataulu</label>
+                    <input id="req_timeline" type="text" placeholder="Esim. 1–2 viikkoa / Q1 2026">
+
+                    <label for="req_refs">Referenssit / tausta (valinnainen)</label>
+                    <textarea id="req_refs" placeholder="LinkedIn, aiemmat sijoitukset, tiimi, miten päätökset tehdään"></textarea>
+
+                    <label for="req_consent">
+                        <input id="req_consent" type="checkbox" style="width:auto; margin-right:8px;">
+                        Vahvistan, että jaetut tiedot ovat todenmukaisia ja ymmärrän, että yksityiskohtaiset materiaalit ovat luottamuksellisia. *
+                    </label>
+
+                    <div class="btnrow">
+                        <button class="btn btn-primary" type="button" onclick="sendInvitationEmail()">✉️ Lähetä hakemus</button>
+                        <a class="btn btn-secondary" href="../investor-relations/">Julkinen investor‑sivu</a>
+                    </div>
+                    <p class="hint">* Pakolliset kentät. Emme julkaise IP:tä tai asiakasdetailleja ilman hyväksyttyä pääsyä.</p>
+                </div>
+
+                <div class="panel">
+                    <h2>Login: Enter Lobby (access code)</h2>
+                    <p class="hint">Jos sinulla on kutsu tai access code, syötä se tähän. Ohjaamme sinut DWS6‑kirjautumiseen ja sieltä Investor Lobbyyn.</p>
+
+                    <label for="access_code">Invitation / access code *</label>
+                    <input id="access_code" type="text" placeholder="Enter your code">
+
+                    <div class="btnrow">
+                        <button class="btn btn-primary" type="button" onclick="enterLobby()">🔐 Enter Lobby</button>
+                        <a class="btn btn-secondary" href="https://dws6.com/login/portal.html">Open DWS6 login portal</a>
+                    </div>
+
+                    <p class="hint">
+                        Huom: access code helpottaa sisäänmenoa. Varsinainen pääsynvalvonta tehdään DWS6:ssa kirjautumisen jälkeen.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Support + Testimonials + Ads -->
+            <div class="grid-wide">
+                <div class="carousel">
+                    <div class="carousel-head">
+                        <h2>Support Lifetime World’s mission</h2>
+                        <div class="nav">
+                            <a class="btn btn-primary" href="../checkout/?product=donation-cursor-200" style="text-decoration:none;">💛 Donate $200 (Cursor fees)</a>
+                            <a class="btn btn-secondary" href="../buy/" style="text-decoration:none;">Open Store</a>
+                        </div>
+                    </div>
+                    <p class="hint">
+                        This $200 donation helps cover Cursor / AI tooling costs so we can ship faster. Thank you for supporting the mission.
+                    </p>
+                </div>
+
+                <div class="carousel" id="testimonialsCarousel">
+                    <div class="carousel-head">
+                        <h2>Testimonials</h2>
+                        <div class="nav">
+                            <button class="cbtn" type="button" onclick="carouselPrev('testimonialsCarousel')">◀</button>
+                            <button class="cbtn" type="button" onclick="carouselNext('testimonialsCarousel')">▶</button>
+                        </div>
+                    </div>
+                    <div class="slide active">
+                        <div class="quote">“Audit‑ready thinking from day one. The system makes it clear what data is missing and what to fix next.”</div>
+                        <div class="by">— Construction portfolio lead (Nordics)</div>
+                        <div class="tagrow"><span class="tag">Audit trail</span><span class="tag">CSRD</span></div>
+                    </div>
+                    <div class="slide">
+                        <div class="quote">“The value ladder is real: add a site, connect one system, and results improve immediately.”</div>
+                        <div class="by">— Operations manager (Infrastructure)</div>
+                        <div class="tagrow"><span class="tag">Integrations</span><span class="tag">Continuous improvement</span></div>
+                    </div>
+                    <div class="slide">
+                        <div class="quote">“Edge readiness creates confidence for production usage. It’s not just another dashboard.”</div>
+                        <div class="by">— Enterprise architect (Construction)</div>
+                        <div class="tagrow"><span class="tag">Edge</span><span class="tag">Enterprise</span></div>
+                    </div>
+                </div>
+
+                <div class="carousel" id="adsCarousel">
+                    <div class="carousel-head">
+                        <h2>Mainokset</h2>
+                        <div class="nav">
+                            <button class="cbtn" type="button" onclick="carouselPrev('adsCarousel')">◀</button>
+                            <button class="cbtn" type="button" onclick="carouselNext('adsCarousel')">▶</button>
+                        </div>
+                    </div>
+                    <div class="slide active">
+                        <div class="quote"><strong>DWS IQ FREE</strong>: start with demo‑data → upgrade when you connect your first site.</div>
+                        <div class="by">CTA: <a href="../construction-lobby/" style="color: var(--color-accent); font-weight: 800; text-decoration:none;">Open Construction Lobby ☕</a></div>
+                    </div>
+                    <div class="slide">
+                        <div class="quote"><strong>Investor Lobby</strong>: protect IP, go deeper with moats, roadmap, and financials (approved only).</div>
+                        <div class="by">CTA: <a href="https://dws6.com/login/investor-lobby/" style="color: var(--color-accent); font-weight: 800; text-decoration:none;">Enter Investor Lobby</a></div>
+                    </div>
+                    <div class="slide">
+                        <div class="quote"><strong>Fit for 55</strong>: stop spreadsheets. Get audit‑ready reports faster.</div>
+                        <div class="by">CTA: <a href="../investment-safety/" style="color: var(--color-accent); font-weight: 800; text-decoration:none;">Investor Security</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendInvitationEmail() {
+            const name = (document.getElementById('req_name').value || '').trim();
+            const email = (document.getElementById('req_email').value || '').trim();
+            const company = (document.getElementById('req_company').value || '').trim();
+            const type = (document.getElementById('req_type').value || '').trim();
+            const geo = (document.getElementById('req_geo').value || '').trim();
+            const ticket = (document.getElementById('req_ticket').value || '').trim();
+            const thesis = (document.getElementById('req_thesis').value || '').trim();
+            const esg = (document.getElementById('req_esg').value || '').trim();
+            const timeline = (document.getElementById('req_timeline').value || '').trim();
+            const refs = (document.getElementById('req_refs').value || '').trim();
+            const consent = !!document.getElementById('req_consent').checked;
+
+            const missing = [];
+            if (!name) missing.push('Nimi');
+            if (!email) missing.push('Sähköposti');
+            if (!company) missing.push('Organisaatio');
+            if (!type) missing.push('Sijoittajatyyppi');
+            if (!ticket) missing.push('Ticket');
+            if (!thesis) missing.push('Sijoitusteema & tarpeet');
+            if (!consent) missing.push('Suostumus');
+
+            if (missing.length) {
+                alert('Täytä pakolliset kentät: ' + missing.join(', '));
+                return;
+            }
+
+            const subject = encodeURIComponent('Investor Lobby - Kutsupyyntö (hakemus)');
+            const body = encodeURIComponent(
+                `INVESTOR LOBBY - KUTSUPYYNTÖ (hakemus)\n\n` +
+                `Nimi: ${name}\n` +
+                `Sähköposti: ${email}\n` +
+                `Organisaatio: ${company}\n` +
+                `Sijoittajatyyppi: ${type}\n` +
+                `Maantiede / fokus: ${geo}\n` +
+                `Ticket: ${ticket}\n` +
+                `Aikataulu: ${timeline}\n\n` +
+                `Sijoitusteema & tarpeet:\n${thesis}\n\n` +
+                `ESG / ilmasto‑fokus:\n${esg}\n\n` +
+                `Referenssit / tausta:\n${refs}\n\n` +
+                `Suostumus: Kyllä\n`
+            );
+            window.location.href = `mailto:investor@dws10.com?subject=${subject}&body=${body}`;
+        }
+
+        function enterLobby() {
+            const code = (document.getElementById('access_code').value || '').trim();
+            if (!code) {
+                alert('Please enter an access code.');
+                return;
+            }
+            try { localStorage.setItem('dws_investor_lobby_code', code); } catch (e) {}
+            const next = encodeURIComponent('/dashboard/investor-lobby/');
+            const fragment = encodeURIComponent(code);
+            window.location.href = `https://dws6.com/login/portal.html?next=${next}#code=${fragment}`;
+        }
+
+        function carouselNext(id) {
+            const root = document.getElementById(id);
+            if (!root) return;
+            const slides = Array.from(root.querySelectorAll('.slide'));
+            const idx = slides.findIndex(s => s.classList.contains('active'));
+            const next = (idx + 1) % slides.length;
+            slides[idx]?.classList.remove('active');
+            slides[next]?.classList.add('active');
+        }
+
+        function carouselPrev(id) {
+            const root = document.getElementById(id);
+            if (!root) return;
+            const slides = Array.from(root.querySelectorAll('.slide'));
+            const idx = slides.findIndex(s => s.classList.contains('active'));
+            const prev = (idx - 1 + slides.length) % slides.length;
+            slides[idx]?.classList.remove('active');
+            slides[prev]?.classList.add('active');
+        }
+
+        setInterval(() => carouselNext('testimonialsCarousel'), 9000);
+        setInterval(() => carouselNext('adsCarousel'), 7000);
+    </script>
+</body>
+</html>
+
