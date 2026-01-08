@@ -54,6 +54,7 @@
     </style>
 </head>
 <body>
+    <!-- Gamma Navigation (full menu, same as Legal Hub) -->
     <header style="background: #ffffff; color: #0a1628; padding: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0;">
         <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
             <div style="display: flex; align-items: center; gap: 20px;">
@@ -285,7 +286,9 @@
                 alert('Please enter an access code.');
                 return;
             }
+            // Store locally for the next step (DWS6 investor lobby can read it if needed)
             try { localStorage.setItem('dws_investor_lobby_code', code); } catch (e) {}
+
             const next = encodeURIComponent('/dashboard/investor-lobby/');
             const fragment = encodeURIComponent(code);
             window.location.href = `https://dws6.com/login/portal.html?next=${next}#code=${fragment}`;
@@ -311,9 +314,9 @@
             slides[prev]?.classList.add('active');
         }
 
+        // Auto-rotate carousels (lightweight)
         setInterval(() => carouselNext('testimonialsCarousel'), 9000);
         setInterval(() => carouselNext('adsCarousel'), 7000);
     </script>
 </body>
 </html>
-
