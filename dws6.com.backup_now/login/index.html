@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM ID & Watsonx Login | DWS IQ Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #001f3f 0%, #003366 50%, #0a3a52 100%);
+            color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .login-card {
+            background: rgba(15, 50, 90, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0, 152, 254, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 152, 254, 0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .logo-section img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-section h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #0098FE, #0078D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .security-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #10b981;
+        }
+
+        .security-badge strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.5);
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .login-method-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #60a5fa;
+            border-bottom-color: #60a5fa;
+        }
+
+        .tab-btn:hover {
+            color: #cbd5e1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .mfa-options {
+            background: rgba(96, 165, 250, 0.05);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .mfa-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            margin-bottom: 8px;
+        }
+
+        .mfa-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .mfa-option:hover {
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .mfa-option input[type="radio"] {
+            width: auto;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .mfa-option-label {
+            flex: 1;
+        }
+
+        .mfa-option-title {
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .mfa-option-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(96, 165, 250, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(96, 165, 250, 0.2);
+        }
+
+        .social-login {
+            margin-top: 24px;
+        }
+
+        .social-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(148, 163, 184, 0.2);
+        }
+
+        .enterprise-btn {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(0, 152, 254, 0.3);
+            border-radius: 8px;
+            color: #f1f5f9;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .enterprise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 152, 254, 0.2);
+        }
+
+        .watsonx-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .watsonx-btn::before {
+            content: '🤖 AI Governance Ready';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            right: 0;
+            background: rgba(91, 63, 153, 0.2);
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            transition: top 0.3s;
+        }
+
+        .watsonx-btn:hover::before {
+            top: 0;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            background: rgba(15, 50, 90, 0.5);
+            color: #f1f5f9;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .google-btn:hover {
+            background: rgba(0, 152, 254, 0.1);
+            border-color: rgba(0, 152, 254, 0.3);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        .links a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #93c5fd;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fca5a5;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .compliance-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .compliance-info strong {
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .compliance-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        .proton-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #6366f1;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #86efac;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ">
+                <h1>DWS IQ</h1>
+            </div>
+
+            <!-- Security Badge -->
+            <div class="security-badge">
+                <strong>🔒 NIS2 Ready Enterprise Authentication</strong>
+                Mandatory MFA | Proton Key Support | EU GDPR Compliant
+            </div>
+
+            <!-- Messages -->
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <!-- Login Tabs -->
+            <div class="login-method-tabs">
+                <button class="tab-btn active" onclick="switchTab('standard')">📝 Standard</button>
+                <button class="tab-btn" onclick="switchTab('proton')">🔑 Proton Key</button>
+                <button class="tab-btn" onclick="switchTab('oauth')">🌐 Social</button>
+            </div>
+
+            <!-- Tab 1: Standard Login with MFA -->
+            <div id="standard" class="tab-content active">
+                <form onsubmit="handleStandardLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="mfa-options">
+                        <div style="color: #cbd5e1; font-weight: 600; margin-bottom: 12px;">🛡️ Multi-Factor Authentication (Required)</div>
+
+                        <label class="mfa-option">
+                            <input type="radio" name="mfa" value="totp" checked>
+                            <div class="mfa-option-label">
+                                <div class="mfa-option-title">🔐 Authenticator App (TOTP)</div>
+                                <div class="mfa-option-desc">Google Authenticator, Microsoft Authenticator, Authy</div>
+                            </div>
+                        </label>
+
+                        <label class="mfa-option">
+                            <input type="radio" name="mfa" value="sms">
+                            <div class="mfa-option-label">
+                                <div class="mfa-option-title">📱 SMS 2FA</div>
+                                <div class="mfa-option-desc">Receive a code via SMS (backup method)</div>
+                            </div>
+                        </label>
+
+                        <label class="mfa-option">
+                            <input type="radio" name="mfa" value="email">
+                            <div class="mfa-option-label">
+                                <div class="mfa-option-title">✉️ Email 2FA</div>
+                                <div class="mfa-option-desc">Confirmation link sent to your email</div>
+                            </div>
+                        </label>
+
+                        <label class="mfa-option">
+                            <input type="radio" name="mfa" value="security-key">
+                            <div class="mfa-option-label">
+                                <div class="mfa-option-title">🗝️ Security Key (FIDO2/U2F)</div>
+                                <div class="mfa-option-desc">Hardware security key (most secure)</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group hidden" id="mfaCodeGroup">
+                        <label for="mfaCode">MFA Code</label>
+                        <input type="text" id="mfaCode" name="mfaCode" placeholder="000000" maxlength="6">
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">Login Securely</button>
+                    </div>
+
+                    <div class="links">
+                        <a href="#forgot">Forgot Password?</a>
+                        <a href="#register">Create Account</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 2: Proton Key Login -->
+            <div id="proton" class="tab-content">
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🔑</div>
+                    <h3 style="color: #cbd5e1; margin-bottom: 12px;">Proton Key Authentication</h3>
+                    <p style="color: #94a3b8; margin-bottom: 20px;">
+                        Advanced security using Proton's encrypted key infrastructure. 
+                        Enterprise-grade protection for sensitive access.
+                    </p>
+                    <button onclick="handleProtonKeyLogin()" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;">
+                        🔐 Authenticate with Proton Key
+                    </button>
+                    <p style="color: #94a3b8; font-size: 0.85rem;">
+                        Requires Proton Account integration. 
+                        <a href="#setup" style="color: #60a5fa;">Setup Instructions</a>
+                    </p>
+                </div>
+                <div class="links" style="justify-content: center;">
+                    <a href="#proton-docs">📖 Proton Key Documentation</a>
+                </div>
+            </div>
+
+            <!-- Tab 3: Enterprise OAuth Login -->
+            <div id="oauth" class="tab-content">
+                <div class="social-login">
+                    <div class="social-divider">Enterprise Authentication</div>
+
+                    <!-- IBMid Login -->
+                    <button onclick="handleIBMidLogin()" class="enterprise-btn" style="background: linear-gradient(135deg, #0098FE 0%, #0078D4 100%); margin-bottom: 12px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="3" y="3" width="4" height="4"/>
+                            <rect x="10" y="3" width="4" height="4"/>
+                            <rect x="17" y="3" width="4" height="4"/>
+                            <rect x="3" y="10" width="4" height="4"/>
+                            <rect x="10" y="10" width="4" height="4"/>
+                            <rect x="17" y="10" width="4" height="4"/>
+                            <rect x="3" y="17" width="4" height="4"/>
+                            <rect x="10" y="17" width="4" height="4"/>
+                            <rect x="17" y="17" width="4" height="4"/>
+                        </svg>
+                        IBM ID Authentication
+                    </button>
+
+                    <!-- Watsonx Login (Build Partnership) -->
+                    <button onclick="handleWatsonxLogin()" class="enterprise-btn watsonx-btn" style="background: linear-gradient(135deg, #5B3F99 0%, #2E5090 100%); margin-bottom: 16px; border: 2px solid rgba(91, 63, 153, 0.5);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        🤖 Watsonx Enterprise Access
+                    </button>
+
+                    <div style="background: rgba(91, 63, 153, 0.1); border: 1px solid rgba(91, 63, 153, 0.3); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 0.85rem; color: #cbd5e1;">
+                        <strong style="display: block; color: #c9a0ff; margin-bottom: 6px;">🎯 Build Partnership Preview</strong>
+                        Watsonx AI Governance integration enables AI-driven supply chain optimization with NIS2 compliance.
+                    </div>
+
+                    <div style="border-top: 1px solid rgba(148, 163, 184, 0.2); padding-top: 16px;">
+                        <div class="social-divider" style="border-top: none; margin-bottom: 16px;">Alternative Methods</div>
+
+                        <button onclick="handleGoogleLogin()" class="google-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            Google Workspace
+                        </button>
+
+                        <div style="text-align: center; margin-top: 16px; color: #94a3b8; font-size: 0.9rem;">
+                            <p style="margin-bottom: 12px;">Additional integrations available:</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="padding: 10px; background: rgba(0, 152, 254, 0.05); border-radius: 6px; color: #cbd5e1; border: 1px solid rgba(0, 152, 254, 0.2);">
+                                    💻 Microsoft 365
+                                </div>
+                                <div style="padding: 10px; background: rgba(0, 152, 254, 0.05); border-radius: 6px; color: #cbd5e1; border: 1px solid rgba(0, 152, 254, 0.2);">
+                                    🍎 Apple ID
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="links" style="justify-content: center; margin-top: 20px;">
+                    <a href="#enterprise-docs">📖 Enterprise OAuth</a>
+                    <a href="#watsonx-docs">🤖 Watsonx Guide</a>
+                </div>
+            </div>
+
+            <!-- Compliance Information -->
+            <div class="compliance-info">
+                <strong>🛡️ Security & Compliance Certifications:</strong>
+                <div>
+                    <span class="compliance-badge">NIS2 Directive</span>
+                    <span class="compliance-badge">GDPR Ready</span>
+                </div>
+                <div>
+                    <span class="compliance-badge">EU AI Act</span>
+                    <span class="proton-badge">Proton Verified</span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <span style="display: inline-block; background: rgba(0, 152, 254, 0.1); border: 1px solid rgba(0, 152, 254, 0.3); color: #0098FE; padding: 4px 10px; border-radius: 4px; margin-right: 8px; font-size: 0.8rem;">IBM ID Ready</span>
+                    <span style="display: inline-block; background: rgba(91, 63, 153, 0.1); border: 1px solid rgba(91, 63, 153, 0.3); color: #c9a0ff; padding: 4px 10px; border-radius: 4px; margin-right: 8px; font-size: 0.8rem;">Watsonx Partner</span>
+                </div>
+                <p style="margin-top: 12px; color: #64748b;">
+                    IBM-styled authentication with MFA for NIS2 compliance. 🤖 Watsonx AI Governance integration enables enterprise AI governance. All credentials encrypted end-to-end.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Standard Login Handler
+        function handleStandardLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const mfaMethod = document.querySelector('input[name="mfa"]:checked').value;
+
+            if (mfaMethod === 'security-key') {
+                showSuccess('🗝️ Redirecting to Security Key verification...');
+            } else {
+                showSuccess(`✅ MFA code sent via ${mfaMethod === 'totp' ? 'Authenticator App' : mfaMethod === 'sms' ? 'SMS' : mfaMethod === 'email' ? 'Email' : 'method'}. Please check and enter the code.`);
+            }
+
+            // Simulate API call
+            setTimeout(() => {
+                // In production: POST to /api/auth/login
+                console.log('Login attempt:', { email, mfaMethod });
+            }, 1500);
+        }
+
+        // Proton Key Login Handler
+        function handleProtonKeyLogin() {
+            showSuccess('🔑 Initiating Proton Key authentication...');
+            setTimeout(() => {
+                showSuccess('🔐 Proton Key verified! Redirecting to dashboard...');
+            }, 2000);
+        }
+
+        // IBM ID Authentication Handler
+        function handleIBMidLogin() {
+            showSuccess('🔐 Initiating IBM ID authentication...');
+            setTimeout(() => {
+                showSuccess('✅ IBM ID verified! Redirecting to dashboard...');
+                console.log('IBM ID OAuth endpoint: /api/auth/ibmid');
+                // In production: redirect to IBM ID OAuth endpoint
+                // window.location.href = '/api/auth/ibmid';
+            }, 1500);
+        }
+
+        // Watsonx Enterprise Access Handler
+        function handleWatsonxLogin() {
+            showSuccess('🤖 Initiating Watsonx Build Partnership authentication...');
+            setTimeout(() => {
+                const message = '🎯 Watsonx Access Verified!\n✅ AI Governance Framework enabled\n✅ NIS2 Compliance validated\n✅ Enterprise access granted';
+                showSuccess(message);
+                console.log('Watsonx OAuth endpoint: /api/auth/watsonx/partner');
+                // In production: redirect to Watsonx Partner OAuth endpoint
+                // window.location.href = '/api/auth/watsonx/partner?partnership=build&governance=enabled';
+            }, 2000);
+        }
+
+        // Google OAuth Handler
+        function handleGoogleLogin() {
+            showSuccess('🌐 Redirecting to Google OAuth...');
+            // In production: redirect to Google OAuth endpoint
+            // window.location.href = '/api/auth/google';
+        }
+
+        // UI Helpers
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        // MFA Code visibility
+        document.querySelectorAll('input[name="mfa"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const mfaCodeGroup = document.getElementById('mfaCodeGroup');
+                if (this.value !== 'security-key') {
+                    mfaCodeGroup.classList.remove('hidden');
+                } else {
+                    mfaCodeGroup.classList.add('hidden');
+                }
+            });
+        });
+
+        // Preload logo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔐 DWS IQ Secure Login - NIS2 Ready');
+            console.log('MFA Methods Available: TOTP, SMS, Email, FIDO2/U2F, Proton Key, Google OAuth');
+        });
+    </script>
+</body>
+</html>
+

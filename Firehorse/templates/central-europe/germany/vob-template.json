@@ -1,0 +1,396 @@
+{
+  "templateId": "DE-VOB-B-CONTRACT-V1",
+  "templateName": "VOB/B Construction Contract",
+  "templateVersion": "1.0",
+  "standard": {
+    "type": "VOB/B",
+    "title": "General Contract Conditions for Construction Works",
+    "country": "Germany",
+    "region": "Central Europe",
+    "legalBasis": "VOB/B 2019"
+  },
+  "metadata": {
+    "description": "German VOB/B construction contract template",
+    "category": "Contract Documentation",
+    "languages": ["de", "en"],
+    "carbonReportingEnabled": true
+  },
+  "sections": [
+    {
+      "sectionId": "1",
+      "sectionName": "Contract Parties",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "1.1",
+          "fieldName": "clientName",
+          "label": "Client (Auftraggeber)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "fieldId": "1.2",
+          "fieldName": "clientAddress",
+          "label": "Client Address",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "fieldId": "1.3",
+          "fieldName": "contractorName",
+          "label": "Contractor (Auftragnehmer)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "fieldId": "1.4",
+          "fieldName": "contractorAddress",
+          "label": "Contractor Address",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "sectionId": "2",
+      "sectionName": "Scope of Work (Leistungsverzeichnis)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "2.1",
+          "fieldName": "projectName",
+          "label": "Project Name",
+          "type": "text",
+          "required": true,
+          "dataSource": "dws_iq.project.name"
+        },
+        {
+          "fieldId": "2.2",
+          "fieldName": "projectLocation",
+          "label": "Project Location",
+          "type": "text",
+          "required": true,
+          "dataSource": "dws_iq.project.location"
+        },
+        {
+          "fieldId": "2.3",
+          "fieldName": "workDescription",
+          "label": "Work Description",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "fieldId": "2.4",
+          "fieldName": "technicalSpecifications",
+          "label": "Technical Specifications (VOB/C)",
+          "type": "table",
+          "required": true,
+          "columns": [
+            {"name": "vobcSection", "label": "VOB/C Section", "type": "text"},
+            {"name": "description", "label": "Description", "type": "text"},
+            {"name": "dinStandard", "label": "DIN Standard", "type": "text"}
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "3",
+      "sectionName": "Contract Sum (Vertragssumme)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "3.1",
+          "fieldName": "totalContractSum",
+          "label": "Total Contract Sum",
+          "type": "number",
+          "unit": "EUR",
+          "required": true,
+          "dataSource": "dws_iq.project.budget"
+        },
+        {
+          "fieldId": "3.2",
+          "fieldName": "vatRate",
+          "label": "VAT Rate",
+          "type": "number",
+          "unit": "%",
+          "required": true,
+          "defaultValue": 19
+        },
+        {
+          "fieldId": "3.3",
+          "fieldName": "totalIncludingVat",
+          "label": "Total Including VAT",
+          "type": "number",
+          "unit": "EUR",
+          "required": true,
+          "calculation": "totalContractSum * (1 + vatRate/100)"
+        }
+      ]
+    },
+    {
+      "sectionId": "4",
+      "sectionName": "Time Schedule (Bauzeit)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "4.1",
+          "fieldName": "commencementDate",
+          "label": "Commencement Date (Baubeginn)",
+          "type": "date",
+          "required": true
+        },
+        {
+          "fieldId": "4.2",
+          "fieldName": "completionDate",
+          "label": "Completion Date (Fertigstellung)",
+          "type": "date",
+          "required": true
+        },
+        {
+          "fieldId": "4.3",
+          "fieldName": "contractDuration",
+          "label": "Contract Duration",
+          "type": "number",
+          "unit": "days",
+          "required": true
+        },
+        {
+          "fieldId": "4.4",
+          "fieldName": "milestones",
+          "label": "Key Milestones",
+          "type": "table",
+          "required": false,
+          "columns": [
+            {"name": "milestone", "label": "Milestone", "type": "text"},
+            {"name": "date", "label": "Date", "type": "date"},
+            {"name": "description", "label": "Description", "type": "text"}
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "5",
+      "sectionName": "Payment Terms (Zahlungsplan)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "5.1",
+          "fieldName": "paymentSchedule",
+          "label": "Payment Schedule",
+          "type": "table",
+          "required": true,
+          "columns": [
+            {"name": "milestone", "label": "Milestone", "type": "text"},
+            {"name": "percentage", "label": "Percentage (%)", "type": "number"},
+            {"name": "amount", "label": "Amount (EUR)", "type": "number"}
+          ]
+        },
+        {
+          "fieldId": "5.2",
+          "fieldName": "retentionPercentage",
+          "label": "Retention Percentage",
+          "type": "number",
+          "unit": "%",
+          "required": true,
+          "defaultValue": 5
+        },
+        {
+          "fieldId": "5.3",
+          "fieldName": "paymentTerms",
+          "label": "Payment Terms (Days)",
+          "type": "number",
+          "unit": "days",
+          "required": true,
+          "defaultValue": 30
+        }
+      ]
+    },
+    {
+      "sectionId": "6",
+      "sectionName": "Quality Requirements (Qualitätsanforderungen)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "6.1",
+          "fieldName": "qualityStandards",
+          "label": "Quality Standards",
+          "type": "multiselect",
+          "options": ["DIN 18202", "DIN 18203", "DIN 18205", "ISO 9001"],
+          "required": true
+        },
+        {
+          "fieldId": "6.2",
+          "fieldName": "inspectionProcedures",
+          "label": "Inspection Procedures",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "fieldId": "6.3",
+          "fieldName": "testingRequirements",
+          "label": "Testing Requirements",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "sectionId": "7",
+      "sectionName": "Acceptance (Abnahme)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "7.1",
+          "fieldName": "acceptanceProcedure",
+          "label": "Acceptance Procedure (§12 VOB/B)",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "fieldId": "7.2",
+          "fieldName": "acceptanceDeadline",
+          "label": "Acceptance Deadline",
+          "type": "number",
+          "unit": "days after completion",
+          "required": true,
+          "defaultValue": 14
+        }
+      ]
+    },
+    {
+      "sectionId": "8",
+      "sectionName": "Warranty (Gewährleistung)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "8.1",
+          "fieldName": "warrantyPeriod",
+          "label": "Warranty Period (§13 VOB/B)",
+          "type": "number",
+          "unit": "years",
+          "required": true,
+          "defaultValue": 4
+        },
+        {
+          "fieldId": "8.2",
+          "fieldName": "warrantyConditions",
+          "label": "Warranty Conditions",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "sectionId": "9",
+      "sectionName": "Insurance Requirements (Versicherung)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "9.1",
+          "fieldName": "liabilityInsurance",
+          "label": "Liability Insurance Required",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
+        },
+        {
+          "fieldId": "9.2",
+          "fieldName": "insuranceCoverage",
+          "label": "Insurance Coverage Amount",
+          "type": "number",
+          "unit": "EUR",
+          "required": true
+        }
+      ]
+    },
+    {
+      "sectionId": "10",
+      "sectionName": "Environmental Requirements (EN 15978)",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "10.1",
+          "fieldName": "carbonReporting",
+          "label": "Carbon Reporting Required",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
+        },
+        {
+          "fieldId": "10.2",
+          "fieldName": "carbonTarget",
+          "label": "Carbon Target",
+          "type": "number",
+          "unit": "kg CO2-eq/m²",
+          "required": false,
+          "dataSource": "supabase.carbon_budget.target_intensity"
+        },
+        {
+          "fieldId": "10.3",
+          "fieldName": "fitFor55Compliance",
+          "label": "Fit for 55 Compliance Required",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": true
+        }
+      ]
+    },
+    {
+      "sectionId": "11",
+      "sectionName": "Special Contract Conditions (Besondere Vertragsbedingungen)",
+      "required": false,
+      "fields": [
+        {
+          "fieldId": "11.1",
+          "fieldName": "specialConditions",
+          "label": "Special Conditions",
+          "type": "textarea",
+          "required": false
+        }
+      ]
+    },
+    {
+      "sectionId": "12",
+      "sectionName": "Signatures",
+      "required": true,
+      "fields": [
+        {
+          "fieldId": "12.1",
+          "fieldName": "clientSignature",
+          "label": "Client Signature",
+          "type": "signature",
+          "required": true
+        },
+        {
+          "fieldId": "12.2",
+          "fieldName": "clientSignatureDate",
+          "label": "Date",
+          "type": "date",
+          "required": true
+        },
+        {
+          "fieldId": "12.3",
+          "fieldName": "contractorSignature",
+          "label": "Contractor Signature",
+          "type": "signature",
+          "required": true
+        },
+        {
+          "fieldId": "12.4",
+          "fieldName": "contractorSignatureDate",
+          "label": "Date",
+          "type": "date",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "outputFormats": ["PDF", "DOCX"],
+  "automation": {
+    "enabled": false
+  },
+  "integration": {
+    "dwsIQ6Dashboard": true,
+    "supabase": true
+  }
+}

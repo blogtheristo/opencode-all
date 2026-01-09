@@ -1,0 +1,8 @@
+bandit>=1.7.5
+safety>=2.3.5
+pytest>=7.4.0
+ruff>=0.8.0
+# Legacy tools (can be removed after Ruff adoption)
+# black>=23.7.0
+# flake8>=6.1.0
+
