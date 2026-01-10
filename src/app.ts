@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
@@ -13,6 +15,10 @@ dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT || 3001;
+
+// ES Module path helpers
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
@@ -75,6 +81,17 @@ app.get('/health', (req: Request, res: Response) => {
     service: 'DWS IQ Auth Backend',
     version: '1.0.0',
   });
+});
+
+// ============ STATIC FILES ============
+
+// Serve public directory (for signals dashboard and other static assets)
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
+
+// Redirect /signals to signals dashboard
+app.get('/signals', (req: Request, res: Response) => {
+  res.sendFile(path.join(publicPath, 'signals-dashboard.html'));
 });
 
 // ============ API ROUTES ============

@@ -298,6 +298,165 @@ router.get('/leads/:id/tasks', async (req: Request, res: Response) => {
 });
 
 // ============================================================================
+// SIGNAL-BASED SALES AUTOMATION
+// ============================================================================
+
+/**
+ * Get pending signals (ULTRA + HIGH correlation)
+ * GET /firehorse/signals/pending
+ */
+router.get('/signals/pending', async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await (db as any).supabase
+      .from('firehorse_signals_pending_approval')
+      .select('*')
+      .limit(50);
+
+    if (error) {
+      console.error('Error fetching pending signals:', error);
+      return res.status(500).json({
+        error: 'Failed to fetch signals',
+        message: error.message
+      });
+    }
+
+    res.json({
+      signals: data || [],
+      count: data?.length || 0,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error: any) {
+    console.error('Unexpected error in /signals/pending:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * Approve a signal for sending
+ * POST /firehorse/signals/:id/approve
+ */
+router.post('/signals/:id/approve', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { message_final } = req.body; // Optional: human-edited message
+
+  try {
+    const { data, error } = await (db as any).supabase
+      .from('firehorse_signals')
+      .update({
+        status: 'approved',
+        message_final: message_final || null,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error(`Error approving signal ${id}:`, error);
+      return res.status(500).json({
+        error: 'Failed to approve signal',
+        message: error.message
+      });
+    }
+
+    console.log(`✅ Signal approved: ${id} - ${data.company_name}`);
+
+    res.json({
+      success: true,
+      signal: data,
+      message: 'Signal approved'
+    });
+
+  } catch (error: any) {
+    console.error('Unexpected error in /signals/:id/approve:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * Reject a signal (not relevant)
+ * POST /firehorse/signals/:id/reject
+ */
+router.post('/signals/:id/reject', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await (db as any).supabase
+      .from('firehorse_signals')
+      .update({
+        status: 'rejected',
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error(`Error rejecting signal ${id}:`, error);
+      return res.status(500).json({
+        error: 'Failed to reject signal',
+        message: error.message
+      });
+    }
+
+    console.log(`❌ Signal rejected: ${id} - ${data.company_name}`);
+
+    res.json({
+      success: true,
+      signal: data,
+      message: 'Signal rejected'
+    });
+
+  } catch (error: any) {
+    console.error('Unexpected error in /signals/:id/reject:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * Get signal collection statistics
+ * GET /firehorse/signals/stats
+ */
+router.get('/signals/stats', async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await (db as any).supabase
+      .from('firehorse_signals_metrics')
+      .select('*')
+      .limit(4); // Last 4 weeks
+
+    if (error) {
+      console.error('Error fetching signal stats:', error);
+      return res.status(500).json({
+        error: 'Failed to fetch stats',
+        message: error.message
+      });
+    }
+
+    res.json({
+      stats: data || [],
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error: any) {
+    console.error('Unexpected error in /signals/stats:', error);
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
+});
+
+// ============================================================================
 // HEALTH CHECK
 // ============================================================================
 
