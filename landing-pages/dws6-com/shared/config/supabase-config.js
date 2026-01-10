@@ -23,7 +23,8 @@ export const supabaseConfig = {
     'api_developer': '/dashboard/api/',
     'mcp_admin': '/dashboard/mcp-hub/',
     'watsonx_user': '/dashboard/watsonx/',
-    'investor_lobby': '/dashboard/investor-lobby/',
+    'investor_lobby': '/dashboard/investor-lobby/'
+    ,
     'construction_free': '/dashboard/construction-lobby/'
   },
   
@@ -40,7 +41,8 @@ export const supabaseConfig = {
     'api_developer': '/login/api/',
     'mcp_admin': '/login/mcp-hub/',
     'watsonx_user': '/login/watsonx/',
-    'investor_lobby': '/login/investor-lobby/',
+    'investor_lobby': '/login/investor-lobby/'
+    ,
     'construction_free': '/login/construction-lobby/'
   },
   
@@ -57,7 +59,8 @@ export const supabaseConfig = {
     'api_developer': 'API Developer',
     'mcp_admin': 'MCP Hub Administrator',
     'watsonx_user': 'IBM watsonx.ai',
-    'investor_lobby': 'Investor Lobby (Confidential)',
+    'investor_lobby': 'Investor Lobby (Confidential)'
+    ,
     'construction_free': 'Construction Lobby (FREE)'
   },
   
