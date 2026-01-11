@@ -99,7 +99,7 @@ list_cherrypick_candidates() {
     
     git branch -r | grep -v HEAD | while read remote_branch; do
         branch=$(echo "$remote_branch" | sed 's|origin/||')
-        commit_count=$(git rev-list --count "origin/main..$remote_branch" 2>/dev/null || echo "?")
+        commit_count=$(git rev-list --count "origin/main...$remote_branch" 2>/dev/null || echo "?")
         last_commit=$(git log -1 --format="%h %s" "$remote_branch" 2>/dev/null || echo "N/A")
         echo ""
         echo "Branch: $branch"
