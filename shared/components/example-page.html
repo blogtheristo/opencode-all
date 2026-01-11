@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example Page - Site Quality Standards Demo - DWS IQ Platform</title>
+  <meta name="description" content="Example page demonstrating the new site quality standards, shared navigation, and CTA best practices.">
+
+  <!-- Link CTA button styles -->
+  <link rel="stylesheet" href="/shared/components/cta-buttons.css">
+
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta-group {
+      margin-bottom: 32px;
+    }
+
+    .hero-social-proof {
+      margin-top: 32px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 20px;
+      background: #f9fafb;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: #fee2e2;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a365d;
+      margin-bottom: 12px;
+    }
+
+    .feature-description {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #4b5563;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-section-title {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .cta-section-description {
+      font-size: 20px;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Examples Section */
+    .examples {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .example-block {
+      margin-bottom: 60px;
+      padding: 40px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border-left: 4px solid #e53e3e;
+    }
+
+    .example-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a365d;
+      margin-bottom: 16px;
+    }
+
+    .example-description {
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .example-demo {
+      background: white;
+      padding: 32px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 60px 20px;
+      background: #1f2937;
+      color: white;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .hero-description {
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .cta-section-title {
+        font-size: 28px;
+      }
+
+      .cta-section-description {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Component -->
+  <div id="main-navigation"></div>
+
+  <!-- Configure navigation BEFORE loading script -->
+  <script>
+    window.NAV_CONFIG = {
+      variant: 'dws-iq',      // Use 'dws-iq' for dws10.com pages
+      activePage: 'home'       // Current page identifier
+    };
+  </script>
+
+  <!-- Load navigation component -->
+  <script src="/shared/components/navigation.js"></script>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        Site Quality Standards Implementation
+      </h1>
+
+      <p class="hero-description">
+        This example page demonstrates the new shared navigation component and CTA best practices
+        that bring consistency and quality to all site pages.
+      </p>
+
+      <div class="cta-group cta-group-center hero-cta-group">
+        <a
+          href="#examples"
+          class="cta-button cta-primary"
+          id="hero-cta-view-examples"
+          data-analytics="cta-click"
+          data-cta-location="hero"
+          data-cta-type="primary"
+        >
+          View Examples
+        </a>
+        <a
+          href="/SITE_QUALITY_STANDARDS.md"
+          class="cta-button cta-secondary"
+          id="hero-cta-read-docs"
+          data-analytics="cta-click"
+          data-cta-location="hero"
+          data-cta-type="secondary"
+        >
+          Read Documentation
+        </a>
+      </div>
+
+      <p class="hero-social-proof">
+        ✅ Shared navigation • ✅ Consistent CTAs • ✅ Mobile-first design
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">What's Improved</h2>
+      <p class="section-subtitle">
+        New quality standards that fix the core issues and bring professional consistency to our sites.
+      </p>
+
+      <div class="feature-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Shared Navigation Component</h3>
+          <p class="feature-description">
+            One navigation component used across all 37+ pages. No more duplicate code or inconsistent menus.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+            </svg>
+          </div>
+          <h3 class="feature-title">CTA Best Practices</h3>
+          <p class="feature-description">
+            Standardized primary, secondary, and tertiary CTAs with proper hierarchy and conversion tracking.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Logo Standardization</h3>
+          <p class="feature-description">
+            Single logo system with consistent sizing and naming. No more confusion with 4 different logo files.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Mobile-First Design</h3>
+          <p class="feature-description">
+            Fully responsive navigation with hamburger menu on mobile and smooth dropdowns on desktop.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Accessibility Compliant</h3>
+          <p class="feature-description">
+            WCAG 2.1 AA compliant with keyboard navigation, ARIA labels, and screen reader support.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="32" height="32" fill="none" stroke="#e53e3e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Analytics Tracking</h3>
+          <p class="feature-description">
+            Built-in conversion tracking for all CTAs with proper data attributes and event handlers.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-group cta-group-center">
+        <a href="/IMPLEMENTATION_GUIDE.md" class="cta-button cta-primary">
+          Implementation Guide
+        </a>
+        <a href="/SITE_QUALITY_STANDARDS.md" class="cta-button cta-tertiary">
+          View Standards →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples Section -->
+  <section id="examples" class="examples">
+    <div class="container">
+      <h2 class="section-title">CTA Button Examples</h2>
+      <p class="section-subtitle">
+        All button variations following the new quality standards.
+      </p>
+
+      <!-- Primary CTA Example -->
+      <div class="example-block">
+        <h3 class="example-title">Primary CTA - Main Conversion Action</h3>
+        <p class="example-description">
+          Maximum 1 per page section. Used for the primary conversion goal (Book Demo, Get Started, Buy Now).
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <a href="#" class="cta-button cta-primary">Book a Demo</a>
+            <a href="#" class="cta-button cta-primary">Get Started</a>
+            <a href="#" class="cta-button cta-primary cta-store">Buy Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary CTA Example -->
+      <div class="example-block">
+        <h3 class="example-title">Secondary CTA - Alternative Action</h3>
+        <p class="example-description">
+          Maximum 2 per page section. Used for alternative or supporting actions.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <a href="#" class="cta-button cta-secondary">Learn More</a>
+            <a href="#" class="cta-button cta-secondary">View Pricing</a>
+            <a href="#" class="cta-button cta-secondary">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tertiary CTA Example -->
+      <div class="example-block">
+        <h3 class="example-title">Tertiary CTA - Low Priority Action</h3>
+        <p class="example-description">
+          Text links for low-priority actions like documentation, case studies, etc.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <a href="#" class="cta-button cta-tertiary">Read Documentation →</a>
+            <a href="#" class="cta-button cta-tertiary">View Case Study →</a>
+            <a href="#" class="cta-button cta-tertiary">Download Guide →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Group Example -->
+      <div class="example-block">
+        <h3 class="example-title">CTA Group - Primary + Secondary Together</h3>
+        <p class="example-description">
+          Typical hero section pattern with primary and secondary CTAs side by side.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <a href="#" class="cta-button cta-primary">Book a Demo</a>
+            <a href="#" class="cta-button cta-secondary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button Sizes Example -->
+      <div class="example-block">
+        <h3 class="example-title">Button Sizes</h3>
+        <p class="example-description">
+          Small, default, and large button sizes for different contexts.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <a href="#" class="cta-button cta-primary cta-small">Small Button</a>
+            <a href="#" class="cta-button cta-primary">Default Button</a>
+            <a href="#" class="cta-button cta-primary cta-large">Large Button</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State Example -->
+      <div class="example-block">
+        <h3 class="example-title">Loading State</h3>
+        <p class="example-description">
+          Button with loading spinner for async operations.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <button class="cta-button cta-primary loading" disabled>
+              Processing...
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disabled State Example -->
+      <div class="example-block">
+        <h3 class="example-title">Disabled State</h3>
+        <p class="example-description">
+          Disabled buttons for inactive states.
+        </p>
+        <div class="example-demo">
+          <div class="cta-group cta-group-center">
+            <button class="cta-button cta-primary" disabled>Disabled Primary</button>
+            <button class="cta-button cta-secondary" disabled>Disabled Secondary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-section-title">Ready to Implement?</h2>
+      <p class="cta-section-description">
+        Follow the implementation guide to apply these standards across all your pages.
+      </p>
+
+      <div class="cta-group cta-group-center">
+        <a
+          href="/IMPLEMENTATION_GUIDE.md"
+          class="cta-button cta-primary cta-large"
+          id="footer-cta-implement"
+          data-analytics="cta-click"
+          data-cta-location="footer"
+          data-cta-type="primary"
+        >
+          Start Implementation
+        </a>
+        <a
+          href="/SITE_QUALITY_STANDARDS.md"
+          class="cta-button cta-secondary cta-large"
+          id="footer-cta-standards"
+          data-analytics="cta-click"
+          data-cta-location="footer"
+          data-cta-type="secondary"
+        >
+          View Standards
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        © 2025 DWS IQ Platform. Site Quality Standards v1.0
+      </p>
+    </div>
+  </footer>
+
+  <!-- Analytics Demo (optional) -->
+  <script>
+    // Demo: Log CTA clicks to console
+    document.addEventListener('DOMContentLoaded', function() {
+      const ctaButtons = document.querySelectorAll('[data-analytics="cta-click"]');
+
+      ctaButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const data = {
+            id: this.id,
+            location: this.getAttribute('data-cta-location'),
+            type: this.getAttribute('data-cta-type'),
+            text: this.textContent.trim(),
+            href: this.href
+          };
+
+          console.log('📊 CTA Clicked:', data);
+
+          // In production, send to analytics service:
+          // gtag('event', 'cta_click', data);
+          // analytics.track('CTA Clicked', data);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

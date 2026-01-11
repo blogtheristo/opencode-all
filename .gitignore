@@ -63,11 +63,6 @@ Metropolia2026/
 
 # --- ADMIN & SECRETS ---
 Admin/
-# Exception: dws6.com admin portal (public pages, not secrets)
-!dws6.com/admin/
-!dws6.com/admin/**
-!landing-pages/dws6-com/admin/
-!landing-pages/dws6-com/admin/**
 # Exception: Policy documentation (not confidential data, safe to commit)
 !Admin/CONFIDENTIAL-handling-policy.md
 # Exception: Security documentation (technical docs, non-confidential)
@@ -79,6 +74,13 @@ Admin/
 !Admin/Security/MASTER_INDEX.md
 !Admin/Security/COMPLETE_*.md
 !Admin/SECURITY_*.md
+# Exception: Scripts directory (git recovery and admin tools)
+!Admin/scripts/
+!Admin/scripts/**
+# Exception: Artifacts directory for git recovery (timestamped backups)
+!Admin/artifacts/
+# But ignore actual recovery artifacts (may contain repo-specific data)
+Admin/artifacts/git-recovery/
 # Exception: Installation documentation (customer delivery guides)
 !Admin/Installation/
 !Admin/Installation/**

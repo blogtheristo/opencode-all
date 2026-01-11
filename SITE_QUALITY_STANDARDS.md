@@ -1,0 +1,899 @@
+# Site Quality Standards & Management Policy
+
+**Version:** 1.0
+**Effective Date:** 2025-12-26
+**Last Updated:** 2025-12-26
+**Status:** Active
+
+---
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Code Quality Standards](#code-quality-standards)
+3. [Component Architecture](#component-architecture)
+4. [Navigation & Menu Standards](#navigation--menu-standards)
+5. [Logo & Branding Standards](#logo--branding-standards)
+6. [Media Management](#media-management)
+7. [CTA Best Practices](#cta-best-practices)
+8. [Testing & Quality Assurance](#testing--quality-assurance)
+9. [Deployment Process](#deployment-process)
+10. [Enforcement & Review](#enforcement--review)
+
+---
+
+## Overview
+
+### Purpose
+This document establishes quality standards for all DWS IQ Platform and OneLifetime.World websites to ensure consistency, maintainability, and professional presentation.
+
+### Scope
+Applies to:
+- dws10.com (main platform site)
+- onelifetime.world (community site)
+- All landing pages and subdomains
+- All future web properties
+
+### Principles
+1. **Consistency First** - Same components behave identically across all pages
+2. **Single Source of Truth** - No code duplication; use shared components
+3. **Mobile-First** - All features work on mobile before desktop
+4. **Accessibility** - WCAG 2.1 AA compliance minimum
+5. **Performance** - Page load under 3 seconds on 3G
+
+---
+
+## Code Quality Standards
+
+### 1. File Organization
+
+**REQUIRED Structure:**
+```
+project-root/
+├── src/
+│   ├── components/          # Shared components only
+│   │   ├── layout/         # Header, Footer, Navigation
+│   │   ├── sections/       # Hero, Features, CTA
+│   │   └── ui/             # Buttons, Cards, Inputs
+│   ├── assets/             # Media files
+│   │   ├── images/
+│   │   │   ├── logos/      # All logo variations
+│   │   │   ├── products/   # Product imagery
+│   │   │   └── content/    # General content images
+│   │   └── videos/
+│   ├── styles/             # Global styles
+│   └── utils/              # Helper functions
+├── public/                 # Static files
+└── docs/                   # Documentation
+```
+
+**PROHIBITED:**
+- ❌ Duplicate navigation code in multiple files
+- ❌ Inline styles (use CSS classes or Tailwind)
+- ❌ Multiple logo filenames for the same brand
+- ❌ Relative paths that break when moving files
+
+### 2. Component Standards
+
+**All Components MUST:**
+- Be reusable across multiple pages
+- Have clear prop interfaces (TypeScript preferred)
+- Include responsive design (mobile-first)
+- Work without JavaScript (progressive enhancement)
+- Have clear file naming: `PascalCase.tsx` or `kebab-case.html`
+
+**Example - Bad (Current State):**
+```html
+<!-- dws10.com/index.html -->
+<header style="background: #1a365d; padding: 20px;">
+  <nav><!-- 150 lines of navigation --></nav>
+</header>
+
+<!-- dws10.com/buy/index.html -->
+<header style="background: #1a365d; padding: 15px;">
+  <nav><!-- Different navigation structure --></nav>
+</header>
+```
+
+**Example - Good (Required Standard):**
+```tsx
+// src/components/layout/Header.tsx
+export function Header({ variant = 'default' }) {
+  return (
+    <header className="bg-primary py-5">
+      <Navigation variant={variant} />
+    </header>
+  );
+}
+
+// Usage in all pages
+import { Header } from '@/components/layout/Header';
+<Header variant="store" />
+```
+
+### 3. Styling Standards
+
+**REQUIRED Approach:**
+- Use **Tailwind CSS** for all new development
+- CSS custom properties for brand colors
+- No inline `style=""` attributes (exceptions: dynamic values only)
+
+**Color Palette (Standardized):**
+```css
+:root {
+  /* Primary Brand - DWS IQ */
+  --color-primary: #1a365d;
+  --color-primary-light: #2d5a87;
+  --color-primary-dark: #0f2342;
+
+  /* Secondary Brand - OneLifetime */
+  --color-secondary: #10b981;
+  --color-secondary-light: #34d399;
+  --color-secondary-dark: #059669;
+
+  /* Accent */
+  --color-accent: #e53e3e;
+  --color-accent-light: #fc8181;
+
+  /* Neutrals */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-900: #111827;
+
+  /* Semantic */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+}
+```
+
+**Typography:**
+```css
+:root {
+  /* Font Families */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Font Sizes (Mobile First) */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+}
+```
+
+---
+
+## Component Architecture
+
+### Navigation Component Requirements
+
+**MUST HAVE:**
+- Single navigation component used on ALL pages
+- Responsive: hamburger on mobile, full nav on desktop
+- Consistent menu items across all pages
+- Active page highlighting
+- Dropdown support for multi-level navigation
+
+**Standard Navigation Structure:**
+```
+Main Navigation:
+├── Home (/)
+├── Products (dropdown)
+│   ├── Firehorse Platform
+│   ├── Lifetime Fleet
+│   ├── DWS IQ Platform
+│   └── Industry Solutions (dropdown)
+│       ├── Construction
+│       ├── Manufacturing
+│       ├── Logistics
+│       ├── Energy
+│       └── [other industries]
+├── Company (dropdown)
+│   ├── About Us
+│   ├── Careers
+│   ├── Investor Relations
+│   └── Partners
+├── Resources (dropdown)
+│   ├── Blog
+│   ├── News
+│   └── Documentation
+├── Legal (dropdown)
+│   ├── Privacy Policy
+│   ├── Terms of Service
+│   └── Data Security
+└── CTA Buttons
+    ├── Book Demo (primary)
+    └── Store/Login (secondary)
+```
+
+**Breakpoints:**
+- Mobile: < 768px (hamburger menu)
+- Tablet: 768px - 1024px (compact nav)
+- Desktop: > 1024px (full navigation)
+
+**File Location:**
+- Component: `/src/components/layout/Navigation.tsx` or `/shared/navigation.html`
+- Styles: Tailwind classes or `/src/styles/navigation.css`
+
+### Logo Component Requirements
+
+**SINGLE LOGO SYSTEM:**
+
+**Logo Files (Standardized):**
+```
+/src/assets/images/logos/
+├── dws-iq-logo.png          # DWS IQ Platform (primary)
+├── dws-iq-logo.svg          # Vector version (preferred)
+├── dws-iq-logo-white.png    # White version for dark backgrounds
+├── onelifetime-logo.png     # OneLifetime.World (primary)
+├── onelifetime-logo.svg     # Vector version (preferred)
+└── onelifetime-logo-white.png
+```
+
+**Logo Usage Rules:**
+1. **DWS10.com pages** → Use `dws-iq-logo.svg`
+2. **OneLifetime.World pages** → Use `onelifetime-logo.svg`
+3. **Size:** Height = 40px (mobile), 56px (desktop)
+4. **Alt text:** Always include descriptive alt text
+5. **Link:** Logo MUST link to homepage (/) with aria-label="Home"
+
+**Implementation:**
+```tsx
+// Logo Component
+export function Logo({ variant = 'dws-iq', theme = 'default' }) {
+  const logos = {
+    'dws-iq': {
+      default: '/assets/images/logos/dws-iq-logo.svg',
+      white: '/assets/images/logos/dws-iq-logo-white.svg',
+      alt: 'DWS IQ Platform - Enterprise Resource Intelligence'
+    },
+    'onelifetime': {
+      default: '/assets/images/logos/onelifetime-logo.svg',
+      white: '/assets/images/logos/onelifetime-logo-white.svg',
+      alt: 'OneLifetime.World - Community & Partners'
+    }
+  };
+
+  const logo = logos[variant][theme];
+
+  return (
+    <a href="/" aria-label="Home" className="flex items-center">
+      <img
+        src={logo.default}
+        alt={logo.alt}
+        className="h-10 md:h-14 w-auto"
+      />
+    </a>
+  );
+}
+```
+
+**DELETE These Files (Duplicates):**
+- ❌ `OneLifetime_Logo_v2.png`
+- ❌ `OneLifetime+Logo.png`
+- ❌ `onelifetime_logo.png`
+- ❌ Any other logo variations
+
+---
+
+## Navigation & Menu Standards
+
+### Dropdown Menus
+
+**REQUIRED Behavior:**
+- **Desktop:** Open on hover (with 300ms delay to prevent accidental triggers)
+- **Mobile:** Open on click/tap only
+- **Keyboard:** Full keyboard navigation (Tab, Enter, Escape, Arrow keys)
+- **Close on:** Outside click, Escape key, navigation to new page
+- **Animation:** Smooth fade-in (150ms ease-out)
+
+**Accessibility:**
+```html
+<nav aria-label="Main navigation">
+  <button
+    aria-expanded="false"
+    aria-controls="products-menu"
+    aria-haspopup="true"
+  >
+    Products
+  </button>
+  <ul id="products-menu" role="menu" hidden>
+    <li role="menuitem"><a href="/products/firehorse">Firehorse</a></li>
+  </ul>
+</nav>
+```
+
+**Testing Checklist:**
+- [ ] Works on mobile (320px width)
+- [ ] Works on tablet (768px width)
+- [ ] Works on desktop (1920px width)
+- [ ] Keyboard navigation works
+- [ ] Screen reader announces menu state
+- [ ] No horizontal scrolling
+- [ ] Touch targets minimum 44x44px
+
+---
+
+## Logo & Branding Standards
+
+### Brand Hierarchy
+
+**Primary Brand:** DWS IQ Platform
+**Sub-Brands:**
+- Lifetime Firehorse
+- Lifetime Fleet
+- OneLifetime.World
+
+**Logo Display Rules:**
+1. **Header:** Always show primary brand logo
+2. **Footer:** Can show sub-brand logos (max 4)
+3. **Loading screens:** Primary logo only
+4. **Email signatures:** Use SVG versions
+
+### File Naming Convention
+
+**Format:** `{brand}-{variant}-{color}.{ext}`
+
+**Examples:**
+- ✅ `dws-iq-logo.svg`
+- ✅ `dws-iq-logo-white.svg`
+- ✅ `firehorse-icon-color.png`
+- ❌ `DWS_IQ2026.png` (outdated naming)
+- ❌ `OneLifetime+Logo.png` (non-standard)
+
+---
+
+## Media Management
+
+### Image Standards
+
+**File Organization:**
+```
+/src/assets/images/
+├── logos/              # Brand logos only
+├── products/           # Product screenshots
+├── team/              # Team photos
+├── content/           # Blog/article images
+├── ui/                # Icons, graphics
+└── optimized/         # Compressed versions
+```
+
+**Image Requirements:**
+1. **Format:**
+   - Photos: WebP (with JPEG fallback)
+   - Graphics: SVG preferred, PNG if needed
+   - Avoid: BMP, TIFF, uncompressed files
+
+2. **Size Limits:**
+   - Hero images: Max 500KB (after compression)
+   - Content images: Max 200KB
+   - Thumbnails: Max 50KB
+   - Icons: Max 10KB
+
+3. **Dimensions:**
+   - Hero images: 1920x1080px (16:9)
+   - Content images: 1200x800px
+   - Thumbnails: 400x300px
+   - Social share: 1200x630px (OG image)
+
+4. **Optimization:**
+   - All images MUST be compressed before upload
+   - Use lazy loading for below-fold images
+   - Provide responsive image sets (srcset)
+
+**Implementation:**
+```html
+<!-- Good: Responsive with lazy loading -->
+<picture>
+  <source
+    type="image/webp"
+    srcset="/images/hero-mobile.webp 768w,
+            /images/hero-desktop.webp 1920w"
+  />
+  <img
+    src="/images/hero-desktop.jpg"
+    alt="DWS IQ Platform Dashboard"
+    loading="lazy"
+    width="1920"
+    height="1080"
+  />
+</picture>
+
+<!-- Bad: Single large image -->
+<img src="huge-uncompressed-image.png">
+```
+
+### Video Standards
+
+**Hosting:**
+- **Preferred:** External hosting (YouTube, Vimeo) for embed
+- **Self-hosted:** Only for critical videos < 10MB
+
+**Implementation:**
+```html
+<!-- External embed (preferred) -->
+<div class="aspect-video">
+  <iframe
+    src="https://www.youtube.com/embed/{video-id}"
+    title="Product Demo"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</div>
+
+<!-- Self-hosted (if necessary) -->
+<video
+  controls
+  preload="metadata"
+  poster="/images/video-poster.jpg"
+>
+  <source src="/videos/demo.mp4" type="video/mp4">
+  <source src="/videos/demo.webm" type="video/webm">
+  <track
+    kind="subtitles"
+    src="/videos/demo-en.vtt"
+    srclang="en"
+    label="English"
+  >
+</video>
+```
+
+**Requirements:**
+- ✅ Always include poster image
+- ✅ Provide multiple formats (MP4, WebM)
+- ✅ Include captions/subtitles (accessibility)
+- ✅ Use `preload="metadata"` (not "auto")
+- ❌ No autoplay with sound
+- ❌ No videos > 50MB
+
+### Asset Checklist
+
+Before adding any image or video:
+- [ ] File is optimized/compressed
+- [ ] File follows naming convention
+- [ ] Alt text is descriptive (not "image" or filename)
+- [ ] Responsive versions exist (mobile, tablet, desktop)
+- [ ] Loading strategy defined (lazy/eager)
+- [ ] Fallback exists for older browsers
+- [ ] Copyright/licensing verified
+
+---
+
+## CTA Best Practices
+
+### CTA Hierarchy
+
+**Priority Levels:**
+
+**1. Primary CTA** (Maximum 1 per page section)
+- **Purpose:** Main conversion action
+- **Style:** Solid background, high contrast
+- **Placement:** Above fold, right-aligned or centered
+- **Examples:** "Book a Demo", "Get Started", "Buy Now"
+
+**2. Secondary CTA** (Maximum 2 per page section)
+- **Purpose:** Alternative action
+- **Style:** Outline/ghost button
+- **Placement:** Left of primary or below
+- **Examples:** "Learn More", "View Pricing", "Contact Sales"
+
+**3. Tertiary CTA** (Use sparingly)
+- **Purpose:** Low-priority action
+- **Style:** Text link with icon
+- **Examples:** "Read Documentation", "View Case Study"
+
+### CTA Design Standards
+
+**Button Specifications:**
+
+```css
+/* Primary CTA */
+.cta-primary {
+  background: var(--color-accent);
+  color: white;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  transition: all 200ms ease;
+  min-width: 160px;
+  min-height: 48px; /* Accessibility: touch target */
+}
+
+.cta-primary:hover {
+  background: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+/* Secondary CTA */
+.cta-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+  transition: all 200ms ease;
+}
+
+.cta-secondary:hover {
+  background: var(--color-primary);
+  color: white;
+}
+```
+
+**Tailwind Classes:**
+```html
+<!-- Primary CTA -->
+<button class="
+  bg-accent hover:bg-accent-light
+  text-white font-semibold
+  px-8 py-3.5 rounded-lg
+  transition-all duration-200
+  hover:-translate-y-0.5 hover:shadow-lg
+  min-w-40 min-h-12
+">
+  Book a Demo
+</button>
+
+<!-- Secondary CTA -->
+<button class="
+  bg-transparent hover:bg-primary
+  text-primary hover:text-white
+  border-2 border-primary
+  font-semibold px-8 py-3.5 rounded-lg
+  transition-all duration-200
+">
+  Learn More
+</button>
+```
+
+### CTA Copy Guidelines
+
+**REQUIRED:**
+- Action-oriented verbs (Get, Start, Book, Download, Join)
+- Specific outcomes (not generic "Click Here")
+- Maximum 3 words (exceptions: complex actions)
+- Title case
+
+**Good Examples:**
+- ✅ "Book a Demo"
+- ✅ "Start Free Trial"
+- ✅ "Get Pricing"
+- ✅ "Download Guide"
+- ✅ "Join Waitlist"
+
+**Bad Examples:**
+- ❌ "Click Here"
+- ❌ "Submit"
+- ❌ "Learn More About Our Revolutionary Platform"
+- ❌ "Click Here to Schedule a Demo With Our Sales Team"
+
+### CTA Placement Rules
+
+**Hero Section:**
+```
+Primary CTA: "Book a Demo" (right or center)
+Secondary CTA: "View Pricing" (left or below)
+Max CTAs: 2
+```
+
+**Mid-Page Sections:**
+```
+Primary CTA: Aligned to content flow
+Max CTAs: 1 per section
+Exception: Comparison tables (1 CTA per option)
+```
+
+**Footer:**
+```
+Newsletter signup: "Subscribe" (primary)
+Social links: Icon buttons (tertiary)
+No promotional CTAs in footer
+```
+
+**Sticky/Fixed CTAs:**
+```
+Mobile only: Bottom sticky bar with primary CTA
+Desktop: Avoid sticky CTAs (exception: booking/cart)
+Must have dismiss option (X button)
+Max height: 80px
+```
+
+### CTA Analytics Requirements
+
+**All CTAs MUST have:**
+1. Unique ID for tracking
+2. Data attributes for analytics
+3. Clear conversion goals
+
+```html
+<button
+  id="hero-cta-book-demo"
+  data-analytics="cta-click"
+  data-cta-location="hero"
+  data-cta-type="primary"
+  data-conversion-goal="demo-booking"
+  class="cta-primary"
+>
+  Book a Demo
+</button>
+```
+
+### A/B Testing Standards
+
+When testing CTAs:
+- Test ONE variable at a time (copy, color, placement)
+- Minimum sample size: 1,000 visitors per variant
+- Test duration: Minimum 7 days (capture weekly patterns)
+- Statistical significance: 95% confidence level
+- Document results in `/docs/ab-tests/`
+
+---
+
+## Testing & Quality Assurance
+
+### Pre-Deployment Checklist
+
+**Every change MUST pass:**
+
+#### 1. Visual Regression Testing
+- [ ] No broken layouts on mobile (320px - 767px)
+- [ ] No broken layouts on tablet (768px - 1023px)
+- [ ] No broken layouts on desktop (1024px+)
+- [ ] No horizontal scrolling
+- [ ] All images load correctly
+- [ ] All videos/embeds display properly
+
+#### 2. Navigation Testing
+- [ ] All menu items clickable
+- [ ] Dropdowns open/close correctly
+- [ ] Active page highlighted
+- [ ] Hamburger menu works on mobile
+- [ ] Logo links to homepage
+- [ ] No broken links (404s)
+
+#### 3. Logo & Branding Testing
+- [ ] Correct logo displays on all pages
+- [ ] Logo size consistent across pages
+- [ ] Logo legible at all viewport sizes
+- [ ] Alt text present and descriptive
+
+#### 4. CTA Testing
+- [ ] Primary CTA visible above fold
+- [ ] CTAs work on all devices
+- [ ] Click tracking implemented
+- [ ] Forms submit correctly
+- [ ] Thank you pages display
+
+#### 5. Performance Testing
+- [ ] Page load < 3 seconds (3G connection)
+- [ ] Lighthouse score > 90 (Performance)
+- [ ] No console errors
+- [ ] No 404 errors in network tab
+
+#### 6. Accessibility Testing
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] Color contrast ratio ≥ 4.5:1
+- [ ] Focus indicators visible
+- [ ] ARIA labels present
+
+#### 7. Cross-Browser Testing
+
+Test in:
+- [ ] Chrome (latest)
+- [ ] Safari (latest)
+- [ ] Firefox (latest)
+- [ ] Edge (latest)
+- [ ] Mobile Safari (iOS)
+- [ ] Chrome Mobile (Android)
+
+### Testing Tools
+
+**Required:**
+- **Lighthouse:** Performance, accessibility, SEO audits
+- **WAVE:** Accessibility testing
+- **BrowserStack:** Cross-browser testing (or similar)
+- **Google PageSpeed Insights:** Performance monitoring
+
+**Recommended:**
+- **Screaming Frog:** Site audit for broken links
+- **GTmetrix:** Performance analysis
+- **axe DevTools:** Accessibility testing
+
+### Bug Reporting
+
+When issues are found:
+
+1. **Create GitHub Issue** with:
+   - Browser/device info
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Screenshots/video
+   - Severity level (Critical/High/Medium/Low)
+
+2. **Severity Definitions:**
+   - **Critical:** Site unusable (broken navigation, no CTA)
+   - **High:** Major feature broken (form doesn't submit)
+   - **Medium:** Visual issue (misaligned logo)
+   - **Low:** Minor polish (button hover color)
+
+3. **Fix Timeline:**
+   - Critical: < 4 hours
+   - High: < 24 hours
+   - Medium: < 3 days
+   - Low: Next sprint
+
+---
+
+## Deployment Process
+
+### Pre-Deployment
+
+**MUST DO before pushing to production:**
+
+1. **Code Review:**
+   - Peer review required for all changes
+   - Automated tests pass (if applicable)
+   - Linting passes (no errors)
+
+2. **Staging Deploy:**
+   - Deploy to staging environment first
+   - Run full QA checklist
+   - Get stakeholder approval
+
+3. **Backup:**
+   - Backup current production
+   - Document rollback procedure
+
+### Deployment Steps
+
+**Standard Deployment:**
+
+```bash
+# 1. Ensure on correct branch
+git checkout claude/site-quality-standards-IjtD0
+
+# 2. Pull latest changes
+git pull origin claude/site-quality-standards-IjtD0
+
+# 3. Run tests
+npm test  # or equivalent
+
+# 4. Build production
+npm run build  # or equivalent
+
+# 5. Deploy to staging
+# [staging deployment command]
+
+# 6. Run QA checklist
+
+# 7. Deploy to production
+# [production deployment command]
+
+# 8. Monitor for errors
+# [monitoring dashboard]
+```
+
+### Post-Deployment
+
+**Within 1 hour of deployment:**
+- [ ] Verify homepage loads
+- [ ] Check navigation works
+- [ ] Test primary CTA functionality
+- [ ] Review error logs
+- [ ] Monitor analytics for anomalies
+
+**Within 24 hours:**
+- [ ] Full regression test
+- [ ] Performance audit
+- [ ] User feedback review
+
+### Rollback Procedure
+
+**If critical issues found:**
+
+```bash
+# Immediate rollback
+git revert <commit-hash>
+git push origin main
+
+# Or restore from backup
+# [restore command for your hosting]
+
+# Notify team
+# Post in Slack/Teams: "🚨 Rolled back [feature] due to [issue]"
+```
+
+---
+
+## Enforcement & Review
+
+### Code Review Requirements
+
+**All pull requests MUST:**
+1. Reference this document in PR description
+2. Include screenshots (for UI changes)
+3. Pass automated checks
+4. Be approved by minimum 1 reviewer
+5. Address all review comments
+
+**Reviewers MUST verify:**
+- [ ] Follows component architecture standards
+- [ ] No code duplication
+- [ ] Proper logo usage
+- [ ] CTA best practices followed
+- [ ] Responsive design implemented
+- [ ] Accessibility requirements met
+
+### Quality Metrics
+
+**Track monthly:**
+- Number of duplicate components removed
+- Navigation consistency score (% of pages with shared nav)
+- Logo usage compliance (% correct implementation)
+- CTA conversion rates
+- Page load speed average
+- Accessibility score average
+
+**Goals:**
+- Zero duplicate navigation components by Q1 2026
+- 100% logo usage compliance by Q1 2026
+- <2s average page load time
+- >95 Lighthouse accessibility score
+
+### Continuous Improvement
+
+**Quarterly Reviews:**
+- Review this document for updates
+- Analyze quality metrics
+- Gather team feedback
+- Update standards as needed
+
+**Version History:**
+- v1.0 (2025-12-26): Initial standards document
+
+---
+
+## Quick Reference
+
+### Common Issues & Solutions
+
+| Issue | Solution | Reference |
+|-------|----------|-----------|
+| Different nav on each page | Use shared Navigation component | [Navigation Standards](#navigation--menu-standards) |
+| Logo not showing | Check file path and naming convention | [Logo Standards](#logo--branding-standards) |
+| Image too large | Compress to size limits | [Image Standards](#image-standards) |
+| CTA not converting | Review copy and placement rules | [CTA Best Practices](#cta-best-practices) |
+| Mobile menu broken | Test with hamburger pattern | [Navigation Component](#navigation-component-requirements) |
+
+### Key Files
+
+- Standards Document: `/SITE_QUALITY_STANDARDS.md` (this file)
+- Shared Navigation: `/src/components/layout/Navigation.tsx`
+- Logo Component: `/src/components/layout/Logo.tsx`
+- CTA Components: `/src/components/ui/Button.tsx`
+
+### Support
+
+**Questions about standards?**
+- Create GitHub issue with label `quality-standards`
+- Tag relevant section in this document
+
+---
+
+**Document Owner:** Development Team
+**Review Cycle:** Quarterly
+**Next Review:** 2026-03-26
