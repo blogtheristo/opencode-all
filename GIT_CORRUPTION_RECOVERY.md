@@ -1,7 +1,11 @@
 # Git Corruption Recovery Guide
 
-**Problem:** Corrupted git refs with invalid branch names containing special characters  
-**Symptom:** `fatal: bad object refs/heads/my-local-changes (# Name clash 2026-01-11 6la4q5C #)`  
+**Problem:** Corrupted git refs and objects with invalid names containing special characters  
+**Symptom:** 
+- `fatal: bad object refs/heads/my-local-changes (# Name clash 2026-01-11 6la4q5C #)`
+- `bad sha1 file: .git/objects/56/f479e065fec12a7a6154dd9b1acdb224316a81 (# Name clash ...)`
+- `fatal: mmap failed: Invalid argument`
+
 **Environment:** Windows local repository  
 **Status:** January 11, 2026  
 **Script Version:** 2.0 (PowerShell)
@@ -14,7 +18,7 @@
 
 **Location:** `Admin/scripts/recover-git-corruption.ps1`
 
-This script provides safe, non-destructive recovery from OneDrive/Google Drive/Dropbox sync conflicts in `.git\refs`.
+This script provides safe, non-destructive recovery from OneDrive/Google Drive/Dropbox sync conflicts in `.git\refs` and `.git\objects`.
 
 #### Safety Guarantees
 
@@ -34,12 +38,13 @@ This script provides safe, non-destructive recovery from OneDrive/Google Drive/D
 **2. Archive Corrupted Files:**
 ```powershell
 # Creates backup copies in Admin/artifacts/git-recovery/<timestamp>/
+# Handles BOTH refs and objects
 .\Admin\scripts\recover-git-corruption.ps1 -ArchiveCorruptedRefs
 ```
 
-**3. Quarantine Corrupted Files (Fix badRefName errors):**
+**3. Quarantine Corrupted Files (Fix badRefName and bad sha1 errors):**
 ```powershell
-# Moves invalid ref files out of .git\refs (interactive prompt)
+# Moves invalid ref and object files out of .git (interactive prompt)
 .\Admin\scripts\recover-git-corruption.ps1 -QuarantineCorruptedRefs
 
 # Non-interactive mode (for automation)
@@ -54,30 +59,42 @@ This script provides safe, non-destructive recovery from OneDrive/Google Drive/D
 
 #### What the Script Detects
 
-The script automatically finds ref files with these patterns:
+The script automatically finds corrupted files in **both** `.git\refs` and `.git\objects` with these patterns:
 - `*# Name clash*` - OneDrive conflict files
 - `*# Edit conflict*` - OneDrive edit conflicts
 - `*# Desktop conflict*` - OneDrive desktop conflicts
 - `*(conflicted copy)*` - Dropbox/Google Drive conflicts
-- Any file with parentheses in `.git\refs`
+- Any file with parentheses in `.git\refs` or `.git\objects`
+
+**Common Issues Detected:**
+- `refs/heads/branch (# Name clash 2025-12-03 xyz #)` - Invalid branch ref
+- `refs/stash (# Name clash ...)` - Invalid stash ref
+- `objects/56/f479e065... (# Name clash ...)` - Corrupted object file causing "bad sha1 file" errors
 
 #### How Quarantine Works
 
-1. **Scans** `.git\refs` for suspicious files
-2. **Moves** them to `.git\quarantine\refs-name-clash\<timestamp>\`
-3. **Creates** `RESTORE.ps1` script for reversal
+1. **Scans** `.git\refs` and `.git\objects` for suspicious files
+2. **Moves** them to:
+   - `.git\quarantine\refs-name-clash\<timestamp>\` for refs
+   - `.git\quarantine\objects-name-clash\<timestamp>\` for objects
+3. **Creates** separate `RESTORE.ps1` scripts in each quarantine directory
 4. **Runs** `git fsck` before/after to verify fix
 5. **No deletion** - files are moved, not removed
 
 #### Restoring Quarantined Files
 
-If you need to restore quarantined refs:
+If you need to restore quarantined files:
 ```powershell
+# Restore refs
 cd .git\quarantine\refs-name-clash\<timestamp>
+.\RESTORE.ps1
+
+# Restore objects
+cd .git\quarantine\objects-name-clash\<timestamp>
 .\RESTORE.ps1
 ```
 
-Or manually copy files back to `.git\refs\` in their original structure.
+Or manually copy files back to `.git\refs\` or `.git\objects\` in their original structure.
 
 #### Script Output Example
 
