@@ -118,15 +118,22 @@ function Get-CorruptedRefs {
         '*# Name clash*',
         '*# Edit conflict*',
         '*# Desktop conflict*',
-        '*(conflicted copy)*',
-        '*(*)' # Catch-all for any parentheses in ref names
+        '*(conflicted copy)*'
     )
     
     $corruptedRefs = @()
-    foreach ($pattern in $suspiciousPatterns) {
-        $found = Get-ChildItem -LiteralPath $refsPath -Recurse -File -Filter $pattern -ErrorAction SilentlyContinue
-        if ($found) {
-            $corruptedRefs += $found
+    # Single scan with filtering for better performance
+    Get-ChildItem -LiteralPath $refsPath -Recurse -File -ErrorAction SilentlyContinue | ForEach-Object {
+        $filename = $_.Name
+        foreach ($pattern in $suspiciousPatterns) {
+            if ($filename -like $pattern) {
+                $corruptedRefs += $_
+                break  # Found match, no need to check other patterns
+            }
+        }
+        # Also catch any file with parentheses (catch-all)
+        if ($filename -match '\(.*\)') {
+            $corruptedRefs += $_
         }
     }
     
@@ -160,15 +167,22 @@ function Get-CorruptedObjects {
         '*# Name clash*',
         '*# Edit conflict*',
         '*# Desktop conflict*',
-        '*(conflicted copy)*',
-        '*(*)' # Catch-all for any parentheses in object filenames
+        '*(conflicted copy)*'
     )
     
     $corruptedObjects = @()
-    foreach ($pattern in $suspiciousPatterns) {
-        $found = Get-ChildItem -LiteralPath $objectsPath -Recurse -File -Filter $pattern -ErrorAction SilentlyContinue
-        if ($found) {
-            $corruptedObjects += $found
+    # Single scan with filtering for better performance
+    Get-ChildItem -LiteralPath $objectsPath -Recurse -File -ErrorAction SilentlyContinue | ForEach-Object {
+        $filename = $_.Name
+        foreach ($pattern in $suspiciousPatterns) {
+            if ($filename -like $pattern) {
+                $corruptedObjects += $_
+                break  # Found match, no need to check other patterns
+            }
+        }
+        # Also catch any file with parentheses (catch-all)
+        if ($filename -match '\(.*\)') {
+            $corruptedObjects += $_
         }
     }
     
@@ -380,8 +394,8 @@ function Invoke-QuarantineCorruptedRefs {
             
             # Check if target exists (idempotency)
             if (Test-Path -LiteralPath $targetPath) {
-                $suffix = Get-Date -Format 'HHmmss'
-                $targetPath = $targetPath + ".MOVED-$suffix"
+                $guid = [System.Guid]::NewGuid().ToString().Substring(0,8)
+                $targetPath = $targetPath + ".MOVED-$guid"
                 Write-Warning2 "Target exists, using collision-free name: $($targetPath.Split('\')[-1])"
             }
             
@@ -466,8 +480,8 @@ function Invoke-QuarantineCorruptedObjects {
             
             # Check if target exists (idempotency)
             if (Test-Path -LiteralPath $targetPath) {
-                $suffix = Get-Date -Format 'HHmmss'
-                $targetPath = $targetPath + ".MOVED-$suffix"
+                $guid = [System.Guid]::NewGuid().ToString().Substring(0,8)
+                $targetPath = $targetPath + ".MOVED-$guid"
                 Write-Warning2 "Target exists, using collision-free name: $($targetPath.Split('\')[-1])"
             }
             

@@ -24,11 +24,17 @@ else
 fi
 
 # Check 3: Verify LiteralPath usage for file safety
+# Minimum threshold: 5 critical operations that must use LiteralPath:
+#   1. Check .git directory exists
+#   2. Check refs/objects paths exist
+#   3. Copy-Item for archiving
+#   4. Move-Item for quarantine
+#   5. Set-Content for manifests
 COUNT=$(grep -c "LiteralPath" Admin/scripts/recover-git-corruption.ps1 || true)
 if [ "$COUNT" -gt 5 ]; then
     echo "✓ Check 3: Uses -LiteralPath for safe file operations ($COUNT occurrences)"
 else
-    echo "✗ Check 3: Insufficient LiteralPath usage"
+    echo "✗ Check 3: Insufficient LiteralPath usage (expected >5, found $COUNT)"
     exit 1
 fi
 
