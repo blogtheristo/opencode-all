@@ -416,6 +416,25 @@ Pre-prepared documentation for your procurement team:
 
 ---
 
+## Development & Troubleshooting
+
+### Git Repository Issues
+
+If you encounter git corruption or branch issues:
+
+- 🚨 **Quick Fix:** [QUICK_FIX.md](QUICK_FIX.md) - 5-minute solution
+- 📖 **Full Guide:** [GIT_CORRUPTION_RECOVERY.md](GIT_CORRUPTION_RECOVERY.md) - Complete recovery documentation
+- 🔧 **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
+
+**Common Issues:**
+- Corrupted branch refs with special characters
+- Unable to push or pull from GitHub
+- Merge conflicts in PR #142 or other PRs
+
+**Prevention:** The repository includes git hooks (`.githooks/pre-push`) that validate branch names to prevent future corruption.
+
+---
+
 ## Contact
 
 **Risto Anton Päärni**

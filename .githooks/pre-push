@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
-# DWS6 NO-DELETE POLICY
+# DWS6 NO-DELETE POLICY + BRANCH NAME VALIDATION
 # Blocks destructive pushes (branch deletions) from local machines.
+# Also validates branch names to prevent corruption issues.
 #
 # Install once per clone:
 #   git config core.hooksPath .githooks
@@ -8,9 +9,30 @@
 # This hook prevents:
 #   git push origin --delete <branch>
 #   git push origin :<branch>
+#   Branch names with invalid characters: ( ) [ ] { } < > # * ? : | " \
 
 remote_name="$1"
 remote_url="$2"
+
+# First, validate current branch name
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Check for invalid characters that can cause git corruption
+case "$current_branch" in
+  *[\(\)\[\]\{\}\<\>\#\*\?\:\|\"\\]*)
+    echo "ERROR: Branch name '$current_branch' contains invalid characters!" 1>&2
+    echo "Branch names should not contain: ( ) [ ] { } < > # * ? : | \" \\" 1>&2
+    echo "Please rename your branch with: git branch -m <new-clean-name>" 1>&2
+    echo "Example: feature/my-feature-name" 1>&2
+    exit 1
+    ;;
+  *\ *)
+    echo "ERROR: Branch name '$current_branch' contains spaces!" 1>&2
+    echo "Please rename your branch with: git branch -m <new-clean-name>" 1>&2
+    echo "Use hyphens instead of spaces: feature/my-feature-name" 1>&2
+    exit 1
+    ;;
+esac
 
 # Read lines: <local_ref> <local_sha> <remote_ref> <remote_sha>
 # A deletion push has local_sha == 000.. and local_ref == (delete) or empty.
