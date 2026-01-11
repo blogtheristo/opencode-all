@@ -74,6 +74,13 @@ Admin/
 !Admin/Security/MASTER_INDEX.md
 !Admin/Security/COMPLETE_*.md
 !Admin/SECURITY_*.md
+# Exception: Scripts directory (git recovery and admin tools)
+!Admin/scripts/
+!Admin/scripts/**
+# Exception: Artifacts directory for git recovery (timestamped backups)
+!Admin/artifacts/
+# But ignore actual recovery artifacts (may contain repo-specific data)
+Admin/artifacts/git-recovery/
 # Exception: Installation documentation (customer delivery guides)
 !Admin/Installation/
 !Admin/Installation/**
