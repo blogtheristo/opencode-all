@@ -422,10 +422,11 @@ Pre-prepared documentation for your procurement team:
 
 If you encounter git corruption or branch issues:
 
+- ⚡ **START HERE:** [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Complete overview and action plan
 - 🚨 **Quick Fix:** [QUICK_FIX.md](QUICK_FIX.md) - 5-minute solution for git corruption
 - 📖 **Full Guide:** [GIT_CORRUPTION_RECOVERY.md](GIT_CORRUPTION_RECOVERY.md) - Complete recovery documentation
-- 🔧 **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
 - 🔀 **PR #142 Resolution:** [PR_142_RESOLUTION.md](PR_142_RESOLUTION.md) - Resolve merge conflicts
+- 🔧 **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
 
 **Common Issues:**
 - Corrupted branch refs with special characters
@@ -434,6 +435,8 @@ If you encounter git corruption or branch issues:
 - Branch name livelock situations
 
 **Prevention:** The repository includes git hooks (`.githooks/pre-push`) that validate branch names to prevent future corruption.
+
+**Quick Start:** `cd dws6 && cat EXECUTIVE_SUMMARY.md`
 
 ---
 
