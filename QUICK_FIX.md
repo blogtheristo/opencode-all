@@ -50,6 +50,8 @@ Only **local refs** in your Windows `.git/` folder were corrupted.
 
 ## 🔧 Fix PR #142 Merge Conflict
 
+**Quick version:**
+
 ```bash
 # In your fresh clone
 cd "D:\Proton\My files\2026\Repos2026\dws6"
@@ -58,7 +60,7 @@ cd "D:\Proton\My files\2026\Repos2026\dws6"
 git checkout feature/investor-progress-report-and-google-partnership
 
 # Update from main
-git pull origin main
+git merge origin/main
 
 # If conflicts appear, resolve them in your editor, then:
 git add .
@@ -69,6 +71,8 @@ git push origin feature/investor-progress-report-and-google-partnership
 ```
 
 Now go to GitHub and merge PR #142.
+
+📖 **Detailed guide:** See [PR_142_RESOLUTION.md](PR_142_RESOLUTION.md) for step-by-step conflict resolution.
 
 ---
 
