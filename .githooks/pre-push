@@ -18,21 +18,22 @@ remote_url="$2"
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 # Check for invalid characters that can cause git corruption
-case "$current_branch" in
-  *[\(\)\[\]\{\}\<\>\#\*\?\:\|\"\\]*)
+# These characters can cause filesystem issues or git corruption
+if echo "$current_branch" | grep -q '[()[\]{}<>#*?:|"\\]'; then
     echo "ERROR: Branch name '$current_branch' contains invalid characters!" 1>&2
     echo "Branch names should not contain: ( ) [ ] { } < > # * ? : | \" \\" 1>&2
     echo "Please rename your branch with: git branch -m <new-clean-name>" 1>&2
     echo "Example: feature/my-feature-name" 1>&2
     exit 1
-    ;;
-  *\ *)
+fi
+
+# Check for spaces
+if echo "$current_branch" | grep -q ' '; then
     echo "ERROR: Branch name '$current_branch' contains spaces!" 1>&2
     echo "Please rename your branch with: git branch -m <new-clean-name>" 1>&2
     echo "Use hyphens instead of spaces: feature/my-feature-name" 1>&2
     exit 1
-    ;;
-esac
+fi
 
 # Read lines: <local_ref> <local_sha> <remote_ref> <remote_sha>
 # A deletion push has local_sha == 000.. and local_ref == (delete) or empty.

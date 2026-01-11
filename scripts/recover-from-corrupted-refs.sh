@@ -78,7 +78,10 @@ find_recent_commits() {
 clone_fresh() {
     echo -e "${YELLOW}Step 4: Cloning fresh repository...${NC}"
     
-    cd ..
+    # Store the parent directory as absolute path
+    PARENT_DIR=$(cd .. && pwd)
+    cd "$PARENT_DIR"
+    
     if [ -d "$CLEAN_DIR" ]; then
         echo -e "${RED}Error: Directory $CLEAN_DIR already exists${NC}"
         echo "Please remove it first or choose a different name"
@@ -89,7 +92,7 @@ clone_fresh() {
     git clone "$REPO_URL" "$CLEAN_DIR"
     cd "$CLEAN_DIR"
     
-    echo -e "${GREEN}✓ Fresh clone created in ../${CLEAN_DIR}/${NC}"
+    echo -e "${GREEN}✓ Fresh clone created in ${PARENT_DIR}/${CLEAN_DIR}/${NC}"
     echo ""
 }
 
@@ -135,9 +138,13 @@ create_recovery_branch() {
 
 # Function to provide manual instructions
 provide_manual_instructions() {
+    # Get absolute path to clean directory
+    PARENT_DIR=$(cd .. && pwd)
+    CLEAN_PATH="${PARENT_DIR}/${CLEAN_DIR}"
+    
     echo -e "${GREEN}=== Manual Recovery Instructions ===${NC}"
     echo ""
-    echo "Your fresh repository is now in: ../${CLEAN_DIR}"
+    echo "Your fresh repository is now in: ${CLEAN_PATH}"
     echo ""
     echo "Branches available on GitHub:"
     git branch -r | grep -v HEAD
@@ -145,7 +152,7 @@ provide_manual_instructions() {
     echo "To recover your work, you can:"
     echo ""
     echo "1. Check out the branch with your work:"
-    echo "   cd ../${CLEAN_DIR}"
+    echo "   cd \"${CLEAN_PATH}\""
     echo "   git checkout agent-1-7-10-launch"
     echo "   # or"
     echo "   git checkout feature/investor-progress-report-and-google-partnership"
@@ -189,10 +196,14 @@ main() {
     list_cherrypick_candidates
     provide_manual_instructions
     
+    # Get absolute path for final message
+    PARENT_DIR=$(cd .. && pwd)
+    CLEAN_PATH="${PARENT_DIR}/${CLEAN_DIR}"
+    
     echo -e "${GREEN}=== Recovery Complete ===${NC}"
     echo ""
     echo "Next steps:"
-    echo "1. cd ../${CLEAN_DIR}"
+    echo "1. cd \"${CLEAN_PATH}\""
     echo "2. Review available branches"
     echo "3. Create your recovery branch"
     echo "4. Push to GitHub"
