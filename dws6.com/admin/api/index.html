@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Developer Portal Login | DWS IQ</title>
+    <link rel="stylesheet" href="../../shared/css/auth-styles.css">
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+</head>
+<body class="theme-api">
+    <div class="container">
+        <div class="login-card">
+            <div class="logo-section">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ">
+                <h1>API Portal</h1>
+            </div>
+
+            <h2 class="page-title">🔌 Developer Access</h2>
+            <p class="page-subtitle">API documentation, keys, and integration tools</p>
+
+            <div class="security-badge">
+                <strong>🔒 Developer Access</strong>
+                API keys, documentation, and sandbox environment
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email">Developer Email</label>
+                    <input type="email" id="email" name="email" placeholder="developer@company.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
+                        Login to API Portal
+                    </button>
+                </div>
+
+                <div class="links">
+                    <a href="#" onclick="showResetPassword(event)">Forgot Password?</a>
+                    <a href="#" onclick="showRegister(event)">Request API Access</a>
+                </div>
+            </form>
+
+            <div class="social-login">
+                <div class="social-divider">Or continue with</div>
+                <button onclick="handleGoogleLogin()" class="social-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    Google
+                </button>
+                <button onclick="handleGitHubLogin()" class="social-btn" style="margin-top: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </button>
+            </div>
+
+            <div class="footer-info">
+                <p>🔐 Secured by Supabase Auth | <a href="/api-docs/">API Documentation</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getSupabaseClient } from '../../shared/js/supabase-client.js';
+        import { login, resetPassword } from '../../shared/js/auth-handler.js';
+        import { handlePostLoginRedirect } from '../../shared/js/role-router.js';
+
+        const ROLE = 'api_developer';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('🔐 API Developer Portal Login - Initializing...');
+            getSupabaseClient();
+        });
+
+        window.handleLogin = async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
+            
+            const result = await login(email, password, ROLE);
+            
+            if (result.success) {
+                document.getElementById('successMessage').textContent = '✅ Login successful! Loading API portal...';
+                document.getElementById('successMessage').classList.add('show');
+                setTimeout(() => handlePostLoginRedirect(), 1500);
+            } else {
+                document.getElementById('errorMessage').textContent = result.error || 'Login failed';
+                document.getElementById('errorMessage').classList.add('show');
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Login to API Portal';
+            }
+        };
+
+        window.handleGoogleLogin = async function() {
+            const client = getSupabaseClient();
+            const { error } = await client.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: `${window.location.origin}/dashboard/api/index.html` }
+            });
+            if (error) alert(error.message);
+        };
+
+        window.handleGitHubLogin = function() {
+            alert('GitHub OAuth integration coming soon.');
+        };
+
+        window.showResetPassword = function(event) {
+            event.preventDefault();
+            const email = prompt('Enter your email:');
+            if (email) resetPassword(email);
+        };
+
+        window.showRegister = function(event) {
+            event.preventDefault();
+            alert('API access requires approval. Contact api@dws6.com');
+        };
+    </script>
+</body>
+</html>
