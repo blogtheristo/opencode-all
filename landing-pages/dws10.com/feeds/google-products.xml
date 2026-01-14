@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>Lifetime Firehorse Store - DWS IQ Products</title>
+    <link>https://dws10.com/buy/</link>
+    <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
+    <lastBuildDate>Tue, 06 Jan 2026 05:18:29 GMT</lastBuildDate>
+
+    <item>
+      <g:id>dwsiq-v6</g:id>
+      <g:title>DWS IQ Platform v6</g:title>
+      <g:description>The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.</g:description>
+      <g:link>https://dws10.com/products/dwsiq.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>4999.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWSIQ-V6-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-auto</g:id>
+      <g:title>Firehorse Automation</g:title>
+      <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.</g:description>
+      <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>4950.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>FH-AUTO-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>climate-bundle</g:id>
+      <g:title>Climate Reporting Bundle</g:title>
+      <g:description>Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.</g:description>
+      <g:link>https://dws10.com/products/bundle.html</g:link>
+      <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
+      <g:price>6500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CLM-BUNDLE-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-omni</g:id>
+      <g:title>Firehorse Omnichannel Next</g:title>
+      <g:description>4-week outbound engine for Nordic and European construction portfolios.</g:description>
+      <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>4950.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>FH-OMNI-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-report</g:id>
+      <g:title>Firehorse Report</g:title>
+      <g:description>Automated reporting with SAP integration. One report template with 4-week validation.</g:description>
+      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>1950.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>FH-REPORT-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>expert-services</g:id>
+      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
+      <g:link>https://dws10.com/products/expert-services.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>1500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>EXP-SVC-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>subscription</g:custom_label_1>
+      <g:subscription_cost>
+        <g:period>month</g:period>
+        <g:period_length>1</g:period_length>
+        <g:amount>1500.00 EUR</g:amount>
+      </g:subscription_cost>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+  </channel>
+</rss>
