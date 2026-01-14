@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Handling Policy | Lifetime DWS IQ</title>
+    <link rel="stylesheet" href="../static/css/style.css"> 
+    <style>
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 900px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }
+        h1, h2, h3 { color: #60a5fa; margin-top: 1.5em; }
+        h1 { border-bottom: 2px solid #334155; padding-bottom: 0.5em; }
+        h4 { color: #94a3b8; margin-top: 1.2em; }
+        a { color: #60a5fa; }
+        ul, ol { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        strong { color: #e2e8f0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border: 1px solid #334155; }
+        th { background: rgba(96, 165, 250, 0.12); color: #60a5fa; }
+        td { background: rgba(15, 23, 42, 0.8); }
+        code { background: rgba(30, 41, 59, 0.8); padding: 2px 6px; border-radius: 4px; color: #cbd5e1; font-family: monospace; }
+        pre { background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 6px; overflow-x: auto; border: 1px solid #334155; }
+        pre code { background: none; padding: 0; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9em; margin-right: 8px; }
+        .badge-red { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #991b1b; }
+        .badge-yellow { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid #92400e; }
+        .badge-green { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid #166534; }
+        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
+        
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }
+        .nav-dropdown:hover .nav-dropdown-content { display: block; }
+        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
+        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
+        .footer { background: #1e293b; color: #94a3b8; padding: 30px 20px; text-align: center; border-top: 1px solid #334155; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="../" class="nav-brand">
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../">Home</a>
+            <a href="../buy/">Store</a>
+            <div class="nav-dropdown">
+                <a href="../legal/" style="font-weight: bold;">Legal Hub ▾</a>
+                <div class="nav-dropdown-content">
+                    <a href="../legal/"><strong>Legal Hub (Start Here)</strong></a>
+                    <a href="../regulatory-notice/">Investor Notice</a>
+                    <hr style="border:0; border-top:1px solid #334155; margin:5px 0;">
+                    <a href="../privacy-policy/">⭐ Privacy Policy</a>
+                    <a href="../data-security-policy/">⭐ Data Security Policy</a>
+                    <a href="../data-handling-policy/">⭐ Data Handling Policy</a>
+                    <a href="../terms/">Professional Services Terms</a>
+                    <a href="../terms-dws-iq/">DWS IQ Terms</a>
+                    <a href="../terms-firehorse/">Firehorse Terms</a>
+                    <a href="../terms-lifetime-fleet/">Fleet Terms</a>
+                    <a href="../terms-professional/">Professional Terms</a>
+                    <a href="../return-policy/">Return Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Data Handling Policy</h1>
+        
+        <p><strong>Lifetime Oy - Data Classification and Storage Guidelines</strong></p>
+        
+        <p><strong>Version:</strong> 1.1<br>
+        <strong>Date:</strong> December 2025<br>
+        <strong>Owner:</strong> Risto Anton Päärni, CEO<br>
+        <strong>Compliance:</strong> GDPR, EU Data Act, NIS2, EU AI Act</p>
+
+        <h2>1. Data Classification</h2>
+
+        <h3><span class="badge badge-red">🔴 CONFIDENTIAL</span> (Highest security)</h3>
+
+        <p><strong>Definition:</strong> Business secrets, financial projections, partnership terms, personal data of partners/customers, unreleased product plans.</p>
+
+        <p><strong>Examples:</strong></p>
+        <ul>
+            <li>Partnership proposals (Lifetime Certified Partners Consortium - Gold, Silver, Bronze tiers)</li>
+            <li>Financial models (revenue projections, pricing)</li>
+            <li>Customer contracts (NDAs, MSAs)</li>
+            <li>Personal data (contact details, phone numbers)</li>
+            <li>Technical architecture (security designs)</li>
+            <li>Deal data (partnership deals, customer deals)</li>
+        </ul>
+
+        <p><strong>Storage requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>ALLOWED:</strong> Encrypted local database (<code>Admin/Data/confidential.db</code> - SQLite + SQLCipher)</li>
+            <li>✅ <strong>ALLOWED:</strong> Proton Drive (zero-knowledge encryption, Switzerland, local sync)</li>
+            <li>✅ <strong>ALLOWED:</strong> Offline encrypted USB (AES-256)</li>
+            <li>✅ <strong>ALLOWED:</strong> Google Docs with EU data residency (europe-north1) - for document management only</li>
+            <li>❌ <strong>FORBIDDEN:</strong> Cloud AI tools (Claude Code, GitHub Copilot, Gemini) - <strong>NEVER process CONFIDENTIAL data</strong></li>
+            <li>❌ <strong>FORBIDDEN:</strong> Public/private GitHub repositories</li>
+            <li>❌ <strong>FORBIDDEN:</strong> Google Docs (standard plan, non-EU region)</li>
+            <li>❌ <strong>FORBIDDEN:</strong> Microsoft 365 (without E3 + EU Data Boundary)</li>
+            <li>❌ <strong>FORBIDDEN:</strong> Plain text .md files (even in Admin/ folder)</li>
+        </ul>
+
+        <h3><span class="badge badge-yellow">🟡 INTERNAL</span> (Medium security)</h3>
+
+        <p><strong>Definition:</strong> Non-sensitive business data, internal processes, non-confidential technical documentation.</p>
+
+        <p><strong>Examples:</strong></p>
+        <ul>
+            <li>Meeting notes (no sensitive details)</li>
+            <li>General project plans</li>
+            <li>Public API documentation</li>
+            <li>Development logs (sanitized)</li>
+        </ul>
+
+        <p><strong>Storage requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>ALLOWED:</strong> Microsoft 365 E3+ (with EU Data Boundary enabled)</li>
+            <li>✅ <strong>ALLOWED:</strong> Google Workspace Enterprise (with EU data residency addon, europe-north1)</li>
+            <li>✅ <strong>ALLOWED:</strong> Proton Drive</li>
+            <li>⚠️ <strong>CAUTION:</strong> Private GitHub repos (if no CONFIDENTIAL data)</li>
+            <li>❌ <strong>FORBIDDEN:</strong> Public GitHub repos</li>
+        </ul>
+
+        <h3><span class="badge badge-green">🟢 PUBLIC</span> (No restrictions)</h3>
+
+        <p><strong>Definition:</strong> Marketing materials, open source code, public announcements.</p>
+
+        <p><strong>Examples:</strong></p>
+        <ul>
+            <li>README.md (sanitized)</li>
+            <li>Public blog posts</li>
+            <li>Open source contributions</li>
+            <li>Marketing website content</li>
+        </ul>
+
+        <p><strong>Storage requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>ALLOWED:</strong> Public GitHub repos</li>
+            <li>✅ <strong>ALLOWED:</strong> Company website</li>
+            <li>✅ <strong>ALLOWED:</strong> Social media</li>
+            <li>✅ <strong>ALLOWED:</strong> Any cloud service</li>
+        </ul>
+
+        <h2>2. AI Tools Usage Policy</h2>
+
+        <h3>Cloud AI Tools (Claude Code, GitHub Copilot, Gemini)</h3>
+
+        <p><strong>🔴 CONFIDENTIAL data:</strong></p>
+        <ul>
+            <li>❌ <strong>NEVER</strong> process CONFIDENTIAL data with cloud AI</li>
+            <li>❌ <strong>NEVER</strong> paste financial numbers, partner names, or personal data</li>
+            <li>❌ <strong>NEVER</strong> upload CONFIDENTIAL documents to Claude/ChatGPT</li>
+            <li>❌ <strong>NEVER</strong> create .md files with real confidential data</li>
+            <li>✅ <strong>MUST</strong> use encrypted local database (<code>Admin/Data/confidential.db</code>)</li>
+            <li>✅ <strong>MUST</strong> use local Ollama (Mistral Nemo) for processing</li>
+        </ul>
+
+        <p><strong>🟡 INTERNAL data:</strong></p>
+        <ul>
+            <li>⚠️ <strong>Use with caution</strong> - sanitize sensitive details first</li>
+            <li>✅ <strong>OK for:</strong> General code structure, architecture questions</li>
+            <li>❌ <strong>NOT OK for:</strong> Proprietary algorithms, customer data</li>
+        </ul>
+
+        <p><strong>🟢 PUBLIC data:</strong></p>
+        <ul>
+            <li>✅ <strong>Freely use</strong> cloud AI for public documentation, blog posts, marketing</li>
+        </ul>
+
+        <h3>Approved AI Tools by Classification</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>AI Tool</th>
+                    <th>CONFIDENTIAL</th>
+                    <th>INTERNAL</th>
+                    <th>PUBLIC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Claude Code (Anthropic)</strong></td>
+                    <td>❌ Never</td>
+                    <td>⚠️ Sanitized only</td>
+                    <td>✅ Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>GitHub Copilot (Microsoft/OpenAI)</strong></td>
+                    <td>❌ Never</td>
+                    <td>⚠️ Sanitized only</td>
+                    <td>✅ Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Google Gemini (Google)</strong></td>
+                    <td>❌ Never</td>
+                    <td>⚠️ Sanitized only</td>
+                    <td>✅ Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Ollama + Mistral Nemo (local)</strong></td>
+                    <td>✅ Yes (offline, GDPR compliant)</td>
+                    <td>✅ Yes</td>
+                    <td>✅ Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Ollama + Gemma 3 (local)</strong></td>
+                    <td>⚠️ Fast processing only</td>
+                    <td>✅ Yes</td>
+                    <td>✅ Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Groq Llama 3.1 70B (production)</strong></td>
+                    <td>⚠️ EU data residency (europe-north1)</td>
+                    <td>✅ Yes</td>
+                    <td>✅ Yes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Storage Locations by Classification</h2>
+
+        <h3>Primary Storage (Active work)</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Classification</th>
+                    <th>Primary Storage</th>
+                    <th>Backup</th>
+                    <th>Sharing</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CONFIDENTIAL</strong></td>
+                    <td>Encrypted local database (<code>Admin/Data/confidential.db</code>)</td>
+                    <td>Proton Drive (E2EE) + Offline USB (AES-256)</td>
+                    <td>Password-protected Proton links</td>
+                </tr>
+                <tr>
+                    <td><strong>INTERNAL</strong></td>
+                    <td>M365 SharePoint (E3+) or Google Docs (EU region)</td>
+                    <td>Proton Drive</td>
+                    <td>SharePoint permissions</td>
+                </tr>
+                <tr>
+                    <td><strong>PUBLIC</strong></td>
+                    <td>GitHub public repos</td>
+                    <td>N/A</td>
+                    <td>Public URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Long-term Archival</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Classification</th>
+                    <th>Archive Location</th>
+                    <th>Retention Period</th>
+                    <th>Encryption</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CONFIDENTIAL</strong></td>
+                    <td>Proton Drive + Encrypted local database</td>
+                    <td>7 years (GDPR)</td>
+                    <td>Zero-knowledge E2EE + SQLCipher</td>
+                </tr>
+                <tr>
+                    <td><strong>INTERNAL</strong></td>
+                    <td>M365 Archive</td>
+                    <td>3 years</td>
+                    <td>Microsoft-managed</td>
+                </tr>
+                <tr>
+                    <td><strong>PUBLIC</strong></td>
+                    <td>GitHub</td>
+                    <td>Indefinite</td>
+                    <td>None required</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Data Sharing Guidelines</h2>
+
+        <h3>Sharing CONFIDENTIAL Data with Partners</h3>
+
+        <p><strong>✅ APPROVED methods:</strong></p>
+
+        <ol>
+            <li><strong>Proton Drive password-protected link:</strong>
+                <ul>
+                    <li>Create link in Proton Drive</li>
+                    <li>Enable password protection</li>
+                    <li>Send link via email, password via SMS</li>
+                </ul>
+            </li>
+            <li><strong>Microsoft 365 E3+ (with EU Data Boundary):</strong>
+                <ul>
+                    <li>Upload to SharePoint</li>
+                    <li>Share with specific email addresses only</li>
+                    <li>Set expiration date (30 days)</li>
+                </ul>
+            </li>
+            <li><strong>Encrypted email (Proton Mail):</strong>
+                <ul>
+                    <li>Use Proton Mail E2EE</li>
+                    <li>Recipient must have Proton account OR use password-protected email</li>
+                </ul>
+            </li>
+            <li><strong>Google Docs (EU data residency - europe-north1):</strong>
+                <ul>
+                    <li>Only for document management</li>
+                    <li>Ensure EU data residency enabled</li>
+                    <li>Share with specific email addresses only</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p><strong>❌ FORBIDDEN methods:</strong></p>
+        <ul>
+            <li>Google Docs (standard plan, non-EU region)</li>
+            <li>Slack/Teams file uploads (without E2EE)</li>
+            <li>Personal email (Gmail, Outlook.com)</li>
+            <li>Cloud AI chat interfaces (Claude.ai, ChatGPT)</li>
+            <li>GitHub repositories (public or private)</li>
+        </ul>
+
+        <h2>5. EU Compliance Requirements</h2>
+
+        <h3>GDPR (General Data Protection Regulation)</h3>
+
+        <p><strong>Personal data in CONFIDENTIAL documents:</strong></p>
+        <ul>
+            <li>Partner contact details (name, phone, email, address)</li>
+            <li>Customer information</li>
+            <li>Employee data</li>
+        </ul>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>Consent:</strong> Obtain explicit consent before processing with cloud tools</li>
+            <li>✅ <strong>Data minimization:</strong> Only store necessary personal data</li>
+            <li>✅ <strong>Right to erasure:</strong> Delete personal data on request (Article 17)</li>
+            <li>✅ <strong>Data transfers:</strong> Only to countries with adequacy decision (Switzerland ✅, USA ❌)</li>
+            <li>✅ <strong>Storage:</strong> Encrypted local database + Proton Drive (EU-compliant)</li>
+        </ul>
+
+        <h3>EU AI Act (Regulation 2024/1689)</h3>
+
+        <p><strong>DWS IQ 6 = Limited Risk AI system (Annex III: construction safety)</strong></p>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>Article 10:</strong> Document all AI tools used (Claude, Copilot, Groq, Ollama)</li>
+            <li>✅ <strong>Article 52:</strong> Transparency - inform users about AI usage</li>
+            <li>✅ <strong>Article 11:</strong> Technical documentation (AI systems inventory)</li>
+        </ul>
+
+        <h3>NIS2 Directive (EU 2022/2555)</h3>
+
+        <p><strong>Lifetime Oy = Essential entity (construction sector)</strong></p>
+
+        <p><strong>Requirements:</strong></p>
+        <ul>
+            <li>✅ <strong>Article 21:</strong> Cybersecurity risk management</li>
+            <li>✅ <strong>Encryption:</strong> E2EE for CONFIDENTIAL data (Proton Drive + SQLCipher)</li>
+            <li>✅ <strong>Access control:</strong> Multi-factor authentication (MFA)</li>
+            <li>✅ <strong>Incident reporting:</strong> Data breaches reported within 24h</li>
+        </ul>
+
+        <h2>6. Incident Response</h2>
+
+        <h3>If CONFIDENTIAL Data Leaked to Cloud AI</h3>
+
+        <p><strong>Immediate actions (within 1 hour):</strong></p>
+
+        <ol>
+            <li><strong>Stop further exposure:</strong>
+                <ul>
+                    <li>Do not continue session with AI tool</li>
+                    <li>Close browser/application</li>
+                </ul>
+            </li>
+            <li><strong>Request data deletion:</strong>
+                <ul>
+                    <li><strong>Anthropic (Claude):</strong> privacy@anthropic.com (GDPR Art. 17)</li>
+                    <li><strong>OpenAI (ChatGPT/Copilot):</strong> dsar@openai.com</li>
+                    <li><strong>Google (Gemini):</strong> https://support.google.com/policies/troubleshooter/9009584</li>
+                </ul>
+            </li>
+            <li><strong>Notify affected parties:</strong>
+                <ul>
+                    <li>Partners (if their data was exposed)</li>
+                    <li>Customers (if GDPR personal data breach)</li>
+                    <li>Finnish Data Protection Authority (if required by GDPR Art. 33)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p><strong>Reporting timeline (GDPR):</strong></p>
+        <ul>
+            <li><strong>72 hours:</strong> Report to supervisory authority (if high risk)</li>
+            <li><strong>Immediately:</strong> Notify data subjects (if high risk to rights/freedoms)</li>
+        </ul>
+
+        <h2>7. Quick Reference</h2>
+
+        <h3>CONFIDENTIAL Data Workflow</h3>
+
+        <ol>
+            <li><strong>Store data:</strong>
+<pre><code># Add to encrypted database
+.\Admin\scripts\add-partner-to-database.ps1 -Tier "Gold" -Company "Company Name"</code></pre>
+            </li>
+            <li><strong>Backup to Proton Drive:</strong>
+<pre><code>.\Admin\scripts\sync-proton-drive.ps1</code></pre>
+            </li>
+            <li><strong>Process with local AI:</strong>
+<pre><code># Use Mistral Nemo for confidential data
+ollama run mistral-nemo -f Admin/Documents/Proposal.md</code></pre>
+            </li>
+            <li><strong>NEVER:</strong>
+                <ul>
+                    <li>❌ Use cloud AI (Claude Code, Copilot, Gemini)</li>
+                    <li>❌ Create .md files with real data</li>
+                    <li>❌ Commit to git</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Technology Partners (Public Information)</h3>
+
+        <p><strong>Allowed to mention (with logos):</strong></p>
+        <ul>
+            <li>NVIDIA (NVIDIA Jetson technology)</li>
+            <li>Google Cloud (Google Cloud Run, Vertex AI)</li>
+            <li>Groq (Groq LPU)</li>
+            <li>AWS (AWS IoT, EC2, S3)</li>
+            <li>Microsoft (Microsoft Agent Framework)</li>
+            <li>OpenAI (GPT-4)</li>
+            <li>Anthropic (Claude Sonnet 4.5)</li>
+            <li>Supabase (Supabase database)</li>
+        </ul>
+
+        <p><strong>Text to use:</strong><br>
+        "DWS IQ partners with the leading brands in the AI and Cloud Services. Upon request we can provide information about our partner deals and their current statuses."</p>
+
+        <h2>8. Contact and Questions</h2>
+
+        <p><strong>Policy owner:</strong></p>
+        <ul>
+            <li>Risto Anton Päärni, CEO</li>
+            <li>Email: risto@lifetime.fi</li>
+        </ul>
+
+        <p><strong>Report security incident:</strong></p>
+        <ul>
+            <li>Urgent: CEO directly (risto@lifetime.fi)</li>
+        </ul>
+
+        <hr style="margin-top: 40px; border: 0; border-top: 1px solid #334155;">
+
+        <p style="color: #64748b; font-size: 0.9em;">
+            <strong>Document history:</strong><br>
+            2025-12-13: v1.0 - Initial policy created<br>
+            2025-12-XX: v1.1 - Updated with encrypted database requirements, Proton Drive, Google Docs EU, removed partner names<br>
+            Next review: 2026-03-13 (quarterly)
+        </p>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2025 Lifetime Oy. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            <a href="../legal/">Legal Hub</a> | 
+            <a href="../privacy-policy/">Privacy</a> | 
+            <a href="../terms/">Terms</a> | 
+            <a href="mailto:risto@lifetime.fi">Contact</a>
+        </p>
+    </div>
+</body>
+</html>
+
+
