@@ -1,6 +1,6 @@
 /**
- * DWS10.com Iron Clad Navigation v1.0
- * Unified navigation bar for all pages
+ * DWS10.com Iron Clad / Gamma Navigation v1.1
+ * Unified navigation bar for all pages (Gamma-aligned)
  * 
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
@@ -21,9 +21,9 @@
 
     const basePath = getBasePath();
 
-    // Navigation HTML
+    // Navigation HTML (Gamma-aligned)
     const navHTML = `
-<!-- DWS10.com Iron Clad Navigation Bar v1.0 -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v1.1 (Gamma-aligned) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -34,47 +34,39 @@
         </div>
         <nav class="ironclad-nav">
             <ul class="ironclad-menu">
-                <!-- Home ▾ -->
-                <li class="ironclad-menu-item">
-                    <a href="${basePath || '/'}" class="ironclad-link">Home ▾</a>
-                    <ul class="ironclad-dropdown">
-                        <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                        <li><a href="${basePath}lifetime-fleet/">Lifetime Fleet</a></li>
-                        <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="${basePath}careers/">Careers</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}progress-report/">Investor Progress Report</a></li>
-                        <li><a href="${basePath}csrd/">CSRD Compliance</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}gamma/" class="ironclad-highlight">✨ Gamma Design Preview</a></li>
-                    </ul>
-                </li>
-                
                 <!-- Solutions ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Solutions ▾</a>
                     <ul class="ironclad-dropdown">
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}csrd/">Fit for 55 ▸</a>
+                            <a href="${basePath}fit-for-55/" class="ironclad-primary">Fit for 55 ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${basePath}construction/?solution=fit55">Construction</a></li>
                                 <li><a href="${basePath}logistics/?solution=fit55">Logistics</a></li>
                                 <li><a href="${basePath}manufacturing/?solution=fit55">Manufacturing</a></li>
                                 <li><a href="${basePath}energy/?solution=fit55">Energy</a></li>
+                                <li><a href="${basePath}healthcare/?solution=fit55">Healthcare</a></li>
+                                <li><a href="${basePath}real-estate/?solution=fit55">Real Estate</a></li>
+                                <li><a href="${basePath}lifetime-fleet/?solution=fit55">Fleet Management</a></li>
+                                <li><a href="${basePath}public-sector/?solution=fit55">Public Sector</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}csrd/">CSRD ▸</a>
+                            <a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${basePath}construction/?solution=csrd">Construction</a></li>
                                 <li><a href="${basePath}logistics/?solution=csrd">Logistics</a></li>
                                 <li><a href="${basePath}manufacturing/?solution=csrd">Manufacturing</a></li>
                                 <li><a href="${basePath}energy/?solution=csrd">Energy</a></li>
+                                <li><a href="${basePath}healthcare/?solution=csrd">Healthcare</a></li>
+                                <li><a href="${basePath}real-estate/?solution=csrd">Real Estate</a></li>
+                                <li><a href="${basePath}lifetime-fleet/?solution=csrd">Fleet Management</a></li>
+                                <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                
+
                 <!-- Products ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Products ▾</a>
@@ -83,26 +75,81 @@
                         <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
                         <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
                         <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
+                        <li><a href="${basePath}products/expert-services.html">Workshop 3 Days – Expert Advisory & Implementation</a></li>
+                        <li><a href="${basePath}products/expert-advisory.html">Expert Advisory & Implementation (Monthly)</a></li>
+                        <li><a href="${basePath}products/consulting-fit55.html">Consulting Fit for 55 Specialist</a></li>
+                        <li><a href="${basePath}products/firehorse-reports.html">Firehorse Report – Fit for 55 Template & Dashboard</a></li>
+                        <li><a href="${basePath}products/consulting.html">Consulting – Hourly Rate</a></li>
                         <li class="ironclad-separator"></li>
                         <li><a href="${basePath}world-model/" class="ironclad-primary">Lifetime World Model</a></li>
                     </ul>
                 </li>
-                
+
                 <!-- About ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                        <li><a href="${basePath}legal/">Legal Hub</a></li>
-                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}team/">Team</a></li>
+                        <li><a href="${basePath}careers/">Careers</a></li>
                         <li><a href="${basePath}partners/" class="ironclad-primary">🤝 Certified Partners</a></li>
+                        <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
+                        <li><a href="${basePath}contact/">Contact</a></li>
+                        <li class="ironclad-separator"></li>
+                        <li class="ironclad-has-submenu">
+                            <a href="#" class="ironclad-highlight">🏢 Lifetime Group ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">🚀 DWS Product Family Vision</a></li>
+                                <li><a href="${basePath}lifetime-studios/">🎬 Lifetime Studios</a></li>
+                                <li><a href="${basePath}roadmap/">🗺️ DWS Roadmap</a></li>
+                            </ul>
+                        </li>
+                        <li class="ironclad-has-submenu">
+                            <a href="#" class="ironclad-secondary">🎨 UX Designs ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}ultra/" class="ironclad-secondary">✨ Ultra</a></li>
+                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">🏭 Ultra II - Industrial</a></li>
+                                <li><a href="${basePath}gamma/" class="ironclad-primary">🏢 Gamma (Current)</a></li>
+                            </ul>
+                        </li>
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}legal/" class="ironclad-legal">⚖️ Legal ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}legal/" class="ironclad-legal">⭐ Legal Hub</a></li>
+                                <li><a href="${basePath}investment-safety/">Investment Security</a></li>
+                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}terms/">Terms of Service</a></li>
+                                <li><a href="${basePath}terms-dws-iq/">DWS IQ Terms</a></li>
+                                <li><a href="${basePath}terms-firehorse/">Firehorse Terms</a></li>
+                                <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
+                                <li><a href="${basePath}terms-professional/">Professional Services</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
+                                <li><a href="${basePath}return-policy/">Return Policy</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                
-                <!-- Client Portal Button -->
+
+                <!-- IQ Login Button -->
                 <li class="ironclad-menu-item">
-                    <a href="https://dws6.com/login" class="ironclad-cta">🔐 Client Portal</a>
+                    <a href="https://dws6.com/login" class="ironclad-cta" title="DWS IQ Login">🔐 IQ Login</a>
+                </li>
+                <li class="ironclad-menu-item">
+                    <a href="https://onelifetime.world" class="ironclad-icon-link" title="OneLifetime.World">
+                        <img src="${basePath}static/images/OneLifetime_Logo_Final.png" alt="OneLifetime.World">
+                    </a>
+                </li>
+                <li class="ironclad-menu-item">
+                    <a href="${basePath}buy/" class="ironclad-store-link" title="Firehorse Store">
+                        <img src="${basePath}static/images/Firehorse_Store.jpg" alt="Firehorse Store" class="ironclad-store-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -113,7 +160,7 @@
     // Navigation CSS
     const navCSS = `
 /* ============================================
-   IRONCLAD NAVIGATION - DWS10.com v1.0
+   IRONCLAD NAVIGATION - DWS10.com v1.1 (Gamma-aligned)
    Consistent navigation across all pages
    ============================================ */
 
@@ -201,6 +248,21 @@
     color: #0066cc;
 }
 
+.ironclad-secondary {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.ironclad-highlight {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.ironclad-legal {
+    color: #0d7a3e;
+    font-weight: 600;
+}
+
 /* Dropdown Menus */
 .ironclad-dropdown {
     position: absolute;
@@ -257,6 +319,16 @@
     font-weight: 600;
 }
 
+.ironclad-dropdown .ironclad-secondary {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.ironclad-dropdown .ironclad-legal {
+    color: #0d7a3e;
+    font-weight: 600;
+}
+
 .ironclad-separator {
     border-top: 1px solid #e2e8f0;
     margin: 5px 0;
@@ -307,6 +379,36 @@
     background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
+.ironclad-icon-link,
+.ironclad-store-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.ironclad-active {
+    background: rgba(37, 99, 235, 0.12);
+    border-radius: 6px;
+    padding: 6px 8px;
+}
+
+.ironclad-active img,
+.ironclad-active svg {
+    filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.35));
+}
+
+.ironclad-icon-link img {
+    height: 32px;
+    width: auto;
+}
+
+.ironclad-store-image {
+    height: 32px;
+    width: auto;
+    border-radius: 4px;
+}
+
 /* Mobile Responsive */
 @media (max-width: 900px) {
     .ironclad-container {
@@ -347,7 +449,16 @@
         
         // Insert at the beginning of body
         document.body.insertBefore(navContainer.firstElementChild, document.body.firstChild);
+
+        // Highlight store link when on /buy
+        const pathname = window.location.pathname || '';
+        if (pathname === '/buy' || pathname === '/buy/' || pathname.endsWith('/buy/index.html')) {
+            const storeLink = document.querySelector('.ironclad-store-link');
+            if (storeLink) {
+                storeLink.classList.add('ironclad-active');
+            }
+        }
         
-        console.log('🔒 Iron Clad Navigation v1.0 loaded');
+        console.log('🔒 Iron Clad / Gamma Navigation v1.1 loaded');
     });
 })();

@@ -12,7 +12,7 @@
       "priceNote": "One-time deployment + €499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
-      "image": "../DWS_IQ2026.png",
+      "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/dwsiq.html",
       "featured": true,
       "google": {
@@ -36,7 +36,7 @@
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "../static/images/Firehorse_Store.jpg",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-automation.html",
       "featured": false,
       "google": {
@@ -60,7 +60,7 @@
       "priceNote": "One-time + €1,999/year",
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
-      "image": "../static/images/8_Industries.png",
+      "image": "/static/images/8_Industries.png",
       "detailsUrl": "../products/bundle.html",
       "featured": false,
       "google": {
@@ -84,7 +84,7 @@
       "priceNote": "Setup + €495/mo maintenance",
       "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
       "paypalPlanId": null,
-      "image": "../static/images/Firehorse_Store.jpg",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-omnichannel.html",
       "featured": false,
       "google": {
@@ -108,7 +108,7 @@
       "priceNote": "Per report template",
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
-      "image": "../static/images/Firehorse_Store.jpg",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
@@ -132,7 +132,7 @@
       "priceNote": "3-day workshop",
       "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
       "paypalPlanId": null,
-      "image": "../static/images/Risto_Malta.png",
+      "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/expert-services.html",
       "featured": false,
       "google": {
@@ -156,7 +156,7 @@
       "priceNote": "Per hour, VAT excl.",
       "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
       "paypalPlanId": null,
-      "image": "../static/images/Risto_Malta.png",
+      "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting.html",
       "featured": false,
       "google": {
@@ -180,7 +180,7 @@
       "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
-      "image": "../static/images/Risto_Malta.png",
+      "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/expert-advisory.html",
       "featured": false,
       "google": {
@@ -204,7 +204,7 @@
       "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
-      "image": "../static/images/Risto_Malta.png",
+      "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting-fit55.html",
       "featured": false,
       "google": {
