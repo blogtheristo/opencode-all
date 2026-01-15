@@ -439,7 +439,7 @@ opentelemetry-sdk>=1.29.0
 opentelemetry-exporter-otlp>=1.29.0
 opentelemetry-instrumentation-fastapi>=0.50b0
 opentelemetry-instrumentation-httpx>=0.50b0
-opentelemetry-instrumentation-psycopg2>=0.50b0
+opentelemetry-instrumentation-dbapi>=0.50b0
 langfuse>=3.0.0
 ```
 
