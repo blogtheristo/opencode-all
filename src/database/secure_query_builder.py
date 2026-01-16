@@ -41,7 +41,7 @@ class SecureQueryBuilder:
         Initialize query builder.
 
         Args:
-            connection: psycopg2 database connection
+            connection: PostgreSQL DB-API connection
         """
         self.conn = connection
 

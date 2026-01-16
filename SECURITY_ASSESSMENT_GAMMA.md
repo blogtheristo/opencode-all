@@ -58,9 +58,10 @@ Uses **>=** constraints (allows updates):
 ```python
 Pillow>=10.0.0
 pytesseract>=0.3.10
-psycopg2-binary>=2.9.9
+pg8000>=1.31.2
 Flask>=3.0.0
 requests>=2.31.0
+charset-normalizer>=3.3.2
 pytest>=7.4.0
 pytest-cov>=4.1.0
 pip-audit>=2.6.0

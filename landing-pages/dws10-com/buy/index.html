@@ -42,19 +42,7 @@
         /* Live Payment Badge */
         .live-payment::after { content: '✓ LIVE'; position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; z-index: 10; }
         
-        /* Navigation */
-        .nav-header { background: #1e293b; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.4rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
-        
-        /* Dropdown */
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 6px; padding: 8px 0; margin-top: 8px; }
-        .nav-dropdown:hover .nav-dropdown-content { display: block; }
-        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
-        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
+        /* Navigation handled by Iron Clad / Gamma shared script */
         
         /* Trust Section */
         .trust-section { text-align: center; margin: 60px 0 40px; padding: 40px 20px; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
@@ -76,33 +64,14 @@
         
         @media (max-width: 768px) {
             .product-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 12px; }
             .btn-group { flex-direction: column; }
             .trust-badges { gap: 20px; }
         }
     </style>
+    <script src="/shared-assets/nav/ironclad-nav.js" defer></script>
 </head>
 <body>
-    <nav class="nav-header">
-        <a href="../" class="nav-brand">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#60a5fa" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../">Home</a>
-            <a href="./" style="color: #60a5fa; font-weight: 600;">Store</a>
-            <div class="nav-dropdown">
-                <a href="../legal/">Legal ▾</a>
-                <div class="nav-dropdown-content">
-                    <a href="../legal/"><strong>Legal Hub</strong></a>
-                    <a href="../privacy-policy/">Privacy Policy</a>
-                    <a href="../terms/">Terms of Service</a>
-                    <a href="../return-policy/">Return Policy</a>
-                </div>
-            </div>
-            <a href="../dashboard/login/" class="btn btn-primary" style="padding: 8px 16px;">Login</a>
-        </div>
-    </nav>
+    <!-- Iron Clad / Gamma navigation injected via /shared-assets/nav/ironclad-nav.js -->
 
     <main class="container">
         <h1>Lifetime Firehorse™Store</h1>
@@ -214,7 +183,7 @@
                     description: 'Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.',
                     priceNote: 'One-time + €1,999/year',
                     revolutLink: 'https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f',
-                    image: '../static/images/8_Industries.png',
+                    image: '/static/images/8_Industries.png',
                     detailsUrl: '../products/bundle.html',
                     featured: false
                 }
@@ -267,7 +236,7 @@
             }).format(product.price);
 
             card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='../static/images/Firehorse_Store.jpg'">
+                <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='/static/images/Firehorse_Store.jpg'">
                 <div class="product-content">
                     <h2 class="product-title">${product.name}</h2>
                     <div class="product-price">${formattedPrice}</div>

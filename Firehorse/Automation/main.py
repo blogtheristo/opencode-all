@@ -30,8 +30,6 @@ import os
 import uuid
 from datetime import datetime
 from enum import Enum
-from typing import Any
-
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -212,7 +210,7 @@ async def root():
 async def create_workflow(request: WorkflowCreate):
     """Create a new workflow"""
     workflow_id = str(uuid.uuid4())
-    
+
     workflow = {
         "workflow_id": workflow_id,
         "name": request.name,
@@ -224,10 +222,10 @@ async def create_workflow(request: WorkflowCreate):
         "last_executed": None,
         "execution_count": 0,
     }
-    
+
     workflows[workflow_id] = workflow
     logger.info(f"Created workflow: {workflow_id} - {request.name}")
-    
+
     return WorkflowResponse(**workflow)
 
 
@@ -242,7 +240,7 @@ async def get_workflow(workflow_id: str):
     """Get workflow by ID"""
     if workflow_id not in workflows:
         raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
-    
+
     return WorkflowResponse(**workflows[workflow_id])
 
 
@@ -251,10 +249,10 @@ async def delete_workflow(workflow_id: str):
     """Delete a workflow"""
     if workflow_id not in workflows:
         raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
-    
+
     del workflows[workflow_id]
     logger.info(f"Deleted workflow: {workflow_id}")
-    
+
     return {"message": f"Workflow {workflow_id} deleted"}
 
 
@@ -263,10 +261,10 @@ async def execute_workflow(workflow_id: str, background_tasks: BackgroundTasks):
     """Execute a workflow"""
     if workflow_id not in workflows:
         raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
-    
+
     workflow = workflows[workflow_id]
     execution_id = str(uuid.uuid4())
-    
+
     execution = {
         "execution_id": execution_id,
         "workflow_id": workflow_id,
@@ -276,9 +274,9 @@ async def execute_workflow(workflow_id: str, background_tasks: BackgroundTasks):
         "results": [],
         "error": None,
     }
-    
+
     executions[execution_id] = execution
-    
+
     # Queue background execution
     background_tasks.add_task(_execute_workflow_background, execution_id, workflow)
     
