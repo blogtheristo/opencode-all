@@ -3,12 +3,13 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI (Claude Sonnet 4.5) | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard documentation in Finnish for master thesis
   - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-04 | Date: 04.01.2026 | Changes: Lisätty DWS-tietoturvakehys -osio; Päivitetty tekoälymalli Opus 4.5:een Sonnet 4.5:n tietokatkoksen vuoksi
   - Version: 1.2 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Lisätty viikkojen 1 ja 2 2026 kehitystulokset; Päivitetty portaalin brändäys "DWS 6 IQ Platform Administration Portal"; Lisätty Public Cloud Version V1 -virstanpylväs
+  - Version: 1.3 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-15 | Date: 15.01.2026 | Changes: Päivitetty Gamma-navigoinnin toimialaviittaukset dokumentaatioon; poistettu "Design"-maininta Ultra II -teollisesta esikatselun nimestä
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
@@ -16,7 +17,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 08.01.2026
+  - Last Modified: 15.01.2026
   - Language: Finnish (Suomi)
   - Languages Available: Suomi, English
   - Publication Status: ✅ ACTIVE
@@ -28,10 +29,10 @@ AI-mallimerkintä:
 
 ---
 
-**Versio:** 1.2  
+**Versio:** 1.3  
 **Tarkoitus:** Opinnäytetyön luku V8-kojelaudan toteutuksesta  
 **Kohdeyleisö:** Akateemiset arvioijat, tekniset lukijat  
-**Päivitetty:** 08.01.2026
+**Päivitetty:** 15.01.2026
 
 ---
 

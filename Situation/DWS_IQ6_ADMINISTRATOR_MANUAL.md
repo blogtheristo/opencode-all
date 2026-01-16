@@ -2475,6 +2475,40 @@ dws10.com/
     └── index.html            ← Store page (loads from products.json)
 ```
 
+### I.2.1 Industry Landing Pages (Fit for 55 + CSRD & ESG)
+
+The Gamma navigation routes to industry landing pages under the DWS10 site. Fit for 55 and CSRD & ESG are selected with the `?solution=` query parameter.
+
+```
+dws10.com/
+├── construction/
+├── logistics/
+├── manufacturing/
+├── energy/
+├── healthcare/
+├── real-estate/
+├── lifetime-fleet/
+├── public-sector/
+├── financial-services/
+├── mining/
+├── shipbuilding/
+└── waste/
+```
+
+**Examples:**
+- `https://dws10.com/healthcare/?solution=fit55`
+- `https://dws10.com/public-sector/?solution=csrd`
+
+### I.2.2 Local Storage Policy (Non-Git Files)
+
+For local operations, keep non-repository files outside Git and link them into the workspace as needed.
+
+- **Non-Git working files** → `F:\Proton\My files\2026\dws6`
+- **Customer/Investor/Media files** → `F:\Proton\My files\2026\DWSIQ6`
+- The repository at `F:\2026\Repos2026\dws6` remains the backup workspace
+
+On Windows, use junctions to make these available inside the repo without committing them. On macOS, use symlinks with the equivalent local paths.
+
 **Key Principle:** All pricing flows from `products.json`. Update prices once, and:
 1. Store page updates automatically
 2. Checkout page uses latest prices
