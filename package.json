@@ -8,6 +8,7 @@
     "dev": "tsx watch src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc -p tsconfig.json",
+    "sync:landing-pages": "node scripts/sync-landing-pages.js",
     "lint": "echo \"No linter configured\"",
     "test": "vitest",
     "test:ui": "vitest --ui"
