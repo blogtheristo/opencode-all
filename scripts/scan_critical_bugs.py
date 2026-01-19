@@ -300,6 +300,10 @@ class CriticalBugScanner:
                     if file_path.suffix in extensions:
                         files_to_scan.append(file_path)
 
+        # Exclude the scanner itself to avoid flagging documentation examples
+        scanner_file = Path(__file__).resolve()
+        files_to_scan = [f for f in files_to_scan if Path(f).resolve() != scanner_file]
+        
         print(f"📁 Files to scan: {len(files_to_scan)}")
 
         # Scan each file
@@ -532,8 +536,14 @@ def main():
         if not file_path.exists():
             print(f"❌ File not found: {args.file}")
             sys.exit(1)
-        file_findings = scanner.scan_file(file_path)
-        scanner.findings.extend(file_findings)
+        # Skip scanning the scanner itself to avoid false positives from documentation
+        scanner_file = Path(__file__).resolve()
+        if file_path.resolve() == scanner_file:
+            print("⚠️  Skipping scanner file itself (contains documentation examples)")
+            scanner.stats["files_scanned"] = 1
+        else:
+            file_findings = scanner.scan_file(file_path)
+            scanner.findings.extend(file_findings)
     elif args.quick:
         # Quick scan
         scanner.scan_directory(quick=True)
