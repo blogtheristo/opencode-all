@@ -540,7 +540,6 @@ def main():
         scanner_file = Path(__file__).resolve()
         if file_path.resolve() == scanner_file:
             print("⚠️  Skipping scanner file itself (contains documentation examples)")
-            scanner.stats["files_scanned"] = 1
         else:
             file_findings = scanner.scan_file(file_path)
             scanner.findings.extend(file_findings)
