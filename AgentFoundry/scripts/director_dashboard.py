@@ -15,21 +15,19 @@ Deployment: Google Cloud Run (always-on, min 1 instance)
 Access: https://agent-director-dashboard-xxx.run.app (authentication required)
 """
 
-import os
-import sys
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Optional, Any
 import logging
+import os
+import secrets
+from datetime import UTC, datetime, timedelta
+
+import uvicorn
 
 # Third-party imports
-from fastapi import FastAPI, HTTPException, Depends, Request, Form, status
-from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from supabase import create_client, Client
-import secrets
-import uvicorn
+
+from supabase import Client, create_client
 
 # ============================================================================
 # Configuration
@@ -87,7 +85,7 @@ async def dashboard_home(username: str = Depends(verify_credentials)):
     """Main dashboard - overview of all agents."""
 
     # Get agent metrics (last 7 days)
-    metrics = supabase.table('agent_metrics') \
+    supabase.table('agent_metrics') \
         .select('*') \
         .gte('metric_date', (datetime.now() - timedelta(days=7)).date().isoformat()) \
         .order('metric_date', desc=True) \
@@ -563,7 +561,7 @@ async def approve_email(approval_id: str, username: str = Depends(verify_credent
         # Update approval status
         supabase.table('agent_approvals').update({
             'status': 'approved',
-            'decision_at': datetime.now(timezone.utc).isoformat(),
+            'decision_at': datetime.now(UTC).isoformat(),
             'approved_by': username
         }).eq('id', approval_id).execute()
 
@@ -590,7 +588,7 @@ async def reject_email(approval_id: str, username: str = Depends(verify_credenti
 
         supabase.table('agent_approvals').update({
             'status': 'rejected',
-            'decision_at': datetime.now(timezone.utc).isoformat()
+            'decision_at': datetime.now(UTC).isoformat()
         }).eq('id', approval_id).execute()
 
         logger.info(f"Email rejected by {username}: {approval_id}")
@@ -605,7 +603,7 @@ async def reject_email(approval_id: str, username: str = Depends(verify_credenti
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+    return {"status": "healthy", "timestamp": datetime.now(UTC).isoformat()}
 
 
 # ============================================================================

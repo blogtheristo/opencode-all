@@ -17,22 +17,24 @@ Environment Variables:
   SLACK_WEBHOOK_URL: Slack webhook for notifications
 """
 
+import logging
 import os
 import sys
-import yaml
-import logging
-import structlog
-from typing import Dict, Any, Optional
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
+
+import structlog
+import uvicorn
+import yaml
 
 # Third-party imports
 from anthropic import Anthropic
-from groq import Groq
-from supabase import create_client, Client
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-import uvicorn
+from groq import Groq
+
+from supabase import Client, create_client
 
 # ============================================================================
 # Logging Configuration
@@ -71,7 +73,7 @@ class AgentConfig:
 
     def __init__(self, config_path: str):
         self.config_path = Path(config_path)
-        self.config: Dict[str, Any] = {}
+        self.config: dict[str, Any] = {}
         self.load()
 
     def load(self) -> None:
@@ -79,7 +81,7 @@ class AgentConfig:
         if not self.config_path.exists():
             raise FileNotFoundError(f"Config file not found: {self.config_path}")
 
-        with open(self.config_path, 'r') as f:
+        with open(self.config_path) as f:
             self.config = yaml.safe_load(f)
 
         # Validate required fields
@@ -137,8 +139,8 @@ class SalesAgent:
     def __init__(self, config: AgentConfig):
         self.config = config
         self.log = structlog.get_logger()
-        self.supabase: Optional[Client] = None
-        self.llm_client: Optional[Any] = None
+        self.supabase: Client | None = None
+        self.llm_client: Any | None = None
 
         # Initialize clients
         self._init_supabase()
@@ -176,7 +178,7 @@ class SalesAgent:
         else:
             raise ValueError(f"Unsupported model provider: {provider}")
 
-    def emit_signal(self, signal_type: str, milestone: str, context_id: Optional[str] = None, metadata: Dict = None) -> str:
+    def emit_signal(self, signal_type: str, milestone: str, context_id: str | None = None, metadata: dict = None) -> str:
         """Emit a Lifetime Scope Signal for agent coordination."""
         signal_data = {
             'agent_id': self.config.agent_id,
@@ -184,7 +186,7 @@ class SalesAgent:
             'milestone': milestone,
             'context_id': context_id,
             'metadata': metadata or {},
-            'emitted_at': datetime.now(timezone.utc).isoformat()
+            'emitted_at': datetime.now(UTC).isoformat()
         }
 
         result = self.supabase.table('agent_signals').insert(signal_data).execute()
@@ -199,7 +201,7 @@ class SalesAgent:
 
         return signal_id
 
-    def run(self) -> Dict[str, Any]:
+    def run(self) -> dict[str, Any]:
         """Main agent execution method (to be overridden by subclasses)."""
         raise NotImplementedError("Subclasses must implement run() method")
 
@@ -210,7 +212,7 @@ class SalesAgent:
 class LeadScoutAgent(SalesAgent):
     """Lead enrichment and ICP scoring agent."""
 
-    def run(self) -> Dict[str, Any]:
+    def run(self) -> dict[str, Any]:
         """Execute lead enrichment workflow."""
         self.log.info("lead_scout_started", agent_id=self.config.agent_id)
 
@@ -243,7 +245,7 @@ class LeadScoutAgent(SalesAgent):
             return {
                 'status': 'success',
                 'leads_processed': enriched_count,
-                'timestamp': datetime.now(timezone.utc).isoformat()
+                'timestamp': datetime.now(UTC).isoformat()
             }
 
         except Exception as e:
@@ -260,7 +262,7 @@ class LeadScoutAgent(SalesAgent):
             .execute()
         return response.data
 
-    def enrich_lead(self, lead: Dict) -> Dict:
+    def enrich_lead(self, lead: dict) -> dict:
         """Enrich a single lead using LLM and external APIs."""
         # Prepare prompt for Claude
         prompt = f"""Enrich this B2B lead and score against ICP criteria:
@@ -291,11 +293,10 @@ Output JSON only.
 
         # Parse response (simplified - in production, add robust error handling)
         import json
-        enriched_data = json.loads(response.content[0].text)
+        return json.loads(response.content[0].text)
 
-        return enriched_data
 
-    def update_lead(self, lead_id: str, enriched_data: Dict) -> None:
+    def update_lead(self, lead_id: str, enriched_data: dict) -> None:
         """Update lead in Supabase with enriched data."""
         update_data = {
             'revenue_eur': enriched_data.get('enrichment', {}).get('revenue_eur'),
@@ -309,7 +310,7 @@ Output JSON only.
             'enrichment_data': enriched_data.get('enrichment', {}),
             'confidence_score': enriched_data.get('confidence_score'),
             'agent_id': self.config.agent_id,
-            'enriched_at': datetime.now(timezone.utc).isoformat(),
+            'enriched_at': datetime.now(UTC).isoformat(),
             'last_enriched_by': self.config.agent_id
         }
 
@@ -328,7 +329,7 @@ Output JSON only.
         # Call Supabase function to update metrics
         self.supabase.rpc('update_agent_metrics', {
             'p_agent_id': self.config.agent_id,
-            'p_date': datetime.now(timezone.utc).date().isoformat()
+            'p_date': datetime.now(UTC).date().isoformat()
         }).execute()
 
 # ============================================================================
@@ -338,7 +339,7 @@ Output JSON only.
 app = FastAPI(title="DWS Sales AI Agent", version="1.0.0")
 
 # Global agent instance
-agent_instance: Optional[SalesAgent] = None
+agent_instance: SalesAgent | None = None
 
 @app.on_event("startup")
 async def startup_event():
@@ -372,7 +373,7 @@ async def startup_event():
 @app.get("/health")
 async def health_check():
     """Health check endpoint for Cloud Run."""
-    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+    return {"status": "healthy", "timestamp": datetime.now(UTC).isoformat()}
 
 @app.get("/ready")
 async def readiness_check():
