@@ -420,10 +420,10 @@ spawnSync('git', ['add', file]);
             "sql_injection": """
 Use parameterized queries instead of string concatenation:
 ```javascript
-// ❌ Vulnerable
-db.query(`SELECT * FROM users WHERE id = ${userId}`);
+// ❌ Vulnerable - Never use template literals with user input
+db.query('SELECT * FROM users WHERE id = ' + userId);
 
-// ✅ Secure
+// ✅ Secure - Always use parameterized queries
 db.query('SELECT * FROM users WHERE id = $1', [userId]);
 ```
 """,
