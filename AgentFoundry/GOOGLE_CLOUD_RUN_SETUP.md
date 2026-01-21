@@ -41,8 +41,8 @@ Google Cloud Run will host:
 |---------|----------|--------------|------|
 | **Anthropic** | ANTHROPIC_API_KEY | https://console.anthropic.com | $3/1M input tokens |
 | **Groq** | GROQ_API_KEY | https://console.groq.com | $0.59/1M tokens (cheaper!) |
-| **Apollo.io** | APOLLO_API_KEY | https://apollo.io/settings/integrations | $79/month |
-| **Clearbit** | CLEARBIT_API_KEY | https://clearbit.com/pricing | $99/month |
+| **Apollo.io** | APOLLO_API_KEY | https://apollo.io/settings/integrations | $290/year |
+| **Clearbit is part of Hubspot** | CLEARBIT_API_KEY | https://clearbit.com/pricing | $99/month |
 | **Resend** | RESEND_API_KEY | https://resend.com/api-keys | $10/month |
 | **Supabase** | SUPABASE_URL, SUPABASE_KEY | https://supabase.com/dashboard | Included in DWS project |
 
