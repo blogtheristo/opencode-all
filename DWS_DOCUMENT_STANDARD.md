@@ -3,28 +3,30 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
   - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
+  - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 21.01.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.0  
-**Effective Date:** 2025-12-30  
-**Last Updated:** 2025-12-30  
+**Version:** 1.2
+**Effective Date:** 2026-01-21
+**Last Updated:** 2026-01-21
 **Status:** Active
 
 ---
@@ -40,7 +42,10 @@ Document Status:
 7. [Metadata Requirements](#7-metadata-requirements)
 8. [PDF Standard](#8-pdf-standard)
 9. [Examples](#9-examples)
-10. [Enforcement](#10-enforcement)
+10. [Knowledge Management & Storage](#10-knowledge-management--storage)
+11. [Core Artifacts](#11-core-artifacts)
+12. [Field Notes](#12-field-notes)
+13. [Enforcement](#13-enforcement)
 
 ---
 
@@ -765,7 +770,393 @@ if __name__ == "__main__":
 
 ---
 
-## 10. Enforcement
+## 10. Knowledge Management & Storage
+
+### 10.1 Purpose / Tarkoitus
+
+Establishes the decision framework for where enterprise knowledge should be stored: database vs. document files.
+
+Määrittää päätökehyksen sille, mihin yritystietoa tulisi tallentaa: tietokantaan vai dokumenttitiedostoihin.
+
+### 10.2 The Storage Decision Matrix
+
+Based on the insight that **"off-the-shelf LLMs don't work for enterprise AI"** (Alex Karp, Palantir CEO), we must build an orchestration layer that understands our enterprise-specific knowledge.
+
+**Decision Criteria:**
+
+| Use Case | Storage Location | Reasoning |
+|----------|-----------------|-----------|
+| **Structured Intelligence** | Database (Supabase) | Queryable, linkable to objects, searchable in dashboards |
+| **Narrative Context** | Docs Files (.md) | Flow of argument, white papers, briefings |
+| **Core Artifacts** | Database with Docs Reference | Metadata in DB, full content in versioned .md |
+| **Regulatory Documents** | Docs Files with DB Index | Audit trail, version control, PDF generation |
+| **Training Data** | Database (Vector Store) | Embedding-ready, RAG-optimized |
+| **Field Notes** | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact |
+
+### 10.3 The Hybrid Approach (Recommended)
+
+**For DWS7 and beyond:**
+
+```
+┌─────────────┐
+│   Capture   │  Database (Supabase)
+│  (Real-time)│  - Quick entry via mobile/web
+│             │  - Timestamped, geo-tagged
+└──────┬──────┘  - Linked to customer/project objects
+       │
+       ▼
+┌─────────────┐
+│  Processing │  Docs Files (Markdown)
+│   (Daily)   │  - Export to /docs/field-notes/
+│             │  - Apply ontology tags
+└──────┬──────┘  - Add context and analysis
+       │
+       ▼
+┌─────────────┐
+│ Refinement  │  Core Artifacts
+│ (Weekly)    │  - Elevated to /artifacts/[CATEGORY]/
+│             │  - Enterprise knowledge base
+└─────────────┘  - LWM training pipeline
+```
+
+### 10.4 Example: User Note from Alex Karp Quote
+
+**Scenario:** You want to save Karp's quote about AI bubbles and enterprise ontology.
+
+**Decision Path:**
+
+1. **Initial Capture:** Database
+   ```sql
+   INSERT INTO field_notes (author, content, tags, sector)
+   VALUES ('you@dws.com', 'Karp quote about...', ARRAY['AI', 'Ontology', 'Enterprise'], 'Strategy');
+   ```
+
+2. **Processing:** Markdown Document
+   ```markdown
+   # Field Note: Palantir CEO on Enterprise AI
+   [Full analysis as shown in your message]
+   ```
+   Saved to: `/docs/field-notes/2026-01-21-karp-enterprise-ai.md`
+
+3. **Refinement:** Core Artifact
+   ```markdown
+   # Artifact: Enterprise AI Implementation Strategy
+   ART-2026-001
+   [Extracted principles for DWS implementation]
+   ```
+   Saved to: `/artifacts/STRATEGY/ART-2026-001-enterprise-ai-ontology.md`
+
+### 10.5 Directory Structure
+
+```
+dws6/
+├── artifacts/               # Core Artifacts (validated knowledge)
+│   ├── FINANCIAL_SERVICES/
+│   ├── MANUFACTURING/
+│   ├── STRATEGY/
+│   ├── COMPLIANCE/
+│   └── README.md
+├── docs/
+│   ├── field-notes/         # Processed daily/weekly notes
+│   │   ├── 2026-01-21-karp-enterprise-ai.md
+│   │   ├── 2026-01-22-customer-london.md
+│   │   └── README.md
+│   └── ontology/
+│       └── ONTOLOGY.md      # Ontology framework (see Section 11)
+└── supabase/
+    └── migrations/
+        └── 014_ontology_lwm.sql  # Database schema
+```
+
+### 10.6 When to Use Database vs. Docs
+
+**Use Database when:**
+- Need real-time capture (mobile field notes)
+- Require structured queries
+- Building dashboards/reports
+- Linking to other objects (customers, projects)
+- Training AI/LLM models (vector embeddings)
+
+**Use Docs Files when:**
+- Writing narrative content
+- Creating white papers, briefings
+- Need version control history
+- Generating PDFs for distribution
+- Long-form documentation
+
+**Use Both (Hybrid) when:**
+- Capturing enterprise knowledge (field notes → artifacts)
+- Building an ontology (metadata in DB, content in .md)
+- Regulatory documentation (index in DB, files as .md)
+
+---
+
+## 11. Core Artifacts
+
+### 11.1 Purpose / Tarkoitus
+
+Core Artifacts are **validated pieces of enterprise knowledge** that form the foundation of the Lifetime World Model (LWM). They are the answer to Alex Karp's challenge: building a software layer to orchestrate LLMs "in a language your enterprise understands."
+
+Core Artifacts ovat **validoituja yritystiedon palasia**, jotka muodostavat Lifetime World Model (LWM) -järjestelmän perustan.
+
+### 11.2 What is a Core Artifact?
+
+A Core Artifact is:
+- **Validated knowledge** from field experience
+- **Enterprise-specific** (not generic AI knowledge)
+- **Actionable** (contains orchestration rules)
+- **Versioned** (evolves over time)
+- **Traceable** (linked to source field notes)
+
+### 11.3 Artifact Naming Convention
+
+**Format:**
+```
+ART-[YYYY]-[NNN]-[descriptive-name].md
+```
+
+**Components:**
+
+| Component | Required | Description | Examples |
+|-----------|----------|-------------|----------|
+| **ART** | ✅ Yes | Prefix for all artifacts | `ART` |
+| **YYYY** | ✅ Yes | Year created | `2026` |
+| **NNN** | ✅ Yes | Sequential number (zero-padded) | `001`, `042`, `123` |
+| **descriptive-name** | ⚠️ Recommended | Brief topic description | `uk-cross-border-rules` |
+
+**Examples:**
+```
+ART-2026-001-enterprise-ai-ontology.md
+ART-2026-002-uk-cross-border-underwriting.md
+ART-2026-003-eu-gdpr-updates.md
+```
+
+### 11.4 Artifact Categories
+
+**Location:** `/artifacts/[CATEGORY]/`
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **FINANCIAL_SERVICES** | Banking, insurance, underwriting | Cross-border rules, compliance |
+| **MANUFACTURING** | Production, quality, supply chain | Process optimization, safety |
+| **HEALTHCARE** | Medical, diagnostics, patient care | Regulatory compliance, protocols |
+| **COMPLIANCE** | Legal, regulatory, audit | GDPR, FCA rules, SOX |
+| **STRATEGY** | Business strategy, competitive intel | Market analysis, partnerships |
+| **TECHNOLOGY** | Architecture, security, infrastructure | API design, security protocols |
+| **SALES** | Customer insights, competitive wins | Objection handling, pricing |
+| **GENERAL** | Cross-functional knowledge | Best practices, templates |
+
+### 11.5 Artifact File Structure
+
+**Required Sections:**
+
+```markdown
+# Artifact: [Descriptive Title]
+
+---
+## METADATA (The "Coordinates")
+
+- **Artifact ID:** ART-YYYY-NNN
+- **Temporal Stamp:** ISO8601 timestamp
+- **Ontology Anchors:**
+  - Object: [e.g., Financial_Services]
+  - Sector: [e.g., Underwriting]
+  - Geography: [e.g., UK, London]
+  - Regulatory Context: [e.g., FCA 2025 Cross-Border Rules]
+- **Safety Status:** ✅ Verified | 🧪 Experimental | ⚠️ Deprecated
+- **Confidence Score:** 0.XX (0.0-1.0)
+- **Source:** [Field Note reference]
+
+---
+## NARRATIVE (The "Divine Story")
+
+### The Observation
+[What was learned from the field]
+
+### Why It Failed
+[If applicable: why generic AI/process failed]
+
+### The Ground Truth
+[Reality that contradicts generic assumptions]
+
+---
+## LOGIC (The "Orchestration Rule")
+
+### Proposed Rule
+[If-then logic, code, or decision tree]
+
+### LWM Update Instruction
+[How this updates the world model]
+
+---
+## VALIDATION & FEEDBACK
+
+[Usage history, success rate, confidence updates]
+
+---
+## RELATED ARTIFACTS
+
+- **Supersedes:** [Previous artifact IDs]
+- **Related:** [Related artifact IDs]
+- **References:** [External documents]
+
+---
+## VERSION HISTORY
+
+- **v1.0** (YYYY-MM-DD): [Changes]
+```
+
+### 11.6 Artifact Lifecycle
+
+```
+1. CAPTURE:    Field Note → Database
+2. PROCESS:    Database → /docs/field-notes/[date]-[topic].md
+3. ELEVATE:    Field Note → Core Artifact (if validated)
+4. VALIDATE:   Usage feedback → Confidence score update
+5. EVOLVE:     New version if logic changes
+6. DEPRECATE:  Mark as deprecated if superseded
+```
+
+### 11.7 Quality Standards
+
+**Before creating a Core Artifact:**
+
+- [ ] Validated by at least 2 team members
+- [ ] Includes specific business logic (not generic advice)
+- [ ] Has clear ontology anchors (geography, sector, etc.)
+- [ ] Contains source attribution (field note, regulation, etc.)
+- [ ] Assigned initial confidence score (0.5-0.75 for new)
+- [ ] Linked to related artifacts or regulations
+- [ ] Follows naming convention
+- [ ] Stored in correct category folder
+
+**Artifact Review Cycle:**
+- **Every 90 days:** Review all artifacts
+- **Flag for update:** If used but confidence < 0.7
+- **Flag for deprecation:** If unused for 180 days
+- **Immediate review:** If world model collision detected
+
+---
+
+## 12. Field Notes
+
+### 12.1 Purpose / Tarkoitus
+
+Field Notes are the **raw sensory input** for the Lifetime World Model. They capture reality from the battlefield (production, customer interactions, incidents) that off-the-shelf LLMs cannot know.
+
+Field Notes ovat **raakaa sensoriinputia** Lifetime World Model -järjestelmälle.
+
+### 12.2 When to Create a Field Note
+
+**Create a field note when:**
+- Customer says something unexpected
+- LLM/AI fails to handle a situation correctly
+- Production incident reveals a knowledge gap
+- Regulatory change affects operations
+- Competitive intelligence is gathered
+- Edge case is discovered
+
+**Time requirement:** Within 24 hours of the event
+
+### 12.3 Field Note Naming Convention
+
+**Format:**
+```
+YYYY-MM-DD-[brief-topic].md
+```
+
+**Examples:**
+```
+2026-01-21-karp-enterprise-ai.md
+2026-01-22-london-customer-cross-border.md
+2026-01-23-production-incident-llm-hallucination.md
+```
+
+**Location:** `/docs/field-notes/`
+
+### 12.4 Field Note Templates
+
+**Three primary templates:**
+
+1. **Customer Interaction Template**
+   - For sales calls, support tickets, feedback
+   - Focus: Customer quote, problem/insight, business impact
+
+2. **Production Incident Template**
+   - For system failures, AI errors, edge cases
+   - Focus: What happened, root cause, prevention
+
+3. **Regulatory Change Template**
+   - For new laws, compliance updates, policy changes
+   - Focus: Summary, impact, required actions
+
+*Full templates available in ONTOLOGY.md Section 10*
+
+### 12.5 Required Elements
+
+**Every field note MUST include:**
+
+- **Date:** ISO format (YYYY-MM-DD)
+- **Author:** Your name/email
+- **Location:** Geographic location (if applicable)
+- **Context:** Customer/project/system name
+- **Ontology Tags:** Geography, sector, entities
+- **The Story:** What happened (chronological)
+- **The Insight:** Why this matters
+- **Next Steps:** Follow-up actions
+
+### 12.6 Ontology Tagging
+
+**Purpose:** Make field notes searchable and linkable.
+
+**Required Tags:**
+
+```markdown
+## Ontology Tags
+
+- **Geography:** [Continent > Country > City]
+- **Sector:** [Industry > Vertical > Use Case]
+- **Entities:** [People, Organizations, Products, Regulations]
+- **Temporal Context:** [Date, Regulatory Period, Fiscal Year]
+- **Confidence:** High | Medium | Low
+```
+
+**Example:**
+```markdown
+## Ontology Tags
+
+- **Geography:** Europe > UK > London
+- **Sector:** Financial_Services > Insurance > Underwriting
+- **Entities:** Customer ABC Ltd, FCA, GDPR, DWS-IQ6
+- **Temporal Context:** 2026-Q1, Post-2025 UK FCA Rules
+- **Confidence:** High
+```
+
+### 12.7 From Field Note to Core Artifact
+
+**Elevation Criteria:**
+
+A field note should be elevated to a Core Artifact when:
+- ✅ Used 3+ times in decision-making
+- ✅ Validated by 2+ team members
+- ✅ Contains reusable business logic
+- ✅ Addresses a recurring pattern or gap
+- ✅ Has regulatory or compliance importance
+
+**Process:**
+
+```
+Field Note → Team Review → Draft Artifact → Validate → Publish
+```
+
+1. **Team Review:** Weekly review meeting to identify candidates
+2. **Draft Artifact:** Use artifact template (Section 11.5)
+3. **Validate:** Test the logic on 2-3 cases
+4. **Publish:** Add to `/artifacts/`, update database, generate embeddings
+
+---
+
+## 13. Enforcement
 
 ### 10.1 Automated Checks
 
@@ -876,6 +1267,7 @@ Document Status:
 
 ### Related Documents
 
+- **Ontology & Lifetime World Model:** `ONTOLOGY.md` ⭐ NEW
 - **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
@@ -883,9 +1275,16 @@ Document Status:
 
 ---
 
-**Version:** 1.0  
-**Effective Date:** 30. December 2025  
+**Version:** 1.2
+**Effective Date:** 21. January 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.2:**
+- Added knowledge management strategy (database vs. docs decision matrix)
+- Introduced Core Artifacts framework with naming conventions
+- Added Field Notes standards and templates
+- Integrated Lifetime World Model (LWM) concepts
+- Reference to new ONTOLOGY.md companion document
 
 ---
 
