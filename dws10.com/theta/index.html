@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS IQ 6 | Theta - AI-First Design | Lifetime Oy</title>
+    <meta name="description" content="AI-powered climate intelligence with real-time chat assistance. Experience the future of construction compliance.">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Anime.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- React & ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="../gamma/ultra-styles.css">
+    <link rel="stylesheet" href="theta-styles.css">
+</head>
+<body>
+    <!-- Include Gamma Navigation -->
+    <header style="background: #ffffff; color: #0a1628; padding: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="../index.html" style="display: flex; align-items: center; text-decoration: none;">
+                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 60px; width: auto;">
+                </a>
+                <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: #0a1628; margin: 0;">DWS IQ Platform Version 6 - Theta</h1>
+            </div>
+            <nav style="flex-grow: 0;">
+                <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Solutions ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="../fit-for-55/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">Fit for 55 ▸</a>
+                            </li>
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="../csrd/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">CSRD & ESG ▸</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="position: relative;">
+                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">About ▾</a>
+                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
+                            <li><a href="https://onelifetime.world" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Lifetime World</a></li>
+                            <li><a href="../team/" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Team</a></li>
+                            <li style="position: relative;" class="has-submenu">
+                                <a href="#" style="display: block; padding: 8px 20px; color: #9333ea; text-decoration: none; font-weight: 600;">🎨 UX Designs ▸</a>
+                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
+                                    <li><a href="../ultra/" style="display: block; padding: 8px 20px; color: #ffd700; text-decoration: none; font-weight: 600;">✨ Ultra</a></li>
+                                    <li><a href="../industrial-preview/" style="display: block; padding: 8px 20px; color: #0ea5e9; text-decoration: none; font-weight: 600;">🏭 Ultra II - Industrial</a></li>
+                                    <li><a href="../gamma/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">🏢 Gamma</a></li>
+                                    <li><a href="../theta/" style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600; background: linear-gradient(90deg, rgba(16,185,129,0.1), transparent);">🤖 Theta (Current)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #0a1628 0%, #152238 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #0066cc;">
+                            🔐 IQ Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://dws6.com/dashboard/firehorse/v9-react/" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #10b981;" title="Try V9 Demo">
+                            🚀 V9 Demo
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <style>
+        nav li:hover > .dropdown {
+            display: block !important;
+        }
+        nav .dropdown li:hover {
+            background: #f8fafc;
+        }
+        nav .dropdown a:hover {
+            color: #0066cc !important;
+        }
+        nav .has-submenu:hover > .submenu {
+            display: block !important;
+        }
+        nav .submenu li:hover {
+            background: #f8fafc;
+        }
+    </style>
+
+    <!-- Main Content: AI Chat Interface -->
+    <div id="theta-root"></div>
+
+    <!-- React Component -->
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        function ThetaApp() {
+            const [messages, setMessages] = useState([
+                {
+                    id: '1',
+                    role: 'assistant',
+                    content: 'Hello! I\'m your **DWS IQ Climate Intelligence Assistant**. I can help you with:\n\n- 🧮 **EN 15978** carbon calculations\n- 📊 **CSRD** compliance reporting\n- 🏗️ **EPBD** building certifications\n- 💶 **ETS** emissions monitoring\n- 🌍 **CBAM** border regulations\n\nWhat would you like to know?'
+                }
+            ]);
+            const [input, setInput] = useState('');
+            const [isLoading, setIsLoading] = useState(false);
+            const messagesEndRef = useRef(null);
+
+            useEffect(() => {
+                // Animate on mount
+                anime({
+                    targets: '.theta-container',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 1000,
+                    easing: 'easeOutExpo'
+                });
+
+                anime({
+                    targets: '.theta-badge',
+                    scale: [0, 1],
+                    duration: 800,
+                    delay: 300,
+                    easing: 'easeOutElastic(1, .8)'
+                });
+            }, []);
+
+            useEffect(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages]);
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                if (!input.trim()) return;
+
+                const userMessage = {
+                    id: Date.now().toString(),
+                    role: 'user',
+                    content: input
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                setInput('');
+                setIsLoading(true);
+
+                // Simulate AI response
+                setTimeout(() => {
+                    const aiResponse = {
+                        id: (Date.now() + 1).toString(),
+                        role: 'assistant',
+                        content: generateResponse(input)
+                    };
+                    setMessages(prev => [...prev, aiResponse]);
+                    setIsLoading(false);
+
+                    // Animate new message
+                    anime({
+                        targets: '.chat-message:last-child',
+                        opacity: [0, 1],
+                        translateX: [-20, 0],
+                        duration: 500,
+                        easing: 'easeOutQuad'
+                    });
+                }, 1000);
+            };
+
+            const generateResponse = (query) => {
+                const lowerQuery = query.toLowerCase();
+
+                if (lowerQuery.includes('carbon') || lowerQuery.includes('co2')) {
+                    return '🧮 For **carbon calculations** using EN 15978:\n\n1. Specify material type (concrete, steel, timber, etc.)\n2. Quantity in standard units (m³, tonnes, m²)\n3. Project location for regional factors\n\nExample: 500m³ of concrete C30/37 in Finland ≈ 117 tonnes CO₂e\n\nWould you like a detailed breakdown?';
+                } else if (lowerQuery.includes('csrd') || lowerQuery.includes('compliance')) {
+                    return '📊 **CSRD Compliance** requirements:\n\n- Double materiality assessment\n- Scope 1, 2, 3 emissions reporting\n- Climate transition plan\n- Governance disclosures\n\nI can help you generate audit-ready reports. Which aspect would you like to explore?';
+                } else if (lowerQuery.includes('epbd')) {
+                    return '🏗️ **EPBD Certification** process:\n\n- Energy performance assessment\n- Building envelope analysis\n- HVAC system evaluation\n- Renewable energy integration\n\nI can guide you through the certification steps. What type of building are you working on?';
+                } else {
+                    return `I understand you're asking about "${query}". \n\nI can help with:\n- Carbon footprint calculations\n- Regulatory compliance (CSRD, EPBD, ETS, CBAM)\n- Sustainability reporting\n- Climate risk assessment\n\nCould you provide more details about what you need?`;
+                }
+            };
+
+            const renderMarkdown = (text) => {
+                return text
+                    .split('\n')
+                    .map((line, i) => {
+                        if (line.includes('**')) {
+                            const parts = line.split('**');
+                            return React.createElement('p', { key: i },
+                                parts.map((part, j) =>
+                                    j % 2 === 1
+                                        ? React.createElement('strong', { key: j }, part)
+                                        : part
+                                )
+                            );
+                        } else if (line.trim().startsWith('-')) {
+                            return React.createElement('li', { key: i }, line.replace(/^-\s*/, ''));
+                        } else if (line.trim()) {
+                            return React.createElement('p', { key: i }, line);
+                        }
+                        return null;
+                    });
+            };
+
+            return (
+                <div className="theta-hero">
+                    <div className="hero-background">
+                        <div className="hero-gradient"></div>
+                        <div className="hero-grid"></div>
+                    </div>
+
+                    <div className="theta-container">
+                        <div className="theta-badge">
+                            <span className="badge-dot" style={{animation: 'pulse 2s ease-in-out infinite'}}></span>
+                            <span>🤖 AI-Powered Climate Intelligence</span>
+                        </div>
+
+                        <div className="theta-chat-container">
+                            <div className="theta-chat-header">
+                                <div className="chat-header-left">
+                                    <div className="chat-avatar">🤖</div>
+                                    <div>
+                                        <h2>Climate Assistant</h2>
+                                        <p>DWS IQ AI · Powered by Claude Sonnet 4</p>
+                                    </div>
+                                </div>
+                                <div className="chat-status">
+                                    <span className="status-dot"></span>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+
+                            <div className="theta-chat-messages">
+                                {messages.map((message, index) => (
+                                    <div
+                                        key={message.id}
+                                        className={`chat-message ${message.role}`}
+                                        style={{
+                                            animationDelay: `${index * 0.1}s`
+                                        }}
+                                    >
+                                        {message.role === 'assistant' ? (
+                                            <div className="message-content prose">
+                                                {renderMarkdown(message.content)}
+                                            </div>
+                                        ) : (
+                                            <div className="message-content">
+                                                {message.content}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+
+                                {isLoading && (
+                                    <div className="chat-message assistant">
+                                        <div className="loading-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div ref={messagesEndRef} />
+                            </div>
+
+                            <form className="theta-chat-input" onSubmit={handleSubmit}>
+                                <div className="quick-suggestions">
+                                    <button type="button" onClick={() => setInput('Calculate carbon for 500m³ of concrete')}>
+                                        💡 Carbon calculation
+                                    </button>
+                                    <button type="button" onClick={() => setInput('Check CSRD compliance')}>
+                                        ✅ CSRD compliance
+                                    </button>
+                                    <button type="button" onClick={() => setInput('Generate EPBD certificate')}>
+                                        📋 EPBD report
+                                    </button>
+                                </div>
+
+                                <div className="input-group">
+                                    <input
+                                        type="text"
+                                        value={input}
+                                        onChange={(e) => setInput(e.target.value)}
+                                        placeholder="Ask about carbon calculations, compliance, reports..."
+                                        disabled={isLoading}
+                                    />
+                                    <button type="submit" disabled={isLoading || !input.trim()}>
+                                        {isLoading ? '...' : '📤'}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div className="theta-stats">
+                            <div className="stat-card">
+                                <div className="stat-icon">⚡</div>
+                                <div className="stat-value">200ms</div>
+                                <div className="stat-label">Response Time</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🎯</div>
+                                <div className="stat-value">99.9%</div>
+                                <div className="stat-label">Accuracy</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🌍</div>
+                                <div className="stat-value">24/7</div>
+                                <div className="stat-label">Availability</div>
+                            </div>
+                            <div className="stat-card">
+                                <div className="stat-icon">🔒</div>
+                                <div className="stat-value">EU</div>
+                                <div className="stat-label">Data Residency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<ThetaApp />, document.getElementById('theta-root'));
+    </script>
+
+    <!-- Footer -->
+    <footer style="background: #0a1628; color: #cbd5e1; padding: 60px 20px 30px; margin-top: 80px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div>
+                    <h3 style="color: #ffffff; margin-bottom: 15px;">DWS IQ 6 Platform</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">AI-powered climate intelligence for construction and infrastructure.</p>
+                </div>
+                <div>
+                    <h4 style="color: #ffffff; margin-bottom: 15px;">Designs</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="../ultra/" style="color: #cbd5e1; text-decoration: none;">✨ Ultra</a></li>
+                        <li style="margin-bottom: 8px;"><a href="../industrial-preview/" style="color: #cbd5e1; text-decoration: none;">🏭 Ultra II</a></li>
+                        <li style="margin-bottom: 8px;"><a href="../gamma/" style="color: #cbd5e1; text-decoration: none;">🏢 Gamma</a></li>
+                        <li style="margin-bottom: 8px;"><a href="../theta/" style="color: #10b981; text-decoration: none;">🤖 Theta</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #ffffff; margin-bottom: 15px;">Resources</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="https://dws6.com/dashboard/firehorse/v9-react/" style="color: #10b981; text-decoration: none;">🚀 V9 Demo</a></li>
+                        <li style="margin-bottom: 8px;"><a href="https://onelifetime.world" style="color: #cbd5e1; text-decoration: none;">Lifetime World</a></li>
+                        <li style="margin-bottom: 8px;"><a href="../legal/" style="color: #cbd5e1; text-decoration: none;">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #1e293b; padding-top: 20px; text-align: center; font-size: 0.85rem;">
+                <p>© 2026 Lifetime Oy. DWS IQ 6 Platform. All rights reserved.</p>
+                <p style="margin-top: 10px;">Built with TypeScript, React & AI SDK · Powered by Claude Sonnet 4</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
