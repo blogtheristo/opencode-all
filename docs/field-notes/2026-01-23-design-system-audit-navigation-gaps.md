@@ -923,6 +923,850 @@ Checkout flows, sprint reports
 
 ---
 
+## Weekly Maintenance Workflow
+
+**Problem Statement:** The project lacks a consistent view of all page assets. Attempting fixes without systematic process causes breakdowns and introduces new inconsistencies. A weekly audit workflow prevents regression and maintains quality.
+
+### Weekly Audit Schedule
+
+**Every Monday 9:00 AM:** Run complete asset audit
+**Duration:** 2-3 hours
+**Owner:** Development Team Lead
+**Review:** Product & Design stakeholders
+
+---
+
+### Week 1: Navigation & Links Audit
+
+**Objective:** Ensure all navigation is functional and consistent
+
+#### Step 1: Navigation Structure Check (30 min)
+```bash
+# Run navigation audit script
+cd /home/user/dws6
+node scripts/audit-navigation.js
+
+# Manual checks:
+# 1. Visit all 3 design pages (Ultra, Gamma, Theta)
+# 2. Click every menu item in each design
+# 3. Verify dropdown menus appear correctly
+# 4. Test mobile responsive menu (< 900px width)
+```
+
+**Checklist:**
+- [ ] All menu items link to existing pages (no 404s)
+- [ ] Dropdown submenus open on hover
+- [ ] "Designs" menu shows: Theta, Gamma, Ultra (in order)
+- [ ] Login button uses Gamma style (dark gradient)
+- [ ] Mobile menu displays correctly (stacked, not cut off)
+- [ ] Base path calculation works (`${basePath}` resolves correctly)
+
+**Output:** `/docs/audit-reports/YYYY-MM-DD-navigation-audit.md`
+
+#### Step 2: Broken Links Detection (20 min)
+```bash
+# Check for broken internal links
+find dws10.com -name "*.html" -exec grep -H 'href="' {} \; | \
+  grep -v "http" | grep -v "mailto" | grep -v "#" > links.txt
+
+# Verify each link exists
+while read line; do
+  file=$(echo $line | cut -d: -f1)
+  link=$(echo $line | sed 's/.*href="\([^"]*\)".*/\1/')
+  # Check if target exists
+done < links.txt
+```
+
+**Critical Links to Verify:**
+- `/fit-for-55/` - Currently BROKEN
+- `/products/dwsiq.html` - Verify exists
+- `/products/bundle.html` - Verify exists
+- All industry solution pages (11 total)
+- All legal/terms pages (12 total)
+
+**Fix Protocol:**
+1. Document broken link in audit report
+2. Create GitHub issue with "broken-link" label
+3. Either create missing page OR remove from navigation
+4. Update navigation within 24 hours
+5. Re-run audit to verify fix
+
+#### Step 3: Footer Links Audit (15 min)
+
+**Pages to Check:**
+- Gamma footer (template for all)
+- Theta footer
+- Ultra footer
+- Homepage footer
+
+**Consistency Requirements:**
+- All footers should have same structure
+- "Designs" section: Theta, Gamma, Ultra
+- Legal links: same across all pages
+- OneLifetime.world link present
+- Copyright year current (2026)
+
+**Output:** List of pages with inconsistent footers
+
+#### Step 4: External Links Validation (15 min)
+
+**Test External Links:**
+```bash
+# Check external links return 200 OK
+curl -I https://onelifetime.world
+curl -I https://dws6.com/login
+curl -I https://dws6.com/dashboard/firehorse/v9-react/
+curl -I https://calendar.google.com/calendar/appointments/...
+```
+
+**Expected Status:**
+- `200 OK` - Link works
+- `301/302` - Redirect (document new URL)
+- `403` - Forbidden (investigate)
+- `404` - Not Found (critical fix)
+- `timeout` - Site down (escalate)
+
+---
+
+### Week 2: Hero Sections & Visual Consistency
+
+**Objective:** Standardize hero sections across all pages
+
+#### Step 1: Hero Section Inventory (45 min)
+
+**Create spreadsheet:** `/docs/audit-reports/hero-section-inventory.xlsx`
+
+| Page | Hero Type | Background | Height | CTA Buttons | Status |
+|------|-----------|------------|--------|-------------|--------|
+| /index.html | Campaign | Blue gradient | 100vh | 3 buttons | ✅ Custom |
+| /gamma/ | Enterprise | Dark gradient | 80vh | 2 buttons | ✅ Standard |
+| /theta/ | AI Chat | Grid pattern | 100vh | Chat UI | ✅ Unique |
+| /ultra/ | Premium | Gold gradient | 90vh | 2 buttons | ✅ Showcase |
+| /construction/ | Old hero | Blue | 80vh | 1 button | ⚠️ Needs update |
+| ... | ... | ... | ... | ... | ... |
+
+**Hero Type Definitions:**
+
+**Type A: Campaign Hero** (Homepage only)
+```css
+.campaign-hero {
+  background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%);
+  padding: 100px 0;
+  text-align: center;
+}
+```
+- Use for: Major campaigns, special announcements
+- Badge: Campaign name + date
+- 3 CTAs: Primary, Secondary, Tertiary
+- Video embed optional
+
+**Type B: Enterprise Hero** (Gamma standard)
+```css
+.hero-ultra {
+  background: linear-gradient(135deg, #0a1628 0%, #152238 100%);
+  padding: 80px 0;
+  text-align: center;
+}
+```
+- Use for: Product pages, solutions, general content
+- H1 + subtitle + stats grid
+- 2 CTAs: Get Started, Learn More
+- Trust badges below fold
+
+**Type C: AI Chat Hero** (Theta only)
+```css
+.theta-hero {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+}
+```
+- Use for: AI/Chat demonstrations only
+- Full-screen chat interface
+- Quick suggestion buttons
+- Stats dashboard below
+
+**Type D: Industry Hero** (Solution pages)
+```css
+.industry-hero {
+  background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
+  padding: 120px 0 80px;
+}
+```
+- Use for: Industry-specific landing pages
+- Industry icon/image
+- Specific pain points + solutions
+- 2 CTAs: Book Demo, Case Study
+
+**Type E: Utility Hero** (Tools, calculators)
+```css
+.utility-hero {
+  background: #f8fafc;
+  padding: 60px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+```
+- Use for: Calculators, tools, internal pages
+- Minimal styling
+- Clear instructions
+- Tool/form prominent
+
+#### Step 2: Hero Standardization Plan (30 min)
+
+**Mapping Decision Tree:**
+```
+1. Is this the homepage?
+   → YES: Type A (Campaign Hero)
+   → NO: Continue
+
+2. Is this a design showcase page?
+   → YES: Keep unique hero (Gamma/Theta/Ultra)
+   → NO: Continue
+
+3. Is this an industry solution page?
+   → YES: Type D (Industry Hero)
+   → NO: Continue
+
+4. Is this a tool or calculator?
+   → YES: Type E (Utility Hero)
+   → NO: Type B (Enterprise Hero - default)
+```
+
+**Create templates:** `/dws10.com/shared-assets/heroes/`
+```
+hero-campaign.html       - Type A template
+hero-enterprise.html     - Type B template
+hero-ai-chat.html        - Type C template
+hero-industry.html       - Type D template
+hero-utility.html        - Type E template
+```
+
+#### Step 3: Hero Migration Script (30 min)
+
+**For each page needing update:**
+1. Backup current hero HTML → `/backups/heroes/YYYY-MM-DD/`
+2. Identify correct hero type from decision tree
+3. Copy template from `/shared-assets/heroes/`
+4. Customize content (H1, subtitle, CTAs)
+5. Replace old hero section
+6. Test responsive layout
+7. Commit with message: `Standardize hero: [page] → Type [X]`
+
+**Example Migration:**
+```bash
+# /construction/index.html
+# Current: Old hero style
+# Target: Type D (Industry Hero)
+
+cp construction/index.html backups/heroes/2026-01-27/construction-old.html
+# Replace lines 100-180 with hero-industry.html template
+# Customize: H1="Construction Solutions", icon="🏗️"
+git commit -m "Standardize hero: construction → Type D (Industry)"
+```
+
+---
+
+### Week 3: Logo & Graphical Assets Audit
+
+**Objective:** Ensure consistent branding and optimize images
+
+#### Step 1: Logo Usage Inventory (30 min)
+
+**Find all logo references:**
+```bash
+grep -r "DWS_IQ2026.png" dws10.com/ > logo-usage.txt
+grep -r "OneLifetime_Logo" dws10.com/ >> logo-usage.txt
+grep -r "Firehorse_Store" dws10.com/ >> logo-usage.txt
+```
+
+**Logo Standards:**
+
+**Primary Logo: DWS_IQ2026.png**
+- Location: `/dws10.com/DWS_IQ2026.png`
+- Dimensions: 240x60px (4:1 aspect ratio)
+- Format: PNG with transparency
+- Usage height:
+  - Shared navigation: `50px`
+  - Gamma/Theta headers: `60px`
+  - Old headers: `80px` ⚠️ Non-standard
+
+**Secondary Logo: OneLifetime_Logo_Final.png**
+- Location: `/dws10.com/static/images/OneLifetime_Logo_Final.png`
+- Dimensions: 128x32px
+- Format: PNG with transparency
+- Usage height: `32px` (consistent)
+
+**Store Badge: Firehorse_Store.jpg**
+- Location: `/dws10.com/static/images/Firehorse_Store.jpg`
+- Dimensions: 128x32px
+- Format: JPG
+- Usage height: `32px` (consistent)
+
+**Action Items:**
+- [ ] Standardize DWS logo height to `60px` everywhere
+- [ ] Convert Firehorse_Store.jpg to PNG for transparency
+- [ ] Create WebP versions for performance
+- [ ] Update all references to use consistent path
+
+#### Step 2: Image Asset Optimization (45 min)
+
+**Scan for unoptimized images:**
+```bash
+find dws10.com/public dws10.com/static -type f \( -name "*.jpg" -o -name "*.png" \) -size +500k
+```
+
+**Optimization Workflow:**
+1. **Large PNGs (>500KB):**
+   - Convert to WebP: `cwebp input.png -q 80 -o output.webp`
+   - Keep PNG fallback
+   - Update HTML: `<picture><source srcset="*.webp"><img src="*.png"></picture>`
+
+2. **Large JPGs (>500KB):**
+   - Compress: `jpegoptim --max=85 image.jpg`
+   - Create WebP version
+   - Update HTML with picture element
+
+3. **Icons & Graphics (<100KB):**
+   - Convert to SVG if possible (vectors)
+   - Inline small SVGs in HTML (< 5KB)
+   - Use icon fonts for repeated icons
+
+**Image Inventory Template:**
+```csv
+File Path, Size (KB), Format, Usage, Optimized?, Action
+/public/videos/construction-poster.jpg, 850, JPG, Video poster, No, Convert to WebP
+/static/images/hero-bg.png, 1200, PNG, Hero background, No, WebP + compress
+```
+
+#### Step 3: Video Asset Audit (30 min)
+
+**Video Inventory:**
+```bash
+find dws10.com/public/videos -type f
+```
+
+**Standards:**
+- **Format:** WebM (primary), MP4 (fallback)
+- **Resolution:** 1920x1080 max (Full HD)
+- **Bitrate:** 2-5 Mbps
+- **Duration:** < 2 minutes for auto-play
+- **Poster Image:** Required, WebP format
+
+**Current Videos:**
+| File | Size | Format | Resolution | Poster | Status |
+|------|------|--------|------------|--------|--------|
+| gemini_generated_video_EA97318F.webm | 12MB | WebM | 1920x1080 | ✅ Yes | ✅ Good |
+| gemini_generated_video_EA97318F.mp4 | 15MB | MP4 | 1920x1080 | ✅ Yes | ✅ Good |
+
+**Checklist:**
+- [ ] All videos have poster images
+- [ ] Poster images are optimized (<100KB)
+- [ ] Videos have both WebM and MP4 versions
+- [ ] Auto-play videos are muted by default
+- [ ] Videos have `playsinline` attribute for mobile
+
+---
+
+### Week 4: Code Blocks & Technical Content
+
+**Objective:** Ensure code examples are accurate and well-formatted
+
+#### Step 1: Code Block Inventory (30 min)
+
+**Find all code blocks:**
+```bash
+grep -r "<code>" dws10.com/ > code-blocks.txt
+grep -r "```" dws10.com/ >> code-blocks.txt
+grep -r "<pre>" dws10.com/ >> code-blocks.txt
+```
+
+**Code Block Standards:**
+
+**Inline Code:**
+```html
+<code class="inline-code">npm install</code>
+```
+- Style: `background: #f1f5f9; padding: 2px 6px; border-radius: 3px; font-family: 'Monaco', monospace;`
+
+**Multi-line Code:**
+```html
+<pre><code class="language-javascript">
+const example = () => {
+  console.log('Hello World');
+};
+</code></pre>
+```
+- Syntax highlighting: Use Prism.js or highlight.js
+- Line numbers: Optional for blocks > 10 lines
+- Copy button: Required for blocks > 5 lines
+
+#### Step 2: Code Accuracy Verification (45 min)
+
+**Test all code examples:**
+
+**JavaScript/TypeScript:**
+```bash
+# Extract code blocks to temp files
+# Run ESLint or TypeScript compiler
+npx eslint --no-eslintrc temp-code.js
+npx tsc --noEmit temp-code.ts
+```
+
+**Bash/Shell:**
+```bash
+# Run shellcheck
+shellcheck temp-script.sh
+```
+
+**CSS:**
+```bash
+# Validate CSS
+npx stylelint temp-styles.css
+```
+
+**Common Issues to Fix:**
+- ❌ Outdated API examples (Claude API v1 → v2)
+- ❌ Incorrect import paths
+- ❌ Missing dependencies in package.json examples
+- ❌ Deprecated React patterns (class components)
+- ❌ Unsafe practices (hardcoded secrets)
+
+#### Step 3: Documentation Sync (30 min)
+
+**Cross-reference code with:**
+- `/docs/architecture/` - Architecture diagrams
+- `/docs/field-notes/` - Implementation notes
+- `/Situation/DWS_IQ6_ADMINISTRATOR_MANUAL.md` - Admin guide
+- `/docs/thesis/` - Technical thesis
+
+**Ensure consistency:**
+- Tech stack versions match (React 18.3.1, TypeScript 5.6.2)
+- API endpoints documented correctly
+- Environment variables listed completely
+- Configuration examples up-to-date
+
+---
+
+### Monthly Deep Audits (Every 4th Week)
+
+#### Month 1: Performance Audit
+
+**Run Lighthouse on key pages:**
+```bash
+lighthouse https://dws10.com/ --output=json --output-path=./reports/lighthouse-homepage.json
+lighthouse https://dws10.com/gamma/ --output=json --output-path=./reports/lighthouse-gamma.json
+lighthouse https://dws10.com/theta/ --output=json --output-path=./reports/lighthouse-theta.json
+```
+
+**Target Scores:**
+- Performance: > 90
+- Accessibility: > 95
+- Best Practices: > 90
+- SEO: > 95
+
+**Common Fixes:**
+- Optimize images (WebP, lazy loading)
+- Minify CSS/JS
+- Enable compression (gzip/brotli)
+- Add caching headers
+- Defer non-critical JavaScript
+
+#### Month 2: Accessibility Audit
+
+**Run axe-core:**
+```bash
+npx @axe-core/cli https://dws10.com/
+```
+
+**Manual Checks:**
+- [ ] Keyboard navigation works (Tab, Enter, Esc)
+- [ ] Screen reader compatibility (NVDA/JAWS)
+- [ ] Color contrast ratios (WCAG AA: 4.5:1)
+- [ ] Alt text on all images
+- [ ] ARIA labels on interactive elements
+- [ ] Focus indicators visible
+- [ ] Semantic HTML (headings, landmarks)
+
+#### Month 3: Security Audit
+
+**Check for vulnerabilities:**
+```bash
+# Scan for secrets in code
+git secrets --scan
+truffleHog --regex --entropy=False .
+
+# Check npm dependencies
+npm audit
+npm outdated
+
+# Check for XSS/injection risks
+grep -r "dangerouslySetInnerHTML" dws10.com/
+grep -r "eval(" dws10.com/
+grep -r "innerHTML" dws10.com/
+```
+
+**Security Checklist:**
+- [ ] No API keys in client-side code
+- [ ] HTTPS enforced everywhere
+- [ ] CSP headers configured
+- [ ] XSS prevention (sanitize user input)
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] CSRF tokens on forms
+- [ ] Dependencies up-to-date (no critical vulnerabilities)
+
+#### Month 4: SEO Audit
+
+**Meta Tags Inventory:**
+```bash
+# Check all pages have proper meta tags
+find dws10.com -name "index.html" | while read file; do
+  echo "=== $file ==="
+  grep -E "<title>|<meta name=\"description\"|<meta property=\"og:" "$file"
+done
+```
+
+**SEO Standards:**
+- **Title:** 50-60 characters, unique per page
+- **Description:** 150-160 characters, compelling copy
+- **OG Tags:** title, description, image, url
+- **Twitter Card:** summary_large_image
+- **Canonical URL:** Set to prevent duplicates
+- **Structured Data:** JSON-LD for products/services
+
+**Sitemap Generation:**
+```bash
+# Auto-generate sitemap.xml
+node scripts/generate-sitemap.js > dws10.com/sitemap.xml
+
+# Submit to search engines
+curl "http://www.google.com/ping?sitemap=https://dws10.com/sitemap.xml"
+curl "http://www.bing.com/ping?sitemap=https://dws10.com/sitemap.xml"
+```
+
+---
+
+## Automated Audit Tools
+
+### Create Audit Scripts Directory
+
+**Location:** `/scripts/audits/`
+
+#### 1. Navigation Validator (`audit-navigation.js`)
+```javascript
+// Crawl all pages, extract nav links, verify targets exist
+// Output: List of broken links + orphaned pages
+// Runtime: ~2 minutes
+```
+
+#### 2. Design Consistency Checker (`audit-design.js`)
+```javascript
+// Check color schemes, fonts, button styles
+// Output: Pages not matching Gamma standard
+// Runtime: ~1 minute
+```
+
+#### 3. Asset Optimizer (`audit-assets.js`)
+```javascript
+// Find large images, videos, unoptimized files
+// Output: Optimization recommendations
+// Runtime: ~5 minutes
+```
+
+#### 4. Footer Consistency (`audit-footer.js`)
+```javascript
+// Compare all footers to Gamma template
+// Output: Pages with non-standard footers
+// Runtime: ~1 minute
+```
+
+#### 5. Link Checker (`audit-links.js`)
+```javascript
+// Test all internal + external links
+// Output: Broken/slow links
+// Runtime: ~3 minutes
+```
+
+### Run All Audits Script
+
+**File:** `/scripts/run-weekly-audit.sh`
+```bash
+#!/bin/bash
+# Weekly Audit Runner
+# Usage: ./scripts/run-weekly-audit.sh
+
+DATE=$(date +%Y-%m-%d)
+REPORT_DIR="docs/audit-reports/$DATE"
+mkdir -p "$REPORT_DIR"
+
+echo "🔍 DWS IQ 6 Platform - Weekly Audit ($DATE)"
+echo "=============================================="
+
+# 1. Navigation
+echo "📊 Running Navigation Audit..."
+node scripts/audits/audit-navigation.js > "$REPORT_DIR/navigation.md"
+
+# 2. Design Consistency
+echo "🎨 Running Design Consistency Check..."
+node scripts/audits/audit-design.js > "$REPORT_DIR/design.md"
+
+# 3. Assets
+echo "🖼️ Running Asset Audit..."
+node scripts/audits/audit-assets.js > "$REPORT_DIR/assets.md"
+
+# 4. Footers
+echo "👣 Running Footer Consistency Check..."
+node scripts/audits/audit-footer.js > "$REPORT_DIR/footers.md"
+
+# 5. Links
+echo "🔗 Running Link Checker..."
+node scripts/audits/audit-links.js > "$REPORT_DIR/links.md"
+
+# 6. Generate Summary
+echo "📝 Generating Summary Report..."
+node scripts/audits/generate-summary.js "$REPORT_DIR" > "$REPORT_DIR/SUMMARY.md"
+
+echo ""
+echo "✅ Audit Complete!"
+echo "📄 Reports saved to: $REPORT_DIR"
+echo ""
+echo "Next Steps:"
+echo "1. Review SUMMARY.md for critical issues"
+echo "2. Create GitHub issues for each broken item"
+echo "3. Fix critical issues within 24 hours"
+echo "4. Schedule medium priority fixes for this week"
+echo "5. Add low priority items to backlog"
+```
+
+**Automation:** Add to cron (every Monday 9:00 AM)
+```bash
+0 9 * * 1 cd /home/user/dws6 && ./scripts/run-weekly-audit.sh
+```
+
+---
+
+## Audit Report Template
+
+**File:** `/docs/audit-reports/YYYY-MM-DD/SUMMARY.md`
+
+```markdown
+# Weekly Audit Summary - [Date]
+
+**Audit Duration:** 2h 15m
+**Pages Scanned:** 47
+**Issues Found:** 23
+**Critical Issues:** 3 🔴
+**Medium Issues:** 12 🟡
+**Low Issues:** 8 🟢
+
+---
+
+## Critical Issues (Fix within 24h)
+
+1. 🔴 **Broken Link: /fit-for-55/**
+   - Location: ironclad-nav.js line 42
+   - Impact: Main navigation broken
+   - Fix: Create landing page OR remove from menu
+   - Assigned: @dev-team
+   - Due: YYYY-MM-DD 17:00
+
+2. 🔴 **Missing Logo: /construction/**
+   - Logo path broken: ../DWS_IQ2026.png (wrong path depth)
+   - Impact: Branding inconsistency
+   - Fix: Update path to ../../DWS_IQ2026.png
+   - Assigned: @dev-team
+   - Due: YYYY-MM-DD 17:00
+
+---
+
+## Medium Priority (Fix this week)
+
+1. 🟡 **Orphaned Page: /compliance/**
+   - Not linked from navigation
+   - Recommendation: Add to Solutions menu
+   - Assigned: @product
+   - Due: YYYY-MM-DD
+
+[... continue with all medium issues ...]
+
+---
+
+## Low Priority (Backlog)
+
+1. 🟢 **Image Optimization: hero-bg.png**
+   - Current: 1.2MB PNG
+   - Recommendation: Convert to WebP (300KB)
+   - Performance gain: +15 Lighthouse score
+   - Assigned: @design
+   - Backlog item #234
+
+[... continue with all low issues ...]
+
+---
+
+## Week-over-Week Trends
+
+| Metric | This Week | Last Week | Change |
+|--------|-----------|-----------|--------|
+| Broken Links | 3 | 5 | ✅ -2 |
+| Orphaned Pages | 21 | 21 | ➡️ 0 |
+| Shared Nav Adoption | 8% | 6% | ✅ +2% |
+| Avg Lighthouse Score | 78 | 76 | ✅ +2 |
+| Images >500KB | 12 | 15 | ✅ -3 |
+
+---
+
+## Recommendations for Next Week
+
+1. **Focus Area:** Migrate 5 industry pages to shared navigation
+2. **Quick Win:** Fix all broken links (estimated 2h)
+3. **Long-term:** Start hero section standardization
+```
+
+---
+
+## Change Management Protocol
+
+**Problem:** Fixes can introduce new breaks without proper process
+
+### Before Making Changes
+
+**1. Create Issue Branch**
+```bash
+git checkout -b fix/navigation-consistency
+```
+
+**2. Document Current State**
+```bash
+# Take screenshots of affected pages
+# Save to /backups/screenshots/YYYY-MM-DD/
+# Record current behavior in issue
+```
+
+**3. Run Pre-Change Audit**
+```bash
+./scripts/run-weekly-audit.sh
+# Save results as baseline
+```
+
+### During Changes
+
+**4. Make Incremental Updates**
+```bash
+# Change 1 page at a time
+# Commit after each successful update
+git add dws10.com/construction/index.html
+git commit -m "Migrate construction to shared nav"
+
+# Test page before continuing
+# Open in browser, click all links
+```
+
+**5. Update Tracking Document**
+```markdown
+# /docs/migration-tracking.md
+
+## Shared Navigation Migration
+
+- [x] /index.html (2026-01-20)
+- [x] /calculator/ (2026-01-21)
+- [x] /healthcare/ (2026-01-22)
+- [x] /construction/ (2026-01-27) ← NEW
+- [ ] /logistics/ (next)
+- [ ] /manufacturing/ (next)
+```
+
+### After Changes
+
+**6. Run Post-Change Audit**
+```bash
+./scripts/run-weekly-audit.sh
+# Compare to baseline
+# Ensure no new broken links
+```
+
+**7. Manual QA Checklist**
+- [ ] Visit updated page in browser
+- [ ] Click every navigation link
+- [ ] Test on mobile (responsive)
+- [ ] Test on different browsers (Chrome, Safari, Firefox)
+- [ ] Check footer links
+- [ ] Verify logo displays
+- [ ] Test forms/CTAs if present
+
+**8. Create Pull Request**
+```bash
+git push origin fix/navigation-consistency
+# Open PR with checklist from step 7
+# Request review from team
+```
+
+**9. Post-Merge Verification**
+```bash
+# After PR merge, verify on production
+# Re-run audit to confirm fix
+# Update tracking document
+# Close GitHub issue
+```
+
+---
+
+## Rollback Protocol
+
+**If changes break the site:**
+
+**Immediate Rollback (< 5 minutes):**
+```bash
+# Revert last commit
+git revert HEAD
+git push origin main --force-with-lease
+
+# OR restore from backup
+cp backups/YYYY-MM-DD/index.html dws10.com/index.html
+git add dws10.com/index.html
+git commit -m "Rollback: restore working navigation"
+git push
+```
+
+**Root Cause Analysis:**
+1. What broke? (specific error/issue)
+2. Why did it break? (what change caused it)
+3. How to prevent? (better testing, validation)
+4. Document in `/docs/incident-reports/YYYY-MM-DD.md`
+
+---
+
+## Success Metrics
+
+**Track weekly:**
+- ✅ Broken links: 0 (target)
+- ✅ Orphaned pages: 0 (target)
+- ✅ Shared nav adoption: 100% (target)
+- ✅ Lighthouse score: >90 (target)
+- ✅ Accessibility score: >95 (target)
+- ✅ Images >500KB: 0 (target)
+
+**Monthly Report:**
+```markdown
+# Monthly Consistency Report - January 2026
+
+## Progress
+- Shared navigation: 8% → 32% (+24%)
+- Broken links: 5 → 1 (-80%)
+- Avg Lighthouse: 76 → 84 (+8)
+
+## Highlights
+- Migrated 12 pages to Gamma design
+- Fixed all critical navigation issues
+- Optimized 45 images (saved 12MB)
+
+## Next Month Goals
+- Reach 60% shared navigation adoption
+- Zero broken links
+- Lighthouse >90 on all key pages
+```
+
+---
+
 **Document Status:** ✅ Complete
 **Review Date:** 2026-02-01
 **Owner:** Development Team
