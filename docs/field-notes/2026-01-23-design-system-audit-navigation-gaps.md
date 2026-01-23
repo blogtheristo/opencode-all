@@ -896,7 +896,289 @@ Checkout flows, sprint reports
 - ❌ **Embedded navigation:** 43 pages (92%)
 
 ### Priority Actions
-1. 🔴 **Critical:** Fix broken fit-for-55 link
+
+### 🔴 CRITICAL PRIORITY #1 (Fix Immediately)
+
+**Status:** ⚠️ BLOCKING - Must fix before any other work
+
+#### 1.1 Broken Navigation Links
+- **Fit for 55 Main Link:** `/fit-for-55/` directory does not exist
+  - Referenced in: ironclad-nav.js line 42
+  - Impact: Main "Solutions" dropdown broken
+  - Submenu items use query params (?solution=fit55) which work
+  - **Fix:** Create /fit-for-55/index.html landing page
+
+#### 1.2 Missing Product Pages (Navigation References Non-Existent Files)
+**Location:** Products dropdown menu (ironclad-nav.js lines 74-82)
+
+| Referenced in Menu | File Status | Impact |
+|-------------------|-------------|--------|
+| `products/dwsiq.html` | ✅ Exists | Working |
+| `products/bundle.html` | ✅ Exists | Working |
+| `products/firehorse-automation.html` | ✅ Exists | Working |
+| `products/firehorse-omnichannel.html` | ✅ Exists | Working |
+| `products/expert-services.html` | ✅ Exists | Working |
+| `products/expert-advisory.html` | ❌ **MISSING** | Broken link |
+| `products/consulting-fit55.html` | ❌ **MISSING** | Broken link |
+| `products/firehorse-reports.html` | ✅ Exists | Working |
+| `products/consulting.html` | ❌ **MISSING** | Broken link |
+
+**Critical Issue:** 3 product pages referenced in navigation don't exist (33% broken links)
+
+#### 1.3 Product Pages Have Outdated Data
+**Problem:** Existing product pages contain old information, missing fields
+- Missing Google Merchant Center required fields
+- Old pricing, specifications
+- No structured data (JSON-LD)
+- Not optimized for Google Shopping
+
+**Action Required:**
+1. Create Google Merchant product schema table
+2. Rewrite all product pages with correct fields
+3. Add JSON-LD structured data
+4. Update with new NVIDIA product version text (user will provide)
+
+---
+
+### Google Merchant Center Product Schema (Required Fields)
+
+**Source:** [Google Product Data Specification](https://support.google.com/merchants/answer/7052112?hl=en)
+
+#### Core Required Attributes (Always Mandatory)
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| **id** | String | Unique product identifier | `DWS-IQ-PLATFORM-V6` |
+| **title** | String (150 chars max) | Product name | `DWS IQ Platform v6 - Climate Intelligence` |
+| **description** | String (5000 chars max) | Full product description | `Enterprise climate intelligence platform...` |
+| **link** | URL | Product page URL | `https://dws10.com/products/dwsiq.html` |
+| **image_link** | URL | Main product image (800x800+ px) | `https://dws10.com/static/images/dws-iq-v6.jpg` |
+| **price** | Price with currency | Product price | `€12,500.00 EUR` |
+| **availability** | Enum | Stock status | `in_stock` / `out_of_stock` / `preorder` |
+| **condition** | Enum | Product condition | `new` / `refurbished` / `used` |
+| **brand** | String | Brand name | `Lifetime Oy` |
+
+#### Conditional Required Attributes
+
+| Field | When Required | Example |
+|-------|---------------|---------|
+| **gtin** | If product has barcode | `123456789012` |
+| **mpn** | If no GTIN | `DWS-IQ-V6-2026` |
+| **color** | Apparel products | `N/A for software` |
+| **size** | Apparel products | `N/A for software` |
+| **age_group** | Apparel products | `N/A for software` |
+| **gender** | Apparel products | `N/A for software` |
+| **shipping_weight** | Physical products | `N/A for SaaS` |
+| **adult** | Adult content | `false` |
+| **multipack** | Bundles | `false` or bundle count |
+
+#### Additional Recommended Attributes (Improve Visibility)
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| **additional_image_link** | Extra product images | Multiple screenshots |
+| **product_type** | Custom category | `Software > Enterprise > Climate Intelligence` |
+| **google_product_category** | Google taxonomy | `Business & Industrial > Business Services` |
+| **item_group_id** | Variant grouping | `DWS-IQ-V6` (for different tiers) |
+| **sale_price** | Promotional price | `€10,000.00 EUR` |
+| **sale_price_effective_date** | Sale period | `2026-01-01/2026-03-31` |
+
+#### Structured Data (JSON-LD) Template
+
+```json
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "DWS IQ Platform v6",
+  "description": "Enterprise-grade climate intelligence platform delivering automated compliance reporting for Fit for 55, CSRD, and NIS2.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Lifetime Oy"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://dws10.com/products/dwsiq.html",
+    "priceCurrency": "EUR",
+    "price": "12500.00",
+    "priceValidUntil": "2026-12-31",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Lifetime Oy"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "24"
+  },
+  "image": "https://dws10.com/static/images/dws-iq-v6.jpg",
+  "sku": "DWS-IQ-V6-2026",
+  "mpn": "DWS-IQ-PLATFORM-V6"
+}
+```
+
+---
+
+### Product Page Rewrite Requirements
+
+#### Must Include (All Pages)
+1. ✅ All Google Merchant required fields
+2. ✅ JSON-LD structured data in `<head>`
+3. ✅ High-quality product images (800x800+ px)
+4. ✅ Clear pricing (with currency)
+5. ✅ Availability status
+6. ✅ CTA buttons (Buy Now, Request Demo)
+7. ✅ Product specifications table
+8. ✅ Use cases / benefits section
+9. ✅ Technical requirements
+10. ✅ Support & documentation links
+
+#### Product Page Template Structure
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Product Name | DWS IQ Platform</title>
+  <meta name="description" content="Product description 150-160 chars">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "Product Name",
+    ...
+  }
+  </script>
+
+  <!-- Shared Navigation -->
+  <script src="/shared-assets/nav/ironclad-nav.js"></script>
+</head>
+<body>
+  <!-- Navigation injected by ironclad-nav.js -->
+
+  <!-- Hero Section: Type B (Enterprise Hero) -->
+  <section class="hero-enterprise">
+    <div class="container">
+      <span class="product-badge">SaaS Platform</span>
+      <h1>Product Name</h1>
+      <p class="subtitle">Value proposition in 1-2 sentences</p>
+
+      <div class="product-meta">
+        <span class="price">€12,500.00 EUR</span>
+        <span class="availability">✅ In Stock</span>
+      </div>
+
+      <div class="cta-buttons">
+        <a href="/buy/" class="btn-primary">Buy Now</a>
+        <a href="https://calendar.google.com/..." class="btn-secondary">Book Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Images Gallery -->
+  <section class="product-gallery">
+    <img src="main-image.jpg" alt="Product Name">
+    <!-- Additional images -->
+  </section>
+
+  <!-- Features & Benefits -->
+  <section class="product-features">
+    <h2>Key Features</h2>
+    <ul>
+      <li>Feature 1 with benefit</li>
+      <li>Feature 2 with benefit</li>
+    </ul>
+  </section>
+
+  <!-- Technical Specifications -->
+  <section class="product-specs">
+    <h2>Specifications</h2>
+    <table>
+      <tr><th>Platform</th><td>Cloud-based SaaS</td></tr>
+      <tr><th>Deployment</th><td>Google Cloud / Cloudflare Edge</td></tr>
+      <tr><th>AI Model</th><td>Claude Sonnet 4</td></tr>
+      <tr><th>Database</th><td>Supabase (PostgreSQL)</td></tr>
+    </table>
+  </section>
+
+  <!-- Pricing Tiers (if applicable) -->
+  <section class="product-pricing">
+    <h2>Pricing</h2>
+    <!-- Pricing cards -->
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Standard footer -->
+  </footer>
+</body>
+</html>
+```
+
+---
+
+### Product Catalog Table (Master List)
+
+**File:** `/docs/product-catalog.md`
+
+Create comprehensive product catalog with all Google Merchant fields:
+
+| Product ID | Product Name | Price (EUR) | Availability | Category | MPN | Description (150 chars) |
+|------------|--------------|-------------|--------------|----------|-----|-------------------------|
+| DWS-IQ-V6 | DWS IQ Platform v6 | €12,500 | in_stock | Enterprise Software | DWS-IQ-V6-2026 | Climate intelligence platform for Fit for 55, CSRD, NIS2 compliance |
+| BUNDLE-01 | Climate Reporting Bundle | €8,500 | in_stock | Software Bundle | CLIMATE-BUNDLE-2026 | Complete compliance reporting solution with templates |
+| FIREHORSE-AUTO | Firehorse Automation | €6,500 | in_stock | Automation Software | FH-AUTO-2026 | Multi-agent workflow automation for construction |
+| FIREHORSE-OMNI | Firehorse Omnichannel Next | €9,500 | in_stock | Communication Platform | FH-OMNI-2026 | Unified omnichannel communication system |
+| EXPERT-3DAY | Workshop 3 Days Expert Advisory | €15,000 | in_stock | Consulting Service | WORKSHOP-3D-2026 | Intensive 3-day implementation workshop |
+| EXPERT-MONTHLY | Expert Advisory Monthly | €5,000/mo | in_stock | Consulting Service | ADVISORY-MONTH-2026 | Ongoing expert advisory & implementation support |
+| CONSULT-FIT55 | Consulting Fit for 55 Specialist | €2,500/day | in_stock | Consulting Service | CONSULT-F55-2026 | Fit for 55 compliance specialist consulting |
+| FH-REPORTS | Firehorse Report Template | €2,500 | in_stock | Software Template | FH-REPORT-2026 | Fit for 55 reporting templates & dashboard |
+| CONSULT-HOURLY | Consulting Hourly Rate | €350/hr | in_stock | Consulting Service | CONSULT-HR-2026 | Expert consulting by the hour |
+
+---
+
+### IMMEDIATE ACTION ITEMS (Next 24 Hours)
+
+**Priority Order:**
+
+1. **Create Missing Product Pages** (2 hours)
+   ```bash
+   # Create 3 missing product files
+   touch dws10.com/products/expert-advisory.html
+   touch dws10.com/products/consulting-fit55.html
+   touch dws10.com/products/consulting.html
+   ```
+
+2. **Create /fit-for-55/ Landing Page** (1 hour)
+   ```bash
+   mkdir -p dws10.com/fit-for-55
+   # Create index.html with hero + industry grid
+   ```
+
+3. **Create Product Catalog Master Table** (1 hour)
+   - Document all 9 products with Google Merchant fields
+   - Save to `/docs/product-catalog.md`
+
+4. **Add JSON-LD to Existing Product Pages** (2 hours)
+   - Update dwsiq.html with structured data
+   - Update bundle.html with structured data
+   - Update all 8 existing product pages
+
+5. **Rewrite Product Pages with New Data** (User to provide NVIDIA text)
+   - Wait for user to provide new product version text
+   - Apply Google Merchant schema to all pages
+   - Add structured data
+   - Optimize images
+
+**Total Estimated Time:** 6-8 hours for critical fixes
+
+---
+
+### Other Priority Actions (After Critical Fixed)
+
 2. 🟠 **High:** Connect 11 orphaned industry pages to navigation
 3. 🟡 **Medium:** Migrate 43 pages to shared navigation
 4. 🟢 **Low:** Consolidate to single design system (Gamma)
