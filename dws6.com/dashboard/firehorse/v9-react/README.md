@@ -34,8 +34,8 @@ Modern, AI-powered climate compliance dashboard with voice interaction capabilit
 
 | Category | Technology | Version |
 |----------|-----------|---------|
-| **Framework** | React | 18.3.1 |
-| **Language** | TypeScript | 5.6.2 |
+| **Framework** | React | 19.2.0 |
+| **Language** | TypeScript | 5.9.3 |
 | **Build Tool** | Vite | 6.0.5 |
 | **AI SDK** | Vercel AI SDK | 4.1.10 |
 | **AI Provider** | Anthropic Claude | Sonnet 4 |
