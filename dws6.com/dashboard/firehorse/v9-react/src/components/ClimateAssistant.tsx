@@ -16,6 +16,9 @@ export function ClimateAssistant() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, setInput, handleSubmit, isLoading, error } = useChat({
+    // NOTE: This component depends on a backend route `/api/climate-assistant`,
+    // which must be implemented and deployed separately (e.g. as a serverless
+    // function or API endpoint) to handle chat requests.
     api: '/api/climate-assistant',
     initialMessages: [
       {
