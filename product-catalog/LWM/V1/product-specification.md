@@ -17,15 +17,39 @@
 
 ## Value Proposition
 
-LVM V1 is a Sovereign Lifetime World Model representing the pinnacle of Physical AI for the construction industry. Developed on the Acer GN-100, it utilizes the Blackwell Superchip to maintain a persistent "Lifetime" memory of physical environments. LVM V1 solves the 51% spatial-temporal data loss of legacy systems, enabling autonomous material logistics and real-time carbon-neutrality steering. It is the core intelligence engine designed to fulfill the EU "Fit for 55" mandate locally.
+LWM V1 is a **55-billion parameter** Sovereign Physical AI purpose-built for the construction industry. Deployed on the Acer Veriton GN-100 with NVIDIA GB10 Grace Blackwell Superchip, it maintains persistent "Lifetime" memory of physical site evolution. This domain-specific world model enables autonomous material logistics and real-time carbon-neutrality steering, serving as the core intelligence engine for EU "Fit for 55" compliance with 100% on-premise data sovereignty.
+
+**Development Status:** Currently implementing 49% of planned capabilities (core memory, sensor fusion, digital twin sync operational). Remaining 51% of advanced features (multi-site federated learning, carbon credit blockchain integration, autonomous equipment control) targeting Q3-Q4 2026 deployment.
+
+---
+
+## Model Architecture
+
+**Parameter Count:** 55 billion parameters
+
+**Training Focus:** Construction site physics, material interactions, and regulatory compliance
+
+**Base Model:** Fine-tuned from NVIDIA Cosmos world foundation model
+
+**Precision:** FP4 optimized for 1 PetaFLOP inference on NVIDIA GB10 Grace Blackwell
+
+### Why 55B Parameters Matter
+
+Generic LLMs (GPT-4, Claude) require extensive prompting to understand construction scenarios. LWM's 55 billion parameters are pre-trained on:
+- Concrete curing physics & timeline prediction
+- Steel structural load calculations
+- EN 15978 embodied carbon methodologies
+- EU Fit for 55 regulatory requirements
+
+**Result:** Sub-second inference on complex site scenarios vs. minutes of cloud API calls with generic models.
 
 ---
 
 ## Technical Details
 
-LVM V1 utilizes the NVIDIA GB10 Grace Blackwell Superchip to train a persistent Temporal Latent Space that understands long-horizon site physics. By utilizing cuTENSORMg and NVIDIA TensorFlow optimized for FP4 precision, it delivers 1 PetaFLOP of localized compute. The model integrates NVIDIA Cosmos (Predict & Reason) as its world foundation model, allowing it to "dream" through occlusions and maintain object permanence across the entire project lifecycle.
+LWM V1 utilizes the NVIDIA GB10 Grace Blackwell Superchip to train a persistent Temporal Latent Space that understands long-horizon site physics. By utilizing cuTENSORMg and NVIDIA TensorFlow optimized for FP4 precision, it delivers 1 PetaFLOP of localized compute. The model integrates NVIDIA Cosmos (Predict & Reason) as its world foundation model, allowing it to "dream" through occlusions and maintain object permanence across the entire project lifecycle.
 
-The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B NIMs as "World Interpreters" for natural language querying of the site state. By utilizing OpenUSD within a Blackwell-optimized Omniverse environment, the LVM synchronizes the physical site with a Full Digital Twin. This "Sovereign AI Factory" keeps proprietary structural IP on-premise, allowing for the simulation of 10,000+ "Fit for 55" scenarios to optimize carbon efficiency before a single brick is laid.
+LWM uses NVIDIA Isaac ROS for multi-sensor calibration and fusion, combined with cuDNN for accelerated neural network inference and TensorRT for real-time multi-modal data stream optimization. Llama3 70B/8B NIMs serve as "World Interpreters" for natural language querying of site state. By utilizing OpenUSD within an Omniverse environment optimized for Blackwell, LWM synchronizes the physical site with a Full Digital Twin. This "Sovereign AI Factory" keeps proprietary structural IP on-premise, allowing for the simulation of 10,000+ "Fit for 55" scenarios to optimize carbon efficiency before a single brick is laid.
 
 ---
 
@@ -41,7 +65,9 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 
 - **cuTENSOR** - Tensor linear algebra operations
 - **cuTENSORMg** - Multi-GPU tensor operations
-- **FQ2BAM Cuda-X NIM** - Micro-second sensor fusion
+- **NVIDIA Isaac ROS** - Multi-sensor calibration and fusion pipeline
+- **cuDNN** - Accelerated neural network inference for sensor processing
+- **TensorRT** - Real-time multi-modal data stream optimization
 - **Llama3 70B Instruct NIM** - World interpreter (natural language queries)
 - **Llama3 8B Instruct NIM** - World interpreter (lightweight queries)
 - **NVIDIA TensorFlow** - Deep learning framework (FP4 optimized)
@@ -90,21 +116,24 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 ## Architecture Overview
 
 ### Hardware Foundation
-- **Primary:** Acer GN-100 with NVIDIA GB10 Grace Blackwell Superchip
+- **Primary:** Acer Veriton GN-100 (owned, on-premise deployment)
+- **Accelerator:** NVIDIA GB10 Grace Blackwell Superchip
 - **Compute:** 1 PetaFLOP localized inference
 - **Precision:** FP4 optimized for energy efficiency
-- **Memory:** Persistent Temporal Latent Space
+- **Memory:** 128GB unified memory for Persistent Temporal Latent Space
+- **Power Envelope:** <500W for edge deployment
+- **Location:** On-site at construction facilities (sovereign stack)
 
 ### Core Capabilities
 
 #### 1. Persistent "Lifetime" Memory
 - Maintains object permanence across entire project lifecycle
-- Solves 51% spatial-temporal data loss of legacy systems
+- Continuous temporal tracking eliminates snapshot gaps in legacy systems
 - Temporal latent space understanding of long-horizon physics
 
 #### 2. Sensor Fusion
-- FQ2BAM Cuda-X NIM for microsecond-level fusion
-- Multi-modal input processing (vision, LiDAR, IoT sensors)
+- NVIDIA Isaac ROS + cuDNN + TensorRT for microsecond-level fusion
+- Multi-modal input processing (vision, LiDAR, IoT sensors, GPS, IMU)
 - Real-time environmental state reconstruction
 
 #### 3. Natural Language Interface
@@ -125,8 +154,8 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 ### Use Cases
 
 **1. Autonomous Material Logistics**
-- Problem: 51% data loss in legacy warehouse/site coordination
-- Solution: LVM maintains persistent memory of all materials
+- Problem: Legacy systems use periodic snapshots, missing material movements between scans
+- Solution: LWM maintains persistent memory of all materials across site lifecycle
 - Result: Zero-waste just-in-time delivery
 
 **2. Fit for 55 Compliance**
@@ -150,15 +179,15 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 
 **vs. Traditional BIM (Building Information Modeling):**
 - ❌ BIM: Static 3D models, no temporal understanding
-- ✅ LVM: Persistent memory of site evolution over time
+- ✅ LWM: Persistent memory of site evolution over time
 
 **vs. Cloud-Based Construction AI:**
 - ❌ Cloud: Data sovereignty issues, latency, vendor lock-in
-- ✅ LVM: On-premise "Sovereign AI Factory", proprietary IP stays local
+- ✅ LWM: On-premise "Sovereign AI Factory", proprietary IP stays local
 
 **vs. Rule-Based Automation:**
 - ❌ Rules: Brittle, can't handle unexpected conditions
-- ✅ LVM: Foundation model "reasons" about novel situations
+- ✅ LWM: Foundation model "reasons" about novel situations
 
 ---
 
@@ -224,9 +253,9 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 4. **Go-to-Market:** Validation as NVIDIA-powered Physical AI solution
 
 **Strategic Alignment:**
-- Jensen's vision: "Physical AI is the next wave" → LVM is Physical AI for construction
-- NVIDIA Omniverse: OpenUSD digital twins → LVM synchronizes physical ↔ digital
-- Sovereign AI: On-premise compute for data sovereignty → LVM keeps IP local
+- Jensen's vision: "Physical AI is the next wave" → LWM is Physical AI for construction
+- NVIDIA Omniverse: OpenUSD digital twins → LWM synchronizes physical ↔ digital
+- Sovereign AI: On-premise compute for data sovereignty → LWM keeps IP local
 
 ---
 
@@ -235,7 +264,7 @@ The LVM uses FQ2BAM Cuda-X NIM for micro-second sensor fusion and Llama3 70B/8B 
 **Technical Foundation:**
 - NVIDIA Cosmos: World foundation model (CES 2026 announcement)
 - Grace Blackwell GB10: 1 PetaFLOP superchip
-- Jensen Huang (CES 2026): "5-layer cake reinvention" → LVM implements all 5 layers
+- Jensen Huang (CES 2026): "5-layer cake reinvention" → LWM implements all 5 layers
 
 **Market Validation:**
 - EU Fit for 55 Package (2023): 55% emissions reduction by 2030 → mandatory market

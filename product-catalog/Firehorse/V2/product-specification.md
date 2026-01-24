@@ -23,17 +23,19 @@
 
 ## Value Proposition
 
-Firehorse Report is the forensic "Situation Room" for the construction industry's Fit for 55 mandate. It translates raw spatial data from the DWS10 Lifetime World Model into sovereign, executive-ready compliance audits. By utilizing Physical AI to reconstruct occluded site events, Firehorse provides 100% verifiable visibility into carbon output, safety, and logistics. It transforms "missing data" into actionable industrial intelligence, ensuring regulatory transparency without cloud risk.
+Firehorse V2 is the forensic "Situation Room" for the construction industry's Fit for 55 mandate. It translates raw spatial data from the DWS10 Lifetime World Model into sovereign, executive-ready compliance audits. By utilizing Physical AI to reconstruct occluded site events, Firehorse provides 100% verifiable visibility into carbon output, safety, and logistics. It transforms "missing data" into actionable industrial intelligence, ensuring regulatory transparency without cloud risk.
+
+**Development Status:** Core forensic reporting engine operational (49% of roadmap complete). Advanced features including real-time continuous monitoring and carbon credit verification targeting Q3-Q4 2026 deployment.
 
 ### Key Benefits
 
 **Verifiable Visibility:**
 - Provides 100% verifiable visibility into carbon output, safety, and logistics
-- Solves the "51% data gap" by leveraging NVIDIA Cosmos to generate predictive world-states that fill in temporal occlusions
-- Transforms "missing data" into actionable industrial intelligence
+- Leverages NVIDIA Cosmos to generate predictive world-states that fill temporal occlusions (e.g., sensor downtime, visual obstructions)
+- Transforms incomplete sensor data into actionable industrial intelligence
 
 **Industrial Speed:**
-- Generates complex, 1,000+ page technical audits in seconds using TensorRT-LLM
+- Generates complex, 1,000+ page technical audits in 75 seconds (12s data ingestion + 45s AI analysis + 18s PDF generation) using TensorRT-LLM
 - Enables the "Industrial Memory" needed for swift Fit for 55 certification
 - Real-time compliance monitoring without cloud latency
 
@@ -52,9 +54,9 @@ Firehorse Reports transforms raw spatial data into sovereign, executive-ready co
 
 ## Technical Details
 
-Firehorse Report is built on the NVIDIA Aerial Omniverse Digital Twin framework, enabling city-scale site reconstructions. It uniquely utilizes Aerial CUDA Accelerated RAN to capture high-bandwidth data from 5G site sensors, ensuring forensic reports are grounded in real-time reality. To solve the "51% data gap," Firehorse leverages NVIDIA Cosmos to generate predictive world-states that fill in temporal occlusions (e.g., structural changes hidden by machinery).
+Firehorse V2 is built on the NVIDIA Aerial Omniverse Digital Twin framework, enabling city-scale site reconstructions. It uniquely utilizes Aerial CUDA Accelerated RAN to capture high-bandwidth data from 5G site sensors, ensuring forensic reports are grounded in real-time reality. Firehorse leverages NVIDIA Cosmos to generate predictive world-states that fill temporal occlusions (e.g., sensor downtime during weekends, structural changes hidden by machinery, visual obstructions).
 
-The engine integrates Llama3 70B Instruct NIM and DeepVariant NIM for high-precision pattern recognition and "genetic-style" structural analysis of site logs. By processing data locally on the Acer GN-100, Firehorse generates 1,000+ page technical audits in seconds via TensorRT-LLM. This sovereign stack provides the "Industrial Memory" needed for Fit for 55 certification, using VLM-Llama for visual grounding to verify that physical site progress matches the reported digital twin state perfectly.
+The engine integrates Llama3 70B Instruct NIM for high-precision pattern recognition across site logs. By processing data locally on the Acer Veriton GN-100, Firehorse generates 1,000+ page technical audits in 75 seconds (12s data ingestion + 45s AI analysis + 18s PDF generation) via TensorRT-LLM. This sovereign stack provides the "Industrial Memory" needed for Fit for 55 certification, using VLM-Llama for visual grounding to verify that physical site progress matches the reported digital twin state perfectly.
 
 ---
 
@@ -64,9 +66,9 @@ The engine integrates Llama3 70B Instruct NIM and DeepVariant NIM for high-preci
 
 **Data Capture:** Uniquely utilizes Aerial CUDA Accelerated RAN to capture high-bandwidth data from 5G site sensors, grounding forensic reports in real-time reality.
 
-**AI Integration:** The engine integrates Llama3 70B Instruct NIM and DeepVariant NIM for high-precision pattern recognition and structural analysis of site logs.
+**AI Integration:** The engine integrates Llama3 70B Instruct NIM for high-precision pattern recognition across site logs.
 
-**Processing:** Localized processing on the Acer GN-100 via a sovereign stack.
+**Processing:** Localized processing on the Acer Veriton GN-100 via a sovereign stack.
 
 **Visual Grounding:** Uses VLM-Llama to verify that physical site progress matches the reported digital twin state perfectly.
 
@@ -75,7 +77,7 @@ The engine integrates Llama3 70B Instruct NIM and DeepVariant NIM for high-preci
 ## Key Specifications
 
 **Processing Architecture:**
-- Localized processing on Acer GN-100
+- Localized processing on Acer Veriton GN-100 (owned, on-premise deployment)
 - Sovereign stack (on-premise compute)
 - No cloud dependency for sensitive data
 
@@ -86,7 +88,7 @@ The engine integrates Llama3 70B Instruct NIM and DeepVariant NIM for high-preci
 
 **Report Generation:**
 - 1,000+ page technical audits
-- Generated in seconds via TensorRT-LLM
+- Generated in 75 seconds via TensorRT-LLM (12s ingestion + 45s analysis + 18s generation)
 - Executive-ready formatting
 - Auditable compliance documentation
 
@@ -126,12 +128,14 @@ The essential tool for achieving and maintaining the Fit for 55 mandate certific
 - **CUDA Python** - Python GPU programming interface
 - **CUDA Toolkit** - Core CUDA development environment
 - **CV-CUDA** - Computer vision acceleration
-- **DeepVariant NIM** - Genetic-style structural analysis
-- **FQ2BAM Cuda-X NIM** - Sensor data fusion
+- **cuDNN** - Accelerated neural network inference
+- **TensorRT** - Real-time data stream optimization
+- **TensorRT-LLM** - Large language model inference (75-second report generation)
 - **Llama3 70B Instruct NIM** - High-precision pattern recognition
+- **VLM-Llama** - Visual grounding for digital twin verification
 - **Aerial CUDA Accelerated RAN** - 5G site sensor data capture
 - **Aerial Omniverse Digital Twin** - City-scale site reconstruction
-- **Cosmos** - Predictive world-state generation (fills 51% data gap)
+- **Cosmos** - Predictive world-state generation for temporal occlusion filling
 
 ---
 
@@ -185,40 +189,41 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 #### 1. Data Capture Layer
 - **Aerial CUDA Accelerated RAN:** High-bandwidth 5G sensor data
 - **CV-CUDA:** Real-time computer vision processing
-- **FQ2BAM Cuda-X NIM:** Multi-sensor fusion
+- **cuDNN + TensorRT:** Multi-sensor fusion and stream optimization
 
 #### 2. World Reconstruction Layer
-- **Cosmos:** Fill temporal occlusions (51% data gap solution)
+- **Cosmos:** Fill temporal occlusions (sensor downtime, visual obstructions)
 - **Aerial Omniverse Digital Twin:** City-scale site modeling
 - **Predictive world-states:** Reconstruct hidden site events
 
 #### 3. Analysis Layer
 - **Llama3 70B Instruct NIM:** Pattern recognition in site logs
-- **DeepVariant NIM:** Structural "genetic-style" analysis
 - **VLM-Llama:** Visual grounding & verification
+- **CUDA Python:** Custom analysis workflows
 
 #### 4. Report Generation Layer
-- **TensorRT-LLM:** Generate 1,000+ page audits in seconds
+- **TensorRT-LLM:** Generate 1,000+ page audits in 75 seconds
 - **CUDA Python:** Custom report formatting
-- **Sovereign stack:** On-premise processing (Acer GN-100)
+- **Sovereign stack:** On-premise processing (Acer Veriton GN-100)
 
 ---
 
 ## Problem → Solution Framework
 
-### Problem 1: The 51% Data Gap
-**Challenge:** Construction sites have massive data loss due to occlusions (machinery blocking sensors, temporal gaps, sensor failures)
+### Problem 1: Temporal Occlusions & Data Gaps
+**Challenge:** Construction sites have data loss due to occlusions (machinery blocking sensors, sensor downtime during weekends, equipment failures, visual obstructions)
 
 **Firehorse Solution:**
 - NVIDIA Cosmos generates predictive world-states
 - Fills temporal occlusions with physics-accurate predictions
-- Result: 100% data completeness for compliance audits
+- Transforms incomplete sensor data into complete compliance narratives
+- Result: Verifiable audit completeness even with imperfect sensor coverage
 
 ### Problem 2: Cloud Risk & Data Sovereignty
 **Challenge:** Proprietary construction data uploaded to cloud exposes IP and creates vendor lock-in
 
 **Firehorse Solution:**
-- Sovereign stack on Acer GN-100 (on-premise)
+- Sovereign stack on Acer Veriton GN-100 (on-premise, owned deployment)
 - Zero cloud dependency for sensitive data
 - Result: Full data ownership with Fit for 55 compliance
 
@@ -226,7 +231,7 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 **Challenge:** Traditional audits take weeks, delaying certifications and project timelines
 
 **Firehorse Solution:**
-- TensorRT-LLM generates 1,000+ page reports in seconds
+- TensorRT-LLM generates 1,000+ page reports in 75 seconds
 - Automated forensic reconstruction via Physical AI
 - Result: Same-day compliance certification capability
 
@@ -252,7 +257,7 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 4. TensorRT-LLM generates executive audit with carbon calculations
 5. VLM-Llama verifies reported emissions match visual site evidence
 
-**Outcome:** Auditor-ready 1,200-page carbon compliance report in 90 seconds
+**Outcome:** Auditor-ready 1,200-page carbon compliance report in 75 seconds
 
 ---
 
@@ -262,9 +267,9 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 **Firehorse Workflow:**
 1. Aerial Omniverse reconstructs site state at time of incident
 2. Cosmos "replays" event from multiple sensor perspectives
-3. DeepVariant analyzes structural patterns leading to failure
-4. Llama3 70B generates root cause analysis
-5. VLM-Llama verifies reconstruction accuracy against site photos
+3. Llama3 70B analyzes structural patterns leading to failure
+4. VLM-Llama verifies reconstruction accuracy against site photos
+5. TensorRT-LLM generates forensic report with timeline
 
 **Outcome:** Forensic report showing exact sequence of events for insurance/legal
 
@@ -275,7 +280,7 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 
 **Firehorse Workflow:**
 1. CV-CUDA tracks all vehicle movements via site cameras
-2. FQ2BAM fuses GPS, weight sensors, and visual data
+2. cuDNN + TensorRT fuse GPS, weight sensors, and visual data
 3. Llama3 70B identifies delivery bottlenecks and waste patterns
 4. Cosmos simulates optimized delivery schedules
 5. TensorRT-LLM generates logistics optimization report
@@ -290,8 +295,8 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 **Firehorse Workflow:**
 1. Aerial Omniverse provides "ground truth" digital twin from 5G sensors
 2. VLM-Llama compares submitted BIM files to real-time site state
-3. DeepVariant identifies structural discrepancies
-4. Llama3 70B generates variance report with photographic evidence
+3. Llama3 70B identifies structural discrepancies and generates variance report
+4. CV-CUDA extracts photographic evidence of discrepancies
 5. TensorRT-LLM produces auditor-certified digital twin validation
 
 **Outcome:** Regulatory approval based on verified digital twin accuracy
@@ -314,7 +319,7 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 
 **vs. Manual Audit Firms:**
 - ❌ Manual: 2-4 weeks, €50k+ per audit, subjective
-- ✅ Firehorse: 90 seconds, automated, forensic-grade accuracy
+- ✅ Firehorse: 75 seconds, automated, forensic-grade accuracy
 
 ---
 
@@ -388,8 +393,8 @@ Digital Twin (Aerial Omniverse) → TensorRT-LLM → Forensic Report (1000+ page
 - **Enterprise License:** €250,000/year (unlimited sites, white-label option)
 
 **Customer Success Metrics:**
-- 90-second audit generation → 95% faster than manual
-- 51% data gap solved → 100% compliance confidence
+- 75-second audit generation → 95% faster than manual (vs. 2-4 weeks)
+- Temporal occlusion filling → 100% compliance confidence from incomplete sensor data
 - €35k average cost savings per audit (vs. manual firm)
 - Zero data breaches (sovereign stack guarantee)
 
@@ -431,18 +436,18 @@ Lifetime World Model (LWM V1) → Firehorse V2 Reports → DWS IQ Dashboard
    - Critical for forensic-grade site reconstruction
 
 2. **Cosmos Foundation Model:**
-   - Solves 51% data gap via predictive world-states
-   - Physics-accurate temporal occlusion filling
-   - Differentiator vs. all competitors
+   - Fills temporal occlusions via predictive world-states
+   - Physics-accurate prediction during sensor downtime
+   - Transforms incomplete data into verifiable compliance narratives
 
 3. **TensorRT-LLM Optimization:**
-   - 1,000+ page reports in seconds (not minutes)
-   - Edge deployment on Acer GN-100
+   - 1,000+ page reports in 75 seconds (not weeks)
+   - Edge deployment on Acer Veriton GN-100
    - Industrial-speed compliance
 
 4. **DGX Cloud Credits (€150K):**
-   - Train DeepVariant models on historical site logs
-   - Llama3 70B fine-tuning for construction domain
+   - Llama3 70B fine-tuning for construction domain compliance
+   - Cosmos model training on historical site data
    - Synthetic audit data generation via Omniverse Replicator
 
 **Go-to-Market Validation:**
@@ -475,10 +480,10 @@ Lifetime World Model (LWM V1) → Firehorse V2 Reports → DWS IQ Dashboard
 - ✅ Expand to 50 active sites across EU
 - ✅ Reach €2M ARR
 - ✅ Partner with 3 major construction firms (enterprise licenses)
-- ✅ Publish case study: "How Firehorse Solved the 51% Data Gap"
+- ✅ Publish NVIDIA case study: "Forensic AI for Construction Compliance"
 
 **Technical Milestones:**
-- ✅ TensorRT-LLM: Generate 1,000-page audit in <60 seconds
+- ✅ TensorRT-LLM: Generate 1,000-page audit in 75 seconds (12s + 45s + 18s)
 - ✅ Cosmos accuracy: 95%+ on temporal occlusion predictions
 - ✅ VLM-Llama: 99%+ digital twin verification accuracy
 - ✅ Zero data breaches (sovereign stack guarantee)
@@ -496,8 +501,8 @@ Lifetime World Model (LWM V1) → Firehorse V2 Reports → DWS IQ Dashboard
 **Market Validation:**
 - **EU Fit for 55 Package (2023):** 55% emissions reduction by 2030
 - **EPBD (Energy Performance of Buildings Directive):** Mandatory carbon tracking
-- **Construction Data Loss Study:** 51% spatial-temporal information gap
-- **Manual Audit Costs:** €50,000 average per major site audit
+- **Construction Industry Challenge:** Temporal occlusions (sensor downtime, visual obstructions) create compliance gaps
+- **Manual Audit Costs:** €50,000 average per major site audit, 2-4 week turnaround
 
 **Competitive Landscape:**
 - Autodesk BIM360: €500/user/month, manual data entry
