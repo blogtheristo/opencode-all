@@ -105,11 +105,11 @@
                             </ul>
                         </li>
                         <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">🎨 UX Designs ▸</a>
+                            <a href="#" class="ironclad-secondary">🎨 Designs ▸</a>
                             <ul class="ironclad-submenu">
+                                <li><a href="${basePath}theta/" class="ironclad-secondary">🤖 Theta</a></li>
+                                <li><a href="${basePath}gamma/" class="ironclad-primary">🏢 Gamma</a></li>
                                 <li><a href="${basePath}ultra/" class="ironclad-secondary">✨ Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">🏭 Ultra II - Industrial</a></li>
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">🏢 Gamma (Current)</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-has-submenu">
@@ -132,9 +132,9 @@
                     </ul>
                 </li>
 
-                <!-- IQ Login Button -->
+                <!-- IQ Login Button - Gamma Style -->
                 <li class="ironclad-menu-item">
-                    <a href="https://dws6.com/login" class="ironclad-cta" title="DWS IQ Login">🔐 IQ Login</a>
+                    <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #0a1628 0%, #152238 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #0066cc; transition: all 0.3s;" title="DWS IQ Login">🔐 IQ Login</a>
                 </li>
                 <li class="ironclad-menu-item">
                     <a href="https://onelifetime.world" class="ironclad-icon-link" title="OneLifetime.World">
