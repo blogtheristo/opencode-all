@@ -21,6 +21,7 @@
 11. [Git Workflow](#git-workflow)
 12. [Sensitive Data Protection](#sensitive-data-protection)
 13. [Emergency Procedures](#emergency-procedures)
+14. [Training](#training) ⭐ **NEW**
 
 ---
 
@@ -1284,10 +1285,183 @@ The DWS IQ 6 Security Framework is a comprehensive 5-layer security architecture
 
 ---
 
+## Training
+
+### Overview
+
+DWS IQ platform provides comprehensive training resources for administrators, developers, and end-users. Training materials are organized by role and competency level.
+
+### Administrator Training
+
+#### Core Platform Administration
+- **Duration:** 2-4 hours
+- **Prerequisites:** System administration experience, basic cloud infrastructure knowledge
+- **Location:** `Admin/ADMIN_MANUAL.md` (this document)
+
+**Topics Covered:**
+1. Platform architecture and infrastructure setup
+2. Deployment procedures (Cloudflare Pages, Cloud Run, Watsonx)
+3. Security monitoring and compliance (GDPR, NIS2)
+4. Backup and recovery procedures
+5. Emergency response protocols
+
+#### AI Model Training (LWM/Firehorse)
+- **Duration:** 8-16 hours (hands-on)
+- **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
+- **Location:** `product-catalog/LWM/training-manual.md`
+
+**Topics Covered:**
+1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)
+2. Claude API integration for synthetic data generation
+3. QLoRA fine-tuning procedures
+4. Industry-specific model training (Logistics, Construction, Manufacturing, Energy, Healthcare)
+5. Model evaluation and deployment
+6. NVIDIA Inception Program integration
+
+**Training Pipeline:**
+```
+Phase 1: Environment Setup (2 hours)
+  ├── Hardware verification
+  ├── Software installation (PyTorch, Transformers, PEFT)
+  └── API configuration (Anthropic, HuggingFace)
+
+Phase 2: Data Generation (3 hours)
+  ├── Industry curriculum design
+  ├── Synthetic training data creation
+  └── Dataset validation
+
+Phase 3: Model Training (8-12 hours)
+  ├── Base model preparation
+  ├── QLoRA configuration
+  ├── Fine-tuning execution
+  └── Model merging and export
+
+Phase 4: Evaluation & Deployment (2 hours)
+  ├── Claude-as-judge evaluation
+  ├── Performance benchmarking
+  └── Production deployment
+```
+
+### Developer Training
+
+#### Frontend Development
+- **Duration:** 4 hours
+- **Location:** Repository `dws6/`, component documentation
+- **Framework:** React + TypeScript + Tailwind CSS
+
+**Topics:**
+1. Component architecture (Agent UI, Dashboard, Product pages)
+2. Styling system (Tailwind + custom utilities)
+3. State management (Vercel AI SDK, Supabase)
+4. Build and deployment workflow
+
+#### Backend Development
+- **Duration:** 4 hours
+- **Location:** `ADMIN_MANUAL_SUPABASE_EN_v1.md`, API documentation
+
+**Topics:**
+1. Supabase integration (PostgreSQL, Auth, Storage)
+2. Edge Function development
+3. API endpoint creation and testing
+4. Database schema management
+
+### End-User Training
+
+#### DWS IQ Dashboard
+- **Duration:** 1 hour
+- **Location:** `ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`
+- **Audience:** Construction professionals, logistics managers
+
+**Topics:**
+1. Dashboard navigation and key features
+2. Project creation and management
+3. Compliance tracking (Fit for 55, CSRD)
+4. Report generation
+
+#### Firehorse Forensic AI
+- **Duration:** 2 hours
+- **Location:** `product-catalog/Firehorse/V2/product-specification.md`
+- **Audience:** Auditors, compliance officers
+
+**Topics:**
+1. Creating compliance audits
+2. Site reconstruction with Digital Twin
+3. Carbon emissions tracking
+4. Regulatory report generation
+
+### Training Resources
+
+| Resource | Type | Location | Purpose |
+|----------|------|----------|---------|
+| **LWM Training Manual** | Technical guide | `product-catalog/LWM/training-manual.md` | Complete AI model training workflow |
+| **Admin Manual** | Reference | `Admin/ADMIN_MANUAL.md` | Platform administration |
+| **Installation Manual** | Setup guide | `Admin/INSTALLATION_MANUAL.md` | Multi-cloud deployment |
+| **Dashboard Manual** | User guide | `ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | End-user interface |
+| **Security Manual** | Compliance guide | `Admin/Security/MASTER_INDEX.md` | Security stack |
+| **Product Catalog** | Product docs | `product-catalog/` | LWM, Firehorse specifications |
+
+### Certification Paths
+
+#### DWS IQ Certified Administrator
+**Requirements:**
+- [ ] Complete platform administration training
+- [ ] Deploy DWS IQ on at least one cloud platform
+- [ ] Pass security compliance audit (GDPR/NIS2)
+- [ ] Document 2 successful emergency recovery procedures
+
+#### LWM Certified Trainer
+**Requirements:**
+- [ ] Complete LWM training manual course
+- [ ] Successfully train 1 industry-specific model
+- [ ] Achieve >80% pass rate on Claude-as-judge evaluation
+- [ ] NVIDIA Inception Program membership (recommended)
+
+### Training Schedule
+
+**Weekly:**
+- Security monitoring review (1 hour)
+- Dependency updates and testing (2 hours)
+
+**Monthly:**
+- Platform administration refresher (2 hours)
+- New feature training (as released)
+- Compliance updates (GDPR, NIS2, EU AI Act)
+
+**Quarterly:**
+- Complete security audit training
+- New industry model training (LWM)
+- Customer success case study review
+
+### External Training Partners
+
+| Partner | Program | Focus Area | Link |
+|---------|---------|------------|------|
+| **NVIDIA** | Deep Learning Institute (DLI) | GPU-accelerated AI training | https://www.nvidia.com/en-us/training/ |
+| **NVIDIA** | Inception Program | Startup support, DGX Cloud access | https://www.nvidia.com/en-us/startups/ |
+| **Anthropic** | Claude API Documentation | LLM integration | https://docs.anthropic.com/ |
+| **Hugging Face** | Transformers Course | Open-source LLM fine-tuning | https://huggingface.co/course |
+
+### Support Resources
+
+- **Technical Support:** support@lifetime.fi
+- **Training Inquiries:** training@lifetime.fi
+- **Emergency Support:** 24/7 via security monitoring system
+
+### Training Metrics
+
+Track training effectiveness:
+- [ ] Administrator onboarding time: Target <8 hours
+- [ ] LWM model training success rate: Target >90%
+- [ ] Security incident response time: Target <2 hours
+- [ ] User satisfaction score: Target >4.5/5
+
+---
+
 ## Document Changelog
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |
 | 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
 | 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
 | 1.3 | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore | PxSux |
