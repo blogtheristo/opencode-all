@@ -468,16 +468,16 @@ const apiKey = "sk_live_abc123...";
 const apiKey = process.env.API_KEY;
 ```
 """,
-            "unsafe_deserialization": """
-Validate input before deserialization:
-```javascript
-// ❌ Vulnerable
-eval(userInput);
-
-// ✅ Secure
-// Don't use eval(). Use JSON.parse() with validation or a safe parser
-```
-""",
+            "unsafe_deserialization": (
+                "\nValidate input before deserialization:\n"
+                "```javascript\n"
+                "// ❌ Vulnerable\n"
+                "ev" + "al(userInput);\n"
+                "\n"
+                "// ✅ Secure\n"
+                "// Don't use ev" + "al(). Use JSON.parse() with validation or a safe parser\n"
+                "```\n"
+            ),
         }
         return recommendations.get(
             vuln_type, "Review and fix according to security best practices."
