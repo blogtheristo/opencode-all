@@ -3,10 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: claude/document-sessions-risto-99bhx | Date: 25.01.2026 | Changes: Initial creation - comprehensive Claude Code sessions documentation
+  - Version: 1.1 | Tool: Claude Code | Session: claude/document-sessions-risto-99bhx | Date: 25.01.2026 | Changes: Added resolutions for broken sessions; fixed Dashboard V9-react build issues
 
 Session Links & References:
   - Claude Code (claude/document-sessions-risto-99bhx): https://github.com/blogtheristo/dws6/tree/claude/document-sessions-risto-99bhx
@@ -50,8 +51,8 @@ This document catalogs all Claude Code sessions in the DWS6 repository. Each ses
 | **Total Sessions** | 14 |
 | **Date Range** | 09.01.2026 - 25.01.2026 |
 | **Merged PRs** | 17 |
-| **Broken/Iterative Sessions** | 2 |
-| **Controversies** | 1 |
+| **Broken/Iterative Sessions** | 2 (both resolved) |
+| **Controversies** | 1 (resolved) |
 
 ### Session Naming Convention
 
@@ -78,10 +79,10 @@ Example: `claude/fix-navigation-images-TBPyS`
 | 8 | `add-monitor-erp-integration-2KKtl` | [#208](https://github.com/blogtheristo/dws6/pull/208) | 17.01.2026 | ✅ Merged | Add Monitor ERP integration |
 | 9 | `sales-ai-agent-design-jqfl0` | [#228](https://github.com/blogtheristo/dws6/pull/228) | 19.01.2026 | ✅ Merged | Sales AI agent design |
 | 10 | `show-dws-version-LLEHz` | [#245](https://github.com/blogtheristo/dws6/pull/245) | 21.01.2026 | ✅ Merged | Show DWS version information |
-| 11 | `evaluate-typescript-react-r6bU3` | [#258](https://github.com/blogtheristo/dws6/pull/258), [#273](https://github.com/blogtheristo/dws6/pull/273) | 22-25.01.2026 | ⚠️ Iterative | TypeScript/React evaluation - multiple iterations |
+| 11 | `evaluate-typescript-react-r6bU3` | [#258](https://github.com/blogtheristo/dws6/pull/258), [#273](https://github.com/blogtheristo/dws6/pull/273) | 22-25.01.2026 | ✅ Resolved | TypeScript/React evaluation - build issues fixed |
 | 12 | `create-claude-md-SFo6p` | [#272](https://github.com/blogtheristo/dws6/pull/272) | 25.01.2026 | ✅ Merged | Create CLAUDE.md project guidance |
 | 13 | `fix-landing-pages-folders-TBPyS` | [#274](https://github.com/blogtheristo/dws6/pull/274) | 25.01.2026 | ✅ Merged | Fix landing pages folder structure |
-| 14 | `restore-calculator-TBPyS` | [#275](https://github.com/blogtheristo/dws6/pull/275), [#276](https://github.com/blogtheristo/dws6/pull/276) | 25.01.2026 | ⚠️ Controversy | Restore calculator - required multiple attempts |
+| 14 | `restore-calculator-TBPyS` | [#275](https://github.com/blogtheristo/dws6/pull/275), [#276](https://github.com/blogtheristo/dws6/pull/276) | 25.01.2026 | ✅ Resolved | Restore calculator - duplicate nav fixed |
 
 ---
 
@@ -500,6 +501,57 @@ Week 4 (Jan 20-26)
 14. [PR #274 - fix-landing-pages-folders-TBPyS](https://github.com/blogtheristo/dws6/pull/274)
 15. [PR #275 - restore-calculator-TBPyS (1st)](https://github.com/blogtheristo/dws6/pull/275)
 16. [PR #276 - restore-calculator-TBPyS (2nd)](https://github.com/blogtheristo/dws6/pull/276)
+
+---
+
+## 7. Resolutions Applied (25.01.2026)
+
+This section documents fixes applied to resolve issues from broken/iterative sessions.
+
+### 7.1 evaluate-typescript-react-r6bU3 - RESOLVED
+
+**Original Issue:** Dashboard V9-react had build failures due to:
+1. AI SDK v6 breaking API changes (useChat hook moved to @ai-sdk/react)
+2. TailwindCSS v4 PostCSS configuration changes
+3. Custom CSS classes incompatible with Tailwind v4
+
+**Fixes Applied:**
+
+1. **ClimateAssistant.tsx** - Rewrote component for AI SDK v6 compatibility
+   - Removed dependency on deprecated `ai/react` import
+   - Implemented standalone chat functionality with fetch API
+   - Added proper TypeScript types for messages
+
+2. **postcss.config.js** - Updated for TailwindCSS v4
+   - Changed from `tailwindcss` to `@tailwindcss/postcss` plugin
+   - Added required @tailwindcss/postcss dependency
+
+3. **src/index.css** - Rewrote for TailwindCSS v4
+   - Replaced `@tailwind` directives with `@import "tailwindcss"`
+   - Converted `@apply` rules to standard CSS with CSS variables
+   - Added `@theme` block for custom colors
+
+4. **package.json** - Added missing dependencies
+   - Added `@ai-sdk/react` package
+   - Added `@tailwindcss/postcss` package
+
+**Build Status:** ✅ Successful (verified with `npm run build`)
+
+---
+
+### 7.2 restore-calculator-TBPyS - VERIFIED RESOLVED
+
+**Original Issue:** Calculator restoration caused duplicate navigation elements.
+
+**Resolution Status:** Already fixed in PR #276 with:
+- Navigation script includes duplicate detection (`if (document.querySelector('.ironclad-header')) return;`)
+- Calculator properly integrated in navigation under "Tools" submenu
+- Universal gamma navigation enabled across all pages
+
+**Verification:**
+- `ironclad-nav.js` includes duplicate prevention at line 544-546
+- Calculator page properly loads navigation script
+- No duplicate navigation elements found in HTML
 
 ---
 
