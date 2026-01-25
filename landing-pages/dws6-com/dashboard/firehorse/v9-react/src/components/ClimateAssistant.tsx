@@ -1,42 +1,48 @@
 /**
  * Climate Assistant Chat Component
  * AI-powered climate compliance assistant with voice interaction
- * - Streaming responses via Vercel AI SDK
  * - Web Speech API for voice input
  * - Speech Synthesis for reading responses
+ *
+ * Note: This component uses a simplified chat implementation.
+ * For production, integrate with your backend API endpoint.
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { useChat } from 'ai/react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useSpeechSynthesis } from '../hooks/useSpeechSynthesis';
 
-export function ClimateAssistant() {
-  const [autoSpeak, setAutoSpeak] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+// Message type for chat
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  createdAt: Date;
+}
 
-  const { messages, input, setInput, handleSubmit, isLoading, error } = useChat({
-    // NOTE: This component depends on a backend route `/api/climate-assistant`,
-    // which must be implemented and deployed separately (e.g. as a serverless
-    // function or API endpoint) to handle chat requests.
-    api: '/api/climate-assistant',
-    initialMessages: [
-      {
-        id: 'welcome',
-        role: 'assistant',
-        content: `Hello! I'm your **DWS IQ Climate Intelligence Assistant**. I can help you with:
+// Initial welcome message
+const welcomeMessage: ChatMessage = {
+  id: 'welcome',
+  role: 'assistant',
+  content: `Hello! I'm your **DWS IQ Climate Intelligence Assistant**. I can help you with:
 
-- 🧮 **EN 15978** carbon calculations
-- 📊 **CSRD** compliance reporting
-- 🏗️ **EPBD** building certifications
-- 💶 **ETS** emissions monitoring
-- 🌍 **CBAM** border regulations
+- **EN 15978** carbon calculations
+- **CSRD** compliance reporting
+- **EPBD** building certifications
+- **ETS** emissions monitoring
+- **CBAM** border regulations
 
 What would you like to know?`,
-        createdAt: new Date(),
-      },
-    ],
-  });
+  createdAt: new Date(),
+};
+
+export function ClimateAssistant() {
+  const [messages, setMessages] = useState<ChatMessage[]>([welcomeMessage]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [autoSpeak, setAutoSpeak] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const {
     transcript,
@@ -76,7 +82,7 @@ What would you like to know?`,
       setInput(transcript);
       resetTranscript();
     }
-  }, [transcript, setInput, resetTranscript]);
+  }, [transcript, resetTranscript]);
 
   // Auto-speak assistant responses if enabled
   useEffect(() => {
@@ -87,7 +93,7 @@ What would you like to know?`,
         const cleanContent = lastMessage.content
           .replace(/\*\*/g, '')
           .replace(/\*/g, '')
-          .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+          .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
           .replace(/#{1,6}\s/g, '');
 
         speak(cleanContent);
@@ -95,28 +101,126 @@ What would you like to know?`,
     }
   }, [messages, autoSpeak, isLoading, speak]);
 
-  const handleVoiceToggle = () => {
+  const handleVoiceToggle = useCallback(() => {
     if (isListening) {
       stopListening();
     } else {
       startListening();
     }
-  };
+  }, [isListening, startListening, stopListening]);
 
-  const handleSpeakToggle = () => {
+  const handleSpeakToggle = useCallback(() => {
     if (isSpeaking) {
       cancelSpeech();
     } else {
       setAutoSpeak(!autoSpeak);
     }
-  };
+  }, [isSpeaking, cancelSpeech, autoSpeak]);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isListening) {
-      stopListening();
+  const sendMessage = useCallback(async (userMessage: string) => {
+    if (!userMessage.trim()) return;
+
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: userMessage,
+      createdAt: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Call your backend API endpoint
+      const response = await fetch('/api/climate-assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const assistantMsg: ChatMessage = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content: data.content || data.message || 'I apologize, but I could not process your request.',
+        createdAt: new Date(),
+      };
+
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch (err) {
+      // For demo purposes, provide a fallback response
+      const fallbackMsg: ChatMessage = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content: `I'm currently unable to connect to the backend API.
+
+**Demo Mode:** In production, this assistant would provide:
+- Real-time carbon calculations using EN 15978 methodology
+- CSRD compliance status checks
+- EPBD certification generation
+- ETS monitoring data
+
+Please ensure the \`/api/climate-assistant\` endpoint is configured.`,
+        createdAt: new Date(),
+      };
+      setMessages((prev) => [...prev, fallbackMsg]);
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      setIsLoading(false);
     }
-    handleSubmit(e);
+  }, []);
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (isListening) {
+        stopListening();
+      }
+      if (input.trim()) {
+        sendMessage(input);
+        setInput('');
+      }
+    },
+    [input, isListening, stopListening, sendMessage]
+  );
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInput(e.target.value);
+    },
+    []
+  );
+
+  const handleSuggestionClick = useCallback((suggestion: string) => {
+    setInput(suggestion);
+  }, []);
+
+  // Render message content with basic markdown support
+  const renderMessageContent = (content: string) => {
+    return content.split('\n').map((line: string, i: number) => {
+      // Handle bold text
+      if (line.includes('**')) {
+        const parts = line.split('**');
+        return (
+          <p key={i}>
+            {parts.map((part: string, j: number) =>
+              j % 2 === 1 ? <strong key={j}>{part}</strong> : part
+            )}
+          </p>
+        );
+      }
+      // Handle bullet points
+      if (line.trim().startsWith('-')) {
+        return <li key={i}>{line.replace(/^-\s*/, '')}</li>;
+      }
+      return line ? <p key={i}>{line}</p> : null;
+    });
   };
 
   return (
@@ -163,7 +267,7 @@ What would you like to know?`,
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide">
-        {messages.map((message) => (
+        {messages.map((message: ChatMessage) => (
           <div
             key={message.id}
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -173,45 +277,10 @@ What would you like to know?`,
             >
               {message.role === 'assistant' ? (
                 <div className="prose prose-sm max-w-none">
-                  {message.content.split('\n').map((line, i) => {
-                    // Handle bold text
-                    if (line.includes('**')) {
-                      const parts = line.split('**');
-                      return (
-                        <p key={i}>
-                          {parts.map((part, j) =>
-                            j % 2 === 1 ? <strong key={j}>{part}</strong> : part
-                          )}
-                        </p>
-                      );
-                    }
-                    // Handle bullet points
-                    if (line.trim().startsWith('-')) {
-                      return <li key={i}>{line.replace(/^-\s*/, '')}</li>;
-                    }
-                    return line ? <p key={i}>{line}</p> : null;
-                  })}
+                  {renderMessageContent(message.content)}
                 </div>
               ) : (
                 <p className="whitespace-pre-wrap">{message.content}</p>
-              )}
-
-              {/* Tool Invocations */}
-              {message.toolInvocations && message.toolInvocations.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-gray-200 space-y-2">
-                  {message.toolInvocations.map((tool) => (
-                    <div key={tool.toolCallId} className="text-xs bg-gray-50 p-2 rounded">
-                      <div className="font-semibold text-gray-700">
-                        🛠️ {tool.toolName}
-                      </div>
-                      {tool.result && (
-                        <pre className="mt-1 text-gray-600 overflow-x-auto">
-                          {JSON.stringify(tool.result, null, 2)}
-                        </pre>
-                      )}
-                    </div>
-                  ))}
-                </div>
               )}
             </div>
           </div>
@@ -222,16 +291,25 @@ What would you like to know?`,
           <div className="flex justify-start">
             <div className="chat-message assistant">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '0ms' }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '150ms' }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: '300ms' }}
+                />
               </div>
             </div>
           </div>
         )}
 
-        {/* Error display */}
-        {error && (
+        {/* Error display - only show if no fallback was provided */}
+        {error && messages[messages.length - 1]?.role !== 'assistant' && (
           <div className="flex justify-center">
             <div className="bg-red-50 text-red-700 px-4 py-2 rounded-lg text-sm">
               ⚠️ {error.message || 'An error occurred'}
@@ -262,7 +340,7 @@ What would you like to know?`,
           <input
             type="text"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleInputChange}
             placeholder="Ask about carbon calculations, compliance, reports..."
             className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             disabled={isLoading || isListening}
@@ -297,21 +375,23 @@ What would you like to know?`,
         {/* Quick Suggestions */}
         <div className="mt-3 flex flex-wrap gap-2">
           <button
-            onClick={() => setInput('Calculate embodied carbon for 500m³ of concrete C30/37')}
+            onClick={() =>
+              handleSuggestionClick('Calculate embodied carbon for 500m³ of concrete C30/37')
+            }
             className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
             disabled={isLoading}
           >
             💡 Carbon calculation
           </button>
           <button
-            onClick={() => setInput('Check CSRD compliance for Q4 2025')}
+            onClick={() => handleSuggestionClick('Check CSRD compliance for Q4 2025')}
             className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
             disabled={isLoading}
           >
             ✅ CSRD compliance
           </button>
           <button
-            onClick={() => setInput('Generate EPBD certificate for Helsinki HQ')}
+            onClick={() => handleSuggestionClick('Generate EPBD certificate for Helsinki HQ')}
             className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
             disabled={isLoading}
           >
