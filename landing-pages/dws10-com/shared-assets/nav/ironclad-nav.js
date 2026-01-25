@@ -89,7 +89,6 @@
                                 <li><a href="${basePath}gamma/" class="ironclad-primary">🏢 Gamma (Current)</a></li>
                                 <li><a href="${basePath}theta/">🤖 Theta</a></li>
                                 <li><a href="${basePath}ultra/" class="ironclad-secondary">✨ Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">🏭 Ultra II - Industrial</a></li>
                             </ul>
                         </li>
                         <!-- Legal & Compliance flyout -->
