@@ -2081,7 +2081,7 @@ Annual Savings:
 | **Edge AI** | Artificial intelligence processing that occurs on local devices rather than cloud servers |
 | **Fit for 55** | EU legislative package requiring 55% emissions reduction by 2030 |
 | **Lifetime Scope Signals** | Coordination protocol for multi-agent development using declarative signal emission |
-| **Lifetime World Model** | 55B parameter LLM trained on climate-intelligent industry knowledge |
+| **Lifetime World Model (LWM)** | 55B parameter Physical AI for construction industry. Domain-specific world model fine-tuned using QLoRA on Acer Veriton GN-100. Training manual: `product-catalog/LWM/training-manual.md` |
 | **MCP Hub** | Model Context Protocol coordination server for multi-agent orchestration |
 | **MVP** | Minimum Viable Product - smallest version that delivers customer value |
 | **NIS2** | Network and Information Security Directive 2 - EU cybersecurity regulation |
@@ -2105,6 +2105,104 @@ Annual Savings:
 | Agent-09 | Email System | 2 | High | transactional | Waiting |
 | Agent-10 | Documentation | 1 | Low | api-docs | Running |
 
+## Appendix G: AI Model Training Infrastructure
+
+### Lifetime World Model (LWM) Training Pipeline
+
+The DWS IQ platform utilizes industry-specific AI models trained using a hybrid approach combining frontier AI (Claude API) with local fine-tuning.
+
+#### Training Infrastructure
+
+**Hardware:**
+- **Primary:** Acer Veriton GN-100 (owned, on-premise deployment)
+- **Accelerator:** NVIDIA GB10 Grace Blackwell Superchip
+- **Compute:** 1 PetaFLOP localized inference
+- **Memory:** 128GB unified memory
+- **Power:** <500W for edge deployment
+
+**Software Stack:**
+- **Base Models:** Meta Llama 3.1 8B/70B
+- **Fine-tuning Method:** QLoRA (4-bit quantization)
+- **Orchestration:** Claude API (Sonnet 4.5)
+- **Evaluation:** Claude-as-judge framework
+
+#### Training Workflow
+
+```
+Phase 1: Curriculum Design (Claude API)
+  └─ Industry-specific learning objectives
+
+Phase 2: Synthetic Data Generation (Claude API)
+  ├─ Training examples (2000+ per industry)
+  └─ Evaluation datasets
+
+Phase 3: Local Fine-tuning (Acer Veriton GN-100)
+  ├─ QLoRA parameter-efficient training
+  ├─ 16-hour training cycle per industry model
+  └─ Cost: €80-125 per industry model
+
+Phase 4: Evaluation & Deployment
+  ├─ Claude-as-judge scoring (target >7.0/10)
+  ├─ Pass rate validation (target >80%)
+  └─ Production model export
+```
+
+#### Industry Models
+
+| Industry | Focus Areas | Regulations | Status |
+|----------|-------------|-------------|--------|
+| **Logistics** | Route optimization, fleet management | GDPR, Working Time Directive | Training |
+| **Construction** | BIM coordination, safety protocols | CE Marking, Eurocodes | Training |
+| **Manufacturing** | Process control, quality management | ISO 9001, Machinery Directive | Planned |
+| **Energy** | Grid management, emissions tracking | EU ETS, CSRD, Taxonomy | Planned |
+| **Healthcare** | Clinical workflows, documentation | GDPR-Health, MDR, NIS2 | Planned |
+
+#### NVIDIA Inception Program Integration
+
+**Benefits:**
+- DGX Cloud Innovation Lab: Up to $100K credits
+- AWS Activate: $25K-$100K credits
+- Deep Learning Institute (DLI) training
+- Technical advisory support
+
+**ROI:**
+- Investment (Year 1): €4,100
+- Revenue (Year 1 projection): €840,000
+- ROI: 20,388% (204x return)
+- Break-even: 1.2 customers per industry
+
+#### Training Documentation
+
+**Primary Resource:**
+`/product-catalog/LWM/training-manual.md` (3000+ lines)
+
+**Sections:**
+1. Infrastructure Setup (Hardware, NVIDIA drivers, CUDA)
+2. NVIDIA Inception Program Integration
+3. Training Pipeline Architecture
+4. Industry-Specific Training Protocols
+5. Step-by-Step Procedures
+6. Quality Assurance & Validation
+7. Cost Analysis & ROI Projections
+8. Troubleshooting Guide
+
+**Administrator Training:**
+- Duration: 8-16 hours (hands-on)
+- Prerequisites: Python programming, ML fundamentals
+- Certification: LWM Certified Trainer
+
+#### Competitive Advantage
+
+Traditional approach:
+- Cloud-only training on DGX Cloud
+- Cost: €15,000+ per model
+- Vendor lock-in
+
+DWS IQ approach:
+- Hybrid: Claude for curriculum + local QLoRA training
+- Cost: €80-125 per model (99% cost reduction)
+- On-premise deployment (data sovereignty)
+
 ---
 
 **Document Information:**
@@ -2121,12 +2219,14 @@ Annual Savings:
 **V1.0 Launch Target:** February 23, 2026
 
 **Languages:** English, Suomi  
-**Related Documents:**  
-- [Finnish Version](../fi/Thesis_FI.md)  
-- [Thesis Plan (Finnish)](../fi/OPINNAYTETYO_SUUNNITELMA_FI.md)  
+**Related Documents:**
+- [Finnish Version](../fi/Thesis_FI.md)
+- [Thesis Plan (Finnish)](../fi/OPINNAYTETYO_SUUNNITELMA_FI.md)
 - [Agent Signal Instructions](../../../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md)
 - [AgentFoundry Architecture](../../../AgentFoundry/AGENT_FOUNDRY_ARCHITECTURE_STANDARD.md)
 - [Master Agent Index](../../../AGENTS.md)
+- [LWM Training Manual](../../../product-catalog/LWM/training-manual.md) ⭐ **NEW**
+- [Admin Manual](../../../Admin/ADMIN_MANUAL.md)
 
 **Key Contributions:**
 1. Lifetime Scope Signals Protocol - Novel multi-agent coordination framework
