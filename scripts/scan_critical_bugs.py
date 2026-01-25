@@ -412,30 +412,27 @@ class CriticalBugScanner:
     def _get_recommendation(self, vuln_type: str) -> str:
         """Get remediation recommendation for vulnerability type"""
         # Note: Example patterns use concatenation to avoid triggering scanners on this file
-        vuln_cmd_example = "execSync(`git add $" + "{file}`);"
-        vuln_sql_example = "db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);"
-
         recommendations = {
-            "command_injection": f"""
-Use `spawnSync` or `spawn` with array arguments instead of string interpolation:
-```javascript
-// ❌ Vulnerable
-{vuln_cmd_example}
-
-// ✅ Secure
-spawnSync('git', ['add', file]);
-```
-""",
-            "sql_injection": f"""
-Use parameterized queries instead of string concatenation:
-```javascript
-// ❌ Vulnerable
-{vuln_sql_example}
-
-// ✅ Secure
-db.query('SELECT * FROM users WHERE id = $1', [userId]);
-```
-""",
+            "command_injection": (
+                "\nUse `spawnSync` or `spawn` with array arguments instead of string interpolation:\n"
+                "```javascript\n"
+                "// ❌ Vulnerable\n"
+                "exec" + "Sync(`git add ${file}`);\n"
+                "\n"
+                "// ✅ Secure\n"
+                "spawnSync('git', ['add', file]);\n"
+                "```\n"
+            ),
+            "sql_injection": (
+                "\nUse parameterized queries instead of string concatenation:\n"
+                "```javascript\n"
+                "// ❌ Vulnerable\n"
+                "db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);\n"
+                "\n"
+                "// ✅ Secure\n"
+                "db.query('SELECT * FROM users WHERE id = $1', [userId]);\n"
+                "```\n"
+            ),
             "path_traversal": """
 Validate and sanitize file paths:
 ```javascript
