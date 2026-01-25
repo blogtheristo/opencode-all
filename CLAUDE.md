@@ -129,6 +129,20 @@ docker-compose -f docker-compose.hybrid.yml up -d
 - Protected config files in `src/config/`
 - Security scans run daily/weekly via GitHub Actions
 
+## 2026 EU AI Act Compliance
+
+By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comply with:
+
+### Article 12: Automatic Logging
+- All AI system events must be automatically logged
+- Logs must enable traceability of system decisions
+- Retention periods must meet regulatory requirements
+
+### Reasoning Lineage Documentation
+- Technical documentation must demonstrate the system's "Reasoning Lineage"
+- Decision chains must be traceable from input to output
+- AI model outputs must include provenance metadata
+
 ## Important Integrations
 
 ### ERP Systems
