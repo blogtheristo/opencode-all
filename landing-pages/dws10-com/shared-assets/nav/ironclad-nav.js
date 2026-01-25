@@ -4,7 +4,7 @@
  * 
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
- * 
+ *
  * The script will automatically inject the navigation at the start of <body>
  */
 
