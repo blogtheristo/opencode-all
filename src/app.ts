@@ -1,3 +1,8 @@
+/**
+ * DWS IQ Backend - Express Server
+ * Google Cloud Run compatible
+ */
+
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -8,14 +13,12 @@ import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
-import { initFirehorsePilot, shutdownFirehorsePilot, firehorseRoutes } from './firehorse/index.js';
-import { investorReportsRouter, investorReportsScheduler } from './investor-reports/index.js';
-import { erpRoutes, initializeERPIntegrations, shutdownERPIntegrations } from './integrations/erp/index.js';
+import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 
 dotenv.config();
 
 const app: Express = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080; // Cloud Run default
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -26,9 +29,9 @@ const __dirname = path.dirname(__filename);
 // Security headers
 app.use(helmet());
 
-// CORS configuration
+// CORS configuration - allow V10 dashboard
 const corsOptions = {
-  origin: (process.env.CORS_ORIGIN || 'http://localhost:3000').split(','),
+  origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5173,https://dws6.com').split(','),
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -36,12 +39,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Body parsers with size limits to prevent DoS via large payloads
+// Body parsers with size limits
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-
-// Note: Cookie parser not needed yet - using localStorage/Authorization header for tokens
-// If cookie-based auth is needed, install and use 'cookie-parser' package
 
 // Rate limiting (general)
 const limiter = rateLimit({
@@ -53,19 +53,19 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Strict rate limiting for sensitive auth endpoints (login, register, forgot-password)
+// Strict rate limiting for auth endpoints
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts per 15 minutes
+  windowMs: 15 * 60 * 1000,
+  max: 5,
   message: 'Too many attempts, please try again later.',
-  skipSuccessfulRequests: true, // Don't count successful requests
+  skipSuccessfulRequests: true,
 });
 app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
 
 // Request logging middleware
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, _res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.path}`, {
     ip: req.ip,
     userAgent: req.get('user-agent'),
@@ -75,39 +75,31 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // ============ HEALTH CHECK ============
 
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    service: 'DWS IQ Auth Backend',
+    service: 'DWS IQ Backend',
     version: '1.0.0',
+    features: {
+      climateAssistant: !!process.env.ANTHROPIC_API_KEY,
+    },
   });
 });
 
 // ============ STATIC FILES ============
 
-// Serve public directory (for signals dashboard and other static assets)
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
-// Redirect /signals to signals dashboard
-app.get('/signals', (req: Request, res: Response) => {
-  res.sendFile(path.join(publicPath, 'signals-dashboard.html'));
-});
-
 // ============ API ROUTES ============
 
+// Auth routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
-// Firehorse Pilot routes
-app.use('/api/v1/firehorse', firehorseRoutes);
-
-// Investor Reports routes
-app.use('/api/v1/investor-reports', investorReportsRouter);
-
-// ERP Integration routes
-app.use('/api/v1/erp', erpRoutes);
+// Climate Assistant AI routes (for V10 dashboard)
+app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // ============ ERROR HANDLING ============
 
@@ -121,7 +113,7 @@ app.use((req: Request, res: Response) => {
 });
 
 // Global error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
   logger.error('Unhandled error', {
     error: err.message,
     stack: err.stack,
@@ -139,44 +131,21 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 // ============ SERVER START ============
 
 const server = app.listen(PORT, () => {
-  logger.info(`✓ Server running on http://localhost:${PORT}`, {
+  logger.info(`Server running on port ${PORT}`, {
     env: process.env.NODE_ENV || 'development',
     port: PORT,
   });
 
-  // Log database connection status
-  if (process.env.DATABASE_URL) {
-    logger.info('✓ Database URL configured');
-  }
-
-  if (process.env.REDIS_URL) {
-    logger.info('✓ Redis URL configured');
-  }
-
-  // Initialize Firehorse Pilot
-  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
-    logger.info('🔥 Initializing Firehorse Pilot...');
-    initFirehorsePilot();
-
-    // Initialize Investor Reports Scheduler
-    logger.info('📊 Initializing Investor Reports Scheduler...');
-    investorReportsScheduler.start();
-
-    // Initialize ERP Integrations
-    logger.info('🏭 Initializing ERP Integrations...');
-    initializeERPIntegrations();
+  if (process.env.ANTHROPIC_API_KEY) {
+    logger.info('Climate Assistant API enabled');
   } else {
-    logger.warn('⚠️  Firehorse Pilot not initialized: Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
-    logger.warn('⚠️  Investor Reports not initialized: Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
+    logger.warn('ANTHROPIC_API_KEY not configured - Climate Assistant will not work');
   }
 });
 
-// Graceful shutdown
+// Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
-  shutdownFirehorsePilot();
-  investorReportsScheduler.stop();
-  shutdownERPIntegrations();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
@@ -185,9 +154,6 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
-  shutdownFirehorsePilot();
-  investorReportsScheduler.stop();
-  shutdownERPIntegrations();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
@@ -195,4 +161,3 @@ process.on('SIGINT', () => {
 });
 
 export default app;
-
