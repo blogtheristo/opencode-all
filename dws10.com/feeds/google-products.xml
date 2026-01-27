@@ -4,13 +4,13 @@
     <title>Lifetime Firehorse Store - DWS IQ Products</title>
     <link>https://dws10.com/buy/</link>
     <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
-    <lastBuildDate>Tue, 27 Jan 2026 10:47:48 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 11:02:27 GMT</lastBuildDate>
 
     <item>
-      <g:id>dwsiq-v6</g:id>
-      <g:title>DWS IQ Platform v6</g:title>
-      <g:description>The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.</g:description>
-      <g:link>https://dws10.com/products/dwsiq.html</g:link>
+      <g:id>DWS-IQ-006</g:id>
+      <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
+      <g:description>The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents deployed in your cloud.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:price>4999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -28,10 +28,30 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-auto</g:id>
+      <g:id>DWS-IQ-005</g:id>
+      <g:title>Lifetime DWS IQ Platform (Version 5)</g:title>
+      <g:description>Legacy Support tier for established industrial workflows. Stable bridge to Fit for 55 compliance with migration path to v6.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>6995.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWSIQ-V5-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>FH-AUTO-001</g:id>
       <g:title>Firehorse Automation</g:title>
       <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028. Eliminates manual data entry errors.</g:description>
-      <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>4950.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -48,10 +68,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>climate-bundle</g:id>
-      <g:title>Climate Reporting Bundle</g:title>
+      <g:id>LIFETIME-BUNDLE-2026</g:id>
+      <g:title>Climate Reporting Starter Bundle</g:title>
       <g:description>Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.</g:description>
-      <g:link>https://dws10.com/products/bundle.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
       <g:price>6500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -68,10 +88,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-omni</g:id>
+      <g:id>FH-OMNI-001</g:id>
       <g:title>Firehorse Omnichannel Next</g:title>
       <g:description>AI marketing engine for sustainable product launches. EU AI Act and Green Claims Directive compliant. 4-week test cycle included.</g:description>
-      <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -88,10 +108,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-report</g:id>
-      <g:title>Firehorse Report - Fit for 55 Template &amp; Dashboard</g:title>
+      <g:id>FH-RPT-001</g:id>
+      <g:title>Firehorse Report</g:title>
       <g:description>Fit for 55 compliant report template with real-time dashboard. SAP integration and 4-week validation included. Automated reporting reduces man-hours by 90%.</g:description>
-      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>1999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -108,10 +128,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-cms</g:id>
+      <g:id>FH-CMS-001</g:id>
       <g:title>Firehorse Content Management</g:title>
       <g:description>Evidence Vault for compliance documentation. Auto-tagging, expiration alerts, and semantic search for audit-ready proof.</g:description>
-      <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>2999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -131,7 +151,7 @@
       <g:id>expert-services</g:id>
       <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
       <g:description>3-day intensive workshop with Risto Anton. Report design, workflow customization, and strategic advisory. Hands-on implementation for Fit for 55, CSRD, and EU AI Act compliance.</g:description>
-      <g:link>https://dws10.com/products/expert-services.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:price>4500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -151,7 +171,7 @@
       <g:id>consulting-hourly</g:id>
       <g:title>Consulting - Hourly Rate</g:title>
       <g:description>Flexible hourly consulting with Risto Anton. Fit for 55 compliance for 16 industries, Governance, EU AI Act guidance, and strategic implementation support. Book hours as needed.</g:description>
-      <g:link>https://dws10.com/products/consulting.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:price>98.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -168,10 +188,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>expert-advisory</g:id>
+      <g:id>LIFETIME-EXP-001</g:id>
       <g:title>Expert Advisory &amp; Implementation</g:title>
       <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
-      <g:link>https://dws10.com/products/expert-advisory.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:price>3000.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -196,7 +216,7 @@
       <g:id>consulting-fit55</g:id>
       <g:title>Consulting Fit for 55 Specialist</g:title>
       <g:description>Dedicated expert time for Fit for 55 Compliance, Compliance Report design, Compliance Workflow customization, Agent Coordination, Enterprise Model Planning/Training and Strategic Advisory (Board CxO). You co-work directly with Risto Anton, Creator of Lifetime Firehorse and Founder of DWS IQ 6 Platform.</g:description>
-      <g:link>https://dws10.com/products/consulting-fit55.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:price>3000.00 EUR</g:price>
       <g:availability>in_stock</g:availability>

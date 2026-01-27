@@ -1,19 +1,19 @@
 {
   "products": {
-    "dwsiq-v6": {
-      "id": "dwsiq-v6",
+    "DWS-IQ-006": {
+      "id": "DWS-IQ-006",
       "gtin": null,
       "mpn": "DWSIQ-V6-2026",
-      "name": "DWS IQ Platform v6",
+      "name": "Lifetime DWS IQ Platform (Version 6)",
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.",
+      "description": "The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents deployed in your cloud.",
       "priceNote": "One-time deployment + €499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
-      "detailsUrl": "../products/dwsiq.html",
+      "detailsUrl": "../buy/",
       "featured": true,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -24,8 +24,32 @@
         "contentLanguage": "en"
       }
     },
-    "firehorse-auto": {
-      "id": "firehorse-auto",
+    "DWS-IQ-005": {
+      "id": "DWS-IQ-005",
+      "gtin": null,
+      "mpn": "DWSIQ-V5-2026",
+      "name": "Lifetime DWS IQ Platform (Version 5)",
+      "price": 6995,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Legacy Support tier for established industrial workflows. Stable bridge to Fit for 55 compliance with migration path to v6.",
+      "priceNote": "Legacy support + migration consultation",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../buy/",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "FH-AUTO-001": {
+      "id": "FH-AUTO-001",
       "gtin": null,
       "mpn": "FH-AUTO-2026",
       "name": "Firehorse Automation",
@@ -37,7 +61,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-automation.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -48,11 +72,11 @@
         "contentLanguage": "en"
       }
     },
-    "climate-bundle": {
-      "id": "climate-bundle",
+    "LIFETIME-BUNDLE-2026": {
+      "id": "LIFETIME-BUNDLE-2026",
       "gtin": null,
       "mpn": "CLM-BUNDLE-2026",
-      "name": "Climate Reporting Bundle",
+      "name": "Climate Reporting Starter Bundle",
       "price": 6500,
       "currency": "EUR",
       "type": "one-time",
@@ -61,7 +85,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
       "image": "/static/images/8_Industries.png",
-      "detailsUrl": "../products/bundle.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -72,8 +96,8 @@
         "contentLanguage": "en"
       }
     },
-    "firehorse-omni": {
-      "id": "firehorse-omni",
+    "FH-OMNI-001": {
+      "id": "FH-OMNI-001",
       "gtin": null,
       "mpn": "FH-OMNI-2026",
       "name": "Firehorse Omnichannel Next",
@@ -85,7 +109,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-omnichannel.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -96,11 +120,11 @@
         "contentLanguage": "en"
       }
     },
-    "firehorse-report": {
-      "id": "firehorse-report",
+    "FH-RPT-001": {
+      "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
-      "name": "Firehorse Report - Fit for 55 Template & Dashboard",
+      "name": "Firehorse Report",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -109,7 +133,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-reports.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -120,8 +144,8 @@
         "contentLanguage": "en"
       }
     },
-    "firehorse-cms": {
-      "id": "firehorse-cms",
+    "FH-CMS-001": {
+      "id": "FH-CMS-001",
       "gtin": null,
       "mpn": "FH-CMS-2026",
       "name": "Firehorse Content Management",
@@ -133,7 +157,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-content-management.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -157,7 +181,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/expert-services.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -181,7 +205,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/consulting.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -192,8 +216,8 @@
         "contentLanguage": "en"
       }
     },
-    "expert-advisory": {
-      "id": "expert-advisory",
+    "LIFETIME-EXP-001": {
+      "id": "LIFETIME-EXP-001",
       "gtin": null,
       "mpn": "EXP-ADV-2026",
       "name": "Expert Advisory & Implementation",
@@ -205,7 +229,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/expert-advisory.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -229,7 +253,7 @@
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/consulting-fit55.html",
+      "detailsUrl": "../buy/",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
