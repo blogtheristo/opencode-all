@@ -39,6 +39,8 @@ function generateProductXml(product) {
     let imageUrl = product.image;
     if (imageUrl && imageUrl.startsWith('../')) {
         imageUrl = `${BASE_URL}/${imageUrl.replace('../', '')}`;
+    } else if (imageUrl && imageUrl.startsWith('/')) {
+        imageUrl = `${BASE_URL}${imageUrl}`;
     } else if (imageUrl && !imageUrl.startsWith('http')) {
         imageUrl = `${BASE_URL}/${imageUrl}`;
     }

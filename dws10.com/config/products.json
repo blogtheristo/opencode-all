@@ -32,7 +32,7 @@
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.",
+      "description": "Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028. Eliminates manual data entry errors.",
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
@@ -43,7 +43,7 @@
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "brand": "Lifetime",
+        "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "en"
       }
@@ -77,11 +77,11 @@
       "gtin": null,
       "mpn": "FH-OMNI-2026",
       "name": "Firehorse Omnichannel Next",
-      "price": 4950,
+      "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "B2B outbound automation for Nordic and European construction portfolios. Reach decision-makers in TOP-30 accounts.",
-      "priceNote": "Setup + €495/mo maintenance",
+      "description": "AI marketing engine for sustainable product launches. EU AI Act and Green Claims Directive compliant. 4-week test cycle included.",
+      "priceNote": "Per campaign cycle",
       "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
@@ -91,7 +91,7 @@
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "brand": "Lifetime",
+        "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "en"
       }
@@ -101,10 +101,10 @@
       "gtin": null,
       "mpn": "FH-REPORT-2026",
       "name": "Firehorse Report - Fit for 55 Template & Dashboard",
-      "price": 1950,
+      "price": 1999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Fit for 55 compliant report template with real-time dashboard. SAP integration and 4-week validation included.",
+      "description": "Fit for 55 compliant report template with real-time dashboard. SAP integration and 4-week validation included. Automated reporting reduces man-hours by 90%.",
       "priceNote": "Per report template",
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
@@ -115,7 +115,31 @@
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "brand": "Lifetime",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "firehorse-cms": {
+      "id": "firehorse-cms",
+      "gtin": null,
+      "mpn": "FH-CMS-2026",
+      "name": "Firehorse Content Management",
+      "price": 2999,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Evidence Vault for compliance documentation. Auto-tagging, expiration alerts, and semantic search for audit-ready proof.",
+      "priceNote": "Setup + migration",
+      "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-content-management.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "en"
       }
@@ -233,5 +257,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-01-06T07:30:00Z"
+  "lastUpdated": "2026-01-27T10:30:00Z"
 }

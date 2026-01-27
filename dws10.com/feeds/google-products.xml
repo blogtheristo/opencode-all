@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store - DWS IQ Products</title>
     <link>https://dws10.com/buy/</link>
     <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
-    <lastBuildDate>Tue, 06 Jan 2026 05:18:29 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 10:26:36 GMT</lastBuildDate>
 
     <item>
       <g:id>dwsiq-v6</g:id>
@@ -30,13 +30,13 @@
     <item>
       <g:id>firehorse-auto</g:id>
       <g:title>Firehorse Automation</g:title>
-      <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.</g:description>
+      <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028. Eliminates manual data entry errors.</g:description>
       <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>4950.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-AUTO-2026</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
@@ -70,13 +70,13 @@
     <item>
       <g:id>firehorse-omni</g:id>
       <g:title>Firehorse Omnichannel Next</g:title>
-      <g:description>4-week outbound engine for Nordic and European construction portfolios.</g:description>
+      <g:description>AI marketing engine for sustainable product launches. EU AI Act and Green Claims Directive compliant. 4-week test cycle included.</g:description>
       <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>4950.00 EUR</g:price>
+      <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-OMNI-2026</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
@@ -89,14 +89,14 @@
     </item>
     <item>
       <g:id>firehorse-report</g:id>
-      <g:title>Firehorse Report</g:title>
-      <g:description>Automated reporting with SAP integration. One report template with 4-week validation.</g:description>
+      <g:title>Firehorse Report - Fit for 55 Template &amp; Dashboard</g:title>
+      <g:description>Fit for 55 compliant report template with real-time dashboard. SAP integration and 4-week validation included. Automated reporting reduces man-hours by 90%.</g:description>
       <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>1950.00 EUR</g:price>
+      <g:price>1999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-REPORT-2026</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
@@ -108,23 +108,108 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>firehorse-cms</g:id>
+      <g:title>Firehorse Content Management</g:title>
+      <g:description>Evidence Vault for compliance documentation. Auto-tagging, expiration alerts, and semantic search for audit-ready proof.</g:description>
+      <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2999.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-CMS-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>expert-services</g:id>
-      <g:title>Expert Advisory &amp; Implementation</g:title>
-      <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
+      <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
+      <g:description>3-day intensive workshop with Risto Anton. Report design, workflow customization, and strategic advisory. Hands-on implementation for Fit for 55, CSRD, and EU AI Act compliance.</g:description>
       <g:link>https://dws10.com/products/expert-services.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-      <g:price>1500.00 EUR</g:price>
+      <g:price>4500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-SVC-2026</g:mpn>
       <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>consulting-hourly</g:id>
+      <g:title>Consulting - Hourly Rate</g:title>
+      <g:description>Flexible hourly consulting with Risto Anton. Fit for 55 compliance for 16 industries, Governance, EU AI Act guidance, and strategic implementation support. Book hours as needed.</g:description>
+      <g:link>https://dws10.com/products/consulting.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>98.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CONSULT-HR-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>expert-advisory</g:id>
+      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
+      <g:link>https://dws10.com/products/expert-advisory.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>3000.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>EXP-ADV-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
         <g:period_length>1</g:period_length>
-        <g:amount>1500.00 EUR</g:amount>
+        <g:amount>3000.00 EUR</g:amount>
+      </g:subscription_cost>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>consulting-fit55</g:id>
+      <g:title>Consulting Fit for 55 Specialist</g:title>
+      <g:description>Dedicated expert time for Fit for 55 Compliance, Compliance Report design, Compliance Workflow customization, Agent Coordination, Enterprise Model Planning/Training and Strategic Advisory (Board CxO). You co-work directly with Risto Anton, Creator of Lifetime Firehorse and Founder of DWS IQ 6 Platform.</g:description>
+      <g:link>https://dws10.com/products/consulting-fit55.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>3000.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CONSULT-FIT55-2026</g:mpn>
+      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>subscription</g:custom_label_1>
+      <g:subscription_cost>
+        <g:period>month</g:period>
+        <g:period_length>1</g:period_length>
+        <g:amount>3000.00 EUR</g:amount>
       </g:subscription_cost>
       <g:shipping>
         <g:country>FI</g:country>
