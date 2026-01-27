@@ -104,6 +104,11 @@ function generateProductXml(product) {
       </g:subscription_cost>`;
     }
 
+    // Checkout link template (Revolut Business)
+    const checkoutLink = product.revolutLink || 'https://revolut.me/lifetimeoy';
+    xml += `
+      <g:checkout_link_template>${escapeXml(checkoutLink)}</g:checkout_link_template>`;
+
     // Shipping (digital products = free)
     xml += `
       <g:shipping>
