@@ -1,28 +1,31 @@
 /**
  * Climate Assistant Service
- * AI-powered climate compliance assistant using Claude API
+ * AI-powered climate compliance assistant using Groq API
  *
  * Configuration:
- * - Model: Claude 3 Haiku (cheapest)
+ * - Provider: Groq (fastest inference)
+ * - Model: Llama 3.1 70B Versatile
  * - Daily budget: $1.00
  * - Max tokens per response: 1024
  *
- * Haiku Pricing (as of 2024):
- * - Input: $0.25 per 1M tokens
- * - Output: $1.25 per 1M tokens
+ * Groq Pricing (Llama 3.1 70B):
+ * - Input: $0.59 per 1M tokens
+ * - Output: $0.79 per 1M tokens
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
 
-// Model: Claude 3 Haiku (cheapest option)
-const MODEL = 'claude-3-haiku-20240307';
+// Model: Llama 3.1 70B on Groq (fast + cheap)
+const MODEL = 'llama-3.1-70b-versatile';
 
-// Pricing per token (USD)
-const INPUT_COST_PER_TOKEN = 0.25 / 1_000_000;  // $0.00000025
-const OUTPUT_COST_PER_TOKEN = 1.25 / 1_000_000; // $0.00000125
+// Groq API endpoint
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+// Pricing per token (USD) - Llama 3.1 70B
+const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000;  // $0.00000059
+const OUTPUT_COST_PER_TOKEN = 0.79 / 1_000_000; // $0.00000079
 
 // Daily budget limit
 const DAILY_BUDGET_USD = 1.00;
@@ -91,24 +94,20 @@ function trackUsage(inputTokens: number, outputTokens: number): void {
   });
 }
 
-// ============ ANTHROPIC CLIENT ============
+// System prompt (concise for efficiency)
+const SYSTEM_PROMPT = `You are DWS IQ Climate Assistant, an expert in EU climate compliance regulations.
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+**Expertise:** EN 15978, CSRD, EPBD, ETS, CBAM, Fit for 55
 
-// System prompt (concise for Haiku)
-const SYSTEM_PROMPT = `You are DWS IQ Climate Assistant. You help with EU climate compliance:
-
-**Expertise:** EN 15978, CSRD, EPBD, ETS, CBAM
-
-**Style:**
+**Guidelines:**
 - Be concise and practical
-- Use bullet points
+- Use bullet points for clarity
 - Include specific numbers for calculations
-- Cite relevant EU standards
+- Cite relevant EU standards and deadlines
+- Focus on actionable compliance guidance
 
-Current date: ${new Date().toISOString().split('T')[0]}`;
+Current date: ${new Date().toISOString().split('T')[0]}
+Jurisdiction: European Union`;
 
 // ============ API INTERFACES ============
 
@@ -135,16 +134,25 @@ export interface ChatResponse {
 // ============ MAIN FUNCTIONS ============
 
 /**
- * Process a chat message and get AI response
+ * Process a chat message and get AI response via Groq
  */
 export async function processMessage(request: ChatRequest): Promise<ChatResponse> {
   const { message, conversationHistory = [] } = request;
+
+  // Check API key
+  if (!process.env.GROQ_API_KEY) {
+    logger.error('GROQ_API_KEY not configured');
+    return {
+      content: 'Climate Assistant is not configured. Please set GROQ_API_KEY.',
+      model: 'error',
+    };
+  }
 
   // Check daily budget
   if (isBudgetExceeded()) {
     logger.warn('Daily budget exceeded', { dailyCost: getDailyCost() });
     return {
-      content: `I've reached my daily usage limit ($${DAILY_BUDGET_USD}). Please try again tomorrow, or contact support for increased limits.`,
+      content: `I've reached my daily usage limit ($${DAILY_BUDGET_USD}). Please try again tomorrow.`,
       model: 'budget-exceeded',
       usage: {
         inputTokens: 0,
@@ -160,33 +168,61 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     messageLength: message.length,
     historyLength: conversationHistory.length,
     model: MODEL,
+    provider: 'groq',
   });
 
   try {
     // Build messages (limit history to save tokens)
-    const recentHistory = conversationHistory.slice(-4); // Keep last 4 messages
-    const messages: Array<{ role: 'user' | 'assistant'; content: string }> = [
+    const recentHistory = conversationHistory.slice(-4);
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
       ...recentHistory,
       { role: 'user', content: message },
     ];
 
-    // Call Claude API
-    const response = await anthropic.messages.create({
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      system: SYSTEM_PROMPT,
-      messages: messages,
+    // Call Groq API (OpenAI-compatible)
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: messages,
+        max_tokens: MAX_TOKENS,
+        temperature: 0.7,
+      }),
     });
 
-    // Extract text content
-    const textContent = response.content.find(block => block.type === 'text');
-    const content = textContent && 'text' in textContent
-      ? textContent.text
-      : 'I could not generate a response.';
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      logger.error('Groq API error', {
+        status: response.status,
+        error: errorData,
+      });
+
+      if (response.status === 401) {
+        throw new Error('API authentication failed. Check GROQ_API_KEY.');
+      }
+      if (response.status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      }
+      throw new Error(`Groq API error: ${response.status}`);
+    }
+
+    const data = await response.json() as {
+      choices?: Array<{ message?: { content?: string } }>;
+      usage?: { prompt_tokens?: number; completion_tokens?: number };
+      model?: string;
+    };
+
+    // Extract content
+    const content = data.choices?.[0]?.message?.content || 'I could not generate a response.';
 
     // Track usage
-    const inputTokens = response.usage.input_tokens;
-    const outputTokens = response.usage.output_tokens;
+    const inputTokens = data.usage?.prompt_tokens || 0;
+    const outputTokens = data.usage?.completion_tokens || 0;
     trackUsage(inputTokens, outputTokens);
 
     const requestCost =
@@ -197,12 +233,13 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       inputTokens,
       outputTokens,
       cost: `$${requestCost.toFixed(6)}`,
-      model: response.model,
+      model: data.model,
+      provider: 'groq',
     });
 
     return {
       content,
-      model: response.model,
+      model: data.model || MODEL,
       usage: {
         inputTokens,
         outputTokens,
@@ -214,20 +251,8 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
   } catch (error: any) {
     logger.error('API error', {
       error: error.message,
-      code: error.status,
     });
-
-    if (error.status === 401) {
-      throw new Error('API authentication failed. Check ANTHROPIC_API_KEY.');
-    }
-    if (error.status === 429) {
-      throw new Error('Rate limit exceeded. Please try again later.');
-    }
-    if (error.status === 500) {
-      throw new Error('AI service temporarily unavailable.');
-    }
-
-    throw new Error('Failed to process message. Please try again.');
+    throw new Error(error.message || 'Failed to process message. Please try again.');
   }
 }
 
@@ -243,6 +268,8 @@ export function getUsageStats(): {
   budget: number;
   remaining: number;
   percentUsed: number;
+  provider: string;
+  model: string;
 } {
   const cost = getDailyCost();
   return {
@@ -254,6 +281,8 @@ export function getUsageStats(): {
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
     percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
+    provider: 'groq',
+    model: MODEL,
   };
 }
 
@@ -261,8 +290,8 @@ export function getUsageStats(): {
  * Health check for the AI service
  */
 export async function healthCheck(): Promise<boolean> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    logger.warn('ANTHROPIC_API_KEY not configured');
+  if (!process.env.GROQ_API_KEY) {
+    logger.warn('GROQ_API_KEY not configured');
     return false;
   }
   return true;

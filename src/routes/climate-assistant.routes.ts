@@ -103,9 +103,10 @@ router.get('/health', async (req: Request, res: Response) => {
     res.status(isHealthy ? 200 : 503).json({
       status: isHealthy ? 'healthy' : 'degraded',
       service: 'climate-assistant',
+      provider: 'groq',
       timestamp: new Date().toISOString(),
       checks: {
-        anthropicApiKey: !!process.env.ANTHROPIC_API_KEY,
+        groqApiKey: !!process.env.GROQ_API_KEY,
       },
     });
   } catch (error: any) {
@@ -127,7 +128,6 @@ router.get('/usage', (req: Request, res: Response) => {
 
     res.status(200).json({
       service: 'climate-assistant',
-      model: 'claude-3-haiku-20240307',
       ...stats,
       timestamp: new Date().toISOString(),
     });
