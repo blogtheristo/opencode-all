@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store - DWS IQ Products</title>
     <link>https://dws10.com/buy/</link>
     <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
-    <lastBuildDate>Tue, 27 Jan 2026 11:02:27 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 11:14:54 GMT</lastBuildDate>
 
     <item>
       <g:id>DWS-IQ-006</g:id>
@@ -263,7 +263,7 @@
       <g:description>AI-powered conversational agents for enterprise workflows. Integrates with Microsoft Teams, Google Workspace, Zoom, WhatsApp Business. Supports Groq, Anthropic, OpenAI, and self-hosted LLMs.</g:description>
       <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>2500.00 EUR</g:price>
+      <g:price>3500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
@@ -468,7 +468,7 @@
       <g:description>Professional responsive web pages for new businesses, products, or companies. Technology options include React.JS, Blazor, WordPress, Squarespace. AI chatbot and e-commerce add-ons available.</g:description>
       <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>499.00 EUR</g:price>
+      <g:price>799.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
@@ -534,6 +534,86 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>AGENT-GLOSSARY-2026</g:mpn>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>devops-lead</g:id>
+      <g:title>Continuous Workflow Agent Delivery</g:title>
+      <g:description>Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DEVOPS-LEAD-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>digital-design-gold</g:id>
+      <g:title>Lifetime World - Digital Design Gold</g:title>
+      <g:description>Digital marketing dashboard and design services. Complete marketing intelligence solution with analytics and visualization.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DESIGN-GOLD-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>cloud-ready-teams</g:id>
+      <g:title>Solution Ready Team - Do it Right</g:title>
+      <g:description>Cloud-ready team solution for organizations needing immediate technical expertise. Pre-vetted professionals ready for deployment.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>950.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CRT-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>ai-koulutus-3d</g:id>
+      <g:title>AI Koulutus 3 Days Programme</g:title>
+      <g:description>Intensive 3-day AI training programme for organizations. In-house coaching covering AI strategy, implementation, and team upskilling.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>6250.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AI-KOULUTUS-3D-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
