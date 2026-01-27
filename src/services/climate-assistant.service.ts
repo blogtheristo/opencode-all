@@ -2,50 +2,115 @@
  * Climate Assistant Service
  * AI-powered climate compliance assistant using Claude API
  *
- * Supports:
- * - EN 15978 carbon calculations
- * - CSRD compliance reporting
- * - EPBD building certifications
- * - ETS emissions monitoring
- * - CBAM border regulations
+ * Configuration:
+ * - Model: Claude 3 Haiku (cheapest)
+ * - Daily budget: $1.00
+ * - Max tokens per response: 1024
+ *
+ * Haiku Pricing (as of 2024):
+ * - Input: $0.25 per 1M tokens
+ * - Output: $1.25 per 1M tokens
  */
 
 import Anthropic from '@anthropic-ai/sdk';
 import logger from '../utils/logger.js';
 
-// Initialize Anthropic client
+// ============ CONFIGURATION ============
+
+// Model: Claude 3 Haiku (cheapest option)
+const MODEL = 'claude-3-haiku-20240307';
+
+// Pricing per token (USD)
+const INPUT_COST_PER_TOKEN = 0.25 / 1_000_000;  // $0.00000025
+const OUTPUT_COST_PER_TOKEN = 1.25 / 1_000_000; // $0.00000125
+
+// Daily budget limit
+const DAILY_BUDGET_USD = 1.00;
+
+// Max tokens per response (keep responses concise)
+const MAX_TOKENS = 1024;
+
+// ============ USAGE TRACKING ============
+
+interface DailyUsage {
+  date: string;
+  inputTokens: number;
+  outputTokens: number;
+  requests: number;
+}
+
+let dailyUsage: DailyUsage = {
+  date: new Date().toISOString().split('T')[0],
+  inputTokens: 0,
+  outputTokens: 0,
+  requests: 0,
+};
+
+/**
+ * Get current daily cost
+ */
+function getDailyCost(): number {
+  return (
+    dailyUsage.inputTokens * INPUT_COST_PER_TOKEN +
+    dailyUsage.outputTokens * OUTPUT_COST_PER_TOKEN
+  );
+}
+
+/**
+ * Check if budget is exceeded
+ */
+function isBudgetExceeded(): boolean {
+  // Reset if new day
+  const today = new Date().toISOString().split('T')[0];
+  if (dailyUsage.date !== today) {
+    logger.info('Daily usage reset', { previousUsage: dailyUsage });
+    dailyUsage = {
+      date: today,
+      inputTokens: 0,
+      outputTokens: 0,
+      requests: 0,
+    };
+  }
+  return getDailyCost() >= DAILY_BUDGET_USD;
+}
+
+/**
+ * Track token usage
+ */
+function trackUsage(inputTokens: number, outputTokens: number): void {
+  dailyUsage.inputTokens += inputTokens;
+  dailyUsage.outputTokens += outputTokens;
+  dailyUsage.requests += 1;
+
+  logger.info('Usage tracked', {
+    inputTokens,
+    outputTokens,
+    dailyCost: `$${getDailyCost().toFixed(4)}`,
+    dailyBudget: `$${DAILY_BUDGET_USD}`,
+    remainingBudget: `$${(DAILY_BUDGET_USD - getDailyCost()).toFixed(4)}`,
+  });
+}
+
+// ============ ANTHROPIC CLIENT ============
+
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// System prompt for climate compliance assistant
-const SYSTEM_PROMPT = `You are DWS IQ Climate Intelligence Assistant, an expert AI specialized in EU climate compliance and sustainability regulations. You help industrial companies navigate:
+// System prompt (concise for Haiku)
+const SYSTEM_PROMPT = `You are DWS IQ Climate Assistant. You help with EU climate compliance:
 
-**Core Expertise:**
-- **EN 15978**: Life cycle assessment of buildings, embodied carbon calculations
-- **CSRD** (Corporate Sustainability Reporting Directive): ESG reporting requirements
-- **EPBD** (Energy Performance of Buildings Directive): Building energy certifications
-- **ETS** (Emissions Trading System): Carbon allowances and monitoring
-- **CBAM** (Carbon Border Adjustment Mechanism): Import carbon pricing
+**Expertise:** EN 15978, CSRD, EPBD, ETS, CBAM
 
-**Your Role:**
-1. Provide accurate, actionable guidance on climate regulations
-2. Help calculate carbon footprints using industry-standard methodologies
-3. Explain compliance requirements in clear, practical terms
-4. Suggest optimization strategies to reduce emissions
-5. Reference relevant EU legislation when applicable
+**Style:**
+- Be concise and practical
+- Use bullet points
+- Include specific numbers for calculations
+- Cite relevant EU standards
 
-**Response Style:**
-- Be concise but thorough
-- Use bullet points for clarity
-- Include specific numbers and formulas when doing calculations
-- Cite relevant standards (EN 15978, ISO 14064, GHG Protocol)
-- Highlight compliance deadlines and requirements
+Current date: ${new Date().toISOString().split('T')[0]}`;
 
-**Current Context:**
-- Date: ${new Date().toISOString().split('T')[0]}
-- Jurisdiction: EU (Fit for 55 package)
-- Focus: Industrial climate compliance`;
+// ============ API INTERFACES ============
 
 export interface ChatRequest {
   message: string;
@@ -61,8 +126,13 @@ export interface ChatResponse {
   usage?: {
     inputTokens: number;
     outputTokens: number;
+    cost: number;
+    dailyCost: number;
+    dailyBudget: number;
   };
 }
+
+// ============ MAIN FUNCTIONS ============
 
 /**
  * Process a chat message and get AI response
@@ -70,33 +140,63 @@ export interface ChatResponse {
 export async function processMessage(request: ChatRequest): Promise<ChatResponse> {
   const { message, conversationHistory = [] } = request;
 
-  logger.info('Processing climate assistant message', {
+  // Check daily budget
+  if (isBudgetExceeded()) {
+    logger.warn('Daily budget exceeded', { dailyCost: getDailyCost() });
+    return {
+      content: `I've reached my daily usage limit ($${DAILY_BUDGET_USD}). Please try again tomorrow, or contact support for increased limits.`,
+      model: 'budget-exceeded',
+      usage: {
+        inputTokens: 0,
+        outputTokens: 0,
+        cost: 0,
+        dailyCost: getDailyCost(),
+        dailyBudget: DAILY_BUDGET_USD,
+      },
+    };
+  }
+
+  logger.info('Processing message', {
     messageLength: message.length,
     historyLength: conversationHistory.length,
+    model: MODEL,
   });
 
   try {
-    // Build messages array with history
+    // Build messages (limit history to save tokens)
+    const recentHistory = conversationHistory.slice(-4); // Keep last 4 messages
     const messages: Array<{ role: 'user' | 'assistant'; content: string }> = [
-      ...conversationHistory,
+      ...recentHistory,
       { role: 'user', content: message },
     ];
 
     // Call Claude API
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2048,
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
       system: SYSTEM_PROMPT,
       messages: messages,
     });
 
-    // Extract text content from response
+    // Extract text content
     const textContent = response.content.find(block => block.type === 'text');
-    const content = textContent && 'text' in textContent ? textContent.text : 'I apologize, but I could not generate a response.';
+    const content = textContent && 'text' in textContent
+      ? textContent.text
+      : 'I could not generate a response.';
 
-    logger.info('Climate assistant response generated', {
-      inputTokens: response.usage.input_tokens,
-      outputTokens: response.usage.output_tokens,
+    // Track usage
+    const inputTokens = response.usage.input_tokens;
+    const outputTokens = response.usage.output_tokens;
+    trackUsage(inputTokens, outputTokens);
+
+    const requestCost =
+      inputTokens * INPUT_COST_PER_TOKEN +
+      outputTokens * OUTPUT_COST_PER_TOKEN;
+
+    logger.info('Response generated', {
+      inputTokens,
+      outputTokens,
+      cost: `$${requestCost.toFixed(6)}`,
       model: response.model,
     });
 
@@ -104,17 +204,19 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       content,
       model: response.model,
       usage: {
-        inputTokens: response.usage.input_tokens,
-        outputTokens: response.usage.output_tokens,
+        inputTokens,
+        outputTokens,
+        cost: requestCost,
+        dailyCost: getDailyCost(),
+        dailyBudget: DAILY_BUDGET_USD,
       },
     };
   } catch (error: any) {
-    logger.error('Climate assistant error', {
+    logger.error('API error', {
       error: error.message,
       code: error.status,
     });
 
-    // Handle specific API errors
     if (error.status === 401) {
       throw new Error('API authentication failed. Check ANTHROPIC_API_KEY.');
     }
@@ -130,22 +232,44 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
 }
 
 /**
+ * Get current usage statistics
+ */
+export function getUsageStats(): {
+  date: string;
+  requests: number;
+  inputTokens: number;
+  outputTokens: number;
+  cost: number;
+  budget: number;
+  remaining: number;
+  percentUsed: number;
+} {
+  const cost = getDailyCost();
+  return {
+    date: dailyUsage.date,
+    requests: dailyUsage.requests,
+    inputTokens: dailyUsage.inputTokens,
+    outputTokens: dailyUsage.outputTokens,
+    cost: Math.round(cost * 10000) / 10000,
+    budget: DAILY_BUDGET_USD,
+    remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
+    percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
+  };
+}
+
+/**
  * Health check for the AI service
  */
 export async function healthCheck(): Promise<boolean> {
-  try {
-    // Simple API key validation
-    if (!process.env.ANTHROPIC_API_KEY) {
-      logger.warn('ANTHROPIC_API_KEY not configured');
-      return false;
-    }
-    return true;
-  } catch {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    logger.warn('ANTHROPIC_API_KEY not configured');
     return false;
   }
+  return true;
 }
 
 export default {
   processMessage,
   healthCheck,
+  getUsageStats,
 };

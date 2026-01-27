@@ -117,4 +117,26 @@ router.get('/health', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * GET /api/climate-assistant/usage
+ * Get current daily usage statistics
+ */
+router.get('/usage', (req: Request, res: Response) => {
+  try {
+    const stats = ClimateAssistantService.getUsageStats();
+
+    res.status(200).json({
+      service: 'climate-assistant',
+      model: 'claude-3-haiku-20240307',
+      ...stats,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      error: 'Failed to get usage stats',
+      message: error.message,
+    });
+  }
+});
+
 export default router;
