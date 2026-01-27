@@ -1,16 +1,20 @@
 /**
- * Climate Assistant Chat Component
+ * Climate Assistant Chat Component (V10)
  * AI-powered climate compliance assistant with voice interaction
  * - Web Speech API for voice input
  * - Speech Synthesis for reading responses
+ * - Google Cloud backend integration
  *
- * Note: This component uses a simplified chat implementation.
- * For production, integrate with your backend API endpoint.
+ * Environment Variables:
+ * - VITE_API_URL: Backend API URL (Google Cloud Run)
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useSpeechSynthesis } from '../hooks/useSpeechSynthesis';
+
+// API URL from environment variable (Google Cloud backend)
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 // Message type for chat
 interface ChatMessage {
@@ -132,8 +136,8 @@ export function ClimateAssistant() {
     setError(null);
 
     try {
-      // Call your backend API endpoint
-      const response = await fetch('/api/climate-assistant', {
+      // Call Google Cloud backend API endpoint
+      const response = await fetch(`${API_URL}/api/climate-assistant`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage }),
@@ -154,19 +158,19 @@ export function ClimateAssistant() {
 
       setMessages((prev) => [...prev, assistantMsg]);
     } catch (err) {
-      // For demo purposes, provide a fallback response
+      // Provide a fallback response when backend is unavailable
       const fallbackMsg: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
         content: `I'm currently unable to connect to the backend API.
 
-**Demo Mode:** In production, this assistant would provide:
+**Demo Mode:** In production, this assistant provides:
 - Real-time carbon calculations using EN 15978 methodology
 - CSRD compliance status checks
 - EPBD certification generation
 - ETS monitoring data
 
-Please ensure the \`/api/climate-assistant\` endpoint is configured.`,
+Please ensure the \`VITE_API_URL\` environment variable points to your Google Cloud backend.`,
         createdAt: new Date(),
       };
       setMessages((prev) => [...prev, fallbackMsg]);
