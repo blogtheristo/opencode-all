@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store - DWS IQ Products</title>
     <link>https://dws10.com/buy/</link>
     <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
-    <lastBuildDate>Tue, 27 Jan 2026 10:26:36 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 10:30:51 GMT</lastBuildDate>
 
     <item>
       <g:id>dwsiq-v6</g:id>
@@ -17,7 +17,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-V6-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
@@ -38,7 +37,6 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-AUTO-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -58,7 +56,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CLM-BUNDLE-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -78,7 +75,6 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-OMNI-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -98,7 +94,6 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-REPORT-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -118,7 +113,6 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-CMS-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -138,7 +132,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-SVC-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -158,7 +151,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-HR-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:shipping>
@@ -178,7 +170,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-ADV-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -203,7 +194,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-FIT55-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
