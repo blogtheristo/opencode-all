@@ -261,8 +261,9 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
           {/* Status Indicator */}
           <div className="flex items-center gap-2">
             {isLoading && (
-              <span className="text-xs text-gray-500 flex items-center gap-1">
-                <span className="animate-pulse">●</span> Thinking...
+              <span className="text-xs text-primary-600 font-medium flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
+                <span>Thinking...</span>
               </span>
             )}
           </div>
@@ -296,16 +297,16 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
             <div className="chat-message assistant">
               <div className="flex items-center gap-2">
                 <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                  style={{ animationDelay: '0ms' }}
+                  className="w-2.5 h-2.5 bg-primary-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '0ms', animationDuration: '0.6s' }}
                 />
                 <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                  style={{ animationDelay: '150ms' }}
+                  className="w-2.5 h-2.5 bg-primary-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '150ms', animationDuration: '0.6s' }}
                 />
                 <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                  style={{ animationDelay: '300ms' }}
+                  className="w-2.5 h-2.5 bg-primary-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '300ms', animationDuration: '0.6s' }}
                 />
               </div>
             </div>
