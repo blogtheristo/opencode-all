@@ -41,10 +41,6 @@ const chatValidation = [
     .trim()
     .isLength({ min: 10, max: 100 })
     .withMessage('Valid sessionId required'),
-  body('tier')
-    .optional()
-    .isIn(['public', 'lead', 'guest', 'premium'])
-    .withMessage('Invalid tier'),
   body('userId')
     .optional()
     .isString(),
@@ -100,19 +96,21 @@ const validate = (req: Request, res: Response, next: any) => {
  */
 router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, async (req: Request, res: Response) => {
   try {
-    const { message, sessionId, userId, tier = 'public', conversationHistory } = req.body;
+    const { message, sessionId, userId, conversationHistory } = req.body;
 
-    // Determine tier from validated auth token
-    let effectiveTier: UserTier = tier;
+    // Determine tier based on authentication status (server-side only)
+    // Do NOT trust client-provided tier parameter
+    let effectiveTier: UserTier = 'public'; // Default to public
     
     // If user is authenticated (token was validated by optionalAuth middleware)
     if (req.userId) {
-      // Upgrade to at least 'guest' tier for authenticated users
-      effectiveTier = tier === 'public' ? 'guest' : tier;
+      // TODO: In production, fetch user's actual subscription tier from database
+      // For now, all authenticated users get 'guest' tier
+      effectiveTier = 'guest';
       logger.debug('Authenticated user detected', { 
         userId: req.userId, 
         email: req.userEmail,
-        upgradedTier: effectiveTier 
+        assignedTier: effectiveTier 
       });
     }
 
