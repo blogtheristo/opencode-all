@@ -27,18 +27,15 @@ jobs:
           echo "🔍 Checking .gitignore for deployment file protections..."
           
           # Required patterns that must exist in .gitignore
+          # NOTE: Dockerfile and .dockerignore removed - they're needed for CI/CD
           REQUIRED_PATTERNS=(
-            "cloudbuild.yaml"
             "cloudrun-service.yaml"
             "deploy-gcp.sh"
             "setup-secrets-gcp.sh"
             "GCP_DEPLOYMENT.md"
             "QUICK_DEPLOY.md"
             "docker-compose.mcp.yml"
-            "Dockerfile"
-            ".dockerignore"
             "DOCKER_.*.md"
-            "mcp-hub/Dockerfile"
             "mcp-hub/DOCKER_.*"
             "mcp-hub/GCP_.*"
             "mcp-hub/DEPLOY_.*"
@@ -67,18 +64,17 @@ jobs:
         id: check-tracked
         run: |
           echo "🔍 Checking if deployment files are tracked in Git..."
-          
-          # Files that should NEVER be tracked
+
+          # Files that should NEVER be tracked (secrets/deployment procedures)
+          # NOTE: Dockerfile and .dockerignore ARE ALLOWED - needed for CI/CD
+          # They don't contain secrets, just build instructions
           DEPLOYMENT_FILES=(
-            "cloudbuild.yaml"
             "cloudrun-service.yaml"
             "deploy-gcp.sh"
             "setup-secrets-gcp.sh"
             "GCP_DEPLOYMENT.md"
             "QUICK_DEPLOY.md"
             "docker-compose.mcp.yml"
-            "Dockerfile"
-            ".dockerignore"
           )
           
           TRACKED_FILES=()
@@ -158,7 +154,12 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📋 Protected Files" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Google Cloud: cloudbuild.yaml, cloudrun-service.yaml, deploy-gcp.sh, setup-secrets-gcp.sh" >> $GITHUB_STEP_SUMMARY
-          echo "- Docker: docker-compose.mcp.yml, Dockerfile, .dockerignore, DOCKER_*.md" >> $GITHUB_STEP_SUMMARY
-          echo "- MCP Hub: mcp-hub/Dockerfile, mcp-hub/DOCKER_*.md, mcp-hub/GCP_*.md, mcp-hub/DEPLOY_*.md" >> $GITHUB_STEP_SUMMARY
+          echo "- Google Cloud: cloudrun-service.yaml, deploy-gcp.sh, setup-secrets-gcp.sh" >> $GITHUB_STEP_SUMMARY
+          echo "- Docker: docker-compose.mcp.yml, DOCKER_*.md" >> $GITHUB_STEP_SUMMARY
+          echo "- MCP Hub: mcp-hub/DOCKER_*.md, mcp-hub/GCP_*.md, mcp-hub/DEPLOY_*.md" >> $GITHUB_STEP_SUMMARY
           echo "- Documentation: GCP_DEPLOYMENT.md, QUICK_DEPLOY.md" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Allowed for CI/CD" >> $GITHUB_STEP_SUMMARY
+          echo "- Dockerfile (build instructions only, no secrets)" >> $GITHUB_STEP_SUMMARY
+          echo "- .dockerignore (file exclusion rules)" >> $GITHUB_STEP_SUMMARY
+          echo "- cloudbuild.yaml (build configuration)" >> $GITHUB_STEP_SUMMARY
