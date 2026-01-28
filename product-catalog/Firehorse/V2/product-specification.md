@@ -3,6 +3,25 @@
 
 ---
 
+## EU-Sovereign Badge
+
+[![EU-Sovereign](../../assets/badges/EU_Sovereign.png)](/sovereignty/sovereignty.html)
+
+**Sovereignty Status:** EU-Sovereign Options Available
+
+| Deployment Option | Sovereignty Level | CLOUD Act | Best For |
+|-------------------|-------------------|-----------|----------|
+| **Local Installation** | Maximum | None | Regulated industries, sensitive data |
+| **Private Cloud** | High | None (EU provider) | Enterprise customers |
+| **EU Cloud** | High | None | SMB/Mid-market EU customers |
+| **Global Cloud** | Standard | May apply | Non-regulated workloads |
+
+**Preferred Deployment:** Local installation with Edge AI on NVIDIA Jetson Orin Nano
+
+> **"Sovereign by Design. Global by Choice."** — Deploy on your own infrastructure for maximum sovereignty, or choose cloud options based on your compliance requirements.
+
+---
+
 ## Basic Information
 
 **Product/Service Name:** Firehorse V2 (was Firehorse Report V1)
