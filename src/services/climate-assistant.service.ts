@@ -72,10 +72,12 @@ interface DailyUsage {
 
 /**
  * Get today's usage from Supabase
+ * Returns zero-usage object if no record exists yet today
+ * Returns null only on database errors (fail-open scenario)
  */
 async function getTodaysUsage(): Promise<DailyUsage | null> {
   const client = getSupabaseClient();
-  if (!client) return null;
+  if (!client) return null; // Supabase not configured
   
   const today = new Date().toISOString().split('T')[0];
   
@@ -86,27 +88,36 @@ async function getTodaysUsage(): Promise<DailyUsage | null> {
       .eq('date', today)
       .single();
     
-    if (error && error.code !== 'PGRST116') { // PGRST116 = not found
+    if (error) {
+      if (error.code === 'PGRST116') {
+        // No record found for today - return zero usage (expected scenario)
+        return {
+          date: today,
+          input_tokens: 0,
+          output_tokens: 0,
+          requests: 0,
+          cost_usd: 0,
+        };
+      }
+      // Database error - log and return null (fail-open)
       logger.error('Error fetching usage from Supabase', { error });
       return null;
     }
     
-    return data as DailyUsage | null;
+    return data as DailyUsage;
   } catch (error: any) {
     logger.error('Exception fetching usage', { error: error.message });
-    return null;
+    return null; // Fail-open on exception
   }
 }
 
 /**
  * Get current daily cost from usage record
+ * Uses pre-calculated cost_usd from database to avoid precision issues
  */
-function calculateCost(usage: DailyUsage | null): number {
+function getCost(usage: DailyUsage | null): number {
   if (!usage) return 0;
-  return (
-    usage.input_tokens * INPUT_COST_PER_TOKEN +
-    usage.output_tokens * OUTPUT_COST_PER_TOKEN
-  );
+  return usage.cost_usd;
 }
 
 /**
@@ -116,22 +127,23 @@ async function isBudgetExceeded(): Promise<boolean> {
   const usage = await getTodaysUsage();
   if (!usage) {
     // If Supabase is not available, allow requests (fail open)
-    logger.warn('Usage tracking unavailable, allowing request');
+    logger.warn('Usage tracking unavailable (Supabase error), allowing request');
     return false;
   }
   
-  const cost = calculateCost(usage);
+  const cost = getCost(usage);
   return cost >= DAILY_BUDGET_USD;
 }
 
 /**
  * Track token usage in Supabase
+ * Returns updated usage record or null on error
  */
-async function trackUsage(inputTokens: number, outputTokens: number): Promise<void> {
+async function trackUsage(inputTokens: number, outputTokens: number): Promise<DailyUsage | null> {
   const client = getSupabaseClient();
   if (!client) {
     logger.warn('Supabase not available, skipping usage tracking');
-    return;
+    return null;
   }
   
   const today = new Date().toISOString().split('T')[0];
@@ -148,11 +160,11 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<vo
     
     if (error) {
       logger.error('Error tracking usage in Supabase', { error });
-      return;
+      return null;
     }
     
     const usage = data as DailyUsage;
-    const dailyCost = calculateCost(usage);
+    const dailyCost = getCost(usage);
     
     logger.info('Usage tracked in Supabase', {
       inputTokens,
@@ -162,8 +174,11 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<vo
       remainingBudget: `$${(DAILY_BUDGET_USD - dailyCost).toFixed(4)}`,
       requests: usage.requests,
     });
+    
+    return usage;
   } catch (error: any) {
     logger.error('Exception tracking usage', { error: error.message });
+    return null;
   }
 }
 
@@ -224,7 +239,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
   // Check daily budget
   if (await isBudgetExceeded()) {
     const usage = await getTodaysUsage();
-    const dailyCost = calculateCost(usage);
+    const dailyCost = getCost(usage);
     logger.warn('Daily budget exceeded', { dailyCost });
     return {
       content: `I've reached my daily usage limit ($${DAILY_BUDGET_USD}). Please try again tomorrow.`,
@@ -303,10 +318,10 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     // Extract content
     const content = data.choices?.[0]?.message?.content || 'I could not generate a response.';
 
-    // Track usage
+    // Track usage and get updated totals
     const inputTokens = data.usage?.prompt_tokens || 0;
     const outputTokens = data.usage?.completion_tokens || 0;
-    await trackUsage(inputTokens, outputTokens);
+    const updatedUsage = await trackUsage(inputTokens, outputTokens);
 
     const requestCost =
       inputTokens * INPUT_COST_PER_TOKEN +
@@ -320,9 +335,8 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       provider: 'groq',
     });
 
-    // Get updated usage for response
-    const usage = await getTodaysUsage();
-    const dailyCost = calculateCost(usage);
+    // Use returned usage to avoid extra query, fallback to fresh query if tracking failed
+    const dailyCost = updatedUsage ? getCost(updatedUsage) : getCost(await getTodaysUsage());
 
     return {
       content,
@@ -359,7 +373,7 @@ export async function getUsageStats(): Promise<{
   model: string;
 }> {
   const usage = await getTodaysUsage();
-  const cost = calculateCost(usage);
+  const cost = getCost(usage);
   const today = new Date().toISOString().split('T')[0];
   
   return {
