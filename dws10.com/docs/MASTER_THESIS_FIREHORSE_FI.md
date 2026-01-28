@@ -546,7 +546,7 @@ Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi alykkkailla tuo
 **Tekninen pino:**
 - Puhe tekstiksi: Whisper API
 - Teksti puheeksi: ElevenLabs
-- LLM: Claude API
+- LLM: Groq-inferenssi Llama-malleilla (kustannustehokas)
 - Hosting: Cloudflare Workers
 
 ### 9.3 Vaihe 2: Hiilijalanjalkililaskurin integraatio (Q2 2026)

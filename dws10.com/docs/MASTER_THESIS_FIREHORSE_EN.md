@@ -546,7 +546,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 **Technical Stack:**
 - Speech-to-Text: Whisper API
 - Text-to-Speech: ElevenLabs
-- LLM: Claude API
+- LLM: Groq inference with Llama models (cost-effective)
 - Hosting: Cloudflare Workers
 
 ### 9.3 Phase 2: Carbon Calculator Integration (Q2 2026)
