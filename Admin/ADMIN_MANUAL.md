@@ -65,16 +65,30 @@ This section links the **full maintenance plan** in one place:
 ## Scaleway Serverless Containers (Primary)
 
 **Status:** ✅ **ACTIVE** - EU-hosted, GDPR compliant
+**Last Updated:** January 28, 2026
+**Session ID:** krDzD
 
-### Project: dws-iq-backend
+### Overview
+
+Scaleway Serverless Containers provides EU-hosted container deployment with full GDPR compliance. Selected as primary deployment platform due to:
+- 🇫🇷 French company, EU data residency
+- 🔒 GDPR compliant by design
+- 💰 Pay-per-use pricing, generous free tier
+- 🚀 Similar to Google Cloud Run (serverless containers)
+
+### Project Configuration
 
 | Property | Value |
 |----------|-------|
-| **Organization** | `dws6` |
+| **Organization Name** | `dws6` |
+| **Organization ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| **Project Name** | `dws-iq-backend` |
 | **Project ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
 | **Region** | `fr-par` (Paris, France) |
+| **Zone** | `fr-par-1` |
 | **Container Registry** | `rg.fr-par.scw.cloud/dws-iq` |
 | **Admin Account** | `admin@dws6.com` |
+| **Console URL** | https://console.scaleway.com |
 
 ### API Credentials
 
@@ -82,35 +96,152 @@ This section links the **full maintenance plan** in one place:
 |-----|-------|
 | **Access Key** | `SCW2G10DRNZJW1ZFM807` |
 | **Secret Key** | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` |
-| **Application** | `dws-iq-chat-cli` |
+| **Application Name** | `dws-iq-chat-cli` |
+| **API Key Description** | `dws-iq-chat-cli-v1` |
+| **Expiration** | Never (Organization setting) |
 
-### CLI Setup
+### IAM Policy Configuration
+
+| Property | Value |
+|----------|-------|
+| **Policy ID** | `ef70608b-d296-48a7-bac9-c20c909b0251` |
+| **Principal** | `dws-iq-chat-cli` |
+| **Scope** | All current Projects |
+| **Permission Set** | `AllProductsFullAccess` |
+| **Created** | January 28, 2026 |
+
+### Environment Variables (PowerShell)
 
 ```powershell
-# Install (Windows)
-choco install scaleway-cli
+# Set permanently (User level)
+[Environment]::SetEnvironmentVariable("SCW_ACCESS_KEY", "SCW2G10DRNZJW1ZFM807", "User")
+[Environment]::SetEnvironmentVariable("SCW_SECRET_KEY", "7ea977a5-0ce1-492f-96a3-d30d9f5b5844", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_ORGANIZATION_ID", "78e26603-c820-4617-b0d2-f8589eb7693b", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_PROJECT_ID", "78e26603-c820-4617-b0d2-f8589eb7693b", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_REGION", "fr-par", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_ZONE", "fr-par-1", "User")
 
-# Configure
-scw init
-# Enter Access Key, Secret Key, Project ID, Region: fr-par
+# Apply to current session
+$env:SCW_ACCESS_KEY = "SCW2G10DRNZJW1ZFM807"
+$env:SCW_SECRET_KEY = "7ea977a5-0ce1-492f-96a3-d30d9f5b5844"
+$env:SCW_DEFAULT_ORGANIZATION_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
+$env:SCW_DEFAULT_PROJECT_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
+$env:SCW_DEFAULT_REGION = "fr-par"
+$env:SCW_DEFAULT_ZONE = "fr-par-1"
 ```
 
-### Deployment Commands
+### CLI Installation & Setup
 
 ```powershell
-# 1. Login to registry
+# 1. Install Scaleway CLI (Windows)
+choco install scaleway-cli
+
+# 2. Verify installation
+scw version
+
+# 3. Configure (interactive)
+scw init
+
+# 4. Or configure via environment variables (see above)
+# Then verify configuration
+scw info
+```
+
+### Deployment Commands (Step-by-Step)
+
+```powershell
+# Step 1: Login to Container Registry
 scw registry login
 
-# 2. Create namespace (first time only)
+# Step 2: Create Registry Namespace (first time only)
 scw registry namespace create name=dws-iq region=fr-par
 
-# 3. Build and push image
+# Step 3: Build Docker Image
 cd F:\2026\Repos2026\dws6
 docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest .
+
+# Step 4: Push to Scaleway Container Registry
 docker push rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
 
-# 4. Deploy container
-scw container container create namespace-id=<namespace-id> name=dws-iq-backend registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest environment-variables.GROQ_API_KEY=<key> environment-variables.NODE_ENV=production
+# Step 5: Create Serverless Container Namespace
+scw container namespace create name=dws-iq-backend region=fr-par
+
+# Step 6: Deploy Container (replace <namespace-id> with actual ID from step 5)
+scw container container create \
+  namespace-id=<namespace-id> \
+  name=dws-iq-backend \
+  registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest \
+  environment-variables.GROQ_API_KEY=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 \
+  environment-variables.NODE_ENV=production \
+  min-scale=0 \
+  max-scale=5 \
+  memory-limit=512 \
+  port=8080
+```
+
+### One-Liner Deployment (After Initial Setup)
+
+```powershell
+cd F:\2026\Repos2026\dws6; docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest .; docker push rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
+```
+
+### API Endpoints (After Deployment)
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/health` | GET | Health check |
+| `/api/v2/climate-assistant/chat` | POST | Chat with Climate Assistant |
+| `/api/v2/climate-assistant/lead` | POST | Submit lead capture form |
+| `/api/v2/climate-assistant/topics` | GET | List allowed topics |
+| `/api/v2/climate-assistant/session/:id` | GET | Get session details |
+
+### Container Configuration
+
+| Setting | Value | Description |
+|---------|-------|-------------|
+| **Port** | `8080` | Cloud Run standard port |
+| **Memory** | `512 MB` | Container memory limit |
+| **Min Scale** | `0` | Scale to zero when idle |
+| **Max Scale** | `5` | Maximum concurrent instances |
+| **Timeout** | `300s` | Request timeout |
+
+### Troubleshooting
+
+**Error: "organization ID is required"**
+```powershell
+$env:SCW_DEFAULT_ORGANIZATION_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
+```
+
+**Error: "insufficient permissions"**
+- Go to IAM → Applications → dws-iq-chat-cli → Policies
+- Attach `AllProductsFullAccess` policy
+
+**Error: "namespace not found"**
+```powershell
+scw registry namespace list
+# Use the correct namespace ID
+```
+
+### Useful Commands
+
+```powershell
+# List registry namespaces
+scw registry namespace list
+
+# List container namespaces
+scw container namespace list
+
+# List containers
+scw container container list
+
+# View container logs
+scw container container logs <container-id>
+
+# Delete container
+scw container container delete <container-id>
+
+# Update container image
+scw container container update <container-id> registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
 ```
 
 ---
