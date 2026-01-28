@@ -372,7 +372,8 @@ export async function processGatedMessage(request: GatedChatRequest): Promise<Ga
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       logger.error('Groq API error', { status: response.status, error: errorData });
-      const errorMessage = errorData?.error?.message || `API error: ${response.status}`;
+      const errorObj = errorData as { error?: { message?: string }; message?: string };
+      const errorMessage = errorObj?.error?.message || errorObj?.message || `API error: ${response.status}`;
       throw new Error(errorMessage);
     }
 
