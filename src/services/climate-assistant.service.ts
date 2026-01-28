@@ -200,6 +200,11 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       logger.error('Groq API error', {
         status: response.status,
         error: errorData,
+        requestBody: {
+          model: MODEL,
+          messageCount: messages.length,
+          maxTokens: MAX_TOKENS,
+        },
       });
 
       if (response.status === 401) {
@@ -208,7 +213,9 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please try again later.');
       }
-      throw new Error(`Groq API error: ${response.status}`);
+      // Include error details for debugging
+      const errorMessage = errorData?.error?.message || errorData?.message || JSON.stringify(errorData);
+      throw new Error(`Groq API error (${response.status}): ${errorMessage}`);
     }
 
     const data = await response.json() as {
