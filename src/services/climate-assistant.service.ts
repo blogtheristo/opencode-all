@@ -214,7 +214,8 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         throw new Error('Rate limit exceeded. Please try again later.');
       }
       // Include error details for debugging
-      const errorMessage = errorData?.error?.message || errorData?.message || JSON.stringify(errorData);
+      const errorObj = errorData as { error?: { message?: string }; message?: string };
+      const errorMessage = errorObj?.error?.message || errorObj?.message || JSON.stringify(errorData);
       throw new Error(`Groq API error (${response.status}): ${errorMessage}`);
     }
 

@@ -14,6 +14,7 @@ import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
+import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 
 dotenv.config();
 
@@ -82,7 +83,8 @@ app.get('/health', (_req: Request, res: Response) => {
     service: 'DWS IQ Backend',
     version: '1.0.0',
     features: {
-      climateAssistant: !!process.env.ANTHROPIC_API_KEY,
+      climateAssistant: !!process.env.GROQ_API_KEY,
+      gatedAccess: true,
     },
   });
 });
@@ -100,6 +102,9 @@ app.use('/api/v1/user', userRoutes);
 
 // Climate Assistant AI routes (for V10 dashboard)
 app.use('/api/climate-assistant', climateAssistantRoutes);
+
+// Climate Assistant Gated routes (tiered access with lead capture)
+app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // ============ ERROR HANDLING ============
 
@@ -136,10 +141,10 @@ const server = app.listen(PORT, () => {
     port: PORT,
   });
 
-  if (process.env.ANTHROPIC_API_KEY) {
-    logger.info('Climate Assistant API enabled');
+  if (process.env.GROQ_API_KEY) {
+    logger.info('Climate Assistant API enabled (Groq)');
   } else {
-    logger.warn('ANTHROPIC_API_KEY not configured - Climate Assistant will not work');
+    logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 });
 
