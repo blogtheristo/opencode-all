@@ -76,6 +76,16 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 - 💰 Pay-per-use pricing, generous free tier
 - 🚀 Similar to Google Cloud Run (serverless containers)
 
+### Live Deployment
+
+| Property | Value |
+|----------|-------|
+| **Status** | ✅ **LIVE** |
+| **Container Endpoint** | `https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud` |
+| **Container ID** | `7f17b90d-a44c-4b75-ab9e-7099c5ade031` |
+| **Namespace ID** | `3639617d-3041-4051-9a28-19b4ca6a14db` |
+| **Deployed** | January 28, 2026 |
+
 ### Project Configuration
 
 | Property | Value |
@@ -86,7 +96,7 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 | **Project ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
 | **Region** | `fr-par` (Paris, France) |
 | **Zone** | `fr-par-1` |
-| **Container Registry** | `rg.fr-par.scw.cloud/dws-iq` |
+| **Container Registry** | `rg.fr-par.scw.cloud/dws-iq-backend` |
 | **Admin Account** | `admin@dws6.com` |
 | **Console URL** | https://console.scaleway.com |
 
@@ -185,7 +195,9 @@ scw container container create \
 cd F:\2026\Repos2026\dws6; docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest .; docker push rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
 ```
 
-### API Endpoints (After Deployment)
+### API Endpoints (Live)
+
+**Base URL:** `https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud`
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -195,15 +207,33 @@ cd F:\2026\Repos2026\dws6; docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-bac
 | `/api/v2/climate-assistant/topics` | GET | List allowed topics |
 | `/api/v2/climate-assistant/session/:id` | GET | Get session details |
 
+### Test Commands
+
+```powershell
+# Health check
+curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/health
+
+# Chat (public user - 1 free message)
+curl -X POST https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/api/v2/climate-assistant/chat -H "Content-Type: application/json" -d "{\"message\": \"What is CBAM?\"}"
+
+# Get allowed topics
+curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/api/v2/climate-assistant/topics
+```
+
 ### Container Configuration
 
 | Setting | Value | Description |
 |---------|-------|-------------|
-| **Port** | `8080` | Cloud Run standard port |
-| **Memory** | `512 MB` | Container memory limit |
+| **Port** | `8080` | Container HTTP port |
+| **Memory** | `2048 MB` | Container memory limit |
+| **vCPU** | `1000 mVCPU` | 1 full vCPU |
 | **Min Scale** | `0` | Scale to zero when idle |
 | **Max Scale** | `5` | Maximum concurrent instances |
+| **Concurrent Executions** | `50` | Max concurrent requests per instance |
 | **Timeout** | `300s` | Request timeout |
+| **Privacy** | `Public` | Publicly accessible endpoint |
+| **HTTPS Only** | `Disabled` | Accept HTTP too |
+| **HTTP Protocol** | `HTTP/1` | HTTP version |
 
 ### Troubleshooting
 
