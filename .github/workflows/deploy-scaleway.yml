@@ -23,9 +23,10 @@ on:
 
 env:
   REGISTRY: rg.fr-par.scw.cloud
-  NAMESPACE: dwsiqcontainersjwyssm4e
+  REGISTRY_NAMESPACE: dws-iq
   IMAGE_NAME: dws-iq-backend
   CONTAINER_NAME: dws-iq-backend
+  CONTAINER_NAMESPACE: dwsiqcontainersjwyssm4e
   REGION: fr-par
 
 permissions:
@@ -58,7 +59,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=branch
             type=sha,prefix=
@@ -86,7 +87,7 @@ jobs:
     needs: build-and-push
     environment:
       name: ${{ github.event.inputs.environment || 'production' }}
-      url: https://${{ env.NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.fr-par.scw.cloud
+      url: https://${{ env.CONTAINER_NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.fr-par.scw.cloud
 
     steps:
       - name: Install Scaleway CLI
@@ -122,7 +123,7 @@ jobs:
               region=${{ env.REGION }} \
               namespace-id=${{ secrets.SCW_NAMESPACE_ID }} \
               name=${{ env.CONTAINER_NAME }} \
-              registry-image=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest \
+              registry-image=${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest \
               min-scale=0 \
               max-scale=5 \
               memory-limit=2048 \
@@ -137,7 +138,7 @@ jobs:
             scw container container update \
               region=${{ env.REGION }} \
               $CONTAINER_ID \
-              registry-image=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest \
+              registry-image=${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest \
               redeploy=true
           fi
 
@@ -147,7 +148,7 @@ jobs:
           sleep 30
 
           # Health check
-          HEALTH_URL="https://${{ env.NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud/health"
+          HEALTH_URL="https://${{ env.CONTAINER_NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud/health"
           echo "Checking health at: $HEALTH_URL"
 
           for i in {1..10}; do
@@ -171,10 +172,10 @@ jobs:
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Environment | ${{ github.event.inputs.environment || 'production' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Image | \`${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Image | \`${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest\` |" >> $GITHUB_STEP_SUMMARY
           echo "| Region | ${{ env.REGION }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| API URL | https://${{ env.NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud |" >> $GITHUB_STEP_SUMMARY
-          echo "| Chat Page | https://${{ env.NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud/climate-assistant.html |" >> $GITHUB_STEP_SUMMARY
+          echo "| API URL | https://${{ env.CONTAINER_NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud |" >> $GITHUB_STEP_SUMMARY
+          echo "| Chat Page | https://${{ env.CONTAINER_NAMESPACE }}-${{ env.CONTAINER_NAME }}.functions.fnc.${{ env.REGION }}.scw.cloud/climate-assistant.html |" >> $GITHUB_STEP_SUMMARY
 
   notify:
     name: Notify on Failure
