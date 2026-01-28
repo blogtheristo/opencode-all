@@ -62,6 +62,36 @@ This section links the **full maintenance plan** in one place:
 
 ---
 
+## Google Cloud Run Configuration
+
+### Project: dws6run
+
+| Property | Value |
+|----------|-------|
+| **Project ID** | `dws6run` |
+| **Project Number** | `446442351781` |
+| **Region** | `europe-north1` (Finland) |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
+| **Admin Account** | `admin@dws6.com` |
+
+### Service Account Permissions
+
+Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+- `roles/artifactregistry.writer` - Push Docker images
+- `roles/logging.logWriter` - Write build logs
+
+### Deployment Commands
+
+```powershell
+# Build and push image
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+
+# Deploy to Cloud Run
+gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+```
+
+---
+
 ## Files and Folders Structure
 
 ### Root Directory
