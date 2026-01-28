@@ -62,7 +62,62 @@ This section links the **full maintenance plan** in one place:
 
 ---
 
-## Google Cloud Run Configuration
+## Scaleway Serverless Containers (Primary)
+
+**Status:** ✅ **ACTIVE** - EU-hosted, GDPR compliant
+
+### Project: dws-iq-backend
+
+| Property | Value |
+|----------|-------|
+| **Organization** | `dws6` |
+| **Project ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| **Region** | `fr-par` (Paris, France) |
+| **Container Registry** | `rg.fr-par.scw.cloud/dws-iq` |
+| **Admin Account** | `admin@dws6.com` |
+
+### API Credentials
+
+| Key | Value |
+|-----|-------|
+| **Access Key** | `SCW2G10DRNZJW1ZFM807` |
+| **Secret Key** | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` |
+| **Application** | `dws-iq-chat-cli` |
+
+### CLI Setup
+
+```powershell
+# Install (Windows)
+choco install scaleway-cli
+
+# Configure
+scw init
+# Enter Access Key, Secret Key, Project ID, Region: fr-par
+```
+
+### Deployment Commands
+
+```powershell
+# 1. Login to registry
+scw registry login
+
+# 2. Create namespace (first time only)
+scw registry namespace create name=dws-iq region=fr-par
+
+# 3. Build and push image
+cd F:\2026\Repos2026\dws6
+docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest .
+docker push rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
+
+# 4. Deploy container
+scw container container create namespace-id=<namespace-id> name=dws-iq-backend registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest environment-variables.GROQ_API_KEY=<key> environment-variables.NODE_ENV=production
+```
+
+---
+
+## Google Cloud Run (Optional/Backup)
+
+**Status:** ⏸️ **PENDING** - Requires billing setup
 
 ### Project: dws6run
 
