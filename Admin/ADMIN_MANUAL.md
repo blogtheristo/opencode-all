@@ -274,6 +274,61 @@ scw container container delete <container-id>
 scw container container update <container-id> registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
 ```
 
+### GitHub Actions CI/CD
+
+**Status:** ✅ **ACTIVE** - Automated deployment on push to main
+**Workflow File:** `.github/workflows/deploy-scaleway.yml`
+**Last Updated:** January 28, 2026
+
+#### Workflow Triggers
+
+- **Push to main** - Auto-deploys when src/, public/, package*.json, Dockerfile, or tsconfig.json changes
+- **Manual dispatch** - Can be triggered manually from GitHub Actions UI
+
+#### Required GitHub Secrets
+
+Go to **Settings → Secrets and variables → Actions** and add:
+
+| Secret Name | Value | Description |
+|-------------|-------|-------------|
+| `SCW_ACCESS_KEY` | `SCW2G10DRNZJW1ZFM807` | Scaleway API access key |
+| `SCW_SECRET_KEY` | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` | Scaleway API secret key |
+| `SCW_ORGANIZATION_ID` | `78e26603-c820-4617-b0d2-f8589eb7693b` | Scaleway organization ID |
+| `SCW_PROJECT_ID` | `78e26603-c820-4617-b0d2-f8589eb7693b` | Scaleway project ID |
+| `SCW_NAMESPACE_ID` | `3639617d-3041-4051-9a28-19b4ca6a14db` | Container namespace ID |
+
+#### Setup Instructions
+
+1. **Navigate to GitHub repository settings:**
+   ```
+   https://github.com/blogtheristo/dws6/settings/secrets/actions
+   ```
+
+2. **Add each secret:**
+   - Click "New repository secret"
+   - Enter secret name and value
+   - Click "Add secret"
+
+3. **Verify workflow:**
+   - Go to Actions tab
+   - Find "Deploy to Scaleway Serverless Containers"
+   - Trigger manually or push to main
+
+#### Workflow Features
+
+- **Docker Build** - Multi-stage build with caching
+- **Image Push** - Pushes to Scaleway Container Registry
+- **Auto-Deploy** - Redeploys container with new image
+- **Health Check** - Verifies deployment success
+- **Failure Notification** - Creates GitHub issue on failure
+
+#### Manual Trigger
+
+```bash
+# Trigger deployment from CLI
+gh workflow run deploy-scaleway.yml
+```
+
 ---
 
 ## Google Cloud Run (Optional/Backup)
