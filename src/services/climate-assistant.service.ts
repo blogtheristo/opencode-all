@@ -17,8 +17,8 @@ import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
 
-// Model: Llama 3.1 70B on Groq (fast + cheap)
-const MODEL = 'llama-3.1-70b-versatile';
+// Model: Llama 3.3 70B on Groq (fast + cheap)
+const MODEL = 'llama-3.3-70b-versatile';
 
 // Groq API endpoint
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
