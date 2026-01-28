@@ -195,6 +195,8 @@ scw container container create \
   port=8080
 ```
 
+> **Security note:** Replace `<your-groq-api-key>` with your actual Groq API key. **Never** commit live API keys to source control. For production deployments, use Scaleway Secrets Manager or pass environment variables securely via CI/CD secrets (see GitHub Actions configuration below).
+
 ### One-Liner Deployment (After Initial Setup)
 
 ```powershell
