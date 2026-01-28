@@ -3,6 +3,25 @@
 
 ---
 
+## EU-Sovereign Badge
+
+[![EU-Sovereign](../../assets/badges/EU_Sovereign.png)](/sovereignty/sovereignty.html)
+
+**Sovereignty Status:** EU-Sovereign Options Available
+
+| Deployment Option | Sovereignty Level | CLOUD Act | Best For |
+|-------------------|-------------------|-----------|----------|
+| **Own Server** | Maximum | None | Critical infrastructure, defense |
+| **Private Cloud** | High | None (EU provider) | Enterprise, regulated industries |
+| **EU Cloud** | High | None | Mid-market, EU compliance focus |
+| **Global Cloud** | Standard | May apply | Non-regulated, cost-optimized |
+
+**DWS IQ Platform Deployment:** All four options available. Choose based on data sensitivity and compliance requirements.
+
+> **"Sovereign by Design. Global by Choice."** — Deploy on your own infrastructure, EU sovereign cloud, or global hyperscalers. Your compliance requirements determine the right choice.
+
+---
+
 ## Basic Information
 
 **Product/Service Name:** LWM V1 (Lifetime World Model)
