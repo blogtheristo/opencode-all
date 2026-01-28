@@ -104,12 +104,13 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 
 | Key | Value |
 |-----|-------|
-| **Access Key** | `SCW2G10DRNZJW1ZFM807` |
-| **Secret Key** | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` |
+| **Access Key** | `SCW_ACCESS_KEY=<set-in-secrets>` |
+| **Secret Key** | `SCW_SECRET_KEY=<set-in-secrets>` |
 | **Application Name** | `dws-iq-chat-cli` |
 | **API Key Description** | `dws-iq-chat-cli-v1` |
 | **Expiration** | Never (Organization setting) |
 
+> **Security note:** Configure `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` only via your secret manager or deployment environment (e.g., CI/CD secrets, `.env` files not committed to the repo). Do **not** store live credentials in this document or in source control.
 ### IAM Policy Configuration
 
 | Property | Value |
@@ -232,7 +233,7 @@ curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.clo
 | **Concurrent Executions** | `50` | Max concurrent requests per instance |
 | **Timeout** | `300s` | Request timeout |
 | **Privacy** | `Public` | Publicly accessible endpoint |
-| **HTTPS Only** | `Disabled` | Accept HTTP too |
+| **HTTPS Only** | `Enabled` | Enforce HTTPS only (no plain HTTP) |
 | **HTTP Protocol** | `HTTP/1` | HTTP version |
 
 ### Troubleshooting
