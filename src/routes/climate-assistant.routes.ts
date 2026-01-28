@@ -122,9 +122,9 @@ router.get('/health', async (req: Request, res: Response) => {
  * GET /api/climate-assistant/usage
  * Get current daily usage statistics
  */
-router.get('/usage', (req: Request, res: Response) => {
+router.get('/usage', async (req: Request, res: Response) => {
   try {
-    const stats = ClimateAssistantService.getUsageStats();
+    const stats = await ClimateAssistantService.getUsageStats();
 
     res.status(200).json({
       service: 'climate-assistant',
