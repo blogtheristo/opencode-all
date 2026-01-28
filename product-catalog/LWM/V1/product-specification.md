@@ -7,17 +7,18 @@
 
 [![EU-Sovereign](../../assets/badges/EU_Sovereign.png)](/sovereignty/sovereignty.html)
 
-**Sovereignty Status:** EU-Sovereign by Design
+**Sovereignty Status:** EU-Sovereign Options Available
 
-| Sovereignty Criteria | Status |
-|---------------------|--------|
-| EU Data Residency | Finland/Germany |
-| CLOUD Act Exposure | None (EU-headquartered) |
-| GDPR Compliance | Native |
-| GAIA-X Alignment | Level 3 Target |
-| EU AI Act (Aug 2026) | Ready - Article 12 Compliant |
+| Deployment Option | Sovereignty Level | CLOUD Act | Best For |
+|-------------------|-------------------|-----------|----------|
+| **Own Server** | Maximum | None | Critical infrastructure, defense |
+| **Private Cloud** | High | None (EU provider) | Enterprise, regulated industries |
+| **EU Cloud** | High | None | Mid-market, EU compliance focus |
+| **Global Cloud** | Standard | May apply | Non-regulated, cost-optimized |
 
-> **"Sovereign by Design. Global by Choice."** — This product is engineered to leverage global cloud innovation while meeting the EU's highest digital autonomy standards.
+**DWS IQ Platform Deployment:** All four options available. Choose based on data sensitivity and compliance requirements.
+
+> **"Sovereign by Design. Global by Choice."** — Deploy on your own infrastructure, EU sovereign cloud, or global hyperscalers. Your compliance requirements determine the right choice.
 
 ---
 

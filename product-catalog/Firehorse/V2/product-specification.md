@@ -7,17 +7,18 @@
 
 [![EU-Sovereign](../../assets/badges/EU_Sovereign.png)](/sovereignty/sovereignty.html)
 
-**Sovereignty Status:** EU-Sovereign by Design
+**Sovereignty Status:** EU-Sovereign Options Available
 
-| Sovereignty Criteria | Status |
-|---------------------|--------|
-| EU Data Residency | Finland/Germany |
-| CLOUD Act Exposure | None (On-premise sovereign stack) |
-| GDPR Compliance | Native |
-| GAIA-X Alignment | Level 3 Target |
-| EU AI Act (Aug 2026) | Ready - Article 12 Compliant |
+| Deployment Option | Sovereignty Level | CLOUD Act | Best For |
+|-------------------|-------------------|-----------|----------|
+| **Local Installation** | Maximum | None | Regulated industries, sensitive data |
+| **Private Cloud** | High | None (EU provider) | Enterprise customers |
+| **EU Cloud** | High | None | SMB/Mid-market EU customers |
+| **Global Cloud** | Standard | May apply | Non-regulated workloads |
 
-> **"Sovereign by Design. Global by Choice."** — This product is engineered to leverage global cloud innovation while meeting the EU's highest digital autonomy standards.
+**Preferred Deployment:** Local installation with Edge AI on NVIDIA Jetson Orin Nano
+
+> **"Sovereign by Design. Global by Choice."** — Deploy on your own infrastructure for maximum sovereignty, or choose cloud options based on your compliance requirements.
 
 ---
 
