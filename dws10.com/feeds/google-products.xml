@@ -4,23 +4,23 @@
     <title>Lifetime Firehorse Store - DWS IQ Products</title>
     <link>https://dws10.com/buy/</link>
     <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
-    <lastBuildDate>Tue, 06 Jan 2026 05:18:29 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jan 2026 09:55:45 GMT</lastBuildDate>
 
     <item>
-      <g:id>dwsiq-v6</g:id>
-      <g:title>DWS IQ Platform v6</g:title>
-      <g:description>The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents.</g:description>
-      <g:link>https://dws10.com/products/dwsiq.html</g:link>
+      <g:id>DWS-IQ-006</g:id>
+      <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
+      <g:description>The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents deployed in your cloud.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:price>4999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-V6-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -28,19 +28,39 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-auto</g:id>
+      <g:id>DWS-IQ-005</g:id>
+      <g:title>Lifetime DWS IQ Platform (Version 5)</g:title>
+      <g:description>Legacy Support tier for established industrial workflows. Stable bridge to Fit for 55 compliance with migration path to v6.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>6995.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWSIQ-V5-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>FH-AUTO-001</g:id>
       <g:title>Firehorse Automation</g:title>
-      <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028.</g:description>
-      <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
+      <g:description>Zero-touch automation for critical compliance. Event-driven workflows for Fit for 55, CSRD, EPBD 2028. Eliminates manual data entry errors.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>4950.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-AUTO-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -48,19 +68,19 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>climate-bundle</g:id>
-      <g:title>Climate Reporting Bundle</g:title>
+      <g:id>LIFETIME-BUNDLE-2026</g:id>
+      <g:title>Climate Reporting Starter Bundle</g:title>
       <g:description>Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.</g:description>
-      <g:link>https://dws10.com/products/bundle.html</g:link>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
       <g:price>6500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CLM-BUNDLE-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -68,19 +88,19 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-omni</g:id>
+      <g:id>FH-OMNI-001</g:id>
       <g:title>Firehorse Omnichannel Next</g:title>
-      <g:description>4-week outbound engine for Nordic and European construction portfolios.</g:description>
-      <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+      <g:description>AI marketing engine for sustainable product launches. EU AI Act and Green Claims Directive compliant. 4-week test cycle included.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>4950.00 EUR</g:price>
+      <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-OMNI-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -88,19 +108,39 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-report</g:id>
+      <g:id>FH-RPT-001</g:id>
       <g:title>Firehorse Report</g:title>
-      <g:description>Automated reporting with SAP integration. One report template with 4-week validation.</g:description>
-      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+      <g:description>Fit for 55 compliant report template with real-time dashboard. SAP integration and 4-week validation included. Automated reporting reduces man-hours by 90%.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>1950.00 EUR</g:price>
+      <g:price>1999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:mpn>FH-REPORT-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>FH-CMS-001</g:id>
+      <g:title>Firehorse Content Management</g:title>
+      <g:description>Evidence Vault for compliance documentation. Auto-tagging, expiration alerts, and semantic search for audit-ready proof.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2999.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-CMS-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -109,23 +149,473 @@
     </item>
     <item>
       <g:id>expert-services</g:id>
-      <g:title>Expert Advisory &amp; Implementation</g:title>
-      <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
-      <g:link>https://dws10.com/products/expert-services.html</g:link>
+      <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
+      <g:description>3-day intensive workshop with Risto Anton. Report design, workflow customization, and strategic advisory. Hands-on implementation for Fit for 55, CSRD, and EU AI Act compliance.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-      <g:price>1500.00 EUR</g:price>
+      <g:price>4500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-SVC-2026</g:mpn>
-      <g:identifier_exists>false</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>consulting-hourly</g:id>
+      <g:title>Consulting - Hourly Rate</g:title>
+      <g:description>Flexible hourly consulting with Risto Anton. Fit for 55 compliance for 16 industries, Governance, EU AI Act guidance, and strategic implementation support. Book hours as needed.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>98.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CONSULT-HR-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-EXP-001</g:id>
+      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:description>Dedicated expert time for report design, workflow customization, and strategic advisory.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>3000.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>EXP-ADV-2026</g:mpn>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
         <g:period_length>1</g:period_length>
-        <g:amount>1500.00 EUR</g:amount>
+        <g:amount>3000.00 EUR</g:amount>
       </g:subscription_cost>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>consulting-fit55</g:id>
+      <g:title>Consulting Fit for 55 Specialist</g:title>
+      <g:description>Dedicated expert time for Fit for 55 Compliance, Compliance Report design, Compliance Workflow customization, Agent Coordination, Enterprise Model Planning/Training and Strategic Advisory (Board CxO). You co-work directly with Risto Anton, Creator of Lifetime Firehorse and Founder of DWS IQ 6 Platform.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>3000.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CONSULT-FIT55-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>subscription</g:custom_label_1>
+      <g:subscription_cost>
+        <g:period>month</g:period>
+        <g:period_length>1</g:period_length>
+        <g:amount>3000.00 EUR</g:amount>
+      </g:subscription_cost>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>aws-consultancy</g:id>
+      <g:title>AI Engineering &amp; Cloud Solutions Consultancy</g:title>
+      <g:description>25-hour consultancy for strategic assessment, planning, and implementation of cloud and AI technologies. Covers AWS, Azure, GCP, IBM Cloud, Gemini AI, Meta Llama Stack. Includes complimentary 4-hour strategy workshop.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>4500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AWS-CONSULT-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>conversational-agent</g:id>
+      <g:title>Conversational Agent Solution</g:title>
+      <g:description>AI-powered conversational agents for enterprise workflows. Integrates with Microsoft Teams, Google Workspace, Zoom, WhatsApp Business. Supports Groq, Anthropic, OpenAI, and self-hosted LLMs.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>3500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CONV-AGENT-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>m365-consultancy</g:id>
+      <g:title>Microsoft 365 Consultancy</g:title>
+      <g:description>Low-code Power Apps business process solutions. ROI 188% over three years, 74% reduction in app development costs. 8-hour consultancy engagement.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>1120.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>M365-CONSULT-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>powerapps-consultancy</g:id>
+      <g:title>Microsoft AI Studio M365 Power Platform Azure</g:title>
+      <g:description>Power Platform consultancy for business process automation. Canvas and model-driven apps for inspections, field sales, automated workflows. IPR transfer upon payment.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>1120.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>POWERAPPS-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>ai-agent-engineering</g:id>
+      <g:title>AI &amp; Agent Engineering</g:title>
+      <g:description>Professional agentic business development consultancy. Azure AI Foundry, Google AI Studio, Custom AI Agent, or Agent Framework projects. Choose from AI Product Manager, Solutions Architect, or AI/ML Engineer roles.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>99.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AI-AGENT-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>lean-project</g:id>
+      <g:title>Firehorse Lean Project</g:title>
+      <g:description>Lean Project methodology with AI tools. Includes 1.5-day planning workshop, backlog management, Kanban workflows, roadmap development, and AI productivity tool integration.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>4960.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-LEAN-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>ai-consultant-day</g:id>
+      <g:title>AI Consultant Day</g:title>
+      <g:description>Battle-ready AI consultant for strategy to implementation. Covers AI strategy development, functional solutions, apps, chatbots, and automation. Uses GPT-5, Gemini Pro, Microsoft 365 Copilot, Azure AI Studio.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>699.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AI-DAY-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>business-mentor-30</g:id>
+      <g:title>Business Mentor - AI Strategy 30 Hours</g:title>
+      <g:description>30-hour expert consulting for AI strategy implementation, business process redesign with agents, and Copilot adoption. Flexible scheduling in 4-8 hour sessions over 12 months.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>4960.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>MENTOR-30-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-coach</g:id>
+      <g:title>Firehorse Coach - In-House AI Training</g:title>
+      <g:description>In-house coaching for leadership capabilities and team skills in AI-driven organizations. Includes complimentary 3-hour introductory workshop. Personal, team, or remote sessions available.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-COACH-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-flow</g:id>
+      <g:title>Firehorse Flow</g:title>
+      <g:description>AI assistant and prompt flow agent for ideal service experience development. Continuous customer experience improvement that increases sales.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-FLOW-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>omnichannel-multimodal</g:id>
+      <g:title>Firehorse Omnichannel &amp; Multimodal AI Assistant</g:title>
+      <g:description>Enterprise sales and information channel management with AI-optimized strategies. Daily campaign management and sales measurement across all marketing-mix channels.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>699.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-OMNI-MM-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>subscription</g:custom_label_1>
+      <g:subscription_cost>
+        <g:period>month</g:period>
+        <g:period_length>1</g:period_length>
+        <g:amount>699.00 EUR</g:amount>
+      </g:subscription_cost>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>professional-web-pages</g:id>
+      <g:title>Professional Web Pages</g:title>
+      <g:description>Professional responsive web pages for new businesses, products, or companies. Technology options include React.JS, Blazor, WordPress, Squarespace. AI chatbot and e-commerce add-ons available.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>799.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>WEB-PAGES-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>secure-email-proton</g:id>
+      <g:title>Protonmail Secure Email &amp; Domains Implementation</g:title>
+      <g:description>Full Proton Business Suite implementation with end-to-end encryption. Includes encrypted email, cloud storage, password management, VPN. GDPR, NIS2, EU AI Act compliant. 8-hour implementation project.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>PROTON-EMAIL-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>firehorse-data-services</g:id>
+      <g:title>Firehorse Data Services</g:title>
+      <g:description>Comprehensive data consultancy with API-driven data products, data brokerage, management strategy, implementation support, and analysis/enrichment. Remote and on-site consulting available.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>899.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-DATA-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>agentti-sanasto</g:id>
+      <g:title>Agentti Sanasto Englanti-Suomi</g:title>
+      <g:description>Digital glossary translating English-to-Finnish AI agent terminology. Includes comprehensive explanations and reference list. 1-year license included.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>0.99 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AGENT-GLOSSARY-2026</g:mpn>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>devops-lead</g:id>
+      <g:title>Continuous Workflow Agent Delivery</g:title>
+      <g:description>Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DEVOPS-LEAD-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>digital-design-gold</g:id>
+      <g:title>Lifetime World - Digital Design Gold</g:title>
+      <g:description>Digital marketing dashboard and design services. Complete marketing intelligence solution with analytics and visualization.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>2499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DESIGN-GOLD-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>cloud-ready-teams</g:id>
+      <g:title>Solution Ready Team - Do it Right</g:title>
+      <g:description>Cloud-ready team solution for organizations needing immediate technical expertise. Pre-vetted professionals ready for deployment.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>950.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>CRT-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>ai-koulutus-3d</g:id>
+      <g:title>AI Koulutus 3 Days Programme</g:title>
+      <g:description>Intensive 3-day AI training programme for organizations. In-house coaching covering AI strategy, implementation, and team upskilling.</g:description>
+      <g:link>https://dws10.com/buy/</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:price>6250.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>AI-KOULUTUS-3D-2026</g:mpn>
+      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
