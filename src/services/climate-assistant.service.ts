@@ -190,7 +190,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       body: JSON.stringify({
         model: MODEL,
         messages: messages,
-        max_tokens: MAX_TOKENS,
+        max_completion_tokens: MAX_TOKENS,  // Note: Groq uses max_completion_tokens, not max_tokens
         temperature: 0.7,
       }),
     });
@@ -203,7 +203,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         requestBody: {
           model: MODEL,
           messageCount: messages.length,
-          maxTokens: MAX_TOKENS,
+          maxCompletionTokens: MAX_TOKENS,
         },
       });
 
