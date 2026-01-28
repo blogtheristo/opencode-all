@@ -1,5 +1,5 @@
 /**
- * Dashboard V9 React Main Application
+ * Dashboard V10 React Main Application
  * DWS IQ Climate Intelligence Dashboard with AI Assistant
  */
 
@@ -65,7 +65,7 @@ function App() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">DWS IQ Dashboard</h1>
-                <p className="text-sm text-gray-500">Climate Intelligence · V9</p>
+                <p className="text-sm text-gray-500">Climate Intelligence · V10</p>
               </div>
             </div>
 

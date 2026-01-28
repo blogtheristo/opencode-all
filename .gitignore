@@ -274,4 +274,7 @@ sbom.json
 
 # Snyk reports
 snyk.sarif
-.snyk
+.snykdist
+
+# Build output
+dist/
