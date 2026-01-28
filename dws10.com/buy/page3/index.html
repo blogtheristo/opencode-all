@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifetime Firehorse Store | Page 3 - Consulting & Training</title>
+    <meta name="description" content="Consulting, training, and specialized services from Lifetime Firehorse Store.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
+        h1 { color: #60a5fa; text-align: center; margin-bottom: 20px; font-size: 2.5rem; }
+        .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
+        .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
+        .product-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-title { font-size: 1.3rem; color: #e2e8f0; margin: 0 0 8px 0; font-weight: 600; }
+        .product-price { font-size: 1.8rem; color: #4ade80; font-weight: bold; margin-bottom: 4px; }
+        .product-price-note { font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px; }
+        .product-excerpt { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 10px; margin-top: auto; }
+        .btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
+        .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
+        .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+
+        /* Payment Badge */
+        .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .payment-badge span { font-size: 0.8rem; color: #64748b; }
+
+        /* Navigation */
+        .nav-header { background: #1e293b; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-size: 1.4rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #60a5fa; }
+
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; gap: 16px; margin: 40px 0; }
+        .pagination a { padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600; transition: all 0.2s; }
+        .pagination a:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); }
+        .pagination a.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; }
+
+        /* Footer */
+        .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
+        .site-footer a { color: #60a5fa; text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .nav-links { gap: 12px; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <a href="../../" class="nav-brand">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#60a5fa" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            DWS IQ Platform
+        </a>
+        <div class="nav-links">
+            <a href="../../">Home</a>
+            <a href="../" style="color: #60a5fa; font-weight: 600;">Store</a>
+            <a href="../../legal/">Legal</a>
+            <a href="../../dashboard/login/" class="btn btn-primary" style="padding: 8px 16px;">Login</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Consulting & Training</h1>
+        <p class="subtitle">Expert consulting, coaching, and specialized training services</p>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="../">Page 1</a>
+            <a href="../page2/">Page 2</a>
+            <a href="./" class="active">Page 3</a>
+        </div>
+
+        <!-- Products Grid - Page 3 products -->
+        <div class="product-grid">
+            <!-- AI Consultant Day -->
+            <div class="product-card">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Consultant Day" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">AI Consultant Day</h2>
+                    <div class="product-price">€699</div>
+                    <div class="product-price-note">Per day, VAT excl.</div>
+                    <p class="product-excerpt">Battle-ready AI consultant for strategy to implementation. Covers AI strategy development, functional solutions, apps, chatbots, and automation. Uses GPT-5, Gemini Pro, Microsoft 365 Copilot, Azure AI Studio.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Mentor 30 Hours -->
+            <div class="product-card">
+                <img src="../../static/images/Risto_Malta.png" alt="Business Mentor 30 Hours" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Business Mentor - AI Strategy 30 Hours</h2>
+                    <div class="product-price">€4,960</div>
+                    <div class="product-price-note">30 hours, valid 12 months</div>
+                    <p class="product-excerpt">30-hour expert consulting for AI strategy implementation, business process redesign with agents, and Copilot adoption. Flexible scheduling in 4-8 hour sessions over 12 months.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firehorse Coach -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Firehorse Coach" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Coach - In-House AI Training</h2>
+                    <div class="product-price">€499</div>
+                    <div class="product-price-note">Workshop + coaching</div>
+                    <p class="product-excerpt">In-house coaching for leadership capabilities and team skills in AI-driven organizations. Includes complimentary 3-hour introductory workshop. Personal, team, or remote sessions available.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firehorse Flow -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Firehorse Flow" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Flow</h2>
+                    <div class="product-price">€499</div>
+                    <div class="product-price-note">Setup + implementation</div>
+                    <p class="product-excerpt">AI assistant and prompt flow agent for ideal service experience development. Continuous customer experience improvement that increases sales.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Omnichannel Multimodal -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Omnichannel Multimodal" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Omnichannel & Multimodal AI Assistant</h2>
+                    <div class="product-price">€699/mo</div>
+                    <div class="product-price-note">Monthly subscription</div>
+                    <p class="product-excerpt">Enterprise sales and information channel management with AI-optimized strategies. Daily campaign management and sales measurement across all marketing-mix channels.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Firehorse Lean Project -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Firehorse Lean Project" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Firehorse Lean Project</h2>
+                    <div class="product-price">€4,960</div>
+                    <div class="product-price-note">Project setup</div>
+                    <p class="product-excerpt">Lean Project methodology with AI tools. Includes 1.5-day planning workshop, backlog management, Kanban workflows, roadmap development, and AI productivity tool integration.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI & Agent Engineering -->
+            <div class="product-card">
+                <img src="../../static/images/Risto_Malta.png" alt="AI & Agent Engineering" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">AI & Agent Engineering</h2>
+                    <div class="product-price">€99/hr</div>
+                    <div class="product-price-note">Per hour</div>
+                    <p class="product-excerpt">Professional agentic business development consultancy. Azure AI Foundry, Google AI Studio, Custom AI Agent, or Agent Framework projects. Choose from AI Product Manager, Solutions Architect, or AI/ML Engineer roles.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- M365 Consultancy -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="M365 Consultancy" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Microsoft 365 Consultancy</h2>
+                    <div class="product-price">€1,120</div>
+                    <div class="product-price-note">8 hours</div>
+                    <p class="product-excerpt">Low-code Power Apps business process solutions. ROI 188% over three years, 74% reduction in app development costs. 8-hour consultancy engagement.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PowerApps Consultancy -->
+            <div class="product-card">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="PowerApps Consultancy" class="product-image">
+                <div class="product-content">
+                    <h2 class="product-title">Microsoft AI Studio M365 Power Platform Azure</h2>
+                    <div class="product-price">€1,120</div>
+                    <div class="product-price-note">8 hours</div>
+                    <p class="product-excerpt">Power Platform consultancy for business process automation. Canvas and model-driven apps for inspections, field sales, automated workflows. IPR transfer upon payment.</p>
+                    <div class="btn-group">
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
+                        <a href="../" class="btn btn-secondary">Details</a>
+                    </div>
+                    <div class="payment-badge">
+                        <span>Secure payment via</span>
+                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="../">Page 1</a>
+            <a href="../page2/">Page 2</a>
+            <a href="./" class="active">Page 3</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div style="margin-bottom: 16px;">
+            <strong>LEGAL NOTICE</strong><br>
+            <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland)<br>
+            <strong>Regulatory Framework:</strong> GDPR, DSA, NIS2 Directive, EU AI Act
+        </div>
+        <div>
+            <a href="../../privacy-policy/">Privacy</a> ·
+            <a href="../../terms/">Terms</a> ·
+            <a href="../../return-policy/">Returns</a> ·
+            <a href="mailto:support@lifetime.fi">Support</a>
+        </div>
+        <div style="margin-top: 16px;">
+            Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>
