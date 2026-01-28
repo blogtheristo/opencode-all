@@ -30,13 +30,13 @@ const __dirname = path.dirname(__filename);
 // Security headers
 app.use(helmet());
 
-// CORS configuration - allow V10 dashboard
+// CORS configuration - allow all origins for public Climate Assistant API
 const corsOptions = {
-  origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5173,https://dws6.com').split(','),
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id'],
 };
 app.use(cors(corsOptions));
 
