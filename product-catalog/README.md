@@ -218,10 +218,36 @@ git commit -m "Add Carbon Calculator V1 product catalog"
 - Firehorse: `/dws10.com/Firehorse2026.png`
 - DWS IQ Platform: `/dws10.com/DWS_IQ2026.png`
 
+**Trust Badges:**
+- EU-Sovereign: `/product-catalog/assets/badges/EU_Sovereign.png`
+- See [Badge README](./assets/badges/README.md) for usage guidelines
+
 **Brand Colors:**
 - NVIDIA Green: `#76B900` (Firehorse V2)
 - DWS Blue: `#0066cc` (Platform primary)
 - Dark Background: `#0a1628` (Enterprise theme)
+- EU Blue: `#003399` (Sovereignty theme)
+- EU Gold: `#FFCC00` (Sovereignty accent)
+
+---
+
+## 🇪🇺 EU-Sovereign by Design
+
+All DWS IQ Platform products are **EU-Sovereign by Design**, meaning they:
+
+1. **EU Data Residency** - Data stored exclusively in Finland/Germany
+2. **No CLOUD Act Exposure** - No US parent company jurisdiction
+3. **GDPR Native** - Built-in compliance, not bolted on
+4. **GAIA-X Aligned** - Following Level 3 sovereignty standards
+5. **EU AI Act Ready** - Article 12 reasoning lineage for August 2026
+
+**Sovereignty Landing Page:** [/sovereignty/sovereignty.html](/sovereignty/sovereignty.html)
+
+**Badge Placement Required On:**
+- All product specification headers
+- Product pages on dws10.com
+- Marketing materials and sales decks
+- API documentation
 
 ---
 
