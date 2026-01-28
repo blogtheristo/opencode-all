@@ -12,6 +12,7 @@ import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import GatedService, { UserTier, LeadCaptureData } from '../services/climate-assistant-gated.service.js';
+import { optionalAuth } from '../middleware/auth.middleware.js';
 
 const router: Router = express.Router();
 
@@ -97,21 +98,28 @@ const validate = (req: Request, res: Response, next: any) => {
  * POST /api/climate-assistant/chat
  * Process a gated chat message
  */
-router.post('/chat', publicRateLimiter, chatValidation, validate, async (req: Request, res: Response) => {
+router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, async (req: Request, res: Response) => {
   try {
     const { message, sessionId, userId, tier = 'public', conversationHistory } = req.body;
 
-    // Determine tier from auth (simplified - expand with real auth)
+    // Determine tier from validated auth token
     let effectiveTier: UserTier = tier;
-    const authHeader = req.headers.authorization;
-    if (authHeader?.startsWith('Bearer ')) {
-      // If authenticated, at least 'guest' tier
+    
+    // If user is authenticated (token was validated by optionalAuth middleware)
+    if (req.userId) {
+      // Upgrade to at least 'guest' tier for authenticated users
       effectiveTier = tier === 'public' ? 'guest' : tier;
+      logger.debug('Authenticated user detected', { 
+        userId: req.userId, 
+        email: req.userEmail,
+        upgradedTier: effectiveTier 
+      });
     }
 
     logger.info('Gated chat request', {
       sessionId,
       tier: effectiveTier,
+      authenticated: !!req.userId,
       messageLength: message.length,
     });
 
