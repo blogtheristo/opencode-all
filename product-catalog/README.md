@@ -233,18 +233,20 @@ git commit -m "Add Carbon Calculator V1 product catalog"
 
 ## 🇪🇺 EU-Sovereign by Design
 
-All DWS IQ Platform products are **EU-Sovereign by Design**, meaning they:
+For EU-sovereign deployment options and regulated workloads, the DWS IQ Platform provides **EU-Sovereign by Design** configurations:
 
-1. **EU Data Residency** - Data stored exclusively in Finland/Germany
-2. **No CLOUD Act Exposure** - No US parent company jurisdiction
+1. **EU Data Residency** - For EU-sovereign configurations, data is stored in Finland/Germany
+2. **No CLOUD Act Exposure (EU-sovereign options)** - No US parent company jurisdiction over EU-sovereign clusters; for Global Cloud options, CLOUD Act exposure may apply as documented in the deployment matrices
 3. **GDPR Native** - Built-in compliance, not bolted on
 4. **GAIA-X Aligned** - Following Level 3 sovereignty standards
 5. **EU AI Act Ready** - Article 12 reasoning lineage for August 2026
 
+These guarantees apply to explicitly designated EU-sovereign deployment options within the platform's hybrid sovereignty model (European Cloud and Sovereign Private Cloud tiers) and do not automatically extend to all Global Cloud deployment configurations.
+
 **Sovereignty Landing Page:** [/sovereignty/sovereignty.html](/sovereignty/sovereignty.html)
 
 **Badge Placement Required On:**
-- All product specification headers
+- All product specification headers (with deployment tier clarity)
 - Product pages on dws10.com
 - Marketing materials and sales decks
 - API documentation

@@ -6,17 +6,19 @@ This directory contains official badges and trust marks for DWS IQ Platform prod
 
 **File:** `EU_Sovereign.png`
 
-The EU-Sovereign badge signifies that a product meets the following criteria:
+The EU-Sovereign badge signifies that a product **offers EU-sovereign deployment options** with the following capabilities:
 
-### Sovereignty Requirements
+### Sovereignty Requirements (for EU-Sovereign Deployment Tiers)
 
-| Requirement | Status | Description |
-|-------------|--------|-------------|
-| **EU Data Residency** | Required | Data stored in Finland/Germany |
-| **No CLOUD Act Exposure** | Required | No US parent company jurisdiction |
-| **GDPR Native** | Required | Built-in GDPR compliance |
-| **GAIA-X Aligned** | Target | Following GAIA-X Level 3 standards |
-| **EU AI Act Ready** | Target Aug 2026 | Article 12 reasoning lineage |
+| Requirement | Applies To | Description |
+|-------------|------------|-------------|
+| **EU Data Residency** | European Cloud, Sovereign Private | Data stored in Finland/Germany |
+| **No CLOUD Act Exposure** | European Cloud, Sovereign Private | No US jurisdiction; Global Cloud tier: CLOUD Act may apply |
+| **GDPR Native** | All Tiers | Built-in GDPR compliance |
+| **GAIA-X Aligned** | European Cloud, Sovereign Private | Following GAIA-X Level 3 standards |
+| **EU AI Act Ready** | All Tiers | Article 12 reasoning lineage (Aug 2026) |
+
+**Note:** The badge indicates the product supports EU-sovereign configurations. Customers choose their deployment tier (Global Cloud, European Cloud, or Sovereign Private Cloud) based on their compliance requirements. Full sovereignty guarantees apply only to European Cloud and Sovereign Private Cloud tiers.
 
 ### Usage Guidelines
 
