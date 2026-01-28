@@ -182,13 +182,15 @@ scw container container create \
   namespace-id=<namespace-id> \
   name=dws-iq-backend \
   registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest \
-  environment-variables.GROQ_API_KEY=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 \
+  environment-variables.GROQ_API_KEY=<your-groq-api-key> \
   environment-variables.NODE_ENV=production \
   min-scale=0 \
   max-scale=5 \
   memory-limit=512 \
   port=8080
 ```
+
+> **Security note:** Replace `<your-groq-api-key>` with your actual Groq API key. **Never** commit live API keys to source control. For production deployments, use Scaleway Secrets Manager or pass environment variables securely via CI/CD secrets (see GitHub Actions configuration below).
 
 ### One-Liner Deployment (After Initial Setup)
 
