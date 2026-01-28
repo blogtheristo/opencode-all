@@ -238,7 +238,7 @@ curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.clo
 | **Concurrent Executions** | `50` | Max concurrent requests per instance |
 | **Timeout** | `300s` | Request timeout |
 | **Privacy** | `Public` | Publicly accessible endpoint |
-| **HTTPS Only** | `Disabled` | Accept HTTP too |
+| **HTTPS Only** | `Enabled` | Enforce HTTPS only (no plain HTTP) |
 | **HTTP Protocol** | `HTTP/1` | HTTP version |
 
 ### Troubleshooting
