@@ -189,10 +189,15 @@ The push for a fully independent "European tech stack" presents a **genuine stra
 ### 3. Website & Collateral Updates
 
 **Immediate (Q1 2026):**
-- [ ] Add "EU Sovereign" badge to homepage
-- [ ] Create `/sovereignty` landing page with architecture diagram
+- [x] Add "EU Sovereign" badge to homepage
+- [x] Create `/sovereignty` landing page with architecture diagram
 - [ ] Update Trust Center with data residency specifics
 - [ ] Add GAIA-X alignment statement (when certified)
+
+**Completed Assets:**
+- `/sovereignty/sovereignty.html` - Full landing page using "Global Innovation, Local Protection" framework
+- `/product-catalog/assets/badges/EU_Sovereign.png` - Badge placeholder with usage guidelines
+- Product specifications updated with EU-Sovereign badge section
 
 **Content to develop:**
 - Whitepaper: "Why EU Industrial AI Requires EU Sovereignty"

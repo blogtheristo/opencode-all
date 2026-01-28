@@ -3,6 +3,24 @@
 
 ---
 
+## EU-Sovereign Badge
+
+[![EU-Sovereign](../../assets/badges/EU_Sovereign.png)](/sovereignty/sovereignty.html)
+
+**Sovereignty Status:** EU-Sovereign by Design
+
+| Sovereignty Criteria | Status |
+|---------------------|--------|
+| EU Data Residency | Finland/Germany |
+| CLOUD Act Exposure | None (On-premise sovereign stack) |
+| GDPR Compliance | Native |
+| GAIA-X Alignment | Level 3 Target |
+| EU AI Act (Aug 2026) | Ready - Article 12 Compliant |
+
+> **"Sovereign by Design. Global by Choice."** — This product is engineered to leverage global cloud innovation while meeting the EU's highest digital autonomy standards.
+
+---
+
 ## Basic Information
 
 **Product/Service Name:** Firehorse V2 (was Firehorse Report V1)
