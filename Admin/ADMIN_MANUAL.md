@@ -104,12 +104,13 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 
 | Key | Value |
 |-----|-------|
-| **Access Key** | `SCW2G10DRNZJW1ZFM807` |
-| **Secret Key** | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` |
+| **Access Key** | `SCW_ACCESS_KEY=<set-in-secrets>` |
+| **Secret Key** | `SCW_SECRET_KEY=<set-in-secrets>` |
 | **Application Name** | `dws-iq-chat-cli` |
 | **API Key Description** | `dws-iq-chat-cli-v1` |
 | **Expiration** | Never (Organization setting) |
 
+> **Security note:** Configure `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` only via your secret manager or deployment environment (e.g., CI/CD secrets, `.env` files not committed to the repo). Do **not** store live credentials in this document or in source control.
 ### IAM Policy Configuration
 
 | Property | Value |
@@ -122,20 +123,24 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 
 ### Environment Variables (PowerShell)
 
+> **⚠️ SECURITY WARNING:** The credentials shown below were exposed in a previous commit and have been **rotated**. Never commit real credentials to source control. Always use environment variables populated from a password manager or CI/CD secrets.
+
 ```powershell
 # Set permanently (User level)
-[Environment]::SetEnvironmentVariable("SCW_ACCESS_KEY", "SCW2G10DRNZJW1ZFM807", "User")
-[Environment]::SetEnvironmentVariable("SCW_SECRET_KEY", "7ea977a5-0ce1-492f-96a3-d30d9f5b5844", "User")
-[Environment]::SetEnvironmentVariable("SCW_DEFAULT_ORGANIZATION_ID", "78e26603-c820-4617-b0d2-f8589eb7693b", "User")
-[Environment]::SetEnvironmentVariable("SCW_DEFAULT_PROJECT_ID", "78e26603-c820-4617-b0d2-f8589eb7693b", "User")
+# Replace placeholder values with your actual credentials from your password manager
+[Environment]::SetEnvironmentVariable("SCW_ACCESS_KEY", "SCWXXXXXXXXXXXXXXXXX", "User")
+[Environment]::SetEnvironmentVariable("SCW_SECRET_KEY", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_ORGANIZATION_ID", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "User")
+[Environment]::SetEnvironmentVariable("SCW_DEFAULT_PROJECT_ID", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "User")
 [Environment]::SetEnvironmentVariable("SCW_DEFAULT_REGION", "fr-par", "User")
 [Environment]::SetEnvironmentVariable("SCW_DEFAULT_ZONE", "fr-par-1", "User")
 
 # Apply to current session
-$env:SCW_ACCESS_KEY = "SCW2G10DRNZJW1ZFM807"
-$env:SCW_SECRET_KEY = "7ea977a5-0ce1-492f-96a3-d30d9f5b5844"
-$env:SCW_DEFAULT_ORGANIZATION_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
-$env:SCW_DEFAULT_PROJECT_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
+# Replace placeholder values with your actual credentials from your password manager
+$env:SCW_ACCESS_KEY = "SCWXXXXXXXXXXXXXXXXX"
+$env:SCW_SECRET_KEY = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+$env:SCW_DEFAULT_ORGANIZATION_ID = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+$env:SCW_DEFAULT_PROJECT_ID = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 $env:SCW_DEFAULT_REGION = "fr-par"
 $env:SCW_DEFAULT_ZONE = "fr-par-1"
 ```
@@ -177,17 +182,20 @@ docker push rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest
 scw container namespace create name=dws-iq-backend region=fr-par
 
 # Step 6: Deploy Container (replace <namespace-id> with actual ID from step 5)
+# Replace <your-groq-api-key> with your actual Groq API key from https://console.groq.com/
 scw container container create \
   namespace-id=<namespace-id> \
   name=dws-iq-backend \
   registry-image=rg.fr-par.scw.cloud/dws-iq/dws-iq-backend:latest \
-  environment-variables.GROQ_API_KEY=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 \
+  environment-variables.GROQ_API_KEY=<your-groq-api-key> \
   environment-variables.NODE_ENV=production \
   min-scale=0 \
   max-scale=5 \
   memory-limit=512 \
   port=8080
 ```
+
+> **Security note:** Replace `<your-groq-api-key>` with your actual Groq API key. **Never** commit live API keys to source control. For production deployments, use Scaleway Secrets Manager or pass environment variables securely via CI/CD secrets (see GitHub Actions configuration below).
 
 ### One-Liner Deployment (After Initial Setup)
 
@@ -232,14 +240,15 @@ curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.clo
 | **Concurrent Executions** | `50` | Max concurrent requests per instance |
 | **Timeout** | `300s` | Request timeout |
 | **Privacy** | `Public` | Publicly accessible endpoint |
-| **HTTPS Only** | `Disabled` | Accept HTTP too |
+| **HTTPS Only** | `Enabled` | Enforce HTTPS only (no plain HTTP) |
 | **HTTP Protocol** | `HTTP/1` | HTTP version |
 
 ### Troubleshooting
 
 **Error: "organization ID is required"**
 ```powershell
-$env:SCW_DEFAULT_ORGANIZATION_ID = "78e26603-c820-4617-b0d2-f8589eb7693b"
+# Use your actual organization ID from the Scaleway console
+$env:SCW_DEFAULT_ORGANIZATION_ID = "<your-organization-id>"
 ```
 
 **Error: "insufficient permissions"**
@@ -289,13 +298,15 @@ scw container container update <container-id> registry-image=rg.fr-par.scw.cloud
 
 Go to **Settings → Secrets and variables → Actions** and add:
 
+> **⚠️ SECURITY WARNING:** Use actual credentials from your Scaleway console. The values shown below are placeholders only.
+
 | Secret Name | Value | Description |
 |-------------|-------|-------------|
-| `SCW_ACCESS_KEY` | `SCW2G10DRNZJW1ZFM807` | Scaleway API access key |
-| `SCW_SECRET_KEY` | `7ea977a5-0ce1-492f-96a3-d30d9f5b5844` | Scaleway API secret key |
-| `SCW_ORGANIZATION_ID` | `78e26603-c820-4617-b0d2-f8589eb7693b` | Scaleway organization ID |
-| `SCW_PROJECT_ID` | `78e26603-c820-4617-b0d2-f8589eb7693b` | Scaleway project ID |
-| `SCW_NAMESPACE_ID` | `3639617d-3041-4051-9a28-19b4ca6a14db` | Container namespace ID |
+| `SCW_ACCESS_KEY` | `<your-scaleway-access-key>` | Scaleway API access key (starts with SCW) |
+| `SCW_SECRET_KEY` | `<your-scaleway-secret-key>` | Scaleway API secret key (UUID format) |
+| `SCW_ORGANIZATION_ID` | `<your-org-id>` | Scaleway organization ID (UUID format) |
+| `SCW_PROJECT_ID` | `<your-project-id>` | Scaleway project ID (UUID format) |
+| `SCW_NAMESPACE_ID` | `<your-namespace-id>` | Container namespace ID (UUID format) |
 
 #### Setup Instructions
 

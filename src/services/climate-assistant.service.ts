@@ -11,8 +11,13 @@
  * Groq Pricing (Llama 3.1 70B):
  * - Input: $0.59 per 1M tokens
  * - Output: $0.79 per 1M tokens
+ *
+ * Usage Tracking:
+ * - Persisted in Supabase for serverless/multi-instance deployment
+ * - Prevents budget overruns across cold starts and multiple instances
  */
 
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
@@ -33,65 +38,148 @@ const DAILY_BUDGET_USD = 1.00;
 // Max tokens per response (keep responses concise)
 const MAX_TOKENS = 1024;
 
+// ============ SUPABASE CLIENT ============
+
+let supabase: SupabaseClient | null = null;
+
+/**
+ * Initialize Supabase client (lazy)
+ */
+function getSupabaseClient(): SupabaseClient | null {
+  if (supabase) return supabase;
+  
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+  
+  if (!supabaseUrl || !supabaseKey) {
+    logger.warn('Supabase not configured. Usage tracking disabled.');
+    return null;
+  }
+  
+  supabase = createClient(supabaseUrl, supabaseKey);
+  return supabase;
+}
+
 // ============ USAGE TRACKING ============
 
 interface DailyUsage {
   date: string;
-  inputTokens: number;
-  outputTokens: number;
+  input_tokens: number;
+  output_tokens: number;
   requests: number;
+  cost_usd: number;
 }
 
-let dailyUsage: DailyUsage = {
-  date: new Date().toISOString().split('T')[0],
-  inputTokens: 0,
-  outputTokens: 0,
-  requests: 0,
-};
+/**
+ * Get today's usage from Supabase
+ * Returns zero-usage object if no record exists yet today
+ * Returns null only on database errors (fail-open scenario)
+ */
+async function getTodaysUsage(): Promise<DailyUsage | null> {
+  const client = getSupabaseClient();
+  if (!client) return null; // Supabase not configured
+  
+  const today = new Date().toISOString().split('T')[0];
+  
+  try {
+    const { data, error } = await client
+      .from('climate_assistant_usage')
+      .select('*')
+      .eq('date', today)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') {
+        // No record found for today - return zero usage (expected scenario)
+        return {
+          date: today,
+          input_tokens: 0,
+          output_tokens: 0,
+          requests: 0,
+          cost_usd: 0,
+        };
+      }
+      // Database error - log and return null (fail-open)
+      logger.error('Error fetching usage from Supabase', { error });
+      return null;
+    }
+    
+    return data as DailyUsage;
+  } catch (error: any) {
+    logger.error('Exception fetching usage', { error: error.message });
+    return null; // Fail-open on exception
+  }
+}
 
 /**
- * Get current daily cost
+ * Get current daily cost from usage record
+ * Uses pre-calculated cost_usd from database to avoid precision issues
  */
-function getDailyCost(): number {
-  return (
-    dailyUsage.inputTokens * INPUT_COST_PER_TOKEN +
-    dailyUsage.outputTokens * OUTPUT_COST_PER_TOKEN
-  );
+function getCost(usage: DailyUsage | null): number {
+  if (!usage) return 0;
+  return usage.cost_usd;
 }
 
 /**
  * Check if budget is exceeded
  */
-function isBudgetExceeded(): boolean {
-  // Reset if new day
-  const today = new Date().toISOString().split('T')[0];
-  if (dailyUsage.date !== today) {
-    logger.info('Daily usage reset', { previousUsage: dailyUsage });
-    dailyUsage = {
-      date: today,
-      inputTokens: 0,
-      outputTokens: 0,
-      requests: 0,
-    };
+async function isBudgetExceeded(): Promise<boolean> {
+  const usage = await getTodaysUsage();
+  if (!usage) {
+    // If Supabase is not available, allow requests (fail open)
+    logger.warn('Usage tracking unavailable (Supabase error), allowing request');
+    return false;
   }
-  return getDailyCost() >= DAILY_BUDGET_USD;
+  
+  const cost = getCost(usage);
+  return cost >= DAILY_BUDGET_USD;
 }
 
 /**
- * Track token usage
+ * Track token usage in Supabase
+ * Returns updated usage record or null on error
  */
-function trackUsage(inputTokens: number, outputTokens: number): void {
-  dailyUsage.inputTokens += inputTokens;
-  dailyUsage.outputTokens += outputTokens;
-  dailyUsage.requests += 1;
-
-  logger.info('Usage tracked', {
-    inputTokens,
-    outputTokens,
-    dailyCost: `$${getDailyCost().toFixed(4)}`,
-    dailyBudget: `$${DAILY_BUDGET_USD}`,
-    remainingBudget: `$${(DAILY_BUDGET_USD - getDailyCost()).toFixed(4)}`,
-  });
+async function trackUsage(inputTokens: number, outputTokens: number): Promise<DailyUsage | null> {
+  const client = getSupabaseClient();
+  if (!client) {
+    logger.warn('Supabase not available, skipping usage tracking');
+    return null;
+  }
+  
+  const today = new Date().toISOString().split('T')[0];
+  const cost = inputTokens * INPUT_COST_PER_TOKEN + outputTokens * OUTPUT_COST_PER_TOKEN;
+  
+  try {
+    // Use atomic increment function to handle concurrent requests
+    const { data, error } = await client.rpc('increment_climate_usage', {
+      usage_date: today,
+      input_tokens_delta: inputTokens,
+      output_tokens_delta: outputTokens,
+      cost_delta: cost,
+    });
+    
+    if (error) {
+      logger.error('Error tracking usage in Supabase', { error });
+      return null;
+    }
+    
+    const usage = data as DailyUsage;
+    const dailyCost = getCost(usage);
+    
+    logger.info('Usage tracked in Supabase', {
+      inputTokens,
+      outputTokens,
+      dailyCost: `$${dailyCost.toFixed(4)}`,
+      dailyBudget: `$${DAILY_BUDGET_USD}`,
+      remainingBudget: `$${(DAILY_BUDGET_USD - dailyCost).toFixed(4)}`,
+      requests: usage.requests,
+    });
+    
+    return usage;
+  } catch (error: any) {
+    logger.error('Exception tracking usage', { error: error.message });
+    return null;
+  }
 }
 
 // System prompt (concise for efficiency)
@@ -149,8 +237,10 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
   }
 
   // Check daily budget
-  if (isBudgetExceeded()) {
-    logger.warn('Daily budget exceeded', { dailyCost: getDailyCost() });
+  if (await isBudgetExceeded()) {
+    const usage = await getTodaysUsage();
+    const dailyCost = getCost(usage);
+    logger.warn('Daily budget exceeded', { dailyCost });
     return {
       content: `I've reached my daily usage limit ($${DAILY_BUDGET_USD}). Please try again tomorrow.`,
       model: 'budget-exceeded',
@@ -158,7 +248,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         inputTokens: 0,
         outputTokens: 0,
         cost: 0,
-        dailyCost: getDailyCost(),
+        dailyCost: dailyCost,
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
@@ -228,10 +318,10 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     // Extract content
     const content = data.choices?.[0]?.message?.content || 'I could not generate a response.';
 
-    // Track usage
+    // Track usage and get updated totals
     const inputTokens = data.usage?.prompt_tokens || 0;
     const outputTokens = data.usage?.completion_tokens || 0;
-    trackUsage(inputTokens, outputTokens);
+    const updatedUsage = await trackUsage(inputTokens, outputTokens);
 
     const requestCost =
       inputTokens * INPUT_COST_PER_TOKEN +
@@ -245,6 +335,9 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
       provider: 'groq',
     });
 
+    // Use returned usage to avoid extra query, fallback to fresh query if tracking failed
+    const dailyCost = updatedUsage ? getCost(updatedUsage) : getCost(await getTodaysUsage());
+
     return {
       content,
       model: data.model || MODEL,
@@ -252,7 +345,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         inputTokens,
         outputTokens,
         cost: requestCost,
-        dailyCost: getDailyCost(),
+        dailyCost: dailyCost,
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
@@ -267,7 +360,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
 /**
  * Get current usage statistics
  */
-export function getUsageStats(): {
+export async function getUsageStats(): Promise<{
   date: string;
   requests: number;
   inputTokens: number;
@@ -278,13 +371,16 @@ export function getUsageStats(): {
   percentUsed: number;
   provider: string;
   model: string;
-} {
-  const cost = getDailyCost();
+}> {
+  const usage = await getTodaysUsage();
+  const cost = getCost(usage);
+  const today = new Date().toISOString().split('T')[0];
+  
   return {
-    date: dailyUsage.date,
-    requests: dailyUsage.requests,
-    inputTokens: dailyUsage.inputTokens,
-    outputTokens: dailyUsage.outputTokens,
+    date: usage?.date || today,
+    requests: usage?.requests || 0,
+    inputTokens: usage?.input_tokens || 0,
+    outputTokens: usage?.output_tokens || 0,
     cost: Math.round(cost * 10000) / 10000,
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
