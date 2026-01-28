@@ -1,9 +1,9 @@
 # DWS IQ 6 Platform - Administrator Manual
 
-**Version:** 6.1  
-**Document Date:** January 4, 2026  
-**Classification:** Confidential - For System Administrators Only  
-**Platform:** DWS IQ 6 - Industrial Intelligence Platform  
+**Version:** 6.2
+**Document Date:** January 22, 2026
+**Classification:** Confidential - For System Administrators Only
+**Platform:** DWS IQ 6 - Industrial Intelligence Platform
 **Compliance:** Fit for 55, GDPR, ISO 27001
 
 ---
@@ -14,6 +14,7 @@
 |---------|------|--------|---------|
 | 6.0 | 2025-12-31 | DWS IQ Platform Team | Initial V6 Administrator Manual |
 | 6.1 | 2026-01-04 | DWS IQ Platform Team | Added Appendix K: LLM Training Infrastructure |
+| 6.2 | 2026-01-22 | DWS IQ Platform Team | Added Dashboard V9 (React + TypeScript + AI SDK) documentation |
 
 **Distribution List:**
 - System Administrators
@@ -170,6 +171,108 @@ As a DWS IQ 6 Administrator, you are responsible for:
 - Docker containers
 - Kubernetes (optional)
 - CI/CD: GitHub Actions
+
+### Dashboard V9 - Climate Intelligence Interface
+
+**Status:** ✅ Production-Ready (January 2026)
+**Location:** `/dashboard/firehorse/v9-react/`
+**Documentation:** Field Note #2026-01-22
+
+**Overview:**
+Dashboard V9 is the modern React + TypeScript implementation of the DWS IQ climate intelligence dashboard, featuring integrated AI assistance and voice interaction capabilities.
+
+**Tech Stack:**
+- React 18.3.1 + TypeScript 5.6.2
+- Vite 6.0.5 (Build tool)
+- Vercel AI SDK 4.1.10 (AI streaming)
+- Anthropic Claude Sonnet 4 (AI provider)
+- Supabase (Real-time database)
+- Tailwind CSS 3.4.17 (Styling)
+- Web Speech API (Voice input)
+- Speech Synthesis API (Text-to-speech)
+
+**Key Features:**
+1. **Real-time Portfolio Metrics**
+   - SPI (Schedule Performance Index)
+   - CPI (Cost Performance Index)
+   - Carbon tracking (EN 15978 methodology)
+   - Compliance monitoring (CSRD, EPBD, ETS, CBAM)
+
+2. **AI Climate Assistant**
+   - Streaming chat with Claude Sonnet 4
+   - Tool calling for:
+     - Carbon calculations
+     - Compliance checks
+     - Report generation
+   - Natural language queries
+
+3. **Voice Interaction**
+   - Speech-to-text input (Web Speech API)
+   - Text-to-speech output (hands-free operation)
+   - Multi-language support
+   - Browser compatibility: Chrome, Edge, Safari
+
+4. **Project Management**
+   - RAG status indicators (Red/Amber/Green)
+   - Real-time Supabase updates
+   - Export capabilities
+   - Mobile-responsive design
+
+**Performance:**
+- Bundle size: ~70KB gzipped
+- Initial load: ~1.2s
+- Time to Interactive: ~1.5s
+- First AI token: 200-400ms
+- Voice input latency: ~200ms
+
+**Deployment:**
+```bash
+# Build for production
+cd /home/user/dws6/dws6.com/dashboard/firehorse/v9-react
+npm install
+npm run build
+
+# Deploy to Cloudflare Pages
+wrangler pages deploy dist --project-name=dws-iq-dashboard-v9
+
+# Or deploy to Google Cloud Storage
+gsutil -m rsync -r dist/ gs://dws-iq-dashboard-v9/
+```
+
+**Environment Configuration:**
+```bash
+# Required environment variables
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+```
+
+**Administrator Tasks:**
+1. **Setup:** Configure Supabase connection and Anthropic API key
+2. **User Access:** Manage dashboard access via Supabase RLS policies
+3. **Monitoring:** Track AI API usage and costs
+4. **Updates:** Deploy new versions via CI/CD pipeline
+5. **Backups:** Ensure Supabase automated backups are enabled
+
+**Browser Compatibility Matrix:**
+| Feature | Chrome 120+ | Edge 120+ | Safari 17+ | Firefox 120+ |
+|---------|-------------|-----------|------------|--------------|
+| Dashboard | ✅ | ✅ | ✅ | ✅ |
+| AI Chat | ✅ | ✅ | ✅ | ✅ |
+| Voice Input | ✅ | ✅ | ✅ | ❌ |
+| Text-to-Speech | ✅ | ✅ | ✅ | ✅ |
+
+**Migration from V8:**
+- V8 (vanilla JavaScript) is deprecated
+- V9 provides feature parity plus AI capabilities
+- Database schema remains compatible
+- Users can access both during transition period
+- Full migration timeline: Q1 2026
+
+**Support & Documentation:**
+- README: `/dashboard/firehorse/v9-react/README.md`
+- Field Note: `/docs/field-notes/2026-01-22-dashboard-v9-technical-stack.md`
+- Evaluation: `/docs/evaluation/typescript-react-ai-sdk-evaluation.md`
 
 ---
 

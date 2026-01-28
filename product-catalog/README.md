@@ -1,0 +1,288 @@
+# Product Catalog - DWS IQ Platform
+**Structured Product Information Repository**
+
+Last Updated: 2026-01-23
+Managed By: Product Management & Marketing
+
+---
+
+## 📁 Directory Structure
+
+```
+product-catalog/
+├── README.md (this file)
+├── LWM/                           # Lifetime World Model
+│   ├── V0/                        # Original web content (baseline)
+│   │   └── original-webpage.html
+│   └── V1/                        # NVIDIA Inception submission
+│       ├── product-specification.md
+│       └── google-merchant-product.json
+│
+├── Firehorse/                     # Firehorse Product Family
+│   ├── V1/                        # Firehorse Report V1 (legacy)
+│   │   └── (future: migration from existing content)
+│   └── V2/                        # Firehorse V2 (current - NVIDIA submission)
+│       ├── product-specification.md
+│       └── google-merchant-product.json
+│
+└── [Future Products]/
+    └── (Additional products follow same structure)
+```
+
+---
+
+## 🎯 Purpose
+
+This product catalog serves as the **single source of truth** for all DWS IQ platform product information:
+
+1. **Google Merchant Center Feed** - Structured JSON for e-commerce integration
+2. **NVIDIA Inception Applications** - Technical specifications for partnership submissions
+3. **Marketing Content** - Product descriptions for website, sales materials, presentations
+4. **Version Control** - Track product evolution from V0 (original) → V1 (NVIDIA) → V2+ (future)
+
+---
+
+## 📋 File Naming Conventions
+
+### Standard Files in Each Version Folder:
+
+| File Name | Purpose | Format |
+|-----------|---------|--------|
+| `google-merchant-product.json` | Google Merchant Center feed | JSON |
+| `product-specification.md` | Technical specs (NVIDIA, sales) | Markdown |
+| `pricing-model.json` | Pricing tiers & revenue model | JSON |
+| `marketing-assets.md` | Copy, taglines, positioning | Markdown |
+| `competitive-analysis.md` | vs. competitors comparison | Markdown |
+| `customer-testimonials.md` | Case studies, quotes | Markdown |
+| `technical-benchmarks.md` | Performance data, benchmarks | Markdown |
+
+---
+
+## 🔄 Version Naming Scheme
+
+**Format:** `V{number}` where:
+- **V0** = Original/baseline content (pre-NVIDIA)
+- **V1** = First major revision (NVIDIA Inception submission)
+- **V2** = Second major revision (market-ready, post-Inception)
+- **V3+** = Future iterations
+
+**When to Create New Version:**
+- Major feature additions (e.g., new NVIDIA tech integration)
+- Significant pricing model changes
+- Rebranding or repositioning
+- Regulatory compliance updates (e.g., Fit for 55 certification)
+
+---
+
+## 📊 Google Merchant Center Field Mapping
+
+All `google-merchant-product.json` files follow Google Merchant Next schema:
+
+### Core Required Fields:
+- `id` - Unique product identifier (e.g., "LWM-V1-2026")
+- `title` - Product name (150 chars max)
+- `description` - Full description (5000 chars max)
+- `link` - Product page URL
+- `imageLink` - Main product image (800x800+ px)
+- `price` - Price with currency
+- `availability` - Stock status (in_stock / out_of_stock / preorder)
+- `condition` - Product condition (new / refurbished / used)
+- `brand` - Brand name (Lifetime Oy)
+
+### DWS-Specific Custom Fields:
+- `customLabel0` - Primary category (e.g., "Physical AI")
+- `customLabel1` - Industry vertical (e.g., "Construction Tech")
+- `customLabel2` - Regulatory focus (e.g., "Fit for 55")
+- `customLabel3` - Technology type (e.g., "Sovereign AI")
+- `customLabel4` - Partnership status (e.g., "NVIDIA Inception")
+
+### Product Details Array:
+Used for technical specifications:
+```json
+"productDetail": [
+  {
+    "sectionName": "Model Architecture",
+    "attributeName": "Parameter Count",
+    "attributeValue": "55 billion parameters"
+  }
+]
+```
+
+### Product Highlights Array:
+Bullet points for key selling points (max 10):
+```json
+"productHighlights": [
+  "55B parameter construction-specific Physical AI model",
+  "Persistent 'Lifetime' memory of site evolution"
+]
+```
+
+---
+
+## 🔗 Integration Points
+
+### Where This Catalog Feeds:
+
+1. **Website Product Pages** (`/dws10.com/products/`, `/dws10.com/world-model/`)
+   - Source: `google-merchant-product.json` → `description`, `productHighlights`
+   - Template: Inject JSON-LD structured data into `<head>`
+
+2. **Google Merchant Center Feed**
+   - Source: `google-merchant-product.json` (direct upload)
+   - Frequency: Weekly automated sync
+
+3. **NVIDIA Inception Applications**
+   - Source: `product-specification.md`
+   - Format: Copy-paste into NVIDIA submission forms
+
+4. **Sales Presentations & Decks**
+   - Source: `marketing-assets.md`, `competitive-analysis.md`
+   - Format: PowerPoint, PDF, sales enablement
+
+5. **Documentation (`/docs/product-catalog.md`)**
+   - Source: Aggregate all products from this catalog
+   - Format: Markdown table with all 9 products
+
+---
+
+## 🛠️ Maintenance Workflow
+
+### Weekly Tasks:
+- [ ] Validate `availability` status (in_stock vs. out_of_stock)
+- [ ] Check `price` accuracy against sales team updates
+- [ ] Update `expirationDate` if products extended
+
+### Monthly Tasks:
+- [ ] Refresh `description` for SEO optimization
+- [ ] Update `productHighlights` based on customer feedback
+- [ ] Review `productDetail` for technical accuracy
+
+### Quarterly Tasks:
+- [ ] Audit competitive positioning (`competitive-analysis.md`)
+- [ ] Update customer testimonials (`customer-testimonials.md`)
+- [ ] Refresh technical benchmarks (`technical-benchmarks.md`)
+
+### Version Release Checklist:
+When creating new version (e.g., V1 → V2):
+1. ✅ Create new version folder (`mkdir product-catalog/LWM/V2`)
+2. ✅ Copy previous version files as baseline
+3. ✅ Update `product_data_version` in JSON
+4. ✅ Update `metadata.version` and `metadata.replaces_version`
+5. ✅ Document changes in version's `CHANGELOG.md`
+6. ✅ Update website to reference new version
+7. ✅ Git commit with tag: `git tag product-lwm-v2.0`
+
+---
+
+## 📝 Example: Adding New Product
+
+To add a new product (e.g., "DWS Carbon Calculator"):
+
+```bash
+# 1. Create folder structure
+mkdir -p product-catalog/CarbonCalculator/V1
+
+# 2. Create Google Merchant JSON
+cat > product-catalog/CarbonCalculator/V1/google-merchant-product.json <<EOF
+{
+  "product_data_version": "1.0",
+  "product": {
+    "id": "CARBON-CALC-V1-2026",
+    "title": "DWS Carbon Calculator - Automated EN 15978 Compliance",
+    ...
+  }
+}
+EOF
+
+# 3. Create product specification
+cat > product-catalog/CarbonCalculator/V1/product-specification.md <<EOF
+# DWS Carbon Calculator V1
+## Product Overview
+...
+EOF
+
+# 4. Update main product catalog documentation
+# Edit: /docs/product-catalog.md (add row to product table)
+
+# 5. Commit to repository
+git add product-catalog/CarbonCalculator/
+git commit -m "Add Carbon Calculator V1 product catalog"
+```
+
+---
+
+## 🎨 Brand Assets
+
+**Product Logos:**
+- LWM: `/dws10.com/DWS_IQ2026.png`
+- Firehorse: `/dws10.com/Firehorse2026.png`
+- DWS IQ Platform: `/dws10.com/DWS_IQ2026.png`
+
+**Trust Badges:**
+- EU-Sovereign: `/product-catalog/assets/badges/EU_Sovereign.png`
+- See [Badge README](./assets/badges/README.md) for usage guidelines
+
+**Brand Colors:**
+- NVIDIA Green: `#76B900` (Firehorse V2)
+- DWS Blue: `#0066cc` (Platform primary)
+- Dark Background: `#0a1628` (Enterprise theme)
+- EU Blue: `#003399` (Sovereignty theme)
+- EU Gold: `#FFCC00` (Sovereignty accent)
+
+---
+
+## 🇪🇺 EU-Sovereign by Design
+
+All DWS IQ Platform products are **EU-Sovereign by Design**, meaning they:
+
+1. **EU Data Residency** - Data stored exclusively in Finland/Germany
+2. **No CLOUD Act Exposure** - No US parent company jurisdiction
+3. **GDPR Native** - Built-in compliance, not bolted on
+4. **GAIA-X Aligned** - Following Level 3 sovereignty standards
+5. **EU AI Act Ready** - Article 12 reasoning lineage for August 2026
+
+**Sovereignty Landing Page:** [/sovereignty/sovereignty.html](/sovereignty/sovereignty.html)
+
+**Badge Placement Required On:**
+- All product specification headers
+- Product pages on dws10.com
+- Marketing materials and sales decks
+- API documentation
+
+---
+
+## 📞 Contact & Ownership
+
+**Product Catalog Maintainers:**
+- **Product Management:** Define features, pricing, positioning
+- **Marketing:** Write copy, competitive analysis, testimonials
+- **Engineering:** Validate technical specs, benchmarks
+- **Sales:** Confirm pricing, customer feedback
+
+**Review Cadence:**
+- **Weekly:** Product Ops (availability, pricing sync)
+- **Monthly:** Product Manager (strategy alignment)
+- **Quarterly:** Cross-functional (roadmap, positioning)
+
+**Questions or Updates:**
+- Slack: `#product-catalog`
+- Email: `product@lifetime.fi`
+
+---
+
+## 🔮 Future Enhancements
+
+**Planned Improvements:**
+1. **Automated JSON → Website Sync:** GitHub Actions to auto-update product pages
+2. **Multi-language Support:** EN, FI, SV versions of all content
+3. **A/B Testing Metadata:** Track which `productHighlights` convert best
+4. **Customer Feedback Integration:** Link testimonials to specific product versions
+5. **Competitive Intelligence API:** Auto-fetch competitor pricing for comparison
+
+---
+
+**Document Version:** 1.0
+**Last Updated:** 2026-01-23
+**Session:** r6bU3
+
+© 2026 Lifetime Oy · Product Catalog Management System
