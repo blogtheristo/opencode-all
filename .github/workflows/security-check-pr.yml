@@ -88,7 +88,7 @@ jobs:
             }
             
             comment += '### 📚 Resources\n';
-            comment += '- [Security Backlog](../../Admin/Security/SECURITY_BACKLOG_BUG_FIXES.md)\n';
+            comment += '- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)\n';
             comment += '- [Aikido Security](https://aikido.dev)\n';
             
             github.rest.issues.createComment({

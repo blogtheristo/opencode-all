@@ -129,6 +129,22 @@ docker-compose -f docker-compose.hybrid.yml up -d
 - Protected config files in `src/config/`
 - Security scans run daily/weekly via GitHub Actions
 
+### Admin Folder Protection (CRITICAL)
+
+**NEVER expose the Admin/ folder to GitHub in ANY case.**
+
+This is an absolute rule with no exceptions:
+- The entire `Admin/` folder is gitignored with NO exceptions
+- Never use `git add -f Admin/` or similar force commands
+- Never create exceptions in `.gitignore` for Admin files
+- CI/CD reports go to `security-reports/` (not Admin/)
+- Admin files are stored ONLY in ProtonDrive locally
+
+If you need a file from Admin/ for CI/CD:
+1. Copy it to root or another appropriate folder
+2. Remove any sensitive information
+3. Document the change in the copied file
+
 ## 2026 EU AI Act Compliance
 
 By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comply with:

@@ -66,12 +66,17 @@ npm run build            # Production build
 - Skip input validation
 - Use `any` types in TypeScript
 - Force push to main/master
+- **Expose Admin/ folder to GitHub in ANY case**
+- Use `git add -f Admin/` or similar force commands
+- Create exceptions in `.gitignore` for Admin files
+- Use `git worktree` (disabled until April 2026 - security incident)
 
 ### Always
 - Use environment variables for secrets
 - Validate all input data
 - Write tests for new features
 - Use parameterized queries for database operations
+- Use `security-reports/` for CI/CD generated reports (not Admin/)
 
 ## Git Workflow
 
