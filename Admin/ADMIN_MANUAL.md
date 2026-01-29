@@ -1,27 +1,31 @@
 # DWS IQ Platform - Admin Manual
 
-**Version:** 1.5
-**Last Updated:** January 4, 2026
+**Version:** 1.7
+**Last Updated:** January 29, 2026
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
 
 ## Table of Contents
 
-1. [Installation Manual](#installation-manual-link) ⭐ **NEW**
-2. [Files and Folders Structure](#files-and-folders-structure)
-3. [Document Index](#document-index)
-4. [AI Agent Policy](#ai-agent-policy) ⭐ **NEW in v1.3**
-5. [Deployment Procedures](#deployment-procedures)
-6. [Session History](#session-history)
-7. [Maintenance Plan (Complete)](#maintenance-plan-complete) ⭐ **NEW**
-8. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) ⭐ **NEW**
-9. [Code Review Process](#code-review-process) ⭐ **NEW in v1.4**
-10. [Maintenance Tasks](#maintenance-tasks)
-11. [Git Workflow](#git-workflow)
-12. [Sensitive Data Protection](#sensitive-data-protection)
-13. [Emergency Procedures](#emergency-procedures)
-14. [Training](#training) ⭐ **NEW**
+1. [Installation Manual](#installation-manual-link)
+2. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+3. [Climate Assistant Chat Widget](#climate-assistant-chat-widget) ⭐ **NEW in v1.7**
+4. [GitHub Copilot Instructions](#github-copilot-instructions) ⭐ **NEW in v1.7**
+5. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026) ⭐ **NEW in v1.7**
+6. [Files and Folders Structure](#files-and-folders-structure)
+7. [Document Index](#document-index)
+8. [AI Agent Policy](#ai-agent-policy)
+9. [Deployment Procedures](#deployment-procedures)
+10. [Session History](#session-history)
+11. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+12. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+13. [Code Review Process](#code-review-process)
+14. [Maintenance Tasks](#maintenance-tasks)
+15. [Git Workflow](#git-workflow)
+16. [Sensitive Data Protection](#sensitive-data-protection)
+17. [Emergency Procedures](#emergency-procedures)
+18. [Training](#training)
 
 ---
 
@@ -339,6 +343,200 @@ Go to **Settings → Secrets and variables → Actions** and add:
 # Trigger deployment from CLI
 gh workflow run deploy-scaleway.yml
 ```
+
+---
+
+## Climate Assistant Chat Widget
+
+**Status:** ✅ **ACTIVE**
+**Last Updated:** January 29, 2026
+**Session ID:** krDzD
+
+### Overview
+
+The Climate Assistant Chat Widget is an embeddable JavaScript widget that provides EU Climate Compliance expertise on any website. It connects to the Scaleway-hosted backend API.
+
+### Live Deployments
+
+| Site | URL | Status |
+|------|-----|--------|
+| **Standalone Page** | https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/climate-assistant.html | ✅ Live |
+| **dws10.com** | https://dws10.com | ✅ Embedded |
+| **onelifetime.world** | https://onelifetime.world | ✅ Embedded |
+
+### Embed Code
+
+Add the following script tag before the closing `</body>` tag on any website:
+
+```html
+<!-- DWS Climate Assistant Chat Widget -->
+<script src="https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/chat-widget.js" async></script>
+```
+
+### Widget Features
+
+| Feature | Description |
+|---------|-------------|
+| **Floating Button** | Blue chat button fixed at bottom-right corner |
+| **Chat Interface** | Full-featured chat window (380×520px) |
+| **Topic Buttons** | Quick access to CBAM, CSRD, Fit for 55, EU ETS, Scope 3 |
+| **Voice Input** | Web Speech API integration for voice-to-text |
+| **Session Persistence** | Maintains session ID across page reloads |
+| **Mobile Responsive** | Adapts to mobile viewport sizes |
+| **Auto Scroll** | Messages auto-scroll to latest |
+| **Typing Indicator** | Animated dots while waiting for response |
+
+### Widget Configuration
+
+The widget is configured in `public/chat-widget.js`:
+
+```javascript
+const CONFIG = {
+  apiUrl: 'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
+  primaryColor: '#0066FF',
+  title: 'Climate Assistant',
+  subtitle: 'EU Climate Compliance Expert',
+  placeholder: 'Ask about CBAM, CSRD, Fit for 55...',
+  welcomeMessage: 'Hello! I\'m your EU Climate Compliance Assistant...',
+  position: 'right' // 'left' or 'right'
+};
+```
+
+### API Endpoints Used
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/v2/climate-assistant/chat` | POST | Send chat message |
+
+### Source Code Location
+
+| File | Purpose |
+|------|---------|
+| `public/chat-widget.js` | Embeddable widget (530 lines, IIFE pattern) |
+| `public/climate-assistant.html` | Standalone chat page |
+| `src/app.ts` | Express server with Helmet CSP configured |
+
+### Security Configuration (Helmet CSP)
+
+The Express server is configured to allow the chat widget and inline scripts:
+
+```typescript
+// src/app.ts - Helmet CSP configuration
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+    },
+  },
+}));
+```
+
+### Troubleshooting
+
+**Widget not appearing:**
+1. Check browser console for JavaScript errors
+2. Verify script URL is accessible
+3. Ensure no Content Security Policy blocking
+
+**403 error on chat page:**
+- Helmet CSP needs to allow `'unsafe-inline'` for scripts
+- Re-deploy backend after updating `src/app.ts`
+
+**Voice input not working:**
+- Web Speech API requires HTTPS
+- Browser must support `webkitSpeechRecognition` or `SpeechRecognition`
+
+---
+
+## GitHub Copilot Instructions
+
+**Status:** ✅ **ACTIVE**
+**Last Updated:** January 29, 2026
+**Session ID:** krDzD
+
+### Overview
+
+Custom instructions for GitHub Copilot that provide project-specific context, coding standards, and development guidelines.
+
+### File Location
+
+`.github/copilot-instructions.md`
+
+### Contents
+
+| Section | Purpose |
+|---------|---------|
+| **Project Overview** | DWS IQ 6 platform description |
+| **Tech Stack** | Frontend, Backend, AI/LLM, Database technologies |
+| **Code Style** | TypeScript, React, naming conventions |
+| **Development Commands** | npm scripts for dev, build, test |
+| **Security Rules** | Never/Always lists for secure coding |
+| **Git Workflow** | Branch naming, commit messages |
+| **Key Directories** | Repository structure |
+| **Deployment** | Scaleway Serverless info |
+| **Testing** | Vitest requirements |
+
+### Usage
+
+GitHub Copilot automatically reads this file when working in the repository to provide context-aware suggestions aligned with project standards.
+
+---
+
+## Session Security Fixes (January 2026)
+
+**Session ID:** krDzD
+**Date:** January 28-29, 2026
+**Branch:** `claude/fix-v9-chat-loading-krDzD`
+
+### Security Vulnerabilities Fixed
+
+| Issue | Severity | File | Fix |
+|-------|----------|------|-----|
+| **Insecure CORS** | High | `src/app.ts` | Replaced wildcard `*` with explicit allowlist |
+| **Privilege Escalation** | Critical | `src/routes/climate-assistant-gated.routes.ts` | Removed client-controlled tier parameter |
+| **JWT Validation** | High | `src/routes/climate-assistant-gated.routes.ts` | Validate JWT tokens before tier upgrade |
+| **Helmet CSP** | Medium | `src/app.ts` | Configure CSP to allow static HTML pages |
+
+### CORS Configuration (Fixed)
+
+Before (insecure):
+```typescript
+app.use(cors({ origin: '*' }));  // Allows any origin
+```
+
+After (secure):
+```typescript
+app.use(cors({
+  origin: [
+    'https://dws10.com',
+    'https://onelifetime.world',
+    'https://lifetime.fi',
+    'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud'
+  ],
+  credentials: true
+}));
+```
+
+### JWT Validation (Fixed)
+
+- Tokens must be validated before upgrading user tier
+- Added security tests in `src/__tests__/jwt-validation-security.test.ts`
+- Added auth tests in `src/__tests__/climate-assistant-gated-auth.test.ts`
+
+### Files Changed
+
+| File | Action |
+|------|--------|
+| `src/app.ts` | CORS allowlist, Helmet CSP |
+| `src/routes/climate-assistant-gated.routes.ts` | JWT validation, tier security |
+| `src/__tests__/jwt-validation-security.test.ts` | New security tests |
+| `src/__tests__/climate-assistant-gated-auth.test.ts` | New auth tests |
+| `vitest.config.ts` | Test configuration |
 
 ---
 
@@ -661,6 +859,57 @@ Local Edit → Git Push → GitHub (main) → Cloudflare Pages Auto-Deploy
 ---
 
 ## Session History
+
+### Session: January 28-29, 2026 (krDzD)
+
+**Branch:** `claude/fix-v9-chat-loading-krDzD`
+
+#### Tasks Completed
+
+✅ Created GitHub Actions CI/CD workflow for Scaleway deployment
+✅ Fixed Scaleway CLI argument names in workflow
+✅ Fixed registry namespace error (dwsiqcontainersjwyssm4e → dws-iq)
+✅ Fixed Helmet CSP to allow static HTML pages
+✅ Created embeddable chat widget (public/chat-widget.js)
+✅ Added chat widget to dws10.com and onelifetime.world
+✅ Created GitHub Copilot instructions (.github/copilot-instructions.md)
+✅ Fixed CORS security (wildcard → explicit allowlist)
+✅ Fixed JWT validation security
+✅ Fixed privilege escalation (removed client-controlled tier)
+✅ Updated Admin Manual to v1.7
+
+#### Files Created
+
+| File | Purpose | Status |
+|------|---------|--------|
+| `.github/workflows/deploy-scaleway.yml` | CI/CD for Scaleway | ✅ Active |
+| `.github/copilot-instructions.md` | GitHub Copilot context | ✅ Active |
+| `public/chat-widget.js` | Embeddable chat widget | ✅ Active |
+| `src/__tests__/jwt-validation-security.test.ts` | Security tests | ✅ Active |
+| `src/__tests__/climate-assistant-gated-auth.test.ts` | Auth tests | ✅ Active |
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app.ts` | CORS allowlist, Helmet CSP |
+| `src/routes/climate-assistant-gated.routes.ts` | JWT validation, tier security |
+| `dws10.com/index.html` | Chat widget embedded |
+| `onelifetime.world/index.html` | Chat widget embedded |
+| `landing-pages/dws10-com/index.html` | Chat widget embedded |
+| `landing-pages/onelifetime-world/index.html` | Chat widget embedded |
+| `Admin/ADMIN_MANUAL.md` | Updated to v1.7 |
+
+#### Security Fixes
+
+| Bug | Severity | Status |
+|-----|----------|--------|
+| Insecure CORS (wildcard) | High | ✅ Fixed |
+| Privilege escalation (tier) | Critical | ✅ Fixed |
+| JWT validation missing | High | ✅ Fixed |
+| Helmet CSP blocking | Medium | ✅ Fixed |
+
+---
 
 ### Session: December 23, 2025 (PxSux)
 
@@ -1189,6 +1438,37 @@ jobs:
 ---
 
 ## Git Workflow
+
+### Worktree Security Warning
+
+**Status:** ⛔ **DISABLED UNTIL APRIL 2026**
+**Date Disabled:** January 29, 2026
+**Reason:** Security incident - worktree exposed environment variables
+
+#### Warning
+
+**DO NOT USE `git worktree` in this repository until April 2026.**
+
+Git worktree can expose sensitive environment files and break security protections:
+- `.env` files may be shared across worktrees
+- `.gitignore` protections may not apply correctly
+- Sensitive data can be accidentally committed
+
+#### Alternative Workflows
+
+Instead of worktree, use:
+
+1. **Separate clones** - Clone the repository to different directories
+2. **Branch switching** - Use `git checkout` or `git switch`
+3. **Stash changes** - Use `git stash` to save work temporarily
+
+#### Incident Details
+
+- **Date:** January 29, 2026
+- **Issue:** Worktree pushed Admin manual to GitHub unexpectedly
+- **Resolution:** Manual removed from public tracking; worktree usage suspended
+
+---
 
 ### Branch Strategy
 
@@ -1773,6 +2053,7 @@ Track training effectiveness:
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |
 | 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |
 | 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
 | 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
