@@ -66,6 +66,21 @@ dws6/
 └── .github/workflows/      # CI/CD pipelines (18 workflows)
 ```
 
+### Dual Folder Structure Rule (IMPORTANT)
+
+**Landing pages exist in TWO locations and MUST be updated in BOTH:**
+
+| Folder | Deployment Target |
+|--------|-------------------|
+| `dws6.com/` | Cloudflare Workers |
+| `landing-pages/dws6-com/` | Cloudflare Pages |
+
+When making changes to landing pages (e.g., dws6.com, onelifetime-world):
+1. **Always update BOTH copies** - changes to one must be mirrored to the other
+2. The same applies to `onelifetime-world/` in landing-pages
+
+This ensures consistent deployment across both Cloudflare Workers and Pages.
+
 ## Development Commands
 
 ```bash
