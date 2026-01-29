@@ -101,9 +101,9 @@ jobs:
           scw init \
             access-key=${{ secrets.SCW_ACCESS_KEY }} \
             secret-key=${{ secrets.SCW_SECRET_KEY }} \
-            default-organization-id=${{ secrets.SCW_ORGANIZATION_ID }} \
-            default-project-id=${{ secrets.SCW_PROJECT_ID }} \
-            default-region=${{ env.REGION }} \
+            organization-id=${{ secrets.SCW_ORGANIZATION_ID }} \
+            project-id=${{ secrets.SCW_PROJECT_ID }} \
+            region=${{ env.REGION }} \
             send-telemetry=false \
             install-autocomplete=false
 
