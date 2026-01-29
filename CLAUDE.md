@@ -176,3 +176,17 @@ Key documentation files:
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
 - 18 CI/CD workflows in `.github/workflows/`
+
+### Worktree Warning
+
+**DO NOT USE `git worktree` in this repository until April 2026.**
+
+Git worktree was disabled due to a security incident on January 29, 2026:
+- Worktree can expose `.env` files across worktrees
+- `.gitignore` protections may not apply correctly
+- Sensitive data can be accidentally committed
+
+**Alternative workflows:**
+1. **Separate clones** - Clone repository to different directories
+2. **Branch switching** - Use `git checkout` or `git switch`
+3. **Stash changes** - Use `git stash` to save work temporarily
