@@ -66,7 +66,7 @@ npm run build            # Production build
 - Skip input validation
 - Use `any` types in TypeScript
 - Force push to main/master
-- **Expose Admin/ folder to GitHub in ANY case**
+- **NEVER expose Admin/ folder to GitHub - NO exceptions**
 - Use `git add -f Admin/` or similar force commands
 - Create exceptions in `.gitignore` for Admin files
 - Use `git worktree` (disabled until April 2026 - security incident)
