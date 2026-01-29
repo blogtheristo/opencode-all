@@ -14,7 +14,8 @@ permissions:
 
 env:
   AUDIT_MONTH: $(date +%B\ %Y)
-  REPORT_LOCATION: Admin/Security/monthly-audits
+  # Changed from security-reports/monthly-audits/ - Admin folder is now fully gitignored
+  REPORT_LOCATION: security-reports/monthly-audits
 
 jobs:
   monthly-security-audit:
@@ -41,7 +42,7 @@ jobs:
           node-version: '18'
       
       - name: Create audit directory
-        run: mkdir -p Admin/Security/monthly-audits
+        run: mkdir -p security-reports/monthly-audits
       
       # ============================================
       # PRACTICE 1: PARAMETERIZED QUERIES
@@ -359,7 +360,7 @@ jobs:
           
           # Save comprehensive report
           month_year = datetime.now().strftime("%Y-%m")
-          report_file = f"Admin/Security/monthly-audits/security-audit-{month_year}.json"
+          report_file = f"security-reports/monthly-audits/security-audit-{month_year}.json"
           
           os.makedirs(os.path.dirname(report_file), exist_ok=True)
           
@@ -410,7 +411,7 @@ jobs:
             
             // Try to read the detailed report
             try {
-              const report = JSON.parse(fs.readFileSync(`Admin/Security/monthly-audits/security-audit-${month_year}.json`, 'utf8'));
+              const report = JSON.parse(fs.readFileSync(`security-reports/monthly-audits/security-audit-${month_year}.json`, 'utf8'));
               
               report_content += `### 📊 Overall Score: ${report.overall_score}%\n`;
               report_content += `**Status:** ${report.overall_status}\n`;
@@ -428,8 +429,8 @@ jobs:
             }
             
             report_content += "\n### 📚 Related Documents\n";
-            report_content += "- [Security Audit](Admin/Security/DWS6_REPOSITORY_SECURITY_AUDIT.md)\n";
-            report_content += "- [Aikido Analysis](Admin/Security/AIKIDO_PYTHON_FIREWALL_SECURITY_ANALYSIS.md)\n";
+            report_content += "- [Security Audit](security-reports/README.md)\n";
+            report_content += "- [Aikido Analysis](security-reports/aikido-analysis.md)\n";
             
             // Create issue
             github.rest.issues.create({
@@ -451,7 +452,7 @@ jobs:
         with:
           name: monthly-security-audit-reports
           path: |
-            Admin/Security/monthly-audits/
+            security-reports/monthly-audits/
           retention-days: 90
       
       # ============================================
@@ -520,7 +521,7 @@ jobs:
       - name: "Update Security Backlog"
         id: update_backlog
         run: |
-          cat >> Admin/Security/SECURITY_BACKLOG_BUG_FIXES.md << 'EOF'
+          cat >> security-reports/SECURITY_BACKLOG.md << 'EOF'
           
           ## Monthly Audit Results - $(date +%B\ %Y)
           
