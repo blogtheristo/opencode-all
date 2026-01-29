@@ -27,8 +27,19 @@ const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
-// Security headers
-app.use(helmet());
+// Security headers - configured to allow static HTML pages with inline scripts
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+    },
+  },
+}));
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
