@@ -78,12 +78,15 @@ dws6/
 | lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* |
 
 **Deployment targets:**
-- Root folders → Cloudflare Workers
-- Landing-pages folders → Cloudflare Pages
+- Root folders → Cloudflare Workers (testing)
+- Landing-pages folders → Cloudflare Pages (production)
 
-**Rule: When editing ANY landing page, ALWAYS update BOTH locations.**
+**Workflow: When editing ANY landing page:**
+1. **First** update the root folder (e.g., `dws10.com/`)
+2. **Test** that it works on Cloudflare Workers
+3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
 
-This ensures consistent deployment across both Cloudflare Workers and Pages.
+This ensures changes are tested before going to production.
 
 ## Development Commands
 
