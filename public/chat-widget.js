@@ -411,7 +411,7 @@
       }
 
       const data = await response.json();
-      addMessage(data.response);
+      addMessage(data.content || data.response);
 
       // Update session
       session.messageCount++;
