@@ -66,6 +66,28 @@ dws6/
 └── .github/workflows/      # CI/CD pipelines (18 workflows)
 ```
 
+### Dual Folder Structure Rule (IMPORTANT)
+
+**Landing pages exist in TWO locations and MUST be updated in BOTH:**
+
+| Site | Root Folder | Landing Pages Folder |
+|------|-------------|---------------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* |
+
+**Deployment targets:**
+- Root folders → Cloudflare Workers (testing)
+- Landing-pages folders → Cloudflare Pages (production)
+
+**Workflow: When editing ANY landing page:**
+1. **First** update the root folder (e.g., `dws10.com/`)
+2. **Test** that it works on Cloudflare Workers
+3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+
+This ensures changes are tested before going to production.
+
 ## Development Commands
 
 ```bash
@@ -129,6 +151,22 @@ docker-compose -f docker-compose.hybrid.yml up -d
 - Protected config files in `src/config/`
 - Security scans run daily/weekly via GitHub Actions
 
+### Admin Folder Protection (CRITICAL)
+
+**NEVER expose the Admin/ folder to GitHub in ANY case.**
+
+This is an absolute rule with no exceptions:
+- The entire `Admin/` folder is gitignored with NO exceptions
+- Never use `git add -f Admin/` or similar force commands
+- Never create exceptions in `.gitignore` for Admin files
+- CI/CD reports go to `security-reports/` (not Admin/)
+- Admin files are stored ONLY in ProtonDrive locally
+
+If you need a file from Admin/ for CI/CD:
+1. Copy it to root or another appropriate folder
+2. Remove any sensitive information
+3. Document the change in the copied file
+
 ## 2026 EU AI Act Compliance
 
 By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comply with:
@@ -176,3 +214,17 @@ Key documentation files:
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
 - 18 CI/CD workflows in `.github/workflows/`
+
+### Worktree Warning
+
+**DO NOT USE `git worktree` in this repository until April 2026.**
+
+Git worktree was disabled due to a security incident on January 29, 2026:
+- Worktree can expose `.env` files across worktrees
+- `.gitignore` protections may not apply correctly
+- Sensitive data can be accidentally committed
+
+**Alternative workflows:**
+1. **Separate clones** - Clone repository to different directories
+2. **Branch switching** - Use `git checkout` or `git switch`
+3. **Stash changes** - Use `git stash` to save work temporarily

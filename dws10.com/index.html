@@ -926,36 +926,9 @@
 </head>
 
 <body>
-    <!-- Ironclad navigation injected via /shared-assets/nav/ironclad-nav.js -->
+    <!-- Navigation will be injected by ironclad-nav.js -->
 
-    <script>
-    // Smooth scroll for Hero CTA
-    document.addEventListener('DOMContentLoaded', function() {
-        // Find the Hero CTA (first .campaign-hero__btn--primary or first .campaign-hero a)
-        var heroCta = document.querySelector('.campaign-hero a, .campaign-hero__btn--primary');
-        if (heroCta) {
-            heroCta.addEventListener('click', function(e) {
-                // Prevent default if link is anchor or #
-                var href = heroCta.getAttribute('href');
-                if (href && (href.startsWith('#') || href.includes('#risk-calculator'))) {
-                    e.preventDefault();
-                    // Scroll to Calculator, then 3 Pillars, then Trust Block
-                    var calc = document.getElementById('risk-calculator');
-                    var pillars = document.querySelector('.dws-governance-section');
-                    var trust = document.querySelector('.trust-block, .dws-trust-block');
-                    if (calc) calc.scrollIntoView({behavior:'smooth'});
-                    setTimeout(function() {
-                        if (pillars) pillars.scrollIntoView({behavior:'smooth'});
-                    }, 1200);
-                    setTimeout(function() {
-                        if (trust) trust.scrollIntoView({behavior:'smooth'});
-                    }, 2400);
-                }
-            });
-        }
-    });
-    </script>
-
+    <!-- €500K CAMPAIGN HERO SECTION -->
     <!-- €500K CAMPAIGN HERO SECTION -->
     <section class="campaign-hero" style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); color: white; padding: 100px 0; text-align: center; position: relative; overflow: hidden;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
@@ -2036,6 +2009,9 @@
             calculate();
         }
     </script>
+
+    <!-- DWS Climate Assistant Chat Widget -->
+    <script src="https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/chat-widget.js" async></script>
 </body>
 
 </html>
