@@ -102,6 +102,91 @@ FIGBC (Green Building Council Finland) has opened recruitment for two strategic 
 
 This new RT card provides guidance on carbon footprint management in construction projects, complementing the circular economy and nature work covered by FIGBC's working groups.
 
+---
+
+## Competitive Analysis: Tuotetieto Hiililaskuri vs DWS IQ 6
+
+### Tuotetieto Hiililaskuri (Rakennustieto)
+
+**Launched:** December 4, 2024
+**Focus:** Building-level carbon footprint calculation for Finnish Construction Act compliance
+
+| Aspect | Details |
+|--------|---------|
+| **Primary Use** | Calculate building carbon footprint/handprint + building product list |
+| **Methodology** | Finnish Construction Act (Rakentamislaki) compliant |
+| **Data Source** | Tuotetieto product database + CO2data.fi (SYKE) + EPD documents |
+| **Output** | Climate declaration (ilmastoselvitys) + building product list |
+| **Target** | Building permits from 2026 (buildings larger than semi-detached) |
+| **Pricing** | Subscription-based, licensed per user, billed quarterly per project |
+| **Integration** | Ratu costs & CO2e service |
+| **Trial** | 2-week free trial |
+
+**Key Differentiator:** Product-centric approach (vs. EPD-centric competitors)
+
+### DWS IQ 6 vs Tuotetieto Hiililaskuri Comparison
+
+| Feature | Tuotetieto Hiililaskuri | DWS IQ 6 |
+|---------|------------------------|----------|
+| **Scope** | Single building carbon calculation | Full enterprise compliance platform |
+| **Standards** | Finnish Construction Act | EN 15978, EN 15804 + Fit for 55 stack |
+| **Industries** | Construction only | 16 EU industries |
+| **Regulations** | Ilmastoselvitys (FI) | ETS, CBAM, CSRD, EPBD, ESR (EU-wide) |
+| **Data Sources** | Tuotetieto database | ERP, BIM, IoT, Supply Chain |
+| **Pricing** | Per-project licensing | Enterprise subscription (€60-150k/year) |
+| **AI/Automation** | Manual product selection | Multi-agent AI orchestration |
+| **Supply Chain** | Limited | Full Scope 1/2/3 tracking |
+| **Audit Trail** | Basic reporting | Immutable compliance audit trail |
+
+### Strategic Positioning
+
+**Tuotetieto Hiililaskuri is:**
+- ✅ Ideal for architects/designers needing building permit compliance
+- ✅ Finnish-market focused with local regulatory alignment
+- ✅ Accessible pricing for SME construction firms
+- ✅ Integrated with Rakennustieto's existing product databases
+
+**DWS IQ 6 is:**
+- ✅ Enterprise-grade multi-regulation platform
+- ✅ Pan-European compliance (not just Finnish)
+- ✅ AI-powered automation vs. manual data entry
+- ✅ Full supply chain carbon tracking (CBAM, Scope 3)
+- ✅ Beyond buildings: manufacturing, transport, energy sectors
+
+### Market Opportunity
+
+These tools serve **different segments** of the construction carbon market:
+
+```
+                    COMPLEXITY →
+
+    ┌─────────────────────────────────────────────┐
+    │                                             │
+    │   TUOTETIETO          DWS IQ 6              │
+    │   HIILILASKURI        PLATFORM              │
+    │                                             │
+    │   Building permit     Enterprise-wide       │
+ S  │   compliance          compliance            │
+ C  │                                             │
+ A  │   Single building     Multi-site,           │
+ L  │   focus               multi-regulation      │
+ E  │                                             │
+    │   Architects &        C-suite, compliance   │
+ ↓  │   designers           officers              │
+    │                                             │
+    │   SME construction    Large enterprises     │
+    │   firms               & manufacturers       │
+    │                                             │
+    └─────────────────────────────────────────────┘
+```
+
+### Partnership Potential
+
+Rather than competing directly, **complementary positioning** is possible:
+- Tuotetieto provides building-level product carbon data
+- DWS IQ 6 aggregates across enterprise portfolio
+- Data flow: Tuotetieto → DWS IQ 6 → CSRD/ETS/CBAM reporting
+
 ### FIGBC Publications (Referenced)
 
 | Publication | Focus |
