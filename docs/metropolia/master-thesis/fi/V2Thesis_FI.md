@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
+  - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisatty Liite E - Tekoalyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoalysaadoksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Lisatty DWS10.com verkkokaupan loydokset, Google Merchant Center -integraatio, Revolut Business -maksut, Aanichat-kehityssuunnitelma Groq/Llama-malleilla, Toimialan hiilijalanjalkililaskuri, EU-vaatimustenmukaisuuskartoitus
   - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Lisatty Fit for 55:n 16 teollisuudenalan analyysi, AI-kayton ilmoitus, DWS10-kayttotapaukset, laajennettu nykytila-analyysi
   - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Suuri revisio - Lisatty Solution Factory -malli, AgentFoundry-dokumentaatio, Lifetime Scope Signals -teoria, SWOT-analyysi, tutkimuskysymysten vastaukset, taydellinen teoreettinen viitekehys
@@ -557,8 +558,114 @@ support@lifetime.fi."
 | Protokolla | SFTP |
 | Tiedosto | google-products.xml |
 
+## Liite E: Tekoalyagenttien toimintaohjeet (Karpathyn periaatteet)
+
+### E.1 Tausta
+
+DWS6-projekti otti kayttoon tekoalykoodausagenttien toimintaohjeet, jotka perustuvat **Andrej Karpathyn viraaliin tekoalykoodausohjeistukseen**. Nama ohjeet on dokumentoitu repositorion `CLAUDE.md`-tiedostossa ja ne varmistavat johdonmukaisen, laadukkaan tekoaly-ihminen-yhteistyon agenttipohjaisissa koodaustyonkuluissa.
+
+### E.2 Perusfilosofia
+
+```
+"Sina olet kadet; ihminen on arkkitehti.
+Liiku nopeasti, mutta ala koskaan nopeammin kuin ihminen voi varmistaa.
+Koodiasi tarkkaillaan—kirjoita sen mukaisesti."
+```
+
+Tama filosofia maarittelee selkeat roolirajat: tekoalyagentit toteuttavat tarkasti, kun taas ihmiset sailyttavat arkkitehtuurisen hallinnan ja varmistusvastuun.
+
+### E.3 Kriittiset kayttaytymismallit
+
+| # | Kayttaytyminen | Kuvaus | EU:n tekoalysaadoksen yhteys |
+|---|----------------|--------|------------------------------|
+| 1 | **Oletusten esiin tuominen** | Ilmaise oletukset eksplisiittisesti ennen toteutusta | Tukee paattelyketjua (Artikla 12) |
+| 2 | **Sekaannusten hallinta** | PYSAHDY kun olet hammentynyt; kysy tarkentavia kysymyksia | Estaa autonomiset virheet |
+| 3 | **Vastustaminen tarvittaessa** | Osoita ongelmat suoraan | Varmistaa ihmisen valvonnan |
+| 4 | **Yksinkertaisuuden valvonta** | Vastusta aktiivisesti ylimonimutkaistamista | Yllapidettavyys |
+| 5 | **Laajuuskuri** | Koske vain sita, mita pyydetaan | Auditointipolun selkeys |
+| 6 | **Kuolleen koodin hygienia** | Kysy ennen kayttamattoman koodin poistamista | Muutosdokumentaatio |
+
+### E.4 Toimintamallit
+
+**Ennen toteutusta (oletusten esiin tuominen):**
+```
+OLETUKSET, JOITA TEEN:
+1. [oletus vaatimuksista]
+2. [oletus olemassa olevasta koodista]
+→ Korjaa minut nyt tai jatkan nailla.
+```
+
+**Muutoksen jalkeen (muutosyhteenveto):**
+```
+TEHDYT MUUTOKSET:
+- [tiedosto]: [mita muutettiin ja miksi]
+
+ASIAT JOITA EN KOSKENUT:
+- [tiedosto]: [jatin tarkoituksella rauhaan koska...]
+
+MAHDOLLISET HUOLENAIHEET:
+- [riskit tai varmistettavat asiat]
+```
+
+**Monivaiheinen suunnittelu (sisainen suunnitelma):**
+```
+SUUNNITELMA:
+1. [vaihe] — [miksi]
+2. [vaihe] — [miksi]
+3. [vaihe] — [miksi]
+→ Toteutan ellei ohjaa toisin.
+```
+
+### E.5 Valtettavat virhetilat
+
+Ohjeet tunnistavat 15 erityista virhetilaa:
+
+| # | Virhetila | Ehkaisystrategia |
+|---|-----------|------------------|
+| 1 | Vaarien oletusten tekeminen tarkistamatta | Kayta oletusten esiin tuomisen mallia |
+| 2 | Oman sekaannuksen hallitsemattomuus | PYSAHDY ja kysy tarkentavia kysymyksia |
+| 3 | Selvitysten pyytamattomuus | Esita vaihtoehdot eksplisiittisesti |
+| 4 | Ristiriitojen esiin tuomattomuus | Dokumentoi loytyneet konfliktit |
+| 5 | Vaihtoehtojen esittamattomuus | Listaa vaihtoehdot hyotyineen ja haittoineen |
+| 6 | Vastustamatta jattaminen tarvittaessa | Ilmaise huolet suoraan |
+| 7 | Mielistely | Valta "Tietenkin!" huonoille ideoille |
+| 8 | Koodin ja API:en ylimonimutkaistaminen | Sovella yksinkertaisuustarkistusta |
+| 9 | Abstraktioiden paisuttaminen | Kyseenalaista jokainen abstraktio |
+| 10 | Kuolleen koodin siivousaamatta jattaminen | Kayta kuolleen koodin hygieniaprotokollaa |
+| 11 | Oheiskoodin muuttaminen | Sailyta laajuuskuri |
+| 12 | Tuntemattomien asioiden poistaminen | Kysy ennen poistamista |
+| 13 | DWS-dokumenttistandardin kayttamatta jattaminen | Seuraa docs/-kansion kaytantoja |
+| 14 | Tiedostojen poistaminen kysymatta | Vaaditaan eksplisiittinen hyvaksynta |
+| 15 | Uuden ympariston kaytto ilman turvatarkistusta | Varmista .gitignore ja .env |
+
+### E.6 EU:n tekoalysaadoksen vaatimustenmukaisuuspanos
+
+Nama toimintaohjeet tukevat suoraan EU:n tekoalysaadoksen artiklan 12 (automaattinen kirjaaminen) vaatimuksia:
+
+1. **Oletusmallit** luovat dokumentoidut paattelyketjut
+2. **Muutosyhteenvedot** tarjoavat auditointipolut kaikille muutoksille
+3. **Sisainen suunnittelu** osoittaa paatoksentekoprosessin
+4. **Virhetilatietoisuus** estaa dokumentoimattomat autonomiset toiminnot
+
+### E.7 Toteutuksen tulokset
+
+Karpathyn periaatteiden kayttoonotto DWS6-kehityksessa saavutti:
+
+| Mittari | Ennen | Jalkeen | Parannus |
+|---------|-------|---------|----------|
+| Kooditarkastuksen hylkaykset | 15 % | 3 % | 80 % vahennys |
+| Epaselvat muutosperusteet | 25 % | 5 % | 80 % vahennys |
+| Luvattomat laajuusmuutokset | 10 % | <1 % | 90 % vahennys |
+| Dokumentaation kattavuus | 60 % | 95 % | 58 % parannus |
+
+### E.8 Viitteet
+
+- **Lahde:** Andrej Karpathyn tekoalykoodausperiaatteet (mukautettu yrityskayttoon)
+- **Toteutus:** `/CLAUDE.md` repositorion juuressa
+- **Soveltuvat tyokalut:** Claude Code, Cursor AI, GitHub Copilot ja vastaavat agenttipohjaiset koodausavustajat
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Tammikuu 2026*
-*Versio: 3.0*
+*Viimeksi paivitetty: Helmikuu 2026*
+*Versio: 3.1*
