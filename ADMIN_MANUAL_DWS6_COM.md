@@ -1284,7 +1284,83 @@ Monitor these metrics regularly:
 ### Related Documentation / Liittyvä dokumentaatio
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
-- **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
+- **AI Agent Guidelines:** `CLAUDE.md` (Karpathy Principles)
+
+---
+
+## 10. AI Agent Operational Guidelines (CLAUDE.md)
+
+### 10.1 Overview / Yleiskatsaus
+
+The `CLAUDE.md` file at repository root contains operational guidelines for AI coding agents (Claude Code, Cursor AI, GitHub Copilot) working on the DWS6 codebase. These guidelines are based on **Andrej Karpathy's principles** for effective AI-human collaboration in agentic coding workflows.
+
+**Location:** `/CLAUDE.md`
+**Source:** Karpathy's viral AI coding rant, adapted for DWS6
+
+### 10.2 Core Philosophy / Perusfilosofia
+
+```
+"You are the hands; the human is the architect.
+Move fast, but never faster than the human can verify.
+Your code will be watched—write accordingly."
+```
+
+### 10.3 Critical Behaviors / Kriittiset Käyttäytymiset
+
+| # | Behavior | Description |
+|---|----------|-------------|
+| 1 | **Assumption Surfacing** | State assumptions explicitly before implementing non-trivial code |
+| 2 | **Confusion Management** | STOP when confused; ask clarifying questions |
+| 3 | **Push Back When Warranted** | Point out problems directly; don't be a yes-machine |
+| 4 | **Simplicity Enforcement** | Actively resist overcomplication |
+| 5 | **Scope Discipline** | Touch only what you're asked to touch |
+| 6 | **Dead Code Hygiene** | Ask before removing unused code |
+
+### 10.4 Required Templates / Vaaditut Mallit
+
+**Before implementation:**
+```
+ASSUMPTIONS I'M MAKING:
+1. [assumption]
+2. [assumption]
+→ Correct me now or I'll proceed with these.
+```
+
+**After modification:**
+```
+CHANGES MADE:
+- [file]: [what changed and why]
+
+THINGS I DIDN'T TOUCH:
+- [file]: [intentionally left alone because...]
+
+POTENTIAL CONCERNS:
+- [any risks or things to verify]
+```
+
+### 10.5 DWS6-Specific Failure Modes / DWS6-kohtaiset Virhetilat
+
+In addition to Karpathy's 12 failure modes, DWS6 adds:
+
+| # | Failure Mode | Prevention |
+|---|-------------|------------|
+| 13 | Not using DWS document standard | Check `docs/` folder conventions |
+| 14 | Deleting files without asking | Always ask for explicit approval |
+| 15 | Using new environment without .gitignore/.env check | Verify security setup first |
+
+### 10.6 For Administrators / Ylläpitäjille
+
+**When onboarding new AI tools:**
+1. Ensure `CLAUDE.md` is in repository root
+2. Verify the tool reads and respects the guidelines
+3. Monitor for failure mode patterns
+4. Update guidelines as new patterns emerge
+
+**When reviewing AI-generated code:**
+- Check that assumptions were surfaced
+- Verify scope discipline was maintained
+- Confirm no unauthorized deletions
+- Validate security requirements met
 
 ### Contacts / Yhteystiedot
 - **Technical Support:** support@dws-iq.com
