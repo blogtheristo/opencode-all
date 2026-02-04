@@ -165,6 +165,9 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 10. Not cleaning up dead code after refactors
 11. Modifying comments/code orthogonal to the task
 12. Removing things you don't fully understand
+13. Not using DWS document standard (see docs/ folder conventions)
+14. Deleting files without asking for explicit approval
+15. Using new environment without verifying .gitignore and .env are properly configured
 
 ### Meta Note
 
