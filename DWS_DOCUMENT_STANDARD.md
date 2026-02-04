@@ -3,30 +3,32 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
   - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
   - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
   - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 21.01.2026
+  - Last Modified: 04.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.2
-**Effective Date:** 2026-01-21
-**Last Updated:** 2026-01-21
+**Version:** 1.3
+**Effective Date:** 2026-02-04
+**Last Updated:** 2026-02-04
 **Status:** Active
 
 ---
@@ -46,6 +48,9 @@ Document Status:
 11. [Core Artifacts](#11-core-artifacts)
 12. [Field Notes](#12-field-notes)
 13. [Enforcement](#13-enforcement)
+14. [LLM Model Versioning](#14-llm-model-versioning) ⭐ NEW
+15. [Localization & Multi-Language Management](#15-localization--multi-language-management) ⭐ NEW
+16. [Document Index](#16-document-index) ⭐ NEW
 
 ---
 
@@ -1214,6 +1219,336 @@ fi
 
 ---
 
+## 14. LLM Model Versioning
+
+### 14.1 Purpose / Tarkoitus
+
+Establishes standards for tracking which LLM models were used to create or modify documents, ensuring reproducibility and enabling systematic updates when models change.
+
+Määrittää standardit LLM-mallien seurantaan dokumenttien luomisessa ja muokkaamisessa.
+
+### 14.2 Why Track LLM Versions?
+
+1. **Reproducibility** - Know which model produced content for quality analysis
+2. **Update Triggers** - Identify documents needing review when LLM capabilities improve
+3. **Compliance** - EU AI Act Article 12 requires automatic logging of AI system events
+4. **Quality Control** - Track content quality across different model versions
+5. **Training Data** - Identify which outputs can be used for LWM training
+
+### 14.3 LLM Model Tracking in Document Header
+
+**Extended header format:**
+
+```markdown
+Sessions & Modifications:
+  - Version: X.Y | Tool: [Tool Name] ([LLM Model]) | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
+```
+
+**Example:**
+```markdown
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation
+  - Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples
+  - Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review
+```
+
+### 14.4 Supported LLM Models Registry
+
+**Active Models (as of Q1 2026):**
+
+| Model Family | Model ID | Status | Use Case |
+|-------------|----------|--------|----------|
+| **Claude (Anthropic)** | claude-opus-4-5-20251101 | ✅ Primary | Complex reasoning, documentation |
+| **Claude (Anthropic)** | claude-sonnet-3-5 | ✅ Active | Code generation, fast tasks |
+| **Gemini (Google)** | gemini-2.0-flash | ✅ Active | Multimodal, fast inference |
+| **Groq** | llama-3.3-70b | ✅ Active | High-speed inference |
+| **Qwen (Alibaba)** | qwen3-coder-480b | 🧪 Evaluation | Agentic coding, local dev |
+| **Local LLM** | Various | ⚠️ Experimental | Edge deployment, privacy |
+
+### 14.5 LLM Version Update Workflow
+
+**When a new LLM version is released:**
+
+```
+1. ASSESS:    Review release notes for capability changes
+2. TEST:      Run validation on sample documents
+3. IDENTIFY:  Query documents created with previous version
+4. PRIORITIZE: Rank by impact (regulatory > customer > internal)
+5. UPDATE:    Re-generate or review flagged documents
+6. VALIDATE:  Human review for critical documents
+7. ARCHIVE:   Keep previous version for audit trail
+```
+
+**Database Query for Version Tracking:**
+```sql
+-- Find documents created with specific LLM model
+SELECT filename, version, created_date, llm_model
+FROM documents
+WHERE llm_model LIKE 'claude-opus-4%'
+  AND created_date < '2026-02-01'
+ORDER BY priority DESC;
+```
+
+### 14.6 LLM Model Deprecation
+
+**When a model is deprecated:**
+
+| Action | Timeline | Responsibility |
+|--------|----------|----------------|
+| Announce deprecation | Immediately | Documentation team |
+| Identify affected docs | Within 1 week | Automated scan |
+| Review critical docs | Within 2 weeks | Human review |
+| Update document registry | Within 1 month | Database admin |
+| Archive old model info | Within 3 months | Archive team |
+
+### 14.7 Product Version Change Workflow
+
+**When DWS IQ 6 version changes (e.g., v6 → v7):**
+
+```
+1. CREATE:    New version branch in documentation
+2. AUDIT:     Review all product-specific references
+3. UPDATE:    Version numbers, screenshots, API examples
+4. REGENERATE: Re-run LLM on affected sections (with new model)
+5. VALIDATE:  Cross-check with product team
+6. PUBLISH:   Release alongside product update
+7. REDIRECT:  Update document index and links
+```
+
+---
+
+## 15. Localization & Multi-Language Management
+
+### 15.1 Purpose / Tarkoitus
+
+Establishes standards for managing documentation across 27 EU languages, ensuring consistency and enabling efficient translation workflows.
+
+Määrittää standardit dokumentaation hallintaan 27 EU-kielellä.
+
+### 15.2 Supported Languages (EU27 + English)
+
+| Code | Language | Region | Priority |
+|------|----------|--------|----------|
+| `EN` | English | International | ⭐ Primary |
+| `FI` | Finnish (Suomi) | Finland | ⭐ Primary |
+| `SV` | Swedish (Svenska) | Sweden, Finland | 🔵 High |
+| `DE` | German (Deutsch) | Germany, Austria | 🔵 High |
+| `FR` | French (Français) | France, Belgium | 🔵 High |
+| `NL` | Dutch (Nederlands) | Netherlands, Belgium | 🔵 High |
+| `ES` | Spanish (Español) | Spain | 🟢 Medium |
+| `IT` | Italian (Italiano) | Italy | 🟢 Medium |
+| `PL` | Polish (Polski) | Poland | 🟢 Medium |
+| `PT` | Portuguese (Português) | Portugal | 🟢 Medium |
+| `CS` | Czech (Čeština) | Czech Republic | 🟡 Standard |
+| `DA` | Danish (Dansk) | Denmark | 🟡 Standard |
+| `EL` | Greek (Ελληνικά) | Greece, Cyprus | 🟡 Standard |
+| `ET` | Estonian (Eesti) | Estonia | 🟡 Standard |
+| `HU` | Hungarian (Magyar) | Hungary | 🟡 Standard |
+| `LT` | Lithuanian (Lietuvių) | Lithuania | 🟡 Standard |
+| `LV` | Latvian (Latviešu) | Latvia | 🟡 Standard |
+| `RO` | Romanian (Română) | Romania | 🟡 Standard |
+| `SK` | Slovak (Slovenčina) | Slovakia | 🟡 Standard |
+| `SL` | Slovenian (Slovenščina) | Slovenia | 🟡 Standard |
+| `BG` | Bulgarian (Български) | Bulgaria | ⚪ On-demand |
+| `HR` | Croatian (Hrvatski) | Croatia | ⚪ On-demand |
+| `GA` | Irish (Gaeilge) | Ireland | ⚪ On-demand |
+| `MT` | Maltese (Malti) | Malta | ⚪ On-demand |
+
+### 15.3 File Naming for Localized Documents
+
+**Format:**
+```
+[CATEGORY]_[NAME]_[LANG]_v[VERSION].md
+```
+
+**Examples:**
+```
+ADMIN_MANUAL_AUTHENTICATION_EN_v1.md     # English (source)
+ADMIN_MANUAL_AUTHENTICATION_FI_v1.md     # Finnish
+ADMIN_MANUAL_AUTHENTICATION_DE_v1.md     # German
+ADMIN_MANUAL_AUTHENTICATION_SV_v1.md     # Swedish
+```
+
+### 15.4 Localization Tracking Database Schema
+
+```sql
+CREATE TABLE document_translations (
+    id UUID PRIMARY KEY,
+    source_doc_id UUID REFERENCES documents(id),
+    source_language VARCHAR(5) NOT NULL DEFAULT 'EN',
+    target_language VARCHAR(5) NOT NULL,
+    translation_status VARCHAR(20) NOT NULL,
+    -- Status: PENDING, IN_PROGRESS, TRANSLATED, REVIEWED, PUBLISHED
+    source_version VARCHAR(10),
+    translated_version VARCHAR(10),
+    translator_type VARCHAR(20), -- HUMAN, LLM, HYBRID
+    llm_model VARCHAR(50),
+    translated_date TIMESTAMP,
+    reviewed_by VARCHAR(100),
+    reviewed_date TIMESTAMP,
+    sync_status VARCHAR(20), -- SYNCED, OUT_OF_SYNC, NEEDS_UPDATE
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Index for finding out-of-sync translations
+CREATE INDEX idx_sync_status ON document_translations(sync_status);
+CREATE INDEX idx_source_doc ON document_translations(source_doc_id);
+```
+
+### 15.5 Translation Status Tracking
+
+| Status | Icon | Description |
+|--------|------|-------------|
+| `PENDING` | ⏳ | Translation not started |
+| `IN_PROGRESS` | 🔄 | Translation in progress |
+| `TRANSLATED` | ✅ | LLM/human translation complete |
+| `REVIEWED` | 👁️ | Human review completed |
+| `PUBLISHED` | 🚀 | Ready for production |
+| `OUT_OF_SYNC` | ⚠️ | Source updated, translation needs update |
+| `DEPRECATED` | ❌ | No longer maintained |
+
+### 15.6 Localization Dashboard Query
+
+```sql
+-- Language coverage report
+SELECT
+    d.filename,
+    d.version AS source_version,
+    COUNT(DISTINCT dt.target_language) AS languages_translated,
+    27 - COUNT(DISTINCT dt.target_language) AS languages_missing,
+    SUM(CASE WHEN dt.sync_status = 'OUT_OF_SYNC' THEN 1 ELSE 0 END) AS needs_update
+FROM documents d
+LEFT JOIN document_translations dt ON d.id = dt.source_doc_id
+WHERE d.language = 'EN'
+GROUP BY d.id, d.filename, d.version
+ORDER BY languages_missing DESC;
+```
+
+### 15.7 Translation Workflow
+
+**For new documents:**
+
+```
+1. CREATE:     Write source document (EN)
+2. REGISTER:   Add to document_translations table
+3. PRIORITIZE: Based on language priority (Primary → High → Medium)
+4. TRANSLATE:  LLM first pass (Gemini/Claude)
+5. REVIEW:     Native speaker review for High priority
+6. PUBLISH:    Deploy to localized folder
+7. MONITOR:    Track sync status
+```
+
+**For document updates:**
+
+```
+1. DETECT:     Source document version changed
+2. FLAG:       Mark all translations as OUT_OF_SYNC
+3. DIFF:       Calculate changed sections
+4. TRANSLATE:  Only update changed sections
+5. REVIEW:     Human review for significant changes
+6. SYNC:       Update translated_version, reset sync_status
+```
+
+### 15.8 Directory Structure for Localized Docs
+
+```
+docs/
+├── en/                           # English (source)
+│   ├── admin/
+│   ├── field-notes/
+│   └── architecture/
+├── fi/                           # Finnish
+│   ├── admin/
+│   ├── field-notes/
+│   └── architecture/
+├── de/                           # German
+│   ├── admin/
+│   └── ...
+├── localization/
+│   ├── TRANSLATION_STATUS.md     # Current status dashboard
+│   ├── GLOSSARY_MASTER.json      # Term consistency
+│   └── STYLE_GUIDE_[LANG].md     # Per-language style guides
+└── _templates/
+    └── translation-request.md    # Template for translation requests
+```
+
+### 15.9 Glossary Management
+
+**Master glossary location:** `/docs/localization/GLOSSARY_MASTER.json`
+
+**Format:**
+```json
+{
+  "terms": [
+    {
+      "en": "Lifetime World Model",
+      "fi": "Elinikäinen maailmanmalli",
+      "de": "Lebenslang-Weltmodell",
+      "sv": "Livstidsvärldsmodell",
+      "context": "Core AI concept - do not translate literally",
+      "abbreviation": "LWM"
+    },
+    {
+      "en": "Climate compliance",
+      "fi": "Ilmastovaatimustenmukaisuus",
+      "de": "Klimakonformität",
+      "context": "EU regulatory term"
+    }
+  ]
+}
+```
+
+### 15.10 Quality Assurance for Translations
+
+**Review checklist:**
+- [ ] Technical terms match glossary
+- [ ] Product names unchanged (DWS IQ 6, Firehorse)
+- [ ] Date formats localized (DD.MM.YYYY for EU)
+- [ ] Currency formats correct
+- [ ] Legal/regulatory terms verified by native speaker
+- [ ] Screenshots match target language UI (if applicable)
+- [ ] Links updated to localized versions
+
+---
+
+## 16. Document Index
+
+### 16.1 Purpose / Tarkoitus
+
+A centralized index of all documentation for faster search and discovery.
+
+Keskitetty hakemisto kaikista dokumenteista nopeampaa hakua varten.
+
+### 16.2 Master Document Index
+
+**Location:** `/docs/Document-index.md`
+
+This index is auto-generated and manually curated to provide:
+- Complete inventory of all markdown files
+- Category classification
+- Status tracking
+- Quick links
+
+**See:** [Document-index.md](/docs/Document-index.md)
+
+### 16.3 Index Update Workflow
+
+**Automated (weekly):**
+```bash
+# Generate document inventory
+find . -name "*.md" -type f | sort > /tmp/md_files.txt
+# Compare with current index
+diff /tmp/md_files.txt docs/Document-index.md
+```
+
+**Manual triggers:**
+- New document created → Add to index
+- Document deprecated → Update status in index
+- Major restructuring → Full index regeneration
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1275,9 +1610,17 @@ Document Status:
 
 ---
 
-**Version:** 1.2
-**Effective Date:** 21. January 2026
+**Version:** 1.3
+**Effective Date:** 04. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.3:**
+- Added LLM Model Versioning section (14) - track which AI models create documents
+- Added Localization & Multi-Language Management (15) - support for 27 EU languages
+- Added Document Index reference (16) - centralized document discovery
+- Extended header format to include LLM model identification
+- Database schemas for translation tracking and version management
+- Workflows for LLM version updates and product version changes
 
 **Major Changes in v1.2:**
 - Added knowledge management strategy (database vs. docs decision matrix)
