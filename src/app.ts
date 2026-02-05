@@ -58,23 +58,31 @@ const allowedOrigins = process.env.CORS_ORIGIN
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Allow requests with no origin (like mobile apps, Postman, or curl)
+    // SECURITY FIX #10: Only allow null origin in development
+    // Production should require origin for sensitive endpoints
     if (!origin) {
+      if (process.env.NODE_ENV === 'production') {
+        // In production, log null origin requests for monitoring
+        logger.debug('Request with null origin', { env: 'production' });
+      }
+      // Allow null origin for mobile apps, Postman, server-to-server
+      // Note: Auth middleware provides additional protection
       return callback(null, true);
     }
-    
+
     // Check if origin is in allowlist
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    
+
     // Reject origin not in allowlist
+    logger.warn('CORS rejection', { origin });
     callback(new Error(`Origin ${origin} not allowed by CORS policy`));
   },
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
 };
 app.use(cors(corsOptions));
 

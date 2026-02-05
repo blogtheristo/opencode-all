@@ -3,30 +3,58 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: [original] | Date: 15.12.2025 | Changes: Initial creation
   - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry & Document Management Integration, Firehorse Omnichannel Next integration
   - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added workflow-based security auditing, daily backup integration, updated thesis
+  - Version: 1.3 | Tool: Claude Code | Session: silly-bassi | Commit: (pending) | Date: 05.02.2026 | Changes: Critical security fixes (#1-#3), bi-weekly auth security audit workflow, claude-code-templates integration
 
 Session Links & References:
   - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
+  - Claude Code (silly-bassi): https://github.com/blogtheristo/dws6/commits/silly-bassi
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_AUTHENTICATION.md
 
 Document Status:
   - Created: 15.12.2025
-  - Last Modified: 26.12.2025
+  - Last Modified: 05.02.2026
   - Language: Finnish & English (bilingual)
   - Languages Available: Suomi, English
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Versio:** 1.2
+**Versio:** 1.3
 **Tarkoitus:** Admin-, ylläpito- ja deployment-opas vapaa-tason autentikoinnille
 **Kohderyhmä:** DevOps, System Administrators, Security Team, IT Operations
-**Päivitetty:** 26.12.2025 (Session IjtD0 - Workflow-based Security, Daily Backups)
+**Päivitetty:** 05.02.2026 (Session silly-bassi - Critical Security Fixes, Bi-Weekly Audit Workflow)
+
+### 📋 Session silly-bassi Updates (February 5, 2026)
+
+**New in this version:**
+
+1. **Critical Security Fixes** - Three critical vulnerabilities addressed
+   - **Fix #1:** JWT_SECRET validation at startup (no more hardcoded fallback)
+   - **Fix #2:** Password verification now required (bcrypt comparison against stored hash)
+   - **Fix #3:** Admin API key uses `crypto.timingSafeEqual()` (timing attack prevention)
+
+2. **Bi-Weekly Authentication Security Audit** - Automated security review every 14 days
+   - `.github/workflows/biweekly-auth-security-audit.yml` - New workflow
+   - Checks: JWT secret, password verification, admin auth, role extraction
+   - OWASP A07:2021 compliance checks
+   - Auto-creates GitHub issues for critical findings
+
+3. **Claude Code Templates Integration** - Security-focused components installed
+   - `security-auditor` agent - OWASP/JWT/OAuth reviews
+   - `secret-scanner` hook - Blocks commits with API keys
+   - `dangerous-command-blocker` hook - Prevents destructive commands
+   - `validate-branch-name` hook - Enforces naming conventions
+
+4. **Git Worktree Best Practices** - Safe parallel development workflow
+   - `scripts/New-ClaudeWorktree.ps1` (Windows)
+   - `scripts/new-claude-worktree.sh` (Linux/macOS/Chromebook/iOS)
+   - Automatic .venv symlink, .gitignore verification, config file copying
 
 ### 📋 Session IjtD0 Updates (December 26, 2025)
 
