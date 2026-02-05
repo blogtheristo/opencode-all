@@ -7,13 +7,17 @@ import { useEffect, useState } from 'react';
 import { MetricsHeader } from './components/MetricsHeader';
 import { ProjectCard } from './components/ProjectCard';
 import { ClimateAssistant } from './components/ClimateAssistant';
+import { InsightsDashboard } from './components/InsightsDashboard';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
+
+type ViewMode = 'projects' | 'insights';
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showChat, setShowChat] = useState(true);
+  const [showChat, setShowChat] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('projects');
 
   useEffect(() => {
     async function loadProjects() {
@@ -69,12 +73,39 @@ function App() {
               </div>
             </div>
 
-            <button
-              onClick={() => setShowChat(!showChat)}
-              className="btn-primary"
-            >
-              {showChat ? '📊 Show Projects' : '🤖 AI Assistant'}
-            </button>
+            <div className="flex items-center gap-4">
+              {/* View Mode Tabs */}
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => setViewMode('projects')}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'projects'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  Projects
+                </button>
+                <button
+                  onClick={() => setViewMode('insights')}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'insights'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  Insights
+                </button>
+              </div>
+
+              {/* AI Assistant Toggle */}
+              <button
+                onClick={() => setShowChat(!showChat)}
+                className="btn-primary"
+              >
+                {showChat ? 'Hide Assistant' : 'AI Assistant'}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -86,45 +117,51 @@ function App() {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Projects Section */}
+          {/* Main Content Section */}
           <div className={`${showChat ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">
-                Projects ({projects.length})
-              </h2>
-              <div className="flex items-center gap-2">
-                <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
-                  <option>All Status</option>
-                  <option>Green</option>
-                  <option>Amber</option>
-                  <option>Red</option>
-                </select>
-              </div>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="card animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                    <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            {viewMode === 'projects' ? (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    Projects ({projects.length})
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+                      <option>All Status</option>
+                      <option>Green</option>
+                      <option>Amber</option>
+                      <option>Red</option>
+                    </select>
                   </div>
-                ))}
-              </div>
-            ) : projects.length === 0 ? (
-              <div className="card text-center py-12">
-                <p className="text-gray-500 mb-4">No projects found</p>
-                <p className="text-sm text-gray-400">
-                  Connect to Supabase to view your portfolio
-                </p>
-              </div>
+                </div>
+
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="card animate-pulse">
+                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-20 bg-gray-200 rounded mb-4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : projects.length === 0 ? (
+                  <div className="card text-center py-12">
+                    <p className="text-gray-500 mb-4">No projects found</p>
+                    <p className="text-sm text-gray-400">
+                      Connect to Supabase to view your portfolio
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map(project => (
+                      <ProjectCard key={project.id} project={project} />
+                    ))}
+                  </div>
+                )}
+              </>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {projects.map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-              </div>
+              <InsightsDashboard />
             )}
           </div>
 

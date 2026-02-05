@@ -130,3 +130,124 @@ export function subscribeToAlerts(callback: (payload: unknown) => void) {
     )
     .subscribe();
 }
+
+/**
+ * Generate demo insights data for visualization
+ * Used when database doesn't have historical data
+ */
+function generateDemoInsightsData() {
+  const months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+
+  const carbonTrends = months.map((month, i) => ({
+    month,
+    emissions: Math.round(1200 - i * 80 + Math.random() * 50),
+    target: Math.round(1100 - i * 70),
+    savings: Math.round(100 + i * 30 + Math.random() * 20),
+  }));
+
+  const complianceTrends = months.map((month, i) => ({
+    month,
+    csrd: Math.min(100, 65 + i * 6 + Math.round(Math.random() * 5)),
+    epbd: Math.min(100, 70 + i * 5 + Math.round(Math.random() * 5)),
+    ets: Math.min(100, 75 + i * 4 + Math.round(Math.random() * 5)),
+    cbam: Math.min(100, 50 + i * 8 + Math.round(Math.random() * 5)),
+  }));
+
+  const performanceTrends = months.map((month, i) => ({
+    month,
+    spi: Number((0.85 + i * 0.02 + Math.random() * 0.05).toFixed(2)),
+    cpi: Number((0.88 + i * 0.015 + Math.random() * 0.04).toFixed(2)),
+  }));
+
+  const statusDistribution = [
+    { status: 'green' as const, count: 8, percentage: 53 },
+    { status: 'amber' as const, count: 5, percentage: 33 },
+    { status: 'red' as const, count: 2, percentage: 14 },
+  ];
+
+  return {
+    carbonTrends,
+    complianceTrends,
+    performanceTrends,
+    statusDistribution,
+  };
+}
+
+/**
+ * Fetch insights data for dashboard analytics
+ */
+export async function fetchInsightsData() {
+  const { data: projects, error: projectsError } = await supabase
+    .from('projects')
+    .select('*')
+    .order('carbon_footprint', { ascending: false });
+
+  const { data: alerts, error: alertsError } = await supabase
+    .from('alerts')
+    .select('*')
+    .eq('acknowledged', false)
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  if (projectsError) {
+    console.error('Error fetching projects for insights:', projectsError);
+  }
+  if (alertsError) {
+    console.error('Error fetching alerts for insights:', alertsError);
+  }
+
+  // Generate demo trend data (in production, this would come from historical tables)
+  const demoData = generateDemoInsightsData();
+
+  // Calculate actual status distribution if we have projects
+  let statusDistribution = demoData.statusDistribution;
+  if (projects && projects.length > 0) {
+    const green = projects.filter(p => p.status === 'green').length;
+    const amber = projects.filter(p => p.status === 'amber').length;
+    const red = projects.filter(p => p.status === 'red').length;
+    const total = projects.length;
+
+    statusDistribution = [
+      { status: 'green' as const, count: green, percentage: Math.round((green / total) * 100) },
+      { status: 'amber' as const, count: amber, percentage: Math.round((amber / total) * 100) },
+      { status: 'red' as const, count: red, percentage: Math.round((red / total) * 100) },
+    ];
+  }
+
+  // Get top carbon projects
+  const topCarbonProjects = (projects || []).slice(0, 5).map(p => ({
+    id: p.id,
+    name: p.name,
+    status: p.status as 'green' | 'amber' | 'red',
+    spi: p.spi || 0,
+    cpi: p.cpi || 0,
+    carbon_footprint: p.carbon_footprint || 0,
+    compliance_status: {
+      csrd: true,
+      epbd: true,
+      ets: true,
+      cbam: false,
+      last_check: new Date().toISOString(),
+    },
+    location: p.location,
+    budget: p.budget,
+    spent: p.spent,
+  }));
+
+  return {
+    carbonTrends: demoData.carbonTrends,
+    complianceTrends: demoData.complianceTrends,
+    performanceTrends: demoData.performanceTrends,
+    statusDistribution,
+    topCarbonProjects,
+    riskAlerts: (alerts || []).map(a => ({
+      id: a.id,
+      type: a.type as 'compliance' | 'carbon' | 'schedule' | 'cost',
+      severity: a.severity as 'high' | 'medium' | 'low',
+      message: a.message,
+      project_id: a.project_id,
+      created_at: a.created_at,
+      acknowledged: a.acknowledged,
+    })),
+  };
+}
