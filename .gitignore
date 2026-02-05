@@ -7,6 +7,8 @@ local.properties
 
 # Log/OS Files
 *.log
+.DS_Store
+Thumbs.db
 
 # Android Studio generated files and folders
 captures/
@@ -19,9 +21,10 @@ output-metadata.json
 # Team role docs (local only)
 Team/
 
-# IntelliJ
+# IDE files
 *.iml
 .idea/
+.vscode/
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
@@ -29,6 +32,12 @@ render.experimental.xml
 # Keystore files
 *.jks
 *.keystore
+
+# Security keys and secrets
+*.key
+*.pem
+*.secret
+claude_config.json
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
@@ -62,60 +71,10 @@ docs/metropolia/
 Metropolia2026/
 
 # --- ADMIN & SECRETS ---
+# NEVER PUSH ADMIN FOLDER - Contains deployment configs, credentials, and sensitive data
+# All exceptions removed January 29, 2026 for security
 Admin/
-# Exception: Policy documentation (not confidential data, safe to commit)
-!Admin/CONFIDENTIAL-handling-policy.md
-# Exception: Security documentation (technical docs, non-confidential)
-!Admin/Security/ADMIN_*.md
-!Admin/Security/SECURITY_*.md
-!Admin/Security/SECURITY_*.txt
-!Admin/Security/SIMONWILLISON_*.md
-!Admin/Security/JANUARY_*.md
-!Admin/Security/MASTER_INDEX.md
-!Admin/Security/COMPLETE_*.md
-!Admin/SECURITY_*.md
-# Exception: Scripts directory (git recovery and admin tools)
-!Admin/scripts/
-!Admin/scripts/**
-# Exception: Artifacts directory for git recovery (timestamped backups)
-!Admin/artifacts/
-# But ignore actual recovery artifacts (may contain repo-specific data)
-Admin/artifacts/git-recovery/
-# Exception: Installation documentation (customer delivery guides)
-!Admin/Installation/
-!Admin/Installation/**
-!Admin/Installation/README.md
-!Admin/Installation/Private/
-!Admin/Installation/Private/**
-!Admin/Installation/Public/
-!Admin/Installation/Public/**
-!Admin/Installation/Public/watsonx/
-!Admin/Installation/Public/watsonx/**
-!Admin/Installation/Public/gcr/
-!Admin/Installation/Public/gcr/**
-!Admin/Installation/Public/groq/
-!Admin/Installation/Public/groq/**
-# Exception: Public documentation guides
-!Admin/INSTALLATION_MANUAL.md
-!Admin/TWITTER_AUTOMATION_GUIDE.md
-!Admin/ADMIN_MANUAL.md
-!Admin/SECURITY_AUDIT_REPORT.md
-# Exception: Development setup guides
-!Admin/Installation/Development/
-!Admin/Installation/Development/**
-!Admin/Installation/Development/Win11Pro/
-!Admin/Installation/Development/Win11Pro/**
-!Admin/Installation/Development/CBPlus/
-!Admin/Installation/Development/CBPlus/**
-# Exception: Metropolia Master Thesis & Academic Documentation (public research)
-!Admin/Metropolia/
-!Admin/Metropolia/**
-!Admin/Metropolia/master-thesis/
-!Admin/Metropolia/master-thesis/**
-!Admin/Metropolia/master-thesis/fi/
-!Admin/Metropolia/master-thesis/fi/**
-!Admin/Metropolia/master-thesis/en/
-!Admin/Metropolia/master-thesis/en/**
+
 # Exception: Public policy pages on website (not actual confidential data)
 !dws10.com/data-handling-policy/
 !dws10.com/data-handling-policy/**
@@ -136,15 +95,7 @@ AgentFoundry/
 SFTP_SECRETS.py
 
 # --- CONFIDENTIAL DATA (NEVER COMMIT) ---
-# Encrypted databases
-Admin/Data/*.db
-Admin/Data/*.sqlite
-Admin/Data/*.sqlite3
-Admin/Data/*.encrypted.*
-
-# Encrypted JSON files
-Admin/Data/**/*.encrypted.json
-Admin/Data/**/*.encrypted.txt
+# (Admin/Data/* patterns removed - entire Admin/ is now blocked)
 
 # Proton Drive sync files (if synced locally)
 **/Proton Drive/
@@ -164,6 +115,8 @@ Admin/Data/**/*.encrypted.txt
 # --- MCP HUB ---
 # Environment files with API keys
 .env.mcp
+# MCP configuration with secrets (use .mcp.json.example as template)
+.mcp.json
 
 # Claude Code session data
 claude-sessions/

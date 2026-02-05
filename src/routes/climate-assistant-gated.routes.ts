@@ -10,8 +10,16 @@
 import express, { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
+import crypto from 'crypto';
 import logger from '../utils/logger.js';
 import GatedService, { UserTier, LeadCaptureData } from '../services/climate-assistant-gated.service.js';
+import { optionalAuth, authenticateToken, requireRole } from '../middleware/auth.middleware.js';
+
+// SECURITY FIX #3: Validate ADMIN_API_KEY at startup
+const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
+if (!ADMIN_API_KEY || ADMIN_API_KEY.length < 32) {
+  logger.warn('ADMIN_API_KEY not set or too short. Admin endpoints will be disabled.');
+}
 
 const router: Router = express.Router();
 
@@ -40,10 +48,6 @@ const chatValidation = [
     .trim()
     .isLength({ min: 10, max: 100 })
     .withMessage('Valid sessionId required'),
-  body('tier')
-    .optional()
-    .isIn(['public', 'lead', 'guest', 'premium'])
-    .withMessage('Invalid tier'),
   body('userId')
     .optional()
     .isString(),
@@ -97,21 +101,30 @@ const validate = (req: Request, res: Response, next: any) => {
  * POST /api/climate-assistant/chat
  * Process a gated chat message
  */
-router.post('/chat', publicRateLimiter, chatValidation, validate, async (req: Request, res: Response) => {
+router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, async (req: Request, res: Response) => {
   try {
-    const { message, sessionId, userId, tier = 'public', conversationHistory } = req.body;
+    const { message, sessionId, userId, conversationHistory } = req.body;
 
-    // Determine tier from auth (simplified - expand with real auth)
-    let effectiveTier: UserTier = tier;
-    const authHeader = req.headers.authorization;
-    if (authHeader?.startsWith('Bearer ')) {
-      // If authenticated, at least 'guest' tier
-      effectiveTier = tier === 'public' ? 'guest' : tier;
+    // Determine tier based on authentication status (server-side only)
+    // Do NOT trust client-provided tier parameter
+    let effectiveTier: UserTier = 'public'; // Default to public
+    
+    // If user is authenticated (token was validated by optionalAuth middleware)
+    if (req.userId) {
+      // TODO: In production, fetch user's actual subscription tier from database
+      // For now, all authenticated users get 'guest' tier
+      effectiveTier = 'guest';
+      logger.debug('Authenticated user detected', { 
+        userId: req.userId, 
+        email: req.userEmail,
+        assignedTier: effectiveTier 
+      });
     }
 
     logger.info('Gated chat request', {
       sessionId,
       tier: effectiveTier,
+      authenticated: !!req.userId,
       messageLength: message.length,
     });
 
@@ -208,25 +221,49 @@ router.get(
 
 /**
  * GET /api/climate-assistant/leads
- * Get all leads (admin only - add proper auth in production)
+ * Get all leads (admin only)
+ * SECURITY FIX #3: Use constant-time comparison and proper validation
  */
 router.get('/leads', (req: Request, res: Response) => {
-  // TODO: Add admin authentication
   const adminKey = req.headers['x-admin-key'];
-  if (adminKey !== process.env.ADMIN_API_KEY) {
+
+  // Check if admin API key is configured
+  if (!ADMIN_API_KEY) {
+    logger.warn('Admin endpoint accessed but ADMIN_API_KEY not configured', { ip: req.ip });
+    return res.status(503).json({ error: 'Admin access not configured' });
+  }
+
+  // Validate admin key is provided
+  if (!adminKey || typeof adminKey !== 'string') {
+    logger.warn('Admin access attempt without API key', { ip: req.ip });
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  // SECURITY: Use constant-time comparison to prevent timing attacks
+  // Both strings must be same length for timingSafeEqual
+  const providedKeyBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  const expectedKeyBuffer = Buffer.from(ADMIN_API_KEY.padEnd(256, '\0'));
+
+  const isValid = crypto.timingSafeEqual(providedKeyBuffer, expectedKeyBuffer);
+
+  if (!isValid) {
+    logger.warn('Admin access attempt with invalid API key', { ip: req.ip });
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   try {
     const leads = GatedService.getLeads();
+    logger.info('Admin accessed leads', { ip: req.ip, count: leads.length });
     res.status(200).json({
       count: leads.length,
       leads,
     });
   } catch (error: any) {
+    logger.error('Failed to get leads', { error: error.message });
     res.status(500).json({
       error: 'Failed to get leads',
-      message: error.message,
+      // Don't expose internal error details in production
+      message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
     });
   }
 });

@@ -20,8 +20,9 @@ declare global {
 
 /**
  * Middleware to verify JWT token from Authorization header
+ * Now async to support Redis-based token blacklist
  */
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Get token from Authorization header (Bearer token)
     const authHeader = req.headers['authorization'];
@@ -35,8 +36,8 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
       });
     }
 
-    // Verify token
-    const decoded = AuthService.verifyAccessToken(token);
+    // Verify token (async for Redis blacklist support)
+    const decoded = await AuthService.verifyAccessToken(token);
 
     if (!decoded) {
       logger.warn('Invalid or expired token');
@@ -47,11 +48,13 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     }
 
     // Attach user info to request
+    // SECURITY FIX #6: Extract role from JWT for RBAC
     req.userId = decoded.userId;
     req.userEmail = decoded.email;
+    req.userRole = decoded.role as UserRole;  // Extract role for requireRole middleware
     req.token = token;
 
-    logger.debug('Token verified successfully', { userId: decoded.userId });
+    logger.debug('Token verified successfully', { userId: decoded.userId, role: decoded.role });
 
     next();
   } catch (error) {

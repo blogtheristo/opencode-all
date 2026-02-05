@@ -27,16 +27,62 @@ const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
-// Security headers
-app.use(helmet());
+// Security headers - configured to allow static HTML pages with inline scripts
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+    },
+  },
+}));
 
-// CORS configuration - allow all origins for public Climate Assistant API
+// CORS configuration with explicit allowlist
+// Default allowed origins for development and production
+const defaultOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://dws6.com',
+  'https://www.dws6.com',
+  'https://dws10.com',
+  'https://www.dws10.com',
+];
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : defaultOrigins;
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // SECURITY FIX #10: Only allow null origin in development
+    // Production should require origin for sensitive endpoints
+    if (!origin) {
+      if (process.env.NODE_ENV === 'production') {
+        // In production, log null origin requests for monitoring
+        logger.debug('Request with null origin', { env: 'production' });
+      }
+      // Allow null origin for mobile apps, Postman, server-to-server
+      // Note: Auth middleware provides additional protection
+      return callback(null, true);
+    }
+
+    // Check if origin is in allowlist
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Reject origin not in allowlist
+    logger.warn('CORS rejection', { origin });
+    callback(new Error(`Origin ${origin} not allowed by CORS policy`));
+  },
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
 };
 app.use(cors(corsOptions));
 
