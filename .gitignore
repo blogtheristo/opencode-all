@@ -115,6 +115,8 @@ SFTP_SECRETS.py
 # --- MCP HUB ---
 # Environment files with API keys
 .env.mcp
+# MCP configuration with secrets (use .mcp.json.example as template)
+.mcp.json
 
 # Claude Code session data
 claude-sessions/

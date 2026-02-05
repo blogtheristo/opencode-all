@@ -99,6 +99,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | EU Tech Sovereignty | `/docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md` | 2026-01-28 | EU data sovereignty | Compliance, EU, Strategy |
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
+| Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
@@ -298,6 +299,7 @@ MCP server and orchestration documentation.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
+| MCP Configuration Guide | `/docs/MCP_CONFIGURATION.md` | ACTIVE | Complete MCP setup guide |
 | MCP Hub | `/mcp-hub/` | ACTIVE | MCP orchestration |
 | MCP Servers | `/mcp-servers/` | ACTIVE | Individual servers |
 
@@ -324,15 +326,15 @@ Other important documentation.
 
 ## Document Statistics
 
-**Last Updated:** 04.02.2026
+**Last Updated:** 05.02.2026
 
 | Metric | Value |
 |--------|-------|
-| Total Markdown Files | 130+ |
-| Active Documents | 100+ |
+| Total Markdown Files | 135+ |
+| Active Documents | 105+ |
 | Archived Documents | 15+ |
 | Languages | EN, FI |
-| Categories | 12 |
+| Categories | 13 |
 
 ---
 

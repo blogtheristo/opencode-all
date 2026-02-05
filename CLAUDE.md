@@ -417,39 +417,162 @@ PORT=3000
   load_dotenv()
   ```
 
-### 4. Worktree Security (Currently Disabled)
+### 4. Claude Code Worktree Workflow (Recommended)
 
-**WARNING: Git worktree is disabled until April 2026** due to security incident.
+**Git worktree is the recommended workflow for parallel Claude Code sessions.**
 
-If worktree is re-enabled, these rules apply:
+Based on [Daniel San's workflow](https://x.com/dani_avila7) combining Ghostty + Worktrees + Lazygit for seamless multitasking with Claude Code.
 
-**Same `.gitignore` across all worktrees:**
-- The `.gitignore` in the main worktree applies to all
-- Verify with `git status` in each worktree
+#### Why Worktrees for Claude Code?
 
-**Separate `.env` per worktree:**
-- Each worktree needs its own `.env` file
-- Copy and modify `.env` manually for each worktree
-- Never symlink `.env` files between worktrees
+- Run multiple Claude Code sessions simultaneously (feature + bugfix + refactor)
+- Each session maintains its own context without branch switching
+- Shared `.gitignore` prevents accidental credential commits
+- Symlinked `.venv` avoids duplicating 500MB+ virtual environments
 
-**Worktree management:**
-```bash
-# Create worktree
-git worktree add ../project-feature feature-branch
+#### Quick Start
 
-# List worktrees
-git worktree list
+**Windows (PowerShell):**
+```powershell
+# Create new worktree with proper setup
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "feature-auth" -LaunchClaude
 
-# Remove worktree (clean up properly)
-git worktree remove ../project-feature
-git worktree prune
+# Or step by step:
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "fix-api-bug" -BaseBranch "develop"
+cd "C:\Users\$env:USERNAME\.claude-worktrees\dws6\fix-api-bug"
+claude
 ```
 
-**Security checklist before using worktree:**
-- [ ] Verify `.gitignore` covers all secrets
-- [ ] Create separate `.env` for the worktree
-- [ ] Run `git status` to verify no sensitive files exposed
-- [ ] Use VPN when working with sensitive data
+**Linux/macOS/Chromebook/iOS (Bash):**
+```bash
+# Create new worktree with proper setup
+./scripts/new-claude-worktree.sh feature-auth --launch-claude
+
+# Or step by step:
+./scripts/new-claude-worktree.sh fix-api-bug develop
+cd ~/.claude-worktrees/dws6/fix-api-bug
+claude
+```
+
+#### What the Scripts Handle Automatically
+
+1. **Creates git worktree** in standardized location
+2. **Verifies .gitignore** inheritance (critical security patterns)
+3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
+4. **Copies config files** (.env, .env.mcp, .claude/)
+5. **Optionally launches Claude Code** in the new worktree
+
+#### Worktree Locations by Environment
+
+| Environment | Worktree Root |
+|-------------|---------------|
+| Windows | Adjacent to main repo: `F:\2026\Repos2026\.claude-worktrees\dws6\` |
+| macOS | `~/.claude-worktrees/dws6/` |
+| Linux/Chromebook | Adjacent to main repo: `../.claude-worktrees/dws6/` |
+| iOS (iSH/a-Shell) | `~/.claude-worktrees/dws6/` |
+
+#### Security: What's Shared vs. Copied
+
+| File/Folder | Behavior | Reason |
+|-------------|----------|--------|
+| `.gitignore` | **Shared** (inherited) | All worktrees use same ignore rules |
+| `.venv/` | **Symlinked** | Saves space, consistent packages |
+| `.env` | **Copied** | May need worktree-specific values |
+| `.env.mcp` | **Copied** | API keys for MCP servers |
+| `.claude/` | **Copied** | Session-specific Claude settings |
+| `node_modules/` | **Not shared** | Run `npm install` per worktree |
+
+#### Manual Worktree Commands
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove worktree when done (from main repo)
+git worktree remove /path/to/worktree
+git worktree prune
+
+# Emergency: Force remove stuck worktree
+git worktree remove --force /path/to/worktree
+```
+
+#### Security Checklist (Automated by Scripts)
+
+The scripts verify these automatically, but for manual worktrees:
+
+- [ ] `.gitignore` contains: `.env`, `.venv/`, `Admin/`, `*.secret`, `*.key`
+- [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
+- [ ] Run `git status` before first commit to verify no sensitive files staged
+- [ ] `.venv` symlink points to main repo's virtual environment
+
+#### Activating Python Environment in Worktrees
+
+**Windows:**
+```powershell
+# If symlink works:
+. .venv\Scripts\Activate.ps1
+
+# If symlink failed (no admin/Developer Mode):
+. F:\2026\Repos2026\dws6\.venv\Scripts\Activate.ps1
+```
+
+**Linux/macOS:**
+```bash
+source .venv/bin/activate
+```
+
+#### Using Worktrees with VS Code and Cursor
+
+**Opening a worktree in VS Code:**
+```powershell
+# Navigate to worktree and open in VS Code
+cd F:\2026\Repos2026\.claude-worktrees\dws6\your-branch
+code .
+```
+
+**Opening a worktree in Cursor:**
+```powershell
+# Navigate to worktree and open in Cursor
+cd F:\2026\Repos2026\.claude-worktrees\dws6\your-branch
+cursor .
+```
+
+**VS Code/Cursor Workspace Settings:**
+Each worktree can have its own `.vscode/settings.json` for workspace-specific settings.
+
+**Important: Never manually create git repos in worktree folders!**
+If you see "Initialize Repository" prompts in VS Code/Cursor, **do NOT click them**. Worktrees already share the main repo's git configuration.
+
+#### Troubleshooting Broken Worktrees
+
+If a worktree shows unexpected files (like user home directory files) in `git status`:
+
+```powershell
+# 1. Check if it's a proper worktree
+cat .git  # Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/<name>
+
+# 2. If it shows a folder (.git/) instead of file, it's broken - remove it:
+Remove-Item -Recurse -Force "path/to/broken/worktree"
+
+# 3. Prune orphaned references
+cd F:\2026\Repos2026\dws6
+git worktree prune
+
+# 4. Recreate properly using the script
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
+```
+
+**CRITICAL: Windows Worktree Location**
+On Windows, worktrees MUST be created on F: drive (or the same drive as main repo), NEVER in `C:\Users\`. The script enforces this automatically, but if creating manually, always use:
+- ✅ `F:\2026\Repos2026\.claude-worktrees\dws6\`
+- ❌ `C:\Users\risto\.claude-worktrees\dws6\` (AVOID - causes security issues)
+
+#### References
+
+- [Daniel San's Ghostty + Worktrees workflow](https://x.com/dani_avila7)
+- [Git Worktrees with pyenv](https://huonw.github.io/blog/2020/04/worktrees-and-pyenv/)
+- [Git Worktrees with Claude Code Guide](https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/)
+- [Mastering Git Worktrees for Parallel Development](https://medium.com/@dtunai/mastering-git-worktrees-with-claude-code-for-parallel-development-workflow-41dc91e645fe)
 
 ### 5. Additional Security Requirements
 
@@ -552,16 +675,24 @@ Key documentation files:
 - PR-based workflow with automated security checks
 - 18 CI/CD workflows in `.github/workflows/`
 
-### Worktree Warning
+### Worktree Best Practices
 
-**DO NOT USE `git worktree` in this repository until April 2026.**
+**Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
 
-Git worktree was disabled due to a security incident on January 29, 2026:
-- Worktree can expose `.env` files across worktrees
-- `.gitignore` protections may not apply correctly
-- Sensitive data can be accidentally committed
+The January 2026 security incident was caused by manual worktree creation without proper config file handling. The new automated scripts (`New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`) prevent these issues by:
 
-**Alternative workflows:**
-1. **Separate clones** - Clone repository to different directories
-2. **Branch switching** - Use `git checkout` or `git switch`
-3. **Stash changes** - Use `git stash` to save work temporarily
+1. **Verifying .gitignore** - Checks for critical security patterns before creating worktree
+2. **Copying .env files** - Each worktree gets its own copy (not shared/symlinked)
+3. **Symlinking .venv** - Safe because venv is already gitignored
+4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
+
+**DO NOT create worktrees manually.** Always use the provided scripts:
+```bash
+# Windows
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
+
+# Linux/macOS/Chromebook
+./scripts/new-claude-worktree.sh your-branch
+```
+
+See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
