@@ -1,7 +1,7 @@
 # AGENTS.md - Master Agent Index
 ## DWS IQ 6 - Agent Architecture & Coordination
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Created:** January 3, 2026  
 **Owner:** Lifetime Oy  
 **Status:** Active
@@ -417,7 +417,7 @@ docker mcp add stripe --activate
 
 All AI agents follow `AI_AGENT_GUIDELINES.md`:
 
-- **Naming:** `[Document] - [Tool] - [SessionID] - Versio X.Y`
+- **Naming:** `[Document] - [Tool] - [SessionID] - Version X.Y`
 - **Metadata:** Tool, SessionID, Version required
 - **Versioning:** 0.1 → 0.2 → ... → 1.0
 - **Git Integration:** `claude/[task]-[SessionID]` branches
@@ -502,9 +502,9 @@ cd mcp-hub && python server.py
 ### Timeline
 
 - **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
+- **Days Remaining (as of 2026-01-30):** 24
 - **Estimated Work:** 41-56 days
-- **Buffer:** -5 to 10 days
+- **Buffer:** -17 to -32 days
 
 ---
 
@@ -518,7 +518,7 @@ cd mcp-hub && python server.py
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 3, 2026  
+**Document Version:** 1.1  
+**Last Updated:** January 30, 2026  
 **Status:** Active  
-**Next Review:** January 10, 2026
+**Next Review:** February 6, 2026
