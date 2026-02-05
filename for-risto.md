@@ -88,10 +88,10 @@ product-catalog/
 └── STRUCTURE_SUMMARY.md (401 lines)
 ```
 
-**Modified Files (Local, not in git):**
-- `/home/user/dws6/Admin/ADMIN_MANUAL.md` (v1.6) - Added Training section
-- `/home/user/dws6/docs/metropolia/master-thesis/en/THESIS_EN.md` - Added Appendix G
-- `/home/user/dws6/docs/metropolia/master-thesis/fi/Thesis_FI.md` - Added Liite E
+**Modified Files (not included in this PR):**
+- Internal admin manual (v1.6, outside public repo) – Added Training section
+- `docs/metropolia/master-thesis/en/THESIS_EN.md` – Added Appendix G
+- `docs/metropolia/master-thesis/fi/Thesis_FI.md` – Added Liite E
 
 ### Quality Assessment: ✅ EXCELLENT
 
