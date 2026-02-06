@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 2.0
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
@@ -16,6 +16,7 @@ Sessions & Modifications:
   - Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat Widget, Copilot instructions, security fixes
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw

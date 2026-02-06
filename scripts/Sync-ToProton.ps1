@@ -285,10 +285,13 @@ if ($GeneratePDFs) {
     $pdfScript = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "Generate-PDFs.ps1"
     if (Test-Path $pdfScript) {
         $pdfOutputPath = Join-Path $ProtonRoot "generated-pdfs"
-        $pdfArgs = @("-RepoPath", $RepoPath, "-OutputPath", $pdfOutputPath)
-        if ($DryRun) { $pdfArgs += "-DryRun" }
-        if ($OpenNewPDFs) { $pdfArgs += "-OpenNew" }
-        & $pdfScript @pdfArgs
+        $pdfSplat = @{
+            RepoPath   = $RepoPath
+            OutputPath = $pdfOutputPath
+        }
+        if ($DryRun) { $pdfSplat["DryRun"] = $true }
+        if ($OpenNewPDFs) { $pdfSplat["OpenNew"] = $true }
+        & $pdfScript @pdfSplat
     } else {
         Write-Warning "PDF script not found: $pdfScript"
     }
