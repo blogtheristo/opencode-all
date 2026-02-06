@@ -384,28 +384,22 @@
                 return product.revolutLink;
             }
             var fallback = (CONFIG && CONFIG.revolutFallbackLink) ? CONFIG.revolutFallbackLink : 'https://revolut.me/lifetimeoy';
-
-            var priceNumber = Number(product.price);
+            var priceNumber = typeof product.price === 'number' ? product.price : Number(product.price);
             if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
-                // If price is missing/invalid, fall back to the base Revolut link
+                // Invalid or non-positive price; fall back to base link without amount
                 return fallback;
             }
-
-            // Format amount: keep cents if present, avoid trailing ".00" for integer prices
-            var amountString = priceNumber.toFixed(2);
-            if (amountString.endsWith('.00')) {
-                amountString = amountString.slice(0, -3);
+            // Revolut fallback URL only supports integer euro amounts safely.
+            // If the price has cents, require an explicit product.revolutLink by using the base link.
+            if (!Number.isInteger(priceNumber)) {
+                return fallback;
             }
-
-            return fallback + '/' + amountString + 'EUR';
+            return fallback + '/' + priceNumber + 'EUR';
         }
 
         // Get PayPal payment URL for a product
         function getPayPalUrl(product) {
             var email = (CONFIG && CONFIG.paypalEmail) ? CONFIG.paypalEmail : 'risto.anton@lifetime.fi';
-            // Note: We intentionally omit `return` / `cancel_return` here because the
-            // /checkout/success/ page expects session-based state (pending_order),
-            // which is not set in this direct-link flow. Let PayPal handle post-payment UX.
             var params = new URLSearchParams({
                 cmd: '_xclick',
                 business: email,
