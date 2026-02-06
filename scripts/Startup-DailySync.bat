@@ -8,7 +8,8 @@ REM
 REM What it does:
 REM   1. Pulls latest changes from GitHub
 REM   2. Syncs business files to Proton Drive
-REM   3. Runs silently in background (closes when done)
+REM   3. Generates PDFs from admin manuals, sales & investor docs (pandoc)
+REM   4. Runs silently in background (closes when done)
 REM =============================================================================
 
 set REPO_PATH=F:\2026\Repos2026\dws6
@@ -27,8 +28,8 @@ REM Pull latest changes
 echo [%date% %time%] Pulling from GitHub...
 git pull origin main
 
-REM Run Proton Drive sync
-echo [%date% %time%] Syncing to Proton Drive...
-pwsh -NoProfile -ExecutionPolicy Bypass -File "%REPO_PATH%\scripts\Sync-ToProton.ps1"
+REM Run Proton Drive sync + PDF generation
+echo [%date% %time%] Syncing to Proton Drive + generating PDFs...
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%REPO_PATH%\scripts\Sync-ToProton.ps1" -GeneratePDFs
 
 echo [%date% %time%] Daily sync complete.
