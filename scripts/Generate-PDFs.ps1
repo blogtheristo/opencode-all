@@ -58,11 +58,19 @@ Write-Host "  Output:  $OutputPath"
 if ($DryRun) { Write-Host "  MODE:    DRY RUN" -ForegroundColor Yellow }
 Write-Host ""
 
-# --- Check wkhtmltopdf ---
-$wkPath = Get-Command wkhtmltopdf -ErrorAction SilentlyContinue
-if (-not $wkPath) {
-    Write-Warning "wkhtmltopdf not found. Install with: winget install wkhtmltopdf"
-    Write-Warning "PDF generation will fail without it."
+# --- Find wkhtmltopdf (check PATH, then default install location) ---
+$wkExe = (Get-Command wkhtmltopdf -ErrorAction SilentlyContinue).Source
+if (-not $wkExe) {
+    $wkDefault = "C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    if (Test-Path $wkDefault) {
+        $wkExe = $wkDefault
+        Write-Host "  wkhtml: $wkExe (not in PATH, using default location)" -ForegroundColor Yellow
+    } else {
+        Write-Error "wkhtmltopdf not found. Install with: winget install wkhtmltopdf"
+        exit 1
+    }
+} else {
+    Write-Host "  wkhtml: $wkExe"
 }
 
 # --- Create inline CSS for PDF styling ---
@@ -152,7 +160,7 @@ foreach ($file in $FilesToConvert) {
         $pandocArgs = @(
             "`"$srcFile`""
             "-o", "`"$destFile`""
-            "--pdf-engine=wkhtmltopdf"
+            "--pdf-engine=`"$wkExe`""
             "--toc"
             "--toc-depth=2"
             "-f", "markdown-yaml_metadata_block+smart"
