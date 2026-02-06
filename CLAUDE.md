@@ -241,12 +241,24 @@ dws6/
 - Root folders → Cloudflare Workers (testing)
 - Landing-pages folders → Cloudflare Pages (production)
 
-**Workflow: When editing ANY landing page:**
-1. **First** update the root folder (e.g., `dws10.com/`)
+**Workflow: When editing ANY page on ANY DWS domain:**
+1. **ALWAYS update the root folder FIRST** (e.g., `dws10.com/`)
 2. **Test** that it works on Cloudflare Workers
-3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+3. **THEN copy to landing-pages folder** (e.g., `landing-pages/dws10-com/`)
+4. Never update landing-pages first — root folder is the source of truth
 
 This ensures changes are tested before going to production.
+
+**Per-domain rules:**
+
+| Domain | Root Folder First | Then Landing Pages | Navigation |
+|--------|-------------------|-------------------|------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` | — |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` | Gamma Ironclad (`/shared-assets/nav/ironclad-nav.js`) |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` | — |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* | — |
+
+**dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
 
 ## Development Commands
 
@@ -539,11 +551,51 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Documentation
 
-Key documentation files:
-- `README.md` - Project overview
-- `ADMIN_MANUAL_*.md` - Administration guides
-- `SECURITY_COMPLIANCE.md` - Security documentation
-- `Firehorse/` directory - Product documentation
+### Standards (Governance Documents)
+
+| Standard | File | Purpose | Associated Skills/Agents |
+|----------|------|---------|--------------------------|
+| **DWS Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document headers, naming, versioning, metadata, PDF, knowledge management | — |
+| **DWS Brand Standard** | `docs/DWS_BRAND_STANDARD.md` | Gamma design system, colors, typography, navigation, UX guidelines, accessibility | `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend` |
+| **UI Skills Gamma** | `UI_SKILLS_GAMMA.md` | Technical UI constraints (Tailwind, React, animations, z-index) | `senior-frontend` |
+
+**Rules:**
+- All new documents MUST use the VERSION AND AGENT HISTORY header from `DWS_DOCUMENT_STANDARD.md`
+- All design/frontend work MUST follow `docs/DWS_BRAND_STANDARD.md` (Gamma Ironclad)
+- When standards conflict, `DWS_BRAND_STANDARD.md` takes precedence over agent/skill suggestions
+
+### Key Documentation Files
+
+- `README.md` — Project overview
+- `ADMIN_MANUAL_*.md` — Administration guides
+- `SECURITY_COMPLIANCE.md` — Security documentation
+- `Firehorse/` directory — Product documentation
+- `ONTOLOGY.md` — Lifetime World Model ontology
+- `docs/field-notes/` — Design audits and session notes
+
+### Claude Code Templates
+
+When the user refers to "Claude templates", they mean skills and agents from [Claude Code Templates](https://www.aitmpl.com/).
+
+**Install via:**
+```bash
+npx claude-code-templates@latest --skill=<category>/<name> --yes
+npx claude-code-templates@latest --agent=<category>/<name> --yes
+```
+
+Templates install into the `.claude/` folder:
+- Skills → `.claude/skills/<name>/SKILL.md`
+- Agents → `.claude/agents/<name>.md`
+
+**Installed templates:**
+
+| Template | Type | File | Purpose |
+|----------|------|------|---------|
+| `creative-design/ux-researcher-designer` | Skill | `.claude/skills/ux-researcher-designer/SKILL.md` | UX research toolkit, persona generator |
+| `development/senior-frontend` | Skill | `.claude/skills/senior-frontend/SKILL.md` | Frontend development, component scaffolding |
+| `development-team/ui-ux-designer` | Agent | `.claude/agents/ui-ux-designer.md` | Research-backed UI/UX design critic (NN Group) |
+
+**Usage:** Study installed skill/agent files before implementing. Apply to onelifetime.world first for testing, then roll out to other DWS domains.
 
 ## Git Workflow
 
