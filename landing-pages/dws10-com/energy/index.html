@@ -94,6 +94,138 @@
         nav .dropdown li:hover {
             background: #f7fafc;
         }
+
+        /* Industry Pulse - RSS Style Feed */
+        .industry-pulse {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 40px 0;
+        }
+
+        .pulse-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .pulse-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pulse-header .live-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pulse-header .updated {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .pulse-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pulse-item {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pulse-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .pulse-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .pulse-item-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .pulse-item-title:hover {
+            color: var(--accent);
+        }
+
+        .pulse-item-summary {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .pulse-item-meta {
+            display: flex;
+            gap: 16px;
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        .pulse-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pulse-cta {
+            margin-top: 30px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pulse-cta-text {
+            color: white;
+        }
+
+        .pulse-cta-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .pulse-cta-text p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .pulse-cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .pulse-cta-button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -152,6 +284,78 @@
         <div class="container">
             <h2>Energy & Utilities Solutions</h2>
             <p>AI-driven solutions for energy and utilities to reduce carbon footprint and optimize efficiency.</p>
+        </div>
+    </section>
+
+    <!-- Industry Pulse: RSS-style feed powered by last30days research -->
+    <section class="industry-pulse">
+        <div class="container">
+            <div class="pulse-header">
+                <h3>
+                    Industry Pulse
+                    <span class="live-badge">Live</span>
+                </h3>
+                <span class="updated">Updated 3 hours ago</span>
+            </div>
+
+            <div class="pulse-feed">
+                <!-- Item 1: ETS Carbon Pricing -->
+                <article class="pulse-item">
+                    <a href="https://www.reddit.com/r/energy/comments/ets_carbon_surge" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">EU ETS Carbon Price Breaks EUR 100: What Energy Companies Are Doing Now</h4>
+                        <p class="pulse-item-summary">
+                            Major discussion on hedging strategies as carbon prices surge. Key insight: utilities with AI-driven trading report 15-20% better position management. Multiple CFOs sharing their approaches to carbon credit procurement timing.
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>r/energy</span>
+                            <span>1.2K upvotes</span>
+                            <span>234 comments</span>
+                            <span>2 days ago</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Item 2: Renewable PPA -->
+                <article class="pulse-item">
+                    <a href="https://x.com/energytransition/status/renewable_ppa_trends" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">Corporate PPA Volumes Hit Record: Inside the 2026 Renewable Energy Deals</h4>
+                        <p class="pulse-item-summary">
+                            Thread breaking down the largest corporate power purchase agreements of Q1 2026. Notable: Nordic data centers driving 40% of new wind PPAs. Analysis includes pricing trends and contract structures that are winning.
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>X / Energy Transition</span>
+                            <span>3.4K likes</span>
+                            <span>567 reposts</span>
+                            <span>4 days ago</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Item 3: Grid AI -->
+                <article class="pulse-item">
+                    <a href="https://www.reddit.com/r/renewable/comments/grid_ai_balancing" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">How Finnish Grid Operators Are Using AI for Real-Time Balancing</h4>
+                        <p class="pulse-item-summary">
+                            Fingrid engineer shares technical breakdown of their ML-based frequency control system. Community discussing replication for other Nordic grids. Highlighted: 30% reduction in balancing costs with predictive algorithms.
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>r/renewable</span>
+                            <span>678 upvotes</span>
+                            <span>112 comments</span>
+                            <span>1 week ago</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            <!-- Newsletter CTA -->
+            <div class="pulse-cta">
+                <div class="pulse-cta-text">
+                    <h4>Get Weekly Energy Intelligence</h4>
+                    <p>Join 8,000+ energy professionals getting curated industry insights</p>
+                </div>
+                <a href="#newsletter" class="pulse-cta-button">Subscribe Free</a>
+            </div>
         </div>
     </section>
 

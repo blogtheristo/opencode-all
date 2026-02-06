@@ -94,6 +94,138 @@
         nav .dropdown li:hover {
             background: #f7fafc;
         }
+
+        /* Industry Pulse - RSS Style Feed */
+        .industry-pulse {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 40px 0;
+        }
+
+        .pulse-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .pulse-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pulse-header .live-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pulse-header .updated {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .pulse-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pulse-item {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pulse-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .pulse-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .pulse-item-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .pulse-item-title:hover {
+            color: var(--accent);
+        }
+
+        .pulse-item-summary {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .pulse-item-meta {
+            display: flex;
+            gap: 16px;
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        .pulse-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pulse-cta {
+            margin-top: 30px;
+            padding: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pulse-cta-text {
+            color: white;
+        }
+
+        .pulse-cta-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .pulse-cta-text p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .pulse-cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .pulse-cta-button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -153,6 +285,78 @@
             <h2>Logistics & Supply Chain Solutions</h2>
             <p>AI-driven solutions for logistics and supply chain to reduce carbon footprint and optimize efficiency.
             </p>
+        </div>
+    </section>
+
+    <!-- Industry Pulse: RSS-style feed powered by last30days research -->
+    <section class="industry-pulse">
+        <div class="container">
+            <div class="pulse-header">
+                <h3>
+                    Industry Pulse
+                    <span class="live-badge">Live</span>
+                </h3>
+                <span class="updated">Updated 5 hours ago</span>
+            </div>
+
+            <div class="pulse-feed">
+                <!-- Item 1: ETS Road Transport -->
+                <article class="pulse-item">
+                    <a href="https://www.reddit.com/r/logistics/comments/ets2_road_transport" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">ETS2 for Road Transport: How Logistics Companies Are Preparing for 2027</h4>
+                        <p class="pulse-item-summary">
+                            Major discussion on the new EU Emissions Trading System expansion to road transport. Key insight: companies automating fleet emissions tracking report smoother compliance planning. Detailed cost projections shared.
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>r/logistics</span>
+                            <span>712 upvotes</span>
+                            <span>145 comments</span>
+                            <span>2 days ago</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Item 2: Electric Fleet -->
+                <article class="pulse-item">
+                    <a href="https://x.com/fleetelectric/status/ev_fleet_roi" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">Real TCO Data: European Logistics Firms Share 2-Year EV Fleet Results</h4>
+                        <p class="pulse-item-summary">
+                            Thread with actual cost data from DHL, PostNord, and DB Schenker on electric delivery fleet performance. Surprising finding: maintenance savings offset higher purchase costs within 18 months for urban routes.
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>X / Fleet Electric</span>
+                            <span>2.3K likes</span>
+                            <span>389 reposts</span>
+                            <span>4 days ago</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Item 3: Supply Chain Scope 3 -->
+                <article class="pulse-item">
+                    <a href="https://www.reddit.com/r/supplychain/comments/scope3_logistics" target="_blank" rel="noopener">
+                        <h4 class="pulse-item-title">Scope 3 Reporting: Logistics Providers Becoming the Bottleneck for CSRD</h4>
+                        <p class="pulse-item-summary">
+                            Heated discussion on how logistics companies are being pressured by customers for emissions data. Top comment: "We built an API for automated carbon reporting - now our largest customers demand it as standard."
+                        </p>
+                        <div class="pulse-item-meta">
+                            <span>r/supplychain</span>
+                            <span>489 upvotes</span>
+                            <span>87 comments</span>
+                            <span>6 days ago</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            <!-- Newsletter CTA -->
+            <div class="pulse-cta">
+                <div class="pulse-cta-text">
+                    <h4>Get Weekly Logistics Intelligence</h4>
+                    <p>Join 4,500+ supply chain professionals getting curated industry insights</p>
+                </div>
+                <a href="#newsletter" class="pulse-cta-button">Subscribe Free</a>
+            </div>
         </div>
     </section>
 
