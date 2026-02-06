@@ -14,7 +14,7 @@ Sessions & Modifications:
 Session Links & References:
   - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
   - Claude Code (silly-bassi): https://github.com/blogtheristo/dws6/commits/silly-bassi
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_AUTHENTICATION.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_AUTHENTICATION.md
 
 Document Status:
   - Created: 15.12.2025

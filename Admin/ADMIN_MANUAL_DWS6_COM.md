@@ -11,7 +11,7 @@ Sessions & Modifications:
 
 Session Links & References:
   - Cursor AI (Current): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_DWS6_COM.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
   - Created: 30.12.2025

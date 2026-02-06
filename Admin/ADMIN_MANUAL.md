@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
@@ -15,6 +15,7 @@ Sessions & Modifications:
   - Version: 1.6 | Tool: Claude Code | Session: r6bU3 | Date: 24.01.2026 | Changes: Training section with LWM/Firehorse workflows
   - Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat Widget, Copilot instructions, security fixes
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -72,21 +73,21 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 | Manual | Location | Language | Description |
 |--------|----------|----------|-------------|
-| **Admin Manual** (this file) | [`Admin/ADMIN_MANUAL.md`](../Admin/ADMIN_MANUAL.md) | EN | Master admin manual - platform operations |
-| **Authentication Manual** | [`ADMIN_MANUAL_AUTHENTICATION.md`](../ADMIN_MANUAL_AUTHENTICATION.md) | EN | JWT auth, login flows, token management |
-| **Supabase Manual** | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](../ADMIN_MANUAL_SUPABASE_EN_v1.md) | EN | Database, RLS, migrations, storage |
-| **Testing Manual** | [`ADMIN_MANUAL_TESTING.md`](../ADMIN_MANUAL_TESTING.md) | EN | Vitest, security tests, CI/CD testing |
-| **Gaps Analysis** | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](../ADMIN_MANUAL_GAPS_ANALYSIS.md) | EN | Missing features and remediation plan |
+| **Admin Manual** (this file) | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md) | EN | Master admin manual - platform operations |
+| **Authentication Manual** | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md) | EN | JWT auth, login flows, token management |
+| **Supabase Manual** | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md) | EN | Database, RLS, migrations, storage |
+| **Testing Manual** | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) | EN | Vitest, security tests, CI/CD testing |
+| **Gaps Analysis** | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md) | EN | Missing features and remediation plan |
 
 ### Websites & Store
 
 | Manual | Location | Language | Description |
 |--------|----------|----------|-------------|
-| **DWS6.com Manual** | [`ADMIN_MANUAL_DWS6_COM.md`](../ADMIN_MANUAL_DWS6_COM.md) | EN | DWS6 website operations |
-| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](../ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) | EN | Revolut Web SDK, Cloudflare Worker, 25 products |
+| **DWS6.com Manual** | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md) | EN | DWS6 website operations |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) | EN | Revolut Web SDK, Cloudflare Worker, 25 products |
 | **Store Admin (EN)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md) | EN | Store product management, feeds |
 | **Store Admin (FI)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md) | FI | Kaupan hallinta |
-| **Dashboard V8 Manual** | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](../ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md) | EN | Firehorse dashboard operations |
+| **Dashboard V8 Manual** | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md) | EN | Firehorse dashboard operations |
 | **Blog System (EN)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN | Onelifetime.world blog CMS |
 | **Blog System (FI)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI | Blogin hallinta |
 
@@ -105,7 +106,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 | Manual | Location | Language | Description |
 |--------|----------|----------|-------------|
 | **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN | Omnichannel product operations |
-| **Files & Folders** | [`in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md`](../in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
+| **Files & Folders** | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
 
 ### Related Documentation
 
@@ -114,7 +115,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **CLAUDE.md** | [`CLAUDE.md`](../CLAUDE.md) | AI agent behavior guidelines (Karpathy principles) |
 | **DPA Agreement** | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement |
 | **MCP Configuration** | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md) | Model Context Protocol server setup |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](../SECURITY_COMPLIANCE.md) | Security framework and compliance status |
+| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md) | Security framework and compliance status |
 | **Security Glossary** | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) | Security terms and OWASP references |
 
 ---
@@ -468,7 +469,7 @@ Customer clicks "Buy" → Revolut Web SDK (browser) → Cloudflare Worker → Re
 
 ### Related Manuals
 
-- **Full manual:** [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](../ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) - Complete Revolut integration guide
+- **Full manual:** [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) - Complete Revolut integration guide
 - **Store admin (EN):** [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md) - Product management
 - **Store admin (FI):** [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md) - Kaupan hallinta
 
@@ -807,7 +808,7 @@ These guidelines support EU AI Act Article 12 (Automatic Logging): assumption te
 ### Related Manuals
 
 - **Full glossary:** [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)
-- **Authentication manual:** [`ADMIN_MANUAL_AUTHENTICATION.md`](../ADMIN_MANUAL_AUTHENTICATION.md)
+- **Authentication manual:** [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)
 - **Security testing:** [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)
 - **Security monitoring:** [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md)
 
@@ -848,7 +849,7 @@ These guidelines support EU AI Act Article 12 (Automatic Logging): assumption te
 ## Backup & Sync Infrastructure
 
 **Status:** ✅ **ACTIVE** (since February 6, 2026)
-**Full documentation:** [`in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md`](../in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md)
+**Full documentation:** [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)
 
 ### Three-Layer Backup Strategy
 
@@ -875,6 +876,54 @@ Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton
 | Pull and sync | VS Code: Terminal > Run Task > "Pull and Sync" |
 | Dry run | `.\scripts\Sync-ToProton.ps1 -DryRun` |
 | Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
+| Generate PDFs | `.\scripts\Generate-PDFs.ps1` (or `-DryRun`) |
+| Generate PDFs + Sync | Automatic after Proton sync (when `-GeneratePDFs` flag is set) |
+
+### Windows Startup Auto-Sync
+
+The daily sync runs automatically on Windows login via a shortcut in:
+
+```
+C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+```
+
+**Setup (one-time):**
+```powershell
+.\scripts\Install-StartupSync.ps1        # Install shortcut
+.\scripts\Install-StartupSync.ps1 -Remove  # Remove shortcut
+```
+
+**What it does on every Windows login:**
+1. Waits 120 seconds (for network + Proton Drive to mount)
+2. `git pull origin main` (gets latest from GitHub)
+3. Runs `Sync-ToProton.ps1` (copies business files to Proton Drive)
+
+**Scripts:**
+| Script | Purpose |
+|--------|---------|
+| `scripts/Startup-DailySync.bat` | The batch file that runs on login |
+| `scripts/Install-StartupSync.ps1` | Creates/removes the Startup shortcut |
+
+### PDF Generation (Pandoc)
+
+After Proton Drive sync, PDFs can be generated from key markdown files using pandoc.
+
+**Prerequisites (install once):**
+```powershell
+winget install --id JohnMacFarlane.Pandoc
+# Or: choco install pandoc
+# Or: scoop install pandoc
+```
+
+**Generated PDFs:**
+| Source File | Output PDF |
+|-------------|-----------|
+| `Admin/ADMIN_MANUAL.md` | `generated-pdfs/ADMIN_MANUAL.pdf` |
+| `sales-outreach/enterprise-sales.md` | `generated-pdfs/enterprise-sales.pdf` |
+| `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` | `generated-pdfs/V3-DWS-IQ6-InvestorPD_2026.pdf` |
+| `investor-outreach/investor-pitch-deck.md` | `generated-pdfs/investor-pitch-deck.pdf` |
+
+**Run manually:** `.\scripts\Generate-PDFs.ps1` or `.\scripts\Generate-PDFs.ps1 -DryRun`
 
 ---
 

@@ -12,7 +12,7 @@ Sessions & Modifications:
 
 Session Links & References:
   - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md
 
 Document Status:
   - Created: 09.12.2025

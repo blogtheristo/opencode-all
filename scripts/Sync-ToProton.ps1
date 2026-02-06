@@ -49,7 +49,8 @@ param(
     [string]$ProtonRoot = "F:\Proton\Proton\My files\2026",
     [string]$BackupPath = "F:\2026\Backups\dws6",
     [switch]$DryRun,
-    [switch]$FullRepo
+    [switch]$FullRepo,
+    [switch]$GeneratePDFs
 )
 
 # --- Configuration ---
@@ -69,16 +70,17 @@ $FolderMappings = @(
     @{ Src = "landing-pages\lifetime-fi";    Dest = (Join-Path $ProtonRoot "Lifetime_fi") }
 )
 
-# Individual doc files -> Proton repo backup
+# Individual doc files -> Proton repo backup (relative to $RepoPath)
 $SyncFiles = @(
-    "ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md",
-    "ADMIN_MANUAL_AUTHENTICATION.md",
-    "ADMIN_MANUAL_DWS6_COM.md",
-    "ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md",
-    "ADMIN_MANUAL_GAPS_ANALYSIS.md",
-    "ADMIN_MANUAL_SUPABASE_EN_v1.md",
-    "ADMIN_MANUAL_TESTING.md",
-    "SECURITY_COMPLIANCE.md"
+    "Admin\ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md",
+    "Admin\ADMIN_MANUAL_AUTHENTICATION.md",
+    "Admin\ADMIN_MANUAL_DWS6_COM.md",
+    "Admin\ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md",
+    "Admin\ADMIN_MANUAL_GAPS_ANALYSIS.md",
+    "Admin\ADMIN_MANUAL_SUPABASE_EN_v1.md",
+    "Admin\ADMIN_MANUAL_TESTING.md",
+    "Admin\SECURITY_COMPLIANCE.md",
+    "Admin\ADMIN_MANUAL_FILES_AND_FOLDERS.md"
 )
 
 # Sensitive/gitignored files -> Proton repo backup (encrypted)
@@ -279,6 +281,20 @@ if ($FullRepo) {
 
         $destPath = Join-Path $BackupPath $relativePath
         Sync-Item -Source $file.FullName -Destination $destPath
+    }
+}
+
+# --- PDF Generation (optional) ---
+if ($GeneratePDFs) {
+    Write-Host ""
+    $pdfScript = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "Generate-PDFs.ps1"
+    if (Test-Path $pdfScript) {
+        $pdfOutputPath = Join-Path $ProtonRoot "generated-pdfs"
+        $pdfArgs = @("-RepoPath", "`"$RepoPath`"", "-OutputPath", "`"$pdfOutputPath`"")
+        if ($DryRun) { $pdfArgs += "-DryRun" }
+        & $pdfScript @pdfArgs
+    } else {
+        Write-Warning "PDF script not found: $pdfScript"
     }
 }
 

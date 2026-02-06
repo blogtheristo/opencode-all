@@ -54,12 +54,12 @@ System administration and deployment guides.
 
 | Document | Path | Status | LLM Model | Description |
 |----------|------|--------|-----------|-------------|
-| Authentication Manual | `/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | Manual | Supabase auth setup |
-| Dashboard V8 Manual | `/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | Cursor AI | Dashboard v8 guide |
-| Supabase Manual | `/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | Cursor AI | Supabase configuration |
-| Gaps Analysis | `/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | Claude | Documentation gap analysis |
-| DWS6.com Manual | `/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | Cursor AI | Main site deployment |
-| Testing Manual | `/ADMIN_MANUAL_TESTING.md` | ACTIVE | Manual | Testing procedures |
+| Authentication Manual | `/Admin/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | Manual | Supabase auth setup |
+| Dashboard V8 Manual | `/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | Cursor AI | Dashboard v8 guide |
+| Supabase Manual | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | Cursor AI | Supabase configuration |
+| Gaps Analysis | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | Claude | Documentation gap analysis |
+| DWS6.com Manual | `/Admin/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | Cursor AI | Main site deployment |
+| Testing Manual | `/Admin/ADMIN_MANUAL_TESTING.md` | ACTIVE | Manual | Testing procedures |
 | Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | Claude | 2026-01 audit results |
 | Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | Manual | Authentication setup |
 
@@ -182,7 +182,7 @@ Security policies, compliance, and guidelines.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
-| Security Compliance | `/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
+| Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
 | README Security | `/README_SECURITY.md` | ACTIVE | Security readme |
 | AgentFoundry Security | `/AgentFoundry/Security.md` | ACTIVE | Agent security |
 | Argus Code Review | `/ARGUS_CODE_REVIEW_SETUP.md` | ACTIVE | Code review security |
