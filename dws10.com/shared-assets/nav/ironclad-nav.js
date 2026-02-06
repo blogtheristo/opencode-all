@@ -183,6 +183,9 @@
                         <li><a href="${basePath}products/firehorse-reports.html">Firehorse Report – Fit for 55 Template & Dashboard</a></li>
                         <li><a href="${basePath}products/consulting.html">Consulting – Hourly Rate</a></li>
                         <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic Development</a></li>
+                        <li><a href="${basePath}products/sovereignty-cloud-consulting.html" class="ironclad-primary">Sovereignty Cloud Consulting</a></li>
+                        <li class="ironclad-separator"></li>
                         <li><a href="${basePath}world-model/" class="ironclad-primary">Lifetime World Model</a></li>
                     </ul>
                 </li>
