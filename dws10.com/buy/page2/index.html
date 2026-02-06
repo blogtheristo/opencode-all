@@ -42,11 +42,12 @@
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
 
-        /* Pagination */
-        .pagination { display: flex; justify-content: center; gap: 16px; margin: 40px 0; }
-        .pagination a { padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600; transition: all 0.2s; }
-        .pagination a:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); }
-        .pagination a.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; }
+        /* Category Navigation - DWS Gamma Brand */
+        .category-nav { display: flex; justify-content: center; gap: 8px; margin: 40px 0; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .category-btn { padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; min-height: 48px; display: inline-flex; align-items: center; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.15); background: rgba(30, 41, 59, 0.7); color: #e2e8f0; }
+        .category-btn:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); color: #60a5fa; }
+        .category-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
         /* Footer */
         .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
@@ -57,6 +58,8 @@
             .product-grid { grid-template-columns: 1fr; }
             .nav-links { gap: 12px; }
             .btn-group { flex-direction: column; }
+            .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; }
+            .category-btn { padding: 12px 18px; font-size: 0.875rem; }
         }
     </style>
 </head>
@@ -75,83 +78,69 @@
     </nav>
 
     <main class="container">
-        <h1>More Products</h1>
-        <p class="subtitle">Additional services, consulting, and digital solutions</p>
+        <h1>AI &amp; Cloud Consulting</h1>
+        <p class="subtitle">Agentic development, sovereignty cloud migration, and AI engineering services</p>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="../">Page 1</a>
-            <a href="./" class="active">Page 2</a>
-            <a href="../page3/">Page 3</a>
-        </div>
+        <!-- Category Navigation -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="../" class="category-btn">Platform &amp; Products</a>
+            <a href="./" class="category-btn active" aria-current="page">AI &amp; Cloud Consulting</a>
+            <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="../page4/" class="category-btn">Digital Services</a>
+        </nav>
 
-        <!-- Products Grid - Page 2 products -->
+        <!-- Products Grid - AI & Cloud Consulting -->
         <div class="product-grid">
-            <!-- Continuous Workflow Agent Delivery -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Continuous Workflow Agent Delivery" class="product-image">
+            <!-- AI Consulting - Agentic Software Development -->
+            <div class="product-card featured" style="position:relative;">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Consulting" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Continuous Workflow Agent Delivery</h2>
-                    <div class="product-price">€2,500</div>
-                    <div class="product-price-note">Foundation package</div>
-                    <p class="product-excerpt">Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</p>
+                    <h2 class="product-title">AI Consulting &ndash; Agentic Software Development</h2>
+                    <div class="product-price">&euro;2,500</div>
+                    <div class="product-price-note">Assessment from &euro;2,500 | Retainers from &euro;5,000/mo</div>
+                    <p class="product-excerpt">Navigate the agentic software development renaissance. Assessment, AGENTS.md workshops, codebase restructuring, AI code quality governance, and agent infrastructure setup. From practitioners using both Claude Code and Codex daily.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="mailto:sales@lifetime.fi?subject=AI Consulting" class="btn btn-primary">Contact Sales</a>
+                        <a href="../../products/ai-consulting.html" class="btn btn-secondary">Details</a>
                     </div>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
                         <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #0070ba; font-weight: 600;">PayPal</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Digital Design Gold -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Digital Design Gold" class="product-image">
+            <!-- Sovereignty Cloud Consulting -->
+            <div class="product-card featured" style="position:relative;">
+                <img src="../../static/images/Risto_Malta.png" alt="Sovereignty Cloud Consulting" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Lifetime World - Digital Design Gold</h2>
-                    <div class="product-price">€2,499</div>
-                    <div class="product-price-note">One-time setup</div>
-                    <p class="product-excerpt">Digital marketing dashboard and design services. Complete marketing intelligence solution with analytics and visualization.</p>
+                    <h2 class="product-title">Sovereignty Cloud Consulting &ndash; EU Migration</h2>
+                    <div class="product-price">&euro;1,500/mo</div>
+                    <div class="product-price-note">Standard &euro;1,500/mo | Growth &euro;3,000/mo | Partner from &euro;5,000/mo</div>
+                    <p class="product-excerpt">European cloud migration, DPA creation, EU AI Act impact analysis, NIS2 compliance, and GAIA-X alignment. Escape CLOUD Act exposure. Migrate to OVHcloud, Scaleway, OpenNebula, Hetzner, and Supabase EU.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="mailto:sales@lifetime.fi?subject=Sovereignty Cloud" class="btn btn-primary">Contact Sales</a>
+                        <a href="../../products/sovereignty-cloud-consulting.html" class="btn btn-secondary">Details</a>
                     </div>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
                         <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #0070ba; font-weight: 600;">PayPal</span>
                     </div>
                 </div>
             </div>
 
-            <!-- AI Koulutus 3 Days -->
+            <!-- AI Engineering & Cloud Solutions -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="AI Koulutus 3 Days" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Engineering" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">AI Koulutus 3 Days Programme</h2>
-                    <div class="product-price">€6,250</div>
-                    <div class="product-price-note">3-day programme</div>
-                    <p class="product-excerpt">Intensive 3-day AI training programme for organizations. In-house coaching covering AI strategy, implementation, and team upskilling.</p>
-                    <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
-                    </div>
-                    <div class="payment-badge">
-                        <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Solution Ready Team -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Solution Ready Team" class="product-image">
-                <div class="product-content">
-                    <h2 class="product-title">Solution Ready Team - Do it Right</h2>
-                    <div class="product-price">€950</div>
-                    <div class="product-price-note">Team setup</div>
-                    <p class="product-excerpt">Cloud-ready team solution for organizations needing immediate technical expertise. Pre-vetted professionals ready for deployment.</p>
+                    <h2 class="product-title">AI Engineering &amp; Cloud Solutions Consultancy</h2>
+                    <div class="product-price">&euro;4,500</div>
+                    <div class="product-price-note">25 hours, valid 12 months</div>
+                    <p class="product-excerpt">25-hour consultancy for strategic assessment, planning, and implementation of cloud and AI technologies. Covers AWS, Azure, GCP, IBM Cloud, Gemini AI, Meta Llama Stack. Includes complimentary 4-hour strategy workshop.</p>
                     <div class="btn-group">
                         <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
                         <a href="../" class="btn btn-secondary">Details</a>
@@ -168,7 +157,7 @@
                 <img src="../../static/images/Firehorse_Store.jpg" alt="Conversational Agent Solution" class="product-image">
                 <div class="product-content">
                     <h2 class="product-title">Conversational Agent Solution</h2>
-                    <div class="product-price">€3,500</div>
+                    <div class="product-price">&euro;3,500</div>
                     <div class="product-price-note">25 hours standard implementation</div>
                     <p class="product-excerpt">AI-powered conversational agents for enterprise workflows. Integrates with Microsoft Teams, Google Workspace, Zoom, WhatsApp Business. Supports Groq, Anthropic, OpenAI, and self-hosted LLMs.</p>
                     <div class="btn-group">
@@ -182,14 +171,14 @@
                 </div>
             </div>
 
-            <!-- Professional Web Pages -->
+            <!-- Continuous Workflow Agent Delivery -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Professional Web Pages" class="product-image">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Continuous Workflow Agent Delivery" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Professional Web Pages</h2>
-                    <div class="product-price">€799</div>
-                    <div class="product-price-note">Starting price</div>
-                    <p class="product-excerpt">Professional responsive web pages for new businesses, products, or companies. Technology options include React.JS, Blazor, WordPress, Squarespace. AI chatbot and e-commerce add-ons available.</p>
+                    <h2 class="product-title">Continuous Workflow Agent Delivery</h2>
+                    <div class="product-price">&euro;2,500</div>
+                    <div class="product-price-note">Foundation package</div>
+                    <p class="product-excerpt">Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</p>
                     <div class="btn-group">
                         <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
                         <a href="../" class="btn btn-secondary">Details</a>
@@ -201,14 +190,14 @@
                 </div>
             </div>
 
-            <!-- Agentti Sanasto -->
+            <!-- AI Consultant Day -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Agentti Sanasto" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Consultant Day" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Agentti Sanasto Englanti-Suomi</h2>
-                    <div class="product-price">€0.99</div>
-                    <div class="product-price-note">1-year license</div>
-                    <p class="product-excerpt">Digital glossary translating English-to-Finnish AI agent terminology. Includes comprehensive explanations and reference list.</p>
+                    <h2 class="product-title">AI Consultant Day</h2>
+                    <div class="product-price">&euro;699</div>
+                    <div class="product-price-note">Per day, VAT excl.</div>
+                    <p class="product-excerpt">Battle-ready AI consultant for strategy to implementation. Covers AI strategy development, functional solutions, apps, chatbots, and automation. Uses GPT-5, Gemini Pro, Microsoft 365 Copilot, Azure AI Studio.</p>
                     <div class="btn-group">
                         <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
                         <a href="../" class="btn btn-secondary">Details</a>
@@ -220,33 +209,14 @@
                 </div>
             </div>
 
-            <!-- Firehorse Data Services -->
+            <!-- AI & Agent Engineering -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Firehorse Data Services" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI & Agent Engineering" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Firehorse Data Services</h2>
-                    <div class="product-price">€899</div>
-                    <div class="product-price-note">Consultancy engagement</div>
-                    <p class="product-excerpt">Comprehensive data consultancy with API-driven data products, data brokerage, management strategy, implementation support, and analysis/enrichment.</p>
-                    <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
-                    </div>
-                    <div class="payment-badge">
-                        <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Protonmail Secure Email -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Protonmail Secure Email" class="product-image">
-                <div class="product-content">
-                    <h2 class="product-title">Protonmail Secure Email & Domains Implementation</h2>
-                    <div class="product-price">€499</div>
-                    <div class="product-price-note">8-hour implementation</div>
-                    <p class="product-excerpt">Full Proton Business Suite implementation with end-to-end encryption. Includes encrypted email, cloud storage, password management, VPN. GDPR, NIS2, EU AI Act compliant.</p>
+                    <h2 class="product-title">AI &amp; Agent Engineering</h2>
+                    <div class="product-price">&euro;99/hr</div>
+                    <div class="product-price-note">Per hour</div>
+                    <p class="product-excerpt">Professional agentic business development consultancy. Azure AI Foundry, Google AI Studio, Custom AI Agent, or Agent Framework projects. Choose from AI Product Manager, Solutions Architect, or AI/ML Engineer roles.</p>
                     <div class="btn-group">
                         <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
                         <a href="../" class="btn btn-secondary">Details</a>
@@ -259,12 +229,13 @@
             </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="../">Page 1</a>
-            <a href="./" class="active">Page 2</a>
-            <a href="../page3/">Page 3</a>
-        </div>
+        <!-- Category Navigation Bottom -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="../" class="category-btn">Platform &amp; Products</a>
+            <a href="./" class="category-btn active" aria-current="page">AI &amp; Cloud Consulting</a>
+            <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="../page4/" class="category-btn">Digital Services</a>
+        </nav>
     </main>
 
     <footer class="site-footer">
