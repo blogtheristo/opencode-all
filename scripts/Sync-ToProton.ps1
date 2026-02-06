@@ -285,7 +285,7 @@ if ($GeneratePDFs) {
     $pdfScript = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "Generate-PDFs.ps1"
     if (Test-Path $pdfScript) {
         $pdfOutputPath = Join-Path $ProtonRoot "generated-pdfs"
-        $pdfArgs = @("-RepoPath", "`"$RepoPath`"", "-OutputPath", "`"$pdfOutputPath`"")
+        $pdfArgs = @("-RepoPath", $RepoPath, "-OutputPath", $pdfOutputPath)
         if ($DryRun) { $pdfArgs += "-DryRun" }
         if ($OpenNewPDFs) { $pdfArgs += "-OpenNew" }
         & $pdfScript @pdfArgs
