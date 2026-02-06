@@ -1,31 +1,121 @@
 # DWS IQ Platform - Admin Manual
 
-**Version:** 1.7
-**Last Updated:** January 29, 2026
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.8
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
+  - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
+  - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
+  - Version: 1.3 | Tool: Claude Code | Session: PxSux | Date: 23.12.2025 | Changes: AI Agent Policy from 2,500+ agent analysis
+  - Version: 1.4 | Tool: Claude Code | Session: Jan 2026 | Date: 03.01.2026 | Changes: Code Review Process, removed Argus PR Review
+  - Version: 1.5 | Tool: Claude Code | Session: Jan 2026 | Date: 04.01.2026 | Changes: AI Model Configuration, Security Framework
+  - Version: 1.6 | Tool: Claude Code | Session: r6bU3 | Date: 24.01.2026 | Changes: Training section with LWM/Firehorse workflows
+  - Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat Widget, Copilot instructions, security fixes
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
+
+Session Links & References:
+  - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL.md
+
+Document Status:
+  - Created: 23.11.2025
+  - Last Modified: 06.02.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ✅ ACTIVE
+
+---
+
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
 
 ## Table of Contents
 
-1. [Installation Manual](#installation-manual-link)
-2. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-3. [Climate Assistant Chat Widget](#climate-assistant-chat-widget) ⭐ **NEW in v1.7**
-4. [GitHub Copilot Instructions](#github-copilot-instructions) ⭐ **NEW in v1.7**
-5. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026) ⭐ **NEW in v1.7**
-6. [Files and Folders Structure](#files-and-folders-structure)
-7. [Document Index](#document-index)
-8. [AI Agent Policy](#ai-agent-policy)
-9. [Deployment Procedures](#deployment-procedures)
-10. [Session History](#session-history)
-11. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-12. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-13. [Code Review Process](#code-review-process)
-14. [Maintenance Tasks](#maintenance-tasks)
-15. [Git Workflow](#git-workflow)
-16. [Sensitive Data Protection](#sensitive-data-protection)
-17. [Emergency Procedures](#emergency-procedures)
-18. [Training](#training)
+1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
+2. [Installation Manual](#installation-manual-link)
+3. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+4. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+5. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+6. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+7. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+8. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+9. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+10. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+11. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+12. [GitHub Copilot Instructions](#github-copilot-instructions)
+13. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+14. [Files and Folders Structure](#files-and-folders-structure)
+15. [Document Index](#document-index)
+16. [AI Agent Policy](#ai-agent-policy)
+17. [Deployment Procedures](#deployment-procedures)
+18. [Session History](#session-history)
+19. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+20. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+21. [Code Review Process](#code-review-process)
+22. [Maintenance Tasks](#maintenance-tasks)
+23. [Git Workflow](#git-workflow)
+24. [Sensitive Data Protection](#sensitive-data-protection)
+25. [Emergency Procedures](#emergency-procedures)
+26. [Training](#training)
+
+---
+
+## Admin Manuals Index
+
+All admin manuals across the DWS6 repository, organized by domain.
+
+### Core Platform
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **Admin Manual** (this file) | [`Admin/ADMIN_MANUAL.md`](../Admin/ADMIN_MANUAL.md) | EN | Master admin manual - platform operations |
+| **Authentication Manual** | [`ADMIN_MANUAL_AUTHENTICATION.md`](../ADMIN_MANUAL_AUTHENTICATION.md) | EN | JWT auth, login flows, token management |
+| **Supabase Manual** | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](../ADMIN_MANUAL_SUPABASE_EN_v1.md) | EN | Database, RLS, migrations, storage |
+| **Testing Manual** | [`ADMIN_MANUAL_TESTING.md`](../ADMIN_MANUAL_TESTING.md) | EN | Vitest, security tests, CI/CD testing |
+| **Gaps Analysis** | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](../ADMIN_MANUAL_GAPS_ANALYSIS.md) | EN | Missing features and remediation plan |
+
+### Websites & Store
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **DWS6.com Manual** | [`ADMIN_MANUAL_DWS6_COM.md`](../ADMIN_MANUAL_DWS6_COM.md) | EN | DWS6 website operations |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](../ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) | EN | Revolut Web SDK, Cloudflare Worker, 25 products |
+| **Store Admin (EN)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md) | EN | Store product management, feeds |
+| **Store Admin (FI)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md) | FI | Kaupan hallinta |
+| **Dashboard V8 Manual** | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](../ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md) | EN | Firehorse dashboard operations |
+| **Blog System (EN)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN | Onelifetime.world blog CMS |
+| **Blog System (FI)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI | Blogin hallinta |
+
+### Security
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md) | EN | Index of all security documentation |
+| **Domain Validator** | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md) | EN | Domain validation and DNS security |
+| **Security Monitoring** | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN | Security monitoring and alerting |
+| **Security Testing** | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md) | EN | Penetration testing, vulnerability scanning |
+| **Security Audit Report** | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md) | EN | Latest security audit findings |
+
+### Products & Architecture
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN | Omnichannel product operations |
+| **Files & Folders** | [`in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md`](../in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
+
+### Related Documentation
+
+| Document | Location | Description |
+|----------|----------|-------------|
+| **CLAUDE.md** | [`CLAUDE.md`](../CLAUDE.md) | AI agent behavior guidelines (Karpathy principles) |
+| **DPA Agreement** | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement |
+| **MCP Configuration** | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md) | Model Context Protocol server setup |
+| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](../SECURITY_COMPLIANCE.md) | Security framework and compliance status |
+| **Security Glossary** | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) | Security terms and OWASP references |
 
 ---
 
@@ -346,6 +436,90 @@ gh workflow run deploy-scaleway.yml
 
 ---
 
+## Revolut Payments & Store
+
+**Status:** ✅ **ACTIVE**
+**Last Updated:** February 6, 2026
+**Session ID:** Rm8Jw
+
+### Overview
+
+DWS10.com store uses Revolut Web SDK for payment processing across 25 products. All payments are processed through a Cloudflare Worker that creates Revolut orders.
+
+### Architecture
+
+```
+Customer clicks "Buy" → Revolut Web SDK (browser) → Cloudflare Worker → Revolut Merchant API → Order created
+                         ↓
+                    Revolut Checkout (hosted page) → Payment completed → Redirect to success page
+```
+
+### Key Configuration
+
+| Component | Value |
+|-----------|-------|
+| **Worker** | `dws-revolut-checkout` at `api.dws10.com/checkout/*` |
+| **Worker Source** | `src/cloudflare/revolut-checkout-worker.ts` |
+| **Worker Config** | `src/cloudflare/wrangler.revolut.toml` |
+| **Products Config** | `dws10.com/config/products.json` |
+| **Store Page** | `dws10.com/buy/index.html` |
+| **Public Key** | Stored in `products.json` settings (pk_ prefix) |
+| **Amounts** | Minor currency units (7034 = €70.34) |
+
+### Related Manuals
+
+- **Full manual:** [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](../ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) - Complete Revolut integration guide
+- **Store admin (EN):** [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md) - Product management
+- **Store admin (FI):** [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md) - Kaupan hallinta
+
+### Quick Commands
+
+```bash
+# Deploy Worker
+cd src/cloudflare && wrangler deploy -c wrangler.revolut.toml
+
+# Test order creation
+curl -X POST https://api.dws10.com/checkout/create-order \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 7034, "currency": "EUR", "description": "Test"}'
+```
+
+---
+
+## MCP Configuration
+
+**Status:** ✅ **ACTIVE**
+**Last Updated:** February 5, 2026
+
+### Overview
+
+Model Context Protocol (MCP) connects Claude Code and other AI tools to external services for database access, caching, and API operations.
+
+### Configured Servers
+
+| Server | Port | Purpose | Credentials |
+|--------|------|---------|-------------|
+| **Supabase MCP** | - | Database queries, auth, real-time | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` |
+| **Upstash Redis MCP** | - | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
+| **DWS Supabase API** | 8766 | Custom REST wrapper | Docker-based |
+| **MCP Hub** | 8765 | Multi-agent workflow coordination | Temporal.io integration |
+
+### Setup
+
+```bash
+# Copy template and fill credentials
+cp .mcp.json.example .mcp.json
+# Edit .mcp.json with actual credentials (NEVER commit .mcp.json)
+git check-ignore .mcp.json  # Must return ".mcp.json"
+```
+
+### Related Documentation
+
+- **Full guide:** [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)
+- **Worktree scripts** auto-copy `.mcp.json` to new worktrees
+
+---
+
 ## Climate Assistant Chat Widget
 
 **Status:** ✅ **ACTIVE**
@@ -569,6 +743,192 @@ gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-
 # Deploy to Cloud Run
 gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
 ```
+
+---
+
+## AI Agent Operational Guidelines
+
+**Based on:** Andrej Karpathy's AI coding principles (adapted for enterprise)
+**Implementation:** [`CLAUDE.md`](../CLAUDE.md) in repository root
+**Added to thesis:** [`docs/metropolia/master-thesis/en/V2Thesis_EN.md`](../docs/metropolia/master-thesis/en/V2Thesis_EN.md) (Appendix E)
+
+### Core Philosophy
+
+> "You are the hands; the human is the architect. Move fast, but never faster than the human can verify."
+
+### Critical Behaviors for DWS IQ Operations
+
+| # | Behavior | Operational Impact |
+|---|----------|-------------------|
+| 1 | **Assumption Surfacing** | All AI agents must state assumptions before implementing changes to production systems |
+| 2 | **Confusion Management** | STOP when encountering conflicting configs (e.g., .env vs production secrets) |
+| 3 | **Push Back When Warranted** | Agents must flag security risks even if human requests them |
+| 4 | **Simplicity Enforcement** | Prefer boring, obvious solutions over clever abstractions |
+| 5 | **Scope Discipline** | Never modify files outside the requested scope |
+| 6 | **Dead Code Hygiene** | Ask before deleting - prevents accidental data loss |
+
+### DWS-Specific Failure Modes
+
+| # | Failure Mode | Prevention |
+|---|-------------|-----------|
+| 13 | Not using DWS document standard | Follow `DWS_DOCUMENT_STANDARD.md` |
+| 14 | Deleting files without asking | Explicit approval required |
+| 15 | Using new environment without security check | Verify .gitignore and .env first |
+
+### EU AI Act Alignment
+
+These guidelines support EU AI Act Article 12 (Automatic Logging): assumption templates create reasoning chains, change summaries provide audit trails, inline planning demonstrates decision-making process.
+
+---
+
+## Security Glossary & OWASP
+
+**Source:** [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) and thesis glossary
+
+### Authentication Terms (Quick Reference)
+
+| Term | Definition |
+|------|------------|
+| **JWT** | JSON Web Token - stateless authentication (24h access, 7d refresh) |
+| **bcrypt** | Password hashing (12 salt rounds) |
+| **RBAC** | Role-Based Access Control (admin, member, viewer) |
+| **RLS** | Row Level Security - Supabase database-level access per user |
+| **Token Blacklist** | Redis/database of revoked tokens (checked on every request) |
+
+### OWASP Top 10 - DWS6 Relevance
+
+| Code | Issue | Where in DWS6 |
+|------|-------|---------------|
+| **A01:2021** | Broken Access Control | Role extraction, Admin API validation |
+| **A02:2021** | Cryptographic Failures | JWT secret validation |
+| **A03:2021** | Injection | Input validation (express-validator) |
+| **A07:2021** | Auth Failures | Password verification, Token revocation |
+
+### Related Manuals
+
+- **Full glossary:** [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)
+- **Authentication manual:** [`ADMIN_MANUAL_AUTHENTICATION.md`](../ADMIN_MANUAL_AUTHENTICATION.md)
+- **Security testing:** [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)
+- **Security monitoring:** [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md)
+
+---
+
+## Data Processing Agreement (DPA)
+
+**Full document:** [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md)
+**Jurisdiction:** Finnish law (Helsinki courts), GDPR
+
+### Key Terms for Operations
+
+| Obligation | Requirement |
+|-----------|-------------|
+| **Data Residency** | EU data centers default (Finland/Germany) |
+| **Encryption** | AES-256 at rest, TLS 1.3 in transit |
+| **Breach Notification** | Within 48 hours |
+| **AI Training on Customer Data** | NOT allowed without written consent |
+| **AI Output Ownership** | Customer retains ownership |
+| **Data Export After Termination** | 30-day window |
+| **Confidentiality** | 5 years post-contract |
+
+### Sub-Processors
+
+| Provider | Location | Purpose |
+|----------|----------|---------|
+| Supabase | EU | Database, auth, storage |
+| Google Cloud | EU | Cloud Run backend |
+| Cloudflare | EU | CDN, Workers, Pages |
+| Anthropic | USA* | Claude AI (SCC applied) |
+| Groq | USA* | LLM inference (SCC applied) |
+| Temporal | EU | Workflow orchestration |
+
+*USA processors: Standard Contractual Clauses (SCC) with data minimization/pseudonymization
+
+---
+
+## Backup & Sync Infrastructure
+
+**Status:** ✅ **ACTIVE** (since February 6, 2026)
+**Full documentation:** [`in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md`](../in-update-claude/ADMIN_MANUAL_FILES_AND_FOLDERS.md)
+
+### Three-Layer Backup Strategy
+
+| Layer | Tool | Location |
+|-------|------|----------|
+| 1. Git | GitHub (private repo) | All source + business docs |
+| 2. Proton Drive | `scripts/Sync-ToProton.ps1` | Business files + secrets |
+| 3. Full Backup | `scripts/Sync-ToProton.ps1 -FullRepo` | Complete repo to `F:\2026\Backups\dws6\` |
+| 4. Supabase Storage | `scripts/Sync-ToSupabase.ps1` | EU cloud `admin-vault` bucket |
+
+### Critical: Claude Code Cloud Limitation
+
+Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton Drive are all blocked. Files in gitignored paths are **destroyed** when sessions end. This is why:
+- Business docs (Admin/, AgentFoundry/, Team/) are tracked in git (private repo)
+- Only actual secrets (.env, API keys) remain gitignored
+- Local sync scripts bridge git repo to Proton Drive
+
+### Daily Operations
+
+| Task | How to run |
+|------|-----------|
+| Sync to Proton | VS Code: Terminal > Run Task > "Sync to Proton Drive" |
+| Full backup | VS Code: Terminal > Run Task > "Full Repo Backup to Proton" |
+| Pull and sync | VS Code: Terminal > Run Task > "Pull and Sync" |
+| Dry run | `.\scripts\Sync-ToProton.ps1 -DryRun` |
+| Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
+
+---
+
+## Multi-Agent Orchestration
+
+**Source:** [`docs/thesis/MULTI_AGENT_COORDINATION_EN.md`](../docs/thesis/MULTI_AGENT_COORDINATION_EN.md) (Section 7.3)
+
+### Claude Code: Subagents vs Agent Teams
+
+| Aspect | Subagents | Agent Teams |
+|--------|-----------|-------------|
+| **Context** | Share caller's window | Independent per agent |
+| **Communication** | Return to caller | Direct messaging (mailbox) |
+| **Cost** | Lower (summarized results) | Higher (full context each) |
+| **Best for** | Focused research tasks | Complex parallel collaboration |
+
+### Recommended for DWS6 Operations
+
+| Scenario | Approach |
+|----------|---------|
+| Sprint development | Agent Teams for parallel features |
+| PR review (security + performance + tests) | Agent Teams (3 reviewers) |
+| Sales automation | Subagents (cost-effective) |
+| Customer support | Subagents (predictable costs) |
+| Complex debugging | Agent Teams (competing hypotheses) |
+
+### Upstash Redis (Serverless)
+
+DWS6 uses Upstash Redis for distributed operations across agents:
+
+| Use Case | Details |
+|----------|---------|
+| **Token Blacklist** | Revoked JWTs stored in Redis, checked on every API request |
+| **Rate Limiting** | Distributed rate limiting across serverless instances |
+| **Session Cache** | Agent session state persistence |
+| **API Response Cache** | Reduce LLM API calls for repeated queries |
+
+**Tier:** Free (256MB, 500K commands/month)
+**Protocol:** REST API (works in serverless, no TCP needed)
+**Credentials:** `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` in `.env`
+
+### Integration Architecture
+
+```
+MCP Hub (Port 8765) + Temporal.io
+  ├── Subagents (focused, cost-effective)
+  ├── Agent Teams (parallel, collaborative)
+  └── Lifetime Scope Signals (dependency DAG)
+```
+
+### Related Documentation
+
+- **MCP Configuration:** [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)
+- **Agent Teams field note:** [`docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`](../docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md)
 
 ---
 
@@ -2053,6 +2413,7 @@ Track training effectiveness:
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
 | 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |
 | 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |
 | 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
@@ -2066,4 +2427,4 @@ Track training effectiveness:
 
 **License:** Proprietary - Lifetime Oy  
 **Maintained by:** Lifetime Oy Development Team  
-**Storage:** ProtonDrive Only - /2026/Repos2026/dws6/Admin
+**Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin
