@@ -28,16 +28,24 @@
 .PARAMETER DryRun
     Show what would be copied without copying.
 
+.PARAMETER FullRepo
+    Copy the entire dws6 repository to Proton Drive (excluding node_modules,
+    .git, dist, build, venv). Without this flag, only mapped folders and
+    sensitive files are synced.
+
 .EXAMPLE
     .\Sync-ToProton.ps1
     .\Sync-ToProton.ps1 -DryRun
+    .\Sync-ToProton.ps1 -FullRepo
+    .\Sync-ToProton.ps1 -FullRepo -DryRun
     .\Sync-ToProton.ps1 -ProtonRoot "D:\Proton\My files\2026"
 #>
 
 param(
     [string]$RepoPath = "",
     [string]$ProtonRoot = "F:\Proton\Proton\My files\2026",
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$FullRepo
 )
 
 # --- Configuration ---
@@ -82,6 +90,27 @@ $SensitiveFiles = @(
     "supabase\.env",
     "supabase\.env.local",
     "supabase\PROJECT_INFO.md"
+)
+
+# Folders to EXCLUDE from full repo copy (large/generated/not useful on Proton)
+$ExcludeFolders = @(
+    ".git",
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "out",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".gradle",
+    "captures",
+    ".externalNativeBuild",
+    ".cxx",
+    ".vercel",
+    ".turbo",
+    "mcp-context-data",
+    "claude-sessions"
 )
 
 # --- Auto-detect repo path ---
@@ -216,6 +245,29 @@ foreach ($fileName in $SensitiveFiles) {
 }
 if ($sensitiveCount -eq 0) {
     Write-Host "  (no sensitive files found - this is normal on cloud)" -ForegroundColor Gray
+}
+
+# --- Full repo copy (when -FullRepo flag is set) ---
+if ($FullRepo) {
+    Write-Host ""
+    Write-Host "Full repo copy -> $ProtonRepoPath" -ForegroundColor Cyan
+    $allFiles = Get-ChildItem -Path $RepoPath -Recurse -File -ErrorAction SilentlyContinue
+    foreach ($file in $allFiles) {
+        $relativePath = $file.FullName.Substring($RepoPath.Length + 1)
+
+        # Skip excluded folders
+        $skip = $false
+        foreach ($exclude in $ExcludeFolders) {
+            if ($relativePath -like "$exclude\*" -or $relativePath -like "*\$exclude\*") {
+                $skip = $true
+                break
+            }
+        }
+        if ($skip) { continue }
+
+        $destPath = Join-Path $ProtonRepoPath $relativePath
+        Sync-Item -Source $file.FullName -Destination $destPath
+    }
 }
 
 # --- Summary ---

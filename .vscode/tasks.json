@@ -93,6 +93,26 @@
       "problemMatcher": []
     },
     {
+      "label": "Full Repo Backup to Proton",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Sync-ToProton.ps1",
+        "-FullRepo"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Pull and Sync",
       "type": "shell",
       "command": "git pull && pwsh -NoProfile -ExecutionPolicy Bypass -File ${workspaceFolder}/scripts/Sync-ToProton.ps1",
