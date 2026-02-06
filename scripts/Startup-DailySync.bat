@@ -13,8 +13,8 @@ REM ============================================================================
 
 set REPO_PATH=F:\2026\Repos2026\dws6
 
-REM Wait 30 seconds for network/Proton Drive to be ready
-timeout /t 30 /nobreak >nul
+REM Wait 120 seconds for network/Proton Drive to be ready
+timeout /t 120 /nobreak >nul
 
 cd /d "%REPO_PATH%"
 if errorlevel 1 (

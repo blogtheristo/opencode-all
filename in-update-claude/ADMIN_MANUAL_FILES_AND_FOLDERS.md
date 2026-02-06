@@ -895,7 +895,171 @@ gh workflow run sync-dws6-landing-pages.yml
 
 ---
 
+## Backup & Sync Infrastructure (February 2026)
+
+### Overview
+
+As of February 6, 2026, DWS6 uses a three-layer backup strategy:
+
+| Layer | Tool | Location | What |
+|-------|------|----------|------|
+| 1. Git | GitHub (private repo) | `github.com/blogtheristo/dws6` | All source code + business docs + admin files |
+| 2. Proton Drive | `Sync-ToProton.ps1` | `F:\Proton\Proton\My files\2026\` | Business files + sensitive/gitignored files |
+| 3. Full Repo Backup | `Sync-ToProton.ps1 -FullRepo` | `F:\2026\Backups\dws6\` | Complete repo copy (excluding build artifacts) |
+| 4. Supabase Storage | `Sync-ToSupabase.ps1` | EU cloud (`admin-vault` bucket) | Admin/, AgentFoundry/, Team/, docs/ |
+
+### Why Three Layers?
+
+**Critical lesson (January-February 2026):** Claude Code cloud sessions can ONLY reach GitHub. All other network destinations (Supabase, Google Cloud, Proton Drive) are blocked. Files in gitignored paths are **destroyed** when cloud sessions end. The three-layer approach ensures:
+
+1. **Git** preserves everything that isn't a secret (private repo = safe)
+2. **Proton Drive** preserves secrets (.env, API keys, credentials) + organized business file copies
+3. **Full Backup** provides a complete snapshot including everything
+4. **Supabase Storage** provides EU-hosted cloud redundancy
+
+### Proton Drive Folder Mappings
+
+The `Sync-ToProton.ps1` script maps repo folders to Proton Drive structure:
+
+```
+Repo Folder                    Proton Drive Destination
+─────────────────────────────  ──────────────────────────────────────────
+Admin/                     →   F:\Proton\...\2026\Repos2026\dws6\Admin\
+AgentFoundry/              →   F:\Proton\...\2026\Repos2026\dws6\AgentFoundry\
+Team/                      →   F:\Proton\...\2026\Repos2026\dws6\Team\
+Firehorse/                 →   F:\Proton\...\2026\Firehorse\
+docs\metropolia\           →   F:\Proton\...\2026\Metropolia2026\
+Metropolia2026/            →   F:\Proton\...\2026\Metropolia2026\
+onelifetime.world/         →   F:\Proton\...\2026\LifetimeWorld\
+landing-pages\lifetime-fi\ →   F:\Proton\...\2026\Lifetime_fi\
+```
+
+Sensitive files (.env, .env.mcp, .mcp.json, credentials.json, SFTP_SECRETS.py, etc.) are copied to `Repos2026\dws6\` on Proton Drive as encrypted backup.
+
+### Full Repo Backup Structure
+
+When running `Sync-ToProton.ps1 -FullRepo`, the entire repo is copied to `F:\2026\Backups\dws6\`:
+
+```
+F:\2026\Backups\dws6\
+├── Admin/                    # Admin manuals, security docs
+├── AgentFoundry/             # Agent configurations
+├── Archive/                  # Historical archives
+├── Firehorse/                # Product suite (Omnichannel, Report, Automation)
+├── Lifetime Fleet/           # IoT/Robots specs
+├── LinkedIn/                 # LinkedIn outreach
+├── OK Computer/              # Internal tooling
+├── Partners/                 # Partner documentation
+├── Peachscore/               # Peachscore product
+├── People/                   # Team profiles
+├── Reports/                  # Generated reports
+├── Sales/                    # Sales materials
+├── Situation/                # Situation analysis
+├── Store/                    # Store assets
+├── Team/                     # Team documentation
+├── artifacts/                # Build artifacts
+├── config/                   # Configuration files
+├── docs/                     # Documentation (metropolia, etc.)
+├── documentation/            # Additional docs
+├── dws6.com/                 # DWS6 website
+├── dws10.com/                # DWS10 website (store, legal hub)
+├── examples/                 # Example code
+├── in-update-claude/         # Claude session artifacts
+├── infrastructure/           # Infrastructure configs
+├── investor-outreach/        # Investor materials
+├── landing-pages/            # Production landing pages
+│   ├── dws6-com/
+│   ├── dws10-com/
+│   ├── onelifetime-world/
+│   └── lifetime-fi/
+├── mcp-hub/                  # MCP Orchestration Platform
+├── mcp-servers/              # Individual MCP servers
+├── mobile-dashboard/         # Mobile dashboard
+├── observability/            # Monitoring configs
+├── onelifetime.world/        # Onelifetime website
+├── product-catalog/          # Product catalog
+├── public/                   # Public assets
+├── sales-outreach/           # Sales automation
+├── scripts/                  # All scripts (sync, backup, security)
+├── security-reports/         # Security scan output
+├── shared/                   # Shared components
+├── sites/                    # Site configs
+├── src/                      # Backend source code
+├── supabase/                 # Supabase migrations
+├── tests/                    # Test suite
+│   └── security/             # Security tests
+├── .github/                  # CI/CD workflows (18)
+├── .githooks/                # Git hooks (post-merge sync)
+├── .vscode/                  # VS Code tasks for sync
+└── *.md                      # Root-level admin manuals
+```
+
+**Excluded from backup** (large/generated/not useful):
+`.git/`, `node_modules/`, `.next/`, `dist/`, `build/`, `out/`, `.venv/`, `venv/`, `__pycache__/`, `.gradle/`, `captures/`, `.externalNativeBuild/`, `.cxx/`, `.vercel/`, `.turbo/`, `mcp-context-data/`, `claude-sessions/`
+
+### Scripts Reference
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `scripts/Sync-ToProton.ps1` | Sync business files to Proton Drive | `.\Sync-ToProton.ps1` or `.\Sync-ToProton.ps1 -DryRun` |
+| `scripts/Sync-ToProton.ps1 -FullRepo` | Full repo backup to F:\2026\Backups | `.\Sync-ToProton.ps1 -FullRepo` |
+| `scripts/Sync-ToSupabase.ps1` | Upload to Supabase Storage | `.\Sync-ToSupabase.ps1 -CreateBucket` |
+| `scripts/Startup-DailySync.bat` | Daily auto-sync on Windows login | Place shortcut in Startup folder |
+| `scripts/Install-StartupSync.ps1` | Install/remove Startup shortcut | `.\Install-StartupSync.ps1` or `-Remove` |
+
+### VS Code / Cursor Tasks
+
+Available from Terminal > Run Task:
+
+| Task | What it does |
+|------|-------------|
+| Sync to Proton Drive | Runs `Sync-ToProton.ps1` |
+| Sync to Proton Drive (dry run) | Shows what would be synced |
+| Backup to Supabase Storage | Uploads to Supabase `admin-vault` bucket |
+| Full Sync (Proton + Supabase) | Runs both syncs in sequence |
+| Full Repo Backup to Proton | Copies entire repo to `F:\2026\Backups\dws6\` |
+| Pull and Sync | `git pull` then Proton sync |
+
+### Automation
+
+**Daily sync on Windows login:**
+1. Run `.\scripts\Install-StartupSync.ps1` (one-time setup)
+2. Creates shortcut in `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\`
+3. On login: waits 120 seconds for Proton Drive → `git pull` → `Sync-ToProton.ps1`
+
+**Post-merge hook (automatic on git pull):**
+- `.githooks/post-merge` runs `Sync-ToProton.ps1` after every `git pull`
+- Install: `git config core.hooksPath .githooks`
+
+### .gitignore Policy (Cleaned February 6, 2026)
+
+This is a **PRIVATE** repository. Only actual secrets are gitignored:
+
+| Gitignored | Examples | Reason |
+|------------|----------|--------|
+| Secrets | `.env`, `.env.*`, `credentials.json`, `*.key`, `*.pem` | API keys, passwords, tokens |
+| Build artifacts | `node_modules/`, `.next/`, `dist/`, `build/`, `venv/` | Generated, large, reproducible |
+| OS/IDE junk | `.DS_Store`, `Thumbs.db`, `.idea/` | System files |
+| Logs | `*.log` | May contain sensitive data |
+
+| **NOT** gitignored (tracked) | Examples | Reason |
+|------------------------------|----------|--------|
+| Admin docs | `Admin/`, `ADMIN_MANUAL_*.md` | Must persist across sessions |
+| Business docs | `AgentFoundry/`, `Team/`, `docs/` | Must persist across sessions |
+| MCP configs | `mcp-hub/`, `mcp-servers/` | Deployment documentation |
+| VS Code config | `.vscode/tasks.json` | Shared sync task definitions |
+
+---
+
 ## Changelog
+
+### 2026-02-06 - Backup Infrastructure & .gitignore Cleanup
+- Added Sync-ToProton.ps1, Sync-ToSupabase.ps1, Startup-DailySync.bat
+- Restored 19 Admin/ files to git tracking
+- Rewrote .gitignore from 230 to 101 lines (private repo policy)
+- Added VS Code tasks for sync operations
+- Added post-merge hook for automatic Proton sync
+- Documented backup folder structure and Proton Drive mappings
 
 ### 2025-12-09 - Initial Creation
 - Created `in-update-claude/` directory structure
