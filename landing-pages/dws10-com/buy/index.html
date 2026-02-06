@@ -384,8 +384,20 @@
                 return product.revolutLink;
             }
             var fallback = (CONFIG && CONFIG.revolutFallbackLink) ? CONFIG.revolutFallbackLink : 'https://revolut.me/lifetimeoy';
-            var sanitizedPrice = parseInt(product.price, 10);
-            return fallback + '/' + sanitizedPrice + 'EUR';
+
+            var priceNumber = Number(product.price);
+            if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
+                // If price is missing/invalid, fall back to the base Revolut link
+                return fallback;
+            }
+
+            // Format amount: keep cents if present, avoid trailing ".00" for integer prices
+            var amountString = priceNumber.toFixed(2);
+            if (amountString.endsWith('.00')) {
+                amountString = amountString.slice(0, -3);
+            }
+
+            return fallback + '/' + amountString + 'EUR';
         }
 
         // Get PayPal payment URL for a product
