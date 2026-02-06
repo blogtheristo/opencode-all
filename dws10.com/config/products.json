@@ -719,6 +719,54 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       }
+    },
+    "ai-consulting-agentic": {
+      "id": "ai-consulting-agentic",
+      "gtin": null,
+      "mpn": "AI-CONSULT-2026",
+      "name": "AI Consulting – Agentic Software Development",
+      "price": 2500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Navigate the agentic software development renaissance. Assessment, AGENTS.md workshops, codebase restructuring, AI code quality governance, and agent infrastructure setup. From practitioners using both Claude Code and Codex daily.",
+      "priceNote": "Assessment from €2,500 | Retainers from €5,000/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/ai-consulting.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "sovereignty-cloud-consulting": {
+      "id": "sovereignty-cloud-consulting",
+      "gtin": null,
+      "mpn": "SOVEREIGN-CLOUD-2026",
+      "name": "Sovereignty Cloud Consulting – European Cloud Migration",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "European cloud migration, DPA creation, EU AI Act impact analysis, NIS2 compliance, and GAIA-X alignment. Escape CLOUD Act exposure. Migrate to OVHcloud, Scaleway, OpenNebula, Hetzner, and Supabase EU.",
+      "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/sovereignty-cloud-consulting.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
     }
   },
   "settings": {
