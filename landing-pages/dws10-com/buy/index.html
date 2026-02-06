@@ -241,6 +241,9 @@
         </div>
     </footer>
 
+    <!-- Revolut Checkout Web SDK -->
+    <script src="https://merchant.revolut.com/embed.js" async></script>
+
     <script>
         // Products configuration - loaded from external JSON
         let PRODUCTS = {};
@@ -251,15 +254,14 @@
             try {
                 const response = await fetch('../config/products.json');
                 if (!response.ok) throw new Error('Failed to load products');
-                
+
                 const data = await response.json();
                 PRODUCTS = data.products;
                 CONFIG = data.settings;
-                
+
                 renderProducts();
             } catch (error) {
                 console.error('Error loading products:', error);
-                // Fallback to hardcoded products
                 loadFallbackProducts();
             }
         }
@@ -267,9 +269,9 @@
         // Fallback products if JSON fails to load
         function loadFallbackProducts() {
             PRODUCTS = {
-                'climate-bundle': { 
+                'climate-bundle': {
                     id: 'climate-bundle',
-                    name: 'Climate Reporting Bundle', 
+                    name: 'Climate Reporting Bundle',
                     price: 6500,
                     currency: 'EUR',
                     type: 'one-time',
@@ -281,6 +283,7 @@
                     featured: false
                 }
             };
+            CONFIG = { revolutFallbackLink: 'https://revolut.me/lifetimeoy', paypalEmail: 'risto.anton@lifetime.fi' };
             renderProducts();
         }
 
@@ -289,7 +292,6 @@
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
-            // Sort products: featured first, then by price descending
             const sortedProducts = Object.values(PRODUCTS).sort((a, b) => {
                 if (a.featured && !b.featured) return -1;
                 if (!a.featured && b.featured) return 1;
@@ -310,33 +312,17 @@
             card.dataset.price = product.price;
             card.dataset.name = product.name;
 
-            // Add featured class
-            if (product.featured) {
-                card.classList.add('featured');
-            }
+            if (product.featured) card.classList.add('featured');
 
-            // Add live payment badge if Revolut link exists
-            if (product.revolutLink) {
-                card.classList.add('live-payment');
-            }
+            // All products get live-payment badge (SDK enables all)
+            card.classList.add('live-payment');
 
-            // Format price
             const formattedPrice = new Intl.NumberFormat('de-DE', {
                 style: 'currency',
                 currency: product.currency || 'EUR',
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             }).format(product.price);
-
-            // Build payment buttons
-            let paymentButtons = '';
-            if (product.revolutLink) {
-                paymentButtons += `<a href="${product.revolutLink}" target="_blank" rel="noopener" class="btn btn-revolut" title="Pay with Revolut Business">💳 Revolut</a>`;
-            }
-            paymentButtons += `<button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">PayPal</button>`;
-            if (!product.revolutLink) {
-                paymentButtons += `<a href="mailto:offer@lifetime.fi?subject=${encodeURIComponent(product.name)}" class="btn btn-contact" title="Request invoice">📧 Contact</a>`;
-            }
 
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='../static/images/Firehorse_Store.jpg'">
@@ -346,7 +332,8 @@
                     <div class="product-price-note">${product.priceNote || ''}</div>
                     <p class="product-excerpt">${product.description}</p>
                     <div class="btn-group">
-                        ${paymentButtons}
+                        <button class="btn btn-revolut" onclick="payWithRevolut('${product.id}', this)" title="Pay with Revolut">💳 Revolut</button>
+                        <button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">PayPal</button>
                     </div>
                     <div class="payment-badge">
                         <span>Secure EU payment</span>
@@ -360,13 +347,82 @@
             return card;
         }
 
+        /**
+         * Pay with Revolut - Web SDK integration for ALL products
+         *
+         * Flow: click → create order via Worker → SDK popup → payment → success
+         * Fallback chain: SDK popup → hosted checkout → static link → revolut.me
+         */
+        async function payWithRevolut(productId, btn) {
+            const product = PRODUCTS[productId];
+            if (!product) { console.error('Product not found:', productId); return; }
+
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Processing...';
+            btn.disabled = true;
+
+            const amountMinor = Math.round(product.price * 100);
+            const apiUrl = CONFIG.revolutCheckoutApiUrl;
+
+            try {
+                // Create order via Cloudflare Worker (Merchant API)
+                const resp = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: product.id,
+                        amount: amountMinor,
+                        currency: product.currency || 'EUR',
+                        description: product.name
+                    })
+                });
+
+                if (!resp.ok) throw new Error('Order creation failed: ' + resp.status);
+                const { token, checkout_url } = await resp.json();
+
+                // Use RevolutCheckout SDK popup
+                if (typeof RevolutCheckout === 'function' && token) {
+                    const rc = await RevolutCheckout(token, CONFIG.revolutMode || 'prod');
+                    rc.payWithPopup({
+                        onSuccess() {
+                            window.location.href = '../checkout/success/?product=' + encodeURIComponent(productId);
+                        },
+                        onError(error) {
+                            console.error('SDK payment error:', error);
+                            if (checkout_url) window.open(checkout_url, '_blank');
+                            resetButton(btn, originalText);
+                        },
+                        onCancel() {
+                            resetButton(btn, originalText);
+                        }
+                    });
+                } else if (checkout_url) {
+                    // SDK not loaded: redirect to hosted checkout
+                    window.open(checkout_url, '_blank');
+                    resetButton(btn, originalText);
+                }
+            } catch (err) {
+                console.error('Revolut payment error:', err);
+                resetButton(btn, originalText);
+
+                // Fallback: static link → revolut.me
+                if (product.revolutLink) {
+                    window.open(product.revolutLink, '_blank');
+                } else {
+                    window.open(CONFIG.revolutFallbackLink || 'https://revolut.me/lifetimeoy', '_blank');
+                }
+            }
+        }
+
+        function resetButton(btn, text) {
+            btn.textContent = text;
+            btn.disabled = false;
+        }
+
         // Pay with PayPal directly
         function payWithPayPal(productId) {
             const product = PRODUCTS[productId];
-            if (!product) {
-                console.error('Product not found:', productId);
-                return;
-            }
+            if (!product) { console.error('Product not found:', productId); return; }
 
             const paypalEmail = CONFIG.paypalEmail || 'risto.anton@lifetime.fi';
             const params = new URLSearchParams({
@@ -379,28 +435,6 @@
                 cancel_return: window.location.origin + '/checkout/cancel/'
             });
             window.open('https://www.paypal.com/cgi-bin/webscr?' + params.toString(), '_blank');
-        }
-
-        // Buy now function (checkout page redirect)
-        function buyNow(productId) {
-            const product = PRODUCTS[productId];
-            if (!product) {
-                console.error('Product not found:', productId);
-                return;
-            }
-
-            // Store product info for checkout
-            sessionStorage.setItem('checkout_product', JSON.stringify({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                currency: product.currency || 'EUR',
-                revolutLink: product.revolutLink,
-                timestamp: new Date().toISOString()
-            }));
-
-            // Redirect to checkout
-            window.location.href = '../checkout/?product=' + encodeURIComponent(productId);
         }
 
         // Initialize
