@@ -3,17 +3,27 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Copies tracked business files (Admin/, AgentFoundry/, Team/, docs/)
-    from the git repo to Proton Drive. Runs locally on Windows after git pull.
+    Copies business files from the git repo to Proton Drive, mapping repo
+    folders to the correct Proton Drive structure:
 
-    This exists because Claude Code cloud can only reach GitHub.
-    Business files need a second copy on encrypted Proton Drive storage.
+    Repo                          Proton Drive (F:\Proton\...\2026\)
+    ----                          --------------------------------
+    Admin/                    --> Repos2026\dws6\Admin\
+    AgentFoundry/             --> Repos2026\dws6\AgentFoundry\
+    Firehorse/                --> Firehorse\
+    docs/metropolia/          --> Metropolia2026\
+    Metropolia2026/           --> Metropolia2026\
+    onelifetime.world/        --> LifetimeWorld\
+    landing-pages/lifetime-fi/--> Lifetime_fi\
+    .env, credentials, etc.   --> Repos2026\dws6\ (sensitive backup)
+
+    Runs locally on Windows (Cursor/VS Code) after git pull.
 
 .PARAMETER RepoPath
     Path to the git repo. Default: auto-detect from script location.
 
-.PARAMETER ProtonPath
-    Path to Proton Drive DWS6 folder. Default: F:\Proton\Proton\My files\2026\Repos2026\dws6
+.PARAMETER ProtonRoot
+    Root of Proton Drive 2026 folder. Default: F:\Proton\Proton\My files\2026
 
 .PARAMETER DryRun
     Show what would be copied without copying.
@@ -21,26 +31,33 @@
 .EXAMPLE
     .\Sync-ToProton.ps1
     .\Sync-ToProton.ps1 -DryRun
-    .\Sync-ToProton.ps1 -ProtonPath "D:\Proton\My files\2026\Repos2026\dws6"
+    .\Sync-ToProton.ps1 -ProtonRoot "D:\Proton\My files\2026"
 #>
 
 param(
     [string]$RepoPath = "",
-    [string]$ProtonPath = "F:\Proton\Proton\My files\2026\Repos2026\dws6",
+    [string]$ProtonRoot = "F:\Proton\Proton\My files\2026",
     [switch]$DryRun
 )
 
 # --- Configuration ---
-# Folders to sync from git repo to Proton Drive
-$SyncFolders = @(
-    "Admin",
-    "AgentFoundry",
-    "Team",
-    "docs\metropolia",
-    "Metropolia2026"
+# Proton Drive sub-path for the git repo backup (secrets, Admin, etc.)
+$ProtonRepoPath = Join-Path $ProtonRoot "Repos2026\dws6"
+
+# Folder mappings: repo folder -> Proton Drive destination
+# "same" means copy to $ProtonRepoPath preserving structure
+$FolderMappings = @(
+    @{ Src = "Admin";                        Dest = "same" }
+    @{ Src = "AgentFoundry";                 Dest = "same" }
+    @{ Src = "Team";                         Dest = "same" }
+    @{ Src = "Firehorse";                    Dest = (Join-Path $ProtonRoot "Firehorse") }
+    @{ Src = "docs\metropolia";              Dest = (Join-Path $ProtonRoot "Metropolia2026") }
+    @{ Src = "Metropolia2026";               Dest = (Join-Path $ProtonRoot "Metropolia2026") }
+    @{ Src = "onelifetime.world";            Dest = (Join-Path $ProtonRoot "LifetimeWorld") }
+    @{ Src = "landing-pages\lifetime-fi";    Dest = (Join-Path $ProtonRoot "Lifetime_fi") }
 )
 
-# Individual files to sync (documentation)
+# Individual doc files -> Proton repo backup
 $SyncFiles = @(
     "ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md",
     "ADMIN_MANUAL_AUTHENTICATION.md",
@@ -52,7 +69,7 @@ $SyncFiles = @(
     "SECURITY_COMPLIANCE.md"
 )
 
-# Sensitive/gitignored files to backup (these only exist locally, not on GitHub)
+# Sensitive/gitignored files -> Proton repo backup (encrypted)
 $SensitiveFiles = @(
     ".env",
     ".env.local",
@@ -79,11 +96,16 @@ if (-not (Test-Path $RepoPath)) {
     exit 1
 }
 
-if (-not (Test-Path $ProtonPath)) {
-    Write-Warning "Proton Drive path not found: $ProtonPath"
-    Write-Warning "Creating directory..."
+if (-not (Test-Path $ProtonRoot)) {
+    Write-Error "Proton Drive root not found: $ProtonRoot"
+    Write-Error "Is Proton Drive mounted? Check F: drive."
+    exit 1
+}
+
+if (-not (Test-Path $ProtonRepoPath)) {
+    Write-Warning "Creating repo backup folder: $ProtonRepoPath"
     if (-not $DryRun) {
-        New-Item -ItemType Directory -Path $ProtonPath -Force | Out-Null
+        New-Item -ItemType Directory -Path $ProtonRepoPath -Force | Out-Null
     }
 }
 
@@ -111,7 +133,7 @@ function Sync-Item {
         }
     }
 
-    # Skip if destination is newer or identical
+    # Skip if identical (MD5 compare)
     if (Test-Path $Destination) {
         $srcHash = (Get-FileHash $Source -Algorithm MD5).Hash
         $dstHash = (Get-FileHash $Destination -Algorithm MD5).Hash
@@ -138,48 +160,62 @@ function Sync-Item {
 
 Write-Host ""
 Write-Host "=== DWS6 Proton Drive Sync ===" -ForegroundColor Cyan
-Write-Host "  Repo:   $RepoPath"
-Write-Host "  Proton: $ProtonPath"
-if ($DryRun) { Write-Host "  MODE:   DRY RUN" -ForegroundColor Yellow }
+Write-Host "  Repo:        $RepoPath"
+Write-Host "  Proton Root: $ProtonRoot"
+Write-Host "  Repo Backup: $ProtonRepoPath"
+if ($DryRun) { Write-Host "  MODE:        DRY RUN" -ForegroundColor Yellow }
 Write-Host ""
 
-# Sync folders
-foreach ($folder in $SyncFolders) {
-    $srcFolder = Join-Path $RepoPath $folder
-    if (Test-Path $srcFolder) {
-        Write-Host "Syncing $folder/" -ForegroundColor Cyan
-        $files = Get-ChildItem -Path $srcFolder -Recurse -File
-        foreach ($file in $files) {
+# --- Sync mapped folders ---
+foreach ($mapping in $FolderMappings) {
+    $srcFolder = Join-Path $RepoPath $mapping.Src
+    if (-not (Test-Path $srcFolder)) { continue }
+
+    $destBase = if ($mapping.Dest -eq "same") {
+        $ProtonRepoPath
+    } else {
+        $mapping.Dest
+    }
+
+    Write-Host "Syncing $($mapping.Src)/ -> $destBase" -ForegroundColor Cyan
+    $files = Get-ChildItem -Path $srcFolder -Recurse -File
+    foreach ($file in $files) {
+        if ($mapping.Dest -eq "same") {
+            # Preserve full relative path under repo backup
             $relativePath = $file.FullName.Substring($RepoPath.Length + 1)
-            $destPath = Join-Path $ProtonPath $relativePath
-            Sync-Item -Source $file.FullName -Destination $destPath
+            $destPath = Join-Path $ProtonRepoPath $relativePath
+        } else {
+            # Map to Proton subfolder, preserving internal structure
+            $relativeToSrc = $file.FullName.Substring($srcFolder.Length + 1)
+            $destPath = Join-Path $destBase $relativeToSrc
         }
+        Sync-Item -Source $file.FullName -Destination $destPath
     }
 }
 
-# Sync individual files
-Write-Host "Syncing individual files" -ForegroundColor Cyan
+# --- Sync individual doc files to repo backup ---
+Write-Host "Syncing documentation files" -ForegroundColor Cyan
 foreach ($fileName in $SyncFiles) {
     $srcFile = Join-Path $RepoPath $fileName
     if (Test-Path $srcFile) {
-        $destFile = Join-Path $ProtonPath $fileName
+        $destFile = Join-Path $ProtonRepoPath $fileName
         Sync-Item -Source $srcFile -Destination $destFile
     }
 }
 
-# Sync sensitive/gitignored files (backup to Proton only)
+# --- Sync sensitive/gitignored files to repo backup ---
 Write-Host "Syncing sensitive files (gitignored backups)" -ForegroundColor Magenta
 $sensitiveCount = 0
 foreach ($fileName in $SensitiveFiles) {
     $srcFile = Join-Path $RepoPath $fileName
     if (Test-Path $srcFile) {
-        $destFile = Join-Path $ProtonPath $fileName
+        $destFile = Join-Path $ProtonRepoPath $fileName
         Sync-Item -Source $srcFile -Destination $destFile
         $sensitiveCount++
     }
 }
 if ($sensitiveCount -eq 0) {
-    Write-Host "  (no sensitive files found in repo - this is normal on cloud)" -ForegroundColor Gray
+    Write-Host "  (no sensitive files found - this is normal on cloud)" -ForegroundColor Gray
 }
 
 # --- Summary ---
@@ -194,7 +230,7 @@ Write-Host ""
 
 # Log sync event
 if (-not $DryRun -and $syncCount -gt 0) {
-    $logFile = Join-Path $ProtonPath "sync-log.txt"
+    $logFile = Join-Path $ProtonRepoPath "sync-log.txt"
     $logEntry = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') | Synced $syncCount files from $RepoPath"
     Add-Content -Path $logFile -Value $logEntry
     Write-Host "  Log: $logFile" -ForegroundColor Gray
