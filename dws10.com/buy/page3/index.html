@@ -74,6 +74,12 @@
         .footer-legal a:hover { color: #60a5fa; }
         .footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
 
+        /* Locale & VAT Selector */
+        .locale-btn { background: none; border: 1px solid rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #94a3b8; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: all 0.2s; font-family: inherit; }
+        .locale-btn.active { border-color: #60a5fa; color: #e2e8f0; background: rgba(96, 165, 250, 0.1); }
+        .locale-btn:hover { border-color: #60a5fa; color: #e2e8f0; }
+        .vat-notice { text-align: center; padding: 8px 16px; background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 6px; font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px; }
+
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; }
             .container { padding: 24px 16px; }
@@ -113,6 +119,9 @@
             <a href="./" class="category-btn active" aria-current="page">Expert Advisory &amp; Training</a>
             <a href="../page4/" class="category-btn">Digital Services</a>
         </nav>
+
+        <!-- VAT Notice -->
+        <div class="vat-notice" id="vatNotice">All prices excl. VAT &middot; EU Business (B2B)</div>
 
         <!-- Products Grid - Page 3 products -->
         <div class="product-grid">
@@ -391,8 +400,14 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-locale">
-                <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><rect width="20" height="14" rx="1" fill="white"/><rect x="5" y="0" width="4" height="14" fill="#003580"/><rect x="0" y="5" width="20" height="4" fill="#003580"/></svg>
-                Finland
+                <button class="locale-btn active" data-locale="eu" title="English &middot; EU Business (B2B) &middot; Prices excl. VAT">
+                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="#003399"/><g fill="#FC0" transform="translate(10,7)"><circle cx="0" cy="-4.5" r=".7"/><circle cx="2.25" cy="-3.9" r=".7"/><circle cx="3.9" cy="-2.25" r=".7"/><circle cx="4.5" cy="0" r=".7"/><circle cx="3.9" cy="2.25" r=".7"/><circle cx="2.25" cy="3.9" r=".7"/><circle cx="0" cy="4.5" r=".7"/><circle cx="-2.25" cy="3.9" r=".7"/><circle cx="-3.9" cy="2.25" r=".7"/><circle cx="-4.5" cy="0" r=".7"/><circle cx="-3.9" cy="-2.25" r=".7"/><circle cx="-2.25" cy="-3.9" r=".7"/></g></svg>
+                    EU
+                </button>
+                <button class="locale-btn" data-locale="fi" title="Suomeksi &middot; Kuluttajahinnat (B2C) &middot; Hinnat sis. ALV 25,5 %">
+                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="white"/><rect x="5" y="0" width="4" height="14" fill="#003580"/><rect x="0" y="5" width="20" height="4" fill="#003580"/></svg>
+                    FI
+                </button>
             </div>
             <div class="footer-legal">
                 <a href="../../terms/">Website Terms</a>
@@ -408,6 +423,7 @@
             </div>
         </div>
     </footer>
+    <script src="../../shared-assets/vat-locale.js"></script>
     <script src="../../shared-assets/nav/hamburger-menu.js"></script>
 </body>
 </html>
