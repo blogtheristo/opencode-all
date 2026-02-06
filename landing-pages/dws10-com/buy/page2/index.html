@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lifetime Firehorse Store | Page 2 - More Products</title>
-    <meta name="description" content="More products from Lifetime Firehorse Store. AI consulting, cloud solutions, and digital services.">
+    <title>Lifetime Firehorse Store | AI &amp; Cloud Consulting</title>
+    <meta name="description" content="AI consulting, sovereignty cloud migration, and engineering services from Lifetime Firehorse Store.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
@@ -13,7 +13,7 @@
         .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
 
         /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
         .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
@@ -30,6 +30,12 @@
         .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
         .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+        .btn-revolut { background: linear-gradient(135deg, #0075EB, #0058B7); color: white; }
+        .btn-revolut:hover { background: linear-gradient(135deg, #1a85f0, #0068D8); transform: translateY(-1px); }
+        .btn-paypal { background: linear-gradient(135deg, #FFC439, #FFB300); color: #003087; }
+        .btn-paypal:hover { background: linear-gradient(135deg, #FFD060, #FFC439); transform: translateY(-1px); }
+        .btn-details { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; display: block; text-align: center; margin-top: 8px; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-details:hover { background: rgba(96, 165, 250, 0.1); }
 
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
@@ -42,8 +48,6 @@
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
 
-
-
         /* Category Navigation - DWS Gamma Brand */
         .category-nav { display: flex; justify-content: center; gap: 8px; margin: 40px 0; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .category-nav::-webkit-scrollbar { display: none; }
@@ -52,15 +56,18 @@
         .category-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
         /* Footer */
-        .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
+        .site-footer { text-align: center; padding: 60px 40px; color: #64748b; font-size: 0.95rem; background: #1e293b; border-top: 1px solid #334155; }
         .site-footer a { color: #60a5fa; text-decoration: none; }
         .site-footer a:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
-            .btn-group { flex-direction: column; }
+            .btn-group { flex-direction: row; }
             .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; }
             .category-btn { padding: 12px 18px; font-size: 0.875rem; }
+            .site-footer { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -101,14 +108,15 @@
                     <div class="product-price-note">Assessment from &euro;2,500 | Retainers from &euro;5,000/mo</div>
                     <p class="product-excerpt">Navigate the agentic software development renaissance. Assessment, AGENTS.md workshops, codebase restructuring, AI code quality governance, and agent infrastructure setup. From practitioners using both Claude Code and Codex daily.</p>
                     <div class="btn-group">
-                        <a href="mailto:sales@lifetime.fi?subject=AI Consulting" class="btn btn-primary">Contact Sales</a>
-                        <a href="../../products/ai-consulting.html" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/2500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Consulting+%E2%80%93+Agentic+Software+Development&amount=2500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../../products/ai-consulting.html" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
                         <span style="color: #94a3b8;">|</span>
-                        <span style="color: #0070ba; font-weight: 600;">PayPal</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -122,14 +130,15 @@
                     <div class="product-price-note">Standard &euro;1,500/mo | Growth &euro;3,000/mo | Partner from &euro;5,000/mo</div>
                     <p class="product-excerpt">European cloud migration, DPA creation, EU AI Act impact analysis, NIS2 compliance, and GAIA-X alignment. Escape CLOUD Act exposure. Migrate to OVHcloud, Scaleway, OpenNebula, Hetzner, and Supabase EU.</p>
                     <div class="btn-group">
-                        <a href="mailto:sales@lifetime.fi?subject=Sovereignty Cloud" class="btn btn-primary">Contact Sales</a>
-                        <a href="../../products/sovereignty-cloud-consulting.html" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/1500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Sovereignty+Cloud+Consulting+%E2%80%93+EU+Migration&amount=1500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../../products/sovereignty-cloud-consulting.html" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
                         <span style="color: #94a3b8;">|</span>
-                        <span style="color: #0070ba; font-weight: 600;">PayPal</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -143,12 +152,15 @@
                     <div class="product-price-note">25 hours, valid 12 months</div>
                     <p class="product-excerpt">25-hour consultancy for strategic assessment, planning, and implementation of cloud and AI technologies. Covers AWS, Azure, GCP, IBM Cloud, Gemini AI, Meta Llama Stack. Includes complimentary 4-hour strategy workshop.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/4500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Engineering+%26+Cloud+Solutions+Consultancy&amount=4500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -162,12 +174,15 @@
                     <div class="product-price-note">25 hours standard implementation</div>
                     <p class="product-excerpt">AI-powered conversational agents for enterprise workflows. Integrates with Microsoft Teams, Google Workspace, Zoom, WhatsApp Business. Supports Groq, Anthropic, OpenAI, and self-hosted LLMs.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/3500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Conversational+Agent+Solution&amount=3500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -181,12 +196,15 @@
                     <div class="product-price-note">Foundation package</div>
                     <p class="product-excerpt">Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/2500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Continuous+Workflow+Agent+Delivery&amount=2500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -200,12 +218,15 @@
                     <div class="product-price-note">Per day, VAT excl.</div>
                     <p class="product-excerpt">Battle-ready AI consultant for strategy to implementation. Covers AI strategy development, functional solutions, apps, chatbots, and automation. Uses GPT-5, Gemini Pro, Microsoft 365 Copilot, Azure AI Studio.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/699EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Consultant+Day&amount=699&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -219,12 +240,15 @@
                     <div class="product-price-note">Per hour</div>
                     <p class="product-excerpt">Professional agentic business development consultancy. Azure AI Foundry, Google AI Studio, Custom AI Agent, or Agent Framework projects. Choose from AI Product Manager, Solutions Architect, or AI/ML Engineer roles.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/99EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+%26+Agent+Engineering+(1+hour)&amount=99&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -240,19 +264,27 @@
     </main>
 
     <footer class="site-footer">
+        <div style="margin-bottom: 20px;">
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">Lifetime Oy</strong><br>
+            <span>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</span>
+        </div>
+        <div style="margin-bottom: 20px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 0.9rem;">
+            <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+            <span style="color: #003087; font-weight: 600;">PayPal Business</span>
+            <span style="color: #4ade80; font-weight: 600;">SEPA EUR</span>
+        </div>
         <div style="margin-bottom: 16px;">
-            <strong>LEGAL NOTICE</strong><br>
-            <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland)<br>
             <strong>Regulatory Framework:</strong> GDPR, DSA, NIS2 Directive, EU AI Act
         </div>
-        <div>
-            <a href="../../privacy-policy/">Privacy</a> ·
-            <a href="../../terms/">Terms</a> ·
-            <a href="../../return-policy/">Returns</a> ·
-            <a href="mailto:support@lifetime.fi">Support</a>
+        <div style="margin-bottom: 16px;">
+            <a href="../../privacy-policy/">Privacy</a> &middot;
+            <a href="../../terms/">Terms</a> &middot;
+            <a href="../../return-policy/">Returns</a> &middot;
+            <a href="mailto:support@lifetime.fi">Support</a> &middot;
+            <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
-        <div style="margin-top: 16px;">
-            Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
+        <div>
+            Copyright &copy; 2025-2026 Lifetime Oy. All Rights Reserved.
         </div>
     </footer>
     <script src="../../shared-assets/nav/hamburger-menu.js"></script>

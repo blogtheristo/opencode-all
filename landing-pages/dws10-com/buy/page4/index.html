@@ -13,7 +13,7 @@
         .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
 
         /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
         .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
@@ -30,6 +30,12 @@
         .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
         .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+        .btn-revolut { background: linear-gradient(135deg, #0075EB, #0058B7); color: white; }
+        .btn-revolut:hover { background: linear-gradient(135deg, #1a85f0, #0068D8); transform: translateY(-1px); }
+        .btn-paypal { background: linear-gradient(135deg, #FFC439, #FFB300); color: #003087; }
+        .btn-paypal:hover { background: linear-gradient(135deg, #FFD060, #FFC439); transform: translateY(-1px); }
+        .btn-details { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; display: block; text-align: center; margin-top: 8px; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-details:hover { background: rgba(96, 165, 250, 0.1); }
 
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
@@ -52,15 +58,18 @@
         .category-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
         /* Footer */
-        .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
+        .site-footer { text-align: center; padding: 60px 40px; color: #64748b; font-size: 0.95rem; background: #1e293b; border-top: 1px solid #334155; }
         .site-footer a { color: #60a5fa; text-decoration: none; }
         .site-footer a:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
-            .btn-group { flex-direction: column; }
+            .btn-group { flex-direction: row; }
             .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; }
             .category-btn { padding: 12px 18px; font-size: 0.875rem; }
+            .site-footer { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -101,12 +110,15 @@
                     <div class="product-price-note">One-time setup</div>
                     <p class="product-excerpt">Digital marketing dashboard and design services. Complete marketing intelligence solution with analytics and visualization.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/2499EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Lifetime%20World%20%E2%80%93%20Digital%20Design%20Gold&amount=2499&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -120,12 +132,15 @@
                     <div class="product-price-note">8 hours</div>
                     <p class="product-excerpt">Low-code Power Apps business process solutions. ROI 188% over three years, 74% reduction in app development costs. 8-hour consultancy engagement.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/1120EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Microsoft%20365%20Consultancy&amount=1120&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -139,12 +154,15 @@
                     <div class="product-price-note">8 hours</div>
                     <p class="product-excerpt">Power Platform consultancy for business process automation. Canvas and model-driven apps for inspections, field sales, automated workflows. IPR transfer upon payment.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/1120EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Microsoft%20AI%20Studio%20M365%20Power%20Platform%20Azure&amount=1120&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -158,12 +176,15 @@
                     <div class="product-price-note">Team setup</div>
                     <p class="product-excerpt">Cloud-ready team solution for organizations needing immediate technical expertise. Pre-vetted professionals ready for deployment.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/950EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Solution%20Ready%20Team%20%E2%80%93%20Do%20it%20Right&amount=950&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -177,12 +198,15 @@
                     <div class="product-price-note">Consultancy engagement</div>
                     <p class="product-excerpt">Comprehensive data consultancy with API-driven data products, data brokerage, management strategy, implementation support, and analysis/enrichment.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/899EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Data%20Services&amount=899&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -196,12 +220,15 @@
                     <div class="product-price-note">Starting price</div>
                     <p class="product-excerpt">Professional responsive web pages for new businesses, products, or companies. Technology options include React.JS, Blazor, WordPress, Squarespace. AI chatbot and e-commerce add-ons available.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/799EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Professional%20Web%20Pages&amount=799&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -215,12 +242,15 @@
                     <div class="product-price-note">Setup + implementation</div>
                     <p class="product-excerpt">AI assistant and prompt flow agent for ideal service experience development. Continuous customer experience improvement that increases sales.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/499EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Flow&amount=499&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -234,12 +264,15 @@
                     <div class="product-price-note">8-hour implementation</div>
                     <p class="product-excerpt">Full Proton Business Suite implementation with end-to-end encryption. Includes encrypted email, cloud storage, password management, VPN. GDPR, NIS2, EU AI Act compliant.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/499EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Protonmail%20Secure%20Email%20%26%20Domains%20Implementation&amount=499&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -253,12 +286,15 @@
                     <div class="product-price-note">1-year license</div>
                     <p class="product-excerpt">Digital glossary translating English-to-Finnish AI agent terminology. Includes comprehensive explanations and reference list.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Agentti%20Sanasto%20Englanti-Suomi&amount=0.99&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -274,19 +310,27 @@
     </main>
 
     <footer class="site-footer">
+        <div style="margin-bottom: 20px;">
+            <strong style="font-size: 1.1rem; color: #e2e8f0;">Lifetime Oy</strong><br>
+            <span>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</span>
+        </div>
+        <div style="margin-bottom: 20px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 0.9rem;">
+            <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+            <span style="color: #003087; font-weight: 600;">PayPal Business</span>
+            <span style="color: #4ade80; font-weight: 600;">SEPA EUR</span>
+        </div>
         <div style="margin-bottom: 16px;">
-            <strong>LEGAL NOTICE</strong><br>
-            <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland)<br>
             <strong>Regulatory Framework:</strong> GDPR, DSA, NIS2 Directive, EU AI Act
         </div>
-        <div>
-            <a href="../../privacy-policy/">Privacy</a> ·
-            <a href="../../terms/">Terms</a> ·
-            <a href="../../return-policy/">Returns</a> ·
-            <a href="mailto:support@lifetime.fi">Support</a>
+        <div style="margin-bottom: 16px;">
+            <a href="../../privacy-policy/">Privacy</a> &middot;
+            <a href="../../terms/">Terms</a> &middot;
+            <a href="../../return-policy/">Returns</a> &middot;
+            <a href="mailto:support@lifetime.fi">Support</a> &middot;
+            <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
-        <div style="margin-top: 16px;">
-            Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
+        <div>
+            Copyright &copy; 2025-2026 Lifetime Oy. All Rights Reserved.
         </div>
     </footer>
     <script src="../../shared-assets/nav/hamburger-menu.js"></script>
