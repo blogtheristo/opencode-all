@@ -391,14 +391,15 @@
         // Get PayPal payment URL for a product
         function getPayPalUrl(product) {
             var email = (CONFIG && CONFIG.paypalEmail) ? CONFIG.paypalEmail : 'risto.anton@lifetime.fi';
+            // Note: We intentionally omit `return` / `cancel_return` here because the
+            // /checkout/success/ page expects session-based state (pending_order),
+            // which is not set in this direct-link flow. Let PayPal handle post-payment UX.
             var params = new URLSearchParams({
                 cmd: '_xclick',
                 business: email,
                 item_name: product.name,
                 amount: product.price,
-                currency_code: product.currency || 'EUR',
-                return: window.location.origin + '/checkout/success/',
-                cancel_return: window.location.origin + '/buy/'
+                currency_code: product.currency || 'EUR'
             });
             return 'https://www.paypal.com/cgi-bin/webscr?' + params.toString();
         }
