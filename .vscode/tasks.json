@@ -22,6 +22,87 @@
         "clear": false
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Sync to Proton Drive",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Sync-ToProton.ps1"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Sync to Proton Drive (dry run)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Sync-ToProton.ps1",
+        "-DryRun"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backup to Supabase Storage",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Sync-ToSupabase.ps1",
+        "-CreateBucket"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Sync (Proton + Supabase)",
+      "dependsOn": [
+        "Sync to Proton Drive",
+        "Backup to Supabase Storage"
+      ],
+      "dependsOrder": "sequence",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Pull and Sync",
+      "type": "shell",
+      "command": "git pull && pwsh -NoProfile -ExecutionPolicy Bypass -File ${workspaceFolder}/scripts/Sync-ToProton.ps1",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
     }
   ]
 }
