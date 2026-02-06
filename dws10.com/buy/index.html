@@ -396,9 +396,7 @@
                 business: email,
                 item_name: product.name,
                 amount: product.price,
-                currency_code: product.currency || 'EUR',
-                return: window.location.origin + '/checkout/success/',
-                cancel_return: window.location.origin + '/buy/'
+                currency_code: product.currency || 'EUR'
             });
             return 'https://www.paypal.com/cgi-bin/webscr?' + params.toString();
         }
