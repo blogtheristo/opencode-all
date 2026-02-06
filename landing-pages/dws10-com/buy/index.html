@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lifetime Firehorse™Store | DWS IQ - Buy Now</title>
     <meta name="description" content="Purchase DWS IQ Platform, Firehorse Automation, and Climate Reporting solutions. Secure payment via Revolut Business or PayPal Business.">
     <style>
@@ -13,7 +13,7 @@
         .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
         
         /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
         .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
@@ -24,12 +24,18 @@
         .product-excerpt { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
         
         /* Buttons */
-        .btn-group { display: flex; gap: 10px; margin-top: auto; }
-        .btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-group { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+        .btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; min-width: 0; }
         .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; }
         .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
         .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+        .btn-revolut { background: linear-gradient(135deg, #0075eb, #0052a3); color: white; }
+        .btn-revolut:hover { background: linear-gradient(135deg, #2088f0, #0075eb); transform: translateY(-1px); }
+        .btn-paypal { background: linear-gradient(135deg, #0070ba, #003087); color: white; }
+        .btn-paypal:hover { background: linear-gradient(135deg, #1a8ad4, #0070ba); transform: translateY(-1px); }
+        .btn-contact { background: transparent; color: #94a3b8; border: 1px solid #475569; font-size: 0.85rem; }
+        .btn-contact:hover { background: rgba(255,255,255,0.05); color: #e2e8f0; }
         
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
@@ -69,16 +75,31 @@
         .loading-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(96, 165, 250, 0.3); border-radius: 50%; border-top-color: #60a5fa; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Footer */
-        .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
-        .site-footer a { color: #60a5fa; text-decoration: none; }
-        .site-footer a:hover { text-decoration: underline; }
+        /* Footer - DWS Brand Standard */
+        .site-footer { background: #0a1628; color: #94a3b8; border-top: 1px solid #1e293b; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 48px 20px 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand-desc { font-size: 0.9rem; line-height: 1.7; max-width: 300px; margin-top: 12px; }
+        .footer-logo { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; }
+        .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+        .footer-col a { display: block; font-size: 0.9rem; color: #94a3b8; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+        .footer-col a:hover { color: #60a5fa; }
+        .footer-bottom { padding-top: 24px; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: #64748b; }
+        .footer-bottom a { color: #60a5fa; text-decoration: none; }
+        .footer-bottom a:hover { text-decoration: underline; }
         
         @media (max-width: 768px) {
             .product-grid { grid-template-columns: 1fr; }
             .nav-links { gap: 12px; }
             .btn-group { flex-direction: column; }
             .trust-badges { gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            h1 { font-size: 1.8rem !important; }
+        }
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .container { padding: 20px 12px; }
         }
     </style>
 </head>
@@ -177,19 +198,46 @@
     </main>
 
     <footer class="site-footer">
-        <div style="margin-bottom: 16px;">
-            <strong>LEGAL NOTICE</strong><br>
-            <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland)<br>
-            <strong>Regulatory Framework:</strong> GDPR, DSA, NIS2 Directive, EU AI Act
-        </div>
-        <div>
-            <a href="../privacy-policy/">Privacy</a> · 
-            <a href="../terms/">Terms</a> · 
-            <a href="../return-policy/">Returns</a> · 
-            <a href="mailto:support@lifetime.fi">Support</a>
-        </div>
-        <div style="margin-top: 16px;">
-            Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">DWS IQ Platform</div>
+                    <p class="footer-brand-desc">Industrial Climate Intelligence & Compliance. EU-Sovereign by Design. Fit for 55, ETS, CBAM, CSRD automation across 16 industries.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <a href="../products/dwsiq.html">DWS IQ 6</a>
+                    <a href="../products/firehorse-automation.html">Firehorse Automation</a>
+                    <a href="../products/firehorse-reports.html">Firehorse Reports</a>
+                    <a href="../products/firehorse-omnichannel.html">Omnichannel</a>
+                    <a href="../products/firehorse-content-management.html">Content DMS</a>
+                    <a href="./">Store</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="../">Home</a>
+                    <a href="../careers/">Careers</a>
+                    <a href="../partners/">Partners</a>
+                    <a href="../investor-relations/">Investors</a>
+                    <a href="https://onelifetime.world" target="_blank">OneLifetime.World</a>
+                    <a href="mailto:offer@lifetime.fi">Contact Sales</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="../legal/">Legal Hub</a>
+                    <a href="../privacy-policy/">Privacy Policy</a>
+                    <a href="../data-security-policy/">Data Security</a>
+                    <a href="../terms/">Terms of Service</a>
+                    <a href="../return-policy/">Return Policy</a>
+                    <a href="../regulatory-notice/">Investor Notice</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>
+                    <strong style="color: #e2e8f0;">Data Controller:</strong> Lifetime Oy, Laidunmaanraitti 2 A 25, 02330 Espoo, Finland. Business ID: 0772407-9.
+                </div>
+                <div>Copyright &copy; 2025-2026 Lifetime Oy. All Rights Reserved.</div>
+            </div>
         </div>
     </footer>
 
@@ -280,6 +328,16 @@
                 maximumFractionDigits: 0
             }).format(product.price);
 
+            // Build payment buttons
+            let paymentButtons = '';
+            if (product.revolutLink) {
+                paymentButtons += `<a href="${product.revolutLink}" target="_blank" rel="noopener" class="btn btn-revolut" title="Pay with Revolut Business">💳 Revolut</a>`;
+            }
+            paymentButtons += `<button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">PayPal</button>`;
+            if (!product.revolutLink) {
+                paymentButtons += `<a href="mailto:offer@lifetime.fi?subject=${encodeURIComponent(product.name)}" class="btn btn-contact" title="Request invoice">📧 Contact</a>`;
+            }
+
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='../static/images/Firehorse_Store.jpg'">
                 <div class="product-content">
@@ -288,14 +346,13 @@
                     <div class="product-price-note">${product.priceNote || ''}</div>
                     <p class="product-excerpt">${product.description}</p>
                     <div class="btn-group">
-                        <button class="btn btn-primary" onclick="buyNow('${product.id}')">Buy Now</button>
-                        <a href="${product.detailsUrl}" class="btn btn-secondary">Details</a>
+                        ${paymentButtons}
                     </div>
                     <div class="payment-badge">
-                        <span>Secure payment via</span>
+                        <span>Secure EU payment</span>
                         <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
                         <span style="color: #94a3b8;">|</span>
-                        <span style="color: #0070ba; font-weight: 600;">PayPal</span>
+                        <span style="color: #0070ba; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             `;
@@ -303,7 +360,28 @@
             return card;
         }
 
-        // Buy now function
+        // Pay with PayPal directly
+        function payWithPayPal(productId) {
+            const product = PRODUCTS[productId];
+            if (!product) {
+                console.error('Product not found:', productId);
+                return;
+            }
+
+            const paypalEmail = CONFIG.paypalEmail || 'risto.anton@lifetime.fi';
+            const params = new URLSearchParams({
+                cmd: '_xclick',
+                business: paypalEmail,
+                item_name: product.name,
+                amount: product.price,
+                currency_code: product.currency || 'EUR',
+                return: window.location.origin + '/checkout/success/',
+                cancel_return: window.location.origin + '/checkout/cancel/'
+            });
+            window.open('https://www.paypal.com/cgi-bin/webscr?' + params.toString(), '_blank');
+        }
+
+        // Buy now function (checkout page redirect)
         function buyNow(productId) {
             const product = PRODUCTS[productId];
             if (!product) {
