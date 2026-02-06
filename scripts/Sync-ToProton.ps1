@@ -40,7 +40,7 @@ $SyncFolders = @(
     "Metropolia2026"
 )
 
-# Individual files to sync
+# Individual files to sync (documentation)
 $SyncFiles = @(
     "ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md",
     "ADMIN_MANUAL_AUTHENTICATION.md",
@@ -50,6 +50,21 @@ $SyncFiles = @(
     "ADMIN_MANUAL_SUPABASE_EN_v1.md",
     "ADMIN_MANUAL_TESTING.md",
     "SECURITY_COMPLIANCE.md"
+)
+
+# Sensitive/gitignored files to backup (these only exist locally, not on GitHub)
+$SensitiveFiles = @(
+    ".env",
+    ".env.local",
+    ".env.mcp",
+    ".mcp.json",
+    "credentials.json",
+    "SFTP_SECRETS.py",
+    "CLOUDFLARE_SECRETS.md",
+    "ADD_TOKEN_TO_GITHUB.md",
+    "supabase\.env",
+    "supabase\.env.local",
+    "supabase\PROJECT_INFO.md"
 )
 
 # --- Auto-detect repo path ---
@@ -150,6 +165,21 @@ foreach ($fileName in $SyncFiles) {
         $destFile = Join-Path $ProtonPath $fileName
         Sync-Item -Source $srcFile -Destination $destFile
     }
+}
+
+# Sync sensitive/gitignored files (backup to Proton only)
+Write-Host "Syncing sensitive files (gitignored backups)" -ForegroundColor Magenta
+$sensitiveCount = 0
+foreach ($fileName in $SensitiveFiles) {
+    $srcFile = Join-Path $RepoPath $fileName
+    if (Test-Path $srcFile) {
+        $destFile = Join-Path $ProtonPath $fileName
+        Sync-Item -Source $srcFile -Destination $destFile
+        $sensitiveCount++
+    }
+}
+if ($sensitiveCount -eq 0) {
+    Write-Host "  (no sensitive files found in repo - this is normal on cloud)" -ForegroundColor Gray
 }
 
 # --- Summary ---
