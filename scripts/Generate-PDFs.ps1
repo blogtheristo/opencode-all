@@ -130,14 +130,15 @@ foreach ($file in $FilesToConvert) {
         $pandocArgs = @(
             "`"$srcFile`""
             "-o", "`"$destFile`""
+            "--pdf-engine=xelatex"
             "-V", "geometry:margin=1in"
             "-V", "fontsize=11pt"
             "-V", "colorlinks=true"
             "-V", "linkcolor=blue"
+            "-V", "mainfont=Segoe UI"
             "--toc"
             "--toc-depth=2"
-            "--highlight-style=tango"
-            "-f", "markdown+smart+emoji"
+            "-f", "markdown-yaml_metadata_block+smart"
         )
 
         $process = Start-Process -FilePath "pandoc" -ArgumentList $pandocArgs -NoNewWindow -Wait -PassThru -RedirectStandardError "$env:TEMP\pandoc-err.txt"
