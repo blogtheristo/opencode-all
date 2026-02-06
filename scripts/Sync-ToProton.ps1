@@ -28,10 +28,13 @@
 .PARAMETER DryRun
     Show what would be copied without copying.
 
+.PARAMETER BackupPath
+    Path for full repo backups. Default: F:\2026\Backups\dws6
+
 .PARAMETER FullRepo
-    Copy the entire dws6 repository to Proton Drive (excluding node_modules,
+    Copy the entire dws6 repository to BackupPath (excluding node_modules,
     .git, dist, build, venv). Without this flag, only mapped folders and
-    sensitive files are synced.
+    sensitive files are synced to Proton Drive.
 
 .EXAMPLE
     .\Sync-ToProton.ps1
@@ -44,6 +47,7 @@
 param(
     [string]$RepoPath = "",
     [string]$ProtonRoot = "F:\Proton\Proton\My files\2026",
+    [string]$BackupPath = "F:\2026\Backups\dws6",
     [switch]$DryRun,
     [switch]$FullRepo
 )
@@ -191,7 +195,8 @@ Write-Host ""
 Write-Host "=== DWS6 Proton Drive Sync ===" -ForegroundColor Cyan
 Write-Host "  Repo:        $RepoPath"
 Write-Host "  Proton Root: $ProtonRoot"
-Write-Host "  Repo Backup: $ProtonRepoPath"
+Write-Host "  Secrets:     $ProtonRepoPath"
+if ($FullRepo) { Write-Host "  Backup:      $BackupPath" }
 if ($DryRun) { Write-Host "  MODE:        DRY RUN" -ForegroundColor Yellow }
 Write-Host ""
 
@@ -247,10 +252,17 @@ if ($sensitiveCount -eq 0) {
     Write-Host "  (no sensitive files found - this is normal on cloud)" -ForegroundColor Gray
 }
 
-# --- Full repo copy (when -FullRepo flag is set) ---
+# --- Full repo backup (when -FullRepo flag is set) ---
 if ($FullRepo) {
     Write-Host ""
-    Write-Host "Full repo copy -> $ProtonRepoPath" -ForegroundColor Cyan
+    if (-not (Test-Path $BackupPath)) {
+        Write-Warning "Creating backup folder: $BackupPath"
+        if (-not $DryRun) {
+            New-Item -ItemType Directory -Path $BackupPath -Force | Out-Null
+        }
+    }
+
+    Write-Host "Full repo backup -> $BackupPath" -ForegroundColor Cyan
     $allFiles = Get-ChildItem -Path $RepoPath -Recurse -File -ErrorAction SilentlyContinue
     foreach ($file in $allFiles) {
         $relativePath = $file.FullName.Substring($RepoPath.Length + 1)
@@ -265,7 +277,7 @@ if ($FullRepo) {
         }
         if ($skip) { continue }
 
-        $destPath = Join-Path $ProtonRepoPath $relativePath
+        $destPath = Join-Path $BackupPath $relativePath
         Sync-Item -Source $file.FullName -Destination $destPath
     }
 }
