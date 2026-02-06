@@ -8,7 +8,7 @@
 
     Requires:
       - pandoc (winget install JohnMacFarlane.Pandoc)
-      - A LaTeX engine (MiKTeX recommended: winget install MiKTeX.MiKTeX)
+      - wkhtmltopdf (winget install wkhtmltopdf) - no LaTeX needed
 
     Called automatically by Sync-ToProton.ps1 when -GeneratePDFs flag is set,
     or run standalone.
@@ -57,6 +57,28 @@ Write-Host "  Repo:    $RepoPath"
 Write-Host "  Output:  $OutputPath"
 if ($DryRun) { Write-Host "  MODE:    DRY RUN" -ForegroundColor Yellow }
 Write-Host ""
+
+# --- Check wkhtmltopdf ---
+$wkPath = Get-Command wkhtmltopdf -ErrorAction SilentlyContinue
+if (-not $wkPath) {
+    Write-Warning "wkhtmltopdf not found. Install with: winget install wkhtmltopdf"
+    Write-Warning "PDF generation will fail without it."
+}
+
+# --- Create inline CSS for PDF styling ---
+$cssFile = Join-Path $env:TEMP "dws6-pdf-style.css"
+@"
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; line-height: 1.5; margin: 1in; }
+h1 { color: #0a1628; border-bottom: 2px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+h3 { color: #333; }
+code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 10pt; }
+pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background: #0a1628; color: white; }
+a { color: #0066cc; }
+"@ | Set-Content -Path $cssFile -Encoding UTF8
 
 # --- Files to convert ---
 # Each entry: relative path from repo root -> output PDF name
@@ -130,15 +152,11 @@ foreach ($file in $FilesToConvert) {
         $pandocArgs = @(
             "`"$srcFile`""
             "-o", "`"$destFile`""
-            "--pdf-engine=xelatex"
-            "-V", "geometry:margin=1in"
-            "-V", "fontsize=11pt"
-            "-V", "colorlinks=true"
-            "-V", "linkcolor=blue"
-            "-V", "mainfont=Segoe UI"
+            "--pdf-engine=wkhtmltopdf"
             "--toc"
             "--toc-depth=2"
             "-f", "markdown-yaml_metadata_block+smart"
+            "--css", "`"$cssFile`""
         )
 
         $process = Start-Process -FilePath "pandoc" -ArgumentList $pandocArgs -NoNewWindow -Wait -PassThru -RedirectStandardError "$env:TEMP\pandoc-err.txt"
@@ -169,8 +187,8 @@ if ($errorCount -gt 0) {
     Write-Host "  Errors:    $errorCount files" -ForegroundColor Red
     Write-Host ""
     Write-Host "  Troubleshooting:" -ForegroundColor Yellow
-    Write-Host "    - Is MiKTeX installed? winget install MiKTeX.MiKTeX" -ForegroundColor Yellow
-    Write-Host "    - Or use wkhtmltopdf engine: pandoc --pdf-engine=wkhtmltopdf" -ForegroundColor Yellow
+    Write-Host "    - Is wkhtmltopdf installed? winget install wkhtmltopdf" -ForegroundColor Yellow
+    Write-Host "    - Is pandoc installed? winget install JohnMacFarlane.Pandoc" -ForegroundColor Yellow
 }
 Write-Host "  Output:    $OutputPath" -ForegroundColor Cyan
 Write-Host ""
