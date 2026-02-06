@@ -71,16 +71,10 @@ $FolderMappings = @(
 )
 
 # Individual doc files -> Proton repo backup (relative to $RepoPath)
+# NOTE: Files inside mapped folders (Admin/, Firehorse/, etc.) are already
+# synced by $FolderMappings above. Only list files that live OUTSIDE mapped folders.
 $SyncFiles = @(
-    "Admin\ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md",
-    "Admin\ADMIN_MANUAL_AUTHENTICATION.md",
-    "Admin\ADMIN_MANUAL_DWS6_COM.md",
-    "Admin\ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md",
-    "Admin\ADMIN_MANUAL_GAPS_ANALYSIS.md",
-    "Admin\ADMIN_MANUAL_SUPABASE_EN_v1.md",
-    "Admin\ADMIN_MANUAL_TESTING.md",
-    "Admin\SECURITY_COMPLIANCE.md",
-    "Admin\ADMIN_MANUAL_FILES_AND_FOLDERS.md"
+    # (Admin manuals removed - covered by Admin/ folder mapping)
 )
 
 # Sensitive/gitignored files -> Proton repo backup (encrypted)
