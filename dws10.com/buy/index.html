@@ -384,8 +384,17 @@
                 return product.revolutLink;
             }
             var fallback = (CONFIG && CONFIG.revolutFallbackLink) ? CONFIG.revolutFallbackLink : 'https://revolut.me/lifetimeoy';
-            var sanitizedPrice = parseInt(product.price, 10);
-            return fallback + '/' + sanitizedPrice + 'EUR';
+            var priceNumber = typeof product.price === 'number' ? product.price : Number(product.price);
+            if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
+                // Invalid or non-positive price; fall back to base link without amount
+                return fallback;
+            }
+            // Revolut fallback URL only supports integer euro amounts safely.
+            // If the price has cents, require an explicit product.revolutLink by using the base link.
+            if (!Number.isInteger(priceNumber)) {
+                return fallback;
+            }
+            return fallback + '/' + priceNumber + 'EUR';
         }
 
         // Get PayPal payment URL for a product
