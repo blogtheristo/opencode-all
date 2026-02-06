@@ -31,7 +31,8 @@
 param(
     [string]$RepoPath = "",
     [string]$OutputPath = "F:\Proton\Proton\My files\2026\generated-pdfs",
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$OpenNew
 )
 
 # --- Auto-detect repo path ---
@@ -97,6 +98,7 @@ if (-not (Test-Path $OutputPath)) {
 $successCount = 0
 $skipCount = 0
 $errorCount = 0
+$newPDFs = @()
 
 foreach ($file in $FilesToConvert) {
     $srcFile = Join-Path $RepoPath $file.Src
@@ -144,6 +146,7 @@ foreach ($file in $FilesToConvert) {
             $size = [math]::Round((Get-Item $destFile).Length / 1KB)
             Write-Host " OK (${size}KB)" -ForegroundColor Green
             $successCount++
+            $newPDFs += $destFile
         } else {
             $err = Get-Content "$env:TEMP\pandoc-err.txt" -Raw -ErrorAction SilentlyContinue
             Write-Host " FAILED" -ForegroundColor Red
@@ -170,3 +173,11 @@ if ($errorCount -gt 0) {
 }
 Write-Host "  Output:    $OutputPath" -ForegroundColor Cyan
 Write-Host ""
+
+# --- Open newly generated PDFs in Edge ---
+if ($OpenNew -and $newPDFs.Count -gt 0 -and -not $DryRun) {
+    Write-Host "  Opening $($newPDFs.Count) updated PDF(s) in Edge..." -ForegroundColor Cyan
+    foreach ($pdf in $newPDFs) {
+        Start-Process "msedge" -ArgumentList "`"$pdf`""
+    }
+}

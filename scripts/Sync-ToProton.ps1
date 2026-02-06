@@ -50,7 +50,8 @@ param(
     [string]$BackupPath = "F:\2026\Backups\dws6",
     [switch]$DryRun,
     [switch]$FullRepo,
-    [switch]$GeneratePDFs
+    [switch]$GeneratePDFs,
+    [switch]$OpenNewPDFs
 )
 
 # --- Configuration ---
@@ -286,6 +287,7 @@ if ($GeneratePDFs) {
         $pdfOutputPath = Join-Path $ProtonRoot "generated-pdfs"
         $pdfArgs = @("-RepoPath", "`"$RepoPath`"", "-OutputPath", "`"$pdfOutputPath`"")
         if ($DryRun) { $pdfArgs += "-DryRun" }
+        if ($OpenNewPDFs) { $pdfArgs += "-OpenNew" }
         & $pdfScript @pdfArgs
     } else {
         Write-Warning "PDF script not found: $pdfScript"

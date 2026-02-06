@@ -30,6 +30,6 @@ git pull origin main
 
 REM Run Proton Drive sync + PDF generation
 echo [%date% %time%] Syncing to Proton Drive + generating PDFs...
-pwsh -NoProfile -ExecutionPolicy Bypass -File "%REPO_PATH%\scripts\Sync-ToProton.ps1" -GeneratePDFs
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%REPO_PATH%\scripts\Sync-ToProton.ps1" -GeneratePDFs -OpenNewPDFs
 
 echo [%date% %time%] Daily sync complete.
