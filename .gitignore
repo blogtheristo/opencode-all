@@ -91,18 +91,6 @@ claude-sessions/
 *.csv
 investor-outreach/ready_to_send*/
 
-# --- MCP HUB DEPLOYMENT FILES (infrastructure config, not source) ---
-cloudrun-service.yaml
-deploy-gcp.sh
-setup-secrets-gcp.sh
-GCP_DEPLOYMENT.md
-QUICK_DEPLOY.md
-docker-compose.mcp.yml
-DOCKER_.*.md
-mcp-hub/DOCKER_.*
-mcp-hub/GCP_.*
-mcp-hub/DEPLOY_.*
-
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
 .snykdist
