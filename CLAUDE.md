@@ -235,7 +235,7 @@ dws6/
 ├── mcp-servers/            # Individual MCP servers
 ├── scripts/                # Development & deployment scripts
 ├── supabase/migrations/    # Database migrations
-└── .github/workflows/      # CI/CD pipelines (18 workflows)
+└── .github/workflows/      # CI/CD pipelines (15 workflows)
 ```
 
 ### Dual Folder Structure Rule (IMPORTANT)
@@ -685,7 +685,7 @@ Key documentation files:
 - Main development on feature branches
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
-- 18 CI/CD workflows in `.github/workflows/`
+- 15 CI/CD workflows in `.github/workflows/`
 
 ### Worktree Best Practices
 
