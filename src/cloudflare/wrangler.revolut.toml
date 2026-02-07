@@ -39,7 +39,7 @@ pattern = "api.dws10.com/checkout/*"
 zone_name = "dws10.com"
 
 # ============================================================================
-# EU Data Residency
+# Placement (Smart Routing - nearest Cloudflare edge)
 # ============================================================================
 
 [placement]
