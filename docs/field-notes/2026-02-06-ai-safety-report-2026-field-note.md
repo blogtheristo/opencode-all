@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Added OECD 2030 capability scenarios (4 trajectories including Scenario 4 acceleration), evaluation gap as security risk, 125x compute growth projection
   - Version: 1.1 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Added report quotes on if-then safety commitments, evidence gaps, defence-in-depth, and DWS if-then commitment framework
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 06.02.2026 | Changes: Initial field note — AI Safety Report 2026 analysis with Firehorse operation model cross-reference, sales/marketing outreach implications
 
@@ -108,9 +109,30 @@ Early evidence shows declining demand for early-career workers in AI-exposed occ
 
 ### 4. Environmental and Infrastructure Costs
 
-AI companies have announced $100B+ in data center investments. Growing compute use rapidly increases energy, water, and raw material consumption. Between now and 2030, progress could plateau (energy/data bottlenecks), continue at current rates, or accelerate dramatically.
+AI companies have announced $100B+ in data center investments. Growing compute use rapidly increases energy, water, and raw material consumption. Compute for largest models could grow **125-fold by 2030**; training methods projected to become 2-6x more efficient each year.
 
 **DWS Relevance:** This directly validates DWS IQ 6's climate intelligence positioning. Fit for 55 compliance becomes more urgent as AI infrastructure consumption grows. Carbon footprint calculators (Firehorse voice chat roadmap Q3/2026) address this convergence.
+
+### 4a. Capability Projections Through 2030 — Four OECD Scenarios
+
+The report (citing OECD 2026 "Exploring Possible AI Trajectories through 2030") outlines four plausible scenarios ranging from stagnation to acceleration:
+
+| Scenario | 2030 State | Sales/Marketing Implication |
+|---|---|---|
+| **Plateau** | Progress slows; current AI capabilities persist | Compliance-first messaging: "Get ready now while you can" |
+| **Incremental** | Steady but diminishing gains | Efficiency messaging: "Optimize your existing AI workflows" |
+| **Current rate** | AI completes multi-day engineering tasks | Workforce transition messaging: "Prepare your teams for AI-augmented work" |
+| **Acceleration** | AI comparable to human-level remote workers | Strategic transformation messaging: "Your entire operating model must adapt" |
+
+**Scenario 4 (Acceleration) detail:**
+
+> "In 2030, AI systems are comparable to human-level remote workers. AI systems' autonomy and cognitive capability match or surpass humans in cognitive tasks. They capably and autonomously work towards broad strategic goals that they can reflect upon and revise if circumstances change, while also collaborating with humans where necessary."
+
+Pathway: exponential gains amplified by **AI coding assistants contributing to AI development itself** (positive feedback loop). Historical analogue: DNA sequencing saw superexponential improvements 2000-2020.
+
+**Physical domain caveat:** AI-guided robots still lag humans in physical tasks unless developed specifically for a given task. This is critical for DWS — our Lifetime Fleet (edge AI, robotics) addresses the physical execution gap that pure cognitive AI cannot close.
+
+**DWS Sales Implication:** All four scenarios validate DWS's positioning. In plateau/incremental scenarios, compliance is the pitch. In current rate/acceleration, strategic transformation is the pitch. Either way, DWS IQ 6 is the platform for the transition.
 
 ### 5. Risk Management Immaturity and Evidence Gaps
 

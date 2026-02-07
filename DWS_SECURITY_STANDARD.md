@@ -128,25 +128,51 @@ The AI Safety Report provides forward-looking capability projections that inform
 
 **Investment scale:** AI companies have announced **$100+ billion in data center investments** in expectation of continued capability gains.
 
-**Capability trajectory (plausible scenarios):**
+**Capability trajectory — four OECD scenarios (source: OECD 2026, "Exploring Possible AI Trajectories through 2030"):**
 
-| Scenario | Description | DWS Security Implication |
+| Scenario | Description | Probability Signal | DWS Security Implication |
+|---|---|---|---|
+| **1. Plateau** | Progress slows due to data/energy bottlenecks | Slowing benchmark improvements, data scarcity reports | Current security framework sufficient; focus on optimization |
+| **2. Incremental** | Steady improvement at diminishing rate | Gradual benchmark gains, no breakthrough announcements | Maintain and incrementally update defence-in-depth layers |
+| **3. Current rate** | Capabilities continue improving at 2024-2025 pace | By 2030: AI completes multi-day software engineering tasks | Security controls must scale; evaluation suite updated annually |
+| **4. Acceleration** | AI systems comparable to human-level remote workers | Superexponential gains, AI contributing to AI research | **Fundamental re-architecture of security controls required** |
+
+### Scenario 4: Acceleration — Critical Security Planning
+
+The AI Safety Report describes a plausible acceleration scenario for 2030:
+
+> "In 2030, AI systems are comparable to human-level remote workers. AI systems' autonomy and cognitive capability match or surpass humans in cognitive tasks. They capably and autonomously work towards broad strategic goals that they can reflect upon and revise if circumstances change, while also collaborating with humans where necessary. AI systems can seamlessly learn new information and skills during deployment."
+
+**Pathway:** Continued exponential gains in AI capabilities via scaling pre-training, post-training, and inference, amplified by algorithmic breakthroughs and increasingly substantial contributions from **AI coding assistants to the development of AI itself** (positive feedback loop).
+
+**Historical analogue:** DNA sequencing saw superexponential improvements from 2000-2020 due to development of new sequencing paradigms.
+
+**Physical domain caveat:** AI-guided robots can handle complex physical tasks in dynamic environments in many industries, but performance still lags humans unless developed specifically for a given task — challenges in generalization across physical tasks remain.
+
+**DWS Scenario 4 Security Response Plan:**
+
+| If Scenario 4 Materializes | Security Action Required | Timeline |
 |---|---|---|
-| **Plateau** | Progress slows due to data/energy bottlenecks | Current security framework sufficient; focus on optimization |
-| **Current rate** | Capabilities continue improving at 2024-2025 pace | By 2030: AI completes multi-day software engineering tasks; security controls must scale accordingly |
-| **Acceleration** | AI systems contribute to AI research, creating positive feedback loops | Fundamental re-architecture of security controls needed; human-in-the-loop may become bottleneck |
+| AI agents autonomously pursue strategic goals | Shift from per-action human approval to **strategic goal oversight** with continuous monitoring | Pre-2029 |
+| AI learns new skills during deployment | Real-time capability monitoring; automatic if-then triggers for new behaviors | Immediate when detected |
+| AI contributes to AI research (feedback loop) | Monitor for emergent capabilities in our deployed models; establish **capability ceilings** | Continuous |
+| AI-guided robots in industrial environments | Lifetime Fleet security architecture must assume autonomous operation; air-gap critical systems | Pre-2028 |
+| Human cognitive tasks broadly automatable | Redefine "human-in-the-loop" — humans become **strategic auditors** rather than operational reviewers | Gradual 2027-2030 |
 
-**Concrete 2030 projection (if current trends hold):**
-> "By 2030 AI systems will be able to complete well-scoped software engineering tasks that would take human engineers multiple days to complete."
+**Key insight for DWS:** Even in Scenario 4, physical/embodied tasks lag. This means DWS's edge AI (Jetson) + fleet robotics positioning remains differentiated — the "Hands" layer of our Brain-Memory-Body-Hands architecture addresses the physical gap that pure-cognitive AI cannot close.
+
+### Concrete 2030 Projection (Current Rate)
+
+> "If capabilities continue to improve at their current rate, by 2030 AI systems will be able to complete well-scoped software engineering tasks that would take human engineers multiple days to complete."
 
 **Beyond 2030:** Trajectory becomes harder to forecast. Some experts expect resource bottlenecks (data, chips, capital, energy) to slow progress; others expect efficiency breakthroughs to sidestep constraints. "Which considerations will prove most important is highly uncertain."
 
-**DWS Security Planning Implications:**
+### DWS Security Planning by Horizon
 
-1. **Short-term (2026-2027):** Current defence-in-depth architecture addresses known risks. Focus on closing EU AI Act gaps and achieving ISO 27001 certification.
-2. **Medium-term (2027-2029):** Monitor for capability jumps that could obsolete current evaluation methods. Update domain-specific evaluation suite annually. Plan for AI agents that can operate more autonomously.
-3. **Long-term (2029-2030):** Prepare for scenario where AI agents can complete multi-day tasks autonomously. Human oversight model may need to shift from per-action approval to strategic goal-setting with continuous monitoring.
-4. **Continuous:** Maintain multi-vendor AI strategy (Claude, Codex, open-weight) to avoid lock-in and reduce concentration risk.
+1. **Short-term (2026-2027):** Current defence-in-depth architecture addresses known risks. Focus on closing EU AI Act gaps (20% remaining) and achieving ISO 27001 certification. NIS2 posture from 75% to 95%.
+2. **Medium-term (2027-2029):** Monitor for capability jumps that could obsolete current evaluation methods. Update domain-specific evaluation suite annually. Plan for AI agents that can operate more autonomously. Begin designing strategic-audit oversight model.
+3. **Long-term (2029-2030):** Prepare for Scenario 3 or 4. Human oversight model may need to shift from per-action approval to strategic goal-setting with continuous monitoring. Edge AI / fleet robotics become more critical as cognitive AI saturates.
+4. **Continuous:** Maintain multi-vendor AI strategy (Claude, Codex, open-weight) to avoid lock-in and reduce concentration risk. Track OECD scenario indicators quarterly.
 
 ---
 
