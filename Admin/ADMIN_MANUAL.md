@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
@@ -17,6 +17,7 @@ Sessions & Modifications:
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -24,7 +25,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 06.02.2026
+  - Last Modified: 07.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -868,6 +869,18 @@ Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton
 - Only actual secrets (.env, API keys) remain gitignored
 - Local sync scripts bridge git repo to Proton Drive
 
+### Script Version Registry
+
+All automation scripts include version headers and change logs.
+
+| Script | Version | Purpose |
+|--------|---------|---------|
+| `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
+| `scripts/Sync-ToProton.ps1` | v1.4 | Proton Drive sync (folders, secrets, docs) |
+| `scripts/Generate-PDFs.ps1` | v1.5 | Markdown to HTML/PDF (pandoc + wkhtmltopdf) |
+| `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
+| `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
+
 ### Daily Operations
 
 | Task | How to run |
@@ -877,8 +890,9 @@ Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton
 | Pull and sync | VS Code: Terminal > Run Task > "Pull and Sync" |
 | Dry run | `.\scripts\Sync-ToProton.ps1 -DryRun` |
 | Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
-| Generate PDFs | `.\scripts\Generate-PDFs.ps1` (or `-DryRun`) |
-| Generate PDFs + Sync | Automatic after Proton sync (when `-GeneratePDFs` flag is set) |
+| Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine) |
+| Generate docs (PDF) | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf` |
+| Supabase backup | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`) |
 
 ### Windows Startup Auto-Sync
 
@@ -897,34 +911,56 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 **What it does on every Windows login:**
 1. Waits 120 seconds (for network + Proton Drive to mount)
 2. `git pull origin main` (gets latest from GitHub)
-3. Runs `Sync-ToProton.ps1` (copies business files to Proton Drive)
+3. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
+4. Runs `Sync-ToSupabase.ps1` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
+5. Opens changed documents in Edge for morning review
 
-**Scripts:**
-| Script | Purpose |
-|--------|---------|
-| `scripts/Startup-DailySync.bat` | The batch file that runs on login |
-| `scripts/Install-StartupSync.ps1` | Creates/removes the Startup shortcut |
+### Document Generation (Pandoc)
 
-### PDF Generation (Pandoc)
-
-After Proton Drive sync, PDFs can be generated from key markdown files using pandoc.
+Converts 16 key markdown files (admin manuals, sales, investor) to styled HTML or PDF.
 
 **Prerequisites (install once):**
 ```powershell
-winget install --id JohnMacFarlane.Pandoc
-# Or: choco install pandoc
-# Or: scoop install pandoc
+winget install --id JohnMacFarlane.Pandoc          # Required
+winget install wkhtmltopdf                          # Optional (PDF engine)
 ```
 
-**Generated PDFs:**
-| Source File | Output PDF |
-|-------------|-----------|
-| `Admin/ADMIN_MANUAL.md` | `generated-pdfs/ADMIN_MANUAL.pdf` |
-| `sales-outreach/enterprise-sales.md` | `generated-pdfs/enterprise-sales.pdf` |
-| `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` | `generated-pdfs/V3-DWS-IQ6-InvestorPD_2026.pdf` |
-| `investor-outreach/investor-pitch-deck.md` | `generated-pdfs/investor-pitch-deck.pdf` |
+**Engine choice:**
+| Engine | Output | Dependencies | Reliability |
+|--------|--------|-------------|-------------|
+| `html` (default) | `.html` styled documents | pandoc only | Always works |
+| `wkhtmltopdf` | `.pdf` files | pandoc + wkhtmltopdf | May have path issues |
 
-**Run manually:** `.\scripts\Generate-PDFs.ps1` or `.\scripts\Generate-PDFs.ps1 -DryRun`
+**Run manually:**
+```powershell
+.\scripts\Generate-PDFs.ps1                        # HTML (default, always works)
+.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf    # PDF output
+.\scripts\Generate-PDFs.ps1 -DryRun                # Preview what would be generated
+.\scripts\Generate-PDFs.ps1 -OpenNew               # Open changed files in Edge
+```
+
+**Output location:** `F:\Proton\Proton\My files\2026\generated-pdfs\`
+
+### Supabase Storage Backup
+
+EU cloud backup of all code, scripts, and business documents to Supabase Storage.
+
+**Bucket:** `admin-vault` (private)
+
+**Folders synced:**
+| Folder | Content |
+|--------|---------|
+| `Admin/` | Admin manuals, security docs |
+| `scripts/` | PowerShell/Bash automation scripts |
+| `src/` | Backend source code, integrations |
+| `Firehorse/` | Product suite files |
+| `AgentFoundry/` | AI agent configurations |
+| `Team/` | Team documentation |
+| `sales-outreach/` | Sales materials |
+| `investor-outreach/` | Investor documents |
+| `docs/metropolia/` | Thesis documentation |
+
+**Run manually:** `.\scripts\Sync-ToSupabase.ps1` or `-DryRun` or `-CreateBucket`
 
 ---
 

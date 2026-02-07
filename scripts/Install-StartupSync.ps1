@@ -3,6 +3,12 @@
     Creates a Windows Startup folder shortcut for daily DWS6 sync.
 
 .DESCRIPTION
+    Version: 1.1
+
+    CHANGE LOG:
+      v1.0 - 05.02.2026 - Initial: creates .lnk shortcut in Startup folder
+      v1.1 - 07.02.2026 - Documented versioning
+
     Places a shortcut to Startup-DailySync.bat in:
       %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 

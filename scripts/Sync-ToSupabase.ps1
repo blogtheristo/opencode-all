@@ -3,8 +3,15 @@
     Uploads DWS6 business files to Supabase Storage as EU cloud backup.
 
 .DESCRIPTION
-    Uploads Admin/, AgentFoundry/, and other business docs to a private
-    Supabase Storage bucket. Runs locally on Windows where Supabase is reachable.
+    Version: 1.2
+
+    CHANGE LOG:
+      v1.0 - 05.02.2026 - Initial: Supabase Storage upload, bucket management
+      v1.1 - 07.02.2026 - Documented versioning
+      v1.2 - 07.02.2026 - Added scripts/, src/, Firehorse/ to backup folders
+
+    Uploads Admin/, scripts/, src/, and other business files to a private
+    Supabase Storage bucket as EU cloud backup. Runs locally on Windows.
 
     Requires: SUPABASE_URL and SUPABASE_SERVICE_KEY in .env or as parameters.
 
@@ -34,7 +41,12 @@ $SyncFolders = @(
     "Admin",
     "AgentFoundry",
     "Team",
-    "docs\metropolia"
+    "scripts",
+    "src",
+    "Firehorse",
+    "docs\metropolia",
+    "sales-outreach",
+    "investor-outreach"
 )
 
 # --- Auto-detect repo path ---
@@ -148,7 +160,14 @@ function Upload-File {
             ".json" { "application/json" }
             ".ps1"  { "text/plain" }
             ".sh"   { "text/plain" }
+            ".bat"  { "text/plain" }
             ".py"   { "text/plain" }
+            ".ts"   { "text/typescript" }
+            ".tsx"  { "text/typescript" }
+            ".js"   { "text/javascript" }
+            ".jsx"  { "text/javascript" }
+            ".css"  { "text/css" }
+            ".html" { "text/html" }
             ".yaml" { "text/yaml" }
             ".yml"  { "text/yaml" }
             ".xml"  { "application/xml" }

@@ -3,6 +3,15 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
+    Version: 1.4
+
+    CHANGE LOG:
+      v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
+      v1.1 - 05.02.2026 - Added -FullRepo backup flag, exclude folders
+      v1.2 - 06.02.2026 - Added -GeneratePDFs flag, calls Generate-PDFs.ps1
+      v1.3 - 06.02.2026 - Added -OpenNewPDFs, switched to hashtable splatting
+      v1.4 - 07.02.2026 - Documented versioning
+
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
 
@@ -36,11 +45,17 @@
     .git, dist, build, venv). Without this flag, only mapped folders and
     sensitive files are synced to Proton Drive.
 
+.PARAMETER GeneratePDFs
+    After sync, generate PDFs from admin manuals and business docs using pandoc.
+
+.PARAMETER OpenNewPDFs
+    Open newly generated PDFs in Edge browser for review.
+
 .EXAMPLE
     .\Sync-ToProton.ps1
     .\Sync-ToProton.ps1 -DryRun
     .\Sync-ToProton.ps1 -FullRepo
-    .\Sync-ToProton.ps1 -FullRepo -DryRun
+    .\Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs
     .\Sync-ToProton.ps1 -ProtonRoot "D:\Proton\My files\2026"
 #>
 
@@ -51,7 +66,9 @@ param(
     [switch]$DryRun,
     [switch]$FullRepo,
     [switch]$GeneratePDFs,
-    [switch]$OpenNewPDFs
+    [switch]$OpenNewPDFs,
+    [ValidateSet("wkhtmltopdf", "html")]
+    [string]$PdfEngine = "html"
 )
 
 # --- Configuration ---
@@ -288,6 +305,7 @@ if ($GeneratePDFs) {
         $pdfSplat = @{
             RepoPath   = $RepoPath
             OutputPath = $pdfOutputPath
+            Engine     = $PdfEngine
         }
         if ($DryRun) { $pdfSplat["DryRun"] = $true }
         if ($OpenNewPDFs) { $pdfSplat["OpenNew"] = $true }
