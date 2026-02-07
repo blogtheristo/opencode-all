@@ -103,27 +103,26 @@ jobs:
           echo "✅ Changes pushed to repository"
           echo "🔗 View: https://github.com/blogtheristo/dws6/actions"
 
+      - name: ☁️ Purge Cloudflare Cache
+        if: steps.check_changes.outputs.has_changes == 'true'
+        env:
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ ! -z "$CLOUDFLARE_ZONE_ID" ] && [ ! -z "$CLOUDFLARE_API_TOKEN" ]; then
+            curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data '{"purge_everything":true}'
+            echo "✅ Cloudflare cache purged"
+          else
+            echo "⚠️ Cloudflare secrets not configured (optional)"
+          fi
+
       - name: ✨ Workflow complete
         if: always()
         run: |
-          echo ""
-          echo "========================================="
           echo "✅ All Landing Pages Sync Complete"
-          echo "========================================="
-          echo ""
-          echo "📊 Summary:"
-          echo "  Repository: blogtheristo/dws6"
-          echo "  Sites synced:"
-          echo "    • dws6.com → landing-pages/dws6-com/"
-          echo "    • dws10.com → landing-pages/dws10-com/"
-          echo "    • onelifetime.world → landing-pages/onelifetime-world/"
-          echo "  Deployment: Cloudflare Pages"
-          echo ""
-          echo "🔗 Links:"
-          echo "  Repository: https://github.com/blogtheristo/dws6"
-          echo "  Actions: https://github.com/blogtheristo/dws6/actions"
-          echo "  Cloudflare: https://dash.cloudflare.com/pages"
-          echo ""
-          echo "⏱️ Expected deployment time: 30 seconds"
-          echo ""
+          echo "Sites: dws6.com, dws10.com, onelifetime.world"
+          echo "Deployment: Cloudflare Pages"
 
