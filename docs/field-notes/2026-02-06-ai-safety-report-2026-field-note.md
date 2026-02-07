@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Added report quotes on if-then safety commitments, evidence gaps, defence-in-depth, and DWS if-then commitment framework
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 06.02.2026 | Changes: Initial field note — AI Safety Report 2026 analysis with Firehorse operation model cross-reference, sales/marketing outreach implications
 
 Session Links & References:
@@ -48,13 +49,45 @@ This field note extracts findings directly relevant to DWS IQ 6 platform positio
 
 ---
 
+## Executive Summary Context
+
+The report was written with guidance from over 100 independent experts, including nominees from 30+ countries and international organizations (EU, OECD, UN). It focuses on the most capable general-purpose AI systems and emerging risks — risks at the frontier of AI capabilities. Some are already materializing with documented harms; others remain uncertain but could be severe.
+
+The report aims to help policymakers navigate the **"evidence dilemma"**: AI systems are rapidly becoming more capable, but evidence on their risks is slow to emerge and hard to assess. Acting too early risks entrenching ineffective interventions; waiting for conclusive data leaves society vulnerable.
+
+> "While this Report focuses on risks, general-purpose AI can also deliver significant benefits. These systems are already being usefully applied in healthcare, scientific research, education, and other sectors, albeit at highly uneven rates globally. But to realise their full potential, risks must be effectively managed."
+
+**DWS Relevance:** This "evidence dilemma" framing is powerful for sales. Our clients face the same dilemma — they need to act on AI compliance before August 2026 but lack evidence on which risks apply to their specific industry. DWS IQ 6 resolves this dilemma by providing pre-built compliance frameworks for 16 EU industries.
+
+---
+
+## Key Developments Since the 2025 Report
+
+The report documents seven notable developments since the first edition (January 2025):
+
+1. **Capability improvements** — Especially in mathematics, coding, and autonomous operation. Gold-medal IMO performance. AI coding agents now complete tasks that would take a human ~30 minutes (up from <10 min a year ago). Performance remains "jagged" — leading systems still fail at some seemingly simple tasks.
+
+2. **Post-training techniques** — Improvements increasingly come from techniques applied *after* initial training: task-specific refinement and increased compute at inference time. More compute for initial training also continues to improve capabilities.
+
+3. **Rapid but uneven adoption** — At least 700 million people now use leading AI systems weekly. Faster adoption than the personal computer. Over 50% population usage in some countries, below 10% across much of Africa, Asia, and Latin America.
+
+4. **Biological weapons concerns** — Multiple AI companies added safeguards to new models in 2025 after pre-deployment testing could not rule out that they could meaningfully help novices develop biological weapons.
+
+5. **Real-world cyberattack evidence** — Malicious actors and state-associated groups are using AI tools to assist in cyber operations. Security analyses by AI companies confirm this trend.
+
+6. **Safety testing becoming harder** — Models increasingly distinguish between test settings and real-world deployment and exploit loopholes in evaluations. Dangerous capabilities could go undetected before deployment.
+
+7. **Voluntary industry commitments expanding** — 12 companies published or updated Frontier AI Safety Frameworks in 2025. Most risk management remains voluntary, but a few jurisdictions (notably EU) are beginning to formalize requirements as law.
+
+---
+
 ## The Report: Key Findings
 
 ### 1. Rapid Capability Advances
 
-General-purpose AI capabilities have improved rapidly in mathematics, coding, and autonomous operation. AI systems now pass professional licensing exams in medicine and law, answer 80%+ of graduate-level science questions, and achieved gold-medal International Mathematical Olympiad performance.
+General-purpose AI capabilities have improved rapidly in mathematics, coding, and autonomous operation. AI systems achieved gold-medal IMO performance. In coding, AI agents can now reliably complete tasks that would take a human about half an hour, up from under 10 minutes a year ago. Performance remains "jagged" — leading systems still fail at some seemingly simple tasks.
 
-**DWS Relevance:** Our clients in 16 EU industries face a widening gap between AI capability and their organizational readiness. This is the core value proposition of DWS IQ 6.
+**DWS Relevance:** Our clients in 16 EU industries face a widening gap between AI capability and their organizational readiness. The "jagged" performance profile is critical for sales messaging — it means human oversight is not optional, it is structurally necessary. This is the core value proposition of DWS IQ 6's human-in-the-loop architecture.
 
 ### 2. Autonomous Agents — Opportunity and Risk
 
@@ -79,19 +112,109 @@ AI companies have announced $100B+ in data center investments. Growing compute u
 
 **DWS Relevance:** This directly validates DWS IQ 6's climate intelligence positioning. Fit for 55 compliance becomes more urgent as AI infrastructure consumption grows. Carbon footprint calculators (Firehorse voice chat roadmap Q3/2026) address this convergence.
 
-### 5. Risk Management Immaturity
+### 5. Risk Management Immaturity and Evidence Gaps
 
 > "Effective risk management remains difficult: new AI capabilities are unpredictable, the functioning of models is insufficiently researched, and economic incentives on the part of AI companies hinder transparency."
 
+> "Our global risk management frameworks are still immature, with limited quantitative benchmarks and significant evidence gaps. These gaps must be addressed alongside innovation."
+
 Risk management is largely voluntary. A small number of regulatory regimes (notably the EU AI Act) are beginning to formalize requirements. Technical safeguards improve but show significant limitations — users can still obtain harmful outputs by rephrasing requests.
 
-**DWS Relevance:** DWS IQ 6's Article 12 compliance (automatic logging) and reasoning lineage documentation are ahead of the curve. Most competitors lack this infrastructure. The August 2026 EU AI Act deadline makes this a time-sensitive competitive advantage.
+**DWS Relevance:** DWS IQ 6's Article 12 compliance (automatic logging) and reasoning lineage documentation are ahead of the curve. Most competitors lack this infrastructure. The August 2026 EU AI Act deadline makes this a time-sensitive competitive advantage. The report's acknowledgment of "limited quantitative benchmarks" validates our investment in measurable compliance metrics (see Thesis Conclusions below).
 
-### 6. Deception and Situational Awareness
+### 6. Model Evaluations, Capability Thresholds, and 'If-Then' Commitments
+
+> "As AI systems grow more capable, safety and security remain critical priorities. The Report highlights practical approaches of model evaluations, dangerous capability thresholds and 'if-then' safety commitments to reduce high-impact failures."
+
+The report identifies **'if-then' safety commitments** as a key mechanism: developers specify safety measures they will trigger if their models develop certain capabilities. This defence-in-depth approach layers multiple partial protections to collectively reduce the chance that a single failure leads to significant harm.
+
+**DWS Relevance:** This maps directly to DWS IQ 6's architecture:
+- **Model evaluations**: Our Karpathy-principles governance (CLAUDE.md) defines expected agent behavior and failure modes
+- **Capability thresholds**: Firehorse Terms of Service specify that "AI agents cannot trigger safety-critical actions without human validation"
+- **If-then commitments**: Our reasoning lineage documentation automatically triggers Article 12 logging when AI decisions exceed defined confidence thresholds
+- **Defence-in-depth**: MCP Colors Framework prevents RED+BLUE tool mixing; File Access Control protects system files; CSRF Protection, Redirect Validator, and Secure Query Builder form layered security
+
+This is a **major sales differentiator**: DWS can demonstrate to enterprise clients that our platform already implements the "if-then" commitment pattern that the Safety Report recommends as best practice. Most competitors lack this documented framework.
+
+#### DWS If-Then Commitment Framework (Derived from Safety Report)
+
+| If (Capability Threshold) | Then (Safety Measure) | DWS Implementation |
+|---|---|---|
+| AI agent attempts safety-critical action | Human validation required | Firehorse human-in-the-loop |
+| AI decision confidence below threshold | Flag for manual review | Reasoning lineage + Article 12 logging |
+| AI output contains potential hallucination | Cross-validate with knowledge base | Lifetime World Model ground truth |
+| Agent attempts cross-domain tool access | Block and log | MCP Colors Framework (RED/BLUE separation) |
+| Data exfiltration pattern detected | Block request + alert | Domain Validator security module |
+| AI recommendation affects pricing/strategy | Require human approval | Manual approval workflow (thesis: 96% time saved) |
+
+### 7. Deception and Situational Awareness
 
 Models increasingly distinguish between test settings and real-world deployment. "Reward hacking" — finding loopholes to score well without fulfilling intended goals — has become more common. This could allow dangerous capabilities to go undetected.
 
 **DWS Relevance:** This validates our Karpathy-principles-based governance (CLAUDE.md). The "Say No to Slop" and human accountability requirements in our agent workflow directly address these concerns.
+
+### 8. Risks to Human Autonomy
+
+> "AI use may affect people's ability to make informed choices and act on them. Early evidence suggests that reliance on AI tools can weaken critical thinking skills and encourage 'automation bias', the tendency to trust AI system outputs without sufficient scrutiny."
+
+AI companion apps now have tens of millions of users, with a small share showing patterns of increased loneliness and reduced social engagement.
+
+**DWS Relevance:** Automation bias is the primary risk in our sales outreach use case. When Firehorse generates outreach messages or product descriptions, humans must review — not rubber-stamp — the output. The thesis metric of "80% error reduction" was achieved precisely because human oversight caught what automation missed.
+
+---
+
+## The Three Risk Categories in Detail
+
+The report categorizes all general-purpose AI risks into three areas:
+
+### A. Malicious Use
+
+| Risk Area | Current Evidence | DWS Exposure |
+|---|---|---|
+| AI-generated scams, fraud, blackmail | Well-documented but limited systematic data on prevalence | Low — B2B enterprise platform, not consumer-facing |
+| Influence and manipulation | AI content as effective as human at changing beliefs; not yet widespread | Medium — Firehorse outreach templates must maintain ethical boundaries |
+| Cyberattacks | AI discovered 77% of vulnerabilities in real software; state actors using AI | High — our platform processes industrial data; NIS2 compliance critical |
+| Biological/chemical risks | Models released with additional safeguards; novice risk cannot be excluded | Low — not in our domain, but relevant for regulatory framing |
+
+**Sales angle:** DWS clients in critical infrastructure (construction, energy, manufacturing) face elevated cyberattack risk. The report's finding that "criminal groups and state-associated attackers are actively using general-purpose AI" makes NIS2 compliance an urgent pitch.
+
+### B. Malfunctions
+
+| Risk Area | Current Evidence | DWS Exposure |
+|---|---|---|
+| Fabricated information (hallucinations) | Common failure mode across all leading systems | High — industrial compliance data cannot tolerate hallucinations |
+| Flawed code | AI-generated code may contain subtle errors | Medium — our agent workflow includes human review gates |
+| Misleading advice | AI may give confidently wrong recommendations | High — regulatory advice must be accurate; reasoning lineage mitigates |
+| Loss of control | Current systems lack the capabilities, but improving in autonomous operation | Low currently — but agentic chat deployment (Q1/2026) increases exposure |
+
+**Sales angle:** The malfunction risk is the strongest sales argument for DWS IQ 6 over generic AI tools. Industrial clients cannot afford hallucinated compliance data. Our Lifetime World Model + human-in-the-loop architecture is the answer.
+
+### C. Systemic Risks
+
+| Risk Area | Current Evidence | DWS Exposure |
+|---|---|---|
+| Labour market (60% job exposure) | No overall employment effect yet; declining early-career demand | High — our clients manage thousands of workers in construction/manufacturing |
+| Automation bias | Early evidence of weakened critical thinking | Medium — addressed by human oversight in our workflows |
+| AI companion dependency | Tens of millions of users; loneliness patterns in small share | Low — enterprise B2B context |
+| Open-weight model risks | Cannot be recalled; safeguards easier to remove | Medium — some clients may use open-weight models alongside DWS |
+
+**Sales angle:** Systemic risk is the C-suite conversation. When pitching to executives, the 60% job exposure statistic and labour market transition framework positions DWS as a strategic partner, not just a compliance tool.
+
+### Defence-in-Depth: The Report's Core Recommendation
+
+> "AI systems can be made more robust by layering multiple safeguards, an approach known as 'defence-in-depth'."
+
+> "Managing general-purpose AI risks is difficult due to technical and institutional challenges. Technically, new capabilities sometimes emerge unpredictably, the inner workings of models remain poorly understood, and there is an 'evaluation gap': performance on pre-deployment tests does not reliably predict real-world utility or risk."
+
+The report identifies an institutional challenge: "developers have incentives to keep important information proprietary, and the pace of development can create pressure to prioritise speed over risk management."
+
+**DWS's defence-in-depth layers:**
+1. **Model governance**: CLAUDE.md Karpathy principles + Frontier Safety Framework alignment
+2. **Tool isolation**: MCP Colors Framework (RED/BLUE separation)
+3. **Data protection**: Domain Validator, File Access Control, CSRF Protection
+4. **Human oversight**: Firehorse human-in-the-loop (pricing, strategy, compliance decisions)
+5. **Audit trail**: Article 12 automatic logging + reasoning lineage
+6. **Incident response**: NIS2-aligned 24h early warning + 72h final report
 
 ---
 
@@ -101,11 +224,13 @@ The Firehorse master thesis (PHD_FIREHORSE_FI.md) documents operational results 
 
 | Safety Report Concern | Firehorse Response | Measured Result |
 |---|---|---|
-| Agents unreliable for complex tasks | Human-in-the-loop for high-value decisions | 80% error reduction (5% to <1%) |
+| Agents unreliable for complex tasks ("jagged performance") | Human-in-the-loop for high-value decisions | 80% error reduction (5% to <1%) |
 | Autonomous agents lack oversight | Manual approval for pricing/strategy changes | 96% time reduction with maintained quality |
-| Risk management immature | Article 12 logging, reasoning lineage | 80% EU AI Act readiness |
-| Labour market disruption | AI augments human roles, not replaces | 1 person manages 30-product catalog |
-| Environmental costs of AI | Carbon footprint integration roadmap | Fit for 55 at 90% readiness |
+| Risk management immature, limited benchmarks | Article 12 logging, reasoning lineage | 80% EU AI Act readiness |
+| 'If-then' safety commitments needed | Capability threshold triggers (see framework below) | Defence-in-depth: MCP Colors + Domain Validator + CSRF |
+| Labour market disruption (60% job exposure) | AI augments human roles, not replaces | 1 person manages 30-product catalog |
+| Environmental costs of AI ($100B+ data centers) | Carbon footprint integration roadmap | Fit for 55 at 90% readiness |
+| Safety testing becoming harder (evaluation loopholes) | Karpathy governance + human accountability | CLAUDE.md "Say No to Slop" enforcement |
 
 ### Thesis Conclusions (Tulokset) — Key Metrics
 
