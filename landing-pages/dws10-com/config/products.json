@@ -804,6 +804,9 @@
   "settings": {
     "defaultCurrency": "EUR",
     "revolutFallbackLink": "https://revolut.me/lifetimeoy",
+    "revolutPublicKey": "pk_4suQWIGYlrbeIBJyoQXLIL4CwjPyErCDMziP2DfPfntAYTuF",
+    "revolutMode": "prod",
+    "revolutCheckoutApiUrl": "https://api.dws10.com/checkout/create-order",
     "paypalEmail": "risto.anton@lifetime.fi",
     "supportEmail": "support@lifetime.fi",
     "salesEmail": "sales@lifetime.fi",

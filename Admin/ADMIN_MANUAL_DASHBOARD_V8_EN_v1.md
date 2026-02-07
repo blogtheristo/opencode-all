@@ -10,7 +10,7 @@ Sessions & Modifications:
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md
 
 Document Status:
   - Created: 30.12.2025

@@ -402,7 +402,7 @@ Pre-prepared documentation for your procurement team:
 - ✅ **Sub-processor List** — All vendors with EU adequacy status
 - ✅ **BCP/DR Documentation** — RTO 4h, RPO 1h, 99.9% SLA
 
-📖 **Full Security Documentation:** [SECURITY_COMPLIANCE.md](SECURITY_COMPLIANCE.md)
+📖 **Full Security Documentation:** [SECURITY_COMPLIANCE.md](Admin/SECURITY_COMPLIANCE.md)
 
 ### Legal & Privacy
 

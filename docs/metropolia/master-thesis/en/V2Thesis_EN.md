@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added Section 6.7 - Human-in-the-Loop Learning Pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Operational Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation results metrics
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Added DWS10.com e-commerce findings, Google Merchant Center integration, Revolut Business payments, Audio Chat roadmap with Groq/Llama, Industry Carbon Calculator, EU compliance mapping
   - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Major revision - Added Solution Factory model, AgentFoundry documentation, Lifetime Scope Signals theory, SWOT analysis, research questions answers, complete theoretical framework
@@ -20,10 +21,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 28.01.2026
+  - Last Modified: 07.02.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3 with E-Commerce Integration)
+  - Publication Status: DRAFT (V3.2 with HIL Pipeline)
 
 ---
 
@@ -259,6 +260,84 @@ The store is managed using the Firehorse Operations Model with Claude Code:
 | Monday | Feed health check, Google Merchant diagnostics | 15 min |
 | Wednesday | Performance review, CTR analysis | 30 min |
 | Friday | Optimization, feed upload, Git commit | 45 min |
+
+## 6.7 Human-in-the-Loop Learning Pipeline [NEW]
+
+The daily operations of the DWS6 platform are managed through an automated Human-in-the-Loop (HIL) learning pipeline that creates a continuous feedback cycle between the developer, AI agents, and the codebase. This pipeline was implemented in February 2026 to solve the problem of knowledge drift — where documentation and code diverge over time without regular human review.
+
+### Pipeline Architecture
+
+```
+GitHub (source of truth)
+    ↓ git pull (daily, automatic via Startup-DailySync.bat)
+Local Repository (Windows)
+    ↓ Sync-ToProton.ps1
+Proton Drive (encrypted local backup)
+    ↓ Generate-PDFs.ps1 → styled HTML → Learn/ folder
+    ↓ Sync-ToSupabase.ps1
+Supabase Storage (EU cloud backup)
+    ↓
+Edge Browser (morning review of Learn/ contents)
+    ↓ human reads, learns, decides what needs work
+Claude Code Session (next action)
+    ↓ git push
+GitHub → cycle repeats
+```
+
+### Pipeline Components
+
+| Step | Script | Action | Output |
+|------|--------|--------|--------|
+| 1 | `git pull` | Fetch latest changes from GitHub | Updated local repo |
+| 2 | `Sync-ToProton.ps1` | Copy business files to Proton Drive | Encrypted backup |
+| 3 | `Generate-PDFs.ps1` | Convert 19 markdown files to styled HTML | `Learn/` folder |
+| 4 | `Sync-ToSupabase.ps1` | Upload code and docs to Supabase Storage | EU cloud backup |
+| 5 | Edge browser | Auto-open updated files for review | Human knowledge |
+| 6 | Claude Code | AI-assisted development session | Code changes |
+| 7 | `git push` | Push changes to GitHub | Cycle completes |
+
+### Document Sources (19 files converted to HTML)
+
+The pipeline converts all key documentation to branded, styled HTML for morning review:
+
+- **Admin Manuals** (11 files): Authentication, store payments, Supabase, security testing, security monitoring, compliance, DWS6.com operations, testing, gaps analysis, files & folders
+- **Sales & Marketing** (3 files): Enterprise sales, AI agent design
+- **Investor Materials** (3 files): Investor pitch deck, investor memo, presentation
+- **Standards** (2 files): CLAUDE.md environment rules, DWS Document Standard
+
+### DWS Brand Styling
+
+Generated HTML files use DWS brand CSS:
+
+| Element | Style |
+|---------|-------|
+| Headings (H1) | Color `#0a1628`, blue border `#0066cc` |
+| Table Headers | Background `#0a1628`, white text |
+| Links | Color `#0066cc` |
+| Blockquotes | Left border `#0066cc`, light blue background |
+| Font | Segoe UI / Arial, 11pt |
+
+### Why This Pipeline Matters
+
+The HIL pipeline solves three critical problems:
+
+1. **Knowledge Gatekeeping**: Every morning, the human reviews the latest state of all business documents. Nothing drifts unnoticed.
+2. **Three-Layer Backup**: Every change exists in GitHub (version control), Proton Drive (encrypted local), and Supabase (EU cloud). No single point of failure.
+3. **Continuous Learning Loop**: The human reads → identifies gaps → uses Claude Code to fix → pushes changes → next morning sees the update. The feedback loop closes daily.
+
+### Automation
+
+The entire pipeline runs automatically on Windows startup:
+
+```bat
+@echo off
+REM Startup-DailySync.bat v1.4
+set "REPO_PATH=F:\2026\Repos2026\dws6"
+cd /d "%REPO_PATH%"
+git pull origin main
+pwsh -File "%REPO_PATH%\scripts\Sync-ToProton.ps1" -GeneratePDFs -OpenNewPDFs
+pwsh -File "%REPO_PATH%\scripts\Sync-ToSupabase.ps1"
+```
 
 ---
 
@@ -632,4 +711,4 @@ The adoption of Karpathy principles in DWS6 development achieved:
 
 *Document generated using Firehorse Operations Model with Claude Code*
 *Last updated: February 2026*
-*Version: 3.1*
+*Version: 3.2*

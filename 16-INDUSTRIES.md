@@ -262,4 +262,4 @@ Founder & CEO, Lifetime Consulting
 **Document Version:** 1.0
 **Last Updated:** January 3, 2026
 **Classification:** Sales & Marketing
-**Related:** [SECURITY_COMPLIANCE.md](SECURITY_COMPLIANCE.md) | [README.md](README.md)
+**Related:** [SECURITY_COMPLIANCE.md](Admin/SECURITY_COMPLIANCE.md) | [README.md](README.md)
