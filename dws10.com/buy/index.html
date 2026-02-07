@@ -426,11 +426,11 @@
             // All products get live-payment badge (SDK enables all)
             card.classList.add('live-payment');
 
-            const formattedPrice = new Intl.NumberFormat('de-DE', {
+            const formattedPrice = new Intl.NumberFormat('en-IE', {
                 style: 'currency',
                 currency: product.currency || 'EUR',
                 minimumFractionDigits: 0,
-                maximumFractionDigits: 0
+                maximumFractionDigits: 2
             }).format(product.price);
 
             const revolutUrl = getRevolutUrl(product);

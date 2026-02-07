@@ -321,10 +321,11 @@
             }
 
             // Update UI with prices from config
-            const formattedPrice = new Intl.NumberFormat('de-DE', {
+            const formattedPrice = new Intl.NumberFormat('en-IE', {
                 style: 'currency',
                 currency: currentProduct.currency || 'EUR',
-                minimumFractionDigits: 0
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
             }).format(currentProduct.price);
             
             document.getElementById('productName').textContent = currentProduct.name;
