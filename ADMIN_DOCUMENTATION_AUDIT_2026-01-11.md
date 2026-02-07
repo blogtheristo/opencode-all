@@ -54,7 +54,7 @@ All admin manuals and core documentation are **current and actively maintained**
 | `Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md` | 2026-01-11 | - | ✅ Active |
 | `Admin/Security/DWS-IQ6-Security-Intelligence-Strategy.md` | 2026-01-11 | - | ✅ Active |
 | `Admin/Security/SECURITY_FIXES_IMPLEMENTED.md` | 2026-01-11 | - | ✅ Active |
-| `Admin/Security/SECURITY_WORKFLOW_SNYK_AIKIDO.md` | 2026-01-11 | - | ✅ Active |
+| `Admin/Security/SECURITY_WORKFLOW_SNYK_AIKIDO.md` | 2026-01-11 | - | ⚠️ Archived (Snyk/Aikido replaced by ZenFree + Dependabot, Feb 2026) |
 | `Admin/Security/SIMONWILLISON_Security_Research.md` | 2026-01-11 | - | ✅ Active |
 
 ---
@@ -100,7 +100,7 @@ All admin manuals and core documentation are **current and actively maintained**
 - ✅ **Domain Validator** - Customer domain allow-lists
 - ✅ **Security Monitoring** - Daily operations & incident response
 - ✅ **Security Testing** - 57 security tests, CI/CD integration
-- ✅ **Snyk/Aikido Workflow** - Automated vulnerability scanning
+- ⚠️ **Snyk/Aikido Workflow** - Archived (replaced by ZenFree + Dependabot, Feb 2026)
 - ✅ **Security Research** - Simon Willison threat analysis
 
 #### Specialized Manuals
