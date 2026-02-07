@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.4
+    Version: 1.5
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -11,6 +11,7 @@
       v1.2 - 06.02.2026 - Added -GeneratePDFs flag, calls Generate-PDFs.ps1
       v1.3 - 06.02.2026 - Added -OpenNewPDFs, switched to hashtable splatting
       v1.4 - 07.02.2026 - Documented versioning
+      v1.5 - 07.02.2026 - Added root-level standards to $SyncFiles (CLAUDE.md, DWS_DOCUMENT_STANDARD, etc.)
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -92,7 +93,17 @@ $FolderMappings = @(
 # NOTE: Files inside mapped folders (Admin/, Firehorse/, etc.) are already
 # synced by $FolderMappings above. Only list files that live OUTSIDE mapped folders.
 $SyncFiles = @(
-    # (Admin manuals removed - covered by Admin/ folder mapping)
+    # Root-level standards and environment files
+    "CLAUDE.md",
+    "DWS_DOCUMENT_STANDARD.md",
+    "VERSION_AND_AGENT_HISTORY_TEMPLATE.md",
+    "ONTOLOGY.md",
+    "README.md",
+    "16-INDUSTRIES.md",
+    # Document index
+    "docs\Document-index.md",
+    # GitHub/AI agent environment rules
+    ".github\copilot-instructions.md"
 )
 
 # Sensitive/gitignored files -> Proton repo backup (encrypted)

@@ -140,6 +140,11 @@ $FilesToConvert = @(
     @{ Src = "investor-outreach\V3-DWS-IQ6-InvestorPD_2026.md"; Name = "V3-DWS-IQ6-InvestorPD_2026" }
     @{ Src = "investor-outreach\investor-pitch-deck.md";         Name = "investor-pitch-deck" }
     @{ Src = "investor-outreach\INVESTOR_MEMO.md";               Name = "INVESTOR_MEMO" }
+
+    # Standards & Environment Rules
+    @{ Src = "CLAUDE.md";                                        Name = "CLAUDE" }
+    @{ Src = "DWS_DOCUMENT_STANDARD.md";                         Name = "DWS_DOCUMENT_STANDARD" }
+    @{ Src = "docs\Document-index.md";                           Name = "Document-index" }
 )
 
 # --- Create output directory ---

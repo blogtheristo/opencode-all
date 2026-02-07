@@ -3,14 +3,15 @@
     Uploads DWS6 business files to Supabase Storage as EU cloud backup.
 
 .DESCRIPTION
-    Version: 1.2
+    Version: 1.3
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: Supabase Storage upload, bucket management
       v1.1 - 07.02.2026 - Documented versioning
       v1.2 - 07.02.2026 - Added scripts/, src/, Firehorse/ to backup folders
+      v1.3 - 07.02.2026 - Added docs/, .github/, .workflows/, root-level standards (CLAUDE.md etc.)
 
-    Uploads Admin/, scripts/, src/, and other business files to a private
+    Uploads Admin/, scripts/, src/, docs/, and business files to a private
     Supabase Storage bucket as EU cloud backup. Runs locally on Windows.
 
     Requires: SUPABASE_URL and SUPABASE_SERVICE_KEY in .env or as parameters.
@@ -44,9 +45,21 @@ $SyncFolders = @(
     "scripts",
     "src",
     "Firehorse",
-    "docs\metropolia",
+    "docs",
     "sales-outreach",
-    "investor-outreach"
+    "investor-outreach",
+    ".github",
+    ".workflows"
+)
+
+# Root-level files to sync (standards, environment rules)
+$SyncFiles = @(
+    "CLAUDE.md",
+    "DWS_DOCUMENT_STANDARD.md",
+    "VERSION_AND_AGENT_HISTORY_TEMPLATE.md",
+    "ONTOLOGY.md",
+    "README.md",
+    "16-INDUSTRIES.md"
 )
 
 # --- Auto-detect repo path ---
@@ -206,6 +219,16 @@ foreach ($folder in $SyncFolders) {
             $remotePath = $relativePath -replace '\\', '/'
             Upload-File -LocalPath $file.FullName -RemotePath $remotePath
         }
+    }
+}
+
+# --- Sync individual root-level files ---
+Write-Host "Uploading root-level standards" -ForegroundColor Cyan
+foreach ($fileName in $SyncFiles) {
+    $srcFile = Join-Path $RepoPath $fileName
+    if (Test-Path $srcFile) {
+        $remotePath = $fileName -replace '\\', '/'
+        Upload-File -LocalPath $srcFile -RemotePath $remotePath
     }
 }
 
