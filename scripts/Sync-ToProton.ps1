@@ -12,6 +12,7 @@
       v1.3 - 06.02.2026 - Added -OpenNewPDFs, switched to hashtable splatting
       v1.4 - 07.02.2026 - Documented versioning
       v1.5 - 07.02.2026 - Added root-level standards to $SyncFiles (CLAUDE.md, DWS_DOCUMENT_STANDARD, etc.)
+      v1.6 - 07.02.2026 - PDF output now goes to Learn/ folder (HIL pipeline)
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -312,7 +313,7 @@ if ($GeneratePDFs) {
     Write-Host ""
     $pdfScript = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "Generate-PDFs.ps1"
     if (Test-Path $pdfScript) {
-        $pdfOutputPath = Join-Path $ProtonRoot "generated-pdfs"
+        $pdfOutputPath = Join-Path $RepoPath "Learn"
         $pdfSplat = @{
             RepoPath   = $RepoPath
             OutputPath = $pdfOutputPath

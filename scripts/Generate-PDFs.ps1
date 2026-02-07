@@ -12,6 +12,7 @@
       v1.3 - 07.02.2026 - Auto-detect wkhtmltopdf at default install path
       v1.4 - 07.02.2026 - Pass full wkhtmltopdf path to --pdf-engine
       v1.5 - 07.02.2026 - Engine choice (wkhtmltopdf/html), switched to & pandoc
+      v1.6 - 07.02.2026 - Default output to Learn/ folder in repo (HIL pipeline)
 
     Uses pandoc to convert markdown files to styled PDF or HTML.
     Outputs to Proton Drive generated-pdfs/ folder by default.
@@ -31,7 +32,7 @@
     Path to the git repo. Default: auto-detect from script location.
 
 .PARAMETER OutputPath
-    Where to write output files. Default: F:\Proton\Proton\My files\2026\generated-pdfs
+    Where to write output files. Default: <repo>/Learn/ (HIL learning pipeline)
 
 .PARAMETER DryRun
     Show what would be generated without generating.
@@ -48,7 +49,7 @@
 
 param(
     [string]$RepoPath = "",
-    [string]$OutputPath = "F:\Proton\Proton\My files\2026\generated-pdfs",
+    [string]$OutputPath = "",
     [ValidateSet("wkhtmltopdf", "html")]
     [string]$Engine = "html",
     [switch]$DryRun,
@@ -59,6 +60,11 @@ param(
 if (-not $RepoPath) {
     $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     $RepoPath = Split-Path -Parent $ScriptDir
+}
+
+# --- Default output to Learn/ folder in repo ---
+if (-not $OutputPath) {
+    $OutputPath = Join-Path $RepoPath "Learn"
 }
 
 # --- Check pandoc is installed ---
