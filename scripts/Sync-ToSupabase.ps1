@@ -10,6 +10,7 @@
       v1.1 - 07.02.2026 - Documented versioning
       v1.2 - 07.02.2026 - Added scripts/, src/, Firehorse/ to backup folders
       v1.3 - 07.02.2026 - Added docs/, .github/, .workflows/, root-level standards (CLAUDE.md etc.)
+      v1.4 - 07.02.2026 - Exclude node_modules/, dist/, build/, __pycache__, .git/ from sync
 
     Uploads Admin/, scripts/, src/, docs/, and business files to a private
     Supabase Storage bucket as EU cloud backup. Runs locally on Windows.
@@ -212,7 +213,12 @@ foreach ($folder in $SyncFolders) {
     $srcFolder = Join-Path $RepoPath $folder
     if (Test-Path $srcFolder) {
         Write-Host "Uploading $folder/" -ForegroundColor Cyan
-        $files = Get-ChildItem -Path $srcFolder -Recurse -File
+        $files = Get-ChildItem -Path $srcFolder -Recurse -File |
+            Where-Object { $_.FullName -notmatch '[\\/]node_modules[\\/]' -and
+                           $_.FullName -notmatch '[\\/]\.git[\\/]' -and
+                           $_.FullName -notmatch '[\\/]dist[\\/]' -and
+                           $_.FullName -notmatch '[\\/]build[\\/]' -and
+                           $_.FullName -notmatch '[\\/]__pycache__[\\/]' }
         foreach ($file in $files) {
             $relativePath = $file.FullName.Substring($RepoPath.Length + 1)
             # Use forward slashes for Supabase Storage paths
