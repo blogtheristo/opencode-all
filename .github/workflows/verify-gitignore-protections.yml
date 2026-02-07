@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ main, develop ]
   schedule:
-    # Run daily at 2 AM UTC
-    - cron: '0 2 * * *'
+    # Run daily at 3 AM UTC (staggered from daily-site-backup at 02:00, security-scan at 02:30)
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:

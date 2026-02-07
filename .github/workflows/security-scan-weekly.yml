@@ -74,7 +74,7 @@ jobs:
 
       - name: Create Weekly Summary Issue
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -195,7 +195,7 @@ jobs:
 
       - name: Create Individual Issues for Critical/High
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -240,7 +240,7 @@ jobs:
 
       - name: Post Scan Summary
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');

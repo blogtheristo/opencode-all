@@ -30,13 +30,13 @@
         .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
         .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
-        .btn-revolut { background: linear-gradient(135deg, #0075eb, #0052a3); color: white; }
-        .btn-revolut:hover { background: linear-gradient(135deg, #2088f0, #0075eb); transform: translateY(-1px); }
-        .btn-paypal { background: linear-gradient(135deg, #0070ba, #003087); color: white; }
-        .btn-paypal:hover { background: linear-gradient(135deg, #1a8ad4, #0070ba); transform: translateY(-1px); }
-        .btn-contact { background: transparent; color: #94a3b8; border: 1px solid #475569; font-size: 0.85rem; }
-        .btn-contact:hover { background: rgba(255,255,255,0.05); color: #e2e8f0; }
-        
+        .btn-revolut { background: linear-gradient(135deg, #0075EB, #0058B7); color: white; }
+        .btn-revolut:hover { background: linear-gradient(135deg, #1a85f0, #0068D8); transform: translateY(-1px); }
+        .btn-paypal { background: linear-gradient(135deg, #FFC439, #FFB300); color: #003087; }
+        .btn-paypal:hover { background: linear-gradient(135deg, #FFD060, #FFC439); transform: translateY(-1px); }
+        .btn-details { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; display: block; text-align: center; margin-top: 8px; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-details:hover { background: rgba(96, 165, 250, 0.1); }
+
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
         .payment-badge span { font-size: 0.8rem; color: #64748b; }
@@ -54,6 +54,8 @@
         .nav-links { display: flex; gap: 24px; align-items: center; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+
+
         
         /* Dropdown */
         .nav-dropdown { position: relative; }
@@ -75,31 +77,48 @@
         .loading-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(96, 165, 250, 0.3); border-radius: 50%; border-top-color: #60a5fa; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Footer - DWS Brand Standard */
-        .site-footer { background: #0a1628; color: #94a3b8; border-top: 1px solid #1e293b; }
-        .footer-container { max-width: 1200px; margin: 0 auto; padding: 48px 20px 24px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-        .footer-brand-desc { font-size: 0.9rem; line-height: 1.7; max-width: 300px; margin-top: 12px; }
-        .footer-logo { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; }
-        .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
-        .footer-col a { display: block; font-size: 0.9rem; color: #94a3b8; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
-        .footer-col a:hover { color: #60a5fa; }
-        .footer-bottom { padding-top: 24px; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: #64748b; }
-        .footer-bottom a { color: #60a5fa; text-decoration: none; }
-        .footer-bottom a:hover { text-decoration: underline; }
+        /* Footer - Revolut-style multi-column */
+        .site-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; }
+        .site-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+        .site-footer a:hover { color: #60a5fa; }
+        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 40px 32px; }
+        .footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+        .footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
+        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 40px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .footer-payments span { font-size: 0.8rem; }
+        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
+        .footer-locale svg { flex-shrink: 0; }
+        .footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
+        .footer-legal a { color: #64748b; font-size: 0.8rem; }
+        .footer-legal a:hover { color: #60a5fa; }
+        .footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
         
+        /* Category Navigation - DWS Gamma Brand */
+        .category-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .category-btn { padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; min-height: 48px; display: inline-flex; align-items: center; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.15); background: rgba(30, 41, 59, 0.7); color: #e2e8f0; }
+        .category-btn:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); color: #60a5fa; }
+        .category-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+
+        /* Locale & VAT Selector */
+        .locale-btn { background: none; border: 1px solid rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #94a3b8; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: all 0.2s; font-family: inherit; }
+        .locale-btn.active { border-color: #60a5fa; color: #e2e8f0; background: rgba(96, 165, 250, 0.1); }
+        .locale-btn:hover { border-color: #60a5fa; color: #e2e8f0; }
+        .vat-notice { text-align: center; padding: 8px 16px; background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 6px; font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px; }
+
         @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 12px; }
-            .btn-group { flex-direction: column; }
+            .btn-group { flex-direction: row; }
             .trust-badges { gap: 20px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-            .footer-bottom { flex-direction: column; text-align: center; }
-            h1 { font-size: 1.8rem !important; }
-        }
-        @media (max-width: 480px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            .container { padding: 20px 12px; }
+            .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; margin-bottom: 24px; }
+            .category-btn { padding: 12px 18px; font-size: 0.875rem; }
+            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 20px 24px; gap: 24px; }
+            .footer-payments { padding: 0 20px 20px; }
+            .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .footer-legal { gap: 12px; }
         }
     </style>
 </head>
@@ -132,12 +151,16 @@
             <p style="font-size: 1.1rem; color: #94a3b8; line-height: 1.7;">We turn construction compliance from paperwork and spreadsheets into a real‑time competitive advantage with the DWS IQ 6 industrial climate OS.</p>
         </div>
         
-        <!-- Pagination -->
-        <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 30px;">
-            <a href="./" style="padding: 12px 24px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 8px; color: white; text-decoration: none; font-weight: 600;">Page 1</a>
-            <a href="./page2/" style="padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600;">Page 2</a>
-            <a href="./page3/" style="padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600;">Page 3</a>
-        </div>
+        <!-- Category Navigation -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="./" class="category-btn active" aria-current="page">Platform &amp; Products</a>
+            <a href="./page2/" class="category-btn">AI &amp; Cloud Consulting</a>
+            <a href="./page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="./page4/" class="category-btn">Digital Services</a>
+        </nav>
+
+        <!-- VAT Notice -->
+        <div class="vat-notice" id="vatNotice">All prices excl. VAT &middot; EU Business (B2B)</div>
 
         <!-- Products loaded dynamically from config -->
         <div id="productGrid" class="product-grid">
@@ -147,12 +170,13 @@
             </div>
         </div>
 
-        <!-- Pagination Bottom -->
-        <div style="display: flex; justify-content: center; gap: 16px; margin-top: 30px;">
-            <a href="./" style="padding: 12px 24px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 8px; color: white; text-decoration: none; font-weight: 600;">Page 1</a>
-            <a href="./page2/" style="padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600;">Page 2</a>
-            <a href="./page3/" style="padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600;">Page 3</a>
-        </div>
+        <!-- Category Navigation Bottom -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="./" class="category-btn active" aria-current="page">Platform &amp; Products</a>
+            <a href="./page2/" class="category-btn">AI &amp; Cloud Consulting</a>
+            <a href="./page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="./page4/" class="category-btn">Digital Services</a>
+        </nav>
 
         <!-- CTA Section -->
         <section class="cta-section" style="text-align: center; margin: 50px 0 40px; padding: 40px 20px; background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(16, 185, 129, 0.1)); border-radius: 16px; border: 1px solid rgba(96, 165, 250, 0.3);">
@@ -198,45 +222,92 @@
     </main>
 
     <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo">DWS IQ Platform</div>
-                    <p class="footer-brand-desc">Industrial Climate Intelligence & Compliance. EU-Sovereign by Design. Fit for 55, ETS, CBAM, CSRD automation across 16 industries.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Products</h4>
-                    <a href="../products/dwsiq.html">DWS IQ 6</a>
-                    <a href="../products/firehorse-automation.html">Firehorse Automation</a>
-                    <a href="../products/firehorse-reports.html">Firehorse Reports</a>
-                    <a href="../products/firehorse-omnichannel.html">Omnichannel</a>
-                    <a href="../products/firehorse-content-management.html">Content DMS</a>
-                    <a href="./">Store</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <a href="../">Home</a>
-                    <a href="../careers/">Careers</a>
-                    <a href="../partners/">Partners</a>
-                    <a href="../investor-relations/">Investors</a>
-                    <a href="https://onelifetime.world" target="_blank">OneLifetime.World</a>
-                    <a href="mailto:offer@lifetime.fi">Contact Sales</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Legal</h4>
-                    <a href="../legal/">Legal Hub</a>
-                    <a href="../privacy-policy/">Privacy Policy</a>
-                    <a href="../data-security-policy/">Data Security</a>
-                    <a href="../terms/">Terms of Service</a>
-                    <a href="../return-policy/">Return Policy</a>
-                    <a href="../regulatory-notice/">Investor Notice</a>
-                </div>
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="./">Platform &amp; Products</a>
+                <a href="./page2/">AI &amp; Cloud Consulting</a>
+                <a href="./page3/">Expert Advisory &amp; Training</a>
+                <a href="./page4/">Digital Services</a>
+                <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
+                <a href="../checkout/">Checkout</a>
             </div>
-            <div class="footer-bottom">
-                <div>
-                    <strong style="color: #e2e8f0;">Data Controller:</strong> Lifetime Oy, Laidunmaanraitti 2 A 25, 02330 Espoo, Finland. Business ID: 0772407-9.
-                </div>
-                <div>Copyright &copy; 2025-2026 Lifetime Oy. All Rights Reserved.</div>
+            <div class="footer-col">
+                <h4>Industries</h4>
+                <a href="../construction/">Construction</a>
+                <a href="../energy/">Energy</a>
+                <a href="../manufacturing/">Manufacturing</a>
+                <a href="../real-estate/">Real Estate</a>
+                <a href="../logistics/">Logistics</a>
+                <a href="../healthcare/">Healthcare</a>
+                <a href="../financial-services/">Financial Services</a>
+                <a href="../public-sector/">Public Sector</a>
+                <a href="../mining/">Mining</a>
+                <a href="../shipbuilding/">Shipbuilding</a>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="https://dws6.com/login">Login</a>
+                <a href="https://dws6.com/dashboard/">Dashboard</a>
+                <a href="../products/dwsiq.html">DWS IQ 6</a>
+                <a href="../products/firehorse-reports.html">Firehorse Reports</a>
+                <a href="../products/firehorse-automation.html">Firehorse Automation</a>
+                <a href="../products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
+                <a href="../world-model/">World Model</a>
+                <a href="../architecture/">Architecture</a>
+                <a href="../lifetime-fleet/">Lifetime Fleet</a>
+            </div>
+            <div class="footer-col">
+                <h4>Compliance</h4>
+                <a href="../fit-for-55/">Fit for 55</a>
+                <a href="../csrd/">CSRD Reporting</a>
+                <a href="../compliance/">EU AI Act</a>
+                <a href="../regulatory-notice/">Regulatory Notice</a>
+                <a href="../dual-use/">Dual Use</a>
+                <a href="../calculator/">Carbon Calculator</a>
+                <a href="../progress-report/">Progress Report</a>
+            </div>
+            <div class="footer-col">
+                <h4>Help &amp; Company</h4>
+                <a href="../lifetime-consulting/">Lifetime Consulting</a>
+                <a href="../careers/">Careers</a>
+                <a href="../partners/">Partners</a>
+                <a href="../investor-relations/">Investor Relations</a>
+                <a href="https://onelifetime.world">Community</a>
+                <a href="mailto:support@lifetime.fi">Support</a>
+                <a href="mailto:sales@lifetime.fi">Sales</a>
+                <a href="../legal/">Legal Hub</a>
+            </div>
+        </div>
+        <div class="footer-payments">
+            <span style="color: #64748b;">Accepted payments:</span>
+            <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+            <span style="color: #003087; font-weight: 600;">PayPal Business</span>
+            <span style="color: #4ade80; font-weight: 600;">SEPA EUR</span>
+            <span style="color: #64748b;">Bank Transfer</span>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-locale">
+                <button class="locale-btn active" data-locale="eu" title="English &middot; EU Business (B2B) &middot; Prices excl. VAT">
+                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="#003399"/><g fill="#FC0" transform="translate(10,7)"><circle cx="0" cy="-4.5" r=".7"/><circle cx="2.25" cy="-3.9" r=".7"/><circle cx="3.9" cy="-2.25" r=".7"/><circle cx="4.5" cy="0" r=".7"/><circle cx="3.9" cy="2.25" r=".7"/><circle cx="2.25" cy="3.9" r=".7"/><circle cx="0" cy="4.5" r=".7"/><circle cx="-2.25" cy="3.9" r=".7"/><circle cx="-3.9" cy="2.25" r=".7"/><circle cx="-4.5" cy="0" r=".7"/><circle cx="-3.9" cy="-2.25" r=".7"/><circle cx="-2.25" cy="-3.9" r=".7"/></g></svg>
+                    EU
+                </button>
+                <button class="locale-btn" data-locale="fi" title="Suomeksi &middot; Kuluttajahinnat (B2C) &middot; Hinnat sis. ALV 25,5 %">
+                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="white"/><rect x="5" y="0" width="4" height="14" fill="#003580"/><rect x="0" y="5" width="20" height="4" fill="#003580"/></svg>
+                    FI
+                </button>
+            </div>
+            <div class="footer-legal">
+                <a href="../terms/">Website Terms</a>
+                <a href="../privacy-policy/">Privacy Policy</a>
+                <a href="../return-policy/">Return Policy</a>
+                <a href="../data-handling-policy/">Data Handling</a>
+                <a href="../data-security-policy/">Data Security</a>
+                <a href="../investment-safety/">Investment Safety</a>
+                <a href="../regulatory-notice/">Regulatory Notice</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025&ndash;2026 Lifetime Oy &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
             </div>
         </div>
     </footer>
@@ -292,16 +363,54 @@
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
-            const sortedProducts = Object.values(PRODUCTS).sort((a, b) => {
-                if (a.featured && !b.featured) return -1;
-                if (!a.featured && b.featured) return 1;
-                return b.price - a.price;
-            });
+            // Filter to platform category, then sort: featured first, then by price descending
+            const sortedProducts = Object.values(PRODUCTS)
+                .filter(p => p.storeCategory === 'platform' || !p.storeCategory)
+                .sort((a, b) => {
+                    if (a.featured && !b.featured) return -1;
+                    if (!a.featured && b.featured) return 1;
+                    return b.price - a.price;
+                });
 
             sortedProducts.forEach(product => {
                 const card = createProductCard(product);
                 grid.appendChild(card);
             });
+
+            // Refresh VAT locale after dynamic render
+            if (window.dwsVatRefresh) window.dwsVatRefresh();
+        }
+
+        // Get Revolut payment URL for a product
+        function getRevolutUrl(product) {
+            if (product.revolutLink) {
+                return product.revolutLink;
+            }
+            var fallback = (CONFIG && CONFIG.revolutFallbackLink) ? CONFIG.revolutFallbackLink : 'https://revolut.me/lifetimeoy';
+            var priceNumber = typeof product.price === 'number' ? product.price : Number(product.price);
+            if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
+                // Invalid or non-positive price; fall back to base link without amount
+                return fallback;
+            }
+            // Revolut fallback URL only supports integer euro amounts safely.
+            // If the price has cents, require an explicit product.revolutLink by using the base link.
+            if (!Number.isInteger(priceNumber)) {
+                return fallback;
+            }
+            return fallback + '/' + priceNumber + 'EUR';
+        }
+
+        // Get PayPal payment URL for a product
+        function getPayPalUrl(product) {
+            var email = (CONFIG && CONFIG.paypalEmail) ? CONFIG.paypalEmail : 'risto.anton@lifetime.fi';
+            var params = new URLSearchParams({
+                cmd: '_xclick',
+                business: email,
+                item_name: product.name,
+                amount: product.price,
+                currency_code: product.currency || 'EUR'
+            });
+            return 'https://www.paypal.com/cgi-bin/webscr?' + params.toString();
         }
 
         // Create a product card element
@@ -324,6 +433,9 @@
                 maximumFractionDigits: 0
             }).format(product.price);
 
+            const revolutUrl = getRevolutUrl(product);
+            const paypalUrl = getPayPalUrl(product);
+
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='../static/images/Firehorse_Store.jpg'">
                 <div class="product-content">
@@ -332,14 +444,15 @@
                     <div class="product-price-note">${product.priceNote || ''}</div>
                     <p class="product-excerpt">${product.description}</p>
                     <div class="btn-group">
-                        <button class="btn btn-revolut" onclick="payWithRevolut('${product.id}', this)" title="Pay with Revolut">💳 Revolut</button>
-                        <button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">PayPal</button>
+                        <button class="btn btn-revolut" onclick="payWithRevolut('${product.id}', this)" title="Pay with Revolut">Pay – Revolut</button>
+                        <button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">Pay – PayPal</button>
                     </div>
+                    <a href="${product.detailsUrl}" class="btn-details">Details</a>
                     <div class="payment-badge">
-                        <span>Secure EU payment</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span>Secure payment via</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
                         <span style="color: #94a3b8;">|</span>
-                        <span style="color: #0070ba; font-weight: 600;">PayPal Business</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             `;
@@ -358,7 +471,7 @@
             if (!product) { console.error('Product not found:', productId); return; }
 
             const originalText = btn.textContent;
-            btn.textContent = '⏳ Processing...';
+            btn.textContent = 'Processing...';
             btn.disabled = true;
 
             const amountMinor = Math.round(product.price * 100);
@@ -439,6 +552,9 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', loadProducts);
+
     </script>
+    <script src="../shared-assets/vat-locale.js"></script>
+    <script src="../shared-assets/nav/hamburger-menu.js"></script>
 </body>
 </html>
