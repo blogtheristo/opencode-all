@@ -43,6 +43,13 @@ Related Documents:
   - docs/SECURITY_GLOSSARY.md (Bilingual Security Terminology)
   - SECURITY_ASSESSMENT_GAMMA.md (Vulnerability Assessment)
   - documentation/SECURITY-FIX-GUIDE.md (Database Security Fixes)
+  - DWS_DOCUMENT_STANDARD.md (v1.3 — document metadata, naming, versioning, knowledge management)
+  - UI_SKILLS_GAMMA.md (v2.0 — Gamma brand standard, design constraints, WCAG 2.2)
+  - dws10.com/docs/PHD_FIREHORSE_EN.md (Master thesis EN — Firehorse operational model)
+  - dws10.com/docs/PHD_FIREHORSE_FI.md (Pro gradu FI — Firehorse-toimintamalli)
+  - ADMIN_MANUAL_AUTHENTICATION.md (v1.3 — JWT, bcrypt, security auditing)
+  - ADMIN_MANUAL_SUPABASE_EN_v1.md (Database administration)
+  - ADMIN_MANUAL_DWS6_COM.md (Platform configuration)
 
 ---
 
@@ -50,14 +57,58 @@ Related Documents:
 
 The **DWS Security Standard** is the internal security framework governing all DWS IQ 6 platform operations, Firehorse product line, Lifetime Fleet, and Lifetime Consulting services. It integrates:
 
+**External standards and research:**
 - **International AI Safety Report 2026** (Bengio et al., 100+ experts, 30+ countries)
 - **EU AI Act** (enforceable August 2, 2026)
 - **NIS2 Directive**, **GDPR**, **Fit for 55**, **CSRD**
 - **OWASP Top 10 for LLM Applications 2025**
 - **Simon Willison's security research** (prompt injection, MCP attack vectors)
-- **DWS operational experience** (Firehorse thesis metrics, field notes)
+
+**Internal DWS standards (foundational inputs to security):**
+- **DWS Document Standard** (v1.3) — Document metadata, VERSION AND AGENT HISTORY, naming conventions, knowledge management strategy. Ensures all security documentation is traceable, versioned, and auditable per EU AI Act Article 12 requirements.
+- **Gamma Brand Standard** (v2.0, UI_SKILLS_GAMMA.md) — Design constraints, WCAG 2.2 Level AA accessibility, z-index discipline, Ironclad navigation. Security-relevant: prevents XSS through strict style policies, enforces Content Security Policy alignment, and ensures accessible security UIs.
+- **Admin Manuals** — Operational security procedures for authentication (ADMIN_MANUAL_AUTHENTICATION.md v1.3), database administration (ADMIN_MANUAL_SUPABASE_EN_v1.md), platform configuration (ADMIN_MANUAL_DWS6_COM.md), and testing (ADMIN_MANUAL_TESTING.md). These define the human procedures that complement technical security controls.
+- **Firehorse Master Thesis** (EN: PHD_FIREHORSE_EN.md, FI: PHD_FIREHORSE_FI.md) — Operational model documenting human-AI collaboration, compliance readiness metrics, and the measured results (96% efficiency, 80% error reduction) that validate our security architecture. Essential to the Firehorse operational model because it proves that human-in-the-loop oversight works at scale.
 
 This standard applies to all employees, contractors, AI agents, and third-party integrations operating within the DWS ecosystem.
+
+### 1.1 How Internal Standards Form the Security Foundation
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     DWS SECURITY STANDARD                           │
+│                    (this document — policy)                          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
+│  │  DWS DOCUMENT    │  │  GAMMA BRAND     │  │  FIREHORSE       │  │
+│  │  STANDARD v1.3   │  │  STANDARD v2.0   │  │  THESIS (FI/EN)  │  │
+│  │                  │  │                  │  │                  │  │
+│  │  • Traceability  │  │  • WCAG 2.2 AA   │  │  • 96% efficiency│  │
+│  │  • Versioning    │  │  • XSS prevention │  │  • 80% error ↓   │  │
+│  │  • Audit trail   │  │  • CSP alignment  │  │  • Human-in-loop │  │
+│  │  • Agent history │  │  • Ironclad nav   │  │  • EU compliance  │  │
+│  └────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘  │
+│           │                     │                      │            │
+│  ┌────────┴─────────────────────┴──────────────────────┴─────────┐  │
+│  │                      ADMIN MANUALS                             │  │
+│  │  Authentication · Supabase · DWS6.com · Testing · Dashboard   │  │
+│  │  (Operational security procedures — human execution layer)     │  │
+│  └───────────────────────────────────────────────────────────────┘  │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│  EXTERNAL: AI Safety Report 2026 · EU AI Act · NIS2 · OWASP · GDPR │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Why these matter for security:**
+
+| Internal Standard | Security Contribution | Without It |
+|---|---|---|
+| **Document Standard** | Every AI decision traceable via VERSION AND AGENT HISTORY; supports Article 12 logging | No audit trail for AI-generated documents; compliance gap |
+| **Gamma Brand Standard** | WCAG 2.2 prevents accessibility-related vulnerabilities; strict style policies reduce XSS surface | Inconsistent UIs create phishing risk; accessibility violations |
+| **Admin Manuals** | Standardized procedures for JWT rotation, database security, incident handling | Ad-hoc procedures; inconsistent security posture |
+| **Firehorse Thesis (FI/EN)** | Measured proof that human-in-the-loop works (80% error reduction); operational model for all Firehorse automation | Unvalidated claims; no evidence base for security architecture decisions |
 
 ---
 
@@ -519,7 +570,25 @@ The DWS Security Standard sits within the following document hierarchy:
 
 ```
 DWS Security Standard (this document)
-├── INTERNAL FRAMEWORK
+│
+├── FOUNDATIONAL STANDARDS (inputs to security)
+│   ├── DWS_DOCUMENT_STANDARD.md          ← v1.3 — traceability, versioning, Article 12 audit trail
+│   ├── UI_SKILLS_GAMMA.md                ← v2.0 — brand standard, WCAG 2.2, XSS prevention
+│   └── CLAUDE.md                          ← Karpathy principles, agent governance
+│
+├── FIREHORSE OPERATIONAL MODEL (evidence base)
+│   ├── dws10.com/docs/PHD_FIREHORSE_EN.md     ← Master thesis EN — operational model + metrics
+│   ├── dws10.com/docs/PHD_FIREHORSE_FI.md     ← Pro gradu FI — toimintamalli + tulokset
+│   └── (synced: landing-pages/dws10-com/docs/)  ← Production copies (dual folder rule)
+│
+├── ADMIN MANUALS (operational security procedures)
+│   ├── ADMIN_MANUAL_AUTHENTICATION.md     ← v1.3 — JWT, bcrypt, security audit workflow
+│   ├── ADMIN_MANUAL_SUPABASE_EN_v1.md     ← Database administration & RLS
+│   ├── ADMIN_MANUAL_DWS6_COM.md           ← Platform configuration
+│   ├── ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md ← Dashboard administration
+│   └── ADMIN_MANUAL_TESTING.md            ← Testing procedures
+│
+├── INTERNAL SECURITY FRAMEWORK
 │   ├── DWS_SECURITY_STANDARD.md          ← You are here (internal standard)
 │   ├── AgentFoundry/Security.md          ← LLM threat analysis (800 lines)
 │   ├── README_SECURITY.md               ← Implementation quick reference
@@ -566,12 +635,23 @@ DWS Security Standard (this document)
 
 ## 13. References
 
+**External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
+- [OECD 2026: Exploring Possible AI Trajectories through 2030](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Scenario analysis
 - [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) — Regulation (EU) 2024/1689
 - [NIS2 Directive](https://eur-lex.europa.eu/eli/dir/2022/2555/oj) — Directive (EU) 2022/2555
 - [OWASP Top 10 for LLM Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 - Simon Willison's LLM Security Research (referenced in README_SECURITY.md)
 - [MITRE ATLAS](https://atlas.mitre.org/) — AI Threat Landscape
+
+**Internal DWS documents:**
+- DWS Document Standard v1.3 (DWS_DOCUMENT_STANDARD.md)
+- Gamma Brand Standard v2.0 (UI_SKILLS_GAMMA.md)
+- Firehorse Master Thesis EN (dws10.com/docs/PHD_FIREHORSE_EN.md)
+- Firehorse Pro Gradu FI (dws10.com/docs/PHD_FIREHORSE_FI.md)
+- Admin Manual: Authentication v1.3 (ADMIN_MANUAL_AUTHENTICATION.md)
+- Admin Manual: Supabase (ADMIN_MANUAL_SUPABASE_EN_v1.md)
+- Admin Manual: DWS6.com (ADMIN_MANUAL_DWS6_COM.md)
 - DWS Field Note: AI Safety Report 2026 (docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md)
 
 ---
