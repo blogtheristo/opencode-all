@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.5
+    Version: 1.7
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -13,6 +13,7 @@
       v1.4 - 07.02.2026 - Documented versioning
       v1.5 - 07.02.2026 - Added root-level standards to $SyncFiles (CLAUDE.md, DWS_DOCUMENT_STANDARD, etc.)
       v1.6 - 07.02.2026 - PDF output now goes to Learn/ folder (HIL pipeline)
+      v1.7 - 08.02.2026 - Fix: sync Learn/ (generated HTML/PDF) to Proton after generation
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -308,7 +309,7 @@ if ($FullRepo) {
     }
 }
 
-# --- PDF Generation (optional) ---
+# --- PDF/HTML Generation (optional) ---
 if ($GeneratePDFs) {
     Write-Host ""
     $pdfScript = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "Generate-PDFs.ps1"
@@ -322,6 +323,20 @@ if ($GeneratePDFs) {
         if ($DryRun) { $pdfSplat["DryRun"] = $true }
         if ($OpenNewPDFs) { $pdfSplat["OpenNew"] = $true }
         & $pdfScript @pdfSplat
+
+        # --- Sync generated HTML/PDF files to Proton Drive ---
+        $learnFolder = $pdfOutputPath
+        if (Test-Path $learnFolder) {
+            $protonLearnDest = Join-Path $ProtonRepoPath "Learn"
+            Write-Host ""
+            Write-Host "Syncing Learn/ (generated docs) -> $protonLearnDest" -ForegroundColor Cyan
+            $learnFiles = Get-ChildItem -Path $learnFolder -Recurse -File
+            foreach ($file in $learnFiles) {
+                $relativeToLearn = $file.FullName.Substring($learnFolder.Length + 1)
+                $destPath = Join-Path $protonLearnDest $relativeToLearn
+                Sync-Item -Source $file.FullName -Destination $destPath
+            }
+        }
     } else {
         Write-Warning "PDF script not found: $pdfScript"
     }
