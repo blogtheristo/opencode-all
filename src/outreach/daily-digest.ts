@@ -31,6 +31,11 @@ const PIPELINE_LABELS: Record<OutreachPipeline, string> = {
   customer: 'CUSTOMER',
   partner: 'PARTNER',
 };
+const PIPELINE_TAGS: Record<OutreachPipeline, string> = {
+  investor: 'INV',
+  customer: 'CUST',
+  partner: 'PART',
+};
 
 const OPEN_STATUSES: OutreachStatus[] = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
 const ACTIVE_STATUSES: OutreachStatus[] = ['responded', 'meeting_booked', 'in_negotiation'];
@@ -248,39 +253,10 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
 }
 
 // ============================================================================
-// GROUP BY PIPELINE (mini headers within each bucket)
+// PLAIN TEXT FORMATTING — flat list with [INV]/[CUST]/[PART] tags per line
 // ============================================================================
 
-function groupByPipeline(threads: BucketedThread[]): Map<OutreachPipeline, BucketedThread[]> {
-  const groups = new Map<OutreachPipeline, BucketedThread[]>();
-  for (const p of PIPELINES) {
-    const filtered = threads.filter((t) => t.pipeline === p);
-    if (filtered.length > 0) groups.set(p, filtered);
-  }
-  return groups;
-}
-
-// ============================================================================
-// PLAIN TEXT FORMATTING
-// ============================================================================
-
-function threadLine(t: BucketedThread, prefix: string): string {
-  const org = t.org ? ` (${t.org})` : '';
-  const status = t.status.replace(/_/g, ' ');
-  const pl = PIPELINE_LABELS[t.pipeline];
-
-  let action = t.next_action || `Follow up with ${t.name}`;
-
-  if (isMaxedOut(t.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
-    action = `Consider parking — ${t.nudge_count} nudges, no response`;
-  } else if (t.nudge_count > 0 && (t.overdue || t.due_today)) {
-    action = getNudgeTemplate(t.pipeline, t.nudge_count);
-  }
-
-  return `  ${prefix} [${pl}] ${t.name}${org} — ${status} → ${action}`;
-}
-
-/** Render a bucket with mini pipeline headers */
+/** Render a bucket as flat list with pipeline tag per line */
 function renderBucketPlainText(
   lines: string[],
   title: string,
@@ -294,16 +270,12 @@ function renderBucketPlainText(
   lines.push(`${title} (${threads.length}${overflow ? ` + ${overflow} more` : ''})`);
   lines.push('-'.repeat(40));
 
-  const groups = groupByPipeline(threads);
-  for (const [pipeline, group] of groups) {
-    lines.push(`  ${PIPELINE_LABELS[pipeline]}`);
-    for (const t of group) {
-      lines.push(`    ${lineFormatter(t)}`);
-    }
+  for (const t of threads) {
+    lines.push(`  [${PIPELINE_TAGS[t.pipeline]}] ${lineFormatter(t)}`);
   }
 
   if (overflow && overflow > 0) {
-    lines.push(`  +${overflow} more active deals not shown`);
+    lines.push(`  +${overflow} more not shown`);
   }
 }
 
@@ -351,7 +323,7 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
     return `${t.name}${org} — ${t.status.replace(/_/g, ' ')}, ${days}d → ${action}`;
   });
 
-  // ACTIVE DEALS (with DUE flag for threads that have an action date <= today)
+  // ACTIVE DEALS (with OVERDUE/DUE date flag for threads with action date <= today)
   renderBucketPlainText(
     lines,
     'ACTIVE DEALS',
@@ -359,7 +331,12 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
     (t) => {
       const org = t.org ? ` (${t.org})` : '';
       const action = t.next_action || 'Keep momentum';
-      const dueFlag = (t.overdue || t.due_today) ? '[DUE] ' : '';
+      let dueFlag = '';
+      if (t.overdue && t.next_action_date) {
+        dueFlag = `OVERDUE ${t.next_action_date} `;
+      } else if (t.due_today) {
+        dueFlag = `DUE ${t.next_action_date} `;
+      }
       return `${dueFlag}${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
     },
     buckets.active_deals_overflow
@@ -400,6 +377,7 @@ function escapeHtml(str: string): string {
 
 function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extraFlag?: string): string {
   const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+  const tag = PIPELINE_TAGS[t.pipeline];
   let action = t.next_action || `Follow up with ${t.name}`;
 
   if (isMaxedOut(t.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
@@ -414,13 +392,13 @@ function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extra
   return `
     <div style="padding: 8px 0; border-bottom: 1px solid #222;">
       <div style="font-size: 13px; color: #e0e0e0;">
-        ${flagHtml}${extraFlagHtml}<strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+        ${flagHtml}${extraFlagHtml}<span style="color: #00d4aa; font-size: 11px;">[${tag}]</span> <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
       </div>
       <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
     </div>`;
 }
 
-/** Render an HTML bucket section with mini pipeline headers */
+/** Render an HTML bucket section — flat list with [INV]/[CUST]/[PART] inline tags */
 function htmlBucketSection(
   title: string,
   threads: BucketedThread[],
@@ -431,16 +409,12 @@ function htmlBucketSection(
   if (threads.length === 0 && !extraInfo) return '';
 
   let content = '';
-  const groups = groupByPipeline(threads);
-  for (const [pipeline, group] of groups) {
-    content += `<div style="padding: 4px 0; font-size: 11px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px;">${PIPELINE_LABELS[pipeline]}</div>`;
-    for (const t of group) {
-      content += rowRenderer(t);
-    }
+  for (const t of threads) {
+    content += rowRenderer(t);
   }
 
   if (overflow && overflow > 0) {
-    content += `<p style="margin: 8px 0 0; font-size: 12px; color: #666;">+${overflow} more active deals not shown</p>`;
+    content += `<p style="margin: 8px 0 0; font-size: 12px; color: #666;">+${overflow} more not shown</p>`;
   }
 
   return `
@@ -481,11 +455,13 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
       (t) => {
         const days = t.waiting_days ?? 0;
         const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+        const tag = PIPELINE_TAGS[t.pipeline];
         const action = t.next_action || 'Awaiting response';
         return `
           <div style="padding: 8px 0; border-bottom: 1px solid #222;">
             <div style="font-size: 13px; color: #e0e0e0;">
-              <span style="color: #888; font-weight: 600;">WAITING ${days}d</span>
+              <span style="color: #888; font-weight: 600;">${days}d</span>
+              <span style="color: #00d4aa; font-size: 11px;">[${tag}]</span>
               <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
             </div>
             <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
@@ -496,8 +472,12 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
       `ACTIVE DEALS (${buckets.active_deals.length}${buckets.active_deals_overflow > 0 ? ` + ${buckets.active_deals_overflow}` : ''})`,
       buckets.active_deals,
       (t) => {
-        // Add DUE flag for active deals that have an overdue or today action date
-        const dueFlag = (t.overdue || t.due_today) ? 'DUE' : undefined;
+        let dueFlag: string | undefined;
+        if (t.overdue && t.next_action_date) {
+          dueFlag = `OVERDUE ${t.next_action_date}`;
+        } else if (t.due_today && t.next_action_date) {
+          dueFlag = `DUE ${t.next_action_date}`;
+        }
         return htmlThreadRow(t, '', '#00d4aa', dueFlag);
       },
       buckets.active_deals_overflow
