@@ -1,12 +1,33 @@
 -- =============================================================================
--- ONE-TIME CLEANUP: Remove 3 placeholder threads + orphaned persons
--- Run manually against staging, then prod.
--- Date: 2026-02-08
--- Targets: thread_tokens 2764XEMEWX, YBMDRDF4PS, YPGW53RPFQ
--- =============================================================================
--- These were "team" placeholder entries with company LinkedIn URLs.
--- Rule going forward: only named humans with personal LinkedIn URLs get threads.
--- Orgs stay in outreach_orgs with prospect_status = 'target_needs_contact'.
+-- RUNBOOK (staging then prod)
+-- Purpose: Remove 3 placeholder "team" threads (and their persons + activities)
+-- Targets (thread_token): 2764XEMEWX, YBMDRDF4PS, YPGW53RPFQ
+-- Safety: Script fails fast if target count != 3 or token set mismatches.
+--
+-- Preconditions:
+-- 1) You have a fresh DB backup/snapshot (or PITR enabled).
+-- 2) You are running the entire script in ONE execution so BEGIN/COMMIT is respected.
+--    Note: Supabase SQL editor respects BEGIN/COMMIT if you run the whole file at once.
+--
+-- How to run (recommended):
+-- 1) Staging first.
+-- 2) Execute the full script.
+-- 3) Inspect sanity SELECT outputs.
+-- 4) If anything looks off, ROLLBACK; fix before retry.
+-- 5) If everything matches expectations, COMMIT.
+-- 6) After cleanup: apply migration 025_add_prospect_status.sql
+--
+-- Verification after COMMIT:
+-- 1) Confirm these tokens no longer exist:
+--    SELECT thread_token FROM outreach_threads WHERE thread_token IN ('2764XEMEWX','YBMDRDF4PS','YPGW53RPFQ');
+-- 2) Confirm no activities remain for those tokens:
+--    SELECT COUNT(*) FROM outreach_activities a JOIN outreach_threads t ON a.thread_id=t.id
+--    WHERE t.thread_token IN ('2764XEMEWX','YBMDRDF4PS','YPGW53RPFQ');
+-- 3) Spot check orgs remain intact (no org deletes in this script).
+--
+-- Rollback plan:
+-- If anything goes wrong BEFORE COMMIT: run ROLLBACK.
+-- If anything goes wrong AFTER COMMIT: restore from snapshot/backup (or PITR) and re-run carefully.
 -- =============================================================================
 -- FK setup (from 023):
 --   activities.thread_id NOT NULL → threads(id) ON DELETE CASCADE
