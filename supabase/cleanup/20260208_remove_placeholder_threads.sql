@@ -20,38 +20,44 @@
 BEGIN;
 
 -- 0) Materialize targets (dropped automatically at COMMIT)
+--    Include thread_token so all guards are self-contained.
 CREATE TEMP TABLE _ph_threads ON COMMIT DROP AS
-  SELECT id, person_id
+  SELECT id, person_id, thread_token
   FROM outreach_threads
   WHERE thread_token IN ('2764XEMEWX','YBMDRDF4PS','YPGW53RPFQ');
 
--- ── SANITY CHECK: before deletes ────────────────────────────────────────────
+-- ── FAIL-FAST GUARDS ────────────────────────────────────────────────────────
 
--- Expect: 3
-SELECT COUNT(*) AS ph_thread_count FROM _ph_threads;
+-- Guard 1: exactly 3 rows materialized
+DO $$
+DECLARE v_count INT;
+BEGIN
+  SELECT COUNT(*) INTO v_count FROM _ph_threads;
+  IF v_count <> 3 THEN
+    RAISE EXCEPTION 'Expected 3 placeholder threads, got %', v_count;
+  END IF;
+END $$;
 
--- Expect: the 3 known tokens and their thread/person UUIDs
-SELECT thread_token, id AS thread_id, person_id
-FROM outreach_threads
-WHERE id IN (SELECT id FROM _ph_threads)
-ORDER BY thread_token;
+-- Guard 2: token set matches exactly (no extras, no missing)
+DO $$
+DECLARE v_tokens TEXT[];
+BEGIN
+  SELECT ARRAY_AGG(thread_token ORDER BY thread_token)
+    INTO v_tokens FROM _ph_threads;
+  IF v_tokens <> ARRAY['2764XEMEWX','YBMDRDF4PS','YPGW53RPFQ'] THEN
+    RAISE EXCEPTION 'Token mismatch. Expected {2764XEMEWX,YBMDRDF4PS,YPGW53RPFQ}, got %', v_tokens;
+  END IF;
+END $$;
 
--- Expect: {2764XEMEWX, YBMDRDF4PS, YPGW53RPFQ}
-SELECT ARRAY_AGG(thread_token ORDER BY thread_token) AS ph_tokens
-FROM outreach_threads
-WHERE id IN (SELECT id FROM _ph_threads);
+-- ── SANITY CHECK: preview what will be deleted ──────────────────────────────
 
--- How many activities will be deleted (expect small number or 0)
+-- Targets (informational)
+SELECT thread_token, id AS thread_id, person_id FROM _ph_threads ORDER BY thread_token;
+
+-- Activities to delete (expect small number or 0)
 SELECT COUNT(*) AS activities_to_delete
 FROM outreach_activities a
 JOIN _ph_threads t ON a.thread_id = t.id;
-
--- Sample activities for spot check
-SELECT a.id AS activity_id, a.thread_id
-FROM outreach_activities a
-JOIN _ph_threads t ON a.thread_id = t.id
-ORDER BY a.created_at DESC
-LIMIT 10;
 
 -- Persons: are any referenced by other (non-placeholder) threads?
 -- Expect: referenced_elsewhere = false for all 3
