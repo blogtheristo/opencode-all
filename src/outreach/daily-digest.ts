@@ -121,7 +121,9 @@ interface DigestBuckets {
   today: BucketedThread[];
   waiting: BucketedThread[];
   active_deals: BucketedThread[];
+  active_deals_overflow: number;
   upcoming: BucketedThread[];
+  upcoming_overflow: number;
   totals: Record<OutreachPipeline, { total: number; open: number; active: number }>;
 }
 
@@ -140,30 +142,37 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
     const idx = STATUS_ORDER.indexOf(s);
     return idx >= 0 ? idx : 99;
   };
+  // Stable tiebreaker: linkedin_url is unique per person, prevents day-to-day jitter
+  const tiebreak = (a: BucketedThread, b: BucketedThread) =>
+    a.linkedin_url.localeCompare(b.linkedin_url);
 
-  // OVERDUE: date asc → pipeline → last_outbound_at asc (nulls first)
+  // OVERDUE: date asc → pipeline → last_outbound_at asc → tiebreaker
   const overdue = all
     .filter((t) => t.overdue && t.bucket !== 'active')
     .sort((a, b) => {
-      const dateCompare = (a.next_action_date || '').localeCompare(b.next_action_date || '');
-      if (dateCompare !== 0) return dateCompare;
-      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
-      if (plCompare !== 0) return plCompare;
-      return (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+      const d = (a.next_action_date || '').localeCompare(b.next_action_date || '');
+      if (d !== 0) return d;
+      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (p !== 0) return p;
+      const o = (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+      if (o !== 0) return o;
+      return tiebreak(a, b);
     });
 
-  // TODAY: action_type → pipeline → last_outbound_at asc
+  // TODAY: action_type → pipeline → last_outbound_at asc → tiebreaker
   const todayList = all
     .filter((t) => t.due_today && t.bucket !== 'active')
     .sort((a, b) => {
-      const typeCompare = actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
-      if (typeCompare !== 0) return typeCompare;
-      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
-      if (plCompare !== 0) return plCompare;
-      return (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+      const t2 = actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
+      if (t2 !== 0) return t2;
+      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (p !== 0) return p;
+      const o = (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+      if (o !== 0) return o;
+      return tiebreak(a, b);
     });
 
-  // WAITING: waiting_days desc → pipeline → waiting_since asc
+  // WAITING: waiting_days desc → pipeline → tiebreaker
   const waiting = all
     .filter(
       (t) =>
@@ -173,33 +182,36 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
         t.waiting_days !== null
     )
     .sort((a, b) => {
-      const daysCompare = (b.waiting_days ?? 0) - (a.waiting_days ?? 0);
-      if (daysCompare !== 0) return daysCompare;
-      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
-      if (plCompare !== 0) return plCompare;
-      return 0;
+      const d = (b.waiting_days ?? 0) - (a.waiting_days ?? 0);
+      if (d !== 0) return d;
+      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (p !== 0) return p;
+      return tiebreak(a, b);
     });
 
-  // ACTIVE DEALS: status (in_negotiation first) → pipeline → always shown, cap 10 per pipeline
+  // ACTIVE DEALS: status (in_negotiation first) → pipeline → tiebreaker. Cap 10 per pipeline.
   const MAX_ACTIVE_PER_PIPELINE = 10;
-  const active_deals_raw = all
+  const active_deals_all = all
     .filter((t) => t.bucket === 'active')
     .sort((a, b) => {
-      const statusCompare = statusOrder(a.status) - statusOrder(b.status);
-      if (statusCompare !== 0) return statusCompare;
-      return pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      const s = statusOrder(a.status) - statusOrder(b.status);
+      if (s !== 0) return s;
+      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (p !== 0) return p;
+      return tiebreak(a, b);
     });
-  // Cap per pipeline
   const activeCountByPipeline: Record<string, number> = {};
-  const active_deals = active_deals_raw.filter((t) => {
+  const active_deals = active_deals_all.filter((t) => {
     const count = activeCountByPipeline[t.pipeline] || 0;
     if (count >= MAX_ACTIVE_PER_PIPELINE) return false;
     activeCountByPipeline[t.pipeline] = count + 1;
     return true;
   });
+  const active_deals_overflow = active_deals_all.length - active_deals.length;
 
-  // UPCOMING: future date, not active, not waiting. Sort by date → pipeline → action_type
-  const upcoming = all
+  // UPCOMING: date asc → pipeline → action_type → tiebreaker. Cap at 15.
+  const MAX_UPCOMING = 15;
+  const upcoming_all = all
     .filter(
       (t) =>
         !t.overdue &&
@@ -210,12 +222,16 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
         t.next_action_date > today
     )
     .sort((a, b) => {
-      const dateCompare = (a.next_action_date || '').localeCompare(b.next_action_date || '');
-      if (dateCompare !== 0) return dateCompare;
-      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
-      if (plCompare !== 0) return plCompare;
-      return actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
+      const d = (a.next_action_date || '').localeCompare(b.next_action_date || '');
+      if (d !== 0) return d;
+      const p = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (p !== 0) return p;
+      const t2 = actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
+      if (t2 !== 0) return t2;
+      return tiebreak(a, b);
     });
+  const upcoming = upcoming_all.slice(0, MAX_UPCOMING);
+  const upcoming_overflow = upcoming_all.length - upcoming.length;
 
   // Pipeline totals
   const totals = {} as Record<OutreachPipeline, { total: number; open: number; active: number }>;
@@ -228,7 +244,20 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
     };
   }
 
-  return { overdue, today: todayList, waiting, active_deals, upcoming, totals };
+  return { overdue, today: todayList, waiting, active_deals, active_deals_overflow, upcoming, upcoming_overflow, totals };
+}
+
+// ============================================================================
+// GROUP BY PIPELINE (mini headers within each bucket)
+// ============================================================================
+
+function groupByPipeline(threads: BucketedThread[]): Map<OutreachPipeline, BucketedThread[]> {
+  const groups = new Map<OutreachPipeline, BucketedThread[]>();
+  for (const p of PIPELINES) {
+    const filtered = threads.filter((t) => t.pipeline === p);
+    if (filtered.length > 0) groups.set(p, filtered);
+  }
+  return groups;
 }
 
 // ============================================================================
@@ -251,6 +280,33 @@ function threadLine(t: BucketedThread, prefix: string): string {
   return `  ${prefix} [${pl}] ${t.name}${org} — ${status} → ${action}`;
 }
 
+/** Render a bucket with mini pipeline headers */
+function renderBucketPlainText(
+  lines: string[],
+  title: string,
+  threads: BucketedThread[],
+  lineFormatter: (t: BucketedThread) => string,
+  overflow?: number
+): void {
+  if (threads.length === 0) return;
+
+  lines.push('');
+  lines.push(`${title} (${threads.length}${overflow ? ` + ${overflow} more` : ''})`);
+  lines.push('-'.repeat(40));
+
+  const groups = groupByPipeline(threads);
+  for (const [pipeline, group] of groups) {
+    lines.push(`  ${PIPELINE_LABELS[pipeline]}`);
+    for (const t of group) {
+      lines.push(`    ${lineFormatter(t)}`);
+    }
+  }
+
+  if (overflow && overflow > 0) {
+    lines.push(`  +${overflow} more active deals not shown`);
+  }
+}
+
 function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
   const lines: string[] = [];
   lines.push(`DWS IQ — Daily Outreach — ${dateStr}`);
@@ -264,58 +320,60 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
   lines.push(summaryParts.join(' | '));
 
   // OVERDUE
-  if (buckets.overdue.length > 0) {
-    lines.push('');
-    lines.push(`OVERDUE (${buckets.overdue.length})`);
-    lines.push('-'.repeat(40));
-    for (const t of buckets.overdue) {
-      threadLine(t, '[OVERDUE]');
-      lines.push(threadLine(t, ''));
+  renderBucketPlainText(lines, 'OVERDUE', buckets.overdue, (t) => {
+    const org = t.org ? ` (${t.org})` : '';
+    let action = t.next_action || `Follow up with ${t.name}`;
+    if (isMaxedOut(t.pipeline, t.nudge_count)) {
+      action = `Consider parking — ${t.nudge_count} nudges, no response`;
+    } else if (t.nudge_count > 0) {
+      action = getNudgeTemplate(t.pipeline, t.nudge_count);
     }
-  }
+    return `${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
+  });
 
   // TODAY
-  if (buckets.today.length > 0) {
-    lines.push('');
-    lines.push(`TODAY (${buckets.today.length})`);
-    lines.push('-'.repeat(40));
-    for (const t of buckets.today) {
-      lines.push(threadLine(t, ''));
+  renderBucketPlainText(lines, 'TODAY', buckets.today, (t) => {
+    const org = t.org ? ` (${t.org})` : '';
+    let action = t.next_action || `Follow up with ${t.name}`;
+    if (isMaxedOut(t.pipeline, t.nudge_count)) {
+      action = `Consider parking — ${t.nudge_count} nudges, no response`;
+    } else if (t.nudge_count > 0) {
+      action = getNudgeTemplate(t.pipeline, t.nudge_count);
     }
-  }
+    return `${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
+  });
 
   // WAITING
-  if (buckets.waiting.length > 0) {
-    lines.push('');
-    lines.push(`WAITING (${buckets.waiting.length})`);
-    lines.push('-'.repeat(40));
-    for (const t of buckets.waiting) {
-      const days = t.waiting_days ?? 0;
+  renderBucketPlainText(lines, 'WAITING', buckets.waiting, (t) => {
+    const org = t.org ? ` (${t.org})` : '';
+    const days = t.waiting_days ?? 0;
+    const action = t.next_action || 'Awaiting response';
+    return `${t.name}${org} — ${t.status.replace(/_/g, ' ')}, ${days}d → ${action}`;
+  });
+
+  // ACTIVE DEALS (with DUE flag for threads that have an action date <= today)
+  renderBucketPlainText(
+    lines,
+    'ACTIVE DEALS',
+    buckets.active_deals,
+    (t) => {
       const org = t.org ? ` (${t.org})` : '';
-      const pl = PIPELINE_LABELS[t.pipeline];
-      const action = t.next_action || 'Awaiting response';
-      lines.push(`  [${pl}] ${t.name}${org} — ${t.status.replace(/_/g, ' ')}, ${days}d → ${action}`);
-    }
-  }
+      const action = t.next_action || 'Keep momentum';
+      const dueFlag = (t.overdue || t.due_today) ? '[DUE] ' : '';
+      return `${dueFlag}${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
+    },
+    buckets.active_deals_overflow
+  );
 
-  // ACTIVE DEALS
-  if (buckets.active_deals.length > 0) {
-    lines.push('');
-    lines.push(`ACTIVE DEALS (${buckets.active_deals.length})`);
-    lines.push('-'.repeat(40));
-    for (const t of buckets.active_deals) {
-      lines.push(threadLine(t, ''));
-    }
-  }
-
-  // UPCOMING
+  // UPCOMING (count per pipeline, capped at 15)
   if (buckets.upcoming.length > 0) {
     const byPipeline = PIPELINES.map((p) => {
       const count = buckets.upcoming.filter((t) => t.pipeline === p).length;
       return count > 0 ? `${PIPELINE_LABELS[p]}: ${count}` : null;
     }).filter(Boolean);
+    const overflow = buckets.upcoming_overflow > 0 ? ` (+${buckets.upcoming_overflow} more)` : '';
     lines.push('');
-    lines.push(`UPCOMING: ${byPipeline.join(', ')}`);
+    lines.push(`UPCOMING: ${byPipeline.join(', ')}${overflow}`);
   }
 
   // Empty state
@@ -340,9 +398,8 @@ function escapeHtml(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string): string {
+function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extraFlag?: string): string {
   const org = t.org ? ` (${escapeHtml(t.org)})` : '';
-  const pl = PIPELINE_LABELS[t.pipeline];
   let action = t.next_action || `Follow up with ${t.name}`;
 
   if (isMaxedOut(t.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
@@ -351,23 +408,45 @@ function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string): stri
     action = getNudgeTemplate(t.pipeline, t.nudge_count);
   }
 
+  const flagHtml = flag ? `<span style="color: ${flagColor}; font-weight: 600;">${flag}</span> ` : '';
+  const extraFlagHtml = extraFlag ? `<span style="color: #ffaa00; font-weight: 600;">${extraFlag}</span> ` : '';
+
   return `
     <div style="padding: 8px 0; border-bottom: 1px solid #222;">
       <div style="font-size: 13px; color: #e0e0e0;">
-        <span style="color: ${flagColor}; font-weight: 600;">${flag}</span>
-        <span style="color: #00d4aa; font-size: 11px;">[${pl}]</span>
-        <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+        ${flagHtml}${extraFlagHtml}<strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
       </div>
       <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
     </div>`;
 }
 
-function htmlSection(title: string, threads: string[], extraInfo?: string): string {
+/** Render an HTML bucket section with mini pipeline headers */
+function htmlBucketSection(
+  title: string,
+  threads: BucketedThread[],
+  rowRenderer: (t: BucketedThread) => string,
+  overflow?: number,
+  extraInfo?: string
+): string {
   if (threads.length === 0 && !extraInfo) return '';
+
+  let content = '';
+  const groups = groupByPipeline(threads);
+  for (const [pipeline, group] of groups) {
+    content += `<div style="padding: 4px 0; font-size: 11px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px;">${PIPELINE_LABELS[pipeline]}</div>`;
+    for (const t of group) {
+      content += rowRenderer(t);
+    }
+  }
+
+  if (overflow && overflow > 0) {
+    content += `<p style="margin: 8px 0 0; font-size: 12px; color: #666;">+${overflow} more active deals not shown</p>`;
+  }
+
   return `
     <tr><td style="padding: 16px; border-bottom: 1px solid #1a1a1a;">
-      <h3 style="margin: 0 0 8px; font-size: 14px; color: #00d4aa;">${title}</h3>
-      ${threads.join('')}
+      <h3 style="margin: 0 0 4px; font-size: 14px; color: #00d4aa;">${title}</h3>
+      ${content}
       ${extraInfo || ''}
     </td></tr>`;
 }
@@ -379,39 +458,53 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
     return `${PIPELINE_LABELS[p]}: ${s.total} (${s.open} open, ${s.active} active)`;
   }).join(' &nbsp;|&nbsp; ');
 
-  // Sections
-  const overdueRows = buckets.overdue.map((t) => htmlThreadRow(t, 'OVERDUE', '#ff4444'));
-  const todayRows = buckets.today.map((t) => htmlThreadRow(t, 'TODAY', '#ffaa00'));
-
-  const waitingRows = buckets.waiting.map((t) => {
-    const days = t.waiting_days ?? 0;
-    const org = t.org ? ` (${escapeHtml(t.org)})` : '';
-    const pl = PIPELINE_LABELS[t.pipeline];
-    const action = t.next_action || 'Awaiting response';
-    return `
-      <div style="padding: 8px 0; border-bottom: 1px solid #222;">
-        <div style="font-size: 13px; color: #e0e0e0;">
-          <span style="color: #888; font-weight: 600;">WAITING ${days}d</span>
-          <span style="color: #00d4aa; font-size: 11px;">[${pl}]</span>
-          <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
-        </div>
-        <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
-      </div>`;
-  });
-
-  const activeRows = buckets.active_deals.map((t) => htmlThreadRow(t, '', '#00d4aa'));
-
+  const upcomingOverflow = buckets.upcoming_overflow > 0 ? ` (+${buckets.upcoming_overflow} more)` : '';
   const upcomingInfo =
     buckets.upcoming.length > 0
-      ? `<p style="margin: 0; font-size: 12px; color: #666;">${buckets.upcoming.length} threads scheduled</p>`
+      ? `<p style="margin: 0; font-size: 12px; color: #666;">${buckets.upcoming.length} threads scheduled${upcomingOverflow}</p>`
       : '';
 
   const sections = [
-    htmlSection(`OVERDUE (${buckets.overdue.length})`, overdueRows),
-    htmlSection(`TODAY (${buckets.today.length})`, todayRows),
-    htmlSection(`WAITING (${buckets.waiting.length})`, waitingRows),
-    htmlSection(`ACTIVE DEALS (${buckets.active_deals.length})`, activeRows),
-    buckets.upcoming.length > 0 ? htmlSection('UPCOMING', [], upcomingInfo) : '',
+    htmlBucketSection(
+      `OVERDUE (${buckets.overdue.length})`,
+      buckets.overdue,
+      (t) => htmlThreadRow(t, 'OVERDUE', '#ff4444')
+    ),
+    htmlBucketSection(
+      `TODAY (${buckets.today.length})`,
+      buckets.today,
+      (t) => htmlThreadRow(t, 'TODAY', '#ffaa00')
+    ),
+    htmlBucketSection(
+      `WAITING (${buckets.waiting.length})`,
+      buckets.waiting,
+      (t) => {
+        const days = t.waiting_days ?? 0;
+        const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+        const action = t.next_action || 'Awaiting response';
+        return `
+          <div style="padding: 8px 0; border-bottom: 1px solid #222;">
+            <div style="font-size: 13px; color: #e0e0e0;">
+              <span style="color: #888; font-weight: 600;">WAITING ${days}d</span>
+              <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+            </div>
+            <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
+          </div>`;
+      }
+    ),
+    htmlBucketSection(
+      `ACTIVE DEALS (${buckets.active_deals.length}${buckets.active_deals_overflow > 0 ? ` + ${buckets.active_deals_overflow}` : ''})`,
+      buckets.active_deals,
+      (t) => {
+        // Add DUE flag for active deals that have an overdue or today action date
+        const dueFlag = (t.overdue || t.due_today) ? 'DUE' : undefined;
+        return htmlThreadRow(t, '', '#00d4aa', dueFlag);
+      },
+      buckets.active_deals_overflow
+    ),
+    buckets.upcoming.length > 0
+      ? htmlBucketSection('UPCOMING', [], () => '', 0, upcomingInfo)
+      : '',
   ]
     .filter(Boolean)
     .join('');
