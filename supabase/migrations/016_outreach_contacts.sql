@@ -134,13 +134,17 @@ CREATE TABLE outreach_threads (
   boardy_notes TEXT,
   our_angle TEXT,                    -- Why this person matters to us
   their_angle TEXT,                  -- Why we matter to them
-  next_action TEXT,                  -- What to do next
+  next_action TEXT,                  -- What to do next (free text)
+  next_action_type VARCHAR(50) DEFAULT 'research',  -- nudge, research, schedule, prep, push_to_decision
   next_action_date DATE,
 
   -- Tracking
   last_contacted_at TIMESTAMPTZ,
   last_response_at TIMESTAMPTZ,
+  last_outbound_at TIMESTAMPTZ,            -- Last outbound action (sent/intro/nudge). Drives cadence timing.
+  waiting_since DATE,                     -- When thread entered waiting (intro_made/contacted). Shows total stuck duration.
   meetings_count INTEGER DEFAULT 0,
+  nudge_count INTEGER DEFAULT 0,          -- How many follow-up nudges sent in current sequence. Resets on received.
 
   -- Attribution
   source outreach_source DEFAULT 'manual' NOT NULL,
@@ -257,8 +261,10 @@ CREATE TRIGGER update_outreach_threads_updated_at
 -- Sync thread state from latest activity
 -- Rules:
 --   1. Only move next_action_date FORWARD (never backwards from historical logs)
---   2. If outcome closes the thread (converted/passed/parked), NULL the pointer
---   3. Always track last_contacted_at and last_response_at
+--   2. If outcome closes the thread (negative/bounced), NULL the date pointer
+--   3. Skip already-closed threads (converted/passed/parked)
+--   4. Reset waiting_since on every outbound (sent/intro/nudge) — measures "how long since we last did something"
+--   5. Increment nudge_count on nudge activity_type, reset on received (they replied)
 CREATE OR REPLACE FUNCTION sync_thread_from_activity()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -282,12 +288,33 @@ BEGIN
       ELSE next_action_date
     END,
     last_contacted_at = CASE
-      WHEN NEW.activity_type IN ('sent', 'meeting', 'intro') THEN NEW.created_at
+      WHEN NEW.activity_type IN ('sent', 'meeting', 'intro', 'nudge') THEN NEW.created_at
       ELSE last_contacted_at
     END,
     last_response_at = CASE
       WHEN NEW.activity_type = 'received' THEN NEW.created_at
       ELSE last_response_at
+    END,
+    -- last_outbound_at: reset on every outbound action. Drives cadence timing. TIMESTAMPTZ for accuracy.
+    last_outbound_at = CASE
+      WHEN NEW.activity_type IN ('sent', 'intro', 'nudge') THEN NOW()
+      ELSE last_outbound_at
+    END,
+    -- waiting_since: only set when thread enters WAITING status (intro_made/contacted).
+    -- Does NOT reset on nudges — preserves "stuck 14 days" signal.
+    -- Clears when thread exits waiting (received a response).
+    waiting_since = CASE
+      WHEN NEW.activity_type = 'received' THEN NULL
+      WHEN waiting_since IS NULL
+        AND NEW.activity_type IN ('sent', 'intro')
+      THEN CURRENT_DATE
+      ELSE waiting_since
+    END,
+    -- Increment nudge_count on nudge, reset on received (they responded)
+    nudge_count = CASE
+      WHEN NEW.activity_type = 'nudge' THEN nudge_count + 1
+      WHEN NEW.activity_type = 'received' THEN 0
+      ELSE nudge_count
     END
   WHERE id = NEW.thread_id;
   RETURN NEW;
@@ -311,12 +338,16 @@ SELECT
   oc.status,
   oc.source,
   oc.next_action,
+  oc.next_action_type,
   oc.next_action_date,
   oc.our_angle,
   oc.their_angle,
   oc.boardy_notes,
   oc.last_contacted_at,
+  oc.last_outbound_at,
+  oc.waiting_since,
   oc.meetings_count,
+  oc.nudge_count,
   oc.investor_type,
   oc.check_size,
   oc.partnership_type,
@@ -428,7 +459,7 @@ INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   investor_type, check_size,
   status, source, created_by,
-  boardy_notes, our_angle, their_angle, next_action, next_action_date
+  boardy_notes, our_angle, their_angle, next_action, next_action_type, next_action_date
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/nicolasderrien1/'),
   (SELECT id FROM organizations WHERE domain = 'colbridgeventures.com'),
@@ -439,6 +470,7 @@ INSERT INTO outreach_threads (
   'Colbridge does pre-seed climate tech. Their portfolio companies (Continuum, WASE, Anzen) all need EU compliance reporting. DWS IQ is the compliance layer for the ecosystem they already invest in. $250K check co-lead.',
   'Industrial decarb + compliance automation at €84k ARR. SaaS with clear ROI, not capex-heavy. Every factory in his portfolio needs CSRD reporting.',
   'Accept Boardy intro. Prepare 1-pager: SaaS economics + recurring revenue. Lead with "compliance layer for your portfolio."',
+  'prep',
   CURRENT_DATE
 );
 
@@ -447,7 +479,7 @@ INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   partnership_type,
   status, source, created_by,
-  boardy_notes, our_angle, their_angle, next_action, next_action_date
+  boardy_notes, our_angle, their_angle, next_action, next_action_type, next_action_date
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/ACoAADbNXUABBBu1fZSxkX3tRBbZU_5JAvG1lJs'),
   (SELECT id FROM organizations WHERE domain = 'soldera.io'),
@@ -458,6 +490,7 @@ INSERT INTO outreach_threads (
   'Same regulatory-workflow DNA. Playbook sharing, UK/EU climate circle intros, potential partnership on overlapping compliance workflows.',
   'Sees regulation-to-workflow automation daily. Could validate our approach and intro us to UK/EU climate compliance buyers.',
   'Accept Boardy intro. Peer conversation: "We both turn EU regulation into automated workflows. Lets compare notes."',
+  'schedule',
   CURRENT_DATE
 );
 
@@ -470,7 +503,7 @@ INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   partnership_type,
   status, source, created_by,
-  our_angle, their_angle, next_action, next_action_date
+  our_angle, their_angle, next_action, next_action_type, next_action_date
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/one-click-lca/'),
   (SELECT id FROM organizations WHERE domain = 'oneclicklca.com'),
@@ -480,6 +513,7 @@ INSERT INTO outreach_threads (
   'Their design-phase LCA outputs become our input. We extend their value chain into operations compliance.',
   'Their customers finish design-phase LCA then have no tool for ongoing operations reporting. We fill that gap.',
   'Find the right BD contact at One Click LCA. Prepare pitch: "Your output is our input."',
+  'research',
   CURRENT_DATE + 3
 );
 
@@ -492,7 +526,7 @@ INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   partnership_type,
   status, source, created_by,
-  our_angle, their_angle, next_action, next_action_date
+  our_angle, their_angle, next_action, next_action_type, next_action_date
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/aborasolarglass/'),
   (SELECT id FROM organizations WHERE domain = 'ifs.com'),
@@ -502,6 +536,7 @@ INSERT INTO outreach_threads (
   'Our most production-ready ERP connector. IFS dominates asset-intensive industries. Marketplace listing = distribution.',
   'Their customers need climate compliance. We automate CSRD reporting from IFS data. Adds platform value.',
   'Research IFS Cloud ISV partner program. Find Nordic region contact. Prepare integration demo.',
+  'research',
   CURRENT_DATE + 5
 );
 
@@ -514,7 +549,7 @@ INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   customer_segment,
   status, source, created_by,
-  our_angle, their_angle, next_action, next_action_date
+  our_angle, their_angle, next_action, next_action_type, next_action_date
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/ncc/'),
   (SELECT id FROM organizations WHERE domain = 'ncc.se'),
@@ -524,6 +559,7 @@ INSERT INTO outreach_threads (
   'Nordic construction giant. Uses IFS Cloud. Has One Click LCA for design phase. Needs operations compliance automation.',
   'CSRD filing deadline approaching. Manual reporting across projects. Need automated ERP-to-report pipeline.',
   'Research NCC sustainability team on LinkedIn. Find the real person. Prepare construction operations compliance pitch.',
+  'research',
   CURRENT_DATE + 3
 );
 

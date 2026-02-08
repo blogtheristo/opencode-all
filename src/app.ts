@@ -15,6 +15,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import { outreachScheduler } from './outreach/index.js';
 
 dotenv.config();
 
@@ -192,11 +193,19 @@ const server = app.listen(PORT, () => {
   } else {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
+
+  // Start outreach digest scheduler (06:00 Helsinki, Mon-Fri)
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
+    outreachScheduler.start();
+  } else {
+    logger.warn('Supabase not configured — outreach scheduler disabled');
+  }
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  outreachScheduler.stop();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);
@@ -205,6 +214,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  outreachScheduler.stop();
   server.close(() => {
     logger.info('HTTP server closed');
     process.exit(0);

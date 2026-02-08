@@ -1,12 +1,14 @@
 /**
  * Outreach Scheduler
  *
- * Runs Mon-Fri at 07:00 Helsinki time (Europe/Helsinki = UTC+2/+3).
- * Generates 3 daily tasks (1 investor, 1 customer, 1 partner)
- * and emails them to risto@lifetime.fi.
+ * Runs Mon-Fri at 06:00 Helsinki time (Europe/Helsinki = UTC+2/+3).
+ * Sends one email with all 3 pipeline sections to risto@lifetime.fi.
+ *
+ * Business days: Mon-Fri. Holidays ignored (single founder, not worth the complexity).
  */
 
 import * as cron from 'node-cron';
+import logger from '../utils/logger.js';
 import { sendDailyDigestEmail } from './daily-digest.js';
 
 export class OutreachScheduler {
@@ -14,20 +16,19 @@ export class OutreachScheduler {
 
   /**
    * Start the scheduler
-   * Cron: 0 7 * * 1-5 = 07:00, Mon-Fri
+   * Cron: 0 6 * * 1-5 = 06:00, Mon-Fri
    */
   start(): void {
-    console.log('Starting Outreach Scheduler...');
+    logger.info('Starting Outreach Scheduler');
 
     this.dailyDigestJob = cron.schedule(
-      '0 7 * * 1-5',
+      '0 6 * * 1-5',
       async () => {
-        console.log('Running daily outreach digest...');
+        logger.info('Running daily outreach digest');
         try {
           await sendDailyDigestEmail();
-          console.log('Daily outreach digest sent');
         } catch (error) {
-          console.error('Error in daily outreach digest:', error);
+          logger.error('Daily outreach digest failed', { error });
         }
       },
       {
@@ -35,9 +36,9 @@ export class OutreachScheduler {
       }
     );
 
-    console.log('Outreach Scheduler started');
-    console.log('  - Daily digest: 07:00 Helsinki, Mon-Fri');
-    console.log('  - Recipient: ' + (process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi'));
+    logger.info('Outreach Scheduler started — 06:00 Helsinki, Mon-Fri', {
+      recipient: process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
+    });
   }
 
   /**
@@ -47,16 +48,15 @@ export class OutreachScheduler {
     if (this.dailyDigestJob) {
       this.dailyDigestJob.stop();
     }
-    console.log('Outreach Scheduler stopped');
+    logger.info('Outreach Scheduler stopped');
   }
 
   /**
    * Run manually (for testing or immediate trigger)
    */
   async runManually(): Promise<void> {
-    console.log('Running outreach digest manually...');
+    logger.info('Running outreach digest manually');
     await sendDailyDigestEmail();
-    console.log('Manual outreach digest completed');
   }
 }
 

@@ -7,11 +7,18 @@
  *   3. Partners — IFS Cloud, One Click LCA, SAP, Big 4
  *
  * Schema: organizations (domain key) + persons (LinkedIn URL key) + outreach_threads + outreach_activities
- * Daily digest: 3 tasks emailed to risto@lifetime.fi, Mon-Fri 07:00 Helsinki
+ * Daily digest: one email to risto@lifetime.fi, Mon-Fri 06:00 Helsinki
+ *
+ * Thread fields for digest (no activity scanning):
+ *   - next_action + next_action_type + next_action_date → OVERDUE / TODAY
+ *   - waiting_since → "waiting Xd" display
+ *   - last_outbound_at → cadence timing
+ *   - nudge_count → auto-park after max nudges
  */
 
 export { outreachScheduler } from './scheduler.js';
 export { generateDailyDigest, sendDailyDigestEmail } from './daily-digest.js';
+export { CADENCE, NUDGE_TEMPLATES, getNudgeTemplate, getNextNudgeInterval, isMaxedOut } from './cadence.js';
 export type {
   Organization,
   Person,
@@ -23,4 +30,7 @@ export type {
   DailyDigest,
   PipelineSummary,
   EnrichedThread,
+  StatusBucket,
+  DigestThread,
+  DigestPipelineSection,
 } from './types.js';

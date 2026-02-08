@@ -98,10 +98,14 @@ export interface OutreachThread {
   our_angle: string | null;
   their_angle: string | null;
   next_action: string | null;
+  next_action_type: string | null;
   next_action_date: string | null;
   last_contacted_at: string | null;
   last_response_at: string | null;
+  last_outbound_at: string | null;
+  waiting_since: string | null;
   meetings_count: number;
+  nudge_count: number;
   created_by: string;
   created_at: string;
   updated_at: string;
@@ -161,8 +165,14 @@ export interface EnrichedThread {
   status: OutreachStatus;
   source: OutreachSource;
   next_action: string | null;
+  next_action_type: string | null;
   next_action_date: string | null;
   our_angle: string | null;
+  last_contacted_at: string | null;
+  last_outbound_at: string | null;
+  waiting_since: string | null;
+  meetings_count: number;
+  nudge_count: number;
   first_name: string;
   last_name: string | null;
   person_title: string | null;
@@ -172,5 +182,36 @@ export interface EnrichedThread {
   primary_email: string | null;
   person_id: string;
   org_id: string | null;
+  created_at: string;
   created_by: string;
+}
+
+/** Status buckets for grouping */
+export type StatusBucket = 'open' | 'active' | 'closed';
+
+/** Thread grouped for daily email */
+export interface DigestThread {
+  name: string;
+  org: string | null;
+  status: OutreachStatus;
+  bucket: StatusBucket;
+  next_action: string | null;
+  next_action_type: string | null;
+  overdue: boolean;
+  due_today: boolean;
+  waiting_days: number | null;
+  nudge_count: number;
+  linkedin_url: string;
+}
+
+/** Pipeline section in the daily email */
+export interface DigestPipelineSection {
+  pipeline: OutreachPipeline;
+  overdue: DigestThread[];
+  due_today: DigestThread[];
+  waiting: DigestThread[];
+  active_deals: DigestThread[];
+  upcoming: DigestThread[];
+  total: number;
+  summary: { open: number; active: number; closed: number };
 }
