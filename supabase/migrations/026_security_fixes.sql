@@ -1,7 +1,7 @@
 -- =============================================================================
 -- RUNBOOK: 026_security_fixes.sql
 -- Purpose: Consolidated security + correctness fixes for deployed migrations
--- Targets: 006, 007, 012, 013, 024
+-- Targets: 006, 007, 012, 013, 024 (8 fixes)
 -- Safety: Every section is idempotent with fail-fast guards.
 --
 -- Preconditions:
@@ -72,8 +72,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Sanity: verify the function was replaced
+-- Sanity: verify the function was replaced + confirm column names match
 SELECT 'FIX 1: update_customer_revenue() replaced' AS status;
+SELECT column_name, data_type FROM information_schema.columns
+WHERE table_name = 'subscriptions' AND column_name IN ('monthly_amount', 'is_active', 'customer_id')
+ORDER BY column_name;
 
 -- =============================================================================
 -- FIX 2: 007 — handle_new_user() needs exception handling
@@ -127,7 +130,8 @@ DECLARE
   log_id uuid;
 BEGIN
   -- Only service_role should call this
-  IF auth.role() <> 'service_role' THEN
+  -- Use current_setting instead of auth.role() to avoid NULL in SQL editor context
+  IF COALESCE(current_setting('request.jwt.claim.role', true), '') <> 'service_role' THEN
     RAISE EXCEPTION 'log_auth_event: forbidden — service_role only';
   END IF;
 
@@ -229,36 +233,32 @@ END $$;
 SELECT 'FIX 5: firehorse_signals RLS enabled' AS status;
 
 -- =============================================================================
--- FIX 6: 013 — Revoke over-broad GRANT ALL TABLES
--- Problem: GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES to service_role
---          in a feature migration widens perms for all future tables
--- Fix: Revoke the blanket grant isn't possible (it's already applied),
---       but we can ensure it doesn't apply to new tables by revoking
---       default privileges. For now, document and move on — service_role
---       already has broad access in Supabase by design.
--- Note: Supabase service_role inherently has access to all public tables.
---       The GRANT in 013 was redundant, not harmful. No action needed.
--- =============================================================================
-
-SELECT 'FIX 6: 013 GRANT ALL TABLES — redundant in Supabase, no action needed' AS status;
-
--- =============================================================================
--- FIX 7: 013 — Remove test seed data from prod
+-- FIX 6: 013 — Remove test seed data from prod (was FIX 7)
 -- Problem: test.lead@kela.fi inserted unconditionally
 -- Fix: Delete if exists (safe — ON CONFLICT DO NOTHING means at most 1 row)
 -- =============================================================================
 
 DELETE FROM firehorse_leads WHERE email = 'test.lead@kela.fi';
 
-SELECT 'FIX 7: test seed data removed (' || COUNT(*) || ' rows remaining for test.lead@kela.fi)'
+SELECT 'FIX 6: test seed data removed (' || COUNT(*) || ' rows remaining for test.lead@kela.fi)'
   AS status
 FROM firehorse_leads WHERE email = 'test.lead@kela.fi';
 
 -- =============================================================================
--- FIX 8: 024 — Finish partial migration (inbound_emails table)
+-- FIX 7: 024 — Finish partial migration (inbound_emails table)
 -- Problem: thread_token column exists but inbound_emails table was never created
 -- Fix: CREATE TABLE IF NOT EXISTS + indexes + RLS (fully idempotent)
 -- =============================================================================
+
+-- Guard: gen_random_uuid() needs pgcrypto on PG < 13, core on PG 13+.
+-- Our PG 17 has it natively, but verify pgcrypto is available for generate_thread_token().
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pgcrypto') THEN
+    CREATE EXTENSION pgcrypto;
+    RAISE NOTICE 'pgcrypto extension created';
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS inbound_emails (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -325,10 +325,10 @@ BEGIN
   END IF;
 END $$;
 
-SELECT 'FIX 8: inbound_emails table + thread_token constraints ensured' AS status;
+SELECT 'FIX 7: inbound_emails table + thread_token constraints ensured' AS status;
 
 -- =============================================================================
--- FIX 9: Caller guards on SECURITY DEFINER functions
+-- FIX 8: Caller guards on SECURITY DEFINER functions
 -- Server-side only today, but if RPC is ever exposed, these fail closed.
 -- =============================================================================
 
@@ -345,7 +345,7 @@ BEGIN
       DECLARE
         usage_record climate_assistant_usage;
       BEGIN
-        IF auth.role() <> 'service_role' THEN
+        IF COALESCE(current_setting('request.jwt.claim.role', true), '') <> 'service_role' THEN
           RAISE EXCEPTION 'get_or_create_usage_for_date: forbidden';
         END IF;
         INSERT INTO climate_assistant_usage (date, input_tokens, output_tokens, requests, cost_usd)
@@ -380,7 +380,7 @@ BEGIN
       DECLARE
         usage_record climate_assistant_usage;
       BEGIN
-        IF auth.role() <> 'service_role' THEN
+        IF COALESCE(current_setting('request.jwt.claim.role', true), '') <> 'service_role' THEN
           RAISE EXCEPTION 'increment_climate_usage: forbidden';
         END IF;
         INSERT INTO climate_assistant_usage (date, input_tokens, output_tokens, requests, cost_usd, updated_at)
@@ -403,7 +403,7 @@ BEGIN
   END IF;
 END $$;
 
-SELECT 'FIX 9: caller guards applied where functions exist' AS status;
+SELECT 'FIX 8: caller guards applied where functions exist' AS status;
 
 -- =============================================================================
 -- FINAL SANITY CHECKS
