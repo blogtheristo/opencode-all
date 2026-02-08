@@ -1,5 +1,9 @@
--- Outreach Contacts - Unified pipeline for investors, customers, and partners
--- Tracks contacts across all 3 outreach pipelines with daily task generation
+-- Outreach System - Normalized schema
+-- persons (LinkedIn URL key) + organizations (domain key) + outreach_threads (conversation state)
+-- outreach_activities = event log with raw_payload, outcome, next_followup_at
+-- Single-tenant (Lifetime Oy). tenant_id can be added later as one-column migration.
+-- Every table has created_by + created_at + source for attribution.
+-- Pipeline as enum (investor/customer/partner). ALTER TYPE to add more later.
 
 -- ============================================================================
 -- ENUMS
@@ -33,80 +37,168 @@ CREATE TYPE outreach_source AS ENUM (
 
 CREATE TYPE outreach_priority AS ENUM ('high', 'medium', 'low');
 
+CREATE TYPE activity_outcome AS ENUM (
+  'positive',        -- Good signal (interested, agreed, accepted)
+  'neutral',         -- No clear signal (acknowledged, read)
+  'negative',        -- Bad signal (declined, not interested)
+  'no_response',     -- No response after reasonable time
+  'bounced'          -- Email bounced, LI not delivered
+);
+
 -- ============================================================================
--- MAIN TABLE
+-- TABLE 1: ORGANIZATIONS (company domain as natural key)
 -- ============================================================================
 
-CREATE TABLE outreach_contacts (
+CREATE TABLE organizations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  domain VARCHAR(255) NOT NULL UNIQUE,       -- e.g. 'colbridgeventures.com', 'oneclicklca.com'
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  location VARCHAR(255),
+  size VARCHAR(100),                          -- '1-10', '11-50', '51-200', '201-500', '500+'
+  industry VARCHAR(100),
+  website TEXT,
+  linkedin_url TEXT,
 
-  -- Pipeline classification
-  pipeline outreach_pipeline NOT NULL,
-  priority outreach_priority DEFAULT 'medium' NOT NULL,
+  -- Attribution
+  source outreach_source DEFAULT 'manual' NOT NULL,
+  created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
 
-  -- Contact info
+-- ============================================================================
+-- TABLE 2: PERSONS (LinkedIn URL as natural key)
+-- ============================================================================
+
+CREATE TABLE persons (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  linkedin_url TEXT NOT NULL UNIQUE,          -- Primary identifier for dedup
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100),
-  email VARCHAR(255),
-  linkedin_url TEXT,
-  company VARCHAR(255),
   title VARCHAR(255),
   location VARCHAR(255),
+
+  -- Belongs to org (optional — some people are independent)
+  org_id UUID REFERENCES organizations(id) ON DELETE SET NULL,
+
+  -- Attribution
+  source outreach_source DEFAULT 'manual' NOT NULL,
+  created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+-- ============================================================================
+-- TABLE 3: PERSON EMAILS (multiple emails per person)
+-- ============================================================================
+
+CREATE TABLE person_emails (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  person_id UUID NOT NULL REFERENCES persons(id) ON DELETE CASCADE,
+  email VARCHAR(255) NOT NULL,
+  is_primary BOOLEAN DEFAULT FALSE,
+  verified BOOLEAN DEFAULT FALSE,
+
+  -- Attribution
+  source outreach_source DEFAULT 'manual' NOT NULL,
+  created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+
+  UNIQUE(person_id, email)
+);
+
+-- ============================================================================
+-- TABLE 4: OUTREACH CONTACTS (person + org + pipeline + status)
+-- ============================================================================
+
+CREATE TABLE outreach_threads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+  -- Core references
+  person_id UUID NOT NULL REFERENCES persons(id) ON DELETE CASCADE,
+  org_id UUID REFERENCES organizations(id) ON DELETE SET NULL,
+  pipeline outreach_pipeline NOT NULL,
+  priority outreach_priority DEFAULT 'medium' NOT NULL,
 
   -- Pipeline-specific fields
   investor_type VARCHAR(100),        -- 'VC', 'Angel', 'Family Office', 'Grants'
   check_size VARCHAR(100),           -- '$250K', '€500K-1M'
   partnership_type VARCHAR(100),     -- 'Technology', 'Reseller', 'Integration', 'Advisory'
   customer_segment VARCHAR(100),     -- 'Logistics', 'Construction', 'Manufacturing'
-  company_size VARCHAR(100),         -- '250-500', '500-2000', '2000+'
 
   -- Workflow
   status outreach_status DEFAULT 'new' NOT NULL,
-  source outreach_source DEFAULT 'manual' NOT NULL,
 
   -- Context & notes
-  boardy_notes TEXT,                 -- Raw notes from Boardy
+  boardy_notes TEXT,
   our_angle TEXT,                    -- Why this person matters to us
   their_angle TEXT,                  -- Why we matter to them
   next_action TEXT,                  -- What to do next
-  next_action_date DATE,            -- When to do it
+  next_action_date DATE,
 
   -- Tracking
   last_contacted_at TIMESTAMPTZ,
   last_response_at TIMESTAMPTZ,
   meetings_count INTEGER DEFAULT 0,
 
-  -- Timestamps
+  -- Attribution
+  source outreach_source DEFAULT 'manual' NOT NULL,
+  created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+
+  -- One thread = (person, org, pipeline). Never double-thread.
+  UNIQUE(person_id, org_id, pipeline)
 );
 
 -- ============================================================================
--- OUTREACH ACTIVITY LOG
+-- TABLE 5: OUTREACH ACTIVITIES (every event tied to person + org + pipeline + channel)
 -- ============================================================================
 
 CREATE TABLE outreach_activities (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  contact_id UUID NOT NULL REFERENCES outreach_contacts(id) ON DELETE CASCADE,
-  activity_type VARCHAR(50) NOT NULL,  -- 'email', 'linkedin', 'call', 'meeting', 'note'
+  thread_id UUID NOT NULL REFERENCES outreach_threads(id) ON DELETE CASCADE,
+  person_id UUID NOT NULL REFERENCES persons(id) ON DELETE CASCADE,
+  org_id UUID REFERENCES organizations(id) ON DELETE SET NULL,
+  pipeline outreach_pipeline NOT NULL,
+  channel VARCHAR(50) NOT NULL,         -- 'email', 'linkedin', 'whatsapp', 'call', 'meeting', 'boardy'
+  activity_type VARCHAR(50) NOT NULL,   -- 'sent', 'received', 'note', 'meeting', 'intro'
   description TEXT NOT NULL,
+
+  -- Raw content (email body, LI message, call notes) — makes debugging trivial
+  raw_payload JSONB,
+
+  -- Outcome tracking — makes digest/daily_tasks generation trivial
+  outcome activity_outcome,
+  next_followup_at TIMESTAMPTZ,
+
   metadata JSONB DEFAULT '{}'::jsonb,
+
+  -- Attribution
+  source outreach_source DEFAULT 'manual' NOT NULL,
+  created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
 
 -- ============================================================================
--- DAILY OUTREACH TASKS (generated by scheduler, emailed to founder)
+-- TABLE 6: DAILY OUTREACH TASKS (generated by scheduler, emailed to founder)
 -- ============================================================================
 
 CREATE TABLE outreach_daily_tasks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   task_date DATE NOT NULL DEFAULT CURRENT_DATE,
   pipeline outreach_pipeline NOT NULL,
-  contact_id UUID REFERENCES outreach_contacts(id) ON DELETE SET NULL,
+  thread_id UUID REFERENCES outreach_threads(id) ON DELETE SET NULL,
+  person_id UUID REFERENCES persons(id) ON DELETE SET NULL,
+  org_id UUID REFERENCES organizations(id) ON DELETE SET NULL,
   task_description TEXT NOT NULL,
-  context TEXT,                       -- Why this task matters today
+  context TEXT,
   completed BOOLEAN DEFAULT FALSE,
   completed_at TIMESTAMPTZ,
+
+  -- Attribution
+  created_by VARCHAR(100) DEFAULT 'scheduler' NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
 
@@ -114,12 +206,35 @@ CREATE TABLE outreach_daily_tasks (
 -- INDEXES
 -- ============================================================================
 
-CREATE INDEX idx_outreach_contacts_pipeline ON outreach_contacts(pipeline);
-CREATE INDEX idx_outreach_contacts_status ON outreach_contacts(status);
-CREATE INDEX idx_outreach_contacts_priority ON outreach_contacts(priority);
-CREATE INDEX idx_outreach_contacts_next_action_date ON outreach_contacts(next_action_date);
-CREATE INDEX idx_outreach_contacts_pipeline_status ON outreach_contacts(pipeline, status);
-CREATE INDEX idx_outreach_activities_contact ON outreach_activities(contact_id);
+-- Organizations
+CREATE INDEX idx_organizations_name ON organizations(name);
+CREATE INDEX idx_organizations_industry ON organizations(industry);
+
+-- Persons
+CREATE INDEX idx_persons_org ON persons(org_id);
+CREATE INDEX idx_persons_name ON persons(first_name, last_name);
+
+-- Person emails
+CREATE INDEX idx_person_emails_email ON person_emails(email);
+CREATE INDEX idx_person_emails_person ON person_emails(person_id);
+
+-- Outreach contacts
+CREATE INDEX idx_outreach_threads_person ON outreach_threads(person_id);
+CREATE INDEX idx_outreach_threads_org ON outreach_threads(org_id);
+CREATE INDEX idx_outreach_threads_pipeline ON outreach_threads(pipeline);
+CREATE INDEX idx_outreach_threads_status ON outreach_threads(status);
+CREATE INDEX idx_outreach_threads_priority ON outreach_threads(priority);
+CREATE INDEX idx_outreach_threads_next_action_date ON outreach_threads(next_action_date);
+CREATE INDEX idx_outreach_threads_pipeline_status ON outreach_threads(pipeline, status);
+
+-- Activities
+CREATE INDEX idx_outreach_activities_thread ON outreach_activities(thread_id);
+CREATE INDEX idx_outreach_activities_followup ON outreach_activities(next_followup_at) WHERE next_followup_at IS NOT NULL;
+CREATE INDEX idx_outreach_activities_person ON outreach_activities(person_id);
+CREATE INDEX idx_outreach_activities_pipeline ON outreach_activities(pipeline);
+CREATE INDEX idx_outreach_activities_created ON outreach_activities(created_at DESC);
+
+-- Daily tasks
 CREATE INDEX idx_outreach_daily_tasks_date ON outreach_daily_tasks(task_date);
 CREATE INDEX idx_outreach_daily_tasks_pipeline ON outreach_daily_tasks(pipeline, task_date);
 
@@ -127,27 +242,102 @@ CREATE INDEX idx_outreach_daily_tasks_pipeline ON outreach_daily_tasks(pipeline,
 -- TRIGGERS
 -- ============================================================================
 
-CREATE TRIGGER update_outreach_contacts_updated_at
-  BEFORE UPDATE ON outreach_contacts
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_organizations_updated_at
+  BEFORE UPDATE ON organizations
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_persons_updated_at
+  BEFORE UPDATE ON persons
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_outreach_threads_updated_at
+  BEFORE UPDATE ON outreach_threads
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Sync thread state from latest activity
+-- Rule: only move next_action_date FORWARD (never backwards from historical logs)
+-- Always update last_activity_at to track most recent touch
+CREATE OR REPLACE FUNCTION sync_thread_from_activity()
+RETURNS TRIGGER AS $$
+BEGIN
+  UPDATE outreach_threads SET
+    -- Only advance next_action_date, never move backwards
+    next_action_date = CASE
+      WHEN NEW.next_followup_at IS NOT NULL
+        AND (next_action_date IS NULL OR NEW.next_followup_at::date > next_action_date)
+      THEN NEW.next_followup_at::date
+      ELSE next_action_date
+    END,
+    last_contacted_at = CASE
+      WHEN NEW.activity_type IN ('sent', 'meeting', 'intro') THEN NEW.created_at
+      ELSE last_contacted_at
+    END,
+    last_response_at = CASE
+      WHEN NEW.activity_type = 'received' THEN NEW.created_at
+      ELSE last_response_at
+    END
+  WHERE id = NEW.thread_id;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER sync_thread_on_activity_insert
+  AFTER INSERT ON outreach_activities
+  FOR EACH ROW EXECUTE FUNCTION sync_thread_from_activity();
 
 -- ============================================================================
--- VIEWS: Daily task generation queries
+-- VIEWS
 -- ============================================================================
 
--- Contacts needing follow-up (next_action_date is today or past)
-CREATE VIEW v_outreach_due_today AS
+-- Enriched contact view (joins person + org for daily digest queries)
+CREATE VIEW v_outreach_enriched AS
 SELECT
-  oc.*,
+  oc.id,
+  oc.pipeline,
+  oc.priority,
+  oc.status,
+  oc.source,
+  oc.next_action,
+  oc.next_action_date,
+  oc.our_angle,
+  oc.their_angle,
+  oc.boardy_notes,
+  oc.last_contacted_at,
+  oc.meetings_count,
+  oc.investor_type,
+  oc.check_size,
+  oc.partnership_type,
+  oc.customer_segment,
+  p.first_name,
+  p.last_name,
+  p.title AS person_title,
+  p.linkedin_url,
+  p.location AS person_location,
+  o.name AS org_name,
+  o.domain AS org_domain,
+  o.location AS org_location,
+  o.size AS org_size,
+  pe.email AS primary_email,
+  oc.person_id,
+  oc.org_id,
+  oc.created_at,
+  oc.created_by
+FROM outreach_threads oc
+JOIN persons p ON oc.person_id = p.id
+LEFT JOIN organizations o ON oc.org_id = o.id
+LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = TRUE;
+
+-- Contacts due today (for daily digest)
+CREATE VIEW v_outreach_due_today AS
+SELECT ve.*,
   COALESCE(
-    (SELECT COUNT(*) FROM outreach_activities oa WHERE oa.contact_id = oc.id),
+    (SELECT COUNT(*) FROM outreach_activities oa WHERE oa.thread_id = ve.id),
     0
   ) AS activity_count
-FROM outreach_contacts oc
-WHERE oc.next_action_date <= CURRENT_DATE
-  AND oc.status NOT IN ('converted', 'passed', 'parked')
-ORDER BY oc.priority ASC, oc.next_action_date ASC;
+FROM v_outreach_enriched ve
+WHERE ve.next_action_date <= CURRENT_DATE
+  AND ve.status NOT IN ('converted', 'passed', 'parked')
+ORDER BY ve.priority ASC, ve.next_action_date ASC;
 
 -- Pipeline summary for daily digest
 CREATE VIEW v_outreach_pipeline_summary AS
@@ -159,134 +349,190 @@ SELECT
   SUM(CASE WHEN status = 'meeting_booked' THEN 1 ELSE 0 END) AS meetings_count,
   SUM(CASE WHEN status = 'converted' THEN 1 ELSE 0 END) AS converted_count,
   SUM(CASE WHEN next_action_date <= CURRENT_DATE AND status NOT IN ('converted', 'passed', 'parked') THEN 1 ELSE 0 END) AS due_today
-FROM outreach_contacts
+FROM outreach_threads
 GROUP BY pipeline;
 
 -- ============================================================================
 -- RLS (Row Level Security)
 -- ============================================================================
 
-ALTER TABLE outreach_contacts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE persons ENABLE ROW LEVEL SECURITY;
+ALTER TABLE person_emails ENABLE ROW LEVEL SECURITY;
+ALTER TABLE outreach_threads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE outreach_activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE outreach_daily_tasks ENABLE ROW LEVEL SECURITY;
 
--- Service role full access
-CREATE POLICY "Service role full access to outreach_contacts"
-  ON outreach_contacts FOR ALL
-  USING (auth.role() = 'service_role');
+-- Service role full access (all tables)
+CREATE POLICY "Service role full access" ON organizations FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON persons FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON person_emails FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON outreach_threads FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON outreach_activities FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON outreach_daily_tasks FOR ALL USING (auth.role() = 'service_role');
 
-CREATE POLICY "Service role full access to outreach_activities"
-  ON outreach_activities FOR ALL
-  USING (auth.role() = 'service_role');
-
-CREATE POLICY "Service role full access to outreach_daily_tasks"
-  ON outreach_daily_tasks FOR ALL
-  USING (auth.role() = 'service_role');
-
--- Authenticated users can read
-CREATE POLICY "Authenticated users can view outreach_contacts"
-  ON outreach_contacts FOR SELECT
-  USING (auth.role() = 'authenticated');
-
-CREATE POLICY "Authenticated users can view outreach_activities"
-  ON outreach_activities FOR SELECT
-  USING (auth.role() = 'authenticated');
-
-CREATE POLICY "Authenticated users can view outreach_daily_tasks"
-  ON outreach_daily_tasks FOR SELECT
-  USING (auth.role() = 'authenticated');
+-- Authenticated read access (all tables)
+CREATE POLICY "Authenticated read" ON organizations FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON persons FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON person_emails FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON outreach_threads FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON outreach_activities FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON outreach_daily_tasks FOR SELECT USING (auth.role() = 'authenticated');
 
 -- ============================================================================
--- SEED DATA: Initial contacts from Boardy + existing pipelines
+-- SEED DATA
 -- ============================================================================
 
--- INVESTORS
-INSERT INTO outreach_contacts (pipeline, priority, first_name, last_name, email, linkedin_url, company, title, location, investor_type, check_size, status, source, boardy_notes, our_angle, their_angle, next_action, next_action_date) VALUES
-(
+-- Organizations first (domain as natural key)
+INSERT INTO organizations (domain, name, description, location, size, industry, website, source, created_by) VALUES
+  ('colbridgeventures.com', 'Colbridge Ventures', 'Pre-seed/seed climate tech VC + venture studio. $250K checks. London HQ, Hamburg partner.', 'London, UK', '11-50', 'Venture Capital', 'https://www.colbridgeventures.com', 'boardy', 'risto'),
+  ('soldera.io', 'Soldera', 'Climate compliance ops for renewable energy certification. EU regulatory workflows.', 'UK', '11-50', 'Climate Tech', 'https://www.soldera.io', 'boardy', 'risto'),
+  ('oneclicklca.com', 'One Click LCA', 'Building lifecycle assessment. Design-phase carbon analysis. €21.8M revenue, 200+ people.', 'Helsinki, Finland', '201-500', 'Construction Tech', 'https://www.oneclicklca.com', 'manual', 'risto'),
+  ('ifs.com', 'IFS Cloud', 'ERP for asset-intensive industries. Construction, manufacturing, energy. Linkoping HQ.', 'Linkoping, Sweden', '500+', 'Enterprise Software', 'https://www.ifs.com', 'manual', 'risto'),
+  ('sap.com', 'SAP', 'Largest ERP globally. S/4HANA. PartnerEdge program.', 'Walldorf, Germany', '500+', 'Enterprise Software', 'https://www.sap.com', 'manual', 'risto'),
+  ('ncc.se', 'NCC AB', 'Nordic construction giant. Uses IFS Cloud. CSRD obligated.', 'Stockholm, Sweden', '500+', 'Construction', 'https://www.ncc.se', 'manual', 'risto');
+
+-- Persons (LinkedIn URL as natural key)
+INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
+  (
+    'https://www.linkedin.com/in/nicolasderrien1/',
+    'Nicolas', 'Derrien', 'Partner',
+    'Hamburg, Germany',
+    (SELECT id FROM organizations WHERE domain = 'colbridgeventures.com'),
+    'boardy', 'risto'
+  ),
+  (
+    'https://www.linkedin.com/in/ACoAADbNXUABBBu1fZSxkX3tRBbZU_5JAvG1lJs',
+    'Oliver', 'Bonallack', 'Founders Associate',
+    'UK',
+    (SELECT id FROM organizations WHERE domain = 'soldera.io'),
+    'boardy', 'risto'
+  );
+
+-- Outreach contacts (person + org + pipeline)
+-- Nicolas Derrien -> investor pipeline
+INSERT INTO outreach_threads (
+  person_id, org_id, pipeline, priority,
+  investor_type, check_size,
+  status, source, created_by,
+  boardy_notes, our_angle, their_angle, next_action, next_action_date
+) VALUES (
+  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/nicolasderrien1/'),
+  (SELECT id FROM organizations WHERE domain = 'colbridgeventures.com'),
   'investor', 'high',
-  'Nicolas', 'Derrien',
-  NULL,
-  'https://www.linkedin.com/in/nicolasderrien1/',
-  'Colbridge Ventures', 'Partner', 'Hamburg, Germany',
   'VC', '$250K',
-  'intro_requested', 'boardy',
+  'intro_requested', 'boardy', 'risto',
   'Partner at Colbridge Ventures (London/Hamburg). Pre-seed and seed climate tech. Decision maker. Often leans capex-heavy climate infra. Co-founder of Continuum Composite Recycling (wind blade recycling). Ohio State MBA.',
   'Colbridge does pre-seed climate tech. Their portfolio companies (Continuum, WASE, Anzen) all need EU compliance reporting. DWS IQ is the compliance layer for the ecosystem they already invest in. $250K check co-lead.',
   'Industrial decarb + compliance automation at €84k ARR. SaaS with clear ROI, not capex-heavy. Every factory in his portfolio needs CSRD reporting.',
-  'Accept Boardy intro. Prepare 1-pager emphasizing SaaS economics + recurring revenue vs capex. Lead with: "compliance automation layer for the industrial ecosystem you already invest in."',
-  CURRENT_DATE
-),
-(
-  'investor', 'medium',
-  'Oliver', 'Bonallack',
-  NULL,
-  'https://www.linkedin.com/in/ACoAADbNXUABBBu1fZSxkX3tRBbZU_5JAvG1lJs',
-  'Soldera', 'Founders Associate', 'UK',
-  NULL, NULL,
-  'intro_requested', 'boardy',
-  'Founders Associate at Soldera (climate compliance ops for renewable certification, EU regulatory workflows). Not an investor. Deep in "turn regulation into repeatable workflows" which maps to our ERP-to-CSRD story. Domain is energy certificates, not construction.',
-  'Soldera does renewable certification compliance. Same regulatory-workflow-automation DNA as DWS IQ. Potential for playbook sharing, UK/EU climate circle intros, and possibly partnership on overlapping compliance workflows.',
-  'Sees regulation-to-workflow automation daily. Could validate our approach, share playbooks, and introduce us to UK/EU climate compliance buyers.',
-  'Accept Boardy intro. Position as peer conversation: "We both turn EU regulation into automated workflows — you in energy certificates, us in CSRD/ETS from ERP data. Lets compare notes."',
+  'Accept Boardy intro. Prepare 1-pager: SaaS economics + recurring revenue. Lead with "compliance layer for your portfolio."',
   CURRENT_DATE
 );
 
--- PARTNERS
-INSERT INTO outreach_contacts (pipeline, priority, first_name, last_name, company, title, location, partnership_type, status, source, our_angle, their_angle, next_action, next_action_date) VALUES
-(
+-- Oliver Bonallack -> partner pipeline (not investor — he's a peer, not a check writer)
+INSERT INTO outreach_threads (
+  person_id, org_id, pipeline, priority,
+  partnership_type,
+  status, source, created_by,
+  boardy_notes, our_angle, their_angle, next_action, next_action_date
+) VALUES (
+  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/ACoAADbNXUABBBu1fZSxkX3tRBbZU_5JAvG1lJs'),
+  (SELECT id FROM organizations WHERE domain = 'soldera.io'),
+  'partner', 'medium',
+  'Advisory',
+  'intro_requested', 'boardy', 'risto',
+  'Founders Associate at Soldera. Climate compliance ops for renewable certification. EU regulatory workflows. Not an investor. Deep in regulation-to-workflow automation.',
+  'Same regulatory-workflow DNA. Playbook sharing, UK/EU climate circle intros, potential partnership on overlapping compliance workflows.',
+  'Sees regulation-to-workflow automation daily. Could validate our approach and intro us to UK/EU climate compliance buyers.',
+  'Accept Boardy intro. Peer conversation: "We both turn EU regulation into automated workflows. Lets compare notes."',
+  CURRENT_DATE
+);
+
+-- One Click LCA -> partner pipeline (placeholder contact until we find the right person)
+INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
+  ('https://www.linkedin.com/company/one-click-lca/', 'Partnerships', 'Team', 'BD/Partnerships', 'Helsinki, Finland',
+   (SELECT id FROM organizations WHERE domain = 'oneclicklca.com'), 'manual', 'risto');
+
+INSERT INTO outreach_threads (
+  person_id, org_id, pipeline, priority,
+  partnership_type,
+  status, source, created_by,
+  our_angle, their_angle, next_action, next_action_date
+) VALUES (
+  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/one-click-lca/'),
+  (SELECT id FROM organizations WHERE domain = 'oneclicklca.com'),
   'partner', 'high',
-  'Partnerships', 'Team',
-  'One Click LCA', 'BD/Partnerships', 'Helsinki, Finland',
   'Technology',
-  'new', 'manual',
-  'Their design-phase LCA outputs become our input. We extend their value chain into operations compliance. Partnership = mutual customer value.',
-  'Their customers finish design-phase LCA then have no tool for ongoing operations reporting. We fill that gap and keep their customers engaged.',
-  'Find the right contact at One Click LCA partnerships team. Prepare partnership pitch: "Your output is our input."',
+  'new', 'manual', 'risto',
+  'Their design-phase LCA outputs become our input. We extend their value chain into operations compliance.',
+  'Their customers finish design-phase LCA then have no tool for ongoing operations reporting. We fill that gap.',
+  'Find the right BD contact at One Click LCA. Prepare pitch: "Your output is our input."',
   CURRENT_DATE + 3
-),
-(
+);
+
+-- IFS Cloud -> partner pipeline
+INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
+  ('https://www.linkedin.com/company/aborasolarglass/', 'ISV Marketplace', 'Team', 'ISV/Marketplace', 'Linkoping, Sweden',
+   (SELECT id FROM organizations WHERE domain = 'ifs.com'), 'manual', 'risto');
+
+INSERT INTO outreach_threads (
+  person_id, org_id, pipeline, priority,
+  partnership_type,
+  status, source, created_by,
+  our_angle, their_angle, next_action, next_action_date
+) VALUES (
+  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/aborasolarglass/'),
+  (SELECT id FROM organizations WHERE domain = 'ifs.com'),
   'partner', 'high',
-  'ISV Marketplace', 'Team',
-  'IFS Cloud', 'ISV/Marketplace', 'Linkoping, Sweden',
   'Integration',
-  'new', 'manual',
-  'Our most production-ready ERP connector. IFS dominates asset-intensive industries. Marketplace listing = instant distribution to their customer base.',
-  'Their customers in construction/manufacturing need climate compliance. We automate CSRD reporting from IFS data. Adds value to their platform.',
+  'new', 'manual', 'risto',
+  'Our most production-ready ERP connector. IFS dominates asset-intensive industries. Marketplace listing = distribution.',
+  'Their customers need climate compliance. We automate CSRD reporting from IFS data. Adds platform value.',
   'Research IFS Cloud ISV partner program. Find Nordic region contact. Prepare integration demo.',
   CURRENT_DATE + 5
-),
-(
-  'partner', 'medium',
-  'Sustainability', 'Solutions',
-  'SAP', 'Sustainability Solution Manager', 'Germany',
-  'Integration',
-  'new', 'manual',
-  'Largest ERP globally. SAP PartnerEdge listing for CSRD compliance. We have verifiably correct OData endpoints for S/4HANA.',
-  'SAP customers need CSRD tooling. We pull production orders and material data and map to CSRD evidence.',
-  'Research SAP PartnerEdge requirements. Identify sustainability practice lead for Nordics.',
-  CURRENT_DATE + 7
 );
 
--- CUSTOMERS (from existing traction patterns)
-INSERT INTO outreach_contacts (pipeline, priority, first_name, last_name, company, title, location, customer_segment, company_size, status, source, our_angle, their_angle, next_action, next_action_date) VALUES
-(
+-- NCC AB -> customer pipeline
+INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
+  ('https://www.linkedin.com/company/ncc/', 'Sustainability', 'Director', 'Sustainability Director', 'Stockholm, Sweden',
+   (SELECT id FROM organizations WHERE domain = 'ncc.se'), 'manual', 'risto');
+
+INSERT INTO outreach_threads (
+  person_id, org_id, pipeline, priority,
+  customer_segment,
+  status, source, created_by,
+  our_angle, their_angle, next_action, next_action_date
+) VALUES (
+  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/ncc/'),
+  (SELECT id FROM organizations WHERE domain = 'ncc.se'),
   'customer', 'high',
-  'Sustainability', 'Director',
-  'NCC AB', 'Sustainability Director', 'Stockholm, Sweden',
-  'Construction', '2000+',
-  'new', 'manual',
+  'Construction',
+  'new', 'manual', 'risto',
   'Nordic construction giant. Uses IFS Cloud. Has One Click LCA for design phase. Needs operations compliance automation.',
-  'CSRD filing deadline approaching. Manual reporting across hundreds of projects. Need automated ERP-to-report pipeline.',
-  'Research NCC sustainability team on LinkedIn. Find the right contact. Prepare construction operations compliance pitch.',
+  'CSRD filing deadline approaching. Manual reporting across projects. Need automated ERP-to-report pipeline.',
+  'Research NCC sustainability team on LinkedIn. Find the real person. Prepare construction operations compliance pitch.',
   CURRENT_DATE + 3
 );
+
+-- Log initial Boardy activities
+INSERT INTO outreach_activities (thread_id, person_id, org_id, pipeline, channel, activity_type, description, raw_payload, outcome, source, created_by)
+SELECT
+  oc.id, oc.person_id, oc.org_id, oc.pipeline,
+  'boardy', 'intro',
+  'Boardy recommended warm intro. ' || oc.boardy_notes,
+  jsonb_build_object('boardy_notes', oc.boardy_notes, 'our_angle', oc.our_angle),
+  'positive',
+  'boardy', 'risto'
+FROM outreach_threads oc
+WHERE oc.source = 'boardy';
 
 -- ============================================================================
 -- COMMENTS
 -- ============================================================================
 
-COMMENT ON TABLE outreach_contacts IS 'Unified CRM for investor, customer, and partner outreach pipelines';
-COMMENT ON TABLE outreach_activities IS 'Activity log for all outreach interactions';
-COMMENT ON TABLE outreach_daily_tasks IS 'Daily generated tasks emailed to founder (3 tasks, 5 days/week)';
-COMMENT ON VIEW v_outreach_due_today IS 'Contacts with overdue or due-today next actions';
-COMMENT ON VIEW v_outreach_pipeline_summary IS 'Summary counts per pipeline for daily digest email';
+COMMENT ON TABLE organizations IS 'Companies/funds. Domain as natural unique key. Dedup on domain.';
+COMMENT ON TABLE persons IS 'People. LinkedIn URL as natural unique key. Dedup on linkedin_url.';
+COMMENT ON TABLE person_emails IS 'Multiple emails per person. Email is changeable, LinkedIn URL is not.';
+COMMENT ON TABLE outreach_threads IS 'Conversation state: one per person per pipeline per org. Separates "who" from "what happened".';
+COMMENT ON TABLE outreach_activities IS 'Event log: thread_id + person_id + org_id + pipeline + channel. raw_payload stores full content. outcome + next_followup_at drive daily digest.';
+COMMENT ON TABLE outreach_daily_tasks IS 'Daily generated tasks emailed to founder (3 tasks, 5 days/week).';

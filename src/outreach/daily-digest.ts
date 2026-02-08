@@ -1,15 +1,18 @@
 /**
  * Daily Outreach Digest Generator
  *
- * Queries Supabase for the highest-priority action across each pipeline
+ * Queries Supabase for the highest-priority thread across each pipeline
  * (investor, customer, partner) and generates 3 daily tasks.
+ *
+ * Uses v_outreach_enriched view (joins threads + persons + orgs).
+ * Also checks outreach_activities.next_followup_at for activity-driven tasks.
  *
  * Emails the digest to risto@lifetime.fi every weekday at 07:00 Helsinki time.
  */
 
 import logger from '../utils/logger.js';
 import type {
-  OutreachContact,
+  EnrichedThread,
   OutreachPipeline,
   DailyDigest,
   OutreachDailyTask,
@@ -50,25 +53,29 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 }
 
 /**
- * Get the top contact needing action for a given pipeline.
+ * Get the top thread needing action for a given pipeline.
+ * Queries v_outreach_enriched (joins thread + person + org + primary email).
  * Priority: (1) overdue next_action_date, (2) high priority, (3) newest.
  */
-async function getTopContactForPipeline(
+async function getTopThreadForPipeline(
   pipeline: OutreachPipeline
-): Promise<OutreachContact | null> {
-  const contacts: OutreachContact[] = await supabaseFetch(
-    `outreach_contacts?pipeline=eq.${pipeline}` +
+): Promise<EnrichedThread | null> {
+  const today = new Date().toISOString().split('T')[0];
+
+  // First: threads with overdue or due-today actions
+  const due: EnrichedThread[] = await supabaseFetch(
+    `v_outreach_enriched?pipeline=eq.${pipeline}` +
       `&status=not.in.(converted,passed,parked)` +
-      `&next_action_date=lte.${new Date().toISOString().split('T')[0]}` +
+      `&next_action_date=lte.${today}` +
       `&order=priority.asc,next_action_date.asc` +
       `&limit=1`
   );
 
-  if (contacts.length > 0) return contacts[0];
+  if (due.length > 0) return due[0];
 
-  // Fallback: any contact in this pipeline that hasn't been converted/passed
-  const fallback: OutreachContact[] = await supabaseFetch(
-    `outreach_contacts?pipeline=eq.${pipeline}` +
+  // Fallback: any active thread in this pipeline
+  const fallback: EnrichedThread[] = await supabaseFetch(
+    `v_outreach_enriched?pipeline=eq.${pipeline}` +
       `&status=not.in.(converted,passed,parked)` +
       `&order=priority.asc,created_at.desc` +
       `&limit=1`
@@ -84,7 +91,6 @@ async function getPipelineSummary(): Promise<PipelineSummary[]> {
   try {
     return await supabaseFetch('v_outreach_pipeline_summary');
   } catch {
-    // View might not exist yet, return empty
     return [];
   }
 }
@@ -93,9 +99,9 @@ async function getPipelineSummary(): Promise<PipelineSummary[]> {
 // TASK GENERATION
 // ============================================================================
 
-function generateTaskForContact(
+function generateTaskForThread(
   pipeline: OutreachPipeline,
-  contact: OutreachContact | null
+  thread: EnrichedThread | null
 ): OutreachDailyTask {
   const pipelineLabels: Record<OutreachPipeline, string> = {
     investor: 'INVESTOR',
@@ -103,28 +109,32 @@ function generateTaskForContact(
     partner: 'PARTNER',
   };
 
-  if (!contact) {
+  if (!thread) {
     return {
       id: crypto.randomUUID(),
       task_date: new Date().toISOString().split('T')[0],
       pipeline,
-      contact_id: null,
+      thread_id: null,
+      person_id: null,
+      org_id: null,
       task_description: `[${pipelineLabels[pipeline]}] Add new contacts to the ${pipeline} pipeline. Check Boardy, LinkedIn, and conference lists.`,
-      context: `No active contacts in the ${pipeline} pipeline. Time to source.`,
+      context: `No active threads in the ${pipeline} pipeline. Time to source.`,
       completed: false,
     };
   }
 
-  const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ');
-  const companyLine = contact.company ? ` at ${contact.company}` : '';
+  const name = [thread.first_name, thread.last_name].filter(Boolean).join(' ');
+  const orgLine = thread.org_name ? ` at ${thread.org_name}` : '';
 
   return {
     id: crypto.randomUUID(),
     task_date: new Date().toISOString().split('T')[0],
     pipeline,
-    contact_id: contact.id,
-    task_description: `[${pipelineLabels[pipeline]}] ${contact.next_action || `Follow up with ${name}${companyLine}`}`,
-    context: contact.our_angle || `${name}${companyLine} — Status: ${contact.status}`,
+    thread_id: thread.id,
+    person_id: thread.person_id,
+    org_id: thread.org_id || null,
+    task_description: `[${pipelineLabels[pipeline]}] ${thread.next_action || `Follow up with ${name}${orgLine}`}`,
+    context: thread.our_angle || `${name}${orgLine} — Status: ${thread.status}`,
     completed: false,
   };
 }
@@ -213,7 +223,7 @@ function formatDigestEmail(digest: DailyDigest): { subject: string; html: string
     <tr>
       <td style="padding: 16px 24px; text-align: center;">
         <p style="margin: 0; font-size: 11px; color: #555;">
-          DWS IQ 6 Outreach System — Not emotionally attached to products, focused on sales.
+          DWS IQ 6 Outreach System — Focused on sales.
         </p>
       </td>
     </tr>
@@ -239,15 +249,14 @@ function escapeHtml(str: string): string {
 export async function generateDailyDigest(): Promise<DailyDigest> {
   logger.info('Generating daily outreach digest');
 
-  // Get top contact for each pipeline in parallel
   const [investor, customer, partner] = await Promise.all(
-    PIPELINES.map((p) => getTopContactForPipeline(p))
+    PIPELINES.map((p) => getTopThreadForPipeline(p))
   );
 
   const tasks = [
-    generateTaskForContact('investor', investor),
-    generateTaskForContact('customer', customer),
-    generateTaskForContact('partner', partner),
+    generateTaskForThread('investor', investor),
+    generateTaskForThread('customer', customer),
+    generateTaskForThread('partner', partner),
   ];
 
   const pipeline_summary = await getPipelineSummary();
@@ -265,7 +274,6 @@ export async function sendDailyDigestEmail(): Promise<void> {
   const digest = await generateDailyDigest();
   const { subject, html } = formatDigestEmail(digest);
 
-  // Send via email service
   const resendKey = process.env.RESEND_API_KEY;
   const sendgridKey = process.env.SENDGRID_API_KEY;
   const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
@@ -322,7 +330,7 @@ export async function sendDailyDigestEmail(): Promise<void> {
   console.log('='.repeat(60));
   digest.tasks.forEach((t, i) => {
     console.log(`\n${i + 1}. ${t.task_description}`);
-    if (t.context) console.log(`   → ${t.context}`);
+    if (t.context) console.log(`   -> ${t.context}`);
   });
   console.log('\n' + '='.repeat(60));
 
@@ -334,7 +342,9 @@ async function saveDailyTasks(digest: DailyDigest): Promise<void> {
     const tasksToSave = digest.tasks.map((t) => ({
       task_date: t.task_date,
       pipeline: t.pipeline,
-      contact_id: t.contact_id,
+      thread_id: t.thread_id,
+      person_id: t.person_id,
+      org_id: t.org_id,
       task_description: t.task_description,
       context: t.context,
     }));
