@@ -1,360 +1,309 @@
-# DWS IQ 6 - Pivot Strategy: Follow The Revenue
+# DWS IQ 6 - Pivot Strategy v2: The Operations Compliance Layer
 
-**Date:** February 7, 2026
+**Date:** February 8, 2026
 **Author:** Risto Anton Paarni
-**Status:** PROPOSAL - For founder review and decision
+**Status:** ACCEPTED DIRECTION - Refine and execute
 
 ---
 
 ## Executive Summary
 
-DWS IQ has €84k ARR from 3 paying customers in logistics and healthcare.
-Zero revenue from construction, despite the entire platform being built for construction.
+DWS IQ is not a building LCA tool. It is the **operations compliance layer** for companies
+that already built, already operate, and now must report to regulators.
 
-This document proposes refocusing the product around what customers actually buy:
-**automated compliance reporting that saves 40+ hours/month.**
+The design-phase carbon chain is owned (Rakennustieto EPDs → CO2data.fi → One Click LCA).
+The operations-phase compliance chain is **empty across all 27 EU countries.**
 
----
-
-## 1. The Problem: Building vs. Selling
-
-### What We Built For
-
-| Investment | Details |
-|-----------|---------|
-| 4 domains | dws6.com, dws10.com, onelifetime.world, lifetime.fi |
-| 14 dashboard variants | v8, v9, v10, mobile, enterprise, store, watsonx, etc. |
-| 137 landing pages | 12 industry verticals, product pages, compliance pages |
-| 8 product lines | Report, Automation, DMS, Omnichannel, Fleet, Studios, Consulting, Agent Foundry |
-| 5 AI agents | SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability |
-| 6 ERP connectors | SAP, IFS, Dynamics, Visma, Jeeves, Monitor |
-| 9 Python services | Report engine, automation, DMS, MCP hub, etc. |
-
-**Target vertical:** Construction & infrastructure
-
-### What Actually Sells
-
-| Customer | Vertical | Annual Value | What They Buy |
-|----------|----------|-------------|---------------|
-| Uber Finland | Logistics | €70,000 | Fleet emissions reporting |
-| Bolt Finland | Logistics | €60,000 | Fleet emissions reporting |
-| Kela | Healthcare | €90,000 | Compliance automation |
-| Construction A | Construction | €0 | Piloting (not converting) |
-| Construction B | Construction | €0 | Piloting (not converting) |
-
-**100% of revenue = logistics + healthcare compliance automation.**
-**0% of revenue = construction.**
-
-### The Competitor We Can't Beat
-
-One Click LCA (Helsinki):
-- €21.8M annual revenue
-- 200+ employees
-- $43.8M raised
-- 250,000+ LCA datasets
-- 170+ countries
-- 20+ BIM integrations
-- Clients: Siemens Energy, P&G, J&J, AECOM, WSP
-
-We cannot out-build One Click LCA on construction LCA with a solo founder vs. 200+ people.
-They have a 23-year head start from the same city.
+DWS IQ fills that gap. We integrate with LCA tools instead of competing with them.
 
 ---
 
-## 2. Where The Market Actually Is
+## 1. The Market Gap: Design vs. Operations
 
-### Carbon Accounting SaaS Market (2025-2032)
+### The Finnish Construction Data Chain (Already Built)
 
-| Segment | 2025 | 2032 | CAGR |
-|---------|------|------|------|
-| Carbon accounting software | $18.5B | $100.8B | 23.9% |
-| ESG software | $4.1B | $10.3B | 16.6% |
-| Sustainability platforms | $1.3B | $4.2B | 23% |
+```
+DESIGN PHASE (OWNED)                    OPERATIONS PHASE (EMPTY)
+────────────────────                    ────────────────────────
+Rakennustieto                           ???
+  RT cards (how to build)
+  RTS EPDs (material carbon, EN 15804)
+  150,000+ products with CO2 data
+  40,000 Finnish professionals use daily
+        ↓
+CO2data.fi (SYKE)
+  National emissions database
+  GWP values per kg product (A1-A3)
+  Conservative factor 1.2x
+        ↓
+One Click LCA
+  Building LCA (design-phase carbon)     → DWS IQ
+  250,000+ LCA datasets                    Pulls ERP + project data
+  20+ BIM integrations                     Imports One Click LCA outputs
+  140+ certifications                      Maps to CSRD evidence
+  €21.8M revenue, 200+ people              Auto-generates recurring reports
+        ↓                                   Monitors performance over time
+Building gets designed + built                    ↓
+        ↓                                Regulator gets audit-ready report
+NOTHING HAPPENS ← The Gap                every quarter, automatically
+```
 
-Source: Fortune Business Insights, Mordor Intelligence, IoT Analytics
+### This Gap Exists Across All 27 EU Countries
 
-### Competitor Landscape
+| Country | Design-phase data | Design-phase LCA | Operations compliance |
+|---------|-------------------|-------------------|-----------------------|
+| Finland | Rakennustieto EPDs, CO2data.fi | One Click LCA | **Gap** |
+| Sweden | Boverket, IVL EPDs | One Click LCA | **Gap** |
+| Germany | ÖKOBAUDAT | One Click LCA | **Gap** |
+| France | INIES | One Click LCA | **Gap** |
+| Netherlands | NMD (Nationale Milieudatabase) | One Click LCA | **Gap** |
+| Denmark | EPD Denmark | One Click LCA | **Gap** |
+| Norway | EPD Norway | One Click LCA | **Gap** |
+| All 27 | Each has national EPD databases | Consolidated by One Click LCA | **Every country has the same gap** |
 
-| Company | Focus | Revenue | Raised | Gap We Can Fill |
-|---------|-------|---------|--------|-----------------|
-| Watershed | Enterprise emissions | Undisclosed | $225M | Too expensive for mid-market |
-| Persefoni | Carbon accounting | $4.3M | $194M | No ERP integration, manual data |
-| Sweep | Carbon management | Undisclosed | $100M | Enterprise-only, complex setup |
-| Greenly | SME carbon accounting | €5.88M | $78.6M | No ERP connectors, basic automation |
-| One Click LCA | Construction LCA | €21.8M | $43.8M | Construction-only, no fleet/logistics |
-
-### The Gap Nobody Fills
-
-**No competitor pulls compliance data directly from ERP systems.**
-
-- Persefoni: Manual CSV upload
-- Greenly: Manual data entry or accounting software sync
-- Sweep: Manual + some API integrations
-- Watershed: Enterprise integrations but $100k+ pricing
-
-**We have 6 ERP connectors that pull data from source.** SAP, IFS, Dynamics 365, Visma, Jeeves, Monitor.
-That's a real moat, especially for the Nordic/EU mid-market where these ERPs dominate.
+Every country has mature design-phase tools. No country has automated operations compliance.
+49,000 EU companies need CSRD filing. They've designed low-carbon buildings.
+Now they need to prove they're operating them compliantly.
 
 ---
 
-## 3. The Pivot: Three Products, One Value Prop
+## 2. Positioning: Complete The Chain, Don't Compete With It
 
-### Value Proposition (One Sentence)
+### The Positioning Statement
 
-> "We connect to your ERP and automatically generate your compliance reports.
-> Your team saves 40 hours per month. Setup takes 4 weeks."
+> **DWS IQ is the operations compliance layer for construction portfolios and industrial
+> companies: it pulls ERP and project data, keeps CSRD/ETS/CBAM evidence continuously
+> audit-ready, and monitors performance over time. We integrate with LCA tools
+> (including One Click LCA) instead of competing with them.**
 
-### Product 1: Fleet Carbon Report
+### What This Means In Practice
 
-**The proven winner.** This is what Uber, Bolt, and Kela already pay for.
+| LCA tools tell you... | DWS IQ tells the regulator... |
+|------------------------|-------------------------------|
+| What the building SHOULD emit (design) | What it ACTUALLY emits (operations) |
+| Material carbon at construction (A1-A5) | Operational carbon over time (B1-B7) |
+| One-time assessment at design | Continuous quarterly reporting |
+| Architect/engineer is the user | CFO/sustainability director is the user |
+| Manual, project-by-project | Automated, portfolio-wide |
+| Data from BIM models | Data from ERP systems |
+
+### The Concrete Integration Claim (For /buy Page)
+
+> "Import One Click LCA building assessments and CO2data.fi emission factors.
+> Connect to your ERP (SAP, IFS, Dynamics, Visma, Jeeves, Monitor).
+> DWS IQ maps design-phase baselines to operational evidence,
+> and auto-generates CSRD/ETS/CBAM reports every quarter."
+
+This makes DWS IQ a **buyer** of One Click LCA outputs, not a competitor.
+One Click LCA becomes a data source, like an ERP is a data source.
+
+---
+
+## 3. Connector Readiness: Where We Start
+
+### ERP Connector Audit (Honest Assessment)
+
+| Connector | Lines | Real API Paths | Auth | Data Mapping | Production Ready |
+|-----------|-------|---------------|------|-------------|-----------------|
+| IFS Cloud | 231 | Real IFS projection URLs | OAuth2 | 14-field asset mapping | **Closest** |
+| SAP S/4HANA | 107 | Verifiably real OData | Basic + sap-client | None yet | Reads only |
+| Dynamics 365 | 112 | Real MS identity URLs | OAuth2 (Azure AD) | None yet | Auth + 1 read |
+| Monitor | 551 | Plausible | OAuth2 | Full bidirectional | Unverifiable endpoints |
+| Visma | 99 | Plausible | OAuth2 (buggy) | None yet | Maybe 2 calls |
+| Jeeves | 86 | Likely fabricated | API key | None yet | Unlikely |
+
+**Shared fatal flaw:** No database persistence. Data is fetched, counted, logged, and discarded.
+Every Supabase write is a `// TODO` comment.
+
+### First Integration Target: IFS Cloud
+
+**Why IFS first:**
+- Most complete connector (real projection URLs, real OAuth2, actual field mapping)
+- IFS dominates asset-intensive industries (construction, manufacturing, energy)
+- IFS Cloud is the ERP of choice for NCC, Skanska, and Nordic infrastructure companies
+- 5 of 6 sync methods make real HTTP calls
+
+**What needs to happen to make IFS production-ready:**
+1. Wire Supabase persistence (replace TODO comments) — 4-6h
+2. Test against real IFS Cloud sandbox — 4h
+3. Add data transformation for remaining entity types — 4h
+4. Add retry/backoff for production reliability — 2h
+5. **Total: ~2 days to first real ERP connection**
+
+### Second Integration Target: SAP S/4HANA
+
+**Why SAP second:**
+- Verifiably correct OData endpoints (API_PRODUCTION_ORDER_2_SRV)
+- Largest ERP market share globally
+- Enterprise customers (Compliance Bridge product) will expect SAP
+- Needs data transformation layer added — 4-6h more work than IFS
+
+### Integration Roadmap
+
+```
+Feb 2026:   IFS Cloud (read) ──── First real ERP connection
+Mar 2026:   SAP S/4HANA (read) ── Enterprise market entry
+Apr 2026:   Dynamics 365 (read) ── Mid-market expansion
+Q3 2026:    Visma + Monitor ────── Nordic mid-market wedge
+Q4 2026:    One Click LCA import ─ Design-to-operations bridge
+```
+
+---
+
+## 4. Three Products, Refined
+
+### Product 1: Fleet Carbon Report (Proven)
 
 | Attribute | Detail |
 |-----------|--------|
-| What | Automated Scope 1-2-3 emissions reporting for fleet/logistics operators |
-| Buyer | Fleet managers, logistics CFOs, sustainability directors |
+| What | Automated Scope 1-2-3 emissions reporting for fleet/logistics |
+| Buyer | Fleet managers, logistics CFOs |
 | Price | €3,000/mo (€36k/year) |
-| TAM | ~50,000 EU fleet operators under CSRD / Fit for 55 |
-| Why it sells | Already selling. 100% retention. 40+ hours/month saved. |
-| Existing code | Report Engine, SAP connector, Automation service, email delivery |
+| Why it sells | Already selling. Uber, Bolt, Kela. 100% retention. |
+| ERP connector | SAP (transport mgmt) or IFS (asset-intensive) |
 
-**Go-to-market:** Expand from Uber/Bolt reference cases to Nordic logistics companies.
-Taxi Helsinki, PostNord, DB Schenker Nordics, Wolt, Bring.
-
-### Product 2: CSRD Autopilot
-
-**The expansion play.** 49,000 EU companies must file CSRD for the first time in 2025-2026.
+### Product 2: CSRD Autopilot (Expansion)
 
 | Attribute | Detail |
 |-----------|--------|
-| What | Automated CSRD double materiality assessment + data collection + report generation |
-| Buyer | Mid-market companies (250-5000 employees) newly obligated under CSRD |
+| What | ERP-connected CSRD data collection + automated quarterly reports |
+| Buyer | Mid-market sustainability directors (250-5000 employees) |
 | Price | €5,000/mo (€60k/year) |
-| TAM | 49,000 companies * 10% addressable = 4,900 * €60k = €294M |
-| Why it sells | Mandatory. No tooling. Greenly starts at €5k/year but doesn't automate data collection. |
-| Existing code | ERP connectors, Viability agent, Report Engine |
-
-**Go-to-market:** Finnish mid-market first (early CSRD adopters), then Nordics, then DACH.
-Partner with accounting firms (BDO, Grant Thornton, KPMG Finland).
+| Why it sells | 49,000 EU companies must file. No tool automates data collection from ERP. |
+| ERP connector | IFS, Dynamics 365, Visma (Nordic mid-market) |
+| LCA integration | Import One Click LCA baselines as CSRD evidence |
 
 ### Product 3: Compliance Bridge (Enterprise)
 
-**The upsell.** ERP-to-compliance pipeline for large industrials.
-
 | Attribute | Detail |
 |-----------|--------|
-| What | Connect SAP/IFS/Dynamics, auto-generate CSRD + ETS + CBAM reports |
-| Buyer | Enterprise sustainability directors at manufacturing/industrial companies |
+| What | Full ERP-to-compliance pipeline: CSRD + ETS + CBAM continuous monitoring |
+| Buyer | Enterprise sustainability directors at industrials |
 | Price | €10,000/mo (€120k/year) |
-| TAM | ~5,000 large EU industrials * €120k = €600M |
-| Why it sells | Persefoni charges $55-250k/year. Our edge: ERP integration, they require manual upload. |
-| Existing code | All 6 ERP connectors, approval gates, scheduling, webhook middleware |
-| Nordic ERP moat | Only platform with Visma + Jeeves + Monitor connectors (Nordic market leaders) |
-
-**Go-to-market:** Target NCC, YIT, Skanska Nordics, Wärtsilä, Kone, Outokumpu.
-Lead with the SAP connector for large enterprises, Nordic ERPs for mid-market.
+| Why it sells | Persefoni = $55-250k/year with manual CSV. We pull from SAP/IFS automatically. |
+| ERP connector | SAP S/4HANA primary, IFS Cloud secondary |
+| LCA integration | Import One Click LCA + CO2data.fi for design-vs-actual comparison |
 
 ---
 
-## 4. What To Kill
+## 5. What Changes (Revised)
 
-### Products / Features To Cut
+### KEEP (Construction Stays, Reframed)
 
-| Cut | Reason | Code Impact |
-|-----|--------|-------------|
-| Construction vertical focus | €0 revenue. One Click LCA owns it. | Keep code, deprioritize marketing |
-| Mobile app (store submission) | Web PMF not proven. TestFlight for demos. | Freeze, don't delete |
-| Lifetime Studios | No code, no revenue. Brand confusion. | Remove from landing pages |
-| Lifetime Consulting | No code, no revenue. Brand confusion. | Remove from landing pages |
-| Lifetime World Coin / LTWCash | Distraction from core business. | Remove references |
-| Lifetime Agent Foundry | Brand concept, no product. | Remove from nav menus |
-| 11 of 14 dashboards | Cognitive overhead. Keep v10-react only. | Archive, don't delete |
-| 3 of 4 domains | Pick dws10.com (matches DWS IQ branding). | Redirect others |
+| Keep | Reframe |
+|------|---------|
+| Construction vertical | Reframe from "building LCA" to "construction operations compliance" |
+| SiteSense agent | Site operational monitoring (not design LCA) |
+| ScheduleGenius agent | Project timeline compliance (delivery vs. plan) |
+| MaterialOracle agent | Supply chain emissions (procurement, not design material selection) |
+| CustomerSat agent | Rename to "Account Health" - works across all verticals |
+| Viability agent | ROI/payback - works across all verticals |
+| EN 15978 knowledge | Use for operational stages (B1-B7, C, D), not design stages (A1-A5) |
+| All 6 ERP connectors | Core moat. Harden IFS first, then SAP, then rest. |
 
-### AI Agents To Repurpose
+### FREEZE (Don't Delete, Stop Investing)
 
-| Agent | Current Focus | Pivot |
-|-------|--------------|-------|
-| SiteSense | Construction sites | Repurpose for fleet depot monitoring |
-| ScheduleGenius | Construction timelines | Repurpose for delivery route optimization |
-| MaterialOracle | Building materials (EN 15978) | Repurpose for supply chain emissions |
-| CustomerSat | Generic (keep as-is) | Rename to "Account Health" |
-| Viability | Generic (keep as-is) | Keep for ROI calculations |
+| Freeze | Why |
+|--------|-----|
+| Mobile app store submission | Web PMF first. TestFlight for demos. |
+| Lifetime Studios / Consulting / Coin | Brand noise. Zero revenue. |
+| 11 of 14 dashboard variants | Keep v10-react only. |
+| BIM/IFC parser | That's One Click LCA's job. Import their output instead. |
+| Building LCA calculations | That's One Click LCA's job. We consume, not produce. |
 
-### Domains
+### CONSOLIDATE
 
-| Domain | Decision | Reason |
-|--------|----------|--------|
-| dws10.com | **KEEP** (primary) | Matches DWS IQ branding, already has store |
-| onelifetime.world | Redirect to dws10.com/about | Blog can move to dws10.com/blog |
-| dws6.com | Redirect to dws10.com | Legacy, confusing numbering |
-| lifetime.fi | Keep for Finnish market | Finnish-language compliance sales |
+| From | To | Reason |
+|------|-----|--------|
+| 4 domains | dws10.com (primary) + lifetime.fi (Finnish market) | One brand, one story |
+| 14 dashboards | v10-react only | One frontend to maintain |
+| 8 product lines | 3 products (Fleet, CSRD, Bridge) | One product catalog |
 
 ---
 
-## 5. Revenue Model
+## 6. Revenue Model (12-Month)
 
-### 12-Month Target (Feb 2026 - Feb 2027)
-
-| Product | New Customers | Price/mo | Added MRR | Source |
-|---------|--------------|----------|-----------|--------|
+| Product | Customers | Price/mo | MRR | Source |
+|---------|----------|----------|-----|--------|
 | Fleet Carbon Report | 10 | €3,000 | €30,000 | Nordic logistics |
 | CSRD Autopilot | 5 | €5,000 | €25,000 | Finnish/Nordic mid-market |
 | Compliance Bridge | 2 | €10,000 | €20,000 | Large industrials |
-| **Existing customers** | 3 | various | €7,000 | Uber, Bolt, Kela |
-| **Total MRR** | **20** | | **€82,000** | |
-| **Total ARR** | | | **~€984,000** | |
+| Existing | 3 | various | €7,000 | Uber, Bolt, Kela |
+| **Total** | **20** | | **€82,000** | **~€984k ARR** |
 
-### Unit Economics
-
-| Metric | Fleet Carbon | CSRD Autopilot | Compliance Bridge |
-|--------|-------------|----------------|-------------------|
-| ACV | €36,000 | €60,000 | €120,000 |
-| Setup time | 2-4 weeks | 4-6 weeks | 6-8 weeks |
-| Gross margin | ~85% | ~80% | ~75% |
-| Payback (CAC) | 2-3 months | 3-4 months | 4-6 months |
-| LTV (3yr, 0% churn) | €108,000 | €180,000 | €360,000 |
-
-### Blended ACV: €55,000
-
-At 20 customers = ~€1.1M ARR. That's a Series A story.
+### Path: €84k → €984k ARR in 12 months
 
 ---
 
-## 6. What Makes This Defensible
+## 7. Defensibility
 
-### Moat 1: ERP Connectors (Technical)
+### Moat 1: ERP Connectors
 
-No carbon accounting competitor has all 6 Nordic ERPs:
-- SAP S/4HANA (enterprise)
-- IFS Cloud (asset-intensive)
-- Microsoft Dynamics 365 (mid-market)
-- **Visma** (Nordic market leader, 1M+ customers)
-- **Jeeves** (Swedish mid-market)
-- **Monitor ERP** (Nordic manufacturing)
+No carbon compliance competitor has Nordic ERP connectors:
+- **Visma** — 1M+ Nordic customers, market leader
+- **Jeeves** — Swedish mid-market manufacturing
+- **Monitor** — Nordic manufacturing standard
+- Plus SAP, IFS, Dynamics for enterprise
 
-Visma, Jeeves, and Monitor are Nordic-specific. Persefoni, Greenly, and Sweep don't touch them.
-This is a real wedge into the Nordic mid-market.
+Persefoni, Greenly, Sweep = zero ERP connectors of any kind.
 
-### Moat 2: Regulatory Speed (Market)
+### Moat 2: Operations Compliance Position
 
-Finland implements EU directives faster than most member states.
-Finnish companies are the first to need CSRD tooling.
-Being Finnish = first-mover advantage in mandatory compliance.
+One Click LCA answers: "What will this building emit?" (design)
+DWS IQ answers: "What did this company actually emit?" (operations)
 
-### Moat 3: Automation Depth (Product)
+These are different questions, different buyers, different data sources, different cadence.
+Design LCA is a one-time project. Operations compliance is a recurring subscription.
+Recurring beats one-time for SaaS economics.
 
-Competitors: Upload a CSV, get a report.
-DWS IQ: Connect your ERP, reports generate automatically every month.
+### Moat 3: Integration Position
 
-The difference is 40 hours/month of manual work eliminated. That's the retention driver (100%).
+By importing One Click LCA outputs as baseline evidence, DWS IQ becomes the
+**workflow layer on top of the data layer.** The more LCA tools we integrate with,
+the stickier we become. We don't need our own LCA database. We need to be the
+place where all the data converges into a compliance report.
 
----
+### Moat 4: Finland First-Mover
 
-## 7. Implementation: What Changes In The Codebase
-
-### Week 1-2: Consolidation
-
-| Task | Hours | Impact |
-|------|-------|--------|
-| Consolidate to v10-react dashboard only | 8h | Single frontend to maintain |
-| Add fleet-specific dashboard views (routes, fuel, emissions) | 12h | Product 1 differentiation |
-| Repurpose SiteSense for depot/fleet monitoring | 4h | Agent reuse |
-| Repurpose MaterialOracle for supply chain emissions | 4h | Agent reuse |
-| Update landing pages: logistics/compliance focus | 8h | Go-to-market alignment |
-
-### Week 3-4: Product Packaging
-
-| Task | Hours | Impact |
-|------|-------|--------|
-| CSRD report template in Report Engine | 12h | Product 2 core |
-| Automated monthly report generation (cron) | 6h | Automation value prop |
-| Customer onboarding flow (dashboard wizard) | 8h | Reduce setup time |
-| ERP connection wizard (guided setup) | 8h | Self-service where possible |
-
-### Week 5-6: Go-to-Market
-
-| Task | Hours | Impact |
-|------|-------|--------|
-| Case study page: Uber/Bolt fleet compliance | 4h | Social proof |
-| ROI calculator landing page | 4h | Lead generation |
-| Pricing page (3 tiers) | 4h | Conversion |
-| Demo environment with sample fleet data | 6h | Sales enablement |
+Finland implements EU directives before most member states.
+Finnish companies need CSRD tooling first.
+Build here, prove here, expand to EU-27 with Finnish reference customers.
 
 ---
 
-## 8. Decision Framework
+## 8. The One-Liner (Final)
 
-### If This Pivot Is Accepted
+**For investors:**
+> "DWS IQ is the operations compliance layer that sits between ERP systems
+> and EU regulators. We pull data from SAP/IFS/Dynamics, integrate with
+> LCA tools like One Click LCA, and auto-generate CSRD/ETS/CBAM reports.
+> €84k ARR, 100% retention, 3 paying customers, 40 hours/month saved per customer."
 
-1. **Freeze** construction-specific development
-2. **Archive** (don't delete) unused dashboard variants
-3. **Redirect** domains to dws10.com
-4. **Update** investor materials with logistics/compliance focus
-5. **Repurpose** AI agents for fleet/compliance use cases
-6. **Build** fleet-specific dashboard views and CSRD templates
+**For buyers:**
+> "Connect your ERP. Import your building assessments.
+> Get audit-ready compliance reports every quarter, automatically."
 
-### If This Pivot Is Rejected
-
-The alternative is to continue the current path:
-- Continue building for construction with €0 construction revenue
-- Compete with One Click LCA (€21.8M, 200+ people, same city)
-- Maintain 4 domains, 14 dashboards, 8 product lines
-- Hope construction pilots convert
-
-This is a valid choice if there's strong conviction that construction will convert.
-But the data doesn't support that conviction yet.
-
-### The Middle Path
-
-Keep construction as a future vertical but stop investing in it NOW:
-1. Focus engineering on logistics/fleet (proven revenue)
-2. Keep construction code frozen (don't delete)
-3. Return to construction when ARR hits €500k+ from logistics
-4. By then, you'll have revenue, team, and credibility to compete
+**For partners (One Click LCA, Rakennustieto):**
+> "We take your design-phase data and turn it into ongoing operations compliance.
+> Your output is our input. We grow each other's value."
 
 ---
 
-## 9. Metrics To Track
+## 9. Immediate Next Steps
 
-### Leading Indicators (Monthly)
-
-| Metric | Target | Why |
-|--------|--------|-----|
-| Qualified leads (logistics) | 5/month | Pipeline health |
-| Demo requests | 10/month | Market interest |
-| ERP connections deployed | 2/month | Product stickiness |
-| Reports auto-generated | 50/month | Usage = retention |
-
-### Lagging Indicators (Quarterly)
-
-| Metric | Q1 Target | Q2 Target | Q3 Target | Q4 Target |
-|--------|-----------|-----------|-----------|-----------|
-| MRR | €15k | €30k | €55k | €82k |
-| Customers | 5 | 10 | 15 | 20 |
-| Churn | 0% | 0% | <5% | <5% |
-| NRR | 100% | 110% | 115% | 120% |
+| Priority | Action | Timeline |
+|----------|--------|----------|
+| 1 | Wire IFS Cloud connector to Supabase (make it real) | This week |
+| 2 | Build One Click LCA import (CSV/API) | Next week |
+| 3 | Update /buy page with operations compliance positioning | Next week |
+| 4 | Contact One Click LCA for partnership conversation | This month |
+| 5 | Build CSRD report template in Report Engine | This month |
+| 6 | First real ERP-connected demo with IFS sandbox | End of Feb |
 
 ---
 
-## 10. The One-Liner Test
-
-Every product needs to pass the "one-liner test" — can a non-technical buyer understand
-what you sell in one sentence?
-
-**Before:**
-> "DWS IQ 6 is an enterprise-grade industrial climate intelligence and compliance platform
-> for EU-regulated industries with a Brain-Memory-Body-Hands multi-agent AI ecosystem."
-
-**After:**
-> "We connect to your ERP and automatically generate your compliance reports.
-> 40 hours saved per month. Setup in 4 weeks."
-
-The first one sounds impressive at a tech conference.
-The second one gets a CFO to say "yes."
-
----
-
-**Document Version:** 1.0
+**Document Version:** 2.0
 **Created:** February 7, 2026
-**Decision Required By:** February 14, 2026 (before Week 7 sprint begins)
+**Last Updated:** February 8, 2026
+**Status:** ACCEPTED DIRECTION - Operations compliance layer positioning
 **Decision Owner:** Risto Anton Paarni
