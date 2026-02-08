@@ -72,9 +72,28 @@ Now they need to prove they're operating them compliantly.
 ### The Positioning Statement
 
 > **DWS IQ is the operations compliance layer for construction portfolios and industrial
-> companies: it pulls ERP and project data, keeps CSRD/ETS/CBAM evidence continuously
-> audit-ready, and monitors performance over time. We integrate with LCA tools
-> (including One Click LCA) instead of competing with them.**
+> companies. It connects to three data sources (ERP systems, LCA tools, IoT/fleet
+> telemetry) and produces three regulator-ready outputs (CSRD double materiality reports,
+> ETS emissions declarations, CBAM quarterly import reports). Continuously. Automatically.
+> We integrate with LCA tools (including One Click LCA) instead of competing with them.**
+
+### The Three Data Sources → Three Reports
+
+```
+DATA SOURCES                         REGULATOR-READY REPORTS
+─────────────                        ──────────────────────
+1. ERP (IFS/SAP/Dynamics)            1. CSRD double materiality
+   Purchase orders, asset registers,    (ESRS E1, annual)
+   energy invoices, transport logs
+
+2. LCA tools (One Click LCA)         2. ETS emissions declaration
+   Design-phase baselines,              (Scope 1-2, annual + quarterly)
+   material carbon (A1-A5)
+
+3. Fleet/IoT telemetry               3. CBAM quarterly import report
+   Vehicle emissions, site sensors,     (Scope 3 upstream, quarterly)
+   operational energy meters
+```
 
 ### What This Means In Practice
 
