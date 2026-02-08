@@ -39,6 +39,10 @@ ALTER TABLE outreach_orgs
   ALTER COLUMN prospect_status SET DEFAULT 'target_needs_contact';
 
 -- 5) Mark orgs that already have threads as active
+--    This is a one-time backfill. It intentionally overrides the default
+--    'target_needs_contact' for any org with at least one thread.
+--    Future status transitions (e.g. contact_identified → active) are
+--    handled by application logic, not this migration.
 UPDATE outreach_orgs o
 SET prospect_status = 'active'
 WHERE EXISTS (
