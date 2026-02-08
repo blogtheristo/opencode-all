@@ -876,8 +876,8 @@ All automation scripts include version headers and change logs.
 | Script | Version | Purpose |
 |--------|---------|---------|
 | `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
-| `scripts/Sync-ToProton.ps1` | v1.4 | Proton Drive sync (folders, secrets, docs) |
-| `scripts/Generate-PDFs.ps1` | v1.5 | Markdown to HTML/PDF (pandoc + wkhtmltopdf) |
+| `scripts/Sync-ToProton.ps1` | v1.7 | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Generate-PDFs.ps1` | v1.6 | Markdown to HTML/PDF (pandoc, output to Learn/) |
 | `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
 | `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
 
