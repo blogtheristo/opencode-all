@@ -121,26 +121,36 @@ function resolveStatus(input: string): OutreachStatus | null {
 // PARSE
 // ============================================================================
 
-/** Extract the first non-empty, non-quoted line from a reply */
-function extractFirstFreshLine(text: string): string | null {
+/**
+ * Extract fresh (non-quoted) lines from a reply.
+ * Strips everything after quote markers (>, On ... wrote:, etc).
+ * Returns { first, count } — count of non-empty fresh lines.
+ * If count > 1, the reply is ambiguous and should be rejected.
+ */
+function extractFreshLines(text: string): { first: string | null; count: number } {
   const lines = text.split('\n');
+  const fresh: string[] = [];
 
   for (const line of lines) {
     const trimmed = line.trim();
 
     // Stop at quoted text markers
-    if (trimmed.startsWith('>')) return null;
-    if (/^on .+ wrote:$/i.test(trimmed)) return null;
-    if (trimmed.startsWith('---') && trimmed.includes('Original')) return null;
-    if (trimmed.startsWith('----------')) return null;
+    if (trimmed.startsWith('>')) break;
+    if (/^on .+ wrote:$/i.test(trimmed)) break;
+    if (trimmed.startsWith('---') && trimmed.includes('Original')) break;
+    if (trimmed.startsWith('----------')) break;
+    // Common email signatures
+    if (trimmed === '--') break;
+    if (/^sent from my/i.test(trimmed)) break;
+    if (/^get outlook/i.test(trimmed)) break;
 
     // Skip empty lines
     if (!trimmed) continue;
 
-    return trimmed;
+    fresh.push(trimmed);
   }
 
-  return null;
+  return { first: fresh.length > 0 ? fresh[0] : null, count: fresh.length };
 }
 
 /**
@@ -217,16 +227,24 @@ function parseLine(line: string): UpdateCommand | string {
 
 /**
  * Parse the reply text — first non-quoted line only.
+ * STRICT: if more than one non-empty, non-quoted line is found, reject.
  * One reply = one update. Multiple updates = multiple replies.
  */
 export function parseReplyText(text: string): ParseResult {
-  const line = extractFirstFreshLine(text);
+  const { first, count } = extractFreshLines(text);
 
-  if (!line) {
+  if (!first) {
     return { command: null, error: 'No command found — reply was empty or only quoted text.' };
   }
 
-  const result = parseLine(line);
+  if (count > 1) {
+    return {
+      command: null,
+      error: 'Multiple lines found — only ONE command per reply. Send separate replies for each update.',
+    };
+  }
+
+  const result = parseLine(first);
   if (typeof result === 'string') {
     return { command: null, error: result };
   }
