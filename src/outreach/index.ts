@@ -6,7 +6,7 @@
  *   2. Customers — CSRD buyers (250+ employees)
  *   3. Partners — IFS Cloud, One Click LCA, SAP, Big 4
  *
- * Schema: organizations + persons + outreach_threads + outreach_activities + inbound_emails
+ * Schema: outreach_orgs + persons + outreach_threads + outreach_activities + inbound_emails
  * Daily digest: one email to risto@lifetime.fi, Mon-Fri 06:00 Helsinki
  * Reply-to-email: user replies with "T:TOKEN status responded" to update threads
  *

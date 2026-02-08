@@ -124,13 +124,13 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
     // 1. Upsert organization (by domain, if provided)
     if (org_domain) {
       const existing = await supabaseFetch(
-        `organizations?domain=eq.${encodeURIComponent(org_domain)}&select=id&limit=1`
+        `outreach_orgs?domain=eq.${encodeURIComponent(org_domain)}&select=id&limit=1`
       );
 
       if (existing.length > 0) {
         orgId = existing[0].id;
       } else {
-        const created = await supabaseFetch('organizations', {
+        const created = await supabaseFetch('outreach_orgs', {
           method: 'POST',
           body: JSON.stringify({
             domain: org_domain,

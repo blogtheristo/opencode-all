@@ -1,4 +1,6 @@
--- Migration 017: Thread tokens + inbound email reply support
+-- Migration 024: Thread tokens + inbound email reply support
+-- Renumbered from 017 (Supabase has 016-022 already deployed).
+-- Depends on 023_outreach_contacts.sql (outreach_orgs, persons, outreach_threads).
 --
 -- 1. thread_token on outreach_threads — stable 10-char alphanumeric token (50 bits)
 --    Used in digest emails: "T:8F3K2P9Q7H [INV] Nicolas Derrien …"
@@ -78,6 +80,10 @@ CREATE TABLE IF NOT EXISTS inbound_emails (
 CREATE INDEX IF NOT EXISTS idx_inbound_emails_received_at ON inbound_emails (received_at DESC);
 CREATE INDEX IF NOT EXISTS idx_inbound_emails_thread_token ON inbound_emails (thread_token);
 
+-- RLS for inbound_emails
+ALTER TABLE inbound_emails ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Service role full access" ON inbound_emails FOR ALL USING (auth.role() = 'service_role');
+
 -- ============================================================================
 -- 3. ACTIVITY OUTCOME — add manual_update values
 -- ============================================================================
@@ -119,5 +125,5 @@ SELECT
   t.created_by
 FROM outreach_threads t
 JOIN persons p ON p.id = t.person_id
-LEFT JOIN organizations o ON o.id = t.org_id
+LEFT JOIN outreach_orgs o ON o.id = t.org_id
 LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;

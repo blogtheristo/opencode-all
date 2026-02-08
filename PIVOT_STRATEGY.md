@@ -72,9 +72,28 @@ Now they need to prove they're operating them compliantly.
 ### The Positioning Statement
 
 > **DWS IQ is the operations compliance layer for construction portfolios and industrial
-> companies: it pulls ERP and project data, keeps CSRD/ETS/CBAM evidence continuously
-> audit-ready, and monitors performance over time. We integrate with LCA tools
-> (including One Click LCA) instead of competing with them.**
+> companies. It connects to three data sources (ERP systems, LCA tools, IoT/fleet
+> telemetry) and produces three regulator-ready outputs (CSRD double materiality reports,
+> ETS emissions declarations, CBAM quarterly import reports). Continuously. Automatically.
+> We integrate with LCA tools (including One Click LCA) instead of competing with them.**
+
+### The Three Data Sources → Three Reports
+
+```
+DATA SOURCES                         REGULATOR-READY REPORTS
+─────────────                        ──────────────────────
+1. ERP (IFS/SAP/Dynamics)            1. CSRD double materiality
+   Purchase orders, asset registers,    (ESRS E1, annual)
+   energy invoices, transport logs
+
+2. LCA tools (One Click LCA)         2. ETS emissions declaration
+   Design-phase baselines,              (Scope 1-2, annual + quarterly)
+   material carbon (A1-A5)
+
+3. Fleet/IoT telemetry               3. CBAM quarterly import report
+   Vehicle emissions, site sensors,     (Scope 3 upstream, quarterly)
+   operational energy meters
+```
 
 ### What This Means In Practice
 
@@ -96,6 +115,16 @@ Now they need to prove they're operating them compliantly.
 
 This makes DWS IQ a **buyer** of One Click LCA outputs, not a competitor.
 One Click LCA becomes a data source, like an ERP is a data source.
+
+**Why One Click LCA would partner with us (their incentive, not ours):**
+1. **Stickiness** — Their customers finish design-phase LCA and churn. If DWS IQ
+   imports their outputs for ongoing operations compliance, the customer keeps their
+   One Click LCA subscription active to feed the compliance pipeline.
+2. **Revenue share** — We send them referrals for design-phase assessments when our
+   CSRD customers need baseline carbon data they don't have yet.
+3. **Platform extension** — They've built 20+ BIM integrations. Adding an operations
+   compliance partner extends their platform into a lifecycle they don't cover.
+4. **No threat** — We don't do LCA. We don't compete on design. We're downstream.
 
 ---
 
@@ -124,11 +153,21 @@ Every Supabase write is a `// TODO` comment.
 - 5 of 6 sync methods make real HTTP calls
 
 **What needs to happen to make IFS production-ready:**
-1. Wire Supabase persistence (replace TODO comments) — 4-6h
-2. Test against real IFS Cloud sandbox — 4h
-3. Add data transformation for remaining entity types — 4h
-4. Add retry/backoff for production reliability — 2h
-5. **Total: ~2 days to first real ERP connection**
+
+| Step | Task | Estimate | Measurable Gate |
+|------|------|----------|-----------------|
+| 1 | Wire Supabase persistence (replace TODO comments) | 4-6h | `SELECT count(*) FROM erp_sync_log` returns > 0 |
+| 2 | Test against real IFS Cloud sandbox | 4h | Fetch 1 real work order from IFS demo tenant |
+| 3 | Data transformation for remaining entity types | 4h | All 6 entity types produce valid JSONB rows |
+| 4 | Retry/backoff for production reliability | 2h | Automated retry on 429/503 with exponential backoff |
+
+**Definition of "production-ready":** A cron job runs every 6 hours, pulls IFS data,
+persists to Supabase, and the daily digest shows the latest sync timestamp.
+Not "works in Postman." Not "I ran it once." Production = runs unattended.
+
+**Total estimate: ~16h (2 full days).** This is engineering time, not calendar time.
+If the IFS sandbox access takes 2 weeks to provision, the 2-day claim is meaningless.
+Track sandbox access as a separate blocker.
 
 ### Second Integration Target: SAP S/4HANA
 
@@ -150,19 +189,34 @@ Q4 2026:    One Click LCA import ─ Design-to-operations bridge
 
 ---
 
-## 4. Three Products, Refined
+## 4. Three Products: Wedge → Expand → Enterprise
 
-### Product 1: Fleet Carbon Report (Proven)
+Fleet is the wedge. It's selling today, it's proven, and it gets us into companies
+that will need CSRD and full compliance later. Every fleet customer is a future
+CSRD Autopilot upsell. Every CSRD customer operating at scale is a Compliance Bridge deal.
+
+```
+WEDGE                    EXPAND                   ENTERPRISE
+Fleet Carbon Report      CSRD Autopilot           Compliance Bridge
+€3,000/mo                €5,000/mo                €10,000/mo
+────────────────────     ────────────────────     ────────────────────
+Already selling          49,000 companies need    Replaces Persefoni
+Uber, Bolt, Kela         No ERP automation exists ($55-250k, manual CSV)
+100% retention           Natural upsell from Fleet  Natural upsell from CSRD
+```
+
+### Product 1: Fleet Carbon Report (Wedge — Proven)
 
 | Attribute | Detail |
 |-----------|--------|
 | What | Automated Scope 1-2-3 emissions reporting for fleet/logistics |
 | Buyer | Fleet managers, logistics CFOs |
 | Price | €3,000/mo (€36k/year) |
-| Why it sells | Already selling. Uber, Bolt, Kela. 100% retention. |
+| Why it's the wedge | Already selling. 100% retention. Gets us into companies. Shortest sales cycle. |
+| Upsell path | Fleet customer needs CSRD reporting → CSRD Autopilot |
 | ERP connector | SAP (transport mgmt) or IFS (asset-intensive) |
 
-### Product 2: CSRD Autopilot (Expansion)
+### Product 2: CSRD Autopilot (Expand — Mid-Market)
 
 | Attribute | Detail |
 |-----------|--------|
@@ -170,6 +224,7 @@ Q4 2026:    One Click LCA import ─ Design-to-operations bridge
 | Buyer | Mid-market sustainability directors (250-5000 employees) |
 | Price | €5,000/mo (€60k/year) |
 | Why it sells | 49,000 EU companies must file. No tool automates data collection from ERP. |
+| Upsell path | CSRD customer also needs ETS/CBAM → Compliance Bridge |
 | ERP connector | IFS, Dynamics 365, Visma (Nordic mid-market) |
 | LCA integration | Import One Click LCA baselines as CSRD evidence |
 
@@ -231,7 +286,27 @@ Q4 2026:    One Click LCA import ─ Design-to-operations bridge
 | Existing | 3 | various | €7,000 | Uber, Bolt, Kela |
 | **Total** | **20** | | **€82,000** | **~€984k ARR** |
 
-### Path: €84k → €984k ARR in 12 months
+### What the math actually is: 17 enterprise sales in 12 months
+
+Be honest about what this table says. €84k → €984k means closing **17 new
+contracts** (10 Fleet + 5 CSRD + 2 Bridge) at an average ACV of ~€53k.
+
+That's 1.4 contracts/month. With a B2B compliance sale cycle of 3-6 months,
+you need **50+ qualified leads** in the pipeline by month 3 to close 17 by month 12.
+
+**The bottleneck is pipeline, not product.** The outreach CRM exists for this reason.
+Fleet is the wedge because it has the shortest sales cycle (1-2 months — the pain
+is immediate, the ROI is measurable in the first report).
+
+### Pipeline targets to hit €984k ARR
+
+```
+MONTH   PIPELINE   CLOSED   ARR
+1-3     50+ leads  3 Fleet  €9k/mo base + €7k existing = €16k/mo
+4-6     80+ leads  4 Fleet, 2 CSRD  €34k/mo
+7-9     100+ leads 3 Fleet, 2 CSRD, 1 Bridge  €59k/mo
+10-12   120+ leads 0 Fleet, 1 CSRD, 1 Bridge  €82k/mo
+```
 
 ---
 
@@ -259,9 +334,12 @@ Recurring beats one-time for SaaS economics.
 ### Moat 3: Integration Position
 
 By importing One Click LCA outputs as baseline evidence, DWS IQ becomes the
-**workflow layer on top of the data layer.** The more LCA tools we integrate with,
-the stickier we become. We don't need our own LCA database. We need to be the
-place where all the data converges into a compliance report.
+**workflow layer on top of the data layer.** The integration is mutually beneficial:
+we reduce their churn (customers keep their LCA subscription to feed our compliance
+pipeline) and they extend their platform into operations without building it themselves.
+
+The more LCA tools we integrate with, the stickier we become. We don't need our own
+LCA database. We need to be the place where all the data converges into a compliance report.
 
 ### Moat 4: Finland First-Mover
 

@@ -1,6 +1,6 @@
 # Ylläpitokäsikirja - Blogin Hallintajärjestelmä (Supabase)
 
----
+***
 # VERSIO JA AGENTTIHISTORIA
 
 Versio: 1.0
@@ -19,7 +19,7 @@ Dokumentin Tila:
   - Saatavilla Olevat Kielet: English, Suomi
   - Julkaisutila: ✅ AKTIIVINEN
 
----
+***
 
 **Versio:** 1.0  
 **Voimaantulopäivä:** 2025-12-30  
