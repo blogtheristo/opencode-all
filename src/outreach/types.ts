@@ -1,10 +1,10 @@
 /**
  * Outreach Pipeline Types
- * Normalized schema: organizations + persons + outreach_threads + outreach_activities
+ * Normalized schema: outreach_orgs + persons + outreach_threads + outreach_activities
  *
  * Natural keys:
  *   - persons: linkedin_url (UNIQUE)
- *   - organizations: domain (UNIQUE)
+ *   - outreach_orgs: domain (UNIQUE)
  *   - outreach_threads: person_id + org_id + pipeline (UNIQUE)
  *
  * Every table has: created_by + created_at + source for attribution.
