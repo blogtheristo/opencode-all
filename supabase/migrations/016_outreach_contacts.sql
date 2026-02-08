@@ -255,14 +255,27 @@ CREATE TRIGGER update_outreach_threads_updated_at
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Sync thread state from latest activity
--- Rule: only move next_action_date FORWARD (never backwards from historical logs)
--- Always update last_activity_at to track most recent touch
+-- Rules:
+--   1. Only move next_action_date FORWARD (never backwards from historical logs)
+--   2. If outcome closes the thread (converted/passed/parked), NULL the pointer
+--   3. Always track last_contacted_at and last_response_at
 CREATE OR REPLACE FUNCTION sync_thread_from_activity()
 RETURNS TRIGGER AS $$
+DECLARE
+  v_thread_status outreach_status;
 BEGIN
+  -- Check current thread status
+  SELECT status INTO v_thread_status FROM outreach_threads WHERE id = NEW.thread_id;
+
+  -- If thread is already closed, don't update dates
+  IF v_thread_status IN ('converted', 'passed', 'parked') THEN
+    RETURN NEW;
+  END IF;
+
   UPDATE outreach_threads SET
-    -- Only advance next_action_date, never move backwards
+    -- If outcome signals closure, NULL the date so it never appears in digest
     next_action_date = CASE
+      WHEN NEW.outcome IN ('negative', 'bounced') THEN NULL
       WHEN NEW.next_followup_at IS NOT NULL
         AND (next_action_date IS NULL OR NEW.next_followup_at::date > next_action_date)
       THEN NEW.next_followup_at::date
