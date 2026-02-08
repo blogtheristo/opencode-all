@@ -106,6 +106,7 @@ export interface OutreachThread {
   waiting_since: string | null;
   meetings_count: number;
   nudge_count: number;
+  thread_token: string;
   created_by: string;
   created_at: string;
   updated_at: string;
@@ -173,6 +174,7 @@ export interface EnrichedThread {
   waiting_since: string | null;
   meetings_count: number;
   nudge_count: number;
+  thread_token: string;
   first_name: string;
   last_name: string | null;
   person_title: string | null;

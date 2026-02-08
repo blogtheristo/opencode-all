@@ -6,10 +6,12 @@
  *   2. Customers — CSRD buyers (250+ employees)
  *   3. Partners — IFS Cloud, One Click LCA, SAP, Big 4
  *
- * Schema: organizations (domain key) + persons (LinkedIn URL key) + outreach_threads + outreach_activities
+ * Schema: organizations + persons + outreach_threads + outreach_activities + inbound_emails
  * Daily digest: one email to risto@lifetime.fi, Mon-Fri 06:00 Helsinki
+ * Reply-to-email: user replies with "T:TOKEN status responded" to update threads
  *
  * Thread fields for digest (no activity scanning):
+ *   - thread_token → stable 10-char reply token (T:XXXXXXXX)
  *   - next_action + next_action_type + next_action_date → OVERDUE / TODAY
  *   - waiting_since → "waiting Xd" display
  *   - last_outbound_at → cadence timing
@@ -19,6 +21,13 @@
 export { outreachScheduler } from './scheduler.js';
 export { generateDailyDigest, sendDailyDigestEmail } from './daily-digest.js';
 export { CADENCE, NUDGE_TEMPLATES, getNudgeTemplate, getNextNudgeInterval, isMaxedOut } from './cadence.js';
+export {
+  parseReplyText,
+  generateThreadToken,
+  verifyResendSignature,
+  isAuthorizedSender,
+} from './reply-parser.js';
+export type { UpdateCommand, ParseResult, ApplyResult } from './reply-parser.js';
 export type {
   Organization,
   Person,

@@ -94,6 +94,8 @@ async function getAllActiveThreads(): Promise<EnrichedThread[]> {
 // ============================================================================
 
 interface BucketedThread extends DigestThread {
+  thread_id: string;
+  token: string; // T:xxxxx — stable reply token
   pipeline: OutreachPipeline;
   next_action_date: string | null;
   last_outbound_at: string | null;
@@ -115,6 +117,8 @@ function toBucketedThread(t: EnrichedThread, today: string): BucketedThread {
     waiting_days: waitingDays,
     nudge_count: t.nudge_count || 0,
     linkedin_url: t.linkedin_url,
+    thread_id: t.id,
+    token: t.thread_token,
     pipeline: t.pipeline,
     next_action_date: t.next_action_date,
     last_outbound_at: t.last_outbound_at,
@@ -271,7 +275,7 @@ function renderBucketPlainText(
   lines.push('-'.repeat(40));
 
   for (const t of threads) {
-    lines.push(`  [${PIPELINE_TAGS[t.pipeline]}] ${lineFormatter(t)}`);
+    lines.push(`  T:${t.token} [${PIPELINE_TAGS[t.pipeline]}] ${lineFormatter(t)}`);
   }
 
   if (overflow && overflow > 0) {
@@ -362,6 +366,20 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
 
   lines.push('');
   lines.push('—');
+  lines.push('Reply to this email with ONE line (first line only).');
+  lines.push('Use the thread token at the start of the line.');
+  lines.push('');
+  lines.push('Examples:');
+  lines.push('  T:8F3K2P9Q status responded');
+  lines.push('  T:8F3K2P9Q next 2026-02-10 type nudge');
+  lines.push('  T:8F3K2P9Q park');
+  lines.push('');
+  lines.push('Rules:');
+  lines.push('  1) Put the token first (T:XXXX)');
+  lines.push('  2) One command per reply');
+  lines.push('  3) Only the first non-quoted line is processed');
+  lines.push('  4) If the format is wrong, you\'ll get an error reply with the valid examples');
+  lines.push('');
   lines.push('DWS IQ 6 Outreach');
 
   return lines.join('\n');
@@ -392,7 +410,7 @@ function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extra
   return `
     <div style="padding: 8px 0; border-bottom: 1px solid #222;">
       <div style="font-size: 13px; color: #e0e0e0;">
-        ${flagHtml}${extraFlagHtml}<span style="color: #00d4aa; font-size: 11px;">[${tag}]</span> <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+        ${flagHtml}${extraFlagHtml}<span style="color: #555; font-size: 10px; font-family: monospace;">T:${t.token}</span> <span style="color: #00d4aa; font-size: 11px;">[${tag}]</span> <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
       </div>
       <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
     </div>`;
@@ -461,6 +479,7 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
           <div style="padding: 8px 0; border-bottom: 1px solid #222;">
             <div style="font-size: 13px; color: #e0e0e0;">
               <span style="color: #888; font-weight: 600;">${days}d</span>
+              <span style="color: #555; font-size: 10px; font-family: monospace;">T:${t.token}</span>
               <span style="color: #00d4aa; font-size: 11px;">[${tag}]</span>
               <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
             </div>
@@ -511,8 +530,17 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
     ${sections}
     ${emptyMsg}
     <tr>
-      <td style="padding: 12px 16px; text-align: center;">
-        <p style="margin: 0; font-size: 11px; color: #444;">DWS IQ 6 — Focused on sales.</p>
+      <td style="padding: 16px; border-top: 1px solid #222;">
+        <p style="margin: 0 0 6px; font-size: 12px; color: #888;">Reply to this email with ONE line (first line only). Use the thread token at the start of the line.</p>
+        <p style="margin: 0 0 4px; font-size: 11px; color: #666; font-family: monospace;">T:XXXXXXXX status responded</p>
+        <p style="margin: 0 0 4px; font-size: 11px; color: #666; font-family: monospace;">T:XXXXXXXX next 2026-02-10 type nudge</p>
+        <p style="margin: 0 0 8px; font-size: 11px; color: #666; font-family: monospace;">T:XXXXXXXX park</p>
+        <p style="margin: 0; font-size: 10px; color: #444;">1) Put the token first (T:XXXX) 2) One command per reply 3) Only the first non-quoted line is processed</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 16px; text-align: center;">
+        <p style="margin: 0; font-size: 10px; color: #333;">DWS IQ 6 Outreach</p>
       </td>
     </tr>
   </table>
@@ -550,6 +578,7 @@ export async function generateDailyDigest(): Promise<{
 export async function sendDailyDigestEmail(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
 
   const { plainText, html } = await generateDailyDigest();
 
@@ -573,6 +602,7 @@ export async function sendDailyDigestEmail(): Promise<void> {
       body: JSON.stringify({
         from: fromAddress,
         to: [recipient],
+        reply_to: replyToAddress,
         subject,
         html,
         text: plainText,
@@ -580,7 +610,7 @@ export async function sendDailyDigestEmail(): Promise<void> {
     });
 
     if (response.ok) {
-      logger.info('Daily digest sent via Resend', { to: recipient });
+      logger.info('Daily digest sent via Resend', { to: recipient, replyTo: replyToAddress });
       return;
     }
     logger.warn('Resend failed, trying SendGrid fallback');
@@ -596,6 +626,7 @@ export async function sendDailyDigestEmail(): Promise<void> {
       body: JSON.stringify({
         personalizations: [{ to: [{ email: recipient }] }],
         from: { email: fromAddress },
+        reply_to: { email: replyToAddress },
         subject,
         content: [
           { type: 'text/plain', value: plainText },
@@ -605,7 +636,7 @@ export async function sendDailyDigestEmail(): Promise<void> {
     });
 
     if (response.ok || response.status === 202) {
-      logger.info('Daily digest sent via SendGrid', { to: recipient });
+      logger.info('Daily digest sent via SendGrid', { to: recipient, replyTo: replyToAddress });
       return;
     }
   }
