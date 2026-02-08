@@ -15,6 +15,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import outreachRoutes from './routes/outreach.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 
 dotenv.config();
@@ -152,6 +153,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
+
+// Outreach inbound intake (shared secret auth via X-Outreach-Key)
+app.use('/api/v1/outreach', outreachRoutes);
 
 // ============ ERROR HANDLING ============
 

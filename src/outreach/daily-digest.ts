@@ -2,17 +2,16 @@
  * Daily Outreach Digest
  *
  * One email at 06:00 Helsinki, Mon-Fri.
- * Reads outreach_threads only (via v_outreach_enriched for names).
- * No activity scanning. All state lives on the thread.
+ * Reads outreach_threads only (no activity scanning). All state lives on the thread.
  *
- * Email sections per pipeline:
- *   1. OVERDUE — next_action_date < today
- *   2. TODAY — next_action_date = today
- *   3. WAITING — status in (intro_made, contacted), shows "waiting Xd" from waiting_since
+ * Structure: bucket-first, pipelines within each bucket.
+ *   1. OVERDUE — next_action_date < today, sorted by date asc (oldest fire first)
+ *   2. TODAY — next_action_date = today, sorted by next_action_type then last_outbound_at asc
+ *   3. WAITING — status in (intro_made, contacted), sorted by waiting_days desc (longest wait first)
  *   4. ACTIVE DEALS — status in (responded, meeting_booked, in_negotiation), always shown
- *   5. UPCOMING — future next_action_date (count only)
+ *   5. UPCOMING — next_action_date > today, count per pipeline
  *
- * Sends to risto@lifetime.fi via Resend (primary) / SendGrid (fallback).
+ * Within each bucket, threads are grouped by pipeline (INVESTOR, CUSTOMER, PARTNER).
  */
 
 import logger from '../utils/logger.js';
@@ -27,6 +26,11 @@ import type {
 } from './types.js';
 
 const PIPELINES: OutreachPipeline[] = ['investor', 'customer', 'partner'];
+const PIPELINE_LABELS: Record<OutreachPipeline, string> = {
+  investor: 'INVESTOR',
+  customer: 'CUSTOMER',
+  partner: 'PARTNER',
+};
 
 const OPEN_STATUSES: OutreachStatus[] = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
 const ACTIVE_STATUSES: OutreachStatus[] = ['responded', 'meeting_booked', 'in_negotiation'];
@@ -44,7 +48,7 @@ function daysBetween(from: string, to: string): number {
 }
 
 // ============================================================================
-// SUPABASE QUERY — threads only, one query
+// SUPABASE — one query, threads only
 // ============================================================================
 
 async function supabaseFetch(path: string, options: RequestInit = {}): Promise<any> {
@@ -76,15 +80,21 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 
 async function getAllActiveThreads(): Promise<EnrichedThread[]> {
   return supabaseFetch(
-    `v_outreach_enriched?status=not.in.(converted,passed,parked)&order=pipeline.asc,priority.asc,next_action_date.asc`
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&order=pipeline.asc,next_action_date.asc`
   );
 }
 
 // ============================================================================
-// GROUP THREADS INTO DIGEST SECTIONS
+// DERIVE & BUCKET
 // ============================================================================
 
-function toDigestThread(t: EnrichedThread, today: string): DigestThread {
+interface BucketedThread extends DigestThread {
+  pipeline: OutreachPipeline;
+  next_action_date: string | null;
+  last_outbound_at: string | null;
+}
+
+function toBucketedThread(t: EnrichedThread, today: string): BucketedThread {
   const name = [t.first_name, t.last_name].filter(Boolean).join(' ');
   const waitingDays = t.waiting_since ? daysBetween(t.waiting_since, today) : null;
 
@@ -100,152 +110,219 @@ function toDigestThread(t: EnrichedThread, today: string): DigestThread {
     waiting_days: waitingDays,
     nudge_count: t.nudge_count || 0,
     linkedin_url: t.linkedin_url,
+    pipeline: t.pipeline,
+    next_action_date: t.next_action_date,
+    last_outbound_at: t.last_outbound_at,
   };
 }
 
-function buildPipelineSections(threads: EnrichedThread[], today: string): DigestPipelineSection[] {
-  return PIPELINES.map((pipeline) => {
-    const pipelineThreads = threads.filter((t) => t.pipeline === pipeline);
-    const digestThreads = pipelineThreads.map((t) => toDigestThread(t, today));
+interface DigestBuckets {
+  overdue: BucketedThread[];
+  today: BucketedThread[];
+  waiting: BucketedThread[];
+  active_deals: BucketedThread[];
+  upcoming: BucketedThread[];
+  totals: Record<OutreachPipeline, { total: number; open: number; active: number }>;
+}
 
-    const overdue = digestThreads.filter((t) => t.overdue);
-    const due_today = digestThreads.filter((t) => t.due_today && !t.overdue);
+function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
+  const all = threads.map((t) => toBucketedThread(t, today));
 
-    // WAITING: status in (intro_made, contacted), not overdue/today, has waiting_since
-    const waiting = digestThreads.filter(
+  // Sorting helpers
+  const pipelineOrder = (p: OutreachPipeline) => PIPELINES.indexOf(p);
+  const ACTION_TYPE_ORDER = ['schedule', 'nudge', 'research', 'prep', 'push_to_decision'];
+  const actionTypeOrder = (t: string | null) => {
+    const idx = ACTION_TYPE_ORDER.indexOf(t || '');
+    return idx >= 0 ? idx : 99;
+  };
+  const STATUS_ORDER = ['in_negotiation', 'meeting_booked', 'responded'];
+  const statusOrder = (s: OutreachStatus) => {
+    const idx = STATUS_ORDER.indexOf(s);
+    return idx >= 0 ? idx : 99;
+  };
+
+  // OVERDUE: date asc → pipeline → last_outbound_at asc (nulls first)
+  const overdue = all
+    .filter((t) => t.overdue && t.bucket !== 'active')
+    .sort((a, b) => {
+      const dateCompare = (a.next_action_date || '').localeCompare(b.next_action_date || '');
+      if (dateCompare !== 0) return dateCompare;
+      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (plCompare !== 0) return plCompare;
+      return (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+    });
+
+  // TODAY: action_type → pipeline → last_outbound_at asc
+  const todayList = all
+    .filter((t) => t.due_today && t.bucket !== 'active')
+    .sort((a, b) => {
+      const typeCompare = actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
+      if (typeCompare !== 0) return typeCompare;
+      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (plCompare !== 0) return plCompare;
+      return (a.last_outbound_at || '').localeCompare(b.last_outbound_at || '');
+    });
+
+  // WAITING: waiting_days desc → pipeline → waiting_since asc
+  const waiting = all
+    .filter(
       (t) =>
         WAITING_STATUSES.includes(t.status) &&
         !t.overdue &&
         !t.due_today &&
         t.waiting_days !== null
-    );
+    )
+    .sort((a, b) => {
+      const daysCompare = (b.waiting_days ?? 0) - (a.waiting_days ?? 0);
+      if (daysCompare !== 0) return daysCompare;
+      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (plCompare !== 0) return plCompare;
+      return 0;
+    });
 
-    // ACTIVE DEALS: always shown regardless of dates
-    const active_deals = digestThreads.filter((t) => t.bucket === 'active');
+  // ACTIVE DEALS: status (in_negotiation first) → pipeline → always shown, cap 10 per pipeline
+  const MAX_ACTIVE_PER_PIPELINE = 10;
+  const active_deals_raw = all
+    .filter((t) => t.bucket === 'active')
+    .sort((a, b) => {
+      const statusCompare = statusOrder(a.status) - statusOrder(b.status);
+      if (statusCompare !== 0) return statusCompare;
+      return pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+    });
+  // Cap per pipeline
+  const activeCountByPipeline: Record<string, number> = {};
+  const active_deals = active_deals_raw.filter((t) => {
+    const count = activeCountByPipeline[t.pipeline] || 0;
+    if (count >= MAX_ACTIVE_PER_PIPELINE) return false;
+    activeCountByPipeline[t.pipeline] = count + 1;
+    return true;
+  });
 
-    // UPCOMING: everything else with a future date
-    const upcoming = digestThreads.filter(
+  // UPCOMING: future date, not active, not waiting. Sort by date → pipeline → action_type
+  const upcoming = all
+    .filter(
       (t) =>
         !t.overdue &&
         !t.due_today &&
         t.bucket !== 'active' &&
-        !WAITING_STATUSES.includes(t.status)
-    );
+        !WAITING_STATUSES.includes(t.status) &&
+        t.next_action_date &&
+        t.next_action_date > today
+    )
+    .sort((a, b) => {
+      const dateCompare = (a.next_action_date || '').localeCompare(b.next_action_date || '');
+      if (dateCompare !== 0) return dateCompare;
+      const plCompare = pipelineOrder(a.pipeline) - pipelineOrder(b.pipeline);
+      if (plCompare !== 0) return plCompare;
+      return actionTypeOrder(a.next_action_type) - actionTypeOrder(b.next_action_type);
+    });
 
-    return {
-      pipeline,
-      overdue,
-      due_today,
-      waiting,
-      active_deals,
-      upcoming,
-      total: pipelineThreads.length,
-      summary: {
-        open: digestThreads.filter((t) => t.bucket === 'open').length,
-        active: digestThreads.filter((t) => t.bucket === 'active').length,
-        closed: 0,
-      },
+  // Pipeline totals
+  const totals = {} as Record<OutreachPipeline, { total: number; open: number; active: number }>;
+  for (const p of PIPELINES) {
+    const pt = all.filter((t) => t.pipeline === p);
+    totals[p] = {
+      total: pt.length,
+      open: pt.filter((t) => t.bucket === 'open').length,
+      active: pt.filter((t) => t.bucket === 'active').length,
     };
-  });
+  }
+
+  return { overdue, today: todayList, waiting, active_deals, upcoming, totals };
 }
 
 // ============================================================================
-// EMAIL FORMATTING
+// PLAIN TEXT FORMATTING
 // ============================================================================
 
-function formatThreadLine(t: DigestThread, pipeline: OutreachPipeline, section: string): string {
+function threadLine(t: BucketedThread, prefix: string): string {
   const org = t.org ? ` (${t.org})` : '';
   const status = t.status.replace(/_/g, ' ');
+  const pl = PIPELINE_LABELS[t.pipeline];
 
   let action = t.next_action || `Follow up with ${t.name}`;
 
-  // Nudge logic: if maxed out suggest parking, otherwise show pipeline-specific template
-  if (isMaxedOut(pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
-    action = `Consider parking — ${t.nudge_count} nudges sent, no response`;
+  if (isMaxedOut(t.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
+    action = `Consider parking — ${t.nudge_count} nudges, no response`;
   } else if (t.nudge_count > 0 && (t.overdue || t.due_today)) {
-    action = getNudgeTemplate(pipeline, t.nudge_count);
+    action = getNudgeTemplate(t.pipeline, t.nudge_count);
   }
 
-  // Section-specific prefixes
-  if (section === 'overdue') {
-    return `[OVERDUE] ${t.name}${org} — ${status} → ${action}`;
-  }
-  if (section === 'today') {
-    return `[TODAY] ${t.name}${org} — ${status} → ${action}`;
-  }
-  if (section === 'waiting') {
-    const days = t.waiting_days ?? 0;
-    return `${t.name}${org} — ${status}, waiting ${days}d → ${action}`;
-  }
-  if (section === 'active_deal') {
-    return `${t.name}${org} — ${status} → ${action}`;
-  }
-  return `${t.name}${org} — ${status}`;
+  return `  ${prefix} [${pl}] ${t.name}${org} — ${status} → ${action}`;
 }
 
-function formatDigestPlainText(sections: DigestPipelineSection[], dateStr: string): string {
+function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
   const lines: string[] = [];
   lines.push(`DWS IQ — Daily Outreach — ${dateStr}`);
   lines.push('='.repeat(50));
 
-  let hasAnyAction = false;
+  // Pipeline summary line
+  const summaryParts = PIPELINES.map((p) => {
+    const s = buckets.totals[p];
+    return `${PIPELINE_LABELS[p]}: ${s.total} (${s.open} open, ${s.active} active)`;
+  });
+  lines.push(summaryParts.join(' | '));
 
-  for (const s of sections) {
-    const label = s.pipeline.toUpperCase();
-    const counts = `${s.total} threads (${s.summary.open} open, ${s.summary.active} active)`;
-
+  // OVERDUE
+  if (buckets.overdue.length > 0) {
     lines.push('');
-    lines.push(`${label} — ${counts}`);
+    lines.push(`OVERDUE (${buckets.overdue.length})`);
     lines.push('-'.repeat(40));
-
-    const empty =
-      s.overdue.length === 0 &&
-      s.due_today.length === 0 &&
-      s.waiting.length === 0 &&
-      s.active_deals.length === 0 &&
-      s.upcoming.length === 0;
-
-    if (empty) {
-      lines.push('  No active threads. Source new contacts.');
-      continue;
-    }
-
-    if (s.overdue.length > 0) {
-      hasAnyAction = true;
-      for (const t of s.overdue) {
-        lines.push(`  ${formatThreadLine(t, s.pipeline, 'overdue')}`);
-      }
-    }
-
-    if (s.due_today.length > 0) {
-      hasAnyAction = true;
-      for (const t of s.due_today) {
-        lines.push(`  ${formatThreadLine(t, s.pipeline, 'today')}`);
-      }
-    }
-
-    if (s.waiting.length > 0) {
-      for (const t of s.waiting) {
-        lines.push(`  ${formatThreadLine(t, s.pipeline, 'waiting')}`);
-      }
-    }
-
-    if (s.active_deals.length > 0) {
-      hasAnyAction = true;
-      lines.push('  ACTIVE DEALS:');
-      for (const t of s.active_deals) {
-        lines.push(`    ${formatThreadLine(t, s.pipeline, 'active_deal')}`);
-      }
-    }
-
-    if (s.upcoming.length > 0) {
-      lines.push(`  ${s.upcoming.length} more scheduled`);
+    for (const t of buckets.overdue) {
+      threadLine(t, '[OVERDUE]');
+      lines.push(threadLine(t, ''));
     }
   }
 
-  if (!hasAnyAction) {
+  // TODAY
+  if (buckets.today.length > 0) {
     lines.push('');
-    lines.push('All pipelines quiet. Add contacts via Boardy, LinkedIn, or conferences.');
+    lines.push(`TODAY (${buckets.today.length})`);
+    lines.push('-'.repeat(40));
+    for (const t of buckets.today) {
+      lines.push(threadLine(t, ''));
+    }
+  }
+
+  // WAITING
+  if (buckets.waiting.length > 0) {
+    lines.push('');
+    lines.push(`WAITING (${buckets.waiting.length})`);
+    lines.push('-'.repeat(40));
+    for (const t of buckets.waiting) {
+      const days = t.waiting_days ?? 0;
+      const org = t.org ? ` (${t.org})` : '';
+      const pl = PIPELINE_LABELS[t.pipeline];
+      const action = t.next_action || 'Awaiting response';
+      lines.push(`  [${pl}] ${t.name}${org} — ${t.status.replace(/_/g, ' ')}, ${days}d → ${action}`);
+    }
+  }
+
+  // ACTIVE DEALS
+  if (buckets.active_deals.length > 0) {
+    lines.push('');
+    lines.push(`ACTIVE DEALS (${buckets.active_deals.length})`);
+    lines.push('-'.repeat(40));
+    for (const t of buckets.active_deals) {
+      lines.push(threadLine(t, ''));
+    }
+  }
+
+  // UPCOMING
+  if (buckets.upcoming.length > 0) {
+    const byPipeline = PIPELINES.map((p) => {
+      const count = buckets.upcoming.filter((t) => t.pipeline === p).length;
+      return count > 0 ? `${PIPELINE_LABELS[p]}: ${count}` : null;
+    }).filter(Boolean);
+    lines.push('');
+    lines.push(`UPCOMING: ${byPipeline.join(', ')}`);
+  }
+
+  // Empty state
+  const totalAction = buckets.overdue.length + buckets.today.length + buckets.active_deals.length;
+  if (totalAction === 0 && buckets.waiting.length === 0) {
+    lines.push('');
+    lines.push('All pipelines quiet. Source new contacts via Boardy, LinkedIn, or conferences.');
   }
 
   lines.push('');
@@ -255,107 +332,96 @@ function formatDigestPlainText(sections: DigestPipelineSection[], dateStr: strin
   return lines.join('\n');
 }
 
+// ============================================================================
+// HTML FORMATTING
+// ============================================================================
+
 function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function formatDigestHtml(sections: DigestPipelineSection[], dateStr: string): string {
-  const pipelineBlocks = sections
-    .map((s) => {
-      const label = s.pipeline.toUpperCase();
-      const counts = `${s.total} threads (${s.summary.open} open, ${s.summary.active} active)`;
+function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string): string {
+  const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+  const pl = PIPELINE_LABELS[t.pipeline];
+  let action = t.next_action || `Follow up with ${t.name}`;
 
-      const empty =
-        s.overdue.length === 0 &&
-        s.due_today.length === 0 &&
-        s.waiting.length === 0 &&
-        s.active_deals.length === 0 &&
-        s.upcoming.length === 0;
+  if (isMaxedOut(t.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
+    action = `Consider parking — ${t.nudge_count} nudges, no response`;
+  } else if (t.nudge_count > 0 && (t.overdue || t.due_today)) {
+    action = getNudgeTemplate(t.pipeline, t.nudge_count);
+  }
 
-      if (empty) {
-        return `
-        <tr><td style="padding: 16px;">
-          <h3 style="margin: 0 0 4px; font-size: 14px; color: #00d4aa;">${label}</h3>
-          <p style="margin: 0; font-size: 12px; color: #666;">${counts}</p>
-          <p style="margin: 8px 0 0; font-size: 13px; color: #888;">No active threads. Source new contacts.</p>
-        </td></tr>`;
-      }
+  return `
+    <div style="padding: 8px 0; border-bottom: 1px solid #222;">
+      <div style="font-size: 13px; color: #e0e0e0;">
+        <span style="color: ${flagColor}; font-weight: 600;">${flag}</span>
+        <span style="color: #00d4aa; font-size: 11px;">[${pl}]</span>
+        <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+      </div>
+      <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
+    </div>`;
+}
 
-      let rows = '';
+function htmlSection(title: string, threads: string[], extraInfo?: string): string {
+  if (threads.length === 0 && !extraInfo) return '';
+  return `
+    <tr><td style="padding: 16px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 8px; font-size: 14px; color: #00d4aa;">${title}</h3>
+      ${threads.join('')}
+      ${extraInfo || ''}
+    </td></tr>`;
+}
 
-      // OVERDUE + TODAY
-      const urgentThreads = [...s.overdue, ...s.due_today];
-      for (const t of urgentThreads) {
-        const flag = t.overdue
-          ? '<span style="color: #ff4444; font-weight: 600;">OVERDUE</span>'
-          : '<span style="color: #ffaa00; font-weight: 600;">TODAY</span>';
-        const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+function formatHtml(buckets: DigestBuckets, dateStr: string): string {
+  // Pipeline summary
+  const summaryParts = PIPELINES.map((p) => {
+    const s = buckets.totals[p];
+    return `${PIPELINE_LABELS[p]}: ${s.total} (${s.open} open, ${s.active} active)`;
+  }).join(' &nbsp;|&nbsp; ');
 
-        let action = t.next_action || `Follow up with ${t.name}`;
-        if (isMaxedOut(s.pipeline, t.nudge_count) && (t.overdue || t.due_today)) {
-          action = `Consider parking — ${t.nudge_count} nudges sent, no response`;
-        } else if (t.nudge_count > 0) {
-          action = getNudgeTemplate(s.pipeline, t.nudge_count);
-        }
+  // Sections
+  const overdueRows = buckets.overdue.map((t) => htmlThreadRow(t, 'OVERDUE', '#ff4444'));
+  const todayRows = buckets.today.map((t) => htmlThreadRow(t, 'TODAY', '#ffaa00'));
 
-        rows += `
-          <div style="padding: 8px 0; border-bottom: 1px solid #222;">
-            <div style="font-size: 13px; color: #e0e0e0;">
-              ${flag} <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
-            </div>
-            <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
-          </div>`;
-      }
+  const waitingRows = buckets.waiting.map((t) => {
+    const days = t.waiting_days ?? 0;
+    const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+    const pl = PIPELINE_LABELS[t.pipeline];
+    const action = t.next_action || 'Awaiting response';
+    return `
+      <div style="padding: 8px 0; border-bottom: 1px solid #222;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: #888; font-weight: 600;">WAITING ${days}d</span>
+          <span style="color: #00d4aa; font-size: 11px;">[${pl}]</span>
+          <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+        </div>
+        <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
+      </div>`;
+  });
 
-      // WAITING
-      for (const t of s.waiting) {
-        const org = t.org ? ` (${escapeHtml(t.org)})` : '';
-        const days = t.waiting_days ?? 0;
-        const action = t.next_action || 'Awaiting response';
-        rows += `
-          <div style="padding: 8px 0; border-bottom: 1px solid #222;">
-            <div style="font-size: 13px; color: #e0e0e0;">
-              <span style="color: #888;">WAITING ${days}d</span> <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
-            </div>
-            <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
-          </div>`;
-      }
+  const activeRows = buckets.active_deals.map((t) => htmlThreadRow(t, '', '#00d4aa'));
 
-      // ACTIVE DEALS
-      if (s.active_deals.length > 0) {
-        rows += `<div style="padding: 8px 0; font-size: 11px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1px;">Active Deals</div>`;
-        for (const t of s.active_deals) {
-          const org = t.org ? ` (${escapeHtml(t.org)})` : '';
-          const action = t.next_action || 'Keep momentum';
-          rows += `
-            <div style="padding: 8px 0; border-bottom: 1px solid #222;">
-              <div style="font-size: 13px; color: #e0e0e0;">
-                <strong>${escapeHtml(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
-              </div>
-              <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
-            </div>`;
-        }
-      }
+  const upcomingInfo =
+    buckets.upcoming.length > 0
+      ? `<p style="margin: 0; font-size: 12px; color: #666;">${buckets.upcoming.length} threads scheduled</p>`
+      : '';
 
-      // UPCOMING count
-      const upcomingLine =
-        s.upcoming.length > 0
-          ? `<p style="margin: 8px 0 0; font-size: 12px; color: #666;">${s.upcoming.length} more scheduled</p>`
-          : '';
-
-      return `
-        <tr><td style="padding: 16px; border-bottom: 1px solid #1a1a1a;">
-          <h3 style="margin: 0 0 4px; font-size: 14px; color: #00d4aa;">${label}</h3>
-          <p style="margin: 0 0 8px; font-size: 12px; color: #666;">${counts}</p>
-          ${rows}
-          ${upcomingLine}
-        </td></tr>`;
-    })
+  const sections = [
+    htmlSection(`OVERDUE (${buckets.overdue.length})`, overdueRows),
+    htmlSection(`TODAY (${buckets.today.length})`, todayRows),
+    htmlSection(`WAITING (${buckets.waiting.length})`, waitingRows),
+    htmlSection(`ACTIVE DEALS (${buckets.active_deals.length})`, activeRows),
+    buckets.upcoming.length > 0 ? htmlSection('UPCOMING', [], upcomingInfo) : '',
+  ]
+    .filter(Boolean)
     .join('');
+
+  // Empty state
+  const totalAction = buckets.overdue.length + buckets.today.length + buckets.active_deals.length;
+  const emptyMsg =
+    totalAction === 0 && buckets.waiting.length === 0
+      ? '<tr><td style="padding: 16px;"><p style="color: #888; font-size: 13px;">All pipelines quiet. Source new contacts.</p></td></tr>'
+      : '';
 
   return `<!DOCTYPE html>
 <html>
@@ -366,9 +432,11 @@ function formatDigestHtml(sections: DigestPipelineSection[], dateStr: string): s
       <td style="padding: 20px; background-color: #1a1a1a; border-bottom: 2px solid #00d4aa;">
         <h1 style="margin: 0; font-size: 18px; color: #00d4aa;">DWS IQ — Daily Outreach</h1>
         <p style="margin: 4px 0 0; font-size: 12px; color: #888;">${dateStr}</p>
+        <p style="margin: 4px 0 0; font-size: 11px; color: #666;">${summaryParts}</p>
       </td>
     </tr>
-    ${pipelineBlocks}
+    ${sections}
+    ${emptyMsg}
     <tr>
       <td style="padding: 12px 16px; text-align: center;">
         <p style="margin: 0; font-size: 11px; color: #444;">DWS IQ 6 — Focused on sales.</p>
@@ -380,11 +448,11 @@ function formatDigestHtml(sections: DigestPipelineSection[], dateStr: string): s
 }
 
 // ============================================================================
-// MAIN: Generate and send daily digest
+// MAIN
 // ============================================================================
 
 export async function generateDailyDigest(): Promise<{
-  sections: DigestPipelineSection[];
+  buckets: DigestBuckets;
   plainText: string;
   html: string;
 }> {
@@ -399,11 +467,11 @@ export async function generateDailyDigest(): Promise<{
   });
 
   const threads = await getAllActiveThreads();
-  const sections = buildPipelineSections(threads, today);
-  const plainText = formatDigestPlainText(sections, dateStr);
-  const html = formatDigestHtml(sections, dateStr);
+  const buckets = buildBuckets(threads, today);
+  const plainText = formatPlainText(buckets, dateStr);
+  const html = formatHtml(buckets, dateStr);
 
-  return { sections, plainText, html };
+  return { buckets, plainText, html };
 }
 
 export async function sendDailyDigestEmail(): Promise<void> {
@@ -469,7 +537,6 @@ export async function sendDailyDigestEmail(): Promise<void> {
     }
   }
 
-  // No provider — print to console
   logger.warn('No email provider configured. Printing digest to console.');
   console.log('\n' + plainText);
 }
