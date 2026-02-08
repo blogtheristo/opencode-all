@@ -9,7 +9,6 @@ API Documentation: https://developer.revolut.com/docs/business/payments
 
 import hashlib
 import hmac
-import json
 import logging
 from datetime import datetime, timedelta
 from decimal import Decimal

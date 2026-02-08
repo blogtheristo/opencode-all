@@ -69,7 +69,7 @@ npm run build            # Production build
 - **NEVER expose Admin/ folder to GitHub - NO exceptions**
 - Use `git add -f Admin/` or similar force commands
 - Create exceptions in `.gitignore` for Admin files
-- Use `git worktree` (disabled until April 2026 - security incident)
+- Use `git worktree` outside of Claude Code workflows (see CLAUDE.md Section 4 for approved worktree usage)
 
 ### Always
 - Use environment variables for secrets

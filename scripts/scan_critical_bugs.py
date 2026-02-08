@@ -304,7 +304,7 @@ class CriticalBugScanner:
         # Exclude the scanner itself to avoid flagging documentation examples
         scanner_file = Path(__file__).resolve()
         files_to_scan = [f for f in files_to_scan if Path(f).resolve() != scanner_file]
-        
+
         print(f"📁 Files to scan: {len(files_to_scan)}")
 
         # Scan each file

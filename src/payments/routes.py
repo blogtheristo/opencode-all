@@ -15,7 +15,6 @@ from src.payments.config import (
     PaymentConfig,
     PlanTier,
     get_payment_config,
-    get_paypal_plan_id,
     get_plan_by_tier,
 )
 from src.payments.models import (
@@ -121,7 +120,7 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
                 expires_at=result.get("expires_at"),
             )
 
-        elif request.payment_provider == PaymentProvider.PAYPAL:
+        if request.payment_provider == PaymentProvider.PAYPAL:
             # Create PayPal subscription
             result = await paypal_client.create_subscription(
                 plan_tier=request.plan,
@@ -136,11 +135,10 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
                 amount_eur=plan.price_monthly_eur,
             )
 
-        else:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported payment provider: {request.payment_provider}",
-            )
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported payment provider: {request.payment_provider}",
+        )
 
     except (RevolutError, PayPalError) as e:
         logger.error(f"Payment provider error: {e}")

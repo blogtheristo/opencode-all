@@ -180,7 +180,6 @@ def get_paypal_plan_id(config: PaymentConfig, tier: PlanTier) -> str:
     """Get PayPal subscription plan ID for a tier"""
     if tier == PlanTier.PRO:
         return config.paypal_plan_id_pro
-    elif tier == PlanTier.ENTERPRISE:
+    if tier == PlanTier.ENTERPRISE:
         return config.paypal_plan_id_enterprise
-    else:
-        raise ValueError(f"No PayPal plan ID for tier: {tier}")
+    raise ValueError(f"No PayPal plan ID for tier: {tier}")

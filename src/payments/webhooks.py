@@ -119,7 +119,7 @@ class WebhookHandler:
 
             return {"action": "subscription_activated", "email": customer_email}
 
-        elif event_type == "payment_request.failed":
+        if event_type == "payment_request.failed":
             # Payment failed - mark subscription as payment failed
             logger.warning(f"Revolut payment failed for {customer_email}")
 
@@ -133,19 +133,18 @@ class WebhookHandler:
 
             return {"action": "payment_failed", "email": customer_email}
 
-        elif event_type == "payment_request.cancelled":
+        if event_type == "payment_request.cancelled":
             # Payment cancelled by user
             logger.info(f"Revolut payment cancelled for {customer_email}")
             return {"action": "payment_cancelled", "email": customer_email}
 
-        elif event_type == "payment_request.expired":
+        if event_type == "payment_request.expired":
             # Payment link expired
             logger.info(f"Revolut payment expired for {customer_email}")
             return {"action": "payment_expired", "email": customer_email}
 
-        else:
-            logger.debug(f"Unhandled Revolut event type: {event_type}")
-            return {"action": "ignored", "reason": f"Unhandled event: {event_type}"}
+        logger.debug(f"Unhandled Revolut event type: {event_type}")
+        return {"action": "ignored", "reason": f"Unhandled event: {event_type}"}
 
     async def handle_paypal_webhook(
         self,
@@ -233,7 +232,7 @@ class WebhookHandler:
 
             return {"action": "subscription_activated", "email": subscriber_email}
 
-        elif event_type == "BILLING.SUBSCRIPTION.CANCELLED":
+        if event_type == "BILLING.SUBSCRIPTION.CANCELLED":
             # Subscription cancelled
             logger.info(f"PayPal subscription cancelled for {subscriber_email}")
 
@@ -248,7 +247,7 @@ class WebhookHandler:
 
             return {"action": "subscription_cancelled", "email": subscriber_email}
 
-        elif event_type == "BILLING.SUBSCRIPTION.SUSPENDED":
+        if event_type == "BILLING.SUBSCRIPTION.SUSPENDED":
             # Subscription suspended (usually due to payment failure)
             logger.warning(f"PayPal subscription suspended for {subscriber_email}")
 
@@ -262,7 +261,7 @@ class WebhookHandler:
 
             return {"action": "subscription_suspended", "email": subscriber_email}
 
-        elif event_type == "BILLING.SUBSCRIPTION.PAYMENT.FAILED":
+        if event_type == "BILLING.SUBSCRIPTION.PAYMENT.FAILED":
             # Payment failed
             logger.warning(f"PayPal payment failed for {subscriber_email}")
 
@@ -276,7 +275,7 @@ class WebhookHandler:
 
             return {"action": "payment_failed", "email": subscriber_email}
 
-        elif event_type == "BILLING.SUBSCRIPTION.EXPIRED":
+        if event_type == "BILLING.SUBSCRIPTION.EXPIRED":
             # Subscription expired
             logger.info(f"PayPal subscription expired for {subscriber_email}")
 
@@ -290,7 +289,7 @@ class WebhookHandler:
 
             return {"action": "subscription_expired", "email": subscriber_email}
 
-        elif event_type == "PAYMENT.SALE.COMPLETED":
+        if event_type == "PAYMENT.SALE.COMPLETED":
             # Recurring payment completed
             logger.info(f"PayPal recurring payment completed for {subscriber_email}")
 
@@ -313,9 +312,8 @@ class WebhookHandler:
 
             return {"action": "payment_completed", "email": subscriber_email}
 
-        else:
-            logger.debug(f"Unhandled PayPal event type: {event_type}")
-            return {"action": "ignored", "reason": f"Unhandled event: {event_type}"}
+        logger.debug(f"Unhandled PayPal event type: {event_type}")
+        return {"action": "ignored", "reason": f"Unhandled event: {event_type}"}
 
     async def close(self) -> None:
         """Close HTTP clients"""

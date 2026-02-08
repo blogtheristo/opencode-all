@@ -10,7 +10,6 @@ API Documentation: https://developer.paypal.com/docs/api/overview/
 import base64
 import logging
 from datetime import datetime
-from decimal import Decimal
 from typing import Any
 
 import httpx
@@ -18,8 +17,8 @@ import httpx
 from src.payments.config import (
     PaymentConfig,
     PlanTier,
-    get_paypal_plan_id,
     get_payment_config,
+    get_paypal_plan_id,
 )
 from src.payments.models import PaymentProvider
 

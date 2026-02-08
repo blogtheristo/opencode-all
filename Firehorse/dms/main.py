@@ -18,11 +18,11 @@ import logging
 import os
 import uuid
 from datetime import datetime, timedelta
-from typing import Any
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
 from supabase import Client, create_client
 
 # ---------------------------------------------------------------------------
@@ -343,7 +343,7 @@ async def list_documents(
             )
         )
 
-    total_resp = (
+    (
         client.rpc(
             "documents_count",
             {"p_organization_id": organization_id, "p_project_id": project_id},
