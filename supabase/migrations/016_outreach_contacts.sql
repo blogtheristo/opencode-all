@@ -455,11 +455,13 @@ INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_i
 
 -- Outreach contacts (person + org + pipeline)
 -- Nicolas Derrien -> investor pipeline
+-- Boardy intro already accepted via WhatsApp. Waiting for Boardy to deliver the intro.
 INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   investor_type, check_size,
   status, source, created_by,
-  boardy_notes, our_angle, their_angle, next_action, next_action_type, next_action_date
+  boardy_notes, our_angle, their_angle,
+  next_action, next_action_type, next_action_date, waiting_since
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/nicolasderrien1/'),
   (SELECT id FROM organizations WHERE domain = 'colbridgeventures.com'),
@@ -469,17 +471,18 @@ INSERT INTO outreach_threads (
   'Partner at Colbridge Ventures (London/Hamburg). Pre-seed and seed climate tech. Decision maker. Often leans capex-heavy climate infra. Co-founder of Continuum Composite Recycling (wind blade recycling). Ohio State MBA.',
   'Colbridge does pre-seed climate tech. Their portfolio companies (Continuum, WASE, Anzen) all need EU compliance reporting. DWS IQ is the compliance layer for the ecosystem they already invest in. $250K check co-lead.',
   'Industrial decarb + compliance automation at €84k ARR. SaaS with clear ROI, not capex-heavy. Every factory in his portfolio needs CSRD reporting.',
-  'Accept Boardy intro. Prepare 1-pager: SaaS economics + recurring revenue. Lead with "compliance layer for your portfolio."',
-  'prep',
-  CURRENT_DATE
+  'Waiting for Boardy to deliver intro. Prep 1-pager: SaaS economics + recurring revenue.',
+  'wait', NULL, CURRENT_DATE
 );
 
 -- Oliver Bonallack -> partner pipeline (not investor — he's a peer, not a check writer)
+-- Boardy intro already accepted via WhatsApp. Waiting for Boardy to deliver the intro.
 INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
   partnership_type,
   status, source, created_by,
-  boardy_notes, our_angle, their_angle, next_action, next_action_type, next_action_date
+  boardy_notes, our_angle, their_angle,
+  next_action, next_action_type, next_action_date, waiting_since
 ) VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/ACoAADbNXUABBBu1fZSxkX3tRBbZU_5JAvG1lJs'),
   (SELECT id FROM organizations WHERE domain = 'soldera.io'),
@@ -489,9 +492,8 @@ INSERT INTO outreach_threads (
   'Founders Associate at Soldera. Climate compliance ops for renewable certification. EU regulatory workflows. Not an investor. Deep in regulation-to-workflow automation.',
   'Same regulatory-workflow DNA. Playbook sharing, UK/EU climate circle intros, potential partnership on overlapping compliance workflows.',
   'Sees regulation-to-workflow automation daily. Could validate our approach and intro us to UK/EU climate compliance buyers.',
-  'Accept Boardy intro. Peer conversation: "We both turn EU regulation into automated workflows. Lets compare notes."',
-  'schedule',
-  CURRENT_DATE
+  'Waiting for Boardy to deliver intro. Prep peer conversation angle.',
+  'wait', NULL, CURRENT_DATE
 );
 
 -- One Click LCA -> partner pipeline (placeholder contact until we find the right person)
