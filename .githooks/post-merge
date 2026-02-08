@@ -1,0 +1,34 @@
+#!/bin/bash
+# post-merge hook: Auto-sync business files to Proton Drive after git pull
+#
+# This hook runs after every successful git pull/merge.
+# It syncs Admin/, AgentFoundry/, Team/, docs/ to Proton Drive.
+#
+# Install: git config core.hooksPath .githooks
+# (Already configured if using the project's .githooks/ folder)
+
+echo ""
+echo "=== Post-merge: Syncing to Proton Drive ==="
+
+# Detect OS
+case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*)
+        # Windows (Git Bash)
+        SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+        if command -v pwsh &> /dev/null; then
+            pwsh -NoProfile -ExecutionPolicy Bypass -File "$SCRIPT_DIR/scripts/Sync-ToProton.ps1"
+        elif command -v powershell &> /dev/null; then
+            powershell -NoProfile -ExecutionPolicy Bypass -File "$SCRIPT_DIR/scripts/Sync-ToProton.ps1"
+        else
+            echo "  [SKIP] PowerShell not found. Run manually: scripts/Sync-ToProton.ps1"
+        fi
+        ;;
+    Linux*|Darwin*)
+        # Linux/macOS - skip Proton sync (not available), just notify
+        echo "  [INFO] Proton Drive sync only runs on Windows."
+        echo "  [INFO] Files are available in the git repo."
+        ;;
+esac
+
+echo "=== Post-merge complete ==="
+echo ""

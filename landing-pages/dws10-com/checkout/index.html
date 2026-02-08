@@ -170,7 +170,7 @@
     <script>
         // Configuration - loaded from products.json
         const API_BASE = 'https://api.lifetime.fi/v1/payments';
-        let PAYPAL_EMAIL = 'risto@lifetime.fi';
+        let PAYPAL_EMAIL = 'risto.anton@lifetime.fi';
         let REVOLUT_FALLBACK_LINK = 'https://revolut.me/lifetimeoy';
         
         // Products loaded from config
@@ -321,10 +321,11 @@
             }
 
             // Update UI with prices from config
-            const formattedPrice = new Intl.NumberFormat('de-DE', {
+            const formattedPrice = new Intl.NumberFormat('en-IE', {
                 style: 'currency',
                 currency: currentProduct.currency || 'EUR',
-                minimumFractionDigits: 0
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
             }).format(currentProduct.price);
             
             document.getElementById('productName').textContent = currentProduct.name;

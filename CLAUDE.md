@@ -2,6 +2,18 @@
 
 This file provides guidance for Claude Code (AI) when working with the DWS6 codebase.
 
+## Required Reading (Design & Document Standards)
+
+Before making any UI changes, agents MUST consult these files:
+
+| Standard | File | Scope |
+|----------|------|-------|
+| **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
+| **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
+| **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+
+**Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
 ## Project Overview
 
 **DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
@@ -223,7 +235,7 @@ dws6/
 ├── mcp-servers/            # Individual MCP servers
 ├── scripts/                # Development & deployment scripts
 ├── supabase/migrations/    # Database migrations
-└── .github/workflows/      # CI/CD pipelines (18 workflows)
+└── .github/workflows/      # CI/CD pipelines (15 workflows)
 ```
 
 ### Dual Folder Structure Rule (IMPORTANT)
@@ -500,7 +512,7 @@ git worktree remove --force /path/to/worktree
 
 The scripts verify these automatically, but for manual worktrees:
 
-- [ ] `.gitignore` contains: `.env`, `.venv/`, `Admin/`, `*.secret`, `*.key`
+- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`
 - [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
 - [ ] Run `git status` before first commit to verify no sensitive files staged
 - [ ] `.venv` symlink points to main repo's virtual environment
@@ -611,21 +623,17 @@ If secrets are accidentally committed:
 - [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
 - [Anthropic API Security](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
 
-### Admin Folder Protection (CRITICAL)
+### Admin Folder
 
-**NEVER expose the Admin/ folder to GitHub in ANY case.**
+The `Admin/` folder is tracked in GitHub and contains admin manuals, security
+documentation, and operational guides. All admin documentation follows the
+DWS Document Standard (see `DWS_DOCUMENT_STANDARD.md`).
 
-This is an absolute rule with no exceptions:
-- The entire `Admin/` folder is gitignored with NO exceptions
-- Never use `git add -f Admin/` or similar force commands
-- Never create exceptions in `.gitignore` for Admin files
+**Security rules still apply:**
+- Never commit secrets, credentials, or API keys in Admin/ files
+- Sensitive operational data (customer details, financial records) stays in ProtonDrive
 - CI/CD reports go to `security-reports/` (not Admin/)
-- Admin files are stored ONLY in ProtonDrive locally
-
-If you need a file from Admin/ for CI/CD:
-1. Copy it to root or another appropriate folder
-2. Remove any sensitive information
-3. Document the change in the copied file
+- Review Admin/ files before committing to ensure no PII or credentials are included
 
 ## 2026 EU AI Act Compliance
 
@@ -673,7 +681,7 @@ Key documentation files:
 - Main development on feature branches
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
-- 18 CI/CD workflows in `.github/workflows/`
+- 15 CI/CD workflows in `.github/workflows/`
 
 ### Worktree Best Practices
 

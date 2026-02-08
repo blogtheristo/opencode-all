@@ -375,7 +375,7 @@ agent:
 | Server | Purpose | Status |
 |--------|---------|--------|
 | **Docker MCP** | Container management, GitHub integration | Active |
-| **Snyk MCP** | Security scanning | Active |
+| **ZenFree** | Security scanning (replaced Snyk, Feb 2026) | Active |
 | **Browser MCP** | Web testing, UI verification | Active |
 
 ### Available MCP Servers (Not Configured)

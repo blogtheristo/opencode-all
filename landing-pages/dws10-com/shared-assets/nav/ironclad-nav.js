@@ -183,6 +183,9 @@
                         <li><a href="${basePath}products/firehorse-reports.html">Firehorse Report – Fit for 55 Template & Dashboard</a></li>
                         <li><a href="${basePath}products/consulting.html">Consulting – Hourly Rate</a></li>
                         <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic Development</a></li>
+                        <li><a href="${basePath}products/sovereignty-cloud-consulting.html" class="ironclad-primary">Sovereignty Cloud Consulting</a></li>
+                        <li class="ironclad-separator"></li>
                         <li><a href="${basePath}world-model/" class="ironclad-primary">Lifetime World Model</a></li>
                     </ul>
                 </li>
@@ -236,7 +239,7 @@
 
                 <!-- IQ Login Button - Gamma Style -->
                 <li class="ironclad-menu-item">
-                    <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #0a1628 0%, #152238 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #0066cc; transition: all 0.3s;" title="DWS IQ Login">🔐 IQ Login</a>
+                    <a href="https://dws6.com/login" class="ironclad-cta" title="DWS IQ Login">🔐 IQ Login</a>
                 </li>
                 <li class="ironclad-menu-item">
                     <a href="https://onelifetime.world" class="ironclad-icon-link" title="OneLifetime.World">
@@ -461,24 +464,26 @@
     display: block;
 }
 
-/* CTA Button */
+/* CTA Button - Dark Navy (DWS Brand Standard) */
 .ironclad-cta {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white !important;
-    padding: 10px 18px;
-    border-radius: 6px;
+    background: linear-gradient(135deg, #0a1628 0%, #152238 100%);
+    color: #ffffff !important;
+    padding: 6px 14px;
+    border-radius: 4px;
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.85rem;
     display: inline-flex;
     align-items: center;
+    height: 32px;
+    border: 1px solid #0066cc;
     transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .ironclad-cta:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    background: linear-gradient(135deg, #152238 0%, #1e3a5f 100%);
 }
 
 .ironclad-icon-link,

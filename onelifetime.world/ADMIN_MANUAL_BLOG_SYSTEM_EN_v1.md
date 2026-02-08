@@ -1,6 +1,6 @@
 # Admin Manual - Blog Management System (Supabase)
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -19,7 +19,7 @@ Document Status:
   - Languages Available: English, Suomi
   - Publication Status: ✅ ACTIVE
 
----
+***
 
 **Version:** 1.0  
 **Effective Date:** 2025-12-30  
