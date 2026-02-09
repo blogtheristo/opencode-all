@@ -52,8 +52,13 @@ BEGIN
   END IF;
 END $$;
 
--- Sanity preview
-SELECT thread_token, thread_id, person_id FROM _placeholder_targets ORDER BY thread_token;
+-- Sanity preview: human-readable — expect exactly 3 placeholders
+SELECT p.first_name, p.last_name, t.thread_token, t.id AS thread_id
+FROM _placeholder_targets pt
+JOIN persons p ON p.id = pt.person_id
+JOIN outreach_threads t ON t.id = pt.thread_id
+ORDER BY t.thread_token;
+
 SELECT COUNT(*) AS activities_to_delete
 FROM outreach_activities a
 WHERE a.thread_id IN (SELECT thread_id FROM _placeholder_targets);
@@ -81,7 +86,13 @@ WHERE p.id IN (SELECT person_id FROM _placeholder_targets)
     SELECT 1 FROM outreach_threads t2 WHERE t2.person_id = p.id
   );
 
--- Post-delete sanity
+-- Post-delete sanity: verify persons are safe to delete (expect 0 remaining threads)
+SELECT pt.person_id, COUNT(t2.*) AS remaining_threads
+FROM _placeholder_targets pt
+LEFT JOIN outreach_threads t2 ON t2.person_id = pt.person_id
+GROUP BY 1;
+
+-- Verify tokens are gone
 SELECT COUNT(*) AS threads_remaining
 FROM outreach_threads
 WHERE thread_token IN ('2764XEMEWX','YBMDRDF4PS','YPGW53RPFQ');
@@ -122,3 +133,25 @@ GROUP BY 1
 ORDER BY 1;
 
 COMMIT;
+
+-- ============================================================================
+-- 4. POST-COMMIT VERIFICATION (run after COMMIT to confirm)
+-- ============================================================================
+
+-- Should return 0: no placeholder persons remain
+SELECT COUNT(*) AS placeholder_persons_remaining
+FROM persons
+WHERE last_name IN ('Team', 'Director')
+  AND first_name IN ('Partnerships', 'ISV Marketplace', 'Sustainability');
+
+-- Should return 2: only Nicolas + Oliver
+SELECT p.first_name, p.last_name, o.name AS org_name
+FROM persons p
+LEFT JOIN outreach_orgs o ON o.id = p.org_id
+ORDER BY p.last_name;
+
+-- Should show active=2 (Colbridge, Lifeline), target_needs_contact=4 (rest)
+SELECT prospect_status, COUNT(*) AS org_count
+FROM outreach_orgs
+GROUP BY 1
+ORDER BY 1;
