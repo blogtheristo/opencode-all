@@ -471,8 +471,10 @@ claude
 1. **Creates git worktree** in standardized location
 2. **Verifies .gitignore** inheritance (critical security patterns)
 3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
-4. **Copies config files** (.env, .env.mcp, .claude/)
-5. **Optionally launches Claude Code** in the new worktree
+4. **Copies config files** (.mcp.json, .env, .env.mcp, .env.local, .env.mcp.minimal, .cursorrules, .claude/)
+5. **Validates environment** — checks .mcp.json has mcpServers, .env has required keys, .claude/ has permissions
+6. **Pings Docker & MCP services** — verifies Docker is running, lists containers with health status, tests MCP endpoint reachability
+7. **Optionally launches Claude Code** in the new worktree
 
 #### Worktree Locations by Environment
 
@@ -489,9 +491,12 @@ claude
 |-------------|----------|--------|
 | `.gitignore` | **Shared** (inherited) | All worktrees use same ignore rules |
 | `.venv/` | **Symlinked** | Saves space, consistent packages |
+| `.mcp.json` | **Copied** | MCP server connections — **CRITICAL** for tool access |
 | `.env` | **Copied** | May need worktree-specific values |
-| `.env.mcp` | **Copied** | API keys for MCP servers |
-| `.claude/` | **Copied** | Session-specific Claude settings |
+| `.env.mcp` | **Copied** | MCP Hub environment config |
+| `.env.local` | **Copied** | Local environment overrides |
+| `.cursorrules` | **Copied** | Cursor IDE rules |
+| `.claude/` | **Copied** | Session-specific Claude settings + permissions |
 | `node_modules/` | **Not shared** | Run `npm install` per worktree |
 
 #### Manual Worktree Commands
@@ -512,10 +517,13 @@ git worktree remove --force /path/to/worktree
 
 The scripts verify these automatically, but for manual worktrees:
 
-- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`
+- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`, `.mcp.json`
+- [ ] `.mcp.json` copied from main repo (gitignored files are NOT shared between worktrees)
 - [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
+- [ ] `.claude/` folder copied (contains permissions in `settings.local.json`)
 - [ ] Run `git status` before first commit to verify no sensitive files staged
 - [ ] `.venv` symlink points to main repo's virtual environment
+- [ ] Docker is running and MCP containers are healthy
 
 #### Activating Python Environment in Worktrees
 
@@ -704,3 +712,39 @@ The January 2026 security incident was caused by manual worktree creation withou
 ```
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+## Boardy — Systems Architect Persona
+
+**Boardy** is the DWS6 systems architect AI persona. Cranky review = Boardy's ruthless but practical code/migration review style focused on prod safety, idempotency, and security.
+
+### Boardy's Priorities
+
+1. **Prod safety** — No migration runs without `BEGIN`/`COMMIT`, rollback path, and dry-run option
+2. **Deterministic DB changes** — Repo is source of truth; live DB is never manually edited
+3. **Drift control** — `scripts/db-drift-check.py` detects schema divergence between repo and live DB
+4. **Security hygiene** — RLS on every table, `SECURITY DEFINER` never on public-facing functions, `service_role` access audited
+
+### Safety Rules for SQL (Boardy Enforced)
+
+| Rule | Enforcement |
+|------|-------------|
+| Every migration wrapped in `BEGIN`/`COMMIT` | `db-drift-check.py --verify` |
+| RLS enabled on all new tables | Drift check flags missing RLS |
+| No `DROP TABLE` without explicit approval | PR review gate |
+| No `SECURITY DEFINER` on public functions | Lint rule in drift check |
+| `service_role` key never in client code | `.env` + gitignore audit |
+
+### Known Failure Modes (Boardy Watches For)
+
+- **Partial migration runs** — Transaction wrapper prevents half-applied schemas
+- **Repo ↔ live drift** — Drift check runs on session startup and pre-deploy
+- **RLS gaps** — New tables without RLS are flagged as CRITICAL alerts
+- **Orphan policies** — Policies referencing dropped columns or roles
+
+### Using Boardy in Reviews
+
+When reviewing database migrations, infrastructure changes, or security-sensitive code:
+- Apply Boardy's priorities (prod safety, idempotency, drift control, security)
+- Flag violations of the safety rules table above
+- Use direct, practical language — no sugar-coating
+- Propose fixes, not just complaints

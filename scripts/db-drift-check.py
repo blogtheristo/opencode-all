@@ -1,0 +1,411 @@
+#!/usr/bin/env python3
+"""
+DWS6 Database Drift Detection — Plan & Verify Phases
+
+Compares supabase/migrations/ files against live Supabase schema.
+Publishes drift alerts to Redis channel supabase:alerts.
+
+Usage:
+    python scripts/db-drift-check.py              # Plan mode (detect drift)
+    python scripts/db-drift-check.py --verify      # Verify mode (post-apply checks)
+    python scripts/db-drift-check.py --dry-run     # Report only, no Redis publish
+
+Requires:
+    pip install httpx redis python-dotenv
+
+Environment:
+    SUPABASE_URL          - Supabase project URL
+    SUPABASE_SERVICE_KEY  - Supabase service role key
+    REDIS_HOST            - Redis hostname (default: localhost)
+    REDIS_PORT            - Redis port (default: 6380)
+
+Author: DWS IQ Team
+Version: 1.0
+Date: 2026-02-09
+"""
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+try:
+    import httpx
+except ImportError:
+    print("ERROR: httpx not installed. Run: pip install httpx")
+    sys.exit(1)
+
+try:
+    import redis
+except ImportError:
+    redis = None
+    print("WARNING: redis not installed. Alerts will not be published.")
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "")
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+REDIS_PORT = int(os.getenv("REDIS_PORT", "6380"))
+REDIS_CHANNEL = "supabase:alerts"
+
+# Repo root — walk up from scripts/ to find supabase/migrations/
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
+MIGRATIONS_DIR = REPO_ROOT / "supabase" / "migrations"
+
+
+# ---------------------------------------------------------------------------
+# Supabase REST helper
+# ---------------------------------------------------------------------------
+
+def supabase_rpc(sql: str) -> list[dict]:
+    """Execute read-only SQL via Supabase REST (pg_net / rpc is not needed
+    for service_role — we POST to the PostgREST rpc endpoint)."""
+    # Use the /rest/v1/rpc endpoint with a raw SQL function,
+    # or fall back to the management API. For simplicity we use
+    # the PostgREST query interface.
+    # Since we need raw SQL, we'll call the pg_net extension or
+    # use supabase-py. For this script, we use the SQL over HTTP approach.
+    url = f"{SUPABASE_URL}/rest/v1/rpc/exec_sql"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+    }
+    # If exec_sql function doesn't exist, fall back to schema introspection
+    try:
+        resp = httpx.post(url, json={"query": sql}, headers=headers, timeout=15)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception:
+        pass
+    return []
+
+
+def get_live_tables() -> set[str]:
+    """Get all user tables from live Supabase via information_schema."""
+    url = f"{SUPABASE_URL}/rest/v1/"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+    }
+    try:
+        # OpenAPI spec lists all available tables
+        resp = httpx.get(url, headers=headers, timeout=15)
+        if resp.status_code == 200:
+            # The root endpoint returns HTML, but the OPTIONS endpoint
+            # or /rest/v1/ with Accept: application/json returns table info.
+            # Alternative: query information_schema directly
+            pass
+    except Exception:
+        pass
+
+    # Use Docker Supabase MCP REST API if available
+    try:
+        resp = httpx.post(
+            "http://localhost:8766/tools/query",
+            json={
+                "table": "information_schema.tables",
+                "select": "table_name",
+                "filters": {"table_schema": "public"},
+                "limit": 500,
+            },
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            if data.get("success") and data.get("data"):
+                return {row["table_name"] for row in data["data"]}
+    except Exception:
+        pass
+
+    # Fallback: try direct PostgREST query on a known table
+    print("WARNING: Could not enumerate live tables. Using migration file analysis only.")
+    return set()
+
+
+def get_migration_tables() -> dict[str, list[str]]:
+    """Parse CREATE TABLE statements from migration files.
+    Returns {table_name: [migration_files_that_reference_it]}."""
+    tables: dict[str, list[str]] = {}
+
+    if not MIGRATIONS_DIR.exists():
+        print(f"ERROR: Migrations directory not found: {MIGRATIONS_DIR}")
+        return tables
+
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        content = f.read_text(encoding="utf-8", errors="replace")
+        # Match CREATE TABLE statements
+        for match in re.finditer(
+            r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?(\w+)",
+            content,
+            re.IGNORECASE,
+        ):
+            table_name = match.group(1).lower()
+            tables.setdefault(table_name, []).append(f.name)
+
+    return tables
+
+
+def get_migration_files() -> list[dict]:
+    """List all migration files with metadata."""
+    files = []
+    if not MIGRATIONS_DIR.exists():
+        return files
+
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        content = f.read_bytes()
+        files.append({
+            "filename": f.name,
+            "path": str(f),
+            "size_bytes": len(content),
+            "sha256": hashlib.sha256(content).hexdigest()[:16],
+            "has_begin_commit": bool(
+                re.search(r"\bBEGIN\b", content.decode("utf-8", errors="replace"), re.IGNORECASE)
+                and re.search(r"\bCOMMIT\b", content.decode("utf-8", errors="replace"), re.IGNORECASE)
+            ),
+            "has_rls": bool(
+                re.search(r"ENABLE\s+ROW\s+LEVEL\s+SECURITY", content.decode("utf-8", errors="replace"), re.IGNORECASE)
+            ),
+        })
+    return files
+
+
+# ---------------------------------------------------------------------------
+# Alert publishing
+# ---------------------------------------------------------------------------
+
+def publish_alert(severity: str, title: str, message: str, details: dict, dry_run: bool = False):
+    """Publish alert to Redis supabase:alerts channel."""
+    alert = {
+        "source": "db-drift-check",
+        "severity": severity,
+        "title": title,
+        "message": message,
+        "details": details,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+    if dry_run:
+        print(f"  [DRY-RUN] Would publish: {json.dumps(alert, indent=2)[:200]}")
+        return
+
+    if redis is None:
+        print(f"  [SKIP] Redis not available, cannot publish alert")
+        return
+
+    try:
+        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+        r.publish(REDIS_CHANNEL, json.dumps(alert))
+        # Also store as pending alert for Claude Code session startup
+        r.lpush("dws:alerts:pending", json.dumps(alert))
+        r.ltrim("dws:alerts:pending", 0, 99)  # Keep last 100 alerts
+        print(f"  [PUBLISHED] {severity}: {title}")
+    except Exception as e:
+        print(f"  [ERROR] Failed to publish alert: {e}")
+
+
+# ---------------------------------------------------------------------------
+# Plan mode — detect drift
+# ---------------------------------------------------------------------------
+
+def run_plan(dry_run: bool = False):
+    """Plan phase: detect drift between repo and live DB."""
+    print("=" * 60)
+    print("  DWS6 Database Drift Check — Plan Phase")
+    print("=" * 60)
+    print(f"  Migrations dir: {MIGRATIONS_DIR}")
+    print(f"  Supabase URL:   {SUPABASE_URL[:40]}..." if SUPABASE_URL else "  Supabase URL:   NOT SET")
+    print(f"  Redis:          {REDIS_HOST}:{REDIS_PORT}")
+    print()
+
+    # 1. Parse migration files
+    migration_files = get_migration_files()
+    migration_tables = get_migration_tables()
+    print(f"[INFO] Found {len(migration_files)} migration files")
+    print(f"[INFO] Found {len(migration_tables)} tables defined in migrations")
+
+    # 2. Check migration file safety
+    unsafe_migrations = []
+    no_rls_tables = []
+
+    for mf in migration_files:
+        if not mf["has_begin_commit"]:
+            unsafe_migrations.append(mf["filename"])
+            print(f"[WARNING] {mf['filename']}: Missing BEGIN/COMMIT wrapper")
+
+    for table, files in migration_tables.items():
+        # Check if any migration enables RLS for this table
+        has_rls = False
+        for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+            content = f.read_text(encoding="utf-8", errors="replace")
+            if re.search(
+                rf"ALTER\s+TABLE\s+(?:public\.)?{re.escape(table)}\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY",
+                content,
+                re.IGNORECASE,
+            ):
+                has_rls = True
+                break
+        if not has_rls:
+            no_rls_tables.append(table)
+
+    if no_rls_tables:
+        print(f"\n[SECURITY] Tables without RLS in migrations:")
+        for t in no_rls_tables:
+            print(f"  ! {t}")
+
+    # 3. Get live tables and diff
+    live_tables = get_live_tables()
+    drift_alerts = []
+
+    if live_tables:
+        repo_tables = set(migration_tables.keys())
+
+        # Tables in DB but not in repo migrations
+        unmigrated = live_tables - repo_tables
+        # Tables in repo but not in DB
+        unapplied = repo_tables - live_tables
+
+        if unmigrated:
+            print(f"\n[DRIFT] Tables in live DB but NOT in migration files:")
+            for t in sorted(unmigrated):
+                print(f"  ! {t}")
+                drift_alerts.append({
+                    "drift_type": "unmigrated_table",
+                    "table": t,
+                    "message": f"Table '{t}' exists in DB but has no migration file",
+                })
+
+        if unapplied:
+            print(f"\n[PENDING] Tables in migrations but NOT in live DB:")
+            for t in sorted(unapplied):
+                files = migration_tables.get(t, [])
+                print(f"  ? {t} (defined in: {', '.join(files)})")
+                drift_alerts.append({
+                    "drift_type": "unapplied_migration",
+                    "table": t,
+                    "migration_files": files,
+                    "message": f"Table '{t}' defined in migrations but missing from DB",
+                })
+
+        verified = repo_tables & live_tables
+        print(f"\n[OK] {len(verified)} of {len(repo_tables)} migration tables verified in live DB")
+    else:
+        print("\n[SKIP] Live table comparison skipped (could not connect to Supabase)")
+
+    # 4. Publish drift alerts
+    if drift_alerts:
+        severity = "HIGH" if len(drift_alerts) > 3 else "WARNING"
+        publish_alert(
+            severity=severity,
+            title=f"{len(drift_alerts)} schema drift issues detected",
+            message=f"Database drift check found {len(drift_alerts)} issues: "
+                    f"{sum(1 for d in drift_alerts if d['drift_type'] == 'unmigrated_table')} unmigrated tables, "
+                    f"{sum(1 for d in drift_alerts if d['drift_type'] == 'unapplied_migration')} unapplied migrations",
+            details={"drift_items": drift_alerts},
+            dry_run=dry_run,
+        )
+
+    if unsafe_migrations:
+        publish_alert(
+            severity="WARNING",
+            title=f"{len(unsafe_migrations)} migrations lack BEGIN/COMMIT guards",
+            message=f"Migrations without transaction wrappers: {', '.join(unsafe_migrations[:5])}",
+            details={"unsafe_files": unsafe_migrations},
+            dry_run=dry_run,
+        )
+
+    if no_rls_tables:
+        publish_alert(
+            severity="HIGH",
+            title=f"{len(no_rls_tables)} tables without RLS",
+            message=f"Tables missing ROW LEVEL SECURITY: {', '.join(no_rls_tables[:10])}",
+            details={"tables": no_rls_tables},
+            dry_run=dry_run,
+        )
+
+    # Summary
+    total_issues = len(drift_alerts) + len(unsafe_migrations) + len(no_rls_tables)
+    print(f"\n{'=' * 60}")
+    if total_issues == 0:
+        print("  RESULT: No drift detected. Schema is clean.")
+    else:
+        print(f"  RESULT: {total_issues} issues found.")
+        print(f"    Drift:          {len(drift_alerts)}")
+        print(f"    Unsafe scripts: {len(unsafe_migrations)}")
+        print(f"    Missing RLS:    {len(no_rls_tables)}")
+    print(f"{'=' * 60}")
+
+    return total_issues
+
+
+# ---------------------------------------------------------------------------
+# Verify mode — post-apply checks
+# ---------------------------------------------------------------------------
+
+def run_verify():
+    """Verify phase: post-apply sanity checks."""
+    print("=" * 60)
+    print("  DWS6 Database Drift Check — Verify Phase")
+    print("=" * 60)
+
+    live_tables = get_live_tables()
+    migration_tables = get_migration_tables()
+
+    if not live_tables:
+        print("[ERROR] Cannot verify — no connection to live DB")
+        return 1
+
+    repo_tables = set(migration_tables.keys())
+    verified = repo_tables & live_tables
+    missing = repo_tables - live_tables
+
+    for t in sorted(verified):
+        print(f"[CHECK] Table '{t}': EXISTS")
+
+    for t in sorted(missing):
+        print(f"[FAIL] Table '{t}': MISSING from live DB")
+
+    print(f"\n[RESULT] {len(verified)}/{len(repo_tables)} tables verified")
+
+    if missing:
+        print(f"[FAIL] {len(missing)} tables still missing after apply")
+        return 1
+
+    print("[OK] Verification passed")
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    parser = argparse.ArgumentParser(description="DWS6 Database Drift Detection")
+    parser.add_argument("--verify", action="store_true", help="Run verify phase (post-apply checks)")
+    parser.add_argument("--dry-run", action="store_true", help="Report only, don't publish to Redis")
+    args = parser.parse_args()
+
+    if args.verify:
+        sys.exit(run_verify())
+    else:
+        issues = run_plan(dry_run=args.dry_run)
+        sys.exit(1 if issues > 0 else 0)
+
+
+if __name__ == "__main__":
+    main()
