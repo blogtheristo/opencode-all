@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
 """
-DWS6 Database Drift Detection — Plan & Verify Phases
+DWS6 Database Drift Detection — Single Entrypoint
 
 Compares supabase/migrations/ files against live Supabase schema.
 Publishes drift alerts to Redis channel supabase:alerts.
+Also runs Supabase Performance Advisor checks (via --advisor flag).
+
+This is the SINGLE ENTRYPOINT for all database health checks.
+Alert publishing logic lives in dws_alerts.py (shared module).
 
 Usage:
-    python scripts/db-drift-check.py              # Plan mode (detect drift)
-    python scripts/db-drift-check.py --verify      # Verify mode (post-apply checks)
-    python scripts/db-drift-check.py --dry-run     # Report only, no Redis publish
+    python scripts/db-drift-check.py                  # Plan mode (detect drift)
+    python scripts/db-drift-check.py --verify          # Verify mode (post-apply checks)
+    python scripts/db-drift-check.py --advisor         # Supabase advisor alerts only
+    python scripts/db-drift-check.py --all             # Drift check + advisor (full)
+    python scripts/db-drift-check.py --dry-run         # Report only, no Redis publish
 
 Requires:
     pip install httpx redis python-dotenv
 
 Environment:
-    SUPABASE_URL          - Supabase project URL
-    SUPABASE_SERVICE_KEY  - Supabase service role key
-    REDIS_HOST            - Redis hostname (default: localhost)
-    REDIS_PORT            - Redis port (default: 6380)
+    SUPABASE_URL           - Supabase project URL
+    SUPABASE_SERVICE_KEY   - Supabase service role key
+    SUPABASE_ACCESS_TOKEN  - Personal access token (for --advisor)
+    REDIS_HOST             - Redis hostname (default: localhost)
+    REDIS_PORT             - Redis port (default: 6380)
 
 Author: DWS IQ Team
-Version: 1.0
-Date: 2026-02-09
+Version: 2.0
+Date: 2026-02-10
 """
 
 import argparse
@@ -40,16 +47,14 @@ except ImportError:
     sys.exit(1)
 
 try:
-    import redis
-except ImportError:
-    redis = None
-    print("WARNING: redis not installed. Alerts will not be published.")
-
-try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
     pass
+
+# Import shared alert module (single source of truth for publishing)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dws_alerts import publish_alert, run_advisor_check  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -58,8 +63,6 @@ except ImportError:
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "")
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = int(os.getenv("REDIS_PORT", "6380"))
 REDIS_CHANNEL = "supabase:alerts"
 
 # Repo root — walk up from scripts/ to find supabase/migrations/
@@ -183,40 +186,6 @@ def get_migration_files() -> list[dict]:
             ),
         })
     return files
-
-
-# ---------------------------------------------------------------------------
-# Alert publishing
-# ---------------------------------------------------------------------------
-
-def publish_alert(severity: str, title: str, message: str, details: dict, dry_run: bool = False):
-    """Publish alert to Redis supabase:alerts channel."""
-    alert = {
-        "source": "db-drift-check",
-        "severity": severity,
-        "title": title,
-        "message": message,
-        "details": details,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
-    if dry_run:
-        print(f"  [DRY-RUN] Would publish: {json.dumps(alert, indent=2)[:200]}")
-        return
-
-    if redis is None:
-        print(f"  [SKIP] Redis not available, cannot publish alert")
-        return
-
-    try:
-        r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
-        r.publish(REDIS_CHANNEL, json.dumps(alert))
-        # Also store as pending alert for Claude Code session startup
-        r.lpush("dws:alerts:pending", json.dumps(alert))
-        r.ltrim("dws:alerts:pending", 0, 99)  # Keep last 100 alerts
-        print(f"  [PUBLISHED] {severity}: {title}")
-    except Exception as e:
-        print(f"  [ERROR] Failed to publish alert: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -395,16 +364,36 @@ def run_verify():
 # ---------------------------------------------------------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="DWS6 Database Drift Detection")
+    parser = argparse.ArgumentParser(
+        description="DWS6 Database Drift Detection — Single Entrypoint",
+        epilog="Examples:\n"
+               "  python scripts/db-drift-check.py              # Drift check only\n"
+               "  python scripts/db-drift-check.py --advisor     # Advisor alerts only\n"
+               "  python scripts/db-drift-check.py --all         # Both drift + advisor\n"
+               "  python scripts/db-drift-check.py --verify      # Post-apply verification\n",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     parser.add_argument("--verify", action="store_true", help="Run verify phase (post-apply checks)")
+    parser.add_argument("--advisor", action="store_true", help="Run Supabase Performance Advisor check")
+    parser.add_argument("--all", action="store_true", help="Run drift check + advisor (full)")
     parser.add_argument("--dry-run", action="store_true", help="Report only, don't publish to Redis")
+    parser.add_argument("--channel", default=REDIS_CHANNEL, help=f"Redis channel (default: {REDIS_CHANNEL})")
     args = parser.parse_args()
+
+    total_issues = 0
 
     if args.verify:
         sys.exit(run_verify())
+    elif args.advisor:
+        total_issues = run_advisor_check(channel=args.channel, dry_run=args.dry_run)
+    elif args.all:
+        total_issues = run_plan(dry_run=args.dry_run)
+        print()  # separator
+        total_issues += run_advisor_check(channel=args.channel, dry_run=args.dry_run)
     else:
-        issues = run_plan(dry_run=args.dry_run)
-        sys.exit(1 if issues > 0 else 0)
+        total_issues = run_plan(dry_run=args.dry_run)
+
+    sys.exit(1 if total_issues > 0 else 0)
 
 
 if __name__ == "__main__":

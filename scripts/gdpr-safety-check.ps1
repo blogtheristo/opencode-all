@@ -28,6 +28,7 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
         $_ -notmatch '^Admin/Security/REORGANIZATION_.*\.md$' -and
         $_ -notmatch '^Admin/SECURITY_.*\.md$' -and
         $_ -notmatch '^Admin/ADMIN_MANUAL\.md$' -and
+        $_ -notmatch '^Admin/ADMIN_MANUAL_SUPABASE_EN_v1\.md$' -and
         $_ -notmatch '^Admin/TWITTER_AUTOMATION_GUIDE\.md$' -and
         $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
         $_ -notmatch '^Admin/GIT_CORRUPTION_RESOLUTION_NOTE\.md$' -and

@@ -2,7 +2,7 @@
 
 Complete setup instructions for Model Context Protocol (MCP) servers used by Claude Code for AI-assisted development.
 
-**Last Updated:** February 9, 2026
+**Last Updated:** February 10, 2026
 **Estimated Time:** 15-20 minutes
 
 ---
@@ -725,50 +725,70 @@ Tietokantapoikkeama syntyy, kun Supabase-skeema eroaa repositorion migraatiotied
                              └──────────────────┘
 ```
 
-### 11.3 The Plan → Apply → Verify Pipeline
+### 11.3 Database Change Management (Plan → Apply → Verify)
 
-Three-phase approach to safe database operations, designed to eliminate partial runs and detect drift between repo and live DB.
+#### Purpose
 
-| Phase | Mode | Purpose | Script |
-|-------|------|---------|--------|
-| **Plan** | Read-only | Diff repo migrations vs live schema, output change plan | `scripts/db-drift-check.py` |
-| **Apply** | Write | Execute migrations as single transactions with fail-fast guards | Supabase MCP `apply_migration` |
-| **Verify** | Read-only | Post-apply checks: RLS enabled, constraints exist, row counts sane | Supabase MCP `query` |
+Maintain a predictable, auditable process for database changes (schema + data migrations) and ensure the live database matches the approved migration set.
+
+#### Principles
+
+1. **Safety first** — avoid partial runs and unintended data changes
+2. **Deterministic execution** — changes run in a known order, one transaction per script
+3. **Drift control** — continuously detect and resolve differences between expected schema state and the live database
+4. **Least privilege** — access controls (RLS/policies) must be explicitly validated for any table containing sensitive data
 
 **Source of truth:** The repository (`supabase/migrations/`). The live DB must reflect these files.
 
+| Phase | Mode | Purpose | Tool |
+|-------|------|---------|------|
+| **Plan** | Read-only | Diff repo migrations vs live schema, produce drift report | `scripts/db-drift-check.py` |
+| **Apply** | Write | Execute migrations in controlled sequence, one transaction per script | Supabase MCP `apply_migration` |
+| **Verify** | Read-only | Post-apply checks: RLS, policies, constraints, integrity | `scripts/db-drift-check.py --verify` |
+
 #### Phase 1: Plan (Read-Only Drift Detection)
+
+Compute "expected state" from the approved migration set. Query the live database for actual state. Produce a drift report that compares **effects** (tables/columns/constraints/policies/functions/triggers/views), not raw SQL text.
+
+**Output:** (a) pending migrations, (b) detected drift, (c) proposed remediation steps.
 
 ```bash
 # Run drift check — compares repo migrations against live DB
 python scripts/db-drift-check.py
 
-# Output example:
-# [DRIFT] Table 'advisor_alerts' exists in DB but has no migration file
-# [PENDING] Migration 20260209_add_alert_router.sql not yet applied
-# [OK] 23 of 25 migrations verified
-# [ALERT] Published 2 drift alerts to Redis channel supabase:alerts
+# Full check: drift + Supabase Performance Advisor alerts
+python scripts/db-drift-check.py --all
+
+# Advisor only (Performance Advisor lint)
+python scripts/db-drift-check.py --advisor
+
+# Dry run (report only, no Redis publish)
+python scripts/db-drift-check.py --dry-run
 ```
 
 The script:
 1. Lists all migration files in `supabase/migrations/`
-2. Queries live DB for applied migrations (via `schema_migrations` table or schema diff)
-3. Reports drift (DB has tables not in repo, or repo has migrations not in DB)
-4. Publishes findings to `supabase:alerts` Redis channel
+2. Parses CREATE TABLE statements and checks for BEGIN/COMMIT wrappers
+3. Queries live DB for actual tables (via Supabase REST API or MCP)
+4. Compares expected vs actual, reports drift
+5. Flags tables missing RLS
+6. Publishes findings to `supabase:alerts` Redis channel
 
 #### Phase 2: Apply (Transactional Execution)
 
-**Guard rule:** Only accept migrations wrapped in `BEGIN/COMMIT` with a guard block. Refuse to run bare SQL.
+One script per transaction (`BEGIN`/`COMMIT`). Refuse to apply scripts missing transactional wrappers unless explicitly marked as "non-transactional." Each script includes **fail-fast guards** and **pre-commit sanity checks**.
+
+**Audit ledger fields:** script name, checksum, git SHA, started_at, committed_at, status, error.
 
 ```sql
 -- Valid migration format (accepted):
 BEGIN;
-  -- Guard: fail if prerequisite missing
+  -- Fail-fast guard: abort if prerequisite missing
   DO $$ BEGIN
     ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'advisors');
   END $$;
 
-  CREATE TABLE advisor_alerts (
+  CREATE TABLE IF NOT EXISTS advisor_alerts (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     source TEXT NOT NULL,
     severity TEXT NOT NULL CHECK (severity IN ('INFO', 'WARNING', 'HIGH', 'CRITICAL')),
@@ -779,8 +799,13 @@ BEGIN;
   );
 
   ALTER TABLE advisor_alerts ENABLE ROW LEVEL SECURITY;
+
+  -- Sanity SELECT before commit
+  SELECT count(*) FROM information_schema.tables WHERE table_name = 'advisor_alerts';
 COMMIT;
 ```
+
+**Rollback:** Before `COMMIT`, use `ROLLBACK`. After `COMMIT`, restore via backup/PITR.
 
 Apply via Claude Code with Supabase MCP:
 ```
@@ -792,17 +817,34 @@ Claude Code: "Migration applied. 1 table created with RLS enabled."
 
 #### Phase 3: Verify (Post-Apply Checks)
 
-```bash
-# Run verification after apply
-python scripts/db-drift-check.py --verify
+Standard post-deployment verification checklist:
 
-# Output example:
-# [CHECK] RLS enabled on advisor_alerts: YES
-# [CHECK] Primary key constraint on advisor_alerts.id: YES
-# [CHECK] Row count advisor_alerts: 0 (expected for new table)
-# [CHECK] All 25 migrations now verified
-# [OK] Verification passed — no drift detected
+- RLS enabled where required (especially PII or sensitive business data)
+- Required policies exist (including `WITH CHECK` for write policies)
+- Expected constraints/indexes exist
+- Critical functions/triggers exist and are owned as intended
+- Key data integrity checks (counts, orphan checks, placeholder records)
+
+```bash
+python scripts/db-drift-check.py --verify
 ```
+
+#### Operational Requirements
+
+- **Environments:** Staging runs first; production only after staging verification passes
+- **Backup/PITR:** Ensure a recent backup or PITR is available before applying changes
+- **Change approvals:** Migration set is reviewed and approved before execution
+
+#### Common Failure Modes
+
+| Failure Mode | Guard |
+|-------------|-------|
+| Partial runs (stopping mid-script) | `BEGIN`/`COMMIT` transaction wrapper |
+| Non-idempotent ALTER/constraint reruns | `IF NOT EXISTS` / `IF EXISTS` guards |
+| RLS gaps (tables without RLS or policies) | Drift check flags missing RLS |
+| `SECURITY DEFINER` without caller guards | Lint rule in drift check |
+| Over-broad grants or default privileges | Review gate |
+| View recreation dropping columns silently | Verify phase constraint checks |
 
 ### 11.4 Alert Router (dws-alert-router)
 
@@ -896,15 +938,16 @@ Claude Code session starts → reads Redis key dws:alerts:pending
 
 ### 11.8 Scripts Reference
 
-| Script | Purpose | Audience |
-|--------|---------|----------|
-| `scripts/db-drift-check.py` | Plan + Verify phases — detects schema drift, publishes alerts | Cranky (developers) |
-| `scripts/alert-publisher.py` | Publishes Supabase advisor alerts to Redis | Cranky (developers) |
-| `alert-router/alert_router.py` | Redis subscriber that routes alerts to Claude Code + email | Cranky (developers) |
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `scripts/db-drift-check.py` | **Single entrypoint** — drift detection, advisor alerts, verification | `--all` / `--advisor` / `--verify` / `--dry-run` |
+| `scripts/dws_alerts.py` | Shared alert publishing module (imported, not run directly) | `from dws_alerts import publish_alert` |
+| `scripts/alert-publisher.py` | Deprecated wrapper — delegates to `db-drift-check.py --advisor` | Backward compatibility only |
+| `alert-router/alert_router.py` | Redis subscriber that routes alerts to Claude Code + email | Docker service |
 
 ---
 
-**Document Version:** 1.2
+**Document Version:** 1.3
 **Created:** February 5, 2026
-**Last Updated:** February 9, 2026
+**Last Updated:** February 10, 2026
 **Author:** DWS IQ Team
