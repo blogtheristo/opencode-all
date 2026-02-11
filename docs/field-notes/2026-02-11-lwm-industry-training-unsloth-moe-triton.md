@@ -1,12 +1,13 @@
-# Lab Note: Training LWM for Each Industry - MoE 12x Faster with Triton Kernels
+# Field Note: Training LWM for Each Industry - MoE 12x Faster with Unsloth Triton Kernels
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-lab-notes-training-EzA66 | Date: 11.02.2026 | Changes: Initial creation - Lab note on Unsloth MoE Triton kernels for LWM industry training
+  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-lab-notes-training-EzA66 | Date: 11.02.2026 | Changes: Updated to DWS Document Standard v1.4 - added YAML metadata, field note required elements, Pandoc-compatible delimiters
 
 Session Links & References:
   - Claude Code (claude/add-lab-notes-training-EzA66): https://github.com/blogtheristo/dws6
@@ -20,6 +21,16 @@ Document Status:
   - Publication Status: ACTIVE
 
 ***
+
+**Version:** 1.1
+**Date:** 2026-02-11
+**Author:** DWS AI Research Team / Lifetime Consulting Oy
+**Location:** Finland (Remote)
+**Context:** LWM Training Pipeline - Evaluating Unsloth MoE Triton kernels for 16 EU industry verticals
+**Category:** Technical / AI-ML / LLM Training
+**Tags:** MoE, Triton, Unsloth, LWM, QLoRA, Split-LoRA, DeepSeek, Qwen3, GLM, gpt-oss, HuggingFace, industry-training
+
+---
 
 ## Ontology Tags
 
@@ -45,6 +56,12 @@ Unsloth AI, in collaboration with Hugging Face, has released custom Triton kerne
 | **Qwen3-30B-A3B VRAM** | 17.5 GB | Fits on single RTX 4090 |
 | **GLM 4.7 Flash Speedup** | 2.6x faster | >15% less VRAM across all batch sizes |
 | **Accuracy Loss** | 0% | Analytically exact, no approximation |
+
+---
+
+## The Story
+
+Unsloth AI announced a major release in Q1 2026: custom hand-written Triton kernels that dramatically accelerate Mixture of Experts (MoE) model fine-tuning. In collaboration with Hugging Face, they demonstrated 12x faster training with 35% less VRAM across DeepSeek, Qwen3, GLM, and OpenAI's gpt-oss models. This was immediately relevant to the DWS IQ 6 LWM pipeline, which currently fine-tunes dense Llama 3.1 8B models per industry vertical at €50-70 each. The MoE approach could fundamentally change the cost-quality equation for training 16 EU industry-specific models.
 
 ---
 
@@ -243,7 +260,7 @@ The Lifetime World Model's per-industry training approach has a natural alignmen
 
 ---
 
-## Action Items
+## Next Steps
 
 ### Immediate (This Week)
 
