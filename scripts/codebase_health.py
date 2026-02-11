@@ -1,0 +1,271 @@
+#!/usr/bin/env python3
+"""
+Codebase Health Reporter - Self-Improving Metrics
+
+Analyzes the DWS6 codebase and produces a health report that feeds
+back into AI-assisted development sessions. Each Claude Code / Cursor
+session can read this report to understand what needs fixing.
+
+Self-improving loop:
+  1. Script runs → produces health_report.json
+  2. AI agent reads report → fixes top issues
+  3. Next run shows improvement → cycle continues
+
+Usage:
+  python scripts/codebase_health.py
+  python scripts/codebase_health.py --output json
+  python scripts/codebase_health.py --output markdown
+"""
+
+import json
+import os
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+def count_files(directory: str, extensions: tuple[str, ...]) -> int:
+    """Count files matching extensions recursively."""
+    count = 0
+    base = Path(directory)
+    if not base.exists():
+        return 0
+    for ext in extensions:
+        count += len(list(base.rglob(f"*{ext}")))
+    return count
+
+
+def count_lines(filepath: str) -> int:
+    """Count non-empty lines in a file."""
+    try:
+        with open(filepath, encoding="utf-8", errors="ignore") as f:
+            return sum(1 for line in f if line.strip())
+    except (OSError, UnicodeDecodeError):
+        return 0
+
+
+def analyze_tests(base_path: str) -> dict:
+    """Analyze test coverage metrics."""
+    tests_dir = os.path.join(base_path, "src", "__tests__")
+    test_files = []
+    test_count = 0
+
+    if os.path.isdir(tests_dir):
+        for f in os.listdir(tests_dir):
+            if f.endswith(".test.ts"):
+                filepath = os.path.join(tests_dir, f)
+                lines = count_lines(filepath)
+                test_files.append({"file": f, "lines": lines})
+
+                # Count test cases (it/test blocks)
+                with open(filepath, encoding="utf-8", errors="ignore") as fh:
+                    content = fh.read()
+                    test_count += content.count("it(") + content.count("test(")
+
+    return {
+        "test_files": len(test_files),
+        "test_cases": test_count,
+        "files": test_files,
+    }
+
+
+def analyze_agents(base_path: str) -> dict:
+    """Analyze agent system health."""
+    agents_dir = os.path.join(base_path, "src", "agents")
+    agents = []
+
+    if os.path.isdir(agents_dir):
+        for f in os.listdir(agents_dir):
+            if f.endswith(".agent.ts") and f != "base.agent.ts":
+                filepath = os.path.join(agents_dir, f)
+                with open(filepath, encoding="utf-8", errors="ignore") as fh:
+                    content = fh.read()
+
+                agents.append({
+                    "file": f,
+                    "lines": count_lines(filepath),
+                    "has_error_handling": "try {" in content and "catch" in content,
+                    "has_logging": "logExecution" in content,
+                    "has_llm": "callLLM" in content,
+                    "has_tests": False,  # Updated below
+                })
+
+    return {
+        "total_agents": len(agents),
+        "agents": agents,
+    }
+
+
+def analyze_workflows(base_path: str) -> dict:
+    """Analyze CI/CD workflow coverage."""
+    workflows_dir = os.path.join(base_path, ".github", "workflows")
+    workflows = []
+
+    if os.path.isdir(workflows_dir):
+        for f in os.listdir(workflows_dir):
+            if f.endswith(".yml") or f.endswith(".yaml"):
+                workflows.append(f)
+
+    has_test_workflow = any("test" in w.lower() for w in workflows)
+    has_security_workflow = any("security" in w.lower() for w in workflows)
+    has_lint_workflow = any("ruff" in w.lower() or "lint" in w.lower() for w in workflows)
+
+    return {
+        "total_workflows": len(workflows),
+        "workflows": workflows,
+        "has_test_workflow": has_test_workflow,
+        "has_security_workflow": has_security_workflow,
+        "has_lint_workflow": has_lint_workflow,
+    }
+
+
+def compute_health_score(tests: dict, agents: dict, workflows: dict) -> int:
+    """Compute overall codebase health score 0-100."""
+    score = 50  # Base score
+
+    # Test coverage (max +25)
+    if tests["test_files"] >= 5:
+        score += 15
+    elif tests["test_files"] >= 3:
+        score += 8
+    if tests["test_cases"] >= 20:
+        score += 10
+    elif tests["test_cases"] >= 10:
+        score += 5
+
+    # Agent quality (max +15)
+    if agents["total_agents"] >= 5:
+        score += 5
+    agents_with_logging = sum(1 for a in agents["agents"] if a["has_logging"])
+    if agents_with_logging == agents["total_agents"] and agents["total_agents"] > 0:
+        score += 5
+    agents_with_errors = sum(1 for a in agents["agents"] if a["has_error_handling"])
+    if agents_with_errors == agents["total_agents"] and agents["total_agents"] > 0:
+        score += 5
+
+    # CI/CD (max +10)
+    if workflows["has_test_workflow"]:
+        score += 5
+    if workflows["has_security_workflow"]:
+        score += 3
+    if workflows["has_lint_workflow"]:
+        score += 2
+
+    return min(100, max(0, score))
+
+
+def generate_report(base_path: str) -> dict:
+    """Generate the full codebase health report."""
+    tests = analyze_tests(base_path)
+    agents = analyze_agents(base_path)
+    workflows = analyze_workflows(base_path)
+    health_score = compute_health_score(tests, agents, workflows)
+
+    ts_files = count_files(os.path.join(base_path, "src"), (".ts",))
+    py_files = count_files(os.path.join(base_path, "scripts"), (".py",))
+
+    report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "health_score": health_score,
+        "summary": {
+            "typescript_source_files": ts_files,
+            "python_script_files": py_files,
+        },
+        "tests": tests,
+        "agents": agents,
+        "workflows": workflows,
+        "recommendations": [],
+    }
+
+    # Generate recommendations
+    if tests["test_files"] < 5:
+        report["recommendations"].append({
+            "priority": "critical",
+            "action": "Add more test files - currently only "
+            f"{tests['test_files']} test files exist",
+        })
+
+    if not workflows["has_test_workflow"]:
+        report["recommendations"].append({
+            "priority": "high",
+            "action": "Add CI/CD test workflow (test-on-pr.yml)",
+        })
+
+    for agent in agents["agents"]:
+        if not agent["has_error_handling"]:
+            report["recommendations"].append({
+                "priority": "high",
+                "action": f"Add error handling to {agent['file']}",
+            })
+
+    return report
+
+
+def format_markdown(report: dict) -> str:
+    """Format report as markdown."""
+    lines = [
+        "# Codebase Health Report",
+        "",
+        f"**Generated:** {report['generated_at']}",
+        f"**Health Score:** {report['health_score']}/100",
+        "",
+        "## Summary",
+        "",
+        f"- TypeScript source files: {report['summary']['typescript_source_files']}",
+        f"- Python script files: {report['summary']['python_script_files']}",
+        f"- Test files: {report['tests']['test_files']}",
+        f"- Test cases: {report['tests']['test_cases']}",
+        f"- Active agents: {report['agents']['total_agents']}",
+        f"- CI/CD workflows: {report['workflows']['total_workflows']}",
+        "",
+        "## Agents",
+        "",
+        "| Agent | Lines | Error Handling | Logging | LLM |",
+        "|-------|-------|---------------|---------|-----|",
+    ]
+
+    for agent in report["agents"]["agents"]:
+        eh = "yes" if agent["has_error_handling"] else "NO"
+        log = "yes" if agent["has_logging"] else "NO"
+        llm = "yes" if agent["has_llm"] else "no"
+        lines.append(f"| {agent['file']} | {agent['lines']} | {eh} | {log} | {llm} |")
+
+    lines.extend([
+        "",
+        "## Recommendations",
+        "",
+    ])
+
+    for rec in report["recommendations"]:
+        lines.append(f"- **[{rec['priority'].upper()}]** {rec['action']}")
+
+    return "\n".join(lines)
+
+
+def main() -> None:
+    """Run codebase health analysis."""
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_format = "markdown"
+
+    if "--output" in sys.argv:
+        idx = sys.argv.index("--output")
+        if idx + 1 < len(sys.argv):
+            output_format = sys.argv[idx + 1]
+
+    report = generate_report(base_path)
+
+    if output_format == "json":
+        print(json.dumps(report, indent=2))
+    else:
+        print(format_markdown(report))
+
+    # Also write JSON report for agent consumption
+    report_path = os.path.join(base_path, "health_report.json")
+    with open(report_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2)
+
+    sys.exit(0 if report["health_score"] >= 60 else 1)
+
+
+if __name__ == "__main__":
+    main()

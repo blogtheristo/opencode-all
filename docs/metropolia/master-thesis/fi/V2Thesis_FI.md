@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 3.3
 
 Sessions & Modifications:
+  - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 11.02.2026 | Changes: Lisatty Liite F - Itseparantava agenttiprosessi (itsediagnostiikka-agentti, reflektioagentti, koodikannan terveysautomaatio, CI/CD-testiputki)
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisatty osio 6.7 - Ihminen-silmukassa-oppimisputki (paivittainen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisatty Liite E - Tekoalyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoalysaadoksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Lisatty DWS10.com verkkokaupan loydokset, Google Merchant Center -integraatio, Revolut Business -maksut, Aanichat-kehityssuunnitelma Groq/Llama-malleilla, Toimialan hiilijalanjalkililaskuri, EU-vaatimustenmukaisuuskartoitus
@@ -22,10 +23,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 07.02.2026
+  - Last Modified: 11.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.2 HIL-putkella)
+  - Publication Status: DRAFT (V3.3 itseparantavilla agenteilla)
 
 ---
 
@@ -743,8 +744,83 @@ Karpathyn periaatteiden kayttoonotto DWS6-kehityksessa saavutti:
 - **Toteutus:** `/CLAUDE.md` repositorion juuressa
 - **Soveltuvat tyokalut:** Claude Code, Cursor AI, GitHub Copilot ja vastaavat agenttipohjaiset koodausavustajat
 
+## Liite F: Itseparantava agenttiprosessi
+
+### F.1 Konsepti: Tekoaly joka parantaa itsean
+
+Samalla tavoin kuin OpenAI:n GPT-5.3-Codex oli keskeinen oman itsensa luomisessa — tiimi kaytti varhaisia versioita koulutuksen virheenkorjaukseen, kayttoonoton hallintaan ja testitulosten diagnosointiin — DWS6 toteuttaa itseparantavan kehityssilmukan, jossa tekoalyagentit diagnosoivat, testaavat ja parantavat koodikantaa jossa ne elavat.
+
+Tama edustaa perustavanlaatuista muutosta ohjelmistokehityksessa: alustan omat tekoalyagentit vastaavat alustan laadun yllapidosta ja parantamisesta.
+
+### F.2 Itseparantava silmukka
+
+```
+Itsediagnostiikka-agentti → skannaa koodikannan → health_report.json
+     ↓
+Tekoalykoodaussessio → lukee raportin → korjaa prioriteettiongelmia
+     ↓
+Reflektioagentti → arvioi korjauksen laadun → palaute
+     ↓
+Seuraava diagnostiikkaskannaus → nayttaa parannuksen → sykli jatkuu
+```
+
+### F.3 Itsediagnostiikka-agentti
+
+`self-diagnostic`-agentti (`src/agents/self-diagnostic.agent.ts`) suorittaa automaattisen koodikanta-analyysin nelja ulottuvuutta pitkin:
+
+| Ulottuvuus | Tarkistukset | Vakavuustaso |
+|------------|-------------|--------------|
+| Agentin terveys | Virheenkasittely, suorituksen kirjaus, LLM-kaytto, rekisterin kattavuus | tieto - korkea |
+| Testikattavuus | Testitiedostojen maara, moduulikattavuuden aukot, integraatiotestien olemassaolo | kriittinen - keskitaso |
+| Turvallisuusmallit | .gitignore-kattavuus, CI/CD-testiputket, salaisuusmallit | kriittinen - korkea |
+| Tyyppitarkkuus | TypeScript strict-tila, noImplicitAny, exclude-listan koko | keskitaso - matala |
+
+Terveyspistemaaraen laskenta: alkaa 100:sta, vahentaa 15 kriittisesta, 8 korkeasta, 4 keskitasosta, 1 matalasta havainnosta.
+
+### F.4 Reflektioagentti
+
+`reflection`-agentti (`src/agents/reflection.agent.ts`) arvioi muiden agenttien tulosteen laatua viiden ulottuvuuden kautta:
+
+| Ulottuvuus | Paino | Mita mittaa |
+|------------|-------|------------|
+| Luottamuksen kalibrointi | Tasainen | Rankaisee yliluottamusta (1.0) ja nollaluottamusta |
+| Paattelyn laatu | Tasainen | Pituus, maarallinen naytto, kausaalinen kieli |
+| Suositusten toteutettavuus | Tasainen | Toimintaverbit, tarkkuus, maarabalanssi |
+| Tuloksen kattavuus | Tasainen | Kenttien maara, ei-tyhjat arvot, agentin nimi |
+| Havaittavuusmetadata | Tasainen | durationMs, mallitiedot, tokenien kaytto (EU:n tekoalysaados) |
+
+Laatuportti: kynnysarvon (oletuksena 0,7) alittavat tulosteet merkataan uudelleensuoritettaviksi.
+
+### F.5 Toteutuksen tulokset
+
+Itseparantava agenttiprosessi toteutettiin 11.02.2026:
+
+| Komponentti | Tiedosto | Tarkoitus |
+|-------------|----------|-----------|
+| Itsediagnostiikka-agentti | `src/agents/self-diagnostic.agent.ts` | Koodikannan laadun skannaus |
+| Reflektioagentti | `src/agents/reflection.agent.ts` | Tulosteen laadun arviointi |
+| Koodikannan terveysraportti | `scripts/codebase_health.py` | Python-pohjainen mittariraportoija |
+| CI/CD-testiputki | `.github/workflows/test-on-pr.yml` | Automaattinen testaus PR:issa |
+| Agenttitestisarja | `src/__tests__/agents.test.ts` | Agenttijärjestelman varmennus |
+| CLAUDE.md-prosessi | `CLAUDE.md` | Itseparannusohjeet tekoalysessioille |
+
+Agenttirekisteri laajeni 5:sta 7 agenttiin.
+
+### F.6 EU:n tekoalysaadoksen vaatimustenmukaisuuspanos
+
+Itseparantava prosessi tukee EU:n tekoalysaadoksen vaatimuksia:
+
+1. **Artikla 12 (Automaattinen kirjaaminen)**: Kaikki agenttisuoritukset kirjataan Supabaseen ajoituksineen, syotteineen/tulosteeineen ja tiloineen
+2. **Paattelyketju**: Reflektioagentti arvioi ja dokumentoi kaikkien agenttien paattelyn laadun
+3. **Jatkuva seuranta**: Itsediagnostiikka-agentti tarjoaa automaattisen laadunvalvonnan
+4. **Jaljitettavyys**: Terveysraportit luovat aikaleimatun auditointipolun koodikannan kehityksesta
+
+### F.7 Akateeminen merkitys
+
+Tama toteutus osoittaa, etta pienimuotoiset tekoalyalustat voivat omaksua itseparantavia malleja, joita on aiemmin nahty vain eturinta-mallien kehityksessa. Keskeinen oivallus: palautesilmukka ei vaadi uusien mallien koulutusta — se toimii sovellustasolla rakenteisen arvioinnin ja priorisoidun parannuksen kautta.
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
 *Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 3.2*
+*Versio: 3.3*

@@ -25,6 +25,43 @@ Before making any UI changes, agents MUST consult these files:
 - **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
+## Self-Improving Agent Protocol
+
+DWS6 implements a self-improving development loop where AI agents diagnose, test, and improve the codebase they live in. This is similar to how frontier models are used to debug their own training and deployment.
+
+### The Self-Improving Loop
+
+```
+1. Self-Diagnostic Agent scans codebase → health_report.json
+2. AI coding session reads report → fixes top issues
+3. Reflection Agent evaluates fix quality → feedback
+4. Next diagnostic scan shows improvement → cycle continues
+```
+
+### Available Self-Improving Agents
+
+| Agent | File | Purpose |
+|-------|------|---------|
+| **self-diagnostic** | `src/agents/self-diagnostic.agent.ts` | Scans codebase for quality gaps, missing tests, security patterns |
+| **reflection** | `src/agents/reflection.agent.ts` | Evaluates other agents' output quality, enables iterative refinement |
+
+### Self-Improvement Tools
+
+| Tool | File | Purpose |
+|------|------|---------|
+| **Codebase Health** | `scripts/codebase_health.py` | Generates health_report.json with metrics and recommendations |
+| **Test on PR** | `.github/workflows/test-on-pr.yml` | Runs tests automatically on every PR |
+
+### How to Use
+
+At the start of a coding session, run the health check to understand priorities:
+
+```bash
+python scripts/codebase_health.py
+```
+
+The report identifies the highest-priority improvements for the current session.
+
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
 *Based on Andrej Karpathy's guidance for agentic coding workflows.*
