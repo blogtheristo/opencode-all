@@ -6,7 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
- * All six production agents are registered on module load.
+ * All nine production agents are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -17,6 +17,9 @@ import { MaterialOracleAgent } from './material-oracle.agent.js';
 import { CustomerSatAgent } from './customer-sat.agent.js';
 import { ViabilityAgent } from './viability.agent.js';
 import { DeepWikiExtractorAgent } from './deepwiki-extractor.agent.js';
+import { EmissionsDataAnalystAgent } from './emissions-data-analyst.agent.js';
+import { ComplianceResearcherAgent } from './compliance-researcher.agent.js';
+import { SalesOutreachAgent } from './sales-outreach.agent.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -75,6 +78,9 @@ export class AgentRegistry {
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
     this.register(new DeepWikiExtractorAgent());
+    this.register(new EmissionsDataAnalystAgent());
+    this.register(new ComplianceResearcherAgent());
+    this.register(new SalesOutreachAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
