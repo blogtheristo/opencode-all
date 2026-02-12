@@ -44,6 +44,7 @@ This directory contains templates and workflows for raising capital for DWS IQ 6
 
 ### ⚡ Action Files (Use These First)
 - **[START-HERE-DAY-1.md](START-HERE-DAY-1.md)** – Send your first 5 emails in 30 minutes
+- **[EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md](EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md)** – 🆕 Email templates + automation workflow (025 metrics)
 - **[daily-outreach-tracker.md](daily-outreach-tracker.md)** – Track 5 emails/day minimum
 - **[00-WHY-ZERO-OUTREACH.md](00-WHY-ZERO-OUTREACH.md)** – Why you're not sending emails (and how to fix it)
 

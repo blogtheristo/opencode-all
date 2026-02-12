@@ -25,6 +25,8 @@ Document Status:
 **Goal:** Send your first 5 investor emails TODAY
 **No excuses.**
 
+> **📧 New: Enhanced email templates available!** See [EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md](EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md) for advanced templates, automation workflow (025 metrics script), and scaling from 5/day → 150/day.
+
 ---
 
 ## Step 1: Open Your Contact List (2 minutes)
