@@ -60,6 +60,8 @@ output-metadata.json
 Thumbs.db
 *.iml
 .idea/
+.claude/
+nul
 # .vscode/ is tracked - contains shared tasks.json for sync tools
 misc.xml
 deploymentTargetDropDown.xml
