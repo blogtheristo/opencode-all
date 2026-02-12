@@ -503,6 +503,69 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 
 ---
 
+## EU Funding Programs
+
+DWS7 is eligible for multiple EU funding instruments. These are non-dilutive and should be pursued in parallel with customer revenue.
+
+### Active & Upcoming Programs
+
+| Program | Funding | Deadline Window | DWS7 Fit | Phase |
+|---------|---------|----------------|----------|-------|
+| **Horizon Europe — Cluster 4: Digital, Industry & Space** | Up to €3M per project | Rolling calls 2026-2027 | AI for industrial sustainability, multi-agent systems, edge AI | 4, 5 |
+| **Horizon Europe — Cluster 5: Climate, Energy & Mobility** | Up to €5M per project | Rolling calls 2026-2027 | Climate compliance automation, IoT monitoring, ETS optimization | 2, 4 |
+| **EIC Accelerator** | Up to €2.5M grant + €15M equity | Cut-off dates: Mar, Jun, Oct 2026 | Deep-tech AI platform with market traction, <€5M revenue | 3 |
+| **Digital Europe Programme (DIGITAL)** | €50K–€2M | Calls in 2026 | AI deployment in industry, cybersecurity, cloud-to-edge | 1, 4 |
+| **EIC Pathfinder** | Up to €4M | Annual calls | Novel multi-agent coordination, agentic AI for compliance | 4 |
+| **LIFE Programme — Clean Energy Transition** | Up to €2M co-funding | Annual calls Q1 | Tools for industrial decarbonization, ETS compliance | 2 |
+| **InvestEU — Sustainable Infrastructure** | Loan guarantees, equity | Continuous via intermediaries | Scale-up funding for climate-tech platforms | 5, 6 |
+| **EU Innovation Fund** | €50K–€7.5M (small-scale) | Annual calls | Technologies reducing industrial GHG emissions | 4 |
+| **IPCEI — Cloud Infrastructure & Services** | National + EU co-funding | Member state calls | Sovereign cloud for EU compliance data | 6 |
+| **CEF Digital** | Co-funding up to 75% | Annual calls | Cross-border digital infrastructure for compliance | 3 |
+
+### National Programs (Finland)
+
+| Program | Funding | Agency | DWS7 Fit |
+|---------|---------|--------|----------|
+| **Business Finland — AI & Digitalization** | Up to €1M grant | Business Finland | AI-native compliance platform development |
+| **Business Finland — Co-Innovation** | Up to €2M (consortium) | Business Finland | Joint R&D with industrial customers |
+| **Business Finland — Research to Business** | Up to €500K | Business Finland | PhD thesis → commercial platform validation |
+| **Business Finland — Tempo** | Up to €50K (6 months) | Business Finland | Market validation for new industry verticals |
+| **Business Finland — Young Innovative Company (NIY)** | Up to €1.25M over 3 years | Business Finland | If company < 5 years, < 50 employees |
+| **Finnvera** | Loans + guarantees | Finnvera | Growth capital, working capital |
+| **Climate Fund (Ilmastorahasto)** | €1M–€20M equity/loan | Ilmastorahasto | Climate solutions at scale-up phase |
+| **Academy of Finland** | PhD/postdoc funding | Academy of Finland | PhD thesis research on AI + industrial compliance |
+
+### EU Funding → Roadmap Phase Mapping
+
+```
+Phase 1 (Feb-Apr 2026): Apply for Business Finland Tempo (market validation)
+Phase 2 (May-Jul 2026): Apply for LIFE Programme (compliance engine)
+Phase 3 (Aug-Oct 2026): Apply for EIC Accelerator (Oct 2026 cut-off)
+Phase 4 (Nov-Jan 2027): Apply for Horizon Europe Cluster 4 (agentic AI)
+Phase 5 (Feb-May 2027): Apply for EU Innovation Fund (IoT-to-compliance)
+Phase 6 (Jun-Dec 2027): Apply for InvestEU (scale-up infrastructure)
+```
+
+### Funding Application Calendar
+
+| Month | Program | Action | Estimated Value |
+|-------|---------|--------|----------------|
+| Mar 2026 | Business Finland Tempo | Submit application | €50K |
+| Apr 2026 | Digital Europe Programme | Check open calls | €200K–€500K |
+| Jun 2026 | LIFE Programme | Submit consortium proposal | €500K–€1M |
+| Jul 2026 | Academy of Finland | PhD funding application | €150K (4 years) |
+| Oct 2026 | EIC Accelerator | Submit full application | €2.5M grant + equity |
+| Nov 2026 | Horizon Europe Cluster 4 | Submit consortium proposal | €500K–€1M (DWS share) |
+| Jan 2027 | EU Innovation Fund (small-scale) | Submit application | €2.5M |
+| Mar 2027 | Business Finland Co-Innovation | Submit with industrial partners | €1M |
+| Jun 2027 | Climate Fund (Ilmastorahasto) | Growth investment discussion | €2M–€5M |
+
+### Total Non-Dilutive Funding Potential: €7M–€12M (2026-2027)
+
+This complements the investor SAFE (€150K @ €3.8M cap) and customer revenue. Funding applications become stronger as each phase delivers measurable results.
+
+---
+
 ## Weekly Tracking
 
 This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workflow:
@@ -542,6 +605,294 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 - [ ] IoT-to-compliance pipeline live at 2+ customer sites
 - [ ] Investor dashboard live with real-time metrics
 - [ ] Revolut balance growing month-over-month
+
+---
+
+## PhD Thesis Output / Tohtorinväitöskirjan tuotos
+
+The DWS6 → DWS7 evolution is simultaneously an applied research project. Each phase produces publishable academic output in both English and Finnish.
+
+### Thesis Framework / Väitöskirjan kehys
+
+**EN:** *"AI-Native Multi-Agent Platforms for Automated EU Climate Compliance in Industrial SMEs: From Prototype to Production"*
+
+**FI:** *"Tekoälynatiivit moniagenttialustat EU:n ilmastosäännöstenmukaisuuden automatisoimiseksi teollisissa pk-yrityksissä: Prototyypistä tuotantoon"*
+
+**Institution / Oppilaitos:** TBD (Aalto / Tampere / Metropolia continuation → doctoral)
+**Author / Tekijä:** Risto Anton Päärni
+**Builds on / Perustuu:** Master's Thesis, Metropolia University of Applied Sciences (2026)
+
+### Research Questions / Tutkimuskysymykset
+
+| # | English | Suomi | Phase |
+|---|---------|-------|-------|
+| RQ1 | How can multi-agent AI systems autonomously execute EU climate compliance workflows for industrial SMEs? | Miten moniagentti-tekoälyjärjestelmät voivat itsenäisesti suorittaa EU:n ilmastosäännöstenmukaisuustyönkulkuja teollisille pk-yrityksille? | 2, 4 |
+| RQ2 | What is the cost-effectiveness of edge AI (IoT-to-compliance) vs cloud-only approaches for continuous emissions monitoring? | Mikä on reunatekoälyn (IoT-vaatimustenmukaisuus) kustannustehokkuus verrattuna pelkkään pilvipohjaiseen lähestymistapaan jatkuvassa päästöjen seurannassa? | 4 |
+| RQ3 | How does a unified multi-regulation platform (ETS+CBAM+CSRD) reduce compliance overhead compared to point solutions? | Miten yhtenäinen monisääntelyalusta (ETS+CBAM+CSRD) vähentää vaatimustenmukaisuuden ylikuormitusta verrattuna yksittäisratkaisuihin? | 2, 3, 5 |
+| RQ4 | What architectural patterns enable EU AI Act compliant reasoning lineage in production AI systems? | Mitkä arkkitehtuurimallit mahdollistavat EU:n tekoälysäädöksen mukaisen päättelyketjun tuotanto-tekoälyjärjestelmissä? | 2 |
+| RQ5 | How can AI-assisted software development (Claude Code, MCP) accelerate industrial platform delivery while maintaining security standards? | Miten tekoälyavusteinen ohjelmistokehitys (Claude Code, MCP) voi nopeuttaa teollisten alustojen toimitusta säilyttäen turvallisuusstandardit? | 1–6 |
+
+### Publications per Phase / Julkaisut vaiheittain
+
+| Phase | Publication (EN) | Julkaisu (FI) | Type | Target Venue |
+|-------|-----------------|---------------|------|-------------|
+| **1** | *"From Pilot to Production: Testing Strategies for AI-Native Industrial Platforms"* | *"Pilotista tuotantoon: Testausstrategiat tekoälynatiiveille teollisille alustoille"* | Conference paper | ECSA 2026 / ICSE 2027 |
+| **2** | *"Automated EU Climate Compliance: A Multi-Regulation Engine for ETS, CBAM, and CSRD"* | *"Automatisoitu EU:n ilmastovaatimustenmukaisuus: Monisääntelymoottori ETS:lle, CBAM:lle ja CSRD:lle"* | Journal article | Journal of Cleaner Production |
+| **2** | *"EU AI Act Article 12 in Practice: Reasoning Lineage for Industrial AI Systems"* | *"EU:n tekoälysäädöksen artikla 12 käytännössä: Päättelyketju teollisissa tekoälyjärjestelmissä"* | Conference paper | AIES 2027 |
+| **3** | *"Multi-Tenant Security Architecture for EU-Regulated Industrial SaaS"* | *"Monivuokralaisen turvallisuusarkkitehtuuri EU-säännellylle teolliselle SaaS:lle"* | Workshop paper | EuroS&P 2027 |
+| **4** | *"Agentic AI for Autonomous Climate Compliance: Multi-Agent Orchestration with Temporal.io"* | *"Agenttinen tekoäly itsenäiseen ilmastovaatimustenmukaisuuteen: Moniagenttiorkestraatio Temporal.io:lla"* | **Core PhD chapter** | Autonomous Agents and Multi-Agent Systems (JAAMAS) |
+| **4** | *"IoT-to-Compliance: Bridging Real-Time Sensor Data and EU ETS Regulatory Filings"* | *"IoT-vaatimustenmukaisuus: Reaaliaikaisen sensoridatan ja EU:n päästökauppajärjestelmän raportointisarjan yhdistäminen"* | Journal article | Environmental Science & Technology |
+| **5** | *"Network Effects in B2B Climate Compliance: Supplier Portal Design for CBAM Data Exchange"* | *"Verkostovaikutukset B2B-ilmastovaatimustenmukaisuudessa: Toimittajaportaalin suunnittelu CBAM-tietojenvaihtoon"* | Conference paper | CSCW 2027 |
+| **6** | *"DWS IQ 7: A Longitudinal Case Study of AI-Native Platform Evolution for EU Industrial Compliance"* | *"DWS IQ 7: Pitkittäistapaustutkimus tekoälynatiivista alustaevoluutiosta EU:n teolliseen vaatimustenmukaisuuteen"* | **PhD Dissertation** | Doctoral thesis |
+
+### Data Collection per Phase / Tiedonkeruu vaiheittain
+
+| Phase | Data Source (EN) | Tietolähde (FI) | Method |
+|-------|-----------------|-----------------|--------|
+| 1 | Test coverage metrics, deployment logs, bug reports | Testikattavuusmittarit, käyttöönottologit, virheraporti | Quantitative |
+| 2 | Compliance accuracy vs manual processes, time savings | Vaatimustenmukaisuuden tarkkuus vs manuaaliset prosessit, ajansäästö | Mixed methods |
+| 3 | Security audit results, pentest findings, SLA metrics | Turvallisuustarkastusten tulokset, tietoturvatestauksen löydökset, SLA-mittarit | Quantitative |
+| 4 | Agent execution logs, IoT sensor data, AI decision accuracy | Agenttien suorituslogit, IoT-sensoridata, tekoälypäätösten tarkkuus | Quantitative + case study |
+| 5 | Customer interviews (16 industrial customers), NPS, usage data | Asiakashaastattelut (16 teollisuusasiakasta), NPS, käyttödata | Qualitative + quantitative |
+| 6 | Full longitudinal dataset (22 months), financial metrics | Täydellinen pitkittäisaineisto (22 kuukautta), taloudelliset mittarit | Longitudinal case study |
+
+### Thesis Repository Structure / Väitöskirjan kansiorakenne
+
+```
+docs/
+├── thesis/                          # Multi-agent coordination (existing)
+├── metropolia/master-thesis/        # Master's thesis (existing, foundation)
+│   ├── en/V2Thesis_EN.md
+│   └── fi/V2Thesis_FI.md
+└── phd/                             # PhD thesis (new, generated from DWS7 phases)
+    ├── en/                          # English publications
+    │   ├── CH1_introduction.md
+    │   ├── CH2_literature_review.md
+    │   ├── CH3_testing_strategies.md      ← Phase 1
+    │   ├── CH4_compliance_engine.md       ← Phase 2
+    │   ├── CH5_eu_ai_act_practice.md      ← Phase 2
+    │   ├── CH6_security_architecture.md   ← Phase 3
+    │   ├── CH7_agentic_ai.md              ← Phase 4 (core)
+    │   ├── CH8_iot_to_compliance.md       ← Phase 4
+    │   ├── CH9_network_effects.md         ← Phase 5
+    │   ├── CH10_longitudinal_case.md      ← Phase 6
+    │   └── DISSERTATION_EN.md             ← Final compiled thesis
+    └── fi/                          # Finnish publications
+        ├── CH1_johdanto.md
+        ├── CH2_kirjallisuuskatsaus.md
+        ├── CH3_testausstrategiat.md       ← Vaihe 1
+        ├── CH4_vaatimustenmukaisuusmoottori.md  ← Vaihe 2
+        ├── CH5_eu_tekoalysaados.md        ← Vaihe 2
+        ├── CH6_turvallisuusarkkitehtuuri.md     ← Vaihe 3
+        ├── CH7_agenttinen_tekoaly.md      ← Vaihe 4 (ydin)
+        ├── CH8_iot_vaatimustenmukaisuus.md      ← Vaihe 4
+        ├── CH9_verkostovaikutukset.md     ← Vaihe 5
+        ├── CH10_pitkittaistapaustutkimus.md     ← Vaihe 6
+        └── VAITOSKIRJA_FI.md              ← Lopullinen koottu väitöskirja
+```
+
+### Academic Timeline / Akateeminen aikataulu
+
+| Date | Milestone (EN) | Välitavoite (FI) |
+|------|---------------|-----------------|
+| Apr 2026 | Submit Phase 1 conference paper | Lähetä vaiheen 1 konferenssipaperi |
+| Jul 2026 | Submit compliance engine journal article | Lähetä vaatimustenmukaisuusmoottorin lehtiartikkeli |
+| Oct 2026 | PhD program application (with 2-3 published papers) | Tohtoriohjelman hakemus (2-3 julkaistua paperia) |
+| Jan 2027 | Submit agentic AI core chapter to JAAMAS | Lähetä agenttinen tekoäly -ydinluku JAAMAS:iin |
+| May 2027 | Submit IoT-to-compliance article | Lähetä IoT-vaatimustenmukaisuusartikkeli |
+| Oct 2027 | Complete dissertation draft | Väitöskirjaluonnoksen valmistuminen |
+| Dec 2027 | Submit PhD dissertation | Väitöskirjan jättäminen |
+
+### Contribution to Knowledge / Panos tietämykseen
+
+**EN:** This research contributes the first longitudinal empirical study of an AI-native multi-agent platform purpose-built for EU industrial climate compliance, bridging the gap between theoretical multi-agent systems research and real-world deployment at 16 industrial sites. The novel IoT-to-compliance pipeline and EU AI Act reasoning lineage implementation provide reference architectures for the emerging field of autonomous regulatory compliance.
+
+**FI:** Tämä tutkimus tuottaa ensimmäisen pitkittäisen empiirisen tutkimuksen tekoälynatiivista moniagenttialustasta, joka on rakennettu EU:n teolliseen ilmastovaatimustenmukaisuuteen, yhdistäen teoreettisen moniagenttijärjestelmätutkimuksen ja todellisen käyttöönoton 16 teollisuuskohteessa. Uudenlainen IoT-vaatimustenmukaisuusputki ja EU:n tekoälysäädöksen mukainen päättelyketjun toteutus tarjoavat referenssiarkkitehtuurit autonomisen sääntelynmukaisuuden kehittyvälle alalle.
+
+---
+
+## Weekly Correction Process
+
+This roadmap is a **living document** — corrected every week based on real-world signals.
+
+### What Gets Corrected
+
+| Signal | Source | Action |
+|--------|--------|--------|
+| **Competitor moves** | Competitor RSS feeds, Crunchbase, ProductHunt | Re-prioritize PRs, add defensive PRs, drop obsoleted features |
+| **Technology advances** | GitHub Trending, HN, framework releases | Swap libraries, adopt new patterns, update tech stack PRs |
+| **Regulation changes** | EUR-Lex, European Commission, national registries | Add/modify compliance PRs, shift phase timelines |
+| **Customer feedback** | Support tickets, NPS surveys, churn signals | Promote P2→P1, add urgent PRs, re-scope features |
+| **Market data** | Carbon price (EUA), industry reports, funding rounds | Adjust financial projections, reprioritize industry verticals |
+
+### Correction Workflow (Every Monday)
+
+1. **08:00 UTC** — `roadmap-weekly-tracker.yml` runs automatically
+2. **Gathers signals:** PR progress, dependency updates, GitHub security alerts
+3. **Creates GitHub Issue** with progress + signals requiring attention
+4. **Team reviews** the issue, decides corrections
+5. **Corrections committed** to `DWS7_ROADMAP.md` with changelog entry below
+
+### Competitor Watch List
+
+Track these competitors weekly for moves that affect our roadmap:
+
+| Competitor | Watch For | Impact on DWS7 |
+|------------|-----------|-----------------|
+| **Persefoni** | EU expansion, CBAM features, pricing changes | If they launch EU CBAM → accelerate Phase 2 CBAM PRs |
+| **Watershed** | EU market entry, Scope 3 automation | If they expand EU → deepen industry-specific moat |
+| **Sweep** | CSRD features, SME pricing | If they drop prices → adjust our Starter tier |
+| **One Click LCA** | Post-SimaPro integration, API partnerships | If they open API → prioritize PR 206 (LCA integration) |
+| **Plan A** | New certifications, industry modules | If they add industrial → differentiate on IoT pipeline |
+| **CO2 AI (BCG)** | Agentic AI launch, enterprise deals | If they ship agentic → accelerate Phase 4 |
+| **Schneider Electric** | EcoStruxure + sustainability convergence | If they ship IoT-to-compliance → defend with speed |
+| **SAP** | Sustainability Control Tower updates | If SAP adds CBAM native → pivot ERP integration strategy |
+| **Coolset / ClimEase** | CBAM market share, pricing moves | If CBAM tools commoditize → bundle as free tier feature |
+| **Normative** | Post-Eivee acquisition, Nordic expansion | If they target Finland → accelerate local ERP connectors |
+
+### Technology Watch List
+
+| Technology | Watch For | Impact on DWS7 |
+|------------|-----------|-----------------|
+| **Claude / Anthropic** | New model releases, tool-use improvements, MCP updates | Upgrade agents, adopt new capabilities |
+| **Llama / Meta** | Open model releases (Llama 4+) | Update fine-tuned climate LLM (PR 161) |
+| **React** | React 20+, Server Components maturity | Dashboard architecture decisions |
+| **Vite** | Major releases, new features | Build tooling updates |
+| **Supabase** | New features (vectors, branching, edge functions) | Database architecture, new capabilities |
+| **Temporal.io** | SDK updates, new workflow patterns | Agent orchestration improvements |
+| **Cloudflare** | Workers AI, D1, new edge features | Edge deployment strategy |
+| **EU Digital Product Passport** | Standard finalization, implementation guides | PR 235 timing and scope |
+| **NVIDIA Jetson** | New hardware, JetPack updates | Edge AI performance improvements |
+| **pgvector / embeddings** | Performance improvements, new models | RAG pipeline optimization (PR 162) |
+
+### Industry Watch List (16 EU Industries)
+
+Each of DWS7's 16 target industries has its own regulatory shifts, technology disruptions, and competitive dynamics. Track weekly.
+
+| # | Industry | Key Regulation | Watch For | Signal Sources | Roadmap Impact |
+|---|----------|---------------|-----------|----------------|----------------|
+| 1 | **Construction** | EPBD, CPR, EN 15978 | Digital product passports (Jul 2027), nearly-zero energy buildings mandate, One Click LCA moves | European Commission DG GROW, BuildingSMART | PRs 187, 235 timing |
+| 2 | **Steel** | ETS, CBAM | Green steel premiums, H2-DRI adoption rates, ArcelorMittal/SSAB announcements | Eurofer, World Steel Association | PR 188 scope, free allowance calcs |
+| 3 | **Cement** | ETS, CBAM | Clinker substitution breakthroughs, CCUS deployment, Heidelberg/Holcim strategy | CEMBUREAU, Global Cement Review | PR 189 calculation methods |
+| 4 | **Chemicals** | ETS, REACH update | Bio-based feedstock shifts, PFAS restriction proposals, BASF/Evonik pivots | CEFIC, ECHA consultations | PR 190 product scope |
+| 5 | **Aluminum** | ETS, CBAM | Inert anode tech (Elysis), recycled content mandates, Hydro/Norsk Hydro moves | European Aluminium, IAI | PR 191 emission factors |
+| 6 | **Manufacturing** | EED, ETS for scope expansion | Industry 4.0 + sustainability convergence, digital twin adoption | Eurostat energy balances, VDMA | PR 192 OEE integration |
+| 7 | **Logistics & Transport** | ReFuelEU, FuelEU Maritime | SAF mandates (2% 2025 → 6% 2030), e-truck adoption, Maersk/DHL announcements | IATA, IMO, IRU | PR 193 fleet emissions |
+| 8 | **Energy Production** | RED III, ETS | Offshore wind expansion, nuclear renaissance, grid storage breakthroughs | ENTSO-E, IRENA, IEA | PR 194 generation mix |
+| 9 | **Mining** | CSRD, Taxonomy | Critical raw materials act, ESG due diligence for minerals, Boliden/LKAB updates | EIT RawMaterials, ICMM | PR 195 extraction metrics |
+| 10 | **Healthcare** | CSRD, medical device regulation | Sustainable healthcare initiatives, hospital energy optimization, Philips/Siemens Healthineers | WHO green healthcare, HCWH Europe | PR 196 facility tracking |
+| 11 | **Real Estate** | EPBD recast, Taxonomy | Minimum Energy Performance Standards (MEPS 2030), renovation wave funding | European Commission DG ENER, BPIE | PR 197 EPC integration |
+| 12 | **Public Sector** | Green public procurement | Net-zero government targets, climate-neutral cities mission (100 by 2030) | EU Mission Cities, national procurement agencies | PR 198 procurement tracking |
+| 13 | **Financial Services** | SFDR, DORA, Taxonomy | Scope 3 financed emissions mandates, climate stress tests, ECB/EBA guidance | ECB, EBA, ESMA | New PR candidate: financed emissions module |
+| 14 | **Food & Agriculture** | CAP reform, LULUCF | Farm-to-fork emissions, methane reduction tech, carbon farming credits | DG AGRI, EEA | New PR candidate: agricultural emissions |
+| 15 | **Textiles** | ESPR, CSRD | EU Strategy for Sustainable Textiles, digital product passports, H&M/Inditex moves | EURATEX, European Commission DG GROW | New PR candidate: textile supply chain |
+| 16 | **ICT & Data Centers** | EED Art. 12, Code of Conduct | Energy efficiency reporting obligations (from 2024), PUE mandates, hyperscaler sustainability reports | European Commission JRC, EUDCA | New PR candidate: data center emissions |
+
+### Industry Signal Response Matrix
+
+When an industry signal fires, use this decision matrix:
+
+```
+Signal detected → Is it regulatory?
+  ├─ YES → Does it change compliance requirements?
+  │   ├─ YES → Add/modify compliance PR, adjust Phase 2-3 scope
+  │   └─ NO (just timeline shift) → Update deadline in compliance calendar
+  └─ NO → Is it competitive?
+      ├─ YES → Does a competitor now serve this industry better?
+      │   ├─ YES → Promote industry module PR to P0, add differentiation PRs
+      │   └─ NO → Log and monitor
+      └─ NO → Is it technology?
+          ├─ YES → Does it enable better/cheaper solution?
+          │   ├─ YES → Evaluate effort, add tech adoption PR if ROI > 3x
+          │   └─ NO → Log for future consideration
+          └─ NO → Log in weekly report, review quarterly
+```
+
+### X (Twitter) Intelligence Feed
+
+X has been a primary source of early signals for AI, climate-tech, and EU regulation. Track these accounts and topics weekly.
+
+#### Key Accounts to Monitor
+
+**AI & Development:**
+
+| Account | Why | Signal Type |
+|---------|-----|-------------|
+| @AnthropicAI | Claude model releases, MCP updates, safety research | Tech: agent capabilities |
+| @kabornadel (Andrej Karpathy) | AI development philosophy, agentic coding insights | Tech: dev practices |
+| @dabornadel (Daniel San) | Claude Code workflows, worktrees, Ghostty patterns | Tech: dev tooling |
+| @OpenAI | GPT model advances, competitive pressure | Competitor: AI models |
+| @GoogleAI | Gemini updates, Vertex AI features | Competitor: AI models |
+| @MetaAI | Llama releases, open-source LLM advances | Tech: fine-tuning base |
+| @GroqInc | Inference speed improvements, new models | Tech: LLM inference |
+| @suabornadel | Supabase features, edge functions, vectors | Tech: database |
+| @temporalio | Workflow orchestration patterns | Tech: agent orchestration |
+| @CloudflareDev | Workers updates, edge AI, Pages features | Tech: deployment |
+
+**Climate-Tech & Compliance:**
+
+| Account | Why | Signal Type |
+|---------|-----|-------------|
+| @EU_Commission | Policy announcements, Fit-for-55 updates | Regulation |
+| @EUClimateAction | ETS, CBAM implementation details | Regulation |
+| @ABORNADEL (EEA) | European environment data, emissions reports | Industry data |
+| @PersefoniAI | Product launches, EU expansion signals | Competitor |
+| @watershedclimate | Feature announcements, enterprise wins | Competitor |
+| @sweabornadel | CSRD features, pricing moves | Competitor |
+| @OneClickLCA | Construction LCA updates, SimaPro integration | Competitor |
+| @PlanA_earth | German market moves, certifications | Competitor |
+| @CarbonBrief | Carbon market analysis, policy explainers | Market intelligence |
+| @BloombergNEF | Carbon price forecasts, clean energy data | Market data |
+| @IEA | Global energy and emissions outlook | Industry data |
+
+**Industry Verticals:**
+
+| Account | Why | Signal Type |
+|---------|-----|-------------|
+| @ABORNADEL (Eurofer) | Steel industry policy positions | Industry: steel |
+| @CEMBUREAU | Cement decarbonization progress | Industry: cement |
+| @CEFIC_EU | Chemical industry sustainability | Industry: chemicals |
+| @ArcelorMittal | Green steel announcements | Industry: steel |
+| @HeidelbergCement | Low-carbon cement tech | Industry: cement |
+| @SSAB | Fossil-free steel (HYBRIT) progress | Industry: steel |
+| @Maersk | Green shipping, methanol fuel adoption | Industry: logistics |
+| @Schneider_EU | Industrial IoT + sustainability | Competitor: IoT |
+| @SiemensInfra | Building X, digital twin updates | Competitor: IoT |
+| @NVIDIA | Jetson updates, edge AI platform | Tech: edge AI |
+
+#### X Signal Topics (Search Weekly)
+
+| Search Query | Purpose |
+|-------------|---------|
+| `"EU ETS" carbon price` | Track weekly EUA price sentiment |
+| `CBAM implementation 2026` | CBAM transitional period updates |
+| `CSRD reporting software` | Competitor product launches |
+| `"EU AI Act" compliance` | Article 12 implementation guidance |
+| `"green steel" OR "fossil-free steel"` | Steel industry decarbonization pace |
+| `"digital product passport" EU` | CPR implementation timeline |
+| `Claude Code OR "claude agent"` | AI dev tooling advances |
+| `MCP "model context protocol"` | MCP ecosystem growth |
+| `"climate tech" funding` | Competitor funding rounds |
+| `Supabase OR "edge function" release` | Infrastructure capabilities |
+
+#### X Signal → Roadmap Action Process
+
+```
+1. Spot signal on X
+2. Log in weekly GitHub Issue (roadmap-tracker label)
+3. Assess: Does this change a PR priority, scope, or timeline?
+   ├─ YES → Commit correction to Correction Changelog with X post link
+   └─ NO → Archive in weekly report for quarterly review
+```
+
+### Correction Changelog
+
+Record every weekly correction here to maintain reasoning lineage.
+
+| Week | Date | Correction | Reason | Source |
+|------|------|------------|--------|--------|
+| W07 | 2026-02-12 | Initial roadmap created | Baseline: 247 PRs across 6 phases | Codebase analysis + competitive research |
+| | | | *Next entry added by weekly correction process* | |
 
 ---
 
