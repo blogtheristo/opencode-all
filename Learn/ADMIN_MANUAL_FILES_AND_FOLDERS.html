@@ -746,6 +746,8 @@ archives.</p>
 <li><code>landing-pages/dws10-com/</code> - Platform landing pages</li>
 <li><code>landing-pages/onelifetime-world/</code> - Community landing
 pages</li>
+<li><strong>Claude Code Sessions</strong> - All worktree <code>.claude/</code>
+directories containing trained agents, commands, skills, and settings</li>
 </ul>
 <h4 id="backup-schedule">Backup Schedule</h4>
 <ul>
@@ -754,17 +756,51 @@ pages</li>
 <li><strong>Storage:</strong> GitHub Actions artifacts + local
 <code>backups/</code> directory</li>
 </ul>
+<h4 id="claude-session-backups">Claude Session Backups</h4>
+<p><strong>Critical:</strong> Claude Code session data is NOT automatically
+committed to Git. Each worktree contains valuable trained agents,
+commands, skills, and settings in its <code>.claude/</code> directory.</p>
+<ul>
+<li><strong>Schedule:</strong> Daily at 6:00 AM UTC (separate from site
+backups)</li>
+<li><strong>Workflow:</strong>
+<code>.github/workflows/daily-claude-backup.yml</code></li>
+<li><strong>Storage:</strong> <code>sessions-backup</code> branch with
+timestamped archives</li>
+<li><strong>Retention:</strong> 30 days on GitHub, 7 days local</li>
+</ul>
+<div class="sourceCode" id="cb-claude-backup"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb-claude-backup-1"><a href="#cb-claude-backup-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual Claude session backup</span></span>
+<span id="cb-claude-backup-2"><a href="#cb-claude-backup-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/Backup-ClaudeSessions.ps1</span></span>
+<span id="cb-claude-backup-3"><a href="#cb-claude-backup-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb-claude-backup-4"><a href="#cb-claude-backup-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View backup history</span></span>
+<span id="cb-claude-backup-5"><a href="#cb-claude-backup-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> sessions-backup</span>
+<span id="cb-claude-backup-6"><a href="#cb-claude-backup-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb-claude-backup-7"><a href="#cb-claude-backup-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download from GitHub Actions artifacts</span></span>
+<span id="cb-claude-backup-8"><a href="#cb-claude-backup-8" aria-hidden="true" tabindex="-1"></a><span class="co"># (Available in Actions tab for 30 days)</span></span></code></pre></div>
+<p><strong>Warning:</strong> Never delete worktrees without backing up
+Claude session data first. Session data includes:</p>
+<ul>
+<li>Custom trained agents</li>
+<li>Macros and commands</li>
+<li>Automation hooks</li>
+<li>Claude capabilities/skills</li>
+<li>Session preferences and settings</li>
+</ul>
 <h3 id="directory-structure-2">Directory Structure</h3>
 <pre><code>backups/
-└── sites/
-    ├── 2025-12-26/
-    │   ├── dws6-com_2025-12-26_02-00-00.tar.gz
-    │   ├── dws10-com_2025-12-26_02-00-00.tar.gz
-    │   ├── onelifetime-world_2025-12-26_02-00-00.tar.gz
-    │   ├── [landing-pages backups]
-    │   └── MANIFEST.txt
-    ├── 2025-12-27/
-    └── latest -&gt; 2025-12-27/  # Symlink to latest</code></pre>
+├── sites/                    # Site backups (daily 2:00 AM)
+│   ├── 2025-12-26/
+│   │   ├── dws6-com_2025-12-26_02-00-00.tar.gz
+│   │   ├── dws10-com_2025-12-26_02-00-00.tar.gz
+│   │   ├── onelifetime-world_2025-12-26_02-00-00.tar.gz
+│   │   ├── [landing-pages backups]
+│   │   └── MANIFEST.txt
+│   ├── 2025-12-27/
+│   └── latest -&gt; 2025-12-27/  # Symlink to latest
+└── claude-sessions/          # Claude session backups (daily 6:00 AM)
+    ├── claude-sessions-backup-20251226_060000.tar.gz
+    ├── claude-sessions-backup-20251227_060000.tar.gz
+    └── latest -&gt; claude-sessions-backup-20251227_060000.tar.gz</code></pre>
 <h3 id="common-operations-1">Common Operations</h3>
 <h4 id="manual-backup">Manual Backup</h4>
 <div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run backup script manually</span></span>
