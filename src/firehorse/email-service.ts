@@ -1,14 +1,15 @@
 /**
- * Firehorse Omnichannel Next Pilot - Email Service
- * CustomerPilotLoop v1
+ * Firehorse Omnichannel - Email Service
  *
- * This is a simplified email service.
- * In production, integrate with:
- * - SendGrid
- * - Resend
- * - AWS SES
- * - etc.
+ * Sends Firehorse campaign emails through the platform email queue
+ * (Redis Streams) with fallback to the production EmailService.
+ *
+ * Replaces the earlier console-only stub with real delivery.
  */
+
+import logger from '../utils/logger.js';
+import { emailQueue } from '../services/email-queue.service.js';
+import emailServiceDirect from '../services/email.service.js';
 
 interface EmailPayload {
   to: string;
@@ -17,64 +18,34 @@ interface EmailPayload {
   lead_id: string;
 }
 
-class EmailService {
+class FirehorseEmailService {
   /**
-   * Send email
-   * This is a stub - replace with actual email service integration
+   * Send a Firehorse campaign email.
+   * Routes through the Redis Streams queue for reliable async delivery.
+   * Falls back to direct send if the queue is unavailable.
    */
   async send(payload: EmailPayload): Promise<void> {
     const { to, subject, body, lead_id } = payload;
 
-    // Log email (for development)
-    console.log('='.repeat(80));
-    console.log('📧 EMAIL SEND');
-    console.log('='.repeat(80));
-    console.log(`To: ${to}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Lead ID: ${lead_id}`);
-    console.log('-'.repeat(80));
-    console.log(body);
-    console.log('='.repeat(80));
+    logger.info('Firehorse email send', { to, subject, lead_id });
 
-    // TODO: Integrate with actual email service
-    // Example with SendGrid:
-    /*
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    try {
+      await emailQueue.enqueue({
+        to,
+        subject,
+        html: body.replace(/\n/g, '<br>'),
+        templateType: 'notification',
+        metadata: { lead_id, rawBody: body },
+        source: 'firehorse',
+      });
+    } catch (err) {
+      // Queue failed — send directly via production EmailService
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+      logger.warn('Firehorse email queue failed, sending direct', { error: errorMsg, to });
 
-    const msg = {
-      to,
-      from: process.env.FROM_EMAIL,
-      subject,
-      text: body,
-      html: body.replace(/\n/g, '<br>'),
-      customArgs: {
-        lead_id,
-      },
-    };
-
-    await sgMail.send(msg);
-    */
-
-    // Example with Resend:
-    /*
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    await resend.emails.send({
-      from: process.env.FROM_EMAIL,
-      to,
-      subject,
-      text: body,
-      headers: {
-        'X-Lead-ID': lead_id,
-      },
-    });
-    */
-
-    // Simulate async email send
-    await new Promise((resolve) => setTimeout(resolve, 100));
+      await emailServiceDirect.sendNotificationEmail(to, subject, body);
+    }
   }
 }
 
-export const emailService = new EmailService();
+export const emailService = new FirehorseEmailService();
