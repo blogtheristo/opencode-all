@@ -71,7 +71,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
  * NOTE: Currently not functional - requires cookie-parser middleware
  * @deprecated Use authenticateToken (Authorization header) instead
  */
-export const authenticateTokenFromCookie = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateTokenFromCookie = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Note: req.cookies not available without cookie-parser middleware
     // This middleware is currently non-functional
@@ -86,7 +86,7 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
     }
 
     // Verify token
-    const decoded = AuthService.verifyAccessToken(token);
+    const decoded = await AuthService.verifyAccessToken(token);
 
     if (!decoded) {
       logger.warn('Invalid or expired cookie token');
@@ -117,14 +117,14 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
  * Middleware for optional authentication
  * Doesn't fail if no token, but attaches user info if token is valid
  */
-export const optionalAuth = (req: Request, res: Response, next: NextFunction) => {
+export const optionalAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Try to get token from Authorization header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (token) {
-      const decoded = AuthService.verifyAccessToken(token);
+      const decoded = await AuthService.verifyAccessToken(token);
 
       if (decoded) {
         req.userId = decoded.userId;

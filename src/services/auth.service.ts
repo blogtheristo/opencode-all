@@ -227,8 +227,8 @@ class AuthService {
   /**
    * Refresh access token using refresh token
    */
-  refreshAccessToken(refreshToken: string): string | null {
-    const decoded = this.verifyToken(refreshToken);
+  async refreshAccessToken(refreshToken: string): Promise<string | null> {
+    const decoded = await this.verifyToken(refreshToken);
     if (!decoded || decoded.type !== 'refresh') {
       return null;
     }
