@@ -748,3 +748,30 @@ The January 2026 security incident was caused by manual worktree creation withou
 ```
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+### Mobile Session Rules (CRITICAL)
+
+**How to detect:** The session is mobile/web when the git remote URL contains `local_proxy@127.0.0.1` (e.g., `http://local_proxy@127.0.0.1:30643/git/...`).
+
+**What is NOT available on mobile sessions:**
+- `gh` CLI — **never installed, never will be. Do NOT attempt to use it.**
+- GitHub API tokens (`GITHUB_TOKEN`, `GH_TOKEN`) — not available in environment
+- `conda`, system package managers — cannot install `gh` as a workaround
+- Interactive tools (`vim`, `nano`, `less`)
+
+**What WORKS on mobile sessions:**
+- `git push`, `git pull`, `git fetch` — via the local proxy
+- All file read/write/edit tools
+- `npm`, `node`, `python3`, `curl`
+- Standard bash commands
+
+**When the user asks to create a PR from a mobile session:**
+1. **Do NOT** try `gh pr create` — it will fail
+2. **Do NOT** try to install `gh` — it will fail
+3. **Do NOT** try GitHub API calls with Python/curl — no token available
+4. **DO** push the branch with `git push -u origin <branch>`
+5. **DO** provide the GitHub compare URL immediately:
+   `https://github.com/blogtheristo/dws6/compare/main...<branch-name>`
+6. **DO** provide the PR title and body as copyable text
+
+**Rule:** Go straight to the compare link. Zero attempts at `gh` or API calls. Every failed attempt wastes the user's time.

@@ -16,8 +16,10 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
+import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import { outreachScheduler } from './outreach/index.js';
+import { emailQueue } from './services/email-queue.service.js';
 
 dotenv.config();
 
@@ -134,6 +136,7 @@ app.get('/health', (_req: Request, res: Response) => {
     features: {
       climateAssistant: !!process.env.GROQ_API_KEY,
       gatedAccess: true,
+      emailQueue: emailQueue.isAvailable(),
     },
   });
 });
@@ -157,6 +160,9 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
+
+// Email sending API (queued via Redis Streams)
+app.use('/api/v1/email', emailRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
@@ -208,24 +214,42 @@ const server = app.listen(PORT, () => {
   } else {
     logger.warn('Supabase not configured — outreach scheduler disabled');
   }
+
+  // Initialize email queue (Redis Streams)
+  emailQueue.initialize().then((ready) => {
+    if (ready) {
+      emailQueue.start();
+      logger.info('Email queue worker started (Redis Streams)');
+    } else {
+      logger.info('Email queue unavailable — emails will be sent directly');
+    }
+  }).catch((err) => {
+    logger.warn('Email queue init error — emails will be sent directly', {
+      error: err.message,
+    });
+  });
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 
