@@ -579,6 +579,17 @@ On Windows, worktrees MUST be created on F: drive (or the same drive as main rep
 - ✅ `F:\2026\Repos2026\.claude-worktrees\dws6\`
 - ❌ `C:\Users\risto\.claude-worktrees\dws6\` (AVOID - causes security issues)
 
+#### Windows Managed Settings Path Change
+
+**Effective March 11, 2026**, Claude Code on Windows will no longer read managed settings from the legacy path. Update any deployment scripts or documentation that reference the old path.
+
+| | Path |
+|---|---|
+| **Old (deprecated)** | `C:\ProgramData\ClaudeCode\managed-settings.json` |
+| **New** | `C:\Program Files\ClaudeCode\managed-settings.json` |
+
+The new path is already supported as of **Claude Code 2.0.58**. If you are running 2.0.58 or later, you can migrate immediately. After March 11, 2026, the old path will be ignored entirely.
+
 #### References
 
 - [Daniel San's Ghostty + Worktrees workflow](https://x.com/dani_avila7)
