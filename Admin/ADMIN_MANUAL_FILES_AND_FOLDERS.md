@@ -9,6 +9,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
   - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
   - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
+  - Version: 1.3 | Tool: Claude Code | Session: bold-herschel | Commit: (pending) | Date: 13.02.2026 | Changes: Added Claude Session Backup System documentation
 
 Session Links & References:
   - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
@@ -23,10 +24,10 @@ Document Status:
 
 ---
 
-**Document Version**: 1.2
-**Last Updated**: December 26, 2025 (Session IjtD0)
+**Document Version**: 1.3
+**Last Updated**: February 13, 2026 (Session bold-herschel)
 **Maintainer**: Risto Anton Päärni (risto@lifetime.fi)
-**Session Update**: Site Quality Standards, Workflow Management, Daily Backups, Multi-Site Deployment
+**Session Update**: Claude Session Backup System
 
 ---
 
@@ -171,6 +172,7 @@ dws6/
 ├── onelifetime.world/                # Existing landing pages
 ├── docs/                             # Project documentation
 ├── AgentFoundry/                     # Agent configurations
+├── observability/                    # Observability assessment & monitoring
 ├── scripts/                          # Utility scripts
 ├── *.md                              # Various documentation files
 └── README.md                         # Main project README
@@ -785,6 +787,323 @@ git push
 
 ---
 
+## Claude Session Backup System
+
+### Purpose
+
+Claude Code sessions contain valuable trained agents, custom commands, skills, hooks, and settings that are **NOT committed to Git**. Each worktree has its own `.claude/` directory with session-specific data. Without backups, this data is permanently lost when a worktree is deleted.
+
+### Architecture
+
+The Claude Session Backup System uses two complementary mechanisms:
+
+| Method | Trigger | Storage | Retention |
+|--------|---------|---------|-----------|
+| **Daily Automated** | GitHub Actions, 6:00 AM UTC | `sessions-backup` branch + GitHub artifacts | 30 days |
+| **Manual Script** | On-demand (`Backup-ClaudeSessions.ps1`) | Local timestamped archives | 30 days (configurable) |
+
+### What Gets Backed Up
+
+Every backup captures the full `.claude/` directory from each worktree:
+
+| Directory | Contents |
+|-----------|----------|
+| `agents/` | Custom trained Claude agents |
+| `commands/` | Custom commands and macros |
+| `hooks/` | Automation hooks |
+| `skills/` | Trained Claude capabilities |
+| `settings.local.json` | Session preferences and settings |
+
+### Daily Automated Backups
+
+**Workflow file:** `.github/workflows/daily-claude-backup.yml`
+
+- Runs daily at **6:00 AM UTC**
+- Discovers all `.claude/` directories across every worktree
+- Creates timestamped archives for each worktree
+- Stores backups in the `sessions-backup` Git branch
+- Uploads as GitHub Actions artifacts (30-day retention)
+- Automatic cleanup of archives older than 30 days
+
+#### Verify Automated Backups
+
+```bash
+# Check latest workflow run
+gh run list --workflow=daily-claude-backup.yml --limit=5
+
+# View backup branch contents
+git log sessions-backup --oneline --limit=10
+
+# Download artifacts from latest run
+gh run download --name claude-sessions-backup
+```
+
+### Manual Backup Script
+
+**Script:** `scripts/Backup-ClaudeSessions.ps1`
+
+Cross-platform PowerShell script for immediate on-demand backups.
+
+#### Usage
+
+```powershell
+# Run immediate backup of all worktree sessions
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Backup with custom retention period (days)
+.\scripts\Backup-ClaudeSessions.ps1 -RetentionDays 60
+```
+
+#### What the Script Does
+
+1. Discovers all Git worktrees (`git worktree list`)
+2. Locates `.claude/` directory in each worktree
+3. Creates timestamped archive per worktree
+4. Stores in local backup directory
+5. Cleans up archives older than retention period
+
+### Safety Procedures
+
+#### Before Deleting a Worktree
+
+1. **Run manual backup:** `.\scripts\Backup-ClaudeSessions.ps1`
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove: `git worktree remove /path/to/worktree`
+
+#### Restoring Session Data
+
+```powershell
+# 1. Locate the backup archive
+ls backups/claude-sessions/
+
+# 2. Extract to the target worktree's .claude/ directory
+tar -xzf backups/claude-sessions/<worktree>_<timestamp>.tar.gz -C /path/to/worktree/
+
+# 3. Verify restored contents
+ls /path/to/worktree/.claude/
+```
+
+#### Restoring from GitHub
+
+```bash
+# From the sessions-backup branch
+git checkout sessions-backup -- <path-to-archive>
+
+# Or download from GitHub Actions artifacts
+gh run download --name claude-sessions-backup --dir ./restored-sessions/
+```
+
+### Storage Locations
+
+| Environment | Local Backup Path |
+|-------------|-------------------|
+| Windows | `F:\2026\Repos2026\dws6\backups\claude-sessions\` |
+| macOS/Linux | `~/dws6/backups/claude-sessions/` |
+| GitHub | `sessions-backup` branch + Actions artifacts |
+
+### Claude Settings Backup
+
+In addition to session data, worktree `settings.local.json` files are backed up separately. These contain per-worktree Claude Code permissions and hook configurations.
+
+**Backup location:** `.claude-settings-backups/` (in repo root)
+
+**Backed up worktrees (as of February 12, 2026):**
+
+| Worktree | Branch |
+|----------|--------|
+| bold-lewin | `claude/bold-lewin` |
+| elated-zhukovsky | `claude/elated-zhukovsky` |
+| friendly-edison | `claude/friendly-edison` |
+| intelligent-lamport | `claude/intelligent-lamport` |
+| keen-swirles | `claude/keen-swirles` |
+| nostalgic-bose | `claude/nostalgic-bose` |
+| quirky-knuth | `claude/quirky-knuth` |
+| sharp-lalande | `claude/sharp-lalande` |
+| silly-bassi | `claude/silly-bassi` |
+| stoic-wilbur | `claude/stoic-wilbur` |
+| zealous-mcclintock | `claude/zealous-mcclintock` |
+
+**When to use:** Before resolving merge conflicts in `.claude/settings.local.json` files. The timestamped backups allow safe rollback if conflict resolution goes wrong.
+
+### Merge Conflict Resolution Audit (February 13, 2026)
+
+Audit of all 11 worktree `settings.local.json` files found **9 out of 11 had incomplete configurations** caused by merge conflict resolution that kept only one side. **All 12 worktrees have been fixed** using `Fix-ClaudeSettings.ps1`.
+
+| Worktree | Hooks | Permissions | Status |
+|----------|-------|-------------|--------|
+| bold-herschel | OK | OK | FIXED |
+| bold-lewin | OK | OK | CORRECT |
+| elated-zhukovsky | OK | OK | FIXED |
+| claude/friendly-edison | OK | OK | FIXED |
+| intelligent-lamport | OK | OK | FIXED |
+| keen-swirles | OK | OK | FIXED |
+| claude/nostalgic-bose | OK | OK | FIXED |
+| claude/quirky-knuth | OK | OK | FIXED |
+| claude/sharp-lalande | OK | OK | FIXED |
+| silly-bassi | OK | OK | CORRECT |
+| claude/stoic-wilbur | OK | OK | FIXED |
+| claude/zealous-mcclintock | OK | OK | FIXED |
+
+**Root cause:** Merge conflict resolution kept only one side (hooks OR permissions, not both).
+
+**Resolution:** `Fix-ClaudeSettings.ps1` added the missing sections to all 12 worktrees. Run periodically to prevent recurrence.
+
+**Correct combined configuration** (`settings.local.json`):
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/validate-branch-name.py"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -NoProfile -Command:*)",
+      "Bash(pandoc:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c:*)",
+      "Bash(python -X utf8 -c:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)"
+    ]
+  }
+}
+```
+
+**Fix priority:** Start with worktrees furthest ahead of main — `intelligent-lamport` (15 commits) and `claude/sharp-lalande` (9 commits).
+
+**Automated fix script:** `scripts/Fix-ClaudeSettings.ps1`
+
+```powershell
+# Check all worktrees for incomplete settings
+.\scripts\Fix-ClaudeSettings.ps1
+
+# Use custom backup directory
+.\scripts\Fix-ClaudeSettings.ps1 -BackupDir "C:\MyBackups"
+```
+
+**What the script does:**
+1. Lists all git worktrees (skips `main`)
+2. Reads each worktree's `.claude/settings.local.json`
+3. Checks for missing `hooks` or `permissions` sections
+4. Adds missing sections from the correct template
+5. Commits the fix in each worktree automatically
+
+**Manual fix:** Replace `settings.local.json` with the correct combined configuration above. The `.claude-settings-backups/` directory has originals if rollback is needed.
+
+**Note:** Each worktree may accumulate additional session-specific permissions (e.g., `Bash(echo:*)`, `Bash(git remote get-url:*)`). The script preserves existing permissions and only adds the missing section.
+
+### Deployment Status
+
+**Published to GitHub:** February 13, 2026 (commit `d843b71`)
+
+| Component | File | Status |
+|-----------|------|--------|
+| GitHub Actions workflow | `.github/workflows/daily-claude-backup.yml` | Live on `main` |
+| Manual backup script | `scripts/Backup-ClaudeSessions.ps1` | Live on `main` |
+| CLAUDE.md documentation | `CLAUDE.md` (Section 4) | Live on `main` |
+| Admin manual section | This file | Live on `main` |
+
+**System status:**
+- Daily automated backups run at **6:00 AM UTC** (first run: February 14, 2026)
+- 12+ Claude worktrees protected with automated session data backups
+- 30-day retention on GitHub (artifacts + `sessions-backup` branch)
+- Manual backup available anytime via `Backup-ClaudeSessions.ps1`
+
+**Protected data:** agents, commands, skills, hooks, session settings across all worktrees.
+
+**Known issue (February 13, 2026):** GitHub detected 3 dependency vulnerabilities in the repository (1 high, 2 moderate). Review in the GitHub Security tab: `https://github.com/blogtheristo/dws6/security`
+
+### PR Creation: Claude Code Sessions vs. Terminal
+
+When working with multiple worktrees, choose the right tool for creating PRs:
+
+**Use Claude Code Sessions when:**
+- Reviewing code changes in context
+- Interactive development — making final tweaks before PR
+- Branch-specific work — when actively working in that worktree
+- Testing changes before creating PR
+- Writing PR descriptions with Claude's help (better context awareness)
+
+**Use Terminal/Command-line when:**
+- Batch operations — creating multiple PRs at once
+- Administrative tasks — branches you don't actively work in
+- Quick PRs for simple changes
+- When Claude session isn't available for that branch
+
+**Recommendation for active worktrees:**
+1. Switch to each worktree's Claude session
+2. Review and finalize changes in that session
+3. Create PR from within Claude — it has better context about the changes
+
+For terminal-only worktrees (no active Claude session), handle PRs directly from the command line with `gh pr create`.
+
+### Session Environment Detection
+
+Sessions frequently move across environments and editors during a single feature branch's lifecycle.
+
+**Quick switch keywords** — include any of these in your message to tell Claude your current environment:
+
+| Keyword | Environment |
+|---------|-------------|
+| `win` or `win11` | Windows 11 desktop |
+| `mobile` | Mobile/web session |
+| `chromebook` | Chromebook (Linux) |
+| `vscode` | Editing in VS Code |
+| `cursor` | Editing in Cursor |
+
+Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords in a message**, not slash commands — do NOT type `/win` as a standalone command (it triggers a skill lookup error). When no keyword is given, Claude auto-detects using these signals:
+
+| Signal | Mobile/Web | Windows 11 Desktop | Chromebook |
+|--------|-----------|-------------------|------------|
+| Git remote URL | `local_proxy@127.0.0.1` | `github.com` | `github.com` |
+| Platform | `linux` (cloud) | `win32` / `MINGW64_NT` | `linux` (native) |
+| `gh` CLI | Not available | Available | May be available |
+| PowerShell | Not available | Available | Not available |
+
+**Editor context** (same environment, different editors):
+
+| Editor | Usage |
+|--------|-------|
+| **Claude Code CLI** | Full Claude session, terminal-based |
+| **VS Code** | User edits files directly; Claude via extension or terminal |
+| **Cursor** | AI-native editor; similar to VS Code |
+
+**Typical multi-environment workflow:**
+
+| Step | Environment + Editor | Activity |
+|------|---------------------|----------|
+| 1 | Mobile | Start work, draft changes, push branch |
+| 2 | Win11 + VS Code | Review code, refine, run tests |
+| 3 | Chromebook | Quick fixes on the go |
+| 4 | Mobile | Documentation updates |
+| 5 | Win11 + Cursor | Final review, create PR |
+
+**Convention:** Commit messages may include the environment tag when helpful:
+- `feat: add backup docs (Win11/VS Code)`
+- `fix: typo (mobile)`
+- `docs: update manual (Chromebook)`
+
+See `CLAUDE.md` → "Session Environment Detection" for the full detection logic and rules.
+
+### Related Files
+
+- **scripts/Backup-ClaudeSessions.ps1** - Manual backup script
+- **.github/workflows/daily-claude-backup.yml** - Automated daily workflow
+- **CLAUDE.md** - Worktree workflow and backup warnings (Section 4)
+
+---
+
 ## Multi-Site Deployment
 
 ### Purpose
@@ -872,6 +1191,55 @@ gh workflow run sync-dws6-landing-pages.yml
 - **.github/workflows/sync-dws6-landing-pages.yml** - Sync workflow
 - **.github/workflows/sync-site-content.yml** - Legacy sync workflow
 - **.workflows/audit/failures/sync-dws6-landing-pages-fix.md** - Sync fixes
+
+---
+
+## Observability
+
+### Purpose
+
+The `observability/` directory contains the platform observability assessment and monitoring strategy for DWS IQ 6's AI agent infrastructure.
+
+### Directory Structure
+
+```
+observability/
+└── observability.md    # Full observability assessment (v1.0.0, January 2026)
+```
+
+### Current Maturity: Level 1/5 (Basic)
+
+| Dimension | Status | Gap |
+|-----------|--------|-----|
+| Logging | Basic Python logging | Minor — needs structured JSON |
+| Tracing | None | CRITICAL — no distributed tracing |
+| Metrics | None | CRITICAL — no token/latency/cost tracking |
+| Agent Visibility | None | CRITICAL — no decision path tracing |
+| MCP Tool Tracing | None | HIGH — no end-to-end tool call visibility |
+| Cost Tracking | None | HIGH — no real-time token/API cost |
+| Eval/Quality | None | MEDIUM — no LLM-as-judge evaluation |
+
+### Key Findings
+
+- **Debugging without observability:** 4-8 hours per incident
+- **Debugging with observability:** 15-30 minutes per incident
+- **Token waste from unoptimized prompts:** 15-25% overspend
+- **Recommended tool:** Langfuse (open-source, self-hostable, EU-compatible)
+- **Projected ROI:** 450% Year 1, payback in 6.6 weeks
+
+### Implementation Priority
+
+1. OpenTelemetry distributed tracing (CRITICAL)
+2. Token/latency/cost metrics (CRITICAL)
+3. MCP tool call end-to-end tracing (HIGH)
+4. Langfuse integration for agent decision paths (HIGH)
+5. LLM-as-judge evaluation pipeline (MEDIUM)
+
+### Related Files
+
+- **observability/observability.md** — Full assessment with architecture diagrams, cost analysis, and implementation plan
+- **src/app.ts** — Main Express app (tracing integration point)
+- **src/mcp/** — MCP implementation (tool tracing integration point)
 
 ---
 
@@ -1052,6 +1420,23 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 ---
 
 ## Changelog
+
+### 2026-02-13 - Claude Session Backup System, PR Workflow & Environment Detection
+- Added Claude Session Backup System section documenting automated daily backups
+- Covers daily-claude-backup.yml workflow (6:00 AM UTC)
+- Covers Backup-ClaudeSessions.ps1 manual backup script
+- Documented what gets backed up (agents, commands, skills, hooks, settings)
+- Added safety procedures for worktree deletion and session restore
+- Added deployment status with commit d843b71 reference
+- Added PR creation guidance: Claude Code sessions vs. terminal
+- Added session environment detection with quick-switch tags (`/win`, `/mobile`, `/chromebook`, `/vscode`, `/cursor`)
+- Added three environment profiles: Mobile, Win11, Chromebook
+- Claude settings backup completed for 11 worktrees (bold-lewin, elated-zhukovsky, friendly-edison, intelligent-lamport, keen-swirles, nostalgic-bose, quirky-knuth, sharp-lalande, silly-bassi, stoic-wilbur, zealous-mcclintock)
+- Backup location: `.claude-settings-backups/` (timestamped 20260212_114833)
+- Added Observability section documenting assessment maturity (Level 1/5), key gaps, and Langfuse recommendation
+- Added Fix-ClaudeSettings.ps1 script documentation
+- Updated document version to 1.3
+- Session: Windows 11 desktop (VS Code)
 
 ### 2026-02-06 - Backup Infrastructure & .gitignore Cleanup
 - Added Sync-ToProton.ps1, Sync-ToSupabase.ps1, Startup-DailySync.bat
