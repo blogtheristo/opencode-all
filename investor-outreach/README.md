@@ -1,8 +1,39 @@
 # Investor Outreach Resources
 
-This directory contains templates and workflows for raising capital for DWS IQ 6 across three fundraising tracks: angel investors, venture capital, and grants.
+**Current Status: 0 investor emails sent per day**
+**Target: 5 emails per day minimum**
+**Goal: €150K SAFE closed in 16 weeks**
+
+---
+
+## 🚨 **START HERE** → [Day 1 Action Plan](START-HERE-DAY-1.md)
+
+**Stop reading. Start doing.**
+
+**Next 30 minutes:**
+1. Open [START-HERE-DAY-1.md](START-HERE-DAY-1.md)
+2. Find 5 people you know on LinkedIn
+3. Send 5 ultra-short emails (50 words each)
+4. Track in [daily-outreach-tracker.md](daily-outreach-tracker.md)
+5. **Do it again tomorrow**
+
+**That's it. Everything else is optional.**
+
+---
+
+## 📖 Read This If You're Not Sending Emails
+
+**[WHY 0 INVESTOR OUTREACH PER DAY](00-WHY-ZERO-OUTREACH.md)** ← Root cause analysis
+
+**Problem:** Too much reading, too much research, too much perfection = 0 action
+
+**Solution:** 5 emails/day, every day, no excuses
+
+---
 
 ## Overview
+
+This directory contains templates and workflows for raising capital for DWS IQ 6 across three fundraising tracks: angel investors, venture capital, and grants.
 
 **Fundraising Strategy:**
 1. **Angel/Pre-Seed** (€150K SAFE) → Bridge to profitability
@@ -10,6 +41,16 @@ This directory contains templates and workflows for raising capital for DWS IQ 6
 3. **Grants** (€200K-€3M) → Non-dilutive funding for R&D and pilots
 
 ## Directory Structure
+
+### ⚡ Action Files (Use These First)
+- **[START-HERE-DAY-1.md](START-HERE-DAY-1.md)** – Send your first 5 emails in 30 minutes
+- **[daily-outreach-tracker.md](daily-outreach-tracker.md)** – Track 5 emails/day minimum
+- **[00-WHY-ZERO-OUTREACH.md](00-WHY-ZERO-OUTREACH.md)** – Why you're not sending emails (and how to fix it)
+
+### Contact Lists (CSV)
+- **[contacts-angel-investors.csv](contacts-angel-investors.csv)** – Pre-populated angel investors
+- **[contacts-venture-capital.csv](contacts-venture-capital.csv)** – 20 climate tech VCs
+- **[contacts-grant-programs.csv](contacts-grant-programs.csv)** – 9 EU grant programs
 
 ### Letters (Templates)
 Use these templates to reach out to investors and grant programs.
