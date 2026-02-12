@@ -1,0 +1,125 @@
+name: DWS7 Roadmap Weekly Tracker
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Every Monday at 08:00 UTC
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  track-roadmap-progress:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Count roadmap PRs by phase
+        id: count
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "# DWS7 Roadmap Progress Report" > report.md
+          echo "" >> report.md
+          echo "**Generated:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> report.md
+          echo "" >> report.md
+
+          # Count total merged PRs
+          TOTAL_MERGED=$(gh pr list --repo ${{ github.repository }} --state merged --limit 500 --json number | jq length)
+          TOTAL_OPEN=$(gh pr list --repo ${{ github.repository }} --state open --limit 500 --json number | jq length)
+
+          echo "## Overall Progress" >> report.md
+          echo "" >> report.md
+          echo "| Metric | Count |" >> report.md
+          echo "|--------|-------|" >> report.md
+          echo "| Total PRs merged | $TOTAL_MERGED |" >> report.md
+          echo "| Open PRs | $TOTAL_OPEN |" >> report.md
+          echo "| Roadmap target | 247 |" >> report.md
+          echo "| Progress | $(( TOTAL_MERGED * 100 / 247 ))% |" >> report.md
+          echo "" >> report.md
+
+          # Count by category labels
+          echo "## Progress by Category" >> report.md
+          echo "" >> report.md
+          echo "| Category | Merged | Open | Target |" >> report.md
+          echo "|----------|--------|------|--------|" >> report.md
+
+          for LABEL in "testing" "backend" "frontend" "devops" "compliance-ets" "compliance-cbam" "compliance-csrd" "eu-ai-act" "security" "multi-tenancy" "billing" "erp-integration" "agentic-ai" "iot-pipeline" "climate-llm" "analytics" "supplier-portal" "industry-vertical" "partner" "mobile" "investor" "advanced"; do
+            MERGED=$(gh pr list --repo ${{ github.repository }} --state merged --label "$LABEL" --limit 500 --json number 2>/dev/null | jq length 2>/dev/null || echo 0)
+            OPEN=$(gh pr list --repo ${{ github.repository }} --state open --label "$LABEL" --limit 500 --json number 2>/dev/null | jq length 2>/dev/null || echo 0)
+            echo "| $LABEL | $MERGED | $OPEN | - |" >> report.md
+          done
+
+          echo "" >> report.md
+
+          # Phase tracking based on date
+          CURRENT_DATE=$(date -u '+%Y-%m-%d')
+          echo "## Phase Timeline" >> report.md
+          echo "" >> report.md
+          echo "| Phase | Period | Status |" >> report.md
+          echo "|-------|--------|--------|" >> report.md
+
+          if [[ "$CURRENT_DATE" < "2026-05-01" ]]; then
+            echo "| Phase 1: Launch & Stabilize | Feb-Apr 2026 | **ACTIVE** |" >> report.md
+          elif [[ "$CURRENT_DATE" < "2026-08-01" ]]; then
+            echo "| Phase 1: Launch & Stabilize | Feb-Apr 2026 | Complete |" >> report.md
+            echo "| Phase 2: Compliance Engine | May-Jul 2026 | **ACTIVE** |" >> report.md
+          elif [[ "$CURRENT_DATE" < "2026-11-01" ]]; then
+            echo "| Phase 1: Launch & Stabilize | Feb-Apr 2026 | Complete |" >> report.md
+            echo "| Phase 2: Compliance Engine | May-Jul 2026 | Complete |" >> report.md
+            echo "| Phase 3: Scale & Harden | Aug-Oct 2026 | **ACTIVE** |" >> report.md
+          elif [[ "$CURRENT_DATE" < "2027-02-01" ]]; then
+            echo "| Phase 1-3 | Feb-Oct 2026 | Complete |" >> report.md
+            echo "| Phase 4: Intelligence Layer | Nov 2026-Jan 2027 | **ACTIVE** |" >> report.md
+          elif [[ "$CURRENT_DATE" < "2027-06-01" ]]; then
+            echo "| Phase 1-4 | Feb 2026-Jan 2027 | Complete |" >> report.md
+            echo "| Phase 5: Market Expansion | Feb-May 2027 | **ACTIVE** |" >> report.md
+          else
+            echo "| Phase 1-5 | Feb 2026-May 2027 | Complete |" >> report.md
+            echo "| Phase 6: DWS7 Release | Jun-Dec 2027 | **ACTIVE** |" >> report.md
+          fi
+
+          echo "" >> report.md
+
+          # Recent activity
+          echo "## Recent PRs (Last 7 Days)" >> report.md
+          echo "" >> report.md
+          WEEK_AGO=$(date -u -d '7 days ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -v-7d '+%Y-%m-%dT%H:%M:%SZ')
+          gh pr list --repo ${{ github.repository }} --state merged --limit 20 --json number,title,mergedAt \
+            --jq ".[] | select(.mergedAt >= \"$WEEK_AGO\") | \"- #\(.number) \(.title)\"" >> report.md 2>/dev/null || echo "- No PRs merged this week" >> report.md
+
+          echo "" >> report.md
+          echo "---" >> report.md
+          echo "*See DWS7_ROADMAP.md for full roadmap details.*" >> report.md
+
+          # Save for issue creation
+          echo "TOTAL_MERGED=$TOTAL_MERGED" >> $GITHUB_OUTPUT
+          echo "TOTAL_OPEN=$TOTAL_OPEN" >> $GITHUB_OUTPUT
+
+      - name: Create or update tracking issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          WEEK=$(date -u '+%Y-W%V')
+          TITLE="DWS7 Roadmap Progress — $WEEK"
+
+          # Check if issue for this week exists
+          EXISTING=$(gh issue list --repo ${{ github.repository }} --label "roadmap-tracker" --search "$TITLE" --json number --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING" ] && [ "$EXISTING" != "null" ]; then
+            gh issue comment "$EXISTING" --repo ${{ github.repository }} --body-file report.md
+          else
+            # Ensure label exists
+            gh label create "roadmap-tracker" --repo ${{ github.repository }} --color "0E8A16" --description "Weekly DWS7 roadmap progress tracking" 2>/dev/null || true
+
+            gh issue create \
+              --repo ${{ github.repository }} \
+              --title "$TITLE" \
+              --body-file report.md \
+              --label "roadmap-tracker"
+          fi
