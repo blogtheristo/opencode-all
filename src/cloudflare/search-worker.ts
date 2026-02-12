@@ -492,7 +492,12 @@ async function handleSync(
   commands.push(['SET', `${PREFIX}meta:last_sync`, now]);
   commands.push(['SET', `${PREFIX}meta:doc_count`, String(docs.length)]);
 
-  // 3. Execute pipeline
+  // 3. Execute pipeline atomically to avoid partial index states during sync
+  if (commands.length > 0 && commands[0][0] !== 'MULTI') {
+    // Prepend MULTI and append EXEC to wrap the sync in a single transaction.
+    commands.unshift(['MULTI']);
+    commands.push(['EXEC']);
+  }
   await redisPipeline(env, commands);
 
   return jsonResponse({
