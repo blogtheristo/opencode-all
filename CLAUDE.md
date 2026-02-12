@@ -508,6 +508,39 @@ git worktree prune
 git worktree remove --force /path/to/worktree
 ```
 
+#### Claude Session Data Backup (CRITICAL)
+
+**NEVER delete worktrees without backing up Claude session data first!**
+
+Claude Code sessions contain valuable trained agents, commands, skills, and settings that are NOT committed to Git. Each worktree has its own `.claude/` directory with session-specific data.
+
+##### Daily Automated Backup
+- **GitHub Actions**: Runs daily at 6:00 AM UTC
+- **Location**: `.github/workflows/daily-claude-backup.yml`
+- **Storage**: Creates `sessions-backup` branch with timestamped archives
+
+##### Manual Backup
+```powershell
+# Run backup script
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Or manually backup specific worktree
+cp -r /path/to/worktree/.claude /safe/backup/location/
+```
+
+##### What Gets Backed Up
+- `agents/` - Custom Claude agents
+- `commands/` - Custom commands and macros
+- `hooks/` - Automation hooks
+- `skills/` - Trained Claude capabilities
+- `settings.local.json` - Session preferences
+
+##### Before Deleting Worktrees
+1. **Backup session data** using the script above
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove the worktree
+
 #### Security Checklist (Automated by Scripts)
 
 The scripts verify these automatically, but for manual worktrees:
