@@ -508,6 +508,39 @@ git worktree prune
 git worktree remove --force /path/to/worktree
 ```
 
+#### Claude Session Data Backup (CRITICAL)
+
+**NEVER delete worktrees without backing up Claude session data first!**
+
+Claude Code sessions contain valuable trained agents, commands, skills, and settings that are NOT committed to Git. Each worktree has its own `.claude/` directory with session-specific data.
+
+##### Daily Automated Backup
+- **GitHub Actions**: Runs daily at 6:00 AM UTC
+- **Location**: `.github/workflows/daily-claude-backup.yml`
+- **Storage**: Creates `sessions-backup` branch with timestamped archives
+
+##### Manual Backup
+```powershell
+# Run backup script
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Or manually backup specific worktree
+cp -r /path/to/worktree/.claude /safe/backup/location/
+```
+
+##### What Gets Backed Up
+- `agents/` - Custom Claude agents
+- `commands/` - Custom commands and macros
+- `hooks/` - Automation hooks
+- `skills/` - Trained Claude capabilities
+- `settings.local.json` - Session preferences
+
+##### Before Deleting Worktrees
+1. **Backup session data** using the script above
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove the worktree
+
 #### Security Checklist (Automated by Scripts)
 
 The scripts verify these automatically, but for manual worktrees:
@@ -578,6 +611,17 @@ git worktree prune
 On Windows, worktrees MUST be created on F: drive (or the same drive as main repo), NEVER in `C:\Users\`. The script enforces this automatically, but if creating manually, always use:
 - ✅ `F:\2026\Repos2026\.claude-worktrees\dws6\`
 - ❌ `C:\Users\risto\.claude-worktrees\dws6\` (AVOID - causes security issues)
+
+#### Windows Managed Settings Path Change
+
+**Effective March 11, 2026**, Claude Code on Windows will no longer read managed settings from the legacy path. Update any deployment scripts or documentation that reference the old path.
+
+| | Path |
+|---|---|
+| **Old (deprecated)** | `C:\ProgramData\ClaudeCode\managed-settings.json` |
+| **New** | `C:\Program Files\ClaudeCode\managed-settings.json` |
+
+The new path is already supported as of **Claude Code 2.0.58**. If you are running 2.0.58 or later, you can migrate immediately. After March 11, 2026, the old path will be ignored entirely.
 
 #### References
 

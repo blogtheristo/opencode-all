@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ADMIN_MANUAL_AUTHENTICATION</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px; color: #333; }h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; margin-top: 32px; }h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-top: 24px; }h3 { color: #333; margin-top: 20px; }code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 10pt; }pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; border: 1px solid #ddd; }table { border-collapse: collapse; width: 100%; margin: 12px 0; }th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }th { background: #0a1628; color: white; }tr:nth-child(even) { background: #f9f9f9; }a { color: #0066cc; }blockquote { border-left: 4px solid #0066cc; margin: 16px 0; padding: 8px 16px; background: #f0f7ff; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ADMIN_MANUAL_AUTHENTICATION</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#admin-manual-authentication-system" id="toc-admin-manual-authentication-system">👨‍💼 ADMIN MANUAL:
+Authentication System</a>
+<ul>
+<li><a href="#sisällysluettelo" id="toc-sisällysluettelo">📑
+Sisällysluettelo</a></li>
+<li><a href="#järjestelmän-yleiskatsaus" id="toc-järjestelmän-yleiskatsaus">1. Järjestelmän Yleiskatsaus</a></li>
+<li><a href="#käyttöönotto-ja-deployment" id="toc-käyttöönotto-ja-deployment">2. Käyttöönotto ja
+Deployment</a></li>
+<li><a href="#päivittäinen-ylläpito" id="toc-päivittäinen-ylläpito">3.
+Päivittäinen Ylläpito</a></li>
+<li><a href="#turvallisuuden-hallinta" id="toc-turvallisuuden-hallinta">4. Turvallisuuden Hallinta</a></li>
+<li><a href="#ongelmanratkaisu" id="toc-ongelmanratkaisu">5.
+Ongelmanratkaisu</a></li>
+<li><a href="#konfiguraatio" id="toc-konfiguraatio">6.
+Konfiguraatio</a></li>
+<li><a href="#valvonta-ja-lokitus" id="toc-valvonta-ja-lokitus">7.
+Valvonta ja Lokitus</a></li>
+<li><a href="#häätöprotokollat" id="toc-häätöprotokollat">8.
+Häätöprotokollat</a></li>
+<li><a href="#tarkistuslistat" id="toc-tarkistuslistat">📋
+Tarkistuslistat</a></li>
+<li><a href="#tuki-ja-dokumentaatio" id="toc-tuki-ja-dokumentaatio">📞
+Tuki ja Dokumentaatio</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="admin-manual-authentication-system">👨‍💼 ADMIN MANUAL:
+Authentication System</h1>
+<table style="width:6%;">
+<colgroup>
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td># VERSION AND AGENT HISTORY</td>
+</tr>
+<tr>
+<td>Version: 1.3</td>
+</tr>
+<tr>
+<td>Sessions &amp; Modifications: - Version: 1.0 | Tool: Claude Code |
+Session: [original] | Date: 15.12.2025 | Changes: Initial creation -
+Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 |
+Changes: Agent Foundry &amp; Document Management Integration, Firehorse
+Omnichannel Next integration - Version: 1.2 | Tool: Claude Code |
+Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added
+workflow-based security auditing, daily backup integration, updated
+thesis - Version: 1.3 | Tool: Claude Code | Session: silly-bassi |
+Commit: (pending) | Date: 05.02.2026 | Changes: Critical security fixes
+(#1-#3), bi-weekly auth security audit workflow, claude-code-templates
+integration</td>
+</tr>
+<tr>
+<td>Session Links &amp; References: - Claude Code (IjtD0):
+https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
+- Claude Code (silly-bassi):
+https://github.com/blogtheristo/dws6/commits/silly-bassi - View on
+GitHub:
+https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_AUTHENTICATION.md</td>
+</tr>
+<tr>
+<td>Document Status: - Created: 15.12.2025 - Last Modified: 05.02.2026 -
+Language: Finnish &amp; English (bilingual) - Languages Available:
+Suomi, English - Publication Status: ✅ ACTIVE</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Versio:</strong> 1.3 <strong>Tarkoitus:</strong> Admin-,
+ylläpito- ja deployment-opas vapaa-tason autentikoinnille
+<strong>Kohderyhmä:</strong> DevOps, System Administrators, Security
+Team, IT Operations <strong>Päivitetty:</strong> 05.02.2026 (Session
+silly-bassi - Critical Security Fixes, Bi-Weekly Audit Workflow)</p>
+<h3 id="session-silly-bassi-updates-february-5-2026">📋 Session
+silly-bassi Updates (February 5, 2026)</h3>
+<p><strong>New in this version:</strong></p>
+<ol type="1">
+<li><strong>Critical Security Fixes</strong> - Three critical
+vulnerabilities addressed
+<ul>
+<li><strong>Fix #1:</strong> JWT_SECRET validation at startup (no more
+hardcoded fallback)</li>
+<li><strong>Fix #2:</strong> Password verification now required (bcrypt
+comparison against stored hash)</li>
+<li><strong>Fix #3:</strong> Admin API key uses
+<code>crypto.timingSafeEqual()</code> (timing attack prevention)</li>
+</ul></li>
+<li><strong>Bi-Weekly Authentication Security Audit</strong> - Automated
+security review every 14 days
+<ul>
+<li><code>.github/workflows/biweekly-auth-security-audit.yml</code> -
+New workflow</li>
+<li>Checks: JWT secret, password verification, admin auth, role
+extraction</li>
+<li>OWASP A07:2021 compliance checks</li>
+<li>Auto-creates GitHub issues for critical findings</li>
+</ul></li>
+<li><strong>Claude Code Templates Integration</strong> -
+Security-focused components installed
+<ul>
+<li><code>security-auditor</code> agent - OWASP/JWT/OAuth reviews</li>
+<li><code>secret-scanner</code> hook - Blocks commits with API keys</li>
+<li><code>dangerous-command-blocker</code> hook - Prevents destructive
+commands</li>
+<li><code>validate-branch-name</code> hook - Enforces naming
+conventions</li>
+</ul></li>
+<li><strong>Git Worktree Best Practices</strong> - Safe parallel
+development workflow
+<ul>
+<li><code>scripts/New-ClaudeWorktree.ps1</code> (Windows)</li>
+<li><code>scripts/new-claude-worktree.sh</code>
+(Linux/macOS/Chromebook/iOS)</li>
+<li>Automatic .venv symlink, .gitignore verification, config file
+copying</li>
+</ul></li>
+</ol>
+<h3 id="session-ijtd0-updates-december-26-2025">📋 Session IjtD0 Updates
+(December 26, 2025)</h3>
+<p><strong>New in this version:</strong></p>
+<ol type="1">
+<li><strong>Workflow-Based Security Auditing</strong> - Automated
+monthly security audits via workflow system
+<ul>
+<li><code>scripts/security_audit.py</code> - Comprehensive security
+audit script</li>
+<li><code>.github/workflows/monthly-security-audit-enhanced.yml</code> -
+Enhanced monthly audits</li>
+<li><code>.workflows/audit/</code> - Centralized audit logging</li>
+</ul></li>
+<li><strong>Daily Backup Integration</strong> - Fail-over security for
+authentication data
+<ul>
+<li>Daily backups at 2:00 AM UTC</li>
+<li>30-day retention policy</li>
+<li>Automated restoration procedures</li>
+</ul></li>
+<li><strong>Workflow Orchestration</strong> - Centralized security
+workflow management
+<ul>
+<li>14 tracked workflows including 4 security workflows</li>
+<li>Automated failure detection and recovery</li>
+<li>Integration with audit and fix agents</li>
+</ul></li>
+<li><strong>Enhanced Monitoring</strong> - Improved security visibility
+<ul>
+<li>Real-time workflow status tracking</li>
+<li>Daily/weekly/monthly schedule views</li>
+<li>Automated security alerts</li>
+</ul></li>
+</ol>
+<h3 id="session-week-52-updates-december-22-2025">📋 Session Week 52
+Updates (December 22, 2025)</h3>
+<p>Aiemman istunnon tulokset:</p>
+<ol type="1">
+<li><strong>Agent Foundry Architecture</strong> - Multi-model AI systems
+(LWM, NCC, 8 verticals)</li>
+<li><strong>Construction Vertical Specification</strong> - 6
+erikoistunutta agentia, RBAC-päivitykset</li>
+<li><strong>Document Management System</strong> - VERSION AND AGENT
+HISTORY -metadata</li>
+<li><strong>Security Strategy</strong> - .gitignore Agent Foundry specs
+local only</li>
+<li><strong>NIS2/GDPR Compliance</strong> - Data residency, 24h incident
+reporting</li>
+</ol>
+<h3 id="firehorse-omnichannel-next-integration-week-52-session-3nsxx">🔥
+Firehorse Omnichannel Next Integration (Week 52, Session 3nsxX)</h3>
+<p><strong>Uusi järjestelmä:</strong> Firehorse Omnichannel Next -
+CustomerPilotLoop v1</p>
+<p><strong>Tarkoitus:</strong> B2B-myyntiautom system for selling DWS IQ
+6 + Firehorse pilots to Nordic and CEE construction companies.</p>
+<p><strong>Integraatiopisteet autentikointiin:</strong> 1. <strong>API
+Authentication</strong> - Firehorse API endpoints require JWT
+authentication 2. <strong>Role-Based Access</strong> - Sales operations
+require ‘Sales’ role, admin operations require ‘Admin’ role 3.
+<strong>Database Access</strong> - Firehorse tables (firehorse_leads,
+firehorse_events, etc.) require row-level security 4. <strong>Webhook
+Security</strong> - Email service webhooks require API key
+validation</p>
+<p><strong>Dokumentaatio:</strong> - <strong>Admin Manual</strong>:
+<code>/Admin/Firehorse_Omnichannel_Next_Admin_Manual.md</code> (Complete
+system guide) - <strong>Sales Manifesto</strong>:
+<code>DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md</code> - <strong>Workflow
+Guide</strong>: <code>FIREHORSE_SALES_WORKFLOW.md</code> -
+<strong>Investor Templates</strong>:
+<code>INVESTOR_EMAIL_TEMPLATES.md</code></p>
+<p><strong>Status:</strong> ✅ Production-ready, deployed on branch
+<code>claude/firehorse-pilot-automation-3nsxX</code></p>
+<hr />
+<h2 id="sisällysluettelo">📑 Sisällysluettelo</h2>
+<ol type="1">
+<li><a href="#1-järjestelmän-yleiskatsaus">Järjestelmän
+yleiskatsaus</a></li>
+<li><a href="#2-käyttöönotto-ja-deployment">Käyttöönotto ja
+deployment</a></li>
+<li><a href="#3-päivittäinen-ylläpito">Päivittäinen ylläpito</a></li>
+<li><a href="#4-turvallisuuden-hallinta">Turvallisuuden
+hallinta</a></li>
+<li><a href="#5-ongelmanratkaisu">Ongelmanratkaisu</a></li>
+<li><a href="#6-konfiguraatio">Konfiguraatio</a></li>
+<li><a href="#7-valvonta-ja-lokitus">Valvonta ja lokitus</a></li>
+<li><a href="#8-häätöprotokollat">Häätöprotokollat</a></li>
+</ol>
+<hr />
+<h2 id="järjestelmän-yleiskatsaus">1. Järjestelmän Yleiskatsaus</h2>
+<h3 id="arkkitehtuuri">Arkkitehtuuri</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    WEB BROWSERS                             │
+│    (dws10.com/dashboard/login + onelifetime.world/...)      │
+└────────────┬────────────────────────────────┬───────────────┘
+             │                                │
+        ┌────▼─────────────┐        ┌────────▼──────┐
+        │  FRONTEND PAGES   │        │  FRONTEND CODE│
+        │  (HTML/CSS/JS)    │        │  (localStorage)│
+        └────┬──────────────┘        └────────┬──────┘
+             │                                │
+             └────────┬─────────────────────┬┘
+                      │                     │
+        ┌─────────────▼─────────────────────▼──────┐
+        │     NODE.JS BACKEND (localhost:3001)     │
+        │  ┌─────────────────────────────────────┐ │
+        │  │  Express.js + Security Middleware   │ │
+        │  │  - Helmet (Security Headers)        │ │
+        │  │  - CORS (Origin Control)            │ │
+        │  │  - Rate Limiting (5/15min login)    │ │
+        │  └─────────────────────────────────────┘ │
+        │  ┌─────────────────────────────────────┐ │
+        │  │     Authentication Service          │ │
+        │  │  - bcrypt Password Hashing (12r)    │ │
+        │  │  - JWT Token Generation (HS256)     │ │
+        │  │  - Token Verification &amp; Refresh     │ │
+        │  └─────────────────────────────────────┘ │
+        │  ┌─────────────────────────────────────┐ │
+        │  │     API Endpoints (RESTful)         │ │
+        │  │  - POST /api/v1/auth/login          │ │
+        │  │  - POST /api/v1/auth/register       │ │
+        │  │  - POST /api/v1/auth/logout         │ │
+        │  │  - POST /api/v1/auth/refresh        │ │
+        │  │  - GET /api/v1/auth/me              │ │
+        │  └─────────────────────────────────────┘ │
+        └───┬──────────────────────────────────┬───┘
+            │                                  │
+    ┌───────▼──────┐            ┌─────────────▼──────┐
+    │  POSTGRESQL  │            │  REDIS             │
+    │  (Phase 2)   │            │  (Session Store)   │
+    │              │            │  (Future)          │
+    └──────────────┘            └────────────────────┘</code></pre>
+<h3 id="komponentit">Komponentit</h3>
+<table>
+<thead>
+<tr>
+<th>Komponentti</th>
+<th>Teknologia</th>
+<th>Tarkoitus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>HTML5/CSS3/JavaScript</td>
+<td>Käyttöliittymä</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Node.js + Express.js</td>
+<td>API-palvelin</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>JWT + bcrypt</td>
+<td>Turvallinen kirjautuminen</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>PostgreSQL</td>
+<td>Käyttäjätiedot (Phase 2)</td>
+</tr>
+<tr>
+<td>Caching</td>
+<td>Redis</td>
+<td>Sessiointi (Phase 2)</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Pino</td>
+<td>Strukturoitu lokitus</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Helmet.js + express-validator</td>
+<td>Turvallisuusheaderit</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="käyttöönotto-ja-deployment">2. Käyttöönotto ja Deployment</h2>
+<h3 id="paikallinen-kehitys-local-development">2.1 Paikallinen Kehitys
+(Local Development)</h3>
+<h4 id="vaatimukset">Vaatimukset</h4>
+<pre><code>- Docker &amp; Docker Compose
+- Node.js 18+ ja npm
+- Git
+- Tekstieditori (VS Code suosituksena)</code></pre>
+<h4 id="docker-compose-setup-suositeltu">Docker Compose Setup
+(Suositeltu)</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/dws6</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Käynnistä kaikki kontainerit</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista status</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Näytä lokit</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> logs <span class="at">-f</span> auth-backend</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Pysäytä palvelut</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> down</span></code></pre></div>
+<p><strong>Kontrollilaatikko:</strong></p>
+<pre><code>✅ postgres (PostgreSQL 15-alpine) - Port 5432
+✅ redis (Redis 7-alpine) - Port 6379
+✅ auth-backend - Port 3001</code></pre>
+<h4 id="local-npm-setup">Local npm Setup</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Asenna dependenssit</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Luo .env-tiedosto</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> .env <span class="op">&lt;&lt; EOF</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">NODE_ENV=development</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">PORT=3001</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">JWT_SECRET_KEY=dev_secret_key_change_in_production_min_32_chars</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">JWT_REFRESH_SECRET=dev_refresh_secret_key_change_in_production_min_32_chars</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">BCRYPT_ROUNDS=10</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">CORS_ORIGIN=http://localhost:3000,http://localhost:3001,https://dws10.com,https://onelifetime.world</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">LOG_LEVEL=debug</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">RATE_LIMIT_WINDOW_MS=900000</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">RATE_LIMIT_MAX_REQUESTS=100</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Käynnistä kehityspalvelin</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Tai production-tila</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> start</span></code></pre></div>
+<h3 id="staging-deployment">2.2 Staging Deployment</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Build Docker image</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile.dev <span class="at">-t</span> dws-auth-backend:latest .</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tag image</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag dws-auth-backend:latest your-registry/dws-auth-backend:latest</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Push to registry</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push your-registry/dws-auth-backend:latest</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Deploy to staging</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> k8s/staging/deployment.yaml</span></code></pre></div>
+<h3 id="production-deployment">2.3 Production Deployment</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Vaihda .env.production</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Generoi uudet JWT secrets (min 32 chars)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Konfiguroi production database URL</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Aseta CORS origins</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - Ota käyttöön HTTPS</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_SECRET_KEY</span><span class="op">=</span><span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_REFRESH_SECRET</span><span class="op">=</span><span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Build production image</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-f</span> Dockerfile <span class="at">-t</span> dws-auth-backend:prod .</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Push to production registry</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push prod-registry/dws-auth-backend:prod</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Deploy to production</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> k8s/production/deployment.yaml</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> k8s/production/service.yaml</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> k8s/production/ingress.yaml</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Verify deployment</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> logs <span class="at">-l</span> app=dws-auth-backend</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Health check</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> https://api.dws10.com/health</span></code></pre></div>
+<hr />
+<h2 id="päivittäinen-ylläpito">3. Päivittäinen Ylläpito</h2>
+<h3 id="status-tarkistus">3.1 Status-tarkistus</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaikki palvelut käynnissä?</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Backend vastaa?</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3001/health</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Lokeja?</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> logs auth-backend <span class="at">--tail</span> 100</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Metriikat?</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3001/api/v1/metrics</span></code></pre></div>
+<h3 id="lokien-tarkasteleminen">3.2 Lokien tarkasteleminen</h3>
+<h4 id="real-time-loki-docker">Real-time loki (Docker)</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> logs <span class="at">-f</span> auth-backend</span></code></pre></div>
+<h4 id="loki-tiedostot-local">Loki-tiedostot (Local)</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logs-kansio</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> logs/</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaa tämän päivän loki</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> logs/<span class="va">$(</span><span class="fu">date</span> +%Y-%m-%d<span class="va">)</span>.log</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Etsi virheitä</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ERROR logs/<span class="pp">*</span>.log</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Etsi login-yrityksiä</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;login attempt&quot;</span> logs/<span class="pp">*</span>.log</span></code></pre></div>
+<h4 id="loki-analytiikka">Loki-analytiikka</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Viimeinen 10 epäonnistunutta kirjautumista</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;Failed login&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">tail</span> 10</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Kirjautumisyritykset IP:ttäin</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;login attempt&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f3</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-rn</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Virheprosentit</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;Login error&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div>
+<h3 id="tietokannan-backup-phase-2">3.3 Tietokannan Backup (Phase
+2)</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PostgreSQL backup</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> exec postgres pg_dump <span class="at">-U</span> dws_user dws_auth_dev <span class="op">&gt;</span> backup-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.sql</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Restore</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> exec <span class="at">-T</span> postgres psql <span class="at">-U</span> dws_user dws_auth_dev <span class="op">&lt;</span> backup-20251215.sql</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Automated daily backup (cron)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 2 <span class="pp">*</span> <span class="pp">*</span> <span class="pp">*</span> docker-compose <span class="at">-f</span> /path/to/docker-compose.yml exec <span class="at">-T</span> postgres pg_dump <span class="at">-U</span> dws_user dws_auth_dev <span class="op">&gt;</span> /backups/<span class="va">$(</span><span class="fu">date</span> +<span class="dt">\%</span>Y<span class="dt">\%</span>m<span class="dt">\%</span>d<span class="va">)</span>.sql</span></code></pre></div>
+<hr />
+<h2 id="turvallisuuden-hallinta">4. Turvallisuuden Hallinta</h2>
+<h3 id="salaisuuksien-hallinta-secrets">4.1 Salaisuuksien Hallinta
+(Secrets)</h3>
+<h4 id="development-local-only">Development (LOCAL ONLY)</h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .env tiedosto (gitignore&#39;d)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">NODE_ENV</span><span class="op">=</span>development</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_SECRET_KEY</span><span class="op">=</span>dev_secret_key_min_32_chars_here</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_REFRESH_SECRET</span><span class="op">=</span>dev_refresh_secret_key_min_32_chars</span></code></pre></div>
+<h4 id="production-vaultkubernetes">Production (Vault/Kubernetes)</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kubernetes secrets</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create secret generic auth-secrets <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from-literal</span><span class="op">=</span>JWT_SECRET_KEY=<span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from-literal</span><span class="op">=</span>JWT_REFRESH_SECRET=<span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span> <span class="dt">\</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from-literal</span><span class="op">=</span>DATABASE_PASSWORD=strong_password_here</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get secret auth-secrets <span class="at">-o</span> yaml</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use in deployment</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">env:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> name: JWT_SECRET_KEY</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">valueFrom:</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">secretKeyRef:</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">name:</span> auth-secrets</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      <span class="ex">key:</span> JWT_SECRET_KEY</span></code></pre></div>
+<h3 id="salaisuuksien-rotaatio">4.2 Salaisuuksien Rotaatio</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Generoi uudet salaisuudet</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">NEW_JWT_SECRET</span><span class="op">=</span><span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="va">NEW_JWT_REFRESH_SECRET</span><span class="op">=</span><span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-base64</span> 32<span class="va">)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Päivitä Kubernetes secrets</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> patch secret auth-secrets <span class="at">-p</span> <span class="dt">\</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;{&quot;data&quot;:{&quot;JWT_SECRET_KEY&quot;:&quot;&#39;</span><span class="va">$(</span><span class="bu">echo</span> <span class="at">-n</span> <span class="va">$NEW_JWT_SECRET</span> <span class="kw">|</span> <span class="fu">base64</span> <span class="at">-w0</span><span class="va">)</span><span class="st">&#39;&quot;}}&#39;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Käynnistä pods uudelleen (rolling update)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> rollout restart deployment/auth-backend</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Verify uudet tokens toimivat</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST http://localhost:3001/api/v1/auth/login <span class="dt">\</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;:&quot;test@example.com&quot;,&quot;password&quot;:&quot;password123&quot;}&#39;</span></span></code></pre></div>
+<h3 id="rate-limiting-hallinta">4.3 Rate Limiting Hallinta</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista tämän hetkiset yritykset (Redis)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> KEYS <span class="ex">rate-limit:*</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> GET <span class="ex">rate-limit:demo@dws-iq.local</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Nollaa käyttäjän rate limit</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> DEL rate-limit:demo@dws-iq.local</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nollaa kaikki rate limitit</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> FLUSHDB</span></code></pre></div>
+<h3 id="sessio-hallinta">4.4 Sessio-hallinta</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lista aktiivisia sessioita (Redis)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> KEYS session:<span class="pp">*</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Poista sessio (logout)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> DEL session:user_001_token</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sessioiden TTL:n tarkistus</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> TTL session:user_001_token</span></code></pre></div>
+<h3 id="turvallisuusauditit">4.5 Turvallisuusauditit</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista ulkopuolinen pääsy (failed login attempts)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;Unauthorized&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista rate limiting aktivaatio</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;rate limit&quot;</span> logs/<span class="pp">*</span>.log</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista CORS rejektiot</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;CORS&quot;</span> logs/<span class="pp">*</span>.log</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista epäonnistuneet token-verifikaatiot</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;token verification failed&quot;</span> logs/<span class="pp">*</span>.log</span></code></pre></div>
+<hr />
+<h2 id="ongelmanratkaisu">5. Ongelmanratkaisu</h2>
+<h3 id="backend-ei-käynnisty">5.1 Backend ei käynnisty</h3>
+<pre><code>Virhe: &quot;Port 3001 already in use&quot;
+
+Ratkaisu:
+# Etsi prosessi, joka käyttää porttia 3001
+lsof -i :3001
+# Tapa prosessi
+kill -9 &lt;PID&gt;
+# Tai vaihda porttia .env:ssä
+PORT=3002</code></pre>
+<h3 id="login-yritys-epäonnistuu">5.2 Login-yritys epäonnistuu</h3>
+<pre><code>Virhe: &quot;Invalid email or password&quot;
+
+Tarkistusaskeleet:
+1. Tarkista demo-käyttäjä on määritetty (getDemoUser())
+2. Tarkista salasana-hash-funktio toimii
+3. Tarkista lokit: grep &quot;Login error&quot; logs/*.log
+4. Tarkista rate limiting: redis-cli KEYS rate-limit:*
+5. Testaa bcrypt suoraan:
+   npm test src/services/auth.service.test.ts</code></pre>
+<h3 id="tokeni-validaatio-epäonnistuu">5.3 Tokeni-validaatio
+epäonnistuu</h3>
+<pre><code>Virhe: &quot;Invalid or expired token&quot;
+
+Tarkistusaskeleet:
+1. Tarkista JWT_SECRET_KEY on sama kaikissa omaksissa
+2. Tarkista token ei ole vanhentunut (24h limit)
+3. Tarkista token-format: &quot;Bearer &lt;token&gt;&quot;
+4. Tarkista token-payload:
+   echo &quot;token&quot; | jq .
+5. Tarkista token-signature:
+   jwt.verify(token, JWT_SECRET)</code></pre>
+<h3 id="cors-virhe">5.4 CORS-virhe</h3>
+<pre><code>Virhe: &quot;Access to XMLHttpRequest has been blocked by CORS policy&quot;
+
+Ratkaisu:
+1. Tarkista CORS_ORIGIN .env:ssä
+2. Lisää domain listaan:
+   CORS_ORIGIN=http://localhost:3000,https://yourdomain.com
+3. Testaa preflight:
+   curl -X OPTIONS http://localhost:3001/api/v1/auth/login \
+     -H &quot;Origin: http://localhost:3000&quot;
+4. Käynnistä backend uudelleen</code></pre>
+<h3 id="postgresql-yhteys-phase-2">5.5 PostgreSQL-yhteys (Phase 2)</h3>
+<pre><code>Virhe: &quot;connect ECONNREFUSED 127.0.0.1:5432&quot;
+
+Ratkaisu:
+1. Tarkista PostgreSQL käynnissä:
+   docker-compose ps postgres
+2. Tarkista DATABASE_URL .env:ssä
+3. Tarkista käyttäjä/salasana:
+   psql postgresql://user:password@localhost:5432/dws_auth_dev
+4. Tarkista sääntöjoukko (pg_hba.conf)</code></pre>
+<hr />
+<h2 id="konfiguraatio">6. Konfiguraatio</h2>
+<h3 id="environment-variables">6.1 Environment Variables</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Core</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="va">NODE_ENV</span><span class="op">=</span>production<span class="kw">|</span><span class="ex">development</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="va">PORT</span><span class="op">=</span>3001</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># JWT</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_SECRET_KEY</span><span class="op">=</span>your_secret_key_min_32_chars_here</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="va">JWT_REFRESH_SECRET</span><span class="op">=</span>your_refresh_secret_min_32_chars_here</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="va">BCRYPT_ROUNDS</span><span class="op">=</span>12</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Database (Phase 2)</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="va">DATABASE_URL</span><span class="op">=</span>postgresql://user:password@host:5432/dws_auth</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Redis (Phase 2)</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="va">REDIS_URL</span><span class="op">=</span>redis://host:6379</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># CORS</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="va">CORS_ORIGIN</span><span class="op">=</span>https://dws10.com,https://onelifetime.world</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Rate Limiting</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="va">RATE_LIMIT_WINDOW_MS</span><span class="op">=</span>900000  <span class="co"># 15 minutes</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="va">RATE_LIMIT_MAX_REQUESTS</span><span class="op">=</span>100</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Logging</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="va">LOG_LEVEL</span><span class="op">=</span>debug<span class="kw">|</span><span class="ex">info</span><span class="kw">|</span><span class="ex">warn</span><span class="kw">|</span><span class="ex">error</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="va">LOG_DIR</span><span class="op">=</span>./logs</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Email (Phase 2)</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="va">EMAIL_SERVICE</span><span class="op">=</span>sendgrid</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="va">SENDGRID_API_KEY</span><span class="op">=</span>your_api_key_here</span></code></pre></div>
+<h3 id="tiedostorakenne">6.2 Tiedostorakenne</h3>
+<pre><code>dws6/
+├── src/
+│   ├── app.ts                 # Express-konfiguraatio
+│   ├── server.ts              # Palvelimen käynnistys
+│   ├── services/
+│   │   └── auth.service.ts    # Autentikaatiologiikka
+│   ├── routes/
+│   │   ├── auth.routes.ts     # Auth API-reitit
+│   │   └── user.routes.ts     # User API-reitit
+│   ├── middleware/
+│   │   └── auth.middleware.ts # Token-varmennus
+│   └── utils/
+│       └── logger.ts          # Lokitus
+├── .env                       # Ympäristömuuttujat (gitignore&#39;d)
+├── docker-compose.yml         # Docker-palveluiden määritys
+├── Dockerfile                 # Production image
+├── Dockerfile.dev             # Development image
+├── package.json               # Dependencies
+└── tsconfig.json              # TypeScript-konfiguraatio</code></pre>
+<h3 id="ssltls-konfiguraatio-production">6.3 SSL/TLS-konfiguraatio
+(Production)</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generoi self-signed sertifikaatti (testing only)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> req <span class="at">-x509</span> <span class="at">-newkey</span> rsa:4096 <span class="at">-keyout</span> key.pem <span class="at">-out</span> cert.pem <span class="at">-days</span> 365</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Käytä Let&#39;s Encrypt (production)</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - Kubernetes Ingress + cert-manager</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - NGINX ingress controller</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Varmista HTTPS:</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="ex">https://api.dws10.com/health</span></span></code></pre></div>
+<hr />
+<h2 id="valvonta-ja-lokitus">7. Valvonta ja Lokitus</h2>
+<h3 id="workflow-pohjainen-turvallisuusauditointi">7.1
+Workflow-Pohjainen Turvallisuusauditointi</h3>
+<p><strong>Uusi (Session IjtD0):</strong> Automaattinen
+turvallisuusauditointi workflow-järjestelmän kautta</p>
+<h4 id="kuukausittainen-turvallisuusauditointi">Kuukausittainen
+Turvallisuusauditointi</h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Automaattinen kuukausittainen auditointi</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: .github/workflows/monthly-security-audit-enhanced.yml</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajoaika: 1. päivä klo 02:00 UTC</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Script: scripts/security_audit.py</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Manuaalinen ajaminen:</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/security_audit.py <span class="op">&gt;</span> audit-report-<span class="va">$(</span><span class="fu">date</span> +%Y-%m<span class="va">)</span>.md</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista viimeisin auditointi:</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> .workflows/audit/failures/monthly-security-audit-enhanced-fix.md</span></code></pre></div>
+<h4 id="auditoinnin-sisältö">Auditoinnin Sisältö</h4>
+<pre><code>1. Dependency Vulnerabilities - Riippuvuuksien haavoittuvuudet
+2. Secret Scanning - Salaisuuksien skannaus
+3. Code Quality &amp; Security - Koodin laatu ja turvallisuus
+4. Access Controls - Pääsynhallinta
+5. Infrastructure Security - Infrastruktuurin turvallisuus</code></pre>
+<h4 id="workflow-rekisteri">Workflow-Rekisteri</h4>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista kaikkien turvallisuus-workflowien tila:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-A10</span> <span class="st">&#39;&quot;tags&quot;.*security&#39;</span> .workflows/registry/WORKFLOW_REGISTRY.json</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tulokset:</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - security-scan-daily (päivittäinen skannaus)</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - security-check-pr (PR-tarkistus)</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - monthly-security-audit (kuukausittainen auditointi)</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - monthly-security-audit-enhanced (laajennettu auditointi)</span></span></code></pre></div>
+<h3 id="päivittäinen-varmuuskopiointi">7.2 Päivittäinen
+Varmuuskopiointi</h3>
+<p><strong>Uusi (Session IjtD0):</strong> Automaattiset päivittäiset
+varmuuskopiot fail-over-suojaukseen</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Automaattiset varmuuskopiot klo 02:00 UTC</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: .github/workflows/daily-site-backup.yml</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Säilytysaika: 30 päivää</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tarkista viimeisin varmuuskopio:</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> backups/sites/latest/</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lue varmuuskopion manifest:</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> backups/sites/latest/MANIFEST.txt</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Palauta tarvittaessa:</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzf</span> backups/sites/2025-12-26/<span class="pp">[</span><span class="ss">site</span><span class="pp">-</span><span class="ss">name</span><span class="pp">]</span>_<span class="pp">*</span>.tar.gz</span></code></pre></div>
+<h3 id="lokin-format">7.3 Lokin Format</h3>
+<p>Kaikki logit käyttävät Pino-formaattia (strukturoitu JSON):</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;level&quot;</span><span class="fu">:</span> <span class="dv">30</span><span class="fu">,</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;time&quot;</span><span class="fu">:</span> <span class="st">&quot;2025-12-15T10:00:00.000Z&quot;</span><span class="fu">,</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;pid&quot;</span><span class="fu">:</span> <span class="dv">1234</span><span class="fu">,</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;hostname&quot;</span><span class="fu">:</span> <span class="st">&quot;auth-backend&quot;</span><span class="fu">,</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;msg&quot;</span><span class="fu">:</span> <span class="st">&quot;User logged in successfully&quot;</span><span class="fu">,</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;userId&quot;</span><span class="fu">:</span> <span class="st">&quot;user_001&quot;</span><span class="fu">,</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;email&quot;</span><span class="fu">:</span> <span class="st">&quot;demo@dws-iq.local&quot;</span><span class="fu">,</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;method&quot;</span><span class="fu">:</span> <span class="st">&quot;POST&quot;</span><span class="fu">,</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;path&quot;</span><span class="fu">:</span> <span class="st">&quot;/api/v1/auth/login&quot;</span><span class="fu">,</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;duration&quot;</span><span class="fu">:</span> <span class="dv">145</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="monitoring">7.4 Monitoring</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prometheus metriikat (valmista)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3001/metrics</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Health check</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3001/health</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># System metrics</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stats auth-backend</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Memory usage</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> exec auth-backend ps aux <span class="kw">|</span> <span class="fu">grep</span> node</span></code></pre></div>
+<h3 id="alerting">7.5 Alerting</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup alerting (Prometheus + AlertManager)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hälytykset:</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Backend pois käytöstä (ping failed)</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Korkea error-rate (&gt; 1%)</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - Rate limiting activated (DDOS-yritys?)</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - Database connection failed</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Disk space low (&lt; 10%)</span></span></code></pre></div>
+<hr />
+<h2 id="häätöprotokollat">8. Häätöprotokollat</h2>
+<h3 id="palvelinvirhe">8.1 Palvelinvirhe</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Tarkista palvelun status</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps auth-backend</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Näytä lokit (viimeiset 50 riviä)</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> logs <span class="at">--tail</span> 50 auth-backend</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Yritä restart</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> restart auth-backend</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Jos ei auta, palauta kokonaan</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> down</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Tarkista health</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3001/health</span></code></pre></div>
+<h3 id="tietokantayhteys-katkaisi">8.2 Tietokantayhteys katkaisi</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Tarkista PostgreSQL</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> ps postgres</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tarkista yhteysjono</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> postgresql://user:pass@localhost/dws_auth_dev <span class="at">-c</span> <span class="st">&quot;SELECT version();&quot;</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Tarkista maksimiyhteydet</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> postgresql://user:pass@localhost/dws_auth_dev <span class="at">-c</span> <span class="st">&quot;SELECT count(*) FROM pg_stat_activity;&quot;</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Tappaa idle-yhteydet</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> postgresql://user:pass@localhost/dws_auth_dev <span class="at">-c</span> <span class="st">&quot;</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT pg_terminate_backend(pid)</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="st">FROM pg_stat_activity</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE state = &#39;idle&#39; AND query_start &lt; now() - interval &#39;10 minutes&#39;;</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Käynnistä backend uudelleen</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> restart auth-backend</span></code></pre></div>
+<h3 id="ddosrate-limiting-attack">8.3 DDOS/Rate Limiting Attack</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Tarkista lokit</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;rate limit&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">tail</span> 20</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tunnista lähde IP</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;rate limit&quot;</span> logs/<span class="pp">*</span>.log <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f2</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Blokkaa IP (UFW esimerkki)</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ufw</span> deny from <span class="op">&lt;</span>IP_ADDRESS<span class="op">&gt;</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Nollaa rate limitit</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="ex">redis-cli</span> FLUSHDB</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Nosta rate limit threshold (väliaikaisesti)</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="va">RATE_LIMIT_MAX_REQUESTS</span><span class="op">=</span>50  <span class="co"># Pienemmät requestit per window</span></span></code></pre></div>
+<h3 id="database-takaisinotto-phase-2">8.4 Database Takaisinotto (Phase
+2)</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Backup ennen mitään</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> exec postgres pg_dump <span class="at">-U</span> dws_user dws_auth_dev <span class="op">&gt;</span> recovery-backup.sql</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tarkista data</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-f</span> recovery-backup.sql <span class="at">-U</span> dws_user dws_auth_dev</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Restore tarvittaessa</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> exec <span class="at">-T</span> postgres psql <span class="at">-U</span> dws_user dws_auth_dev <span class="op">&lt;</span> recovery-backup.sql</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Verify</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-U</span> dws_user dws_auth_dev <span class="at">-c</span> <span class="st">&quot;SELECT COUNT(*) FROM users;&quot;</span></span></code></pre></div>
+<hr />
+<h2 id="tarkistuslistat">📋 Tarkistuslistat</h2>
+<h3 id="päivittäinen-tarkistuslista">Päivittäinen Tarkistuslista</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Backend käynnissä (docker
+ps)</label></li>
+<li><label><input type="checkbox"></input>Health check OK (curl
+/health)</label></li>
+<li><label><input type="checkbox"></input>Lokit OK (no
+ERROR-tasoisesti)</label></li>
+<li><label><input type="checkbox"></input>Rate limiting toimii (&lt; 5
+epäonnistumista/user)</label></li>
+<li><label><input type="checkbox"></input>Database yhteys OK</label></li>
+</ul>
+<h3 id="viikottainen-tarkistuslista">Viikottainen Tarkistuslista</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Lokit analysoitu (virheet,
+poikkeamat)</label></li>
+<li><label><input type="checkbox"></input>Backup otettu</label></li>
+<li><label><input type="checkbox"></input>Salaisuudet ovat
+voimassa</label></li>
+<li><label><input type="checkbox"></input>Turvallisuusauditti (CORS, headers,
+SSL)</label></li>
+<li><label><input type="checkbox"></input>Suorituskyky-metriikat
+tarkistettu</label></li>
+</ul>
+<h3 id="kuukausittainen-tarkistuslista">Kuukausittainen
+Tarkistuslista</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Salaisuuksien rotaatio</label></li>
+<li><label><input type="checkbox"></input>Database maintenance (VACUUM,
+ANALYZE)</label></li>
+<li><label><input type="checkbox"></input>Varmuuskopioiden
+tarkistus</label></li>
+<li><label><input type="checkbox"></input>Sertifikaattien voimassaolo
+(SSL)</label></li>
+<li><label><input type="checkbox"></input>Turvallisuuspäivitysten
+tarkistus</label></li>
+</ul>
+<hr />
+<h2 id="tuki-ja-dokumentaatio">📞 Tuki ja Dokumentaatio</h2>
+<h3 id="linkit">Linkit</h3>
+<ul>
+<li><strong>API Documentation:</strong>
+<code>AUTH_IMPLEMENTATION.md</code></li>
+<li><strong>Testing Guide:</strong> <code>TESTING_GUIDE.md</code></li>
+<li><strong>Quick Start:</strong> <code>AUTH_QUICK_START.md</code></li>
+<li><strong>AI Governance:</strong>
+<code>V02_AIGovernance.md</code></li>
+</ul>
+<h3 id="kontaktit">Kontaktit</h3>
+<ul>
+<li><strong>Security Issues:</strong> security@dws-iq.com</li>
+<li><strong>Technical Support:</strong> support@dws-iq.com</li>
+<li><strong>Emergency Escalation:</strong> ops@dws-iq.com</li>
+</ul>
+<hr />
+<p><strong>Versio:</strong> 1.0<br />
+<strong>Päivitetty:</strong> 15. Joulukuuta 2025<br />
+<strong>Seuraava päivitys:</strong> Q1 2026 (Phase 2)</p>
+</body>
+</html>
