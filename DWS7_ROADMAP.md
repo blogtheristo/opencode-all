@@ -750,20 +750,135 @@ Track these competitors weekly for moves that affect our roadmap:
 | **Coolset / ClimEase** | CBAM market share, pricing moves | If CBAM tools commoditize → bundle as free tier feature |
 | **Normative** | Post-Eivee acquisition, Nordic expansion | If they target Finland → accelerate local ERP connectors |
 
-### Technology Watch List
+### Big Tech AI Platform Watch
+
+These companies directly shape DWS7's AI capabilities, infrastructure costs, and competitive landscape. Their moves can shift entire phases of the roadmap.
+
+#### NVIDIA
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **Jetson Orin updates** | New Jetson modules, JetPack SDK releases, power efficiency improvements | PR 154 (edge agent deployment), Phase 4 IoT pipeline |
+| **CUDA / TensorRT** | Inference optimization, new quantization methods | Climate LLM fine-tuning performance (PR 161) |
+| **NIM (NVIDIA Inference Microservices)** | Self-hosted inference containers, new model support | Alternative to Groq for on-premise/edge inference |
+| **Omniverse / Digital Twins** | Industrial digital twin capabilities | Future: factory/site digital twin integration |
+| **Pricing & supply** | GPU availability, Jetson pricing changes | Edge AI cost model, hardware procurement decisions |
+| **X accounts** | @nvidia, @NVIDIAAIDev, @JetsonHacks | |
+
+#### Google
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **Gemini model releases** | Gemini 2.5+, context window, tool-use improvements | Multi-LLM strategy — Gemini as fallback/alternative to Claude |
+| **Google Cloud Run** | Pricing changes, new features, GPU support | Primary backend deployment costs (Phase 1-6) |
+| **Vertex AI** | Agent Builder, Vertex AI Search, grounding | Potential alternative to MCP for agent orchestration |
+| **BigQuery + sustainability** | Carbon footprint datasets, public data programs | Industry benchmark data for compliance (PR 175) |
+| **Google Cloud for Startups** | Credits program changes, sustainability track | Infrastructure credits (existing $135K+ potential) |
+| **Colab / TPU** | Training infrastructure, pricing | Climate LLM fine-tuning compute costs (PR 161) |
+| **X accounts** | @GoogleAI, @GoogleCloud, @GeminiApp | |
+
+#### Microsoft
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **Azure OpenAI** | GPT-5+, o3 reasoning models, pricing | Competitive pressure on Claude-based architecture |
+| **Dynamics 365 Sustainability** | Native sustainability features in ERP | If D365 adds CBAM/ETS native → pivot PR 132 strategy |
+| **Microsoft Sustainability Manager** | Feature updates, industry modules | Direct competitor for enterprise sustainability |
+| **Copilot for Industry** | Manufacturing, energy industry Copilots | May set customer expectations for AI-assisted compliance |
+| **Azure IoT** | Edge runtime updates, Digital Twins | Alternative to AWS IoT Greengrass for edge deployment |
+| **GitHub Copilot** | Agent mode advances, workspace features | Developer productivity competition |
+| **X accounts** | @Microsoft, @MSCloud, @AzureIoT | |
+
+#### IBM
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **IBM Envizi** | New ESG features, industry modules, pricing | Direct competitor for enterprise carbon accounting |
+| **watsonx.ai** | New foundation models, industry models | Alternative LLM for industrial-specific AI |
+| **watsonx.governance** | AI governance tools, EU AI Act features | Reference for our EU AI Act compliance (PRs 078-083) |
+| **IBM Consulting** | Sustainability practice announcements, partner deals | May influence enterprise buyer expectations |
+| **Granite models** | Open-source enterprise models | Potential base model for climate LLM fine-tuning |
+| **X accounts** | @IBM, @IBMResearch, @IBMSustain | |
+
+#### AWS
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **AWS IoT Greengrass** | Edge runtime updates, ML inference at edge | Phase 4 IoT pipeline (PRs 151-160) |
+| **Amazon Bedrock** | New models, agent framework, knowledge bases | Multi-LLM infrastructure alternative |
+| **AWS Sustainability** | Customer Carbon Footprint Tool updates | May commoditize basic carbon tracking |
+| **SageMaker** | Training cost reductions, new instance types | Climate LLM training cost optimization |
+| **AWS Credits** | Startup program, sustainability credits | Infrastructure cost offset |
+| **EU Region expansion** | New EU regions, data residency guarantees | Multi-region deployment options (PR 216) |
+| **X accounts** | @awscloud, @AWSstartups, @AWSIoT | |
+
+#### Anthropic
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **Claude model releases** | Claude 5+, capabilities, context window, pricing | Core AI engine — every model upgrade improves all agents |
+| **MCP (Model Context Protocol)** | New tools, server spec changes, ecosystem growth | MCP hub architecture (entire agent layer depends on this) |
+| **Claude Code** | New features, agent SDK improvements | Development velocity, worktree workflows |
+| **Tool use improvements** | Better structured output, parallel tool calls | Agent reliability and performance |
+| **Pricing changes** | API price drops/increases, new tiers | Operating cost for climate assistant (PRs 046-177) |
+| **Safety research** | Constitutional AI updates, EU AI Act alignment | Reasoning lineage compliance (PRs 078-083) |
+| **X accounts** | @AnthropicAI, @alexalbert__, @aabornadel (Dario) | |
+
+#### OpenAI
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **GPT-5+ releases** | New capabilities, reasoning, tool use | Competitive pressure — customers may ask "why not GPT?" |
+| **o3/o4 reasoning models** | Reasoning capability, cost/performance tradeoffs | May force us to offer multi-model choice |
+| **API pricing** | Price drops that shift market expectations | Pressure on our pricing if competitors use cheaper models |
+| **Enterprise features** | Data residency, compliance certifications | Enterprise buyers may demand OpenAI model option |
+| **Agents / Swarm** | Multi-agent frameworks, production deployment | Reference architecture for our agentic AI (Phase 4) |
+| **X accounts** | @OpenAI, @sama, @gabornadel (Greg Brockman) | |
+
+#### Chinese LLMs (DeepSeek, Qwen, Yi, Baichuan)
+
+| Signal | Watch For | Roadmap Impact |
+|--------|-----------|---------------|
+| **DeepSeek** | V3+, R1 reasoning, open-source releases, cost leadership | If DeepSeek quality matches Claude at 10x lower cost → evaluate for non-sensitive workloads |
+| **Qwen (Alibaba)** | Qwen 3+, multilingual EU language support | Potential for Finnish/German/Swedish language tasks |
+| **Yi (01.AI)** | New releases, commercial licensing | Alternative for self-hosted inference |
+| **EU data sovereignty concerns** | EU regulatory stance on Chinese AI models | May be blocked for EU compliance workloads — monitor closely |
+| **Cost disruption** | If Chinese models commoditize LLM inference | Could pressure DWS7 pricing model downward |
+| **Open-source fine-tuning** | Quality of open models for domain-specific tasks | Base model selection for climate LLM (PR 161) |
+| **X accounts** | @deepabornadel, @Alibaba_Qwen | |
+
+#### Platform Decision Matrix
+
+When a major platform announcement occurs, use this framework:
+
+```
+Big tech announcement detected →
+  1. Does it ENABLE something we couldn't do before?
+     └─ YES → Add adoption PR, estimate effort and timeline
+  2. Does it THREATEN our competitive position?
+     └─ YES → Evaluate: Can we integrate it? Switch to it? Or differentiate harder?
+  3. Does it change PRICING economics?
+     └─ YES → Re-model unit economics, adjust billing (PRs 121-128)
+  4. Does it shift CUSTOMER EXPECTATIONS?
+     └─ YES → Update roadmap priorities to match what customers now expect
+  5. Does it affect EU DATA SOVEREIGNTY?
+     └─ YES → Flag immediately — compliance is non-negotiable
+```
+
+### Technology Watch List (Frameworks & Infrastructure)
 
 | Technology | Watch For | Impact on DWS7 |
 |------------|-----------|-----------------|
-| **Claude / Anthropic** | New model releases, tool-use improvements, MCP updates | Upgrade agents, adopt new capabilities |
-| **Llama / Meta** | Open model releases (Llama 4+) | Update fine-tuned climate LLM (PR 161) |
 | **React** | React 20+, Server Components maturity | Dashboard architecture decisions |
 | **Vite** | Major releases, new features | Build tooling updates |
 | **Supabase** | New features (vectors, branching, edge functions) | Database architecture, new capabilities |
 | **Temporal.io** | SDK updates, new workflow patterns | Agent orchestration improvements |
 | **Cloudflare** | Workers AI, D1, new edge features | Edge deployment strategy |
 | **EU Digital Product Passport** | Standard finalization, implementation guides | PR 235 timing and scope |
-| **NVIDIA Jetson** | New hardware, JetPack updates | Edge AI performance improvements |
 | **pgvector / embeddings** | Performance improvements, new models | RAG pipeline optimization (PR 162) |
+| **LangChain / LlamaIndex** | Agent framework updates, tool ecosystems | Evaluate vs custom MCP implementation |
+| **Deno / Bun** | Runtime performance, TypeScript support | Future backend runtime consideration |
+| **Tailwind CSS** | v5+ major changes, new utility patterns | Dashboard styling approach |
 
 ### Industry Watch List (16 EU Industries)
 
