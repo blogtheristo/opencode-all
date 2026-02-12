@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.7
+    Version: 1.8
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -14,6 +14,7 @@
       v1.5 - 07.02.2026 - Added root-level standards to $SyncFiles (CLAUDE.md, DWS_DOCUMENT_STANDARD, etc.)
       v1.6 - 07.02.2026 - PDF output now goes to Learn/ folder (HIL pipeline)
       v1.7 - 08.02.2026 - Fix: sync Learn/ (generated HTML/PDF) to Proton after generation
+      v1.8 - 10.02.2026 - Added docs/ folder to folder mappings
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -22,6 +23,7 @@
     ----                          --------------------------------
     Admin/                    --> Repos2026\dws6\Admin\
     AgentFoundry/             --> Repos2026\dws6\AgentFoundry\
+    docs/                     --> Repos2026\dws6\docs\
     Firehorse/                --> Firehorse\
     docs/metropolia/          --> Metropolia2026\
     Metropolia2026/           --> Metropolia2026\
@@ -83,6 +85,7 @@ $ProtonRepoPath = Join-Path $ProtonRoot "Repos2026\dws6"
 $FolderMappings = @(
     @{ Src = "Admin";                        Dest = "same" }
     @{ Src = "AgentFoundry";                 Dest = "same" }
+    @{ Src = "docs";                         Dest = "same" }
     @{ Src = "Team";                         Dest = "same" }
     @{ Src = "Firehorse";                    Dest = (Join-Path $ProtonRoot "Firehorse") }
     @{ Src = "docs\metropolia";              Dest = (Join-Path $ProtonRoot "Metropolia2026") }
@@ -92,7 +95,7 @@ $FolderMappings = @(
 )
 
 # Individual doc files -> Proton repo backup (relative to $RepoPath)
-# NOTE: Files inside mapped folders (Admin/, Firehorse/, etc.) are already
+# NOTE: Files inside mapped folders (Admin/, docs/, Firehorse/, etc.) are already
 # synced by $FolderMappings above. Only list files that live OUTSIDE mapped folders.
 $SyncFiles = @(
     # Root-level standards and environment files
@@ -102,8 +105,6 @@ $SyncFiles = @(
     "ONTOLOGY.md",
     "README.md",
     "16-INDUSTRIES.md",
-    # Document index
-    "docs\Document-index.md",
     # GitHub/AI agent environment rules
     ".github\copilot-instructions.md"
 )
