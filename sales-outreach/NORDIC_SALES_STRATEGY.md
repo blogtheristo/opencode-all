@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 13.02.2026 | Changes: Initial creation - Nordic sales strategy with three metaphor frameworks (Captain, Vineyard, Buffet) for enterprise, investor, and equality-driven outreach
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 13.02.2026 | Changes: Added Section 11 - One-Click Buy for industrial B2B: immediate purchase mechanism, friction elimination, self-service pilot architecture, product cards with buy now/monthly pricing, intelligent decision helper, close framework
 
 Session Links & References:
   - Claude Code (claude/nordic-sales-strategy-1p5VB): https://github.com/blogtheristo/dws6/commits/claude/nordic-sales-strategy-1p5VB
@@ -21,7 +22,7 @@ Document Status:
 
 ***
 
-**Version:** 1.0
+**Version:** 1.1
 **Effective Date:** 2026-02-13
 **Last Updated:** 2026-02-13
 **Status:** Active
@@ -40,6 +41,7 @@ Document Status:
 8. [Finnish Psychology in B2B Sales](#8-finnish-psychology-in-b2b-sales)
 9. [Metrics & KPIs](#9-metrics--kpis)
 10. [Implementation Roadmap](#10-implementation-roadmap)
+11. [One-Click Buy — Immediate Decision Architecture](#11-one-click-buy--immediate-decision-architecture)
 
 ***
 
@@ -508,6 +510,391 @@ These are not suggestions. These are cultural requirements.
 - [ ] Hire first sales development representative
 - [ ] Systematize outreach with Firehorse Omnichannel automation
 - [ ] Target: €30k MRR, €250k of €500k SAFE committed
+
+***
+
+## 11. One-Click Buy — Immediate Decision Architecture
+
+### 11.1 The Problem With Industrial Sales
+
+Industrial B2B SaaS has a dirty secret: most of the 16-month sales cycle is *friction*, not thinking.
+
+```
+Typical enterprise sales cycle: 45-90 days (DWS IQ 6 current)
+├─ Finding the product:           10-15 days
+├─ Understanding the product:     5-10 days
+├─ Internal discussion:           5-10 days  ← real thinking
+├─ Waiting for a demo slot:       7-14 days  ← friction
+├─ Waiting for a proposal:        5-10 days  ← friction
+├─ Legal/procurement review:      10-20 days ← friction
+├─ Budget approval:               5-15 days  ← friction
+└─ Actual decision:               1 day      ← one moment
+```
+
+The actual *decision* takes one day. Often one meeting. Sometimes one sentence: "This solves our problem. Let's do it."
+
+Everything else is logistics. And logistics is friction. And friction kills deals that were already won in the buyer's mind.
+
+### 11.2 The One-Click Principle
+
+Amazon did not invent online shopping. Amazon invented *removing the reasons not to buy.*
+
+One-click is not a button. It is a philosophy: **every obstacle between "I want this" and "I have this" is a failure of the seller, not a feature of the process.**
+
+For a €5,990/month industrial product, "one-click" means:
+
+> The buyer should be able to go from *first contact* to *running pilot* with zero unnecessary waiting.
+
+Not zero process. Zero *unnecessary* process. The distinction matters.
+
+### 11.3 What "One-Click" Looks Like for DWS IQ 6
+
+#### The Buffet Buy
+
+The Finnish buffet at 13.70 EUR is already one-click:
+
+- The price is on the wall. (No "contact us for pricing.")
+- You walk in. (No reservation required.)
+- You serve yourself. (No waiter gatekeeping.)
+- You pay. (One transaction. No negotiation.)
+- You eat. (Immediate value delivery.)
+
+Apply this to DWS IQ 6:
+
+| Buffet Step | DWS IQ 6 Equivalent | Current State | One-Click State |
+|-------------|---------------------|---------------|-----------------|
+| Price on the wall | Published pricing | Published but requires meeting to discuss | Pricing page with "Start Pilot" button |
+| Walk in | Access the product | Requires scheduled demo | Self-service demo environment available 24/7 |
+| Serve yourself | Configure for your needs | CEO-led 8-hour workshop | Guided setup wizard + template portfolios |
+| Pay | Purchase decision | Manual contract negotiation | Digital agreement with e-signature (Visma Sign / Scrive) |
+| Eat | Get value | 4-week implementation | First dashboard visible within 24 hours |
+
+#### The Immediate Buy Stack
+
+```
+LAYER 1: SEE IT (0 minutes)
+├─ Landing page with live demo dashboard (not screenshots — live data)
+├─ Published pricing: €5,990/mo, €7,990/mo, €10,950/mo
+├─ "Start Pilot" button visible without scrolling
+└─ No form required to see prices or demo
+
+LAYER 2: TRY IT (< 5 minutes)
+├─ Self-service demo environment with sample construction portfolio
+├─ Pre-loaded with realistic Nordic construction data
+├─ SPI, CPI, TRIFR, Fit for 55 compliance — all visible immediately
+├─ Works on mobile (the Captain checks instruments from anywhere)
+└─ Email only — no phone number, no company size, no "how did you hear about us"
+
+LAYER 3: BUY IT (< 15 minutes)
+├─ Select tier: Pilot (€5,990/mo) or Alpha (€7,990/mo)
+├─ Digital agreement (standard terms, pre-filled, e-signature)
+├─ First invoice or payment link (Stripe / Finnish banking integration)
+├─ Onboarding calendar auto-sent (workshop scheduling)
+└─ Welcome kit: API keys, documentation, Slack/Teams channel invite
+
+LAYER 4: USE IT (< 24 hours)
+├─ Template portfolio deployed to customer's environment
+├─ First real data connected (BACnet/Modbus/OPC UA auto-discovery)
+├─ Dashboard live with real buildings
+└─ First Firehorse Report generated automatically
+```
+
+### 11.4 Why This Works for Industrial Products
+
+ASSUMPTIONS I'M MAKING:
+1. The buyer has already been primed by content (Captain articles, Scope Journal)
+2. The buyer understands their Fit for 55 / CSRD obligation
+3. The buyer has budget authority or can get it fast for a €5,990/mo decision
+
+These buyers are not browsing. They are *solving a problem they already know they have.*
+
+The traditional industrial sales model assumes the buyer needs to be *educated*. But in 2026:
+
+- CSRD is mandatory. They know.
+- EPBD deadlines are public. They know.
+- Their legacy BMS is slow. They know.
+- They need to report emissions. They know.
+
+What they do not know is: *can your product actually do it?*
+
+The one-click architecture answers that question with *evidence*, not *meetings.*
+
+| Old Model | One-Click Model |
+|-----------|----------------|
+| "Let me schedule a demo for next week" | "Here is a live demo. Right now. On your phone." |
+| "I'll send you a proposal" | "The price is on the page. The contract is digital." |
+| "Our team will scope your implementation" | "Template portfolios for construction, logistics, healthcare. Pick one." |
+| "We'll need 4 weeks to onboard" | "Your dashboard is live tomorrow. Refinement happens over the pilot." |
+| "Let's set up a follow-up meeting" | "Your Slack channel is ready. Ask questions there." |
+
+### 11.5 The Psychology of Immediate Buy
+
+#### Why €5,990/month Can Be a One-Click Decision
+
+In Nordic enterprises, €5,990/month is:
+- **Below most procurement thresholds.** Many Nordic companies allow department heads to approve monthly costs under €10k without full procurement process.
+- **A rounding error on construction budgets.** A single construction project runs €5M-500M. A €5,990/mo tool is invisible in that budget.
+- **Less than one consultant day.** A Big 4 sustainability consultant charges €2,000-3,000/day. DWS IQ 6 costs two consultant-days per month.
+- **Reversible.** A 5-month pilot with clear end date has natural off-ramp. This is not a 3-year commitment.
+
+The real barrier is never the money. It is the *process.* Remove the process, and the money moves.
+
+#### The €13.70 Parallel
+
+At the Finnish buffet, nobody agonizes over 13.70 EUR. Why?
+
+1. **The price is known.** No surprise. No hidden fees. No "would you like to add...?"
+2. **The value is visible.** You can see the food before you pay.
+3. **The risk is low.** Worst case, lunch was mediocre. Best case, excellent.
+4. **The exit is clean.** You leave when you are done. No awkward check-splitting.
+
+Apply the same to €5,990/month:
+
+1. **The price is known.** Published. No "it depends."
+2. **The value is visible.** Live demo with real data. Not a slideshow.
+3. **The risk is low.** 5-month pilot. Not a marriage.
+4. **The exit is clean.** Pilot ends. You decide. No pressure.
+
+When you design the buy experience with the same principles as a 13.70 EUR buffet, the €5,990/month decision *feels* like a 13.70 EUR decision. Not because the number is the same, but because the *anxiety* is the same: zero.
+
+### 11.6 Implementation: The One-Click Buy Roadmap
+
+#### Phase A: Remove Pricing Friction (Week 1)
+
+- [ ] Publish full pricing on dws6.com landing page (all three tiers)
+- [ ] Add "Start Pilot" CTA button above the fold
+- [ ] Remove all "Contact us for pricing" language
+- [ ] Create pricing FAQ (what's included, what's not, VAT, payment terms)
+
+#### Phase B: Self-Service Demo (Weeks 2-4)
+
+- [ ] Deploy public demo environment with sample construction portfolio
+- [ ] Pre-load realistic data: 5 buildings, 12-month history, Fit for 55 metrics
+- [ ] Mobile-optimized (the Captain metaphor — instruments in your pocket)
+- [ ] Access with email only. No sales qualification form.
+- [ ] Auto-expire demo after 7 days (scarcity through structure, not pressure)
+
+#### Phase C: Digital Purchase Flow (Weeks 4-6)
+
+- [ ] Integrate e-signature (Visma Sign or Scrive — Nordic-native, eIDAS compliant)
+- [ ] Standard pilot agreement template (pre-approved by legal, not negotiated per deal)
+- [ ] Stripe or Finnish banking payment integration (invoice + card)
+- [ ] Automated onboarding: welcome email, API keys, Slack channel, workshop calendar
+- [ ] First dashboard deployed within 24 hours of signature
+
+#### Phase D: Template Portfolios (Weeks 6-8)
+
+- [ ] Construction portfolio template (SPI, CPI, TRIFR, 5 buildings)
+- [ ] Logistics portfolio template (fleet, Scope 1/2, route optimization)
+- [ ] Healthcare portfolio template (facility energy, NIS2 compliance)
+- [ ] Each template works out-of-the-box with sample data, then connects to real data
+
+### 11.7 One-Click Metrics
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Time from landing page to live demo | < 5 minutes | Analytics |
+| Time from demo to signed agreement | < 24 hours (for ready buyers) | CRM |
+| Time from signature to first live dashboard | < 24 hours | Ops |
+| Self-service demo → pilot conversion rate | 10-15% | Monthly |
+| Deals closed without a single meeting | 20-30% of total | Quarterly |
+| Average procurement cycle (one-click path) | < 7 days | CRM |
+| Deals lost to friction (started but abandoned) | < 10% | Funnel analytics |
+
+### 11.8 The Objection: "Industrial Products Can't Be Sold This Way"
+
+**Objection:** "A €5,990/month industrial platform requires consultative selling. You can't sell this like a SaaS tool."
+
+**Response:**
+
+Stripe sells payment infrastructure that processes billions of dollars. Their buy flow: enter your email, get API keys, start processing payments. No meeting required.
+
+AWS sells server infrastructure that runs hospitals and governments. Their buy flow: create an account, pick a region, deploy. No meeting required.
+
+Shopify sells commerce infrastructure used by Nike and Heinz. Their buy flow: start a trial, pick a plan, enter your card. No meeting required.
+
+The argument "industrial products need consultative selling" was true when:
+- Products required physical installation
+- Configuration was bespoke and manual
+- Pricing was complex and negotiated
+- The buyer needed education about the category
+
+DWS IQ 6 in 2026:
+- Deploys to cloud + edge with template portfolios
+- Configuration is guided, not bespoke
+- Pricing is three tiers, published, transparent
+- The buyer already knows they need CSRD/Fit for 55 compliance
+
+The consultative part still happens — inside the 5-month pilot. But the *buy decision* does not require it. Separate the decision from the implementation.
+
+**The captain does not need a meeting to buy a compass. The captain needs the compass to work when the storm hits.**
+
+### 11.9 Product Clarity: Buy Now / Pay Monthly — Closing the Deal
+
+#### The Clarity Problem
+
+Industrial products fail at the buy moment because the buyer cannot answer one simple question: *"What exactly am I paying, and what exactly do I get?"*
+
+If it takes more than 10 seconds to understand the price, the deal is already dying.
+
+#### The Two-Number Rule
+
+Every DWS IQ 6 offer must be reducible to two numbers:
+
+> **Buy now: €XX,XXX** — what you commit today.
+> **Monthly: €X,XXX/mo** — what it costs to run.
+
+No spreadsheets. No "it depends." Two numbers.
+
+#### Product Cards — What the Buyer Sees
+
+**PILOT** — *Try the instruments*
+
+```
+┌─────────────────────────────────────────────┐
+│  DWS IQ 6 PILOT                             │
+│  ─────────────────────────                   │
+│                                              │
+│  Buy now:     €29,950                        │
+│  Monthly:     €5,990/mo × 5 months           │
+│                                              │
+│  ✓ DWS IQ 6 Platform                        │
+│  ✓ Lifetime World Model                     │
+│  ✓ Enterprise Construction Model             │
+│  ✓ Firehorse Suite (Report + Automation +    │
+│    Omnichannel + Content Management)         │
+│  ✓ DWS IQ Mobility (3 views)                │
+│  ✓ Model training on GN100 hardware          │
+│  ✓ Brand implementation & design support     │
+│  ✓ Onboarding workshop included              │
+│                                              │
+│  Not included:                               │
+│  · Acer Veriton GN100 hardware (2-10 units)  │
+│  · Customer cloud costs                      │
+│                                              │
+│  Duration: 5 months                          │
+│  Exit: Clean stop at month 5. No penalty.    │
+│                                              │
+│  [ Start Pilot → ]                           │
+└─────────────────────────────────────────────┘
+```
+
+**ALPHA** — *Deploy at scale*
+
+```
+┌─────────────────────────────────────────────┐
+│  DWS IQ 6 ALPHA                             │
+│  ─────────────────────────                   │
+│                                              │
+│  Buy now:     €55,930                        │
+│  Monthly:     €7,990/mo × 7 months           │
+│                                              │
+│  Everything in Pilot, plus:                  │
+│  ✓ Extended model training                   │
+│  ✓ Multi-site deployment (incl. field)       │
+│  ✓ 7-month enterprise runway                 │
+│                                              │
+│  Not included:                               │
+│  · Acer Veriton GN100 hardware (2-10 units)  │
+│  · Customer cloud costs                      │
+│                                              │
+│  Duration: 7 months                          │
+│  Exit: Clean stop at month 7. No penalty.    │
+│                                              │
+│  [ Start Alpha → ]                           │
+└─────────────────────────────────────────────┘
+```
+
+**PRODUCTION** — *Own the system*
+
+```
+┌─────────────────────────────────────────────┐
+│  DWS IQ 6 PRODUCTION                        │
+│  ─────────────────────────                   │
+│                                              │
+│  Monthly:     €10,950/mo                     │
+│  (no fixed term — cancel with 90-day notice) │
+│                                              │
+│  Everything in Alpha, plus:                  │
+│  ✓ OWN Enterprise Construction Model         │
+│  ✓ OWN Firehorse Report templates/agents     │
+│  ✓ Monthly security audit                    │
+│  ✓ Application updates                       │
+│  ✓ Management + Site + Board views           │
+│                                              │
+│  Not included:                               │
+│  · Acer Veriton GN100 hardware               │
+│  · Customer cloud costs                      │
+│                                              │
+│  [ Start Production → ]                      │
+└─────────────────────────────────────────────┘
+```
+
+**WORKSHOP** — *Add-on for any tier*
+
+```
+┌─────────────────────────────────────────────┐
+│  Training & Consulting                       │
+│  ─────────────────────────                   │
+│  €150/hour, VAT 0%                           │
+│  Delivered your way: on-site, remote, hybrid │
+└─────────────────────────────────────────────┘
+```
+
+#### Intelligent Decision — Help the Buyer Choose
+
+The buyer should not have to figure out which tier is right. The product should tell them.
+
+**Decision Logic (visible on pricing page):**
+
+```
+Answer two questions:
+
+1. How many buildings in your portfolio?
+   [ 1-5 ]  [ 6-20 ]  [ 20+ ]
+
+2. Do you have a CSRD reporting deadline in 2026?
+   [ Yes ]  [ Not yet ]  [ Already compliant ]
+```
+
+| Answer Combination | Recommendation | Why |
+|-------------------|---------------|-----|
+| 1-5 buildings + Yes deadline | **Pilot** (€29,950) | Prove compliance readiness fast. 5 months to first CSRD report. |
+| 1-5 buildings + Not yet | **Pilot** (€29,950) | Get ahead of mandate. Build internal competence before deadline. |
+| 6-20 buildings + Yes deadline | **Alpha** (€55,930) | Multi-site deployment needed. 7 months covers first reporting cycle. |
+| 6-20 buildings + Not yet | **Pilot** (€29,950) | Start with 5 buildings. Expand to Alpha after proof of value. |
+| 20+ buildings + Any | **Alpha → Production** | Start Alpha for 7 months. Transition to Production at €10,950/mo. |
+| Already compliant + Any | **Pilot** (€29,950) | Validate edge AI optimization. 15-25% energy cost reduction is the value. |
+
+**Key principle:** The recommendation always starts with the lowest appropriate tier. Never upsell at the decision moment. Let the pilot prove the value. The upgrade sells itself.
+
+#### The Close: Three Sentences
+
+When the buyer is ready, the close is three sentences:
+
+> "Tier [X] at €[total]. Includes everything you need for [duration]. I'll send the agreement now — digital signature, takes two minutes."
+
+That is it. No pressure. No "limited time." No "I need to check with my manager."
+
+The pilot has a natural end date. The buyer knows the exit. The price is the price.
+
+**The buffet does not negotiate. The buffet is ready when you are.**
+
+#### Comparison: What €5,990/mo Replaces
+
+Help the buyer see the decision as *obvious*, not *brave*:
+
+| Current Cost | What They Pay Today | DWS IQ 6 Pilot |
+|-------------|--------------------|--------------------|
+| Big 4 CSRD consultant | €2,000-3,000/day (€40-60k/project) | €5,990/mo (€29,950 total) |
+| Legacy BMS upgrade (Siemens/Schneider) | €200k-500k + annual license | €5,990/mo with no hardware lock-in |
+| Manual emissions reporting (FTE) | €60-80k/year (1 dedicated person) | €5,990/mo (automated) |
+| Non-compliance penalty risk | Up to 5% of annual turnover | €5,990/mo (prevention) |
+| Doing nothing for 12 months | EPBD deadline 12 months closer | €5,990/mo (time bought) |
+
+The question is never "Can we afford DWS IQ 6?"
+
+The question is: "Can we afford *not* to start this month?"
 
 ***
 
