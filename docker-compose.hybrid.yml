@@ -300,6 +300,88 @@ services:
     profiles:
       - development
 
+  # ============================================================================
+  # Container Monitoring Services
+  # ============================================================================
+
+  # cAdvisor for container metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: dws-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Node Exporter for host metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: dws-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # AI Agents (Agent Foundry)
+  # ============================================================================
+
+  agent-foundry:
+    build:
+      context: ./AgentFoundry
+      dockerfile: Dockerfile
+    container_name: dws-agent-foundry
+    ports:
+      - "8082:8080"
+    environment:
+      # Agent Configuration
+      AGENT_ID: ${AGENT_ID:-lead-scout-001}
+      AGENT_CONFIG_PATH: configs/production/lead-scout-001.yaml
+      
+      # Database
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_KEY: ${SUPABASE_SERVICE_KEY}
+      
+      # AI Providers
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      
+      # Notifications
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - agents
+
 # ============================================================================
 # Volumes
 # ============================================================================
