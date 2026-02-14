@@ -9,6 +9,64 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 
 ---
 
+## 0. Store Identity — The AI Supermarket
+
+All DWS store pages MUST display the store identity info box above the product grid.
+
+**Component:**
+```html
+<div class="store-identity">
+    <div class="store-identity-icon">🏪</div>
+    <div class="store-identity-content">
+        <h2 class="store-identity-title">The AI Supermarket for Enterprises and SMEs</h2>
+        <p class="store-identity-subtitle">EU-sovereign AI products, compliance tools, and expert services — from €0.99 to enterprise scale.</p>
+    </div>
+    <div class="store-identity-badges">
+        <span class="sovereignty-badge eu-data">EU Data Residency</span>
+        <span class="sovereignty-badge cloud-act-free">CLOUD Act Free</span>
+    </div>
+</div>
+```
+
+**CSS Spec:**
+```css
+.store-identity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(30, 41, 59, 0.7));
+    border: 1px solid rgba(37, 99, 235, 0.3);
+}
+.store-identity-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 0;
+}
+.store-identity-subtitle {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 4px 0 0 0;
+}
+.store-identity-icon {
+    font-size: 2rem;
+}
+.store-identity-badges {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+```
+
+**Mobile (max-width: 768px):** stack vertically, center-align, hide badges.
+
+**Placement:** Above category navigation on all store pages (buy/, buy/page2/, etc.)
+
+---
+
 ## 1. Store Category Navigation Component
 
 Category tabs for multi-page store navigation.
