@@ -1,4 +1,4 @@
-# DWS Gamma Brand Standard v1.0
+# DWS Gamma Brand Standard v1.1
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -6,6 +6,64 @@
 
 This document is the single source of truth for DWS brand standards across all pages and products.
 All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST follow these rules.
+
+---
+
+## 0. Store Identity — The AI Supermarket
+
+All DWS store pages MUST display the store identity info box above the product grid.
+
+**Component:**
+```html
+<div class="store-identity">
+    <div class="store-identity-icon">🏪</div>
+    <div class="store-identity-content">
+        <h2 class="store-identity-title">The AI Supermarket for Enterprises and SMEs</h2>
+        <p class="store-identity-subtitle">EU-sovereign AI products, compliance tools, and expert services — from €0.99 to enterprise scale.</p>
+    </div>
+    <div class="store-identity-badges">
+        <span class="sovereignty-badge eu-data">EU Data Residency</span>
+        <span class="sovereignty-badge cloud-act-free">CLOUD Act Free</span>
+    </div>
+</div>
+```
+
+**CSS Spec:**
+```css
+.store-identity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(30, 41, 59, 0.7));
+    border: 1px solid rgba(37, 99, 235, 0.3);
+}
+.store-identity-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 0;
+}
+.store-identity-subtitle {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 4px 0 0 0;
+}
+.store-identity-icon {
+    font-size: 2rem;
+}
+.store-identity-badges {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+```
+
+**Mobile (max-width: 768px):** stack vertically, center-align, hide badges.
+
+**Placement:** Above category navigation on all store pages (buy/, buy/page2/, etc.)
 
 ---
 
@@ -75,6 +133,8 @@ All DWS pages use dark theme by default.
 | `--gradient-primary` | `linear-gradient(135deg, #2563eb, #1d4ed8)` | Primary buttons, active states |
 | `--gradient-featured` | `linear-gradient(135deg, #f59e0b, #d97706)` | Featured badges |
 | `--shadow-hover` | `0 15px 30px rgba(0,0,0,0.4)` | Card hover |
+| `--color-jitsi` | `#oea5e9` | Video meeting accents |
+| `--color-email` | `#8b5cf6` | Email feature accents |
 
 ---
 
@@ -117,8 +177,19 @@ Products in `config/products.json` MUST have a `storeCategory` field.
 - `ai-cloud` — AI consulting, cloud migration, sovereignty services
 - `advisory` — Expert advisory, training, consulting packages
 - `digital` — Web development, email, data services, business tools
+- `communication` — Video conferencing, email, collaboration (Firehorse V3)
 
 **Adding new products:** Add to `config/products.json` with `storeCategory` field. Featured products set `featured: true`.
+
+### Firehorse Product Family (Store Listing)
+
+| Product | Price | storeCategory | Badge | Store |
+|---------|-------|---------------|-------|-------|
+| **Firehorse V3 SME** | €9.99/mo | `communication` | `.live-payment` | dws6.com |
+| **Firehorse V3 Professional** | €19.99/mo | `communication` | `.featured` | dws6.com |
+| **Firehorse V2 Per-Audit** | €15,000 | `platform` | — | dws10.com |
+| **Firehorse V2 Subscription** | €25,000/yr | `platform` | — | dws10.com |
+| **Firehorse V2 Enterprise** | €250,000/yr | `platform` | `.featured` | dws10.com |
 
 ---
 

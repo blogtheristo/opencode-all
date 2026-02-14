@@ -11,8 +11,32 @@ Before making any UI changes, agents MUST consult these files:
 | **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
 | **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
 | **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
+| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
+| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### "Use DWS Standard" Rule (CRITICAL)
+
+When the human says **"Use DWS standard"** (or any variation like "with DWS standards", "follow DWS standards"), this is a shorthand that means:
+
+1. **Apply ALL relevant standards from the table above** — not just one. Evaluate which standards apply to the task and follow every one that is relevant.
+2. **Update the standards themselves** if the work adds new products, features, security controls, or brand elements. Standards are living documents that must grow with the platform.
+3. **Ensure market-value readiness** — every product artifact must be complete enough to sell: Google Merchant JSON, product specification, store listing, competitive positioning, and pricing.
+4. **Ensure security coverage** — every new feature must have security controls documented in the relevant security standard.
+5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
+
+**Example:** "Create a new product with DWS standard" means:
+- `DWS_DOCUMENT_STANDARD.md` → Use correct metadata header, versioning
+- `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
+- `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
+- `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json
+- `config/products.json` → Add store entry with storeCategory and payment link
+
+**This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
 ## Project Overview
 
