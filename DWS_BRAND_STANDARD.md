@@ -1,4 +1,4 @@
-# DWS Gamma Brand Standard v1.0
+# DWS Gamma Brand Standard v1.1
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -75,6 +75,8 @@ All DWS pages use dark theme by default.
 | `--gradient-primary` | `linear-gradient(135deg, #2563eb, #1d4ed8)` | Primary buttons, active states |
 | `--gradient-featured` | `linear-gradient(135deg, #f59e0b, #d97706)` | Featured badges |
 | `--shadow-hover` | `0 15px 30px rgba(0,0,0,0.4)` | Card hover |
+| `--color-jitsi` | `#oea5e9` | Video meeting accents |
+| `--color-email` | `#8b5cf6` | Email feature accents |
 
 ---
 
@@ -117,8 +119,19 @@ Products in `config/products.json` MUST have a `storeCategory` field.
 - `ai-cloud` — AI consulting, cloud migration, sovereignty services
 - `advisory` — Expert advisory, training, consulting packages
 - `digital` — Web development, email, data services, business tools
+- `communication` — Video conferencing, email, collaboration (Firehorse V3)
 
 **Adding new products:** Add to `config/products.json` with `storeCategory` field. Featured products set `featured: true`.
+
+### Firehorse Product Family (Store Listing)
+
+| Product | Price | storeCategory | Badge | Store |
+|---------|-------|---------------|-------|-------|
+| **Firehorse V3 SME** | €9.99/mo | `communication` | `.live-payment` | dws6.com |
+| **Firehorse V3 Professional** | €19.99/mo | `communication` | `.featured` | dws6.com |
+| **Firehorse V2 Per-Audit** | €15,000 | `platform` | — | dws10.com |
+| **Firehorse V2 Subscription** | €25,000/yr | `platform` | — | dws10.com |
+| **Firehorse V2 Enterprise** | €250,000/yr | `platform` | `.featured` | dws10.com |
 
 ---
 
