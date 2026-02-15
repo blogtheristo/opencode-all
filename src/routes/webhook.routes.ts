@@ -28,6 +28,7 @@ import {
   isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
+import { emailQueue } from '../services/email-queue.service.js';
 
 const router: Router = express.Router();
 
@@ -67,7 +68,7 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 // ============================================================================
 
 async function sendConfirmationEmail(to: string, subject: string, body: string): Promise<void> {
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
 
   if (!resendKey) {
@@ -76,7 +77,7 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
   }
 
   try {
-    await fetch('https://api.resend.com/emails', {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,6 +90,12 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
         text: body,
       }),
     });
+
+    if (response.ok) {
+      console.log(`📧 CONFIRMATION EMAIL SENT: From: ${fromAddress} | To: ${to} | Subject: ${subject}`);
+    } else {
+      logger.warn('Confirmation email failed', { status: response.status });
+    }
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });
   }
@@ -155,6 +162,24 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const subject = data.subject || '';
   const textBody = data.text || '';
   const messageId = data.message_id || data.id || svixId || `unknown-${Date.now()}`;
+
+  // Also push to Redis inbox stream for async processing by other consumers
+  // (MCP agents, analytics, audit trail). This is fire-and-forget — the
+  // webhook still processes synchronously below.
+  if (emailQueue.isAvailable()) {
+    emailQueue.enqueueInbound({
+      from: fromEmail,
+      to: Array.isArray(data.to) ? data.to.join(', ') : (data.to || ''),
+      subject,
+      text: textBody,
+      html: data.html || '',
+      messageId,
+      source: 'resend-webhook',
+      rawPayload: rawBody,
+    }).catch((err: Error) => {
+      logger.debug('Failed to enqueue inbound to Redis (non-blocking)', { error: err.message });
+    });
+  }
 
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {

@@ -14,7 +14,7 @@
  * Environment variables:
  *   RESEND_API_KEY   - Resend API key (primary provider)
  *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
- *   EMAIL_FROM       - Sender address (default: noreply@dws6.com)
+ *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
@@ -69,7 +69,7 @@ class EmailService {
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
-    this.fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+    this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
     this.resendApiKey = process.env.RESEND_API_KEY;
     this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
@@ -184,6 +184,7 @@ class EmailService {
       try {
         await this.sendViaResend(to, subject, html);
         logger.info('Email sent via Resend', { to, subject });
+        console.log(`📧 EMAIL SENT: From: ${this.fromAddress} | To: ${to} | Subject: ${subject} | Template: ${templateType || 'custom'}`);
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,
@@ -210,6 +211,7 @@ class EmailService {
       try {
         await this.sendViaSendGrid(to, subject, html);
         logger.info('Email sent via SendGrid (fallback)', { to, subject });
+        console.log(`📧 EMAIL SENT (SendGrid): From: ${this.fromAddress} | To: ${to} | Subject: ${subject} | Template: ${templateType || 'custom'}`);
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,

@@ -24,7 +24,7 @@ import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js'
 
 async function sendMorningBriefing(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 
   const data = await collectCockpitData();
   const html = buildCockpitHtml(data);
@@ -60,6 +60,7 @@ async function sendMorningBriefing(): Promise<void> {
 
       if (response.ok) {
         logger.info('CEO Cockpit sent via Resend', { to: recipient });
+        console.log(`📧 MORNING BRIEFING SENT: From: ${fromAddress} | To: ${recipient} | Subject: ${subject}`);
         return;
       }
 
@@ -95,6 +96,7 @@ async function sendMorningBriefing(): Promise<void> {
 
       if (response.ok || response.status === 202) {
         logger.info('CEO Cockpit sent via SendGrid', { to: recipient });
+        console.log(`📧 MORNING BRIEFING SENT (SendGrid): From: ${fromAddress} | To: ${recipient} | Subject: ${subject}`);
         return;
       }
 

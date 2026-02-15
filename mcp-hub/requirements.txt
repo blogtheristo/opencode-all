@@ -1,0 +1,27 @@
+# DWS MCP Coordination Hub - Dependencies
+# Python 3.12+
+
+# Web framework
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+
+# HTTP client
+httpx==0.28.1
+
+# Validation
+pydantic==2.11.3
+
+# Supabase
+supabase==2.13.0
+
+# Redis Streams (for email inbox/outbox integration)
+redis[hiredis]==5.3.0
+
+# Security (ZenFree - replaced aikido_zen Feb 2026)
+# zen-free is loaded from local zen_free.py module
+
+# Observability
+prometheus-fastapi-instrumentator==7.0.2
+
+# Environment
+python-dotenv==1.1.0

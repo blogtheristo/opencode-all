@@ -22,7 +22,9 @@ import { outreachScheduler } from './outreach/index.js';
 import { morningBriefingScheduler } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 
-dotenv.config();
+const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../.env');
+console.log('Loading .env from:', envPath);
+dotenv.config({ path: envPath });
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080; // Cloud Run default
