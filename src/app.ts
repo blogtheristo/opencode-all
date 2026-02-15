@@ -168,6 +168,26 @@ app.use('/api/v1/email', emailRoutes);
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
+// Morning briefing manual trigger (secured by admin key)
+app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    await morningBriefingScheduler.runManually();
+    res.json({ status: 'sent', timestamp: new Date().toISOString() });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual morning briefing failed', { error: msg });
+    res.status(500).json({ error: 'Failed to send briefing', message: msg });
+  }
+});
+
 // ============ ERROR HANDLING ============
 
 // 404 handler
