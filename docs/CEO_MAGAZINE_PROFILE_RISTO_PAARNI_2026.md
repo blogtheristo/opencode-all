@@ -7,6 +7,7 @@ Version: 1.0
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Initial creation - CEO magazine profile for "The 10 Most Innovative CEOs Making a Difference, 2026"
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: SUPERSEDED per board feedback — pay-to-play magazine replaced with 3 earned-credibility artifacts (Founder Positioning Block, LinkedIn Origin Story, Press Pitch Brief)
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -17,7 +18,7 @@ Document Status:
   - Last Modified: 15.02.2026
   - Language: English
   - Languages Available: English
-  - Publication Status: DRAFT
+  - Publication Status: SUPERSEDED — See FOUNDER_POSITIONING_BLOCK.md, LINKEDIN_ORIGIN_STORY_POST.md, PRESS_PITCH_EDGE_AI_COST_STORY.md
 
 ***
 
