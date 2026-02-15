@@ -198,6 +198,15 @@ async def startup():
     else:
         logger.info("ℹ️  Supabase env vars not set — direct logging disabled")
 
+    # --- Sweep buffered JSONL logs from previous crash / restart ---
+    if _supabase or _redis:
+        try:
+            result = await sweep_fallback_logs()
+            if result.get("swept", 0) > 0:
+                logger.info("🧹 Startup sweep: pushed %d buffered log(s)", result["swept"])
+        except Exception as exc:
+            logger.warning("⚠️  Startup sweep failed: %s", exc)
+
 
 @app.on_event("shutdown")
 async def shutdown():
