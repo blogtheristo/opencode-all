@@ -727,6 +727,21 @@ Key documentation files:
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
 
+### Auto-Push Rule (CRITICAL)
+
+**When a PR already exists for the current branch**, every completed task MUST end with commit + push. Do not wait for the user to ask.
+
+**Workflow:**
+1. Complete the requested changes
+2. `git add <specific files>`
+3. `git commit -m "descriptive message"`
+4. `git push origin <branch-name>`
+5. Confirm to the user that the PR has been updated
+
+**Why:** An open PR means the user wants changes delivered to GitHub. Leaving committed work unpushed — or worse, uncommitted — forces the user to manually intervene. Push immediately after every meaningful change.
+
+**Exception:** If the user explicitly says "don't push yet" or "I'll push later", respect that.
+
 ### Worktree Best Practices
 
 **Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
