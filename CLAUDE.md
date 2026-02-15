@@ -742,6 +742,51 @@ Key documentation files:
 
 **Exception:** If the user explicitly says "don't push yet" or "I'll push later", respect that.
 
+### Session Handover Protocol (CRITICAL)
+
+When the context window is getting full (conversation is long, many tools used, compression warnings appear), you MUST perform a **safe session handover** before the session degrades:
+
+**Step 1: Save all work**
+1. Run `git status` — check for ANY uncommitted or unstaged changes
+2. If changes exist: `git add <files>` → `git commit` → `git push`
+3. If on a branch with open PR: confirm push succeeded
+4. If no PR exists: push the branch anyway so work is on GitHub
+
+**Step 2: Verify safety**
+1. Run `git status` again — must show `nothing to commit, working tree clean`
+2. Run `git log --oneline -3` — confirm latest commits are pushed
+3. Check `git diff origin/<branch>..HEAD` — must be empty (local = remote)
+
+**Step 3: Generate continuation prompt**
+Provide the user a ready-to-paste prompt for the new session:
+
+```
+JATKA EDELLISTÄ SESSIOTA / CONTINUE PREVIOUS SESSION
+
+Branch: <branch-name>
+Viimeisin commit: <commit-hash> — <commit-message>
+PR: <PR-URL if exists>
+
+Mitä tehtiin / What was done:
+- <summary of completed work>
+
+Mitä on kesken / What remains:
+- <any pending tasks>
+
+Tiedostot joita muokattiin / Files modified:
+- <list of key files>
+
+Aloita tekemällä: git pull origin <branch-name>
+```
+
+**Step 4: Confirm to user**
+Tell the user:
+- All changes are on GitHub (safe to close)
+- Copy the prompt above to start a new session
+- The new session should `git pull` first
+
+**When to trigger:** Proactively when you notice the conversation is very long. Do NOT wait until the session crashes or context is lost. Better to hand over early with all work saved than to lose context mid-task.
+
 ### Worktree Best Practices
 
 **Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
