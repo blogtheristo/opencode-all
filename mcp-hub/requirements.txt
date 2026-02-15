@@ -17,8 +17,8 @@ supabase==2.13.0
 # Redis Streams (for email inbox/outbox integration)
 redis[hiredis]==5.3.0
 
-# Security (ZenFree - replaced aikido_zen Feb 2026)
-# zen-free is loaded from local zen_free.py module
+# Security: ZenFree (local module zen_free.py, no pip package)
+# Loaded at runtime from repo root — no pip install needed
 
 # Observability
 prometheus-fastapi-instrumentator==7.0.2

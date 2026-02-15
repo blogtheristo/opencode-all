@@ -16,9 +16,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Copy zen_free.py from repo root (ZenFree security module)
-# This is done at build time; docker-compose can also mount it
-COPY --from=context /zen_free.py /app/zen_free.py 2>/dev/null || true
+# zen_free.py is mounted from repo root via docker-compose volume
+# or copied at build time when building from repo root:
+#   docker build -f mcp-hub/Dockerfile --build-context root=. .
+# At runtime the server auto-discovers it via sys.path
 
 # Environment
 ENV PORT=8765
