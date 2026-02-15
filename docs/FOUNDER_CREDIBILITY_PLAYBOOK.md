@@ -77,7 +77,7 @@ Supersedes:
 - DWS IQ 6: Fit for 55 compliance automation for 16 EU industries
 - Edge AI on NVIDIA Jetson: EUR 333k/year cost advantage
 - Fleet MRR: EUR 7-14k | Q1 2026 pilots: EUR 59,900 signed
-- Raising EUR 500k: 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k)
+- Raising EUR 500k: 8 Platinum Industry Captain seats (EUR 50k) — first tranche, best terms
 
 ### What stays out of the bio
 
@@ -254,8 +254,8 @@ EPBD mandates embodied carbon reporting for buildings over 1,000 sqm by 2028. Cu
 - **Monthly infrastructure burn:** EUR 15-50
 - **Funding raised to date:** Bootstrapped + credits
 - **Current raise:** EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
-- **Structure:** 16 Platinum Industry Captains at EUR 50,000 + 16 Deputy Captains at EUR 25,000 (see Page 8)
-- **Total capacity:** EUR 1.2M (16 × EUR 50k + 16 × EUR 25k). Round closes at EUR 500k.
+- **Structure:** 8 Platinum Industry Captains at EUR 50,000 + Deputy Captains at EUR 25,000 (see Page 8)
+- **Second tranche:** Remaining 8 Platinum seats at higher valuation
 
 ### Validation
 
@@ -315,33 +315,38 @@ This flips the value prop: the Captain isn't just investing — they're shaping 
 
 ### The tiers
 
-| Tier | Investment | Seats | Role |
-|------|-----------|-------|------|
-| **Platinum Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) | THE captain of the vertical. Status, visibility, bragging rights. |
-| **Deputy Captain** | EUR 25,000 SAFE | 16 (one per industry) | Rising star. Learns the ropes, builds toward Platinum in a future round. |
-| **Total capacity** | EUR 1.2M | 32 seats | Round closes at EUR 500k |
+**First tranche — EUR 500k SAFE (now open):**
+
+| Tier | Investment | Seats this round | Role |
+|------|-----------|-----------------|------|
+| **Platinum Industry Captain** | EUR 50,000 SAFE | 8 of 16 | THE captain of the vertical. Status, visibility, bragging rights. |
+| **Deputy Captain** | EUR 25,000 SAFE | Available alongside | Rising star. Learns the ropes, builds toward Platinum. |
 | **Valuation cap** | EUR 3.8M | | 20% discount |
+| **Round target** | **EUR 500,000** | | Best terms — before second tranche at higher valuation |
 
-**The 16 industries:**
+**Second tranche (opens after first tranche closes):**
+Remaining 8 Platinum seats + additional Deputy seats. Higher valuation. Early Captains lock in the best terms.
 
-| # | Industry | Platinum (EUR 50k) | Deputy (EUR 25k) |
-|---|----------|-------------------|------------------|
-| 1 | Power & Heat Generation | OPEN | OPEN |
-| 2 | Iron & Steel | OPEN | OPEN |
-| 3 | Cement & Lime | OPEN | OPEN |
-| 4 | Chemicals & Petrochemicals | OPEN | OPEN |
-| 5 | Aviation | OPEN | OPEN |
-| 6 | Maritime Shipping | OPEN | OPEN |
-| 7 | Road Transport & Logistics | OPEN | OPEN |
-| 8 | Construction & Buildings | OPEN | OPEN |
-| 9 | Agriculture | OPEN | OPEN |
-| 10 | Waste Management | OPEN | OPEN |
-| 11 | Aluminium | OPEN | OPEN |
-| 12 | Pulp & Paper | OPEN | OPEN |
-| 13 | Petroleum Refining | OPEN | OPEN |
-| 14 | Food & Beverage | OPEN | OPEN |
-| 15 | Glass & Ceramics | OPEN | OPEN |
-| 16 | Mining | OPEN | OPEN |
+**The 16 industries — tranche allocation:**
+
+| # | Industry | Platinum (EUR 50k) | Tranche |
+|---|----------|-------------------|---------|
+| 1 | Power & Heat Generation | OPEN | 1st |
+| 2 | Iron & Steel | OPEN | 1st |
+| 3 | Cement & Lime | OPEN | 1st |
+| 4 | Chemicals & Petrochemicals | OPEN | 1st |
+| 5 | Aviation | OPEN | 1st |
+| 6 | Maritime Shipping | OPEN | 1st |
+| 7 | Road Transport & Logistics | OPEN | 1st |
+| 8 | Construction & Buildings | OPEN | 1st |
+| 9 | Agriculture | OPEN | 2nd |
+| 10 | Waste Management | OPEN | 2nd |
+| 11 | Aluminium | OPEN | 2nd |
+| 12 | Pulp & Paper | OPEN | 2nd |
+| 13 | Petroleum Refining | OPEN | 2nd |
+| 14 | Food & Beverage | OPEN | 2nd |
+| 15 | Glass & Ceramics | OPEN | 2nd |
+| 16 | Mining | OPEN | 2nd |
 
 ### What both tiers get
 
@@ -388,7 +393,7 @@ Two tracks. Never cross the streams.
 **Vineyard Owner language** goes in: VC decks, institutional pitches, fund-level conversations.
 
 **Vineyard Owner pitch update:**
-> We're raising EUR 500k via SAFE notes across 16 industries — total capacity EUR 1.2M. Each industry gets one Platinum Captain (EUR 50k) and one Deputy (EUR 25k). This isn't a generic angel round — it's a structured crew where every investor has domain accountability and engagement duties. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
+> We're raising EUR 500k via SAFE notes — 8 Platinum Industry Captain seats at EUR 50k each, plus Deputy seats at EUR 25k. First tranche at EUR 3.8M cap. Each Captain owns one of 16 EU regulated verticals and shapes the product for their industry. This isn't a generic angel round — it's a structured crew with domain accountability, engagement duties, and a second tranche at higher valuation for latecomers. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
 
 ### The LinkedIn post (ready to publish)
 
@@ -543,7 +548,7 @@ Dark-themed, one fact per slide, DWS brand.
 | **3 — Solution** | "DWS IQ 6 + Firehorse V2: automated compliance in hours, not weeks. Edge AI on NVIDIA Jetson. Works on-site. No cloud dependency." |
 | **4 — Numbers** | "EUR 333k/year cloud cost savings. EUR 15-50/month total infrastructure. 100ms inference latency." |
 | **5 — Traction** | "EUR 7-14k MRR (Fleet division). EUR 59,900 in Q1 2026 pilot contracts. 16 EU industries covered." |
-| **6 — CTA** | "Become Captain of your industry. 16 verticals. Platinum EUR 50k / Deputy EUR 25k. DM @ristopaarni" |
+| **6 — CTA** | "Become Captain of your industry. 8 Platinum seats open. EUR 50k. Best terms before second tranche. DM @ristopaarni" |
 
 ### B. Executive fact sheet
 
@@ -563,8 +568,8 @@ Dark-themed, one fact per slide, DWS brand.
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Raise** | EUR 500k SAFE (EUR 3.8M cap, 20% discount) |
-| **Structure** | 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k) |
-| **Total capacity** | EUR 1.2M (round closes at EUR 500k) |
+| **Structure** | 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k) — first tranche |
+| **Second tranche** | Remaining 8 Platinum seats at higher valuation |
 | **Languages** | Finnish, English, Swedish |
 | **Contact** | risto@lifetime.fi |
 | **LinkedIn** | linkedin.com/in/ristopaarni |

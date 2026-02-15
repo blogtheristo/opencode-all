@@ -181,8 +181,8 @@ Lifetime Oy is not pre-revenue. The numbers:
 - Monthly infrastructure burn: EUR 15-50
 - Bootstrapped to revenue before raising external capital
 - Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
-- Structure: 16 Platinum Industry Captain seats (EUR 50k) + 16 Deputy Captain seats (EUR 25k) — one of each per industry
-- Total capacity: EUR 1.2M (16 × EUR 50k + 16 × EUR 25k). Round closes at EUR 500k.
+- Structure: 8 Platinum Industry Captain seats (EUR 50k) in first tranche + Deputy seats (EUR 25k)
+- Second tranche: remaining 8 Platinum seats at higher valuation
 
 **External validation:**
 
@@ -228,41 +228,44 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ## Page 8 — Become Captain of Your Industry
 
-DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering two tiers of founding crew per industry. Not a generic angel round — a structured crew where every investor owns a vertical.
+DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering 8 Platinum Industry Captain seats in the first tranche. The remaining 8 Platinum seats and all Deputy seats open in a second tranche at a higher valuation.
 
 **The tagline:** *Become Captain of your industry.*
 
 **The outreach one-liner:** *Bring your industry into the leading Fit for 55 platform and mold it to support your business.*
 
-**The tiers:**
+**First tranche — EUR 500k SAFE (now open):**
 
-| Tier | Investment | Seats | Role |
-|------|-----------|-------|------|
-| **Platinum Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) | THE captain of the vertical. Status, visibility, bragging rights. |
-| **Deputy Captain** | EUR 25,000 SAFE | 16 (one per industry) | Rising star. Learns the ropes, builds toward Platinum in a future round. |
+| Tier | Investment | Seats this round | Role |
+|------|-----------|-----------------|------|
+| **Platinum Industry Captain** | EUR 50,000 SAFE | 8 of 16 | THE captain of the vertical. Status, visibility, bragging rights. |
+| **Deputy Captain** | EUR 25,000 SAFE | Available alongside | Rising star. Learns the ropes, builds toward Platinum. |
 | **Valuation cap** | EUR 3.8M | | 20% discount |
-| **Round target** | **EUR 500,000** | | Total capacity: EUR 1.2M |
+| **Round target** | **EUR 500,000** | | Best terms — before second tranche at higher valuation |
+
+**Second tranche (opens after first tranche closes):**
+Remaining 8 Platinum seats + additional Deputy seats. Higher valuation. Early Captains lock in the best terms.
 
 **The 16 industry seats:**
 
-| # | Industry | Platinum (EUR 50k) | Deputy (EUR 25k) |
-|---|----------|-------------------|------------------|
-| 1 | Power & Heat Generation | OPEN | OPEN |
-| 2 | Iron & Steel | OPEN | OPEN |
-| 3 | Cement & Lime | OPEN | OPEN |
-| 4 | Chemicals & Petrochemicals | OPEN | OPEN |
-| 5 | Aviation | OPEN | OPEN |
-| 6 | Maritime Shipping | OPEN | OPEN |
-| 7 | Road Transport & Logistics | OPEN | OPEN |
-| 8 | Construction & Buildings | OPEN | OPEN |
-| 9 | Agriculture | OPEN | OPEN |
-| 10 | Waste Management | OPEN | OPEN |
-| 11 | Aluminium | OPEN | OPEN |
-| 12 | Pulp & Paper | OPEN | OPEN |
-| 13 | Petroleum Refining | OPEN | OPEN |
-| 14 | Food & Beverage | OPEN | OPEN |
-| 15 | Glass & Ceramics | OPEN | OPEN |
-| 16 | Mining | OPEN | OPEN |
+| # | Industry | Platinum (EUR 50k) | Tranche |
+|---|----------|-------------------|---------|
+| 1 | Power & Heat Generation | OPEN | 1st |
+| 2 | Iron & Steel | OPEN | 1st |
+| 3 | Cement & Lime | OPEN | 1st |
+| 4 | Chemicals & Petrochemicals | OPEN | 1st |
+| 5 | Aviation | OPEN | 1st |
+| 6 | Maritime Shipping | OPEN | 1st |
+| 7 | Road Transport & Logistics | OPEN | 1st |
+| 8 | Construction & Buildings | OPEN | 1st |
+| 9 | Agriculture | OPEN | 2nd |
+| 10 | Waste Management | OPEN | 2nd |
+| 11 | Aluminium | OPEN | 2nd |
+| 12 | Pulp & Paper | OPEN | 2nd |
+| 13 | Petroleum Refining | OPEN | 2nd |
+| 14 | Food & Beverage | OPEN | 2nd |
+| 15 | Glass & Ceramics | OPEN | 2nd |
+| 16 | Mining | OPEN | 2nd |
 
 **What both tiers get:**
 
@@ -293,7 +296,7 @@ A Deputy who doesn't engage isn't crew — they're cargo. The structure self-sel
 
 A Platinum Captain of Construction understands building sites. A Platinum Captain of Maritime knows what happens mid-ocean. A Platinum Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
 
-32 seats across 16 industries. One Platinum, one Deputy per vertical. When a seat is taken, it's gone. The round closes at EUR 500k.
+8 Platinum seats in the first tranche. Best terms. Early Captains lock in EUR 3.8M cap before the second tranche opens at a higher valuation. When a seat is taken, it's gone.
 
 ---
 
@@ -363,7 +366,7 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
-| **Current raise** | EUR 500k SAFE (capacity EUR 1.2M) — 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k) |
+| **Current raise** | EUR 500k SAFE — 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k). Second tranche at higher valuation. |
 | **Valuation cap** | EUR 3.8M (20% discount) |
 | **Accelerator** | Peachscore Cohort 25 |
 | **InvestEU** | Project INPO-20254383 |
