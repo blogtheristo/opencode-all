@@ -449,18 +449,8 @@ DM me or comment below. 16 verticals. Platinum or Deputy. When a seat is taken, 
 
 ### DM templates (for Terhi and BA outreach)
 
-**Platinum Captain DM:**
-> Hey [Name] — I'm building the leading Fit for 55 compliance platform across 16 EU industries, and the Platinum Captain seat for [INDUSTRY] is open. Thought of you because [specific reason — their industry seniority/network].
->
-> The idea: bring your industry into the platform and mold it to support your business. You're not just investing — you're shaping how [INDUSTRY] compliance gets automated. Named vertical lead, annual strategy session with me on the product roadmap, and follow-on rights.
->
-> Quick numbers: DWS IQ 6 runs edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. EUR 7-14k MRR today. Two pilots signed for Q1. EUR 15-50/month total infrastructure.
->
-> Platinum Captain is EUR 50k SAFE (EUR 3.8M cap, 20% discount). 16 industries, one Captain each. When the seat is taken, it's gone.
->
-> You know [INDUSTRY] better than anyone. Would you want to lead it?
->
-> Happy to send the one-pager or jump on a 15-min call. What works?
+**Platinum Captain DM (primary — use this):**
+> Hi [Name], I'm Risto, founder of Lifetime Group (Helsinki). We built DWS IQ 6, the leading Fit for 55 "Situation Room" for EU industrial portfolios. I'm opening 8 Platinum Industry Captain seats in our EUR 500k SAFE at EUR 3.8M cap. Each Captain owns one of 16 EU regulated verticals: bring your industry to the platform and mold it to support your business. You get founding login access to the World Model + Situation Room Reports for your vertical, quarterly briefings with me, and priority routing for 1 design partner/pilot intro. Early Captains lock in the best terms before we open the second tranche at a higher valuation. Open to a 20 min chat this week?
 
 **Deputy Captain DM:**
 > Hey [Name] — I'm building a climate AI platform across 16 EU industries and looking for a Deputy Captain for [INDUSTRY]. Thought of you because [specific reason — their emerging expertise/ambition].
