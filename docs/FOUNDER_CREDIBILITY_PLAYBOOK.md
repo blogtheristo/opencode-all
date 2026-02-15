@@ -305,7 +305,13 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ### The concept
 
-DWS IQ 6 covers 16 EU industries. Each industry gets one Platinum Captain and one Deputy. Business angels don't just invest in a company — they become the captain of a specific industry vertical. They bring domain knowledge, not just capital. "Become Captain of your industry."
+DWS IQ 6 covers 16 EU industries. Each industry gets one Platinum Captain and one Deputy. Business angels don't just invest in a company — they become the captain of a specific industry vertical. They bring domain knowledge, not just capital.
+
+**Tagline:** *Become Captain of your industry.*
+
+**Outreach one-liner:** *Bring your industry into the leading Fit for 55 platform and mold it to support your business.*
+
+This flips the value prop: the Captain isn't just investing — they're shaping the product for their vertical. That's real ownership, not passive capital.
 
 ### The tiers
 
@@ -423,7 +429,7 @@ The part that matters to an engineer:
 
 Power. Steel. Cement. Chemicals. Aviation. Maritime. Transport. Construction. Agriculture. Waste. Aluminium. Pulp & Paper. Petroleum. Food & Beverage. Glass. Mining.
 
-**Platinum Industry Captain** (EUR 50k) — you're THE captain of your vertical. Named lead. Annual strategy session. Status, visibility, bragging rights.
+**Platinum Industry Captain** (EUR 50k) — bring your industry into the platform and mold it to support your business. Named lead. Annual strategy session. You shape the product for your vertical.
 
 **Deputy Captain** (EUR 25k) — rising star slot. Full access, real duties, and a path to Platinum in the next round.
 
@@ -444,13 +450,15 @@ DM me or comment below. 16 verticals. Platinum or Deputy. When a seat is taken, 
 ### DM templates (for Terhi and BA outreach)
 
 **Platinum Captain DM:**
-> Hey [Name] — I'm looking for the founding Platinum Captain for [INDUSTRY] in a climate AI platform that's already generating revenue. Thought of you because [specific reason — their industry seniority/network].
+> Hey [Name] — I'm building the leading Fit for 55 compliance platform across 16 EU industries, and the Platinum Captain seat for [INDUSTRY] is open. Thought of you because [specific reason — their industry seniority/network].
 >
-> Quick version: DWS IQ 6 automates Fit for 55 compliance for EU industrial companies. We run edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. Fleet division does EUR 7-14k MRR today. Two pilots signed for Q1.
+> The idea: bring your industry into the platform and mold it to support your business. You're not just investing — you're shaping how [INDUSTRY] compliance gets automated. Named vertical lead, annual strategy session with me on the product roadmap, and follow-on rights.
 >
-> I'm raising EUR 500k via SAFE (EUR 3.8M cap, 20% discount). The structure: 16 industries, one Platinum Captain (EUR 50k) and one Deputy (EUR 25k) per vertical. Platinum gets named vertical lead, annual strategy session, and follow-on rights.
+> Quick numbers: DWS IQ 6 runs edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. EUR 7-14k MRR today. Two pilots signed for Q1. EUR 15-50/month total infrastructure.
 >
-> The [INDUSTRY] Platinum seat is still open. You know this space better than anyone — would you want to lead it?
+> Platinum Captain is EUR 50k SAFE (EUR 3.8M cap, 20% discount). 16 industries, one Captain each. When the seat is taken, it's gone.
+>
+> You know [INDUSTRY] better than anyone. Would you want to lead it?
 >
 > Happy to send the one-pager or jump on a 15-min call. What works?
 

@@ -232,6 +232,8 @@ DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering two 
 
 **The tagline:** *Become Captain of your industry.*
 
+**The outreach one-liner:** *Bring your industry into the leading Fit for 55 platform and mold it to support your business.*
+
 **The tiers:**
 
 | Tier | Investment | Seats | Role |
