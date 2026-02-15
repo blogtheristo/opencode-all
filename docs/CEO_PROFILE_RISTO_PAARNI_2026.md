@@ -8,6 +8,7 @@ Version: 1.0
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: New 10-page CEO profile — facts-first, no paid placement, incorporates board feedback and Fleet Captain framework. Replaces CEO_MAGAZINE_PROFILE_RISTO_PAARNI_2026.md.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured raise from EUR 150k/6 Fleet Captains to EUR 500k/16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k). One seat per industry. Updated Pages 6, 8, 10. Vineyard Owner VC messaging updated.
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added engagement duties for Deputies. Total capacity EUR 1.2M, round target EUR 500k. Updated Pages 6, 8, 10.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -180,7 +181,8 @@ Lifetime Oy is not pre-revenue. The numbers:
 - Monthly infrastructure burn: EUR 15-50
 - Bootstrapped to revenue before raising external capital
 - Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
-- Structure: 16 Industry Captain seats (EUR 50k) + 16 Deputy Captain seats (EUR 30k) — one of each per industry
+- Structure: 16 Platinum Industry Captain seats (EUR 50k) + 16 Deputy Captain seats (EUR 25k) — one of each per industry
+- Total capacity: EUR 1.2M (16 × EUR 50k + 16 × EUR 25k). Round closes at EUR 500k.
 
 **External validation:**
 
@@ -226,42 +228,41 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ## Page 8 — Become Captain of Your Industry
 
-DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering one Industry Captain and one Deputy Captain seat per industry. Not a generic angel round — a structured crew where every investor owns a vertical.
+DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering two tiers of founding crew per industry. Not a generic angel round — a structured crew where every investor owns a vertical.
 
 **The tagline:** *Become Captain of your industry.*
 
-**The structure:**
+**The tiers:**
 
-| Seat | Investment | Seats available |
-|------|-----------|-----------------|
-| **Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) |
-| **Deputy Captain** | EUR 30,000 SAFE | 16 (one per industry) |
-| **Total seats** | | **32** |
-| **Valuation cap** | EUR 3.8M | 20% discount |
-| **Raise target** | **EUR 500,000** | |
+| Tier | Investment | Seats | Role |
+|------|-----------|-------|------|
+| **Platinum Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) | THE captain of the vertical. Status, visibility, bragging rights. |
+| **Deputy Captain** | EUR 25,000 SAFE | 16 (one per industry) | Rising star. Learns the ropes, builds toward Platinum in a future round. |
+| **Valuation cap** | EUR 3.8M | | 20% discount |
+| **Round target** | **EUR 500,000** | | Total capacity: EUR 1.2M |
 
-**The 16 Industry Captain seats:**
+**The 16 industry seats:**
 
-| # | Industry | Captain | Deputy |
-|---|----------|---------|--------|
-| 1 | Power & Heat Generation | EUR 50k | EUR 30k |
-| 2 | Iron & Steel | EUR 50k | EUR 30k |
-| 3 | Cement & Lime | EUR 50k | EUR 30k |
-| 4 | Chemicals & Petrochemicals | EUR 50k | EUR 30k |
-| 5 | Aviation | EUR 50k | EUR 30k |
-| 6 | Maritime Shipping | EUR 50k | EUR 30k |
-| 7 | Road Transport & Logistics | EUR 50k | EUR 30k |
-| 8 | Construction & Buildings | EUR 50k | EUR 30k |
-| 9 | Agriculture | EUR 50k | EUR 30k |
-| 10 | Waste Management | EUR 50k | EUR 30k |
-| 11 | Aluminium | EUR 50k | EUR 30k |
-| 12 | Pulp & Paper | EUR 50k | EUR 30k |
-| 13 | Petroleum Refining | EUR 50k | EUR 30k |
-| 14 | Food & Beverage | EUR 50k | EUR 30k |
-| 15 | Glass & Ceramics | EUR 50k | EUR 30k |
-| 16 | Mining | EUR 50k | EUR 30k |
+| # | Industry | Platinum (EUR 50k) | Deputy (EUR 25k) |
+|---|----------|-------------------|------------------|
+| 1 | Power & Heat Generation | OPEN | OPEN |
+| 2 | Iron & Steel | OPEN | OPEN |
+| 3 | Cement & Lime | OPEN | OPEN |
+| 4 | Chemicals & Petrochemicals | OPEN | OPEN |
+| 5 | Aviation | OPEN | OPEN |
+| 6 | Maritime Shipping | OPEN | OPEN |
+| 7 | Road Transport & Logistics | OPEN | OPEN |
+| 8 | Construction & Buildings | OPEN | OPEN |
+| 9 | Agriculture | OPEN | OPEN |
+| 10 | Waste Management | OPEN | OPEN |
+| 11 | Aluminium | OPEN | OPEN |
+| 12 | Pulp & Paper | OPEN | OPEN |
+| 13 | Petroleum Refining | OPEN | OPEN |
+| 14 | Food & Beverage | OPEN | OPEN |
+| 15 | Glass & Ceramics | OPEN | OPEN |
+| 16 | Mining | OPEN | OPEN |
 
-**What every Captain and Deputy gets:**
+**What both tiers get:**
 
 - **Founding login** to the Lifetime World Model + Situation Room Reports — the same intelligence layer the platform runs on
 - **Quarterly briefings** — full transparency, no black box
@@ -269,13 +270,28 @@ DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering one 
 - **Industry-specific intelligence** — regulatory updates, competitive signals, and compliance alerts for their vertical
 - **Founding crew identity** — they're on the ship before it scales
 
-**Why Industry Captains, not generic angels:**
+**What Platinum gets on top:**
 
-A Captain of Construction understands building sites. A Captain of Maritime knows what happens mid-ocean. A Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital. They become the crew member who knows their part of the ship.
+- **Named vertical lead** — they are THE Captain of their industry, publicly acknowledged
+- **Annual strategy session** — 1:1 with Risto on their industry's product roadmap
+- **First right of refusal** on follow-on rounds for their vertical
 
-An Industry Captain at EUR 50k leads the vertical. A Deputy Captain at EUR 30k is the lower entry point for angels who want skin in the game without the full commitment. Both get the same access. Both are crew.
+**Deputy Captain engagement duties:**
 
-32 seats across 16 industries. One Captain, one Deputy per vertical. When a seat is taken, it's gone.
+A EUR 25k ticket is low enough to attract passive capital. The whole point of the Captain program is active participation. Deputies are not discount seats — they're apprentice captains with real responsibilities:
+
+- **Mandatory quarterly briefing attendance** — no silent passengers
+- **One industry introduction per quarter** — a customer lead, a pilot contact, a domain expert from their network
+- **Product feedback on industry-specific features** — they test what they know
+- **First right of refusal to upgrade to Platinum** if their industry's Captain seat opens in a future round
+
+A Deputy who doesn't engage isn't crew — they're cargo. The structure self-selects for people who actually want to work.
+
+**Why this works:**
+
+A Platinum Captain of Construction understands building sites. A Platinum Captain of Maritime knows what happens mid-ocean. A Platinum Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
+
+32 seats across 16 industries. One Platinum, one Deputy per vertical. When a seat is taken, it's gone. The round closes at EUR 500k.
 
 ---
 
@@ -345,7 +361,7 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
-| **Current raise** | EUR 500k SAFE — 16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k) |
+| **Current raise** | EUR 500k SAFE (capacity EUR 1.2M) — 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k) |
 | **Valuation cap** | EUR 3.8M (20% discount) |
 | **Accelerator** | Peachscore Cohort 25 |
 | **InvestEU** | Project INPO-20254383 |

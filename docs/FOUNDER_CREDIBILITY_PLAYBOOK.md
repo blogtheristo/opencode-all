@@ -8,6 +8,7 @@ Version: 1.0
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Consolidated 10-page playbook replacing paid magazine profile + 3 separate artifacts. Incorporates board feedback: facts over self-congratulation, earned credibility over pay-to-play, Fleet Captain BA framework, dual messaging strategy, press pitch, and LinkedIn execution plan.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured from 6 Fleet Captains (EUR 150k) to 16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k) = EUR 500k raise. Updated Pages 1, 6, 8, 10. Dual messaging Vineyard Owner track updated for EUR 500k.
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added Deputy engagement duties (mandatory briefings, 1 intro/quarter, product feedback, upgrade path). Total capacity EUR 1.2M, round target EUR 500k.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -76,7 +77,7 @@ Supersedes:
 - DWS IQ 6: Fit for 55 compliance automation for 16 EU industries
 - Edge AI on NVIDIA Jetson: EUR 333k/year cost advantage
 - Fleet MRR: EUR 7-14k | Q1 2026 pilots: EUR 59,900 signed
-- Raising EUR 500k: 16 Industry Captain seats (EUR 50k) + 16 Deputy seats (EUR 30k)
+- Raising EUR 500k: 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k)
 
 ### What stays out of the bio
 
@@ -253,7 +254,8 @@ EPBD mandates embodied carbon reporting for buildings over 1,000 sqm by 2028. Cu
 - **Monthly infrastructure burn:** EUR 15-50
 - **Funding raised to date:** Bootstrapped + credits
 - **Current raise:** EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
-- **Structure:** 16 Industry Captains at EUR 50,000 + 16 Deputy Captains at EUR 30,000 (see Page 8)
+- **Structure:** 16 Platinum Industry Captains at EUR 50,000 + 16 Deputy Captains at EUR 25,000 (see Page 8)
+- **Total capacity:** EUR 1.2M (16 × EUR 50k + 16 × EUR 25k). Round closes at EUR 500k.
 
 ### Validation
 
@@ -303,21 +305,20 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ### The concept
 
-DWS IQ 6 covers 16 EU industries. Each industry gets one Captain and one Deputy. Business angels don't just invest in a company — they become the captain of a specific industry vertical. They bring domain knowledge, not just capital. "Become Captain of your industry."
+DWS IQ 6 covers 16 EU industries. Each industry gets one Platinum Captain and one Deputy. Business angels don't just invest in a company — they become the captain of a specific industry vertical. They bring domain knowledge, not just capital. "Become Captain of your industry."
 
-### The offer
+### The tiers
 
-**16 Industry Captain seats** at EUR 50,000 SAFE + **16 Deputy Captain seats** at EUR 30,000 SAFE (EUR 3.8M cap, 20% discount). Total raise: EUR 500,000.
-
-| Seat | Investment | Available |
-|------|-----------|-----------|
-| **Industry Captain** | EUR 50,000 | 16 (one per industry) |
-| **Deputy Captain** | EUR 30,000 | 16 (one per industry) |
-| **Total seats** | | **32** |
+| Tier | Investment | Seats | Role |
+|------|-----------|-------|------|
+| **Platinum Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) | THE captain of the vertical. Status, visibility, bragging rights. |
+| **Deputy Captain** | EUR 25,000 SAFE | 16 (one per industry) | Rising star. Learns the ropes, builds toward Platinum in a future round. |
+| **Total capacity** | EUR 1.2M | 32 seats | Round closes at EUR 500k |
+| **Valuation cap** | EUR 3.8M | | 20% discount |
 
 **The 16 industries:**
 
-| # | Industry | Captain (EUR 50k) | Deputy (EUR 30k) |
+| # | Industry | Platinum (EUR 50k) | Deputy (EUR 25k) |
 |---|----------|-------------------|------------------|
 | 1 | Power & Heat Generation | OPEN | OPEN |
 | 2 | Iron & Steel | OPEN | OPEN |
@@ -336,18 +337,36 @@ DWS IQ 6 covers 16 EU industries. Each industry gets one Captain and one Deputy.
 | 15 | Glass & Ceramics | OPEN | OPEN |
 | 16 | Mining | OPEN | OPEN |
 
-Each Captain and Deputy gets:
+### What both tiers get
+
 - **Founding login** to the World Model + Situation Room Reports
 - **Quarterly briefings** — full transparency, no black box
 - **Priority routing** for 1 design partner or pilot introduction in their industry
 - **Industry-specific intelligence** — regulatory updates, competitive signals, compliance alerts for their vertical
 - **Founding crew identity** — they're on the ship before it scales
 
-### Why Industry Captains work
+### What Platinum gets on top
 
-A Captain of Construction understands building sites. A Captain of Maritime knows what happens mid-ocean. A Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
+- **Named vertical lead** — they are THE Captain of their industry, publicly acknowledged
+- **Annual strategy session** — 1:1 with Risto on their industry's product roadmap
+- **First right of refusal** on follow-on rounds for their vertical
 
-An Industry Captain at EUR 50k leads the vertical. A Deputy Captain at EUR 30k is the lower entry point for angels who want skin in the game. Both get the same access. Both are crew.
+### Deputy Captain engagement duties (CRITICAL)
+
+At EUR 25k, the Deputy ticket is low enough to attract passive capital. The whole point of the Captain program is active participation. Deputies are not discount seats — they're apprentice captains with real responsibilities:
+
+- **Mandatory quarterly briefing attendance** — no silent passengers
+- **One industry introduction per quarter** — a customer lead, a pilot contact, a domain expert from their network
+- **Product feedback on industry-specific features** — they test what they know
+- **First right of refusal to upgrade to Platinum** if their industry's Captain seat opens in a future round
+
+A Deputy who doesn't engage isn't crew — they're cargo. The structure self-selects for people who actually want to work.
+
+### Why this tiering works
+
+A Platinum Captain of Construction understands building sites. A Platinum Captain of Maritime knows what happens mid-ocean. A Platinum Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
+
+The Deputy tier gives rising stars a path in at EUR 25k — accessible, but with real duties. They earn their way to Platinum. No free rides.
 
 ### Dual messaging framework
 
@@ -355,14 +374,15 @@ Two tracks. Never cross the streams.
 
 | Track | Audience | Core metaphor | Emotional driver |
 |-------|----------|---------------|-----------------|
-| **Industry Captain** | Business Angels | "Become Captain of your industry" | Ownership, domain identity, belonging |
-| **Vineyard Owner** | VCs | "16 verticals, one platform — plant once, harvest across every industry" | Repeatable process, compounding moat, EUR 500k structure |
+| **Platinum Captain** | Business Angels (senior) | "Become THE Captain of your industry" | Status, ownership, domain identity |
+| **Deputy Captain** | Business Angels (emerging) | "Rising star — learn the ropes, build toward Platinum" | Aspiration, access, growth path |
+| **Vineyard Owner** | VCs | "16 verticals, one platform — plant once, harvest across every industry" | Repeatable process, compounding moat, EUR 1.2M capacity |
 
 **Captain language** goes in: LinkedIn posts, BA DMs, angel investor conversations.
 **Vineyard Owner language** goes in: VC decks, institutional pitches, fund-level conversations.
 
 **Vineyard Owner pitch update:**
-> We're raising EUR 500k via 32 SAFE notes across 16 industries. Each industry gets one Captain (EUR 50k) and one Deputy (EUR 30k). This isn't a generic angel round — it's a structured crew where every investor has domain accountability. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
+> We're raising EUR 500k via SAFE notes across 16 industries — total capacity EUR 1.2M. Each industry gets one Platinum Captain (EUR 50k) and one Deputy (EUR 25k). This isn't a generic angel round — it's a structured crew where every investor has domain accountability and engagement duties. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
 
 ### The LinkedIn post (ready to publish)
 
@@ -378,7 +398,7 @@ Two tracks. Never cross the streams.
 
 There's a line in Forrest Gump that's stuck with me for years. Bubba doesn't sell Forrest on the economics of shrimping. He makes him feel like he belongs on that boat. He gives him a role, a purpose, and a deck to stand on.
 
-That's what I'm building. Not a shrimp boat. A climate intelligence platform that covers 16 EU industries. And I'm looking for 16 Industry Captains — one per vertical.
+That's what I'm building. Not a shrimp boat. A climate intelligence platform that covers 16 EU industries. And I'm looking for 16 Platinum Industry Captains — one per vertical.
 
 **Here's the story.**
 
@@ -399,13 +419,17 @@ The part that matters to an engineer:
 
 **Here's where the captains come in.**
 
-16 industries. 16 Captain seats. One per vertical.
+16 industries. Two tiers. One of each per vertical.
 
 Power. Steel. Cement. Chemicals. Aviation. Maritime. Transport. Construction. Agriculture. Waste. Aluminium. Pulp & Paper. Petroleum. Food & Beverage. Glass. Mining.
 
-Each Industry Captain (EUR 50k) leads a vertical. Each Deputy Captain (EUR 30k) joins alongside. Both get founding access to the World Model, quarterly briefings, and priority pilot introductions in their industry.
+**Platinum Industry Captain** (EUR 50k) — you're THE captain of your vertical. Named lead. Annual strategy session. Status, visibility, bragging rights.
 
-A Captain of Construction understands building sites. A Captain of Maritime knows what happens mid-ocean. A Captain of Chemicals has the network that opens procurement doors. This isn't passive capital — it's domain knowledge at the helm.
+**Deputy Captain** (EUR 25k) — rising star slot. Full access, real duties, and a path to Platinum in the next round.
+
+A Platinum Captain of Construction understands building sites. A Platinum Captain of Maritime knows what happens mid-ocean. A Platinum Captain of Chemicals has the network that opens procurement doors. This isn't passive capital — it's domain knowledge at the helm.
+
+Both tiers get founding World Model access, quarterly briefings, and priority pilot introductions. But Deputies earn their seat — mandatory attendance, one industry intro per quarter, product feedback. No silent passengers.
 
 The regulations are written. The deadlines are set. CBAM is fully live this year. CSRD is expanding. ETS2 hits in 2027. EPBD embodied carbon mandates land in 2028.
 
@@ -413,23 +437,31 @@ The compliance wave is not coming. It's here. And we built the boat.
 
 **Which industry is yours?**
 
-DM me or comment below. 16 verticals. One Captain each. When a seat is taken, it's gone.
+DM me or comment below. 16 verticals. Platinum or Deputy. When a seat is taken, it's gone.
 
 ---
 
-### DM template (for Terhi and BA outreach)
+### DM templates (for Terhi and BA outreach)
 
-**Opening:**
-> Hey [Name] — I'm looking for the founding Industry Captain for [INDUSTRY] in a climate AI platform that's already generating revenue. Thought of you because [specific reason — their industry background].
-
-**Body:**
+**Platinum Captain DM:**
+> Hey [Name] — I'm looking for the founding Platinum Captain for [INDUSTRY] in a climate AI platform that's already generating revenue. Thought of you because [specific reason — their industry seniority/network].
+>
 > Quick version: DWS IQ 6 automates Fit for 55 compliance for EU industrial companies. We run edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. Fleet division does EUR 7-14k MRR today. Two pilots signed for Q1.
 >
-> I'm raising EUR 500k via SAFE (EUR 3.8M cap, 20% discount). The structure: 16 industries, one Captain (EUR 50k) and one Deputy (EUR 30k) per vertical. Each gets founding World Model access, quarterly briefings, and priority pilot introductions in their industry.
+> I'm raising EUR 500k via SAFE (EUR 3.8M cap, 20% discount). The structure: 16 industries, one Platinum Captain (EUR 50k) and one Deputy (EUR 25k) per vertical. Platinum gets named vertical lead, annual strategy session, and follow-on rights.
 >
-> The [INDUSTRY] Captain seat is still open. You know this space — would you want to lead it?
+> The [INDUSTRY] Platinum seat is still open. You know this space better than anyone — would you want to lead it?
 >
 > Happy to send the one-pager or jump on a 15-min call. What works?
+
+**Deputy Captain DM:**
+> Hey [Name] — I'm building a climate AI platform across 16 EU industries and looking for a Deputy Captain for [INDUSTRY]. Thought of you because [specific reason — their emerging expertise/ambition].
+>
+> Quick version: DWS IQ 6 automates Fit for 55 compliance. Edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud. Already generating EUR 7-14k MRR.
+>
+> Deputy Captain is EUR 25k SAFE (EUR 3.8M cap, 20% discount). You get full World Model access, quarterly briefings, and priority pilot intros in [INDUSTRY]. Real duties: one industry intro per quarter, product feedback, briefing attendance. And first right to upgrade to Platinum in the next round.
+>
+> Interested? Happy to walk through it on a 15-min call.
 
 ---
 
@@ -476,7 +508,7 @@ The economics: they deploy NVIDIA Jetson Orin Nano devices at the edge — const
 
 The founder, Risto Paarni (M.Sc. Industrial Management, 35 years in industrial IT), argues that cloud-dependent AI platforms fundamentally don't work for heavy industry — construction sites don't have reliable internet, factories have air-gapped networks, ships operate mid-ocean.
 
-The company is already generating EUR 7-14k MRR from its Fleet division and has signed EUR 59,900 in Q1 2026 pilot contracts. They're raising EUR 500k via SAFE at a EUR 3.8M valuation — structured as 16 Industry Captain seats (EUR 50k each) and 16 Deputy Captain seats (EUR 30k each), one per regulated industry.
+The company is already generating EUR 7-14k MRR from its Fleet division and has signed EUR 59,900 in Q1 2026 pilot contracts. They're raising EUR 500k via SAFE at a EUR 3.8M valuation — structured as 16 Platinum Industry Captains (EUR 50k each) and 16 Deputy Captains (EUR 25k each), one per regulated industry.
 
 Happy to connect you with Risto for a 20-minute call. He's technical — he'll talk architecture, not marketing.
 
@@ -513,7 +545,7 @@ Dark-themed, one fact per slide, DWS brand.
 | **3 — Solution** | "DWS IQ 6 + Firehorse V2: automated compliance in hours, not weeks. Edge AI on NVIDIA Jetson. Works on-site. No cloud dependency." |
 | **4 — Numbers** | "EUR 333k/year cloud cost savings. EUR 15-50/month total infrastructure. 100ms inference latency." |
 | **5 — Traction** | "EUR 7-14k MRR (Fleet division). EUR 59,900 in Q1 2026 pilot contracts. 16 EU industries covered." |
-| **6 — CTA** | "Become Captain of your industry. 16 verticals. One Captain each. EUR 50k Captain / EUR 30k Deputy. DM @ristopaarni" |
+| **6 — CTA** | "Become Captain of your industry. 16 verticals. Platinum EUR 50k / Deputy EUR 25k. DM @ristopaarni" |
 
 ### B. Executive fact sheet
 
@@ -533,7 +565,8 @@ Dark-themed, one fact per slide, DWS brand.
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Raise** | EUR 500k SAFE (EUR 3.8M cap, 20% discount) |
-| **Structure** | 16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k) |
+| **Structure** | 16 Platinum Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 25k) |
+| **Total capacity** | EUR 1.2M (round closes at EUR 500k) |
 | **Languages** | Finnish, English, Swedish |
 | **Contact** | risto@lifetime.fi |
 | **LinkedIn** | linkedin.com/in/ristopaarni |
