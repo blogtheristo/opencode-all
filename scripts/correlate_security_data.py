@@ -104,18 +104,53 @@ class SecurityCorrelator:
         return audit_gaps
 
     def parse_attack_log(self, attacks_path: str) -> list[dict]:
-        """Parse ZenFree / legacy attack data (JSON or JSONL)"""
+        """Parse ZenFree / legacy attack data (JSON or JSONL).
+
+        - `.json`  → standard json.load()  (object with "attacks" key or bare list)
+        - `.jsonl` → one JSON object per line (ZenFree default format)
+        """
         try:
             # Sanitize path to prevent traversal attacks
             safe_attacks_path = Path(attacks_path).resolve()
             with open(safe_attacks_path, encoding="utf-8") as f:
-                if str(safe_attacks_path).endswith(".json"):
+                if str(safe_attacks_path).endswith(".jsonl"):
+                    # JSONL: one JSON object per line
+                    attacks: list[dict] = []
+                    for lineno, line in enumerate(f, 1):
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            obj = json.loads(line)
+                            if isinstance(obj, dict):
+                                attacks.append(obj)
+                        except json.JSONDecodeError:
+                            print(f"⚠️  Skipping malformed JSONL line {lineno} in {attacks_path}")
+                elif str(safe_attacks_path).endswith(".json"):
                     attacks = json.load(f)
                     if isinstance(attacks, dict):
                         attacks = attacks.get("attacks", [])
                 else:
-                    # Parse from API response format
-                    attacks = json.load(f)
+                    # Unknown extension — try JSONL first (ZenFree default),
+                    # fall back to json.load()
+                    content = f.read()
+                    try:
+                        parsed = json.loads(content)
+                        attacks = parsed.get("attacks", []) if isinstance(parsed, dict) else (
+                            parsed if isinstance(parsed, list) else []
+                        )
+                    except json.JSONDecodeError:
+                        attacks = []
+                        for line in content.splitlines():
+                            line = line.strip()
+                            if not line:
+                                continue
+                            try:
+                                obj = json.loads(line)
+                                if isinstance(obj, dict):
+                                    attacks.append(obj)
+                            except json.JSONDecodeError:
+                                pass
 
             return attacks if isinstance(attacks, list) else []
 
