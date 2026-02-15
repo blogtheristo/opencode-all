@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.4
+Version: 3.5
 
 Sessions & Modifications:
+  - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 15.02.2026 | Changes: V4-quality TK4/RQ4 update — critical reassessment of Supabase legal sovereignty risk, two-phase MVP→V1 architecture, EU AI Act high-risk reclassification, NIS2 supply chain gap, created DWS_SOVEREIGNTY_STANDARD.md
   - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 13.02.2026 | Changes: Added conclusions 10.6-10.8 - DWS Product Standard, Brand Standard product clarity, and measurable impact toward DWS 7. New contribution: enterprise product standardization framework resolving 7 pricing conflicts across 30 products duplicated in 5 catalog files
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
@@ -26,10 +27,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 10.02.2026
+  - Last Modified: 15.02.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 consolidated full version)
+  - Publication Status: DRAFT (V3.5 — TK4 sovereignty update)
 
 ---
 
@@ -1072,14 +1073,25 @@ The 2-month payback promise has been validated with real customer deployments:
 | Cloud-only AI | +30% | -40% | EUR 555/month | Partial |
 | **MCP Hub + Edge AI** | **+62%** | **-73%** | **EUR 25-350/month** | **Best** |
 
-### 8.5.4 RQ4: Enterprise Security and Compliance
+### 8.5.4 RQ4: Enterprise Security and Compliance [V4 Updated]
 
-| Regulation | Requirement | Implementation | Status |
-|------------|-------------|----------------|--------|
-| **NIS 2** | Cybersecurity risk management | Security Agent + Snyk MCP scanning | Active |
-| **EU AI Act** | Transparency, human oversight | Low-risk classification, Phase 2 approval | Compliant |
-| **GDPR** | Data residency, data subject rights | europe-north1, Supabase RLS | Compliant |
-| **Cybersecurity Act** | Security certification | ISO 27001 target Q3 2026 | Planned |
+**Verdict:** The V3 assessment systematically underestimated legal sovereignty requirements. V4 corrects this with a two-phase architecture (MVP → V1) and identifies the legal risk of the Supabase dependency.
+
+**Risk classification correction:** DWS IQ 6 is likely classified as a **high-risk** AI system (EU AI Act, Annex III), as it automates climate emissions reporting and regulatory compliance — domains affecting "environment, health, and safety".
+
+| Regulation | Requirement | MVP (Supabase) | V1 (EU-sovereign) | Status |
+|------------|-------------|----------------|-------------------|--------|
+| **NIS 2** Art. 21 | Risk management | Security Agent + Snyk MCP | + ISMS + CERT-FI registration | ✅ → ✅+ |
+| **NIS 2** Art. 21(2)(d) | Supply chain security | ❌ US vendor (Supabase) | ✅ EU vendor (Aiven) | ❌ → ✅ |
+| **EU AI Act** Art. 9 | Risk management system | Not implemented | Continuous risk assessment | ❌ → ✅ |
+| **EU AI Act** Art. 12 | Automatic logging | Not implemented | Immutable log service on EU infra | ❌ → ✅ |
+| **EU AI Act** Art. 14 | Human oversight | Partial (Phase 2) | Systematic HIL | ⚠️ → ✅ |
+| **GDPR** Art. 44-49 | International transfers | ❌ CLOUD Act exposure | ✅ No transfers outside EU | ❌ → ✅ |
+| **GDPR** Art. 28 | Processor agreement | ⚠️ DPA exists, Schrems II risk | ✅ EU company, no Schrems II risk | ⚠️ → ✅ |
+| **Cybersecurity Act** | ISO 27001 | Planned Q3 2026 | TÜV Rheinland certification | 🟡 → ✅ |
+| **Cybersecurity Act** | EUCC | Not identified | Assessment Q1 2027 | ❌ → 🟡 |
+
+**Two-phase architecture:** MVP uses Supabase for development and demos (no real customer data). V1 migrates to EU-sovereign infrastructure (Aiven PostgreSQL, Keycloak, MinIO) by 02.08.2026 (EU AI Act deadline). Full specification: `DWS_SOVEREIGNTY_STANDARD.md`.
 
 ## 8.6 SWOT Analysis
 
