@@ -17,7 +17,7 @@ Document Status:
   - Last Modified: 15.02.2026
   - Language: English
   - Languages Available: English
-  - Publication Status: ACTIVE
+  - Publication Status: MERGED into FOUNDER_CREDIBILITY_PLAYBOOK.md (Pages 2 + 8)
 
 ***
 
