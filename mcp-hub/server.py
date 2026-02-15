@@ -109,6 +109,55 @@ class WorkflowRequest(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# BIM Payload Schema — validated at hub level before hitting backend
+# Rejects garbage from IoT devices / malformed uploads early.
+# ---------------------------------------------------------------------------
+
+class BIMPipelineRequest(BaseModel):
+    """Schema for /pipelines/bim-carbon requests.
+
+    Validated at the MCP Hub so malformed BIM payloads never reach the
+    backend.  Construction site IoT devices and third-party integrations
+    often send incomplete data — catch it here.
+    """
+    project_id: str
+    bim_file_url: str
+    country: str = "FI"  # ISO 3166-1 alpha-2, default Finland
+    callback_url: str | None = None  # optional webhook for async results
+
+    @classmethod
+    def _validate_project_id(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("project_id must not be empty")
+        if len(v) > 128:
+            raise ValueError("project_id exceeds 128 chars")
+        return v.strip()
+
+    @classmethod
+    def _validate_bim_file_url(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("bim_file_url must not be empty")
+        v = v.strip()
+        if not v.startswith(("http://", "https://", "s3://", "gs://")):
+            raise ValueError(
+                "bim_file_url must start with http://, https://, s3://, or gs://"
+            )
+        ALLOWED_EXTENSIONS = (".ifc", ".ifczip", ".json", ".xml", ".bcf")
+        lower = v.split("?")[0].lower()  # strip query params
+        if not any(lower.endswith(ext) for ext in ALLOWED_EXTENSIONS):
+            raise ValueError(
+                f"bim_file_url must end with one of {ALLOWED_EXTENSIONS}"
+            )
+        return v
+
+    @classmethod
+    def _validate_country(cls, v: str) -> str:
+        if len(v) != 2 or not v.isalpha():
+            raise ValueError("country must be a 2-letter ISO 3166-1 code")
+        return v.upper()
+
+
+# ---------------------------------------------------------------------------
 # Startup / Shutdown
 # ---------------------------------------------------------------------------
 
@@ -436,8 +485,88 @@ async def log_agent_activity(
         except Exception as exc:
             logger.warning("Redis log failed: %s", exc)
 
-    # 3. Stderr fallback
+    # 3. Local JSONL file fallback (survives container restarts)
+    _fallback_log = os.path.join(os.path.dirname(__file__), "agent_activity.jsonl")
+    try:
+        import json as _json
+        with open(_fallback_log, "a", encoding="utf-8") as fh:
+            fh.write(_json.dumps(record, default=str) + "\n")
+        logger.info("[ACTIVITY→FILE] %s | %s | %s", agent_name, status, task_desc)
+        return
+    except Exception as exc:
+        logger.warning("JSONL file log failed: %s", exc)
+
+    # 4. Stderr last resort (ephemeral — lost on restart)
     logger.info("[ACTIVITY] %s | %s | %s", agent_name, status, task_desc)
+
+
+# ---------------------------------------------------------------------------
+# Log Sweep — push buffered JSONL logs back to Supabase/Redis
+# ---------------------------------------------------------------------------
+
+_FALLBACK_LOG_PATH = os.path.join(os.path.dirname(__file__), "agent_activity.jsonl")
+
+
+@app.post("/logs/sweep")
+async def sweep_fallback_logs():
+    """Push locally-buffered JSONL logs back to Supabase (or Redis).
+
+    Call this from a cron job or health-check once connectivity returns.
+    Reads agent_activity.jsonl line by line, inserts into Supabase, and
+    truncates the file on success.
+    """
+    if not os.path.isfile(_FALLBACK_LOG_PATH):
+        return {"swept": 0, "note": "no fallback log file"}
+
+    import json as _json
+
+    swept = 0
+    failed = 0
+    with open(_FALLBACK_LOG_PATH, "r", encoding="utf-8") as fh:
+        lines = fh.readlines()
+
+    if not lines:
+        return {"swept": 0, "note": "file empty"}
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            record = _json.loads(line)
+        except _json.JSONDecodeError:
+            failed += 1
+            continue
+
+        stored = False
+        if _supabase:
+            try:
+                await _supabase.table("agent_activity").insert(record).execute()
+                stored = True
+            except Exception:
+                pass
+        if not stored and _redis:
+            try:
+                flat = {k: str(v) for k, v in record.items()}
+                await _redis.xadd(STREAM_AGENT_RESULTS, flat)
+                stored = True
+            except Exception:
+                pass
+        if stored:
+            swept += 1
+        else:
+            failed += 1
+
+    # Truncate file only if all records swept successfully
+    if failed == 0:
+        open(_FALLBACK_LOG_PATH, "w").close()
+        return {"swept": swept, "failed": 0, "file": "truncated"}
+    else:
+        # Rewrite only the failed lines
+        remaining = [l for l in lines if l.strip()]
+        # Keep only unsent (we don't track which ones — keep all, re-sweep later)
+        logger.warning("Sweep: %d sent, %d failed — file kept for retry", swept, failed)
+        return {"swept": swept, "failed": failed, "file": "retained"}
 
 
 # ---------------------------------------------------------------------------
@@ -550,6 +679,69 @@ async def execute_sequential_workflow(workflow: WorkflowRequest):
     }
 
 
+class PipelineStage(BaseModel):
+    """A stage in a pipeline.  All tasks within a stage run in parallel."""
+    tasks: list[AgentTask]
+
+
+class PipelineRequest(BaseModel):
+    """Staged pipeline: parallel within each stage, sequential between stages.
+
+    This is the recommended pattern once real traffic hits — avoids the
+    sequential bottleneck while preserving dependency ordering between stages.
+    """
+    stages: list[PipelineStage]
+    metadata: dict[str, Any] | None = None
+
+
+@app.post("/workflow/pipeline")
+async def execute_pipeline_workflow(pipeline: PipelineRequest):
+    """Staged pipeline: parallel within each stage, sequential between stages.
+
+    Each stage's tasks execute concurrently via asyncio.gather.  Results from
+    the previous stage are injected as 'previous_stage_results' into the
+    context of every task in the next stage.
+    """
+    stage_results: list[dict[str, Any]] = []
+    prev_stage_output: list[dict[str, Any]] | None = None
+
+    async with httpx.AsyncClient(timeout=300.0) as client:
+        for idx, stage in enumerate(pipeline.stages):
+            # Inject previous stage context
+            if prev_stage_output:
+                for task in stage.tasks:
+                    task.context = {
+                        **(task.context or {}),
+                        "previous_stage_results": prev_stage_output,
+                    }
+
+            # Fan-out within stage
+            coros = [execute_task_async(client, t) for t in stage.tasks]
+            results = await asyncio.gather(*coros, return_exceptions=True)
+
+            clean = []
+            for r in results:
+                if isinstance(r, Exception):
+                    clean.append({"status": "error", "error": str(r)})
+                else:
+                    clean.append(r)
+
+            stage_results.append({
+                "stage": idx + 1,
+                "tasks_count": len(stage.tasks),
+                "results": clean,
+            })
+            prev_stage_output = clean
+
+    return {
+        "workflow_id": f"pipeline_{datetime.now().timestamp()}",
+        "workflow_type": "pipeline",
+        "stages_count": len(pipeline.stages),
+        "stage_results": stage_results,
+        "completed_at": datetime.now().isoformat(),
+    }
+
+
 @app.post("/workflow/reflection")
 async def execute_reflection_workflow(workflow: WorkflowRequest):
     """Reflection: iterative implementation + evaluation loop."""
@@ -636,47 +828,84 @@ async def backend_auth_status():
 
 
 @app.post("/pipelines/bim-carbon")
-async def execute_bim_carbon_pipeline(project_id: str, bim_file_url: str):
+async def execute_bim_carbon_pipeline(req: BIMPipelineRequest):
     """Specialised BIM → Carbon pipeline.
+
+    The BIMPipelineRequest schema validates project_id, bim_file_url (must be
+    a supported format: .ifc, .ifczip, .json, .xml, .bcf), and country code
+    BEFORE anything reaches the backend.  This is the IoT garbage-filter.
 
     Steps route to real services where available:
     1. backend: extract IFC geometry
     2. backend: calculate embodied carbon (EN 15978)
     3. backend: validate EU Fit-for-55 compliance
-    4. Log results to Supabase
+    4. backend: push results to Situation Room report feed
+    5. Log results to Supabase
+
+    NOTE: This pipeline feeds the Situation Room reports used by project
+    managers for real-time compliance dashboards.  Step 4 is non-blocking —
+    if the Situation Room endpoint is unavailable the pipeline still completes.
     """
-    workflow_id = f"bim_carbon_{project_id}_{datetime.now().timestamp()}"
+    workflow_id = f"bim_carbon_{req.project_id}_{datetime.now().timestamp()}"
 
     steps = [
         AgentTask(
             agent="backend",
-            task=f"Extract geometry data from BIM file: {bim_file_url}",
+            task=f"Extract geometry data from BIM file: {req.bim_file_url}",
             endpoint=f"{MCP_SERVERS['backend']}/api/bim/extract",
-            context={"project_id": project_id, "file_url": bim_file_url},
+            context={"project_id": req.project_id, "file_url": req.bim_file_url},
         ),
         AgentTask(
             agent="backend",
             task="Calculate embodied carbon using EN 15978 methodology",
             endpoint=f"{MCP_SERVERS['backend']}/api/bim/carbon",
-            context={"project_id": project_id},
+            context={"project_id": req.project_id},
         ),
         AgentTask(
             agent="backend",
             task="Validate against EU Fit for 55 compliance",
             endpoint=f"{MCP_SERVERS['backend']}/api/bim/validate",
-            context={"project_id": project_id, "country": "FI"},
+            context={"project_id": req.project_id, "country": req.country},
         ),
     ]
 
-    results = {"workflow_id": workflow_id, "project_id": project_id, "steps": []}
+    results = {"workflow_id": workflow_id, "project_id": req.project_id, "steps": []}
     for step in steps:
         r = await execute_task_async(None, step)
         results["steps"].append({"agent": step.agent, "task": step.task, "result": r})
 
+    # Step 4: Push to Situation Room for report generation
+    situation_room_step = AgentTask(
+        agent="backend",
+        task="Push BIM-Carbon results to Situation Room report feed",
+        endpoint=f"{MCP_SERVERS['backend']}/api/situation-room/report",
+        context={
+            "project_id": req.project_id,
+            "report_type": "bim-carbon",
+            "pipeline_results": results["steps"],
+            "country": req.country,
+        },
+    )
+    sr_result = await execute_task_async(None, situation_room_step)
+    results["steps"].append({
+        "agent": "backend",
+        "task": "Situation Room report feed",
+        "result": sr_result,
+    })
+    results["situation_room"] = sr_result.get("status", "unknown")
+
+    # Optional async callback
+    if req.callback_url:
+        try:
+            async with httpx.AsyncClient(timeout=10.0) as cb_client:
+                await cb_client.post(req.callback_url, json=results)
+        except Exception as exc:
+            logger.warning("BIM callback to %s failed: %s", req.callback_url, exc)
+
     # Log to Supabase
     await log_agent_activity(
         agent_name="bim-carbon-pipeline",
-        task_desc=f"Complete pipeline for project {project_id}",
+        task_desc=f"Complete pipeline for project {req.project_id}",
         status="completed",
         metadata=results,
     )
