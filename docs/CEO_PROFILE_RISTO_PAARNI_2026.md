@@ -7,6 +7,7 @@ Version: 1.0
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: New 10-page CEO profile — facts-first, no paid placement, incorporates board feedback and Fleet Captain framework. Replaces CEO_MAGAZINE_PROFILE_RISTO_PAARNI_2026.md.
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured raise from EUR 150k/6 Fleet Captains to EUR 500k/16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k). One seat per industry. Updated Pages 6, 8, 10. Vineyard Owner VC messaging updated.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -178,7 +179,8 @@ Lifetime Oy is not pre-revenue. The numbers:
 
 - Monthly infrastructure burn: EUR 15-50
 - Bootstrapped to revenue before raising external capital
-- Current raise: EUR 150,000 via SAFE notes (EUR 3.8M cap, 20% discount)
+- Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
+- Structure: 16 Industry Captain seats (EUR 50k) + 16 Deputy Captain seats (EUR 30k) — one of each per industry
 
 **External validation:**
 
@@ -222,25 +224,58 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ---
 
-## Page 8 — The Fleet Captain Offer
+## Page 8 — Become Captain of Your Industry
 
-Paarni is raising EUR 150,000 through 6 founding Fleet Captains — business angels who don't just invest, but join the crew.
+DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering one Industry Captain and one Deputy Captain seat per industry. Not a generic angel round — a structured crew where every investor owns a vertical.
+
+**The tagline:** *Become Captain of your industry.*
 
 **The structure:**
-EUR 50,000+ SAFE per Captain. EUR 3.8M valuation cap. 20% discount.
 
-**What each Captain gets:**
+| Seat | Investment | Seats available |
+|------|-----------|-----------------|
+| **Industry Captain** | EUR 50,000 SAFE | 16 (one per industry) |
+| **Deputy Captain** | EUR 30,000 SAFE | 16 (one per industry) |
+| **Total seats** | | **32** |
+| **Valuation cap** | EUR 3.8M | 20% discount |
+| **Raise target** | **EUR 500,000** | |
+
+**The 16 Industry Captain seats:**
+
+| # | Industry | Captain | Deputy |
+|---|----------|---------|--------|
+| 1 | Power & Heat Generation | EUR 50k | EUR 30k |
+| 2 | Iron & Steel | EUR 50k | EUR 30k |
+| 3 | Cement & Lime | EUR 50k | EUR 30k |
+| 4 | Chemicals & Petrochemicals | EUR 50k | EUR 30k |
+| 5 | Aviation | EUR 50k | EUR 30k |
+| 6 | Maritime Shipping | EUR 50k | EUR 30k |
+| 7 | Road Transport & Logistics | EUR 50k | EUR 30k |
+| 8 | Construction & Buildings | EUR 50k | EUR 30k |
+| 9 | Agriculture | EUR 50k | EUR 30k |
+| 10 | Waste Management | EUR 50k | EUR 30k |
+| 11 | Aluminium | EUR 50k | EUR 30k |
+| 12 | Pulp & Paper | EUR 50k | EUR 30k |
+| 13 | Petroleum Refining | EUR 50k | EUR 30k |
+| 14 | Food & Beverage | EUR 50k | EUR 30k |
+| 15 | Glass & Ceramics | EUR 50k | EUR 30k |
+| 16 | Mining | EUR 50k | EUR 30k |
+
+**What every Captain and Deputy gets:**
 
 - **Founding login** to the Lifetime World Model + Situation Room Reports — the same intelligence layer the platform runs on
 - **Quarterly briefings** — full transparency, no black box
-- **Priority routing** for 1 design partner or pilot introduction from their network
+- **Priority routing** for 1 design partner or pilot introduction in their industry vertical
+- **Industry-specific intelligence** — regulatory updates, competitive signals, and compliance alerts for their vertical
 - **Founding crew identity** — they're on the ship before it scales
 
-**Why this structure:**
+**Why Industry Captains, not generic angels:**
 
-Business angels who commit at the earliest stage don't just want a return projection. They want to feel like they're standing on the deck of something real — a platform that's already generating revenue, already deployed on edge hardware they can hold in their hand, and already signing pilot contracts.
+A Captain of Construction understands building sites. A Captain of Maritime knows what happens mid-ocean. A Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital. They become the crew member who knows their part of the ship.
 
-Six slots. Each one meaningful. Not a crowd round — a crew.
+An Industry Captain at EUR 50k leads the vertical. A Deputy Captain at EUR 30k is the lower entry point for angels who want skin in the game without the full commitment. Both get the same access. Both are crew.
+
+32 seats across 16 industries. One Captain, one Deputy per vertical. When a seat is taken, it's gone.
 
 ---
 
@@ -310,7 +345,7 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
-| **Current raise** | EUR 150k SAFE — 6 Fleet Captains at EUR 50k+ |
+| **Current raise** | EUR 500k SAFE — 16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k) |
 | **Valuation cap** | EUR 3.8M (20% discount) |
 | **Accelerator** | Peachscore Cohort 25 |
 | **InvestEU** | Project INPO-20254383 |
