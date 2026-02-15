@@ -18,6 +18,8 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import outreachRoutes from './routes/outreach.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import bimRoutes from './routes/bim.routes.js';
+import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { morningBriefingScheduler } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -167,6 +169,12 @@ app.use('/api/v1/email', emailRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
+
+// BIM Pipeline (construction carbon compliance)
+app.use('/api/bim', bimRoutes);
+
+// Situation Room (pipeline reports for dashboard)
+app.use('/api/situation-room', situationRoomRoutes);
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
