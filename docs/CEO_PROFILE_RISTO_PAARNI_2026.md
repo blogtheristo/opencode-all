@@ -62,21 +62,15 @@ Then came November 2022. ChatGPT went public and the world caught up to what Paa
 
 The European Commission has listed three versions of the platform — DWS 3, DWS 4, and DWS IQ 6 — on the InvestEU Portal (INPO-20254383). Not one lucky submission. Three successive versions validated by the EU's institutional investment platform. Not an accelerator. Not an incubator. A track record of progressive validation at the Commission level.
 
-**Here's the part the Finnish market never processed.**
+**This is how a Captain is made.**
 
-In all these years — the IBM certifications, the Microsoft programme, the master's thesis, the six platform versions, three of them listed by the European Commission — not a single Finnish employer saw value in hiring Risto Paarni. His CV is a 50-page technical narrative covering three decades of industrial IT, cloud architecture, AI systems, and EU regulation expertise. It interests nobody in Finland's hiring process.
+Nobody offered him a ship. So he built one. IBM certifications, Microsoft Founders Hub Level 1 through 4, a master's thesis, six platform versions — three of them listed by the European Commission. NVIDIA's Inception Program took him in. GitHub recognised him as a GitHub Developer. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. One Finnvera loan for DWS 3 in 2020 — the only institutional support Finland ever provided.
 
-Abroad, it's different. International accelerators accepted him. NVIDIA's Inception Program took him in. GitHub recognised him as a GitHub Developer. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. The European Commission listed his project.
+In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme. Every credential verified. Every programme on record. DWS IQ 6 alone has over 500 pull requests and hundreds of commits on GitHub — a living codebase, not a slide deck. Three InvestEU listings are public.
 
-Finland's system looked at the same person and saw unemployment statistics.
+The DWS IQ platform and the onelifetime.world community exist because of one mission: fight the climate crisis with the latest technology of each industry.
 
-In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme — the kind of academic contribution that demonstrates deep domain expertise but earns no labour market recognition in Finland.
-
-When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland — except one Finnvera loan for DWS 3 in 2020.
-
-The DWS IQ platform and the onelifetime.world community exist because of one mission: fight the climate crisis with the latest technology of each industry. The platform exists because he refused to stop.
-
-That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. DWS IQ 6 alone has over 500 pull requests and hundreds of commits on GitHub — a living codebase, not a slide deck. Three InvestEU listings are public. The Finnish labour market's indifference is documented in three decades of applications.
+When a business angel asks "why should I back this founder?" — the answer is the track record. Seven years of coding, certifying, and shipping. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's instinct: when no one gave him a berth, he built his own boat and sailed it.
 
 Here's the number that makes this make sense: deep tech startups take on average **11 years** to reach funding. Paarni is in year eight. He's not behind schedule — he's ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still in the lab at this stage. Paarni has paying customers and a fleet division bringing in EUR 7,000 MRR — enough to sustain operations without worrying about runway. The Lifetime Fleet isn't a side hustle. It's a strategic asset that lets the founder build on his own timeline, without the desperation capital that kills deep tech companies.
 
