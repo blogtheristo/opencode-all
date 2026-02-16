@@ -72,7 +72,7 @@ Finland's system looked at the same person and saw unemployment statistics.
 
 In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme — the kind of academic contribution that demonstrates deep domain expertise but earns no labour market recognition in Finland.
 
-When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland.
+When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland — except one Finnvera loan for DWS 3 in 2020.
 
 The platform exists because he refused to stop.
 
