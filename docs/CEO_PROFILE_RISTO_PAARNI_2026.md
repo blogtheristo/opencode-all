@@ -10,6 +10,11 @@ Sessions & Modifications:
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured raise from EUR 150k/6 Fleet Captains to EUR 500k/16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k). One seat per industry. Updated Pages 6, 8, 10. Vineyard Owner VC messaging updated.
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added engagement duties for Deputies. Total capacity EUR 1.2M, round target EUR 500k. Updated Pages 6, 8, 10.
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: First tranche limited to 8 Platinum seats (EUR 500k). Second tranche at higher valuation. Added Page 1B (founder background — AI journey 2018-2026, Finnish labour market context, Kela/thesis, international recognition) and Page 1C (BIM pipeline proof point — 420 kg CO2e/m² in 5 hours).
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Page 1B deepened — GPT-2/transformers turning point (2019), third engineering hat (AI/Edge/Cloud), Azure AI Foundry + .NET Aspire in Microsoft Founders Hub stack, November whitepaper/seminar for Metropolia Smart Factory M.Sc., 11-year deep tech funding context, Lifetime Fleet as runway-independent strategic asset (EUR 7k MRR).
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Microsoft Founders Hub Level 1–4 progression specified, GitHub Developer credential added. Page 10 Programs row consolidated (MS Founders Hub L1–L4, NVIDIA Inception, GitHub Developer, Peachscore).
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: European Commission listed DWS versions 3, 4, and 6 (not just v6). Three successive validations on InvestEU Portal. Updated Page 1B and Page 10.
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed Kela student support paragraph and "This is not a complaint" line from Page 1B. Too personal for investor-facing document.
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Board feedback round. Page 1B rewritten — credentials converted from CV list to story beats (stripped course names, program levels, certification titles). Page 1C (BIM pipeline) moved from between 1B and Page 2 to Page 3B (after EUR 333k, before Platform) to preserve momentum between origin story and problem statement. Pages 1, 2-3, 8 untouched per board direction.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -17,7 +22,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026
+  - Last Modified: 16.02.2026 (v1.8)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -44,49 +49,33 @@ That's the origin. Not a pivot from fintech. Not an MBA chasing a trend. An indu
 
 ---
 
-## Page 1B — The Long Road Nobody Saw
+## Page 1B — Intuition, Innovation, and the Joy of Building
 
-The story investors don't hear in a pitch meeting — because it doesn't fit on a slide.
+Most founders point to a single moment of inspiration. For Risto Paarni, the moment lasted seven years.
 
-Risto Paarni started the AI path in December 2018. He had completed a Data Specialist diploma and moved into Microsoft Cloud Architecture certification — a year of training before the word "AI" meant anything to the startup world. He followed up with IBM's full AI curriculum on Coursera: machine learning, neural networks, applied AI. Not weekend YouTube courses. Structured, certified programmes completed while working industrial IT jobs that the Finnish labour market considered his ceiling.
+It began in late 2018. He earned a data-science credential and started building cloud systems — drawn not by a business plan but by a question he could not put down. Then he spent a year inside the mathematics of machine learning: neural networks, backpropagation, the architecture that would soon power everything. Not weekend crash courses. Structured study, one layer deeper at a time.
 
-From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos.
+In 2019, OpenAI released GPT-2, and the transformer architecture announced itself as the defining paradigm of a generation. Paarni grasped the shift at once. He had spent a year inside the mathematics. What the rest of the industry would discover over the following three years, he was already building on. It gave him a third engineering discipline — after industrial management and industrial IT, he now carried what he calls *"what is new in AI, Edge, Cloud"*: the intuition to recognise emerging technology and the craft to turn it into working systems.
 
-Then came November 2022.
+For a decade he built cloud-native applications inside Microsoft's startup programme, advancing through every tier they offered. The tools evolved underneath him — model orchestration, distributed systems, edge deployment — and each generation of the platform taught him what the next one required.
 
-When GPT-2's successor models went public, Paarni recognised what was coming before most founders did — because he already had the infrastructure background to understand it. He had spent four years studying the technology. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
+When ChatGPT launched in November 2022, the world rushed to understand what Paarni had been quietly exploring for four years. He did not need to learn AI. He needed to deploy it. What followed was the most creative stretch of his career: six successive versions of DWS, each a complete rebuild, each closer to what industrial compliance actually demanded.
 
-DWS IQ 6 is now an InvestEU project (INPO-20254383) — validated by the European Commission's investment platform. Not an accelerator. Not an incubator. A project deemed eligible for EU-level institutional investment support.
+The European Commission took notice. Three versions of the platform — DWS 3, DWS 4, and DWS IQ 6 — earned listings on the InvestEU Portal (INPO-20254383). Not a single fortunate submission. Three consecutive iterations, validated at the Commission level. Progressive recognition of work that kept getting better.
 
-**Here's the part the Finnish market never processed.**
+**This is how a Captain is made.**
 
-In all these years — the IBM certifications, the Microsoft programme, the master's thesis, the six platform versions, the InvestEU validation — not a single Finnish employer saw value in hiring Risto Paarni. His CV is a 50-page technical narrative covering three decades of industrial IT, cloud architecture, AI systems, and EU regulation expertise. It interests nobody in Finland's hiring process.
+Not through adversity alone — through intuition, innovation, and the plain joy of doing the work. Then the industry started coming to him. NVIDIA opened the door to its hardware programme. Google, AWS, and Groq extended six-figure cloud credits — not because he applied through the standard pipeline, but because the platform was good enough to attract notice. Nordic construction firms signed pilot contracts. Finland's Finnvera issued a loan for an earlier version in 2020 — the sole domestic institutional support he has received.
 
-Abroad, it's different. International accelerators accepted him. NVIDIA's Inception Program took him in. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. The European Commission listed his project.
+The evidence is public. More than 500 pull requests on GitHub — a living codebase, not a slide deck. Three InvestEU listings verifiable on the European Commission's portal.
 
-Finland's system looked at the same person and saw unemployment statistics.
+The DWS IQ platform and the onelifetime.world community exist for a single reason: to fight the climate crisis with the best available technology in each of 16 industries.
 
-Today, Kela — the Finnish social security institution — acknowledged his thesis progress at Metropolia University of Applied Sciences (YAMK, Master's level) by denying his student support. Three years of work on a 30-credit Smart Factory thesis, and the system counted credits, not capability. The thesis will be completed. He won't need student support after that. If LUT University accepts him for doctoral studies, the work continues at a higher level.
+When a business angel asks, "Why this founder?" — the answer is the energy behind the work. Seven years of learning, building, and shipping because the problem matters and the craft is worth mastering. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's intuition: Paarni sees where the technology is heading, and he takes genuine pleasure in arriving there first.
 
-This is not a complaint. It's context.
+One number puts the timeline in perspective. Deep tech ventures require, on average, **11 years** to reach institutional funding. Paarni is in year eight — ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still prototyping at this stage. Paarni has paying customers and a fleet division producing EUR 7,000 in monthly recurring revenue, enough to sustain operations without the runway anxiety that forces premature compromises. The Lifetime Fleet is not a side business. It is a strategic asset that affords the founder the rarest advantage in deep tech: the freedom to build on his own timeline.
 
-When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland.
-
-The platform exists because he refused to stop.
-
-That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. The InvestEU listing is public. The Kela decision is on file. The Finnish labour market's indifference is documented in three decades of applications.
-
-A founder who builds through that doesn't quit at a down round.
-
----
-
-## Page 1C — The BIM Pipeline (February 2026)
-
-The most recent proof point: Paarni built the full BIM-to-carbon-calculation-to-Situation-Room pipeline in a single five-hour session. Real Finnish emission factors. Real EN 15978 lifecycle stages. Real NCC project data flowing through real infrastructure. No mocks. No fake numbers.
-
-The result: 420 kg CO2e/m² for a hybrid concrete-timber office tower in Helsinki — a number that construction professionals can verify against industry benchmarks.
-
-This is what "CEO who still codes" means in practice. Not a founder who reviews pull requests. A founder who builds production data pipelines on a Saturday and ships them before breakfast.
+A founder with that track record does not walk away at a down round.
 
 ---
 
@@ -144,6 +133,20 @@ The hardware economics:
 - **Planned deployment:** 50 sites
 
 Construction sites don't have reliable internet. Factories run air-gapped OT networks. Ships operate mid-ocean. A compliance platform that requires a cloud connection has already failed the industrial use case. Paarni built for the places where cloud doesn't reach.
+
+---
+
+## Page 3B — Proof Point: The BIM Pipeline (February 2026)
+
+In a single five-hour session, Paarni built the complete BIM-to-carbon-calculation-to-Situation-Room pipeline from scratch. Real Finnish emission factors. Real EN 15978 lifecycle stages. Real project data from NCC, one of the Nordic region's largest construction groups, flowing through production infrastructure. No mock-ups. No synthetic numbers.
+
+The ambition behind the calculus is deliberately audacious: What if you could build Trump Tower 15 percent cheaper and shrink its carbon footprint by 30 percent? That is the question DWS IQ 6 is designed to answer — not in theory, but with auditable figures derived from actual building models. And then multiply that logic across all 16 regulated industries.
+
+The initial result: 420 kg CO2e per square metre for a hybrid concrete-timber office tower in Helsinki, a figure that construction professionals can benchmark against published industry data.
+
+Save money — a great deal of it. Meet compliance. Reduce your carbon footprint. That is the DWS IQ ecosystem in three lines.
+
+This is what it means when a CEO still writes code. Not a founder who reviews pull requests from a distance. A founder who constructs production data pipelines on a Saturday morning and ships them before breakfast.
 
 ---
 
@@ -415,8 +418,8 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
 | **Current raise** | EUR 500k SAFE — 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k). Second tranche at higher valuation. |
 | **Valuation cap** | EUR 3.8M (20% discount) |
-| **Accelerator** | Peachscore Cohort 25 |
-| **InvestEU** | Project INPO-20254383 |
+| **Programs** | Microsoft Founders Hub (L1–L4), NVIDIA Inception, GitHub Developer, Peachscore Cohort 25 |
+| **InvestEU** | Project INPO-20254383 (DWS 3, 4, and 6 listed) |
 | **Languages** | Finnish, English, Swedish |
 | **Contact** | risto@lifetime.fi |
 | **LinkedIn** | linkedin.com/in/ristopaarni |
