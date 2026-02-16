@@ -86,6 +86,8 @@ The aim of the calculus: what if you could build Trump Tower 15% cheaper and mak
 
 The result: 420 kg CO2e/m² for a hybrid concrete-timber office tower in Helsinki — a number that construction professionals can verify against industry benchmarks.
 
+Save money. A lot. Meet compliance. Improve your carbon footprint. That is the DWS IQ ecosystem.
+
 This is what "CEO who still codes" means in practice. Not a founder who reviews pull requests. A founder who builds production data pipelines on a Saturday and ships them before breakfast.
 
 ---
