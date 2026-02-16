@@ -48,29 +48,29 @@ That's the origin. Not a pivot from fintech. Not an MBA chasing a trend. An indu
 
 ---
 
-## Page 1B — The Long Road Nobody Saw
+## Page 1B — Intuition, Innovation, and the Joy of Building
 
-The story investors don't hear in a pitch meeting — because it doesn't fit on a slide.
+Some founders start companies because they see a market gap. Risto Paarni started because he couldn't stop learning.
 
-Risto Paarni started the AI path in December 2018. He had completed a Data Specialist diploma and moved into Microsoft Cloud Architecture certification — a year of training before the word "AI" meant anything to the startup world. He followed up with IBM's full AI curriculum on Coursera: machine learning, neural networks, applied AI. Not weekend YouTube courses. Structured, certified programmes completed while working industrial IT jobs that the Finnish labour market considered his ceiling.
+In December 2018 he completed a Data Specialist diploma and immediately moved into Microsoft Cloud Architecture certification — not because someone told him to, but because the curiosity pulled him there. He followed up with IBM's full AI curriculum on Coursera: machine learning, neural networks, applied AI. Each new domain opened the next question. Each answer revealed a bigger pattern.
 
-Then GPT-2 arrived in 2019 — and everything changed with transformers. The attention mechanism wasn't an incremental improvement. It was a new paradigm. Paarni recognised this immediately because he had already spent a year studying the underlying mathematics. This was his third engineering hat: after industrial management and industrial IT, he now carried *"what is new in AI, Edge, Cloud"* — the ability to evaluate emerging technology not as a spectator, but as a builder who understood the stack from silicon to API.
+Then GPT-2 arrived in 2019 — and everything changed with transformers. The attention mechanism wasn't an incremental improvement. It was a new paradigm. Paarni felt it immediately because he had already spent a year inside the mathematics. This was his third engineering hat: after industrial management and industrial IT, he now carried *"what is new in AI, Edge, Cloud"* — the instinct to spot what's coming and the joy of figuring out how to build with it.
 
-From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — progressing from Level 1 through Level 4, ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos. The stack evolved with the platform: Azure AI Foundry for model orchestration, .NET Aspire for cloud-native distributed applications. He wasn't just a user of Microsoft's tools — he was a Founders Hub co-founder building production systems while others were still running tutorials.
+From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — progressing from Level 1 through Level 4, ten years of shipping software inside Microsoft's ecosystem. The stack evolved with the platform: Azure AI Foundry for model orchestration, .NET Aspire for cloud-native distributed applications. Each new tool was a reason to build something better. Each production deployment taught him what the next version needed.
 
-Then came November 2022. ChatGPT went public and the world caught up to what Paarni had been studying for four years. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
+Then came November 2022. ChatGPT went public and the world caught up to what Paarni had been exploring for four years. He didn't need to "learn AI." He was already deep in it — and energised by what was now possible. The next three years became the most creative phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
 
-The European Commission has listed three versions of the platform — DWS 3, DWS 4, and DWS IQ 6 — on the InvestEU Portal (INPO-20254383). Not one lucky submission. Three successive versions validated by the EU's institutional investment platform. Not an accelerator. Not an incubator. A track record of progressive validation at the Commission level.
+The European Commission listed three versions of the platform — DWS 3, DWS 4, and DWS IQ 6 — on the InvestEU Portal (INPO-20254383). Three successive iterations validated at the Commission level. That's what happens when a builder keeps iterating: the work speaks.
 
 **This is how a Captain is made.**
 
-Nobody offered him a ship. So he built one. IBM certifications, Microsoft Founders Hub Level 1 through 4, a master's thesis, six platform versions — three of them listed by the European Commission. NVIDIA's Inception Program took him in. GitHub recognised him as a GitHub Developer. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. One Finnvera loan for DWS 3 in 2020 — the only institutional support Finland ever provided.
+Not through hardship — through following intuition and doing the work. IBM certifications, Microsoft Founders Hub Level 1 through 4, a master's thesis, six platform versions. NVIDIA's Inception Program. GitHub Developer. Google, AWS, and Groq cloud credits. Construction companies in the Nordics signing pilot contracts. A Finnvera loan for DWS 3 in 2020. In November, a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme.
 
-In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme. Every credential verified. Every programme on record. DWS IQ 6 alone has over 500 pull requests and hundreds of commits on GitHub — a living codebase, not a slide deck. Three InvestEU listings are public.
+Every credential on record. DWS IQ 6 alone has over 500 pull requests and hundreds of commits on GitHub — a living codebase, not a slide deck. Three InvestEU listings are public.
 
 The DWS IQ platform and the onelifetime.world community exist because of one mission: fight the climate crisis with the latest technology of each industry.
 
-When a business angel asks "why should I back this founder?" — the answer is the track record. Seven years of coding, certifying, and shipping. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's instinct: when no one gave him a berth, he built his own boat and sailed it.
+When a business angel asks "why should I back this founder?" — the answer is the energy. Seven years of learning, building, and shipping because the work itself is worth doing. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's intuition: he sees where the technology is going, and he enjoys getting there first.
 
 Here's the number that makes this make sense: deep tech startups take on average **11 years** to reach funding. Paarni is in year eight. He's not behind schedule — he's ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still in the lab at this stage. Paarni has paying customers and a fleet division bringing in EUR 7,000 MRR — enough to sustain operations without worrying about runway. The Lifetime Fleet isn't a side hustle. It's a strategic asset that lets the founder build on his own timeline, without the desperation capital that kills deep tech companies.
 
