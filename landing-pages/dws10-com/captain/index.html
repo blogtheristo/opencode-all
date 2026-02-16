@@ -11,324 +11,696 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://dws10.com/captain/">
     <style>
+        /* ── DWS Brand Standard Dark Theme Tokens ── */
         :root {
-            --primary: #1a365d;
-            --secondary: #2d5a87;
-            --accent: #e53e3e;
-            --gold: #d4a843;
-            --light: #f7fafc;
-            --dark: #1a202c;
+            --bg-primary: #0f172a;
+            --bg-surface: rgba(30, 41, 59, 0.7);
+            --bg-nav: #1e293b;
+            --border-subtle: rgba(255,255,255,0.1);
+            --border-nav: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-accent: #60a5fa;
+            --text-success: #4ade80;
+            --text-danger: #f87171;
+            --gradient-primary: linear-gradient(135deg, #2563eb, #1d4ed8);
+            --gradient-featured: linear-gradient(135deg, #f59e0b, #d97706);
+            --shadow-hover: 0 15px 30px rgba(0,0,0,0.4);
+            --color-gold: #b8860b;
+            --color-accent: #0066cc;
+            --color-accent-dark: #0052a3;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            line-height: 1.8;
-            color: var(--dark);
-            background: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            line-height: 1.7;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header bar */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 16px 0;
-        }
-
-        header .container {
-            max-width: 800px;
+        /* ── Gamma Hero Section ── */
+        .hero-ultra {
+            position: relative;
+            min-height: 90vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 40%, #f1f5f9 100%);
         }
 
-        header a {
-            color: white;
-            text-decoration: none;
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
         }
 
-        header img {
-            height: 48px;
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 102, 204, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 204, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: grid-move 30s linear infinite;
         }
 
-        header nav a {
-            margin-left: 24px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.9rem;
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
         }
 
-        /* Press release styling */
-        .press-release {
-            padding: 60px 0 40px;
+        .hero-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
         }
 
-        .pr-label {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 8px;
+        .hero-content { color: #0a1628; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 102, 204, 0.08);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 24px;
+            animation: badge-pulse 2s ease-in-out infinite;
         }
 
-        .pr-date {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.85rem;
-            color: #718096;
+        @keyframes badge-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            animation: dot-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dot-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--color-accent);
+            text-wrap: balance;
+        }
+
+        .hero-title-accent {
+            background: linear-gradient(135deg, var(--color-gold) 0%, #d4a843 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #1e293b;
+            margin-bottom: 32px;
+            max-width: 580px;
+            font-weight: 500;
+            text-wrap: pretty;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
             margin-bottom: 32px;
         }
 
-        h1 {
-            font-size: 2.4rem;
-            line-height: 1.2;
-            color: var(--primary);
+        .stat-card {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+            background: #fff;
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0a1628;
+            display: block;
+            margin-bottom: 2px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .btn-hero-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+            transition: all var(--transition-base);
+        }
+
+        .btn-hero-primary:hover {
+            box-shadow: 0 15px 40px rgba(0, 102, 204, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-hero-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            background: transparent;
+            color: #0a1628;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid #cbd5e1;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .hero-trust {
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .trust-label {
+            font-size: 0.8rem;
+            color: #64748b;
             margin-bottom: 12px;
-            font-weight: 700;
+            font-weight: 500;
         }
 
-        h2 {
-            font-size: 1.3rem;
-            line-height: 1.4;
-            color: var(--secondary);
-            font-weight: 400;
-            margin-bottom: 40px;
-            font-style: italic;
+        .trust-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .dateline {
+        .trust-item {
+            padding: 6px 12px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        /* Hero right — seat visual */
+        .hero-visual {
+            position: relative;
+        }
+
+        .visual-card {
+            background: #0f172a;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .visual-card { animation: none; }
+            .hero-grid { animation: none; }
+            .hero-badge, .badge-dot { animation: none; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .visual-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+        }
+
+        .visual-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .visual-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .visual-dots span:nth-child(1) { background: #ff5f57; }
+        .visual-dots span:nth-child(2) { background: #ffbd2e; }
+        .visual-dots span:nth-child(3) { background: #28ca42; }
+
+        .visual-title {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .visual-content {
+            padding: 24px;
+        }
+
+        .visual-seat {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            transition: background var(--transition-fast);
+        }
+
+        .visual-seat:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .visual-seat .industry { color: #e2e8f0; font-weight: 500; }
+
+        .vs-open {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.15);
+            color: #4ade80;
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .vs-filling {
+            display: inline-block;
+            background: rgba(250, 204, 21, 0.15);
+            color: #facc15;
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .visual-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+        }
+
+        .visual-footer span {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .visual-footer strong {
+            color: #60a5fa;
+        }
+
+        /* ── Dark Content Sections ── */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-accent);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            text-wrap: balance;
         }
 
         .body-text p {
             margin-bottom: 20px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
         }
 
         .body-text strong {
-            color: var(--primary);
+            color: var(--text-primary);
         }
 
-        /* Captain benefits */
+        /* Benefits box — dark variant */
         .benefits-box {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            border-left: 4px solid var(--gold);
+            background: var(--bg-surface);
+            border-left: 4px solid var(--color-gold);
             padding: 32px 36px;
             margin: 36px 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--color-gold);
         }
 
         .benefits-box h3 {
-            font-size: 1.2rem;
-            color: var(--primary);
+            font-size: 1.15rem;
+            color: var(--text-primary);
             margin-bottom: 16px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        .benefits-box ul {
-            list-style: none;
-            padding: 0;
-        }
+        .benefits-box ul { list-style: none; padding: 0; }
 
         .benefits-box li {
-            padding: 8px 0;
-            font-size: 1.05rem;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 0;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .benefits-box li:last-child {
-            border-bottom: none;
-        }
+        .benefits-box li:last-child { border-bottom: none; }
 
         .benefits-box li::before {
-            content: "—  ";
-            color: var(--gold);
+            content: "\2014\2003";
+            color: var(--color-gold);
             font-weight: 700;
         }
 
-        /* Seat grid */
+        /* Seat tables — dark variant */
         .seat-grid {
             margin: 40px 0;
         }
 
         .seat-grid h3 {
-            font-size: 1.2rem;
-            color: var(--primary);
+            font-size: 1.1rem;
+            color: var(--text-primary);
             margin-bottom: 16px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .seat-grid table {
             width: 100%;
             border-collapse: collapse;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 0.95rem;
         }
 
         .seat-grid th {
-            background: var(--primary);
-            color: white;
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--text-primary);
             padding: 12px 16px;
             text-align: left;
             font-weight: 600;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
         }
 
         .seat-grid td {
             padding: 10px 16px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
         }
 
-        .seat-grid tr:hover {
-            background: #f7fafc;
+        .seat-grid tr:hover td {
+            background: rgba(255,255,255,0.03);
         }
 
         .badge-open {
             display: inline-block;
-            background: #c6f6d5;
-            color: #276749;
+            background: rgba(74, 222, 128, 0.15);
+            color: #4ade80;
             padding: 2px 10px;
-            border-radius: 12px;
+            border-radius: var(--radius-full);
             font-size: 0.8rem;
             font-weight: 600;
         }
 
         .badge-filling {
             display: inline-block;
-            background: #fefcbf;
-            color: #975a16;
+            background: rgba(250, 204, 21, 0.15);
+            color: #facc15;
             padding: 2px 10px;
-            border-radius: 12px;
+            border-radius: var(--radius-full);
             font-size: 0.8rem;
             font-weight: 600;
         }
 
         .badge-2nd {
             display: inline-block;
-            background: #e2e8f0;
-            color: #4a5568;
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
             padding: 2px 10px;
-            border-radius: 12px;
+            border-radius: var(--radius-full);
             font-size: 0.8rem;
             font-weight: 600;
         }
 
-        /* Deputy section */
+        /* Deputy note — dark */
         .deputy-note {
-            background: #fff;
-            border: 2px solid #e2e8f0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
             padding: 24px 32px;
             margin: 32px 0;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
         }
 
         .deputy-note h3 {
             font-size: 1.1rem;
-            color: var(--secondary);
+            color: var(--text-accent);
             margin-bottom: 8px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* CTA */
+        .deputy-note p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Quote */
+        .founder-quote {
+            background: var(--bg-surface);
+            border-left: 4px solid var(--text-accent);
+            padding: 32px 36px;
+            margin: 40px 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+
+        .founder-quote blockquote {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .founder-quote cite {
+            font-style: normal;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA section — gradient */
         .cta-section {
-            background: var(--primary);
-            color: white;
-            padding: 48px 0;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            padding: 64px 24px;
             text-align: center;
-            margin-top: 48px;
         }
 
         .cta-section h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: white;
             margin-bottom: 12px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 700;
         }
 
         .cta-section p {
             font-size: 1.1rem;
-            margin-bottom: 24px;
-            opacity: 0.9;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 28px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-email {
             display: inline-block;
-            background: var(--gold);
-            color: var(--dark);
+            background: white;
+            color: #1d4ed8;
             padding: 16px 40px;
-            border-radius: 6px;
+            border-radius: var(--radius-full);
             text-decoration: none;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: transform 0.2s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all var(--transition-base);
         }
 
         .cta-email:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         /* Boilerplate */
         .boilerplate {
-            border-top: 2px solid #e2e8f0;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 64px;
+        }
+
+        .boilerplate-inner {
+            border-top: 1px solid var(--border-subtle);
             padding-top: 32px;
-            margin-top: 48px;
-            margin-bottom: 48px;
         }
 
         .boilerplate h4 {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #718096;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
             margin-bottom: 12px;
         }
 
         .boilerplate p {
             font-size: 0.95rem;
-            color: #4a5568;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
         .contact-info {
             margin-top: 24px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 0.9rem;
-            color: #4a5568;
+            color: var(--text-secondary);
         }
 
-        .contact-info strong {
-            color: var(--dark);
+        .contact-info strong { color: var(--text-primary); }
+
+        .contact-info a {
+            color: var(--text-accent);
+            text-decoration: none;
         }
+
+        .contact-info a:hover { text-decoration: underline; }
 
         /* Footer */
         footer {
-            background: var(--dark);
-            color: white;
+            background: var(--bg-nav);
+            color: var(--text-secondary);
             padding: 32px 0;
             text-align: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 0.85rem;
+            border-top: 1px solid var(--border-nav);
         }
 
         footer a {
-            color: var(--gold);
+            color: var(--text-accent);
+            text-decoration: none;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.7rem; }
-            h2 { font-size: 1.1rem; }
+        /* Sovereignty badges */
+        .sovereignty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .sovereignty-badge.eu-data {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .sovereignty-badge.cloud-act-free {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .sovereignty-badge.investeu {
+            background: rgba(37, 99, 235, 0.15);
+            color: #60a5fa;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 100px 24px 60px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn-hero-primary, .btn-hero-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
             .benefits-box { padding: 24px 20px; }
+
             .seat-grid table { font-size: 0.85rem; }
             .seat-grid td, .seat-grid th { padding: 8px 10px; }
         }
@@ -336,185 +708,267 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <a href="../index.html" style="display: flex; align-items: center; gap: 12px;">
-                <img src="../DWS_IQ2026.png" alt="Lifetime Oy — DWS IQ 6">
-                <span style="font-family: -apple-system, sans-serif; font-size: 0.95rem;">DWS IQ 6</span>
-            </a>
-            <nav>
-                <a href="../index.html">Home</a>
-                <a href="../investor-relations/">Investors</a>
-                <a href="../construction/">Construction</a>
-            </nav>
+    <!-- Ironclad Nav (DWS Brand Standard) -->
+    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- ── GAMMA HERO ── -->
+    <section class="hero-ultra">
+        <div class="hero-background">
+            <div class="hero-grid"></div>
         </div>
-    </header>
 
-    <section class="press-release">
-        <div class="container">
-            <div class="pr-label">Press Release</div>
-            <div class="pr-date">Helsinki, 15 February 2026</div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>8 Platinum Seats Open — First Tranche</span>
+                </div>
 
-            <h1>Become an Industry Captain — Mold Your Industry on Europe's Leading Fit for 55 Platform</h1>
+                <h1 class="hero-title">
+                    Become Captain of<br>
+                    <span class="hero-title-accent">Your Industry</span>
+                </h1>
 
-            <h2>16 EU regulated industries. 8 Platinum Captain seats open. Bring your industry expertise and shape the Situation Room for your vertical.</h2>
-
-            <div class="body-text">
-                <p>
-                    <span class="dateline">HELSINKI —</span>
-                    Lifetime Oy today announced the opening of Platinum Industry Captain seats for
-                    <strong>DWS IQ 6</strong>, the industrial climate intelligence platform covering
-                    ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+                <p class="hero-subtitle">
+                    Mold your industry on Europe's leading Fit for 55 platform.
+                    Own a vertical. Shape the product. Lead the compliance wave
+                    across 16 EU regulated industries.
                 </p>
 
-                <p>
-                    The company is seeking operators who know their vertical inside out — not passive investors,
-                    but founding crew members who will shape how the platform serves their industry.
-                    Each Platinum Captain owns one of 16 EU industry verticals on the platform,
-                    with status, visibility, and direct influence over the product roadmap.
-                </p>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Platinum Seats Open</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">&euro;50k</span>
+                        <span class="stat-label">SAFE per Seat</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">&euro;3.8M</span>
+                        <span class="stat-label">Valuation Cap</span>
+                    </div>
+                </div>
 
-                <p>
-                    "This is not a generic angel round," said <strong>Risto Paarni</strong>, Founder and CEO
-                    of Lifetime Oy. "Every Captain brings domain knowledge — not just capital. A Captain
-                    of Construction understands building sites. A Captain of Maritime knows what happens
-                    mid-ocean. A Captain of Chemicals has the Rolodex that opens procurement doors.
-                    We are matching investors to industries so every seat accelerates the platform."
-                </p>
+                <div class="hero-actions">
+                    <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="btn-hero-primary">
+                        <span>Claim Your Seat</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <a href="#seats" class="btn-hero-secondary">
+                        <span>View Open Seats</span>
+                    </a>
+                </div>
+
+                <div class="hero-trust">
+                    <p class="trust-label">European Commission validated &middot; EU-sovereign infrastructure</p>
+                    <div class="trust-badges">
+                        <span class="trust-item">InvestEU Project</span>
+                        <span class="trust-item">EU Data Residency</span>
+                        <span class="trust-item">NVIDIA Inception</span>
+                        <span class="trust-item">GDPR Compliant</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="benefits-box">
-                <h3>As a Platinum Industry Captain, you:</h3>
-                <ul>
-                    <li>Own your vertical on the platform — named, acknowledged, permanent</li>
-                    <li>Get founding login access to the World Model + Situation Room Reports</li>
-                    <li>Shape how DWS IQ 6 serves your industry</li>
-                    <li>Receive quarterly briefings and priority routing for design partner introductions</li>
-                    <li>Annual 1:1 strategy session with the CEO on your industry's roadmap</li>
-                    <li>First right of refusal on follow-on rounds for your vertical</li>
-                    <li>Lock in at EUR 3.8M valuation cap with 20% discount — best terms before the second tranche</li>
-                </ul>
-            </div>
-
-            <div class="body-text">
-                <p>
-                    The first tranche raises <strong>EUR 500,000</strong> through 8 Platinum Industry Captain
-                    seats at <strong>EUR 50,000 SAFE</strong> each, with Deputy Captain seats available at
-                    EUR 25,000 for rising stars who want to learn the ropes and build toward Platinum.
-                    The remaining 8 Platinum seats open in a second tranche at a higher valuation.
-                </p>
-
-                <p>
-                    Construction is filling now. Seven more first-tranche verticals are open.
-                </p>
-            </div>
-
-            <div class="seat-grid">
-                <h3>Industry Captain Seats — First Tranche (EUR 3.8M cap)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Industry</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>Power & Heat Generation</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>2</td><td>Iron & Steel</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>3</td><td>Cement & Lime</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>4</td><td>Chemicals & Petrochemicals</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>5</td><td>Aviation</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>6</td><td>Maritime Shipping</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>7</td><td>Road Transport & Logistics</td><td><span class="badge-open">OPEN</span></td></tr>
-                        <tr><td>8</td><td>Construction & Buildings</td><td><span class="badge-filling">FILLING</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="seat-grid">
-                <h3>Second Tranche (higher valuation — opens after first tranche closes)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Industry</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>9</td><td>Agriculture</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>10</td><td>Waste Management</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>11</td><td>Aluminium</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>12</td><td>Pulp & Paper</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>13</td><td>Petroleum Refining</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>14</td><td>Food & Beverage</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>15</td><td>Glass & Ceramics</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                        <tr><td>16</td><td>Mining</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="deputy-note">
-                <h3>Deputy Captain — EUR 25,000 SAFE</h3>
-                <p>
-                    Deputy seats are available alongside Platinum for operators who want active involvement
-                    at a lower entry point. Deputies attend quarterly briefings, provide one industry introduction
-                    per quarter, and hold first right of refusal to upgrade to Platinum if a seat opens.
-                    Not a discount seat — an apprentice captain with real responsibilities.
-                </p>
-            </div>
-
-            <div class="body-text">
-                <p>
-                    DWS IQ 6 already generates EUR 7-14k MRR with EUR 59,900 in signed pilots.
-                    The platform runs on EUR 15-50/month infrastructure, backed by USD 135,000+ in cloud
-                    credits from Google, AWS, and Groq, plus EUR 54,200 in NVIDIA hardware. The regulatory
-                    wave — CBAM, CSRD, ETS2, EPBD — guarantees demand through 2030 and beyond.
-                </p>
-
-                <p>
-                    When a seat is taken, it is gone. Early Captains lock in the best terms.
-                </p>
-            </div>
-
-            <div class="boilerplate">
-                <h4>About Lifetime Oy</h4>
-                <p>
-                    Lifetime Oy, based in Helsinki, Finland, builds the DWS IQ platform — an enterprise-grade
-                    industrial climate intelligence system automating Fit for 55 compliance across 16 EU regulated
-                    industries. The platform combines multi-agent AI orchestration, EU-resident data infrastructure,
-                    and edge computing to deliver real-time compliance intelligence for power generation, heavy
-                    industry, construction, transport, and beyond.
-                </p>
-
-                <div class="contact-info">
-                    <strong>Media & Investor Contact:</strong><br>
-                    Risto Paarni, Founder & CEO<br>
-                    <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
-                    Lifetime Oy — Helsinki, Finland<br>
-                    <a href="https://dws10.com">dws10.com</a>
+            <!-- Right side: Live seat dashboard visual -->
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-header">
+                        <div class="visual-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="visual-title">Captain Seat Board — First Tranche</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="visual-seat"><span class="industry">Power & Heat Generation</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Iron & Steel</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Cement & Lime</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Chemicals & Petrochemicals</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Aviation</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Maritime Shipping</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Road Transport & Logistics</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Construction & Buildings</span><span class="vs-filling">FILLING</span></div>
+                    </div>
+                    <div class="visual-footer">
+                        <span><strong>EUR 3.8M cap</strong> &middot; 20% discount &middot; SAFE notes</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h3>Claim Your Industry</h3>
-            <p>8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
-            <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="cta-email">
-                Contact risto@lifetime.fi
-            </a>
+    <!-- ── PRESS RELEASE BODY (dark) ── -->
+    <section class="content-section">
+        <div class="section-label">Press Release</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px;">Helsinki, 15 February 2026</div>
+
+        <h2 class="section-title">Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55 Platform</h2>
+
+        <div class="body-text">
+            <p>
+                <strong>HELSINKI —</strong>
+                Lifetime Oy today announced the opening of Platinum Industry Captain seats for
+                <strong>DWS IQ 6</strong>, the industrial climate intelligence platform covering
+                ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+            </p>
+
+            <p>
+                The company is seeking operators who know their vertical inside out — not passive investors,
+                but founding crew members who will shape how the platform serves their industry.
+                Each Platinum Captain owns one of 16 EU industry verticals on the platform,
+                with status, visibility, and direct influence over the product roadmap.
+            </p>
+        </div>
+
+        <div class="founder-quote">
+            <blockquote>
+                "This is not a generic angel round. Every Captain brings domain knowledge — not just capital.
+                A Captain of Construction understands building sites. A Captain of Maritime knows what happens
+                mid-ocean. A Captain of Chemicals has the Rolodex that opens procurement doors.
+                We are matching investors to industries so every seat accelerates the platform."
+            </blockquote>
+            <cite>— Risto Paarni, Founder & CEO, Lifetime Oy</cite>
+        </div>
+
+        <div class="benefits-box">
+            <h3>As a Platinum Industry Captain, you:</h3>
+            <ul>
+                <li>Own your vertical on the platform — named, acknowledged, permanent</li>
+                <li>Get founding login access to the World Model + Situation Room Reports</li>
+                <li>Shape how DWS IQ 6 serves your industry</li>
+                <li>Receive quarterly briefings and priority routing for design partner introductions</li>
+                <li>Annual 1:1 strategy session with the CEO on your industry's roadmap</li>
+                <li>First right of refusal on follow-on rounds for your vertical</li>
+                <li>Lock in at EUR 3.8M valuation cap with 20% discount — best terms before the second tranche</li>
+            </ul>
+        </div>
+
+        <div class="body-text">
+            <p>
+                The first tranche raises <strong>EUR 500,000</strong> through 8 Platinum Industry Captain
+                seats at <strong>EUR 50,000 SAFE</strong> each, with Deputy Captain seats available at
+                EUR 25,000 for rising stars who want to learn the ropes and build toward Platinum.
+                The remaining 8 Platinum seats open in a second tranche at a higher valuation.
+            </p>
+
+            <p>
+                Construction is filling now. Seven more first-tranche verticals are open.
+            </p>
+        </div>
+
+        <div class="seat-grid" id="seats">
+            <h3>Industry Captain Seats — First Tranche (EUR 3.8M cap)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Industry</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Power & Heat Generation</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>2</td><td>Iron & Steel</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>3</td><td>Cement & Lime</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>4</td><td>Chemicals & Petrochemicals</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>5</td><td>Aviation</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>6</td><td>Maritime Shipping</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>7</td><td>Road Transport & Logistics</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>8</td><td>Construction & Buildings</td><td><span class="badge-filling">FILLING</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="seat-grid">
+            <h3>Second Tranche (higher valuation — opens after first tranche closes)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Industry</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>9</td><td>Agriculture</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>10</td><td>Waste Management</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>11</td><td>Aluminium</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>12</td><td>Pulp & Paper</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>13</td><td>Petroleum Refining</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>14</td><td>Food & Beverage</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>15</td><td>Glass & Ceramics</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                    <tr><td>16</td><td>Mining</td><td><span class="badge-2nd">2ND TRANCHE</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="deputy-note">
+            <h3>Deputy Captain — EUR 25,000 SAFE</h3>
+            <p>
+                Deputy seats are available alongside Platinum for operators who want active involvement
+                at a lower entry point. Deputies attend quarterly briefings, provide one industry introduction
+                per quarter, and hold first right of refusal to upgrade to Platinum if a seat opens.
+                Not a discount seat — an apprentice captain with real responsibilities.
+            </p>
+        </div>
+
+        <div class="body-text">
+            <p>
+                DWS IQ 6 already generates EUR 7-14k MRR with EUR 59,900 in signed pilots.
+                The platform runs on EUR 15-50/month infrastructure, backed by USD 135,000+ in cloud
+                credits from Google, AWS, and Groq, plus EUR 54,200 in NVIDIA hardware. The regulatory
+                wave — CBAM, CSRD, ETS2, EPBD — guarantees demand through 2030 and beyond.
+            </p>
+
+            <p>
+                When a seat is taken, it is gone. Early Captains lock in the best terms.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <span class="sovereignty-badge eu-data">EU Data Residency</span>
+            <span class="sovereignty-badge cloud-act-free">CLOUD Act Free</span>
+            <span class="sovereignty-badge investeu">InvestEU INPO-20254383</span>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>Lifetime Oy | Helsinki, Finland | <a href="https://dws10.com">dws10.com</a></p>
-            <p style="margin-top: 8px;">ISO 27001 Security | EU Data Residency | GDPR Compliant</p>
-            <p style="margin-top: 8px;">&copy; 2026 Lifetime Oy. All rights reserved.</p>
+    <!-- ── CTA ── -->
+    <section class="cta-section">
+        <h3>Claim Your Industry</h3>
+        <p>8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
+        <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="cta-email">
+            Contact risto@lifetime.fi
+        </a>
+    </section>
+
+    <!-- ── Boilerplate ── -->
+    <div class="boilerplate">
+        <div class="boilerplate-inner">
+            <h4>About Lifetime Oy</h4>
+            <p>
+                Lifetime Oy, based in Helsinki, Finland, builds the DWS IQ platform — an enterprise-grade
+                industrial climate intelligence system automating Fit for 55 compliance across 16 EU regulated
+                industries. The platform combines multi-agent AI orchestration, EU-resident data infrastructure,
+                and edge computing to deliver real-time compliance intelligence for power generation, heavy
+                industry, construction, transport, and beyond.
+            </p>
+
+            <div class="contact-info">
+                <strong>Media & Investor Contact:</strong><br>
+                Risto Paarni, Founder & CEO<br>
+                <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
+                Lifetime Oy — Helsinki, Finland<br>
+                <a href="https://dws10.com">dws10.com</a>
+            </div>
         </div>
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer>
+        <p>Lifetime Oy | Helsinki, Finland | <a href="https://dws10.com">dws10.com</a></p>
+        <p style="margin-top: 8px;">ISO 27001 Security | EU Data Residency | GDPR Compliant</p>
+        <p style="margin-top: 8px;">&copy; 2026 Lifetime Oy. All rights reserved.</p>
     </footer>
 </body>
 
