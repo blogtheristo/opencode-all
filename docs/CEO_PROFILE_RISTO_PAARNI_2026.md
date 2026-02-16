@@ -82,7 +82,7 @@ A founder who builds through that doesn't quit at a down round.
 
 The most recent proof point: Paarni built the full BIM-to-carbon-calculation-to-Situation-Room pipeline in a single five-hour session. Real Finnish emission factors. Real EN 15978 lifecycle stages. Real NCC project data flowing through real infrastructure. No mocks. No fake numbers.
 
-The aim of the calculus: what if you could build Trump Tower 15% cheaper and make its carbon footprint 30% smaller? That's the question DWS IQ 6 answers — not in theory, but with auditable numbers from real building models.
+The aim of the calculus: what if you could build Trump Tower 15% cheaper and make its carbon footprint 30% smaller? That's the question DWS IQ 6 answers — not in theory, but with auditable numbers from real building models. And then multiply that across 16 industries.
 
 The result: 420 kg CO2e/m² for a hybrid concrete-timber office tower in Helsinki — a number that construction professionals can verify against industry benchmarks.
 
