@@ -16,6 +16,7 @@ Sessions & Modifications:
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed Kela student support paragraph and "This is not a complaint" line from Page 1B. Too personal for investor-facing document.
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Board feedback round. Page 1B rewritten — credentials converted from CV list to story beats (stripped course names, program levels, certification titles). Page 1C (BIM pipeline) moved from between 1B and Page 2 to Page 3B (after EUR 333k, before Platform) to preserve momentum between origin story and problem statement. Pages 1, 2-3, 8 untouched per board direction.
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Second board pass — Page 1B cut to answer ONE question: "Why did he see this before everyone else?" Removed credential line (replaced with output), cut "structured study" filler, cut Microsoft programme paragraph entirely (already proved on Page 1). Flagged deep tech/Fleet repetition as intentional editorial choice. Net reduction ~40%.
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed all cloud credit mentions. Page 1B: "extended six-figure cloud credits" → "backed the infrastructure". Page 6: replaced credits table with one-line partner list. Technologies and companies named, dollar amounts removed.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -23,7 +24,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026 (v1.9)
+  - Last Modified: 16.02.2026 (v2.0)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -64,7 +65,7 @@ The European Commission took notice. Three versions of the platform — DWS 3, D
 
 **This is how a Captain is made.**
 
-Not through adversity alone — through intuition, innovation, and the plain joy of doing the work. Then the industry started coming to him. NVIDIA opened the door to its hardware programme. Google, AWS, and Groq extended six-figure cloud credits — not because he applied through the standard pipeline, but because the platform was good enough to attract notice. Nordic construction firms signed pilot contracts. Finland's Finnvera issued a loan for an earlier version in 2020 — the sole domestic institutional support he has received.
+Not through adversity alone — through intuition, innovation, and the plain joy of doing the work. Then the industry started coming to him. NVIDIA opened the door to its hardware programme. Google, AWS, and Groq backed the infrastructure — not because he applied through the standard pipeline, but because the platform was good enough to attract notice. Nordic construction firms signed pilot contracts. Finland's Finnvera issued a loan for an earlier version in 2020 — the sole domestic institutional support he has received.
 
 The evidence is public. More than 500 pull requests on GitHub — a living codebase, not a slide deck. Three InvestEU listings verifiable on the European Commission's portal.
 
@@ -215,16 +216,7 @@ Lifetime Oy is not pre-revenue. The numbers:
 | Q1 2026 pilot contracts (2 signed) | EUR 59,900 total | Signed |
 | Projected annual (combined) | EUR 140,000+ | On track |
 
-**Cloud credits secured:**
-
-| Provider | Value |
-|----------|-------|
-| Google for Startups | USD 100,000 |
-| AWS for Startups | USD 25,000 |
-| Groq for Startups | USD 10,000 |
-| GitHub Enterprise | Advanced features, 20 seats |
-| NVIDIA hardware | EUR 54,200 |
-| **Total** | **USD 135,000+ credits + EUR 54,200 hardware** |
+**Strategic technology partners:** Google, AWS, Groq, NVIDIA, GitHub Enterprise.
 
 **Capital efficiency:**
 
