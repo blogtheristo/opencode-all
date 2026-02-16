@@ -9,6 +9,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: New 10-page CEO profile — facts-first, no paid placement, incorporates board feedback and Fleet Captain framework. Replaces CEO_MAGAZINE_PROFILE_RISTO_PAARNI_2026.md.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured raise from EUR 150k/6 Fleet Captains to EUR 500k/16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k). One seat per industry. Updated Pages 6, 8, 10. Vineyard Owner VC messaging updated.
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added engagement duties for Deputies. Total capacity EUR 1.2M, round target EUR 500k. Updated Pages 6, 8, 10.
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: First tranche limited to 8 Platinum seats (EUR 500k). Second tranche at higher valuation. Added Page 1B (founder background — AI journey 2018-2026, Finnish labour market context, Kela/thesis, international recognition) and Page 1C (BIM pipeline proof point — 420 kg CO2e/m² in 5 hours).
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -16,7 +17,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 15.02.2026
+  - Last Modified: 16.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -40,6 +41,52 @@ So he built it.
 He still writes code daily. He manages the GitHub repository. He reviews architecture decisions. When a demo breaks, he fixes it himself. His philosophy: the CEO of an AI company should understand the models, the infrastructure, and the deployment constraints — not just the market opportunity.
 
 That's the origin. Not a pivot from fintech. Not an MBA chasing a trend. An industrial engineer who spent three decades watching factories struggle with compliance — and finally built the tool they needed.
+
+---
+
+## Page 1B — The Long Road Nobody Saw
+
+The story investors don't hear in a pitch meeting — because it doesn't fit on a slide.
+
+Risto Paarni started the AI path in December 2018. He had completed a Data Specialist diploma and moved into Microsoft Cloud Architecture certification — a year of training before the word "AI" meant anything to the startup world. He followed up with IBM's full AI curriculum on Coursera: machine learning, neural networks, applied AI. Not weekend YouTube courses. Structured, certified programmes completed while working industrial IT jobs that the Finnish labour market considered his ceiling.
+
+From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos.
+
+Then came November 2022.
+
+When GPT-2's successor models went public, Paarni recognised what was coming before most founders did — because he already had the infrastructure background to understand it. He had spent four years studying the technology. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
+
+DWS IQ 6 is now an InvestEU project (INPO-20254383) — validated by the European Commission's investment platform. Not an accelerator. Not an incubator. A project deemed eligible for EU-level institutional investment support.
+
+**Here's the part the Finnish market never processed.**
+
+In all these years — the IBM certifications, the Microsoft programme, the master's thesis, the six platform versions, the InvestEU validation — not a single Finnish employer saw value in hiring Risto Paarni. His CV is a 50-page technical narrative covering three decades of industrial IT, cloud architecture, AI systems, and EU regulation expertise. It interests nobody in Finland's hiring process.
+
+Abroad, it's different. International accelerators accepted him. NVIDIA's Inception Program took him in. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. The European Commission listed his project.
+
+Finland's system looked at the same person and saw unemployment statistics.
+
+Today, Kela — the Finnish social security institution — acknowledged his thesis progress at Metropolia University of Applied Sciences (YAMK, Master's level) by denying his student support. Three years of work on a 30-credit Smart Factory thesis, and the system counted credits, not capability. The thesis will be completed. He won't need student support after that. If LUT University accepts him for doctoral studies, the work continues at a higher level.
+
+This is not a complaint. It's context.
+
+When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland.
+
+The platform exists because he refused to stop.
+
+That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. The InvestEU listing is public. The Kela decision is on file. The Finnish labour market's indifference is documented in three decades of applications.
+
+A founder who builds through that doesn't quit at a down round.
+
+---
+
+## Page 1C — The BIM Pipeline (February 2026)
+
+The most recent proof point: Paarni built the full BIM-to-carbon-calculation-to-Situation-Room pipeline in a single five-hour session. Real Finnish emission factors. Real EN 15978 lifecycle stages. Real NCC project data flowing through real infrastructure. No mocks. No fake numbers.
+
+The result: 420 kg CO2e/m² for a hybrid concrete-timber office tower in Helsinki — a number that construction professionals can verify against industry benchmarks.
+
+This is what "CEO who still codes" means in practice. Not a founder who reviews pull requests. A founder who builds production data pipelines on a Saturday and ships them before breakfast.
 
 ---
 
