@@ -74,7 +74,7 @@ In November, he delivered a whitepaper and seminar presentation for the Metropol
 
 When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland — except one Finnvera loan for DWS 3 in 2020.
 
-The platform exists because he refused to stop.
+The DWS IQ platform and the onelifetime.world community exist because of one mission: fight the climate crisis with the latest technology of each industry. The platform exists because he refused to stop.
 
 That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. Three InvestEU listings are public. The Finnish labour market's indifference is documented in three decades of applications.
 
