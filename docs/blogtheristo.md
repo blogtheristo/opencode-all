@@ -3,11 +3,12 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Initial creation — public digital identity profile consolidating GitHub, LinkedIn, CEO profile, and platform credentials into one DWS-standard reference document.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Stripped investor-facing content (SAFE terms, valuation cap, revenue numbers, seat structure, deep tech funding timeline). This is a public GitHub profile — shop window, not term sheet.
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Developer-audience pass — shortened bio to 3 lines, cut 16-industry list, replaced investor validation with technical credibility, merged GitHub activity into credibility section.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -22,29 +23,16 @@ Document Status:
 
 ***
 
-**Version:** 1.1
+**Version:** 1.2
 **Purpose:** Public developer profile for @blogtheristo
-**Audience:** GitHub followers, developer community, partners
+**Audience:** GitHub followers, developer community, collaborators
 **Updated:** 16.02.2026
 
 ---
 
 ## Who I Am
 
-| | |
-|---|---|
-| **Name** | Risto Anton Paarni |
-| **Handle** | @blogtheristo |
-| **Title** | Founder & CEO, Lifetime Oy |
-| **Education** | M.Sc. (Tech), Industrial Management |
-| **Location** | Finland |
-| **Languages** | Finnish, English, Swedish |
-
-35 years in industrial IT. Factory floors in Finland. ERP migrations across Scandinavia. Cloud architecture for manufacturers still running systems from the 1990s.
-
-Started building AI systems in late 2018 — a year inside the mathematics of machine learning before the rest of the industry understood what transformers would become. When ChatGPT launched in November 2022, I didn't need to learn AI. I needed to deploy it.
-
-Six successive versions of DWS followed. I still write code daily.
+Founder & CEO of [Lifetime Oy](https://dws10.com) (Finland). Building **DWS IQ 6** — a multi-agent AI platform that automates EU climate compliance across industrial verticals. Deployed on NVIDIA Jetson edge devices, not cloud APIs.
 
 ---
 
@@ -52,22 +40,16 @@ Six successive versions of DWS followed. I still write code daily.
 
 ### DWS IQ 6 — Climate Intelligence Platform
 
-Multi-agent AI platform automating climate compliance across 16 EU industries under Fit for 55 (ETS, CBAM, CSRD, EPBD, and more).
-
-Four-layer architecture:
+Multi-agent AI orchestration for EU regulatory compliance (ETS, CBAM, CSRD, EPBD).
 
 - **Brain** — Multi-agent orchestration on Google Cloud Run + Groq LPU
-- **Memory** — Lifetime World Model — 15,000+ EU regulatory documents across 16 industry verticals
+- **Memory** — Lifetime World Model — 15,000+ EU regulatory documents indexed by industry
 - **Body** — Firehorse Suite — reports, automation, content DMS, omnichannel
 - **Hands** — Lifetime Fleet — vehicles, IoT, drones for physical execution
 
 ### Edge AI
 
-While competitors route all inference through cloud APIs, we deploy NVIDIA Jetson Orin Nano at the edge — construction sites, factory floors, maritime vessels. 7–15 watts. Works offline. Solar-capable.
-
-### 16 Industries
-
-Power & heat, iron & steel, cement & lime, chemicals, aviation, maritime, road transport, construction, agriculture, waste management, aluminium, pulp & paper, petroleum refining, food & beverage, glass & ceramics, mining.
+NVIDIA Jetson Orin Nano at the edge — construction sites, factory floors, maritime vessels. 7–15 watts. Works offline. Solar-capable. Sub-100ms inference where cloud can't reach.
 
 ---
 
@@ -87,22 +69,15 @@ Power & heat, iron & steel, cement & lime, chemicals, aviation, maritime, road t
 
 ---
 
-## Validation
+## Credibility
 
-- **European Commission InvestEU Portal** — Project INPO-20254383. Three platform versions listed (DWS 3, 4, IQ 6).
-- **NVIDIA Inception Program** — Jetson edge AI
-- **Microsoft Founders Hub** — L1–L4
-- **Peachscore Accelerator** — Cohort 25
-- **GitHub Developer** credential
-
----
-
-## GitHub Activity
-
-- 500+ pull requests on the DWS codebase
+- Deployed on NVIDIA Jetson Orin Nano — NVIDIA Inception Program member
+- Multi-agent orchestration via Model Context Protocol (MCP)
+- 500+ pull requests on the main codebase
 - 74 public repositories
 - Arctic Code Vault Contributor
 - Pull Shark x3, Pair Extraordinaire x2
+- Three platform versions listed on European Commission InvestEU Portal
 
 ---
 
