@@ -13,6 +13,7 @@ Sessions & Modifications:
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Page 1B deepened — GPT-2/transformers turning point (2019), third engineering hat (AI/Edge/Cloud), Azure AI Foundry + .NET Aspire in Microsoft Founders Hub stack, November whitepaper/seminar for Metropolia Smart Factory M.Sc., 11-year deep tech funding context, Lifetime Fleet as runway-independent strategic asset (EUR 7k MRR).
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Microsoft Founders Hub Level 1–4 progression specified, GitHub Developer credential added. Page 10 Programs row consolidated (MS Founders Hub L1–L4, NVIDIA Inception, GitHub Developer, Peachscore).
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: European Commission listed DWS versions 3, 4, and 6 (not just v6). Three successive validations on InvestEU Portal. Updated Page 1B and Page 10.
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed Kela student support paragraph and "This is not a complaint" line from Page 1B. Too personal for investor-facing document.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -20,7 +21,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026 (v1.6)
+  - Last Modified: 16.02.2026 (v1.7)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -71,15 +72,11 @@ Finland's system looked at the same person and saw unemployment statistics.
 
 In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme — the kind of academic contribution that demonstrates deep domain expertise but earns no labour market recognition in Finland.
 
-Today, Kela — the Finnish social security institution — acknowledged his thesis progress at Metropolia University of Applied Sciences (YAMK, Master's level) by denying his student support. Three years of work on a 30-credit Smart Factory thesis, and the system counted credits, not capability. The thesis will be completed. He won't need student support after that. If LUT University accepts him for doctoral studies, the work continues at a higher level.
-
-This is not a complaint. It's context.
-
 When an investor asks "why should I back this founder?" — the answer isn't the platform architecture or the regulatory wave. It's this: Paarni kept building when nobody was watching, nobody was paying, and nobody in his home country thought the work mattered. He has been coding, studying, certifying, and shipping for seven years straight with zero institutional support from Finland.
 
 The platform exists because he refused to stop.
 
-That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. The InvestEU listing is public. The Kela decision is on file. The Finnish labour market's indifference is documented in three decades of applications.
+That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. Three InvestEU listings are public. The Finnish labour market's indifference is documented in three decades of applications.
 
 Here's the number that makes this make sense: deep tech startups take on average **11 years** to reach funding. Paarni is in year eight. He's not behind schedule — he's ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still in the lab at this stage. Paarni has paying customers and a fleet division bringing in EUR 7,000 MRR — enough to sustain operations without worrying about runway. The Lifetime Fleet isn't a side hustle. It's a strategic asset that lets the founder build on his own timeline, without the desperation capital that kills deep tech companies.
 
