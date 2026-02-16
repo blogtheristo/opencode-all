@@ -15,6 +15,7 @@ Sessions & Modifications:
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: European Commission listed DWS versions 3, 4, and 6 (not just v6). Three successive validations on InvestEU Portal. Updated Page 1B and Page 10.
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed Kela student support paragraph and "This is not a complaint" line from Page 1B. Too personal for investor-facing document.
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Board feedback round. Page 1B rewritten — credentials converted from CV list to story beats (stripped course names, program levels, certification titles). Page 1C (BIM pipeline) moved from between 1B and Page 2 to Page 3B (after EUR 333k, before Platform) to preserve momentum between origin story and problem statement. Pages 1, 2-3, 8 untouched per board direction.
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Second board pass — Page 1B cut to answer ONE question: "Why did he see this before everyone else?" Removed credential line (replaced with output), cut "structured study" filler, cut Microsoft programme paragraph entirely (already proved on Page 1). Flagged deep tech/Fleet repetition as intentional editorial choice. Net reduction ~40%.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -22,7 +23,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026 (v1.8)
+  - Last Modified: 16.02.2026 (v1.9)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -53,11 +54,9 @@ That's the origin. Not a pivot from fintech. Not an MBA chasing a trend. An indu
 
 Most founders point to a single moment of inspiration. For Risto Paarni, the moment lasted seven years.
 
-It began in late 2018. He earned a data-science credential and started building cloud systems — drawn not by a business plan but by a question he could not put down. Then he spent a year inside the mathematics of machine learning: neural networks, backpropagation, the architecture that would soon power everything. Not weekend crash courses. Structured study, one layer deeper at a time.
+In late 2018 he started building the systems that would become DWS — drawn not by a business plan but by a question he could not put down. He spent a year inside the mathematics of machine learning before most of the industry knew the field existed.
 
 In 2019, OpenAI released GPT-2, and the transformer architecture announced itself as the defining paradigm of a generation. Paarni grasped the shift at once. He had spent a year inside the mathematics. What the rest of the industry would discover over the following three years, he was already building on. It gave him a third engineering discipline — after industrial management and industrial IT, he now carried what he calls *"what is new in AI, Edge, Cloud"*: the intuition to recognise emerging technology and the craft to turn it into working systems.
-
-For a decade he built cloud-native applications inside Microsoft's startup programme, advancing through every tier they offered. The tools evolved underneath him — model orchestration, distributed systems, edge deployment — and each generation of the platform taught him what the next one required.
 
 When ChatGPT launched in November 2022, the world rushed to understand what Paarni had been quietly exploring for four years. He did not need to learn AI. He needed to deploy it. What followed was the most creative stretch of his career: six successive versions of DWS, each a complete rebuild, each closer to what industrial compliance actually demanded.
 
@@ -73,6 +72,7 @@ The DWS IQ platform and the onelifetime.world community exist for a single reaso
 
 When a business angel asks, "Why this founder?" — the answer is the energy behind the work. Seven years of learning, building, and shipping because the problem matters and the craft is worth mastering. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's intuition: Paarni sees where the technology is heading, and he takes genuine pleasure in arriving there first.
 
+<!-- EDITORIAL NOTE: The deep tech timeline and Fleet MRR below intentionally repeat Pages 6 and 8. In a backgrounder this reinforcement is deliberate — an angel reading only Page 1B still gets the full picture. -->
 One number puts the timeline in perspective. Deep tech ventures require, on average, **11 years** to reach institutional funding. Paarni is in year eight — ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still prototyping at this stage. Paarni has paying customers and a fleet division producing EUR 7,000 in monthly recurring revenue, enough to sustain operations without the runway anxiety that forces premature compromises. The Lifetime Fleet is not a side business. It is a strategic asset that affords the founder the rarest advantage in deep tech: the freedom to build on his own timeline.
 
 A founder with that track record does not walk away at a down round.
