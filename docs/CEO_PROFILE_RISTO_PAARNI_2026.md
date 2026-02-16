@@ -11,6 +11,8 @@ Sessions & Modifications:
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added engagement duties for Deputies. Total capacity EUR 1.2M, round target EUR 500k. Updated Pages 6, 8, 10.
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: First tranche limited to 8 Platinum seats (EUR 500k). Second tranche at higher valuation. Added Page 1B (founder background — AI journey 2018-2026, Finnish labour market context, Kela/thesis, international recognition) and Page 1C (BIM pipeline proof point — 420 kg CO2e/m² in 5 hours).
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Page 1B deepened — GPT-2/transformers turning point (2019), third engineering hat (AI/Edge/Cloud), Azure AI Foundry + .NET Aspire in Microsoft Founders Hub stack, November whitepaper/seminar for Metropolia Smart Factory M.Sc., 11-year deep tech funding context, Lifetime Fleet as runway-independent strategic asset (EUR 7k MRR).
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Microsoft Founders Hub Level 1–4 progression specified, GitHub Developer credential added. Page 10 Programs row consolidated (MS Founders Hub L1–L4, NVIDIA Inception, GitHub Developer, Peachscore).
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: European Commission listed DWS versions 3, 4, and 6 (not just v6). Three successive validations on InvestEU Portal. Updated Page 1B and Page 10.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -18,7 +20,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026 (v1.4)
+  - Last Modified: 16.02.2026 (v1.6)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -53,17 +55,17 @@ Risto Paarni started the AI path in December 2018. He had completed a Data Speci
 
 Then GPT-2 arrived in 2019 — and everything changed with transformers. The attention mechanism wasn't an incremental improvement. It was a new paradigm. Paarni recognised this immediately because he had already spent a year studying the underlying mathematics. This was his third engineering hat: after industrial management and industrial IT, he now carried *"what is new in AI, Edge, Cloud"* — the ability to evaluate emerging technology not as a spectator, but as a builder who understood the stack from silicon to API.
 
-From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos. The stack evolved with the platform: Azure AI Foundry for model orchestration, .NET Aspire for cloud-native distributed applications. He wasn't just a user of Microsoft's tools — he was a Founders Hub co-founder building production systems while others were still running tutorials.
+From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — progressing from Level 1 through Level 4, ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos. The stack evolved with the platform: Azure AI Foundry for model orchestration, .NET Aspire for cloud-native distributed applications. He wasn't just a user of Microsoft's tools — he was a Founders Hub co-founder building production systems while others were still running tutorials.
 
 Then came November 2022. ChatGPT went public and the world caught up to what Paarni had been studying for four years. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
 
-DWS IQ 6 is now an InvestEU project (INPO-20254383) — validated by the European Commission's investment platform. Not an accelerator. Not an incubator. A project deemed eligible for EU-level institutional investment support.
+The European Commission has listed three versions of the platform — DWS 3, DWS 4, and DWS IQ 6 — on the InvestEU Portal (INPO-20254383). Not one lucky submission. Three successive versions validated by the EU's institutional investment platform. Not an accelerator. Not an incubator. A track record of progressive validation at the Commission level.
 
 **Here's the part the Finnish market never processed.**
 
-In all these years — the IBM certifications, the Microsoft programme, the master's thesis, the six platform versions, the InvestEU validation — not a single Finnish employer saw value in hiring Risto Paarni. His CV is a 50-page technical narrative covering three decades of industrial IT, cloud architecture, AI systems, and EU regulation expertise. It interests nobody in Finland's hiring process.
+In all these years — the IBM certifications, the Microsoft programme, the master's thesis, the six platform versions, three of them listed by the European Commission — not a single Finnish employer saw value in hiring Risto Paarni. His CV is a 50-page technical narrative covering three decades of industrial IT, cloud architecture, AI systems, and EU regulation expertise. It interests nobody in Finland's hiring process.
 
-Abroad, it's different. International accelerators accepted him. NVIDIA's Inception Program took him in. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. The European Commission listed his project.
+Abroad, it's different. International accelerators accepted him. NVIDIA's Inception Program took him in. GitHub recognised him as a GitHub Developer. Google, AWS, and Groq handed over six-figure cloud credits. Construction companies in the Nordics signed pilot contracts. The European Commission listed his project.
 
 Finland's system looked at the same person and saw unemployment statistics.
 
@@ -420,8 +422,8 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
 | **Current raise** | EUR 500k SAFE — 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k). Second tranche at higher valuation. |
 | **Valuation cap** | EUR 3.8M (20% discount) |
-| **Accelerator** | Peachscore Cohort 25 |
-| **InvestEU** | Project INPO-20254383 |
+| **Programs** | Microsoft Founders Hub (L1–L4), NVIDIA Inception, GitHub Developer, Peachscore Cohort 25 |
+| **InvestEU** | Project INPO-20254383 (DWS 3, 4, and 6 listed) |
 | **Languages** | Finnish, English, Swedish |
 | **Contact** | risto@lifetime.fi |
 | **LinkedIn** | linkedin.com/in/ristopaarni |
