@@ -3,7 +3,7 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: New 10-page CEO profile — facts-first, no paid placement, incorporates board feedback and Fleet Captain framework. Replaces CEO_MAGAZINE_PROFILE_RISTO_PAARNI_2026.md.
@@ -18,6 +18,7 @@ Sessions & Modifications:
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Second board pass — Page 1B cut to answer ONE question: "Why did he see this before everyone else?" Removed credential line (replaced with output), cut "structured study" filler, cut Microsoft programme paragraph entirely (already proved on Page 1). Flagged deep tech/Fleet repetition as intentional editorial choice. Net reduction ~40%.
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Removed all cloud credit mentions. Page 1B: "extended six-figure cloud credits" → "backed the infrastructure". Page 6: replaced credits table with one-line partner list. Technologies and companies named, dollar amounts removed.
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Page 1B — fixed ML overclaim ("before the field existed" → "before the rest of the industry understood what transformers would become"), killed duplicate "inside the mathematics" phrase, added process improvement roots since 2007 to industrial management parenthetical.
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Deep tech thesis integrated. Page 4: added one-liner ("DWS is the orchestration platform. The LWM is the proprietary intelligence layer. Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach."). Page 10: added deep tech moat row. Related documents: added DEEP_TECH_THESIS.md reference.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -25,7 +26,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026 (v2.1)
+  - Last Modified: 16.02.2026 (v2.2)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -154,7 +155,9 @@ This is what it means when a CEO still writes code. Not a founder who reviews pu
 
 ## Page 4 — The Platform
 
-DWS IQ 6 is a multi-agent AI platform that automates climate compliance across 16 EU industries. It operates in four layers:
+DWS IQ 6 is a multi-agent AI platform that automates climate compliance across 16 EU industries. The short version: DWS IQ 6 is the orchestration platform. The Lifetime World Model is the proprietary intelligence layer. Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach.
+
+It operates in four layers:
 
 **Brain — Multi-Agent Orchestration.**
 Coordinates real-time decision-making across compliance domains. Built on Google Cloud Run with Groq LPU acceleration. Processes regulatory signals, emissions data, and supply chain inputs simultaneously.
@@ -403,6 +406,7 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Experience** | 35 years industrial IT |
 | **Industries served** | 16 EU-regulated verticals |
 | **Products** | DWS IQ 6, Firehorse Suite, Lifetime World Model, Lifetime Fleet |
+| **Deep tech moat** | Proprietary LWM (15,000+ regulatory docs), edge AI (Jetson), model-agnostic orchestration |
 | **Revenue** | EUR 7-14k MRR (Fleet) + EUR 59,900 Q1 2026 pilots |
 | **Edge AI savings** | EUR 333,000/year vs. cloud competitors |
 | **Infrastructure cost** | EUR 15-50/month |
@@ -420,5 +424,6 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 ---
 
 **Related documents:**
+- `docs/DEEP_TECH_THESIS.md` — Three-pillar deep tech defensibility argument (LWM, edge AI, orchestration)
 - `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` — Internal playbook (press strategy, DM templates, LinkedIn post, carousel specs)
 - `docs/CEO_MAGAZINE_PROFILE_RISTO_PAARNI_2026.md` — Original magazine profile (SUPERSEDED)
