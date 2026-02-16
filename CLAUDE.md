@@ -15,6 +15,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
 | **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -730,16 +731,39 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Deployment
 
-- **Primary**: Google Cloud Run + Groq
+> **Full cloud environment documentation:** `docs/CLOUD_ENVIRONMENTS.md`
+
+### Cloud Accounts
+
+| Account | Email / ID | Scope |
+|---------|-----------|-------|
+| **Pilot / EU Cloud** | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+| **US Public Cloud** | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud (Public)** | Cloudflare Pages/Workers | Global | Landing pages, dashboard SPA, edge API |
+| **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend API, AI agents, database, auth |
+| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 logging, reasoning lineage, audit trails |
+| **Hetzner (V3)** | Hetzner Helsinki | Finland | Jitsi Meet, email service (Firehorse V3) |
+
+### Deployment Targets
+- **Primary**: Google Cloud Run (europe-north1) + Groq
 - **Edge**: Cloudflare Workers (dws6.com, dws10.com)
 - **Data**: Supabase (EU-hosted)
 - **Edge AI**: NVIDIA Jetson Orin Nano
 - **Orchestration**: Temporal.io
+- **Backup**: Scaleway Serverless (fr-par)
+- **V3 Infra**: Hetzner Helsinki (Jitsi + Email)
 
 ## Documentation
 
 Key documentation files:
 - `README.md` - Project overview
+- `docs/CLOUD_ENVIRONMENTS.md` - Cloud environments, accounts, DWS 6→7 migration
+- `DWS7_ROADMAP.md` - DWS 7 production roadmap (247 PRs)
 - `ADMIN_MANUAL_*.md` - Administration guides
 - `SECURITY_COMPLIANCE.md` - Security documentation
 - `Firehorse/` directory - Product documentation
