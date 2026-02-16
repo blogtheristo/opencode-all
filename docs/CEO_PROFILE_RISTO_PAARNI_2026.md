@@ -76,7 +76,7 @@ When an investor asks "why should I back this founder?" — the answer isn't the
 
 The DWS IQ platform and the onelifetime.world community exist because of one mission: fight the climate crisis with the latest technology of each industry. The platform exists because he refused to stop.
 
-That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. Three InvestEU listings are public. The Finnish labour market's indifference is documented in three decades of applications.
+That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. DWS IQ 6 alone has over 500 pull requests and hundreds of commits on GitHub — a living codebase, not a slide deck. Three InvestEU listings are public. The Finnish labour market's indifference is documented in three decades of applications.
 
 Here's the number that makes this make sense: deep tech startups take on average **11 years** to reach funding. Paarni is in year eight. He's not behind schedule — he's ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still in the lab at this stage. Paarni has paying customers and a fleet division bringing in EUR 7,000 MRR — enough to sustain operations without worrying about runway. The Lifetime Fleet isn't a side hustle. It's a strategic asset that lets the founder build on his own timeline, without the desperation capital that kills deep tech companies.
 
