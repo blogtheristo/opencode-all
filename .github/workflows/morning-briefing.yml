@@ -1,21 +1,11 @@
-# Morning Briefing — CEO Cockpit
-#
-# Sends the daily CEO Cockpit email at 06:00 Helsinki time, Mon-Sat.
-# Helsinki = UTC+2 (winter) / UTC+3 (summer).
-# Cron uses UTC, so we schedule at 03:00 UTC to cover both offsets.
-# (04:00 UTC in winter = 06:00 EET, 03:00 UTC in summer = 06:00 EEST)
-#
-# Also supports manual trigger via workflow_dispatch.
-
-name: Morning Briefing
+name: Send CEO Cockpit Morning Briefing
 
 on:
   schedule:
-    # 04:00 UTC = 06:00 Helsinki (EET, winter)
-    # In summer (EEST), this fires at 07:00 Helsinki — acceptable ±1h drift.
-    # For exact 06:00 year-round, use two cron entries:
-    - cron: '0 4 * * 1-6'   # Mon-Sat at 04:00 UTC
-
+    # Runs Mon-Sat at 03:00 UTC.
+    # This corresponds to 06:00 in Helsinki during summer (EEST, UTC+3).
+    # In winter, this will be 05:00 in Helsinki (EET, UTC+2).
+    - cron: '0 3 * * 1-6'
   workflow_dispatch:
     inputs:
       recipient:
@@ -25,14 +15,15 @@ on:
 
 jobs:
   send-briefing:
+    name: Send Morning Briefing Email
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -41,13 +32,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Send morning briefing
+      - name: Send Morning Briefing Email
         env:
+          # At least one email provider key is required
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          # Required for data collection
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'noreply@dws6.com' }}
+          # Optional overrides for email content and delivery
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'risto@onelifetime.world' }}
           OUTREACH_DIGEST_EMAIL: ${{ inputs.recipient || secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
           MRR_EUR: ${{ secrets.MRR_EUR }}
           WEEKLY_COMMITS: ${{ secrets.WEEKLY_COMMITS }}

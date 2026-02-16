@@ -179,9 +179,9 @@ async def startup():
 
     # --- Redis ---
     try:
-        import redis.asyncio as aioredis
+        from redis.asyncio import from_url as redis_from_url
 
-        _redis = aioredis.from_url(
+        _redis = redis_from_url(
             REDIS_URL,
             decode_responses=True,
             socket_connect_timeout=3,

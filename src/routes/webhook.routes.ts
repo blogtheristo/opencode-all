@@ -67,7 +67,7 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 // ============================================================================
 
 async function sendConfirmationEmail(to: string, subject: string, body: string): Promise<void> {
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
 
   if (!resendKey) {
@@ -88,6 +88,10 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
         subject,
         text: body,
       }),
+    });
+    logger.info('Sent confirmation email', {
+      to,
+      from: fromAddress,
     });
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });

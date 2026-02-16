@@ -26,7 +26,7 @@ import { buildCockpitHtml, buildCockpitPlainText } from '../src/morning-briefing
 
 async function main(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
   const sendgridKey = process.env.SENDGRID_API_KEY;
 
@@ -70,6 +70,7 @@ async function main(): Promise<void> {
     if (response.ok) {
       const result = await response.json();
       console.log(`Sent via Resend. ID: ${(result as any).id}`);
+      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
       return;
     }
 
@@ -104,6 +105,7 @@ async function main(): Promise<void> {
 
     if (response.ok || response.status === 202) {
       console.log('Sent via SendGrid.');
+      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
       return;
     }
 
