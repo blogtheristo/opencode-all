@@ -10,6 +10,7 @@ Sessions & Modifications:
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Restructured raise from EUR 150k/6 Fleet Captains to EUR 500k/16 Industry Captains (EUR 50k) + 16 Deputy Captains (EUR 30k). One seat per industry. Updated Pages 6, 8, 10. Vineyard Owner VC messaging updated.
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 15.02.2026 | Changes: Tiering upgrade — Platinum Industry Captain (EUR 50k) + Deputy Captain (EUR 25k). Added engagement duties for Deputies. Total capacity EUR 1.2M, round target EUR 500k. Updated Pages 6, 8, 10.
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: First tranche limited to 8 Platinum seats (EUR 500k). Second tranche at higher valuation. Added Page 1B (founder background — AI journey 2018-2026, Finnish labour market context, Kela/thesis, international recognition) and Page 1C (BIM pipeline proof point — 420 kg CO2e/m² in 5 hours).
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Page 1B deepened — GPT-2/transformers turning point (2019), third engineering hat (AI/Edge/Cloud), Azure AI Foundry + .NET Aspire in Microsoft Founders Hub stack, November whitepaper/seminar for Metropolia Smart Factory M.Sc., 11-year deep tech funding context, Lifetime Fleet as runway-independent strategic asset (EUR 7k MRR).
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH
@@ -17,7 +18,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 16.02.2026
+  - Last Modified: 16.02.2026 (v1.4)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -50,11 +51,11 @@ The story investors don't hear in a pitch meeting — because it doesn't fit on 
 
 Risto Paarni started the AI path in December 2018. He had completed a Data Specialist diploma and moved into Microsoft Cloud Architecture certification — a year of training before the word "AI" meant anything to the startup world. He followed up with IBM's full AI curriculum on Coursera: machine learning, neural networks, applied AI. Not weekend YouTube courses. Structured, certified programmes completed while working industrial IT jobs that the Finnish labour market considered his ceiling.
 
-From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos.
+Then GPT-2 arrived in 2019 — and everything changed with transformers. The attention mechanism wasn't an incremental improvement. It was a new paradigm. Paarni recognised this immediately because he had already spent a year studying the underlying mathematics. This was his third engineering hat: after industrial management and industrial IT, he now carried *"what is new in AI, Edge, Cloud"* — the ability to evaluate emerging technology not as a spectator, but as a builder who understood the stack from silicon to API.
 
-Then came November 2022.
+From 2015 to 2025 he built cloud-native applications in the Microsoft Founders Hub programme — ten years of shipping software inside Microsoft's ecosystem, with production deployments, not hackathon demos. The stack evolved with the platform: Azure AI Foundry for model orchestration, .NET Aspire for cloud-native distributed applications. He wasn't just a user of Microsoft's tools — he was a Founders Hub co-founder building production systems while others were still running tutorials.
 
-When GPT-2's successor models went public, Paarni recognised what was coming before most founders did — because he already had the infrastructure background to understand it. He had spent four years studying the technology. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
+Then came November 2022. ChatGPT went public and the world caught up to what Paarni had been studying for four years. He didn't need to "learn AI." He needed to apply it. The next three years became the most intense learning and building phase of his career: DWS versions 1 through 6, each version a complete rebuild, each one closer to what industrial compliance actually required.
 
 DWS IQ 6 is now an InvestEU project (INPO-20254383) — validated by the European Commission's investment platform. Not an accelerator. Not an incubator. A project deemed eligible for EU-level institutional investment support.
 
@@ -66,6 +67,8 @@ Abroad, it's different. International accelerators accepted him. NVIDIA's Incept
 
 Finland's system looked at the same person and saw unemployment statistics.
 
+In November, he delivered a whitepaper and seminar presentation for the Metropolia Smart Factory M.Sc. programme — the kind of academic contribution that demonstrates deep domain expertise but earns no labour market recognition in Finland.
+
 Today, Kela — the Finnish social security institution — acknowledged his thesis progress at Metropolia University of Applied Sciences (YAMK, Master's level) by denying his student support. Three years of work on a 30-credit Smart Factory thesis, and the system counted credits, not capability. The thesis will be completed. He won't need student support after that. If LUT University accepts him for doctoral studies, the work continues at a higher level.
 
 This is not a complaint. It's context.
@@ -75,6 +78,8 @@ When an investor asks "why should I back this founder?" — the answer isn't the
 The platform exists because he refused to stop.
 
 That's the background a magazine can verify. Every certification has a credential. Every programme has an enrolment record. Every version of DWS has commits on GitHub. The InvestEU listing is public. The Kela decision is on file. The Finnish labour market's indifference is documented in three decades of applications.
+
+Here's the number that makes this make sense: deep tech startups take on average **11 years** to reach funding. Paarni is in year eight. He's not behind schedule — he's ahead of the curve, with a platform already generating revenue and validated by the European Commission. Most deep tech founders are still in the lab at this stage. Paarni has paying customers and a fleet division bringing in EUR 7,000 MRR — enough to sustain operations without worrying about runway. The Lifetime Fleet isn't a side hustle. It's a strategic asset that lets the founder build on his own timeline, without the desperation capital that kills deep tech companies.
 
 A founder who builds through that doesn't quit at a down round.
 
