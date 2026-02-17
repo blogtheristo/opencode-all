@@ -7,12 +7,13 @@
  * This module provides the send logic used by both the standalone script
  * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
  *
- * Uses Resend (primary) with SendGrid fallback.
+ * Uses Resend (primary) with Gmail SMTP fallback.
  */
 
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
+import nodemailer from 'nodemailer';
 
 // ============================================================================
 // SEND BRIEFING
@@ -33,9 +34,8 @@ async function sendMorningBriefing(): Promise<void> {
   });
   const subject = `CEO Cockpit ${dateStr}`;
 
-  // Send via Resend (primary) or SendGrid (fallback)
+  // Send via Resend (primary) or Gmail SMTP (fallback)
   const resendKey = process.env.RESEND_API_KEY;
-  const sendgridKey = process.env.SENDGRID_API_KEY;
 
   if (resendKey) {
     try {
@@ -60,48 +60,45 @@ async function sendMorningBriefing(): Promise<void> {
       }
 
       const errorBody = await response.text();
-      logger.warn('Resend CEO Cockpit failed, trying SendGrid', {
+      logger.warn('Resend CEO Cockpit failed, trying Gmail SMTP', {
         status: response.status,
         error: errorBody,
       });
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.warn('Resend CEO Cockpit error, trying SendGrid', { error: msg });
+      logger.warn('Resend CEO Cockpit error, trying Gmail SMTP', { error: msg });
     }
   }
 
-  if (sendgridKey) {
+  // Gmail SMTP fallback (App Password)
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+
+  if (gmailUser && gmailAppPassword) {
     try {
-      const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sendgridKey}`,
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: gmailUser,
+          pass: gmailAppPassword,
         },
-        body: JSON.stringify({
-          personalizations: [{ to: [{ email: recipient }] }],
-          from: { email: fromAddress },
-          subject,
-          content: [
-            { type: 'text/plain', value: text },
-            { type: 'text/html', value: html },
-          ],
-        }),
       });
 
-      if (response.ok || response.status === 202) {
-        logger.info('CEO Cockpit sent via SendGrid', { to: recipient });
-        return;
-      }
-
-      const errorBody = await response.text();
-      logger.warn('SendGrid CEO Cockpit also failed', {
-        status: response.status,
-        error: errorBody,
+      await transporter.sendMail({
+        from: `"DWS IQ 6" <${gmailUser}>`,
+        to: recipient,
+        subject,
+        html,
+        text,
       });
+
+      logger.info('CEO Cockpit sent via Gmail SMTP', { to: recipient });
+      return;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('SendGrid CEO Cockpit error', { error: msg });
+      logger.error('Gmail SMTP CEO Cockpit error', { error: msg });
     }
   }
 
