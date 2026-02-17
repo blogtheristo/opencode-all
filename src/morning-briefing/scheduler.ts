@@ -2,13 +2,11 @@
  * Morning Briefing Scheduler — CEO Cockpit
  *
  * Runs Mon-Sat at 06:00 Helsinki time (Europe/Helsinki).
- * Sends a focused 5-minute CEO cockpit briefing:
- *   1. 3 Changes (pipeline, product, delivery)
- *   2. Today's 3 Bets
- *   3. Top Risk + next action
- *   4. Captain Momentum (who to ping + artifact)
- *   5. Metrics Strip (MRR, active convos, commits, MVP ETA)
- *   6. Send List (3-5 contacts for manual outreach)
+ * node-cron handles DST natively via its timezone option.
+ *
+ * NOTE: This only fires when the Express server is running continuously.
+ * On Cloud Run (scale-to-zero), the GitHub Actions workflow
+ * (.github/workflows/morning-briefing.yml) is the primary delivery path.
  *
  * Uses Resend (primary) with SendGrid fallback.
  */
@@ -124,6 +122,8 @@ export class MorningBriefingScheduler {
   /**
    * Start the scheduler.
    * Cron: 0 6 * * 1-6 = 06:00, Mon-Sat (Helsinki timezone)
+   * Note: node-cron handles DST natively via the timezone option.
+   * The GitHub Actions workflow uses a separate approach (dual UTC crons).
    */
   start(): void {
     logger.info('Starting CEO Cockpit Scheduler');

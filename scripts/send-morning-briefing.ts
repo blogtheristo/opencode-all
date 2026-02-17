@@ -25,6 +25,27 @@ import { collectCockpitData } from '../src/morning-briefing/data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from '../src/morning-briefing/briefing-template.js';
 
 async function main(): Promise<void> {
+  // Helsinki time guard: only send when Helsinki hour is 6.
+  // Two GitHub Actions cron entries (03:00 and 04:00 UTC) cover both DST
+  // offsets; the "wrong" one silently exits here. Manual triggers and
+  // workflow_dispatch set SKIP_TIME_CHECK=true to bypass.
+  if (process.env.SKIP_TIME_CHECK !== 'true') {
+    const helsinkiHour = parseInt(
+      new Date().toLocaleString('en-US', {
+        timeZone: 'Europe/Helsinki',
+        hour: 'numeric',
+        hour12: false,
+      }),
+      10
+    );
+    if (helsinkiHour !== 6) {
+      console.log(
+        `Skipping: Helsinki hour is ${helsinkiHour}, not 6. Set SKIP_TIME_CHECK=true to override.`
+      );
+      process.exit(0);
+    }
+  }
+
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
   const resendKey = process.env.RESEND_API_KEY;
