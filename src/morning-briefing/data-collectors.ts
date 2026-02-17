@@ -120,7 +120,7 @@ async function collectPipelineChange(): Promise<string> {
 
   // Count threads updated since yesterday
   const threads = await supabaseFetch<Array<{ status: string; pipeline: string }>>(
-    `v_outreach_enriched?updated_at=gte.${yesterday}T00:00:00&select=status,pipeline`
+    `v_outreach_enriched?created_at=gte.${yesterday}T00:00:00&select=status,pipeline`
   );
 
   if (!threads || threads.length === 0) return 'No pipeline movement';
@@ -137,19 +137,19 @@ async function collectPipelineChange(): Promise<string> {
 }
 
 /**
- * Count git commits in the last 24h (product velocity).
+ * Check agent activity in the last 24h (product velocity).
  */
 async function collectProductChange(): Promise<string> {
-  // Best-effort: check email_logs for recent sends as proxy for product activity
   const yesterday = new Date(Date.now() - 86_400_000).toISOString();
 
-  const logs = await supabaseFetch<Array<{ id: string }>>(
-    `email_logs?select=id&sent_at=gte.${yesterday}&status=eq.sent`
+  const logs = await supabaseFetch<Array<{ id: string; status: string }>>(
+    `agent_logs?select=id,status&timestamp=gte.${yesterday}`
   );
 
-  const emailCount = logs?.length || 0;
-  if (emailCount > 0) {
-    return `${emailCount} emails delivered`;
+  const count = logs?.length || 0;
+  if (count > 0) {
+    const completed = logs!.filter((l) => l.status === 'completed').length;
+    return `${count} agent tasks (${completed} completed)`;
   }
   return 'No product signals captured';
 }
@@ -161,13 +161,13 @@ async function collectDeliveryChange(): Promise<string> {
   // Check Firehorse leads that moved to responded/converted yesterday
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
-  const converted = await supabaseFetch<Array<{ status: string }>>(
-    `firehorse_leads?select=status&updated_at=gte.${yesterday}T00:00:00&status=in.(responded,converted)`
+  const converted = await supabaseFetch<Array<{ state: string }>>(
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
   );
 
   if (converted && converted.length > 0) {
-    const responded = converted.filter((l) => l.status === 'responded').length;
-    const won = converted.filter((l) => l.status === 'converted').length;
+    const responded = converted.filter((l) => l.state === 'responded').length;
+    const won = converted.filter((l) => l.state === 'converted').length;
     const parts: string[] = [];
     if (responded > 0) parts.push(`${responded} responded`);
     if (won > 0) parts.push(`${won} converted`);

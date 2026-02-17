@@ -210,6 +210,14 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 
 The human has unlimited patience for good work, but limited patience for fixing avoidable mistakes. You have unlimited stamina—use it to loop on hard problems, but don't loop on the wrong problem because you failed to clarify the goal.
 
+## Email Rules (CRITICAL)
+
+- **NEVER use `noreply@` addresses.** All emails must be sent from a real, replyable address.
+- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default recipient:** `risto@lifetime.fi`
+- **Verified domain:** `onelifetime.world` — this is the only domain configured in Resend. Do NOT use `dws6.com` or any other domain as a sender.
+- When adding new email-sending code, always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as the sender fallback.
+
 ## Tech Stack
 
 ### Frontend

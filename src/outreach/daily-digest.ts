@@ -577,7 +577,7 @@ export async function generateDailyDigest(): Promise<{
 
 export async function sendDailyDigestEmail(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
 
   const { plainText, html } = await generateDailyDigest();
