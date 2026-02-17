@@ -49,7 +49,7 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'noreply@dws6.com' }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'noreply@onelifetime.world' }}
           OUTREACH_DIGEST_EMAIL: ${{ inputs.recipient || secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
           MRR_EUR: ${{ secrets.MRR_EUR }}
           WEEKLY_COMMITS: ${{ secrets.WEEKLY_COMMITS }}
