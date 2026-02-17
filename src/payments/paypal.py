@@ -75,8 +75,7 @@ class PayPalClient:
         Caches the token until it expires.
         """
         # Check if we have a valid cached token
-        if self._access_token and self._token_expires_at:
-            if datetime.now() < self._token_expires_at:
+        if self._access_token and self._token_expires_at and datetime.now() < self._token_expires_at:
                 return self._access_token
 
         client = await self._get_client()
@@ -112,7 +111,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Authentication failed: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def _get_headers(self) -> dict[str, str]:
         """Get headers with current access token"""
@@ -213,7 +212,7 @@ class PayPalClient:
                 f"Failed to create subscription: {error_data.get('message', e.response.text)}",
                 status_code=e.response.status_code,
                 error_code=error_data.get("name"),
-            )
+            ) from e
 
     async def get_subscription(self, subscription_id: str) -> dict[str, Any]:
         """
@@ -241,7 +240,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to get subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def cancel_subscription(
         self,
@@ -279,7 +278,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to cancel subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def suspend_subscription(self, subscription_id: str, reason: str = "Suspended") -> bool:
         """
@@ -312,7 +311,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to suspend subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def verify_webhook_signature(
         self,

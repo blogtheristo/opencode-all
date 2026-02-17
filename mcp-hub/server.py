@@ -7,6 +7,7 @@ Protected by ZenFree - Free Runtime Application Firewall
 """
 
 import asyncio
+import contextlib
 import logging
 import os
 import sys
@@ -34,10 +35,10 @@ except Exception as _zf_err:
         "ZenFree imported but protect() failed — running unprotected: %s", _zf_err
     )
 
-import httpx
-from fastapi import BackgroundTasks, FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+import httpx  # noqa: E402
+from fastapi import BackgroundTasks, FastAPI, HTTPException  # noqa: E402
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+from pydantic import BaseModel  # noqa: E402
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -195,7 +196,7 @@ async def startup():
     # --- Supabase ---
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
-            from supabase._async.client import AsyncClient, create_async_client
+            from supabase._async.client import create_async_client
 
             _supabase = await create_async_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
             logger.info("✅ Supabase connected (%s)", SUPABASE_URL[:40])
@@ -361,14 +362,13 @@ async def execute_task_async(
                 "result": body,
                 "timestamp": datetime.now().isoformat(),
             }
-        else:
-            return {
-                "agent": task.agent,
-                "status": "error",
-                "http_status": resp.status_code,
-                "error": resp.text[:500],
-                "timestamp": datetime.now().isoformat(),
-            }
+        return {
+            "agent": task.agent,
+            "status": "error",
+            "http_status": resp.status_code,
+            "error": resp.text[:500],
+            "timestamp": datetime.now().isoformat(),
+        }
     except httpx.TimeoutException:
         return {
             "agent": task.agent,
@@ -410,22 +410,22 @@ async def _ensure_streams():
     if not _redis:
         return
     for stream in [STREAM_AGENT_TASKS, STREAM_AGENT_RESULTS]:
-        try:
+        with contextlib.suppress(Exception):
             await _redis.xgroup_create(stream, CONSUMER_GROUP, id="0", mkstream=True)
-        except Exception:
-            pass  # group already exists
 
 
 @app.post("/stream/publish")
 async def publish_to_stream(
     stream: str = STREAM_AGENT_TASKS,
-    message: dict[str, Any] = {},
+    message: dict[str, Any] | None = None,
 ):
     """Publish a message to a Redis Stream.
 
     Used to enqueue agent tasks or results for async processing.
     Stream name is validated against ALLOWED_STREAMS to prevent injection.
     """
+    if message is None:
+        message = {}
     if stream not in ALLOWED_STREAMS:
         raise HTTPException(
             status_code=400,
@@ -560,7 +560,7 @@ async def sweep_fallback_logs():
 
     swept = 0
     failed = 0
-    with open(_FALLBACK_LOG_PATH, "r", encoding="utf-8") as fh:
+    with open(_FALLBACK_LOG_PATH, encoding="utf-8") as fh:
         lines = fh.readlines()
 
     if not lines:
@@ -599,12 +599,9 @@ async def sweep_fallback_logs():
     if failed == 0:
         open(_FALLBACK_LOG_PATH, "w").close()
         return {"swept": swept, "failed": 0, "file": "truncated"}
-    else:
-        # Rewrite only the failed lines
-        remaining = [l for l in lines if l.strip()]
-        # Keep only unsent (we don't track which ones — keep all, re-sweep later)
-        logger.warning("Sweep: %d sent, %d failed — file kept for retry", swept, failed)
-        return {"swept": swept, "failed": failed, "file": "retained"}
+    # Keep only unsent (we don't track which ones — keep all, re-sweep later)
+    logger.warning("Sweep: %d sent, %d failed — file kept for retry", swept, failed)
+    return {"swept": swept, "failed": failed, "file": "retained"}
 
 
 # ---------------------------------------------------------------------------

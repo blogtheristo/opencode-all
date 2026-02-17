@@ -29,7 +29,7 @@ import logging
 import os
 import uuid
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
@@ -75,7 +75,7 @@ executions: dict[str, dict] = {}
 # Enums and Models
 # ============================================================================
 
-class TriggerType(str, Enum):
+class TriggerType(StrEnum):
     SCHEDULE = "schedule"
     WEBHOOK = "webhook"
     EVENT = "event"
@@ -83,7 +83,7 @@ class TriggerType(str, Enum):
     MANUAL = "manual"
 
 
-class ActionType(str, Enum):
+class ActionType(StrEnum):
     GENERATE_REPORT = "generate_report"
     SEND_EMAIL = "send_email"
     SEND_SLACK = "send_slack"
@@ -91,7 +91,7 @@ class ActionType(str, Enum):
     UPDATE_DATABASE = "update_database"
 
 
-class ScheduleFrequency(str, Enum):
+class ScheduleFrequency(StrEnum):
     HOURLY = "hourly"
     DAILY = "daily"
     WEEKLY = "weekly"
@@ -99,13 +99,13 @@ class ScheduleFrequency(str, Enum):
     QUARTERLY = "quarterly"
 
 
-class WorkflowStatus(str, Enum):
+class WorkflowStatus(StrEnum):
     ACTIVE = "active"
     PAUSED = "paused"
     DRAFT = "draft"
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"

@@ -145,7 +145,7 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
         raise HTTPException(
             status_code=502,
             detail=f"Payment provider error: {e!s}",
-        )
+        ) from e
 
 
 @router.get("/subscriptions/{user_id}", response_model=SubscriptionListResponse)
@@ -220,8 +220,7 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     try:
         # Cancel with payment provider if there's a provider subscription ID
-        if subscription.provider_subscription_id:
-            if subscription.payment_provider == PaymentProvider.PAYPAL:
+        if subscription.provider_subscription_id and subscription.payment_provider == PaymentProvider.PAYPAL:
                 await paypal_client.cancel_subscription(
                     subscription.provider_subscription_id,
                     reason=request.reason or "Cancelled by user",
@@ -246,7 +245,7 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     except PayPalError as e:
         logger.error(f"PayPal cancellation error: {e}")
-        raise HTTPException(status_code=502, detail=f"Payment provider error: {e!s}")
+        raise HTTPException(status_code=502, detail=f"Payment provider error: {e!s}") from e
 
 
 # =============================================================================
@@ -279,7 +278,7 @@ async def revolut_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid Revolut webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_revolut_webhook(
@@ -328,7 +327,7 @@ async def paypal_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid PayPal webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_paypal_webhook(
