@@ -44,6 +44,8 @@ async function main(): Promise<void> {
       );
       process.exit(0);
     }
+  } else {
+    console.log('SKIP_TIME_CHECK=true, bypassing Helsinki time guard');
   }
 
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
