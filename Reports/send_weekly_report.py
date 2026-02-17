@@ -18,7 +18,7 @@ def send_weekly_report():
     """Send weekly reports in English and Finnish"""
 
     # Email configuration
-    sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
+    sender_email = os.getenv("SMTP_SENDER", "risto@onelifetime.world")
     sender_password = os.getenv("SMTP_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))

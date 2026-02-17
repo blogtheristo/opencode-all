@@ -14,7 +14,7 @@
  *
  * Optional env vars:
  *   OUTREACH_DIGEST_EMAIL (default: risto@lifetime.fi)
- *   EMAIL_FROM (default: noreply@onelifetime.world)
+ *   EMAIL_FROM (default: risto@onelifetime.world)
  *   MRR_EUR, WEEKLY_COMMITS, MVP_ETA
  */
 
@@ -49,7 +49,7 @@ async function main(): Promise<void> {
   }
 
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@onelifetime.world';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
   const sendgridKey = process.env.SENDGRID_API_KEY;
 
