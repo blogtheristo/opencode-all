@@ -137,19 +137,19 @@ async function collectPipelineChange(): Promise<string> {
 }
 
 /**
- * Count git commits in the last 24h (product velocity).
+ * Check agent activity in the last 24h (product velocity).
  */
 async function collectProductChange(): Promise<string> {
-  // Best-effort: check email_logs for recent sends as proxy for product activity
   const yesterday = new Date(Date.now() - 86_400_000).toISOString();
 
-  const logs = await supabaseFetch<Array<{ id: string }>>(
-    `email_logs?select=id&sent_at=gte.${yesterday}&status=eq.sent`
+  const logs = await supabaseFetch<Array<{ id: string; status: string }>>(
+    `agent_logs?select=id,status&timestamp=gte.${yesterday}`
   );
 
-  const emailCount = logs?.length || 0;
-  if (emailCount > 0) {
-    return `${emailCount} emails delivered`;
+  const count = logs?.length || 0;
+  if (count > 0) {
+    const completed = logs!.filter((l) => l.status === 'completed').length;
+    return `${count} agent tasks (${completed} completed)`;
   }
   return 'No product signals captured';
 }
