@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Weekly Report Email Automation
-Sends bilingual reports to risto@lifetime.fi
+Sends bilingual reports to risto.paarni2024@lifetime.fi
 """
 
 import glob
@@ -22,7 +22,7 @@ def send_weekly_report():
     sender_password = os.getenv("SMTP_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
-    recipient_email = "risto@lifetime.fi"
+    recipient_email = "risto.paarni2024@lifetime.fi"
 
     # Get latest reports (support both from repo root and Reports/ directory)
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -132,6 +132,7 @@ Status: 🟢 ON TRACK
 
         print(f"✅ Weekly report sent to {recipient_email}")
         print("📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
+        print(f"📧 Email sent successfully from {sender_email} via {smtp_server}.")
         return True
 
     except Exception as e:

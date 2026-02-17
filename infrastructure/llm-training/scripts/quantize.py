@@ -34,8 +34,6 @@ def quantize_to_gguf(model_path: str, output_path: str, bits: int = 4):
     try:
         import subprocess
 
-        from llama_cpp import Llama
-
         # Use llama.cpp convert script
         convert_script = "convert-hf-to-gguf.py"  # From llama.cpp repo
 
@@ -54,7 +52,7 @@ def quantize_to_gguf(model_path: str, output_path: str, bits: int = 4):
         f16_path = Path(output_path) / "model-f16.gguf"
         logger.info("Step 1: Converting to FP16 GGUF...")
 
-        subprocess.run([
+        subprocess.run([  # noqa: S607
             "python", convert_script,
             model_path,
             "--outfile", str(f16_path),
@@ -63,7 +61,7 @@ def quantize_to_gguf(model_path: str, output_path: str, bits: int = 4):
 
         # Then quantize
         logger.info(f"Step 2: Quantizing to {quant_type}...")
-        subprocess.run([
+        subprocess.run([  # noqa: S607
             "llama-quantize",
             str(f16_path),
             str(output_file),

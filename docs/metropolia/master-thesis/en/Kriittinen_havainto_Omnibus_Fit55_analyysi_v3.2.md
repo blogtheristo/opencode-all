@@ -4,10 +4,12 @@
 **Document Version**: 3.2  
 **Date**: 12 February 2026  
 **Classification**: Confidential — Investor & Academic Use  
-**Prepared By**: Risto Anton Päärni, Founder & CEO — Lifetime Consulting Oy  
+**Prepared By**: Risto Anton Päärni, Founder & CEO — Lifetime Oy  
 **Reviewed By**: Jarno Varteva (Metropolia AMK)  
 **Review Cycle**: Quarterly (Q1 2026 initial review)  
 **Repository**: `blogtheristo/dws6/docs/metropolia/master-thesis/fi/`
+
+**Tietoja laatijasta.** Risto Anton Päärni on Lifetime Oy:n perustaja ja toimitusjohtaja sekä DWS IQ -ilmastoälyalustan kehittäjä. Hänellä on B.Sc. (Software Engineering) ja M.Sc. (Industrial Management), ja hän toimii aktiivisena yrittäjänä ja neuvonantajana EU:n Fit for 55 -, CSRD-, CBAM- ja EPBD-sääntelykontekstissa. Laajojen CxO- ja teknologiayhteyksien sekä pilvi- ja markkinaan tulon asiantuntemuksen ansiosta Päärni johtaa analyysin taustalla olevaa DWS IQ 6 -strategiaa ja Metropolia AMK -opinnäytetyötä (Smart Factory, YAMK). Hän toimii hallitus- ja neuvonantajatehtävissä Lifetime Group -konsernissa (mm. Lifetime Fleet) ja on suomen, englannin ja ruotsin kielellä toimiva. Yhteystieto: risto.anton@lifetime.fi.
 
 ---
 

@@ -18,6 +18,8 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import outreachRoutes from './routes/outreach.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import bimRoutes from './routes/bim.routes.js';
+import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -168,6 +170,12 @@ app.use('/api/v1/email', emailRoutes);
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
+// BIM Pipeline (construction carbon compliance)
+app.use('/api/bim', bimRoutes);
+
+// Situation Room (pipeline reports for dashboard)
+app.use('/api/situation-room', situationRoomRoutes);
+
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
@@ -229,11 +237,9 @@ const server = app.listen(PORT, () => {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 
-  // Morning briefing: delivered via GitHub Actions cron (06:00 Helsinki, Mon-Sat).
-  // Manual trigger available at POST /api/v1/morning-briefing/send.
-  if (!(process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY)) {
-    logger.warn('No email provider configured — morning briefing manual trigger will fail');
-  }
+  // Morning briefing scheduling is handled by GitHub Actions
+  // (.github/workflows/morning-briefing.yml) — no in-process cron needed.
+  // Manual trigger available via POST /api/v1/morning-briefing/send.
 
   // Initialize email queue (Redis Streams)
   emailQueue.initialize().then((ready) => {

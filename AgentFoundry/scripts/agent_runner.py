@@ -33,7 +33,13 @@ from anthropic import Anthropic
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, Response
 from groq import Groq
-from prometheus_client import Counter, Gauge, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import (
+    CONTENT_TYPE_LATEST,
+    Counter,
+    Gauge,
+    Histogram,
+    generate_latest,
+)
 
 from supabase import Client, create_client
 
@@ -361,7 +367,7 @@ Output JSON only.
             'metadata': enriched_data
         }).execute()
 
-    def update_metrics(self, leads_processed: int) -> None:
+    def update_metrics(self, _leads_processed: int) -> None:
         """Update agent performance metrics."""
         # Call Supabase function to update metrics
         self.supabase.rpc('update_agent_metrics', {
@@ -427,7 +433,7 @@ async def metrics():
     return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 @app.post("/run")
-async def run_agent(request: Request):
+async def run_agent(_request: Request):
     """Main endpoint to trigger agent execution."""
     if agent_instance is None:
         raise HTTPException(status_code=503, detail="Agent not initialized")
@@ -461,7 +467,7 @@ async def run_agent(request: Request):
         AGENT_HEALTH_STATUS.labels(agent_id=agent_id).set(0)
 
         log.error("agent_execution_failed", error=str(e), exc_info=True, execution_time=execution_time)
-        raise HTTPException(status_code=500, detail=f"Agent execution failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Agent execution failed: {str(e)}") from e
 
 # ============================================================================
 # Main Entrypoint

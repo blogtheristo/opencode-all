@@ -297,7 +297,7 @@ class WebScraper:
             logger.debug(f"Error parsing article element: {e}")
             return None
 
-    def _is_recent(self, article: dict) -> bool:
+    def _is_recent(self, _article: dict) -> bool:
         """Check if article is within lookback period"""
         # Simple check - in production, parse dates properly
         # For now, assume all scraped articles are recent enough

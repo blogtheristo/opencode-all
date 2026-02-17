@@ -19,8 +19,9 @@ import os
 import uuid
 from datetime import datetime, timedelta
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.params import File as FileParam
 from pydantic import BaseModel
 
 from supabase import Client, create_client
@@ -28,6 +29,8 @@ from supabase import Client, create_client
 # ---------------------------------------------------------------------------
 # Configuration & clients
 # ---------------------------------------------------------------------------
+
+_file_required = FileParam(...)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -217,7 +220,7 @@ async def upload_document(
     standard_code: str | None = Form(None),
     language: str = Form("en"),
     description: str | None = Form(None),
-    file: UploadFile = File(...),
+    file: UploadFile = _file_required,
     created_by: str = Form(...),
 ):
     """
@@ -242,7 +245,7 @@ async def upload_document(
         )
     except Exception as exc:
         logger.error("Upload failed: %s", exc)
-        raise HTTPException(status_code=500, detail="Failed to upload document")
+        raise HTTPException(status_code=500, detail="Failed to upload document") from exc
 
     document_id = uuid.uuid4()
     version_id = uuid.uuid4()

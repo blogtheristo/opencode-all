@@ -23,7 +23,7 @@ import os
 import sys
 import uuid
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from io import BytesIO
 from pathlib import Path
 
@@ -76,7 +76,7 @@ report_storage: dict[str, dict] = {}
 # Enums and Models
 # ============================================================================
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     PDF = "PDF"
     DOCX = "DOCX"
     XLSX = "XLSX"
@@ -85,7 +85,7 @@ class OutputFormat(str, Enum):
     JSON = "JSON"
 
 
-class Standard(str, Enum):
+class Standard(StrEnum):
     EN_15978 = "EN 15978"
     RT_CARD = "RT Card"
     VOB_B = "VOB/B"
@@ -93,7 +93,7 @@ class Standard(str, Enum):
     NS_8405 = "NS 8405"
 
 
-class Language(str, Enum):
+class Language(StrEnum):
     EN = "en"
     FI = "fi"
     SV = "sv"

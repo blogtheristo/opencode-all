@@ -424,7 +424,7 @@ class CriticalBugScanner:
                 "```\n"
             ),
             "sql_injection": (
-                "\nUse parameterized queries instead of string concatenation:\n"
+                "\nUse parameterized queries instead of string concatenation:\n"  # noqa: S608
                 "```javascript\n"
                 "// ❌ Vulnerable\n"
                 "db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);\n"
