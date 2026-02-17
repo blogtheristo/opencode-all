@@ -162,7 +162,7 @@ async function collectDeliveryChange(): Promise<string> {
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
   const converted = await supabaseFetch<Array<{ state: string }>>(
-    `firehorse_leads?select=state&updated_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
   );
 
   if (converted && converted.length > 0) {
