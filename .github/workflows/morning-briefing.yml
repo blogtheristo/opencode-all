@@ -1,11 +1,24 @@
-name: Send CEO Cockpit Morning Briefing
+# Morning Briefing — CEO Cockpit
+#
+# Sends the daily CEO Cockpit email at 06:00 Helsinki time, Mon-Sat.
+# Helsinki = UTC+2 (winter, EET) / UTC+3 (summer, EEST).
+#
+# Two cron entries cover both DST offsets:
+#   03:00 UTC = 06:00 EEST (summer, late Mar – late Oct)
+#   04:00 UTC = 06:00 EET  (winter, late Oct – late Mar)
+#
+# The send script has a Helsinki-time guard: it only sends when the
+# Helsinki hour is 6, so the "wrong" entry silently exits 0.
+#
+# Also supports manual trigger via workflow_dispatch.
+
+name: Morning Briefing
 
 on:
   schedule:
-    # Runs Mon-Sat at 03:00 UTC.
-    # This corresponds to 06:00 in Helsinki during summer (EEST, UTC+3).
-    # In winter, this will be 05:00 in Helsinki (EET, UTC+2).
-    - cron: '0 3 * * 1-6'
+    - cron: '0 3 * * 1-6'   # 06:00 Helsinki in summer (EEST, UTC+3)
+    - cron: '0 4 * * 1-6'   # 06:00 Helsinki in winter (EET, UTC+2)
+
   workflow_dispatch:
     inputs:
       recipient:
@@ -46,4 +59,5 @@ jobs:
           MRR_EUR: ${{ secrets.MRR_EUR }}
           WEEKLY_COMMITS: ${{ secrets.WEEKLY_COMMITS }}
           MVP_ETA: ${{ secrets.MVP_ETA }}
+          SKIP_TIME_CHECK: ${{ github.event_name == 'workflow_dispatch' }}
         run: npx tsx scripts/send-morning-briefing.ts
