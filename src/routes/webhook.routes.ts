@@ -89,6 +89,10 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
         text: body,
       }),
     });
+    logger.info('Sent confirmation email', {
+      to,
+      from: fromAddress,
+    });
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });
   }

@@ -18,8 +18,10 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import outreachRoutes from './routes/outreach.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import bimRoutes from './routes/bim.routes.js';
+import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
-import { sendBriefingNow } from './morning-briefing/index.js';
+import { morningBriefingScheduler } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 
 dotenv.config();
@@ -168,6 +170,12 @@ app.use('/api/v1/email', emailRoutes);
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
+// BIM Pipeline (construction carbon compliance)
+app.use('/api/bim', bimRoutes);
+
+// Situation Room (pipeline reports for dashboard)
+app.use('/api/situation-room', situationRoomRoutes);
+
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
@@ -179,7 +187,7 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
   }
 
   try {
-    await sendBriefingNow();
+    await morningBriefingScheduler.runManually();
     res.json({ status: 'sent', timestamp: new Date().toISOString() });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
@@ -229,10 +237,12 @@ const server = app.listen(PORT, () => {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 
-  // Morning briefing: delivered via GitHub Actions cron (06:00 Helsinki, Mon-Sat).
-  // Manual trigger available at POST /api/v1/morning-briefing/send.
-  if (!(process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY)) {
-    logger.warn('No email provider configured — morning briefing manual trigger will fail');
+  // Start morning briefing scheduler (06:00 Helsinki, Mon-Sat)
+  // Combines: outreach digest + Firehorse leads + platform status + reports
+  if (process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY) {
+    morningBriefingScheduler.start();
+  } else {
+    logger.warn('No email provider configured — morning briefing scheduler disabled');
   }
 
   // Initialize email queue (Redis Streams)
@@ -253,6 +263,7 @@ const server = app.listen(PORT, () => {
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  morningBriefingScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -263,6 +274,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  morningBriefingScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

@@ -26,6 +26,13 @@ try:
     _zenfree_ok = True
 except ImportError:
     _zenfree_ok = False
+except Exception as _zf_err:
+    # ZenFree is present but failed to initialize (misconfiguration, etc.).
+    # Degrade gracefully — the hub must still start.
+    _zenfree_ok = False
+    logging.getLogger(__name__).warning(
+        "ZenFree imported but protect() failed — running unprotected: %s", _zf_err
+    )
 
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
@@ -172,9 +179,9 @@ async def startup():
 
     # --- Redis ---
     try:
-        import redis.asyncio as aioredis
+        from redis.asyncio import from_url as redis_from_url
 
-        _redis = aioredis.from_url(
+        _redis = redis_from_url(
             REDIS_URL,
             decode_responses=True,
             socket_connect_timeout=3,
@@ -389,6 +396,14 @@ STREAM_AGENT_TASKS = "agent:tasks"
 STREAM_AGENT_RESULTS = "agent:results"
 CONSUMER_GROUP = "mcp-hub-workers"
 
+# Allowlist: only these stream names may be addressed via the public API
+ALLOWED_STREAMS: set[str] = {
+    STREAM_AGENT_TASKS,
+    STREAM_AGENT_RESULTS,
+    "email:outbox",
+    "email:inbox",
+}
+
 
 async def _ensure_streams():
     """Create consumer groups if they don't already exist."""
@@ -409,7 +424,13 @@ async def publish_to_stream(
     """Publish a message to a Redis Stream.
 
     Used to enqueue agent tasks or results for async processing.
+    Stream name is validated against ALLOWED_STREAMS to prevent injection.
     """
+    if stream not in ALLOWED_STREAMS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Stream '{stream}' not allowed. Permitted: {sorted(ALLOWED_STREAMS)}",
+        )
     if not _redis:
         raise HTTPException(status_code=503, detail="Redis not available")
 
@@ -425,7 +446,15 @@ async def read_from_stream(
     stream: str = STREAM_AGENT_RESULTS,
     count: int = 10,
 ):
-    """Read the latest messages from a Redis Stream (non-blocking peek)."""
+    """Read the latest messages from a Redis Stream (non-blocking peek).
+
+    Stream name is validated against ALLOWED_STREAMS.
+    """
+    if stream not in ALLOWED_STREAMS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Stream '{stream}' not allowed. Permitted: {sorted(ALLOWED_STREAMS)}",
+        )
     if not _redis:
         raise HTTPException(status_code=503, detail="Redis not available")
 
@@ -753,9 +782,19 @@ async def execute_pipeline_workflow(pipeline: PipelineRequest):
 
 @app.post("/workflow/reflection")
 async def execute_reflection_workflow(workflow: WorkflowRequest):
-    """Reflection: iterative implementation + evaluation loop."""
+    """Reflection: iterative implementation + evaluation loop.
+
+    Requires at least 1 task (implementation). An optional 2nd task
+    names the evaluation agent; defaults to 'backend' if absent.
+    """
     if workflow.workflow_type != "reflection":
         raise HTTPException(status_code=400, detail="Invalid workflow type")
+    if not workflow.tasks:
+        raise HTTPException(
+            status_code=400,
+            detail="Reflection workflow requires at least 1 task (implementation). "
+                   "An optional 2nd task specifies the evaluation agent.",
+        )
 
     max_iterations = (workflow.metadata or {}).get("max_iterations", 3)
     threshold = (workflow.metadata or {}).get("threshold", 0.85)
@@ -777,7 +816,16 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
 
         iterations.append({"iteration": i + 1, "implementation": impl, "evaluation": evaluation})
 
-        score = evaluation.get("score", 0.0)
+        # extract score/feedback from the nested result body —
+        # execute_task_async wraps downstream responses under "result"
+        eval_body = evaluation.get("result", {})
+        if isinstance(eval_body, dict):
+            score = eval_body.get("score", evaluation.get("score", 0.0))
+            feedback = eval_body.get("feedback", evaluation.get("feedback", []))
+        else:
+            score = evaluation.get("score", 0.0)
+            feedback = evaluation.get("feedback", [])
+
         if isinstance(score, str):
             try:
                 score = float(score)
@@ -789,7 +837,7 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
 
         implementation_task.context = {
             "previous_implementation": impl,
-            "feedback": evaluation.get("feedback", []),
+            "feedback": feedback,
         }
 
     return {

@@ -216,7 +216,7 @@ class SecurityIssueCreator:
 
 - 📄 [DWS6 Security Audit](../../Admin/Security/DWS6_REPOSITORY_SECURITY_AUDIT.md)
 - 📊 [Remediation Roadmap](../../Admin/Security/REMEDIATION_ROADMAP_DWS6.md)
-- 🔗 [ZenFree Attack Log](../../security-attacks.jsonl)
+- 🔗 [ZenFree Attack Log](security-attacks.jsonl)
 
 ---
 
