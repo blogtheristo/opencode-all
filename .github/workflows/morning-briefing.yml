@@ -47,7 +47,6 @@ jobs:
       - name: Send morning briefing
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'noreply@dws6.com' }}
