@@ -1,17 +1,15 @@
 /**
- * Morning Briefing Scheduler — CEO Cockpit
+ * Morning Briefing — CEO Cockpit
  *
- * Runs Mon-Sat at 06:00 Helsinki time (Europe/Helsinki).
- * node-cron handles DST natively via its timezone option.
+ * Delivery: GitHub Actions workflow (.github/workflows/morning-briefing.yml)
+ * fires Mon-Sat at 06:00 Helsinki via dual UTC crons (DST-safe).
  *
- * NOTE: This only fires when the Express server is running continuously.
- * On Cloud Run (scale-to-zero), the GitHub Actions workflow
- * (.github/workflows/morning-briefing.yml) is the primary delivery path.
+ * This module provides the send logic used by both the standalone script
+ * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
  *
  * Uses Resend (primary) with SendGrid fallback.
  */
 
-import * as cron from 'node-cron';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
@@ -113,58 +111,14 @@ async function sendMorningBriefing(): Promise<void> {
 }
 
 // ============================================================================
-// SCHEDULER CLASS
+// PUBLIC API (used by Express manual-trigger endpoint)
 // ============================================================================
 
-export class MorningBriefingScheduler {
-  private job: cron.ScheduledTask | null = null;
-
-  /**
-   * Start the scheduler.
-   * Cron: 0 6 * * 1-6 = 06:00, Mon-Sat (Helsinki timezone)
-   * Note: node-cron handles DST natively via the timezone option.
-   * The GitHub Actions workflow uses a separate approach (dual UTC crons).
-   */
-  start(): void {
-    logger.info('Starting CEO Cockpit Scheduler');
-
-    this.job = cron.schedule(
-      '0 6 * * 1-6',
-      async () => {
-        logger.info('Running CEO Cockpit briefing');
-        try {
-          await sendMorningBriefing();
-        } catch (error) {
-          logger.error('CEO Cockpit briefing failed', { error });
-        }
-      },
-      {
-        timezone: 'Europe/Helsinki',
-      }
-    );
-
-    logger.info('CEO Cockpit Scheduler started — 06:00 Helsinki, Mon-Sat', {
-      recipient: process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
-    });
-  }
-
-  /**
-   * Stop the scheduler.
-   */
-  stop(): void {
-    if (this.job) {
-      this.job.stop();
-    }
-    logger.info('CEO Cockpit Scheduler stopped');
-  }
-
-  /**
-   * Run manually (for testing or immediate trigger).
-   */
-  async runManually(): Promise<void> {
-    logger.info('Running CEO Cockpit manually');
-    await sendMorningBriefing();
-  }
+/**
+ * Send the CEO Cockpit briefing immediately.
+ * Called from the POST /api/v1/morning-briefing/send endpoint.
+ */
+export async function sendBriefingNow(): Promise<void> {
+  logger.info('Running CEO Cockpit manually');
+  await sendMorningBriefing();
 }
-
-export const morningBriefingScheduler = new MorningBriefingScheduler();
