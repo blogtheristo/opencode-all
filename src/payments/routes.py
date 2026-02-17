@@ -221,12 +221,12 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
     try:
         # Cancel with payment provider if there's a provider subscription ID
         if subscription.provider_subscription_id and subscription.payment_provider == PaymentProvider.PAYPAL:
-                await paypal_client.cancel_subscription(
-                    subscription.provider_subscription_id,
-                    reason=request.reason or "Cancelled by user",
-                )
-            # Revolut doesn't have recurring subscriptions to cancel
-            # (each payment is a one-time request)
+            await paypal_client.cancel_subscription(
+                subscription.provider_subscription_id,
+                reason=request.reason or "Cancelled by user",
+            )
+        # Revolut doesn't have recurring subscriptions to cancel
+        # (each payment is a one-time request)
 
         # Update our database
         success = await subscription_service.cancel_subscription(

@@ -76,7 +76,7 @@ class PayPalClient:
         """
         # Check if we have a valid cached token
         if self._access_token and self._token_expires_at and datetime.now() < self._token_expires_at:
-                return self._access_token
+            return self._access_token
 
         client = await self._get_client()
 
