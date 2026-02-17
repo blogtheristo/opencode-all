@@ -51,8 +51,9 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'risto@onelifetime.world' }}
           OUTREACH_DIGEST_EMAIL: ${{ inputs.recipient || secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
           MRR_EUR: ${{ secrets.MRR_EUR }}
-          WEEKLY_COMMITS: ${{ secrets.WEEKLY_COMMITS }}
           MVP_ETA: ${{ secrets.MVP_ETA }}
           SKIP_TIME_CHECK: ${{ github.event_name == 'workflow_dispatch' }}
         run: npx tsx scripts/send-morning-briefing.ts

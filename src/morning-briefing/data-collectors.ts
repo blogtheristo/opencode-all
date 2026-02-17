@@ -138,18 +138,29 @@ async function collectPipelineChange(): Promise<string> {
 
 /**
  * Check agent activity in the last 24h (product velocity).
+ * Reads from agent_metrics (daily aggregated) table.
  */
 async function collectProductChange(): Promise<string> {
-  const yesterday = new Date(Date.now() - 86_400_000).toISOString();
+  const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
-  const logs = await supabaseFetch<Array<{ id: string; status: string }>>(
-    `agent_logs?select=id,status&timestamp=gte.${yesterday}`
+  const metrics = await supabaseFetch<Array<{
+    agent_id: string;
+    leads_processed: number;
+    emails_sent: number;
+    meetings_booked: number;
+  }>>(
+    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&metric_date=gte.${yesterday}`
   );
 
-  const count = logs?.length || 0;
-  if (count > 0) {
-    const completed = logs!.filter((l) => l.status === 'completed').length;
-    return `${count} agent tasks (${completed} completed)`;
+  if (metrics && metrics.length > 0) {
+    const totalLeads = metrics.reduce((s, m) => s + (m.leads_processed || 0), 0);
+    const totalEmails = metrics.reduce((s, m) => s + (m.emails_sent || 0), 0);
+    const totalMeetings = metrics.reduce((s, m) => s + (m.meetings_booked || 0), 0);
+    const parts: string[] = [];
+    if (totalLeads > 0) parts.push(`${totalLeads} leads`);
+    if (totalEmails > 0) parts.push(`${totalEmails} emails`);
+    if (totalMeetings > 0) parts.push(`${totalMeetings} meetings`);
+    return parts.length > 0 ? parts.join(', ') : 'Agents active, no output yet';
   }
   return 'No product signals captured';
 }
@@ -300,9 +311,29 @@ async function collectMetrics(): Promise<MetricsStrip> {
   );
   const active_conversations = convos?.length || 0;
 
-  // Weekly commits: from env var (set by CI) or default 0
-  const commitsEnv = process.env.WEEKLY_COMMITS;
-  const weekly_commits = commitsEnv ? parseInt(commitsEnv, 10) : 0;
+  // Weekly commits: live from GitHub API, fallback to env var
+  let weekly_commits = 0;
+  const ghToken = process.env.GITHUB_TOKEN;
+  const ghRepo = process.env.GITHUB_REPOSITORY || 'blogtheristo/dws6';
+  if (ghToken) {
+    try {
+      const since = new Date(Date.now() - 7 * 86_400_000).toISOString();
+      const resp = await fetch(
+        `https://api.github.com/repos/${ghRepo}/commits?since=${since}&per_page=100`,
+        { headers: { Authorization: `Bearer ${ghToken}`, 'User-Agent': 'dws6-cockpit' } }
+      );
+      if (resp.ok) {
+        const commits = (await resp.json()) as Array<unknown>;
+        weekly_commits = commits.length;
+      }
+    } catch {
+      // fall through to env var
+    }
+  }
+  if (weekly_commits === 0) {
+    const commitsEnv = process.env.WEEKLY_COMMITS;
+    weekly_commits = commitsEnv ? parseInt(commitsEnv, 10) : 0;
+  }
 
   // MVP ETA: from env var
   const mvp_eta = process.env.MVP_ETA || null;
