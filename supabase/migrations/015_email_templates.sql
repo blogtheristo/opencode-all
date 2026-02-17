@@ -1,9 +1,24 @@
 -- DWS IQ 6 - Email System: Logs and Template Storage
 -- Migration for email tracking and template management
 -- Feature 9: Email System
+--
+-- Self-contained: no dependency on 007_auth_users_orgs.sql.
+-- Organization FK is nullable and added only if the table exists.
 
 -- Enable UUID extension (if not already enabled)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- ============================================================
+-- HELPER FUNCTION (idempotent)
+-- ============================================================
+
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 -- ============================================================
 -- EMAIL LOGS TABLE
@@ -19,17 +34,28 @@ CREATE TABLE IF NOT EXISTS email_logs (
   sent_at timestamptz,
   error text,
   metadata jsonb DEFAULT '{}'::jsonb,
-  -- Organization scope for RLS
-  organization_id uuid REFERENCES organizations(id) ON DELETE SET NULL,
+  organization_id uuid,
   created_at timestamptz DEFAULT now()
 );
 
+-- Add FK to organizations only if that table exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'organizations') THEN
+    ALTER TABLE email_logs
+      ADD CONSTRAINT fk_email_logs_org
+      FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE SET NULL;
+  END IF;
+EXCEPTION WHEN duplicate_object THEN
+  NULL; -- constraint already exists
+END $$;
+
 -- Indexes for email_logs
-CREATE INDEX idx_email_logs_to_sent ON email_logs(to_email, sent_at DESC);
-CREATE INDEX idx_email_logs_status ON email_logs(status);
-CREATE INDEX idx_email_logs_template ON email_logs(template_type);
-CREATE INDEX idx_email_logs_org ON email_logs(organization_id) WHERE organization_id IS NOT NULL;
-CREATE INDEX idx_email_logs_created ON email_logs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_email_logs_to_sent ON email_logs(to_email, sent_at DESC);
+CREATE INDEX IF NOT EXISTS idx_email_logs_status ON email_logs(status);
+CREATE INDEX IF NOT EXISTS idx_email_logs_template ON email_logs(template_type);
+CREATE INDEX IF NOT EXISTS idx_email_logs_org ON email_logs(organization_id) WHERE organization_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_email_logs_created ON email_logs(created_at DESC);
 
 -- ============================================================
 -- EMAIL TEMPLATES TABLE
@@ -47,7 +73,7 @@ CREATE TABLE IF NOT EXISTS email_templates (
 );
 
 -- Index for active template lookups
-CREATE INDEX idx_email_templates_name_active ON email_templates(name) WHERE active = true;
+CREATE INDEX IF NOT EXISTS idx_email_templates_name_active ON email_templates(name) WHERE active = true;
 
 -- ============================================================
 -- ROW LEVEL SECURITY
@@ -56,60 +82,74 @@ CREATE INDEX idx_email_templates_name_active ON email_templates(name) WHERE acti
 ALTER TABLE email_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE email_templates ENABLE ROW LEVEL SECURITY;
 
--- email_logs: Organization-scoped access
--- Users can view email logs belonging to their organization
-CREATE POLICY "Users can view email logs for their organization"
-  ON email_logs FOR SELECT
-  USING (
-    organization_id IS NOT NULL
-    AND EXISTS (
-      SELECT 1 FROM organization_members
-      WHERE organization_members.organization_id = email_logs.organization_id
-      AND organization_members.user_id = auth.uid()
-      AND organization_members.status = 'active'
-    )
-  );
-
--- Org admins can insert email logs (triggered by sending emails)
-CREATE POLICY "Org admins can insert email logs"
-  ON email_logs FOR INSERT
-  WITH CHECK (
-    organization_id IS NOT NULL
-    AND EXISTS (
-      SELECT 1 FROM organization_members
-      WHERE organization_members.organization_id = email_logs.organization_id
-      AND organization_members.user_id = auth.uid()
-      AND organization_members.role IN ('owner', 'admin')
-      AND organization_members.status = 'active'
-    )
-  );
-
 -- Service role has full access to email_logs (backend operations)
-CREATE POLICY "Service role has full access to email_logs"
-  ON email_logs FOR ALL
-  TO service_role
-  USING (true)
-  WITH CHECK (true);
+DO $$
+BEGIN
+  CREATE POLICY "Service role has full access to email_logs"
+    ON email_logs FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+-- Organization-scoped read (only if organization_members exists)
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'organization_members') THEN
+    CREATE POLICY "Users can view email logs for their organization"
+      ON email_logs FOR SELECT
+      USING (
+        organization_id IS NOT NULL
+        AND EXISTS (
+          SELECT 1 FROM organization_members
+          WHERE organization_members.organization_id = email_logs.organization_id
+          AND organization_members.user_id = auth.uid()
+          AND organization_members.status = 'active'
+        )
+      );
+
+    CREATE POLICY "Org admins can insert email logs"
+      ON email_logs FOR INSERT
+      WITH CHECK (
+        organization_id IS NOT NULL
+        AND EXISTS (
+          SELECT 1 FROM organization_members
+          WHERE organization_members.organization_id = email_logs.organization_id
+          AND organization_members.user_id = auth.uid()
+          AND organization_members.role IN ('owner', 'admin')
+          AND organization_members.status = 'active'
+        )
+      );
+  END IF;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 -- email_templates: Read access for authenticated users, write for service role
-CREATE POLICY "Authenticated users can view active templates"
-  ON email_templates FOR SELECT
-  TO authenticated
-  USING (active = true);
+DO $$
+BEGIN
+  CREATE POLICY "Authenticated users can view active templates"
+    ON email_templates FOR SELECT
+    TO authenticated
+    USING (active = true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- Service role has full access to email_templates (manage templates)
-CREATE POLICY "Service role has full access to email_templates"
-  ON email_templates FOR ALL
-  TO service_role
-  USING (true)
-  WITH CHECK (true);
+DO $$
+BEGIN
+  CREATE POLICY "Service role has full access to email_templates"
+    ON email_templates FOR ALL
+    TO service_role
+    USING (true)
+    WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 -- ============================================================
 -- TRIGGERS
 -- ============================================================
 
--- Auto-update updated_at on email_templates changes
--- Uses the update_updated_at_column() function from 007_auth_users_orgs.sql
+DROP TRIGGER IF EXISTS update_email_templates_updated_at ON email_templates;
 CREATE TRIGGER update_email_templates_updated_at
   BEFORE UPDATE ON email_templates
   FOR EACH ROW
