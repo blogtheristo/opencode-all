@@ -93,6 +93,12 @@ claude-sessions/
 *.csv
 investor-outreach/ready_to_send*/
 
+# --- ML/DS PIPELINE ARTIFACTS (generated test outputs, not source) ---
+# Following standard ML practice: only version source code and config, not outputs
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
 .snykdist
