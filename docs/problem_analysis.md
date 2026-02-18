@@ -172,7 +172,7 @@ The AI-assisted pipeline must demonstrate:
 | Cycle time | 4 weeks | < 15 minutes | 99.5% reduction |
 | Analyst hours per cycle | 128h | < 2h (review only) | 98.4% reduction |
 | Cost per cycle | €35,550 | < €500 (API + review) | 98.6% reduction |
-| Failure/rework rate | 82% compound | < 10% | 72 pp reduction |
+| Failure/rework rate | 94% compound | < 10% | 84 pp reduction |
 | Decision-to-action gap | Days/weeks | Same session | Near-zero |
 
 **Break-even calculation:** If the AI pipeline costs €200/month (API + compute) and eliminates even 2 traditional cycles per year, ROI = (€71,100 - €2,400) / €2,400 = **2,862% annual ROI**.
