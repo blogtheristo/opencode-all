@@ -1,0 +1,129 @@
+-- Migration 024: Thread tokens + inbound email reply support
+-- Renumbered from 017 (Supabase has 016-022 already deployed).
+-- Depends on 023_outreach_contacts.sql (outreach_orgs, persons, outreach_threads).
+--
+-- 1. thread_token on outreach_threads — stable 10-char alphanumeric token (50 bits)
+--    Used in digest emails: "T:8F3K2P9Q7H [INV] Nicolas Derrien …"
+--    User replies:          "T:8F3K2P9Q7H status responded"
+--
+-- 2. inbound_emails table — idempotency for webhook retries
+--    Stores Resend message_id with UNIQUE constraint.
+--
+-- 3. manual_update + manual_update_failed outcome values
+
+-- ============================================================================
+-- 1. THREAD TOKEN
+-- ============================================================================
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Token generator: 10-char from safe alphabet (no 0/O, 1/I/L). 30^10 ≈ 590 trillion values.
+CREATE OR REPLACE FUNCTION generate_thread_token(len INT DEFAULT 10)
+RETURNS TEXT AS $$
+DECLARE
+  alphabet TEXT := '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+  result TEXT := '';
+  i INT;
+  bytes BYTEA;
+BEGIN
+  bytes := gen_random_bytes(len);
+  FOR i IN 0..len-1 LOOP
+    result := result || substr(alphabet, (get_byte(bytes, i) % 30) + 1, 1);
+  END LOOP;
+  RETURN result;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Add column (nullable for backfill)
+ALTER TABLE outreach_threads
+  ADD COLUMN IF NOT EXISTS thread_token TEXT;
+
+-- Backfill existing rows
+UPDATE outreach_threads
+SET thread_token = generate_thread_token()
+WHERE thread_token IS NULL;
+
+-- NOT NULL + UNIQUE + CHECK uppercase alphanumeric 4-12 chars
+ALTER TABLE outreach_threads
+  ALTER COLUMN thread_token SET NOT NULL;
+
+ALTER TABLE outreach_threads
+  ALTER COLUMN thread_token SET DEFAULT generate_thread_token();
+
+ALTER TABLE outreach_threads
+  ADD CONSTRAINT outreach_threads_thread_token_key UNIQUE (thread_token);
+
+ALTER TABLE outreach_threads
+  ADD CONSTRAINT outreach_threads_thread_token_format
+  CHECK (thread_token ~ '^[23456789A-HJ-NP-Z]{4,12}$');
+
+-- ============================================================================
+-- 2. INBOUND EMAILS — webhook idempotency
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS inbound_emails (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  provider TEXT NOT NULL DEFAULT 'resend',
+  provider_message_id TEXT NOT NULL,
+  received_at TIMESTAMPTZ DEFAULT NOW(),
+  from_email TEXT,
+  subject TEXT,
+  thread_token TEXT,
+  command_line TEXT,
+  parse_ok BOOLEAN DEFAULT false,
+  error TEXT,
+  raw_payload JSONB NOT NULL,
+
+  CONSTRAINT inbound_emails_provider_message_id_key UNIQUE (provider_message_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_inbound_emails_received_at ON inbound_emails (received_at DESC);
+CREATE INDEX IF NOT EXISTS idx_inbound_emails_thread_token ON inbound_emails (thread_token);
+
+-- RLS for inbound_emails
+ALTER TABLE inbound_emails ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Service role full access" ON inbound_emails FOR ALL USING (auth.role() = 'service_role');
+
+-- ============================================================================
+-- 3. ACTIVITY OUTCOME — add manual_update values
+-- ============================================================================
+
+ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update';
+ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update_failed';
+
+-- ============================================================================
+-- 4. UPDATE ENRICHED VIEW — include thread_token
+-- ============================================================================
+
+CREATE OR REPLACE VIEW v_outreach_enriched AS
+SELECT
+  t.id,
+  t.pipeline,
+  t.priority,
+  t.status,
+  t.source,
+  t.next_action,
+  t.next_action_type,
+  t.next_action_date,
+  t.our_angle,
+  t.last_contacted_at,
+  t.last_outbound_at,
+  t.waiting_since,
+  t.meetings_count,
+  t.nudge_count,
+  t.thread_token,
+  p.first_name,
+  p.last_name,
+  p.title AS person_title,
+  p.linkedin_url,
+  o.name AS org_name,
+  o.domain AS org_domain,
+  pe.email AS primary_email,
+  t.person_id,
+  t.org_id,
+  t.created_at,
+  t.created_by
+FROM outreach_threads t
+JOIN persons p ON p.id = t.person_id
+LEFT JOIN outreach_orgs o ON o.id = t.org_id
+LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;

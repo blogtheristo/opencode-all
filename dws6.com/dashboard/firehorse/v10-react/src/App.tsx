@@ -7,13 +7,18 @@ import { useEffect, useState } from 'react';
 import { MetricsHeader } from './components/MetricsHeader';
 import { ProjectCard } from './components/ProjectCard';
 import { ClimateAssistant } from './components/ClimateAssistant';
+import { MeetingPanel } from './components/MeetingPanel';
+import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
+
+type SidePanel = 'chat' | 'meeting' | null;
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showChat, setShowChat] = useState(true);
+  const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
+  const { user } = useAuth();
 
   useEffect(() => {
     async function loadProjects() {
@@ -69,12 +74,20 @@ function App() {
               </div>
             </div>
 
-            <button
-              onClick={() => setShowChat(!showChat)}
-              className="btn-primary"
-            >
-              {showChat ? '📊 Show Projects' : '🤖 AI Assistant'}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')}
+                className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}
+              >
+                AI Assistant
+              </button>
+              <button
+                onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')}
+                className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}
+              >
+                Meeting
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -87,7 +100,7 @@ function App() {
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Projects Section */}
-          <div className={`${showChat ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+          <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">
                 Projects ({projects.length})
@@ -128,11 +141,17 @@ function App() {
             )}
           </div>
 
-          {/* AI Assistant Section */}
-          {showChat && (
+          {/* Side Panel: AI Assistant or Meeting */}
+          {sidePanel && (
             <div className="lg:col-span-1">
               <div className="sticky top-24">
-                <ClimateAssistant />
+                {sidePanel === 'chat' && <ClimateAssistant />}
+                {sidePanel === 'meeting' && (
+                  <MeetingPanel
+                    userName={user?.user_metadata?.full_name || user?.email || 'DWS6 User'}
+                    userEmail={user?.email}
+                  />
+                )}
               </div>
             </div>
           )}

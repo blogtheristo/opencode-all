@@ -3,16 +3,18 @@
 Convert DWS7 Integration Roadmap from Markdown to PDF
 """
 
-import markdown2
-from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
 import os
+
+import markdown2
+from weasyprint import HTML
+from weasyprint.text.fonts import FontConfiguration
+
 
 def convert_markdown_to_pdf(md_file, pdf_file):
     """Convert markdown file to PDF with styling"""
 
     # Read the markdown file
-    with open(md_file, 'r', encoding='utf-8') as f:
+    with open(md_file, encoding='utf-8') as f:
         md_content = f.read()
 
     # Convert markdown to HTML

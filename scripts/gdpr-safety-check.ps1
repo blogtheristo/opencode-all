@@ -30,7 +30,9 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
         $_ -notmatch '^Admin/ADMIN_MANUAL\.md$' -and
         $_ -notmatch '^Admin/TWITTER_AUTOMATION_GUIDE\.md$' -and
         $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
-        $_ -notlike 'Admin/Installation/*'
+        $_ -notmatch '^Admin/GIT_CORRUPTION_RESOLUTION_NOTE\.md$' -and
+        $_ -notlike 'Admin/Installation/*' -and
+        $_ -notlike 'Admin/Li/*'
     }
     
     if ($blockedAdminFiles -and $blockedAdminFiles.Count -gt 0) {

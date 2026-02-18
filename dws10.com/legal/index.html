@@ -11,10 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Shared Navigation -->
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+
     <style>
         /* ============================================
            DWS6 GAMMA ENTERPRISE DESIGN SYSTEM
-           Legal Hub - Ironclad v1.2
+           Legal Hub - Content Styles v1.3
            ============================================ */
 
         :root {
@@ -65,144 +68,6 @@
             line-height: 1.6;
             color: var(--color-gray-900);
             background: var(--color-white);
-        }
-
-        /* === IRONCLAD NAVIGATION === */
-        .ironclad-header {
-            background: #ffffff;
-            color: #0a1628;
-            padding: 15px 0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .ironclad-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .ironclad-logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .ironclad-logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .ironclad-logo {
-            height: 50px;
-            width: auto;
-        }
-
-        .ironclad-title {
-            font-size: clamp(0.9rem, 1.5vw, 1.25rem);
-            font-weight: 700;
-            color: #0a1628;
-        }
-
-        .ironclad-nav {
-            flex-grow: 0;
-        }
-
-        .ironclad-menu {
-            display: flex;
-            list-style: none;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .ironclad-menu-item {
-            position: relative;
-        }
-
-        .ironclad-link {
-            color: #334155;
-            text-decoration: none;
-            white-space: nowrap;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: all 0.2s;
-            display: block;
-        }
-
-        .ironclad-link:hover {
-            background: #f1f5f9;
-            color: #0066cc;
-        }
-
-        .ironclad-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            min-width: 220px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            padding: 8px 0;
-            display: none;
-            z-index: 100;
-            border: 1px solid #e2e8f0;
-            list-style: none;
-        }
-
-        .ironclad-menu-item:hover > .ironclad-dropdown {
-            display: block;
-        }
-
-        .ironclad-dropdown a {
-            display: block;
-            padding: 10px 20px;
-            color: #475569;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .ironclad-dropdown a:hover {
-            background: #f8fafc;
-            color: #0066cc;
-        }
-
-        .ironclad-dropdown .ironclad-primary {
-            color: #0066cc;
-            font-weight: 600;
-        }
-
-        .ironclad-dropdown .ironclad-legal {
-            color: #0d7a3e;
-            font-weight: 600;
-        }
-
-        .ironclad-cta {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white !important;
-            padding: 10px 18px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-        }
-
-        .ironclad-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
 
         /* === SOVEREIGNTY HERO === */
@@ -474,17 +339,6 @@
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            .ironclad-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .ironclad-menu {
-                flex-direction: column;
-                align-items: flex-start;
-                width: 100%;
-            }
-
             .sovereignty-hero {
                 padding: 40px 20px;
             }
@@ -492,49 +346,7 @@
     </style>
 </head>
 <body>
-    <!-- Ironclad Navigation -->
-    <header class="ironclad-header">
-        <div class="ironclad-container">
-            <div class="ironclad-logo-section">
-                <a href="../" class="ironclad-logo-link">
-                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" class="ironclad-logo">
-                </a>
-                <span class="ironclad-title">DWS IQ Platform</span>
-            </div>
-            <nav class="ironclad-nav">
-                <ul class="ironclad-menu">
-                    <li class="ironclad-menu-item">
-                        <a href="../" class="ironclad-link">Home</a>
-                    </li>
-                    <li class="ironclad-menu-item">
-                        <a href="../buy/" class="ironclad-link">Store</a>
-                    </li>
-                    <li class="ironclad-menu-item">
-                        <a href="../legal/" class="ironclad-link" style="font-weight: 700; color: var(--color-legal);">Legal Hub</a>
-                        <ul class="ironclad-dropdown">
-                            <li><a href="../legal/" class="ironclad-legal"><strong>Legal Hub (Start Here)</strong></a></li>
-                            <li><a href="../sovereignty/sovereignty.html" class="ironclad-primary">🛡️ Sovereignty</a></li>
-                            <li><a href="../regulatory-notice/">Investor Notice</a></li>
-                            <li><a href="https://lifetime.fi/legal" target="_blank">Lifetime Group Legal 2026</a></li>
-                            <li style="border-top: 1px solid #e2e8f0; margin: 5px 0;"></li>
-                            <li><a href="../privacy-policy/">Privacy Policy</a></li>
-                            <li><a href="../data-security-policy/">Data Security Policy</a></li>
-                            <li><a href="../data-handling-policy/">Data Handling Policy</a></li>
-                            <li><a href="../terms/">Professional Services Terms</a></li>
-                            <li><a href="../terms-dws-iq/">DWS IQ Terms</a></li>
-                            <li><a href="../terms-firehorse/">Firehorse Terms</a></li>
-                            <li><a href="../terms-lifetime-fleet/">Fleet Terms</a></li>
-                            <li><a href="../terms-professional/">Professional Terms</a></li>
-                            <li><a href="../return-policy/">Return Policy</a></li>
-                        </ul>
-                    </li>
-                    <li class="ironclad-menu-item">
-                        <a href="https://dws6.com/login" class="ironclad-cta">🔐 IQ Login</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Navigation will be injected by ironclad-nav.js -->
 
     <!-- Sovereignty Hero Section -->
     <section class="sovereignty-hero">
@@ -653,6 +465,12 @@
                         <td>Lifetime Oy corporate & group entities</td>
                         <td>01 Dec 2025</td>
                         <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md"><strong>AI Safety Report 2026 Analysis</strong></a> <span class="tag">New</span></td>
+                        <td>Security Research — all AI deployments</td>
+                        <td>06 Feb 2026</td>
+                        <td>06 Feb 2026</td>
                     </tr>
                 </tbody>
             </table>
@@ -825,7 +643,27 @@
 
         <hr>
 
-        <h2>9. Contact & Escalation</h2>
+        <h2>9. Security Research</h2>
+        <p>Independent research and analysis on AI safety, cybersecurity, and enterprise risk management informing our platform security posture and compliance architecture.</p>
+        <ul>
+            <li>
+                <p><strong><a href="https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md">International AI Safety Report 2026 — DWS Field Note</a></strong> <span class="tag">New</span></p>
+                <ul>
+                    <li><strong>Source:</strong> International AI Safety Report 2026 (Yoshua Bengio et al., 100+ experts, 30+ countries)</li>
+                    <li><strong>Key Findings:</strong> Existing AI safety practices are insufficient. Three risk categories: misuse, malfunction, systemic risks. 60% of advanced economy jobs exposed to AI. Autonomous agent governance urgently needed.</li>
+                    <li><strong>DWS Impact:</strong> Validates Article 12 compliance architecture, Firehorse human-in-the-loop model, and climate-AI convergence positioning.</li>
+                    <li><strong>Full Report:</strong> <a href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026" target="_blank">internationalaisafetyreport.org</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="section-note">
+            <strong>Security Research Policy:</strong> DWS IQ Platform security architecture is informed by continuous monitoring of international AI safety research, OWASP guidelines, and EU regulatory developments. Research summaries are published as field notes and, when validated, elevated to core compliance artifacts.
+        </div>
+
+        <hr>
+
+        <h2>10. Contact & Escalation</h2>
         <div class="contact-card">
             <div>
                 <h3>Data Protection Officer</h3>

@@ -4,13 +4,10 @@ Tests for Critical Bug Scanner
 Validates that the scanner correctly detects vulnerabilities and excludes itself.
 """
 
-import tempfile
-from pathlib import Path
-
-import pytest
-
 # Import the scanner
 import sys
+from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from scripts.scan_critical_bugs import CriticalBugScanner
 
@@ -21,13 +18,13 @@ class TestCriticalBugScanner:
     def test_scanner_excludes_itself_from_directory_scan(self, tmp_path):
         """Test that scanner excludes itself when scanning directories"""
         scanner = CriticalBugScanner(tmp_path)
-        
+
         # Create the scanner file path
-        scanner_file = Path(__file__).parent.parent.parent / "scripts" / "scan_critical_bugs.py"
-        
+        Path(__file__).parent.parent.parent / "scripts" / "scan_critical_bugs.py"
+
         # Scan should not include the scanner file
         findings = scanner.scan_directory()
-        
+
         # Check that scanner file was not scanned
         scanner_paths = [f["file"] for f in findings if "scan_critical_bugs.py" in f["file"]]
         assert len(scanner_paths) == 0, "Scanner should exclude itself from scans"
@@ -43,10 +40,10 @@ function processFile(filename) {
     execSync(`git add ${filename}`);
 }
 """)
-        
+
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
-        
+
         # Should detect at least one command injection
         assert len(findings) > 0, "Scanner should detect command injection"
         assert findings[0]["type"] == "command_injection"
@@ -61,10 +58,10 @@ function getUserData(userId) {
     return db.query(`SELECT * FROM users WHERE id = ${userId}`);
 }
 """)
-        
+
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
-        
+
         # Should detect SQL injection
         assert len(findings) > 0, "Scanner should detect SQL injection"
         assert findings[0]["type"] == "sql_injection"
@@ -81,10 +78,10 @@ function processFile(filename) {
     spawnSync('git', ['add', filename]);
 }
 """)
-        
+
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(safe_file)
-        
+
         # Should not detect any vulnerabilities in safe code
         assert len(findings) == 0, "Scanner should not flag safe code"
 
@@ -100,11 +97,11 @@ function processFile(filename) {
         # Construct path traversal test pattern to avoid scanner false positives on test file
         path_traversal_pattern = "fs.readFile(userPath " + "+ filename);"
         high_file.write_text(path_traversal_pattern)
-        
+
         scanner = CriticalBugScanner(tmp_path)
         scanner.scan_file(critical_file)
         scanner.scan_file(high_file)
-        
+
         # Check statistics
         assert scanner.stats["files_scanned"] == 2
         assert scanner.stats["critical"] >= 1
@@ -116,15 +113,15 @@ function processFile(filename) {
         # Construct test pattern to avoid scanner false positives on test file
         cmd_injection_pattern = "execSync(`rm $" + "{file}`);"
         vuln_file.write_text(cmd_injection_pattern)
-        
+
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
         scanner.findings.extend(findings)
-        
+
         # Generate report
         report_file = tmp_path / "report.md"
         report = scanner.generate_report(str(report_file))
-        
+
         assert report_file.exists(), "Report file should be created"
         assert "Critical Security Bug Report" in report
         assert "Files Scanned:" in report

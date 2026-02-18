@@ -3,18 +3,20 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Initial creation - comprehensive document index for faster search
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Added last-modified dates, scripts section, sync tracking info
 
 Session Links & References:
   - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/Document-index.md
 
 Document Status:
   - Created: 04.02.2026
-  - Last Modified: 04.02.2026
+  - Last Modified: 07.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -50,18 +52,24 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 
 ## Admin Manuals
 
-System administration and deployment guides.
+System administration and deployment guides. All admin manuals are in `Admin/` folder.
 
-| Document | Path | Status | LLM Model | Description |
-|----------|------|--------|-----------|-------------|
-| Authentication Manual | `/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | Manual | Supabase auth setup |
-| Dashboard V8 Manual | `/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | Cursor AI | Dashboard v8 guide |
-| Supabase Manual | `/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | Cursor AI | Supabase configuration |
-| Gaps Analysis | `/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | Claude | Documentation gap analysis |
-| DWS6.com Manual | `/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | Cursor AI | Main site deployment |
-| Testing Manual | `/ADMIN_MANUAL_TESTING.md` | ACTIVE | Manual | Testing procedures |
-| Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | Claude | 2026-01 audit results |
-| Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | Manual | Authentication setup |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| Admin Manual (main) | `/Admin/ADMIN_MANUAL.md` | ACTIVE | 2026-02-07 | Master admin manual (v2.1) |
+| Authentication Manual | `/Admin/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | 2026-02-06 | Supabase auth setup |
+| Dashboard V8 Manual | `/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | 2026-02-06 | Dashboard v8 guide |
+| Supabase Manual | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | 2026-02-06 | Supabase configuration |
+| Gaps Analysis | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | 2026-02-06 | Documentation gap analysis |
+| DWS6.com Manual | `/Admin/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | 2026-02-06 | Main site deployment |
+| DWS10 Store Payments | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md` | ACTIVE | 2026-02-06 | Revolut Web SDK store |
+| Testing Manual | `/Admin/ADMIN_MANUAL_TESTING.md` | ACTIVE | 2026-02-06 | Testing procedures |
+| Files & Folders | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md` | ACTIVE | 2026-02-06 | Repo structure guide |
+| Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | 2026-02-06 | Security & compliance |
+| Security Testing | `/Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md` | ACTIVE | 2026-02-06 | Security test procedures |
+| Security Monitoring | `/Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md` | ACTIVE | 2026-02-06 | Monitoring setup |
+| Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | 2026-01-11 | 2026-01 audit results |
+| Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | - | Authentication setup |
 
 ---
 
@@ -99,6 +107,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | EU Tech Sovereignty | `/docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md` | 2026-01-28 | EU data sovereignty | Compliance, EU, Strategy |
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
+| Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
@@ -163,15 +172,15 @@ Product suite documentation for Firehorse (Reports, Automation, ContentMS, Omnic
 
 Coding, documentation, and process standards.
 
-| Document | Path | Status | Description |
-|----------|------|--------|-------------|
-| DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | Master document standard |
-| CLAUDE.md | `/CLAUDE.md` | ACTIVE | AI agent guidelines |
-| Ontology | `/ONTOLOGY.md` | ACTIVE | LWM ontology framework |
-| Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | GitHub Copilot rules |
-| GitHub Copilot Guide | `/.workflows/GITHUB_COPILOT_GUIDE.md` | ACTIVE | Copilot workflow guide |
-| Ultra Agent Coordinator | `/.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | ACTIVE | Agent coordination |
-| Agent Signal Instructions | `/.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md` | ACTIVE | Signal protocols |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | 2026-02-07 | Master document standard (v1.4) |
+| CLAUDE.md | `/CLAUDE.md` | ACTIVE | 2026-02-05 | AI agent guidelines |
+| Ontology | `/ONTOLOGY.md` | ACTIVE | 2026-01-21 | LWM ontology framework |
+| Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | - | GitHub Copilot rules |
+| GitHub Copilot Guide | `/.workflows/GITHUB_COPILOT_GUIDE.md` | ACTIVE | - | Copilot workflow guide |
+| Ultra Agent Coordinator | `/.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | ACTIVE | - | Agent coordination |
+| Agent Signal Instructions | `/.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md` | ACTIVE | - | Signal protocols |
 
 ---
 
@@ -181,7 +190,7 @@ Security policies, compliance, and guidelines.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
-| Security Compliance | `/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
+| Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
 | README Security | `/README_SECURITY.md` | ACTIVE | Security readme |
 | AgentFoundry Security | `/AgentFoundry/Security.md` | ACTIVE | Agent security |
 | Argus Code Review | `/ARGUS_CODE_REVIEW_SETUP.md` | ACTIVE | Code review security |
@@ -262,19 +271,37 @@ Industry-specific documentation for 16 EU industries.
 
 ---
 
+## Scripts & Automation
+
+PowerShell/Bash automation scripts with version tracking.
+
+| Script | Path | Version | Last Modified | Description |
+|--------|------|---------|---------------|-------------|
+| Startup Daily Sync | `/scripts/Startup-DailySync.bat` | v1.4 | 2026-02-07 | Login trigger: pull + sync + docs + Supabase |
+| Sync to Proton | `/scripts/Sync-ToProton.ps1` | v1.4 | 2026-02-07 | Proton Drive sync (folders, secrets) |
+| Generate PDFs | `/scripts/Generate-PDFs.ps1` | v1.5 | 2026-02-07 | Markdown to HTML/PDF (pandoc) |
+| Install Startup | `/scripts/Install-StartupSync.ps1` | v1.1 | 2026-02-07 | Creates Startup shortcut |
+| Sync to Supabase | `/scripts/Sync-ToSupabase.ps1` | v1.2 | 2026-02-07 | EU cloud backup |
+
+---
+
 ## Sales & Marketing
 
 Sales materials and marketing documentation.
 
-| Document | Path | Status | Description |
-|----------|------|--------|-------------|
-| Sales Manifesto Q1 2026 | `/DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` | ACTIVE | Q1 sales strategy |
-| Campaign Summary | `/CAMPAIGN_SUMMARY.md` | ACTIVE | Marketing campaigns |
-| Investor Memo | `/Firehorse/Omnichannel/Investors/INVESTOR_MEMO.md` | ACTIVE | Investor pitch |
-| Investor Profiles | `/Firehorse/Omnichannel/Investors/DWS6_INVESTOR_PROFILES.md` | ACTIVE | Target investors |
-| Outreach Workflow | `/Firehorse/Omnichannel/Investors/OUTREACH_WORKFLOW.md` | ACTIVE | Sales workflow |
-| Firehorse Sales Workflow | `/FIREHORSE_SALES_WORKFLOW.md` | ACTIVE | Product sales |
-| App Store Strategy | `/APP_STORE_STRATEGY.md` | ACTIVE | Distribution plan |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| Enterprise Sales | `/sales-outreach/enterprise-sales.md` | ACTIVE | 2026-01-06 | Enterprise sales playbook |
+| Sales AI Agent | `/sales-outreach/SALES_AI_AGENT_DESIGN_FI_v1.md` | ACTIVE | 2026-01-06 | AI agent sales design |
+| Sales Manifesto Q1 2026 | `/DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` | ACTIVE | - | Q1 sales strategy |
+| Campaign Summary | `/CAMPAIGN_SUMMARY.md` | ACTIVE | - | Marketing campaigns |
+| Investor Memo | `/investor-outreach/INVESTOR_MEMO.md` | ACTIVE | 2026-01-18 | Investor pitch |
+| Investor Pitch Deck | `/investor-outreach/investor-pitch-deck.md` | ACTIVE | 2026-01-06 | Pitch deck |
+| Investor PD v3 | `/investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` | ACTIVE | 2026-01-06 | Investor presentation |
+| Investor Profiles | `/Firehorse/Omnichannel/Investors/DWS6_INVESTOR_PROFILES.md` | ACTIVE | - | Target investors |
+| Outreach Workflow | `/Firehorse/Omnichannel/Investors/OUTREACH_WORKFLOW.md` | ACTIVE | - | Sales workflow |
+| Firehorse Sales Workflow | `/FIREHORSE_SALES_WORKFLOW.md` | ACTIVE | - | Product sales |
+| App Store Strategy | `/APP_STORE_STRATEGY.md` | ACTIVE | - | Distribution plan |
 
 ---
 
@@ -298,6 +325,7 @@ MCP server and orchestration documentation.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
+| MCP Configuration Guide | `/docs/MCP_CONFIGURATION.md` | ACTIVE | Complete MCP setup guide |
 | MCP Hub | `/mcp-hub/` | ACTIVE | MCP orchestration |
 | MCP Servers | `/mcp-servers/` | ACTIVE | Individual servers |
 
@@ -324,15 +352,27 @@ Other important documentation.
 
 ## Document Statistics
 
-**Last Updated:** 04.02.2026
+**Last Updated:** 07.02.2026
 
 | Metric | Value |
 |--------|-------|
-| Total Markdown Files | 130+ |
-| Active Documents | 100+ |
+| Total Markdown Files | 135+ |
+| Active Documents | 105+ |
 | Archived Documents | 15+ |
 | Languages | EN, FI |
-| Categories | 12 |
+| Categories | 14 (added Scripts & Automation) |
+
+### Sync Tracking
+
+Files are synced to three backup locations on each Windows login:
+
+| Destination | Script | Content |
+|-------------|--------|---------|
+| GitHub (private) | `git push` | All tracked files |
+| Proton Drive | `Sync-ToProton.ps1` | Admin, scripts, Firehorse, docs, secrets |
+| Supabase Storage | `Sync-ToSupabase.ps1` | Admin, scripts, src, Firehorse, sales, investor |
+
+Last modified dates in this index are from `git log -1 --format="%ai"` per file.
 
 ---
 

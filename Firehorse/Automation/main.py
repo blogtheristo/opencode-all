@@ -29,7 +29,8 @@ import logging
 import os
 import uuid
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
+
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -74,7 +75,7 @@ executions: dict[str, dict] = {}
 # Enums and Models
 # ============================================================================
 
-class TriggerType(str, Enum):
+class TriggerType(StrEnum):
     SCHEDULE = "schedule"
     WEBHOOK = "webhook"
     EVENT = "event"
@@ -82,7 +83,7 @@ class TriggerType(str, Enum):
     MANUAL = "manual"
 
 
-class ActionType(str, Enum):
+class ActionType(StrEnum):
     GENERATE_REPORT = "generate_report"
     SEND_EMAIL = "send_email"
     SEND_SLACK = "send_slack"
@@ -90,7 +91,7 @@ class ActionType(str, Enum):
     UPDATE_DATABASE = "update_database"
 
 
-class ScheduleFrequency(str, Enum):
+class ScheduleFrequency(StrEnum):
     HOURLY = "hourly"
     DAILY = "daily"
     WEEKLY = "weekly"
@@ -98,13 +99,13 @@ class ScheduleFrequency(str, Enum):
     QUARTERLY = "quarterly"
 
 
-class WorkflowStatus(str, Enum):
+class WorkflowStatus(StrEnum):
     ACTIVE = "active"
     PAUSED = "paused"
     DRAFT = "draft"
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -279,7 +280,7 @@ async def execute_workflow(workflow_id: str, background_tasks: BackgroundTasks):
 
     # Queue background execution
     background_tasks.add_task(_execute_workflow_background, execution_id, workflow)
-    
+
     return ExecutionResponse(**execution)
 
 
@@ -288,13 +289,13 @@ async def _execute_workflow_background(execution_id: str, workflow: dict):
     try:
         executions[execution_id]["status"] = ExecutionStatus.RUNNING
         results = []
-        
+
         for action in workflow["actions"]:
             action_type = action["action_type"]
             config = action.get("config", {})
-            
+
             logger.info(f"Executing action: {action_type}")
-            
+
             result = await _execute_action(action_type, config)
             results.append({
                 "action_id": action["action_id"],
@@ -302,17 +303,17 @@ async def _execute_workflow_background(execution_id: str, workflow: dict):
                 "result": result,
                 "timestamp": datetime.now().isoformat(),
             })
-        
+
         executions[execution_id]["status"] = ExecutionStatus.COMPLETED
         executions[execution_id]["results"] = results
         executions[execution_id]["completed_at"] = datetime.now().isoformat()
-        
+
         # Update workflow stats
         workflow["last_executed"] = datetime.now().isoformat()
         workflow["execution_count"] = workflow.get("execution_count", 0) + 1
-        
+
         logger.info(f"Workflow execution completed: {execution_id}")
-        
+
     except Exception as e:
         logger.error(f"Workflow execution failed: {execution_id} - {e}")
         executions[execution_id]["status"] = ExecutionStatus.FAILED
@@ -322,7 +323,7 @@ async def _execute_workflow_background(execution_id: str, workflow: dict):
 
 async def _execute_action(action_type: str, config: dict) -> dict:
     """Execute a single action"""
-    
+
     if action_type == ActionType.GENERATE_REPORT.value:
         # Call Report Engine API
         async with httpx.AsyncClient() as client:
@@ -337,7 +338,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
                 timeout=60.0,
             )
             return response.json()
-    
+
     elif action_type == ActionType.SEND_SLACK.value:
         if SLACK_WEBHOOK_URL:
             async with httpx.AsyncClient() as client:
@@ -347,7 +348,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
                     timeout=10.0,
                 )
         return {"sent": True, "channel": "slack"}
-    
+
     elif action_type == ActionType.SEND_EMAIL.value:
         # Placeholder for email integration
         return {
@@ -355,7 +356,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
             "to": config.get("to"),
             "subject": config.get("subject"),
         }
-    
+
     elif action_type == ActionType.CALL_WEBHOOK.value:
         async with httpx.AsyncClient() as client:
             response = await client.post(
@@ -364,7 +365,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
                 timeout=30.0,
             )
             return {"status_code": response.status_code}
-    
+
     else:
         return {"message": f"Action type {action_type} not implemented"}
 
@@ -374,7 +375,7 @@ async def get_execution(execution_id: str):
     """Get execution status"""
     if execution_id not in executions:
         raise HTTPException(status_code=404, detail=f"Execution not found: {execution_id}")
-    
+
     return ExecutionResponse(**executions[execution_id])
 
 
@@ -385,26 +386,26 @@ async def get_execution(execution_id: str):
 @app.post("/v1/notify")
 async def send_notification(request: NotificationRequest):
     """Send a notification"""
-    
+
     if request.channel == "slack":
         if not SLACK_WEBHOOK_URL:
             raise HTTPException(status_code=400, detail="Slack webhook not configured")
-        
+
         async with httpx.AsyncClient() as client:
             await client.post(
                 SLACK_WEBHOOK_URL,
                 json={"text": f"*{request.subject or 'Notification'}*\n{request.message}"},
                 timeout=10.0,
             )
-        
+
         return {"status": "sent", "channel": "slack"}
-    
-    elif request.channel == "email":
+
+    if request.channel == "email":
         # Placeholder for email integration (Resend, SendGrid, etc.)
         logger.info(f"Email notification to {request.recipient}: {request.subject}")
         return {"status": "queued", "channel": "email", "to": request.recipient}
-    
-    elif request.channel == "webhook":
+
+    if request.channel == "webhook":
         async with httpx.AsyncClient() as client:
             await client.post(
                 request.recipient,
@@ -415,11 +416,10 @@ async def send_notification(request: NotificationRequest):
                 },
                 timeout=30.0,
             )
-        
+
         return {"status": "sent", "channel": "webhook"}
-    
-    else:
-        raise HTTPException(status_code=400, detail=f"Unknown channel: {request.channel}")
+
+    raise HTTPException(status_code=400, detail=f"Unknown channel: {request.channel}")
 
 
 # ============================================================================
@@ -433,7 +433,7 @@ async def list_schedules():
         w for w in workflows.values()
         if w["trigger"].get("trigger_type") == TriggerType.SCHEDULE.value
     ]
-    
+
     return {
         "schedules": [
             {
@@ -454,7 +454,7 @@ async def list_schedules():
 @app.post("/v1/webhooks/{webhook_id}")
 async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: BackgroundTasks):
     """Trigger workflows by webhook"""
-    
+
     # Find workflows with matching webhook trigger
     matching_workflows = [
         w for w in workflows.values()
@@ -463,10 +463,10 @@ async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: Back
             and w["trigger"].get("config", {}).get("webhook_id") == webhook_id
         )
     ]
-    
+
     if not matching_workflows:
         raise HTTPException(status_code=404, detail=f"No workflows for webhook: {webhook_id}")
-    
+
     execution_ids = []
     for workflow in matching_workflows:
         execution_id = str(uuid.uuid4())
@@ -482,9 +482,9 @@ async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: Back
         }
         executions[execution_id] = execution
         execution_ids.append(execution_id)
-        
+
         background_tasks.add_task(_execute_workflow_background, execution_id, workflow)
-    
+
     return {
         "webhook_id": webhook_id,
         "triggered_workflows": len(matching_workflows),
@@ -541,10 +541,10 @@ async def list_workflow_templates():
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     port = int(os.getenv("PORT", "8085"))
     host = os.getenv("HOST", "0.0.0.0")
-    
+
     logger.info(f"Starting Firehorse Automation Service on {host}:{port}")
-    
+
     uvicorn.run(app, host=host, port=port)

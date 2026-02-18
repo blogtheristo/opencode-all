@@ -15,7 +15,6 @@ from src.payments.config import (
     PaymentConfig,
     PlanTier,
     get_payment_config,
-    get_paypal_plan_id,
     get_plan_by_tier,
 )
 from src.payments.models import (
@@ -121,7 +120,7 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
                 expires_at=result.get("expires_at"),
             )
 
-        elif request.payment_provider == PaymentProvider.PAYPAL:
+        if request.payment_provider == PaymentProvider.PAYPAL:
             # Create PayPal subscription
             result = await paypal_client.create_subscription(
                 plan_tier=request.plan,
@@ -136,18 +135,17 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
                 amount_eur=plan.price_monthly_eur,
             )
 
-        else:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported payment provider: {request.payment_provider}",
-            )
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported payment provider: {request.payment_provider}",
+        )
 
     except (RevolutError, PayPalError) as e:
         logger.error(f"Payment provider error: {e}")
         raise HTTPException(
             status_code=502,
             detail=f"Payment provider error: {e!s}",
-        )
+        ) from e
 
 
 @router.get("/subscriptions/{user_id}", response_model=SubscriptionListResponse)
@@ -222,14 +220,13 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     try:
         # Cancel with payment provider if there's a provider subscription ID
-        if subscription.provider_subscription_id:
-            if subscription.payment_provider == PaymentProvider.PAYPAL:
-                await paypal_client.cancel_subscription(
-                    subscription.provider_subscription_id,
-                    reason=request.reason or "Cancelled by user",
-                )
-            # Revolut doesn't have recurring subscriptions to cancel
-            # (each payment is a one-time request)
+        if subscription.provider_subscription_id and subscription.payment_provider == PaymentProvider.PAYPAL:
+            await paypal_client.cancel_subscription(
+                subscription.provider_subscription_id,
+                reason=request.reason or "Cancelled by user",
+            )
+        # Revolut doesn't have recurring subscriptions to cancel
+        # (each payment is a one-time request)
 
         # Update our database
         success = await subscription_service.cancel_subscription(
@@ -248,7 +245,7 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     except PayPalError as e:
         logger.error(f"PayPal cancellation error: {e}")
-        raise HTTPException(status_code=502, detail=f"Payment provider error: {e!s}")
+        raise HTTPException(status_code=502, detail=f"Payment provider error: {e!s}") from e
 
 
 # =============================================================================
@@ -281,7 +278,7 @@ async def revolut_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid Revolut webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_revolut_webhook(
@@ -330,7 +327,7 @@ async def paypal_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid PayPal webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_paypal_webhook(

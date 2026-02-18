@@ -2,6 +2,43 @@
 
 This file provides guidance for Claude Code (AI) when working with the DWS6 codebase.
 
+## Required Reading (Design & Document Standards)
+
+Before making any UI changes, agents MUST consult these files:
+
+| Standard | File | Scope |
+|----------|------|-------|
+| **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
+| **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
+| **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
+| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
+| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
+
+**Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### "Use DWS Standard" Rule (CRITICAL)
+
+When the human says **"Use DWS standard"** (or any variation like "with DWS standards", "follow DWS standards"), this is a shorthand that means:
+
+1. **Apply ALL relevant standards from the table above** — not just one. Evaluate which standards apply to the task and follow every one that is relevant.
+2. **Update the standards themselves** if the work adds new products, features, security controls, or brand elements. Standards are living documents that must grow with the platform.
+3. **Ensure market-value readiness** — every product artifact must be complete enough to sell: Google Merchant JSON, product specification, store listing, competitive positioning, and pricing.
+4. **Ensure security coverage** — every new feature must have security controls documented in the relevant security standard.
+5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
+
+**Example:** "Create a new product with DWS standard" means:
+- `DWS_DOCUMENT_STANDARD.md` → Use correct metadata header, versioning
+- `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
+- `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
+- `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json
+- `config/products.json` → Add store entry with storeCategory and payment link
+
+**This is not optional.** Delivering work without updating relevant standards is incomplete work.
+
 ## Project Overview
 
 **DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
@@ -173,6 +210,14 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 
 The human has unlimited patience for good work, but limited patience for fixing avoidable mistakes. You have unlimited stamina—use it to loop on hard problems, but don't loop on the wrong problem because you failed to clarify the goal.
 
+## Email Rules (CRITICAL)
+
+- **NEVER use `noreply@` addresses.** All emails must be sent from a real, replyable address.
+- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default recipient:** `risto@lifetime.fi`
+- **Verified domain:** `onelifetime.world` — this is the only domain configured in Resend. Do NOT use `dws6.com` or any other domain as a sender.
+- When adding new email-sending code, always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as the sender fallback.
+
 ## Tech Stack
 
 ### Frontend
@@ -223,7 +268,7 @@ dws6/
 ├── mcp-servers/            # Individual MCP servers
 ├── scripts/                # Development & deployment scripts
 ├── supabase/migrations/    # Database migrations
-└── .github/workflows/      # CI/CD pipelines (18 workflows)
+└── .github/workflows/      # CI/CD pipelines (15 workflows)
 ```
 
 ### Dual Folder Structure Rule (IMPORTANT)
@@ -429,39 +474,206 @@ PORT=3000
   load_dotenv()
   ```
 
-### 4. Worktree Security (Currently Disabled)
+### 4. Claude Code Worktree Workflow (Recommended)
 
-**WARNING: Git worktree is disabled until April 2026** due to security incident.
+**Git worktree is the recommended workflow for parallel Claude Code sessions.**
 
-If worktree is re-enabled, these rules apply:
+Based on [Daniel San's workflow](https://x.com/dani_avila7) combining Ghostty + Worktrees + Lazygit for seamless multitasking with Claude Code.
 
-**Same `.gitignore` across all worktrees:**
-- The `.gitignore` in the main worktree applies to all
-- Verify with `git status` in each worktree
+#### Why Worktrees for Claude Code?
 
-**Separate `.env` per worktree:**
-- Each worktree needs its own `.env` file
-- Copy and modify `.env` manually for each worktree
-- Never symlink `.env` files between worktrees
+- Run multiple Claude Code sessions simultaneously (feature + bugfix + refactor)
+- Each session maintains its own context without branch switching
+- Shared `.gitignore` prevents accidental credential commits
+- Symlinked `.venv` avoids duplicating 500MB+ virtual environments
 
-**Worktree management:**
-```bash
-# Create worktree
-git worktree add ../project-feature feature-branch
+#### Quick Start
 
-# List worktrees
-git worktree list
+**Windows (PowerShell):**
+```powershell
+# Create new worktree with proper setup
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "feature-auth" -LaunchClaude
 
-# Remove worktree (clean up properly)
-git worktree remove ../project-feature
-git worktree prune
+# Or step by step:
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "fix-api-bug" -BaseBranch "develop"
+cd "C:\Users\$env:USERNAME\.claude-worktrees\dws6\fix-api-bug"
+claude
 ```
 
-**Security checklist before using worktree:**
-- [ ] Verify `.gitignore` covers all secrets
-- [ ] Create separate `.env` for the worktree
-- [ ] Run `git status` to verify no sensitive files exposed
-- [ ] Use VPN when working with sensitive data
+**Linux/macOS/Chromebook/iOS (Bash):**
+```bash
+# Create new worktree with proper setup
+./scripts/new-claude-worktree.sh feature-auth --launch-claude
+
+# Or step by step:
+./scripts/new-claude-worktree.sh fix-api-bug develop
+cd ~/.claude-worktrees/dws6/fix-api-bug
+claude
+```
+
+#### What the Scripts Handle Automatically
+
+1. **Creates git worktree** in standardized location
+2. **Verifies .gitignore** inheritance (critical security patterns)
+3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
+4. **Copies config files** (.env, .env.mcp, .claude/)
+5. **Optionally launches Claude Code** in the new worktree
+
+#### Worktree Locations by Environment
+
+| Environment | Worktree Root |
+|-------------|---------------|
+| Windows | Adjacent to main repo: `F:\2026\Repos2026\.claude-worktrees\dws6\` |
+| macOS | `~/.claude-worktrees/dws6/` |
+| Linux/Chromebook | Adjacent to main repo: `../.claude-worktrees/dws6/` |
+| iOS (iSH/a-Shell) | `~/.claude-worktrees/dws6/` |
+
+#### Security: What's Shared vs. Copied
+
+| File/Folder | Behavior | Reason |
+|-------------|----------|--------|
+| `.gitignore` | **Shared** (inherited) | All worktrees use same ignore rules |
+| `.venv/` | **Symlinked** | Saves space, consistent packages |
+| `.env` | **Copied** | May need worktree-specific values |
+| `.env.mcp` | **Copied** | API keys for MCP servers |
+| `.claude/` | **Copied** | Session-specific Claude settings |
+| `node_modules/` | **Not shared** | Run `npm install` per worktree |
+
+#### Manual Worktree Commands
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove worktree when done (from main repo)
+git worktree remove /path/to/worktree
+git worktree prune
+
+# Emergency: Force remove stuck worktree
+git worktree remove --force /path/to/worktree
+```
+
+#### Claude Session Data Backup (CRITICAL)
+
+**NEVER delete worktrees without backing up Claude session data first!**
+
+Claude Code sessions contain valuable trained agents, commands, skills, and settings that are NOT committed to Git. Each worktree has its own `.claude/` directory with session-specific data.
+
+##### Daily Automated Backup
+- **GitHub Actions**: Runs daily at 6:00 AM UTC
+- **Location**: `.github/workflows/daily-claude-backup.yml`
+- **Storage**: Creates `sessions-backup` branch with timestamped archives
+
+##### Manual Backup
+```powershell
+# Run backup script
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Or manually backup specific worktree
+cp -r /path/to/worktree/.claude /safe/backup/location/
+```
+
+##### What Gets Backed Up
+- `agents/` - Custom Claude agents
+- `commands/` - Custom commands and macros
+- `hooks/` - Automation hooks
+- `skills/` - Trained Claude capabilities
+- `settings.local.json` - Session preferences
+
+##### Before Deleting Worktrees
+1. **Backup session data** using the script above
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove the worktree
+
+#### Security Checklist (Automated by Scripts)
+
+The scripts verify these automatically, but for manual worktrees:
+
+- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`
+- [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
+- [ ] Run `git status` before first commit to verify no sensitive files staged
+- [ ] `.venv` symlink points to main repo's virtual environment
+
+#### Activating Python Environment in Worktrees
+
+**Windows:**
+```powershell
+# If symlink works:
+. .venv\Scripts\Activate.ps1
+
+# If symlink failed (no admin/Developer Mode):
+. F:\2026\Repos2026\dws6\.venv\Scripts\Activate.ps1
+```
+
+**Linux/macOS:**
+```bash
+source .venv/bin/activate
+```
+
+#### Using Worktrees with VS Code and Cursor
+
+**Opening a worktree in VS Code:**
+```powershell
+# Navigate to worktree and open in VS Code
+cd F:\2026\Repos2026\.claude-worktrees\dws6\your-branch
+code .
+```
+
+**Opening a worktree in Cursor:**
+```powershell
+# Navigate to worktree and open in Cursor
+cd F:\2026\Repos2026\.claude-worktrees\dws6\your-branch
+cursor .
+```
+
+**VS Code/Cursor Workspace Settings:**
+Each worktree can have its own `.vscode/settings.json` for workspace-specific settings.
+
+**Important: Never manually create git repos in worktree folders!**
+If you see "Initialize Repository" prompts in VS Code/Cursor, **do NOT click them**. Worktrees already share the main repo's git configuration.
+
+#### Troubleshooting Broken Worktrees
+
+If a worktree shows unexpected files (like user home directory files) in `git status`:
+
+```powershell
+# 1. Check if it's a proper worktree
+cat .git  # Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/<name>
+
+# 2. If it shows a folder (.git/) instead of file, it's broken - remove it:
+Remove-Item -Recurse -Force "path/to/broken/worktree"
+
+# 3. Prune orphaned references
+cd F:\2026\Repos2026\dws6
+git worktree prune
+
+# 4. Recreate properly using the script
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
+```
+
+**CRITICAL: Windows Worktree Location**
+On Windows, worktrees MUST be created on F: drive (or the same drive as main repo), NEVER in `C:\Users\`. The script enforces this automatically, but if creating manually, always use:
+- ✅ `F:\2026\Repos2026\.claude-worktrees\dws6\`
+- ❌ `C:\Users\risto\.claude-worktrees\dws6\` (AVOID - causes security issues)
+
+#### Windows Managed Settings Path Change
+
+**Effective March 11, 2026**, Claude Code on Windows will no longer read managed settings from the legacy path. Update any deployment scripts or documentation that reference the old path.
+
+| | Path |
+|---|---|
+| **Old (deprecated)** | `C:\ProgramData\ClaudeCode\managed-settings.json` |
+| **New** | `C:\Program Files\ClaudeCode\managed-settings.json` |
+
+The new path is already supported as of **Claude Code 2.0.58**. If you are running 2.0.58 or later, you can migrate immediately. After March 11, 2026, the old path will be ignored entirely.
+
+#### References
+
+- [Daniel San's Ghostty + Worktrees workflow](https://x.com/dani_avila7)
+- [Git Worktrees with pyenv](https://huonw.github.io/blog/2020/04/worktrees-and-pyenv/)
+- [Git Worktrees with Claude Code Guide](https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/)
+- [Mastering Git Worktrees for Parallel Development](https://medium.com/@dtunai/mastering-git-worktrees-with-claude-code-for-parallel-development-workflow-41dc91e645fe)
 
 ### 5. Additional Security Requirements
 
@@ -500,21 +712,17 @@ If secrets are accidentally committed:
 - [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
 - [Anthropic API Security](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
 
-### Admin Folder Protection (CRITICAL)
+### Admin Folder
 
-**NEVER expose the Admin/ folder to GitHub in ANY case.**
+The `Admin/` folder is tracked in GitHub and contains admin manuals, security
+documentation, and operational guides. All admin documentation follows the
+DWS Document Standard (see `DWS_DOCUMENT_STANDARD.md`).
 
-This is an absolute rule with no exceptions:
-- The entire `Admin/` folder is gitignored with NO exceptions
-- Never use `git add -f Admin/` or similar force commands
-- Never create exceptions in `.gitignore` for Admin files
+**Security rules still apply:**
+- Never commit secrets, credentials, or API keys in Admin/ files
+- Sensitive operational data (customer details, financial records) stays in ProtonDrive
 - CI/CD reports go to `security-reports/` (not Admin/)
-- Admin files are stored ONLY in ProtonDrive locally
-
-If you need a file from Admin/ for CI/CD:
-1. Copy it to root or another appropriate folder
-2. Remove any sensitive information
-3. Document the change in the copied file
+- Review Admin/ files before committing to ensure no PII or credentials are included
 
 ## 2026 EU AI Act Compliance
 
@@ -543,77 +751,95 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Deployment
 
-- **Primary**: Google Cloud Run + Groq
+> **Full cloud environment documentation:** `docs/CLOUD_ENVIRONMENTS.md`
+
+### Cloud Accounts
+
+| Account | Email / ID | Scope |
+|---------|-----------|-------|
+| **Pilot / EU Cloud** | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+| **US Public Cloud** | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud (Public)** | Cloudflare Pages/Workers | Global | Landing pages, dashboard SPA, edge API |
+| **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend API, AI agents, database, auth |
+| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 logging, reasoning lineage, audit trails |
+| **Hetzner (V3)** | Hetzner Helsinki | Finland | Jitsi Meet, email service (Firehorse V3) |
+
+### Deployment Targets
+- **Primary**: Google Cloud Run (europe-north1) + Groq
 - **Edge**: Cloudflare Workers (dws6.com, dws10.com)
 - **Data**: Supabase (EU-hosted)
 - **Edge AI**: NVIDIA Jetson Orin Nano
 - **Orchestration**: Temporal.io
+- **Backup**: Scaleway Serverless (fr-par)
+- **V3 Infra**: Hetzner Helsinki (Jitsi + Email)
 
 ## Documentation
 
-### Standards (Governance Documents)
-
-| Standard | File | Purpose | Associated Skills/Agents |
-|----------|------|---------|--------------------------|
-| **DWS Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document headers, naming, versioning, metadata, PDF, knowledge management | — |
-| **DWS Brand Standard** | `docs/DWS_BRAND_STANDARD.md` | Gamma design system, colors, typography, navigation, UX guidelines, accessibility | `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend` |
-| **UI Skills Gamma** | `UI_SKILLS_GAMMA.md` | Technical UI constraints (Tailwind, React, animations, z-index) | `senior-frontend` |
-
-**Rules:**
-- All new documents MUST use the VERSION AND AGENT HISTORY header from `DWS_DOCUMENT_STANDARD.md`
-- All design/frontend work MUST follow `docs/DWS_BRAND_STANDARD.md` (Gamma Ironclad)
-- When standards conflict, `DWS_BRAND_STANDARD.md` takes precedence over agent/skill suggestions
-
-### Key Documentation Files
-
-- `README.md` — Project overview
-- `ADMIN_MANUAL_*.md` — Administration guides
-- `SECURITY_COMPLIANCE.md` — Security documentation
-- `Firehorse/` directory — Product documentation
-- `ONTOLOGY.md` — Lifetime World Model ontology
-- `docs/field-notes/` — Design audits and session notes
-
-### Claude Code Templates
-
-When the user refers to "Claude templates", they mean skills and agents from [Claude Code Templates](https://www.aitmpl.com/).
-
-**Install via:**
-```bash
-npx claude-code-templates@latest --skill=<category>/<name> --yes
-npx claude-code-templates@latest --agent=<category>/<name> --yes
-```
-
-Templates install into the `.claude/` folder:
-- Skills → `.claude/skills/<name>/SKILL.md`
-- Agents → `.claude/agents/<name>.md`
-
-**Installed templates:**
-
-| Template | Type | File | Purpose |
-|----------|------|------|---------|
-| `creative-design/ux-researcher-designer` | Skill | `.claude/skills/ux-researcher-designer/SKILL.md` | UX research toolkit, persona generator |
-| `development/senior-frontend` | Skill | `.claude/skills/senior-frontend/SKILL.md` | Frontend development, component scaffolding |
-| `development-team/ui-ux-designer` | Agent | `.claude/agents/ui-ux-designer.md` | Research-backed UI/UX design critic (NN Group) |
-
-**Usage:** Study installed skill/agent files before implementing. Apply to onelifetime.world first for testing, then roll out to other DWS domains.
+Key documentation files:
+- `README.md` - Project overview
+- `docs/CLOUD_ENVIRONMENTS.md` - Cloud environments, accounts, DWS 6→7 migration
+- `DWS7_ROADMAP.md` - DWS 7 production roadmap (247 PRs)
+- `ADMIN_MANUAL_*.md` - Administration guides
+- `SECURITY_COMPLIANCE.md` - Security documentation
+- `Firehorse/` directory - Product documentation
 
 ## Git Workflow
 
 - Main development on feature branches
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
-- 18 CI/CD workflows in `.github/workflows/`
+- 15 CI/CD workflows in `.github/workflows/`
 
-### Worktree Warning
+### Worktree Best Practices
 
-**DO NOT USE `git worktree` in this repository until April 2026.**
+**Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
 
-Git worktree was disabled due to a security incident on January 29, 2026:
-- Worktree can expose `.env` files across worktrees
-- `.gitignore` protections may not apply correctly
-- Sensitive data can be accidentally committed
+The January 2026 security incident was caused by manual worktree creation without proper config file handling. The new automated scripts (`New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`) prevent these issues by:
 
-**Alternative workflows:**
-1. **Separate clones** - Clone repository to different directories
-2. **Branch switching** - Use `git checkout` or `git switch`
-3. **Stash changes** - Use `git stash` to save work temporarily
+1. **Verifying .gitignore** - Checks for critical security patterns before creating worktree
+2. **Copying .env files** - Each worktree gets its own copy (not shared/symlinked)
+3. **Symlinking .venv** - Safe because venv is already gitignored
+4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
+
+**DO NOT create worktrees manually.** Always use the provided scripts:
+```bash
+# Windows
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
+
+# Linux/macOS/Chromebook
+./scripts/new-claude-worktree.sh your-branch
+```
+
+See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+### Mobile Session Rules (CRITICAL)
+
+**How to detect:** The session is mobile/web when the git remote URL contains `local_proxy@127.0.0.1` (e.g., `http://local_proxy@127.0.0.1:30643/git/...`).
+
+**What is NOT available on mobile sessions:**
+- `gh` CLI — **never installed, never will be. Do NOT attempt to use it.**
+- GitHub API tokens (`GITHUB_TOKEN`, `GH_TOKEN`) — not available in environment
+- `conda`, system package managers — cannot install `gh` as a workaround
+- Interactive tools (`vim`, `nano`, `less`)
+
+**What WORKS on mobile sessions:**
+- `git push`, `git pull`, `git fetch` — via the local proxy
+- All file read/write/edit tools
+- `npm`, `node`, `python3`, `curl`
+- Standard bash commands
+
+**When the user asks to create a PR from a mobile session:**
+1. **Do NOT** try `gh pr create` — it will fail
+2. **Do NOT** try to install `gh` — it will fail
+3. **Do NOT** try GitHub API calls with Python/curl — no token available
+4. **DO** push the branch with `git push -u origin <branch>`
+5. **DO** provide the GitHub compare URL immediately:
+   `https://github.com/blogtheristo/dws6/compare/main...<branch-name>`
+6. **DO** provide the PR title and body as copyable text
+
+**Rule:** Go straight to the compare link. Zero attempts at `gh` or API calls. Every failed attempt wastes the user's time.

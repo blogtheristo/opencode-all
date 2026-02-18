@@ -16,21 +16,21 @@ Environment Variables:
     SUPABASE_KEY - Supabase service key (with write permissions)
 """
 
+import argparse
+import json
+import logging
 import os
 import sys
-import json
-import argparse
-import logging
-from datetime import datetime, timedelta
-from typing import List, Dict, Tuple, Optional
+from datetime import datetime
 from urllib.parse import urljoin
 
+import colorlog
 import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from supabase import create_client, Client
 from tenacity import retry, stop_after_attempt, wait_exponential
-import colorlog
+
+from supabase import Client, create_client
 
 # ============================================================================
 # CONFIGURATION
@@ -98,7 +98,7 @@ class SignalDatabase:
         self.client: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
-    def save_signal(self, signal: Dict) -> bool:
+    def save_signal(self, signal: dict) -> bool:
         """Save signal to firehorse_signals table"""
         try:
             response = self.client.table('firehorse_signals').insert(signal).execute()
@@ -129,10 +129,10 @@ class SignalDatabase:
 class CorrelationAnalyzer:
     """Analyzes signal content for DWS6 feature correlation"""
 
-    def __init__(self, keywords: Dict[str, List[str]]):
+    def __init__(self, keywords: dict[str, list[str]]):
         self.keywords = keywords
 
-    def analyze(self, text: str) -> Tuple[int, str, List[str], List[str]]:
+    def analyze(self, text: str) -> tuple[int, str, list[str], list[str]]:
         """
         Analyze text and return (score, reason, matched_keywords, features)
 
@@ -218,7 +218,7 @@ class WebScraper:
         })
 
     @retry(stop=stop_after_attempt(2), wait=wait_exponential(multiplier=1, min=2, max=5))
-    def scrape_company_news(self, company: Dict) -> List[Dict]:
+    def scrape_company_news(self, company: dict) -> list[dict]:
         """Scrape latest news from company website"""
         try:
             response = self.session.get(
@@ -259,7 +259,7 @@ class WebScraper:
             logger.error(f"✗ {company['name']}: Parsing error - {e}")
             return []
 
-    def _parse_article(self, elem, base_url: str) -> Optional[Dict]:
+    def _parse_article(self, elem, base_url: str) -> dict | None:
         """Parse individual article element"""
         try:
             # Find title
@@ -297,7 +297,7 @@ class WebScraper:
             logger.debug(f"Error parsing article element: {e}")
             return None
 
-    def _is_recent(self, article: Dict) -> bool:
+    def _is_recent(self, _article: dict) -> bool:
         """Check if article is within lookback period"""
         # Simple check - in production, parse dates properly
         # For now, assume all scraped articles are recent enough
@@ -316,7 +316,7 @@ class SignalCollector:
         self.scraper = WebScraper()
 
         # Load configuration
-        with open(config_file, 'r', encoding='utf-8') as f:
+        with open(config_file, encoding='utf-8') as f:
             config = json.load(f)
 
         self.companies = config['target_companies']
@@ -324,7 +324,7 @@ class SignalCollector:
 
         logger.info(f"Loaded {len(self.companies)} target companies")
 
-    def collect(self, limit: Optional[int] = None) -> Dict[str, int]:
+    def collect(self, limit: int | None = None) -> dict[str, int]:
         """
         Collect signals from all companies
 
@@ -402,11 +402,11 @@ class SignalCollector:
                             elif score == 4:
                                 stats['high'] += 1
                         else:
-                            logger.error(f"  ✗ Failed to save signal")
+                            logger.error("  ✗ Failed to save signal")
 
         return stats
 
-    def print_summary(self, stats: Dict[str, int]):
+    def print_summary(self, stats: dict[str, int]):
         """Print collection summary"""
         logger.info(f"\n{'='*60}")
         logger.info("COLLECTION SUMMARY")

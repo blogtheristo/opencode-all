@@ -3,32 +3,34 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
   - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
   - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
   - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
   - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
   - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 04.02.2026
+  - Last Modified: 07.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
-**Version:** 1.3
-**Effective Date:** 2026-02-04
-**Last Updated:** 2026-02-04
+**Version:** 1.4
+**Effective Date:** 2026-02-07
+**Last Updated:** 2026-02-07
 **Status:** Active
 
 ---
@@ -90,10 +92,16 @@ Applies to:
 
 **ALL documents MUST include this header block at the top:**
 
+> **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
+> the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
+> which causes parse errors because the history block isn't valid YAML.
+> Both `***` and `---` render as horizontal rules in markdown, but only `---` triggers
+> YAML parsing.
+
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: X.Y
@@ -110,9 +118,9 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Primary Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / ARCHIVED / DEPRECATED]
 
----
+***
 ```
 
 ### 2.2 Header Components
@@ -133,13 +141,19 @@ Document Status:
 
 ### 2.3 Publication Status Values
 
-| Status | Icon | Meaning |
-|--------|------|---------|
-| **ACTIVE** | ✅ | Document is current and in use |
-| **DRAFT** | 🚧 | Document is work in progress |
-| **ARCHIVED** | 📦 | Document is superseded but kept for reference |
-| **DEPRECATED** | ⚠️ | Document is outdated and should not be used |
-| **UNDER REVIEW** | 🔍 | Document is being reviewed |
+Use plain text status labels. Emoji icons are optional (display only).
+
+| Status | Meaning |
+|--------|---------|
+| **ACTIVE** | Document is current and in use |
+| **DRAFT** | Document is work in progress |
+| **ARCHIVED** | Document is superseded but kept for reference |
+| **DEPRECATED** | Document is outdated and should not be used |
+| **UNDER REVIEW** | Document is being reviewed |
+
+> **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
+> HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
+> canonical value; emoji is decorative.
 
 ---
 
@@ -450,134 +464,113 @@ Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseks
 
 ### 8.3 Conversion Methods
 
-#### Method 1: Browser-Based (Recommended) ⭐
+#### Method 1: Generate-PDFs.ps1 (Recommended)
 
-**Advantages:**
-- No additional software required
-- Consistent results
-- Professional styling
-- Fast and reliable
+**Standard script:** `scripts/Generate-PDFs.ps1` (v1.5)
 
-**Process:**
-1. Convert markdown to HTML using Python script
-2. Open HTML in browser (Chrome, Edge, Firefox)
-3. Press `Ctrl+P` (Print)
-4. Select "Save as PDF" as printer
-5. Configure settings:
-   - Layout: Portrait
-   - Margins: Default or Minimum
-   - Background graphics: Enabled
-   - Scale: 100% or "Fit to page"
-6. Save with appropriate filename
-
-**Expected Result:** 1-5 MB PDF
-
-#### Method 2: Pandoc with wkhtmltopdf
+Converts 16 key markdown files to styled HTML or PDF using pandoc. Runs standalone
+or automatically via `Sync-ToProton.ps1 -GeneratePDFs`.
 
 ```powershell
-# Install wkhtmltopdf from: https://wkhtmltopdf.org/downloads.html
+# Install pandoc (required)
+winget install JohnMacFarlane.Pandoc
 
-pandoc "input.md" -o "output.pdf" \
-  --pdf-engine=wkhtmltopdf \
-  --toc --toc-depth=2
+# HTML output (default, always works, opens in Edge)
+.\scripts\Generate-PDFs.ps1
+
+# PDF output (requires wkhtmltopdf)
+winget install wkhtmltopdf
+.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf
+
+# Open changed files in Edge for review
+.\scripts\Generate-PDFs.ps1 -OpenNew
+
+# Preview without generating
+.\scripts\Generate-PDFs.ps1 -DryRun
 ```
 
-#### Method 3: Pandoc with LaTeX (MiKTeX)
+**Key pandoc flags for DWS documents:**
+```
+-f markdown-yaml_metadata_block+smart   # Disable YAML parsing (DWS headers aren't YAML)
+--standalone --embed-resources           # Self-contained HTML with embedded CSS
+--toc --toc-depth=2                      # Table of contents
+--css dws6-pdf-style.css                 # DWS brand styling
+```
+
+#### Method 2: Browser Print-to-PDF
+
+1. Generate HTML with Method 1
+2. Open `.html` in Edge/Chrome
+3. Press `Ctrl+P` > "Save as PDF"
+4. Set margins to Minimum, enable Background graphics
+
+#### Method 3: Pandoc CLI (manual)
 
 ```powershell
-# Install MiKTeX from: https://miktex.org/download
+# HTML (always works)
+pandoc "input.md" -o "output.html" --standalone --toc -f markdown-yaml_metadata_block+smart
 
-pandoc "input.md" -o "output.pdf" \
-  -V geometry:margin=1in \
-  -V fontsize=11pt \
-  --toc --toc-depth=2
+# PDF via wkhtmltopdf (no LaTeX needed)
+pandoc "input.md" -o "output.pdf" --pdf-engine=wkhtmltopdf --toc -f markdown-yaml_metadata_block+smart
+
+# PDF via LaTeX (avoid - emoji/Unicode issues)
+pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_metadata_block+smart
 ```
 
-### 8.4 HTML Styling Standard
+> **WARNING:** Do NOT use `pdflatex` - it cannot handle Unicode emoji.
+> Do NOT use `---` delimiters in document headers - pandoc treats them as YAML.
+> Use `***` delimiters instead (see Section 2.1).
 
-**Required CSS styling for PDF conversion:**
+### 8.4 HTML Styling Standard (DWS Brand)
+
+**DWS brand CSS (used by Generate-PDFs.ps1):**
 
 ```css
-@page {
-    size: A4;
-    margin: 2cm;
-}
-
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 11pt;
     line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
     color: #333;
 }
-
-h1 {
-    color: #2c3e50;
-    border-bottom: 3px solid #3498db;
-    page-break-before: always;
-}
-
-h2 {
-    color: #34495e;
-    border-bottom: 2px solid #95a5a6;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    page-break-inside: avoid;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-}
+h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+h3 { color: #333; }
+code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+th { background: #0a1628; color: white; }
+tr:nth-child(even) { background: #f9f9f9; }
+a { color: #0066cc; }
+blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
 ```
 
-### 8.5 Python Conversion Script
+**Brand colors reference:**
+- Primary: `#0a1628` (dark navy) - headings, table headers
+- Accent: `#0066cc` (enterprise blue) - links, borders, blockquotes
+- Text: `#333` - body text
 
-**Standard script location:** `{project-root}/scripts/create_pdf.py`
+### 8.5 Conversion Scripts
 
-**Required features:**
-- Markdown to HTML conversion
-- Professional CSS styling
-- Multiple PDF engine support
-- File size validation
-- Error handling with fallback options
+**Standard script:** `scripts/Generate-PDFs.ps1` (PowerShell, v1.5)
 
-**Example implementation:**
+| Feature | Detail |
+|---------|--------|
+| Engine choice | `-Engine html` (default) or `-Engine wkhtmltopdf` |
+| Source files | 16 markdown files (admin manuals, sales, investor) |
+| Output location | `F:\Proton\Proton\My files\2026\generated-pdfs\` |
+| Skip unchanged | Compares source vs output timestamps |
+| Auto-open | `-OpenNew` opens changed files in Edge |
+| DWS branding | Inline CSS with brand colors |
+| Pandoc flags | Disables YAML parsing, enables TOC, smart typography |
 
-```python
-import markdown
-from pathlib import Path
-
-# Convert markdown to HTML
-with open('input.md', 'r', encoding='utf-8') as f:
-    md_content = f.read()
-
-html_content = markdown.markdown(
-    md_content,
-    extensions=['tables', 'fenced_code', 'toc']
-)
-
-# Add professional styling
-styled_html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        /* Standard CSS styling */
-    </style>
-</head>
-<body>
-{html_content}
-</body>
-</html>
-"""
-
-# Save HTML
-with open('output.html', 'w', encoding='utf-8') as f:
-    f.write(styled_html)
-```
+**Integration:**
+- Called by `Sync-ToProton.ps1 -GeneratePDFs`
+- Runs automatically on Windows login via `Startup-DailySync.bat`
+- VS Code task: "Generate PDFs (pandoc)" or "Sync + Generate PDFs"
 
 ### 8.6 Quality Checklist
 
@@ -677,7 +670,7 @@ jobs:
 ```markdown
 # Admin Manual: DWS6.com Deployment
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -687,16 +680,16 @@ Sessions & Modifications:
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_DWS6_COM.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
   - Created: 30.12.2025
   - Last Modified: 30.12.2025
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.0  
 **Purpose:** Admin and deployment guide for dws6.com  
@@ -1556,7 +1549,7 @@ diff /tmp/md_files.txt docs/Document-index.md
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -1573,10 +1566,12 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / ARCHIVED]
 
----
+***
 ```
+
+> **Remember:** Use `***` not `---` for pandoc compatibility.
 
 ### Workflow Naming Template
 
@@ -1612,9 +1607,16 @@ Document Status:
 
 ---
 
-**Version:** 1.3
-**Effective Date:** 04. February 2026
+**Version:** 1.4
+**Effective Date:** 07. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.4:**
+- Pandoc compatibility: changed `---` to `***` delimiters in document headers
+- Updated PDF section (8) with actual Generate-PDFs.ps1 script reference
+- DWS brand CSS colors replace generic blue palette
+- Publication status: plain text labels (ACTIVE, DRAFT) as canonical values
+- Added pandoc CLI flags reference and warnings about YAML/Unicode issues
 
 **Major Changes in v1.3:**
 - Added LLM Model Versioning section (14) - track which AI models create documents
