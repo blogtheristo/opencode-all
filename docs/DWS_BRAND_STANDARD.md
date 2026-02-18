@@ -459,7 +459,7 @@ Four pages still use dark-theme styling (dark background `#0f172a`). These are m
 - `regulatory-notice/index.html`
 - `investment-safety/index.html`
 
-All dark-theme pages already use Ironclad navigation. Migration to light-theme is tracked separately.
+**Navigation status (as of Feb 2026):** The `landing-pages/dws10-com/` copies of these pages use Ironclad navigation. However, the source files in `dws10.com/` still use the old embedded navigation HTML and CSS (`nav-loader.js`), not `ironclad-nav.js`. The root folder files must be migrated first (test on Cloudflare Workers), then the `landing-pages/` copies updated — per the dual-folder workflow in CLAUDE.md. Migration to Ironclad nav and light-theme is tracked separately.
 
 ---
 
