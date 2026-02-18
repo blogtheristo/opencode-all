@@ -16,6 +16,9 @@
  * does not block the rest of the briefing.
  */
 
+import { readFile } from 'fs/promises';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
 
 // ============================================================================
@@ -58,6 +61,19 @@ export interface MetricsStrip {
   mvp_eta: string | null;
 }
 
+/** AI/DS Workflow Accelerator — last pipeline run data */
+export interface WorkflowData {
+  last_run: string | null;        // ISO timestamp
+  mode: string;                   // "dry_run" | "full"
+  total_time_seconds: number;
+  all_passed: boolean;
+  stages: Array<{ name: string; status: string; time: number }>;
+  best_model: string | null;
+  best_f1: number | null;
+  top_feature: string | null;
+  savings_percent: number;        // vs traditional cycle
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -68,6 +84,7 @@ export interface CockpitData {
   momentum: CaptainMomentum;
   metrics: MetricsStrip;
   sendList: SendListItem[];
+  workflow: WorkflowData | null;
 }
 
 // ============================================================================
@@ -368,6 +385,80 @@ async function collectSendList(): Promise<SendListItem[]> {
 }
 
 // ============================================================================
+// AI/DS WORKFLOW COLLECTOR
+// ============================================================================
+
+/**
+ * Collect latest AI/DS Workflow Accelerator pipeline run data.
+ * Reads from reports/pipeline_run.json and reports/metrics.json (best-effort).
+ */
+async function collectWorkflowData(): Promise<WorkflowData | null> {
+  try {
+    // Find project root (reports/ lives at repo root, two levels up from src/morning-briefing/)
+    const currentDir = typeof __dirname !== 'undefined'
+      ? __dirname
+      : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const pipelinePath = resolve(projectRoot, 'reports', 'pipeline_run.json');
+    const metricsPath = resolve(projectRoot, 'reports', 'metrics.json');
+
+    // Read pipeline run report
+    let pipelineData: {
+      mode?: string;
+      timestamp?: string;
+      total_time_seconds?: number;
+      traditional_time_hours?: number;
+      stages?: Array<{ name: string; status: string; time: number }>;
+      all_passed?: boolean;
+    };
+    try {
+      const raw = await readFile(pipelinePath, 'utf-8');
+      pipelineData = JSON.parse(raw);
+    } catch {
+      return null; // No pipeline run yet — skip section
+    }
+
+    // Read metrics (best-effort)
+    let bestModel: string | null = null;
+    let bestF1: number | null = null;
+    let topFeature: string | null = null;
+    try {
+      const raw = await readFile(metricsPath, 'utf-8');
+      const metrics = JSON.parse(raw);
+      bestModel = metrics.best_model || null;
+      bestF1 = metrics.best_f1 || null;
+      if (metrics.feature_ranking && metrics.feature_ranking.length > 0) {
+        topFeature = metrics.feature_ranking[0].feature || null;
+      }
+    } catch {
+      // metrics not available — continue with pipeline data only
+    }
+
+    const totalSeconds = pipelineData.total_time_seconds || 0;
+    const traditionalHours = pipelineData.traditional_time_hours || 104;
+    const savings = traditionalHours > 0
+      ? (1 - totalSeconds / (traditionalHours * 3600)) * 100
+      : 0;
+
+    return {
+      last_run: pipelineData.timestamp || null,
+      mode: pipelineData.mode || 'unknown',
+      total_time_seconds: totalSeconds,
+      all_passed: pipelineData.all_passed ?? false,
+      stages: pipelineData.stages || [],
+      best_model: bestModel,
+      best_f1: bestF1,
+      top_feature: topFeature,
+      savings_percent: Math.round(savings * 10) / 10,
+    };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Workflow data collection failed (non-critical)', { error: msg });
+    return null;
+  }
+}
+
+// ============================================================================
 // MAIN COLLECTOR
 // ============================================================================
 
@@ -385,13 +476,14 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
     collectMomentum(),
     collectMetrics(),
     collectSendList(),
+    collectWorkflowData(),
   ]);
 
   return {
@@ -404,5 +496,6 @@ export async function collectCockpitData(): Promise<CockpitData> {
     momentum,
     metrics,
     sendList,
+    workflow,
   };
 }

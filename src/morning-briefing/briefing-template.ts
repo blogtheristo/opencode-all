@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -180,6 +180,41 @@ function renderSendList(sendList: SendListItem[]): string {
     </td></tr>`;
 }
 
+function renderWorkflow(workflow: WorkflowData | null): string {
+  if (!workflow) return '';
+
+  const statusColor = workflow.all_passed ? '#00d4aa' : '#ff4444';
+  const statusText = workflow.all_passed ? 'ALL PASSED' : 'FAILED';
+  const modeLabel = workflow.mode === 'dry_run' ? 'Dry Run' : 'Full Run';
+
+  const stageRows = workflow.stages
+    .map((s) => {
+      const sColor = s.status === 'OK' ? '#00d4aa' : '#ff4444';
+      return `<tr>
+        <td style="padding: 2px 0; font-size: 12px; color: #888; width: 140px;">${esc(s.name)}</td>
+        <td style="padding: 2px 0; font-size: 12px; color: ${sColor};">${s.time.toFixed(1)}s</td>
+      </tr>`;
+    })
+    .join('');
+
+  const modelLine = workflow.best_model
+    ? `<p style="margin: 6px 0 0; font-size: 12px; color: #ccc;">Best model: <strong style="color: #60a5fa;">${esc(workflow.best_model)}</strong> (F1=${workflow.best_f1?.toFixed(4) || '—'})${workflow.top_feature ? ` | Top feature: ${esc(workflow.top_feature)}` : ''}</p>`
+    : '';
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #60a5fa; text-transform: uppercase; letter-spacing: 1.5px;">AI/DS Workflow</h3>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span style="font-size: 13px; color: ${statusColor}; font-weight: 700;">${statusText}</span>
+        <span style="font-size: 12px; color: #666;">${modeLabel} | ${workflow.total_time_seconds.toFixed(1)}s total | ${workflow.savings_percent}% faster</span>
+      </div>
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+        ${stageRows}
+      </table>
+      ${modelLine}
+    </td></tr>`;
+}
+
 // ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
@@ -206,6 +241,7 @@ export function buildCockpitHtml(data: CockpitData): string {
     ${renderRisk(data)}
     ${renderMomentum(data)}
     ${renderMetrics(data)}
+    ${renderWorkflow(data.workflow)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -272,6 +308,23 @@ export function buildCockpitPlainText(data: CockpitData): string {
   lines.push('METRICS');
   lines.push(`  MRR: ${mrr} | Convos: ${m.active_conversations} | Commits: ${m.weekly_commits} | MVP ETA: ${m.mvp_eta || '—'}`);
   lines.push('');
+
+  // AI/DS Workflow
+  if (data.workflow) {
+    const w = data.workflow;
+    const status = w.all_passed ? 'ALL PASSED' : 'FAILED';
+    const mode = w.mode === 'dry_run' ? 'Dry Run' : 'Full Run';
+    lines.push('AI/DS WORKFLOW');
+    lines.push(`  Status: ${status} (${mode}) | ${w.total_time_seconds.toFixed(1)}s | ${w.savings_percent}% faster than traditional`);
+    for (const s of w.stages) {
+      const sIcon = s.status === 'OK' ? '+' : 'X';
+      lines.push(`  [${sIcon}] ${s.name}: ${s.time.toFixed(1)}s`);
+    }
+    if (w.best_model) {
+      lines.push(`  Best model: ${w.best_model} (F1=${w.best_f1?.toFixed(4) || '—'})${w.top_feature ? ` | Top: ${w.top_feature}` : ''}`);
+    }
+    lines.push('');
+  }
 
   // Send List
   lines.push('-'.repeat(50));
