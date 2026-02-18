@@ -31,10 +31,53 @@ import yaml
 # Third-party imports
 from anthropic import Anthropic
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from groq import Groq
+from prometheus_client import (
+    CONTENT_TYPE_LATEST,
+    Counter,
+    Gauge,
+    Histogram,
+    generate_latest,
+)
 
 from supabase import Client, create_client
+
+# ============================================================================
+# Prometheus Metrics
+# ============================================================================
+
+# Agent execution metrics
+AGENT_EXECUTIONS = Counter(
+    'agent_executions_total',
+    'Total number of agent executions',
+    ['agent_id', 'agent_type', 'status']
+)
+
+AGENT_EXECUTION_DURATION = Histogram(
+    'agent_execution_duration_seconds',
+    'Time spent executing agents',
+    ['agent_id', 'agent_type'],
+    buckets=[1, 5, 10, 30, 60, 120, 300, 600]
+)
+
+AGENT_HEALTH_STATUS = Gauge(
+    'agent_health_status',
+    'Agent health status (1=healthy, 0=unhealthy)',
+    ['agent_id']
+)
+
+AGENT_API_REQUESTS = Counter(
+    'agent_api_requests_total',
+    'Total API requests made by agent',
+    ['agent_id', 'api_name', 'status']
+)
+
+AGENT_LEADS_PROCESSED = Counter(
+    'agent_leads_processed_total',
+    'Total leads processed by agent',
+    ['agent_id', 'agent_type']
+)
 
 # ============================================================================
 # Logging Configuration
@@ -324,7 +367,7 @@ Output JSON only.
             'metadata': enriched_data
         }).execute()
 
-    def update_metrics(self, leads_processed: int) -> None:
+    def update_metrics(self, _leads_processed: int) -> None:
         """Update agent performance metrics."""
         # Call Supabase function to update metrics
         self.supabase.rpc('update_agent_metrics', {
@@ -373,6 +416,8 @@ async def startup_event():
 @app.get("/health")
 async def health_check():
     """Health check endpoint for Cloud Run."""
+    if agent_instance is not None:
+        AGENT_HEALTH_STATUS.labels(agent_id=agent_instance.config.agent_id).set(1)
     return {"status": "healthy", "timestamp": datetime.now(UTC).isoformat()}
 
 @app.get("/ready")
@@ -382,24 +427,47 @@ async def readiness_check():
         raise HTTPException(status_code=503, detail="Agent not initialized")
     return {"status": "ready", "agent_id": agent_instance.config.agent_id}
 
+@app.get("/metrics")
+async def metrics():
+    """Prometheus metrics endpoint."""
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
 @app.post("/run")
-async def run_agent(request: Request):
+async def run_agent(_request: Request):
     """Main endpoint to trigger agent execution."""
     if agent_instance is None:
         raise HTTPException(status_code=503, detail="Agent not initialized")
 
     log = structlog.get_logger()
+    agent_id = agent_instance.config.agent_id
+    agent_type = agent_instance.config.agent_type
+
+    start_time = datetime.now(UTC)
 
     try:
         # Execute agent
         result = agent_instance.run()
-        log.info("agent_completed", result=result)
+        execution_time = (datetime.now(UTC) - start_time).total_seconds()
+
+        # Record successful execution metrics
+        AGENT_EXECUTIONS.labels(agent_id=agent_id, agent_type=agent_type, status='success').inc()
+        AGENT_EXECUTION_DURATION.labels(agent_id=agent_id, agent_type=agent_type).observe(execution_time)
+        AGENT_HEALTH_STATUS.labels(agent_id=agent_id).set(1)
+
+        log.info("agent_completed", result=result, execution_time=execution_time)
 
         return JSONResponse(content=result, status_code=200)
 
     except Exception as e:
-        log.error("agent_execution_failed", error=str(e), exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Agent execution failed: {str(e)}")
+        execution_time = (datetime.now(UTC) - start_time).total_seconds()
+
+        # Record failed execution metrics
+        AGENT_EXECUTIONS.labels(agent_id=agent_id, agent_type=agent_type, status='error').inc()
+        AGENT_EXECUTION_DURATION.labels(agent_id=agent_id, agent_type=agent_type).observe(execution_time)
+        AGENT_HEALTH_STATUS.labels(agent_id=agent_id).set(0)
+
+        log.error("agent_execution_failed", error=str(e), exc_info=True, execution_time=execution_time)
+        raise HTTPException(status_code=500, detail=f"Agent execution failed: {str(e)}") from e
 
 # ============================================================================
 # Main Entrypoint

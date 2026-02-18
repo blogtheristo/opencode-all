@@ -74,12 +74,11 @@ CREATE TABLE firehorse_meetings (
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  completed_at TIMESTAMPTZ,
-
-  INDEX idx_firehorse_meetings_lead_id (lead_id),
-  INDEX idx_firehorse_meetings_scheduled_at (scheduled_at),
-  INDEX idx_firehorse_meetings_status (status)
+  completed_at TIMESTAMPTZ
 );
+CREATE INDEX idx_firehorse_meetings_lead_id ON firehorse_meetings(lead_id);
+CREATE INDEX idx_firehorse_meetings_scheduled_at ON firehorse_meetings(scheduled_at);
+CREATE INDEX idx_firehorse_meetings_status ON firehorse_meetings(status);
 
 -- ============================================================================
 -- PROPOSALS TABLE
@@ -114,12 +113,11 @@ CREATE TABLE firehorse_proposals (
 
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_firehorse_proposals_lead_id (lead_id),
-  INDEX idx_firehorse_proposals_status (status),
-  INDEX idx_firehorse_proposals_sent_at (sent_at)
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_firehorse_proposals_lead_id ON firehorse_proposals(lead_id);
+CREATE INDEX idx_firehorse_proposals_status ON firehorse_proposals(status);
+CREATE INDEX idx_firehorse_proposals_sent_at ON firehorse_proposals(sent_at);
 
 -- ============================================================================
 -- LINKEDIN WORKFLOW TRACKING TABLE
@@ -141,12 +139,11 @@ CREATE TABLE firehorse_linkedin_activities (
   performed_by VARCHAR(100) DEFAULT 'Risto', -- Who did this action
 
   -- Timestamps
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_firehorse_linkedin_activities_lead_id (lead_id),
-  INDEX idx_firehorse_linkedin_activities_type (activity_type),
-  INDEX idx_firehorse_linkedin_activities_created_at (created_at)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_firehorse_linkedin_activities_lead_id ON firehorse_linkedin_activities(lead_id);
+CREATE INDEX idx_firehorse_linkedin_activities_type ON firehorse_linkedin_activities(activity_type);
+CREATE INDEX idx_firehorse_linkedin_activities_created_at ON firehorse_linkedin_activities(created_at);
 
 -- ============================================================================
 -- FUNCTIONS

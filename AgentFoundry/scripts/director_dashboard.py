@@ -62,7 +62,9 @@ app = FastAPI(
 # HTTP Basic Auth
 security = HTTPBasic()
 
-def verify_credentials(credentials: HTTPBasicCredentials = Depends(security)) -> str:
+_security_dep = Depends(security)
+
+def verify_credentials(credentials: HTTPBasicCredentials = _security_dep) -> str:
     """Verify username and password."""
     correct_username = secrets.compare_digest(credentials.username, DASHBOARD_USERNAME)
     correct_password = secrets.compare_digest(credentials.password, DASHBOARD_PASSWORD)
@@ -446,7 +448,7 @@ async def dashboard_home(username: str = Depends(verify_credentials)):
 
 
 @app.get("/approvals", response_class=HTMLResponse)
-async def approvals_page(username: str = Depends(verify_credentials)):
+async def approvals_page(_username: str = Depends(verify_credentials)):
     """Email approval workflow - Advisor mode."""
 
     # Get pending approvals with lead details
@@ -577,7 +579,7 @@ async def approve_email(approval_id: str, username: str = Depends(verify_credent
 
     except Exception as e:
         logger.error(f"Approval error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/api/approvals/{approval_id}/reject")
@@ -597,7 +599,7 @@ async def reject_email(approval_id: str, username: str = Depends(verify_credenti
 
     except Exception as e:
         logger.error(f"Rejection error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.get("/health")

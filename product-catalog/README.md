@@ -1,7 +1,7 @@
 # Product Catalog - DWS IQ Platform
 **Structured Product Information Repository**
 
-Last Updated: 2026-01-23
+Last Updated: 2026-02-14
 Managed By: Product Management & Marketing
 
 ---
@@ -21,7 +21,10 @@ product-catalog/
 ├── Firehorse/                     # Firehorse Product Family
 │   ├── V1/                        # Firehorse Report V1 (legacy)
 │   │   └── (future: migration from existing content)
-│   └── V2/                        # Firehorse V2 (current - NVIDIA submission)
+│   ├── V2/                        # Firehorse V2 (enterprise - NVIDIA submission)
+│   │   ├── product-specification.md
+│   │   └── google-merchant-product.json
+│   └── V3/                        # Firehorse V3 (SME - Jitsi + Email, €9.99/mo)
 │       ├── product-specification.md
 │       └── google-merchant-product.json
 │

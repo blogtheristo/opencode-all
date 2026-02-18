@@ -214,7 +214,7 @@ def load_model_and_tokenizer(config: dict, logger: logging.Logger):
     return model, tokenizer
 
 
-def load_dataset_from_config(config: dict, tokenizer, logger: logging.Logger) -> Dataset:
+def load_dataset_from_config(config: dict, _tokenizer, logger: logging.Logger) -> Dataset:
     """Load and prepare dataset."""
     if config["dataset_path"]:
         logger.info(f"Loading local dataset: {config['dataset_path']}")

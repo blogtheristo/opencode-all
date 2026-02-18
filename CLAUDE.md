@@ -11,8 +11,33 @@ Before making any UI changes, agents MUST consult these files:
 | **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
 | **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
 | **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
+| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
+| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### "Use DWS Standard" Rule (CRITICAL)
+
+When the human says **"Use DWS standard"** (or any variation like "with DWS standards", "follow DWS standards"), this is a shorthand that means:
+
+1. **Apply ALL relevant standards from the table above** — not just one. Evaluate which standards apply to the task and follow every one that is relevant.
+2. **Update the standards themselves** if the work adds new products, features, security controls, or brand elements. Standards are living documents that must grow with the platform.
+3. **Ensure market-value readiness** — every product artifact must be complete enough to sell: Google Merchant JSON, product specification, store listing, competitive positioning, and pricing.
+4. **Ensure security coverage** — every new feature must have security controls documented in the relevant security standard.
+5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
+
+**Example:** "Create a new product with DWS standard" means:
+- `DWS_DOCUMENT_STANDARD.md` → Use correct metadata header, versioning
+- `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
+- `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
+- `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json
+- `config/products.json` → Add store entry with storeCategory and payment link
+
+**This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
 ## Project Overview
 
@@ -185,6 +210,14 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 
 The human has unlimited patience for good work, but limited patience for fixing avoidable mistakes. You have unlimited stamina—use it to loop on hard problems, but don't loop on the wrong problem because you failed to clarify the goal.
 
+## Email Rules (CRITICAL)
+
+- **NEVER use `noreply@` addresses.** All emails must be sent from a real, replyable address.
+- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default recipient:** `risto@lifetime.fi`
+- **Verified domain:** `onelifetime.world` — this is the only domain configured in Resend. Do NOT use `dws6.com` or any other domain as a sender.
+- When adding new email-sending code, always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as the sender fallback.
+
 ## Tech Stack
 
 ### Frontend
@@ -253,12 +286,24 @@ dws6/
 - Root folders → Cloudflare Workers (testing)
 - Landing-pages folders → Cloudflare Pages (production)
 
-**Workflow: When editing ANY landing page:**
-1. **First** update the root folder (e.g., `dws10.com/`)
+**Workflow: When editing ANY page on ANY DWS domain:**
+1. **ALWAYS update the root folder FIRST** (e.g., `dws10.com/`)
 2. **Test** that it works on Cloudflare Workers
-3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+3. **THEN copy to landing-pages folder** (e.g., `landing-pages/dws10-com/`)
+4. Never update landing-pages first — root folder is the source of truth
 
 This ensures changes are tested before going to production.
+
+**Per-domain rules:**
+
+| Domain | Root Folder First | Then Landing Pages | Navigation |
+|--------|-------------------|-------------------|------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` | — |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` | Gamma Ironclad (`/shared-assets/nav/ironclad-nav.js`) |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` | — |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* | — |
+
+**dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
 
 ## Development Commands
 
@@ -508,6 +553,39 @@ git worktree prune
 git worktree remove --force /path/to/worktree
 ```
 
+#### Claude Session Data Backup (CRITICAL)
+
+**NEVER delete worktrees without backing up Claude session data first!**
+
+Claude Code sessions contain valuable trained agents, commands, skills, and settings that are NOT committed to Git. Each worktree has its own `.claude/` directory with session-specific data.
+
+##### Daily Automated Backup
+- **GitHub Actions**: Runs daily at 6:00 AM UTC
+- **Location**: `.github/workflows/daily-claude-backup.yml`
+- **Storage**: Creates `sessions-backup` branch with timestamped archives
+
+##### Manual Backup
+```powershell
+# Run backup script
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Or manually backup specific worktree
+cp -r /path/to/worktree/.claude /safe/backup/location/
+```
+
+##### What Gets Backed Up
+- `agents/` - Custom Claude agents
+- `commands/` - Custom commands and macros
+- `hooks/` - Automation hooks
+- `skills/` - Trained Claude capabilities
+- `settings.local.json` - Session preferences
+
+##### Before Deleting Worktrees
+1. **Backup session data** using the script above
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove the worktree
+
 #### Security Checklist (Automated by Scripts)
 
 The scripts verify these automatically, but for manual worktrees:
@@ -673,16 +751,39 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Deployment
 
-- **Primary**: Google Cloud Run + Groq
+> **Full cloud environment documentation:** `docs/CLOUD_ENVIRONMENTS.md`
+
+### Cloud Accounts
+
+| Account | Email / ID | Scope |
+|---------|-----------|-------|
+| **Pilot / EU Cloud** | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+| **US Public Cloud** | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud (Public)** | Cloudflare Pages/Workers | Global | Landing pages, dashboard SPA, edge API |
+| **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend API, AI agents, database, auth |
+| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 logging, reasoning lineage, audit trails |
+| **Hetzner (V3)** | Hetzner Helsinki | Finland | Jitsi Meet, email service (Firehorse V3) |
+
+### Deployment Targets
+- **Primary**: Google Cloud Run (europe-north1) + Groq
 - **Edge**: Cloudflare Workers (dws6.com, dws10.com)
 - **Data**: Supabase (EU-hosted)
 - **Edge AI**: NVIDIA Jetson Orin Nano
 - **Orchestration**: Temporal.io
+- **Backup**: Scaleway Serverless (fr-par)
+- **V3 Infra**: Hetzner Helsinki (Jitsi + Email)
 
 ## Documentation
 
 Key documentation files:
 - `README.md` - Project overview
+- `docs/CLOUD_ENVIRONMENTS.md` - Cloud environments, accounts, DWS 6→7 migration
+- `DWS7_ROADMAP.md` - DWS 7 production roadmap (247 PRs)
 - `ADMIN_MANUAL_*.md` - Administration guides
 - `SECURITY_COMPLIANCE.md` - Security documentation
 - `Firehorse/` directory - Product documentation
@@ -715,3 +816,30 @@ The January 2026 security incident was caused by manual worktree creation withou
 ```
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+### Mobile Session Rules (CRITICAL)
+
+**How to detect:** The session is mobile/web when the git remote URL contains `local_proxy@127.0.0.1` (e.g., `http://local_proxy@127.0.0.1:30643/git/...`).
+
+**What is NOT available on mobile sessions:**
+- `gh` CLI — **never installed, never will be. Do NOT attempt to use it.**
+- GitHub API tokens (`GITHUB_TOKEN`, `GH_TOKEN`) — not available in environment
+- `conda`, system package managers — cannot install `gh` as a workaround
+- Interactive tools (`vim`, `nano`, `less`)
+
+**What WORKS on mobile sessions:**
+- `git push`, `git pull`, `git fetch` — via the local proxy
+- All file read/write/edit tools
+- `npm`, `node`, `python3`, `curl`
+- Standard bash commands
+
+**When the user asks to create a PR from a mobile session:**
+1. **Do NOT** try `gh pr create` — it will fail
+2. **Do NOT** try to install `gh` — it will fail
+3. **Do NOT** try GitHub API calls with Python/curl — no token available
+4. **DO** push the branch with `git push -u origin <branch>`
+5. **DO** provide the GitHub compare URL immediately:
+   `https://github.com/blogtheristo/dws6/compare/main...<branch-name>`
+6. **DO** provide the PR title and body as copyable text
+
+**Rule:** Go straight to the compare link. Zero attempts at `gh` or API calls. Every failed attempt wastes the user's time.

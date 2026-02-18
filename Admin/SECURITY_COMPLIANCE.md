@@ -206,6 +206,47 @@ For security-related inquiries, vendor risk assessments, or to request our secur
 
 ---
 
+## Communication Security (Firehorse V3)
+
+### Video Conferencing (Jitsi Meet)
+
+| Control | Implementation | Status |
+|---------|---------------|--------|
+| **Media Encryption** | SRTP (Secure Real-time Transport Protocol) | ✅ Implemented |
+| **Signaling Encryption** | TLS 1.3 for all WebSocket/XMPP signaling | ✅ Implemented |
+| **End-to-End Encryption** | Insertable Streams E2EE (browser-native) | ✅ Available |
+| **Authentication** | Supabase Auth (JWT) for room creation | ✅ Implemented |
+| **Room Isolation** | Namespace-prefixed rooms (`dws6-*`) | ✅ Implemented |
+| **Recording Storage** | AES-256-GCM encrypted, EU-only storage (Hetzner) | 🔄 Phase 2 |
+| **Data Retention** | No meeting data stored post-session (unless recording enabled) | ✅ Implemented |
+| **Hosting** | Hetzner Helsinki (Phase 2 self-hosted) | 🔄 Phase 2 |
+
+**Phase 1 Note:** During Phase 1 (meet.jit.si), video traffic routes through 8x8's infrastructure. Phase 2 self-hosting on Hetzner Helsinki eliminates all third-party data processing for video.
+
+### Email Security
+
+| Control | Implementation | Status |
+|---------|---------------|--------|
+| **Transport Encryption** | TLS 1.3 (mandatory for all connections) | 🔄 Phase 2 |
+| **Storage Encryption** | AES-256 at rest (Hetzner encrypted volumes) | 🔄 Phase 2 |
+| **Authentication** | SPF + DKIM + DMARC (strict policy) | 🔄 Phase 2 |
+| **Spam Protection** | rspamd with EU threat intelligence feeds | 🔄 Phase 2 |
+| **Hosting** | Hetzner Helsinki / Falkenstein (EU-only) | 🔄 Phase 2 |
+| **Protocols** | IMAPS (993), SMTPS (465/587), no plaintext | 🔄 Phase 2 |
+| **Data Retention** | Configurable per customer, GDPR Article 17 compliant | 🔄 Phase 2 |
+
+### Communication Compliance
+
+| Regulation | Applicability | Coverage |
+|------------|---------------|----------|
+| **GDPR** | All video/email | EU hosting, no US transfer, DPA ready |
+| **NIS2** | Video + email infrastructure | Encrypted comms, incident reporting |
+| **ePrivacy** | Email metadata, meeting metadata | No tracking, no metadata harvesting |
+| **EU AI Act** | AI transcription features | Article 12 logging when AI processes meetings |
+| **CLOUD Act** | Video + email hosting | Zero exposure (no US providers in stack) |
+
+---
+
 ## Appendix: Infrastructure Providers
 
 | Provider | Service | Certification | EU Region |
@@ -214,12 +255,14 @@ For security-related inquiries, vendor risk assessments, or to request our secur
 | Supabase | Database | SOC 2 Type II | eu-central-1 (Germany) |
 | Groq | LLM inference | SOC 2 | EU endpoint |
 | NVIDIA | Edge hardware | ISO 27001 | On-premise |
+| Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
+| 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
 
 All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.1
-**Last Updated:** January 3, 2026
+**Document Version:** 1.2
+**Last Updated:** February 14, 2026
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
