@@ -93,6 +93,11 @@ claude-sessions/
 *.csv
 investor-outreach/ready_to_send*/
 
+# --- ML/DS PIPELINE ARTIFACTS (generated per run, not source) ---
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
 .snykdist
