@@ -93,8 +93,7 @@ claude-sessions/
 *.csv
 investor-outreach/ready_to_send*/
 
-# --- ML/DS PIPELINE ARTIFACTS (generated test outputs, not source) ---
-# Following standard ML practice: only version source code and config, not outputs
+# --- ML/DS PIPELINE ARTIFACTS (generated per run, not source) ---
 reports/figures/*.png
 reports/*.json
 models/*.pkl
@@ -106,3 +105,10 @@ pip-audit-report.json
 safety-report.json
 *-security-report.json
 sbom.json
+
+# --- ML/DS PIPELINE ARTIFACTS (auto-generated, not source) ---
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+data/raw_dataset.csv
+data/cleaned_dataset.csv
