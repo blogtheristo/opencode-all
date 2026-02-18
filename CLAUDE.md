@@ -286,12 +286,24 @@ dws6/
 - Root folders → Cloudflare Workers (testing)
 - Landing-pages folders → Cloudflare Pages (production)
 
-**Workflow: When editing ANY landing page:**
-1. **First** update the root folder (e.g., `dws10.com/`)
+**Workflow: When editing ANY page on ANY DWS domain:**
+1. **ALWAYS update the root folder FIRST** (e.g., `dws10.com/`)
 2. **Test** that it works on Cloudflare Workers
-3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+3. **THEN copy to landing-pages folder** (e.g., `landing-pages/dws10-com/`)
+4. Never update landing-pages first — root folder is the source of truth
 
 This ensures changes are tested before going to production.
+
+**Per-domain rules:**
+
+| Domain | Root Folder First | Then Landing Pages | Navigation |
+|--------|-------------------|-------------------|------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` | — |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` | Gamma Ironclad (`/shared-assets/nav/ironclad-nav.js`) |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` | — |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* | — |
+
+**dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
 
 ## Development Commands
 
