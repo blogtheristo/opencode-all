@@ -1,0 +1,14 @@
+{
+  "plain_english_summary": "The LogisticRegression model predicts on-time delivery with 81% accuracy (F1-score). The strongest predictor is delivery_time_min, suggesting operational improvements should focus there first.",
+  "top_3_insights": [
+    "delivery_time_min is the dominant factor in delivery timeliness",
+    "Weather delays have a measurable but secondary impact \u2014 worth monitoring but not the primary lever",
+    "Route efficiency shows potential for optimization \u2014 even small gains compound across fleet"
+  ],
+  "confidence_assessment": "medium \u2014 F1=0.8089 is solid for logistics prediction, but real-world validation needed",
+  "regulatory_flags": [
+    "EU AI Act Article 13: Model decisions must be explainable to affected parties",
+    "Feature importance ranking provides basic transparency but may need SHAP values for compliance"
+  ],
+  "recommended_next_experiment": "Collect 2 weeks of real operational data and validate model predictions against actual outcomes"
+}

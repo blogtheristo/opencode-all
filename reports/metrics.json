@@ -1,0 +1,77 @@
+{
+  "best_model": "LogisticRegression",
+  "best_f1": 0.8089,
+  "all_results": {
+    "LogisticRegression": {
+      "f1_mean": 0.8089,
+      "f1_std": 0.0122,
+      "cv_scores": [
+        0.8228,
+        0.8025,
+        0.8101,
+        0.7891,
+        0.8199
+      ],
+      "train_time_seconds": 5.29
+    },
+    "RandomForest": {
+      "f1_mean": 0.7856,
+      "f1_std": 0.0241,
+      "cv_scores": [
+        0.8,
+        0.7651,
+        0.7974,
+        0.75,
+        0.8153
+      ],
+      "train_time_seconds": 4.45
+    },
+    "GradientBoosting": {
+      "f1_mean": 0.7539,
+      "f1_std": 0.0112,
+      "cv_scores": [
+        0.7682,
+        0.7448,
+        0.7619,
+        0.7376,
+        0.7568
+      ],
+      "train_time_seconds": 4.18
+    }
+  },
+  "feature_importances": {
+    "delivery_time_min": 0.0516,
+    "fuel_cost_eur": 0.0084,
+    "weather_delay_min": 0.0154,
+    "route_efficiency_pct": 0.0022,
+    "co2_kg": -0.0038
+  },
+  "feature_ranking": [
+    {
+      "feature": "delivery_time_min",
+      "importance": 0.0516
+    },
+    {
+      "feature": "weather_delay_min",
+      "importance": 0.0154
+    },
+    {
+      "feature": "fuel_cost_eur",
+      "importance": 0.0084
+    },
+    {
+      "feature": "route_efficiency_pct",
+      "importance": 0.0022
+    },
+    {
+      "feature": "co2_kg",
+      "importance": -0.0038
+    }
+  ],
+  "dataset_shape": {
+    "rows": 500,
+    "features": 5
+  },
+  "target_balance": 0.682,
+  "total_train_time_seconds": 14.02
+}
