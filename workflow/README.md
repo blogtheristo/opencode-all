@@ -21,7 +21,7 @@ python3 -m venv .venv
 source .venv/bin/activate          # Linux/macOS
 # .venv\Scripts\activate           # Windows
 
-pip install pandas scikit-learn anthropic matplotlib seaborn python-dotenv
+pip install -r requirements.txt
 ```
 
 ### Run (Offline Demo)
