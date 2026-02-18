@@ -18,6 +18,7 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import outreachRoutes from './routes/outreach.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
@@ -163,6 +164,9 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
+
+// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+app.use('/api/agents', agentRoutes);
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);

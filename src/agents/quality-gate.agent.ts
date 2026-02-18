@@ -332,7 +332,7 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     tests: QualityGateInput['testResults'],
     scan: QualityGateInput['securityScan'],
     buildStatus: string,
-    targetConfig: { minCoverage: number; requiresSecurityScan: boolean },
+    targetConfig: { minCoverage: number; requiresSecurityScan: boolean; description: string },
   ): string[] {
     const blockers: string[] = [];
 
