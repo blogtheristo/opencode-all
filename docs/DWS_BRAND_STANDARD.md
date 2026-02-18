@@ -19,11 +19,11 @@ Document Status:
   - Language: English
   - Publication Status: ✅ ACTIVE
 
-Associated Skills & Agents:
-  - Agent: `.claude/agents/ui-ux-designer.md` — Research-backed UI/UX design critic (Nielsen Norman Group studies)
-  - Skill: `.claude/skills/ux-researcher-designer/SKILL.md` — UX research toolkit with persona generator
-  - Skill: `.claude/skills/senior-frontend/SKILL.md` — Senior frontend development toolkit
-  - Related: `UI_SKILLS_GAMMA.md` — Technical UI constraints (Tailwind, React, animations)
+Associated Skills & Agents (Claude assets roadmap):
+  - **Planned Agent** (not yet in repo): `.claude/agents/ui-ux-designer.md` — Research-backed UI/UX design critic (Nielsen Norman Group studies) — *Target: create before v1.2 release*
+  - **Planned Skill** (not yet in repo): `.claude/skills/ux-researcher-designer/SKILL.md` — UX research toolkit with persona generator — *Target: create before v1.2 release*
+  - **Planned Skill** (not yet in repo): `.claude/skills/senior-frontend/SKILL.md` — Senior frontend development toolkit — *Target: create before v1.2 release*
+  - **Related** (existing doc): `UI_SKILLS_GAMMA.md` — Technical UI constraints (Tailwind, React, animations)
 
 ---
 
@@ -459,7 +459,10 @@ Four pages still use dark-theme styling (dark background `#0f172a`). These are m
 - `regulatory-notice/index.html`
 - `investment-safety/index.html`
 
-All dark-theme pages already use Ironclad navigation. Migration to light-theme is tracked separately.
+**Current navigation status:**
+- Landing-page variants (`landing-pages/dws10-com/`) of these dark-theme pages use Ironclad navigation (`ironclad-nav.js`)
+- Root folder source files (`dws10.com/`) still embed legacy navigation HTML/CSS
+- Full root-folder-first navigation migration is tracked separately (per dual-folder workflow in CLAUDE.md)
 
 ---
 

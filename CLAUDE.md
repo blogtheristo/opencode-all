@@ -587,15 +587,15 @@ Templates install into the `.claude/` folder:
 - Skills → `.claude/skills/<name>/SKILL.md`
 - Agents → `.claude/agents/<name>.md`
 
-**Installed templates:**
+**Planned templates (to be installed):**
 
-| Template | Type | File | Purpose |
-|----------|------|------|---------|
+| Template | Type | Target File | Purpose |
+|----------|------|-------------|---------|
 | `creative-design/ux-researcher-designer` | Skill | `.claude/skills/ux-researcher-designer/SKILL.md` | UX research toolkit, persona generator |
 | `development/senior-frontend` | Skill | `.claude/skills/senior-frontend/SKILL.md` | Frontend development, component scaffolding |
 | `development-team/ui-ux-designer` | Agent | `.claude/agents/ui-ux-designer.md` | Research-backed UI/UX design critic (NN Group) |
 
-**Usage:** Study installed skill/agent files before implementing. Apply to onelifetime.world first for testing, then roll out to other DWS domains.
+**Usage (when installed):** Study skill/agent files before implementing. Apply to onelifetime.world first for testing, then roll out to other DWS domains.
 
 ## Git Workflow
 
