@@ -79,7 +79,7 @@ When the human modifies the AI's interpretation:
 
 ### Why "Human-in-the-Loop" Is Not Optional
 
-The EU AI Act (Article 14) mandates human oversight for high-risk AI systems. In regulated industries (logistics, construction, public sector), every automated recommendation must have a documented human review step. This is not a nice-to-have — it's a legal requirement by August 2026.
+The EU AI Act (Article 14 of Regulation (EU) 2024/1689) mandates human oversight requirements for high-risk AI systems. In regulated industries (logistics, construction, public sector), every automated recommendation must have a documented human review step. For most high-risk AI obligations, including human oversight, these requirements will apply from August 2027, following the Act's phased implementation timeline.
 
 ---
 
