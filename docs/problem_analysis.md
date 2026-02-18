@@ -27,9 +27,9 @@ Enterprise analytics projects consistently take 3–4 weeks from raw data to act
 | 5 | Result Interpretation | 2 days (16h) | 40% | Business translation gap — statistician ≠ domain expert |
 | 6 | Stakeholder Communication | 1 day (8h) | 25% | Email/PPT cycle, revision loops, scheduling delays |
 | 7 | Action Tracking | 1 day (8h) | 50% | Decisions lost in email threads, no ownership assignment |
-| | **TOTAL** | **16 days (128h)** | **~82% compound** | |
+| | **TOTAL** | **16 days (128h)** | **~94% compound** | |
 
-*Compound failure probability: 1 - (0.65 × 0.75 × 0.80 × 0.70 × 0.60 × 0.75 × 0.50) = 1 - 0.0709 ≈ 93% chance at least one stage fails, causing rework. Effective cycle with rework: ~4 weeks.*
+*Compound failure probability: 1 - (0.65 × 0.75 × 0.80 × 0.70 × 0.60 × 0.75 × 0.50) = 1 - 0.0614 ≈ 94% chance at least one stage fails, causing rework. Effective cycle with rework: ~4 weeks.*
 
 ---
 
