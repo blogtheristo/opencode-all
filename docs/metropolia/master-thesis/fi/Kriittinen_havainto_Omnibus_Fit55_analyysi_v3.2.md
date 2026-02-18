@@ -478,7 +478,7 @@ Tämä analyysi tukee opinnäytetyön seuraavia lukuja:
 | Versio | V3.2 |
 | Päivämäärä | 12.2.2026 |
 | Tekijä | Risto Anton Päärni (AI-avusteinen) |
-| Yritys | Lifetime Consulting Oy |
+| Yritys | Lifetime Oy |
 | Luokitus | Luottamuksellinen |
 | Liittyvät dokumentit | OPINNAYTETYO_SUUNNITELMA_FI.md, Agentti Sanasto EN-FI, DWS-IQ6-Investor-Pitch-Deck-2025-FINAL.md, DWS_IQ_strategic_version, DWS_IQ_Web_ |
 | GitHub | blogtheristo/dws6/docs/metropolia/master-thesis/fi/ |
@@ -724,9 +724,9 @@ DWS IQ 7:n myötä DWS-ekosysteemi ei ole vain sovellus, vaan itsenäinen, turva
 
 ## © Copyright
 
-**© 2026 Lifetime Consulting Oy. All rights reserved.**
+**© 2026 Lifetime Oy. All rights reserved.**
 
-This document and all associated materials are proprietary and confidential information of Lifetime Consulting Oy (Business ID: 3180098-3), a Finnish limited liability company registered in Helsinki, Finland. No part of this document may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of Lifetime Consulting Oy.
+This document and all associated materials are proprietary and confidential information of Lifetime Oy (Business ID: 3180098-3), a Finnish limited liability company registered in Helsinki, Finland. No part of this document may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of Lifetime Oy.
 
 **Trademark Notice:** DWS IQ, DWS IQ 6, DWS IQ 7, Lifetime World Model, Firehorse, and associated logos are trademarks or registered trademarks of Lifetime Oy in Finland and other countries.
 
@@ -735,7 +735,7 @@ This document and all associated materials are proprietary and confidential info
 **Patent Pending:** Climate-Intelligent Decision Matrix (CIDM) — Provisional patent application filed December 2024 with Finnish Patent and Registration Office (PRH).
 
 **For inquiries:**  
-Lifetime Consulting Oy  
+Lifetime Oy  
 Mannerheimintie 12 B, 00100 Helsinki, Finland  
 Email: risto@lifetime.fi  
 Web: https://dws10.com

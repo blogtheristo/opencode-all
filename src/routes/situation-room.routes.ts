@@ -25,6 +25,42 @@ const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ---------------------------------------------------------------------------
+// Authorization helper
+// ---------------------------------------------------------------------------
+
+/**
+ * Verify that the authenticated user is an active member of the given org.
+ * Returns true if authorized; writes a 403 response and returns false otherwise.
+ */
+async function assertOrgMember(
+  userId: string,
+  orgId: string,
+  res: Response
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('organization_members')
+    .select('user_id')
+    .eq('organization_id', orgId)
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .maybeSingle();
+
+  if (error) {
+    logger.error('Org membership check failed', { error: error.message, userId, orgId });
+    res.status(500).json({ error: 'Failed to verify organization membership' });
+    return false;
+  }
+
+  if (!data) {
+    logger.warn('Unauthorized org access attempt', { userId, orgId });
+    res.status(403).json({ error: 'Forbidden', message: 'Not a member of this organization' });
+    return false;
+  }
+
+  return true;
+}
+
+// ---------------------------------------------------------------------------
 // Validation helpers
 // ---------------------------------------------------------------------------
 const validateRequest = (req: Request, res: Response): boolean => {
@@ -71,6 +107,8 @@ router.post(
         total_kg_co2e, fit55_score, compliance_rag, country,
         pipeline_workflow_id,
       } = req.body;
+
+      if (!await assertOrgMember(req.userId!, org_id, res)) return;
 
       const { data, error } = await supabase
         .from('situation_room_reports')
@@ -123,10 +161,14 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
+      const orgId = req.query.org_id as string;
+
+      if (!await assertOrgMember(req.userId!, orgId, res)) return;
+
       let qb = supabase
         .from('situation_room_reports')
         .select('*')
-        .eq('org_id', req.query.org_id as string)
+        .eq('org_id', orgId)
         .order('created_at', { ascending: false });
 
       if (req.query.report_type) {
@@ -180,6 +222,8 @@ router.get(
         return;
       }
 
+      if (!await assertOrgMember(req.userId!, data.org_id, res)) return;
+
       res.json(data);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
@@ -216,6 +260,20 @@ router.patch(
         res.status(400).json({ error: 'No updateable fields provided' });
         return;
       }
+
+      // Fetch first to get org_id for membership check
+      const { data: existing } = await supabase
+        .from('situation_room_reports')
+        .select('org_id')
+        .eq('id', req.params.id)
+        .single();
+
+      if (!existing) {
+        res.status(404).json({ error: 'Report not found' });
+        return;
+      }
+
+      if (!await assertOrgMember(req.userId!, existing.org_id, res)) return;
 
       const { data, error } = await supabase
         .from('situation_room_reports')
