@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: AI-Ethics-Playbook | Date: 18.02.2026 | Changes: Lisätty Liite H - Tekoälyn eettinen pelikirja 2.0 (RTS & A-Insinöörit) termistöineen ja käyttötapausten kartoituksineen. Päivitetty osio 4.7.3 EU AI Act, lisätty osio 9.4 toimialakohtainen eettinen viitekehys, laajennettu sanastoa (Liite I), lisätty lähde #27, päivitetty avainsanat.
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Yhdistetty Thesis_FI.md (v2.1) ja V2Thesis_FI.md (v3.2) yhdeksi kokonaisversioksi. Korjattu skandinaaviset merkit, päivitetty tunnistetiedot, lisätty DWS10-verkkokauppa-, äänichat- ja HIL-putkiosiot, Karpathy-liite, Firehorse-toimintamalliosiot
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisätty osio 6.7 - Ihminen-silmukassa-oppimisputki (päivittäinen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisätty Liite E - Tekoälyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoälysäädöksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
@@ -17,6 +18,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with English version
 
 Session Links & References:
+  - Claude Code (2026-02-18): Tekoälyn eettinen pelikirja 2.0 -liitteen lisäys, termistö ja kartoitus
   - Claude Code (2026-02-10): V3-yhdistäminen ja skandinaavisten merkkien korjaus
   - Claude Code (2026-01-28): DWS10-kaupan integraatio, Google Merchant, Revolut, Äänichat-suunnitelma
   - Cursor AI (2026-01-05): Opinnäytetyön revisio integroiden koodikannan todisteet
@@ -25,10 +27,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 10.02.2026
+  - Last Modified: 18.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 yhdistetty kokonaisversio)
+  - Publication Status: DRAFT (V3.4 yhdistetty kokonaisversio)
 
 ---
 
@@ -48,7 +50,7 @@ Document Status:
 
 Tämä opinnäytetyö tutkii Firehorse-tuotevalmistuksen toimintamallia, joka yhdistää pilvi- ja reunalaskentateknologiat teollisten pk-yritysten tarpeisiin. Työ keskittyy rakennusteollisuuteen ja sen haasteisiin EU:n kaksoissiirtymässä (digitaalinen + vihreä). **Versio 3.0 laajentaa tutkimusta verkkokauppavalidoinnilla DWS10.com-kaupan toteutuksen, Google Merchant Center -integraation, Revolut Business -maksukäsittelyn ja äänichat-kehityssuunnitelman kautta Groq-inferenssiä ja Llama-malleja käyttäen.**
 
-**Avainsanat:** Tekoäly, reunalaskenta, rakennusteollisuus, toimintamalli, pilvipalvelut, verkkokauppa, Google Merchant Center, Revolut Business, äänichat, EU:n tekoälysäädös
+**Avainsanat:** Tekoäly, reunalaskenta, rakennusteollisuus, toimintamalli, pilvipalvelut, verkkokauppa, Google Merchant Center, Revolut Business, äänichat, EU:n tekoälysäädös, vastuullinen tekoäly, tekoälyn eettinen pelikirja, KIRA-ala
 
 ---
 
@@ -107,7 +109,7 @@ Tämän opinnäytetyön laatimisessa on hyödynnetty tekoälyavusteisia työkalu
 9. [Pohdinta](#9-pohdinta)
 10. [Johtopäätökset](#10-johtopäätökset)
 11. [Lähteet](#11-lähteet)
-12. [Liitteet](#12-liitteet)
+12. [Liitteet](#12-liitteet) (ml. Liite H: Tekoälyn eettinen pelikirja 2.0)
 
 ---
 
@@ -694,6 +696,8 @@ Yhdenmukaistaminen kyberturvallisuusvaatimusten kanssa kriittisille toimijoille.
 ### 4.7.3 EU AI Act
 Läpinäkyvyysprotokollien (artikla 50) toteuttaminen AI-agenteille ja ihmisen valvonnan varmistaminen.
 
+EU:n tekoälysäädös (EU AI Act, EU 2024/1689) tuli voimaan 1.8.2024 ja sen täysimääräinen soveltaminen alkaa 2. elokuuta 2026. Firehorse-alustan tekoälyjärjestelmät on luokiteltu matalan riskin järjestelmiksi ihmisen valvonnalla. Rakennustietosäätiö RTS:n ja A-Insinöörien julkaisema *Tekoälyn eettinen pelikirja 2.0* (2025) tarjoaa KIRA-alalle toimialakohtaisen viitekehyksen vastuulliseen tekoälyn hyödyntämiseen ja tukee tämän säädöksen kansallista toimeenpanoa (ks. Liite H).
+
 ### 4.7.4 Digipalveluasetus (DSA)
 Yhteisösääntöjen ja moderoinnin luominen "Lifetime World" -alustalle.
 
@@ -1126,7 +1130,11 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Itse raportoidut mittarit | Mahdollinen vinoutuma | Kolmannen osapuolen validointi suunniteltu Q2 2026 |
 | Lyhyt havaintojakso | Pitkäaikaisvaikutukset tuntemattomia | Jatkuva seuranta |
 
-## 9.4 Suositukset
+## 9.4 Toimialakohtainen eettinen viitekehys
+
+Rakennustietosäätiö RTS:n ja A-Insinöörien *Tekoälyn eettinen pelikirja 2.0* (2025) vahvistaa Firehorse-toimintamallin lähestymistavan: pelikirja korostaa tiedon sopimista, jäljitettävyyttä ja riskienhallintaa — samat periaatteet, jotka ovat Firehorse-alustan ytimessä. Pelikirja tunnistaa, että KIRA-ala on edelleen yksi vähiten digitalisoituneista toimialoista, mikä tukee tutkimuksen motivaatiota. Erityisesti pelikirjan termistö — tekoälyagentit, vastuullinen tekoäly, tiedon jäljitettävyys ja lokalisointi — on suoraan sovellettavissa Firehorse-kontekstiin. Pelikirja on tiettävästi ensimmäinen toimialakohtainen vastuullisen tekoälyn julkaisu Suomessa, ja sen viisi sisältöosaa (tiedon sopiminen, riskienhallinta, jäljitettävyys, liiketoiminnan tehostaminen ja käyttötapaukset) kartoittuvat suoraan DWS6-alustan ominaisuuksiin (ks. Liite H, Taulukko H.3).
+
+## 9.5 Suositukset
 
 1. **Toteuta V1.0 julkaisu (23. helmikuuta 2026)**
 2. **Dokumentoi Solution Factory** — julkinen kustannuslaskuri, AgentFoundry-pohjat
@@ -1229,9 +1237,13 @@ Omnibus-paketti **vahvistaa** Firehorse-mallin kilpailukykyä: ilmastopäästöt
 25. Revolut Business API -dokumentaatio
 26. Anthropic Claude Code -dokumentaatio
 
+## Toimialakohtaiset oppaat ja julkaisut
+
+27. Rakennustietosäätiö RTS & A-Insinöörit (2025). *Tekoälyn eettinen pelikirja 2.0.* KIRA RESP-AI -hanke. https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
+
 ## Sisäiset viiteartefaktit
 
-27. Lifetime Oy (2026). *Lifetime World LLM Scaling Blueprint (GN-100 hybridi + pilvipolku).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.
+28. Lifetime Oy (2026). *Lifetime World LLM Scaling Blueprint (GN-100 hybridi + pilvipolku).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.
 
 ---
 
@@ -1379,7 +1391,84 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 | Agent-09 | Email System | 2 | Korkea | Odottaa |
 | Agent-10 | Documentation | 1 | Matala | Käynnissä |
 
-## Liite G: Sanasto
+## Liite H: Tekoälyn eettinen pelikirja 2.0 — Terminologia ja soveltaminen
+
+### H.1 Tausta
+
+*Tekoälyn eettinen pelikirja 2.0* on Rakennustietosäätiö RTS:n ja A-Insinöörien julkaisema toimialakohtainen opas kiinteistö- ja rakentamisalalle (KIRA-ala). Se on osa KIRA RESP-AI -hanketta, jonka rahoittajina toimivat SKOL ry, RIL-säätiö, TT-säätiö, Rakennustietosäätiö ja A-Insinöörit. Pelikirjan versio 1.0 julkaistiin 24.1.2025 ja versio 2.0 julkaistiin 18.6.2025. Pelikirja on tiettävästi ensimmäinen toimialakohtainen vastuullisen tekoälyn julkaisu Suomessa.
+
+**Lähde:** https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
+
+### H.2 Pelikirjan rakenne
+
+Pelikirja jakaantuu kahteen kokonaisuuteen:
+
+**A) KIRA-alan tekoälykehityksen tilannekuva**
+- Tekoälyn ja sen osa-alueiden määritelmät
+- Vastuullisen ja eettisen tekoälyn kehityksen periaatteet
+- Tekoälykehityksen lokalisointi (kansalliset erityispiirteet)
+- KIRA-alan digitalisaatiotilanne: edelleen yksi vähiten digitalisoituneista aloista
+
+**B) Viisi sisältöosaa**
+
+| Osa | Aihe | Keskeinen sisältö |
+|-----|------|-------------------|
+| **Osa 1** | Tiedon sopiminen | Sopimuskäytännöt tiedon käytöstä, projektipankin sisältöjen käyttöoikeudet, datan hyödyntäminen AI-mallien koulutuksessa |
+| **Osa 2** | Riskienhallinta ja tietoturva | Tekoäly osana organisaation kokonaisriskienhallintaa, riskin luonne, todennäköisyys, haitan vakavuus, toimenpiteet ja vastuutus |
+| **Osa 3** | Tiedon jäljitettävyys | AI-tuotetun tiedon jäljitettävyys, tietopääomaan liittyvät oikeudet, läpinäkyvyys tekoälyn käytössä |
+| **Osa 4** | Liiketoiminnan tehostaminen ja uusi liiketoiminta | Opastus liiketoimintajohdolle tekoälyn mahdollisuuksiin tarttumisessa, kestävät uudet teknologiat |
+| **Osa 5** | Hyvä käyttötapaus | Käyttötapausten priorisointi, sudenkuoppien välttäminen, fokusoinnin merkitys |
+
+### H.3 Eettiset periaatteet
+
+Pelikirja nostaa esiin neljä keskeistä eettistä periaatetta:
+
+| Periaate | Kuvaus | Firehorse-toteutus |
+|----------|--------|-------------------|
+| **Vahinkojen välttäminen** | Tekoälyjärjestelmä ei saa aiheuttaa haittaa | Matalan riskin luokitus, ihmisen valvonta (Vaihe 2 hyväksyntä) |
+| **Vastuullisuus** | Selkeä vastuunjako tekoälyn käytössä | Karpathyn periaatteet: "Sinä olet kädet; ihminen on arkkitehti" (Liite D) |
+| **Läpinäkyvyys ja selitettävyys** | Tekoälypäätösten jäljitettävyys | Reasoning lineage (EU AI Act Artikla 12), Lifetime Scope Signals -protokolla |
+| **Oikeudenmukaisuus** | Tasapuolinen kohtelu ja syrjimättömyys | Monivertikaalipalvelu kaikille KIRA-alan toimijoille |
+
+### H.4 Keskeiset termit ja määritelmät
+
+**Taulukko H.1: Pelikirjan terminologia ja soveltaminen DWS6-kontekstissa**
+
+| Termi (pelikirja) | Määritelmä (pelikirja) | DWS6/Firehorse-sovellus |
+|-------------------|----------------------|------------------------|
+| **Tekoälyagentti** | Kohdennettuun tehtävään opetettu, itsenäisesti ympäristöä tarkkaileva sovellus, joka hyödyntää generatiivisen tekoälyn kielimalleja | DWS6:n 10 agentin laivasto (Agent-01...Agent-10), koordinoitu Lifetime Scope Signals -protokollalla |
+| **Vastuullinen tekoäly** | Tekoälyn hyödyntäminen eettisten periaatteiden mukaisesti, haittoja välttäen | Karpathyn periaatteet (Liite D), EU AI Act -vaatimustenmukaisuus, matalan riskin luokitus |
+| **Tiedon jäljitettävyys** | AI-tuotetun tiedon alkuperän ja päätösketjun seurattavuus | Reasoning lineage -dokumentaatio (Artikla 12), Git-versiohistoria, MCP Hub -lokitus |
+| **Lokalisointi** | Tekoälykehityksen sovittaminen kansallisiin ja toimialakohtaisiin erityispiirteisiin | EU-dataresilenssi (europe-north1, Suomi), GDPR-natiivi arkkitehtuuri, Supabase RLS |
+| **Tiedon sopiminen** | Yhteisesti sovittavat pelisäännöt siitä, mitä tietoa tekoälylle saa syöttää ja miten | DWS Security Standard, tietoluokittelu (julkinen/sisäinen/luottamuksellinen) |
+| **Prosessiautomaatio** | Perinteinen sääntöpohjainen automaatio, jota tekoälyagentit voivat laajentaa | Firehorse Automation -tuote, MCP Hub -orkestrointi |
+| **Projektipankki** | Rakennushankkeen keskitetty tietovarasto | Supabase-tietokanta pgvector-upotuksilla, agenttimuisti |
+
+### H.5 Pelikirjan sisältöosien kartoitus Firehorse-ominaisuuksiin
+
+**Taulukko H.3: Pelikirjan osat ↔ DWS6-alustan ominaisuudet**
+
+| Pelikirjan osa | DWS6-alustan vastaava ominaisuus | Toteutuksen tila |
+|----------------|----------------------------------|-----------------|
+| **Osa 1: Tiedon sopiminen** | DWS Security Standard, tietoluokittelu, .env-hallinta, RLS-politiikat | Aktiivinen |
+| **Osa 2: Riskienhallinta** | Security Agent, Snyk MCP -skannaus, NIS2-vaatimustenmukaisuus, SWOT-analyysi | Aktiivinen |
+| **Osa 3: Tiedon jäljitettävyys** | Reasoning lineage (EU AI Act Art. 12), Git-versiohistoria, MCP Hub -lokitus, Lifetime Scope Signals | Aktiivinen |
+| **Osa 4: Liiketoiminnan tehostaminen** | DWS10.com-verkkokauppa, Google Merchant Center, 96% tehostuminen tuotepäivityksissä | Validoitu |
+| **Osa 5: Hyvä käyttötapaus** | Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja → Autonominen), 5 pilottiasiakasta | Validoitu |
+
+### H.6 Merkitys opinnäytetyölle
+
+Tekoälyn eettinen pelikirja 2.0 on merkityksellinen tälle opinnäytetyölle kolmella tavalla:
+
+1. **Toimialavalidaatio:** Pelikirja vahvistaa, että KIRA-alalla on tunnistettu tarve toimialakohtaisille tekoälyn eettisille ohjeistuksille — juuri se markkina, jota Firehorse palvelee.
+
+2. **Termistön yhdenmukaistaminen:** Pelikirjan termistö (tekoälyagentti, vastuullinen tekoäly, tiedon jäljitettävyys, lokalisointi) on suoraan käytettävissä DWS6-alustan dokumentaatiossa ja asiakasviestinnässä.
+
+3. **Sääntelyvalmiuden todentaminen:** Pelikirjan viisi sisältöosaa kartoittuvat suoraan DWS6-alustan olemassa oleviin ominaisuuksiin (Taulukko H.3), mikä osoittaa alustan olevan linjassa toimialan parhaiden käytäntöjen kanssa.
+
+---
+
+## Liite I: Sanasto
 
 ### Alusta- ja liiketoimintakäsitteet
 
@@ -1393,11 +1482,23 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 | **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
 | **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
 
+### Eettinen tekoäly ja toimialaviitekehykset
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **AI Ethics Playbook** | Tekoälyn eettinen pelikirja | RTS:n ja A-Insinöörien toimialakohtainen opas vastuulliseen tekoälyn hyödyntämiseen KIRA-alalla (v2.0, 2025) |
+| **KIRA Industry** | KIRA-ala | Kiinteistö- ja rakentamisala — Firehorse-alustan ensisijainen kohdemarkkina |
+| **KIRA RESP-AI** | KIRA RESP-AI | Hanke vastuullisen tekoälyperustan luomiseksi KIRA-alalle (RTS + A-Insinöörit) |
+| **Responsible AI** | Vastuullinen tekoäly | Tekoälyn hyödyntäminen eettisten periaatteiden mukaisesti: vahinkojen välttäminen, vastuullisuus, läpinäkyvyys, oikeudenmukaisuus |
+| **Data Traceability** | Tiedon jäljitettävyys | AI-tuotetun tiedon alkuperän ja päätösketjun seurattavuus |
+| **Localization** | Lokalisointi | Tekoälykehityksen sovittaminen kansallisiin ja toimialakohtaisiin erityispiirteisiin |
+| **Data Agreement** | Tiedon sopiminen | Yhteisesti sovittavat pelisäännöt tiedon käytöstä tekoälysovelluksissa |
+
 ### Turvallisuus ja vaatimustenmukaisuus
 
 | Termi (EN) | Suomeksi | Määritelmä |
 |------------|----------|------------|
-| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika) |
+| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika, EU 2024/1689) |
 | **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU:n tietosuoja-asetus |
 | **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
 | **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
@@ -1412,9 +1513,9 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.3 yhdistetty kokonaisversio
-**Versio:** 3.3
-**Viimeisin päivitys:** 10.02.2026
+**Tila:** DRAFT - V3.4 yhdistetty kokonaisversio
+**Versio:** 3.4
+**Viimeisin päivitys:** 18.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi

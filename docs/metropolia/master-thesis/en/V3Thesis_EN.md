@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: AI-Ethics-Playbook | Date: 18.02.2026 | Changes: Added Appendix H - AI Ethics Playbook 2.0 (RTS & A-Insinöörit) with terminology and use case mapping. Updated section 4.7.3 EU AI Act, added section 9.4 industry-specific ethical framework, expanded glossary (Appendix I), added reference #27, updated keywords.
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
@@ -17,6 +18,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with Finnish version
 
 Session Links & References:
+  - Claude Code (2026-02-18): AI Ethics Playbook 2.0 appendix, terminology, and mapping
   - Claude Code (2026-02-10): V3 merge and Scandinavian character fixes
   - Claude Code (2026-01-28): DWS10 store integration, Google Merchant, Revolut, Audio chat roadmap
   - Cursor AI (2026-01-05): Thesis revision integrating codebase evidence
@@ -25,10 +27,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 10.02.2026
+  - Last Modified: 18.02.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 consolidated full version)
+  - Publication Status: DRAFT (V3.4 consolidated full version)
 
 ---
 
@@ -48,7 +50,7 @@ Document Status:
 
 This thesis examines the Firehorse product manufacturing operating model, which combines cloud and edge computing technologies for industrial SMEs. The work focuses on the construction industry and its challenges in the EU's twin transition (digital + green). **Version 3.0 extends the research with e-commerce validation through DWS10.com store implementation, Google Merchant Center integration, Revolut Business payment processing, and an audio chat evolution roadmap using Groq inference with Llama models.**
 
-**Keywords:** Artificial Intelligence, Edge Computing, Construction Industry, Operating Model, Cloud Services, E-Commerce, Google Merchant Center, Revolut Business, Audio Chat, EU AI Act Compliance
+**Keywords:** Artificial Intelligence, Edge Computing, Construction Industry, Operating Model, Cloud Services, E-Commerce, Google Merchant Center, Revolut Business, Audio Chat, EU AI Act Compliance, Responsible AI, AI Ethics Playbook, KIRA Industry
 
 ---
 
@@ -107,7 +109,7 @@ AI-assisted tools were used in the preparation of this thesis in accordance with
 9. [Discussion](#9-discussion)
 10. [Conclusions](#10-conclusions)
 11. [References](#11-references)
-12. [Appendices](#12-appendices)
+12. [Appendices](#12-appendices) (incl. Appendix H: AI Ethics Playbook 2.0)
 
 ---
 
@@ -703,6 +705,8 @@ Alignment with cybersecurity requirements for critical operators.
 ### 4.7.3 EU AI Act
 Implementing transparency protocols (Article 50) for AI agents and ensuring human oversight.
 
+The EU AI Act (EU 2024/1689) entered into force on 1 August 2024, with full enforcement beginning 2 August 2026. Firehorse platform AI systems are classified as low-risk with human oversight. The *AI Ethics Playbook 2.0* (Tekoälyn eettinen pelikirja 2.0) published by Rakennustietosäätiö RTS and A-Insinöörit (2025) provides an industry-specific framework for responsible AI use in the KIRA (construction and real estate) sector, supporting national implementation of this regulation (see Appendix H).
+
 ### 4.7.4 Digital Services Act (DSA)
 Establishing community rules and moderation for the "Lifetime World" platform.
 
@@ -1135,7 +1139,11 @@ The 2-month payback promise has been validated with real customer deployments:
 | Self-reported metrics | Potential bias | Third-party validation planned Q2 2026 |
 | Short observation period | Long-term effects unknown | Continuous monitoring |
 
-## 9.4 Recommendations
+## 9.4 Industry-Specific Ethical Framework
+
+The *AI Ethics Playbook 2.0* (Tekoälyn eettinen pelikirja 2.0) published by Rakennustietosäätiö RTS and A-Insinöörit (2025) validates the Firehorse operating model's approach: the playbook emphasizes data agreements, traceability, and risk management — the same principles at the core of the Firehorse platform. The playbook identifies that the KIRA sector remains one of the least digitized industries, supporting this research's motivation. In particular, the playbook's terminology — AI agents, responsible AI, data traceability, and localization — is directly applicable to the Firehorse context. The playbook is reportedly the first industry-specific responsible AI publication in Finland, and its five content parts (data agreements, risk management, traceability, business enhancement, and use cases) map directly to DWS6 platform features (see Appendix H, Table H.3).
+
+## 9.5 Recommendations
 
 1. **Execute V1.0 release (23 February 2026)**
 2. **Document Solution Factory** — public cost calculator, AgentFoundry templates
@@ -1238,9 +1246,13 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 25. Revolut Business API Documentation
 26. Anthropic Claude Code Documentation
 
+## Industry-Specific Guides and Publications
+
+27. Rakennustietosäätiö RTS & A-Insinöörit (2025). *Tekoälyn eettinen pelikirja 2.0* [AI Ethics Playbook 2.0]. KIRA RESP-AI project. https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
+
 ## Internal Reference Artifacts
 
-27. Lifetime Oy (2026). *Lifetime World LLM Scaling Blueprint (GN-100 hybrid + cloud path).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.
+28. Lifetime Oy (2026). *Lifetime World LLM Scaling Blueprint (GN-100 hybrid + cloud path).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.
 
 ---
 
@@ -1387,7 +1399,84 @@ Your code will be watched -- write accordingly."
 | Agent-09 | Email System | 2 | High | Pending |
 | Agent-10 | Documentation | 1 | Low | In Progress |
 
-## Appendix G: Glossary
+## Appendix H: AI Ethics Playbook 2.0 — Terminology and Application
+
+### H.1 Background
+
+The *AI Ethics Playbook 2.0* (Tekoälyn eettinen pelikirja 2.0) is an industry-specific guide for the construction and real estate sector (KIRA industry) published by Rakennustietosäätiö RTS and A-Insinöörit. It is part of the KIRA RESP-AI project, funded by SKOL ry, RIL Foundation, TT Foundation, Rakennustietosäätiö, and A-Insinöörit. Version 1.0 was published on 24 January 2025, and version 2.0 on 18 June 2025. The playbook is reportedly the first industry-specific responsible AI publication in Finland.
+
+**Source:** https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
+
+### H.2 Playbook Structure
+
+The playbook consists of two main components:
+
+**A) KIRA Industry AI Development Situation Overview**
+- Definitions of AI and its sub-domains
+- Principles of responsible and ethical AI development
+- Localization of AI development (national characteristics)
+- KIRA sector digitization status: still one of the least digitized industries
+
+**B) Five Content Parts**
+
+| Part | Topic | Key Content |
+|------|-------|-------------|
+| **Part 1** | Data Agreements | Contractual practices for data use, project databank content access rights, using data for AI model training |
+| **Part 2** | Risk Management and Information Security | AI as part of organizational risk management, risk nature, probability, severity, measures and accountability |
+| **Part 3** | Data Traceability | Traceability of AI-generated information, intellectual property rights, transparency in AI use |
+| **Part 4** | Business Enhancement and New Business | Guidance for business leadership on leveraging AI opportunities, sustainable new technologies |
+| **Part 5** | Good Use Case | Use case prioritization, avoiding pitfalls, importance of focus |
+
+### H.3 Ethical Principles
+
+The playbook highlights four key ethical principles:
+
+| Principle | Description | Firehorse Implementation |
+|-----------|-------------|--------------------------|
+| **Harm avoidance** | AI systems must not cause harm | Low-risk classification, human oversight (Phase 2 approval) |
+| **Accountability** | Clear responsibility allocation in AI use | Karpathy principles: "You are the hands; the human is the architect" (Appendix D) |
+| **Transparency and explainability** | Traceability of AI decisions | Reasoning lineage (EU AI Act Article 12), Lifetime Scope Signals protocol |
+| **Fairness** | Equal treatment and non-discrimination | Multi-vertical service for all KIRA industry actors |
+
+### H.4 Key Terms and Definitions
+
+**Table H.1: Playbook Terminology and Application in the DWS6 Context**
+
+| Term (Playbook) | Definition (Playbook) | DWS6/Firehorse Application |
+|-----------------|----------------------|---------------------------|
+| **AI Agent** (Tekoälyagentti) | Task-specific, autonomously environment-monitoring application that leverages generative AI language models | DWS6's 10-agent fleet (Agent-01...Agent-10), coordinated via Lifetime Scope Signals protocol |
+| **Responsible AI** (Vastuullinen tekoäly) | Leveraging AI in accordance with ethical principles, avoiding harm | Karpathy principles (Appendix D), EU AI Act compliance, low-risk classification |
+| **Data Traceability** (Tiedon jäljitettävyys) | Tracking the origin and decision chain of AI-generated information | Reasoning lineage documentation (Article 12), Git version history, MCP Hub logging |
+| **Localization** (Lokalisointi) | Adapting AI development to national and industry-specific characteristics | EU data residency (europe-north1, Finland), GDPR-native architecture, Supabase RLS |
+| **Data Agreement** (Tiedon sopiminen) | Jointly agreed rules on what data can be fed to AI and how | DWS Security Standard, data classification (public/internal/confidential) |
+| **Process Automation** (Prosessiautomaatio) | Traditional rule-based automation that AI agents can extend | Firehorse Automation product, MCP Hub orchestration |
+| **Project Databank** (Projektipankki) | Centralized data repository for construction projects | Supabase database with pgvector embeddings, agent memory |
+
+### H.5 Mapping Playbook Content Parts to Firehorse Features
+
+**Table H.3: Playbook Parts ↔ DWS6 Platform Features**
+
+| Playbook Part | DWS6 Platform Feature | Implementation Status |
+|---------------|----------------------|----------------------|
+| **Part 1: Data Agreements** | DWS Security Standard, data classification, .env management, RLS policies | Active |
+| **Part 2: Risk Management** | Security Agent, Snyk MCP scanning, NIS2 compliance, SWOT analysis | Active |
+| **Part 3: Data Traceability** | Reasoning lineage (EU AI Act Art. 12), Git version history, MCP Hub logging, Lifetime Scope Signals | Active |
+| **Part 4: Business Enhancement** | DWS10.com e-commerce, Google Merchant Center, 96% improvement in product updates | Validated |
+| **Part 5: Good Use Case** | Phased deployment (Silent Pilot → Advisor → Autonomous), 5 pilot customers | Validated |
+
+### H.6 Significance for This Thesis
+
+The AI Ethics Playbook 2.0 is significant for this thesis in three ways:
+
+1. **Industry validation:** The playbook confirms that the KIRA sector has identified a need for industry-specific AI ethical guidelines — precisely the market Firehorse serves.
+
+2. **Terminology alignment:** The playbook's terminology (AI agent, responsible AI, data traceability, localization) is directly usable in DWS6 platform documentation and customer communications.
+
+3. **Regulatory readiness verification:** The playbook's five content parts map directly to existing DWS6 platform features (Table H.3), demonstrating the platform's alignment with industry best practices.
+
+---
+
+## Appendix I: Glossary
 
 ### Platform and Business Concepts
 
@@ -1401,11 +1490,23 @@ Your code will be watched -- write accordingly."
 | **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
 | **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
 
+### Ethical AI and Industry Frameworks
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **AI Ethics Playbook** | Tekoälyn eettinen pelikirja | RTS and A-Insinöörit industry-specific guide for responsible AI use in the KIRA sector (v2.0, 2025) |
+| **KIRA Industry** | KIRA-ala | Construction and real estate industry (Kiinteistö- ja rakentamisala) — Firehorse platform's primary target market |
+| **KIRA RESP-AI** | KIRA RESP-AI | Project for creating a responsible AI foundation for the KIRA sector (RTS + A-Insinöörit) |
+| **Responsible AI** | Vastuullinen tekoäly | Leveraging AI in accordance with ethical principles: harm avoidance, accountability, transparency, fairness |
+| **Data Traceability** | Tiedon jäljitettävyys | Tracking the origin and decision chain of AI-generated information |
+| **Localization** | Lokalisointi | Adapting AI development to national and industry-specific characteristics |
+| **Data Agreement** | Tiedon sopiminen | Jointly agreed rules on data use in AI applications |
+
 ### Security and Compliance
 
 | Term (EN) | Finnish | Definition |
 |-----------|---------|------------|
-| **EU AI Act** | EU:n tekoalysaados | EU regulation for AI systems (August 2026 deadline) |
+| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline, EU 2024/1689) |
 | **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
 | **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
 | **RLS** | Rivitason suojaus | Row-Level Security - database-level access control per user/organization |
@@ -1420,9 +1521,9 @@ Your code will be watched -- write accordingly."
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.3 consolidated full version
-**Version:** 3.3
-**Last Modified:** 10.02.2026
+**Status:** DRAFT - V3.4 consolidated full version
+**Version:** 3.4
+**Last Modified:** 18.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
