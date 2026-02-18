@@ -100,3 +100,10 @@ pip-audit-report.json
 safety-report.json
 *-security-report.json
 sbom.json
+
+# --- ML/DS PIPELINE ARTIFACTS (auto-generated, not source) ---
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+data/raw_dataset.csv
+data/cleaned_dataset.csv
