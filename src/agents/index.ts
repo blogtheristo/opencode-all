@@ -6,7 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
- * All five production agents are registered on module load.
+ * All seven production agents are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -16,6 +16,8 @@ import { ScheduleGeniusAgent } from './schedule-genius.agent.js';
 import { MaterialOracleAgent } from './material-oracle.agent.js';
 import { CustomerSatAgent } from './customer-sat.agent.js';
 import { ViabilityAgent } from './viability.agent.js';
+import { ComplianceAgent } from './compliance.agent.js';
+import { QualityGateAgent } from './quality-gate.agent.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -73,6 +75,8 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+    this.register(new ComplianceAgent());
+    this.register(new QualityGateAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
