@@ -10,11 +10,11 @@ Produces 500 rows with deliberate data quality issues:
 Output: data/raw_dataset.csv + quality report to stdout
 """
 
-import os
 import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from pathlib import Path
 
 # Ensure we can run from any directory
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -80,11 +80,11 @@ def quality_report(df: pd.DataFrame) -> None:
     print("=" * 60)
     print(f"Shape: {df.shape[0]} rows × {df.shape[1]} columns")
     print(f"\nColumns: {list(df.columns)}")
-    print(f"\nDtypes:")
+    print("\nDtypes:")
     for col in df.columns:
         print(f"  {col}: {df[col].dtype}")
 
-    print(f"\nNull counts:")
+    print("\nNull counts:")
     nulls = df.isnull().sum()
     for col, count in nulls.items():
         pct = count / len(df) * 100
