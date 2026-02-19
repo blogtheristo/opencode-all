@@ -150,21 +150,21 @@ ALTER TABLE emission_factors ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view own org BIM projects"
     ON bim_projects FOR SELECT
     USING (org_id IN (
-        SELECT org_id FROM user_organizations WHERE user_id = auth.uid()
+        SELECT organization_id FROM organization_members WHERE user_id = auth.uid() AND status = 'active'
     ));
 
 CREATE POLICY "Users can view own org carbon calculations"
     ON carbon_calculations FOR SELECT
     USING (bim_project_id IN (
         SELECT id FROM bim_projects WHERE org_id IN (
-            SELECT org_id FROM user_organizations WHERE user_id = auth.uid()
+            SELECT organization_id FROM organization_members WHERE user_id = auth.uid() AND status = 'active'
         )
     ));
 
 CREATE POLICY "Users can view own org situation room reports"
     ON situation_room_reports FOR SELECT
     USING (org_id IN (
-        SELECT org_id FROM user_organizations WHERE user_id = auth.uid()
+        SELECT organization_id FROM organization_members WHERE user_id = auth.uid() AND status = 'active'
     ));
 
 -- Emission factors are public read
