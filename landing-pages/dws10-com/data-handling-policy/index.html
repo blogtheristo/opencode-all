@@ -26,48 +26,11 @@
         .badge-red { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #991b1b; }
         .badge-yellow { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid #92400e; }
         .badge-green { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid #166534; }
-        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
-        
-        /* Dropdown */
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }
-        .nav-dropdown:hover .nav-dropdown-content { display: block; }
-        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
-        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
         .footer { background: #1e293b; color: #94a3b8; padding: 30px 20px; text-align: center; border-top: 1px solid #334155; margin-top: 60px; }
     </style>
 </head>
 <body>
-    <div class="nav-header">
-        <a href="../" class="nav-brand">
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../">Home</a>
-            <a href="../buy/">Store</a>
-            <div class="nav-dropdown">
-                <a href="../legal/" style="font-weight: bold;">Legal Hub ▾</a>
-                <div class="nav-dropdown-content">
-                    <a href="../legal/"><strong>Legal Hub (Start Here)</strong></a>
-                    <a href="../regulatory-notice/">Investor Notice</a>
-                    <hr style="border:0; border-top:1px solid #334155; margin:5px 0;">
-                    <a href="../privacy-policy/">⭐ Privacy Policy</a>
-                    <a href="../data-security-policy/">⭐ Data Security Policy</a>
-                    <a href="../data-handling-policy/">⭐ Data Handling Policy</a>
-                    <a href="../terms/">Professional Services Terms</a>
-                    <a href="../terms-dws-iq/">DWS IQ Terms</a>
-                    <a href="../terms-firehorse/">Firehorse Terms</a>
-                    <a href="../terms-lifetime-fleet/">Fleet Terms</a>
-                    <a href="../terms-professional/">Professional Terms</a>
-                    <a href="../return-policy/">Return Policy</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="../shared-assets/nav/ironclad-nav.js"></script>
     <div class="container">
         <h1>Data Handling Policy</h1>
         
