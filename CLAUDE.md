@@ -835,6 +835,27 @@ Key documentation files:
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
 
+### Branch Auto-Deletion After Merge (CRITICAL)
+
+**GitHub is configured to automatically delete branches after PR merge.** This means:
+
+1. After a PR is merged, the feature branch (e.g., `claude/update-store-hero-section-N2Hw2`) is **deleted on the remote** by GitHub
+2. **Do NOT** try to push to the same branch name for a new PR — it will need to be recreated
+3. When continuing work on a deleted branch:
+   - Fetch latest main: `git fetch origin main`
+   - Rebase local branch onto main: `git rebase origin/main`
+   - Force-push to recreate the branch: `git push -u origin <branch-name> --force`
+4. **GitHub compare links break** after branch deletion — `"There isn't anything to compare"` error is expected
+5. After recreating and pushing, create a **new PR** — the old PR number is closed
+
+**Workflow for continued work after merge:**
+```bash
+git fetch origin main
+git rebase origin/main
+git push -u origin claude/<feature>-<id> --force
+# Then create new PR via GitHub UI or gh CLI
+```
+
 ### Worktree Best Practices
 
 **Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
