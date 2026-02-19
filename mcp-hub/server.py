@@ -195,7 +195,7 @@ async def startup():
     # --- Supabase ---
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
-            from supabase._async.client import AsyncClient, create_async_client
+            from supabase._async.client import create_async_client
 
             _supabase = await create_async_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
             logger.info("✅ Supabase connected (%s)", SUPABASE_URL[:40])
@@ -361,14 +361,13 @@ async def execute_task_async(
                 "result": body,
                 "timestamp": datetime.now().isoformat(),
             }
-        else:
-            return {
-                "agent": task.agent,
-                "status": "error",
-                "http_status": resp.status_code,
-                "error": resp.text[:500],
-                "timestamp": datetime.now().isoformat(),
-            }
+        return {
+            "agent": task.agent,
+            "status": "error",
+            "http_status": resp.status_code,
+            "error": resp.text[:500],
+            "timestamp": datetime.now().isoformat(),
+        }
     except httpx.TimeoutException:
         return {
             "agent": task.agent,
@@ -560,7 +559,7 @@ async def sweep_fallback_logs():
 
     swept = 0
     failed = 0
-    with open(_FALLBACK_LOG_PATH, "r", encoding="utf-8") as fh:
+    with open(_FALLBACK_LOG_PATH, encoding="utf-8") as fh:
         lines = fh.readlines()
 
     if not lines:
@@ -599,12 +598,11 @@ async def sweep_fallback_logs():
     if failed == 0:
         open(_FALLBACK_LOG_PATH, "w").close()
         return {"swept": swept, "failed": 0, "file": "truncated"}
-    else:
-        # Rewrite only the failed lines
-        remaining = [l for l in lines if l.strip()]
-        # Keep only unsent (we don't track which ones — keep all, re-sweep later)
-        logger.warning("Sweep: %d sent, %d failed — file kept for retry", swept, failed)
-        return {"swept": swept, "failed": failed, "file": "retained"}
+    # Rewrite only the failed lines
+    remaining = [l for l in lines if l.strip()]
+    # Keep only unsent (we don't track which ones — keep all, re-sweep later)
+    logger.warning("Sweep: %d sent, %d failed — file kept for retry", swept, failed)
+    return {"swept": swept, "failed": failed, "file": "retained"}
 
 
 # ---------------------------------------------------------------------------
