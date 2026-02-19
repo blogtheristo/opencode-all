@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml markdown
+          pip install pyyaml markdown defusedxml
 
       - name: Generate Store Feed and Pages
         run: |

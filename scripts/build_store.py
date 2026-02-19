@@ -3,7 +3,7 @@ import os
 
 import markdown
 import yaml
-from defusedxml.ElementTree import Element, SubElement, tostring
+from xml.etree.ElementTree import Element, SubElement, tostring
 
 # Use defusedxml to prevent XXE attacks
 try:
@@ -11,8 +11,7 @@ try:
 except ImportError:
     # Fallback to standard minidom (less secure - install defusedxml for production)
     import warnings
-
-    from defusedxml import minidom
+    from xml.dom import minidom
 
     warnings.warn(
         "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning, stacklevel=2
