@@ -13,17 +13,19 @@ Outputs:
 Must complete in <90 seconds.
 """
 
-import os
 import sys
 import time
 import warnings
+
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
+
 matplotlib.use("Agg")  # Non-interactive backend
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pathlib import Path
 from sklearn.feature_selection import mutual_info_classif
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -64,7 +66,6 @@ def fix_outliers(df: pd.DataFrame) -> pd.DataFrame:
         iqr = q3 - q1
         lower = q1 - 1.5 * iqr
         upper = q3 + 1.5 * iqr
-        before = df[col].isna().sum()
         outlier_mask = (df[col] < lower) | (df[col] > upper)
         n_outliers = outlier_mask.sum()
         if n_outliers > 0:
@@ -92,10 +93,10 @@ def eda_summary(df: pd.DataFrame) -> None:
     print("EDA SUMMARY")
     print("=" * 60)
     print(f"Shape: {df.shape}")
-    print(f"\nDtypes:")
+    print("\nDtypes:")
     for col in df.columns:
         print(f"  {col}: {df[col].dtype}")
-    print(f"\nNull counts (after cleaning):")
+    print("\nNull counts (after cleaning):")
     for col in df.columns:
         print(f"  {col}: {df[col].isna().sum()}")
     print(f"\nTarget distribution ({TARGET_COL}):")
@@ -103,7 +104,7 @@ def eda_summary(df: pd.DataFrame) -> None:
     for val, count in counts.items():
         print(f"  {val}: {count} ({count/len(df)*100:.1f}%)")
 
-    print(f"\nTop 5 correlations with target (point-biserial):")
+    print("\nTop 5 correlations with target (point-biserial):")
     target_numeric = df[TARGET_COL].astype(int)
     corrs = {}
     for col in NUMERIC_COLS:
@@ -141,8 +142,8 @@ def plot_target_distribution(df: pd.DataFrame) -> None:
                 color=colors)
     axes[0].set_title("Delivery Status Distribution", fontsize=12, fontweight="bold")
     axes[0].set_ylabel("Count")
-    for i, (label, val) in enumerate(zip(["On Time", "Late"],
-                                          [counts.get(True, 0), counts.get(False, 0)])):
+    for i, (_label, val) in enumerate(zip(["On Time", "Late"],
+                                           [counts.get(True, 0), counts.get(False, 0)], strict=True)):
         axes[0].text(i, val + 5, str(val), ha="center", fontweight="bold")
 
     # Distribution of delivery_time by on_time status

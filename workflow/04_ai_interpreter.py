@@ -12,13 +12,13 @@ Supports --dry-run flag for offline demos (rule-based fallback).
 """
 
 import json
-import os
 import sys
 import time
 from pathlib import Path
 
 # Load .env before importing anthropic
 from dotenv import load_dotenv
+
 load_dotenv()
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
