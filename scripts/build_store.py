@@ -2,10 +2,10 @@ import csv
 import json
 import os
 import re
+from xml.etree.ElementTree import Element, SubElement, tostring
 
 import markdown
 import yaml
-from xml.etree.ElementTree import Element, SubElement, tostring
 
 # Use defusedxml to prevent XXE attacks
 try:
@@ -459,7 +459,7 @@ def generate_feed(products):
         SubElement(item, "g:identifier_exists").text = "no"
 
     # Format XML
-    xml_str = minidom.parseString(tostring(rss)).toprettyxml(indent="  ")
+    xml_str = minidom.parseString(tostring(rss)).toprettyxml(indent="  ")  # noqa: S318
 
     with open(OUTPUT_FEED_FILE, "w", encoding="utf-8") as f:
         f.write(xml_str)
