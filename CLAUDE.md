@@ -16,8 +16,21 @@ Before making any UI changes, agents MUST consult these files:
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
 | **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
+| **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### Store Product Format Rule (CRITICAL)
+
+Files in `Store/` are **store products** consumed by the build pipeline (`scripts/build_store.py`). They use **YAML frontmatter** — NOT the DWS Document Standard header.
+
+| Location | Format | Header Style |
+|----------|--------|-------------|
+| `Store/*.md` | Store Product Format | YAML frontmatter (`title`, `price`, `sku`) |
+| `dws10.com/config/products.json` | Primary product source | JSON (all ~30 products) |
+| Everything else | DWS Document Standard | VERSION AND AGENT HISTORY block |
+
+**Never put DWS Document Standard headers in `Store/*.md` files.** The YAML parser will fail and the product will be excluded from the Google Merchant feed, store page, and product pages.
 
 ### "Use DWS Standard" Rule (CRITICAL)
 
@@ -30,12 +43,12 @@ When the human says **"Use DWS standard"** (or any variation like "with DWS stan
 5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
 
 **Example:** "Create a new product with DWS standard" means:
-- `DWS_DOCUMENT_STANDARD.md` → Use correct metadata header, versioning
+- `dws10.com/config/products.json` → Add product entry (primary source: name, price, SKU, category, image, description)
+- `Store/*.md` → Optionally create extended product page with **Store Product Format** (YAML frontmatter, NOT DWS Document Standard)
 - `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
 - `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
 - `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
-- `product-catalog/` → Create product-specification.md + google-merchant-product.json
-- `config/products.json` → Add store entry with storeCategory and payment link
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json (for enterprise/NVIDIA products)
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 

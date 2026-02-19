@@ -1,5 +1,7 @@
 import csv
+import json
 import os
+import re
 
 import markdown
 import yaml
@@ -19,6 +21,7 @@ except ImportError:
 
 # Configuration
 STORE_DIR = "Store"
+PRODUCTS_JSON = "dws10.com/config/products.json"
 OUTPUT_HTML_DIR = "landing-pages/dws10-com/products"
 OUTPUT_FEED_FILE = "landing-pages/dws10-com/products.xml"
 BASE_URL = "https://dws10.com"
@@ -60,6 +63,52 @@ def get_footer():
         <p><strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.</p>
         <p style="margin-top: 20px;">Copyright © 2025 Lifetime Oy. All Rights Reserved.</p>
     </footer>"""
+
+
+def load_products_json():
+    """Load products from dws10.com/config/products.json (primary source)."""
+    if not os.path.exists(PRODUCTS_JSON):
+        print(f"Warning: {PRODUCTS_JSON} not found, skipping JSON products.")
+        return []
+
+    with open(PRODUCTS_JSON, encoding="utf-8") as f:
+        data = json.load(f)
+
+    products = []
+    for pid, p in data.get("products", {}).items():
+        slug = pid.lower().replace("_", "-")
+        google = p.get("google", {})
+        # Build description HTML from features list
+        features_html = ""
+        if p.get("features"):
+            features_html = "<ul>" + "".join(f"<li>{f}</li>" for f in p["features"]) + "</ul>"
+        html_content = f"<p>{p.get('description', '')}</p>{features_html}"
+
+        product = {
+            "title": p.get("name", ""),
+            "price": str(p.get("price", "0")),
+            "currency": p.get("currency", "EUR"),
+            "sku": p.get("id", pid),
+            "availability": google.get("availability", "in_stock"),
+            "condition": google.get("condition", "new"),
+            "google_product_category": google.get(
+                "productCategory", "Software > Business & Productivity Software"
+            ),
+            "image_link": p.get("image", f"{BASE_URL}/static/images/Firehorse_Store.jpg"),
+            "brand": google.get("brand", "Lifetime"),
+            "slug": slug,
+            "html_content": html_content,
+            "priceNote": p.get("priceNote", ""),
+            "storeCategory": p.get("storeCategory", ""),
+        }
+        # Fix relative image paths to absolute
+        if product["image_link"].startswith("/"):
+            product["image_link"] = BASE_URL + product["image_link"]
+
+        products.append(product)
+
+    print(f"Loaded {len(products)} products from {PRODUCTS_JSON}")
+    return products
 
 
 def parse_product(filename):
@@ -348,8 +397,6 @@ def generate_store_page(products):
     for p in products:
         # Extract a short excerpt (first paragraph or first 150 chars)
         description = p.get("html_content", "")
-        import re
-
         clean_text = re.sub("<[^<]+?>", "", description)
         excerpt = clean_text[:150] + "..." if len(clean_text) > 150 else clean_text
 
@@ -467,21 +514,42 @@ def main():
 
     generate_policy("RETURN_POLICY.md", "return-policy", "Return Policy")
 
-    # Generate Products
-    products = []
-    for filename in os.listdir(STORE_DIR):
-        if (
-            filename.endswith(".md")
-            and filename
-            not in ["RETURN_POLICY.md", "GOOGLE_MERCHANT_SETUP.md", "PRIVACY_POLICY.md"]
-            and "GoogleLegal" not in filename
-        ):
-            print(f"Processing {filename}...")
-            product = parse_product(filename)
-            if product:
-                generate_html(product)
-                products.append(product)
+    # Load products from products.json (primary source, ~30 products)
+    products = load_products_json()
+    seen_skus = {p["sku"] for p in products}
 
+    # Load Store/*.md files — merge extended descriptions or add new products
+    skip_files = {"RETURN_POLICY.md", "GOOGLE_MERCHANT_SETUP.md", "PRIVACY_POLICY.md"}
+    if os.path.isdir(STORE_DIR):
+        for filename in os.listdir(STORE_DIR):
+            if (
+                filename.endswith(".md")
+                and filename not in skip_files
+                and "GoogleLegal" not in filename
+            ):
+                print(f"Processing {filename}...")
+                md_product = parse_product(filename)
+                if not md_product:
+                    continue
+                sku = md_product.get("sku", "")
+                if sku in seen_skus:
+                    # Merge: replace html_content with richer Store/*.md version
+                    for p in products:
+                        if p["sku"] == sku:
+                            p["html_content"] = md_product["html_content"]
+                            print(f"  Merged extended description for {sku}")
+                            break
+                else:
+                    # New product only in Store/*.md
+                    products.append(md_product)
+                    seen_skus.add(sku)
+                    print(f"  Added new product {sku} from {filename}")
+
+    print(f"\nTotal products: {len(products)}")
+
+    # Generate outputs
+    for p in products:
+        generate_html(p)
     generate_feed(products)
     generate_csv(products)
     generate_store_page(products)

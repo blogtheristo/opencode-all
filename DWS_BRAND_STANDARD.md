@@ -67,6 +67,21 @@ All DWS store pages MUST display the store identity info box above the product g
 
 ---
 
+## 0.1 Store Product Data Sources
+
+Product data lives in two places. **`products.json` is the single source of truth** for store products.
+
+| Source | Location | Purpose |
+|--------|----------|---------|
+| **Primary** | `dws10.com/config/products.json` | All ~30 store products (name, price, SKU, category, image, description) |
+| **Extended** | `Store/*.md` (Store Product Format) | Detailed product pages with rich markdown content |
+
+**Rule:** `Store/*.md` files use YAML frontmatter (NOT DWS Document Standard). See `product-catalog/README.md` § "Store Product Format" for the required schema.
+
+**Build pipeline:** `scripts/build_store.py` reads `products.json` first, then merges any `Store/*.md` extended descriptions by matching on `sku`.
+
+---
+
 ## 1. Store Category Navigation Component
 
 Category tabs for multi-page store navigation.

@@ -76,6 +76,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 
+**Does NOT apply to:**
+- `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
+- `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
+
 ### Principles / Periaatteet
 
 1. **Traceability** - Every document must be traceable to its creator and session
