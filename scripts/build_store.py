@@ -72,7 +72,16 @@ def parse_product(filename):
         print(f"Skipping {filename}: No valid YAML frontmatter found.")
         return None
 
-    metadata = yaml.safe_load(parts[1])
+    try:
+        metadata = yaml.safe_load(parts[1])
+    except yaml.YAMLError as e:
+        print(f"Skipping {filename}: YAML parse error: {e}")
+        return None
+
+    if not isinstance(metadata, dict) or "title" not in metadata or "price" not in metadata:
+        print(f"Skipping {filename}: missing required 'title' or 'price' in frontmatter.")
+        return None
+
     md_content = parts[2].strip()
     html_content = markdown.markdown(md_content)
 
@@ -139,7 +148,11 @@ def generate_html(product):
 
 
 def generate_policy(filename, output_subdir, title_override=None):
-    with open(os.path.join(STORE_DIR, filename), encoding="utf-8") as f:
+    filepath = os.path.join(STORE_DIR, filename)
+    if not os.path.exists(filepath):
+        print(f"Skipping policy '{filename}': file not found at {filepath}")
+        return
+    with open(filepath, encoding="utf-8") as f:
         content = f.read()
 
     # Split frontmatter if exists
