@@ -38,8 +38,7 @@ from report_engine import FirehorseReportEngine
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -65,7 +64,9 @@ app.add_middleware(
 engine = FirehorseReportEngine(
     supabase_url=os.getenv("SUPABASE_URL"),
     supabase_key=os.getenv("SUPABASE_KEY"),
-    templates_dir=os.getenv("TEMPLATES_DIR", str(Path(__file__).parent.parent / "templates")),
+    templates_dir=os.getenv(
+        "TEMPLATES_DIR", str(Path(__file__).parent.parent / "templates")
+    ),
 )
 
 # In-memory report storage (replace with Redis/Supabase in production)
@@ -75,6 +76,7 @@ report_storage: dict[str, dict] = {}
 # ============================================================================
 # Enums and Models
 # ============================================================================
+
 
 class OutputFormat(StrEnum):
     PDF = "PDF"
@@ -104,8 +106,11 @@ class Language(StrEnum):
 
 class ReportRequest(BaseModel):
     """Request model for generating a report"""
+
     project_id: str = Field(..., description="Project identifier")
-    template_id: str | None = Field(None, description="Template ID (optional, uses standard default)")
+    template_id: str | None = Field(
+        None, description="Template ID (optional, uses standard default)"
+    )
     standard: Standard = Field(Standard.EN_15978, description="Construction standard")
     language: Language = Field(Language.EN, description="Report language")
     output_format: OutputFormat = Field(OutputFormat.PDF, description="Output format")
@@ -115,22 +120,31 @@ class ReportRequest(BaseModel):
 
 class CarbonReportRequest(BaseModel):
     """Request model for EN 15978 carbon report"""
+
     project_id: str = Field(..., description="Project identifier")
     language: Language = Field(Language.EN, description="Report language")
     output_format: OutputFormat = Field(OutputFormat.PDF, description="Output format")
-    include_materials: bool = Field(True, description="Include material-level breakdown")
+    include_materials: bool = Field(
+        True, description="Include material-level breakdown"
+    )
     include_charts: bool = Field(True, description="Include visualization charts")
-    fit_for_55_validation: bool = Field(True, description="Include Fit for 55 compliance check")
+    fit_for_55_validation: bool = Field(
+        True, description="Include Fit for 55 compliance check"
+    )
 
 
 class ValidationRequest(BaseModel):
     """Request model for validating report compliance"""
+
     report_data: dict = Field(..., description="Report data to validate")
-    standard: Standard = Field(Standard.EN_15978, description="Standard to validate against")
+    standard: Standard = Field(
+        Standard.EN_15978, description="Standard to validate against"
+    )
 
 
 class ReportResponse(BaseModel):
     """Response model for report generation"""
+
     report_id: str
     status: str
     message: str
@@ -141,6 +155,7 @@ class ReportResponse(BaseModel):
 
 class TemplateInfo(BaseModel):
     """Template information model"""
+
     template_id: str
     template_name: str
     standard: str
@@ -154,6 +169,7 @@ class TemplateInfo(BaseModel):
 
 class ValidationResponse(BaseModel):
     """Validation response model"""
+
     valid: bool
     errors: list[str]
     warnings: list[str]
@@ -164,6 +180,7 @@ class ValidationResponse(BaseModel):
 # ============================================================================
 # Health Check
 # ============================================================================
+
 
 @app.get("/health")
 async def health_check():
@@ -192,6 +209,7 @@ async def root():
 # ============================================================================
 # Templates Endpoints
 # ============================================================================
+
 
 @app.get("/v1/templates", response_model=list[TemplateInfo])
 async def list_templates():
@@ -279,6 +297,7 @@ async def get_template(template_id: str):
 # Report Generation Endpoints
 # ============================================================================
 
+
 @app.post("/v1/reports/generate", response_model=ReportResponse)
 async def generate_report(request: ReportRequest, background_tasks: BackgroundTasks):
     """
@@ -351,7 +370,9 @@ async def _generate_report_background(report_id: str, request: ReportRequest):
 
 
 @app.post("/v1/reports/carbon", response_model=ReportResponse)
-async def generate_carbon_report(request: CarbonReportRequest, background_tasks: BackgroundTasks):
+async def generate_carbon_report(
+    request: CarbonReportRequest, background_tasks: BackgroundTasks
+):
     """
     Generate EN 15978 carbon assessment report.
 
@@ -391,10 +412,14 @@ async def generate_carbon_report(request: CarbonReportRequest, background_tasks:
     )
 
 
-async def _generate_carbon_report_background(report_id: str, request: CarbonReportRequest):
+async def _generate_carbon_report_background(
+    report_id: str, request: CarbonReportRequest
+):
     """Background task for carbon report generation"""
     try:
-        logger.info(f"Generating carbon report {report_id} for project {request.project_id}")
+        logger.info(
+            f"Generating carbon report {report_id} for project {request.project_id}"
+        )
 
         # Generate carbon report
         content = engine.generate_carbon_report(
@@ -445,8 +470,7 @@ async def download_report(report_id: str):
 
     if report["status"] != "completed":
         raise HTTPException(
-            status_code=400,
-            detail=f"Report not ready. Status: {report['status']}"
+            status_code=400, detail=f"Report not ready. Status: {report['status']}"
         )
 
     content = report["content"]
@@ -479,15 +503,14 @@ async def download_report(report_id: str):
     return StreamingResponse(
         BytesIO(content),
         media_type=content_type,
-        headers={
-            "Content-Disposition": f'attachment; filename="{filename}"'
-        }
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 
 # ============================================================================
 # Validation Endpoint
 # ============================================================================
+
 
 @app.post("/v1/reports/validate", response_model=ValidationResponse)
 async def validate_report(request: ValidationRequest):
@@ -518,8 +541,10 @@ async def validate_report(request: ValidationRequest):
 # Batch Operations
 # ============================================================================
 
+
 class BatchReportRequest(BaseModel):
     """Request for batch report generation"""
+
     project_ids: list[str] = Field(..., description="List of project IDs")
     standard: Standard = Field(Standard.EN_15978)
     output_format: OutputFormat = Field(OutputFormat.PDF)
@@ -527,7 +552,9 @@ class BatchReportRequest(BaseModel):
 
 
 @app.post("/v1/reports/batch")
-async def generate_batch_reports(request: BatchReportRequest, background_tasks: BackgroundTasks):
+async def generate_batch_reports(
+    request: BatchReportRequest, background_tasks: BackgroundTasks
+):
     """
     Generate reports for multiple projects.
 
@@ -587,7 +614,9 @@ async def get_batch_status(batch_id: str):
 
     completed = sum(1 for r in batch_reports if r["status"] == "completed")
     failed = sum(1 for r in batch_reports if r["status"] == "failed")
-    processing = sum(1 for r in batch_reports if r["status"] in ["processing", "queued"])
+    processing = sum(
+        1 for r in batch_reports if r["status"] in ["processing", "queued"]
+    )
 
     return {
         "batch_id": batch_id,

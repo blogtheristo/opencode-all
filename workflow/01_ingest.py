@@ -31,20 +31,25 @@ def generate_base_data(n: int, rng: np.random.Generator) -> pd.DataFrame:
     fuel_cost = rng.normal(loc=28, scale=8, size=n).clip(5, 80)  # EUR
     weather_delay = rng.exponential(scale=5, size=n).clip(0, 60)  # minutes
     route_efficiency = rng.beta(a=5, b=2, size=n) * 100  # percentage 0-100
-    co2_kg = (fuel_cost * 0.35 + delivery_time * 0.08 +
-              rng.normal(0, 1.5, size=n)).clip(1, 50)  # kg CO2
+    co2_kg = (
+        fuel_cost * 0.35 + delivery_time * 0.08 + rng.normal(0, 1.5, size=n)
+    ).clip(1, 50)  # kg CO2
     # on_time if delivery_time < 50 and weather_delay < 10, with noise
-    on_time_prob = 1 / (1 + np.exp(0.05 * (delivery_time - 50) + 0.1 * (weather_delay - 10)))
+    on_time_prob = 1 / (
+        1 + np.exp(0.05 * (delivery_time - 50) + 0.1 * (weather_delay - 10))
+    )
     on_time_bool = rng.binomial(1, on_time_prob).astype(bool)
 
-    return pd.DataFrame({
-        "delivery_time_min": np.round(delivery_time, 1),
-        "fuel_cost_eur": np.round(fuel_cost, 2),
-        "weather_delay_min": np.round(weather_delay, 1),
-        "route_efficiency_pct": np.round(route_efficiency, 1),
-        "co2_kg": np.round(co2_kg, 2),
-        "on_time": on_time_bool,
-    })
+    return pd.DataFrame(
+        {
+            "delivery_time_min": np.round(delivery_time, 1),
+            "fuel_cost_eur": np.round(fuel_cost, 2),
+            "weather_delay_min": np.round(weather_delay, 1),
+            "route_efficiency_pct": np.round(route_efficiency, 1),
+            "co2_kg": np.round(co2_kg, 2),
+            "on_time": on_time_bool,
+        }
+    )
 
 
 def inject_quality_issues(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
@@ -53,10 +58,17 @@ def inject_quality_issues(df: pd.DataFrame, rng: np.random.Generator) -> pd.Data
     n = len(df)
 
     # 1. Inject ~8% nulls across numeric columns
-    null_cols = ["delivery_time_min", "fuel_cost_eur", "weather_delay_min",
-                 "route_efficiency_pct", "co2_kg"]
+    null_cols = [
+        "delivery_time_min",
+        "fuel_cost_eur",
+        "weather_delay_min",
+        "route_efficiency_pct",
+        "co2_kg",
+    ]
     total_nulls_target = int(n * len(null_cols) * 0.08)
-    null_positions = rng.choice(n * len(null_cols), size=total_nulls_target, replace=False)
+    null_positions = rng.choice(
+        n * len(null_cols), size=total_nulls_target, replace=False
+    )
     for pos in null_positions:
         row = pos % n
         col = null_cols[pos // n] if pos // n < len(null_cols) else null_cols[-1]
@@ -93,11 +105,18 @@ def quality_report(df: pd.DataFrame) -> None:
 
     total_nulls = nulls.sum()
     total_cells = df.shape[0] * df.shape[1]
-    print(f"\nTotal nulls: {total_nulls}/{total_cells} ({total_nulls/total_cells*100:.1f}%)")
+    print(
+        f"\nTotal nulls: {total_nulls}/{total_cells} ({total_nulls / total_cells * 100:.1f}%)"
+    )
 
     # Check for non-numeric values in expected-numeric columns
-    for col in ["delivery_time_min", "fuel_cost_eur", "weather_delay_min",
-                "route_efficiency_pct", "co2_kg"]:
+    for col in [
+        "delivery_time_min",
+        "fuel_cost_eur",
+        "weather_delay_min",
+        "route_efficiency_pct",
+        "co2_kg",
+    ]:
         non_numeric = 0
         for val in df[col].dropna():
             try:

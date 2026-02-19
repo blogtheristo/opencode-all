@@ -38,16 +38,21 @@ def run_stage(name: str, script: str, stage_num: int, total: int) -> dict:
     """Run a pipeline stage and capture results."""
     script_path = PROJECT_ROOT / script
     if not script_path.exists():
-        return {"name": name, "status": "MISSING", "time": 0, "output": f"File not found: {script_path}"}
+        return {
+            "name": name,
+            "status": "MISSING",
+            "time": 0,
+            "output": f"File not found: {script_path}",
+        }
 
     cmd = [sys.executable, str(script_path)]
     if DRY_RUN:
         cmd.append("--dry-run")
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  Stage {stage_num}/{total}: {name}")
     print(f"  Script: {script}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     start = time.time()
     try:
@@ -84,11 +89,21 @@ def run_stage(name: str, script: str, stage_num: int, total: int) -> dict:
     except subprocess.TimeoutExpired:
         elapsed = time.time() - start
         print(f"  >> Stage {stage_num}/{total} TIMED OUT after {elapsed:.0f}s")
-        return {"name": name, "status": "TIMEOUT", "time": round(elapsed, 2), "output": "Exceeded 5min timeout"}
+        return {
+            "name": name,
+            "status": "TIMEOUT",
+            "time": round(elapsed, 2),
+            "output": "Exceeded 5min timeout",
+        }
     except Exception as e:
         elapsed = time.time() - start
         print(f"  >> Stage {stage_num}/{total} ERROR: {e}")
-        return {"name": name, "status": "ERROR", "time": round(elapsed, 2), "output": str(e)}
+        return {
+            "name": name,
+            "status": "ERROR",
+            "time": round(elapsed, 2),
+            "output": str(e),
+        }
 
 
 def print_summary(results: list, total_time: float) -> None:
@@ -99,8 +114,10 @@ def print_summary(results: list, total_time: float) -> None:
 
     mode = "DRY RUN (no API calls)" if DRY_RUN else "FULL RUN"
     print(f"\n  Mode: {mode}")
-    print(f"\n  {'Stage':<25s} {'Status':<10s} {'AI Time':>10s} {'Traditional':>12s} {'Savings':>10s}")
-    print(f"  {'-'*25} {'-'*10} {'-'*10} {'-'*12} {'-'*10}")
+    print(
+        f"\n  {'Stage':<25s} {'Status':<10s} {'AI Time':>10s} {'Traditional':>12s} {'Savings':>10s}"
+    )
+    print(f"  {'-' * 25} {'-' * 10} {'-' * 10} {'-' * 12} {'-' * 10}")
 
     total_traditional_hours = 0
     for r in results:
@@ -114,20 +131,28 @@ def print_summary(results: list, total_time: float) -> None:
         else:
             savings_str = "N/A"
         status_icon = "OK" if r["status"] == "OK" else "FAIL"
-        print(f"  {r['name']:<25s} {status_icon:<10s} {ai_time_str:>10s} {trad_str:>12s} {savings_str:>10s}")
+        print(
+            f"  {r['name']:<25s} {status_icon:<10s} {ai_time_str:>10s} {trad_str:>12s} {savings_str:>10s}"
+        )
 
-    print(f"  {'-'*25} {'-'*10} {'-'*10} {'-'*12} {'-'*10}")
+    print(f"  {'-' * 25} {'-' * 10} {'-' * 10} {'-' * 12} {'-' * 10}")
     total_ai_str = f"{total_time:.1f}s"
     total_trad_str = f"{total_traditional_hours:.0f}h"
     if total_time > 0:
         total_savings = (1 - total_time / (total_traditional_hours * 3600)) * 100
     else:
         total_savings = 0
-    print(f"  {'TOTAL':<25s} {'':10s} {total_ai_str:>10s} {total_trad_str:>12s} {total_savings:.1f}%")
+    print(
+        f"  {'TOTAL':<25s} {'':10s} {total_ai_str:>10s} {total_trad_str:>12s} {total_savings:.1f}%"
+    )
 
     trad_weeks = total_traditional_hours / 40
-    print(f"\n  Traditional cycle: ~{trad_weeks:.1f} weeks ({total_traditional_hours:.0f} hours)")
-    print(f"  AI-assisted cycle: {total_time:.1f} seconds ({total_time/60:.1f} minutes)")
+    print(
+        f"\n  Traditional cycle: ~{trad_weeks:.1f} weeks ({total_traditional_hours:.0f} hours)"
+    )
+    print(
+        f"  AI-assisted cycle: {total_time:.1f} seconds ({total_time / 60:.1f} minutes)"
+    )
     print(f"  Time savings: {total_savings:.1f}%")
 
     # Check for failures

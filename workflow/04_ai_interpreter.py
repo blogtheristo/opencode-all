@@ -42,6 +42,7 @@ def get_client():
         return None
     try:
         import anthropic
+
         return anthropic.Anthropic()
     except Exception as e:
         print(f"WARNING: Could not initialize Anthropic client: {e}")
@@ -67,6 +68,7 @@ def call_claude(client, prompt: str, model: str = "claude-haiku-4-5-20250512") -
 
 # ── Step A: Interpret ML Results ──────────────────────────────────────────────
 
+
 def interpret_results_prompt(metrics: dict) -> str:
     best = metrics["best_model"]
     f1 = metrics["best_f1"]
@@ -75,8 +77,7 @@ def interpret_results_prompt(metrics: dict) -> str:
     all_results = metrics["all_results"]
 
     features_text = "\n".join(
-        f"  {i+1}. {f['feature']}: {f['importance']:.4f}"
-        for i, f in enumerate(top5)
+        f"  {i + 1}. {f['feature']}: {f['importance']:.4f}" for i, f in enumerate(top5)
     )
     models_text = "\n".join(
         f"  - {name}: F1={r['f1_mean']:.4f} ± {r['f1_std']:.4f}"
@@ -137,6 +138,7 @@ def fallback_interpretation(metrics: dict) -> dict:
 
 
 # ── Step B: Generate Next Actions ─────────────────────────────────────────────
+
 
 def next_actions_prompt(insights: dict) -> str:
     insights_text = json.dumps(insights, indent=2)
@@ -201,6 +203,7 @@ def fallback_actions() -> dict:
 
 # ── Step C: Draft Stakeholder Emails ──────────────────────────────────────────
 
+
 def email_prompt(insights: dict, actions: dict) -> str:
     return f"""You are a communications specialist drafting internal emails about AI/analytics results.
 
@@ -232,7 +235,11 @@ REQUIREMENTS:
 
 def fallback_emails(insights: dict, actions: dict) -> dict:
     summary = insights.get("plain_english_summary", "ML analysis complete.")
-    top_action = actions["immediate_actions"][0] if actions["immediate_actions"] else {"action": "Review results", "owner": "team"}
+    top_action = (
+        actions["immediate_actions"][0]
+        if actions["immediate_actions"]
+        else {"action": "Review results", "owner": "team"}
+    )
     return {
         "technical_email": {
             "subject": "ML Pipeline Results: On-Time Delivery Prediction Model Ready for Review",
@@ -282,23 +289,23 @@ def save_emails(emails: dict) -> None:
 
     content = f"""# Stakeholder Communication — AI/ML Analysis Results
 
-Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}
+Generated: {time.strftime("%Y-%m-%d %H:%M:%S")}
 
 ---
 
 ## Variant A: Technical (Data/IT Lead)
 
-**Subject:** {tech['subject']}
+**Subject:** {tech["subject"]}
 
-{tech['body']}
+{tech["body"]}
 
 ---
 
 ## Variant B: Executive (CEO/CFO)
 
-**Subject:** {exec_['subject']}
+**Subject:** {exec_["subject"]}
 
-{exec_['body']}
+{exec_["body"]}
 
 ---
 
