@@ -564,7 +564,12 @@ def main():
         generate_html(p)
     generate_feed(products)
     generate_csv(products)
-    generate_store_page(products)
+    # NOTE: Do NOT call generate_store_page() here.
+    # The store page (landing-pages/dws10-com/buy/index.html) is maintained
+    # manually in dws10.com/buy/index.html and synced by the
+    # sync-dws6-landing-pages workflow. Running generate_store_page() would
+    # overwrite the hand-crafted page with hero section, 4-category nav,
+    # and Revolut/PayPal payment integration.
 
 
 if __name__ == "__main__":

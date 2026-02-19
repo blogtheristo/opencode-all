@@ -318,6 +318,33 @@ This ensures changes are tested before going to production.
 
 **dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
 
+### Store Update Rule (CRITICAL)
+
+When modifying the store page (`buy/index.html`), product pages, `products.json`, or any store-related assets, you MUST follow this checklist **in every commit**:
+
+1. **Update root first** — Edit `dws10.com/buy/index.html` (source of truth)
+2. **Sync to landing-pages immediately** — Copy to `landing-pages/dws10-com/buy/index.html` in the **same commit**
+3. **Sync config** — If `dws10.com/config/products.json` changed, copy to `landing-pages/dws10-com/config/products.json`
+4. **Sync shared assets** — If `shared-assets/` files changed (nav, vat-locale), copy to `landing-pages/dws10-com/shared-assets/`
+5. **Sync subpages** — If category pages (`buy/page2/`, `page3/`, `page4/`) changed, copy all to landing-pages
+6. **Verify paths** — All relative paths (`../config/`, `../shared-assets/`, `../static/`) must resolve in both locations
+
+**Why this is critical:** Cloudflare Pages serves from `landing-pages/`. If you only update `dws10.com/`, the live site stays on the old version. This has caused production incidents.
+
+**Verification command:**
+```bash
+diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html
+# Must return empty (no differences)
+```
+
+**This rule applies to ALL store artifacts:**
+- `buy/index.html` and `buy/page*/index.html`
+- `config/products.json`
+- `products//*.html` (individual product pages)
+- `shared-assets/` (nav, vat-locale)
+- `feeds/` (Google Merchant feed)
+- Static images referenced by products
+
 ## Development Commands
 
 ```bash
@@ -807,6 +834,27 @@ Key documentation files:
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
+
+### Branch Auto-Deletion After Merge (CRITICAL)
+
+**GitHub is configured to automatically delete branches after PR merge.** This means:
+
+1. After a PR is merged, the feature branch (e.g., `claude/update-store-hero-section-N2Hw2`) is **deleted on the remote** by GitHub
+2. **Do NOT** try to push to the same branch name for a new PR — it will need to be recreated
+3. When continuing work on a deleted branch:
+   - Fetch latest main: `git fetch origin main`
+   - Rebase local branch onto main: `git rebase origin/main`
+   - Force-push to recreate the branch: `git push -u origin <branch-name> --force`
+4. **GitHub compare links break** after branch deletion — `"There isn't anything to compare"` error is expected
+5. After recreating and pushing, create a **new PR** — the old PR number is closed
+
+**Workflow for continued work after merge:**
+```bash
+git fetch origin main
+git rebase origin/main
+git push -u origin claude/<feature>-<id> --force
+# Then create new PR via GitHub UI or gh CLI
+```
 
 ### Worktree Best Practices
 
