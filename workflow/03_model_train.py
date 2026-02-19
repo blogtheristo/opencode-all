@@ -8,19 +8,19 @@ Output: models/best_model.pkl, reports/metrics.json
 """
 
 import json
+import pickle
 import sys
 import time
 import warnings
-import numpy as np
-import pandas as pd
-import pickle
 from pathlib import Path
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
+
+import pandas as pd
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.inspection import permutation_importance
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -69,7 +69,7 @@ def build_models() -> dict:
     }
 
 
-def compute_feature_importances(model: Pipeline, X: pd.DataFrame, y: pd.Series) -> dict:
+def compute_feature_importances(model: Pipeline, x: pd.DataFrame, y: pd.Series) -> dict:
     """Extract feature importances from the best model."""
     clf = model.named_steps["clf"]
 
@@ -78,10 +78,10 @@ def compute_feature_importances(model: Pipeline, X: pd.DataFrame, y: pd.Series) 
         importances = clf.feature_importances_
     else:
         # Fall back to permutation importance for linear models
-        result = permutation_importance(model, X, y, n_repeats=10, random_state=42)
+        result = permutation_importance(model, x, y, n_repeats=10, random_state=42)
         importances = result.importances_mean
 
-    return {col: round(float(imp), 4) for col, imp in zip(FEATURE_COLS, importances)}
+    return {col: round(float(imp), 4) for col, imp in zip(FEATURE_COLS, importances, strict=True)}
 
 
 def main():
