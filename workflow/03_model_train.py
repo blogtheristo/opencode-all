@@ -31,8 +31,13 @@ REPORTS_DIR = PROJECT_ROOT / "reports"
 MODELS_DIR.mkdir(exist_ok=True)
 REPORTS_DIR.mkdir(exist_ok=True)
 
-FEATURE_COLS = ["delivery_time_min", "fuel_cost_eur", "weather_delay_min",
-                "route_efficiency_pct", "co2_kg"]
+FEATURE_COLS = [
+    "delivery_time_min",
+    "fuel_cost_eur",
+    "weather_delay_min",
+    "route_efficiency_pct",
+    "co2_kg",
+]
 TARGET_COL = "on_time"
 
 
@@ -50,22 +55,37 @@ def load_clean_data() -> tuple[pd.DataFrame, pd.Series]:
 def build_models() -> dict:
     """Return dict of model_name -> sklearn Pipeline."""
     return {
-        "LogisticRegression": Pipeline([
-            ("scaler", StandardScaler()),
-            ("clf", LogisticRegression(max_iter=1000, random_state=42)),
-        ]),
-        "RandomForest": Pipeline([
-            ("scaler", StandardScaler()),
-            ("clf", RandomForestClassifier(
-                n_estimators=100, max_depth=10, random_state=42, n_jobs=-1
-            )),
-        ]),
-        "GradientBoosting": Pipeline([
-            ("scaler", StandardScaler()),
-            ("clf", GradientBoostingClassifier(
-                n_estimators=100, max_depth=5, learning_rate=0.1, random_state=42
-            )),
-        ]),
+        "LogisticRegression": Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                ("clf", LogisticRegression(max_iter=1000, random_state=42)),
+            ]
+        ),
+        "RandomForest": Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                (
+                    "clf",
+                    RandomForestClassifier(
+                        n_estimators=100, max_depth=10, random_state=42, n_jobs=-1
+                    ),
+                ),
+            ]
+        ),
+        "GradientBoosting": Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                (
+                    "clf",
+                    GradientBoostingClassifier(
+                        n_estimators=100,
+                        max_depth=5,
+                        learning_rate=0.1,
+                        random_state=42,
+                    ),
+                ),
+            ]
+        ),
     }
 
 
@@ -81,7 +101,10 @@ def compute_feature_importances(model: Pipeline, x: pd.DataFrame, y: pd.Series) 
         result = permutation_importance(model, x, y, n_repeats=10, random_state=42)
         importances = result.importances_mean
 
-    return {col: round(float(imp), 4) for col, imp in zip(FEATURE_COLS, importances, strict=True)}
+    return {
+        col: round(float(imp), 4)
+        for col, imp in zip(FEATURE_COLS, importances, strict=True)
+    }
 
 
 def main():
@@ -120,10 +143,14 @@ def main():
     feature_importances = compute_feature_importances(best_pipeline, X, y)
 
     # Sort features by importance
-    sorted_features = sorted(feature_importances.items(), key=lambda x: x[1], reverse=True)
+    sorted_features = sorted(
+        feature_importances.items(), key=lambda x: x[1], reverse=True
+    )
 
-    print(f"\nBest model: {best_name} with F1={results[best_name]['f1_mean']:.4f}, "
-          f"trained in {results[best_name]['train_time_seconds']}s")
+    print(
+        f"\nBest model: {best_name} with F1={results[best_name]['f1_mean']:.4f}, "
+        f"trained in {results[best_name]['train_time_seconds']}s"
+    )
     print(f"\nFeature importances ({best_name}):")
     for feat, imp in sorted_features:
         bar = "█" * int(imp * 50)
@@ -141,7 +168,9 @@ def main():
         "best_f1": results[best_name]["f1_mean"],
         "all_results": results,
         "feature_importances": feature_importances,
-        "feature_ranking": [{"feature": f, "importance": i} for f, i in sorted_features],
+        "feature_ranking": [
+            {"feature": f, "importance": i} for f, i in sorted_features
+        ],
         "dataset_shape": {"rows": X.shape[0], "features": X.shape[1]},
         "target_balance": round(float(y.mean()), 4),
         "total_train_time_seconds": round(time.time() - start_total, 2),

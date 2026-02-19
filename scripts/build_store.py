@@ -16,7 +16,9 @@ except ImportError:
     from xml.dom import minidom
 
     warnings.warn(
-        "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning, stacklevel=2
+        "Using standard minidom - install 'defusedxml' for XXE protection",
+        UserWarning,
+        stacklevel=2,
     )
 
 # Configuration
@@ -81,7 +83,9 @@ def load_products_json():
         # Build description HTML from features list
         features_html = ""
         if p.get("features"):
-            features_html = "<ul>" + "".join(f"<li>{f}</li>" for f in p["features"]) + "</ul>"
+            features_html = (
+                "<ul>" + "".join(f"<li>{f}</li>" for f in p["features"]) + "</ul>"
+            )
         html_content = f"<p>{p.get('description', '')}</p>{features_html}"
 
         product = {
@@ -94,7 +98,9 @@ def load_products_json():
             "google_product_category": google.get(
                 "productCategory", "Software > Business & Productivity Software"
             ),
-            "image_link": p.get("image", f"{BASE_URL}/static/images/Firehorse_Store.jpg"),
+            "image_link": p.get(
+                "image", f"{BASE_URL}/static/images/Firehorse_Store.jpg"
+            ),
             "brand": google.get("brand", "Lifetime"),
             "slug": slug,
             "html_content": html_content,
@@ -127,8 +133,14 @@ def parse_product(filename):
         print(f"Skipping {filename}: YAML parse error: {e}")
         return None
 
-    if not isinstance(metadata, dict) or "title" not in metadata or "price" not in metadata:
-        print(f"Skipping {filename}: missing required 'title' or 'price' in frontmatter.")
+    if (
+        not isinstance(metadata, dict)
+        or "title" not in metadata
+        or "price" not in metadata
+    ):
+        print(
+            f"Skipping {filename}: missing required 'title' or 'price' in frontmatter."
+        )
         return None
 
     md_content = parts[2].strip()

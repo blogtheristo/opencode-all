@@ -16,13 +16,17 @@ from typing import Any
 
 # Security: Initialize ZenFree before any other code
 # zen_free.py lives at repo root; add parent dir to path if needed
-for _candidate in [os.path.join(os.path.dirname(__file__), ".."), os.path.dirname(__file__)]:
+for _candidate in [
+    os.path.join(os.path.dirname(__file__), ".."),
+    os.path.dirname(__file__),
+]:
     if os.path.isfile(os.path.join(_candidate, "zen_free.py")):
         sys.path.insert(0, os.path.abspath(_candidate))
         break
 
 try:
     import zen_free
+
     zen_free.protect()
     _zenfree_ok = True
 except ImportError:
@@ -121,6 +125,7 @@ class WorkflowRequest(BaseModel):
 # Rejects garbage from IoT devices / malformed uploads early.
 # ---------------------------------------------------------------------------
 
+
 class BIMPipelineRequest(BaseModel):
     """Schema for /pipelines/bim-carbon requests.
 
@@ -128,6 +133,7 @@ class BIMPipelineRequest(BaseModel):
     backend.  Construction site IoT devices and third-party integrations
     often send incomplete data — catch it here.
     """
+
     project_id: str
     bim_file_url: str
     country: str = "FI"  # ISO 3166-1 alpha-2, default Finland
@@ -153,9 +159,7 @@ class BIMPipelineRequest(BaseModel):
         ALLOWED_EXTENSIONS = (".ifc", ".ifczip", ".json", ".xml", ".bcf")
         lower = v.split("?")[0].lower()  # strip query params
         if not any(lower.endswith(ext) for ext in ALLOWED_EXTENSIONS):
-            raise ValueError(
-                f"bim_file_url must end with one of {ALLOWED_EXTENSIONS}"
-            )
+            raise ValueError(f"bim_file_url must end with one of {ALLOWED_EXTENSIONS}")
         return v
 
     @classmethod
@@ -202,7 +206,9 @@ async def startup():
             logger.info("✅ Supabase connected (%s)", SUPABASE_URL[:40])
         except Exception as exc:
             _supabase = None
-            logger.warning("⚠️  Supabase unavailable — direct logging disabled (%s)", exc)
+            logger.warning(
+                "⚠️  Supabase unavailable — direct logging disabled (%s)", exc
+            )
     else:
         logger.info("ℹ️  Supabase env vars not set — direct logging disabled")
 
@@ -211,7 +217,9 @@ async def startup():
         try:
             result = await sweep_fallback_logs()
             if result.get("swept", 0) > 0:
-                logger.info("🧹 Startup sweep: pushed %d buffered log(s)", result["swept"])
+                logger.info(
+                    "🧹 Startup sweep: pushed %d buffered log(s)", result["swept"]
+                )
         except Exception as exc:
             logger.warning("⚠️  Startup sweep failed: %s", exc)
 
@@ -292,7 +300,9 @@ async def health_check():
     health["integrations"]["supabase"] = "healthy" if _supabase else "not_configured"
 
     # Aggregate
-    svc_healthy = sum(1 for s in health["services"].values() if s["status"] == "healthy")
+    svc_healthy = sum(
+        1 for s in health["services"].values() if s["status"] == "healthy"
+    )
     total = len(health["services"])
     if svc_healthy == total:
         health["status"] = "healthy"
@@ -473,7 +483,12 @@ async def stream_info():
         return {"status": "redis_unavailable"}
 
     info: dict[str, Any] = {}
-    for stream in [STREAM_AGENT_TASKS, STREAM_AGENT_RESULTS, "email:outbox", "email:inbox"]:
+    for stream in [
+        STREAM_AGENT_TASKS,
+        STREAM_AGENT_RESULTS,
+        "email:outbox",
+        "email:inbox",
+    ]:
         try:
             length = await _redis.xlen(stream)
             info[stream] = {"length": length}
@@ -527,6 +542,7 @@ async def log_agent_activity(
     _fallback_log = os.path.join(os.path.dirname(__file__), "agent_activity.jsonl")
     try:
         import json as _json
+
         with open(_fallback_log, "a", encoding="utf-8") as fh:
             fh.write(_json.dumps(record, default=str) + "\n")
         logger.info("[ACTIVITY→FILE] %s | %s | %s", agent_name, status, task_desc)
@@ -716,6 +732,7 @@ async def execute_sequential_workflow(workflow: WorkflowRequest):
 
 class PipelineStage(BaseModel):
     """A stage in a pipeline.  All tasks within a stage run in parallel."""
+
     tasks: list[AgentTask]
 
 
@@ -725,6 +742,7 @@ class PipelineRequest(BaseModel):
     This is the recommended pattern once real traffic hits — avoids the
     sequential bottleneck while preserving dependency ordering between stages.
     """
+
     stages: list[PipelineStage]
     metadata: dict[str, Any] | None = None
 
@@ -761,11 +779,13 @@ async def execute_pipeline_workflow(pipeline: PipelineRequest):
                 else:
                     clean.append(r)
 
-            stage_results.append({
-                "stage": idx + 1,
-                "tasks_count": len(stage.tasks),
-                "results": clean,
-            })
+            stage_results.append(
+                {
+                    "stage": idx + 1,
+                    "tasks_count": len(stage.tasks),
+                    "results": clean,
+                }
+            )
             prev_stage_output = clean
 
     return {
@@ -790,7 +810,7 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
         raise HTTPException(
             status_code=400,
             detail="Reflection workflow requires at least 1 task (implementation). "
-                   "An optional 2nd task specifies the evaluation agent.",
+            "An optional 2nd task specifies the evaluation agent.",
         )
 
     max_iterations = (workflow.metadata or {}).get("max_iterations", 3)
@@ -811,7 +831,9 @@ async def execute_reflection_workflow(workflow: WorkflowRequest):
         )
         evaluation = await execute_task_async(None, eval_task)
 
-        iterations.append({"iteration": i + 1, "implementation": impl, "evaluation": evaluation})
+        iterations.append(
+            {"iteration": i + 1, "implementation": impl, "evaluation": evaluation}
+        )
 
         # extract score/feedback from the nested result body —
         # execute_task_async wraps downstream responses under "result"
@@ -859,7 +881,10 @@ async def backend_health():
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
             resp = await client.get(f"{url}/health")
-            return {"backend_status": resp.status_code, "body": resp.json() if resp.status_code < 400 else resp.text[:200]}
+            return {
+                "backend_status": resp.status_code,
+                "body": resp.json() if resp.status_code < 400 else resp.text[:200],
+            }
     except Exception as e:
         return {"backend_status": "unreachable", "error": str(e)[:200]}
 
@@ -941,11 +966,13 @@ async def execute_bim_carbon_pipeline(req: BIMPipelineRequest):
         },
     )
     sr_result = await execute_task_async(None, situation_room_step)
-    results["steps"].append({
-        "agent": "backend",
-        "task": "Situation Room report feed",
-        "result": sr_result,
-    })
+    results["steps"].append(
+        {
+            "agent": "backend",
+            "task": "Situation Room report feed",
+            "result": sr_result,
+        }
+    )
     results["situation_room"] = sr_result.get("status", "unknown")
 
     # Optional async callback

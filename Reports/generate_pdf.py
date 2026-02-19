@@ -286,7 +286,6 @@ def markdown_to_html(md_file):
     return html.replace("🔴", '<span class="status-red">🔴</span>')
 
 
-
 def create_logo_placeholder(output_path):
     """Create a simple SVG logo placeholder if logo doesn't exist"""
     svg_logo = """

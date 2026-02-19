@@ -143,7 +143,9 @@ class RevolutClient:
             }
 
         except httpx.HTTPStatusError as e:
-            logger.error(f"Revolut API error: {e.response.status_code} - {e.response.text}")
+            logger.error(
+                f"Revolut API error: {e.response.status_code} - {e.response.text}"
+            )
             raise RevolutError(
                 f"Failed to create payment request: {e.response.text}",
                 status_code=e.response.status_code,
@@ -204,9 +206,7 @@ class RevolutClient:
                 status_code=e.response.status_code,
             ) from e
 
-    def verify_webhook_signature(
-        self, payload: bytes, signature: str
-    ) -> bool:
+    def verify_webhook_signature(self, payload: bytes, signature: str) -> bool:
         """
         Verify the signature of a Revolut webhook payload.
 

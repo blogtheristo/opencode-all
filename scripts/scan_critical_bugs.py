@@ -475,7 +475,8 @@ const apiKey = process.env.API_KEY;
                 "ev" + "al(userInput);\n"
                 "\n"
                 "// ✅ Secure\n"
-                "// Don't use ev" + "al(). Use JSON.parse() with validation or a safe parser\n"
+                "// Don't use ev"
+                + "al(). Use JSON.parse() with validation or a safe parser\n"
                 "```\n"
             ),
         }
