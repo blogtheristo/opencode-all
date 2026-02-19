@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lifetime Firehorse Store | Digital Services</title>
     <meta name="description" content="Web development, secure email, data services, and business tools from Lifetime Firehorse Store.">
     <style>
@@ -41,12 +41,6 @@
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
         .payment-badge span { font-size: 0.8rem; color: #64748b; }
 
-        /* Navigation */
-        .nav-header { background: #1e293b; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.4rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
 
 
 
@@ -61,12 +55,12 @@
         .site-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; }
         .site-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
         .site-footer a:hover { color: #60a5fa; }
-        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 40px 32px; }
+        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
         .footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
         .footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
-        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 40px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
         .footer-payments span { font-size: 0.8rem; }
-        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
         .footer-locale svg { flex-shrink: 0; }
         .footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -84,6 +78,7 @@
             h1 { font-size: 1.8rem; }
             .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
+            .product-image { height: 140px; }
             .btn-group { flex-direction: row; }
             .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; }
             .category-btn { padding: 12px 18px; font-size: 0.875rem; }
@@ -95,18 +90,8 @@
     </style>
 </head>
 <body>
-    <nav class="nav-header">
-        <a href="../../" class="nav-brand">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#60a5fa" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../../">Home</a>
-            <a href="../" style="color: #60a5fa; font-weight: 600;">Store</a>
-            <a href="../../legal/">Legal</a>
-            <a href="../../dashboard/login/" class="btn btn-primary" style="padding: 8px 16px;">Login</a>
-        </div>
-    </nav>
+    <!-- Gamma Ironclad Navigation -->
+    <script src="../../shared-assets/nav/ironclad-nav.js"></script>
 
     <main class="container">
         <h1>Digital Services</h1>
@@ -403,6 +388,5 @@
         </div>
     </footer>
     <script src="../../shared-assets/vat-locale.js"></script>
-    <script src="../../shared-assets/nav/hamburger-menu.js"></script>
 </body>
 </html>
