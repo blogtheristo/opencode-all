@@ -189,7 +189,7 @@
         .store-identity-badges { display: flex; gap: 8px; margin-left: auto; }
 
         /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
         .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
@@ -268,12 +268,12 @@
         .site-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; }
         .site-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
         .site-footer a:hover { color: #60a5fa; }
-        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 40px 32px; }
+        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
         .footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
         .footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
-        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 40px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
         .footer-payments span { font-size: 0.8rem; }
-        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
         .footer-locale svg { flex-shrink: 0; }
         .footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -300,17 +300,22 @@
             .hero-title { font-size: 1.8rem; }
             .hero-subtitle { font-size: 1rem; }
             .hero-info-box { flex: none; width: 100%; }
+            .hero-info-box img { height: 120px; }
             .hero-cta-group { flex-direction: column; }
             .hero-cta { justify-content: center; }
             .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
+            .product-image { height: 140px; }
+            .product-title { font-size: 1.1rem; }
+            .product-price { font-size: 1.4rem; }
             .btn-group { flex-direction: row; }
+            .btn { padding: 10px 12px; font-size: 0.85rem; }
             .trust-badges { gap: 20px; }
             .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; margin-bottom: 24px; }
             .category-btn { padding: 12px 18px; font-size: 0.875rem; }
-            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 20px 24px; gap: 24px; }
-            .footer-payments { padding: 0 20px 20px; }
-            .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 16px 24px; gap: 24px; }
+            .footer-payments { padding: 0 16px 20px; }
+            .footer-bottom { padding: 16px 16px; flex-direction: column; align-items: flex-start; }
             .footer-legal { gap: 12px; }
             .store-identity { flex-direction: column; text-align: center; padding: 20px; }
             .store-identity-badges { margin-left: 0; }
