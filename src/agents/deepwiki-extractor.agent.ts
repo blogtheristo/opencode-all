@@ -242,9 +242,16 @@ export class DeepWikiExtractorAgent extends BaseAgent {
     const targetModule = input.targetModule;
     const language = input.language;
 
-    if (typeof repoUrl !== 'string' || !repoUrl.includes('github')) {
+    if (typeof repoUrl !== 'string') {
       throw new Error('repoUrl must be a valid GitHub repository URL');
     }
+    // Enforce github.com/{owner}/{repo} format, strip extra path segments
+    const urlMatch = repoUrl.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/([^/]+)\/([^/?#]+)/);
+    if (!urlMatch) {
+      throw new Error('repoUrl must be a valid GitHub repository URL in the form github.com/{owner}/{repo}');
+    }
+    const [, owner, repoName] = urlMatch;
+    const normalizedRepoUrl = `https://github.com/${owner}/${repoName.replace(/\.git$/, '')}`;
     if (typeof functionality !== 'string' || functionality.length < 10) {
       throw new Error('functionality must be a descriptive string (min 10 chars)');
     }
@@ -255,7 +262,7 @@ export class DeepWikiExtractorAgent extends BaseAgent {
       throw new Error('language must be "typescript" or "python"');
     }
 
-    return { repoUrl, functionality, targetModule, language };
+    return { repoUrl: normalizedRepoUrl, functionality, targetModule, language };
   }
 
   /** Convert a GitHub URL to a DeepWiki URL */

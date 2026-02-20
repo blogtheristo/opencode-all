@@ -251,8 +251,12 @@ export class SalesOutreachAgent extends BaseAgent {
     return {
       targetDescription: input.targetDescription,
       offering: input.offering,
-      senderName: (input.senderName as string) || 'DWS Sales Team',
-      senderCompany: (input.senderCompany as string) || 'Lifetime Oy',
+      senderName: (typeof input.senderName === 'string' && input.senderName.trim())
+        ? input.senderName.trim()
+        : 'DWS Sales Team',
+      senderCompany: (typeof input.senderCompany === 'string' && input.senderCompany.trim())
+        ? input.senderCompany.trim()
+        : 'Lifetime Oy',
       emailStyle: style,
       maxCompanies,
     };
@@ -272,7 +276,10 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.companies || []).slice(0, input.maxCompanies);
+      if (!Array.isArray(parsed.companies) || parsed.companies.length === 0 || result.model === 'placeholder') {
+        return this.generatePlaceholderCompanies(input);
+      }
+      return parsed.companies.slice(0, input.maxCompanies);
     } catch {
       // Deterministic fallback with placeholder companies
       return this.generatePlaceholderCompanies(input);
@@ -314,7 +321,17 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.companies || [];
+      if (!Array.isArray(parsed.companies) || parsed.companies.length === 0 || result.model === 'placeholder') {
+        // Deterministic fallback
+        return companies.map((c) => ({
+          company: c.name,
+          insights: [
+            `${c.industry} sector faces increasing ETS compliance costs under Fit for 55`,
+            `CSRD reporting deadline approaching - likely needs sustainability reporting automation`,
+          ],
+        }));
+      }
+      return parsed.companies;
     } catch {
       // Deterministic fallback
       return companies.map((c) => ({
@@ -353,7 +370,34 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.emails || []).map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
+      if (!Array.isArray(parsed.emails) || parsed.emails.length === 0 || result.model === 'placeholder') {
+        // Deterministic fallback: one email per unique company
+        const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
+        return uniqueCompanies.map((company) => {
+          const companyInsights = insights.find((i) => i.company === company);
+          const insight = companyInsights?.insights[0] || 'EU climate compliance requirements are intensifying';
+          return {
+            company,
+            contact: contacts.find((c) => c.company === company)?.fullName || 'Sustainability Team',
+            subject: `${company} + ${input.senderCompany}: Climate Compliance Automation`,
+            body: [
+              `Hi,`,
+              ``,
+              `${insight}.`,
+              ``,
+              `At ${input.senderCompany}, we help ${company}'s industry automate compliance with ${valueProp}.`,
+              ``,
+              `Would you be open to a 15-minute call to explore whether this could save your team time on upcoming reporting deadlines?`,
+              ``,
+              `Best regards,`,
+              `${input.senderName}`,
+              `${input.senderCompany}`,
+            ].join('\n'),
+            style: input.emailStyle,
+          };
+        });
+      }
+      return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
     } catch {
       // Deterministic fallback: one email per unique company
       const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];

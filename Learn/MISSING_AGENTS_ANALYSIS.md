@@ -19,7 +19,9 @@ Document Status:
 
 ***
 
-## Current State: 6 Implemented, 19+ Missing
+## Current State as of 11.02.2026: 6 Implemented, 19+ Missing
+
+> **Note:** This is a point-in-time snapshot from 11.02.2026. Additional agents (ComplianceResearcher, SalesOutreach, EmissionsDataAnalyst, DeepWikiExtractor) were added in subsequent PRs. Check `src/agents/index.ts` for the current registered agent list.
 
 ### Implemented (in `src/agents/`)
 

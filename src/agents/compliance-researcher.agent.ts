@@ -279,6 +279,9 @@ export class ComplianceResearcherAgent extends BaseAgent {
     const regs = Array.isArray(input.regulations)
       ? (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[]
       : ['csrd'] as Regulation[];
+    if (regs.length === 0) {
+      throw new Error(`No valid regulations provided. Must include at least one of: ${validRegs.join(', ')}`);
+    }
     const depth = ['quick', 'standard', 'deep'].includes(input.depth as string)
       ? (input.depth as 'quick' | 'standard' | 'deep')
       : 'standard';
@@ -366,7 +369,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
       facts: Array<{ regulation: string; fact: string }>;
       deadlines: Array<{ regulation: string; deadline: string; description: string }>;
     },
-  ): Promise<string> {
+  ): Promise<{ title: string; executiveSummary: string; sections: Array<{ heading: string; content: string }>; nextSteps: string[] }> {
     const prompt = [
       `Write a compliance research report for the ${input.industry} industry.`,
       `Topic: ${input.topic}`,
@@ -385,11 +388,24 @@ export class ComplianceResearcherAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.executiveSummary || result.content;
+      if (result.model === 'placeholder' || !parsed.executiveSummary) {
+        throw new Error('Placeholder or incomplete response');
+      }
+      return {
+        title: parsed.title || `Compliance Report: ${input.topic}`,
+        executiveSummary: parsed.executiveSummary,
+        sections: Array.isArray(parsed.sections) ? parsed.sections : [],
+        nextSteps: Array.isArray(parsed.nextSteps) ? parsed.nextSteps : [],
+      };
     } catch {
       // Deterministic fallback
       const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
-      return `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`;
+      return {
+        title: `Compliance Report: ${input.topic}`,
+        executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+        sections: [],
+        nextSteps: [],
+      };
     }
   }
 
