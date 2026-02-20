@@ -19,22 +19,31 @@ Document Status:
 
 ***
 
-## Current State as of 11.02.2026: 6 Implemented, 19+ Missing
+## Current State as of 11.02.2026: 10 Implemented, 15+ Missing
 
-> **Note:** This is a point-in-time snapshot taken on 11.02.2026. As of the merge of PR #553, the agents for Compliance, QualityGate, Construction, and Logistics have been integrated into `src/agents/` and should be considered **Implemented**. The counts below reflect the architecture state prior to those additions. If you are referencing this document for a new audit, please update the table above to include these agents and adjust the totals accordingly.
+> **Note:** Following the merge of PR #553, the agents for Compliance, QualityGate, Construction, and Logistics have been integrated into `src/agents/` and should be considered **Implemented**. The counts below reflect the full state after those additions. If you are referencing this document for a new audit, please check `src/agents/` directly for the most current list.
 
-### Implemented (in `src/agents/`) — as of 11.02.2026
+### Implemented (in `src/agents/`) — original 6, as of 11.02.2026
 
-| Agent | Purpose | Tier |
-|-------|---------|------|
-| SiteSense | Site monitoring, weather/safety scoring | 1 |
-| ScheduleGenius | Critical path analysis, timeline optimization | 1 |
-| MaterialOracle | EN 15978 carbon footprint, material alternatives | 1 |
-| CustomerSat | Customer health scoring, churn prediction | 1 |
-| Viability | ROI, NPV, EU ETS carbon credit valuation | 1 |
-| DeepWikiExtractor | Code extraction from GitHub repos | 1 |
+| Agent | Purpose | Origin | Tier |
+|-------|---------|--------|------|
+| SiteSense | Site monitoring, weather/safety scoring | Legacy core | 1 |
+| ScheduleGenius | Critical path analysis, timeline optimization | Legacy core | 1 |
+| MaterialOracle | EN 15978 carbon footprint, material alternatives | Legacy core | 1 |
+| CustomerSat | Customer health scoring, churn prediction | Legacy core | 1 |
+| Viability | ROI, NPV, EU ETS carbon credit valuation | Legacy core | 1 |
+| DeepWikiExtractor | Code extraction from GitHub repos | Legacy core | 1 |
 
 All six are Tier 1 (read-only analysis). None perform mutations, send communications, or touch financial systems.
+
+### Added by PR #553
+
+| Agent | Purpose | Origin | Tier |
+|-------|---------|--------|------|
+| Compliance | EU regulatory compliance monitoring (Fit for 55, ETS, CBAM, CSRD) | PR #553 | 1 |
+| QualityGate | Deployment readiness, test coverage, security scan aggregation | PR #553 | 1 |
+| Construction | Construction compliance orchestration, BIM carbon tracking | PR #553 | 1 |
+| Logistics | Transport route optimisation, Kela API, ADR compliance | PR #553 | 1 |
 
 ---
 
