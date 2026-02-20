@@ -115,8 +115,12 @@ foreach ($line in $worktrees) {
         Push-Location $worktreePath
         try {
             git add ".claude/settings.local.json"
-            git commit -m "fix: restore complete Claude configuration (hooks + permissions)" 2>$null
-            Write-Host "  COMMITTED $branch" -ForegroundColor Blue
+            git commit -m "fix: restore complete Claude configuration (hooks + permissions)"
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "  COMMITTED $branch" -ForegroundColor Blue
+            } else {
+                Write-Host "  WARNING could not commit $branch (exit code $LASTEXITCODE)" -ForegroundColor Yellow
+            }
         } catch {
             Write-Host "  WARNING could not commit $branch" -ForegroundColor Yellow
         }
