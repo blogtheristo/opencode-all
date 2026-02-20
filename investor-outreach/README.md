@@ -1,5 +1,28 @@
 # Investor Outreach Resources
 
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.1
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: claude/fix-0-investor-outreach-problem | Date: 04.01.2026 | Changes: Initial creation - investor outreach resources, templates, and workflows for raising €150K SAFE
+  - Version: 1.1 | Tool: GitHub Copilot | Session: copilot/sub-pr-433 | Date: 20.02.2026 | Changes: Added VERSION AND AGENT HISTORY header block per DWS_DOCUMENT_STANDARD.md §2.1
+
+Session Links & References:
+  - Claude Code (claude/fix-0-investor-outreach-problem): https://github.com/blogtheristo/dws6/commits/main
+  - GitHub Copilot (copilot/sub-pr-433): https://github.com/blogtheristo/dws6/pull/434
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/investor-outreach/README.md
+
+Document Status:
+  - Created: 04.01.2026
+  - Last Modified: 20.02.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
 **Current Status: 0 investor emails sent per day**
 **Target: 5 emails per day minimum**
 **Goal: €150K SAFE closed in 16 weeks**
