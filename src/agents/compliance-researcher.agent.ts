@@ -366,7 +366,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
       facts: Array<{ regulation: string; fact: string }>;
       deadlines: Array<{ regulation: string; deadline: string; description: string }>;
     },
-  ): Promise<string> {
+  ): Promise<Record<string, unknown> | string> {
     const prompt = [
       `Write a compliance research report for the ${input.industry} industry.`,
       `Topic: ${input.topic}`,
@@ -384,8 +384,11 @@ export class ComplianceResearcherAgent extends BaseAgent {
 
     const result = await this.callLLM(prompt);
     try {
-      const parsed = JSON.parse(result.content);
-      return parsed.executiveSummary || result.content;
+      const parsed = JSON.parse(result.content) as Record<string, unknown>;
+      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+        return parsed;
+      }
+      return result.content;
     } catch {
       // Deterministic fallback
       const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
