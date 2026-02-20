@@ -775,6 +775,20 @@ Key documentation files:
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
 
+### Merge Conflict Resolution Rule (CRITICAL)
+
+**The human resolves merge conflicts in the GitHub PR web UI, not locally.**
+
+When a merge produces conflicts:
+1. **Do NOT** resolve conflicts locally with file edits
+2. **Do NOT** try to accept "current" or "incoming" changes in the worktree
+3. **DO** push the branch so the conflict is visible in the PR
+4. **DO** tell the human which files have conflicts and what each side contains
+5. **DO** wait — the human will resolve via GitHub's conflict editor
+6. **DO** `git pull` after the human confirms they resolved it on GitHub, then push if needed
+
+This is the standard workflow. The human always uses GitHub's web conflict resolution UI.
+
 ### Worktree Best Practices
 
 **Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
