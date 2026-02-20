@@ -64,6 +64,10 @@ CREATE TABLE outreach_orgs (
   website TEXT,
   linkedin_url TEXT,
 
+  -- Prospect tracking: orgs without a named contact yet
+  prospect_status TEXT NOT NULL DEFAULT 'target_needs_contact'
+    CHECK (prospect_status IN ('target_needs_contact', 'contact_identified', 'active')),
+
   -- Attribution
   source outreach_source DEFAULT 'manual' NOT NULL,
   created_by VARCHAR(100) DEFAULT 'system' NOT NULL,
@@ -500,74 +504,9 @@ INSERT INTO outreach_threads (
   'wait', NULL, CURRENT_DATE
 );
 
--- One Click LCA -> partner pipeline (placeholder contact until we find the right person)
-INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
-  ('https://www.linkedin.com/company/one-click-lca/', 'Partnerships', 'Team', 'BD/Partnerships', 'Helsinki, Finland',
-   (SELECT id FROM outreach_orgs WHERE domain = 'oneclicklca.com'), 'manual', 'risto');
-
-INSERT INTO outreach_threads (
-  person_id, org_id, pipeline, priority,
-  partnership_type,
-  status, source, created_by,
-  our_angle, their_angle, next_action, next_action_type, next_action_date
-) VALUES (
-  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/one-click-lca/'),
-  (SELECT id FROM outreach_orgs WHERE domain = 'oneclicklca.com'),
-  'partner', 'high',
-  'Technology',
-  'new', 'manual', 'risto',
-  'Their design-phase LCA outputs become our input. We extend their value chain into operations compliance.',
-  'Their customers finish design-phase LCA then have no tool for ongoing operations reporting. We fill that gap.',
-  'Find the right BD contact at One Click LCA. Prepare pitch: "Your output is our input."',
-  'research',
-  CURRENT_DATE + 3
-);
-
--- IFS Cloud -> partner pipeline
-INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
-  ('https://www.linkedin.com/company/aborasolarglass/', 'ISV Marketplace', 'Team', 'ISV/Marketplace', 'Linkoping, Sweden',
-   (SELECT id FROM outreach_orgs WHERE domain = 'ifs.com'), 'manual', 'risto');
-
-INSERT INTO outreach_threads (
-  person_id, org_id, pipeline, priority,
-  partnership_type,
-  status, source, created_by,
-  our_angle, their_angle, next_action, next_action_type, next_action_date
-) VALUES (
-  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/aborasolarglass/'),
-  (SELECT id FROM outreach_orgs WHERE domain = 'ifs.com'),
-  'partner', 'high',
-  'Integration',
-  'new', 'manual', 'risto',
-  'Our most production-ready ERP connector. IFS dominates asset-intensive industries. Marketplace listing = distribution.',
-  'Their customers need climate compliance. We automate CSRD reporting from IFS data. Adds platform value.',
-  'Research IFS Cloud ISV partner program. Find Nordic region contact. Prepare integration demo.',
-  'research',
-  CURRENT_DATE + 5
-);
-
--- NCC AB -> customer pipeline
-INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by) VALUES
-  ('https://www.linkedin.com/company/ncc/', 'Sustainability', 'Director', 'Sustainability Director', 'Stockholm, Sweden',
-   (SELECT id FROM outreach_orgs WHERE domain = 'ncc.se'), 'manual', 'risto');
-
-INSERT INTO outreach_threads (
-  person_id, org_id, pipeline, priority,
-  customer_segment,
-  status, source, created_by,
-  our_angle, their_angle, next_action, next_action_type, next_action_date
-) VALUES (
-  (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/company/ncc/'),
-  (SELECT id FROM outreach_orgs WHERE domain = 'ncc.se'),
-  'customer', 'high',
-  'Construction',
-  'new', 'manual', 'risto',
-  'Nordic construction giant. Uses IFS Cloud. Has One Click LCA for design phase. Needs operations compliance automation.',
-  'CSRD filing deadline approaching. Manual reporting across projects. Need automated ERP-to-report pipeline.',
-  'Research NCC sustainability team on LinkedIn. Find the real person. Prepare construction operations compliance pitch.',
-  'research',
-  CURRENT_DATE + 3
-);
+-- One Click LCA, IFS, NCC — orgs exist above but NO placeholder persons/threads.
+-- Rule: only create person+thread when you have a named human with LinkedIn URL.
+-- The org's prospect_status = 'target_needs_contact' signals "find the buyer first".
 
 -- Log initial Boardy activities
 INSERT INTO outreach_activities (thread_id, person_id, org_id, pipeline, channel, activity_type, description, raw_payload, outcome, source, created_by)

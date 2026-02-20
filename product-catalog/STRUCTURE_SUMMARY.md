@@ -1,5 +1,5 @@
 # Product Catalog Structure - Implementation Summary
-**Created: 2026-01-23 | Session: r6bU3**
+**Created: 2026-01-23 | Updated: 2026-02-14 | Session: 01Uyf3ZyeW3UQhotzJVEpo7s**
 
 ---
 
@@ -22,12 +22,15 @@ product-catalog/
 └── Firehorse/                             ← Firehorse product family
     ├── README.md                          ← Product overview, use cases, pricing
     ├── V1/                                ← Legacy version (placeholder)
-    └── V2/                                ← NVIDIA Inception submission (current)
-        ├── product-specification.md       ← Technical specs (from V2_Firehorse.md)
+    ├── V2/                                ← NVIDIA Inception submission (enterprise)
+    │   ├── product-specification.md       ← Technical specs (from V2_Firehorse.md)
+    │   └── google-merchant-product.json   ← Google Merchant Center feed
+    └── V3/                                ← SME Communication & Compliance (€9.99/mo)
+        ├── product-specification.md       ← Jitsi Meet + Email + Compliance
         └── google-merchant-product.json   ← Google Merchant Center feed
 ```
 
-**Total Files Created:** 8 files, 2,583 lines
+**Total Files Created:** 10 files
 
 ---
 
@@ -91,6 +94,24 @@ product-catalog/
    - Subscription: €25,000 EUR/year
    - All required fields + custom labels
    - Brand color: #76B900 (NVIDIA Green)
+
+### Firehorse V3 (SME Communication & Compliance)
+9. **`product-catalog/Firehorse/V3/product-specification.md`**
+   - SME-targeted communication + compliance suite
+   - Jitsi Meet video conferencing (EU-hosted)
+   - Custom domain email (Postfix/Dovecot or Migadu)
+   - Fit for 55 / CSRD compliance tools
+   - Pricing: €9.99/mo per user (SME), €19.99/mo (Professional)
+   - Target market: EU SMEs (1-250 employees)
+   - Upsell path to Firehorse V2 enterprise
+
+10. **`product-catalog/Firehorse/V3/google-merchant-product.json`**
+    - **Complete Google Merchant Next schema**
+    - Product ID: `FIREHORSE-V3-2026`
+    - Price: €9.99 EUR/month per user
+    - Item group: `FIREHORSE-FAMILY`
+    - Brand color: #2563eb (DWS Blue)
+    - isBundle: true (video + email + compliance)
 
 ---
 

@@ -356,7 +356,7 @@ Contact office@dws10.com to request documentation pack.
 
 ### Follow Us
 - **Website**: https://dws10.com/partners
-- **LinkedIn**: [Lifetime Consulting Oy](https://www.linkedin.com/company/lifetime-consulting-oy)
+- **LinkedIn**: [Lifetime Oy](https://www.linkedin.com/company/lifetime-consulting-oy)
 - **Platform**: https://dws10.com
 
 ---
