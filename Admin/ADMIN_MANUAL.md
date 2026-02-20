@@ -2639,10 +2639,64 @@ src/morning-briefing/
 
 ---
 
+## Automated PR Workflow (HIL Automation)
+
+### Overview
+
+All code changes undergo automated dual-model AI review before merge, replacing manual human-in-the-loop review:
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+### Workflow Files
+
+| File | Purpose |
+|------|---------|
+| `.github/workflows/ai-pr-review.yml` | Dual AI review (Claude + Gemini HIL) |
+| `.github/workflows/pr-auto-merge.yml` | Auto-merge when approved + CI green |
+| `.github/copilot-setup-steps.yml` | Copilot coding agent environment setup |
+
+### How It Works
+
+1. Claude Code generates implementation on a feature branch and opens a PR
+2. **Claude** performs quick sanity check (security, correctness, breaking changes)
+3. **Gemini** performs deep HIL review (edge cases, tests, architecture, OWASP security)
+4. Gemini defaults to **REQUEST_CHANGES** — only APPROVE when zero issues + adequate tests
+5. If changes requested: structured fix instructions sent to **@copilot** coding agent
+6. Copilot implements fixes, pushes to branch → review re-triggers automatically
+7. When both approve: `ai-approved` label triggers auto-merge workflow
+
+### Labels
+
+| Label | Meaning |
+|-------|---------|
+| `ai-reviewed` | AI review completed (dual-model) |
+| `ai-approved` | Both Claude + Gemini approved |
+| `ai-changes-requested` | Issues found, waiting for fixes |
+| `do-not-merge` | Human override: block auto-merge |
+| `needs-human-review` | Human override: pause for manual review |
+
+### Required Secrets
+
+| Secret | Purpose |
+|--------|---------|
+| `ANTHROPIC_API_KEY` | Claude API review (GitHub Settings → Secrets) |
+| `GOOGLE_AI_API_KEY` | Gemini API review (GitHub Settings + Google Secret Manager) |
+
+### MCP Hub Integration
+
+Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`). Model: `gemini-2.0-flash`. Cloud Run service: `dws6run6` (europe-north1).
+
+---
+
 ## Document Changelog
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 2.3 | Feb 20, 2026 | Automated PR Workflow (HIL Automation): Claude + Gemini dual review, Copilot fix loop, auto-merge, Cloud Run dws6run6 | e5wXD |
 | 2.2 | Feb 17, 2026 | Appendix A: CEO Cockpit Morning Briefing — schedule, data entry, configuration, troubleshooting, fix history | K3bXV |
 | 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
 | 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |

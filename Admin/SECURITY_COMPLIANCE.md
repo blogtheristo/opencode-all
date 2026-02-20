@@ -410,6 +410,23 @@ Treat prompt cache hit rate as an uptime metric. A sustained drop below 85% indi
 
 ---
 
+## Automated Code Review — Security Controls
+
+All code changes undergo mandatory dual-model AI security review before merge, replacing manual human-in-the-loop review:
+
+| Review Layer | Model | Focus | Default Posture |
+|-------------|-------|-------|-----------------|
+| Quick sanity check | Claude Sonnet 4 | Secret exposure, injection, breaking changes | Flag critical issues |
+| Deep HIL review | Gemini 2.0 Flash | OWASP Top 10, edge cases, test gaps, architecture | REQUEST_CHANGES (strict) |
+
+**Automated fix loop:** When issues are found, structured fix instructions are routed to GitHub Copilot coding agent, which implements fixes and re-triggers review automatically.
+
+**Human overrides:** `do-not-merge` and `needs-human-review` labels pause automation for CISO/security team review.
+
+**Deployment:** Gemini review runs on Cloud Run (`dws6run6`, europe-north1, Finland). MCP Hub exposes `POST /gemini/review` for on-demand security analysis by any agent.
+
+---
+
 ## Appendix: Infrastructure Providers
 
 | Provider | Service | Certification | EU Region |
@@ -425,7 +442,7 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.3
-**Last Updated:** February 19, 2026
+**Document Version:** 1.4
+**Last Updated:** February 20, 2026
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
