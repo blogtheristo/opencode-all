@@ -272,7 +272,10 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.companies || []).slice(0, input.maxCompanies);
+      if (!Array.isArray(parsed.companies) || parsed.companies.length === 0) {
+        return this.generatePlaceholderCompanies(input);
+      }
+      return parsed.companies.slice(0, input.maxCompanies);
     } catch {
       // Deterministic fallback with placeholder companies
       return this.generatePlaceholderCompanies(input);
@@ -314,7 +317,10 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.companies || [];
+      if (!Array.isArray(parsed.companies) || parsed.companies.length === 0) {
+        throw new Error('Invalid LLM response: missing or empty companies array');
+      }
+      return parsed.companies;
     } catch {
       // Deterministic fallback
       return companies.map((c) => ({
@@ -353,7 +359,10 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.emails || []).map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
+      if (!Array.isArray(parsed.emails) || parsed.emails.length === 0) {
+        throw new Error('Invalid LLM response: missing or empty emails array');
+      }
+      return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
     } catch {
       // Deterministic fallback: one email per unique company
       const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
