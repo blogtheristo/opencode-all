@@ -101,7 +101,9 @@ ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update_failed';
 DROP VIEW IF EXISTS v_outreach_due_today;
 DROP VIEW IF EXISTS v_outreach_enriched;
 
-CREATE VIEW v_outreach_enriched AS
+CREATE VIEW v_outreach_enriched
+  WITH (security_invoker = true)
+AS
 SELECT
   t.id,
   t.pipeline,
@@ -142,7 +144,8 @@ LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
 -- Recreate the dependent view that was dropped
 CREATE VIEW v_outreach_due_today
-WITH (security_invoker = true) AS
+  WITH (security_invoker = true)
+AS
 SELECT ve.*,
   COALESCE(
     (SELECT COUNT(*) FROM outreach_activities oa WHERE oa.thread_id = ve.id),
