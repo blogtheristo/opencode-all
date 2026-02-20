@@ -75,30 +75,6 @@ MIGRATIONS_DIR = REPO_ROOT / "supabase" / "migrations"
 # Supabase REST helper
 # ---------------------------------------------------------------------------
 
-def supabase_rpc(sql: str) -> list[dict]:
-    """Execute read-only SQL via Supabase REST (pg_net / rpc is not needed
-    for service_role — we POST to the PostgREST rpc endpoint)."""
-    # Use the /rest/v1/rpc endpoint with a raw SQL function,
-    # or fall back to the management API. For simplicity we use
-    # the PostgREST query interface.
-    # Since we need raw SQL, we'll call the pg_net extension or
-    # use supabase-py. For this script, we use the SQL over HTTP approach.
-    url = f"{SUPABASE_URL}/rest/v1/rpc/exec_sql"
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-        "Content-Type": "application/json",
-    }
-    # If exec_sql function doesn't exist, fall back to schema introspection
-    try:
-        resp = httpx.post(url, json={"query": sql}, headers=headers, timeout=15)
-        if resp.status_code == 200:
-            return resp.json()
-    except Exception:
-        pass
-    return []
-
-
 def get_live_tables() -> set[str]:
     """Get all user tables from live Supabase via information_schema."""
     url = f"{SUPABASE_URL}/rest/v1/"
