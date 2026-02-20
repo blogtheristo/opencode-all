@@ -353,7 +353,10 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.emails || []).map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
+      if (!Array.isArray(parsed.emails) || parsed.emails.length === 0) {
+        throw new Error('emails missing or empty in LLM response');
+      }
+      return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
     } catch {
       // Deterministic fallback: one email per unique company
       const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
