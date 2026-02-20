@@ -314,17 +314,20 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.companies || [];
+      if (Array.isArray(parsed.companies) && parsed.companies.length > 0) {
+        return parsed.companies;
+      }
     } catch {
-      // Deterministic fallback
-      return companies.map((c) => ({
-        company: c.name,
-        insights: [
-          `${c.industry} sector faces increasing ETS compliance costs under Fit for 55`,
-          `CSRD reporting deadline approaching - likely needs sustainability reporting automation`,
-        ],
-      }));
+      // fall through to deterministic fallback
     }
+    // Deterministic fallback when response is missing or empty
+    return companies.map((c) => ({
+      company: c.name,
+      insights: [
+        `${c.industry} sector faces increasing ETS compliance costs under Fit for 55`,
+        `CSRD reporting deadline approaching - likely needs sustainability reporting automation`,
+      ],
+    }));
   }
 
   private async draftEmails(
