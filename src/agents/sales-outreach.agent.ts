@@ -326,9 +326,9 @@ export class SalesOutreachAgent extends BaseAgent {
         return parsed.companies;
       }
     } catch {
-      // JSON parse failed - fall through to deterministic fallback
+      // fall through to deterministic fallback
     }
-    // Deterministic fallback (placeholder/invalid/empty LLM response)
+    // Deterministic fallback when response is missing or empty
     return companies.map((c) => ({
       company: c.name,
       insights: [
