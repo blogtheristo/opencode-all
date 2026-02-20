@@ -251,8 +251,8 @@ export class SalesOutreachAgent extends BaseAgent {
     return {
       targetDescription: input.targetDescription,
       offering: input.offering,
-      senderName: (input.senderName as string) || 'DWS Sales Team',
-      senderCompany: (input.senderCompany as string) || 'Lifetime Oy',
+      senderName: (typeof input.senderName === 'string' && input.senderName.trim()) ? input.senderName.trim() : 'DWS Sales Team',
+      senderCompany: (typeof input.senderCompany === 'string' && input.senderCompany.trim()) ? input.senderCompany.trim() : 'Lifetime Oy',
       emailStyle: style,
       maxCompanies,
     };
