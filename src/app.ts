@@ -16,8 +16,14 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
+import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import agentRoutes from './agents/routes.js';
+import bimRoutes from './routes/bim.routes.js';
+import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
+import { sendBriefingNow } from './morning-briefing/index.js';
+import { emailQueue } from './services/email-queue.service.js';
 
 dotenv.config();
 
@@ -134,6 +140,7 @@ app.get('/health', (_req: Request, res: Response) => {
     features: {
       climateAssistant: !!process.env.GROQ_API_KEY,
       gatedAccess: true,
+      emailQueue: emailQueue.isAvailable(),
     },
   });
 });
@@ -158,8 +165,40 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
+// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+app.use('/api/agents', agentRoutes);
+
+// Email sending API (queued via Redis Streams)
+app.use('/api/v1/email', emailRoutes);
+
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
+
+// BIM Pipeline (construction carbon compliance)
+app.use('/api/bim', bimRoutes);
+
+// Situation Room (pipeline reports for dashboard)
+app.use('/api/situation-room', situationRoomRoutes);
+
+// Morning briefing manual trigger (secured by admin key)
+app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    await sendBriefingNow();
+    res.json({ status: 'sent', timestamp: new Date().toISOString() });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual morning briefing failed', { error: msg });
+    res.status(500).json({ error: 'Failed to send briefing', message: msg });
+  }
+});
 
 // ============ ERROR HANDLING ============
 
@@ -202,30 +241,43 @@ const server = app.listen(PORT, () => {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 
-  // Start outreach digest scheduler (06:00 Helsinki, Mon-Fri)
-  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
-    outreachScheduler.start();
-  } else {
-    logger.warn('Supabase not configured — outreach scheduler disabled');
-  }
+  // Morning briefing scheduling is handled by GitHub Actions
+  // (.github/workflows/morning-briefing.yml) — no in-process cron needed.
+  // Manual trigger available via POST /api/v1/morning-briefing/send.
+
+  // Initialize email queue (Redis Streams)
+  emailQueue.initialize().then((ready) => {
+    if (ready) {
+      emailQueue.start();
+      logger.info('Email queue worker started (Redis Streams)');
+    } else {
+      logger.info('Email queue unavailable — emails will be sent directly');
+    }
+  }).catch((err) => {
+    logger.warn('Email queue init error — emails will be sent directly', {
+      error: err.message,
+    });
+  });
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
-  outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
-  outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 

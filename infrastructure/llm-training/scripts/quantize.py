@@ -34,8 +34,6 @@ def quantize_to_gguf(model_path: str, output_path: str, bits: int = 4):
     try:
         import subprocess
 
-        from llama_cpp import Llama
-
         # Use llama.cpp convert script
         convert_script = "convert-hf-to-gguf.py"  # From llama.cpp repo
 
@@ -54,27 +52,38 @@ def quantize_to_gguf(model_path: str, output_path: str, bits: int = 4):
         f16_path = Path(output_path) / "model-f16.gguf"
         logger.info("Step 1: Converting to FP16 GGUF...")
 
-        subprocess.run([
-            "python", convert_script,
-            model_path,
-            "--outfile", str(f16_path),
-            "--outtype", "f16",
-        ], check=True)
+        subprocess.run(
+            [  # noqa: S607
+                "python",
+                convert_script,
+                model_path,
+                "--outfile",
+                str(f16_path),
+                "--outtype",
+                "f16",
+            ],
+            check=True,
+        )
 
         # Then quantize
         logger.info(f"Step 2: Quantizing to {quant_type}...")
-        subprocess.run([
-            "llama-quantize",
-            str(f16_path),
-            str(output_file),
-            quant_type,
-        ], check=True)
+        subprocess.run(
+            [  # noqa: S607
+                "llama-quantize",
+                str(f16_path),
+                str(output_file),
+                quant_type,
+            ],
+            check=True,
+        )
 
         logger.info(f"GGUF model saved: {output_file}")
         return str(output_file)
 
     except ImportError:
-        logger.error("llama-cpp-python not installed. Run: pip install llama-cpp-python")
+        logger.error(
+            "llama-cpp-python not installed. Run: pip install llama-cpp-python"
+        )
         raise
     except Exception as e:
         logger.error(f"GGUF conversion failed: {e}")
@@ -153,7 +162,9 @@ def quantize_to_gptq(model_path: str, output_path: str, bits: int = 4):
         logger.info("Preparing calibration data...")
         from datasets import load_dataset
 
-        calibration_data = load_dataset("allenai/c4", "en", split="train", streaming=True)
+        calibration_data = load_dataset(
+            "allenai/c4", "en", split="train", streaming=True
+        )
         calibration_samples = []
         for i, sample in enumerate(calibration_data):
             if i >= 128:
@@ -182,14 +193,19 @@ def quantize_to_gptq(model_path: str, output_path: str, bits: int = 4):
 def main():
     parser = argparse.ArgumentParser(description="Quantize LLM models")
     parser.add_argument("--model", "-m", required=True, help="Path to model directory")
-    parser.add_argument("--output", "-o", help="Output directory (default: model_path/quantized)")
     parser.add_argument(
-        "--format", "-f",
+        "--output", "-o", help="Output directory (default: model_path/quantized)"
+    )
+    parser.add_argument(
+        "--format",
+        "-f",
         choices=["gguf", "awq", "gptq", "all"],
         default="gguf",
-        help="Quantization format"
+        help="Quantization format",
     )
-    parser.add_argument("--bits", "-b", type=int, default=4, help="Quantization bits (for GGUF/GPTQ)")
+    parser.add_argument(
+        "--bits", "-b", type=int, default=4, help="Quantization bits (for GGUF/GPTQ)"
+    )
     args = parser.parse_args()
 
     # Setup paths
@@ -215,7 +231,9 @@ def main():
 
     if args.format in ["gguf", "all"]:
         try:
-            results["gguf"] = quantize_to_gguf(str(model_path), str(output_path), args.bits)
+            results["gguf"] = quantize_to_gguf(
+                str(model_path), str(output_path), args.bits
+            )
         except Exception as e:
             logger.error(f"GGUF quantization failed: {e}")
             if args.format == "gguf":
@@ -231,7 +249,9 @@ def main():
 
     if args.format in ["gptq", "all"]:
         try:
-            results["gptq"] = quantize_to_gptq(str(model_path), str(output_path), args.bits)
+            results["gptq"] = quantize_to_gptq(
+                str(model_path), str(output_path), args.bits
+            )
         except Exception as e:
             logger.error(f"GPTQ quantization failed: {e}")
             if args.format == "gptq":
