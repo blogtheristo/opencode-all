@@ -884,6 +884,28 @@ security_alerts:
 
 ## Database Administration
 
+### Tools
+
+#### db_push (Supabase migrations)
+
+Push migrations to the linked Supabase project (ref: `kpucuwwfhuwurdxyjjtz`):
+
+```powershell
+pwsh -File scripts/db_push.ps1
+# Or: npm run db:push
+# Skip link if already linked: pwsh -File scripts/db_push.ps1 -SkipLink
+```
+
+#### Supabase MCP
+
+MCP server at `mcp-servers/supabase/server.py` (port 8766). Provides AI tools: `query_carbon_calculations`, `log_agent_activity`, `query_compliance`. Configure in `.env.mcp`.
+
+#### Supabase Skills (Cursor)
+
+For AI-assisted database operations: MCP tool descriptors in `mcps/<server>/tools/`. See `ADMIN_MANUAL_SUPABASE_EN_v1.md`.
+
+---
+
 ### Database Schema
 
 #### Core Tables

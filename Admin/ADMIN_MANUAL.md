@@ -1,7 +1,7 @@
 # DWS IQ Platform - Admin Manual
 
-**Version:** 1.5
-**Last Updated:** January 4, 2026
+**Version:** 1.6
+**Last Updated:** February 19, 2026
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
@@ -17,10 +17,11 @@
 7. [Maintenance Plan (Complete)](#maintenance-plan-complete) ⭐ **NEW**
 8. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) ⭐ **NEW**
 9. [Code Review Process](#code-review-process) ⭐ **NEW in v1.4**
-10. [Maintenance Tasks](#maintenance-tasks)
-11. [Git Workflow](#git-workflow)
-12. [Sensitive Data Protection](#sensitive-data-protection)
-13. [Emergency Procedures](#emergency-procedures)
+10. [Tools](#tools) ⭐ **NEW**
+11. [Maintenance Tasks](#maintenance-tasks)
+12. [Git Workflow](#git-workflow)
+13. [Sensitive Data Protection](#sensitive-data-protection)
+14. [Emergency Procedures](#emergency-procedures)
 
 ---
 
@@ -829,6 +830,55 @@ Before approving/merging a PR:
 
 ---
 
+## Tools
+
+### Database Migration (db_push)
+
+Push Supabase migrations to the linked project (ref: `kpucuwwfhuwurdxyjjtz`).
+
+```powershell
+# Full run (link + push)
+pwsh -File scripts/db_push.ps1
+
+# Or via npm
+npm run db:push
+
+# Skip link if already linked
+pwsh -File scripts/db_push.ps1 -SkipLink
+npm run db:push:skip-link
+```
+
+**When to run:** After adding new migrations in `supabase/migrations/`, or when setting up on a new machine.
+
+**Check pending migrations:**
+```bash
+npx supabase migration list
+```
+
+### Supabase MCP
+
+The **Supabase MCP Server** (`mcp-servers/supabase/server.py`) provides AI-accessible tools for Supabase integration:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /tools/query_carbon_calculations` | Query carbon calculation history |
+| `POST /tools/log_agent_activity` | Log agent activity to database |
+| `POST /tools/query_compliance` | Query compliance data |
+
+**Configuration:** Port 8766. Set `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in `.env.mcp`.
+
+**Docker:** Runs as `supabase-mcp` in `docker-compose.hybrid.yml`.
+
+### Supabase Skills (Cursor)
+
+For AI-assisted database operations in Cursor, configure Supabase skills:
+
+- **MCP File System:** Supabase tool descriptors in `mcps/<server>/tools/`
+- **Skills:** Create `.cursor/skills/` or use Cursor's built-in Supabase MCP integration
+- **Reference:** `ADMIN_MANUAL_SUPABASE_EN_v1.md` for full database administration
+
+---
+
 ## Maintenance Tasks
 
 ### Weekly Tasks
@@ -1288,6 +1338,7 @@ The DWS IQ 6 Security Framework is a comprehensive 5-layer security architecture
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 1.6 | Feb 19, 2026 | Added Tools section: db_push script, Supabase MCP, Supabase skills | - |
 | 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
 | 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
 | 1.3 | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore | PxSux |
