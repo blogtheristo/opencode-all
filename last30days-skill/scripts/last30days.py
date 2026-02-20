@@ -110,8 +110,9 @@ def _search_reddit(
                 for item in retry_items:
                     if item.get("url") not in existing_urls:
                         reddit_items.append(item)
-            except Exception:
-                pass
+            except Exception as e:
+                # Best-effort retry failed; keep original results but log for diagnostics.
+                print(f"Reddit retry search failed for core topic '{core}': {e}", file=sys.stderr)
 
     return reddit_items, raw_openai, reddit_error
 
