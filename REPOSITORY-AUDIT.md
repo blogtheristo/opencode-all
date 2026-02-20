@@ -41,7 +41,7 @@ Document Status:
 ```
 Repository: dws6
 Location: /home/user/dws6
-Remote: http://local_proxy@127.0.0.1:52326/git/blogtheristo/dws6
+Remote: <redacted-remote-url>
 Branch: claude/add-investor-timeline-01LiEEtWsrRpjMyKADA3jpHe
 Status: Clean (all files committed and pushed)
 ```
