@@ -276,9 +276,12 @@ export class ComplianceResearcherAgent extends BaseAgent {
       throw new Error('topic must be a descriptive string (min 5 chars)');
     }
     const validRegs: Regulation[] = ['csrd', 'ets', 'cbam', 'fit55', 'nis2', 'eu-ai-act', 'taxonomy'];
-    const regs = Array.isArray(input.regulations)
+    const regs: Regulation[] = Array.isArray(input.regulations)
       ? (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[]
-      : ['csrd'] as Regulation[];
+      : ['csrd'];
+    if (Array.isArray(input.regulations) && regs.length === 0) {
+      throw new Error(`No valid regulations provided. Must include at least one of: ${validRegs.join(', ')}`);
+    }
     const depth = ['quick', 'standard', 'deep'].includes(input.depth as string)
       ? (input.depth as 'quick' | 'standard' | 'deep')
       : 'standard';
