@@ -157,6 +157,69 @@ To update the workflow:
 
 ---
 
+## Automated PR Workflow (AI Agent Loop)
+
+### Overview
+
+Three new workflows automate the PR review and merge cycle:
+
+```
+Claude Code → opens PR → AI Review → Copilot fixes → CI → auto-merge
+```
+
+### Workflows
+
+#### AI Code Review (`ai-pr-review.yml`)
+
+**Trigger:** `pull_request` (opened, synchronize, reopened)
+
+**What it does:**
+1. Extracts the PR diff (code files only, truncated to 60KB)
+2. Sends diff to Claude API for structured review (security, correctness, performance, style, tests)
+3. Posts review as PR comment with verdict: APPROVE / REQUEST_CHANGES / COMMENT
+4. If REQUEST_CHANGES: tags `@copilot` with fix instructions (Copilot coding agent picks these up)
+5. Applies labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
+
+**Required secrets:** `ANTHROPIC_API_KEY`
+
+#### PR Auto-Merge (`pr-auto-merge.yml`)
+
+**Trigger:** `check_suite` completed, `pull_request` labeled with `ai-approved`
+
+**What it does:**
+1. Finds open PRs with `ai-approved` label (excludes `do-not-merge`, `needs-human-review`)
+2. Verifies all CI checks passed
+3. Enables squash auto-merge via GraphQL API
+4. Falls back to `ready-to-merge` label if branch protection doesn't support auto-merge
+
+**Human overrides:**
+- Add `do-not-merge` label to block any PR from auto-merging
+- Add `needs-human-review` label to pause automation for manual review
+
+### Copilot Coding Agent Setup (`copilot-setup-steps.yml`)
+
+**Location:** `.github/copilot-setup-steps.yml`
+
+Defines environment setup for GitHub Copilot coding agent:
+- Installs Node.js dependencies (`npm install`)
+- Installs Python linting tools (ruff, bandit, safety)
+- Builds TypeScript (`npm run build`)
+
+This enables Copilot to autonomously implement fixes when tagged in PR comments.
+
+### Labels
+
+| Label | Color | Meaning |
+|-------|-------|---------|
+| `ai-reviewed` | Blue | AI review completed |
+| `ai-approved` | Green | AI review passed |
+| `ai-changes-requested` | Red | AI found issues |
+| `ready-to-merge` | Green | All checks passed, merge ready |
+| `do-not-merge` | — | Human override: block auto-merge |
+| `needs-human-review` | — | Human override: pause for review |
+
+---
+
 ## 📞 Support
 
 **Issues:**
@@ -171,6 +234,6 @@ To update the workflow:
 
 ---
 
-**Last Updated:** 2025-12-28  
+**Last Updated:** 2026-02-20
 **Maintained By:** DWS6 Repository Team  
 **Status:** ✅ Active

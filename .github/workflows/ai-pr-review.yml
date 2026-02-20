@@ -1,0 +1,236 @@
+name: AI Code Review
+
+# Triggers on PR open, update, and when review is requested
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  ai-review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    # Skip if PR was created by this workflow (prevent loops)
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        id: diff
+        run: |
+          # Get the diff between base and head
+          git fetch origin ${{ github.base_ref }} --depth=50
+          DIFF=$(git diff origin/${{ github.base_ref }}...HEAD -- \
+            '*.ts' '*.tsx' '*.js' '*.jsx' '*.py' '*.yml' '*.yaml' \
+            ':!package-lock.json' ':!*.lock' \
+            | head -c 60000)
+
+          # Get list of changed files
+          FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+
+          # Save to files for later steps
+          echo "$DIFF" > /tmp/pr-diff.txt
+          echo "$FILES" > /tmp/changed-files.txt
+
+          # Count stats
+          ADDITIONS=$(git diff --stat origin/${{ github.base_ref }}...HEAD | tail -1 | grep -oP '\d+ insertion' | grep -oP '\d+' || echo "0")
+          DELETIONS=$(git diff --stat origin/${{ github.base_ref }}...HEAD | tail -1 | grep -oP '\d+ deletion' | grep -oP '\d+' || echo "0")
+          FILE_COUNT=$(echo "$FILES" | wc -l)
+
+          echo "additions=$ADDITIONS" >> $GITHUB_OUTPUT
+          echo "deletions=$DELETIONS" >> $GITHUB_OUTPUT
+          echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+
+      - name: AI Review with Claude
+        if: env.ANTHROPIC_API_KEY != ''
+        id: claude-review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DIFF=$(cat /tmp/pr-diff.txt)
+          FILES=$(cat /tmp/changed-files.txt)
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+
+          # Build the review prompt
+          PROMPT="You are a senior engineer reviewing a pull request for DWS IQ 6, an enterprise climate intelligence platform (TypeScript/Python/React).
+
+          PR Title: ${PR_TITLE}
+          PR Description: ${PR_BODY}
+
+          Changed files:
+          ${FILES}
+
+          Diff (truncated to 60KB):
+          ${DIFF}
+
+          Review this PR with focus on:
+          1. **Security**: API key exposure, injection vulnerabilities, OWASP Top 10
+          2. **Correctness**: Logic errors, edge cases, type safety
+          3. **Performance**: N+1 queries, unnecessary re-renders, memory leaks
+          4. **Style**: Consistency with project conventions (strict TypeScript, Zod validation, functional React)
+          5. **Tests**: Are changes adequately tested?
+
+          Format your response as:
+          ## Summary
+          [1-2 sentence summary of what this PR does]
+
+          ## Issues Found
+          [List critical/high issues with file:line references. If none, say 'No critical issues found.']
+
+          ## Suggestions
+          [List improvement suggestions, ordered by priority]
+
+          ## Verdict
+          [APPROVE / REQUEST_CHANGES / COMMENT — with brief justification]
+
+          Keep the review concise and actionable. Do not repeat the diff back."
+
+          # Call Claude API
+          RESPONSE=$(curl -s -X POST "https://api.anthropic.com/v1/messages" \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$(jq -n \
+              --arg prompt "$PROMPT" \
+              '{
+                model: "claude-sonnet-4-20250514",
+                max_tokens: 2048,
+                messages: [{role: "user", content: $prompt}]
+              }')" \
+            | jq -r '.content[0].text // "Review failed: no response from Claude API"')
+
+          # Save response
+          echo "$RESPONSE" > /tmp/claude-review.txt
+
+          # Check if changes are requested
+          if echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
+            echo "verdict=request_changes" >> $GITHUB_OUTPUT
+          elif echo "$RESPONSE" | grep -qi "APPROVE"; then
+            echo "verdict=approve" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=comment" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post Review Comment
+        uses: actions/github-script@v7
+        env:
+          CLAUDE_VERDICT: ${{ steps.claude-review.outputs.verdict }}
+        with:
+          script: |
+            const fs = require('fs');
+
+            let reviewBody = '## AI Code Review\n\n';
+
+            // Claude review
+            try {
+              const claudeReview = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
+              if (claudeReview && !claudeReview.includes('Review failed')) {
+                reviewBody += '### Claude Review\n\n';
+                reviewBody += claudeReview + '\n\n';
+              } else {
+                reviewBody += '> Claude review skipped (API key not configured or call failed)\n\n';
+              }
+            } catch (e) {
+              reviewBody += '> Claude review skipped (not configured)\n\n';
+            }
+
+            // Stats
+            const additions = '${{ steps.diff.outputs.additions }}';
+            const deletions = '${{ steps.diff.outputs.deletions }}';
+            const fileCount = '${{ steps.diff.outputs.file_count }}';
+
+            reviewBody += '---\n';
+            reviewBody += `**Stats:** ${fileCount} files changed, +${additions} -${deletions}\n`;
+            reviewBody += '*Automated review by AI Code Review workflow*\n';
+
+            // Post as PR comment
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: reviewBody
+            });
+
+      - name: Request Copilot fixes if issues found
+        if: steps.claude-review.outputs.verdict == 'request_changes'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let review = '';
+            try {
+              review = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
+            } catch (e) {
+              return;
+            }
+
+            // Extract issues from the review
+            const issuesMatch = review.match(/## Issues Found\n([\s\S]*?)(?=\n## )/);
+            const issues = issuesMatch ? issuesMatch[1].trim() : '';
+
+            if (issues && !issues.includes('No critical issues')) {
+              // Post a comment tagging @copilot with fix instructions
+              const fixComment = `@copilot Please address the following issues found during AI review:\n\n${issues}\n\nFix these issues and push the changes to this PR branch.`;
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: fixComment
+              });
+            }
+
+      - name: Add review labels
+        uses: actions/github-script@v7
+        env:
+          VERDICT: ${{ steps.claude-review.outputs.verdict }}
+        with:
+          script: |
+            const verdict = process.env.VERDICT || 'comment';
+            const labels = ['ai-reviewed'];
+
+            if (verdict === 'approve') {
+              labels.push('ai-approved');
+            } else if (verdict === 'request_changes') {
+              labels.push('ai-changes-requested');
+            }
+
+            // Create labels if they don't exist, then apply
+            for (const label of labels) {
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label
+                });
+              } catch (e) {
+                // Label doesn't exist, create it
+                const colors = {
+                  'ai-reviewed': '0075ca',
+                  'ai-approved': '0e8a16',
+                  'ai-changes-requested': 'd93f0b'
+                };
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label,
+                  color: colors[label] || '666666'
+                });
+              }
+            }
+
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: labels
+            });
