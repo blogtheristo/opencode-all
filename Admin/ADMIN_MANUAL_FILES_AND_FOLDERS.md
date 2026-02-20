@@ -935,15 +935,15 @@ Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had inc
 | bold-herschel | OK | OK | FIXED |
 | bold-lewin | OK | OK | CORRECT |
 | elated-zhukovsky | OK | OK | FIXED |
-| claude/friendly-edison | OK | OK | FIXED |
+| friendly-edison | OK | OK | FIXED |
 | intelligent-lamport | OK | OK | FIXED |
 | keen-swirles | OK | OK | FIXED |
-| claude/nostalgic-bose | OK | OK | FIXED |
-| claude/quirky-knuth | OK | OK | FIXED |
-| claude/sharp-lalande | OK | OK | FIXED |
+| nostalgic-bose | OK | OK | FIXED |
+| quirky-knuth | OK | OK | FIXED |
+| sharp-lalande | OK | OK | FIXED |
 | silly-bassi | OK | OK | CORRECT |
-| claude/stoic-wilbur | OK | OK | FIXED |
-| claude/zealous-mcclintock | OK | OK | FIXED |
+| stoic-wilbur | OK | OK | FIXED |
+| zealous-mcclintock | OK | OK | FIXED |
 
 **Root cause:** Merge conflict resolution kept only one side (hooks OR permissions, not both).
 
