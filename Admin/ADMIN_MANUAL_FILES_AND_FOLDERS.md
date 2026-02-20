@@ -1427,7 +1427,7 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 - Covers Backup-ClaudeSessions.ps1 manual backup script
 - Documented what gets backed up (agents, commands, skills, hooks, settings)
 - Added safety procedures for worktree deletion and session restore
-- Added deployment status with commit d843b71 reference
+- Added deployment status section for this PR
 - Added PR creation guidance: Claude Code sessions vs. terminal
 - Added session environment detection with quick-switch tags (`/win`, `/mobile`, `/chromebook`, `/vscode`, `/cursor`)
 - Added three environment profiles: Mobile, Win11, Chromebook
