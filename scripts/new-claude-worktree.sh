@@ -332,9 +332,9 @@ fi
 # Report validation results
 if [[ ${#VALIDATION_ERRORS[@]} -gt 0 ]]; then
     echo ""
-    log_error "VALIDATION WARNINGS:"
+    log_warn "VALIDATION WARNINGS:"
     for err in "${VALIDATION_ERRORS[@]}"; do
-        log_error "  ! $err"
+        log_warn "  ! $err"
     done
     echo ""
     log_error "Claude Code sessions in this worktree may not work correctly!"
