@@ -157,9 +157,9 @@ Document Status:
 
 ### Core Principle
 
-**"5 emails a day, every day, no excuses"**
+**"5 emails a day, 5 days a week — no excuses"**
 
-That's it. Do this for 16 weeks = 560 emails = 112 responses = 10-15 calls = 2-3 commits = €150K closed.
+That's it. Do this for 16 weeks = 400 emails = 80 responses = 8–12 calls = 2–3 commits = €150K closed.
 
 ### Immediate Action Plan
 
