@@ -66,6 +66,26 @@ const CSRD_THRESHOLDS = {
   intensity_high: 0.5,          // tCO2e per EUR million revenue
 };
 
+/**
+ * Units already expressed in tCO2e (or equivalent metric tonnes).
+ * Normalised by lowercasing and stripping whitespace/hyphens before lookup.
+ */
+const TONNE_UNITS = new Set([
+  'tco2e', 'tco2', 't', 'tonne', 'tonnes', 'metricton', 'metrictons', 'mt',
+]);
+
+/**
+ * Units expressed in kg CO2e — divide by 1000 to convert to tCO2e.
+ */
+const KG_UNITS = new Set([
+  'kgco2e', 'kgco2', 'kg', 'kilogram', 'kilograms',
+]);
+
+/** Normalise a unit string for lookup: lowercase, strip spaces and hyphens. */
+function normalizeUnit(unit: string): string {
+  return unit.toLowerCase().replace(/[\s-]/g, '');
+}
+
 // ============ AGENT IMPLEMENTATION ============
 
 export class EmissionsDataAnalystAgent extends BaseAgent {
@@ -214,6 +234,25 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
     const totalEmissions = data.reduce((sum, r) => sum + (r.amount || 0), 0);
     const units = [...new Set(data.map((r) => r.unit).filter(Boolean))];
 
+    // Normalize amounts to tCO2e for ETS cost calculations.
+    // Records with unrecognized units (e.g. MWh, kWh) cannot be auto-converted
+    // and are tracked separately so callers can emit a warning.
+    const unitNormalizationFlags: string[] = [];
+    let normalizedTotalTCO2e = 0;
+    for (const record of data) {
+      const unitKey = normalizeUnit(record.unit || '');
+      if (TONNE_UNITS.has(unitKey)) {
+        normalizedTotalTCO2e += record.amount || 0;
+      } else if (KG_UNITS.has(unitKey)) {
+        normalizedTotalTCO2e += (record.amount || 0) / 1000;
+      } else {
+        // Cannot auto-convert — flag for caller
+        if (record.unit && !unitNormalizationFlags.includes(record.unit)) {
+          unitNormalizationFlags.push(record.unit);
+        }
+      }
+    }
+
     // Scope breakdown
     const scopeBreakdown: Record<string, number> = {};
     for (const record of data) {
@@ -242,6 +281,8 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
 
     return {
       totalEmissions: Math.round(totalEmissions * 100) / 100,
+      normalizedTotalTCO2e: Math.round(normalizedTotalTCO2e * 100) / 100,
+      unitNormalizationFlags,
       units,
       recordCount: data.length,
       scopeBreakdown,
@@ -263,12 +304,22 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
 
     switch (context) {
       case 'ets': {
+        const normalizedTotal = stats.normalizedTotalTCO2e as number;
+        const unitNormFlags = (stats.unitNormalizationFlags as string[]) ?? [];
+
+        if (unitNormFlags.length > 0) {
+          flags.push(
+            `Unit warning: records with unrecognized units [${unitNormFlags.join(', ')}] could not be converted to tCO2e and are excluded from the ETS cost estimate — normalize all records to tCO2e for accurate results`,
+          );
+        }
+
         if (total > 25000) {
           flags.push('Installation likely exceeds ETS Phase 4 free allocation threshold');
           recommendations.push('Review free allocation benchmarks for your sector');
           recommendations.push('Consider purchasing ETS allowances for surplus emissions');
         }
-        recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(total * 68).toLocaleString()}`);
+        const costLabel = unitNormFlags.length > 0 ? ' (partial — excludes unrecognized units)' : '';
+        recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString()}${costLabel}`);
         break;
       }
       case 'csrd': {
