@@ -247,12 +247,14 @@ export class SalesOutreachAgent extends BaseAgent {
     const maxCompanies = typeof input.maxCompanies === 'number'
       ? Math.max(1, Math.min(10, input.maxCompanies))
       : 5;
+    const senderName = (typeof input.senderName === 'string' ? input.senderName.trim() : '') || 'DWS Sales Team';
+    const senderCompany = (typeof input.senderCompany === 'string' ? input.senderCompany.trim() : '') || 'Lifetime Oy';
 
     return {
       targetDescription: input.targetDescription,
       offering: input.offering,
-      senderName: (input.senderName as string) || 'DWS Sales Team',
-      senderCompany: (input.senderCompany as string) || 'Lifetime Oy',
+      senderName,
+      senderCompany,
       emailStyle: style,
       maxCompanies,
     };
