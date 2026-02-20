@@ -928,7 +928,7 @@ In addition to session data, worktree `settings.local.json` files are backed up 
 
 ### Merge Conflict Resolution Audit (February 13, 2026)
 
-Audit of all 11 worktree `settings.local.json` files found **9 out of 11 had incomplete configurations** caused by merge conflict resolution that kept only one side. **All 12 worktrees have been fixed** using `Fix-ClaudeSettings.ps1`.
+Audit of all 12 worktree `settings.local.json` files found **9 out of 12 had incomplete configurations** caused by merge conflict resolution that kept only one side. **All 12 worktrees have been fixed** using `Fix-ClaudeSettings.ps1`.
 
 | Worktree | Hooks | Permissions | Status |
 |----------|-------|-------------|--------|
