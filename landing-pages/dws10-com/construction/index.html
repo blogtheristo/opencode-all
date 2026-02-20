@@ -164,7 +164,7 @@
                     Industry Pulse
                     <span class="live-badge">Live</span>
                 </h3>
-                <span class="updated">Updated 4 hours ago</span>
+                <span class="updated" id="pulse-updated"></span>
             </div>
 
             <div class="pulse-feed">
@@ -445,6 +445,16 @@
             <p style="margin-top:10px;">© 2026 Lifetime Oy. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        (function () {
+            var el = document.getElementById('pulse-updated');
+            if (el) {
+                var d = new Date();
+                var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                el.textContent = 'Updated ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+            }
+        })();
+    </script>
 </body>
 
 </html>
