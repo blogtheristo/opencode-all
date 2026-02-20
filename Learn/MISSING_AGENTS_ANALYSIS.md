@@ -19,9 +19,11 @@ Document Status:
 
 ***
 
-## Current State: 6 Implemented, 19+ Missing
+## Current State as of 11.02.2026: 6 Implemented, 19+ Missing
 
-### Implemented (in `src/agents/`)
+> **Note:** This is a point-in-time snapshot taken on 11.02.2026. Additional production agents (Compliance, QualityGate, Construction, Logistics, and others) have since been added to `src/agents/` as part of ongoing development.
+
+### Implemented (in `src/agents/`) — as of 11.02.2026
 
 | Agent | Purpose | Tier |
 |-------|---------|------|
