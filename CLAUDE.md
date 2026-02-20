@@ -11,8 +11,46 @@ Before making any UI changes, agents MUST consult these files:
 | **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
 | **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
 | **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
+| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
+| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
+| **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### Store Product Format Rule (CRITICAL)
+
+Files in `Store/` are **store products** consumed by the build pipeline (`scripts/build_store.py`). They use **YAML frontmatter** — NOT the DWS Document Standard header.
+
+| Location | Format | Header Style |
+|----------|--------|-------------|
+| `Store/*.md` | Store Product Format | YAML frontmatter (`title`, `price`, `sku`) |
+| `dws10.com/config/products.json` | Primary product source | JSON (all ~30 products) |
+| Everything else | DWS Document Standard | VERSION AND AGENT HISTORY block |
+
+**Never put DWS Document Standard headers in `Store/*.md` files.** The YAML parser will fail and the product will be excluded from the Google Merchant feed, store page, and product pages.
+
+### "Use DWS Standard" Rule (CRITICAL)
+
+When the human says **"Use DWS standard"** (or any variation like "with DWS standards", "follow DWS standards"), this is a shorthand that means:
+
+1. **Apply ALL relevant standards from the table above** — not just one. Evaluate which standards apply to the task and follow every one that is relevant.
+2. **Update the standards themselves** if the work adds new products, features, security controls, or brand elements. Standards are living documents that must grow with the platform.
+3. **Ensure market-value readiness** — every product artifact must be complete enough to sell: Google Merchant JSON, product specification, store listing, competitive positioning, and pricing.
+4. **Ensure security coverage** — every new feature must have security controls documented in the relevant security standard.
+5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
+
+**Example:** "Create a new product with DWS standard" means:
+- `dws10.com/config/products.json` → Add product entry (primary source: name, price, SKU, category, image, description)
+- `Store/*.md` → Optionally create extended product page with **Store Product Format** (YAML frontmatter, NOT DWS Document Standard)
+- `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
+- `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
+- `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json (for enterprise/NVIDIA products)
+
+**This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
 ## Project Overview
 
@@ -82,7 +120,18 @@ Before finishing any implementation, ask yourself:
 
 If you build 1000 lines and 100 would suffice, you have failed. Prefer the boring, obvious solution. Cleverness is expensive.
 
-#### 5. Scope Discipline
+#### 5. Phasing Discipline (Ship First, Harden Later)
+
+Do not get pulled into hardening, edge-case handling, or nitty-gritty polish before the core system works end-to-end. Perfecting a cleanup script while the actual product sits undeployed is a failure mode.
+
+**Phase order:**
+1. **Ship**: Get the system running (API, email, webhook, scheduler)
+2. **Verify**: Confirm it works with real data
+3. **Harden**: Then add fail-fast guards, token targeting, idempotency
+
+When a reviewer (human or AI) suggests hardening, ask: "Is the core system delivered yet?" If no, push back and ship first. Hardening undeployed code is wasted work if requirements change.
+
+#### 6. Scope Discipline
 
 Touch only what you're asked to touch.
 
@@ -94,7 +143,7 @@ Touch only what you're asked to touch.
 
 Your job is surgical precision, not unsolicited renovation.
 
-#### 6. Dead Code Hygiene
+#### 7. Dead Code Hygiene
 
 After refactoring or implementing changes:
 - Identify code that is now unreachable
@@ -185,6 +234,14 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 
 The human has unlimited patience for good work, but limited patience for fixing avoidable mistakes. You have unlimited stamina—use it to loop on hard problems, but don't loop on the wrong problem because you failed to clarify the goal.
 
+## Email Rules (CRITICAL)
+
+- **NEVER use `noreply@` addresses.** All emails must be sent from a real, replyable address.
+- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default recipient:** `risto@lifetime.fi`
+- **Verified domain:** `onelifetime.world` — this is the only domain configured in Resend. Do NOT use `dws6.com` or any other domain as a sender.
+- When adding new email-sending code, always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as the sender fallback.
+
 ## Tech Stack
 
 ### Frontend
@@ -253,12 +310,51 @@ dws6/
 - Root folders → Cloudflare Workers (testing)
 - Landing-pages folders → Cloudflare Pages (production)
 
-**Workflow: When editing ANY landing page:**
-1. **First** update the root folder (e.g., `dws10.com/`)
+**Workflow: When editing ANY page on ANY DWS domain:**
+1. **ALWAYS update the root folder FIRST** (e.g., `dws10.com/`)
 2. **Test** that it works on Cloudflare Workers
-3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+3. **THEN copy to landing-pages folder** (e.g., `landing-pages/dws10-com/`)
+4. Never update landing-pages first — root folder is the source of truth
 
 This ensures changes are tested before going to production.
+
+**Per-domain rules:**
+
+| Domain | Root Folder First | Then Landing Pages | Navigation |
+|--------|-------------------|-------------------|------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` | — |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` | Gamma Ironclad (`/shared-assets/nav/ironclad-nav.js`) |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` | — |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* | — |
+
+**dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
+
+### Store Update Rule (CRITICAL)
+
+When modifying the store page (`buy/index.html`), product pages, `products.json`, or any store-related assets, you MUST follow this checklist **in every commit**:
+
+1. **Update root first** — Edit `dws10.com/buy/index.html` (source of truth)
+2. **Sync to landing-pages immediately** — Copy to `landing-pages/dws10-com/buy/index.html` in the **same commit**
+3. **Sync config** — If `dws10.com/config/products.json` changed, copy to `landing-pages/dws10-com/config/products.json`
+4. **Sync shared assets** — If `shared-assets/` files changed (nav, vat-locale), copy to `landing-pages/dws10-com/shared-assets/`
+5. **Sync subpages** — If category pages (`buy/page2/`, `page3/`, `page4/`) changed, copy all to landing-pages
+6. **Verify paths** — All relative paths (`../config/`, `../shared-assets/`, `../static/`) must resolve in both locations
+
+**Why this is critical:** Cloudflare Pages serves from `landing-pages/`. If you only update `dws10.com/`, the live site stays on the old version. This has caused production incidents.
+
+**Verification command:**
+```bash
+diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html
+# Must return empty (no differences)
+```
+
+**This rule applies to ALL store artifacts:**
+- `buy/index.html` and `buy/page*/index.html`
+- `config/products.json`
+- `products//*.html` (individual product pages)
+- `shared-assets/` (nav, vat-locale)
+- `feeds/` (Google Merchant feed)
+- Static images referenced by products
 
 ## Development Commands
 
@@ -508,6 +604,39 @@ git worktree prune
 git worktree remove --force /path/to/worktree
 ```
 
+#### Claude Session Data Backup (CRITICAL)
+
+**NEVER delete worktrees without backing up Claude session data first!**
+
+Claude Code sessions contain valuable trained agents, commands, skills, and settings that are NOT committed to Git. Each worktree has its own `.claude/` directory with session-specific data.
+
+##### Daily Automated Backup
+- **GitHub Actions**: Runs daily at 6:00 AM UTC
+- **Location**: `.github/workflows/daily-claude-backup.yml`
+- **Storage**: Creates `sessions-backup` branch with timestamped archives
+
+##### Manual Backup
+```powershell
+# Run backup script
+.\scripts\Backup-ClaudeSessions.ps1
+
+# Or manually backup specific worktree
+cp -r /path/to/worktree/.claude /safe/backup/location/
+```
+
+##### What Gets Backed Up
+- `agents/` - Custom Claude agents
+- `commands/` - Custom commands and macros
+- `hooks/` - Automation hooks
+- `skills/` - Trained Claude capabilities
+- `settings.local.json` - Session preferences
+
+##### Before Deleting Worktrees
+1. **Backup session data** using the script above
+2. **Verify no active Claude sessions** are running in the worktree
+3. **Document what the worktree contained** for future reference
+4. **Only then** safely remove the worktree
+
 #### Security Checklist (Automated by Scripts)
 
 The scripts verify these automatically, but for manual worktrees:
@@ -578,6 +707,17 @@ git worktree prune
 On Windows, worktrees MUST be created on F: drive (or the same drive as main repo), NEVER in `C:\Users\`. The script enforces this automatically, but if creating manually, always use:
 - ✅ `F:\2026\Repos2026\.claude-worktrees\dws6\`
 - ❌ `C:\Users\risto\.claude-worktrees\dws6\` (AVOID - causes security issues)
+
+#### Windows Managed Settings Path Change
+
+**Effective March 11, 2026**, Claude Code on Windows will no longer read managed settings from the legacy path. Update any deployment scripts or documentation that reference the old path.
+
+| | Path |
+|---|---|
+| **Old (deprecated)** | `C:\ProgramData\ClaudeCode\managed-settings.json` |
+| **New** | `C:\Program Files\ClaudeCode\managed-settings.json` |
+
+The new path is already supported as of **Claude Code 2.0.58**. If you are running 2.0.58 or later, you can migrate immediately. After March 11, 2026, the old path will be ignored entirely.
 
 #### References
 
@@ -662,16 +802,39 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Deployment
 
-- **Primary**: Google Cloud Run + Groq
+> **Full cloud environment documentation:** `docs/CLOUD_ENVIRONMENTS.md`
+
+### Cloud Accounts
+
+| Account | Email / ID | Scope |
+|---------|-----------|-------|
+| **Pilot / EU Cloud** | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+| **US Public Cloud** | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud (Public)** | Cloudflare Pages/Workers | Global | Landing pages, dashboard SPA, edge API |
+| **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend API, AI agents, database, auth |
+| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 logging, reasoning lineage, audit trails |
+| **Hetzner (V3)** | Hetzner Helsinki | Finland | Jitsi Meet, email service (Firehorse V3) |
+
+### Deployment Targets
+- **Primary**: Google Cloud Run (europe-north1) + Groq
 - **Edge**: Cloudflare Workers (dws6.com, dws10.com)
 - **Data**: Supabase (EU-hosted)
 - **Edge AI**: NVIDIA Jetson Orin Nano
 - **Orchestration**: Temporal.io
+- **Backup**: Scaleway Serverless (fr-par)
+- **V3 Infra**: Hetzner Helsinki (Jitsi + Email)
 
 ## Documentation
 
 Key documentation files:
 - `README.md` - Project overview
+- `docs/CLOUD_ENVIRONMENTS.md` - Cloud environments, accounts, DWS 6→7 migration
+- `DWS7_ROADMAP.md` - DWS 7 production roadmap (247 PRs)
 - `ADMIN_MANUAL_*.md` - Administration guides
 - `SECURITY_COMPLIANCE.md` - Security documentation
 - `Firehorse/` directory - Product documentation
@@ -682,6 +845,27 @@ Key documentation files:
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
+
+### Branch Auto-Deletion After Merge (CRITICAL)
+
+**GitHub is configured to automatically delete branches after PR merge.** This means:
+
+1. After a PR is merged, the feature branch (e.g., `claude/update-store-hero-section-N2Hw2`) is **deleted on the remote** by GitHub
+2. **Do NOT** try to push to the same branch name for a new PR — it will need to be recreated
+3. When continuing work on a deleted branch:
+   - Fetch latest main: `git fetch origin main`
+   - Rebase local branch onto main: `git rebase origin/main`
+   - Force-push to recreate the branch: `git push -u origin <branch-name> --force`
+4. **GitHub compare links break** after branch deletion — `"There isn't anything to compare"` error is expected
+5. After recreating and pushing, create a **new PR** — the old PR number is closed
+
+**Workflow for continued work after merge:**
+```bash
+git fetch origin main
+git rebase origin/main
+git push -u origin claude/<feature>-<id> --force
+# Then create new PR via GitHub UI or gh CLI
+```
 
 ### Worktree Best Practices
 
@@ -704,3 +888,137 @@ The January 2026 security incident was caused by manual worktree creation withou
 ```
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+### PR Creation: Claude Code Sessions vs. Terminal
+
+**Use Claude Code sessions for PRs when:**
+- Actively working in that worktree (better change context)
+- Reviewing and finalizing code before PR
+- Writing PR descriptions (Claude has full context of changes)
+
+**Use terminal/command-line for PRs when:**
+- Batch-creating multiple PRs at once
+- Administrative tasks on branches without active Claude sessions
+- Quick PRs for simple, self-explanatory changes
+
+**Recommended workflow for active worktrees:**
+1. Switch to the worktree's Claude session
+2. Review and finalize changes in that session
+3. Create PR from within Claude — it has better context
+
+For worktrees without an active Claude session, use `gh pr create` directly from the terminal.
+
+### Session Environment Detection (CRITICAL)
+
+Sessions typically move across environments: mobile → Win11 → Chromebook → Win11 PR.
+
+#### Quick Environment Switch (Preferred)
+
+The user can tell Claude the current environment by including a keyword in their message:
+
+| Keyword | Meaning | Claude adjusts to |
+|---------|---------|-------------------|
+| `win` or `win11` | Windows 11 desktop | Full tooling: `gh`, PowerShell, VS Code/Cursor |
+| `mobile` | Mobile/web session | No `gh`, no PowerShell, compare-link PRs only |
+| `chromebook` | Chromebook (Linux) | Bash tools, `gh` may be available, no PowerShell |
+| `vscode` | Editing in VS Code | Expect external file changes from user |
+| `cursor` | Editing in Cursor | Expect external file changes from user |
+
+Keywords can be combined: `win vscode` = Windows 11 + VS Code.
+
+**IMPORTANT:** These are plain-text keywords in a message, NOT slash commands. Do NOT use `/win` as a standalone command — Claude Code will try to find a skill called "win" and fail. Instead, include the keyword in a regular message:
+- **Good:** `win11 — updating the admin manual`
+- **Good:** `mobile — push this branch`
+- **Bad:** `/win` (triggers skill lookup error)
+
+When the user provides a keyword, Claude should acknowledge it briefly and adjust behavior. When no keyword is given, fall back to auto-detection.
+
+#### Auto-Detection (Fallback)
+
+If the user hasn't specified, run these checks at session start:
+
+| Check | Command | Mobile | Win11 Desktop | Chromebook |
+|-------|---------|--------|---------------|------------|
+| Git remote | `git remote get-url origin` | Contains `local_proxy@127.0.0.1` | Contains `github.com` | Contains `github.com` |
+| Platform | System platform | `linux` (cloud container) | `win32` / `MINGW64_NT` | `linux` (native) |
+| `gh` CLI | `gh --version` | Not found | Available | May be available (`apt install gh`) |
+| Hostname | `hostname` | Cloud hostname | `5MGMT7FI` | Chromebook hostname |
+| Shell | `$SHELL` or `$PSVersionTable` | bash (cloud) | PowerShell / Git Bash | bash / zsh |
+
+**Key distinction:** Mobile has `local_proxy` in git remote. Chromebook has `github.com` remote but runs native Linux (not `MINGW64_NT`).
+
+#### Environment Profiles
+
+**Mobile/Web Session** (detected by `local_proxy` in git remote):
+- `gh` CLI — **not available, never will be. Do NOT attempt to use it.**
+- `GITHUB_TOKEN`, `GH_TOKEN` — not available
+- `conda`, system package managers — cannot install `gh`
+- Interactive tools (`vim`, `nano`, `less`) — not available
+- **Available:** `git push/pull/fetch`, file tools, `npm`, `node`, `python3`, `curl`, standard bash
+
+**Windows 11 Desktop** (detected by `github.com` remote + `win32`/`MINGW64_NT` platform):
+- `gh` CLI — available for PRs and GitHub operations
+- Full Git access via HTTPS
+- PowerShell scripts — available
+- **Available:** everything
+
+**Chromebook** (detected by `github.com` remote + native `linux` platform):
+- `gh` CLI — may be available (install via `apt`)
+- Git access via HTTPS
+- Bash scripts — available
+- PowerShell — not available (use bash equivalents)
+- **Available:** `git`, `npm`, `node`, `python3`, `curl`, standard Linux tools
+
+#### Editor Context
+
+The same environment may use different editors. Claude cannot reliably auto-detect the editor, but the user may specify it.
+
+| Editor | How Claude is invoked | Notes |
+|--------|----------------------|-------|
+| **Claude Code CLI** | Terminal / standalone | Full Claude Code session with all tools |
+| **VS Code** | Claude Code extension or terminal | File edits may come from user in VS Code directly |
+| **Cursor** | Claude Code extension or terminal | Similar to VS Code; AI-native editor |
+
+When the user edits files directly in VS Code or Cursor (not via Claude), those changes appear as external modifications. Claude should treat them as intentional and not revert them.
+
+#### Session Announcement Convention
+
+When the user indicates they are on **win**, **mobile**, or **chromebook** (for example by typing "win", "mobile", or "chromebook" without a leading slash), or Claude auto-detects, acknowledge briefly:
+
+```
+SESSION: [Mobile/Win11/Chromebook] | Editor: [Claude Code/VS Code/Cursor] | Branch: [branch-name] | Worktree: [worktree-name]
+```
+
+This helps track which environment and editor produced which changes. Keep it to one line — don't over-explain.
+
+#### Mobile Session PR Workflow
+
+When the user asks to create a PR from a **mobile session:**
+1. **Do NOT** try `gh pr create` — it will fail
+2. **Do NOT** try to install `gh` — it will fail
+3. **Do NOT** try GitHub API calls with Python/curl — no token available
+4. **DO** push the branch with `git push -u origin <branch>`
+5. **DO** provide the GitHub compare URL immediately:
+   `https://github.com/blogtheristo/dws6/compare/main...<branch-name>`
+6. **DO** provide the PR title and body as copyable text
+
+**Rule:** Go straight to the compare link. Zero attempts at `gh` or API calls. Every failed attempt wastes the user's time.
+
+#### Typical Multi-Environment Workflow
+
+A single feature branch often passes through multiple environments and editors:
+
+```
+1. Mobile        → Start work, draft changes, push branch
+2. Win11 + VS Code → Review code, refine, run tests
+3. Chromebook    → Quick fixes on the go
+4. Mobile        → Documentation updates
+5. Win11 + Cursor → Final review, create PR via gh or Claude Code
+```
+
+Commit messages should reflect the environment when helpful:
+```
+feat: add session backup docs (Win11/VS Code)
+fix: typo in backup section (mobile)
+docs: update admin manual (Chromebook)
+```

@@ -424,7 +424,7 @@ class CriticalBugScanner:
                 "```\n"
             ),
             "sql_injection": (
-                "\nUse parameterized queries instead of string concatenation:\n"
+                "\nUse parameterized queries instead of string concatenation:\n"  # noqa: S608
                 "```javascript\n"
                 "// ❌ Vulnerable\n"
                 "db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);\n"
@@ -475,7 +475,8 @@ const apiKey = process.env.API_KEY;
                 "ev" + "al(userInput);\n"
                 "\n"
                 "// ✅ Secure\n"
-                "// Don't use ev" + "al(). Use JSON.parse() with validation or a safe parser\n"
+                "// Don't use ev"
+                + "al(). Use JSON.parse() with validation or a safe parser\n"
                 "```\n"
             ),
         }

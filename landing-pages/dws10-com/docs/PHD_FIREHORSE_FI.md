@@ -29,10 +29,12 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 9. [Aanichatin kehityssuunnitelma](#9-aanichatin-kehityssuunnitelma)
 10. [Toimialan hiilijalanjalkililaskuri](#10-toimialan-hiilijalanjalkililaskuri)
 11. [Proton-tuotestrategia](#11-proton-tuotestrategia)
-12. [Tulokset ja pohdinta](#12-tulokset-ja-pohdinta)
-13. [Johtopaatotkset](#13-johtopaatotkset)
-14. [Lahteet](#14-lahteet)
-15. [Liitteet](#15-liitteet)
+12. [IPR-suojaus ja liikesalaisuusstrategia](#12-ipr-suojaus-ja-liikesalaisuusstrategia)
+13. [Prompt-valimuistiarkkitehtuuri tekoalyagenteille](#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille)
+14. [Tulokset ja pohdinta](#14-tulokset-ja-pohdinta)
+15. [Johtopaatotkset](#15-johtopaatotkset)
+16. [Lahteet](#16-lahteet)
+17. [Liitteet](#17-liitteet)
 
 ---
 
@@ -796,7 +798,145 @@ Aanichat suosittelee Proton-toteutusta kun havaitaan:
 
 ---
 
-## 12. Tulokset ja pohdinta
+## 12. IPR-suojaus ja liikesalaisuusstrategia
+
+### 12.1 Kolmitasoinen IPR-kehys
+
+Firehorse-toimintamalli ja sen taustateknologiat vaativat jasennetyn immateriaalioikeuksien (IPR) suojausstrategian. Lifetime Oy kayttaa kolmitasoista luokittelukehysta:
+
+| Taso | Mekanismi | Laajuus | Oikeudellinen perusta |
+|------|-----------|---------|----------------------|
+| **Taso 1: Julkinen** | Vapaa jakelu | Teaser, FCD-konsepti, markkinakoko | — |
+| **Taso 2: NDA vaaditaan** | Salassapitosopimus | LWM-arkkitehtuuri, tietograafin yleiskuva, BYOC-logiikka | EU:n liikesalaisuusdirektiivi 2016/943 |
+| **Taso 3A: Patentti** | Patenttisuoja | CIDM-menetelma, kausaalinen paattelyalgoritmi | PRH (Suomi), EPO, PCT |
+| **Taso 3B: Liikesalaisuus** | Sisaiset kontrollit | Tietograafin rakenne (10 000+ solmua), painotukset, koulutusdatan | EU 2016/943, Liikesalaisuuslaki 595/2018 |
+
+### 12.2 NDA-portti tekniselle tiedonjakamiselle
+
+Ennen teknista syvennystä kumppanien, sijoittajien tai asiakkaiden kanssa vastaanottavan osapuolen on allekirjoitettava Lifetime Oy:n NDA (EU:n liikesalaisuusdirektiivin 2016/943 mukainen). NDA kattaa:
+
+- **LWM-arkkitehtuuri** — komponenttikaavio, tietovirrat, kasittelyputki
+- **Tietograafin rakenne** — solmutaksonomia, reunatyypit, suhdenmalli
+- **BYOC (Bring Your Own Cloud) -logiikka** — pilvikaytonotto, vuokralaisieristys, tietojen sijainti
+- **Agenttien orkestrointi** — MCP-palvelimen konfiguraatio, koordinointiprotokollat
+- **Integraatioarkkitehtuuri** — ERP-liittimet (SAP, IFS, Dynamics)
+
+Julkisia/markkinointimateriaaleja (taso 1) voidaan jakaa vapaasti ilman NDA:ta: tuote-esittelyt, FCD-konseptin yleiskatsaus, markkinakoko ja ylatasonarkkitehtuurikaaviot.
+
+### 12.3 Patenttistrategia
+
+Patentoitavat innovaatiot haetaan PRH:n (Patentti- ja rekisterihallitus) kautta kansainvalista PCT-laajennusta hyodyntaen:
+
+| Prioriteetti | Innovaatio | Hakupolku | Tila |
+|-------------|-----------|-----------|------|
+| P1 | CIDM — Ilmastoalykas paatoksenteko | PRH → PCT → EPO/USPTO | Patenttihakemus vireilla |
+| P2 | Kausaalinen paattely saantelyriskille | PRH → PCT | Ennakkoselvitys Q2 2026 |
+| P3 | LWM:n temporaalinen latenttitila | PRH → PCT | Arviointi Q3 2026 |
+
+**Kriittinen saanto:** Patenttihakemukset ON jatettava ennen menetelman julkista paljastamista. NDA:lla suojatut paljastukset eivat tuhoa patentoitavuutta.
+
+### 12.4 Liikesalaisuus tietograafin ensisijaisena suojana
+
+Tietograafille (10 000+ solmua) liikesalaisuussuoja on strategisesti parempi vaihtoehto kuin patentti:
+
+| Tekija | Patentti | Liikesalaisuus |
+|--------|---------|----------------|
+| Kesto | 20 vuotta (sitten julkinen) | Rajoittamaton |
+| Paljastusvelvoite | Menetelma julkaistava kokonaan | Ei paljastusvelvoitetta |
+| Kilpailijan tietoisuus | Tietaa tarkalleen mita suojataan | Ei voi tietaa mita kopioida |
+| Kustannus | 120k–200k EUR (3 patenttia, EU+US) | Hallinnolliset kulut |
+
+Liikesalaisuusasema EU:n direktiivin 2016/943 mukaan edellyttaa: (1) tieto on salaista, (2) silla on kaupallista arvoa salaisuutensa vuoksi ja (3) kohtuullisia toimenpiteita on toteutettu sen pitamiseksi salassa. Lifetime Oy yllapitaa paasyvalvontaa, salausta, tyontekijoiden salassapitosopimuksia ja sisaisia luokittelurekistereita.
+
+### 12.5 Vaikutukset Firehorse-toimintaan
+
+IPR-kehys vaikuttaa suoraan Firehorse-verkkokauppatoimintaan:
+
+- **Tuotekuvaukset** dws10.com:ssa kertovat *mita* alusta tekee (taso 1), eivat koskaan *miten* se toimii
+- **Sijoittajapitchit** jakavat ongelman/ratkaisun/markkinan vapaasti; arkkitehtuuriyksityiskohdat vaativat NDA:n
+- **Konferenssiesitykset** kasittelevat EU:n vaatimustenmukaisuuspuutteita, eivat algoritmien yksityiskohtia
+- **Asiakasdemonstraatiot** toimivat NDA:n alla vesileimattuja materiaaleja kayttaen
+- **Kaupan tuotesivut** viittaavat ominaisuuksiin, eivat toteutuksen yksityiskohtiin
+
+---
+
+## 13. Prompt-valimuistiarkkitehtuuri tekoalyagenteille
+
+### 13.1 Suunnitteluperiaate: valimuisti ratkaisee kaiken
+
+Firehorse-toimintamalli nojaa pitkakestoisiin tekoalyagenttisessioihin (Claude Code) kaupan hallintaan, tuotepaivityksiin ja vaatimustenmukaisuusautomaatioon. Prompt-valimuisti (prompt caching) on perustava suunnitteluperiaate, joka tekee naista sessioista taloudellisesti kannattavia.
+
+**Lahde:** Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).
+
+**Ydinnakyma:** Prompt-valimuisti kayttaa uudelleen laskentatuloksia aiemmista API-kierroksista etuliitesovituksen (prefix matching) avulla. API tallentaa valimuistiin kaiken pyynton alusta kunkin `cache_control`-katkaisupisteen kohdalle. Korkea valimuistin osumisprosentti vahentaa kustannuksia ja viivetta merkittavasti.
+
+### 13.2 Jarjestelmapromptin asettelu valimuistia varten
+
+Promptin sisallon jarjestys on ratkaiseva — staattinen sisalto ensin, dynaaminen viimeisena:
+
+```
+1. Staattinen jjarjestelma prompti & tyokalut  (globaalisti valimuistissa)
+2. CLAUDE.md / projektikonfiguraatio            (valimuistissa projektin sisalla)
+3. Sessiokonteksti                               (valimuistissa session sisalla)
+4. Keskusteluviestit                              (uusia joka kierroksella)
+```
+
+**Herkkyysvaroitus:** Valimuistijaarjestys rikkoutuu kun:
+- Aikaleimat sijoitetaan staattiseen jarjestelmapromptiin
+- Tyokalumaaritelmat sekoitetaan ei-deterministisesti
+- Tyokaluparametreja paivitetaan kesken session (esim. kaytettavissa olevat agentit)
+
+### 13.3 Kuusi suunnittelusaantoa agenttien valimuistille
+
+| Saanto | Periaate | Toteutus |
+|--------|----------|----------|
+| **1. Staattinen ensin, dynaaminen viimeisena** | Maksimoi jaettu etuliite sessioiden valilla | Jarjestelmaprompt → CLAUDE.md → sessiokonteksti → viestit |
+| **2. Kayta jarjestelmaviesteja paivityksiin** | Ala muokkaa staattista promptia kesken session | Vaali ajan, tiedostomuutosten ja tilasiirtymien valittaminen `<system-reminder>`-tageina |
+| **3. Ala vaihda mallia kesken session** | Prompt-valimuistit ovat mallikohtaisia | Haiku-vaihto 100k tokenin kohdalla maksaa enemman kuin Opus-jatkaminen (valimuistin uudelleenrakennus) |
+| **4. Ala lisaa/poista tyokaluja kesken session** | Tyokalut ovat osa valimuistietuliitetta | Kayta tyokalutynkia `defer_loading: true` -asetuksella; loyda ToolSearchilla |
+| **5. Suunnittele ominaisuudet valimuistin ehdoilla** | Tilasiirtymat tyokaluilla, ei tyokalujoukon vaihdoilla | Suunnittelutila = jarjestelmaaviesti + ExitPlanMode-tyokalu, ei tyokalujoukon vaihtaminen |
+| **6. Haarautumisoperaatiot jakavat ylaviitteen** | Tiivistys/yhteenvedot on kaytettava valimuistia uudelleen | Kayta identtista jarjestelmaapromptia, tyokaluja ja viestihistoriaa haarautuneissa pyynnissa |
+
+### 13.4 Tiivistys: valimuistiturvallinen kontekstin haarautuminen
+
+Kun agenttisessiot lahestyvat konteksti-ikkunan rajaa, tiivistyksen (compaction) on sailytettava valimuisti:
+
+```
+VAARIN: Uusi API-kutsu eri jarjestelmapromptilla + ei tyokaluja
+        → Taysi valimuistihuti, kallista
+
+OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
+        + tiivistysprompt lisattyna uutena kayttajaviestina
+        → Valimuistiosuma ylatasoan etuliitteelle, vain uudet tokenit ovat prompti
+```
+
+### 13.5 Toiminnallinen vaikutus Firehorseen
+
+DWS10.com-kauppatoiminnoissa nama valimuistiperiaatteet tarkoittavat:
+
+| Toiminto | Valimuistivaikutus | Kaytanto |
+|----------|-------------------|----------|
+| Tuotekatalogin paivitykset | Pitka sessio, paljon tiedostomuokkauksia | Pida sama malli koko session ajan |
+| Syotteen generointi | Tyokalupainotteinen tyonkulku | Kaikki tyokalut maaritelty session alussa |
+| Vaatimustenmukaisuustarkistus | Kontekstipainotteinen (saannokset) | CLAUDE.md valimuistissa projektikonfiguraationa |
+| Monitiedostosynkronointi (kaksoiskansio) | Perakkaisia riippuvia operaatioita | Ketjuta yhdessa sessiossa, ala haarauta |
+
+**Seuranta:** Valimuistin osumisprosenttia kasitellaan kayttoaikamittarina. Osumien lasku kaynnistaa tutkimuksen — se osoittaa jarjestelmapromptin muutoksen, tyokalumaaritysten siirtyman tai mallinvaihdon joka vaatii korjauksen.
+
+### 13.6 Kustannus- ja viivevaikutukset
+
+| Skenaario | Osumisprosentti | Suhteellinen kustannus | Viive |
+|-----------|----------------|----------------------|-------|
+| Optimoitu (staattinen etuliite) | >90 % | 1x (perustaso) | Matala |
+| Tyokalujoukon muutokset kesken session | ~50 % | ~2x | Korkea |
+| Mallinvaihto kesken session | 0 % (taysi uudelleenrakennus) | ~3-5x | Erittain korkea |
+| Tiivistys ilman ylatasoan etuliitetta | 0 % | ~3x | Korkea |
+
+Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle kauppatoiminnalle, jossa sessiot kasittelevat rutiininomaisesti yli 30 tuotetta useissa tiedostoissa.
+
+---
+
+## 14. Tulokset ja pohdinta
 
 ### 12.1 Toiminnallisen tehokkuuden parannukset
 
@@ -840,7 +980,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
 ---
 
-## 13. Johtopaatotkset
+## 15. Johtopaatotkset
 
 ### 13.1 Yhteenveto
 
@@ -873,7 +1013,7 @@ Tama tutkielma kontribuoi:
 
 ---
 
-## 14. Lahteet
+## 16. Lahteet
 
 1. EU:n tekoalysaados, Asetus (EU) 2024/1689
 2. Google Merchant Center -tekniset maaritykset (2026)
@@ -887,10 +1027,14 @@ Tama tutkielma kontribuoi:
 10. GHG Protocol Corporate Standard
 11. ISO 14064-1:2018 Kasvihuonekaasujen laskenta
 12. Proton AG -turvallisuusdokumentaatio
+13. EU:n liikesalaisuusdirektiivi (EU) 2016/943
+14. Liikesalaisuuslaki 595/2018 (Suomi)
+15. Patenttiyhteistyosopimus (PCT), WIPO
+16. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
 
 ---
 
-## 15. Liitteet
+## 17. Liitteet
 
 ### Liite A: Taysi tuotekatalogi
 

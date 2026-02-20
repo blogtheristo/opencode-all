@@ -26,7 +26,9 @@ class TestCriticalBugScanner:
         findings = scanner.scan_directory()
 
         # Check that scanner file was not scanned
-        scanner_paths = [f["file"] for f in findings if "scan_critical_bugs.py" in f["file"]]
+        scanner_paths = [
+            f["file"] for f in findings if "scan_critical_bugs.py" in f["file"]
+        ]
         assert len(scanner_paths) == 0, "Scanner should exclude itself from scans"
 
     def test_scanner_detects_command_injection(self, tmp_path):

@@ -122,6 +122,20 @@ BEGIN
 EXCEPTION WHEN OTHERS THEN
   RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
   RETURN NEW;
+EXCEPTION
+  WHEN unique_violation THEN
+    -- email unique constraint: an existing profile row already holds this email
+    -- (e.g. orphaned row after account deletion/re-registration or data inconsistency).
+    -- Update that row's email_verified state so signup continues without error.
+    UPDATE public.user_profiles
+    SET email_verified = COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
+    WHERE email = NEW.email;
+    RAISE WARNING 'handle_new_user: email % already existed in user_profiles; updated email_verified for new auth id %',
+      NEW.email, NEW.id;
+    RETURN NEW;
+  WHEN OTHERS THEN
+    RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pg_catalog, public;
@@ -185,7 +199,7 @@ BEGIN
   AND om.status = 'active'
   AND o.status = 'active';
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public;
 
 SELECT 'FIX 2-4: auth functions patched' AS status;
 
