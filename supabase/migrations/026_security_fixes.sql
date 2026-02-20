@@ -269,8 +269,8 @@ FROM firehorse_leads WHERE email = 'test.lead@kela.fi';
 -- Fix: CREATE TABLE IF NOT EXISTS + indexes + RLS (fully idempotent)
 -- =============================================================================
 
--- Guard: gen_random_uuid() needs pgcrypto on PG < 13, core on PG 13+.
--- Our PG 17 has it natively, but verify pgcrypto is available for generate_thread_token().
+-- Guard: gen_random_uuid() is provided by the pgcrypto extension (which ships with Postgres).
+-- On our PG 17 instance it should already be available, but we still ensure pgcrypto exists for generate_thread_token().
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pgcrypto') THEN
