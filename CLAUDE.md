@@ -120,7 +120,18 @@ Before finishing any implementation, ask yourself:
 
 If you build 1000 lines and 100 would suffice, you have failed. Prefer the boring, obvious solution. Cleverness is expensive.
 
-#### 5. Scope Discipline
+#### 5. Phasing Discipline (Ship First, Harden Later)
+
+Do not get pulled into hardening, edge-case handling, or nitty-gritty polish before the core system works end-to-end. Perfecting a cleanup script while the actual product sits undeployed is a failure mode.
+
+**Phase order:**
+1. **Ship**: Get the system running (API, email, webhook, scheduler)
+2. **Verify**: Confirm it works with real data
+3. **Harden**: Then add fail-fast guards, token targeting, idempotency
+
+When a reviewer (human or AI) suggests hardening, ask: "Is the core system delivered yet?" If no, push back and ship first. Hardening undeployed code is wasted work if requirements change.
+
+#### 6. Scope Discipline
 
 Touch only what you're asked to touch.
 
@@ -132,7 +143,7 @@ Touch only what you're asked to touch.
 
 Your job is surgical precision, not unsolicited renovation.
 
-#### 6. Dead Code Hygiene
+#### 7. Dead Code Hygiene
 
 After refactoring or implementing changes:
 - Identify code that is now unreachable
