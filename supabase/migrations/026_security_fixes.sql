@@ -201,6 +201,25 @@ WHERE schemaname = 'public' AND tablename = 'firehorse_signals';
 ALTER TABLE firehorse_signals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE firehorse_signals FORCE ROW LEVEL SECURITY;
 
+-- Ensure firehorse_signals_* views cannot bypass RLS by using security_invoker
+DO $$
+DECLARE
+  v RECORD;
+BEGIN
+  -- For all views in public schema matching firehorse_signals_%
+  FOR v IN
+    SELECT schemaname, viewname
+    FROM pg_views
+    WHERE schemaname = 'public'
+      AND viewname LIKE 'firehorse_signals\_%' ESCAPE '\'
+  LOOP
+    EXECUTE format(
+      'ALTER VIEW %I.%I SET (security_invoker = true);',
+      v.schemaname,
+      v.viewname
+    );
+  END LOOP;
+END $$;
 -- Service role full access
 DROP POLICY IF EXISTS "firehorse_signals_service_role_all" ON firehorse_signals;
 CREATE POLICY "firehorse_signals_service_role_all"
