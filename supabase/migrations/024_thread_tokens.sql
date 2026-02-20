@@ -102,8 +102,7 @@ DROP VIEW IF EXISTS v_outreach_due_today;
 DROP VIEW IF EXISTS v_outreach_enriched;
 
 CREATE VIEW v_outreach_enriched
-  WITH (security_invoker = true)
-AS
+WITH (security_invoker = true) AS
 SELECT
   t.id,
   t.pipeline,
