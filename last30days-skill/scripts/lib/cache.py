@@ -135,7 +135,7 @@ def save_model_cache(data: dict):
         with open(MODEL_CACHE_FILE, 'w') as f:
             json.dump(data, f)
     except OSError:
-        pass
+        pass  # Silently fail on cache write errors
 
 
 def get_cached_model(provider: str) -> Optional[str]:
