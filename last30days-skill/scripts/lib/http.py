@@ -80,8 +80,9 @@ def request(
             body = None
             try:
                 body = e.read().decode('utf-8')
-            except:
-                pass
+            except Exception as read_error:
+                # Best-effort read of error body; continue without body if this fails.
+                log(f"Failed to read error body: {type(read_error).__name__}: {read_error}")
             log(f"HTTP Error {e.code}: {e.reason}")
             if body:
                 log(f"Error body: {body[:500]}")
