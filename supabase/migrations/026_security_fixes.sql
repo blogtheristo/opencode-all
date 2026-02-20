@@ -81,7 +81,8 @@ ORDER BY column_name;
 -- =============================================================================
 -- FIX 2: 007 — handle_new_user() needs exception handling
 -- Problem: duplicate email in user_profiles blocks signup silently
--- Fix: add EXCEPTION block, log and continue
+-- Fix: remove stale orphaned profile with same email/different id before insert,
+--      then upsert on id so the profile is always created/refreshed.
 -- =============================================================================
 
 -- Guard: verify the function exists
@@ -97,6 +98,13 @@ END $$;
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
+  -- Remove any stale profile that holds the same email address under a
+  -- different UUID (can occur when an auth.users row was deleted without a
+  -- clean cascade, leaving an orphaned profile that would block the unique
+  -- constraint on user_profiles.email).
+  DELETE FROM public.user_profiles
+  WHERE email = NEW.email AND id <> NEW.id;
+
   INSERT INTO public.user_profiles (id, email, first_name, last_name, email_verified)
   VALUES (
     NEW.id,
@@ -105,7 +113,11 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'last_name', ''),
     COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
   )
-  ON CONFLICT (id) DO NOTHING;
+  ON CONFLICT (id) DO UPDATE SET
+    email          = EXCLUDED.email,
+    first_name     = EXCLUDED.first_name,
+    last_name      = EXCLUDED.last_name,
+    email_verified = EXCLUDED.email_verified;
   RETURN NEW;
 EXCEPTION WHEN OTHERS THEN
   RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
