@@ -270,9 +270,16 @@ export class SalesOutreachAgent extends BaseAgent {
     ].join('\n');
 
     const result = await this.callLLM(prompt);
+    if (result.model === 'placeholder') {
+      return this.generatePlaceholderCompanies(input);
+    }
     try {
       const parsed = JSON.parse(result.content);
-      return (parsed.companies || []).slice(0, input.maxCompanies);
+      const companies = parsed.companies;
+      if (!Array.isArray(companies) || companies.length === 0) {
+        return this.generatePlaceholderCompanies(input);
+      }
+      return companies.slice(0, input.maxCompanies);
     } catch {
       // Deterministic fallback with placeholder companies
       return this.generatePlaceholderCompanies(input);
