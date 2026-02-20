@@ -101,7 +101,8 @@ ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update_failed';
 DROP VIEW IF EXISTS v_outreach_due_today;
 DROP VIEW IF EXISTS v_outreach_enriched;
 
-CREATE VIEW v_outreach_enriched AS
+CREATE VIEW v_outreach_enriched
+WITH (security_invoker = true) AS
 SELECT
   t.id,
   t.pipeline,
