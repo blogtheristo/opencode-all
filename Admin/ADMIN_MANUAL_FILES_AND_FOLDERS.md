@@ -1005,7 +1005,7 @@ Audit of all 11 worktree `settings.local.json` files found **9 out of 11 had inc
 
 ### Deployment Status
 
-**Published to GitHub:** February 13, 2026 (commit `d843b71`)
+**To be published to GitHub:** Scheduled for February 13, 2026 (commit pending)
 
 | Component | File | Status |
 |-----------|------|--------|
