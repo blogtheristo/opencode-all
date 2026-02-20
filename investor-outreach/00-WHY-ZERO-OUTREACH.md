@@ -292,4 +292,4 @@ That's it. Send 5 of these. Then come back and read the workflows.
 
 ---
 
-**Next:** See `daily-outreach-system.md` for the complete daily workflow.
+**Next:** See the daily outreach system workflow documentation for the complete daily workflow.
