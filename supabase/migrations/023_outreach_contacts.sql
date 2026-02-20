@@ -65,7 +65,7 @@ CREATE TABLE outreach_orgs (
   linkedin_url TEXT,
 
   -- Prospect tracking: orgs without a named contact yet
-  prospect_status TEXT DEFAULT 'target_needs_contact'
+  prospect_status TEXT NOT NULL DEFAULT 'target_needs_contact'
     CHECK (prospect_status IN ('target_needs_contact', 'contact_identified', 'active')),
 
   -- Attribution
