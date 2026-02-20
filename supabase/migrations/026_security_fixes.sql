@@ -140,7 +140,8 @@ BEGIN
   RETURNING id INTO log_id;
   RETURN log_id;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER
+SET search_path = public, pg_temp;
 
 -- =============================================================================
 -- FIX 4: 007 — get_user_organizations() should use auth.uid() internally
