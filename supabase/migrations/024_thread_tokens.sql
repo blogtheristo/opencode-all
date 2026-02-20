@@ -95,10 +95,9 @@ ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update_failed';
 -- 4. UPDATE VIEWS — include thread_token + full enriched columns
 -- ============================================================================
 
-DROP VIEW IF EXISTS v_outreach_due_today;
-DROP VIEW IF EXISTS v_outreach_enriched;
-
-CREATE VIEW v_outreach_enriched AS
+CREATE OR REPLACE VIEW v_outreach_enriched
+  WITH (security_invoker = true)
+AS
 SELECT
   t.id, t.pipeline, t.priority, t.status, t.source,
   t.next_action, t.next_action_type, t.next_action_date,
@@ -117,7 +116,9 @@ JOIN persons p ON p.id = t.person_id
 LEFT JOIN outreach_orgs o ON o.id = t.org_id
 LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
-CREATE VIEW v_outreach_due_today AS
+CREATE OR REPLACE VIEW v_outreach_due_today
+  WITH (security_invoker = true)
+AS
 SELECT ve.*,
   COALESCE(
     (SELECT COUNT(*) FROM outreach_activities oa WHERE oa.thread_id = ve.id), 0
