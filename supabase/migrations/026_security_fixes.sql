@@ -81,7 +81,9 @@ ORDER BY column_name;
 -- =============================================================================
 -- FIX 2: 007 — handle_new_user() needs exception handling
 -- Problem: duplicate email in user_profiles blocks signup silently
--- Fix: add EXCEPTION block, log and continue
+-- Fix: atomic ON CONFLICT (email) DO UPDATE to reclaim orphaned rows;
+--      id-only conflicts cannot occur for new auth inserts, and the
+--      update is idempotent when the same user's row already exists
 -- =============================================================================
 
 -- Guard: verify the function exists
@@ -97,6 +99,10 @@ END $$;
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
+  -- Insert the new profile.  On an email conflict (orphaned row from a
+  -- previously deleted auth user), re-link the row to the new user id.
+  -- When the same user's row already exists (id + email match), the UPDATE
+  -- is idempotent.
   INSERT INTO public.user_profiles (id, email, first_name, last_name, email_verified)
   VALUES (
     NEW.id,
@@ -105,7 +111,12 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'last_name', ''),
     COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
   )
-  ON CONFLICT (id) DO NOTHING;
+  ON CONFLICT (email) DO UPDATE SET
+    id             = EXCLUDED.id,
+    first_name     = EXCLUDED.first_name,
+    last_name      = EXCLUDED.last_name,
+    email_verified = EXCLUDED.email_verified,
+    updated_at     = now();
   RETURN NEW;
 EXCEPTION WHEN OTHERS THEN
   RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
