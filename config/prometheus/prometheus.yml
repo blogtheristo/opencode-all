@@ -67,3 +67,25 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100']
     scrape_interval: 30s
+
+  # AI Agents (Agent Foundry)
+  - job_name: 'agent-foundry'
+    static_configs:
+      - targets: ['agent-foundry:8080']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Docker daemon metrics (cAdvisor)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Docker containers (via Docker daemon API)
+  - job_name: 'docker'
+    static_configs:
+      - targets: ['docker:9323']
+    scrape_interval: 30s
+    metrics_path: /metrics

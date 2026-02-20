@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'Store/**'
+      - 'dws10.com/config/products.json'
       - 'scripts/build_store.py'
   workflow_dispatch:
 
@@ -24,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml markdown
+          pip install pyyaml markdown defusedxml
 
       - name: Generate Store Feed and Pages
         run: |
@@ -34,6 +35,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products/
+          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products.csv landing-pages/dws10-com/products/
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: Update Google Merchant Feed and Product Pages" && git push)
 

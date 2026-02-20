@@ -11,8 +11,46 @@ Before making any UI changes, agents MUST consult these files:
 | **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
 | **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
 | **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
+| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
+| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
+| **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
+
+### Store Product Format Rule (CRITICAL)
+
+Files in `Store/` are **store products** consumed by the build pipeline (`scripts/build_store.py`). They use **YAML frontmatter** — NOT the DWS Document Standard header.
+
+| Location | Format | Header Style |
+|----------|--------|-------------|
+| `Store/*.md` | Store Product Format | YAML frontmatter (`title`, `price`, `sku`) |
+| `dws10.com/config/products.json` | Primary product source | JSON (all ~30 products) |
+| Everything else | DWS Document Standard | VERSION AND AGENT HISTORY block |
+
+**Never put DWS Document Standard headers in `Store/*.md` files.** The YAML parser will fail and the product will be excluded from the Google Merchant feed, store page, and product pages.
+
+### "Use DWS Standard" Rule (CRITICAL)
+
+When the human says **"Use DWS standard"** (or any variation like "with DWS standards", "follow DWS standards"), this is a shorthand that means:
+
+1. **Apply ALL relevant standards from the table above** — not just one. Evaluate which standards apply to the task and follow every one that is relevant.
+2. **Update the standards themselves** if the work adds new products, features, security controls, or brand elements. Standards are living documents that must grow with the platform.
+3. **Ensure market-value readiness** — every product artifact must be complete enough to sell: Google Merchant JSON, product specification, store listing, competitive positioning, and pricing.
+4. **Ensure security coverage** — every new feature must have security controls documented in the relevant security standard.
+5. **Nurture, don't just comply** — proactively improve standards when gaps are found. If a standard is missing coverage for what you're building, add it.
+
+**Example:** "Create a new product with DWS standard" means:
+- `dws10.com/config/products.json` → Add product entry (primary source: name, price, SKU, category, image, description)
+- `Store/*.md` → Optionally create extended product page with **Store Product Format** (YAML frontmatter, NOT DWS Document Standard)
+- `DWS_BRAND_STANDARD.md` → Add to store category, product card, correct badges
+- `DWS_MARKET_RESEARCH_STANDARD.md` → Define competitor set, create competitive analysis
+- `Admin/SECURITY_COMPLIANCE.md` → Document security controls for the product
+- `product-catalog/` → Create product-specification.md + google-merchant-product.json (for enterprise/NVIDIA products)
+
+**This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
 ## Project Overview
 
@@ -185,6 +223,14 @@ These are the subtle errors of a "slightly sloppy, hasty junior dev":
 
 The human has unlimited patience for good work, but limited patience for fixing avoidable mistakes. You have unlimited stamina—use it to loop on hard problems, but don't loop on the wrong problem because you failed to clarify the goal.
 
+## Email Rules (CRITICAL)
+
+- **NEVER use `noreply@` addresses.** All emails must be sent from a real, replyable address.
+- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default recipient:** `risto@lifetime.fi`
+- **Verified domain:** `onelifetime.world` — this is the only domain configured in Resend. Do NOT use `dws6.com` or any other domain as a sender.
+- When adding new email-sending code, always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as the sender fallback.
+
 ## Tech Stack
 
 ### Frontend
@@ -253,12 +299,51 @@ dws6/
 - Root folders → Cloudflare Workers (testing)
 - Landing-pages folders → Cloudflare Pages (production)
 
-**Workflow: When editing ANY landing page:**
-1. **First** update the root folder (e.g., `dws10.com/`)
+**Workflow: When editing ANY page on ANY DWS domain:**
+1. **ALWAYS update the root folder FIRST** (e.g., `dws10.com/`)
 2. **Test** that it works on Cloudflare Workers
-3. **Then** copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
+3. **THEN copy to landing-pages folder** (e.g., `landing-pages/dws10-com/`)
+4. Never update landing-pages first — root folder is the source of truth
 
 This ensures changes are tested before going to production.
+
+**Per-domain rules:**
+
+| Domain | Root Folder First | Then Landing Pages | Navigation |
+|--------|-------------------|-------------------|------------|
+| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` | — |
+| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` | Gamma Ironclad (`/shared-assets/nav/ironclad-nav.js`) |
+| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` | — |
+| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* | — |
+
+**dws10.com navigation standard:** All pages on dws10.com MUST use the Gamma Ironclad navigation via `<script src="/shared-assets/nav/ironclad-nav.js"></script>`. Do NOT use embedded navigation HTML or the older `nav-loader.js` approach. The `ironclad-nav.js` is self-contained (injects both HTML and CSS).
+
+### Store Update Rule (CRITICAL)
+
+When modifying the store page (`buy/index.html`), product pages, `products.json`, or any store-related assets, you MUST follow this checklist **in every commit**:
+
+1. **Update root first** — Edit `dws10.com/buy/index.html` (source of truth)
+2. **Sync to landing-pages immediately** — Copy to `landing-pages/dws10-com/buy/index.html` in the **same commit**
+3. **Sync config** — If `dws10.com/config/products.json` changed, copy to `landing-pages/dws10-com/config/products.json`
+4. **Sync shared assets** — If `shared-assets/` files changed (nav, vat-locale), copy to `landing-pages/dws10-com/shared-assets/`
+5. **Sync subpages** — If category pages (`buy/page2/`, `page3/`, `page4/`) changed, copy all to landing-pages
+6. **Verify paths** — All relative paths (`../config/`, `../shared-assets/`, `../static/`) must resolve in both locations
+
+**Why this is critical:** Cloudflare Pages serves from `landing-pages/`. If you only update `dws10.com/`, the live site stays on the old version. This has caused production incidents.
+
+**Verification command:**
+```bash
+diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html
+# Must return empty (no differences)
+```
+
+**This rule applies to ALL store artifacts:**
+- `buy/index.html` and `buy/page*/index.html`
+- `config/products.json`
+- `products//*.html` (individual product pages)
+- `shared-assets/` (nav, vat-locale)
+- `feeds/` (Google Merchant feed)
+- Static images referenced by products
 
 ## Development Commands
 
@@ -706,16 +791,39 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 
 ## Deployment
 
-- **Primary**: Google Cloud Run + Groq
+> **Full cloud environment documentation:** `docs/CLOUD_ENVIRONMENTS.md`
+
+### Cloud Accounts
+
+| Account | Email / ID | Scope |
+|---------|-----------|-------|
+| **Pilot / EU Cloud** | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+| **US Public Cloud** | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud (Public)** | Cloudflare Pages/Workers | Global | Landing pages, dashboard SPA, edge API |
+| **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend API, AI agents, database, auth |
+| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 logging, reasoning lineage, audit trails |
+| **Hetzner (V3)** | Hetzner Helsinki | Finland | Jitsi Meet, email service (Firehorse V3) |
+
+### Deployment Targets
+- **Primary**: Google Cloud Run (europe-north1) + Groq
 - **Edge**: Cloudflare Workers (dws6.com, dws10.com)
 - **Data**: Supabase (EU-hosted)
 - **Edge AI**: NVIDIA Jetson Orin Nano
 - **Orchestration**: Temporal.io
+- **Backup**: Scaleway Serverless (fr-par)
+- **V3 Infra**: Hetzner Helsinki (Jitsi + Email)
 
 ## Documentation
 
 Key documentation files:
 - `README.md` - Project overview
+- `docs/CLOUD_ENVIRONMENTS.md` - Cloud environments, accounts, DWS 6→7 migration
+- `DWS7_ROADMAP.md` - DWS 7 production roadmap (247 PRs)
 - `ADMIN_MANUAL_*.md` - Administration guides
 - `SECURITY_COMPLIANCE.md` - Security documentation
 - `Firehorse/` directory - Product documentation
@@ -726,6 +834,27 @@ Key documentation files:
 - Branch naming: `claude/<feature>-<id>` for AI-assisted work
 - PR-based workflow with automated security checks
 - 15 CI/CD workflows in `.github/workflows/`
+
+### Branch Auto-Deletion After Merge (CRITICAL)
+
+**GitHub is configured to automatically delete branches after PR merge.** This means:
+
+1. After a PR is merged, the feature branch (e.g., `claude/update-store-hero-section-N2Hw2`) is **deleted on the remote** by GitHub
+2. **Do NOT** try to push to the same branch name for a new PR — it will need to be recreated
+3. When continuing work on a deleted branch:
+   - Fetch latest main: `git fetch origin main`
+   - Rebase local branch onto main: `git rebase origin/main`
+   - Force-push to recreate the branch: `git push -u origin <branch-name> --force`
+4. **GitHub compare links break** after branch deletion — `"There isn't anything to compare"` error is expected
+5. After recreating and pushing, create a **new PR** — the old PR number is closed
+
+**Workflow for continued work after merge:**
+```bash
+git fetch origin main
+git rebase origin/main
+git push -u origin claude/<feature>-<id> --force
+# Then create new PR via GitHub UI or gh CLI
+```
 
 ### Worktree Best Practices
 

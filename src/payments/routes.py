@@ -51,7 +51,12 @@ def get_services() -> tuple[
     WebhookHandler,
 ]:
     """Get or initialize payment services"""
-    global _config, _subscription_service, _revolut_client, _paypal_client, _webhook_handler
+    global \
+        _config, \
+        _subscription_service, \
+        _revolut_client, \
+        _paypal_client, \
+        _webhook_handler
 
     if _config is None:
         _config = get_payment_config()
@@ -64,7 +69,13 @@ def get_services() -> tuple[
     if _webhook_handler is None:
         _webhook_handler = WebhookHandler(_config, _subscription_service)
 
-    return _config, _subscription_service, _revolut_client, _paypal_client, _webhook_handler
+    return (
+        _config,
+        _subscription_service,
+        _revolut_client,
+        _paypal_client,
+        _webhook_handler,
+    )
 
 
 # =============================================================================
@@ -145,7 +156,7 @@ async def create_subscription(request: CreateSubscriptionRequest) -> PaymentUrlR
         raise HTTPException(
             status_code=502,
             detail=f"Payment provider error: {e!s}",
-        )
+        ) from e
 
 
 @router.get("/subscriptions/{user_id}", response_model=SubscriptionListResponse)
@@ -216,18 +227,22 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     # Verify user owns this subscription
     if subscription.user_id != request.user_id:
-        raise HTTPException(status_code=403, detail="Not authorized to cancel this subscription")
+        raise HTTPException(
+            status_code=403, detail="Not authorized to cancel this subscription"
+        )
 
     try:
         # Cancel with payment provider if there's a provider subscription ID
-        if subscription.provider_subscription_id:
-            if subscription.payment_provider == PaymentProvider.PAYPAL:
-                await paypal_client.cancel_subscription(
-                    subscription.provider_subscription_id,
-                    reason=request.reason or "Cancelled by user",
-                )
-            # Revolut doesn't have recurring subscriptions to cancel
-            # (each payment is a one-time request)
+        if (
+            subscription.provider_subscription_id
+            and subscription.payment_provider == PaymentProvider.PAYPAL
+        ):
+            await paypal_client.cancel_subscription(
+                subscription.provider_subscription_id,
+                reason=request.reason or "Cancelled by user",
+            )
+        # Revolut doesn't have recurring subscriptions to cancel
+        # (each payment is a one-time request)
 
         # Update our database
         success = await subscription_service.cancel_subscription(
@@ -246,7 +261,9 @@ async def cancel_subscription(request: CancelSubscriptionRequest) -> dict[str, A
 
     except PayPalError as e:
         logger.error(f"PayPal cancellation error: {e}")
-        raise HTTPException(status_code=502, detail=f"Payment provider error: {e!s}")
+        raise HTTPException(
+            status_code=502, detail=f"Payment provider error: {e!s}"
+        ) from e
 
 
 # =============================================================================
@@ -279,7 +296,7 @@ async def revolut_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid Revolut webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_revolut_webhook(
@@ -328,7 +345,7 @@ async def paypal_webhook(request: Request) -> dict[str, Any]:
         payload = await request.json()
     except Exception as e:
         logger.error(f"Invalid PayPal webhook payload: {e}")
-        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from e
 
     # Process the webhook
     result = await webhook_handler.handle_paypal_webhook(
