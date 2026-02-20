@@ -843,7 +843,7 @@ When the user edits files directly in VS Code or Cursor (not via Claude), those 
 
 #### Session Announcement Convention
 
-When the user sends `/win`, `/mobile`, `/chromebook` (or Claude auto-detects), acknowledge briefly:
+When the user indicates they are on **win**, **mobile**, or **chromebook** (for example by typing "win", "mobile", or "chromebook" without a leading slash), or Claude auto-detects, acknowledge briefly:
 
 ```
 SESSION: [Mobile/Win11/Chromebook] | Editor: [Claude Code/VS Code/Cursor] | Branch: [branch-name] | Worktree: [worktree-name]
