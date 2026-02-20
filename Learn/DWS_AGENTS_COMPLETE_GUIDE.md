@@ -256,7 +256,7 @@ These are NOT code agents. They are Claude/Cursor AI sessions building the platf
 |----|------|-------|----------------|--------|
 | Agent-01 | Login System | 1 (Foundation) | JWT, OAuth, Supabase Auth | Running |
 | Agent-02 | Firehorse Apps | 2 (Backend) | Reports, Automation, DMS APIs | Waiting |
-| Agent-03 | Customer Dashboard | 3 (Frontend) | Next.js web dashboard | Waiting |
+| Agent-03 | Customer Dashboard | 3 (Frontend) | Vite + React web dashboard (dws6.com/dashboard/firehorse/v10-react/) | Waiting |
 | Agent-04 | AI Agents | 2 (Backend) | MCP Hub, Groq integration, agent APIs | Waiting |
 | Agent-05 | Mobile Dashboard | 3 (Frontend) | React Native/Expo mobile app | Waiting |
 | Agent-06 | Enterprise Integrations | V1.1 | SAP, BIM/IFC connectors | **Deferred** |
