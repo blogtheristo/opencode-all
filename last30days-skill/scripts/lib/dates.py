@@ -41,7 +41,14 @@ def parse_date(date_str: Optional[str]) -> Optional[datetime]:
 
     for fmt in formats:
         try:
-            return datetime.strptime(date_str, fmt).replace(tzinfo=timezone.utc)
+            dt = datetime.strptime(date_str, fmt)
+            if dt.tzinfo is None:
+                # Assume naive dates/times are in UTC
+                dt = dt.replace(tzinfo=timezone.utc)
+            else:
+                # Convert offset-aware datetimes to UTC
+                dt = dt.astimezone(timezone.utc)
+            return dt
         except ValueError:
             continue
 
