@@ -400,7 +400,7 @@ if (Test-Path -Path $worktreeEnv) {
         @{ Pattern = "ANTHROPIC_API_KEY"; Name = "Anthropic API key" }
     )
     foreach ($check in $envChecks) {
-        if ($envContent -match $check.Pattern) {
+        if ($envContent -match "(?m)^[ \t]*$([regex]::Escape($check.Pattern))=") {
             Write-Host "  .env: $($check.Name) present" -ForegroundColor Green
         }
         else {

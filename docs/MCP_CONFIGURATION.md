@@ -702,7 +702,7 @@ The DWS MCP Hub (`mcp-hub/server.py`) was last updated in January 2026. Required
 
 Database drift occurs when the live Supabase schema diverges from migration files in the repository. This section documents the automated **Plan → Apply → Verify** pipeline that detects drift, routes alerts through Redis, and notifies Claude Code sessions and administrators.
 
-Tietokantapoikkeama syntyy, kun Supabase-skeema eroaa repositorion migraatiotiedostoista. Tama osio dokumentoi automatisoidun **Plan → Apply → Verify** -putken, joka havaitsee poikkeamat, reitittaa halytykset Redisin kautta ja ilmoittaa Claude Code -istunnoille ja yllapitajille.
+Tietokantapoikkeama syntyy, kun Supabase-skeema eroaa repositorion migraatiotiedostoista. Tämä osio dokumentoi automatisoidun **Plan → Apply → Verify** -putken, joka havaitsee poikkeamat, reitittää hälytykset Redisin kautta ja ilmoittaa Claude Code -istunnoille ja ylläpitäjille.
 
 ### 11.2 Architecture / Arkkitehtuuri
 

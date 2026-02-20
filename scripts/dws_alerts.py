@@ -38,7 +38,7 @@ REDIS_PORT = int(os.getenv("REDIS_PORT", "6380"))
 REDIS_CHANNEL = "supabase:alerts"
 
 SUPABASE_ACCESS_TOKEN = os.getenv("SUPABASE_ACCESS_TOKEN", "")
-SUPABASE_PROJECT_REF = os.getenv("SUPABASE_PROJECT_REF", "kpucuwwfhuwurdxyjjtz")
+SUPABASE_PROJECT_REF = os.getenv("SUPABASE_PROJECT_REF", "")
 MANAGEMENT_API = "https://api.supabase.com/v1"
 
 
@@ -99,6 +99,11 @@ def get_advisor_lint() -> list[dict]:
         print("  Get one from: https://supabase.com/dashboard/account/tokens")
         return []
 
+    if not SUPABASE_PROJECT_REF:
+        print("[ERROR] SUPABASE_PROJECT_REF not set.")
+        print("  Set it to your Supabase project ref (e.g. export SUPABASE_PROJECT_REF=abcxyz123)")
+        return []
+
     url = f"{MANAGEMENT_API}/projects/{SUPABASE_PROJECT_REF}/database/lint"
     headers = {
         "Authorization": f"Bearer {SUPABASE_ACCESS_TOKEN}",
@@ -122,7 +127,7 @@ def get_advisor_lint() -> list[dict]:
 
 def get_project_health() -> dict:
     """Fetch basic project health from Supabase Management API."""
-    if httpx is None or not SUPABASE_ACCESS_TOKEN:
+    if httpx is None or not SUPABASE_ACCESS_TOKEN or not SUPABASE_PROJECT_REF:
         return {}
 
     url = f"{MANAGEMENT_API}/projects/{SUPABASE_PROJECT_REF}"

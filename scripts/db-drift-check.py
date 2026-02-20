@@ -54,7 +54,7 @@ except ImportError:
 
 # Import shared alert module (single source of truth for publishing)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from dws_alerts import publish_alert, run_advisor_check  # noqa: E402
+from dws_alerts import publish_alert, run_advisor_check, REDIS_HOST, REDIS_PORT  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -76,24 +76,17 @@ MIGRATIONS_DIR = REPO_ROOT / "supabase" / "migrations"
 # ---------------------------------------------------------------------------
 
 def get_live_tables() -> set[str]:
-    """Get all user tables from live Supabase via information_schema."""
-    url = f"{SUPABASE_URL}/rest/v1/"
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-    }
-    try:
-        # OpenAPI spec lists all available tables
-        resp = httpx.get(url, headers=headers, timeout=15)
-        if resp.status_code == 200:
-            # The root endpoint returns HTML, but the OPTIONS endpoint
-            # or /rest/v1/ with Accept: application/json returns table info.
-            # Alternative: query information_schema directly
-            pass
-    except Exception:
-        pass
+    """Get all user tables from live Supabase.
 
-    # Use Docker Supabase MCP REST API if available
+    Attempts:
+      1. Docker/local Supabase MCP endpoint (local dev)
+      2. Supabase PostgREST OpenAPI spec (requires SUPABASE_URL + SUPABASE_SERVICE_KEY)
+
+    If SUPABASE_URL is set but enumeration fails, prints a clear error and returns
+    an empty set (caller will skip live comparison and report the gap).
+    If SUPABASE_URL is not set, prints a warning and returns an empty set.
+    """
+    # 1. Try Docker/local Supabase MCP endpoint (local development)
     try:
         resp = httpx.post(
             "http://localhost:8766/tools/query",
@@ -112,8 +105,38 @@ def get_live_tables() -> set[str]:
     except Exception:
         pass
 
-    # Fallback: try direct PostgREST query on a known table
-    print("WARNING: Could not enumerate live tables. Using migration file analysis only.")
+    # 2. Try Supabase PostgREST OpenAPI spec
+    if SUPABASE_URL and SUPABASE_KEY:
+        url = f"{SUPABASE_URL}/rest/v1/"
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Accept": "application/openapi+json",
+        }
+        try:
+            resp = httpx.get(url, headers=headers, timeout=15)
+            if resp.status_code == 200:
+                data = resp.json()
+                # OpenAPI spec has paths like /table_name and /rpc/func_name
+                tables = set()
+                for path in data.get("paths", {}).keys():
+                    table = path.lstrip("/")
+                    if table and not table.startswith("rpc/"):
+                        tables.add(table)
+                if tables:
+                    return tables
+                print("ERROR: Supabase REST returned an empty table list.")
+                print("  Check that SUPABASE_SERVICE_KEY has service_role privileges.")
+            else:
+                print(f"ERROR: Supabase REST returned {resp.status_code}. Cannot enumerate live tables.")
+                print(f"  URL: {SUPABASE_URL}")
+        except Exception as e:
+            print(f"ERROR: Failed to reach Supabase ({SUPABASE_URL}): {e}")
+
+        print("  Live table comparison will be skipped.")
+        return set()
+
+    print("WARNING: SUPABASE_URL not set. Skipping live table comparison.")
     return set()
 
 
@@ -193,19 +216,21 @@ def run_plan(dry_run: bool = False):
             unsafe_migrations.append(mf["filename"])
             print(f"[WARNING] {mf['filename']}: Missing BEGIN/COMMIT wrapper")
 
+    # Pre-scan all migration files once to find tables with RLS enabled
+    rls_enabled_tables: set[str] = set()
+    rls_pattern = re.compile(
+        r"ALTER\s+TABLE\s+(?:public\.)?([A-Za-z0-9_]+)\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY",
+        re.IGNORECASE,
+    )
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        content = f.read_text(encoding="utf-8", errors="replace")
+        for match in rls_pattern.finditer(content):
+            table_name = match.group(1)
+            if table_name:
+                rls_enabled_tables.add(table_name.lower())
+
     for table, files in migration_tables.items():
-        # Check if any migration enables RLS for this table
-        has_rls = False
-        for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
-            content = f.read_text(encoding="utf-8", errors="replace")
-            if re.search(
-                rf"ALTER\s+TABLE\s+(?:public\.)?{re.escape(table)}\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY",
-                content,
-                re.IGNORECASE,
-            ):
-                has_rls = True
-                break
-        if not has_rls:
+        if table not in rls_enabled_tables:
             no_rls_tables.append(table)
 
     if no_rls_tables:
