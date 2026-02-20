@@ -101,6 +101,16 @@ END $$;
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
+  -- Remove any orphaned profile row that holds NEW.email but whose
+  -- auth.users entry no longer exists.  This prevents the email
+  -- unique-constraint violation that ON CONFLICT (id) cannot catch.
+  DELETE FROM public.user_profiles
+  WHERE email = NEW.email
+    AND id   != NEW.id
+    AND NOT EXISTS (
+      SELECT 1 FROM auth.users WHERE auth.users.id = public.user_profiles.id
+    );
+
   INSERT INTO public.user_profiles (id, email, first_name, last_name, email_verified)
   VALUES (
     NEW.id,
@@ -157,7 +167,8 @@ BEGIN
   RETURNING id INTO log_id;
   RETURN log_id;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER
+SET search_path = public, pg_temp;
 
 -- =============================================================================
 -- FIX 4: 007 — get_user_organizations() should use auth.uid() internally
@@ -189,7 +200,7 @@ BEGIN
   AND om.status = 'active'
   AND o.status = 'active';
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public;
 
 SELECT 'FIX 2-4: auth functions patched' AS status;
 
@@ -377,6 +388,7 @@ BEGIN
       RETURNS climate_assistant_usage
       LANGUAGE plpgsql
       SECURITY DEFINER
+      SET search_path = public, pg_temp
       AS $body$
       DECLARE
         usage_record climate_assistant_usage;

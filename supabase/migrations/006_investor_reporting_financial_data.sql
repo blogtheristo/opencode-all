@@ -73,12 +73,11 @@ CREATE TABLE customers (
   notes TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  churned_at TIMESTAMPTZ,
-
-  INDEX idx_customers_status (status),
-  INDEX idx_customers_country (country),
-  INDEX idx_customers_firehorse_lead_id (firehorse_lead_id)
+  churned_at TIMESTAMPTZ
 );
+CREATE INDEX idx_customers_status ON customers(status);
+CREATE INDEX idx_customers_country ON customers(country);
+CREATE INDEX idx_customers_firehorse_lead_id ON customers(firehorse_lead_id);
 
 -- Contracts (signed deals, SOWs, MSAs)
 CREATE TABLE contracts (
@@ -109,13 +108,12 @@ CREATE TABLE contracts (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
 
-  INDEX idx_contracts_customer_id (customer_id),
-  INDEX idx_contracts_status (status),
-  INDEX idx_contracts_signed_date (signed_date),
-
   CONSTRAINT valid_contract_value CHECK (total_value >= 0),
   CONSTRAINT valid_term CHECK (term_months > 0)
 );
+CREATE INDEX idx_contracts_customer_id ON contracts(customer_id);
+CREATE INDEX idx_contracts_status ON contracts(status);
+CREATE INDEX idx_contracts_signed_date ON contracts(signed_date);
 
 -- Subscriptions (recurring revenue tracking)
 CREATE TABLE subscriptions (
@@ -145,12 +143,11 @@ CREATE TABLE subscriptions (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
 
-  INDEX idx_subscriptions_customer_id (customer_id),
-  INDEX idx_subscriptions_is_active (is_active),
-  INDEX idx_subscriptions_next_billing_date (next_billing_date),
-
   CONSTRAINT valid_monthly_amount CHECK (monthly_amount >= 0)
 );
+CREATE INDEX idx_subscriptions_customer_id ON subscriptions(customer_id);
+CREATE INDEX idx_subscriptions_is_active ON subscriptions(is_active);
+CREATE INDEX idx_subscriptions_next_billing_date ON subscriptions(next_billing_date);
 
 -- Revenue Recognition (monthly MRR/ARR snapshots)
 CREATE TABLE revenue_recognition (
@@ -182,9 +179,9 @@ CREATE TABLE revenue_recognition (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
 
-  UNIQUE(month),
-  INDEX idx_revenue_recognition_month (month)
+  UNIQUE(month)
 );
+CREATE INDEX idx_revenue_recognition_month ON revenue_recognition(month);
 
 -- Runway Tracking (cash + burn rate)
 CREATE TABLE runway_tracking (
@@ -209,9 +206,9 @@ CREATE TABLE runway_tracking (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
 
-  UNIQUE(month),
-  INDEX idx_runway_tracking_month (month)
+  UNIQUE(month)
 );
+CREATE INDEX idx_runway_tracking_month ON runway_tracking(month);
 
 -- Transactions (detailed cash flow tracking)
 CREATE TABLE transactions (
@@ -234,13 +231,12 @@ CREATE TABLE transactions (
   transaction_date DATE NOT NULL,
 
   -- Metadata
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_transactions_type (type),
-  INDEX idx_transactions_date (transaction_date),
-  INDEX idx_transactions_customer_id (customer_id),
-  INDEX idx_transactions_category (category)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_transactions_type ON transactions(type);
+CREATE INDEX idx_transactions_date ON transactions(transaction_date);
+CREATE INDEX idx_transactions_customer_id ON transactions(customer_id);
+CREATE INDEX idx_transactions_category ON transactions(category);
 
 -- ============================================================================
 -- VIEWS

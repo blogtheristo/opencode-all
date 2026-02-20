@@ -202,7 +202,9 @@ class WebhookHandler:
         """Process a specific PayPal event type"""
 
         custom_id = subscription_data.get("custom_id")  # Our internal subscription ID
-        subscription_id = subscription_data.get("subscription_id")  # PayPal's subscription ID
+        subscription_id = subscription_data.get(
+            "subscription_id"
+        )  # PayPal's subscription ID
         subscriber_email = subscription_data.get("subscriber_email")
 
         if event_type == "BILLING.SUBSCRIPTION.ACTIVATED":

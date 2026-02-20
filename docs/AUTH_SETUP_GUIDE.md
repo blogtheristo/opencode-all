@@ -354,7 +354,7 @@ For production, configure custom SMTP:
    Port: 587
    Username: apikey
    Password: SG.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-   Sender email: noreply@dws6.com
+   Sender email: risto@onelifetime.world
    Sender name: DWS IQ 6
    ```
 

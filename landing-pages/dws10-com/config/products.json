@@ -9,6 +9,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.",
+      "features": [
+        "Automate Fit for 55, CSRD & EPBD reporting",
+        "90% reduction in manual compliance hours",
+        "EU-hosted, deploy in 30 days"
+      ],
       "priceNote": "One-time deployment + €499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
@@ -34,6 +39,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 \u2014 capturing ESG data directly from your systems with a complete audit trail.",
+      "features": [
+        "Event-driven compliance workflows",
+        "Eliminate manual data entry errors",
+        "Complete audit trail for ESG data"
+      ],
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
@@ -59,6 +69,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Everything you need to go from zero to compliant. Includes DWS IQ Base Platform, Firehorse Report Module, and a hands-on Kickoff Workshop. Built for companies facing their first CSRD reporting deadline. Operational in 30 days.",
+      "features": [
+        "DWS IQ + Firehorse Report + Workshop",
+        "First CSRD reporting deadline ready",
+        "Operational in 30 days"
+      ],
       "priceNote": "One-time + €1,999/year",
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
@@ -84,6 +99,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.",
+      "features": [
+        "AI-powered marketing engine",
+        "EU AI Act & Green Claims compliant",
+        "4-week pilot with measurable results"
+      ],
       "priceNote": "Per campaign cycle",
       "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
       "paypalPlanId": null,
@@ -109,6 +129,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.",
+      "features": [
+        "Automated Fit for 55 dashboards",
+        "SAP integration with real-time data",
+        "4-week validation included"
+      ],
       "priceNote": "Per report template",
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
@@ -134,6 +159,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "When auditors ask for proof, find it in seconds \u2014 not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
+      "features": [
+        "Auto-tagged compliance documents",
+        "Certificate expiry alerts",
+        "Semantic search across evidence"
+      ],
       "priceNote": "Setup + migration",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
@@ -159,6 +189,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.",
+      "features": [
+        "Hands-on compliance workshop",
+        "Workflow automation training",
+        "Working implementations in 3 days"
+      ],
       "priceNote": "3-day workshop",
       "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
       "paypalPlanId": null,
@@ -184,6 +219,11 @@
       "currency": "EUR",
       "type": "hourly",
       "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.",
+      "features": [
+        "Expert compliance guidance",
+        "All 16 EU industries covered",
+        "Flexible hourly booking"
+      ],
       "priceNote": "Per hour, VAT excl.",
       "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
       "paypalPlanId": null,
@@ -209,6 +249,11 @@
       "currency": "EUR",
       "type": "monthly",
       "description": "Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.",
+      "features": [
+        "Dedicated compliance strategist",
+        "40% cost reduction typical",
+        "Board-level advisory included"
+      ],
       "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
@@ -234,6 +279,11 @@
       "currency": "EUR",
       "type": "monthly",
       "description": "Direct access to the architect of DWS IQ 6. Monthly co-working with Risto Anton on Fit for 55 compliance, report design, agent coordination, and CxO-level strategy. For organizations that need the person who built the platform, not a junior consultant.",
+      "features": [
+        "Direct access to DWS IQ architect",
+        "CxO-level compliance strategy",
+        "Monthly co-working sessions"
+      ],
       "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
@@ -259,6 +309,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.",
+      "features": [
+        "Multi-cloud AWS, Azure & GCP",
+        "25 hours senior architect time",
+        "Free 4-hour strategy workshop"
+      ],
       "priceNote": "25 hours, valid 12 months",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -284,6 +339,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Deploy AI agents where your team already works \u2014 Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "features": [
+        "Teams, Slack, WhatsApp & Zoom",
+        "Custom LLM choice for sovereignty",
+        "Live in 25 hours"
+      ],
       "priceNote": "25 hours standard implementation",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -309,6 +369,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.",
+      "features": [
+        "Power Apps process automation",
+        "188% ROI on M365 licenses",
+        "Launch first app within engagement"
+      ],
       "priceNote": "8 hours",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -334,6 +399,11 @@
       "currency": "EUR",
       "type": "hourly",
       "description": "Hire a senior AI engineer by the hour \u2014 no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
+      "features": [
+        "Senior AI engineer on demand",
+        "Azure AI, Google AI & Claude",
+        "Skip 3-month hiring cycle"
+      ],
       "priceNote": "Per hour",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -359,6 +429,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Ship your next project in half the time. Lean methodology powered by AI tools \u2014 includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
+      "features": [
+        "Lean AI-powered methodology",
+        "2x delivery speed from sprint 1",
+        "Kanban + roadmap included"
+      ],
       "priceNote": "Project setup",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -384,6 +459,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2\u20133 days for a full sprint.",
+      "features": [
+        "Strategy, prototyping & implementation",
+        "Claude, GPT, Gemini Pro & Copilot",
+        "On-site or remote available"
+      ],
       "priceNote": "Per day, VAT excl.",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -409,6 +489,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4\u20138 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
+      "features": [
+        "30 hours strategic AI mentoring",
+        "12-month flexible schedule",
+        "Leadership AI transformation"
+      ],
       "priceNote": "30 hours, valid 12 months",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -434,6 +519,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Your leadership team needs AI fluency \u2014 not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "features": [
+        "EU AI Act Article 4 compliance",
+        "Personal or team coaching",
+        "Free 3-hour readiness assessment"
+      ],
       "priceNote": "Workshop + coaching",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -459,6 +549,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Turn every customer interaction into a conversion opportunity. AI-powered prompt flow agent that continuously optimizes your service experience and drives measurable sales growth. Setup and first results in under 2 weeks.",
+      "features": [
+        "AI-powered customer interactions",
+        "Continuous service optimization",
+        "Results in under 2 weeks"
+      ],
       "priceNote": "Setup + implementation",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -484,6 +579,11 @@
       "currency": "EUR",
       "type": "monthly",
       "description": "Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.",
+      "features": [
+        "AI-optimized campaign management",
+        "Daily performance measurement",
+        "Automated channel optimization"
+      ],
       "priceNote": "Monthly subscription",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -509,6 +609,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace \u2014 your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
+      "features": [
+        "React, Blazor or WordPress",
+        "AI chatbot add-on available",
+        "Professional web presence fast"
+      ],
       "priceNote": "Starting price",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -534,6 +639,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "GDPR-compliant email in one business day. Full Proton Business Suite \u2014 encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
+      "features": [
+        "GDPR-compliant encrypted email",
+        "NIS2 & EU AI Act compliant",
+        "Operational in 1 business day"
+      ],
       "priceNote": "8-hour implementation",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -559,6 +669,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.",
+      "features": [
+        "API-driven data products",
+        "Data monetization strategy",
+        "Remote and on-site consulting"
+      ],
       "priceNote": "Consultancy engagement",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -584,6 +699,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.",
+      "features": [
+        "English-Finnish AI terminology",
+        "Comprehensive agent concepts",
+        "Essential for Finnish tech teams"
+      ],
       "priceNote": "1-year license",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -609,6 +729,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.",
+      "features": [
+        "Complete AI readiness assessment",
+        "ROI projection included",
+        "30-day performance monitoring"
+      ],
       "priceNote": "Foundation package",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -634,6 +759,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.",
+      "features": [
+        "Complete brand asset system",
+        "Campaign visual library",
+        "Live analytics dashboards"
+      ],
       "priceNote": "One-time setup",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -659,6 +789,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Need expert developers this week, not next quarter? Pre-vetted cloud and AI professionals ready for immediate deployment. Skip the 3-month recruitment cycle and start building today.",
+      "features": [
+        "Pre-vetted AI & Cloud engineers",
+        "Immediate team deployment",
+        "Skip 3-month recruitment cycle"
+      ],
       "priceNote": "Team setup",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -684,6 +819,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy \u2014 this programme gets you compliant and productive.",
+      "features": [
+        "Strategy to implementation in 3 days",
+        "EU AI Act Article 4 compliant",
+        "In-house team training"
+      ],
       "priceNote": "3-day programme",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -709,6 +849,11 @@
       "currency": "EUR",
       "type": "one-time",
       "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance \u2014 from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
+      "features": [
+        "Agentic development assessment",
+        "AGENTS.md workshops & restructuring",
+        "Quality governance setup"
+      ],
       "priceNote": "Assessment from €2,500 | Retainers from €5,000/mo",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -734,6 +879,11 @@
       "currency": "EUR",
       "type": "monthly",
       "description": "Your US-hosted data is exposed to the CLOUD Act \u2014 and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
+      "features": [
+        "European sovereign cloud migration",
+        "CLOUD Act free infrastructure",
+        "NIS2, GDPR & EU AI Act aligned"
+      ],
       "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
       "revolutLink": null,
       "paypalPlanId": null,
