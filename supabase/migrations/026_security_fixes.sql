@@ -361,6 +361,7 @@ BEGIN
       RETURNS climate_assistant_usage
       LANGUAGE plpgsql
       SECURITY DEFINER
+      SET search_path = public, pg_temp
       AS $body$
       DECLARE
         usage_record climate_assistant_usage;
