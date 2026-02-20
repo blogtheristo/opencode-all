@@ -275,3 +275,4 @@ sbom.json
 # Snyk reports
 snyk.sarif
 .snyk
+.cursor/settings.json
