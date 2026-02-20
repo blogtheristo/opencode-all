@@ -366,7 +366,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
       facts: Array<{ regulation: string; fact: string }>;
       deadlines: Array<{ regulation: string; deadline: string; description: string }>;
     },
-  ): Promise<string> {
+  ): Promise<{ title: string; executiveSummary: string; sections: Array<{ heading: string; content: string }>; nextSteps: string[] }> {
     const prompt = [
       `Write a compliance research report for the ${input.industry} industry.`,
       `Topic: ${input.topic}`,
@@ -385,11 +385,21 @@ export class ComplianceResearcherAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.executiveSummary || result.content;
+      return {
+        title: parsed.title || '',
+        executiveSummary: parsed.executiveSummary || '',
+        sections: Array.isArray(parsed.sections) ? parsed.sections : [],
+        nextSteps: Array.isArray(parsed.nextSteps) ? parsed.nextSteps : [],
+      };
     } catch {
       // Deterministic fallback
       const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
-      return `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`;
+      return {
+        title: `Compliance Research: ${input.industry} — ${input.topic}`,
+        executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+        sections: plan.focusAreas.map((area) => ({ heading: area, content: '' })),
+        nextSteps: [],
+      };
     }
   }
 
