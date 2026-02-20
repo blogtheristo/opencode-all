@@ -21,7 +21,7 @@ Document Status:
 
 ## Current State as of 11.02.2026: 6 Implemented, 19+ Missing
 
-> **Note:** This is a point-in-time snapshot taken on 11.02.2026. Additional production agents (Compliance, QualityGate, Construction, Logistics, and others) have since been added to `src/agents/` as part of ongoing development.
+> **Note:** This is a point-in-time snapshot taken on 11.02.2026. As of the merge of PR #553, the agents for Compliance, QualityGate, Construction, and Logistics have been integrated into `src/agents/` and should be considered **Implemented**. The counts below reflect the architecture state prior to those additions. If you are referencing this document for a new audit, please update the table above to include these agents and adjust the totals accordingly.
 
 ### Implemented (in `src/agents/`) — as of 11.02.2026
 
