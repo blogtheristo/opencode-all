@@ -79,9 +79,13 @@ WHERE table_name = 'subscriptions' AND column_name IN ('monthly_amount', 'is_act
 ORDER BY column_name;
 
 -- =============================================================================
--- FIX 2: 007 — handle_new_user() needs exception handling
--- Problem: duplicate email in user_profiles blocks signup silently
--- Fix: add EXCEPTION block, log and continue
+-- FIX 2: 007 — handle_new_user() needs robust conflict handling
+-- Problem: ON CONFLICT (id) only handles PK collisions; a stale
+--          user_profiles row with the same email (unique constraint)
+--          still causes an unhandled unique_violation, leaving the new
+--          auth user without a profile row.
+-- Fix: proactively remove the orphaned email row (only when the
+--      corresponding auth.users entry is gone), then upsert on id.
 -- =============================================================================
 
 -- Guard: verify the function exists
@@ -97,6 +101,16 @@ END $$;
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
+  -- Remove any orphaned profile row that holds NEW.email but whose
+  -- auth.users entry no longer exists.  This prevents the email
+  -- unique-constraint violation that ON CONFLICT (id) cannot catch.
+  DELETE FROM public.user_profiles
+  WHERE email = NEW.email
+    AND id   != NEW.id
+    AND NOT EXISTS (
+      SELECT 1 FROM auth.users WHERE auth.users.id = public.user_profiles.id
+    );
+
   INSERT INTO public.user_profiles (id, email, first_name, last_name, email_verified)
   VALUES (
     NEW.id,
@@ -105,7 +119,12 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'last_name', ''),
     COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
   )
-  ON CONFLICT (id) DO NOTHING;
+  ON CONFLICT (id) DO UPDATE SET
+    email          = EXCLUDED.email,
+    first_name     = EXCLUDED.first_name,
+    last_name      = EXCLUDED.last_name,
+    email_verified = EXCLUDED.email_verified,
+    updated_at     = now();
   RETURN NEW;
 EXCEPTION WHEN OTHERS THEN
   RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
