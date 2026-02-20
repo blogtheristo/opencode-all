@@ -113,7 +113,7 @@ Never include API keys, PII, or credentials. All agents log to Supabase for EU A
 DWS IQ 6 AGENT ECOSYSTEM
 =========================
 
-CATEGORY 1: Production Agents (5 implemented, in src/agents/)
+CATEGORY 1: Production Agents (9 implemented, in src/agents/)
   Code runs in Express backend, registered in AgentRegistry singleton.
   Used by customers via API endpoints.
 
