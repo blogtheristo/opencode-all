@@ -49,15 +49,6 @@ interface EmissionsDataAnalystInput {
 
 // ============ REGULATORY THRESHOLDS ============
 
-/** EU ETS Phase 4 thresholds and benchmarks */
-const ETS_BENCHMARKS: Record<string, number> = {
-  cement_clinker: 0.766,        // tCO2/t product
-  steel_hot_metal: 1.328,       // tCO2/t product
-  aluminium: 1.514,             // tCO2/t product
-  refinery: 0.0295,             // tCO2/CWT
-  electricity: 0.376,           // tCO2/MWh (EU average)
-};
-
 /** CSRD double materiality thresholds */
 const CSRD_THRESHOLDS = {
   scope1_material: 10000,       // tCO2e - likely material if above
@@ -268,7 +259,12 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
           recommendations.push('Review free allocation benchmarks for your sector');
           recommendations.push('Consider purchasing ETS allowances for surplus emissions');
         }
-        recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(total * 68).toLocaleString()}`);
+        const units = stats.units as string[];
+        const isTonne = units.length === 1 && /^t(?:co2e?|onne)?$/i.test(units[0] || '');
+        const unitWarning = !isTonne && units.length > 0
+          ? ` (⚠️ data units: ${units.join(', ')} — cost estimate assumes tCO2e)`
+          : '';
+        recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(total * 68).toLocaleString()}${unitWarning}`);
         break;
       }
       case 'csrd': {

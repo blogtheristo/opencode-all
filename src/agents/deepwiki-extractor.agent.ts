@@ -242,8 +242,20 @@ export class DeepWikiExtractorAgent extends BaseAgent {
     const targetModule = input.targetModule;
     const language = input.language;
 
-    if (typeof repoUrl !== 'string' || !repoUrl.includes('github')) {
+    if (typeof repoUrl !== 'string') {
       throw new Error('repoUrl must be a valid GitHub repository URL');
+    }
+    // Normalize: strip protocol, .git suffix, trailing slash
+    const normalized = repoUrl
+      .replace(/^https?:\/\//, '')
+      .replace(/\.git$/, '')
+      .replace(/\/$/, '');
+    // Enforce github.com/{owner}/{repo} — no extra path segments, no www prefix
+    const githubPattern = /^github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/;
+    if (!githubPattern.test(normalized)) {
+      throw new Error(
+        'repoUrl must be a GitHub repository URL in the format github.com/owner/repo or https://github.com/owner/repo',
+      );
     }
     if (typeof functionality !== 'string' || functionality.length < 10) {
       throw new Error('functionality must be a descriptive string (min 10 chars)');

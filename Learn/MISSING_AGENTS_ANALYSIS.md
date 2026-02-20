@@ -19,7 +19,7 @@ Document Status:
 
 ***
 
-## Current State: 6 Implemented, 19+ Missing
+## Current State (as of 11.02.2026): 6 Implemented, 19+ Missing
 
 ### Implemented (in `src/agents/`)
 

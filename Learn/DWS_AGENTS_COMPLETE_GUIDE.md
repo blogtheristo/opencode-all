@@ -101,9 +101,9 @@ All agent-produced documents must include VERSION AND AGENT HISTORY blocks with 
 
 Never include API keys, PII, or credentials. All agents log to Supabase for EU AI Act Article 12 compliance. Three autonomy tiers control what agents can do without human approval.
 
-### Known Gap
+### AI Agent Guidelines Cross-Reference
 
-`AI_AGENT_GUIDELINES.md` is referenced in `AGENTS.md` Section 7 but does not exist in the repository. The guidance it was supposed to contain (naming, metadata, versioning, security) is currently scattered across the six layers above.
+`AI_AGENT_GUIDELINES.md` now exists in the repository and defines the canonical rules for agent naming, metadata, versioning, and security. Earlier versions of this guide noted that such a file did not exist and that the guidance was scattered across the six layers above; that guidance has since been consolidated into `AI_AGENT_GUIDELINES.md`, which this document summarizes and cross-references.
 
 ---
 
