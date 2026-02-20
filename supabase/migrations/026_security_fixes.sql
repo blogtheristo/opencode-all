@@ -173,7 +173,7 @@ BEGIN
   AND om.status = 'active'
   AND o.status = 'active';
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, public;
 
 SELECT 'FIX 2-4: auth functions patched' AS status;
 
