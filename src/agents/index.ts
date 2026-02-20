@@ -6,7 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
- * All seven production agents are registered on module load.
+ * All eleven production agents are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -20,6 +20,8 @@ import { DeepWikiExtractorAgent } from './deepwiki-extractor.agent.js';
 import { EmissionsDataAnalystAgent } from './emissions-data-analyst.agent.js';
 import { ComplianceResearcherAgent } from './compliance-researcher.agent.js';
 import { SalesOutreachAgent } from './sales-outreach.agent.js';
+import { ConstructionAgent } from './construction.agent.js';
+import { LogisticsAgent } from './logistics.agent.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -72,17 +74,22 @@ export class AgentRegistry {
 
   /** Register all built-in agents */
   private registerDefaults(): void {
+    // Utility agents (horizontal)
     this.register(new SiteSenseAgent());
     this.register(new ScheduleGeniusAgent());
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+
+    // Extraction & research agents (from DeepWiki/awesome-llm-apps)
     this.register(new DeepWikiExtractorAgent());
     this.register(new EmissionsDataAnalystAgent());
     this.register(new ComplianceResearcherAgent());
     this.register(new SalesOutreachAgent());
-    this.register(new ComplianceAgent());
-    this.register(new QualityGateAgent());
+
+    // Orchestration agents (vertical business logic)
+    this.register(new ConstructionAgent());
+    this.register(new LogisticsAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
