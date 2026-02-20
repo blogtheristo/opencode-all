@@ -5,6 +5,7 @@ Business logic for subscription CRUD operations.
 Interacts with Supabase for data persistence.
 """
 
+import contextlib
 import logging
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -33,8 +34,6 @@ logger = logging.getLogger(__name__)
 
 class SubscriptionServiceError(Exception):
     """Subscription service error"""
-
-    pass
 
 
 class SubscriptionService:
@@ -131,15 +130,17 @@ class SubscriptionService:
 
             logger.info(f"Subscription created: {subscription_id}")
 
-            return self._to_subscription_response(data[0] if isinstance(data, list) else data)
+            return self._to_subscription_response(
+                data[0] if isinstance(data, list) else data
+            )
 
         except httpx.HTTPStatusError as e:
             logger.error(f"Failed to create subscription: {e.response.text}")
-            raise SubscriptionServiceError(f"Database error: {e.response.text}")
+            raise SubscriptionServiceError(f"Database error: {e.response.text}") from e
 
     async def _get_or_create_customer(
         self,
-        user_id: str,
+        _user_id: str,
         email: str,
     ) -> str:
         """Get existing customer or create a new one"""
@@ -184,9 +185,11 @@ class SubscriptionService:
 
         except httpx.HTTPStatusError as e:
             logger.error(f"Failed to get/create customer: {e.response.text}")
-            raise SubscriptionServiceError(f"Customer error: {e.response.text}")
+            raise SubscriptionServiceError(f"Customer error: {e.response.text}") from e
 
-    async def get_subscription(self, subscription_id: str) -> SubscriptionResponse | None:
+    async def get_subscription(
+        self, subscription_id: str
+    ) -> SubscriptionResponse | None:
         """
         Get subscription by ID.
 
@@ -408,10 +411,8 @@ class SubscriptionService:
         provider_str = data.get("payment_provider")
         payment_provider = None
         if provider_str:
-            try:
+            with contextlib.suppress(ValueError):
                 payment_provider = PaymentProvider(provider_str)
-            except ValueError:
-                pass
 
         return SubscriptionResponse(
             id=data["id"],

@@ -3,7 +3,7 @@
 **Document ID:** DWS-LWM-TRAIN-001
 **Version:** 1.0
 **Classification:** Internal Lab Notebook + Publishable Appendix
-**Author:** Lifetime Consulting Oy
+**Author:** Lifetime Oy
 **Date:** 2026-01-24
 
 -----
@@ -216,4 +216,4 @@ This comprehensive training manual is split into 3 executable "lab notebook" par
 
 -----
 
-*This document is proprietary to Lifetime Consulting Oy. Appendix A and B may be distributed to partners and investors.*
+*This document is proprietary to Lifetime Oy. Appendix A and B may be distributed to partners and investors.*

@@ -134,10 +134,7 @@ SELECT
   o.location AS org_location,
   o.size AS org_size,
   pe.email AS primary_email,
-  t.person_id,
-  t.org_id,
-  t.created_at,
-  t.created_by
+  t.person_id, t.org_id, t.created_at, t.created_by
 FROM outreach_threads t
 JOIN persons p ON p.id = t.person_id
 LEFT JOIN outreach_orgs o ON o.id = t.org_id

@@ -221,7 +221,7 @@ export async function checkRateLimit(
 
     if (count >= limit) {
       // Get oldest entry to calculate reset time
-      const oldest = await client.zrange(key, 0, 0, { withScores: true });
+      const oldest = await client.zrange(key, 0, 0, { withScores: true }) as Array<{ score: number; member: string }>;
       const resetAt = oldest.length > 0
         ? Math.ceil((oldest[0].score + windowSeconds * 1000) / 1000)
         : Math.ceil((now + windowSeconds * 1000) / 1000);

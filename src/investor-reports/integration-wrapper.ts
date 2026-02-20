@@ -12,6 +12,46 @@ import { templateGenerator } from './template-generator';
 
 const execAsync = promisify(exec);
 
+// Resend API helper for investor report emails (with PDF attachment)
+async function sendViaResend(
+  subject: string,
+  htmlBody: string,
+  textBody: string,
+  pdfPath: string,
+  recipients: string[]
+): Promise<void> {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) throw new Error('RESEND_API_KEY not configured');
+
+  const from = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+
+  // Read PDF and base64-encode it for the Resend attachments API
+  const pdfBuffer = await fs.readFile(pdfPath);
+  const pdfBase64 = pdfBuffer.toString('base64');
+  const filename = path.basename(pdfPath);
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${resendKey}`,
+    },
+    body: JSON.stringify({
+      from,
+      to: recipients,
+      subject,
+      html: htmlBody,
+      text: textBody,
+      attachments: [{ filename, content: pdfBase64 }],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Resend API error (${response.status}): ${errorBody}`);
+  }
+}
+
 // ============================================================================
 // INTEGRATION WRAPPER
 // ============================================================================
@@ -110,78 +150,36 @@ export class IntegrationWrapper {
   // ==========================================================================
 
   /**
-   * Send investor report via email
-   * Uses existing Reports/send_weekly_report.py infrastructure
+   * Send investor report via Resend (with PDF attachment)
    */
   async sendEmail(
     reportData: InvestorReportData,
     pdfPath: string,
     recipients: string[]
   ): Promise<void> {
-    try {
-      const month = reportData.report_period.toLocaleDateString('en-US', {
-        month: 'long',
-        year: 'numeric',
-      });
+    const month = reportData.report_period.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric',
+    });
+    const subject = `Monthly Investor Report - ${month}`;
+    const textBody = this.generateEmailBody(reportData);
+    const htmlBody = `<pre style="font-family:sans-serif;white-space:pre-wrap">${textBody}</pre>`;
 
-      const subject = `Monthly Investor Report - ${month}`;
+    console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
 
-      // Create email body
-      const emailBody = this.generateEmailBody(reportData);
+    await sendViaResend(subject, htmlBody, textBody, pdfPath, recipients);
 
-      // Save email body to temp file
-      const bodyPath = path.join('/tmp', 'investor-report-email-body.txt');
-      await fs.writeFile(bodyPath, emailBody, 'utf-8');
-
-      // Use existing send_weekly_report.py script (adapted for investor reports)
-      // For now, we'll create a custom Python email sender
-
-      const pythonScript = this.generateEmailSenderScript(
-        subject,
-        emailBody,
-        pdfPath,
-        recipients
-      );
-
-      const scriptPath = path.join('/tmp', 'send-investor-report.py');
-      await fs.writeFile(scriptPath, pythonScript, 'utf-8');
-
-      console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
-      console.log(`[Email] Subject: ${subject}`);
-      console.log(`[Email] Attachment: ${pdfPath}`);
-
-      // Execute Python script
-      const { stdout, stderr } = await execAsync(`python3 "${scriptPath}"`);
-
-      if (stderr && !stderr.includes('InsecureRequestWarning')) {
-        console.error('[Email] stderr:', stderr);
-      }
-
-      console.log('[Email] ✓ Report sent successfully');
-      console.log(stdout);
-
-      // Clean up
-      try {
-        await fs.unlink(scriptPath);
-        await fs.unlink(bodyPath);
-      } catch (e) {
-        // Ignore cleanup errors
-      }
-    } catch (error) {
-      console.error('[Email] Error sending email:', error);
-      throw new Error(`Failed to send email: ${error}`);
-    }
+    console.log('[Email] ✓ Report sent successfully via Resend');
   }
 
   /**
-   * Generate email body text
+   * Generate plain-text email body
    */
   private generateEmailBody(reportData: InvestorReportData): string {
     const month = reportData.report_period.toLocaleDateString('en-US', {
       month: 'long',
       year: 'numeric',
     });
-
     const { mrr_metrics, cash_metrics, customer_metrics } = reportData;
 
     return `
@@ -189,7 +187,7 @@ Hi,
 
 Your monthly investor report for ${month} is attached.
 
-📊 Key Highlights:
+Key Highlights:
 - MRR: €${mrr_metrics.current_mrr.toLocaleString()} (${mrr_metrics.mrr_growth >= 0 ? '+' : ''}${mrr_metrics.mrr_growth_rate.toFixed(1)}% MoM)
 - Active Customers: ${customer_metrics.active_customers}
 - Churn Rate: ${customer_metrics.monthly_churn_rate.toFixed(1)}%
@@ -198,78 +196,12 @@ Your monthly investor report for ${month} is attached.
 
 ${reportData.executive_summary || ''}
 
-📎 Attachment: Monthly Investor Report PDF
+Attachment: Monthly Investor Report PDF
 
 ---
 DWS Platform
 Generated: ${reportData.generated_at.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
     `.trim();
-  }
-
-  /**
-   * Generate Python email sender script
-   */
-  private generateEmailSenderScript(
-    subject: string,
-    body: string,
-    pdfPath: string,
-    recipients: string[]
-  ): string {
-    return `#!/usr/bin/env python3
-import os
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-
-# Email configuration
-sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
-sender_password = os.getenv("SMTP_PASSWORD")
-smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-smtp_port = int(os.getenv("SMTP_PORT", "587"))
-
-if not sender_password:
-    print("❌ SMTP_PASSWORD environment variable not set")
-    exit(1)
-
-recipients = ${JSON.stringify(recipients)}
-
-# Create email
-msg = MIMEMultipart()
-msg['From'] = sender_email
-msg['To'] = ", ".join(recipients)
-msg['Subject'] = ${JSON.stringify(subject)}
-
-# Email body
-body = ${JSON.stringify(body)}
-msg.attach(MIMEText(body, 'plain'))
-
-# Attach PDF
-try:
-    with open(${JSON.stringify(pdfPath)}, 'rb') as f:
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(f.read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename=Investor_Report.pdf')
-        msg.attach(part)
-except Exception as e:
-    print(f"❌ Failed to attach PDF: {e}")
-    exit(1)
-
-# Send email
-try:
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    server.login(sender_email, sender_password)
-    text = msg.as_string()
-    server.sendmail(sender_email, recipients, text)
-    server.quit()
-    print("✓ Email sent successfully")
-except Exception as e:
-    print(f"❌ Failed to send email: {e}")
-    exit(1)
-`;
   }
 
   // ==========================================================================

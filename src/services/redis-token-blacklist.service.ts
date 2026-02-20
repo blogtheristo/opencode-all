@@ -47,7 +47,7 @@ export async function initializeRedis(): Promise<void> {
       redisClient = new Redis(REDIS_URL, {
         tls: REDIS_TLS ? {} : undefined,
         maxRetriesPerRequest: 3,
-        retryDelayOnFailover: 100,
+        retryStrategy(times: number) { return Math.min(times * 100, 3000); },
         lazyConnect: true,
       });
     } else {
@@ -58,7 +58,7 @@ export async function initializeRedis(): Promise<void> {
         db: REDIS_DB,
         tls: REDIS_TLS ? {} : undefined,
         maxRetriesPerRequest: 3,
-        retryDelayOnFailover: 100,
+        retryStrategy(times: number) { return Math.min(times * 100, 3000); },
         lazyConnect: true,
       });
     }

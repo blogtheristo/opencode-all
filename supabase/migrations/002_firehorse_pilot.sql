@@ -79,12 +79,11 @@ CREATE TABLE firehorse_events (
   lead_id UUID NOT NULL REFERENCES firehorse_leads(id) ON DELETE CASCADE,
   event_type event_type NOT NULL,
   metadata JSONB DEFAULT '{}',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_firehorse_events_lead_id (lead_id),
-  INDEX idx_firehorse_events_created_at (created_at),
-  INDEX idx_firehorse_events_type (event_type)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_firehorse_events_lead_id ON firehorse_events(lead_id);
+CREATE INDEX idx_firehorse_events_created_at ON firehorse_events(created_at);
+CREATE INDEX idx_firehorse_events_type ON firehorse_events(event_type);
 
 -- Tasks table
 CREATE TABLE firehorse_tasks (
@@ -95,12 +94,11 @@ CREATE TABLE firehorse_tasks (
   description TEXT,
   completed BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  completed_at TIMESTAMPTZ,
-
-  INDEX idx_firehorse_tasks_lead_id (lead_id),
-  INDEX idx_firehorse_tasks_owner (owner),
-  INDEX idx_firehorse_tasks_completed (completed)
+  completed_at TIMESTAMPTZ
 );
+CREATE INDEX idx_firehorse_tasks_lead_id ON firehorse_tasks(lead_id);
+CREATE INDEX idx_firehorse_tasks_owner ON firehorse_tasks(owner);
+CREATE INDEX idx_firehorse_tasks_completed ON firehorse_tasks(completed);
 
 -- Email templates table
 CREATE TABLE firehorse_email_templates (
@@ -120,10 +118,9 @@ CREATE TABLE firehorse_replies (
   reply_text TEXT NOT NULL,
   intent reply_intent,
   confidence FLOAT,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_firehorse_replies_lead_id (lead_id)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_firehorse_replies_lead_id ON firehorse_replies(lead_id);
 
 -- ============================================================================
 -- FUNCTIONS

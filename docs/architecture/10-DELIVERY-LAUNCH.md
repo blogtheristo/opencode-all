@@ -4,7 +4,7 @@
 
 **Document Version:** 1.0  
 **Created:** 2026-01-19  
-**Author:** Lifetime Consulting Oy  
+**Author:** Lifetime Oy  
 **Classification:** Internal / Customer-Ready
 
 ---
@@ -713,7 +713,7 @@ info:
   version: 1.0.0
   description: AI orchestration platform for EU-regulated industries
   contact:
-    name: Lifetime Consulting Oy
+    name: Lifetime Oy
     email: api-support@dws6.fi
 
 servers:
@@ -1068,7 +1068,7 @@ Q4 2026: SCALE
 ```
 PILOT PROGRAM AGREEMENT
 
-Between: Lifetime Consulting Oy ("Provider")
+Between: Lifetime Oy ("Provider")
 And: [Customer Name] ("Customer")
 
 1. PILOT SCOPE
