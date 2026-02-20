@@ -311,7 +311,7 @@ fi
 WORKTREE_ENV="$NEW_WORKTREE/.env"
 if [[ -f "$WORKTREE_ENV" ]]; then
     for var in SUPABASE_URL SUPABASE_SERVICE_KEY ANTHROPIC_API_KEY; do
-        if grep -q "$var" "$WORKTREE_ENV" 2>/dev/null; then
+        if grep -qE "^[[:space:]]*${var}=" "$WORKTREE_ENV" 2>/dev/null; then
             log_info "  .env: $var present"
         else
             echo "  .env: $var not found"
@@ -332,12 +332,12 @@ fi
 # Report validation results
 if [[ ${#VALIDATION_ERRORS[@]} -gt 0 ]]; then
     echo ""
-    log_error "VALIDATION WARNINGS:"
+    log_warn "VALIDATION WARNINGS:"
     for err in "${VALIDATION_ERRORS[@]}"; do
-        log_error "  ! $err"
+        log_warn "  ! $err"
     done
     echo ""
-    log_error "Claude Code sessions in this worktree may not work correctly!"
+    log_warn "Claude Code sessions in this worktree may not work correctly!"
     log_warn "Fix: Copy missing files from main repo: $MAIN_REPO"
 else
     log_info "  All checks passed — worktree is ready for Claude Code"
