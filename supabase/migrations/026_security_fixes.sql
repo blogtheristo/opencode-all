@@ -79,13 +79,11 @@ WHERE table_name = 'subscriptions' AND column_name IN ('monthly_amount', 'is_act
 ORDER BY column_name;
 
 -- =============================================================================
--- FIX 2: 007 — handle_new_user() fails silently on email duplicate
--- Problem: ON CONFLICT (id) DO NOTHING only handles PK collisions; a duplicate
---          email (unique constraint on user_profiles.email) still raises an
---          exception that falls into WHEN OTHERS, leaving the new user without
---          a profile row.
--- Fix: use ON CONFLICT (id) DO UPDATE for id collisions, and add an explicit
---      WHEN unique_violation handler to resolve email conflicts without error.
+-- FIX 2: 007 — handle_new_user() needs exception handling
+-- Problem: duplicate email in user_profiles blocks signup silently
+-- Fix: atomic ON CONFLICT (email) DO UPDATE to reclaim orphaned rows;
+--      id-only conflicts cannot occur for new auth inserts, and the
+--      update is idempotent when the same user's row already exists
 -- =============================================================================
 
 -- Guard: verify the function exists
@@ -101,16 +99,10 @@ END $$;
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  -- Remove any orphaned profile row that holds NEW.email but whose
-  -- auth.users entry no longer exists.  This prevents the email
-  -- unique-constraint violation that ON CONFLICT (id) cannot catch.
-  DELETE FROM public.user_profiles
-  WHERE email = NEW.email
-    AND id   != NEW.id
-    AND NOT EXISTS (
-      SELECT 1 FROM auth.users WHERE auth.users.id = public.user_profiles.id
-    );
-
+  -- Insert the new profile.  On an email conflict (orphaned row from a
+  -- previously deleted auth user), re-link the row to the new user id.
+  -- When the same user's row already exists (id + email match), the UPDATE
+  -- is idempotent.
   INSERT INTO public.user_profiles (id, email, first_name, last_name, email_verified)
   VALUES (
     NEW.id,
@@ -119,9 +111,15 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'last_name', ''),
     COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
   )
-  ON CONFLICT (id) DO UPDATE SET
-    email          = EXCLUDED.email,
-    email_verified = EXCLUDED.email_verified;
+  ON CONFLICT (email) DO UPDATE SET
+    id             = EXCLUDED.id,
+    first_name     = EXCLUDED.first_name,
+    last_name      = EXCLUDED.last_name,
+    email_verified = EXCLUDED.email_verified,
+    updated_at     = now();
+  RETURN NEW;
+EXCEPTION WHEN OTHERS THEN
+  RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
   RETURN NEW;
 EXCEPTION
   WHEN unique_violation THEN
