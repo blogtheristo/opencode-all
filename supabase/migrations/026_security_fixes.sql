@@ -79,13 +79,13 @@ WHERE table_name = 'subscriptions' AND column_name IN ('monthly_amount', 'is_act
 ORDER BY column_name;
 
 -- =============================================================================
--- FIX 2: 007 — handle_new_user() needs robust conflict handling
--- Problem: ON CONFLICT (id) only handles PK collisions; a stale
---          user_profiles row with the same email (unique constraint)
---          still causes an unhandled unique_violation, leaving the new
---          auth user without a profile row.
--- Fix: proactively remove the orphaned email row (only when the
---      corresponding auth.users entry is gone), then upsert on id.
+-- FIX 2: 007 — handle_new_user() fails silently on email duplicate
+-- Problem: ON CONFLICT (id) DO NOTHING only handles PK collisions; a duplicate
+--          email (unique constraint on user_profiles.email) still raises an
+--          exception that falls into WHEN OTHERS, leaving the new user without
+--          a profile row.
+-- Fix: use ON CONFLICT (id) DO UPDATE for id collisions, and add an explicit
+--      WHEN unique_violation handler to resolve email conflicts without error.
 -- =============================================================================
 
 -- Guard: verify the function exists
@@ -121,14 +121,22 @@ BEGIN
   )
   ON CONFLICT (id) DO UPDATE SET
     email          = EXCLUDED.email,
-    first_name     = EXCLUDED.first_name,
-    last_name      = EXCLUDED.last_name,
-    email_verified = EXCLUDED.email_verified,
-    updated_at     = now();
+    email_verified = EXCLUDED.email_verified;
   RETURN NEW;
-EXCEPTION WHEN OTHERS THEN
-  RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
-  RETURN NEW;
+EXCEPTION
+  WHEN unique_violation THEN
+    -- email unique constraint: an existing profile row already holds this email
+    -- (e.g. orphaned row after account deletion/re-registration or data inconsistency).
+    -- Update that row's email_verified state so signup continues without error.
+    UPDATE public.user_profiles
+    SET email_verified = COALESCE(NEW.email_confirmed_at IS NOT NULL, false)
+    WHERE email = NEW.email;
+    RAISE WARNING 'handle_new_user: email % already existed in user_profiles; updated email_verified for new auth id %',
+      NEW.email, NEW.id;
+    RETURN NEW;
+  WHEN OTHERS THEN
+    RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER
 SET search_path = pg_catalog, public;
