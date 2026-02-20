@@ -277,11 +277,10 @@ export class SalesOutreachAgent extends BaseAgent {
     }
     try {
       const parsed = JSON.parse(result.content);
-      const companies = parsed.companies;
-      if (!Array.isArray(companies) || companies.length === 0) {
+      if (!Array.isArray(parsed.companies) || parsed.companies.length === 0) {
         return this.generatePlaceholderCompanies(input);
       }
-      return companies.slice(0, input.maxCompanies);
+      return parsed.companies.slice(0, input.maxCompanies);
     } catch {
       // Deterministic fallback with placeholder companies
       return this.generatePlaceholderCompanies(input);
@@ -323,17 +322,20 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      return parsed.companies || [];
+      if (Array.isArray(parsed.companies) && parsed.companies.length > 0) {
+        return parsed.companies;
+      }
     } catch {
-      // Deterministic fallback
-      return companies.map((c) => ({
-        company: c.name,
-        insights: [
-          `${c.industry} sector faces increasing ETS compliance costs under Fit for 55`,
-          `CSRD reporting deadline approaching - likely needs sustainability reporting automation`,
-        ],
-      }));
+      // JSON parse failed - fall through to deterministic fallback
     }
+    // Deterministic fallback (placeholder/invalid/empty LLM response)
+    return companies.map((c) => ({
+      company: c.name,
+      insights: [
+        `${c.industry} sector faces increasing ETS compliance costs under Fit for 55`,
+        `CSRD reporting deadline approaching - likely needs sustainability reporting automation`,
+      ],
+    }));
   }
 
   private async draftEmails(
@@ -362,43 +364,42 @@ export class SalesOutreachAgent extends BaseAgent {
     const result = await this.callLLM(prompt);
     try {
       const parsed = JSON.parse(result.content);
-      // Fall back when LLM returned a placeholder/error response (no emails array or empty)
-      if (result.model === 'placeholder' || !Array.isArray(parsed.emails) || parsed.emails.length === 0) {
-        throw new Error('No emails in LLM response');
+      if (Array.isArray(parsed.emails) && parsed.emails.length > 0) {
+        return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
       }
-      return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
     } catch {
-      // Deterministic fallback: one email per unique company
-      const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
-      return uniqueCompanies.map((company) => {
-        const companyInsights = insights.find((i) => i.company === company);
-        const insight = companyInsights?.insights[0] || 'EU climate compliance requirements are intensifying';
-        return {
-          company,
-          contact: contacts.find((c) => c.company === company)?.fullName || 'Sustainability Team',
-          subject: `${company} + ${input.senderCompany}: Climate Compliance Automation`,
-          body: [
-            `Hi,`,
-            ``,
-            `${insight}.`,
-            ``,
-            `At ${input.senderCompany}, we help ${company}'s industry automate compliance with ${valueProp}.`,
-            ``,
-            `Would you be open to a 15-minute call to explore whether this could save your team time on upcoming reporting deadlines?`,
-            ``,
-            `Best regards,`,
-            `${input.senderName}`,
-            `${input.senderCompany}`,
-          ].join('\n'),
-          style: input.emailStyle,
-        };
-      });
+      // JSON parse failed - fall through to deterministic fallback
     }
+    // Deterministic fallback: one email per unique company (placeholder/invalid/empty LLM response)
+    const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
+    return uniqueCompanies.map((company) => {
+      const companyInsights = insights.find((i) => i.company === company);
+      const insight = companyInsights?.insights[0] || 'EU climate compliance requirements are intensifying';
+      return {
+        company,
+        contact: contacts.find((c) => c.company === company)?.fullName || 'Sustainability Team',
+        subject: `${company} + ${input.senderCompany}: Climate Compliance Automation`,
+        body: [
+          `Hi,`,
+          ``,
+          `${insight}.`,
+          ``,
+          `At ${input.senderCompany}, we help ${company}'s industry automate compliance with ${valueProp}.`,
+          ``,
+          `Would you be open to a 15-minute call to explore whether this could save your team time on upcoming reporting deadlines?`,
+          ``,
+          `Best regards,`,
+          `${input.senderName}`,
+          `${input.senderCompany}`,
+        ].join('\n'),
+        style: input.emailStyle,
+      };
+    });
   }
 
   private generatePlaceholderCompanies(input: SalesOutreachInput): TargetCompany[] {
-    // Return placeholder structure when LLM unavailable
-    return Array.from({ length: Math.min(input.maxCompanies, 3) }, (_, i) => ({
+    // Return placeholder structure when LLM unavailable; honors maxCompanies (up to 10)
+    return Array.from({ length: input.maxCompanies }, (_, i) => ({
       name: `[Target Company ${i + 1}]`,
       website: '[research needed]',
       whyFit: `Matches profile: ${input.targetDescription.slice(0, 50)}`,
