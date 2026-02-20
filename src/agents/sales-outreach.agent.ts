@@ -361,6 +361,9 @@ export class SalesOutreachAgent extends BaseAgent {
       const parsed = JSON.parse(result.content);
       if (!Array.isArray(parsed.emails) || parsed.emails.length === 0) {
         throw new Error('Invalid LLM response: missing or empty emails array');
+      // Fall back when LLM returned a placeholder/error response (no emails array or empty)
+      if (result.model === 'placeholder' || !Array.isArray(parsed.emails) || parsed.emails.length === 0) {
+        throw new Error('No emails in LLM response');
       }
       return parsed.emails.map((e: DraftEmail) => ({ ...e, style: input.emailStyle }));
     } catch {

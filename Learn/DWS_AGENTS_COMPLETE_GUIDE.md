@@ -101,9 +101,9 @@ All agent-produced documents must include VERSION AND AGENT HISTORY blocks with 
 
 Never include API keys, PII, or credentials. All agents log to Supabase for EU AI Act Article 12 compliance. Three autonomy tiers control what agents can do without human approval.
 
-### Known Gap
+### AI Agent Guidelines Cross-Reference
 
-`AI_AGENT_GUIDELINES.md` is referenced in `AGENTS.md` Section 7 but does not exist in the repository. The guidance it was supposed to contain (naming, metadata, versioning, security) is currently scattered across the six layers above.
+`AI_AGENT_GUIDELINES.md` now defines the canonical rules for agent naming, metadata, versioning, and security. Earlier versions of this guide noted that such a file did not exist and that the guidance was scattered across the six layers above; that guidance has since been consolidated into `AI_AGENT_GUIDELINES.md`, which this document summarizes and cross-references.
 
 ---
 
@@ -113,7 +113,7 @@ Never include API keys, PII, or credentials. All agents log to Supabase for EU A
 DWS IQ 6 AGENT ECOSYSTEM
 =========================
 
-CATEGORY 1: Production Agents (5 implemented, in src/agents/)
+CATEGORY 1: Production Agents (9 implemented, in src/agents/)
   Code runs in Express backend, registered in AgentRegistry singleton.
   Used by customers via API endpoints.
 
@@ -256,7 +256,7 @@ These are NOT code agents. They are Claude/Cursor AI sessions building the platf
 |----|------|-------|----------------|--------|
 | Agent-01 | Login System | 1 (Foundation) | JWT, OAuth, Supabase Auth | Running |
 | Agent-02 | Firehorse Apps | 2 (Backend) | Reports, Automation, DMS APIs | Waiting |
-| Agent-03 | Customer Dashboard | 3 (Frontend) | Next.js web dashboard | Waiting |
+| Agent-03 | Customer Dashboard | 3 (Frontend) | Vite + React web dashboard (dws6.com/dashboard/firehorse/v10-react/) | Waiting |
 | Agent-04 | AI Agents | 2 (Backend) | MCP Hub, Groq integration, agent APIs | Waiting |
 | Agent-05 | Mobile Dashboard | 3 (Frontend) | React Native/Expo mobile app | Waiting |
 | Agent-06 | Enterprise Integrations | V1.1 | SAP, BIM/IFC connectors | **Deferred** |

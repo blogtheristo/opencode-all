@@ -7,6 +7,7 @@
  * - executeAgent() - execute an agent by name with context and input
  *
  * All eleven production agents are registered on module load.
+ * All production agents (7 core + 5 SEO pipeline) are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -22,6 +23,13 @@ import { ComplianceResearcherAgent } from './compliance-researcher.agent.js';
 import { SalesOutreachAgent } from './sales-outreach.agent.js';
 import { ConstructionAgent } from './construction.agent.js';
 import { LogisticsAgent } from './logistics.agent.js';
+import { ComplianceAgent } from './compliance.agent.js';
+import { QualityGateAgent } from './quality-gate.agent.js';
+import { KeywordIntentAgent } from './seo/keyword-intent.agent.js';
+import { CompetitorSurveillanceAgent } from './seo/competitor-surveillance.agent.js';
+import { ContentBriefAgent } from './seo/content-brief.agent.js';
+import { SeoAuditAgent } from './seo/seo-audit.agent.js';
+import { LeadFeedbackAgent } from './seo/lead-feedback.agent.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -90,6 +98,13 @@ export class AgentRegistry {
     // Orchestration agents (vertical business logic)
     this.register(new ConstructionAgent());
     this.register(new LogisticsAgent());
+
+    // SEO Sales Agent Pipeline (5 agents)
+    this.register(new KeywordIntentAgent());
+    this.register(new CompetitorSurveillanceAgent());
+    this.register(new ContentBriefAgent());
+    this.register(new SeoAuditAgent());
+    this.register(new LeadFeedbackAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
