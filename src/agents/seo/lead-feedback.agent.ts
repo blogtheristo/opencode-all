@@ -53,21 +53,22 @@ export class LeadFeedbackAgent extends BaseAgent {
 
     try {
       const output = await this.analyzeFeedback(typedInput);
+      const durationMs = Date.now() - startTime;
 
       const response: AgentResponse = {
         agentName: this.config.name,
         result: output as unknown as Record<string, unknown>,
         confidence: this.calculateConfidence(typedInput),
         reasoning: this.generateReasoning(typedInput, output),
-        recommendations: this.generateRecommendations(output),
+        recommendations: [...new Set(this.generateRecommendations(output))],
         metadata: {
+          durationMs,
           dealsAnalyzed: typedInput.closedWonDeals.length,
           organicDeals: typedInput.closedWonDeals.filter(
             (d) => d.attribution.channel === 'organic',
           ).length,
           newKeywordSuggestions: output.newKeywordSuggestions.length,
           scoreAdjustments: output.scoreAdjustments.length,
-          executionTimeMs: Date.now() - startTime,
         },
       };
 
@@ -80,12 +81,14 @@ export class LeadFeedbackAgent extends BaseAgent {
         input,
         output: response,
         status: 'completed',
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
 
       return response;
     } catch (err: any) {
+      const durationMs = Date.now() - startTime;
+
       await this.logExecution({
         agent_name: this.config.name,
         user_id: context.userId,
@@ -96,7 +99,7 @@ export class LeadFeedbackAgent extends BaseAgent {
         output: null,
         status: 'error',
         error_message: err.message,
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
       throw err;

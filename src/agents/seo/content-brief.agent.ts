@@ -51,6 +51,7 @@ export class ContentBriefAgent extends BaseAgent {
 
     try {
       const output = await this.generateBrief(typedInput);
+      const durationMs = Date.now() - startTime;
 
       const response: AgentResponse = {
         agentName: this.config.name,
@@ -59,13 +60,13 @@ export class ContentBriefAgent extends BaseAgent {
         reasoning: `Generated content brief for "${typedInput.targetKeyword.keyword}" (${typedInput.targetKeyword.funnelStage}). ` +
           `Brief includes ${output.brief.outline.length} sections, ${output.brief.internalLinks.length} internal links, ` +
           `and ${output.brief.ctaPlacement.length} CTAs. Draft is ${output.draft.wordCount} words.`,
-        recommendations: this.generateRecommendations(typedInput, output),
+        recommendations: [...new Set(this.generateRecommendations(typedInput, output))],
         metadata: {
+          durationMs,
           targetKeyword: typedInput.targetKeyword.keyword,
           contentType: typedInput.targetKeyword.suggestedContentType,
           regulationsReferenced: typedInput.lwmContext.regulations.map((r) => r.name),
           draftWordCount: output.draft.wordCount,
-          executionTimeMs: Date.now() - startTime,
         },
       };
 
@@ -78,12 +79,14 @@ export class ContentBriefAgent extends BaseAgent {
         input,
         output: response,
         status: 'completed',
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
 
       return response;
     } catch (err: any) {
+      const durationMs = Date.now() - startTime;
+
       await this.logExecution({
         agent_name: this.config.name,
         user_id: context.userId,
@@ -94,7 +97,7 @@ export class ContentBriefAgent extends BaseAgent {
         output: null,
         status: 'error',
         error_message: err.message,
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
       throw err;

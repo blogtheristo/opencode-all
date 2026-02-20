@@ -64,6 +64,7 @@ export class SeoAuditAgent extends BaseAgent {
 
     try {
       const output = await this.runAudit(typedInput);
+      const durationMs = Date.now() - startTime;
 
       const response: AgentResponse = {
         agentName: this.config.name,
@@ -73,14 +74,14 @@ export class SeoAuditAgent extends BaseAgent {
           `Health score: ${output.healthScore}/100. ` +
           `Found ${output.issues.length} issues (${output.issues.filter((i) => i.severity === 'critical').length} critical). ` +
           `Deploy gate: ${output.deployGate.pass ? 'PASS' : 'BLOCKED'}.`,
-        recommendations: this.generateRecommendations(output),
+        recommendations: [...new Set(this.generateRecommendations(output))],
         metadata: {
+          durationMs,
           site: typedInput.site.baseUrl,
           scope: typedInput.scope,
           healthScore: output.healthScore,
           issueCount: output.issues.length,
           deployGatePass: output.deployGate.pass,
-          executionTimeMs: Date.now() - startTime,
         },
       };
 
@@ -93,12 +94,14 @@ export class SeoAuditAgent extends BaseAgent {
         input,
         output: response,
         status: 'completed',
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
 
       return response;
     } catch (err: any) {
+      const durationMs = Date.now() - startTime;
+
       await this.logExecution({
         agent_name: this.config.name,
         user_id: context.userId,
@@ -109,7 +112,7 @@ export class SeoAuditAgent extends BaseAgent {
         output: null,
         status: 'error',
         error_message: err.message,
-        duration_ms: Date.now() - startTime,
+        duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
       throw err;

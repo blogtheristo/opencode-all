@@ -28,5 +28,7 @@ export type {
   PriorityKeyword,
   SeoPipelineEvent,
   SeoEventType,
-  SEO_PIPELINE_SCHEDULE,
 } from './types.js';
+
+// Re-export const values
+export { SEO_PIPELINE_SCHEDULE } from './types.js';
