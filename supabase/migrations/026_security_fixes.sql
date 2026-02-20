@@ -140,7 +140,8 @@ BEGIN
   RETURNING id INTO log_id;
   RETURN log_id;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER
+SET search_path = public, pg_temp;
 
 -- =============================================================================
 -- FIX 4: 007 — get_user_organizations() should use auth.uid() internally
@@ -201,6 +202,25 @@ WHERE schemaname = 'public' AND tablename = 'firehorse_signals';
 ALTER TABLE firehorse_signals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE firehorse_signals FORCE ROW LEVEL SECURITY;
 
+-- Ensure firehorse_signals_* views cannot bypass RLS by using security_invoker
+DO $$
+DECLARE
+  v RECORD;
+BEGIN
+  -- For all views in public schema matching firehorse_signals_%
+  FOR v IN
+    SELECT schemaname, viewname
+    FROM pg_views
+    WHERE schemaname = 'public'
+      AND viewname LIKE 'firehorse_signals\_%' ESCAPE '\'
+  LOOP
+    EXECUTE format(
+      'ALTER VIEW %I.%I SET (security_invoker = true);',
+      v.schemaname,
+      v.viewname
+    );
+  END LOOP;
+END $$;
 -- Service role full access
 DROP POLICY IF EXISTS "firehorse_signals_service_role_all" ON firehorse_signals;
 CREATE POLICY "firehorse_signals_service_role_all"
@@ -250,8 +270,8 @@ FROM firehorse_leads WHERE email = 'test.lead@kela.fi';
 -- Fix: CREATE TABLE IF NOT EXISTS + indexes + RLS (fully idempotent)
 -- =============================================================================
 
--- Guard: gen_random_uuid() needs pgcrypto on PG < 13, core on PG 13+.
--- Our PG 17 has it natively, but verify pgcrypto is available for generate_thread_token().
+-- Guard: gen_random_uuid() is provided by the pgcrypto extension (which ships with Postgres).
+-- On our PG 17 instance it should already be available, but we still ensure pgcrypto exists for generate_thread_token().
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pgcrypto') THEN
@@ -341,6 +361,7 @@ BEGIN
       RETURNS climate_assistant_usage
       LANGUAGE plpgsql
       SECURITY DEFINER
+      SET search_path = public, pg_temp
       AS $body$
       DECLARE
         usage_record climate_assistant_usage;
