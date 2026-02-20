@@ -268,42 +268,57 @@ feat: add BIM emission factor validation endpoint
 
 **Deployment trigger:** Push to `main` branch runs `.github/workflows/deploy-scaleway.yml`
 
-## Automated PR Workflow (AI Agent Loop)
+## Automated PR Workflow (HIL Automation)
 
-This repo uses an automated multi-agent PR workflow:
+This repo uses a fully automated multi-agent PR workflow that **replaces manual human-in-the-loop review**.
 
 ### Flow
 1. **Claude Code** generates implementation on a feature branch and opens a draft PR
-2. **AI Code Review** workflow triggers automatically (`.github/workflows/ai-pr-review.yml`)
-   - Claude API reviews the diff for security, correctness, performance, style, tests
-   - Posts structured review comment on the PR
-   - Adds labels: `ai-reviewed`, `ai-approved` or `ai-changes-requested`
-3. **If changes requested**: Review comment tags `@copilot` with fix instructions
-   - Copilot coding agent picks up the comment and implements fixes
+2. **AI Code Review (HIL)** workflow triggers automatically (`.github/workflows/ai-pr-review.yml`)
+   - **Claude** does quick sanity check (security, correctness, breaking changes)
+   - **Gemini** does deep HIL review (replaces human reviewer: edge cases, tests, architecture, security audit)
+   - Both must approve — Gemini is the mandatory quality gate
+   - Posts combined review as PR comment
+   - Adds labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
+3. **If changes requested** (mandatory, not optional): Gemini's required changes + test gaps are formatted as structured @copilot instructions
+   - Copilot coding agent picks up the comment and implements fixes autonomously
    - Pushes to the PR branch, re-triggering the review workflow
-   - This loop repeats until the review passes (typically 1-3 iterations)
-4. **When approved**: `ai-approved` label triggers auto-merge workflow
+   - Loop repeats until both reviewers approve (typically 1-3 iterations)
+4. **Gemini requests fixes → Copilot implements** (mandatory, not optional): This is the core automation loop
+   - Gemini acts as strict senior engineer — flags critical issues, missing tests, edge cases
+   - Fix instructions are specific and actionable (file:line references)
+   - Copilot implements changes, runs `npm run build` and `npm test`
+   - Review re-triggers automatically on push
+5. **When approved**: `ai-approved` label triggers auto-merge workflow
    - Verifies all CI checks pass
-   - Enables squash auto-merge (or adds `ready-to-merge` label if branch protection requires manual merge)
-5. **Human override**: Add `do-not-merge` or `needs-human-review` labels to pause automation
+   - Enables squash auto-merge (or adds `ready-to-merge` label)
+6. **Human override**: Add `do-not-merge` or `needs-human-review` labels to pause
 
 ### Copilot Coding Agent
 - Setup steps defined in `.github/copilot-setup-steps.yml`
 - Copilot agent runs `npm install`, installs Python tools, builds TypeScript
 - When tagged in PR comments, it implements requested changes autonomously
 
+### Gemini MCP Integration
+- Gemini MCP server is registered in `mcp-hub/server.py` (currently disabled, port 8768)
+- The PR review workflow uses Gemini API directly via `GOOGLE_AI_API_KEY` secret
+- Model: `gemini-2.0-flash` (fast, strong on code critique)
+
 ### Labels Used
 | Label | Meaning |
 |-------|---------|
-| `ai-reviewed` | AI review has been performed |
-| `ai-approved` | AI review passed, no critical issues |
-| `ai-changes-requested` | AI found issues that need fixing |
+| `ai-reviewed` | AI review has been performed (dual-model) |
+| `ai-approved` | Both Claude + Gemini approved |
+| `ai-changes-requested` | One or both reviewers found issues |
 | `ready-to-merge` | All checks passed, safe to merge |
 | `do-not-merge` | Blocks auto-merge (human override) |
 | `needs-human-review` | Pauses automation for manual review |
 
 ### Required Secrets
-- `ANTHROPIC_API_KEY` - For Claude API review calls
+| Secret | Purpose |
+|--------|---------|
+| `ANTHROPIC_API_KEY` | Claude API — quick sanity review |
+| `GOOGLE_AI_API_KEY` | Gemini API — mandatory HIL review gate |
 
 ## Additional Documentation
 

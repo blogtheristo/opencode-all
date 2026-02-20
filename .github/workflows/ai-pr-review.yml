@@ -1,6 +1,10 @@
-name: AI Code Review
+name: AI Code Review (HIL Automation)
 
-# Triggers on PR open, update, and when review is requested
+# Replaces manual human-in-the-loop review with dual AI review:
+#   Claude = quick sanity check (generation-aware)
+#   Gemini = strict HIL replacement (deep analysis, edge cases, security)
+# If issues found → structured @copilot instructions → Copilot fixes → re-review loop
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -12,9 +16,9 @@ permissions:
 
 jobs:
   ai-review:
-    name: AI Code Review
+    name: AI Code Review (HIL)
     runs-on: ubuntu-latest
-    # Skip if PR was created by this workflow (prevent loops)
+    # Skip bot-created events to prevent infinite loops
     if: github.actor != 'github-actions[bot]'
 
     steps:
@@ -23,35 +27,36 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get PR diff
+      - name: Get PR diff and context
         id: diff
         run: |
-          # Get the diff between base and head
           git fetch origin ${{ github.base_ref }} --depth=50
-          DIFF=$(git diff origin/${{ github.base_ref }}...HEAD -- \
-            '*.ts' '*.tsx' '*.js' '*.jsx' '*.py' '*.yml' '*.yaml' \
-            ':!package-lock.json' ':!*.lock' \
-            | head -c 60000)
 
-          # Get list of changed files
-          FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          # Code diff (exclude lock files, binaries)
+          git diff origin/${{ github.base_ref }}...HEAD -- \
+            '*.ts' '*.tsx' '*.js' '*.jsx' '*.py' '*.yml' '*.yaml' '*.json' '*.md' \
+            ':!package-lock.json' ':!*.lock' ':!*.min.js' ':!*.min.css' \
+            | head -c 60000 > /tmp/pr-diff.txt
 
-          # Save to files for later steps
-          echo "$DIFF" > /tmp/pr-diff.txt
-          echo "$FILES" > /tmp/changed-files.txt
+          # Changed file list
+          git diff --name-only origin/${{ github.base_ref }}...HEAD > /tmp/changed-files.txt
 
-          # Count stats
-          ADDITIONS=$(git diff --stat origin/${{ github.base_ref }}...HEAD | tail -1 | grep -oP '\d+ insertion' | grep -oP '\d+' || echo "0")
-          DELETIONS=$(git diff --stat origin/${{ github.base_ref }}...HEAD | tail -1 | grep -oP '\d+ deletion' | grep -oP '\d+' || echo "0")
-          FILE_COUNT=$(echo "$FILES" | wc -l)
+          # Stats
+          STAT_LINE=$(git diff --stat origin/${{ github.base_ref }}...HEAD | tail -1)
+          ADDITIONS=$(echo "$STAT_LINE" | grep -oP '\d+ insertion' | grep -oP '\d+' || echo "0")
+          DELETIONS=$(echo "$STAT_LINE" | grep -oP '\d+ deletion' | grep -oP '\d+' || echo "0")
+          FILE_COUNT=$(wc -l < /tmp/changed-files.txt)
 
           echo "additions=$ADDITIONS" >> $GITHUB_OUTPUT
           echo "deletions=$DELETIONS" >> $GITHUB_OUTPUT
           echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
 
-      - name: AI Review with Claude
-        if: env.ANTHROPIC_API_KEY != ''
+      # ──────────────────────────────────────────────
+      # STEP 1: Claude Review (quick sanity check)
+      # ──────────────────────────────────────────────
+      - name: Claude Review
         id: claude-review
+        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -60,42 +65,29 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
 
-          # Build the review prompt
-          PROMPT="You are a senior engineer reviewing a pull request for DWS IQ 6, an enterprise climate intelligence platform (TypeScript/Python/React).
+          PROMPT="You are a senior engineer doing a quick sanity review of a PR for DWS IQ 6 (enterprise climate intelligence platform, TypeScript/Python/React).
 
           PR Title: ${PR_TITLE}
           PR Description: ${PR_BODY}
+          Changed files: ${FILES}
 
-          Changed files:
-          ${FILES}
-
-          Diff (truncated to 60KB):
+          Diff:
           ${DIFF}
 
-          Review this PR with focus on:
-          1. **Security**: API key exposure, injection vulnerabilities, OWASP Top 10
-          2. **Correctness**: Logic errors, edge cases, type safety
-          3. **Performance**: N+1 queries, unnecessary re-renders, memory leaks
-          4. **Style**: Consistency with project conventions (strict TypeScript, Zod validation, functional React)
-          5. **Tests**: Are changes adequately tested?
+          Focus on:
+          1. Security: API key exposure, injection, OWASP Top 10
+          2. Correctness: logic errors, type safety
+          3. Breaking changes: API contract changes, missing migrations
 
-          Format your response as:
-          ## Summary
-          [1-2 sentence summary of what this PR does]
+          Format:
+          ## Claude Quick Review
+          **Summary:** [1 sentence]
+          **Critical Issues:** [list with file:line, or 'None']
+          **Verdict:** APPROVE / REQUEST_CHANGES
 
-          ## Issues Found
-          [List critical/high issues with file:line references. If none, say 'No critical issues found.']
+          Be concise. Flag only real problems, not style preferences."
 
-          ## Suggestions
-          [List improvement suggestions, ordered by priority]
-
-          ## Verdict
-          [APPROVE / REQUEST_CHANGES / COMMENT — with brief justification]
-
-          Keep the review concise and actionable. Do not repeat the diff back."
-
-          # Call Claude API
-          RESPONSE=$(curl -s -X POST "https://api.anthropic.com/v1/messages" \
+          RESPONSE=$(curl -s --max-time 60 -X POST "https://api.anthropic.com/v1/messages" \
             -H "x-api-key: ${ANTHROPIC_API_KEY}" \
             -H "anthropic-version: 2023-06-01" \
             -H "content-type: application/json" \
@@ -103,15 +95,131 @@ jobs:
               --arg prompt "$PROMPT" \
               '{
                 model: "claude-sonnet-4-20250514",
-                max_tokens: 2048,
+                max_tokens: 1024,
                 messages: [{role: "user", content: $prompt}]
               }')" \
-            | jq -r '.content[0].text // "Review failed: no response from Claude API"')
+            | jq -r '.content[0].text // "Review unavailable"')
 
-          # Save response
           echo "$RESPONSE" > /tmp/claude-review.txt
 
-          # Check if changes are requested
+          if echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
+            echo "verdict=request_changes" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=approve" >> $GITHUB_OUTPUT
+          fi
+
+      # ──────────────────────────────────────────────
+      # STEP 2: Gemini HIL Review (replaces human review)
+      # This is the MANDATORY review gate. Gemini acts as
+      # a strict senior engineer doing deep analysis.
+      # ──────────────────────────────────────────────
+      - name: Gemini HIL Review
+        id: gemini-review
+        if: ${{ secrets.GOOGLE_AI_API_KEY != '' }}
+        env:
+          GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
+        run: |
+          DIFF=$(cat /tmp/pr-diff.txt)
+          FILES=$(cat /tmp/changed-files.txt)
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+
+          # Gemini is the strict HIL reviewer — replaces manual human review
+          PROMPT="You are a STRICT senior engineer performing a thorough code review. You REPLACE the human reviewer — your review is the final quality gate before merge. Do not rubber-stamp.
+
+          Project: DWS IQ 6 — enterprise climate intelligence platform
+          Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
+          Standards: Strict TypeScript (no any), Zod validation, functional React, OWASP security
+
+          PR Title: ${PR_TITLE}
+          PR Description: ${PR_BODY}
+          Changed files:
+          ${FILES}
+
+          Diff:
+          ${DIFF}
+
+          Perform deep analysis on ALL of these — do not skip any:
+
+          1. **SECURITY** (Critical)
+             - API key/secret exposure in code or config
+             - Injection vulnerabilities (SQL, XSS, command injection)
+             - Authentication/authorization gaps
+             - CSRF, CORS misconfiguration
+             - Unsafe eval(), exec(), or dynamic code execution
+
+          2. **CORRECTNESS** (Critical)
+             - Logic errors, off-by-one, null/undefined handling
+             - Race conditions, async/await misuse
+             - Type safety violations
+             - Missing error handling at system boundaries
+
+          3. **EDGE CASES** (Important)
+             - Empty inputs, large inputs, unicode, special characters
+             - Network failures, timeout handling
+             - Concurrent access patterns
+
+          4. **PERFORMANCE** (Important)
+             - N+1 queries, unnecessary re-renders
+             - Memory leaks (event listeners, intervals not cleaned)
+             - Bundle size impact
+
+          5. **TESTS** (Important)
+             - Are new code paths tested?
+             - Are edge cases covered?
+             - If no tests added for new logic, flag it
+
+          6. **ARCHITECTURE** (Advisory)
+             - Does this follow existing patterns in the codebase?
+             - Any unnecessary complexity?
+
+          FORMAT YOUR RESPONSE EXACTLY AS:
+
+          ## Gemini HIL Review
+
+          ### Summary
+          [2-3 sentences: what this PR does and overall quality assessment]
+
+          ### Critical Issues
+          [List each with file:line reference and clear description. If none: 'None found.']
+
+          ### Required Changes
+          [Specific, actionable changes that MUST be made before merge. Each item should be implementable by a coding agent. If none: 'None required.']
+
+          ### Suggested Improvements
+          [Nice-to-have improvements, ordered by impact. These don't block merge.]
+
+          ### Test Gaps
+          [Missing test coverage. Specific test cases that should be added. If adequate: 'Test coverage is adequate.']
+
+          ### Verdict
+          [Exactly one of: APPROVE / REQUEST_CHANGES]
+          [1 sentence justification]
+
+          IMPORTANT RULES:
+          - If you find ANY critical issue or required change, verdict MUST be REQUEST_CHANGES
+          - Format required changes as clear @copilot instructions (e.g., 'In file X at line Y, change Z to W')
+          - Do NOT approve PRs that add new logic without tests
+          - Be specific — vague feedback like 'could be improved' is useless"
+
+          # Call Gemini API
+          RESPONSE=$(curl -s --max-time 90 -X POST \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_AI_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg prompt "$PROMPT" \
+              '{
+                contents: [{parts: [{text: $prompt}]}],
+                generationConfig: {
+                  maxOutputTokens: 3000,
+                  temperature: 0.1
+                }
+              }')" \
+            | jq -r '.candidates[0].content.parts[0].text // "Gemini review unavailable"')
+
+          echo "$RESPONSE" > /tmp/gemini-review.txt
+
+          # Determine verdict
           if echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
             echo "verdict=request_changes" >> $GITHUB_OUTPUT
           elif echo "$RESPONSE" | grep -qi "APPROVE"; then
@@ -120,91 +228,189 @@ jobs:
             echo "verdict=comment" >> $GITHUB_OUTPUT
           fi
 
-      - name: Post Review Comment
+      # ──────────────────────────────────────────────
+      # STEP 3: Combine verdicts and post review
+      # Both must approve. Gemini is the gate.
+      # ──────────────────────────────────────────────
+      - name: Determine combined verdict
+        id: combined
+        run: |
+          CLAUDE="${{ steps.claude-review.outputs.verdict }}"
+          GEMINI="${{ steps.gemini-review.outputs.verdict }}"
+
+          # Gemini is the mandatory HIL gate
+          # If Gemini didn't run (no API key), fall back to Claude only
+          if [ -z "$GEMINI" ] && [ -z "$CLAUDE" ]; then
+            echo "verdict=comment" >> $GITHUB_OUTPUT
+            echo "gate=none" >> $GITHUB_OUTPUT
+          elif [ -z "$GEMINI" ]; then
+            echo "verdict=$CLAUDE" >> $GITHUB_OUTPUT
+            echo "gate=claude-only" >> $GITHUB_OUTPUT
+          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
+            echo "verdict=request_changes" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=approve" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post combined review comment
         uses: actions/github-script@v7
-        env:
-          CLAUDE_VERDICT: ${{ steps.claude-review.outputs.verdict }}
         with:
           script: |
             const fs = require('fs');
+            const verdict = '${{ steps.combined.outputs.verdict }}';
+            const gate = '${{ steps.combined.outputs.gate }}';
 
-            let reviewBody = '## AI Code Review\n\n';
+            let body = '## AI Code Review (HIL Automation)\n\n';
+
+            if (gate === 'dual') {
+              body += '> Dual-model review: Claude (sanity) + Gemini (deep HIL review)\n\n';
+            } else if (gate === 'claude-only') {
+              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` secret to enable Gemini HIL review)\n\n';
+            } else {
+              body += '> No AI review available (configure API key secrets)\n\n';
+            }
 
             // Claude review
             try {
-              const claudeReview = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
-              if (claudeReview && !claudeReview.includes('Review failed')) {
-                reviewBody += '### Claude Review\n\n';
-                reviewBody += claudeReview + '\n\n';
-              } else {
-                reviewBody += '> Claude review skipped (API key not configured or call failed)\n\n';
+              const claude = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
+              if (claude && !claude.includes('unavailable')) {
+                body += claude + '\n\n---\n\n';
               }
-            } catch (e) {
-              reviewBody += '> Claude review skipped (not configured)\n\n';
+            } catch {}
+
+            // Gemini review (the HIL replacement — this is the main review)
+            try {
+              const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
+              if (gemini && !gemini.includes('unavailable')) {
+                body += gemini + '\n\n---\n\n';
+              }
+            } catch {}
+
+            // Verdict banner
+            if (verdict === 'approve') {
+              body += '### **APPROVED** — All AI reviewers passed. Auto-merge eligible.\n';
+            } else if (verdict === 'request_changes') {
+              body += '### **CHANGES REQUESTED** — Issues found. Fix instructions sent to @copilot.\n';
+            } else {
+              body += '### Review posted (no automated verdict)\n';
             }
 
-            // Stats
             const additions = '${{ steps.diff.outputs.additions }}';
             const deletions = '${{ steps.diff.outputs.deletions }}';
             const fileCount = '${{ steps.diff.outputs.file_count }}';
+            body += `\n**Stats:** ${fileCount} files, +${additions} -${deletions}\n`;
 
-            reviewBody += '---\n';
-            reviewBody += `**Stats:** ${fileCount} files changed, +${additions} -${deletions}\n`;
-            reviewBody += '*Automated review by AI Code Review workflow*\n';
-
-            // Post as PR comment
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: reviewBody
+              body: body
             });
 
-      - name: Request Copilot fixes if issues found
-        if: steps.claude-review.outputs.verdict == 'request_changes'
+      # ──────────────────────────────────────────────
+      # STEP 4: Route fix instructions to @copilot
+      # Gemini's required changes become Copilot tasks
+      # ──────────────────────────────────────────────
+      - name: Route fixes to Copilot
+        if: steps.combined.outputs.verdict == 'request_changes'
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            let review = '';
+
+            // Collect all issues from both reviewers
+            let fixInstructions = [];
+
+            // Extract from Gemini (primary — this is the HIL replacement)
             try {
-              review = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
-            } catch (e) {
-              return;
+              const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
+
+              // Extract "Required Changes" section
+              const requiredMatch = gemini.match(/### Required Changes\n([\s\S]*?)(?=\n### )/);
+              if (requiredMatch && !requiredMatch[1].includes('None required')) {
+                fixInstructions.push('**From Gemini HIL Review (Required Changes):**\n' + requiredMatch[1].trim());
+              }
+
+              // Extract "Critical Issues" section
+              const criticalMatch = gemini.match(/### Critical Issues\n([\s\S]*?)(?=\n### )/);
+              if (criticalMatch && !criticalMatch[1].includes('None found')) {
+                fixInstructions.push('**From Gemini HIL Review (Critical Issues):**\n' + criticalMatch[1].trim());
+              }
+
+              // Extract "Test Gaps" section
+              const testMatch = gemini.match(/### Test Gaps\n([\s\S]*?)(?=\n### )/);
+              if (testMatch && !testMatch[1].includes('adequate')) {
+                fixInstructions.push('**From Gemini HIL Review (Test Gaps):**\n' + testMatch[1].trim());
+              }
+            } catch {}
+
+            // Extract from Claude
+            try {
+              const claude = fs.readFileSync('/tmp/claude-review.txt', 'utf8');
+              const issuesMatch = claude.match(/\*\*Critical Issues:\*\*\s*([\s\S]*?)(?=\n\*\*)/);
+              if (issuesMatch && !issuesMatch[1].includes('None')) {
+                fixInstructions.push('**From Claude Review:**\n' + issuesMatch[1].trim());
+              }
+            } catch {}
+
+            if (fixInstructions.length === 0) {
+              // Fallback: send full review as fix context
+              try {
+                const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
+                fixInstructions.push('**Review feedback (implement all required changes):**\n' + gemini.substring(0, 3000));
+              } catch {}
             }
 
-            // Extract issues from the review
-            const issuesMatch = review.match(/## Issues Found\n([\s\S]*?)(?=\n## )/);
-            const issues = issuesMatch ? issuesMatch[1].trim() : '';
-
-            if (issues && !issues.includes('No critical issues')) {
-              // Post a comment tagging @copilot with fix instructions
-              const fixComment = `@copilot Please address the following issues found during AI review:\n\n${issues}\n\nFix these issues and push the changes to this PR branch.`;
+            if (fixInstructions.length > 0) {
+              const comment = [
+                '@copilot Please fix the following issues found during AI code review.',
+                '',
+                'Implement ALL required changes below, then push to this branch.',
+                'After pushing, the review will re-run automatically.',
+                '',
+                ...fixInstructions,
+                '',
+                '---',
+                'After fixing, also run `npm run build` and `npm test` to verify nothing is broken.',
+                'Add unit tests for any new logic that lacks test coverage.'
+              ].join('\n');
 
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: fixComment
+                body: comment
               });
             }
 
-      - name: Add review labels
+      # ──────────────────────────────────────────────
+      # STEP 5: Apply labels based on verdict
+      # ──────────────────────────────────────────────
+      - name: Apply review labels
         uses: actions/github-script@v7
-        env:
-          VERDICT: ${{ steps.claude-review.outputs.verdict }}
         with:
           script: |
-            const verdict = process.env.VERDICT || 'comment';
+            const verdict = '${{ steps.combined.outputs.verdict }}';
             const labels = ['ai-reviewed'];
+            const removeLabels = [];
 
             if (verdict === 'approve') {
               labels.push('ai-approved');
+              removeLabels.push('ai-changes-requested');
             } else if (verdict === 'request_changes') {
               labels.push('ai-changes-requested');
+              removeLabels.push('ai-approved');
             }
 
-            // Create labels if they don't exist, then apply
+            // Create labels if needed
+            const labelDefs = {
+              'ai-reviewed': { color: '0075ca', description: 'AI code review completed' },
+              'ai-approved': { color: '0e8a16', description: 'AI review passed — auto-merge eligible' },
+              'ai-changes-requested': { color: 'd93f0b', description: 'AI review found issues — waiting for fixes' }
+            };
+
             for (const label of labels) {
               try {
                 await github.rest.issues.getLabel({
@@ -212,25 +418,34 @@ jobs:
                   repo: context.repo.repo,
                   name: label
                 });
-              } catch (e) {
-                // Label doesn't exist, create it
-                const colors = {
-                  'ai-reviewed': '0075ca',
-                  'ai-approved': '0e8a16',
-                  'ai-changes-requested': 'd93f0b'
-                };
+              } catch {
+                const def = labelDefs[label] || {};
                 await github.rest.issues.createLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   name: label,
-                  color: colors[label] || '666666'
+                  color: def.color || '666666',
+                  description: def.description || ''
                 });
               }
             }
 
+            // Add new labels
             await github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               labels: labels
             });
+
+            // Remove contradicting labels
+            for (const label of removeLabels) {
+              try {
+                await github.rest.issues.removeLabel({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label
+                });
+              } catch {}
+            }

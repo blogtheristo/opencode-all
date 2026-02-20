@@ -161,26 +161,32 @@ To update the workflow:
 
 ### Overview
 
-Three new workflows automate the PR review and merge cycle:
+Three workflows automate the full PR review and merge cycle, replacing manual human-in-the-loop review:
 
 ```
-Claude Code → opens PR → AI Review → Copilot fixes → CI → auto-merge
+Claude Code → opens PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                      ↑                    |
+                                                      └────────────────────┘  (fix loop)
 ```
 
 ### Workflows
 
-#### AI Code Review (`ai-pr-review.yml`)
+#### AI Code Review — HIL Automation (`ai-pr-review.yml`)
 
 **Trigger:** `pull_request` (opened, synchronize, reopened)
 
 **What it does:**
 1. Extracts the PR diff (code files only, truncated to 60KB)
-2. Sends diff to Claude API for structured review (security, correctness, performance, style, tests)
-3. Posts review as PR comment with verdict: APPROVE / REQUEST_CHANGES / COMMENT
-4. If REQUEST_CHANGES: tags `@copilot` with fix instructions (Copilot coding agent picks these up)
-5. Applies labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
+2. **Claude** does quick sanity review (security, correctness, breaking changes)
+3. **Gemini** does deep HIL review — replaces human reviewer (edge cases, tests, architecture, security audit)
+4. Posts combined review as PR comment. Both must approve.
+5. If REQUEST_CHANGES: extracts Gemini's required changes + test gaps → routes as structured `@copilot` instructions
+6. Copilot implements fixes, pushes → review re-triggers automatically (fix loop)
+7. Applies labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
 
-**Required secrets:** `ANTHROPIC_API_KEY`
+**Required secrets:** `ANTHROPIC_API_KEY`, `GOOGLE_AI_API_KEY`
+
+**MCP Hub integration:** Gemini review is also available at `POST /gemini/review` on the MCP Hub (`mcp-hub/server.py`) for on-demand code analysis by any agent.
 
 #### PR Auto-Merge (`pr-auto-merge.yml`)
 
