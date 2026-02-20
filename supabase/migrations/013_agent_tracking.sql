@@ -173,13 +173,12 @@ CREATE TABLE IF NOT EXISTS agent_signals (
   milestone VARCHAR(100) NOT NULL,
   context_id VARCHAR(100),  -- lead_id, deal_id, etc.
   metadata JSONB DEFAULT '{}'::jsonb,
-  emitted_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_signals_agent_id (agent_id),
-  INDEX idx_signals_type (signal_type),
-  INDEX idx_signals_emitted_at (emitted_at DESC),
-  INDEX idx_signals_context (context_id) WHERE context_id IS NOT NULL
+  emitted_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_signals_agent_id ON agent_signals(agent_id);
+CREATE INDEX idx_signals_type ON agent_signals(signal_type);
+CREATE INDEX idx_signals_emitted_at ON agent_signals(emitted_at DESC);
+CREATE INDEX idx_signals_context ON agent_signals(context_id) WHERE context_id IS NOT NULL;
 
 COMMENT ON TABLE agent_signals IS 'Lifetime Scope Signals for agent-to-agent coordination';
 
@@ -204,11 +203,10 @@ CREATE TABLE IF NOT EXISTS agent_costs (
   -- Total
   total_cost_eur NUMERIC GENERATED ALWAYS AS (model_cost_eur + api_cost_eur) STORED,
 
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-
-  INDEX idx_costs_agent_date (agent_id, cost_date DESC),
-  INDEX idx_costs_date (cost_date DESC)
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+CREATE INDEX idx_costs_agent_date ON agent_costs(agent_id, cost_date DESC);
+CREATE INDEX idx_costs_date ON agent_costs(cost_date DESC);
 
 COMMENT ON TABLE agent_costs IS 'Detailed cost tracking for AI agent operations (LLM + API calls)';
 
@@ -230,13 +228,12 @@ CREATE TABLE IF NOT EXISTS agent_approvals (
 
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  expires_at TIMESTAMPTZ DEFAULT NOW() + INTERVAL '24 hours',
-
-  INDEX idx_approvals_status (status) WHERE status = 'pending',
-  INDEX idx_approvals_agent_id (agent_id),
-  INDEX idx_approvals_approver (approver_email),
-  INDEX idx_approvals_created_at (created_at DESC)
+  expires_at TIMESTAMPTZ DEFAULT NOW() + INTERVAL '24 hours'
 );
+CREATE INDEX idx_approvals_status ON agent_approvals(status) WHERE status = 'pending';
+CREATE INDEX idx_approvals_agent_id ON agent_approvals(agent_id);
+CREATE INDEX idx_approvals_approver ON agent_approvals(approver_email);
+CREATE INDEX idx_approvals_created_at ON agent_approvals(created_at DESC);
 
 COMMENT ON TABLE agent_approvals IS 'Approval workflow for agents in Advisor mode (HIL oversight)';
 

@@ -6,7 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
- * All nine production agents are registered on module load.
+ * All seven production agents are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -81,6 +81,8 @@ export class AgentRegistry {
     this.register(new EmissionsDataAnalystAgent());
     this.register(new ComplianceResearcherAgent());
     this.register(new SalesOutreachAgent());
+    this.register(new ComplianceAgent());
+    this.register(new QualityGateAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

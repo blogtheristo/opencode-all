@@ -6,13 +6,13 @@ Pydantic models for payment requests, responses, and webhooks.
 
 from datetime import datetime
 from decimal import Decimal
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, EmailStr, Field
 
 
-class SubscriptionStatus(str, Enum):
+class SubscriptionStatus(StrEnum):
     """Subscription status enum"""
 
     PENDING = "pending"
@@ -23,14 +23,14 @@ class SubscriptionStatus(str, Enum):
     PAYMENT_FAILED = "payment_failed"
 
 
-class PaymentProvider(str, Enum):
+class PaymentProvider(StrEnum):
     """Payment provider enum"""
 
     REVOLUT = "revolut"
     PAYPAL = "paypal"
 
 
-class PlanTier(str, Enum):
+class PlanTier(StrEnum):
     """Subscription plan tier"""
 
     FREE = "free"

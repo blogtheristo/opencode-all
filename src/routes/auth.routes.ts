@@ -270,7 +270,7 @@ router.post('/refresh', async (req: Request, res: Response) => {
     }
 
     // Verify and refresh token
-    const newAccessToken = AuthService.refreshAccessToken(refreshToken);
+    const newAccessToken = await AuthService.refreshAccessToken(refreshToken);
 
     if (!newAccessToken) {
       logger.warn('Failed to refresh token');

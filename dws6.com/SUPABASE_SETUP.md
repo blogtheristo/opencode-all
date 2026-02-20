@@ -200,7 +200,7 @@ For production, configure custom SMTP:
    - **Port**: 587 (or 465 for SSL)
    - **Username**: your-email@domain.com
    - **Password**: your-smtp-password
-   - **Sender email**: noreply@dws6.com
+   - **Sender email**: risto@onelifetime.world
    - **Sender name**: DWS IQ Platform
 
 ## Step 9: Security Best Practices
