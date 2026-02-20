@@ -143,7 +143,8 @@ LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
 -- Recreate the dependent view that was dropped
 CREATE VIEW v_outreach_due_today
-WITH (security_invoker = true) AS
+  WITH (security_invoker = true)
+AS
 SELECT ve.*,
   COALESCE(
     (SELECT COUNT(*) FROM outreach_activities oa WHERE oa.thread_id = ve.id),
