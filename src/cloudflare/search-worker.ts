@@ -121,7 +121,9 @@ async function redis(
   });
 
   if (!res.ok) {
-    throw new Error(`Upstash error ${res.status}: ${await res.text()}`);
+    const details = await res.text();
+    console.error(`Upstash error ${res.status}: ${details}`);
+    throw new Error(`Redis operation failed (status ${res.status})`);
   }
 
   const data = await res.json() as { result: unknown };
@@ -143,7 +145,9 @@ async function redisPipeline(
   });
 
   if (!res.ok) {
-    throw new Error(`Upstash pipeline error ${res.status}: ${await res.text()}`);
+    const details = await res.text();
+    console.error(`Upstash pipeline error ${res.status}: ${details}`);
+    throw new Error(`Redis pipeline operation failed (status ${res.status})`);
   }
 
   const data = await res.json() as { result: unknown }[];
