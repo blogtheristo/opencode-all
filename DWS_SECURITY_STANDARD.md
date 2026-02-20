@@ -48,6 +48,7 @@ Related Documents:
   - dws10.com/docs/PHD_FIREHORSE_EN.md (Master thesis EN — Firehorse operational model)
   - dws10.com/docs/PHD_FIREHORSE_FI.md (Pro gradu FI — Firehorse-toimintamalli)
   - ADMIN_MANUAL_AUTHENTICATION.md (v1.3 — JWT, bcrypt, security auditing)
+  - IPR_PROTECTION_STRATEGY.md (v1.0 — Three-tier IPR protection: NDA, Patents, Trade Secrets)
   - ADMIN_MANUAL_SUPABASE_EN_v1.md (Database administration)
   - ADMIN_MANUAL_DWS6_COM.md (Platform configuration)
 

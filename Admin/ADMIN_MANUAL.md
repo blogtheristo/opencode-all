@@ -18,6 +18,7 @@ Sessions & Modifications:
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -25,7 +26,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 07.02.2026
+  - Last Modified: 17.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -64,6 +65,9 @@ Document Status:
 24. [Sensitive Data Protection](#sensitive-data-protection)
 25. [Emergency Procedures](#emergency-procedures)
 26. [Training](#training)
+
+**Appendices**
+- [Appendix A: CEO Cockpit Morning Briefing](#appendix-a-ceo-cockpit-morning-briefing)
 
 ---
 
@@ -2495,10 +2499,151 @@ Track training effectiveness:
 
 ---
 
+## Appendix A: CEO Cockpit Morning Briefing
+
+**Status:** ✅ **ACTIVE** (since February 2026)
+**Delivery:** Mon–Sat at 06:00 Helsinki time via GitHub Actions
+**Workflow:** `.github/workflows/morning-briefing.yml`
+
+### What It Is
+
+A 5-minute daily briefing email delivering a prioritized CEO action summary. Pulls live data from Supabase and sends via Resend.
+
+### Schedule
+
+| Trigger | When | Notes |
+|---------|------|-------|
+| **Automatic** | Mon–Sat 06:00 Helsinki | Dual cron (03:00 + 04:00 UTC) covers both DST offsets |
+| **Manual** | Anytime | GitHub Actions → "Morning Briefing" → Run workflow |
+
+The send script has a Helsinki time guard: it only sends when the Helsinki hour is exactly 6. The "wrong" cron entry silently exits. Manual triggers (`workflow_dispatch`) skip the time guard automatically.
+
+### Email Sections
+
+| # | Section | What It Shows | Data Source |
+|---|---------|---------------|-------------|
+| 1 | **3 Changes** | Pipeline movement, product velocity, delivery milestones (last 24h) | `v_outreach_enriched`, `agent_metrics`, `firehorse_leads` |
+| 2 | **Today's 3 Bets** | Top 3 actions for the day (auto-generated from overdue/due threads) | `v_outreach_enriched` |
+| 3 | **Top Risk** | Most overdue thread + days overdue + next action | `v_outreach_enriched` |
+| 4 | **Captain Momentum** | Contacts to ping today + suggested artifact to prepare | `v_outreach_enriched` |
+| 5 | **Metrics Strip** | MRR, active convos, weekly commits, MVP ETA | GitHub API, Supabase, env vars |
+| 6 | **Send List** | Top 3–5 contacts to manually message, sorted by urgency | `v_outreach_enriched` |
+
+### How to Trigger Manually
+
+1. Go to **GitHub → Actions → "Morning Briefing"**
+2. Click **"Run workflow"**
+3. Optionally enter a recipient email to override the default
+4. Click the green **"Run workflow"** button
+
+### How to Enter Data
+
+#### Outreach Contacts (feeds Pipeline, Bets, Risk, Momentum, Send List)
+
+```bash
+curl -X POST https://your-server/api/v1/outreach/inbound \
+  -H "Content-Type: application/json" \
+  -H "X-Outreach-Key: YOUR_KEY" \
+  -d '{
+    "first_name": "Matti",
+    "org_name": "Wärtsilä",
+    "pipeline": "customer",
+    "source": "linkedin"
+  }'
+```
+
+**Pipeline values:** `investor`, `customer`, `partner`
+**Source values:** `boardy`, `linkedin`, `conference`, `referral`, `cold`, `inbound`, `manual`
+
+Or add/edit records directly in **Supabase Dashboard → Table Editor**:
+- `outreach_threads` — thread status, next_action, next_action_date
+- `persons` — contact details
+- `outreach_orgs` — company info
+
+#### Firehorse Leads (feeds Delivery changes)
+
+```bash
+curl -X POST https://your-server/api/v1/firehorse/leads \
+  -H "Content-Type: application/json" \
+  -d '{"email": "matti@wartsila.com", "first_name": "Matti", "company": "Wärtsilä", "country": "FI"}'
+```
+
+**CSV bulk import:**
+```bash
+npx tsx scripts/import-leads-csv.ts data/leads.csv
+```
+
+#### Metrics (MRR, MVP ETA)
+
+Set as **GitHub repository secrets** (Settings → Secrets and variables → Actions → Secrets):
+
+| Secret | Example | Purpose |
+|--------|---------|---------|
+| `MRR_EUR` | `500` | Monthly recurring revenue in EUR |
+| `MVP_ETA` | `2026-Q2` | Estimated MVP date |
+
+Weekly commits are fetched live from the GitHub API — no manual config needed.
+
+### Manual API Trigger
+
+If the Express server is running:
+
+```bash
+curl -X POST https://your-server/api/v1/morning-briefing/send \
+  -H "x-admin-key: YOUR_ADMIN_KEY"
+```
+
+### Configuration (GitHub Secrets)
+
+| Secret | Default | Purpose |
+|--------|---------|---------|
+| `RESEND_API_KEY` | *(required)* | Resend email provider API key |
+| `SUPABASE_URL` | *(required)* | Supabase project URL |
+| `SUPABASE_SERVICE_KEY` | *(required)* | Supabase service role key |
+| `EMAIL_FROM` | `risto@onelifetime.world` | Sender address (must be on Resend-verified domain) |
+| `OUTREACH_DIGEST_EMAIL` | `risto@lifetime.fi` | Recipient address |
+| `GITHUB_TOKEN` | *(auto-provided by Actions)* | For live commit count |
+| `MRR_EUR` | — | Monthly recurring revenue |
+| `MVP_ETA` | — | MVP estimated date |
+
+### File Map
+
+```
+scripts/send-morning-briefing.ts          # Entry point (GitHub Actions runs this)
+src/morning-briefing/
+  ├── data-collectors.ts                  # Supabase queries for all 6 sections
+  ├── briefing-template.ts                # HTML + plain text email templates
+  ├── scheduler.ts                        # Send logic (Resend API call)
+  └── index.ts                            # Module exports
+.github/workflows/morning-briefing.yml    # Cron schedule + workflow_dispatch
+```
+
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| "domain not verified" from Resend | `EMAIL_FROM` secret set to unverified domain | Set secret to `risto@onelifetime.world` or verify the domain in Resend |
+| "column does not exist" in logs | Supabase table schema changed | Check column names in `data-collectors.ts` match actual table |
+| Email arrives at 05:00 or 07:00 | DST offset change | Both cron entries (03:00 + 04:00 UTC) handle this; time guard ensures only 06:00 sends |
+| Commits show 0 | `GITHUB_TOKEN` not in workflow env | Verify workflow passes `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` |
+| "No product signals captured" | No rows in `agent_metrics` for yesterday | Agents must write daily metrics; table may be empty |
+| Email not received | No `RESEND_API_KEY` secret | Add the secret in GitHub repository settings |
+
+### Fix History
+
+| PR | Date | Fix |
+|----|------|-----|
+| #501 | 2026-02-17 | `v_outreach_enriched.updated_at` → `created_at`; `firehorse_leads.status` → `state` |
+| #504 | 2026-02-17 | `firehorse_leads.updated_at` → `created_at` |
+| #505 | 2026-02-17 | `agent_logs` → `agent_metrics`; live commit count via GitHub API |
+
+---
+
 ## Document Changelog
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 2.2 | Feb 17, 2026 | Appendix A: CEO Cockpit Morning Briefing — schedule, data entry, configuration, troubleshooting, fix history | K3bXV |
 | 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
 | 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |
 | 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |

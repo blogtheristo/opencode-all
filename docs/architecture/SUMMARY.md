@@ -3,7 +3,7 @@
 **Document:** Architecture Summary & Index  
 **Version:** 1.0 (Final)  
 **Date:** 2026-01-19  
-**Author:** Lifetime Consulting Oy  
+**Author:** Lifetime Oy  
 **Status:** ✅ All 11 Phases Complete
 
 ---
@@ -328,4 +328,4 @@ This summary document should be updated when:
 
 ---
 
-*"One Brain, Eight Industries" - DWS IQ 6 by Lifetime Consulting Oy*
+*"One Brain, Eight Industries" - DWS IQ 6 by Lifetime Oy*
