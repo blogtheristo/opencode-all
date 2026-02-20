@@ -76,6 +76,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 
+**Does NOT apply to:**
+- `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
+- `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
+
 ### Principles / Periaatteet
 
 1. **Traceability** - Every document must be traceable to its creator and session
@@ -1598,6 +1602,8 @@ Document Status:
 ### Related Documents
 
 - **Ontology & Lifetime World Model:** `ONTOLOGY.md` ⭐ NEW
+- **DWS Brand Standard:** `docs/DWS_BRAND_STANDARD.md` — Gamma design system, colors, typography, navigation, UX guidelines
+  - Associated agents/skills: `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend`
 - **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`

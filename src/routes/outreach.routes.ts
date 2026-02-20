@@ -111,9 +111,16 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
     title,
   } = req.body;
 
-  // Need at least linkedin_url or email to identify the person
+  // Need at least linkedin_url or email to identify a real person.
+  // Rule: no placeholder "team" entries — only named humans get threads.
   if (!linkedin_url && !email) {
-    res.status(400).json({ error: 'Provide at least linkedin_url or email' });
+    res.status(400).json({ error: 'Provide at least linkedin_url or email. Only named humans get threads — use outreach_orgs for org-only targets.' });
+    return;
+  }
+
+  // Reject company page URLs — must be a personal LinkedIn profile
+  if (linkedin_url && linkedin_url.includes('/company/')) {
+    res.status(400).json({ error: 'linkedin_url must be a personal profile, not a company page. Create the org first, find the human buyer, then create a thread.' });
     return;
   }
 

@@ -2,6 +2,9 @@
 -- Migration for persistent usage tracking in serverless/multi-instance deployment
 -- Fixes issue: https://github.com/blogtheristo/dws6/pull/300#discussion_r2737911476
 
+-- Ensure uuid extension (required for uuid_generate_v4)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- ============================================================
 -- CLIMATE ASSISTANT USAGE TABLE
 -- Tracks daily token usage for budget enforcement

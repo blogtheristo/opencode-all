@@ -1,0 +1,19 @@
+/**
+ * Morning Briefing Module — CEO Cockpit
+ *
+ * 5-minute daily briefing at 06:00 Helsinki, Mon-Sat.
+ * Delivered via GitHub Actions (.github/workflows/morning-briefing.yml).
+ */
+
+export { sendBriefingNow } from './scheduler.js';
+export { collectCockpitData } from './data-collectors.js';
+export { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
+export type {
+  CockpitData,
+  ThreeChanges,
+  SendListItem,
+  CaptainMomentum,
+  TopRisk,
+  MetricsStrip,
+  WorkflowData,
+} from './data-collectors.js';
