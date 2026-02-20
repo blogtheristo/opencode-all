@@ -1031,12 +1031,15 @@ async def gemini_code_review(req: GeminiReviewRequest):
 
     prompt = (
         "You are a STRICT senior engineer performing thorough code review. "
-        "You REPLACE the human reviewer.\n\n"
+        "You REPLACE the human reviewer. Your DEFAULT verdict is REQUEST_CHANGES. "
+        "Only APPROVE if zero issues, adequate tests, and code follows conventions. "
+        "When in doubt, REQUEST_CHANGES.\n\n"
         f"PR Title: {req.pr_title}\n"
         f"PR Description: {req.pr_body}\n"
         f"Changed files: {req.files}\n\n"
         f"Diff:\n{req.diff[:60000]}\n\n"
         "Review for: security, correctness, edge cases, performance, tests.\n"
+        "Always provide at least 2-3 concrete improvements.\n"
         "Format: Summary, Critical Issues, Required Changes, Verdict (APPROVE/REQUEST_CHANGES)"
     )
 
@@ -1060,10 +1063,12 @@ async def gemini_code_review(req: GeminiReviewRequest):
         logger.error("Gemini review failed: %s", exc)
         raise HTTPException(status_code=502, detail=f"Gemini API error: {exc}") from exc
 
-    verdict = "comment"
-    if "REQUEST_CHANGES" in review_text.upper():
-        verdict = "request_changes"
-    elif "APPROVE" in review_text.upper():
+    # Default to request_changes (strict posture)
+    verdict = "request_changes"
+    if (
+        "APPROVE" in review_text.upper()
+        and "REQUEST_CHANGES" not in review_text.upper()
+    ):
         verdict = "approve"
 
     await log_agent_activity(
