@@ -6,6 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
+ * All eleven production agents are registered on module load.
  * All production agents (7 core + 5 SEO pipeline) are registered on module load.
  */
 
@@ -16,6 +17,12 @@ import { ScheduleGeniusAgent } from './schedule-genius.agent.js';
 import { MaterialOracleAgent } from './material-oracle.agent.js';
 import { CustomerSatAgent } from './customer-sat.agent.js';
 import { ViabilityAgent } from './viability.agent.js';
+import { DeepWikiExtractorAgent } from './deepwiki-extractor.agent.js';
+import { EmissionsDataAnalystAgent } from './emissions-data-analyst.agent.js';
+import { ComplianceResearcherAgent } from './compliance-researcher.agent.js';
+import { SalesOutreachAgent } from './sales-outreach.agent.js';
+import { ConstructionAgent } from './construction.agent.js';
+import { LogisticsAgent } from './logistics.agent.js';
 import { ComplianceAgent } from './compliance.agent.js';
 import { QualityGateAgent } from './quality-gate.agent.js';
 import { KeywordIntentAgent } from './seo/keyword-intent.agent.js';
@@ -75,13 +82,22 @@ export class AgentRegistry {
 
   /** Register all built-in agents */
   private registerDefaults(): void {
+    // Utility agents (horizontal)
     this.register(new SiteSenseAgent());
     this.register(new ScheduleGeniusAgent());
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
-    this.register(new ComplianceAgent());
-    this.register(new QualityGateAgent());
+
+    // Extraction & research agents (from DeepWiki/awesome-llm-apps)
+    this.register(new DeepWikiExtractorAgent());
+    this.register(new EmissionsDataAnalystAgent());
+    this.register(new ComplianceResearcherAgent());
+    this.register(new SalesOutreachAgent());
+
+    // Orchestration agents (vertical business logic)
+    this.register(new ConstructionAgent());
+    this.register(new LogisticsAgent());
 
     // SEO Sales Agent Pipeline (5 agents)
     this.register(new KeywordIntentAgent());

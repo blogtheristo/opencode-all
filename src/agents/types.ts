@@ -70,3 +70,43 @@ export interface AgentExecutionLog {
   duration_ms: number;
   created_at: string;
 }
+
+// ============ GOVERNANCE POLICY ENGINE ============
+
+/** Policy types for agent governance (extracted from awesome-llm-apps governance pattern) */
+export type PolicyType = 'rate-limit' | 'cost-limit' | 'approval-required' | 'data-boundary' | 'autonomy-tier';
+
+/** A single governance policy applied to agent execution */
+export interface GovernancePolicy {
+  /** Unique policy identifier */
+  id: string;
+  /** Policy type */
+  type: PolicyType;
+  /** Which agents this policy applies to ('*' = all) */
+  agentPattern: string;
+  /** Policy configuration */
+  config: Record<string, unknown>;
+  /** Whether this policy is enforced or advisory */
+  enforcement: 'enforced' | 'advisory';
+}
+
+/** Result of a governance policy check */
+export interface PolicyCheckResult {
+  policyId: string;
+  allowed: boolean;
+  reason: string;
+  enforcement: 'enforced' | 'advisory';
+}
+
+/** Governance audit log entry */
+export interface GovernanceAuditEntry {
+  timestamp: string;
+  agent_name: string;
+  user_id: string;
+  org_id: string;
+  policies_checked: number;
+  policies_passed: number;
+  policies_failed: number;
+  blocked: boolean;
+  details: PolicyCheckResult[];
+}
