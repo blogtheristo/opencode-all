@@ -111,8 +111,8 @@ EXCEPTION WHEN OTHERS THEN
   RAISE WARNING 'handle_new_user failed for %: %', NEW.id, SQLERRM;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
+$$ LANGUAGE plpgsql SECURITY DEFINER
+SET search_path = pg_catalog, public;
 -- =============================================================================
 -- FIX 3: 007 — log_auth_event() should enforce caller = service_role
 -- Problem: any authenticated user can insert arbitrary audit rows
