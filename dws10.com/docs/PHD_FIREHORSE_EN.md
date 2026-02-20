@@ -29,10 +29,12 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 9. [Audio Chat Evolution Roadmap](#9-audio-chat-evolution-roadmap)
 10. [Industry Carbon Calculator](#10-industry-carbon-calculator)
 11. [Proton Products Strategy](#11-proton-products-strategy)
-12. [Results and Discussion](#12-results-and-discussion)
-13. [Conclusion](#13-conclusion)
-14. [References](#14-references)
-15. [Appendices](#15-appendices)
+12. [IPR Protection & Trade Secret Strategy](#12-ipr-protection--trade-secret-strategy)
+13. [Prompt Caching Architecture for AI Agents](#13-prompt-caching-architecture-for-ai-agents)
+14. [Results and Discussion](#14-results-and-discussion)
+15. [Conclusion](#15-conclusion)
+16. [References](#16-references)
+17. [Appendices](#17-appendices)
 
 ---
 
@@ -796,7 +798,147 @@ Audio chat recommends Proton implementation when detecting:
 
 ---
 
-## 12. Results and Discussion
+## 12. IPR Protection & Trade Secret Strategy
+
+### 12.1 Three-Tier IPR Framework
+
+The Firehorse Operations Model and its underlying technologies require a structured intellectual property protection strategy. Lifetime Oy employs a three-tier classification framework:
+
+| Tier | Mechanism | Scope | Legal Basis |
+|------|-----------|-------|-------------|
+| **Tier 1: Public** | Free distribution | Teaser, FCD concept, market sizing | — |
+| **Tier 2: NDA Required** | Confidentiality agreement | LWM architecture, knowledge graph overview, BYOC logic | EU Trade Secrets Directive 2016/943 |
+| **Tier 3A: Patent** | Patent protection | CIDM method, causal reasoning algorithm | PRH (Finland), EPO, PCT |
+| **Tier 3B: Trade Secret** | Internal controls | Knowledge graph structure (10,000+ nodes), weights, training data | EU 2016/943, Finnish Trade Secrets Act 595/2018 |
+
+### 12.2 NDA Gate for Technical Disclosure
+
+Before any technical deep-dive with partners, investors, or customers, the receiving party must sign the Lifetime Oy NDA (EU Trade Secrets Directive 2016/943 compliant). The NDA covers:
+
+- **LWM Architecture** — component diagram, data flow, processing pipeline
+- **Knowledge Graph Structure** — node taxonomy, edge types, relationship model
+- **BYOC (Bring Your Own Cloud) Logic** — cloud deployment, tenant isolation, data residency
+- **Agent Orchestration** — MCP server configuration, coordination protocols
+- **Integration Architecture** — ERP connectors (SAP, IFS, Dynamics)
+
+Public/marketing materials (Tier 1) can be shared freely without NDA: product teasers, FCD concept overview, market sizing, and high-level architecture diagrams.
+
+### 12.3 Patent Strategy
+
+Patentable innovations are filed through PRH (Patentti- ja rekisterihallitus, Finland) with international PCT extension:
+
+| Priority | Innovation | Filing Path | Status |
+|----------|-----------|-------------|--------|
+| P1 | CIDM — Climate-Intelligent Decision Making | PRH → PCT → EPO/USPTO | Patent pending |
+| P2 | Causal Reasoning for Regulatory Risk | PRH → PCT | Prior art search Q2 2026 |
+| P3 | LWM Temporal Latent Space | PRH → PCT | Evaluation Q3 2026 |
+
+**Critical rule:** Patent applications MUST be filed before any public disclosure of the method. NDA-protected disclosures do not destroy patentability.
+
+### 12.4 Trade Secret as Preferred Protection for Knowledge Graph
+
+For the knowledge graph (10,000+ nodes), trade secret protection is strategically preferred over patents:
+
+| Factor | Patent | Trade Secret |
+|--------|--------|-------------|
+| Duration | 20 years (then public) | Indefinite |
+| Disclosure | Must publish full method | No disclosure |
+| Competitor awareness | Knows exactly what's protected | Cannot know what to copy |
+| Cost | €120k–200k (3 patents, EU+US) | Administrative only |
+
+Trade secret status under EU Directive 2016/943 requires: (1) the information is secret, (2) it has commercial value because it is secret, and (3) reasonable steps have been taken to keep it secret. Lifetime Oy maintains access controls, encryption, employee confidentiality agreements, and internal classification registers.
+
+### 12.5 Implications for Firehorse Operations
+
+The IPR framework directly impacts Firehorse e-commerce operations:
+
+- **Product descriptions** on dws10.com describe *what* the platform does (Tier 1), never *how* it works
+- **Investor pitch decks** share problem/solution/market freely; architecture details require NDA
+- **Conference presentations** discuss EU compliance gaps, not algorithm specifics
+- **Customer demos** operate under NDA with watermarked materials
+- **Store product pages** reference capabilities, not implementation details
+
+---
+
+## 13. Prompt Caching Architecture for AI Agents
+
+### 13.1 Engineering Principle: Cache Rules Everything
+
+The Firehorse Operations Model relies on long-running AI agent sessions (Claude Code) for store management, product updates, and compliance automation. Prompt caching is the foundational engineering principle that makes these sessions economically viable.
+
+**Source:** Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).
+
+**Core insight:** Prompt caching reuses computation from previous API roundtrips via prefix matching. The API caches everything from the start of the request up to each `cache_control` breakpoint. A high cache hit rate reduces costs and latency significantly.
+
+### 13.2 System Prompt Layout for Caching
+
+The order of prompt content matters — static content first, dynamic content last:
+
+```
+1. Static system prompt & Tools     (globally cached)
+2. CLAUDE.md / project config       (cached within a project)
+3. Session context                   (cached within a session)
+4. Conversation messages             (new per turn)
+```
+
+**Fragility warning:** Cache ordering breaks when:
+- Timestamps are placed in the static system prompt
+- Tool definitions are shuffled non-deterministically
+- Tool parameters are updated mid-session (e.g., available agents)
+
+### 13.3 Six Engineering Rules for Agent Caching
+
+| Rule | Principle | Implementation |
+|------|-----------|---------------|
+| **1. Static first, dynamic last** | Maximize shared prefix across sessions | System prompt → CLAUDE.md → session context → messages |
+| **2. Use system messages for updates** | Never modify the static prompt mid-session | Pass time, file changes, mode switches via `<system-reminder>` tags in the next message |
+| **3. Never change models mid-session** | Prompt caches are model-specific | Switching from Opus to Haiku at 100k tokens costs more than keeping Opus (cache rebuild) |
+| **4. Never add/remove tools mid-session** | Tools are part of the cached prefix | Use tool stubs with `defer_loading: true` for optional tools; discover via ToolSearch |
+| **5. Design features around the cache** | State transitions via tools, not tool set changes | Plan mode = system message + ExitPlanMode tool, not swapping the tool set |
+| **6. Fork operations share parent prefix** | Compaction/summarization must reuse cache | Use identical system prompt, tools, and message history for forked requests |
+
+### 13.4 Compaction: Cache-Safe Context Forking
+
+When running agents approach the context window limit, compaction (summarization) must preserve the cache:
+
+```
+WRONG: New API call with different system prompt + no tools
+       → Full cache miss, expensive
+
+RIGHT: Same system prompt + same tools + parent message history
+       + compaction prompt appended as new user message
+       → Cache hit on parent prefix, only new tokens are the prompt
+```
+
+This requires reserving a "compaction buffer" — enough room in the context window for the compact message and summary output tokens.
+
+### 13.5 Operational Impact on Firehorse
+
+For DWS10.com store operations, these caching principles translate to:
+
+| Operation | Cache Impact | Practice |
+|-----------|-------------|----------|
+| Product catalog updates | Long session, many file edits | Keep same model throughout |
+| Feed generation | Tool-heavy workflow | All tools defined at session start |
+| Compliance checking | Context-heavy (regulations) | CLAUDE.md cached as project config |
+| Multi-file sync (dual folder) | Sequential dependent operations | Chain in single session, don't fork |
+
+**Monitoring:** Cache hit rate is treated as an uptime metric. A drop in cache hits triggers investigation — it indicates a system prompt change, tool definition shift, or model switch that needs correction.
+
+### 13.6 Cost & Latency Implications
+
+| Scenario | Cache Hit Rate | Relative Cost | Latency |
+|----------|---------------|---------------|---------|
+| Optimized (static prefix) | >90% | 1x (baseline) | Low |
+| Tool set changes mid-session | ~50% | ~2x | High |
+| Model switch mid-session | 0% (full rebuild) | ~3-5x | Very high |
+| Compaction without parent prefix | 0% | ~3x | High |
+
+These economics are critical for Firehorse's AI-assisted store operations, where sessions routinely process 30+ products across multiple files.
+
+---
+
+## 14. Results and Discussion
 
 ### 12.1 Operational Efficiency Gains
 
@@ -840,7 +982,7 @@ After implementing Revolut checkout links and fixing feed issues:
 
 ---
 
-## 13. Conclusion
+## 15. Conclusion
 
 ### 13.1 Summary
 
@@ -873,7 +1015,7 @@ This thesis contributes:
 
 ---
 
-## 14. References
+## 16. References
 
 1. EU AI Act, Regulation (EU) 2024/1689
 2. Google Merchant Center Technical Specifications (2026)
@@ -887,10 +1029,14 @@ This thesis contributes:
 10. GHG Protocol Corporate Standard
 11. ISO 14064-1:2018 Greenhouse Gas Accounting
 12. Proton AG Security Documentation
+13. EU Trade Secrets Directive (EU) 2016/943
+14. Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)
+15. Patent Cooperation Treaty (PCT), WIPO
+16. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
 
 ---
 
-## 15. Appendices
+## 17. Appendices
 
 ### Appendix A: Complete Product Catalog
 

@@ -247,6 +247,169 @@ For security-related inquiries, vendor risk assessments, or to request our secur
 
 ---
 
+## IPR Protection & Trade Secret Controls
+
+### Intellectual Property Classification
+
+DWS IQ 6 employs a three-tier intellectual property classification framework aligned with the EU Trade Secrets Directive (2016/943):
+
+| Classification | Disclosure Rule | Examples |
+|---------------|----------------|---------|
+| **Tier 1: Public** | Freely distributable | Product overview, market sizing, compliance value proposition |
+| **Tier 2: NDA Required** | NDA must be signed before disclosure | Platform architecture, knowledge graph overview, BYOC deployment model, integration design |
+| **Tier 3A: Patent Protected** | Disclosed only with patent protection | CIDM method (patent pending), causal reasoning algorithm |
+| **Tier 3B: Trade Secret** | Never publicly disclosed | Knowledge graph structure (10,000+ nodes), node weights, training data, optimization techniques |
+
+### Trade Secret Security Controls
+
+| Control | Implementation | Compliance |
+|---------|---------------|------------|
+| **Access control** | Role-based, need-to-know only | EU 2016/943 Art. 2(1)(c) |
+| **Encryption at rest** | AES-256-GCM (Supabase, GCP KMS) | ISO 27001 A.10 |
+| **Encryption in transit** | TLS 1.3 for all connections | ISO 27001 A.13 |
+| **Audit logging** | All access to trade secret assets logged | EU AI Act Art. 12 |
+| **Employee agreements** | Confidentiality clauses in employment contracts | Finnish Trade Secrets Act 595/2018 |
+| **NDA for external parties** | EU Trade Secrets Directive-compliant NDA required | EU 2016/943 |
+| **Code marking** | Trade secret headers on sensitive source files | Internal classification register |
+| **Quarterly review** | Trade secret register reviewed every 90 days | Best practice |
+
+### Patent Portfolio
+
+| Innovation | Status | Filing Authority | Protection Scope |
+|-----------|--------|-----------------|-----------------|
+| CIDM (Climate-Intelligent Decision Making) | Patent pending | PRH (Finland) | Multi-agent AI orchestration for regulatory compliance |
+| Causal Reasoning for Regulatory Risk | Prior art search Q2 2026 | PRH → PCT | Causal inference for compliance risk scoring |
+| LWM Temporal Latent Space | Evaluation Q3 2026 | PRH → PCT | Persistent world state for project lifecycle |
+
+### For Your CISO
+
+**What we protect:** Core AI methods (patented), knowledge graph structure (trade secret), integration architectures (NDA-gated).
+
+**What we share:** This document (public), penetration test reports (under NDA), architecture overview (under NDA), DPA (ready to sign).
+
+**IPR does not limit your deployment:** Customer data remains yours. IP classification applies to our platform internals, not your data or outputs.
+
+---
+
+## CISO Agent — Autonomous Security Monitoring
+
+### Concept
+
+The CISO Agent is an AI-powered security operations agent within DWS IQ 6 that provides continuous security posture monitoring, compliance gap detection, and incident response coordination. It operates as part of the Firehorse multi-agent orchestration framework.
+
+### Agent Capabilities
+
+| Capability | Description | Status |
+|-----------|-------------|--------|
+| **Vulnerability Scanning** | Automated weekly scans of platform dependencies and infrastructure | ✅ Active |
+| **Compliance Gap Detection** | Continuous monitoring against ISO 27001, NIS2, GDPR, EU AI Act | ✅ Active |
+| **Incident Classification** | Automatic triage and severity classification of security events | ✅ Active |
+| **Audit Trail Generation** | EU AI Act Article 12 compliant logging of all AI decisions | ✅ Active |
+| **Trade Secret Access Monitoring** | Alerts on unusual access patterns to Tier 3B assets | Roadmap Q2 2026 |
+| **NDA Compliance Tracking** | Tracks active NDAs, expiration dates, and covered parties | Roadmap Q2 2026 |
+| **Regulatory Change Detection** | Monitors EU regulatory updates affecting platform compliance | Roadmap Q3 2026 |
+
+### Agent Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    CISO AGENT                         │
+├─────────────────────────────────────────────────────┤
+│                                                       │
+│  ┌──────────────┐  ┌──────────────┐  ┌────────────┐  │
+│  │  Vulnerability│  │  Compliance  │  │  Incident  │  │
+│  │  Scanner      │  │  Monitor     │  │  Responder │  │
+│  └──────┬───────┘  └──────┬───────┘  └─────┬──────┘  │
+│         │                  │                 │         │
+│         ▼                  ▼                 ▼         │
+│  ┌────────────────────────────────────────────────┐   │
+│  │            MCP Orchestration Layer              │   │
+│  │     (Model Context Protocol coordination)       │   │
+│  └────────────────────┬───────────────────────────┘   │
+│                       │                               │
+│  ┌────────────────────▼───────────────────────────┐   │
+│  │           Audit & Reasoning Lineage             │   │
+│  │   (EU AI Act Art. 12 / Article 13 compliance)   │   │
+│  └────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────┘
+```
+
+### Human-in-the-Loop Controls
+
+The CISO Agent operates under strict human oversight:
+
+| Trigger | Agent Action | Human Action Required |
+|---------|-------------|----------------------|
+| Critical vulnerability detected | Classifies, proposes patch | **Human approval before deployment** |
+| Compliance gap found | Documents gap, suggests remediation | **CISO review and sign-off** |
+| Security incident | Triage, evidence collection, containment proposal | **Human-led incident response** |
+| Trade secret access anomaly | Alert + access log export | **Security team investigation** |
+| NDA expiring within 30 days | Notification to legal team | **Legal team renewal decision** |
+
+**The CISO Agent never takes autonomous destructive actions** (blocking access, modifying permissions, isolating systems) without explicit human authorization.
+
+### Prompt Caching for Security Agent Sessions
+
+The CISO Agent follows prompt caching engineering principles derived from Claude Code operations to ensure cost-efficient, low-latency security monitoring:
+
+| Principle | Security Application |
+|-----------|---------------------|
+| **Static prefix first** | Security policies, compliance rules, and threat models are loaded as static system prompt — cached globally |
+| **System messages for updates** | New CVEs, regulatory changes, and incident updates arrive as system messages — no cache invalidation |
+| **No model switching** | CISO Agent uses a single model per session — switching models would rebuild the entire security context cache |
+| **No tool changes mid-session** | All security tools (scanner, monitor, responder) defined at session start — tool stubs for optional tools |
+| **Cache-safe compaction** | When security context grows large, compaction preserves the parent session's cached prefix |
+
+---
+
+## AI Agent Prompt Caching — Engineering Principles
+
+### Why This Matters for Enterprise Security
+
+Long-running AI agent sessions (security monitoring, compliance checking, audit generation) are made economically viable by prompt caching. Understanding these principles is essential for evaluating the cost and security posture of AI-powered security tools.
+
+**Source:** Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).
+
+### How Prompt Caching Works
+
+Prompt caching operates via **prefix matching**: the API caches computation from the start of a request up to each `cache_control` breakpoint. Subsequent requests that share the same prefix reuse cached results, reducing latency and cost.
+
+**Optimal prompt layout for security agents:**
+
+```
+1. Static system prompt + security policies    (globally cached)
+2. Tools + agent definitions                    (globally cached)
+3. Project-level context (CLAUDE.md, rules)     (cached per project)
+4. Session-specific context                     (cached per session)
+5. Conversation messages                        (new per turn)
+```
+
+### Six Rules for Production AI Agents
+
+| # | Rule | Why It Matters | Security Implication |
+|---|------|---------------|---------------------|
+| 1 | **Static content first, dynamic last** | Maximizes cache hits across sessions | Security policies are the most static — cache them first |
+| 2 | **Use messages for updates, not prompt edits** | Modifying the system prompt invalidates the cache | New threat intel delivered as messages, not prompt rewrites |
+| 3 | **Never switch models mid-session** | Each model has its own cache; switching = full rebuild | CISO Agent keeps one model per monitoring session |
+| 4 | **Never add/remove tools mid-session** | Tools are part of the cached prefix | All security tools defined at start; optional tools use `defer_loading` stubs |
+| 5 | **Design features around the cache** | State transitions via tools, not tool set changes | Security modes (monitoring, incident response) are system messages, not tool swaps |
+| 6 | **Fork operations share parent prefix** | Side computations (compaction, summarization) must reuse the cache | Incident summaries use same prefix as monitoring session |
+
+### Cost & Operational Impact
+
+| Scenario | Cache Hit Rate | Cost Factor | Latency |
+|----------|---------------|-------------|---------|
+| Optimized agent (rules followed) | >90% | 1x baseline | Low |
+| Tool set change mid-session | ~50% | ~2x | High |
+| Model switch mid-session | 0% | ~3-5x | Very high |
+| Compaction without parent prefix | 0% | ~3x | High |
+
+### Monitoring Recommendation
+
+Treat prompt cache hit rate as an uptime metric. A sustained drop below 85% indicates a system prompt change, tool definition shift, or model switch that needs investigation. At Claude Code scale, a few percentage points of cache miss rate dramatically affects cost and response time.
+
+---
+
 ## Appendix: Infrastructure Providers
 
 | Provider | Service | Certification | EU Region |
@@ -262,7 +425,7 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.2
-**Last Updated:** February 14, 2026
+**Document Version:** 1.3
+**Last Updated:** February 19, 2026
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
