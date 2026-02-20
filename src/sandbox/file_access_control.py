@@ -102,7 +102,12 @@ class FileAccessControl:
         Raises:
             PermissionError: If operation is not allowed
         """
-        if operation in ["write", "delete", "chmod", "chown"] and not cls.is_write_allowed(path):
+        if operation in [
+            "write",
+            "delete",
+            "chmod",
+            "chown",
+        ] and not cls.is_write_allowed(path):
             logger.error(
                 f"Cross-agent privilege escalation blocked! "
                 f"Operation: {operation}, Path: {path}"

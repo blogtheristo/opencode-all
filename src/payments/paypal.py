@@ -10,7 +10,6 @@ API Documentation: https://developer.paypal.com/docs/api/overview/
 import base64
 import logging
 from datetime import datetime
-from decimal import Decimal
 from typing import Any
 
 import httpx
@@ -18,8 +17,8 @@ import httpx
 from src.payments.config import (
     PaymentConfig,
     PlanTier,
-    get_paypal_plan_id,
     get_payment_config,
+    get_paypal_plan_id,
 )
 from src.payments.models import PaymentProvider
 
@@ -29,7 +28,12 @@ logger = logging.getLogger(__name__)
 class PayPalError(Exception):
     """PayPal API error"""
 
-    def __init__(self, message: str, status_code: int | None = None, error_code: str | None = None):
+    def __init__(
+        self,
+        message: str,
+        status_code: int | None = None,
+        error_code: str | None = None,
+    ):
         super().__init__(message)
         self.status_code = status_code
         self.error_code = error_code
@@ -76,9 +80,12 @@ class PayPalClient:
         Caches the token until it expires.
         """
         # Check if we have a valid cached token
-        if self._access_token and self._token_expires_at:
-            if datetime.now() < self._token_expires_at:
-                return self._access_token
+        if (
+            self._access_token
+            and self._token_expires_at
+            and datetime.now() < self._token_expires_at
+        ):
+            return self._access_token
 
         client = await self._get_client()
 
@@ -113,7 +120,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Authentication failed: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def _get_headers(self) -> dict[str, str]:
         """Get headers with current access token"""
@@ -173,13 +180,17 @@ class PayPalClient:
         if subscriber_name:
             payload["subscriber"]["name"] = {
                 "given_name": subscriber_name.split()[0] if subscriber_name else "",
-                "surname": " ".join(subscriber_name.split()[1:]) if len(subscriber_name.split()) > 1 else "",
+                "surname": " ".join(subscriber_name.split()[1:])
+                if len(subscriber_name.split()) > 1
+                else "",
             }
 
         if custom_id:
             payload["custom_id"] = custom_id
 
-        logger.info(f"Creating PayPal subscription for {subscriber_email} - {plan_tier}")
+        logger.info(
+            f"Creating PayPal subscription for {subscriber_email} - {plan_tier}"
+        )
 
         try:
             response = await client.post(
@@ -214,7 +225,7 @@ class PayPalClient:
                 f"Failed to create subscription: {error_data.get('message', e.response.text)}",
                 status_code=e.response.status_code,
                 error_code=error_data.get("name"),
-            )
+            ) from e
 
     async def get_subscription(self, subscription_id: str) -> dict[str, Any]:
         """
@@ -242,7 +253,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to get subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def cancel_subscription(
         self,
@@ -280,9 +291,11 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to cancel subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
-    async def suspend_subscription(self, subscription_id: str, reason: str = "Suspended") -> bool:
+    async def suspend_subscription(
+        self, subscription_id: str, reason: str = "Suspended"
+    ) -> bool:
         """
         Suspend a PayPal subscription (can be reactivated later).
 
@@ -313,7 +326,7 @@ class PayPalClient:
             raise PayPalError(
                 f"Failed to suspend subscription: {e.response.text}",
                 status_code=e.response.status_code,
-            )
+            ) from e
 
     async def verify_webhook_signature(
         self,
@@ -388,7 +401,9 @@ class PayPalClient:
             "subscriber_email": resource.get("subscriber", {}).get("email_address"),
             "custom_id": resource.get("custom_id"),
             "start_time": resource.get("start_time"),
-            "next_billing_time": resource.get("billing_info", {}).get("next_billing_time"),
+            "next_billing_time": resource.get("billing_info", {}).get(
+                "next_billing_time"
+            ),
             "last_payment": resource.get("billing_info", {}).get("last_payment"),
         }
 

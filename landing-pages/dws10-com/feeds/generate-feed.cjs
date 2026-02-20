@@ -45,13 +45,8 @@ function generateProductXml(product) {
         imageUrl = `${BASE_URL}/${imageUrl}`;
     }
     
-    // Resolve product URL
-    let productUrl = product.detailsUrl;
-    if (productUrl && productUrl.startsWith('../')) {
-        productUrl = `${BASE_URL}/${productUrl.replace('../', '')}`;
-    } else if (productUrl && !productUrl.startsWith('http')) {
-        productUrl = `${BASE_URL}/${productUrl}`;
-    }
+    // All products link to the main store page
+    const productUrl = `${BASE_URL}/buy/`;
 
     let xml = `
     <item>

@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisatty osio 6.7 - Ihminen-silmukassa-oppimisputki (paivittainen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisatty Liite E - Tekoalyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoalysaadoksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Lisatty DWS10.com verkkokaupan loydokset, Google Merchant Center -integraatio, Revolut Business -maksut, Aanichat-kehityssuunnitelma Groq/Llama-malleilla, Toimialan hiilijalanjalkililaskuri, EU-vaatimustenmukaisuuskartoitus
   - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Lisatty Fit for 55:n 16 teollisuudenalan analyysi, AI-kayton ilmoitus, DWS10-kayttotapaukset, laajennettu nykytila-analyysi
@@ -21,10 +22,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 28.01.2026
+  - Last Modified: 07.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3 verkkokauppaintegraatiolla)
+  - Publication Status: DRAFT (V3.2 HIL-putkella)
 
 ---
 
@@ -294,6 +295,84 @@ Kauppaa hallitaan Firehorse-toimintamallilla Claude Coden avulla:
 | Maanantai | Syotteen terveystarkastus, Google Merchant -diagnostiikka | 15 min |
 | Keskiviikko | Suorituskyvyn tarkastelu, CTR-analyysi | 30 min |
 | Perjantai | Optimointi, syotteen lataus, Git-commit | 45 min |
+
+## 6.7 Ihminen-silmukassa-oppimisputki (HIL) [UUSI]
+
+DWS6-alustan paivittaista toimintaa hallitaan automatisoidun Human-in-the-Loop (HIL) -oppimisputken kautta, joka luo jatkuvan palautesilmukan kehittajan, tekoalyagenttien ja koodikannan valille. Tama putki toteutettiin helmikuussa 2026 ratkaisemaan tietamyksen ajautumisongelman — jossa dokumentaatio ja koodi eriytyvat ajan myota ilman saannollista inhimillista tarkistusta.
+
+### Putken arkkitehtuuri
+
+```
+GitHub (totuuden lahde)
+    ↓ git pull (paivittainen, automaattinen Startup-DailySync.bat:n kautta)
+Paikallinen repositorio (Windows)
+    ↓ Sync-ToProton.ps1
+Proton Drive (salattu paikallinen varmuuskopio)
+    ↓ Generate-PDFs.ps1 → tyylitelty HTML → Learn/-kansio
+    ↓ Sync-ToSupabase.ps1
+Supabase Storage (EU-pilvivarmuuskopio)
+    ↓
+Edge-selain (aamukatselmus Learn/-kansion sisallosta)
+    ↓ ihminen lukee, oppii, paattaa mika tarvitsee tyota
+Claude Code -istunto (seuraava toimenpide)
+    ↓ git push
+GitHub → sykli toistuu
+```
+
+### Putken komponentit
+
+| Vaihe | Skripti | Toiminto | Tuloste |
+|-------|---------|----------|---------|
+| 1 | `git pull` | Hae viimeisimmat muutokset GitHubista | Paivitetty paikallinen repo |
+| 2 | `Sync-ToProton.ps1` | Kopioi liiketoimintatiedostot Proton Driveen | Salattu varmuuskopio |
+| 3 | `Generate-PDFs.ps1` | Muunna 19 markdown-tiedostoa tyylitellyiksi HTML:ksi | `Learn/`-kansio |
+| 4 | `Sync-ToSupabase.ps1` | Laheta koodi ja dokumentit Supabase Storageen | EU-pilvivarmuuskopio |
+| 5 | Edge-selain | Avaa automaattisesti paivitetyt tiedostot tarkistettavaksi | Inhimillinen tietamys |
+| 6 | Claude Code | Tekoalyavusteinen kehitysistunto | Koodimuutokset |
+| 7 | `git push` | Tyonna muutokset GitHubiin | Sykli valmistuu |
+
+### Dokumenttilahteet (19 tiedostoa muunnetaan HTML:ksi)
+
+Putki muuntaa kaikki keskeiset dokumentit brandatyksi, tyylitellyksi HTML:ksi aamukatselmausta varten:
+
+- **Hallintakasikirjat** (11 tiedostoa): Todennus, kauppamaksut, Supabase, turvallisuustestaus, turvallisuusvalvonta, vaatimustenmukaisuus, DWS6.com-toiminnot, testaus, puuteanalyysi, tiedostot ja kansiot
+- **Myynti ja markkinointi** (3 tiedostoa): Yritysmyynti, AI-agenttisuunnittelu
+- **Sijoittajamateriaalit** (3 tiedostoa): Sijoittajapresentaatio, sijoittajamuistio, esitys
+- **Standardit** (2 tiedostoa): CLAUDE.md-ymparistosaannot, DWS-dokumenttistandardi
+
+### DWS-brandin tyylitys
+
+Generoidut HTML-tiedostot kayttavat DWS-brandin CSS:aa:
+
+| Elementti | Tyyli |
+|-----------|-------|
+| Otsikot (H1) | Vari `#0a1628`, sininen reunus `#0066cc` |
+| Taulukon otsikot | Tausta `#0a1628`, valkoinen teksti |
+| Linkit | Vari `#0066cc` |
+| Lainaukset | Vasen reunus `#0066cc`, vaaleansininen tausta |
+| Fontti | Segoe UI / Arial, 11pt |
+
+### Miksi tama putki on tarkeaa
+
+HIL-putki ratkaisee kolme kriittista ongelmaa:
+
+1. **Tietamyksen portinvartija**: Joka aamu ihminen tarkistaa kaikkien liiketoimintadokumenttien viimeisimman tilan. Mikaan ei ajaudu huomaamatta.
+2. **Kolmikerroksinen varmuuskopiointi**: Jokainen muutos on GitHubissa (versionhallinta), Proton Drivessa (salattu paikallinen) ja Supabasessa (EU-pilvi). Ei yhta vikaantumispistetta.
+3. **Jatkuva oppimissilmukka**: Ihminen lukee → tunnistaa puutteet → kayttaa Claude Codea korjaamiseen → tyontaa muutokset → seuraavana aamuna nakee paivityksen. Palautesilmukka sulkeutuu paivittain.
+
+### Automaatio
+
+Koko putki kaynnistyy automaattisesti Windowsin kaynnistyksessa:
+
+```bat
+@echo off
+REM Startup-DailySync.bat v1.4
+set "REPO_PATH=F:\2026\Repos2026\dws6"
+cd /d "%REPO_PATH%"
+git pull origin main
+pwsh -File "%REPO_PATH%\scripts\Sync-ToProton.ps1" -GeneratePDFs -OpenNewPDFs
+pwsh -File "%REPO_PATH%\scripts\Sync-ToSupabase.ps1"
+```
 
 ---
 
@@ -668,4 +747,4 @@ Karpathyn periaatteiden kayttoonotto DWS6-kehityksessa saavutti:
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
 *Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 3.1*
+*Versio: 3.2*

@@ -4,7 +4,7 @@
 **Version:** 1.0.0  
 **Last Updated:** 2026-01-18  
 **Platform:** DWS IQ 6 & Firehorse Products  
-**Company:** Lifetime Consulting Oy
+**Company:** Lifetime Oy
 
 ---
 

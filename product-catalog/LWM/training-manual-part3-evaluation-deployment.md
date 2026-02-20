@@ -4,7 +4,7 @@
 **Document ID:** DWS-LWM-TRAIN-001-PART3
 **Version:** 1.0
 **Classification:** Internal Lab Notebook
-**Author:** Lifetime Consulting Oy
+**Author:** Lifetime Oy
 **Date:** 2026-01-24
 
 **Execution Time:** 4-6 hours
@@ -1022,4 +1022,4 @@ Repeat this process for remaining industries:
 
 ---
 
-*Lifetime Consulting Oy - Internal Use Only*
+*Lifetime Oy - Internal Use Only*

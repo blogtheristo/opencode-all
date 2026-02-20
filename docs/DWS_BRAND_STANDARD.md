@@ -459,18 +459,7 @@ Four pages still use dark-theme styling (dark background `#0f172a`). These are m
 - `regulatory-notice/index.html`
 - `investment-safety/index.html`
 
-**Current navigation status:**
-- Landing-page variants (`landing-pages/dws10-com/`) of these dark-theme pages use Ironclad navigation (`ironclad-nav.js`)
-- Root folder source files (`dws10.com/`) still embed legacy navigation HTML/CSS
-- Full root-folder-first navigation migration is tracked separately (per dual-folder workflow in CLAUDE.md)
-
-**Note on dual-folder workflow compliance:**
-Per CLAUDE.md section "Dual Folder Structure Rule", the proper workflow is:
-1. ALWAYS update root folder FIRST (e.g., `dws10.com/`)
-2. Test on Cloudflare Workers
-3. THEN copy to landing-pages folder (e.g., `landing-pages/dws10-com/`)
-
-The landing-pages updates in PR #375 were made to establish the target state. A follow-up PR should migrate the root folder source files to ironclad-nav.js following the proper workflow, then sync to landing-pages.
+**Navigation status (as of Feb 2026):** The `landing-pages/dws10-com/` copies of these pages use Ironclad navigation. However, the source files in `dws10.com/` still use the old embedded navigation HTML and CSS (`nav-loader.js`), not `ironclad-nav.js`. The root folder files must be migrated first (test on Cloudflare Workers), then the `landing-pages/` copies updated — per the dual-folder workflow in CLAUDE.md. Migration to Ironclad nav and light-theme is tracked separately.
 
 ---
 

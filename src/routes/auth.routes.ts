@@ -8,9 +8,27 @@ const router: Router = express.Router();
 
 // ============ VALIDATION RULES ============
 
+// SECURITY FIX #5: Enhanced password validation with complexity requirements
+// Enterprise requirements for EU regulatory data compliance
+const passwordValidation = body('password')
+  .isLength({ min: 12, max: 128 })
+  .withMessage('Password must be between 12 and 128 characters')
+  .matches(/[A-Z]/)
+  .withMessage('Password must contain at least one uppercase letter')
+  .matches(/[a-z]/)
+  .withMessage('Password must contain at least one lowercase letter')
+  .matches(/[0-9]/)
+  .withMessage('Password must contain at least one number')
+  .matches(/[^A-Za-z0-9]/)
+  .withMessage('Password must contain at least one special character')
+  .not()
+  .matches(/(.)\1{2,}/)
+  .withMessage('Password cannot contain more than 2 consecutive identical characters')
+  .trim();
+
 const registerValidation = [
   body('email').isEmail().normalizeEmail(),
-  body('password').isLength({ min: 12, max: 128 }).trim(),
+  passwordValidation,
   body('firstName').isLength({ min: 1, max: 100 }).trim(),
   body('lastName').isLength({ min: 1, max: 100 }).trim(),
 ];
@@ -25,16 +43,17 @@ const loginValidation = [
 const validateRequest = (req: Request, res: Response, next: any) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // Log validation errors without sensitive values (security best practice)
+    // SECURITY FIX #7: Sanitize errors - don't expose submitted values
     const sanitizedErrors = errors.array().map(err => ({
       field: err.type === 'field' ? (err as any).path : 'unknown',
-      msg: err.msg,
+      message: err.msg,
       location: (err as any).location,
+      // NOTE: Do NOT include 'value' field - may contain sensitive data
     }));
     logger.warn('Validation error', { errors: sanitizedErrors });
     return res.status(400).json({
       error: 'Validation Error',
-      details: errors.array(),
+      details: sanitizedErrors,  // Return sanitized errors, not raw
     });
   }
   next();
@@ -175,35 +194,26 @@ router.post('/login', loginValidation, validateRequest, loginRateLimit(), async 
  * User logout
  * Requires: Authentication
  *
- * SECURITY WARNING: This endpoint does NOT invalidate JWT tokens!
- * Tokens remain valid until expiry (24h for access, 7d for refresh).
+ * SECURITY FIX #4: Token revocation implemented
+ * Tokens are now blacklisted on logout and cannot be reused.
  *
- * For production, implement token revocation via:
- * - Option 1: Redis blacklist (store logged-out tokens)
- * - Option 2: Database token versioning (increment on logout)
- * - Option 3: Shorter token expiry times (15min access, 1d refresh)
+ * Note: For production distributed systems, replace in-memory blacklist with Redis.
  */
 router.post('/logout', authenticateToken, async (req: Request, res: Response) => {
   try {
-    // SECURITY NOTE:
-    // JWT access tokens are stateless; "logout" cannot revoke an already-issued JWT
-    // unless you implement revocation infrastructure (e.g. Redis blacklist, token versioning,
-    // or shorter expiries).
-    //
-    // This endpoint:
-    // - Requires authentication (so we know who is logging out)
-    // - Emits an audit log entry
-    // - Instructs client to clear locally stored tokens
+    // SECURITY FIX #4: Revoke the access token (async for Redis support)
+    if (req.token) {
+      await AuthService.revokeToken(req.token, 86400);  // 24h expiry for access tokens
+    }
 
-    logger.warn('User logout (tokens remain valid until expiry unless revocation is implemented)', {
+    logger.info('User logout successful - token revoked', {
       userId: req.userId,
       userEmail: req.userEmail,
     });
 
     res.status(200).json({
       message: 'Logout successful',
-      warning:
-        'Client must clear stored tokens (e.g. localStorage/sessionStorage). Existing JWTs remain valid until expiry unless token revocation is implemented.',
+      note: 'Token has been revoked. Client should clear stored tokens.',
     });
   } catch (error: any) {
     logger.error('Logout error', { error: error.message });
@@ -260,7 +270,7 @@ router.post('/refresh', async (req: Request, res: Response) => {
     }
 
     // Verify and refresh token
-    const newAccessToken = AuthService.refreshAccessToken(refreshToken);
+    const newAccessToken = await AuthService.refreshAccessToken(refreshToken);
 
     if (!newAccessToken) {
       logger.warn('Failed to refresh token');

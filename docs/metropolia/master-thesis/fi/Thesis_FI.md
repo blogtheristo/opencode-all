@@ -1577,18 +1577,66 @@ agent:
 
 ## Liite D: Sanasto
 
-| Termi | Määritelmä |
-|-------|------------|
-| **AgentFoundry** | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
-| **Sisältyvä hiili** | Rakennusmateriaalien valmistuksen, kuljetuksen ja asennuksen kasvihuonekaasupäästöt |
-| **Reunatekoäly** | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
-| **Fit for 55** | EU:n lainsäädäntöpaketti, joka vaatii 55% päästövähennystä vuoteen 2030 mennessä |
-| **Lifetime Scope Signals** | Koordinointiprotokolla moniagenttikehitykselle deklaratiivisen signaalin emission kautta |
-| **Lifetime World Model (LWM)** | 55 miljardin parametrin fysikaalinen tekoäly rakennusteollisuudelle. Toimialakohtainen maailmamalli, joka on hienosäädetty QLoRA-menetelmällä Acer Veriton GN-100:lla. Koulutusmanuaali: `product-catalog/LWM/training-manual.md` |
-| **MCP Hub** | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
-| **MVP** | Minimum Viable Product - pienin versio, joka tuottaa asiakasarvoa |
-| **Vaiheittainen käyttöönotto** | Kolmivaiheinen AI-käyttöönotto: Hiljainen pilotti → Neuvonantaja → Autonominen |
-| **Solution Factory** | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+### Alusta- ja liiketoimintakäsitteet
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **AgentFoundry** | AgentFoundry | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
+| **Climate Assistant** | Ilmastoavustaja | Tekoälypohjainen ilmastosäännösten compliance-chatbot |
+| **Embodied Carbon** | Sisältyvä hiili | Rakennusmateriaalien valmistuksen, kuljetuksen ja asennuksen kasvihuonekaasupäästöt |
+| **Edge AI** | Reunatekoäly | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
+| **Firehorse** | Firehorse | DWS6-tuoteperhe (Reports, Automation, Omnichannel) |
+| **Fit for 55** | Fit for 55 | EU:n lainsäädäntöpaketti, joka vaatii 55% päästövähennystä vuoteen 2030 mennessä |
+| **Gated Access** | Porrastettu pääsy | Ominaisuuksien vaiheittainen pääsy (ilmainen, liidi, autentikoitu) |
+| **Lifetime Scope Signals** | Lifetime Scope Signals | Koordinointiprotokolla moniagenttikehitykselle deklaratiivisen signaalin emission kautta |
+| **Lifetime World Model (LWM)** | Lifetime World Model | 55 miljardin parametrin fysikaalinen tekoäly rakennusteollisuudelle. Toimialakohtainen maailmamalli, joka on hienosäädetty QLoRA-menetelmällä Acer Veriton GN-100:lla |
+| **MCP (Model Context Protocol)** | Mallikontekstiprotokolla | Protokolla tekoälymallien ulkoisten palveluiden käyttöön |
+| **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
+| **MVP** | MVP | Minimum Viable Product - pienin versio, joka tuottaa asiakasarvoa |
+| **Phased Deployment** | Vaiheittainen käyttöönotto | Kolmivaiheinen AI-käyttöönotto: Hiljainen pilotti → Neuvonantaja → Autonominen |
+| **SaaS** | SaaS | Software as a Service - ohjelmisto palveluna |
+| **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+
+### Autentikointi ja turvallisuustermit
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Access Token** | Pääsytunnus | Lyhytikäinen JWT (24h) API-autentikointiin |
+| **bcrypt** | bcrypt | Salasanojen hajautusalgoritmi suolakierroksilla (12 suositeltu) |
+| **CORS** | Alkuperien välinen resurssien jakaminen | Selaimen turvallisuusmekanismi cross-origin-pyyntöjen hallintaan |
+| **CSRF** | Sivustojen välinen pyyntöväärennös | Hyökkäys, joka huijaa käyttäjiä tekemään ei-toivottuja toimintoja. Estetään CORS:lla ja tokeneilla |
+| **JWT (JSON Web Token)** | JWT-tunnus | Digitaalisesti allekirjoitettu tunniste tilattomaan autentikointiin. Sisältää käyttäjätiedot (id, rooli, vanheneminen) |
+| **RBAC** | Roolipohjainen pääsynhallinta | Pääsynhallinta käyttäjäroolien perusteella (admin, jäsen, katsoja) |
+| **Refresh Token** | Päivitystunnus | Pitkäikäinen JWT (7d) uusien pääsytunnusten hankkimiseen ilman uudelleenkirjautumista |
+| **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
+| **Salt Rounds** | Suolakierrokset | Laskennan monimutkaisuus bcrypt:lle (korkeampi = hitaampi + turvallisempi) |
+| **SQL Injection** | SQL-injektio | Hyökkäys, jossa haitallista SQL:ää syötetään käyttäjäsyötteen kautta. Estetään parametrisoiduilla kyselyillä |
+| **Timing Attack** | Ajoitushyökkäys | Hyökkäys, joka hyödyntää vastausaikaeroja salaisuuksien arvaamiseen. Estetään vakioaikaisella vertailulla |
+| **Token Blacklist** | Tunnusten mustalla listalla | Tietokanta/Redis mitätöidyistä tokeneista, jotka tulee hylätä |
+| **Token Revocation** | Tunnuksen mitätöinti | Tokenin mitätöinti ennen sen luonnollista vanhenemista (esim. uloskirjautuessa) |
+| **XSS** | Sivustojen välinen skriptaus | Hyökkäys, jossa haitallisia skriptejä injektoidaan web-sivuille. Estetään CSP:llä ja syötteen sanitoinnilla |
+
+### Vaatimustenmukaisuus ja infrastruktuuri
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Data Residency** | Tietojen sijaintipaikka | Vaatimus tallentaa tiedot tietylle maantieteelliselle alueelle |
+| **Distributed Rate Limiting** | Hajautettu pyyntöjen rajoitus | Pyyntöjen rajoitus useiden palvelininstanssien välillä (vaatii Redis) |
+| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU:n tietosuoja-asetus. Vaikuttaa lokitukseen (ei henkilötietoja) |
+| **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
+| **Rate Limiting** | Pyyntöjen rajoitus | Pyyntötiheyden rajoittaminen väärinkäytön estämiseksi |
+| **Redis** | Redis | Muistissa toimiva tietovarasto tunnusten mustalle listalle ja pyyntörajoitukseen |
+| **Scaleway** | Scaleway | EU-pohjainen pilvipalveluntarjoaja (Pariisi/Amsterdam datakeskukset) |
+
+### OWASP Top 10 -viitteet
+
+| Koodi | Ongelma | DWS6-relevanssi |
+|-------|---------|-----------------|
+| **A01:2021** | Rikottu pääsynhallinta | Roolin tunnistus, Admin API -validointi |
+| **A02:2021** | Salausvirheet | JWT-salaisuuden validointi |
+| **A03:2021** | Injektio | Syötteen validointi |
+| **A07:2021** | Tunnistus- ja autentikointivirheet | Salasanan vahvistus, tokenin mitätöinti |
 
 ## Liite E: AI-Mallien Koulutusinfrastruktuuri
 
