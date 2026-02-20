@@ -120,7 +120,18 @@ Before finishing any implementation, ask yourself:
 
 If you build 1000 lines and 100 would suffice, you have failed. Prefer the boring, obvious solution. Cleverness is expensive.
 
-#### 5. Scope Discipline
+#### 5. Phasing Discipline (Ship First, Harden Later)
+
+Do not get pulled into hardening, edge-case handling, or nitty-gritty polish before the core system works end-to-end. Perfecting a cleanup script while the actual product sits undeployed is a failure mode.
+
+**Phase order:**
+1. **Ship**: Get the system running (API, email, webhook, scheduler)
+2. **Verify**: Confirm it works with real data
+3. **Harden**: Then add fail-fast guards, token targeting, idempotency
+
+When a reviewer (human or AI) suggests hardening, ask: "Is the core system delivered yet?" If no, push back and ship first. Hardening undeployed code is wasted work if requirements change.
+
+#### 6. Scope Discipline
 
 Touch only what you're asked to touch.
 
@@ -132,7 +143,7 @@ Touch only what you're asked to touch.
 
 Your job is surgical precision, not unsolicited renovation.
 
-#### 6. Dead Code Hygiene
+#### 7. Dead Code Hygiene
 
 After refactoring or implementing changes:
 - Identify code that is now unreachable
@@ -878,23 +889,111 @@ The January 2026 security incident was caused by manual worktree creation withou
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
 
-### Mobile Session Rules (CRITICAL)
+### PR Creation: Claude Code Sessions vs. Terminal
 
-**How to detect:** The session is mobile/web when the git remote URL contains `local_proxy@127.0.0.1` (e.g., `http://local_proxy@127.0.0.1:30643/git/...`).
+**Use Claude Code sessions for PRs when:**
+- Actively working in that worktree (better change context)
+- Reviewing and finalizing code before PR
+- Writing PR descriptions (Claude has full context of changes)
 
-**What is NOT available on mobile sessions:**
-- `gh` CLI — **never installed, never will be. Do NOT attempt to use it.**
-- GitHub API tokens (`GITHUB_TOKEN`, `GH_TOKEN`) — not available in environment
-- `conda`, system package managers — cannot install `gh` as a workaround
-- Interactive tools (`vim`, `nano`, `less`)
+**Use terminal/command-line for PRs when:**
+- Batch-creating multiple PRs at once
+- Administrative tasks on branches without active Claude sessions
+- Quick PRs for simple, self-explanatory changes
 
-**What WORKS on mobile sessions:**
-- `git push`, `git pull`, `git fetch` — via the local proxy
-- All file read/write/edit tools
-- `npm`, `node`, `python3`, `curl`
-- Standard bash commands
+**Recommended workflow for active worktrees:**
+1. Switch to the worktree's Claude session
+2. Review and finalize changes in that session
+3. Create PR from within Claude — it has better context
 
-**When the user asks to create a PR from a mobile session:**
+For worktrees without an active Claude session, use `gh pr create` directly from the terminal.
+
+### Session Environment Detection (CRITICAL)
+
+Sessions typically move across environments: mobile → Win11 → Chromebook → Win11 PR.
+
+#### Quick Environment Switch (Preferred)
+
+The user can tell Claude the current environment by including a keyword in their message:
+
+| Keyword | Meaning | Claude adjusts to |
+|---------|---------|-------------------|
+| `win` or `win11` | Windows 11 desktop | Full tooling: `gh`, PowerShell, VS Code/Cursor |
+| `mobile` | Mobile/web session | No `gh`, no PowerShell, compare-link PRs only |
+| `chromebook` | Chromebook (Linux) | Bash tools, `gh` may be available, no PowerShell |
+| `vscode` | Editing in VS Code | Expect external file changes from user |
+| `cursor` | Editing in Cursor | Expect external file changes from user |
+
+Keywords can be combined: `win vscode` = Windows 11 + VS Code.
+
+**IMPORTANT:** These are plain-text keywords in a message, NOT slash commands. Do NOT use `/win` as a standalone command — Claude Code will try to find a skill called "win" and fail. Instead, include the keyword in a regular message:
+- **Good:** `win11 — updating the admin manual`
+- **Good:** `mobile — push this branch`
+- **Bad:** `/win` (triggers skill lookup error)
+
+When the user provides a keyword, Claude should acknowledge it briefly and adjust behavior. When no keyword is given, fall back to auto-detection.
+
+#### Auto-Detection (Fallback)
+
+If the user hasn't specified, run these checks at session start:
+
+| Check | Command | Mobile | Win11 Desktop | Chromebook |
+|-------|---------|--------|---------------|------------|
+| Git remote | `git remote get-url origin` | Contains `local_proxy@127.0.0.1` | Contains `github.com` | Contains `github.com` |
+| Platform | System platform | `linux` (cloud container) | `win32` / `MINGW64_NT` | `linux` (native) |
+| `gh` CLI | `gh --version` | Not found | Available | May be available (`apt install gh`) |
+| Hostname | `hostname` | Cloud hostname | `5MGMT7FI` | Chromebook hostname |
+| Shell | `$SHELL` or `$PSVersionTable` | bash (cloud) | PowerShell / Git Bash | bash / zsh |
+
+**Key distinction:** Mobile has `local_proxy` in git remote. Chromebook has `github.com` remote but runs native Linux (not `MINGW64_NT`).
+
+#### Environment Profiles
+
+**Mobile/Web Session** (detected by `local_proxy` in git remote):
+- `gh` CLI — **not available, never will be. Do NOT attempt to use it.**
+- `GITHUB_TOKEN`, `GH_TOKEN` — not available
+- `conda`, system package managers — cannot install `gh`
+- Interactive tools (`vim`, `nano`, `less`) — not available
+- **Available:** `git push/pull/fetch`, file tools, `npm`, `node`, `python3`, `curl`, standard bash
+
+**Windows 11 Desktop** (detected by `github.com` remote + `win32`/`MINGW64_NT` platform):
+- `gh` CLI — available for PRs and GitHub operations
+- Full Git access via HTTPS
+- PowerShell scripts — available
+- **Available:** everything
+
+**Chromebook** (detected by `github.com` remote + native `linux` platform):
+- `gh` CLI — may be available (install via `apt`)
+- Git access via HTTPS
+- Bash scripts — available
+- PowerShell — not available (use bash equivalents)
+- **Available:** `git`, `npm`, `node`, `python3`, `curl`, standard Linux tools
+
+#### Editor Context
+
+The same environment may use different editors. Claude cannot reliably auto-detect the editor, but the user may specify it.
+
+| Editor | How Claude is invoked | Notes |
+|--------|----------------------|-------|
+| **Claude Code CLI** | Terminal / standalone | Full Claude Code session with all tools |
+| **VS Code** | Claude Code extension or terminal | File edits may come from user in VS Code directly |
+| **Cursor** | Claude Code extension or terminal | Similar to VS Code; AI-native editor |
+
+When the user edits files directly in VS Code or Cursor (not via Claude), those changes appear as external modifications. Claude should treat them as intentional and not revert them.
+
+#### Session Announcement Convention
+
+When the user indicates they are on **win**, **mobile**, or **chromebook** (for example by typing "win", "mobile", or "chromebook" without a leading slash), or Claude auto-detects, acknowledge briefly:
+
+```
+SESSION: [Mobile/Win11/Chromebook] | Editor: [Claude Code/VS Code/Cursor] | Branch: [branch-name] | Worktree: [worktree-name]
+```
+
+This helps track which environment and editor produced which changes. Keep it to one line — don't over-explain.
+
+#### Mobile Session PR Workflow
+
+When the user asks to create a PR from a **mobile session:**
 1. **Do NOT** try `gh pr create` — it will fail
 2. **Do NOT** try to install `gh` — it will fail
 3. **Do NOT** try GitHub API calls with Python/curl — no token available
@@ -904,3 +1003,22 @@ See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-
 6. **DO** provide the PR title and body as copyable text
 
 **Rule:** Go straight to the compare link. Zero attempts at `gh` or API calls. Every failed attempt wastes the user's time.
+
+#### Typical Multi-Environment Workflow
+
+A single feature branch often passes through multiple environments and editors:
+
+```
+1. Mobile        → Start work, draft changes, push branch
+2. Win11 + VS Code → Review code, refine, run tests
+3. Chromebook    → Quick fixes on the go
+4. Mobile        → Documentation updates
+5. Win11 + Cursor → Final review, create PR via gh or Claude Code
+```
+
+Commit messages should reflect the environment when helpful:
+```
+feat: add session backup docs (Win11/VS Code)
+fix: typo in backup section (mobile)
+docs: update admin manual (Chromebook)
+```

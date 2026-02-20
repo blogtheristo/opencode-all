@@ -217,6 +217,25 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
     const totalEmissions = data.reduce((sum, r) => sum + (r.amount || 0), 0);
     const units = [...new Set(data.map((r) => r.unit).filter(Boolean))];
 
+    // Normalize amounts to tCO2e for ETS cost calculations.
+    // Records with unrecognized units (e.g. MWh, kWh) cannot be auto-converted
+    // and are tracked separately so callers can emit a warning.
+    const unitNormalizationFlags: string[] = [];
+    let normalizedTotalTCO2e = 0;
+    for (const record of data) {
+      const unitKey = normalizeUnit(record.unit || '');
+      if (TONNE_UNITS.has(unitKey)) {
+        normalizedTotalTCO2e += record.amount || 0;
+      } else if (KG_UNITS.has(unitKey)) {
+        normalizedTotalTCO2e += (record.amount || 0) / 1000;
+      } else {
+        // Cannot auto-convert — flag for caller
+        if (record.unit && !unitNormalizationFlags.includes(record.unit)) {
+          unitNormalizationFlags.push(record.unit);
+        }
+      }
+    }
+
     // Scope breakdown
     const scopeBreakdown: Record<string, number> = {};
     for (const record of data) {
@@ -245,6 +264,8 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
 
     return {
       totalEmissions: Math.round(totalEmissions * 100) / 100,
+      normalizedTotalTCO2e: Math.round(normalizedTotalTCO2e * 100) / 100,
+      unitNormalizationFlags,
       units,
       missingUnitCount: data.filter((r) => !r.unit).length,
       recordCount: data.length,
