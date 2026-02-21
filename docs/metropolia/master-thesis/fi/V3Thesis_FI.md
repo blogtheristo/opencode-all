@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.8
+Version: 3.9
 
 Sessions & Modifications:
+  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 16 toimialan ristioppimisen verkostovaikutusten analyysi
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Paivitetty DWS-standardit, admin-manuaalit HIL-automaatioviittauksilla. Versiotunnuksen korjaus (3.4-3.5 eivat olleet seurannassa)
@@ -1202,6 +1203,26 @@ Keskeinen havainto alusta-arkkitehtuurityöstä on, että **yksikään avoin LLM
 
 Jokainen yritysvuokralainen voi kouluttaa oman Lifetime World Model -mallinsa omilla toimialatiedoillaan valitsemallaan LLM:llä pohjamallina.
 
+### 10.6.1 Miksi 16 toimialaa tekee DWS IQ:sta vahvemman
+
+Asiakkaan näkökulmasta 16 EU-toimialan kattava alusta ei ole monimutkaisuutta — se on **kilpailuetu, jota he ostavat**. 16 toimialan arkkitehtuuri luo yhdistyvää arvoa, jota yksittäisen toimialan alusta ei pysty tarjoamaan:
+
+1. **Ristikkäinen sääntely-ymmärrys.** EU-sääntelyt kuten Fit for 55, CSRD ja CBAM vaikuttavat useisiin toimialoihin samanaikaisesti. Rakennusyrityksen Scope 3 -päästöt sisältävät terästä (ETS), sementtiä (CBAM), logistiikkaa (FuelEU) ja energiaa (RED III). Yksittäisen toimialan työkalu näkee yhden siivun; DWS IQ näkee koko sääntelyketjun. Asiakas saa vaatimustenmukaisuustiedustelun, joka ymmärtää heidän koko toimitusketjunsa, ei vain omaa vertikaalinsa.
+
+2. **Toimitusketjun näkyvyys yli vertikaalien.** Kun valmistusasiakas raportoi CBAM-tuonteja, DWS IQ ymmärtää jo teräksen tuottajan ETS-velvoitteet, logistiikkatarjoajan polttoainesääntelyt ja energiantoimittajan uusiutuvan energian sertifikaatit. Tämä ristikkäinen toimialatietämys tarkoittaa, että asiakkaan vaatimustenmukaisuusraportit ovat tarkempia, tarkastusvalmiita ja puolustettavia, koska alusta ymmärtää jokaisen lenkin heidän arvoketjussaan.
+
+3. **LWM:n ristioppiminen.** Lifetime World Model oppii anonymisoiduista kaavoista kaikista 16 toimialasta. Hiilidioksidipäästöjen vähennystekniikka, joka on todistettu sementinvalmistuksessa (esim. klinkkerisuhdeoptimointi), tuottaa siirrettävää tietoa rakentamiseen (vähähiilisen betonin spesifikaatio). Asiakas hyötyy LWM:stä, joka on koulutettu 16 toimialan ilmastotiedustelulla — ei vain heidän omalla kapealla toimialueellaan.
+
+4. **Agenttimallien uudelleenkäytettävyys.** Yhdellä toimialalla toimivat agenttikonfiguraatiot nopeuttavat käyttöönottoa liittyvillä toimialoilla. Rakentamiselle kehitetty BIM-vaatimustenmukaisuusagentti mukautetaan kiinteistöjen energiatodistuksiin. Valmistuksen toimitusketjun Scope 3 -agentti siirtyy elintarviketeollisuuteen. Myöhemmin käyttöönottavien toimialojen asiakkaat saavat taistelussa testattuja agentteja halvemmalla ja nopeammin.
+
+5. **Sääntelyn ennakkovaroitus.** Kun uusi sääntely (esim. EU:n metsäkatoasetus) vaikuttaa ensin maatalouteen, alusta havaitsee sen ja varoittaa elintarvike-, tekstiili- ja logistiikka-asiakkaita ennakoivasti — ennen kuin sääntely saavuttaa heidän toimialansa. Yksittäisen toimialan alusta ei voi tarjota tätä sektorien välistä ennakointia.
+
+6. **Vertailukehys vertaisiin ja viereisiin toimialoihin.** Energiayhtiö voi verrata päästöintensiteettiään paitsi muihin sähkölaitoksiin myös teollisuusasiakkaisiin joita se palvelee (valmistus, kaivostoiminta, kemianteollisuus). Tämä moniulotteinen vertailukehys antaa asiakkaalle strategisen näkemyksen siitä, missä he ovat laajemmassa hiilidioksidineutraalisuusmaisemassa.
+
+7. **Verkostovaikutukset kertautuvat ajan myötä.** Jokainen uusi alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän. 16. toimialan asiakas hyötyy kaikkien 15 toimialan kertyneestä älykkyydestä. Tämä luo **vallihaudan**: kilpailijan, joka aloittaa yhdellä toimialalla, on replikoitava vuosien ristikkäinen oppiminen vastatakseen DWS IQ:n kertynyttä älykkyyttä.
+
+**Tulos asiakkaan näkökulmasta:** DWS IQ:n 16 toimialan kattavuus tarkoittaa, että heidän vaatimustenmukaisuusälykkyytensä ei ole eristetty — se on yhteydessä koko EU:n teolliseen ekosysteemiin. He maksavat yhdestä alustasta ja saavat älykkyyttä, jonka likimääräistäminen vaatisi 16 erillistä työkalua.
+
 ## 10.7 Yrityksen BYOA-arkkitehtuuri: Tuo omat agentit
 
 Keskeinen alustan kehityssuunta on tukea yritysasiakkaita, jotka **tuovat omat tekoälyagenttinsa** työskentelemään DWS IQ:ssa. Tässä osiossa kuvataan arkkitehtuuri käyttäen NCC:tä (pohjoismainen rakennusyhtiö) havainnollistavana tapauksena.
@@ -1224,6 +1245,12 @@ Jokainen urakoitsija-agentti saapuu omalla:
 - **Tietojen sijaintivaatimukset** — jotkut urakoitsijat toimivat EU:n ulkopuolelta
 
 ### 10.7.2 Vuokralaiskohtainen Lifetime World Model
+
+**Lifetime World Model (LWM)** on yrityksen oppimiskerros, joka sijaitsee valitun avoimen LLM:n päällä. Se ei ole pelkästään hienosäädetty malli — se on strateginen tiedustelukerros, joka:
+
+1. **Hienosäätää yrityksen dataa ja sääntelyä** — sisäistää asiakkaan operatiivisen datan, toimialastandardit ja EU-sääntelykontekstin luodakseen toimialakohtaista älykkyyttä, jota geneeriset LLM:t eivät pysty tarjoamaan
+2. **Optimoi markkina-arvon** — LWM oppii jatkuvasti vaatimustenmukaisuuden tuloksista, energiatehokkuustuloksista ja operatiivisista mittareista tunnistaakseen arvonluontimahdollisuuksia, jotka yritys muuten jättäisi käyttämättä
+3. **Varmistaa kilpailuedun moniagenttityökaluilla** — yhdistämällä vuokralaiskohtaisen tietämyksen moniagenttien orkestrointikerrokseen (A2A + MCP), LWM muuttaa raaan tekoälykyvykkyyden korvaamattomaksi operatiiviseksi voimavaraksi. Kilpailijat, jotka käyttävät geneerisiä malleja, eivät pysty replikoimaan tätä kertynyttä institutionaalista älykkyyttä
 
 NCC saa oman instanssinsa Lifetime World Model -mallista:
 

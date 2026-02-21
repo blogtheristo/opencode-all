@@ -974,13 +974,21 @@ Enterprise customers bring their own AI agents to work on DWS IQ. This section u
 | **DWS IQ Platform** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
 | **Total** | 24 | All connected via A2A + MCP protocols |
 
-**Tenant-specific Lifetime World Model:**
+**Tenant-specific Lifetime World Model (LWM):**
+
+The Lifetime World Model is the enterprise learning layer that sits on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+
+1. **Fine-tunes enterprise data and regulation** — ingests the customer's operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities
+3. **Ensures competitive advantage with multi-agent tools** — combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
 
 Each enterprise tenant receives their own LWM instance:
 - **Base LLM:** Selected per industry evaluation (e.g., Qwen 2.5 72B for Nordic construction)
 - **Fine-tuned on:** Tenant's own project data, industry codes (RT-kortisto), regulatory context
 - **Connectors:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (emissions factors)
 - **Sandbox:** Stage 2 ephemeral containers (europe-north1) or Stage 3 persistent (at scale)
+
+**Why 16 industries make the LWM stronger:** Each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns. A carbon reduction technique proven in cement manufacturing generates transferable insight for construction. Supply chain Scope 3 agents in manufacturing transfer to food & beverage. The 16th industry customer benefits from all 15 industries' accumulated intelligence — creating a moat that single-industry competitors cannot replicate.
 
 ### 14.3 Agent Orchestration Studio: Graphical Workflow Builder
 

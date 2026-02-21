@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
   - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
@@ -2426,6 +2427,15 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 - **Duration:** 8-16 hours (hands-on)
 - **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
 - **Location:** `product-catalog/LWM/training-manual.md`
+
+**What is the Lifetime World Model (LWM)?**
+
+The LWM is the **enterprise learning layer** that adds intelligence on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+1. **Fine-tunes enterprise data and regulation** — ingests customer operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities the enterprise would otherwise miss
+3. **Ensures competitive advantage with multi-agent tools** — by combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
+
+The 16-industry architecture compounds this value: each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns.
 
 **Topics Covered:**
 1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)
