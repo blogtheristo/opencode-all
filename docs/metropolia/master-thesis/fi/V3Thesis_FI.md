@@ -1184,7 +1184,7 @@ Omnibus-paketti **vahvistaa** Firehorse-mallin kilpailukykyä: ilmastopäästöt
 
 ## 10.6 Toimialakohtainen avoimen LLM:n valinta
 
-Keskeinen havainto alusta-arkkitehtuurityöstä on, että **yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle**. Jokaisella toimialavertikaaleilla on oma erikoiskielensä, sääntelykontekstinsa ja rakenteellisen tulosteen vaatimuksensa. Alustan on arvioitava ja valittava paras avoin LLM kullekin toimialalle sen sijaan, että käytettäisiin yhtä mallia (esim. Llama 3.3 70B) kaikille.
+Keskeinen havainto alusta-arkkitehtuurityöstä on, että **yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle**. Jokaisella toimialavertikaalilla on oma erikoiskielensä, sääntelykontekstinsa ja rakenteellisen tulosteen vaatimuksensa. `AgentConfig.model`-kenttä on jo agenttikohtainen, joten jokainen konkreettinen agentti voidaan konfiguroida eri koulutetulla Lifetime World Model (LWM) -mallilla + avoimella LLM:llä, jatkuvalla vertailuarvioinnilla. Alustan on arvioitava ja valittava paras avoin LLM kullekin toimialalle sen sijaan, että käytettäisiin yhtä mallia (esim. Llama 3.3 70B) kaikille.
 
 **Avoimen LLM:n ehdokkaat toimialoittain:**
 

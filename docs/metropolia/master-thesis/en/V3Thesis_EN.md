@@ -1193,7 +1193,7 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 
 ## 10.6 Per-Industry Open LLM Selection
 
-A critical finding from the platform architecture work is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
+A critical finding from the platform architecture work is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
 
 **Candidate open LLMs per industry domain:**
 
