@@ -577,10 +577,10 @@ DWS Security Standard (this document)
 │   ├── UI_SKILLS_GAMMA.md                ← v2.0 — brand standard, WCAG 2.2, XSS prevention
 │   └── CLAUDE.md                          ← Karpathy principles, agent governance
 │
-├── FIREHORSE OPERATIONAL MODEL (evidence base)
-│   ├── dws10.com/docs/PHD_FIREHORSE_EN.md     ← Master thesis EN — operational model + metrics
-│   ├── dws10.com/docs/PHD_FIREHORSE_FI.md     ← Pro gradu FI — toimintamalli + tulokset
-│   └── (synced: landing-pages/dws10-com/docs/)  ← Production copies (dual folder rule)
+├── FIREHORSE OPERATIONAL MODEL (evidence base — PRIVATE, Learn/ only)
+│   ├── docs/PHD_FIREHORSE_EN.md               ← Master thesis EN — operational model + metrics
+│   ├── docs/PHD_FIREHORSE_FI.md               ← Pro gradu FI — toimintamalli + tulokset
+│   └── Learn/PHD_FIREHORSE_*_v*.html           ← Versioned HTML (never delete old versions)
 │
 ├── ADMIN MANUALS (operational security procedures)
 │   ├── ADMIN_MANUAL_AUTHENTICATION.md     ← v1.3 — JWT, bcrypt, security audit workflow

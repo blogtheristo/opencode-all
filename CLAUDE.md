@@ -56,21 +56,20 @@ When the human says **"Use DWS standard"** (or any variation like "with DWS stan
 
 When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, **"opinnäytetyö"**, or any thesis-related update, **ALL 4 thesis files MUST be updated together:**
 
-| # | File | Language | Version Track | Visibility |
-|---|------|----------|---------------|------------|
-| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | English | Metropolia (v3.x) | **PRIVATE** |
-| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) | **PRIVATE** |
-| 3 | `dws10.com/docs/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) | **PUBLIC** |
-| 4 | `dws10.com/docs/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) | **PUBLIC** |
+| # | File (source of truth) | Learn/ copy | Language | Version Track |
+|---|------------------------|-------------|----------|---------------|
+| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | `Learn/V3Thesis_EN.md` | English | Metropolia (v3.x) |
+| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | `Learn/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) |
+| 3 | `docs/PHD_FIREHORSE_EN.md` | `Learn/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) |
+| 4 | `docs/PHD_FIREHORSE_FI.md` | `Learn/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) |
 
-**PHD Firehorse files (PUBLIC) follow the dual folder rule:**
-- After updating `dws10.com/docs/PHD_FIREHORSE_*.md`, sync to `landing-pages/dws10-com/docs/PHD_FIREHORSE_*.md`
+**ALL thesis files are PRIVATE.** They are NEVER published to public deployment paths (`dws10.com/`, `landing-pages/`, `onelifetime.world/`).
 
-**Metropolia thesis files (PRIVATE) follow the Learn/ folder rule:**
-- Non-public thesis work is published ONLY to `Learn/` as versioned HTML
-- On each version update, generate a **new versioned HTML file** (e.g., `Learn/V3Thesis_EN_v3.7.html`)
+**All thesis files follow the Learn/ folder rule:**
+- Thesis work is published ONLY to `Learn/` as versioned HTML
+- On each version update, generate a **new versioned HTML file** (e.g., `Learn/V3Thesis_EN_v3.7.html`, `Learn/PHD_FIREHORSE_EN_v1.1.html`)
 - **NEVER delete old HTML versions** — they serve as version history
-- Do NOT publish Metropolia thesis to any public deployment path (`dws10.com/`, `landing-pages/`, `onelifetime.world/`)
+- Do NOT publish ANY thesis file to any public deployment path
 
 **Learn/ folder HTML generation:**
 - Use `python3 -c "import markdown"` or `pandoc` to convert `.md` → `.html`
@@ -187,6 +186,18 @@ After refactoring or implementing changes:
 - Ask: "Should I remove these now-unused elements: [list]?"
 
 Don't leave corpses. Don't delete without asking.
+
+#### 8. Never Delete Files — Always Move (CRITICAL)
+
+**NEVER use `git rm` or delete files.** Always **move** files to the appropriate location:
+
+- Moving from public to private? → `git mv` to `docs/` or `Learn/`
+- Removing from deployment path? → Move to `docs/` (source of truth) + `Learn/` (versioned HTML)
+- Cleaning up unused files? → Ask the user first, then move to an archive folder
+
+**Why:** Deleted files lose git history context. Moved files preserve rename tracking (`git log --follow`). Every file has history value — treat deletion as destruction, movement as reorganization.
+
+**Exception:** Temporary/generated files (`.tmp`, `node_modules/`, `dist/`) can be deleted.
 
 ### Leverage Patterns
 
