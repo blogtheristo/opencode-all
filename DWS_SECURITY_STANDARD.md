@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added Claw-layer security (Section 12), supply chain integrity policy (Section 13), CORS/SRI/exec standards, vulnerability assessment findings
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Initial DWS Security Standard — integrating International AI Safety Report 2026 findings into enterprise security framework
 
 Session Links & References:
@@ -28,7 +29,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 07.02.2026
+  - Last Modified: 21.02.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -647,7 +648,108 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 ---
 
-## 12. Review and Update Schedule
+## 12. Claw-Layer Security (OpenClaw/Moltworker Threat Model)
+
+### 12.1 The Three-Layer AI Stack
+
+Just as LLM agents added orchestration, tool use, and memory on top of raw LLM inference, a new "Claw" layer has emerged above LLM agents — adding persistent scheduling, multi-channel gateways, self-extending skills, and long-term memory:
+
+| Layer | Abstraction | Security Surface | Example |
+|-------|-------------|-----------------|---------|
+| **LLM** | Raw inference (prompt in, text out) | Prompt injection, jailbreak | Claude API, GPT API |
+| **LLM Agent** | Orchestrated inference + tool calls + session memory | Tool poisoning, data exfiltration | Claude Code, Cursor, Copilot |
+| **Claw** | Persistent daemon + multi-channel gateway + self-extending skills + long-term memory | All agent risks + shell access, skill registry poisoning, cross-channel leakage, self-modifying code | OpenClaw, Moltworker |
+
+Each layer inherits and amplifies all vulnerabilities from the layer below.
+
+### 12.2 Claw-Specific Threat Vectors
+
+| Threat | Severity | Attack Vector | DWS Mitigation |
+|--------|----------|---------------|----------------|
+| **Skill registry poisoning** | CRITICAL | Malicious skill published to community registry; installed by auto-update | Skill allowlist, code review gate, no auto-install from untrusted registries |
+| **Self-modifying skills** | HIGH | Claw writes code to extend its own capabilities, bypassing safety constraints | Sandbox SDK isolation, skill code review, capability ceiling enforcement |
+| **Cross-channel data exfiltration** | HIGH | Data from secure channel (Slack) leaked to insecure channel (Telegram) | Per-channel data classification, access controls, egress filtering |
+| **Long-term memory poisoning** | MEDIUM | Adversary injects false context into persistent memory to alter future behavior | Cryptographic integrity on memory files, periodic memory audit |
+| **Gateway token theft** | MEDIUM | Single token controls all channel access; compromise = full takeover | Per-channel authentication tokens, token rotation policy |
+| **Container escape via shell** | MEDIUM | Shell access + internet = data exfiltration path even in sandbox | Network egress filtering, command audit logging |
+| **Prompt injection via tool responses** | HIGH | Malicious tool returns payload that hijacks the agent's reasoning | Output sanitization, tool response sandboxing, MCP Colors enforcement |
+
+### 12.3 DWS If-Then Commitments for Claw Layer
+
+| If (Trigger) | Then (Safety Measure) | Owner |
+|-------------|----------------------|-------|
+| Claw attempts to install skill from untrusted registry | Block installation, log attempt, alert security | Security |
+| Claw writes self-modifying code | Quarantine new code, require human review before activation | Engineering |
+| Data flows between channels without access control match | Block cross-channel transfer, log incident | Security |
+| Persistent memory file modified outside normal operations | Alert security, verify file integrity | Security |
+| Shell command matches exfiltration pattern (curl to external, base64 encoding) | Block command, alert security | Security |
+
+### 12.4 Cisco OpenClaw Skills Audit (Reference)
+
+Cisco's AI security team found that third-party OpenClaw skills performed data exfiltration through crafted tool responses. DWS must audit all skills before deployment:
+
+- **Pre-deployment:** Static analysis of skill source code
+- **Runtime:** Network egress monitoring per skill
+- **Post-deployment:** Behavioral anomaly detection on skill outputs
+- **Quarterly:** Re-audit installed skills against updated threat intelligence
+
+---
+
+## 13. Supply Chain Integrity for Client-Side Dependencies
+
+### 13.1 Subresource Integrity (SRI) Policy
+
+**All external scripts loaded via CDN MUST include SRI hashes.** This prevents supply chain attacks where a CDN compromise injects malicious code.
+
+| Requirement | Status | Standard |
+|-------------|--------|----------|
+| SRI hashes on all CDN `<script>` tags | **REQUIRED** — currently 0% coverage | W3C SRI spec |
+| SRI hashes on all CDN `<link>` tags | **REQUIRED** — currently 0% coverage | W3C SRI spec |
+| `crossorigin="anonymous"` on all SRI-protected resources | REQUIRED | CORS spec |
+| Self-hosting for authentication-related libraries | RECOMMENDED | Defence-in-depth |
+
+### 13.2 GitHub Actions SHA Pinning Policy
+
+**All GitHub Actions MUST be pinned to specific commit SHAs**, not version tags. Version tags are mutable — a compromised maintainer can push malicious code to an existing tag.
+
+```yaml
+# PROHIBITED:
+uses: actions/checkout@v4
+
+# REQUIRED:
+uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+```
+
+### 13.3 CORS Policy Standard
+
+**No service may use `allow_origins=["*"]` in production.** Approved CORS origins:
+
+```python
+APPROVED_ORIGINS = [
+    "https://dws10.com",
+    "https://dws6.com",
+    "https://onelifetime.world",
+    "https://lifetime.fi",
+    "http://localhost:3000",   # development only
+    "http://localhost:3002",   # development only
+]
+```
+
+### 13.4 Shell Command Execution Policy
+
+**`exec()` with string interpolation is PROHIBITED.** Use `execFile()` with argument arrays:
+
+```typescript
+// PROHIBITED:
+await exec(`command "${userInput}"`);
+
+// REQUIRED:
+await execFile('command', [userInput]);
+```
+
+---
+
+## 14. Review and Update Schedule
 
 | Review Type | Frequency | Next Date | Owner |
 |-------------|-----------|-----------|-------|
@@ -661,7 +763,7 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 ---
 
-## 13. References
+## 15. References
 
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
@@ -671,6 +773,9 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 - [OWASP Top 10 for LLM Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 - Simon Willison's LLM Security Research (referenced in README_SECURITY.md)
 - [MITRE ATLAS](https://atlas.mitre.org/) — AI Threat Landscape
+- [W3C Subresource Integrity](https://www.w3.org/TR/SRI/) — SRI specification
+- [Cisco: OpenClaw Skills Security Analysis](https://blog.cloudflare.com/moltworker-self-hosted-ai-agent/) — Third-party skill exfiltration findings
+- [OpenClaw GitHub](https://github.com/pspdfkit/openclaw) — 180k+ stars, community skills registry
 
 **Internal DWS documents:**
 - DWS Document Standard v1.3 (DWS_DOCUMENT_STANDARD.md)
@@ -681,10 +786,12 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 - Admin Manual: Supabase (ADMIN_MANUAL_SUPABASE_EN_v1.md)
 - Admin Manual: DWS6.com (ADMIN_MANUAL_DWS6_COM.md)
 - DWS Field Note: AI Safety Report 2026 (docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md)
+- DWS Vulnerability Assessment: OpenClaw/DWS6 (docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md)
+- DWS Field Note: Moltworker/OpenClaw Evaluation (docs/field-notes/2026-02-15-moltworker-openclaw-dws-assistant.md)
 
 ---
 
-**Document Version:** 1.0
+**Document Version:** 1.1
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)
