@@ -78,13 +78,20 @@ app.add_middleware(
 
 MCP_SERVERS: dict[str, str] = {
     "github": os.getenv("GITHUB_MCP_URL", "http://localhost:8767"),
-    # "gemini": os.getenv("GEMINI_MCP_URL", "http://localhost:8768"),  # Not used at this stage
+    "gemini": os.getenv("GEMINI_MCP_URL", "http://localhost:8768"),
     "supabase-mcp": os.getenv("SUPABASE_MCP_URL", "http://mcp-supabase:8766"),
     "backend": os.getenv("BACKEND_URL", "http://localhost:3002"),
     "prometheus": os.getenv("PROMETHEUS_URL", "http://localhost:9091"),
     "grafana": os.getenv("GRAFANA_URL", "http://localhost:3001"),
     "agent-foundry": os.getenv("AGENT_FOUNDRY_URL", "http://localhost:8082"),
 }
+
+# ---------------------------------------------------------------------------
+# Gemini AI — direct API integration for code review & analysis
+# Used by: PR review workflow (HIL automation), agent code analysis
+# ---------------------------------------------------------------------------
+GOOGLE_AI_API_KEY: str = os.getenv("GOOGLE_AI_API_KEY", "")
+GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 # Redis URL — the compose redis service maps 6380:6379 on the host
 REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6380")
@@ -992,6 +999,91 @@ async def execute_bim_carbon_pipeline(req: BIMPipelineRequest):
     )
 
     return results
+
+
+# ---------------------------------------------------------------------------
+# Gemini Code Review Endpoint (HIL Automation)
+# ---------------------------------------------------------------------------
+
+
+class GeminiReviewRequest(BaseModel):
+    """Request to Gemini for code review / analysis."""
+
+    diff: str
+    files: str = ""
+    pr_title: str = ""
+    pr_body: str = ""
+    review_type: str = "pr_review"  # pr_review, security_audit, test_gap
+
+
+@app.post("/gemini/review")
+async def gemini_code_review(req: GeminiReviewRequest):
+    """Send code diff to Gemini for HIL-style review.
+
+    Used by the AI PR Review workflow and can be called by any agent
+    for on-demand code analysis. Returns structured review with verdict.
+    """
+    if not GOOGLE_AI_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="GOOGLE_AI_API_KEY not configured",
+        )
+
+    prompt = (
+        "You are a STRICT senior engineer performing thorough code review. "
+        "You REPLACE the human reviewer. Your DEFAULT verdict is REQUEST_CHANGES. "
+        "Only APPROVE if zero issues, adequate tests, and code follows conventions. "
+        "When in doubt, REQUEST_CHANGES.\n\n"
+        f"PR Title: {req.pr_title}\n"
+        f"PR Description: {req.pr_body}\n"
+        f"Changed files: {req.files}\n\n"
+        f"Diff:\n{req.diff[:60000]}\n\n"
+        "Review for: security, correctness, edge cases, performance, tests.\n"
+        "Always provide at least 2-3 concrete improvements.\n"
+        "Format: Summary, Critical Issues, Required Changes, Verdict (APPROVE/REQUEST_CHANGES)"
+    )
+
+    try:
+        async with httpx.AsyncClient(timeout=90.0) as client:
+            resp = await client.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
+                params={"key": GOOGLE_AI_API_KEY},
+                json={
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "maxOutputTokens": 3000,
+                        "temperature": 0.1,
+                    },
+                },
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            review_text = data["candidates"][0]["content"]["parts"][0]["text"]
+    except Exception as exc:
+        logger.error("Gemini review failed: %s", exc)
+        raise HTTPException(status_code=502, detail=f"Gemini API error: {exc}") from exc
+
+    # Default to request_changes (strict posture)
+    verdict = "request_changes"
+    if (
+        "APPROVE" in review_text.upper()
+        and "REQUEST_CHANGES" not in review_text.upper()
+    ):
+        verdict = "approve"
+
+    await log_agent_activity(
+        agent_name="gemini-reviewer",
+        task_desc=f"PR review: {req.pr_title}",
+        status=verdict,
+        metadata={"review_type": req.review_type, "files": req.files[:500]},
+    )
+
+    return {
+        "review": review_text,
+        "verdict": verdict,
+        "model": GEMINI_MODEL,
+        "timestamp": datetime.now().isoformat(),
+    }
 
 
 # ---------------------------------------------------------------------------

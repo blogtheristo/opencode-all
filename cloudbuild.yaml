@@ -1,5 +1,5 @@
 # Google Cloud Build configuration for DWS IQ Backend
-# Deploys to Cloud Run with auto-scaling and secrets management
+# Deploys to Cloud Run (dws6run6) with auto-scaling and secrets management
 
 steps:
   # Build the Docker image
@@ -23,13 +23,13 @@ steps:
       - 'push'
       - 'europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:latest'
 
-  # Deploy to Cloud Run
+  # Deploy to Cloud Run (dws6run6)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'dws-iq-backend'
+      - 'dws6run6'
       - '--image'
       - 'europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:$COMMIT_SHA'
       - '--region'
@@ -52,7 +52,7 @@ steps:
       - '--set-env-vars'
       - 'NODE_ENV=production'
       - '--set-secrets'
-      - 'ANTHROPIC_API_KEY=anthropic-api-key:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest'
+      - 'ANTHROPIC_API_KEY=anthropic-api-key:latest,GOOGLE_AI_API_KEY=google-ai-api-key:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest'
 
 # Store images in Artifact Registry
 images:

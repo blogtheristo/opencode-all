@@ -1125,8 +1125,40 @@ support@lifetime.fi."
 | Protocol | SFTP |
 | File | google-products.xml |
 
+### Appendix E: Automated PR Workflow (HIL Automation)
+
+The Firehorse operations model includes a fully automated pull request review and merge workflow that replaces manual human-in-the-loop code review. This is a key operational efficiency gain for solo developers and small teams managing enterprise-grade codebases.
+
+**Architecture:**
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+**Components:**
+
+| Component | Role | Technology |
+|-----------|------|-----------|
+| Claude Code | Code generation, branch creation, PR opening | Anthropic Claude Opus/Sonnet |
+| AI Code Review | Dual-model review replacing human reviewer | GitHub Actions workflow |
+| Claude (reviewer) | Quick sanity check: security, correctness, breaking changes | Claude Sonnet 4 API |
+| Gemini (HIL gate) | Deep review: edge cases, tests, architecture, OWASP security | Gemini 2.0 Flash API |
+| Copilot coding agent | Implements fix instructions from review comments | GitHub Copilot |
+| PR Auto-Merge | Merges when all checks pass and AI approves | GitHub Actions + GraphQL |
+
+**Key design decision:** Gemini defaults to REQUEST_CHANGES on every review. This ensures every PR goes through at least one improvement cycle, enforcing quality even when the original implementation appears correct. Only code with zero issues, adequate tests, and convention compliance receives APPROVE.
+
+**Operational metrics (expected):**
+- Developer involvement reduced to final skim/approve (~5 min per PR)
+- 70-90% of basic/refactor/test issues caught before human sees them
+- Typical fix loop: 1-3 iterations before approval
+
+**Deployment:** Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub `POST /gemini/review` for on-demand code analysis.
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: January 2026*
-*Version: 1.0*
+*Last updated: February 2026*
+*Version: 1.1*

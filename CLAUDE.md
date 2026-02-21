@@ -52,6 +52,41 @@ When the human says **"Use DWS standard"** (or any variation like "with DWS stan
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### Thesis Update Rule (CRITICAL)
+
+When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, **"opinnäytetyö"**, or any thesis-related update, **ALL 4 thesis files MUST be updated together:**
+
+| # | File (source of truth) | Learn/ copy | Language | Version Track |
+|---|------------------------|-------------|----------|---------------|
+| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | `Learn/V3Thesis_EN.md` | English | Metropolia (v3.x) |
+| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | `Learn/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) |
+| 3 | `docs/PHD_FIREHORSE_EN.md` | `Learn/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) |
+| 4 | `docs/PHD_FIREHORSE_FI.md` | `Learn/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) |
+
+**ALL thesis files are PRIVATE.** They are NEVER published to public deployment paths (`dws10.com/`, `landing-pages/`, `onelifetime.world/`).
+
+**All thesis files follow the Learn/ folder rule:**
+- Thesis work is published ONLY to `Learn/` as versioned HTML
+- On each version update, generate a **new versioned HTML file** (e.g., `Learn/V3Thesis_EN_v3.7.html`, `Learn/PHD_FIREHORSE_EN_v1.1.html`)
+- **NEVER delete old HTML versions** — they serve as version history
+- Do NOT publish ANY thesis file to any public deployment path
+
+**Learn/ folder HTML generation:**
+- Use `python3 -c "import markdown"` or `pandoc` to convert `.md` → `.html`
+- Filename pattern: `Learn/<name>_v<version>.html` (e.g., `V3Thesis_EN_v3.7.html`)
+- Match the pandoc CSS styling from existing Learn/ HTML files
+- Generate versioned HTML for ALL 4 thesis files on each update
+
+**Version tracking rules:**
+1. **Always check the current version number** in the file header before incrementing — do NOT assume the last git version is the latest
+2. **Ask the user** what the correct next version number should be if you suspect the file version is behind (other sessions may have made changes)
+3. **Both Metropolia files** (EN + FI) must share the same version number
+4. **Both PHD Firehorse files** (EN + FI) must share the same version number
+5. **Update VERSION AND AGENT HISTORY** block with your session ID, date, and changes
+6. **Update document footer** metadata (version, last modified date)
+
+**Why this rule exists:** AI agents reading only the file header have historically skipped version numbers when other sessions (Cursor, VS Code, manual edits, other worktrees) made changes that merged separately. This caused version drift. Always verify with the user.
+
 ## Project Overview
 
 **DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
@@ -151,6 +186,41 @@ After refactoring or implementing changes:
 - Ask: "Should I remove these now-unused elements: [list]?"
 
 Don't leave corpses. Don't delete without asking.
+
+#### 8. Never Delete Files — Always Move (CRITICAL)
+
+**NEVER use `git rm` or delete files.** Always **move** files to the appropriate location:
+
+- Moving from public to private? → `git mv` to `docs/` or `Learn/`
+- Removing from deployment path? → Move to `docs/` (source of truth) + `Learn/` (versioned HTML)
+- Cleaning up unused files? → Ask the user first, then move to an archive folder
+
+**Why:** Deleted files lose git history context. Moved files preserve rename tracking (`git log --follow`). Every file has history value — treat deletion as destruction, movement as reorganization.
+
+**Exception:** Temporary/generated files (`.tmp`, `node_modules/`, `dist/`) can be deleted.
+
+#### 9. Never Publish .md Files to Public Sites (CRITICAL)
+
+**NEVER place `.md` (markdown) files in public deployment paths.** Public sites serve HTML, CSS, JS, images, and JSON — not raw markdown.
+
+Public deployment paths where `.md` files must NOT exist:
+- `dws10.com/` → Cloudflare Workers
+- `landing-pages/dws10-com/` → Cloudflare Pages (production)
+- `onelifetime.world/` → Cloudflare Workers
+- `landing-pages/onelifetime-world/` → Cloudflare Pages (production)
+- `dws6.com/` → Cloudflare Pages
+- `landing-pages/dws6-com/` → Cloudflare Pages
+
+**Why:** Raw `.md` files served by Cloudflare expose internal documentation, admin manuals, deployment notes, thesis work, and infrastructure details to anyone who guesses the URL. Markdown is not rendered — it shows as plain text with all content visible.
+
+**Where `.md` files belong:**
+- `docs/` — private repo documentation (not deployed)
+- `Admin/` — admin manuals (not deployed)
+- `Learn/` — internal learning pipeline (not deployed)
+- `docs/metropolia/master-thesis/` — thesis work (not deployed)
+- Repo root — standards files like `CLAUDE.md`, `DWS_SECURITY_STANDARD.md` (not deployed)
+
+**If you need documentation on a public site:** Convert to HTML first and serve the HTML version.
 
 ### Leverage Patterns
 

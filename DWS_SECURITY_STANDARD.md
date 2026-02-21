@@ -577,10 +577,10 @@ DWS Security Standard (this document)
 │   ├── UI_SKILLS_GAMMA.md                ← v2.0 — brand standard, WCAG 2.2, XSS prevention
 │   └── CLAUDE.md                          ← Karpathy principles, agent governance
 │
-├── FIREHORSE OPERATIONAL MODEL (evidence base)
-│   ├── dws10.com/docs/PHD_FIREHORSE_EN.md     ← Master thesis EN — operational model + metrics
-│   ├── dws10.com/docs/PHD_FIREHORSE_FI.md     ← Pro gradu FI — toimintamalli + tulokset
-│   └── (synced: landing-pages/dws10-com/docs/)  ← Production copies (dual folder rule)
+├── FIREHORSE OPERATIONAL MODEL (evidence base — PRIVATE, Learn/ only)
+│   ├── docs/PHD_FIREHORSE_EN.md               ← Master thesis EN — operational model + metrics
+│   ├── docs/PHD_FIREHORSE_FI.md               ← Pro gradu FI — toimintamalli + tulokset
+│   └── Learn/PHD_FIREHORSE_*_v*.html           ← Versioned HTML (never delete old versions)
 │
 ├── ADMIN MANUALS (operational security procedures)
 │   ├── ADMIN_MANUAL_AUTHENTICATION.md     ← v1.3 — JWT, bcrypt, security audit workflow
@@ -610,6 +610,12 @@ DWS Security Standard (this document)
 │   ├── docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md
 │   └── Admin/Security/ (local only, ProtonDrive)
 │
+├── AUTOMATED PR REVIEW (HIL Security Gate)
+│   ├── .github/workflows/ai-pr-review.yml     ← Dual AI review: Claude + Gemini HIL
+│   ├── .github/workflows/pr-auto-merge.yml    ← Auto-merge with safety labels
+│   ├── .github/copilot-setup-steps.yml        ← Copilot coding agent env setup
+│   └── mcp-hub/server.py:/gemini/review       ← Gemini review API endpoint
+│
 └── IMPLEMENTATION
     ├── src/config/protected_config.py     ← Protected configuration
     ├── src/mcp/security/                  ← MCP security modules
@@ -617,6 +623,27 @@ DWS Security Standard (this document)
     ├── src/database/                      ← SQL injection prevention
     └── .github/workflows/security-*.yml   ← 8 security workflows
 ```
+
+### 11.1 Automated PR Security Review (HIL Automation)
+
+All pull requests pass through a mandatory dual-model AI security review that replaces manual human-in-the-loop code review:
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+| Control | Reviewer | Posture |
+|---------|----------|---------|
+| API key/secret exposure | Claude + Gemini | Block on detection |
+| Injection vulnerabilities (SQL, XSS, command) | Gemini | Block on detection |
+| Auth/authz gaps | Gemini | Block on detection |
+| OWASP Top 10 (LLM + web) | Claude + Gemini | Block on detection |
+| Test coverage for new logic | Gemini | REQUEST_CHANGES if missing |
+| Edge cases (empty/large inputs, concurrency) | Gemini | REQUEST_CHANGES if unhandled |
+
+**Gemini default posture:** REQUEST_CHANGES. Only APPROVE when zero security issues, adequate tests, and project conventions followed. Human overrides via `do-not-merge` / `needs-human-review` labels.
 
 ---
 

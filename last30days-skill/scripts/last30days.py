@@ -18,8 +18,7 @@ import argparse
 import json
 import os
 import sys
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 # Add lib to path
@@ -39,7 +38,6 @@ from lib import (
     schema,
     score,
     ui,
-    websearch,
     xai_x,
 )
 
@@ -101,7 +99,8 @@ def _search_reddit(
                     config["OPENAI_API_KEY"],
                     selected_models["openai"],
                     core,
-                    from_date, to_date,
+                    from_date,
+                    to_date,
                     depth=depth,
                 )
                 retry_items = openai_reddit.parse_reddit_response(retry_raw)
@@ -112,7 +111,10 @@ def _search_reddit(
                         reddit_items.append(item)
             except Exception as e:
                 # Best-effort retry failed; keep original results but log for diagnostics.
-                print(f"Reddit retry search failed for core topic '{core}': {e}", file=sys.stderr)
+                print(
+                    f"Reddit retry search failed for core topic '{core}': {e}",
+                    file=sys.stderr,
+                )
 
     return reddit_items, raw_openai, reddit_error
 
@@ -194,7 +196,16 @@ def run_research(
         if progress:
             progress.start_web_only()
             progress.end_web_only()
-        return reddit_items, x_items, True, raw_openai, raw_xai, raw_reddit_enriched, reddit_error, x_error
+        return (
+            reddit_items,
+            x_items,
+            True,
+            raw_openai,
+            raw_xai,
+            raw_reddit_enriched,
+            reddit_error,
+            x_error,
+        )
 
     # Determine which searches to run
     run_reddit = sources in ("both", "reddit", "all", "reddit-web")
@@ -210,16 +221,28 @@ def run_research(
             if progress:
                 progress.start_reddit()
             reddit_future = executor.submit(
-                _search_reddit, topic, config, selected_models,
-                from_date, to_date, depth, mock
+                _search_reddit,
+                topic,
+                config,
+                selected_models,
+                from_date,
+                to_date,
+                depth,
+                mock,
             )
 
         if run_x:
             if progress:
                 progress.start_x()
             x_future = executor.submit(
-                _search_x, topic, config, selected_models,
-                from_date, to_date, depth, mock
+                _search_x,
+                topic,
+                config,
+                selected_models,
+                from_date,
+                to_date,
+                depth,
+                mock,
             )
 
         # Collect results
@@ -259,20 +282,33 @@ def run_research(
             try:
                 if mock:
                     mock_thread = load_fixture("reddit_thread_sample.json")
-                    reddit_items[i] = reddit_enrich.enrich_reddit_item(item, mock_thread)
+                    reddit_items[i] = reddit_enrich.enrich_reddit_item(
+                        item, mock_thread
+                    )
                 else:
                     reddit_items[i] = reddit_enrich.enrich_reddit_item(item)
             except Exception as e:
                 # Log but don't crash - keep the unenriched item
                 if progress:
-                    progress.show_error(f"Enrich failed for {item.get('url', 'unknown')}: {e}")
+                    progress.show_error(
+                        f"Enrich failed for {item.get('url', 'unknown')}: {e}"
+                    )
 
             raw_reddit_enriched.append(reddit_items[i])
 
         if progress:
             progress.end_reddit_enrich()
 
-    return reddit_items, x_items, web_needed, raw_openai, raw_xai, raw_reddit_enriched, reddit_error, x_error
+    return (
+        reddit_items,
+        x_items,
+        web_needed,
+        raw_openai,
+        raw_xai,
+        raw_reddit_enriched,
+        reddit_error,
+        x_error,
+    )
 
 
 def main():
@@ -321,6 +357,7 @@ def main():
         os.environ["LAST30DAYS_DEBUG"] = "1"
         # Re-import http to pick up debug flag
         from lib import http as http_module
+
         http_module.DEBUG = True
 
     # Determine depth
@@ -372,7 +409,7 @@ def main():
     progress = ui.ProgressDisplay(args.topic, show_banner=True)
 
     # Show promo for missing keys BEFORE research
-    if missing_keys != 'none':
+    if missing_keys != "none":
         progress.show_promo(missing_keys)
 
     # Select models
@@ -411,7 +448,16 @@ def main():
         mode = sources
 
     # Run research
-    reddit_items, x_items, web_needed, raw_openai, raw_xai, raw_reddit_enriched, reddit_error, x_error = run_research(
+    (
+        reddit_items,
+        x_items,
+        web_needed,
+        raw_openai,
+        raw_xai,
+        raw_reddit_enriched,
+        reddit_error,
+        x_error,
+    ) = run_research(
         args.topic,
         sources,
         config,
@@ -427,12 +473,16 @@ def main():
     progress.start_processing()
 
     # Normalize items
-    normalized_reddit = normalize.normalize_reddit_items(reddit_items, from_date, to_date)
+    normalized_reddit = normalize.normalize_reddit_items(
+        reddit_items, from_date, to_date
+    )
     normalized_x = normalize.normalize_x_items(x_items, from_date, to_date)
 
     # Hard date filter: exclude items with verified dates outside the range
     # This is the safety net - even if prompts let old content through, this filters it
-    filtered_reddit = normalize.filter_by_date_range(normalized_reddit, from_date, to_date)
+    filtered_reddit = normalize.filter_by_date_range(
+        normalized_reddit, from_date, to_date
+    )
     filtered_x = normalize.filter_by_date_range(normalized_x, from_date, to_date)
 
     # Score items
@@ -476,7 +526,9 @@ def main():
         progress.show_complete(len(deduped_reddit), len(deduped_x))
 
     # Output result
-    output_result(report, args.emit, web_needed, args.topic, from_date, to_date, missing_keys)
+    output_result(
+        report, args.emit, web_needed, args.topic, from_date, to_date, missing_keys
+    )
 
 
 def output_result(
@@ -502,9 +554,9 @@ def output_result(
 
     # Output WebSearch instructions if needed
     if web_needed:
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("### WEBSEARCH REQUIRED ###")
-        print("="*60)
+        print("=" * 60)
         print(f"Topic: {topic}")
         print(f"Date range: {from_date} to {to_date}")
         print("")
@@ -515,7 +567,7 @@ def output_result(
         print("After searching, synthesize WebSearch results WITH the Reddit/X")
         print("results above. WebSearch items should rank LOWER than comparable")
         print("Reddit/X items (they lack engagement metrics).")
-        print("="*60)
+        print("=" * 60)
 
 
 if __name__ == "__main__":

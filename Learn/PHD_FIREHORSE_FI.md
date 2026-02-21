@@ -1123,8 +1123,40 @@ a person' or email support@lifetime.fi."
 | Protokolla | SFTP |
 | Tiedosto | google-products.xml |
 
+### Liite E: Automatisoitu PR-tyonkulku (HIL-automaatio)
+
+Firehorse-toimintamalli sisaltaa taysin automatisoidun pull request -tarkistus- ja yhdistamistyonkulun, joka korvaa manuaalisen ihminen-silmukassa (HIL) -koodikatselmoinnin. Tama on keskeinen operatiivinen tehokkuusparannus yksinyrittajille ja pienille tiimeille, jotka hallitsevat yritystason koodikantoja.
+
+**Arkkitehtuuri:**
+
+```
+Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @copilot korjaukset → CI → automaattinen yhdistaminen
+                                                    ↑                         |
+                                                    └─────────────────────────┘  (korjaussilmukka)
+```
+
+**Komponentit:**
+
+| Komponentti | Rooli | Teknologia |
+|------------|-------|-----------|
+| Claude Code | Koodin generointi, haaran luonti, PR:n avaaminen | Anthropic Claude Opus/Sonnet |
+| AI-koodikatselmointi | Kaksoismallikatselmointi korvaa ihmiskatselmoijan | GitHub Actions -tyonkulku |
+| Claude (katselmoija) | Pikatarkistus: turvallisuus, oikeellisuus, rikkovat muutokset | Claude Sonnet 4 API |
+| Gemini (HIL-portti) | Syvakatselmointi: reunatapaukset, testit, arkkitehtuuri, OWASP | Gemini 2.0 Flash API |
+| Copilot-koodausagentti | Toteuttaa korjausohjeet katselmointikommenteista | GitHub Copilot |
+| PR-automaattiyhdistaminen | Yhdistaa kun kaikki tarkistukset lapaistaan ja AI hyvaksyy | GitHub Actions + GraphQL |
+
+**Keskeinen suunnittelupaatos:** Gemini oletusarvoisesti vaatii muutoksia (REQUEST_CHANGES) jokaisessa katselmoinnissa. Tama varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen. Vain koodi, jossa on nolla ongelmaa, riittava testikattavuus ja konventioiden noudattaminen, saa hyvaksynnan (APPROVE).
+
+**Operatiiviset mittarit (odotettu):**
+- Kehittajan osallistuminen vahenee loppukatselmointiin (~5 min per PR)
+- 70-90% perus-/refaktorointi-/testiongelmista havaitaan ennen ihmiskatselmoijaa
+- Tyypillinen korjaussilmukka: 1-3 iteraatiota ennen hyvaksyntaa
+
+**Kayttoonotto:** Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub `POST /gemini/review` on-demand-koodianalyysiin.
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Tammikuu 2026*
-*Versio: 1.0*
+*Viimeksi paivitetty: Helmikuu 2026*
+*Versio: 1.1*
