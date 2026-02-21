@@ -56,15 +56,27 @@ When the human says **"Use DWS standard"** (or any variation like "with DWS stan
 
 When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, **"opinnäytetyö"**, or any thesis-related update, **ALL 4 thesis files MUST be updated together:**
 
-| # | File | Language | Version Track |
-|---|------|----------|---------------|
-| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | English | Metropolia (v3.x) |
-| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) |
-| 3 | `dws10.com/docs/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) |
-| 4 | `dws10.com/docs/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) |
+| # | File | Language | Version Track | Visibility |
+|---|------|----------|---------------|------------|
+| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | English | Metropolia (v3.x) | **PRIVATE** |
+| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) | **PRIVATE** |
+| 3 | `dws10.com/docs/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) | **PUBLIC** |
+| 4 | `dws10.com/docs/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) | **PUBLIC** |
 
-**Additionally, PHD Firehorse files follow the dual folder rule:**
+**PHD Firehorse files (PUBLIC) follow the dual folder rule:**
 - After updating `dws10.com/docs/PHD_FIREHORSE_*.md`, sync to `landing-pages/dws10-com/docs/PHD_FIREHORSE_*.md`
+
+**Metropolia thesis files (PRIVATE) follow the Learn/ folder rule:**
+- Non-public thesis work is published ONLY to `Learn/` as versioned HTML
+- On each version update, generate a **new versioned HTML file** (e.g., `Learn/V3Thesis_EN_v3.7.html`)
+- **NEVER delete old HTML versions** — they serve as version history
+- Do NOT publish Metropolia thesis to any public deployment path (`dws10.com/`, `landing-pages/`, `onelifetime.world/`)
+
+**Learn/ folder HTML generation:**
+- Use `python3 -c "import markdown"` or `pandoc` to convert `.md` → `.html`
+- Filename pattern: `Learn/<name>_v<version>.html` (e.g., `V3Thesis_EN_v3.7.html`)
+- Match the pandoc CSS styling from existing Learn/ HTML files
+- Generate versioned HTML for ALL 4 thesis files on each update
 
 **Version tracking rules:**
 1. **Always check the current version number** in the file header before incrementing — do NOT assume the last git version is the latest
