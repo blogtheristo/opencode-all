@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
@@ -25,7 +26,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 10.02.2026
+  - Last Modified: 20.02.2026
   - Language: English
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V3.3 consolidated full version)
@@ -1412,6 +1413,47 @@ Your code will be watched -- write accordingly."
 
 ---
 
+## Appendix H: Automated PR Workflow (HIL Automation)
+
+### Background
+
+A key operational challenge for solo developers and small teams managing enterprise-grade codebases is maintaining code quality without a dedicated review team. The Firehorse model addresses this with a fully automated pull request review and merge workflow that replaces manual human-in-the-loop (HIL) code review with dual-model AI review.
+
+### Architecture
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+### Components
+
+| Component | Role | Technology |
+|-----------|------|-----------|
+| Claude Code | Code generation, branch creation, PR opening | Anthropic Claude Opus/Sonnet |
+| Claude (reviewer) | Quick sanity check: security, correctness, breaking changes | Claude Sonnet 4 API |
+| Gemini (HIL gate) | Deep review: edge cases, tests, architecture, OWASP security | Gemini 2.0 Flash API |
+| Copilot coding agent | Implements fix instructions from review comments | GitHub Copilot |
+| PR Auto-Merge | Merges when all checks pass and AI approves | GitHub Actions + GraphQL |
+
+### Design Decisions
+
+1. **Gemini defaults to REQUEST_CHANGES** — ensures every PR goes through at least one improvement cycle, even when the original implementation appears correct
+2. **Dual-model review** — two different AI models catch different classes of issues (structural vs. security vs. convention)
+3. **Automated fix loop** — structured fix instructions sent to @copilot, which implements fixes and re-triggers review, reducing developer involvement to final skim (~5 min per PR)
+4. **Human overrides** — `do-not-merge` and `needs-human-review` labels pause automation for manual review when needed
+
+### Relevance to Thesis
+
+This workflow demonstrates the Solution Factory model (Section 5) operating at full automation: a single developer with AI agents produces enterprise-quality code at scale. The HIL learning pipeline (Section 6.7) feeds review insights back into agent training, creating a continuous improvement loop that aligns with EU AI Act Article 12 auditability requirements.
+
+### Deployment
+
+Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /gemini/review` for on-demand security analysis by any agent in the Firehorse fleet.
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -1420,9 +1462,9 @@ Your code will be watched -- write accordingly."
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.3 consolidated full version
-**Version:** 3.3
-**Last Modified:** 10.02.2026
+**Status:** DRAFT - V3.4 consolidated full version
+**Version:** 3.4
+**Last Modified:** 20.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -1440,6 +1482,7 @@ Your code will be watched -- write accordingly."
 4. Phased Deployment Framework — Building trust for AI in regulated industries
 5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
 6. HIL Learning Pipeline — Daily human-AI feedback loop
+7. Automated PR Workflow — Dual-model AI review replacing manual code review
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

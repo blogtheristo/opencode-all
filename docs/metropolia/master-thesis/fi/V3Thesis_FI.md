@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Yhdistetty Thesis_FI.md (v2.1) ja V2Thesis_FI.md (v3.2) yhdeksi kokonaisversioksi. Korjattu skandinaaviset merkit, päivitetty tunnistetiedot, lisätty DWS10-verkkokauppa-, äänichat- ja HIL-putkiosiot, Karpathy-liite, Firehorse-toimintamalliosiot
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisätty osio 6.7 - Ihminen-silmukassa-oppimisputki (päivittäinen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisätty Liite E - Tekoälyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoälysäädöksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
@@ -25,7 +26,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 10.02.2026
+  - Last Modified: 20.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V3.3 yhdistetty kokonaisversio)
@@ -1404,6 +1405,47 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 
 ---
 
+## Liite H: Automatisoitu PR-tyonkulku (HIL-automaatio)
+
+### Tausta
+
+Keskeinen operatiivinen haaste yksinyrittajille ja pienille tiimeille, jotka hallitsevat yritystason koodikantoja, on koodin laadun yllapitaminen ilman erillistä katselmointitiimiä. Firehorse-malli ratkaisee taman taysin automatisoidulla pull request -tarkistus- ja yhdistamistyonkululla, joka korvaa manuaalisen ihminen-silmukassa (HIL) -koodikatselmoinnin kaksoismallin AI-katselmoinnilla.
+
+### Arkkitehtuuri
+
+```
+Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @copilot korjaukset → CI → automaattinen yhdistaminen
+                                                    ↑                         |
+                                                    └─────────────────────────┘  (korjaussilmukka)
+```
+
+### Komponentit
+
+| Komponentti | Rooli | Teknologia |
+|------------|-------|-----------|
+| Claude Code | Koodin generointi, haaran luonti, PR:n avaaminen | Anthropic Claude Opus/Sonnet |
+| Claude (katselmoija) | Pikatarkistus: turvallisuus, oikeellisuus, rikkovat muutokset | Claude Sonnet 4 API |
+| Gemini (HIL-portti) | Syvakatselmointi: reunatapaukset, testit, arkkitehtuuri, OWASP | Gemini 2.0 Flash API |
+| Copilot-koodausagentti | Toteuttaa korjausohjeet katselmointikommenteista | GitHub Copilot |
+| PR-automaattiyhdistaminen | Yhdistaa kun kaikki tarkistukset lapaistaan ja AI hyvaksyy | GitHub Actions + GraphQL |
+
+### Suunnittelupaatokset
+
+1. **Gemini oletusarvoisesti vaatii muutoksia (REQUEST_CHANGES)** — varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen
+2. **Kaksoismallikatselmointi** — kaksi eri AI-mallia havaitsee eri luokkien ongelmia (rakenne vs. turvallisuus vs. konventiot)
+3. **Automatisoitu korjaussilmukka** — jäsennellyt korjausohjeet lahetettaan @copilotille, joka toteuttaa korjaukset ja kaynnistaa katselmoinnin uudelleen, vahentaen kehittajan osallistumisen loppukatselmointiin (~5 min per PR)
+4. **Ihmisen ohitusmahdollisuudet** — `do-not-merge` ja `needs-human-review` -tunnisteet pysayttavat automaation manuaalista katselmointia varten
+
+### Merkitys opinnaytetyolle
+
+Tama tyonkulku demonstroi Solution Factory -mallin (osio 5) tayden automaation tasolla: yksi kehittaja AI-agenttien kanssa tuottaa yritystason koodia suuressa mittakaavassa. HIL-oppimisputki (osio 6.7) syottaa katselmointioivallukset takaisin agenttien koulutukseen, luoden jatkuvan parannussilmukan, joka on linjassa EU:n tekoalysaadoksen artiklan 12 tarkastettavuusvaatimusten kanssa.
+
+### Kayttoonotto
+
+Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gemini/review` -paatepisteen on-demand-turvallisuusanalyysiin mille tahansa agentille Firehorse-laivastossa.
+
+---
+
 **Dokumentin tiedot:**
 
 **Otsikko:** Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
@@ -1412,9 +1454,9 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.3 yhdistetty kokonaisversio
-**Versio:** 3.3
-**Viimeisin päivitys:** 10.02.2026
+**Tila:** DRAFT - V3.4 yhdistetty kokonaisversio
+**Versio:** 3.4
+**Viimeisin päivitys:** 20.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -1432,6 +1474,7 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 4. Vaiheittainen käyttöönottokehys — Luottamuksen rakentaminen AI:lle säännellyillä toimialoilla
 5. DWS10.com-verkkokauppavalidointi — Google Merchant Center + Revolut Business
 6. HIL-oppimisputki — Päivittäinen ihminen-tekoäly-palautesilmukka
+7. Automatisoitu PR-tyonkulku — Kaksoismallin AI-katselmointi korvaa manuaalisen koodikatselmoinnin
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
