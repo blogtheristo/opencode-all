@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added Claw-layer security (Section 12), supply chain integrity policy (Section 13), CORS/SRI/exec standards, vulnerability assessment findings
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Initial DWS Security Standard — integrating International AI Safety Report 2026 findings into enterprise security framework
 
@@ -29,7 +30,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 21.02.2026
+  - Last Modified: 21.02.2026 (v1.2)
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -749,7 +750,78 @@ await execFile('command', [userInput]);
 
 ---
 
-## 14. Review and Update Schedule
+## 14. Multi-Tenant Sandbox Isolation Architecture
+
+DWS IQ Agent Foundry enforces tenant data isolation through a staged architecture that provides defense-in-depth at OS, container, and network levels.
+
+### 14.1 Isolation Stages
+
+| Stage | When | Isolation Method | NIS2 Defensible | Multi-Tenant | Infra Cost |
+|-------|------|------------------|-----------------|--------------|------------|
+| 1 — SDK Sandbox | Demo / Pilot | Anthropic Agent SDK native sandbox (bubblewrap/seatbelt) | Yes (demo) | No | €0 |
+| 2 — Ephemeral Containers | First paid multi-tenant | Cloud Run ephemeral containers (europe-north1) + Groq inference | Yes | Yes | ~€20-50/mo |
+| 3 — Persistent Containers | Scale (€50k+ MRR) | Persistent containers + gVisor/Firecracker per tenant | Yes + audit log | Yes | €200+/mo |
+
+### 14.2 Stage 1: Anthropic SDK Native Sandbox
+
+**Implementation:** `src/sandbox/sdk-sandbox.ts`
+
+Uses Anthropic Agent SDK's built-in OS-level primitives:
+- **Linux:** bubblewrap (filesystem namespace isolation, network proxy)
+- **macOS:** seatbelt (sandbox profiles)
+
+**Controls applied per tenant:**
+
+| Control | Enforcement |
+|---------|-------------|
+| Filesystem isolation | Agent can only access `/workspace/tenant-{tenantId}` |
+| System path denial | `/etc/shadow`, `/root`, `/home`, `/var/run/docker.sock`, `/proc/1` explicitly denied |
+| Network isolation | Deny-by-default egress; only allow-listed domains reachable |
+| Allowed domains | `api.anthropic.com`, `api.groq.com`, `mcp-hub.dws10.com`, `api.dws10.com`, tenant Supabase project |
+| Wildcard prohibition | No `*` domain patterns permitted (NIS2 least-privilege) |
+
+**NIS2 compliance validation:** `validateNIS2Compliance()` checks all sandbox configs before agent execution. Violations block execution.
+
+### 14.3 Stage 2: Cloud Run Ephemeral Containers
+
+**Implementation:** `src/sandbox/cloudrun-ephemeral.ts`
+
+Each agent task executes in a dedicated Cloud Run Job:
+
+1. **Create** — New container per task with tenant-specific environment
+2. **Execute** — Agent runs with Groq inference (Llama 3.3 70B) inside the container
+3. **Collect** — Results written to Supabase `agent_executions` table
+4. **Destroy** — Container and all associated data deleted post-task
+
+**Security properties:**
+
+| Property | How Enforced |
+|----------|-------------|
+| Tenant isolation | One container per task — no shared process space |
+| Data residency | `europe-north1` (Finland) region lock |
+| No cross-tenant data path | Containers destroyed post-task; no persistent filesystem |
+| Secret management | GCP Secret Manager (not env vars) for API keys |
+| Network egress | VPC connector with egress policy (optional) |
+| Service identity | Dedicated `agent-runner@` service account with minimal IAM |
+
+**NIS2 audit statement:**
+> "Each DWS IQ 6 agent task runs in an ephemeral Cloud Run container in europe-north1. Containers are destroyed post-task. Anthropic Agent SDK native sandboxing provides filesystem and network isolation within the container. No cross-tenant data path exists by architecture, not by policy."
+
+### 14.4 Stage Selection
+
+The isolation stage is selected via `SANDBOX_STAGE` environment variable (values: `1`, `2`, `3`). The unified factory (`src/sandbox/index.ts`) routes agent execution to the appropriate isolation backend.
+
+### 14.5 Governance Integration
+
+Sandbox isolation integrates with the existing governance engine (`src/agents/base.agent.ts`):
+
+- **`buildSandboxContext()`** attaches isolation metadata to `AgentContext` before execution
+- **Governance policies** (rate-limit, cost-limit, data-boundary) evaluate against sandbox context
+- **Audit logging** records sandbox stage, tier, and allowed paths/domains per execution
+
+---
+
+## 15. Review and Update Schedule
 
 | Review Type | Frequency | Next Date | Owner |
 |-------------|-----------|-----------|-------|
@@ -763,7 +835,7 @@ await execFile('command', [userInput]);
 
 ---
 
-## 15. References
+## 16. References
 
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
@@ -791,7 +863,7 @@ await execFile('command', [userInput]);
 
 ---
 
-**Document Version:** 1.1
+**Document Version:** 1.2
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)
