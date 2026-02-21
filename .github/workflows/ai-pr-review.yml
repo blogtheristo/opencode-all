@@ -477,7 +477,92 @@ jobs:
             });
 
       # ──────────────────────────────────────────────
-      # STEP 5: Apply labels based on verdict
+      # LEVEL 5: Ollama Open-Source Model Review
+      # Self-hosted on Acer Veriton GN-100 (NVIDIA GPU)
+      # Uses Ollama with an open-source model for
+      # sovereign, zero-cost code review.
+      # Requires GN-100 to be reachable at OLLAMA_HOST.
+      # ──────────────────────────────────────────────
+      - name: Level 5 - Ollama Review (GN-100)
+        id: ollama-review
+        if: ${{ secrets.OLLAMA_HOST != '' }}
+        env:
+          OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
+          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen2.5-coder:14b' }}
+        run: |
+          DIFF=$(cat /tmp/pr-diff.txt | head -c 30000)
+          FILES=$(cat /tmp/changed-files.txt)
+          PR_TITLE="${{ github.event.pull_request.title }}"
+
+          PROMPT="You are a code reviewer analyzing a pull request for DWS IQ 6 (enterprise climate intelligence platform).
+
+          PR Title: ${PR_TITLE}
+          Changed files: ${FILES}
+
+          Diff:
+          ${DIFF}
+
+          Review focus:
+          1. Security issues (API keys, injection, auth gaps)
+          2. Logic errors and edge cases
+          3. EU compliance concerns (GDPR, AI Act)
+
+          Format your response as:
+          ## Ollama Review (Self-Hosted)
+          **Model:** \${OLLAMA_MODEL}
+          **Summary:** [1-2 sentences]
+          **Issues Found:** [list or 'None']
+          **EU Compliance Notes:** [any GDPR/AI Act concerns or 'None']
+          **Verdict:** APPROVE / REQUEST_CHANGES"
+
+          # Call Ollama API on GN-100
+          RESPONSE=$(curl -s --max-time 120 -X POST \
+            "${OLLAMA_HOST}/api/generate" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg model "$OLLAMA_MODEL" \
+              --arg prompt "$PROMPT" \
+              '{
+                model: $model,
+                prompt: $prompt,
+                stream: false,
+                options: {
+                  temperature: 0.1,
+                  num_predict: 2000
+                }
+              }')" \
+            | jq -r '.response // "Ollama review unavailable"' 2>/dev/null || echo "Ollama review unavailable — GN-100 not reachable")
+
+          echo "$RESPONSE" > /tmp/ollama-review.txt
+
+          if echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
+            echo "verdict=request_changes" >> $GITHUB_OUTPUT
+          elif echo "$RESPONSE" | grep -qi "unavailable\|not reachable"; then
+            echo "verdict=skip" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=approve" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post Level 5 results
+        if: steps.ollama-review.outputs.verdict != 'skip' && steps.ollama-review.outputs.verdict != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const review = fs.readFileSync('/tmp/ollama-review.txt', 'utf8');
+              if (review && !review.includes('unavailable')) {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: '## Level 5: Ollama Review (Acer GN-100)\n\n' + review
+                });
+              }
+            } catch {}
+
+      # ──────────────────────────────────────────────
+      # STEP 6: Apply labels based on verdict
       # ──────────────────────────────────────────────
       - name: Apply review labels
         uses: actions/github-script@v7
