@@ -199,6 +199,29 @@ Don't leave corpses. Don't delete without asking.
 
 **Exception:** Temporary/generated files (`.tmp`, `node_modules/`, `dist/`) can be deleted.
 
+#### 9. Never Publish .md Files to Public Sites (CRITICAL)
+
+**NEVER place `.md` (markdown) files in public deployment paths.** Public sites serve HTML, CSS, JS, images, and JSON — not raw markdown.
+
+Public deployment paths where `.md` files must NOT exist:
+- `dws10.com/` → Cloudflare Workers
+- `landing-pages/dws10-com/` → Cloudflare Pages (production)
+- `onelifetime.world/` → Cloudflare Workers
+- `landing-pages/onelifetime-world/` → Cloudflare Pages (production)
+- `dws6.com/` → Cloudflare Pages
+- `landing-pages/dws6-com/` → Cloudflare Pages
+
+**Why:** Raw `.md` files served by Cloudflare expose internal documentation, admin manuals, deployment notes, thesis work, and infrastructure details to anyone who guesses the URL. Markdown is not rendered — it shows as plain text with all content visible.
+
+**Where `.md` files belong:**
+- `docs/` — private repo documentation (not deployed)
+- `Admin/` — admin manuals (not deployed)
+- `Learn/` — internal learning pipeline (not deployed)
+- `docs/metropolia/master-thesis/` — thesis work (not deployed)
+- Repo root — standards files like `CLAUDE.md`, `DWS_SECURITY_STANDARD.md` (not deployed)
+
+**If you need documentation on a public site:** Convert to HTML first and serve the HTML version.
+
 ### Leverage Patterns
 
 #### Inline Planning
