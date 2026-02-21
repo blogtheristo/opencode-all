@@ -398,6 +398,85 @@ jobs:
             }
 
       # ──────────────────────────────────────────────
+      # LEVEL 4: Automated Standards Compliance Check
+      # Verifies DWS housekeeping rules after AI review:
+      #   - No .md files in public deployment paths (Rule 9)
+      #   - DWS Document Standard headers present
+      #   - No secrets/credentials in changed files
+      # ──────────────────────────────────────────────
+      - name: Level 4 - Standards Compliance Check
+        id: standards-check
+        run: |
+          ISSUES=""
+
+          # Rule 9: Check if PR introduces .md files in public paths
+          PUBLIC_MDS=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | \
+            grep -E '^(dws10\.com|dws6\.com|onelifetime\.world|landing-pages)/' | \
+            grep '\.md$' || true)
+
+          if [ -n "$PUBLIC_MDS" ]; then
+            ISSUES="${ISSUES}\n- **Rule 9 violation:** .md files added to public deployment paths:\n"
+            while IFS= read -r f; do
+              ISSUES="${ISSUES}  - \`$f\`\n"
+            done <<< "$PUBLIC_MDS"
+          fi
+
+          # Check for potential secrets in changed files
+          SECRET_PATTERNS='(sk-ant-api|gsk_|AIza[A-Za-z0-9_-]{30}|eyJ[A-Za-z0-9_-]{20,}\.eyJ|AKIA[0-9A-Z]{16})'
+          DIFF_CONTENT=$(git diff origin/${{ github.base_ref }}...HEAD -- \
+            '*.ts' '*.tsx' '*.js' '*.jsx' '*.py' '*.json' '*.yml' '*.yaml' \
+            ':!package-lock.json' ':!*.lock' 2>/dev/null || true)
+
+          SECRET_HITS=$(echo "$DIFF_CONTENT" | grep -cP "$SECRET_PATTERNS" 2>/dev/null || echo "0")
+          if [ "$SECRET_HITS" -gt 0 ]; then
+            ISSUES="${ISSUES}\n- **Potential secret exposure:** Found $SECRET_HITS pattern matches resembling API keys/tokens in diff\n"
+          fi
+
+          # Check new .md files have DWS Document Standard header
+          NEW_MDS=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }}...HEAD | \
+            grep '\.md$' | grep -v 'Store/' | grep -v 'node_modules' || true)
+
+          if [ -n "$NEW_MDS" ]; then
+            MISSING_HEADER=""
+            while IFS= read -r f; do
+              if [ -f "$f" ] && ! grep -q "VERSION AND AGENT HISTORY" "$f" 2>/dev/null; then
+                MISSING_HEADER="${MISSING_HEADER}  - \`$f\`\n"
+              fi
+            done <<< "$NEW_MDS"
+            if [ -n "$MISSING_HEADER" ]; then
+              ISSUES="${ISSUES}\n- **Missing DWS Document Standard header:** New .md files without VERSION AND AGENT HISTORY block:\n${MISSING_HEADER}"
+            fi
+          fi
+
+          if [ -z "$ISSUES" ]; then
+            echo "verdict=pass" >> $GITHUB_OUTPUT
+            echo "## Level 4: Standards Compliance Check" > /tmp/standards-check.txt
+            echo "" >> /tmp/standards-check.txt
+            echo "**Status:** PASS — All DWS standards checks passed." >> /tmp/standards-check.txt
+          else
+            echo "verdict=fail" >> $GITHUB_OUTPUT
+            echo "## Level 4: Standards Compliance Check" > /tmp/standards-check.txt
+            echo "" >> /tmp/standards-check.txt
+            echo "**Status:** FAIL — Standards violations found:" >> /tmp/standards-check.txt
+            echo -e "$ISSUES" >> /tmp/standards-check.txt
+          fi
+
+      - name: Post Level 4 results
+        if: steps.standards-check.outputs.verdict == 'fail'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('/tmp/standards-check.txt', 'utf8');
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+      # ──────────────────────────────────────────────
       # STEP 5: Apply labels based on verdict
       # ──────────────────────────────────────────────
       - name: Apply review labels
