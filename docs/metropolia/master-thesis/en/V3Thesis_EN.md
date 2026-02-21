@@ -4,10 +4,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.6
+Version: 3.7
 
 Sessions & Modifications:
-  - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Versions 3.4-3.5 applied in other sessions (version header not updated — corrected here).
+  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment
+  - Version: 3.4–3.6 | Tool: Various (Cursor, Claude Code, Word) | Sessions: multiple | Date: 10–20.02.2026 | Changes: Applied in other sessions but version header not updated in file — corrected here. Includes company rename (Lifetime Consulting Oy → Lifetime Oy), IPR strategy sections, prompt caching architecture
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
@@ -1462,8 +1463,8 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.6 consolidated full version
-**Version:** 3.6
+**Status:** DRAFT - V3.7 consolidated full version
+**Version:** 3.7
 **Last Modified:** 20.02.2026
 **V1.0 Release Target:** 23 February 2026
 

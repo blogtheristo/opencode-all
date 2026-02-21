@@ -4,10 +4,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.6
+Version: 3.7
 
 Sessions & Modifications:
-  - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Versiot 3.4-3.5 tehty muissa sessioissa (versiotunnus ei paivitetty — korjattu tassa).
+  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto
+  - Version: 3.4–3.6 | Tool: Various (Cursor, Claude Code, Word) | Sessions: multiple | Date: 10–20.02.2026 | Changes: Tehty muissa sessioissa mutta versiotunnus ei paivitetty tiedostossa — korjattu tassa. Sisaltaa yrityksen nimimuutos (Lifetime Consulting Oy → Lifetime Oy), IPR-strategiaosiot, prompt caching -arkkitehtuuri
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Yhdistetty Thesis_FI.md (v2.1) ja V2Thesis_FI.md (v3.2) yhdeksi kokonaisversioksi. Korjattu skandinaaviset merkit, päivitetty tunnistetiedot, lisätty DWS10-verkkokauppa-, äänichat- ja HIL-putkiosiot, Karpathy-liite, Firehorse-toimintamalliosiot
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisätty osio 6.7 - Ihminen-silmukassa-oppimisputki (päivittäinen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisätty Liite E - Tekoälyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoälysäädöksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
@@ -1454,8 +1455,8 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.6 yhdistetty kokonaisversio
-**Versio:** 3.6
+**Tila:** DRAFT - V3.7 yhdistetty kokonaisversio
+**Versio:** 3.7
 **Viimeisin päivitys:** 20.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
