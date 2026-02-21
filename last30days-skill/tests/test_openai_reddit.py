@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from lib import http
-from lib.openai_reddit import _is_model_access_error, MODEL_FALLBACK_ORDER
+from lib.openai_reddit import MODEL_FALLBACK_ORDER, _is_model_access_error
 
 
 class TestIsModelAccessError(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestIsModelAccessError(unittest.TestCase):
         error = http.HTTPError(
             "Bad request",
             status_code=400,
-            body='{"error": {"message": "Your organization must be verified to use the model \'gpt-5.2\'"}}'
+            body='{"error": {"message": "Your organization must be verified to use the model \'gpt-5.2\'"}}',
         )
         self.assertTrue(_is_model_access_error(error))
 
@@ -38,7 +38,7 @@ class TestIsModelAccessError(unittest.TestCase):
         error = http.HTTPError(
             "Bad request",
             status_code=400,
-            body='{"error": {"message": "Your account does not have access to this model"}}'
+            body='{"error": {"message": "Your account does not have access to this model"}}',
         )
         self.assertTrue(_is_model_access_error(error))
 
@@ -47,7 +47,7 @@ class TestIsModelAccessError(unittest.TestCase):
         error = http.HTTPError(
             "Bad request",
             status_code=400,
-            body='{"error": {"message": "The model gpt-5.2 was not found"}}'
+            body='{"error": {"message": "The model gpt-5.2 was not found"}}',
         )
         self.assertTrue(_is_model_access_error(error))
 
@@ -56,7 +56,7 @@ class TestIsModelAccessError(unittest.TestCase):
         error = http.HTTPError(
             "Bad request",
             status_code=400,
-            body='{"error": {"message": "Invalid JSON in request body"}}'
+            body='{"error": {"message": "Invalid JSON in request body"}}',
         )
         self.assertFalse(_is_model_access_error(error))
 
