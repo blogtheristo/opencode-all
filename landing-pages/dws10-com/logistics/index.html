@@ -48,27 +48,6 @@
             padding: 0 20px;
         }
 
-        /* Header */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px 0;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo-section img {
-            height: 80px;
-        }
-
-        .logo-section h1 {
-            font-size: 1.8rem;
-        }
-
         /* Hero */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -100,69 +79,11 @@
             color: #ffd700;
         }
 
-        /* Nav */
-        nav li:hover .dropdown {
-            display: block !important;
-        }
-
-        nav .dropdown li:hover {
-            background: #f7fafc;
-        }
-    </style>
+        </style>
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo-section" style="justify-content: space-between; width: 100%;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <a href="https://www.crunchbase.com/organization/lifetime-oy">
-                        <img src="../DWS_IQ2026.png" alt="Lifetime Oy - Firehorse">
-                    </a>
-                    <h1>DWS IQ Platform Version 6</h1>
-                </div>
-                <nav>
-                    <ul style="display: flex; list-style: none; gap: 20px; align-items: center;">
-                        <li><a href="../index.html" style="color: white; text-decoration: none;">Home</a></li>
-                        <li style="position: relative;">
-                            <a href="#" style="color: white; text-decoration: none;">Industries ▾</a>
-                            <ul style="position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
-                                class="dropdown">
-                                <li><a href="../construction/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Construction</a>
-                                </li>
-                                <li><a href="../manufacturing/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Manufacturing</a>
-                                </li>
-                                <li><a href="../logistics/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Logistics
-                                        & Supply Chain</a></li>
-                                <li><a href="../energy/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Energy
-                                        & Utilities</a></li>
-                                <li><a href="../real-estate/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Real
-                                        Estate Development</a></li>
-                                <li><a href="../architecture/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Architecture
-                                        & Engineering</a></li>
-                                <li><a href="../waste/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Waste
-                                        Management</a></li>
-                                <li><a href="../mining/"
-                                        style="display: block; padding: 8px 20px; color: var(--dark); text-decoration: none;">Mining/Heavy
-                                        Industry</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="https://onelifetime.world"
-                                style="color: white; text-decoration: none;">Community</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <section class="hero">
+<section class="hero">
         <div class="container">
             <h2>Logistics & Supply Chain Solutions</h2>
             <p>AI-driven solutions for logistics and supply chain to reduce carbon footprint and optimize efficiency.
@@ -204,6 +125,7 @@
         </div>
     </section>
 <script src="/shared-assets/a2a/a2a-section.js"></script>
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
 <script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 

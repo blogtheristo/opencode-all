@@ -40,63 +40,9 @@
 </head>
 <body>
     <!-- Include Gamma Navigation -->
-    <header style="background: #ffffff; color: #0a1628; padding: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #e2e8f0;">
-        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <a href="../index.html" style="display: flex; align-items: center; text-decoration: none;">
-                    <img src="../DWS_IQ2026.png" alt="DWS IQ Platform" style="height: 60px; width: auto;">
-                </a>
-                <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: #0a1628; margin: 0;">DWS IQ Platform Version 6 - Theta</h1>
-            </div>
-            <nav style="flex-grow: 0;">
-                <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
-                    <li style="position: relative;">
-                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">Solutions ▾</a>
-                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
-                            <li style="position: relative;" class="has-submenu">
-                                <a href="../fit-for-55/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">Fit for 55 ▸</a>
-                            </li>
-                            <li style="position: relative;" class="has-submenu">
-                                <a href="../csrd/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">CSRD & ESG ▸</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="position: relative;">
-                        <a href="#" style="color: #334155; text-decoration: none; white-space: nowrap; font-weight: 500;">About ▾</a>
-                        <ul style="position: absolute; top: 100%; left: 0; background: #ffffff; min-width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 100; border: 1px solid #e2e8f0;" class="dropdown">
-                            <li><a href="https://onelifetime.world" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Lifetime World</a></li>
-                            <li><a href="../team/" style="display: block; padding: 8px 20px; color: #475569; text-decoration: none;">Team</a></li>
-                            <li style="position: relative;" class="has-submenu">
-                                <a href="#" style="display: block; padding: 8px 20px; color: #9333ea; text-decoration: none; font-weight: 600;">🎨 Designs ▸</a>
-                                <ul style="position: absolute; top: 0; left: 100%; background: #ffffff; min-width: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 0; display: none; z-index: 101; border: 1px solid #e2e8f0;" class="submenu">
-                                    <li><a href="../theta/" style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600; background: linear-gradient(90deg, rgba(16,185,129,0.1), transparent);">🤖 Theta (Current)</a></li>
-                                    <li><a href="../gamma/" style="display: block; padding: 8px 20px; color: #0066cc; text-decoration: none; font-weight: 600;">🏢 Gamma</a></li>
-                                    <li><a href="../ultra/" style="display: block; padding: 8px 20px; color: #ffd700; text-decoration: none; font-weight: 600;">✨ Ultra</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #0a1628 0%, #152238 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #0066cc;">
-                            🔐 IQ Login
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://dws6.com/dashboard/firehorse/v9-react/" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; height: 32px; border: 1px solid #10b981;" title="Try V9 Demo">
-                            🚀 V9 Demo
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <style>
+<style>
         nav li:hover > .dropdown {
             display: block !important;
-        }
-        nav .dropdown li:hover {
-            background: #f8fafc;
         }
         nav .dropdown a:hover {
             color: #0066cc !important;
@@ -343,6 +289,7 @@
     </script>
 
     <!-- Footer -->
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
 <script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

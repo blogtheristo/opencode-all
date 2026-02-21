@@ -65,15 +65,6 @@
         }
         
         /* Navigation */
-        nav {
-            background: var(--dark);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
         nav .container {
             display: flex;
             justify-content: space-between;
@@ -92,18 +83,6 @@
         
         nav .logo span {
             color: var(--accent);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-weight: 500;
         }
         
         nav a:hover {
@@ -341,10 +320,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            nav ul {
-                display: none;
             }
-        }
     </style>
 </head>
 <body>
@@ -495,6 +471,7 @@
             <a href="/compliance/" class="btn secondary">View Compliance Dashboard</a>
         </div>
     </section>
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
 <script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>
