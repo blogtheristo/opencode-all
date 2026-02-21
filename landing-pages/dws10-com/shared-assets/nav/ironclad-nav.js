@@ -210,6 +210,7 @@
                         <li><a href="${basePath}careers/">Careers</a></li>
                         <li><a href="${basePath}partners/" class="ironclad-primary">Certified Partners</a></li>
                         <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
+                        <li><a href="${basePath}press-releases/">Press Releases</a></li>
                         <li><a href="${basePath}contact/">Contact</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
