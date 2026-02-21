@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.8
 
 Sessions & Modifications:
+  - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (16 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
   - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Added section 12 IPR Protection & Trade Secret Strategy, section 13 Prompt Caching Architecture for AI Agents, renumbered sections 12-15 → 14-17, added EU Trade Secrets Directive references
@@ -29,7 +30,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 20.02.2026
+  - Last Modified: 21.02.2026
   - Language: English
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V3.3 consolidated full version)
@@ -1187,6 +1188,139 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 3. **Q3 2026:** Launch regulatory awareness engine
 4. **Q4 2026:** Establish partner ecosystem with commission model
 5. **2027:** Expand to other EU markets (SE, NO, DK, DE)
+6. **2027:** Per-industry open LLM selection and tenant-specific Lifetime World Model training
+7. **2027-2028:** Enterprise BYOA (Bring Your Own Agent) graphical workflow builder
+
+## 10.6 Per-Industry Open LLM Selection
+
+A critical finding from the platform architecture work is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
+
+**Candidate open LLMs per industry domain:**
+
+| Industry Cluster | Candidate Models | Key Domain Requirement |
+|-----------------|------------------|----------------------|
+| Construction, Real Estate | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
+| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS allowance calculations, process emissions, CBAM |
+| Manufacturing, Chemicals | Qwen 2.5 72B, Llama 3.3 | CBAM product classification, BOM analysis, REACH |
+| Logistics, Maritime, Aviation | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, route optimization |
+| Agriculture, Food & Beverage | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 supply chain, packaging lifecycle |
+| Finance, Public Sector | Mistral Large (EU-hosted), Llama 3.3 | SFDR, EU Taxonomy, double materiality, GPP |
+| Healthcare, Textiles | Gemma 2 (EU-hosted), Qwen 2.5 | Digital product passport, medical waste, pharmaceutical supply chain |
+
+**Selection criteria:** domain knowledge depth, multilingual capability (Finnish/Swedish/20+ for CBAM), structured output reliability, context window (128k+ for supply chain), inference speed, EU data residency, and commercial license.
+
+Each enterprise tenant can have their Lifetime World Model trained on their own industry data with their chosen LLM as the base model.
+
+## 10.7 Enterprise BYOA Architecture: Bring Your Own Agent
+
+A key platform evolution is supporting enterprise customers who **bring their own AI agents** to work on DWS IQ. This section describes the architecture using NCC (Nordic construction company) as an illustrative case.
+
+### 10.7.1 The NCC Scenario
+
+NCC operates with a complex agent ecosystem:
+
+| Agent Source | Count | Examples |
+|-------------|-------|---------|
+| **NCC Internal Agents** | 7 | Procurement Agent, Safety Compliance Agent, BIM Agent, Sustainability Agent, Cost Estimation Agent, Quality Agent, Project Planning Agent |
+| **Contractor Agents** | 14 | HVAC Subcontractor Agent, Electrical Agent, Concrete Supplier Agent, Steel Supplier Agent, Window Manufacturer Agent, Insulation Agent, etc. |
+| **DWS IQ Platform Agents** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
+| **Total** | 24 | All connected via A2A + MCP protocols |
+
+Each contractor agent arrives with its own:
+- **Agent Card** (A2A `/.well-known/agent.json`) describing capabilities
+- **LLM preference** — the contractor may use a different model than NCC
+- **ERP/BIM connectors** — Tekla, Solibri, IFS, SAP, Dynamics 365
+- **Data residency requirements** — some contractors operate from non-EU jurisdictions
+
+### 10.7.2 Tenant-Specific Lifetime World Model
+
+NCC receives their own instance of the Lifetime World Model:
+
+```
+NCC Lifetime World Model
+├── Base LLM: Qwen 2.5 72B (selected for Nordic construction)
+├── Fine-tuned on: NCC project data, Finnish building codes, RT-kortisto
+├── Regulatory context: Fit for 55, CSRD ESRS E1, EN 15978
+├── Connector endpoints:
+│   ├── Tekla Structures (BIM)
+│   ├── IFS Cloud (ERP)
+│   └── CO2data.fi (Finnish emissions factors)
+└── Sandbox: Stage 2 (ephemeral containers, europe-north1)
+```
+
+### 10.7.3 Graphical Workflow Builder: Agent Orchestration Studio
+
+To enable NCC (and similar enterprise customers) to build connections and workflows between 24+ agents, the platform requires a **visual workflow builder**. After evaluating six open-source candidates, the recommended architecture is:
+
+**Evaluation of graphical workflow tools:**
+
+| Tool | License | MCP Support | A2A Support | Self-Hosted EU | Embeddable in React | Best For |
+|------|---------|-------------|-------------|---------------|-------------------|----------|
+| **Langflow** | Apache 2.0 | Native (client + server) | Via custom nodes | Yes | Via API/iframe | Agent orchestration, LLM workflows |
+| **n8n** | Fair Code (sustainable-use) | Via community nodes | Via HTTP nodes | Yes | Via API/iframe | ERP/BIM connectors, data pipelines |
+| **React Flow** | MIT | Custom implementation | Custom implementation | N/A (library) | Native React | Custom visual builder UI |
+| **Flowise** | Apache 2.0 | Partial | No | Yes | Via API/iframe | Chatbot-focused RAG workflows |
+| **Node-RED** | Apache 2.0 | Via FlowFuse | Via HTTP nodes | Yes | Via iframe | IoT/edge, industrial automation |
+| **Temporal UI** | MIT | No | No | Yes | Via API | Workflow execution monitoring |
+
+**Recommended architecture: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow Visual Canvas                         │  │
+│  │  ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐         │  │
+│  │  │ NCC  │→│Safety│→│ DWS  │→│Report│         │  │
+│  │  │ BIM  │  │Agent │  │Carbon│  │ Gen  │         │  │
+│  │  └──────┘  └──────┘  └──────┘  └──────┘         │  │
+│  │       ↑                   ↑                       │  │
+│  │  ┌──────┐            ┌──────┐                     │  │
+│  │  │Tekla │            │HVAC  │ (contractor)        │  │
+│  │  │Conn. │            │Agent │                     │  │
+│  │  └──────┘            └──────┘                     │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Langflow Engine (MCP + A2A orchestration)        │  │
+│  │  - Each agent node = A2A Agent Card               │  │
+│  │  - Each connector = MCP tool                      │  │
+│  │  - Flows export as Temporal.io workflows          │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Temporal.io (execution engine, already in stack) │  │
+│  │  - Durable workflow execution                     │  │
+│  │  - Retry, timeout, compensation                   │  │
+│  │  - EU AI Act Article 12 audit trail               │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why this combination:**
+
+1. **React Flow** — Custom visual canvas embedded in the DWS IQ React dashboard. NCC users drag-and-drop agent nodes, draw connections, set per-agent LLM models. MIT license, zero vendor lock-in.
+
+2. **Langflow** — Backend orchestration engine. Native MCP protocol support means every DWS IQ tool (Supabase, Carbon Engine, ERP connectors) is accessible. Native A2A support means contractor agents auto-register via Agent Cards. Apache 2.0, self-hosted in EU (europe-north1). IBM enterprise partnership provides additional validation.
+
+3. **Temporal.io** — Already in the DWS IQ stack. Executes the workflows defined in the visual builder. Provides durable execution (workflows survive server restarts), automatic retries, timeout handling, and full audit trail for EU AI Act Article 12 compliance.
+
+**n8n** serves as a supplementary tool for ERP/BIM connector workflows (Tekla Structures ↔ IFS Cloud data sync) where Langflow's LLM focus is unnecessary.
+
+### 10.7.4 Contractor Agent Onboarding Flow
+
+```
+1. Contractor publishes Agent Card at /.well-known/agent.json
+2. NCC admin opens Agent Orchestration Studio
+3. Studio discovers contractor agent via A2A protocol
+4. NCC admin drags contractor agent onto canvas
+5. NCC admin connects contractor to relevant workflows
+6. Studio validates connectivity (A2A health check)
+7. Workflow deploys to Temporal.io for execution
+8. All agent interactions logged per EU AI Act Article 12
+```
+
+This architecture enables NCC to manage 24+ agents visually without writing code, while maintaining full EU data residency, audit compliance, and per-agent LLM flexibility.
 
 ---
 

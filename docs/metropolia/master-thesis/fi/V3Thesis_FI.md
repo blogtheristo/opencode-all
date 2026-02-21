@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.8
 
 Sessions & Modifications:
+  - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Paivitetty DWS-standardit, admin-manuaalit HIL-automaatioviittauksilla. Versiotunnuksen korjaus (3.4-3.5 eivat olleet seurannassa)
   - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Lisatty osio 12 IPR-suojaus ja liikesalaisuusstrategia, osio 13 Prompt caching -arkkitehtuuri AI-agenteille, uudelleennumeroitu osiot 12-15 → 14-17, lisatty EU:n liikesalaisuusdirektiivin viitteet
@@ -29,7 +30,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 20.02.2026
+  - Last Modified: 21.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V3.3 yhdistetty kokonaisversio)
@@ -1178,6 +1179,139 @@ Omnibus-paketti **vahvistaa** Firehorse-mallin kilpailukykyä: ilmastopäästöt
 3. **Q3 2026:** Lanseeraa sääntelytietoisuusmoottori
 4. **Q4 2026:** Perusta kumppaniekosysteemi provisiomallin kanssa
 5. **2027:** Laajenna muille EU-markkinoille (SE, NO, DK, DE)
+6. **2027:** Toimialakohtainen avoin LLM-valinta ja vuokralaiskohtainen Lifetime World Model -koulutus
+7. **2027-2028:** Yrityksen BYOA (Bring Your Own Agent) -graafinen työnkulkurakentaja
+
+## 10.6 Toimialakohtainen avoimen LLM:n valinta
+
+Keskeinen havainto alusta-arkkitehtuurityöstä on, että **yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle**. Jokaisella toimialavertikaaleilla on oma erikoiskielensä, sääntelykontekstinsa ja rakenteellisen tulosteen vaatimuksensa. Alustan on arvioitava ja valittava paras avoin LLM kullekin toimialalle sen sijaan, että käytettäisiin yhtä mallia (esim. Llama 3.3 70B) kaikille.
+
+**Avoimen LLM:n ehdokkaat toimialoittain:**
+
+| Toimialaklusteri | Ehdokkaat | Keskeinen toimialavaatimus |
+|-----------------|-----------|--------------------------|
+| Rakentaminen, Kiinteistöt | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 elinkaarivaiheet, suomalaiset rakennusmääräykset, EPBD |
+| Energia, Teräs & Metallit, Sementti | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS-päästöoikeuslaskelmat, prosessipäästöt, CBAM |
+| Valmistus, Kemianteollisuus | Qwen 2.5 72B, Llama 3.3 | CBAM-tuoteluokittelu, osaluetteloanalyysi, REACH |
+| Logistiikka, Merenkulku, Ilmailu | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, reittioptimiointi |
+| Maatalous, Elintarvikkeet | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 toimitusketju, pakkauselinkaari |
+| Rahoitus, Julkinen sektori | Mistral Large (EU-isännöity), Llama 3.3 | SFDR, EU-taksonomia, kaksoisolennaisuus, GPP |
+| Terveydenhuolto, Tekstiilit | Gemma 2 (EU-isännöity), Qwen 2.5 | Digitaalinen tuotepassi, lääkejäte, lääketeollisuuden toimitusketju |
+
+**Valintakriteerit:** toimialaosaamisen syvyys, monikielisyys (suomi/ruotsi/20+ CBAM:lle), rakenteellisen tulosteen luotettavuus, konteksti-ikkuna (128k+ toimitusketjulle), päättelynopeus, EU-tietojen sijainti ja kaupallinen lisenssi.
+
+Jokainen yritysvuokralainen voi kouluttaa oman Lifetime World Model -mallinsa omilla toimialatiedoillaan valitsemallaan LLM:llä pohjamallina.
+
+## 10.7 Yrityksen BYOA-arkkitehtuuri: Tuo omat agentit
+
+Keskeinen alustan kehityssuunta on tukea yritysasiakkaita, jotka **tuovat omat tekoälyagenttinsa** työskentelemään DWS IQ:ssa. Tässä osiossa kuvataan arkkitehtuuri käyttäen NCC:tä (pohjoismainen rakennusyhtiö) havainnollistavana tapauksena.
+
+### 10.7.1 NCC-skenaario
+
+NCC toimii monimutkaisessa agenttiekosysteemissä:
+
+| Agenttilähde | Määrä | Esimerkit |
+|-------------|-------|----------|
+| **NCC:n sisäiset agentit** | 7 | Hankinta-agentti, Turvallisuusagentti, BIM-agentti, Kestävyysagentti, Kustannusarvioagentti, Laatuagentti, Projektisuunnitteluagentti |
+| **Urakoitsijoiden agentit** | 14 | LVI-urakoitsija-agentti, Sähköagentti, Betonitoimittaja-agentti, Teräs­toimittaja-agentti, Ikkunavalmistaja-agentti, Eristysagentti jne. |
+| **DWS IQ -alustan agentit** | 3 | Vaatimustenmukaisuuslaskenta, Firehorse-raportti, Hiililaskuri |
+| **Yhteensä** | 24 | Kaikki yhdistetty A2A + MCP -protokollilla |
+
+Jokainen urakoitsija-agentti saapuu omalla:
+- **Agent Card** (A2A `/.well-known/agent.json`) joka kuvaa kyvykkyydet
+- **LLM-valinta** — urakoitsija voi käyttää eri mallia kuin NCC
+- **ERP/BIM-liittimet** — Tekla, Solibri, IFS, SAP, Dynamics 365
+- **Tietojen sijaintivaatimukset** — jotkut urakoitsijat toimivat EU:n ulkopuolelta
+
+### 10.7.2 Vuokralaiskohtainen Lifetime World Model
+
+NCC saa oman instanssinsa Lifetime World Model -mallista:
+
+```
+NCC Lifetime World Model
+├── Pohja-LLM: Qwen 2.5 72B (valittu pohjoismaiseen rakentamiseen)
+├── Hienosäädetty: NCC:n projektidatalla, suomalaisilla rakennusmääräyksillä, RT-kortistolla
+├── Sääntelykonteksti: Fit for 55, CSRD ESRS E1, EN 15978
+├── Liitinpäätepisteet:
+│   ├── Tekla Structures (BIM)
+│   ├── IFS Cloud (ERP)
+│   └── CO2data.fi (suomalaiset päästökertoimet)
+└── Hiekkalaatikko: Vaihe 2 (hetkelliskontteja, europe-north1)
+```
+
+### 10.7.3 Graafinen työnkulkurakentaja: Agent Orchestration Studio
+
+Jotta NCC (ja vastaavat yritysasiakkaat) voivat rakentaa yhteyksiä ja työnkulkuja 24+ agentin välille, alusta tarvitsee **visuaalisen työnkulkurakentajan**. Kuuden avoimen lähdekoodin ehdokkaan arvioinnin jälkeen suositeltu arkkitehtuuri on:
+
+**Graafisten työnkulkutyökalujen arviointi:**
+
+| Työkalu | Lisenssi | MCP-tuki | A2A-tuki | EU-isännöinti | React-upotettava | Paras käyttö |
+|---------|---------|----------|---------|--------------|-----------------|-------------|
+| **Langflow** | Apache 2.0 | Natiivi (client + server) | Mukautetuilla solmuilla | Kyllä | API/iframe | Agenttiorkestrointi, LLM-työnkulut |
+| **n8n** | Fair Code | Yhteisösolmuilla | HTTP-solmuilla | Kyllä | API/iframe | ERP/BIM-liittimet, dataputket |
+| **React Flow** | MIT | Mukautettu toteutus | Mukautettu toteutus | N/A (kirjasto) | Natiivi React | Mukautettu visuaalinen käyttöliittymä |
+| **Flowise** | Apache 2.0 | Osittainen | Ei | Kyllä | API/iframe | Chatbot-keskeiset RAG-työnkulut |
+| **Node-RED** | Apache 2.0 | FlowFusen kautta | HTTP-solmuilla | Kyllä | Iframe | IoT/reuna, teollinen automaatio |
+| **Temporal UI** | MIT | Ei | Ei | Kyllä | API | Työnkulun suorituksen seuranta |
+
+**Suositeltu arkkitehtuuri: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow -visuaalinen kanvas                   │  │
+│  │  ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐         │  │
+│  │  │ NCC  │→│Turval│→│ DWS  │→│Rapor-│         │  │
+│  │  │ BIM  │  │lisuus│  │Hiili │  │tointi│         │  │
+│  │  └──────┘  └──────┘  └──────┘  └──────┘         │  │
+│  │       ↑                   ↑                       │  │
+│  │  ┌──────┐            ┌──────┐                     │  │
+│  │  │Tekla │            │LVI-  │ (urakoitsija)       │  │
+│  │  │Liitin│            │agentti│                     │  │
+│  │  └──────┘            └──────┘                     │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Langflow-moottori (MCP + A2A -orkestrointi)      │  │
+│  │  - Jokainen agenttisolmu = A2A Agent Card         │  │
+│  │  - Jokainen liitin = MCP-työkalu                  │  │
+│  │  - Työnkulut viedään Temporal.io-työnkuluiksi     │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Temporal.io (suoritusmoottori, jo käytössä)      │  │
+│  │  - Kestävä työnkulun suoritus                     │  │
+│  │  - Uudelleenyritys, aikakatkaisu, kompensointi    │  │
+│  │  - EU:n tekoälysäädöksen artikla 12 -auditointipolku │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Miksi tämä yhdistelmä:**
+
+1. **React Flow** — Mukautettu visuaalinen kanvas upotettu DWS IQ React -hallintapaneeliin. NCC:n käyttäjät vetävät ja pudottavat agenttisolmuja, piirtävät yhteyksiä, asettavat agenttikohtaisia LLM-malleja. MIT-lisenssi, nolla toimittajalukkiutumista.
+
+2. **Langflow** — Taustaorkestointi­moottori. Natiivi MCP-protokollatuki tarkoittaa, että jokainen DWS IQ -työkalu (Supabase, Hiilimoottori, ERP-liittimet) on käytettävissä. Natiivi A2A-tuki tarkoittaa, että urakoitsija-agentit rekisteröityvät automaattisesti Agent Card -korttien kautta. Apache 2.0, EU-isännöity (europe-north1). IBM:n yrityskumppanuus tarjoaa lisävalidoinnin.
+
+3. **Temporal.io** — Jo DWS IQ -teknologiapinossa. Suorittaa visuaalisessa rakentajassa määritellyt työnkulut. Tarjoaa kestävän suorituksen (työnkulut selviävät palvelimen uudelleenkäynnistyksistä), automaattiset uudelleenyritykset, aikakatkaisujen hallinnan ja täydellisen auditointipolun EU:n tekoälysäädöksen artikla 12 -vaatimusten mukaisesti.
+
+**n8n** toimii täydentävänä työkaluna ERP/BIM-liitin­työnkuluissa (Tekla Structures ↔ IFS Cloud -tietosynkronointi), joissa Langflown LLM-painotus on tarpeeton.
+
+### 10.7.4 Urakoitsija-agentin käyttöönotto
+
+```
+1. Urakoitsija julkaisee Agent Cardin osoitteessa /.well-known/agent.json
+2. NCC:n ylläpitäjä avaa Agent Orchestration Studion
+3. Studio löytää urakoitsija-agentin A2A-protokollalla
+4. NCC:n ylläpitäjä vetää urakoitsija-agentin kanvakselle
+5. NCC:n ylläpitäjä yhdistää urakoitsijan relevantteihin työnkulkuihin
+6. Studio validoi yhteyden (A2A-terveystarkistus)
+7. Työnkulku otetaan käyttöön Temporal.io:ssa suoritettavaksi
+8. Kaikki agenttivuorovaikutukset kirjataan EU:n tekoälysäädöksen artikla 12 mukaisesti
+```
+
+Tämä arkkitehtuuri mahdollistaa NCC:n hallita 24+ agenttia visuaalisesti ilman koodin kirjoittamista, samalla ylläpitäen täyden EU-tietojen sijainnin, auditointivaatimustenmukaisuuden ja agenttikohtaisen LLM-joustavuuden.
 
 ---
 
