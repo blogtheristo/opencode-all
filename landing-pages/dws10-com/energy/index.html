@@ -95,7 +95,6 @@
             background: #f7fafc;
         }
     </style>
-    <link rel="stylesheet" href="../shared-assets/industry-pulse.css">
 </head>
 
 <body>
@@ -156,78 +155,6 @@
         </div>
     </section>
 
-    <!-- Industry Pulse: RSS-style feed powered by last30days research -->
-    <section class="industry-pulse">
-        <div class="container">
-            <div class="pulse-header">
-                <h3>
-                    Industry Pulse
-                    <span class="live-badge">Live</span>
-                </h3>
-                <span class="updated" id="pulse-updated"></span>
-            </div>
-
-            <div class="pulse-feed">
-                <!-- Item 1: ETS Carbon Pricing -->
-                <article class="pulse-item">
-                    <a href="https://www.reddit.com/r/energy/comments/ets_carbon_surge" target="_blank" rel="noopener">
-                        <h4 class="pulse-item-title">EU ETS Carbon Price Breaks EUR 100: What Energy Companies Are Doing Now</h4>
-                        <p class="pulse-item-summary">
-                            Major discussion on hedging strategies as carbon prices surge. Key insight: utilities with AI-driven trading report 15-20% better position management. Multiple CFOs sharing their approaches to carbon credit procurement timing.
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>r/energy</span>
-                            <span>1.2K upvotes</span>
-                            <span>234 comments</span>
-                            <span>2 days ago</span>
-                        </div>
-                    </a>
-                </article>
-
-                <!-- Item 2: Renewable PPA -->
-                <article class="pulse-item">
-                    <a href="https://x.com/energytransition/status/renewable_ppa_trends" target="_blank" rel="noopener">
-                        <h4 class="pulse-item-title">Corporate PPA Volumes Hit Record: Inside the 2026 Renewable Energy Deals</h4>
-                        <p class="pulse-item-summary">
-                            Thread breaking down the largest corporate power purchase agreements of Q1 2026. Notable: Nordic data centers driving 40% of new wind PPAs. Analysis includes pricing trends and contract structures that are winning.
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>X / Energy Transition</span>
-                            <span>3.4K likes</span>
-                            <span>567 reposts</span>
-                            <span>4 days ago</span>
-                        </div>
-                    </a>
-                </article>
-
-                <!-- Item 3: Grid AI -->
-                <article class="pulse-item">
-                    <a href="https://www.reddit.com/r/renewable/comments/grid_ai_balancing" target="_blank" rel="noopener">
-                        <h4 class="pulse-item-title">How Finnish Grid Operators Are Using AI for Real-Time Balancing</h4>
-                        <p class="pulse-item-summary">
-                            Fingrid engineer shares technical breakdown of their ML-based frequency control system. Community discussing replication for other Nordic grids. Highlighted: 30% reduction in balancing costs with predictive algorithms.
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>r/renewable</span>
-                            <span>678 upvotes</span>
-                            <span>112 comments</span>
-                            <span>1 week ago</span>
-                        </div>
-                    </a>
-                </article>
-            </div>
-
-            <!-- Newsletter CTA -->
-            <div class="pulse-cta">
-                <div class="pulse-cta-text">
-                    <h4>Get Weekly Energy Intelligence</h4>
-                    <p>Join 8,000+ energy professionals getting curated industry insights</p>
-                </div>
-                <a href="#newsletter" class="pulse-cta-button">Subscribe Free</a>
-            </div>
-        </div>
-    </section>
-
     <section style="padding: 60px 0;">
         <div class="container">
             <h3>Business Case: Renewable Grid Balancing</h3>
@@ -273,16 +200,6 @@
             <p style="margin-top:10px;">© 2026 Lifetime Oy. All rights reserved.</p>
         </div>
     </footer>
-    <script>
-        (function () {
-            var el = document.getElementById('pulse-updated');
-            if (el) {
-                var d = new Date();
-                var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                el.textContent = 'Updated ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-            }
-        })();
-    </script>
 </body>
 
 </html>

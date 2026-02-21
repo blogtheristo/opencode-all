@@ -95,7 +95,6 @@
             background: #f7fafc;
         }
     </style>
-    <link rel="stylesheet" href="../shared-assets/industry-pulse.css">
 </head>
 
 <body>
@@ -157,78 +156,6 @@
         </div>
     </section>
 
-    <!-- Industry Pulse: RSS-style feed powered by last30days research -->
-    <section class="industry-pulse">
-        <div class="container">
-            <div class="pulse-header">
-                <h3>
-                    Industry Pulse
-                    <span class="live-badge">Live</span>
-                </h3>
-                <span class="updated" id="pulse-updated"></span>
-            </div>
-
-            <div class="pulse-feed">
-                <!-- Item 1: ETS Road Transport -->
-                <article class="pulse-item">
-                    <a href="https://www.reddit.com/r/logistics/comments/ets2_road_transport" target="_blank" rel="noopener noreferrer">
-                        <h4 class="pulse-item-title">ETS2 for Road Transport: How Logistics Companies Are Preparing for 2027</h4>
-                        <p class="pulse-item-summary">
-                            Major discussion on the new EU Emissions Trading System expansion to road transport. Key insight: companies automating fleet emissions tracking report smoother compliance planning. Detailed cost projections shared.
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>r/logistics</span>
-                            <span>712 upvotes</span>
-                            <span>145 comments</span>
-                            <span>2 days ago</span>
-                        </div>
-                    </a>
-                </article>
-
-                <!-- Item 2: Electric Fleet -->
-                <article class="pulse-item">
-                    <a href="https://x.com/fleetelectric/status/ev_fleet_roi" target="_blank" rel="noopener noreferrer">
-                        <h4 class="pulse-item-title">Real TCO Data: European Logistics Firms Share 2-Year EV Fleet Results</h4>
-                        <p class="pulse-item-summary">
-                            Thread with actual cost data from DHL, PostNord, and DB Schenker on electric delivery fleet performance. Surprising finding: maintenance savings offset higher purchase costs within 18 months for urban routes.
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>X / Fleet Electric</span>
-                            <span>2.3K likes</span>
-                            <span>389 reposts</span>
-                            <span>4 days ago</span>
-                        </div>
-                    </a>
-                </article>
-
-                <!-- Item 3: Supply Chain Scope 3 -->
-                <article class="pulse-item">
-                    <a href="https://www.reddit.com/r/supplychain/comments/scope3_logistics" target="_blank" rel="noopener noreferrer">
-                        <h4 class="pulse-item-title">Scope 3 Reporting: Logistics Providers Becoming the Bottleneck for CSRD</h4>
-                        <p class="pulse-item-summary">
-                            Heated discussion on how logistics companies are being pressured by customers for emissions data. Top comment: "We built an API for automated carbon reporting - now our largest customers demand it as standard."
-                        </p>
-                        <div class="pulse-item-meta">
-                            <span>r/supplychain</span>
-                            <span>489 upvotes</span>
-                            <span>87 comments</span>
-                            <span>6 days ago</span>
-                        </div>
-                    </a>
-                </article>
-            </div>
-
-            <!-- Newsletter CTA -->
-            <div class="pulse-cta">
-                <div class="pulse-cta-text">
-                    <h4>Get Weekly Logistics Intelligence</h4>
-                    <p>Join 4,500+ supply chain professionals getting curated industry insights</p>
-                </div>
-                <a href="#newsletter" class="pulse-cta-button">Subscribe Free</a>
-            </div>
-        </div>
-    </section>
-
     <section style="padding: 60px 0;">
         <div class="container">
             <h3>Business Case: Dynamic Eco-Routing</h3>
@@ -274,16 +201,6 @@
             <p style="margin-top:10px;">© 2026 Lifetime Oy. All rights reserved.</p>
         </div>
     </footer>
-    <script>
-        (function () {
-            var el = document.getElementById('pulse-updated');
-            if (el) {
-                var d = new Date();
-                var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                el.textContent = 'Updated ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-            }
-        })();
-    </script>
 </body>
 
 </html>
