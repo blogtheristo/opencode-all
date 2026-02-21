@@ -52,6 +52,30 @@ When the human says **"Use DWS standard"** (or any variation like "with DWS stan
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### Thesis Update Rule (CRITICAL)
+
+When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, **"opinnäytetyö"**, or any thesis-related update, **ALL 4 thesis files MUST be updated together:**
+
+| # | File | Language | Version Track |
+|---|------|----------|---------------|
+| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | English | Metropolia (v3.x) |
+| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) |
+| 3 | `dws10.com/docs/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) |
+| 4 | `dws10.com/docs/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) |
+
+**Additionally, PHD Firehorse files follow the dual folder rule:**
+- After updating `dws10.com/docs/PHD_FIREHORSE_*.md`, sync to `landing-pages/dws10-com/docs/PHD_FIREHORSE_*.md`
+
+**Version tracking rules:**
+1. **Always check the current version number** in the file header before incrementing — do NOT assume the last git version is the latest
+2. **Ask the user** what the correct next version number should be if you suspect the file version is behind (other sessions may have made changes)
+3. **Both Metropolia files** (EN + FI) must share the same version number
+4. **Both PHD Firehorse files** (EN + FI) must share the same version number
+5. **Update VERSION AND AGENT HISTORY** block with your session ID, date, and changes
+6. **Update document footer** metadata (version, last modified date)
+
+**Why this rule exists:** AI agents reading only the file header have historically skipped version numbers when other sessions (Cursor, VS Code, manual edits, other worktrees) made changes that merged separately. This caused version drift. Always verify with the user.
+
 ## Project Overview
 
 **DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
