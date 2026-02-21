@@ -7,8 +7,10 @@
 Version: 3.7
 
 Sessions & Modifications:
-  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment
-  - Version: 3.4–3.6 | Tool: Various (Cursor, Claude Code, Word) | Sessions: multiple | Date: 10–20.02.2026 | Changes: Applied in other sessions but version header not updated in file — corrected here. Includes company rename (Lifetime Consulting Oy → Lifetime Oy), IPR strategy sections, prompt caching architecture
+  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
+  - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
+  - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Added section 12 IPR Protection & Trade Secret Strategy, section 13 Prompt Caching Architecture for AI Agents, renumbered sections 12-15 → 14-17, added EU Trade Secrets Directive references
+  - Version: 3.4 | Tool: Cursor AI (Claude Sonnet 4.6) | Session: 278819d | Date: 18.02.2026 | Changes: Company rename Lifetime Consulting Oy → Lifetime Oy across all documentation (Omnibus_Fit55 analysis files)
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
