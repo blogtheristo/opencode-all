@@ -117,5 +117,8 @@ export class AgentRegistry {
 export const agentRegistry = new AgentRegistry();
 
 // Re-export types for convenience
-export type { AgentConfig, AgentContext, AgentResponse } from './types.js';
+export type { AgentConfig, AgentContext, AgentResponse, SandboxContext } from './types.js';
 export { BaseAgent } from './base.agent.js';
+
+// Re-export sandbox isolation module
+export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';

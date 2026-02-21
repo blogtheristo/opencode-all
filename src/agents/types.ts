@@ -20,6 +20,22 @@ export interface AgentContext {
   orgId: string;
   /** Unique session ID for tracing a conversation or workflow */
   sessionId: string;
+  /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */
+  sandbox?: SandboxContext;
+}
+
+/** Sandbox isolation context attached to agent executions */
+export interface SandboxContext {
+  /** Current isolation stage: 1 = SDK sandbox, 2 = Cloud Run ephemeral, 3 = persistent container */
+  stage: '1' | '2' | '3';
+  /** Tenant subscription tier */
+  tier: 'sandbox' | 'professional' | 'enterprise';
+  /** Whether EU data residency is enforced */
+  euDataResidency: boolean;
+  /** Allowed filesystem paths for this tenant */
+  allowedPaths: string[];
+  /** Allowed network domains for this tenant */
+  allowedDomains: string[];
 }
 
 // ============ AGENT RESPONSE ============

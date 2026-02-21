@@ -20,7 +20,10 @@ import type {
   GovernancePolicy,
   PolicyCheckResult,
   GovernanceAuditEntry,
+  SandboxContext,
 } from './types.js';
+import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
+import type { SDKSandboxConfig } from '../sandbox/index.js';
 
 // Groq API endpoint (same provider as climate-assistant service)
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -307,6 +310,51 @@ export abstract class BaseAgent {
     } catch (err: any) {
       logger.debug('Failed to log governance audit', { error: err.message });
     }
+  }
+
+  // ============ SANDBOX ISOLATION ============
+
+  /**
+   * Build and attach sandbox context to an AgentContext.
+   * Call this before execute() to enforce tenant isolation.
+   *
+   * Stage 1: Returns SDK sandbox config (applied by caller to Anthropic Agent SDK)
+   * Stage 2+: Sandbox config is informational — actual isolation is container-level
+   */
+  protected buildSandboxContext(
+    context: AgentContext,
+    tier: 'sandbox' | 'professional' | 'enterprise' = 'sandbox',
+  ): { context: AgentContext; sandboxConfig: SDKSandboxConfig | null } {
+    const stage = getSandboxStage();
+
+    const sandboxConfig = buildSDKSandboxConfig({
+      tenantId: context.orgId,
+      tier,
+      euDataResidency: true,
+    });
+
+    // Validate NIS2 compliance
+    const violations = validateNIS2Compliance(sandboxConfig);
+    if (violations.length > 0) {
+      logger.warn('NIS2 sandbox violations detected', {
+        agent: this.config.name,
+        tenantId: context.orgId,
+        violations,
+      });
+    }
+
+    const sandboxContext: SandboxContext = {
+      stage,
+      tier,
+      euDataResidency: true,
+      allowedPaths: sandboxConfig.filesystem.allowedPaths,
+      allowedDomains: sandboxConfig.network.allowedDomains,
+    };
+
+    return {
+      context: { ...context, sandbox: sandboxContext },
+      sandboxConfig: stage === '1' ? sandboxConfig : null,
+    };
   }
 
   // ============ PRIVATE HELPERS ============
