@@ -152,7 +152,19 @@ function renderMetrics(data: CockpitData): string {
     </td></tr>`;
 }
 
-function renderSendList(sendList: SendListItem[]): string {
+function renderSendActionButton(
+  label: string,
+  color: string,
+  token: string,
+  type: string,
+  baseUrl: string,
+  adminKey: string
+): string {
+  const url = `${baseUrl}/api/v1/outreach/send-email?token=${encodeURIComponent(token)}&type=${encodeURIComponent(type)}&key=${encodeURIComponent(adminKey)}`;
+  return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#000;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
+}
+
+function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: string): string {
   if (sendList.length === 0) {
     return `
       <tr><td style="padding: 16px 20px;">
@@ -162,20 +174,47 @@ function renderSendList(sendList: SendListItem[]): string {
   }
 
   const rows = sendList
-    .map(
-      (item) =>
-        `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px;">
-          ${pipelineTag(item.pipeline)}
-          <strong style="color: #e0e0e0;">${esc(item.name)}</strong>${item.org ? ` <span style="color: #666;">(${esc(item.org)})</span>` : ''}
-          <div style="margin-top: 2px; font-size: 12px; color: #888;">→ ${esc(item.action)}</div>
-        </div>`
-    )
+    .map((item) => {
+      const contactInfo: string[] = [];
+      if (item.primary_email) {
+        contactInfo.push(`<span style="color: #888; font-size: 11px;">${esc(item.primary_email)}</span>`);
+      }
+      if (item.phone) {
+        contactInfo.push(`<a href="tel:${esc(item.phone)}" style="color: #60a5fa; font-size: 11px; text-decoration: none;">&#9742; ${esc(item.phone)}</a>`);
+      }
+
+      // Action buttons — show relevant types based on pipeline
+      let buttons = '';
+      if (item.thread_token && adminKey) {
+        const btnInvestor = renderSendActionButton('Investor', '#60a5fa', item.thread_token, 'investor', baseUrl, adminKey);
+        const btnSales = renderSendActionButton('Sales', '#00d4aa', item.thread_token, 'sales', baseUrl, adminKey);
+        const btnPartner = renderSendActionButton('Partnership', '#c084fc', item.thread_token, 'partnership', baseUrl, adminKey);
+
+        if (item.pipeline === 'investor') {
+          buttons = btnInvestor + btnSales;
+        } else if (item.pipeline === 'customer') {
+          buttons = btnSales + btnPartner;
+        } else if (item.pipeline === 'partner') {
+          buttons = btnPartner + btnSales;
+        } else {
+          buttons = btnInvestor + btnSales + btnPartner;
+        }
+      }
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px;">
+        ${pipelineTag(item.pipeline)}
+        <strong style="color: #e0e0e0;">${esc(item.name)}</strong>${item.org ? ` <span style="color: #666;">(${esc(item.org)})</span>` : ''}
+        <div style="margin-top: 2px; font-size: 12px; color: #888;">&#8594; ${esc(item.action)}</div>
+        ${contactInfo.length > 0 ? `<div style="margin-top: 3px;">${contactInfo.join(' &nbsp;|&nbsp; ')}</div>` : ''}
+        ${buttons ? `<div style="margin-top: 6px;">${buttons}</div>` : ''}
+      </div>`;
+    })
     .join('');
 
   return `
     <tr><td style="padding: 16px 20px;">
       <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">Send List (${sendList.length})</h3>
-      <p style="margin: 0 0 8px; font-size: 11px; color: #555;">Send 3-5 high-quality messages manually today.</p>
+      <p style="margin: 0 0 8px; font-size: 11px; color: #555;">Click a button to send outreach email. Phone numbers are clickable to call.</p>
       ${rows}
     </td></tr>`;
 }
@@ -358,8 +397,13 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 
 /**
  * Build the CEO Cockpit HTML email.
+ * @param data Cockpit data
+ * @param baseUrl Backend URL for action button links (e.g. https://dws-iq-backend-xyz.run.app)
  */
-export function buildCockpitHtml(data: CockpitData): string {
+export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
+  const apiBaseUrl = baseUrl || process.env.BACKEND_URL || 'https://localhost:8080';
+  const adminKey = process.env.ADMIN_API_KEY || '';
+
   return `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -384,7 +428,7 @@ export function buildCockpitHtml(data: CockpitData): string {
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
 
-    ${renderSendList(data.sendList)}
+    ${renderSendList(data.sendList, apiBaseUrl, adminKey)}
 
     <!-- Footer -->
     <tr>
@@ -473,12 +517,14 @@ export function buildCockpitPlainText(data: CockpitData): string {
   // Send List
   lines.push('-'.repeat(50));
   lines.push(`SEND LIST (${data.sendList.length})`);
-  lines.push('Send 3-5 high-quality messages manually today.');
+  lines.push('Click buttons in HTML email to send outreach. Phone numbers below.');
   if (data.sendList.length > 0) {
     for (const item of data.sendList) {
       const org = item.org ? ` (${item.org})` : '';
       lines.push(`  [${item.pipeline.toUpperCase().slice(0, 4)}] ${item.name}${org}`);
       lines.push(`    → ${item.action}`);
+      if (item.primary_email) lines.push(`    Email: ${item.primary_email}`);
+      if (item.phone) lines.push(`    Phone: ${item.phone}`);
     }
   } else {
     lines.push('  Pipeline quiet. Source new contacts today.');
