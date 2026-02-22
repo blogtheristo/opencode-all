@@ -50,6 +50,17 @@ services:
       SUPABASE_URL: ${SUPABASE_URL}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
       
+      # Redis
+      REDIS_URL: redis://redis:6379
+      
+      # Service URLs (Docker internal hostnames)
+      BACKEND_URL: http://backend-dev:8080
+      GITHUB_MCP_URL: http://github-mcp:8767
+      SUPABASE_MCP_URL: http://supabase-mcp:8766
+      PROMETHEUS_URL: http://prometheus:9090
+      GRAFANA_URL: http://grafana:3000
+      AGENT_FOUNDRY_URL: http://agent-foundry:8080
+      
       # Session Management
       SESSION_TTL_HOURS: 168
       AUTO_GENERATE_CLAUDE_MD: true

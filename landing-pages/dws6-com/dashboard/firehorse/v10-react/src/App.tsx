@@ -7,13 +7,21 @@ import { useEffect, useState } from 'react';
 import { MetricsHeader } from './components/MetricsHeader';
 import { ProjectCard } from './components/ProjectCard';
 import { ClimateAssistant } from './components/ClimateAssistant';
+import { MeetingPanel } from './components/MeetingPanel';
+import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
+import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
+
+type SidePanel = 'chat' | 'meeting' | null;
+type AppView = 'dashboard' | 'agents';
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showChat, setShowChat] = useState(true);
+  const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
+  const [appView, setAppView] = useState<AppView>('dashboard');
+  const { user } = useAuth();
 
   useEffect(() => {
     async function loadProjects() {
@@ -69,74 +77,100 @@ function App() {
               </div>
             </div>
 
-            <button
-              onClick={() => setShowChat(!showChat)}
-              className="btn-primary"
-            >
-              {showChat ? '📊 Show Projects' : '🤖 AI Assistant'}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setAppView(appView === 'agents' ? 'dashboard' : 'agents')}
+                className={appView === 'agents' ? 'btn-primary' : 'btn-secondary'}
+              >
+                Agent Monitor
+              </button>
+              <button
+                onClick={() => { setAppView('dashboard'); setSidePanel(sidePanel === 'chat' ? null : 'chat'); }}
+                className={sidePanel === 'chat' && appView === 'dashboard' ? 'btn-primary' : 'btn-secondary'}
+              >
+                AI Assistant
+              </button>
+              <button
+                onClick={() => { setAppView('dashboard'); setSidePanel(sidePanel === 'meeting' ? null : 'meeting'); }}
+                className={sidePanel === 'meeting' && appView === 'dashboard' ? 'btn-primary' : 'btn-secondary'}
+              >
+                Meeting
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Metrics */}
-        <MetricsHeader />
+        {appView === 'agents' ? (
+          <AgentMonitorDashboard onClose={() => setAppView('dashboard')} />
+        ) : (
+          <>
+            {/* Metrics */}
+            <MetricsHeader />
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Projects Section */}
-          <div className={`${showChat ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">
-                Projects ({projects.length})
-              </h2>
-              <div className="flex items-center gap-2">
-                <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
-                  <option>All Status</option>
-                  <option>Green</option>
-                  <option>Amber</option>
-                  <option>Red</option>
-                </select>
-              </div>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="card animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                    <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Projects Section */}
+              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    Projects ({projects.length})
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+                      <option>All Status</option>
+                      <option>Green</option>
+                      <option>Amber</option>
+                      <option>Red</option>
+                    </select>
                   </div>
-                ))}
-              </div>
-            ) : projects.length === 0 ? (
-              <div className="card text-center py-12">
-                <p className="text-gray-500 mb-4">No projects found</p>
-                <p className="text-sm text-gray-400">
-                  Connect to Supabase to view your portfolio
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {projects.map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-              </div>
-            )}
-          </div>
+                </div>
 
-          {/* AI Assistant Section */}
-          {showChat && (
-            <div className="lg:col-span-1">
-              <div className="sticky top-24">
-                <ClimateAssistant />
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="card animate-pulse">
+                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-20 bg-gray-200 rounded mb-4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : projects.length === 0 ? (
+                  <div className="card text-center py-12">
+                    <p className="text-gray-500 mb-4">No projects found</p>
+                    <p className="text-sm text-gray-400">
+                      Connect to Supabase to view your portfolio
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map(project => (
+                      <ProjectCard key={project.id} project={project} />
+                    ))}
+                  </div>
+                )}
               </div>
+
+              {/* Side Panel: AI Assistant or Meeting */}
+              {sidePanel && (
+                <div className="lg:col-span-1">
+                  <div className="sticky top-24">
+                    {sidePanel === 'chat' && <ClimateAssistant />}
+                    {sidePanel === 'meeting' && (
+                      <MeetingPanel
+                        userName={user?.user_metadata?.full_name || user?.email || 'DWS6 User'}
+                        userEmail={user?.email}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </main>
 
       {/* Footer */}

@@ -157,6 +157,75 @@ To update the workflow:
 
 ---
 
+## Automated PR Workflow (AI Agent Loop)
+
+### Overview
+
+Three workflows automate the full PR review and merge cycle, replacing manual human-in-the-loop review:
+
+```
+Claude Code → opens PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                      ↑                    |
+                                                      └────────────────────┘  (fix loop)
+```
+
+### Workflows
+
+#### AI Code Review — HIL Automation (`ai-pr-review.yml`)
+
+**Trigger:** `pull_request` (opened, synchronize, reopened)
+
+**What it does:**
+1. Extracts the PR diff (code files only, truncated to 60KB)
+2. **Claude** does quick sanity review (security, correctness, breaking changes)
+3. **Gemini** does deep HIL review — replaces human reviewer (edge cases, tests, architecture, security audit)
+4. Posts combined review as PR comment. Both must approve.
+5. If REQUEST_CHANGES: extracts Gemini's required changes + test gaps → routes as structured `@copilot` instructions
+6. Copilot implements fixes, pushes → review re-triggers automatically (fix loop)
+7. Applies labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
+
+**Required secrets:** `ANTHROPIC_API_KEY`, `GOOGLE_AI_API_KEY`
+
+**MCP Hub integration:** Gemini review is also available at `POST /gemini/review` on the MCP Hub (`mcp-hub/server.py`) for on-demand code analysis by any agent.
+
+#### PR Auto-Merge (`pr-auto-merge.yml`)
+
+**Trigger:** `check_suite` completed, `pull_request` labeled with `ai-approved`
+
+**What it does:**
+1. Finds open PRs with `ai-approved` label (excludes `do-not-merge`, `needs-human-review`)
+2. Verifies all CI checks passed
+3. Enables squash auto-merge via GraphQL API
+4. Falls back to `ready-to-merge` label if branch protection doesn't support auto-merge
+
+**Human overrides:**
+- Add `do-not-merge` label to block any PR from auto-merging
+- Add `needs-human-review` label to pause automation for manual review
+
+### Copilot Coding Agent Setup (`copilot-setup-steps.yml`)
+
+**Location:** `.github/copilot-setup-steps.yml`
+
+Defines environment setup for GitHub Copilot coding agent:
+- Installs Node.js dependencies (`npm install`)
+- Installs Python linting tools (ruff, bandit, safety)
+- Builds TypeScript (`npm run build`)
+
+This enables Copilot to autonomously implement fixes when tagged in PR comments.
+
+### Labels
+
+| Label | Color | Meaning |
+|-------|-------|---------|
+| `ai-reviewed` | Blue | AI review completed |
+| `ai-approved` | Green | AI review passed |
+| `ai-changes-requested` | Red | AI found issues |
+| `ready-to-merge` | Green | All checks passed, merge ready |
+| `do-not-merge` | — | Human override: block auto-merge |
+| `needs-human-review` | — | Human override: pause for review |
+
+---
+
 ## 📞 Support
 
 **Issues:**
@@ -171,6 +240,6 @@ To update the workflow:
 
 ---
 
-**Last Updated:** 2025-12-28  
+**Last Updated:** 2026-02-20
 **Maintained By:** DWS6 Repository Team  
 **Status:** ✅ Active

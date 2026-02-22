@@ -67,7 +67,7 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 // ============================================================================
 
 async function sendConfirmationEmail(to: string, subject: string, body: string): Promise<void> {
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
 
   if (!resendKey) {
@@ -88,6 +88,10 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
         subject,
         text: body,
       }),
+    });
+    logger.info('Sent confirmation email', {
+      to,
+      from: fromAddress,
     });
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });
@@ -120,23 +124,30 @@ Rules:
 router.post('/resend/inbound', async (req: Request, res: Response) => {
   const rawBody = JSON.stringify(req.body);
 
-  // 1. Verify Resend webhook signature
+  // 1. Verify Resend webhook signature — MANDATORY
+  // If RESEND_WEBHOOK_SECRET is not set, reject all requests to prevent
+  // unauthenticated webhook processing (security fix for finding 1.4).
+  const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    logger.error('Webhook: RESEND_WEBHOOK_SECRET is not configured — rejecting all inbound webhooks');
+    res.status(503).json({ error: 'Webhook signature verification not configured' });
+    return;
+  }
+
   const svixId = req.headers['svix-id'] as string;
   const svixTimestamp = req.headers['svix-timestamp'] as string;
   const svixSignature = req.headers['svix-signature'] as string;
 
-  if (process.env.RESEND_WEBHOOK_SECRET) {
-    if (!svixId || !svixTimestamp || !svixSignature) {
-      logger.warn('Webhook: missing svix headers');
-      res.status(401).json({ error: 'Missing signature headers' });
-      return;
-    }
+  if (!svixId || !svixTimestamp || !svixSignature) {
+    logger.warn('Webhook: missing svix headers');
+    res.status(401).json({ error: 'Missing signature headers' });
+    return;
+  }
 
-    if (!verifyResendSignature(rawBody, svixId, svixTimestamp, svixSignature)) {
-      logger.warn('Webhook: invalid signature');
-      res.status(401).json({ error: 'Invalid signature' });
-      return;
-    }
+  if (!verifyResendSignature(rawBody, svixId, svixTimestamp, svixSignature)) {
+    logger.warn('Webhook: invalid signature');
+    res.status(401).json({ error: 'Invalid signature' });
+    return;
   }
 
   // Extract email fields from Resend webhook payload

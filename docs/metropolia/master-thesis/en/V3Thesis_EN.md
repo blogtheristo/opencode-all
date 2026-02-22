@@ -4,11 +4,15 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.9
 
 Sessions & Modifications:
-  - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 15.02.2026 | Changes: V4-quality TK4/RQ4 update — critical reassessment of Supabase legal sovereignty risk, two-phase MVP→V1 architecture, EU AI Act high-risk reclassification, NIS2 supply chain gap, created DWS_SOVEREIGNTY_STANDARD.md
-  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 13.02.2026 | Changes: Added conclusions 10.6-10.8 - DWS Product Standard, Brand Standard product clarity, and measurable impact toward DWS 7. New contribution: enterprise product standardization framework resolving 7 pricing conflicts across 30 products duplicated in 5 catalog files
+  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
+  - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (16 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
+  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
+  - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
+  - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Added section 12 IPR Protection & Trade Secret Strategy, section 13 Prompt Caching Architecture for AI Agents, renumbered sections 12-15 → 14-17, added EU Trade Secrets Directive references
+  - Version: 3.4 | Tool: Cursor AI (Claude Sonnet 4.6) | Session: 278819d | Date: 18.02.2026 | Changes: Company rename Lifetime Consulting Oy → Lifetime Oy across all documentation (Omnibus_Fit55 analysis files)
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
@@ -27,7 +31,7 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 15.02.2026
+  - Last Modified: 21.02.2026
   - Language: English
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V3.5 — TK4 sovereignty update)
@@ -240,7 +244,7 @@ Platform economics (Parker, Van Alstyne & Choudary, 2016) explains how multi-sid
 **Value Creation Mechanisms:**
 1. **Same-side effects:** More customers -> more industry data -> better agent accuracy
 2. **Cross-side effects:** More verticals -> more reusable agent templates -> faster deployment
-3. **Data network effects:** Lifetime World Model improves with each customer interaction
+3. **Data network effects:** Lifetime World Model — the enterprise learning layer — improves with each customer interaction, fine-tuning enterprise data and regulation to optimize market value and ensure competitive advantage across multi-agent workflows
 
 ## 2.3 Industry 5.0
 
@@ -1196,6 +1200,165 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 3. **Q3 2026:** Launch regulatory awareness engine
 4. **Q4 2026:** Establish partner ecosystem with commission model
 5. **2027:** Expand to other EU markets (SE, NO, DK, DE)
+6. **2027:** Per-industry open LLM selection and tenant-specific Lifetime World Model training
+7. **2027-2028:** Enterprise BYOA (Bring Your Own Agent) graphical workflow builder
+
+## 10.6 Per-Industry Open LLM Selection
+
+A critical finding from the platform architecture work is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
+
+**Candidate open LLMs per industry domain:**
+
+| Industry Cluster | Candidate Models | Key Domain Requirement |
+|-----------------|------------------|----------------------|
+| Construction, Real Estate | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
+| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS allowance calculations, process emissions, CBAM |
+| Manufacturing, Chemicals | Qwen 2.5 72B, Llama 3.3 | CBAM product classification, BOM analysis, REACH |
+| Logistics, Maritime, Aviation | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, route optimization |
+| Agriculture, Food & Beverage | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 supply chain, packaging lifecycle |
+| Finance, Public Sector | Mistral Large (EU-hosted), Llama 3.3 | SFDR, EU Taxonomy, double materiality, GPP |
+| Healthcare, Textiles | Gemma 2 (EU-hosted), Qwen 2.5 | Digital product passport, medical waste, pharmaceutical supply chain |
+
+**Selection criteria:** domain knowledge depth, multilingual capability (Finnish/Swedish/20+ for CBAM), structured output reliability, context window (128k+ for supply chain), inference speed, EU data residency, and commercial license.
+
+Each enterprise tenant can have their Lifetime World Model trained on their own industry data with their chosen LLM as the base model.
+
+### 10.6.1 Why 16 Industries Make DWS IQ Stronger
+
+From the customer's perspective, a platform covering 16 EU industries is not complexity — it is **the competitive advantage they are buying**. The 16-industry architecture creates compounding value that a single-industry platform cannot match:
+
+1. **Cross-industry regulatory intelligence.** EU regulations like Fit for 55, CSRD, and CBAM affect multiple industries simultaneously. A construction company's Scope 3 emissions include steel (ETS), cement (CBAM), logistics (FuelEU), and energy (RED III). A single-industry tool sees one slice; DWS IQ sees the entire regulatory chain. The customer gets compliance intelligence that understands their full supply chain, not just their own vertical.
+
+2. **Supply chain visibility across verticals.** When a manufacturing customer reports CBAM imports, DWS IQ already understands the steel producer's ETS obligations, the logistics provider's fuel regulations, and the energy supplier's renewable certificates. This cross-industry knowledge means the customer's compliance reports are more accurate, audit-ready, and defensible because the platform understands every link in their value chain.
+
+3. **LWM cross-pollination.** The Lifetime World Model learns from anonymized patterns across all 16 industries. A carbon reduction technique proven in cement manufacturing (e.g., clinker ratio optimization) generates transferable insight for construction (low-carbon concrete specification). The customer benefits from an LWM that has been trained on 16 industries' worth of climate intelligence — not just their own narrow domain.
+
+4. **Agent template reusability.** Agent configurations that work in one industry accelerate deployment in related industries. The BIM compliance agent developed for construction is adapted for real estate energy performance certificates. The supply chain Scope 3 agent in manufacturing transfers to food & beverage. Customers in later-deploying industries get battle-tested agents at lower cost and faster deployment.
+
+5. **Regulatory early warning.** When a new regulation (e.g., EU Deforestation Regulation) first impacts agriculture, the platform detects it and alerts food & beverage, textiles, and logistics customers proactively — before the regulation reaches their industry. A single-industry platform cannot provide this cross-sector foresight.
+
+6. **Benchmarking across peers and adjacent industries.** An energy company can benchmark its emissions intensity not only against other utilities but against the industrial customers it serves (manufacturing, mining, chemicals). This multi-dimensional benchmarking gives the customer strategic insight into where they stand in the broader decarbonization landscape.
+
+7. **Network effects compound over time.** Each new industry added to the platform makes every existing industry's LWM smarter. The 16th industry customer benefits from all 15 industries' accumulated intelligence. This creates a **moat**: a competitor starting with one industry must replicate years of cross-industry learning to match DWS IQ's accumulated intelligence.
+
+**The bottom line for the customer:** DWS IQ's 16-industry coverage means their compliance intelligence is not isolated — it is connected to the entire EU industrial ecosystem. They pay for one platform and receive intelligence that would require 16 separate tools to approximate.
+
+## 10.7 Enterprise BYOA Architecture: Bring Your Own Agent
+
+A key platform evolution is supporting enterprise customers who **bring their own AI agents** to work on DWS IQ. This section describes the architecture using NCC (Nordic construction company) as an illustrative case.
+
+### 10.7.1 The NCC Scenario
+
+NCC operates with a complex agent ecosystem:
+
+| Agent Source | Count | Examples |
+|-------------|-------|---------|
+| **NCC Internal Agents** | 7 | Procurement Agent, Safety Compliance Agent, BIM Agent, Sustainability Agent, Cost Estimation Agent, Quality Agent, Project Planning Agent |
+| **Contractor Agents** | 14 | HVAC Subcontractor Agent, Electrical Agent, Concrete Supplier Agent, Steel Supplier Agent, Window Manufacturer Agent, Insulation Agent, etc. |
+| **DWS IQ Platform Agents** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
+| **Total** | 24 | All connected via A2A + MCP protocols |
+
+Each contractor agent arrives with its own:
+- **Agent Card** (A2A `/.well-known/agent.json`) describing capabilities
+- **LLM preference** — the contractor may use a different model than NCC
+- **ERP/BIM connectors** — Tekla, Solibri, IFS, SAP, Dynamics 365
+- **Data residency requirements** — some contractors operate from non-EU jurisdictions
+
+### 10.7.2 Tenant-Specific Lifetime World Model
+
+The **Lifetime World Model (LWM)** is the enterprise learning layer that sits on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+
+1. **Fine-tunes enterprise data and regulation** — ingests the customer's operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — the LWM continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities the enterprise would otherwise miss
+3. **Ensures competitive advantage with multi-agent tools** — by combining tenant-specific knowledge with the multi-agent orchestration layer (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset. Competitors using generic models cannot replicate this accumulated institutional intelligence
+
+NCC receives their own instance of the Lifetime World Model:
+
+```
+NCC Lifetime World Model
+├── Base LLM: Qwen 2.5 72B (selected for Nordic construction)
+├── Fine-tuned on: NCC project data, Finnish building codes, RT-kortisto
+├── Regulatory context: Fit for 55, CSRD ESRS E1, EN 15978
+├── Connector endpoints:
+│   ├── Tekla Structures (BIM)
+│   ├── IFS Cloud (ERP)
+│   └── CO2data.fi (Finnish emissions factors)
+└── Sandbox: Stage 2 (ephemeral containers, europe-north1)
+```
+
+### 10.7.3 Graphical Workflow Builder: Agent Orchestration Studio
+
+To enable NCC (and similar enterprise customers) to build connections and workflows between 24+ agents, the platform requires a **visual workflow builder**. After evaluating six open-source candidates, the recommended architecture is:
+
+**Evaluation of graphical workflow tools:**
+
+| Tool | License | MCP Support | A2A Support | Self-Hosted EU | Embeddable in React | Best For |
+|------|---------|-------------|-------------|---------------|-------------------|----------|
+| **Langflow** | Apache 2.0 | Native (client + server) | Via custom nodes | Yes | Via API/iframe | Agent orchestration, LLM workflows |
+| **n8n** | Fair Code (sustainable-use) | Via community nodes | Via HTTP nodes | Yes | Via API/iframe | ERP/BIM connectors, data pipelines |
+| **React Flow** | MIT | Custom implementation | Custom implementation | N/A (library) | Native React | Custom visual builder UI |
+| **Flowise** | Apache 2.0 | Partial | No | Yes | Via API/iframe | Chatbot-focused RAG workflows |
+| **Node-RED** | Apache 2.0 | Via FlowFuse | Via HTTP nodes | Yes | Via iframe | IoT/edge, industrial automation |
+| **Temporal UI** | MIT | No | No | Yes | Via API | Workflow execution monitoring |
+
+**Recommended architecture: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow Visual Canvas                         │  │
+│  │  ┌──────┐  ┌──────┐  ┌──────┐  ┌──────┐         │  │
+│  │  │ NCC  │→│Safety│→│ DWS  │→│Report│         │  │
+│  │  │ BIM  │  │Agent │  │Carbon│  │ Gen  │         │  │
+│  │  └──────┘  └──────┘  └──────┘  └──────┘         │  │
+│  │       ↑                   ↑                       │  │
+│  │  ┌──────┐            ┌──────┐                     │  │
+│  │  │Tekla │            │HVAC  │ (contractor)        │  │
+│  │  │Conn. │            │Agent │                     │  │
+│  │  └──────┘            └──────┘                     │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Langflow Engine (MCP + A2A orchestration)        │  │
+│  │  - Each agent node = A2A Agent Card               │  │
+│  │  - Each connector = MCP tool                      │  │
+│  │  - Flows export as Temporal.io workflows          │  │
+│  └───────────────────────────────────────────────────┘  │
+│                          │                               │
+│  ┌───────────────────────┴───────────────────────────┐  │
+│  │  Temporal.io (execution engine, already in stack) │  │
+│  │  - Durable workflow execution                     │  │
+│  │  - Retry, timeout, compensation                   │  │
+│  │  - EU AI Act Article 12 audit trail               │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why this combination:**
+
+1. **React Flow** — Custom visual canvas embedded in the DWS IQ React dashboard. NCC users drag-and-drop agent nodes, draw connections, set per-agent LLM models. MIT license, zero vendor lock-in.
+
+2. **Langflow** — Backend orchestration engine. Native MCP protocol support means every DWS IQ tool (Supabase, Carbon Engine, ERP connectors) is accessible. Native A2A support means contractor agents auto-register via Agent Cards. Apache 2.0, self-hosted in EU (europe-north1). IBM enterprise partnership provides additional validation.
+
+3. **Temporal.io** — Already in the DWS IQ stack. Executes the workflows defined in the visual builder. Provides durable execution (workflows survive server restarts), automatic retries, timeout handling, and full audit trail for EU AI Act Article 12 compliance.
+
+**n8n** serves as a supplementary tool for ERP/BIM connector workflows (Tekla Structures ↔ IFS Cloud data sync) where Langflow's LLM focus is unnecessary.
+
+### 10.7.4 Contractor Agent Onboarding Flow
+
+```
+1. Contractor publishes Agent Card at /.well-known/agent.json
+2. NCC admin opens Agent Orchestration Studio
+3. Studio discovers contractor agent via A2A protocol
+4. NCC admin drags contractor agent onto canvas
+5. NCC admin connects contractor to relevant workflows
+6. Studio validates connectivity (A2A health check)
+7. Workflow deploys to Temporal.io for execution
+8. All agent interactions logged per EU AI Act Article 12
+```
+
+This architecture enables NCC to manage 24+ agents visually without writing code, while maintaining full EU data residency, audit compliance, and per-agent LLM flexibility.
 
 ## 10.6 DWS Product Standard — Resolving Enterprise Product Chaos
 
@@ -1532,6 +1695,47 @@ Your code will be watched -- write accordingly."
 
 ---
 
+## Appendix H: Automated PR Workflow (HIL Automation)
+
+### Background
+
+A key operational challenge for solo developers and small teams managing enterprise-grade codebases is maintaining code quality without a dedicated review team. The Firehorse model addresses this with a fully automated pull request review and merge workflow that replaces manual human-in-the-loop (HIL) code review with dual-model AI review.
+
+### Architecture
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+### Components
+
+| Component | Role | Technology |
+|-----------|------|-----------|
+| Claude Code | Code generation, branch creation, PR opening | Anthropic Claude Opus/Sonnet |
+| Claude (reviewer) | Quick sanity check: security, correctness, breaking changes | Claude Sonnet 4 API |
+| Gemini (HIL gate) | Deep review: edge cases, tests, architecture, OWASP security | Gemini 2.0 Flash API |
+| Copilot coding agent | Implements fix instructions from review comments | GitHub Copilot |
+| PR Auto-Merge | Merges when all checks pass and AI approves | GitHub Actions + GraphQL |
+
+### Design Decisions
+
+1. **Gemini defaults to REQUEST_CHANGES** — ensures every PR goes through at least one improvement cycle, even when the original implementation appears correct
+2. **Dual-model review** — two different AI models catch different classes of issues (structural vs. security vs. convention)
+3. **Automated fix loop** — structured fix instructions sent to @copilot, which implements fixes and re-triggers review, reducing developer involvement to final skim (~5 min per PR)
+4. **Human overrides** — `do-not-merge` and `needs-human-review` labels pause automation for manual review when needed
+
+### Relevance to Thesis
+
+This workflow demonstrates the Solution Factory model (Section 5) operating at full automation: a single developer with AI agents produces enterprise-quality code at scale. The HIL learning pipeline (Section 6.7) feeds review insights back into agent training, creating a continuous improvement loop that aligns with EU AI Act Article 12 auditability requirements.
+
+### Deployment
+
+Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /gemini/review` for on-demand security analysis by any agent in the Firehorse fleet.
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -1540,9 +1744,9 @@ Your code will be watched -- write accordingly."
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.3 consolidated full version
-**Version:** 3.3
-**Last Modified:** 10.02.2026
+**Status:** DRAFT - V3.7 consolidated full version
+**Version:** 3.7
+**Last Modified:** 20.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -1560,6 +1764,7 @@ Your code will be watched -- write accordingly."
 4. Phased Deployment Framework — Building trust for AI in regulated industries
 5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
 6. HIL Learning Pipeline — Daily human-AI feedback loop
+7. Automated PR Workflow — Dual-model AI review replacing manual code review
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

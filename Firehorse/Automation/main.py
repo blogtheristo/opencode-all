@@ -29,7 +29,7 @@ import logging
 import os
 import uuid
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
@@ -38,8 +38,7 @@ from pydantic import BaseModel, Field
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -75,7 +74,8 @@ executions: dict[str, dict] = {}
 # Enums and Models
 # ============================================================================
 
-class TriggerType(str, Enum):
+
+class TriggerType(StrEnum):
     SCHEDULE = "schedule"
     WEBHOOK = "webhook"
     EVENT = "event"
@@ -83,7 +83,7 @@ class TriggerType(str, Enum):
     MANUAL = "manual"
 
 
-class ActionType(str, Enum):
+class ActionType(StrEnum):
     GENERATE_REPORT = "generate_report"
     SEND_EMAIL = "send_email"
     SEND_SLACK = "send_slack"
@@ -91,7 +91,7 @@ class ActionType(str, Enum):
     UPDATE_DATABASE = "update_database"
 
 
-class ScheduleFrequency(str, Enum):
+class ScheduleFrequency(StrEnum):
     HOURLY = "hourly"
     DAILY = "daily"
     WEEKLY = "weekly"
@@ -99,13 +99,13 @@ class ScheduleFrequency(str, Enum):
     QUARTERLY = "quarterly"
 
 
-class WorkflowStatus(str, Enum):
+class WorkflowStatus(StrEnum):
     ACTIVE = "active"
     PAUSED = "paused"
     DRAFT = "draft"
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -116,8 +116,10 @@ class ExecutionStatus(str, Enum):
 # Workflow Models
 # ============================================================================
 
+
 class WorkflowAction(BaseModel):
     """Single action in a workflow"""
+
     action_id: str = Field(default_factory=lambda: str(uuid.uuid4())[:8])
     action_type: ActionType
     config: dict = Field(default_factory=dict)
@@ -126,12 +128,14 @@ class WorkflowAction(BaseModel):
 
 class WorkflowTrigger(BaseModel):
     """Workflow trigger configuration"""
+
     trigger_type: TriggerType
     config: dict = Field(default_factory=dict)
 
 
 class WorkflowCreate(BaseModel):
     """Create workflow request"""
+
     name: str = Field(..., min_length=3, max_length=100)
     description: str | None = None
     trigger: WorkflowTrigger
@@ -141,6 +145,7 @@ class WorkflowCreate(BaseModel):
 
 class WorkflowResponse(BaseModel):
     """Workflow response"""
+
     workflow_id: str
     name: str
     description: str | None
@@ -154,6 +159,7 @@ class WorkflowResponse(BaseModel):
 
 class ExecutionResponse(BaseModel):
     """Workflow execution response"""
+
     execution_id: str
     workflow_id: str
     status: ExecutionStatus
@@ -167,8 +173,10 @@ class ExecutionResponse(BaseModel):
 # Notification Models
 # ============================================================================
 
+
 class NotificationRequest(BaseModel):
     """Send notification request"""
+
     channel: str = Field(..., description="slack, email, or webhook")
     recipient: str = Field(..., description="Email, Slack channel, or webhook URL")
     subject: str | None = None
@@ -179,6 +187,7 @@ class NotificationRequest(BaseModel):
 # ============================================================================
 # Health Check
 # ============================================================================
+
 
 @app.get("/health")
 async def health_check():
@@ -206,6 +215,7 @@ async def root():
 # ============================================================================
 # Workflow Endpoints
 # ============================================================================
+
 
 @app.post("/v1/workflows", response_model=WorkflowResponse)
 async def create_workflow(request: WorkflowCreate):
@@ -240,7 +250,9 @@ async def list_workflows():
 async def get_workflow(workflow_id: str):
     """Get workflow by ID"""
     if workflow_id not in workflows:
-        raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Workflow not found: {workflow_id}"
+        )
 
     return WorkflowResponse(**workflows[workflow_id])
 
@@ -249,7 +261,9 @@ async def get_workflow(workflow_id: str):
 async def delete_workflow(workflow_id: str):
     """Delete a workflow"""
     if workflow_id not in workflows:
-        raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Workflow not found: {workflow_id}"
+        )
 
     del workflows[workflow_id]
     logger.info(f"Deleted workflow: {workflow_id}")
@@ -261,7 +275,9 @@ async def delete_workflow(workflow_id: str):
 async def execute_workflow(workflow_id: str, background_tasks: BackgroundTasks):
     """Execute a workflow"""
     if workflow_id not in workflows:
-        raise HTTPException(status_code=404, detail=f"Workflow not found: {workflow_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Workflow not found: {workflow_id}"
+        )
 
     workflow = workflows[workflow_id]
     execution_id = str(uuid.uuid4())
@@ -297,12 +313,14 @@ async def _execute_workflow_background(execution_id: str, workflow: dict):
             logger.info(f"Executing action: {action_type}")
 
             result = await _execute_action(action_type, config)
-            results.append({
-                "action_id": action["action_id"],
-                "action_type": action_type,
-                "result": result,
-                "timestamp": datetime.now().isoformat(),
-            })
+            results.append(
+                {
+                    "action_id": action["action_id"],
+                    "action_type": action_type,
+                    "result": result,
+                    "timestamp": datetime.now().isoformat(),
+                }
+            )
 
         executions[execution_id]["status"] = ExecutionStatus.COMPLETED
         executions[execution_id]["results"] = results
@@ -374,7 +392,9 @@ async def _execute_action(action_type: str, config: dict) -> dict:
 async def get_execution(execution_id: str):
     """Get execution status"""
     if execution_id not in executions:
-        raise HTTPException(status_code=404, detail=f"Execution not found: {execution_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Execution not found: {execution_id}"
+        )
 
     return ExecutionResponse(**executions[execution_id])
 
@@ -382,6 +402,7 @@ async def get_execution(execution_id: str):
 # ============================================================================
 # Notification Endpoints
 # ============================================================================
+
 
 @app.post("/v1/notify")
 async def send_notification(request: NotificationRequest):
@@ -394,7 +415,9 @@ async def send_notification(request: NotificationRequest):
         async with httpx.AsyncClient() as client:
             await client.post(
                 SLACK_WEBHOOK_URL,
-                json={"text": f"*{request.subject or 'Notification'}*\n{request.message}"},
+                json={
+                    "text": f"*{request.subject or 'Notification'}*\n{request.message}"
+                },
                 timeout=10.0,
             )
 
@@ -426,11 +449,13 @@ async def send_notification(request: NotificationRequest):
 # Schedule Endpoints (Placeholder)
 # ============================================================================
 
+
 @app.get("/v1/schedules")
 async def list_schedules():
     """List scheduled workflows"""
     scheduled = [
-        w for w in workflows.values()
+        w
+        for w in workflows.values()
         if w["trigger"].get("trigger_type") == TriggerType.SCHEDULE.value
     ]
 
@@ -451,13 +476,17 @@ async def list_schedules():
 # Webhook Trigger Endpoint
 # ============================================================================
 
+
 @app.post("/v1/webhooks/{webhook_id}")
-async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: BackgroundTasks):
+async def trigger_webhook(
+    webhook_id: str, payload: dict, background_tasks: BackgroundTasks
+):
     """Trigger workflows by webhook"""
 
     # Find workflows with matching webhook trigger
     matching_workflows = [
-        w for w in workflows.values()
+        w
+        for w in workflows.values()
         if (
             w["trigger"].get("trigger_type") == TriggerType.WEBHOOK.value
             and w["trigger"].get("config", {}).get("webhook_id") == webhook_id
@@ -465,7 +494,9 @@ async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: Back
     ]
 
     if not matching_workflows:
-        raise HTTPException(status_code=404, detail=f"No workflows for webhook: {webhook_id}")
+        raise HTTPException(
+            status_code=404, detail=f"No workflows for webhook: {webhook_id}"
+        )
 
     execution_ids = []
     for workflow in matching_workflows:
@@ -496,6 +527,7 @@ async def trigger_webhook(webhook_id: str, payload: dict, background_tasks: Back
 # Pre-built Workflow Templates
 # ============================================================================
 
+
 @app.get("/v1/templates")
 async def list_workflow_templates():
     """List pre-built workflow templates"""
@@ -505,30 +537,61 @@ async def list_workflow_templates():
                 "template_id": "daily-carbon-report",
                 "name": "Daily Carbon Report",
                 "description": "Generate EN 15978 carbon report daily and send to Slack",
-                "trigger": {"trigger_type": "schedule", "config": {"frequency": "daily", "time": "08:00"}},
+                "trigger": {
+                    "trigger_type": "schedule",
+                    "config": {"frequency": "daily", "time": "08:00"},
+                },
                 "actions": [
-                    {"action_type": "generate_report", "config": {"standard": "EN 15978"}},
-                    {"action_type": "send_slack", "config": {"message": "Daily carbon report ready"}},
+                    {
+                        "action_type": "generate_report",
+                        "config": {"standard": "EN 15978"},
+                    },
+                    {
+                        "action_type": "send_slack",
+                        "config": {"message": "Daily carbon report ready"},
+                    },
                 ],
             },
             {
                 "template_id": "threshold-alert",
                 "name": "Carbon Threshold Alert",
                 "description": "Alert when carbon budget exceeds 90%",
-                "trigger": {"trigger_type": "threshold", "config": {"metric": "carbon_budget_percent", "operator": ">=", "value": 90}},
+                "trigger": {
+                    "trigger_type": "threshold",
+                    "config": {
+                        "metric": "carbon_budget_percent",
+                        "operator": ">=",
+                        "value": 90,
+                    },
+                },
                 "actions": [
-                    {"action_type": "send_slack", "config": {"message": "⚠️ Carbon budget at 90%!"}},
-                    {"action_type": "send_email", "config": {"subject": "Carbon Budget Alert"}},
+                    {
+                        "action_type": "send_slack",
+                        "config": {"message": "⚠️ Carbon budget at 90%!"},
+                    },
+                    {
+                        "action_type": "send_email",
+                        "config": {"subject": "Carbon Budget Alert"},
+                    },
                 ],
             },
             {
                 "template_id": "weekly-summary",
                 "name": "Weekly Project Summary",
                 "description": "Generate and email weekly project summary report",
-                "trigger": {"trigger_type": "schedule", "config": {"frequency": "weekly", "day": "monday"}},
+                "trigger": {
+                    "trigger_type": "schedule",
+                    "config": {"frequency": "weekly", "day": "monday"},
+                },
                 "actions": [
-                    {"action_type": "generate_report", "config": {"standard": "RT Card"}},
-                    {"action_type": "send_email", "config": {"subject": "Weekly Project Summary"}},
+                    {
+                        "action_type": "generate_report",
+                        "config": {"standard": "RT Card"},
+                    },
+                    {
+                        "action_type": "send_email",
+                        "config": {"subject": "Weekly Project Summary"},
+                    },
                 ],
             },
         ]

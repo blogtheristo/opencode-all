@@ -3,15 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lifetime Firehorse™Store | DWS IQ - Buy Now</title>
-    <meta name="description" content="Purchase DWS IQ Platform, Firehorse Automation, and Climate Reporting solutions. Secure payment via Revolut Business or PayPal Business.">
+    <title>Lifetime Firehorse Store | DWS IQ - Buy Now</title>
+    <meta name="description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="DWS store, AI products, compliance tools, enterprise software, EU sovereignty">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Lifetime Firehorse Store | DWS IQ - Buy Now">
+    <meta property="og:description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/buy/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lifetime Firehorse Store | DWS IQ - Buy Now">
+    <meta name="twitter:description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/buy/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
-        h1 { color: #60a5fa; text-align: center; margin-bottom: 20px; font-size: 2.5rem; }
-        .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
-        
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        .hero-image-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.45;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.6) 50%, rgba(15, 23, 42, 0.3) 100%);
+            z-index: 2;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            width: 100%;
+        }
+        .hero-text-block {
+            flex: 1;
+            min-width: 0;
+        }
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .hero-title span {
+            color: #f97316;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            margin-bottom: 28px;
+            max-width: 560px;
+            text-wrap: pretty;
+        }
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+        .hero-feature-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .hero-feature-icon.green { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+        .hero-feature-icon.blue { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+        .hero-feature-icon.amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .hero-cta-group {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .hero-cta-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+        .hero-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5); }
+        .hero-cta-secondary {
+            background: transparent;
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.4);
+        }
+        .hero-cta-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+
+        .hero-info-box {
+            flex: 0 0 320px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(8px);
+        }
+        .hero-info-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+        .hero-info-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+        .hero-info-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 14px;
+        }
+        .hero-info-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .sovereignty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .sovereignty-badge.eu-data { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .sovereignty-badge.cloud-act-free { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); }
+
+        /* Store Identity */
+        .store-identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(30, 41, 59, 0.7));
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        .store-identity-icon { font-size: 2rem; }
+        .store-identity-content { flex: 1; }
+        .store-identity-title { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; margin: 0; }
+        .store-identity-subtitle { font-size: 0.9rem; color: #94a3b8; margin: 4px 0 0 0; }
+        .store-identity-badges { display: flex; gap: 8px; margin-left: auto; }
+
         /* Product Grid */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
@@ -20,9 +210,35 @@
         .product-content { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
         .product-title { font-size: 1.3rem; color: #e2e8f0; margin: 0 0 8px 0; font-weight: 600; }
         .product-price { font-size: 1.8rem; color: #4ade80; font-weight: bold; margin-bottom: 4px; }
-        .product-price-note { font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px; }
+        .product-price-note { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; }
+
+        /* Product Features */
+        .product-features {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .product-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+        .product-feature-check {
+            color: #4ade80;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
         .product-excerpt { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
-        
+
         /* Buttons */
         .btn-group { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
         .btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; min-width: 0; }
@@ -40,31 +256,15 @@
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
         .payment-badge span { font-size: 0.8rem; color: #64748b; }
-        
+
         /* Featured Badge */
         .featured { position: relative; }
         .featured::before { content: 'RECOMMENDED'; position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; z-index: 10; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4); }
         .featured { border-color: rgba(96, 165, 250, 0.3); }
-        
+
         /* Live Payment Badge */
-        .live-payment::after { content: '✓ LIVE'; position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; z-index: 10; }
-        
-        /* Navigation */
-        .nav-header { background: #1e293b; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.4rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
+        .live-payment::after { content: '\2713 LIVE'; position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; z-index: 10; }
 
-
-        
-        /* Dropdown */
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 6px; padding: 8px 0; margin-top: 8px; }
-        .nav-dropdown:hover .nav-dropdown-content { display: block; }
-        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
-        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
-        
         /* Trust Section */
         .trust-section { text-align: center; margin: 60px 0 40px; padding: 40px 20px; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
         .trust-section h3 { color: #e2e8f0; margin-bottom: 20px; font-size: 1.3rem; }
@@ -72,29 +272,29 @@
         .trust-badge { text-align: center; }
         .trust-badge .icon { font-size: 2rem; margin-bottom: 8px; }
         .trust-badge .label { font-size: 0.85rem; color: #94a3b8; }
-        
+
         /* Loading */
         .loading { text-align: center; padding: 60px; color: #94a3b8; }
         .loading-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(96, 165, 250, 0.3); border-radius: 50%; border-top-color: #60a5fa; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
+
         /* Footer - Revolut-style multi-column */
         .site-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; }
         .site-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
         .site-footer a:hover { color: #60a5fa; }
-        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 40px 32px; }
+        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
         .footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
         .footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
-        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 40px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
         .footer-payments span { font-size: 0.8rem; }
-        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
         .footer-locale svg { flex-shrink: 0; }
         .footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
         .footer-legal a { color: #64748b; font-size: 0.8rem; }
         .footer-legal a:hover { color: #60a5fa; }
         .footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
-        
+
         /* Category Navigation - DWS Gamma Brand */
         .category-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .category-nav::-webkit-scrollbar { display: none; }
@@ -109,49 +309,92 @@
         .vat-notice { text-align: center; padding: 8px 16px; background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 6px; font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px; }
 
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
+            .hero-section { min-height: auto; }
+            .hero-content { flex-direction: column; padding: 32px 20px; gap: 24px; }
+            .hero-title { font-size: 1.8rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .hero-info-box { flex: none; width: 100%; }
+            .hero-info-box img { height: 120px; }
+            .hero-cta-group { flex-direction: column; }
+            .hero-cta { justify-content: center; }
             .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
+            .product-image { height: 140px; }
+            .product-title { font-size: 1.1rem; }
+            .product-price { font-size: 1.4rem; }
             .btn-group { flex-direction: row; }
+            .btn { padding: 10px 12px; font-size: 0.85rem; }
             .trust-badges { gap: 20px; }
             .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; margin-bottom: 24px; }
             .category-btn { padding: 12px 18px; font-size: 0.875rem; }
-            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 20px 24px; gap: 24px; }
-            .footer-payments { padding: 0 20px 20px; }
-            .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 16px 24px; gap: 24px; }
+            .footer-payments { padding: 0 16px 20px; }
+            .footer-bottom { padding: 16px 16px; flex-direction: column; align-items: flex-start; }
             .footer-legal { gap: 12px; }
+            .store-identity { flex-direction: column; text-align: center; padding: 20px; }
+            .store-identity-badges { margin-left: 0; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav-header">
-        <a href="../" class="nav-brand">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#60a5fa" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../">Home</a>
-            <a href="./" style="color: #60a5fa; font-weight: 600;">Store</a>
-            <div class="nav-dropdown">
-                <a href="../legal/">Legal ▾</a>
-                <div class="nav-dropdown-content">
-                    <a href="../legal/"><strong>Legal Hub</strong></a>
-                    <a href="../privacy-policy/">Privacy Policy</a>
-                    <a href="../terms/">Terms of Service</a>
-                    <a href="../return-policy/">Return Policy</a>
+    <!-- Gamma Ironclad Navigation -->
+    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- Hero Section with Firehorse Image -->
+    <section class="hero-section">
+        <div class="hero-image-wrapper">
+            <img src="../static/images/Firehorse_Store.jpg" alt="Firehorse - Industrial Climate Intelligence">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text-block">
+                <h1 class="hero-title">Lifetime <span>Firehorse</span> Store</h1>
+                <p class="hero-subtitle">EU-sovereign AI products, compliance automation, and expert services for enterprises and SMEs. From platform to advisory.</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon green">1</div>
+                        <span>Industrial Climate OS &mdash; automate Fit for 55, CSRD & EPBD compliance</span>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon blue">2</div>
+                        <span>AI & Cloud Consulting &mdash; agentic development, sovereign cloud migration</span>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon amber">3</div>
+                        <span>Expert Advisory &mdash; workshops, training & EU AI Act literacy</span>
+                    </div>
+                </div>
+                <div class="hero-cta-group">
+                    <a href="#products" class="hero-cta hero-cta-primary">See All Products</a>
+                    <a href="mailto:offer@lifetime.fi" class="hero-cta hero-cta-secondary">Enterprise Offer</a>
                 </div>
             </div>
-            <a href="../dashboard/login/" class="btn btn-primary" style="padding: 8px 16px;">Login</a>
+            <div class="hero-info-box">
+                <img src="../DWS_IQ2026.png" alt="DWS IQ - Firehorse Platform">
+                <div class="hero-info-title">The AI Supermarket for EU Industry</div>
+                <div class="hero-info-desc">30+ products from &euro;0.99 to enterprise scale. EU-hosted, GDPR compliant, CLOUD Act free.</div>
+                <div class="hero-info-badges">
+                    <span class="sovereignty-badge eu-data">EU Data Residency</span>
+                    <span class="sovereignty-badge cloud-act-free">CLOUD Act Free</span>
+                </div>
+            </div>
         </div>
-    </nav>
+    </section>
 
-    <main class="container">
-        <h1>Lifetime Firehorse™Store</h1>
-        <div class="hero-text" style="text-align: center; max-width: 900px; margin: 0 auto 40px;">
-            <p style="font-size: 1.3rem; color: #f87171; font-weight: 600; margin-bottom: 16px;">Fit for 55 means real risk – fines, lost tenders, stranded assets.</p>
-            <p style="font-size: 1.1rem; color: #94a3b8; line-height: 1.7;">We turn construction compliance from paperwork and spreadsheets into a real‑time competitive advantage with the DWS IQ 6 industrial climate OS.</p>
+    <main class="container" id="products">
+        <!-- Store Identity -->
+        <div class="store-identity">
+            <div class="store-identity-icon">&#127978;</div>
+            <div class="store-identity-content">
+                <h2 class="store-identity-title">The AI Supermarket for Enterprises and SMEs</h2>
+                <p class="store-identity-subtitle">EU-sovereign AI products, compliance tools, and expert services &mdash; from &euro;0.99 to enterprise scale.</p>
+            </div>
+            <div class="store-identity-badges">
+                <span class="sovereignty-badge eu-data">EU Data Residency</span>
+                <span class="sovereignty-badge cloud-act-free">CLOUD Act Free</span>
+            </div>
         </div>
-        
+
         <!-- Category Navigation -->
         <nav class="category-nav" aria-label="Product categories">
             <a href="./" class="category-btn active" aria-current="page">Platform &amp; Products</a>
@@ -185,10 +428,10 @@
             <p style="color: #94a3b8; margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Get a tailored offer for your organization with dedicated support and timeline.</p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                 <a href="mailto:offer@lifetime.fi" class="btn btn-primary" style="padding: 14px 28px; font-size: 1rem;">
-                    📧 Contact offer@lifetime.fi for Enterprise Offer
+                    Contact offer@lifetime.fi for Enterprise Offer
                 </a>
                 <a href="https://business.revolut.com/signup?promo=b2b-ref-035&ext=d7fc0843-6d73-e2f3-0a00-005880217c0a&context=B2B_REFERRAL" target="_blank" rel="noopener" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1rem;">
-                    💳 Get Secure Payment via Revolut Business (EU)
+                    Get Secure Payment via Revolut Business (EU)
                 </a>
             </div>
         </section>
@@ -198,122 +441,30 @@
             <h3>Trusted by Enterprise Customers</h3>
             <div class="trust-badges">
                 <div class="trust-badge">
-                    <div class="icon">🔒</div>
+                    <div class="icon">&#128274;</div>
                     <div class="label">GDPR Compliant</div>
                 </div>
                 <div class="trust-badge">
-                    <div class="icon">🛡️</div>
+                    <div class="icon">&#128737;&#65039;</div>
                     <div class="label">NIS2 Ready</div>
                 </div>
                 <div class="trust-badge">
-                    <div class="icon">✓</div>
+                    <div class="icon">&#10003;</div>
                     <div class="label">EU AI Act Compliant</div>
                 </div>
                 <div class="trust-badge">
-                    <div class="icon">💳</div>
+                    <div class="icon">&#128179;</div>
                     <div class="label">Secure Payments</div>
                 </div>
                 <div class="trust-badge">
-                    <div class="icon">↩️</div>
+                    <div class="icon">&#8617;&#65039;</div>
                     <div class="label">30-Day Guarantee</div>
                 </div>
             </div>
             <p style="color: #94a3b8; font-size: 0.9rem;">Need a custom solution? <a href="mailto:sales@lifetime.fi" style="color: #60a5fa;">Contact our sales team</a></p>
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <h4>Products</h4>
-                <a href="./">Platform &amp; Products</a>
-                <a href="./page2/">AI &amp; Cloud Consulting</a>
-                <a href="./page3/">Expert Advisory &amp; Training</a>
-                <a href="./page4/">Digital Services</a>
-                <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
-                <a href="../checkout/">Checkout</a>
-            </div>
-            <div class="footer-col">
-                <h4>Industries</h4>
-                <a href="../construction/">Construction</a>
-                <a href="../energy/">Energy</a>
-                <a href="../manufacturing/">Manufacturing</a>
-                <a href="../real-estate/">Real Estate</a>
-                <a href="../logistics/">Logistics</a>
-                <a href="../healthcare/">Healthcare</a>
-                <a href="../financial-services/">Financial Services</a>
-                <a href="../public-sector/">Public Sector</a>
-                <a href="../mining/">Mining</a>
-                <a href="../shipbuilding/">Shipbuilding</a>
-            </div>
-            <div class="footer-col">
-                <h4>Platform</h4>
-                <a href="https://dws6.com/login">Login</a>
-                <a href="https://dws6.com/dashboard/">Dashboard</a>
-                <a href="../products/dwsiq.html">DWS IQ 6</a>
-                <a href="../products/firehorse-reports.html">Firehorse Reports</a>
-                <a href="../products/firehorse-automation.html">Firehorse Automation</a>
-                <a href="../products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
-                <a href="../world-model/">World Model</a>
-                <a href="../architecture/">Architecture</a>
-                <a href="../lifetime-fleet/">Lifetime Fleet</a>
-            </div>
-            <div class="footer-col">
-                <h4>Compliance</h4>
-                <a href="../fit-for-55/">Fit for 55</a>
-                <a href="../csrd/">CSRD Reporting</a>
-                <a href="../compliance/">EU AI Act</a>
-                <a href="../regulatory-notice/">Regulatory Notice</a>
-                <a href="../dual-use/">Dual Use</a>
-                <a href="../calculator/">Carbon Calculator</a>
-                <a href="../progress-report/">Progress Report</a>
-            </div>
-            <div class="footer-col">
-                <h4>Help &amp; Company</h4>
-                <a href="../lifetime-consulting/">Lifetime Consulting</a>
-                <a href="../careers/">Careers</a>
-                <a href="../partners/">Partners</a>
-                <a href="../investor-relations/">Investor Relations</a>
-                <a href="https://onelifetime.world">Community</a>
-                <a href="mailto:support@lifetime.fi">Support</a>
-                <a href="mailto:sales@lifetime.fi">Sales</a>
-                <a href="../legal/">Legal Hub</a>
-            </div>
-        </div>
-        <div class="footer-payments">
-            <span style="color: #64748b;">Accepted payments:</span>
-            <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
-            <span style="color: #003087; font-weight: 600;">PayPal Business</span>
-            <span style="color: #4ade80; font-weight: 600;">SEPA EUR</span>
-            <span style="color: #64748b;">Bank Transfer</span>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-locale">
-                <button class="locale-btn active" data-locale="eu" title="English &middot; EU Business (B2B) &middot; Prices excl. VAT">
-                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="#003399"/><g fill="#FC0" transform="translate(10,7)"><circle cx="0" cy="-4.5" r=".7"/><circle cx="2.25" cy="-3.9" r=".7"/><circle cx="3.9" cy="-2.25" r=".7"/><circle cx="4.5" cy="0" r=".7"/><circle cx="3.9" cy="2.25" r=".7"/><circle cx="2.25" cy="3.9" r=".7"/><circle cx="0" cy="4.5" r=".7"/><circle cx="-2.25" cy="3.9" r=".7"/><circle cx="-3.9" cy="2.25" r=".7"/><circle cx="-4.5" cy="0" r=".7"/><circle cx="-3.9" cy="-2.25" r=".7"/><circle cx="-2.25" cy="-3.9" r=".7"/></g></svg>
-                    EU
-                </button>
-                <button class="locale-btn" data-locale="fi" title="Suomeksi &middot; Kuluttajahinnat (B2C) &middot; Hinnat sis. ALV 25,5 %">
-                    <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="1" fill="white"/><rect x="5" y="0" width="4" height="14" fill="#003580"/><rect x="0" y="5" width="20" height="4" fill="#003580"/></svg>
-                    FI
-                </button>
-            </div>
-            <div class="footer-legal">
-                <a href="../terms/">Website Terms</a>
-                <a href="../privacy-policy/">Privacy Policy</a>
-                <a href="../return-policy/">Return Policy</a>
-                <a href="../data-handling-policy/">Data Handling</a>
-                <a href="../data-security-policy/">Data Security</a>
-                <a href="../investment-safety/">Investment Safety</a>
-                <a href="../regulatory-notice/">Regulatory Notice</a>
-            </div>
-            <div class="footer-copyright">
-                &copy; 2025&ndash;2026 Lifetime Oy &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
-            </div>
-        </div>
-    </footer>
-
-    <!-- Revolut Checkout Web SDK -->
+<!-- Revolut Checkout Web SDK -->
     <script src="https://merchant.revolut.com/embed.js" async></script>
 
     <script>
@@ -348,6 +499,7 @@
                     currency: 'EUR',
                     type: 'one-time',
                     description: 'Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.',
+                    features: ['DWS IQ + Firehorse Report + Workshop', 'First CSRD reporting deadline ready', 'Operational in 30 days'],
                     priceNote: 'One-time + €1,999/year',
                     revolutLink: 'https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f',
                     image: '../static/images/8_Industries.png',
@@ -390,11 +542,8 @@
             var fallback = (CONFIG && CONFIG.revolutFallbackLink) ? CONFIG.revolutFallbackLink : 'https://revolut.me/lifetimeoy';
             var priceNumber = typeof product.price === 'number' ? product.price : Number(product.price);
             if (!Number.isFinite(priceNumber) || priceNumber <= 0) {
-                // Invalid or non-positive price; fall back to base link without amount
                 return fallback;
             }
-            // Revolut fallback URL only supports integer euro amounts safely.
-            // If the price has cents, require an explicit product.revolutLink by using the base link.
             if (!Number.isInteger(priceNumber)) {
                 return fallback;
             }
@@ -437,16 +586,27 @@
             const revolutUrl = getRevolutUrl(product);
             const paypalUrl = getPayPalUrl(product);
 
+            // Build features HTML
+            let featuresHTML = '';
+            if (product.features && product.features.length) {
+                featuresHTML = '<div class="product-features">' +
+                    product.features.map(f =>
+                        '<div class="product-feature-item"><span class="product-feature-check">\u2713</span><span>' + f + '</span></div>'
+                    ).join('') +
+                    '</div>';
+            }
+
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='../static/images/Firehorse_Store.jpg'">
                 <div class="product-content">
                     <h2 class="product-title">${product.name}</h2>
                     <div class="product-price">${formattedPrice}</div>
                     <div class="product-price-note">${product.priceNote || ''}</div>
+                    ${featuresHTML}
                     <p class="product-excerpt">${product.description}</p>
                     <div class="btn-group">
-                        <button class="btn btn-revolut" onclick="payWithRevolut('${product.id}', this)" title="Pay with Revolut">Pay – Revolut</button>
-                        <button class="btn btn-paypal" onclick="payWithPayPal('${product.id}')" title="Pay with PayPal">Pay – PayPal</button>
+                        <a href="${revolutUrl}" class="btn btn-revolut" target="_blank" rel="noopener" title="Pay with Revolut">Pay &ndash; Revolut</a>
+                        <a href="${paypalUrl}" class="btn btn-paypal" target="_blank" rel="noopener" title="Pay with PayPal">Pay &ndash; PayPal</a>
                     </div>
                     <a href="${product.detailsUrl}" class="btn-details">Details</a>
                     <div class="payment-badge">
@@ -461,101 +621,11 @@
             return card;
         }
 
-        /**
-         * Pay with Revolut - Web SDK integration for ALL products
-         *
-         * Flow: click → create order via Worker → SDK popup → payment → success
-         * Fallback chain: SDK popup → hosted checkout → static link → revolut.me
-         */
-        async function payWithRevolut(productId, btn) {
-            const product = PRODUCTS[productId];
-            if (!product) { console.error('Product not found:', productId); return; }
-
-            const originalText = btn.textContent;
-            btn.textContent = 'Processing...';
-            btn.disabled = true;
-
-            const amountMinor = Math.round(product.price * 100);
-            const apiUrl = CONFIG.revolutCheckoutApiUrl;
-
-            try {
-                // Create order via Cloudflare Worker (Merchant API)
-                const resp = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        productId: product.id,
-                        amount: amountMinor,
-                        currency: product.currency || 'EUR',
-                        description: product.name
-                    })
-                });
-
-                if (!resp.ok) throw new Error('Order creation failed: ' + resp.status);
-                const { token, checkout_url } = await resp.json();
-
-                // Use RevolutCheckout SDK popup
-                if (typeof RevolutCheckout === 'function' && token) {
-                    const rc = await RevolutCheckout(token, CONFIG.revolutMode || 'prod');
-                    rc.payWithPopup({
-                        onSuccess() {
-                            window.location.href = '../checkout/success/?product=' + encodeURIComponent(productId);
-                        },
-                        onError(error) {
-                            console.error('SDK payment error:', error);
-                            if (checkout_url) window.open(checkout_url, '_blank');
-                            resetButton(btn, originalText);
-                        },
-                        onCancel() {
-                            resetButton(btn, originalText);
-                        }
-                    });
-                } else if (checkout_url) {
-                    // SDK not loaded: redirect to hosted checkout
-                    window.open(checkout_url, '_blank');
-                    resetButton(btn, originalText);
-                }
-            } catch (err) {
-                console.error('Revolut payment error:', err);
-                resetButton(btn, originalText);
-
-                // Fallback: static link → revolut.me
-                if (product.revolutLink) {
-                    window.open(product.revolutLink, '_blank');
-                } else {
-                    window.open(CONFIG.revolutFallbackLink || 'https://revolut.me/lifetimeoy', '_blank');
-                }
-            }
-        }
-
-        function resetButton(btn, text) {
-            btn.textContent = text;
-            btn.disabled = false;
-        }
-
-        // Pay with PayPal directly
-        function payWithPayPal(productId) {
-            const product = PRODUCTS[productId];
-            if (!product) { console.error('Product not found:', productId); return; }
-
-            const paypalEmail = CONFIG.paypalEmail || 'risto.anton@lifetime.fi';
-            const params = new URLSearchParams({
-                cmd: '_xclick',
-                business: paypalEmail,
-                item_name: product.name,
-                amount: product.price,
-                currency_code: product.currency || 'EUR',
-                return: window.location.origin + '/checkout/success/',
-                cancel_return: window.location.origin + '/checkout/cancel/'
-            });
-            window.open('https://www.paypal.com/cgi-bin/webscr?' + params.toString(), '_blank');
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', loadProducts);
 
     </script>
     <script src="../shared-assets/vat-locale.js"></script>
-    <script src="../shared-assets/nav/hamburger-menu.js"></script>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

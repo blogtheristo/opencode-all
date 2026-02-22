@@ -8,7 +8,7 @@ import AuthService from '../services/auth.service.js';
 
 describe('JWT Token Validation Security Fix', () => {
   describe('AuthService token validation', () => {
-    it('should validate a valid JWT token', () => {
+    it('should validate a valid JWT token', async () => {
       const user = {
         id: 'test-user-123',
         email: 'test@example.com',
@@ -17,45 +17,45 @@ describe('JWT Token Validation Security Fix', () => {
       };
 
       const token = AuthService.generateAccessToken(user);
-      const decoded = AuthService.verifyAccessToken(token);
+      const decoded = await AuthService.verifyAccessToken(token);
 
       expect(decoded).toBeDefined();
       expect(decoded.userId).toBe(user.id);
       expect(decoded.email).toBe(user.email);
     });
 
-    it('should reject an invalid JWT token', () => {
+    it('should reject an invalid JWT token', async () => {
       const invalidToken = 'invalid.jwt.token';
-      const decoded = AuthService.verifyAccessToken(invalidToken);
+      const decoded = await AuthService.verifyAccessToken(invalidToken);
 
       expect(decoded).toBeNull();
     });
 
-    it('should reject an empty token', () => {
-      const decoded = AuthService.verifyAccessToken('');
+    it('should reject an empty token', async () => {
+      const decoded = await AuthService.verifyAccessToken('');
 
       expect(decoded).toBeNull();
     });
 
-    it('should reject a malformed token', () => {
+    it('should reject a malformed token', async () => {
       const malformedToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.invalid';
-      const decoded = AuthService.verifyAccessToken(malformedToken);
+      const decoded = await AuthService.verifyAccessToken(malformedToken);
 
       expect(decoded).toBeNull();
     });
   });
 
   describe('Token validation flow in routes', () => {
-    it('should demonstrate correct tier upgrade logic', () => {
+    it('should demonstrate correct tier upgrade logic', async () => {
       // Simulate the route handler logic
-      const simulateRouteHandler = (authorizationHeader: string | undefined) => {
+      const simulateRouteHandler = async (authorizationHeader: string | undefined) => {
         // Simulate optionalAuth middleware behavior
         let userId: string | undefined;
-        
+
         if (authorizationHeader?.startsWith('Bearer ')) {
           const token = authorizationHeader.split(' ')[1];
-          const decoded = AuthService.verifyAccessToken(token);
-          
+          const decoded = await AuthService.verifyAccessToken(token);
+
           if (decoded) {
             userId = decoded.userId;
           }
@@ -80,58 +80,58 @@ describe('JWT Token Validation Security Fix', () => {
         accessLevel: 'free',
       };
       const validToken = AuthService.generateAccessToken(validUser);
-      const validResult = simulateRouteHandler(`Bearer ${validToken}`);
-      
+      const validResult = await simulateRouteHandler(`Bearer ${validToken}`);
+
       expect(validResult.authenticated).toBe(true);
       expect(validResult.effectiveTier).toBe('guest');
 
       // Test with invalid token
-      const invalidResult = simulateRouteHandler('Bearer invalid.token');
-      
+      const invalidResult = await simulateRouteHandler('Bearer invalid.token');
+
       expect(invalidResult.authenticated).toBe(false);
       expect(invalidResult.effectiveTier).toBe('public');
 
       // Test with no token
-      const noTokenResult = simulateRouteHandler(undefined);
-      
+      const noTokenResult = await simulateRouteHandler(undefined);
+
       expect(noTokenResult.authenticated).toBe(false);
       expect(noTokenResult.effectiveTier).toBe('public');
 
       // Test with empty Bearer
-      const emptyBearerResult = simulateRouteHandler('Bearer ');
-      
+      const emptyBearerResult = await simulateRouteHandler('Bearer ');
+
       expect(emptyBearerResult.authenticated).toBe(false);
       expect(emptyBearerResult.effectiveTier).toBe('public');
 
       // Test with malformed header
-      const malformedResult = simulateRouteHandler('NotBearer token');
-      
+      const malformedResult = await simulateRouteHandler('NotBearer token');
+
       expect(malformedResult.authenticated).toBe(false);
       expect(malformedResult.effectiveTier).toBe('public');
     });
   });
 
   describe('Security Fix Verification', () => {
-    it('should NOT allow tier upgrade with just a Bearer header', () => {
+    it('should NOT allow tier upgrade with just a Bearer header', async () => {
       // This test verifies the security fix:
       // Before: Tier was upgraded just by checking `if (authHeader?.startsWith('Bearer '))`
       // After: Tier is only upgraded if token is validated by optionalAuth middleware
-      
+
       const testCases = [
         { header: 'Bearer invalid.token', shouldUpgrade: false },
         { header: 'Bearer ', shouldUpgrade: false },
         { header: 'Bearer', shouldUpgrade: false },
-        { header: undefined, shouldUpgrade: false },
+        { header: undefined as string | undefined, shouldUpgrade: false },
       ];
 
-      testCases.forEach(({ header, shouldUpgrade }) => {
+      for (const { header, shouldUpgrade } of testCases) {
         // Simulate optionalAuth middleware
         let userId: string | undefined;
-        
+
         if (header?.startsWith('Bearer ')) {
           const token = header.split(' ')[1];
           if (token) {
-            const decoded = AuthService.verifyAccessToken(token);
+            const decoded = await AuthService.verifyAccessToken(token);
             if (decoded) {
               userId = decoded.userId;
             }
@@ -140,7 +140,7 @@ describe('JWT Token Validation Security Fix', () => {
 
         const requestTier = 'public';
         let effectiveTier = requestTier;
-        
+
         if (userId) {
           effectiveTier = requestTier === 'public' ? 'guest' : requestTier;
         }
@@ -150,10 +150,10 @@ describe('JWT Token Validation Security Fix', () => {
         } else {
           expect(effectiveTier).toBe('public');
         }
-      });
+      }
     });
 
-    it('should only allow tier upgrade with valid JWT token', () => {
+    it('should only allow tier upgrade with valid JWT token', async () => {
       const validUser = {
         id: 'test-user-456',
         email: 'user@example.com',
@@ -162,15 +162,15 @@ describe('JWT Token Validation Security Fix', () => {
       };
 
       const validToken = AuthService.generateAccessToken(validUser);
-      
+
       // Simulate the complete flow
       const header = `Bearer ${validToken}`;
       let userId: string | undefined;
-      
+
       if (header?.startsWith('Bearer ')) {
         const token = header.split(' ')[1];
-        const decoded = AuthService.verifyAccessToken(token);
-        
+        const decoded = await AuthService.verifyAccessToken(token);
+
         if (decoded) {
           userId = decoded.userId;
         }
@@ -178,7 +178,7 @@ describe('JWT Token Validation Security Fix', () => {
 
       const requestTier = 'public';
       let effectiveTier = requestTier;
-      
+
       if (userId) {
         effectiveTier = requestTier === 'public' ? 'guest' : requestTier;
       }
