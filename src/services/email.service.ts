@@ -1,21 +1,18 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service with dual-provider support:
- *   - Primary: Resend API
- *   - Fallback: SendGrid API
+ * Production-ready email delivery service using Resend as the sole provider.
  *
  * Features:
- *   - Automatic failover from Resend to SendGrid
+ *   - Resend REST API for outbound email
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   RESEND_API_KEY   - Resend API key (primary provider)
- *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
- *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
- *   SUPABASE_URL     - Supabase project URL (for email logging)
+ *   RESEND_API_KEY       - Resend API key (required)
+ *   EMAIL_FROM           - Sender address (default: risto@onelifetime.world)
+ *   SUPABASE_URL         - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
@@ -55,8 +52,6 @@ interface EmailLogEntry {
   metadata: Record<string, unknown> | null;
 }
 
-type ProviderName = 'resend' | 'sendgrid';
-
 // ============================================================
 // EMAIL SERVICE
 // ============================================================
@@ -64,20 +59,18 @@ type ProviderName = 'resend' | 'sendgrid';
 class EmailService {
   private readonly fromAddress: string;
   private readonly resendApiKey: string | undefined;
-  private readonly sendgridApiKey: string | undefined;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
     this.resendApiKey = process.env.RESEND_API_KEY;
-    this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    if (!this.resendApiKey && !this.sendgridApiKey) {
+    if (!this.resendApiKey) {
       logger.warn(
-        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.'
+        'RESEND_API_KEY not configured. Emails will be logged but not delivered.'
       );
     }
   }
@@ -167,7 +160,7 @@ class EmailService {
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Resend (primary) with SendGrid fallback.
+   * Send an email through Resend.
    * Logs every attempt to Supabase when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
@@ -179,74 +172,8 @@ class EmailService {
       templateType: templateType || 'custom',
     });
 
-    // Attempt primary provider (Resend)
-    if (this.resendApiKey) {
-      try {
-        await this.sendViaResend(to, subject, html);
-        logger.info('Email sent via Resend', { to, subject });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown Resend error';
-        logger.warn('Resend send failed, attempting SendGrid fallback', {
-          to,
-          error: errorMessage,
-        });
-      }
-    }
-
-    // Attempt fallback provider (SendGrid)
-    if (this.sendgridApiKey) {
-      try {
-        await this.sendViaSendGrid(to, subject, html);
-        logger.info('Email sent via SendGrid (fallback)', { to, subject });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown SendGrid error';
-        logger.error('SendGrid send failed', { to, error: errorMessage });
-
-        // Log the failure
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'failed',
-          sent_at: null,
-          error: errorMessage,
-          metadata: metadata || null,
-        });
-
-        throw new Error(
-          `Email delivery failed through all providers: ${errorMessage}`
-        );
-      }
-    }
-
-    // No provider available - log only
-    if (!this.resendApiKey && !this.sendgridApiKey) {
-      logger.warn('No email provider configured - email not delivered', {
+    if (!this.resendApiKey) {
+      logger.warn('RESEND_API_KEY not configured - email not delivered', {
         to,
         subject,
       });
@@ -257,30 +184,43 @@ class EmailService {
         template_type: templateType || null,
         status: 'failed',
         sent_at: null,
-        error: 'No email provider configured',
+        error: 'RESEND_API_KEY not configured',
         metadata: metadata || null,
       });
       return;
     }
 
-    // Resend was configured but failed and SendGrid is not configured
-    logger.error('Primary provider failed and no fallback configured', {
-      to,
-      subject,
-    });
-    await this.logEmail({
-      to_email: to,
-      from_email: this.fromAddress,
-      subject,
-      template_type: templateType || null,
-      status: 'failed',
-      sent_at: null,
-      error: 'Primary provider failed; no fallback configured',
-      metadata: metadata || null,
-    });
-    throw new Error(
-      'Email delivery failed: primary provider failed and no fallback configured'
-    );
+    try {
+      await this.sendViaResend(to, subject, html);
+      logger.info('Email sent via Resend', { to, subject });
+      await this.logEmail({
+        to_email: to,
+        from_email: this.fromAddress,
+        subject,
+        template_type: templateType || null,
+        status: 'sent',
+        sent_at: new Date().toISOString(),
+        error: null,
+        metadata: metadata || null,
+      });
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Unknown Resend error';
+      logger.error('Resend send failed', { to, error: errorMessage });
+
+      await this.logEmail({
+        to_email: to,
+        from_email: this.fromAddress,
+        subject,
+        template_type: templateType || null,
+        status: 'failed',
+        sent_at: null,
+        error: errorMessage,
+        metadata: metadata || null,
+      });
+
+      throw new Error(`Email delivery failed: ${errorMessage}`);
+    }
   }
 
   // ----------------------------------------------------------
@@ -314,38 +254,6 @@ class EmailService {
       const errorBody = await response.text();
       throw new Error(
         `Resend API error (${response.status}): ${errorBody}`
-      );
-    }
-  }
-
-  /**
-   * Send email via SendGrid v3 Mail Send API.
-   * @see https://docs.sendgrid.com/api-reference/mail-send/mail-send
-   */
-  private async sendViaSendGrid(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.sendgridApiKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: to }] }],
-        from: { email: this.fromAddress },
-        subject,
-        content: [{ type: 'text/html', value: html }],
-      }),
-    });
-
-    // SendGrid returns 202 on success
-    if (!response.ok && response.status !== 202) {
-      const errorBody = await response.text();
-      throw new Error(
-        `SendGrid API error (${response.status}): ${errorBody}`
       );
     }
   }
