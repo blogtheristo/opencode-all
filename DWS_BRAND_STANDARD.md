@@ -1013,6 +1013,116 @@ This standard applies to these sites with dual folder rule:
 
 ---
 
+## 7. Product Pricing Clarity (Two-Number Rule)
+
+**Authority:** `DWS_PRODUCT_STANDARD.md` is the single source of truth for all pricing.
+
+### 7.1 Every Product Card Must Show Two Numbers
+
+```
+Buy now:  €XX,XXX    ← total upfront commitment
+Monthly:  €X,XXX/mo  ← ongoing cost (if applicable)
+```
+
+If no monthly component, show only the buy-now price. Never show "Contact us for pricing."
+
+### 7.2 Price Display Tokens
+
+| Token | CSS | Usage |
+|-------|-----|-------|
+| `.product-price` | `color: var(--text-success); font-size: 1.5rem; font-weight: 700` | Primary price |
+| `.product-price-note` | `color: var(--text-secondary); font-size: 0.875rem` | "per month" / "one-time" clarifier |
+| `.product-price-total` | `color: var(--text-primary); font-size: 1rem` | Total commitment (e.g., "€29,950 total") |
+
+### 7.3 Product Card Price Layout
+
+```html
+<div class="product-pricing">
+    <div class="product-price">€5,990/mo</div>
+    <div class="product-price-total">€29,950 total (5 months)</div>
+    <div class="product-price-note">VAT 0% · Full platform included</div>
+</div>
+```
+
+### 7.4 Enterprise Tier Cards
+
+Enterprise subscription tiers (Pilot, Alpha, Production) use a distinct card variant:
+
+```html
+<div class="product-card tier-card">
+    <div class="tier-badge">PILOT</div>
+    <div class="product-pricing">
+        <div class="product-price">€5,990<span class="price-period">/mo</span></div>
+        <div class="product-price-total">€29,950 total · 5 months</div>
+    </div>
+    <ul class="tier-includes">
+        <li>DWS IQ 6 Platform</li>
+        <li>Firehorse Suite (all modules)</li>
+        <li>Lifetime World Model</li>
+        <li>Onboarding workshop included</li>
+    </ul>
+    <div class="tier-not-included">
+        <small>Not included: hardware, customer cloud costs</small>
+    </div>
+    <a class="btn btn-primary btn-block">Start Pilot</a>
+</div>
+```
+
+**Tier card CSS:**
+```css
+.tier-card { border: 2px solid var(--border-subtle); }
+.tier-card:hover { border-color: var(--text-accent); }
+.tier-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.tier-badge.pilot { background: var(--gradient-primary); color: white; }
+.tier-badge.alpha { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.tier-badge.production { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.price-period { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
+.btn-block { width: 100%; text-align: center; margin-top: 16px; }
+```
+
+### 7.5 Intelligent Decision Helper
+
+Pricing pages with 3+ tiers MUST include a decision helper:
+
+```html
+<div class="tier-selector">
+    <h3>Which tier is right for you?</h3>
+    <div class="selector-question">
+        <label>Buildings in your portfolio:</label>
+        <select id="building-count">
+            <option value="1-5">1-5 buildings</option>
+            <option value="6-20">6-20 buildings</option>
+            <option value="20+">20+ buildings</option>
+        </select>
+    </div>
+    <div class="selector-result" id="tier-recommendation">
+        <!-- JS populates recommendation based on selection -->
+    </div>
+</div>
+```
+
+---
+
+## 8. Cross-Reference to Standards
+
+| Standard | File | What It Governs |
+|----------|------|----------------|
+| **Brand Standard** | `DWS_BRAND_STANDARD.md` (this file) | UI components, dark tokens, product cards, badges |
+| **Product Standard** | `DWS_PRODUCT_STANDARD.md` | Pricing, product taxonomy, catalog rules |
+| **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document headers, versioning, metadata |
+| **Sales Strategy** | `sales-outreach/NORDIC_SALES_STRATEGY.md` | Outreach, metaphors, one-click buy |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | Security, .env, .gitignore rules |
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |

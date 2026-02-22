@@ -34,7 +34,7 @@ Document Status:
   - Last Modified: 21.02.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 consolidated full version)
+  - Publication Status: DRAFT (V3.5 — TK4 sovereignty update)
 
 ---
 
@@ -1077,14 +1077,25 @@ The 2-month payback promise has been validated with real customer deployments:
 | Cloud-only AI | +30% | -40% | EUR 555/month | Partial |
 | **MCP Hub + Edge AI** | **+62%** | **-73%** | **EUR 25-350/month** | **Best** |
 
-### 8.5.4 RQ4: Enterprise Security and Compliance
+### 8.5.4 RQ4: Enterprise Security and Compliance [V4 Updated]
 
-| Regulation | Requirement | Implementation | Status |
-|------------|-------------|----------------|--------|
-| **NIS 2** | Cybersecurity risk management | Security Agent + Snyk MCP scanning | Active |
-| **EU AI Act** | Transparency, human oversight | Low-risk classification, Phase 2 approval | Compliant |
-| **GDPR** | Data residency, data subject rights | europe-north1, Supabase RLS | Compliant |
-| **Cybersecurity Act** | Security certification | ISO 27001 target Q3 2026 | Planned |
+**Verdict:** The V3 assessment systematically underestimated legal sovereignty requirements. V4 corrects this with a two-phase architecture (MVP → V1) and identifies the legal risk of the Supabase dependency.
+
+**Risk classification correction:** DWS IQ 6 is likely classified as a **high-risk** AI system (EU AI Act, Annex III), as it automates climate emissions reporting and regulatory compliance — domains affecting "environment, health, and safety".
+
+| Regulation | Requirement | MVP (Supabase) | V1 (EU-sovereign) | Status |
+|------------|-------------|----------------|-------------------|--------|
+| **NIS 2** Art. 21 | Risk management | Security Agent + Snyk MCP | + ISMS + CERT-FI registration | ✅ → ✅+ |
+| **NIS 2** Art. 21(2)(d) | Supply chain security | ❌ US vendor (Supabase) | ✅ EU vendor (Aiven) | ❌ → ✅ |
+| **EU AI Act** Art. 9 | Risk management system | Not implemented | Continuous risk assessment | ❌ → ✅ |
+| **EU AI Act** Art. 12 | Automatic logging | Not implemented | Immutable log service on EU infra | ❌ → ✅ |
+| **EU AI Act** Art. 14 | Human oversight | Partial (Phase 2) | Systematic HIL | ⚠️ → ✅ |
+| **GDPR** Art. 44-49 | International transfers | ❌ CLOUD Act exposure | ✅ No transfers outside EU | ❌ → ✅ |
+| **GDPR** Art. 28 | Processor agreement | ⚠️ DPA exists, Schrems II risk | ✅ EU company, no Schrems II risk | ⚠️ → ✅ |
+| **Cybersecurity Act** | ISO 27001 | Planned Q3 2026 | TÜV Rheinland certification | 🟡 → ✅ |
+| **Cybersecurity Act** | EUCC | Not identified | Assessment Q1 2027 | ❌ → 🟡 |
+
+**Two-phase architecture:** MVP uses Supabase for development and demos (no real customer data). V1 migrates to EU-sovereign infrastructure (Aiven PostgreSQL, Keycloak, MinIO) by 02.08.2026 (EU AI Act deadline). Full specification: `DWS_SOVEREIGNTY_STANDARD.md`.
 
 ## 8.6 SWOT Analysis
 
@@ -1348,6 +1359,113 @@ To enable NCC (and similar enterprise customers) to build connections and workfl
 ```
 
 This architecture enables NCC to manage 24+ agents visually without writing code, while maintaining full EU data residency, audit compliance, and per-agent LLM flexibility.
+
+## 10.6 DWS Product Standard — Resolving Enterprise Product Chaos
+
+### Problem Statement
+
+As the Firehorse product catalog grew to 30 unique products duplicated across 5 catalog files, pricing inconsistencies emerged that threatened commercial credibility. The same product appeared with different prices depending on which file a sales agent, investor, or customer consulted:
+
+| Product | Lowest Price Found | Highest Price Found | Variance |
+|---------|-------------------|-------------------|----------|
+| DWS IQ Platform | €4,999 | €12,500 | 2.5× |
+| Consulting Hourly | €98/hr | €350/hr | 3.6× |
+| Workshop 3 Days | €4,500 | €15,000 | 3.3× |
+| Firehorse Omnichannel | €499 | €8,000 | 16.0× |
+
+This is not a technical problem. It is a **trust problem.** In Nordic B2B markets where transparency is a cultural requirement, inconsistent pricing destroys credibility faster than any competitor.
+
+### Solution: DWS Product Standard v1.0
+
+The DWS Product Standard (`DWS_PRODUCT_STANDARD.md`) was created as the single source of truth for all product definitions, resolving conflicts through a **two-channel pricing model:**
+
+1. **Self-Service Store** (dws10.com): Published prices for SMEs and self-serve buyers, powered by Revolut/Stripe checkout
+2. **Enterprise Direct**: Subscription tiers (€5,990-€10,950/month) for large organizations, with full Firehorse Suite included
+
+The standard establishes:
+- Product taxonomy across 6 product families
+- Mandatory two-number pricing rule ("Buy now: €XX / Monthly: €YY")
+- Price floor enforcement (minimum €150/hr for consulting, €499 for software modules)
+- Google Merchant Center compliance for all 67 products
+- Price conflict resolution protocol with change propagation checklist
+- Product lifecycle management (Alpha → Active → Sunset → Retired)
+
+### Research Contribution
+
+This represents a novel contribution to **AI-assisted product management**: the Product Standard was generated through systematic AI analysis of the entire codebase, identifying conflicts that manual review missed over 3 months. The audit methodology — multi-file price extraction, cross-reference, and conflict resolution — is reproducible for any SaaS company scaling from single-product to multi-product catalog.
+
+## 10.7 Brand Standard Product Clarity — One-Click Industrial Buy
+
+### The One-Click Hypothesis
+
+Industrial B2B SaaS products are traditionally sold through 45-90 day consultative cycles. The Nordic Sales Strategy (Section 11) challenges this assumption: if pricing is transparent, the demo is self-service, and the agreement is digital, the actual decision takes one day. The remaining 44-89 days are friction.
+
+The DWS Brand Standard v1.1 was updated to codify this insight into product card UI components:
+
+1. **Product Pricing Clarity (Section 7):** New CSS tokens for price display, enterprise tier card variants, and the mandatory two-number rule as a UI standard
+2. **Intelligent Decision Helper:** A 2-question recommender that tells the buyer which tier is right, based on portfolio size and CSRD deadline pressure
+3. **Tier Badge System:** Visual hierarchy (Pilot = blue, Alpha = purple, Production = green) that communicates progression without requiring sales explanation
+
+### Cultural Design Pattern: The €13.70 Buffet
+
+The brand standard now explicitly encodes a Nordic cultural design principle: the Finnish lunch buffet model. At €13.70, the buffet works because the price is visible before you commit, the value is visible before you pay, the risk is low, and the exit is clean. The updated brand standard applies this same anxiety-reduction pattern to €5,990/month enterprise software:
+
+- Published pricing (no "contact us")
+- Live demo accessible with email only (no sales qualification)
+- Standard agreement (no custom negotiation)
+- 5-month pilot with clean exit
+
+### Research Contribution
+
+The connection between cultural psychology (Nordic equality, anxiety reduction) and B2B product design is understudied in existing literature. This work proposes that **cultural UX patterns** — not just feature completeness — are a primary driver of enterprise conversion rates in Nordic markets.
+
+## 10.8 Measurable Impact Toward DWS 7
+
+### What DWS 7 Inherits
+
+DWS 7 is the next major platform generation. The standards created during DWS 6 establish measurable foundations:
+
+| Standard | DWS 6 State | DWS 7 Target | Measurable Outcome |
+|----------|-------------|-------------|-------------------|
+| **Product Standard** | 5 conflicting catalogs, 7 price conflicts | Single source of truth, 0 conflicts | Quarterly audit: conflict count = 0 |
+| **Brand Standard** | No pricing display rules | Two-number rule, tier cards, decision helper | Pricing page bounce rate < 40% |
+| **Sales Strategy** | 45-90 day cycles, 0% self-service | One-click path, 20-30% self-service | CRM: time-to-purchase < 7 days |
+| **Document Standard** | Ad-hoc versioning | Full traceability, agent history | 100% document compliance |
+
+### Impact Measurement Framework
+
+The following metrics MUST be tracked starting Q1 2026 to validate the standards' contribution:
+
+**Commercial Impact:**
+
+| Metric | Baseline (Feb 2026) | Q2 2026 Target | Q4 2026 Target | DWS 7 Target |
+|--------|---------------------|----------------|----------------|-------------|
+| MRR | €7,000 | €14,000 | €30,000 | €60,000 |
+| Price conflicts in codebase | 7 | 0 | 0 | 0 |
+| Products with Google Merchant compliance | ~30% | 80% | 100% | 100% |
+| Self-service purchases (% of new deals) | 0% | 5% | 15% | 30% |
+| Time from first contact to signed agreement | 45-90 days | 30 days | 14 days | 7 days |
+| Deals closed without a meeting | 0% | 5% | 15% | 25% |
+
+**Operational Impact:**
+
+| Metric | Baseline | Target | Method |
+|--------|----------|--------|--------|
+| Files updated per price change | 5 | 1 (auto-propagate) | Engineering automation |
+| Product card consistency across sites | ~60% | 100% | Automated visual regression |
+| Investor document pricing accuracy | Unknown | 100% match to Product Standard | Manual quarterly audit |
+| Store page load time (pricing section) | TBD | < 2 seconds | Lighthouse |
+
+### Contribution to Theory: Standards as Competitive Moat
+
+This thesis argues that **enterprise product standards** — not just the products themselves — constitute a competitive advantage for industrial SaaS companies. While competitors in the BMS market (Siemens Desigo, Schneider EcoStruxure) have larger product catalogs, their pricing is opaque and negotiation-dependent. DWS IQ 6's published pricing, standardized product cards, and one-click buy architecture represent a structural advantage that compounds over time:
+
+1. **Trust accumulation:** Every transparent price interaction builds Nordic trust capital
+2. **Operational leverage:** Standards reduce the cost of adding new products from weeks to hours
+3. **AI-native management:** Product catalogs maintained by AI agents following the Product Standard require zero manual synchronization
+4. **Regulatory alignment:** EU AI Act Article 12 traceability requirements are satisfied by the same version-controlled standards that manage products
+
+This positions DWS 7 not merely as a product upgrade, but as a **standards-native platform** where product management, pricing, and compliance are unified in a single documented framework.
 
 ---
 

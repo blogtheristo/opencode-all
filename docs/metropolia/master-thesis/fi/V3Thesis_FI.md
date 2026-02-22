@@ -34,7 +34,7 @@ Document Status:
   - Last Modified: 21.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 yhdistetty kokonaisversio)
+  - Publication Status: DRAFT (V3.5 — TK4 suvereniteettipäivitys)
 
 ---
 
@@ -1068,14 +1068,25 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Pelkkä pilvi-AI | +30% | -40% | €555/kk | Osittain |
 | **MCP Hub + Reunatekoäly** | **+62%** | **-73%** | **€25-350/kk** | **Paras** |
 
-### 8.5.4 TK4: Yritysturvallisuus ja vaatimustenmukaisuus
+### 8.5.4 TK4: Yritysturvallisuus ja vaatimustenmukaisuus [V4 päivitetty]
 
-| Sääntely | Vaatimus | Toteutus | Tila |
-|----------|----------|----------|------|
-| **NIS 2** | Kyberturvallisuuden riskinhallinta | Security Agent + Snyk MCP -skannaus | Aktiivinen |
-| **EU AI Act** | Läpinäkyvyys, ihmisen valvonta | Matalan riskin luokitus, Vaihe 2 hyväksyntä | Yhteensopiva |
-| **GDPR** | Datan sijainti, rekisteröidyn oikeudet | europe-north1, Supabase RLS | Yhteensopiva |
-| **Cybersecurity Act** | Turvallisuussertifiointi | ISO 27001 tavoite Q3 2026 | Suunniteltu |
+**Tuomio:** V3-arvio aliarvioi systemaattisesti oikeudellisen suvereniteetin vaatimukset. V4 korjaa tämän kaksivaiheisella arkkitehtuurilla (MVP → V1) ja tunnistaa Supabase-riippuvuuden oikeudellisen riskin.
+
+**Riskiarviointikorjaus:** DWS IQ 6 luokitellaan todennäköisesti **korkean riskin** tekoälyjärjestelmäksi (EU AI Act, Liite III), koska se automatisoi ilmastopäästöraportointia ja sääntelyvaatimustenmukaisuutta — toimialoja, jotka vaikuttavat "ympäristöön, terveyteen ja turvallisuuteen".
+
+| Sääntely | Vaatimus | MVP (Supabase) | V1 (EU-suvereeni) | Tila |
+|----------|----------|----------------|-------------------|------|
+| **NIS 2** Art. 21 | Riskinhallinta | Security Agent + Snyk MCP | + ISMS + CERT-FI rekist. | ✅ → ✅+ |
+| **NIS 2** Art. 21(2)(d) | Toimitusketjun turvallisuus | ❌ US-toimittaja (Supabase) | ✅ EU-toimittaja (Aiven) | ❌ → ✅ |
+| **EU AI Act** Art. 9 | Riskinhallintajärjestelmä | Ei toteutettu | Jatkuva riskiarviointi | ❌ → ✅ |
+| **EU AI Act** Art. 12 | Automaattinen lokitus | Ei toteutettu | Muuttumaton lokipalvelu EU-infralla | ❌ → ✅ |
+| **EU AI Act** Art. 14 | Ihmisen valvonta | Osittainen (Vaihe 2) | Systemaattinen HIL | ⚠️ → ✅ |
+| **GDPR** Art. 44-49 | Kansainväliset siirrot | ❌ CLOUD Act -uhka | ✅ Ei siirtoja EU:n ulkopuolelle | ❌ → ✅ |
+| **GDPR** Art. 28 | Käsittelijäsopimus | ⚠️ DPA, Schrems II -riski | ✅ EU-yritys, ei Schrems II -riskiä | ⚠️ → ✅ |
+| **Cybersecurity Act** | ISO 27001 | Suunniteltu Q3 2026 | TÜV Rheinland -sertifiointi | 🟡 → ✅ |
+| **Cybersecurity Act** | EUCC | Ei tunnistettu | Arviointi Q1 2027 | ❌ → 🟡 |
+
+**Kaksivaiheinen arkkitehtuuri:** MVP käyttää Supabasea kehityksessä ja demoissa (ei oikeaa asiakasdata). V1 siirtyy EU-suvereenille infrastruktuurille (Aiven PostgreSQL, Keycloak, MinIO) viimeistään 02.08.2026 (EU AI Act -deadline). Täydellinen kuvaus: `DWS_SOVEREIGNTY_STANDARD.md`.
 
 ## 8.6 SWOT-analyysi
 
@@ -1339,6 +1350,113 @@ Jotta NCC (ja vastaavat yritysasiakkaat) voivat rakentaa yhteyksiä ja työnkulk
 ```
 
 Tämä arkkitehtuuri mahdollistaa NCC:n hallita 24+ agenttia visuaalisesti ilman koodin kirjoittamista, samalla ylläpitäen täyden EU-tietojen sijainnin, auditointivaatimustenmukaisuuden ja agenttikohtaisen LLM-joustavuuden.
+
+## 10.6 DWS-tuotestandardi — Yritystuotteiden kaaoksen ratkaiseminen
+
+### Ongelmanasettelu
+
+Kun Firehorse-tuotekatalogi kasvoi 30 uniikkiin tuotteeseen, jotka olivat kopioituna 5 eri katalogitiedostoon, hinnoittelun epäjohdonmukaisuudet alkoivat uhata kaupallista uskottavuutta. Sama tuote esiintyi eri hinnalla riippuen siitä, mitä tiedostoa myyjä, sijoittaja tai asiakas tarkasteli:
+
+| Tuote | Alin löydetty hinta | Ylin löydetty hinta | Varianssi |
+|-------|---------------------|---------------------|-----------|
+| DWS IQ Platform | €4 999 | €12 500 | 2,5× |
+| Konsultointi (tuntihinta) | €98/h | €350/h | 3,6× |
+| Workshop 3 päivää | €4 500 | €15 000 | 3,3× |
+| Firehorse Omnichannel | €499 | €8 000 | 16,0× |
+
+Tämä ei ole tekninen ongelma. Se on **luottamusongelma.** Pohjoismaisilla B2B-markkinoilla, joilla läpinäkyvyys on kulttuurinen vaatimus, epäjohdonmukainen hinnoittelu tuhoaa uskottavuuden nopeammin kuin mikään kilpailija.
+
+### Ratkaisu: DWS-tuotestandardi v1.0
+
+DWS-tuotestandardi (`DWS_PRODUCT_STANDARD.md`) luotiin kaikkien tuotemäärittelyjen yhdeksi totuudenlähteeksi. Ristiriidat ratkaistiin **kaksikanavaisella hinnoittelumallilla:**
+
+1. **Itsepalvelukauppa** (dws10.com): Julkaistut hinnat pk-yrityksille ja itsepalveluostajille, Revolut/Stripe-maksurajapinnalla
+2. **Yrityssuoramyynti**: Tilaustasot (€5 990–€10 950/kk) suurille organisaatioille, sisältäen täyden Firehorse Suite -paketin
+
+Standardi määrittelee:
+- Tuotetaksonomian 6 tuoteperheen mukaan
+- Pakollisen kahden numeron hinnoittelusäännön ("Osta nyt: €XX / Kuukausihinta: €YY")
+- Hintalattian vähimmäistason (minimi €150/h konsultoinnille, €499 ohjelmistomoduuleille)
+- Google Merchant Center -yhteensopivuuden kaikille tuotteille
+- Hinnoitteluristiriitojen ratkaisuprotokollan muutoksen levitystarkistuslistalla
+- Tuotteen elinkaarihallinnan (Alpha → Active → Sunset → Retired)
+
+### Tutkimuskontribuutio
+
+Tämä edustaa uutta kontribuutiota **tekoälyavusteiseen tuotehallintaan**: tuotestandardi luotiin järjestelmällisellä tekoälyanalyysillä koko koodikannasta, tunnistaen ristiriitoja joita manuaalinen katselmus ei havainnut 3 kuukauden aikana. Auditointimenetelmä — monikansioinen hintapoimiminen, ristiviittaaminen ja ristiriitojen ratkaisu — on toistettavissa mille tahansa SaaS-yritykselle, joka skaalautuu yksituotteisesta monituotteiseen katalogiin.
+
+## 10.7 Brändistandardi: tuoteselkeys — Yhden klikkauksen teollinen osto
+
+### Yhden klikkauksen hypoteesi
+
+Teolliset B2B SaaS -tuotteet myydään perinteisesti 45–90 päivän konsultatiivisilla myyntisykleillä. Pohjoismainen myyntistrategia (Osio 11) haastaa tämän oletuksen: jos hinnoittelu on läpinäkyvää, demo on itsepalveluna ja sopimus on digitaalinen, varsinainen päätös vie yhden päivän. Loput 44–89 päivää ovat kitkaa.
+
+DWS-brändistandardi v1.1 päivitettiin koodaamaan tämä oivallus tuotekortti-UI-komponenteiksi:
+
+1. **Tuotehinnoittelun selkeys (Osio 7):** Uudet CSS-tokenit hintanäytölle, yritystason korttivariantit ja pakollinen kahden numeron sääntö UI-standardina
+2. **Älykäs päätösavustaja:** 2-kysymyksen suosittelija, joka kertoo ostajalle oikean tason portfolion koon ja CSRD-aikarajapaineen perusteella
+3. **Tason merkkijärjestelmä:** Visuaalinen hierarkia (Pilot = sininen, Alpha = violetti, Production = vihreä), joka viestii etenemisestä ilman myyntihenkilön selitystä
+
+### Kulttuurinen suunnittelumalli: €13,70 buffet
+
+Brändistandardi koodaa nyt eksplisiittisesti pohjoismaisen kulttuurisen suunnitteluperiaatteen: suomalaisen lounasbuffen mallin. Hintaan €13,70 buffet toimii, koska hinta näkyy ennen sitoutumista, arvo näkyy ennen maksamista, riski on matala ja poistuminen on puhdas. Päivitetty brändistandardi soveltaa samaa ahdistuksenvähennyskuviota €5 990/kk yrityssovellusohjelmistoon:
+
+- Julkaistu hinnoittelu (ei "ota yhteyttä" -mallia)
+- Livedemo saatavilla pelkällä sähköpostilla (ei myyntikvalifiointia)
+- Standardisopimus (ei räätälöityjä neuvotteluja)
+- 5 kuukauden pilotti puhtaalla irtisanomisella
+
+### Tutkimuskontribuutio
+
+Kulttuuripsykologian (pohjoismainen tasa-arvo, ahdistuksen vähentäminen) ja B2B-tuotesuunnittelun välinen yhteys on vähän tutkittu olemassa olevassa kirjallisuudessa. Tämä työ esittää, että **kulttuuriset UX-mallit** — ei pelkästään ominaisuuksien kattavuus — ovat ensisijainen konversion ajuri yritysmarkkinoilla Pohjoismaissa.
+
+## 10.8 Mitattava vaikutus kohti DWS 7:ää
+
+### Mitä DWS 7 perii
+
+DWS 7 on seuraava merkittävä alustaversio. DWS 6:n aikana luodut standardit muodostavat mitattavat perusteet:
+
+| Standardi | DWS 6 -tila | DWS 7 -tavoite | Mitattava tulos |
+|-----------|-------------|----------------|-----------------|
+| **Tuotestandardi** | 5 ristiriitaista katalogia, 7 hinnoitteluristiriitaa | Yksi totuudenlähde, 0 ristiriitaa | Neljännesvuosittainen auditointi: ristiriitamäärä = 0 |
+| **Brändistandardi** | Ei hinnanäyttösääntöjä | Kahden numeron sääntö, tasokortit, päätösavustaja | Hinnoittelusivun välitön poistumisprosentti < 40 % |
+| **Myyntistrategia** | 45–90 päivän syklit, 0 % itsepalvelua | Yhden klikkauksen polku, 20–30 % itsepalvelua | CRM: aika ostopäätökseen < 7 päivää |
+| **Dokumenttistandardi** | Satunnainen versiointi | Täysi jäljitettävyys, agenttihistoria | 100 % dokumenttien vaatimustenmukaisuus |
+
+### Vaikutusmittauksen viitekehys
+
+Seuraavia mittareita ON seurattava alkaen Q1 2026 standardien kontribuution validoimiseksi:
+
+**Kaupallinen vaikutus:**
+
+| Mittari | Lähtötaso (helmi 2026) | Q2 2026 -tavoite | Q4 2026 -tavoite | DWS 7 -tavoite |
+|---------|------------------------|------------------|------------------|----------------|
+| MRR | €7 000 | €14 000 | €30 000 | €60 000 |
+| Hinnoitteluristiriidat koodikannassa | 7 | 0 | 0 | 0 |
+| Tuotteet Google Merchant -yhteensopivuudella | ~30 % | 80 % | 100 % | 100 % |
+| Itsepalveluostot (% uusista kaupoista) | 0 % | 5 % | 15 % | 30 % |
+| Aika ensikontaktista allekirjoitettuun sopimukseen | 45–90 päivää | 30 päivää | 14 päivää | 7 päivää |
+| Kaupat ilman tapaamista | 0 % | 5 % | 15 % | 25 % |
+
+**Toiminnallinen vaikutus:**
+
+| Mittari | Lähtötaso | Tavoite | Menetelmä |
+|---------|-----------|---------|-----------|
+| Päivitettävät tiedostot hinnanmuutosta kohden | 5 | 1 (automaattinen levitys) | Tekniikan automaatio |
+| Tuotekorttien yhdenmukaisuus sivustojen välillä | ~60 % | 100 % | Automaattinen visuaalinen regressiotestaus |
+| Sijoittajadokumenttien hinnoittelutarkkuus | Tuntematon | 100 % tuotestandardin mukainen | Manuaalinen neljännesvuosittainen auditointi |
+| Kauppasivun latausaika (hinnoitteluosio) | TBD | < 2 sekuntia | Lighthouse |
+
+### Kontribuutio teoriaan: Standardit kilpailuetuna
+
+Tämä opinnäytetyö argumentoi, että **yritystuotestandardit** — eivät pelkästään tuotteet itsessään — muodostavat kilpailuedun teollisille SaaS-yrityksille. Vaikka BMS-markkinoiden kilpailijoilla (Siemens Desigo, Schneider EcoStruxure) on laajemmat tuotekataloginsa, niiden hinnoittelu on läpinäkymätöntä ja neuvotteluperusteista. DWS IQ 6:n julkaistu hinnoittelu, standardoidut tuotekortit ja yhden klikkauksen ostoarkkitehtuuri edustavat rakenteellista etua, joka kumuloituu ajan myötä:
+
+1. **Luottamuksen kertyminen:** Jokainen läpinäkyvä hintakohtaaminen kerryttää pohjoismaista luottamuspääomaa
+2. **Toiminnallinen vipuvaikutus:** Standardit vähentävät uuden tuotteen lisäämiskustannuksia viikoista tunteihin
+3. **Tekoälynatiiivi hallinta:** Tuotekatalogia ylläpitävät tekoälyagentit tuotestandardia seuraten — manuaalista synkronointia ei tarvita
+4. **Sääntelyyhteensopivuus:** EU:n tekoälysäädöksen artikla 12:n jäljitettävyysvaatimukset täyttyvät samoilla versionhallituilla standardeilla, jotka hallinnoivat tuotteita
+
+Tämä positioi DWS 7:n ei vain tuotepäivityksenä, vaan **standardinatiivina alustana**, jossa tuotehallinta, hinnoittelu ja vaatimustenmukaisuus ovat yhdistettynä yhdeksi dokumentoiduksi viitekehykseksi.
 
 ---
 
