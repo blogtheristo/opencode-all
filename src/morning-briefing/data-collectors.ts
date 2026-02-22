@@ -49,6 +49,9 @@ export interface SendListItem {
   pipeline: string;
   action: string;
   linkedin_url: string | null;
+  primary_email: string | null;
+  phone: string | null;
+  thread_token: string | null;
 }
 
 /** Who to ping + what artifact to send */
@@ -309,9 +312,11 @@ async function collectMomentum(): Promise<CaptainMomentum> {
       first_name: string; last_name: string; org_name: string;
       pipeline: string; next_action: string; linkedin_url: string;
       status: string; next_action_date: string;
+      primary_email: string | null; person_phone: string | null;
+      thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date`
+    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
   );
 
   const contacts: SendListItem[] = (threads || []).map((t) => ({
@@ -320,6 +325,9 @@ async function collectMomentum(): Promise<CaptainMomentum> {
     pipeline: t.pipeline,
     action: t.next_action || 'Follow up',
     linkedin_url: t.linkedin_url || null,
+    primary_email: t.primary_email || null,
+    phone: t.person_phone || null,
+    thread_token: t.thread_token || null,
   }));
 
   // Suggest artifact based on pipeline focus
@@ -388,9 +396,11 @@ async function collectSendList(): Promise<SendListItem[]> {
       first_name: string; last_name: string; org_name: string;
       pipeline: string; next_action: string; linkedin_url: string;
       status: string; next_action_date: string;
+      primary_email: string | null; person_phone: string | null;
+      thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date`
+    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
   );
 
   return (threads || []).map((t) => ({
@@ -399,6 +409,9 @@ async function collectSendList(): Promise<SendListItem[]> {
     pipeline: t.pipeline,
     action: t.next_action || 'Follow up',
     linkedin_url: t.linkedin_url || null,
+    primary_email: t.primary_email || null,
+    phone: t.person_phone || null,
+    thread_token: t.thread_token || null,
   }));
 }
 
