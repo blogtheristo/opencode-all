@@ -23,5 +23,7 @@
       "overrideName": true
     }
   },
-  "terminal.integrated.defaultProfile.windows": "DWS6 Env (pwsh)"
+  "terminal.integrated.defaultProfile.windows": "DWS6 Env (pwsh)",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.useEnvFile": true
 }
