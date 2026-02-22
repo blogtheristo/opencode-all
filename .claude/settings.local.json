@@ -9,10 +9,8 @@
       "Bash(python -X utf8 -c:*)",
       "Bash(ls:*)",
       "Bash(python:*)",
-      "Bash(echo:*)",
-      "Bash(git remote get-url:*)"
+      "Bash(git:*)",
+      "Bash(start:*)"
     ]
-  },
-  "hooks": {
   }
 }
