@@ -3,9 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.4
 
 Sessions & Modifications:
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
   - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
   - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -1015,10 +1017,84 @@ MCP Hub (Port 8765) + Temporal.io
   └── Lifetime Scope Signals (dependency DAG)
 ```
 
+### Sandbox Isolation (Agent Foundry)
+
+**Implementation:** `src/sandbox/` — Staged tenant isolation for multi-tenant agent execution.
+
+| Stage | Isolation Method | LLM Provider | When |
+|-------|-----------------|--------------|------|
+| 1 — SDK Sandbox | Anthropic Agent SDK (bubblewrap/seatbelt) | Groq (default) | Demo / Pilot |
+| 2 — Ephemeral Containers | Cloud Run Jobs (europe-north1) | Configurable per agent | First paid multi-tenant |
+| 3 — Persistent Containers | gVisor / Firecracker | Configurable per agent | Scale (€50k+ MRR) |
+
+**Environment variable:** `SANDBOX_STAGE=1` (default), `2`, or `3`
+
+See `DWS_SECURITY_STANDARD.md` Section 14 for full security architecture.
+
+### Per-Industry Open LLM Selection (IMPORTANT)
+
+**Do NOT default to Llama 3.3 70B for every industry.** Each of the 16 EU industries DWS IQ serves has different domain characteristics. The agent system must evaluate and select the best open LLM per industry vertical.
+
+**Selection criteria per industry:**
+
+| Criteria | Why It Matters |
+|----------|---------------|
+| Domain knowledge depth | Construction vs. maritime vs. healthcare have different regulatory language |
+| Multilingual capability | Nordic industries need Finnish/Swedish, CBAM suppliers need 20+ languages |
+| Structured output reliability | Compliance reports need deterministic JSON, not creative prose |
+| Context window | Supply chain analysis may need 128k+ context |
+| Inference speed | Real-time compliance checks need sub-second response |
+| EU data residency | Some models can only run on EU-hosted infrastructure |
+| License | Commercial use restrictions vary by model |
+
+**Industry LLM evaluation matrix (to be completed per industry study):**
+
+| Industry | Default LLM | Alternatives to Evaluate | Key Requirement |
+|----------|-------------|-------------------------|-----------------|
+| Construction | Llama 3.3 70B (Groq) | Mistral Large, Qwen 2.5 72B, DeepSeek-V3 | EN 15978 lifecycle stages, Finnish building codes |
+| Energy | TBD | Llama 3.3, Mistral, Command R+ | ETS allowance calculations, power grid terminology |
+| Manufacturing | TBD | Llama 3.3, Qwen 2.5, Mixtral 8x22B | CBAM product classification, BOM analysis |
+| Logistics & Transport | TBD | Llama 3.3, Mistral, Gemma 2 27B | Route optimization, ESR non-ETS emissions |
+| Maritime & Shipping | TBD | Llama 3.3, Mistral Large | FuelEU Maritime, MRV regulations |
+| Aviation | TBD | Llama 3.3, Mistral | CORSIA, SAF calculations |
+| Steel & Metals | TBD | Llama 3.3, Qwen 2.5 | CBAM embedded emissions, alloy specifications |
+| Chemicals | TBD | Llama 3.3, DeepSeek-V3 | REACH, process emissions, safety data sheets |
+| Cement & Concrete | TBD | Llama 3.3, Mistral | Clinker ratios, EPD data, kiln emissions |
+| Agriculture | TBD | Llama 3.3, Gemma 2 | LULUCF, methane accounting, CAP subsidies |
+| Food & Beverage | TBD | Llama 3.3, Mistral | Scope 3 supply chain, packaging lifecycle |
+| Textiles | TBD | Llama 3.3, Qwen 2.5 | Digital product passport, CBAM for imports |
+| Real Estate | TBD | Llama 3.3, Mistral | EPBD energy certificates, renovation passports |
+| Finance & Insurance | TBD | Llama 3.3, Mistral Large | SFDR, EU Taxonomy alignment, double materiality |
+| Public Sector | TBD | Llama 3.3, Mistral (EU-hosted) | CSRD for state-owned enterprises, GPP criteria |
+| Healthcare | TBD | Llama 3.3, Gemma 2 (EU-hosted) | Medical waste emissions, pharmaceutical supply chain |
+
+**Evaluation process for each industry:**
+
+1. **Benchmark** — Run industry-specific compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against 3-4 candidate models
+2. **Score** — Evaluate on accuracy, structured output reliability, and domain terminology
+3. **Cost** — Compare inference cost per 1K tokens across providers (Groq, Together, Fireworks, self-hosted)
+4. **Residency** — Verify EU data residency compliance for the provider
+5. **Select** — Choose the best model per industry, document rationale
+6. **Configure** — Set per-agent model in `AgentConfig.model` field (`src/agents/types.ts`)
+
+**Configuration example:**
+
+```typescript
+// In each agent's constructor, set the industry-optimized model:
+new ConstructionAgent({
+  name: 'construction',
+  model: 'llama-3.3-70b-versatile',  // Or 'mistral-large-latest' after evaluation
+  // ...
+});
+```
+
+**Action item:** Complete industry LLM benchmarks before first enterprise deployment. Each industry vertical should have a documented model selection rationale.
+
 ### Related Documentation
 
 - **MCP Configuration:** [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)
 - **Agent Teams field note:** [`docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`](../docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md)
+- **Sandbox Isolation Architecture:** `DWS_SECURITY_STANDARD.md` Section 14
 
 ---
 
@@ -2351,6 +2427,15 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 - **Duration:** 8-16 hours (hands-on)
 - **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
 - **Location:** `product-catalog/LWM/training-manual.md`
+
+**What is the Lifetime World Model (LWM)?**
+
+The LWM is the **enterprise learning layer** that adds intelligence on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+1. **Fine-tunes enterprise data and regulation** — ingests customer operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities the enterprise would otherwise miss
+3. **Ensures competitive advantage with multi-agent tools** — by combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
+
+The 16-industry architecture compounds this value: each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns.
 
 **Topics Covered:**
 1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)
