@@ -24,6 +24,7 @@ import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
+import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 
 dotenv.config();
 
@@ -200,6 +201,26 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
   }
 });
 
+// Construction leads manual trigger (secured by admin key)
+app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    const result = await fetchAndProcessLeads();
+    res.json({ status: 'complete', timestamp: new Date().toISOString(), ...result });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual construction leads fetch failed', { error: msg });
+    res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
+  }
+});
+
 // ============ ERROR HANDLING ============
 
 // 404 handler
@@ -245,6 +266,10 @@ const server = app.listen(PORT, () => {
   // (.github/workflows/morning-briefing.yml) — no in-process cron needed.
   // Manual trigger available via POST /api/v1/morning-briefing/send.
 
+  // Construction leads: daily fetch at 05:30 Helsinki (30min before briefing)
+  // Manual trigger available via POST /api/v1/construction-leads/fetch
+  constructionLeadsScheduler.start();
+
   // Initialize email queue (Redis Streams)
   emailQueue.initialize().then((ready) => {
     if (ready) {
@@ -263,6 +288,7 @@ const server = app.listen(PORT, () => {
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -273,6 +299,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

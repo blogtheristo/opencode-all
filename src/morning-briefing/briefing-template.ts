@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -216,6 +216,143 @@ function renderWorkflow(workflow: WorkflowData | null): string {
 }
 
 // ============================================================================
+// CONSTRUCTION LEADS SECTION
+// ============================================================================
+
+function formatEur(value: number | null, currency: string = 'EUR'): string {
+  if (value === null) return '—';
+  if (value >= 1_000_000) return `${currency} ${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `${currency} ${(value / 1_000).toFixed(0)}k`;
+  return `${currency} ${value.toFixed(0)}`;
+}
+
+function renderConstructionLeadsHtml(data: ConstructionLeadsData): string {
+  const { summary, newLeads, deadlines } = data;
+
+  if (!summary && newLeads.length === 0 && deadlines.length === 0) {
+    return '';
+  }
+
+  // Summary strip
+  const summaryHtml = summary
+    ? `<div style="margin-bottom: 10px; font-size: 12px; color: #888;">
+        ${summary.new_count} new | ${summary.qualified_count} qualified | ${summary.outreach_count} outreach | ${summary.deadlines_this_week} deadlines this week
+      </div>`
+    : '';
+
+  // New leads (top 5)
+  const leadsToShow = newLeads.slice(0, 5);
+  const newLeadsHtml = leadsToShow.length > 0
+    ? leadsToShow.map((lead) => {
+        const value = formatEur(lead.estimated_value, lead.currency);
+        const country = lead.country_code || '';
+        const score = lead.relevance_score;
+        const scoreColor = score >= 70 ? '#00d4aa' : score >= 40 ? '#ffaa00' : '#666';
+        const deadlineStr = lead.deadline_date
+          ? new Date(lead.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+          : '';
+        const title = lead.title.length > 80 ? lead.title.slice(0, 77) + '...' : lead.title;
+
+        return `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a;">
+          <div style="font-size: 13px; color: #e0e0e0;">
+            <span style="color: ${scoreColor}; font-size: 10px; font-weight: 600;">${score}</span>
+            <span style="color: #ffaa00; font-size: 10px;">[${country}]</span>
+            ${lead.ted_url ? `<a href="${esc(lead.ted_url)}" style="color: #e0e0e0; text-decoration: none;">${esc(title)}</a>` : esc(title)}
+          </div>
+          <div style="font-size: 11px; color: #666; margin-top: 2px;">
+            ${lead.buyer_name ? esc(lead.buyer_name) + ' | ' : ''}${value}${deadlineStr ? ' | Due ' + deadlineStr : ''}
+          </div>
+        </div>`;
+      }).join('')
+    : '<p style="margin: 0; font-size: 12px; color: #555;">No new construction leads.</p>';
+
+  // Upcoming deadlines (top 3)
+  const deadlinesToShow = deadlines.slice(0, 3);
+  const deadlinesHtml = deadlinesToShow.length > 0
+    ? `<div style="margin-top: 10px;">
+        <p style="margin: 0 0 4px; font-size: 11px; color: #ff4444; font-weight: 600;">UPCOMING DEADLINES</p>
+        ${deadlinesToShow.map((d) => {
+          const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+          const daysLeft = Math.ceil((new Date(d.deadline_date).getTime() - Date.now()) / 86_400_000);
+          const urgencyColor = daysLeft <= 3 ? '#ff4444' : daysLeft <= 7 ? '#ffaa00' : '#888';
+          const title = d.title.length > 60 ? d.title.slice(0, 57) + '...' : d.title;
+          return `<div style="padding: 3px 0; font-size: 12px; color: #aaa;">
+            <span style="color: ${urgencyColor}; font-weight: 600;">${dDate}</span> (${daysLeft}d) — ${esc(title)}
+          </div>`;
+        }).join('')}
+      </div>`
+    : '';
+
+  const moreCount = newLeads.length > 5 ? newLeads.length - 5 : 0;
+  const moreHtml = moreCount > 0
+    ? `<p style="margin: 6px 0 0; font-size: 11px; color: #555;">+${moreCount} more leads</p>`
+    : '';
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">Construction Leads (TED)</h3>
+      ${summaryHtml}
+      ${newLeadsHtml}
+      ${moreHtml}
+      ${deadlinesHtml}
+    </td></tr>`;
+}
+
+function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
+  const { summary, newLeads, deadlines } = data;
+  const lines: string[] = [];
+
+  if (!summary && newLeads.length === 0 && deadlines.length === 0) {
+    return '';
+  }
+
+  lines.push('CONSTRUCTION LEADS (TED)');
+
+  if (summary) {
+    lines.push(`  ${summary.new_count} new | ${summary.qualified_count} qualified | ${summary.outreach_count} outreach | ${summary.deadlines_this_week} deadlines this week`);
+  }
+
+  // New leads
+  const leadsToShow = newLeads.slice(0, 5);
+  if (leadsToShow.length > 0) {
+    for (const lead of leadsToShow) {
+      const value = formatEur(lead.estimated_value, lead.currency);
+      const country = lead.country_code || '??';
+      const score = lead.relevance_score;
+      const title = lead.title.length > 70 ? lead.title.slice(0, 67) + '...' : lead.title;
+      lines.push(`  [${score}] [${country}] ${title}`);
+      const details: string[] = [];
+      if (lead.buyer_name) details.push(lead.buyer_name);
+      details.push(value);
+      if (lead.deadline_date) {
+        const dDate = new Date(lead.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        details.push(`Due ${dDate}`);
+      }
+      lines.push(`    ${details.join(' | ')}`);
+    }
+    const moreCount = newLeads.length - 5;
+    if (moreCount > 0) lines.push(`  +${moreCount} more`);
+  } else {
+    lines.push('  No new construction leads.');
+  }
+
+  // Deadlines
+  const deadlinesToShow = deadlines.slice(0, 3);
+  if (deadlinesToShow.length > 0) {
+    lines.push('  UPCOMING DEADLINES:');
+    for (const d of deadlinesToShow) {
+      const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      const daysLeft = Math.ceil((new Date(d.deadline_date).getTime() - Date.now()) / 86_400_000);
+      const title = d.title.length > 55 ? d.title.slice(0, 52) + '...' : d.title;
+      lines.push(`    ${dDate} (${daysLeft}d) — ${title}`);
+    }
+  }
+
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
 
@@ -242,6 +379,7 @@ export function buildCockpitHtml(data: CockpitData): string {
     ${renderMomentum(data)}
     ${renderMetrics(data)}
     ${renderWorkflow(data.workflow)}
+    ${renderConstructionLeadsHtml(data.constructionLeads)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -324,6 +462,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
       lines.push(`  Best model: ${w.best_model} (F1=${w.best_f1?.toFixed(4) || '—'})${w.top_feature ? ` | Top: ${w.top_feature}` : ''}`);
     }
     lines.push('');
+  }
+
+  // Construction Leads
+  const clText = renderConstructionLeadsPlainText(data.constructionLeads);
+  if (clText) {
+    lines.push(clText);
   }
 
   // Send List

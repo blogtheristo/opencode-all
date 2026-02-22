@@ -20,6 +20,16 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
+import {
+  getLeadsSummary,
+  getNewLeads,
+  getUpcomingDeadlines,
+} from '../construction-leads/lead-processor.js';
+import type {
+  ConstructionLeadsSummary,
+  ConstructionLeadNew,
+  ConstructionLeadDeadline,
+} from '../construction-leads/types.js';
 
 // ============================================================================
 // TYPES
@@ -74,6 +84,13 @@ export interface WorkflowData {
   savings_percent: number;        // vs traditional cycle
 }
 
+/** Construction leads data for morning briefing */
+export interface ConstructionLeadsData {
+  summary: ConstructionLeadsSummary | null;
+  newLeads: ConstructionLeadNew[];
+  deadlines: ConstructionLeadDeadline[];
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -85,6 +102,7 @@ export interface CockpitData {
   metrics: MetricsStrip;
   sendList: SendListItem[];
   workflow: WorkflowData | null;
+  constructionLeads: ConstructionLeadsData;
 }
 
 // ============================================================================
@@ -459,6 +477,24 @@ async function collectWorkflowData(): Promise<WorkflowData | null> {
 }
 
 // ============================================================================
+// CONSTRUCTION LEADS COLLECTOR
+// ============================================================================
+
+/**
+ * Collect construction leads data for the morning briefing.
+ * Shows new leads from TED and upcoming deadlines.
+ */
+async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
+  const [summary, newLeads, deadlines] = await Promise.all([
+    getLeadsSummary(),
+    getNewLeads(),
+    getUpcomingDeadlines(),
+  ]);
+
+  return { summary, newLeads, deadlines };
+}
+
+// ============================================================================
 // MAIN COLLECTOR
 // ============================================================================
 
@@ -476,7 +512,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -484,6 +520,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectMetrics(),
     collectSendList(),
     collectWorkflowData(),
+    collectConstructionLeads(),
   ]);
 
   return {
@@ -497,5 +534,6 @@ export async function collectCockpitData(): Promise<CockpitData> {
     metrics,
     sendList,
     workflow,
+    constructionLeads,
   };
 }
