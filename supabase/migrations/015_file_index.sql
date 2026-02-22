@@ -79,11 +79,17 @@ CREATE TRIGGER trg_file_index_updated
 -- ============================================================
 ALTER TABLE file_index ENABLE ROW LEVEL SECURITY;
 
--- Anyone can read active/draft/archived docs
-CREATE POLICY "Public read access to file_index"
+-- Anon can read only ACTIVE docs; authenticated can read all non-DEPRECATED docs
+CREATE POLICY "Public anon read access to active_file_index"
   ON file_index
   FOR SELECT
-  TO anon, authenticated
+  TO anon
+  USING (status = 'ACTIVE');
+
+CREATE POLICY "Public authenticated read access to file_index"
+  ON file_index
+  FOR SELECT
+  TO authenticated
   USING (status != 'DEPRECATED');
 
 -- Service role has full access (for sync scripts)

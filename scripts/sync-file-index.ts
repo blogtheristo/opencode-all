@@ -191,7 +191,7 @@ function parseRow(cells: string[], category: string, _sectionHeader: string): Do
   let path = cells[1].replace(/`/g, '').trim();
 
   // Skip glob patterns or folder-only references
-  if (path.includes('*') || (!path.endsWith('.md') && !path.endsWith('.yml') && !path.endsWith('.bat') && !path.endsWith('.ps1') && !path.endsWith('.sh'))) {
+  if (path.includes('*') || (!path.endsWith('.md') && !path.endsWith('.yml') && !path.endsWith('.sh'))) {
     // Some entries are folder references like /mcp-hub/ — still index them
     if (!path.endsWith('/')) return null;
   }

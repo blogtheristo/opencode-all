@@ -121,7 +121,9 @@ async function redis(
   });
 
   if (!res.ok) {
-    throw new Error(`Upstash error ${res.status}: ${await res.text()}`);
+    const details = await res.text();
+    console.error(`Upstash error ${res.status}: ${details}`);
+    throw new Error(`Redis operation failed (status ${res.status})`);
   }
 
   const data = await res.json() as { result: unknown };
@@ -143,7 +145,9 @@ async function redisPipeline(
   });
 
   if (!res.ok) {
-    throw new Error(`Upstash pipeline error ${res.status}: ${await res.text()}`);
+    const details = await res.text();
+    console.error(`Upstash pipeline error ${res.status}: ${details}`);
+    throw new Error(`Redis pipeline operation failed (status ${res.status})`);
   }
 
   const data = await res.json() as { result: unknown }[];
@@ -492,7 +496,12 @@ async function handleSync(
   commands.push(['SET', `${PREFIX}meta:last_sync`, now]);
   commands.push(['SET', `${PREFIX}meta:doc_count`, String(docs.length)]);
 
-  // 3. Execute pipeline
+  // 3. Execute pipeline atomically to avoid partial index states during sync
+  if (commands.length > 0 && commands[0][0] !== 'MULTI') {
+    // Prepend MULTI and append EXEC to wrap the sync in a single transaction.
+    commands.unshift(['MULTI']);
+    commands.push(['EXEC']);
+  }
   await redisPipeline(env, commands);
 
   return jsonResponse({
