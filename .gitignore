@@ -28,6 +28,7 @@ ADD_TOKEN_TO_GITHUB.md
 *.secret
 *.jks
 *.keystore
+nul
 supabase/.env
 supabase/.env.local
 dws6.com/**/.env.local
