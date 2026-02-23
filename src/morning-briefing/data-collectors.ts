@@ -25,6 +25,10 @@ import {
   getNewLeads,
   getUpcomingDeadlines,
 } from '../construction-leads/lead-processor.js';
+import {
+  getSourcesSummary,
+  getSourceCounts,
+} from '../construction-leads/lead-sources.js';
 import type {
   ConstructionLeadsSummary,
   ConstructionLeadNew,
@@ -92,6 +96,32 @@ export interface ConstructionLeadsData {
   summary: ConstructionLeadsSummary | null;
   newLeads: ConstructionLeadNew[];
   deadlines: ConstructionLeadDeadline[];
+  /** Lead sources summary string (e.g. "Active: TED | Planned: DTAD, Mercell") */
+  sourcesSummary: string;
+  /** Source counts by status */
+  sourceCounts: { active: number; planned: number; reference: number; total: number };
+}
+
+/** Outreach pipeline summary for morning briefing header */
+export interface OutreachSummaryData {
+  /** Pipeline counts: total, open, active per pipeline */
+  pipelines: Record<string, { total: number; open: number; active: number }>;
+  /** Overdue threads count */
+  overdueCount: number;
+  /** Due today threads count */
+  todayCount: number;
+  /** Emails received today */
+  emailsReceivedToday: number;
+  /** Top overdue threads (up to 3) for quick action */
+  topOverdue: Array<{
+    token: string;
+    name: string;
+    org: string | null;
+    pipeline: string;
+    status: string;
+    next_action: string | null;
+    days_overdue: number;
+  }>;
 }
 
 export interface CockpitData {
@@ -106,6 +136,7 @@ export interface CockpitData {
   sendList: SendListItem[];
   workflow: WorkflowData | null;
   constructionLeads: ConstructionLeadsData;
+  outreachSummary: OutreachSummaryData;
 }
 
 // ============================================================================
@@ -490,12 +521,95 @@ async function collectWorkflowData(): Promise<WorkflowData | null> {
 }
 
 // ============================================================================
+// OUTREACH SUMMARY COLLECTOR
+// ============================================================================
+
+/**
+ * Collect outreach pipeline summary for the morning briefing header.
+ * Includes pipeline counts, overdue/today threads, and inbound emails received today.
+ */
+async function collectOutreachSummary(): Promise<OutreachSummaryData> {
+  const today = new Date().toISOString().split('T')[0];
+  const todayStart = `${today}T00:00:00`;
+
+  // Pipeline summary: count threads by pipeline and status bucket
+  const allThreads = await supabaseFetch<
+    Array<{
+      id: string; pipeline: string; status: string;
+      next_action_date: string | null; next_action: string | null;
+      first_name: string; last_name: string | null;
+      org_name: string | null; thread_token: string;
+    }>
+  >(
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id,pipeline,status,next_action_date,next_action,first_name,last_name,org_name,thread_token`
+  );
+
+  const OPEN_STATUSES = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
+  const ACTIVE_STATUSES = ['responded', 'meeting_booked', 'in_negotiation'];
+
+  const pipelines: Record<string, { total: number; open: number; active: number }> = {};
+  let overdueCount = 0;
+  let todayCount = 0;
+  const overdueThreads: OutreachSummaryData['topOverdue'] = [];
+
+  if (allThreads) {
+    for (const t of allThreads) {
+      if (!pipelines[t.pipeline]) {
+        pipelines[t.pipeline] = { total: 0, open: 0, active: 0 };
+      }
+      pipelines[t.pipeline].total++;
+      if (OPEN_STATUSES.includes(t.status)) pipelines[t.pipeline].open++;
+      if (ACTIVE_STATUSES.includes(t.status)) pipelines[t.pipeline].active++;
+
+      if (t.next_action_date && t.next_action_date < today) {
+        overdueCount++;
+        const daysOverdue = Math.floor(
+          (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000
+        );
+        overdueThreads.push({
+          token: t.thread_token,
+          name: [t.first_name, t.last_name].filter(Boolean).join(' '),
+          org: t.org_name,
+          pipeline: t.pipeline,
+          status: t.status,
+          next_action: t.next_action,
+          days_overdue: daysOverdue,
+        });
+      } else if (t.next_action_date === today) {
+        todayCount++;
+      }
+    }
+  }
+
+  // Sort overdue by days_overdue desc, take top 3
+  overdueThreads.sort((a, b) => b.days_overdue - a.days_overdue);
+  const topOverdue = overdueThreads.slice(0, 3);
+
+  // Count inbound emails received today
+  let emailsReceivedToday = 0;
+  const inboundEmails = await supabaseFetch<Array<{ id: string }>>(
+    `inbound_emails?received_at=gte.${todayStart}&select=id`
+  );
+  if (inboundEmails) {
+    emailsReceivedToday = inboundEmails.length;
+  }
+
+  return {
+    pipelines,
+    overdueCount,
+    todayCount,
+    emailsReceivedToday,
+    topOverdue,
+  };
+}
+
+// ============================================================================
 // CONSTRUCTION LEADS COLLECTOR
 // ============================================================================
 
 /**
  * Collect construction leads data for the morning briefing.
- * Shows new leads from TED and upcoming deadlines.
+ * Shows new leads from TED and upcoming deadlines, plus source metadata.
  */
 async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
   const [summary, newLeads, deadlines] = await Promise.all([
@@ -504,7 +618,13 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
     getUpcomingDeadlines(),
   ]);
 
-  return { summary, newLeads, deadlines };
+  return {
+    summary,
+    newLeads,
+    deadlines,
+    sourcesSummary: getSourcesSummary(),
+    sourceCounts: getSourceCounts(),
+  };
 }
 
 // ============================================================================
@@ -525,7 +645,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -534,6 +654,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectSendList(),
     collectWorkflowData(),
     collectConstructionLeads(),
+    collectOutreachSummary(),
   ]);
 
   return {
@@ -548,5 +669,6 @@ export async function collectCockpitData(): Promise<CockpitData> {
     sendList,
     workflow,
     constructionLeads,
+    outreachSummary,
   };
 }
