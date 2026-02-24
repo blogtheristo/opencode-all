@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.10
 
 Sessions & Modifications:
+  - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 10.9 DWS7 agenttiarkkitehtuurin modernisointi — dokumentoi 6 kriittistä korjausta (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, agenttien delegointi, MCP-palvelin, tapahtumaväylä), Build for Agents -periaate (CLI, Claude Code Skills), agenttikeskeinen tuotesuunnittelufilosofia
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 16 toimialan ristioppimisen verkostovaikutusten analyysi
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
@@ -31,10 +32,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 21.02.2026
+  - Last Modified: 24.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.5 — TK4 suvereniteettipäivitys)
+  - Publication Status: DRAFT (V3.10 — DWS7 agenttimoderinsointi)
 
 ---
 
@@ -1458,6 +1459,63 @@ Tämä opinnäytetyö argumentoi, että **yritystuotestandardit** — eivät pel
 
 Tämä positioi DWS 7:n ei vain tuotepäivityksenä, vaan **standardinatiivina alustana**, jossa tuotehallinta, hinnoittelu ja vaatimustenmukaisuus ovat yhdistettynä yhdeksi dokumentoiduksi viitekehykseksi.
 
+### 10.9 DWS7 agenttiarkkitehtuurin modernisointi: Yksittäisestä kutsusta agenttiseen
+
+Versio 3.10 dokumentoi kriittisen arkkitehtonisen harppauksen DWS6:n yksittäiskutsu-LLM-mallista todelliseen agenttijärjestelmään. Tämä työ, suoritettu yhdessä Claude Code -sessiossa (24.02.2026), korjaa kuusi arkkitehtuurista puutetta, jotka erottivat DWS6:n tuotantotason agenttialustoista.
+
+#### 10.9.1 Kuusi kriittistä korjausta
+
+| # | Ongelma (DWS6) | Korjaus (DWS7) | Toteutus |
+|---|----------------|----------------|----------|
+| 1 | Yksittäiskutsu-LLM — ei iterointia | Havainnoi-ajattele-toimi -agenttisilmukka säädettävillä iteraatioilla | `base.agent.ts:runLoop()` ja `AgentLoopConfig` |
+| 2 | Ei työkalujen käyttöä / funktiokutsuja | Täysi työkaluajoympäristö JSON Schema -määrittelyillä | `tools.ts` — 4 sisäänrakennettua työkalua, laajennettava rekisteri |
+| 3 | Kovakoodattu Groq HTTP -kutsu | Monituottaja-LLM-asiakas (Anthropic > Groq > OpenAI) | `llm-client.ts` — tunnistaa automaattisesti ympäristömuuttujista |
+| 4 | Ei agenttien välistä viestintää | Delegointi syvyysseurannalla (max 5), löytämis-API | `delegate_to_agent` -työkalu, `discoverAgents()` |
+| 5 | MCP oli tyhjä lupaus | MCP JSON-RPC 2.0 -palvelin, joka paljastaa kaikki agentit työkaluina | `mcp/agent-server.ts` — `/mcp`-päätepiste |
+| 6 | Vain Express-monoliitti | Tapahtumapohjainen arkkitehtuuri pub/sub-tapahtumaväylällä | `event-bus.ts` — kuviotilauksettelu, Redis Streams |
+
+**Taaksepäin yhteensopivuus:** Kaikki 18 olemassa olevaa agenttia käyttäen `execute()` + `callLLM()` toimivat edelleen muuttumattomina. `callLLM()`-metodi reitittää nyt monituottaja-asiakkaan kautta raa'an Groq-kutsun sijaan.
+
+#### 10.9.2 Rakenna agenteille: CLI, MCP, Skills
+
+Toteutuksen aikana syntyi rinnakkainen oivallus: **DWS IQ:n ensisijaiset kuluttajat vuonna 2026 ovat tekoälyagentit, eivät ihmiset jotka klikkaavat painikkeita.** Tämä johti "Build for Agents" -periaatteeseen:
+
+| Pinta | Toteutus | Tarkoitus |
+|-------|----------|-----------|
+| **CLI** | `cli/src/cli.ts` — nollariippuvuus, vain JSON-tuloste | Agentit ajavat komentoja, putkittavat tulosteen |
+| **MCP-palvelin** | `/mcp`-päätepiste, JSON-RPC 2.0 | Claude Code / Cursor löytää ja kutsuu agentteja |
+| **Claude Code Skills** | `.claude/commands/*.md` (6 taitoa) | Luonnollinen kieli → agentin suoritus |
+| **REST API** | `/api/agents/*` (olemassa olevat + uudet päätepisteet) | Perinteinen integraatio |
+| **Tapahtumaväylä** | Kuviopohjainen pub/sub + SSE-suoratoisto | Reaaliaikainen agenttikoordinaatio |
+
+**Keskeiset CLI-komennot:**
+```
+dws agents                              # Listaa kaikki agentit (JSON)
+dws run compliance --input '{"reg":"CSRD"}'  # Suorita agentti
+dws discover carbon                      # Etsi agentteja kyvykkyyden mukaan
+dws workflow compliance-assessment       # Moniagentin työnkulku
+```
+
+#### 10.9.3 EU:n tekoälysäädöksen artikla 12 -vaatimustenmukaisuus silmukkakirjauksella
+
+Agenttisilmukka-arkkitehtuuri täyttää luontaisesti artikla 12:n automaattisen kirjausvaatimuksen. Jokainen silmukan iteraatio tallentaa:
+
+- **Havainto:** Mitä agentti havaitsi
+- **Ajattelu:** LLM:n päättely (tokentasolla)
+- **Toiminnot:** Tehdyt työkalukutsut (argumentteineen)
+- **Tulokset:** Palautetut työkalujen tuotokset
+- **Aikaleima ja kesto:** Iteraatiokohtainen ajoitus
+
+Nämä tallennetaan `agent_loop_iterations` Supabase-tauluun, luoden täydellisen päättelyketjun syötteestä tulosteeseen — vaatimus, jota yksittäiskutsu-arkkitehtuurit eivät voi täyttää.
+
+#### 10.9.4 Tutkimuskontribuutio
+
+Tämä modernisointi validoi kaksi opinnäytetyön hypoteesia:
+
+1. **Solution Factory -toistettavuus (osio 4.1):** Koko kuuden korjauksen modernisointi suunniteltiin, toteutettiin ja dokumentoitiin yhdessä tekoälyavusteisessa sessiossa — osoittaen, että Firehorse-toimintamalli skaalautuu arkkitehtuuriseen refaktorointiin, ei vain tuotekatalogin hallintaan.
+
+2. **Lifetime Scope Signals -evoluutio (osio 2.5.2):** Tapahtumaväylä (`event-bus.ts`) on teoreettisen signaalinlähetysprotokollaa tuotantototeutus. Agentit lähettävät rakenteistettuja tapahtumia (`agent.execution_complete`, `compliance.check_passed`), joita muut agentit tilaavat — täsmälleen V1.0 Agenttilaivasto -spesifikaatiossa kuvattu "deklaratiivinen signaaliemissio" -malli.
+
 ---
 
 # 11. Lähteet
@@ -1736,9 +1794,9 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.7 yhdistetty kokonaisversio
-**Versio:** 3.7
-**Viimeisin päivitys:** 20.02.2026
+**Tila:** DRAFT - V3.10 DWS7 agenttimoderinsointi
+**Versio:** 3.10
+**Viimeisin päivitys:** 24.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -1757,6 +1815,7 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 5. DWS10.com-verkkokauppavalidointi — Google Merchant Center + Revolut Business
 6. HIL-oppimisputki — Päivittäinen ihminen-tekoäly-palautesilmukka
 7. Automatisoitu PR-tyonkulku — Kaksoismallin AI-katselmointi korvaa manuaalisen koodikatselmoinnin
+8. DWS7 agenttimoderinsointi — Agenttisilmukat, työkalujen käyttö, MCP-palvelin, Build for Agents -periaate
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
