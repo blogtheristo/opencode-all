@@ -90,7 +90,7 @@ function buildToolList(): MCPToolDefinition[] {
   // Meta-tool: trigger workflow
   tools.push({
     name: 'dws_workflow',
-    description: 'Trigger a multi-agent workflow. Available workflows: compliance-assessment, construction-full, logistics-assessment, seo-pipeline.',
+    description: 'Trigger a multi-agent workflow. Available workflows: compliance-assessment, construction-full, seo-pipeline.',
     inputSchema: {
       type: 'object',
       properties: {
