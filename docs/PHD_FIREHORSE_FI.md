@@ -1157,6 +1157,43 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 
 ---
 
+## Liite B: MCP-palvelinlaajennus — CloudRun, LWM, Claude (Helmikuu 2026)
+
+### Yleiskatsaus
+
+Kolme uutta MCP-palvelinta otettiin käyttöön helmikuussa 2026, täydentäen DWS IQ 6:n MCP-laivaston. Tämä on merkittävä virstanpylväs Firehorse-toimintamallille: alustalla on nyt ohjelmoitava pääsy kaikkiin kolmeen infrastruktuurikerrokseen — pilvi, reunalaitteisto ja AI-agentin istunto.
+
+### Lisätyt palvelimet
+
+| Palvelin | Portti | Käyttötarkoitus |
+|---------|--------|------------------|
+| `cloudrun-mcp` | 8769 | GCP Cloud Run -käyttöönotto ja lokienhallinta |
+| `lwm-mcp` | 8770 | NVIDIA GN100 / Lifetime World Model -koulutusputki |
+| `claude-mcp` | 8771 | Claude Code -istuntosynkronointi, git-työkalupaletti |
+
+### Istunnon pysyvyysinfrastruktuuri
+
+Uusi Supabase-migraatio (`033_mcp_session_sync.sql`) lisää:
+- **`mcp_sessions`** — AI-agenttien istuntojen välinen tilapysyvyys (haara, työkalu, tarkistuspiste, tiivistelmä)
+- **`mcp_migration_queue`** — Autonominen migraatiojen seuranta (yksilöllinen numero, tiedostonimi, tila, Supabaseen käyttöönoton vahvistus)
+
+Tämä edistitty suoraan Firehorse-toimintamallin pe-rushypoteesia: yksittäinen kehittäjä, joka toimii AI-agenttien kanssa, voi rakentaa ja ylläpitää yritystason infrastruktuuria systemaattisen automaation kautta ilman manuaalisen tilanhallinnan taakkaa.
+
+### Reuna-pilvisilta
+
+`lwm-mcp`-palvelin luo ensimmäisen ohjelmoitavan yhteyden DWS IQ 6 -pilvipalvelun (Google Cloud Run, europe-north1) ja NVIDIA GN100 -reunakoulutuspalvelimen (Helsinki) välille. Tämä mahdollistaa:
+- Koulutustyötarpausten lähettämisen agenttiputkista
+- Tarkistuspisteiden noutamisen GCS:stä
+- Reaaliaikaisen GPU:n käyttöasteen seurannan
+
+Tämä on luvussa 4 kuvatun Hybridi AI-edge-arkkitehtuurin käytännön toteutus.
+
+### Suhde EU:n tekoalysäädöksön artiklaan 12
+
+`claude-mcp`-istunnon pysyvyystaulut täydentävät Artiklan 12 automaattisen lokituksenvaatimusta: agentin päätökset, tarkistuspisteen siirtymät ja istunnon luovutukset tallennetaan nyt tarkastettaviin, RLS-suojattuihin Supabase-tauluihin olemassa olevan `agent_executions`-lokin rin-nalle.
+
+---
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
 *Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 1.1*
+*Versio: 1.4*

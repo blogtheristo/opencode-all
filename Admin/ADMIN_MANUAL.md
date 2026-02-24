@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.3
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
@@ -19,6 +19,7 @@ Sessions & Modifications:
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
+  - Version: 2.3 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: MCP Server Expansion — cloudrun-mcp (8769), lwm-mcp (8770), claude-mcp (8771); Supabase migration 033_mcp_session_sync; docker-compose and mcp-hub updates
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -26,7 +27,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 17.02.2026
+  - Last Modified: 23.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -496,7 +497,7 @@ curl -X POST https://api.dws10.com/checkout/create-order \
 ## MCP Configuration
 
 **Status:** ✅ **ACTIVE**
-**Last Updated:** February 5, 2026
+**Last Updated:** February 23, 2026
 
 ### Overview
 
@@ -510,6 +511,15 @@ Model Context Protocol (MCP) connects Claude Code and other AI tools to external
 | **Upstash Redis MCP** | - | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
 | **DWS Supabase API** | 8766 | Custom REST wrapper | Docker-based |
 | **MCP Hub** | 8765 | Multi-agent workflow coordination | Temporal.io integration |
+| **CloudRun MCP** | 8769 | GCP Cloud Run management, container deployment | `GCP_PROJECT_ID`, `GCP_REGION` |
+| **LWM MCP** | 8770 | Lifetime World Model training, NVIDIA Jetson GN100 | `LWM_MCP_PORT`, `GN100_HOST`, `MLFLOW_URL` |
+| **Claude MCP** | 8771 | Claude Code session sync, git repo tools | `CLAUDE_MCP_PORT`, `REPO_PATH` |
+
+**New in v2.3 — Session Persistence:** Migration `033_mcp_session_sync.sql` adds two Supabase tables:
+- `mcp_sessions` — Persists agent branch, tool, checkpoint, and session summary across restarts
+- `mcp_migration_queue` — Tracks migration state with unique migration numbers and Supabase apply status
+
+Both tables use RLS with `service_role` policies. See `supabase/migrations/033_mcp_session_sync.sql`.
 
 ### Setup
 

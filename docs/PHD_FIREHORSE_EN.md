@@ -1159,6 +1159,43 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 ---
 
+## Appendix B: MCP Server Expansion — CloudRun, LWM, Claude (February 2026)
+
+### Overview
+
+Three new MCP servers were deployed in February 2026, completing the DWS IQ 6 MCP fleet. This is a significant milestone for the Firehorse Operations Model: the platform now has programmable access to all three infrastructure layers — cloud, edge hardware, and AI agent sessions.
+
+### Servers Added
+
+| Server | Port | Purpose |
+|--------|------|---------|
+| `cloudrun-mcp` | 8769 | GCP Cloud Run deployment and log management |
+| `lwm-mcp` | 8770 | NVIDIA GN100 / Lifetime World Model training pipeline |
+| `claude-mcp` | 8771 | Claude Code session sync, git repo tools |
+
+### Session Persistence Infrastructure
+
+A new Supabase migration (`033_mcp_session_sync.sql`) adds:
+- **`mcp_sessions`** — Cross-session state persistence for AI agents (branch, tool, checkpoint, summary)
+- **`mcp_migration_queue`** — Autonomous migration tracking (unique number, filename, status, Supabase apply confirmation)
+
+This directly advances the Firehorse Operations Model’s core thesis: that a solo developer operating with AI agents can build and maintain enterprise infrastructure through systematic automation, without manual state management overhead.
+
+### Edge-Cloud Bridge
+
+The `lwm-mcp` server creates the first programmatic link between the DWS IQ 6 cloud platform (Google Cloud Run, europe-north1) and the NVIDIA GN100 edge training server (Helsinki). This enables:
+- Training job submission from agent pipelines
+- Checkpoint retrieval from GCS
+- Real-time GPU utilization monitoring
+
+This is the practical implementation of the Hybrid AI-Edge Architecture described in Chapter 4.
+
+### Relation to EU AI Act Article 12
+
+The `claude-mcp` session persistence tables feed into the Article 12 automatic logging requirement: agent decisions, checkpoint transitions, and session handovers are now stored in auditable, RLS-protected Supabase tables alongside the existing `agent_executions` log.
+
+---
+
 *Document generated using Firehorse Operations Model with Claude Code*
 *Last updated: February 2026*
-*Version: 1.1*
+*Version: 1.4*

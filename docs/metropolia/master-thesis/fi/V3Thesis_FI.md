@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.10
 
 Sessions & Modifications:
+  - Version: 3.10 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Lisatty Liite I — MCP-palvelinlaajennus (cloudrun-mcp 8769, lwm-mcp 8770, claude-mcp 8771), Supabase-migraatio 033 mcp_sessions + mcp_migration_queue, MCP-laivaston arkkitehtuuri. Paivitetty Keskeiset kontribuutiot #8.
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Paivitetty DWS-standardit, admin-manuaalit HIL-automaatioviittauksilla. Versiotunnuksen korjaus (3.4-3.5 eivat olleet seurannassa)
   - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Lisatty osio 12 IPR-suojaus ja liikesalaisuusstrategia, osio 13 Prompt caching -arkkitehtuuri AI-agenteille, uudelleennumeroitu osiot 12-15 → 14-17, lisatty EU:n liikesalaisuusdirektiivin viitteet
@@ -1449,6 +1450,54 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 
 ---
 
+## Liite I: MCP-palvelinlaajennus — CloudRun, LWM, Claude
+
+### Tausta
+
+Helmiikuuhun 2026 mennässä MCP-laivaston kattavuus oli laajennettu koskemaan koko DWS IQ 6 -toimintapintaa: pilvi-infrastruktuuri, reunatekoalylaitteisto ja koodausagentin istuntojatkuvuus. Kolme uutta palvelinta lisättiin yhdessä istunnossa, täydentäen kattavuuspuutteen joka tunnistettiin Automatisoidun PR-työnkulun (Liite H) käyttöönoton jälkeen.
+
+### Uudet palvelimet
+
+| Palvelin | Portti | Alue | Kyky |
+|---------|--------|------|------|
+| **cloudrun-mcp** | 8769 | GCP-infrastruktuuri | Cloud Run -palveluiden käyttöönotto, lokit, kuvaukset |
+| **lwm-mcp** | 8770 | Reunatekoaly (NVIDIA GN100) | MLflow-työt, tarkistuspisteiden hallinta, GPU-seuranta |
+| **claude-mcp** | 8771 | Claude Code -agentit | Istuntotarkistuspiste Supabaseen, git-tyokalupaletti |
+
+### MCP-laivaston arkkitehtuuri
+
+```
+MCP Hub (portti 8765, FastAPI)
+├── supabase-mcp  (:8766) — Supabase DB + auth
+├── cloudrun-mcp  (:8769) — GCP Cloud Run [UUSI]
+├── lwm-mcp       (:8770) — LWM-koulutus / GN100 [UUSI]
+└── claude-mcp    (:8771) — Claude-istuntosynkronointi [UUSI]
+```
+
+### Istunnon pysyvyys (Migraatio 033)
+
+Supabase-migraatio `033_mcp_session_sync.sql` lisää kaksi taulua:
+
+- **`mcp_sessions`** — Tallentaa agentin haaran, työkalun, tarkistuspisteen tunnisteen ja istuntotiivistelmän. Mahdollistaa tekoalyagenttien käynnistymisen uudelleen käynnistyksen tai konteksti-ikkunan käymisen jälkeen.
+- **`mcp_migration_queue`** — Seuraa migraation käyttöönottotilaa yksilöllisillä migraationumeroilla, mahdollistaen `claude-mcp`-palvelimen itsenäisen migraatiojonotuksen ja -varmistuksen.
+
+Molemmat taulut käyttävät rivitason suojausta (RLS) `service_role`-ainoihin käyttöönoikeuteen.
+
+### Merkitys opinnäytetyölle
+
+Tämä laajennus vastaa Hybridi AI-edge-arkkitehtuurin (osio 2) keskeiseen puutteeseen: ohjelmoitavan linkin puuttumiseen pilvi-orkestrointikerroksen ja NVIDIA GN100 -koulutuspalvelimen välillä. `lwm-mcp`-palvelin on ensimmäinen koneiden välinen silta:
+
+1. **DWS IQ 6 -pilvi** (Google Cloud Run, europe-north1)
+2. **NVIDIA GN100 -reunalaitteisto** (Helsingin datakeskus)
+
+Tämä mahdollistaa federoitujen hienoviritystyönkulkujen toteuttamisen — AI-agenttiputkista käynnistetyt koulutustyöt, joiden tarkistuspisteet tallennetaan GCS:iäin — tukien suoraan opinnäytetyön tavoitetta osoittaa, että tuotantotasoinen ilmasto-AI-alusta on saavutettavissa startup-tason resursseilla.
+
+### Käyttöönotto
+
+Kaikki kolme palvelinta noudattavat samaa Dockerfile-kaavaa: `python:3.11-slim`, terveyskäytävän tarkistus curlin kautta, `unless-stopped` uudelleenkäynnistyskäytäntö. `claude-mcp` lisäksi asentaa `git`-työkalun ja liittää repositorion `VOLUME ["/repo"]`-määrittämäksi hakemistoksi.
+
+---
+
 **Dokumentin tiedot:**
 
 **Otsikko:** Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
@@ -1457,9 +1506,9 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.7 yhdistetty kokonaisversio
-**Versio:** 3.7
-**Viimeisin päivitys:** 20.02.2026
+**Tila:** DRAFT - V3.10 yhdistetty kokonaisversio
+**Versio:** 3.10
+**Viimeisin päivitys:** 23.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -1478,6 +1527,7 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 5. DWS10.com-verkkokauppavalidointi — Google Merchant Center + Revolut Business
 6. HIL-oppimisputki — Päivittäinen ihminen-tekoäly-palautesilmukka
 7. Automatisoitu PR-tyonkulku — Kaksoismallin AI-katselmointi korvaa manuaalisen koodikatselmoinnin
+8. MCP-palvelinlaajennus — CloudRun/LWM/Claude-laivaston rakentaminen; Supabase-istuntosynkronointi; GN100 reuna-pilvisilta
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

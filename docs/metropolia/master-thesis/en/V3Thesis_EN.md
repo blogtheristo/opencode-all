@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.10
 
 Sessions & Modifications:
+  - Version: 3.10 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Added Appendix I — MCP Server Expansion (cloudrun-mcp 8769, lwm-mcp 8770, claude-mcp 8771), Supabase migration 033 mcp_sessions + mcp_migration_queue, MCP fleet architecture. Updated Key Contributions #8. Lab note: docs/field-notes/2026-02-23-mcp-server-expansion
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
   - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Added section 12 IPR Protection & Trade Secret Strategy, section 13 Prompt Caching Architecture for AI Agents, renumbered sections 12-15 → 14-17, added EU Trade Secrets Directive references
@@ -1457,6 +1458,60 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 
 ---
 
+## Appendix I: MCP Server Expansion — CloudRun, LWM, Claude
+
+### Background
+
+By February 2026, the MCP (Model Context Protocol) fleet had grown to cover the full DWS IQ 6 operational surface: cloud infrastructure, edge AI hardware, and coding agent session continuity. Three new servers were added in a single session, completing the coverage gap identified after the Automated PR Workflow (Appendix H) was deployed.
+
+### New Servers
+
+| Server | Port | Domain | Capability |
+|--------|------|--------|------------|
+| **cloudrun-mcp** | 8769 | GCP infrastructure | Deploy, log, describe Cloud Run services |
+| **lwm-mcp** | 8770 | Edge AI (NVIDIA GN100) | MLflow jobs, checkpoint management, GPU monitoring |
+| **claude-mcp** | 8771 | Claude Code agents | Session checkpoint to Supabase, git repo tools |
+
+### MCP Fleet Architecture
+
+```
+MCP Hub (port 8765, FastAPI)
+├── supabase-mcp  (:8766) — Supabase DB + auth
+├── cloudrun-mcp  (:8769) — GCP Cloud Run [NEW]
+├── lwm-mcp       (:8770) — LWM training / GN100 [NEW]
+└── claude-mcp    (:8771) — Claude session sync [NEW]
+```
+
+### Session Persistence (Migration 033)
+
+Supabase migration `033_mcp_session_sync.sql` adds two tables:
+
+- **`mcp_sessions`** — Stores agent branch, tool, checkpoint label, and session summary. Enables AI agents to resume after restart or context window exhaustion.
+- **`mcp_migration_queue`** — Tracks migration apply status with unique migration numbers, allowing the claude-mcp server to queue and verify Supabase migrations autonomously.
+
+Both tables use Row-Level Security with `service_role`-only access, consistent with the platform’s zero-trust internal API policy.
+
+### Relevance to Thesis
+
+This expansion addresses a key gap in the Hybrid AI-Edge Architecture (Section 2): the absence of a programmatic link between the cloud orchestration layer and the NVIDIA GN100 training server. The `lwm-mcp` server is the first machine-to-machine bridge between:
+
+1. **DWS IQ 6 cloud** (Google Cloud Run, europe-north1)
+2. **NVIDIA GN100 edge hardware** (Helsinki data center)
+
+This enables federated fine-tuning workflows — training jobs submitted from AI agent pipelines, with checkpoints persisted to GCS — directly supporting the thesis objective of demonstrating a production-quality climate AI platform achievable with startup-grade resources.
+
+The `claude-mcp` session sync also addresses EU AI Act Article 12 (automatic logging): agent decisions, tool invocations, and session transitions are now persisted to Supabase alongside the existing agent execution log (Table `agent_executions`).
+
+### Deployment
+
+All three servers follow the same Dockerfile pattern:
+- Base image: `python:3.11-slim`
+- Health check: `curl -f http://localhost:{port}/health`
+- Restart policy: `unless-stopped`
+- `claude-mcp` additionally installs `git` and mounts the repository as `VOLUME ["/repo"]`
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -1465,9 +1520,9 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.7 consolidated full version
-**Version:** 3.7
-**Last Modified:** 20.02.2026
+**Status:** DRAFT - V3.10 consolidated full version
+**Version:** 3.10
+**Last Modified:** 23.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -1486,6 +1541,7 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
 6. HIL Learning Pipeline — Daily human-AI feedback loop
 7. Automated PR Workflow — Dual-model AI review replacing manual code review
+8. MCP Server Expansion — CloudRun/LWM/Claude fleet; Supabase session sync; GN100 edge-cloud bridge
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
