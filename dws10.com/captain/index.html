@@ -753,12 +753,12 @@
                 </div>
 
                 <div class="hero-actions">
-                    <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="btn-hero-primary">
-                        <span>Claim Your Seat</span>
+                    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" class="btn-hero-primary" target="_blank" rel="noopener">
+                        <span>Book a Captain Briefing</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="#seats" class="btn-hero-secondary">
-                        <span>View Open Seats</span>
+                    <a href="/captain/deck/" class="btn-hero-secondary">
+                        <span>View Captain Deck</span>
                     </a>
                 </div>
 
@@ -1063,14 +1063,169 @@
         </div>
     </section>
 
-    <!-- ── CTA ── -->
-    <section class="cta-section">
-        <h3>Claim Your Industry</h3>
-        <p>8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
-        <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="cta-email">
-            Contact risto@lifetime.fi
-        </a>
+    <!-- ── CTA: Three paths to engage ── -->
+    <section class="cta-section" style="padding: 80px 24px;">
+        <h3 style="margin-bottom: 8px;">Next Steps</h3>
+        <p style="margin-bottom: 40px;">Three ways to move forward — pick the one that fits where you are.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto 48px;">
+            <!-- 1. Book a briefing -->
+            <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true"
+               target="_blank" rel="noopener"
+               style="background: white; color: #1d4ed8; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128197;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Book a Captain Briefing</div>
+                <div style="font-size: 0.9rem; color: #64748b; font-weight: 400;">30-min call with the CEO. Learn the seat structure, ask questions, see the Situation Room.</div>
+            </a>
+            <!-- 2. View the deck -->
+            <a href="/captain/deck/"
+               style="background: rgba(255,255,255,0.1); color: white; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128196;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Captain Deck &amp; Term Sheet</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">SAFE terms, seat benefits, financial projections, and the full term sheet — ready to review or forward.</div>
+            </a>
+            <!-- 3. Send inquiry -->
+            <a href="#captain-inquiry"
+               style="background: rgba(255,255,255,0.1); color: white; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#9993;&#65039;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Send a Seat Inquiry</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">Tell us which industry you're in and we'll send you the relevant deck section within 24 hours.</div>
+            </a>
+        </div>
     </section>
+
+    <!-- ── INQUIRY FORM ── -->
+    <section id="captain-inquiry" style="background: var(--bg-primary); padding: 80px 0;">
+        <div style="max-width: 640px; margin: 0 auto; padding: 0 24px;">
+            <div class="section-label" style="text-align: center;">Seat Inquiry</div>
+            <h2 class="section-title" style="text-align: center;">Which Industry Is Yours?</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1rem;">
+                We'll respond within 24 hours with the relevant industry brief, SAFE term sheet, and a calendar link.
+            </p>
+
+            <form id="captainForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Full Name</label>
+                    <input type="text" name="name" required placeholder="e.g. Anna Virtanen"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Email</label>
+                    <input type="email" name="email" required placeholder="anna@company.com"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Industry of Interest</label>
+                    <select name="industry" required
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="" disabled selected>Select your industry</option>
+                        <optgroup label="First Tranche (Open Now)">
+                            <option value="power-heat">Power &amp; Heat Generation</option>
+                            <option value="iron-steel">Iron &amp; Steel</option>
+                            <option value="cement-lime">Cement &amp; Lime</option>
+                            <option value="chemicals">Chemicals &amp; Petrochemicals</option>
+                            <option value="aviation">Aviation</option>
+                            <option value="maritime">Maritime Shipping</option>
+                            <option value="road-transport">Road Transport &amp; Logistics</option>
+                            <option value="construction">Construction &amp; Buildings (Filling)</option>
+                        </optgroup>
+                        <optgroup label="Second Tranche (Coming)">
+                            <option value="agriculture">Agriculture</option>
+                            <option value="waste">Waste Management</option>
+                            <option value="aluminium">Aluminium</option>
+                            <option value="pulp-paper">Pulp &amp; Paper</option>
+                            <option value="petroleum">Petroleum Refining</option>
+                            <option value="food-beverage">Food &amp; Beverage</option>
+                            <option value="glass-ceramics">Glass &amp; Ceramics</option>
+                            <option value="mining">Mining</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Seat Level</label>
+                    <div style="display: flex; gap: 12px;">
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat" value="platinum" checked style="display: none;">
+                            <span style="font-weight: 600; color: #d4a843;">Platinum &euro;50k</span>
+                        </label>
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat" value="deputy" style="display: none;">
+                            <span style="font-weight: 600; color: var(--text-accent);">Deputy &euro;25k</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Anything you'd like us to know? (optional)</label>
+                    <textarea name="message" rows="3" placeholder="Your background, specific questions, or timeline..."
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; resize: vertical; font-family: inherit; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+                </div>
+                <button type="submit" id="captainSubmitBtn"
+                    style="padding: 16px 32px; background: linear-gradient(135deg, #b8860b 0%, #d4a843 100%); color: #0f172a; font-size: 1.1rem; font-weight: 700; border: none; border-radius: var(--radius-full); cursor: pointer; box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3); transition: all 0.25s;">
+                    Submit Seat Inquiry
+                </button>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: -8px;">
+                    We'll respond within 24 hours. No spam, no mailing list.
+                </p>
+            </form>
+
+            <!-- Success state (hidden by default) -->
+            <div id="captainFormSuccess" style="display: none; text-align: center; padding: 48px 24px;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">&#9989;</div>
+                <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px;">Inquiry Received</h3>
+                <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7;">
+                    We'll send you the industry brief, SAFE term sheet, and a calendar link within 24 hours.<br>
+                    In the meantime, you can <a href="/captain/deck/" style="color: var(--text-accent); text-decoration: underline;">view the Captain Deck</a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // Captain inquiry form — sends to mailto as fallback, can be upgraded to API endpoint
+    document.getElementById('captainForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const name = data.get('name');
+        const email = data.get('email');
+        const industry = data.get('industry');
+        const seat = data.get('seat');
+        const message = data.get('message') || '(none)';
+
+        const subject = encodeURIComponent('Captain Seat Inquiry — ' + industry + ' (' + seat + ')');
+        const body = encodeURIComponent(
+            'Name: ' + name + '\n' +
+            'Email: ' + email + '\n' +
+            'Industry: ' + industry + '\n' +
+            'Seat Level: ' + seat + '\n' +
+            'Message: ' + message
+        );
+
+        // Open mailto with pre-filled data (works everywhere, no backend needed)
+        window.open('mailto:risto@lifetime.fi?subject=' + subject + '&body=' + body, '_self');
+
+        // Show success state
+        form.style.display = 'none';
+        document.getElementById('captainFormSuccess').style.display = 'block';
+    });
+
+    // Radio button visual toggle
+    document.querySelectorAll('input[name="seat"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('input[name="seat"]').forEach(function(r) {
+                r.closest('label').style.borderColor = 'rgba(255,255,255,0.1)';
+            });
+            this.closest('label').style.borderColor = this.value === 'platinum' ? '#d4a843' : '#60a5fa';
+        });
+        // Set initial state
+        if (radio.checked) {
+            radio.closest('label').style.borderColor = radio.value === 'platinum' ? '#d4a843' : '#60a5fa';
+        }
+    });
+    </script>
 
     <!-- ── Boilerplate ── -->
     <div class="boilerplate">
