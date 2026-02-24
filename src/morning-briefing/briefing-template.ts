@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, CaptainInquiriesData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -510,6 +510,78 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 }
 
 // ============================================================================
+// CAPTAIN INQUIRIES SECTION
+// ============================================================================
+
+const SEAT_COLORS: Record<string, string> = {
+  platinum: '#d4a843',
+  deputy: '#60a5fa',
+};
+
+function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const rows = data.inquiries
+    .map((inq) => {
+      const seatColor = SEAT_COLORS[inq.seat_level] || '#888';
+      const seatLabel = inq.seat_level.toUpperCase();
+      const time = new Date(inq.created_at).toLocaleString('en-GB', {
+        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        timeZone: 'Europe/Helsinki',
+      });
+      const msgLine = inq.message
+        ? `<div style="font-size: 11px; color: #666; margin-top: 2px; font-style: italic;">"${esc(inq.message.length > 120 ? inq.message.slice(0, 117) + '...' : inq.message)}"</div>`
+        : '';
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: ${seatColor}; font-size: 10px; font-weight: 600;">[${seatLabel}]</span>
+          <strong>${esc(inq.name)}</strong>
+          <span style="color: #555;"> — ${esc(inq.industry)}</span>
+        </div>
+        <div style="font-size: 11px; color: #888; margin-top: 2px;">
+          <a href="mailto:${esc(inq.email)}" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
+          &nbsp;|&nbsp; ${time}
+        </div>
+        ${msgLine}
+      </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+    </td></tr>`;
+}
+
+function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`CAPTAIN INQUIRIES (${data.newCount} new)`);
+
+  for (const inq of data.inquiries) {
+    const seat = inq.seat_level.toUpperCase();
+    const time = new Date(inq.created_at).toLocaleString('en-GB', {
+      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+      timeZone: 'Europe/Helsinki',
+    });
+    lines.push(`  [${seat}] ${inq.name} — ${inq.industry}`);
+    lines.push(`    Email: ${inq.email} | ${time}`);
+    if (inq.message) {
+      const msg = inq.message.length > 100 ? inq.message.slice(0, 97) + '...' : inq.message;
+      lines.push(`    "${msg}"`);
+    }
+  }
+
+  lines.push('  → Reply within 24h: industry brief + SAFE term sheet + calendar link');
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
 
@@ -536,6 +608,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     </tr>
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderCaptainInquiriesHtml(data.captainInquiries)}
     ${renderChanges(data)}
     ${renderBets(data.bets)}
     ${renderRisk(data)}
@@ -574,6 +647,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const outreachText = renderOutreachSummaryPlainText(data.outreachSummary);
   if (outreachText) {
     lines.push(outreachText);
+  }
+
+  // Captain Inquiries
+  const captainText = renderCaptainInquiriesPlainText(data.captainInquiries);
+  if (captainText) {
+    lines.push(captainText);
   }
 
   // 3 Changes

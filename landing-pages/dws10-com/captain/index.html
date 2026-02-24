@@ -1064,33 +1064,154 @@
         </div>
     </section>
 
-    <!-- ── INQUIRY FORM (Tally Embed) ── -->
+    <!-- ── INQUIRY FORM (Supabase Direct Insert) ── -->
     <section id="captain-inquiry" style="background: var(--bg-primary); padding: 80px 0;">
-        <div style="max-width: 700px; margin: 0 auto; padding: 0 24px;">
+        <div style="max-width: 640px; margin: 0 auto; padding: 0 24px;">
             <div class="section-label" style="text-align: center;">Seat Inquiry</div>
             <h2 class="section-title" style="text-align: center;">Which Industry Is Yours?</h2>
             <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1rem;">
                 We'll respond within 24 hours with the relevant industry brief, SAFE term sheet, and a calendar link.
             </p>
 
-            <!-- Tally inline embed — replace FORM_ID with your actual Tally form ID -->
-            <iframe data-tally-src="https://tally.so/embed/FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                loading="lazy"
-                width="100%"
-                height="500"
-                frameborder="0"
-                marginheight="0"
-                marginwidth="0"
-                title="Captain Seat Inquiry"
-                style="border-radius: var(--radius-lg); min-height: 500px;">
-            </iframe>
-            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}</script>
+            <form id="captainForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label for="ci-name" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Full Name</label>
+                    <input id="ci-name" type="text" name="name" required autocomplete="name" placeholder="e.g. Anna Virtanen"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label for="ci-email" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Email</label>
+                    <input id="ci-email" type="email" name="email" required autocomplete="email" placeholder="anna@company.com"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label for="ci-industry" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Industry of Interest</label>
+                    <select id="ci-industry" name="industry" required
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="" disabled selected>Select your industry</option>
+                        <optgroup label="First Tranche (Open Now)">
+                            <option value="Power &amp; Heat Generation">Power &amp; Heat Generation</option>
+                            <option value="Iron &amp; Steel">Iron &amp; Steel</option>
+                            <option value="Cement &amp; Lime">Cement &amp; Lime</option>
+                            <option value="Chemicals &amp; Petrochemicals">Chemicals &amp; Petrochemicals</option>
+                            <option value="Aviation">Aviation</option>
+                            <option value="Maritime Shipping">Maritime Shipping</option>
+                            <option value="Road Transport &amp; Logistics">Road Transport &amp; Logistics</option>
+                            <option value="Construction &amp; Buildings">Construction &amp; Buildings</option>
+                        </optgroup>
+                        <optgroup label="Second Tranche (Coming)">
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Waste Management">Waste Management</option>
+                            <option value="Aluminium">Aluminium</option>
+                            <option value="Pulp &amp; Paper">Pulp &amp; Paper</option>
+                            <option value="Petroleum Refining">Petroleum Refining</option>
+                            <option value="Food &amp; Beverage">Food &amp; Beverage</option>
+                            <option value="Glass &amp; Ceramics">Glass &amp; Ceramics</option>
+                            <option value="Mining">Mining</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Seat Level</label>
+                    <div style="display: flex; gap: 12px;" id="ci-seat-group">
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid #d4a843; border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat_level" value="platinum" checked style="display: none;">
+                            <span style="font-weight: 600; color: #d4a843;">Platinum &euro;50k</span>
+                        </label>
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat_level" value="deputy" style="display: none;">
+                            <span style="font-weight: 600; color: var(--text-accent);">Deputy &euro;25k</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label for="ci-message" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Anything you'd like us to know? (optional)</label>
+                    <textarea id="ci-message" name="message" rows="3" placeholder="Your background, specific questions, or timeline..."
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; resize: vertical; font-family: inherit; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+                </div>
+                <button type="submit" id="captainSubmitBtn"
+                    style="padding: 16px 32px; background: linear-gradient(135deg, #b8860b 0%, #d4a843 100%); color: #0f172a; font-size: 1.1rem; font-weight: 700; border: none; border-radius: var(--radius-full); cursor: pointer; box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3); transition: all 0.25s;">
+                    Submit Seat Inquiry
+                </button>
+                <p id="captainFormError" style="display: none; text-align: center; font-size: 0.9rem; color: #f87171; margin-top: -8px;"></p>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: -8px;">
+                    We'll respond within 24 hours. No spam, no mailing list.
+                </p>
+            </form>
 
-            <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: 16px;">
-                We'll respond within 24 hours. No spam, no mailing list.
-            </p>
+            <!-- Success state -->
+            <div id="captainFormSuccess" style="display: none; text-align: center; padding: 48px 24px;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">&#9989;</div>
+                <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px;">Inquiry Received</h3>
+                <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7;">
+                    We'll send you the industry brief, SAFE term sheet, and a calendar link within 24 hours.<br>
+                    In the meantime, you can <a href="/captain/deck/" style="color: var(--text-accent); text-decoration: underline;">view the Captain Deck</a>.
+                </p>
+            </div>
         </div>
     </section>
+
+    <script>
+    (function() {
+        var SUPABASE_URL = 'https://kpucuwwfhuwurdxyjjtz.supabase.co';
+        var SUPABASE_ANON_KEY = 'sb_publishable_mZtEHU2k4WolHxePGF6g3w_tdkMCWRh';
+
+        var form = document.getElementById('captainForm');
+        var btn = document.getElementById('captainSubmitBtn');
+        var errEl = document.getElementById('captainFormError');
+
+        // Radio button visual toggle
+        document.querySelectorAll('input[name="seat_level"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('input[name="seat_level"]').forEach(function(r) {
+                    r.closest('label').style.borderColor = 'rgba(255,255,255,0.1)';
+                });
+                this.closest('label').style.borderColor = this.value === 'platinum' ? '#d4a843' : '#60a5fa';
+            });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errEl.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            var data = new FormData(form);
+            var payload = {
+                name: data.get('name'),
+                email: data.get('email'),
+                industry: data.get('industry'),
+                seat_level: data.get('seat_level'),
+                message: data.get('message') || null
+            };
+
+            fetch(SUPABASE_URL + '/rest/v1/captain_inquiries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function(res) {
+                if (!res.ok) throw new Error('Submission failed (' + res.status + ')');
+                form.style.display = 'none';
+                document.getElementById('captainFormSuccess').style.display = 'block';
+            })
+            .catch(function(err) {
+                errEl.textContent = 'Something went wrong. Please try again or email risto@lifetime.fi directly.';
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Submit Seat Inquiry';
+            });
+        });
+    })();
+    </script>
 
     <!-- ── Boilerplate ── -->
     <div class="boilerplate">
