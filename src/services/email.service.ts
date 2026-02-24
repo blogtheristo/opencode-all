@@ -23,6 +23,7 @@ import {
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  captainPreBriefingTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -134,6 +135,25 @@ class EmailService {
       subject,
       html: notificationTemplate(subject, body),
       templateType: 'notification',
+    });
+  }
+
+  /**
+   * Send a pre-briefing email when a captain inquiry is booked.
+   * Includes deck link, term sheet, and what to prepare.
+   */
+  async sendCaptainPreBriefing(
+    to: string,
+    name: string,
+    industry: string,
+    seatLevel: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: `Your Captain Briefing Is Confirmed — ${industry}`,
+      html: captainPreBriefingTemplate(name, industry, seatLevel),
+      templateType: 'captain_pre_briefing',
+      metadata: { name, industry, seatLevel },
     });
   }
 
