@@ -881,6 +881,85 @@ By **August 2026**, the EU AI Act mandates that "High-Risk" AI systems must comp
 - Decision chains must be traceable from input to output
 - AI model outputs must include provenance metadata
 
+## Build for Agents (CRITICAL — 2026 Product Rule)
+
+**Every DWS product and service MUST be agent-accessible.** The primary consumers of your APIs, tools, and documentation are now AI agents (Claude Code, Cursor, Codex, custom pipelines) — not just humans clicking buttons.
+
+### The Agent-First Checklist
+
+Before shipping any product, feature, or service, verify all 5:
+
+| # | Requirement | How to Check | DWS Implementation |
+|---|-------------|-------------|-------------------|
+| 1 | **CLI exists** | Can an agent run your product from a terminal? | `cli/src/cli.ts` → `npx tsx cli/src/cli.ts <command>` |
+| 2 | **Output is JSON** | Can output be piped to `jq`, parsed by scripts? | All CLI output is structured JSON |
+| 3 | **MCP tools exposed** | Can Claude/Cursor discover and call your agents? | `/mcp` endpoint, `tools/list` returns all agents |
+| 4 | **Claude Code Skills exist** | Can a developer type `/compliance-check` and get results? | `.claude/commands/*.md` (6 skills) |
+| 5 | **Docs are markdown** | Can agents read your documentation without scraping HTML? | All standards are `.md` in repo root |
+
+### CLI-First Design
+
+```
+# Agents don't click buttons. They run commands.
+dws agents                              # List all agents
+dws run compliance --input '{"reg":"CSRD"}'  # Execute agent
+dws workflow compliance-assessment       # Run multi-agent workflow
+dws discover carbon                      # Find agents by capability
+dws events --pattern 'compliance.*'      # Monitor event bus
+
+# Pipeline composition (agent-to-agent via shell)
+dws run emissions-data-analyst --input '{"scope":1}' | \
+  dws run compliance --stdin | \
+  dws run viability --stdin
+```
+
+**Rule:** If a product can't be used via `dws <command>`, it's not shipped.
+
+### Claude Code Skills
+
+Skills in `.claude/commands/` let developers invoke DWS agents with natural language:
+
+| Skill | File | What it does |
+|-------|------|-------------|
+| `/compliance-check` | `compliance-check.md` | Run EU regulation compliance check |
+| `/agent-run` | `agent-run.md` | Execute any DWS agent by name |
+| `/workflow` | `workflow.md` | Trigger multi-agent workflow |
+| `/discover-agents` | `discover-agents.md` | Find agents by capability |
+| `/site-safety` | `site-safety.md` | SiteSense construction safety audit |
+| `/carbon-analysis` | `carbon-analysis.md` | Material Oracle carbon footprint analysis |
+
+**Rule:** Every new agent MUST have a corresponding Claude Code Skill.
+
+### MCP Integration
+
+The MCP server at `/mcp` exposes all agents as tools via JSON-RPC 2.0:
+
+```json
+{
+  "mcpServers": {
+    "dws-iq": {
+      "url": "https://your-cloud-run-url/mcp",
+      "headers": { "Authorization": "Bearer ${DWS_API_TOKEN}" }
+    }
+  }
+}
+```
+
+**Rule:** Every new agent is automatically discoverable via `tools/list`. No manual MCP registration needed.
+
+### Why This Matters
+
+> "In 2025, your users are humans. In 2026, your users are agents that serve humans.
+> If your product requires a browser, a GUI, or a human to click 'Submit' — you've
+> already lost half your addressable market."
+
+The DWS IQ platform serves **three consumer types**:
+1. **Humans** via dashboard UI (dws10.com)
+2. **Developer agents** via CLI + MCP + Skills (Claude Code, Cursor, Codex)
+3. **Automated pipelines** via REST API + event bus (CI/CD, cron, webhooks)
+
+All three must be first-class citizens. GUI-only features are incomplete features.
+
 ## Important Integrations
 
 ### ERP Systems
