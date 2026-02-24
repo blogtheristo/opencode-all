@@ -10,6 +10,8 @@
     <meta property="og:description" content="Become an Industry Captain — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://dws10.com/captain/">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <style>
         /* ── DWS Brand Standard Dark Theme Tokens ── */
         :root {
@@ -576,23 +578,7 @@
             margin-right: auto;
         }
 
-        .cta-email {
-            display: inline-block;
-            background: white;
-            color: #1d4ed8;
-            padding: 16px 40px;
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all var(--transition-base);
-        }
-
-        .cta-email:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
+        /* (cta-email removed — form now uses Tally embed) */
 
         /* Boilerplate */
         .boilerplate {
@@ -635,20 +621,7 @@
 
         .contact-info a:hover { text-decoration: underline; }
 
-        /* Footer */
-        footer {
-            background: var(--bg-nav);
-            color: var(--text-secondary);
-            padding: 32px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-nav);
-        }
-
-        footer a {
-            color: var(--text-accent);
-            text-decoration: none;
-        }
+        /* (footer CSS removed — ironclad-footer.js handles it) */
 
         /* Sovereignty badges */
         .sovereignty-badge {
@@ -711,7 +684,7 @@
 
 <body>
     <!-- Ironclad Nav (DWS Brand Standard) -->
-    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <!-- ── GAMMA HERO ── -->
     <section class="hero-ultra">
@@ -847,26 +820,23 @@
         </div>
     </section>
 
-    <!-- ── PRESS RELEASE BODY (dark) ── -->
+    <!-- ── THE CAPTAIN MODEL ── -->
     <section class="content-section" style="padding-top: 0;">
-        <div class="section-label">Press Release</div>
-        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px;">Helsinki, 15 February 2026</div>
+        <div class="section-label">The Captain Model</div>
 
-        <h2 class="section-title">Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55 Platform</h2>
+        <h2 class="section-title">Not a Generic Angel Round. A Seat at the Table.</h2>
 
         <div class="body-text">
             <p>
-                <strong>HELSINKI —</strong>
-                Lifetime Oy today announced the opening of Platinum Industry Captain seats for
-                <strong>DWS IQ 6</strong>, the industrial climate intelligence platform covering
-                ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+                <strong>DWS IQ 6</strong> covers ETS, CBAM, CSRD, EPBD, and 12 more EU mandates
+                across 16 regulated industries. We're not looking for passive capital — we're
+                recruiting <strong>founding crew members</strong> who know their vertical inside out.
             </p>
 
             <p>
-                The company is seeking operators who know their vertical inside out — not passive investors,
-                but founding crew members who will shape how the platform serves their industry.
-                Each Platinum Captain owns one of 16 EU industry verticals on the platform,
-                with status, visibility, and direct influence over the product roadmap.
+                Each Platinum Captain owns one of 16 EU industry verticals on the platform.
+                You get status, visibility, and direct influence over how the product serves
+                your industry. Capital plus domain knowledge — that's the deal.
             </p>
         </div>
 
@@ -1089,143 +1059,38 @@
                style="background: rgba(255,255,255,0.1); color: white; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s;">
                 <div style="font-size: 1.5rem; margin-bottom: 8px;">&#9993;&#65039;</div>
                 <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Send a Seat Inquiry</div>
-                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">Tell us which industry you're in and we'll send you the relevant deck section within 24 hours.</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">Quick form — pick your industry, tell us about yourself, and we'll send the relevant brief within 24 hours.</div>
             </a>
         </div>
     </section>
 
-    <!-- ── INQUIRY FORM ── -->
+    <!-- ── INQUIRY FORM (Tally Embed) ── -->
     <section id="captain-inquiry" style="background: var(--bg-primary); padding: 80px 0;">
-        <div style="max-width: 640px; margin: 0 auto; padding: 0 24px;">
+        <div style="max-width: 700px; margin: 0 auto; padding: 0 24px;">
             <div class="section-label" style="text-align: center;">Seat Inquiry</div>
             <h2 class="section-title" style="text-align: center;">Which Industry Is Yours?</h2>
             <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1rem;">
                 We'll respond within 24 hours with the relevant industry brief, SAFE term sheet, and a calendar link.
             </p>
 
-            <form id="captainForm" style="display: flex; flex-direction: column; gap: 20px;">
-                <div>
-                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Full Name</label>
-                    <input type="text" name="name" required placeholder="e.g. Anna Virtanen"
-                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
-                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Email</label>
-                    <input type="email" name="email" required placeholder="anna@company.com"
-                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
-                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Industry of Interest</label>
-                    <select name="industry" required
-                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; cursor: pointer;">
-                        <option value="" disabled selected>Select your industry</option>
-                        <optgroup label="First Tranche (Open Now)">
-                            <option value="power-heat">Power &amp; Heat Generation</option>
-                            <option value="iron-steel">Iron &amp; Steel</option>
-                            <option value="cement-lime">Cement &amp; Lime</option>
-                            <option value="chemicals">Chemicals &amp; Petrochemicals</option>
-                            <option value="aviation">Aviation</option>
-                            <option value="maritime">Maritime Shipping</option>
-                            <option value="road-transport">Road Transport &amp; Logistics</option>
-                            <option value="construction">Construction &amp; Buildings (Filling)</option>
-                        </optgroup>
-                        <optgroup label="Second Tranche (Coming)">
-                            <option value="agriculture">Agriculture</option>
-                            <option value="waste">Waste Management</option>
-                            <option value="aluminium">Aluminium</option>
-                            <option value="pulp-paper">Pulp &amp; Paper</option>
-                            <option value="petroleum">Petroleum Refining</option>
-                            <option value="food-beverage">Food &amp; Beverage</option>
-                            <option value="glass-ceramics">Glass &amp; Ceramics</option>
-                            <option value="mining">Mining</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Seat Level</label>
-                    <div style="display: flex; gap: 12px;">
-                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
-                            <input type="radio" name="seat" value="platinum" checked style="display: none;">
-                            <span style="font-weight: 600; color: #d4a843;">Platinum &euro;50k</span>
-                        </label>
-                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
-                            <input type="radio" name="seat" value="deputy" style="display: none;">
-                            <span style="font-weight: 600; color: var(--text-accent);">Deputy &euro;25k</span>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Anything you'd like us to know? (optional)</label>
-                    <textarea name="message" rows="3" placeholder="Your background, specific questions, or timeline..."
-                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; resize: vertical; font-family: inherit; transition: border 0.2s;"
-                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
-                </div>
-                <button type="submit" id="captainSubmitBtn"
-                    style="padding: 16px 32px; background: linear-gradient(135deg, #b8860b 0%, #d4a843 100%); color: #0f172a; font-size: 1.1rem; font-weight: 700; border: none; border-radius: var(--radius-full); cursor: pointer; box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3); transition: all 0.25s;">
-                    Submit Seat Inquiry
-                </button>
-                <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: -8px;">
-                    We'll respond within 24 hours. No spam, no mailing list.
-                </p>
-            </form>
+            <!-- Tally inline embed — replace FORM_ID with your actual Tally form ID -->
+            <iframe data-tally-src="https://tally.so/embed/FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy"
+                width="100%"
+                height="500"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                title="Captain Seat Inquiry"
+                style="border-radius: var(--radius-lg); min-height: 500px;">
+            </iframe>
+            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}</script>
 
-            <!-- Success state (hidden by default) -->
-            <div id="captainFormSuccess" style="display: none; text-align: center; padding: 48px 24px;">
-                <div style="font-size: 3rem; margin-bottom: 16px;">&#9989;</div>
-                <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px;">Inquiry Received</h3>
-                <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7;">
-                    We'll send you the industry brief, SAFE term sheet, and a calendar link within 24 hours.<br>
-                    In the meantime, you can <a href="/captain/deck/" style="color: var(--text-accent); text-decoration: underline;">view the Captain Deck</a>.
-                </p>
-            </div>
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: 16px;">
+                We'll respond within 24 hours. No spam, no mailing list.
+            </p>
         </div>
     </section>
-
-    <script>
-    // Captain inquiry form — sends to mailto as fallback, can be upgraded to API endpoint
-    document.getElementById('captainForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const name = data.get('name');
-        const email = data.get('email');
-        const industry = data.get('industry');
-        const seat = data.get('seat');
-        const message = data.get('message') || '(none)';
-
-        const subject = encodeURIComponent('Captain Seat Inquiry — ' + industry + ' (' + seat + ')');
-        const body = encodeURIComponent(
-            'Name: ' + name + '\n' +
-            'Email: ' + email + '\n' +
-            'Industry: ' + industry + '\n' +
-            'Seat Level: ' + seat + '\n' +
-            'Message: ' + message
-        );
-
-        // Open mailto with pre-filled data (works everywhere, no backend needed)
-        window.open('mailto:risto@lifetime.fi?subject=' + subject + '&body=' + body, '_self');
-
-        // Show success state
-        form.style.display = 'none';
-        document.getElementById('captainFormSuccess').style.display = 'block';
-    });
-
-    // Radio button visual toggle
-    document.querySelectorAll('input[name="seat"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            document.querySelectorAll('input[name="seat"]').forEach(function(r) {
-                r.closest('label').style.borderColor = 'rgba(255,255,255,0.1)';
-            });
-            this.closest('label').style.borderColor = this.value === 'platinum' ? '#d4a843' : '#60a5fa';
-        });
-        // Set initial state
-        if (radio.checked) {
-            radio.closest('label').style.borderColor = radio.value === 'platinum' ? '#d4a843' : '#60a5fa';
-        }
-    });
-    </script>
 
     <!-- ── Boilerplate ── -->
     <div class="boilerplate">
