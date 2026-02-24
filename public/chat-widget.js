@@ -19,16 +19,23 @@
 
   // Get or create session
   function getSession() {
-    let session = localStorage.getItem('dws_chat_session');
-    if (!session) {
-      session = JSON.stringify({
-        id: generateSessionId(),
-        messageCount: 0,
-        tier: 'public'
-      });
-      localStorage.setItem('dws_chat_session', session);
+    var raw = localStorage.getItem('dws_chat_session');
+    if (raw) {
+      try {
+        var parsed = JSON.parse(raw);
+        if (parsed && parsed.id) return parsed;
+      } catch (e) {
+        // SECURITY FIX: Handle corrupted localStorage data gracefully (CWE-502)
+        localStorage.removeItem('dws_chat_session');
+      }
     }
-    return JSON.parse(session);
+    var fresh = {
+      id: generateSessionId(),
+      messageCount: 0,
+      tier: 'public'
+    };
+    localStorage.setItem('dws_chat_session', JSON.stringify(fresh));
+    return fresh;
   }
 
   // Create styles
