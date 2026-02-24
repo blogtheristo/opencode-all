@@ -7,6 +7,25 @@
 **Dokumenttityyppi:** Pro Gradu -tutkielma
 
 ---
+# VERSION AND AGENT HISTORY
+
+Version: 1.4
+
+Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen
+
+Document Status:
+  - Created: 15.01.2026
+  - Last Modified: 24.02.2026
+  - Language: Finnish
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)
+
+---
 
 ## Tiivistelma
 
@@ -1046,6 +1065,32 @@ Jotta yritysasiakkaat voivat rakentaa yhteyksiä 24+ agentin välille, alusta ta
 7. Kaikki vuorovaikutukset kirjataan EU:n tekoälysäädöksen artikla 12 mukaisesti
 ```
 
+### 14.5 DWS7 agenttiarkkitehtuurin modernisointi
+
+DWS6:sta DWS7:ään siirtyminen korjaa kuusi kriittistä arkkitehtuurista puutetta, jotka havaittiin tuotantokäytön aikana. Toteutettu yhdessä Claude Code -sessiossa (24.02.2026), nämä korjaukset muuttavat agenttijärjestelmän 2023-aikakauden mallista tuotantotason agenttialustaksi.
+
+**Kuusi korjausta:**
+
+| # | Puute | Korjaus | Tiedosto |
+|---|-------|---------|----------|
+| 1 | Yksittäiskutsu-LLM | Havainnoi-ajattele-toimi -silmukka (`runLoop()`) | `base.agent.ts` |
+| 2 | Ei työkalujen käyttöä | Työkaluajoympäristö JSON Schemalla + 4 sisäänrak. työkalua | `tools.ts` |
+| 3 | Kovakoodattu Groq-kutsu | Monituottaja-asiakas (Anthropic > Groq > OpenAI) | `llm-client.ts` |
+| 4 | Ei agenttiviestintää | Delegointi + syvyysseuranta + löytämis-API | `index.ts` |
+| 5 | MCP oli tyhjä lupaus | JSON-RPC 2.0 -palvelin osoitteessa `/mcp` | `agent-server.ts` |
+| 6 | Vain Express | Tapahtumaväylä pub/sub + Redis Streams | `event-bus.ts` |
+
+**Build for Agents -periaate:** Jokaisen DWS-tuotteen tulee olla saavutettavissa:
+- **CLI** (`cli/src/cli.ts`) — JSON-tuloste, putkitettava, nollariippuvuudet
+- **MCP** (`/mcp`-päätepiste) — Claude Code / Cursor löytää automaattisesti
+- **Claude Code Skills** (`.claude/commands/`) — luonnollisen kielen agentin kutsuminen
+- **REST API** (`/api/agents/`) — perinteinen HTTP-integraatio
+- **Tapahtumaväylä** — reaaliaikainen agenttikoordinaatio SSE:n kautta
+
+**EU:n tekoälysäädöksen artikla 12:** Agenttisilmukka-arkkitehtuuri täyttää luontaisesti automaattisen kirjausvaatimuksen. Jokainen iteraatio tallentaa havainnon, ajattelun, toiminnot ja tulokset `agent_loop_iterations` Supabase-tauluun — luoden täydellisen päättelyketjun syötteestä tulosteeseen.
+
+**Vaikutus Firehorse-toimintamalliin:** CLI ja Skills -kerros tarkoittaa, että Firehorse-kaupan hallinta voidaan nyt automatisoida tekoälyagenteilla päästä päähän: vaatimustenmukaisuustarkistukset `/compliance-check`-komennolla, hiilianalyysi `/carbon-analysis`-komennolla ja moniagentin työnkulut `/workflow`-komennolla — kaikki ilman ihmisen GUI-vuorovaikutusta.
+
 ---
 
 ## 15. Tulokset ja pohdinta
@@ -1270,5 +1315,5 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 1.1*
+*Viimeksi paivitetty: 24.02.2026*
+*Versio: 1.4*

@@ -835,7 +835,148 @@ Sandbox isolation integrates with the existing governance engine (`src/agents/ba
 
 ---
 
-## 16. References
+## 16. Agent Event-Driven Architecture Security
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent modernization introduces an event-driven architecture where agents emit events, subscribe to patterns, and trigger workflows. This creates new attack surfaces that must be controlled.
+
+### 16.1 Event Bus Security Model
+
+| Concern | Control | Implementation |
+|---------|---------|----------------|
+| Event injection | Only authenticated agents emit events | `eventBus.emit()` requires `AgentContext` with valid `orgId` |
+| Event interception | In-process bus (no network exposure) | `src/agents/event-bus.ts` — singleton, no external listener |
+| Event persistence | Redis Streams with auth token | Upstash REST API with `UPSTASH_REDIS_REST_TOKEN` |
+| Event flooding | Rate limiting per agent per org | Governance engine `rate-limit` policy applies to event-emitting agents |
+| Cross-tenant leakage | Events keyed by `orgId` | Redis stream key: `dws:events:{orgId}` — tenant isolation |
+
+**Event Schema (mandatory fields):**
+```typescript
+{
+  type: string;       // Dot-notation: "compliance.gap_detected"
+  source: string;     // "agent:{agentName}" — provenance tracking
+  payload: object;    // Must NOT contain PII or secrets
+  priority: string;   // low | normal | high | critical
+  orgId: string;      // Tenant isolation key
+  sessionId: string;  // Trace correlation
+  timestamp: string;  // ISO 8601 — Article 12 audit trail
+}
+```
+
+**Payload restrictions:**
+- **NEVER** include API keys, tokens, or credentials in event payloads
+- **NEVER** include customer PII (names, emails, addresses) — use opaque IDs
+- Events with `priority: "critical"` are logged to Supabase `governance_audit` table
+- All events retained for Article 12 compliance (minimum 5 years per EU AI Act)
+
+### 16.2 Agent Delegation Security
+
+Agents can delegate to other agents mid-execution via the `delegate_to_agent` tool. This creates a delegation chain that must be bounded:
+
+| Control | Value | Rationale |
+|---------|-------|-----------|
+| Max delegation depth | 5 | Prevents infinite loops (A→B→A→B...) |
+| Depth tracking | Per session per agent | `activeDelegations` map in AgentRegistry |
+| Cross-tenant delegation | Blocked | Delegated agent inherits caller's `AgentContext.orgId` |
+| Governance inheritance | Yes | Delegated agent runs under same governance policies as caller |
+| Execution logging | Both agents | Caller logs delegation start; delegatee logs full execution |
+
+**Delegation depth exceeded response:**
+```json
+{
+  "agentName": "compliance",
+  "confidence": 0,
+  "reasoning": "Delegation depth limit (5) reached",
+  "result": { "error": "Delegation depth limit reached" }
+}
+```
+
+### 16.3 Workflow Execution Security
+
+Multi-agent workflows (`src/agents/workflows.ts`) chain agent executions:
+
+- **Timeout enforcement:** Every workflow has `timeoutMs` (default: 5 minutes, max: 10 minutes)
+- **Step isolation:** Each step runs with the caller's `AgentContext` — no privilege escalation
+- **Parallel step blast radius:** If one parallel agent fails, others complete; failure is reported per-step
+- **Workflow registry:** Only predefined workflows in `WORKFLOW_REGISTRY` can execute — no arbitrary chaining via API
+- **Audit trail:** Workflow start/complete/fail events emitted to event bus with full step results
+
+### 16.4 Tool Execution Security (SSRF Protection)
+
+The `fetch_external` tool allows agents to call external APIs. SSRF is prevented by:
+
+| Layer | Control |
+|-------|---------|
+| **Static allowlist** | Hardcoded in `src/agents/tools.ts`: `carbonintensity.org.uk`, `ec.europa.eu`, `data.europa.eu`, etc. |
+| **Tenant allowlist** | `context.sandbox.allowedDomains` from sandbox configuration |
+| **Protocol enforcement** | Only HTTPS — HTTP requests rejected |
+| **URL validation** | `new URL()` parsing before any fetch — prevents SSRF via malformed URLs |
+| **Response truncation** | Responses capped at 10,000 characters — prevents memory exhaustion |
+
+**Adding domains to the allowlist:**
+1. Submit PR to `src/agents/tools.ts` modifying `FETCH_ALLOWLIST`
+2. Security review required (label: `security-review`)
+3. Domain must serve public data (no auth-gated endpoints via agent tool)
+
+---
+
+## 17. MCP Tool Approval & Versioning
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The MCP Agent Server (`/mcp` endpoint) exposes all registered agents as callable tools. External ADEs (Claude Code, Cursor, Codex) can invoke agents via MCP protocol.
+
+### 17.1 MCP Tool Security Model
+
+| Concern | Control |
+|---------|---------|
+| Unauthorized access | JWT auth on Express routes; MCP requests extract `userId`/`orgId` from JWT |
+| Tool injection | Tool list generated from `agentRegistry.listAgents()` — no dynamic tool registration via MCP |
+| Tool impersonation | Tool names prefixed with `dws_` — collision with external tools prevented |
+| Rate limiting | Express rate limiter: 30 requests/minute per IP on agent endpoints |
+| Data exfiltration | Agent responses filtered through `AgentResponse` type — no raw database access |
+
+### 17.2 MCP Tool Inventory
+
+All tools exposed via MCP `tools/list`:
+
+| Tool Name | Type | Risk Level | Auth Required |
+|-----------|------|------------|---------------|
+| `dws_list_agents` | Meta | Low | JWT |
+| `dws_discover` | Meta | Low | JWT |
+| `dws_workflow` | Meta | Medium | JWT + workflow must exist in registry |
+| `dws_events` | Meta | Low | JWT |
+| `dws_compliance` | Agent | Medium | JWT + governance policies |
+| `dws_sitesense` | Agent | Low | JWT |
+| `dws_material_oracle` | Agent | Low | JWT |
+| `dws_schedule_genius` | Agent | Low | JWT |
+| `dws_viability` | Agent | Low | JWT |
+| `dws_customer_sat` | Agent | Low | JWT |
+| `dws_emissions_data_analyst` | Agent | Medium | JWT |
+| `dws_compliance_researcher` | Agent | Medium | JWT |
+| `dws_sales_outreach` | Agent | Medium (Tier 2) | JWT + approval gate |
+| `dws_construction` | Agent | Medium (Tier 2) | JWT + governance |
+| `dws_logistics` | Agent | Medium (Tier 2) | JWT + governance |
+| `dws_deepwiki_extractor` | Agent | Low (Tier 1) | JWT |
+| `dws_quality_gate` | Agent | Low | JWT |
+| `dws_keyword_intent` | Agent | Low | JWT |
+| `dws_competitor_surveillance` | Agent | Low | JWT |
+| `dws_content_brief` | Agent | Low | JWT |
+| `dws_seo_audit` | Agent | Low | JWT |
+| `dws_lead_feedback` | Agent | Low | JWT |
+
+### 17.3 MCP Tool Versioning
+
+- **Protocol version:** `2024-11-05` (returned in `initialize` response)
+- **Server version:** `7.0.0` (returned in `initialize` and `/mcp/health`)
+- **Tool versioning:** Tools inherit agent version; breaking changes require new agent name
+- **Deprecation policy:** Deprecated tools remain available for 90 days with warning in description
+- **Breaking change notification:** `tools/list_changed` capability enabled — clients notified on tool updates
+
+---
+
+## 18. References
 
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
@@ -863,7 +1004,7 @@ Sandbox isolation integrates with the existing governance engine (`src/agents/ba
 
 ---
 
-**Document Version:** 1.2
+**Document Version:** 1.3
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

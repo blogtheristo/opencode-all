@@ -1,13 +1,12 @@
 /**
- * Agent Registry - Central registration and discovery for all DWS IQ 6 agents
+ * Agent Registry — DWS IQ 6/7 Central Registration & Orchestration
  *
- * Provides:
- * - getAgent(name) - retrieve a specific agent instance
- * - listAgents()   - list all registered agent configs
- * - executeAgent() - execute an agent by name with context and input
- *
- * All eleven production agents are registered on module load.
- * All production agents (7 core + 5 SEO pipeline) are registered on module load.
+ * DWS7 Modernization:
+ *   Fix #4: Agent-to-agent communication via executeAgent + event bus
+ *   - Agents can delegate to each other mid-execution via delegate_to_agent tool
+ *   - Event bus integration for async agent coordination
+ *   - Discovery API for A2A protocol compatibility
+ *   - Built-in tool handler registration on startup
  */
 
 import logger from '../utils/logger.js';
@@ -30,13 +29,20 @@ import { CompetitorSurveillanceAgent } from './seo/competitor-surveillance.agent
 import { ContentBriefAgent } from './seo/content-brief.agent.js';
 import { SeoAuditAgent } from './seo/seo-audit.agent.js';
 import { LeadFeedbackAgent } from './seo/lead-feedback.agent.js';
+import { registerBuiltinTools } from './tools.js';
+import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
   private agents: Map<string, BaseAgent> = new Map();
 
+  /** Track active delegations to prevent infinite loops */
+  private activeDelegations: Map<string, number> = new Map();
+  private static MAX_DELEGATION_DEPTH = 5;
+
   constructor() {
     this.registerDefaults();
+    this.initializeRuntime();
   }
 
   /** Register a new agent (idempotent - overwrites if name already exists) */
@@ -57,8 +63,18 @@ export class AgentRegistry {
   }
 
   /**
-   * Execute an agent by name.
-   * Throws if agent is not found.
+   * Discover agents by capability tag.
+   * DWS7: Enables A2A-style discovery — agents can find each other by what they can do.
+   */
+  discoverAgents(capability: string): AgentConfig[] {
+    return this.listAgents().filter((a) =>
+      a.capabilities.some((c) => c.includes(capability)),
+    );
+  }
+
+  /**
+   * Execute an agent by name with delegation depth tracking.
+   * DWS7: Prevents infinite delegation loops (A calls B calls A calls B...).
    */
   async executeAgent(
     name: string,
@@ -71,13 +87,64 @@ export class AgentRegistry {
       throw new Error(`Agent "${name}" not found. Available agents: ${available}`);
     }
 
+    // Track delegation depth to prevent infinite loops
+    const delegationKey = `${context.sessionId}:${name}`;
+    const currentDepth = this.activeDelegations.get(delegationKey) || 0;
+
+    if (currentDepth >= AgentRegistry.MAX_DELEGATION_DEPTH) {
+      logger.warn('Agent delegation depth limit reached', {
+        agent: name,
+        depth: currentDepth,
+        sessionId: context.sessionId,
+      });
+      return {
+        agentName: name,
+        result: { error: 'Delegation depth limit reached', maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH },
+        confidence: 0,
+        reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
+        recommendations: ['Reduce delegation chain length or restructure agent workflow'],
+        metadata: { delegationDepth: currentDepth },
+      };
+    }
+
+    // Increment depth
+    this.activeDelegations.set(delegationKey, currentDepth + 1);
+
     logger.info('Executing agent via registry', {
       agent: name,
       projectId: context.projectId,
       userId: context.userId,
+      delegationDepth: currentDepth,
     });
 
-    return agent.execute(context, input);
+    try {
+      const result = await agent.execute(context, input);
+
+      // Emit completion event
+      await eventBus.emit({
+        type: 'agent.execution_complete',
+        source: `agent:${name}`,
+        payload: {
+          agentName: name,
+          confidence: result.confidence,
+          durationMs: result.metadata?.durationMs,
+        },
+        priority: 'normal',
+        timestamp: new Date().toISOString(),
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+      });
+
+      return result;
+    } finally {
+      // Decrement depth (or remove if back to 0)
+      const newDepth = (this.activeDelegations.get(delegationKey) || 1) - 1;
+      if (newDepth <= 0) {
+        this.activeDelegations.delete(delegationKey);
+      } else {
+        this.activeDelegations.set(delegationKey, newDepth);
+      }
+    }
   }
 
   /** Register all built-in agents */
@@ -99,6 +166,12 @@ export class AgentRegistry {
     this.register(new ConstructionAgent());
     this.register(new LogisticsAgent());
 
+    // Compliance agent
+    this.register(new ComplianceAgent());
+
+    // Quality gate agent
+    this.register(new QualityGateAgent());
+
     // SEO Sales Agent Pipeline (5 agents)
     this.register(new KeywordIntentAgent());
     this.register(new CompetitorSurveillanceAgent());
@@ -111,6 +184,19 @@ export class AgentRegistry {
       agents: Array.from(this.agents.keys()),
     });
   }
+
+  /** Initialize the DWS7 agent runtime (tools, event bus) */
+  private initializeRuntime(): void {
+    // Register built-in tool handlers (delegate_to_agent, query_database, etc.)
+    registerBuiltinTools();
+
+    // Register default event handlers
+    registerDefaultEventHandlers();
+
+    logger.info('DWS7 agent runtime initialized', {
+      features: ['tool-use', 'agentic-loop', 'agent-delegation', 'event-bus'],
+    });
+  }
 }
 
 /** Singleton registry instance */
@@ -118,7 +204,13 @@ export const agentRegistry = new AgentRegistry();
 
 // Re-export types for convenience
 export type { AgentConfig, AgentContext, AgentResponse, SandboxContext } from './types.js';
+export type { ToolDefinition, ToolCall, ToolResult, LLMMessage, LLMResponse } from './types.js';
 export { BaseAgent } from './base.agent.js';
+
+// Re-export DWS7 modules
+export { eventBus } from './event-bus.js';
+export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
+export { createLLMClient, LLMClient } from './llm-client.js';
 
 // Re-export sandbox isolation module
 export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';

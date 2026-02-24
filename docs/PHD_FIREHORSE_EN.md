@@ -7,6 +7,25 @@
 **Document Type:** Master Thesis Documentation
 
 ---
+# VERSION AND AGENT HISTORY
+
+Version: 1.4
+
+Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
+
+Document Status:
+  - Created: 15.01.2026
+  - Last Modified: 24.02.2026
+  - Language: English
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V1.4 — DWS7 agent modernization)
+
+---
 
 ## Abstract
 
@@ -1048,6 +1067,32 @@ To enable enterprise customers to build connections between 24+ agents, the plat
 7. All interactions logged per EU AI Act Article 12
 ```
 
+### 14.5 DWS7 Agent Architecture Modernization
+
+The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered during production deployment. Implemented in a single Claude Code session (24.02.2026), these fixes transform the agent system from a 2023-era pattern to a production-grade agentic platform.
+
+**The six fixes:**
+
+| # | Gap | Fix | Key File |
+|---|-----|-----|----------|
+| 1 | Single-shot LLM calls | Observe-think-act loop (`runLoop()`) | `base.agent.ts` |
+| 2 | No tool use | Tool runtime with JSON Schema + 4 built-in tools | `tools.ts` |
+| 3 | Hardcoded Groq fetch | Multi-provider client (Anthropic > Groq > OpenAI) | `llm-client.ts` |
+| 4 | No agent communication | Delegation + depth tracking + discovery API | `index.ts` |
+| 5 | MCP was vapor | JSON-RPC 2.0 server at `/mcp` | `agent-server.ts` |
+| 6 | Express-only | Event bus with pub/sub + Redis Streams | `event-bus.ts` |
+
+**Build for Agents principle:** Every DWS product must be accessible via:
+- **CLI** (`cli/src/cli.ts`) — JSON output, pipeable, zero dependencies
+- **MCP** (`/mcp` endpoint) — auto-discovered by Claude Code, Cursor
+- **Claude Code Skills** (`.claude/commands/`) — natural language agent invocation
+- **REST API** (`/api/agents/`) — traditional HTTP integration
+- **Event bus** — real-time agent coordination via SSE
+
+**EU AI Act Article 12 compliance:** The agentic loop architecture inherently satisfies automatic logging requirements. Each iteration records observation, thought, actions, and results to the `agent_loop_iterations` Supabase table — creating complete reasoning lineage from input to output.
+
+**Impact on Firehorse operating model:** The CLI and Skills layer means the Firehorse store management workflow can now be automated by AI agents end-to-end: compliance checks via `/compliance-check`, carbon analysis via `/carbon-analysis`, and multi-agent workflows via `/workflow` — all without human GUI interaction.
+
 ---
 
 ## 15. Results and Discussion
@@ -1272,5 +1317,5 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 1.1*
+*Last updated: 24.02.2026*
+*Version: 1.4*

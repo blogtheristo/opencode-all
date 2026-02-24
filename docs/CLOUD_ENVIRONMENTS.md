@@ -699,7 +699,112 @@ gcloud builds submit --config=mcp-servers/cloud-run-gateway/cloudbuild.yaml .
 
 ---
 
-## 13. References
+## 13. MCP Agent Server (DWS7 — In-Process)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+While Section 12 covers the **Cloud Run MCP Gateway** (HTTP bridge for mobile Claude Code), this section documents the **in-process MCP Agent Server** that exposes all 18 DWS IQ agents as MCP tools directly from the Express backend.
+
+### 13.1 Architecture
+
+```
+External ADE (Claude Code, Cursor, Codex)
+  ↓ JSON-RPC over HTTP
+Express Backend (/mcp endpoint)
+  ↓
+MCP Agent Server (src/mcp/agent-server.ts)
+  ├─ tools/list → 22+ tools (18 agents + 4 meta-tools)
+  ├─ tools/call → AgentRegistry.executeAgent()
+  └─ SSE stream → EventBus subscription
+```
+
+**Key difference from Section 12:** The Cloud Run Gateway (Section 12) is a standalone Python service for mobile/web sessions. This MCP server runs inside the Express backend and has direct access to all agents, the event bus, and Supabase.
+
+### 13.2 Endpoints
+
+| Endpoint | Method | Purpose | Auth |
+|----------|--------|---------|------|
+| `/mcp` | POST | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call` | JWT |
+| `/mcp/sse` | GET | Server-Sent Events — real-time agent events | JWT |
+| `/mcp/health` | GET | Health check with agent count and protocol version | None |
+
+### 13.3 Available Meta-Tools
+
+| Tool | Description |
+|------|-------------|
+| `dws_list_agents` | List all registered agents with capabilities and models |
+| `dws_discover` | Find agents by capability tag (A2A-style discovery) |
+| `dws_workflow` | Trigger a predefined multi-agent workflow |
+| `dws_events` | Get recent events from the event bus |
+
+### 13.4 Agent Endpoint Security
+
+| Control | Implementation |
+|---------|----------------|
+| Authentication | JWT extracted from Authorization header |
+| Rate limiting | 30 requests/minute per IP (Express middleware) |
+| Tool allowlist | Only agents in registry exposed — no dynamic registration |
+| SSRF protection | `fetch_external` tool validates against domain allowlist |
+| Input validation | JSON-RPC format enforced |
+| Delegation limits | Max depth 5 per session |
+| Governance | All agent executions pass through governance policy engine |
+
+### 13.5 Event Streaming Architecture
+
+The `/mcp/sse` endpoint provides real-time agent activity via Server-Sent Events:
+
+```
+Client connects → EventBus.subscribe("*") → Events streamed as SSE data frames
+Client disconnects → Subscription auto-removed → No resource leak
+```
+
+**Event types emitted by the agent runtime:**
+
+| Event Type | Trigger | Payload |
+|-----------|---------|---------|
+| `agent.execution_complete` | Any agent finishes | `{ agentName, confidence, durationMs }` |
+| `compliance.gap_detected` | Compliance agent finds gap | `{ regulation, gap, severity }` |
+| `workflow.{name}.started` | Workflow begins | `{ workflowName, input }` |
+| `workflow.{name}.completed` | Workflow finishes | `{ workflowName, stepResults }` |
+| `workflow.{name}.failed` | Workflow errors | `{ workflowName, error }` |
+
+**Persistence:** Events are stored in-memory (last 1,000) and optionally persisted to Redis Streams at `dws:events:{orgId}`.
+
+### 13.6 Deployment
+
+The MCP Agent Server deploys as part of the Express backend — no separate service needed:
+
+| Environment | Endpoint | Notes |
+|-------------|----------|-------|
+| Local dev | `http://localhost:8080/mcp` | Full access |
+| Cloud Run (EU) | `https://dws-iq-backend-*.run.app/mcp` | JWT required |
+| Cloudflare Workers | Not available | Workers run frontend only |
+
+**Claude Code configuration:**
+```json
+{
+  "mcpServers": {
+    "dws-agents": {
+      "type": "url",
+      "url": "https://dws-iq-backend-XXXXX-ew.a.run.app/mcp"
+    }
+  }
+}
+```
+
+### 13.7 Available Workflows
+
+| Workflow | Steps | Agents | Timeout |
+|----------|-------|--------|---------|
+| `compliance-assessment` | 4 | emissions-data-analyst → compliance → viability → notify | 5 min |
+| `construction-full` | 4 | [sitesense, material-oracle, schedule-genius] → construction → notify | 5 min |
+| `seo-pipeline` | 3 | keyword-intent → competitor-surveillance → content-brief | 10 min |
+
+Workflows execute in-process via `src/agents/workflows.ts`. When Temporal.io is wired (DWS7 Phase 4), these definitions export directly to Temporal workflow activities.
+
+---
+
+## 14. References
 
 - **DWS7 Roadmap:** `DWS7_ROADMAP.md` — 247-PR production roadmap
 - **DWS7 NVIDIA/Siemens:** `dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.md` — Partnership strategy
@@ -713,8 +818,8 @@ gcloud builds submit --config=mcp-servers/cloud-run-gateway/cloudbuild.yaml .
 ---
 
 **Document Owner:** Platform Architecture
-**Last Updated:** 2026-02-23
-**Session:** claude/mcp-google-cloud-run-BuSpY
+**Last Updated:** 2026-02-24
+**Session:** claude/modernize-dws7-77v2B
 
 ---
 
