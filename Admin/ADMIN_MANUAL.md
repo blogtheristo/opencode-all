@@ -723,19 +723,28 @@ app.use(cors({
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Billing enabled on `admin@dws6.com`
 
-### Project: dws6run
+### Project: dws6run6
 
 | Property | Value |
 |----------|-------|
-| **Project ID** | `dws6run` |
+| **Project ID** | `dws6run6` |
 | **Project Number** | `446442351781` |
 | **Region** | `europe-north1` (Finland) |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
 | **Admin Account** | `admin@dws6.com` |
+
+### Gemini for Google Cloud API
+
+| Property | Value |
+|----------|-------|
+| **Status** | ❌ **DISABLED** (17.02.2026) |
+| **Reason** | €62/month not needed — using free Gemini Code Assist in VS Code instead |
+| **Decision** | Use free Gemini Code Assist for individuals (VS Code extension, no GCP project required) |
+| **Re-enable if** | Enterprise features needed (Cloud Assist, BigQuery, Security, Looker) |
 
 ### Service Account Permissions
 
@@ -747,10 +756,10 @@ Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requ
 
 ```powershell
 # Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --project=dws6run6
 
 # Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run6 --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
 ```
 
 ---

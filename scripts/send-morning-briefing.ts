@@ -87,15 +87,52 @@ async function main(): Promise<void> {
     }),
   });
 
-  if (response.ok) {
-    const result = await response.json();
-    console.log(`Sent via Resend. ID: ${(result as any).id}`);
-    return;
+    if (response.ok) {
+      const result = await response.json();
+      console.log(`Sent via Resend. ID: ${(result as any).id}`);
+      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
+      return;
+    }
+
+    const errorBody = await response.text();
+    console.warn(`Resend failed (${response.status}): ${errorBody}`);
+
+    if (!sendgridKey) {
+      console.error('No fallback provider. Exiting.');
+      process.exit(1);
+    }
+    console.log('Falling back to SendGrid...');
   }
 
-  const errorBody = await response.text();
-  console.error(`Resend failed (${response.status}): ${errorBody}`);
-  process.exit(1);
+  // Fallback to SendGrid
+  if (sendgridKey) {
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sendgridKey}`,
+      },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email: recipient }] }],
+        from: { email: fromAddress },
+        subject,
+        content: [
+          { type: 'text/plain', value: text },
+          { type: 'text/html', value: html },
+        ],
+      }),
+    });
+
+    if (response.ok || response.status === 202) {
+      console.log('Sent via SendGrid.');
+      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
+      return;
+    }
+
+    const errorBody = await response.text();
+    console.error(`SendGrid failed (${response.status}): ${errorBody}`);
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
