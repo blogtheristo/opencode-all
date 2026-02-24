@@ -8,11 +8,11 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18 AI agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 16 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
+        "18 AI agents with MCP protocol and CLI access",
         "Automate Fit for 55, CSRD & EPBD reporting",
-        "90% reduction in manual compliance hours",
-        "EU-hosted, deploy in 30 days"
+        "90% reduction in manual compliance hours"
       ],
       "priceNote": "One-time deployment + €499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
