@@ -3,19 +3,21 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/mcp-google-cloud-run-BuSpY | Date: 23.02.2026 | Changes: Added MCP Gateway on Cloud Run section (Section 12) — Streamable HTTP for mobile Claude Code, secret provisioning script
   - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
 
 Session Links & References:
+  - Claude Code (claude/mcp-google-cloud-run-BuSpY): https://github.com/blogtheristo/dws6/commits/claude/mcp-google-cloud-run-BuSpY
   - Claude Code (claude/zealous-mcclintock): https://github.com/blogtheristo/dws6/commits/claude/zealous-mcclintock
   - Claude Code (claude/document-cloud-environments-EK7iZ): https://github.com/blogtheristo/dws6/commits/claude/document-cloud-environments-EK7iZ
 
 Document Status:
   - Created: 16.02.2026
-  - Last Modified: 20.02.2026
+  - Last Modified: 23.02.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -166,6 +168,7 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 - Express.js backend on Cloud Run (europe-north1)
 - AI agent services (Lead Scout, Outreach, Discovery, Meeting, Proposal, Customer Success)
 - MCP Hub orchestration
+- **MCP Gateway on Cloud Run** — Streamable HTTP transport for mobile Claude Code sessions (Supabase + GitHub tools)
 - Supabase PostgreSQL + pgvector
 - Temporal.io workflow engine (development)
 - LLM training infrastructure (on-demand GPU bursting)
@@ -608,7 +611,95 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ---
 
-## 12. References
+## 12. MCP Gateway on Cloud Run (Mobile Claude Code)
+
+### 12.1 Problem
+
+Claude Code on mobile (web sessions) cannot spawn local MCP server processes via stdio transport. MCP tools (Supabase, GitHub) are unavailable in mobile sessions.
+
+### 12.2 Solution
+
+A lightweight MCP Gateway runs on Cloud Run (europe-north1) exposing MCP tools over **Streamable HTTP** transport. Any Claude Code session — mobile or desktop — can connect to it via URL.
+
+```
+┌─────────────────────┐         ┌──────────────────────────────┐
+│  Claude Code Mobile  │──HTTP──▶│  MCP Gateway (Cloud Run)     │
+│  (web session)       │         │  europe-north1               │
+└─────────────────────┘         │                              │
+                                │  Tools: Supabase, GitHub     │
+┌─────────────────────┐         │  Secrets: GCP Secret Manager │
+│  Claude Code Desktop │──HTTP──▶│  Transport: Streamable HTTP  │
+│  (also works)        │         │  Auth: Bearer token          │
+└─────────────────────┘         └──────────────────────────────┘
+```
+
+### 12.3 Cloud Run Service
+
+| Property | Value |
+|----------|-------|
+| Service name | `mcp-gateway` |
+| Region | europe-north1 |
+| Image | `europe-north1-docker.pkg.dev/PROJECT_ID/dws-iq/mcp-gateway` |
+| Service account | `mcp-gateway@PROJECT_ID.iam.gserviceaccount.com` |
+| Min instances | 0 (scale to zero) |
+| Max instances | 3 |
+| Memory | 512 Mi |
+| Auth | Bearer token (no-allow-unauthenticated) |
+| Cost | ~€3-6/month |
+
+### 12.4 Secrets Required
+
+| Secret Name (GCP) | Source Env Var | Purpose |
+|--------------------|---------------|---------|
+| `supabase-url` | SUPABASE_URL | Supabase project URL |
+| `supabase-service-key` | SUPABASE_SERVICE_KEY | Supabase service role key |
+| `github-token` | GITHUB_TOKEN | GitHub personal access token |
+| `mcp-gateway-api-key` | MCP_GATEWAY_API_KEY | Gateway authentication |
+
+### 12.5 Claude Code Configuration
+
+```json
+{
+  "mcpServers": {
+    "dws-gateway": {
+      "type": "url",
+      "url": "https://mcp-gateway-XXXXX-ew.a.run.app/mcp"
+    }
+  }
+}
+```
+
+### 12.6 Deployment
+
+```bash
+# 1. Provision secrets from .env
+./scripts/provision-secrets.sh
+
+# 2. Deploy to Cloud Run
+gcloud builds submit --config=mcp-servers/cloud-run-gateway/cloudbuild.yaml .
+```
+
+### 12.7 Available Tools
+
+**Supabase:** `supabase_query`, `supabase_insert`, `supabase_update`, `supabase_rpc`, `supabase_list_tables`
+
+**GitHub:** `github_list_repos`, `github_get_repo`, `github_list_issues`, `github_list_prs`, `github_get_file`, `github_search_code`, `github_create_issue`
+
+**Gateway:** `gateway_health`
+
+### 12.8 Files
+
+| File | Purpose |
+|------|---------|
+| `mcp-servers/cloud-run-gateway/server.py` | MCP Gateway server |
+| `mcp-servers/cloud-run-gateway/Dockerfile` | Cloud Run container |
+| `mcp-servers/cloud-run-gateway/cloudbuild.yaml` | CI/CD pipeline |
+| `mcp-servers/cloud-run-gateway/mcp-config.example.json` | Claude Code config template |
+| `scripts/provision-secrets.sh` | .env → Google Secret Manager |
+
+---
+
+## 13. References
 
 - **DWS7 Roadmap:** `DWS7_ROADMAP.md` — 247-PR production roadmap
 - **DWS7 NVIDIA/Siemens:** `dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.md` — Partnership strategy
@@ -622,8 +713,8 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 ---
 
 **Document Owner:** Platform Architecture
-**Last Updated:** 2026-02-16
-**Session:** claude/document-cloud-environments-EK7iZ
+**Last Updated:** 2026-02-23
+**Session:** claude/mcp-google-cloud-run-BuSpY
 
 ---
 
