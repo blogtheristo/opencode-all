@@ -16,7 +16,20 @@
  * does not block the rest of the briefing.
  */
 
+import { readFile } from 'fs/promises';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
+import {
+  getLeadsSummary,
+  getNewLeads,
+  getUpcomingDeadlines,
+} from '../construction-leads/lead-processor.js';
+import type {
+  ConstructionLeadsSummary,
+  ConstructionLeadNew,
+  ConstructionLeadDeadline,
+} from '../construction-leads/types.js';
 
 // ============================================================================
 // TYPES
@@ -36,6 +49,9 @@ export interface SendListItem {
   pipeline: string;
   action: string;
   linkedin_url: string | null;
+  primary_email: string | null;
+  phone: string | null;
+  thread_token: string | null;
 }
 
 /** Who to ping + what artifact to send */
@@ -58,6 +74,26 @@ export interface MetricsStrip {
   mvp_eta: string | null;
 }
 
+/** AI/DS Workflow Accelerator — last pipeline run data */
+export interface WorkflowData {
+  last_run: string | null;        // ISO timestamp
+  mode: string;                   // "dry_run" | "full"
+  total_time_seconds: number;
+  all_passed: boolean;
+  stages: Array<{ name: string; status: string; time: number }>;
+  best_model: string | null;
+  best_f1: number | null;
+  top_feature: string | null;
+  savings_percent: number;        // vs traditional cycle
+}
+
+/** Construction leads data for morning briefing */
+export interface ConstructionLeadsData {
+  summary: ConstructionLeadsSummary | null;
+  newLeads: ConstructionLeadNew[];
+  deadlines: ConstructionLeadDeadline[];
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -68,6 +104,8 @@ export interface CockpitData {
   momentum: CaptainMomentum;
   metrics: MetricsStrip;
   sendList: SendListItem[];
+  workflow: WorkflowData | null;
+  constructionLeads: ConstructionLeadsData;
 }
 
 // ============================================================================
@@ -120,7 +158,7 @@ async function collectPipelineChange(): Promise<string> {
 
   // Count threads updated since yesterday
   const threads = await supabaseFetch<Array<{ status: string; pipeline: string }>>(
-    `v_outreach_enriched?updated_at=gte.${yesterday}T00:00:00&select=status,pipeline`
+    `v_outreach_enriched?created_at=gte.${yesterday}T00:00:00&select=status,pipeline`
   );
 
   if (!threads || threads.length === 0) return 'No pipeline movement';
@@ -137,19 +175,30 @@ async function collectPipelineChange(): Promise<string> {
 }
 
 /**
- * Count git commits in the last 24h (product velocity).
+ * Check agent activity in the last 24h (product velocity).
+ * Reads from agent_metrics (daily aggregated) table.
  */
 async function collectProductChange(): Promise<string> {
-  // Best-effort: check email_logs for recent sends as proxy for product activity
-  const yesterday = new Date(Date.now() - 86_400_000).toISOString();
+  const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
-  const logs = await supabaseFetch<Array<{ id: string }>>(
-    `email_logs?select=id&sent_at=gte.${yesterday}&status=eq.sent`
+  const metrics = await supabaseFetch<Array<{
+    agent_id: string;
+    leads_processed: number;
+    emails_sent: number;
+    meetings_booked: number;
+  }>>(
+    `agent_metrics?select=agent_id,leads_processed,emails_sent,meetings_booked&metric_date=gte.${yesterday}`
   );
 
-  const emailCount = logs?.length || 0;
-  if (emailCount > 0) {
-    return `${emailCount} emails delivered`;
+  if (metrics && metrics.length > 0) {
+    const totalLeads = metrics.reduce((s, m) => s + (m.leads_processed || 0), 0);
+    const totalEmails = metrics.reduce((s, m) => s + (m.emails_sent || 0), 0);
+    const totalMeetings = metrics.reduce((s, m) => s + (m.meetings_booked || 0), 0);
+    const parts: string[] = [];
+    if (totalLeads > 0) parts.push(`${totalLeads} leads`);
+    if (totalEmails > 0) parts.push(`${totalEmails} emails`);
+    if (totalMeetings > 0) parts.push(`${totalMeetings} meetings`);
+    return parts.length > 0 ? parts.join(', ') : 'Agents active, no output yet';
   }
   return 'No product signals captured';
 }
@@ -161,13 +210,13 @@ async function collectDeliveryChange(): Promise<string> {
   // Check Firehorse leads that moved to responded/converted yesterday
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
-  const converted = await supabaseFetch<Array<{ status: string }>>(
-    `firehorse_leads?select=status&updated_at=gte.${yesterday}T00:00:00&status=in.(responded,converted)`
+  const converted = await supabaseFetch<Array<{ state: string }>>(
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
   );
 
   if (converted && converted.length > 0) {
-    const responded = converted.filter((l) => l.status === 'responded').length;
-    const won = converted.filter((l) => l.status === 'converted').length;
+    const responded = converted.filter((l) => l.state === 'responded').length;
+    const won = converted.filter((l) => l.state === 'converted').length;
     const parts: string[] = [];
     if (responded > 0) parts.push(`${responded} responded`);
     if (won > 0) parts.push(`${won} converted`);
@@ -263,9 +312,11 @@ async function collectMomentum(): Promise<CaptainMomentum> {
       first_name: string; last_name: string; org_name: string;
       pipeline: string; next_action: string; linkedin_url: string;
       status: string; next_action_date: string;
+      primary_email: string | null; person_phone: string | null;
+      thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date`
+    `v_outreach_enriched?or=(status.in.(responded,meeting_booked,in_negotiation),next_action_date.eq.${today})&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
   );
 
   const contacts: SendListItem[] = (threads || []).map((t) => ({
@@ -274,6 +325,9 @@ async function collectMomentum(): Promise<CaptainMomentum> {
     pipeline: t.pipeline,
     action: t.next_action || 'Follow up',
     linkedin_url: t.linkedin_url || null,
+    primary_email: t.primary_email || null,
+    phone: t.person_phone || null,
+    thread_token: t.thread_token || null,
   }));
 
   // Suggest artifact based on pipeline focus
@@ -300,9 +354,29 @@ async function collectMetrics(): Promise<MetricsStrip> {
   );
   const active_conversations = convos?.length || 0;
 
-  // Weekly commits: from env var (set by CI) or default 0
-  const commitsEnv = process.env.WEEKLY_COMMITS;
-  const weekly_commits = commitsEnv ? parseInt(commitsEnv, 10) : 0;
+  // Weekly commits: live from GitHub API, fallback to env var
+  let weekly_commits = 0;
+  const ghToken = process.env.GITHUB_TOKEN;
+  const ghRepo = process.env.GITHUB_REPOSITORY || 'blogtheristo/dws6';
+  if (ghToken) {
+    try {
+      const since = new Date(Date.now() - 7 * 86_400_000).toISOString();
+      const resp = await fetch(
+        `https://api.github.com/repos/${ghRepo}/commits?since=${since}&per_page=100`,
+        { headers: { Authorization: `Bearer ${ghToken}`, 'User-Agent': 'dws6-cockpit' } }
+      );
+      if (resp.ok) {
+        const commits = (await resp.json()) as Array<unknown>;
+        weekly_commits = commits.length;
+      }
+    } catch {
+      // fall through to env var
+    }
+  }
+  if (weekly_commits === 0) {
+    const commitsEnv = process.env.WEEKLY_COMMITS;
+    weekly_commits = commitsEnv ? parseInt(commitsEnv, 10) : 0;
+  }
 
   // MVP ETA: from env var
   const mvp_eta = process.env.MVP_ETA || null;
@@ -322,9 +396,11 @@ async function collectSendList(): Promise<SendListItem[]> {
       first_name: string; last_name: string; org_name: string;
       pipeline: string; next_action: string; linkedin_url: string;
       status: string; next_action_date: string;
+      primary_email: string | null; person_phone: string | null;
+      thread_token: string | null;
     }>
   >(
-    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date`
+    `v_outreach_enriched?next_action_date=lte.${today}&status=not.in.(converted,passed,parked)&order=next_action_date.asc&limit=5&select=first_name,last_name,org_name,pipeline,next_action,linkedin_url,status,next_action_date,primary_email,person_phone,thread_token`
   );
 
   return (threads || []).map((t) => ({
@@ -333,7 +409,102 @@ async function collectSendList(): Promise<SendListItem[]> {
     pipeline: t.pipeline,
     action: t.next_action || 'Follow up',
     linkedin_url: t.linkedin_url || null,
+    primary_email: t.primary_email || null,
+    phone: t.person_phone || null,
+    thread_token: t.thread_token || null,
   }));
+}
+
+// ============================================================================
+// AI/DS WORKFLOW COLLECTOR
+// ============================================================================
+
+/**
+ * Collect latest AI/DS Workflow Accelerator pipeline run data.
+ * Reads from reports/pipeline_run.json and reports/metrics.json (best-effort).
+ */
+async function collectWorkflowData(): Promise<WorkflowData | null> {
+  try {
+    // Find project root (reports/ lives at repo root, two levels up from src/morning-briefing/)
+    const currentDir = typeof __dirname !== 'undefined'
+      ? __dirname
+      : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const pipelinePath = resolve(projectRoot, 'reports', 'pipeline_run.json');
+    const metricsPath = resolve(projectRoot, 'reports', 'metrics.json');
+
+    // Read pipeline run report
+    let pipelineData: {
+      mode?: string;
+      timestamp?: string;
+      total_time_seconds?: number;
+      traditional_time_hours?: number;
+      stages?: Array<{ name: string; status: string; time: number }>;
+      all_passed?: boolean;
+    };
+    try {
+      const raw = await readFile(pipelinePath, 'utf-8');
+      pipelineData = JSON.parse(raw);
+    } catch {
+      return null; // No pipeline run yet — skip section
+    }
+
+    // Read metrics (best-effort)
+    let bestModel: string | null = null;
+    let bestF1: number | null = null;
+    let topFeature: string | null = null;
+    try {
+      const raw = await readFile(metricsPath, 'utf-8');
+      const metrics = JSON.parse(raw);
+      bestModel = metrics.best_model || null;
+      bestF1 = metrics.best_f1 || null;
+      if (metrics.feature_ranking && metrics.feature_ranking.length > 0) {
+        topFeature = metrics.feature_ranking[0].feature || null;
+      }
+    } catch {
+      // metrics not available — continue with pipeline data only
+    }
+
+    const totalSeconds = pipelineData.total_time_seconds || 0;
+    const traditionalHours = pipelineData.traditional_time_hours || 104;
+    const savings = traditionalHours > 0
+      ? (1 - totalSeconds / (traditionalHours * 3600)) * 100
+      : 0;
+
+    return {
+      last_run: pipelineData.timestamp || null,
+      mode: pipelineData.mode || 'unknown',
+      total_time_seconds: totalSeconds,
+      all_passed: pipelineData.all_passed ?? false,
+      stages: pipelineData.stages || [],
+      best_model: bestModel,
+      best_f1: bestF1,
+      top_feature: topFeature,
+      savings_percent: Math.round(savings * 10) / 10,
+    };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Workflow data collection failed (non-critical)', { error: msg });
+    return null;
+  }
+}
+
+// ============================================================================
+// CONSTRUCTION LEADS COLLECTOR
+// ============================================================================
+
+/**
+ * Collect construction leads data for the morning briefing.
+ * Shows new leads from TED and upcoming deadlines.
+ */
+async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
+  const [summary, newLeads, deadlines] = await Promise.all([
+    getLeadsSummary(),
+    getNewLeads(),
+    getUpcomingDeadlines(),
+  ]);
+
+  return { summary, newLeads, deadlines };
 }
 
 // ============================================================================
@@ -354,13 +525,15 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
     collectMomentum(),
     collectMetrics(),
     collectSendList(),
+    collectWorkflowData(),
+    collectConstructionLeads(),
   ]);
 
   return {
@@ -373,5 +546,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     momentum,
     metrics,
     sendList,
+    workflow,
+    constructionLeads,
   };
 }

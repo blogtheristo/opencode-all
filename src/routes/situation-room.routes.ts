@@ -25,6 +25,42 @@ const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ---------------------------------------------------------------------------
+// Authorization helper
+// ---------------------------------------------------------------------------
+
+/**
+ * Verify that the authenticated user is an active member of the given org.
+ * Returns true if authorized; writes a 403 response and returns false otherwise.
+ */
+async function assertOrgMember(
+  userId: string,
+  orgId: string,
+  res: Response
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('organization_members')
+    .select('user_id')
+    .eq('organization_id', orgId)
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .maybeSingle();
+
+  if (error) {
+    logger.error('Org membership check failed', { error: error.message, userId, orgId });
+    res.status(500).json({ error: 'Failed to verify organization membership' });
+    return false;
+  }
+
+  if (!data) {
+    logger.warn('Unauthorized org access attempt', { userId, orgId });
+    res.status(403).json({ error: 'Forbidden', message: 'Not a member of this organization' });
+    return false;
+  }
+
+  return true;
+}
+
+// ---------------------------------------------------------------------------
 // Validation helpers
 // ---------------------------------------------------------------------------
 const validateRequest = (req: Request, res: Response): boolean => {
@@ -40,34 +76,6 @@ const validateRequest = (req: Request, res: Response): boolean => {
     return false;
   }
   return true;
-};
-
-/**
- * Verify that the authenticated user belongs to the specified organization
- * @param userId - User ID from JWT token
- * @param orgId - Organization ID to verify membership
- * @returns true if user is a member, false otherwise
- */
-const verifyUserOrgMembership = async (userId: string, orgId: string): Promise<boolean> => {
-  try {
-    const { data, error } = await supabase
-      .from('organization_members')
-      .select('id')
-      .eq('user_id', userId)
-      .eq('organization_id', orgId)
-      .eq('status', 'active')
-      .single();
-
-    if (error || !data) {
-      logger.warn('User not member of organization', { userId, orgId, error: error?.message });
-      return false;
-    }
-
-    return true;
-  } catch (err) {
-    logger.error('Error verifying org membership', { userId, orgId, error: err });
-    return false;
-  }
 };
 
 // ============================================================================
@@ -100,25 +108,7 @@ router.post(
         pipeline_workflow_id,
       } = req.body;
 
-      // SECURITY FIX: Verify user belongs to the organization
-      if (!req.userId) {
-        logger.warn('Missing user ID in authenticated request');
-        res.status(401).json({ error: 'Unauthorized', message: 'User ID not found' });
-        return;
-      }
-
-      const isMember = await verifyUserOrgMembership(req.userId, org_id);
-      if (!isMember) {
-        logger.warn('User not authorized to create reports for organization', { 
-          userId: req.userId, 
-          orgId: org_id 
-        });
-        res.status(403).json({ 
-          error: 'Forbidden', 
-          message: 'You are not authorized to create reports for this organization' 
-        });
-        return;
-      }
+      if (!await assertOrgMember(req.userId!, org_id, res)) return;
 
       const { data, error } = await supabase
         .from('situation_room_reports')
@@ -171,26 +161,9 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      // SECURITY FIX: Verify user belongs to the organization
-      if (!req.userId) {
-        logger.warn('Missing user ID in authenticated request');
-        res.status(401).json({ error: 'Unauthorized', message: 'User ID not found' });
-        return;
-      }
-
       const orgId = req.query.org_id as string;
-      const isMember = await verifyUserOrgMembership(req.userId, orgId);
-      if (!isMember) {
-        logger.warn('User not authorized to view reports for organization', { 
-          userId: req.userId, 
-          orgId 
-        });
-        res.status(403).json({ 
-          error: 'Forbidden', 
-          message: 'You are not authorized to view reports for this organization' 
-        });
-        return;
-      }
+
+      if (!await assertOrgMember(req.userId!, orgId, res)) return;
 
       let qb = supabase
         .from('situation_room_reports')
@@ -238,7 +211,6 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      // First, fetch the report to get its org_id
       const { data, error } = await supabase
         .from('situation_room_reports')
         .select('*')
@@ -250,26 +222,7 @@ router.get(
         return;
       }
 
-      // SECURITY FIX: Verify user belongs to the organization that owns this report
-      if (!req.userId) {
-        logger.warn('Missing user ID in authenticated request');
-        res.status(401).json({ error: 'Unauthorized', message: 'User ID not found' });
-        return;
-      }
-
-      const isMember = await verifyUserOrgMembership(req.userId, data.org_id);
-      if (!isMember) {
-        logger.warn('User not authorized to view report', { 
-          userId: req.userId, 
-          reportId: req.params.id,
-          orgId: data.org_id
-        });
-        res.status(403).json({ 
-          error: 'Forbidden', 
-          message: 'You are not authorized to view this report' 
-        });
-        return;
-      }
+      if (!await assertOrgMember(req.userId!, data.org_id, res)) return;
 
       res.json(data);
     } catch (err) {
@@ -296,39 +249,6 @@ router.patch(
     if (!validateRequest(req, res)) return;
 
     try {
-      // SECURITY FIX: First fetch the report to verify user has access
-      if (!req.userId) {
-        logger.warn('Missing user ID in authenticated request');
-        res.status(401).json({ error: 'Unauthorized', message: 'User ID not found' });
-        return;
-      }
-
-      const { data: existingReport, error: fetchError } = await supabase
-        .from('situation_room_reports')
-        .select('org_id')
-        .eq('id', req.params.id)
-        .single();
-
-      if (fetchError || !existingReport) {
-        res.status(404).json({ error: 'Report not found' });
-        return;
-      }
-
-      // Verify user belongs to the organization that owns this report
-      const isMember = await verifyUserOrgMembership(req.userId, existingReport.org_id);
-      if (!isMember) {
-        logger.warn('User not authorized to update report', { 
-          userId: req.userId, 
-          reportId: req.params.id,
-          orgId: existingReport.org_id
-        });
-        res.status(403).json({ 
-          error: 'Forbidden', 
-          message: 'You are not authorized to update this report' 
-        });
-        return;
-      }
-
       const updates: Record<string, any> = {};
       for (const field of ['status', 'payload', 'compliance_rag']) {
         if (req.body[field] !== undefined) {
@@ -340,6 +260,20 @@ router.patch(
         res.status(400).json({ error: 'No updateable fields provided' });
         return;
       }
+
+      // Fetch first to get org_id for membership check
+      const { data: existing } = await supabase
+        .from('situation_room_reports')
+        .select('org_id')
+        .eq('id', req.params.id)
+        .single();
+
+      if (!existing) {
+        res.status(404).json({ error: 'Report not found' });
+        return;
+      }
+
+      if (!await assertOrgMember(req.userId!, existing.org_id, res)) return;
 
       const { data, error } = await supabase
         .from('situation_room_reports')

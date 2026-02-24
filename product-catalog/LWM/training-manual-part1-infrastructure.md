@@ -4,7 +4,7 @@
 **Document ID:** DWS-LWM-TRAIN-001-PART1
 **Version:** 1.0
 **Classification:** Internal Lab Notebook
-**Author:** Lifetime Consulting Oy
+**Author:** Lifetime Oy
 **Date:** 2026-01-24
 
 **Execution Time:** 4-6 hours
@@ -1171,12 +1171,130 @@ If any checks failed:
 
 ---
 
+---
+
+## Section 9: Ollama Installation for Code Review (30 minutes)
+
+### 9.1 Install Ollama
+
+Ollama enables self-hosted open-source LLM inference on the GN-100 — used for **Level 5** of the automated PR review pipeline (sovereign, zero-cost code review).
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Verify installation
+ollama --version
+# Expected: ollama version 0.x.x
+
+# Start Ollama service
+sudo systemctl enable ollama
+sudo systemctl start ollama
+
+# Verify service is running
+systemctl status ollama
+curl http://localhost:11434/api/tags
+# Expected: {"models":[]}
+```
+
+### 9.2 Pull Code Review Model
+
+```bash
+# Pull Qwen 2.5 Coder 14B (recommended for code review)
+ollama pull qwen2.5-coder:14b
+
+# Alternative smaller models:
+# ollama pull qwen2.5-coder:7b      # Lower VRAM, faster
+# ollama pull codellama:13b          # Meta's code model
+# ollama pull deepseek-coder-v2:16b  # DeepSeek code model
+
+# Verify model is available
+ollama list
+# Expected: qwen2.5-coder:14b   ~9GB
+
+# Test inference
+ollama run qwen2.5-coder:14b "Review this Python code for security issues: import os; os.system(input('cmd: '))"
+```
+
+### 9.3 Configure Ollama for Network Access
+
+The GN-100 must be reachable from GitHub Actions (via self-hosted runner or tunnel).
+
+```bash
+# Option A: Expose on local network
+sudo tee /etc/systemd/system/ollama.service.d/override.conf << 'EOF'
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+
+# Verify remote access
+curl http://gn-100.local:11434/api/tags
+
+# Option B: Use Cloudflare Tunnel (recommended for GitHub Actions)
+# Install cloudflared
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared.deb
+
+# Create tunnel (requires Cloudflare account)
+cloudflared tunnel login
+cloudflared tunnel create gn100-ollama
+cloudflared tunnel route dns gn100-ollama gn100-ollama.yourdomain.com
+
+# Run tunnel
+cloudflared tunnel run --url http://localhost:11434 gn100-ollama
+```
+
+### 9.4 Test Code Review via API
+
+```bash
+# Test the Ollama code review API call (same format as Level 5 workflow)
+curl -s -X POST http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen2.5-coder:14b",
+    "prompt": "Review this TypeScript code for security issues:\n\nconst query = `SELECT * FROM users WHERE id = ${req.params.id}`;\nconst result = await db.query(query);",
+    "stream": false,
+    "options": {
+      "temperature": 0.1,
+      "num_predict": 500
+    }
+  }' | jq '.response'
+
+# Expected: Identifies SQL injection vulnerability
+```
+
+### 9.5 GitHub Actions Integration
+
+Add these secrets to your GitHub repository:
+
+| Secret | Value | Purpose |
+|--------|-------|---------|
+| `OLLAMA_HOST` | `https://gn100-ollama.yourdomain.com` or `http://gn-100.local:11434` | Ollama API endpoint |
+| `OLLAMA_MODEL` | `qwen2.5-coder:14b` | Model to use for Level 5 review |
+
+The Level 5 step in `.github/workflows/ai-pr-review.yml` will automatically call this endpoint when the secrets are configured.
+
+### 9.6 Verify Level 5 Checklist
+
+- [ ] `ollama --version` shows version
+- [ ] `ollama list` shows `qwen2.5-coder:14b`
+- [ ] `curl http://localhost:11434/api/tags` returns model list
+- [ ] Code review test produces meaningful output
+- [ ] Network access configured (local or Cloudflare Tunnel)
+- [ ] GitHub secrets `OLLAMA_HOST` and `OLLAMA_MODEL` set
+
+---
+
 **Document Control:**
 - **Part:** 1 of 3
+- **Version:** 1.1
 - **Status:** Lab-tested executable
-- **Execution Time:** 4-6 hours
+- **Execution Time:** 5-7 hours (added Ollama setup)
 - **Next:** Part 2 - Data Generation & Training
 
 ---
 
-*Lifetime Consulting Oy - Internal Use Only*
+*Lifetime Oy - Internal Use Only*

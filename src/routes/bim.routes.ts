@@ -26,6 +26,38 @@ const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ---------------------------------------------------------------------------
+// Authorization helper
+// ---------------------------------------------------------------------------
+
+async function assertOrgMember(
+  userId: string,
+  orgId: string,
+  res: Response
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('organization_members')
+    .select('user_id')
+    .eq('organization_id', orgId)
+    .eq('user_id', userId)
+    .eq('status', 'active')
+    .maybeSingle();
+
+  if (error) {
+    logger.error('Org membership check failed', { error: error.message, userId, orgId });
+    res.status(500).json({ error: 'Failed to verify organization membership' });
+    return false;
+  }
+
+  if (!data) {
+    logger.warn('Unauthorized org access attempt', { userId, orgId });
+    res.status(403).json({ error: 'Forbidden', message: 'Not a member of this organization' });
+    return false;
+  }
+
+  return true;
+}
+
+// ---------------------------------------------------------------------------
 // Validation helpers
 // ---------------------------------------------------------------------------
 const validateRequest = (req: Request, res: Response): boolean => {
@@ -78,6 +110,8 @@ router.post(
         country, location, gross_floor_area_m2, building_type, file_format,
       } = req.body;
 
+      if (!await assertOrgMember(req.userId!, org_id, res)) return;
+
       const { data, error } = await supabase
         .from('bim_projects')
         .insert({
@@ -122,6 +156,8 @@ router.get('/projects', authenticateToken, async (req: Request, res: Response) =
       return;
     }
 
+    if (!await assertOrgMember(req.userId!, orgId, res)) return;
+
     const { data, error } = await supabase
       .from('bim_projects')
       .select('*')
@@ -162,6 +198,8 @@ router.get(
         res.status(404).json({ error: 'BIM project not found' });
         return;
       }
+
+      if (!await assertOrgMember(req.userId!, project.org_id, res)) return;
 
       // Fetch associated carbon calculation (latest)
       const { data: carbon } = await supabase
@@ -205,10 +243,10 @@ router.post(
     try {
       const { projectId } = req.params;
 
-      // Verify project exists
+      // Verify project exists and user belongs to its org
       const { data: project, error: projErr } = await supabase
         .from('bim_projects')
-        .select('id, gross_floor_area_m2')
+        .select('id, org_id, gross_floor_area_m2')
         .eq('id', projectId)
         .single();
 
@@ -216,6 +254,8 @@ router.post(
         res.status(404).json({ error: 'BIM project not found' });
         return;
       }
+
+      if (!await assertOrgMember(req.userId!, project.org_id, res)) return;
 
       // Build calculation row from EN 15978 stage values
       const calcRow: Record<string, any> = {

@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
@@ -11,26 +11,28 @@ Sessions & Modifications:
   - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
   - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
   - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
   - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
   - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - Claude Code (claude/automate-pr-workflow-e5wXD): https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 07.02.2026
+  - Last Modified: 21.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.4
-**Effective Date:** 2026-02-07
-**Last Updated:** 2026-02-07
+**Version:** 1.5
+**Effective Date:** 2026-02-21
+**Last Updated:** 2026-02-21
 **Status:** Active
 
 ---
@@ -76,6 +78,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 
+**Does NOT apply to:**
+- `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
+- `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
+
 ### Principles / Periaatteet
 
 1. **Traceability** - Every document must be traceable to its creator and session
@@ -118,7 +124,7 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Primary Language]
   - Languages Available: [List]
-  - Publication Status: [ACTIVE / DRAFT / ARCHIVED / DEPRECATED]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED]
 
 ***
 ```
@@ -137,7 +143,7 @@ Document Status:
 | **Last Modified** | ✅ Yes | Last modification date | `30.12.2025` |
 | **Language** | ✅ Yes | Primary language | `English`, `Finnish`, `Bilingual` |
 | **Languages Available** | ✅ Yes | All available languages | `English, Suomi` |
-| **Publication Status** | ✅ Yes | Document status | `✅ ACTIVE`, `🚧 DRAFT`, `📦 ARCHIVED` |
+| **Publication Status** | ✅ Yes | Document status | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED` |
 
 ### 2.3 Publication Status Values
 
@@ -147,13 +153,67 @@ Use plain text status labels. Emoji icons are optional (display only).
 |--------|---------|
 | **ACTIVE** | Document is current and in use |
 | **DRAFT** | Document is work in progress |
-| **ARCHIVED** | Document is superseded but kept for reference |
+| **OUTDATED** | Document is superseded, no longer maintained — pending archive |
+| **ARCHIVED** | Document is in `docs/archive/`, kept for historical reference |
 | **DEPRECATED** | Document is outdated and should not be used |
 | **UNDER REVIEW** | Document is being reviewed |
 
 > **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
 > HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
 > canonical value; emoji is decorative.
+
+### 2.4 Document Lifecycle
+
+Documents follow this lifecycle:
+
+```
+DRAFT → ACTIVE → OUTDATED → ARCHIVED
+```
+
+| Transition | When | Who | Action |
+|-----------|------|-----|--------|
+| DRAFT → ACTIVE | Document complete and approved | Author | Set `Publication Status: ACTIVE` |
+| ACTIVE → OUTDATED | Superseded by newer document | Author or reviewer | Add OUTDATED header block (see below) |
+| OUTDATED → ARCHIVED | Moved to `docs/archive/` | Maintainer | Move file, update Document Index |
+
+### 2.5 Marking a Document as OUTDATED (Procedure)
+
+When a document is superseded or no longer maintained, mark it as OUTDATED **before** archiving.
+
+**Step 1:** Add this block immediately after the document title (before `***`):
+
+```markdown
+> **STATUS: OUTDATED** — This document is no longer maintained.
+> Superseded by: [link to replacement document or description]
+> Archived: DD.MM.YYYY
+```
+
+**Step 2:** Update the VERSION AND AGENT HISTORY block:
+
+```markdown
+Document Status:
+  - Publication Status: OUTDATED
+```
+
+**Step 3:** Move the file to the appropriate `docs/archive/` subfolder:
+
+```
+docs/archive/
+├── dws10-hero/          — dws10.com Hero campaign docs
+├── dws10-docs/          — dws10.com store admin manuals
+├── dws10-misc/          — dws10.com READMEs, config docs
+├── dws6-deployment/     — dws6.com deployment guides
+├── dws6-status/         — dws6.com completion/delivery reports
+├── dws6-dashboard/      — dws6.com v7-v9 dashboard architecture
+└── onelifetime-blog/    — onelifetime.world blog system docs
+```
+
+**Step 4:** Update the Document Index (`docs/Document-index.md`) to reflect the new location and ARCHIVED status.
+
+**Rules:**
+- **Never delete** — always move to `docs/archive/` (CLAUDE.md Rule 8)
+- Keep `_lp` suffix copies if they exist (preserve git rename history)
+- Add a session entry to the version history recording the archive action
 
 ---
 
@@ -1566,7 +1626,7 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Language]
   - Languages Available: [List]
-  - Publication Status: [ACTIVE / DRAFT / ARCHIVED]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED]
 
 ***
 ```
@@ -1598,6 +1658,8 @@ Document Status:
 ### Related Documents
 
 - **Ontology & Lifetime World Model:** `ONTOLOGY.md` ⭐ NEW
+- **DWS Brand Standard:** `docs/DWS_BRAND_STANDARD.md` — Gamma design system, colors, typography, navigation, UX guidelines
+  - Associated agents/skills: `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend`
 - **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
@@ -1605,9 +1667,15 @@ Document Status:
 
 ---
 
-**Version:** 1.4
-**Effective Date:** 07. February 2026
+**Version:** 1.5
+**Effective Date:** 21. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.5:**
+- Added OUTDATED publication status for documents pending archive
+- Added document lifecycle (DRAFT → ACTIVE → OUTDATED → ARCHIVED)
+- Added marking procedure (sections 2.4-2.5) with step-by-step instructions
+- Added `docs/archive/` folder structure reference
 
 **Major Changes in v1.4:**
 - Pandoc compatibility: changed `---` to `***` delimiters in document headers

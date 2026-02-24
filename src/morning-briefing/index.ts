@@ -15,4 +15,6 @@ export type {
   CaptainMomentum,
   TopRisk,
   MetricsStrip,
+  WorkflowData,
+  ConstructionLeadsData,
 } from './data-collectors.js';

@@ -821,18 +821,32 @@ git push origin main
 
 ## Enforcement & Review
 
-### Code Review Requirements
+### Code Review Requirements (Automated HIL)
 
-**All pull requests MUST:**
+**All pull requests undergo automated dual-model AI review:**
+
+1. **Claude** — quick sanity check (security, correctness, breaking changes)
+2. **Gemini** — deep HIL review replacing manual human review (edge cases, tests, architecture, OWASP)
+3. Gemini defaults to **REQUEST_CHANGES** — APPROVE only when zero issues + adequate tests
+4. If changes requested → structured fix instructions sent to **@copilot** coding agent
+5. Copilot implements fixes → review re-triggers automatically (1-3 iterations typical)
+
+**Human overrides:** `do-not-merge` / `needs-human-review` labels pause automation.
+
+**All pull requests MUST also:**
 1. Reference this document in PR description
 2. Include screenshots (for UI changes)
-3. Pass automated checks
-4. Be approved by minimum 1 reviewer
-5. Address all review comments
+3. Pass automated AI review + CI checks
+4. Address all review comments (AI or human)
 
-**Reviewers MUST verify:**
-- [ ] Follows component architecture standards
+**AI reviewers verify automatically:**
+- [ ] Component architecture standards
 - [ ] No code duplication
+- [ ] Security (OWASP, no hardcoded secrets)
+- [ ] Test coverage for new logic
+- [ ] Edge case handling
+
+**Human reviewers verify (when requested):**
 - [ ] Proper logo usage
 - [ ] CTA best practices followed
 - [ ] Responsive design implemented

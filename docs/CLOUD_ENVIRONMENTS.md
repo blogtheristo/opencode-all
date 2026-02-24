@@ -3,17 +3,19 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
 
 Session Links & References:
+  - Claude Code (claude/zealous-mcclintock): https://github.com/blogtheristo/dws6/commits/claude/zealous-mcclintock
   - Claude Code (claude/document-cloud-environments-EK7iZ): https://github.com/blogtheristo/dws6/commits/claude/document-cloud-environments-EK7iZ
 
 Document Status:
   - Created: 16.02.2026
-  - Last Modified: 16.02.2026
+  - Last Modified: 20.02.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -158,6 +160,8 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 **Purpose:** All computation, data storage, AI inference, and customer-facing backend.
 
+**Google Cloud Project:** `dws6run6` (admin@dws6.com)
+
 **What runs here:**
 - Express.js backend on Cloud Run (europe-north1)
 - AI agent services (Lead Scout, Outreach, Discovery, Meeting, Proposal, Customer Success)
@@ -172,10 +176,13 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 |-------|----------|--------|---------|
 | Compute | Google Cloud Run | europe-north1 (Finland) | Backend API, agents |
 | Database | Supabase | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime |
-| Secrets | Google Secret Manager | europe-north1 | API keys, credentials |
+| Secrets | Google Secret Manager | europe-north1 | API keys, credentials | ✅ Enabled |
 | Images | Google Artifact Registry | europe-north1 | Container registry |
 | Training | Google Compute (A3 mega) | europe-north1 | On-demand H100 GPU |
 | Alternative | Scaleway Serverless | fr-par (France) | Backup compute |
+
+**Enabled Google Cloud APIs:**
+- **Secret Manager API** (`secretmanager.googleapis.com`) — Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security. (Google Enterprise API, Public API, Status: Enabled)
 
 ### 3.3 Aiwen (EU AI Act) — Planned Q2 2026
 

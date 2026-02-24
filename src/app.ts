@@ -16,13 +16,16 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
+import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
+import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 
 dotenv.config();
 
@@ -164,6 +167,12 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
+// Outreach quick-send (send emails to prospects, admin key auth)
+app.use('/api/v1/outreach', outreachSendRoutes);
+
+// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+app.use('/api/agents', agentRoutes);
+
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 
@@ -193,6 +202,26 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Manual morning briefing failed', { error: msg });
     res.status(500).json({ error: 'Failed to send briefing', message: msg });
+  }
+});
+
+// Construction leads manual trigger (secured by admin key)
+app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    const result = await fetchAndProcessLeads();
+    res.json({ status: 'complete', timestamp: new Date().toISOString(), ...result });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual construction leads fetch failed', { error: msg });
+    res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
   }
 });
 
@@ -237,11 +266,18 @@ const server = app.listen(PORT, () => {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 
-  // Morning briefing: delivered via GitHub Actions cron (06:00 Helsinki, Mon-Sat).
-  // Manual trigger available at POST /api/v1/morning-briefing/send.
-  if (!(process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY)) {
-    logger.warn('No email provider configured — morning briefing manual trigger will fail');
-  }
+  // Morning briefing scheduling is handled by GitHub Actions
+  // (.github/workflows/morning-briefing.yml) — no in-process cron needed.
+  // Manual trigger available via POST /api/v1/morning-briefing/send.
+
+  // Construction leads: daily fetch at 05:30 Helsinki (30min before briefing)
+  // Manual trigger available via POST /api/v1/construction-leads/fetch
+  constructionLeadsScheduler.start();
+
+  // Start outreach digest scheduler (backup — primary is GitHub Actions).
+  // On Cloud Run this may not fire reliably due to scale-to-zero,
+  // but covers local dev and always-on deployments.
+  outreachScheduler.start();
 
   // Initialize email queue (Redis Streams)
   emailQueue.initialize().then((ready) => {
@@ -261,6 +297,8 @@ const server = app.listen(PORT, () => {
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
+  outreachScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -271,6 +309,8 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
+  outreachScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

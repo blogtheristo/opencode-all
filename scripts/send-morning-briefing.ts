@@ -9,12 +9,12 @@
  *   npx tsx scripts/send-morning-briefing.ts
  *
  * Required env vars:
- *   RESEND_API_KEY or SENDGRID_API_KEY
+ *   RESEND_API_KEY
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for live data)
  *
  * Optional env vars:
  *   OUTREACH_DIGEST_EMAIL (default: risto@lifetime.fi)
- *   EMAIL_FROM (default: noreply@dws6.com)
+ *   EMAIL_FROM (default: risto@onelifetime.world)
  *   MRR_EUR, WEEKLY_COMMITS, MVP_ETA
  */
 
@@ -51,10 +51,9 @@ async function main(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
-  const sendgridKey = process.env.SENDGRID_API_KEY;
 
-  if (!resendKey && !sendgridKey) {
-    console.error('ERROR: No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY.');
+  if (!resendKey) {
+    console.error('ERROR: RESEND_API_KEY not configured.');
     process.exit(1);
   }
 
@@ -73,22 +72,20 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  // Try Resend first
-  if (resendKey) {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [recipient],
-        subject,
-        html,
-        text,
-      }),
-    });
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${resendKey}`,
+    },
+    body: JSON.stringify({
+      from: fromAddress,
+      to: [recipient],
+      subject,
+      html,
+      text,
+    }),
+  });
 
     if (response.ok) {
       const result = await response.json();

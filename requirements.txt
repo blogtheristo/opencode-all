@@ -41,6 +41,7 @@ flake8>=6.1.0
 # ============================================================================
 
 # For module-specific requirements, see:
+# - workflow/requirements.txt (AI/DS Workflow Accelerator)
 # - mcp-hub/requirements.txt (MCP Hub dependencies)
 # - Firehorse/requirements.txt (Firehorse Add-ons)
 # - sites/onelifetime-world/requirements.txt (OneLifetime.world)

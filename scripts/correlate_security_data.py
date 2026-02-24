@@ -125,7 +125,9 @@ class SecurityCorrelator:
                             if isinstance(obj, dict):
                                 attacks.append(obj)
                         except json.JSONDecodeError:
-                            print(f"⚠️  Skipping malformed JSONL line {lineno} in {attacks_path}")
+                            print(
+                                f"⚠️  Skipping malformed JSONL line {lineno} in {attacks_path}"
+                            )
                 elif str(safe_attacks_path).endswith(".json"):
                     attacks = json.load(f)
                     if isinstance(attacks, dict):
@@ -136,8 +138,10 @@ class SecurityCorrelator:
                     content = f.read()
                     try:
                         parsed = json.loads(content)
-                        attacks = parsed.get("attacks", []) if isinstance(parsed, dict) else (
-                            parsed if isinstance(parsed, list) else []
+                        attacks = (
+                            parsed.get("attacks", [])
+                            if isinstance(parsed, dict)
+                            else (parsed if isinstance(parsed, list) else [])
                         )
                     except json.JSONDecodeError:
                         attacks = []
@@ -499,7 +503,9 @@ def main():
         description="Correlate security audit findings with ZenFree attack data"
     )
     parser.add_argument("--audit", required=True, help="Path to audit report")
-    parser.add_argument("--attacks", required=True, help="Path to attack log JSON/JSONL")
+    parser.add_argument(
+        "--attacks", required=True, help="Path to attack log JSON/JSONL"
+    )
     parser.add_argument(
         "--output", required=True, help="Output path for correlation report"
     )

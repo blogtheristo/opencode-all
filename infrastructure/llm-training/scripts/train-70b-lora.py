@@ -47,12 +47,14 @@ from trl import SFTTrainer
 # Optional imports
 try:
     import wandb
+
     WANDB_AVAILABLE = True
 except ImportError:
     WANDB_AVAILABLE = False
 
 try:
     import mlflow
+
     MLFLOW_AVAILABLE = True
 except ImportError:
     MLFLOW_AVAILABLE = False
@@ -70,14 +72,19 @@ DEFAULT_CONFIG = {
     "bnb_4bit_compute_dtype": "bfloat16",
     "bnb_4bit_quant_type": "nf4",
     "use_double_quant": True,
-
     # LoRA
     "lora_r": 64,
     "lora_alpha": 128,
     "lora_dropout": 0.05,
-    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj",
-                       "gate_proj", "up_proj", "down_proj"],
-
+    "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],
     # Training
     "output_dir": "/checkpoints/70b-lora",
     "num_train_epochs": 3,
@@ -92,19 +99,16 @@ DEFAULT_CONFIG = {
     "bf16": True,
     "gradient_checkpointing": True,
     "optim": "paged_adamw_8bit",
-
     # Data
     "dataset_name": None,  # Set via config or CLI
     "dataset_path": None,  # Local dataset path
     "text_column": "text",
     "max_samples": None,
-
     # Logging
     "logging_steps": 10,
     "save_steps": 100,
     "eval_steps": 100,
     "save_total_limit": 3,
-
     # Tracking
     "use_wandb": True,
     "wandb_project": "lifetime-world-model",
@@ -209,12 +213,16 @@ def load_model_and_tokenizer(config: dict, logger: logging.Logger):
     # Log trainable parameters
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total_params = sum(p.numel() for p in model.parameters())
-    logger.info(f"Trainable params: {trainable_params:,} ({100 * trainable_params / total_params:.2f}%)")
+    logger.info(
+        f"Trainable params: {trainable_params:,} ({100 * trainable_params / total_params:.2f}%)"
+    )
 
     return model, tokenizer
 
 
-def load_dataset_from_config(config: dict, tokenizer, logger: logging.Logger) -> Dataset:
+def load_dataset_from_config(
+    config: dict, _tokenizer, logger: logging.Logger
+) -> Dataset:
     """Load and prepare dataset."""
     if config["dataset_path"]:
         logger.info(f"Loading local dataset: {config['dataset_path']}")

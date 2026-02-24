@@ -177,6 +177,91 @@ When creating new version (e.g., V1 → V2):
 
 ---
 
+## Store Product Format (CRITICAL RULE)
+
+**Files in `Store/` use Store Product Format — NOT DWS Document Standard.**
+
+The `Store/` directory contains product markdown files consumed by `scripts/build_store.py` to generate Google Merchant XML feeds, product HTML pages, and the store page. These files use YAML frontmatter with a fixed schema. The DWS Document Standard header (VERSION AND AGENT HISTORY) is **not compatible** with the store build pipeline and **must not be used** for store product files.
+
+### Rule
+
+| Location | Format | Header |
+|----------|--------|--------|
+| `Store/*.md` | **Store Product Format** (YAML frontmatter) | `title`, `price`, `sku`, etc. |
+| `product-catalog/` | Product Catalog Standard | Google Merchant JSON + spec markdown |
+| Everything else | DWS Document Standard | VERSION AND AGENT HISTORY block |
+
+### Required YAML Frontmatter Fields
+
+Every `Store/*.md` file **must** have this exact frontmatter structure:
+
+```yaml
+---
+title: "Product Name"
+price: "499.00"
+currency: "EUR"
+sku: "PRODUCT-SKU-001"
+availability: "in_stock"
+condition: "new"
+google_product_category: "Software > Business & Productivity Software"
+image_link: "https://dws10.com/static/images/product.jpg"
+brand: "Lifetime"
+storeCategory: "platform"
+---
+```
+
+| Field | Required | Type | Notes |
+|-------|----------|------|-------|
+| `title` | Yes | string | Product display name |
+| `price` | Yes | string | Decimal format, e.g. `"499.00"` |
+| `currency` | Yes | string | ISO 4217, always `"EUR"` |
+| `sku` | Yes | string | Unique product ID, matches `products.json` |
+| `availability` | Yes | string | `in_stock`, `out_of_stock`, or `preorder` |
+| `condition` | Yes | string | `new`, `refurbished`, or `used` |
+| `google_product_category` | Yes | string | Google taxonomy string |
+| `image_link` | Yes | string | Full URL to product image |
+| `brand` | Yes | string | `Lifetime` or `Firehorse` |
+| `storeCategory` | No | string | `platform`, `advisory`, `ai-cloud`, `digital` |
+
+### Markdown Body
+
+After the `---` closing delimiter, write standard markdown:
+
+```markdown
+# Product Name
+
+**Price:** €499 (pricing note)
+
+## Description
+Product description text.
+
+## Key Features
+- Feature 1
+- Feature 2
+
+## Ideal For
+- Target audience 1
+- Target audience 2
+```
+
+### Data Source Priority
+
+The build pipeline reads from two sources. **`products.json` is the primary source** for all store products. `Store/*.md` files provide extended descriptions for products that need detailed pages.
+
+| Source | Purpose | Products |
+|--------|---------|----------|
+| `dws10.com/config/products.json` | Primary: all ~30 store products | Full catalog |
+| `Store/*.md` | Extended: detailed product pages | Subset with long descriptions |
+
+### What NOT to Do
+
+- Do NOT use `# VERSION AND AGENT HISTORY` in `Store/*.md` files
+- Do NOT use DWS Document Standard `***` delimiters in store files
+- Do NOT put product files in `Store/` without valid YAML frontmatter
+- Do NOT duplicate `products.json` data in `Store/*.md` — use `sku` to link them
+
+---
+
 ## 📝 Example: Adding New Product
 
 To add a new product (e.g., "DWS Carbon Calculator"):

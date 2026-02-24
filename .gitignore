@@ -91,7 +91,13 @@ claude-sessions/
 # --- GDPR: ACTUAL CUSTOMER PII DATA (not documentation ABOUT customers) ---
 # Only ignore folders that contain real personal data exports
 *.csv
+!landing-pages/dws10-com/products.csv
 investor-outreach/ready_to_send*/
+
+# --- ML/DS PIPELINE ARTIFACTS (generated per run, not source) ---
+reports/figures/*.png
+reports/*.json
+models/*.pkl
 
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
