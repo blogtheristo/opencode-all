@@ -3,14 +3,16 @@
  * Bridges TypeScript report generation with existing Python PDF/email/Drive infrastructure
  */
 
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { InvestorReportData } from './types';
 import { templateGenerator } from './template-generator';
 
-const execAsync = promisify(exec);
+// SECURITY FIX: Use execFile instead of exec to prevent OS command injection (CWE-78).
+// execFile passes arguments as an array — never interpreted by a shell.
+const execFileAsync = promisify(execFile);
 
 // Resend API helper for investor report emails (with PDF attachment)
 async function sendViaResend(
@@ -94,12 +96,19 @@ export class IntegrationWrapper {
 
       // Check if wkhtmltopdf is available
       try {
-        await execAsync('which wkhtmltopdf');
+        await execFileAsync('which', ['wkhtmltopdf']);
 
         // Generate PDF using wkhtmltopdf
-        await execAsync(
-          `wkhtmltopdf --enable-local-file-access --page-size A4 --margin-top 20mm --margin-bottom 20mm --margin-left 15mm --margin-right 15mm "${tempHtmlPath}" "${outputPdfPath}"`
-        );
+        await execFileAsync('wkhtmltopdf', [
+          '--enable-local-file-access',
+          '--page-size', 'A4',
+          '--margin-top', '20mm',
+          '--margin-bottom', '20mm',
+          '--margin-left', '15mm',
+          '--margin-right', '15mm',
+          tempHtmlPath,
+          outputPdfPath,
+        ]);
 
         console.log(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
       } catch (error) {
@@ -111,10 +120,13 @@ export class IntegrationWrapper {
         await fs.writeFile(tempMdPath, markdownContent, 'utf-8');
 
         try {
-          await execAsync('which pandoc');
-          await execAsync(
-            `pandoc "${tempMdPath}" -o "${outputPdfPath}" --pdf-engine=xelatex -V geometry:margin=1in`
-          );
+          await execFileAsync('which', ['pandoc']);
+          await execFileAsync('pandoc', [
+            tempMdPath,
+            '-o', outputPdfPath,
+            '--pdf-engine=xelatex',
+            '-V', 'geometry:margin=1in',
+          ]);
           console.log(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
         } catch (pandocError) {
           console.log('[PDF] Neither wkhtmltopdf nor pandoc available');
@@ -227,9 +239,11 @@ Generated: ${reportData.generated_at.toLocaleDateString('en-US', { month: 'short
       }
 
       // Execute upload script
-      const { stdout, stderr } = await execAsync(
-        `python3 "${uploadScript}" --file "${pdfPath}"`
-      );
+      const { stdout, stderr } = await execFileAsync('python3', [
+        uploadScript,
+        '--file',
+        pdfPath,
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
         console.error('[Drive] stderr:', stderr);
