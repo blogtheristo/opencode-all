@@ -16,6 +16,7 @@ Date: 2026-02-10
 
 import json
 import os
+import sys
 from datetime import datetime, timezone
 
 try:
@@ -154,7 +155,15 @@ def run_advisor_check(channel: str = REDIS_CHANNEL, dry_run: bool = False) -> in
     """Run Supabase Performance Advisor check and publish alerts.
 
     Returns the number of issues found.
+    Exits with code 1 if required environment variables are not set.
     """
+    if not SUPABASE_PROJECT_REF:
+        print("[ERROR] SUPABASE_PROJECT_REF is not set.")
+        print("  Set it to your Supabase project reference ID:")
+        print("    export SUPABASE_PROJECT_REF=your-project-ref")
+        print("  Find it at: https://supabase.com/dashboard/project/_/settings/general")
+        sys.exit(1)
+
     print("=" * 60)
     print("  Supabase Performance Advisor Check")
     print("=" * 60)
