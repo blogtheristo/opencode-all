@@ -204,14 +204,14 @@ services:
       CLAUDE_MCP_PORT: 8771
       SUPABASE_URL: ${SUPABASE_URL}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
-      REPO_PATH: /repo
+      REPO_PATH: /handoff
       CLAUDE_MCP_PLATFORM: ${CLAUDE_MCP_PLATFORM:-win11}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
     ports:
       - "8771:8771"
     volumes:
-      - .:/repo
+      - ./.claude/handoff.md:/handoff/handoff.md:ro
     networks:
       - dws-hybrid-network
     healthcheck:
