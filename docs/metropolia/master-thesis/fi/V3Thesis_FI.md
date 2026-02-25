@@ -1490,7 +1490,7 @@ Tämä laajennus vastaa Hybridi AI-edge-arkkitehtuurin (osio 2) keskeiseen puutt
 1. **DWS IQ 6 -pilvi** (Google Cloud Run, europe-north1)
 2. **NVIDIA GN100 -reunalaitteisto** (Helsingin datakeskus)
 
-Tämä mahdollistaa federoitujen hienoviritystyönkulkujen toteuttamisen — AI-agenttiputkista käynnistetyt koulutustyöt, joiden tarkistuspisteet tallennetaan GCS:iäin — tukien suoraan opinnäytetyön tavoitetta osoittaa, että tuotantotasoinen ilmasto-AI-alusta on saavutettavissa startup-tason resursseilla.
+Tämä mahdollistaa federoitujen hienoviritystyönkulkujen toteuttamisen — AI-agenttiputkista käynnistetyt koulutustyöt, joiden tarkistuspisteet tallennetaan GCS:iin — tukien suoraan opinnäytetyön tavoitetta osoittaa, että tuotantotasoinen ilmasto-AI-alusta on saavutettavissa startup-tason resursseilla.
 
 ### Käyttöönotto
 

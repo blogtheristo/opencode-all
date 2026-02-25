@@ -116,20 +116,19 @@ Migration file: `supabase/migrations/033_mcp_session_sync.sql`
 | `id` | uuid (PK) | Auto-generated |
 | `branch` | text NOT NULL | Git branch the session was on |
 | `tool` | text NOT NULL | Tool/agent name (e.g., `claude-mcp`) |
-| `checkpoint` | text | Last checkpoint label |
+| `checkpoint` | jsonb | Last checkpoint state (JSON payload) |
 | `summary` | text | Session summary for handover |
 | `closed_at` | timestamptz | When session ended |
 | `created_at` | timestamptz | Auto-set to NOW() |
-| `updated_at` | timestamptz | Auto-updated on row change |
 
 **`mcp_migration_queue`** — Migration tracking for Supabase apply status
 | Column | Type | Notes |
 |--------|------|-------|
 | `id` | uuid (PK) | Auto-generated |
-| `migration_number` | text UNIQUE NOT NULL | e.g., `033` |
+| `migration_number` | integer UNIQUE NOT NULL | e.g., `33` |
 | `filename` | text NOT NULL | SQL filename |
 | `sql` | text | Full SQL content |
-| `status` | text | `pending` / `applied` / `failed` |
+| `status` | text | `pending` / `applied` / `discarded` |
 | `applied_by` | text | Who applied it |
 | `supabase_applied` | boolean | Whether Supabase CLI ran it |
 | `created_at` | timestamptz | Auto-set to NOW() |
