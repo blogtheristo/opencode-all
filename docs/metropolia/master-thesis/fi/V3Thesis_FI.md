@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.15
 
 Sessions & Modifications:
+  - Version: 3.15 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 25.02.2026 | Changes: Lisätty osio 1.6 Tutkimusasetelma ja rajoitukset — konstruktiivinen tutkimusmenetelmä (Kasanen 1993, Hevner 2004), A/B-testaus neljän palautekanavan kautta (Google Merchant, SEO, myyntitulokset, sijoittajapalaute), tuotteiden modernisointivalidointi, kaksoisroolien hallinta, artefaktien validointimatriisi. Konsolidoitu versiot 3.10–3.14 (useita odottavia päivityksiä eri sessioista) yhdeksi julkaisuksi
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 16 toimialan ristioppimisen verkostovaikutusten analyysi
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
@@ -180,6 +181,58 @@ Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden h
 | **SaaS** | Software as a Service - Ohjelmisto palveluna |
 | **DWS6** | Digital Work System 6 - Firehorse-alustan tekninen nimi |
 | **Sisältyvä hiili** | Rakennusmateriaalien valmistuksen ja kuljetuksen päästöt |
+
+## 1.6 Tutkimusasetelma ja rajoitukset
+
+Tämä tutkimus on **toiminnallinen tapaustutkimus** (konstruktiivinen tutkimus), jossa tutkija toimii samanaikaisesti kehittäjänä, yrittäjänä ja arvioijana. Kyseessä on ensisijaisesti **Firehorse-toiminnallisen tuotantomallin sekä 30 tuotteen artefaktin rakentaminen ja toimintamallin toimivuuden arviointi** todellisessa liiketoimintaympäristössä — ei hypoteesien tilastollinen testaaminen.
+
+**Tutkimusstrategia:** Konstruktiivinen tutkimus (Kasanen et al., 1993) yhdistettynä Design Science Research -menetelmään (Hevner et al., 2004). Molemmat menetelmät soveltuvat tutkimukseen, jossa rakennetaan konkreettinen artefakti — tässä tapauksessa Firehorse-tuotantomalli ja sen 30 tuotteen katalogi — ja arvioidaan sen toimivuutta käytännössä.
+
+### 1.6.1 Tuotetestaus ja palautekanavat
+
+Tuotteiden validointi toteutetaan **A/B-testauksena** neljän palautekanavan kautta:
+
+| Palautekanava | Mittarit | Palautesykli |
+|---------------|----------|-------------|
+| **Google Merchant Center** | Tuotehyväksyntäaste, klikkausprosentti (CTR), tuotekohtainen konversio | Jatkuva (feed-päivitys <24h) |
+| **SEO-analytiikka** | Orgaaninen näkyvyys, hakusijoitukset, sivukohtainen liikenne | Viikoittainen |
+| **Myyntitulokset** | MRR, konversioaste, keskimääräinen tilausarvo, takaisinmaksuaika | Kuukausittainen |
+| **Sijoittajapalaute** | Tuotevalikoiman arviointi, hinnoittelumallin palaute, skaalautuvuusarvio | Kvartaali (InvestEU, pilottiasiakkaat) |
+
+Tämä neliportainen palautekanavointi integroidaan DWS-tuotteisiin siten, että jokainen tuote saa jatkuvaa dataa kaikista neljästä kanavasta. A/B-testauksen tulokset ohjaavat tuotekehitystä: tuotekuvaukset, hinnoittelu, kategoriarakenne ja markkinointiviestit iteroidaan mitattavan palautteen perusteella.
+
+### 1.6.2 Tuotteiden modernisointivalidointi
+
+Tuotteiden modernisointi validoidaan systemaattisen iteroinnin kautta palautekanavissa:
+
+| Modernisointialue | Ennen | Jälkeen | Validointimenetelmä |
+|-------------------|-------|---------|---------------------|
+| Tuotekuvaukset | Staattiset, manuaaliset | AI-generoidut, A/B-testatut | Google Merchant CTR -vertailu |
+| Hinnoittelurakenne | Kiinteät tasot | Dynaaminen, markkinaresponsiivinen | Myynnin konversioaste-analyysi |
+| Kategoriataksonomia | Litteä listaus | Hierarkkinen, SEO-optimoitu | Orgaanisen haun sijoitusparannus |
+| Tuotesivut | Mallipohjaiset | Personoidut, datavetoiset | Sivukohtainen poistumisprosentti ja viipymäaika |
+
+Modernisointi ei ole kertaluonteinen tapahtuma vaan jatkuva sykli: Google Merchant -data ohjaa SEO-parannuksia, SEO-liikenne ajaa myyntituloksia, ja myyntitulokset yhdessä sijoittajapalautteen kanssa ohjaavat seuraavaa tuoteiteraatiota.
+
+### 1.6.3 Artefaktien validointikehys
+
+| Artefakti | Validointitapa | Todistusaineisto |
+|-----------|---------------|-----------------|
+| Firehorse-tuotantomalli | Toiminnallinen tehokkuus | Tuotepäivitysaika 2h → 5min (osio 8.1) |
+| 30 tuotteen katalogi | A/B-testaus + ulkoinen hyväksyntä | Google Merchant 30/30, SEO-sijoitukset, myyntidata (osio 8.2) |
+| Kustannusmalli (€0–350/kk) | Toteutunut kustannus | MVP €0/kk saavutettu (osio 8.4) |
+| Asiakasarvo | Maksavat asiakkaat + sijoittajapalaute | €10k MRR, 5 pilottiasiakasta, InvestEU (osio 8.5) |
+| EU-vaatimustenmukaisuus | Regulatiivinen kartoitus | Fit for 55, GDPR, AI Act -valmiusaste (osio 8.3) |
+
+### 1.6.4 Tutkijan kaksoisroolit ja niiden hallinta
+
+| Rooli | Riski | Hallintakeino |
+|-------|-------|---------------|
+| Kehittäjä + arvioija | Tulosten kaunistelu | Git-historia todistettavissa, Google Merchant -data ulkoinen |
+| Yrittäjä + tutkija | Kaupallinen painotus | Rajoitukset dokumentoitu eksplisiittisesti (osio 9.3) |
+| Yksin toimija | Vahvistusharha | Kolmannen osapuolen validointi suunniteltu Q2 2026 |
+
+Lähestymistapa on tietoinen valinta: YAMK-opinnäytetyö on nimenomaan **kehittämistyö**, jossa Firehorse-toimintamallin ja sen tuottaman 30 tuotteen artefaktin käytännön toimivuus on ensisijainen arvioitava tulos. Neliportainen palautekanavointi (Google Merchant, SEO, myyntitulokset, sijoittajapalaute) varmistaa, että validointi perustuu ulkoiseen, mitattavaan dataan — ei pelkästään tutkijan omaan arvioon.
 
 ---
 
@@ -1736,9 +1789,9 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.7 yhdistetty kokonaisversio
-**Versio:** 3.7
-**Viimeisin päivitys:** 20.02.2026
+**Tila:** DRAFT - V3.15 yhdistetty kokonaisversio
+**Versio:** 3.15
+**Viimeisin päivitys:** 25.02.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi

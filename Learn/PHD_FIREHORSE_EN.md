@@ -31,10 +31,11 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 11. [Proton Products Strategy](#11-proton-products-strategy)
 12. [IPR Protection & Trade Secret Strategy](#12-ipr-protection--trade-secret-strategy)
 13. [Prompt Caching Architecture for AI Agents](#13-prompt-caching-architecture-for-ai-agents)
-14. [Results and Discussion](#14-results-and-discussion)
-15. [Conclusion](#15-conclusion)
-16. [References](#16-references)
-17. [Appendices](#17-appendices)
+14. [Enterprise Multi-Tenant Agent Architecture](#14-enterprise-multi-tenant-agent-architecture)
+15. [Results and Discussion](#15-results-and-discussion)
+16. [Conclusion](#16-conclusion)
+17. [References](#17-references)
+18. [Appendices](#18-appendices)
 
 ---
 
@@ -70,6 +71,32 @@ This thesis covers the DWS10.com store implementation, serving 30+ products acro
 | Consulting Services | Hourly, Monthly, Workshops | €98 - €6,250 |
 | Training & Coaching | AI Koulutus, Coach, Mentor | €499 - €6,250 |
 | Digital Products | Glossaries, Web Pages | €0.99 - €799 |
+
+### 1.4 Research Design and Validation
+
+This thesis is an **action-oriented case study** using constructive research methodology (Kasanen et al., 1993) combined with Design Science Research (Hevner et al., 2004). The researcher simultaneously acts as developer, entrepreneur, and evaluator.
+
+**Product validation via A/B testing across four feedback channels:**
+
+| Feedback Channel | Metrics | Cycle |
+|-----------------|---------|-------|
+| **Google Merchant Center** | Approval rate, CTR, per-product conversion | Continuous (<24h) |
+| **SEO Analytics** | Organic visibility, rankings, page traffic | Weekly |
+| **Sales Results** | MRR, conversion rate, average order value | Monthly |
+| **Investor Feedback** | Portfolio assessment, pricing feedback, scalability | Quarterly |
+
+**Product modernization validation:**
+
+| Area | Before | After | Validation |
+|------|--------|-------|------------|
+| Product descriptions | Static, manual | AI-generated, A/B tested | Google Merchant CTR |
+| Pricing | Fixed tiers | Dynamic, market-responsive | Conversion rate analysis |
+| Categories | Flat listing | Hierarchical, SEO-optimized | Search ranking improvement |
+| Product pages | Template-based | Personalized, data-driven | Bounce rate, time-on-site |
+
+This four-channel feedback pipeline is integrated into every DWS product, ensuring continuous data-driven iteration. Modernization is a continuous cycle: Merchant data informs SEO, SEO drives sales, and sales plus investor feedback inform the next iteration.
+
+**Researcher dual roles:** Developer + evaluator (mitigated by verifiable git history and external Google Merchant data), entrepreneur + researcher (limitations documented explicitly), solo operator (third-party validation planned Q2 2026).
 
 ---
 
@@ -938,9 +965,120 @@ These economics are critical for Firehorse's AI-assisted store operations, where
 
 ---
 
-## 14. Results and Discussion
+## 14. Enterprise Multi-Tenant Agent Architecture
 
-### 12.1 Operational Efficiency Gains
+### 14.1 Per-Industry Open LLM Selection
+
+No single open LLM is optimal for all 16 EU industries served by DWS IQ. Each industry vertical has distinct regulatory language, domain knowledge requirements, and structured output needs. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking.
+
+**Candidate open LLMs by industry cluster:**
+
+| Industry Cluster | Candidate Models | Key Domain Requirement |
+|-----------------|------------------|----------------------|
+| Construction, Real Estate | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
+| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS allowance calculations, process emissions, CBAM |
+| Manufacturing, Chemicals | Qwen 2.5 72B, Llama 3.3 | CBAM product classification, BOM analysis, REACH |
+| Logistics, Maritime, Aviation | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, route optimization |
+| Agriculture, Food & Beverage | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 supply chain, packaging lifecycle |
+| Finance, Public Sector | Mistral Large (EU-hosted), Llama 3.3 | SFDR, EU Taxonomy, double materiality, GPP |
+| Healthcare, Textiles | Gemma 2 (EU-hosted), Qwen 2.5 | Digital product passport, pharmaceutical supply chain |
+
+**Selection criteria:** domain knowledge depth, multilingual capability, structured output reliability, context window (128k+), inference speed, EU data residency, and commercial license.
+
+**Continuous benchmarking process:** Each industry agent runs weekly automated compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against the current model and 2-3 alternatives. If an alternative consistently scores higher on accuracy and structured output, the model is flagged for review and potential switch.
+
+### 14.2 Bring Your Own Agent (BYOA) Architecture
+
+Enterprise customers bring their own AI agents to work on DWS IQ. This section uses NCC (Nordic construction company) as an illustrative case.
+
+**NCC agent ecosystem:**
+
+| Agent Source | Count | Examples |
+|-------------|-------|---------|
+| **NCC Internal** | 7 | Procurement, Safety Compliance, BIM, Sustainability, Cost Estimation, Quality, Project Planning |
+| **Contractor Agents** | 14 | HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier, Window Manufacturer, Insulation, etc. |
+| **DWS IQ Platform** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
+| **Total** | 24 | All connected via A2A + MCP protocols |
+
+**Tenant-specific Lifetime World Model (LWM):**
+
+The Lifetime World Model is the enterprise learning layer that sits on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+
+1. **Fine-tunes enterprise data and regulation** — ingests the customer's operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities
+3. **Ensures competitive advantage with multi-agent tools** — combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
+
+Each enterprise tenant receives their own LWM instance:
+- **Base LLM:** Selected per industry evaluation (e.g., Qwen 2.5 72B for Nordic construction)
+- **Fine-tuned on:** Tenant's own project data, industry codes (RT-kortisto), regulatory context
+- **Connectors:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (emissions factors)
+- **Sandbox:** Stage 2 ephemeral containers (europe-north1) or Stage 3 persistent (at scale)
+
+**Why 16 industries make the LWM stronger:** Each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns. A carbon reduction technique proven in cement manufacturing generates transferable insight for construction. Supply chain Scope 3 agents in manufacturing transfer to food & beverage. The 16th industry customer benefits from all 15 industries' accumulated intelligence — creating a moat that single-industry competitors cannot replicate.
+
+### 14.3 Agent Orchestration Studio: Graphical Workflow Builder
+
+To enable enterprise customers to build connections between 24+ agents, the platform provides a visual workflow builder.
+
+**Tool evaluation:**
+
+| Tool | License | MCP Support | A2A Support | Self-Hosted EU | Best For |
+|------|---------|-------------|-------------|---------------|----------|
+| **Langflow** | Apache 2.0 | Native (client + server) | Via custom nodes | Yes | Agent orchestration, LLM workflows |
+| **n8n** | Fair Code | Via community nodes | Via HTTP nodes | Yes | ERP/BIM connectors, data pipelines |
+| **React Flow** | MIT | Custom | Custom | N/A (library) | Custom visual builder UI |
+| **Flowise** | Apache 2.0 | Partial | No | Yes | Chatbot RAG workflows |
+| **Node-RED** | Apache 2.0 | Via FlowFuse | Via HTTP | Yes | IoT/edge, industrial automation |
+| **Temporal UI** | MIT | No | No | Yes | Workflow execution monitoring |
+
+**Recommended: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow Visual Canvas                         │  │
+│  │  - Drag-and-drop agent nodes                      │  │
+│  │  - Per-agent LLM model selection                  │  │
+│  │  - Visual connector wiring                        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Langflow Engine (MCP + A2A orchestration)        │  │
+│  │  - Agent nodes = A2A Agent Cards                  │  │
+│  │  - Connectors = MCP tools                         │  │
+│  │  - Flows export to Temporal.io workflows          │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Temporal.io (durable execution, already in stack)│  │
+│  │  - Retry, timeout, compensation                   │  │
+│  │  - EU AI Act Article 12 audit trail               │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Rationale:**
+1. **React Flow** (MIT) — Custom visual canvas in DWS IQ React dashboard. Zero vendor lock-in.
+2. **Langflow** (Apache 2.0) — Native MCP + A2A support. Self-hosted EU. IBM enterprise partnership.
+3. **Temporal.io** — Already in stack. Durable execution with full Article 12 audit trail.
+4. **n8n** — Supplementary for ERP/BIM connector workflows (Tekla ↔ IFS Cloud sync).
+
+### 14.4 Contractor Agent Onboarding
+
+```
+1. Contractor publishes Agent Card (/.well-known/agent.json)
+2. NCC admin opens Agent Orchestration Studio
+3. Studio discovers contractor agent via A2A protocol
+4. Admin drags contractor onto canvas, connects to workflows
+5. Studio validates connectivity (A2A health check)
+6. Workflow deploys to Temporal.io
+7. All interactions logged per EU AI Act Article 12
+```
+
+---
+
+## 15. Results and Discussion
+
+### 15.1 Operational Efficiency Gains
 
 The Firehorse Operations Model with Claude Code achieved:
 
@@ -952,7 +1090,7 @@ The Firehorse Operations Model with Claude Code achieved:
 | Error rate | 5% | <1% | 80% |
 | Store page updates | 4 hours | 15 minutes | 94% |
 
-### 12.2 Google Merchant Center Performance
+### 15.2 Google Merchant Center Performance
 
 After implementing Revolut checkout links and fixing feed issues:
 
@@ -963,7 +1101,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | Checkout conversion | Direct to payment |
 | Feed file size | 32,893 bytes |
 
-### 12.3 Compliance Readiness Assessment
+### 15.3 Compliance Readiness Assessment
 
 | Regulation | Readiness | Gap Analysis |
 |------------|-----------|--------------|
@@ -973,7 +1111,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | NIS2 | 75% | Security assessment needed |
 | CSRD | 85% | Reporting templates ready |
 
-### 12.4 Limitations
+### 15.4 Limitations
 
 1. **Audio chat not yet deployed** - Roadmap documented, Q1 2026 target
 2. **Partner ecosystem** - Partnerships in development
@@ -982,9 +1120,9 @@ After implementing Revolut checkout links and fixing feed issues:
 
 ---
 
-## 15. Conclusion
+## 16. Conclusion
 
-### 13.1 Summary
+### 16.1 Summary
 
 The Firehorse Operations Model demonstrates that AI-assisted e-commerce management can:
 
@@ -994,7 +1132,7 @@ The Firehorse Operations Model demonstrates that AI-assisted e-commerce manageme
 4. **Prepare infrastructure** for voice-based customer interactions
 5. **Support industrial customers** with carbon calculator integration
 
-### 13.2 Key Contributions
+### 16.2 Key Contributions
 
 This thesis contributes:
 
@@ -1005,7 +1143,7 @@ This thesis contributes:
 5. Product recommendation engine architecture for 16 EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
 
-### 13.3 Future Work
+### 16.3 Future Work
 
 1. **Q1 2026:** Deploy audio chat Phase 1 with EU AI Act transparency
 2. **Q2 2026:** Implement industry carbon calculator with Scope 1/2/3
@@ -1015,7 +1153,7 @@ This thesis contributes:
 
 ---
 
-## 16. References
+## 17. References
 
 1. EU AI Act, Regulation (EU) 2024/1689
 2. Google Merchant Center Technical Specifications (2026)
@@ -1036,7 +1174,7 @@ This thesis contributes:
 
 ---
 
-## 17. Appendices
+## 18. Appendices
 
 ### Appendix A: Complete Product Catalog
 
@@ -1160,5 +1298,5 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 1.1*
+*Last updated: 25.02.2026*
+*Version: 1.4 (consolidated v1.2–1.3 from other sessions)*

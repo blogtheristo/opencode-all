@@ -72,6 +72,32 @@ Tama tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotett
 | Koulutus & Valmennus | AI Koulutus, Coach, Mentor | 499 - 6 250 EUR |
 | Digitaaliset tuotteet | Sanastot, verkkosivut | 0,99 - 799 EUR |
 
+### 1.4 Tutkimusasetelma ja validointi
+
+Tämä tutkimus on **toiminnallinen tapaustutkimus**, joka käyttää konstruktiivista tutkimusmenetelmää (Kasanen et al., 1993) yhdistettynä Design Science Research -menetelmään (Hevner et al., 2004). Tutkija toimii samanaikaisesti kehittäjänä, yrittäjänä ja arvioijana.
+
+**Tuotevalidointi A/B-testauksena neljän palautekanavan kautta:**
+
+| Palautekanava | Mittarit | Sykli |
+|---------------|----------|-------|
+| **Google Merchant Center** | Hyväksyntäaste, CTR, tuotekohtainen konversio | Jatkuva (<24h) |
+| **SEO-analytiikka** | Orgaaninen näkyvyys, sijoitukset, sivuliikenne | Viikoittainen |
+| **Myyntitulokset** | MRR, konversioaste, keskimääräinen tilausarvo | Kuukausittainen |
+| **Sijoittajapalaute** | Portfolioarviointi, hinnoittelupalaute, skaalautuvuus | Kvartaali |
+
+**Tuotteiden modernisointivalidointi:**
+
+| Alue | Ennen | Jälkeen | Validointi |
+|------|-------|---------|------------|
+| Tuotekuvaukset | Staattiset, manuaaliset | AI-generoidut, A/B-testatut | Google Merchant CTR |
+| Hinnoittelu | Kiinteät tasot | Dynaaminen, markkinaresponsiivinen | Konversioaste-analyysi |
+| Kategoriat | Litteä listaus | Hierarkkinen, SEO-optimoitu | Hakusijoitusparannus |
+| Tuotesivut | Mallipohjaiset | Personoidut, datavetoiset | Poistumisprosentti, viipymäaika |
+
+Tämä neliportainen palautekanavointi integroidaan jokaiseen DWS-tuotteeseen, varmistaen jatkuvan datavetisen iteroinnin. Modernisointi on jatkuva sykli: Merchant-data ohjaa SEO:ta, SEO ajaa myyntiä, ja myyntitulokset yhdessä sijoittajapalautteen kanssa ohjaavat seuraavaa iteraatiota.
+
+**Tutkijan kaksoisroolit:** Kehittäjä + arvioija (hallittu todistettavalla git-historialla ja ulkoisella Google Merchant -datalla), yrittäjä + tutkija (rajoitukset dokumentoitu eksplisiittisesti), yksin toimija (kolmannen osapuolen validointi suunniteltu Q2 2026).
+
 ---
 
 ## 2. Kirjallisuuskatsaus
@@ -1270,5 +1296,5 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 1.1*
+*Viimeksi paivitetty: 25.02.2026*
+*Versio: 1.4 (konsolidoitu v1.2–1.3 muista sessioista)*

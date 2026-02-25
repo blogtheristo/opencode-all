@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.15
 
 Sessions & Modifications:
+  - Version: 3.15 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 25.02.2026 | Changes: Added section 1.6 Research Design and Limitations — constructive research methodology (Kasanen 1993, Hevner 2004), A/B testing via 4 feedback channels (Google Merchant, SEO, sales results, investor feedback), product modernization validation framework, dual-role management, artifact validation matrix. Consolidated versions 3.10–3.14 (multiple pending updates across sessions) into single release
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (16 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
@@ -180,6 +181,58 @@ How can a bootstrapped industrial AI platform achieve product-market fit through
 | **SaaS** | Software as a Service |
 | **DWS6** | Digital Work System 6 - Technical name for the Firehorse platform |
 | **Embodied Carbon** | Emissions from the manufacturing and transportation of building materials |
+
+## 1.6 Research Design and Limitations
+
+This thesis is an **action-oriented case study** (constructive research), where the researcher simultaneously acts as developer, entrepreneur, and evaluator. The primary objective is **building the Firehorse operations model and a 30-product artifact catalog, then evaluating operational viability** in a real business environment — not statistical hypothesis testing.
+
+**Research strategy:** Constructive Research (Kasanen et al., 1993) combined with Design Science Research (Hevner et al., 2004). Both methods are suited for research that builds a concrete artifact — in this case, the Firehorse operations model and its 30-product catalog — and evaluates its practical effectiveness.
+
+### 1.6.1 Product Testing and Feedback Channels
+
+Product validation is implemented as **A/B testing** across four feedback channels:
+
+| Feedback Channel | Metrics | Feedback Cycle |
+|-----------------|---------|---------------|
+| **Google Merchant Center** | Product approval rate, click-through rate (CTR), per-product conversion | Continuous (feed update <24h) |
+| **SEO Analytics** | Organic visibility, search rankings, page-level traffic | Weekly |
+| **Sales Results** | MRR, conversion rate, average order value, payback period | Monthly |
+| **Investor Feedback** | Product portfolio assessment, pricing model feedback, scalability evaluation | Quarterly (InvestEU, pilot customers) |
+
+This four-channel feedback pipeline is integrated into DWS products so that every product receives continuous data from all four channels. A/B testing results drive product development: product descriptions, pricing, category structure, and marketing messages are iterated based on measurable feedback.
+
+### 1.6.2 Product Modernization Validation
+
+Product modernization is validated through systematic iteration across the feedback channels:
+
+| Modernization Area | Before | After | Validation Method |
+|-------------------|--------|-------|-------------------|
+| Product descriptions | Static, manual | AI-generated, A/B tested | Google Merchant CTR comparison |
+| Pricing structure | Fixed tiers | Dynamic, market-responsive | Sales conversion rate analysis |
+| Category taxonomy | Flat listing | Hierarchical, SEO-optimized | Organic search ranking improvement |
+| Product pages | Template-based | Personalized, data-driven | Per-page bounce rate and time-on-site |
+
+Modernization is not a one-time event but a continuous cycle: Google Merchant data informs SEO improvements, SEO traffic drives sales results, and sales results plus investor feedback inform the next product iteration.
+
+### 1.6.3 Artifact Validation Framework
+
+| Artifact | Validation Method | Evidence |
+|----------|------------------|----------|
+| Firehorse operations model | Operational efficiency | Product update time 2h → 5min (section 8.1) |
+| 30-product catalog | A/B testing + external approval | Google Merchant 30/30, SEO rankings, sales data (section 8.2) |
+| Cost model (€0–350/month) | Realized cost | MVP €0/month achieved (section 8.4) |
+| Customer value | Paying customers + investor feedback | €10k MRR, 5 pilot customers, InvestEU (section 8.5) |
+| EU compliance | Regulatory mapping | Fit for 55, GDPR, AI Act readiness (section 8.3) |
+
+### 1.6.4 Researcher Dual Roles and Management
+
+| Role | Risk | Mitigation |
+|------|------|------------|
+| Developer + evaluator | Result embellishment | Git history verifiable, Google Merchant data external |
+| Entrepreneur + researcher | Commercial bias | Limitations documented explicitly (section 9.3) |
+| Solo operator | Confirmation bias | Third-party validation planned Q2 2026 |
+
+This approach is a deliberate choice: a YAMK thesis is specifically a **development project**, where the Firehorse operations model's practical effectiveness and its 30-product artifact's market viability are the primary evaluable outcomes. The four-channel feedback pipeline (Google Merchant, SEO, sales results, investor feedback) ensures that validation is based on external, measurable data — not solely the researcher's own assessment.
 
 ---
 
@@ -1744,9 +1797,9 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.7 consolidated full version
-**Version:** 3.7
-**Last Modified:** 20.02.2026
+**Status:** DRAFT - V3.15 consolidated full version
+**Version:** 3.15
+**Last Modified:** 25.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi

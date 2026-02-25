@@ -72,6 +72,32 @@ This thesis covers the DWS10.com store implementation, serving 30+ products acro
 | Training & Coaching | AI Koulutus, Coach, Mentor | €499 - €6,250 |
 | Digital Products | Glossaries, Web Pages | €0.99 - €799 |
 
+### 1.4 Research Design and Validation
+
+This thesis is an **action-oriented case study** using constructive research methodology (Kasanen et al., 1993) combined with Design Science Research (Hevner et al., 2004). The researcher simultaneously acts as developer, entrepreneur, and evaluator.
+
+**Product validation via A/B testing across four feedback channels:**
+
+| Feedback Channel | Metrics | Cycle |
+|-----------------|---------|-------|
+| **Google Merchant Center** | Approval rate, CTR, per-product conversion | Continuous (<24h) |
+| **SEO Analytics** | Organic visibility, rankings, page traffic | Weekly |
+| **Sales Results** | MRR, conversion rate, average order value | Monthly |
+| **Investor Feedback** | Portfolio assessment, pricing feedback, scalability | Quarterly |
+
+**Product modernization validation:**
+
+| Area | Before | After | Validation |
+|------|--------|-------|------------|
+| Product descriptions | Static, manual | AI-generated, A/B tested | Google Merchant CTR |
+| Pricing | Fixed tiers | Dynamic, market-responsive | Conversion rate analysis |
+| Categories | Flat listing | Hierarchical, SEO-optimized | Search ranking improvement |
+| Product pages | Template-based | Personalized, data-driven | Bounce rate, time-on-site |
+
+This four-channel feedback pipeline is integrated into every DWS product, ensuring continuous data-driven iteration. Modernization is a continuous cycle: Merchant data informs SEO, SEO drives sales, and sales plus investor feedback inform the next iteration.
+
+**Researcher dual roles:** Developer + evaluator (mitigated by verifiable git history and external Google Merchant data), entrepreneur + researcher (limitations documented explicitly), solo operator (third-party validation planned Q2 2026).
+
 ---
 
 ## 2. Literature Review
@@ -1272,5 +1298,5 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 1.1*
+*Last updated: 25.02.2026*
+*Version: 1.4 (consolidated v1.2–1.3 from other sessions)*
