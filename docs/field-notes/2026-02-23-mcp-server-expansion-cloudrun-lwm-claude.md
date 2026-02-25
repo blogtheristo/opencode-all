@@ -125,10 +125,10 @@ Migration file: `supabase/migrations/033_mcp_session_sync.sql`
 | Column | Type | Notes |
 |--------|------|-------|
 | `id` | uuid (PK) | Auto-generated |
-| `migration_number` | text UNIQUE NOT NULL | e.g., `033` |
+| `migration_number` | integer UNIQUE NOT NULL | e.g., `33` |
 | `filename` | text NOT NULL | SQL filename |
 | `sql` | text | Full SQL content |
-| `status` | text | `pending` / `applied` / `failed` |
+| `status` | text | `pending` / `applied` / `discarded` |
 | `applied_by` | text | Who applied it |
 | `supabase_applied` | boolean | Whether Supabase CLI ran it |
 | `created_at` | timestamptz | Auto-set to NOW() |
