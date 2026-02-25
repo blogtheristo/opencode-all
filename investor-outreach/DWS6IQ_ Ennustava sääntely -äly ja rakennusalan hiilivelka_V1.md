@@ -64,3 +64,5 @@ DWS 6 IQ integroituu suoraan salkunhallintaan ja antaa jokaiselle kiinteistölle
 **K: "Onko sääntelydata todella reaaliaikaista?"**
 
 * **Vastaus:** Kyllä. Tietograafimme yhdistää automatisoidun tiedonkeruun yli 10 000 lähteestä. Jos Suomen rakentamislaki muuttuu lausuntovaiheessa, LWM päivittää vaikutusarviot salkkuun tunneissa.
+
+**Haluatko, että muokkaan tätä vielä tiiviimmäksi "Teaser"-sähköpostiksi, jota voit käyttää lähestyessäsi sijoittajia ensimmäistä kertaa?**
