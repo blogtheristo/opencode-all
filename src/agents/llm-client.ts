@@ -5,11 +5,13 @@
  * client that supports:
  *   - Groq (OpenAI-compatible) — existing default
  *   - Anthropic (Claude) — via @anthropic-ai/claude-agent-sdk
+ *   - Grok (xAI) — OpenAI-compatible, sovereign consent required
  *   - Generic OpenAI-compatible endpoints (Ollama, vLLM, Together, etc.)
  *
  * Key capability: Tool use / function calling across all providers.
  *
  * Fix #2 (tool use) and Fix #3 (replace hardcoded Groq) from DWS7 modernization.
+ * Grok: GDPR + EU AI Act Article 12 consent gate added 2026-02-26.
  */
 
 import logger from '../utils/logger.js';
@@ -17,7 +19,7 @@ import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse } from './types.
 
 // ============ PROVIDER CONFIGURATION ============
 
-export type LLMProvider = 'groq' | 'anthropic' | 'openai-compatible';
+export type LLMProvider = 'groq' | 'anthropic' | 'grok' | 'openai-compatible';
 
 export interface LLMClientConfig {
   provider: LLMProvider;
@@ -30,13 +32,27 @@ export interface LLMClientConfig {
 
 /** Resolve provider config from environment + agent config */
 export function resolveProvider(agentModel: string): LLMClientConfig | null {
-  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
+  // Priority: ANTHROPIC_API_KEY > GROK_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
   if (process.env.ANTHROPIC_API_KEY) {
     return {
       provider: 'anthropic',
       apiKey: process.env.ANTHROPIC_API_KEY,
       baseUrl: 'https://api.anthropic.com/v1',
       model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+      maxTokens: 4096,
+      temperature: 0.3,
+    };
+  }
+
+  // Grok (xAI) — requires explicit per-org consent (GDPR + EU AI Act).
+  // Consent is enforced at call time in LLMClient.chat(); key presence
+  // here only signals that the operator has configured the key.
+  if (process.env.GROK_API_KEY) {
+    return {
+      provider: 'grok',
+      apiKey: process.env.GROK_API_KEY,
+      baseUrl: 'https://api.x.ai/v1',
+      model: process.env.GROK_MODEL || 'grok-3',
       maxTokens: 4096,
       temperature: 0.3,
     };
@@ -87,13 +103,20 @@ export class LLMClient {
   /**
    * Send a multi-turn conversation with optional tool definitions.
    * Returns the assistant's response, which may include tool calls.
+   *
+   * For Grok: consent MUST be granted via GrokConsentService before calling.
+   * orgId is required when provider === 'grok'; omitting it throws.
    */
   async chat(
     messages: LLMMessage[],
     tools?: ToolDefinition[],
+    opts?: { orgId?: string },
   ): Promise<LLMResponse> {
     if (this.config.provider === 'anthropic') {
       return this.chatAnthropic(messages, tools);
+    }
+    if (this.config.provider === 'grok') {
+      return this.chatGrok(messages, tools, opts?.orgId);
     }
     // Groq and OpenAI-compatible share the same API shape
     return this.chatOpenAICompatible(messages, tools);
@@ -209,6 +232,72 @@ export class LLMClient {
       toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
       stopReason: data.stop_reason === 'tool_use' ? 'tool_use' : 'end_turn',
     };
+  }
+
+  // ============ GROK PROVIDER (xAI — sovereign consent required) ============
+
+  /**
+   * Chat with xAI Grok.
+   *
+   * Grok uses the OpenAI-compatible API but data leaves EU infrastructure.
+   * Before every call we verify consent via GrokConsentService and emit
+   * an Article 12 audit event regardless of outcome.
+   *
+   * Privacy-first: if consent is not granted (or Supabase is unavailable),
+   * the call is blocked and an error is thrown — never silently bypassed.
+   */
+  private async chatGrok(
+    messages: LLMMessage[],
+    tools?: ToolDefinition[],
+    orgId?: string,
+  ): Promise<LLMResponse> {
+    // Lazy import to avoid circular deps and keep the consent module optional
+    const { grokConsentService } = await import('../services/grok-consent.service.js');
+
+    if (!orgId) {
+      throw new Error(
+        'Grok provider requires orgId for consent verification (GDPR Art. 6 / EU AI Act Annex IV)',
+      );
+    }
+
+    const consentStatus = await grokConsentService.checkConsent(orgId);
+    if (!consentStatus.granted) {
+      await grokConsentService.logInferenceBlocked(orgId, consentStatus.reason);
+      throw new Error(
+        `Grok inference blocked for org ${orgId}: ${consentStatus.reason}. ` +
+        'Grant consent via POST /grok-consent/:orgId/grant',
+      );
+    }
+
+    const startMs = Date.now();
+    let response: LLMResponse;
+
+    try {
+      response = await this.chatOpenAICompatible(messages, tools);
+    } catch (err) {
+      await grokConsentService.logInferenceEvent({
+        orgId,
+        model: this.config.model,
+        inputTokens: 0,
+        outputTokens: 0,
+        durationMs: Date.now() - startMs,
+        status: 'error',
+        error: String(err),
+      });
+      throw err;
+    }
+
+    // Article 12: log every successful inference (anonymised — no prompt content)
+    await grokConsentService.logInferenceEvent({
+      orgId,
+      model: response.model,
+      inputTokens: response.inputTokens,
+      outputTokens: response.outputTokens,
+      durationMs: Date.now() - startMs,
+      status: 'ok',
+    });
+
+    return response;
   }
 
   // ============ OPENAI-COMPATIBLE PROVIDER (Groq, OpenAI, Ollama, etc.) ============

@@ -26,6 +26,7 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import grokConsentRoutes from './routes/grok-consent.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -192,6 +193,9 @@ app.use('/api/bim', bimRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
+
+// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
+app.use('/api/grok-consent', grokConsentRoutes);
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
