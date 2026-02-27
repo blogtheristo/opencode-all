@@ -13,7 +13,7 @@ https://dws10.com/buy
 ## 1. Founder & Traction
 
 - Current MRR: 7 000 € (self-funded, zero debt)
-- Daily cash flow: 333 € from senior Kela taxi operations (the "Grit" layer)
+- Daily cash flow: 333 € from senior Kela (Finnish senior transport service) taxi operations (the "Grit" layer)
 - Cloud experience: 3 years hands-on Azure (155 000 USD Microsoft credits utilized for R&D)
 - Hardware: Free Acer Veriton GN-100 AI Mini Workstation received from Acer Finland (operational today)
 - Status: Google and NVIDIA ecosystem access open. Seeking Lead Fleet Admiral for €500k SAFE first tranche
