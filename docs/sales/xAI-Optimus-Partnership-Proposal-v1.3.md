@@ -88,7 +88,7 @@ Closing the first tranche of 8 Platinum Captain seats (€50k each) to activate 
 
 ## 10. Next Step
 
-I am available for a private 30-minute alignment call next week to demonstrate the DWS IQ 6 Brain running on my Acer GN-100. I will show how the 4-Partner View is ready for Grok to take the podium as the Conductor.
+I am available for a private 30-minute alignment call at your earliest convenience to demonstrate the DWS IQ 6 Brain running on my Acer GN-100. I will show how the 4-Partner View is ready for Grok to take the podium as the Conductor.
 
 ---
 
