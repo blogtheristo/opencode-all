@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws6-dws7-update-doc-I2Cgk | Date: 22.02.2026 | Changes: Initial creation — comprehensive DWS6→DWS7 update document covering architecture, migration path, compliance engine, and deployment evolution
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dws6-dws7-update-doc-I2Cgk | Date: 27.02.2026 | Changes: Expanded Section 11 from NVIDIA+Siemens to full 5-partner ecosystem (NVIDIA, Siemens, ABB, xAI, Mistral), added multi-LLM router architecture, ABB Ability integration, EU-sovereign AI strategy with Mistral
 
 Session Links & References:
   - Claude Code (claude/dws6-dws7-update-doc-I2Cgk): https://github.com/blogtheristo/dws6/commits/claude/dws6-dws7-update-doc-I2Cgk
@@ -16,16 +17,16 @@ Session Links & References:
 
 Document Status:
   - Created: 22.02.2026
-  - Last Modified: 22.02.2026
+  - Last Modified: 27.02.2026
   - Language: English
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Living Document
 **Created:** 2026-02-22
-**Last Updated:** 2026-02-22
+**Last Updated:** 2026-02-27
 **Audience:** Engineering, Product, Compliance, Investors
 
 ---
@@ -42,7 +43,7 @@ Document Status:
 8. [Security & Certification Path](#8-security--certification-path)
 9. [Agentic AI & Intelligence Layer](#9-agentic-ai--intelligence-layer)
 10. [IoT-to-Compliance Pipeline](#10-iot-to-compliance-pipeline)
-11. [NVIDIA & Siemens Integration](#11-nvidia--siemens-integration)
+11. [Strategic Partnerships — NVIDIA, Siemens, ABB, xAI & Mistral](#11-strategic-partnerships--nvidia-siemens-abb-xai--mistral)
 12. [Multi-Tenancy & Billing](#12-multi-tenancy--billing)
 13. [Industry Vertical Expansion](#13-industry-vertical-expansion)
 14. [Breaking Changes & Migration Notes](#14-breaking-changes--migration-notes)
@@ -551,20 +552,34 @@ Factory Floor                    Cloud                         Regulator
 
 ---
 
-## 11. NVIDIA & Siemens Integration
+## 11. Strategic Partnerships — NVIDIA, Siemens, ABB, xAI & Mistral
+
+DWS7 builds a multi-partner ecosystem spanning industrial automation (NVIDIA, Siemens, ABB), frontier AI inference (xAI, Mistral), and edge computing. Each partner fills a distinct role in the Brain-Memory-Body-Hands architecture.
+
+### Partnership Overview
+
+| Partner | Role in DWS7 | Layer | Status |
+|---------|-------------|-------|--------|
+| **NVIDIA** | GPU compute, edge AI (Jetson), digital twins (Omniverse) | Brain + Hands | Inception program target (Q2 2026) |
+| **Siemens** | Industrial IoT (MindSphere), digital twins, marketplace | Body + Hands | Xcelerator developer access (Q2 2026) |
+| **ABB** | Industrial automation, robotics, power & grid management | Hands | Integration target (Q3 2026) |
+| **xAI** | Real-time market intelligence (Grok), X/Twitter data discovery | Brain + Memory | Active integration (production) |
+| **Mistral** | EU-sovereign AI inference, multilingual compliance generation | Brain + Memory | Planned (Q3 2026) |
+
+### 11.1 NVIDIA — GPU Compute & Edge AI
 
 DWS7 positions within the NVIDIA-Siemens Industrial AI Operating System announced at CES 2026.
 
-### Integration Phases
+**Integration Phases:**
 
 | Phase | Period | Investment | Key Deliverables |
 |-------|--------|-----------|------------------|
-| Foundation | Q2-Q3 2026 | $50-100K | NVIDIA Inception membership, Siemens Xcelerator developer access, team training |
-| MVP | Q3-Q4 2026 | $150-300K | First use case with NVIDIA Omniverse + Siemens Digital Twin, pilot deployment |
-| Production | Q4 2026-Q1 2027 | $300-500K | Marketplace listings (both platforms), 5-10 customers, $200K+ ARR |
-| Scale | Q2 2027+ | Variable | 16 vertical modules on marketplace, multi-region, sustainable growth |
+| Foundation | Q2-Q3 2026 | $50-100K | NVIDIA Inception membership, team training on CUDA-X |
+| MVP | Q3-Q4 2026 | $150-300K | Omniverse + Digital Twin pilot, Jetson edge deployment |
+| Production | Q4 2026-Q1 2027 | $300-500K | Marketplace listing, 5-10 customers, $200K+ ARR |
+| Scale | Q2 2027+ | Variable | 16 vertical modules, multi-region |
 
-### Technology Integration
+**Technology Integration:**
 
 | NVIDIA Technology | DWS7 Use |
 |-------------------|----------|
@@ -572,13 +587,177 @@ DWS7 positions within the NVIDIA-Siemens Industrial AI Operating System announce
 | CUDA-X Libraries | 2-10x speedup for emissions calculation and ML inference |
 | TensorRT | Optimized inference on Jetson Orin Nano edge devices |
 | OpenUSD | Standardized 3D scene description for industrial digital twins |
+| Jetson Orin Nano | On-premise edge AI for IoT-to-compliance pipeline |
+| NeMo Guardrails | AI safety layer for EU AI Act Article 12 compliance |
+
+**Partnership Track:** NVIDIA Inception (Q2 2026) → Ecosystem Partner (Q4 2026) → Strategic Partner (2027+, $1M+ ARR)
+
+### 11.2 Siemens — Industrial IoT & Digital Twins
+
+**Technology Integration:**
 
 | Siemens Technology | DWS7 Use |
 |-------------------|----------|
-| Digital Twin Composer | Climate-aware factory digital twins |
+| Digital Twin Composer | Climate-aware factory digital twins (announced CES 2026, mid-2026 launch) |
 | Xcelerator Marketplace | Distribution channel for DWS7 industry modules |
-| MindSphere | IoT data source for emissions calculation |
+| MindSphere | IoT data source for real-time emissions calculation |
 | Tecnomatix | Manufacturing simulation with emissions optimization |
+| Teamcenter | Product lifecycle management with carbon footprint tracking |
+| Opcenter | Production operations with ETS compliance integration |
+
+**Partnership Track:** Xcelerator Developer (Q2 2026) → Marketplace Seller (Q3-Q4 2026) → Solution Partner (2027+)
+
+### 11.3 ABB — Industrial Automation & Power Management
+
+ABB brings industrial automation, robotics, and power grid management — critical for DWS7's IoT-to-compliance pipeline in energy-intensive industries (steel, cement, chemicals, aluminum).
+
+**Why ABB:** ABB's installed base of drives, motors, and power distribution equipment generates the sensor data DWS7 needs for real-time emissions calculation. Their customers are the exact EU ETS-regulated industries DWS7 targets.
+
+**Technology Integration:**
+
+| ABB Technology | DWS7 Use |
+|----------------|----------|
+| ABB Ability Platform | Cloud-to-cloud IoT data ingestion for emissions monitoring |
+| ABB Ability Energy Manager | Real-time energy consumption data → Scope 2 emissions calculation |
+| ABB Ability Condition Monitoring | Equipment efficiency data for emission intensity tracking |
+| ABB Robotics (OmniCore) | Robotics cell energy consumption → production line carbon footprint |
+| ABB Drives & Motors | Variable frequency drive data for energy optimization + ETS reporting |
+| ABB Power Grids (FACTS) | Grid-level emissions data for energy sector vertical |
+
+**Integration Architecture:**
+
+```
+ABB Ability Platform                    DWS7
+┌──────────────────┐    REST/MQTT    ┌──────────────────┐
+│ Energy Manager   │───────────────▶│ IoT Ingestion    │
+│ Condition Monitor│                 │ Emissions Calc   │
+│ Drive Data       │                 │ ETS/CBAM Report  │
+└──────────────────┘                 └──────────────────┘
+         │                                    │
+         ▼                                    ▼
+  ABB customer sites               Compliance dashboard
+  (Steel, Cement, Chemicals)       + automated MRV filing
+```
+
+**Target Timeline:**
+
+| Milestone | Period | Deliverable |
+|-----------|--------|-------------|
+| API exploration | Q3 2026 | ABB Ability API access, data format mapping |
+| Pilot connector | Q4 2026 | Energy Manager → DWS7 data pipeline (1 customer site) |
+| Production | Q1 2027 | Multi-site deployment, ABB Marketplace listing |
+| Scale | Q2 2027+ | Cross-sell to ABB installed base across 16 verticals |
+
+**Market Opportunity:** ABB's 105,000+ industrial customers in Europe represent the largest addressable market for DWS7's IoT-to-compliance pipeline. Steel, cement, and chemicals verticals overlap directly with EU ETS Phase 4 regulated installations.
+
+### 11.4 xAI — Real-Time Market Intelligence & Grok
+
+xAI is the only AI partner with **live production integration** in DWS6, providing real-time market discovery via the Grok model and X (Twitter) data.
+
+**Current Integration (Active in DWS6):**
+
+| Component | Implementation | Status |
+|-----------|---------------|--------|
+| X/Twitter Discovery | `xai_x.py` — xAI Agent Tools API with `x_search` | Production |
+| Model | `grok-4-1-fast` via `api.x.ai/v1/responses` | Active |
+| Depth modes | Quick, Default, Deep search configurations | Active |
+| Marketing | Grok testimonials on dws10.com landing page | Active |
+
+**DWS7 Expansion:**
+
+| Capability | Phase | Use Case |
+|------------|-------|----------|
+| Regulatory signal detection | Phase 2 | Real-time monitoring of EU ETS/CBAM/CSRD policy announcements via X |
+| Competitor intelligence | Phase 4 | Track competitor product launches, pricing changes, funding rounds |
+| Market sentiment analysis | Phase 4 | Industrial sector sentiment for climate compliance adoption trends |
+| Customer discovery | Phase 5 | Identify companies discussing ETS compliance challenges on X |
+| Grok for report generation | Phase 5 | Alternative LLM for compliance report drafting (cost optimization) |
+
+**Why xAI matters for DWS7:** EU regulatory changes are first discussed on X (Twitter) by MEPs, regulators, and industry bodies — often days before official publications. xAI's `x_search` tool provides real-time access to these signals, giving DWS7 customers early warning on regulatory changes that affect their compliance obligations.
+
+**API Configuration:**
+```
+Endpoint: https://api.x.ai/v1/responses
+Model: grok-4-1-fast (required for x_search tool)
+Auth: XAI_API_KEY environment variable
+Policy: XAI_MODEL_POLICY (latest | stable | pinned)
+```
+
+### 11.5 Mistral — EU-Sovereign AI Inference
+
+Mistral is the strategic choice for **EU data sovereignty** — a French AI company building frontier models under EU jurisdiction. For DWS7's regulated industrial customers, using a European AI provider for sensitive compliance work removes GDPR cross-border transfer concerns.
+
+**Why Mistral for DWS7:**
+
+| Advantage | Detail |
+|-----------|--------|
+| **EU data sovereignty** | French company, EU-hosted inference — no US Cloud Act risk |
+| **Multilingual excellence** | Native EU language support (EN, FI, DE, FR, SV, NO) — critical for Phase 5 i18n |
+| **Cost efficiency** | Mistral Large/Medium pricing 3-5x lower than comparable Claude/GPT models |
+| **Open-weight options** | Mixtral 8x22B can be self-hosted on EU Cloud for maximum data control |
+| **EU AI Act alignment** | Mistral actively participates in EU AI Act compliance frameworks |
+
+**Planned Integration (Q3 2026+):**
+
+| Capability | Model | Phase | Use Case |
+|------------|-------|-------|----------|
+| Compliance report drafting | Mistral Large | Phase 3 | CSRD/ESRS report generation in 5 EU languages |
+| Regulation Q&A | Mistral Medium | Phase 3 | RAG-powered regulatory knowledge base (cost-optimized) |
+| Document translation | Mistral Large | Phase 5 | Automated translation of compliance documents (EN↔FI↔DE↔SV↔NO) |
+| Batch processing | Mixtral 8x22B (self-hosted) | Phase 4 | High-volume emission data classification, supplier document analysis |
+| Edge inference | Mistral Small | Phase 5 | Lightweight on-premise inference for offline compliance checks |
+
+**Multi-LLM Architecture:**
+
+DWS7 uses a multi-LLM strategy — selecting the optimal model per task:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS7 LLM Router                                       │
+│                                                         │
+│  Task                    → Model Selection              │
+│  ─────────────────────────────────────────────          │
+│  Complex reasoning       → Claude (Anthropic)           │
+│  EU compliance reports   → Mistral Large (EU sovereign) │
+│  Real-time X discovery   → Grok (xAI)                   │
+│  Batch classification    → Mixtral 8x22B (self-hosted)  │
+│  Edge inference          → Llama 3.3 / Mistral Small    │
+│  Code generation         → Claude (Anthropic)           │
+│  Multilingual translation→ Mistral Large                │
+│  Fast summarization      → Groq (Llama inference)       │
+│  Regulation RAG          → Mistral Medium               │
+│  Safety filtering        → Llama Guard / NeMo           │
+│                                                         │
+│  Selection criteria: sovereignty, cost, latency, task   │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Partnership Ecosystem Summary
+
+```
+                    ┌──────────────────────┐
+                    │      DWS IQ 7        │
+                    │   Climate Platform   │
+                    └──────────┬───────────┘
+                               │
+        ┌──────────┬───────────┼───────────┬──────────┐
+        ▼          ▼           ▼           ▼          ▼
+   ┌─────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌─────────┐
+   │ NVIDIA  │ │Siemens │ │  ABB   │ │  xAI   │ │ Mistral │
+   │         │ │        │ │        │ │        │ │         │
+   │GPU/Edge │ │Digital │ │Indust. │ │Market  │ │EU-Sov.  │
+   │Compute  │ │Twins   │ │Automat.│ │Intel.  │ │AI Infer.│
+   │Omniverse│ │MindSph.│ │Ability │ │Grok    │ │Multilang│
+   │Jetson   │ │Xceler. │ │Drives  │ │X Search│ │Mixtral  │
+   └─────────┘ └────────┘ └────────┘ └────────┘ └─────────┘
+       │           │           │          │           │
+       └───────────┴───────────┴──────────┴───────────┘
+                          │
+            ┌─────────────┼─────────────┐
+            ▼             ▼             ▼
+      IoT-to-Compliance  Agentic AI   EU AI Act
+      Pipeline           Workflows    Compliance
+```
 
 ---
 
@@ -761,4 +940,4 @@ DWS7 is considered "General Availability" when all of the following are met:
 
 ---
 
-*Document Version: 1.0 | Last Modified: 2026-02-22 | Status: ACTIVE*
+*Document Version: 1.1 | Last Modified: 2026-02-27 | Status: ACTIVE*
