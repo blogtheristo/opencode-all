@@ -266,6 +266,8 @@ class CriticalBugScanner:
             ".next",
             "backups",
             "claude-sessions",
+            "tests",
+            "__tests__",
         }
 
         files_to_scan = []

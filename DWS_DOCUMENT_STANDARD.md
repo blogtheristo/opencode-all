@@ -3,7 +3,7 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
@@ -12,6 +12,7 @@ Sessions & Modifications:
   - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
@@ -23,16 +24,16 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 21.02.2026
+  - Last Modified: 27.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.5
-**Effective Date:** 2026-02-21
-**Last Updated:** 2026-02-21
+**Version:** 1.6
+**Effective Date:** 2026-02-27
+**Last Updated:** 2026-02-27
 **Status:** Active
 
 ---
@@ -337,6 +338,38 @@ security_audit_v1.py
 backup_database_v2.sh
 deploy_production_v1.js
 ```
+
+### 4.5 SQL Migration Files (Supabase / Postgres)
+
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+
+**Format:**
+```
+[number]_[DDMMYY]_[name].sql
+```
+
+- **number**: Zero-padded, 3-digit migration number matching execution order  
+  - Examples: `002`, `013`, `030`, `036`
+- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format  
+  - Examples: `270226` = 27.02.2026
+- **name**: Short, lowercase, snake_case description (`_` is allowed and encouraged)
+
+**Examples:**
+```
+002_190126_firehorse_pilot.sql
+013_190126_agent_tracking.sql
+030_220226_agent_logging_tables.sql
+031_220226_supabase_advisor_fixes.sql
+036_270226_construction_leads.sql
+```
+
+**Rules:**
+- Filenames live in the filesystem only – Postgres does **not** read them, but:
+  - The **number** communicates migration ordering to humans and tooling.
+  - The **DDMMYY** encodes creation context and helps when scanning history.
+  - The **name** must be descriptive enough to understand purpose at a glance.
+- Always use `_` (underscore) as separator; avoid spaces and mixed separators.
+- When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
 
 ### 4.4 Prohibited Naming Patterns
 

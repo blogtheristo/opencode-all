@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.10
 
 Sessions & Modifications:
+  - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 10.9 DWS7 Agent Architecture Modernization — documents 6 critical fixes (agentic loops, tool use, multi-provider LLM, agent delegation, MCP server, event bus), Build for Agents principle (CLI, Claude Code Skills), agent-first product design philosophy
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (16 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
@@ -31,10 +32,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 21.02.2026
+  - Last Modified: 24.02.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.5 — TK4 sovereignty update)
+  - Publication Status: DRAFT (V3.10 — DWS7 agent modernization)
 
 ---
 
@@ -1467,6 +1468,63 @@ This thesis argues that **enterprise product standards** — not just the produc
 
 This positions DWS 7 not merely as a product upgrade, but as a **standards-native platform** where product management, pricing, and compliance are unified in a single documented framework.
 
+### 10.9 DWS7 Agent Architecture Modernization: From Single-Shot to Agentic
+
+Version 3.10 documents the critical architectural leap from DWS6's single-shot LLM pattern to a true agentic system. This work, performed in a single Claude Code session (24.02.2026), addresses six architectural deficiencies that separated DWS6 from production-grade agent platforms.
+
+#### 10.9.1 The Six Critical Fixes
+
+| # | Problem (DWS6) | Fix (DWS7) | Implementation |
+|---|---------------|-----------|----------------|
+| 1 | Single-shot LLM calls — no iteration | Observe-think-act agentic loop with configurable iterations | `base.agent.ts:runLoop()` with `AgentLoopConfig` |
+| 2 | No tool use / function calling | Full tool runtime with JSON Schema definitions | `tools.ts` — 4 built-in tools, extensible registry |
+| 3 | Hardcoded Groq HTTP fetch | Multi-provider LLM client (Anthropic > Groq > OpenAI) | `llm-client.ts` — auto-detects from env vars |
+| 4 | No agent-to-agent communication | Delegation with depth tracking (max 5), discovery API | `delegate_to_agent` tool, `discoverAgents()` |
+| 5 | MCP was vapor | MCP JSON-RPC 2.0 server exposing all agents as tools | `mcp/agent-server.ts` — `/mcp` endpoint |
+| 6 | Express monolith only | Event-driven architecture with pub/sub event bus | `event-bus.ts` — pattern subscriptions, Redis Streams |
+
+**Backward compatibility:** All 18 existing agents using `execute()` + `callLLM()` continue to work unchanged. The `callLLM()` method now routes through the multi-provider client instead of raw Groq fetch.
+
+#### 10.9.2 Build for Agents: CLI, MCP, Skills
+
+A parallel insight emerged during implementation: **the primary consumers of DWS IQ in 2026 are AI agents, not humans clicking buttons.** This led to the "Build for Agents" principle:
+
+| Surface | Implementation | Purpose |
+|---------|---------------|---------|
+| **CLI** | `cli/src/cli.ts` — zero-dependency, JSON-only output | Agents run commands, pipe output |
+| **MCP Server** | `/mcp` endpoint, JSON-RPC 2.0 | Claude Code / Cursor discover and call agents |
+| **Claude Code Skills** | `.claude/commands/*.md` (6 skills) | Natural language → agent execution |
+| **REST API** | `/api/agents/*` (existing + new endpoints) | Traditional integration |
+| **Event Bus** | Pattern-based pub/sub + SSE streaming | Real-time agent coordination |
+
+**Key CLI commands:**
+```
+dws agents                              # List all agents (JSON)
+dws run compliance --input '{"reg":"CSRD"}'  # Execute agent
+dws discover carbon                      # Find agents by capability
+dws workflow compliance-assessment       # Multi-agent workflow
+```
+
+#### 10.9.3 EU AI Act Article 12 Compliance via Loop Logging
+
+The agentic loop architecture inherently satisfies Article 12's automatic logging requirement. Each loop iteration records:
+
+- **Observation:** What the agent perceived
+- **Thought:** The LLM's reasoning (token-level)
+- **Actions:** Tool calls made (with arguments)
+- **Results:** Tool outputs returned
+- **Timestamp and duration:** Per-iteration timing
+
+These are persisted to the `agent_loop_iterations` Supabase table, creating a complete reasoning lineage from input to output — a requirement that single-shot architectures cannot fulfill.
+
+#### 10.9.4 Research Contribution
+
+This modernization validates two thesis hypotheses:
+
+1. **Solution Factory replicability (Section 4.1):** The entire six-fix modernization was designed, implemented, and documented in a single AI-assisted session — demonstrating that the Firehorse operating model scales to architectural refactoring, not just product catalog management.
+
+2. **Lifetime Scope Signals evolution (Section 2.5.2):** The event bus (`event-bus.ts`) is the production implementation of the theoretical signal emission protocol. Agents emit structured events (`agent.execution_complete`, `compliance.check_passed`) that other agents subscribe to — exactly the "declarative signal emission" pattern described in the V1.0 Agent Fleet specification.
+
 ---
 
 # 11. References
@@ -1744,9 +1802,9 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.7 consolidated full version
-**Version:** 3.7
-**Last Modified:** 20.02.2026
+**Status:** DRAFT - V3.10 DWS7 agent modernization
+**Version:** 3.10
+**Last Modified:** 24.02.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -1765,6 +1823,7 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
 6. HIL Learning Pipeline — Daily human-AI feedback loop
 7. Automated PR Workflow — Dual-model AI review replacing manual code review
+8. DWS7 Agent Modernization — Agentic loops, tool use, MCP server, Build for Agents principle
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
