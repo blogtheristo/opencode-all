@@ -32,12 +32,12 @@ The Captain Program is built on a "Trinity" of global partnerships that ensures 
 
 The program introduces a new hierarchy for the 2026 industrial economy, moving beyond simple software subscriptions to Asset Ownership:
 
-| Level | Role | Description |
-|-------|------|-------------|
-| **1** | **Fleet Admiral** | VC or major partner (xAI, NVIDIA, Google, Mistral) — strategic lead investors of the EUR 500k SAFE who standardize the DWS IQ protocol across entire industry verticals |
-| **2** | **Captain** | Business owners and angels who deploy the 8-Seat Genesis Fleet, owning their proprietary World Models and Acer-powered hardware |
-| **3** | **Navigator** | Certified pro employees who use the DWS IQ interface to chart the course through energy optimization and carbon credit harvesting |
-| **4** | **Crew** | End users and operators working within the DWS IQ ecosystem under Captain or Navigator supervision |
+| Level | Role | Stake | Description |
+|-------|------|-------|-------------|
+| **1** | **Fleet Admiral** | EUR 500k SAFE | VC or major partner (xAI, NVIDIA, Google, Mistral) — strategic lead investors who standardize the DWS IQ protocol across entire industry verticals |
+| **2** | **Platinum Industry Captain** | Investment + fleet | Investor family fund, business angel, or industrial partner (e.g. ABB) — deploys the 8-Seat Genesis Fleet, owns proprietary World Models and Acer-powered hardware |
+| **3** | **Navigator** | USD 25,000 + hardware | Industry professionals who use the DWS IQ interface to chart the course through energy optimization and carbon credit harvesting |
+| **4** | **Patron** | USD 5,000 | Supports the DWS IQ ecosystem with a stake — access to community intelligence and ecosystem benefits |
 
 ---
 
