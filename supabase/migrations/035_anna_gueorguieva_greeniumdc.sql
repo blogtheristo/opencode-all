@@ -76,6 +76,7 @@ INSERT INTO outreach_threads (
 )
 ON CONFLICT (person_id, org_id, pipeline) DO UPDATE SET
   priority = EXCLUDED.priority,
+  partnership_type = EXCLUDED.partnership_type,
   status = EXCLUDED.status,
   boardy_notes = EXCLUDED.boardy_notes,
   our_angle = EXCLUDED.our_angle,
@@ -83,6 +84,7 @@ ON CONFLICT (person_id, org_id, pipeline) DO UPDATE SET
   next_action = EXCLUDED.next_action,
   next_action_type = EXCLUDED.next_action_type,
   next_action_date = EXCLUDED.next_action_date,
+  waiting_since = EXCLUDED.waiting_since,
   updated_at = NOW();
 
 INSERT INTO outreach_activities (
