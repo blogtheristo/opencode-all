@@ -16,7 +16,7 @@ https://dws10.com/buy
 - Daily cash flow: 333 € from senior Kela (Finnish senior transport service) taxi operations (the "Grit" layer)
 - Cloud experience: 3 years hands-on Azure (155 000 USD Microsoft credits utilized for R&D)
 - Hardware: Free Acer Veriton GN-100 AI Mini Workstation received from Acer Finland (operational today)
-- Status: Google and NVIDIA ecosystem access open. Seeking Lead Fleet Admiral for €500k SAFE first tranche
+- Status: Google and NVIDIA ecosystem access open. Seeking Lead Fleet Admiral for 500 000 € SAFE first tranche
 
 ## 2. Shipping Today – The Sovereign Industrial Brain
 
