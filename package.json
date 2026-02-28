@@ -29,7 +29,8 @@
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
     "pino": "^9.3.2",
-    "pino-pretty": "^11.2.2"
+    "pino-pretty": "^11.2.2",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
