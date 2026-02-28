@@ -658,8 +658,8 @@ xAI is the only AI partner with **live production integration** in DWS6, providi
 
 | Component | Implementation | Status |
 |-----------|---------------|--------|
-| X/Twitter Discovery | `xai_x.py` — xAI Agent Tools API with `x_search` | Production |
-| Model | `grok-4-1-fast` via `api.x.ai/v1/responses` | Active |
+| X/Twitter Discovery | `last30days-skill/scripts/lib/xai_x.py` — xAI Agent Tools API with `x_search` | Production |
+| Model | `grok-4-1-fast` via `api.x.ai/v1/responses` (aliased in `last30days-skill/scripts/lib/models.py`) | Active |
 | Depth modes | Quick, Default, Deep search configurations | Active |
 | Marketing | Grok testimonials on dws10.com landing page | Active |
 
