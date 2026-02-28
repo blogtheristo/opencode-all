@@ -4,6 +4,11 @@ name: AI Code Review (HIL Automation)
 #   Claude = quick sanity check (generation-aware)
 #   Gemini = strict HIL replacement (deep analysis, edge cases, security)
 # If issues found → structured @copilot instructions → Copilot fixes → re-review loop
+#
+# LIVELOCK PREVENTION:
+#   - Bot actors are excluded (Copilot pushes must not re-trigger the review)
+#   - Max 3 Copilot fix iterations enforced via label counting
+#   - After 3 iterations, issue is escalated to human review
 
 on:
   pull_request:
@@ -18,8 +23,12 @@ jobs:
   ai-review:
     name: AI Code Review (HIL)
     runs-on: ubuntu-latest
-    # Skip bot-created events to prevent infinite loops
-    if: github.actor != 'github-actions[bot]'
+    # Skip bot-triggered events to prevent Claude→Copilot→Claude livelock
+    if: |
+      github.actor != 'github-actions[bot]' &&
+      github.actor != 'copilot[bot]' &&
+      github.actor != 'github-copilot[bot]' &&
+      !contains(github.actor, 'copilot-swe')
 
     steps:
       - name: Checkout code
@@ -115,120 +124,126 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: ${{ secrets.GOOGLE_AI_API_KEY != '' }}
+        if: ${{ secrets.GOOGLE_API_KEY != '' }}
         env:
-          GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          # Pass PR metadata via env to avoid single-quote shell injection
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
-          DIFF=$(cat /tmp/pr-diff.txt)
-          FILES=$(cat /tmp/changed-files.txt)
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
-          # Gemini is the strict HIL reviewer — replaces manual human review
-          # DEFAULT POSTURE: REQUEST_CHANGES. Only APPROVE when code is genuinely excellent.
-          PROMPT="You are a STRICT senior engineer performing a thorough code review. You REPLACE the human reviewer — your review is the final quality gate before merge.
+          # Static prompt — no dynamic content here (avoids backtick/subshell injection)
+          # Dynamic parts (diff, files, title, body) are injected safely via jq --arg/--rawfile
+          PROMPT_STATIC='You are a STRICT senior engineer performing a thorough code review. You REPLACE the human reviewer — your review is the final quality gate before merge.
 
-          YOUR DEFAULT VERDICT IS REQUEST_CHANGES. You must actively find ways to improve the code.
-          Only verdict APPROVE if ALL of the following are true:
-          - Zero security issues
-          - Zero correctness issues
-          - Adequate test coverage for new logic
-          - No edge cases left unhandled
-          - Code follows project conventions
-          If you are unsure or borderline on any point, choose REQUEST_CHANGES. Quality over speed.
+YOUR DEFAULT VERDICT IS REQUEST_CHANGES. You must actively find ways to improve the code.
+Only verdict APPROVE if ALL of the following are true:
+- Zero security issues
+- Zero correctness issues
+- Adequate test coverage for new logic
+- No edge cases left unhandled
+- Code follows project conventions
+If you are unsure or borderline on any point, choose REQUEST_CHANGES. Quality over speed.
 
-          Project: DWS IQ 6 — enterprise climate intelligence platform
-          Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
-          Standards: Strict TypeScript (no any), Zod validation, functional React, OWASP security
+Project: DWS IQ 6 — enterprise climate intelligence platform
+Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
+Standards: Strict TypeScript (no any), Zod validation, functional React, OWASP security
 
-          PR Title: ${PR_TITLE}
-          PR Description: ${PR_BODY}
-          Changed files:
-          ${FILES}
+Perform deep analysis on ALL of these — do not skip any:
 
-          Diff:
-          ${DIFF}
+1. SECURITY (Critical)
+   - API key/secret exposure in code or config
+   - Injection vulnerabilities (SQL, XSS, command injection)
+   - Authentication/authorization gaps
+   - CSRF, CORS misconfiguration
+   - Unsafe eval(), exec(), or dynamic code execution
 
-          Perform deep analysis on ALL of these — do not skip any:
+2. CORRECTNESS (Critical)
+   - Logic errors, off-by-one, null/undefined handling
+   - Race conditions, async/await misuse
+   - Type safety violations
+   - Missing error handling at system boundaries
 
-          1. **SECURITY** (Critical)
-             - API key/secret exposure in code or config
-             - Injection vulnerabilities (SQL, XSS, command injection)
-             - Authentication/authorization gaps
-             - CSRF, CORS misconfiguration
-             - Unsafe eval(), exec(), or dynamic code execution
+3. EDGE CASES (Important)
+   - Empty inputs, large inputs, unicode, special characters
+   - Network failures, timeout handling
+   - Concurrent access patterns
 
-          2. **CORRECTNESS** (Critical)
-             - Logic errors, off-by-one, null/undefined handling
-             - Race conditions, async/await misuse
-             - Type safety violations
-             - Missing error handling at system boundaries
+4. PERFORMANCE (Important)
+   - N+1 queries, unnecessary re-renders
+   - Memory leaks (event listeners, intervals not cleaned)
+   - Bundle size impact
 
-          3. **EDGE CASES** (Important)
-             - Empty inputs, large inputs, unicode, special characters
-             - Network failures, timeout handling
-             - Concurrent access patterns
+5. TESTS (Important)
+   - Are new code paths tested?
+   - Are edge cases covered?
+   - If no tests added for new logic, flag it
 
-          4. **PERFORMANCE** (Important)
-             - N+1 queries, unnecessary re-renders
-             - Memory leaks (event listeners, intervals not cleaned)
-             - Bundle size impact
+6. ARCHITECTURE (Advisory)
+   - Does this follow existing patterns in the codebase?
+   - Any unnecessary complexity?
 
-          5. **TESTS** (Important)
-             - Are new code paths tested?
-             - Are edge cases covered?
-             - If no tests added for new logic, flag it
+FORMAT YOUR RESPONSE EXACTLY AS:
 
-          6. **ARCHITECTURE** (Advisory)
-             - Does this follow existing patterns in the codebase?
-             - Any unnecessary complexity?
+## Gemini HIL Review
 
-          FORMAT YOUR RESPONSE EXACTLY AS:
+### Summary
+[2-3 sentences: what this PR does and overall quality assessment]
 
-          ## Gemini HIL Review
+### Critical Issues
+[List each with file:line reference and clear description. If none: None found.]
 
-          ### Summary
-          [2-3 sentences: what this PR does and overall quality assessment]
+### Required Changes
+[Specific, actionable changes that MUST be made before merge. Each item should be implementable by a coding agent. If none: None required.]
 
-          ### Critical Issues
-          [List each with file:line reference and clear description. If none: 'None found.']
+### Suggested Improvements
+[Nice-to-have improvements, ordered by impact. These do not block merge.]
 
-          ### Required Changes
-          [Specific, actionable changes that MUST be made before merge. Each item should be implementable by a coding agent. If none: 'None required.']
+### Test Gaps
+[Missing test coverage. Specific test cases that should be added. If adequate: Test coverage is adequate.]
 
-          ### Suggested Improvements
-          [Nice-to-have improvements, ordered by impact. These don't block merge.]
+### Verdict
+[Exactly one of: APPROVE / REQUEST_CHANGES]
+[1 sentence justification]
 
-          ### Test Gaps
-          [Missing test coverage. Specific test cases that should be added. If adequate: 'Test coverage is adequate.']
+IMPORTANT RULES:
+- Your DEFAULT is REQUEST_CHANGES. You must justify an APPROVE.
+- If you find ANY issue (critical, important, or missing tests), verdict MUST be REQUEST_CHANGES
+- Always provide at least 2-3 concrete improvements even for good code
+- Format required changes as clear instructions (e.g., In file X at line Y, change Z to W)
+- Do NOT approve PRs that add new logic without tests
+- Do NOT approve PRs with any TODO/FIXME/HACK comments in new code
+- Be specific — vague feedback like could be improved is useless
+- When in doubt, REQUEST_CHANGES. Quality is more important than velocity.'
 
-          ### Verdict
-          [Exactly one of: APPROVE / REQUEST_CHANGES]
-          [1 sentence justification]
-
-          IMPORTANT RULES:
-          - Your DEFAULT is REQUEST_CHANGES. You must justify an APPROVE.
-          - If you find ANY issue (critical, important, or missing tests), verdict MUST be REQUEST_CHANGES
-          - Always provide at least 2-3 concrete improvements even for good code — there is always something to improve
-          - Format required changes as clear @copilot instructions (e.g., 'In file X at line Y, change Z to W')
-          - Do NOT approve PRs that add new logic without tests
-          - Do NOT approve PRs with any TODO/FIXME/HACK comments in new code
-          - Be specific — vague feedback like 'could be improved' is useless
-          - When in doubt, REQUEST_CHANGES. Quality is more important than velocity."
+          # Build full prompt and JSON payload entirely inside jq — no bash string injection possible.
+          # --rawfile reads files as-is (handles backticks, $(), quotes in diffs safely).
+          PAYLOAD=$(jq -n \
+            --arg static  "$PROMPT_STATIC" \
+            --arg title   "$PR_TITLE" \
+            --arg body    "$PR_BODY" \
+            --rawfile diff  /tmp/pr-diff.txt \
+            --rawfile files /tmp/changed-files.txt \
+            '{
+              contents: [{parts: [{text: (
+                $static
+                + "\n\nPR Title: " + $title
+                + "\nPR Description: " + $body
+                + "\n\nChanged files:\n" + $files
+                + "\nDiff:\n" + $diff
+              )}]}],
+              generationConfig: {
+                maxOutputTokens: 3000,
+                temperature: 0.1
+              }
+            }')
 
           # Call Gemini API
           RESPONSE=$(curl -s --max-time 90 -X POST \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_AI_API_KEY}" \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_API_KEY}" \
             -H "Content-Type: application/json" \
-            -d "$(jq -n \
-              --arg prompt "$PROMPT" \
-              '{
-                contents: [{parts: [{text: $prompt}]}],
-                generationConfig: {
-                  maxOutputTokens: 3000,
-                  temperature: 0.1
-                }
-              }')" \
+            -d "$PAYLOAD" \
             | jq -r '.candidates[0].content.parts[0].text // "Gemini review unavailable"')
 
           echo "$RESPONSE" > /tmp/gemini-review.txt
@@ -241,29 +256,108 @@ jobs:
           fi
 
       # ──────────────────────────────────────────────
+      # STEP 2b: Grok Fast Review (xAI — alternative gate)
+      # Uses grok-3-fast via OpenAI-compatible xAI API.
+      # Acts as tiebreaker / Gemini fallback when GOOGLE_API_KEY
+      # is absent. Any REQUEST_CHANGES from any reviewer blocks merge.
+      # ──────────────────────────────────────────────
+      - name: Grok Fast Review
+        id: grok-review
+        if: ${{ secrets.XAI_API_KEY != '' }}
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY_RAW: ${{ github.event.pull_request.body }}
+        run: |
+          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 1000)
+
+          PROMPT_STATIC='You are a fast senior engineer doing a focused code review. Be concise and high-signal only.
+
+Project: DWS IQ 6 — enterprise climate intelligence platform
+Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
+
+Check ONLY:
+1. Security (API key exposure, injection, auth gaps)
+2. Logic errors and null/undefined issues
+3. Missing tests for new logic
+
+FORMAT EXACTLY AS:
+## Grok Fast Review
+**Summary:** [1 sentence]
+**Issues:** [list with file:line, or None]
+**Verdict:** APPROVE / REQUEST_CHANGES'
+
+          PAYLOAD=$(jq -n \
+            --arg static "$PROMPT_STATIC" \
+            --arg title  "$PR_TITLE" \
+            --arg body   "$PR_BODY" \
+            --rawfile diff  /tmp/pr-diff.txt \
+            --rawfile files /tmp/changed-files.txt \
+            '{
+              model: "grok-3-fast",
+              max_tokens: 800,
+              messages: [{
+                role: "user",
+                content: (
+                  $static
+                  + "\n\nPR Title: " + $title
+                  + "\nPR Description: " + $body
+                  + "\n\nChanged files:\n" + $files
+                  + "\nDiff:\n" + $diff
+                )
+              }]
+            }')
+
+          RESPONSE=$(curl -s --max-time 60 -X POST \
+            "https://api.x.ai/v1/chat/completions" \
+            -H "Authorization: Bearer ${XAI_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            | jq -r '.choices[0].message.content // "Grok review unavailable"')
+
+          echo "$RESPONSE" > /tmp/grok-review.txt
+
+          if echo "$RESPONSE" | grep -q "APPROVE" && ! echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
+            echo "verdict=approve" >> $GITHUB_OUTPUT
+          else
+            echo "verdict=request_changes" >> $GITHUB_OUTPUT
+          fi
+
+      # ──────────────────────────────────────────────
       # STEP 3: Combine verdicts and post review
-      # Both must approve. Gemini is the gate.
+      # Any REQUEST_CHANGES blocks. Gemini is primary gate;
+      # Grok is alternative gate when Gemini is absent.
       # ──────────────────────────────────────────────
       - name: Determine combined verdict
         id: combined
         run: |
           CLAUDE="${{ steps.claude-review.outputs.verdict }}"
           GEMINI="${{ steps.gemini-review.outputs.verdict }}"
+          GROK="${{ steps.grok-review.outputs.verdict }}"
 
-          # Gemini is the mandatory HIL gate
-          # If Gemini didn't run (no API key), fall back to Claude only
-          if [ -z "$GEMINI" ] && [ -z "$CLAUDE" ]; then
+          # Gate priority: Gemini → Grok → Claude
+          # Any single request_changes blocks merge.
+          # If Gemini absent, Grok acts as the HIL gate.
+          if [ -z "$GEMINI" ] && [ -z "$GROK" ] && [ -z "$CLAUDE" ]; then
             echo "verdict=comment" >> $GITHUB_OUTPUT
             echo "gate=none" >> $GITHUB_OUTPUT
-          elif [ -z "$GEMINI" ]; then
+          elif [ -z "$GEMINI" ] && [ -z "$GROK" ]; then
             echo "verdict=$CLAUDE" >> $GITHUB_OUTPUT
             echo "gate=claude-only" >> $GITHUB_OUTPUT
-          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
+          elif [ -z "$GEMINI" ]; then
+            # Grok is the gate (Gemini absent)
+            if [ "$GROK" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
+              echo "verdict=request_changes" >> $GITHUB_OUTPUT
+            else
+              echo "verdict=approve" >> $GITHUB_OUTPUT
+            fi
+            echo "gate=grok-gate" >> $GITHUB_OUTPUT
+          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ] || [ "$GROK" = "request_changes" ]; then
             echo "verdict=request_changes" >> $GITHUB_OUTPUT
-            echo "gate=dual" >> $GITHUB_OUTPUT
+            echo "gate=triple" >> $GITHUB_OUTPUT
           else
             echo "verdict=approve" >> $GITHUB_OUTPUT
-            echo "gate=dual" >> $GITHUB_OUTPUT
+            echo "gate=triple" >> $GITHUB_OUTPUT
           fi
 
       - name: Post combined review comment
@@ -276,10 +370,12 @@ jobs:
 
             let body = '## AI Code Review (HIL Automation)\n\n';
 
-            if (gate === 'dual') {
-              body += '> Dual-model review: Claude (sanity) + Gemini (deep HIL review)\n\n';
+            if (gate === 'triple') {
+              body += '> Triple-model review: Claude (sanity) + Gemini (deep HIL) + Grok Fast (alternative gate)\n\n';
+            } else if (gate === 'grok-gate') {
+              body += '> Dual-model review: Claude (sanity) + Grok Fast (HIL gate — Gemini unavailable)\n\n';
             } else if (gate === 'claude-only') {
-              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` secret to enable Gemini HIL review)\n\n';
+              body += '> Claude review only (configure `GOOGLE_API_KEY` or `XAI_API_KEY` to enable HIL gate)\n\n';
             } else {
               body += '> No AI review available (configure API key secrets)\n\n';
             }
@@ -292,11 +388,19 @@ jobs:
               }
             } catch {}
 
-            // Gemini review (the HIL replacement — this is the main review)
+            // Gemini review (primary HIL gate)
             try {
               const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
               if (gemini && !gemini.includes('unavailable')) {
                 body += gemini + '\n\n---\n\n';
+              }
+            } catch {}
+
+            // Grok review (alternative gate)
+            try {
+              const grok = fs.readFileSync('/tmp/grok-review.txt', 'utf8');
+              if (grok && !grok.includes('unavailable')) {
+                body += grok + '\n\n---\n\n';
               }
             } catch {}
 
@@ -323,7 +427,9 @@ jobs:
 
       # ──────────────────────────────────────────────
       # STEP 4: Route fix instructions to @copilot
-      # Gemini's required changes become Copilot tasks
+      # Gemini's required changes become Copilot tasks.
+      # LIVELOCK GUARD: max 3 Copilot fix iterations.
+      # After 3, escalate to human (add needs-human-review).
       # ──────────────────────────────────────────────
       - name: Route fixes to Copilot
         if: steps.combined.outputs.verdict == 'request_changes'
@@ -332,7 +438,48 @@ jobs:
           script: |
             const fs = require('fs');
 
-            // Collect all issues from both reviewers
+            // ── Iteration cap: count existing @copilot fix comments ──
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100
+            });
+
+            const copilotFixCount = comments.filter(c =>
+              c.body && c.body.includes('@copilot Please fix')
+            ).length;
+
+            const MAX_COPILOT_ITERATIONS = 3;
+
+            if (copilotFixCount >= MAX_COPILOT_ITERATIONS) {
+              // Escalate to human — stop the loop
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: [
+                  '## 🔴 AI Review Loop Limit Reached',
+                  '',
+                  `Copilot has been asked to fix issues **${copilotFixCount} times** but the AI review still requests changes.`,
+                  '',
+                  'Adding `needs-human-review` label — a human should now review and resolve.',
+                  '',
+                  '*Automated by AI Code Review workflow (livelock prevention)*'
+                ].join('\n')
+              });
+
+              // Add needs-human-review label, remove ai-changes-requested
+              try {
+                await github.rest.issues.getLabel({ owner: context.repo.owner, repo: context.repo.repo, name: 'needs-human-review' });
+              } catch {
+                await github.rest.issues.createLabel({ owner: context.repo.owner, repo: context.repo.repo, name: 'needs-human-review', color: 'e4e669', description: 'Escalated from AI review loop — human required' });
+              }
+              await github.rest.issues.addLabels({ issue_number: context.issue.number, owner: context.repo.owner, repo: context.repo.repo, labels: ['needs-human-review'] });
+              return;
+            }
+
+            // ── Normal path: collect fix instructions ──
             let fixInstructions = [];
 
             // Extract from Gemini (primary — this is the HIL replacement)
@@ -376,8 +523,9 @@ jobs:
             }
 
             if (fixInstructions.length > 0) {
+              const iterLabel = copilotFixCount > 0 ? ` (attempt ${copilotFixCount + 1}/${MAX_COPILOT_ITERATIONS})` : '';
               const comment = [
-                '@copilot Please fix the following issues found during AI code review.',
+                `@copilot Please fix the following issues found during AI code review${iterLabel}.`,
                 '',
                 'Implement ALL required changes below, then push to this branch.',
                 'After pushing, the review will re-run automatically.',

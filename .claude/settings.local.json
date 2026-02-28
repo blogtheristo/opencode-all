@@ -10,9 +10,9 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(echo:*)",
-      "Bash(git remote get-url:*)"
+      "Bash(git remote get-url:*)",
+      "Bash(git push:*)"
     ]
   },
-  "hooks": {
-  }
+  "hooks": {}
 }
