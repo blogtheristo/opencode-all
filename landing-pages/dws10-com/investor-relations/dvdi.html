@@ -990,9 +990,10 @@
         const nvidiaScore   = 125;
 
         // Component 4: EU Sovereignty Premium (grows as enforcement approaches)
-        const urgencyElapsed = 365 - daysToEnforcement;
-        const urgencyGain    = Math.max(0, urgencyElapsed) / 365 * 50; // 0→+50 as deadline passes
-        const sovereigntyScore = Math.round((100 + urgencyGain) * 10) / 10;
+        const totalWindowDays       = Math.max(1, Math.round((EU_DEADLINE - BASE_DATE) / 86400000));
+        const elapsedInWindowDays   = Math.min(Math.max(daysSinceBase, 0), totalWindowDays);
+        const urgencyGain           = (elapsedInWindowDays / totalWindowDays) * 50; // 0→+50 over BASE_DATE→EU_DEADLINE
+        const sovereigntyScore      = Math.round((100 + urgencyGain) * 10) / 10;
 
         // Weighted DVDI
         const dvdi = Math.round(
@@ -1006,9 +1007,11 @@
 
         // ─── UPDATE DOM ─────────────────────────────────────────────
         const el = (id) => document.getElementById(id);
+        const formatSigned = (value) => `${value >= 0 ? '+' : ''}${value.toFixed(1)}`;
 
         el('dvdi-number').textContent  = dvdi.toFixed(1);
-        el('dvdi-delta').textContent   = `+${deltaFromBase.toFixed(1)} vs base (+${((dvdi/100 - 1)*100).toFixed(1)}%)`;
+        const dvdiPercentDelta = (dvdi / 100 - 1) * 100;
+        el('dvdi-delta').textContent   = `${formatSigned(deltaFromBase)} vs base (${formatSigned(dvdiPercentDelta)}%)`;
         el('days-elapsed').textContent = daysSinceBase;
         el('days-to-enforcement').textContent = daysToEnforcement;
         el('update-date').textContent  = TODAY.toLocaleDateString('en-FI', { year:'numeric', month:'long', day:'numeric' });
@@ -1027,12 +1030,19 @@
         el('bar-sovereignty').style.width = Math.min(100, (sovereigntyScore - 100) / 150 * 100) + '%';
 
         // ─── TODAY DOT ON CHART ──────────────────────────────────────
-        // Chart spans Feb 12 2026 → Dec 31 2027 = ~688 days
+        // Chart spans Feb 12 2026 → Dec 31 2027
         // SVG x: 30 (start) → 1070 (end), width = 1040
         // SVG y: 195 (DVDI=100) → 7 (DVDI=500), height = 188
-        const totalDays  = 688;
-        const chartX     = 30 + Math.min(daysSinceBase / totalDays, 1) * 1040;
-        const chartY     = 195 - Math.max(0, Math.min(dvdi - 100, 400)) / 400 * 188;
+        const ROADMAP_END_DATE = new Date('2027-12-31T00:00:00Z');
+        const MS_PER_DAY       = 24 * 60 * 60 * 1000;
+        const totalDays        = Math.max(
+            1,
+            Math.round((ROADMAP_END_DATE.getTime() - BASE_DATE.getTime()) / MS_PER_DAY)
+        );
+        const CHART_X_START    = 30;
+        const CHART_X_WIDTH    = 1040;
+        const chartX           = CHART_X_START + Math.min(daysSinceBase / totalDays, 1) * CHART_X_WIDTH;
+        const chartY           = 195 - Math.max(0, Math.min(dvdi - 100, 400)) / 400 * 188;
 
         const dot   = el('today-dot');
         const label = el('today-label');

@@ -8,11 +8,18 @@
     <meta name="description" content="DWS Valuation Daily Index (DVDI) tracks DWS IQ 6 → DWS IQ 7 platform advancement. EU-sovereign AI vs global GPU dependency. Live investor intelligence.">
     <meta name="author" content="Lifetime Oy">
     <meta name="robots" content="index, follow">
+    <meta name="keywords" content="DVDI, DWS Valuation Daily Index, DWS IQ, DWS IQ 6, DWS IQ 7, investor relations, climate intelligence, EU-sovereign AI, GPU dependency">
     <meta property="og:title" content="DVDI — DWS Valuation Daily Index | DWS IQ">
     <meta property="og:description" content="Track DWS IQ 6 → 7 advancement in a single index number. EU-sovereign AI intelligence for investors.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dws10.com/investor-relations/dvdi.html">
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Investor Relations">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DVDI — DWS Valuation Daily Index | Investor Intelligence | DWS IQ">
+    <meta name="twitter:description" content="DWS Valuation Daily Index (DVDI) tracks DWS IQ 6 → DWS IQ 7 platform advancement. EU-sovereign AI vs global GPU dependency. Live investor intelligence.">
+    <meta name="twitter:url" content="https://dws10.com/investor-relations/dvdi.html">
+    <meta name="twitter:image" content="https://dws10.com/DWS_IQ2026.png">
     <link rel="canonical" href="https://dws10.com/investor-relations/dvdi.html">
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
@@ -1003,12 +1010,18 @@
         ) / 10;
 
         const deltaFromBase = Math.round((dvdi - 100) * 10) / 10;
+        const percentFromBase = (dvdi / 100 - 1) * 100;
+        const signedFormatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+            signDisplay: 'always',
+        });
 
         // ─── UPDATE DOM ─────────────────────────────────────────────
         const el = (id) => document.getElementById(id);
 
         el('dvdi-number').textContent  = dvdi.toFixed(1);
-        el('dvdi-delta').textContent   = `+${deltaFromBase.toFixed(1)} vs base (+${((dvdi/100 - 1)*100).toFixed(1)}%)`;
+        el('dvdi-delta').textContent   = `${signedFormatter.format(deltaFromBase)} vs base (${signedFormatter.format(percentFromBase)}%)`;
         el('days-elapsed').textContent = daysSinceBase;
         el('days-to-enforcement').textContent = daysToEnforcement;
         el('update-date').textContent  = TODAY.toLocaleDateString('en-FI', { year:'numeric', month:'long', day:'numeric' });
