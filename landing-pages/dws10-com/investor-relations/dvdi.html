@@ -967,7 +967,10 @@
         // ─── DVDI COMPUTATION ───────────────────────────────────────
         const BASE_DATE   = new Date('2026-02-12T00:00:00Z');
         const EU_DEADLINE = new Date('2026-08-02T00:00:00Z');
-        const TODAY       = new Date();
+        // Normalize to UTC midnight so the day index is identical for all viewers
+        // regardless of their local timezone (prevents off-by-one around midnight).
+        const _now  = new Date();
+        const TODAY = new Date(Date.UTC(_now.getUTCFullYear(), _now.getUTCMonth(), _now.getUTCDate()));
 
         const daysSinceBase     = Math.max(0, Math.floor((TODAY - BASE_DATE) / 86400000));
         const daysToEnforcement = Math.max(0, Math.ceil((EU_DEADLINE - TODAY) / 86400000));
