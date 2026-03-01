@@ -40,12 +40,6 @@ interface LinkedInPostBody {
   isReshareDisabledByAuthor: boolean;
 }
 
-interface LinkedInImageUploadBody {
-  initializeUploadRequest: {
-    owner: string;
-  };
-}
-
 export interface PublishResult {
   success: boolean;
   postUrn?: string;
