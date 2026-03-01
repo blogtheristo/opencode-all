@@ -93,6 +93,13 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
     if (response.ok) {
       // LinkedIn returns the post URN in the x-restli-id header
       const postUrn = response.headers.get('x-restli-id') ?? undefined;
+      if (!postUrn) {
+        logger.warn('LinkedIn publish missing post URN', { postId: post.id });
+        return {
+          success: false,
+          error: 'LinkedIn response did not include a post URN (x-restli-id header missing)',
+        };
+      }
       logger.info('LinkedIn post published', { postId: post.id, postUrn });
       return { success: true, postUrn };
     }
