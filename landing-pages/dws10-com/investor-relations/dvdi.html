@@ -1003,9 +1003,11 @@
 
         // ─── UPDATE DOM ─────────────────────────────────────────────
         const el = (id) => document.getElementById(id);
+        const formatSigned = (value) => `${value >= 0 ? '+' : ''}${value.toFixed(1)}`;
 
         el('dvdi-number').textContent  = dvdi.toFixed(1);
-        el('dvdi-delta').textContent   = `+${deltaFromBase.toFixed(1)} vs base (+${((dvdi/100 - 1)*100).toFixed(1)}%)`;
+        const dvdiPercentDelta = (dvdi / 100 - 1) * 100;
+        el('dvdi-delta').textContent   = `${formatSigned(deltaFromBase)} vs base (${formatSigned(dvdiPercentDelta)}%)`;
         el('days-elapsed').textContent = daysSinceBase;
         el('days-to-enforcement').textContent = daysToEnforcement;
         el('update-date').textContent  = TODAY.toLocaleDateString('en-FI', { year:'numeric', month:'long', day:'numeric' });
