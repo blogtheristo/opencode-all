@@ -19,8 +19,6 @@ on:
     branches:
       - 'copilot/**'
       - 'claude/**'
-      - 'feature/**'
-      - 'fix/**'
 
 permissions:
   contents: write       # needed to commit PREFLIGHT_ISSUES.md
