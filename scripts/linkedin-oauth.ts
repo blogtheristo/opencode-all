@@ -56,7 +56,27 @@ import { exec } from 'node:child_process';
 // ============================================================================
 
 const args = process.argv.slice(2);
-const PORT = parseInt(args.find(a => a.startsWith('--port='))?.split('=')[1] ?? '3131', 10);
+const portEqArg = args.find(a => a.startsWith('--port='));
+let portFromArgs: number | undefined;
+
+if (portEqArg) {
+  const value = portEqArg.split('=')[1];
+  const parsed = parseInt(value, 10);
+  if (!Number.isNaN(parsed)) {
+    portFromArgs = parsed;
+  }
+} else {
+  const portFlagIndex = args.indexOf('--port');
+  if (portFlagIndex !== -1 && typeof args[portFlagIndex + 1] === 'string') {
+    const value = args[portFlagIndex + 1];
+    const parsed = parseInt(value, 10);
+    if (!Number.isNaN(parsed)) {
+      portFromArgs = parsed;
+    }
+  }
+}
+
+const PORT = portFromArgs ?? 3131;
 const WITH_ORG = args.includes('--org');
 
 const REDIRECT_URI = `http://localhost:${PORT}/linkedin/callback`;
