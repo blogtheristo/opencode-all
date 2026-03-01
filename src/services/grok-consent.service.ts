@@ -265,13 +265,22 @@ export class GrokConsentService {
     const db = this.getSupabase();
     if (!db) return;
 
-    await db.from('grok_consent_audit').insert({
+    const { error } = await db.from('grok_consent_audit').insert({
       org_id: orgId,
       action,
       user_id: userId,
       note: note ?? null,
       occurred_at: new Date().toISOString(),
     });
+
+    if (error) {
+      logger.error('Failed to log Grok consent event', {
+        error: error.message,
+        orgId,
+        action,
+        userId,
+      });
+    }
   }
 }
 
