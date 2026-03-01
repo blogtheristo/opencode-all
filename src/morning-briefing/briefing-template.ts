@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -510,6 +510,41 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 }
 
 // ============================================================================
+// LEARN ARTIFACTS SECTION
+// ============================================================================
+
+function renderLearnArtifactsHtml(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const rows = data.artifacts
+    .map((a) => `<div style="padding: 5px 0; border-bottom: 1px solid #1a1a1a;">
+      <a href="${esc(a.githubUrl)}" style="color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 500;">${esc(a.title)}</a>
+      <span style="color: #444; font-size: 11px; margin-left: 8px;">${esc(a.modifiedDate)}</span>
+    </div>`)
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #60a5fa; text-transform: uppercase; letter-spacing: 1.5px;">Learn — Updated This Week</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;"><a href="https://github.com/blogtheristo/dws6/tree/main/Learn" style="color: #444; text-decoration: none;">All Learn artifacts &rarr;</a></p>
+    </td></tr>`;
+}
+
+function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push('LEARN — UPDATED THIS WEEK');
+  for (const a of data.artifacts) {
+    lines.push(`  ${a.modifiedDate} — ${a.title}`);
+    lines.push(`  ${a.githubUrl}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
 
@@ -543,6 +578,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     ${renderMetrics(data)}
     ${renderWorkflow(data.workflow)}
     ${renderConstructionLeadsHtml(data.constructionLeads)}
+    ${renderLearnArtifactsHtml(data.learnArtifacts)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -637,6 +673,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const clText = renderConstructionLeadsPlainText(data.constructionLeads);
   if (clText) {
     lines.push(clText);
+  }
+
+  // Learn Artifacts
+  const learnText = renderLearnArtifactsPlainText(data.learnArtifacts);
+  if (learnText) {
+    lines.push(learnText);
   }
 
   // Send List
