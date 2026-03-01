@@ -1,8 +1,29 @@
 # Site Quality Standards & Management Policy
 
-**Version:** 1.0
-**Effective Date:** 2025-12-26
-**Last Updated:** 2025-12-26
+---
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
+
+Document Status:
+  - Created: 26.12.2025
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
+**Version:** 2.0
+**Effective Date:** 2026-03-02
+**Last Updated:** 2026-03-02
 **Status:** Active
 
 ---
@@ -38,7 +59,7 @@ Applies to:
 1. **Consistency First** - Same components behave identically across all pages
 2. **Single Source of Truth** - No code duplication; use shared components
 3. **Mobile-First** - All features work on mobile before desktop
-4. **Accessibility** - WCAG 2.1 AA compliance minimum
+4. **Accessibility** - WCAG 2.2 AA compliance minimum
 5. **Performance** - Page load under 3 seconds on 3G
 
 ---
@@ -816,6 +837,110 @@ git push origin main
 # Notify team
 # Post in Slack/Teams: "🚨 Rolled back [feature] due to [issue]"
 ```
+
+---
+
+## TypeScript & React Quality Standards
+
+### TypeScript Requirements
+
+All React components and Express routes MUST use strict TypeScript:
+
+```json
+// tsconfig.json — required settings
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  }
+}
+```
+
+**Component typing rules:**
+```tsx
+// ❌ Bad — implicit any, untyped props
+export function ProductCard({ product, onClick }) {
+  return <div onClick={onClick}>{product.name}</div>
+}
+
+// ✅ Good — explicit types, no implicit any
+interface ProductCardProps {
+  product: Pick<Product, 'id' | 'name' | 'price'>;
+  onSelect: (id: string) => void;
+}
+export function ProductCard({ product, onSelect }: ProductCardProps) {
+  return <button onClick={() => onSelect(product.id)}>{product.name}</button>
+}
+```
+
+### Zod for Runtime Validation
+
+All data at system boundaries (form submissions, API responses, URL params) MUST use Zod:
+
+```tsx
+import { z } from 'zod';
+
+const AgentInputSchema = z.object({
+  industry: z.enum(['construction', 'manufacturing', 'logistics']),
+  regulation: z.string().min(2).max(100),
+  customerId: z.string().uuid().optional(),
+});
+
+type AgentInput = z.infer<typeof AgentInputSchema>;
+
+// In form handler
+const result = AgentInputSchema.safeParse(formData);
+if (!result.success) {
+  // Handle validation errors — never trust unvalidated input
+}
+```
+
+### React Quality Rules
+
+| Rule | Pattern |
+|------|---------|
+| No prop drilling beyond 2 levels | Use Context or Zustand for shared state |
+| No useEffect for derived state | Compute derived values inline or with useMemo |
+| No index as key in lists | Use stable unique ID (`product.id`, not `index`) |
+| No anonymous default exports | Named exports only: `export function Component` |
+| Error boundaries on async boundaries | Wrap Suspense + async data fetchers with ErrorBoundary |
+
+### Testing Requirements (React)
+
+**Unit tests** — Vitest + React Testing Library:
+```tsx
+// Every interactive component needs a test
+describe('ProductCard', () => {
+  it('calls onSelect with product id when clicked', () => {
+    const onSelect = vi.fn();
+    render(<ProductCard product={mockProduct} onSelect={onSelect} />);
+    fireEvent.click(screen.getByRole('button'));
+    expect(onSelect).toHaveBeenCalledWith(mockProduct.id);
+  });
+});
+```
+
+**Minimum coverage thresholds:**
+- Utility functions: 90%
+- Component logic (event handlers, state): 80%
+- Pure render components: no test required
+
+**E2E tests** — Playwright for critical user paths:
+- Store checkout flow
+- Agent submission and result display
+- SSE/live workflow progress updates
+
+### Performance Budget
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Lighthouse Performance | ≥ 85 | Chrome DevTools / CI |
+| First Contentful Paint | < 1.5s | Lighthouse |
+| Largest Contentful Paint | < 2.5s | Lighthouse |
+| Bundle size (initial JS) | < 200KB gzipped | Vite build output |
+| WCAG 2.2 AA violations | 0 | axe-core in CI |
 
 ---
 
