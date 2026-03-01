@@ -14,10 +14,31 @@
  */
 
 import express, { Router, Request, Response } from 'express';
+import { param, query, validationResult } from 'express-validator';
 import { grokConsentService } from '../services/grok-consent.service.js';
 import logger from '../utils/logger.js';
 
 const router: Router = express.Router();
+
+// ============ VALIDATION ============
+
+const validateRequest = (req: Request, res: Response): boolean => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({
+      error: 'Validation failed',
+      details: errors.array().map((e) => ({
+        field: e.type === 'field' ? (e as { path: string }).path : 'unknown',
+        message: e.msg,
+      })),
+    });
+    return false;
+  }
+  return true;
+};
+
+/** Shared validator: :orgId must be a UUID */
+const orgIdParam = param('orgId').isUUID().withMessage('orgId must be a valid UUID');
 
 // ============ HELPERS ============
 
@@ -47,7 +68,8 @@ function assertOrgAccess(req: Request, res: Response, orgId: string): boolean {
  * GET /grok-consent/:orgId
  * Returns current consent status for the org.
  */
-router.get('/:orgId', async (req: Request, res: Response) => {
+router.get('/:orgId', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
@@ -67,7 +89,8 @@ router.get('/:orgId', async (req: Request, res: Response) => {
  * Records explicit opt-in consent (GDPR Art. 6(1)(a)).
  * The authenticated user is recorded as the consent author.
  */
-router.post('/:orgId/grant', async (req: Request, res: Response) => {
+router.post('/:orgId/grant', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
@@ -100,7 +123,8 @@ router.post('/:orgId/grant', async (req: Request, res: Response) => {
  *
  * Revokes consent immediately. Grok inference is blocked from this point.
  */
-router.post('/:orgId/revoke', async (req: Request, res: Response) => {
+router.post('/:orgId/revoke', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
@@ -129,31 +153,48 @@ router.post('/:orgId/revoke', async (req: Request, res: Response) => {
  * Returns the Article 12 inference audit log for regulator export or
  * Captain's dashboard display. Never includes prompt/response content.
  */
-router.get('/:orgId/audit', async (req: Request, res: Response) => {
-  const { orgId } = req.params;
-  if (!assertOrgAccess(req, res, orgId)) return;
+router.get(
+  '/:orgId/audit',
+  [
+    orgIdParam,
+    query('limit')
+      .optional()
+      .isInt({ min: 1, max: 200 })
+      .withMessage('limit must be an integer between 1 and 200')
+      .toInt(),
+    query('offset')
+      .optional()
+      .isInt({ min: 0 })
+      .withMessage('offset must be a non-negative integer')
+      .toInt(),
+  ],
+  async (req: Request, res: Response) => {
+    if (!validateRequest(req, res)) return;
+    const { orgId } = req.params;
+    if (!assertOrgAccess(req, res, orgId)) return;
 
-  const limit = Math.min(parseInt(String(req.query.limit ?? '50'), 10), 200);
-  const offset = parseInt(String(req.query.offset ?? '0'), 10);
+    const limit = (req.query.limit as unknown as number | undefined) ?? 50;
+    const offset = (req.query.offset as unknown as number | undefined) ?? 0;
 
-  try {
-    const { events, total } = await grokConsentService.getAuditLog(orgId, limit, offset);
-    res.json({
-      orgId,
-      total,
-      limit,
-      offset,
-      events,
-      compliance: {
-        regulation: 'EU AI Act Article 12 — Automatic logging of high-risk AI systems',
-        dataStored: 'Token counts and model ID only. No prompt or response content.',
-        residency: 'Supabase eu-north1 (Helsinki, Finland). CLOUD Act-free.',
-      },
-    });
-  } catch (err: unknown) {
-    logger.error('Failed to fetch Grok audit log', { orgId, error: String(err) });
-    res.status(500).json({ error: 'Internal error fetching audit log' });
-  }
-});
+    try {
+      const { events, total } = await grokConsentService.getAuditLog(orgId, limit, offset);
+      res.json({
+        orgId,
+        total,
+        limit,
+        offset,
+        events,
+        compliance: {
+          regulation: 'EU AI Act Article 12 — Automatic logging of high-risk AI systems',
+          dataStored: 'Token counts and model ID only. No prompt or response content.',
+          residency: 'Supabase eu-north1 (Helsinki, Finland). CLOUD Act-free.',
+        },
+      });
+    } catch (err: unknown) {
+      logger.error('Failed to fetch Grok audit log', { orgId, error: String(err) });
+      res.status(500).json({ error: 'Internal error fetching audit log' });
+    }
+  },
+);
 
 export default router;
