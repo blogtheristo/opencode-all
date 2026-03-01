@@ -8,8 +8,8 @@ import base64
 import glob
 import json
 import os
-import urllib.request
 import urllib.error
+import urllib.request
 from datetime import datetime
 
 
