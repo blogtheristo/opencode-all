@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.10
+Version: 3.11
 
 Sessions & Modifications:
+  - Version: 3.11 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 10.10 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² reference (arXiv:2602.23008 — hybrid on/off-policy RL for memory-augmented agents); updated NCC Sandbox stage annotation; added Key Contribution #9
   - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 10.9 DWS7 Agent Architecture Modernization — documents 6 critical fixes (agentic loops, tool use, multi-provider LLM, agent delegation, MCP server, event bus), Build for Agents principle (CLI, Claude Code Skills), agent-first product design philosophy
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (16 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
@@ -1284,7 +1285,7 @@ NCC Lifetime World Model
 │   ├── Tekla Structures (BIM)
 │   ├── IFS Cloud (ERP)
 │   └── CO2data.fi (Finnish emissions factors)
-└── Sandbox: Stage 2 (ephemeral containers, europe-north1)
+└── Sandbox: Stage 1.5 (OpenSandbox, Acer Veriton GN100) → Stage 2 (Cloud Run, europe-north1)
 ```
 
 ### 10.7.3 Graphical Workflow Builder: Agent Orchestration Studio
@@ -1527,6 +1528,93 @@ This modernization validates two thesis hypotheses:
 
 ---
 
+## 10.10 Agent Foundry Stage 1.5: OpenSandbox on Acer Veriton GN100
+
+*Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026*
+
+### 10.10.1 Background
+
+The DWS IQ 6 Agent Foundry required an intermediate isolation layer between Stage 1 (Anthropic SDK sandbox, demo-grade) and Stage 2 (Cloud Run ephemeral containers, paid multi-tenant). Stage 1.5 fills this gap with **OpenSandbox** (https://github.com/alibaba/OpenSandbox) running on the **Acer Veriton GN100** edge node (120 GiB RAM, 20 cores, Helsinki Lab).
+
+### 10.10.2 Stage Progression
+
+| Stage | Isolation Method | Best For | Cost |
+|-------|-----------------|---------|------|
+| 1 — SDK Sandbox | Anthropic Agent SDK (bubblewrap/seatbelt) | Demo, single-tenant pilots | €0 |
+| **1.5 — OpenSandbox** | **Docker on Acer Veriton GN100 (Helsinki Lab)** | **EU air-gapped, internal pilots** | **€0 (HW only)** |
+| 2 — Cloud Run | Ephemeral containers (europe-north1) | Paid multi-tenant | ~€20-50/mo |
+| 3 — Persistent | gVisor/Firecracker per tenant | Scale (€50k+ MRR) | €200+/mo |
+
+Activation: `SANDBOX_STAGE=opensandbox` + `OPENSANDBOX_HOST=http://<veriton-ip>:8080`
+
+### 10.10.3 OpenSandbox Architecture
+
+OpenSandbox provides Docker-based isolation with a TypeScript SDK and a REST API server. Each agent task creates a dedicated ephemeral container, executes within it, and the container is destroyed upon completion:
+
+```
+DWS Express Backend (EU Cloud Run)
+  └── OpenSandboxClient (src/sandbox/opensandbox.ts)
+        └── OpenSandbox REST API (:8080)
+              └── Docker Containers (Acer Veriton GN100, Helsinki Lab)
+                    └── Agent task (ephemeral, destroyed post-execution)
+```
+
+Security properties: filesystem isolation per task, network egress deny-by-default with explicit domain allow-list (`api.anthropic.com`, `api.groq.com`, MCP Hub), EU data residency enforced at hardware level.
+
+### 10.10.4 Agent Memory: EMPO² (arXiv:2602.23008)
+
+The OpenSandbox integration coincides with important new research on agent memory. The paper *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², February 2026) proposes a hybrid RL framework that addresses the core bottleneck of LLM agent training: **exploration in novel environments**.
+
+**EMPO² dual-update mechanism:**
+- **Parametric updates** (RL): fine-tunes model weights using on/off-policy rollouts
+- **Non-parametric updates** (memory): stores and retrieves task-specific "tips" from a memory buffer during rollouts
+- **Two rollout modes**: with memory (retrieval-augmented) and without memory (parametric only)
+- **Two update modes**: on-policy (tips retained during update) and off-policy (tips removed during update)
+
+**Results:** 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop, with superior out-of-distribution generalization requiring only a few memory trials (no parameter updates) for new tasks.
+
+**Relevance to DWS IQ 6 / Lifetime World Model:**
+
+The DWS Lifetime World Model (LWM) already combines both memory types theoretically proposed by EMPO²:
+
+| EMPO² Component | DWS LWM Equivalent |
+|-----------------|-------------------|
+| Parametric memory | Fine-tuned LLM (QLoRA, Acer Veriton GN100) |
+| Non-parametric memory | RAG over enterprise data + EU regulations (pgvector) |
+| Memory buffer | Supabase `agent_loop_iterations` table |
+| Tip retrieval | Context injection from Compliance/Carbon databases |
+
+The EMPO² finding — *"learning with memory enables models to become robust both with and without memory at inference time"* — validates the DWS strategy of progressively embedding domain knowledge into model weights via QLoRA fine-tuning on the Acer Veriton, while maintaining non-parametric retrieval as a real-time fallback.
+
+The OpenSandbox environment on the Acer Veriton GN100 now serves both roles: **EMPO²-style RL training sandbox** (isolated exploration environment) and **production agent isolation runtime** (secure execution per task).
+
+### 10.10.5 MCP Integration
+
+Six MCP tools expose OpenSandbox through the DWS MCP Hub (`/sandbox/*`):
+
+| Tool | Purpose |
+|------|---------|
+| `sandbox_create` | Create isolated Docker container |
+| `sandbox_execute` | Run command inside sandbox |
+| `sandbox_file_read` | Read output artifacts |
+| `sandbox_file_write` | Write input/config files |
+| `sandbox_destroy` | Destroy sandbox (ephemeral) |
+| `sandbox_ping` | Health check Veriton connectivity |
+
+Claude Code and other MCP clients can now orchestrate agent sandboxes directly via natural language tool calls.
+
+### 10.10.6 Research Contribution
+
+Stage 1.5 demonstrates three thesis claims simultaneously:
+
+1. **Hardware-aware Solution Factory (Section 4.1):** The same agent architecture runs on EU cloud (Stage 2) and EU on-premises edge hardware (Stage 1.5) with a single environment variable — validating the platform's deployment flexibility for air-gapped industrial environments (defense, healthcare, critical infrastructure).
+
+2. **Lifetime Fleet concept validation (Section 3.5):** The Acer Veriton GN100 is the first physical node in the Lifetime Fleet — EU-resident hardware running containerized AI workloads under full operator control, fulfilling the edge-AI theoretical model proposed in the thesis.
+
+3. **EMPO² memory architecture alignment:** The hybrid parametric/non-parametric memory architecture independently validated by EMPO² (arXiv:2602.23008) matches the DWS LWM design — providing academic grounding for an implementation choice made on engineering intuition.
+
+---
+
 # 11. References
 
 ## Academic Literature
@@ -1578,6 +1666,8 @@ This modernization validates two thesis hypotheses:
 24. Google Merchant Center Technical Specifications (2026)
 25. Revolut Business API Documentation
 26. Anthropic Claude Code Documentation
+27. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
+28. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
 
 ## Internal Reference Artifacts
 
@@ -1802,9 +1892,9 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.10 DWS7 agent modernization
-**Version:** 3.10
-**Last Modified:** 24.02.2026
+**Status:** DRAFT - V3.11 OpenSandbox edge integration + EMPO² agent memory
+**Version:** 3.11
+**Last Modified:** 01.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -1824,6 +1914,7 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 6. HIL Learning Pipeline — Daily human-AI feedback loop
 7. Automated PR Workflow — Dual-model AI review replacing manual code review
 8. DWS7 Agent Modernization — Agentic loops, tool use, MCP server, Build for Agents principle
+9. OpenSandbox Edge Integration — Stage 1.5 agent sandboxing on Acer Veriton GN100; EMPO² agent memory alignment (arXiv:2602.23008)
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

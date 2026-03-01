@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 28-29; updated Key Contributions
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
@@ -1095,6 +1096,39 @@ The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered
 
 ---
 
+### 14.6 Agent Foundry Stage 1.5: OpenSandbox + EMPO² Agent Memory
+
+*Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026*
+
+#### 14.6.1 Stage 1.5 — OpenSandbox on Acer Veriton GN100
+
+The Agent Foundry received a new isolation stage between the demo-grade SDK sandbox (Stage 1) and Cloud Run (Stage 2): **OpenSandbox** (https://github.com/alibaba/OpenSandbox) deployed on the **Acer Veriton GN100** edge node (120 GiB RAM, 20 cores, Helsinki Lab).
+
+| Stage | Method | Cost | Use Case |
+|-------|--------|------|----------|
+| 1 | SDK sandbox (bubblewrap/seatbelt) | €0 | Demo, single-tenant |
+| **1.5** | **OpenSandbox Docker (Veriton GN100)** | **€0 HW** | **EU air-gapped, internal pilot** |
+| 2 | Cloud Run ephemeral (europe-north1) | ~€20-50/mo | Paid multi-tenant |
+| 3 | Persistent containers (gVisor) | €200+/mo | Scale |
+
+Activation: `SANDBOX_STAGE=opensandbox`. Six MCP tools (`sandbox_create`, `sandbox_execute`, `sandbox_file_read`, `sandbox_file_write`, `sandbox_destroy`, `sandbox_ping`) expose it via `/sandbox/*` endpoints in the MCP Hub.
+
+**Firehorse operating model impact:** Stage 1.5 enables EU air-gapped agent execution for regulated industries (defense, healthcare, critical infrastructure) — customers where data must never leave on-premises hardware. The Acer Veriton GN100 is the first physical Lifetime Fleet node fulfilling this capability.
+
+#### 14.6.2 EMPO²: Academic Grounding for the LWM Memory Architecture
+
+The paper *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², arXiv:2602.23008, February 2026) provides academic validation for the DWS Lifetime World Model's hybrid memory design.
+
+EMPO² proposes combining:
+- **Parametric memory** (RL updates to model weights) — analogous to DWS LWM fine-tuning (QLoRA, Acer Veriton GN100)
+- **Non-parametric memory** (retrieval from memory buffer) — analogous to DWS RAG over EU regulations + enterprise data (pgvector)
+
+Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key insight: *models trained with memory become robust even without memory at inference* — validating the DWS strategy of progressively embedding domain knowledge into LWM weights while maintaining RAG as a fallback.
+
+The OpenSandbox environment additionally serves as a **safe EMPO²-style RL training sandbox**: isolated containers provide the clean, reproducible environments needed for RL-based memory training without affecting production infrastructure.
+
+---
+
 ## 15. Results and Discussion
 
 ### 15.1 Operational Efficiency Gains
@@ -1161,6 +1195,8 @@ This thesis contributes:
 4. EU compliance mapping for industrial software products
 5. Product recommendation engine architecture for 16 EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
+7. Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100 for EU air-gapped agent sandboxing
+8. EMPO² alignment — hybrid parametric/non-parametric memory architecture validated by arXiv:2602.23008
 
 ### 16.3 Future Work
 
@@ -1186,6 +1222,8 @@ This thesis contributes:
 10. GHG Protocol Corporate Standard
 11. ISO 14064-1:2018 Greenhouse Gas Accounting
 12. Proton AG Security Documentation
+13. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
+14. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
 13. EU Trade Secrets Directive (EU) 2016/943
 14. Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)
 15. Patent Cooperation Treaty (PCT), WIPO

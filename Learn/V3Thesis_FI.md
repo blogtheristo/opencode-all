@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.10
+Version: 3.11
 
 Sessions & Modifications:
+  - Version: 3.11 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 10.10 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-viite (arXiv:2602.23008 — hybridi on/off-policy RL muistia hyödyntäville agenteille); päivitetty NCC Hiekkalaatikko-vaihe; lisätty avainpanos #9
   - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 10.9 DWS7 agenttiarkkitehtuurin modernisointi — dokumentoi 6 kriittistä korjausta (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, agenttien delegointi, MCP-palvelin, tapahtumaväylä), Build for Agents -periaate (CLI, Claude Code Skills), agenttikeskeinen tuotesuunnittelufilosofia
   - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 16 toimialan ristioppimisen verkostovaikutusten analyysi
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
@@ -35,7 +36,7 @@ Document Status:
   - Last Modified: 24.02.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.10 — DWS7 agenttimoderinsointi)
+  - Publication Status: DRAFT (V3.11 — OpenSandbox-reunaintegraatio + EMPO² agenttimuisti)
 
 ---
 
@@ -1275,7 +1276,7 @@ NCC Lifetime World Model
 │   ├── Tekla Structures (BIM)
 │   ├── IFS Cloud (ERP)
 │   └── CO2data.fi (suomalaiset päästökertoimet)
-└── Hiekkalaatikko: Vaihe 2 (hetkelliskontteja, europe-north1)
+└── Hiekkalaatikko: Vaihe 1.5 (OpenSandbox, Acer Veriton GN100) → Vaihe 2 (Cloud Run, europe-north1)
 ```
 
 ### 10.7.3 Graafinen työnkulkurakentaja: Agent Orchestration Studio
@@ -1518,6 +1519,89 @@ Tämä modernisointi validoi kaksi opinnäytetyön hypoteesia:
 
 ---
 
+## 10.10 Agent Foundry Vaihe 1.5: OpenSandbox Acer Veriton GN100 -laitteella
+
+*Sessio: claude/sandbox-agents-opensandbox-HatfC | Päiväys: 01.03.2026*
+
+### 10.10.1 Tausta
+
+DWS IQ 6 Agent Foundry tarvitsi välivaiheen eristyskerroksen Stage 1:n (Anthropic SDK -hiekkalaatikko, demo-taso) ja Stage 2:n (Cloud Run hetkelliskontteja, maksava moniasiakkuus) väliin. Stage 1.5 täyttää tämän aukon **OpenSandbox**-alustalla (https://github.com/alibaba/OpenSandbox), joka toimii **Acer Veriton GN100** -reunasolmussa (120 GiB RAM, 20 ydintä, Helsinki Lab).
+
+### 10.10.2 Vaiheiden eteneminen
+
+| Vaihe | Eristysmenetelmä | Parhaiten sopii | Kustannus |
+|-------|-----------------|----------------|-----------|
+| 1 — SDK-hiekkalaatikko | Anthropic Agent SDK (bubblewrap/seatbelt) | Demo, yksiasiakaskokeilut | €0 |
+| **1.5 — OpenSandbox** | **Docker Acer Veriton GN100 -laitteella (Helsinki Lab)** | **EU-ilmarakoiset ympäristöt, sisäiset pilotit** | **€0 (vain HW)** |
+| 2 — Cloud Run | Hetkelliskontteja (europe-north1) | Maksava moniasiakkuus | ~€20-50/kk |
+| 3 — Pysyvät | gVisor/Firecracker per asiakas | Skaalautuminen (€50k+ MRR) | €200+/kk |
+
+Aktivointi: `SANDBOX_STAGE=opensandbox` + `OPENSANDBOX_HOST=http://<veriton-ip>:8080`
+
+### 10.10.3 OpenSandbox-arkkitehtuuri
+
+OpenSandbox tarjoaa Docker-pohjaisen eristyksen TypeScript SDK:lla ja REST API -palvelimella. Jokainen agenttitehtävä luo oman hetkellisen kontin, suorittaa tehtävän ja kontti tuhotaan suorituksen jälkeen:
+
+```
+DWS Express Backend (EU Cloud Run)
+  └── OpenSandboxClient (src/sandbox/opensandbox.ts)
+        └── OpenSandbox REST API (:8080)
+              └── Docker-kontit (Acer Veriton GN100, Helsinki Lab)
+                    └── Agenttitehtävä (hetkellinen, tuhotaan suorituksen jälkeen)
+```
+
+Tietoturvaominaisuudet: tiedostojärjestelmäeristys per tehtävä, verkon ulostulo oletuksena estetty (explicit allow-list: `api.anthropic.com`, `api.groq.com`, MCP Hub), EU-tietojen sijainti pakotettu laitteistotasolla.
+
+### 10.10.4 Agenttimuisti: EMPO² (arXiv:2602.23008)
+
+OpenSandbox-integraation kanssa samanaikaisesti julkaistiin tärkeä uusi tutkimus agenttimuistista. Artikkeli *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², helmikuu 2026) ehdottaa hybridi-RL-kehystä, joka ratkaisee LLM-agenttikoulutuksen ydinkapeapaikan: **tutkimisen uusissa ympäristöissä**.
+
+**EMPO²:n kaksoispäivitysmekanismi:**
+- **Parametriset päivitykset** (RL): hienosäätää mallin painoja on/off-policy -rullausajoilla
+- **Ei-parametriset päivitykset** (muisti): tallentaa ja hakee tehtäväkohtaisia "vinkkejä" muistipuskurista rullausajojen aikana
+- **Kaksi rullausajomuotoa**: muistin kanssa (hakuavusteinen) ja ilman muistia (vain parametrinen)
+- **Kaksi päivitysmuotoa**: on-policy (vinkit säilytetään) ja off-policy (vinkit poistetaan)
+
+**Tulokset:** 128,6 % parannus GRPO-algoritmiin verrattuna ScienceWorldissa, 11,3 % WebShopissa, parempi yleistyminen jakaumasta poikkeaviin tehtäviin vain muutamalla muistikokeella (ei parametripäivityksiä).
+
+**Relevanssi DWS IQ 6:lle / Lifetime World Model:**
+
+DWS Lifetime World Model (LWM) yhdistää jo molemmat EMPO²:n ehdottamat muistityypit:
+
+| EMPO²-komponentti | DWS LWM -vastine |
+|-------------------|-----------------|
+| Parametrinen muisti | Hienosäädetty LLM (QLoRA, Acer Veriton GN100) |
+| Ei-parametrinen muisti | RAG yritysdata + EU-säädöksistä (pgvector) |
+| Muistipuskuri | Supabase `agent_loop_iterations` -taulu |
+| Vinkkien haku | Konteksti-injektio Compliance/Hiili-tietokannoista |
+
+EMPO²:n havainto — *"muistilla oppiminen mahdollistaa mallien vahvuuden myös ilman muistia päättelyaikana"* — validoi DWS-strategian asteittain upottaa domaintieto mallin painoihin QLoRA-hienosäädöllä Acer Veriton GN100:lla samalla kun ei-parametrinen haku toimii reaaliaikaisena varamekanismina.
+
+### 10.10.5 MCP-integraatio
+
+Kuusi MCP-työkalua paljastaa OpenSandboxin DWS MCP Hubin kautta (`/sandbox/*`):
+
+| Työkalu | Tarkoitus |
+|---------|----------|
+| `sandbox_create` | Luo eristetty Docker-kontti |
+| `sandbox_execute` | Suorita komento hiekkalaatikossa |
+| `sandbox_file_read` | Lue tulostiedostot |
+| `sandbox_file_write` | Kirjoita syöte/konfiguraatiotiedostot |
+| `sandbox_destroy` | Tuhoa hiekkalaatikko (hetkellinen) |
+| `sandbox_ping` | Tarkista Veriton-yhteys |
+
+### 10.10.6 Tutkimuskontribuutio
+
+Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
+
+1. **Laitteistotietoinen Solution Factory (osio 4.1):** Sama agenttiarkkitehtuuri toimii EU-pilvessä (Stage 2) ja EU-tiloissa sijaitsevalla reunalaitteistolla (Stage 1.5) yhdellä ympäristömuuttujalla — validoiden alustan käyttöönottofleksibiliteetin ilmarakoisiin teollisuusympäristöihin (puolustus, terveydenhuolto, kriittinen infrastruktuuri).
+
+2. **Lifetime Fleet -konseptin validointi (osio 3.5):** Acer Veriton GN100 on ensimmäinen fyysinen solmu Lifetime Fleet -laivastossa — EU:ssa sijaitseva laitteisto, joka ajaa kontaineroituja tekoälykuormia täydessä operaattorin hallinnassa, täyttäen opinnäytetyössä ehdotetun reunatekoälyteoreettisen mallin.
+
+3. **EMPO²-muistiarkkitehtuurin yhdenmukaisuus:** EMPO²:n (arXiv:2602.23008) itsenäisesti validoima hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri vastaa DWS LWM -suunnittelua — tarjoten akateemisen perustan insinööri-intuitiolla tehdylle toteutusvalinnalle.
+
+---
+
 # 11. Lähteet
 
 ## Akateeminen kirjallisuus
@@ -1573,6 +1657,8 @@ Tämä modernisointi validoi kaksi opinnäytetyön hypoteesia:
 ## Sisäiset viiteartefaktit
 
 27. Lifetime Oy (2026). *Lifetime World LLM Scaling Blueprint (GN-100 hybridi + pilvipolku).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.
+28. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
+29. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
 
 ---
 
@@ -1794,9 +1880,9 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.10 DWS7 agenttimoderinsointi
-**Versio:** 3.10
-**Viimeisin päivitys:** 24.02.2026
+**Tila:** DRAFT - V3.11 OpenSandbox-reunaintegraatio + EMPO² agenttimuisti
+**Versio:** 3.11
+**Viimeisin päivitys:** 01.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -1816,6 +1902,7 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 6. HIL-oppimisputki — Päivittäinen ihminen-tekoäly-palautesilmukka
 7. Automatisoitu PR-tyonkulku — Kaksoismallin AI-katselmointi korvaa manuaalisen koodikatselmoinnin
 8. DWS7 agenttimoderinsointi — Agenttisilmukat, työkalujen käyttö, MCP-palvelin, Build for Agents -periaate
+9. OpenSandbox-reunaintegraatio — Stage 1.5 agentin hiekkalaatikko Acer Veriton GN100 -laitteella; EMPO² agenttimuistin yhdenmukaisuus (arXiv:2602.23008)
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
