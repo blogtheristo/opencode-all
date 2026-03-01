@@ -170,14 +170,14 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 - Lifetime Oy CEO: `risto@lifetime.fi`
 - DWS10 AI Director: `ai_director@lifetime.fi`
 - DWS10 Sales: `offer@lifetime.fi`
-- xAI Enterprise: `sales@x.ai`
+- xAI Enterprise: `[xAI enterprise contact email]`
 
 ---
 
 ## 7. Ready-to-Send Email Draft
 
 > Copy-paste the block below. Replace placeholders in `[brackets]`.
-> Send to: `risto@lifetime.fi`, `ai_director@lifetime.fi`, `sales@x.ai`
+> Send to: `risto@lifetime.fi`, `ai_director@lifetime.fi`, `[xAI enterprise contact email]`
 > Optional CC: `investor@dws10.com`, `offer@lifetime.fi`
 
 ---
