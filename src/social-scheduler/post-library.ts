@@ -11,20 +11,31 @@
  */
 
 import type { PostDraft, PostCategory } from './types.js';
+import { DateTime } from 'luxon';
 
 // ============================================================================
 // HELPERS
 // ============================================================================
 
 function scheduledAt(daysFromNow: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() + daysFromNow);
-  // Skip weekends
-  while (d.getDay() === 0 || d.getDay() === 6) {
-    d.setDate(d.getDate() + 1);
+  // Compute the target time in Helsinki local time, then convert to UTC ISO.
+  let helsinkiTime = DateTime.now()
+    .setZone('Europe/Helsinki')
+    .plus({ days: daysFromNow });
+
+  // Skip weekends (Saturday = 6, Sunday = 7 in luxon)
+  while (helsinkiTime.weekday === 6 || helsinkiTime.weekday === 7) {
+    helsinkiTime = helsinkiTime.plus({ days: 1 });
   }
-  d.setHours(9, 0, 0, 0);
-  return d.toISOString();
+
+  helsinkiTime = helsinkiTime.set({
+    hour: 9,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
+
+  return helsinkiTime.toUTC().toISO();
 }
 
 // ============================================================================
