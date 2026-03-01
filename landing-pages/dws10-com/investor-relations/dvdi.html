@@ -987,9 +987,10 @@
         const nvidiaScore   = 125;
 
         // Component 4: EU Sovereignty Premium (grows as enforcement approaches)
-        const urgencyElapsed = 365 - daysToEnforcement;
-        const urgencyGain    = Math.max(0, urgencyElapsed) / 365 * 50; // 0→+50 as deadline passes
-        const sovereigntyScore = Math.round((100 + urgencyGain) * 10) / 10;
+        const totalWindowDays       = Math.max(1, Math.round((EU_DEADLINE - BASE_DATE) / 86400000));
+        const elapsedInWindowDays   = Math.min(Math.max(daysSinceBase, 0), totalWindowDays);
+        const urgencyGain           = (elapsedInWindowDays / totalWindowDays) * 50; // 0→+50 over BASE_DATE→EU_DEADLINE
+        const sovereigntyScore      = Math.round((100 + urgencyGain) * 10) / 10;
 
         // Weighted DVDI
         const dvdi = Math.round(
