@@ -1134,4 +1134,4 @@ These endpoints are **live** after the modernization and ready for customer-faci
 ---
 
 *This document is auto-tracked weekly. See `.github/workflows/roadmap-weekly-tracker.yml`.*
-*Last updated: 2026-02-24*
+*Last updated: 2026-03-01*
