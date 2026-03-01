@@ -40,7 +40,13 @@ except Exception as _zf_err:
     )
 
 import httpx  # noqa: E402
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Request  # noqa: E402
+from fastapi import (  # noqa: E402
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    HTTPException,
+    Request,
+)
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
@@ -1176,13 +1182,15 @@ async def gemini_code_review(req: GeminiReviewRequest):
 # See: mcp-hub/services/opensandbox_mcp.py, src/sandbox/opensandbox.ts
 
 from services.opensandbox_mcp import (
+    MCP_TOOLS as OPENSANDBOX_MCP_TOOLS,
+)
+from services.opensandbox_mcp import (
     sandbox_create,
     sandbox_destroy,
     sandbox_execute,
     sandbox_file_read,
     sandbox_file_write,
     sandbox_ping,
-    MCP_TOOLS as OPENSANDBOX_MCP_TOOLS,
 )
 
 
