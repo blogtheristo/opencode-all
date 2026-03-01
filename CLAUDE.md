@@ -17,6 +17,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
