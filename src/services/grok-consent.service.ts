@@ -265,13 +265,22 @@ export class GrokConsentService {
     const db = this.getSupabase();
     if (!db) return;
 
-    await db.from('grok_consent_audit').insert({
+    const { error } = await db.from('grok_consent_audit').insert({
       org_id: orgId,
       action,
       user_id: userId,
       note: note ?? null,
       occurred_at: new Date().toISOString(),
     });
+
+    if (error) {
+      // Non-fatal but must be visible: consent audit trail must never be silently lost
+      logger.error('Failed to write Grok consent audit log to Supabase', {
+        error: error.message,
+        orgId,
+        action,
+      });
+    }
   }
 }
 
