@@ -36,7 +36,7 @@
  *
  * USAGE:
  *   npx tsx scripts/linkedin-oauth.ts              # person token (personal posts)
- *   npx tsx scripts/linkedin-oauth.ts --org        # add org URN lookup step
+ *   npx tsx scripts/linkedin-oauth.ts --org        # show instructions for finding org URN
  *   npx tsx scripts/linkedin-oauth.ts --port 8080  # use different port
  *
  * Required env vars:
