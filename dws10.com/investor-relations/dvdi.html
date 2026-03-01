@@ -968,9 +968,17 @@
         const BASE_DATE   = new Date('2026-02-12T00:00:00Z');
         const EU_DEADLINE = new Date('2026-08-02T00:00:00Z');
         const TODAY       = new Date();
+        // Normalize to UTC midnight for deterministic "daily" calculations
+        const todayUtcMidnight    = Date.UTC(
+            TODAY.getUTCFullYear(),
+            TODAY.getUTCMonth(),
+            TODAY.getUTCDate()
+        );
+        const baseUtcMidnight     = BASE_DATE.getTime();      // already at 00:00:00Z
+        const deadlineUtcMidnight = EU_DEADLINE.getTime();    // already at 00:00:00Z
 
-        const daysSinceBase     = Math.max(0, Math.floor((TODAY - BASE_DATE) / 86400000));
-        const daysToEnforcement = Math.max(0, Math.ceil((EU_DEADLINE - TODAY) / 86400000));
+        const daysSinceBase     = Math.max(0, Math.floor((todayUtcMidnight - baseUtcMidnight) / 86400000));
+        const daysToEnforcement = Math.max(0, Math.ceil((deadlineUtcMidnight - todayUtcMidnight) / 86400000));
 
         // Component 1: Platform Advancement (base 100, up to 250 at 247 PRs)
         const prsPerDay     = 247 / (22 * 30.4); // 247 PRs over 22 months
