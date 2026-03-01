@@ -138,7 +138,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 ### For Lifetime Oy / DWS10 and Captains
 
 | Benefit | Detail |
-|---------|--------|
+| --- | --- |
 | Truth-seeking AI Captain | Grok's debate system layered on the Lifetime World Model = adversarial regulatory intelligence |
 | Edge performance | <100 ms latency on GN100 cluster vs cloud round-trip |
 | Cost savings | Validated €333k/year per site vs cloud inference costs |
@@ -148,7 +148,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 ### For xAI
 
 | Benefit | Detail |
-|---------|--------|
+| --- | --- |
 | EU sovereign beachhead | Compliant deployment in EU critical infrastructure (Fit for 55, NIS2, CSRD) — a segment where US cloud is blocked |
 | High-quality consented data | Real-world industrial/climate reasoning traces to accelerate Grok's truth-seeking mission |
 | Showcase deployment | Physical Captain's Bridge with live Grok 4-agent debate on 8K walls — compelling for EU regulators, sovereign AI investors, and export to other markets |
