@@ -265,7 +265,7 @@ export class LLMClient {
       await grokConsentService.logInferenceBlocked(orgId, consentStatus.reason);
       throw new Error(
         `Grok inference blocked for org ${orgId}: ${consentStatus.reason}. ` +
-        'Grant consent via POST /grok-consent/:orgId/grant',
+        'Grant consent via POST /api/grok-consent/:orgId/grant',
       );
     }
 
