@@ -1,3 +1,8 @@
+---
+name: email
+description: Sends transactional emails and manages Resend email delivery for DWS IQ 6. Use when user says "send email", "email this report", "notify by email", "check if email was delivered", "resend status", or "trigger outreach digest". Supports send, batch, status, and digest actions.
+---
+
 Send an email or manage Resend email operations for DWS IQ 6.
 
 Usage: /email <action> [arguments]
@@ -52,3 +57,9 @@ list broadcasts, and verify domains directly from any MCP client:
 - Never use noreply@ addresses
 - Log all sends to Supabase `email_logs` with `resend_email_id`
 - Delivery status (delivered/bounced/complained) flows via `/webhooks/resend/inbound`
+
+## When NOT to use
+
+- Running an AI agent → use `/agent-run`
+- Triggering a multi-agent workflow → use `/workflow`
+- Domain is not `onelifetime.world` → do not send, the domain is not verified in Resend

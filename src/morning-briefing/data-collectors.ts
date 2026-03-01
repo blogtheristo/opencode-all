@@ -16,7 +16,7 @@
  * does not block the rest of the briefing.
  */
 
-import { readFile } from 'fs/promises';
+import { readFile, readdir, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
@@ -91,6 +91,19 @@ export interface WorkflowData {
   savings_percent: number;        // vs traditional cycle
 }
 
+/** A single Learn/ HTML artifact for the morning briefing */
+export interface LearnArtifact {
+  filename: string;
+  title: string;
+  modifiedDate: string; // ISO date string
+  githubUrl: string;
+}
+
+/** Learn/ HTML artifacts modified in the last 7 days */
+export interface LearnArtifactsData {
+  artifacts: LearnArtifact[];
+}
+
 /** Construction leads data for morning briefing */
 export interface ConstructionLeadsData {
   summary: ConstructionLeadsSummary | null;
@@ -137,6 +150,7 @@ export interface CockpitData {
   workflow: WorkflowData | null;
   constructionLeads: ConstructionLeadsData;
   outreachSummary: OutreachSummaryData;
+  learnArtifacts: LearnArtifactsData;
 }
 
 // ============================================================================
@@ -628,6 +642,66 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
 }
 
 // ============================================================================
+// LEARN ARTIFACTS COLLECTOR
+// ============================================================================
+
+const LEARN_GITHUB_BASE = 'https://github.com/blogtheristo/dws6/blob/main/Learn';
+
+/**
+ * Derive a human-readable title from a Learn/ filename.
+ * e.g. "DWS_DOCUMENT_STANDARD_v1.7.html" → "DWS Document Standard v1.7"
+ */
+function learnFilenameToTitle(filename: string): string {
+  return filename
+    .replace(/\.html$/, '')
+    .replace(/_v(\d+\.\d+)$/, ' v$1')
+    .replace(/_/g, ' ')
+    .replace(/\b(dws|llm|mcp|erp|iq|eu|en|fi|v\d)/gi, (m) => m.toUpperCase())
+    .trim();
+}
+
+/**
+ * Collect Learn/ HTML files modified in the last 7 days.
+ * Returns them sorted newest-first, capped at 8 items.
+ */
+async function collectLearnArtifacts(): Promise<LearnArtifactsData> {
+  try {
+    const currentDir = typeof __dirname !== 'undefined'
+      ? __dirname
+      : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const learnDir = resolve(projectRoot, 'Learn');
+
+    const entries = await readdir(learnDir);
+    const htmlFiles = entries.filter((f) => f.endsWith('.html'));
+
+    const sevenDaysAgo = Date.now() - 7 * 86_400_000;
+
+    const artifacts: LearnArtifact[] = [];
+    for (const filename of htmlFiles) {
+      const filePath = resolve(learnDir, filename);
+      const s = await stat(filePath);
+      if (s.mtimeMs >= sevenDaysAgo) {
+        artifacts.push({
+          filename,
+          title: learnFilenameToTitle(filename),
+          modifiedDate: s.mtime.toISOString().split('T')[0],
+          githubUrl: `${LEARN_GITHUB_BASE}/${filename}`,
+        });
+      }
+    }
+
+    // Sort newest-first, cap at 8
+    artifacts.sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate));
+    return { artifacts: artifacts.slice(0, 8) };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Learn artifacts collection failed (non-critical)', { error: msg });
+    return { artifacts: [] };
+  }
+}
+
+// ============================================================================
 // MAIN COLLECTOR
 // ============================================================================
 
@@ -645,7 +719,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -655,6 +729,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectWorkflowData(),
     collectConstructionLeads(),
     collectOutreachSummary(),
+    collectLearnArtifacts(),
   ]);
 
   return {
@@ -670,5 +745,6 @@ export async function collectCockpitData(): Promise<CockpitData> {
     workflow,
     constructionLeads,
     outreachSummary,
+    learnArtifacts,
   };
 }

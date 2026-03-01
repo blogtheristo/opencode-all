@@ -1,183 +1,129 @@
-# Acer Veriton GN100 — Device Admin Manual
+# Acer Veriton GN100 — Edge AI Lab Device
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/dws-standards-codex-proposal-0Mg1S | Date: 28.02.2026 | Changes: Initial creation — device overview, software stack template, maintenance log, field note cross-links
+  - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added OpenSandbox section — server setup, env vars, MCP tools, NIS2 statement for Stage 1.5 agent sandboxing
+  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/optimistic-burnell | Date: 27.02.2026 | Changes: Initial creation — Admin folder for Acer Veriton GN100 edge AI device
 
 Session Links & References:
-  - Claude Code (claude/dws-standards-codex-proposal-0Mg1S): https://github.com/blogtheristo/dws6/commits/claude/dws-standards-codex-proposal-0Mg1S
+  - Claude Code (claude/optimistic-burnell): https://github.com/blogtheristo/dws6
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/Acer-Veriton-GN100/README.md
 
 Document Status:
-  - Created: 28.02.2026
-  - Last Modified: 28.02.2026
-  - Language: EN
-  - Languages Available: EN
-  - Publication Status: ACTIVE — INTERNAL ONLY
+  - Created: 27.02.2026
+  - Last Modified: 01.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
 
 ***
 
-## Table of Contents
-
-1. [Device Overview](#1-device-overview)
-2. [Software Stack](#2-software-stack)
-3. [Network & Access](#3-network--access)
-4. [AI / GPU Workload Configuration](#4-ai--gpu-workload-configuration)
-5. [Maintenance Log](#5-maintenance-log)
-6. [Related Field Notes](#6-related-field-notes)
-
----
-
-## 1. Device Overview
+## Device Overview
 
 | Field | Value |
 |-------|-------|
-| **Hostname** | `[TBD]` |
+| **Manufacturer** | Acer Inc. |
 | **Model** | Acer Veriton GN100 |
-| **Role** | Local AI inference & development workstation |
-| **OS** | Ubuntu 24.04 LTS |
-| **Kernel** | `[TBD — run: uname -r]` |
-| **CPU cores** | 20 |
-| **CPU model** | `[TBD — run: lscpu \| grep "Model name"]` |
-| **RAM** | 120 GiB (~128 GB physical) |
-| **GPU** | NVIDIA Blackwell `[TBD — confirm model: nvidia-smi]` |
-| **VRAM** | `[TBD]` |
-| **Storage** | `[TBD — run: lsblk]` |
-| **Location** | `[TBD — office / rack / desk]` |
-| **Managed by** | risto@lifetime.fi |
+| **Hostname** | gn100-cb5d |
+| **OS** | Ubuntu 24.04.4 LTS |
+| **CPU** | 20 cores |
+| **Memory** | 120 GiB |
+| **Asset Tag** | DTR6LEH002547000426700 |
+| **Machine ID** | 435bf64de6f94bfa93dca976e55670bd |
+| **Role** | Lifetime Fleet — Edge AI inference & development |
 
-### Notes
+## Software Stack
 
-- RAM reported as 120 GiB in OS; physical modules likely 128 GB DDR5.
-- GPU architecture confirmed as NVIDIA Blackwell generation. Exact SKU TBD.
-- `nvidia-smi` output should be captured and appended here on first setup.
+- **NVIDIA AI Workbench** — Local AI development environment
+- **CUDA** — GPU compute (version TBD)
+- **Docker** — Container runtime for edge agents
+- **OpenSandbox** — Agent isolation platform (Stage 1.5 sandbox)
 
----
+## OpenSandbox — Agent Sandboxing
 
-## 2. Software Stack
+The Acer Veriton GN100 hosts the **OpenSandbox server** for DWS IQ 6 agent sandboxing (Stage 1.5).
 
-### System
+OpenSandbox provides Docker-based isolation for AI agents: each task runs in a dedicated ephemeral container. Data never leaves the Veriton.
 
-| Component | Version | Notes |
-|-----------|---------|-------|
-| Ubuntu | 24.04 LTS | Noble Numbat |
-| Docker | `[TBD]` | `docker --version` |
-| NVIDIA Driver | `[TBD]` | `nvidia-smi` |
-| CUDA | `[TBD]` | `nvcc --version` |
-| Node.js | `[TBD]` | `node --version` |
-| Python | `[TBD]` | `python3 --version` |
-| Git | `[TBD]` | `git --version` |
-
-### DWS Stack
-
-| Component | Status | Notes |
-|-----------|--------|-------|
-| DWS IQ 6 backend (`src/app.ts`) | `[TBD]` | Express + TypeScript |
-| Supabase JS SDK | `[TBD]` | Auth + DB |
-| Claude Code CLI | `[TBD]` | `claude --version` |
-| MCP Hub (`mcp-hub/`) | `[TBD]` | Local MCP servers |
-| Vite dashboard (`dws6.com/dashboard/firehorse/v9-react/`) | `[TBD]` | React 19 |
-
-### AI / LLM Runtimes
-
-| Runtime | Status | Notes |
-|---------|--------|-------|
-| Ollama | `[TBD]` | Local model serving |
-| LlamaStack | `[TBD]` | `src/` integration |
-| vLLM | `[TBD]` | GPU inference server |
-| TensorRT-LLM | `[TBD]` | NVIDIA optimized runtime |
-
-> **Action:** Run `dpkg -l | grep -E "cuda|tensorrt|ollama"` and fill table above.
-
----
-
-## 3. Network & Access
-
-| Field | Value |
-|-------|-------|
-| **LAN IP** | `[TBD]` |
-| **SSH access** | `ssh [user]@[ip]` |
-| **Firewall** | `ufw` — `[TBD: status]` |
-| **Remote UI** | `[TBD — Cockpit / none]` |
-| **Supabase target** | `europe-north1` (EU Cloud) |
-
----
-
-## 4. AI / GPU Workload Configuration
-
-### GPU Confirmation
+### Server Setup
 
 ```bash
-# Run and paste output here
-nvidia-smi
+# Install
+pip install opensandbox-server
+
+# Initialize Docker config
+opensandbox-server init-config ~/.sandbox.toml --example docker
+
+# Start (listens on :8080)
+opensandbox-server
+
+# (Optional) Run as systemd service
+sudo systemctl enable opensandbox
+sudo systemctl start opensandbox
 ```
 
+### Environment Variables (on DWS backend / MCP hub)
+
 ```
-[PASTE nvidia-smi OUTPUT HERE]
+SANDBOX_STAGE=opensandbox
+OPENSANDBOX_HOST=http://2001:14ba:a1b0:a500:ec74:7c47:3601:204f:8080  # IPv6
+# or local network IP:
+OPENSANDBOX_HOST=http://192.168.X.X:8080
+OPENSANDBOX_API_KEY=<secret>
+OPENSANDBOX_IMAGE=opensandbox/code-interpreter:v1.0.1
+OPENSANDBOX_TIMEOUT_MS=300000
 ```
 
-### CUDA Verification
+### MCP Tools (via mcp-hub /sandbox/*)
 
-```bash
-nvcc --version
-python3 -c "import torch; print(torch.cuda.is_available(), torch.version.cuda)"
-```
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /sandbox/ping` | Health check connectivity to Veriton |
+| `POST /sandbox/create` | Create isolated Docker container |
+| `POST /sandbox/execute` | Run command inside container |
+| `POST /sandbox/file/read` | Read file from container |
+| `POST /sandbox/file/write` | Write files to container |
+| `POST /sandbox/destroy` | Destroy container (ephemeral) |
+| `GET /sandbox/tools` | List all MCP tool schemas |
 
-### Recommended Local Models (Blackwell-class)
+### Security Properties
 
-Given 120 GiB RAM and Blackwell GPU, this device can serve:
+| Property | How Enforced |
+|----------|-------------|
+| Filesystem isolation | Each task in dedicated container |
+| Network egress | Deny-by-default, explicit allow-list |
+| Data residency | On-premise Veriton hardware (Helsinki Lab) |
+| Ephemeral | Container destroyed after each task |
+| Cross-agent privilege | `file_access_control.py` protects config paths |
 
-| Model | Size | Use case |
-|-------|------|----------|
-| `qwen2.5-coder:32b` | ~20 GB VRAM | DWS agentic coding |
-| `llama3.3:70b` | ~40 GB VRAM | Compliance reasoning |
-| `mistral-large` | ~45 GB VRAM | EU document analysis |
-| Custom LWM (Climate LLM) | TBD | DWS IQ 6 production |
+**NIS2 audit statement:**
+> "OpenSandbox Stage 1.5 executes each agent task in an ephemeral Docker container on the Acer Veriton GN100. Containers are destroyed post-task. Data residency is enforced at hardware level — no agent data leaves the device."
 
-> See field note `2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md` for context on Blackwell inference economics.
+See: `DWS_SECURITY_STANDARD.md §14.6`, `src/sandbox/opensandbox.ts`, `mcp-hub/services/opensandbox_mcp.py`
 
-### EU AI Act Article 12 Logging
+## Related Documents
 
-All AI workloads running on this device must log to the Aiwen layer:
+| Document | Location |
+|----------|----------|
+| NVIDIA GPG Key Fix (2026-02-27) | `docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` |
+| OpenSandbox TypeScript Integration | `src/sandbox/opensandbox.ts` |
+| OpenSandbox MCP Service (Python) | `mcp-hub/services/opensandbox_mcp.py` |
+| Security Standard §14.6 | `DWS_SECURITY_STANDARD.md` |
 
-- Endpoint: EU Cloud (`europe-north1`)
-- Logging format: Article 12-compliant event log (traceability + retention)
-- See: `docs/CLOUD_ENVIRONMENTS.md` Section on Aiwen
+## Maintenance Log
 
----
+| Date | Action | Notes |
+|------|--------|-------|
+| 2026-03-01 | OpenSandbox server deployed | Stage 1.5 agent sandboxing activated |
+| 2026-02-27 | NVIDIA GPG key expired | Documented fix procedure in field note |
 
-## 5. Maintenance Log
+## Network Access
 
-| Date | Action | By | Notes |
-|------|--------|----|-------|
-| 28.02.2026 | Device documented in Admin/ | Claude Code | Initial README created |
-| `[date]` | Initial Ubuntu 24.04 setup | `[name]` | `[notes]` |
-| `[date]` | NVIDIA driver install | `[name]` | Driver version: `[TBD]` |
-| `[date]` | DWS stack deployed | `[name]` | `[notes]` |
-
----
-
-## 6. Related Field Notes
-
-| Date | Field Note | Relevance |
-|------|-----------|-----------|
-| 2026-02-16 | [`nvidia-blackwell-ultra-agentic-ai-inference.md`](../../docs/field-notes/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md) | Blackwell inference performance & economics for DWS agentic workloads |
-| 2026-02-04 | [`qwen3-coder-next-agentic-llm.md`](../../docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md) | MoE models suited for local inference on this device |
-| 2026-02-06 | [`brockman-agentic-software-development.md`](../../docs/field-notes/2026-02-06-brockman-agentic-software-development.md) | Agentic coding demand — why local GPU inference matters |
-
-## Related Core Docs
-
-| Doc | Path |
-|-----|------|
-| Cloud Environments | `docs/CLOUD_ENVIRONMENTS.md` |
-| Security Standard | `DWS_SECURITY_STANDARD.md` |
-| Security Compliance | `Admin/SECURITY_COMPLIANCE.md` |
-| Brand Standard | `DWS_BRAND_STANDARD.md` |
-
----
-
-**Owner:** risto@lifetime.fi
-**Review cadence:** Monthly or after significant hardware/software changes
+| Method | Details |
+|--------|---------|
+| **SSH/Web Console** | IPv6: `2001:14ba:a1b0:a500:ec74:7c47:3601:204f` |
+| **Location** | Helsinki Lab |
