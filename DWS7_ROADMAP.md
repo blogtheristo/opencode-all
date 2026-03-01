@@ -1,9 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.0.0
+> **Version:** 1.1.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
+> **Updated:** 2026-03-01 — Added sovereign on-premise AI gap, GN100 infrastructure asset, Blackwell watch signal (Claude Code, claude/dws6-dws7-update-doc-I2Cgk)
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -19,15 +20,45 @@ DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations:
 
 ## Competitive Positioning
 
-DWS7 exploits **3 gaps no competitor fills:**
+DWS7 exploits **4 gaps no competitor fills:**
 
 | Gap | Opportunity | Competitors Missing It |
 |-----|-------------|----------------------|
 | **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 16 industries | Everyone specializes in one regulation |
 | **IoT-to-compliance pipeline** | Sensor data → verified regulatory filings, no manual steps | Schneider does IoT, Persefoni does reporting — nobody bridges them |
 | **Agentic AI compliance** | Multi-agent autonomous compliance checking + report generation | CO2 AI and Schneider are exploring; nobody has shipped it |
+| **Sovereign on-premise AI** | Compliance workloads that cannot leave the customer's premises — local inference on dedicated hardware, EU data residency guaranteed by physics not policy | Every SaaS competitor routes data through US cloud APIs; nobody ships on-premise AI inference as a standard offering |
 
 **Market size:** Carbon accounting software market grows from $24.3B (2025) to $191.2B (2035) at 22.9% CAGR. Only 13.5% of EU businesses use AI — massive adoption runway.
+
+---
+
+## Infrastructure Assets
+
+Physical and cloud infrastructure already in place entering Phase 1. These are not roadmap PRs — they are existing capital that de-risks execution.
+
+### Compute
+
+| Asset | Specs | Role | Status |
+|-------|-------|------|--------|
+| **Acer Veriton GN100** | NVIDIA Blackwell GPU, 120 GiB RAM, 20 CPU cores, Ubuntu 24.04 LTS | Local AI inference, Climate LLM fine-tuning (PR 161), sovereign on-premise product offering | In-house, operational. See `Admin/Acer-Veriton-GN100/README.md` |
+| **NVIDIA Jetson Orin Nano** | Edge AI module, JetPack SDK | Factory/site edge agent deployment (PR 154), offline IoT-to-compliance | Roadmap target deployment |
+
+### Cloud
+
+| Asset | Provider | Role |
+|-------|----------|------|
+| EU Cloud backend | Google Cloud Run (`europe-north1`) | Express API, AI agents, EU data residency |
+| Database | Supabase (EU) | PostgreSQL + Auth + Realtime + pgvector |
+| CDN / Edge | Cloudflare Pages + Workers | Landing pages, dashboard SPA, edge API |
+| Aiwen layer | EU Cloud overlay | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
+
+### What GN100 enables for the roadmap
+
+- **PR 161 (Climate LLM):** Fine-tune Llama 3.3 70B locally — no cloud training cost, no data leaving premises
+- **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists
+- **Groq risk mitigation:** Immediate fallback inference for Llama 3.3 70B (~40 GB VRAM) and Mistral Large (~45 GB VRAM) without cloud dependency
+- **EU AI Act Article 12:** All local inference workloads log to Aiwen layer — compliance-by-default
 
 ---
 
@@ -309,7 +340,7 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
-| 161 | Fine-tuned climate LLM (LoRA on Llama 3.3 70B) | P1 | Domain-specific model trained on EU regulation corpus |
+| 161 | Fine-tuned climate LLM (LoRA on Llama 3.3 70B) | P1 | Domain-specific model trained on EU regulation corpus. Primary fine-tuning platform: Acer Veriton GN100 (NVIDIA Blackwell, 120 GiB RAM) — see `Admin/Acer-Veriton-GN100/README.md` |
 | 162 | RAG pipeline for regulation knowledge base | P0 | Retrieve relevant regulation text for AI responses |
 | 163 | Multi-language climate assistant (EN, FI, DE, SV, NO) | P1 | Localized responses for Nordic + DACH markets |
 | 164 | Climate assistant conversation memory | P1 | Context-aware follow-up questions across sessions |
@@ -583,7 +614,7 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 | Regulation changes mid-implementation | High | Modular compliance engine, regulation change tracker (PR 086) |
 | Key customer churn during pilot | High | Customer success metrics (PR 224), NPS tracking |
 | Security breach before ISO 27001 | Critical | Daily security scans (existing), pentest (PR 099) |
-| Groq API pricing increase | Medium | Multi-LLM fallback, self-hosted option (PR 161) |
+| Groq API pricing increase | Medium | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 (NVIDIA Blackwell, in-house) provides immediate fallback inference for Llama 3.3 70B and Mistral Large without cloud dependency |
 | Edge AI hardware supply issues | Medium | Cloud-only fallback mode for IoT pipeline |
 | Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform |
 | Team scaling challenges | Medium | AI-assisted development (Claude Code), modular architecture |
@@ -761,6 +792,7 @@ These companies directly shape DWS7's AI capabilities, infrastructure costs, and
 | **Jetson Orin updates** | New Jetson modules, JetPack SDK releases, power efficiency improvements | PR 154 (edge agent deployment), Phase 4 IoT pipeline |
 | **CUDA / TensorRT** | Inference optimization, new quantization methods | Climate LLM fine-tuning performance (PR 161) |
 | **NIM (NVIDIA Inference Microservices)** | Self-hosted inference containers, new model support | Alternative to Groq for on-premise/edge inference |
+| **Blackwell (GB10 / GN100)** | New Blackwell-class GPU performance, VRAM, quantization improvements | Directly impacts Acer Veriton GN100 capacity — affects which models run locally, Climate LLM fine-tuning throughput (PR 161), sovereign inference roadmap |
 | **Omniverse / Digital Twins** | Industrial digital twin capabilities | Future: factory/site digital twin integration |
 | **Pricing & supply** | GPU availability, Jetson pricing changes | Edge AI cost model, hardware procurement decisions |
 | **X accounts** | @nvidia, @NVIDIAAIDev, @JetsonHacks | |
