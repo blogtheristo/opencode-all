@@ -23,9 +23,31 @@ import { enqueueDraft } from '../src/social-scheduler/queue.js';
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
-  const slugArg = args.find(a => a.startsWith('--slug='))?.split('=')[1] ||
-    (args.includes('--slug') ? args[args.indexOf('--slug') + 1] : null);
 
+  // Parse --slug flag (supports "--slug=value" and "--slug value").
+  const slugEqArg = args.find(a => a.startsWith('--slug='));
+  let slugArg: string | null = null;
+
+  if (slugEqArg) {
+    const value = slugEqArg.split('=')[1];
+    if (!value) {
+      console.error('Error: --slug flag provided without a value.');
+      console.error('Usage: npx tsx scripts/seed-post-queue.ts --slug <slug>');
+      process.exit(1);
+    }
+    slugArg = value;
+  } else if (args.includes('--slug')) {
+    const slugIndex = args.indexOf('--slug');
+    const nextArg = args[slugIndex + 1];
+
+    if (!nextArg || nextArg.startsWith('--')) {
+      console.error('Error: --slug flag provided without a value.');
+      console.error('Usage: npx tsx scripts/seed-post-queue.ts --slug <slug>');
+      process.exit(1);
+    }
+
+    slugArg = nextArg;
+  }
   let posts = POST_LIBRARY;
   if (slugArg) {
     posts = POST_LIBRARY.filter(p => p.slug === slugArg);
