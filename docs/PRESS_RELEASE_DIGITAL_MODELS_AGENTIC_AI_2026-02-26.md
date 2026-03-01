@@ -100,9 +100,9 @@ This is the agent-first architecture MIT researchers identify as critical for ca
 
 The MIT CISR framework describes business model evolution primarily in terms of AI capability and customer outcome delivery. For EU industrial customers, there is a fourth dimension the global research literature consistently underweights: **data sovereignty**.
 
-DWS IQ runs entirely within EU cloud infrastructure (Google Cloud Run, europe-north1, Finland), with Supabase EU-hosted data storage, Cloudflare edge on EU-registered domains, and no data routed through US hyperscalers subject to the CLOUD Act. For industries regulated by GDPR, NIS2, and the forthcoming EU AI Act Article 12 logging requirements, this is not a preference — it is a procurement prerequisite.
+DWS IQ runs entirely within EU cloud infrastructure (Google Cloud Run, europe-north1, Finland), with Supabase EU-hosted data storage and Cloudflare edge on EU-registered domains, with workloads and data constrained to EU regions to support EU data residency and regulatory requirements. For industries regulated by GDPR, NIS2, and the forthcoming EU AI Act Article 12 logging requirements, this is not a preference — it is a procurement prerequisite.
 
-"The technology presents the same high-stakes data quality, governance, and trust and security challenges as other AI implementations," the MIT brief observes. DWS IQ's EU-sovereign stack ensures that the governance and trust dimension is resolved before the first contract is signed.
+"The technology presents the same high-stakes data quality, governance, and trust and security challenges as other AI implementations," the MIT brief observes. DWS IQ's EU-sovereign stack is designed so that the governance and trust dimension is addressed before the first contract is signed.
 
 ---
 
