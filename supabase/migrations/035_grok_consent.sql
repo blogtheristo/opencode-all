@@ -84,5 +84,27 @@ ALTER TABLE grok_consent ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_consent_audit ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_inference_log ENABLE ROW LEVEL SECURITY;
 
--- Service role bypasses RLS — no additional policies needed for backend access.
+-- Explicit service_role policies (consistent with other migrations).
+-- Anon/authenticated roles have no policies and therefore no access.
+
+CREATE POLICY grok_consent_service_role_all
+  ON grok_consent
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY grok_consent_audit_service_role_all
+  ON grok_consent_audit
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY grok_inference_log_service_role_all
+  ON grok_inference_log
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
 -- Dashboard queries go through the backend API (/api/grok-consent/:orgId/audit).
