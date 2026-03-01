@@ -94,26 +94,26 @@ function mdToHtml(md, title, lang) {
 const FILES = [
   {
     src:  'Learn/V3Thesis_EN.md',
-    out:  'Learn/V3Thesis_EN_v3.11.html',
-    title: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN) v3.11',
+    out:  'Learn/V3Thesis_EN_v3.16.html',
+    title: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN) v3.16',
     lang:  'en',
   },
   {
     src:  'Learn/V3Thesis_FI.md',
-    out:  'Learn/V3Thesis_FI_v3.11.html',
-    title: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI) v3.11',
+    out:  'Learn/V3Thesis_FI_v3.16.html',
+    title: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI) v3.16',
     lang:  'fi',
   },
   {
     src:  'Learn/PHD_FIREHORSE_EN.md',
-    out:  'Learn/PHD_FIREHORSE_EN_v1.5.html',
-    title: 'PHD Firehorse — Doctoral Research (EN) v1.5',
+    out:  'Learn/PHD_FIREHORSE_EN_v1.6.html',
+    title: 'PHD Firehorse — Doctoral Research (EN) v1.6',
     lang:  'en',
   },
   {
     src:  'Learn/PHD_FIREHORSE_FI.md',
-    out:  'Learn/PHD_FIREHORSE_FI_v1.5.html',
-    title: 'PHD Firehorse — Väitöstutkimus (FI) v1.5',
+    out:  'Learn/PHD_FIREHORSE_FI_v1.6.html',
+    title: 'PHD Firehorse — Väitöstutkimus (FI) v1.6',
     lang:  'fi',
   },
 ];

@@ -28,8 +28,8 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 <strong>Document Type:</strong> Master Thesis Documentation
 <hr />
 <h1>VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.5</p>
-<p>Sessions & Modifications:   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 28-29; updated Key Contributions   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation</p>
+<p>Version: 1.6</p>
+<p>Sessions & Modifications:   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation</p>
 <p>Document Status:   - Created: 15.01.2026   - Last Modified: 24.02.2026   - Language: English   - Languages Available: English, Suomi   - Publication Status: DRAFT (V1.4 — DWS7 agent modernization)</p>
 <hr />
 <h2>Abstract</h2>
@@ -633,7 +633,7 @@ curl -T google-products.xml \
 <strong>EU AI Act Article 12 compliance:</strong> The agentic loop architecture inherently satisfies automatic logging requirements. Each iteration records observation, thought, actions, and results to the `agent_loop_iterations` Supabase table — creating complete reasoning lineage from input to output.
 <strong>Impact on Firehorse operating model:</strong> The CLI and Skills layer means the Firehorse store management workflow can now be automated by AI agents end-to-end: compliance checks via `/compliance-check`, carbon analysis via `/carbon-analysis`, and multi-agent workflows via `/workflow` — all without human GUI interaction.
 <hr />
-<h3>14.6 Agent Foundry Stage 1.5: OpenSandbox + EMPO² Agent Memory</h3>
+<h3>14.6 Agent Foundry Stage 1.5: OpenSandbox + EMPO² Agent Memory (v1.5)</h3>
 <em>Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026</em>
 <h4>14.6.1 Stage 1.5 — OpenSandbox on Acer Veriton GN100</h4>
 <p>The Agent Foundry received a new isolation stage between the demo-grade SDK sandbox (Stage 1) and Cloud Run (Stage 2): <strong>OpenSandbox</strong> (https://github.com/alibaba/OpenSandbox) deployed on the <strong>Acer Veriton GN100</strong> edge node (120 GiB RAM, 20 cores, Helsinki Lab).</p>
@@ -645,6 +645,18 @@ curl -T google-products.xml \
 <p>EMPO² proposes combining: <li><strong>Parametric memory</strong> (RL updates to model weights) — analogous to DWS LWM fine-tuning (QLoRA, Acer Veriton GN100)</li> <li><strong>Non-parametric memory</strong> (retrieval from memory buffer) — analogous to DWS RAG over EU regulations + enterprise data (pgvector)</li></p>
 <p>Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key insight: </em>models trained with memory become robust even without memory at inference<em> — validating the DWS strategy of progressively embedding domain knowledge into LWM weights while maintaining RAG as a fallback.</p>
 <p>The OpenSandbox environment additionally serves as a <strong>safe EMPO²-style RL training sandbox</strong>: isolated containers provide the clean, reproducible environments needed for RL-based memory training without affecting production infrastructure.</p>
+<h3>14.7 CEO Automation Agent Suite</h3>
+</em>Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig<em>
+<p>Three production agents automate the CEO's daily operational loop — GitHub Actions cron, Supabase data layer, Resend delivery.</p>
+<table><thead><tr><th>Agent</th><th>Trigger</th><th>Role</th></tr></thead><tbody><tr><td><strong>Captain Pre-Briefing</strong></td><td>07:30 Helsinki, Mon-Fri</td><td>Pre-call prep: CRM pull → talking points → email</td></tr><tr><td><strong>LinkedIn Post Scheduler</strong></td><td>08:00 Helsinki, Mon-Fri</td><td>Content calendar → draft → CEO approval digest</td></tr><tr><td><strong>EU Regulation Monitor</strong></td><td>05:30 Helsinki, Mon-Fri</td><td>RSS fetch → classify by regulation → severity score → feed scheduler</td></tr></tbody></table>
+<p>The EU Regulation Monitor creates a closed feedback loop: it fetches EU Commission / EUR-Lex / Carbon Pulse / Euractiv, classifies by regulation (CBAM, CSRD, Fit for 55, EPBD, EU AI Act, ETS), and feeds regulation alerts as LinkedIn content ideas — ensuring CEO outreach stays aligned with active regulatory development.</p>
+<strong>Firehorse operating model impact:</strong> These agents demonstrate the model at the revenue layer — not just product management and compliance, but active sales motion and thought leadership are now AI-automated. The CEO operates as a supervisor, not an executor, of the daily revenue workflow.
+<h3>14.8 Strategic Partnerships and Multi-LLM Router</h3>
+</em>Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1<em>
+<p>DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands architecture:</p>
+<table><thead><tr><th>Partner</th><th>Architecture Layer</th><th>Status</th></tr></thead><tbody><tr><td>NVIDIA</td><td>Brain (compute) + Hands (Jetson edge) + Body (Omniverse)</td><td>Inception target Q2 2026</td></tr><tr><td>Siemens</td><td>Hands (MindSphere IoT) + Body (digital twin)</td><td>Xcelerator Q2 2026</td></tr><tr><td>ABB</td><td>Hands (automation, robotics, power grid)</td><td>Q3 2026</td></tr><tr><td>xAI</td><td>Brain (Grok real-time market intelligence)</td><td>Active production</td></tr><tr><td>Mistral</td><td>Brain/Memory (EU-sovereign AI inference)</td><td>Planned Q3 2026</td></tr></tbody></table>
+<strong>Multi-LLM Router:</strong> Task-level LLM selection based on sovereignty, cost, and latency — Claude/Mistral for compliance, Grok for market signals, Groq for low-latency summarization, Qwen 2.5 72B (QLoRA, Acer Veriton) for on-premises sovereign inference.
+<strong>Research contribution:</strong> The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization — a key enabler of the free-tier bootstrap strategy applied at scale.
 <hr />
 <h2>15. Results and Discussion</h2>
 <h3>15.1 Operational Efficiency Gains</h3>
@@ -679,6 +691,8 @@ curl -T google-products.xml \
 <li>Proton products security strategy for GDPR/NIS2 compliance</li>
 <li>Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100 for EU air-gapped agent sandboxing</li>
 <li>EMPO² alignment — hybrid parametric/non-parametric memory architecture validated by arXiv:2602.23008</li>
+<li>CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation</li>
+<li>Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model</li>
 <h3>16.3 Future Work</h3>
 <li><strong>Q1 2026:</strong> Deploy audio chat Phase 1 with EU AI Act transparency</li>
 <li><strong>Q2 2026:</strong> Implement industry carbon calculator with Scope 1/2/3</li>
@@ -701,6 +715,8 @@ curl -T google-products.xml \
 <li>Proton AG Security Documentation</li>
 <li>Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008</li>
 <li>Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox</li>
+<li>Anthropic Claude Code Documentation — Captain Briefing Agent (claude/ai-agent-orchestration-t89Ig, 2026)</li>
+<li>DWS6_TO_DWS7_UPDATE.md v1.1 — Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral (claude/dws6-dws7-update-doc-I2Cgk, 2026)</li>
 <li>EU Trade Secrets Directive (EU) 2016/943</li>
 <li>Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)</li>
 <li>Patent Cooperation Treaty (PCT), WIPO</li>

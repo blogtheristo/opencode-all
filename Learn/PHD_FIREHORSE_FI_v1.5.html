@@ -28,8 +28,8 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 <strong>Dokumenttityyppi:</strong> Pro Gradu -tutkielma
 <hr />
 <h1>VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.5</p>
-<p>Sessions & Modifications:   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen</p>
+<p>Version: 1.6</p>
+<p>Sessions & Modifications:   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen</p>
 <p>Document Status:   - Created: 15.01.2026   - Last Modified: 24.02.2026   - Language: Finnish   - Languages Available: English, Suomi   - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)</p>
 <hr />
 <h2>Tiivistelma</h2>
@@ -644,6 +644,17 @@ curl -T google-products.xml \
 <p>EMPO² yhdistää: <li><strong>Parametrinen muisti</strong> (RL-päivitykset mallin painoihin) — vastaa DWS LWM:n hienosäätöä (QLoRA, Acer Veriton GN100)</li> <li><strong>Ei-parametrinen muisti</strong> (haku muistipuskurista) — vastaa DWS RAG:ta EU-säädöksistä + yritysdata (pgvector)</li></p>
 <p>Tulokset: 128,6 % parannus GRPO-algoritmiin nähden ScienceWorldissa, 11,3 % WebShopissa. Keskeinen havainto: </em>muistilla koulutetut mallit ovat vahvoja myös ilman muistia päättelyaikana<em> — validoiden DWS-strategian asteittain upottaa domaintieto LWM-painoihin samalla kun RAG toimii varamekanismina.</p>
 <hr />
+<h3>14.7 Toimitusjohtajan automaatioagenttiryhmä</h3>
+</em>Käyttöönotettu: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig<em>
+<table><thead><tr><th>Agentti</th><th>Laukaisu</th><th>Rooli</th></tr></thead><tbody><tr><td><strong>Captain Pre-Briefing</strong></td><td>07:30 Helsinki, ma–pe</td><td>CRM-haku → puheenvuorot → sähköposti</td></tr><tr><td><strong>LinkedIn-julkaisuajastin</strong></td><td>08:00 Helsinki, ma–pe</td><td>Sisältökalenteri → luonnos → toimitusjohtajan hyväksyntä</td></tr><tr><td><strong>EU-sääntelymonitori</strong></td><td>05:30 Helsinki, ma–pe</td><td>RSS-haku → luokittelu → vakavuuspisteytys → syöte ajastimeen</td></tr></tbody></table>
+<p>EU-sääntelymonitori luo suljetun palautesilmukan: hakee EU-komission / EUR-Lexin / Carbon Pulsen / Euractiv-uutiset, luokittelee sääntelyn mukaan (CBAM, CSRD, Fit for 55, EPBD, EU AI Act, ETS) ja syöttää hälytykset LinkedIn-sisältöideoina — varmistaen, että toimitusjohtajan viestintä pysyy linjassa aktiivisen sääntelykehityksen kanssa.</p>
+<strong>Vaikutus Firehorse-toimintamalliin:</strong> Nämä agentit osoittavat mallin liikevaihtokerroksessa — myynti ja thought leadership ovat nyt tekoälyautomaatioita. Toimitusjohtaja toimii valvojana, ei suorittajana, päivittäisessä liikevaihtotyönkulussa.
+<h3>14.8 Strategiset kumppanuudet ja monituottaja-LLM-reititin</h3>
+</em>Dokumentoitu: 27.02.2026 | Lähde: docs/DWS6_TO_DWS7_UPDATE.md v1.1<em>
+<table><thead><tr><th>Kumppani</th><th>Arkkitehtuurikerros</th><th>Tila</th></tr></thead><tbody><tr><td>NVIDIA</td><td>Aivot (laskenta) + Kädet (Jetson-reuna) + Keho (Omniverse)</td><td>Inception Q2 2026</td></tr><tr><td>Siemens</td><td>Kädet (MindSphere IoT) + Keho (digitaalinen kaksonen)</td><td>Xcelerator Q2 2026</td></tr><tr><td>ABB</td><td>Kädet (automaatio, robotiikka, sähköverkot)</td><td>Q3 2026</td></tr><tr><td>xAI</td><td>Aivot (Grok reaaliaikainen markkinaälykkyys)</td><td>Aktiivinen tuotanto</td></tr><tr><td>Mistral</td><td>Aivot/Muisti (EU-suvereeni tekoälyinferenssi)</td><td>Suunniteltu Q3 2026</td></tr></tbody></table>
+<strong>Monituottaja-LLM-reititin:</strong> Tehtävätason LLM-valinta suvereniteetti-, kustannus- ja latenssikriteereillä — Claude/Mistral vaatimustenmukaisuuteen, Grok markkinasignaaleihin, Groq nopeaan tiivistämiseen, Qwen 2.5 72B (QLoRA, Acer Veriton) paikan päällä tehtävään suvereeniinferenssiiin.
+<strong>Tutkimuskontribuutio:</strong> Kumppanuusmalli validoi Firehorse-toimintamallin jakelusupotushypoteesin: pääsy 10 000+ teollisuusasiakkaaseen (NVIDIA Inception, Siemens Xcelerator) ilman suoran myyntiorganisaation rakentamista.
+<hr />
 <h2>15. Tulokset ja pohdinta</h2>
 <h3>15.1 Toiminnallisen tehokkuuden parannukset</h3>
 <p>Firehorse-toimintamalli Claude Codella saavutti:</p>
@@ -677,6 +688,8 @@ curl -T google-products.xml \
 <li>Proton-tuotteiden turvallisuusstrategia GDPR/NIS2-vaatimustenmukaisuuteen</li>
 <li>Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella EU-ilmarakoiseen agentin hiekkalaatikointiin</li>
 <li>EMPO²-yhdenmukaisuus — hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri validoitu arXiv:2602.23008-tutkimuksella</li>
+<li>Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse-malli sovellettu liikevaihtotyönkulun automatisointiin</li>
+<li>Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral + monituottaja-LLM-reititin; validoi Firehorse-toimintamallin jakelusupotushypoteesin</li>
 <h3>16.3 Tuleva tyo</h3>
 <li><strong>Q1 2026:</strong> Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella</li>
 <li><strong>Q2 2026:</strong> Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla</li>
@@ -699,6 +712,8 @@ curl -T google-products.xml \
 <li>Proton AG -turvallisuusdokumentaatio</li>
 <li>Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008</li>
 <li>Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox</li>
+<li>Anthropic Claude Code — Captain Briefing Agent (claude/ai-agent-orchestration-t89Ig, 2026)</li>
+<li>DWS6_TO_DWS7_UPDATE.md v1.1 — Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral (2026)</li>
 <li>EU:n liikesalaisuusdirektiivi (EU) 2016/943</li>
 <li>Liikesalaisuuslaki 595/2018 (Suomi)</li>
 <li>Patenttiyhteistyosopimus (PCT), WIPO</li>
