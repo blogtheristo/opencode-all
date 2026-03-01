@@ -45,4 +45,16 @@ INSERT INTO outreach_threads (
   'Platform extension into operations lifecycle without building it. Churn reduction on design-phase customers. Revenue share from CSRD customer referrals needing LCA data. 49,000 EU companies need CSRD, many already One Click LCA users.',
   'Send Version 1 pitch via Simon Sim (warm intro to Panu Pasanen). If no response in 5 days, send Version 2 directly.',
   'send', CURRENT_DATE, NULL
-);
+)
+ON CONFLICT (person_id, org_id, pipeline) DO UPDATE SET
+  priority = EXCLUDED.priority,
+  partnership_type = EXCLUDED.partnership_type,
+  status = EXCLUDED.status,
+  boardy_notes = EXCLUDED.boardy_notes,
+  our_angle = EXCLUDED.our_angle,
+  their_angle = EXCLUDED.their_angle,
+  next_action = EXCLUDED.next_action,
+  next_action_type = EXCLUDED.next_action_type,
+  next_action_date = EXCLUDED.next_action_date,
+  waiting_since = EXCLUDED.waiting_since,
+  updated_at = NOW();

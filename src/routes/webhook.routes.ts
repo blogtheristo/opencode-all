@@ -156,7 +156,17 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const eventType = payload.type;
   const data = payload.data || payload;
 
-  // Only process email.received events (ignore delivery notifications etc.)
+    // ─── Delivery event handler ──────────────────────────────────────
+  // Handle email.delivered, email.bounced, email.complained events.
+  // These update email_logs.status via resend_email_id.
+  const DELIVERY_EVENTS = ['email.delivered', 'email.bounced', 'email.complained'];
+  if (eventType && DELIVERY_EVENTS.includes(eventType)) {
+    await handleDeliveryEvent(eventType, payload);
+    res.status(200).json({ ok: true, event: eventType });
+    return;
+  }
+
+  // Only process email.received events for reply parsing
   if (eventType && eventType !== 'email.received') {
     res.status(200).json({ ok: true, skipped: true, reason: `Event type: ${eventType}` });
     return;
@@ -323,6 +333,57 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
     res.status(200).json({ ok: true, applied: false, error: errorMsg });
   }
 });
+
+// ============================================================================
+// DELIVERY EVENT HANDLER
+// Updates email_logs.status when Resend fires delivery/bounce/complaint events.
+// Keyed by resend_email_id (added in migration 037).
+// ============================================================================
+
+async function handleDeliveryEvent(eventType: string, payload: any): Promise<void> {
+  // Resend delivery event payload: { type, data: { email_id, ... } }
+  const emailId: string | undefined = payload?.data?.email_id || payload?.data?.id;
+
+  if (!emailId) {
+    logger.warn('Delivery event missing email_id', { eventType });
+    return;
+  }
+
+  const statusMap: Record<string, string> = {
+    'email.delivered': 'delivered',
+    'email.bounced': 'bounced',
+    'email.complained': 'complained',
+  };
+
+  const newStatus = statusMap[eventType];
+  if (!newStatus) return;
+
+  try {
+    await supabaseFetch(
+      `email_logs?resend_email_id=eq.${encodeURIComponent(emailId)}`,
+      {
+        method: 'PATCH',
+        headers: { Prefer: 'return=minimal' },
+        body: JSON.stringify({
+          status: newStatus,
+          ...(newStatus === 'delivered' ? { sent_at: new Date().toISOString() } : {}),
+          ...(newStatus !== 'delivered' ? {
+            error: eventType === 'email.bounced'
+              ? (payload?.data?.bounce?.message || 'Bounced')
+              : 'Spam complaint received',
+          } : {}),
+        }),
+      }
+    );
+    logger.info('email_logs updated via delivery event', { emailId, status: newStatus });
+  } catch (err) {
+    logger.error('Failed to update email_logs on delivery event', {
+      emailId,
+      event: eventType,
+      error: (err as Error).message,
+    });
+  }
+}
 
 // ============================================================================
 // HELPERS

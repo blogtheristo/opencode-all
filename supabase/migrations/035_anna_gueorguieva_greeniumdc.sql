@@ -1,17 +1,7 @@
--- Migration 032: Anna Gueorguieva (GreeniumDC) — Boardy intro partner
---
+-- Migration 035: Anna Gueorguieva (GreeniumDC) — Boardy intro partner
+-- Renumbered from 032 (was duplicate 032).
 -- Source: Boardy connect-note, 2026-02-20
 -- Pipeline: partner (ecosystem — data integration)
--- Status: intro_made (Boardy has sent the intro email)
--- Next action: Schedule intro call (tomorrow)
---
--- Anna is CSO at GreeniumDC with 50+ asset manager clients.
--- GreeniumDC aggregates climate data; DWS IQ 6 makes it predictive (FCD).
--- "Your output is our input" — natural integration play.
-
--- ============================================================================
--- ORGANIZATION
--- ============================================================================
 
 INSERT INTO outreach_orgs (domain, name, description, location, size, industry, website, source, created_by)
 VALUES (
@@ -29,10 +19,6 @@ ON CONFLICT (domain) DO UPDATE SET
   description = EXCLUDED.description,
   updated_at = NOW();
 
--- ============================================================================
--- PERSON
--- ============================================================================
-
 INSERT INTO persons (linkedin_url, first_name, last_name, title, location, org_id, source, created_by)
 VALUES (
   'https://www.linkedin.com/in/anna-gueorguieva/',
@@ -49,10 +35,6 @@ ON CONFLICT (linkedin_url) DO UPDATE SET
   org_id = EXCLUDED.org_id,
   updated_at = NOW();
 
--- ============================================================================
--- EMAIL
--- ============================================================================
-
 INSERT INTO person_emails (person_id, email, is_primary, verified, source, created_by)
 VALUES (
   (SELECT id FROM persons WHERE linkedin_url = 'https://www.linkedin.com/in/anna-gueorguieva/'),
@@ -63,10 +45,6 @@ VALUES (
   'risto'
 )
 ON CONFLICT (person_id, email) DO NOTHING;
-
--- ============================================================================
--- OUTREACH THREAD (partner pipeline)
--- ============================================================================
 
 INSERT INTO outreach_threads (
   person_id, org_id, pipeline, priority,
@@ -98,6 +76,7 @@ INSERT INTO outreach_threads (
 )
 ON CONFLICT (person_id, org_id, pipeline) DO UPDATE SET
   priority = EXCLUDED.priority,
+  partnership_type = EXCLUDED.partnership_type,
   status = EXCLUDED.status,
   boardy_notes = EXCLUDED.boardy_notes,
   our_angle = EXCLUDED.our_angle,
@@ -105,11 +84,8 @@ ON CONFLICT (person_id, org_id, pipeline) DO UPDATE SET
   next_action = EXCLUDED.next_action,
   next_action_type = EXCLUDED.next_action_type,
   next_action_date = EXCLUDED.next_action_date,
+  waiting_since = EXCLUDED.waiting_since,
   updated_at = NOW();
-
--- ============================================================================
--- ACTIVITY LOG (Boardy intro)
--- ============================================================================
 
 INSERT INTO outreach_activities (
   thread_id, person_id, org_id, pipeline,
