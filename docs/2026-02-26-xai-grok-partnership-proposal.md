@@ -85,15 +85,15 @@ The DWS10 Captain Program offers industry leaders early access to sovereign AI i
 
 ### Software Stack
 
-| Layer | Technology | Role |
-|-------|-----------|------|
-| Orchestration | DWS IQ 6 Brain-Memory-Body-Hands | Model-agnostic multi-agent coordination |
-| AI Captain | Grok Enterprise (containerized, on-prem) | 4-agent debate for climate scenarios |
-| World Model | Lifetime World Model (15,000+ EU regs) | Regulatory intelligence memory |
-| Visualization | Siemens Xcelerator + NVIDIA Omniverse | 8K video wall with live SAR overlays |
-| Carbon Layer | DWS IQ carbon dashboards | Real-time Fit for 55 / CBAM KPIs |
-| Automation | ABB Ability | Closed-loop physical control |
-| Mobile | Grok Build PWA (Safari Home Screen) | Field access — GitHub-connected agents |
+| Layer         | Technology                               | Role                                        |
+|---------------|-------------------------------------------|---------------------------------------------|
+| Orchestration | DWS IQ 6 Brain-Memory-Body-Hands         | Model-agnostic multi-agent coordination     |
+| AI Captain    | Grok Enterprise (containerized, on-prem) | 4-agent debate for climate scenarios        |
+| World Model   | Lifetime World Model (15,000+ EU regs)   | Regulatory intelligence memory              |
+| Visualization | Siemens Xcelerator + NVIDIA Omniverse    | 8K video wall with live SAR overlays        |
+| Carbon Layer  | DWS IQ carbon dashboards                 | Real-time Fit for 55 / CBAM KPIs            |
+| Automation    | ABB Ability                              | Closed-loop physical control                |
+| Mobile        | Grok Build PWA (Safari Home Screen)      | Field access — GitHub-connected agents      |
 
 ### 4-Agent Debate System (Grok)
 
