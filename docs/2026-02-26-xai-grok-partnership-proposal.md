@@ -125,11 +125,11 @@ All inference runs **locally** on the GN100 cluster. The data architecture enfor
 **Compliance guarantees:**
 - GDPR compliant — personal and operational data never leaves the private fabric
 - EU AI Act Article 12 — automatic logging with reasoning lineage on-prem
-- CLOUD Act Free — EU-sovereign infrastructure, no US jurisdiction
+- Minimized US CLOUD Act exposure — EU-sovereign infrastructure, no routine data transfer to US providers
 - NIS2 — critical infrastructure controls (air-gap + zero-trust mesh)
 - Instant revocation — customer can disable data sharing in the consent dashboard at any time; revocation is immediate and produces an audit log entry
 
-This matches DWS10's "100% EU data residency — CLOUD Act Free" commitment and xAI's enterprise on-prem policy.
+This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by design" commitment and xAI's enterprise on-prem policy.
 
 ---
 
