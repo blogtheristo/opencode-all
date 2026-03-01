@@ -40,7 +40,13 @@ except Exception as _zf_err:
     )
 
 import httpx  # noqa: E402
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Request  # noqa: E402
+from fastapi import (  # noqa: E402
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    HTTPException,
+    Request,
+)
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
@@ -1165,6 +1171,134 @@ async def gemini_code_review(req: GeminiReviewRequest):
         "verdict": verdict,
         "model": GEMINI_MODEL,
         "timestamp": datetime.now().isoformat(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# OpenSandbox MCP Endpoints — Acer Veriton Edge Node
+# ---------------------------------------------------------------------------
+# Exposes Docker-isolated agent sandboxes via MCP tool protocol.
+# OpenSandbox server must be running on OPENSANDBOX_HOST.
+# See: mcp-hub/services/opensandbox_mcp.py, src/sandbox/opensandbox.ts
+
+from services.opensandbox_mcp import (
+    MCP_TOOLS as OPENSANDBOX_MCP_TOOLS,
+)
+from services.opensandbox_mcp import (
+    sandbox_create,
+    sandbox_destroy,
+    sandbox_execute,
+    sandbox_file_read,
+    sandbox_file_write,
+    sandbox_ping,
+)
+
+
+class SandboxCreateRequest(BaseModel):
+    image: str = ""
+    env: dict = {}
+    timeout_seconds: int = 300
+    memory: str = "512Mi"
+    cpu: str = "1"
+    allowed_domains: list[str] = []
+
+
+class SandboxExecuteRequest(BaseModel):
+    sandbox_id: str
+    command: str
+
+
+class SandboxFileReadRequest(BaseModel):
+    sandbox_id: str
+    path: str
+
+
+class SandboxFileEntry(BaseModel):
+    path: str
+    data: str
+    mode: int = 644
+
+
+class SandboxFileWriteRequest(BaseModel):
+    sandbox_id: str
+    files: list[SandboxFileEntry]
+
+
+class SandboxDestroyRequest(BaseModel):
+    sandbox_id: str
+
+
+@app.get("/sandbox/ping")
+async def mcp_sandbox_ping(_: None = Depends(require_api_key)):
+    """Health check the OpenSandbox server on the Acer Veriton."""
+    return await sandbox_ping()
+
+
+@app.post("/sandbox/create")
+async def mcp_sandbox_create(
+    req: SandboxCreateRequest,
+    _: None = Depends(require_api_key),
+):
+    """Create a new isolated Docker sandbox on the Acer Veriton edge node."""
+    return await sandbox_create(
+        image=req.image or None,
+        env=req.env,
+        timeout_seconds=req.timeout_seconds,
+        memory=req.memory,
+        cpu=req.cpu,
+        allowed_domains=req.allowed_domains or None,
+    )
+
+
+@app.post("/sandbox/execute")
+async def mcp_sandbox_execute(
+    req: SandboxExecuteRequest,
+    _: None = Depends(require_api_key),
+):
+    """Execute a shell command inside a running sandbox."""
+    return await sandbox_execute(req.sandbox_id, req.command)
+
+
+@app.post("/sandbox/file/read")
+async def mcp_sandbox_file_read(
+    req: SandboxFileReadRequest,
+    _: None = Depends(require_api_key),
+):
+    """Read a file from the sandbox filesystem."""
+    return await sandbox_file_read(req.sandbox_id, req.path)
+
+
+@app.post("/sandbox/file/write")
+async def mcp_sandbox_file_write(
+    req: SandboxFileWriteRequest,
+    _: None = Depends(require_api_key),
+):
+    """Write files into the sandbox filesystem."""
+    files = [f.model_dump() for f in req.files]
+    return await sandbox_file_write(req.sandbox_id, files)
+
+
+@app.post("/sandbox/destroy")
+async def mcp_sandbox_destroy(
+    req: SandboxDestroyRequest,
+    _: None = Depends(require_api_key),
+):
+    """Destroy a sandbox and release all resources."""
+    return await sandbox_destroy(req.sandbox_id)
+
+
+@app.get("/sandbox/tools")
+async def mcp_sandbox_tools_list(_: None = Depends(require_api_key)):
+    """List all available OpenSandbox MCP tools (MCP tools/list protocol)."""
+    return {
+        "tools": [
+            {
+                "name": t["name"],
+                "description": t["description"],
+                "input_schema": t["input_schema"],
+            }
+            for t in OPENSANDBOX_MCP_TOOLS
+        ]
     }
 
 
