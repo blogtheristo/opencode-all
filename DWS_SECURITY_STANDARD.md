@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added Claw-layer security (Section 12), supply chain integrity policy (Section 13), CORS/SRI/exec standards, vulnerability assessment findings
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Initial DWS Security Standard — integrating International AI Safety Report 2026 findings into enterprise security framework
@@ -759,8 +760,11 @@ DWS IQ Agent Foundry enforces tenant data isolation through a staged architectur
 | Stage | When | Isolation Method | NIS2 Defensible | Multi-Tenant | Infra Cost |
 |-------|------|------------------|-----------------|--------------|------------|
 | 1 — SDK Sandbox | Demo / Pilot | Anthropic Agent SDK native sandbox (bubblewrap/seatbelt) | Yes (demo) | No | €0 |
+| 1.5 — OpenSandbox | Internal pilots / air-gapped EU | OpenSandbox on Acer Veriton (Docker, local hardware) | Yes | No (single tenant) | €0 (HW only) |
 | 2 — Ephemeral Containers | First paid multi-tenant | Cloud Run ephemeral containers (europe-north1) + Groq inference | Yes | Yes | ~€20-50/mo |
 | 3 — Persistent Containers | Scale (€50k+ MRR) | Persistent containers + gVisor/Firecracker per tenant | Yes + audit log | Yes | €200+/mo |
+
+**`SANDBOX_STAGE` values:** `1` (SDK sandbox) | `opensandbox` (Acer Veriton) | `2` (Cloud Run) | `3` (persistent)
 
 ### 14.2 Stage 1: Anthropic SDK Native Sandbox
 
@@ -809,9 +813,76 @@ Each agent task executes in a dedicated Cloud Run Job:
 
 ### 14.4 Stage Selection
 
-The isolation stage is selected via `SANDBOX_STAGE` environment variable (values: `1`, `2`, `3`). The unified factory (`src/sandbox/index.ts`) routes agent execution to the appropriate isolation backend.
+The isolation stage is selected via `SANDBOX_STAGE` environment variable:
 
-### 14.5 Governance Integration
+| Value | Stage | Backend |
+|-------|-------|---------|
+| `1` | SDK Sandbox | Anthropic Agent SDK bubblewrap/seatbelt |
+| `opensandbox` | Acer Veriton | OpenSandbox Docker (local hardware) |
+| `2` | Cloud Run | Ephemeral containers (europe-north1) |
+| `3` | Persistent | gVisor/Firecracker (not yet implemented) |
+
+The unified factory (`src/sandbox/index.ts`) routes agent execution to the appropriate backend.
+
+### 14.6 Stage 1.5: OpenSandbox on Acer Veriton
+
+**Introduced:** 2026-03-01 | **Session:** `claude/sandbox-agents-opensandbox-HatfC`
+
+**Implementation:** `src/sandbox/opensandbox.ts` | **MCP:** `mcp-hub/services/opensandbox_mcp.py`
+
+**Hardware:** Acer Veriton business desktop running Docker + OpenSandbox server.
+**Activate:** Set `SANDBOX_STAGE=opensandbox` and `OPENSANDBOX_HOST=http://<veriton-ip>:8080`.
+
+**Use cases:**
+- EU air-gapped data scenarios (agent data never leaves the Veriton)
+- Internal pilot testing with real Docker isolation at €0 cloud cost
+- Offline / disconnected environments (edge AI)
+- Development and QA with full container isolation before Cloud Run promotion
+
+**Security properties:**
+
+| Property | How Enforced |
+|----------|-------------|
+| Filesystem isolation | Each agent task in a dedicated ephemeral container |
+| Network egress | Deny-by-default; only allow-listed domains reachable |
+| Data residency | Stays on Acer Veriton hardware (EU, on-premises) |
+| Ephemeral by design | Container destroyed after each agent task |
+| No cross-task data path | New container per execution; no persistent filesystem |
+| Cross-agent privilege | `file_access_control.py` protects config paths from agent writes |
+
+**MCP tools exposed via `/sandbox/*`:**
+
+| Endpoint | Method | Tool |
+|----------|--------|------|
+| `/sandbox/ping` | GET | Health check Veriton connectivity |
+| `/sandbox/create` | POST | Create isolated Docker container |
+| `/sandbox/execute` | POST | Run shell command in sandbox |
+| `/sandbox/file/read` | POST | Read file from sandbox filesystem |
+| `/sandbox/file/write` | POST | Write files to sandbox filesystem |
+| `/sandbox/destroy` | POST | Destroy sandbox and release resources |
+| `/sandbox/tools` | GET | MCP tools/list (JSON schema of all tools) |
+
+**Environment variables required:**
+
+```
+SANDBOX_STAGE=opensandbox
+OPENSANDBOX_HOST=http://192.168.1.X:8080    # Acer Veriton IP
+OPENSANDBOX_API_KEY=<optional>               # Server auth token
+OPENSANDBOX_IMAGE=opensandbox/code-interpreter:v1.0.1
+OPENSANDBOX_TIMEOUT_MS=300000
+```
+
+**NIS2 audit statement:**
+> "OpenSandbox Stage 1.5 executes each DWS IQ agent task in an ephemeral Docker container on the Acer Veriton edge node. Containers are destroyed post-task. Network egress is deny-by-default with an explicit domain allow-list. No cross-task data path exists by architecture. Data residency is enforced at hardware level — agent data never leaves the Veriton."
+
+**OpenSandbox server setup on Acer Veriton:**
+```bash
+pip install opensandbox-server
+opensandbox-server init-config ~/.sandbox.toml --example docker
+opensandbox-server   # listens on :8080
+```
+
+### 14.7 Governance Integration
 
 Sandbox isolation integrates with the existing governance engine (`src/agents/base.agent.ts`):
 
