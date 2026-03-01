@@ -90,7 +90,7 @@ router.post('/:orgId/grant', async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     logger.error('Failed to grant Grok consent', { orgId, error: String(err) });
-    res.status(500).json({ error: String(err) });
+    res.status(500).json({ error: 'Internal error granting consent' });
   }
 });
 
@@ -118,7 +118,7 @@ router.post('/:orgId/revoke', async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     logger.error('Failed to revoke Grok consent', { orgId, error: String(err) });
-    res.status(500).json({ error: String(err) });
+    res.status(500).json({ error: 'Internal error revoking consent' });
   }
 });
 
