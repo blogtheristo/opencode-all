@@ -84,5 +84,52 @@ ALTER TABLE grok_consent ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_consent_audit ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_inference_log ENABLE ROW LEVEL SECURITY;
 
--- Service role bypasses RLS — no additional policies needed for backend access.
--- Dashboard queries go through the backend API (/api/grok-consent/:orgId/audit).
+-- grok_consent: full CRUD for service_role (current consent state is mutable)
+CREATE POLICY "Service role full access to grok_consent"
+  ON grok_consent FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+-- grok_consent_audit: append-only — INSERT and SELECT only (no UPDATE/DELETE)
+CREATE POLICY "Service role can insert grok_consent_audit"
+  ON grok_consent_audit FOR INSERT
+  TO service_role
+  WITH CHECK (true);
+
+CREATE POLICY "Service role can select grok_consent_audit"
+  ON grok_consent_audit FOR SELECT
+  TO service_role
+  USING (true);
+
+-- grok_inference_log: append-only — INSERT and SELECT only (no UPDATE/DELETE)
+CREATE POLICY "Service role can insert grok_inference_log"
+  ON grok_inference_log FOR INSERT
+  TO service_role
+  WITH CHECK (true);
+
+CREATE POLICY "Service role can select grok_inference_log"
+  ON grok_inference_log FOR SELECT
+  TO service_role
+  USING (true);
+
+-- ============ Immutability Triggers ============
+-- Triggers fire even when RLS is bypassed by service_role, providing a
+-- second layer of defence for GDPR accountability and EU AI Act audit trails.
+
+CREATE OR REPLACE FUNCTION prevent_audit_mutation()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  RAISE EXCEPTION
+    'Audit log records are immutable: % is not permitted on %',
+    TG_OP, TG_TABLE_NAME;
+END;
+$$;
+
+CREATE TRIGGER grok_consent_audit_immutable
+  BEFORE UPDATE OR DELETE ON grok_consent_audit
+  FOR EACH ROW EXECUTE FUNCTION prevent_audit_mutation();
+
+CREATE TRIGGER grok_inference_log_immutable
+  BEFORE UPDATE OR DELETE ON grok_inference_log
+  FOR EACH ROW EXECUTE FUNCTION prevent_audit_mutation();
