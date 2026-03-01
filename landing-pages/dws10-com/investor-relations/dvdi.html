@@ -1027,12 +1027,19 @@
         el('bar-sovereignty').style.width = Math.min(100, (sovereigntyScore - 100) / 150 * 100) + '%';
 
         // ─── TODAY DOT ON CHART ──────────────────────────────────────
-        // Chart spans Feb 12 2026 → Dec 31 2027 = ~688 days
+        // Chart spans Feb 12 2026 → Dec 31 2027
         // SVG x: 30 (start) → 1070 (end), width = 1040
         // SVG y: 195 (DVDI=100) → 7 (DVDI=500), height = 188
-        const totalDays  = 688;
-        const chartX     = 30 + Math.min(daysSinceBase / totalDays, 1) * 1040;
-        const chartY     = 195 - Math.max(0, Math.min(dvdi - 100, 400)) / 400 * 188;
+        const ROADMAP_END_DATE = new Date('2027-12-31T00:00:00Z');
+        const MS_PER_DAY       = 24 * 60 * 60 * 1000;
+        const totalDays        = Math.max(
+            1,
+            Math.round((ROADMAP_END_DATE.getTime() - BASE_DATE.getTime()) / MS_PER_DAY)
+        );
+        const CHART_X_START    = 30;
+        const CHART_X_WIDTH    = 1040;
+        const chartX           = CHART_X_START + Math.min(daysSinceBase / totalDays, 1) * CHART_X_WIDTH;
+        const chartY           = 195 - Math.max(0, Math.min(dvdi - 100, 400)) / 400 * 188;
 
         const dot   = el('today-dot');
         const label = el('today-label');
