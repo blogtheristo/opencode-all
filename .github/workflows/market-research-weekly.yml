@@ -43,6 +43,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}  # optional — enables Tier 3 price extraction
         run: |
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then

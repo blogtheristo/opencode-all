@@ -29,6 +29,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 import time
 from datetime import datetime, date
@@ -54,10 +55,23 @@ LOG_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "logs")
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY") or os.getenv("SUPABASE_SERVICE_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")  # optional — enables Tier 3 Claude fallback
 
 REQUEST_TIMEOUT = 10  # seconds
 RATE_LIMIT_SECONDS = 1.0  # max 1 req/sec per domain (§10)
 USER_AGENT = "DWSMarketResearch/1.0 (+https://dws10.com; research@lifetime.fi)"
+
+SCRAPING_CONFIG_FILE = os.path.join(SCRIPT_DIR, "competitor_scraping_config.json")
+
+
+def _load_scraping_config() -> dict:
+    """Load per-site CSS selector config (Tier 2). Returns empty dict on failure."""
+    try:
+        with open(SCRAPING_CONFIG_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("sites", {})
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        return {}
 
 # ============================================================================
 # COMPETITOR REGISTRY (DWS_MARKET_RESEARCH_STANDARD.md Table 3.2)
@@ -361,56 +375,310 @@ def fetch_pricing_page(url: str, session: requests.Session) -> str | None:
         raise
 
 
-def extract_price_signals(html: str, competitor_name: str) -> dict:
-    """
-    Extract pricing signals from HTML using heuristics.
-    Returns a dict with best-effort price_value, price_period, and features.
+def _detect_period_and_currency(text: str, currency_hint: str = "EUR") -> tuple[str | None, str]:
+    """Shared helper: infer billing period and currency from page text."""
+    text_lower = text.lower()
+    period = None
+    if "/month" in text_lower or "/mo" in text_lower or "per month" in text_lower:
+        period = "monthly"
+    elif "/year" in text_lower or "annual" in text_lower or "per year" in text_lower:
+        period = "yearly"
+    elif "one-time" in text_lower or "one time" in text_lower:
+        period = "one-time"
+    elif "per user" in text_lower or "per seat" in text_lower:
+        period = "per-user-monthly"
 
-    This is intentionally conservative — it extracts what it can confidently
-    find rather than guessing. Imprecise prices are stored with null values.
-    """
-    soup = BeautifulSoup(html, "html.parser")
+    currency = currency_hint
+    if "€" in text:
+        currency = "EUR"
+    elif "$" in text and "€" not in text:
+        currency = "USD"
+    elif "chf" in text_lower or "fr." in text:
+        currency = "CHF"
+    return period, currency
 
-    # Look for price elements — many sites use aria-label or data attributes
-    price_value = None
-    price_currency = "EUR"
-    price_period = None
-    features = []
 
-    # Heuristic: find elements containing € or $ near /month or /mo
-    text = soup.get_text(separator=" ", strip=True)
-
-    # Feature extraction: look for <li> items inside pricing sections
+def _extract_features_from_soup(soup: BeautifulSoup) -> list[str]:
+    """Extract feature list items from pricing sections."""
+    features: list[str] = []
     pricing_sections = soup.find_all(
         ["section", "div"],
         class_=lambda c: c and any(
             kw in c.lower() for kw in ["pricing", "plan", "tier", "package"]
         ),
     )
-    for section in pricing_sections[:3]:  # top 3 sections only
+    for section in pricing_sections[:3]:
         for li in section.find_all("li")[:20]:
             feat = li.get_text(strip=True)
             if feat and len(feat) < 120:
                 features.append(feat)
+    return features[:15]
 
-    # Detect price period from text
-    text_lower = text.lower()
-    if "/month" in text_lower or "/mo" in text_lower or "per month" in text_lower:
-        price_period = "monthly"
-    elif "/year" in text_lower or "annual" in text_lower or "per year" in text_lower:
-        price_period = "yearly"
-    elif "one-time" in text_lower or "one time" in text_lower:
-        price_period = "one-time"
 
-    # Detect currency
-    if "$" in text and "€" not in text:
-        price_currency = "USD"
+# ── Tier 1: JSON-LD schema.org Offer ─────────────────────────────────────────
 
+def _extract_via_jsonld(soup: BeautifulSoup, currency_hint: str) -> dict | None:
+    """
+    Tier 1: Parse <script type="application/ld+json"> for schema.org Offer price.
+    Returns signal dict or None if no usable data found.
+    """
+    for tag in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = json.loads(tag.string or "")
+        except (json.JSONDecodeError, TypeError):
+            continue
+
+        # Normalise to list to handle both single-object and @graph arrays
+        nodes = data if isinstance(data, list) else data.get("@graph", [data])
+
+        for node in nodes:
+            node_type = node.get("@type", "")
+            # Handle Product → offers → Offer
+            offers = node.get("offers") if node_type in ("Product", "SoftwareApplication") else None
+            if offers is None and node_type == "Offer":
+                offers = node
+            if offers is None:
+                continue
+
+            if isinstance(offers, list):
+                offers = offers[0]  # use lowest/first offer
+
+            price_raw = offers.get("price") or offers.get("lowPrice")
+            if price_raw is None:
+                continue
+
+            try:
+                price_value = float(str(price_raw).replace(",", "."))
+            except ValueError:
+                continue
+
+            currency = offers.get("priceCurrency", currency_hint)
+            # Map billing via priceSpecification if present
+            period = None
+            spec = offers.get("priceSpecification", {})
+            if isinstance(spec, list):
+                spec = spec[0]
+            billing = spec.get("billingDuration") or spec.get("unitText", "")
+            if "month" in str(billing).lower():
+                period = "monthly"
+            elif "year" in str(billing).lower():
+                period = "yearly"
+
+            logger.debug(f"    [JSON-LD] price={price_value} {currency} period={period}")
+            return {
+                "price_value": price_value,
+                "price_currency": currency,
+                "price_period": period,
+                "features": [],  # JSON-LD rarely lists features; filled by caller
+                "extraction_tier": "jsonld",
+            }
+    return None
+
+
+# ── Tier 2: Per-site CSS selectors ───────────────────────────────────────────
+
+def _extract_via_css_selectors(
+    soup: BeautifulSoup,
+    pricing_url: str,
+    scraping_config: dict,
+    currency_hint: str,
+) -> dict | None:
+    """
+    Tier 2: Apply site-specific CSS selectors from competitor_scraping_config.json.
+    Returns signal dict or None if no match.
+    """
+    site_cfg = scraping_config.get(pricing_url)
+    if not site_cfg:
+        return None
+
+    price_selector = site_cfg.get("price_selector", "")
+    price_regex = site_cfg.get("price_regex", r"(?P<price>\d[\d.,]*)")
+    currency_hint = site_cfg.get("currency_hint", currency_hint)
+
+    price_value = None
+    for selector in price_selector.split(", "):
+        selector = selector.strip()
+        if not selector:
+            continue
+        element = soup.select_one(selector)
+        if not element:
+            continue
+        raw_text = element.get_text(strip=True)
+        match = re.search(price_regex, raw_text.replace(",", "."))
+        if match:
+            try:
+                price_value = float(match.group("price"))
+                break
+            except (ValueError, IndexError):
+                continue
+
+    if price_value is None:
+        return None
+
+    # Period from period_selector
+    period_selector = site_cfg.get("period_selector", "")
+    period = None
+    for sel in period_selector.split(", "):
+        sel = sel.strip()
+        if not sel:
+            continue
+        el = soup.select_one(sel)
+        if el:
+            period_text = el.get_text(strip=True).lower()
+            if "month" in period_text:
+                period = "monthly"
+            elif "year" in period_text or "annual" in period_text:
+                period = "yearly"
+            break
+
+    # Fallback period from full page text
+    if period is None:
+        _, _ = _detect_period_and_currency(soup.get_text(), currency_hint)
+
+    logger.debug(f"    [CSS] price={price_value} {currency_hint} period={period}")
     return {
-        "price_value": price_value,  # Null — we parse but don't guess specific values
-        "price_currency": price_currency,
-        "price_period": price_period,
-        "features": features[:15],  # Cap at 15 features
+        "price_value": price_value,
+        "price_currency": currency_hint,
+        "price_period": period,
+        "features": [],
+        "extraction_tier": "css_selector",
+    }
+
+
+# ── Tier 3: Claude API fallback ───────────────────────────────────────────────
+
+def _extract_via_claude(html: str, pricing_url: str, currency_hint: str) -> dict | None:
+    """
+    Tier 3: Ask Claude to extract the lowest public price from page text.
+    Only runs when ANTHROPIC_API_KEY is set. Sends ≤3 000 chars of visible text
+    to keep token cost low. Returns signal dict or None on failure.
+    """
+    if not ANTHROPIC_API_KEY:
+        logger.debug("    [Claude] ANTHROPIC_API_KEY not set — skipping Tier 3")
+        return None
+
+    soup = BeautifulSoup(html, "html.parser")
+    # Strip scripts/styles; keep only visible text
+    for tag in soup(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+    visible_text = soup.get_text(separator="\n", strip=True)[:3000]
+
+    prompt = (
+        f"You are a pricing data extraction assistant. "
+        f"Extract the LOWEST public price from this pricing page text.\n\n"
+        f"Page URL: {pricing_url}\n"
+        f"Page text (truncated):\n{visible_text}\n\n"
+        f"Reply with a JSON object only (no markdown), with these fields:\n"
+        f'{{"price_value": <number or null>, '
+        f'"price_currency": "<{currency_hint}|USD|EUR|CHF>", '
+        f'"price_period": "<monthly|yearly|one-time|per-user-monthly|null>", '
+        f'"confidence": "<high|medium|low>"}}\n'
+        f"If no public price is shown, return price_value: null."
+    )
+
+    try:
+        resp = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-haiku-4-5-20251001",  # cheapest model — price extraction only
+                "max_tokens": 256,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=20,
+        )
+        resp.raise_for_status()
+        content = resp.json()["content"][0]["text"].strip()
+        # Strip markdown code fences if present
+        content = re.sub(r"^```[a-z]*\n?", "", content)
+        content = re.sub(r"\n?```$", "", content)
+        data = json.loads(content)
+        price_value = data.get("price_value")
+        if price_value is not None:
+            price_value = float(price_value)
+        confidence = data.get("confidence", "low")
+        if confidence == "low" and price_value is not None:
+            logger.debug(f"    [Claude] low confidence — discarding price {price_value}")
+            price_value = None  # don't store guesses
+
+        logger.debug(
+            f"    [Claude] price={price_value} {data.get('price_currency')} "
+            f"period={data.get('price_period')} confidence={confidence}"
+        )
+        return {
+            "price_value": price_value,
+            "price_currency": data.get("price_currency", currency_hint),
+            "price_period": data.get("price_period"),
+            "features": [],
+            "extraction_tier": f"claude/{confidence}",
+        }
+    except (requests.RequestException, json.JSONDecodeError, KeyError, ValueError) as exc:
+        logger.warning(f"    [Claude] extraction failed: {exc}")
+        return None
+
+
+# ── Orchestrator ──────────────────────────────────────────────────────────────
+
+def extract_price_signals(
+    html: str,
+    pricing_url: str,
+    scraping_config: dict,
+    currency_hint: str = "EUR",
+) -> dict:
+    """
+    Three-tier price extraction chain.
+
+    Tier 1 — JSON-LD schema.org: zero-config, works on sites with structured data.
+    Tier 2 — CSS selectors:      per-site config in competitor_scraping_config.json.
+    Tier 3 — Claude API:         LLM fallback when both structured approaches fail.
+                                 Requires ANTHROPIC_API_KEY env var.
+
+    Always returns a complete dict (price_value may be None if all tiers fail).
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text(separator=" ", strip=True)
+    features = _extract_features_from_soup(soup)
+    period_fallback, currency_fallback = _detect_period_and_currency(text, currency_hint)
+
+    # Tier 1: JSON-LD
+    result = _extract_via_jsonld(soup, currency_hint)
+    if result and result.get("price_value") is not None:
+        logger.info(f"    Tier 1 (JSON-LD): price={result['price_value']} {result['price_currency']}")
+        result["features"] = result["features"] or features
+        result.setdefault("price_period", period_fallback)
+        return result
+
+    # Tier 2: CSS selectors
+    result = _extract_via_css_selectors(soup, pricing_url, scraping_config, currency_hint)
+    if result and result.get("price_value") is not None:
+        logger.info(f"    Tier 2 (CSS): price={result['price_value']} {result['price_currency']}")
+        result["features"] = result["features"] or features
+        result.setdefault("price_period", period_fallback)
+        return result
+
+    # Tier 3: Claude API (only if key is available)
+    result = _extract_via_claude(html, pricing_url, currency_hint)
+    if result and result.get("price_value") is not None:
+        logger.info(
+            f"    Tier 3 (Claude/{result['extraction_tier'].split('/')[1]}): "
+            f"price={result['price_value']} {result['price_currency']}"
+        )
+        result["features"] = result["features"] or features
+        result.setdefault("price_period", period_fallback)
+        return result
+
+    # All tiers failed — return what we can
+    logger.info("    All extraction tiers failed — price_value=null")
+    return {
+        "price_value": None,
+        "price_currency": currency_fallback,
+        "price_period": period_fallback,
+        "features": features,
+        "extraction_tier": "none",
     }
 
 
@@ -419,10 +687,12 @@ def collect_competitor_product(
     competitor: dict,
     competitor_id: str,
     session: requests.Session,
+    scraping_config: dict,
     dry_run: bool,
 ) -> None:
     """Scrape pricing page and upsert a competitor_products row."""
     pricing_url = competitor.get("pricing_page", competitor["website"])
+    currency_hint = competitor.get("currency_hint", "EUR")
 
     logger.info(f"  Fetching pricing: {pricing_url}")
 
@@ -432,12 +702,13 @@ def collect_competitor_product(
     except Exception as exc:
         logger.error(f"  Pricing fetch failed after retries: {exc}")
 
-    signals = {"price_value": None, "price_currency": "EUR", "price_period": None, "features": []}
+    signals = {"price_value": None, "price_currency": "EUR", "price_period": None, "features": [], "extraction_tier": "none"}
     if html:
-        signals = extract_price_signals(html, competitor["name"])
+        signals = extract_price_signals(html, pricing_url, scraping_config, currency_hint)
+        tier = signals.get("extraction_tier", "none")
         logger.info(
-            f"  Extracted: currency={signals['price_currency']}, "
-            f"period={signals['price_period']}, "
+            f"  Extracted [{tier}]: currency={signals['price_currency']}, "
+            f"period={signals['price_period']}, price={signals['price_value']}, "
             f"features={len(signals['features'])}"
         )
 
@@ -678,7 +949,14 @@ def run_collection(args: argparse.Namespace) -> None:
     if dry_run:
         logger.warning("DRY-RUN mode — no data will be written to Supabase")
 
+    if ANTHROPIC_API_KEY:
+        logger.info("Tier 3 (Claude) enabled — ANTHROPIC_API_KEY found")
+    else:
+        logger.info("Tier 3 (Claude) disabled — set ANTHROPIC_API_KEY to enable")
+
     supabase = get_supabase_client()
+    scraping_config = _load_scraping_config()
+    logger.info(f"Loaded CSS selector config for {len(scraping_config)} sites")
 
     session = requests.Session()
     session.headers.update({"User-Agent": USER_AGENT})
@@ -704,8 +982,8 @@ def run_collection(args: argparse.Namespace) -> None:
             logger.warning(f"Skipping {competitor['name']} — no competitor_id")
             continue
 
-        # 2. Collect pricing & product data
-        collect_competitor_product(supabase, competitor, competitor_id, session, dry_run)
+        # 2. Collect pricing & product data (three-tier extraction)
+        collect_competitor_product(supabase, competitor, competitor_id, session, scraping_config, dry_run)
         total_products += 1
 
         # 3. Collect market signals from homepage
