@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
@@ -1387,6 +1388,42 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 
 ---
 
+## 14.9 Climate IQ Pantheon — Kreikkalais-roomalainen moniagenttijärjestelmä
+
+Rakentuen monivuokralaajuiseen agenttiarkkitehtuuriin (osio 14), tämä osio dokumentoi **Climate IQ Pantheonin**: 13 tuotantoagenttia kreikkalais-roomalaisilla jumalaidentiteeteillä, organisoituna kahteen tasoon Climate IQ:n EU:n teollisen vaatimustenmukaisuusalustan tueksi.
+
+### Järjestelmän yleiskatsaus
+
+**Taso 1 — Orkestraattoriagenteista (6)**
+
+| Agentti | Jumala | Rooli | Iskulause |
+|---------|--------|-------|-----------|
+| Atlas | Kreik. Titaani | Toiminnanjohtaja | Reitittää kaaoksen, syntetisoi sen johdon tilannekatsaukseksi |
+| Athena | Kreik. Jumalatar | EU-vaatimustenmukaisuus | Oppinut jokaisen EU-säännön ulkoa vuodesta 2005 |
+| Hephaestus | Kreik. Jumala | Kenttä ja kohde | Ei koskaan likaannu saappaita, mutta tarkistaa kaiken |
+| Iris | Kreik. Jumalatar | Tutkimus ja äly | Lukee 10 000 sivua, jotta sinun ei tarvitse |
+| Hermes | Kreik. Jumala | Logistiikka | Optimoi toimitusketjun ennen kuin löydät varaston |
+| Apollo | Kreik. Jumala | Sisältö | Kirjoittaa kopion, sijoittaa sen, lähettää seurannan. Jo teki. |
+
+**Taso 2 — Toimialaerityiset agentit (7)**
+
+Vulcan (Teräs/ETS), Helios (Energia/RED III), Neptune (Merikuljetus/FuelEU), Ceres (Maatalous/CBAM), Prometheus (Vety/RFNBO), Mars (Rakentaminen/EPBD), Gaia (Sementti/ETS klinkkeri).
+
+### SOUL.md-malli
+
+Jokaisella agentilla on `SOUL.md`-identiteettitiedosto, joka injektoidaan LLM:n järjestelmäkehotteeseen `BaseAgent.callLLM(systemPromptOverride)`-metodin kautta. Tämä ratkaisee "SOUL kuollut koodi" -auditoinnin löydön, jossa persoonakonstantit oli määritelty mutta ei kytketty LLM-kutsuihin.
+
+### Tietoturva ja vaatimustenmukaisuus
+
+- **Prompt injection -korjaus**: Kaikki `...input`-levitykset HermesAgentissa korvattu eksplisiittisellä kirjoitetulla kenttäpoiminnalla
+- **EU AI Act artikla 12**: Kaikki 13 agenttia kirjoittavat `agent_executions` Supabase-tauluun (aloitus + valmistumistapahtumat)
+
+### Liiketoimintainnovaatio: Nimet markkinointikiilana
+
+Pantheon-nimeäminen on tuotteen markkinointikiila — agentin iskulauseet näkyvät onelifetime.world/team -sivulla ihmistiimin rinnalla, tehden yritystason tekoälystä lähestyttävän.
+
+---
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 24.02.2026*
-*Versio: 1.4*
+*Viimeksi paivitetty: 02.03.2026*
+*Versio: 1.7*

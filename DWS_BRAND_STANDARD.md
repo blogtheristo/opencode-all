@@ -966,6 +966,7 @@ When any shared asset is modified, **BOTH locations must be updated:**
 | Source | Production |
 |--------|------------|
 | `dws10.com/shared-assets/` | `landing-pages/dws10-com/shared-assets/` |
+| `onelifetime.world/shared-assets/` | `landing-pages/onelifetime-world/shared-assets/` |
 
 ---
 
@@ -1134,6 +1135,83 @@ Pricing pages with 3+ tiers MUST include a decision helper:
 
 ---
 
+## 17. Climate IQ Pantheon — Agent Brand Identity
+
+### Naming Convention
+
+All Climate IQ AI agents use Greek/Roman deity names. Names are **permanent identity** — never rename them. Deity origin and domain assignment:
+
+| Agent | Deity Origin | Domain | Accent Color |
+|-------|-------------|--------|-------------|
+| Atlas | Greek Titan | Chief of Staff | Indigo `#6366f1` |
+| Athena | Greek | EU Compliance | Sky `#0ea5e9` |
+| Hephaestus | Greek | Field & Site | Red `#ef4444` |
+| Iris | Greek | Research & Intel | Purple `#a855f7` |
+| Hermes | Greek | Logistics & Ops | Amber `#f59e0b` |
+| Apollo | Greek | Content & Outreach | Orange `#f97316` |
+| Vulcan | Roman | Steel & Metals | Orange `#f97316` |
+| Helios | Greek | Energy & Renewables | Yellow `#eab308` |
+| Neptune | Roman | Maritime & Shipping | Cyan `#06b6d4` |
+| Ceres | Roman | Agriculture | Green `#22c55e` |
+| Prometheus | Greek | Hydrogen | Blue `#3b82f6` |
+| Mars | Roman | Construction | Red `#ef4444` |
+| Gaia | Greek | Cement & Earth | Stone `#78716c` |
+
+### Agent Card Component (onelifetime.world Team Section)
+
+**Orchestrator cards (large):**
+- Dark card: `background: #1e293b`
+- Colored border: `2px solid {accent-color}` per agent above
+- Large emoji avatar (centered, `text-5xl`)
+- Name in white `#f1f5f9`, bold
+- Role subtitle in accent color, `text-sm font-medium`
+- One-liner in `text-slate-400`, italic
+- Capability badge: dark bg + accent text, `rounded-full px-3 py-1 text-xs font-semibold`
+
+**Industry Specialist cards (compact):**
+- Same dark background `#1e293b`
+- Thin border `1px solid #374151`
+- Medium emoji (`text-4xl`)
+- Name bold `text-sm`
+- Industry in accent color `text-xs`
+- One-liner in `text-slate-500 text-xs italic`
+
+### One-Liner Tone Rules
+
+Agent one-liners MUST be:
+- **Self-assured, not arrogant** — the agent knows it's good, but doesn't brag
+- **Specific to the domain** — reference real EU regulations, real tools, real outcomes
+- **Wry, not slapstick** — dry humor that makes a compliance executive smile
+- **Single sentence** — never longer
+
+**Examples (approved):**
+- ✅ "Has memorized every EU regulation since 2005. Corrects lawyers. Unprompted." (Athena)
+- ✅ "Turns ETS carbon prices into competitive strategy. Red-hot accuracy." (Vulcan)
+- ❌ "I'm so smart and fast and amazing!" — too generic/hollow
+- ❌ "LOL compliance is boring but not for me!" — wrong tone
+
+### Section Header (Team Page)
+
+```html
+<h2>Our Team</h2>
+<p>Humans and AI agents. Both take their jobs very seriously. One of them never sleeps.</p>
+<h3>Climate IQ Pantheon</h3>
+<p class="uppercase tracking-widest text-sm">AI Orchestrator Agents</p>
+<h3>Industry Specialists</h3>
+<p class="uppercase tracking-widest text-sm">Sector AI Agents — One per Industry</p>
+```
+
+### Footer (onelifetime.world)
+
+onelifetime.world uses its own Ironclad Footer (`onelifetime.world/shared-assets/footer/ironclad-footer.js`) — same design system as dws10.com but with onelifetime.world-specific links (Community, Pledge, Partners).
+
+| Site | Footer Asset |
+|------|-------------|
+| dws10.com | `dws10.com/shared-assets/footer/ironclad-footer.js` |
+| onelifetime.world | `onelifetime.world/shared-assets/footer/ironclad-footer.js` |
+
+---
+
 ## 8. Cross-Reference to Standards
 
 | Standard | File | What It Governs |
@@ -1150,6 +1228,7 @@ Pricing pages with 3+ tiers MUST include a decision helper:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
 | v2.0 | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0. |
 | v1.1 | 2026-02-15 | Added: Store identity, product data sources, category taxonomy, hamburger menu, sovereignty badges |
 | v1.0 | 2026-02-01 | Initial release: dark tokens, product cards, category nav |
