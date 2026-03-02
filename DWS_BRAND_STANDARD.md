@@ -1,5 +1,28 @@
 # DWS Gamma Brand Standard v2.0
 
+---
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
+  - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+
+Session Links & References:
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_BRAND_STANDARD.md
+
+Document Status:
+  - Created: 01.01.2026
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
 **Maintained by:** DWS Design System Team
