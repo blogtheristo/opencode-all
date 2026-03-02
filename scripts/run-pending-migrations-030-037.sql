@@ -61,7 +61,9 @@ CREATE INDEX IF NOT EXISTS idx_import_shipments_supplier_id ON import_shipments(
 ALTER TABLE persons ADD COLUMN IF NOT EXISTS phone VARCHAR(50);
 CREATE INDEX IF NOT EXISTS idx_persons_phone ON persons(phone) WHERE phone IS NOT NULL;
 
-CREATE OR REPLACE VIEW v_outreach_enriched WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_outreach_due_today;
+DROP VIEW IF EXISTS v_outreach_enriched;
+CREATE VIEW v_outreach_enriched WITH (security_invoker = true) AS
 SELECT
   t.id AS id,
   t.pipeline, t.priority, t.status, t.source,
@@ -86,7 +88,7 @@ JOIN persons p ON p.id = t.person_id
 LEFT JOIN outreach_orgs o ON o.id = t.org_id
 LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
-CREATE OR REPLACE VIEW v_outreach_due_today WITH (security_invoker = true) AS
+CREATE VIEW v_outreach_due_today WITH (security_invoker = true) AS
 SELECT
   ve.*,
   COALESCE(
