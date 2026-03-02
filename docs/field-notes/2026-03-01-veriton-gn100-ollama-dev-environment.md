@@ -111,11 +111,11 @@ gh auth login  # GitHub.com → HTTPS → Web browser
 ## Target Workflow
 
 ```
-Claude Code + Qwen 32B (Veriton, FREE)  →  routine coding, first draft
+Cursor + Qwen 32B (DGX Spark via SSH, FREE)  →  routine coding, first draft
          ↓ complex issues only
-Claude Code + Opus 4.6 (Win11, paid)    →  architecture, hard problems
+Claude Code + Opus 4.6 (Win11, paid)         →  architecture, hard problems
          ↓
-GitHub Copilot Codex (VS Code)          →  inline polish, final review
+GitHub Copilot Codex (Cursor, paid)           →  inline polish, final review
 ```
 
 ### Cost Savings Model
@@ -137,15 +137,24 @@ GitHub Copilot Codex (VS Code)          →  inline polish, final review
 - **Root cause:** code-server's VS Code API does not fully support third-party chat providers
 - **Status:** Issue reported to VS Code team. code-server removed from Veriton.
 
-### Attempt 2: SSH tunnel to Cursor.sh + Qwen — FAILED
+### Attempt 2: SSH tunnel to Cursor.sh + Qwen — WORKING ✅
 
-- Attempted to connect Cursor IDE (Win11) to Veriton Ollama via SSH tunnel
-- **Result:** Could not establish working connection for Qwen model through Cursor
-- **Status:** Not pursued further. Cursor requires specific remote server configuration that adds complexity.
+- SSH tunnel: `ssh -L 11435:localhost:11434 admin100@gn100-cb5d`
+- Cursor configured with OpenAI-compatible endpoint: `http://localhost:11435/v1`
+- Model: `qwen2.5-coder:32b`
+- **Result:** Working with good latency. Cursor uses OpenAI API format which Ollama supports natively.
+- **Note:** Port 11435 used on Win11 because local Ollama already occupies 11434.
 
-### Working Approach: Claude Code CLI via Cockpit Terminal
+### Attempt 3: Claude Code CLI + Ollama — FAILED (tool API incompatible)
 
-The simplest working path is Claude Code CLI directly on the Veriton, accessed via Cockpit terminal at `https://gn100-cb5d:9090/system/terminal`.
+- Claude Code requires Anthropic tool use API format
+- Ollama's Qwen models return "does not support tools" error
+- **Root cause:** Claude Code's tool calls (file read, bash, edit) require API compatibility that Ollama doesn't provide
+- Claude Code only works with Anthropic's own API
+
+### Working Approach: Cursor (Win11) + SSH tunnel to DGX Spark Ollama
+
+The working path is Cursor IDE on Win11 connected to Qwen 32B on the DGX Spark via SSH tunnel. Claude Code CLI remains on Win11 with Anthropic API for complex tasks.
 
 ## Remaining Setup Commands
 
