@@ -756,12 +756,78 @@ async function upsertHilTodo(todo: {
 }
 
 /**
+ * Migration probes: detect whether a key migration has been applied by checking
+ * if a representative table or column exists via PostgREST.
+ * Returns list of migration IDs that appear to be missing.
+ */
+async function detectMissingMigrations(): Promise<Array<{ id: string; description: string }>> {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return [];
+
+  const headers = {
+    apikey: SUPABASE_SERVICE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+  };
+
+  async function tableExists(table: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?limit=0`, { headers });
+      return r.ok;
+    } catch { return true; } // network error → assume exists, don't spam todos
+  }
+
+  async function columnExists(table: string, column: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${column}&limit=1`, { headers });
+      return r.ok;
+    } catch { return true; }
+  }
+
+  const checks: Array<{ id: string; check: () => Promise<boolean>; description: string }> = [
+    {
+      id: '030',
+      check: () => tableExists('agent_activity'),
+      description: 'Run migration 030_agent_logging_tables.sql — creates agent_activity, agent_logs, agent_executions',
+    },
+    {
+      id: '032',
+      check: () => columnExists('persons', 'phone'),
+      description: 'Run migration 032_add_person_phone.sql — adds phone column to persons (enables direct calls from briefing)',
+    },
+    {
+      id: '034',
+      check: () => tableExists('social_posts'),
+      description: 'Run migration 034_social_posts.sql — creates social_posts queue table',
+    },
+    {
+      id: '036',
+      check: () => tableExists('construction_leads'),
+      description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
+    },
+    {
+      id: '037',
+      check: () => columnExists('email_logs', 'resend_email_id'),
+      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
+    },
+  ];
+
+  const missing: Array<{ id: string; description: string }> = [];
+  await Promise.all(
+    checks.map(async (c) => {
+      const exists = await c.check();
+      if (!exists) missing.push({ id: c.id, description: c.description });
+    })
+  );
+  return missing;
+}
+
+/**
  * Collect open HIL todos.
  *
  * Sources:
- *  1. competitor_products rows where price_value IS NULL (last 8 days) → need manual Supabase fill
- *  2. Monday reminder → review weekly market brief in docs/market-research/
- *  3. All open hil_todos already in the table (from other sources / previous runs)
+ *  1. Auto-detect missing migrations via PostgREST table/column probes
+ *  2. competitor_products rows where price_value IS NULL (last 8 days)
+ *  3. Monday reminder → review weekly market brief
+ *  4. All open hil_todos already in the table (from other sources / previous runs)
  *
  * Returns open todos sorted oldest-first (most overdue at top).
  */
@@ -773,6 +839,19 @@ async function collectHilTodos(): Promise<HilTodosData> {
   }
 
   const eightDaysAgo = new Date(Date.now() - 8 * 86_400_000).toISOString();
+
+  // 0. Auto-detect missing migrations
+  const missingMigrations = await detectMissingMigrations();
+  await Promise.all(
+    missingMigrations.map((m) =>
+      upsertHilTodo({
+        category: 'pending_migration',
+        description: m.description,
+        context: { migration_id: m.id },
+        dedup_key: `pending_migration:${m.id}`,
+      })
+    )
+  );
 
   // 1. Find competitors with null price from the last collection run
   try {

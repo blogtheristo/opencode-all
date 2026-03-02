@@ -549,17 +549,19 @@ function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
 // ============================================================================
 
 const CATEGORY_COLORS: Record<string, string> = {
-  competitor_price: '#ffaa00',
-  market_brief:     '#60a5fa',
-  config_gap:       '#c084fc',
-  manual:           '#00d4aa',
+  competitor_price:  '#ffaa00',
+  market_brief:      '#60a5fa',
+  config_gap:        '#c084fc',
+  manual:            '#00d4aa',
+  pending_migration: '#ff4444',
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  competitor_price: 'PRICE',
-  market_brief:     'BRIEF',
-  config_gap:       'CFG',
-  manual:           'MANUAL',
+  competitor_price:  'PRICE',
+  market_brief:      'BRIEF',
+  config_gap:        'CFG',
+  manual:            'MANUAL',
+  pending_migration: 'SQL',
 };
 
 function renderHilTodosHtml(data: HilTodosData): string {
