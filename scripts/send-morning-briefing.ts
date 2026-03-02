@@ -8,8 +8,9 @@
  * Usage:
  *   npx tsx scripts/send-morning-briefing.ts
  *
- * Required env vars:
- *   RESEND_API_KEY
+ * Required env vars (at least one):
+ *   RESEND_API_KEY      — primary provider
+ *   SENDGRID_API_KEY    — fallback provider
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for live data)
  *
  * Optional env vars:
@@ -51,9 +52,10 @@ async function main(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const resendKey = process.env.RESEND_API_KEY;
+  const sendgridKey = process.env.SENDGRID_API_KEY;
 
-  if (!resendKey) {
-    console.error('ERROR: RESEND_API_KEY not configured.');
+  if (!resendKey && !sendgridKey) {
+    console.error('ERROR: No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY.');
     process.exit(1);
   }
 
@@ -72,6 +74,7 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
+  if (resendKey) {
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
