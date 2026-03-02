@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
@@ -22,10 +23,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 24.02.2026
+  - Last Modified: 02.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)
+  - Publication Status: DRAFT (V1.7 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
 
 ---
 
@@ -1387,6 +1388,46 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 
 ---
 
+### Liite F: Claude Code -suunnittelurakenne — tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina
+
+Firehorse-toimintamalli perustuu periaatteeseen, joka nousee esiin sekä tutkimustuloksista että operatiivisesta käytännöstä: **tekoälytyönkulut on suunniteltava, ei improvisoitava**.
+
+Tämä liite dokumentoi konkreettiset rakennemallit, jotka toteuttavat tämän periaatteen DWS6-repositoriossa, validoituna kehittyvien Claude Code -yhteisön parhaiden käytäntöjen perusteella (2026).
+
+**CLAUDE.md projektimuistina**
+
+`CLAUDE.md`-tiedosto repositorion juuressa ei ole dokumentaatio — se on ensisijainen älysubstraatti jokaiselle tekoälysessiolle. Se koodaa standardit, rajoitteet, arkkitehtuuripäätökset, sähköpostisäännöt, tietoturvakontrollit ja ehdottomat vaatimukset yhteen tiedostoon, jonka jokainen Claude Code -sessio lukee automaattisesti. Tämä eliminoi käyttäytymisessä ajautumisen ja poistaa tarpeen toistaa kontekstia jokaisessa sessiossa.
+
+Mittari: yli 2 000 riviä institutionaalista tietämystä (brändi-, asiakirja-, tietoturva-, käyttöönottos- ja sähköpostisäännöt) peritään jokaisessa sessiossa nollalla marginaalikustannuksella.
+
+**Taidot uudelleenkäytettävinä työnkulkukomponentteina**
+
+Kuusi tuotantotaitoa `.claude/commands/`-kansiossa muuntavat ad hoc -kehottamisen kutsuttaviksi, dokumentoiduiksi, testattaviksi työnkulkukomponenteiksi:
+
+| Taito | Toimiala |
+|-------|----------|
+| `/compliance-check` | EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi |
+| `/agent-run` | Suorita mikä tahansa DWS IQ -agentti CLI:n kautta |
+| `/workflow` | Ketjuta useita agentteja yhdistetyiksi raporteiksi |
+| `/discover-agents` | Agenttikyvykkyyksien löytäminen |
+| `/site-safety` | Rakennustyömaan turvallisuus (EN 13001) |
+| `/carbon-analysis` | Rakennetun hiilen elinkaariarviointi |
+
+**Koukut automaattisena laadunvalvontana**
+
+Git-koukut (`.githooks/`) valvovat rakenteellisia invariantteja:
+- Haaranimen nimeämiskäytäntö (`claude/<ominaisuus>-<id>`)
+- Tuhoavien push-operaatioiden esto
+- Merge-jälkeinen synkronointi (Admin/, docs/, AgentFoundry/)
+
+Laadunvalvonta on **rakenteellista, ei käyttäytymiseen perustuvaa** — koulutus ei voida ohittaa agentin käyttäytymisellä.
+
+**Johtopäätös**
+
+Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.
+
+---
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 24.02.2026*
-*Versio: 1.4*
+*Viimeksi paivitetty: 02.03.2026*
+*Versio: 1.7*
