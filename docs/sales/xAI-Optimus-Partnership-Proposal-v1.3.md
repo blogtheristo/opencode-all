@@ -2,6 +2,31 @@
 
 ## Strategic Partnership Proposal: xAI (Grok + Optimus) as the Industrial Conductor
 
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.3
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI + Claude Opus 4.6 | Session: cursor/xai-optimus-proposal | Date: 27.02.2026 | Changes: Initial draft — core structure (Founder & Traction, Sovereign Industrial Brain, 4-Partner Stack, Partnership Ask) targeting xAI for Grok as industrial reasoning conductor and Optimus as physical execution layer.
+  - Version: 1.1 | Tool: Cursor AI + Claude Opus 4.6 | Session: cursor/xai-optimus-proposal | Date: 27.02.2026 | Changes: Added Human Command Roles section (Fleet Admiral, Industry Captain, Navigator) to clarify human-in-the-loop governance and investor tier structure.
+  - Version: 1.2 | Tool: Cursor AI + Claude Opus 4.6 | Session: cursor/xai-optimus-proposal | Date: 27.02.2026 | Changes: Added Data Sovereignty & EU Compliance section (EU AI Act Regulation (EU) 2024/1689, Art. 10, Art. 12, Art. 14) and Risk section (EU certification timeline for Optimus, Phase 2 mitigation strategy).
+  - Version: 1.3 | Tool: Cursor AI + Claude Opus 4.6 | Session: cursor/xai-optimus-proposal | Date: 27.02.2026 | Changes: Revised for strict legal compliance language, removed sales fluff, added BYO agentic platform section (Section 5 — LangChain, CrewAI, SAP, ABB YuMi, Optimus, etc.), repositioned Grok as optional viability layer (not foundational). Footer note added. Daily cash flow description clarified (Kela = Finnish senior transport service). Next Step changed from "next week" to "at your earliest convenience".
+
+Session Links & References:
+  - Cursor AI + Claude Opus 4.6 (original draft, PR #660): https://github.com/blogtheristo/dws6/pull/660
+  - GitHub Copilot (v1.3 refinements, PR #661): https://github.com/blogtheristo/dws6/pull/661
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/sales/xAI-Optimus-Partnership-Proposal-v1.3.md
+
+Document Status:
+  - Created: 27.02.2026
+  - Last Modified: 27.02.2026 (v1.3)
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE — Sales Proposal
+
+***
+
 **Version 1.3 – 27 February 2026**
 
 **Prepared by Risto Anton Päärni**
