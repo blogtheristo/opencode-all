@@ -157,6 +157,14 @@ POTENTIAL CONCERNS:
 **AI/LLM:** Claude (primary), Google Gemini, Groq, LlamaStack, MCP
 **Database & Infra:** Supabase (PostgreSQL + Auth + Realtime), pgvector, Google Cloud Run, Cloudflare Workers, NVIDIA Jetson Orin Nano, Temporal.io
 
+## Repository Access (CRITICAL)
+
+**blogtheristo/dws6 is a PRIVATE repository.**
+
+- Never generate `raw.githubusercontent.com` or `github.com/blogtheristo/dws6` URLs for the user to open — they require GitHub login and will fail on mobile without it.
+- To share file contents with the user: **read the file and paste the content directly** into the chat, or instruct them to navigate GitHub.com → sign in → repo → file → Raw.
+- Mobile PR workflow: push branch → give compare URL `https://github.com/blogtheristo/dws6/compare/main...<branch>` → provide copyable title + body. Never attempt `gh pr create` when `gh` is unavailable.
+
 ## Repository Structure
 
 ```
