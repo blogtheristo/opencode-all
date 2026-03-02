@@ -1,16 +1,31 @@
 #!/usr/bin/env node
 /**
- * Minimal Markdown → HTML converter for DWS thesis files.
- * Generates versioned HTML into Learn/ directory.
+ * DWS Thesis HTML Generator v2.0
+ *
+ * Converts thesis Markdown → versioned HTML in Learn/
+ *
+ * RULE: Every generated HTML MUST display the version number visibly
+ * as a badge at the top of the document. Version is auto-extracted
+ * from the "Version: X.X" line in the VERSION AND AGENT HISTORY block.
+ *
+ * Output filename is auto-derived from the version so no manual updates
+ * are needed when the version number increments.
+ *
+ * Usage:
+ *   node scripts/gen-thesis-html.cjs
+ *
+ * v1.0 — Initial release
+ * v2.0 — 2026-03-02: Auto-detect version from markdown; visible version
+ *         badge injected at top of every HTML output; auto-derived filenames
  */
 
-const fs = require('fs');
+const fs   = require('fs');
 const path = require('path');
 
 const BASE = path.resolve(__dirname, '..');
 
 const CSS = `
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
 h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
 h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
 h3{color:#334155}h4{color:#475569}
@@ -22,13 +37,35 @@ th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
 th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
 blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
 a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+/* Version badge header */
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:-0px -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
 `.trim();
 
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-function mdToHtml(md, title, lang) {
+/**
+ * Extract version string from "Version: X.X" line in VERSION AND AGENT HISTORY block.
+ * Returns e.g. "3.17" or "1.7"
+ */
+function extractVersion(md) {
+  const m = md.match(/^Version:\s*(\S+)/m);
+  return m ? m[1] : 'unknown';
+}
+
+/**
+ * Extract the latest session date from the first "- Version: X.X | ... | Date: DD.MM.YYYY" line.
+ */
+function extractDate(md) {
+  const m = md.match(/Date:\s*(\d{2}\.\d{2}\.\d{4})/);
+  return m ? m[1] : '';
+}
+
+function mdToHtml(md, titleBase, lang, version, date) {
   let html = md;
   // Stash fenced code blocks
   const codeBlocks = [];
@@ -73,54 +110,70 @@ function mdToHtml(md, title, lang) {
     return '<p>' + p.replace(/\n/g, ' ') + '</p>';
   }).join('\n');
 
+  const fullTitle = titleBase + ' v' + version;
+
+  // Visible version badge banner — RULE: every Learn/ HTML must show this
+  const banner = [
+    '<div class="dws-version-banner">',
+    '  <span class="dws-version-title">' + escHtml(titleBase) + '</span>',
+    '  <span class="dws-version-badge">v' + escHtml(version) + '</span>',
+    '  <span class="dws-version-meta">Lifetime Oy · ' + (date || '') + ' · Learn/ (private)</span>',
+    '</div>',
+  ].join('\n');
+
   return [
     '<!DOCTYPE html>',
     '<html lang="' + lang + '">',
     '<head>',
     '<meta charset="UTF-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-    '<title>' + escHtml(title) + '</title>',
+    '<title>' + escHtml(fullTitle) + '</title>',
     '<style>',
     CSS,
     '</style>',
     '</head>',
     '<body>',
+    banner,
     html,
     '</body>',
     '</html>',
   ].join('\n');
 }
 
-const FILES = [
+// Source files — version and output filename are auto-derived from the markdown
+const SOURCES = [
   {
-    src:  'Learn/V3Thesis_EN.md',
-    out:  'Learn/V3Thesis_EN_v3.16.html',
-    title: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN) v3.16',
-    lang:  'en',
+    src:       'Learn/V3Thesis_EN.md',
+    titleBase: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN)',
+    outPrefix: 'Learn/V3Thesis_EN_v',
+    lang:      'en',
   },
   {
-    src:  'Learn/V3Thesis_FI.md',
-    out:  'Learn/V3Thesis_FI_v3.16.html',
-    title: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI) v3.16',
-    lang:  'fi',
+    src:       'Learn/V3Thesis_FI.md',
+    titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI)',
+    outPrefix: 'Learn/V3Thesis_FI_v',
+    lang:      'fi',
   },
   {
-    src:  'Learn/PHD_FIREHORSE_EN.md',
-    out:  'Learn/PHD_FIREHORSE_EN_v1.6.html',
-    title: 'PHD Firehorse — Doctoral Research (EN) v1.6',
-    lang:  'en',
+    src:       'Learn/PHD_FIREHORSE_EN.md',
+    titleBase: 'PHD Firehorse — Doctoral Research (EN)',
+    outPrefix: 'Learn/PHD_FIREHORSE_EN_v',
+    lang:      'en',
   },
   {
-    src:  'Learn/PHD_FIREHORSE_FI.md',
-    out:  'Learn/PHD_FIREHORSE_FI_v1.6.html',
-    title: 'PHD Firehorse — Väitöstutkimus (FI) v1.6',
-    lang:  'fi',
+    src:       'Learn/PHD_FIREHORSE_FI.md',
+    titleBase: 'PHD Firehorse — Väitöstutkimus (FI)',
+    outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
+    lang:      'fi',
   },
 ];
 
-FILES.forEach(f => {
-  const md  = fs.readFileSync(path.join(BASE, f.src), 'utf8');
-  const htm = mdToHtml(md, f.title, f.lang);
-  fs.writeFileSync(path.join(BASE, f.out), htm);
-  console.log('Generated:', f.out, '(' + htm.length + ' bytes)');
+SOURCES.forEach(f => {
+  const md      = fs.readFileSync(path.join(BASE, f.src), 'utf8');
+  const version = extractVersion(md);
+  const date    = extractDate(md);
+  const outFile = f.outPrefix + version + '.html';
+  const htm     = mdToHtml(md, f.titleBase, f.lang, version, date);
+  fs.writeFileSync(path.join(BASE, outFile), htm);
+  console.log('Generated:', outFile, '(v' + version + ', ' + htm.length + ' bytes)');
 });

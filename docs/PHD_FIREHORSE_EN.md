@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
@@ -1394,6 +1395,42 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 ---
 
+## 14.9 Climate IQ Pantheon — Greek/Roman God Multi-Agent System
+
+Building on the multi-tenant agent architecture (Section 14), this section documents the **Climate IQ Pantheon**: 13 production AI agents carrying Greek/Roman deity identities, organized in two tiers for Climate IQ's EU industrial compliance platform.
+
+### System Overview
+
+**Tier 1 — Orchestrator Agents (6)**
+
+| Agent | Deity | Role | One-liner |
+|-------|-------|------|-----------|
+| Atlas | Greek Titan | Chief of Staff | Routes chaos, synthesizes it into executive briefings |
+| Athena | Greek Goddess | EU Compliance | Memorized every EU regulation since 2005 |
+| Hephaestus | Greek God | Field & Site | Never gets mud on his boots, but checks everything |
+| Iris | Greek Goddess | Research & Intel | Reads 10,000 pages so you don't have to |
+| Hermes | Greek God | Logistics & Ops | Optimizes your supply chain while you find the warehouse |
+| Apollo | Greek God | Content & Outreach | Writes copy, ranks it, sends the follow-up. Already did. |
+
+**Tier 2 — Industry Specialists (7)**
+
+Vulcan (Steel/ETS), Helios (Energy/RED III), Neptune (Maritime/FuelEU), Ceres (Agriculture/CBAM), Prometheus (Hydrogen/RFNBO), Mars (Construction/EPBD), Gaia (Cement/ETS clinker).
+
+### SOUL.md Pattern
+
+Each agent has a `SOUL.md` identity file injected as LLM system prompt via `BaseAgent.callLLM(systemPromptOverride)`. This resolves the "SOUL dead code" audit finding where persona constants were defined but never wired into LLM calls.
+
+### Security & Compliance
+
+- **Prompt injection fix**: Replaced all `...input` spreads in HermesAgent with explicit typed field extraction
+- **EU AI Act Article 12**: All 13 agents write to `agent_executions` Supabase table (start + completion events)
+
+### Business Innovation: Names as Marketing
+
+The Pantheon naming is the product's marketing wedge — agent one-liners appear on onelifetime.world/team alongside human staff, making enterprise AI approachable without sacrificing credibility.
+
+---
+
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 24.02.2026*
-*Version: 1.4*
+*Last updated: 02.03.2026*
+*Version: 1.7*
