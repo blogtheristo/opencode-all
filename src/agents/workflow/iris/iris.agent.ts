@@ -39,9 +39,11 @@ export class IrisAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const query = (input.query as string) || 'EU climate compliance market intelligence';
+    const query = typeof input.query === 'string' ? input.query : 'EU climate compliance market intelligence';
     const mode: IrisMode = (input.mode as IrisMode) || 'all';
-    const domain = input.domain as string | undefined;
+    const domain = typeof input.domain === 'string' ? input.domain : undefined;
+
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query, mode, domain }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
 
     const tasks: Promise<AgentResponse>[] = [];
     const taskLabels: string[] = [];
@@ -113,7 +115,7 @@ Return JSON: {
 
     const durationMs = Date.now() - startTime;
 
-    return {
+    const response: AgentResponse = {
       agentName: this.config.name,
       result: {
         query,
@@ -137,5 +139,7 @@ Return JSON: {
         findingCount: (synthesis.keyFindings as unknown[]).length,
       },
     };
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query, mode }, output: response, status: 'completed', duration_ms: durationMs, created_at: new Date().toISOString() });
+    return response;
   }
 }

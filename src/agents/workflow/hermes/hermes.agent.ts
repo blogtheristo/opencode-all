@@ -38,19 +38,25 @@ export class HermesAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const projectId = (input.projectId as string) || context.projectId;
-    const qualityCheckpoint = input.qualityCheckpoint as Record<string, unknown> | undefined;
-    const routes = input.routes as Record<string, unknown>[] | undefined;
+    const projectId = typeof input.projectId === 'string' ? input.projectId : context.projectId;
+    const qualityCheckpoint = (typeof input.qualityCheckpoint === 'object' && input.qualityCheckpoint !== null) ? input.qualityCheckpoint as Record<string, unknown> : undefined;
+    const routes = Array.isArray(input.routes) ? input.routes as Record<string, unknown>[] : undefined;
+
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { projectId }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
 
     const tasks: Promise<AgentResponse>[] = [];
     const taskLabels: string[] = [];
 
     // Logistics optimization
     if (routes || input.origins) {
+      // Explicit fields only — no ...input spread (audit fix: prompt injection via arbitrary keys)
       tasks.push(agentRegistry.executeAgent('logistics', context, {
         projectId,
         routes: routes || [],
-        ...input,
+        origins: typeof input.origins === 'object' ? input.origins : undefined,
+        destinations: typeof input.destinations === 'object' ? input.destinations : undefined,
+        cargoWeight: typeof input.cargoWeight === 'number' ? input.cargoWeight : undefined,
+        deadline: typeof input.deadline === 'string' ? input.deadline : undefined,
       }));
       taskLabels.push('logistics');
     }
@@ -59,7 +65,9 @@ export class HermesAgent extends BaseAgent {
     if (qualityCheckpoint) {
       tasks.push(agentRegistry.executeAgent('quality-gate', context, {
         projectId,
-        ...qualityCheckpoint,
+        checkpointType: typeof qualityCheckpoint.checkpointType === 'string' ? qualityCheckpoint.checkpointType : undefined,
+        criteria: typeof qualityCheckpoint.criteria === 'object' ? qualityCheckpoint.criteria : undefined,
+        thresholds: typeof qualityCheckpoint.thresholds === 'object' ? qualityCheckpoint.thresholds : undefined,
       }));
       taskLabels.push('quality-gate');
     }
@@ -68,16 +76,19 @@ export class HermesAgent extends BaseAgent {
     if (input.tasks || input.milestones) {
       tasks.push(agentRegistry.executeAgent('schedule-genius', context, {
         projectId,
-        tasks: input.tasks,
-        milestones: input.milestones,
-        resources: input.resources,
+        tasks: Array.isArray(input.tasks) ? input.tasks : undefined,
+        milestones: Array.isArray(input.milestones) ? input.milestones : undefined,
+        resources: typeof input.resources === 'object' ? input.resources : undefined,
       }));
       taskLabels.push('schedule-genius');
     }
 
-    // Default: run logistics with available input
+    // Default: run logistics with minimal safe fields
     if (tasks.length === 0) {
-      tasks.push(agentRegistry.executeAgent('logistics', context, { projectId, ...input }));
+      tasks.push(agentRegistry.executeAgent('logistics', context, {
+        projectId,
+        routes: typeof input.routes === 'object' ? input.routes : [],
+      }));
       taskLabels.push('logistics');
     }
 

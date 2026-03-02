@@ -84,8 +84,10 @@ export class AtlasAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const query = (input.query as string) || 'Provide a general Climate IQ status briefing';
-    const agentHints = (input.agents as string[]) || [];
+    const query = typeof input.query === 'string' ? input.query : 'Provide a general Climate IQ status briefing';
+    const agentHints = Array.isArray(input.agents) ? (input.agents as string[]) : [];
+
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query, agentHints }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
 
     const userMessage = agentHints.length > 0
       ? `Query: ${query}\n\nSuggested agents to consult: ${agentHints.join(', ')}`
@@ -114,7 +116,8 @@ export class AtlasAgent extends BaseAgent {
       return (order[a.urgency as keyof typeof order] ?? 3) - (order[b.urgency as keyof typeof order] ?? 3);
     });
 
-    return {
+    const durationMs = Date.now() - startTime;
+    const response: AgentResponse = {
       agentName: this.config.name,
       result: {
         summary,
@@ -130,11 +133,14 @@ export class AtlasAgent extends BaseAgent {
         .filter((f) => f.recommendation)
         .map((f) => `[${f.agent}] ${f.recommendation}`),
       metadata: {
-        durationMs: Date.now() - startTime,
+        durationMs,
         llmModel: loopResult.model,
         llmTokens: loopResult.totalTokens.input + loopResult.totalTokens.output,
         findingCount: findings.length,
       },
     };
+
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { query }, output: response, status: 'completed', duration_ms: durationMs, created_at: new Date().toISOString() });
+    return response;
   }
 }

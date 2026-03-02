@@ -35,6 +35,13 @@ import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
 import { IrisAgent } from './workflow/iris/iris.agent.js';
 import { HermesAgent } from './workflow/hermes/hermes.agent.js';
 import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
+import { VulcanAgent } from './workflow/industry/vulcan.agent.js';
+import { HeliosAgent } from './workflow/industry/helios.agent.js';
+import { NeptuneAgent } from './workflow/industry/neptune.agent.js';
+import { CeresAgent } from './workflow/industry/ceres.agent.js';
+import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
+import { MarsAgent } from './workflow/industry/mars.agent.js';
+import { GaiaAgent } from './workflow/industry/gaia.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -192,6 +199,15 @@ export class AgentRegistry {
     this.register(new IrisAgent());        // Research & Market Intelligence
     this.register(new HermesAgent());      // Logistics & Operations
     this.register(new ApolloAgent());      // Content & Outreach
+
+    // Climate IQ Industry Specialists — Roman/Greek gods per sector
+    this.register(new VulcanAgent());      // Steel & Metals
+    this.register(new HeliosAgent());      // Energy & Renewables
+    this.register(new NeptuneAgent());     // Maritime & Shipping
+    this.register(new CeresAgent());       // Agriculture & Fertilizers
+    this.register(new PrometheusAgent());  // Hydrogen & Energy Transition
+    this.register(new MarsAgent());        // Construction & Buildings
+    this.register(new GaiaAgent());        // Cement & Earth Materials
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

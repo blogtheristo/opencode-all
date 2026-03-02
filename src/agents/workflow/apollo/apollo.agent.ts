@@ -37,12 +37,14 @@ export class ApolloAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const industry = (input.industry as string) || 'manufacturing';
-    const targetRole = (input.targetRole as string) || 'compliance officer';
-    const regulatoryTrigger = (input.regulatoryTrigger as string) || 'CBAM';
-    const keywords = input.keywords as string[] | undefined;
-    const prospectData = input.prospectData as Record<string, unknown> | undefined;
-    const mode = (input.mode as string) || 'all'; // 'content' | 'outreach' | 'seo' | 'all'
+    const industry = typeof input.industry === 'string' ? input.industry : 'manufacturing';
+    const targetRole = typeof input.targetRole === 'string' ? input.targetRole : 'compliance officer';
+    const regulatoryTrigger = typeof input.regulatoryTrigger === 'string' ? input.regulatoryTrigger : 'CBAM';
+    const keywords = Array.isArray(input.keywords) ? input.keywords as string[] : undefined;
+    const prospectData = (typeof input.prospectData === 'object' && input.prospectData !== null) ? input.prospectData as Record<string, unknown> : undefined;
+    const mode = typeof input.mode === 'string' ? input.mode : 'all';
+
+    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { industry, targetRole, regulatoryTrigger, mode }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
 
     const tasks: Promise<AgentResponse>[] = [];
     const taskLabels: string[] = [];
