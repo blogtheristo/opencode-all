@@ -7,9 +7,10 @@
  * This module provides the send logic used by both the standalone script
  * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
  *
- * Uses Resend for email delivery.
+ * Uses Resend SDK for email delivery.
  */
 
+import { Resend } from 'resend';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
@@ -41,32 +42,23 @@ async function sendMorningBriefing(): Promise<void> {
     return;
   }
 
+  const resend = new Resend(resendKey);
+
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [recipient],
-        subject,
-        html,
-        text,
-      }),
+    const { data: result, error } = await resend.emails.send({
+      from: fromAddress,
+      to: [recipient],
+      subject,
+      html,
+      text,
     });
 
-    if (response.ok) {
-      logger.info('CEO Cockpit sent via Resend', { to: recipient });
+    if (error) {
+      logger.error('Resend CEO Cockpit failed', { error: error.message });
       return;
     }
 
-    const errorBody = await response.text();
-    logger.error('Resend CEO Cockpit failed', {
-      status: response.status,
-      error: errorBody,
-    });
+    logger.info('CEO Cockpit sent via Resend', { to: recipient, id: result?.id });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Resend CEO Cockpit error', { error: msg });
