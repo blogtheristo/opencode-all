@@ -29,6 +29,12 @@ import { CompetitorSurveillanceAgent } from './seo/competitor-surveillance.agent
 import { ContentBriefAgent } from './seo/content-brief.agent.js';
 import { SeoAuditAgent } from './seo/seo-audit.agent.js';
 import { LeadFeedbackAgent } from './seo/lead-feedback.agent.js';
+import { AtlasAgent } from './workflow/atlas/atlas.agent.js';
+import { AthenaAgent } from './workflow/athena/athena.agent.js';
+import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
+import { IrisAgent } from './workflow/iris/iris.agent.js';
+import { HermesAgent } from './workflow/hermes/hermes.agent.js';
+import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -178,6 +184,14 @@ export class AgentRegistry {
     this.register(new ContentBriefAgent());
     this.register(new SeoAuditAgent());
     this.register(new LeadFeedbackAgent());
+
+    // Climate IQ Workflow Agents — Greek/Roman pantheon (orchestrators)
+    this.register(new AtlasAgent());       // Chief of Staff — synthesis & routing
+    this.register(new AthenaAgent());      // Compliance Intelligence — EU regulatory
+    this.register(new HephaestusAgent());  // Field & Site Intelligence — construction
+    this.register(new IrisAgent());        // Research & Market Intelligence
+    this.register(new HermesAgent());      // Logistics & Operations
+    this.register(new ApolloAgent());      // Content & Outreach
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
