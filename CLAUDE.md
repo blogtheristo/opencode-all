@@ -17,6 +17,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -155,6 +156,15 @@ POTENTIAL CONCERNS:
 **Backend:** Express 4.19 + TypeScript, Node-cron, JWT, Helmet
 **AI/LLM:** Claude (primary), Google Gemini, Groq, LlamaStack, MCP
 **Database & Infra:** Supabase (PostgreSQL + Auth + Realtime), pgvector, Google Cloud Run, Cloudflare Workers, NVIDIA Jetson Orin Nano, Temporal.io
+
+## Repository Access (CRITICAL)
+
+**blogtheristo/dws6 is a PRIVATE repository.**
+
+- Never generate raw.githubusercontent.com or github.com/blogtheristo/dws6 URLs for the user to open — they require GitHub login and will fail on mobile without it.
+- To share file contents with the user: **read the file and paste the content directly** into the chat, or instruct them to navigate GitHub.com → sign in → repo → file → Raw.
+- Mobile PR workflow: push branch → give compare URL https://github.com/blogtheristo/dws6/compare/main...BRANCHNAME → provide copyable title + body. Never attempt `gh pr create` when `gh` is unavailable.
+- **URLs: NEVER wrap in brackets, backticks, angle brackets, or markdown link syntax.** Always plain text only. Brackets cause copy-paste corruption on mobile. WRONG: `https://x.com` or [text](https://x.com) or <https://x.com>. RIGHT: https://x.com
 
 ## Repository Structure
 

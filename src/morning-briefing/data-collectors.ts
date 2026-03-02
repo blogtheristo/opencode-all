@@ -104,6 +104,22 @@ export interface LearnArtifactsData {
   artifacts: LearnArtifact[];
 }
 
+/** A single Human-in-the-Loop manual task */
+export interface HilTodo {
+  id: string;
+  category: string;
+  description: string;
+  context: Record<string, unknown>;
+  done_token: string;
+  created_at: string;
+}
+
+/** Open HIL todos for the morning briefing */
+export interface HilTodosData {
+  todos: HilTodo[];
+  backendUrl: string; // base URL for the "Done" button link
+}
+
 /** Construction leads data for morning briefing */
 export interface ConstructionLeadsData {
   summary: ConstructionLeadsSummary | null;
@@ -151,6 +167,7 @@ export interface CockpitData {
   constructionLeads: ConstructionLeadsData;
   outreachSummary: OutreachSummaryData;
   learnArtifacts: LearnArtifactsData;
+  hilTodos: HilTodosData;
 }
 
 // ============================================================================
@@ -702,6 +719,217 @@ async function collectLearnArtifacts(): Promise<LearnArtifactsData> {
 }
 
 // ============================================================================
+// HIL (HUMAN-IN-THE-LOOP) TODO COLLECTOR
+// ============================================================================
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+/**
+ * Upsert a HIL todo into Supabase via PostgREST.
+ * Uses dedup_key for idempotency — safe to call on every briefing run.
+ * When done_at is NULL a new todo is created; if the dedup_key already exists
+ * and is still open the row is left untouched (on_conflict=ignore).
+ */
+async function upsertHilTodo(todo: {
+  category: string;
+  description: string;
+  context: Record<string, unknown>;
+  dedup_key: string;
+}): Promise<void> {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/hil_todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        Prefer: 'resolution=ignore-duplicates',  // don't overwrite existing open todos
+      },
+      body: JSON.stringify(todo),
+    });
+  } catch {
+    // best-effort — a failing upsert must not break the briefing
+  }
+}
+
+/**
+ * Migration probes: detect whether a key migration has been applied by checking
+ * if a representative table or column exists via PostgREST.
+ * Returns list of migration IDs that appear to be missing.
+ */
+async function detectMissingMigrations(): Promise<Array<{ id: string; description: string }>> {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return [];
+
+  const headers = {
+    apikey: SUPABASE_SERVICE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+  };
+
+  async function tableExists(table: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?limit=0`, { headers });
+      return r.ok;
+    } catch { return true; } // network error → assume exists, don't spam todos
+  }
+
+  async function columnExists(table: string, column: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${column}&limit=1`, { headers });
+      return r.ok;
+    } catch { return true; }
+  }
+
+  const checks: Array<{ id: string; check: () => Promise<boolean>; description: string }> = [
+    {
+      id: '030',
+      check: () => tableExists('agent_activity'),
+      description: 'Run migration 030_agent_logging_tables.sql — creates agent_activity, agent_logs, agent_executions',
+    },
+    {
+      id: '032',
+      check: () => columnExists('persons', 'phone'),
+      description: 'Run migration 032_add_person_phone.sql — adds phone column to persons (enables direct calls from briefing)',
+    },
+    {
+      id: '034',
+      check: () => tableExists('social_posts'),
+      description: 'Run migration 034_social_posts.sql — creates social_posts queue table',
+    },
+    {
+      id: '036',
+      check: () => tableExists('construction_leads'),
+      description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
+    },
+    {
+      id: '037',
+      check: () => columnExists('email_logs', 'resend_email_id'),
+      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
+    },
+  ];
+
+  const missing: Array<{ id: string; description: string }> = [];
+  await Promise.all(
+    checks.map(async (c) => {
+      const exists = await c.check();
+      if (!exists) missing.push({ id: c.id, description: c.description });
+    })
+  );
+  return missing;
+}
+
+/**
+ * Collect open HIL todos.
+ *
+ * Sources:
+ *  1. Auto-detect missing migrations via PostgREST table/column probes
+ *  2. competitor_products rows where price_value IS NULL (last 8 days)
+ *  3. Monday reminder → review weekly market brief
+ *  4. All open hil_todos already in the table (from other sources / previous runs)
+ *
+ * Returns open todos sorted oldest-first (most overdue at top).
+ */
+async function collectHilTodos(): Promise<HilTodosData> {
+  const backendUrl = process.env.BACKEND_URL || 'https://api.onelifetime.world';
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    return { todos: [], backendUrl };
+  }
+
+  const eightDaysAgo = new Date(Date.now() - 8 * 86_400_000).toISOString();
+
+  // 0. Auto-detect missing migrations
+  const missingMigrations = await detectMissingMigrations();
+  await Promise.all(
+    missingMigrations.map((m) =>
+      upsertHilTodo({
+        category: 'pending_migration',
+        description: m.description,
+        context: { migration_id: m.id },
+        dedup_key: `pending_migration:${m.id}`,
+      })
+    )
+  );
+
+  // 1. Find competitors with null price from the last collection run
+  try {
+    const nullPricesResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/competitor_products` +
+        `?select=product_name,collected_at` +
+        `&price_value=is.null` +
+        `&collected_at=gte.${eightDaysAgo}` +
+        `&order=collected_at.desc`,
+      {
+        headers: {
+          apikey: SUPABASE_SERVICE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        },
+      }
+    );
+
+    if (nullPricesResp.ok) {
+      const rows = (await nullPricesResp.json()) as Array<{ product_name: string; collected_at: string }>;
+      // Upsert one HIL todo per competitor with null price
+      await Promise.all(
+        rows.map((r) =>
+          upsertHilTodo({
+            category: 'competitor_price',
+            description: `Fill price manually in Supabase → competitor_products for: ${r.product_name}`,
+            context: { competitor_name: r.product_name, collected_at: r.collected_at },
+            dedup_key: `competitor_price:${r.product_name}`,
+          })
+        )
+      );
+    }
+  } catch {
+    // best-effort
+  }
+
+  // 2. Monday: remind to review the weekly market brief
+  const dayOfWeek = new Date().getDay(); // 0=Sun, 1=Mon
+  if (dayOfWeek === 1) {
+    const now = new Date();
+    const week = Math.ceil(
+      ((now.getTime() - new Date(now.getFullYear(), 0, 1).getTime()) / 86_400_000 + 1) / 7
+    );
+    await upsertHilTodo({
+      category: 'market_brief',
+      description: `Review weekly market brief → docs/market-research/${now.getFullYear()}-W${String(week).padStart(2, '0')}-market-brief.md`,
+      context: { week, year: now.getFullYear() },
+      dedup_key: `market_brief:${now.getFullYear()}-W${String(week).padStart(2, '0')}`,
+    });
+  }
+
+  // 3. Fetch all open todos from the table (oldest first)
+  try {
+    const openResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/hil_todos` +
+        `?select=id,category,description,context,done_token,created_at` +
+        `&done_at=is.null` +
+        `&order=created_at.asc` +
+        `&limit=20`,
+      {
+        headers: {
+          apikey: SUPABASE_SERVICE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        },
+      }
+    );
+
+    if (openResp.ok) {
+      const todos = (await openResp.json()) as HilTodo[];
+      return { todos, backendUrl };
+    }
+  } catch {
+    // best-effort
+  }
+
+  return { todos: [], backendUrl };
+}
+
+// ============================================================================
 // MAIN COLLECTOR
 // ============================================================================
 
@@ -719,7 +947,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts, hilTodos] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -730,6 +958,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectConstructionLeads(),
     collectOutreachSummary(),
     collectLearnArtifacts(),
+    collectHilTodos(),
   ]);
 
   return {
@@ -746,5 +975,6 @@ export async function collectCockpitData(): Promise<CockpitData> {
     constructionLeads,
     outreachSummary,
     learnArtifacts,
+    hilTodos,
   };
 }

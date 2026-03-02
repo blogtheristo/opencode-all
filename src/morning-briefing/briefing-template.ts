@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -545,6 +545,79 @@ function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
 }
 
 // ============================================================================
+// HIL TODO SECTION
+// ============================================================================
+
+const CATEGORY_COLORS: Record<string, string> = {
+  competitor_price:  '#ffaa00',
+  market_brief:      '#60a5fa',
+  config_gap:        '#c084fc',
+  manual:            '#00d4aa',
+  pending_migration: '#ff4444',
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  competitor_price:  'PRICE',
+  market_brief:      'BRIEF',
+  config_gap:        'CFG',
+  manual:            'MANUAL',
+  pending_migration: 'SQL',
+};
+
+function renderHilTodosHtml(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const rows = data.todos
+    .map((t) => {
+      const color = CATEGORY_COLORS[t.category] || '#888';
+      const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase().slice(0, 5);
+      const doneUrl = `${data.backendUrl}/api/hil/done/${encodeURIComponent(t.done_token)}`;
+      const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+      const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+      return `
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e1e1e;">
+          <div style="flex: 1;">
+            <span style="color: ${color}; font-size: 10px; font-weight: 700; margin-right: 6px;">[${label}]</span>
+            <span style="font-size: 13px; color: #e0e0e0;">${esc(t.description)}</span>
+            <span style="color: #444; font-size: 10px; margin-left: 8px;">${esc(ageLabel)}</span>
+          </div>
+          <a href="${esc(doneUrl)}"
+             style="margin-left: 12px; padding: 4px 10px; background: #1a3a1a; color: #00d4aa;
+                    border: 1px solid #00d4aa; border-radius: 4px; font-size: 11px;
+                    font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0;">
+            ✅ Done
+          </a>
+        </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a; background: #0d1a0d;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">
+        ⚠ HIL ToDo &nbsp;<span style="color: #555; font-weight: 400; font-size: 11px;">(${data.todos.length} open)</span>
+      </h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Click ✅ Done to clear a task. Tasks auto-appear from Monday market run and automated collectors.</p>
+    </td></tr>`;
+}
+
+function renderHilTodosPlainText(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`HIL TODO (${data.todos.length} open)`);
+  for (const t of data.todos) {
+    const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase();
+    const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+    const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+    lines.push(`  [${label}] ${t.description} (${ageLabel})`);
+    lines.push(`  Done: ${data.backendUrl}/api/hil/done/${t.done_token}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
 
@@ -579,6 +652,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     ${renderWorkflow(data.workflow)}
     ${renderConstructionLeadsHtml(data.constructionLeads)}
     ${renderLearnArtifactsHtml(data.learnArtifacts)}
+    ${renderHilTodosHtml(data.hilTodos)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -679,6 +753,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const learnText = renderLearnArtifactsPlainText(data.learnArtifacts);
   if (learnText) {
     lines.push(learnText);
+  }
+
+  // HIL ToDo
+  const hilText = renderHilTodosPlainText(data.hilTodos);
+  if (hilText) {
+    lines.push(hilText);
   }
 
   // Send List
