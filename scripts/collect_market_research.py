@@ -32,7 +32,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, date
+from datetime import date, datetime
 from urllib.parse import urlparse
 from urllib.robotparser import RobotFileParser
 
@@ -70,7 +70,7 @@ def _load_scraping_config() -> dict:
         with open(SCRAPING_CONFIG_FILE, encoding="utf-8") as f:
             data = json.load(f)
         return data.get("sites", {})
-    except (FileNotFoundError, json.JSONDecodeError) as exc:
+    except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
 # ============================================================================
