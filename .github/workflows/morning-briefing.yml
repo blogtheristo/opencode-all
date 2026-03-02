@@ -47,9 +47,7 @@ jobs:
 
       - name: Send Morning Briefing Email
         env:
-          # At least one email provider key is required
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           # Required for data collection
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
