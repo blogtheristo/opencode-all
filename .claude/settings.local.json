@@ -11,9 +11,13 @@
       "Bash(python:*)",
       "Bash(echo:*)",
       "Bash(git remote get-url:*)",
+<<<<<<< HEAD
+      "Bash(git push:*)"
+=======
       "Bash(git add docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md)",
       "Bash(git commit:*)",
       "Bash(git push -u origin claude/optimistic-burnell)"
+>>>>>>> origin/main
     ]
   },
   "hooks": {}
