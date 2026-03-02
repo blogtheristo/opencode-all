@@ -11,13 +11,12 @@
       "Bash(python:*)",
       "Bash(echo:*)",
       "Bash(git remote get-url:*)",
-<<<<<<< HEAD
-      "Bash(git push:*)"
-=======
+      "Bash(git push:*)",
       "Bash(git add docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md)",
       "Bash(git commit:*)",
-      "Bash(git push -u origin claude/optimistic-burnell)"
->>>>>>> origin/main
+      "Bash(git push -u origin claude/optimistic-burnell)",
+      "Bash(ssh -L 11435:localhost:11434 admin100@192.168.101.113)",
+      "Bash(git add supabase/migrations/039_fix_security_definer_views.sql .claude/settings.local.json)"
     ]
   },
   "hooks": {}
