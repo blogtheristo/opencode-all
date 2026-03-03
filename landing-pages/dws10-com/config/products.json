@@ -870,6 +870,36 @@
       },
       "storeCategory": "ai-cloud"
     },
+    "edge-node-gn100": {
+      "id": "edge-node-gn100",
+      "gtin": null,
+      "mpn": "LF-EDGE-GN100-2026",
+      "name": "Acer Veriton GN100 — EU Sovereign Edge AI Node",
+      "price": 3999,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.",
+      "features": [
+        "EU air-gapped sovereign AI inference",
+        "20 cores / 120 GiB RAM per node",
+        "Minimum 2 units — €7,998 total"
+      ],
+      "priceNote": "€3,999 per unit · minimum 2 units (€7,998)",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/edge-node-gn100.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Acer",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware"
+    },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
       "gtin": null,
@@ -944,5 +974,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-02-07T12:00:00Z"
+  "lastUpdated": "2026-03-03T12:00:00Z"
 }

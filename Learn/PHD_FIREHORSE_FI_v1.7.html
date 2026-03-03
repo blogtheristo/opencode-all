@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PHD Firehorse — Väitöstutkimus (FI) v1.7</title>
 <style>
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:40px auto;padding:0 20px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
 h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
 h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
 h3{color:#334155}h4{color:#475569}
@@ -17,9 +17,19 @@ th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
 th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
 blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
 a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+/* Version badge header */
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:-0px -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
 </style>
 </head>
 <body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">PHD Firehorse — Väitöstutkimus (FI)</span>
+  <span class="dws-version-badge">v1.7</span>
+  <span class="dws-version-meta">Lifetime Oy · 02.03.2026 · Learn/ (private)</span>
+</div>
 <h1>Pro Gradu: Firehorse-toimintamalli tekoalyavusteiseen verkkokauppaan</h1>
 <strong>Otsikko:</strong> Tekoalynatiivi verkkokaupan hallinta: Tapaustutkimus Firehorse-mallin toteutuksesta Claude Codella
 <strong>Tekija:</strong> Lifetime Oy Tutkimusosasto
@@ -29,8 +39,8 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 <hr />
 <h1>VERSION AND AGENT HISTORY</h1>
 <p>Version: 1.7</p>
-<p>Sessions & Modifications:   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen</p>
-<p>Document Status:   - Created: 15.01.2026   - Last Modified: 02.03.2026   - Language: Finnish   - Languages Available: English, Suomi   - Publication Status: DRAFT (V1.7 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)</p>
+<p>Sessions & Modifications:   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen</p>
+<p>Document Status:   - Created: 15.01.2026   - Last Modified: 24.02.2026   - Language: Finnish   - Languages Available: English, Suomi   - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)</p>
 <hr />
 <h2>Tiivistelma</h2>
 <p>Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalyavusteinen lahestymistapa verkkokaupan hallintaan Claude Codea kayttaen. Malli osoittaa merkittavia tehokkuusparannuksia tuotekatalogin hallinnassa, Google Merchant Center -integraatiossa ja maksukasittelyssa Revolut Businessin kautta. Esittelemme teknisen arkkitehtuurin, toiminnalliset tyonkulut ja tulevan kehityksen kohti aanipohjaista asiakasvuorovaikutusta toimialakohtaisella hiilijalanjalkililaskurilla ja EU-saantelyvaatimusten tuntemuksella.</p>
@@ -761,20 +771,20 @@ a person' or email support@lifetime.fi."
 <li>Tyypillinen korjaussilmukka: 1-3 iteraatiota ennen hyvaksyntaa</li>
 <strong>Kayttoonotto:</strong> Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub `POST /gemini/review` on-demand-koodianalyysiin.
 <hr />
-<h3>Liite F: Claude Code -suunnittelurakenne — tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina</h3>
-<p>Firehorse-toimintamalli perustuu periaatteeseen, joka nousee esiin sekä tutkimustuloksista että operatiivisesta käytännöstä: <strong>tekoälytyönkulut on suunniteltava, ei improvisoitava</strong>.</p>
-<p>Tämä liite dokumentoi konkreettiset rakennemallit, jotka toteuttavat tämän periaatteen DWS6-repositoriossa, validoituna kehittyvien Claude Code -yhteisön parhaiden käytäntöjen perusteella (2026).</p>
-<strong>CLAUDE.md projektimuistina</strong>
-<p>`CLAUDE.md`-tiedosto repositorion juuressa ei ole dokumentaatio — se on ensisijainen älysubstraatti jokaiselle tekoälysessiolle. Se koodaa standardit, rajoitteet, arkkitehtuuripäätökset, sähköpostisäännöt, tietoturvakontrollit ja ehdottomat vaatimukset yhteen tiedostoon, jonka jokainen Claude Code -sessio lukee automaattisesti. Tämä eliminoi käyttäytymisessä ajautumisen ja poistaa tarpeen toistaa kontekstia jokaisessa sessiossa.</p>
-<p>Mittari: yli 2 000 riviä institutionaalista tietämystä (brändi-, asiakirja-, tietoturva-, käyttöönottos- ja sähköpostisäännöt) peritään jokaisessa sessiossa nollalla marginaalikustannuksella.</p>
-<strong>Taidot uudelleenkäytettävinä työnkulkukomponentteina</strong>
-<p>Kuusi tuotantotaitoa `.claude/commands/`-kansiossa muuntavat ad hoc -kehottamisen kutsuttaviksi, dokumentoiduiksi, testattaviksi työnkulkukomponenteiksi:</p>
-<table><thead><tr><th>Taito</th><th>Toimiala</th></tr></thead><tbody><tr><td>`/compliance-check`</td><td>EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi</td></tr><tr><td>`/agent-run`</td><td>Suorita mikä tahansa DWS IQ -agentti CLI:n kautta</td></tr><tr><td>`/workflow`</td><td>Ketjuta useita agentteja yhdistetyiksi raporteiksi</td></tr><tr><td>`/discover-agents`</td><td>Agenttikyvykkyyksien löytäminen</td></tr><tr><td>`/site-safety`</td><td>Rakennustyömaan turvallisuus (EN 13001)</td></tr><tr><td>`/carbon-analysis`</td><td>Rakennetun hiilen elinkaariarviointi</td></tr></tbody></table>
-<strong>Koukut automaattisena laadunvalvontana</strong>
-<p>Git-koukut (`.githooks/`) valvovat rakenteellisia invariantteja: <li>Haaranimen nimeämiskäytäntö (`claude/<ominaisuus>-<id>`)</li> <li>Tuhoavien push-operaatioiden esto</li> <li>Merge-jälkeinen synkronointi (Admin/, docs/, AgentFoundry/)</li></p>
-<p>Laadunvalvonta on <strong>rakenteellista, ei käyttäytymiseen perustuvaa</strong> — koulutus ei voida ohittaa agentin käyttäytymisellä.</p>
-<strong>Johtopäätös</strong>
-<p>Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.</p>
+<h2>14.9 Climate IQ Pantheon — Kreikkalais-roomalainen moniagenttijärjestelmä</h2>
+<p>Rakentuen monivuokralaajuiseen agenttiarkkitehtuuriin (osio 14), tämä osio dokumentoi <strong>Climate IQ Pantheonin</strong>: 13 tuotantoagenttia kreikkalais-roomalaisilla jumalaidentiteeteillä, organisoituna kahteen tasoon Climate IQ:n EU:n teollisen vaatimustenmukaisuusalustan tueksi.</p>
+<h3>Järjestelmän yleiskatsaus</h3>
+<strong>Taso 1 — Orkestraattoriagenteista (6)</strong>
+<table><thead><tr><th>Agentti</th><th>Jumala</th><th>Rooli</th><th>Iskulause</th></tr></thead><tbody><tr><td>Atlas</td><td>Kreik. Titaani</td><td>Toiminnanjohtaja</td><td>Reitittää kaaoksen, syntetisoi sen johdon tilannekatsaukseksi</td></tr><tr><td>Athena</td><td>Kreik. Jumalatar</td><td>EU-vaatimustenmukaisuus</td><td>Oppinut jokaisen EU-säännön ulkoa vuodesta 2005</td></tr><tr><td>Hephaestus</td><td>Kreik. Jumala</td><td>Kenttä ja kohde</td><td>Ei koskaan likaannu saappaita, mutta tarkistaa kaiken</td></tr><tr><td>Iris</td><td>Kreik. Jumalatar</td><td>Tutkimus ja äly</td><td>Lukee 10 000 sivua, jotta sinun ei tarvitse</td></tr><tr><td>Hermes</td><td>Kreik. Jumala</td><td>Logistiikka</td><td>Optimoi toimitusketjun ennen kuin löydät varaston</td></tr><tr><td>Apollo</td><td>Kreik. Jumala</td><td>Sisältö</td><td>Kirjoittaa kopion, sijoittaa sen, lähettää seurannan. Jo teki.</td></tr></tbody></table>
+<strong>Taso 2 — Toimialaerityiset agentit (7)</strong>
+<p>Vulcan (Teräs/ETS), Helios (Energia/RED III), Neptune (Merikuljetus/FuelEU), Ceres (Maatalous/CBAM), Prometheus (Vety/RFNBO), Mars (Rakentaminen/EPBD), Gaia (Sementti/ETS klinkkeri).</p>
+<h3>SOUL.md-malli</h3>
+<p>Jokaisella agentilla on `SOUL.md`-identiteettitiedosto, joka injektoidaan LLM:n järjestelmäkehotteeseen `BaseAgent.callLLM(systemPromptOverride)`-metodin kautta. Tämä ratkaisee "SOUL kuollut koodi" -auditoinnin löydön, jossa persoonakonstantit oli määritelty mutta ei kytketty LLM-kutsuihin.</p>
+<h3>Tietoturva ja vaatimustenmukaisuus</h3>
+<li><strong>Prompt injection -korjaus</strong>: Kaikki `...input`-levitykset HermesAgentissa korvattu eksplisiittisellä kirjoitetulla kenttäpoiminnalla</li>
+<li><strong>EU AI Act artikla 12</strong>: Kaikki 13 agenttia kirjoittavat `agent_executions` Supabase-tauluun (aloitus + valmistumistapahtumat)</li>
+<h3>Liiketoimintainnovaatio: Nimet markkinointikiilana</h3>
+<p>Pantheon-nimeäminen on tuotteen markkinointikiila — agentin iskulauseet näkyvät onelifetime.world/team -sivulla ihmistiimin rinnalla, tehden yritystason tekoälystä lähestyttävän.</p>
 <hr />
 </em>Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla<em>
 </em>Viimeksi paivitetty: 02.03.2026<em>

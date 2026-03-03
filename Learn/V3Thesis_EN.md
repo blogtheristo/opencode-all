@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.16
+Version: 3.17
 
 Sessions & Modifications:
+  - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift 3.12-3.15. Added Section 10.11 (CEO Automation Agent Suite: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); Section 10.12 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); added Key Contributions #10-11; updated footer
   - Version: 3.15 | Tool: Cursor AI / Claude Code | Session: [untracked] | Date: 25-27.02.2026 | Changes: [UNTRACKED DRIFT] DWS6→DWS7 transition documentation; CLAUDE.md compaction; session handover protocol; ZenFree security integration; Resend email agent
@@ -2075,6 +2076,81 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 
 ---
 
+## 10.13 Climate IQ Pantheon — Greek/Roman God Multi-Agent System
+
+Building on the DWS7 agent modernization framework (Section 10.9) and CEO Automation Agent Suite (Section 10.11), this section documents the **Climate IQ Pantheon**: a production multi-agent system where each AI agent carries the identity and domain expertise of a Greek or Roman deity.
+
+### Motivation: Agent Identity as Operational Design
+
+Prior to this work, DWS IQ agents were functionally specialized (compliance, logistics, SEO) but lacked a coherent identity framework. The **SOUL.md pattern** addresses this: each agent has a Markdown identity file defining persona, behavioral rules, and tone. This SOUL is injected as the LLM system prompt at runtime, making identity persistent and testable.
+
+The Greek/Roman pantheon provides two complementary benefits:
+1. **Memorability** — stakeholders immediately understand "ask Athena" vs "ask Hermes"
+2. **Behavioral precision** — mythological roles encode domain expertise (Athena = wisdom/law, Hermes = speed/routes, Hephaestus = craft/construction)
+
+### Architecture: Six Orchestrators + Seven Industry Specialists
+
+**Tier 1 — Climate IQ Pantheon (Orchestrators)**
+
+| Agent | Deity | Domain | Capabilities |
+|-------|-------|--------|-------------|
+| Atlas | Titan (Greek) | Chief of Staff | Routing, synthesis, executive briefing |
+| Athena | Goddess (Greek) | EU Compliance | ETS, CBAM, CSRD, Fit for 55 |
+| Hephaestus | God (Greek) | Field & Site | Site safety, materials, scheduling |
+| Iris | Goddess (Greek) | Research & Intel | Competitive intelligence, market research |
+| Hermes | God (Greek) | Logistics & Ops | Supply chain, critical path, quality gate |
+| Apollo | God (Greek) | Content & Outreach | SEO, content strategy, sales outreach |
+
+**Tier 2 — Industry Specialists**
+
+| Agent | Deity | Industry | Key Regulation |
+|-------|-------|----------|---------------|
+| Vulcan | Roman | Steel & Metals | ETS Phase 4, CBAM iron/steel |
+| Helios | Greek | Energy & Renewables | RED III, 42.5% target by 2030 |
+| Neptune | Roman | Maritime & Shipping | FuelEU Maritime, ETS 40/70/100% |
+| Ceres | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O emissions |
+| Prometheus | Greek | Hydrogen | RFNBO additionality, RED III |
+| Mars | Roman | Construction & Buildings | EPBD recast, EN 15978 |
+| Gaia | Greek | Cement & Earth Materials | CBAM clinker benchmark, ETS |
+
+### Implementation: SOUL.md + BaseAgent Architecture
+
+Each Pantheon agent follows the file structure established in Section 10.9:
+
+```
+src/agents/workflow/{agent}/
+├── SOUL.md          # Identity: persona, tone, behavioral rules
+└── {agent}.agent.ts # TypeScript: execute(), callLLM(), logExecution()
+```
+
+A critical audit finding (resolved this session) was that SOUL constants were defined but never wired into the LLM system prompt. The fix adds `soulPrompt` property and `systemPromptOverride` parameter to `BaseAgent.callLLM()`:
+
+```typescript
+// Priority: explicit override > soulPrompt > generic fallback
+const systemContent = systemPromptOverride ?? this.soulPrompt ?? genericFallback;
+```
+
+### Security: Prompt Injection Fix
+
+`HermesAgent` was found forwarding arbitrary caller keys via `...input` spread to sub-agents — a prompt injection vector. All spreads were replaced with explicit field extraction (typed guards per field), aligning with the input validation security principle from the 2026-02-21 vulnerability assessment.
+
+### EU AI Act Article 12 Compliance
+
+All 13 agents call `logExecution()` at start and completion, writing to the `agent_executions` Supabase table. This satisfies Article 12 automatic logging requirements for High-Risk AI systems, with traceability metadata: agent name, session ID, org ID, user ID, confidence, duration, and LLM token counts.
+
+### Business Value: The Marketing Wedge
+
+The Pantheon naming strategy doubles as a marketing wedge. Each agent carries a humorous one-liner making enterprise AI approachable:
+
+- **Athena:** "Has memorized every EU regulation since 2005. Corrects lawyers. Unprompted."
+- **Hermes:** "Optimizes your supply chain while you're still figuring out where the warehouse is."
+- **Apollo:** "Writes your sales copy, ranks it on Google, and sends the follow-up email. Probably already did it."
+- **Vulcan:** "Turns ETS carbon prices into competitive strategy. Red-hot accuracy."
+
+These personas appear at onelifetime.world/team alongside human staff, reinforcing the product thesis: humans and AI agents work side by side. One of them never sleeps.
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -2083,6 +2159,7 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
+**Status:** DRAFT - V3.17 — Climate IQ Pantheon + Industry Specialist agents
 **Status:** DRAFT - V3.17 — Claude Code Engineering Structure (CLAUDE.md as project memory, Skills, Hooks, Subagents)
 **Version:** 3.17
 **Last Modified:** 02.03.2026
@@ -2108,6 +2185,7 @@ Cloud Run service `dws6run6` (europe-north1, Finland). MCP Hub exposes `POST /ge
 9. OpenSandbox Edge Integration — Stage 1.5 agent sandboxing on Acer Veriton GN100; EMPO² agent memory alignment (arXiv:2602.23008)
 10. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validates Solution Factory replicability for revenue-critical workflows
 11. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral; multi-LLM router resolving EU AI Act sovereignty tension in practice
+12. Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas
 12. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
 
 **License:** Proprietary - Lifetime Oy

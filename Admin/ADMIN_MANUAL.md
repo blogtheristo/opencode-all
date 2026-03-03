@@ -7,6 +7,7 @@ Version: 2.6
 
 Sessions & Modifications:
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
+  - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
   - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
@@ -1043,6 +1044,37 @@ MCP Hub (Port 8765) + Temporal.io
 **Environment variable:** `SANDBOX_STAGE=1` (default), `2`, or `3`
 
 See `DWS_SECURITY_STANDARD.md` Section 14 for full security architecture.
+
+### Climate IQ Pantheon Agent Registry
+
+DWS IQ runs **13 named agents** organized in two tiers, registered at startup in `src/agents/index.ts`.
+
+**Tier 1 — Orchestrators (6 agents)**
+
+| Agent | Deity | Role | Capabilities |
+|-------|-------|------|-------------|
+| `atlas` | Titan | Chief of Staff | workflow-orchestration, executive-briefing, request-routing |
+| `athena` | Greek | EU Compliance | eu-regulatory, ets-monitoring, cbam-assessment, csrd-reporting |
+| `hephaestus` | Greek | Field & Site | site-safety, materials-analysis, schedule-management |
+| `iris` | Greek | Research & Intel | competitor-analysis, market-research, deep-wiki-extraction |
+| `hermes` | Greek | Logistics & Ops | logistics-optimization, supply-chain-risk, quality-gate |
+| `apollo` | Greek | Content & Outreach | content-strategy, seo-optimization, sales-outreach |
+
+**Tier 2 — Industry Specialists (7 agents)**
+
+| Agent | Deity | Industry | Key Regulation |
+|-------|-------|----------|---------------|
+| `vulcan` | Roman | Steel & Metals | ETS Phase 4, CBAM iron/steel |
+| `helios` | Greek | Energy & Renewables | RED III 42.5%, REPowerEU |
+| `neptune` | Roman | Maritime & Shipping | FuelEU Maritime, ETS shipping |
+| `ceres` | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O |
+| `prometheus` | Greek | Hydrogen | RFNBO additionality, RED III |
+| `mars` | Roman | Construction & Buildings | EPBD, EN 15978 whole-life carbon |
+| `gaia` | Greek | Cement & Earth Materials | CBAM clinker benchmark 766 tCO2/1000t |
+
+**Identity pattern:** Each agent has `src/agents/workflow/{tier}/{name}/SOUL.md` injected as system prompt.
+**Logging:** All agents call `logExecution()` to `agent_executions` Supabase table (EU AI Act Article 12).
+**Security:** No `...input` spreads to sub-agents — all delegation uses explicit typed field extraction.
 
 ### Per-Industry Open LLM Selection (IMPORTANT)
 

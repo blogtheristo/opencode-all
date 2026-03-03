@@ -7,6 +7,7 @@
 Version: 3.17
 
 Sessions & Modifications:
+  - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautumisen 3.12-3.15. Lisätty osio 10.11 (Toimitusjohtajan automaatioagenttiryhmä: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); osio 10.12 (Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral + Monituottaja-LLM-reititin); lisätty avainpanokset #10-11; päivitetty alatunniste
   - Version: 3.15 | Tool: Cursor AI / Claude Code | Session: [seuraamaton] | Date: 25-27.02.2026 | Changes: [SEURAAMATON AJAUTUMINEN] DWS6→DWS7 siirtymädokumentaatio; CLAUDE.md tiivistys; session handover; ZenFree; Resend
@@ -2030,6 +2031,51 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 
 ---
 
+## 10.13 Climate IQ Pantheon — Kreikkalais-roomalainen moniagenttijärjestelmä
+
+Rakentuen DWS7-agenttimodernisointiin (osio 10.9) ja toimitusjohtajan automaatioagenttiryhmään (osio 10.11), tämä osio dokumentoi **Climate IQ Pantheonin**: tuotantotason moniagenttijärjestelmän, jossa jokaisella tekoälyagentilla on kreikkalaisen tai roomalaisen jumalan identiteetti ja toimialaosaaminen.
+
+### Motivaatio: Agentin identiteetti toiminnallisena suunnitteluna
+
+**SOUL.md-malli** ratkaisee identiteettiongelman: jokaisella agentilla on Markdown-identiteettitiedosto, joka määrittelee persoonan, käyttäytymissäännöt ja sävyn. Tämä SOUL injektoidaan LLM:n järjestelmäkehotteeseen suoritusaikana, tehden identiteetistä pysyvän ja testattavan.
+
+Kreikkalais-roomalainen panteon tarjoaa kaksi etua:
+1. **Muistettavuus** — sidosryhmät ymmärtävät välittömästi "kysy Athenalta" vs "kysy Hermekseltä"
+2. **Käyttäytymisen tarkkuus** — mytologiset roolit koodaavat toimialaosaamisen
+
+### Arkkitehtuuri: 6 orkestraattoria + 7 toimialaerityistä agenttia
+
+**Taso 1 — Climate IQ Pantheon (orkestraattorit)**
+
+| Agentti | Jumala | Toimiala | Kyvykkyydet |
+|---------|--------|----------|-------------|
+| Atlas | Titaani (kreik.) | Toiminnanjohtaja | Reititys, synteesi, johdon tiivis tilannekatsaus |
+| Athena | Jumalatar (kreik.) | EU-vaatimustenmukaisuus | ETS, CBAM, CSRD, Fit for 55 |
+| Hephaestus | Jumala (kreik.) | Kenttä- ja kohdeäly | Kohdeturvallisuus, materiaalit, aikataulutus |
+| Iris | Jumalatar (kreik.) | Tutkimus ja markkina-äly | Kilpailijaseuranta, markkinatutkimus |
+| Hermes | Jumala (kreik.) | Logistiikka ja toiminnot | Toimitusketju, kriittinen polku, laadunvarmistus |
+| Apollo | Jumala (kreik.) | Sisältö ja tavoittavuus | SEO, sisältöstrategia, myyntiyhteystiedot |
+
+**Taso 2 — Toimialaerityiset agentit**
+
+| Agentti | Jumala | Toimiala | Keskeinen sääntely |
+|---------|--------|----------|-------------------|
+| Vulcan | Roomalainen | Teräs ja metallit | ETS Vaihe 4, CBAM |
+| Helios | Kreikkalainen | Energia ja uusiutuva energia | RED III, 42,5 %:n tavoite |
+| Neptune | Roomalainen | Meri- ja merenkulku | FuelEU, ETS 40/70/100 % |
+| Ceres | Roomalainen | Maatalous ja lannoitteet | CBAM lannoitteet, N₂O |
+| Prometheus | Kreikkalainen | Vety | RFNBO-lisäisyys, RED III |
+| Mars | Roomalainen | Rakentaminen ja rakennukset | EPBD, EN 15978 |
+| Gaia | Kreikkalainen | Sementti ja maa-ainekset | CBAM klinkkeri, ETS |
+
+### Turvallisuus: Prompt injection -korjaus ja EU AI Act artikla 12
+
+`HermesAgent`-agentissa löydettiin haavoittuvuus, jossa mielivaltaiset syötekentät välitettiin `...input`-levityksellä aliagentteille. Korjaus korvaa kaikki levitykset eksplisiittisellä kenttäpoiminnalla (kirjoitetut suojaukset per kenttä).
+
+Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumisessa, kirjoittaen `agent_executions` Supabase-tauluun. Tämä täyttää EU AI Act artiklan 12 automaattiset lokivaatimukset korkean riskin tekoälyjärjestelmille.
+
+---
+
 **Dokumentin tiedot:**
 
 **Otsikko:** Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
@@ -2038,6 +2084,7 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
+**Tila:** DRAFT - V3.17 — Climate IQ Pantheon + toimialaerityiset agentit
 **Tila:** DRAFT - V3.17 — Claude Code -suunnittelurakenne (CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
 **Versio:** 3.17
 **Viimeisin päivitys:** 02.03.2026
@@ -2063,6 +2110,7 @@ Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub tarjoaa `POST /gem
 9. OpenSandbox-reunaintegraatio — Stage 1.5 agentin hiekkalaatikko Acer Veriton GN100 -laitteella; EMPO² agenttimuistin yhdenmukaisuus (arXiv:2602.23008)
 10. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validoi Solution Factory -toistettavuuden liikevaihtokriittisille työnkuluille
 11. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral; monituottaja-LLM-reititin ratkaisee EU AI Act -suvereniteettijännitteen käytännössä
+12. Climate IQ Pantheon — 13-agenttinen kreikkalais-roomalainen jumaljärjestelmä (6 orkestraattoria + 7 toimialaerityistä) SOUL.md-identiteettimallilla, prompt injection -turvallisuudella, EU AI Act artikla 12 -lokituksella ja markkinointikiilapersoona-strategialla
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

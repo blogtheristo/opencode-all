@@ -67,6 +67,26 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 - **Always check the current version number** in the file header before incrementing — do NOT assume git history is latest. Ask the user if uncertain.
 - Update VERSION AND AGENT HISTORY block and document footer on each change
 
+### HTML Version Badge Rule (CRITICAL)
+
+Every `Learn/*.html` file MUST display a visible version badge at the top of the page body.
+
+**Use the generator script — never hand-craft HTML:**
+```bash
+node scripts/gen-thesis-html.cjs
+```
+
+The script (`scripts/gen-thesis-html.cjs`):
+- **Auto-detects version** from `Version: X.X` in the markdown — no manual filename updates needed
+- **Auto-derives output filename** as `Learn/{name}_v{version}.html`
+- **Injects a version banner** at the top of every HTML:
+  - Document title on the left
+  - Yellow version badge (e.g. `v3.17`) in the center
+  - `Lifetime Oy · date · Learn/ (private)` on the right
+- **Syncs Learn/ MD copies** from `docs/` before running (copy manually or the script reads Learn/ directly)
+
+**Do NOT modify the HTML output files directly.** Edit the source `.md` files, then run the script.
+
 ## Project Overview
 
 **DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
