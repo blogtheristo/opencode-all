@@ -9,11 +9,12 @@ import { ProjectCard } from './components/ProjectCard';
 import { ClimateAssistant } from './components/ClimateAssistant';
 import { MeetingPanel } from './components/MeetingPanel';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
+import { ClaudeCodePanel } from './components/ClaudeCodePanel';
 import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
 
-type SidePanel = 'chat' | 'meeting' | null;
+type SidePanel = 'chat' | 'meeting' | 'repo' | null;
 type AppView = 'dashboard' | 'agents';
 
 function App() {
@@ -96,6 +97,13 @@ function App() {
               >
                 Meeting
               </button>
+              <button
+                onClick={() => { setAppView('dashboard'); setSidePanel(sidePanel === 'repo' ? null : 'repo'); }}
+                className={sidePanel === 'repo' && appView === 'dashboard' ? 'btn-primary' : 'btn-secondary'}
+                title="Claude Code repo engineering health & gap analysis"
+              >
+                ⚙️ Repo Health
+              </button>
             </div>
           </div>
         </div>
@@ -165,6 +173,7 @@ function App() {
                         userEmail={user?.email}
                       />
                     )}
+                    {sidePanel === 'repo' && <ClaudeCodePanel />}
                   </div>
                 </div>
               )}
