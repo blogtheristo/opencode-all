@@ -8,7 +8,9 @@
       "Bash(python -c:*)",
       "Bash(python -X utf8 -c:*)",
       "Bash(ls:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git:*)",
+      "Bash(start:*)"
     ]
   }
 }
