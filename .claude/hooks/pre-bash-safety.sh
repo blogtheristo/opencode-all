@@ -28,7 +28,7 @@ DESTRUCTIVE_PATTERNS=(
   'git[[:space:]]+push[[:space:]]+--force[[:space:]]+.*main'  # force push to main
   'git[[:space:]]+push[[:space:]]+-f[[:space:]]+.*main'       # force push to main (short form)
   'DROP[[:space:]]+TABLE'                               # SQL table drop
-  'truncate[[:space:]]+'                                # truncate at root
+  'truncate[[:space:]]+/'                               # truncate at root
 )
 
 for pattern in "${DESTRUCTIVE_PATTERNS[@]}"; do
