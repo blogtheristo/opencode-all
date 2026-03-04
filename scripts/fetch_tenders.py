@@ -30,7 +30,6 @@ import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from urllib.parse import urlencode
 
 import requests
 from tenacity import retry, stop_after_attempt, wait_exponential
