@@ -20,7 +20,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$ProjectRef = "kpucuwwfhuwurdxyjjtz"
+$ProjectRef = $env:SUPABASE_PROJECT_REF ?? "kpucuwwfhuwurdxyjjtz"
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 
 Set-Location $ProjectRoot
