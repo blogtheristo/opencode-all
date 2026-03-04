@@ -1,15 +1,17 @@
+This file is intentionally kept as plain-text documentation, not as a command output artifact.
 
-Name                                  LastWriteTime      Length
-----                                  -------------      ------
-.venv                                 7.12.2025 6.22.58  
-venv                                  7.12.2025 6.39.52  
-.ENV_CHECKLIST.md                     11.1.2026 14.33.30 5534
-.ENV_CONFIG_OPTIONS.md                11.1.2026 14.31.42 6036
-.ENV_MCP_PROTECTION_PLAN.md           11.1.2026 14.39.13 5803
-.ENV_SETUP_GUIDE_MVP.md               11.1.2026 14.27.34 5119
-.env.example                          11.1.2026 11.57.42 2441
-.env.mcp                              11.1.2026 11.58.05 6214
-.env.mcp.temp                         11.1.2026 11.58.05 6214
-ENV_MCP_AND_GAMMA_RECOVERY_SUMMARY.md 11.1.2026 20.14.49 6918
-env.mcp.example                       11.1.2026 11.58.05 6214
+If you need to inspect directory contents during development, run the relevant shell or PowerShell
+commands locally (for example, `ls` or `Get-ChildItem`) instead of saving their raw output here.
 
+Do NOT store:
+- Directory listings
+- Local environment file contents
+- Secrets, tokens, or API keys
+
+For environment configuration, refer to:
+- .env.example
+- .ENV_CHECKLIST.md
+- .ENV_SETUP_GUIDE_MVP.md
+
+This file should remain a small, static note so that automated tooling does not flag it as
+a local development artifact.
