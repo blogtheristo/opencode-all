@@ -101,12 +101,14 @@ jobs:
 
           python scripts/fetch_tenders.py $ARGS
 
-      - name: Commit and push leads CSV
+      - name: Commit and push leads snapshot
         if: steps.timecheck.outputs.should_run == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/leads.csv
+          # Create a Git-tracked snapshot without .csv extension (ignored by .gitignore)
+          cp data/leads.csv data/leads.txt
+          git add data/leads.txt
           git diff --quiet --cached && echo "No changes to commit" && exit 0
           git commit -m "Update construction leads $(TZ='Europe/Helsinki' date +'%Y-%m-%d %H:%M Helsinki')"
           git push
