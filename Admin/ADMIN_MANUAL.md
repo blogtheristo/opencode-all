@@ -1962,6 +1962,55 @@ Before approving/merging a PR:
 
 ---
 
+## Tools
+
+### Database Migration (db_push)
+
+Push Supabase migrations to the linked project (ref: `kpucuwwfhuwurdxyjjtz`).
+
+```powershell
+# Full run (link + push)
+pwsh -File scripts/db_push.ps1
+
+# Or via npm
+npm run db:push
+
+# Skip link if already linked
+pwsh -File scripts/db_push.ps1 -SkipLink
+npm run db:push:skip-link
+```
+
+**When to run:** After adding new migrations in `supabase/migrations/`, or when setting up on a new machine.
+
+**Check pending migrations:**
+```bash
+npx supabase migration list
+```
+
+### Supabase MCP
+
+The **Supabase MCP Server** (`mcp-servers/supabase/server.py`) provides AI-accessible tools for Supabase integration:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /tools/query_carbon_calculations` | Query carbon calculation history |
+| `POST /tools/log_agent_activity` | Log agent activity to database |
+| `POST /tools/query_compliance` | Query compliance data |
+
+**Configuration:** Port 8766. Set `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in `.env.mcp`.
+
+**Docker:** Runs as `supabase-mcp` in `docker-compose.hybrid.yml`.
+
+### Supabase Skills (Cursor)
+
+For AI-assisted database operations in Cursor, configure Supabase skills:
+
+- **MCP File System:** Supabase tool descriptors in `mcps/<server>/tools/`
+- **Skills:** Create `.cursor/skills/` or use Cursor's built-in Supabase MCP integration
+- **Reference:** `ADMIN_MANUAL_SUPABASE_EN_v1.md` for full database administration
+
+---
+
 ## Maintenance Tasks
 
 ### Weekly Tasks

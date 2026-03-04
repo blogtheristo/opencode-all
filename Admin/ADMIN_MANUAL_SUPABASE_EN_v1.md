@@ -649,6 +649,16 @@ WHERE email = 'user@example.com';
 
 ## 7. Database Operations
 
+### 7.0 Migration Tools
+
+**db_push** – Push migrations to Supabase:
+```powershell
+pwsh -File scripts/db_push.ps1
+# Or: npm run db:push
+```
+
+**Supabase MCP** – AI tools at `mcp-servers/supabase/` (port 8766). See Admin Manual Tools section.
+
 ### 7.1 Common Queries
 
 #### Get Project Statistics
