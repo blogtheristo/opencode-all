@@ -9,7 +9,7 @@
 #
 
 set -e
-PROJECT_REF="kpucuwwfhuwurdxyjjtz"
+PROJECT_REF="${SUPABASE_PROJECT_REF:-kpucuwwfhuwurdxyjjtz}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 SKIP_LINK=false
