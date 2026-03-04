@@ -399,7 +399,12 @@ export class ComplianceResearcherAgent extends BaseAgent {
     } catch {
       // Deterministic fallback
       const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
-      return `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`;
+      return {
+        title: `Compliance Report: ${input.topic}`,
+        executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+        sections: [],
+        nextSteps: [],
+      };
     }
   }
 
