@@ -2888,10 +2888,12 @@ Seven production skills replace ad-hoc prompting with callable, documented, test
 | `pre-push` | Before git push | Branch name validation, blocks destructive deletes |
 | `post-merge` | After merge | Syncs Admin/, AgentFoundry/, docs/ to backup |
 
-**Claude Code hooks** (`.claude/hooks/`) — currently not implemented. **Gap identified.**
+**Claude Code hooks** (`.claude/hooks/`) — implemented. `PreToolUse` hook active for Bash commands.
+
+**Active hooks:**
+- `pre-bash-safety.sh`: Warn-only safety validator for destructive shell patterns (triggered on every Bash tool call). Patterns checked: `rm -rf` on root paths, `git clean -fd`, `git reset --hard`, force-push to main, `DROP TABLE`, `truncate` at root.
 
 **Planned hooks:**
-- `pre-tool-use`: Validate tool call structure before execution
 - `post-tool-use`: Normalize agent JSON output to standard schema
 - `notification`: Alert on task completion for long-running agents
 
@@ -2926,7 +2928,7 @@ curl POST /mcp -d '{"method": "tools/call", "params": {"name": "compliance", "ar
 
 | Gap | Priority | Status |
 |-----|----------|--------|
-| No `.claude/hooks/` directory | High | Planned |
+| `.claude/hooks/` directory and `pre-bash-safety.sh` | High | **Done** |
 | `mcp.json` not committed | High | Planned |
 | No pre-commit lint hook | Medium | Planned |
 | No consolidated `docs/MCP_TOOLS.md` | Medium | Planned |

@@ -1462,4 +1462,3 @@ The architectural lesson for the Firehorse Operations Model: the difference betw
 *Document generated using Firehorse Operations Model with Claude Code*
 *Last updated: 02.03.2026*
 *Version: 1.7*
-*Version: 1.4*
