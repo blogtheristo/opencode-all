@@ -13,6 +13,7 @@ Version: 1.7
 
 Sessions & Modifications:
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
@@ -23,10 +24,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 24.02.2026
+  - Last Modified: 02.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.4 — DWS7 agent modernization)
+  - Publication Status: DRAFT (V1.7 — Claude Code Engineering Structure: CLAUDE.md as project memory, Skills, Hooks, Subagents)
 
 ---
 
@@ -1428,9 +1429,37 @@ Each agent has a `SOUL.md` identity file injected as LLM system prompt via `Base
 ### Business Innovation: Names as Marketing
 
 The Pantheon naming is the product's marketing wedge — agent one-liners appear on onelifetime.world/team alongside human staff, making enterprise AI approachable without sacrificing credibility.
+### Appendix F: Claude Code Engineering Structure — AI Workflow as First-Class Engineering
+The Firehorse operations model is built on a principle that emerges from both the research findings and operational practice: **AI workflows must be engineered, not improvised**.
+This appendix documents the concrete structural patterns that implement this principle in the DWS6 repository, validated against emerging Claude Code community best practices (2026).
+**CLAUDE.md as Project Memory**
+The `CLAUDE.md` file at the repository root is not documentation — it is the primary intelligence substrate for every AI agent session. It encodes standards, constraints, architecture decisions, email rules, security controls, and non-negotiables in a single file that every Claude Code session reads automatically. This eliminates behavioral drift and removes the need for repeated per-session context injection.
+Key metric: 2,000+ lines of institutional knowledge (brand standards, document standards, security controls, deployment rules, thesis rules, email rules) inherited by every session at zero marginal cost.
+**Skills as Reusable Workflow Components**
+Six production skills in `.claude/commands/` transform ad-hoc prompting into callable, documented, testable workflow components:
+| Skill | Domain |
+|-------|--------|
+| `/compliance-check` | EU ETS/CBAM/CSRD regulatory gap analysis |
+| `/agent-run` | Execute any DWS IQ agent via structured CLI |
+| `/workflow` | Chain multiple agents into unified reports |
+| `/discover-agents` | Agent capability discovery |
+| `/site-safety` | Construction site safety (EN 13001) |
+| `/carbon-analysis` | Embodied carbon lifecycle assessment |
+Each skill is an engineered component with a defined interface, documentation, and failure modes. This is the Build for Agents principle in practice.
+**Hooks for Automated Quality Enforcement**
+Git hooks (`.githooks/`) enforce structural invariants:
+- Branch naming convention (`claude/<feature>-<id>`) — prevents incorrect branch workflows
+- Anti-destructive-push guard — prevents accidental deletion of production branches
+- Post-merge sync — keeps Admin/, docs/, AgentFoundry/ synchronized to backup storage
+The quality enforcement is **structural, not behavioral** — hooks cannot be bypassed by agent behavior. This is the key architectural distinction between a disciplined AI workflow system and an ad-hoc one.
+**Subagents for Context Isolation and Parallel Execution**
+Background agents enable parallel research and task execution without exhausting the main context window. The Explore agent specifically provides codebase search without polluting the primary context — critical for large repositories. This pattern directly extends the multi-agent orchestration documented in Sections 3 and 14.
+**Conclusion**
+The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
 *Last updated: 02.03.2026*
+*Version: 1.7*
 *Version: 1.7*

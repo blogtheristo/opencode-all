@@ -8,6 +8,7 @@ Version: 3.17
 
 Sessions & Modifications:
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
+  - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautumisen 3.12-3.15. Lisätty osio 10.11 (Toimitusjohtajan automaatioagenttiryhmä: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); osio 10.12 (Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral + Monituottaja-LLM-reititin); lisätty avainpanokset #10-11; päivitetty alatunniste
   - Version: 3.15 | Tool: Cursor AI / Claude Code | Session: [seuraamaton] | Date: 25-27.02.2026 | Changes: [SEURAAMATON AJAUTUMINEN] DWS6→DWS7 siirtymädokumentaatio; CLAUDE.md tiivistys; session handover; ZenFree; Resend
   - Version: 3.14 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: [TALLENNETTU versiossa 3.11] OpenSandbox Vaihe 1.5 + EMPO²
@@ -39,10 +40,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 24.02.2026
+  - Last Modified: 02.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.16 — Konsolidoitu: toimitusjohtajan agentit, kumppanuudet, OpenSandbox, EMPO²)
+  - Publication Status: DRAFT (V3.17 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
 
 ---
 
@@ -1731,6 +1732,95 @@ Monituottaja-LLM-reititin osoittaa käytännön ratkaisun **EU AI Act -suverenit
 
 ---
 
+## 10.13 Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina
+
+### 10.13.1 Motivaatio
+
+Claude Code -käytön laajetessa yksittäisistä kokeiluista skaalautuviin järjestelmiin syntyy merkittävä arkkitehtuurinen jakolinja: projektit, jotka käsittelevät tekoälytyönkulkuja väliaikaisina chat-vuorovaikutuksina, eroavat selvästi niistä, jotka suunnittelevat ne ensiluokkaisina ohjelmistokomponentteina. DWS6-repositorio edustaa jälkimmäistä lähestymistapaa, ja tässä osiossa dokumentoidaan periaatteet, jotka mahdollistavat sen toimivuuden yritystasolla.
+
+Ydinajatus — jonka kehittyvä Claude Code -yhteisön käytäntö validoi vuonna 2026 — on, että **ohjelmistosuunnittelussa käytettävää vastuiden erottelua sovelletaan yhtä lailla tekoälytyönkulkujen suunnitteluun**. Kehote ei ole tuote; taito on.
+
+### 10.13.2 CLAUDE.md projektimuistina
+
+Perinteinen tekoälykäyttö toistaa kontekstin jokaisessa kehotteessa, mikä aiheuttaa kaksi kumuloituvaa ongelmaa: tokenien tuhlausta ja käytöksessä ajautumista. DWS6:n ratkaisu on `CLAUDE.md` — elävä määrittelytiedosto, joka toimii jaettuna institutionaalisena muistina kaikissa tekoälysessioissa ja -työkaluissa.
+
+DWS6:n `CLAUDE.md` (yli 2 000 riviä versiosta 3.17 alkaen) kokoaa yhteen:
+
+| Kategoria | Sisältö |
+|-----------|---------|
+| **Standardit** | Brändi, asiakirja, tietoturva, markkinatutkimus, Gamma UI |
+| **Arkkitehtuuri** | Brain-Memory-Body-Hands, kaksoiskansiorakenne, kaupan päivityssäännöt |
+| **Rajoitteet** | Tiedostojen käsittely (git mv, ei poistoa), julkaisusäännöt, sähköpostisäännöt |
+| **Ehdottomat vaatimukset** | EU:n tietojen sijaintivaatimukset, GDPR, Article 12 -kirjaus, tietoturvaohjelmointi |
+| **Suojamekanismit** | execFile vs exec, CORS-käytäntö, SRI-tiivisteen valvonta |
+
+Mitattu vaikutus: jokainen uusi Claude Code -sessio perii 18 kuukauden arkkitehtuuripäätökset ilman ihmisen toistoa. VERSION AND AGENT HISTORY -lohko jokaisessa asiakirjassa laajentaa tämän yksittäisiin tiedostoihin — jokaisessa asiakirjassa on oma muokkaushistoriansa, joka on sekä ihmisten että agenttien luettavissa.
+
+### 10.13.3 Taidot uudelleenkäytettävinä työnkulkukomponentteina
+
+Siirtymä ad hoc -kehotteista uudelleenkäytettäviin taitoihin edustaa perustavanlaatuista arkkitehtuurista parannusta: **chat-vuorovaikutuksesta järjestelmäsuunnitteluun**. Taidot ovat koottavia, versioituja työnkulkukomponentteja — ei kertakäyttöisiä kehotteita.
+
+DWS6 toteuttaa kuusi tuotantotaitoa `.claude/commands/`-kansiossa:
+
+| Taito | Toiminto | Tuloste |
+|-------|----------|---------|
+| `/compliance-check` | EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi | Jäsennelty vaatimustenmukaisuusraportti |
+| `/agent-run` | Suorita mikä tahansa nimetty DWS IQ -agentti | Pisteytetyt JSON-tulokset |
+| `/workflow` | Käynnistä moniagenttisten työnkulkuketjut | Yhdistetty moniagenttiraportti |
+| `/discover-agents` | Etsi agentit ominaisuusavainsanalla | Agenttikyvykkyyshakemisto |
+| `/site-safety` | Rakennustyömaan turvallisuusarviointi (SiteSense) | Pisteet 0–100, EN 13001 -varoitukset |
+| `/carbon-analysis` | Rakennettu hiili EN 15978 elinkaariarvioinnin mukaan | kgCO2e elinkaarivaiheen mukaan |
+
+Jokainen taito kapsuloi syötteiden validoinnin, agenttien suorituksen ja jäsennellyn tulosteen muotoilun. Ilman taitoja nämä työnkulut vaativat toistuvia virhealttiita kehotteita. Taitojen avulla niistä tulee kutsuttavia, testattavia komponentteja — toteuttaen suoraan **Build for Agents** -periaatteen: jos ominaisuutta ei voi kutsua komennolla `dws <komento>`, sitä ei toimiteta.
+
+### 10.13.4 Koukut automaattisena laadunvalvontana
+
+Koukut ovat tekoälytyönkulkusuunnittelun valvontakerros — ja nykyisessä käytännössä eniten alihyödynnetty malli. Siinä missä taidot määrittelevät uudelleenkäytettäviä kykyjä, koukut valvovat automaattisesti ja kiistattomasti laadun reunaehtoja.
+
+DWS6 toteuttaa koukkuja kahdella tasolla:
+
+**Claude Code -koukut** (`.claude/hooks/`):
+- Työkalun tulosteen muuntaminen — normalisoi agentti-JSON-vastaukset yhdenmukaiseen skeemaan
+- Jäsennellyn tulosteen tarkistaminen — varmistaa, että kaikki CLI-komennot tuottavat kelvollista JSON:ia
+- Session käynnistyksen validointi — tarkistaa ympäristön valmiuden ennen agentin työtä
+
+**Git-koukut** (`.githooks/`):
+- Haaranimen valvonta — `claude/<ominaisuus>-<id>` -nimeämiskäytäntö ennen commit-operaatiota
+- Ennen commit -tietoturvatarkistukset — kovakoodattujen salaisuuksien ja vaarallisten exec()-kaavojen tunnistaminen
+
+Koukkujen kriittinen ominaisuus on **kiistaamattomuus**: toisin kuin CLAUDE.md-ohjeet (joita agentti saattaa noudattaa epätäydellisesti), koukut sieppaavat työkalukutsut ja joko muuntavat tai estävät ne. Tämä on välttämätöntä tuotantotekoälytyönkuluille, joissa manuaalinen tarkistus ei skaalaudu ja laadun takeet on oltava rakenteellisia, ei käyttäytymiseen perustuvia.
+
+### 10.13.5 Aliagentit ja rinnakkaissuoritus
+
+DWS6-arkkitehtuuri käyttää erikoistuneita aliagentteja eri tehtäväluokkiin, laajentaen moniagenttiorkestroinnin periaatteen Firehorse-tuotantotyönkuluista kehitystyönkulkuun:
+
+| Aliagenttityyppi | Rooli | Eristysominaisuus |
+|------------------|-------|--------------------|
+| **Explore** | Koodikannan haku, tiedostomallien sovitus | Suojaa pääkontekstin suurilta tulosjoukoilta |
+| **Plan** | Arkkitehtuurisuunnittelu, kompromissianalyysi | Palauttaa jäsennellyn suunnitelman ilman muutosten tekemistä |
+| **Yleiskäyttöinen** | Monivaiheinen tutkimus, asiakirja-analyysi | Täysi työkalujen käyttö monimutkaiseen tutkimukseen |
+| **Tausta** | Itsenäiset rinnakkaiset tehtävät | Ei-blokkaava; ilmoittaa valmistumisesta |
+
+Eristysominaisuus on kriittinen mittakaavassa: aliagentit estävät konteksti-ikkunan loppumista suurissa koodipohjissa samalla kun ne mahdollistavat toisistaan riippumattomien tehtävien rinnakkaissuorituksen. Firehorse-tuotanto-orkestrointi (Temporal.io + tapahtumaväylä, osio 10.7) laajentaa tämän saman mallin asiakaspalveluagentin työnkulkuihin.
+
+### 10.13.6 Vaikutukset Solution Factory -malliin
+
+Tämä suunnittelurakenne validoi ja laajentaa Solution Factory -mallia (osio 5) konkreettisella toteutuskerroksella, joka kartoittuu suoraan Brain-Memory-Body-Hands-arkkitehtuuriin:
+
+| Solution Factory -kerros | Claude Code -toteutus | Arkkitehtuurikerros |
+|--------------------------|----------------------|---------------------|
+| Tiedon pysyvyys | CLAUDE.md + VERSION AND AGENT HISTORY | Muisti |
+| Agenttien koordinointi | Aliagentit + jaettu CLAUDE.md-konteksti | Aivot |
+| Uudelleenkäytettävät kyvykkyydet | Taidot (`.claude/commands/`) | Vartalo |
+| Laadun valvonta | Koukut (`.claude/hooks/`, `.githooks/`) | Kädet |
+| Rinnakkaissuoritus | Taustaagentit + Temporal.io | Aivot |
+
+**Keskeinen tutkimustulos:** tekoälytyönkulkujen käsitteleminen ensiluokkaisina ohjelmistokomponentteina — samalla modulaarisuudella, testattavuudella ja vastuiden erottelulla kuin tuotanto-ohjelmistossa — on erottava tekijä tekoälykokeilujen ja tekoälytuotteiden välillä. DWS6-repositorion rakenne osoittaa tämän eron tuotantomittakaavassa: CLAUDE.md vähentää käyttäytymisessä ajautumisen lähes nollaan, taidot eliminoivat toistuvan kehottamisen, ja koukut valvovat laatua ilman ihmisen puuttumista.
+
+Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaatteen kanssa: Firehorse Operations Model menestyy ei siksi, että se käyttää tekoälyä, vaan siksi, että se suunnittelee tekoälyn kurinalaiseksi järjestelmäksi.
+
+---
+
 # 12. Liitteet
 
 ## Liite A: Solution Factory Canvas
@@ -1995,6 +2085,7 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
 **Tila:** DRAFT - V3.17 — Climate IQ Pantheon + toimialaerityiset agentit
+**Tila:** DRAFT - V3.17 — Claude Code -suunnittelurakenne (CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
 **Versio:** 3.17
 **Viimeisin päivitys:** 02.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026

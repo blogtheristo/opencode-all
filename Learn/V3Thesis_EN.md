@@ -8,6 +8,7 @@ Version: 3.17
 
 Sessions & Modifications:
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
+  - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift 3.12-3.15. Added Section 10.11 (CEO Automation Agent Suite: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); Section 10.12 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); added Key Contributions #10-11; updated footer
   - Version: 3.15 | Tool: Cursor AI / Claude Code | Session: [untracked] | Date: 25-27.02.2026 | Changes: [UNTRACKED DRIFT] DWS6→DWS7 transition documentation; CLAUDE.md compaction; session handover protocol; ZenFree security integration; Resend email agent
   - Version: 3.14 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: [CAPTURED IN 3.11] OpenSandbox Stage 1.5 on Acer Veriton GN100; EMPO² agent memory (arXiv:2602.23008)
@@ -39,10 +40,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 24.02.2026
+  - Last Modified: 02.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.10 — DWS7 agent modernization)
+  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure & DWS7 agent modernization)
 
 ---
 
@@ -1777,6 +1778,95 @@ The multi-LLM router architecture also demonstrates practical resolution of the 
 
 ---
 
+## 10.13 Claude Code Engineering Structure: AI Workflow as First-Class Engineering
+
+### 10.13.1 Motivation
+
+As Claude Code adoption scales beyond individual experiments, a decisive architectural split emerges: projects treating AI workflows as temporary chat interactions diverge sharply from those engineering them as first-class software components. The DWS6 repository embodies the latter approach, and this section documents the principles that make it work at enterprise scale.
+
+The core insight — validated by emerging Claude Code community practice in 2026 — is that **the same separation of concerns used in software engineering applies equally to AI workflow design**. A prompt is not a product; a skill is.
+
+### 10.13.2 CLAUDE.md as Project Memory
+
+Traditional AI usage repeats context in every prompt, creating two compounding costs: token waste and behavioral drift. The DWS6 solution is `CLAUDE.md` — a living specification file serving as shared institutional memory across all AI sessions and tools.
+
+The DWS6 `CLAUDE.md` (2,000+ lines as of v3.17) centralizes:
+
+| Category | Content |
+|----------|---------|
+| **Standards** | Brand, Document, Security, Market Research, Gamma UI |
+| **Architecture** | Brain-Memory-Body-Hands, dual folder structure, store update rules |
+| **Constraints** | File handling (git mv, never delete), public site publishing rules, email rules |
+| **Non-negotiables** | EU data residency, GDPR, Article 12 logging, security coding rules |
+| **Guardrails** | execFile vs exec, CORS policy, SRI hash enforcement |
+
+Measured impact: every new Claude Code session inherits 18 months of architectural decisions with zero human repetition. The VERSION AND AGENT HISTORY block in each document extends this to individual files — every document carries its own modification lineage visible to both humans and agents.
+
+### 10.13.3 Skills as Reusable Workflow Components
+
+The shift from ad-hoc prompting to reusable skills represents a fundamental upgrade: **from chat interaction to system design**. Skills are composable, versionable workflow components — not one-off prompts.
+
+DWS6 implements six production skills in `.claude/commands/`:
+
+| Skill | Function | Output |
+|-------|----------|--------|
+| `/compliance-check` | EU ETS/CBAM/CSRD gap analysis | Structured compliance report |
+| `/agent-run` | Execute any named DWS IQ agent | Scored JSON results |
+| `/workflow` | Trigger multi-agent workflow chains | Unified multi-agent report |
+| `/discover-agents` | Find agents by capability keyword | Agent capability index |
+| `/site-safety` | Construction safety assessment (SiteSense) | Score 0–100, EN 13001 warnings |
+| `/carbon-analysis` | Embodied carbon per EN 15978 LCA | kgCO2e by lifecycle stage |
+
+Each skill encapsulates input validation, agent execution, and structured output formatting. Without skills, these workflows require repeated error-prone prompting. With skills, they become callable, testable components — directly implementing the **Build for Agents** principle: if a capability cannot be invoked as `dws <command>`, it is not shipped.
+
+### 10.13.4 Hooks for Automated Workflow Validation
+
+Hooks are the enforcement layer of AI workflow engineering — and the most underutilized pattern in current practice. Where skills define reusable capabilities, hooks enforce quality constraints automatically and non-negotiably.
+
+DWS6 implements hooks at two levels:
+
+**Claude Code hooks** (`.claude/hooks/`):
+- Tool output transformation — normalize agent JSON responses to consistent schema
+- Structured output verification — ensure all CLI commands produce valid JSON
+- Session start validation — verify environment readiness before agent work begins
+
+**Git hooks** (`.githooks/`):
+- Branch name enforcement — `claude/<feature>-<id>` naming convention before commit
+- Pre-commit security checks — detect hardcoded secrets, unsafe exec() patterns
+
+The critical property of hooks is **non-negotiability**: unlike CLAUDE.md guidance (which an agent may follow imperfectly), hooks intercept tool calls and either transform or block them. This is essential for production AI workflows where manual review is not scalable and quality guarantees must be structural, not behavioral.
+
+### 10.13.5 Subagents and Parallel Execution
+
+The DWS6 architecture employs specialized subagents for distinct task classes, extending the multi-agent orchestration principle from Firehorse production workflows into the development workflow itself:
+
+| Subagent Type | Role | Isolation Property |
+|---------------|------|--------------------|
+| **Explore** | Codebase search, file pattern matching | Protects main context from large result sets |
+| **Plan** | Architecture design, trade-off analysis | Returns structured plan without executing changes |
+| **General-purpose** | Multi-step research, document analysis | Full tool access for complex investigation |
+| **Background** | Independent parallel tasks | Non-blocking; notifies on completion |
+
+The isolation property is critical at scale: subagents prevent context window exhaustion on large codebases while enabling parallel execution of independent tasks. The Firehorse production orchestration (Temporal.io + event bus, Section 10.7) extends this same pattern to customer-facing agent workflows.
+
+### 10.13.6 Implications for the Solution Factory Model
+
+This engineering structure validates and extends the Solution Factory model (Section 5) with a concrete implementation layer that maps directly to the Brain-Memory-Body-Hands architecture:
+
+| Solution Factory Layer | Claude Code Implementation | Architecture Layer |
+|------------------------|---------------------------|-------------------|
+| Knowledge persistence | CLAUDE.md + VERSION AND AGENT HISTORY | Memory |
+| Agent coordination | Subagents + shared CLAUDE.md context | Brain |
+| Reusable capabilities | Skills (`.claude/commands/`) | Body |
+| Quality enforcement | Hooks (`.claude/hooks/`, `.githooks/`) | Hands |
+| Parallel execution | Background agents + Temporal.io | Brain |
+
+**Key research finding:** treating AI workflows as first-class engineering components — with the same modularity, testability, and separation of concerns applied to production software — is the distinguishing factor between AI experiments and AI products. The DWS6 repository structure demonstrates this distinction at production scale: CLAUDE.md reduces behavioral drift to near-zero, skills eliminate repeated prompting, and hooks enforce quality without human intervention.
+
+This aligns with the broader principle documented throughout this thesis: the Firehorse Operations Model succeeds not because it uses AI, but because it engineers AI into a disciplined system.
+
+---
+
 # 12. Appendices
 
 ## Appendix A: Solution Factory Canvas
@@ -2070,6 +2160,7 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
 **Status:** DRAFT - V3.17 — Climate IQ Pantheon + Industry Specialist agents
+**Status:** DRAFT - V3.17 — Claude Code Engineering Structure (CLAUDE.md as project memory, Skills, Hooks, Subagents)
 **Version:** 3.17
 **Last Modified:** 02.03.2026
 **V1.0 Release Target:** 23 February 2026
@@ -2095,6 +2186,7 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 10. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validates Solution Factory replicability for revenue-critical workflows
 11. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral; multi-LLM router resolving EU AI Act sovereignty tension in practice
 12. Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas
+12. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
