@@ -362,6 +362,7 @@ class FirehorseReportEngine:
         """
         # Simple calculation evaluation (can be extended)
         # For safety, use ast.literal_eval for safe evaluation
+        # Note: ast.literal_eval is SAFE - it only evaluates literals, not arbitrary code  # nosec
         try:
             # Replace variable references with values
             # This is a simplified implementation

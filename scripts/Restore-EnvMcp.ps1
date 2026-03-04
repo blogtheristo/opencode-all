@@ -59,7 +59,8 @@ if (Test-Path -Path $backupDir) {
         Write-Host "  Date: $($latestBackup.LastWriteTime)" -ForegroundColor DarkGray
         Write-Host ""
         
-        if ($Auto -or (Read-Host "Restore from backup? (Y/n)") -ne "n") {
+        $restoreFromBackupResponse = Read-Host "Restore from backup? (Y/n)"
+        if ($Auto -or $restoreFromBackupResponse -eq "" -or $restoreFromBackupResponse -eq "Y" -or $restoreFromBackupResponse -eq "y") {
             try {
                 Copy-Item -Path $latestBackup.FullName -Destination $envMcpPath -Force
                 Write-Host "✓ Successfully restored from backup!" -ForegroundColor Green

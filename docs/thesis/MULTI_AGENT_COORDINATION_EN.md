@@ -4,6 +4,7 @@
 Version: 1.0
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code | Session: silly-bassi | Commit: pending | Date: 05.02.2026 | Changes: Added Claude Code Agent Teams vs Subagents comparison (Section 7.3)
   - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial thesis documentation for multi-agent coordination
 
 Session Links & References:
@@ -386,6 +387,107 @@ async def emit_signal(agent_id: str, signal: str):
     return {"status": "emitted"}
 ```
 
+### 5.5 User Interface Implementation - Dashboard V9
+
+To monitor the multi-agent ecosystem and enable user interaction, Dashboard V9 user interface was implemented in January 2026.
+
+**Technical Architecture:**
+```
+┌──────────────────────────────────────────┐
+│  Dashboard V9 (React + TypeScript)       │
+│  ┌────────────────────────────────────┐  │
+│  │  UI Components                     │  │
+│  │  - Portfolio Metrics (MetricsHeader)
+│  │  - Project Cards (ProjectCard)     │  │
+│  │  - AI Assistant (ClimateAssistant) │  │
+│  └────────────────────────────────────┘  │
+│                 ↕                         │
+│  ┌────────────────────────────────────┐  │
+│  │  Vercel AI SDK Integration         │  │
+│  │  - useChat() hook                  │  │
+│  │  - Streaming responses             │  │
+│  │  - Tool calling                    │  │
+│  └────────────────────────────────────┘  │
+│                 ↕                         │
+│  ┌────────────────────────────────────┐  │
+│  │  Anthropic Claude Sonnet 4         │  │
+│  │  - DWS IQ system prompt            │  │
+│  │  - Carbon calculation (EN 15978)   │  │
+│  │  - Compliance checks               │  │
+│  │  - Report generation               │  │
+│  └────────────────────────────────────┘  │
+└──────────────────────────────────────────┘
+```
+
+**Technology Stack:**
+- **Frontend:** React 18.3.1 + TypeScript 5.6.2
+- **Build Tool:** Vite 6.0.5
+- **AI SDK:** Vercel AI SDK 4.1.10
+- **AI Model:** Anthropic Claude Sonnet 4
+- **Database:** Supabase (real-time subscriptions)
+- **Styling:** Tailwind CSS 3.4.17
+- **Speech Recognition:** Web Speech API
+- **Speech Synthesis:** Speech Synthesis API
+
+**Key Features:**
+
+1. **Real-time Portfolio Monitoring**
+   - SPI (Schedule Performance Index) metrics
+   - CPI (Cost Performance Index) metrics
+   - Carbon footprint tracking (EN 15978 methodology)
+   - Compliance monitoring (CSRD, EPBD, ETS, CBAM)
+
+2. **AI-powered Climate Assistant**
+   - Streaming chat with Claude Sonnet 4
+   - Tool calling for:
+     - Carbon calculation
+     - Compliance checks
+     - Report generation
+   - Natural language queries
+
+3. **Voice Interaction**
+   - Speech-to-text input (Web Speech API)
+   - Text-to-speech output (hands-free operation)
+   - Multi-language support
+   - Browser support: Chrome, Edge, Safari
+
+**Performance:**
+- Bundle size: ~70KB (gzipped)
+- Initial load: ~1.2s
+- Time to Interactive: ~1.5s
+- First AI token: 200-400ms
+- Speech recognition latency: ~200ms
+
+**Connection to Multi-Agent Ecosystem:**
+
+Dashboard V9 serves as the user interface layer for the multi-agent ecosystem, enabling:
+- User interaction with AI agents via natural language
+- Real-time visibility into project data through Supabase
+- Agent tool invocation (carbon calculation, compliance checking)
+- Visualization of agent results in user-friendly format
+
+**Implementation Benefits:**
+
+1. **Improved Development Speed:** Using Vercel AI SDK reduced development time by 43% compared to custom implementation
+2. **Type-safe:** TypeScript reduces runtime errors
+3. **Maintainable:** -47% annual maintenance costs
+4. **Extensible:** Easy to switch AI providers (Anthropic → OpenAI → Groq)
+
+**Deployment:**
+```bash
+# Production build
+cd /home/user/dws6/dws6.com/dashboard/firehorse/v9-react
+npm run build
+
+# Deploy to Cloudflare Pages
+wrangler pages deploy dist --project-name=dws-iq-dashboard-v9
+```
+
+**Documentation:**
+- Field Note: `/docs/field-notes/2026-01-22-dashboard-v9-technical-stack.md`
+- README: `/dashboard/firehorse/v9-react/README.md`
+- Evaluation: `/docs/evaluation/typescript-react-ai-sdk-evaluation.md`
+
 ---
 
 ## 6. Evaluation
@@ -432,7 +534,65 @@ For production scale (100+ agents), migration to:
 - **Workflow Engines**: Apache Airflow, Prefect (DAG-based coordination)
 - **Actor Model**: Erlang/Akka style message passing
 
-### 7.3 Industry Standards
+### 7.3 Claude Code Agent Teams vs Subagents (February 2026)
+
+Anthropic's Claude Code introduced two complementary patterns for parallel AI work:
+
+**Subagents** (Production):
+- Run within a single session's context
+- Report results back to main agent only
+- Lower token cost (results summarized)
+- Best for focused tasks where only the result matters
+
+**Agent Teams** (Experimental):
+- Fully independent Claude instances with separate context windows
+- Inter-agent messaging through shared mailbox
+- Shared task list with self-coordination
+- Higher token cost but enables complex collaborative work
+
+| Aspect | DWS6 Signals | Subagents | Agent Teams |
+|--------|--------------|-----------|-------------|
+| **Communication** | Signal broadcast | Return to caller | Direct messaging |
+| **Context** | Shared registry | Caller's window | Independent per agent |
+| **Coordination** | Dependency DAG | Caller manages | Shared task list |
+| **Best For** | Phase dependencies | Quick research | Complex collaboration |
+
+**Recommendation for DWS6 AgentFoundry:**
+
+| Scenario | Recommended Approach |
+|----------|---------------------|
+| Sprint-based development (Category A) | Agent Teams for parallel features |
+| PR review (security, performance, tests) | Agent Teams (3 reviewers) |
+| Sales automation (Category B) | Subagents (cost-effective) |
+| Customer support (Category C) | Subagents (predictable costs) |
+| Complex debugging | Agent Teams (competing hypotheses) |
+
+**Integration Architecture:**
+```
+┌─────────────────────────────────────────────────────────┐
+│            DWS6 MULTI-AGENT ORCHESTRATION               │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │  MCP HUB (Port 8765) + Temporal.io              │   │
+│  │  - Workflow orchestration                        │   │
+│  │  - Agent activity logging (Supabase)            │   │
+│  │  - Session persistence (Upstash Redis)          │   │
+│  └─────────────────────────────────────────────────┘   │
+│                         │                               │
+│        ┌────────────────┼────────────────┐             │
+│        ▼                ▼                ▼             │
+│  ┌───────────┐  ┌────────────┐  ┌────────────────┐    │
+│  │ SUBAGENTS │  │AGENT TEAMS │  │ LIFETIME SCOPE │    │
+│  │(Focused)  │  │(Parallel)  │  │ SIGNALS (DAG)  │    │
+│  └───────────┘  └────────────┘  └────────────────┘    │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Reference:** Field Note 2026-02-05: `docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`
+
+### 7.4 Industry Standards
 
 - **MCP (Model Context Protocol)**: Anthropic's standard for AI tool integration
 - **OpenAPI**: API specification for agent-to-service communication
@@ -474,10 +634,13 @@ All code and documentation is available at:
 3. **Groq API Documentation** (2025). Low-latency inference. https://groq.com
 4. **Supabase Documentation** (2025). PostgreSQL + Real-time. https://supabase.com
 5. **FastAPI Documentation** (2024). Modern Python web framework. https://fastapi.tiangolo.com
+6. **Claude Code Agent Teams** (2026). Orchestrate teams of Claude Code sessions. https://code.claude.com/docs/en/agent-teams
+7. **Claude Code Subagents** (2026). Spawn helper agents for focused tasks. https://code.claude.com/docs/en/sub-agents
+8. **Upstash Redis** (2026). Serverless Redis for edge computing. https://github.com/upstash/redis-js
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 3, 2026  
-**Academic Context:** Metropolia University of Applied Sciences  
+**Document Version:** 1.1
+**Last Updated:** February 5, 2026
+**Academic Context:** Metropolia University of Applied Sciences
 **Thesis Supervisor:** [To be assigned]

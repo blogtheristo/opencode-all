@@ -18,11 +18,12 @@ Pillow>=10.0.0
 pytesseract>=0.3.10
 
 # Database security
-psycopg2-binary>=2.9.9
+pg8000>=1.31.2
 
 # Web security
 Flask>=3.0.0
 requests>=2.32.0  # Updated for security fixes
+charset-normalizer>=3.3.2
 
 # Testing
 pytest>=7.4.0

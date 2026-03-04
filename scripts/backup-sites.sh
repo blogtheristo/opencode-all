@@ -129,8 +129,12 @@ echo ""
 echo "Backup retention: $RETENTION_DAYS days"
 echo "=========================================="
 
-# Create symlink to latest backup
-ln -sfn "$BACKUP_DIR/$DATE" "$BACKUP_DIR/latest"
+# Create symlink to latest backup (skip in CI environments where symlinks may fail)
+if [ -z "$CI" ]; then
+    ln -sfn "$BACKUP_DIR/$DATE" "$BACKUP_DIR/latest" 2>/dev/null || true
+else
+    echo "Skipping symlink creation in CI environment"
+fi
 
 echo -e "${GREEN}✅ Daily backup completed successfully!${NC}"
 echo ""

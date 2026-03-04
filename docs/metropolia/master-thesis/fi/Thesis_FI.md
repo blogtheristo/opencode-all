@@ -1577,19 +1577,166 @@ agent:
 
 ## Liite D: Sanasto
 
-| Termi | Määritelmä |
-|-------|------------|
-| **AgentFoundry** | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
-| **Sisältyvä hiili** | Rakennusmateriaalien valmistuksen, kuljetuksen ja asennuksen kasvihuonekaasupäästöt |
-| **Reunatekoäly** | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
-| **Fit for 55** | EU:n lainsäädäntöpaketti, joka vaatii 55% päästövähennystä vuoteen 2030 mennessä |
-| **Lifetime Scope Signals** | Koordinointiprotokolla moniagenttikehitykselle deklaratiivisen signaalin emission kautta |
-| **MCP Hub** | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
-| **MVP** | Minimum Viable Product - pienin versio, joka tuottaa asiakasarvoa |
-| **Vaiheittainen käyttöönotto** | Kolmivaiheinen AI-käyttöönotto: Hiljainen pilotti → Neuvonantaja → Autonominen |
-| **Solution Factory** | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+### Alusta- ja liiketoimintakäsitteet
 
-## Liite E: V1.0 Agenttilaivasto
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **AgentFoundry** | AgentFoundry | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
+| **Climate Assistant** | Ilmastoavustaja | Tekoälypohjainen ilmastosäännösten compliance-chatbot |
+| **Embodied Carbon** | Sisältyvä hiili | Rakennusmateriaalien valmistuksen, kuljetuksen ja asennuksen kasvihuonekaasupäästöt |
+| **Edge AI** | Reunatekoäly | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
+| **Firehorse** | Firehorse | DWS6-tuoteperhe (Reports, Automation, Omnichannel) |
+| **Fit for 55** | Fit for 55 | EU:n lainsäädäntöpaketti, joka vaatii 55% päästövähennystä vuoteen 2030 mennessä |
+| **Gated Access** | Porrastettu pääsy | Ominaisuuksien vaiheittainen pääsy (ilmainen, liidi, autentikoitu) |
+| **Lifetime Scope Signals** | Lifetime Scope Signals | Koordinointiprotokolla moniagenttikehitykselle deklaratiivisen signaalin emission kautta |
+| **Lifetime World Model (LWM)** | Lifetime World Model | 55 miljardin parametrin fysikaalinen tekoäly rakennusteollisuudelle. Toimialakohtainen maailmamalli, joka on hienosäädetty QLoRA-menetelmällä Acer Veriton GN-100:lla |
+| **MCP (Model Context Protocol)** | Mallikontekstiprotokolla | Protokolla tekoälymallien ulkoisten palveluiden käyttöön |
+| **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
+| **MVP** | MVP | Minimum Viable Product - pienin versio, joka tuottaa asiakasarvoa |
+| **Phased Deployment** | Vaiheittainen käyttöönotto | Kolmivaiheinen AI-käyttöönotto: Hiljainen pilotti → Neuvonantaja → Autonominen |
+| **SaaS** | SaaS | Software as a Service - ohjelmisto palveluna |
+| **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+
+### Autentikointi ja turvallisuustermit
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Access Token** | Pääsytunnus | Lyhytikäinen JWT (24h) API-autentikointiin |
+| **bcrypt** | bcrypt | Salasanojen hajautusalgoritmi suolakierroksilla (12 suositeltu) |
+| **CORS** | Alkuperien välinen resurssien jakaminen | Selaimen turvallisuusmekanismi cross-origin-pyyntöjen hallintaan |
+| **CSRF** | Sivustojen välinen pyyntöväärennös | Hyökkäys, joka huijaa käyttäjiä tekemään ei-toivottuja toimintoja. Estetään CORS:lla ja tokeneilla |
+| **JWT (JSON Web Token)** | JWT-tunnus | Digitaalisesti allekirjoitettu tunniste tilattomaan autentikointiin. Sisältää käyttäjätiedot (id, rooli, vanheneminen) |
+| **RBAC** | Roolipohjainen pääsynhallinta | Pääsynhallinta käyttäjäroolien perusteella (admin, jäsen, katsoja) |
+| **Refresh Token** | Päivitystunnus | Pitkäikäinen JWT (7d) uusien pääsytunnusten hankkimiseen ilman uudelleenkirjautumista |
+| **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
+| **Salt Rounds** | Suolakierrokset | Laskennan monimutkaisuus bcrypt:lle (korkeampi = hitaampi + turvallisempi) |
+| **SQL Injection** | SQL-injektio | Hyökkäys, jossa haitallista SQL:ää syötetään käyttäjäsyötteen kautta. Estetään parametrisoiduilla kyselyillä |
+| **Timing Attack** | Ajoitushyökkäys | Hyökkäys, joka hyödyntää vastausaikaeroja salaisuuksien arvaamiseen. Estetään vakioaikaisella vertailulla |
+| **Token Blacklist** | Tunnusten mustalla listalla | Tietokanta/Redis mitätöidyistä tokeneista, jotka tulee hylätä |
+| **Token Revocation** | Tunnuksen mitätöinti | Tokenin mitätöinti ennen sen luonnollista vanhenemista (esim. uloskirjautuessa) |
+| **XSS** | Sivustojen välinen skriptaus | Hyökkäys, jossa haitallisia skriptejä injektoidaan web-sivuille. Estetään CSP:llä ja syötteen sanitoinnilla |
+
+### Vaatimustenmukaisuus ja infrastruktuuri
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Data Residency** | Tietojen sijaintipaikka | Vaatimus tallentaa tiedot tietylle maantieteelliselle alueelle |
+| **Distributed Rate Limiting** | Hajautettu pyyntöjen rajoitus | Pyyntöjen rajoitus useiden palvelininstanssien välillä (vaatii Redis) |
+| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU:n tietosuoja-asetus. Vaikuttaa lokitukseen (ei henkilötietoja) |
+| **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
+| **Rate Limiting** | Pyyntöjen rajoitus | Pyyntötiheyden rajoittaminen väärinkäytön estämiseksi |
+| **Redis** | Redis | Muistissa toimiva tietovarasto tunnusten mustalle listalle ja pyyntörajoitukseen |
+| **Scaleway** | Scaleway | EU-pohjainen pilvipalveluntarjoaja (Pariisi/Amsterdam datakeskukset) |
+
+### OWASP Top 10 -viitteet
+
+| Koodi | Ongelma | DWS6-relevanssi |
+|-------|---------|-----------------|
+| **A01:2021** | Rikottu pääsynhallinta | Roolin tunnistus, Admin API -validointi |
+| **A02:2021** | Salausvirheet | JWT-salaisuuden validointi |
+| **A03:2021** | Injektio | Syötteen validointi |
+| **A07:2021** | Tunnistus- ja autentikointivirheet | Salasanan vahvistus, tokenin mitätöinti |
+
+## Liite E: AI-Mallien Koulutusinfrastruktuuri
+
+### Lifetime World Model (LWM) -Koulutusputki
+
+DWS IQ -alusta hyödyntää toimialakohtaisia AI-malleja, jotka koulutetaan hybridimenetelmällä yhdistäen huippuluokan AI:n (Claude API) paikalliseen hienosäätöön.
+
+#### Koulutusinfrastruktuuri
+
+**Laitteisto:**
+- **Ensisijainen:** Acer Veriton GN-100 (omistettu, paikan päällä)
+- **Kiihdytin:** NVIDIA GB10 Grace Blackwell Superchip
+- **Laskentataho:** 1 PetaFLOP paikallinen päättely
+- **Muisti:** 128GB yhdistetty muisti
+- **Teho:** <500W reunakäyttöönottoa varten
+
+**Ohjelmistopino:**
+- **Perusmallit:** Meta Llama 3.1 8B/70B
+- **Hienosäätömenetelmä:** QLoRA (4-bittinen kvantisointi)
+- **Orkestrointi:** Claude API (Sonnet 4.5)
+- **Arviointi:** Claude-as-judge -viitekehys
+
+#### Koulutustyönkulku
+
+```
+Vaihe 1: Opetussuunnitelman suunnittelu (Claude API)
+  └─ Toimialakohtaiset oppimistavoitteet
+
+Vaihe 2: Synteettisen datan generointi (Claude API)
+  ├─ Koulutusesimerkit (2000+ per toimiala)
+  └─ Arviointidatasetit
+
+Vaihe 3: Paikallinen hienosäätö (Acer Veriton GN-100)
+  ├─ QLoRA parametritehokas koulutus
+  ├─ 16 tunnin koulutussykli per toimialamalli
+  └─ Kustannus: €80-125 per toimialamalli
+
+Vaihe 4: Arviointi & käyttöönotto
+  ├─ Claude-as-judge pisteytys (tavoite >7.0/10)
+  ├─ Läpäisyprosentin validointi (tavoite >80%)
+  └─ Tuotantomallin vienti
+```
+
+#### Toimialamallit
+
+| Toimiala | Painopistealueet | Säädökset | Tila |
+|----------|------------------|-----------|------|
+| **Logistiikka** | Reitinoptimointi, kaluston hallinta | GDPR, Työaikadirektiivin | Koulutus |
+| **Rakentaminen** | BIM-koordinointi, turvallisuusprotokollat | CE-merkintä, Eurokoodit | Koulutus |
+| **Valmistus** | Prosessinhallinta, laadunhallinta | ISO 9001, Konedirektiivin | Suunniteltu |
+| **Energia** | Verkonhallinta, päästöseuranta | EU ETS, CSRD, Taksonomia | Suunniteltu |
+| **Terveydenhuolto** | Kliiniset työnkulut, dokumentointi | GDPR-terveys, MDR, NIS2 | Suunniteltu |
+
+#### NVIDIA Inception -Ohjelman integraatio
+
+**Hyödyt:**
+- DGX Cloud Innovation Lab: Jopa $100K krediittejä
+- AWS Activate: $25K-$100K krediittejä
+- Deep Learning Institute (DLI) koulutus
+- Tekninen neuvonta
+
+**ROI:**
+- Investointi (Vuosi 1): €4,100
+- Liikevaihto (Vuosi 1 ennuste): €840,000
+- ROI: 20,388% (204x tuotto)
+- Kannattavuusraja: 1.2 asiakasta per toimiala
+
+#### Koulutusdokumentaatio
+
+**Pääresurssi:**
+`/product-catalog/LWM/training-manual.md` (3000+ riviä)
+
+**Osiot:**
+1. Infrastruktuurin asennus (Laitteisto, NVIDIA-ajurit, CUDA)
+2. NVIDIA Inception -ohjelman integraatio
+3. Koulutusputken arkkitehtuuri
+4. Toimialakohtaiset koulutusprotokollat
+5. Vaiheittaiset ohjeet
+6. Laadunvarmistus & validointi
+7. Kustannusanalyysi & ROI-ennusteet
+8. Vianmääritysopas
+
+**Järjestelmänvalvojan koulutus:**
+- Kesto: 8-16 tuntia (käytännön harjoitukset)
+- Edellytykset: Python-ohjelmointi, ML-perusteet
+- Sertifiointi: LWM Certified Trainer
+
+#### Kilpailuetu
+
+Perinteinen lähestymistapa:
+- Vain pilvi-koulutus DGX Cloudissa
+- Kustannus: €15,000+ per malli
+- Toimittajalukitus
+
+DWS IQ -lähestymistapa:
+- Hybridi: Claude opetussuunnitelmaan + paikallinen QLoRA-koulutus
+- Kustannus: €80-125 per malli (99% kustannusvähennys)
+- Paikan päällä käyttöönotto (datan suvereniteetti)
+
+## Liite F: V1.0 Agenttilaivasto
 
 | Agentti ID | Nimi | Vaihe | Prioriteetti | Tila |
 |------------|------|-------|--------------|------|
@@ -1620,12 +1767,14 @@ agent:
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi  
-**Liittyvät dokumentit:**  
-- [English Version](../en/THESIS_EN.md)  
-- [Opinnäytetyösuunnitelma (Suomi)](OPINNAYTETYO_SUUNNITELMA_FI.md)  
+**Liittyvät dokumentit:**
+- [English Version](../en/THESIS_EN.md)
+- [Opinnäytetyösuunnitelma (Suomi)](OPINNAYTETYO_SUUNNITELMA_FI.md)
 - [Agent Signal Instructions](../../../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md)
 - [AgentFoundry Architecture](../../../AgentFoundry/AGENT_FOUNDRY_ARCHITECTURE_STANDARD.md)
 - [Master Agent Index](../../../AGENTS.md)
+- [LWM-koulutusmanuaali](../../../product-catalog/LWM/training-manual.md) ⭐ **UUSI**
+- [Järjestelmänvalvojan käsikirja](../../../Admin/ADMIN_MANUAL.md)
 
 **Keskeiset kontribuutiot:**
 1. Lifetime Scope Signals -protokolla - Uusi moniagenttikoordinointiviitekehys

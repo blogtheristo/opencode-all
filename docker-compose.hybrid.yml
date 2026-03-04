@@ -50,6 +50,18 @@ services:
       SUPABASE_URL: ${SUPABASE_URL}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
       
+      # Redis
+      REDIS_URL: redis://redis:6379
+      
+      # Service URLs (Docker internal hostnames)
+      BACKEND_URL: http://backend-dev:8080
+      GITHUB_MCP_URL: http://github-mcp:8767
+      SUPABASE_MCP_URL: http://supabase-mcp:8766
+      PROMETHEUS_URL: http://prometheus:9090
+      GRAFANA_URL: http://grafana:3000
+      AGENT_FOUNDRY_URL: http://agent-foundry:8080
+      CLOUDRUN_MCP_URL: http://cloudrun-mcp:8769
+      
       # Session Management
       SESSION_TTL_HOURS: 168
       AUTO_GENERATE_CLAUDE_MD: true
@@ -105,6 +117,7 @@ services:
       SUPABASE_URL: ${SUPABASE_URL}
       SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
       DATABASE_URL: postgresql://mcp_user:${MCP_DB_PASSWORD:-mcp_password_dev}@postgres:5432/mcp_hub
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
       LOG_LEVEL: ${LOG_LEVEL:-info}
     ports:
       - "8766:8766"
@@ -299,6 +312,88 @@ services:
       - dws-hybrid-network
     profiles:
       - development
+
+  # ============================================================================
+  # Container Monitoring Services
+  # ============================================================================
+
+  # cAdvisor for container metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: dws-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Node Exporter for host metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: dws-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # AI Agents (Agent Foundry)
+  # ============================================================================
+
+  agent-foundry:
+    build:
+      context: ./AgentFoundry
+      dockerfile: Dockerfile
+    container_name: dws-agent-foundry
+    ports:
+      - "8082:8080"
+    environment:
+      # Agent Configuration
+      AGENT_ID: ${AGENT_ID:-lead-scout-001}
+      AGENT_CONFIG_PATH: configs/production/lead-scout-001.yaml
+      
+      # Database
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_KEY: ${SUPABASE_SERVICE_KEY}
+      
+      # AI Providers
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      
+      # Notifications
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - agents
 
 # ============================================================================
 # Volumes

@@ -124,7 +124,7 @@ class SecurityIssueCreator:
                 recommended_fix,
                 "critical_exploitation",
             ),
-            "labels": ["security", "aikido-detected", label],
+            "labels": ["security", "zenfree-detected", label],
             "severity": severity,
             "assignees": ["security-team"],
         }
@@ -150,7 +150,7 @@ class SecurityIssueCreator:
             ),
             "labels": [
                 "security",
-                "aikido-detected",
+                "zenfree-detected",
                 "false-negative",
                 "priority-high",
             ],
@@ -204,11 +204,11 @@ class SecurityIssueCreator:
 
 - **Immediate:** Review and triage
 - **This Week:** Implement fix
-- **Verification:** Verify via Aikido Zen dashboard
+- **Verification:** Verify via ZenFree attack log
 
 ## Evidence
 
-**Source:** Correlation between monthly security audit and Aikido Zen runtime detection
+**Source:** Correlation between monthly security audit and ZenFree runtime detection
 **Generated:** {datetime.now().isoformat()}
 **Correlation ID:** {os.getenv("GITHUB_RUN_ID", "unknown")}
 
@@ -216,7 +216,7 @@ class SecurityIssueCreator:
 
 - 📄 [DWS6 Security Audit](../../Admin/Security/DWS6_REPOSITORY_SECURITY_AUDIT.md)
 - 📊 [Remediation Roadmap](../../Admin/Security/REMEDIATION_ROADMAP_DWS6.md)
-- 🔗 [Aikido Dashboard](https://app.aikido.dev)
+- 🔗 [ZenFree Attack Log](security-attacks.jsonl)
 
 ---
 
@@ -265,7 +265,7 @@ class SecurityIssueCreator:
             try:
                 # Check if similar issue already exists
                 existing_issues = repo.get_issues(
-                    state="open", labels=["security", "aikido-detected"]
+                    state="open", labels=["security", "zenfree-detected"]
                 )
 
                 issue_exists = any(

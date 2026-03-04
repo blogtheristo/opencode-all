@@ -3,28 +3,38 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.6
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
   - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
+  - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - Claude Code (claude/automate-pr-workflow-e5wXD): https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 28.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
-**Version:** 1.0  
-**Effective Date:** 2025-12-30  
-**Last Updated:** 2025-12-30  
+**Version:** 1.7
+**Effective Date:** 2026-02-28
+**Last Updated:** 2026-02-28
 **Status:** Active
 
 ---
@@ -40,7 +50,15 @@ Document Status:
 7. [Metadata Requirements](#7-metadata-requirements)
 8. [PDF Standard](#8-pdf-standard)
 9. [Examples](#9-examples)
-10. [Enforcement](#10-enforcement)
+10. [Knowledge Management & Storage](#10-knowledge-management--storage)
+11. [Core Artifacts](#11-core-artifacts)
+12. [Field Notes](#12-field-notes)
+13. [Enforcement](#13-enforcement)
+14. [LLM Model Versioning](#14-llm-model-versioning) ⭐ NEW
+15. [Localization & Multi-Language Management](#15-localization--multi-language-management) ⭐ NEW
+16. [Document Index](#16-document-index)
+17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
+18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 
 ---
 
@@ -64,6 +82,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 
+**Does NOT apply to:**
+- `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
+- `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
+
 ### Principles / Periaatteet
 
 1. **Traceability** - Every document must be traceable to its creator and session
@@ -80,10 +102,16 @@ Applies to:
 
 **ALL documents MUST include this header block at the top:**
 
+> **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
+> the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
+> which causes parse errors because the history block isn't valid YAML.
+> Both `***` and `---` render as horizontal rules in markdown, but only `---` triggers
+> YAML parsing.
+
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: X.Y
@@ -100,9 +128,9 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Primary Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED]
 
----
+***
 ```
 
 ### 2.2 Header Components
@@ -119,17 +147,77 @@ Document Status:
 | **Last Modified** | ✅ Yes | Last modification date | `30.12.2025` |
 | **Language** | ✅ Yes | Primary language | `English`, `Finnish`, `Bilingual` |
 | **Languages Available** | ✅ Yes | All available languages | `English, Suomi` |
-| **Publication Status** | ✅ Yes | Document status | `✅ ACTIVE`, `🚧 DRAFT`, `📦 ARCHIVED` |
+| **Publication Status** | ✅ Yes | Document status | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED` |
 
 ### 2.3 Publication Status Values
 
-| Status | Icon | Meaning |
-|--------|------|---------|
-| **ACTIVE** | ✅ | Document is current and in use |
-| **DRAFT** | 🚧 | Document is work in progress |
-| **ARCHIVED** | 📦 | Document is superseded but kept for reference |
-| **DEPRECATED** | ⚠️ | Document is outdated and should not be used |
-| **UNDER REVIEW** | 🔍 | Document is being reviewed |
+Use plain text status labels. Emoji icons are optional (display only).
+
+| Status | Meaning |
+|--------|---------|
+| **ACTIVE** | Document is current and in use |
+| **DRAFT** | Document is work in progress |
+| **OUTDATED** | Document is superseded, no longer maintained — pending archive |
+| **ARCHIVED** | Document is in `docs/archive/`, kept for historical reference |
+| **DEPRECATED** | Document is outdated and should not be used |
+| **UNDER REVIEW** | Document is being reviewed |
+
+> **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
+> HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
+> canonical value; emoji is decorative.
+
+### 2.4 Document Lifecycle
+
+Documents follow this lifecycle:
+
+```
+DRAFT → ACTIVE → OUTDATED → ARCHIVED
+```
+
+| Transition | When | Who | Action |
+|-----------|------|-----|--------|
+| DRAFT → ACTIVE | Document complete and approved | Author | Set `Publication Status: ACTIVE` |
+| ACTIVE → OUTDATED | Superseded by newer document | Author or reviewer | Add OUTDATED header block (see below) |
+| OUTDATED → ARCHIVED | Moved to `docs/archive/` | Maintainer | Move file, update Document Index |
+
+### 2.5 Marking a Document as OUTDATED (Procedure)
+
+When a document is superseded or no longer maintained, mark it as OUTDATED **before** archiving.
+
+**Step 1:** Add this block immediately after the document title (before `***`):
+
+```markdown
+> **STATUS: OUTDATED** — This document is no longer maintained.
+> Superseded by: [link to replacement document or description]
+> Archived: DD.MM.YYYY
+```
+
+**Step 2:** Update the VERSION AND AGENT HISTORY block:
+
+```markdown
+Document Status:
+  - Publication Status: OUTDATED
+```
+
+**Step 3:** Move the file to the appropriate `docs/archive/` subfolder:
+
+```
+docs/archive/
+├── dws10-hero/          — dws10.com Hero campaign docs
+├── dws10-docs/          — dws10.com store admin manuals
+├── dws10-misc/          — dws10.com READMEs, config docs
+├── dws6-deployment/     — dws6.com deployment guides
+├── dws6-status/         — dws6.com completion/delivery reports
+├── dws6-dashboard/      — dws6.com v7-v9 dashboard architecture
+└── onelifetime-blog/    — onelifetime.world blog system docs
+```
+
+**Step 4:** Update the Document Index (`docs/Document-index.md`) to reflect the new location and ARCHIVED status.
+
+**Rules:**
+- **Never delete** — always move to `docs/archive/` (CLAUDE.md Rule 8)
+- Keep `_lp` suffix copies if they exist (preserve git rename history)
+- Add a session entry to the version history recording the archive action
 
 ---
 
@@ -253,6 +341,38 @@ security_audit_v1.py
 backup_database_v2.sh
 deploy_production_v1.js
 ```
+
+### 4.5 SQL Migration Files (Supabase / Postgres)
+
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+
+**Format:**
+```
+[number]_[DDMMYY]_[name].sql
+```
+
+- **number**: Zero-padded, 3-digit migration number matching execution order  
+  - Examples: `002`, `013`, `030`, `036`
+- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format  
+  - Examples: `270226` = 27.02.2026
+- **name**: Short, lowercase, snake_case description (`_` is allowed and encouraged)
+
+**Examples:**
+```
+002_190126_firehorse_pilot.sql
+013_190126_agent_tracking.sql
+030_220226_agent_logging_tables.sql
+031_220226_supabase_advisor_fixes.sql
+036_270226_construction_leads.sql
+```
+
+**Rules:**
+- Filenames live in the filesystem only – Postgres does **not** read them, but:
+  - The **number** communicates migration ordering to humans and tooling.
+  - The **DDMMYY** encodes creation context and helps when scanning history.
+  - The **name** must be descriptive enough to understand purpose at a glance.
+- Always use `_` (underscore) as separator; avoid spaces and mixed separators.
+- When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
 
 ### 4.4 Prohibited Naming Patterns
 
@@ -440,134 +560,113 @@ Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseks
 
 ### 8.3 Conversion Methods
 
-#### Method 1: Browser-Based (Recommended) ⭐
+#### Method 1: Generate-PDFs.ps1 (Recommended)
 
-**Advantages:**
-- No additional software required
-- Consistent results
-- Professional styling
-- Fast and reliable
+**Standard script:** `scripts/Generate-PDFs.ps1` (v1.5)
 
-**Process:**
-1. Convert markdown to HTML using Python script
-2. Open HTML in browser (Chrome, Edge, Firefox)
-3. Press `Ctrl+P` (Print)
-4. Select "Save as PDF" as printer
-5. Configure settings:
-   - Layout: Portrait
-   - Margins: Default or Minimum
-   - Background graphics: Enabled
-   - Scale: 100% or "Fit to page"
-6. Save with appropriate filename
-
-**Expected Result:** 1-5 MB PDF
-
-#### Method 2: Pandoc with wkhtmltopdf
+Converts 16 key markdown files to styled HTML or PDF using pandoc. Runs standalone
+or automatically via `Sync-ToProton.ps1 -GeneratePDFs`.
 
 ```powershell
-# Install wkhtmltopdf from: https://wkhtmltopdf.org/downloads.html
+# Install pandoc (required)
+winget install JohnMacFarlane.Pandoc
 
-pandoc "input.md" -o "output.pdf" \
-  --pdf-engine=wkhtmltopdf \
-  --toc --toc-depth=2
+# HTML output (default, always works, opens in Edge)
+.\scripts\Generate-PDFs.ps1
+
+# PDF output (requires wkhtmltopdf)
+winget install wkhtmltopdf
+.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf
+
+# Open changed files in Edge for review
+.\scripts\Generate-PDFs.ps1 -OpenNew
+
+# Preview without generating
+.\scripts\Generate-PDFs.ps1 -DryRun
 ```
 
-#### Method 3: Pandoc with LaTeX (MiKTeX)
+**Key pandoc flags for DWS documents:**
+```
+-f markdown-yaml_metadata_block+smart   # Disable YAML parsing (DWS headers aren't YAML)
+--standalone --embed-resources           # Self-contained HTML with embedded CSS
+--toc --toc-depth=2                      # Table of contents
+--css dws6-pdf-style.css                 # DWS brand styling
+```
+
+#### Method 2: Browser Print-to-PDF
+
+1. Generate HTML with Method 1
+2. Open `.html` in Edge/Chrome
+3. Press `Ctrl+P` > "Save as PDF"
+4. Set margins to Minimum, enable Background graphics
+
+#### Method 3: Pandoc CLI (manual)
 
 ```powershell
-# Install MiKTeX from: https://miktex.org/download
+# HTML (always works)
+pandoc "input.md" -o "output.html" --standalone --toc -f markdown-yaml_metadata_block+smart
 
-pandoc "input.md" -o "output.pdf" \
-  -V geometry:margin=1in \
-  -V fontsize=11pt \
-  --toc --toc-depth=2
+# PDF via wkhtmltopdf (no LaTeX needed)
+pandoc "input.md" -o "output.pdf" --pdf-engine=wkhtmltopdf --toc -f markdown-yaml_metadata_block+smart
+
+# PDF via LaTeX (avoid - emoji/Unicode issues)
+pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_metadata_block+smart
 ```
 
-### 8.4 HTML Styling Standard
+> **WARNING:** Do NOT use `pdflatex` - it cannot handle Unicode emoji.
+> Do NOT use `---` delimiters in document headers - pandoc treats them as YAML.
+> Use `***` delimiters instead (see Section 2.1).
 
-**Required CSS styling for PDF conversion:**
+### 8.4 HTML Styling Standard (DWS Brand)
+
+**DWS brand CSS (used by Generate-PDFs.ps1):**
 
 ```css
-@page {
-    size: A4;
-    margin: 2cm;
-}
-
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 11pt;
     line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
     color: #333;
 }
-
-h1 {
-    color: #2c3e50;
-    border-bottom: 3px solid #3498db;
-    page-break-before: always;
-}
-
-h2 {
-    color: #34495e;
-    border-bottom: 2px solid #95a5a6;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    page-break-inside: avoid;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-}
+h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+h3 { color: #333; }
+code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+th { background: #0a1628; color: white; }
+tr:nth-child(even) { background: #f9f9f9; }
+a { color: #0066cc; }
+blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
 ```
 
-### 8.5 Python Conversion Script
+**Brand colors reference:**
+- Primary: `#0a1628` (dark navy) - headings, table headers
+- Accent: `#0066cc` (enterprise blue) - links, borders, blockquotes
+- Text: `#333` - body text
 
-**Standard script location:** `{project-root}/scripts/create_pdf.py`
+### 8.5 Conversion Scripts
 
-**Required features:**
-- Markdown to HTML conversion
-- Professional CSS styling
-- Multiple PDF engine support
-- File size validation
-- Error handling with fallback options
+**Standard script:** `scripts/Generate-PDFs.ps1` (PowerShell, v1.5)
 
-**Example implementation:**
+| Feature | Detail |
+|---------|--------|
+| Engine choice | `-Engine html` (default) or `-Engine wkhtmltopdf` |
+| Source files | 16 markdown files (admin manuals, sales, investor) |
+| Output location | `F:\Proton\Proton\My files\2026\generated-pdfs\` |
+| Skip unchanged | Compares source vs output timestamps |
+| Auto-open | `-OpenNew` opens changed files in Edge |
+| DWS branding | Inline CSS with brand colors |
+| Pandoc flags | Disables YAML parsing, enables TOC, smart typography |
 
-```python
-import markdown
-from pathlib import Path
-
-# Convert markdown to HTML
-with open('input.md', 'r', encoding='utf-8') as f:
-    md_content = f.read()
-
-html_content = markdown.markdown(
-    md_content,
-    extensions=['tables', 'fenced_code', 'toc']
-)
-
-# Add professional styling
-styled_html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        /* Standard CSS styling */
-    </style>
-</head>
-<body>
-{html_content}
-</body>
-</html>
-"""
-
-# Save HTML
-with open('output.html', 'w', encoding='utf-8') as f:
-    f.write(styled_html)
-```
+**Integration:**
+- Called by `Sync-ToProton.ps1 -GeneratePDFs`
+- Runs automatically on Windows login via `Startup-DailySync.bat`
+- VS Code task: "Generate PDFs (pandoc)" or "Sync + Generate PDFs"
 
 ### 8.6 Quality Checklist
 
@@ -667,7 +766,7 @@ jobs:
 ```markdown
 # Admin Manual: DWS6.com Deployment
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -677,16 +776,16 @@ Sessions & Modifications:
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_DWS6_COM.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
   - Created: 30.12.2025
   - Last Modified: 30.12.2025
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.0  
 **Purpose:** Admin and deployment guide for dws6.com  
@@ -765,7 +864,393 @@ if __name__ == "__main__":
 
 ---
 
-## 10. Enforcement
+## 10. Knowledge Management & Storage
+
+### 10.1 Purpose / Tarkoitus
+
+Establishes the decision framework for where enterprise knowledge should be stored: database vs. document files.
+
+Määrittää päätökehyksen sille, mihin yritystietoa tulisi tallentaa: tietokantaan vai dokumenttitiedostoihin.
+
+### 10.2 The Storage Decision Matrix
+
+Based on the insight that **"off-the-shelf LLMs don't work for enterprise AI"** (Alex Karp, Palantir CEO), we must build an orchestration layer that understands our enterprise-specific knowledge.
+
+**Decision Criteria:**
+
+| Use Case | Storage Location | Reasoning |
+|----------|-----------------|-----------|
+| **Structured Intelligence** | Database (Supabase) | Queryable, linkable to objects, searchable in dashboards |
+| **Narrative Context** | Docs Files (.md) | Flow of argument, white papers, briefings |
+| **Core Artifacts** | Database with Docs Reference | Metadata in DB, full content in versioned .md |
+| **Regulatory Documents** | Docs Files with DB Index | Audit trail, version control, PDF generation |
+| **Training Data** | Database (Vector Store) | Embedding-ready, RAG-optimized |
+| **Field Notes** | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact |
+
+### 10.3 The Hybrid Approach (Recommended)
+
+**For DWS7 and beyond:**
+
+```
+┌─────────────┐
+│   Capture   │  Database (Supabase)
+│  (Real-time)│  - Quick entry via mobile/web
+│             │  - Timestamped, geo-tagged
+└──────┬──────┘  - Linked to customer/project objects
+       │
+       ▼
+┌─────────────┐
+│  Processing │  Docs Files (Markdown)
+│   (Daily)   │  - Export to /docs/field-notes/
+│             │  - Apply ontology tags
+└──────┬──────┘  - Add context and analysis
+       │
+       ▼
+┌─────────────┐
+│ Refinement  │  Core Artifacts
+│ (Weekly)    │  - Elevated to /artifacts/[CATEGORY]/
+│             │  - Enterprise knowledge base
+└─────────────┘  - LWM training pipeline
+```
+
+### 10.4 Example: User Note from Alex Karp Quote
+
+**Scenario:** You want to save Karp's quote about AI bubbles and enterprise ontology.
+
+**Decision Path:**
+
+1. **Initial Capture:** Database
+   ```sql
+   INSERT INTO field_notes (author, content, tags, sector)
+   VALUES ('you@dws.com', 'Karp quote about...', ARRAY['AI', 'Ontology', 'Enterprise'], 'Strategy');
+   ```
+
+2. **Processing:** Markdown Document
+   ```markdown
+   # Field Note: Palantir CEO on Enterprise AI
+   [Full analysis as shown in your message]
+   ```
+   Saved to: `/docs/field-notes/2026-01-21-karp-enterprise-ai.md`
+
+3. **Refinement:** Core Artifact
+   ```markdown
+   # Artifact: Enterprise AI Implementation Strategy
+   ART-2026-001
+   [Extracted principles for DWS implementation]
+   ```
+   Saved to: `/artifacts/STRATEGY/ART-2026-001-enterprise-ai-ontology.md`
+
+### 10.5 Directory Structure
+
+```
+dws6/
+├── artifacts/               # Core Artifacts (validated knowledge)
+│   ├── FINANCIAL_SERVICES/
+│   ├── MANUFACTURING/
+│   ├── STRATEGY/
+│   ├── COMPLIANCE/
+│   └── README.md
+├── docs/
+│   ├── field-notes/         # Processed daily/weekly notes
+│   │   ├── 2026-01-21-karp-enterprise-ai.md
+│   │   ├── 2026-01-22-customer-london.md
+│   │   └── README.md
+│   └── ontology/
+│       └── ONTOLOGY.md      # Ontology framework (see Section 11)
+└── supabase/
+    └── migrations/
+        └── 014_ontology_lwm.sql  # Database schema
+```
+
+### 10.6 When to Use Database vs. Docs
+
+**Use Database when:**
+- Need real-time capture (mobile field notes)
+- Require structured queries
+- Building dashboards/reports
+- Linking to other objects (customers, projects)
+- Training AI/LLM models (vector embeddings)
+
+**Use Docs Files when:**
+- Writing narrative content
+- Creating white papers, briefings
+- Need version control history
+- Generating PDFs for distribution
+- Long-form documentation
+
+**Use Both (Hybrid) when:**
+- Capturing enterprise knowledge (field notes → artifacts)
+- Building an ontology (metadata in DB, content in .md)
+- Regulatory documentation (index in DB, files as .md)
+
+---
+
+## 11. Core Artifacts
+
+### 11.1 Purpose / Tarkoitus
+
+Core Artifacts are **validated pieces of enterprise knowledge** that form the foundation of the Lifetime World Model (LWM). They are the answer to Alex Karp's challenge: building a software layer to orchestrate LLMs "in a language your enterprise understands."
+
+Core Artifacts ovat **validoituja yritystiedon palasia**, jotka muodostavat Lifetime World Model (LWM) -järjestelmän perustan.
+
+### 11.2 What is a Core Artifact?
+
+A Core Artifact is:
+- **Validated knowledge** from field experience
+- **Enterprise-specific** (not generic AI knowledge)
+- **Actionable** (contains orchestration rules)
+- **Versioned** (evolves over time)
+- **Traceable** (linked to source field notes)
+
+### 11.3 Artifact Naming Convention
+
+**Format:**
+```
+ART-[YYYY]-[NNN]-[descriptive-name].md
+```
+
+**Components:**
+
+| Component | Required | Description | Examples |
+|-----------|----------|-------------|----------|
+| **ART** | ✅ Yes | Prefix for all artifacts | `ART` |
+| **YYYY** | ✅ Yes | Year created | `2026` |
+| **NNN** | ✅ Yes | Sequential number (zero-padded) | `001`, `042`, `123` |
+| **descriptive-name** | ⚠️ Recommended | Brief topic description | `uk-cross-border-rules` |
+
+**Examples:**
+```
+ART-2026-001-enterprise-ai-ontology.md
+ART-2026-002-uk-cross-border-underwriting.md
+ART-2026-003-eu-gdpr-updates.md
+```
+
+### 11.4 Artifact Categories
+
+**Location:** `/artifacts/[CATEGORY]/`
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **FINANCIAL_SERVICES** | Banking, insurance, underwriting | Cross-border rules, compliance |
+| **MANUFACTURING** | Production, quality, supply chain | Process optimization, safety |
+| **HEALTHCARE** | Medical, diagnostics, patient care | Regulatory compliance, protocols |
+| **COMPLIANCE** | Legal, regulatory, audit | GDPR, FCA rules, SOX |
+| **STRATEGY** | Business strategy, competitive intel | Market analysis, partnerships |
+| **TECHNOLOGY** | Architecture, security, infrastructure | API design, security protocols |
+| **SALES** | Customer insights, competitive wins | Objection handling, pricing |
+| **GENERAL** | Cross-functional knowledge | Best practices, templates |
+
+### 11.5 Artifact File Structure
+
+**Required Sections:**
+
+```markdown
+# Artifact: [Descriptive Title]
+
+---
+## METADATA (The "Coordinates")
+
+- **Artifact ID:** ART-YYYY-NNN
+- **Temporal Stamp:** ISO8601 timestamp
+- **Ontology Anchors:**
+  - Object: [e.g., Financial_Services]
+  - Sector: [e.g., Underwriting]
+  - Geography: [e.g., UK, London]
+  - Regulatory Context: [e.g., FCA 2025 Cross-Border Rules]
+- **Safety Status:** ✅ Verified | 🧪 Experimental | ⚠️ Deprecated
+- **Confidence Score:** 0.XX (0.0-1.0)
+- **Source:** [Field Note reference]
+
+---
+## NARRATIVE (The "Divine Story")
+
+### The Observation
+[What was learned from the field]
+
+### Why It Failed
+[If applicable: why generic AI/process failed]
+
+### The Ground Truth
+[Reality that contradicts generic assumptions]
+
+---
+## LOGIC (The "Orchestration Rule")
+
+### Proposed Rule
+[If-then logic, code, or decision tree]
+
+### LWM Update Instruction
+[How this updates the world model]
+
+---
+## VALIDATION & FEEDBACK
+
+[Usage history, success rate, confidence updates]
+
+---
+## RELATED ARTIFACTS
+
+- **Supersedes:** [Previous artifact IDs]
+- **Related:** [Related artifact IDs]
+- **References:** [External documents]
+
+---
+## VERSION HISTORY
+
+- **v1.0** (YYYY-MM-DD): [Changes]
+```
+
+### 11.6 Artifact Lifecycle
+
+```
+1. CAPTURE:    Field Note → Database
+2. PROCESS:    Database → /docs/field-notes/[date]-[topic].md
+3. ELEVATE:    Field Note → Core Artifact (if validated)
+4. VALIDATE:   Usage feedback → Confidence score update
+5. EVOLVE:     New version if logic changes
+6. DEPRECATE:  Mark as deprecated if superseded
+```
+
+### 11.7 Quality Standards
+
+**Before creating a Core Artifact:**
+
+- [ ] Validated by at least 2 team members
+- [ ] Includes specific business logic (not generic advice)
+- [ ] Has clear ontology anchors (geography, sector, etc.)
+- [ ] Contains source attribution (field note, regulation, etc.)
+- [ ] Assigned initial confidence score (0.5-0.75 for new)
+- [ ] Linked to related artifacts or regulations
+- [ ] Follows naming convention
+- [ ] Stored in correct category folder
+
+**Artifact Review Cycle:**
+- **Every 90 days:** Review all artifacts
+- **Flag for update:** If used but confidence < 0.7
+- **Flag for deprecation:** If unused for 180 days
+- **Immediate review:** If world model collision detected
+
+---
+
+## 12. Field Notes
+
+### 12.1 Purpose / Tarkoitus
+
+Field Notes are the **raw sensory input** for the Lifetime World Model. They capture reality from the battlefield (production, customer interactions, incidents) that off-the-shelf LLMs cannot know.
+
+Field Notes ovat **raakaa sensoriinputia** Lifetime World Model -järjestelmälle.
+
+### 12.2 When to Create a Field Note
+
+**Create a field note when:**
+- Customer says something unexpected
+- LLM/AI fails to handle a situation correctly
+- Production incident reveals a knowledge gap
+- Regulatory change affects operations
+- Competitive intelligence is gathered
+- Edge case is discovered
+
+**Time requirement:** Within 24 hours of the event
+
+### 12.3 Field Note Naming Convention
+
+**Format:**
+```
+YYYY-MM-DD-[brief-topic].md
+```
+
+**Examples:**
+```
+2026-01-21-karp-enterprise-ai.md
+2026-01-22-london-customer-cross-border.md
+2026-01-23-production-incident-llm-hallucination.md
+```
+
+**Location:** `/docs/field-notes/`
+
+### 12.4 Field Note Templates
+
+**Three primary templates:**
+
+1. **Customer Interaction Template**
+   - For sales calls, support tickets, feedback
+   - Focus: Customer quote, problem/insight, business impact
+
+2. **Production Incident Template**
+   - For system failures, AI errors, edge cases
+   - Focus: What happened, root cause, prevention
+
+3. **Regulatory Change Template**
+   - For new laws, compliance updates, policy changes
+   - Focus: Summary, impact, required actions
+
+*Full templates available in ONTOLOGY.md Section 10*
+
+### 12.5 Required Elements
+
+**Every field note MUST include:**
+
+- **Date:** ISO format (YYYY-MM-DD)
+- **Author:** Your name/email
+- **Location:** Geographic location (if applicable)
+- **Context:** Customer/project/system name
+- **Ontology Tags:** Geography, sector, entities
+- **The Story:** What happened (chronological)
+- **The Insight:** Why this matters
+- **Next Steps:** Follow-up actions
+
+### 12.6 Ontology Tagging
+
+**Purpose:** Make field notes searchable and linkable.
+
+**Required Tags:**
+
+```markdown
+## Ontology Tags
+
+- **Geography:** [Continent > Country > City]
+- **Sector:** [Industry > Vertical > Use Case]
+- **Entities:** [People, Organizations, Products, Regulations]
+- **Temporal Context:** [Date, Regulatory Period, Fiscal Year]
+- **Confidence:** High | Medium | Low
+```
+
+**Example:**
+```markdown
+## Ontology Tags
+
+- **Geography:** Europe > UK > London
+- **Sector:** Financial_Services > Insurance > Underwriting
+- **Entities:** Customer ABC Ltd, FCA, GDPR, DWS-IQ6
+- **Temporal Context:** 2026-Q1, Post-2025 UK FCA Rules
+- **Confidence:** High
+```
+
+### 12.7 From Field Note to Core Artifact
+
+**Elevation Criteria:**
+
+A field note should be elevated to a Core Artifact when:
+- ✅ Used 3+ times in decision-making
+- ✅ Validated by 2+ team members
+- ✅ Contains reusable business logic
+- ✅ Addresses a recurring pattern or gap
+- ✅ Has regulatory or compliance importance
+
+**Process:**
+
+```
+Field Note → Team Review → Draft Artifact → Validate → Publish
+```
+
+1. **Team Review:** Weekly review meeting to identify candidates
+2. **Draft Artifact:** Use artifact template (Section 11.5)
+3. **Validate:** Test the logic on 2-3 cases
+4. **Publish:** Add to `/artifacts/`, update database, generate embeddings
+
+---
+
+## 13. Enforcement
 
 ### 10.1 Automated Checks
 
@@ -823,6 +1308,493 @@ fi
 
 ---
 
+## 14. LLM Model Versioning
+
+### 14.1 Purpose / Tarkoitus
+
+Establishes standards for tracking which LLM models were used to create or modify documents, ensuring reproducibility and enabling systematic updates when models change.
+
+Määrittää standardit LLM-mallien seurantaan dokumenttien luomisessa ja muokkaamisessa.
+
+### 14.2 Why Track LLM Versions?
+
+1. **Reproducibility** - Know which model produced content for quality analysis
+2. **Update Triggers** - Identify documents needing review when LLM capabilities improve
+3. **Compliance** - EU AI Act Article 12 requires automatic logging of AI system events
+4. **Quality Control** - Track content quality across different model versions
+5. **Training Data** - Identify which outputs can be used for LWM training
+
+### 14.3 LLM Model Tracking in Document Header
+
+**Extended header format:**
+
+```markdown
+Sessions & Modifications:
+  - Version: X.Y | Tool: [Tool Name] ([LLM Model]) | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
+```
+
+**Example:**
+```markdown
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation
+  - Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples
+  - Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review
+```
+
+### 14.4 Supported LLM Models Registry
+
+**Active Models (as of Q1 2026):**
+
+| Model Family | Model ID | Status | Use Case |
+|-------------|----------|--------|----------|
+| **Claude (Anthropic)** | claude-opus-4-5-20251101 | ✅ Primary | Complex reasoning, documentation |
+| **Claude (Anthropic)** | claude-sonnet-3-5 | ✅ Active | Code generation, fast tasks |
+| **Gemini (Google)** | gemini-2.0-flash | ✅ Active | Multimodal, fast inference |
+| **Groq** | llama-3.3-70b | ✅ Active | High-speed inference |
+| **Qwen (Alibaba)** | qwen3-coder-480b | 🧪 Evaluation | Agentic coding, local dev |
+| **Local LLM** | Various | ⚠️ Experimental | Edge deployment, privacy |
+
+### 14.5 LLM Version Update Workflow
+
+**When a new LLM version is released:**
+
+```
+1. ASSESS:    Review release notes for capability changes
+2. TEST:      Run validation on sample documents
+3. IDENTIFY:  Query documents created with previous version
+4. PRIORITIZE: Rank by impact (regulatory > customer > internal)
+5. UPDATE:    Re-generate or review flagged documents
+6. VALIDATE:  Human review for critical documents
+7. ARCHIVE:   Keep previous version for audit trail
+```
+
+**Database Query for Version Tracking:**
+```sql
+-- Find documents created with specific LLM model
+SELECT filename, version, created_date, llm_model
+FROM documents
+WHERE llm_model LIKE 'claude-opus-4%'
+  AND created_date < '2026-02-01'
+ORDER BY priority DESC;
+```
+
+### 14.6 LLM Model Deprecation
+
+**When a model is deprecated:**
+
+| Action | Timeline | Responsibility |
+|--------|----------|----------------|
+| Announce deprecation | Immediately | Documentation team |
+| Identify affected docs | Within 1 week | Automated scan |
+| Review critical docs | Within 2 weeks | Human review |
+| Update document registry | Within 1 month | Database admin |
+| Archive old model info | Within 3 months | Archive team |
+
+### 14.7 Product Version Change Workflow
+
+**When DWS IQ 6 version changes (e.g., v6 → v7):**
+
+```
+1. CREATE:    New version branch in documentation
+2. AUDIT:     Review all product-specific references
+3. UPDATE:    Version numbers, screenshots, API examples
+4. REGENERATE: Re-run LLM on affected sections (with new model)
+5. VALIDATE:  Cross-check with product team
+6. PUBLISH:   Release alongside product update
+7. REDIRECT:  Update document index and links
+```
+
+---
+
+## 15. Localization & Multi-Language Management
+
+### 15.1 Purpose / Tarkoitus
+
+Establishes standards for managing documentation across 27 EU languages, ensuring consistency and enabling efficient translation workflows.
+
+Määrittää standardit dokumentaation hallintaan 27 EU-kielellä.
+
+### 15.2 Supported Languages (EU27 + English)
+
+| Code | Language | Region | Priority |
+|------|----------|--------|----------|
+| `EN` | English | International | ⭐ Primary |
+| `FI` | Finnish (Suomi) | Finland | ⭐ Primary |
+| `SV` | Swedish (Svenska) | Sweden, Finland | 🔵 High |
+| `DE` | German (Deutsch) | Germany, Austria | 🔵 High |
+| `FR` | French (Français) | France, Belgium | 🔵 High |
+| `NL` | Dutch (Nederlands) | Netherlands, Belgium | 🔵 High |
+| `ES` | Spanish (Español) | Spain | 🟢 Medium |
+| `IT` | Italian (Italiano) | Italy | 🟢 Medium |
+| `PL` | Polish (Polski) | Poland | 🟢 Medium |
+| `PT` | Portuguese (Português) | Portugal | 🟢 Medium |
+| `CS` | Czech (Čeština) | Czech Republic | 🟡 Standard |
+| `DA` | Danish (Dansk) | Denmark | 🟡 Standard |
+| `EL` | Greek (Ελληνικά) | Greece, Cyprus | 🟡 Standard |
+| `ET` | Estonian (Eesti) | Estonia | 🟡 Standard |
+| `HU` | Hungarian (Magyar) | Hungary | 🟡 Standard |
+| `LT` | Lithuanian (Lietuvių) | Lithuania | 🟡 Standard |
+| `LV` | Latvian (Latviešu) | Latvia | 🟡 Standard |
+| `RO` | Romanian (Română) | Romania | 🟡 Standard |
+| `SK` | Slovak (Slovenčina) | Slovakia | 🟡 Standard |
+| `SL` | Slovenian (Slovenščina) | Slovenia | 🟡 Standard |
+| `BG` | Bulgarian (Български) | Bulgaria | ⚪ On-demand |
+| `HR` | Croatian (Hrvatski) | Croatia | ⚪ On-demand |
+| `GA` | Irish (Gaeilge) | Ireland | ⚪ On-demand |
+| `MT` | Maltese (Malti) | Malta | ⚪ On-demand |
+
+### 15.3 File Naming for Localized Documents
+
+**Format:**
+```
+[CATEGORY]_[NAME]_[LANG]_v[VERSION].md
+```
+
+**Examples:**
+```
+ADMIN_MANUAL_AUTHENTICATION_EN_v1.md     # English (source)
+ADMIN_MANUAL_AUTHENTICATION_FI_v1.md     # Finnish
+ADMIN_MANUAL_AUTHENTICATION_DE_v1.md     # German
+ADMIN_MANUAL_AUTHENTICATION_SV_v1.md     # Swedish
+```
+
+### 15.4 Localization Tracking Database Schema
+
+```sql
+CREATE TABLE document_translations (
+    id UUID PRIMARY KEY,
+    source_doc_id UUID REFERENCES documents(id),
+    source_language VARCHAR(5) NOT NULL DEFAULT 'EN',
+    target_language VARCHAR(5) NOT NULL,
+    translation_status VARCHAR(20) NOT NULL,
+    -- Status: PENDING, IN_PROGRESS, TRANSLATED, REVIEWED, PUBLISHED
+    source_version VARCHAR(10),
+    translated_version VARCHAR(10),
+    translator_type VARCHAR(20), -- HUMAN, LLM, HYBRID
+    llm_model VARCHAR(50),
+    translated_date TIMESTAMP,
+    reviewed_by VARCHAR(100),
+    reviewed_date TIMESTAMP,
+    sync_status VARCHAR(20), -- SYNCED, OUT_OF_SYNC, NEEDS_UPDATE
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Index for finding out-of-sync translations
+CREATE INDEX idx_sync_status ON document_translations(sync_status);
+CREATE INDEX idx_source_doc ON document_translations(source_doc_id);
+```
+
+### 15.5 Translation Status Tracking
+
+| Status | Icon | Description |
+|--------|------|-------------|
+| `PENDING` | ⏳ | Translation not started |
+| `IN_PROGRESS` | 🔄 | Translation in progress |
+| `TRANSLATED` | ✅ | LLM/human translation complete |
+| `REVIEWED` | 👁️ | Human review completed |
+| `PUBLISHED` | 🚀 | Ready for production |
+| `OUT_OF_SYNC` | ⚠️ | Source updated, translation needs update |
+| `DEPRECATED` | ❌ | No longer maintained |
+
+### 15.6 Localization Dashboard Query
+
+```sql
+-- Language coverage report
+SELECT
+    d.filename,
+    d.version AS source_version,
+    COUNT(DISTINCT dt.target_language) AS languages_translated,
+    27 - COUNT(DISTINCT dt.target_language) AS languages_missing,
+    SUM(CASE WHEN dt.sync_status = 'OUT_OF_SYNC' THEN 1 ELSE 0 END) AS needs_update
+FROM documents d
+LEFT JOIN document_translations dt ON d.id = dt.source_doc_id
+WHERE d.language = 'EN'
+GROUP BY d.id, d.filename, d.version
+ORDER BY languages_missing DESC;
+```
+
+### 15.7 Translation Workflow
+
+**For new documents:**
+
+```
+1. CREATE:     Write source document (EN)
+2. REGISTER:   Add to document_translations table
+3. PRIORITIZE: Based on language priority (Primary → High → Medium)
+4. TRANSLATE:  LLM first pass (Gemini/Claude)
+5. REVIEW:     Native speaker review for High priority
+6. PUBLISH:    Deploy to localized folder
+7. MONITOR:    Track sync status
+```
+
+**For document updates:**
+
+```
+1. DETECT:     Source document version changed
+2. FLAG:       Mark all translations as OUT_OF_SYNC
+3. DIFF:       Calculate changed sections
+4. TRANSLATE:  Only update changed sections
+5. REVIEW:     Human review for significant changes
+6. SYNC:       Update translated_version, reset sync_status
+```
+
+### 15.8 Directory Structure for Localized Docs
+
+```
+docs/
+├── en/                           # English (source)
+│   ├── admin/
+│   ├── field-notes/
+│   └── architecture/
+├── fi/                           # Finnish
+│   ├── admin/
+│   ├── field-notes/
+│   └── architecture/
+├── de/                           # German
+│   ├── admin/
+│   └── ...
+├── localization/
+│   ├── TRANSLATION_STATUS.md     # Current status dashboard
+│   ├── GLOSSARY_MASTER.json      # Term consistency
+│   └── STYLE_GUIDE_[LANG].md     # Per-language style guides
+└── _templates/
+    └── translation-request.md    # Template for translation requests
+```
+
+### 15.9 Glossary Management
+
+**Master glossary location:** `/docs/localization/GLOSSARY_MASTER.json`
+
+**Format:**
+```json
+{
+  "terms": [
+    {
+      "en": "Lifetime World Model",
+      "fi": "Elinikäinen maailmanmalli",
+      "de": "Lebenslang-Weltmodell",
+      "sv": "Livstidsvärldsmodell",
+      "context": "Core AI concept - do not translate literally",
+      "abbreviation": "LWM"
+    },
+    {
+      "en": "Climate compliance",
+      "fi": "Ilmastovaatimustenmukaisuus",
+      "de": "Klimakonformität",
+      "context": "EU regulatory term"
+    }
+  ]
+}
+```
+
+### 15.10 Quality Assurance for Translations
+
+**Review checklist:**
+- [ ] Technical terms match glossary
+- [ ] Product names unchanged (DWS IQ 6, Firehorse)
+- [ ] Date formats localized (DD.MM.YYYY for EU)
+- [ ] Currency formats correct
+- [ ] Legal/regulatory terms verified by native speaker
+- [ ] Screenshots match target language UI (if applicable)
+- [ ] Links updated to localized versions
+
+---
+
+## 16. Document Index
+
+### 16.1 Purpose / Tarkoitus
+
+A centralized index of all documentation for faster search and discovery.
+
+Keskitetty hakemisto kaikista dokumenteista nopeampaa hakua varten.
+
+### 16.2 Master Document Index
+
+**Location:** `/docs/Document-index.md`
+
+This index is auto-generated and manually curated to provide:
+- Complete inventory of all markdown files
+- Category classification
+- Status tracking
+- Quick links
+
+**See:** [Document-index.md](/docs/Document-index.md)
+
+### 16.3 Index Update Workflow
+
+**Automated (weekly):**
+```bash
+# Generate document inventory
+find . -name "*.md" -type f | sort > /tmp/md_files.txt
+# Compare with current index
+diff /tmp/md_files.txt docs/Document-index.md
+```
+
+**Manual triggers:**
+- New document created → Add to index
+- Document deprecated → Update status in index
+- Major restructuring → Full index regeneration
+
+---
+
+## 17. Web Content Index Check
+
+### 17.1 Purpose / Tarkoitus
+
+Every document update MUST be followed by a **web content check** — a review of which live web pages are affected by the change.
+
+Jokaisen dokumenttipäivityksen jälkeen TÄYTYY tehdä **verkkosisältötarkistus** — selvittää, mitkä live-verkkosivut muutoksesta vaikuttuvat.
+
+### 17.2 Web Content Index
+
+**Location:** `docs/WEB_CONTENT_INDEX.md`
+
+This index maps every repository document to its corresponding web domain pages (dws10.com, dws6.com, onelifetime.world). It is the authoritative source for:
+
+- Which web pages reflect which documents
+- What to review after a document update
+- Which pages are web-only (no .md counterpart)
+
+### 17.3 Post-Update Web Check Procedure
+
+**After every document update** (commit or PR), the author MUST:
+
+```
+POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record "reviewed, no change"
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          "Web check: /page-name reviewed [no change | updated]"
+Step 4 — Run: diff <root-page> <landing-pages-copy>  → must be empty
+```
+
+**Skip condition:** If the document is internal-only (marked `—` in all web columns), no web check is needed — state "internal only" in PR description.
+
+### 17.4 Agent Skill
+
+Run `/content-index check <document-path>` to look up web impact for any document.
+
+```bash
+/content-index check DWS_BRAND_STANDARD.md
+# → Lists: dws10.com/gamma/, dws6.com/shared/
+# → Instruction: Review these pages for content currency
+```
+
+### 17.5 Content-Index Update Trigger
+
+**Update `docs/WEB_CONTENT_INDEX.md` when:**
+- A new `.md` document is created that has web counterparts
+- A new web page is launched that corresponds to a doc
+- A document is archived (remove or mark row)
+- A web page is renamed or deleted
+
+---
+
+## 18. Learn HTML Generation
+
+### 18.1 Rule / Sääntö
+
+**Every standards document update MUST produce a new versioned HTML artifact in `Learn/`.**
+
+This ensures:
+- AI agents and humans can read the latest standard in rendered HTML
+- Morning briefing email links to current standards
+- Version history is preserved (never overwrite old versions)
+
+**Jokainen standardidokumentin päivitys TÄYTYY tuottaa uuden versioidun HTML-artefaktin kansioon `Learn/`.**
+
+### 18.2 Which Documents Require Learn/ HTML
+
+| Document | Learn/ HTML Required | Pattern |
+|----------|---------------------|---------|
+| `DWS_DOCUMENT_STANDARD.md` | ✅ Yes | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html` |
+| `DWS_BRAND_STANDARD.md` | ✅ Yes | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html` |
+| `DWS_SECURITY_STANDARD.md` | ✅ Yes | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html` |
+| `Admin/ADMIN_MANUAL.md` | ✅ Yes | `Learn/ADMIN_MANUAL_v{VERSION}.html` |
+| `Admin/SECURITY_COMPLIANCE.md` | ✅ Yes | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html` |
+| `CLAUDE.md` | ✅ Yes | `Learn/CLAUDE_v{VERSION}.html` |
+| `docs/Document-index.md` | ✅ Yes | `Learn/Document-index_v{VERSION}.html` |
+| `docs/WEB_CONTENT_INDEX.md` | ✅ Yes | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html` |
+| Field notes (`docs/field-notes/*.md`) | ✅ Yes | `Learn/{date}-{slug}.html` |
+| Thesis files | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc. |
+| `Store/*.md` product files | ❌ No | These use YAML — built by build_store.py instead |
+| Architecture docs (one-time) | ⚠️ Optional | Generate once on initial creation |
+
+### 18.3 Generation Method
+
+**Preferred: Pandoc (automated)**
+
+```bash
+pandoc DWS_DOCUMENT_STANDARD.md \
+  -f markdown -t html5 \
+  --standalone \
+  -o Learn/DWS_DOCUMENT_STANDARD_v1.7.html
+```
+
+**Alternative: Manual HTML**
+
+When pandoc is unavailable, generate minimal but valid HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Document Title] v[VERSION]</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+    code { background: #f4f4f4; padding: 0.2em 0.4em; }
+    h1, h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+  </style>
+</head>
+<body>
+  <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
+  [HTML CONTENT]
+</body>
+</html>
+```
+
+### 18.4 Versioning Rules
+
+- **NEVER overwrite** an existing versioned file (e.g., `_v1.6.html`)
+- **Always create a new file** with the new version number
+- **Also update** the unversioned copy (e.g., `Learn/DWS_DOCUMENT_STANDARD.html`) so agents always have a stable URL
+- For thesis files: follow the Thesis Update Rule (4 files together)
+
+### 18.5 Morning Briefing Integration
+
+The CEO Cockpit morning brief (06:00 Helsinki) includes a **Learn Artifacts** section showing recently updated HTML files with direct GitHub links.
+
+When you publish a new Learn/ HTML:
+- The morning briefing automatically detects files modified in the last 7 days
+- It links to: `https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}`
+
+**Skill:** Run `/content-index learn` to see which Learn/ artifacts were published recently.
+
+### 18.6 Learn Artifact Naming
+
+```
+Learn/[DOCUMENT_SLUG]_v[MAJOR].[MINOR].html    ← versioned (permanent)
+Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)
+```
+
+Examples:
+```
+Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
+Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
+Learn/WEB_CONTENT_INDEX_v1.0.html       ← versioned
+Learn/WEB_CONTENT_INDEX.html            ← latest
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -830,7 +1802,7 @@ fi
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -847,10 +1819,12 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED]
 
----
+***
 ```
+
+> **Remember:** Use `***` not `---` for pandoc compatibility.
 
 ### Workflow Naming Template
 
@@ -876,6 +1850,9 @@ Document Status:
 
 ### Related Documents
 
+- **Ontology & Lifetime World Model:** `ONTOLOGY.md` ⭐ NEW
+- **DWS Brand Standard:** `docs/DWS_BRAND_STANDARD.md` — Gamma design system, colors, typography, navigation, UX guidelines
+  - Associated agents/skills: `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend`
 - **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
@@ -883,9 +1860,47 @@ Document Status:
 
 ---
 
-**Version:** 1.0  
-**Effective Date:** 30. December 2025  
+**Version:** 1.7
+**Effective Date:** 28. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.7:**
+- Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages
+- Added Learn HTML Generation rule (Section 18) — every standards update produces a versioned HTML artifact in Learn/
+- Created `docs/WEB_CONTENT_INDEX.md` — maps docs to web pages across all three domains
+- Created `.claude/commands/content-index.md` — agent skill for web content index
+- Added Learn Artifacts section to morning briefing email (06:00 Helsinki)
+
+**Major Changes in v1.6:**
+- Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+
+**Major Changes in v1.5:**
+- Added OUTDATED publication status for documents pending archive
+- Added document lifecycle (DRAFT → ACTIVE → OUTDATED → ARCHIVED)
+- Added marking procedure (sections 2.4-2.5) with step-by-step instructions
+- Added `docs/archive/` folder structure reference
+
+**Major Changes in v1.4:**
+- Pandoc compatibility: changed `---` to `***` delimiters in document headers
+- Updated PDF section (8) with actual Generate-PDFs.ps1 script reference
+- DWS brand CSS colors replace generic blue palette
+- Publication status: plain text labels (ACTIVE, DRAFT) as canonical values
+- Added pandoc CLI flags reference and warnings about YAML/Unicode issues
+
+**Major Changes in v1.3:**
+- Added LLM Model Versioning section (14) - track which AI models create documents
+- Added Localization & Multi-Language Management (15) - support for 27 EU languages
+- Added Document Index reference (16) - centralized document discovery
+- Extended header format to include LLM model identification
+- Database schemas for translation tracking and version management
+- Workflows for LLM version updates and product version changes
+
+**Major Changes in v1.2:**
+- Added knowledge management strategy (database vs. docs decision matrix)
+- Introduced Core Artifacts framework with naming conventions
+- Added Field Notes standards and templates
+- Integrated Lifetime World Model (LWM) concepts
+- Reference to new ONTOLOGY.md companion document
 
 ---
 

@@ -3,8 +3,8 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 1.3  
-**Last Updated:** January 8, 2026  
+**Document Version:** 1.4  
+**Last Updated:** January 18, 2026  
 **Status:** Active Fundraising  
 **Platform Status:** Public Cloud Version V1 - Production Ready
 
@@ -55,7 +55,6 @@ Series A Paper Value:      €40,000–€60,000 (after dilution)
 Implied Multiple:          ~3x–4x
 Timeframe:                 ~2 years (2024→2026)
 ```
-
 ### Risk Profile
 
 **⚠️ High-Risk Investment:**
@@ -187,6 +186,7 @@ Timeframe:                 ~2 years (2024→2026)
   - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
+- **Acer Partnership:** Acer provides GN-100 hardware for free for the coming months to build the remaining code and train the Lifetime World Model. This partnership forms the basis for Risto's Metropolia Applied Sciences University Master Thesis (YAMK) and contributes to the development of DWS 7 in 2027.
 
 ### Q1 2026 Technical Progress (Weeks 1-2)
 
@@ -301,13 +301,13 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 
 ---
 
-**DISCLAIMER:** This memo is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy securities. Any investment decision should be made based on a thorough review of the SAFE agreement and consultation with your legal and financial advisors. Past performance is not indicative of future results. All forward-looking statements are subject to risks and uncertainties.
+**DISCLAIMER:** This memo is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy securities. Any investment decision should be made based on a[...] 
 
 ---
 
 **Document Control:**
-- Version: 1.3
-- Last Updated: January 8, 2026
+- Version: 1.4
+- Last Updated: January 18, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
 - Confidentiality: For Potential Investors Only

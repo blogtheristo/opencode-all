@@ -39,17 +39,14 @@ function generateProductXml(product) {
     let imageUrl = product.image;
     if (imageUrl && imageUrl.startsWith('../')) {
         imageUrl = `${BASE_URL}/${imageUrl.replace('../', '')}`;
+    } else if (imageUrl && imageUrl.startsWith('/')) {
+        imageUrl = `${BASE_URL}${imageUrl}`;
     } else if (imageUrl && !imageUrl.startsWith('http')) {
         imageUrl = `${BASE_URL}/${imageUrl}`;
     }
     
-    // Resolve product URL
-    let productUrl = product.detailsUrl;
-    if (productUrl && productUrl.startsWith('../')) {
-        productUrl = `${BASE_URL}/${productUrl.replace('../', '')}`;
-    } else if (productUrl && !productUrl.startsWith('http')) {
-        productUrl = `${BASE_URL}/${productUrl}`;
-    }
+    // All products link to the main store page
+    const productUrl = `${BASE_URL}/buy/`;
 
     let xml = `
     <item>
@@ -71,7 +68,10 @@ function generateProductXml(product) {
     if (product.gtin) {
         xml += `
       <g:gtin>${escapeXml(product.gtin)}</g:gtin>`;
-    } else {
+    }
+    // Note: identifier_exists should be true (or omitted) when MPN + brand are provided
+    // Only set to false if product has no GTIN, MPN, or brand
+    if (!product.gtin && !product.mpn && !google.brand) {
         xml += `
       <g:identifier_exists>false</g:identifier_exists>`;
     }
@@ -98,6 +98,11 @@ function generateProductXml(product) {
         <g:amount>${price}</g:amount>
       </g:subscription_cost>`;
     }
+
+    // Checkout link template (Revolut Business)
+    const checkoutLink = product.revolutLink || 'https://revolut.me/lifetimeoy';
+    xml += `
+      <g:checkout_link_template>${escapeXml(checkoutLink)}</g:checkout_link_template>`;
 
     // Shipping (digital products = free)
     xml += `

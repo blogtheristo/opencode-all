@@ -41,7 +41,7 @@ class SecureQueryBuilder:
         Initialize query builder.
 
         Args:
-            connection: psycopg2 database connection
+            connection: PostgreSQL DB-API connection
         """
         self.conn = connection
 
@@ -68,7 +68,10 @@ class SecureQueryBuilder:
 
                 if cursor.description:
                     columns = [desc[0] for desc in cursor.description]
-                    return [dict(zip(columns, row, strict=False)) for row in cursor.fetchall()]
+                    return [
+                        dict(zip(columns, row, strict=False))
+                        for row in cursor.fetchall()
+                    ]
 
                 return []
         except Exception as e:

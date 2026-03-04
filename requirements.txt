@@ -11,11 +11,12 @@ Pillow>=10.0.0
 pytesseract>=0.3.10
 
 # Database security
-psycopg2-binary>=2.9.9
+pg8000>=1.31.2
 
 # Web security
 Flask>=3.0.0
 requests>=2.31.0
+charset-normalizer>=3.3.2
 
 # Testing
 pytest>=7.4.0
@@ -40,6 +41,7 @@ flake8>=6.1.0
 # ============================================================================
 
 # For module-specific requirements, see:
+# - workflow/requirements.txt (AI/DS Workflow Accelerator)
 # - mcp-hub/requirements.txt (MCP Hub dependencies)
 # - Firehorse/requirements.txt (Firehorse Add-ons)
 # - sites/onelifetime-world/requirements.txt (OneLifetime.world)

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ADMIN_MANUAL_SUPABASE_EN_v1</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px; color: #333; }h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; margin-top: 32px; }h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-top: 24px; }h3 { color: #333; margin-top: 20px; }code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 10pt; }pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; border: 1px solid #ddd; }table { border-collapse: collapse; width: 100%; margin: 12px 0; }th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }th { background: #0a1628; color: white; }tr:nth-child(even) { background: #f9f9f9; }a { color: #0066cc; }blockquote { border-left: 4px solid #0066cc; margin: 16px 0; padding: 8px 16px; background: #f0f7ff; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ADMIN_MANUAL_SUPABASE_EN_v1</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#admin-manual-supabase-database-management-for-dws6" id="toc-admin-manual-supabase-database-management-for-dws6">Admin
+Manual: Supabase Database Management for DWS6</a>
+<ul>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#overview" id="toc-overview">1. Overview</a></li>
+<li><a href="#project-setup" id="toc-project-setup">2. Project
+Setup</a></li>
+<li><a href="#database-schema" id="toc-database-schema">3. Database
+Schema</a></li>
+<li><a href="#security-configuration" id="toc-security-configuration">4.
+Security Configuration</a></li>
+<li><a href="#api-management" id="toc-api-management">5. API
+Management</a></li>
+<li><a href="#authentication" id="toc-authentication">6.
+Authentication</a></li>
+<li><a href="#database-operations" id="toc-database-operations">7.
+Database Operations</a></li>
+<li><a href="#monitoring-and-logs" id="toc-monitoring-and-logs">8.
+Monitoring and Logs</a></li>
+<li><a href="#backup-and-recovery" id="toc-backup-and-recovery">9.
+Backup and Recovery</a></li>
+<li><a href="#performance-tuning" id="toc-performance-tuning">10.
+Performance Tuning</a></li>
+<li><a href="#troubleshooting" id="toc-troubleshooting">11.
+Troubleshooting</a></li>
+<li><a href="#contact-and-support" id="toc-contact-and-support">Contact
+and Support</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="admin-manual-supabase-database-management-for-dws6">Admin
+Manual: Supabase Database Management for DWS6</h1>
+<table style="width:6%;">
+<colgroup>
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td># VERSION AND AGENT HISTORY</td>
+</tr>
+<tr>
+<td>Version: 1.0</td>
+</tr>
+<tr>
+<td>Sessions &amp; Modifications: - Version: 1.0 | Tool: Cursor AI |
+Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation -
+Supabase admin manual for DWS6 project</td>
+</tr>
+<tr>
+<td>Session Links &amp; References: - Cursor AI (2025-12-30):
+https://github.com/blogtheristo/dws6/pull/77 - View on GitHub:
+https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md</td>
+</tr>
+<tr>
+<td>Document Status: - Created: 30.12.2025 - Last Modified: 30.12.2025 -
+Language: English - Languages Available: English - Publication Status:
+✅ ACTIVE</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Purpose:</strong> Supabase database administration guide for
+DWS6 project<br />
+<strong>Audience:</strong> Database Administrators, DevOps
+Engineers<br />
+<strong>Updated:</strong> 30.12.2025</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-overview">Overview</a></li>
+<li><a href="#2-project-setup">Project Setup</a></li>
+<li><a href="#3-database-schema">Database Schema</a></li>
+<li><a href="#4-security-configuration">Security Configuration</a></li>
+<li><a href="#5-api-management">API Management</a></li>
+<li><a href="#6-authentication">Authentication</a></li>
+<li><a href="#7-database-operations">Database Operations</a></li>
+<li><a href="#8-monitoring-and-logs">Monitoring and Logs</a></li>
+<li><a href="#9-backup-and-recovery">Backup and Recovery</a></li>
+<li><a href="#10-performance-tuning">Performance Tuning</a></li>
+<li><a href="#11-troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="overview">1. Overview</h2>
+<h3 id="supabase-introduction">1.1 Supabase Introduction</h3>
+<p><strong>Supabase</strong> is an open-source Firebase alternative that
+provides: - PostgreSQL database with real-time capabilities -
+Auto-generated REST API - Row Level Security (RLS) - Authentication and
+authorization - Storage for files - Real-time subscriptions</p>
+<h3 id="dws6-supabase-project">1.2 DWS6 Supabase Project</h3>
+<p><strong>Project Details</strong>: - <strong>Project ID</strong>:
+<code>kpucuwwfhuwurdxyjjtz</code> - <strong>Project Name</strong>: DWS6
+Multi-Login Platform - <strong>Region</strong>: US East (N. Virginia) -
+<strong>URL</strong>:
+<code>https://kpucuwwfhuwurdxyjjtz.supabase.co</code> -
+<strong>Plan</strong>: Free Tier - <strong>Database</strong>: PostgreSQL
+15</p>
+<p><strong>Free Tier Limits</strong>: - 50,000 Monthly Active Users
+(MAU) - 500 MB Database Space - 1 GB File Storage - 2 GB Bandwidth -
+Unlimited API Requests - 7-day Log Retention</p>
+<h3 id="architecture">1.3 Architecture</h3>
+<pre><code>┌─────────────────────────────────────────┐
+│         Client Applications              │
+│  (V8 Dashboard, Mobile Apps, etc.)      │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│         Supabase Client Library          │
+│  (@supabase/supabase-js)                │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│         Supabase API Layer               │
+│  (REST API, GraphQL, Realtime)          │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│         PostgreSQL Database              │
+│  (Data Storage, RLS, Functions)         │
+└─────────────────────────────────────────┘</code></pre>
+<hr />
+<h2 id="project-setup">2. Project Setup</h2>
+<h3 id="access-supabase-dashboard">2.1 Access Supabase Dashboard</h3>
+<p><strong>URL</strong>:
+https://app.supabase.com/project/kpucuwwfhuwurdxyjjtz</p>
+<p><strong>Login Credentials</strong>: - Email: [Your Supabase account
+email] - Password: [Your Supabase password] - 2FA: Recommended</p>
+<h3 id="project-settings">2.2 Project Settings</h3>
+<h4 id="api-settings">API Settings</h4>
+<p><strong>Location</strong>: Project Settings → API</p>
+<p><strong>Credentials</strong>:</p>
+<pre><code>Project URL: https://kpucuwwfhuwurdxyjjtz.supabase.co
+API URL: https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
+GraphQL URL: https://kpucuwwfhuwurdxyjjtz.supabase.co/graphql/v1
+
+anon/public key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+service_role key: [KEEP SECRET - Full database access]</code></pre>
+<p><strong>⚠️ Security Warning</strong>: - <code>anon key</code>: Safe
+to use in client code (limited by RLS) - <code>service_role key</code>:
+NEVER expose in client code (full access)</p>
+<h4 id="database-settings">Database Settings</h4>
+<p><strong>Location</strong>: Project Settings → Database</p>
+<p><strong>Connection Details</strong>:</p>
+<pre><code>Host: db.kpucuwwfhuwurdxyjjtz.supabase.co
+Database name: postgres
+Port: 5432
+User: postgres
+Password: [Your database password]</code></pre>
+<p><strong>Connection String</strong>:</p>
+<pre><code>postgresql://postgres:[YOUR-PASSWORD]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/postgres</code></pre>
+<h3 id="initial-configuration">2.3 Initial Configuration</h3>
+<h4 id="enable-required-extensions">Enable Required Extensions</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable UUID generation</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">&quot;uuid-ossp&quot;</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable PostGIS (if needed for location data)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> postgis;</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable pg_stat_statements (for query analysis)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EXTENSION <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> pg_stat_statements;</span></code></pre></div>
+<h4 id="set-timezone">Set Timezone</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Set default timezone to UTC</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">DATABASE</span> postgres <span class="kw">SET</span> timezone <span class="kw">TO</span> <span class="st">&#39;UTC&#39;</span>;</span></code></pre></div>
+<hr />
+<h2 id="database-schema">3. Database Schema</h2>
+<h3 id="projects-table">3.1 Projects Table</h3>
+<h4 id="create-table">Create Table</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Projects table for construction project management</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> projects (</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Primary key</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span> UUID <span class="kw">PRIMARY</span> <span class="kw">KEY</span> <span class="kw">DEFAULT</span> uuid_generate_v4(),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Project information</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  name TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  description TEXT,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  region TEXT,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  phase TEXT,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Performance metrics</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  spi <span class="dt">NUMERIC</span>(<span class="dv">4</span>,<span class="dv">2</span>) <span class="kw">CHECK</span> (spi <span class="op">&gt;=</span> <span class="dv">0</span>),  <span class="co">-- Schedule Performance Index</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  cpi <span class="dt">NUMERIC</span>(<span class="dv">4</span>,<span class="dv">2</span>) <span class="kw">CHECK</span> (cpi <span class="op">&gt;=</span> <span class="dv">0</span>),  <span class="co">-- Cost Performance Index</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  percent_complete <span class="dt">INTEGER</span> <span class="kw">CHECK</span> (percent_complete <span class="op">&gt;=</span> <span class="dv">0</span> <span class="kw">AND</span> percent_complete <span class="op">&lt;=</span> <span class="dv">100</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Safety status</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  safety_rag TEXT <span class="kw">CHECK</span> (safety_rag <span class="kw">IN</span> (<span class="st">&#39;green&#39;</span>, <span class="st">&#39;amber&#39;</span>, <span class="st">&#39;red&#39;</span>)),</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Budget information</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  budget_total <span class="dt">NUMERIC</span>(<span class="dv">15</span>,<span class="dv">2</span>),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  budget_spent <span class="dt">NUMERIC</span>(<span class="dv">15</span>,<span class="dv">2</span>),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Timestamps</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  created_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  updated_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Soft delete</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  deleted_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">-- Add comments for documentation</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">TABLE</span> projects <span class="kw">IS</span> <span class="st">&#39;Construction projects managed in DWS IQ platform&#39;</span>;</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> projects.spi <span class="kw">IS</span> <span class="st">&#39;Schedule Performance Index: &gt;1.0 ahead, &lt;1.0 behind&#39;</span>;</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> projects.cpi <span class="kw">IS</span> <span class="st">&#39;Cost Performance Index: &gt;1.0 under budget, &lt;1.0 over budget&#39;</span>;</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> projects.safety_rag <span class="kw">IS</span> <span class="st">&#39;Safety status: green=good, amber=warning, red=critical&#39;</span>;</span></code></pre></div>
+<h4 id="create-indexes">Create Indexes</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Performance indexes</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_created_at <span class="kw">ON</span> projects(created_at <span class="kw">DESC</span>);</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_updated_at <span class="kw">ON</span> projects(updated_at <span class="kw">DESC</span>);</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_region <span class="kw">ON</span> projects(region);</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_phase <span class="kw">ON</span> projects(phase);</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_safety_rag <span class="kw">ON</span> projects(safety_rag);</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Partial index for active projects only</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_active <span class="kw">ON</span> projects(<span class="kw">id</span>) <span class="kw">WHERE</span> deleted_at <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<h4 id="create-triggers">Create Triggers</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Auto-update updated_at timestamp</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> update_updated_at_column()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">NEW</span>.updated_at <span class="op">=</span> NOW();</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>$$ language <span class="st">&#39;plpgsql&#39;</span>;</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> update_projects_updated_at <span class="kw">BEFORE</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> projects</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> update_updated_at_column();</span></code></pre></div>
+<h3 id="alerts-table">3.2 Alerts Table</h3>
+<h4 id="create-table-1">Create Table</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Alerts table for project alerts and notifications</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> alerts (</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Primary key</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span> UUID <span class="kw">PRIMARY</span> <span class="kw">KEY</span> <span class="kw">DEFAULT</span> uuid_generate_v4(),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Alert information</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  project_name TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  message TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  description TEXT,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Alert classification</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span> TEXT <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">CHECK</span> (<span class="kw">type</span> <span class="kw">IN</span> (<span class="st">&#39;schedule&#39;</span>, <span class="st">&#39;cost&#39;</span>, <span class="st">&#39;safety&#39;</span>, <span class="st">&#39;quality&#39;</span>, <span class="st">&#39;info&#39;</span>)),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  severity TEXT <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">CHECK</span> (severity <span class="kw">IN</span> (<span class="st">&#39;low&#39;</span>, <span class="st">&#39;medium&#39;</span>, <span class="st">&#39;high&#39;</span>, <span class="st">&#39;critical&#39;</span>)),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Alert timing</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  age_hours <span class="dt">INTEGER</span> <span class="kw">DEFAULT</span> <span class="dv">0</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Resolution tracking</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  resolved_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  resolved_by TEXT,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  resolution_notes TEXT,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Timestamps</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  created_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  updated_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW()</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">-- Add comments</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">TABLE</span> alerts <span class="kw">IS</span> <span class="st">&#39;Project alerts and notifications&#39;</span>;</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> alerts.<span class="kw">type</span> <span class="kw">IS</span> <span class="st">&#39;Alert category: schedule, cost, safety, quality, info&#39;</span>;</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMENT</span> <span class="kw">ON</span> <span class="kw">COLUMN</span> alerts.severity <span class="kw">IS</span> <span class="st">&#39;Alert priority: low, medium, high, critical&#39;</span>;</span></code></pre></div>
+<h4 id="create-indexes-1">Create Indexes</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Performance indexes</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_created_at <span class="kw">ON</span> alerts(created_at <span class="kw">DESC</span>);</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_severity <span class="kw">ON</span> alerts(severity);</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_type <span class="kw">ON</span> alerts(<span class="kw">type</span>);</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_project_name <span class="kw">ON</span> alerts(project_name);</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Partial index for unresolved alerts</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_unresolved <span class="kw">ON</span> alerts(<span class="kw">id</span>) <span class="kw">WHERE</span> resolved_at <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<h4 id="create-triggers-1">Create Triggers</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Auto-update updated_at timestamp</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> update_alerts_updated_at <span class="kw">BEFORE</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> alerts</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> update_updated_at_column();</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Auto-calculate age_hours</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> calculate_alert_age()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="kw">TRIGGER</span> <span class="kw">AS</span> $$</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">NEW</span>.age_hours <span class="op">=</span> <span class="fu">EXTRACT</span>(EPOCH <span class="kw">FROM</span> (NOW() <span class="op">-</span> <span class="kw">NEW</span>.created_at)) <span class="op">/</span> <span class="dv">3600</span>;</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">RETURN</span> <span class="kw">NEW</span>;</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>$$ language <span class="st">&#39;plpgsql&#39;</span>;</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> update_alert_age <span class="kw">BEFORE</span> <span class="kw">UPDATE</span> <span class="kw">ON</span> alerts</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">FOR</span> <span class="kw">EACH</span> <span class="kw">ROW</span> <span class="kw">EXECUTE</span> <span class="kw">FUNCTION</span> calculate_alert_age();</span></code></pre></div>
+<h3 id="users-table-future">3.3 Users Table (Future)</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Users table for authentication (future implementation)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> users (</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span> UUID <span class="kw">PRIMARY</span> <span class="kw">KEY</span> <span class="kw">DEFAULT</span> uuid_generate_v4(),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  email TEXT <span class="kw">UNIQUE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">role</span> TEXT <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">CHECK</span> (<span class="kw">role</span> <span class="kw">IN</span> (</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;dws_iq_mobile&#39;</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;store_viewer&#39;</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;dws_iq_standard&#39;</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;community_user&#39;</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;lifetime_model&#39;</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;enterprise_client&#39;</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;enterprise_model&#39;</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;backoffice_admin&#39;</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;api_developer&#39;</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;mcp_admin&#39;</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;watsonx_user&#39;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  )),</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  permissions TEXT[],</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  created_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  updated_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  last_login_at <span class="dt">TIMESTAMP</span> <span class="kw">WITH</span> <span class="dt">TIME</span> <span class="dt">ZONE</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_users_email <span class="kw">ON</span> users(email);</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_users_role <span class="kw">ON</span> users(<span class="kw">role</span>);</span></code></pre></div>
+<hr />
+<h2 id="security-configuration">4. Security Configuration</h2>
+<h3 id="row-level-security-rls">4.1 Row Level Security (RLS)</h3>
+<h4 id="enable-rls">Enable RLS</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable RLS on all tables</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> projects <span class="kw">ENABLE</span> <span class="kw">ROW</span> <span class="kw">LEVEL</span> SECURITY;</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> alerts <span class="kw">ENABLE</span> <span class="kw">ROW</span> <span class="kw">LEVEL</span> SECURITY;</span></code></pre></div>
+<h4 id="public-read-access-current">Public Read Access (Current)</h4>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Allow public read access to projects</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> POLICY <span class="ot">&quot;Allow public read access to projects&quot;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> projects <span class="cf">FOR</span> <span class="kw">SELECT</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> (<span class="kw">true</span>);</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Allow public read access to alerts</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> POLICY <span class="ot">&quot;Allow public read access to alerts&quot;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> alerts <span class="cf">FOR</span> <span class="kw">SELECT</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> (<span class="kw">true</span>);</span></code></pre></div>
+<h4 id="authenticated-write-access-future">Authenticated Write Access
+(Future)</h4>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Allow authenticated users to insert projects</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> POLICY <span class="ot">&quot;Allow authenticated users to insert projects&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> projects <span class="cf">FOR</span> <span class="kw">INSERT</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> <span class="kw">CHECK</span> (auth.<span class="kw">role</span>() <span class="op">=</span> <span class="st">&#39;authenticated&#39;</span>);</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Allow authenticated users to update their own projects</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> POLICY <span class="ot">&quot;Allow users to update their projects&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> projects <span class="cf">FOR</span> <span class="kw">UPDATE</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> (auth.<span class="fu">uid</span>() <span class="op">=</span> created_by)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> <span class="kw">CHECK</span> (auth.<span class="fu">uid</span>() <span class="op">=</span> created_by);</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- Allow only admins to delete projects</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> POLICY <span class="ot">&quot;Allow admins to delete projects&quot;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> projects <span class="cf">FOR</span> <span class="kw">DELETE</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="kw">USING</span> (</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  auth.jwt() <span class="op">-&gt;&gt;</span> <span class="st">&#39;role&#39;</span> <span class="op">=</span> <span class="st">&#39;backoffice_admin&#39;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<h3 id="api-security">4.2 API Security</h3>
+<h4 id="rate-limiting">Rate Limiting</h4>
+<p><strong>Supabase Default Limits</strong>: - 100 requests per second
+per IP - Configurable in Project Settings → API</p>
+<p><strong>Custom Rate Limiting</strong> (PostgreSQL function):</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">FUNCTION</span> check_rate_limit(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  user_id UUID,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  max_requests <span class="dt">INTEGER</span> <span class="kw">DEFAULT</span> <span class="dv">100</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  time_window <span class="dt">INTERVAL</span> <span class="kw">DEFAULT</span> <span class="st">&#39;1 minute&#39;</span>:<span class="ch">:INTERVAL</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>RETURNS <span class="dt">BOOLEAN</span> <span class="kw">AS</span> $$</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">DECLARE</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  request_count <span class="dt">INTEGER</span>;</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">INTO</span> request_count</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> api_requests</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> user_id <span class="op">=</span> check_rate_limit.user_id</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> created_at <span class="op">&gt;</span> NOW() <span class="op">-</span> time_window;</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">RETURN</span> request_count <span class="op">&lt;</span> max_requests;</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span>;</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>$$ LANGUAGE plpgsql SECURITY <span class="kw">DEFINER</span>;</span></code></pre></div>
+<h4 id="api-key-rotation">API Key Rotation</h4>
+<p><strong>Rotate anon key</strong>: 1. Go to Project Settings → API 2.
+Click “Generate new anon key” 3. Update all client applications 4.
+Revoke old key after migration</p>
+<p><strong>⚠️ Never rotate service_role key</strong> unless
+compromised</p>
+<h3 id="database-security">4.3 Database Security</h3>
+<h4 id="user-permissions">User Permissions</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Create read-only user for reporting</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span> dws_readonly;</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">CONNECT</span> <span class="kw">ON</span> <span class="kw">DATABASE</span> postgres <span class="kw">TO</span> dws_readonly;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">USAGE</span> <span class="kw">ON</span> <span class="kw">SCHEMA</span> <span class="kw">public</span> <span class="kw">TO</span> dws_readonly;</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">SELECT</span> <span class="kw">ON</span> <span class="kw">ALL</span> <span class="kw">TABLES</span> <span class="kw">IN</span> <span class="kw">SCHEMA</span> <span class="kw">public</span> <span class="kw">TO</span> dws_readonly;</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Create application user with limited permissions</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">ROLE</span> dws_app;</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">CONNECT</span> <span class="kw">ON</span> <span class="kw">DATABASE</span> postgres <span class="kw">TO</span> dws_app;</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">USAGE</span> <span class="kw">ON</span> <span class="kw">SCHEMA</span> <span class="kw">public</span> <span class="kw">TO</span> dws_app;</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GRANT</span> <span class="kw">SELECT</span>, <span class="kw">INSERT</span>, <span class="kw">UPDATE</span> <span class="kw">ON</span> projects, alerts <span class="kw">TO</span> dws_app;</span></code></pre></div>
+<h4 id="ssltls-configuration">SSL/TLS Configuration</h4>
+<p>Supabase enforces SSL/TLS by default: - TLS 1.2+ required -
+Certificate verification enabled - Connection string includes
+<code>sslmode=require</code></p>
+<hr />
+<h2 id="api-management">5. API Management</h2>
+<h3 id="rest-api">5.1 REST API</h3>
+<h4 id="auto-generated-endpoints">Auto-Generated Endpoints</h4>
+<p><strong>Projects</strong>:</p>
+<pre><code>GET    /rest/v1/projects              # List all projects
+GET    /rest/v1/projects?id=eq.{id}   # Get specific project
+POST   /rest/v1/projects              # Create project
+PATCH  /rest/v1/projects?id=eq.{id}   # Update project
+DELETE /rest/v1/projects?id=eq.{id}   # Delete project</code></pre>
+<p><strong>Alerts</strong>:</p>
+<pre><code>GET    /rest/v1/alerts                # List all alerts
+GET    /rest/v1/alerts?id=eq.{id}     # Get specific alert
+POST   /rest/v1/alerts                # Create alert
+PATCH  /rest/v1/alerts?id=eq.{id}     # Update alert
+DELETE /rest/v1/alerts?id=eq.{id}     # Delete alert</code></pre>
+<h4 id="query-parameters">Query Parameters</h4>
+<p><strong>Filtering</strong>:</p>
+<pre><code>GET /rest/v1/projects?region=eq.Nordics
+GET /rest/v1/alerts?severity=eq.critical
+GET /rest/v1/projects?spi=lt.0.9</code></pre>
+<p><strong>Ordering</strong>:</p>
+<pre><code>GET /rest/v1/projects?order=created_at.desc
+GET /rest/v1/alerts?order=severity.desc,created_at.desc</code></pre>
+<p><strong>Limiting</strong>:</p>
+<pre><code>GET /rest/v1/projects?limit=10
+GET /rest/v1/projects?limit=10&amp;offset=20</code></pre>
+<p><strong>Selecting Columns</strong>:</p>
+<pre><code>GET /rest/v1/projects?select=id,name,spi,cpi
+GET /rest/v1/alerts?select=project_name,message,severity</code></pre>
+<h3 id="graphql-api-optional">5.2 GraphQL API (Optional)</h3>
+<p><strong>Endpoint</strong>:
+<code>https://kpucuwwfhuwurdxyjjtz.supabase.co/graphql/v1</code></p>
+<p><strong>Example Query</strong>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode graphql"><code class="sourceCode graphql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">query</span> GetProjects {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  projectsCollection {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    edges {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>      node {</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        id</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        name</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        region</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        spi</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        cpi</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        percentComplete</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="real-time-subscriptions">5.3 Real-time Subscriptions</h3>
+<h4 id="enable-real-time">Enable Real-time</h4>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable real-time for projects table</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> PUBLICATION supabase_realtime <span class="kw">ADD</span> <span class="kw">TABLE</span> projects;</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Enable real-time for alerts table</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> PUBLICATION supabase_realtime <span class="kw">ADD</span> <span class="kw">TABLE</span> alerts;</span></code></pre></div>
+<h4 id="client-subscription-example">Client Subscription Example</h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Subscribe to project changes</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> subscription <span class="op">=</span> supabase</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">channel</span>(<span class="st">&#39;projects-changes&#39;</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">on</span>(<span class="st">&#39;postgres_changes&#39;</span><span class="op">,</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">event</span><span class="op">:</span> <span class="st">&#39;*&#39;</span><span class="op">,</span> <span class="dt">schema</span><span class="op">:</span> <span class="st">&#39;public&#39;</span><span class="op">,</span> <span class="dt">table</span><span class="op">:</span> <span class="st">&#39;projects&#39;</span> }<span class="op">,</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    (payload) <span class="kw">=&gt;</span> {</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Project changed:&#39;</span><span class="op">,</span> payload)<span class="op">;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">subscribe</span>()<span class="op">;</span></span></code></pre></div>
+<hr />
+<h2 id="authentication">6. Authentication</h2>
+<h3 id="supabase-auth-setup">6.1 Supabase Auth Setup</h3>
+<h4 id="enable-auth-providers">Enable Auth Providers</h4>
+<p><strong>Location</strong>: Authentication → Providers</p>
+<p><strong>Available Providers</strong>: - ✅ Email/Password - ✅ Magic
+Link - ✅ Google OAuth - ✅ GitHub OAuth - ✅ Microsoft OAuth</p>
+<h4 id="configure-email-templates">Configure Email Templates</h4>
+<p><strong>Location</strong>: Authentication → Email Templates</p>
+<p><strong>Templates to Configure</strong>: - Confirmation email -
+Password reset - Magic link - Email change confirmation</p>
+<h3 id="user-management">6.2 User Management</h3>
+<h4 id="create-user-admin">Create User (Admin)</h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Via Supabase Auth API</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> auth.users (</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  email,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  encrypted_password,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  email_confirmed_at,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  raw_user_meta_data</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>) <span class="kw">VALUES</span> (</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;user@example.com&#39;</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  crypt(<span class="st">&#39;password123&#39;</span>, gen_salt(<span class="st">&#39;bf&#39;</span>)),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  NOW(),</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;{&quot;role&quot;: &quot;dws_iq_mobile&quot;}&#39;</span>:<span class="ch">:jsonb</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<h4 id="update-user-role">Update User Role</h4>
+<div class="sourceCode" id="cb29"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> auth.users</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> raw_user_meta_data <span class="op">=</span> jsonb_set(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  raw_user_meta_data,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;{role}&#39;</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;&quot;backoffice_admin&quot;&#39;</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> email <span class="op">=</span> <span class="st">&#39;admin@dws-iq.com&#39;</span>;</span></code></pre></div>
+<h4 id="delete-user">Delete User</h4>
+<div class="sourceCode" id="cb30"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Soft delete (recommended)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> auth.users</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> deleted_at <span class="op">=</span> NOW()</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> email <span class="op">=</span> <span class="st">&#39;user@example.com&#39;</span>;</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Hard delete (permanent)</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> auth.users</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> email <span class="op">=</span> <span class="st">&#39;user@example.com&#39;</span>;</span></code></pre></div>
+<hr />
+<h2 id="database-operations">7. Database Operations</h2>
+<h3 id="common-queries">7.1 Common Queries</h3>
+<h4 id="get-project-statistics">Get Project Statistics</h4>
+<div class="sourceCode" id="cb31"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">as</span> total_projects,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AVG</span>(spi) <span class="kw">as</span> avg_spi,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AVG</span>(cpi) <span class="kw">as</span> avg_cpi,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AVG</span>(percent_complete) <span class="kw">as</span> avg_completion,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> safety_rag <span class="op">=</span> <span class="st">&#39;red&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">END</span>) <span class="kw">as</span> red_projects,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> safety_rag <span class="op">=</span> <span class="st">&#39;amber&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">END</span>) <span class="kw">as</span> amber_projects,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> safety_rag <span class="op">=</span> <span class="st">&#39;green&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">END</span>) <span class="kw">as</span> green_projects</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> projects</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> deleted_at <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<h4 id="get-critical-alerts">Get Critical Alerts</h4>
+<div class="sourceCode" id="cb32"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  project_name,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  message,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  severity,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  age_hours,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  created_at</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> alerts</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> resolved_at <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> severity <span class="kw">IN</span> (<span class="st">&#39;high&#39;</span>, <span class="st">&#39;critical&#39;</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> severity <span class="kw">DESC</span>, created_at <span class="kw">DESC</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<h4 id="get-projects-at-risk">Get Projects At Risk</h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  name,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  region,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  spi,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  cpi,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  percent_complete,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  safety_rag</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> projects</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> deleted_at <span class="kw">IS</span> <span class="kw">NULL</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> (spi <span class="op">&lt;</span> <span class="fl">0.9</span> <span class="kw">OR</span> cpi <span class="op">&lt;</span> <span class="fl">0.9</span> <span class="kw">OR</span> safety_rag <span class="op">=</span> <span class="st">&#39;red&#39;</span>)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">CASE</span> safety_rag</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;red&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;amber&#39;</span> <span class="cf">THEN</span> <span class="dv">2</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ELSE</span> <span class="dv">3</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">END</span>,</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  spi <span class="kw">ASC</span>;</span></code></pre></div>
+<h3 id="data-maintenance">7.2 Data Maintenance</h3>
+<h4 id="clean-old-resolved-alerts">Clean Old Resolved Alerts</h4>
+<div class="sourceCode" id="cb34"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Delete alerts resolved more than 30 days ago</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> alerts</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> resolved_at <span class="op">&lt;</span> NOW() <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;30 days&#39;</span>;</span></code></pre></div>
+<h4 id="archive-old-projects">Archive Old Projects</h4>
+<div class="sourceCode" id="cb35"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Soft delete projects completed more than 1 year ago</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> projects</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> deleted_at <span class="op">=</span> NOW()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> percent_complete <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> updated_at <span class="op">&lt;</span> NOW() <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;1 year&#39;</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> deleted_at <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<h4 id="update-project-statistics">Update Project Statistics</h4>
+<div class="sourceCode" id="cb36"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Recalculate project metrics</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> projects</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  budget_spent <span class="op">=</span> (</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> <span class="fu">SUM</span>(amount) </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> project_expenses </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> project_id <span class="op">=</span> projects.<span class="kw">id</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  updated_at <span class="op">=</span> NOW()</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> deleted_at <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<hr />
+<h2 id="monitoring-and-logs">8. Monitoring and Logs</h2>
+<h3 id="query-performance">8.1 Query Performance</h3>
+<h4 id="view-slow-queries">View Slow Queries</h4>
+<div class="sourceCode" id="cb37"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">query</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  calls,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  total_time,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  mean_time,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  max_time</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_stat_statements</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> mean_time <span class="kw">DESC</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<h4 id="analyze-query-plan">Analyze Query Plan</h4>
+<div class="sourceCode" id="cb38"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> <span class="kw">ANALYZE</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> projects</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> region <span class="op">=</span> <span class="st">&#39;Nordics&#39;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> created_at <span class="kw">DESC</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<h3 id="database-statistics">8.2 Database Statistics</h3>
+<h4 id="table-sizes">Table Sizes</h4>
+<div class="sourceCode" id="cb39"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  schemaname,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  tablename,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  pg_size_pretty(pg_total_relation_size(schemaname<span class="op">||</span><span class="st">&#39;.&#39;</span><span class="op">||</span>tablename)) <span class="kw">AS</span> <span class="kw">size</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_tables</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> schemaname <span class="op">=</span> <span class="st">&#39;public&#39;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> pg_total_relation_size(schemaname<span class="op">||</span><span class="st">&#39;.&#39;</span><span class="op">||</span>tablename) <span class="kw">DESC</span>;</span></code></pre></div>
+<h4 id="index-usage">Index Usage</h4>
+<div class="sourceCode" id="cb40"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  schemaname,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  tablename,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  indexname,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  idx_scan,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  idx_tup_read,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  idx_tup_fetch</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_stat_user_indexes</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> idx_scan <span class="kw">DESC</span>;</span></code></pre></div>
+<h3 id="supabase-dashboard-logs">8.3 Supabase Dashboard Logs</h3>
+<p><strong>Location</strong>: Project Dashboard → Logs</p>
+<p><strong>Available Logs</strong>: - API Logs: REST API requests -
+Database Logs: SQL queries - Auth Logs: Authentication events - Realtime
+Logs: WebSocket connections</p>
+<p><strong>Log Retention</strong>: 7 days (Free Tier)</p>
+<hr />
+<h2 id="backup-and-recovery">9. Backup and Recovery</h2>
+<h3 id="automatic-backups">9.1 Automatic Backups</h3>
+<p><strong>Supabase Free Tier</strong>: - Daily automatic backups -
+Retained for 7 days - No point-in-time recovery</p>
+<p><strong>Access Backups</strong>: 1. Go to Project Dashboard →
+Database → Backups 2. View available backups 3. Download or restore as
+needed</p>
+<h3 id="manual-backup">9.2 Manual Backup</h3>
+<h4 id="full-database-backup">Full Database Backup</h4>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">-F</span> c <span class="dt">\</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">-f</span> dws6_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d_%H%M%S<span class="va">)</span>.dump</span></code></pre></div>
+<h4 id="table-specific-backup">Table-Specific Backup</h4>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup projects table</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">-t</span> projects <span class="dt">\</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">-F</span> c <span class="dt">\</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">-f</span> projects_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.dump</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup alerts table</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">-t</span> alerts <span class="dt">\</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">-F</span> c <span class="dt">\</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">-f</span> alerts_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.dump</span></code></pre></div>
+<h4 id="schema-only-backup">Schema-Only Backup</h4>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_dump</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">--schema-only</span> <span class="dt">\</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">-f</span> schema_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.sql</span></code></pre></div>
+<h3 id="restore-procedures">9.3 Restore Procedures</h3>
+<h4 id="restore-full-database">Restore Full Database</h4>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_restore</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">-c</span> <span class="dt">\</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">-v</span> <span class="dt">\</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>           dws6_backup_20251230_120000.dump</span></code></pre></div>
+<h4 id="restore-specific-table">Restore Specific Table</h4>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pg_restore</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">-t</span> projects <span class="dt">\</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">-c</span> <span class="dt">\</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>           projects_backup_20251230.dump</span></code></pre></div>
+<h4 id="restore-from-sql-file">Restore from SQL File</h4>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="at">-h</span> db.kpucuwwfhuwurdxyjjtz.supabase.co <span class="dt">\</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-U</span> postgres <span class="dt">\</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> postgres <span class="dt">\</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-f</span> schema_backup_20251230.sql</span></code></pre></div>
+<hr />
+<h2 id="performance-tuning">10. Performance Tuning</h2>
+<h3 id="index-optimization">10.1 Index Optimization</h3>
+<h4 id="identify-missing-indexes">Identify Missing Indexes</h4>
+<div class="sourceCode" id="cb47"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  schemaname,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  tablename,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  attname,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  n_distinct,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  correlation</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_stats</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> schemaname <span class="op">=</span> <span class="st">&#39;public&#39;</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> n_distinct <span class="op">&gt;</span> <span class="dv">100</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> correlation <span class="op">&lt;</span> <span class="fl">0.1</span>;</span></code></pre></div>
+<h4 id="create-composite-indexes">Create Composite Indexes</h4>
+<div class="sourceCode" id="cb48"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- For queries filtering by region and phase</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_projects_region_phase <span class="kw">ON</span> projects(region, phase);</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- For queries filtering by severity and type</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_alerts_severity_type <span class="kw">ON</span> alerts(severity, <span class="kw">type</span>);</span></code></pre></div>
+<h3 id="query-optimization">10.2 Query Optimization</h3>
+<h4 id="use-explain-analyze">Use EXPLAIN ANALYZE</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPLAIN</span> (<span class="kw">ANALYZE</span>, BUFFERS, VERBOSE)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> projects</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> region <span class="op">=</span> <span class="st">&#39;Nordics&#39;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> spi <span class="op">&lt;</span> <span class="fl">0.9</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> created_at <span class="kw">DESC</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div>
+<h4 id="optimize-with-ctes">Optimize with CTEs</h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Use Common Table Expressions for complex queries</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> at_risk_projects <span class="kw">AS</span> (</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="kw">id</span>, name, spi, cpi</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> projects</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> spi <span class="op">&lt;</span> <span class="fl">0.9</span> <span class="kw">OR</span> cpi <span class="op">&lt;</span> <span class="fl">0.9</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  p.<span class="op">*</span>,</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">COUNT</span>(a.<span class="kw">id</span>) <span class="kw">as</span> alert_count</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> at_risk_projects p</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> alerts a <span class="kw">ON</span> a.project_name <span class="op">=</span> p.name</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> p.<span class="kw">id</span>, p.name, p.spi, p.cpi;</span></code></pre></div>
+<h3 id="connection-pooling">10.3 Connection Pooling</h3>
+<p><strong>Supabase Connection Pooler</strong>: - Transaction mode: Best
+for serverless - Session mode: Best for long-lived connections</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code>Transaction mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:6543
+Session mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:5432</code></pre>
+<hr />
+<h2 id="troubleshooting">11. Troubleshooting</h2>
+<h3 id="common-issues">11.1 Common Issues</h3>
+<h4 id="issue-connection-timeout">Issue: Connection Timeout</h4>
+<p><strong>Symptoms</strong>: - “Connection timeout” error - Slow query
+responses</p>
+<p><strong>Solutions</strong>: 1. Check Supabase status:
+https://status.supabase.com/ 2. Verify network connectivity 3. Use
+connection pooler 4. Optimize slow queries</p>
+<h4 id="issue-rls-policy-blocking-access">Issue: RLS Policy Blocking
+Access</h4>
+<p><strong>Symptoms</strong>: - Empty results despite data existing -
+“Permission denied” errors</p>
+<p><strong>Solutions</strong>:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Check RLS policies</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> pg_policies <span class="kw">WHERE</span> tablename <span class="op">=</span> <span class="st">&#39;projects&#39;</span>;</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Temporarily disable RLS for testing (NOT in production)</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> projects <span class="kw">DISABLE</span> <span class="kw">ROW</span> <span class="kw">LEVEL</span> SECURITY;</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Re-enable after testing</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> projects <span class="kw">ENABLE</span> <span class="kw">ROW</span> <span class="kw">LEVEL</span> SECURITY;</span></code></pre></div>
+<h4 id="issue-high-database-load">Issue: High Database Load</h4>
+<p><strong>Symptoms</strong>: - Slow query performance - High CPU usage
+- Connection pool exhausted</p>
+<p><strong>Solutions</strong>: 1. Identify slow queries:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> pg_stat_activity</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> state <span class="op">=</span> <span class="st">&#39;active&#39;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> query_start;</span></code></pre></div>
+<ol start="2" type="1">
+<li>Kill long-running queries:</li>
+</ol>
+<div class="sourceCode" id="cb54"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> pg_terminate_backend(pid)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> pg_stat_activity</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> state <span class="op">=</span> <span class="st">&#39;active&#39;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> query_start <span class="op">&lt;</span> NOW() <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;5 minutes&#39;</span>;</span></code></pre></div>
+<ol start="3" type="1">
+<li>Add missing indexes</li>
+<li>Optimize queries</li>
+<li>Consider upgrading plan</li>
+</ol>
+<hr />
+<h2 id="contact-and-support">Contact and Support</h2>
+<p><strong>Supabase Support</strong>: https://supabase.com/support<br />
+<strong>Documentation</strong>: https://supabase.com/docs<br />
+<strong>Community</strong>:
+https://github.com/supabase/supabase/discussions</p>
+<p><strong>DWS6 Technical Support</strong>: support@dws-iq.com</p>
+<hr />
+<p><strong>Document Version</strong>: 1.0<br />
+<strong>Last Updated</strong>: 30. December 2025<br />
+<strong>Next Review</strong>: Q2 2026</p>
+</body>
+</html>

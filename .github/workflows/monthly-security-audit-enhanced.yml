@@ -193,9 +193,8 @@ jobs:
                         '- Correlation Analysis: See GitHub Actions\n' +
                         '- Security Issues: See GitHub Issues\n\n' +
                         '### References\n' +
-                        '- DWS6 Security Audit: Admin/Security/DWS6_REPOSITORY_SECURITY_AUDIT.md\n' +
-                        '- Aikido Zen Deployment: Admin/Security/AIKIDO_ZEN_DEPLOYMENT_NOWPLAN.md\n' +
-                        '- Remediation Roadmap: Admin/Security/REMEDIATION_ROADMAP_DWS6.md\n\n' +
+                        '- Security Reports: security-reports/\n' +
+                        '- GitHub Actions: See workflow artifacts\n\n' +
                         '---\n' +
                         'Automated monthly security audit - Part of defense-in-depth strategy';
 
@@ -298,6 +297,6 @@ jobs:
           git config --local user.name "Security Bot"
           
           # In production, commit updated metrics
-          # git add Admin/Security/metrics/
+          # git add security-reports/metrics/
           # git commit -m "Update security metrics for $(date +%Y-%m)"
           # git push

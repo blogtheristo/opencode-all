@@ -3,355 +3,811 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal & Compliance Hub | Lifetime DWS IQ</title>
-    <link rel="stylesheet" href="../../static/css/style.css"> 
+    <title>Legal & Compliance Hub | DWS IQ Platform | Lifetime Oy</title>
+    <meta name="description" content="Legal & Compliance Hub — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="legal, terms of service, privacy policy, legal hub, EU AI Act compliance, limited-risk AI, Article 12 logging, EU data sovereignty, GDPR, NIS2, CSRD, AI governance">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Legal & Compliance Hub | DWS IQ Platform | Lifetime Oy">
+    <meta property="og:description" content="Legal & Compliance Hub — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/legal/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Legal & Compliance Hub | DWS IQ Platform | Lifetime Oy">
+    <meta name="twitter:description" content="Legal & Compliance Hub — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/legal/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Shared Navigation -->
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+
     <style>
-        body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 960px; margin: 40px auto; background: rgba(30, 41, 59, 0.6); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); flex-grow: 1; }
-        h1, h2, h3 { color: #60a5fa; margin-top: 1.5em; }
-        h1 { border-bottom: 2px solid #334155; padding-bottom: 0.5em; }
-        a { color: #60a5fa; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; }
-        strong { color: #e2e8f0; }
-        .nav-header { background: #1e293b; padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
-        .summary-table { margin-top: 20px; overflow-x: auto; }
-        .summary-table table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-        .summary-table th, .summary-table td { border: 1px solid #334155; padding: 10px 14px; text-align: left; }
-        .summary-table th { background: rgba(96, 165, 250, 0.12); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.04em; }
-        .summary-table td { background: rgba(15, 23, 42, 0.8); }
-        .summary-table .table-note { font-size: 0.85rem; color: #94a3b8; margin-top: 8px; }
-        .callout { border-left: 3px solid #60a5fa; padding-left: 16px; margin: 16px 0; color: #cbd5e1; }
-        .section-note { background: rgba(30, 41, 59, 0.7); padding: 14px 16px; border-radius: 6px; border: 1px solid rgba(148,163,184,0.2); margin-bottom: 16px; }
-        .contact-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 16px; }
-        .contact-card div { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(96, 165, 250, 0.2); padding: 16px; border-radius: 8px; }
-        .contact-card h3 { margin-top: 0; font-size: 1.05rem; }
-        .tag { display: inline-flex; align-items: center; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.5); margin-left: 6px; }
-        
-        /* Dropdown */
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-content { display: none; position: absolute; top: 100%; right: 0; background: #1e293b; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 50; border: 1px solid #334155; border-radius: 4px; padding: 8px 0; }
-        .nav-dropdown:hover .nav-dropdown-content { display: block; }
-        .nav-dropdown-content a { color: #cbd5e1; padding: 10px 16px; text-decoration: none; display: block; font-size: 0.95rem; }
-        .nav-dropdown-content a:hover { background-color: #334155; color: #60a5fa; }
+        /* ============================================
+           DWS6 GAMMA ENTERPRISE DESIGN SYSTEM
+           Legal Hub - Content Styles v1.3
+           ============================================ */
+
+        :root {
+            /* Brand Colors */
+            --color-primary: #0a1628;
+            --color-primary-light: #152238;
+            --color-accent: #0066cc;
+            --color-accent-dark: #0052a3;
+            --color-success: #0d7a3e;
+            --color-warning: #b45309;
+            --color-legal: #0d7a3e;
+
+            /* EU Sovereignty Colors */
+            --color-eu-blue: #003399;
+            --color-eu-gold: #FFCC00;
+
+            /* Neutrals */
+            --color-white: #ffffff;
+            --color-gray-50: #f8fafc;
+            --color-gray-100: #f1f5f9;
+            --color-gray-200: #e2e8f0;
+            --color-gray-300: #cbd5e1;
+            --color-gray-400: #94a3b8;
+            --color-gray-500: #64748b;
+            --color-gray-600: #475569;
+            --color-gray-700: #334155;
+            --color-gray-800: #1e293b;
+            --color-gray-900: #0f172a;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--color-gray-900);
+            background: var(--color-white);
+        }
+
+        /* === SOVEREIGNTY HERO === */
+        .sovereignty-hero {
+            background: linear-gradient(135deg, var(--color-eu-blue) 0%, #001a4d 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sovereignty-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(255, 204, 0, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 50%, rgba(255, 204, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .sovereignty-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sovereignty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 204, 0, 0.2);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-eu-gold);
+            margin-bottom: 24px;
+        }
+
+        .sovereignty-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .sovereignty-title .highlight {
+            color: var(--color-eu-gold);
+        }
+
+        .sovereignty-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+        }
+
+        .sovereignty-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-eu-gold);
+            color: var(--color-eu-blue);
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sovereignty-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
+        }
+
+        /* === MAIN CONTENT === */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-gray-900);
+            border-bottom: 2px solid var(--color-gray-200);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-top: 48px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--color-gray-600);
+            margin-bottom: 16px;
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--color-gray-600);
+        }
+
+        strong {
+            color: var(--color-gray-900);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--color-gray-200);
+            margin: 32px 0;
+        }
+
+        /* === SUMMARY TABLE === */
+        .summary-table {
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .summary-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9375rem;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid var(--color-gray-200);
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .summary-table th {
+            background: var(--color-gray-100);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--color-gray-600);
+        }
+
+        .summary-table td {
+            background: var(--color-white);
+        }
+
+        .summary-table tr:hover td {
+            background: var(--color-gray-50);
+        }
+
+        .table-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-500);
+            margin-top: 8px;
+        }
+
+        /* === CALLOUT === */
+        .callout {
+            border-left: 4px solid var(--color-accent);
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: var(--color-gray-50);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .section-note {
+            background: var(--color-gray-50);
+            padding: 16px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--color-gray-200);
+            margin: 16px 0;
+        }
+
+        /* === CONTACT CARDS === */
+        .contact-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .contact-card > div {
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .contact-card h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            color: var(--color-accent);
+        }
+
+        /* === TAG === */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            background: rgba(0, 102, 204, 0.1);
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            color: var(--color-accent);
+            margin-left: 8px;
+        }
+
+        .tag-sovereignty {
+            background: rgba(0, 51, 153, 0.1);
+            border-color: var(--color-eu-blue);
+            color: var(--color-eu-blue);
+        }
+
+        /* === FOOTER === */
+        .site-footer {
+            background: var(--color-gray-900);
+            color: var(--color-gray-400);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .legal-notice {
+            font-size: 0.875rem;
+            margin-bottom: 20px;
+        }
+
+        .legal-notice strong {
+            color: var(--color-white);
+        }
+
+        .legal-notice a {
+            color: var(--color-accent);
+        }
+
+        .copyright {
+            font-size: 0.8125rem;
+            color: var(--color-gray-500);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .sovereignty-hero {
+                padding: 40px 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="nav-header">
-        <a href="../../" class="nav-brand" style="display: flex; align-items: center; gap: 15px;">
-            <img src="../../OneLifetime+Logo.png" alt="OneLifetime" style="height: 50px;">
-            <span>DWS IQ Platform</span>
-        </a>
-        <div class="nav-links">
-            <a href="../../">Home</a>
-            <a href="../../buy/">Store</a>
-            <div class="nav-dropdown">
-                <a href="../../legal/" style="font-weight: bold;">Legal Hub ▾</a>
-                <div class="nav-dropdown-content">
-                    <a href="../../legal/"><strong>Legal Hub (Start Here)</strong></a>
-                    <a href="../../regulatory-notice/">⭐ Investor Notice</a>
-                    <a href="https://lifetime.fi/legal" target="_blank">⭐ Lifetime Group | Legal Notices 2026</a>
-                    <hr style="border:0; border-top:1px solid #334155; margin:5px 0;">
-                    <a href="../../privacy-policy/">⭐ Privacy Policy</a>
-                    <a href="../../data-security-policy/">⭐ Data Security Policy</a>
-                    <a href="../../data-handling-policy/">⭐ Data Handling Policy</a>
-                    <a href="../../terms/">⭐ Professional Services Terms</a>
-                    <a href="../../terms-dws-iq/">⭐ DWS IQ Terms</a>
-                    <a href="../../terms-firehorse/">⭐ Firehorse Terms</a>
-                    <a href="../../terms-lifetime-fleet/">⭐ Fleet Terms</a>
-                    <a href="../../terms-professional/">⭐ Professional Terms</a>
-                    <a href="../../return-policy/">⭐ Return Policy</a>
-                </div>
+    <!-- Navigation will be injected by ironclad-nav.js -->
+
+    <!-- Sovereignty Hero Section -->
+    <section class="sovereignty-hero">
+        <div class="sovereignty-hero-content">
+            <div class="sovereignty-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+                EU AI Act Ready · Limited-Risk Certified
+            </div>
+            <h1 class="sovereignty-title">
+                <span class="highlight">Excellent</span> — one of the cleaner<br>
+                "Compliance First" AI climate platforms.
+            </h1>
+            <p class="sovereignty-subtitle" style="font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.75); margin-bottom: 8px;">
+                — Independent AI regulatory assessment, March 2026
+            </p>
+            <p class="sovereignty-subtitle">
+                EU AI Act self-classification documented. Article 12 active. Human-in-the-loop by design. Every compliance claim is transparent, auditable, and available for your legal team to verify.
+            </p>
+            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 8px;">
+                <a href="../testimonials/" class="sovereignty-cta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <span>Read the Full Assessment</span>
+                </a>
+                <a href="../sovereignty/sovereignty.html" style="display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,204,0,0.5); color: rgba(255,255,255,0.9); padding: 12px 24px; border-radius: 9999px; font-weight: 600; text-decoration: none; transition: all 0.3s; font-size: 0.875rem;">
+                    <span>View Sovereignty Options</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Lifetime Legal & Compliance Hub</h1>
+        <p><strong>Transparency as a Service.</strong></p>
+        <p>At Lifetime Oy, we believe that legal clarity is the foundation of industrial trust. Our "Compliance First" architecture is designed to turn complex EU regulations—such as <strong>Fit for 55</strong>, the <strong>EU AI Act</strong>, the <strong>Digital Services Act (DSA)</strong>, the <strong>EU Data Act</strong>, and <strong>GDPR</strong>—from liabilities into competitive assets for our clients.</p>
+        <p>Below you will find our complete legal framework, governing our software, services, and commercial relationships. Each policy carries an explicit effective date, last review, and named escalation channel to simplify vendor-risk assessments.</p>
+
+        <h2>0. Compliance at a Glance</h2>
+        <p>This overview summarises the key legal and compliance controls for Lifetime Group, the DWS IQ 6 Platform, the Firehorse product line, Lifetime Consulting & Advisory services, and Lifetime Studios services.</p>
+
+        <div class="summary-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Policy</th>
+                        <th>Applies to</th>
+                        <th>Effective</th>
+                        <th>Last reviewed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🛡️ <a href="../sovereignty/sovereignty.html"><strong>Digital Sovereignty</strong></a> <span class="tag tag-sovereignty">New</span></td>
+                        <td>All EU deployments</td>
+                        <td>28 Jan 2026</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../privacy-policy/">Privacy Policy & GDPR Statement</a></td>
+                        <td>All visitors & data subjects</td>
+                        <td>01 Jan 2023</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../data-security-policy/">Data Security Policy</a></td>
+                        <td>All business partners & clients</td>
+                        <td>13 Dec 2025</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../data-handling-policy/">Data Handling Policy</a></td>
+                        <td>Internal team & partners</td>
+                        <td>13 Dec 2025</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../terms/">Agreement & Project Terms</a></td>
+                        <td>Enterprise & project clients</td>
+                        <td>15 May 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../terms-dws-iq/">DWS IQ Terms of Service</a></td>
+                        <td>DWS IQ SaaS users</td>
+                        <td>30 Jun 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../terms-firehorse/">Firehorse Terms of Service</a></td>
+                        <td>Marketing & reporting automation users</td>
+                        <td>02 Sep 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../terms-lifetime-fleet/">Lifetime Fleet Terms</a></td>
+                        <td>Robotics, drone & logistics partners</td>
+                        <td>12 Feb 2025</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../terms-professional/">Professional Services Terms</a></td>
+                        <td>Consulting & advisory engagements</td>
+                        <td>20 Mar 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../regulatory-notice/">Regulatory Notice for Investors</a></td>
+                        <td>Prospective & current investors</td>
+                        <td>18 Oct 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="../return-policy/">Return & Performance Policy</a></td>
+                        <td>Store & subscription customers</td>
+                        <td>05 Jan 2024</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td>⭐ <a href="https://lifetime.fi/legal" target="_blank">Lifetime Group Legal Notices 2026</a></td>
+                        <td>Lifetime Oy corporate & group entities</td>
+                        <td>01 Dec 2025</td>
+                        <td>28 Jan 2026</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Safety Report 2026 Analysis</strong> <span class="tag">New</span></td>
+                        <td>Security Research — all AI deployments</td>
+                        <td>06 Feb 2026</td>
+                        <td>06 Feb 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="table-note">Dates show when each control entered into force and the most recent audit or legal review. Earlier versions remain available upon request.</p>
+        </div>
+
+        <hr>
+
+        <h2>1. EU AI Act Self-Classification</h2>
+        <p>Lifetime Oy maintains formal documentation of DWS IQ 6's classification under the <strong>EU AI Act (Regulation 2024/1689)</strong>, enforceable from 2 August 2026.</p>
+
+        <div class="callout" style="border-color: #003399; background: rgba(0,51,153,0.04);">
+            <p><strong>Classification: Limited-Risk AI System</strong> <span class="tag tag-sovereignty">EU AI Act 2024/1689</span></p>
+            <p>DWS IQ 6 and Firehorse modules are self-classified as <strong>limited-risk</strong> AI systems under Article 6 and Annex III. They do not qualify as prohibited AI practices (Article 5) or high-risk systems (Annex III categories: biometrics, employment scoring, law enforcement, safety components of critical infrastructure).</p>
+            <p style="margin-bottom:0">Primary function: automating ESG data into auditable compliance dashboards and 2030 simulation models — a <em>decision-support tool</em>, not an autonomous safety-critical actuator.</p>
+        </div>
+
+        <h3>Documented Compliance Elements</h3>
+        <div class="summary-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>EU AI Act Requirement</th>
+                        <th>Our Implementation</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Technical Documentation</strong> (Art. 11)</td>
+                        <td>Full system cards, model documentation, and architecture specs maintained in internal governance repository</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Record-Keeping & Logging</strong> (Art. 12)</td>
+                        <td>Automatic immutable logging of all AI events; 7-year retention; SIEM export available</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reasoning Lineage / Explainability</strong></td>
+                        <td>Every AI decision includes a traceable input → output chain; provenance metadata embedded in all AI-generated reports</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Human-in-the-Loop Oversight</strong></td>
+                        <td>No autonomous safety-critical actions; human validation required before any actuation or compliance filing</td>
+                        <td>✅ By design</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Governance Framework</strong></td>
+                        <td>Internal risk assessment, incident audit trails, autonomy tiers (1–5), and quarterly internal review</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Sovereignty & GDPR Art. 6</strong></td>
+                        <td>Private-cloud deployment; EU data residency (FI/DE); all processing bases documented per GDPR Article 6</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transparency Obligations</strong> (Art. 50)</td>
+                        <td>Users are disclosed when interacting with AI-generated compliance reports or automated content</td>
+                        <td>✅ Active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NIS2 Readiness</strong></td>
+                        <td>Incident reporting architecture; 24h early warning to Traficom; final report within 72 hours</td>
+                        <td>✅ Compliant</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Third-Party Conformity Assessment</strong></td>
+                        <td>Not required for limited-risk classification; ISO 27001 audit roadmap active (Q3 2026 target)</td>
+                        <td>🔄 Roadmap</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-note">
+            <strong>Deadline readiness:</strong> All limited-risk obligations are met ahead of the 2 August 2026 enforcement date. Preparatory elements for potential future reclassification — risk management controls, human oversight architecture, and full audit trails — are embedded in the product from day one.
+        </div>
+
+        <hr>
+
+        <h2>2. Digital Sovereignty (New)</h2>
+        <p>🛡️ <strong><a href="../sovereignty/sovereignty.html">EU-Sovereign by Design</a></strong></p>
+        <ul>
+            <li><strong>For All Customers:</strong> Understand your deployment options — EU-sovereign infrastructure is the default; US hyperscalers are an available secondary option.</li>
+            <li><strong>Deployment Options (EU-first):</strong>
+                <ul>
+                    <li><strong>Sovereign Private Cloud</strong> ⭐ <em>Recommended</em>: On-premise or dedicated infrastructure with customer-managed encryption. Maximum EU sovereignty and data residency guarantee.</li>
+                    <li><strong>European Cloud</strong> ⭐: Hetzner (Helsinki), Scaleway (Paris/Amsterdam/Warsaw), OVHcloud (EU regions) — no CLOUD Act exposure, GAIA-X aligned, 100% EU jurisdictions</li>
+                    <li><strong>US Hyperscalers (secondary option)</strong>: AWS, Google Cloud, Azure — EU region data residency available, but CLOUD Act jurisdiction may apply. Suitable where EU-sovereign clouds do not meet performance or tooling requirements.</li>
+                </ul>
+            </li>
+            <li><strong>Product Defaults:</strong> Firehorse local installations preferred for maximum sovereignty. Edge AI on NVIDIA Jetson keeps sensitive data on-premise. Google Cloud Run europe-north1 (Finland) used for managed EU Cloud deployments.</li>
+        </ul>
+
+        <div class="section-note">
+            <strong>August 2026 EU AI Act:</strong> High-risk AI systems require EU data governance. DWS IQ Platform is Article 12 compliant with full reasoning lineage documentation for all AI decisions.
+        </div>
+
+        <hr>
+
+        <h2>2. Investor Security</h2>
+        <p>⭐ <strong><a href="../investment-safety/">Why Your Investment in Lifetime Oy is Secure</a></strong></p>
+        <ul>
+            <li><strong>For Investors:</strong> A direct guide for US and International investors on how EU compliance and Finnish stability protect your capital.</li>
+            <li><strong>Quick Summary:</strong>
+                <ul>
+                    <li><strong>World-Class Data Security:</strong> GDPR ensures your investor data and our IP are protected by strict legal frameworks.</li>
+                    <li><strong>Transparency by Design:</strong> Finnish corporate law and CSRD alignment give you clear visibility into governance.</li>
+                    <li><strong>Stable Foundation:</strong> Finland ranks #1 globally for rule of law and political stability.</li>
+                    <li><strong>Future-Proofed Standards:</strong> Compliance with EU sustainability regulations positions your investment for long-term growth.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h2>3. Privacy & Data Governance</h2>
+        <ul>
+            <li>
+                <p>⭐ <strong><a href="../privacy-policy/">Privacy Policy & GDPR Statement</a></strong></p>
+                <ul>
+                    <li><strong>For Everyone:</strong> How we handle data, cookies, and your rights.</li>
+                    <li><strong>Key Assurance:</strong> We do not use your private industrial data to train our public models. We deploy Private Cloud instances to ensure full data sovereignty.</li>
+                    <li><strong>Data Subject Requests:</strong> Export, correction, and deletion requests are acknowledged within 2 business days and fulfilled within 30 days.</li>
+                </ul>
+            </li>
+            <li>
+                <p>⭐ <strong><a href="../data-security-policy/">Data Security Policy</a></strong></p>
+                <ul>
+                    <li><strong>For Business Partners:</strong> How we protect confidential data with zero-knowledge encryption.</li>
+                    <li><strong>Key Features:</strong> Proton Mail E2EE, Proton Drive encryption, EU data residency options.</li>
+                    <li><strong>Compliance:</strong> GDPR, EU AI Act, NIS2, EU Data Act documented.</li>
+                </ul>
+            </li>
+            <li>
+                <p>⭐ <strong><a href="../data-handling-policy/">Data Handling Policy</a></strong></p>
+                <ul>
+                    <li><strong>For Team & Partners:</strong> Data classification (CONFIDENTIAL/INTERNAL/PUBLIC), AI tools usage policy, storage guidelines.</li>
+                    <li><strong>Key Rules:</strong> No cloud AI for confidential data, encrypted local database, Proton Drive backups.</li>
+                </ul>
+            </li>
+            <li><strong>Data Processing Agreement & SCCs:</strong> Our modular DPA aligns with IT2022 EHK terms. Request a copy via <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>.</li>
+            <li><strong>Data Protection Officer:</strong> Acting DPO – Risto Rautakorpi (<a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a>).</li>
+            <li><strong>AI Act Compliance:</strong> DWS IQ and Firehorse are classified as <em>limited-risk</em> systems with full technical documentation.</li>
+        </ul>
+
+        <div class="section-note">
+            <strong>Data Portability & Sovereignty:</strong> Industrial telemetry can be exported in NDJSON/Parquet format. EU-based customers default to Helsinki or Frankfurt regions.
+        </div>
+
+        <hr>
+
+        <h2>4. Digital Services & Platform Accountability</h2>
+        <ul>
+            <li><strong>Digital Services Act alignment:</strong> Lifetime Oy operates below the VLOP threshold but voluntarily complies with Articles 14–24.</li>
+            <li><strong>Transparency Digest:</strong> Quarterly metrics available upon request at <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>.</li>
+            <li><strong>Notice & action channel:</strong> Report suspected illegal content or AI misuse via <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>. We reply within 48 hours.</li>
+            <li><strong>NIS2 & incident reporting:</strong> 24-hour early warning to Traficom, final report within 72 hours.</li>
+        </ul>
+
+        <hr>
+
+        <h2>5. Commercial Agreements</h2>
+        <ul>
+            <li>
+                <p>⭐ <strong><a href="../terms/">Agreement & Project Terms</a></strong></p>
+                <ul>
+                    <li><strong>For Clients:</strong> The master service agreement framework. We generally follow <strong>IT2022</strong> terms.</li>
+                    <li><strong>Scope:</strong> Confidentiality (NDA), IPR transfer, and general liability.</li>
+                </ul>
+            </li>
+            <li>
+                <p>⭐ <strong><a href="../terms-professional/">Professional Services Terms</a></strong></p>
+                <ul>
+                    <li><strong>For Consulting Clients:</strong> Specific terms for advisory, implementation, and "Kickoff" packages.</li>
+                </ul>
+            </li>
+            <li><strong>Service Levels & Incident Credits:</strong> Baseline SLA provides 99.5% monthly uptime for DWS IQ. Enterprise tiers can extend to 99.9% uptime.</li>
+            <li><strong>Procurement shortcut:</strong> Downloadable compliance summary included in each proposal pack. Request via <a href="mailto:compliance@lifetime.fi">compliance@lifetime.fi</a>.</li>
+        </ul>
+
+        <hr>
+
+        <h2>6. Product Terms of Service</h2>
+        <ul>
+            <li>
+                <p>⭐ <strong><a href="../terms-dws-iq/">DWS IQ Terms of Service</a></strong></p>
+                <ul>
+                    <li><strong>For SaaS Users:</strong> Governs the use of the DWS IQ platform.</li>
+                    <li><strong>Focus:</strong> SLA, uptime, and permissible use of AI agents.</li>
+                    <li><strong>Autonomous Guardrails:</strong> AI agents cannot trigger safety-critical actions without human validation.</li>
+                </ul>
+            </li>
+            <li>
+                <p>⭐ <strong><a href="../terms-firehorse/">Firehorse Terms of Service</a></strong></p>
+                <ul>
+                    <li><strong>For Automation Users:</strong> Terms for Firehorse reporting and marketing automation.</li>
+                    <li><strong>Marketing Compliance:</strong> Unsubscribe, consent, and auditable templates for EU and US outreach.</li>
+                </ul>
+            </li>
+            <li>
+                <p>⭐ <strong><a href="../terms-lifetime-fleet/">Lifetime Fleet Terms</a></strong></p>
+                <ul>
+                    <li><strong>For Logistics Partners:</strong> Terms for physical robotics, drone, and vehicle operations.</li>
+                    <li><strong>Regulatory Alignment:</strong> EU Machinery Regulation, EASA drone operator requirements.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h2>7. Investor Relations</h2>
+        <ul>
+            <li>⭐ <strong><a href="../regulatory-notice/">Regulatory Notice for Investors</a></strong>
+                <ul>
+                    <li><strong>For Investors:</strong> Details on our SAFE offering, compliance strategy, and risk factors.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="callout">
+            <p><strong>SAFE Snapshot</strong> <span class="tag">Updated Q1 2026</span></p>
+            <ul>
+                <li><strong>Instrument:</strong> Post-money SAFE (EUR) with optional MFN; governed by Finnish law.</li>
+                <li><strong>Allocation:</strong> Open for professional investors; minimum ticket €25k.</li>
+                <li><strong>Valuation & Discount:</strong> Disclosed in protected dataroom. Request access via <a href="mailto:invest@lifetime.fi">invest@lifetime.fi</a>.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>8. Return & Performance Policy</h2>
+        <ul>
+            <li>⭐ <strong><a href="../return-policy/">Return Policy</a></strong>
+                <ul>
+                    <li><strong>Digital services:</strong> SaaS subscriptions may be cancelled within 14 days for a full refund.</li>
+                    <li><strong>Physical hardware:</strong> 14-day statutory withdrawal right plus 60-day performance guarantee.</li>
+                    <li><strong>Professional services:</strong> Kickoff deposits refundable until the first milestone workshop.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h2>9. Security Research</h2>
+        <p>Independent research and analysis on AI safety, cybersecurity, and enterprise risk management informing our platform security posture and compliance architecture.</p>
+        <ul>
+            <li>
+                <p><strong>International AI Safety Report 2026 — DWS Field Note</strong> <span class="tag">New</span></p>
+                <ul>
+                    <li><strong>Source:</strong> International AI Safety Report 2026 (Yoshua Bengio et al., 100+ experts, 30+ countries)</li>
+                    <li><strong>Key Findings:</strong> Existing AI safety practices are insufficient. Three risk categories: misuse, malfunction, systemic risks. 60% of advanced economy jobs exposed to AI. Autonomous agent governance urgently needed.</li>
+                    <li><strong>DWS Impact:</strong> Validates Article 12 compliance architecture, Firehorse human-in-the-loop model, and climate-AI convergence positioning.</li>
+                    <li><strong>Full Report:</strong> <a href="https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026" target="_blank">internationalaisafetyreport.org</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="section-note">
+            <strong>Security Research Policy:</strong> DWS IQ Platform security architecture is informed by continuous monitoring of international AI safety research, OWASP guidelines, and EU regulatory developments. Research summaries are published as field notes and, when validated, elevated to core compliance artifacts.
+        </div>
+
+        <hr>
+
+        <h2>11. Customer Risk Disclosures</h2>
+        <p>Lifetime Oy provides the following disclosures in the interest of full transparency. We encourage prospective customers, deployers, and investors to review these with their own legal and compliance teams before integration.</p>
+
+        <h3>EU AI Act — Deployer Responsibility</h3>
+        <p>Our limited-risk self-classification applies to DWS IQ 6 as designed and deployed by Lifetime Oy. Under <strong>Article 28 of the EU AI Act</strong>, deployers bear independent responsibility for their own use-case risk assessment. If you integrate DWS IQ 6 into operations that may constitute safety-critical infrastructure under Annex III — for example, energy grid control, transport critical infrastructure, or employment-decision systems — a <strong>higher-risk classification may apply to your specific deployment</strong>, regardless of our provider-level classification.</p>
+        <p>We have designed DWS IQ 6 with preparatory controls (human oversight, audit trails, risk management tiers) that ease any such reclassification. Contact <a href="mailto:compliance@lifetime.fi">compliance@lifetime.fi</a> to discuss your specific integration scenario before go-live.</p>
+
+        <h3>Product Maturity & Early Commercial Stage</h3>
+        <p>DWS IQ 6 v1.0 launched on 23 February 2026 and is in an active pilot and early commercial phase. Real-world regulatory enforcement of AI Act claims across EU markets will mature after the August 2026 deadline. Enterprise customers should allow for a standard evaluation period. Our SLA (99.5% baseline uptime) and <a href="../return-policy/">return policy</a> protect your deployment commitment during this phase.</p>
+
+        <h3>Third-Party Audit Status</h3>
+        <p>As a limited-risk AI system, no notified-body review or CE marking is required or planned. <strong>ISO 27001 certification</strong> is targeted for Q3 2026. Annual third-party penetration testing was completed Q4 2025 (report available under NDA upon request). No independent AI conformity assessment has been conducted to date — this is consistent with the limited-risk regime.</p>
+
+        <h3>Regulatory Interpretation Risk</h3>
+        <p>EU AI Act interpretation — particularly for Annex III point 1 (critical infrastructure) and cross-sector industrial AI — is still evolving as the EU AI Office publishes implementation guidance. Lifetime Oy monitors EU AI Office communications and updates its compliance position accordingly. Our governance framework is designed to accommodate regulatory clarifications without architectural rework.</p>
+
+        <div class="section-note">
+            <strong>DPIA Recommendation:</strong> If you are evaluating DWS IQ 6 for regulated or safety-sensitive operations, we recommend conducting a <strong>Data Protection Impact Assessment (DPIA)</strong> for your specific use case. Request our AI Safety & Legal Pack (technical docs, AI governance framework summary, DPA template) at <a href="mailto:compliance@lifetime.fi">compliance@lifetime.fi</a>.
+        </div>
+
+        <hr>
+
+        <h2>12. Contact & Escalation</h2>
+        <div class="contact-card">
+            <div>
+                <h3>Data Protection Officer</h3>
+                <p><strong>Risto Rautakorpi</strong><br>
+                <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
+                Requests processed within 30 days.</p>
+            </div>
+            <div>
+                <h3>Legal & DPA Desk</h3>
+                <p><a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a><br>
+                Contract redlines, SCC questions, notice-and-action.</p>
+            </div>
+            <div>
+                <h3>Security / NIS2 Incidents</h3>
+                <p><a href="mailto:security@lifetime.fi">security@lifetime.fi</a><br>
+                24/7 hotline for critical vulnerabilities.</p>
+            </div>
+            <div>
+                <h3>Postal Address</h3>
+                <p>Lifetime Oy<br>
+                Laidunmaanraitti 2 A 25<br>
+                02330 Espoo, Finland</p>
             </div>
         </div>
     </div>
-    <div class="container">
-        <h1>Lifetime Legal &amp; Compliance Hub</h1>
-<p><strong>Transparency as a Service.</strong></p>
-<p>At Lifetime Oy, we believe that legal clarity is the foundation of industrial trust. Our "Compliance First" architecture is designed to turn complex EU regulations—such as <strong>Fit for 55</strong>, the <strong>EU AI Act</strong>, the <strong>Digital Services Act (DSA)</strong>, the <strong>EU Data Act</strong>, and <strong>GDPR</strong>—from liabilities into competitive assets for our clients.</p>
-<p>Below you will find our complete legal framework, governing our software, services, and commercial relationships. Each policy carries an explicit effective date, last review, and named escalation channel to simplify vendor-risk assessments.</p>
 
-<h2>0. Compliance at a Glance</h2>
-<p>This overview summarises the key legal and compliance controls for Lifetime Group, the DWS IQ 6 Platform, the Firehorse product line, Lifetime Consulting &amp; Advisory services, and Lifetime Studios services.</p>
-<div class="summary-table">
-    <table>
-        <thead>
-            <tr>
-                <th>Policy</th>
-                <th>Applies to</th>
-                <th>Effective</th>
-                <th>Last reviewed</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>⭐ <a href="../privacy-policy/">Privacy Policy &amp; GDPR Statement</a></td>
-                <td>All visitors &amp; data subjects</td>
-                <td>01 Jan 2023</td>
-                <td>10 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../data-security-policy/">Data Security Policy</a></td>
-                <td>All business partners &amp; clients</td>
-                <td>13 Dec 2025</td>
-                <td>13 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../data-handling-policy/">Data Handling Policy</a></td>
-                <td>Internal team &amp; partners</td>
-                <td>13 Dec 2025</td>
-                <td>13 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../terms/">Agreement &amp; Project Terms</a></td>
-                <td>Enterprise &amp; project clients</td>
-                <td>15 May 2024</td>
-                <td>05 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../terms-dws-iq/">DWS IQ Terms of Service</a></td>
-                <td>DWS IQ SaaS users</td>
-                <td>30 Jun 2024</td>
-                <td>03 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../terms-firehorse/">Firehorse Terms of Service</a></td>
-                <td>Marketing &amp; reporting automation users</td>
-                <td>02 Sep 2024</td>
-                <td>25 Nov 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../terms-lifetime-fleet/">Lifetime Fleet Terms</a></td>
-                <td>Robotics, drone &amp; logistics partners</td>
-                <td>12 Feb 2025</td>
-                <td>04 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../terms-professional/">Professional Services Terms</a></td>
-                <td>Consulting &amp; advisory engagements</td>
-                <td>20 Mar 2024</td>
-                <td>01 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../regulatory-notice/">Regulatory Notice for Investors</a></td>
-                <td>Prospective &amp; current investors</td>
-                <td>18 Oct 2024</td>
-                <td>10 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="../return-policy/">Return &amp; Performance Policy</a></td>
-                <td>Store &amp; subscription customers</td>
-                <td>05 Jan 2024</td>
-                <td>05 Dec 2025</td>
-            </tr>
-            <tr>
-                <td>⭐ <a href="https://lifetime.fi/legal" target="_blank">Lifetime Group | Legal Notices &amp; Compliance 2026</a></td>
-                <td>Lifetime Oy corporate &amp; group entities</td>
-                <td>01 Dec 2025</td>
-                <td>25 Dec 2025</td>
-            </tr>
-        </tbody>
-    </table>
-    <p class="table-note">Dates show when each control entered into force and the most recent audit or legal review. Earlier versions remain available upon request.</p>
-</div>
-<hr />
-<h2>1. Investor Security (Start Here)</h2>
-<p>⭐ <strong><a href="../investment-safety/">Why Your Investment in Lifetime Oy is Secure</a></strong></p>
-
-<ul>
-    <li><strong>For Investors:</strong> A direct guide for US and International investors on how EU compliance and Finnish stability protect your capital.</li>
-    <li><strong>Quick Summary:</strong>
-        <ul>
-            <li><strong>World-Class Data Security:</strong> GDPR ensures your investor data and our IP are protected by strict legal frameworks, reducing breach risks.</li>
-            <li><strong>Transparency by Design:</strong> Finnish corporate law and CSRD alignment give you clear visibility into governance and environmental impact.</li>
-            <li><strong>Stable Foundation:</strong> Finland ranks #1 globally for rule of law and political stability—providing predictable investment conditions.</li>
-            <li><strong>Future-Proofed Standards:</strong> Our compliance with EU sustainability regulations positions your investment for long-term ethical growth.</li>
-        </ul>
-    </li>
-</ul>
-<div style="display: flex; justify-content: center; margin: 30px 0; max-width: 600px;">
-    <img src="./static/images/Investor_Safety.png" alt="Investment Security Shield" style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-</div>
-<hr />
-<h2>2. Privacy &amp; Data Governance</h2>
-<ul>
-<li>
-<p>⭐ <strong><a href="../privacy-policy/">Privacy Policy &amp; GDPR Statement</a></strong></p>
-<ul>
-<li><strong>For Everyone:</strong> How we handle data, cookies, and your rights.</li>
-<li><strong>Key Assurance:</strong> We do not use your private industrial data to train our public models. We deploy Private Cloud instances to ensure full data sovereignty.</li>
-<li><strong>Data Subject Requests:</strong> Export, correction, and deletion requests are acknowledged within 2 business days and fulfilled within 30 days (15 days for high-risk processing) in line with GDPR and the EU Data Act.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../data-security-policy/">Data Security Policy</a></strong></p>
-<ul>
-<li><strong>For Business Partners:</strong> How we protect confidential data with zero-knowledge encryption.</li>
-<li><strong>Key Features:</strong> Proton Mail E2EE, Proton Drive encryption, EU data residency, no US cloud for sensitive data.</li>
-<li><strong>Compliance:</strong> GDPR, EU AI Act, NIS2, EU Data Act - all technical security measures documented.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../data-handling-policy/">Data Handling Policy</a></strong></p>
-<ul>
-<li><strong>For Team &amp; Partners:</strong> Data classification (CONFIDENTIAL/INTERNAL/PUBLIC), AI tools usage policy, storage guidelines.</li>
-<li><strong>Key Rules:</strong> No cloud AI for confidential data, encrypted local database, Proton Drive backups, GDPR compliance.</li>
-<li><strong>Incident Response:</strong> 72-hour reporting timeline, data deletion procedures, affected party notifications.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../privacy-policy/#cookie-preferences">Cookie Preferences</a></strong></p>
-<ul>
-<li>Manage consent for essential, analytics, and AI-personalisation cookies with granular toggles.</li>
-</ul>
-</li>
-<li><strong>Data Processing Agreement &amp; SCCs:</strong> Our modular DPA aligns with IT2022 EHK terms, includes Standard Contractual Clauses (2021/914/EU), and defines sub-processor disclosure and audit windows. Request a copy via <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>.</li>
-<li><strong>Data Protection Officer:</strong> Acting DPO – Risto Rautakorpi (<a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a>). Supervisory authority: Office of the Data Protection Ombudsman, Finland.</li>
-<li><strong>AI Act Compliance:</strong> DWS IQ and Firehorse are classified as <em>limited-risk</em> systems. We maintain datasets statements, human oversight playbooks, CE conformity documentation, and a live change log for technical documentation expected by the EU AI Act.</li>
-</ul>
-<div class="section-note">
-    <strong>Data Portability &amp; Sovereignty:</strong> Industrial telemetry can be exported in NDJSON/Parquet format or deleted within 30 days of request. EU-based customers default to Helsinki or Frankfurt regions; non-EU transfers rely on SCCs plus encryption with customer-managed keys.
-</div>
-<div style="display: flex; justify-content: center; margin: 30px 0; max-width: 600px;">
-    <img src="./static/images/privacy.png" alt="Privacy & Data Protection" style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-</div>
-<hr />
-<h2>3. Digital Services &amp; Platform Accountability</h2>
-<ul>
-    <li><strong>Digital Services Act alignment:</strong> Lifetime Oy operates below the Very Large Online Platform threshold but voluntarily complies with Articles 14–24. We maintain a trusted-flagger workflow and content moderation records for every automated agent output.</li>
-    <li><strong>Transparency Digest:</strong> Quarterly metrics (notices received, actions taken, automated decisions appealed) are summarised in a PDF available upon request at <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>. The next update publishes in January 2026.</li>
-    <li><strong>Notice &amp; action channel:</strong> Report suspected illegal content or AI misuse via <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>. Include (i) URL, (ii) description, (iii) legal basis. We reply within 48 hours.</li>
-    <li><strong>NIS2 &amp; incident reporting:</strong> For essential/important services, we provide a 24-hour early warning to the Finnish Transport and Communications Agency (Traficom) and deliver a final report within 72 hours. Customers receive parallel updates via their nominated incident contacts.</li>
-</ul>
-<hr />
-<h2>4. Commercial Agreements</h2>
-<ul>
-<li>
-<p>⭐ <strong><a href="../terms/">Agreement &amp; Project Terms</a></strong></p>
-<ul>
-<li><strong>For Clients:</strong> The master service agreement framework. We generally follow <strong>IT2022</strong> terms or negotiate specific project contracts.</li>
-<li><strong>Scope:</strong> Confidentiality (NDA), IPR transfer, and general liability.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../terms-professional/">Professional Services Terms</a></strong></p>
-<ul>
-<li><strong>For Consulting Clients:</strong> Specific terms for advisory, implementation, and "Kickoff" packages.</li>
-<li><strong>Key Point:</strong> Defines the scope of expert hours vs. software deliverables.</li>
-</ul>
-</li>
-<li><strong>Service Levels &amp; Incident Credits:</strong> Baseline SLA provides 99.5% monthly uptime for DWS IQ and 2-hour response for P1 tickets (24/7). Enterprise tiers can contractually extend to 99.9% uptime with financial credits. Incident notifications follow the NIS2 cadence noted above.</li>
-<li><strong>Procurement shortcut:</strong> Downloadable one-page compliance summary (ISO/IEC 27001 control mapping + insurance certificates) is included in each proposal pack. Request expedited vendor questionnaires via <a href="mailto:compliance@lifetime.fi">compliance@lifetime.fi</a>.</li>
-</ul>
-<p><em>(Image Suggestion: Two hands shaking or a pen signing a document on a digital tablet. Placed near Commercial Agreements.)</em></p>
-<hr />
-<h2>5. Product Terms of Service</h2>
-<ul>
-<li>
-<p>⭐ <strong><a href="../terms-dws-iq/">DWS IQ Terms of Service</a></strong></p>
-<ul>
-<li><strong>For SaaS Users:</strong> Governs the use of the DWS IQ "Industrial Brain" platform.</li>
-<li><strong>Focus:</strong> SLA, uptime, and permissible use of AI agents.</li>
-<li><strong>Autonomous Guardrails:</strong> AI agents cannot trigger safety-critical actions, initiate unsolicited outreach, or retrain themselves without human validation. Violations may suspend access.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../terms-firehorse/">Firehorse Terms of Service</a></strong></p>
-<ul>
-<li><strong>For Automation Users:</strong> Specific terms for Firehorse reporting and marketing automation tools.</li>
-<li><strong>Focus:</strong> Output accuracy and marketing compliance.</li>
-<li><strong>Marketing Compliance:</strong> Firehorse embeds unsubscribe, consent, and auditable templates for EU and US outreach requirements.</li>
-</ul>
-</li>
-<li>
-<p>⭐ <strong><a href="../terms-lifetime-fleet/">Lifetime Fleet Terms</a></strong></p>
-<ul>
-<li><strong>For Logistics Partners:</strong> Terms for physical robotics, drone, and vehicle operations.</li>
-<li><strong>Focus:</strong> Operational safety, liability, and hardware handling.</li>
-<li><strong>Regulatory Alignment:</strong> Compliance with the EU Machinery Regulation, EASA drone operator requirements, and local road permits is documented per deployment.</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><strong>Change Management:</strong> Every product terms page now lists the previous revision ID and timestamp so you can assess contractual drift before accepting updates.</li>
-</ul>
-<p><em>(Image Suggestion: Icons representing software (a cloud), automation (a gear), and fleet (a truck/drone). Placed next to the corresponding product terms.)</em></p>
-<hr />
-<h2>6. Investor Relations</h2>
-<ul>
-<li>⭐ <strong><a href="../regulatory-notice/">Regulatory Notice for Investors</a></strong>
-    <ul>
-        <li><strong>For Investors:</strong> Details on our €150k SAFE offering, compliance strategy, and risk factors.</li>
-        <li><strong>Why Read:</strong> Understand how we use EU regulation as a moat to build a defensive, scalable business.</li>
-    </ul>
-</li>
-</ul>
-<div class="callout">
-    <p><strong>SAFE Snapshot</strong> <span class="tag">Updated Q4&nbsp;2025</span></p>
-    <ul>
-        <li><strong>Instrument:</strong> Post-money SAFE (EUR) with optional MFN; governed by Finnish law, disputes resolved in Helsinki.</li>
-        <li><strong>Allocation:</strong> €150k open for professional investors; minimum ticket €25k; use of proceeds prioritises enterprise go-to-market and EU AI Act conformity.</li>
-        <li><strong>Valuation &amp; Discount:</strong> Current valuation cap and discount are disclosed in the protected dataroom. Request access via <a href="mailto:invest@lifetime.fi">invest@lifetime.fi</a>.</li>
-        <li><strong>Key Risks:</strong> (1) Hardware supply-chain exposure, (2) Regulatory approval timelines for robotics, (3) Key-person dependency in early-stage AI safety research.</li>
-    </ul>
-</div>
-<p><em>(Image Suggestion: A rising graph chart or a euro sign symbol. Placed near Investor Relations.)</em></p>
-<hr />
-<h2>7. Return &amp; Performance Policy</h2>
-<ul>
-<li>⭐ <strong><a href="../return-policy/">Return Policy</a></strong>
-    <ul>
-        <li><strong>Digital services:</strong> SaaS subscriptions may be cancelled within 14 days of purchase (before delivery of custom models) for a full refund. After activation, pro-rata credits are applied if uptime SLAs are missed.</li>
-        <li><strong>Physical hardware &amp; robotics:</strong> 14-day statutory withdrawal right plus a 60-day performance guarantee covering manufacturing defects. Hardware RMAs are acknowledged within 2 business days; inbound freight labels are provided for EU customers.</li>
-        <li><strong>Professional services:</strong> Kickoff deposits are refundable until the first milestone workshop. Thereafter, unused hours can be reallocated to other initiatives within 90 days.</li>
-    </ul>
-</li>
-</ul>
-<p>The 60-day performance guarantee applies to documented KPIs agreed in writing (e.g., lead-flow increases or logistics cycle-time reductions). If objectives are not met, we co-design a remediation sprint at no extra cost.</p>
-<p><em>(Image Suggestion: A "satisfaction guaranteed" badge or a simple return arrow icon. Placed near Return Policy.)</em></p>
-<hr />
-<h2>8. Contact &amp; Escalation</h2>
-<div class="contact-card">
-    <div>
-        <h3>Data Protection Officer</h3>
-        <p><strong>Risto Rautakorpi</strong><br>
-        <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
-        Requests processed within 30 days.</p>
-    </div>
-    <div>
-        <h3>Legal &amp; DPA Desk</h3>
-        <p><a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a><br>
-        Use for contract redlines, SCC questions, and notice-and-action submissions.</p>
-    </div>
-    <div>
-        <h3>Security / NIS2 Incidents</h3>
-        <p><a href="mailto:security@lifetime.fi">security@lifetime.fi</a><br>
-        24/7 hotline for critical vulnerabilities or suspected breaches.</p>
-    </div>
-    <div>
-        <h3>Postal Address</h3>
-        <p>Lifetime Oy<br>
-        Laidunmaanraitti 2 A 25<br>
-        02330 Espoo, Finland</p>
-    </div>
-</div>
-    </div>
-    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem; background: #1e293b; border-top: 1px solid #334155;" class="site-footer">
-    <div class="legal-notice">
-        <strong>LEGAL NOTICE</strong><br />
-        <strong>Data Controller:</strong> Lifetime Oy, Laidunmaanraitti 2 A 25, 02330 Espoo, Finland.<br />
-        <strong>Business ID:</strong> 0772407-9 (VAT FI07724079). Registered in the Finnish Trade Register, Uusimaa.<br />
-        <strong>Regulatory Framework:</strong> As of December 2025, our operations adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.<br />
-        <strong>Supervisory Authorities:</strong> Office of the Data Protection Ombudsman (Tietosuojavaltuutetun toimisto) &amp; Finnish Transport and Communications Agency Traficom.<br />
-        If you believe your rights have been infringed, contact <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a> before escalating to the authorities.
-    </div>
-    <div class="copyright">
-        Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
-    </div>
-</footer>
+    <!-- Footer -->
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

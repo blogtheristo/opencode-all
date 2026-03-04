@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "Supabase MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest"
+      ],
+      "env": {
+        "SUPABASE_URL": "https://your-project.supabase.co",
+        "SUPABASE_SERVICE_KEY": "your-service-key-here",
+        "SUPABASE_ANON_KEY": "your-anon-key-here"
+      }
+    },
+    "DWS Supabase API": {
+      "_comment": "Custom REST API wrapper running in Docker on port 8766",
+      "_type": "rest-api",
+      "_container": "dws-supabase-mcp",
+      "_endpoints": {
+        "query": "POST http://localhost:8766/tools/query",
+        "insert": "POST http://localhost:8766/tools/insert",
+        "log_activity": "POST http://localhost:8766/tools/log_agent_activity",
+        "health": "GET http://localhost:8766/health"
+      }
+    },
+    "Redis MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/redis-mcp@latest"
+      ],
+      "env": {
+        "REDIS_URL": "redis://user:password@host:port"
+      }
+    },
+    "MCP Hub": {
+      "_comment": "MCP Coordination Hub on port 8765",
+      "_type": "coordination-hub",
+      "_port": 8765,
+      "_endpoints": {
+        "hub": "http://localhost:8765"
+      }
+    }
+  }
+}

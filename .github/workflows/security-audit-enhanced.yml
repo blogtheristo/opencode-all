@@ -8,7 +8,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'Admin/SECURITY_AUDIT_REPORT.md'
+      - 'security-reports/SECURITY_AUDIT.md'
       - 'AgentFoundry/Security.md'
       - '.gitignore'
       - 'scripts/gdpr-safety-check.ps1'
@@ -100,9 +100,9 @@ jobs:
           echo "🔍 Verifying security documentation..."
           
           DOCS=(
-            "Admin/SECURITY_AUDIT_REPORT.md"
-            "Admin/CONFIDENTIAL-handling-policy.md"
-            "Admin/ADMIN_MANUAL.md"
+            "security-reports/SECURITY_AUDIT.md"
+            "security-reports/CONFIDENTIAL_POLICY.md"
+            "CLAUDE.md"
           )
           
           MISSING_DOCS=0
@@ -152,9 +152,9 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📋 Security Documentation" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Security Audit Report: Admin/SECURITY_AUDIT_REPORT.md" >> $GITHUB_STEP_SUMMARY
-          echo "- Confidential Data Policy: Admin/CONFIDENTIAL-handling-policy.md" >> $GITHUB_STEP_SUMMARY
-          echo "- Admin Manual: Admin/ADMIN_MANUAL.md" >> $GITHUB_STEP_SUMMARY
+          echo "- Security Audit Report: security-reports/SECURITY_AUDIT.md" >> $GITHUB_STEP_SUMMARY
+          echo "- Confidential Data Policy: security-reports/CONFIDENTIAL_POLICY.md" >> $GITHUB_STEP_SUMMARY
+          echo "- Admin Manual: CLAUDE.md" >> $GITHUB_STEP_SUMMARY
           echo "- Agent Security: AgentFoundry/Security.md" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 🔗 Related Workflows" >> $GITHUB_STEP_SUMMARY

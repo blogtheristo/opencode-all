@@ -82,6 +82,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 # Config modules may re-raise without from
 "src/config/**/*.py" = ["B904"]
+"Firehorse/Automation/**/*.py" = ["N999"]
 
 [tool.ruff.format]
 # Use double quotes for strings (Black-compatible)

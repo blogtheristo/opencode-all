@@ -1,1 +1,1 @@
-# Supabase pooler URL is not stored in version control. Configure it via environment variables or let the Supabase CLI regenerate this file locally.
+postgresql://postgres.kpucuwwfhuwurdxyjjtz@aws-1-eu-west-1.pooler.supabase.com:5432/postgres
