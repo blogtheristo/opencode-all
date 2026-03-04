@@ -10,6 +10,8 @@ import { ClimateAssistant } from './components/ClimateAssistant';
 import { MeetingPanel } from './components/MeetingPanel';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
 import { ClaudeCodePanel } from './components/ClaudeCodePanel';
+import { ProfileMenu } from './components/ProfileMenu';
+import { HamburgerMenu } from './components/HamburgerMenu';
 import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
@@ -22,7 +24,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
   const [appView, setAppView] = useState<AppView>('dashboard');
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     async function loadProjects() {
@@ -66,19 +68,22 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center justify-between gap-4">
+
+            {/* Logo + brand */}
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center shrink-0">
                 <span className="text-white font-bold text-lg">D</span>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">DWS IQ Dashboard</h1>
-                <p className="text-sm text-gray-500">Climate Intelligence · V10</p>
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold text-gray-900 leading-tight">DWS IQ Dashboard</h1>
+                <p className="text-xs text-gray-500 leading-tight">Climate Intelligence · V10</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            {/* Desktop nav buttons — hidden on mobile */}
+            <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => setAppView(appView === 'agents' ? 'dashboard' : 'agents')}
                 className={appView === 'agents' ? 'btn-primary' : 'btn-secondary'}
@@ -105,6 +110,48 @@ function App() {
                 ⚙️ Repo Health
               </button>
             </div>
+
+            {/* Right side: profile avatar (desktop) + hamburger (mobile) */}
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Profile menu — desktop and mobile */}
+              <div className="hidden md:block">
+                <ProfileMenu
+                  user={user}
+                  onSignOut={signOut}
+                  onNavigate={(view) => {
+                    if (view === 'dashboard') { setAppView('dashboard'); setSidePanel(null); }
+                    if (view === 'agents') setAppView('agents');
+                  }}
+                />
+              </div>
+
+              {/* Hamburger — mobile only */}
+              <HamburgerMenu
+                user={user}
+                appView={appView}
+                sidePanel={sidePanel}
+                onSetAppView={setAppView}
+                onSetSidePanel={setSidePanel}
+                onSignOut={signOut}
+                onNavigate={(view) => {
+                  if (view === 'dashboard') { setAppView('dashboard'); setSidePanel(null); }
+                  if (view === 'agents') setAppView('agents');
+                }}
+              />
+
+              {/* Profile avatar visible on mobile too (without dropdown — hamburger handles it) */}
+              <div className="md:hidden">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-xs font-semibold ring-2 ring-white shadow-sm select-none">
+                  {((user?.user_metadata?.full_name as string | undefined) || user?.email || 'U')
+                    .split(' ')
+                    .map((n: string) => n[0])
+                    .join('')
+                    .slice(0, 2)
+                    .toUpperCase()}
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </header>
