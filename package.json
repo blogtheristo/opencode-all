@@ -29,6 +29,7 @@
     "ioredis": "^5.9.2",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
+    "nodemailer": "^8.0.1",
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
     "resend": "^4.0.0"
@@ -41,6 +42,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^25.2.3",
     "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^7.0.11",
     "@types/supertest": "^6.0.3",
     "@vitest/ui": "^4.0.16",
     "supertest": "^7.2.2",
