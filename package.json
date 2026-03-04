@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "description": "DWS IQ Auth Backend (Express + TypeScript)",
   "scripts": {
-    "db:push": "pwsh -File scripts/db_push.ps1",
-    "db:push:skip-link": "pwsh -File scripts/db_push.ps1 -SkipLink",
+    "db:push": "bash scripts/db_push.sh",
+    "db:push:skip-link": "bash scripts/db_push.sh --skip-link",
     "dev": "tsx watch src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc -p tsconfig.json",
