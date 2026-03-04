@@ -139,6 +139,9 @@ router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, 
     res.status(200).json({
       success: true,
       ...response,
+      // SECURITY: Always use server-determined tier — never trust the service
+      // response to set the tier, since it may echo a client-provided value.
+      tier: effectiveTier,
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {

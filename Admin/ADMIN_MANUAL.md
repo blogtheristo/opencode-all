@@ -3,9 +3,14 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.6
 
 Sessions & Modifications:
+  - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
+  - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
   - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
   - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
   - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -18,6 +23,7 @@ Sessions & Modifications:
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -25,7 +31,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 07.02.2026
+  - Last Modified: 24.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -64,6 +70,10 @@ Document Status:
 24. [Sensitive Data Protection](#sensitive-data-protection)
 25. [Emergency Procedures](#emergency-procedures)
 26. [Training](#training)
+27. [Claude Code Project Engineering Structure](#claude-code-project-engineering-structure) ⭐ **NEW in v2.6**
+
+**Appendices**
+- [Appendix A: CEO Cockpit Morning Briefing](#appendix-a-ceo-cockpit-morning-briefing)
 
 ---
 
@@ -119,6 +129,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **MCP Configuration** | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md) | Model Context Protocol server setup |
 | **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md) | Security framework and compliance status |
 | **Security Glossary** | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) | Security terms and OWASP references |
+| **Client Handover** | [`docs/DWS_HANDOVER.md`](../docs/DWS_HANDOVER.md) | Client handover — delivery scope, gaps, SLA, training, sign-off |
 
 ---
 
@@ -717,19 +728,28 @@ app.use(cors({
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Billing enabled on `admin@dws6.com`
 
-### Project: dws6run
+### Project: dws6run6
 
 | Property | Value |
 |----------|-------|
-| **Project ID** | `dws6run` |
+| **Project ID** | `dws6run6` |
 | **Project Number** | `446442351781` |
 | **Region** | `europe-north1` (Finland) |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
 | **Admin Account** | `admin@dws6.com` |
+
+### Gemini for Google Cloud API
+
+| Property | Value |
+|----------|-------|
+| **Status** | ❌ **DISABLED** (17.02.2026) |
+| **Reason** | €62/month not needed — using free Gemini Code Assist in VS Code instead |
+| **Decision** | Use free Gemini Code Assist for individuals (VS Code extension, no GCP project required) |
+| **Re-enable if** | Enterprise features needed (Cloud Assist, BigQuery, Security, Looker) |
 
 ### Service Account Permissions
 
@@ -741,10 +761,10 @@ Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requ
 
 ```powershell
 # Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --project=dws6run6
 
 # Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run6 --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
 ```
 
 ---
@@ -876,8 +896,8 @@ All automation scripts include version headers and change logs.
 | Script | Version | Purpose |
 |--------|---------|---------|
 | `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
-| `scripts/Sync-ToProton.ps1` | v1.4 | Proton Drive sync (folders, secrets, docs) |
-| `scripts/Generate-PDFs.ps1` | v1.5 | Markdown to HTML/PDF (pandoc + wkhtmltopdf) |
+| `scripts/Sync-ToProton.ps1` | v1.7 | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Generate-PDFs.ps1` | v1.6 | Markdown to HTML/PDF (pandoc, output to Learn/) |
 | `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
 | `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
 
@@ -1011,10 +1031,115 @@ MCP Hub (Port 8765) + Temporal.io
   └── Lifetime Scope Signals (dependency DAG)
 ```
 
+### Sandbox Isolation (Agent Foundry)
+
+**Implementation:** `src/sandbox/` — Staged tenant isolation for multi-tenant agent execution.
+
+| Stage | Isolation Method | LLM Provider | When |
+|-------|-----------------|--------------|------|
+| 1 — SDK Sandbox | Anthropic Agent SDK (bubblewrap/seatbelt) | Groq (default) | Demo / Pilot |
+| 2 — Ephemeral Containers | Cloud Run Jobs (europe-north1) | Configurable per agent | First paid multi-tenant |
+| 3 — Persistent Containers | gVisor / Firecracker | Configurable per agent | Scale (€50k+ MRR) |
+
+**Environment variable:** `SANDBOX_STAGE=1` (default), `2`, or `3`
+
+See `DWS_SECURITY_STANDARD.md` Section 14 for full security architecture.
+
+### Climate IQ Pantheon Agent Registry
+
+DWS IQ runs **13 named agents** organized in two tiers, registered at startup in `src/agents/index.ts`.
+
+**Tier 1 — Orchestrators (6 agents)**
+
+| Agent | Deity | Role | Capabilities |
+|-------|-------|------|-------------|
+| `atlas` | Titan | Chief of Staff | workflow-orchestration, executive-briefing, request-routing |
+| `athena` | Greek | EU Compliance | eu-regulatory, ets-monitoring, cbam-assessment, csrd-reporting |
+| `hephaestus` | Greek | Field & Site | site-safety, materials-analysis, schedule-management |
+| `iris` | Greek | Research & Intel | competitor-analysis, market-research, deep-wiki-extraction |
+| `hermes` | Greek | Logistics & Ops | logistics-optimization, supply-chain-risk, quality-gate |
+| `apollo` | Greek | Content & Outreach | content-strategy, seo-optimization, sales-outreach |
+
+**Tier 2 — Industry Specialists (7 agents)**
+
+| Agent | Deity | Industry | Key Regulation |
+|-------|-------|----------|---------------|
+| `vulcan` | Roman | Steel & Metals | ETS Phase 4, CBAM iron/steel |
+| `helios` | Greek | Energy & Renewables | RED III 42.5%, REPowerEU |
+| `neptune` | Roman | Maritime & Shipping | FuelEU Maritime, ETS shipping |
+| `ceres` | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O |
+| `prometheus` | Greek | Hydrogen | RFNBO additionality, RED III |
+| `mars` | Roman | Construction & Buildings | EPBD, EN 15978 whole-life carbon |
+| `gaia` | Greek | Cement & Earth Materials | CBAM clinker benchmark 766 tCO2/1000t |
+
+**Identity pattern:** Each agent has `src/agents/workflow/{tier}/{name}/SOUL.md` injected as system prompt.
+**Logging:** All agents call `logExecution()` to `agent_executions` Supabase table (EU AI Act Article 12).
+**Security:** No `...input` spreads to sub-agents — all delegation uses explicit typed field extraction.
+
+### Per-Industry Open LLM Selection (IMPORTANT)
+
+**Do NOT default to Llama 3.3 70B for every industry.** Each of the 16 EU industries DWS IQ serves has different domain characteristics. The agent system must evaluate and select the best open LLM per industry vertical.
+
+**Selection criteria per industry:**
+
+| Criteria | Why It Matters |
+|----------|---------------|
+| Domain knowledge depth | Construction vs. maritime vs. healthcare have different regulatory language |
+| Multilingual capability | Nordic industries need Finnish/Swedish, CBAM suppliers need 20+ languages |
+| Structured output reliability | Compliance reports need deterministic JSON, not creative prose |
+| Context window | Supply chain analysis may need 128k+ context |
+| Inference speed | Real-time compliance checks need sub-second response |
+| EU data residency | Some models can only run on EU-hosted infrastructure |
+| License | Commercial use restrictions vary by model |
+
+**Industry LLM evaluation matrix (to be completed per industry study):**
+
+| Industry | Default LLM | Alternatives to Evaluate | Key Requirement |
+|----------|-------------|-------------------------|-----------------|
+| Construction | Llama 3.3 70B (Groq) | Mistral Large, Qwen 2.5 72B, DeepSeek-V3 | EN 15978 lifecycle stages, Finnish building codes |
+| Energy | TBD | Llama 3.3, Mistral, Command R+ | ETS allowance calculations, power grid terminology |
+| Manufacturing | TBD | Llama 3.3, Qwen 2.5, Mixtral 8x22B | CBAM product classification, BOM analysis |
+| Logistics & Transport | TBD | Llama 3.3, Mistral, Gemma 2 27B | Route optimization, ESR non-ETS emissions |
+| Maritime & Shipping | TBD | Llama 3.3, Mistral Large | FuelEU Maritime, MRV regulations |
+| Aviation | TBD | Llama 3.3, Mistral | CORSIA, SAF calculations |
+| Steel & Metals | TBD | Llama 3.3, Qwen 2.5 | CBAM embedded emissions, alloy specifications |
+| Chemicals | TBD | Llama 3.3, DeepSeek-V3 | REACH, process emissions, safety data sheets |
+| Cement & Concrete | TBD | Llama 3.3, Mistral | Clinker ratios, EPD data, kiln emissions |
+| Agriculture | TBD | Llama 3.3, Gemma 2 | LULUCF, methane accounting, CAP subsidies |
+| Food & Beverage | TBD | Llama 3.3, Mistral | Scope 3 supply chain, packaging lifecycle |
+| Textiles | TBD | Llama 3.3, Qwen 2.5 | Digital product passport, CBAM for imports |
+| Real Estate | TBD | Llama 3.3, Mistral | EPBD energy certificates, renovation passports |
+| Finance & Insurance | TBD | Llama 3.3, Mistral Large | SFDR, EU Taxonomy alignment, double materiality |
+| Public Sector | TBD | Llama 3.3, Mistral (EU-hosted) | CSRD for state-owned enterprises, GPP criteria |
+| Healthcare | TBD | Llama 3.3, Gemma 2 (EU-hosted) | Medical waste emissions, pharmaceutical supply chain |
+
+**Evaluation process for each industry:**
+
+1. **Benchmark** — Run industry-specific compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against 3-4 candidate models
+2. **Score** — Evaluate on accuracy, structured output reliability, and domain terminology
+3. **Cost** — Compare inference cost per 1K tokens across providers (Groq, Together, Fireworks, self-hosted)
+4. **Residency** — Verify EU data residency compliance for the provider
+5. **Select** — Choose the best model per industry, document rationale
+6. **Configure** — Set per-agent model in `AgentConfig.model` field (`src/agents/types.ts`)
+
+**Configuration example:**
+
+```typescript
+// In each agent's constructor, set the industry-optimized model:
+new ConstructionAgent({
+  name: 'construction',
+  model: 'llama-3.3-70b-versatile',  // Or 'mistral-large-latest' after evaluation
+  // ...
+});
+```
+
+**Action item:** Complete industry LLM benchmarks before first enterprise deployment. Each industry vertical should have a documented model selection rationale.
+
 ### Related Documentation
 
 - **MCP Configuration:** [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)
 - **Agent Teams field note:** [`docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`](../docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md)
+- **Sandbox Isolation Architecture:** `DWS_SECURITY_STANDARD.md` Section 14
 
 ---
 
@@ -2348,6 +2473,15 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 - **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
 - **Location:** `product-catalog/LWM/training-manual.md`
 
+**What is the Lifetime World Model (LWM)?**
+
+The LWM is the **enterprise learning layer** that adds intelligence on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+1. **Fine-tunes enterprise data and regulation** — ingests customer operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities the enterprise would otherwise miss
+3. **Ensures competitive advantage with multi-agent tools** — by combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
+
+The 16-industry architecture compounds this value: each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns.
+
 **Topics Covered:**
 1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)
 2. Claude API integration for synthetic data generation
@@ -2495,10 +2629,208 @@ Track training effectiveness:
 
 ---
 
+## Appendix A: CEO Cockpit Morning Briefing
+
+**Status:** ✅ **ACTIVE** (since February 2026)
+**Delivery:** Mon–Sat at 06:00 Helsinki time via GitHub Actions
+**Workflow:** `.github/workflows/morning-briefing.yml`
+
+### What It Is
+
+A 5-minute daily briefing email delivering a prioritized CEO action summary. Pulls live data from Supabase and sends via Resend.
+
+### Schedule
+
+| Trigger | When | Notes |
+|---------|------|-------|
+| **Automatic** | Mon–Sat 06:00 Helsinki | Dual cron (03:00 + 04:00 UTC) covers both DST offsets |
+| **Manual** | Anytime | GitHub Actions → "Morning Briefing" → Run workflow |
+
+The send script has a Helsinki time guard: it only sends when the Helsinki hour is exactly 6. The "wrong" cron entry silently exits. Manual triggers (`workflow_dispatch`) skip the time guard automatically.
+
+### Email Sections
+
+| # | Section | What It Shows | Data Source |
+|---|---------|---------------|-------------|
+| 1 | **3 Changes** | Pipeline movement, product velocity, delivery milestones (last 24h) | `v_outreach_enriched`, `agent_metrics`, `firehorse_leads` |
+| 2 | **Today's 3 Bets** | Top 3 actions for the day (auto-generated from overdue/due threads) | `v_outreach_enriched` |
+| 3 | **Top Risk** | Most overdue thread + days overdue + next action | `v_outreach_enriched` |
+| 4 | **Captain Momentum** | Contacts to ping today + suggested artifact to prepare | `v_outreach_enriched` |
+| 5 | **Metrics Strip** | MRR, active convos, weekly commits, MVP ETA | GitHub API, Supabase, env vars |
+| 6 | **Send List** | Top 3–5 contacts to manually message, sorted by urgency | `v_outreach_enriched` |
+
+### How to Trigger Manually
+
+1. Go to **GitHub → Actions → "Morning Briefing"**
+2. Click **"Run workflow"**
+3. Optionally enter a recipient email to override the default
+4. Click the green **"Run workflow"** button
+
+### How to Enter Data
+
+#### Outreach Contacts (feeds Pipeline, Bets, Risk, Momentum, Send List)
+
+```bash
+curl -X POST https://your-server/api/v1/outreach/inbound \
+  -H "Content-Type: application/json" \
+  -H "X-Outreach-Key: YOUR_KEY" \
+  -d '{
+    "first_name": "Matti",
+    "org_name": "Wärtsilä",
+    "pipeline": "customer",
+    "source": "linkedin"
+  }'
+```
+
+**Pipeline values:** `investor`, `customer`, `partner`
+**Source values:** `boardy`, `linkedin`, `conference`, `referral`, `cold`, `inbound`, `manual`
+
+Or add/edit records directly in **Supabase Dashboard → Table Editor**:
+- `outreach_threads` — thread status, next_action, next_action_date
+- `persons` — contact details
+- `outreach_orgs` — company info
+
+#### Firehorse Leads (feeds Delivery changes)
+
+```bash
+curl -X POST https://your-server/api/v1/firehorse/leads \
+  -H "Content-Type: application/json" \
+  -d '{"email": "matti@wartsila.com", "first_name": "Matti", "company": "Wärtsilä", "country": "FI"}'
+```
+
+**CSV bulk import:**
+```bash
+npx tsx scripts/import-leads-csv.ts data/leads.csv
+```
+
+#### Metrics (MRR, MVP ETA)
+
+Set as **GitHub repository secrets** (Settings → Secrets and variables → Actions → Secrets):
+
+| Secret | Example | Purpose |
+|--------|---------|---------|
+| `MRR_EUR` | `500` | Monthly recurring revenue in EUR |
+| `MVP_ETA` | `2026-Q2` | Estimated MVP date |
+
+Weekly commits are fetched live from the GitHub API — no manual config needed.
+
+### Manual API Trigger
+
+If the Express server is running:
+
+```bash
+curl -X POST https://your-server/api/v1/morning-briefing/send \
+  -H "x-admin-key: YOUR_ADMIN_KEY"
+```
+
+### Configuration (GitHub Secrets)
+
+| Secret | Default | Purpose |
+|--------|---------|---------|
+| `RESEND_API_KEY` | *(required)* | Resend email provider API key |
+| `SUPABASE_URL` | *(required)* | Supabase project URL |
+| `SUPABASE_SERVICE_KEY` | *(required)* | Supabase service role key |
+| `EMAIL_FROM` | `risto@onelifetime.world` | Sender address (must be on Resend-verified domain) |
+| `OUTREACH_DIGEST_EMAIL` | `risto@lifetime.fi` | Recipient address |
+| `GITHUB_TOKEN` | *(auto-provided by Actions)* | For live commit count |
+| `MRR_EUR` | — | Monthly recurring revenue |
+| `MVP_ETA` | — | MVP estimated date |
+
+### File Map
+
+```
+scripts/send-morning-briefing.ts          # Entry point (GitHub Actions runs this)
+src/morning-briefing/
+  ├── data-collectors.ts                  # Supabase queries for all 6 sections
+  ├── briefing-template.ts                # HTML + plain text email templates
+  ├── scheduler.ts                        # Send logic (Resend API call)
+  └── index.ts                            # Module exports
+.github/workflows/morning-briefing.yml    # Cron schedule + workflow_dispatch
+```
+
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| "domain not verified" from Resend | `EMAIL_FROM` secret set to unverified domain | Set secret to `risto@onelifetime.world` or verify the domain in Resend |
+| "column does not exist" in logs | Supabase table schema changed | Check column names in `data-collectors.ts` match actual table |
+| Email arrives at 05:00 or 07:00 | DST offset change | Both cron entries (03:00 + 04:00 UTC) handle this; time guard ensures only 06:00 sends |
+| Commits show 0 | `GITHUB_TOKEN` not in workflow env | Verify workflow passes `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` |
+| "No product signals captured" | No rows in `agent_metrics` for yesterday | Agents must write daily metrics; table may be empty |
+| Email not received | No `RESEND_API_KEY` secret | Add the secret in GitHub repository settings |
+
+### Fix History
+
+| PR | Date | Fix |
+|----|------|-----|
+| #501 | 2026-02-17 | `v_outreach_enriched.updated_at` → `created_at`; `firehorse_leads.status` → `state` |
+| #504 | 2026-02-17 | `firehorse_leads.updated_at` → `created_at` |
+| #505 | 2026-02-17 | `agent_logs` → `agent_metrics`; live commit count via GitHub API |
+
+---
+
+## Automated PR Workflow (HIL Automation)
+
+### Overview
+
+All code changes undergo automated dual-model AI review before merge, replacing manual human-in-the-loop review:
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+### Workflow Files
+
+| File | Purpose |
+|------|---------|
+| `.github/workflows/ai-pr-review.yml` | Dual AI review (Claude + Gemini HIL) |
+| `.github/workflows/pr-auto-merge.yml` | Auto-merge when approved + CI green |
+| `.github/copilot-setup-steps.yml` | Copilot coding agent environment setup |
+
+### How It Works
+
+1. Claude Code generates implementation on a feature branch and opens a PR
+2. **Claude** performs quick sanity check (security, correctness, breaking changes)
+3. **Gemini** performs deep HIL review (edge cases, tests, architecture, OWASP security)
+4. Gemini defaults to **REQUEST_CHANGES** — only APPROVE when zero issues + adequate tests
+5. If changes requested: structured fix instructions sent to **@copilot** coding agent
+6. Copilot implements fixes, pushes to branch → review re-triggers automatically
+7. When both approve: `ai-approved` label triggers auto-merge workflow
+
+### Labels
+
+| Label | Meaning |
+|-------|---------|
+| `ai-reviewed` | AI review completed (dual-model) |
+| `ai-approved` | Both Claude + Gemini approved |
+| `ai-changes-requested` | Issues found, waiting for fixes |
+| `do-not-merge` | Human override: block auto-merge |
+| `needs-human-review` | Human override: pause for manual review |
+
+### Required Secrets
+
+| Secret | Purpose |
+|--------|---------|
+| `ANTHROPIC_API_KEY` | Claude API review (GitHub Settings → Secrets) |
+| `GOOGLE_AI_API_KEY` | Gemini API review (GitHub Settings + Google Secret Manager) |
+
+### MCP Hub Integration
+
+Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`). Model: `gemini-2.0-flash`. Cloud Run service: `dws6run6` (europe-north1).
+
+---
+
 ## Document Changelog
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 2.6 | Mar 2, 2026 | Claude Code Project Engineering Structure (Section 27): CLAUDE.md as project memory, Skills, Hooks, Subagents, MCP; repository gap analysis from exploration | F3xqn |
+| 2.5 | Feb 24, 2026 | Client Handover document (DWS_HANDOVER.md) added to Related Documentation index | kJunm |
+| 2.4 | Feb 21, 2026 | Enhanced LWM definition as enterprise learning layer | Q0lzp |
+| 2.3 | Feb 20, 2026 | Automated PR Workflow (HIL Automation): Claude + Gemini dual review, Copilot fix loop, auto-merge, Cloud Run dws6run6 | e5wXD |
+| 2.2 | Feb 17, 2026 | Appendix A: CEO Cockpit Morning Briefing — schedule, data entry, configuration, troubleshooting, fix history | K3bXV |
 | 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
 | 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |
 | 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |
@@ -2511,6 +2843,123 @@ Track training effectiveness:
 
 ---
 
-**License:** Proprietary - Lifetime Oy  
-**Maintained by:** Lifetime Oy Development Team  
+## Claude Code Project Engineering Structure
+
+*Added in v2.6 | 02.03.2026*
+
+This section documents the DWS6 Claude Code engineering structure — the patterns that make AI-assisted development reliable, consistent, and scalable. Based on a repository audit conducted on 02.03.2026.
+
+### Architecture: Five Pillars
+
+#### 1. CLAUDE.md — Project Memory
+
+`CLAUDE.md` (repo root, 2,000+ lines) is the primary intelligence substrate for all Claude Code sessions. It is not documentation — it is institutional memory. Every session inherits:
+
+- Brand, document, security, UI, and market research standards
+- Architecture decisions (Brain-Memory-Body-Hands, dual folder rule, store update checklist)
+- Critical rules (git mv not rm, .md never published to public sites, email sender rules)
+- EU compliance requirements (GDPR, Article 12, data residency)
+- Security coding rules (execFile not exec, CORS, SRI hashes)
+
+**Impact:** Zero per-session context repetition. Zero behavioral drift from standards.
+
+#### 2. Skills — Reusable Workflow Components (`.claude/commands/`)
+
+Seven production skills replace ad-hoc prompting with callable, documented, testable workflow components:
+
+| Skill | Invocation | Output |
+|-------|-----------|--------|
+| `/agent-run` | `dws run <agent> --input '...'` | Scored JSON |
+| `/workflow` | `dws workflow <name>` | Multi-agent unified report |
+| `/compliance-check` | Auto-triggered | EU gap analysis |
+| `/discover-agents` | Agent discovery | Capability index |
+| `/site-safety` | SiteSense agent | Safety score 0-100 |
+| `/carbon-analysis` | Material Oracle | kgCO2e lifecycle |
+| `/email` | Resend integration | Delivery status |
+
+**Principle:** If a capability cannot be invoked as `dws <command>`, it is not shipped.
+
+#### 3. Hooks — Automated Quality Enforcement
+
+**Git hooks** (`.githooks/`, installed via `git config core.hooksPath .githooks`):
+
+| Hook | Trigger | Enforcement |
+|------|---------|-------------|
+| `pre-push` | Before git push | Branch name validation, blocks destructive deletes |
+| `post-merge` | After merge | Syncs Admin/, AgentFoundry/, docs/ to backup |
+
+**Claude Code hooks** (`.claude/hooks/`) — implemented. `PreToolUse` hook active for Bash commands.
+
+**Active hooks:**
+- `pre-bash-safety.sh`: Warn-only safety validator for destructive shell patterns (triggered on every Bash tool call). Patterns checked: `rm -rf` on root paths, `git clean -fd`, `git reset --hard`, force-push to main, `DROP TABLE`, `truncate` at root.
+
+**Planned hooks:**
+- `post-tool-use`: Normalize agent JSON output to standard schema
+- `notification`: Alert on task completion for long-running agents
+
+#### 4. Subagents — Context Isolation and Parallel Execution
+
+Claude Code subagent types used in DWS6:
+
+| Type | Use Case | Isolation |
+|------|----------|-----------|
+| `Explore` | Codebase search, file discovery | Protects main context |
+| `Plan` | Architecture design, trade-off analysis | Read-only, no side effects |
+| `general-purpose` | Multi-step research, document analysis | Full tool access |
+| Background | Parallel independent tasks | Non-blocking |
+
+**Rule:** Run independent research in parallel background agents whenever possible.
+
+#### 5. MCP Integration (`/mcp`, `mcp.json`, `mcp-hub/`)
+
+MCP exposes all DWS agents as auto-discoverable tools via JSON-RPC 2.0:
+
+```bash
+# List all agents
+curl POST /mcp -d '{"method": "tools/list"}'
+
+# Execute agent
+curl POST /mcp -d '{"method": "tools/call", "params": {"name": "compliance", "arguments": {...}}}'
+```
+
+**Current gap:** `mcp.json` not committed to repo (users must copy `.mcp.json.example`). **Action: commit safe default config.**
+
+### Repository Gap Analysis (Audit: 02.03.2026)
+
+| Gap | Priority | Status |
+|-----|----------|--------|
+| `.claude/hooks/` directory and `pre-bash-safety.sh` | High | **Done** |
+| `mcp.json` not committed | High | Planned |
+| No pre-commit lint hook | Medium | Planned |
+| No consolidated `docs/MCP_TOOLS.md` | Medium | Planned |
+| Supabase MCP server is stub only | Medium | In progress |
+| No dev server launcher script | Low | Planned |
+
+### Operational Checklist: New Claude Code Session Setup
+
+```bash
+# 1. Verify hooks installed
+git config core.hooksPath
+# Expected: .githooks
+
+# 2. Verify skills accessible
+ls .claude/commands/
+# Expected: 7 .md files
+
+# 3. Verify CLAUDE.md loaded
+# Claude Code reads this automatically on session start
+
+# 4. Set up MCP (if needed)
+cp .mcp.json.example .mcp.json
+# Edit with actual Supabase/Redis credentials
+
+# 5. Start dev server
+cd dws6.com/dashboard/firehorse/v9-react && npm run dev  # Frontend
+npm run dev  # Backend (root)
+```
+
+---
+
+**License:** Proprietary - Lifetime Oy
+**Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin

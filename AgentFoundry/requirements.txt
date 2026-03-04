@@ -46,6 +46,7 @@ redis>=5.0.0  # Celery backend
 structlog>=24.1.0  # Structured logging
 slack-sdk>=3.26.0  # Slack notifications
 sentry-sdk>=1.40.0  # Error tracking
+prometheus-client>=0.19.0  # Prometheus metrics
 
 # ============================================================================
 # Web Server (for Cloud Run health checks)

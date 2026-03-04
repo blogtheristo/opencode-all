@@ -10,6 +10,8 @@
       v1.1 - 07.02.2026 - Documented versioning
       v1.2 - 07.02.2026 - Added scripts/, src/, Firehorse/ to backup folders
       v1.3 - 07.02.2026 - Added docs/, .github/, .workflows/, root-level standards (CLAUDE.md etc.)
+      v1.4 - 07.02.2026 - Exclude node_modules/, dist/, build/, __pycache__, .git/ from sync
+      v1.5 - 07.02.2026 - Robust .env reading: strip quotes, accept SERVICE_ROLE_KEY, check env.mcp
 
     Uploads Admin/, scripts/, src/, docs/, and business files to a private
     Supabase Storage bucket as EU cloud backup. Runs locally on Windows.
@@ -68,34 +70,34 @@ if (-not $RepoPath) {
     $RepoPath = Split-Path -Parent $ScriptDir
 }
 
-# --- Load credentials from .env if not provided ---
-if (-not $SupabaseUrl -or -not $SupabaseKey) {
-    $envFile = Join-Path $RepoPath ".env"
-    if (Test-Path $envFile) {
-        $envContent = Get-Content $envFile
-        foreach ($line in $envContent) {
-            if ($line -match "^SUPABASE_URL=(.+)$") {
-                if (-not $SupabaseUrl) { $SupabaseUrl = $Matches[1].Trim() }
+# --- Load credentials from .env / .env.mcp ---
+function Read-EnvFile {
+    param([string]$FilePath)
+    if (-not (Test-Path $FilePath)) { return }
+    Write-Host "  Reading: $FilePath" -ForegroundColor Gray
+    $content = Get-Content $FilePath
+    foreach ($line in $content) {
+        $trimmed = $line.Trim()
+        if ($trimmed -match "^SUPABASE_URL=(.+)$") {
+            if (-not $script:SupabaseUrl) {
+                $script:SupabaseUrl = $Matches[1].Trim().Trim('"').Trim("'")
+                Write-Host "    Found SUPABASE_URL" -ForegroundColor Gray
             }
-            if ($line -match "^SUPABASE_SERVICE_KEY=(.+)$") {
-                if (-not $SupabaseKey) { $SupabaseKey = $Matches[1].Trim() }
+        }
+        # Accept SUPABASE_SERVICE_KEY or SUPABASE_SERVICE_ROLE_KEY
+        if ($trimmed -match "^SUPABASE_SERVICE_(?:ROLE_)?KEY=(.+)$") {
+            if (-not $script:SupabaseKey) {
+                $script:SupabaseKey = $Matches[1].Trim().Trim('"').Trim("'")
+                Write-Host "    Found SUPABASE_SERVICE_KEY" -ForegroundColor Gray
             }
         }
     }
+}
 
-    # Also check .env.mcp
-    $envMcpFile = Join-Path $RepoPath ".env.mcp"
-    if (Test-Path $envMcpFile) {
-        $envContent = Get-Content $envMcpFile
-        foreach ($line in $envContent) {
-            if ($line -match "^SUPABASE_URL=(.+)$") {
-                if (-not $SupabaseUrl) { $SupabaseUrl = $Matches[1].Trim() }
-            }
-            if ($line -match "^SUPABASE_SERVICE_KEY=(.+)$") {
-                if (-not $SupabaseKey) { $SupabaseKey = $Matches[1].Trim() }
-            }
-        }
-    }
+if (-not $SupabaseUrl -or -not $SupabaseKey) {
+    Read-EnvFile (Join-Path $RepoPath ".env")
+    Read-EnvFile (Join-Path $RepoPath ".env.mcp")
+    Read-EnvFile (Join-Path $RepoPath "env.mcp")
 }
 
 # --- Validation ---
@@ -212,7 +214,12 @@ foreach ($folder in $SyncFolders) {
     $srcFolder = Join-Path $RepoPath $folder
     if (Test-Path $srcFolder) {
         Write-Host "Uploading $folder/" -ForegroundColor Cyan
-        $files = Get-ChildItem -Path $srcFolder -Recurse -File
+        $files = Get-ChildItem -Path $srcFolder -Recurse -File |
+            Where-Object { $_.FullName -notmatch '[\\/]node_modules[\\/]' -and
+                           $_.FullName -notmatch '[\\/]\.git[\\/]' -and
+                           $_.FullName -notmatch '[\\/]dist[\\/]' -and
+                           $_.FullName -notmatch '[\\/]build[\\/]' -and
+                           $_.FullName -notmatch '[\\/]__pycache__[\\/]' }
         foreach ($file in $files) {
             $relativePath = $file.FullName.Substring($RepoPath.Length + 1)
             # Use forward slashes for Supabase Storage paths

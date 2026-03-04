@@ -1276,7 +1276,7 @@ The customer promise of **"2-month payback or money back"** has been validated t
 
 | Regulation | Requirement | Implementation | Status |
 |------------|-------------|----------------|--------|
-| **NIS 2** | Cybersecurity risk management | Security Agent + Snyk MCP scanning | ✅ Active |
+| **NIS 2** | Cybersecurity risk management | Security Agent + ZenFree/Dependabot scanning | ✅ Active |
 | **EU AI Act** | Transparency, human oversight | Low-risk classification, Phase 2 approval | ✅ Compliant |
 | **GDPR** | Data residency, subject rights | europe-north1, Supabase RLS | ✅ Compliant |
 | **Cybersecurity Act** | Security certification | ISO 27001 target Q3 2026 | 🟡 Planned |
