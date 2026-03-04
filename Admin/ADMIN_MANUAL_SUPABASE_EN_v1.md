@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
   - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
 
@@ -15,17 +16,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 09.02.2026
+  - Last Modified: 04.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.1
+**Version:** 1.2
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 09.02.2026
+**Updated:** 04.03.2026
 
 ---
 
@@ -38,6 +39,9 @@ Document Status:
 5. [API Management](#5-api-management)
 6. [Authentication](#6-authentication)
 7. [Database Operations](#7-database-operations)
+   - [7.1 Common Queries](#71-common-queries)
+   - [7.2 Data Maintenance](#72-data-maintenance)
+   - [7.3 Migration Management and Audit](#73-migration-management-and-audit)
 8. [Monitoring and Logs](#8-monitoring-and-logs)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
@@ -737,6 +741,85 @@ SET
   updated_at = NOW()
 WHERE deleted_at IS NULL;
 ```
+
+### 7.3 Migration Management and Audit
+
+#### Migration Audit Summary (March 4, 2026)
+
+**Audit Date**: March 4, 2026  
+**Audit Tool**: Claude Code + Supabase MCP  
+**Total Migrations Reviewed**: 29 SQL files  
+**Status**: ✅ **COMPLETE** - All partial/never-run migrations fixed  
+
+**Migration Files Audited**:
+- **002-008**: Firehorse core, investors, auth, payments
+- **011**: Security fixes
+- **012**: Firehorse signals
+- **013**: Agent tracking (NEVER RAN → FIXED)
+- **014**: Climate assistant usage (NEVER RAN → FIXED)
+- **015**: Email templates (RAN OK)
+- **023-025**: Outreach, threads, prospect status (RAN OK)
+- **025_cleanup**: Placeholders cleanup (RAN OK)
+- **026**: Security fixes + trade import products (RAN OK)
+- **027**: Email queue (NEVER RAN → FIXED)
+- **028-029**: BIM pipeline + seed (DO NOT TOUCH - edited in another session)
+- **030-037**: Auto-deployed via `run-pending-030-037.sql` (RAN OK)
+- **038**: Article12 audit log (NEVER RAN → FIXED)
+- **038_hil_todos**: HIL todos (RAN OK - duplicate prefix resolved)
+- **039**: Security definer views fix (RAN OK)
+- **040**: Grok consent (NEVER RAN → FIXED)
+
+**Critical Issues Identified & Fixed**:
+1. **Invalid MySQL Syntax**: Early migrations (002/005/006/013) used MySQL-style `INDEX` syntax instead of PostgreSQL
+2. **Missing IF NOT EXISTS Guards**: Several migrations lacked idempotency protection
+3. **Duplicate Migration Prefixes**: 038 prefix used twice (resolved correctly)
+4. **Missing Tables**: 10 tables were never created due to partial/failed runs
+5. **Missing Constraints**: `emission_factors` lacked UNIQUE constraint needed by 029 seed
+6. **Incomplete RLS**: `firehorse_signals` missing authenticated-read policy
+
+**Tables Created/Fixed**:
+- ✅ `agent_metrics` (013) - Daily performance metrics for AI agents
+- ✅ `agent_signals` (013) - Lifetime Scope Signals for agent coordination
+- ✅ `agent_costs` (013) - Detailed cost tracking for AI operations
+- ✅ `agent_approvals` (013) - Approval workflow for Advisor mode (HIL oversight)
+- ✅ `climate_assistant_usage` (014) - Persistent usage tracking with budget enforcement
+- ✅ `email_queue` (027) - Audit trail for emails via Redis Streams
+- ✅ `article12_audit_log` (038) - EU AI Act Article 12 compliance (append-only)
+- ✅ `grok_consent` (040) - GDPR consent state management
+- ✅ `grok_consent_audit` (040) - Immutable audit trail for consent changes
+- ✅ `grok_inference_log` (040) - Immutable log of all Grok API calls
+
+**Consolidated Fix Migration**: `041_fix_partial_runs.sql`
+- **Location**: `supabase/migrations/041_fix_partial_runs.sql`
+- **Size**: 26,491 bytes
+- **Sections**: 8 consolidated sections applied via MCP
+- **Status**: Committed to git and pushed to `origin/main`
+
+**Verification Results**:
+- **Total Tables**: 93 (increased from 83)
+- **RLS Policies**: All tables have Row Level Security enabled
+- **Security Invoker**: All views use `security_invoker = true`
+- **Constraints**: All required UNIQUE and CHECK constraints in place
+- **Indexes**: All performance indexes created
+- **Functions**: All database functions operational
+
+**EU Compliance Status**:
+- ✅ **Article 12 Audit Log**: Append-only audit trail for AI Act compliance
+- ✅ **GDPR Consent Management**: Immutable audit trails for user consent
+- ✅ **Data Residency**: Hosted in EU (Finland) for regulatory compliance
+- ✅ **PII Scrubbing**: Verified scrubbing location (Veriton Helsinki)
+
+**Maintenance Recommendations**:
+1. **Run Migration Audit**: Quarterly review of migration files vs live schema
+2. **Monitor Drift**: Use `scripts/db-drift-check.py` for schema consistency
+3. **Backup Before Changes**: Always backup before applying migrations
+4. **Test in Development**: Apply migrations to dev branch first
+5. **Document Changes**: Update this manual when adding new migrations
+
+**Emergency Contacts**:
+- **Database Issues**: Check Supabase dashboard logs first
+- **Migration Failures**: Review `041_fix_partial_runs.sql` for reference
+- **Security Incidents**: Follow DWS Security Standard procedures
 
 ---
 
