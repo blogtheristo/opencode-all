@@ -1097,8 +1097,103 @@ Part 3 covers:
 
 ---
 
+---
+
+## Section 6: Ollama Model Configuration for Code Review (30 minutes)
+
+After completing Part 1's Ollama installation, configure a code review model for the Level 5 automated PR review.
+
+### 6.1 Create Ollama Modelfile for Code Review
+
+```bash
+cat > ~/dws-lwm/configs/ollama/code-reviewer.Modelfile << 'EOF'
+# DWS IQ 6 Code Reviewer — Custom Ollama Model
+# Based on Qwen 2.5 Coder 14B
+FROM qwen2.5-coder:14b
+
+# System prompt for code review
+SYSTEM """You are a strict senior code reviewer for DWS IQ 6, an enterprise climate intelligence platform.
+
+Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS.
+
+Review focus:
+1. SECURITY — API key exposure, injection, OWASP Top 10, GDPR compliance
+2. CORRECTNESS — logic errors, type safety, edge cases
+3. EU COMPLIANCE — AI Act Article 12 logging, data residency, GDPR
+4. PERFORMANCE — N+1 queries, memory leaks, bundle size
+
+Your default verdict is REQUEST_CHANGES. Only APPROVE when genuinely excellent.
+Format issues as file:line references. Be specific and actionable."""
+
+# Parameters optimized for code review
+PARAMETER temperature 0.1
+PARAMETER top_p 0.9
+PARAMETER num_predict 2000
+PARAMETER stop "---"
+EOF
+
+# Create the custom model
+ollama create dws-code-reviewer -f ~/dws-lwm/configs/ollama/code-reviewer.Modelfile
+
+# Verify
+ollama list
+# Should show: dws-code-reviewer
+```
+
+### 6.2 Test Code Review Model
+
+```bash
+# Test with a realistic PR diff
+ollama run dws-code-reviewer << 'EOF'
+Review this TypeScript code diff:
+
++import { Request, Response } from 'express';
++
++app.get('/api/users/:id', async (req: Request, res: Response) => {
++  const query = `SELECT * FROM users WHERE id = ${req.params.id}`;
++  const result = await db.query(query);
++  res.json(result.rows);
++});
+EOF
+
+# Expected: Identifies SQL injection, recommends parameterized query
+```
+
+### 6.3 Benchmark Code Review Performance
+
+```bash
+cat > ~/dws-lwm/scripts/benchmark_code_review.sh << 'SCRIPT'
+#!/bin/bash
+# Benchmark Ollama code review response time
+
+echo "=== Ollama Code Review Benchmark ==="
+echo "Model: dws-code-reviewer"
+echo "Date: $(date)"
+
+PROMPTS=(
+    "Review: const x = eval(userInput)"
+    "Review: app.use(cors({ origin: '*' }))"
+    "Review: const token = 'sk-ant-api03-hardcoded-key'"
+)
+
+for i in "${!PROMPTS[@]}"; do
+    START=$(date +%s%N)
+    ollama run dws-code-reviewer "${PROMPTS[$i]}" > /dev/null 2>&1
+    END=$(date +%s%N)
+    ELAPSED=$(( (END - START) / 1000000 ))
+    echo "Prompt $((i+1)): ${ELAPSED}ms"
+done
+SCRIPT
+
+chmod +x ~/dws-lwm/scripts/benchmark_code_review.sh
+bash ~/dws-lwm/scripts/benchmark_code_review.sh
+```
+
+---
+
 **Document Control:**
 - **Part:** 2 of 3
+- **Version:** 1.1
 - **Status:** Lab-tested executable
 - **Execution Time:** 16-24 hours
 - **Next:** Part 3 - Evaluation & Deployment

@@ -16,4 +16,5 @@ export type {
   TopRisk,
   MetricsStrip,
   WorkflowData,
+  ConstructionLeadsData,
 } from './data-collectors.js';

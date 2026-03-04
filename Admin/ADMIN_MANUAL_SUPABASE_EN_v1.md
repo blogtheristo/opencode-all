@@ -3,9 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
+  - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
 
 Session Links & References:
@@ -14,17 +16,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 30.12.2025
+  - Last Modified: 04.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.0  
-**Purpose:** Supabase database administration guide for DWS6 project  
-**Audience:** Database Administrators, DevOps Engineers  
-**Updated:** 30.12.2025
+**Version:** 1.2
+**Purpose:** Supabase database administration guide for DWS6 project
+**Audience:** Database Administrators, DevOps Engineers
+**Updated:** 04.03.2026
 
 ---
 
@@ -37,10 +39,16 @@ Document Status:
 5. [API Management](#5-api-management)
 6. [Authentication](#6-authentication)
 7. [Database Operations](#7-database-operations)
+   - [7.1 Common Queries](#71-common-queries)
+   - [7.2 Data Maintenance](#72-data-maintenance)
+   - [7.3 Migration Management and Audit](#73-migration-management-and-audit)
 8. [Monitoring and Logs](#8-monitoring-and-logs)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
 11. [Troubleshooting](#11-troubleshooting)
+12. [Database Drift Detection](#12-database-drift-detection)
+13. [Alert Router & Redis Pub/Sub](#13-alert-router--redis-pubsub)
+14. [Glossary](#14-glossary)
 
 ---
 
@@ -641,6 +649,16 @@ WHERE email = 'user@example.com';
 
 ## 7. Database Operations
 
+### 7.0 Migration Tools
+
+**db_push** – Push migrations to Supabase:
+```powershell
+pwsh -File scripts/db_push.ps1
+# Or: npm run db:push
+```
+
+**Supabase MCP** – AI tools at `mcp-servers/supabase/` (port 8766). See Admin Manual Tools section.
+
 ### 7.1 Common Queries
 
 #### Get Project Statistics
@@ -733,6 +751,85 @@ SET
   updated_at = NOW()
 WHERE deleted_at IS NULL;
 ```
+
+### 7.3 Migration Management and Audit
+
+#### Migration Audit Summary (March 4, 2026)
+
+**Audit Date**: March 4, 2026  
+**Audit Tool**: Claude Code + Supabase MCP  
+**Total Migrations Reviewed**: 29 SQL files  
+**Status**: ✅ **COMPLETE** - All partial/never-run migrations fixed  
+
+**Migration Files Audited**:
+- **002-008**: Firehorse core, investors, auth, payments
+- **011**: Security fixes
+- **012**: Firehorse signals
+- **013**: Agent tracking (NEVER RAN → FIXED)
+- **014**: Climate assistant usage (NEVER RAN → FIXED)
+- **015**: Email templates (RAN OK)
+- **023-025**: Outreach, threads, prospect status (RAN OK)
+- **025_cleanup**: Placeholders cleanup (RAN OK)
+- **026**: Security fixes + trade import products (RAN OK)
+- **027**: Email queue (NEVER RAN → FIXED)
+- **028-029**: BIM pipeline + seed (DO NOT TOUCH - edited in another session)
+- **030-037**: Auto-deployed via `run-pending-030-037.sql` (RAN OK)
+- **038**: Article12 audit log (NEVER RAN → FIXED)
+- **038_hil_todos**: HIL todos (RAN OK - duplicate prefix resolved)
+- **039**: Security definer views fix (RAN OK)
+- **040**: Grok consent (NEVER RAN → FIXED)
+
+**Critical Issues Identified & Fixed**:
+1. **Invalid MySQL Syntax**: Early migrations (002/005/006/013) used MySQL-style `INDEX` syntax instead of PostgreSQL
+2. **Missing IF NOT EXISTS Guards**: Several migrations lacked idempotency protection
+3. **Duplicate Migration Prefixes**: 038 prefix used twice (resolved correctly)
+4. **Missing Tables**: 10 tables were never created due to partial/failed runs
+5. **Missing Constraints**: `emission_factors` lacked UNIQUE constraint needed by 029 seed
+6. **Incomplete RLS**: `firehorse_signals` missing authenticated-read policy
+
+**Tables Created/Fixed**:
+- ✅ `agent_metrics` (013) - Daily performance metrics for AI agents
+- ✅ `agent_signals` (013) - Lifetime Scope Signals for agent coordination
+- ✅ `agent_costs` (013) - Detailed cost tracking for AI operations
+- ✅ `agent_approvals` (013) - Approval workflow for Advisor mode (HIL oversight)
+- ✅ `climate_assistant_usage` (014) - Persistent usage tracking with budget enforcement
+- ✅ `email_queue` (027) - Audit trail for emails via Redis Streams
+- ✅ `article12_audit_log` (038) - EU AI Act Article 12 compliance (append-only)
+- ✅ `grok_consent` (040) - GDPR consent state management
+- ✅ `grok_consent_audit` (040) - Immutable audit trail for consent changes
+- ✅ `grok_inference_log` (040) - Immutable log of all Grok API calls
+
+**Consolidated Fix Migration**: `041_fix_partial_runs.sql`
+- **Location**: `supabase/migrations/041_fix_partial_runs.sql`
+- **Size**: 26,491 bytes
+- **Sections**: 8 consolidated sections applied via MCP
+- **Status**: Committed to git and pushed to `origin/main`
+
+**Verification Results**:
+- **Total Tables**: 93 (increased from 83)
+- **RLS Policies**: All tables have Row Level Security enabled
+- **Security Invoker**: All views use `security_invoker = true`
+- **Constraints**: All required UNIQUE and CHECK constraints in place
+- **Indexes**: All performance indexes created
+- **Functions**: All database functions operational
+
+**EU Compliance Status**:
+- ✅ **Article 12 Audit Log**: Append-only audit trail for AI Act compliance
+- ✅ **GDPR Consent Management**: Immutable audit trails for user consent
+- ✅ **Data Residency**: Hosted in EU (Finland) for regulatory compliance
+- ✅ **PII Scrubbing**: Verified scrubbing location (Veriton Helsinki)
+
+**Maintenance Recommendations**:
+1. **Run Migration Audit**: Quarterly review of migration files vs live schema
+2. **Monitor Drift**: Use `scripts/db-drift-check.py` for schema consistency
+3. **Backup Before Changes**: Always backup before applying migrations
+4. **Test in Development**: Apply migrations to dev branch first
+5. **Document Changes**: Update this manual when adding new migrations
+
+**Emergency Contacts**:
+- **Database Issues**: Check Supabase dashboard logs first
+- **Migration Failures**: Review `041_fix_partial_runs.sql` for reference
+- **Security Incidents**: Follow DWS Security Standard procedures
 
 ---
 
@@ -1033,6 +1130,230 @@ WHERE state = 'active'
 
 ---
 
+## 12. Database Drift Detection
+
+### 12.1 Overview
+
+Database drift occurs when the live Supabase schema diverges from migration files in the repository (`supabase/migrations/`). This creates the most dangerous category of bugs: the DB looks "kind of" migrated but isn't fully consistent with what the code expects.
+
+**Source of truth:** The repository. The live DB must reflect these files.
+
+### 12.2 Plan → Apply → Verify Pipeline
+
+Three-phase approach to safe database operations, designed to eliminate partial runs and detect drift.
+
+| Phase | Mode | Purpose | Tool |
+|-------|------|---------|------|
+| **Plan** | Read-only | Diff repo migrations vs live schema, output change plan | `scripts/db-drift-check.py` |
+| **Apply** | Write | Execute migrations as single transactions with fail-fast guards | Supabase MCP `apply_migration` |
+| **Verify** | Read-only | Post-apply checks: RLS enabled, constraints exist, row counts sane | `scripts/db-drift-check.py --verify` |
+
+#### Phase 1: Plan (Read-Only Drift Detection)
+
+```bash
+# Run drift check — compares repo migrations against live DB
+python scripts/db-drift-check.py
+
+# Dry run (report only, no Redis alerts published)
+python scripts/db-drift-check.py --dry-run
+```
+
+The script:
+1. Lists all migration files in `supabase/migrations/`
+2. Parses CREATE TABLE statements and checks for BEGIN/COMMIT wrappers
+3. Queries live DB for existing tables (via Supabase REST API or MCP)
+4. Reports drift (DB has tables not in repo, or repo has migrations not in DB)
+5. Flags tables missing RLS
+6. Publishes findings to `supabase:alerts` Redis channel
+
+#### Phase 2: Apply (Transactional Execution)
+
+**Guard rule:** Only accept migrations wrapped in `BEGIN`/`COMMIT`. Refuse to run bare SQL.
+
+```sql
+-- Valid migration format (accepted):
+BEGIN;
+  -- Guard: fail if prerequisite missing
+  DO $$ BEGIN
+    ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'advisors');
+  END $$;
+
+  CREATE TABLE IF NOT EXISTS advisor_alerts (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    source TEXT NOT NULL,
+    severity TEXT NOT NULL CHECK (severity IN ('INFO', 'WARNING', 'HIGH', 'CRITICAL')),
+    message TEXT NOT NULL,
+    details JSONB DEFAULT '{}',
+    resolved BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+  );
+
+  ALTER TABLE advisor_alerts ENABLE ROW LEVEL SECURITY;
+COMMIT;
+```
+
+#### Phase 3: Verify (Post-Apply Checks)
+
+```bash
+# Run verification after apply
+python scripts/db-drift-check.py --verify
+```
+
+Checks: all repo tables exist in live DB, RLS enabled, constraints present.
+
+### 12.3 Supabase Performance Advisor Alerts
+
+The Supabase Performance Advisor (available via Management API) flags critical issues like missing indexes, unoptimized queries, and security gaps.
+
+```bash
+# Fetch advisor alerts and publish to Redis
+python scripts/alert-publisher.py
+
+# Dry run (report only)
+python scripts/alert-publisher.py --dry-run
+```
+
+Requires `SUPABASE_ACCESS_TOKEN` (personal access token from supabase.com/dashboard/account/tokens).
+
+### 12.4 Safety Rules for Migrations
+
+| Rule | Why |
+|------|-----|
+| Every migration wrapped in `BEGIN`/`COMMIT` | Prevents partial runs |
+| RLS enabled on all new tables | Prevents data leakage |
+| No `DROP TABLE` without explicit approval | Prevents accidental data loss |
+| No `SECURITY DEFINER` on public functions | Prevents privilege escalation |
+| `service_role` key never in client code | Prevents total compromise |
+| Use `IF NOT EXISTS` / `IF EXISTS` guards | Makes migrations idempotent |
+| Include sanity SELECT before COMMIT | Confirms expected state |
+
+### 12.5 Scripts Reference
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/db-drift-check.py` | Plan + Verify phases — detects schema drift, publishes alerts |
+| `scripts/alert-publisher.py` | Fetches Supabase Performance Advisor results, publishes to Redis |
+
+---
+
+## 13. Alert Router & Redis Pub/Sub
+
+### 13.1 Architecture
+
+```
+┌─────────────────────┐     ┌──────────────────────┐     ┌───────────────────┐
+│  Alert Sources       │     │  Redis Pub/Sub        │     │  Alert Consumers   │
+│                      │     │  (dws-mcp-redis:6380) │     │                    │
+│  Supabase Advisor ──▶│     │                       │     │  Claude Code  ◀───│
+│  DB Drift Check   ──▶│────▶│  supabase:alerts      │────▶│  admin@dws6.com◀──│
+│  MCP Health       ──▶│     │  mcp:alerts           │     │  Grafana      ◀───│
+│  Docker Events    ──▶│     │  system:alerts        │     │                    │
+└─────────────────────┘     └──────────────────────┘     └───────────────────┘
+```
+
+### 13.2 Channels
+
+| Channel | Source | Alert Types |
+|---------|--------|-------------|
+| `supabase:alerts` | DB drift check, Supabase advisor, migration events | Schema drift, performance warnings, security advisories |
+| `mcp:alerts` | MCP Hub health, individual MCP server status | Container unhealthy, endpoint unreachable, auth failures |
+| `system:alerts` | Docker events, disk space, training jobs | Container crash, low disk, training complete/failed |
+
+### 13.3 Routing Rules by Severity
+
+| Severity | Claude Code | Email (admin@dws6.com) | Grafana |
+|----------|-------------|------------------------|---------|
+| INFO | Yes | No | Yes |
+| WARNING | Yes | No | Yes |
+| HIGH | Yes | **Yes** | Yes |
+| CRITICAL | Yes | **Yes** | Yes |
+
+### 13.4 Alert Payload Format
+
+```json
+{
+  "source": "db-drift-check",
+  "severity": "HIGH",
+  "title": "Schema drift detected",
+  "message": "Table 'advisor_alerts' exists in DB but has no migration file",
+  "details": {
+    "table": "advisor_alerts",
+    "drift_type": "unmigrated_table"
+  },
+  "timestamp": "2026-02-09T16:30:00Z"
+}
+```
+
+### 13.5 Publishing Alerts from Services
+
+```python
+import redis
+import json
+from datetime import datetime, timezone
+
+r = redis.Redis(host='dws-mcp-redis', port=6379)
+
+alert = {
+    "source": "supabase-advisor",
+    "severity": "CRITICAL",
+    "title": "2 critical performance advisories open",
+    "message": "Supabase Performance Advisor flagged 2 critical issues",
+    "details": {"advisory_count": 2},
+    "timestamp": datetime.now(timezone.utc).isoformat()
+}
+
+r.publish("supabase:alerts", json.dumps(alert))
+```
+
+### 13.6 Configuration
+
+| Variable | Purpose | Where to set |
+|----------|---------|--------------|
+| `REDIS_HOST` | Redis hostname | `.env` / alert router env |
+| `REDIS_PORT` | Redis port (default: 6380) | `.env` / alert router env |
+| `ADMIN_EMAIL` | Email recipient for HIGH/CRITICAL | Alert router env |
+| `SUPABASE_URL` | Supabase project URL | `.env` |
+| `SUPABASE_SERVICE_KEY` | Supabase admin access | `.env` |
+| `SUPABASE_ACCESS_TOKEN` | Personal access token for Management API | `.env` |
+
+---
+
+## 14. Glossary
+
+**RLS (Row Level Security):** Postgres feature that filters rows per user. If RLS is enabled but you forgot policies, queries return 0 rows (or fail) even though data exists.
+
+**POLICY:** An allow rule for a table under RLS. Has two parts: `USING` (which rows you can access) and `WITH CHECK` (what you're allowed to insert/update). Missing `WITH CHECK` is a common privilege escalation.
+
+**service_role:** Supabase "god" role used server-side. Bypasses RLS when using the service key, and can read/write anything. Treat exposure of this key as total compromise.
+
+**authenticated / anon:** JWT roles for end users. `authenticated` means logged in, `anon` means not logged in.
+
+**SECURITY DEFINER function:** Runs with the privileges of the function owner, not the caller. Useful for safe helper functions (like membership checks), dangerous if it accepts arbitrary `user_id` inputs or has no caller guard.
+
+**Caller guard:** An explicit check inside a `SECURITY DEFINER` function that fails closed unless called from the intended context (commonly `service_role`). Prefer checking `current_setting('request.jwt.claim.role', true)` when you need it to behave outside RPC contexts.
+
+**Idempotent migration/script:** Safe to run multiple times. Uses `IF NOT EXISTS`, `DROP ... IF EXISTS`, or guarded `DO` blocks so reruns don't fail or double-insert.
+
+**Fail-fast guard:** A deliberate abort if reality doesn't match expectation (e.g., "expected exactly 3 targets"). Prevents partial deletes or silent no-ops.
+
+**Sanity SELECT:** Human-readable queries before `COMMIT` to confirm the script is touching exactly what you think.
+
+**Partial run:** A script was executed halfway (or only some statements). Creates the worst drift because the DB looks "kind of" migrated.
+
+**Drift:** Repo migrations and live DB schema don't match. Diff schema effects (tables/columns/constraints/policies/functions), not raw SQL text.
+
+**FK (Foreign Key):** A reference constraint between tables. Determines delete behavior: `CASCADE` deletes children automatically; `SET NULL` keeps child but clears link; `RESTRICT` blocks delete.
+
+**CASCADE blast radius:** Unintended data loss caused by `ON DELETE CASCADE` chains when deleting a parent row.
+
+**TOCTOU race:** "Time of check, time of use" race where `SELECT` then `INSERT` can collide under concurrency. Usually fixed with `INSERT ... ON CONFLICT`.
+
+**Modular bias:** Slight non-uniformity when mapping random bytes into an alphabet using `% N`. Fine for short email tokens, not fine for cryptography.
+
+**Staging vs prod:** Staging should mirror prod for validation. If you only have one DB, assume every change is prod-critical.
+
+---
+
 ## Contact and Support
 
 **Supabase Support**: https://supabase.com/support  
@@ -1043,6 +1364,6 @@ WHERE state = 'active'
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 30. December 2025  
+**Document Version**: 1.1
+**Last Updated**: 9 February 2026
 **Next Review**: Q2 2026

@@ -1,0 +1,56 @@
+# Outreach Digest — Daily Pipeline Email
+#
+# Sends the daily outreach digest at 06:00 Helsinki time, Mon-Sat.
+# Helsinki = UTC+2 (winter, EET) / UTC+3 (summer, EEST).
+#
+# Two cron entries cover both DST offsets:
+#   03:00 UTC = 06:00 EEST (summer, late Mar – late Oct)
+#   04:00 UTC = 06:00 EET  (winter, late Oct – late Mar)
+#
+# The send script has a Helsinki-time guard: it only sends when the
+# Helsinki hour is 6, so the "wrong" entry silently exits 0.
+#
+# Also supports manual trigger via workflow_dispatch.
+
+name: Outreach Digest
+
+on:
+  schedule:
+    - cron: '5 3 * * 1-6'   # 06:05 Helsinki in summer (5 min after morning briefing)
+    - cron: '5 4 * * 1-6'   # 06:05 Helsinki in winter (5 min after morning briefing)
+
+  workflow_dispatch:
+    inputs:
+      recipient:
+        description: 'Override recipient email (optional)'
+        required: false
+        type: string
+
+jobs:
+  send-digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Send outreach digest
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          EMAIL_FROM: risto@onelifetime.world
+          OUTREACH_DIGEST_EMAIL: ${{ inputs.recipient || secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
+          OUTREACH_REPLY_TO_EMAIL: ${{ secrets.OUTREACH_REPLY_TO_EMAIL || 'risto@onelifetime.world' }}
+          SKIP_TIME_CHECK: ${{ github.event_name == 'workflow_dispatch' }}
+        run: npx tsx scripts/send-outreach-digest.ts
