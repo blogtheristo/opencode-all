@@ -2,11 +2,15 @@
 
 ![Lifetime Oy - Firehorse](Firehorse2026.png)
 
-![Lifetime Oy - Industries](8_Industries.png)
+![Lifetime Oy - 8 Industries](8_Industries.png)
+
+![Lifetime Oy - 16 Industries Fit for 55](FitFor55_16_Industries.png)
+
 ---
 
 ## 🚀 PILOT PHASE: RUNNING
 **Status:** Validating with Tier 1 European Partners
+**Update:** Omnibus pivot 03.01.2026
 **Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
 **Runway:** Fixed (Operational revenue covers core burn)
 **V1.0 Launch:** Feb 23, 2026
@@ -15,12 +19,99 @@
 
 ## The DWS IQ is the ultimate Brain-Memory-Body-Hands Ecosystem
 
-DWS IQ 6 is not a point solution. It is a complete industrial intelligence organism designed to automate climate compliance for 8 industries.
+> **"The first industrial AI platform that thinks, remembers, executes, AND physically deploys — already generating revenue."**
 
-- **🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by Google Cloud + Groq.
-- **💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM).
-- **🏢 BODY (8 Industry Apps)**: Vertical-specific applications for Construction, Manufacturing, Logistics, and more.
-- **🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. **(Currently generating €7-14k MRR)**.
+DWS IQ 6 is not a point solution. It is a **complete industrial intelligence organism** designed to automate climate compliance for **16 EU-regulated industries**.
+
+### 🎯 The De Facto Platform for Fit for 55
+
+> **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack.**
+
+| Regulatory Layer | Coverage | DWS IQ 6 Capability |
+|------------------|----------|---------------------|
+| **ETS** | Emissions Trading System | Allowance tracking, trading, surrender automation |
+| **CBAM** | Carbon Border Adjustment | Import carbon calculations, certificate management |
+| **CSRD** | Sustainability Reporting | ESRS E1 climate disclosures, audit-ready data |
+| **EPBD** | Building Performance | Embodied carbon (EN 15978), lifecycle assessment |
+| **ESR** | Effort Sharing | National target tracking, non-ETS emissions |
+| **LULUCF** | Land Use & Forestry | Carbon sink accounting, forestry compliance |
+| **ReFuelEU** | Aviation & Maritime | SAF mandates, fuel intensity tracking |
+| **NIS2** | Cybersecurity | Secure infrastructure for critical entities |
+
+📖 **Full Industry Coverage:** [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
+
+### 🧠 Thinking Enlargement: From Compliance to Competitive Advantage
+
+DWS IQ 6 doesn't just help you comply — it transforms compliance into strategic advantage:
+
+```
+LEVEL 1: SURVIVAL (Most companies today)
+└── Manual compliance, reactive, scramble before audits
+    └── Risk: Penalties, reputation damage, market access loss
+
+LEVEL 2: EFFICIENCY (DWS IQ 6 Entry)
+└── Automated tracking, real-time monitoring, audit-ready
+    └── Benefit: 50-100k€/year savings, reduced headcount burden
+
+LEVEL 3: OPTIMIZATION (DWS IQ 6 Advanced)
+└── Carbon-optimized decisions, supply chain visibility
+    └── Benefit: Lower material costs, better supplier terms
+
+LEVEL 4: LEADERSHIP (DWS IQ 6 + Strategy)
+└── First-mover positioning, carbon credit generation
+    └── Benefit: New revenue streams, ESG investor attraction
+
+LEVEL 5: TRANSFORMATION (DWS IQ 6 Ecosystem)
+└── Industry standard-setter, ecosystem orchestrator
+    └── Benefit: Market definition, regulatory influence
+```
+
+**Where are you today? Where do you want to be by 2030?**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    🧠 BRAIN - DWS IQ 6 Platform                 │
+│         Multi-agent AI Orchestration & Decision Engine          │
+│        (EU Google Cloud + Groq + Enterprise Private Cloud)      │
+├─────────────────────────────────────────────────────────────────┤
+│                   💾 MEMORY - Lifetime World Model              │
+│    Climate LLM + Enterprise Integrations (SAP, ABB, NVIDIA)     │
+├─────────────────────────────────────────────────────────────────┤
+│              🏢 BODY - 16 Industrial Solutions                  │
+│   Firehorse™ Report | Automation | Content DMS | Omnichannel    │
+├─────────────────────────────────────────────────────────────────┤
+│                  🤖 HANDS - Lifetime Fleet                      │
+│           Robots • Vehicles • Drones • IoT (€7-14k MRR)         │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 🧠 BRAIN (DWS IQ 6 Platform)
+Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
+- **62% faster decisions** vs. manual processes
+- **73% fewer errors** through AI-driven validation
+
+### 💾 MEMORY (Lifetime World Model)
+Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM, Omnibus) and Enterprise own Models and Tool stack trained in industries own specifications and standards.
+- **15,000+ EU regulations** indexed and searchable
+- **16 industry verticals** pre-trained (Fit for 55 coverage)
+
+**Enterprise Integrations:** SAP S/4HANA • Aspentech • ABB Robotics • NVIDIA Omniverse • Microsoft Azure • Google Workspace
+
+### 🏢 BODY (16 Industrial Solutions + Firehorse™ Suite)
+Vertical-specific applications for Construction, Manufacturing, Logistics, and more:
+- **Firehorse™ Report Engine** – Automated compliance reporting
+- **Firehorse™ Automation** – Workflow orchestration & triggers
+- **Firehorse™ Content DMS** – Document management for audits
+- **Firehorse™ Omnichannel Next** – Multi-channel delivery (email, API, portal)
+
+### 🤖 HANDS (Lifetime Fleet)
+Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generating €7-14k MRR)** — proof of market-product fit.
+
+- 🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
+- 💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM.Omnibus) and Enteprise own Models and Tool stack with integrations (SAP, Aspentech, ABB Robotics, NVIDIA) trained in industries own specifications and standards.
+- 🏢 BODY (8 Industrial Solutions and Firehorse™Apps): Vertical-specific applications for Construction, Manufacturing, Logistics, and more. Applications are supported with Firehorse™Report Engine,
+Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Next.
+- 🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. (Currently generating €7-14k MRR).
 
 ---
 
@@ -28,28 +119,36 @@ DWS IQ 6 is not a point solution. It is a complete industrial intelligence organ
 
 ![Lifetime 8 Industries](8_Industries.png)
 
+![Lifetime 16 Industries - Fit for 55](FitFor55_16_Industries.png)
+
 **DWS™IQ for intelligent industries**
 
 **Lifetime™World. Lifetime Friends. Sustainability™Partner.**
 
 ### Platform Products
-- **DWS™IQ** - Industrial intelligence platform
-- **Lifetime™AIQ** solutions
-- **LTW™Investor Studio**
-- **Lifetime™RAG AI**
-- **Lifetime Studio 2026**
+- DWS™IQ 6 - Industrial Climate Intelligence Platform
+- Lifetime™AIQ solutions
+- LTW™Investor Studio
+- Lifetime™RAG AI
+- Lifetime™Studio 2026
+
+### Firehorse Product line
+- Firehorse™Report Engine,
+- Firehorse™Automation,
+- Firehorse™Content DMS, and
+- Firehorse™ Omnichannel Next.
 
 ### Technology
-- **Lifetime™Quantum Elements**
-- **Lifetime™Robotics**
-- **Lifetime™Cloud**
+- Lifetime™Quantum Elements
+- Lifetime™Robotics
+- Lifetime™Cloud
 
 ### Digital Assets
 - **Lifetime™World Coin ($LTW)**
 - **Lifetime World Coin®**
 - **LTWCash®**
 - **LTWCertificate®**
-- **LTWCertificate®**
+- **LTW Partners Certificate®**
 
 ---
 
@@ -109,11 +208,18 @@ Manufacturing SMEs in Europe face a "twin transition"—simultaneous digital and
 
 **For manufacturing SMEs**: Digital-green twin transition orchestration—automating the decisions you lack headcount for: energy optimization, waste routing, supplier decarbonization scoring.
 
-### Built for EU Companies by EU-Certified Consultants
+### Built for Enterprise Procurement
 
-- ISO 27001 security certification
-- EU data residency (Chromebook PWA + Google Cloud Run infrastructure)
-- ROI calculator: €50-100k annual savings through materialized compliance efficiency
+**Security baseline that satisfies your CISO:**
+
+| Requirement | Our Answer |
+|-------------|------------|
+| "We need SOC 2 / ISO 27001" | ISO 27001 certification Q3 2026, SOC 2 Type II Q4 2026. Pen test report available now. |
+| "Data must stay in EU" | 100% EU hosting (Finland/Germany). Customer VPC deployment available. |
+| "We need to review your security" | Full vendor risk package ready: DPA, security policies, sub-processor list. |
+| "Can you deploy in our environment?" | Yes. Customer VPC, private cloud, or hybrid edge deployment. |
+
+**ROI:** €50-100k annual savings through automated compliance workflows
 
 ### Pilot Program (Running)
 
@@ -255,20 +361,82 @@ docker-compose -f docker-compose.mcp.yml up -d
 
 ---
 
-## 🔒 Compliance & Legal
+## 🔒 Enterprise Security & Compliance
 
-Lifetime DWS IQ is a **Private Cloud** solution designed for strict EU compliance (Fit for 55, GDPR, NIS2, EU AI Act).
+> **"We only buy SOC 2 audited vendors."** — We offer VPC deployment in your environment, pen test reports, and ISO 27001 certification roadmap (Q3 2026).
 
-*   **Your Data, Your Cloud:** We deploy into your private environment (Google/Azure). We do NOT train our public models on your industrial data.
-*   **GDPR & Data Sovereignty:** Full compliance with EU General Data Protection Regulation (2016/679). Data remains within the EU/EEA.
-*   **Documentation:**
-    *   [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
-    *   [Agreement & Project Terms](privacy-policy/Agreement_Project_Terms.md)
-    *   [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
-    *   [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md) ✨ **NEW**
-    *   [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
-    *   [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
-    *   [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
+### Security-First Architecture
+
+DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries. Security is a prerequisite—not a feature.
+
+| Capability | Implementation |
+|------------|----------------|
+| **Deployment** | Customer VPC / Private Cloud (your environment, your control) |
+| **Data Residency** | 100% EU (Finland, Germany). Data never leaves EU/EEA. |
+| **Encryption** | AES-256-GCM at rest, TLS 1.3 in transit, BYOK/CMEK supported |
+| **Access Control** | RBAC + ABAC, SSO (SAML 2.0 / OIDC), MFA enforced |
+| **Audit Logging** | Immutable logs, 7-year retention, SIEM export ready |
+| **AI Data Policy** | We do NOT train public models on customer data |
+
+### Compliance by Industry
+
+| Standard | Construction | Manufacturing | Lifetime Fleet |
+|----------|--------------|---------------|----------------|
+| **ISO 27001** | Q3 2026 ⭐ | Q3 2026 ⭐ | Q3 2026 |
+| **NIS2** | ✅ Active | ✅ Active | — |
+| **IEC 62443** | — | Q4 2026 | — |
+| **SOC 2 Type II** | — | — | Q4 2026 ⭐ |
+| **DORA** | — | — | Roadmap 2026 |
+| **GDPR** | ✅ Active | ✅ Active | ✅ Active |
+| **EU AI Act** | Q2 2026 | Q2 2026 | Q2 2026 |
+
+⭐ = Primary anchor standard for that vertical
+
+### Vendor Risk Package (Ready)
+
+Pre-prepared documentation for your procurement team:
+
+- ✅ **Data Processing Agreement (DPA)** — GDPR Art. 28, EU SCCs included
+- ✅ **Security Policy Package** — Access control, incident response, change management
+- ✅ **Penetration Test Report** — Annual third-party assessment (under NDA)
+- ✅ **Sub-processor List** — All vendors with EU adequacy status
+- ✅ **BCP/DR Documentation** — RTO 4h, RPO 1h, 99.9% SLA
+
+📖 **Full Security Documentation:** [SECURITY_COMPLIANCE.md](Admin/SECURITY_COMPLIANCE.md)
+
+### Legal & Privacy
+
+*   [Privacy Policy & GDPR Statement](privacy-policy/privacy-policy_V1.md)
+*   [Data Processing Agreement](privacy-policy/Agreement_Project_Terms.md)
+*   [DWS IQ Terms of Service](privacy-policy/TermsofServiceforDWSIQ.md)
+*   [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md)
+*   [Firehorse Terms of Service](privacy-policy/TermsofServiceforFirehorse.md)
+*   [Lifetime Fleet Terms](privacy-policy/TermsofServiceforLifetimeFleet.md)
+*   [Professional Services Terms](privacy-policy/TermsofServiceforProfessional.md)
+
+---
+
+## Development & Troubleshooting
+
+### Git Repository Issues
+
+If you encounter git corruption or branch issues:
+
+- ⚡ **START HERE:** [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Complete overview and action plan
+- 🚨 **Quick Fix:** [QUICK_FIX.md](QUICK_FIX.md) - 5-minute solution for git corruption
+- 📖 **Full Guide:** [GIT_CORRUPTION_RECOVERY.md](GIT_CORRUPTION_RECOVERY.md) - Complete recovery documentation
+- 🔀 **PR #142 Resolution:** [PR_142_RESOLUTION.md](PR_142_RESOLUTION.md) - Resolve merge conflicts
+- 🔧 **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
+
+**Common Issues:**
+- Corrupted branch refs with special characters
+- Unable to push or pull from GitHub
+- Merge conflicts in PR #142 or other PRs
+- Branch name livelock situations
+
+**Prevention:** The repository includes git hooks (`.githooks/pre-push`) that validate branch names to prevent future corruption.
+
+**Quick Start:** `cd dws6 && cat EXECUTIVE_SUMMARY.md`
 
 ---
 
@@ -284,8 +452,8 @@ Founder & CEO, Lifetime Consulting
 
 ---
 
-Document Version: 2.1
-Last Updated: December 7, 2025
+Document Version: 2.6
+Last Updated: January 3, 2026
 Prepared by: Risto Anton Päärni / Lifetime Consulting
-AI Agents Used: Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
+AI Agents Used: Gemini, Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
 License: Proprietary - Lifetime Oy

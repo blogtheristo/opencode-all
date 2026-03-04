@@ -1,209 +1,117 @@
-# Gradle files
-.gradle/
+# =============================================================================
+# DWS6 .gitignore - Cleaned February 6, 2026
+# =============================================================================
+# PRINCIPLE: This is a PRIVATE repo. Only ignore:
+#   1. Actual secrets/credentials (API keys, passwords, tokens)
+#   2. Build artifacts and dependencies (node_modules, dist, venv)
+#   3. OS/IDE junk files
+# Everything else (docs, admin, business files) MUST be tracked so
+# Claude Code cloud sessions can read/write them without data loss.
+# =============================================================================
+
+# --- SECRETS & CREDENTIALS (MUST stay gitignored) ---
+.env
+.env.*
+.env.local
+.env.*.local
+.env.mcp
+.mcp.json
+credentials.json
+service-account-*.json
+google-services.json
+claude_config.json
+SFTP_SECRETS.py
+CLOUDFLARE_SECRETS.md
+ADD_TOKEN_TO_GITHUB.md
+*.key
+*.pem
+*.secret
+*.jks
+*.keystore
+nul
+supabase/.env
+supabase/.env.local
+dws6.com/**/.env.local
+dws6.com/**/.env.*.local
+dws6.com/**/config/*.local.js
+
+# --- BUILD ARTIFACTS & DEPENDENCIES ---
+**/node_modules/
+**/.next/
+**/out/
+**/.vercel/
+**/.turbo/
+dist/
 build/
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Log/OS Files
-*.log
-
-# Android Studio generated files and folders
+.gradle/
+__pycache__/
+*.pyc
+venv/
+.venv/
 captures/
 .externalNativeBuild/
 .cxx/
 *.aab
 *.apk
 output-metadata.json
+*.hprof
 
-# Team role docs (local only)
-Team/
-
-# IntelliJ
+# --- OS & IDE FILES ---
+.DS_Store
+Thumbs.db
 *.iml
 .idea/
+.claude/
+nul
+# .vscode/ is tracked - contains shared tasks.json for sync tools
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
-
-# Keystore files
-*.jks
-*.keystore
-
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof
-.env
-
-# Snyk Security Extension - AI Rules (auto-generated)
+local.properties
 .cursor/rules/snyk_rules.mdc
 
-# Python Virtual Environment
-venv/
-.venv/
-__pycache__/
-*.pyc
-
-# --- GDPR & PRIVACY SHIELD ---
-# Block all CSV files (Customer lists, Exports)
-*.csv
-
-# Block Outreach drafts (Emails)
-investor-outreach/ready_to_send*/
-
-# Block specific secrets
-CLOUDFLARE_SECRETS.md
-ADD_TOKEN_TO_GITHUB.md
-
-# --- THESIS WORK (LOCAL ONLY) ---
-docs/metropolia/
-Metropolia2026/
-
-# --- ADMIN & SECRETS ---
-Admin/
-# Exception: Policy documentation (not confidential data, safe to commit)
-!Admin/CONFIDENTIAL-handling-policy.md
-# Exception: Installation documentation (customer delivery guides)
-!Admin/Installation/
-!Admin/Installation/**
-!Admin/Installation/README.md
-!Admin/Installation/Private/
-!Admin/Installation/Private/**
-!Admin/Installation/Public/
-!Admin/Installation/Public/**
-!Admin/Installation/Public/watsonx/
-!Admin/Installation/Public/watsonx/**
-!Admin/Installation/Public/gcr/
-!Admin/Installation/Public/gcr/**
-!Admin/Installation/Public/groq/
-!Admin/Installation/Public/groq/**
-# Exception: Public documentation guides
-!Admin/INSTALLATION_MANUAL.md
-!Admin/TWITTER_AUTOMATION_GUIDE.md
-# Exception: Development setup guides
-!Admin/Installation/Development/
-!Admin/Installation/Development/**
-!Admin/Installation/Development/Win11Pro/
-!Admin/Installation/Development/Win11Pro/**
-!Admin/Installation/Development/CBPlus/
-!Admin/Installation/Development/CBPlus/**
-# Exception: Metropolia Master Thesis & Academic Documentation (public research)
-!Admin/Metropolia/
-!Admin/Metropolia/**
-!Admin/Metropolia/master-thesis/
-!Admin/Metropolia/master-thesis/**
-!Admin/Metropolia/master-thesis/fi/
-!Admin/Metropolia/master-thesis/fi/**
-!Admin/Metropolia/master-thesis/en/
-!Admin/Metropolia/master-thesis/en/**
-# Exception: Public policy pages on website (not actual confidential data)
-!dws10.com/data-handling-policy/
-!dws10.com/data-handling-policy/**
-SFTP_SECRETS.py
-
-# --- AGENT FOUNDRY (BUSINESS CRITICAL - LOCAL ONLY) ---
-# All internal Agent Foundry files are confidential (model specs, architecture, vertical specs)
-AgentFoundry/
-# Exception: PUBLIC customer-facing documentation only
-!AgentFoundry/LIFETIME_AGENT_FOUNDRY_CUSTOMER.md
-# Exception: PUBLIC workflow definitions (if used by GitHub Actions/CI/CD)
-!AgentFoundry/workflows/
-!AgentFoundry/workflows/**
-# Exception: PUBLIC training references (no proprietary info)
-!AgentFoundry/README.md
-# Exception: PUBLIC calculus/methodology papers
-!AgentFoundry/Calculus_for_Training.md
-SFTP_SECRETS.py
-
-# --- CONFIDENTIAL DATA (NEVER COMMIT) ---
-# Encrypted databases
-Admin/Data/*.db
-Admin/Data/*.sqlite
-Admin/Data/*.sqlite3
-Admin/Data/*.encrypted.*
-
-# Encrypted JSON files
-Admin/Data/**/*.encrypted.json
-Admin/Data/**/*.encrypted.txt
-
-# Proton Drive sync files (if synced locally)
-**/Proton Drive/
-**/ProtonDrive/
-
-# Any file with confidential data markers
-**/*confidential*
-**/*CONFIDENTIAL*
-# Exception: Public policy pages on website (not actual confidential data)
-!dws10.com/data-handling-policy/
-!dws10.com/data-handling-policy/**
-**/*customer-data*
-**/*partner-data*
-**/*deal-data*
-**/*financial-data*
-
-# --- MCP HUB ---
-# Environment files with API keys
-.env.mcp
-
-# Claude Code session data
-claude-sessions/
-
-# Docker volumes
-mcp-context-data/
-
-# MCP server logs
-mcp-hub/*.log
-mcp-servers/**/*.log
-
-# --- Node / Next.js ---
-**/node_modules/
-**/.next/
-**/out/
-**/.vercel/
-**/.turbo/
+# --- LOGS ---
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+mcp-hub/*.log
+mcp-servers/**/*.log
+*.security.log
+security_*.log
 
-# --- CONFIDENTIAL BUSINESS DATA ---
-/confidential/
-/secrets/
-/investor-materials/
-*.confidential.*
-*-confidential.*
+# --- DOCKER VOLUMES (runtime data, not source) ---
+mcp-context-data/
+claude-sessions/
 
-# --- CUSTOMER DATA (GDPR/ISO 27001 COMPLIANCE) ---
-/customer-data/
-/pilot-data/
-/ncc-data/
-/t2h-data/
+# --- PROTON DRIVE SYNC (if repo is inside Proton folder) ---
+**/Proton Drive/
+**/ProtonDrive/
 
-# --- API KEYS AND CREDENTIALS ---
-.env.local
-.env.*.local
-credentials.json
-service-account-*.json
+# --- GDPR: ACTUAL CUSTOMER PII DATA (not documentation ABOUT customers) ---
+# Only ignore folders that contain real personal data exports
+*.csv
+!landing-pages/dws10-com/products.csv
+investor-outreach/ready_to_send*/
 
-# --- FINANCIAL MODELS ---
-*financial-model*.xlsx
-*roi-calculator*.xlsx
-*cap-table*.xlsx
+# --- ML/DS PIPELINE ARTIFACTS (generated per run, not source) ---
+reports/figures/*.png
+reports/*.json
+models/*.pkl
 
-# --- DWS IQ PROPRIETARY ALGORITHMS ---
-/dws-core/proprietary/
-/algorithms/confidential/
+# --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
+snyk.sarif
+.snykdist
+pip-audit-report.json
+safety-report.json
+*-security-report.json
+sbom.json
 
-# --- LOCAL TEAM NOTES (DO NOT COMMIT) ---
-Team/*.md
-# --- DWS6.COM AUTHENTICATION ---
-# Protect actual Supabase configuration with real API keys
-dws6.com/shared/config/supabase-config.js
-# Allow template configuration (with placeholders - safe to commit)
-!dws6.com/shared/config/supabase-config.template.js
-# Protect any local development overrides
-dws6.com/**/.env.local
-dws6.com/**/.env.*.local
-dws6.com/**/config/*.local.js
+# --- ML PIPELINE ARTIFACTS (generated outputs, not source) ---
+# Generated by workflow/ pipeline - these are runtime outputs
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+data/raw_dataset.csv
+data/cleaned_dataset.csv

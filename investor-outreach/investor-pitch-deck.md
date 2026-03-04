@@ -224,6 +224,17 @@ DWS IQ 6   → 8 verticals via modular agent architecture
 
 **Strategic Upside**: We're not building a climate reporting tool. We're building the platform for agentic compliance automation.
 
+### Enterprise Sandbox (New Revenue Stream)
+
+Strengthens enterprise security posture for Tier 1 construction customers by keeping sensitive climate and financial models in isolated, EU-hosted sandboxes. Opens a new high-margin revenue stream via private customer sandboxes and reduces infrastructure cost through pay-per-use instead of fixed hosting. Fits our hybrid edge/cloud model with the NVIDIA fleet and reinforces DWS IQ 6 as the de facto platform for Fit for 55 compliance across 8–16 regulated industries.
+
+| Benefit | Impact |
+|---------|--------|
+| **Security** | EU-hosted isolation → Tier 1 enterprise trust |
+| **Revenue** | Sandbox subscription → €2,000–€5,000/mo per customer |
+| **Cost** | Pay-per-use → 40–60% infra savings |
+| **Positioning** | De facto Fit for 55 compliance platform |
+
 ---
 
 ## Slide 7: Business Model & Pricing
@@ -376,6 +387,14 @@ DWS IQ 6 – Climate Intelligence Platform
 6. **Angel Investor Letter**: `/investor-outreach/01-angel-investor-letter.md`
 7. **VC Seed Round Letter**: `/investor-outreach/02-vc-seed-round-letter.md`
 
+### Sales & Customer Materials (🆕 January 2026)
+
+8. **Sales Letter (Omnibus Pivot)**: `/Sales/Myyntikirje_3_Omnibus_Pivot.md` – Full customer letter with EU Omnibus analysis
+9. **Core Sales Messaging**: `/Sales/Myyntikirje2_Fitfor55meansFitfor55.md` – "Fit for 55 = Fit for 55"
+10. **Enterprise Sandbox Value Prop**: `/investor-outreach/CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md`
+11. **Enterprise Sales Blueprint**: `/sales-outreach/enterprise-sales.md`
+12. **Customer Pilot Program**: `/docs/CLOUDFLARE_SANDBOX_PILOT.md`
+
 ### Key Metrics Tracker
 
 | Metric | Current | Q1 2026 Target | Q4 2026 Target |
@@ -390,7 +409,19 @@ DWS IQ 6 – Climate Intelligence Platform
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: December 10, 2025
+**Document Version**: 1.1
+**Last Updated**: January 4, 2026
 **Prepared For**: Angel & Seed Investors
 **Confidential**: Not for public distribution
+
+---
+
+### 🆕 January 2026 Omnibus Update
+
+**Key Message:** Fit for 55 and CSRD targets did not change after Omnibus – only the paperwork did.
+
+**New Materials Added:**
+- Enterprise Sandbox revenue stream (Slide 6)
+- Situation Room + Control Room cockpits
+- 4 Concrete Promises for Construction Management
+- Updated objection handling for Omnibus concerns

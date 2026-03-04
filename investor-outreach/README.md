@@ -1,8 +1,62 @@
 # Investor Outreach Resources
 
-This directory contains templates and workflows for raising capital for DWS IQ 6 across three fundraising tracks: angel investors, venture capital, and grants.
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.1
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: claude/fix-0-investor-outreach-problem | Date: 04.01.2026 | Changes: Initial creation - investor outreach resources, templates, and workflows for raising €150K SAFE
+  - Version: 1.1 | Tool: GitHub Copilot | Session: copilot/sub-pr-433 | Date: 20.02.2026 | Changes: Added VERSION AND AGENT HISTORY header block per DWS_DOCUMENT_STANDARD.md §2.1
+
+Session Links & References:
+  - Claude Code (claude/fix-0-investor-outreach-problem): https://github.com/blogtheristo/dws6/commits/main
+  - GitHub Copilot (copilot/sub-pr-433): https://github.com/blogtheristo/dws6/pull/434
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/investor-outreach/README.md
+
+Document Status:
+  - Created: 04.01.2026
+  - Last Modified: 20.02.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
+**Current Status: 0 investor emails sent per day**
+**Target: 5 emails per day minimum**
+**Goal: €150K SAFE closed in 16 weeks**
+
+---
+
+## 🚨 **START HERE** → [Day 1 Action Plan](START-HERE-DAY-1.md)
+
+**Stop reading. Start doing.**
+
+**Next 30 minutes:**
+1. Open [START-HERE-DAY-1.md](START-HERE-DAY-1.md)
+2. Find 5 people you know on LinkedIn
+3. Send 5 ultra-short emails (50 words each)
+4. Track in [daily-outreach-tracker.md](daily-outreach-tracker.md)
+5. **Do it again tomorrow**
+
+**That's it. Everything else is optional.**
+
+---
+
+## 📖 Read This If You're Not Sending Emails
+
+**[WHY 0 INVESTOR OUTREACH PER DAY](00-WHY-ZERO-OUTREACH.md)** ← Root cause analysis
+
+**Problem:** Too much reading, too much research, too much perfection = 0 action
+
+**Solution:** 5 emails/day, every day, no excuses
+
+---
 
 ## Overview
+
+This directory contains templates and workflows for raising capital for DWS IQ 6 across three fundraising tracks: angel investors, venture capital, and grants.
 
 **Fundraising Strategy:**
 1. **Angel/Pre-Seed** (€150K SAFE) → Bridge to profitability
@@ -11,12 +65,30 @@ This directory contains templates and workflows for raising capital for DWS IQ 6
 
 ## Directory Structure
 
+### ⚡ Action Files (Use These First)
+- **[START-HERE-DAY-1.md](START-HERE-DAY-1.md)** – Send your first 5 emails in 30 minutes
+- **[EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md](EARLY-INPUT-EMAIL-5-DAY-SYSTEM.md)** – 🆕 Email templates + automation workflow (025 metrics)
+- **[daily-outreach-tracker.md](daily-outreach-tracker.md)** – Track 5 emails/day minimum
+- **[00-WHY-ZERO-OUTREACH.md](00-WHY-ZERO-OUTREACH.md)** – Why you're not sending emails (and how to fix it)
+
+### Contact Lists (CSV)
+- **[contacts-angel-investors.csv](contacts-angel-investors.csv)** – Pre-populated angel investors
+- **[contacts-venture-capital.csv](contacts-venture-capital.csv)** – 20 climate tech VCs
+- **[contacts-grant-programs.csv](contacts-grant-programs.csv)** – 9 EU grant programs
+
 ### Letters (Templates)
 Use these templates to reach out to investors and grant programs.
 
 - **[01-angel-investor-letter.md](01-angel-investor-letter.md)** – Pre-seed/angel investor letter for €150K SAFE round
 - **[02-vc-seed-round-letter.md](02-vc-seed-round-letter.md)** – VC investor letter for €500K-€1M Seed round
 - **[03-grant-application-letter.md](03-grant-application-letter.md)** – Template for EU grant applications
+
+### Sales Materials (Customer-Facing)
+Key sales documents for customer outreach and business development.
+
+- **[/Sales/Myyntikirje_3_Omnibus_Pivot.md](/Sales/Myyntikirje_3_Omnibus_Pivot.md)** – 🆕 Latest sales letter with EU Omnibus analysis, 4 promises, Situation Room + Control Room
+- **[/Sales/Myyntikirje2_Fitfor55meansFitfor55.md](/Sales/Myyntikirje2_Fitfor55meansFitfor55.md)** – Core sales messaging (Fit for 55 = Fit for 55)
+- **[CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md](CLOUDFLARE_SANDBOX_VALUE_PROPOSITION.md)** – Enterprise Sandbox value prop (Board-ready + Technical)
 
 ### Workflows (Step-by-Step Guides)
 Follow these workflows to execute each fundraising track.
@@ -225,6 +297,19 @@ For specific guidance on any track, refer to the detailed workflow documents. Fo
 
 ---
 
-**Last updated:** November 30, 2025
+**Last updated:** January 4, 2026
 **Maintained by:** Lifetime Oy team
 **Feedback:** risto@lifetime.fi
+
+---
+
+## 🆕 January 2026 Updates
+
+### Omnibus Pivot (January 3-4, 2026)
+- Added EU Omnibus impact analysis to all sales materials
+- Created `/Sales/Myyntikirje_3_Omnibus_Pivot.md` with updated messaging
+- Added Situation Room + Control Room cockpit positioning
+- Updated enterprise sandbox value proposition
+
+### Key Message: "Fit for 55 Means Fit for 55"
+> Fit for 55 and CSRD targets did not change after Omnibus – only the paperwork did. Boards are still responsible for real emissions, not minimum forms.

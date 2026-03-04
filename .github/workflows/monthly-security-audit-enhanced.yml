@@ -2,7 +2,8 @@ name: Monthly Security Audit - Enhanced with Correlation
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # 1st of every month at 00:00 UTC
+    # Runs at 00:00 UTC on day 1 of every month
+    - cron: '0 0 1 * *'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -47,17 +48,24 @@ jobs:
           ls -la audit-report-*.md
 
       # --- PHASE 2: Fetch Aikido Zen Attack Data ---
+      # Note: AIKIDO_API_TOKEN is optional - workflow will use sample data if not configured
       - name: Fetch Aikido Zen Attack Data
         id: aikido
+        env:
+          AIKIDO_API_TOKEN: ${{ secrets.AIKIDO_API_TOKEN }}
         run: |
-          # Simulate fetching from Aikido API
-          # In production, replace with actual API call:
-          # curl -H "Authorization: Bearer ${{ secrets.AIKIDO_API_TOKEN }}" \
-          #   "https://api.aikido.dev/v1/attacks?since=30d" \
-          #   > aikido-attacks.json
+          # Check if Aikido API token is available
+          if [ -n "$AIKIDO_API_TOKEN" ]; then
+            echo "Fetching live data from Aikido Zen API..."
+            curl -H "Authorization: Bearer $AIKIDO_API_TOKEN" \
+              "https://api.aikido.dev/v1/attacks?since=30d" \
+              > aikido-attacks.json || echo "API call failed, using sample data"
+          fi
           
-          # For now, create sample data
-          cat > aikido-attacks.json << 'EOF'
+          # Fallback to sample data if token is missing or API call failed
+          if [ ! -s aikido-attacks.json ]; then
+            echo "Using sample data (Aikido API token not configured or API failed)"
+            cat > aikido-attacks.json << 'EOF'
           {
             "attacks": [
               {
@@ -70,6 +78,7 @@ jobs:
             ]
           }
           EOF
+          fi
           
           echo "aikido_attacks_fetched=true" >> "$GITHUB_OUTPUT"
 
@@ -120,14 +129,14 @@ jobs:
 
       # --- PHASE 6: Upload Artifacts ---
       - name: Upload Audit Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-audit-${{ github.run_id }}
           path: audit-report-*.md
           retention-days: 90
 
       - name: Upload Correlation Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-correlation-${{ github.run_id }}
           path: |
@@ -136,7 +145,7 @@ jobs:
           retention-days: 90
 
       - name: Upload Issues
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-issues-${{ github.run_id }}
           path: security-issues-*.json
@@ -184,9 +193,8 @@ jobs:
                         '- Correlation Analysis: See GitHub Actions\n' +
                         '- Security Issues: See GitHub Issues\n\n' +
                         '### References\n' +
-                        '- DWS6 Security Audit: Admin/Security/DWS6_REPOSITORY_SECURITY_AUDIT.md\n' +
-                        '- Aikido Zen Deployment: Admin/Security/AIKIDO_ZEN_DEPLOYMENT_NOWPLAN.md\n' +
-                        '- Remediation Roadmap: Admin/Security/REMEDIATION_ROADMAP_DWS6.md\n\n' +
+                        '- Security Reports: security-reports/\n' +
+                        '- GitHub Actions: See workflow artifacts\n\n' +
                         '---\n' +
                         'Automated monthly security audit - Part of defense-in-depth strategy';
 
@@ -199,9 +207,11 @@ jobs:
             });
 
       # --- PHASE 8: Slack Notification (Optional) ---
+      # Note: SLACK_WEBHOOK_URL is optional - notification will be skipped if not configured
       - name: Send Slack Notification
-        if: always() && secrets.SLACK_WEBHOOK_URL
+        if: always()
         uses: slackapi/slack-github-action@v1
+        continue-on-error: true
         with:
           payload: |
             {
@@ -287,6 +297,6 @@ jobs:
           git config --local user.name "Security Bot"
           
           # In production, commit updated metrics
-          # git add Admin/Security/metrics/
+          # git add security-reports/metrics/
           # git commit -m "Update security metrics for $(date +%Y-%m)"
           # git push

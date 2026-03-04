@@ -1,0 +1,200 @@
+[
+  {
+    "id": "risto-001",
+    "type": "internal",
+    "status": "active",
+    "personal": {
+      "first_name": "Risto",
+      "last_name": "",
+      "full_name": "Risto",
+      "title": "Founder & CEO",
+      "email": "risto@lifetime.group",
+      "phone": "",
+      "linkedin": "https://linkedin.com/in/risto",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Lifetime Group",
+      "department": "Executive",
+      "role": "Founder & CEO",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "M.Sc. (Tech), Industrial Management",
+      "expertise": [
+        "Industrial Management",
+        "AI & Machine Learning",
+        "Software Architecture",
+        "Construction Technology",
+        "Carbon Reporting",
+        "Product Strategy",
+        "Enterprise Sales"
+      ],
+      "languages": [
+        "Finnish",
+        "English",
+        "Swedish"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "internal",
+        "founder",
+        "ceo",
+        "leadership",
+        "ai-director",
+        "firehorse",
+        "dws-iq",
+        "construction",
+        "infrastructure",
+        "carbon-reporting",
+        "fit-for-55",
+        "nordic",
+        "active",
+        "vip"
+      ],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
+      "interests": [
+        "Carbon reporting and sustainability",
+        "Construction digitalization",
+        "European market expansion",
+        "AI-powered analytics",
+        "Mobile-first solutions"
+      ],
+      "engagement_level": "high",
+      "last_contact": "2025-12-31",
+      "next_action": "Continue product development and investor outreach",
+      "notes": "Founder & CEO of Lifetime Group. AI Director for Firehorse Products. Deep expertise in construction tech, carbon reporting (EN 15978), and European standards. Leading DWS IQ 6 platform development with focus on SPI/CPI, safety, and Fit for 55 compliance."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "2020-01-01",
+      "contract_end": null,
+      "payment_terms": "N/A",
+      "projects": [
+        "DWS IQ 6 Platform",
+        "Firehorse Mobile (Android)",
+        "Firehorse Mobile (iOS)",
+        "European Template Standards",
+        "EN 15978 Carbon Reporting"
+      ]
+    },
+    "metadata": {
+      "created_at": "2025-12-31T05:00:00Z",
+      "updated_at": "2025-12-31T05:00:00Z",
+      "created_by": "system",
+      "updated_by": "system"
+    }
+  },
+  {
+    "id": "boardy-001",
+    "type": "partner",
+    "status": "active",
+    "personal": {
+      "first_name": "Boardy",
+      "last_name": "",
+      "full_name": "Boardy",
+      "title": "Tactical AI Asset",
+      "email": "boardy@lifetime.group",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Lifetime Group",
+      "department": "AI & Analytics",
+      "role": "AI Partner - Decision Support",
+      "location": {
+        "city": "",
+        "country": "Global",
+        "region": "Global"
+      }
+    },
+    "professional": {
+      "education": "Large Language Model (Claude Sonnet 4.5) + Domain-Specific Training",
+      "expertise": [
+        "Portfolio Analysis",
+        "Risk Assessment",
+        "Predictive Analytics",
+        "Compliance Monitoring",
+        "Report Generation",
+        "Decision Support",
+        "Construction Domain Knowledge",
+        "European Standards (EN, RT, AMA, NS, VOB)",
+        "Fit for 55 Compliance",
+        "Natural Language Processing"
+      ],
+      "languages": [
+        "English",
+        "Finnish",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "German"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "ai",
+        "tactical-asset",
+        "dws-iq",
+        "firehorse",
+        "construction",
+        "infrastructure",
+        "analytics",
+        "decision-support",
+        "portfolio-management",
+        "fit-for-55",
+        "compliance",
+        "active",
+        "no-dpa"
+      ],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
+      "interests": [
+        "Portfolio risk assessment",
+        "Fit for 55 compliance monitoring",
+        "Predictive project analytics",
+        "Board-level insights",
+        "Executive decision support",
+        "Report automation"
+      ],
+      "engagement_level": "high",
+      "last_contact": "2025-12-31",
+      "next_action": "Continue AI model improvements and feature development",
+      "notes": "Tactical AI asset for construction portfolio management. Provides real-time insights, risk assessment, and decision support for DWS IQ 6 platform. IMPORTANT: Does NOT offer Digital Processing Agreement (DPA) - advisory role only, requires human oversight for critical decisions."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "2025-01-01",
+      "contract_end": null,
+      "payment_terms": "Included in DWS IQ 6 Platform / €500/month per project for premium features",
+      "projects": [
+        "Board of Directors View",
+        "CEO Dashboard",
+        "Portfolio Risk Assessment",
+        "Fit for 55 Monitoring",
+        "Report Automation",
+        "Predictive Analytics"
+      ]
+    },
+    "metadata": {
+      "created_at": "2025-12-31T07:00:00Z",
+      "updated_at": "2025-12-31T07:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  }
+]

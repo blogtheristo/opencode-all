@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Use Industries | DWS IQ 6 | Lifetime Oy</title>
+    <meta name="description" content="Dual Use Industries — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="dual-use, export controls, responsible AI, technology policy">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Dual Use Industries | DWS IQ 6 | Lifetime Oy">
+    <meta property="og:description" content="Dual Use Industries — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/dual-use/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dual Use Industries | DWS IQ 6 | Lifetime Oy">
+    <meta name="twitter:description" content="Dual Use Industries — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/dual-use/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Gamma Enterprise Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #f8fafc; color: #1e293b; }
+        
+        .hero {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .hero p { font-size: 1.3rem; max-width: 800px; margin: 0 auto 30px; opacity: 0.9; }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        
+        .section { background: white; border-radius: 16px; padding: 40px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .section h2 { color: #1e1b4b; font-size: 1.8rem; margin-bottom: 20px; border-bottom: 2px solid #6366f1; padding-bottom: 10px; }
+        .section h3 { color: #4338ca; font-size: 1.3rem; margin-top: 25px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        
+        .card {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .card h4 { color: #1e1b4b; margin: 0 0 10px 0; font-size: 1.1rem; }
+        .card p { color: #475569; margin: 0; font-size: 0.95rem; line-height: 1.6; }
+        
+        .security-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .security-box h4 { color: #991b1b; margin: 0 0 15px 0; }
+        
+        .compliance-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #86efac;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .compliance-box h4 { color: #166534; margin: 0 0 15px 0; }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .cta-section h2 { color: white; border: none; }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #1e1b4b;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        .cta-btn:hover { transform: translateY(-3px); }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; color: #475569; }
+        
+        .sector-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .sector-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: #4338ca;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Enterprise Navigation - Gamma Light Header -->
+<style>
+        nav li:hover > .dropdown { display: block !important; }
+        nav .has-submenu:hover > .submenu { display: block !important; }
+    </style>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="badge">
+            <span>🛡️</span> Defense • Aerospace • Critical Infrastructure
+        </div>
+        <h1>Dual Use Industries</h1>
+        <p>Sustainability compliance for sensitive sectors. EU Taxonomy alignment, CSRD reporting, and carbon tracking for defense, aerospace, and critical infrastructure.</p>
+        
+        <div class="sector-tags" style="justify-content: center;">
+            <span class="sector-tag" style="background: rgba(255,255,255,0.2); color: white;">Defense</span>
+            <span class="sector-tag" style="background: rgba(255,255,255,0.2); color: white;">Aerospace</span>
+            <span class="sector-tag" style="background: rgba(255,255,255,0.2); color: white;">Space</span>
+            <span class="sector-tag" style="background: rgba(255,255,255,0.2); color: white;">Critical Infrastructure</span>
+            <span class="sector-tag" style="background: rgba(255,255,255,0.2); color: white;">Cybersecurity</span>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- What is Dual Use -->
+        <div class="section">
+            <h2>🔍 What Are Dual Use Industries?</h2>
+            <p>Dual-use industries produce goods and technologies that have both civilian and military applications. These sectors face unique sustainability reporting challenges due to security considerations while still being subject to EU environmental regulations.</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🛩️ Aerospace & Aviation</h4>
+                    <p>Aircraft manufacturing, satellite systems, UAV/drone technology, space launch services.</p>
+                </div>
+                <div class="card">
+                    <h4>🔒 Defense Manufacturing</h4>
+                    <p>Military vehicles, naval vessels, defense electronics, ammunition and weapons systems.</p>
+                </div>
+                <div class="card">
+                    <h4>🛰️ Space Technology</h4>
+                    <p>Satellite manufacturing, ground stations, launch infrastructure, space debris management.</p>
+                </div>
+                <div class="card">
+                    <h4>⚡ Critical Infrastructure</h4>
+                    <p>Energy grids, telecommunications, water systems, transportation networks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EU Regulatory Framework -->
+        <div class="section">
+            <h2>⚖️ EU Regulatory Framework</h2>
+            
+            <h3>EU Taxonomy & Defense</h3>
+            <p>The EU Taxonomy Regulation initially excluded defense, but the 2024 European Defense Industrial Strategy (EDIS) recognizes the need for sustainable defense production.</p>
+            
+            <div class="compliance-box">
+                <h4>✅ Applicable Regulations</h4>
+                <ul>
+                    <li><strong>CSRD:</strong> Large defense contractors must report sustainability metrics</li>
+                    <li><strong>EU Taxonomy:</strong> Environmental objectives apply to manufacturing processes</li>
+                    <li><strong>Fit for 55:</strong> Energy efficiency and emissions targets for facilities</li>
+                    <li><strong>CBAM:</strong> Carbon border adjustment for imported materials (steel, aluminum)</li>
+                </ul>
+            </div>
+            
+            <div class="security-box">
+                <h4>🔐 Security Considerations</h4>
+                <ul>
+                    <li>Classified information exemptions in CSRD reporting</li>
+                    <li>Supply chain disclosure limitations for sensitive components</li>
+                    <li>On-premise deployment options for air-gapped environments</li>
+                    <li>NATO/EU security clearance compatible data handling</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DWS IQ Solutions -->
+        <div class="section">
+            <h2>🔧 DWS IQ 6 for Dual Use</h2>
+            
+            <h3>Secure Deployment Options</h3>
+            <ul>
+                <li><strong>On-Premise:</strong> Air-gapped installation for classified environments</li>
+                <li><strong>Private Cloud:</strong> Dedicated infrastructure with security certifications</li>
+                <li><strong>Hybrid:</strong> Non-sensitive data in cloud, classified on-premise</li>
+            </ul>
+            
+            <h3>Compliance Features</h3>
+            <ul>
+                <li>CSRD reporting with security redaction capabilities</li>
+                <li>Scope 1, 2, 3 emissions tracking for manufacturing facilities</li>
+                <li>Supply chain carbon footprint (non-classified suppliers)</li>
+                <li>Energy efficiency monitoring for production sites</li>
+                <li>EU Taxonomy alignment assessment</li>
+            </ul>
+            
+            <h3>Industry-Specific Modules</h3>
+            <ul>
+                <li><strong>Aerospace:</strong> Aircraft lifecycle emissions, SAF tracking</li>
+                <li><strong>Naval:</strong> Shipyard emissions, vessel efficiency</li>
+                <li><strong>Electronics:</strong> E-waste management, rare earth tracking</li>
+                <li><strong>Infrastructure:</strong> Grid efficiency, renewable integration</li>
+            </ul>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="section">
+            <h2>📋 Use Cases</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🏭 Defense Contractors</h4>
+                    <p>CSRD compliance for publicly listed defense companies. Track facility emissions while protecting classified program data.</p>
+                </div>
+                <div class="card">
+                    <h4>🛰️ Space Industry</h4>
+                    <p>Satellite manufacturing carbon footprint. Launch facility emissions. Space debris sustainability reporting.</p>
+                </div>
+                <div class="card">
+                    <h4>⚡ Grid Operators</h4>
+                    <p>Critical infrastructure energy efficiency. Renewable integration tracking. NIS2 compliance support.</p>
+                </div>
+                <div class="card">
+                    <h4>🔧 Tier 2/3 Suppliers</h4>
+                    <p>Supply chain sustainability for defense primes. Carbon footprint data for procurement requirements.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finland & Nordic Context -->
+        <div class="section">
+            <h2>🇫🇮 Nordic Defense Industry</h2>
+            <p>Finland's defense industry is growing rapidly following NATO membership. DWS IQ 6 supports Finnish and Nordic defense companies in meeting EU sustainability requirements.</p>
+            
+            <div class="sector-tags">
+                <span class="sector-tag">Patria</span>
+                <span class="sector-tag">Nammo</span>
+                <span class="sector-tag">Saab</span>
+                <span class="sector-tag">Kongsberg</span>
+                <span class="sector-tag">ICEYE</span>
+            </div>
+            
+            <p style="margin-top: 20px; color: #64748b; font-size: 0.9rem;">
+                <em>Note: Company names listed for industry context only. No endorsement or partnership implied unless explicitly stated.</em>
+            </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Secure Sustainability Reporting</h2>
+            <p style="opacity: 0.9; margin-bottom: 30px;">Contact us for a confidential discussion about your dual-use compliance needs.</p>
+            <a href="mailto:defense@dws10.com?subject=Dual Use Industries Inquiry" class="cta-btn">Contact Defense Team</a>
+            <a href="../partners/" class="cta-btn" style="background: transparent; border: 2px solid white; color: white;">Partner Program</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

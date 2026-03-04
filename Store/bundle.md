@@ -1,6 +1,6 @@
 ---
 title: "Climate Reporting Starter Bundle"
-price: "6500.00"
+price: "8800.00"
 currency: "EUR"
 sku: "LIFETIME-BUNDLE-2026"
 availability: "in_stock"
@@ -12,7 +12,7 @@ brand: "Lifetime"
 
 # Climate Reporting Starter Bundle
 
-**Price:** €6,500 (One-time Setup) + €1,999 / year
+**Price:** €8,800 (One-time Setup) + €1,999 / year
 **Includes:** DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.
 
 ## Description
@@ -26,7 +26,7 @@ The fastest, safest path to "Fit for 55" compliance. We combine our industrial "
 3.  **Kickoff Package (Value €3,000):** Expert scoping and setup to ensure the first report is perfect.
 
 **Total Value:** €9,998
-**Bundle Price:** €6,500 (Setup) + Annual License.
+**Bundle Price:** €8,800 (Setup) + Annual License.
 
 ## Why this Bundle?
 **Solve the Problem, Don't Buy Tools.**

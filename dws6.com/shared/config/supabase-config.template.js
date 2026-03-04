@@ -83,6 +83,50 @@ export const supabaseConfig = {
     sessionTimeout: 3600, // 1 hour in seconds
     maxLoginAttempts: 5,
     lockoutDuration: 900 // 15 minutes in seconds
+  },
+  
+  // OAuth configuration
+  oauth: {
+    google: {
+      enabled: true,
+      scopes: ['email', 'profile']
+    },
+    microsoft: {
+      enabled: true,
+      // Azure AD tenant: 'common' for multi-tenant, or specific tenant ID
+      tenant: 'common',
+      scopes: ['email', 'profile', 'openid']
+    }
+  },
+  
+  // MFA configuration
+  mfa: {
+    enabled: true,
+    // TOTP settings
+    totp: {
+      issuer: 'DWS IQ 6',
+      algorithm: 'SHA1',
+      digits: 6,
+      period: 30
+    },
+    // Backup codes
+    backupCodes: {
+      count: 10,
+      length: 8
+    }
+  },
+  
+  // Email templates configuration
+  email: {
+    verification: {
+      redirectTo: '/verify-email/index.html'
+    },
+    passwordReset: {
+      redirectTo: '/reset-password/index.html'
+    },
+    magicLink: {
+      redirectTo: '/dashboard/index.html'
+    }
   }
 };
 

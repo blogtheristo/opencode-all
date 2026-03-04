@@ -1,155 +1,172 @@
+/**
+ * Authentication Service
+ * JWT-based authentication for DWS IQ Backend
+ *
+ * SECURITY: This service handles authentication for EU regulatory data.
+ * All credentials must be verified against the database before issuing tokens.
+ */
+
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
 
-interface LoginCredentials {
-  email: string;
-  password: string;
+// SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  const errorMsg = 'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
+  logger.error(errorMsg);
+  throw new Error(errorMsg);
 }
+if (JWT_SECRET.length < 32) {
+  const errorMsg = 'FATAL: JWT_SECRET must be at least 32 characters long for adequate security.';
+  logger.error(errorMsg);
+  throw new Error(errorMsg);
+}
+
+const JWT_EXPIRES_IN = '24h';
+const JWT_REFRESH_EXPIRES_IN = '7d';
+
+// Dummy hash for timing attack prevention (bcrypt hash of random string)
+const DUMMY_HASH = '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.G0000000000000';
 
 interface User {
   id: string;
   email: string;
   firstName?: string;
   lastName?: string;
-  emailVerified: boolean;
-  mfaEnabled: boolean;
-  createdAt: Date;
-}
-
-interface TokenPayload {
-  userId: string;
-  email: string;
-  type: 'access' | 'refresh';
+  role?: string;
+  accessLevel?: string;
 }
 
 interface AuthResponse {
   token: string;
-  refreshToken?: string;
-  user: User;
+  refreshToken: string;
   expiresIn: number;
+  user: User;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET_KEY;
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
-const ACCESS_TOKEN_EXPIRY = '24h';
-const REFRESH_TOKEN_EXPIRY = '7d';
-const BCRYPT_ROUNDS = parseInt(process.env.BCRYPT_ROUNDS || '12', 10);
-
-// Demo password hash (development only). Provide via environment variable.
-// In production, password hashes must be fetched from the database.
-const DEMO_PASSWORD_HASH = process.env.DEMO_PASSWORD_HASH;
-
-if (!JWT_SECRET || !JWT_REFRESH_SECRET) {
-  throw new Error('JWT secrets are not configured. Set JWT_SECRET_KEY and JWT_REFRESH_SECRET.');
+interface AuthenticateParams {
+  email: string;
+  password: string;
 }
 
-export class AuthService {
+interface StoredUser {
+  id: string;
+  email: string;
+  passwordHash: string;
+  firstName?: string;
+  lastName?: string;
+  role?: string;
+  accessLevel?: string;
+}
+
+// User repository interface - implement with Supabase in production
+interface UserRepository {
+  findByEmail(email: string): Promise<StoredUser | null>;
+}
+
+// Temporary in-memory user store for development
+// SECURITY: Replace with Supabase integration before production
+const devUserStore = new Map<string, StoredUser>();
+
+// SECURITY FIX #4: Token blacklist for revocation
+// Uses Redis in production, falls back to in-memory for development
+// @see src/services/redis-token-blacklist.service.ts for Redis implementation
+import * as RedisBlacklist from './redis-token-blacklist.service.js';
+
+// In-memory fallback for development (when Redis not available)
+const tokenBlacklist = new Map<string, number>();
+
+// Clean expired tokens from blacklist periodically (every 5 minutes)
+// Only used when Redis is not available
+setInterval(() => {
+  const now = Date.now();
+  for (const [hash, expiry] of tokenBlacklist.entries()) {
+    if (expiry < now) {
+      tokenBlacklist.delete(hash);
+    }
+  }
+}, 5 * 60 * 1000);
+
+// Flag to track if Redis is available
+let useRedis = false;
+
+// Initialize Redis if configured
+if (process.env.REDIS_URL || process.env.REDIS_HOST) {
+  RedisBlacklist.initializeRedis()
+    .then(() => {
+      useRedis = true;
+      logger.info('Token blacklist using Redis');
+    })
+    .catch((err) => {
+      logger.warn('Redis not available, using in-memory token blacklist', { error: err.message });
+    });
+}
+
+class AuthService {
   /**
    * Hash a password using bcrypt
    */
-  static async hashPassword(password: string): Promise<string> {
-    try {
-      // Validate password strength
-      if (password.length < 12) {
-        throw new Error('Password must be at least 12 characters long');
-      }
-
-      const salt = await bcrypt.genSalt(BCRYPT_ROUNDS);
-      const hash = await bcrypt.hash(password, salt);
-
-      logger.debug('Password hashed successfully');
-      return hash;
-    } catch (error) {
-      logger.error('Password hashing failed', { error });
-      throw new Error('Failed to hash password');
-    }
+  async hashPassword(password: string): Promise<string> {
+    const saltRounds = 12;
+    return bcrypt.hash(password, saltRounds);
   }
 
   /**
-   * Compare plaintext password with hash
+   * Compare password with hash
    */
-  static async comparePassword(plainPassword: string, hash: string): Promise<boolean> {
-    try {
-      const match = await bcrypt.compare(plainPassword, hash);
-      return match;
-    } catch (error) {
-      logger.error('Password comparison failed', { error });
-      return false;
-    }
+  async comparePassword(password: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(password, hash);
   }
 
   /**
    * Generate JWT access token
    */
-  static generateAccessToken(payload: TokenPayload): string {
-    try {
-      const token = jwt.sign(
-        {
-          ...payload,
-          type: 'access',
-          iat: Math.floor(Date.now() / 1000),
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          expiresIn: ACCESS_TOKEN_EXPIRY,
-        }
-      );
-
-      logger.debug('Access token generated', { userId: payload.userId });
-      return token;
-    } catch (error) {
-      logger.error('Access token generation failed', { error });
-      throw new Error('Failed to generate access token');
-    }
+  generateAccessToken(user: User): string {
+    return jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        accessLevel: user.accessLevel,
+      },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRES_IN }
+    );
   }
 
   /**
    * Generate JWT refresh token
    */
-  static generateRefreshToken(payload: TokenPayload): string {
-    try {
-      const token = jwt.sign(
-        {
-          ...payload,
-          type: 'refresh',
-          iat: Math.floor(Date.now() / 1000),
-        },
-        JWT_REFRESH_SECRET,
-        {
-          algorithm: 'HS256',
-          expiresIn: REFRESH_TOKEN_EXPIRY,
-        }
-      );
-
-      logger.debug('Refresh token generated', { userId: payload.userId });
-      return token;
-    } catch (error) {
-      logger.error('Refresh token generation failed', { error });
-      throw new Error('Failed to generate refresh token');
-    }
+  generateRefreshToken(user: User): string {
+    return jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        type: 'refresh',
+      },
+      JWT_SECRET,
+      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+    );
   }
 
   /**
-   * Verify and decode JWT token
+   * Verify JWT token
+   * SECURITY FIX #4: Check blacklist before returning decoded token
    */
-  static verifyAccessToken(token: string): TokenPayload | null {
+  async verifyToken(token: string): Promise<any> {
     try {
-      const decoded = jwt.verify(token, JWT_SECRET, {
-        algorithms: ['HS256'],
-      }) as any;
-
-      if (decoded.type !== 'access') {
-        logger.warn('Invalid token type in access token');
+      // Check if token is revoked (async for Redis support)
+      const revoked = await this.isTokenRevoked(token);
+      if (revoked) {
+        logger.warn('Attempted use of revoked token');
         return null;
       }
 
-      return {
-        userId: decoded.userId,
-        email: decoded.email,
-        type: 'access',
-      };
+      return jwt.verify(token, JWT_SECRET, {
+        algorithms: ['HS256'],  // SECURITY FIX #9: Explicitly specify algorithm
+      });
     } catch (error) {
       logger.warn('Token verification failed', { error: (error as Error).message });
       return null;
@@ -157,159 +174,172 @@ export class AuthService {
   }
 
   /**
-   * Verify and decode refresh token
+   * Verify access token (alias for verifyToken)
    */
-  static verifyRefreshToken(token: string): TokenPayload | null {
-    try {
-      const decoded = jwt.verify(token, JWT_REFRESH_SECRET, {
-        algorithms: ['HS256'],
-      }) as any;
+  async verifyAccessToken(token: string): Promise<any> {
+    return this.verifyToken(token);
+  }
 
-      if (decoded.type !== 'refresh') {
-        logger.warn('Invalid token type in refresh token');
-        return null;
-      }
-
-      return {
-        userId: decoded.userId,
-        email: decoded.email,
-        type: 'refresh',
-      };
-    } catch (error) {
-      logger.warn('Refresh token verification failed', { error: (error as Error).message });
-      return null;
+  /**
+   * SECURITY FIX #4: Revoke a token (add to blacklist)
+   * Uses Redis if available, falls back to in-memory
+   * @param token - The JWT token to revoke
+   * @param expiresIn - Token expiry in seconds (default 24h for access tokens)
+   */
+  async revokeToken(token: string, expiresIn: number = 86400): Promise<void> {
+    if (useRedis) {
+      await RedisBlacklist.revokeToken(token, expiresIn);
+    } else {
+      // In-memory fallback
+      const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+      const expiryTimestamp = Date.now() + (expiresIn * 1000);
+      tokenBlacklist.set(tokenHash, expiryTimestamp);
+      logger.info('Token revoked (in-memory)', { tokenHash: tokenHash.substring(0, 16) });
     }
   }
 
   /**
-   * Authenticate user with email and password
-   * This is a stub - would connect to database in production
+   * SECURITY FIX #4: Check if token is revoked
+   * Uses Redis if available, falls back to in-memory
    */
-  static async authenticate(credentials: LoginCredentials): Promise<AuthResponse> {
-    try {
-      const { email, password } = credentials;
-
-      // TODO: In production, fetch user from database
-      // For now, we'll create a demo user (this is insecure and only for development)
-      const user = this.getDemoUser(email);
-
-      if (!DEMO_PASSWORD_HASH) {
-        logger.error('Demo password hash not configured (DEMO_PASSWORD_HASH missing)');
-        throw new Error('Authentication not configured');
-      }
-
-      // Always perform password comparison to prevent timing attacks (email enumeration)
-      // Use dummy hash if user doesn't exist to maintain consistent timing
-      const hashToCompare = DEMO_PASSWORD_HASH;
-      const isPasswordValid = await this.comparePassword(password, hashToCompare);
-
-      if (!user) {
-        logger.warn('Login attempt for non-existent user', { email });
-        throw new Error('Invalid email or password');
-      }
-
-      if (!isPasswordValid) {
-        logger.warn('Failed login attempt', { email });
-        throw new Error('Invalid email or password');
-      }
-
-      // Generate tokens
-      const tokenPayload: TokenPayload = {
-        userId: user.id,
-        email: user.email,
-        type: 'access',
-      };
-
-      const accessToken = this.generateAccessToken(tokenPayload);
-      const refreshToken = this.generateRefreshToken(tokenPayload);
-
-      logger.info('User authenticated successfully', { userId: user.id, email });
-
-      return {
-        token: accessToken,
-        refreshToken,
-        user: {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          emailVerified: user.emailVerified,
-          mfaEnabled: user.mfaEnabled,
-          createdAt: new Date(),
-        },
-        expiresIn: 86400, // 24 hours in seconds
-      };
-    } catch (error) {
-      logger.error('Authentication failed', { error: (error as Error).message });
-      throw error;
+  async isTokenRevoked(token: string): Promise<boolean> {
+    if (useRedis) {
+      return RedisBlacklist.isTokenRevoked(token);
     }
+
+    // In-memory fallback
+    const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+    const expiry = tokenBlacklist.get(tokenHash);
+
+    if (!expiry) {
+      return false;
+    }
+
+    // If expiry has passed, remove from blacklist and return false
+    if (expiry < Date.now()) {
+      tokenBlacklist.delete(tokenHash);
+      return false;
+    }
+
+    return true;
   }
 
   /**
    * Refresh access token using refresh token
    */
-  static refreshAccessToken(refreshToken: string): string | null {
-    try {
-      const decoded = this.verifyRefreshToken(refreshToken);
-
-      if (!decoded) {
-        logger.warn('Invalid refresh token');
-        return null;
-      }
-
-      const newAccessToken = this.generateAccessToken({
-        userId: decoded.userId,
-        email: decoded.email,
-        type: 'access',
-      });
-
-      logger.info('Access token refreshed', { userId: decoded.userId });
-      return newAccessToken;
-    } catch (error) {
-      logger.error('Token refresh failed', { error: (error as Error).message });
+  async refreshAccessToken(refreshToken: string): Promise<string | null> {
+    const decoded = await this.verifyToken(refreshToken);
+    if (!decoded || decoded.type !== 'refresh') {
       return null;
     }
+
+    const user: User = {
+      id: decoded.userId,
+      email: decoded.email,
+    };
+
+    return this.generateAccessToken(user);
   }
 
   /**
-   * Demo user for development
-   * TODO: Replace with actual database query
+   * Authenticate user with email and password
+   * SECURITY FIX #2: Properly verify credentials against stored hash
    */
-  private static getDemoUser(email: string): Partial<User> | null {
-    // Demo users for testing
-    const demoUsers: Record<string, Partial<User>> = {
-      'demo@dws-iq.local': {
-        id: 'user_001',
-        email: 'demo@dws-iq.local',
-        firstName: 'Demo',
-        lastName: 'User',
-        emailVerified: true,
-        mfaEnabled: false,
-        createdAt: new Date('2025-01-01'),
-      },
-      'test@onelifetime.world': {
-        id: 'user_002',
-        email: 'test@onelifetime.world',
-        firstName: 'Community',
-        lastName: 'User',
-        emailVerified: true,
-        mfaEnabled: false,
-        createdAt: new Date('2025-01-02'),
-      },
-      'user@example.com': {
-        id: 'user_003',
-        email: 'user@example.com',
-        firstName: 'Test',
-        lastName: 'User',
-        emailVerified: true,
-        mfaEnabled: false,
-        createdAt: new Date('2025-01-03'),
-      },
+  async authenticate(params: AuthenticateParams): Promise<AuthResponse> {
+    const { email, password } = params;
+
+    // Hash email for logging (GDPR compliance - don't log PII)
+    const emailHash = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex').substring(0, 16);
+    logger.info('Authentication attempt', { emailHash });
+
+    // Fetch user from database
+    const storedUser = await this.findUserByEmail(email);
+
+    if (!storedUser) {
+      // SECURITY: Perform dummy comparison to prevent timing attacks
+      // This ensures the response time is similar whether user exists or not
+      await bcrypt.compare(password, DUMMY_HASH);
+      logger.warn('Authentication failed: user not found', { emailHash });
+      throw new Error('Invalid credentials');
+    }
+
+    // Verify password against stored hash
+    const isValidPassword = await this.comparePassword(password, storedUser.passwordHash);
+
+    if (!isValidPassword) {
+      logger.warn('Authentication failed: invalid password', { emailHash });
+      throw new Error('Invalid credentials');
+    }
+
+    // User authenticated successfully
+    const user: User = {
+      id: storedUser.id,
+      email: storedUser.email,
+      firstName: storedUser.firstName,
+      lastName: storedUser.lastName,
+      role: storedUser.role || 'dws_iq_standard',
+      accessLevel: storedUser.accessLevel || 'free',
     };
 
-    return demoUsers[email] || null;
+    const token = this.generateAccessToken(user);
+    const refreshToken = this.generateRefreshToken(user);
+
+    logger.info('Authentication successful', { emailHash, userId: user.id });
+
+    return {
+      token,
+      refreshToken,
+      expiresIn: 86400, // 24 hours in seconds
+      user,
+    };
+  }
+
+  /**
+   * Find user by email - integrates with user store
+   * TODO: Replace with Supabase query in production
+   */
+  private async findUserByEmail(email: string): Promise<StoredUser | null> {
+    const normalizedEmail = email.toLowerCase().trim();
+    return devUserStore.get(normalizedEmail) || null;
+  }
+
+  /**
+   * Register a new user (for development/testing)
+   * TODO: Replace with Supabase integration in production
+   */
+  async registerUser(email: string, password: string, userData?: Partial<StoredUser>): Promise<User> {
+    const normalizedEmail = email.toLowerCase().trim();
+
+    if (devUserStore.has(normalizedEmail)) {
+      throw new Error('User already exists');
+    }
+
+    const passwordHash = await this.hashPassword(password);
+    const userId = `user-${crypto.randomUUID()}`;
+
+    const storedUser: StoredUser = {
+      id: userId,
+      email: normalizedEmail,
+      passwordHash,
+      firstName: userData?.firstName,
+      lastName: userData?.lastName,
+      role: userData?.role || 'dws_iq_standard',
+      accessLevel: userData?.accessLevel || 'free',
+    };
+
+    devUserStore.set(normalizedEmail, storedUser);
+
+    logger.info('User registered', { userId });
+
+    return {
+      id: storedUser.id,
+      email: storedUser.email,
+      firstName: storedUser.firstName,
+      lastName: storedUser.lastName,
+      role: storedUser.role,
+      accessLevel: storedUser.accessLevel,
+    };
   }
 }
 
-export default AuthService;
-
+export default new AuthService();

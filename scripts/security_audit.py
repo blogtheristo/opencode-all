@@ -11,11 +11,11 @@ This is a placeholder implementation. The real audit would:
 - Check for exposed secrets
 """
 
-import os
-import sys
-import json
-from datetime import datetime
+import shutil
 import subprocess
+import sys
+from datetime import datetime
+
 
 def run_security_audit():
     """Run comprehensive security audit"""
@@ -26,13 +26,16 @@ def run_security_audit():
 
     # Repository info
     try:
-        repo_url = subprocess.check_output(['git', 'config', '--get', 'remote.origin.url'],
-                                          text=True).strip()
-        branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
-                                        text=True).strip()
+        git_path = shutil.which("git") or "/usr/bin/git"
+        repo_url = subprocess.check_output(
+            [git_path, "config", "--get", "remote.origin.url"], text=True
+        ).strip()
+        branch = subprocess.check_output(
+            [git_path, "rev-parse", "--abbrev-ref", "HEAD"], text=True
+        ).strip()
         print(f"**Repository:** {repo_url}")
         print(f"**Branch:** {branch}")
-    except:
+    except Exception:
         print("**Repository:** Unable to determine")
 
     print("\n## Security Checks\n")
@@ -81,7 +84,9 @@ def run_security_audit():
     print("- Secret Management: 100/100")
 
     print("\n## Recommendations\n")
-    print("1. **HIGH PRIORITY:** Update Python dependencies with moderate vulnerabilities")
+    print(
+        "1. **HIGH PRIORITY:** Update Python dependencies with moderate vulnerabilities"
+    )
     print("2. **MEDIUM PRIORITY:** Add error handling to 3 identified files")
     print("3. **LOW PRIORITY:** Review and update security documentation")
 
@@ -97,10 +102,10 @@ def run_security_audit():
 
     return 0
 
+
 def get_next_audit_date():
     """Calculate next audit date (1 month from now)"""
-    from datetime import datetime, timedelta
-    import calendar
+    from datetime import datetime
 
     now = datetime.now()
     # Get next month
@@ -113,7 +118,8 @@ def get_next_audit_date():
 
     # Get first day of next month
     next_audit = datetime(next_year, next_month, 1)
-    return next_audit.strftime('%Y-%m-%d')
+    return next_audit.strftime("%Y-%m-%d")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     sys.exit(run_security_audit())

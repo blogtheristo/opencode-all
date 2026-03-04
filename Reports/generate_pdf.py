@@ -4,12 +4,11 @@ Generate professional PDF reports with Lifetime Group branding
 Converts Markdown to PDF with logo, headers, and footers
 """
 
-import os
-import sys
 from datetime import datetime
 from pathlib import Path
+
 import markdown
-from weasyprint import HTML, CSS
+from weasyprint import HTML
 from weasyprint.text.fonts import FontConfiguration
 
 # Company introduction templates
@@ -37,7 +36,7 @@ INTRODUCTIONS = {
         <h2>Tästä Raportista</h2>
         <p><strong>Tarkoitus:</strong> Viikoittainen edistymisraportti, joka seuraa DWS6-pilottijärjestelmän kehitystä ja käyttöönottoa, kohdistuen viiteen pohjoismaiseen rakennusyritykseen tuotantovalmiilla tekoälyagenttialustalla.</p>
     </div>
-    """
+    """,
 }
 
 # HTML/CSS template for professional PDF
@@ -269,29 +268,23 @@ HTML_TEMPLATE = """
 </html>
 """
 
+
 def markdown_to_html(md_file):
     """Convert Markdown file to HTML"""
-    with open(md_file, 'r', encoding='utf-8') as f:
+    with open(md_file, encoding="utf-8") as f:
         md_content = f.read()
 
     # Convert Markdown to HTML with extensions
     html = markdown.markdown(
         md_content,
-        extensions=[
-            'tables',
-            'fenced_code',
-            'codehilite',
-            'nl2br',
-            'sane_lists'
-        ]
+        extensions=["tables", "fenced_code", "codehilite", "nl2br", "sane_lists"],
     )
 
     # Replace emoji status indicators with styled spans
-    html = html.replace('🟢', '<span class="status-green">🟢</span>')
-    html = html.replace('🟡', '<span class="status-yellow">🟡</span>')
-    html = html.replace('🔴', '<span class="status-red">🔴</span>')
+    html = html.replace("🟢", '<span class="status-green">🟢</span>')
+    html = html.replace("🟡", '<span class="status-yellow">🟡</span>')
+    return html.replace("🔴", '<span class="status-red">🔴</span>')
 
-    return html
 
 def create_logo_placeholder(output_path):
     """Create a simple SVG logo placeholder if logo doesn't exist"""
@@ -304,11 +297,12 @@ def create_logo_placeholder(output_path):
         </text>
     </svg>
     """
-    with open(output_path, 'w') as f:
+    with open(output_path, "w") as f:
         f.write(svg_logo)
     return output_path
 
-def generate_pdf(md_file, output_pdf, language='en'):
+
+def generate_pdf(md_file, output_pdf, language="en"):
     """Generate PDF from Markdown with Lifetime Group branding"""
 
     script_dir = Path(__file__).parent
@@ -323,26 +317,26 @@ def generate_pdf(md_file, output_pdf, language='en'):
     content_html = markdown_to_html(md_file)
 
     # Get introduction text
-    intro_html = INTRODUCTIONS.get(language, INTRODUCTIONS['en'])
+    intro_html = INTRODUCTIONS.get(language, INTRODUCTIONS["en"])
 
     # Prepare template variables
     title = "DWS6 Weekly Progress Report"
-    if language == 'fi':
+    if language == "fi":
         title = "DWS6 Viikoittainen Edistymisraportti"
 
     period = "November 27 - December 3, 2025"
-    if language == 'fi':
+    if language == "fi":
         period = "27. marraskuuta - 3. joulukuuta 2025"
 
     # Fill HTML template
     html_content = HTML_TEMPLATE.format(
         title=title,
         logo_path=str(logo_path),
-        date=datetime.now().strftime('%Y-%m-%d'),
+        date=datetime.now().strftime("%Y-%m-%d"),
         period=period,
-        timestamp=datetime.now().strftime('%Y-%m-%d %H:%M'),
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M"),
         intro=intro_html,
-        content=content_html
+        content=content_html,
     )
 
     # Generate PDF
@@ -355,6 +349,7 @@ def generate_pdf(md_file, output_pdf, language='en'):
 
     return output_pdf
 
+
 def main():
     """Generate PDFs for all reports"""
     script_dir = Path(__file__).parent
@@ -364,7 +359,7 @@ def main():
     en_pdf = script_dir / "en" / "WEEKLY_REPORT.pdf"
 
     if en_md.exists():
-        generate_pdf(en_md, en_pdf, language='en')
+        generate_pdf(en_md, en_pdf, language="en")
     else:
         print(f"❌ English report not found: {en_md}")
 
@@ -373,9 +368,10 @@ def main():
     fi_pdf = script_dir / "fi" / "WEEKLY_REPORT_FI.pdf"
 
     if fi_md.exists():
-        generate_pdf(fi_md, fi_pdf, language='fi')
+        generate_pdf(fi_md, fi_pdf, language="fi")
     else:
         print(f"❌ Finnish report not found: {fi_md}")
+
 
 if __name__ == "__main__":
     main()

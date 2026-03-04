@@ -7,15 +7,23 @@
     <meta name="description" content="Move faster from legacy operations to intelligent decisioning and save. DWS IQ ecosystem and tools turns 2050 goals into 2026 insights through AI-orchestrated Fit for 55 optimization tools and renewable electrification solutions.">
     <link rel="stylesheet" href="./static/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    backgroundImage: {
+                        'gradient-primary': 'linear-gradient(135deg, #0a1628 0%, #1e293b 100%)',
+                        'gradient-subtle': 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+                        'gradient-accent': 'linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         /* Ensure group-hover dropdowns work */
         .group:hover .group-hover\:block {
             display: block !important;
-        }
-    </style>
-    <style>
-        .group:hover .group-hover\:block {
-            display: block;
         }
         /* Force desktop nav hidden (desktop uses hamburger) */
         #desktopNav {
@@ -23,28 +31,27 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+<body class="font-sans antialiased flex flex-col min-h-dvh bg-gradient-subtle text-slate-100">
     <!-- Mobile Menu Toggle Script -->
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
+            const button = document.querySelector('[aria-controls="mobileMenu"]');
+            const isExpanded = menu.classList.toggle('hidden');
+            button.setAttribute('aria-expanded', !isExpanded);
         }
     </script>
 
-    <!-- Mobile Menu Toggle Script -->
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-
-    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
+    <nav class="sticky top-0 z-30 border-b border-gray-700 bg-slate-800 shadow-md">
         <!-- Unified Top Bar -->
         <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
             <!-- Hamburger Menu -->
-            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+            <button
+                onclick="toggleMobileMenu()"
+                class="flex flex-col gap-1.5"
+                aria-label="Toggle navigation menu"
+                aria-controls="mobileMenu"
+                aria-expanded="false">
                 <span class="w-6 h-0.5 bg-gray-400 block"></span>
                 <span class="w-6 h-0.5 bg-gray-400 block"></span>
                 <span class="w-6 h-0.5 bg-gray-400 block"></span>
@@ -52,12 +59,12 @@
             
             <!-- Logo -->
             <a href="/" class="flex items-center">
-                <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
+                <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto brightness-110">
             </a>
-            
-            <!-- See Demo Button (small) -->
-            <a href="https://j6prmljgpvnia.ok.kimi.link/index.html" target="_blank" class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
-                Demo
+
+            <!-- V9 Demo Button (small) -->
+            <a href="https://dws6.com/dashboard/firehorse/v9-react/" target="_blank" class="bg-gradient-accent text-white px-2 py-1 rounded text-xs font-bold hover:opacity-90 transition-opacity" title="Try Dashboard V9 with AI">
+                V9 Demo
             </a>
         </div>
 
@@ -70,9 +77,10 @@
                 <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-blue-400">→ DWS IQ 6</a>
                 <a href="#" class="block py-1 hover:text-blue-400">→ Lifetime Fleet</a>
             </div>
+            <a href="/blog/" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded font-semibold">📝 Blog</a>
             <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
             <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal</a>
+                <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal (LSJ)</a>
                 <a href="/Partners/" class="block py-1 hover:text-blue-400">→ Partner Consortium</a>
                 <a href="/pledge/" class="block py-1 hover:text-blue-400">→ 🌍 Sustainability Pledge</a>
                 <a href="https://dws10.com/careers/" class="block py-1 hover:text-blue-400">→ Careers</a>
@@ -83,12 +91,12 @@
                 <a href="https://lifetime.fi/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🎬 Lifetime Studios</a>
                 <a href="https://lifetime.fi/osta" target="_blank" class="block py-1 hover:text-blue-400">→ 💼 Lifetime Consulting</a>
             </div>
-            <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
+            <a href="https://dws6.com/login/" target="_blank" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
         </div>
 
         <!-- Tagline & Divider -->
         <div class="px-4 py-2 text-center border-t border-gray-700">
-            <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+            <p class="text-xs text-gray-400 italic">Turning 2050 goals<br/>into 2026 insights</p>
             <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
         </div>
 
@@ -98,21 +106,21 @@
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">
                         <a href="/" class="flex items-center group">
-                            <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-16 w-auto transition-opacity hover:opacity-90" style="filter: brightness(1.1); aspect-ratio: auto;">
+                            <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-16 w-auto transition-opacity hover:opacity-90 brightness-110">
                         </a>
-                        <p class="text-xs text-gray-400 italic leading-tight text-center mt-1" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+                        <p class="text-xs text-gray-400 italic leading-tight text-center mt-1">Turning 2050 goals<br/>into 2026 insights</p>
                         <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mt-2"></div>
                     </div>
                     <div class="ml-10 flex space-x-8 items-center">
                         <!-- Solution Dropdown (The Brands) -->
                         <div class="relative group h-full flex items-center">
-                            <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
+                            <button class="text-slate-300 hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
                                 Solutions
-                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <svg class="ml-2 size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="absolute left-0 top-full mt-2 hidden group-hover:block w-80 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg z-50" style="background: #1e293b; border: 1px solid #334155;">
+                            <div class="absolute left-0 top-full mt-2 hidden group-hover:block w-80 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg z-20 bg-slate-800 border border-slate-600">
                                 <div class="px-4 py-2 text-xs font-semibold text-gray-400 tracking-wider" style="text-transform: none;">Our Brands</div>
                                 <a href="https://lifetime.fi/" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
                                     <span class="block font-bold text-blue-400">Auditointi</span>
@@ -196,30 +204,30 @@
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         
 <div class="text-center py-12">
-    <h1 class="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl mb-6" style="color: #f1f5f9;">
+    <h1 class="text-balance text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl mb-6 text-slate-100">
         <span class="block">Move faster from legacy operations</span>
-        <span class="block text-3xl sm:text-4xl mt-2" style="color: #60a5fa;">to intelligent decisioning.</span>
+        <span class="block text-3xl sm:text-4xl mt-2 text-blue-400">to intelligent decisioning.</span>
     </h1>
-    <p class="mt-3 max-w-md mx-auto text-base sm:text-lg md:mt-5 md:text-xl md:max-w-3xl" style="color: #cbd5e1;">
-        DWS IQ turns <strong style="color: #93c5fd;">2050 goals into 2026 insights</strong> by delivering AI-orchestrated Fit for 55 optimization and renewable electrification-securing your future in the Post-Carbon era.
+    <p class="text-pretty mt-3 max-w-md mx-auto text-base sm:text-lg md:mt-5 md:text-xl md:max-w-3xl text-slate-300">
+        DWS IQ turns <strong class="text-blue-300">2050 goals into 2026 insights</strong> by delivering AI-orchestrated Fit for 55 optimization and renewable electrification-securing your future in the Post-Carbon era.
     </p>
             <div class="mt-8 max-w-4xl mx-auto px-4">
                 <a href="https://github.com/blogtheristo/dws6" target="_blank" class="block">
-                    <img src="./static/images/8_Industries.png" alt="DWS IQ 6 System Architecture" class="w-full h-auto rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300" style="border: 1px solid #334155;">
+                    <img src="./static/images/8_Industries.png" alt="DWS IQ 6 System Architecture" class="w-full h-auto rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-600">
                 </a>
-                <p class="mt-2 text-sm" style="color: #94a3b8;">The Big Picture: Deep Technology Path</p>
+                <p class="mt-2 text-sm text-gray-400">The Big Picture: Deep Technology Path</p>
             </div>
 </div>
 
 <!-- Operational Backbone Section (Refined Hierarchy) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-    <div class="rounded-2xl p-10 border shadow-xl overflow-hidden relative" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-color: #475569;">
+    <div class="rounded-2xl p-10 border border-slate-600 shadow-xl overflow-hidden relative bg-gradient-to-br from-slate-800 to-slate-700">
         <div class="text-center mb-12">
-            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium mb-4" style="background: #60a5fa; color: #0f172a;">
+            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium mb-4 bg-blue-400 text-slate-900">
                 DWS IQ ARCHITECTURE
             </span>
-            <h2 class="text-3xl font-bold mb-4" style="color: #f1f5f9;">The Central Nervous System</h2>
-            <p class="text-lg max-w-3xl mx-auto" style="color: #cbd5e1;">
+            <h2 class="text-balance text-3xl font-bold mb-4 text-slate-100">The Central Nervous System</h2>
+            <p class="text-pretty text-lg max-w-3xl mx-auto text-slate-300">
                 We leverage our strategic partnerships to execute our mission, while DWS IQ provides the intelligence, carbon accounting, and optimization layer.
             </p>
         </div>
@@ -276,9 +284,9 @@
         </div>
 
         <div class="mt-12 text-center">
-            <a href="/posts/business-case-logistics.html" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white md:text-lg transition-all shadow-lg hover:shadow-xl" style="background: #3b82f6;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+            <a href="/posts/business-case-logistics.html" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 md:text-lg transition-colors shadow-lg hover:shadow-xl">
                 Read the Business Case
-                <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <svg class="ml-2 -mr-1 size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
         </div>
     </div>
@@ -349,8 +357,11 @@
 
 <!-- Team Section -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-    <h2 class="text-3xl font-extrabold text-center mb-12" style="color: #f1f5f9;">Our Team</h2>
-    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <h2 class="text-balance text-3xl font-extrabold text-center mb-4 text-slate-100">Our Team</h2>
+    <p class="text-center text-slate-400 mb-12 text-lg">Humans and AI agents. Both take their jobs very seriously. One of them never sleeps.</p>
+
+    <!-- Human Team -->
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-16">
         <!-- Risto -->
         <div class="rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" style="background: #1e293b; border: 1px solid #475569;">
             <div class="block">
@@ -407,11 +418,132 @@
             </div>
         </div>
     </div>
+
+    <!-- Climate IQ Pantheon — AI Orchestrator Agents -->
+    <h3 class="text-2xl font-bold text-center mb-2 text-slate-100">Climate IQ Pantheon</h3>
+    <p class="text-center text-slate-500 mb-8 text-sm uppercase tracking-widest">AI Orchestrator Agents</p>
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-16">
+        <!-- Atlas -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #6366f1;">
+            <div class="text-5xl text-center mb-3">🏛️</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Atlas</h3>
+                <p class="text-indigo-400 text-sm font-medium mb-2">Chief of Staff · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Routes your chaos, synthesizes the madness, and still writes a clean executive briefing. You're welcome."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #312e81; color: #a5b4fc;">Orchestrator</span>
+            </div>
+        </div>
+        <!-- Athena -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #0ea5e9;">
+            <div class="text-5xl text-center mb-3">⚖️</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Athena</h3>
+                <p class="text-sky-400 text-sm font-medium mb-2">Compliance Intelligence · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Has memorized every EU regulation since 2005. Corrects lawyers. Unprompted."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #0c4a6e; color: #7dd3fc;">EU Compliance</span>
+            </div>
+        </div>
+        <!-- Hephaestus -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #ef4444;">
+            <div class="text-5xl text-center mb-3">🔩</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Hephaestus</h3>
+                <p class="text-red-400 text-sm font-medium mb-2">Field & Site Intelligence · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Checks the site, scans the materials, calculates the schedule. Never gets mud on his boots."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #7f1d1d; color: #fca5a5;">Field Ops</span>
+            </div>
+        </div>
+        <!-- Iris -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #a855f7;">
+            <div class="text-5xl text-center mb-3">🌈</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Iris</h3>
+                <p class="text-purple-400 text-sm font-medium mb-2">Research & Market Intelligence · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Reads 10,000 pages so you don't have to. And judges your competitors with quietly devastating precision."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #581c87; color: #d8b4fe;">Intel</span>
+            </div>
+        </div>
+        <!-- Hermes -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #f59e0b;">
+            <div class="text-5xl text-center mb-3">⚡</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Hermes</h3>
+                <p class="text-amber-400 text-sm font-medium mb-2">Logistics & Operations · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Optimizes your supply chain while you're still figuring out where the warehouse is."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #78350f; color: #fcd34d;">Logistics</span>
+            </div>
+        </div>
+        <!-- Apollo -->
+        <div class="rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300" style="background: #1e293b; border: 2px solid #f97316;">
+            <div class="text-5xl text-center mb-3">🎯</div>
+            <div class="text-center">
+                <h3 class="text-xl font-bold" style="color: #f1f5f9;">Apollo</h3>
+                <p class="text-orange-400 text-sm font-medium mb-2">Content & Outreach · Climate IQ</p>
+                <p class="text-slate-400 text-sm italic">"Writes your sales copy, ranks it on Google, and sends the follow-up email. Probably already did it."</p>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold" style="background: #7c2d12; color: #fdba74;">Content</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Climate IQ Industry Specialists -->
+    <h3 class="text-2xl font-bold text-center mb-2 text-slate-100">Industry Specialists</h3>
+    <p class="text-center text-slate-500 mb-8 text-sm uppercase tracking-widest">Sector AI Agents — One per Industry</p>
+    <div class="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+        <!-- Vulcan — Steel -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🔥</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Vulcan</h4>
+            <p class="text-orange-400 text-xs mb-1">Steel & Metals</p>
+            <p class="text-slate-500 text-xs italic">"Turns ETS carbon prices into competitive strategy. Red-hot accuracy."</p>
+        </div>
+        <!-- Helios — Energy -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🌞</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Helios</h4>
+            <p class="text-yellow-400 text-xs mb-1">Energy & Renewables</p>
+            <p class="text-slate-500 text-xs italic">"Knows RED III by heart. Optimizes your renewable share before breakfast."</p>
+        </div>
+        <!-- Neptune — Maritime -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🌊</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Neptune</h4>
+            <p class="text-cyan-400 text-xs mb-1">Maritime & Shipping</p>
+            <p class="text-slate-500 text-xs italic">"Navigates EU ETS shipping phase-ins like a captain who also passed the bar exam."</p>
+        </div>
+        <!-- Ceres — Agriculture -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🌾</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Ceres</h4>
+            <p class="text-green-400 text-xs mb-1">Agriculture & Fertilizers</p>
+            <p class="text-slate-500 text-xs italic">"Calculates N2O emissions while your accountant is still spelling 'CBAM'."</p>
+        </div>
+        <!-- Prometheus — Hydrogen -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">⚗️</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Prometheus</h4>
+            <p class="text-blue-400 text-xs mb-1">Hydrogen & Energy Transition</p>
+            <p class="text-slate-500 text-xs italic">"Gave industry the gift of green hydrogen compliance. Regulators didn't chain him."</p>
+        </div>
+        <!-- Mars — Construction -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🏛️</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Mars</h4>
+            <p class="text-red-400 text-xs mb-1">Construction & Buildings</p>
+            <p class="text-slate-500 text-xs italic">"Battles EPBD recast with whole-life carbon assessments. Demolishes non-compliance."</p>
+        </div>
+        <!-- Gaia — Cement -->
+        <div class="rounded-lg p-4 text-center hover:shadow-lg transition-shadow duration-300" style="background: #1e293b; border: 1px solid #374151;">
+            <div class="text-4xl mb-2">🪨</div>
+            <h4 class="font-bold text-sm" style="color: #f1f5f9;">Gaia</h4>
+            <p class="text-stone-400 text-xs mb-1">Cement & Earth Materials</p>
+            <p class="text-slate-500 text-xs italic">"Monitors clinker benchmarks so precisely, ETS auditors ask her for advice."</p>
+        </div>
+    </div>
 </div>
 
 <!-- Visit Our Store Section -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-    <h2 class="text-3xl font-extrabold text-center mb-12" style="color: #f1f5f9;">Visit Our Store</h2>
+    <h2 class="text-balance text-3xl font-extrabold text-center mb-12 text-slate-100">Visit Our Store</h2>
     <div class="flex justify-center">
         <div class="max-w-2xl text-center">
             <a href="https://lifetime.fi/buy" target="_blank" class="block">
@@ -428,10 +560,10 @@
 </div>
 
 <!-- Book a Meeting Section -->
-<div class="py-16 mb-16" style="background: #0f172a;">
+<div class="py-16 mb-16 bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-extrabold text-center mb-12" style="color: #f1f5f9;">Book a Meeting</h2>
-        <div class="max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden" style="background: #1e293b; border: 1px solid #475569;">
+        <h2 class="text-balance text-3xl font-extrabold text-center mb-12 text-slate-100">Book a Meeting</h2>
+        <div class="max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden bg-slate-800 border border-slate-600">
             <!-- Google Calendar Appointment Scheduling begin -->
             <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
             <!-- end Google Calendar Appointment Scheduling -->
@@ -440,11 +572,11 @@
 </div>
 
 <!-- WhatsApp Section -->
-<div class="py-16" style="background: #0f172a;">
+<div class="py-16 bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 class="text-3xl font-extrabold mb-8" style="color: #f1f5f9;">Have Questions?</h3>
-        <a href="https://wa.me/358400319010" target="_blank" class="whatsapp-btn inline-flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="mr-2"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.871-4.423 9.874-9.869 0-2.64-1.029-5.115-2.9-6.979-1.872-1.864-4.36-2.89-6.996-2.891-5.447 0-9.871 4.423-9.873 9.87-.001 2.069.846 4.021 2.458 5.52l.723.687-.751 2.775 2.827-.726.742.672zm12.703-8.529c-1.051-.564-3.867-3.076-4.332-2.039-.252.564-.151.75-.089 1.014.063.264.416.625.565.78.61.63 2.444 2.84 2.935 6.165.492 3.325.719 3.63.972 3.63.253 0 .567-.037.909-.113.34-.076 1.753-3.951 1.753-3.951s.465-3.785.747-4.787c0 0 .015-.026.021-.043.015-.045-.042-.068-.042-.068s-.031-.012-.09-.031z"/></svg>
+        <h3 class="text-balance text-3xl font-extrabold mb-8 text-slate-100">Have Questions?</h3>
+        <a href="https://wa.me/358400319010" target="_blank" class="whatsapp-btn inline-flex items-center" aria-label="Contact us on WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="mr-2" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.871-4.423 9.874-9.869 0-2.64-1.029-5.115-2.9-6.979-1.872-1.864-4.36-2.89-6.996-2.891-5.447 0-9.871 4.423-9.873 9.87-.001 2.069.846 4.021 2.458 5.52l.723.687-.751 2.775 2.827-.726.742.672zm12.703-8.529c-1.051-.564-3.867-3.076-4.332-2.039-.252.564-.151.75-.089 1.014.063.264.416.625.565.78.61.63 2.444 2.84 2.935 6.165.492 3.325.719 3.63.972 3.63.253 0 .567-.037.909-.113.34-.076 1.753-3.951 1.753-3.951s.465-3.785.747-4.787c0 0 .015-.026.021-.043.015-.045-.042-.068-.042-.068s-.031-.012-.09-.031z"/></svg>
             Contact Us with WhatsApp
         </a>
     </div>
@@ -453,48 +585,13 @@
 
     </main>
 
-    <footer class="bg-gray-900 text-white border-t border-gray-800">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="col-span-1 md:col-span-2">
-                    <h3 class="text-lg font-bold text-white tracking-wider uppercase mb-4">OneLifetime.World</h3>
-                    <p class="text-base text-gray-400 max-w-md">
-                        DWS IQ accelerates the shift from legacy operations to intelligent decisioning, translating 2050 goals into 2026 insights. By delivering Fit for 55 optimization through AI workforce orchestration and renewable electrification, we secure your competitive standing in the Post-Carbon era.
-                    </p>
-                    <div class="mt-6 flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
-                        <a href="#" class="text-gray-400 hover:text-white">GitHub</a>
-                        <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Brands</h3>
-                    <ul class="space-y-3">
-                        <li><a href="https://dws10.com" class="text-base text-gray-300 hover:text-white">DWS IQ Platform</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Fleet</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Studios</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Consulting</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Contact</h3>
-                    <p class="text-base text-gray-300">
-                        <a href="mailto:risto.paarni@lifetime.fi" class="hover:text-indigo-400">risto.paarni@lifetime.fi</a><br>
-                        <span class="block mt-2 text-sm text-gray-500">BUSINESS ID: FI07724079</span>
-                    </p>
-                </div>
-            </div>
-            <div class="mt-8 border-t border-gray-800 pt-8 md:flex md:items-center md:justify-between">
-                <div class="flex space-x-6 md:order-2">
-                    <a href="https://dws10.com/privacy-policy" target="_blank" class="text-gray-400 hover:text-white text-sm">Privacy & Community Policy</a>
-                </div>
-                <p class="text-base text-gray-400 md:order-1">&copy; 2025 OneLifetime.World. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- DWS Climate Assistant Chat Widget -->
+    <script src="https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/chat-widget.js" async></script>
+    <!-- DWS Standard Footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>
-<!-- Last Build: 12/07/2025 14:30:33 -->
+<!-- Last Build: 01/29/2026 -->
 
 
 

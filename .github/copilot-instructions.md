@@ -1,328 +1,331 @@
-# GitHub Copilot Instructions for DWS IQ Platform
+# Copilot Instructions for DWS6
 
 ## Project Overview
 
-**DWS IQ 6** is a Brain-Memory-Body-Hands climate intelligence platform for industrial AI orchestration. The platform automates climate compliance for 8 industries (Construction, Manufacturing, Logistics, Energy, Healthcare, Real Estate, Fleet, Public Sector) with a focus on EU regulations (Fit for 55, EPBD, ETS, CBAM, CSRD).
+**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
 
-### Core Architecture
-- 🧠 **BRAIN**: Multi-agent AI orchestration (DWS IQ Platform)
-- 💾 **MEMORY**: Specialized Climate LLM (Lifetime World Model)
-- 🏢 **BODY**: 8 Industry-specific Applications
-- 🤖 **HANDS**: Physical execution (Robots, Vehicles, IoT with NVIDIA Jetson Orin Nano)
+**Repository size:** ~500+ files, TypeScript/JavaScript/Python polyglot codebase  
+**Main languages:** TypeScript 5.9, Python 3.11+, React 19.2  
+**Target runtime:** Node.js 20+, Python 3.11+
 
-**Status**: PILOT PHASE (RUNNING) | €10k MRR | V1.0 Launch: February 23, 2026
+## Build, Test, and Validation (CRITICAL - Always Follow This Sequence)
 
-## Technology Stack
-
-### Frontend
-- **Framework**: Next.js 14+ with React 18+
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Build**: Node.js >= 18.0.0, npm >= 9.0.0
-
-### Backend
-- **Language**: Python 3.11+
-- **Frameworks**: FastAPI, Temporal.io
-- **AI/ML**: Groq API (Llama models), Claude Sonnet 4.5, GPT-4
-- **Database**: Supabase (PostgreSQL with pgvector)
-- **Message Queue**: Temporal.io for workflow orchestration
-
-### Infrastructure
-- **Primary Cloud**: Google Cloud Platform (europe-north1 region)
-  - Cloud Run (containerized services)
-  - Secret Manager (API keys, credentials)
-  - Artifact Registry (Docker images)
-- **Secondary Cloud**: AWS (deferred post-funding)
-  - IoT Greengrass (edge devices)
-  - S3 (cold storage)
-- **Edge**: NVIDIA Jetson Orin Nano (50 sites, 7-15W per device)
-- **Containerization**: Docker, docker-compose
-
-### Development Tools
-- **Version Control**: Git, GitHub
-- **CI/CD**: GitHub Actions workflows
-- **Model Context Protocol**: MCP Hub for multi-agent orchestration (ports 8765-8766)
-- **AI Assistants**: Claude Code, GitHub Copilot, Cursor.ai, Kimi K2
-
-## Coding Standards
-
-### General Principles
-1. **Minimal changes**: Make the smallest possible changes to achieve the goal
-2. **EU compliance first**: All code must comply with GDPR, EU AI Act, NIS2
-3. **Security by default**: Never commit secrets; use Secret Manager
-4. **Privacy by design**: Data sovereignty within EU/EEA
-5. **Edge-first**: Optimize for offline operation and low-power edge devices
-6. **Documentation**: Keep README.md and architectural docs synchronized
-
-### Python Style
-- Follow PEP 8 conventions
-- Use type hints for all function signatures
-- Use docstrings with triple quotes for modules and functions
-- Prefer `async/await` for I/O operations (FastAPI endpoints)
-- Use Pydantic models for request/response validation
-- Keep modules focused and single-purpose
-
-**Example**:
-```python
-"""
-Module description here.
-"""
-
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
-
-class CustomerRequest(BaseModel):
-    customer_id: str = Field(..., description="Unique customer identifier")
-    customer_name: str = Field(..., description="Company name")
-
-@app.post("/v1/analyze")
-async def analyze_customer(request: CustomerRequest) -> Dict[str, Any]:
-    """Analyze customer health and churn risk."""
-    # Implementation
-    pass
-```
-
-### TypeScript/JavaScript Style
-- Use TypeScript for all new code
-- Follow ESLint and Next.js conventions
-- Use functional components with hooks (React)
-- Prefer `const` over `let`, avoid `var`
-- Use async/await over Promise chains
-- Export named components
-
-**Example**:
-```typescript
-interface CustomerData {
-  customerId: string;
-  customerName: string;
-  npsScore: number;
-}
-
-export const CustomerAnalysis: React.FC<{ data: CustomerData }> = ({ data }) => {
-  // Component logic
-  return <div>{/* JSX */}</div>;
-};
-```
-
-### SQL/Database
-- Use parameterized queries to prevent SQL injection
-- Index foreign keys and frequently queried columns
-- Use pgvector for semantic search operations
-- Store embeddings for AI/ML features
-- Follow Supabase naming conventions (snake_case for tables/columns)
-
-### Docker
-- Use multi-stage builds to minimize image size
-- Pin specific versions for base images
-- Run as non-root user for security
-- Use `.dockerignore` to exclude unnecessary files
-- Health checks mandatory for Cloud Run services
-
-## File Structure & Organization
-
-```
-dws6/
-├── .github/
-│   ├── workflows/          # GitHub Actions CI/CD
-│   └── copilot-instructions.md
-├── AgentFoundry/           # Multi-agent orchestration services
-│   ├── services/           # Individual agent services
-│   │   ├── groq-router-mvp/
-│   │   ├── claude-router/
-│   │   └── squarespace-publisher/
-│   └── workflows/          # Temporal.io workflows
-├── mcp-hub/                # Model Context Protocol Hub
-│   ├── requirements.txt
-│   └── docker-compose.mcp.yml
-├── onelifetime.world/      # Next.js frontend
-│   ├── package.json
-│   └── pages/
-├── sites/                  # Industry-specific sites
-│   ├── lifetime-fi/
-│   └── onelifetime-world/
-├── docs/                   # Documentation
-├── scripts/                # Automation scripts
-├── privacy-policy/         # Legal compliance docs
-└── README.md
-```
-
-## Build, Test & Deploy
-
-### Local Development
-
-**Frontend (Next.js)**:
+### First Time Setup
 ```bash
-cd onelifetime.world
+# 1. ALWAYS install dependencies first (required before any build/test)
 npm install
-npm run dev        # Development server on localhost:3000
-npm run build      # Production build
-npm run lint       # ESLint
+
+# 2. Copy environment template (if .env doesn't exist)
+cp .env.example .env
+
+# 3. THEN build TypeScript
+npm run build
+
+# 4. Verify tests pass
+npm test
 ```
 
-**Backend (Python/FastAPI)**:
+**IMPORTANT:** Build will fail with TypeScript errors if you run `npm run build` before `npm install`. Always install dependencies first.
+
+### Development Workflow
 ```bash
-cd AgentFoundry/services/groq-router-mvp
+# Start backend with hot reload (PREFERRED for development)
+npm run dev              # Uses tsx watch - auto-reloads on changes
+
+# Build TypeScript (for production)
+npm run build           # Compiles to dist/ directory
+
+# Run tests (Vitest)
+npm test                # Unit and integration tests
+npm run test:ui         # Interactive test UI
+
+# No linter configured yet - eslint pending setup
+npm run lint            # Currently just echoes "No linter configured"
+```
+
+### Python Scripts (Firehorse/)
+```bash
+# Install Python dependencies
 pip install -r requirements.txt
-export GROQ_API_KEY="your_key_here"
-python main.py     # Development server on localhost:8083
+
+# Security scanning tools
+pip install -r requirements-security.txt
+
+# Development tools
+pip install -r dev-requirements.txt
+
+# Python linting with Ruff (replaces Black, Flake8)
+ruff check .                    # Fast linting
+ruff format .                   # Code formatting
+bandit -r Firehorse/           # Security scanning
+safety check                    # Dependency vulnerability scan
 ```
 
-**MCP Hub**:
+### Frontend Dashboard (dws6.com/dashboard/firehorse/v9-react/)
 ```bash
-cp env.mcp.example .env.mcp
-docker-compose -f docker-compose.mcp.yml up -d
+cd dws6.com/dashboard/firehorse/v9-react/
+npm install
+npm run dev              # Vite dev server on port 5173
+npm run build            # Production build
 ```
 
-### Testing
-- No formal test infrastructure currently exists
-- Manual testing via curl or Postman for API endpoints
-- Visual inspection for UI changes
-- Health checks required for all services (`/health` endpoint)
+## Repository Architecture
 
-### Deployment
-- **Primary**: GitHub Actions workflows in `.github/workflows/`
-- **Manual**: Scripts in `scripts/` directory
-- **Cloud Run**: Auto-deploy on push to main branch
-- **Domain mapping**: Cloudflare DNS → Google Cloud Run
-
-**Key workflows**:
-- `deploy-pilot.yml` - Deploy Agent Router to Cloud Run
-- `sync-landing-pages.yml` - Sync landing pages to Cloudflare
-- `purge-cloudflare-cache.yml` - Cache invalidation
-
-## Security & Compliance
-
-### Critical Requirements
-1. **GDPR Compliance**: All user data must remain within EU/EEA
-2. **Secret Management**: Use GCP Secret Manager, never commit secrets
-3. **Data Privacy**: No training on customer industrial data
-4. **EU AI Act**: Transparent AI decision-making, human oversight
-5. **NIS2**: Network and information security standards
-6. **ISO 27001**: Security certification requirements
-
-### Secret Management
-- Store secrets in Google Cloud Secret Manager
-- Reference secrets in Cloud Run: `--set-secrets KEY=SECRET_NAME:latest`
-- Use environment variables locally (`.env` files, gitignored)
-- Required secrets: `GROQ_API_KEY`, `SUPABASE_KEY`, `SLACK_WEBHOOK_URL`
-
-### Data Handling
-- All customer data stored in Supabase (EU region)
-- Edge processing on NVIDIA Jetson (on-premises, offline capable)
-- No data transmission to non-EU regions
-- Encryption at rest and in transit
-
-## Common Patterns
-
-### API Endpoint Structure
-```python
-@app.post("/v1/{resource}/{action}")
-async def endpoint_name(request: RequestModel) -> ResponseModel:
-    """Endpoint description."""
-    # Validate input
-    if not GROQ_API_KEY:
-        raise HTTPException(status_code=500, detail="API key not configured")
-    
-    # Process request
-    try:
-        result = await process_data(request)
-        return ResponseModel(**result)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+### Key Directories
+```
+/
+├── src/                          # Backend Express API (TypeScript)
+│   ├── app.ts                    # Main Express app entry point
+│   ├── routes/                   # API route handlers
+│   ├── middleware/               # Auth, validation, error handling
+│   ├── services/                 # Business logic (email, AI, Redis)
+│   ├── integrations/             # ERP (SAP, IFS) & ESG integrations
+│   ├── mcp/                      # Model Context Protocol implementation
+│   └── __tests__/                # Vitest test files
+├── dws6.com/dashboard/           # Frontend dashboards
+│   └── firehorse/v9-react/       # Main React dashboard (Vite + Tailwind)
+├── Firehorse/                    # Python product suite
+│   ├── Report/                   # Analytics engine
+│   ├── Automation/               # Python automation scripts
+│   ├── ContentMS/                # Content management
+│   └── Omnichannel/              # Multi-channel outreach
+├── landing-pages/                # Next.js/Cloudflare Pages sites
+│   ├── dws6-com/                 # Production landing pages
+│   ├── dws10-com/                # DWS 10 landing pages
+│   └── onelifetime-world/        # Lifetime landing pages
+├── mcp-hub/                      # MCP orchestration platform
+├── mcp-servers/                  # Individual MCP server implementations
+├── supabase/migrations/          # Database schema migrations
+├── .github/workflows/            # 18 CI/CD workflows
+├── scripts/                      # Build, deployment, automation scripts
+└── public/                       # Static assets served by Express
 ```
 
-### Error Handling
-- Use FastAPI's HTTPException for API errors
-- Return meaningful error messages (avoid exposing internal details)
-- Log errors for debugging (use structured logging)
-- Include correlation IDs for tracing
+### Configuration Files
+- `tsconfig.json` - TypeScript compiler config (strict mode)
+- `vitest.config.ts` - Vitest test runner config
+- `pyproject.toml` - Python project config (Ruff, Bandit)
+- `.env.example` - Environment variable template (144+ vars)
+- `.gitignore` - CRITICAL: Prevents committing secrets, node_modules, etc.
 
-### CORS Configuration
-Allow origins for production and development:
-```python
-allow_origins=[
-    "https://dws10.com",
-    "https://onelifetime.world",
-    "http://localhost:3000"
-]
+## CI/CD Pipelines (18 GitHub Actions Workflows)
+
+Located in `.github/workflows/` - these run automatically on PRs and commits:
+
+**Critical workflows that must pass:**
+1. `security-check-pr.yml` - Security scans (runs on all PRs)
+2. `deploy-pilot.yml` - Deployment to pilot environment
+3. `deploy-scaleway.yml` - Primary production deployment
+4. `morning-briefing.yml` - Scheduled email automation
+
+**Before committing:** Ensure your changes won't break these workflows. Common failures:
+- Missing environment variables in code
+- TypeScript compilation errors (run `npm run build` first)
+- Test failures (run `npm test` first)
+- Security vulnerabilities (check with `bandit` for Python)
+
+## Code Style and Conventions
+
+### TypeScript
+- **Strict TypeScript:** No `any` types, prefer `unknown` for dynamic data
+- **Validation:** Use Zod schemas for runtime validation (not just TypeScript types)
+- **Interfaces:** Define interfaces for all API contracts
+- **Naming:** 
+  - Files: `kebab-case.ts` (utils), `PascalCase.tsx` (React components)
+  - Variables: `camelCase`
+  - Constants: `SCREAMING_SNAKE_CASE`
+  - Types/Interfaces: `PascalCase`
+
+### React (v9-react dashboard)
+- Functional components with hooks (no class components)
+- TailwindCSS for styling (no inline styles or CSS-in-JS)
+- Co-locate components with their styles
+- Use Zod for form validation
+
+### Python (Firehorse/)
+- Follow PEP 8 (enforced by Ruff)
+- Use type hints (enforced by mypy in pyproject.toml)
+- **Security:** Use `simpleeval` library's `simple_eval()` for formula evaluation, NEVER use `eval()` or `ast.literal_eval()`
+- Add `# nosec` comments only for verified false positives
+
+### Email Rules (CRITICAL)
+- **NEVER use `noreply@` addresses** - all emails must be replyable
+- Default sender: `risto@onelifetime.world` (verified Resend domain)
+- Default recipient: `risto@lifetime.fi`
+- Pattern: `process.env.EMAIL_FROM || 'risto@onelifetime.world'`
+
+## Security (NEVER COMMIT SECRETS)
+
+### Prohibited Actions
+- ❌ Commit secrets, API keys, passwords to any file
+- ❌ Commit PII or customer data (GDPR violation)
+- ❌ Skip input validation on user inputs
+- ❌ Use `git add -f Admin/` or force-add ignored files
+- ❌ Use `eval()` or `exec()` with user-provided strings
+- ❌ Force push to main/master branches
+
+### Required Actions
+- ✅ Use environment variables for ALL secrets (see `.env.example`)
+- ✅ Validate all inputs with express-validator or Zod
+- ✅ Use parameterized queries (never string concatenation for SQL)
+- ✅ Write tests for security-critical code
+- ✅ Run security scans before committing (`bandit`, `safety`)
+
+### .gitignore Patterns (VERIFIED)
+These patterns prevent accidental secret commits:
+```gitignore
+.env*                    # All environment files
+*.secret, *.key, *.pem   # Secret files
+node_modules/            # Dependencies
+__pycache__/             # Python cache
+dist/, build/            # Build artifacts
+*.log, logs/             # May contain sensitive data
 ```
 
-### Cost Optimization
-- Leverage free tiers: Groq ($10K credits), Google Cloud ($100K startup credits)
-- Minimize Cloud Run instances (min-instances: 0, max-instances: 2)
-- Use edge computing for real-time inference (€333K/year savings vs cloud-only)
-- Efficient token usage with Groq API
+**Before every commit:** Run `git status` to verify no `.env` or secret files are staged.
 
-## Industry-Specific Context
+## Common Pitfalls and Workarounds
 
-### Target Industries
-1. **Construction** (Primary focus): Embodied carbon tracking, EU Building Performance Directive compliance
-2. **Manufacturing**: Digital-green twin transition, waste optimization
-3. **Logistics** (Live with €10K MRR): Route optimization, fleet carbon tracking
-4. **Energy**: Renewable integration, grid optimization
-5. **Healthcare**: Facility compliance, energy efficiency
-6. **Real Estate**: Building performance, sustainability reporting
-7. **Fleet**: Vehicle electrification, H2 transition (Lifetime Fleet)
-8. **Public Sector**: Municipal compliance, smart cities
+### Issue: TypeScript Build Fails with "Cannot find name 'process'"
+**Cause:** Missing @types/node dependency  
+**Fix:** Ensure `npm install` was run first. The error appears if you build before installing dependencies.
 
-### Regulatory Drivers
-- **Fit for 55**: 55% emissions reduction by 2030
-- **EPBD**: Buildings >1,000 m² embodied carbon measurement by 2028
-- **ETS**: Emissions Trading System
-- **CBAM**: Carbon Border Adjustment Mechanism
-- **CSRD**: Corporate Sustainability Reporting Directive
+### Issue: Morning Briefing Runs Twice During DST Transitions
+**Cause:** GitHub Actions cron uses UTC, Finland observes DST  
+**Fix:** Use dual cron entries with time-guard in script (see `.github/workflows/morning-briefing.yml:6-11`)
 
-## AI & ML Considerations
+### Issue: node-cron Doesn't Work in Serverless (Cloud Run, Scaleway)
+**Cause:** In-process schedulers incompatible with scale-to-zero platforms  
+**Fix:** Use external triggers (GitHub Actions, Cloud Scheduler) instead of in-process cron
 
-### Model Selection
-- **Fast inference**: Groq API with Llama models (~1s response time)
-- **High-quality reasoning**: Claude Sonnet 4.5 for complex tasks
-- **General purpose**: GPT-4 for versatile operations
-- **Edge inference**: NVIDIA Jetson (<100ms, 25x faster than cloud)
+### Issue: ML/DS Pipeline Artifacts Appear in Git Status
+**Cause:** Generated files not in .gitignore  
+**Fix:** These patterns are already in .gitignore (lines 104-110):
+```gitignore
+reports/figures/*.png
+reports/*.json
+models/*.pkl
+data/raw_dataset.csv
+data/cleaned_dataset.csv
+```
+Never commit these runtime artifacts.
 
-### Prompt Engineering
-- Clear, specific instructions
-- Include relevant context (industry, regulations)
-- Use structured output formats (JSON, Pydantic models)
-- Implement retry logic for API failures
+## Testing Guidance
 
-### Multi-Agent Orchestration
-- MCP Hub coordinates multiple AI agents (Cursor, Claude, Gemini)
-- Three workflow patterns: Fan-out (parallel), Reflection (iterative), Sequential (pipeline)
-- Session persistence via Supabase
-- Temporal.io for workflow durability
+### Test Structure
+```
+src/__tests__/           # Vitest tests co-located with source
+├── auth.test.ts         # Authentication tests
+├── bim-routes.test.ts   # BIM API endpoint tests
+└── security/            # Security-specific tests
+```
 
-## Financial Context
+### Writing Tests
+```typescript
+// ALWAYS mock auth middleware to avoid JWT_SECRET requirements
+import { vi } from 'vitest';
 
-### Current Status
-- **MRR**: €10,000 (Uber, Bolt, Kela)
-- **Runway**: Fixed (operational revenue covers core burn)
-- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 20% discount
-- **Credits Available**: $135,000 (AWS $25K, Groq $10K, Google $100K)
-- **Cost Efficiency**: €0 pilot cost, 86% cheaper than AWS-only
+// Mock BEFORE imports
+vi.mock('../middleware/auth.middleware.js', () => ({
+  authenticateJWT: vi.fn((req, res, next) => next())
+}));
 
-### ROI Metrics
-- **Edge Hardware ROI**: 515% annually (NVIDIA Jetson)
-- **Payback Period**: 1.95 months for edge investment
-- **Cloud Cost Avoidance**: €27,750/month, €333,000/year
-- **Lifetime Fleet**: €7-14K MRR, secures runway
+// THEN import routes (after mock)
+const { default: router } = await import('../routes/bim.routes.js');
+```
 
-## Contact & Support
+### Running Tests
+```bash
+npm test                # Run all tests
+npm test -- --watch     # Watch mode
+npm test -- --coverage  # Coverage report (aim for >80%)
+npm run test:ui         # Interactive UI
+```
 
-**Founder**: Risto Anton Päärni
-- Email: risto@lifetime.fi
-- LinkedIn: linkedin.com/in/ristopaarni
-- GitHub: github.com/blogtheristo/dws6
+## Git Workflow
 
-**License**: Proprietary - Lifetime Oy
+### Branch Naming
+- `claude/<feature>-<session-id>` - AI-assisted work (e.g., `claude/auth-fix-abc123`)
+- `feature/<name>` - Human-developed features
+- `fix/<description>` - Bug fixes
 
----
+### Commit Messages
+```
+<type>: <description>
 
-## Additional Resources
+Types: feat, fix, docs, style, refactor, test, chore
 
-- [README.md](../README.md) - Project overview and quick start
-- [ARCHITECTURE_SUMMARY.md](../ARCHITECTURE_SUMMARY.md) - Detailed architecture
-- [QUICKSTART.md](../QUICKSTART.md) - Deployment guide
-- [MCP_HUB_DEPLOYMENT.md](../MCP_HUB_DEPLOYMENT.md) - MCP Hub setup
-- [privacy-policy/](../privacy-policy/) - Legal and compliance documentation
+Example:
+feat: add BIM emission factor validation endpoint
+```
+
+## Deployment
+
+**Primary:** Scaleway Serverless Containers (fr-par, Paris, France)  
+**Edge:** Cloudflare Workers/Pages (dws6.com, dws10.com)  
+**Database:** Supabase (EU-hosted, PostgreSQL + pgvector)  
+**AI Inference:** Groq API (Llama 3.1 70B), Claude Sonnet 4.5
+
+**Deployment trigger:** Push to `main` branch runs `.github/workflows/deploy-scaleway.yml`
+
+## Automated PR Workflow (HIL Automation)
+
+This repo uses a fully automated multi-agent PR workflow that **replaces manual human-in-the-loop review**.
+
+### Flow
+1. **Claude Code** generates implementation on a feature branch and opens a draft PR
+2. **AI Code Review (HIL)** workflow triggers automatically (`.github/workflows/ai-pr-review.yml`)
+   - **Claude** does quick sanity check (security, correctness, breaking changes)
+   - **Gemini** does deep HIL review (replaces human reviewer: edge cases, tests, architecture, security audit)
+   - Both must approve — Gemini is the mandatory quality gate
+   - Posts combined review as PR comment
+   - Adds labels: `ai-reviewed` + `ai-approved` or `ai-changes-requested`
+3. **If changes requested** (mandatory, not optional): Gemini's required changes + test gaps are formatted as structured @copilot instructions
+   - Copilot coding agent picks up the comment and implements fixes autonomously
+   - Pushes to the PR branch, re-triggering the review workflow
+   - Loop repeats until both reviewers approve (typically 1-3 iterations)
+4. **Gemini requests fixes → Copilot implements** (mandatory, not optional): This is the core automation loop
+   - Gemini acts as strict senior engineer — flags critical issues, missing tests, edge cases
+   - Fix instructions are specific and actionable (file:line references)
+   - Copilot implements changes, runs `npm run build` and `npm test`
+   - Review re-triggers automatically on push
+5. **When approved**: `ai-approved` label triggers auto-merge workflow
+   - Verifies all CI checks pass
+   - Enables squash auto-merge (or adds `ready-to-merge` label)
+6. **Human override**: Add `do-not-merge` or `needs-human-review` labels to pause
+
+### Copilot Coding Agent
+- Setup steps defined in `.github/copilot-setup-steps.yml`
+- Copilot agent runs `npm install`, installs Python tools, builds TypeScript
+- When tagged in PR comments, it implements requested changes autonomously
+
+### Gemini MCP Integration
+- Gemini MCP server is registered in `mcp-hub/server.py` (currently disabled, port 8768)
+- The PR review workflow uses Gemini API directly via `GOOGLE_AI_API_KEY` secret
+- Model: `gemini-2.0-flash` (fast, strong on code critique)
+
+### Labels Used
+| Label | Meaning |
+|-------|---------|
+| `ai-reviewed` | AI review has been performed (dual-model) |
+| `ai-approved` | Both Claude + Gemini approved |
+| `ai-changes-requested` | One or both reviewers found issues |
+| `ready-to-merge` | All checks passed, safe to merge |
+| `do-not-merge` | Blocks auto-merge (human override) |
+| `needs-human-review` | Pauses automation for manual review |
+
+### Required Secrets
+| Secret | Purpose |
+|--------|---------|
+| `ANTHROPIC_API_KEY` | Claude API — quick sanity review |
+| `GOOGLE_AI_API_KEY` | Gemini API — mandatory HIL review gate |
+
+## Additional Documentation
+
+- `CLAUDE.md` - Comprehensive AI agent guidelines (833 lines)
+- `AGENTS.md` - Agent architecture and coordination (524 lines)
+- `DWS_SECURITY_STANDARD.md` - Security framework
+- `DWS_BRAND_STANDARD.md` - UI/UX design standards
+- `README.md` - Project overview and sales documentation
+
+**When in doubt:** Check CLAUDE.md for detailed guidance on security, git workflows, and best practices.

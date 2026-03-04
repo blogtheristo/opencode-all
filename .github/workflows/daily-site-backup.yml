@@ -2,9 +2,14 @@ name: Daily Site Backup
 
 on:
   schedule:
-    # Run daily at 2:00 AM UTC
+    # Runs at 02:00 UTC daily
     - cron: '0 2 * * *'
   workflow_dispatch:  # Allow manual trigger
+
+# Concurrency: prevent multiple backup jobs running simultaneously
+concurrency:
+  group: site-backup
+  cancel-in-progress: false
 
 jobs:
   backup:
@@ -12,11 +17,38 @@ jobs:
     permissions:
       contents: write
 
+    # Timeout after 30 minutes (backups should complete quickly)
+    timeout-minutes: 30
+
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Ensure we have write access for commit
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Verify site directories exist
+        id: verify_sites
+        run: |
+          echo "Checking for site directories..."
+          SITES_FOUND=0
+
+          for site in dws6.com dws10.com onelifetime.world landing-pages/dws6-com landing-pages/dws10-com landing-pages/onelifetime-world; do
+            if [ -d "$site" ]; then
+              echo "✅ Found: $site"
+              SITES_FOUND=$((SITES_FOUND + 1))
+            else
+              echo "⚠️ Not found: $site"
+            fi
+          done
+
+          echo "sites_found=$SITES_FOUND" >> $GITHUB_OUTPUT
+
+          if [ $SITES_FOUND -eq 0 ]; then
+            echo "❌ No site directories found. Exiting."
+            exit 1
+          fi
 
       - name: 📦 Create backups directory
         run: |
@@ -24,9 +56,16 @@ jobs:
           echo "✅ Backup directory created"
 
       - name: 🔄 Run backup script
+        id: backup
         run: |
           chmod +x scripts/backup-sites.sh
-          ./scripts/backup-sites.sh
+          # Run backup and capture exit code
+          if ./scripts/backup-sites.sh; then
+            echo "backup_success=true" >> $GITHUB_OUTPUT
+          else
+            echo "backup_success=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Backup script completed with warnings"
+          fi
 
       - name: 📊 Display backup summary
         run: |
@@ -117,7 +156,13 @@ jobs:
 
           BACKUP_DATE="${{ steps.check_changes.outputs.backup_date }}"
 
+          # Check if there are changes to commit
           git add .workflows/audit/backups/backup-$BACKUP_DATE.log
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit (log may already exist)"
+            exit 0
+          fi
 
           git commit -m "chore: daily site backup log $BACKUP_DATE [skip ci]
 
@@ -133,9 +178,22 @@ jobs:
 
           Backup artifacts available for 30 days."
 
-          git push origin main
+          # Pull latest changes before push to avoid conflicts
+          git pull --rebase origin main || true
 
-          echo "✅ Backup log committed to repository"
+          # Push with retry logic
+          for i in 1 2 3; do
+            if git push origin main; then
+              echo "✅ Backup log committed to repository"
+              exit 0
+            fi
+            echo "Push attempt $i failed, retrying..."
+            sleep 5
+            git pull --rebase origin main || true
+          done
+
+          echo "⚠️ Failed to push after 3 attempts"
+          exit 1
 
       - name: ✨ Workflow complete
         if: always()

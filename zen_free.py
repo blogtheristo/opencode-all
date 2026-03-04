@@ -17,23 +17,22 @@ import logging
 import re
 import urllib.parse
 from datetime import datetime
-from functools import wraps
-from typing import Optional, Dict, List, Any
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-def _compile(patterns: List[str]) -> List[re.Pattern]:
+def _compile(patterns: list[str]) -> list[re.Pattern]:
     """Compile regex patterns with case-insensitive flag"""
     return [re.compile(p, re.IGNORECASE) for p in patterns]
 
 
 class ZenFree:
     """Free runtime protection - drop-in replacement for Aikido Zen
-    
+
     Detection Mode (default): Logs threats without blocking
     Blocking Mode (optional): Returns 403 on detected threats
-    
+
     Attack logs saved to security-attacks.jsonl for correlation with monthly audits
     """
 
@@ -95,11 +94,15 @@ class ZenFree:
         ),
     }
 
-    def __init__(self, block: bool = False, debug: bool = False, 
-                 log_file: str = "security-attacks.jsonl"):
+    def __init__(
+        self,
+        block: bool = False,
+        debug: bool = False,
+        log_file: str = "security-attacks.jsonl",
+    ):
         """
         Initialize ZenFree protection
-        
+
         Args:
             block: If True, blocks requests with threats (403). Default: False (detection mode)
             debug: If True, logs more verbose information
@@ -109,16 +112,20 @@ class ZenFree:
         self.debug = debug
         self.attack_log = log_file
         self.threat_count = 0
-        
+
         level = logging.DEBUG if debug else logging.INFO
         logger.setLevel(level)
-        logger.info("✅ ZenFree initialized (block=%s, debug=%s, log_file=%s)", 
-                   block, debug, log_file)
+        logger.info(
+            "✅ ZenFree initialized (block=%s, debug=%s, log_file=%s)",
+            block,
+            debug,
+            log_file,
+        )
 
     @staticmethod
     def _normalize(value: str) -> str:
         """Normalize value for pattern matching
-        
+
         - URL decode once
         - Remove null bytes
         - Collapse whitespace
@@ -135,53 +142,59 @@ class ZenFree:
         """Check if string matches threat patterns"""
         if not isinstance(value, str) or not value:
             return False
-        
+
         value = self._normalize(value)
         for pattern in self.PATTERNS.get(threat_type, []):
             if pattern.search(value):
                 if self.debug:
-                    logger.debug(f"Threat detected: {threat_type} | Pattern: {pattern.pattern}")
+                    logger.debug(
+                        f"Threat detected: {threat_type} | Pattern: {pattern.pattern}"
+                    )
                 return True
         return False
 
-    def _scan_dict(self, data: Any, path: str = "") -> List[Dict[str, Any]]:
+    def _scan_dict(self, data: Any, path: str = "") -> list[dict[str, Any]]:
         """Recursively scan dict/list for threats"""
         threats = []
-        
+
         if isinstance(data, dict):
             for key, val in data.items():
                 child_path = f"{path}.{key}" if path else str(key)
                 threats.extend(self._scan_dict(val, child_path))
-        
+
         elif isinstance(data, list):
             for i, val in enumerate(data):
                 child_path = f"{path}[{i}]" if path else f"[{i}]"
                 threats.extend(self._scan_dict(val, child_path))
-        
+
         elif isinstance(data, str):
-            for threat_type in self.PATTERNS.keys():
+            for threat_type in self.PATTERNS:
                 if self._check(data, threat_type):
-                    threats.append({
-                        "type": threat_type,
-                        "path": path or "<root>",
-                        "value": data[:100],  # First 100 chars
-                        "severity": "high"
-                    })
-        
+                    threats.append(
+                        {
+                            "type": threat_type,
+                            "path": path or "<root>",
+                            "value": data[:100],  # First 100 chars
+                            "severity": "high",
+                        }
+                    )
+
         return threats
 
-    def _log_attack(self, threats: List[Dict], request_data: Optional[Dict] = None) -> None:
+    def _log_attack(
+        self, threats: list[dict], request_data: dict | None = None
+    ) -> None:
         """Log attack to JSONL file for monthly correlation
-        
+
         Format compatible with correlate_security_data.py
         """
         payload = {
             "timestamp": datetime.utcnow().isoformat() + "Z",
             "threats": threats,
             "request": request_data,
-            "source": "zen_free"
+            "source": "zen_free",
         }
-        
+
         try:
             with open(self.attack_log, "a", encoding="utf-8") as f:
                 f.write(json.dumps(payload) + "\n")
@@ -189,60 +202,60 @@ class ZenFree:
         except Exception as exc:
             logger.exception("Failed to write attack log: %s", exc)
 
-    def scan(self, data: Any, context: Optional[Dict] = None) -> List[Dict]:
+    def scan(self, data: Any, context: dict | None = None) -> list[dict]:
         """Manual threat scan - returns threats without blocking
-        
+
         Args:
             data: Data to scan (dict, list, or string)
             context: Additional context (endpoint, method, user, etc.)
-            
+
         Returns:
             List of detected threats
         """
         threats = self._scan_dict(data)
-        
+
         if threats:
             logger.warning("Threats detected: %s | Context: %s", threats, context)
             self._log_attack(threats, context)
-        
+
         return threats
 
-    def check_and_block(self, data: Any, context: Optional[Dict] = None) -> bool:
+    def check_and_block(self, data: Any, context: dict | None = None) -> bool:
         """Check data and block if threats detected (only if block=True)
-        
+
         Args:
             data: Data to scan
             context: Additional context
-            
+
         Returns:
             True if threats detected and blocking is enabled
-            
+
         Raises:
             SecurityError: If threats detected and blocking is enabled
         """
         threats = self._scan_dict(data)
-        
+
         if threats:
             logger.warning("Threats detected: %s | Context: %s", threats, context)
             self._log_attack(threats, context)
-            
+
             if self.block:
                 logger.error("Blocking request due to threats: %s", threats)
                 raise SecurityError(f"Security threat detected: {threats[0]['type']}")
-            
+
             return True
-        
+
         return False
 
     def middleware(self, app: Any) -> Any:
         """Flask/FastAPI middleware support - drop-in replacement
-        
+
         Usage with Flask:
             from flask import Flask
             app = Flask(__name__)
             zen = ZenFree(block=False, debug=True)
             app = zen.middleware(app)
-        
+
         Usage with FastAPI:
             from fastapi import FastAPI
             app = FastAPI()
@@ -250,7 +263,7 @@ class ZenFree:
             zen.middleware_fastapi(app)
         """
         try:
-            from flask import request, abort
+            from flask import abort, request
         except ImportError as exc:
             raise RuntimeError("Flask is required for ZenFree.middleware()") from exc
 
@@ -261,12 +274,12 @@ class ZenFree:
                 **request.args.to_dict(flat=False),
                 **request.form.to_dict(flat=False),
             }
-            
+
             if request.is_json:
                 data["json"] = request.get_json(silent=True)
-            
+
             threats = self._scan_dict(data)
-            
+
             if threats:
                 context = {
                     "path": request.path,
@@ -275,7 +288,7 @@ class ZenFree:
                 }
                 logger.warning("Threats detected: %s | %s", threats, context)
                 self._log_attack(threats, context)
-                
+
                 if self.block:
                     abort(403, description="Security threat detected")
 
@@ -298,18 +311,18 @@ class ZenFree:
             async def dispatch(self, request: Request, call_next):
                 # Extract request data
                 data = dict(request.query_params)
-                
+
                 try:
                     if request.method in ["POST", "PUT", "PATCH"]:
                         body = await request.body()
                         if body:
                             data["body"] = body.decode("utf-8", errors="ignore")
-                except:
+                except Exception:
                     pass
 
                 # Check for threats
                 threats = self.zen._scan_dict(data)
-                
+
                 if threats:
                     context = {
                         "path": request.url.path,
@@ -318,46 +331,43 @@ class ZenFree:
                     }
                     logger.warning("Threats detected: %s | %s", threats, context)
                     self.zen._log_attack(threats, context)
-                    
+
                     if self.zen.block:
                         return JSONResponse(
-                            {"error": "Security threat detected"},
-                            status_code=403
+                            {"error": "Security threat detected"}, status_code=403
                         )
-                
-                response = await call_next(request)
-                return response
+
+                return await call_next(request)
 
         app.add_middleware(SecurityMiddleware, zen_instance=self)
         return app
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get protection statistics"""
         return {
             "threat_count": self.threat_count,
             "blocking_enabled": self.block,
             "debug_enabled": self.debug,
             "log_file": self.attack_log,
-            "patterns": {k: len(v) for k, v in self.PATTERNS.items()}
+            "patterns": {k: len(v) for k, v in self.PATTERNS.items()},
         }
 
 
 class SecurityError(Exception):
     """Raised when threat is detected and blocking is enabled"""
-    pass
 
 
 # Global instance for module-level API
-_zen_instance: Optional[ZenFree] = None
+_zen_instance: ZenFree | None = None
 
 
 def protect(block: bool = False, debug: bool = False) -> ZenFree:
     """Initialize protection - same interface as aikido_zen.protect()
-    
+
     Usage:
         import zen_free as aikido_zen
         aikido_zen.protect()
-    
+
     This creates a drop-in replacement for:
         import aikido_zen
         aikido_zen.protect()
@@ -368,7 +378,6 @@ def protect(block: bool = False, debug: bool = False) -> ZenFree:
     return _zen_instance
 
 
-def get_instance() -> Optional[ZenFree]:
+def get_instance() -> ZenFree | None:
     """Get the current ZenFree instance"""
     return _zen_instance
-

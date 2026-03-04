@@ -3,14 +3,76 @@
  * Bridges TypeScript report generation with existing Python PDF/email/Drive infrastructure
  */
 
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { InvestorReportData } from './types';
 import { templateGenerator } from './template-generator';
 
-const execAsync = promisify(exec);
+// SECURITY FIX: Use execFile instead of exec to prevent OS command injection (CWE-78).
+// execFile passes arguments as an array — never interpreted by a shell.
+const execFileAsync = promisify(execFile);
+
+// SECURITY: Allowed base directories for file operations (prevents CWE-22 path traversal)
+const ALLOWED_DIRS = [
+  path.resolve(process.cwd(), 'Reports'),
+  '/tmp',
+];
+
+/**
+ * Validate that a resolved path stays within one of the allowed directories.
+ * Prevents path traversal attacks where user-influenced paths escape the intended root.
+ */
+function assertSafePath(filePath: string): string {
+  const resolved = path.resolve(filePath);
+  const isAllowed = ALLOWED_DIRS.some((dir) => resolved.startsWith(dir + path.sep) || resolved === dir);
+  if (!isAllowed) {
+    throw new Error(`Path traversal blocked: ${filePath} resolves outside allowed directories`);
+  }
+  return resolved;
+}
+
+// Resend API helper for investor report emails (with PDF attachment)
+async function sendViaResend(
+  subject: string,
+  htmlBody: string,
+  textBody: string,
+  pdfPath: string,
+  recipients: string[]
+): Promise<void> {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) throw new Error('RESEND_API_KEY not configured');
+
+  const from = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+
+  // SECURITY: Validate path stays within allowed directories before reading
+  const safePdfPath = assertSafePath(pdfPath);
+  const pdfBuffer = await fs.readFile(safePdfPath);
+  const pdfBase64 = pdfBuffer.toString('base64');
+  const filename = path.basename(safePdfPath);
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${resendKey}`,
+    },
+    body: JSON.stringify({
+      from,
+      to: recipients,
+      subject,
+      html: htmlBody,
+      text: textBody,
+      attachments: [{ filename, content: pdfBase64 }],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Resend API error (${response.status}): ${errorBody}`);
+  }
+}
 
 // ============================================================================
 // INTEGRATION WRAPPER
@@ -54,12 +116,19 @@ export class IntegrationWrapper {
 
       // Check if wkhtmltopdf is available
       try {
-        await execAsync('which wkhtmltopdf');
+        await execFileAsync('which', ['wkhtmltopdf']);
 
         // Generate PDF using wkhtmltopdf
-        await execAsync(
-          `wkhtmltopdf --enable-local-file-access --page-size A4 --margin-top 20mm --margin-bottom 20mm --margin-left 15mm --margin-right 15mm "${tempHtmlPath}" "${outputPdfPath}"`
-        );
+        await execFileAsync('wkhtmltopdf', [
+          '--enable-local-file-access',
+          '--page-size', 'A4',
+          '--margin-top', '20mm',
+          '--margin-bottom', '20mm',
+          '--margin-left', '15mm',
+          '--margin-right', '15mm',
+          tempHtmlPath,
+          outputPdfPath,
+        ]);
 
         console.log(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
       } catch (error) {
@@ -71,10 +140,13 @@ export class IntegrationWrapper {
         await fs.writeFile(tempMdPath, markdownContent, 'utf-8');
 
         try {
-          await execAsync('which pandoc');
-          await execAsync(
-            `pandoc "${tempMdPath}" -o "${outputPdfPath}" --pdf-engine=xelatex -V geometry:margin=1in`
-          );
+          await execFileAsync('which', ['pandoc']);
+          await execFileAsync('pandoc', [
+            tempMdPath,
+            '-o', outputPdfPath,
+            '--pdf-engine=xelatex',
+            '-V', 'geometry:margin=1in',
+          ]);
           console.log(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
         } catch (pandocError) {
           console.log('[PDF] Neither wkhtmltopdf nor pandoc available');
@@ -110,78 +182,36 @@ export class IntegrationWrapper {
   // ==========================================================================
 
   /**
-   * Send investor report via email
-   * Uses existing Reports/send_weekly_report.py infrastructure
+   * Send investor report via Resend (with PDF attachment)
    */
   async sendEmail(
     reportData: InvestorReportData,
     pdfPath: string,
     recipients: string[]
   ): Promise<void> {
-    try {
-      const month = reportData.report_period.toLocaleDateString('en-US', {
-        month: 'long',
-        year: 'numeric',
-      });
+    const month = reportData.report_period.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric',
+    });
+    const subject = `Monthly Investor Report - ${month}`;
+    const textBody = this.generateEmailBody(reportData);
+    const htmlBody = `<pre style="font-family:sans-serif;white-space:pre-wrap">${textBody}</pre>`;
 
-      const subject = `Monthly Investor Report - ${month}`;
+    console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
 
-      // Create email body
-      const emailBody = this.generateEmailBody(reportData);
+    await sendViaResend(subject, htmlBody, textBody, pdfPath, recipients);
 
-      // Save email body to temp file
-      const bodyPath = path.join('/tmp', 'investor-report-email-body.txt');
-      await fs.writeFile(bodyPath, emailBody, 'utf-8');
-
-      // Use existing send_weekly_report.py script (adapted for investor reports)
-      // For now, we'll create a custom Python email sender
-
-      const pythonScript = this.generateEmailSenderScript(
-        subject,
-        emailBody,
-        pdfPath,
-        recipients
-      );
-
-      const scriptPath = path.join('/tmp', 'send-investor-report.py');
-      await fs.writeFile(scriptPath, pythonScript, 'utf-8');
-
-      console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
-      console.log(`[Email] Subject: ${subject}`);
-      console.log(`[Email] Attachment: ${pdfPath}`);
-
-      // Execute Python script
-      const { stdout, stderr } = await execAsync(`python3 "${scriptPath}"`);
-
-      if (stderr && !stderr.includes('InsecureRequestWarning')) {
-        console.error('[Email] stderr:', stderr);
-      }
-
-      console.log('[Email] ✓ Report sent successfully');
-      console.log(stdout);
-
-      // Clean up
-      try {
-        await fs.unlink(scriptPath);
-        await fs.unlink(bodyPath);
-      } catch (e) {
-        // Ignore cleanup errors
-      }
-    } catch (error) {
-      console.error('[Email] Error sending email:', error);
-      throw new Error(`Failed to send email: ${error}`);
-    }
+    console.log('[Email] ✓ Report sent successfully via Resend');
   }
 
   /**
-   * Generate email body text
+   * Generate plain-text email body
    */
   private generateEmailBody(reportData: InvestorReportData): string {
     const month = reportData.report_period.toLocaleDateString('en-US', {
       month: 'long',
       year: 'numeric',
     });
-
     const { mrr_metrics, cash_metrics, customer_metrics } = reportData;
 
     return `
@@ -189,7 +219,7 @@ Hi,
 
 Your monthly investor report for ${month} is attached.
 
-📊 Key Highlights:
+Key Highlights:
 - MRR: €${mrr_metrics.current_mrr.toLocaleString()} (${mrr_metrics.mrr_growth >= 0 ? '+' : ''}${mrr_metrics.mrr_growth_rate.toFixed(1)}% MoM)
 - Active Customers: ${customer_metrics.active_customers}
 - Churn Rate: ${customer_metrics.monthly_churn_rate.toFixed(1)}%
@@ -198,78 +228,12 @@ Your monthly investor report for ${month} is attached.
 
 ${reportData.executive_summary || ''}
 
-📎 Attachment: Monthly Investor Report PDF
+Attachment: Monthly Investor Report PDF
 
 ---
 DWS Platform
 Generated: ${reportData.generated_at.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
     `.trim();
-  }
-
-  /**
-   * Generate Python email sender script
-   */
-  private generateEmailSenderScript(
-    subject: string,
-    body: string,
-    pdfPath: string,
-    recipients: string[]
-  ): string {
-    return `#!/usr/bin/env python3
-import os
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-
-# Email configuration
-sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
-sender_password = os.getenv("SMTP_PASSWORD")
-smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-smtp_port = int(os.getenv("SMTP_PORT", "587"))
-
-if not sender_password:
-    print("❌ SMTP_PASSWORD environment variable not set")
-    exit(1)
-
-recipients = ${JSON.stringify(recipients)}
-
-# Create email
-msg = MIMEMultipart()
-msg['From'] = sender_email
-msg['To'] = ", ".join(recipients)
-msg['Subject'] = ${JSON.stringify(subject)}
-
-# Email body
-body = ${JSON.stringify(body)}
-msg.attach(MIMEText(body, 'plain'))
-
-# Attach PDF
-try:
-    with open(${JSON.stringify(pdfPath)}, 'rb') as f:
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload(f.read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename=Investor_Report.pdf')
-        msg.attach(part)
-except Exception as e:
-    print(f"❌ Failed to attach PDF: {e}")
-    exit(1)
-
-# Send email
-try:
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    server.login(sender_email, sender_password)
-    text = msg.as_string()
-    server.sendmail(sender_email, recipients, text)
-    server.quit()
-    print("✓ Email sent successfully")
-except Exception as e:
-    print(f"❌ Failed to send email: {e}")
-    exit(1)
-`;
   }
 
   // ==========================================================================
@@ -282,9 +246,11 @@ except Exception as e:
    */
   async uploadToDrive(pdfPath: string): Promise<string> {
     try {
+      // SECURITY: Validate pdfPath before passing to external script
+      const safePdfPath = assertSafePath(pdfPath);
       const uploadScript = path.join(this.pythonScriptsDir, 'upload_to_drive.py');
 
-      console.log(`[Drive] Uploading to Google Drive: ${pdfPath}`);
+      console.log(`[Drive] Uploading to Google Drive: ${safePdfPath}`);
 
       // Check if upload script exists
       try {
@@ -295,9 +261,11 @@ except Exception as e:
       }
 
       // Execute upload script
-      const { stdout, stderr } = await execAsync(
-        `python3 "${uploadScript}" --file "${pdfPath}"`
-      );
+      const { stdout, stderr } = await execFileAsync('python3', [
+        uploadScript,
+        '--file',
+        safePdfPath,
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
         console.error('[Drive] stderr:', stderr);

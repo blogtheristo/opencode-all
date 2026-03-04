@@ -428,9 +428,9 @@
 
             <!-- Login Tabs -->
             <div class="login-method-tabs">
-                <button class="tab-btn active" onclick="switchTab('standard')">📝 Standard</button>
-                <button class="tab-btn" onclick="switchTab('proton')">🔑 Proton Key</button>
-                <button class="tab-btn" onclick="switchTab('oauth')">🌐 Social</button>
+                <button type="button" class="tab-btn active" data-tab="standard" onclick="switchTab(event, 'standard')">📝 Standard</button>
+                <button type="button" class="tab-btn" data-tab="proton" onclick="switchTab(event, 'proton')">🔑 Proton Key</button>
+                <button type="button" class="tab-btn" data-tab="oauth" onclick="switchTab(event, 'oauth')">🌐 Social</button>
             </div>
 
             <!-- Tab 1: Standard Login with MFA -->
@@ -492,8 +492,8 @@
                     </div>
 
                     <div class="links">
-                        <a href="#forgot">Forgot Password?</a>
-                        <a href="#register">Create Account</a>
+                        <a href="#" onclick="showForgotPassword(event)">Forgot Password?</a>
+                        <a href="#" onclick="showRegister(event)">Create Account</a>
                     </div>
                 </form>
             </div>
@@ -607,115 +607,113 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Tab Switching
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
+        window.switchTab = function(e, tabName) {
+            if (e) e.preventDefault?.();
+
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName)?.classList.add('active');
+            document.querySelector(`.tab-btn[data-tab="${tabName}"]`)?.classList.add('active');
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+                btn.addEventListener('click', (event) => {
+                    const tabName = btn.getAttribute('data-tab');
+                    if (tabName) {
+                        window.switchTab(event, tabName);
+                    }
+                });
             });
+        });
+    </script>
+    <script type="module">
+        import { getSupabaseClient } from '../shared/js/supabase-client.js';
+        import { login, loginWithGoogle, showError, showSuccess, setButtonLoading } from '../shared/js/auth-handler.js';
+        import { handlePostLoginRedirect } from '../shared/js/role-router.js';
 
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
+        const params = new URLSearchParams(window.location.search);
+        // Default to DWS IQ 6 role unless explicitly overridden.
+        const ROLE = params.get('role') || 'dws_iq_standard';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('🔐 DWS6 Secure Login - Initializing Supabase...');
+            getSupabaseClient();
+
+            // MFA Code visibility
+            document.querySelectorAll('input[name="mfa"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const mfaCodeGroup = document.getElementById('mfaCodeGroup');
+                    if (!mfaCodeGroup) return;
+                    if (this.value !== 'security-key') {
+                        mfaCodeGroup.classList.remove('hidden');
+                    } else {
+                        mfaCodeGroup.classList.add('hidden');
+                    }
+                });
             });
+        });
 
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Standard Login Handler
-        function handleStandardLogin(event) {
+        // Standard Login Handler (real Supabase auth)
+        window.handleStandardLogin = async function(event) {
             event.preventDefault();
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const mfaMethod = document.querySelector('input[name="mfa"]:checked').value;
+            const email = document.getElementById('email')?.value || '';
+            const password = document.getElementById('password')?.value || '';
+            const loginBtn = document.querySelector('#standard button[type="submit"]');
 
-            if (mfaMethod === 'security-key') {
-                showSuccess('🗝️ Redirecting to Security Key verification...');
-            } else {
-                showSuccess(`✅ MFA code sent via ${mfaMethod === 'totp' ? 'Authenticator App' : mfaMethod === 'sms' ? 'SMS' : mfaMethod === 'email' ? 'Email' : 'method'}. Please check and enter the code.`);
-            }
+            setButtonLoading(loginBtn, true, 'Logging in...');
 
-            // Simulate API call
-            setTimeout(() => {
-                // In production: POST to /api/auth/login
-                console.log('Login attempt:', { email, mfaMethod });
-            }, 1500);
-        }
+            const result = await login(email, password, ROLE);
 
-        // Proton Key Login Handler
-        function handleProtonKeyLogin() {
-            showSuccess('🔑 Initiating Proton Key authentication...');
-            setTimeout(() => {
-                showSuccess('🔐 Proton Key verified! Redirecting to dashboard...');
-            }, 2000);
-        }
-
-        // IBM ID Authentication Handler
-        function handleIBMidLogin() {
-            showSuccess('🔐 Initiating IBM ID authentication...');
-            setTimeout(() => {
-                showSuccess('✅ IBM ID verified! Redirecting to dashboard...');
-                console.log('IBM ID OAuth endpoint: /api/auth/ibmid');
-                // In production: redirect to IBM ID OAuth endpoint
-                // window.location.href = '/api/auth/ibmid';
-            }, 1500);
-        }
-
-        // Watsonx Enterprise Access Handler
-        function handleWatsonxLogin() {
-            showSuccess('🤖 Initiating Watsonx Build Partnership authentication...');
-            setTimeout(() => {
-                const message = '🎯 Watsonx Access Verified!\n✅ AI Governance Framework enabled\n✅ NIS2 Compliance validated\n✅ Enterprise access granted';
-                showSuccess(message);
-                console.log('Watsonx OAuth endpoint: /api/auth/watsonx/partner');
-                // In production: redirect to Watsonx Partner OAuth endpoint
-                // window.location.href = '/api/auth/watsonx/partner?partnership=build&governance=enabled';
-            }, 2000);
-        }
-
-        // Google OAuth Handler
-        function handleGoogleLogin() {
-            showSuccess('🌐 Redirecting to Google OAuth...');
-            // In production: redirect to Google OAuth endpoint
-            // window.location.href = '/api/auth/google';
-        }
-
-        // UI Helpers
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
-            document.getElementById('successMessage').classList.remove('show');
-        }
-
-        function showSuccess(message) {
-            const successDiv = document.getElementById('successMessage');
-            successDiv.textContent = message;
-            successDiv.classList.add('show');
-            document.getElementById('errorMessage').classList.remove('show');
-        }
-
-        // MFA Code visibility
-        document.querySelectorAll('input[name="mfa"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const mfaCodeGroup = document.getElementById('mfaCodeGroup');
-                if (this.value !== 'security-key') {
-                    mfaCodeGroup.classList.remove('hidden');
-                } else {
-                    mfaCodeGroup.classList.add('hidden');
+            if (result.success) {
+                if (result.requiresMfa) {
+                    window.location.href = '/mfa-verify/index.html';
+                    return;
                 }
-            });
-        });
+                showSuccess('✅ Login successful! Redirecting...');
+                setTimeout(() => handlePostLoginRedirect(), 1000);
+            } else {
+                showError(result.error || 'Login failed');
+                setButtonLoading(loginBtn, false, 'Login Securely');
+            }
+        };
 
-        // Preload logo
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔐 DWS IQ Secure Login - NIS2 Ready');
-            console.log('MFA Methods Available: TOTP, SMS, Email, FIDO2/U2F, Proton Key, Google OAuth');
-        });
+        // Proton/Enterprise placeholders (still demo)
+        window.handleProtonKeyLogin = function() {
+            showSuccess('🔑 Proton Key login is not enabled on this page yet. Use the portal-specific login, or Standard login.');
+        };
+        window.handleIBMidLogin = function() {
+            showSuccess('🔐 IBM ID login is not enabled on this page yet. Use the portal-specific login.');
+        };
+        window.handleWatsonxLogin = function() {
+            showSuccess('🤖 Watsonx login is not enabled on this page yet. Use the watsonx portal login.');
+        };
+
+        // Google Workspace OAuth (real Supabase OAuth redirect)
+        window.handleGoogleLogin = async function() {
+            const btn = document.querySelector('#oauth .google-btn');
+            setButtonLoading(btn, true, 'Redirecting...');
+
+            const result = await loginWithGoogle(ROLE);
+            if (!result.success) {
+                showError(result.error || 'Google Workspace login failed');
+                setButtonLoading(btn, false, 'Google Workspace');
+            }
+        };
+
+        window.showForgotPassword = function(event) {
+            event.preventDefault();
+            window.location.href = '/forgot-password/index.html';
+        };
+
+        window.showRegister = function(event) {
+            event.preventDefault();
+            window.location.href = '/register/index.html';
+        };
     </script>
 </body>
 </html>

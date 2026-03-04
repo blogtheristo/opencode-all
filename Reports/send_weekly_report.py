@@ -1,26 +1,24 @@
 #!/usr/bin/env python3
 """
 Weekly Report Email Automation
-Sends bilingual reports to risto.paarni2024@lifetime.fi
+Sends bilingual reports via Resend API to risto.paarni2024@lifetime.fi
 """
 
-import os
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-from datetime import datetime
+import base64
 import glob
+import json
+import os
+import urllib.error
+import urllib.request
+from datetime import datetime
+
 
 def send_weekly_report():
-    """Send weekly reports in English and Finnish"""
+    """Send weekly reports in English and Finnish via Resend"""
 
     # Email configuration
-    sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
-    sender_password = os.getenv("SMTP_PASSWORD")
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
+    resend_api_key = os.getenv("RESEND_API_KEY")
+    sender_email = os.getenv("EMAIL_FROM", "risto@onelifetime.world")
     recipient_email = "risto.paarni2024@lifetime.fi"
 
     # Get latest reports (support both from repo root and Reports/ directory)
@@ -32,102 +30,94 @@ def send_weekly_report():
     fi_reports = sorted(glob.glob(fi_pattern), reverse=True)
 
     if not en_reports or not fi_reports:
-        print("❌ No PDF reports found")
-        print("💡 Run 'python generate_pdf.py' first to create PDFs")
+        print("No PDF reports found")
+        print("Run 'python generate_pdf.py' first to create PDFs")
         return False
 
     en_report = en_reports[0]
     fi_report = fi_reports[0]
 
-    # Create email
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    msg['Subject'] = f"DWS6 Weekly Progress Report - {datetime.now().strftime('%Y-%m-%d')}"
-
     # Email body
-    body = f"""
-Hi Risto,
+    body = f"""Hi Risto,
 
 Your weekly DWS6 progress report is attached in both English and Finnish (PDF format).
 
-📊 This Week's Highlights:
+This Week's Highlights:
 - Production-ready AI agent system complete (25 files, 2,087 lines)
 - 2 AI agents operational (Customer Satisfaction + Viability)
 - 5 Nordic companies profiled for sales targeting
-- €0 pilot cost confirmed
 - Ready for deployment to api.dws6.com
 
-📎 Attachments:
+Attachments:
 - WEEKLY_REPORT.pdf (English)
 - WEEKLY_REPORT_FI.pdf (Finnish / Suomi)
 
 These reports are formatted for presentation to:
-✓ University partners
-✓ Investors
-✓ Media contacts
-
-Copies automatically uploaded to Google Drive.
-
-Next Steps:
-→ Deploy to Google Cloud Run
-→ Map api.dws6.com domain
-→ Test with real Groq API credits
+- University partners
+- Investors
+- Media contacts
 
 ---
 Lifetime Group - DWS IQ Platform
-Team Lead: Risto Anton Päärni
-Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
-Status: 🟢 ON TRACK
-    """
+Team Lead: Risto Anton Paarni
+Generated: {datetime.now().strftime("%Y-%m-%d %H:%M")}"""
 
-    msg.attach(MIMEText(body, 'plain'))
+    # Build attachments (base64-encoded for Resend API)
+    attachments = []
+    for pdf_path, filename in [
+        (en_report, "DWS6_Weekly_Report_EN.pdf"),
+        (fi_report, "DWS6_Weekly_Report_FI.pdf"),
+    ]:
+        try:
+            with open(pdf_path, "rb") as f:
+                content = base64.b64encode(f.read()).decode("utf-8")
+                attachments.append({"filename": filename, "content": content})
+        except Exception as e:
+            print(f"Failed to read {filename}: {e}")
+            return False
 
-    # Attach English report
-    try:
-        with open(en_report, 'rb') as f:
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload(f.read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename=DWS6_Weekly_Report_EN.pdf')
-            msg.attach(part)
-    except Exception as e:
-        print(f"❌ Failed to attach English report: {e}")
-        return False
-
-    # Attach Finnish report
-    try:
-        with open(fi_report, 'rb') as f:
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload(f.read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename=DWS6_Weekly_Report_FI.pdf')
-            msg.attach(part)
-    except Exception as e:
-        print(f"❌ Failed to attach Finnish report: {e}")
-        return False
-
-    # Send email
-    try:
-        if not sender_password:
-            print("⚠️  SMTP_PASSWORD not set. Email not sent (dry run mode).")
-            print(f"📧 Would send to: {recipient_email}")
-            print(f"📎 Attachments: {os.path.basename(en_report)}, {os.path.basename(fi_report)}")
-            return True
-
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(sender_email, sender_password)
-        server.send_message(msg)
-        server.quit()
-
-        print(f"✅ Weekly report sent to {recipient_email}")
-        print(f"📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
+    # Send via Resend
+    if not resend_api_key:
+        print("RESEND_API_KEY not set. Email not sent (dry run mode).")
+        print(f"Would send to: {recipient_email}")
+        print(
+            f"Attachments: {os.path.basename(en_report)}, {os.path.basename(fi_report)}"
+        )
         return True
 
-    except Exception as e:
-        print(f"❌ Failed to send email: {e}")
+    payload = json.dumps({
+        "from": sender_email,
+        "to": [recipient_email],
+        "subject": f"DWS6 Weekly Progress Report - {datetime.now().strftime('%Y-%m-%d')}",
+        "text": body,
+        "attachments": attachments,
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {resend_api_key}",
+        },
+        method="POST",
+    )
+
+    try:
+        with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+            print(f"Weekly report sent to {recipient_email}")
+            print("Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
+            print(f"Resend ID: {result.get('id', 'unknown')}")
+            return True
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode("utf-8") if e.fp else str(e)
+        print(f"Resend API error ({e.code}): {error_body}")
         return False
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+        return False
+
 
 if __name__ == "__main__":
     success = send_weekly_report()

@@ -2,12 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
 
+// Valid user roles for RBAC
+type UserRole = 'owner' | 'admin' | 'member' | 'viewer';
+
 // Extend Express Request to include user info
 declare global {
   namespace Express {
     interface Request {
       userId?: string;
       userEmail?: string;
+      userRole?: UserRole;
+      organizationId?: string;
       token?: string;
     }
   }
@@ -15,8 +20,9 @@ declare global {
 
 /**
  * Middleware to verify JWT token from Authorization header
+ * Now async to support Redis-based token blacklist
  */
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Get token from Authorization header (Bearer token)
     const authHeader = req.headers['authorization'];
@@ -30,8 +36,8 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
       });
     }
 
-    // Verify token
-    const decoded = AuthService.verifyAccessToken(token);
+    // Verify token (async for Redis blacklist support)
+    const decoded = await AuthService.verifyAccessToken(token);
 
     if (!decoded) {
       logger.warn('Invalid or expired token');
@@ -42,11 +48,13 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     }
 
     // Attach user info to request
+    // SECURITY FIX #6: Extract role from JWT for RBAC
     req.userId = decoded.userId;
     req.userEmail = decoded.email;
+    req.userRole = decoded.role as UserRole;  // Extract role for requireRole middleware
     req.token = token;
 
-    logger.debug('Token verified successfully', { userId: decoded.userId });
+    logger.debug('Token verified successfully', { userId: decoded.userId, role: decoded.role });
 
     next();
   } catch (error) {
@@ -63,7 +71,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
  * NOTE: Currently not functional - requires cookie-parser middleware
  * @deprecated Use authenticateToken (Authorization header) instead
  */
-export const authenticateTokenFromCookie = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateTokenFromCookie = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Note: req.cookies not available without cookie-parser middleware
     // This middleware is currently non-functional
@@ -78,7 +86,7 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
     }
 
     // Verify token
-    const decoded = AuthService.verifyAccessToken(token);
+    const decoded = await AuthService.verifyAccessToken(token);
 
     if (!decoded) {
       logger.warn('Invalid or expired cookie token');
@@ -109,14 +117,14 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
  * Middleware for optional authentication
  * Doesn't fail if no token, but attaches user info if token is valid
  */
-export const optionalAuth = (req: Request, res: Response, next: NextFunction) => {
+export const optionalAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Try to get token from Authorization header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (token) {
-      const decoded = AuthService.verifyAccessToken(token);
+      const decoded = await AuthService.verifyAccessToken(token);
 
       if (decoded) {
         req.userId = decoded.userId;
@@ -153,6 +161,128 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
     res.status(500).json({
       error: 'Server error',
       message: 'Failed to check authentication',
+    });
+  }
+};
+
+/**
+ * Middleware factory to require specific role(s)
+ * Must be used after authenticateToken middleware
+ * 
+ * @param allowedRoles - Array of roles that are allowed to access the route
+ * @returns Express middleware function
+ * 
+ * @example
+ * // Allow only admins and owners
+ * router.get('/admin/users', authenticateToken, requireRole(['admin', 'owner']), handler);
+ * 
+ * @example
+ * // Allow any authenticated member
+ * router.get('/projects', authenticateToken, requireRole(['owner', 'admin', 'member']), handler);
+ */
+export const requireRole = (allowedRoles: UserRole[]) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.userId) {
+        logger.warn('Role check failed: User not authenticated');
+        return res.status(401).json({
+          error: 'Unauthorized',
+          message: 'Authentication required',
+        });
+      }
+
+      // Get user role from request (should be set by prior middleware or token)
+      // In production, this would query the database or be included in the JWT
+      const userRole = req.userRole;
+
+      if (!userRole) {
+        // If role isn't set, try to get it from the user's metadata
+        // This is a fallback - ideally role should be in the token or set by middleware
+        logger.warn('User role not found in request', { userId: req.userId });
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: 'Unable to determine user role',
+        });
+      }
+
+      if (!allowedRoles.includes(userRole)) {
+        logger.warn('Access denied: Insufficient role', {
+          userId: req.userId,
+          userRole,
+          requiredRoles: allowedRoles,
+        });
+        return res.status(403).json({
+          error: 'Forbidden',
+          message: `This action requires one of the following roles: ${allowedRoles.join(', ')}`,
+        });
+      }
+
+      logger.debug('Role check passed', {
+        userId: req.userId,
+        userRole,
+        requiredRoles: allowedRoles,
+      });
+
+      next();
+    } catch (error) {
+      logger.error('Role check failed', { error });
+      res.status(500).json({
+        error: 'Server error',
+        message: 'Failed to verify user role',
+      });
+    }
+  };
+};
+
+/**
+ * Middleware to require organization ownership or admin role
+ * Checks if user has admin/owner role in the specified organization
+ * 
+ * @example
+ * router.put('/organizations/:orgId', authenticateToken, requireOrgAdmin, handler);
+ */
+export const requireOrgAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!req.userId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Authentication required',
+      });
+    }
+
+    const orgId = req.params.orgId || req.body.organizationId || req.organizationId;
+
+    if (!orgId) {
+      return res.status(400).json({
+        error: 'Bad Request',
+        message: 'Organization ID is required',
+      });
+    }
+
+    // In production, this would query the organization_members table
+    // to check if the user has admin or owner role in the organization
+    // For now, we'll use the role from the request
+    const userRole = req.userRole;
+
+    if (!userRole || !['owner', 'admin'].includes(userRole)) {
+      logger.warn('Organization admin access denied', {
+        userId: req.userId,
+        organizationId: orgId,
+        userRole,
+      });
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Admin or owner role required for this action',
+      });
+    }
+
+    req.organizationId = orgId;
+    next();
+  } catch (error) {
+    logger.error('Org admin check failed', { error });
+    res.status(500).json({
+      error: 'Server error',
+      message: 'Failed to verify organization access',
     });
   }
 };
@@ -251,6 +381,8 @@ export default {
   authenticateTokenFromCookie,
   optionalAuth,
   requireAuth,
+  requireRole,
+  requireOrgAdmin,
   loginRateLimit,
   authLogger,
 };

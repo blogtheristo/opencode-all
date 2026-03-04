@@ -3,16 +3,17 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 1.1  
-**Last Updated:** December 28, 2025  
-**Status:** Active Fundraising
+**Document Version:** 1.4  
+**Last Updated:** January 18, 2026  
+**Status:** Active Fundraising  
+**Platform Status:** Public Cloud Version V1 - Production Ready
 
 ---
 
 ## Investment Opportunity Overview
 
 **Current Metrics:**
-- MRR: €7k (December 2025)
+- MRR: **€7k live run-rate** (current) / **€10k achieved during pilot** (validation)
 - Paying Customers: 5
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k annual value per logo
@@ -54,7 +55,6 @@ Series A Paper Value:      €40,000–€60,000 (after dilution)
 Implied Multiple:          ~3x–4x
 Timeframe:                 ~2 years (2024→2026)
 ```
-
 ### Risk Profile
 
 **⚠️ High-Risk Investment:**
@@ -186,6 +186,23 @@ Timeframe:                 ~2 years (2024→2026)
   - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
+- **Acer Partnership:** Acer provides GN-100 hardware for free for the coming months to build the remaining code and train the Lifetime World Model. This partnership forms the basis for Risto's Metropolia Applied Sciences University Master Thesis (YAMK) and contributes to the development of DWS 7 in 2027.
+
+### Q1 2026 Technical Progress (Weeks 1-2)
+
+| Milestone | Status | Business Impact |
+|-----------|--------|-----------------|
+| **Public Cloud Version V1** | ✅ Complete | Production-ready platform branding |
+| **Security Framework** | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act |
+| **449 Code Quality Issues** | ✅ Resolved | Enterprise-grade codebase |
+| **18 Security Vulnerabilities** | ✅ Fixed | Zero critical/high issues |
+| **Administration Portal** | ✅ Live | dws6.com - Admin access |
+| **User Login Portal** | ✅ Live | dws6.com/login - Customer access |
+
+**Platform URLs:**
+- **Administration Portal:** https://dws6.com (DWS 6 IQ Platform Administration Portal)
+- **User Login:** https://dws6.com/login (11 service integrations)
+- **Product Information:** https://dws10.com
 
 ---
 
@@ -284,13 +301,14 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 
 ---
 
-**DISCLAIMER:** This memo is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy securities. Any investment decision should be made based on a thorough review of the SAFE agreement and consultation with your legal and financial advisors. Past performance is not indicative of future results. All forward-looking statements are subject to risks and uncertainties.
+**DISCLAIMER:** This memo is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy securities. Any investment decision should be made based on a[...] 
 
 ---
 
 **Document Control:**
-- Version: 1.1
-- Last Updated: December 28, 2025
+- Version: 1.4
+- Last Updated: January 18, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
 - Confidentiality: For Potential Investors Only
+- Platform Status: Public Cloud Version V1 - Production Ready

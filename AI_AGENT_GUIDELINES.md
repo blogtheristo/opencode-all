@@ -1,745 +1,470 @@
-# 🤖 AI Agent Guidelines - DWS6 Project
+# AI Agent Guidelines
 
 ---
 # VERSION AND AGENT HISTORY
-# (Näyttää kuka teki ja milloin, linkit sessioon)
 
-Version: 0.3
+Version: 1.0
 
 Sessions & Modifications:
-  - Version: 0.1 | Tool: Claude Code | Session: QVvDX | Commit: 7d0b46c | Date: 16.12.2025
-  - Version: 0.2 | Tool: Claude Code | Session: QVvDX | Commit: 347a754 | Date: 16.12.2025 14:45
-  - Version: 0.3 | Tool: Claude Code | Session: QVvDX | Commit: 050a2b6 | Date: 16.12.2025 15:15 | Changes: Added Part 8 Cursor.ai Advanced Usage
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
 
 Session Links & References:
-  - Claude Code (QVvDX): https://github.com/blogtheristo/dws6/commits/claude/review-thesis-plan-QVvDX
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/AI_AGENT_GUIDELINES.md
+  - Claude Code (claude/deepwiki-agent-extraction-aS6Ub): https://github.com/blogtheristo/dws6/commits/claude/deepwiki-agent-extraction-aS6Ub
 
 Document Status:
-  - Created: 16.12.2025
-  - Last Modified: 16.12.2025 15:15
+  - Created: 11.02.2026
+  - Last Modified: 11.02.2026
   - Language: English
-  - Languages Available: English
-  - Publication Status: Active
+  - Languages Available: EN
+  - Publication Status: ACTIVE
+
+Related Documents:
+  - AGENTS.md (Master agent index - references this file in Section 7)
+  - CLAUDE.md (AI behavior principles - Karpathy guidelines)
+  - DWS_DOCUMENT_STANDARD.md (Document formatting and versioning)
+  - DWS_SECURITY_STANDARD.md (Security framework)
+  - src/agents/base.agent.ts (BaseAgent abstract class)
+  - src/agents/types.ts (AgentContext, AgentResponse, AgentConfig, AgentExecutionLog)
+  - docs/architecture/01-AGENT-DISCOVERY.md (When to use an agent)
+
+***
+
+**Version:** 1.0
+**Effective Date:** 2026-02-11
+**Status:** Active
 
 ---
 
-**Version:** 0.3
-**Primary Tool:** Claude Code
-**Session ID:** QVvDX
-**Created:** 16.12.2025
-**Last Modified:** 16.12.2025 15:15
-**Status:** ✅ ACTIVE
+## Table of Contents
+
+1. [Purpose](#1-purpose)
+2. [Agent Code Standard](#2-agent-code-standard)
+3. [Naming Conventions](#3-naming-conventions)
+4. [Documentation Requirements](#4-documentation-requirements)
+5. [Security Requirements](#5-security-requirements)
+6. [Cost Tracking](#6-cost-tracking)
+7. [Autonomy Tiers](#7-autonomy-tiers)
+8. [Testing Requirements](#8-testing-requirements)
+9. [Extraction Pattern: Bacterial Code](#9-extraction-pattern-bacterial-code)
 
 ---
 
-## 📋 Overview
+## 1. Purpose
 
-This document establishes standardized procedures for all AI agents and tools working on the DWS6 project. These guidelines ensure consistency, traceability, and compliance across different AI platforms.
+This document is the single reference for building, documenting, and operating AI agents within DWS IQ 6. It consolidates guidance that was previously scattered across CLAUDE.md, DWS_DOCUMENT_STANDARD.md, DWS_SECURITY_STANDARD.md, and the architecture docs.
 
-**Applicable to:**
-- ✅ Claude Code (Anthropic)
-- ✅ Cursor.ai (Code Editor AI)
-- ✅ Gemini.app (Google's Generative AI)
-- ✅ Linear (AI-assisted project management)
-- ✅ Other LLM-based tools
+**This applies to:**
+- All production agents in `src/agents/`
+- All MCP server tools in `mcp-servers/`
+- All customer-facing agents in `AgentFoundry/`
+- All internal team automation agents
+- All development agents (V1.0 sprint fleet)
 
 ---
 
-## 🏷️ Part 1: DOCUMENTATION NAMING CONVENTION
+## 2. Agent Code Standard
 
-### Standard Format
+### BaseAgent Pattern
 
-All documents created or significantly modified by AI agents **MUST** follow this naming convention:
+Every production agent extends `BaseAgent` (`src/agents/base.agent.ts`):
 
+```typescript
+import { BaseAgent } from './base.agent.js';
+import type { AgentContext, AgentResponse } from './types.js';
+
+export class YourAgent extends BaseAgent {
+  constructor() {
+    super({
+      name: 'your-agent',                    // kebab-case, unique
+      description: 'What this agent does',    // one sentence
+      capabilities: ['tag-1', 'tag-2'],       // discovery tags
+      model: 'llama-3.1-70b-versatile',       // LLM model ID
+    });
+  }
+
+  async execute(
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ): Promise<AgentResponse> {
+    const startTime = Date.now();
+
+    // Log start
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input,
+      output: null,
+      status: 'started',
+      duration_ms: 0,
+      created_at: new Date().toISOString(),
+    });
+
+    // Your logic here
+    const result = { /* ... */ };
+    const confidence = 0.85;
+    const reasoning = 'Explain why this result was produced';
+    const recommendations = ['Next step 1', 'Next step 2'];
+
+    const response: AgentResponse = {
+      agentName: this.config.name,
+      result,
+      confidence,
+      reasoning,
+      recommendations,
+      metadata: {
+        durationMs: Date.now() - startTime,
+        model: this.config.model,
+      },
+    };
+
+    // Log completion
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input,
+      output: response,
+      status: 'completed',
+      duration_ms: Date.now() - startTime,
+      created_at: new Date().toISOString(),
+    });
+
+    return response;
+  }
+}
 ```
-[Document Name] - [Tool] - [Session ID] - Versio X.Y
+
+### Registration
+
+Register in `src/agents/index.ts`:
+
+```typescript
+import { YourAgent } from './your-agent.agent.js';
+// In registerDefaults():
+this.register(new YourAgent());
 ```
 
-### Components
+### Required Response Fields
 
-| Component | Description | Example |
-|-----------|-------------|---------|
-| **Document Name** | Clear, descriptive name | `Riston_Opinnäytetyön_Toteutussuunnitelma` |
-| **Tool** | AI tool used | `Claude Code` / `Cursor.ai` / `Gemini.app` / `Linear` |
-| **Session ID** | Unique session identifier | `QVvDX` |
-| **Version** | Semantic versioning (X.Y) | `0.1` → `0.2` → `1.0` |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `agentName` | string | Yes | Machine name of the agent |
+| `result` | object | Yes | Primary output payload |
+| `confidence` | number | Yes | 0.0 to 1.0 reliability score |
+| `reasoning` | string | Yes | Human-readable explanation of logic |
+| `recommendations` | string[] | Yes | Actionable next steps |
+| `metadata` | object | Yes | Timing, model info, token usage |
 
-### Examples
+### Graceful Degradation
 
-✅ **CORRECT:**
-```
-DWS6_Authentication_System - Claude Code - QVvDX - Versio 0.1
-API_Integration_Guide - Cursor.ai - R7k9M - Versio 0.2
-Meeting_Notes_Q4_2025 - Gemini.app - PqXyZ - Versio 1.0
-Project_Roadmap - Linear - GmW2L - Versio 0.3
-```
+- If `GROQ_API_KEY` is not set, `callLLM()` returns a placeholder. Agent must still produce a deterministic result.
+- If Supabase is not configured, `logExecution()` silently skips. Agent must not fail.
+- All external API calls must be wrapped in try/catch with meaningful error messages.
 
-❌ **INCORRECT:**
-```
-DWS6_Authentication_System.md  ← No tool/session info
-API_Guide_v1.doc  ← No tool identifier
-Meeting_Notes  ← Missing version tracking
-```
+---
 
-### Metadata Block
+## 3. Naming Conventions
 
-Include metadata at the top or bottom of every document:
+### Agent Names
+
+| Convention | Format | Example |
+|-----------|--------|---------|
+| Machine name | `kebab-case` | `material-oracle`, `customer-sat` |
+| File name | `{name}.agent.ts` | `material-oracle.agent.ts` |
+| Class name | `PascalCase + Agent` | `MaterialOracleAgent` |
+| Registry ID (dev) | `agent-XX` (zero-padded) | `agent-04` |
+
+### Signal Names
+
+Format: `[AGENT-XX]:SIGNAL_TYPE:MILESTONE`
+
+- Signal types: `READY`, `COMPLETE`, `ERROR`, `BLOCKED`
+- Milestones: `kebab-case` descriptors, e.g., `schema-users`, `rls-policies`
+
+### Document Names
+
+Format: `[Document Title] - [Tool] - [SessionID] - Version X.Y`
+
+Example: `AI Agent Guidelines - Claude Code - aS6Ub - Version 1.0`
+
+### Branch Names
+
+Format: `claude/[task]-[SessionID]`
+
+Example: `claude/deepwiki-agent-extraction-aS6Ub`
+
+---
+
+## 4. Documentation Requirements
+
+### Every Agent Must Have
+
+1. **JSDoc header** on the class file:
+   - What the agent does (one paragraph)
+   - Input shape with field descriptions
+   - Output description
+
+2. **Input interface** defined as a TypeScript interface in the agent file
+
+3. **Constants/thresholds** documented with source references (e.g., "EN 13001 for wind" or "ICE Database v3")
+
+4. **Entry in AGENTS.md** with:
+   - Signal dependencies (listens for)
+   - Signals emitted
+   - What it unlocks
+
+### VERSION AND AGENT HISTORY
+
+All documentation produced by agents must include the VERSION AND AGENT HISTORY block per `DWS_DOCUMENT_STANDARD.md`:
 
 ```yaml
----
-Title: [Document Name]
-Tool: [AI Agent/Tool]
-SessionID: [Session ID]
-Version: 0.1
-Created: YYYY-MM-DD
-LastModified: YYYY-MM-DD
-CreatedBy: [Tool Name]
-Repository: dws6
----
+Version: X.Y
+
+Sessions & Modifications:
+  - Version: X.Y | Tool: [tool] | Session: [id] | Date: DD.MM.YYYY | Changes: [what]
+
+Document Status:
+  - Created: DD.MM.YYYY
+  - Last Modified: DD.MM.YYYY
+  - Publication Status: ACTIVE
 ```
 
----
-
-## 📈 Part 2: VERSIONING STRATEGY
-
-### Version Numbering
-
-**Format:** `X.Y` (Major.Minor)
-
-- **X (Major):** Significant structural changes, complete rewrites
-- **Y (Minor):** Incremental updates, additions, bug fixes
-
-### Version Lifecycle
-
-```
-0.1 → First draft/creation
-0.2 → First review, corrections
-0.3 → Additional refinements
-...
-0.9 → Pre-release version
-1.0 → Release/completion
-1.1 → Post-release updates
-```
-
-### When to Increment Version
-
-| Action | Version Change |
-|--------|-----------------|
-| Create new document | Start at 0.1 |
-| Small fixes, typos, formatting | +0.1 (0.1 → 0.2) |
-| Add sections or content | +0.1 (0.2 → 0.3) |
-| Major restructuring | +0.1 (→ 0.9, then → 1.0 for release) |
-| Release for production | → 1.0 |
-| Post-release patches | +0.1 (1.0 → 1.1) |
-
-### Version Increment Rules
-
-**AI agents MUST:**
-1. Increment version when modifying document
-2. Update LastModified timestamp
-3. Add change summary to git commit
-4. Keep version in filename
-
-**Example commit message:**
-```
-Update DWS6_Authentication_System - Claude Code - QVvDX - Versio 0.2
-- Added OAuth2 flow diagrams
-- Fixed authentication examples
-- Clarified permission scopes
-```
+See `VERSION_AND_AGENT_HISTORY_TEMPLATE.md` for complete examples.
 
 ---
 
-## 🔗 Part 3: SESSION TRACKING & TRACEABILITY
+## 5. Security Requirements
 
-### Why Session IDs Matter
+### NEVER Include in Agent Output or Documents
 
-Session IDs enable:
-- 🔍 Finding full context (git history)
-- 🤝 Identifying collaborators
-- 📊 Tracking document evolution
-- 🛠️ Reproducing work or continuing mid-session
+- API keys, secrets, passwords, or tokens
+- PII without anonymization
+- Internal infrastructure details (IPs, ports, connection strings)
+- Credentials or service account keys
 
-### Session ID Format
+### ALWAYS Include
 
-- **Length:** 5-6 characters
-- **Pattern:** Alphanumeric (letters + numbers)
-- **Examples:** `QVvDX`, `R7k9M`, `PqXyZ`, `GmW2L`
+- Anonymized examples when demonstrating data handling
+- Architecture diagrams showing data flow
+- Decision rationales for security-relevant choices
 
-### Session ID Sources
+### Agent-Specific Security
 
-| Tool | How to Find Session ID |
-|------|------------------------|
-| **Claude Code** | Check branch name: `claude/[description]-[SESSION_ID]` |
-| **Cursor.ai** | Check Cursor settings → Session info |
-| **Gemini.app** | Visible in browser console or app UI |
-| **Linear** | Team settings → AI assistant sessions |
+- **Input validation**: Validate all input before processing. Use TypeScript interfaces and runtime checks.
+- **Output sanitization**: Never include raw user input in LLM prompts without sanitization.
+- **Rate limiting**: API-exposed agents must use rate limiting (see `src/agents/routes.ts`, 30 req/min default).
+- **JWT injection**: `userId` and `orgId` come from authenticated JWT, never from request body.
+- **Execution logging**: All agent executions are logged to Supabase `agent_executions` table for EU AI Act Article 12 compliance.
 
-### Git Integration
+### Prompt Injection Defense
 
-**Every session should have a corresponding git branch:**
+Per `DWS_SECURITY_STANDARD.md` and OWASP Top 10 for LLM Applications:
 
-```bash
-# Claude Code pattern
-claude/feature-description-SESSIONID
-
-# Example
-claude/review-thesis-plan-QVvDX
-claude/auth-implementation-R7k9M
-```
+- System prompts must include role boundaries
+- User input must be clearly delimited in prompts
+- Agents must not execute arbitrary code from LLM output
+- Tool calls must be validated against an allowlist
 
 ---
 
-## 📝 Part 4: METADATA REQUIREMENTS
+## 6. Cost Tracking
 
-### Mandatory Metadata
-
-Every AI-generated or AI-modified document must include:
+Each agent has a monthly budget. Track costs per agent:
 
 ```yaml
----
-# Document Identification
-Title: [Descriptive Name]
-DocumentID: [Auto-generated UUID or hash]
-Tool: [Claude Code | Cursor.ai | Gemini.app | Linear]
-SessionID: [Session Identifier]
-
-# Versioning
-Version: 0.1
-Created: 2025-12-16
-LastModified: 2025-12-16
-VersionHistory:
-  - "0.1: Initial creation"
-  - "0.2: Added diagrams"
-
-# Classification
-Classification: Internal / Public / Confidential
-Language: en / fi
-Status: Draft / Review / Approved / Released
-
-# Tracking
-Repository: dws6
-Branch: claude/review-thesis-plan-QVvDX
-GitCommit: [Latest commit hash]
-CreatedBy: [Tool Name]
-LastModifiedBy: [Tool Name]
-
-# Tags
-Tags: [architecture, authentication, testing, etc.]
-RelatedDocuments: [Link to related docs]
----
+cost_tracking:
+  budget_monthly_eur: 100-150
+  alert_at_percentage: 80
+  model_costs:
+    llama_3_1_70b:
+      input_per_1m_tokens: 0.59
+      output_per_1m_tokens: 0.79
+    claude_sonnet_4_5:
+      input_per_1m_tokens: 3.00
+      output_per_1m_tokens: 15.00
+    claude_opus_4_6:
+      input_per_1m_tokens: 15.00
+      output_per_1m_tokens: 75.00
 ```
 
-### Minimal Metadata (Minimum Required)
+### Cost Optimization Rules
 
-If full metadata is too verbose, use minimal version:
-
-```yaml
----
-Tool: Claude Code | Cursor.ai | Gemini.app | Linear
-SessionID: XXXXX
-Version: 0.1
----
-```
+1. Use Groq (Llama 3.1 70B) for high-frequency, lower-complexity tasks
+2. Reserve Claude for complex reasoning, planning, and multi-step analysis
+3. Keep `max_completion_tokens` as low as practical (default: 1024)
+4. Use `temperature: 0.3` for deterministic tasks, `0.7` for creative tasks
+5. Log token usage in `metadata` of every `AgentResponse`
 
 ---
 
-## 🔄 Part 5: DOCUMENT LIFECYCLE WORKFLOW
+## 7. Autonomy Tiers
 
-### Phase 1: Creation
+From `docs/architecture/01-AGENT-DISCOVERY.md`:
 
-```
-AI Agent creates document
-    ↓
-Name: [Title] - [Tool] - [SessionID] - Versio 0.1
-    ↓
-Add metadata block (minimal or full)
-    ↓
-Save to repository
-    ↓
-Commit with message including version
-```
+### Tier 1: Full Autonomy
 
-**Example commit:**
-```
-Create API_Integration_Guide - Claude Code - QVvDX - Versio 0.1
-- Initial authentication flow documentation
-- 5 code examples
-- Ready for review
-```
+**Actions:** Query responses, status checks, read-only API calls, report generation.
+**Approval:** None required.
+**Examples:** SiteSense weather checks, ScheduleGenius critical path analysis, MaterialOracle carbon lookup.
 
-### Phase 2: Updates & Iterations
+### Tier 2: Supervised Execution
 
-```
-AI Agent reviews document
-    ↓
-Makes changes/additions
-    ↓
-Update Version: 0.1 → 0.2
-    ↓
-Update LastModified timestamp
-    ↓
-Update filename if needed
-    ↓
-Commit: "Update [Title] - Versio 0.2"
-```
+**Actions:** Data modifications, customer communications, report distribution.
+**Approval:** Audit log + async review.
+**Examples:** CustomerSat sending retention emails, Viability updating project scores.
 
-### Phase 3: Review & Approval
+### Tier 3: Human-in-the-Loop
 
-```
-Document reaches maturity
-    ↓
-Increment to pre-release: Versio 0.9
-    ↓
-Mark Status: "Ready for Release"
-    ↓
-After approval: Versio 1.0
-    ↓
-Status: "Released"
-```
+**Actions:** Financial transactions, permit submissions, contract modifications.
+**Approval:** Explicit human approval before execution.
+**Examples:** Payment processing, regulatory submissions, contract changes.
 
-### Phase 4: Maintenance
+### Assigning a Tier
 
-```
-Document in production (Versio 1.0+)
-    ↓
-Bug fixes or minor updates: 1.0 → 1.1
-    ↓
-Major updates: Plan for 2.0
-    ↓
-Maintain backward compatibility info
+Every agent must declare its tier. If an agent spans tiers, use the highest tier for any action it can take:
+
+```typescript
+// In agent config or documentation
+// Tier: 1 (read-only analysis, no mutations)
 ```
 
 ---
 
-## 🛠️ Part 6: TOOL-SPECIFIC INSTRUCTIONS
+## 8. Testing Requirements
 
-### Claude Code
+### Unit Tests
 
-```yaml
-Tool: Claude Code
-Session Identifier: Found in branch name
-Branch Pattern: claude/[task]-[SESSION_ID]
-Commit Prefix: Use descriptive + version
-Document Storage: dws6 repository root or subdirectories
-Metadata: Mandatory (minimal or full)
+Every agent must have corresponding tests in `src/__tests__/`:
+
+```typescript
+// src/__tests__/agents/your-agent.test.ts
+import { describe, it, expect } from 'vitest';
+import { YourAgent } from '../../agents/your-agent.agent.js';
+
+describe('YourAgent', () => {
+  const agent = new YourAgent();
+  const context = {
+    projectId: 'test-project',
+    userId: 'test-user',
+    orgId: 'test-org',
+    sessionId: 'test-session',
+  };
+
+  it('returns valid AgentResponse shape', async () => {
+    const result = await agent.execute(context, { /* test input */ });
+    expect(result.agentName).toBe('your-agent');
+    expect(result.confidence).toBeGreaterThanOrEqual(0);
+    expect(result.confidence).toBeLessThanOrEqual(1);
+    expect(result.reasoning).toBeTruthy();
+    expect(Array.isArray(result.recommendations)).toBe(true);
+  });
+
+  it('handles missing LLM gracefully', async () => {
+    // Ensure agent works without GROQ_API_KEY
+    const result = await agent.execute(context, { /* test input */ });
+    expect(result.result).toBeDefined();
+  });
+});
 ```
 
-**Claude Code Workflow:**
-1. ✅ Check session ID from branch name
-2. ✅ Create/modify document with version 0.1
-3. ✅ Include metadata block
-4. ✅ Commit to named branch
-5. ✅ Use `-u` flag on first push: `git push -u origin claude/...`
+### Test Coverage Requirements
 
-### Cursor.ai
-
-```yaml
-Tool: Cursor.ai
-Session Identifier: Own unique ID per Cursor session (separate from other tools)
-Integration: Works with local .git repository
-Commit Prefix: Reference your session ID (not in filename for existing docs)
-Document Storage: Same as project structure
-Metadata: Only if creating NEW document
-```
-
-**Cursor.ai Workflow - Creating NEW document:**
-1. ✅ Find your Cursor session ID in settings
-2. ✅ Create document with version 0.1
-3. ✅ Add minimal metadata with Tool: "Cursor.ai" + your SessionID
-4. ✅ Commit: `git commit -m "Create [Document] - Cursor.ai - [YOUR_SESSION_ID] - Versio 0.1"`
-5. ✅ Push to feature branch
-
-**Cursor.ai Workflow - Updating EXISTING document:**
-1. ✅ **Keep original tool & SessionID in filename** (unchanged)
-2. ✅ **Increment version:** 0.1 → 0.2 → 0.3 (update in filename and file metadata)
-3. ✅ **In commit message:** reference your session: `git commit -m "Update [Original Document Name] - Versio 0.2 - Cursor.ai session [YOUR_SESSION_ID]"`
-4. ✅ **Don't add metadata** - keep original metadata intact
-
-### Gemini.app
-
-```yaml
-Tool: Gemini.app
-Session Identifier: Unique per Gemini conversation session
-Integration: Manual git workflow (copy-paste friendly)
-Format: Export as markdown first
-Metadata: Only for NEW documents (don't modify existing)
-Commit: Reference your session in message
-```
-
-**Gemini.app Workflow - Creating NEW document:**
-1. ✅ Note your Gemini session ID
-2. ✅ Create and refine content in Gemini
-3. ✅ Export as markdown
-4. ✅ Add minimal metadata with version 0.1 + your SessionID
-5. ✅ Copy to repository with naming: [Name] - Gemini.app - [YOUR_SESSION_ID] - Versio 0.1.md
-6. ✅ `git commit -m "Create [Name] - Gemini.app - [YOUR_SESSION_ID] - Versio 0.1"`
-7. ✅ Push to feature branch
-
-**Gemini.app Workflow - Updating EXISTING document:**
-1. ✅ **Keep original tool & SessionID in filename** (unchanged)
-2. ✅ **Increment version in filename and metadata only**
-3. ✅ Commit: `git commit -m "Update [Original Document Name] - Versio 0.2 - Gemini.app session [YOUR_SESSION_ID]"`
-4. ✅ **Don't modify metadata section** - keep it as is
-
-### Linear
-
-```yaml
-Tool: Linear
-Session Identifier: From Linear workspace or issue ID
-Integration: Link to GitHub commits
-Metadata: Include in issue description only (not in document files)
-Tracking: Issues reference document versions and branch
-```
-
-**Linear Workflow:**
-1. ✅ Create Linear issue for document task
-2. ✅ Note the Linear issue ID/session identifier
-3. ✅ Link issue to GitHub branch and commits
-4. ✅ Reference Linear issue in git commits when applicable
-5. ✅ **Don't add Linear metadata to document files** - keep in Linear only
-6. ✅ Update version in issue description when document version changes
-7. ✅ When done, reference final version number in Linear issue
+- All deterministic logic paths tested
+- Edge cases for input validation
+- Graceful degradation when LLM/Supabase unavailable
+- Confidence score range validation
 
 ---
 
-## 📊 Part 7: ARCHIVAL & RETENTION REQUIREMENTS
+## 9. Extraction Pattern: Bacterial Code
 
-### What to Archive
+### Philosophy
 
-| Item | Retention | Format |
-|------|-----------|--------|
-| **Source Documents** | Indefinite | .md, .txt, .pdf |
-| **Version History** | Indefinite | Git commits |
-| **Metadata** | Indefinite | YAML headers |
-| **Session Logs** | 90 days min | Text/JSON |
-| **Audit Trail** | 7 years | Logs |
-| **Sensitive Data** | Per GDPR/NIS2 | Encrypted |
+Based on Andrej Karpathy's "bacterial code" concept (February 2026): instead of importing entire libraries as dependencies, use AI agents to understand and extract the specific functionality needed, producing self-contained code.
 
-### Archive Structure
+### When to Use Extraction
 
+| Scenario | Use Extraction | Use Library |
+|----------|---------------|-------------|
+| Need 1 function from 100k LOC library | Yes | No |
+| Need ongoing updates from maintained library | No | Yes |
+| Library has complex transitive dependencies | Yes | No |
+| Functionality is stable/well-understood | Yes | No |
+| Library provides security patches you depend on | No | Yes |
+
+### How It Works
+
+1. **Understand** the source repo via DeepWiki (`deepwiki.com/owner/repo`)
+2. **Identify** the specific functionality needed
+3. **Extract** using AI agent with DeepWiki MCP + GitHub CLI
+4. **Validate** extracted code produces identical results to original
+5. **Audit** extracted code for security before production use
+
+### Principles for Extracted Code
+
+- **Self-contained**: No imports from the source library
+- **Stateless**: Easy to test, move, replace
+- **Small**: Minimum lines for the functionality
+- **Documented**: Include source attribution and extraction context
+- **Tested**: Must pass equivalence tests against original
+
+### Source Attribution
+
+Extracted code must include a header comment:
+
+```typescript
+/**
+ * Extracted from: github.com/owner/repo
+ * Original file: path/to/source.ts
+ * Extraction date: 2026-02-11
+ * Agent session: claude/deepwiki-agent-extraction-aS6Ub
+ * Purpose: [what this does and why we extracted it]
+ * License: [original repo license]
+ */
 ```
-dws6/
-├── _archive/
-│   ├── 2025-Q4/
-│   │   ├── Claude_Code_Sessions/
-│   │   ├── Cursor_Sessions/
-│   │   └── Gemini_Sessions/
-│   ├── 2025-Q3/
-│   └── README.md (Archive guide)
-├── docs/
-├── .git/ (Full history preserved)
-```
 
-### How to Archive
+### Risks
 
-```bash
-# When document reaches version 1.0 or later
-# Move to archive with timestamp
-mv "Document_Name - Tool - SessionID - Versio 0.9" "_archive/2025-Q4/Document_Name_v0.9.md"
-
-# Commit archival
-git add _archive/
-git commit -m "Archive Document_Name - SessionID - Versio 0.9"
-```
+- Extracted code does not receive upstream security patches
+- Must manually sync if upstream fixes bugs
+- License compliance must be verified before extraction
+- Over-extraction leads to maintenance burden
 
 ---
 
-## 🔐 Part 8: SECURITY & COMPLIANCE REQUIREMENTS
-
-### What MUST NOT Be in Documents
-
-❌ API keys, secrets, passwords
-❌ Personal data (PII) without encryption
-❌ Customer information without permission
-❌ Proprietary algorithms without approval
-❌ Credentials or authentication tokens
-
-### What SHOULD Be in Documents
-
-✅ Anonymized examples
-✅ Architecture diagrams
-✅ Process flows
-✅ Code examples (without secrets)
-✅ Decision rationales
-
-### Compliance Checklist
-
-- [ ] No secrets/credentials in document
-- [ ] GDPR compliant (anonymized PII)
-- [ ] NIS2 requirements met (if applicable)
-- [ ] EU Cybersecurity Act aligned (if applicable)
-- [ ] Audit trail maintained (git history)
-- [ ] Version tracking complete
-- [ ] Session ID documented
-- [ ] Metadata included
-
----
-
-## 📚 Part 9: INTEGRATION WITH DWS6 WORKFLOW
-
-### Document Submission Process
-
-```
-1. Create/Modify Document
-   ↓
-2. Follow Naming Convention
-   [Name] - [Tool] - [SessionID] - Versio X.Y
-   ↓
-3. Add Metadata Block
-   ↓
-4. Verify Security Compliance
-   ↓
-5. Commit to Git Branch
-   git commit -m "Update [Name] - Tool - [SessionID] - Versio X.Y"
-   ↓
-6. Push to Feature Branch
-   git push -u origin claude/task-SessionID
-   ↓
-7. Request Review (if required)
-   ↓
-8. Increment Version on Merge
-   ↓
-9. Link to DOCUMENTATION_INDEX.md
-   ↓
-10. Archive (Version 1.0+)
-```
-
-### Integration with DOCUMENTATION_INDEX.md
-
-When document reaches version 1.0:
-
-```markdown
-## [Document Category]
-
-| Document | Version | Tool | SessionID | Status |
-|----------|---------|------|-----------|--------|
-| [Name] - Claude Code | 1.0 | Claude Code | QVvDX | ✅ Released |
-```
-
----
-
-## 📋 Part 10: CHANGE LOG TEMPLATE
-
-Include this in all documents for version tracking:
-
-```markdown
-## Change Log
-
-| Version | Date | Changes | Tool/SessionID |
-|---------|------|---------|---|
-| 0.1 | 2025-12-16 | Initial creation | Claude Code / QVvDX |
-| 0.2 | 2025-12-17 | Added examples | Cursor.ai / R7k9M |
-| 1.0 | 2025-12-18 | Released | Claude Code / QVvDX |
-```
-
----
-
-## 🖱️ Part 8: CURSOR.AI ADVANCED USAGE - CODE vs DOCUMENTATION
-
-### Important: Two Types of Work
-
-Cursor.ai can work with two different file categories in DWS6. Each has different requirements:
-
-#### **Type A: UI/CODE MODIFICATIONS**
-
-**Applies to:**
-- HTML files: `dws10.com/index.html`, `sites/*/pages/*.html`
-- CSS/Styling: `dws10.com/*.css`, component styles
-- JavaScript/TypeScript: `*.js`, `*.tsx`, `*.ts`
-- Configuration files (not Reports/)
-
-**No Workflows Triggered:**
-- ✅ Git tracks changes normally
-- ❌ No PDF generation
-- ❌ No automated email
-- ❌ No Google Drive upload
-- **Action:** Just commit and push, no special handling needed
-
-**Versioning:** NOT REQUIRED
-- Use git commits for history (not semantic versioning)
-- No metadata headers needed
-- No filename versioning
-
-**Session Tracking:**
-```bash
-git commit -m "Fix carousel display - Cursor.ai session [YOUR_SESSION_ID]"
-```
-
-**Example:**
-```bash
-git commit -m "Improve carousel mobile responsiveness - Cursor.ai session R7k9M"
-git push origin cursor/carousel-mobile-R7k9M
-```
-
----
-
-#### **Type B: DOCUMENTATION MODIFICATIONS**
-
-**Applies to:**
-- Report markdown: `Reports/en/WEEKLY_REPORT.md`, `Reports/fi/WEEKLY_REPORT_FI.md`
-- Documentation markdown: Files meant for publication/archival
-
-**Workflows ARE Triggered:**
-- ✅ Weekly Report Workflow (every Monday 08:00 UTC)
-- ✅ Auto-generates PDFs with branding
-- ✅ Auto-uploads to Google Drive
-- ✅ Auto-sends via email
-- **Action:** Version control required, include metadata
-
-**Versioning:** REQUIRED
-- Follow AI_AGENT_GUIDELINES versioning: 0.1 → 0.2 → 1.0
-- Update both filename AND metadata
-- Add timestamp with hh:mm if multiple updates same day
-
-**Session Tracking:**
-```bash
-git commit -m "Update Progress Report - Versio 0.2 - Carousel improvements - Cursor.ai session R7k9M"
-```
-
-**Example:**
-```bash
-git commit -m "Update Progress Report - Versio 0.2 - Added carousel feature documentation - Cursor.ai session R7k9M"
-git push origin cursor/progress-report-update-R7k9M
-```
-
----
-
-### Quick Decision: Which Type Am I Working On?
-
-```
-Is the file in Reports/ directory?
-├─ YES → Type B (Documentation) → Use versioning + workflow aware
-└─ NO → Type A (Code) → Standard git workflow
-
-Is it a markdown (.md) meant for reporting?
-├─ YES → Type B → Version it
-└─ NO → Type A → Don't version it
-
-Will this trigger a PDF generation?
-├─ YES → Type B → Be aware of Monday 08:00 UTC schedule
-└─ NO → Type A → No workflow concerns
-```
-
----
-
-### ⚠️ Critical: Don't Manually Edit Generated Files
-
-```
-❌ WRONG:
-Reports/en/WEEKLY_REPORT.pdf ← Don't edit!
-Reports/fi/WEEKLY_REPORT_FI.pdf ← Don't edit!
-
-These are OUTPUT files from workflow. They're overwritten every Monday!
-
-✅ CORRECT:
-Reports/en/WEEKLY_REPORT.md ← Edit this (source file)
-Reports/fi/WEEKLY_REPORT_FI.md ← Edit this (source file)
-
-Workflow automatically generates PDFs from markdown.
-```
-
----
-
-### Full Documentation
-
-**For detailed Cursor.ai best practices, see:**
-- 📖 **CURSOR_BEST_PRACTICES.md** - Complete guide with scenarios and workflow details
-  - UI/Code changes (no workflow impact)
-  - Documentation changes (workflow triggered)
-  - Workflow automation details
-  - Common pitfalls to avoid
-  - Checklist before committing
-
----
-
-Before committing any document, verify:
-
-### Documentation
-- [ ] Document named: [Name] - [Tool] - [SessionID] - Versio X.Y
-- [ ] Metadata block included
-- [ ] Version number updated
-- [ ] Change log entry added
-- [ ] Timestamp updated (Created/LastModified)
-
-### Security
-- [ ] No secrets/credentials exposed
-- [ ] No PII without anonymization
-- [ ] GDPR compliant
-- [ ] Audit trail preserved (git history)
-
-### Git Process
-- [ ] Branch named: `claude/[task]-[SessionID]`
-- [ ] Commit message includes version
-- [ ] Files staged: `git add [files]`
-- [ ] Commit created: `git commit -m "..."`
-- [ ] Push with `-u` on first push: `git push -u origin [branch]`
-
-### Documentation Index
-- [ ] Entry added to DOCUMENTATION_INDEX.md (when version 1.0)
-- [ ] Links verified
-- [ ] Category assigned
-- [ ] Status updated
-
----
-
-## 🎯 QUICK START FOR AI AGENTS
-
-### 60-Second Setup
-
-```bash
-# 1. Identify session ID (from branch/tool settings)
-SESSION_ID="QVvDX"
-
-# 2. Create document with naming convention
-FILENAME="My_Document_Name - Claude Code - $SESSION_ID - Versio 0.1.md"
-
-# 3. Add metadata block (minimal)
-cat > "$FILENAME" << 'EOF'
----
-Tool: Claude Code
-SessionID: QVvDX
-Version: 0.1
----
-# Document content here...
-EOF
-
-# 4. Commit and push
-git add "$FILENAME"
-git commit -m "Create My_Document_Name - Claude Code - QVvDX - Versio 0.1"
-git push -u origin claude/task-QVvDX
-```
-
----
-
-## 📞 SUPPORT & QUESTIONS
-
-For questions about these guidelines:
-- 📧 Team communications
-- 🔗 Reference: DOCUMENTATION_INDEX.md
-- 📋 Template documents in `/templates/`
-- 🤝 Ask AI agents using these guidelines
-
----
-
-## 📜 VERSION HISTORY
-
-| Version | Date | Changes | Tool/SessionID |
-|---------|------|---------|---|
-| 0.1 | 16.12.2025 | Initial guidelines creation | Claude Code / QVvDX |
-| 0.2 | 16.12.2025 14:45 | Clarified Cursor/Gemini/Linear workflows; fixed session ID handoff rules; added date format guidelines | Claude Code / QVvDX |
-| 0.3 | 16.12.2025 15:15 | Added Part 8: Cursor.ai Advanced Usage - UI/Code vs Documentation distinction; referenced CURSOR_BEST_PRACTICES | Claude Code / QVvDX |
-| 0.4 | 16.12.2025 16:05 | Added Language/Kieli field in Document Status for tracking locale versions | Claude Code / QVvDX |
-
----
-
-**Last Updated:** 16.12.2025 16:05
-**Status:** ✅ ACTIVE & READY FOR USE
-**Applicable To:** All AI agents in DWS6 project
-**Language Support:** English (Suomi version planned)
-**Next Review:** 16.01.2026
-
----
-
-*These guidelines apply to: Claude Code, Cursor.ai, Gemini.app, Linear, and other LLM-based tools working on DWS6 project.*
+## Quick Reference
+
+### File Locations
+
+| Resource | Path |
+|----------|------|
+| BaseAgent class | `src/agents/base.agent.ts` |
+| Agent types | `src/agents/types.ts` |
+| Agent registry | `src/agents/index.ts` |
+| Agent API routes | `src/agents/routes.ts` |
+| Agent implementations | `src/agents/*.agent.ts` |
+| Agent tests | `src/__tests__/agents/` |
+| Master agent index | `AGENTS.md` |
+| This guidelines file | `AI_AGENT_GUIDELINES.md` |
+
+### Checklist for New Agents
+
+- [ ] Extends `BaseAgent`
+- [ ] Has unique kebab-case `name`
+- [ ] Implements `execute()` returning `AgentResponse`
+- [ ] Returns `confidence` (0-1)
+- [ ] Returns `reasoning` string
+- [ ] Returns `recommendations[]`
+- [ ] Logs execution via `this.logExecution()`
+- [ ] Handles missing LLM gracefully
+- [ ] Input validated with TypeScript interface
+- [ ] Registered in `src/agents/index.ts`
+- [ ] Tests in `src/__tests__/agents/`
+- [ ] Entry added to `AGENTS.md`
+- [ ] Autonomy tier declared
+- [ ] Cost budget assigned
