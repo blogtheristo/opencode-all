@@ -282,9 +282,10 @@ export class SalesOutreachAgent extends BaseAgent {
       }
       return parsed.companies.slice(0, input.maxCompanies);
     } catch {
-      // Deterministic fallback with placeholder companies
-      return this.generatePlaceholderCompanies(input);
+      // proceed to fallback
     }
+    // Deterministic fallback with placeholder companies
+    return this.generatePlaceholderCompanies(input);
   }
 
   private findContacts(companies: TargetCompany[]): ContactInfo[] {
