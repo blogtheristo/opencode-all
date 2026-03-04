@@ -3,9 +3,9 @@
 Script to perform security fix branch operations
 """
 
+import os
 import subprocess
 import sys
-import os
 
 os.chdir('F:\\2026\\Repos2026\\dws6')
 
@@ -16,7 +16,7 @@ def run_cmd(cmd, description=""):
         print(f"Running: {description}")
     print(f"Command: {' '.join(cmd)}")
     print('='*60)
-    
+
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
         print(result.stdout)
@@ -24,7 +24,7 @@ def run_cmd(cmd, description=""):
             print("STDERR:", result.stderr, file=sys.stderr)
         return result.returncode == 0, result.stdout
     except subprocess.TimeoutExpired:
-        print(f"ERROR: Command timed out after 60 seconds")
+        print("ERROR: Command timed out after 60 seconds")
         return False, ""
     except Exception as e:
         print(f"ERROR: {e}")
@@ -34,7 +34,7 @@ def run_cmd(cmd, description=""):
 print("\n" + "="*60)
 print("STEP 1: Creating security fix branch")
 print("="*60)
-run_cmd(['git', 'checkout', '-b', 'fix/security-vulnerabilities-feb2026'], 
+run_cmd(['git', 'checkout', '-b', 'fix/security-vulnerabilities-feb2026'],
         "Create branch")
 
 # Step 2: Stage files
@@ -96,7 +96,7 @@ run_cmd(['git', 'commit', '-m', commit_msg], "Commit changes")
 print("\n" + "="*60)
 print("STEP 6: Pushing to remote")
 print("="*60)
-run_cmd(['git', 'push', '-u', 'origin', 'fix/security-vulnerabilities-feb2026'], 
+run_cmd(['git', 'push', '-u', 'origin', 'fix/security-vulnerabilities-feb2026'],
         "Push to remote")
 
 print("\n" + "="*60)
