@@ -231,6 +231,13 @@ Actions workflows (<code>.yml</code>, <code>.yaml</code>) -
 Configuration files - Documentation files - Admin manuals - Technical
 specifications - Master thesis documents - PDF documents
 (<code>.pdf</code>)</p>
+<p><strong>Does NOT apply to:</strong> - <code>Store/*.md</code> product
+files — these use <strong>Store Product Format</strong> (YAML
+frontmatter with <code>title</code>, <code>price</code>,
+<code>sku</code>). See <code>product-catalog/README.md</code> § “Store
+Product Format”. -
+<code>product-catalog/*/google-merchant-product.json</code> — these use
+Google Merchant JSON schema.</p>
 <h3 id="principles-periaatteet">Principles / Periaatteet</h3>
 <ol type="1">
 <li><strong>Traceability</strong> - Every document must be traceable to
@@ -2059,6 +2066,13 @@ for pandoc compatibility.</p>
 <ul>
 <li><strong>Ontology &amp; Lifetime World Model:</strong>
 <code>ONTOLOGY.md</code> ⭐ NEW</li>
+<li><strong>DWS Brand Standard:</strong>
+<code>docs/DWS_BRAND_STANDARD.md</code> — Gamma design system, colors,
+typography, navigation, UX guidelines
+<ul>
+<li>Associated agents/skills: <code>ui-ux-designer</code>,
+<code>ux-researcher-designer</code>, <code>senior-frontend</code></li>
+</ul></li>
 <li><strong>AI Agent Guidelines:</strong>
 <code>AI_AGENT_GUIDELINES.md</code></li>
 <li><strong>Site Quality Standards:</strong>

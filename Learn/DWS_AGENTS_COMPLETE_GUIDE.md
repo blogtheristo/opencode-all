@@ -103,7 +103,7 @@ Never include API keys, PII, or credentials. All agents log to Supabase for EU A
 
 ### AI Agent Guidelines Cross-Reference
 
-`AI_AGENT_GUIDELINES.md` now exists in the repository and defines the canonical rules for agent naming, metadata, versioning, and security. Earlier versions of this guide noted that such a file did not exist and that the guidance was scattered across the six layers above; that guidance has since been consolidated into `AI_AGENT_GUIDELINES.md`, which this document summarizes and cross-references.
+`AI_AGENT_GUIDELINES.md` now defines the canonical rules for agent naming, metadata, versioning, and security. Earlier versions of this guide noted that such a file did not exist and that the guidance was scattered across the six layers above; that guidance has since been consolidated into `AI_AGENT_GUIDELINES.md`, which this document summarizes and cross-references.
 
 ---
 

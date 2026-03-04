@@ -15,13 +15,18 @@ from supabase import Client, create_client
 
 app = FastAPI(title="DWS Supabase MCP Server", version="1.0.0")
 
-# Enable CORS
+# Enable CORS — explicit origins only (never wildcard per DWS_SECURITY_STANDARD.md)
+_CORS_ORIGINS: list[str] = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:3002,https://dws10.com,https://onelifetime.world",
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
 
 # Initialize Supabase client

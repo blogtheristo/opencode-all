@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added "Claw Layer" conceptual framework (Section: The Claw Layer), security vulnerability cross-reference, updated known risks with Cisco findings
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/molt-field-note-FFMhi | Date: 15.02.2026 | Changes: Initial field note — Moltworker evaluation for DWS assistant use case
 
 Session Links & References:
@@ -14,16 +15,17 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 15.02.2026
+  - Last Modified: 21.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
   - Document Type: Field Note / Technical Evaluation
 
 Related Documents:
+  - docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md
   - docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md
   - docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md
-  - DWS_SECURITY_STANDARD.md
+  - DWS_SECURITY_STANDARD.md (v1.1 — Added Claw-layer security, Section 12)
 
 ***
 
@@ -117,6 +119,68 @@ Moltworker wraps OpenClaw in a three-tier Cloudflare architecture:
 │                                                              │
 └────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## The Claw Layer: A New Abstraction in the AI Stack
+
+Just as LLM agents emerged as a new layer on top of LLMs — adding orchestration, tool calls, and session memory — Claws represent the next architectural layer on top of LLM agents. They take orchestration, scheduling, context, tool calls, and persistence to a qualitatively different level.
+
+### The Three-Layer AI Stack
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  LAYER 3: CLAW                                                   │
+│  Persistent daemon · Multi-channel gateway · Self-extending      │
+│  skills · Long-term memory · Container autonomy                  │
+│  Examples: OpenClaw, Moltworker                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  LAYER 2: LLM AGENT                                             │
+│  Orchestrated inference · Tool calls · Session memory            │
+│  Conversation-scoped · Human-initiated                           │
+│  Examples: Claude Code, Cursor, Copilot, Codex                  │
+├─────────────────────────────────────────────────────────────────┤
+│  LAYER 1: LLM                                                    │
+│  Raw inference · Prompt in, text out · Stateless                 │
+│  Single-turn or multi-turn chat                                  │
+│  Examples: Claude API, GPT API, Gemini API                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### What Claws Add Beyond Agents
+
+| Capability | LLM Agent | Claw |
+|-----------|-----------|------|
+| **Lifecycle** | Session-bound (dies when you close terminal) | Persistent daemon (always running) |
+| **Channels** | Single interface (CLI, IDE, chat) | Multi-channel gateway (Telegram, Discord, Slack, WhatsApp, iMessage simultaneously) |
+| **Memory** | Session context (lost between sessions) | Long-term memory (weeks/months, preference learning) |
+| **Skill extension** | Uses pre-defined tools | Can write code to give itself new capabilities |
+| **Scheduling** | Reactive (waits for human prompt) | Proactive (scheduled tasks, monitoring, alerts) |
+| **Autonomy** | Bounded by session tools | Shell access, browser automation, file system operations |
+| **Identity** | Anonymous tool | Persistent personality, adapts to user over time |
+
+### Why This Matters for DWS
+
+The Brain-Memory-Body-Hands architecture maps cleanly to the three-layer stack:
+
+| DWS Layer | AI Stack Layer | Implementation |
+|-----------|---------------|----------------|
+| **Brain** (DWS IQ 6) | Claw (orchestration daemon) | Moltworker on Cloudflare Workers |
+| **Memory** (LWM) | LLM (knowledge base + inference) | Claude/Gemini via AI Gateway |
+| **Body** (Firehorse) | LLM Agent (tool-using workflows) | Claude Code, MCP Hub agents |
+| **Hands** (Fleet) | Physical execution | NVIDIA Jetson, IoT devices |
+
+### Security Implications of the Claw Layer
+
+Each layer inherits and amplifies all vulnerabilities from the layer below. See **DWS_SECURITY_STANDARD.md Section 12** for the full Claw-layer threat model. Key additional risks:
+
+- **Skill registry poisoning** — Malicious community skills (Cisco found exfiltration in OpenClaw skills)
+- **Self-modifying code** — Claw writes its own extensions, potentially bypassing safety constraints
+- **Cross-channel data leakage** — Data from Slack could flow to Telegram without access controls
+- **Long-term memory poisoning** — Adversary corrupts persistent memory to alter future behavior
+- **Persistent shell access** — Container sandbox provides isolation, but shell + internet = exfiltration path
+
+**Full vulnerability assessment:** `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md`
 
 ---
 
@@ -367,6 +431,6 @@ Compared to building a custom agent platform from scratch, this saves significan
 
 ---
 
-**Document Version:** 1.0
+**Document Version:** 1.1
 **Field Note Type:** Technical Evaluation / Product Recommendation
 **Author:** Claude Code Session claude/molt-field-note-FFMhi

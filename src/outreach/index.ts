@@ -20,6 +20,8 @@
 
 export { outreachScheduler } from './scheduler.js';
 export { generateDailyDigest, sendDailyDigestEmail } from './daily-digest.js';
+export { generateProspectEmail } from './prospect-email-templates.js';
+export type { EmailType, ProspectContext } from './prospect-email-templates.js';
 export { CADENCE, NUDGE_TEMPLATES, getNudgeTemplate, getNextNudgeInterval, isMaxedOut } from './cadence.js';
 export {
   parseReplyText,

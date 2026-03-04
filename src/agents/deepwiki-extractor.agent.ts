@@ -242,21 +242,18 @@ export class DeepWikiExtractorAgent extends BaseAgent {
     const targetModule = input.targetModule;
     const language = input.language;
 
-    if (typeof repoUrl !== 'string') {
-      throw new Error('repoUrl must be a valid GitHub repository URL');
-    }
-    // Normalize: strip protocol, .git suffix, trailing slash
-    const normalized = repoUrl
-      .replace(/^https?:\/\//, '')
-      .replace(/\.git$/, '')
-      .replace(/\/$/, '');
-    // Enforce github.com/{owner}/{repo} — no extra path segments, no www prefix
-    const githubPattern = /^github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/;
-    if (!githubPattern.test(normalized)) {
+    if (typeof repoUrl !== 'string' || !this.parseGitHubRepoPath(repoUrl)) {
       throw new Error(
-        'repoUrl must be a GitHub repository URL in the format github.com/owner/repo or https://github.com/owner/repo',
+        'repoUrl must be a valid GitHub repository URL in the form https://github.com/{owner}/{repo}',
       );
     }
+    // Enforce github.com/{owner}/{repo} format, strip extra path segments
+    const urlMatch = repoUrl.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/([^/]+)\/([^/?#]+)/);
+    if (!urlMatch) {
+      throw new Error('repoUrl must be a valid GitHub repository URL in the form github.com/{owner}/{repo}');
+    }
+    const [, owner, repoName] = urlMatch;
+    const normalizedRepoUrl = `https://github.com/${owner}/${repoName.replace(/\.git$/, '')}`;
     if (typeof functionality !== 'string' || functionality.length < 10) {
       throw new Error('functionality must be a descriptive string (min 10 chars)');
     }
@@ -267,36 +264,55 @@ export class DeepWikiExtractorAgent extends BaseAgent {
       throw new Error('language must be "typescript" or "python"');
     }
 
-    return { repoUrl, functionality, targetModule, language };
+    return { repoUrl: normalizedRepoUrl, functionality, targetModule, language };
+  }
+
+  /**
+   * Parse a GitHub URL and return the "{owner}/{repo}" path, or null if the
+   * URL does not point to a valid repository root (github.com/{owner}/{repo}).
+   * Accepts an optional "https://" prefix; rejects subdomains, extra path
+   * segments, query strings, and non-repo GitHub URLs.
+   */
+  private parseGitHubRepoPath(repoUrl: string): string | null {
+    // Normalise: add protocol so URL() can parse it, strip .git suffix
+    const withProtocol = /^https?:\/\//i.test(repoUrl)
+      ? repoUrl
+      : `https://${repoUrl}`;
+
+    let parsed: URL;
+    try {
+      parsed = new URL(withProtocol);
+    } catch {
+      return null;
+    }
+
+    // Only accept github.com (no subdomains like www.github.com)
+    if (parsed.hostname !== 'github.com') return null;
+
+    // Pathname must be exactly /{owner}/{repo} (no trailing slash, no extra segments)
+    const pathMatch = parsed.pathname.replace(/\.git$/, '').match(/^\/([^/]+)\/([^/]+)$/);
+    if (!pathMatch) return null;
+
+    return `${pathMatch[1]}/${pathMatch[2]}`;
   }
 
   /** Convert a GitHub URL to a DeepWiki URL */
   private buildDeepWikiUrl(repoUrl: string): string {
-    // Normalize: remove protocol, trailing slashes, .git suffix
-    let normalized = repoUrl
-      .replace(/^https?:\/\//, '')
-      .replace(/\.git$/, '')
-      .replace(/\/$/, '');
-
-    // Swap github.com to deepwiki.com
-    normalized = normalized.replace('github.com', 'deepwiki.com');
-
-    return `https://${normalized}`;
+    const ownerRepo = this.parseGitHubRepoPath(repoUrl);
+    if (!ownerRepo) {
+      throw new Error(`Cannot build DeepWiki URL from invalid GitHub URL: ${repoUrl}`);
+    }
+    return `https://deepwiki.com/${ownerRepo}`;
   }
 
   /** Parse owner and repo name from GitHub URL */
   private parseRepoIdentity(repoUrl: string): { owner: string; repo: string } {
-    const normalized = repoUrl
-      .replace(/^https?:\/\//, '')
-      .replace(/\.git$/, '')
-      .replace(/\/$/, '');
-
-    const parts = normalized.replace('github.com/', '').split('/');
-    if (parts.length < 2) {
+    const ownerRepo = this.parseGitHubRepoPath(repoUrl);
+    if (!ownerRepo) {
       throw new Error(`Cannot parse owner/repo from URL: ${repoUrl}`);
     }
-
-    return { owner: parts[0], repo: parts[1] };
+    const [owner, repo] = ownerRepo.split('/');
+    return { owner, repo };
   }
 
   /** Build extraction plan using LLM analysis or deterministic fallback */

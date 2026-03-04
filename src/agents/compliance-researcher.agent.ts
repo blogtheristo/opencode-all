@@ -276,10 +276,16 @@ export class ComplianceResearcherAgent extends BaseAgent {
       throw new Error('topic must be a descriptive string (min 5 chars)');
     }
     const validRegs: Regulation[] = ['csrd', 'ets', 'cbam', 'fit55', 'nis2', 'eu-ai-act', 'taxonomy'];
-    const filteredRegs = Array.isArray(input.regulations)
-      ? (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[]
-      : [];
-    const regs = filteredRegs.length > 0 ? filteredRegs : ['csrd' as Regulation];
+    let regs: Regulation[];
+    if (Array.isArray(input.regulations)) {
+      const filtered = (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[];
+      if (filtered.length === 0) {
+        throw new Error(`No valid regulations provided. Valid values: ${validRegs.join(', ')}`);
+      }
+      regs = filtered;
+    } else {
+      regs = ['csrd'];
+    }
     const depth = ['quick', 'standard', 'deep'].includes(input.depth as string)
       ? (input.depth as 'quick' | 'standard' | 'deep')
       : 'standard';
@@ -367,7 +373,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
       facts: Array<{ regulation: string; fact: string }>;
       deadlines: Array<{ regulation: string; deadline: string; description: string }>;
     },
-  ): Promise<Record<string, unknown>> {
+  ): Promise<Record<string, unknown> | string> {
     const prompt = [
       `Write a compliance research report for the ${input.industry} industry.`,
       `Topic: ${input.topic}`,
@@ -385,17 +391,20 @@ export class ComplianceResearcherAgent extends BaseAgent {
 
     const result = await this.callLLM(prompt);
     try {
-      const parsed = JSON.parse(result.content);
-      if (parsed.executiveSummary) {
-        return {
-          title: parsed.title || `${input.industry} Compliance Research Report`,
-          executiveSummary: parsed.executiveSummary,
-          sections: parsed.sections || [],
-          nextSteps: parsed.nextSteps || [],
-        };
+      const parsed = JSON.parse(result.content) as Record<string, unknown>;
+      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+        return parsed;
       }
+      return result.content;
     } catch {
-      // fall through to deterministic fallback
+      // Deterministic fallback
+      const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
+      return {
+        title: `Compliance Report: ${input.topic}`,
+        executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+        sections: [],
+        nextSteps: [],
+      };
     }
     // Deterministic fallback
     const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');

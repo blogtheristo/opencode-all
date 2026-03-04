@@ -1,5 +1,29 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.6
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/review-dws-ai-compliance-996LB | Date: 03.03.2026 | Changes: Updated EU AI Act row from ambiguous "High-risk assessment Q2 2026" to accurate limited-risk self-classification status with Article 12 active
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/SECURITY_COMPLIANCE.md
+
+Document Status:
+  - Created: 01.01.2026
+  - Last Modified: 03.03.2026
+  - Language: English
+  - Languages Available: English
+  - Classification: Public (detailed versions available under NDA)
+  - Publication Status: ACTIVE
+
+***
+
 > **For CISOs, Procurement, and Security Teams**
 
 ---
@@ -124,7 +148,7 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 | **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
 | **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
 | **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
-| **EU AI Act** | All AI components | High-risk assessment Q2 2026 |
+| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
 | **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
 | **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
 
@@ -410,6 +434,79 @@ Treat prompt cache hit rate as an uptime metric. A sustained drop below 85% indi
 
 ---
 
+## Automated Code Review — Security Controls
+
+All code changes undergo mandatory dual-model AI security review before merge, replacing manual human-in-the-loop review:
+
+| Review Layer | Model | Focus | Default Posture |
+|-------------|-------|-------|-----------------|
+| Quick sanity check | Claude Sonnet 4 | Secret exposure, injection, breaking changes | Flag critical issues |
+| Deep HIL review | Gemini 2.0 Flash | OWASP Top 10, edge cases, test gaps, architecture | REQUEST_CHANGES (strict) |
+
+**Automated fix loop:** When issues are found, structured fix instructions are routed to GitHub Copilot coding agent, which implements fixes and re-triggers review automatically.
+
+**Human overrides:** `do-not-merge` and `needs-human-review` labels pause automation for CISO/security team review.
+
+**Deployment:** Gemini review runs on Cloud Run (`dws6run6`, europe-north1, Finland). MCP Hub exposes `POST /gemini/review` for on-demand security analysis by any agent.
+
+---
+
+## Agent Runtime Security Controls (DWS7)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent modernization replaces the single-shot LLM pattern with an observe-think-act agentic loop. This introduces new failure modes that require explicit security controls.
+
+### Agent Error Handling & Recovery
+
+| Failure Mode | Detection | Recovery | Escalation |
+|-------------|-----------|----------|------------|
+| LLM provider timeout | `callLLM()` / `runLoop()` catch block | Return deterministic-only result (graceful degradation) | Log to `agent_executions` table with `status: 'error'` |
+| Tool execution failure | `executeTool()` returns `isError: true` | Tool result with error message fed back to LLM for re-reasoning | After 3 tool failures in one loop, terminate loop |
+| Agent delegation failure | `delegate_to_agent` handler catch | Return error result to calling agent, which continues with available data | Log delegation failure to governance audit |
+| Infinite delegation loop | `activeDelegations` depth tracker | Hard stop at depth 5, return error response | `logger.warn` + governance audit entry |
+| Workflow timeout | `executeWorkflow()` deadline check | Mark workflow `timed-out`, return partial results | Emit `workflow.{name}.timed_out` event |
+| Workflow step failure | Step-level try/catch | Mark workflow `failed`, return completed steps + error | Emit `workflow.{name}.failed` event |
+| Event bus subscriber error | `Promise.allSettled()` in dispatch | Subscriber error isolated — other subscribers still receive event | `logger.error` per failed subscriber |
+| Redis persistence failure | Try/catch around Redis XADD | Silently continue — Redis is optional durability layer | No escalation (best-effort) |
+
+### Agent Autonomy Tiers (Enforcement)
+
+| Tier | Autonomy Level | Actions Allowed | Human Approval |
+|------|---------------|-----------------|----------------|
+| **Tier 1** (Read-only) | Observe + Analyze | Query database, fetch external data, analyze, recommend | Not required |
+| **Tier 2** (Supervised) | Tier 1 + Draft actions | Generate reports, draft emails, create compliance assessments | Required before send/publish |
+| **Tier 3** (Autonomous) | Tier 2 + Execute | Send emails, update records, trigger workflows | Post-hoc review within 24h |
+
+**Current agent tier assignments:**
+- Tier 1: sitesense, schedule-genius, material-oracle, customer-sat, viability, emissions-data-analyst, compliance-researcher, deepwiki-extractor, quality-gate, keyword-intent, competitor-surveillance, content-brief, seo-audit, lead-feedback
+- Tier 2: compliance, construction, logistics, sales-outreach
+- Tier 3: None (no autonomous agents in DWS6 — all require human approval)
+
+### MCP Endpoint Security
+
+The MCP Agent Server at `/mcp` has the following security controls:
+
+| Control | Implementation |
+|---------|---------------|
+| Authentication | JWT from Express middleware (`authenticateToken`) |
+| Rate limiting | 30 requests/minute per IP (shared with agent routes) |
+| Tool allowlist | Only agents in `agentRegistry` exposed — no dynamic tool registration |
+| Input validation | MCP request must have `jsonrpc: "2.0"` and valid `method` |
+| SSRF protection | `fetch_external` tool validates against domain allowlist |
+| Response size | Agent responses bounded by `AgentResponse` type |
+| SSE streaming | Event bus subscription auto-cleaned on client disconnect |
+
+### Agent Failure Recovery Playbook
+
+1. **Single agent failure:** Caller receives graceful degradation response. No manual intervention needed.
+2. **LLM provider outage:** All agents fall back to deterministic logic. Monitor via `/health` endpoint `features.climateAssistant` field.
+3. **Workflow failure:** Partial results returned. Re-trigger workflow with same input — all steps are idempotent.
+4. **Event bus saturation:** In-memory log capped at 1,000 events. Old events evicted. Redis persistence is best-effort.
+5. **Delegation storm:** Max depth 5 + governance rate limiting. If sustained, increase `rate-limit` policy `max_calls` threshold.
+
+---
+
 ## Appendix: Infrastructure Providers
 
 | Provider | Service | Certification | EU Region |
@@ -425,7 +522,7 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.3
-**Last Updated:** February 19, 2026
+**Document Version:** 1.6
+**Last Updated:** 2026-03-02
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
