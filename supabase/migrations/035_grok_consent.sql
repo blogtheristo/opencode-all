@@ -35,7 +35,7 @@ COMMENT ON TABLE grok_consent IS
   'GDPR Art. 6(1)(a) — EU AI Act high-risk AI logging basis.';
 
 -- ============ grok_consent_audit ============
--- Immutable log — no UPDATE/DELETE allowed via RLS
+-- Append-only log — immutability enforced by triggers in migration 036
 
 CREATE TABLE IF NOT EXISTS grok_consent_audit (
   id           BIGSERIAL PRIMARY KEY,

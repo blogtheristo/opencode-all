@@ -15,15 +15,19 @@
 
 import express, { Router, Request, Response } from 'express';
 import { grokConsentService } from '../services/grok-consent.service.js';
+import { authenticateToken } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 
 const router: Router = express.Router();
+
+// Require a valid JWT on every endpoint in this router.
+router.use(authenticateToken);
 
 // ============ HELPERS ============
 
 /** Extract orgId from JWT payload attached by upstream auth middleware. */
 function getCallerOrgId(req: Request): string | null {
-  return (req as unknown as Record<string, unknown>).orgId as string | null ?? null;
+  return req.organizationId ?? null;
 }
 
 function getCallerUserId(req: Request): string {
@@ -133,8 +137,19 @@ router.get('/:orgId/audit', async (req: Request, res: Response) => {
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
-  const limit = Math.min(parseInt(String(req.query.limit ?? '50'), 10), 200);
-  const offset = parseInt(String(req.query.offset ?? '0'), 10);
+  const parsedLimit = parseInt(String(req.query.limit ?? '50'), 10);
+  const parsedOffset = parseInt(String(req.query.offset ?? '0'), 10);
+
+  if (
+    !Number.isFinite(parsedLimit) || parsedLimit < 1 ||
+    !Number.isFinite(parsedOffset) || parsedOffset < 0
+  ) {
+    res.status(400).json({ error: 'Invalid pagination params: limit must be ≥1, offset must be ≥0' });
+    return;
+  }
+
+  const limit = Math.min(parsedLimit, 200);
+  const offset = parsedOffset;
 
   try {
     const { events, total } = await grokConsentService.getAuditLog(orgId, limit, offset);

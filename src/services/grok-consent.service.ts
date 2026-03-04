@@ -153,7 +153,7 @@ export class GrokConsentService {
 
     const now = new Date().toISOString();
 
-    const { error } = await db
+    const { data, error } = await db
       .from('grok_consent')
       .update({
         granted: false,
@@ -162,10 +162,15 @@ export class GrokConsentService {
         note: reason ?? null,
         updated_at: now,
       })
-      .eq('org_id', orgId);
+      .eq('org_id', orgId)
+      .select('org_id');
 
     if (error) {
       throw new Error(`Failed to revoke consent: ${error.message}`);
+    }
+
+    if (!data || data.length === 0) {
+      throw new Error(`No consent record found for org ${orgId} — grant consent before revoking`);
     }
 
     logger.info('Grok consent revoked', { orgId, revokedByUserId });
