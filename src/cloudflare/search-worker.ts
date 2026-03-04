@@ -173,8 +173,8 @@ function validateSearchParams(url: URL): {
   if (q.length > MAX_QUERY_LENGTH) {
     return { error: `Query too long (max ${MAX_QUERY_LENGTH} chars)` };
   }
-  // Allow alphanumeric, spaces, hyphens, dots, underscores
-  if (!/^[\w\s.\-äöåÄÖÅéèêëüïôàùûçñ]+$/u.test(q)) {
+  // Allow alphanumeric (ASCII), spaces, hyphens, dots, underscores, plus selected accented chars
+  if (!/^[A-Za-z0-9 _.\-äöåÄÖÅéèêëüïôàùûçñ]+$/u.test(q)) {
     return { error: 'Query contains invalid characters' };
   }
 
