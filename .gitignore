@@ -30,6 +30,7 @@ ADD_TOKEN_TO_GITHUB.md
 *.keystore
 supabase/.env
 supabase/.env.local
+supabase/.temp/
 dws6.com/**/.env.local
 dws6.com/**/.env.*.local
 dws6.com/**/config/*.local.js

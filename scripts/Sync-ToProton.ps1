@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.8
+    Version: 1.9
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -15,6 +15,7 @@
       v1.6 - 07.02.2026 - PDF output now goes to Learn/ folder (HIL pipeline)
       v1.7 - 08.02.2026 - Fix: sync Learn/ (generated HTML/PDF) to Proton after generation
       v1.8 - 10.02.2026 - Added docs/ folder to folder mappings
+      v1.9 - 04.03.2026 - Added investor-outreach/ and sales-outreach/ folders to folder mappings
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -24,6 +25,8 @@
     Admin/                    --> Repos2026\dws6\Admin\
     AgentFoundry/             --> Repos2026\dws6\AgentFoundry\
     docs/                     --> Repos2026\dws6\docs\
+    investor-outreach/        --> Repos2026\dws6\investor-outreach\
+    sales-outreach/           --> Repos2026\dws6\sales-outreach\
     Firehorse/                --> Firehorse\
     docs/metropolia/          --> Metropolia2026\
     Metropolia2026/           --> Metropolia2026\
@@ -86,6 +89,8 @@ $FolderMappings = @(
     @{ Src = "Admin";                        Dest = "same" }
     @{ Src = "AgentFoundry";                 Dest = "same" }
     @{ Src = "docs";                         Dest = "same" }
+    @{ Src = "investor-outreach";            Dest = "same" }
+    @{ Src = "sales-outreach";               Dest = "same" }
     @{ Src = "Team";                         Dest = "same" }
     @{ Src = "Firehorse";                    Dest = (Join-Path $ProtonRoot "Firehorse") }
     @{ Src = "docs\metropolia";              Dest = (Join-Path $ProtonRoot "Metropolia2026") }
