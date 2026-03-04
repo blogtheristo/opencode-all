@@ -33,11 +33,9 @@ Date: 2026-02-10
 
 import argparse
 import hashlib
-import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 try:
@@ -54,8 +52,12 @@ except ImportError:
 
 # Import shared alert module (single source of truth for publishing)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from dws_alerts import publish_alert, run_advisor_check, REDIS_HOST, REDIS_PORT  # noqa: E402
-
+from dws_alerts import (  # noqa: E402
+    REDIS_HOST,
+    REDIS_PORT,
+    publish_alert,
+    run_advisor_check,
+)
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -240,7 +242,7 @@ def run_plan(dry_run: bool = False):
             no_rls_tables.append(table)
 
     if no_rls_tables:
-        print(f"\n[SECURITY] Tables without RLS in migrations:")
+        print("\n[SECURITY] Tables without RLS in migrations:")
         for t in no_rls_tables:
             print(f"  ! {t}")
 
@@ -257,7 +259,7 @@ def run_plan(dry_run: bool = False):
         unapplied = repo_tables - live_tables
 
         if unmigrated:
-            print(f"\n[DRIFT] Tables in live DB but NOT in migration files:")
+            print("\n[DRIFT] Tables in live DB but NOT in migration files:")
             for t in sorted(unmigrated):
                 print(f"  ! {t}")
                 drift_alerts.append({
@@ -267,7 +269,7 @@ def run_plan(dry_run: bool = False):
                 })
 
         if unapplied:
-            print(f"\n[PENDING] Tables in migrations but NOT in live DB:")
+            print("\n[PENDING] Tables in migrations but NOT in live DB:")
             for t in sorted(unapplied):
                 files = migration_tables.get(t, [])
                 print(f"  ? {t} (defined in: {', '.join(files)})")

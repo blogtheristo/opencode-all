@@ -279,6 +279,11 @@ export class GrokConsentService {
         error: error.message,
         orgId,
         action,
+      logger.error('Failed to log Grok consent event', {
+        error: error.message,
+        orgId,
+        action,
+        userId,
       });
     }
   }

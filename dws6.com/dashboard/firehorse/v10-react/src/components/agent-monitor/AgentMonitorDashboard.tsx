@@ -10,7 +10,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { DigitalOffice } from './DigitalOffice';
 import { ControlRoom } from './ControlRoom';
 import { SituationRoom } from './SituationRoom';
-import { AGENTS as INITIAL_AGENTS, getSystemHealth, getAllActivities } from './agentData';
+import { ALL_AGENTS as INITIAL_AGENTS, getSystemHealth, getAllActivities } from './agentData';
 import type { ViewMode, MonitorAgent } from './types';
 
 const TABS: { id: ViewMode; label: string; description: string }[] = [

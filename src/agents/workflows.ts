@@ -20,6 +20,8 @@ import logger from '../utils/logger.js';
 import { agentRegistry } from './index.js';
 import { eventBus } from './event-bus.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { MORNING_INTELLIGENCE_WORKFLOW } from './workflow/workflows/morning-intelligence.js';
+import { CONTENT_PIPELINE_WORKFLOW } from './workflow/workflows/content-pipeline.js';
 
 // ============ WORKFLOW TYPES ============
 
@@ -172,6 +174,9 @@ export const WORKFLOW_REGISTRY: Map<string, WorkflowDefinition> = new Map([
   ['compliance-assessment', COMPLIANCE_ASSESSMENT_WORKFLOW],
   ['construction-full', CONSTRUCTION_FULL_WORKFLOW],
   ['seo-pipeline', SEO_PIPELINE_WORKFLOW],
+  // Climate IQ Pantheon Workflows
+  ['morning-intelligence', MORNING_INTELLIGENCE_WORKFLOW],
+  ['content-pipeline', CONTENT_PIPELINE_WORKFLOW],
 ]);
 
 // ============ WORKFLOW EXECUTOR ============

@@ -268,7 +268,14 @@ export abstract class BaseAgent {
    * For new agents: prefer runLoop() which supports tool use and multi-step reasoning.
    * This method is preserved for backward compatibility with existing agents.
    */
-  protected async callLLM(prompt: string): Promise<{
+  /**
+   * Optional SOUL system prompt set by subclasses to override the generic base prompt.
+   * When set, this is used as the system message in callLLM() instead of the auto-generated one.
+   * Set via: this.soulPrompt = SOUL; in the constructor or execute() method.
+   */
+  protected soulPrompt: string | null = null;
+
+  protected async callLLM(prompt: string, systemPromptOverride?: string): Promise<{
     content: string;
     model: string;
     inputTokens: number;
@@ -290,12 +297,14 @@ export abstract class BaseAgent {
       };
     }
 
+    // Priority: explicit override > soulPrompt > generic fallback
+    const systemContent = systemPromptOverride
+      ?? this.soulPrompt
+      ?? `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
+
     try {
       const response = await client.chat([
-        {
-          role: 'system',
-          content: `You are ${this.config.name}, a specialized AI agent for DWS IQ 6. ${this.config.description}. Always respond with valid JSON.`,
-        },
+        { role: 'system', content: systemContent },
         { role: 'user', content: prompt },
       ]);
 
