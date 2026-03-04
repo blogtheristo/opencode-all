@@ -21,6 +21,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import { Resend } from 'resend';
 import { collectCockpitData } from '../src/morning-briefing/data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from '../src/morning-briefing/briefing-template.js';
 
@@ -72,67 +73,22 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
-    },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      subject,
-      html,
-      text,
-    }),
+  const resend = new Resend(resendKey);
+  const { data: result, error } = await resend.emails.send({
+    from: fromAddress,
+    to: [recipient],
+    subject,
+    html,
+    text,
   });
 
-    if (response.ok) {
-      const result = await response.json();
-      console.log(`Sent via Resend. ID: ${(result as any).id}`);
-      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
-      return;
-    }
-
-    const errorBody = await response.text();
-    console.warn(`Resend failed (${response.status}): ${errorBody}`);
-
-    if (!sendgridKey) {
-      console.error('No fallback provider. Exiting.');
-      process.exit(1);
-    }
-    console.log('Falling back to SendGrid...');
-  }
-
-  // Fallback to SendGrid
-  if (sendgridKey) {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sendgridKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: recipient }] }],
-        from: { email: fromAddress },
-        subject,
-        content: [
-          { type: 'text/plain', value: text },
-          { type: 'text/html', value: html },
-        ],
-      }),
-    });
-
-    if (response.ok || response.status === 202) {
-      console.log('Sent via SendGrid.');
-      console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
-      return;
-    }
-
-    const errorBody = await response.text();
-    console.error(`SendGrid failed (${response.status}): ${errorBody}`);
+  if (error) {
+    console.error(`Resend failed: ${error.message}`);
     process.exit(1);
   }
+
+  console.log(`Sent via Resend. ID: ${result?.id}`);
+  console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
 }
 
 main().catch((err) => {

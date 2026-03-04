@@ -158,6 +158,14 @@ app.get('/health', (_req: Request, res: Response) => {
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
+const dws6SitePath = path.join(__dirname, '..', 'dws6.com');
+const dws10SitePath = path.join(__dirname, '..', 'dws10.com');
+const landingPagesPath = path.join(__dirname, '..', 'landing-pages');
+
+app.use('/dws6.com', express.static(dws6SitePath));
+app.use('/dws10.com', express.static(dws10SitePath));
+app.use('/landing-pages', express.static(landingPagesPath));
+
 // ============ API ROUTES ============
 
 // Auth routes
@@ -190,6 +198,9 @@ app.use('/webhooks', webhookRoutes);
 
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
+
+// HIL (Human-in-the-Loop) one-click task completion from morning briefing email
+app.use('/api/hil', hilRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
