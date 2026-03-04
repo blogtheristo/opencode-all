@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 1.0
+version: 1.2
 created: 2026-02-07
-last_modified: 2026-02-07
+last_modified: 2026-02-23
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -18,6 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
+Version: 1.2
+
+Sessions & Modifications:
+  - Version: 1.2 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Expanded Section 13.3 with MCP CORS implementation standard — env-driven explicit origins, scoped methods/headers, fix applied to mcp-servers/supabase/server.py, pattern mandated for all new MCP servers
 Version: 1.3
 
 Sessions & Modifications:
@@ -31,6 +35,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
+  - Last Modified: 23.02.2026
   - Last Modified: 21.02.2026 (v1.2)
   - Language: English
   - Languages Available: EN
@@ -736,6 +741,45 @@ APPROVED_ORIGINS = [
     "http://localhost:3002",   # development only
 ]
 ```
+
+#### 13.3.1 MCP Server CORS Implementation Pattern
+
+All MCP servers (FastAPI) **MUST** use the following env-driven pattern. Wildcard `"*"` is **PROHIBITED** for `allow_origins`, `allow_methods`, and `allow_headers`.
+
+```python
+# REQUIRED pattern — apply to every new MCP server
+import os
+from fastapi.middleware.cors import CORSMiddleware
+
+_CORS_ORIGINS: list[str] = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:3002,https://dws10.com,https://onelifetime.world",
+).split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
+)
+```
+
+The `CORS_ALLOWED_ORIGINS` env var is passed via `docker-compose.hybrid.yml` per service:
+
+```yaml
+environment:
+  CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+```
+
+**Audit log of wildcard CORS fixes:**
+
+| Date | File | Finding | Fix |
+|------|------|---------|-----|
+| 21.02.2026 | `mcp-hub/server.py` | `allow_origins=["*"]` | Replaced with env-driven list (v1.1) |
+| 23.02.2026 | `mcp-servers/supabase/server.py` | `allow_origins=["*"]`, `allow_methods=["*"]`, `allow_headers=["*"]` | Replaced with scoped explicit lists + env var (v1.2) |
+
+**Rule:** Any new MCP server added to `mcp-servers/` or `mcp-hub/` must follow pattern 13.3.1 from creation. Code review must reject PRs containing `["*"]` in CORS config.
 
 ### 13.4 Shell Command Execution Policy
 
