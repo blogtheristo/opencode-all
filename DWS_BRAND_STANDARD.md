@@ -1,14 +1,15 @@
-# DWS Gamma Brand Standard v2.0
+# DWS Gamma Brand Standard v2.2
 
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
   - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
 
 Session Links & References:
   - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -16,7 +17,7 @@ Session Links & References:
 
 Document Status:
   - Created: 01.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 03.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -53,6 +54,8 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 14 | Accessibility (WCAG 2.2) | All pages |
 | 15 | Shared Assets Registry | Infrastructure |
 | 16 | Page Template | New pages |
+| 17 | Climate IQ Pantheon Agent Brand Identity | onelifetime.world agent cards |
+| 18 | Dashboard Profile Menu Standard | Logged-in dashboard (v10-react) |
 
 ---
 
@@ -1212,6 +1215,138 @@ onelifetime.world uses its own Ironclad Footer (`onelifetime.world/shared-assets
 
 ---
 
+## 18. Dashboard Profile Menu Standard v1.0
+
+**Scope:** DWS IQ logged-in dashboard (v10-react and future versions)
+**Components:** `ProfileMenu.tsx`, `HamburgerMenu.tsx`
+**Effective:** 2026-03-03
+
+### Overview
+
+Every logged-in dashboard MUST display:
+1. A **user avatar** (initials circle) in the header top-right area.
+2. A **profile dropdown** on desktop with user info and navigation.
+3. A **hamburger menu** on mobile (≤768px) with full nav + user identity strip + sign-out.
+
+### User Avatar
+
+| Property | Value |
+|----------|-------|
+| Shape | Circle (`rounded-full`) |
+| Size — desktop | `w-9 h-9` (36 px) |
+| Size — mobile | `w-8 h-8` (32 px) |
+| Background | `bg-gradient-to-br from-primary-500 to-primary-700` |
+| Text | White, `text-sm font-semibold` (desktop), `text-xs` (mobile) |
+| Content | First 2 initials from `user_metadata.full_name`; fallback: first 2 chars of email |
+| Ring | `ring-2 ring-white shadow-sm` |
+
+**Initials derivation:**
+```ts
+// Split name on spaces, take first letter of each word, max 2, uppercase
+const name = user?.user_metadata?.full_name;
+if (name) return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+return (user?.email ?? '').slice(0, 2).toUpperCase();
+```
+
+### Profile Dropdown (Desktop)
+
+Triggered by clicking the avatar. Auto-closes on click-outside or Escape key.
+
+**Structure:**
+```
+┌─────────────────────┐
+│ Full Name           │  ← user_metadata.full_name
+│ user@email.com      │  ← user.email
+├─────────────────────┤
+│ 🏠 Dashboard        │
+│ 🖥  Agent Monitor   │
+│ ⚙️  Settings        │
+├─────────────────────┤
+│ 🔴 Sign Out         │
+└─────────────────────┘
+```
+
+**Design specs:**
+| Property | Value |
+|----------|-------|
+| Width | `w-56` (224 px) |
+| Border radius | `rounded-xl` |
+| Shadow | `shadow-lg` |
+| Border | `border border-gray-100` |
+| Item height | `py-2` (comfortable tap target) |
+| Sign Out color | `text-red-600 hover:bg-red-50` |
+| Z-index | `z-50` |
+
+**Accessibility:**
+- Button: `aria-haspopup="true"`, `aria-expanded={open}`, `aria-label="Open profile menu"`
+- Menu container: `role="menu"`, `aria-label="Profile menu"`
+- Each item: `role="menuitem"`
+- Escape key closes menu
+- Click-outside closes menu
+
+### Hamburger Menu (Mobile ≤768px)
+
+Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that open a slide-out panel from the right.
+
+**Panel dimensions:** `w-72` (288 px), full height
+**Animation:** `translate-x-0` ↔ `translate-x-full`, 300ms ease-in-out
+**Backdrop:** `bg-black/40` overlay, click closes panel
+**Body scroll:** Locked (`overflow: hidden`) while panel is open
+
+**Panel layout (top to bottom):**
+```
+┌──────────────────────────────┐
+│ DWS IQ Dashboard        [×]  │  ← panel header
+├──────────────────────────────┤
+│ [Avatar] Full Name           │  ← user identity strip (bg-gray-50)
+│         user@email.com       │
+├──────────────────────────────┤
+│ 🏠 Dashboard                 │
+│ 🖥  Agent Monitor            │
+│ 💬 AI Assistant              │
+│ 📹 Meeting                   │
+│ ──────────────────────────── │
+│ ⚙️  Settings                 │
+├──────────────────────────────┤
+│ 🔴 Sign Out                  │  ← pinned to bottom
+└──────────────────────────────┘
+```
+
+**Accessibility:**
+- Hamburger button: `aria-label="Open menu"`, `aria-expanded={open}`
+- Close button: `aria-label="Close menu"`
+- Panel: `role="dialog"`, `aria-modal="true"`, `aria-label="Navigation menu"`
+- Escape key closes panel
+- Backdrop click closes panel
+- Body scroll locked while open
+
+### Layout Integration (App.tsx)
+
+```tsx
+// Desktop: logo | nav-buttons | ProfileMenu
+// Mobile:  logo | HamburgerMenu | avatar-circle
+<header>
+  <div className="flex items-center justify-between gap-4">
+    <Logo />
+    <DesktopNavButtons className="hidden md:flex" />
+    <div className="flex items-center gap-2 shrink-0">
+      <ProfileMenu className="hidden md:block" />  {/* desktop dropdown */}
+      <HamburgerMenu className="md:hidden" />       {/* mobile slide-out */}
+      <AvatarCircle className="md:hidden" />        {/* mobile avatar (no dropdown) */}
+    </div>
+  </div>
+</header>
+```
+
+### Component Files
+
+| File | Purpose |
+|------|---------|
+| `src/components/ProfileMenu.tsx` | Desktop avatar + dropdown |
+| `src/components/HamburgerMenu.tsx` | Mobile hamburger + slide-out panel |
+
+---
+
 ## 8. Cross-Reference to Standards
 
 | Standard | File | What It Governs |
@@ -1228,6 +1363,7 @@ onelifetime.world uses its own Ironclad Footer (`onelifetime.world/shared-assets
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
 | v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
 | v2.0 | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0. |
 | v1.1 | 2026-02-15 | Added: Store identity, product data sources, category taxonomy, hamburger menu, sovereignty badges |

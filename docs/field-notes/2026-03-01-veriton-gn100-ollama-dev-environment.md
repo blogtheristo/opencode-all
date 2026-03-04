@@ -1,0 +1,229 @@
+# Field Note: Acer Veriton GN100 — Ollama + Dev Environment Setup
+
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.2
+
+Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 02.03.2026 | Changes: Removed code-server (VS Code Server) — Continue+Ollama chat incompatible with code-server. Primary workflow now Claude Code CLI via Cockpit terminal. Issue reported to VS Code team.
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 02.03.2026 | Changes: Updated with Continue extension config fix (config.yaml AUTODETECT), secure context notes, complete setup script, and remaining commands
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 01.03.2026 | Changes: Initial field note — documenting Veriton GN100 edge server setup with Ollama, Claude Code CLI, VS Code Server, and GitHub CLI
+
+Session Links & References:
+  - Claude Code (claude/condescending-bouman): https://github.com/blogtheristo/dws6/commits/claude/condescending-bouman
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md
+
+Document Status:
+  - Created: 01.03.2026
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+  - Document Type: Field Note / Lab Setup
+
+Related Documents:
+  - product-catalog/LWM/training-manual-part1-infrastructure.md (Section 9: Ollama)
+  - product-catalog/LWM/training-manual-part3-evaluation-deployment.md (Section 6: Ollama Deployment)
+  - docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md
+  - CLAUDE.md (AI Agent Behavior Guidelines)
+
+***
+
+## Context
+
+The Acer Veriton GN100 (`gn100-cb5d`) is the DWS edge AI server. On 01.03.2026, we set up a complete local AI development environment to reduce dependency on paid cloud APIs (Claude Sonnet 4.6, GitHub Copilot) for routine coding tasks.
+
+**Goal:** Run open-source LLMs locally for code generation and review, keeping Claude Opus 4.6 only for complex architecture decisions.
+
+## Hardware Specifications
+
+| Spec | Value |
+|------|-------|
+| **Model** | Acer Veriton GN100 |
+| **Hostname** | gn100-cb5d |
+| **CPU** | ARM Cortex-X925, 10 cores @ 3.9GHz |
+| **Architecture** | aarch64 (ARM64) |
+| **RAM** | 119GB total |
+| **OS** | Ubuntu 24.04.4 LTS |
+| **Kernel** | Linux 6.17.0-1008-nvidia |
+| **Firmware** | 5.36_0ACUM05 (2025-11-17) |
+| **Chassis** | Server |
+| **GPU** | NVIDIA (integrated, detected by kernel) |
+
+## Network Access
+
+- **Cockpit (admin + terminal):** `https://gn100-cb5d:9090/`
+- **Cockpit terminal:** `https://gn100-cb5d:9090/system/terminal`
+- **Ollama API:** `http://gn100-cb5d:11434/`
+- **VPN Required:** Yes — hostname resolves only through DNA Tietoturva (F-Secure) VPN. Without VPN, DNS returns "Non-existent domain" via local ISP router (`dna.wifi`).
+
+## Software Installed (01.03.2026)
+
+### Ollama (v0.17.4)
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+# Auto-detected ARM64, installed to /usr/local
+# NVIDIA GPU detected automatically
+# systemd service enabled
+```
+
+- Installed model: `qwen2.5-coder:32b` (~18GB)
+- API endpoint: `http://localhost:11434`
+- Service: `ollama.service` (systemd, auto-start on boot)
+
+### Node.js (v22.x)
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+### Claude Code CLI
+
+```bash
+sudo npm install -g @anthropic-ai/claude-code
+```
+
+To use with local Ollama backend (zero API cost):
+```bash
+export ANTHROPIC_BASE_URL="http://localhost:11434"
+export ANTHROPIC_AUTH_TOKEN="ollama"
+export ANTHROPIC_API_KEY=""
+```
+
+### ~~VS Code Server (code-server v4.109.2)~~ — REMOVED
+
+**Status:** Removed on 02.03.2026. The code-server chat panel requires GitHub Copilot Chat extension, which is not available for code-server. The Continue extension (v1.2.16) was installed and configured with Ollama AUTODETECT, but could not connect to the chat panel — code-server's VS Code API does not fully support the Continue chat provider interface.
+
+**Issue reported to VS Code team.** May revisit if code-server adds native Ollama/local LLM chat support.
+
+**Primary workflow now:** Claude Code CLI via Cockpit terminal (`https://gn100-cb5d:9090/system/terminal`).
+
+### GitHub CLI (gh v2.45.0)
+
+```bash
+sudo apt install gh -y
+gh auth login  # GitHub.com → HTTPS → Web browser
+```
+
+## Target Workflow
+
+```
+Cursor + Qwen 32B (DGX Spark via SSH, FREE)  →  routine coding, first draft
+         ↓ complex issues only
+Claude Code + Opus 4.6 (Win11, paid)         →  architecture, hard problems
+         ↓
+GitHub Copilot Codex (Cursor, paid)           →  inline polish, final review
+```
+
+### Cost Savings Model
+
+| Task Type | Before (paid) | After (local) |
+|-----------|---------------|---------------|
+| Routine code generation | Claude Sonnet 4.6 (~$0.50-1.00/task) | Qwen 32B on Veriton ($0) |
+| Code review | GitHub Copilot | Qwen 32B on Veriton ($0) |
+| Complex architecture | Claude Opus 4.6 | Claude Opus 4.6 (no change) |
+| Inline autocomplete | GitHub Copilot | GitHub Copilot (no change) |
+
+## Failed Approaches (VS Code + Ollama Chat)
+
+### Attempt 1: code-server + Continue extension — FAILED
+
+- Installed code-server v4.109.2 with Continue extension v1.2.16
+- Continue configured with `config.yaml` AUTODETECT mode for Ollama
+- **Result:** code-server chat panel requires GitHub Copilot Chat (not available on code-server). Continue extension installed but chat could not connect to Ollama through the VS Code chat interface.
+- **Root cause:** code-server's VS Code API does not fully support third-party chat providers
+- **Status:** Issue reported to VS Code team. code-server removed from Veriton.
+
+### Attempt 2: SSH tunnel to Cursor.sh + Qwen — WORKING ✅
+
+- SSH tunnel: `ssh -L 11435:localhost:11434 admin100@gn100-cb5d`
+- Cursor configured with OpenAI-compatible endpoint: `http://localhost:11435/v1`
+- Model: `qwen2.5-coder:32b`
+- **Result:** Working with good latency. Cursor uses OpenAI API format which Ollama supports natively.
+- **Note:** Port 11435 used on Win11 because local Ollama already occupies 11434.
+
+### Attempt 3: Claude Code CLI + Ollama — FAILED (tool API incompatible)
+
+- Claude Code requires Anthropic tool use API format
+- Ollama's Qwen models return "does not support tools" error
+- **Root cause:** Claude Code's tool calls (file read, bash, edit) require API compatibility that Ollama doesn't provide
+- Claude Code only works with Anthropic's own API
+
+### Working Approach: Cursor (Win11) + SSH tunnel to DGX Spark Ollama
+
+The working path is Cursor IDE on Win11 connected to Qwen 32B on the DGX Spark via SSH tunnel. Claude Code CLI remains on Win11 with Anthropic API for complex tasks.
+
+## Remaining Setup Commands
+
+Run these on the Veriton (Cockpit terminal):
+
+### 1. Expose Ollama on network (for Win11 access)
+
+```bash
+sudo mkdir -p /etc/systemd/system/ollama.service.d
+sudo tee /etc/systemd/system/ollama.service.d/override.conf << 'EOF'
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+### 3. Configure Claude Code to use local Ollama
+
+```bash
+cat >> ~/.bashrc << 'EOF'
+
+# Claude Code + Ollama (local Qwen 32B, zero API cost)
+export ANTHROPIC_BASE_URL="http://localhost:11434"
+export ANTHROPIC_AUTH_TOKEN="ollama"
+export ANTHROPIC_API_KEY=""
+EOF
+source ~/.bashrc
+```
+
+### 4. Test Claude Code with Qwen
+
+```bash
+cd ~/dws6
+claude "Explain the project structure in 3 sentences"
+```
+
+## Completed Setup Tasks
+
+- [x] Install Ollama v0.17.4 (ARM64 auto-detected)
+- [x] Pull `qwen2.5-coder:32b` model (19GB)
+- [x] Install Node.js v22.x
+- [x] Install Claude Code CLI
+- [x] ~~Install VS Code Server (code-server v4.109.2)~~ — removed, chat incompatible with Ollama
+- [x] Install GitHub CLI (gh v2.45.0)
+- [x] Authenticate `gh auth login`
+- [x] Clone `dws6` repo to `~/dws6`
+
+## Remaining Setup Tasks
+
+- [ ] Expose Ollama on network (Section above — #1)
+- [ ] Configure Claude Code Ollama env vars (Section above — #2)
+- [ ] Test Claude Code + Qwen 32B end-to-end (Section above — #3)
+- [ ] Capture `nvidia-smi` output to confirm GPU model and VRAM
+- [ ] Set up SSH access as alternative to Cockpit terminal
+
+## Observations
+
+1. **ARM64 compatibility** — Ollama install script auto-detected `arm64` and pulled correct binary (`ollama-linux-arm64.tar.zst`). No manual intervention needed.
+2. **NVIDIA kernel** — The `6.17.0-1008-nvidia` kernel indicates deep GPU integration. `nvidia-smi` output not yet captured — needed to confirm GPU model and VRAM.
+3. **119GB RAM** — Sufficient to run multiple 32B parameter models simultaneously. Could run Qwen 32B + a second model for multi-model review pipeline.
+4. **VPN dependency** — The Veriton is only accessible via VPN. Consider Cloudflare Tunnel as backup access path (documented in training-manual-part1, Section 9.3).
+5. **code-server removed** — Could not get Ollama chat working via Continue extension or native VS Code chat. SSH tunnel to Cursor also failed. Claude Code CLI via Cockpit terminal is the working path.
+6. **VS Code team notified** — Issue reported. May revisit if code-server or Cursor adds native local LLM chat support.
+
+## References
+
+- Training Manual Part 1: `product-catalog/LWM/training-manual-part1-infrastructure.md`
+- Training Manual Part 3: `product-catalog/LWM/training-manual-part3-evaluation-deployment.md`
+- Ollama Anthropic API compatibility: https://ollama.com/blog/claude
+- Claude Code + Ollama integration: https://docs.ollama.com/integrations/claude-code
+- Continue Ollama Guide (attempted, not working on code-server): https://docs.continue.dev/guides/ollama-guide

@@ -43,7 +43,7 @@ Document Status:
   - Last Modified: 02.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.10 — DWS7 agent modernization)
+  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure: AI workflow as first-class engineering)
 
 ---
 
