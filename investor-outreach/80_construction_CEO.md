@@ -281,27 +281,27 @@ These contacts are especially relevant for **morning briefing / Firehorse** pilo
 | **Klaus Grüttner** | HOCHTIEF | MD Infrastructure Europe | Multi-site oversight; consolidated briefing = visibility |
 | **Kenneth Nilsson** | NCC | Head of NCC Infrastructure | Roads, tunnels, energy; safety-critical sites need reliable briefings |
 | **Ståle Rød** | Skanska | EVP Europe Operations | HS2, Central Europe; scale demands digital site management |
-| **Joost Nelis** | Royal BAM | COO Netherlands | Sustainability + operations; briefing data feeds ESG reporting |
-| **Phil Clifton** | Balfour Beatty | Group Sector Lead UK Transport | Transport projects; schedule-critical, weather-sensitive |
+| **[COO Netherlands]** | Royal BAM | COO Netherlands | Sustainability + operations; briefing data feeds ESG reporting |
+| **[Group Sector Lead UK Transport]** | Balfour Beatty | Group Sector Lead UK Transport | Transport projects; schedule-critical, weather-sensitive |
 
 ---
 
 ## Data quality notes
 
-**Verification level:**
-- Executive Board members: Verified via official company websites and annual reports
-- Division heads: Verified via LinkedIn profiles and press releases
-- LinkedIn URLs: Most profiles confirmed active; some executives maintain limited public profiles
-- **New companies (41–88):** Vinci, Bouygues, Balfour Beatty, BAM, Eiffage, Sweco—names verified via 2024–2025 press and management pages; some roles use placeholder [brackets] where specific names not publicly disclosed; **Petri Kasari (Sweco)** added per known multi-agent expertise
+**Verification level (underlying secure dataset):**
+- In the **production outreach systems** (CRM / Sales Navigator), executive contacts are verified via official company websites, annual reports, and reputable press releases.
+- Role and responsibility mappings are maintained in those secure systems; this markdown file only contains **anonymized, role-level placeholders** and company-level context.
+- No LinkedIn profile URLs, email addresses, or other direct identifiers are stored in this repository. Any such PII exists only in secure, access-controlled databases outside version control.
+- For newer companies (e.g. Vinci, Bouygues, Balfour Beatty, BAM, Eiffage, Sweco), public management structures inform which **roles** are targeted; this document intentionally uses [bracketed] placeholders instead of real executive names to maintain GDPR compliance.
 
-**Key data corrections:**
-- NCC AB revenue is approximately **€5-6B** (SEK 57B), not €55B as stated in original brief
-- PORR SE revenue is **€6.7B** (2024), employees ~21,000
-- Vinci: €70B+ revenue; Bouygues Group: €56.8B; Balfour Beatty: ~£9B; BAM: ~€7B; Eiffage: €23.4B; Sweco: SEK 30B+ (~€2.6B)
+**Key data corrections (company-level only):**
+- NCC AB revenue is approximately **€5-6B** (SEK 57B), not €55B as stated in the original brief.
+- PORR SE revenue is **€6.7B** (2024), employees ~21,000.
+- Vinci: €70B+ revenue; Bouygues Group: €56.8B; Balfour Beatty: ~£9B; BAM: ~€7B; Eiffage: €23.4B; Sweco: SEK 30B+ (~€2.6B).
 
-**Gaps identified:**
-- Dedicated DPO names not publicly disclosed at most companies (contact via datenschutz@ or data.protection@ addresses)
-- Some executives maintain private LinkedIn profiles—corporate email contacts provided as alternatives
-- Bouygues, BAM, Eiffage: some roles use [bracketed] placeholders; verify via company websites before outreach
+**Gaps identified (for real-world outreach workflows):**
+- Dedicated DPO names are often not publicly disclosed at most companies; contact is typically via generic datenschutz@ or data.protection@ addresses stored in secure systems.
+- Some executives maintain private LinkedIn profiles—in those cases, corporate email or switchboard contacts are used instead, managed outside of this repository.
+- Bouygues, BAM, Eiffage and similar groups may require manual verification of up-to-date management structures before outreach; that verification occurs in operational tools, not in this markdown template.
 
-All 88 contacts are appropriate for Firehorse Sales Navigator integration targeting NIS2 essential entities in European construction. The morning briefing connection provides a concrete use case for site-level pilots that can expand to enterprise NIS2/CSRD deployments.
+This document is an **anonymized outreach template**: it describes target **roles, companies, and value propositions** for Firehorse Sales Navigator and related integrations. All real contact records (including names, emails, and profile URLs) are stored exclusively in secure, access-controlled databases outside Git to support GDPR-compliant processing and the right to be forgotten.
