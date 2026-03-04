@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>training-manual-part1-infrastructure</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
+pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
+th { background: #f6f8fa; }
+blockquote { border-left: 4px solid #d0d7de; margin: 0; padding: 0 1em; color: #57606a; }
+a { color: #0969da; }
+</style></head>
+<body><h1>LWM Training Manual - Part 1: Infrastructure Setup</h1>
+<h2>Acer Veriton GN-100 Configuration Lab Notes</h2>
+<p><strong>Document ID:</strong> DWS-LWM-TRAIN-001-PART1
+<strong>Version:</strong> 1.0
+<strong>Classification:</strong> Internal Lab Notebook
+<strong>Author:</strong> Lifetime Oy
+<strong>Date:</strong> 2026-01-24</p>
+<p><strong>Execution Time:</strong> 4-6 hours
+<strong>Prerequisites:</strong> Physical access to Acer Veriton GN-100, sudo privileges</p>
+<hr />
+<h2>Lab Session Overview</h2>
+<p>This lab configures the Acer Veriton GN-100 from bare Ubuntu installation to a fully operational LWM training environment.</p>
+<p><strong>What You'll Build:</strong>
+- NVIDIA GPU drivers + CUDA 12.4
+- Python 3.11 virtual environment with PyTorch
+- Anthropic Claude API integration
+- Hugging Face model access
+- Llama 3.1 8B base model downloaded</p>
+<p><strong>Verification Criteria:</strong>
+- ✅ <code>nvidia-smi</code> shows GPU stats
+- ✅ PyTorch detects CUDA
+- ✅ Claude API responds to test query
+- ✅ Llama 3.1 8B model files present (~16GB)</p>
+<hr />
+<h2>Section 1: Hardware Verification (15 minutes)</h2>
+<h3>1.1 Initial System Check</h3>
+<p>SSH into the GN-100:</p>
+<pre class="codehilite"><code class="language-bash">ssh user@gn-100.local
+# Or use IP address: ssh user@192.168.1.XXX
+</code></pre>
+
+<p>Run the hardware diagnostic script:</p>
+<pre class="codehilite"><code class="language-bash">#!/bin/bash
+# Save as: ~/hw-check.sh
+# Run: bash ~/hw-check.sh &gt; ~/hw-check-results.txt
+
+echo &quot;=== Acer Veriton GN-100 Hardware Assessment ===&quot;
+echo &quot;Date: $(date)&quot;
+echo &quot;Hostname: $(hostname)&quot;
+echo &quot;&quot;
+
+# GPU Check
+echo &quot;[1/6] GPU Configuration&quot;
+lspci | grep -i nvidia
+if [ $? -eq 0 ]; then
+    echo &quot;✅ NVIDIA GPU detected&quot;
+else
+    echo &quot;❌ No NVIDIA GPU found - check PCIe connection&quot;
+    exit 1
+fi
+
+# CPU Check
+echo &quot;&quot;
+echo &quot;[2/6] CPU Specifications&quot;
+lscpu | grep -E &quot;Model name|CPU\(s\):|Thread|Core\(s\)|Socket&quot;
+CORES=$(lscpu | grep &quot;^CPU(s):&quot; | awk '{print $2}')
+echo &quot;Total CPU cores: $CORES&quot;
+
+# Memory Check
+echo &quot;&quot;
+echo &quot;[3/6] Memory Configuration&quot;
+free -h
+TOTAL_RAM=$(free -g | awk '/^Mem:/{print $2}')
+echo &quot;Total RAM: ${TOTAL_RAM}GB&quot;
+if [ &quot;$TOTAL_RAM&quot; -lt 32 ]; then
+    echo &quot;⚠️  WARNING: Less than 32GB RAM detected&quot;
+fi
+
+# Storage Check
+echo &quot;&quot;
+echo &quot;[4/6] Storage Configuration&quot;
+df -h / /home
+AVAIL_HOME=$(df -h /home | awk 'NR==2 {print $4}' | sed 's/G//')
+echo &quot;Available /home space: ${AVAIL_HOME}GB&quot;
+if (( $(echo &quot;$AVAIL_HOME &lt; 500&quot; | bc -l) )); then
+    echo &quot;⚠️  WARNING: Less than 500GB free in /home&quot;
+fi
+
+# Network Check
+echo &quot;&quot;
+echo &quot;[5/6] Network Configuration&quot;
+ip addr show | grep -E &quot;inet &quot; | grep -v &quot;127.0.0.1&quot;
+ping -c 2 8.8.8.8 &gt; /dev/null 2&gt;&amp;1 &amp;&amp; echo &quot;✅ Internet: Connected&quot; || echo &quot;❌ Internet: No connection&quot;
+curl -s --connect-timeout 5 https://huggingface.co &gt; /dev/null &amp;&amp; echo &quot;✅ HuggingFace: Accessible&quot; || echo &quot;❌ HuggingFace: Blocked&quot;
+curl -s --connect-timeout 5 https://api.anthropic.com &gt; /dev/null &amp;&amp; echo &quot;✅ Anthropic API: Accessible&quot; || echo &quot;❌ Anthropic API: Blocked&quot;
+
+# OS Check
+echo &quot;&quot;
+echo &quot;[6/6] Operating System&quot;
+cat /etc/os-release | grep -E &quot;NAME|VERSION&quot;
+KERNEL=$(uname -r)
+echo &quot;Kernel: $KERNEL&quot;
+
+echo &quot;&quot;
+echo &quot;=== Hardware Check Complete ===&quot;
+echo &quot;Results saved to: ~/hw-check-results.txt&quot;
+</code></pre>
+
+<p><strong>Execute:</strong></p>
+<pre class="codehilite"><code class="language-bash">bash ~/hw-check.sh | tee ~/hw-check-results.txt
+</code></pre>
+
+<p><strong>Expected Output:</strong></p>
+<pre class="codehilite"><code>✅ NVIDIA GPU detected
+Total CPU cores: 8-16
+Total RAM: 64GB
+Available /home space: 800GB
+✅ Internet: Connected
+✅ HuggingFace: Accessible
+✅ Anthropic API: Accessible
+</code></pre>
+
+<p><strong>❌ If any checks fail:</strong>
+- No NVIDIA GPU → Check BIOS settings, PCIe seating
+- No internet → Check network cable, firewall
+- Blocked APIs → Check corporate proxy settings</p>
+<hr />
+<h2>Section 2: System Preparation (30 minutes)</h2>
+<h3>2.1 Update System Packages</h3>
+<pre class="codehilite"><code class="language-bash"># Update package lists
+sudo apt update
+
+# Upgrade existing packages (may take 10-15 minutes)
+sudo apt upgrade -y
+
+# Install build essentials
+sudo apt install -y \
+    build-essential \
+    git \
+    curl \
+    wget \
+    tmux \
+    htop \
+    python3.11 \
+    python3.11-venv \
+    python3-pip \
+    software-properties-common \
+    jq \
+    unzip
+
+# Verify installations
+which git &amp;&amp; echo &quot;✅ git installed&quot;
+which python3.11 &amp;&amp; echo &quot;✅ Python 3.11 installed&quot;
+which tmux &amp;&amp; echo &quot;✅ tmux installed&quot;
+</code></pre>
+
+<h3>2.2 Configure SSH for Long Sessions</h3>
+<p>Add to <code>~/.ssh/config</code>:</p>
+<pre class="codehilite"><code class="language-bash">cat &gt;&gt; ~/.ssh/config &lt;&lt; 'EOF'
+Host gn100 gn-100 gn-100.local
+    ServerAliveInterval 60
+    ServerAliveCountMax 120
+    TCPKeepAlive yes
+EOF
+
+chmod 600 ~/.ssh/config
+</code></pre>
+
+<p><strong>Test:</strong> SSH session should now survive 2+ hours of inactivity</p>
+<h3>2.3 Create Project Directory Structure</h3>
+<pre class="codehilite"><code class="language-bash"># Create main project directory
+mkdir -p ~/dws-lwm
+
+# Create subdirectories
+cd ~/dws-lwm
+mkdir -p configs/{base,industries}
+mkdir -p data/{raw,processed,synthetic}
+mkdir -p models/{base,finetuned,merged,.cache}
+mkdir -p scripts
+mkdir -p logs
+mkdir -p evaluation
+mkdir -p checkpoints
+
+# Verify structure
+tree -L 2 ~/dws-lwm
+
+# Expected output:
+# dws-lwm/
+# ├── checkpoints/
+# ├── configs/
+# │   ├── base/
+# │   └── industries/
+# ├── data/
+# │   ├── processed/
+# │   ├── raw/
+# │   └── synthetic/
+# ├── evaluation/
+# ├── logs/
+# ├── models/
+# │   ├── base/
+# │   ├── finetuned/
+# │   ├── merged/
+# │   └── .cache/
+# └── scripts/
+</code></pre>
+
+<h3>2.4 Set Environment Variables</h3>
+<pre class="codehilite"><code class="language-bash">cat &gt;&gt; ~/.bashrc &lt;&lt; 'EOF'
+
+# ============================================
+# DWS LWM Training Environment
+# ============================================
+export DWS_HOME=&quot;$HOME/dws-lwm&quot;
+export CUDA_HOME=&quot;/usr/local/cuda&quot;
+export PATH=&quot;$CUDA_HOME/bin:$PATH&quot;
+export LD_LIBRARY_PATH=&quot;$CUDA_HOME/lib64:$LD_LIBRARY_PATH&quot;
+
+# Hugging Face cache
+export HF_HOME=&quot;$DWS_HOME/models/.cache&quot;
+export TRANSFORMERS_CACHE=&quot;$DWS_HOME/models/.cache&quot;
+
+# Prevent tokenizers parallelism warnings
+export TOKENIZERS_PARALLELISM=false
+
+# Aliases
+alias dws='cd $DWS_HOME'
+alias logs='tail -f $DWS_HOME/logs/*.log'
+alias gpu='watch -n 1 nvidia-smi'
+
+echo &quot;DWS LWM environment loaded&quot;
+EOF
+
+# Apply changes
+source ~/.bashrc
+
+# Verify
+echo $DWS_HOME
+# Should print: /home/user/dws-lwm
+</code></pre>
+
+<hr />
+<h2>Section 3: NVIDIA Driver &amp; CUDA Installation (45 minutes)</h2>
+<h3>3.1 Check Current Driver Status</h3>
+<pre class="codehilite"><code class="language-bash"># Check if NVIDIA driver is already installed
+nvidia-smi 2&gt;/dev/null
+
+# If command not found, proceed with installation
+# If driver exists, note the version and skip to 3.3
+</code></pre>
+
+<h3>3.2 Clean Install of NVIDIA Drivers</h3>
+<p><strong>⚠️ WARNING:</strong> This will reboot the system</p>
+<pre class="codehilite"><code class="language-bash"># Remove any existing NVIDIA packages
+sudo apt purge nvidia-* -y
+sudo apt autoremove -y
+sudo apt autoclean
+
+# Add NVIDIA PPA
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update
+
+# Check recommended driver
+ubuntu-drivers devices
+
+# Install recommended driver (usually 535 or newer)
+sudo ubuntu-drivers autoinstall
+
+# Reboot required
+echo &quot;System will reboot in 10 seconds...&quot;
+sleep 10
+sudo reboot
+</code></pre>
+
+<p><strong>After Reboot:</strong></p>
+<pre class="codehilite"><code class="language-bash"># SSH back into GN-100
+ssh user@gn-100.local
+
+# Verify driver installation
+nvidia-smi
+
+# Expected output:
+# +-----------------------------------------------------------------------------+
+# | NVIDIA-SMI 535.xx.xx    Driver Version: 535.xx.xx    CUDA Version: 12.2   |
+# |-------------------------------+----------------------+----------------------+
+# | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+# | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+# |===============================+======================+======================|
+# |   0  NVIDIA ...          Off  | 00000000:01:00.0 Off |                  N/A |
+# | 30%   35C    P0    25W / 350W |      0MiB / 24576MiB |      0%      Default |
+# +-------------------------------+----------------------+----------------------+
+</code></pre>
+
+<p><strong>✅ Success Criteria:</strong>
+- <code>nvidia-smi</code> runs without errors
+- GPU name and memory shown
+- Driver version ≥ 535</p>
+<h3>3.3 Install CUDA Toolkit 12.4</h3>
+<pre class="codehilite"><code class="language-bash"># Download CUDA keyring
+cd ~/Downloads
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+
+# Install keyring
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+
+# Update package list
+sudo apt update
+
+# Install CUDA Toolkit 12.4 (takes 10-15 minutes)
+sudo apt install -y cuda-toolkit-12-4
+
+# Verify CUDA installation
+/usr/local/cuda-12.4/bin/nvcc --version
+
+# Expected output:
+# nvcc: NVIDIA (R) Cuda compiler driver
+# Cuda compilation tools, release 12.4, V12.4.xxx
+</code></pre>
+
+<h3>3.4 Verify CUDA Environment</h3>
+<pre class="codehilite"><code class="language-bash"># Check CUDA path
+echo $CUDA_HOME
+# Should show: /usr/local/cuda
+
+# Check nvcc is in PATH
+which nvcc
+# Should show: /usr/local/cuda/bin/nvcc
+
+# Test CUDA compilation
+cd ~/dws-lwm
+cat &gt; test_cuda.cu &lt;&lt; 'EOF'
+#include &lt;stdio.h&gt;
+
+__global__ void hello_cuda() {
+    printf(&quot;Hello from GPU thread %d!\n&quot;, threadIdx.x);
+}
+
+int main() {
+    hello_cuda&lt;&lt;&lt;1, 5&gt;&gt;&gt;();
+    cudaDeviceSynchronize();
+    return 0;
+}
+EOF
+
+nvcc test_cuda.cu -o test_cuda
+./test_cuda
+
+# Expected output:
+# Hello from GPU thread 0!
+# Hello from GPU thread 1!
+# Hello from GPU thread 2!
+# Hello from GPU thread 3!
+# Hello from GPU thread 4!
+
+rm test_cuda test_cuda.cu
+</code></pre>
+
+<hr />
+<h2>Section 4: Python Environment Setup (30 minutes)</h2>
+<h3>4.1 Create Virtual Environment</h3>
+<pre class="codehilite"><code class="language-bash">cd ~/dws-lwm
+
+# Create virtual environment with Python 3.11
+python3.11 -m venv venv
+
+# Activate environment
+source venv/bin/activate
+
+# Upgrade pip
+pip install --upgrade pip setuptools wheel
+
+# Verify Python version
+python --version
+# Should show: Python 3.11.x
+
+# Add activation to bashrc for convenience
+echo &quot;alias dws-env='source ~/dws-lwm/venv/bin/activate'&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+
+<h3>4.2 Install PyTorch with CUDA Support</h3>
+<pre class="codehilite"><code class="language-bash"># Ensure venv is activated
+source ~/dws-lwm/venv/bin/activate
+
+# Install PyTorch with CUDA 12.4 support (takes 5-10 minutes)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+# Verify PyTorch installation
+python &lt;&lt; 'EOF'
+import torch
+
+print(f&quot;PyTorch version: {torch.__version__}&quot;)
+print(f&quot;CUDA available: {torch.cuda.is_available()}&quot;)
+print(f&quot;CUDA version: {torch.version.cuda}&quot;)
+print(f&quot;cuDNN version: {torch.backends.cudnn.version()}&quot;)
+
+if torch.cuda.is_available():
+    print(f&quot;GPU device: {torch.cuda.get_device_name(0)}&quot;)
+    print(f&quot;GPU memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB&quot;)
+
+    # Test GPU computation
+    x = torch.rand(1000, 1000).cuda()
+    y = torch.rand(1000, 1000).cuda()
+    z = torch.mm(x, y)
+    print(f&quot;✅ GPU computation successful: {z.shape}&quot;)
+else:
+    print(&quot;❌ CUDA not available - check installation&quot;)
+EOF
+</code></pre>
+
+<p><strong>Expected Output:</strong></p>
+<pre class="codehilite"><code>PyTorch version: 2.x.x+cu124
+CUDA available: True
+CUDA version: 12.4
+cuDNN version: 90100
+GPU device: NVIDIA ...
+GPU memory: 24.0 GB
+✅ GPU computation successful: torch.Size([1000, 1000])
+</code></pre>
+
+<h3>4.3 Install Core Training Libraries</h3>
+<pre class="codehilite"><code class="language-bash"># Install transformers and related libraries
+pip install \
+    transformers&gt;=4.45.0 \
+    datasets&gt;=2.18.0 \
+    accelerate&gt;=0.30.0 \
+    peft&gt;=0.10.0 \
+    trl&gt;=0.8.0 \
+    bitsandbytes&gt;=0.43.0 \
+    scipy \
+    protobuf
+
+# Install Anthropic SDK
+pip install anthropic&gt;=0.25.0
+
+# Install evaluation &amp; monitoring tools
+pip install \
+    wandb \
+    tensorboard \
+    rouge-score \
+    sacrebleu \
+    sentencepiece \
+    tiktoken \
+    ninja
+
+# Install Flash Attention 2 (if supported - may fail on older GPUs)
+pip install flash-attn --no-build-isolation 2&gt;&amp;1 | tee flash-attn-install.log
+
+# Check if flash-attn installed
+python -c &quot;import flash_attn; print(f'✅ Flash Attention {flash_attn.__version__}')&quot; 2&gt;/dev/null || echo &quot;⚠️  Flash Attention not installed (optional)&quot;
+
+# Create requirements.txt for reproducibility
+pip freeze &gt; requirements.txt
+
+echo &quot;✅ Core libraries installed. Total packages: $(pip list | wc -l)&quot;
+</code></pre>
+
+<h3>4.4 Verify Installation</h3>
+<pre class="codehilite"><code class="language-bash">python &lt;&lt; 'EOF'
+import sys
+print(&quot;=== Package Verification ===\n&quot;)
+
+packages = {
+    'torch': 'PyTorch',
+    'transformers': 'Transformers',
+    'datasets': 'Datasets',
+    'peft': 'PEFT',
+    'trl': 'TRL',
+    'bitsandbytes': 'BitsAndBytes',
+    'anthropic': 'Anthropic SDK',
+    'wandb': 'Weights &amp; Biases'
+}
+
+for module, name in packages.items():
+    try:
+        mod = __import__(module)
+        version = getattr(mod, '__version__', 'unknown')
+        print(f&quot;✅ {name:20s} {version}&quot;)
+    except ImportError as e:
+        print(f&quot;❌ {name:20s} NOT INSTALLED&quot;)
+        sys.exit(1)
+
+print(&quot;\n=== All required packages installed ===&quot;)
+EOF
+</code></pre>
+
+<hr />
+<h2>Section 5: Anthropic API Configuration (15 minutes)</h2>
+<h3>5.1 Create Secure Credentials Storage</h3>
+<pre class="codehilite"><code class="language-bash"># Create credentials directory
+mkdir -p ~/.config/anthropic
+chmod 700 ~/.config/anthropic
+
+# Store API key (replace with your actual key)
+echo &quot;Enter your Anthropic API key:&quot;
+read -s API_KEY
+
+cat &gt; ~/.config/anthropic/credentials &lt;&lt; EOF
+ANTHROPIC_API_KEY=$API_KEY
+EOF
+
+chmod 600 ~/.config/anthropic/credentials
+
+# Add to bashrc
+cat &gt;&gt; ~/.bashrc &lt;&lt; 'EOF'
+# Load Anthropic API credentials
+if [ -f ~/.config/anthropic/credentials ]; then
+    export $(cat ~/.config/anthropic/credentials | xargs)
+fi
+EOF
+
+source ~/.bashrc
+
+# Verify key is loaded
+echo &quot;API Key loaded: ${ANTHROPIC_API_KEY:0:20}...&quot;
+</code></pre>
+
+<h3>5.2 Test Claude API Connection</h3>
+<p>Create test script:</p>
+<pre class="codehilite"><code class="language-bash">cat &gt; ~/dws-lwm/scripts/test_claude_api.py &lt;&lt; 'EOF'
+#!/usr/bin/env python3
+&quot;&quot;&quot;Test Anthropic Claude API connectivity&quot;&quot;&quot;
+
+import anthropic
+import os
+import sys
+
+def test_api():
+    # Check if API key is set
+    api_key = os.getenv('ANTHROPIC_API_KEY')
+    if not api_key:
+        print(&quot;❌ ANTHROPIC_API_KEY not set in environment&quot;)
+        print(&quot;Run: export ANTHROPIC_API_KEY=your-key-here&quot;)
+        sys.exit(1)
+
+    print(f&quot;✅ API Key found: {api_key[:20]}...\n&quot;)
+
+    # Initialize client
+    client = anthropic.Anthropic(api_key=api_key)
+
+    # Test request
+    print(&quot;Testing Claude API with simple query...&quot;)
+
+    try:
+        response = client.messages.create(
+            model=&quot;claude-sonnet-4-20250514&quot;,
+            max_tokens=100,
+            messages=[{
+                &quot;role&quot;: &quot;user&quot;,
+                &quot;content&quot;: &quot;Say 'DWS LWM Training Environment Ready' if you can read this. Then list 3 industries LWM will target.&quot;
+            }]
+        )
+
+        # Print response
+        print(&quot;\n=== Claude Response ===&quot;)
+        print(response.content[0].text)
+        print(&quot;\n=== API Details ===&quot;)
+        print(f&quot;Model: {response.model}&quot;)
+        print(f&quot;Tokens used: {response.usage.input_tokens} input + {response.usage.output_tokens} output&quot;)
+        print(f&quot;Stop reason: {response.stop_reason}&quot;)
+
+        print(&quot;\n✅ Claude API connection successful!&quot;)
+        return True
+
+    except Exception as e:
+        print(f&quot;\n❌ API Error: {e}&quot;)
+        return False
+
+if __name__ == &quot;__main__&quot;:
+    success = test_api()
+    sys.exit(0 if success else 1)
+EOF
+
+chmod +x ~/dws-lwm/scripts/test_claude_api.py
+
+# Run test
+python ~/dws-lwm/scripts/test_claude_api.py
+</code></pre>
+
+<p><strong>Expected Output:</strong></p>
+<pre class="codehilite"><code>✅ API Key found: sk-ant-api03-xxxxxx...
+
+Testing Claude API with simple query...
+
+=== Claude Response ===
+DWS LWM Training Environment Ready
+
+The three industries LWM will target are:
+1. Logistics
+2. Construction
+3. Manufacturing
+
+=== API Details ===
+Model: claude-sonnet-4-20250514
+Tokens used: 25 input + 45 output
+Stop reason: end_turn
+
+✅ Claude API connection successful!
+</code></pre>
+
+<hr />
+<h2>Section 6: Hugging Face Setup (30 minutes)</h2>
+<h3>6.1 Install Hugging Face CLI</h3>
+<pre class="codehilite"><code class="language-bash"># Install CLI (already included in transformers, but explicit install)
+pip install huggingface_hub[cli]
+
+# Verify installation
+huggingface-cli --version
+</code></pre>
+
+<h3>6.2 Login to Hugging Face</h3>
+<pre class="codehilite"><code class="language-bash"># Interactive login
+huggingface-cli login
+
+# You'll be prompted:
+# Token: [paste your HF token here]
+# Add token as git credential? (Y/n) Y
+
+# Verify login
+huggingface-cli whoami
+
+# Expected output:
+# username: your-hf-username
+# email: your-email@example.com
+</code></pre>
+
+<h3>6.3 Request Access to Llama Models</h3>
+<p><strong>Manual Step:</strong>
+1. Visit: https://huggingface.co/meta-llama/Llama-3.1-8B
+2. Click "Request Access"
+3. Accept license agreement
+4. Wait for approval (usually instant to 24 hours)</p>
+<p><strong>Verify access:</strong></p>
+<pre class="codehilite"><code class="language-bash">python &lt;&lt; 'EOF'
+from huggingface_hub import HfApi
+
+api = HfApi()
+
+# Check if you have access to Llama 3.1
+try:
+    model_info = api.model_info(&quot;meta-llama/Llama-3.1-8B&quot;)
+    print(f&quot;✅ Access granted to {model_info.modelId}&quot;)
+    print(f&quot;   Model size: {model_info.safetensors['total'] / 1e9:.1f} GB&quot;)
+except Exception as e:
+    print(f&quot;❌ No access yet: {e}&quot;)
+    print(&quot;   Request access at: https://huggingface.co/meta-llama/Llama-3.1-8B&quot;)
+EOF
+</code></pre>
+
+<h3>6.4 Download Llama 3.1 8B Base Model</h3>
+<p><strong>⚠️ This downloads ~16GB and takes 30-60 minutes on typical connections</strong></p>
+<p>Create download script:</p>
+<pre class="codehilite"><code class="language-bash">cat &gt; ~/dws-lwm/scripts/download_llama.py &lt;&lt; 'EOF'
+#!/usr/bin/env python3
+&quot;&quot;&quot;Download Llama 3.1 8B base model&quot;&quot;&quot;
+
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import os
+from pathlib import Path
+
+def download_model():
+    model_id = &quot;meta-llama/Llama-3.1-8B&quot;
+    save_dir = Path(os.path.expanduser(&quot;~/dws-lwm/models/base/llama-3.1-8b&quot;))
+
+    print(f&quot;Downloading {model_id}...&quot;)
+    print(f&quot;Save location: {save_dir}&quot;)
+    print(&quot;This will take 30-60 minutes on typical connections...\n&quot;)
+
+    # Create save directory
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    # Download tokenizer (fast)
+    print(&quot;[1/2] Downloading tokenizer...&quot;)
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer.save_pretrained(save_dir)
+    print(&quot;✅ Tokenizer saved\n&quot;)
+
+    # Download model (slow - ~16GB)
+    print(&quot;[2/2] Downloading model weights...&quot;)
+    print(&quot;Progress will be shown below:&quot;)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        torch_dtype=&quot;auto&quot;,
+        device_map=&quot;auto&quot;
+    )
+    model.save_pretrained(save_dir)
+    print(&quot;✅ Model saved\n&quot;)
+
+    # Verify
+    print(&quot;=== Download Complete ===&quot;)
+    print(f&quot;Model location: {save_dir}&quot;)
+
+    # Check file sizes
+    total_size = sum(f.stat().st_size for f in save_dir.rglob('*') if f.is_file())
+    print(f&quot;Total size: {total_size / 1e9:.2f} GB&quot;)
+
+    # List files
+    print(&quot;\nFiles downloaded:&quot;)
+    for f in sorted(save_dir.rglob('*')):
+        if f.is_file():
+            size_mb = f.stat().st_size / 1e6
+            print(f&quot;  {f.name:40s} {size_mb:8.1f} MB&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    download_model()
+EOF
+
+chmod +x ~/dws-lwm/scripts/download_llama.py
+
+# Run download
+# NOTE: This is a long-running process - use tmux!
+tmux new-session -d -s llama-download &quot;python ~/dws-lwm/scripts/download_llama.py 2&gt;&amp;1 | tee ~/dws-lwm/logs/llama-download.log&quot;
+
+# Attach to watch progress
+tmux attach -t llama-download
+
+# Detach: Ctrl+B, then D
+# Reattach anytime: tmux attach -t llama-download
+</code></pre>
+
+<p><strong>Monitor download:</strong></p>
+<pre class="codehilite"><code class="language-bash"># Check log file
+tail -f ~/dws-lwm/logs/llama-download.log
+
+# Check disk usage
+watch -n 10 'du -sh ~/dws-lwm/models/base/llama-3.1-8b'
+</code></pre>
+
+<p><strong>After download completes:</strong></p>
+<pre class="codehilite"><code class="language-bash"># Verify model files
+ls -lh ~/dws-lwm/models/base/llama-3.1-8b/
+
+# Expected files:
+# config.json
+# generation_config.json
+# model-00001-of-00004.safetensors (~4GB)
+# model-00002-of-00004.safetensors (~5GB)
+# model-00003-of-00004.safetensors (~5GB)
+# model-00004-of-00004.safetensors (~2GB)
+# model.safetensors.index.json
+# special_tokens_map.json
+# tokenizer.json
+# tokenizer_config.json
+
+# Test model loading
+python &lt;&lt; 'EOF'
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+
+model_path = &quot;~/dws-lwm/models/base/llama-3.1-8b&quot;
+
+print(&quot;Loading tokenizer...&quot;)
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+print(f&quot;✅ Tokenizer loaded. Vocab size: {tokenizer.vocab_size}&quot;)
+
+print(&quot;\nLoading model (this takes 30-60 seconds)...&quot;)
+model = AutoModelForCausalLM.from_pretrained(
+    model_path,
+    torch_dtype=torch.bfloat16,
+    device_map=&quot;auto&quot;
+)
+print(f&quot;✅ Model loaded. Parameters: {model.num_parameters() / 1e9:.1f}B&quot;)
+
+# Test inference
+print(&quot;\nTesting inference...&quot;)
+inputs = tokenizer(&quot;Hello, my name is&quot;, return_tensors=&quot;pt&quot;).to(model.device)
+outputs = model.generate(**inputs, max_new_tokens=20)
+result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(f&quot;Model output: {result}&quot;)
+print(&quot;\n✅ Model inference successful!&quot;)
+EOF
+</code></pre>
+
+<hr />
+<h2>Section 7: Final Verification &amp; Health Check (15 minutes)</h2>
+<h3>7.1 Run Complete System Test</h3>
+<p>Create comprehensive test script:</p>
+<pre class="codehilite"><code class="language-bash">cat &gt; ~/dws-lwm/scripts/system_health_check.py &lt;&lt; 'EOF'
+#!/usr/bin/env python3
+&quot;&quot;&quot;Complete DWS LWM system health check&quot;&quot;&quot;
+
+import os
+import sys
+import subprocess
+from pathlib import Path
+
+def check(name, condition, error_msg=&quot;&quot;):
+    &quot;&quot;&quot;Print check result&quot;&quot;&quot;
+    if condition:
+        print(f&quot;✅ {name}&quot;)
+        return True
+    else:
+        print(f&quot;❌ {name}&quot;)
+        if error_msg:
+            print(f&quot;   → {error_msg}&quot;)
+        return False
+
+def main():
+    print(&quot;=== DWS LWM System Health Check ===\n&quot;)
+
+    all_pass = True
+
+    # Environment checks
+    print(&quot;[1] Environment Variables&quot;)
+    all_pass &amp;= check(&quot;DWS_HOME set&quot;, os.getenv('DWS_HOME'))
+    all_pass &amp;= check(&quot;CUDA_HOME set&quot;, os.getenv('CUDA_HOME'))
+    all_pass &amp;= check(&quot;ANTHROPIC_API_KEY set&quot;, os.getenv('ANTHROPIC_API_KEY'))
+    print()
+
+    # Directory structure
+    print(&quot;[2] Directory Structure&quot;)
+    dws_home = Path(os.path.expanduser(&quot;~/dws-lwm&quot;))
+    all_pass &amp;= check(&quot;DWS home exists&quot;, dws_home.exists())
+    all_pass &amp;= check(&quot;configs/ exists&quot;, (dws_home / &quot;configs&quot;).exists())
+    all_pass &amp;= check(&quot;data/ exists&quot;, (dws_home / &quot;data&quot;).exists())
+    all_pass &amp;= check(&quot;models/ exists&quot;, (dws_home / &quot;models&quot;).exists())
+    all_pass &amp;= check(&quot;scripts/ exists&quot;, (dws_home / &quot;scripts&quot;).exists())
+    print()
+
+    # NVIDIA/CUDA
+    print(&quot;[3] NVIDIA &amp; CUDA&quot;)
+    try:
+        result = subprocess.run(['nvidia-smi'], capture_output=True, text=True)
+        all_pass &amp;= check(&quot;nvidia-smi works&quot;, result.returncode == 0)
+    except:
+        all_pass &amp;= check(&quot;nvidia-smi works&quot;, False, &quot;nvidia-smi not found&quot;)
+
+    try:
+        result = subprocess.run(['nvcc', '--version'], capture_output=True, text=True)
+        all_pass &amp;= check(&quot;nvcc works&quot;, result.returncode == 0)
+    except:
+        all_pass &amp;= check(&quot;nvcc works&quot;, False, &quot;nvcc not found&quot;)
+    print()
+
+    # Python packages
+    print(&quot;[4] Python Packages&quot;)
+    try:
+        import torch
+        all_pass &amp;= check(f&quot;PyTorch {torch.__version__}&quot;, True)
+        all_pass &amp;= check(&quot;CUDA available&quot;, torch.cuda.is_available(), &quot;PyTorch cannot see CUDA&quot;)
+
+        import transformers
+        all_pass &amp;= check(f&quot;Transformers {transformers.__version__}&quot;, True)
+
+        import peft
+        all_pass &amp;= check(f&quot;PEFT {peft.__version__}&quot;, True)
+
+        import trl
+        all_pass &amp;= check(f&quot;TRL {trl.__version__}&quot;, True)
+
+        import anthropic
+        all_pass &amp;= check(f&quot;Anthropic {anthropic.__version__}&quot;, True)
+
+    except ImportError as e:
+        all_pass &amp;= check(str(e), False)
+    print()
+
+    # Model files
+    print(&quot;[5] Model Files&quot;)
+    model_dir = Path(os.path.expanduser(&quot;~/dws-lwm/models/base/llama-3.1-8b&quot;))
+    all_pass &amp;= check(&quot;Llama 3.1 8B directory exists&quot;, model_dir.exists())
+
+    if model_dir.exists():
+        config_file = model_dir / &quot;config.json&quot;
+        all_pass &amp;= check(&quot;config.json exists&quot;, config_file.exists())
+
+        safetensors = list(model_dir.glob(&quot;*.safetensors&quot;))
+        all_pass &amp;= check(f&quot;Model weights exist ({len(safetensors)} files)&quot;, len(safetensors) &gt; 0)
+    print()
+
+    # API connectivity
+    print(&quot;[6] API Connectivity&quot;)
+    try:
+        import anthropic
+        client = anthropic.Anthropic()
+        response = client.messages.create(
+            model=&quot;claude-sonnet-4-20250514&quot;,
+            max_tokens=10,
+            messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;test&quot;}]
+        )
+        all_pass &amp;= check(&quot;Claude API responds&quot;, True)
+    except Exception as e:
+        all_pass &amp;= check(&quot;Claude API responds&quot;, False, str(e))
+    print()
+
+    # Summary
+    print(&quot;=&quot; * 50)
+    if all_pass:
+        print(&quot;✅ ALL CHECKS PASSED - System ready for training!&quot;)
+        return 0
+    else:
+        print(&quot;❌ SOME CHECKS FAILED - Review errors above&quot;)
+        return 1
+
+if __name__ == &quot;__main__&quot;:
+    sys.exit(main())
+EOF
+
+chmod +x ~/dws-lwm/scripts/system_health_check.py
+
+# Run health check
+python ~/dws-lwm/scripts/system_health_check.py
+</code></pre>
+
+<h3>7.2 Create Environment Snapshot</h3>
+<pre class="codehilite"><code class="language-bash"># Document current environment
+cat &gt; ~/dws-lwm/ENVIRONMENT_SNAPSHOT.md &lt;&lt; EOF
+# DWS LWM Environment Snapshot
+**Date:** $(date)
+**Hostname:** $(hostname)
+
+## System Info
+- **OS:** $(cat /etc/os-release | grep PRETTY_NAME | cut -d'&quot;' -f2)
+- **Kernel:** $(uname -r)
+- **CPU:** $(lscpu | grep &quot;Model name&quot; | cut -d':' -f2 | xargs)
+- **RAM:** $(free -h | awk '/^Mem:/{print $2}')
+
+## GPU
+$(nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader)
+
+## CUDA
+- **CUDA Version:** $(nvcc --version | grep &quot;release&quot; | awk '{print $5}' | cut -d',' -f1)
+
+## Python Environment
+- **Python:** $(python --version)
+- **Virtual Env:** ~/dws-lwm/venv
+- **Packages:** $(pip list | wc -l) installed
+
+## Key Package Versions
+$(pip list | grep -E &quot;torch|transformers|peft|trl|anthropic&quot; | column -t)
+
+## Model Files
+- **Llama 3.1 8B:** $(du -sh ~/dws-lwm/models/base/llama-3.1-8b 2&gt;/dev/null | cut -f1 || echo &quot;Not downloaded&quot;)
+
+## Disk Usage
+$(df -h ~/dws-lwm | tail -1)
+
+---
+Environment configured successfully.
+Ready for Part 2: Data Generation &amp; Training
+EOF
+
+cat ~/dws-lwm/ENVIRONMENT_SNAPSHOT.md
+</code></pre>
+
+<hr />
+<h2>Section 8: Backup &amp; Documentation (10 minutes)</h2>
+<h3>8.1 Create Backup Script</h3>
+<pre class="codehilite"><code class="language-bash">cat &gt; ~/dws-lwm/scripts/backup_environment.sh &lt;&lt; 'EOF'
+#!/bin/bash
+# Backup critical configuration files
+
+BACKUP_DIR=~/dws-lwm/backups/$(date +%Y%m%d-%H%M%S)
+mkdir -p $BACKUP_DIR
+
+echo &quot;Creating backup in $BACKUP_DIR...&quot;
+
+# Copy configurations
+cp -r ~/dws-lwm/configs $BACKUP_DIR/
+cp ~/dws-lwm/requirements.txt $BACKUP_DIR/
+cp ~/.bashrc $BACKUP_DIR/bashrc
+cp ~/.config/anthropic/credentials $BACKUP_DIR/anthropic_credentials
+
+# Create manifest
+cat &gt; $BACKUP_DIR/MANIFEST.txt &lt;&lt; MANIFEST
+Backup created: $(date)
+Hostname: $(hostname)
+Python: $(python --version)
+PyTorch: $(python -c &quot;import torch; print(torch.__version__)&quot;)
+CUDA: $(nvcc --version | grep release)
+MANIFEST
+
+echo &quot;✅ Backup complete: $BACKUP_DIR&quot;
+ls -lh $BACKUP_DIR
+EOF
+
+chmod +x ~/dws-lwm/scripts/backup_environment.sh
+
+# Create initial backup
+~/dws-lwm/scripts/backup_environment.sh
+</code></pre>
+
+<h3>8.2 Create Quick Reference Card</h3>
+<pre class="codehilite"><code class="language-bash">cat &gt; ~/dws-lwm/QUICK_REFERENCE.md &lt;&lt; 'EOF'
+# DWS LWM Quick Reference
+
+## Activation
+```bash
+source ~/dws-lwm/venv/bin/activate
+source ~/.bashrc
+</code></pre>
+
+<h2>Common Commands</h2>
+<pre class="codehilite"><code class="language-bash">dws                    # cd to ~/dws-lwm
+dws-env                # activate venv
+gpu                    # watch nvidia-smi
+logs                   # tail all logs
+</code></pre>
+
+<h2>Health Check</h2>
+<pre class="codehilite"><code class="language-bash">python ~/dws-lwm/scripts/system_health_check.py
+</code></pre>
+
+<h2>Monitoring</h2>
+<pre class="codehilite"><code class="language-bash"># GPU usage
+nvidia-smi
+
+# Continuous monitoring
+watch -n 1 nvidia-smi
+
+# Detailed GPU stats
+nvidia-smi --query-gpu=name,temperature.gpu,utilization.gpu,memory.used,memory.total --format=csv
+</code></pre>
+
+<h2>Troubleshooting</h2>
+<pre class="codehilite"><code class="language-bash"># Check CUDA
+nvcc --version
+python -c &quot;import torch; print(torch.cuda.is_available())&quot;
+
+# Check Claude API
+python ~/dws-lwm/scripts/test_claude_api.py
+
+# Disk space
+df -h ~/dws-lwm
+du -sh ~/dws-lwm/*
+</code></pre>
+
+<h2>Session Management</h2>
+<pre class="codehilite"><code class="language-bash"># Start long-running job in tmux
+tmux new-session -s training
+
+# Detach: Ctrl+B, then D
+# Reattach: tmux attach -t training
+# List sessions: tmux ls
+</code></pre>
+
+<p>EOF</p>
+<p>cat ~/dws-lwm/QUICK_REFERENCE.md</p>
+<pre class="codehilite"><code>---
+
+## Lab Complete! 🎉
+
+### Checklist
+
+Verify all items before proceeding to Part 2:
+
+- [ ] `nvidia-smi` shows GPU stats
+- [ ] PyTorch CUDA available: `python -c &quot;import torch; print(torch.cuda.is_available())&quot;`
+- [ ] Claude API responds: `python ~/dws-lwm/scripts/test_claude_api.py`
+- [ ] Llama 3.1 8B downloaded: `ls ~/dws-lwm/models/base/llama-3.1-8b/`
+- [ ] Virtual environment activates: `source ~/dws-lwm/venv/bin/activate`
+- [ ] All checks pass: `python ~/dws-lwm/scripts/system_health_check.py`
+
+### Next Steps
+
+**Proceed to Part 2:** `training-manual-part2-data-training.md`
+
+Part 2 covers:
+- Industry-specific data generation with Claude
+- QLoRA fine-tuning configuration
+- Training execution and monitoring
+- Checkpoint management
+
+### Troubleshooting
+
+If any checks failed:
+
+| Issue | Solution |
+|-------|----------|
+| CUDA not available | Reboot system, verify `nvidia-smi` |
+| Claude API fails | Check API key in `~/.config/anthropic/credentials` |
+| Model not found | Re-run download script |
+| Disk space low | Clean cache: `rm -rf ~/.cache/huggingface` |
+
+### Support
+
+- **Training Manual:** `/home/user/dws6/product-catalog/LWM/training-manual.md`
+- **Admin Manual:** `/home/user/dws6/Admin/ADMIN_MANUAL.md`
+- **Health Check:** `python ~/dws-lwm/scripts/system_health_check.py`
+
+---
+
+---
+
+## Section 9: Ollama Installation for Code Review (30 minutes)
+
+### 9.1 Install Ollama
+
+Ollama enables self-hosted open-source LLM inference on the GN-100 — used for **Level 5** of the automated PR review pipeline (sovereign, zero-cost code review).
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Verify installation
+ollama --version
+# Expected: ollama version 0.x.x
+
+# Start Ollama service
+sudo systemctl enable ollama
+sudo systemctl start ollama
+
+# Verify service is running
+systemctl status ollama
+curl http://localhost:11434/api/tags
+# Expected: {&quot;models&quot;:[]}
+</code></pre>
+
+<h3>9.2 Pull Code Review Model</h3>
+<pre class="codehilite"><code class="language-bash"># Pull Qwen 2.5 Coder 14B (recommended for code review)
+ollama pull qwen2.5-coder:14b
+
+# Alternative smaller models:
+# ollama pull qwen2.5-coder:7b      # Lower VRAM, faster
+# ollama pull codellama:13b          # Meta's code model
+# ollama pull deepseek-coder-v2:16b  # DeepSeek code model
+
+# Verify model is available
+ollama list
+# Expected: qwen2.5-coder:14b   ~9GB
+
+# Test inference
+ollama run qwen2.5-coder:14b &quot;Review this Python code for security issues: import os; os.system(input('cmd: '))&quot;
+</code></pre>
+
+<h3>9.3 Configure Ollama for Network Access</h3>
+<p>The GN-100 must be reachable from GitHub Actions (via self-hosted runner or tunnel).</p>
+<pre class="codehilite"><code class="language-bash"># Option A: Expose on local network
+sudo tee /etc/systemd/system/ollama.service.d/override.conf &lt;&lt; 'EOF'
+[Service]
+Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+
+# Verify remote access
+curl http://gn-100.local:11434/api/tags
+
+# Option B: Use Cloudflare Tunnel (recommended for GitHub Actions)
+# Install cloudflared
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared.deb
+
+# Create tunnel (requires Cloudflare account)
+cloudflared tunnel login
+cloudflared tunnel create gn100-ollama
+cloudflared tunnel route dns gn100-ollama gn100-ollama.yourdomain.com
+
+# Run tunnel
+cloudflared tunnel run --url http://localhost:11434 gn100-ollama
+</code></pre>
+
+<h3>9.4 Test Code Review via API</h3>
+<pre class="codehilite"><code class="language-bash"># Test the Ollama code review API call (same format as Level 5 workflow)
+curl -s -X POST http://localhost:11434/api/generate \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{
+    &quot;model&quot;: &quot;qwen2.5-coder:14b&quot;,
+    &quot;prompt&quot;: &quot;Review this TypeScript code for security issues:\n\nconst query = `SELECT * FROM users WHERE id = ${req.params.id}`;\nconst result = await db.query(query);&quot;,
+    &quot;stream&quot;: false,
+    &quot;options&quot;: {
+      &quot;temperature&quot;: 0.1,
+      &quot;num_predict&quot;: 500
+    }
+  }' | jq '.response'
+
+# Expected: Identifies SQL injection vulnerability
+</code></pre>
+
+<h3>9.5 GitHub Actions Integration</h3>
+<p>Add these secrets to your GitHub repository:</p>
+<table>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OLLAMA_HOST</code></td>
+<td><code>https://gn100-ollama.yourdomain.com</code> or <code>http://gn-100.local:11434</code></td>
+<td>Ollama API endpoint</td>
+</tr>
+<tr>
+<td><code>OLLAMA_MODEL</code></td>
+<td><code>qwen2.5-coder:14b</code></td>
+<td>Model to use for Level 5 review</td>
+</tr>
+</tbody>
+</table>
+<p>The Level 5 step in <code>.github/workflows/ai-pr-review.yml</code> will automatically call this endpoint when the secrets are configured.</p>
+<h3>9.6 Verify Level 5 Checklist</h3>
+<ul>
+<li>[ ] <code>ollama --version</code> shows version</li>
+<li>[ ] <code>ollama list</code> shows <code>qwen2.5-coder:14b</code></li>
+<li>[ ] <code>curl http://localhost:11434/api/tags</code> returns model list</li>
+<li>[ ] Code review test produces meaningful output</li>
+<li>[ ] Network access configured (local or Cloudflare Tunnel)</li>
+<li>[ ] GitHub secrets <code>OLLAMA_HOST</code> and <code>OLLAMA_MODEL</code> set</li>
+</ul>
+<hr />
+<p><strong>Document Control:</strong>
+- <strong>Part:</strong> 1 of 3
+- <strong>Version:</strong> 1.1
+- <strong>Status:</strong> Lab-tested executable
+- <strong>Execution Time:</strong> 5-7 hours (added Ollama setup)
+- <strong>Next:</strong> Part 2 - Data Generation &amp; Training</p>
+<hr />
+<p><em>Lifetime Oy - Internal Use Only</em></p></body></html>

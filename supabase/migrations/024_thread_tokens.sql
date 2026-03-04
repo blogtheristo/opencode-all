@@ -98,11 +98,9 @@ ALTER TYPE activity_outcome ADD VALUE IF NOT EXISTS 'manual_update_failed';
 -- that we keep here. We add thread_token.
 -- ============================================================================
 
-DROP VIEW IF EXISTS v_outreach_due_today;
-DROP VIEW IF EXISTS v_outreach_enriched;
-
-CREATE VIEW v_outreach_enriched
-WITH (security_invoker = true) AS
+CREATE OR REPLACE VIEW v_outreach_enriched
+  WITH (security_invoker = true)
+AS
 SELECT
   t.id,
   t.pipeline,
@@ -141,8 +139,7 @@ JOIN persons p ON p.id = t.person_id
 LEFT JOIN outreach_orgs o ON o.id = t.org_id
 LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
--- Recreate the dependent view that was dropped
-CREATE VIEW v_outreach_due_today
+CREATE OR REPLACE VIEW v_outreach_due_today
   WITH (security_invoker = true)
 AS
 SELECT ve.*,

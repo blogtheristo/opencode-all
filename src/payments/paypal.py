@@ -353,7 +353,16 @@ class PayPalClient:
         try:
             import json
 
-            webhook_event = json.loads(payload)
+            # SECURITY FIX: Validate JSON before processing (CWE-502)
+            try:
+                webhook_event = json.loads(payload)
+            except (json.JSONDecodeError, TypeError) as parse_err:
+                logger.error(f"Invalid PayPal webhook JSON payload: {parse_err}")
+                return False
+
+            if not isinstance(webhook_event, dict):
+                logger.error("PayPal webhook payload is not a JSON object")
+                return False
 
             verification_payload = {
                 "transmission_id": headers.get("paypal-transmission-id", ""),
