@@ -4,9 +4,6 @@
 # HTTP requests
 requests>=2.31.0
 
-# HTML parsing (fallback scraping)
-beautifulsoup4>=4.12.0
-
 # CSV handling (stdlib, included for reference)
 # csv — part of Python standard library
 
