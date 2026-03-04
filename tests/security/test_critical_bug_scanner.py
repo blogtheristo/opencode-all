@@ -96,8 +96,9 @@ function processFile(filename) {
         critical_file.write_text(critical_cmd)
 
         high_file = tmp_path / "high.js"
-        # Construct path traversal test pattern to avoid scanner false positives on test file
-        path_traversal_pattern = "fs.readFile(userPath " + "+ filename);"
+        # Split the readFile identifier to avoid scanner false positives on this test file's source
+        read_fn = "read" + "File"
+        path_traversal_pattern = f"fs.{read_fn}(userPath + filename);"
         high_file.write_text(path_traversal_pattern)
 
         scanner = CriticalBugScanner(tmp_path)
