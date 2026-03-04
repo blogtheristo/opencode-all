@@ -10,9 +10,10 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(echo:*)",
-      "Bash(git remote get-url:*)"
+      "Bash(git remote get-url:*)",
+      "Bash(git add docs/press/2026-02-26-captain-program-launch.md)",
+      "Bash(git commit:*)"
     ]
   },
-  "hooks": {
-  }
+  "hooks": {}
 }
