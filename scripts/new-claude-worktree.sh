@@ -311,7 +311,7 @@ fi
 WORKTREE_ENV="$NEW_WORKTREE/.env"
 if [[ -f "$WORKTREE_ENV" ]]; then
     for var in SUPABASE_URL SUPABASE_SERVICE_KEY ANTHROPIC_API_KEY; do
-        if grep -qE "^[[:space:]]*${var}=" "$WORKTREE_ENV" 2>/dev/null; then
+        if grep -v '^\s*#' "$WORKTREE_ENV" | grep -qE "^${var}="; then
             log_info "  .env: $var present"
         else
             echo "  .env: $var not found"
