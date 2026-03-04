@@ -57,7 +57,7 @@ Document Status:
 The DWS10 Captain Program offers industry leaders early access to sovereign AI infrastructure and a direct co-creation role in the platform roadmap.
 
 | Tier | Investment | Cap | Discount | Seats |
-|------|-----------|-----|----------|-------|
+| ---- | ---------- | --- | -------- | ----- |
 | Platinum | €50,000 SAFE | €3.8M | 20% | Limited |
 | Gold | €25,000 SAFE | €3.8M | 15% | Limited |
 | Silver | €10,000 SAFE | €3.8M | 10% | Open |
@@ -76,7 +76,7 @@ The DWS10 Captain Program offers industry leaders early access to sovereign AI i
 ### Hardware
 
 | Component | Spec | Purpose |
-|-----------|------|---------|
+| --------- | ---- | ------- |
 | AI Cluster | 8–16× Acer Veriton GN100 AI Mini Workstations (€3,999/unit) | Air-gapped redundant compute |
 | Runtime | DGX Ubuntu + NVIDIA GB10 | Sovereign AI runtime |
 | Network | Sovereign private mesh | Zero-trust fabric |
@@ -160,7 +160,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 ## 6. Next Steps
 
 | Step | Action | Owner | Timeline |
-|------|--------|-------|---------|
+| ---- | ------ | ----- | -------- |
 | 1 | 30-minute alignment call | Risto Paarni + xAI Enterprise | Next week |
 | 2 | Sign Platinum Captain SAFE | Prospective Captain | Week 1 |
 | 3 | xAI Enterprise on-prem MoU / pilot license | xAI + Lifetime Oy legal | Week 2 |
