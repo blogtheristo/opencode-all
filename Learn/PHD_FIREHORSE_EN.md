@@ -7,6 +7,29 @@
 **Document Type:** Master Thesis Documentation
 
 ---
+# VERSION AND AGENT HISTORY
+
+Version: 1.7
+
+Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
+  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
+
+Document Status:
+  - Created: 15.01.2026
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V1.7 — Claude Code Engineering Structure: CLAUDE.md as project memory, Skills, Hooks, Subagents)
+
+---
 
 ## Abstract
 
@@ -31,10 +54,11 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 11. [Proton Products Strategy](#11-proton-products-strategy)
 12. [IPR Protection & Trade Secret Strategy](#12-ipr-protection--trade-secret-strategy)
 13. [Prompt Caching Architecture for AI Agents](#13-prompt-caching-architecture-for-ai-agents)
-14. [Results and Discussion](#14-results-and-discussion)
-15. [Conclusion](#15-conclusion)
-16. [References](#16-references)
-17. [Appendices](#17-appendices)
+14. [Enterprise Multi-Tenant Agent Architecture](#14-enterprise-multi-tenant-agent-architecture)
+15. [Results and Discussion](#15-results-and-discussion)
+16. [Conclusion](#16-conclusion)
+17. [References](#17-references)
+18. [Appendices](#18-appendices)
 
 ---
 
@@ -938,9 +962,214 @@ These economics are critical for Firehorse's AI-assisted store operations, where
 
 ---
 
-## 14. Results and Discussion
+## 14. Enterprise Multi-Tenant Agent Architecture
 
-### 12.1 Operational Efficiency Gains
+### 14.1 Per-Industry Open LLM Selection
+
+No single open LLM is optimal for all 16 EU industries served by DWS IQ. Each industry vertical has distinct regulatory language, domain knowledge requirements, and structured output needs. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking.
+
+**Candidate open LLMs by industry cluster:**
+
+| Industry Cluster | Candidate Models | Key Domain Requirement |
+|-----------------|------------------|----------------------|
+| Construction, Real Estate | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
+| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS allowance calculations, process emissions, CBAM |
+| Manufacturing, Chemicals | Qwen 2.5 72B, Llama 3.3 | CBAM product classification, BOM analysis, REACH |
+| Logistics, Maritime, Aviation | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, route optimization |
+| Agriculture, Food & Beverage | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 supply chain, packaging lifecycle |
+| Finance, Public Sector | Mistral Large (EU-hosted), Llama 3.3 | SFDR, EU Taxonomy, double materiality, GPP |
+| Healthcare, Textiles | Gemma 2 (EU-hosted), Qwen 2.5 | Digital product passport, pharmaceutical supply chain |
+
+**Selection criteria:** domain knowledge depth, multilingual capability, structured output reliability, context window (128k+), inference speed, EU data residency, and commercial license.
+
+**Continuous benchmarking process:** Each industry agent runs weekly automated compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against the current model and 2-3 alternatives. If an alternative consistently scores higher on accuracy and structured output, the model is flagged for review and potential switch.
+
+### 14.2 Bring Your Own Agent (BYOA) Architecture
+
+Enterprise customers bring their own AI agents to work on DWS IQ. This section uses NCC (Nordic construction company) as an illustrative case.
+
+**NCC agent ecosystem:**
+
+| Agent Source | Count | Examples |
+|-------------|-------|---------|
+| **NCC Internal** | 7 | Procurement, Safety Compliance, BIM, Sustainability, Cost Estimation, Quality, Project Planning |
+| **Contractor Agents** | 14 | HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier, Window Manufacturer, Insulation, etc. |
+| **DWS IQ Platform** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
+| **Total** | 24 | All connected via A2A + MCP protocols |
+
+**Tenant-specific Lifetime World Model (LWM):**
+
+The Lifetime World Model is the enterprise learning layer that sits on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
+
+1. **Fine-tunes enterprise data and regulation** — ingests the customer's operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
+2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities
+3. **Ensures competitive advantage with multi-agent tools** — combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
+
+Each enterprise tenant receives their own LWM instance:
+- **Base LLM:** Selected per industry evaluation (e.g., Qwen 2.5 72B for Nordic construction)
+- **Fine-tuned on:** Tenant's own project data, industry codes (RT-kortisto), regulatory context
+- **Connectors:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (emissions factors)
+- **Sandbox:** Stage 2 ephemeral containers (europe-north1) or Stage 3 persistent (at scale)
+
+**Why 16 industries make the LWM stronger:** Each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns. A carbon reduction technique proven in cement manufacturing generates transferable insight for construction. Supply chain Scope 3 agents in manufacturing transfer to food & beverage. The 16th industry customer benefits from all 15 industries' accumulated intelligence — creating a moat that single-industry competitors cannot replicate.
+
+### 14.3 Agent Orchestration Studio: Graphical Workflow Builder
+
+To enable enterprise customers to build connections between 24+ agents, the platform provides a visual workflow builder.
+
+**Tool evaluation:**
+
+| Tool | License | MCP Support | A2A Support | Self-Hosted EU | Best For |
+|------|---------|-------------|-------------|---------------|----------|
+| **Langflow** | Apache 2.0 | Native (client + server) | Via custom nodes | Yes | Agent orchestration, LLM workflows |
+| **n8n** | Fair Code | Via community nodes | Via HTTP nodes | Yes | ERP/BIM connectors, data pipelines |
+| **React Flow** | MIT | Custom | Custom | N/A (library) | Custom visual builder UI |
+| **Flowise** | Apache 2.0 | Partial | No | Yes | Chatbot RAG workflows |
+| **Node-RED** | Apache 2.0 | Via FlowFuse | Via HTTP | Yes | IoT/edge, industrial automation |
+| **Temporal UI** | MIT | No | No | Yes | Workflow execution monitoring |
+
+**Recommended: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow Visual Canvas                         │  │
+│  │  - Drag-and-drop agent nodes                      │  │
+│  │  - Per-agent LLM model selection                  │  │
+│  │  - Visual connector wiring                        │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Langflow Engine (MCP + A2A orchestration)        │  │
+│  │  - Agent nodes = A2A Agent Cards                  │  │
+│  │  - Connectors = MCP tools                         │  │
+│  │  - Flows export to Temporal.io workflows          │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Temporal.io (durable execution, already in stack)│  │
+│  │  - Retry, timeout, compensation                   │  │
+│  │  - EU AI Act Article 12 audit trail               │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Rationale:**
+1. **React Flow** (MIT) — Custom visual canvas in DWS IQ React dashboard. Zero vendor lock-in.
+2. **Langflow** (Apache 2.0) — Native MCP + A2A support. Self-hosted EU. IBM enterprise partnership.
+3. **Temporal.io** — Already in stack. Durable execution with full Article 12 audit trail.
+4. **n8n** — Supplementary for ERP/BIM connector workflows (Tekla ↔ IFS Cloud sync).
+
+### 14.4 Contractor Agent Onboarding
+
+```
+1. Contractor publishes Agent Card (/.well-known/agent.json)
+2. NCC admin opens Agent Orchestration Studio
+3. Studio discovers contractor agent via A2A protocol
+4. Admin drags contractor onto canvas, connects to workflows
+5. Studio validates connectivity (A2A health check)
+6. Workflow deploys to Temporal.io
+7. All interactions logged per EU AI Act Article 12
+```
+
+### 14.5 DWS7 Agent Architecture Modernization
+
+The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered during production deployment. Implemented in a single Claude Code session (24.02.2026), these fixes transform the agent system from a 2023-era pattern to a production-grade agentic platform.
+
+**The six fixes:**
+
+| # | Gap | Fix | Key File |
+|---|-----|-----|----------|
+| 1 | Single-shot LLM calls | Observe-think-act loop (`runLoop()`) | `base.agent.ts` |
+| 2 | No tool use | Tool runtime with JSON Schema + 4 built-in tools | `tools.ts` |
+| 3 | Hardcoded Groq fetch | Multi-provider client (Anthropic > Groq > OpenAI) | `llm-client.ts` |
+| 4 | No agent communication | Delegation + depth tracking + discovery API | `index.ts` |
+| 5 | MCP was vapor | JSON-RPC 2.0 server at `/mcp` | `agent-server.ts` |
+| 6 | Express-only | Event bus with pub/sub + Redis Streams | `event-bus.ts` |
+
+**Build for Agents principle:** Every DWS product must be accessible via:
+- **CLI** (`cli/src/cli.ts`) — JSON output, pipeable, zero dependencies
+- **MCP** (`/mcp` endpoint) — auto-discovered by Claude Code, Cursor
+- **Claude Code Skills** (`.claude/commands/`) — natural language agent invocation
+- **REST API** (`/api/agents/`) — traditional HTTP integration
+- **Event bus** — real-time agent coordination via SSE
+
+**EU AI Act Article 12 compliance:** The agentic loop architecture inherently satisfies automatic logging requirements. Each iteration records observation, thought, actions, and results to the `agent_loop_iterations` Supabase table — creating complete reasoning lineage from input to output.
+
+**Impact on Firehorse operating model:** The CLI and Skills layer means the Firehorse store management workflow can now be automated by AI agents end-to-end: compliance checks via `/compliance-check`, carbon analysis via `/carbon-analysis`, and multi-agent workflows via `/workflow` — all without human GUI interaction.
+
+---
+
+### 14.6 Agent Foundry Stage 1.5: OpenSandbox + EMPO² Agent Memory (v1.5)
+
+
+*Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026*
+
+#### 14.6.1 Stage 1.5 — OpenSandbox on Acer Veriton GN100
+
+The Agent Foundry received a new isolation stage between the demo-grade SDK sandbox (Stage 1) and Cloud Run (Stage 2): **OpenSandbox** (https://github.com/alibaba/OpenSandbox) deployed on the **Acer Veriton GN100** edge node (120 GiB RAM, 20 cores, Helsinki Lab).
+
+| Stage | Method | Cost | Use Case |
+|-------|--------|------|----------|
+| 1 | SDK sandbox (bubblewrap/seatbelt) | €0 | Demo, single-tenant |
+| **1.5** | **OpenSandbox Docker (Veriton GN100)** | **€0 HW** | **EU air-gapped, internal pilot** |
+| 2 | Cloud Run ephemeral (europe-north1) | ~€20-50/mo | Paid multi-tenant |
+| 3 | Persistent containers (gVisor) | €200+/mo | Scale |
+
+Activation: `SANDBOX_STAGE=opensandbox`. Six MCP tools (`sandbox_create`, `sandbox_execute`, `sandbox_file_read`, `sandbox_file_write`, `sandbox_destroy`, `sandbox_ping`) expose it via `/sandbox/*` endpoints in the MCP Hub.
+
+**Firehorse operating model impact:** Stage 1.5 enables EU air-gapped agent execution for regulated industries (defense, healthcare, critical infrastructure) — customers where data must never leave on-premises hardware. The Acer Veriton GN100 is the first physical Lifetime Fleet node fulfilling this capability.
+
+#### 14.6.2 EMPO²: Academic Grounding for the LWM Memory Architecture
+
+The paper *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², arXiv:2602.23008, February 2026) provides academic validation for the DWS Lifetime World Model's hybrid memory design.
+
+EMPO² proposes combining:
+- **Parametric memory** (RL updates to model weights) — analogous to DWS LWM fine-tuning (QLoRA, Acer Veriton GN100)
+- **Non-parametric memory** (retrieval from memory buffer) — analogous to DWS RAG over EU regulations + enterprise data (pgvector)
+
+Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key insight: *models trained with memory become robust even without memory at inference* — validating the DWS strategy of progressively embedding domain knowledge into LWM weights while maintaining RAG as a fallback.
+
+The OpenSandbox environment additionally serves as a **safe EMPO²-style RL training sandbox**: isolated containers provide the clean, reproducible environments needed for RL-based memory training without affecting production infrastructure.
+
+### 14.7 CEO Automation Agent Suite
+
+*Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig*
+
+Three production agents automate the CEO's daily operational loop — GitHub Actions cron, Supabase data layer, Resend delivery.
+
+| Agent | Trigger | Role |
+|-------|---------|------|
+| **Captain Pre-Briefing** | 07:30 Helsinki, Mon-Fri | Pre-call prep: CRM pull → talking points → email |
+| **LinkedIn Post Scheduler** | 08:00 Helsinki, Mon-Fri | Content calendar → draft → CEO approval digest |
+| **EU Regulation Monitor** | 05:30 Helsinki, Mon-Fri | RSS fetch → classify by regulation → severity score → feed scheduler |
+
+The EU Regulation Monitor creates a closed feedback loop: it fetches EU Commission / EUR-Lex / Carbon Pulse / Euractiv, classifies by regulation (CBAM, CSRD, Fit for 55, EPBD, EU AI Act, ETS), and feeds regulation alerts as LinkedIn content ideas — ensuring CEO outreach stays aligned with active regulatory development.
+
+**Firehorse operating model impact:** These agents demonstrate the model at the revenue layer — not just product management and compliance, but active sales motion and thought leadership are now AI-automated. The CEO operates as a supervisor, not an executor, of the daily revenue workflow.
+
+### 14.8 Strategic Partnerships and Multi-LLM Router
+
+*Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1*
+
+DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands architecture:
+
+| Partner | Architecture Layer | Status |
+|---------|--------------------|--------|
+| NVIDIA | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Inception target Q2 2026 |
+| Siemens | Hands (MindSphere IoT) + Body (digital twin) | Xcelerator Q2 2026 |
+| ABB | Hands (automation, robotics, power grid) | Q3 2026 |
+| xAI | Brain (Grok real-time market intelligence) | Active production |
+| Mistral | Brain/Memory (EU-sovereign AI inference) | Planned Q3 2026 |
+
+**Multi-LLM Router:** Task-level LLM selection based on sovereignty, cost, and latency — Claude/Mistral for compliance, Grok for market signals, Groq for low-latency summarization, Qwen 2.5 72B (QLoRA, Acer Veriton) for on-premises sovereign inference.
+
+**Research contribution:** The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization — a key enabler of the free-tier bootstrap strategy applied at scale.
+
+---
+
+## 15. Results and Discussion
+
+### 15.1 Operational Efficiency Gains
 
 The Firehorse Operations Model with Claude Code achieved:
 
@@ -952,7 +1181,7 @@ The Firehorse Operations Model with Claude Code achieved:
 | Error rate | 5% | <1% | 80% |
 | Store page updates | 4 hours | 15 minutes | 94% |
 
-### 12.2 Google Merchant Center Performance
+### 15.2 Google Merchant Center Performance
 
 After implementing Revolut checkout links and fixing feed issues:
 
@@ -963,7 +1192,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | Checkout conversion | Direct to payment |
 | Feed file size | 32,893 bytes |
 
-### 12.3 Compliance Readiness Assessment
+### 15.3 Compliance Readiness Assessment
 
 | Regulation | Readiness | Gap Analysis |
 |------------|-----------|--------------|
@@ -973,7 +1202,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | NIS2 | 75% | Security assessment needed |
 | CSRD | 85% | Reporting templates ready |
 
-### 12.4 Limitations
+### 15.4 Limitations
 
 1. **Audio chat not yet deployed** - Roadmap documented, Q1 2026 target
 2. **Partner ecosystem** - Partnerships in development
@@ -982,9 +1211,9 @@ After implementing Revolut checkout links and fixing feed issues:
 
 ---
 
-## 15. Conclusion
+## 16. Conclusion
 
-### 13.1 Summary
+### 16.1 Summary
 
 The Firehorse Operations Model demonstrates that AI-assisted e-commerce management can:
 
@@ -994,7 +1223,7 @@ The Firehorse Operations Model demonstrates that AI-assisted e-commerce manageme
 4. **Prepare infrastructure** for voice-based customer interactions
 5. **Support industrial customers** with carbon calculator integration
 
-### 13.2 Key Contributions
+### 16.2 Key Contributions
 
 This thesis contributes:
 
@@ -1004,8 +1233,12 @@ This thesis contributes:
 4. EU compliance mapping for industrial software products
 5. Product recommendation engine architecture for 16 EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
+7. Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100 for EU air-gapped agent sandboxing
+8. EMPO² alignment — hybrid parametric/non-parametric memory architecture validated by arXiv:2602.23008
+9. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation
+10. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model
 
-### 13.3 Future Work
+### 16.3 Future Work
 
 1. **Q1 2026:** Deploy audio chat Phase 1 with EU AI Act transparency
 2. **Q2 2026:** Implement industry carbon calculator with Scope 1/2/3
@@ -1015,7 +1248,7 @@ This thesis contributes:
 
 ---
 
-## 16. References
+## 17. References
 
 1. EU AI Act, Regulation (EU) 2024/1689
 2. Google Merchant Center Technical Specifications (2026)
@@ -1029,6 +1262,10 @@ This thesis contributes:
 10. GHG Protocol Corporate Standard
 11. ISO 14064-1:2018 Greenhouse Gas Accounting
 12. Proton AG Security Documentation
+13. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
+14. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
+15. Anthropic Claude Code Documentation — Captain Briefing Agent (claude/ai-agent-orchestration-t89Ig, 2026)
+16. DWS6_TO_DWS7_UPDATE.md v1.1 — Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral (claude/dws6-dws7-update-doc-I2Cgk, 2026)
 13. EU Trade Secrets Directive (EU) 2016/943
 14. Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)
 15. Patent Cooperation Treaty (PCT), WIPO
@@ -1036,7 +1273,7 @@ This thesis contributes:
 
 ---
 
-## 17. Appendices
+## 18. Appendices
 
 ### Appendix A: Complete Product Catalog
 
@@ -1159,6 +1396,69 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 ---
 
+## 14.9 Climate IQ Pantheon — Greek/Roman God Multi-Agent System
+
+Building on the multi-tenant agent architecture (Section 14), this section documents the **Climate IQ Pantheon**: 13 production AI agents carrying Greek/Roman deity identities, organized in two tiers for Climate IQ's EU industrial compliance platform.
+
+### System Overview
+
+**Tier 1 — Orchestrator Agents (6)**
+
+| Agent | Deity | Role | One-liner |
+|-------|-------|------|-----------|
+| Atlas | Greek Titan | Chief of Staff | Routes chaos, synthesizes it into executive briefings |
+| Athena | Greek Goddess | EU Compliance | Memorized every EU regulation since 2005 |
+| Hephaestus | Greek God | Field & Site | Never gets mud on his boots, but checks everything |
+| Iris | Greek Goddess | Research & Intel | Reads 10,000 pages so you don't have to |
+| Hermes | Greek God | Logistics & Ops | Optimizes your supply chain while you find the warehouse |
+| Apollo | Greek God | Content & Outreach | Writes copy, ranks it, sends the follow-up. Already did. |
+
+**Tier 2 — Industry Specialists (7)**
+
+Vulcan (Steel/ETS), Helios (Energy/RED III), Neptune (Maritime/FuelEU), Ceres (Agriculture/CBAM), Prometheus (Hydrogen/RFNBO), Mars (Construction/EPBD), Gaia (Cement/ETS clinker).
+
+### SOUL.md Pattern
+
+Each agent has a `SOUL.md` identity file injected as LLM system prompt via `BaseAgent.callLLM(systemPromptOverride)`. This resolves the "SOUL dead code" audit finding where persona constants were defined but never wired into LLM calls.
+
+### Security & Compliance
+
+- **Prompt injection fix**: Replaced all `...input` spreads in HermesAgent with explicit typed field extraction
+- **EU AI Act Article 12**: All 13 agents write to `agent_executions` Supabase table (start + completion events)
+
+### Business Innovation: Names as Marketing
+
+The Pantheon naming is the product's marketing wedge — agent one-liners appear on onelifetime.world/team alongside human staff, making enterprise AI approachable without sacrificing credibility.
+### Appendix F: Claude Code Engineering Structure — AI Workflow as First-Class Engineering
+The Firehorse operations model is built on a principle that emerges from both the research findings and operational practice: **AI workflows must be engineered, not improvised**.
+This appendix documents the concrete structural patterns that implement this principle in the DWS6 repository, validated against emerging Claude Code community best practices (2026).
+**CLAUDE.md as Project Memory**
+The `CLAUDE.md` file at the repository root is not documentation — it is the primary intelligence substrate for every AI agent session. It encodes standards, constraints, architecture decisions, email rules, security controls, and non-negotiables in a single file that every Claude Code session reads automatically. This eliminates behavioral drift and removes the need for repeated per-session context injection.
+Key metric: 2,000+ lines of institutional knowledge (brand standards, document standards, security controls, deployment rules, thesis rules, email rules) inherited by every session at zero marginal cost.
+**Skills as Reusable Workflow Components**
+Six production skills in `.claude/commands/` transform ad-hoc prompting into callable, documented, testable workflow components:
+| Skill | Domain |
+|-------|--------|
+| `/compliance-check` | EU ETS/CBAM/CSRD regulatory gap analysis |
+| `/agent-run` | Execute any DWS IQ agent via structured CLI |
+| `/workflow` | Chain multiple agents into unified reports |
+| `/discover-agents` | Agent capability discovery |
+| `/site-safety` | Construction site safety (EN 13001) |
+| `/carbon-analysis` | Embodied carbon lifecycle assessment |
+Each skill is an engineered component with a defined interface, documentation, and failure modes. This is the Build for Agents principle in practice.
+**Hooks for Automated Quality Enforcement**
+Git hooks (`.githooks/`) enforce structural invariants:
+- Branch naming convention (`claude/<feature>-<id>`) — prevents incorrect branch workflows
+- Anti-destructive-push guard — prevents accidental deletion of production branches
+- Post-merge sync — keeps Admin/, docs/, AgentFoundry/ synchronized to backup storage
+The quality enforcement is **structural, not behavioral** — hooks cannot be bypassed by agent behavior. This is the key architectural distinction between a disciplined AI workflow system and an ad-hoc one.
+**Subagents for Context Isolation and Parallel Execution**
+Background agents enable parallel research and task execution without exhausting the main context window. The Explore agent specifically provides codebase search without polluting the primary context — critical for large repositories. This pattern directly extends the multi-agent orchestration documented in Sections 3 and 14.
+**Conclusion**
+The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
+
+---
+
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 1.1*
+*Last updated: 02.03.2026*
+*Version: 1.7*

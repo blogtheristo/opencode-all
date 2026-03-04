@@ -1,4 +1,28 @@
-# DWS Gamma Brand Standard v2.0
+# DWS Gamma Brand Standard v2.2
+
+---
+# VERSION AND AGENT HISTORY
+
+Version: 2.2
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
+  - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
+
+Session Links & References:
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_BRAND_STANDARD.md
+
+Document Status:
+  - Created: 01.01.2026
+  - Last Modified: 03.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -30,6 +54,8 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 14 | Accessibility (WCAG 2.2) | All pages |
 | 15 | Shared Assets Registry | Infrastructure |
 | 16 | Page Template | New pages |
+| 17 | Climate IQ Pantheon Agent Brand Identity | onelifetime.world agent cards |
+| 18 | Dashboard Profile Menu Standard | Logged-in dashboard (v10-react) |
 
 ---
 
@@ -943,6 +969,7 @@ When any shared asset is modified, **BOTH locations must be updated:**
 | Source | Production |
 |--------|------------|
 | `dws10.com/shared-assets/` | `landing-pages/dws10-com/shared-assets/` |
+| `onelifetime.world/shared-assets/` | `landing-pages/onelifetime-world/shared-assets/` |
 
 ---
 
@@ -1013,10 +1040,331 @@ This standard applies to these sites with dual folder rule:
 
 ---
 
+## 7. Product Pricing Clarity (Two-Number Rule)
+
+**Authority:** `DWS_PRODUCT_STANDARD.md` is the single source of truth for all pricing.
+
+### 7.1 Every Product Card Must Show Two Numbers
+
+```
+Buy now:  €XX,XXX    ← total upfront commitment
+Monthly:  €X,XXX/mo  ← ongoing cost (if applicable)
+```
+
+If no monthly component, show only the buy-now price. Never show "Contact us for pricing."
+
+### 7.2 Price Display Tokens
+
+| Token | CSS | Usage |
+|-------|-----|-------|
+| `.product-price` | `color: var(--text-success); font-size: 1.5rem; font-weight: 700` | Primary price |
+| `.product-price-note` | `color: var(--text-secondary); font-size: 0.875rem` | "per month" / "one-time" clarifier |
+| `.product-price-total` | `color: var(--text-primary); font-size: 1rem` | Total commitment (e.g., "€29,950 total") |
+
+### 7.3 Product Card Price Layout
+
+```html
+<div class="product-pricing">
+    <div class="product-price">€5,990/mo</div>
+    <div class="product-price-total">€29,950 total (5 months)</div>
+    <div class="product-price-note">VAT 0% · Full platform included</div>
+</div>
+```
+
+### 7.4 Enterprise Tier Cards
+
+Enterprise subscription tiers (Pilot, Alpha, Production) use a distinct card variant:
+
+```html
+<div class="product-card tier-card">
+    <div class="tier-badge">PILOT</div>
+    <div class="product-pricing">
+        <div class="product-price">€5,990<span class="price-period">/mo</span></div>
+        <div class="product-price-total">€29,950 total · 5 months</div>
+    </div>
+    <ul class="tier-includes">
+        <li>DWS IQ 6 Platform</li>
+        <li>Firehorse Suite (all modules)</li>
+        <li>Lifetime World Model</li>
+        <li>Onboarding workshop included</li>
+    </ul>
+    <div class="tier-not-included">
+        <small>Not included: hardware, customer cloud costs</small>
+    </div>
+    <a class="btn btn-primary btn-block">Start Pilot</a>
+</div>
+```
+
+**Tier card CSS:**
+```css
+.tier-card { border: 2px solid var(--border-subtle); }
+.tier-card:hover { border-color: var(--text-accent); }
+.tier-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.tier-badge.pilot { background: var(--gradient-primary); color: white; }
+.tier-badge.alpha { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+.tier-badge.production { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.price-period { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
+.btn-block { width: 100%; text-align: center; margin-top: 16px; }
+```
+
+### 7.5 Intelligent Decision Helper
+
+Pricing pages with 3+ tiers MUST include a decision helper:
+
+```html
+<div class="tier-selector">
+    <h3>Which tier is right for you?</h3>
+    <div class="selector-question">
+        <label>Buildings in your portfolio:</label>
+        <select id="building-count">
+            <option value="1-5">1-5 buildings</option>
+            <option value="6-20">6-20 buildings</option>
+            <option value="20+">20+ buildings</option>
+        </select>
+    </div>
+    <div class="selector-result" id="tier-recommendation">
+        <!-- JS populates recommendation based on selection -->
+    </div>
+</div>
+```
+
+---
+
+## 17. Climate IQ Pantheon — Agent Brand Identity
+
+### Naming Convention
+
+All Climate IQ AI agents use Greek/Roman deity names. Names are **permanent identity** — never rename them. Deity origin and domain assignment:
+
+| Agent | Deity Origin | Domain | Accent Color |
+|-------|-------------|--------|-------------|
+| Atlas | Greek Titan | Chief of Staff | Indigo `#6366f1` |
+| Athena | Greek | EU Compliance | Sky `#0ea5e9` |
+| Hephaestus | Greek | Field & Site | Red `#ef4444` |
+| Iris | Greek | Research & Intel | Purple `#a855f7` |
+| Hermes | Greek | Logistics & Ops | Amber `#f59e0b` |
+| Apollo | Greek | Content & Outreach | Orange `#f97316` |
+| Vulcan | Roman | Steel & Metals | Orange `#f97316` |
+| Helios | Greek | Energy & Renewables | Yellow `#eab308` |
+| Neptune | Roman | Maritime & Shipping | Cyan `#06b6d4` |
+| Ceres | Roman | Agriculture | Green `#22c55e` |
+| Prometheus | Greek | Hydrogen | Blue `#3b82f6` |
+| Mars | Roman | Construction | Red `#ef4444` |
+| Gaia | Greek | Cement & Earth | Stone `#78716c` |
+
+### Agent Card Component (onelifetime.world Team Section)
+
+**Orchestrator cards (large):**
+- Dark card: `background: #1e293b`
+- Colored border: `2px solid {accent-color}` per agent above
+- Large emoji avatar (centered, `text-5xl`)
+- Name in white `#f1f5f9`, bold
+- Role subtitle in accent color, `text-sm font-medium`
+- One-liner in `text-slate-400`, italic
+- Capability badge: dark bg + accent text, `rounded-full px-3 py-1 text-xs font-semibold`
+
+**Industry Specialist cards (compact):**
+- Same dark background `#1e293b`
+- Thin border `1px solid #374151`
+- Medium emoji (`text-4xl`)
+- Name bold `text-sm`
+- Industry in accent color `text-xs`
+- One-liner in `text-slate-500 text-xs italic`
+
+### One-Liner Tone Rules
+
+Agent one-liners MUST be:
+- **Self-assured, not arrogant** — the agent knows it's good, but doesn't brag
+- **Specific to the domain** — reference real EU regulations, real tools, real outcomes
+- **Wry, not slapstick** — dry humor that makes a compliance executive smile
+- **Single sentence** — never longer
+
+**Examples (approved):**
+- ✅ "Has memorized every EU regulation since 2005. Corrects lawyers. Unprompted." (Athena)
+- ✅ "Turns ETS carbon prices into competitive strategy. Red-hot accuracy." (Vulcan)
+- ❌ "I'm so smart and fast and amazing!" — too generic/hollow
+- ❌ "LOL compliance is boring but not for me!" — wrong tone
+
+### Section Header (Team Page)
+
+```html
+<h2>Our Team</h2>
+<p>Humans and AI agents. Both take their jobs very seriously. One of them never sleeps.</p>
+<h3>Climate IQ Pantheon</h3>
+<p class="uppercase tracking-widest text-sm">AI Orchestrator Agents</p>
+<h3>Industry Specialists</h3>
+<p class="uppercase tracking-widest text-sm">Sector AI Agents — One per Industry</p>
+```
+
+### Footer (onelifetime.world)
+
+onelifetime.world uses its own Ironclad Footer (`onelifetime.world/shared-assets/footer/ironclad-footer.js`) — same design system as dws10.com but with onelifetime.world-specific links (Community, Pledge, Partners).
+
+| Site | Footer Asset |
+|------|-------------|
+| dws10.com | `dws10.com/shared-assets/footer/ironclad-footer.js` |
+| onelifetime.world | `onelifetime.world/shared-assets/footer/ironclad-footer.js` |
+
+---
+
+## 18. Dashboard Profile Menu Standard v1.0
+
+**Scope:** DWS IQ logged-in dashboard (v10-react and future versions)
+**Components:** `ProfileMenu.tsx`, `HamburgerMenu.tsx`
+**Effective:** 2026-03-03
+
+### Overview
+
+Every logged-in dashboard MUST display:
+1. A **user avatar** (initials circle) in the header top-right area.
+2. A **profile dropdown** on desktop with user info and navigation.
+3. A **hamburger menu** on mobile (≤768px) with full nav + user identity strip + sign-out.
+
+### User Avatar
+
+| Property | Value |
+|----------|-------|
+| Shape | Circle (`rounded-full`) |
+| Size — desktop | `w-9 h-9` (36 px) |
+| Size — mobile | `w-8 h-8` (32 px) |
+| Background | `bg-gradient-to-br from-primary-500 to-primary-700` |
+| Text | White, `text-sm font-semibold` (desktop), `text-xs` (mobile) |
+| Content | First 2 initials from `user_metadata.full_name`; fallback: first 2 chars of email |
+| Ring | `ring-2 ring-white shadow-sm` |
+
+**Initials derivation:**
+```ts
+// Split name on spaces, take first letter of each word, max 2, uppercase
+const name = user?.user_metadata?.full_name;
+if (name) return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+return (user?.email ?? '').slice(0, 2).toUpperCase();
+```
+
+### Profile Dropdown (Desktop)
+
+Triggered by clicking the avatar. Auto-closes on click-outside or Escape key.
+
+**Structure:**
+```
+┌─────────────────────┐
+│ Full Name           │  ← user_metadata.full_name
+│ user@email.com      │  ← user.email
+├─────────────────────┤
+│ 🏠 Dashboard        │
+│ 🖥  Agent Monitor   │
+│ ⚙️  Settings        │
+├─────────────────────┤
+│ 🔴 Sign Out         │
+└─────────────────────┘
+```
+
+**Design specs:**
+| Property | Value |
+|----------|-------|
+| Width | `w-56` (224 px) |
+| Border radius | `rounded-xl` |
+| Shadow | `shadow-lg` |
+| Border | `border border-gray-100` |
+| Item height | `py-2` (comfortable tap target) |
+| Sign Out color | `text-red-600 hover:bg-red-50` |
+| Z-index | `z-50` |
+
+**Accessibility:**
+- Button: `aria-haspopup="true"`, `aria-expanded={open}`, `aria-label="Open profile menu"`
+- Menu container: `role="menu"`, `aria-label="Profile menu"`
+- Each item: `role="menuitem"`
+- Escape key closes menu
+- Click-outside closes menu
+
+### Hamburger Menu (Mobile ≤768px)
+
+Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that open a slide-out panel from the right.
+
+**Panel dimensions:** `w-72` (288 px), full height
+**Animation:** `translate-x-0` ↔ `translate-x-full`, 300ms ease-in-out
+**Backdrop:** `bg-black/40` overlay, click closes panel
+**Body scroll:** Locked (`overflow: hidden`) while panel is open
+
+**Panel layout (top to bottom):**
+```
+┌──────────────────────────────┐
+│ DWS IQ Dashboard        [×]  │  ← panel header
+├──────────────────────────────┤
+│ [Avatar] Full Name           │  ← user identity strip (bg-gray-50)
+│         user@email.com       │
+├──────────────────────────────┤
+│ 🏠 Dashboard                 │
+│ 🖥  Agent Monitor            │
+│ 💬 AI Assistant              │
+│ 📹 Meeting                   │
+│ ──────────────────────────── │
+│ ⚙️  Settings                 │
+├──────────────────────────────┤
+│ 🔴 Sign Out                  │  ← pinned to bottom
+└──────────────────────────────┘
+```
+
+**Accessibility:**
+- Hamburger button: `aria-label="Open menu"`, `aria-expanded={open}`
+- Close button: `aria-label="Close menu"`
+- Panel: `role="dialog"`, `aria-modal="true"`, `aria-label="Navigation menu"`
+- Escape key closes panel
+- Backdrop click closes panel
+- Body scroll locked while open
+
+### Layout Integration (App.tsx)
+
+```tsx
+// Desktop: logo | nav-buttons | ProfileMenu
+// Mobile:  logo | HamburgerMenu | avatar-circle
+<header>
+  <div className="flex items-center justify-between gap-4">
+    <Logo />
+    <DesktopNavButtons className="hidden md:flex" />
+    <div className="flex items-center gap-2 shrink-0">
+      <ProfileMenu className="hidden md:block" />  {/* desktop dropdown */}
+      <HamburgerMenu className="md:hidden" />       {/* mobile slide-out */}
+      <AvatarCircle className="md:hidden" />        {/* mobile avatar (no dropdown) */}
+    </div>
+  </div>
+</header>
+```
+
+### Component Files
+
+| File | Purpose |
+|------|---------|
+| `src/components/ProfileMenu.tsx` | Desktop avatar + dropdown |
+| `src/components/HamburgerMenu.tsx` | Mobile hamburger + slide-out panel |
+
+---
+
+## 8. Cross-Reference to Standards
+
+| Standard | File | What It Governs |
+|----------|------|----------------|
+| **Brand Standard** | `DWS_BRAND_STANDARD.md` (this file) | UI components, dark tokens, product cards, badges |
+| **Product Standard** | `DWS_PRODUCT_STANDARD.md` | Pricing, product taxonomy, catalog rules |
+| **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document headers, versioning, metadata |
+| **Sales Strategy** | `sales-outreach/NORDIC_SALES_STRATEGY.md` | Outreach, metaphors, one-click buy |
+| **Security Standard** | `DWS_SECURITY_STANDARD.md` | Security, .env, .gitignore rules |
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
+| v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
 | v2.0 | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0. |
 | v1.1 | 2026-02-15 | Added: Store identity, product data sources, category taxonomy, hamburger menu, sovereignty badges |
 | v1.0 | 2026-02-01 | Initial release: dark tokens, product cards, category nav |

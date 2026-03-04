@@ -1,6 +1,10 @@
 /**
  * DWS IQ Backend - Express Server
  * Google Cloud Run compatible
+ *
+ * DWS7 Modernization:
+ * - MCP agent server mounted at /mcp (Fix #5)
+ * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
 import express, { Express, Request, Response, NextFunction } from 'express';
@@ -22,6 +26,8 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import hilRoutes from './routes/hil.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -152,6 +158,14 @@ app.get('/health', (_req: Request, res: Response) => {
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
+const dws6SitePath = path.join(__dirname, '..', 'dws6.com');
+const dws10SitePath = path.join(__dirname, '..', 'dws10.com');
+const landingPagesPath = path.join(__dirname, '..', 'landing-pages');
+
+app.use('/dws6.com', express.static(dws6SitePath));
+app.use('/dws10.com', express.static(dws10SitePath));
+app.use('/landing-pages', express.static(landingPagesPath));
+
 // ============ API ROUTES ============
 
 // Auth routes
@@ -170,8 +184,11 @@ app.use('/api/v1/outreach', outreachRoutes);
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
 
-// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+// AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
+
+// MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
+app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
@@ -181,6 +198,9 @@ app.use('/webhooks', webhookRoutes);
 
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
+
+// HIL (Human-in-the-Loop) one-click task completion from morning briefing email
+app.use('/api/hil', hilRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);

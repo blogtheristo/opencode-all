@@ -415,15 +415,18 @@ async function handleStripeWebhook(
   }
   
   const body = await request.text();
-  
-  // Verify webhook signature (simplified - in production use Stripe's SDK)
-  // For now, we'll just parse the event
-  const event = JSON.parse(body) as {
-    type: string;
-    data: {
-      object: Record<string, unknown>;
-    };
-  };
+
+  // SECURITY FIX: Wrap JSON.parse in try/catch to prevent unsafe deserialization (CWE-502).
+  // Webhook bodies from external sources must never be trusted to be valid JSON.
+  let event: { type: string; data: { object: Record<string, unknown> } };
+  try {
+    event = JSON.parse(body);
+  } catch {
+    return new Response('Invalid JSON payload', { status: 400 });
+  }
+
+  // TODO: Verify webhook signature using Stripe's SDK (stripe.webhooks.constructEvent)
+  // The current approach trusts the parsed body without cryptographic verification.
   
   switch (event.type) {
     case 'customer.subscription.created':

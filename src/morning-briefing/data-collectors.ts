@@ -16,7 +16,7 @@
  * does not block the rest of the briefing.
  */
 
-import { readFile } from 'fs/promises';
+import { readFile, readdir, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
@@ -25,6 +25,10 @@ import {
   getNewLeads,
   getUpcomingDeadlines,
 } from '../construction-leads/lead-processor.js';
+import {
+  getSourcesSummary,
+  getSourceCounts,
+} from '../construction-leads/lead-sources.js';
 import type {
   ConstructionLeadsSummary,
   ConstructionLeadNew,
@@ -87,11 +91,66 @@ export interface WorkflowData {
   savings_percent: number;        // vs traditional cycle
 }
 
+/** A single Learn/ HTML artifact for the morning briefing */
+export interface LearnArtifact {
+  filename: string;
+  title: string;
+  modifiedDate: string; // ISO date string
+  githubUrl: string;
+}
+
+/** Learn/ HTML artifacts modified in the last 7 days */
+export interface LearnArtifactsData {
+  artifacts: LearnArtifact[];
+}
+
+/** A single Human-in-the-Loop manual task */
+export interface HilTodo {
+  id: string;
+  category: string;
+  description: string;
+  context: Record<string, unknown>;
+  done_token: string;
+  created_at: string;
+}
+
+/** Open HIL todos for the morning briefing */
+export interface HilTodosData {
+  todos: HilTodo[];
+  backendUrl: string; // base URL for the "Done" button link
+}
+
 /** Construction leads data for morning briefing */
 export interface ConstructionLeadsData {
   summary: ConstructionLeadsSummary | null;
   newLeads: ConstructionLeadNew[];
   deadlines: ConstructionLeadDeadline[];
+  /** Lead sources summary string (e.g. "Active: TED | Planned: DTAD, Mercell") */
+  sourcesSummary: string;
+  /** Source counts by status */
+  sourceCounts: { active: number; planned: number; reference: number; total: number };
+}
+
+/** Outreach pipeline summary for morning briefing header */
+export interface OutreachSummaryData {
+  /** Pipeline counts: total, open, active per pipeline */
+  pipelines: Record<string, { total: number; open: number; active: number }>;
+  /** Overdue threads count */
+  overdueCount: number;
+  /** Due today threads count */
+  todayCount: number;
+  /** Emails received today */
+  emailsReceivedToday: number;
+  /** Top overdue threads (up to 3) for quick action */
+  topOverdue: Array<{
+    token: string;
+    name: string;
+    org: string | null;
+    pipeline: string;
+    status: string;
+    next_action: string | null;
+    days_overdue: number;
+  }>;
 }
 
 export interface CockpitData {
@@ -106,6 +165,9 @@ export interface CockpitData {
   sendList: SendListItem[];
   workflow: WorkflowData | null;
   constructionLeads: ConstructionLeadsData;
+  outreachSummary: OutreachSummaryData;
+  learnArtifacts: LearnArtifactsData;
+  hilTodos: HilTodosData;
 }
 
 // ============================================================================
@@ -490,12 +552,95 @@ async function collectWorkflowData(): Promise<WorkflowData | null> {
 }
 
 // ============================================================================
+// OUTREACH SUMMARY COLLECTOR
+// ============================================================================
+
+/**
+ * Collect outreach pipeline summary for the morning briefing header.
+ * Includes pipeline counts, overdue/today threads, and inbound emails received today.
+ */
+async function collectOutreachSummary(): Promise<OutreachSummaryData> {
+  const today = new Date().toISOString().split('T')[0];
+  const todayStart = `${today}T00:00:00`;
+
+  // Pipeline summary: count threads by pipeline and status bucket
+  const allThreads = await supabaseFetch<
+    Array<{
+      id: string; pipeline: string; status: string;
+      next_action_date: string | null; next_action: string | null;
+      first_name: string; last_name: string | null;
+      org_name: string | null; thread_token: string;
+    }>
+  >(
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&select=id,pipeline,status,next_action_date,next_action,first_name,last_name,org_name,thread_token`
+  );
+
+  const OPEN_STATUSES = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
+  const ACTIVE_STATUSES = ['responded', 'meeting_booked', 'in_negotiation'];
+
+  const pipelines: Record<string, { total: number; open: number; active: number }> = {};
+  let overdueCount = 0;
+  let todayCount = 0;
+  const overdueThreads: OutreachSummaryData['topOverdue'] = [];
+
+  if (allThreads) {
+    for (const t of allThreads) {
+      if (!pipelines[t.pipeline]) {
+        pipelines[t.pipeline] = { total: 0, open: 0, active: 0 };
+      }
+      pipelines[t.pipeline].total++;
+      if (OPEN_STATUSES.includes(t.status)) pipelines[t.pipeline].open++;
+      if (ACTIVE_STATUSES.includes(t.status)) pipelines[t.pipeline].active++;
+
+      if (t.next_action_date && t.next_action_date < today) {
+        overdueCount++;
+        const daysOverdue = Math.floor(
+          (Date.now() - new Date(t.next_action_date).getTime()) / 86_400_000
+        );
+        overdueThreads.push({
+          token: t.thread_token,
+          name: [t.first_name, t.last_name].filter(Boolean).join(' '),
+          org: t.org_name,
+          pipeline: t.pipeline,
+          status: t.status,
+          next_action: t.next_action,
+          days_overdue: daysOverdue,
+        });
+      } else if (t.next_action_date === today) {
+        todayCount++;
+      }
+    }
+  }
+
+  // Sort overdue by days_overdue desc, take top 3
+  overdueThreads.sort((a, b) => b.days_overdue - a.days_overdue);
+  const topOverdue = overdueThreads.slice(0, 3);
+
+  // Count inbound emails received today
+  let emailsReceivedToday = 0;
+  const inboundEmails = await supabaseFetch<Array<{ id: string }>>(
+    `inbound_emails?received_at=gte.${todayStart}&select=id`
+  );
+  if (inboundEmails) {
+    emailsReceivedToday = inboundEmails.length;
+  }
+
+  return {
+    pipelines,
+    overdueCount,
+    todayCount,
+    emailsReceivedToday,
+    topOverdue,
+  };
+}
+
+// ============================================================================
 // CONSTRUCTION LEADS COLLECTOR
 // ============================================================================
 
 /**
  * Collect construction leads data for the morning briefing.
- * Shows new leads from TED and upcoming deadlines.
+ * Shows new leads from TED and upcoming deadlines, plus source metadata.
  */
 async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
   const [summary, newLeads, deadlines] = await Promise.all([
@@ -504,7 +649,284 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
     getUpcomingDeadlines(),
   ]);
 
-  return { summary, newLeads, deadlines };
+  return {
+    summary,
+    newLeads,
+    deadlines,
+    sourcesSummary: getSourcesSummary(),
+    sourceCounts: getSourceCounts(),
+  };
+}
+
+// ============================================================================
+// LEARN ARTIFACTS COLLECTOR
+// ============================================================================
+
+const LEARN_GITHUB_BASE = 'https://github.com/blogtheristo/dws6/blob/main/Learn';
+
+/**
+ * Derive a human-readable title from a Learn/ filename.
+ * e.g. "DWS_DOCUMENT_STANDARD_v1.7.html" → "DWS Document Standard v1.7"
+ */
+function learnFilenameToTitle(filename: string): string {
+  return filename
+    .replace(/\.html$/, '')
+    .replace(/_v(\d+\.\d+)$/, ' v$1')
+    .replace(/_/g, ' ')
+    .replace(/\b(dws|llm|mcp|erp|iq|eu|en|fi|v\d)/gi, (m) => m.toUpperCase())
+    .trim();
+}
+
+/**
+ * Collect Learn/ HTML files modified in the last 7 days.
+ * Returns them sorted newest-first, capped at 8 items.
+ */
+async function collectLearnArtifacts(): Promise<LearnArtifactsData> {
+  try {
+    const currentDir = typeof __dirname !== 'undefined'
+      ? __dirname
+      : resolve(fileURLToPath(import.meta.url), '..');
+    const projectRoot = resolve(currentDir, '..', '..');
+    const learnDir = resolve(projectRoot, 'Learn');
+
+    const entries = await readdir(learnDir);
+    const htmlFiles = entries.filter((f) => f.endsWith('.html'));
+
+    const sevenDaysAgo = Date.now() - 7 * 86_400_000;
+
+    const artifacts: LearnArtifact[] = [];
+    for (const filename of htmlFiles) {
+      const filePath = resolve(learnDir, filename);
+      const s = await stat(filePath);
+      if (s.mtimeMs >= sevenDaysAgo) {
+        artifacts.push({
+          filename,
+          title: learnFilenameToTitle(filename),
+          modifiedDate: s.mtime.toISOString().split('T')[0],
+          githubUrl: `${LEARN_GITHUB_BASE}/${filename}`,
+        });
+      }
+    }
+
+    // Sort newest-first, cap at 8
+    artifacts.sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate));
+    return { artifacts: artifacts.slice(0, 8) };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Learn artifacts collection failed (non-critical)', { error: msg });
+    return { artifacts: [] };
+  }
+}
+
+// ============================================================================
+// HIL (HUMAN-IN-THE-LOOP) TODO COLLECTOR
+// ============================================================================
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+/**
+ * Upsert a HIL todo into Supabase via PostgREST.
+ * Uses dedup_key for idempotency — safe to call on every briefing run.
+ * When done_at is NULL a new todo is created; if the dedup_key already exists
+ * and is still open the row is left untouched (on_conflict=ignore).
+ */
+async function upsertHilTodo(todo: {
+  category: string;
+  description: string;
+  context: Record<string, unknown>;
+  dedup_key: string;
+}): Promise<void> {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/hil_todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        Prefer: 'resolution=ignore-duplicates',  // don't overwrite existing open todos
+      },
+      body: JSON.stringify(todo),
+    });
+  } catch {
+    // best-effort — a failing upsert must not break the briefing
+  }
+}
+
+/**
+ * Migration probes: detect whether a key migration has been applied by checking
+ * if a representative table or column exists via PostgREST.
+ * Returns list of migration IDs that appear to be missing.
+ */
+async function detectMissingMigrations(): Promise<Array<{ id: string; description: string }>> {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return [];
+
+  const headers = {
+    apikey: SUPABASE_SERVICE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+  };
+
+  async function tableExists(table: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?limit=0`, { headers });
+      return r.ok;
+    } catch { return true; } // network error → assume exists, don't spam todos
+  }
+
+  async function columnExists(table: string, column: string): Promise<boolean> {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${column}&limit=1`, { headers });
+      return r.ok;
+    } catch { return true; }
+  }
+
+  const checks: Array<{ id: string; check: () => Promise<boolean>; description: string }> = [
+    {
+      id: '030',
+      check: () => tableExists('agent_activity'),
+      description: 'Run migration 030_agent_logging_tables.sql — creates agent_activity, agent_logs, agent_executions',
+    },
+    {
+      id: '032',
+      check: () => columnExists('persons', 'phone'),
+      description: 'Run migration 032_add_person_phone.sql — adds phone column to persons (enables direct calls from briefing)',
+    },
+    {
+      id: '034',
+      check: () => tableExists('social_posts'),
+      description: 'Run migration 034_social_posts.sql — creates social_posts queue table',
+    },
+    {
+      id: '036',
+      check: () => tableExists('construction_leads'),
+      description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
+    },
+    {
+      id: '037',
+      check: () => columnExists('email_logs', 'resend_email_id'),
+      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
+    },
+  ];
+
+  const missing: Array<{ id: string; description: string }> = [];
+  await Promise.all(
+    checks.map(async (c) => {
+      const exists = await c.check();
+      if (!exists) missing.push({ id: c.id, description: c.description });
+    })
+  );
+  return missing;
+}
+
+/**
+ * Collect open HIL todos.
+ *
+ * Sources:
+ *  1. Auto-detect missing migrations via PostgREST table/column probes
+ *  2. competitor_products rows where price_value IS NULL (last 8 days)
+ *  3. Monday reminder → review weekly market brief
+ *  4. All open hil_todos already in the table (from other sources / previous runs)
+ *
+ * Returns open todos sorted oldest-first (most overdue at top).
+ */
+async function collectHilTodos(): Promise<HilTodosData> {
+  const backendUrl = process.env.BACKEND_URL || 'https://api.onelifetime.world';
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    return { todos: [], backendUrl };
+  }
+
+  const eightDaysAgo = new Date(Date.now() - 8 * 86_400_000).toISOString();
+
+  // 0. Auto-detect missing migrations
+  const missingMigrations = await detectMissingMigrations();
+  await Promise.all(
+    missingMigrations.map((m) =>
+      upsertHilTodo({
+        category: 'pending_migration',
+        description: m.description,
+        context: { migration_id: m.id },
+        dedup_key: `pending_migration:${m.id}`,
+      })
+    )
+  );
+
+  // 1. Find competitors with null price from the last collection run
+  try {
+    const nullPricesResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/competitor_products` +
+        `?select=product_name,collected_at` +
+        `&price_value=is.null` +
+        `&collected_at=gte.${eightDaysAgo}` +
+        `&order=collected_at.desc`,
+      {
+        headers: {
+          apikey: SUPABASE_SERVICE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        },
+      }
+    );
+
+    if (nullPricesResp.ok) {
+      const rows = (await nullPricesResp.json()) as Array<{ product_name: string; collected_at: string }>;
+      // Upsert one HIL todo per competitor with null price
+      await Promise.all(
+        rows.map((r) =>
+          upsertHilTodo({
+            category: 'competitor_price',
+            description: `Fill price manually in Supabase → competitor_products for: ${r.product_name}`,
+            context: { competitor_name: r.product_name, collected_at: r.collected_at },
+            dedup_key: `competitor_price:${r.product_name}`,
+          })
+        )
+      );
+    }
+  } catch {
+    // best-effort
+  }
+
+  // 2. Monday: remind to review the weekly market brief
+  const dayOfWeek = new Date().getDay(); // 0=Sun, 1=Mon
+  if (dayOfWeek === 1) {
+    const now = new Date();
+    const week = Math.ceil(
+      ((now.getTime() - new Date(now.getFullYear(), 0, 1).getTime()) / 86_400_000 + 1) / 7
+    );
+    await upsertHilTodo({
+      category: 'market_brief',
+      description: `Review weekly market brief → docs/market-research/${now.getFullYear()}-W${String(week).padStart(2, '0')}-market-brief.md`,
+      context: { week, year: now.getFullYear() },
+      dedup_key: `market_brief:${now.getFullYear()}-W${String(week).padStart(2, '0')}`,
+    });
+  }
+
+  // 3. Fetch all open todos from the table (oldest first)
+  try {
+    const openResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/hil_todos` +
+        `?select=id,category,description,context,done_token,created_at` +
+        `&done_at=is.null` +
+        `&order=created_at.asc` +
+        `&limit=20`,
+      {
+        headers: {
+          apikey: SUPABASE_SERVICE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        },
+      }
+    );
+
+    if (openResp.ok) {
+      const todos = (await openResp.json()) as HilTodo[];
+      return { todos, backendUrl };
+    }
+  } catch {
+    // best-effort
+  }
+
+  return { todos: [], backendUrl };
 }
 
 // ============================================================================
@@ -525,7 +947,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts, hilTodos] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
@@ -534,6 +956,9 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectSendList(),
     collectWorkflowData(),
     collectConstructionLeads(),
+    collectOutreachSummary(),
+    collectLearnArtifacts(),
+    collectHilTodos(),
   ]);
 
   return {
@@ -548,5 +973,8 @@ export async function collectCockpitData(): Promise<CockpitData> {
     sendList,
     workflow,
     constructionLeads,
+    outreachSummary,
+    learnArtifacts,
+    hilTodos,
   };
 }

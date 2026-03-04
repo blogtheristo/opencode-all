@@ -1,9 +1,9 @@
-name: Daily Security Scan - ZenFree
+name: Bi-Weekly Security Scan - ZenFree
 
 on:
   schedule:
-    # Runs at 02:30 UTC daily (staggered from daily-site-backup at 02:00)
-    - cron: '30 2 * * *'
+    # Runs at 02:30 UTC on the 1st and 15th of each month (bi-weekly)
+    - cron: '30 2 1,15 * *'
   workflow_dispatch:
 
 jobs:
@@ -82,17 +82,32 @@ jobs:
               console.log('Could not read results:', e);
               return;
             }
-            
+
             const findings = results.sources?.zenfree?.findings || [];
-            
-            // Create issues for critical/high severity
+
+            // Fetch existing open issues with zenfree label to avoid duplicates
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'zenfree',
+              state: 'open',
+              per_page: 100
+            });
+            const existingTitles = new Set(existingIssues.data.map(i => i.title));
+
+            // Create issues for critical/high severity (skip duplicates)
             for (const finding of findings) {
               if (['critical', 'high'].includes(finding.severity?.toLowerCase())) {
+                const title = `🔐 [${finding.severity.toUpperCase()}] ${finding.full_description}`;
+                if (existingTitles.has(title)) {
+                  console.log(`Skipping duplicate: ${finding.file}:${finding.line}`);
+                  continue;
+                }
                 try {
                   await github.rest.issues.create({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    title: `🔐 [${finding.severity.toUpperCase()}] ${finding.full_description}`,
+                    title: title,
                     body: `## Security Finding\n\n**Source:** ZenFree Scanner\n**Severity:** ${finding.severity}\n**CWE:** ${finding.cwe}\n**Type:** ${finding.type}\n\n### Location\n- **File:** \`${finding.file}\`\n- **Line:** ${finding.line}\n\n### Code\n\`\`\`\n${finding.code}\n\`\`\`\n\n### Issue\n${finding.description}\n\n### Related\n- [Security Report](../../security-reports/CRITICAL_BUGS_REPORT.md)\n- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)`,
                     labels: ['security', 'zenfree', `severity-${finding.severity}`]
                   });
