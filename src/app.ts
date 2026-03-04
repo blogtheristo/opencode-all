@@ -9,6 +9,7 @@
 
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
@@ -208,9 +209,20 @@ app.use('/api/situation-room', situationRoomRoutes);
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = req.headers['x-admin-key'];
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Use constant-time comparison to prevent timing attacks
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!provided || typeof provided !== 'string') {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
