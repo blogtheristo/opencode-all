@@ -47,13 +47,6 @@ jobs:
 
       - name: Send Morning Briefing Email
         env:
-          # SMTP — primary sender (Hetzner Helsinki). Set secrets when server is provisioned.
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
-          SMTP_SECURE: ${{ secrets.SMTP_SECURE || 'false' }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          # Resend — fallback until SMTP server is live
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           # Required for data collection
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
