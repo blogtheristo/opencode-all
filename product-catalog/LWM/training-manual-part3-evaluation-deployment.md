@@ -1014,11 +1014,154 @@ Repeat this process for remaining industries:
 
 ---
 
+---
+
+## Section 6: Ollama Deployment for Level 5 PR Review (1 hour)
+
+### 6.1 Deploy Ollama as PR Review Service
+
+Create a systemd service that keeps Ollama running and accessible for GitHub Actions Level 5.
+
+```bash
+# Create service wrapper script
+cat > ~/dws-lwm/scripts/ollama-pr-review-service.sh << 'EOF'
+#!/bin/bash
+# Ollama PR Review Service for Level 5 HIL Automation
+# Runs on Acer Veriton GN-100
+
+LOG_FILE="$HOME/dws-lwm/logs/ollama-pr-review.log"
+
+echo "$(date) — Ollama PR Review Service started" >> "$LOG_FILE"
+
+# Ensure model is loaded
+ollama pull qwen2.5-coder:14b 2>> "$LOG_FILE"
+
+# Health check loop
+while true; do
+    HEALTH=$(curl -s http://localhost:11434/api/tags | jq '.models | length')
+    echo "$(date) — Models loaded: $HEALTH" >> "$LOG_FILE"
+    sleep 300  # Check every 5 minutes
+done
+EOF
+
+chmod +x ~/dws-lwm/scripts/ollama-pr-review-service.sh
+```
+
+### 6.2 Configure Cloudflare Tunnel for GitHub Actions
+
+```bash
+# Create tunnel config
+mkdir -p ~/.cloudflared
+
+cat > ~/.cloudflared/config.yml << 'EOF'
+tunnel: gn100-ollama
+credentials-file: /home/user/.cloudflared/gn100-ollama.json
+
+ingress:
+  - hostname: gn100-ollama.yourdomain.com
+    service: http://localhost:11434
+  - service: http_status:404
+EOF
+
+# Install as systemd service
+sudo cloudflared service install
+
+# Start tunnel
+sudo systemctl enable cloudflared
+sudo systemctl start cloudflared
+
+# Verify tunnel
+curl https://gn100-ollama.yourdomain.com/api/tags
+```
+
+### 6.3 Full Level 5 Integration Test
+
+Test the complete flow as GitHub Actions would call it:
+
+```bash
+# Simulate a Level 5 PR review call
+cat > /tmp/test-diff.txt << 'DIFF'
+--- a/src/api/users.ts
++++ b/src/api/users.ts
+@@ -1,5 +1,10 @@
++import { Request, Response } from 'express';
++
++app.post('/api/admin/delete-all', async (req: Request, res: Response) => {
++  await db.query('DELETE FROM users');
++  res.json({ success: true });
++});
+DIFF
+
+DIFF=$(cat /tmp/test-diff.txt)
+
+# Call Ollama exactly as Level 5 workflow does
+curl -s -X POST http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d "$(jq -n \
+    --arg prompt "Review this PR diff for security:\n\n$DIFF\n\nFormat: ## Ollama Review\n**Summary:** ...\n**Issues Found:** ...\n**Verdict:** APPROVE / REQUEST_CHANGES" \
+    '{
+      model: "qwen2.5-coder:14b",
+      prompt: $prompt,
+      stream: false,
+      options: { temperature: 0.1, num_predict: 2000 }
+    }')" | jq -r '.response'
+
+# Expected: REQUEST_CHANGES — identifies unprotected admin endpoint,
+# missing authentication, destructive operation without confirmation
+```
+
+### 6.4 Level 5 Architecture Summary
+
+```
+GitHub Actions PR
+      │
+      ├─ Level 1: Claude (Anthropic API) → Quick sanity
+      ├─ Level 2: Gemini (Google API) → Deep HIL review
+      ├─ Level 3: Copilot (GitHub) → Auto-fix loop
+      ├─ Level 4: Standards Check (bash) → DWS compliance
+      └─ Level 5: Ollama (GN-100) → Sovereign open-source review
+                    │
+                    ├─ Model: qwen2.5-coder:14b
+                    ├─ Host: Acer Veriton GN-100
+                    ├─ GPU: NVIDIA RTX (24GB VRAM)
+                    ├─ Access: Cloudflare Tunnel
+                    └─ Cost: €0 (self-hosted)
+```
+
+### 6.5 GitHub Secrets Required
+
+| Secret | Value | Purpose |
+|--------|-------|---------|
+| `OLLAMA_HOST` | `https://gn100-ollama.yourdomain.com` | Ollama API endpoint on GN-100 |
+| `OLLAMA_MODEL` | `qwen2.5-coder:14b` | Model for Level 5 review |
+
+### 6.6 Monitoring & Maintenance
+
+```bash
+# Check Ollama service status
+systemctl status ollama
+
+# Check tunnel status
+systemctl status cloudflared
+
+# View PR review logs
+tail -f ~/dws-lwm/logs/ollama-pr-review.log
+
+# GPU utilization during reviews
+nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv -l 5
+
+# Update model periodically
+ollama pull qwen2.5-coder:14b  # Gets latest version
+```
+
+---
+
 **Document Control:**
 - **Part:** 3 of 3
+- **Version:** 1.1
 - **Status:** Lab-tested executable
-- **Execution Time:** 4-6 hours
-- **Total Series Time:** 24-36 hours
+- **Execution Time:** 5-7 hours (added Ollama deployment)
+- **Total Series Time:** 26-40 hours
 
 ---
 

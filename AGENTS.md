@@ -3,9 +3,9 @@
 > Following the [agents.md](https://github.com/agentsmd/agents.md) open specification.
 > A README for AI coding agents: context, instructions, and operational guidance.
 
-**Version:** 2.0
+**Version:** 2.1
 **Created:** January 3, 2026
-**Updated:** February 18, 2026
+**Updated:** March 4, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -562,6 +562,10 @@ cost_tracking:
 | Workflow agents | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
 | Tests | `src/__tests__/` |
 
+### External CLIs & Add-ons
+
+See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, Firehorse via CLI/API) and **external add-on** (Google Workspace CLI `gws`).
+
 ### Environment Variables (Agent-relevant)
 
 | Variable | Required | Purpose |
@@ -572,6 +576,48 @@ cost_tracking:
 | `JWT_SECRET` | Yes | API authentication |
 | `ANTHROPIC_API_KEY` | Optional | Claude for complex reasoning |
 | `PORT` | Optional | Server port (default 3000) |
+
+---
+
+## 16. Rise of CLIs & External Add-ons
+
+**Context:** In 2026, CLIs are first-class agent interfaces. Agents (and humans) benefit from tools that expose structured JSON output, tab-completion, `--help`/`--dry-run`, and MCP or skill surfaces. DWS follows this with the DWS CLI and Firehorse (agent-accessible via CLI/API); the same pattern applies to external tooling.
+
+### Our output: DWS CLI & Firehorse CLI
+
+| CLI | Invocation | Purpose |
+|-----|------------|---------|
+| **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
+| **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
+
+**DWS CLI commands (examples):**
+```bash
+dws agents                              # List all agents (JSON)
+dws run compliance --input '{"reg":"CSRD"}'
+dws run sitesense --input '{"siteId":"..."}'
+dws workflow compliance-assessment
+dws discover carbon
+dws workflows
+dws health
+dws mcp tools
+```
+
+**Config:** `DWS_API_URL`, `DWS_API_TOKEN`, `DWS_PROJECT`, `DWS_SESSION`. See `cli/src/cli.ts` and [CLAUDE.md](CLAUDE.md) Build for Agents.
+
+**API key for Cline:** To get a token for Cline (or for `DWS_API_TOKEN`), run `node scripts/generate-cline-api-key.cjs` from the repo root (requires `JWT_SECRET` in `.env`). The script prints a 90-day JWT; use it in Cline as the API key when connecting to a DWS endpoint, or set as `DWS_API_TOKEN` for the CLI.
+
+### Important add-on: Google Workspace CLI (`gws`)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/googleworkspace/cli |
+| **Install** | `npm install -g @googleworkspace/cli` |
+| **What it is** | One CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin — dynamically built from Google Discovery Service. Zero boilerplate, structured JSON output. |
+| **Why it matters** | 40+ agent skills included; MCP server (`gws mcp -s drive,gmail,calendar`); Gemini CLI extension. Fits the same "Build for Agents" pattern: every response is structured JSON, so LLMs can manage Workspace without custom tooling. |
+| **Auth** | `gws auth setup` (interactive), service account, or exported credentials for headless/CI. |
+| **Use with DWS** | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills. |
+
+**Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
 
 ---
 
@@ -587,7 +633,7 @@ cost_tracking:
 
 ---
 
-**Document Version:** 2.0
-**Last Updated:** February 18, 2026
+**Document Version:** 2.1
+**Last Updated:** March 4, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
-**Next Review:** March 4, 2026
+**Next Review:** April 4, 2026

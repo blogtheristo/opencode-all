@@ -1,10 +1,15 @@
 /**
  * DWS IQ Backend - Express Server
  * Google Cloud Run compatible
+ *
+ * DWS7 Modernization:
+ * - MCP agent server mounted at /mcp (Fix #5)
+ * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
@@ -16,14 +21,18 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
+import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import hilRoutes from './routes/hil.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
+import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 
 dotenv.config();
 
@@ -150,6 +159,14 @@ app.get('/health', (_req: Request, res: Response) => {
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
+const dws6SitePath = path.join(__dirname, '..', 'dws6.com');
+const dws10SitePath = path.join(__dirname, '..', 'dws10.com');
+const landingPagesPath = path.join(__dirname, '..', 'landing-pages');
+
+app.use('/dws6.com', express.static(dws6SitePath));
+app.use('/dws10.com', express.static(dws10SitePath));
+app.use('/landing-pages', express.static(landingPagesPath));
+
 // ============ API ROUTES ============
 
 // Auth routes
@@ -165,8 +182,14 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
-// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+// Outreach quick-send (send emails to prospects, admin key auth)
+app.use('/api/v1/outreach', outreachSendRoutes);
+
+// AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
+
+// MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
+app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
@@ -177,15 +200,29 @@ app.use('/webhooks', webhookRoutes);
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
 
+// HIL (Human-in-the-Loop) one-click task completion from morning briefing email
+app.use('/api/hil', hilRoutes);
+
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = req.headers['x-admin-key'];
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Use constant-time comparison to prevent timing attacks
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!provided || typeof provided !== 'string') {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -197,6 +234,26 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Manual morning briefing failed', { error: msg });
     res.status(500).json({ error: 'Failed to send briefing', message: msg });
+  }
+});
+
+// Construction leads manual trigger (secured by admin key)
+app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    const result = await fetchAndProcessLeads();
+    res.json({ status: 'complete', timestamp: new Date().toISOString(), ...result });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual construction leads fetch failed', { error: msg });
+    res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
   }
 });
 
@@ -245,6 +302,15 @@ const server = app.listen(PORT, () => {
   // (.github/workflows/morning-briefing.yml) — no in-process cron needed.
   // Manual trigger available via POST /api/v1/morning-briefing/send.
 
+  // Construction leads: daily fetch at 05:30 Helsinki (30min before briefing)
+  // Manual trigger available via POST /api/v1/construction-leads/fetch
+  constructionLeadsScheduler.start();
+
+  // Start outreach digest scheduler (backup — primary is GitHub Actions).
+  // On Cloud Run this may not fire reliably due to scale-to-zero,
+  // but covers local dev and always-on deployments.
+  outreachScheduler.start();
+
   // Initialize email queue (Redis Streams)
   emailQueue.initialize().then((ready) => {
     if (ready) {
@@ -263,6 +329,8 @@ const server = app.listen(PORT, () => {
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
+  outreachScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -273,6 +341,8 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  constructionLeadsScheduler.stop();
+  outreachScheduler.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
