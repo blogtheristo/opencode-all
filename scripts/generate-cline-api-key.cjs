@@ -15,21 +15,12 @@
 
 const path = require('path');
 const fs = require('fs');
+const dotenv = require('dotenv');
 
-// Load .env from repo root
+// Load .env from repo root using dotenv
 const envPath = path.resolve(__dirname, '..', '.env');
 if (fs.existsSync(envPath)) {
-  const content = fs.readFileSync(envPath, 'utf8');
-  for (const line of content.split('\n')) {
-    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
-    if (m) {
-      const key = m[1];
-      let val = m[2].trim();
-      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'")))
-        val = val.slice(1, -1);
-      if (!process.env[key]) process.env[key] = val;
-    }
-  }
+  dotenv.config({ path: envPath });
 }
 
 const JWT_SECRET = process.env.JWT_SECRET;
