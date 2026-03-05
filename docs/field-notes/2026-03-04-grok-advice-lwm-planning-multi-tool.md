@@ -8,10 +8,20 @@ Version: 1.0
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Date: 04.03.2026 | Changes: Initial creation — structured capture of Grok advice on LWM planning, lightweight PoCs, OpenSandbox, success metrics, multi-tool workflow, and compute budgeting
 
+Session Links & References:
+  - Primary Session: Grok (xAI) advice on LWM training planning phase and multi-tool workflow, 04.03.2026
+  - Capture Context: DWS6 internal field note at `docs/field-notes/2026-03-04-grok-advice-lwm-planning-multi-tool.md`
+
+Related Documents:
+  - `product-catalog/LWM/training-manual.md` — LWM training approach, PoC structure, and QLoRA details
+  - `docs/field-notes/` — related Grok and Claude planning / architecture notes
+
+Languages Available:
+  - en (English)
+
 Document Status:
   - Created: 04.03.2026
   - Last Modified: 04.03.2026
-  - Language: English
   - Publication Status: ACTIVE
 
 ***
