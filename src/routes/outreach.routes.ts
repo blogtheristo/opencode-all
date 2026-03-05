@@ -81,6 +81,7 @@ const inboundValidation = [
   body('org_domain').optional().isString().trim().isLength({ max: 255 }),
   body('linkedin_url').optional().isString().trim(),
   body('email').optional().isEmail().normalizeEmail(),
+  body('phone').optional().isString().trim().isLength({ max: 50 }),
   body('pipeline').isIn(['investor', 'customer', 'partner']),
   body('source').optional().isIn(['boardy', 'linkedin', 'conference', 'referral', 'cold', 'inbound', 'manual']),
   body('notes').optional().isString().trim().isLength({ max: 2000 }),
@@ -105,15 +106,23 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
     org_domain,
     linkedin_url,
     email,
+    phone,
     pipeline,
     source = 'inbound',
     notes,
     title,
   } = req.body;
 
-  // Need at least linkedin_url or email to identify the person
+  // Need at least linkedin_url or email to identify a real person.
+  // Rule: no placeholder "team" entries — only named humans get threads.
   if (!linkedin_url && !email) {
-    res.status(400).json({ error: 'Provide at least linkedin_url or email' });
+    res.status(400).json({ error: 'Provide at least linkedin_url or email. Only named humans get threads — use outreach_orgs for org-only targets.' });
+    return;
+  }
+
+  // Reject company page URLs — must be a personal LinkedIn profile
+  if (linkedin_url && linkedin_url.includes('/company/')) {
+    res.status(400).json({ error: 'linkedin_url must be a personal profile, not a company page. Create the org first, find the human buyer, then create a thread.' });
     return;
   }
 
@@ -161,6 +170,7 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
           first_name,
           last_name: last_name || null,
           title: title || null,
+          phone: phone || null,
           org_id: orgId,
           source,
           created_by: 'inbound_api',

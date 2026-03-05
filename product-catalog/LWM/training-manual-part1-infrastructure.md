@@ -1129,18 +1129,240 @@ cat ~/dws-lwm/QUICK_REFERENCE.md
 
 ---
 
+## Section 8: Docker Environment — Full DWS6 Stack (2-3 hours)
+
+The GN-100 must be **as capable as the Win11 development machine** — not just a bare-metal training box. This means Docker with MCP servers, Claude Code with worktree support, and the full training infrastructure.
+
+### 8.1 What We're Building
+
+Two Docker Compose stacks running on the GN-100:
+
+| Stack | File | Services | Purpose |
+|-------|------|----------|---------|
+| **MCP Services** | `docker-compose.hybrid.yml` | Supabase MCP, MCP Hub, GitHub MCP, Gemini MCP, Redis, Temporal | Claude Code tool access |
+| **Training** | `docker-compose.training.yml` | Orchestrator, Dataset Processor, MLflow, Jupyter, vLLM, Quantizer | LWM fine-tuning |
+
+Both stacks share the same Docker network so training containers can log to Supabase and MCP Hub can orchestrate training workflows.
+
+### 8.2 Install Docker Engine + NVIDIA Container Toolkit
+
+```bash
+# Docker Engine (not Docker Desktop — this is headless Linux)
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+newgrp docker
+
+# NVIDIA Container Toolkit (enables --runtime=nvidia)
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | \
+  sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+  sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+  sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+
+# Verify GPU access in Docker
+docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi
+```
+
+**Verification:** You should see your GB10 GPU stats inside the container.
+
+### 8.3 Clone DWS6 Repository
+
+```bash
+# Clone main repo
+cd ~
+git clone https://github.com/lifetime-oy/dws6.git
+cd dws6
+
+# Install Claude Code
+npm install -g @anthropic-ai/claude-code
+
+# Copy environment files (get these from Win11 machine securely)
+# NEVER transfer .env files over unencrypted channels
+scp user@win11-machine:/path/to/dws6/.env ~/dws6/.env
+scp user@win11-machine:/path/to/dws6/.mcp.json ~/dws6/.mcp.json
+scp user@win11-machine:/path/to/dws6/.env.mcp ~/dws6/.env.mcp
+scp -r user@win11-machine:/path/to/dws6/.claude ~/dws6/.claude
+```
+
+### 8.4 Start MCP Services Stack
+
+```bash
+cd ~/dws6
+
+# Start the MCP services (same as Win11)
+docker compose -f docker-compose.hybrid.yml up -d
+
+# Verify all services are healthy
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+```
+
+Expected output:
+```
+NAMES               STATUS                 PORTS
+dws-supabase-mcp    Up 30s (healthy)       0.0.0.0:8766->8766/tcp
+dws-mcp-hub         Up 30s (healthy)       0.0.0.0:8765->8765/tcp
+dws-github-mcp      Up 30s (healthy)       0.0.0.0:8767->8767/tcp
+dws-gemini-mcp      Up 30s (healthy)       0.0.0.0:8768->8768/tcp
+dws-mcp-redis       Up 30s (healthy)       0.0.0.0:6380->6379/tcp
+dws-temporal         Up 30s                 0.0.0.0:7233->7233/tcp
+dws-temporal-ui      Up 30s                 0.0.0.0:8088->8080/tcp
+```
+
+### 8.5 Start Training Stack
+
+```bash
+cd ~/dws6/infrastructure/llm-training/local
+
+# Create training environment file
+cp .env.training.example .env.training
+# Edit with your tokens:
+#   HF_TOKEN=hf_xxxxx
+#   WANDB_API_KEY=xxxxx (optional)
+nano .env.training
+
+# Start training infrastructure
+docker compose -f docker-compose.training.yml up -d
+
+# Verify training services
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep llm
+```
+
+Expected:
+```
+NAMES                      STATUS                 PORTS
+llm-training-orchestrator  Up 30s                 0.0.0.0:8890->8890/tcp, 0.0.0.0:6006->6006/tcp
+llm-training-jupyter       Up 30s                 0.0.0.0:8888->8888/tcp
+llm-mlflow                 Up 30s (healthy)       0.0.0.0:5000->5000/tcp
+llm-training-postgres      Up 30s (healthy)       0.0.0.0:5433->5432/tcp
+llm-training-minio         Up 30s (healthy)       0.0.0.0:9000->9000/tcp, 0.0.0.0:9001->9001/tcp
+llm-training-redis         Up 30s (healthy)       0.0.0.0:6379->6379/tcp
+```
+
+### 8.6 Claude Code + Worktree Setup
+
+```bash
+# Verify Claude Code can see MCP tools
+cd ~/dws6
+claude
+
+# Inside Claude Code, verify:
+# - Supabase MCP tools appear (query, list_tables, etc.)
+# - GitHub MCP tools appear
+# - Can create worktrees using the script
+```
+
+Worktree creation on GN-100 (Linux):
+```bash
+./scripts/new-claude-worktree.sh feature-lwm-training --launch-claude
+```
+
+The script will:
+1. Create worktree in `~/.claude-worktrees/dws6/feature-lwm-training`
+2. Copy `.mcp.json`, `.env`, `.claude/` from main repo
+3. Validate MCP servers configured
+4. Ping Docker containers and confirm all healthy
+5. Launch Claude Code with full MCP tool access
+
+### 8.7 VS Code / Cursor Remote Access (from Win11)
+
+```powershell
+# From Win11, connect to GN-100 via SSH Remote
+# VS Code:
+code --remote ssh-remote+user@gn-100.local ~/dws6
+
+# Cursor:
+cursor --remote ssh-remote+user@gn-100.local ~/dws6
+```
+
+Add to `~/.ssh/config` on Win11:
+```
+Host gn-100
+    HostName 192.168.1.XXX
+    User user
+    ForwardAgent yes
+    # Forward MCP ports for local browser access
+    LocalForward 8888 localhost:8888   # Jupyter
+    LocalForward 5000 localhost:5000   # MLflow
+    LocalForward 9001 localhost:9001   # MinIO
+    LocalForward 6006 localhost:6006   # TensorBoard
+    LocalForward 8088 localhost:8088   # Temporal UI
+```
+
+### 8.8 Environment Parity Checklist
+
+The GN-100 must match Win11 on ALL of these:
+
+| Capability | Win11 | GN-100 | How |
+|------------|-------|--------|-----|
+| Claude Code | ✅ Native | ✅ Native | `npm install -g @anthropic-ai/claude-code` |
+| MCP: Supabase | ✅ Docker :8766 | ✅ Docker :8766 | `docker-compose.hybrid.yml` |
+| MCP: Hub | ✅ Docker :8765 | ✅ Docker :8765 | `docker-compose.hybrid.yml` |
+| MCP: GitHub | ✅ Docker :8767 | ✅ Docker :8767 | `docker-compose.hybrid.yml` |
+| MCP: Gemini | ✅ Docker :8768 | ✅ Docker :8768 | `docker-compose.hybrid.yml` |
+| MCP: Redis | ✅ Docker :6380 | ✅ Docker :6380 | `docker-compose.hybrid.yml` |
+| Temporal | ✅ Docker :7233 | ✅ Docker :7233 | `docker-compose.hybrid.yml` |
+| Groq Router | ✅ Docker :8083 | ✅ Docker :8083 | `docker-compose.hybrid.yml` |
+| Worktree scripts | ✅ PS1 + bash | ✅ bash | `new-claude-worktree.sh` |
+| `.mcp.json` auto-copy | ✅ Fixed | ✅ Fixed | Step 4 of 7-step script |
+| Docker ping on worktree | ✅ Step 6 | ✅ Step 6 | Health checks in script |
+| Git | ✅ | ✅ | `apt install git` |
+| Node.js | ✅ | ✅ | `apt install nodejs npm` |
+| Python 3.11+ | ✅ | ✅ | Section 4 of this manual |
+| **EXTRA: GPU Training** | ❌ No GPU | ✅ GB10 Blackwell | `docker-compose.training.yml` |
+| **EXTRA: Jupyter** | ❌ | ✅ :8888 | Training stack |
+| **EXTRA: MLflow** | ❌ | ✅ :5000 | Training stack |
+| **EXTRA: vLLM** | ❌ | ✅ :8000 | Inference profile |
+
+### 8.9 Ollama for Quick Inference (Optional)
+
+Ollama runs alongside Docker for quick model testing without the full vLLM stack:
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull models
+ollama pull llama3.1:8b
+ollama pull llama3.1:70b    # If 128GB unified memory allows
+
+# Test
+ollama run llama3.1:8b "What is Fit for 55?"
+
+# Ollama serves on port 11434 by default
+# Can be used as inference backend for Claude Code agents
+```
+
+**When to use Ollama vs vLLM:**
+- **Ollama:** Quick testing, prototyping, single-prompt inference
+- **vLLM:** Production inference, high throughput, OpenAI-compatible API, batched requests
+
+---
+
 ## Lab Complete! 🎉
 
 ### Checklist
 
 Verify all items before proceeding to Part 2:
 
+**Bare Metal:**
 - [ ] `nvidia-smi` shows GPU stats
 - [ ] PyTorch CUDA available: `python -c "import torch; print(torch.cuda.is_available())"`
 - [ ] Claude API responds: `python ~/dws-lwm/scripts/test_claude_api.py`
 - [ ] Llama 3.1 8B downloaded: `ls ~/dws-lwm/models/base/llama-3.1-8b/`
 - [ ] Virtual environment activates: `source ~/dws-lwm/venv/bin/activate`
 - [ ] All checks pass: `python ~/dws-lwm/scripts/system_health_check.py`
+
+**Docker + MCP (Section 8):**
+- [ ] Docker GPU access: `docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi`
+- [ ] MCP services healthy: `docker ps` shows dws-supabase-mcp, dws-mcp-hub, etc.
+- [ ] Training services healthy: `docker ps` shows llm-training-orchestrator, llm-mlflow, etc.
+- [ ] Claude Code sees MCP tools: launch `claude` and verify Supabase tools available
+- [ ] Worktree script works: `./scripts/new-claude-worktree.sh test-gn100`
+- [ ] VS Code/Cursor SSH remote works from Win11
 
 ### Next Steps
 
@@ -1171,10 +1393,128 @@ If any checks failed:
 
 ---
 
+---
+
+## Section 9: Ollama Installation for Code Review (30 minutes)
+
+### 9.1 Install Ollama
+
+Ollama enables self-hosted open-source LLM inference on the GN-100 — used for **Level 5** of the automated PR review pipeline (sovereign, zero-cost code review).
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Verify installation
+ollama --version
+# Expected: ollama version 0.x.x
+
+# Start Ollama service
+sudo systemctl enable ollama
+sudo systemctl start ollama
+
+# Verify service is running
+systemctl status ollama
+curl http://localhost:11434/api/tags
+# Expected: {"models":[]}
+```
+
+### 9.2 Pull Code Review Model
+
+```bash
+# Pull Qwen 2.5 Coder 14B (recommended for code review)
+ollama pull qwen2.5-coder:14b
+
+# Alternative smaller models:
+# ollama pull qwen2.5-coder:7b      # Lower VRAM, faster
+# ollama pull codellama:13b          # Meta's code model
+# ollama pull deepseek-coder-v2:16b  # DeepSeek code model
+
+# Verify model is available
+ollama list
+# Expected: qwen2.5-coder:14b   ~9GB
+
+# Test inference
+ollama run qwen2.5-coder:14b "Review this Python code for security issues: import os; os.system(input('cmd: '))"
+```
+
+### 9.3 Configure Ollama for Network Access
+
+The GN-100 must be reachable from GitHub Actions (via self-hosted runner or tunnel).
+
+```bash
+# Option A: Expose on local network
+sudo tee /etc/systemd/system/ollama.service.d/override.conf << 'EOF'
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+
+# Verify remote access
+curl http://gn-100.local:11434/api/tags
+
+# Option B: Use Cloudflare Tunnel (recommended for GitHub Actions)
+# Install cloudflared
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared.deb
+
+# Create tunnel (requires Cloudflare account)
+cloudflared tunnel login
+cloudflared tunnel create gn100-ollama
+cloudflared tunnel route dns gn100-ollama gn100-ollama.yourdomain.com
+
+# Run tunnel
+cloudflared tunnel run --url http://localhost:11434 gn100-ollama
+```
+
+### 9.4 Test Code Review via API
+
+```bash
+# Test the Ollama code review API call (same format as Level 5 workflow)
+curl -s -X POST http://localhost:11434/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen2.5-coder:14b",
+    "prompt": "Review this TypeScript code for security issues:\n\nconst query = `SELECT * FROM users WHERE id = ${req.params.id}`;\nconst result = await db.query(query);",
+    "stream": false,
+    "options": {
+      "temperature": 0.1,
+      "num_predict": 500
+    }
+  }' | jq '.response'
+
+# Expected: Identifies SQL injection vulnerability
+```
+
+### 9.5 GitHub Actions Integration
+
+Add these secrets to your GitHub repository:
+
+| Secret | Value | Purpose |
+|--------|-------|---------|
+| `OLLAMA_HOST` | `https://gn100-ollama.yourdomain.com` or `http://gn-100.local:11434` | Ollama API endpoint |
+| `OLLAMA_MODEL` | `qwen2.5-coder:14b` | Model to use for Level 5 review |
+
+The Level 5 step in `.github/workflows/ai-pr-review.yml` will automatically call this endpoint when the secrets are configured.
+
+### 9.6 Verify Level 5 Checklist
+
+- [ ] `ollama --version` shows version
+- [ ] `ollama list` shows `qwen2.5-coder:14b`
+- [ ] `curl http://localhost:11434/api/tags` returns model list
+- [ ] Code review test produces meaningful output
+- [ ] Network access configured (local or Cloudflare Tunnel)
+- [ ] GitHub secrets `OLLAMA_HOST` and `OLLAMA_MODEL` set
+
+---
+
 **Document Control:**
 - **Part:** 1 of 3
+- **Version:** 1.1
 - **Status:** Lab-tested executable
-- **Execution Time:** 4-6 hours
+- **Execution Time:** 5-7 hours (added Ollama setup)
 - **Next:** Part 2 - Data Generation & Training
 
 ---

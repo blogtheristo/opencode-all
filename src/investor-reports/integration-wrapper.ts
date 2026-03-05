@@ -3,14 +3,35 @@
  * Bridges TypeScript report generation with existing Python PDF/email/Drive infrastructure
  */
 
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { InvestorReportData } from './types';
 import { templateGenerator } from './template-generator';
 
-const execAsync = promisify(exec);
+// SECURITY FIX: Use execFile instead of exec to prevent OS command injection (CWE-78).
+// execFile passes arguments as an array — never interpreted by a shell.
+const execFileAsync = promisify(execFile);
+
+// SECURITY: Allowed base directories for file operations (prevents CWE-22 path traversal)
+const ALLOWED_DIRS = [
+  path.resolve(process.cwd(), 'Reports'),
+  '/tmp',
+];
+
+/**
+ * Validate that a resolved path stays within one of the allowed directories.
+ * Prevents path traversal attacks where user-influenced paths escape the intended root.
+ */
+function assertSafePath(filePath: string): string {
+  const resolved = path.resolve(filePath);
+  const isAllowed = ALLOWED_DIRS.some((dir) => resolved.startsWith(dir + path.sep) || resolved === dir);
+  if (!isAllowed) {
+    throw new Error(`Path traversal blocked: ${filePath} resolves outside allowed directories`);
+  }
+  return resolved;
+}
 
 // Resend API helper for investor report emails (with PDF attachment)
 async function sendViaResend(
@@ -25,10 +46,11 @@ async function sendViaResend(
 
   const from = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 
-  // Read PDF and base64-encode it for the Resend attachments API
-  const pdfBuffer = await fs.readFile(pdfPath);
+  // SECURITY: Validate path stays within allowed directories before reading
+  const safePdfPath = assertSafePath(pdfPath);
+  const pdfBuffer = await fs.readFile(safePdfPath);
   const pdfBase64 = pdfBuffer.toString('base64');
-  const filename = path.basename(pdfPath);
+  const filename = path.basename(safePdfPath);
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -94,12 +116,19 @@ export class IntegrationWrapper {
 
       // Check if wkhtmltopdf is available
       try {
-        await execAsync('which wkhtmltopdf');
+        await execFileAsync('which', ['wkhtmltopdf']);
 
         // Generate PDF using wkhtmltopdf
-        await execAsync(
-          `wkhtmltopdf --enable-local-file-access --page-size A4 --margin-top 20mm --margin-bottom 20mm --margin-left 15mm --margin-right 15mm "${tempHtmlPath}" "${outputPdfPath}"`
-        );
+        await execFileAsync('wkhtmltopdf', [
+          '--enable-local-file-access',
+          '--page-size', 'A4',
+          '--margin-top', '20mm',
+          '--margin-bottom', '20mm',
+          '--margin-left', '15mm',
+          '--margin-right', '15mm',
+          tempHtmlPath,
+          outputPdfPath,
+        ]);
 
         console.log(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
       } catch (error) {
@@ -111,10 +140,13 @@ export class IntegrationWrapper {
         await fs.writeFile(tempMdPath, markdownContent, 'utf-8');
 
         try {
-          await execAsync('which pandoc');
-          await execAsync(
-            `pandoc "${tempMdPath}" -o "${outputPdfPath}" --pdf-engine=xelatex -V geometry:margin=1in`
-          );
+          await execFileAsync('which', ['pandoc']);
+          await execFileAsync('pandoc', [
+            tempMdPath,
+            '-o', outputPdfPath,
+            '--pdf-engine=xelatex',
+            '-V', 'geometry:margin=1in',
+          ]);
           console.log(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
         } catch (pandocError) {
           console.log('[PDF] Neither wkhtmltopdf nor pandoc available');
@@ -214,9 +246,11 @@ Generated: ${reportData.generated_at.toLocaleDateString('en-US', { month: 'short
    */
   async uploadToDrive(pdfPath: string): Promise<string> {
     try {
+      // SECURITY: Validate pdfPath before passing to external script
+      const safePdfPath = assertSafePath(pdfPath);
       const uploadScript = path.join(this.pythonScriptsDir, 'upload_to_drive.py');
 
-      console.log(`[Drive] Uploading to Google Drive: ${pdfPath}`);
+      console.log(`[Drive] Uploading to Google Drive: ${safePdfPath}`);
 
       // Check if upload script exists
       try {
@@ -227,9 +261,11 @@ Generated: ${reportData.generated_at.toLocaleDateString('en-US', { month: 'short
       }
 
       // Execute upload script
-      const { stdout, stderr } = await execAsync(
-        `python3 "${uploadScript}" --file "${pdfPath}"`
-      );
+      const { stdout, stderr } = await execFileAsync('python3', [
+        uploadScript,
+        '--file',
+        safePdfPath,
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
         console.error('[Drive] stderr:', stderr);

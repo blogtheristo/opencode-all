@@ -139,6 +139,9 @@ router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, 
     res.status(200).json({
       success: true,
       ...response,
+      // SECURITY: Always use server-determined tier — never trust the service
+      // response to set the tier, since it may echo a client-provided value.
+      tier: effectiveTier,
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {
@@ -225,7 +228,7 @@ router.get(
  * SECURITY FIX #3: Use constant-time comparison and proper validation
  */
 router.get('/leads', (req: Request, res: Response) => {
-  const adminKey = req.headers['x-admin-key'];
+  const providedKey = req.headers['x-admin-key'];
 
   // Check if admin API key is configured
   if (!ADMIN_API_KEY) {
@@ -234,14 +237,14 @@ router.get('/leads', (req: Request, res: Response) => {
   }
 
   // Validate admin key is provided
-  if (!adminKey || typeof adminKey !== 'string') {
+  if (!providedKey || typeof providedKey !== 'string') {
     logger.warn('Admin access attempt without API key', { ip: req.ip });
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   // SECURITY: Use constant-time comparison to prevent timing attacks
   // Both strings must be same length for timingSafeEqual
-  const providedKeyBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  const providedKeyBuffer = Buffer.from(providedKey.padEnd(256, '\0'));
   const expectedKeyBuffer = Buffer.from(ADMIN_API_KEY.padEnd(256, '\0'));
 
   const isValid = crypto.timingSafeEqual(providedKeyBuffer, expectedKeyBuffer);

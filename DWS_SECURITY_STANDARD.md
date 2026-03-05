@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 1.0
+version: 1.2
 created: 2026-02-07
-last_modified: 2026-02-07
+last_modified: 2026-02-23
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -18,9 +18,16 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Expanded Section 13.3 with MCP CORS implementation standard — env-driven explicit origins, scoped methods/headers, fix applied to mcp-servers/supabase/server.py, pattern mandated for all new MCP servers
+Version: 1.3
+
+Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added Claw-layer security (Section 12), supply chain integrity policy (Section 13), CORS/SRI/exec standards, vulnerability assessment findings
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Initial DWS Security Standard — integrating International AI Safety Report 2026 findings into enterprise security framework
 
 Session Links & References:
@@ -28,7 +35,8 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 07.02.2026
+  - Last Modified: 23.02.2026
+  - Last Modified: 21.02.2026 (v1.2)
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -577,10 +585,10 @@ DWS Security Standard (this document)
 │   ├── UI_SKILLS_GAMMA.md                ← v2.0 — brand standard, WCAG 2.2, XSS prevention
 │   └── CLAUDE.md                          ← Karpathy principles, agent governance
 │
-├── FIREHORSE OPERATIONAL MODEL (evidence base)
-│   ├── dws10.com/docs/PHD_FIREHORSE_EN.md     ← Master thesis EN — operational model + metrics
-│   ├── dws10.com/docs/PHD_FIREHORSE_FI.md     ← Pro gradu FI — toimintamalli + tulokset
-│   └── (synced: landing-pages/dws10-com/docs/)  ← Production copies (dual folder rule)
+├── FIREHORSE OPERATIONAL MODEL (evidence base — PRIVATE, Learn/ only)
+│   ├── docs/PHD_FIREHORSE_EN.md               ← Master thesis EN — operational model + metrics
+│   ├── docs/PHD_FIREHORSE_FI.md               ← Pro gradu FI — toimintamalli + tulokset
+│   └── Learn/PHD_FIREHORSE_*_v*.html           ← Versioned HTML (never delete old versions)
 │
 ├── ADMIN MANUALS (operational security procedures)
 │   ├── ADMIN_MANUAL_AUTHENTICATION.md     ← v1.3 — JWT, bcrypt, security audit workflow
@@ -610,6 +618,12 @@ DWS Security Standard (this document)
 │   ├── docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md
 │   └── Admin/Security/ (local only, ProtonDrive)
 │
+├── AUTOMATED PR REVIEW (HIL Security Gate)
+│   ├── .github/workflows/ai-pr-review.yml     ← Dual AI review: Claude + Gemini HIL
+│   ├── .github/workflows/pr-auto-merge.yml    ← Auto-merge with safety labels
+│   ├── .github/copilot-setup-steps.yml        ← Copilot coding agent env setup
+│   └── mcp-hub/server.py:/gemini/review       ← Gemini review API endpoint
+│
 └── IMPLEMENTATION
     ├── src/config/protected_config.py     ← Protected configuration
     ├── src/mcp/security/                  ← MCP security modules
@@ -618,9 +632,311 @@ DWS Security Standard (this document)
     └── .github/workflows/security-*.yml   ← 8 security workflows
 ```
 
+### 11.1 Automated PR Security Review (HIL Automation)
+
+All pull requests pass through a mandatory dual-model AI security review that replaces manual human-in-the-loop code review:
+
+```
+Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+```
+
+| Control | Reviewer | Posture |
+|---------|----------|---------|
+| API key/secret exposure | Claude + Gemini | Block on detection |
+| Injection vulnerabilities (SQL, XSS, command) | Gemini | Block on detection |
+| Auth/authz gaps | Gemini | Block on detection |
+| OWASP Top 10 (LLM + web) | Claude + Gemini | Block on detection |
+| Test coverage for new logic | Gemini | REQUEST_CHANGES if missing |
+| Edge cases (empty/large inputs, concurrency) | Gemini | REQUEST_CHANGES if unhandled |
+
+**Gemini default posture:** REQUEST_CHANGES. Only APPROVE when zero security issues, adequate tests, and project conventions followed. Human overrides via `do-not-merge` / `needs-human-review` labels.
+
 ---
 
-## 12. Review and Update Schedule
+## 12. Claw-Layer Security (OpenClaw/Moltworker Threat Model)
+
+### 12.1 The Three-Layer AI Stack
+
+Just as LLM agents added orchestration, tool use, and memory on top of raw LLM inference, a new "Claw" layer has emerged above LLM agents — adding persistent scheduling, multi-channel gateways, self-extending skills, and long-term memory:
+
+| Layer | Abstraction | Security Surface | Example |
+|-------|-------------|-----------------|---------|
+| **LLM** | Raw inference (prompt in, text out) | Prompt injection, jailbreak | Claude API, GPT API |
+| **LLM Agent** | Orchestrated inference + tool calls + session memory | Tool poisoning, data exfiltration | Claude Code, Cursor, Copilot |
+| **Claw** | Persistent daemon + multi-channel gateway + self-extending skills + long-term memory | All agent risks + shell access, skill registry poisoning, cross-channel leakage, self-modifying code | OpenClaw, Moltworker |
+
+Each layer inherits and amplifies all vulnerabilities from the layer below.
+
+### 12.2 Claw-Specific Threat Vectors
+
+| Threat | Severity | Attack Vector | DWS Mitigation |
+|--------|----------|---------------|----------------|
+| **Skill registry poisoning** | CRITICAL | Malicious skill published to community registry; installed by auto-update | Skill allowlist, code review gate, no auto-install from untrusted registries |
+| **Self-modifying skills** | HIGH | Claw writes code to extend its own capabilities, bypassing safety constraints | Sandbox SDK isolation, skill code review, capability ceiling enforcement |
+| **Cross-channel data exfiltration** | HIGH | Data from secure channel (Slack) leaked to insecure channel (Telegram) | Per-channel data classification, access controls, egress filtering |
+| **Long-term memory poisoning** | MEDIUM | Adversary injects false context into persistent memory to alter future behavior | Cryptographic integrity on memory files, periodic memory audit |
+| **Gateway token theft** | MEDIUM | Single token controls all channel access; compromise = full takeover | Per-channel authentication tokens, token rotation policy |
+| **Container escape via shell** | MEDIUM | Shell access + internet = data exfiltration path even in sandbox | Network egress filtering, command audit logging |
+| **Prompt injection via tool responses** | HIGH | Malicious tool returns payload that hijacks the agent's reasoning | Output sanitization, tool response sandboxing, MCP Colors enforcement |
+
+### 12.3 DWS If-Then Commitments for Claw Layer
+
+| If (Trigger) | Then (Safety Measure) | Owner |
+|-------------|----------------------|-------|
+| Claw attempts to install skill from untrusted registry | Block installation, log attempt, alert security | Security |
+| Claw writes self-modifying code | Quarantine new code, require human review before activation | Engineering |
+| Data flows between channels without access control match | Block cross-channel transfer, log incident | Security |
+| Persistent memory file modified outside normal operations | Alert security, verify file integrity | Security |
+| Shell command matches exfiltration pattern (curl to external, base64 encoding) | Block command, alert security | Security |
+
+### 12.4 Cisco OpenClaw Skills Audit (Reference)
+
+Cisco's AI security team found that third-party OpenClaw skills performed data exfiltration through crafted tool responses. DWS must audit all skills before deployment:
+
+- **Pre-deployment:** Static analysis of skill source code
+- **Runtime:** Network egress monitoring per skill
+- **Post-deployment:** Behavioral anomaly detection on skill outputs
+- **Quarterly:** Re-audit installed skills against updated threat intelligence
+
+---
+
+## 13. Supply Chain Integrity for Client-Side Dependencies
+
+### 13.1 Subresource Integrity (SRI) Policy
+
+**All external scripts loaded via CDN MUST include SRI hashes.** This prevents supply chain attacks where a CDN compromise injects malicious code.
+
+| Requirement | Status | Standard |
+|-------------|--------|----------|
+| SRI hashes on all CDN `<script>` tags | **REQUIRED** — currently 0% coverage | W3C SRI spec |
+| SRI hashes on all CDN `<link>` tags | **REQUIRED** — currently 0% coverage | W3C SRI spec |
+| `crossorigin="anonymous"` on all SRI-protected resources | REQUIRED | CORS spec |
+| Self-hosting for authentication-related libraries | RECOMMENDED | Defence-in-depth |
+
+### 13.2 GitHub Actions SHA Pinning Policy
+
+**All GitHub Actions MUST be pinned to specific commit SHAs**, not version tags. Version tags are mutable — a compromised maintainer can push malicious code to an existing tag.
+
+```yaml
+# PROHIBITED:
+uses: actions/checkout@v4
+
+# REQUIRED:
+uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+```
+
+### 13.3 CORS Policy Standard
+
+**No service may use `allow_origins=["*"]` in production.** Approved CORS origins:
+
+```python
+APPROVED_ORIGINS = [
+    "https://dws10.com",
+    "https://dws6.com",
+    "https://onelifetime.world",
+    "https://lifetime.fi",
+    "http://localhost:3000",   # development only
+    "http://localhost:3002",   # development only
+]
+```
+
+#### 13.3.1 MCP Server CORS Implementation Pattern
+
+All MCP servers (FastAPI) **MUST** use the following env-driven pattern. Wildcard `"*"` is **PROHIBITED** for `allow_origins`, `allow_methods`, and `allow_headers`.
+
+```python
+# REQUIRED pattern — apply to every new MCP server
+import os
+from fastapi.middleware.cors import CORSMiddleware
+
+_CORS_ORIGINS: list[str] = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:3002,https://dws10.com,https://onelifetime.world",
+).split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
+)
+```
+
+The `CORS_ALLOWED_ORIGINS` env var is passed via `docker-compose.hybrid.yml` per service:
+
+```yaml
+environment:
+  CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+```
+
+**Audit log of wildcard CORS fixes:**
+
+| Date | File | Finding | Fix |
+|------|------|---------|-----|
+| 21.02.2026 | `mcp-hub/server.py` | `allow_origins=["*"]` | Replaced with env-driven list (v1.1) |
+| 23.02.2026 | `mcp-servers/supabase/server.py` | `allow_origins=["*"]`, `allow_methods=["*"]`, `allow_headers=["*"]` | Replaced with scoped explicit lists + env var (v1.2) |
+
+**Rule:** Any new MCP server added to `mcp-servers/` or `mcp-hub/` must follow pattern 13.3.1 from creation. Code review must reject PRs containing `["*"]` in CORS config.
+
+### 13.4 Shell Command Execution Policy
+
+**`exec()` with string interpolation is PROHIBITED.** Use `execFile()` with argument arrays:
+
+```typescript
+// PROHIBITED:
+await exec(`command "${userInput}"`);
+
+// REQUIRED:
+await execFile('command', [userInput]);
+```
+
+---
+
+## 14. Multi-Tenant Sandbox Isolation Architecture
+
+DWS IQ Agent Foundry enforces tenant data isolation through a staged architecture that provides defense-in-depth at OS, container, and network levels.
+
+### 14.1 Isolation Stages
+
+| Stage | When | Isolation Method | NIS2 Defensible | Multi-Tenant | Infra Cost |
+|-------|------|------------------|-----------------|--------------|------------|
+| 1 — SDK Sandbox | Demo / Pilot | Anthropic Agent SDK native sandbox (bubblewrap/seatbelt) | Yes (demo) | No | €0 |
+| 1.5 — OpenSandbox | Internal pilots / air-gapped EU | OpenSandbox on Acer Veriton (Docker, local hardware) | Yes | No (single tenant) | €0 (HW only) |
+| 2 — Ephemeral Containers | First paid multi-tenant | Cloud Run ephemeral containers (europe-north1) + Groq inference | Yes | Yes | ~€20-50/mo |
+| 3 — Persistent Containers | Scale (€50k+ MRR) | Persistent containers + gVisor/Firecracker per tenant | Yes + audit log | Yes | €200+/mo |
+
+**`SANDBOX_STAGE` values:** `1` (SDK sandbox) | `opensandbox` (Acer Veriton) | `2` (Cloud Run) | `3` (persistent)
+
+### 14.2 Stage 1: Anthropic SDK Native Sandbox
+
+**Implementation:** `src/sandbox/sdk-sandbox.ts`
+
+Uses Anthropic Agent SDK's built-in OS-level primitives:
+- **Linux:** bubblewrap (filesystem namespace isolation, network proxy)
+- **macOS:** seatbelt (sandbox profiles)
+
+**Controls applied per tenant:**
+
+| Control | Enforcement |
+|---------|-------------|
+| Filesystem isolation | Agent can only access `/workspace/tenant-{tenantId}` |
+| System path denial | `/etc/shadow`, `/root`, `/home`, `/var/run/docker.sock`, `/proc/1` explicitly denied |
+| Network isolation | Deny-by-default egress; only allow-listed domains reachable |
+| Allowed domains | `api.anthropic.com`, `api.groq.com`, `mcp-hub.dws10.com`, `api.dws10.com`, tenant Supabase project |
+| Wildcard prohibition | No `*` domain patterns permitted (NIS2 least-privilege) |
+
+**NIS2 compliance validation:** `validateNIS2Compliance()` checks all sandbox configs before agent execution. Violations block execution.
+
+### 14.3 Stage 2: Cloud Run Ephemeral Containers
+
+**Implementation:** `src/sandbox/cloudrun-ephemeral.ts`
+
+Each agent task executes in a dedicated Cloud Run Job:
+
+1. **Create** — New container per task with tenant-specific environment
+2. **Execute** — Agent runs with Groq inference (Llama 3.3 70B) inside the container
+3. **Collect** — Results written to Supabase `agent_executions` table
+4. **Destroy** — Container and all associated data deleted post-task
+
+**Security properties:**
+
+| Property | How Enforced |
+|----------|-------------|
+| Tenant isolation | One container per task — no shared process space |
+| Data residency | `europe-north1` (Finland) region lock |
+| No cross-tenant data path | Containers destroyed post-task; no persistent filesystem |
+| Secret management | GCP Secret Manager (not env vars) for API keys |
+| Network egress | VPC connector with egress policy (optional) |
+| Service identity | Dedicated `agent-runner@` service account with minimal IAM |
+
+**NIS2 audit statement:**
+> "Each DWS IQ 6 agent task runs in an ephemeral Cloud Run container in europe-north1. Containers are destroyed post-task. Anthropic Agent SDK native sandboxing provides filesystem and network isolation within the container. No cross-tenant data path exists by architecture, not by policy."
+
+### 14.4 Stage Selection
+
+The isolation stage is selected via `SANDBOX_STAGE` environment variable:
+
+| Value | Stage | Backend |
+|-------|-------|---------|
+| `1` | SDK Sandbox | Anthropic Agent SDK bubblewrap/seatbelt |
+| `opensandbox` | Acer Veriton | OpenSandbox Docker (local hardware) |
+| `2` | Cloud Run | Ephemeral containers (europe-north1) |
+| `3` | Persistent | gVisor/Firecracker (not yet implemented) |
+
+The unified factory (`src/sandbox/index.ts`) routes agent execution to the appropriate backend.
+
+### 14.6 Stage 1.5: OpenSandbox on Acer Veriton
+
+**Introduced:** 2026-03-01 | **Session:** `claude/sandbox-agents-opensandbox-HatfC`
+
+**Implementation:** `src/sandbox/opensandbox.ts` | **MCP:** `mcp-hub/services/opensandbox_mcp.py`
+
+**Hardware:** Acer Veriton business desktop running Docker + OpenSandbox server.
+**Activate:** Set `SANDBOX_STAGE=opensandbox` and `OPENSANDBOX_HOST=http://<veriton-ip>:8080`.
+
+**Use cases:**
+- EU air-gapped data scenarios (agent data never leaves the Veriton)
+- Internal pilot testing with real Docker isolation at €0 cloud cost
+- Offline / disconnected environments (edge AI)
+- Development and QA with full container isolation before Cloud Run promotion
+
+**Security properties:**
+
+| Property | How Enforced |
+|----------|-------------|
+| Filesystem isolation | Each agent task in a dedicated ephemeral container |
+| Network egress | Deny-by-default; only allow-listed domains reachable |
+| Data residency | Stays on Acer Veriton hardware (EU, on-premises) |
+| Ephemeral by design | Container destroyed after each agent task |
+| No cross-task data path | New container per execution; no persistent filesystem |
+| Cross-agent privilege | `file_access_control.py` protects config paths from agent writes |
+
+**MCP tools exposed via `/sandbox/*`:**
+
+| Endpoint | Method | Tool |
+|----------|--------|------|
+| `/sandbox/ping` | GET | Health check Veriton connectivity |
+| `/sandbox/create` | POST | Create isolated Docker container |
+| `/sandbox/execute` | POST | Run shell command in sandbox |
+| `/sandbox/file/read` | POST | Read file from sandbox filesystem |
+| `/sandbox/file/write` | POST | Write files to sandbox filesystem |
+| `/sandbox/destroy` | POST | Destroy sandbox and release resources |
+| `/sandbox/tools` | GET | MCP tools/list (JSON schema of all tools) |
+
+**Environment variables required:**
+
+```
+SANDBOX_STAGE=opensandbox
+OPENSANDBOX_HOST=http://192.168.1.X:8080    # Acer Veriton IP
+OPENSANDBOX_API_KEY=<optional>               # Server auth token
+OPENSANDBOX_IMAGE=opensandbox/code-interpreter:v1.0.1
+OPENSANDBOX_TIMEOUT_MS=300000
+```
+
+**NIS2 audit statement:**
+> "OpenSandbox Stage 1.5 executes each DWS IQ agent task in an ephemeral Docker container on the Acer Veriton edge node. Containers are destroyed post-task. Network egress is deny-by-default with an explicit domain allow-list. No cross-task data path exists by architecture. Data residency is enforced at hardware level — agent data never leaves the Veriton."
+
+**OpenSandbox server setup on Acer Veriton:**
+```bash
+pip install opensandbox-server
+opensandbox-server init-config ~/.sandbox.toml --example docker
+opensandbox-server   # listens on :8080
+```
+
+### 14.7 Governance Integration
+
+Sandbox isolation integrates with the existing governance engine (`src/agents/base.agent.ts`):
+
+- **`buildSandboxContext()`** attaches isolation metadata to `AgentContext` before execution
+- **Governance policies** (rate-limit, cost-limit, data-boundary) evaluate against sandbox context
+- **Audit logging** records sandbox stage, tier, and allowed paths/domains per execution
+
+---
+
+## 15. Review and Update Schedule
 
 | Review Type | Frequency | Next Date | Owner |
 |-------------|-----------|-----------|-------|
@@ -634,7 +950,148 @@ DWS Security Standard (this document)
 
 ---
 
-## 13. References
+## 16. Agent Event-Driven Architecture Security
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent modernization introduces an event-driven architecture where agents emit events, subscribe to patterns, and trigger workflows. This creates new attack surfaces that must be controlled.
+
+### 16.1 Event Bus Security Model
+
+| Concern | Control | Implementation |
+|---------|---------|----------------|
+| Event injection | Only authenticated agents emit events | `eventBus.emit()` requires `AgentContext` with valid `orgId` |
+| Event interception | In-process bus (no network exposure) | `src/agents/event-bus.ts` — singleton, no external listener |
+| Event persistence | Redis Streams with auth token | Upstash REST API with `UPSTASH_REDIS_REST_TOKEN` |
+| Event flooding | Rate limiting per agent per org | Governance engine `rate-limit` policy applies to event-emitting agents |
+| Cross-tenant leakage | Events keyed by `orgId` | Redis stream key: `dws:events:{orgId}` — tenant isolation |
+
+**Event Schema (mandatory fields):**
+```typescript
+{
+  type: string;       // Dot-notation: "compliance.gap_detected"
+  source: string;     // "agent:{agentName}" — provenance tracking
+  payload: object;    // Must NOT contain PII or secrets
+  priority: string;   // low | normal | high | critical
+  orgId: string;      // Tenant isolation key
+  sessionId: string;  // Trace correlation
+  timestamp: string;  // ISO 8601 — Article 12 audit trail
+}
+```
+
+**Payload restrictions:**
+- **NEVER** include API keys, tokens, or credentials in event payloads
+- **NEVER** include customer PII (names, emails, addresses) — use opaque IDs
+- Events with `priority: "critical"` are logged to Supabase `governance_audit` table
+- All events retained for Article 12 compliance (minimum 5 years per EU AI Act)
+
+### 16.2 Agent Delegation Security
+
+Agents can delegate to other agents mid-execution via the `delegate_to_agent` tool. This creates a delegation chain that must be bounded:
+
+| Control | Value | Rationale |
+|---------|-------|-----------|
+| Max delegation depth | 5 | Prevents infinite loops (A→B→A→B...) |
+| Depth tracking | Per session per agent | `activeDelegations` map in AgentRegistry |
+| Cross-tenant delegation | Blocked | Delegated agent inherits caller's `AgentContext.orgId` |
+| Governance inheritance | Yes | Delegated agent runs under same governance policies as caller |
+| Execution logging | Both agents | Caller logs delegation start; delegatee logs full execution |
+
+**Delegation depth exceeded response:**
+```json
+{
+  "agentName": "compliance",
+  "confidence": 0,
+  "reasoning": "Delegation depth limit (5) reached",
+  "result": { "error": "Delegation depth limit reached" }
+}
+```
+
+### 16.3 Workflow Execution Security
+
+Multi-agent workflows (`src/agents/workflows.ts`) chain agent executions:
+
+- **Timeout enforcement:** Every workflow has `timeoutMs` (default: 5 minutes, max: 10 minutes)
+- **Step isolation:** Each step runs with the caller's `AgentContext` — no privilege escalation
+- **Parallel step blast radius:** If one parallel agent fails, others complete; failure is reported per-step
+- **Workflow registry:** Only predefined workflows in `WORKFLOW_REGISTRY` can execute — no arbitrary chaining via API
+- **Audit trail:** Workflow start/complete/fail events emitted to event bus with full step results
+
+### 16.4 Tool Execution Security (SSRF Protection)
+
+The `fetch_external` tool allows agents to call external APIs. SSRF is prevented by:
+
+| Layer | Control |
+|-------|---------|
+| **Static allowlist** | Hardcoded in `src/agents/tools.ts`: `carbonintensity.org.uk`, `ec.europa.eu`, `data.europa.eu`, etc. |
+| **Tenant allowlist** | `context.sandbox.allowedDomains` from sandbox configuration |
+| **Protocol enforcement** | Only HTTPS — HTTP requests rejected |
+| **URL validation** | `new URL()` parsing before any fetch — prevents SSRF via malformed URLs |
+| **Response truncation** | Responses capped at 10,000 characters — prevents memory exhaustion |
+
+**Adding domains to the allowlist:**
+1. Submit PR to `src/agents/tools.ts` modifying `FETCH_ALLOWLIST`
+2. Security review required (label: `security-review`)
+3. Domain must serve public data (no auth-gated endpoints via agent tool)
+
+---
+
+## 17. MCP Tool Approval & Versioning
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The MCP Agent Server (`/mcp` endpoint) exposes all registered agents as callable tools. External ADEs (Claude Code, Cursor, Codex) can invoke agents via MCP protocol.
+
+### 17.1 MCP Tool Security Model
+
+| Concern | Control |
+|---------|---------|
+| Unauthorized access | JWT auth on Express routes; MCP requests extract `userId`/`orgId` from JWT |
+| Tool injection | Tool list generated from `agentRegistry.listAgents()` — no dynamic tool registration via MCP |
+| Tool impersonation | Tool names prefixed with `dws_` — collision with external tools prevented |
+| Rate limiting | Express rate limiter: 30 requests/minute per IP on agent endpoints |
+| Data exfiltration | Agent responses filtered through `AgentResponse` type — no raw database access |
+
+### 17.2 MCP Tool Inventory
+
+All tools exposed via MCP `tools/list`:
+
+| Tool Name | Type | Risk Level | Auth Required |
+|-----------|------|------------|---------------|
+| `dws_list_agents` | Meta | Low | JWT |
+| `dws_discover` | Meta | Low | JWT |
+| `dws_workflow` | Meta | Medium | JWT + workflow must exist in registry |
+| `dws_events` | Meta | Low | JWT |
+| `dws_compliance` | Agent | Medium | JWT + governance policies |
+| `dws_sitesense` | Agent | Low | JWT |
+| `dws_material_oracle` | Agent | Low | JWT |
+| `dws_schedule_genius` | Agent | Low | JWT |
+| `dws_viability` | Agent | Low | JWT |
+| `dws_customer_sat` | Agent | Low | JWT |
+| `dws_emissions_data_analyst` | Agent | Medium | JWT |
+| `dws_compliance_researcher` | Agent | Medium | JWT |
+| `dws_sales_outreach` | Agent | Medium (Tier 2) | JWT + approval gate |
+| `dws_construction` | Agent | Medium (Tier 2) | JWT + governance |
+| `dws_logistics` | Agent | Medium (Tier 2) | JWT + governance |
+| `dws_deepwiki_extractor` | Agent | Low (Tier 1) | JWT |
+| `dws_quality_gate` | Agent | Low | JWT |
+| `dws_keyword_intent` | Agent | Low | JWT |
+| `dws_competitor_surveillance` | Agent | Low | JWT |
+| `dws_content_brief` | Agent | Low | JWT |
+| `dws_seo_audit` | Agent | Low | JWT |
+| `dws_lead_feedback` | Agent | Low | JWT |
+
+### 17.3 MCP Tool Versioning
+
+- **Protocol version:** `2024-11-05` (returned in `initialize` response)
+- **Server version:** `7.0.0` (returned in `initialize` and `/mcp/health`)
+- **Tool versioning:** Tools inherit agent version; breaking changes require new agent name
+- **Deprecation policy:** Deprecated tools remain available for 90 days with warning in description
+- **Breaking change notification:** `tools/list_changed` capability enabled — clients notified on tool updates
+
+---
+
+## 18. References
 
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
@@ -644,6 +1101,9 @@ DWS Security Standard (this document)
 - [OWASP Top 10 for LLM Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 - Simon Willison's LLM Security Research (referenced in README_SECURITY.md)
 - [MITRE ATLAS](https://atlas.mitre.org/) — AI Threat Landscape
+- [W3C Subresource Integrity](https://www.w3.org/TR/SRI/) — SRI specification
+- [Cisco: OpenClaw Skills Security Analysis](https://blog.cloudflare.com/moltworker-self-hosted-ai-agent/) — Third-party skill exfiltration findings
+- [OpenClaw GitHub](https://github.com/pspdfkit/openclaw) — 180k+ stars, community skills registry
 
 **Internal DWS documents:**
 - DWS Document Standard v1.3 (DWS_DOCUMENT_STANDARD.md)
@@ -654,10 +1114,12 @@ DWS Security Standard (this document)
 - Admin Manual: Supabase (ADMIN_MANUAL_SUPABASE_EN_v1.md)
 - Admin Manual: DWS6.com (ADMIN_MANUAL_DWS6_COM.md)
 - DWS Field Note: AI Safety Report 2026 (docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md)
+- DWS Vulnerability Assessment: OpenClaw/DWS6 (docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md)
+- DWS Field Note: Moltworker/OpenClaw Evaluation (docs/field-notes/2026-02-15-moltworker-openclaw-dws-assistant.md)
 
 ---
 
-**Document Version:** 1.0
+**Document Version:** 1.3
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

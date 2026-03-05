@@ -151,6 +151,10 @@ $FilesToConvert = @(
     @{ Src = "CLAUDE.md";                                        Name = "CLAUDE" }
     @{ Src = "DWS_DOCUMENT_STANDARD.md";                         Name = "DWS_DOCUMENT_STANDARD" }
     @{ Src = "docs\Document-index.md";                           Name = "Document-index" }
+
+    # Master Thesis (Metropolia)
+    @{ Src = "docs\metropolia\master-thesis\en\V3Thesis_EN.md";  Name = "V3Thesis_EN" }
+    @{ Src = "docs\metropolia\master-thesis\fi\V3Thesis_FI.md";  Name = "V3Thesis_FI" }
 )
 
 # --- Create output directory ---

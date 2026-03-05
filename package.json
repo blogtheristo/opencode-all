@@ -5,6 +5,8 @@
   "version": "1.0.0",
   "description": "DWS IQ Auth Backend (Express + TypeScript)",
   "scripts": {
+    "db:push": "bash scripts/db_push.sh",
+    "db:push:skip-link": "bash scripts/db_push.sh --skip-link",
     "dev": "tsx watch src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc -p tsconfig.json",
@@ -14,6 +16,8 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@alibaba-group/opensandbox": "^0.1.0",
+    "@anthropic-ai/claude-agent-sdk": "^0.2.50",
     "@supabase/supabase-js": "^2.39.0",
     "@upstash/redis": "^1.36.2",
     "bcryptjs": "^2.4.3",
@@ -27,8 +31,10 @@
     "ioredis": "^5.9.2",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
+    "nodemailer": "^8.0.1",
     "pino": "^9.3.2",
-    "pino-pretty": "^11.2.2"
+    "pino-pretty": "^11.2.2",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
@@ -38,6 +44,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^25.2.3",
     "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^7.0.11",
     "@types/supertest": "^6.0.3",
     "@vitest/ui": "^4.0.16",
     "supertest": "^7.2.2",
