@@ -42,7 +42,9 @@ try {
 const payload = {
   userId: 'cline-api',
   email: 'cline@dws.local',
-  role: 'api_client',
+  // Use a valid backend RBAC role and keep the API-client semantics in accessLevel.
+  role: 'member',
+  accessLevel: 'api_client',
 };
 const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '90d', algorithm: 'HS256' });
 
