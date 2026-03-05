@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code | Date: 04.03.2026 | Changes: Added Ollama & IDE clients (Cursor, Cline) — OpenAI-compatible baseUrl, pointer to field note
   - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added OpenSandbox section — server setup, env vars, MCP tools, NIS2 statement for Stage 1.5 agent sandboxing
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/optimistic-burnell | Date: 27.02.2026 | Changes: Initial creation — Admin folder for Acer Veriton GN100 edge AI device
 
@@ -105,10 +106,15 @@ OPENSANDBOX_TIMEOUT_MS=300000
 
 See: `DWS_SECURITY_STANDARD.md §14.6`, `src/sandbox/opensandbox.ts`, `mcp-hub/services/opensandbox_mcp.py`
 
+## Ollama & IDE clients (Cursor, Cline)
+
+If **Ollama** is running on the Veriton (e.g. Qwen), it exposes an **OpenAI-compatible API** on port 11434. **Cursor** and **Cline** can connect by setting their provider **baseUrl** to `http://<veriton-ip-or-hostname>:11434/v1`. Ensure Ollama is bound to `0.0.0.0:11434` and the Veriton is reachable (VPN or LAN). See: `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` (section "Cline CLI → Qwen on Acer Veriton").
+
 ## Related Documents
 
 | Document | Location |
 |----------|----------|
+| Ollama + dev environment (Cursor, Cline, Claude Code) | `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` |
 | NVIDIA GPG Key Fix (2026-02-27) | `docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` |
 | OpenSandbox TypeScript Integration | `src/sandbox/opensandbox.ts` |
 | OpenSandbox MCP Service (Python) | `mcp-hub/services/opensandbox_mcp.py` |
