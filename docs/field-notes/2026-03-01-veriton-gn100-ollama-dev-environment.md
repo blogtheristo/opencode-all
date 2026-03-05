@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code | Date: 04.03.2026 | Changes: Added Cline CLI → Qwen (Ollama) section: OpenAI-compatible API, baseUrl config, checklist (Qwen via Ollama, endpoint, Veriton reachable, Cline baseUrl)
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 02.03.2026 | Changes: Removed code-server (VS Code Server) — Continue+Ollama chat incompatible with code-server. Primary workflow now Claude Code CLI via Cockpit terminal. Issue reported to VS Code team.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 02.03.2026 | Changes: Updated with Continue extension config fix (config.yaml AUTODETECT), secure context notes, complete setup script, and remaining commands
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/condescending-bouman | Date: 01.03.2026 | Changes: Initial field note — documenting Veriton GN100 edge server setup with Ollama, Claude Code CLI, VS Code Server, and GitHub CLI
@@ -156,6 +157,31 @@ GitHub Copilot Codex (Cursor, paid)           →  inline polish, final review
 
 The working path is Cursor IDE on Win11 connected to Qwen 32B on the DGX Spark via SSH tunnel. Claude Code CLI remains on Win11 with Anthropic API for complex tasks.
 
+### Cline CLI → Qwen on Acer Veriton (Ollama)
+
+**Yes** — if the Qwen instance on the Acer Veriton is served via **Ollama**, it exposes an **OpenAI-compatible HTTP API**. Cline (and other tools) can connect to it by pointing at that endpoint.
+
+**Why:** Cline and similar IDEs connect to local/self-hosted models when they expose an OpenAI-compatible API. Ollama does exactly that (see [Qwen + Ollama](https://qwenlm.github.io) and [Ollama OpenAI API](https://github.com/ollama/ollama/blob/main/docs/api.md)).
+
+**Requirements:**
+
+| Check | Description |
+|-------|-------------|
+| ✅ Qwen model running via Ollama | e.g. `ollama run qwen2.5-coder:32b` or service on Veriton |
+| ✅ OpenAI-compatible API | Ollama serves `/v1/chat/completions` etc. on port 11434 by default |
+| ✅ Veriton IP + port reachable | From the machine where Cline runs (VPN or same LAN; expose with `OLLAMA_HOST=0.0.0.0:11434` if needed) |
+| ✅ Cline configured with baseUrl | In Cline settings: set **baseUrl** to the Ollama endpoint (e.g. `http://gn100-cb5d:11434/v1` or `http://<veriton-ip>:11434/v1`) |
+
+**Steps:**
+
+1. On the Veriton: run Qwen via Ollama (see Section "Expose Ollama on network" below).
+2. Ensure Ollama is bound to `0.0.0.0:11434` so Cline’s machine can reach it.
+3. In Cline: add/set the model provider to use an **OpenAI-compatible** endpoint with **baseUrl** = `http://<veriton-ip-or-hostname>:11434/v1` (no API key required for local Ollama, or use a placeholder if the UI requires one).
+
+If the Veriton is only reachable via VPN, use the Veriton hostname (e.g. `gn100-cb5d`) or its VPN IP. If Cline runs on another machine, use the Veriton’s IP on your network (or an SSH tunnel to `localhost:11434` and then `baseUrl: http://localhost:11434/v1`).
+
+**DWS API key for Cline (when using a DWS backend endpoint):** To use Cline with a DWS-hosted OpenAI-compatible or agent endpoint that requires auth, generate a long-lived JWT and paste it as the API key in Cline. From the repo root: `node scripts/generate-cline-api-key.cjs` — outputs a 90-day token. Set it in Cline as the provider API key, or use as `DWS_API_TOKEN` for the `dws` CLI. Do not commit the token.
+
 ## Remaining Setup Commands
 
 Run these on the Veriton (Cockpit terminal):
@@ -227,3 +253,4 @@ claude "Explain the project structure in 3 sentences"
 - Ollama Anthropic API compatibility: https://ollama.com/blog/claude
 - Claude Code + Ollama integration: https://docs.ollama.com/integrations/claude-code
 - Continue Ollama Guide (attempted, not working on code-server): https://docs.continue.dev/guides/ollama-guide
+- Qwen (Ollama): https://qwenlm.github.io — run Qwen via Ollama for an OpenAI-compatible server

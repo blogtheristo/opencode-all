@@ -358,6 +358,8 @@ dws workflow compliance-assessment
 
 **Rule:** If a product can't be used via `dws <command>`, it's not shipped. GUI-only features are incomplete features.
 
+**Rise of CLIs:** External CLIs that follow the same pattern (structured JSON, MCP/skills) are documented in [AGENTS.md §16](AGENTS.md#16-rise-of-clis--external-add-ons); e.g. Google Workspace CLI (`gws`) for Drive, Gmail, Calendar, Sheets, Docs.
+
 ## Integrations & Deployment
 
 **ERP:** SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Monitor ERP, Visma, Jeeves → `src/integrations/erp/`
