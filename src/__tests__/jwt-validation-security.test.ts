@@ -38,7 +38,8 @@ describe('JWT Token Validation Security Fix', () => {
     });
 
     it('should reject a malformed token', async () => {
-      const malformedToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.invalid';
+      const jwtHeader = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+      const malformedToken = `Bearer ${jwtHeader}.invalid`;
       const decoded = await AuthService.verifyAccessToken(malformedToken);
 
       expect(decoded).toBeNull();
