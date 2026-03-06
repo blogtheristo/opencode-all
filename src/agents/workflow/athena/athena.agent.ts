@@ -12,7 +12,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Athena, Compliance Intelligence Officer of Climate IQ.
@@ -49,6 +48,7 @@ export class AthenaAgent extends BaseAgent {
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     const industry = (input.industry as string) || 'manufacturing';
     const regulations = (input.regulations as string[]) || ['fit-for-55', 'ets', 'cbam', 'csrd'];

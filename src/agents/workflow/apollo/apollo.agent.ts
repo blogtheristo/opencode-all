@@ -12,7 +12,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 export class ApolloAgent extends BaseAgent {
@@ -36,6 +35,7 @@ export class ApolloAgent extends BaseAgent {
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     const industry = typeof input.industry === 'string' ? input.industry : 'manufacturing';
     const targetRole = typeof input.targetRole === 'string' ? input.targetRole : 'compliance officer';

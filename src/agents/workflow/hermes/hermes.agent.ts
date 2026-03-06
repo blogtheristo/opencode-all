@@ -13,7 +13,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 export class HermesAgent extends BaseAgent {
@@ -37,6 +36,7 @@ export class HermesAgent extends BaseAgent {
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     const projectId = typeof input.projectId === 'string' ? input.projectId : context.projectId;
     const qualityCheckpoint = (typeof input.qualityCheckpoint === 'object' && input.qualityCheckpoint !== null) ? input.qualityCheckpoint as Record<string, unknown> : undefined;

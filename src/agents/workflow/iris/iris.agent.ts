@@ -12,7 +12,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 type IrisMode = 'market' | 'regulatory' | 'seo' | 'all';
@@ -38,6 +37,7 @@ export class IrisAgent extends BaseAgent {
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     const query = typeof input.query === 'string' ? input.query : 'EU climate compliance market intelligence';
     const mode: IrisMode = (input.mode as IrisMode) || 'all';

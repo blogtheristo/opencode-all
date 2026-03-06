@@ -12,7 +12,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 export class HephaestusAgent extends BaseAgent {
@@ -36,6 +35,7 @@ export class HephaestusAgent extends BaseAgent {
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     const siteId = (input.siteId as string) || context.projectId;
     const metrics = input.metrics as Record<string, number> | undefined;
