@@ -61,11 +61,27 @@ export class ApolloAgent extends BaseAgent {
     }
 
     if ((mode === 'outreach' || mode === 'all') && prospectData) {
+      const prospectName = typeof prospectData.companyName === 'string'
+        ? prospectData.companyName
+        : typeof prospectData.name === 'string'
+          ? prospectData.name
+          : 'priority prospect';
+      const offering = typeof prospectData.offering === 'string' && prospectData.offering.trim().length >= 5
+        ? prospectData.offering.trim()
+        : 'dws-iq6';
+
       tasks.push(agentRegistry.executeAgent('sales-outreach', context, {
-        projectId: context.projectId,
-        industry,
-        targetRole,
-        regulatoryTrigger,
+        targetDescription: [
+          `Industry: ${industry}`,
+          `Buyer role: ${targetRole}`,
+          `Regulatory trigger: ${regulatoryTrigger}`,
+          `Priority prospect: ${prospectName}`,
+        ].join(' | '),
+        offering,
+        senderName: 'DWS Sales Team',
+        senderCompany: 'Lifetime Oy',
+        emailStyle: 'consultative',
+        maxCompanies: 1,
         prospect: prospectData,
       }));
       taskLabels.push('sales-outreach');

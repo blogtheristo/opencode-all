@@ -33,7 +33,8 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
         $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
         $_ -notmatch '^Admin/GIT_CORRUPTION_RESOLUTION_NOTE\.md$' -and
         $_ -notlike 'Admin/Installation/*' -and
-        $_ -notlike 'Admin/Li/*'
+        $_ -notlike 'Admin/Li/*' -and
+        $_ -notlike 'Admin/Acer-Veriton-GN100/*'
     }
     
     if ($blockedAdminFiles -and $blockedAdminFiles.Count -gt 0) {

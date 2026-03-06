@@ -138,13 +138,40 @@ GitHub Copilot Codex (Cursor, paid)           →  inline polish, final review
 - **Root cause:** code-server's VS Code API does not fully support third-party chat providers
 - **Status:** Issue reported to VS Code team. code-server removed from Veriton.
 
-### Attempt 2: SSH tunnel to Cursor.sh + Qwen — WORKING ✅
+### Attempt 2: SSH tunnel to Cursor + Qwen — setup steps
 
-- SSH tunnel: `ssh -L 11435:localhost:11434 admin100@gn100-cb5d`
-- Cursor configured with OpenAI-compatible endpoint: `http://localhost:11435/v1`
-- Model: `qwen2.5-coder:32b`
-- **Result:** Working with good latency. Cursor uses OpenAI API format which Ollama supports natively.
-- **Note:** Port 11435 used on Win11 because local Ollama already occupies 11434.
+Cursor can use the same SSH tunnel to talk to Qwen on the Acer. **Important:** Cursor’s docs say requests may be routed via their backend; if your client sends directly to the override URL, localhost works. If you get “Problem reaching OpenAI” when using a local URL, Cursor is routing via their servers (which cannot reach your localhost); see fallback below.
+
+**Setup (do this now):**
+
+1. **Start the SSH tunnel** (in a terminal; leave it open):
+   ```bash
+   ssh -L 11435:localhost:11434 admin100@192.168.101.113
+   ```
+   *(Or use `admin100@gn100-cb5d` if DNS resolves.)*
+
+2. **Open Cursor Settings**
+   - **Windows/Linux:** `File` → `Preferences` → `Settings`
+   - **Mac:** `Cursor` → `Settings`
+
+3. **Go to Models**
+   - In the left sidebar, click **Models**.
+
+4. **Configure OpenAI**
+   - Find **OpenAI** in the provider list.
+   - **Override OpenAI Base URL:** set to `http://localhost:11435/v1`
+   - **API Key:** leave empty if Cursor allows; if the field is required, use a placeholder (e.g. `ollama`). Ollama does not validate it.
+   - Click **Verify**. If verification succeeds, Cursor is reaching your local Ollama via the tunnel.
+
+5. **Add custom model**
+   - In Cursor, add a custom model with name `qwen2.5-coder:32b` — Cursor accepts it. Alternatives: `qwen2.5-coder:latest`, `qwen:32b` (match `ollama list` on the Acer).
+
+6. **Use Chat/Composer**
+   - Start a chat or composer; it should use Qwen on the Acer via the tunnel.
+
+**If you get “Problem reaching OpenAI” or verification fails:** Cursor may be sending requests through their backend, which cannot reach `localhost`. Then either: (a) expose your tunnel with **ngrok** so the URL is public (`ngrok http 11435` → use the HTTPS URL in Cursor’s Base URL), or (b) use **Continue.dev** (VS Code extension) or **Open WebUI** in the browser pointed at `http://localhost:11435` — they talk directly to localhost.
+
+**Note:** Port 11435 is used on the client so local Ollama (if any) can keep using 11434.
 
 ### Attempt 3: Claude Code CLI + Ollama — FAILED (tool API incompatible)
 

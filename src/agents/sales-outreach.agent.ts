@@ -38,6 +38,7 @@ interface SalesOutreachInput {
   senderCompany: string;
   emailStyle: 'professional' | 'cold' | 'consultative';
   maxCompanies: number;
+  seedCompanies?: TargetCompany[];
 }
 
 // ============ OUTPUT TYPES ============
@@ -116,7 +117,7 @@ export class SalesOutreachAgent extends BaseAgent {
         'b2b-outreach',
         'climate-sales',
       ],
-      model: 'llama-3.1-70b-versatile',
+      model: 'llama-3.3-70b-versatile',
     });
   }
 
@@ -234,33 +235,49 @@ export class SalesOutreachAgent extends BaseAgent {
   // ============ PRIVATE METHODS ============
 
   private validateInput(input: Record<string, unknown>): SalesOutreachInput {
-    if (typeof input.targetDescription !== 'string' || input.targetDescription.length < 10) {
+    const fallbackTargetDescription = this.buildFallbackTargetDescription(input);
+    const targetDescription = this.getTrimmedString(input.targetDescription) || fallbackTargetDescription;
+    if (!targetDescription || targetDescription.length < 10) {
       throw new Error('targetDescription must be a descriptive string (min 10 chars)');
     }
-    if (typeof input.offering !== 'string' || input.offering.length < 5) {
+
+    const offering = this.getTrimmedString(input.offering)
+      || this.getTrimmedString(this.getPrimaryProspect(input)?.offering)
+      || this.getTrimmedString(this.getPrimaryProspect(input)?.product)
+      || this.getTrimmedString(this.getPrimaryProspect(input)?.productName)
+      || 'dws-iq6';
+    if (offering.length < 5) {
       throw new Error('offering must describe the product/service (min 5 chars)');
     }
+
     const styles = ['professional', 'cold', 'consultative'];
     const style = styles.includes(input.emailStyle as string)
       ? (input.emailStyle as 'professional' | 'cold' | 'consultative')
       : 'professional';
-    const maxCompanies = typeof input.maxCompanies === 'number'
-      ? Math.max(1, Math.min(10, input.maxCompanies))
+    const rawMaxCompanies = typeof input.maxCompanies === 'number' && Number.isFinite(input.maxCompanies)
+      ? input.maxCompanies
       : 5;
+    const maxCompanies = Math.max(1, Math.min(10, Math.round(rawMaxCompanies)));
     const senderName = (typeof input.senderName === 'string' ? input.senderName.trim() : '') || 'DWS Sales Team';
     const senderCompany = (typeof input.senderCompany === 'string' ? input.senderCompany.trim() : '') || 'Lifetime Oy';
+    const seedCompanies = this.extractSeedCompanies(input, maxCompanies);
 
     return {
-      targetDescription: input.targetDescription,
-      offering: input.offering,
+      targetDescription,
+      offering,
       senderName,
       senderCompany,
       emailStyle: style,
       maxCompanies,
+      seedCompanies: seedCompanies.length > 0 ? seedCompanies : undefined,
     };
   }
 
   private async findCompanies(input: SalesOutreachInput): Promise<TargetCompany[]> {
+    if (input.seedCompanies && input.seedCompanies.length > 0) {
+      return input.seedCompanies.slice(0, input.maxCompanies);
+    }
+
     const prompt = [
       `You are a B2B company research agent for EU climate compliance solutions.`,
       `Find ${input.maxCompanies} companies that match this profile:`,
@@ -277,14 +294,11 @@ export class SalesOutreachAgent extends BaseAgent {
     }
     try {
       const parsed = JSON.parse(result.content);
-      if (
-        result.model === 'placeholder' ||
-        !Array.isArray(parsed.companies) ||
-        parsed.companies.length === 0
-      ) {
+      const companies = parsed.companies;
+      if (!Array.isArray(companies) || companies.length === 0) {
         return this.generatePlaceholderCompanies(input);
       }
-      return parsed.companies.slice(0, input.maxCompanies);
+      return companies.slice(0, input.maxCompanies);
     } catch {
       // proceed to fallback
     }
@@ -419,5 +433,83 @@ export class SalesOutreachAgent extends BaseAgent {
     if (input.targetDescription.length > 50) confidence += 0.05;
     if (input.offering in VALUE_PROPS) confidence += 0.1;
     return Math.max(0, Math.min(1, confidence));
+  }
+
+  private getTrimmedString(value: unknown): string {
+    return typeof value === 'string' ? value.trim() : '';
+  }
+
+  private getPrimaryProspect(input: Record<string, unknown>): Record<string, unknown> | null {
+    if (typeof input.prospect === 'object' && input.prospect !== null && !Array.isArray(input.prospect)) {
+      return input.prospect as Record<string, unknown>;
+    }
+    if (
+      typeof input.prospectData === 'object'
+      && input.prospectData !== null
+      && !Array.isArray(input.prospectData)
+    ) {
+      return input.prospectData as Record<string, unknown>;
+    }
+    return null;
+  }
+
+  private buildFallbackTargetDescription(input: Record<string, unknown>): string {
+    const primaryProspect = this.getPrimaryProspect(input);
+    const prospectName = this.getTrimmedString(primaryProspect?.companyName)
+      || this.getTrimmedString(primaryProspect?.name);
+    const industry = this.getTrimmedString(input.industry);
+    const targetRole = this.getTrimmedString(input.targetRole);
+    const regulatoryTrigger = this.getTrimmedString(input.regulatoryTrigger);
+
+    const parts = [
+      prospectName ? `Priority prospect: ${prospectName}` : '',
+      industry ? `Industry: ${industry}` : '',
+      targetRole ? `Buyer role: ${targetRole}` : '',
+      regulatoryTrigger ? `Regulatory trigger: ${regulatoryTrigger}` : '',
+    ].filter(Boolean);
+
+    return parts.join(' | ');
+  }
+
+  private extractSeedCompanies(
+    input: Record<string, unknown>,
+    maxCompanies: number,
+  ): TargetCompany[] {
+    const candidates: Record<string, unknown>[] = [];
+    const primaryProspect = this.getPrimaryProspect(input);
+    if (primaryProspect) {
+      candidates.push(primaryProspect);
+    }
+
+    if (Array.isArray(input.prospects)) {
+      for (const prospect of input.prospects) {
+        if (typeof prospect === 'object' && prospect !== null && !Array.isArray(prospect)) {
+          candidates.push(prospect as Record<string, unknown>);
+        }
+      }
+    }
+
+    return candidates
+      .map((prospect) => this.mapProspectToCompany(prospect))
+      .filter((company): company is TargetCompany => company !== null)
+      .slice(0, maxCompanies);
+  }
+
+  private mapProspectToCompany(prospect: Record<string, unknown>): TargetCompany | null {
+    const name = this.getTrimmedString(prospect.companyName) || this.getTrimmedString(prospect.name);
+    if (!name) {
+      return null;
+    }
+
+    return {
+      name,
+      website: this.getTrimmedString(prospect.website) || '[research needed]',
+      whyFit:
+        this.getTrimmedString(prospect.whyFit)
+        || this.getTrimmedString(prospect.reason)
+        || this.getTrimmedString(prospect.painPoint)
+        || 'Matched from workflow prospect input',
+      industry: this.getTrimmedString(prospect.industry) || 'EU-regulated industry',
+    };
   }
 }

@@ -14,7 +14,7 @@
 
 ## Lab Session Overview
 
-This lab configures the Acer Veriton GN-100 from bare Ubuntu installation to a fully operational LWM training environment.
+This lab configures the Acer Veriton GN-100 from Debian installation to a fully operational LWM training environment.
 
 **What You'll Build:**
 - NVIDIA GPU drivers + CUDA 12.4
@@ -29,17 +29,64 @@ This lab configures the Acer Veriton GN-100 from bare Ubuntu installation to a f
 - ✅ Claude API responds to test query
 - ✅ Llama 3.1 8B model files present (~16GB)
 
+### Järjestelmätiedot (Device reference — lab instance)
+
+| Field | FI | Value |
+|-------|-----|------|
+| **Model** | Malli | Acer Inc. Acer Veriton GN100 |
+| **Machine ID** | Koneen ID | `435bf64de6f94bfa93dca976e55670bd` |
+| **Uptime** | Toiminta-aika | 5 päivää |
+
+*(Update Toiminta-aika when documenting a lab session; use `uptime` or `cat /proc/uptime` on the device.)*
+
 ---
 
 ## Section 1: Hardware Verification (15 minutes)
+
+### 1.0 SSH key-based access (connect without login)
+
+Set up passwordless SSH so you can connect without an interactive login prompt (required for scripts, CI, and agents).
+
+**On your client machine (Win11, Mac, or dev box):**
+
+```bash
+# If you don't have a key yet
+ssh-keygen -t ed25519 -C "dws-gn100" -f ~/.ssh/id_ed25519_dws -N ""
+
+# Copy public key to the GN100 (one-time; you'll type the password this once)
+ssh-copy-id -i ~/.ssh/id_ed25519_dws.pub admin100@gn100-cb5d
+# Or: ssh-copy-id -i ~/.ssh/id_ed25519_dws.pub admin100@gn-100.local
+# Or use IP: ssh-copy-id -i ~/.ssh/id_ed25519_dws.pub admin100@192.168.1.XXX
+```
+
+**Optional — `~/.ssh/config` on the client** (use host alias and key; no password next time):
+
+```bash
+Host gn100 gn100-cb5d gn-100.local
+    HostName gn100-cb5d
+    User admin100
+    IdentityFile ~/.ssh/id_ed25519_dws
+    ServerAliveInterval 60
+    ServerAliveCountMax 120
+```
+
+**Test (no login prompt):**
+
+```bash
+ssh gn100-cb5d "hostname; uptime"
+# Or: ssh admin100@gn100-cb5d "hostname"
+```
+
+*VPN required:* hostname `gn100-cb5d` resolves only when connected to DNA Tietoturva (F-Secure) VPN. Use IP or `gn-100.local` on local LAN if different.
 
 ### 1.1 Initial System Check
 
 SSH into the GN-100:
 
 ```bash
-ssh user@gn-100.local
-# Or use IP address: ssh user@192.168.1.XXX
+ssh admin100@gn100-cb5d
+# Or: ssh admin100@gn-100.local
+# Or use IP address: ssh admin100@192.168.1.XXX
 ```
 
 Run the hardware diagnostic script:
@@ -303,7 +350,7 @@ sudo reboot
 
 ```bash
 # SSH back into GN-100
-ssh user@gn-100.local
+ssh admin100@gn-100.local
 
 # Verify driver installation
 nvidia-smi
@@ -1272,17 +1319,17 @@ The script will:
 ```powershell
 # From Win11, connect to GN-100 via SSH Remote
 # VS Code:
-code --remote ssh-remote+user@gn-100.local ~/dws6
+code --remote ssh-remote+admin100@gn-100.local ~/dws6
 
 # Cursor:
-cursor --remote ssh-remote+user@gn-100.local ~/dws6
+cursor --remote ssh-remote+admin100@gn-100.local ~/dws6
 ```
 
 Add to `~/.ssh/config` on Win11:
 ```
 Host gn-100
     HostName 192.168.1.XXX
-    User user
+    User admin100
     ForwardAgent yes
     # Forward MCP ports for local browser access
     LocalForward 8888 localhost:8888   # Jupyter
@@ -1468,6 +1515,48 @@ cloudflared tunnel route dns gn100-ollama gn100-ollama.yourdomain.com
 # Run tunnel
 cloudflared tunnel run --url http://localhost:11434 gn100-ollama
 ```
+
+**Option C: SSH local port forward (client → GN100 Ollama)**
+
+From your client machine (Win11, Mac, etc.), open an SSH session that forwards local port 11435 to Ollama (11434) on the GN100. Then Cline, Cursor, or any local tool can use `http://localhost:11435/v1` as an OpenAI-compatible baseUrl.
+
+```bash
+# One-time: keep this session open while using Cline/Cursor
+ssh -L 11435:localhost:11434 admin100@192.168.101.113
+```
+
+- **Local:** `localhost:11435` → **Remote:** `localhost:11434` (Ollama on GN100)
+- **User:** `admin100` | **Host:** `192.168.101.113` (use `gn100-cb5d` if DNS resolves, or your GN100 IP)
+- In Cline/Cursor: set provider baseUrl to `http://localhost:11435/v1` (no API key for local Ollama).
+
+**Workflow: When opening a terminal to work with Cline + Qwen on Acer**
+
+So that your terminal (and Cline) has access to the Acer’s Qwen/Ollama:
+
+1. **Start the SSH tunnel** (in a terminal; leave it open):
+   ```bash
+   ssh -L 11435:localhost:11434 admin100@192.168.101.113
+   ```
+2. **Configure Cline** (or Cursor):
+   - **baseUrl:** `http://localhost:11435/v1` (OpenAI-compatible, points at Ollama on the Acer via the tunnel).
+   - **API key:** Local Ollama does not require a key — you can leave it blank or use a placeholder (e.g. `ollama`). If Cline’s UI requires a value, any string is fine; Ollama will ignore it.
+   - **If you use Cline with the DWS backend** (our API, not Ollama): generate a token and paste it as the API key: `node scripts/generate-cline-api-key.cjs` (from repo root; requires `JWT_SECRET` in `.env`). Use that token as the provider API key when baseUrl points at the DWS endpoint.
+- **If Cline’s UI has no Base URL field:** Use **Cursor** instead (see **Cursor setup** below). Same tunnel; Cursor exposes Base URL / override in Settings → Models → OpenAI.
+3. **Use the same terminal** (or a new one) for your project; Cline will reach Qwen on the Acer via the tunnel.
+
+Once the tunnel is running, any terminal session on your machine can use `http://localhost:11435` (e.g. `curl http://localhost:11435/api/tags`).
+
+**Cursor setup (local Qwen on Acer) — do this now**
+
+1. Start tunnel: `ssh -L 11435:localhost:11434 admin100@192.168.101.113` (leave the terminal open).
+2. **Cursor** → **File** → **Preferences** → **Settings** (Mac: **Cursor** → **Settings**).
+3. Left sidebar → **Models**.
+4. Under **OpenAI**: set **Override OpenAI Base URL** to `http://localhost:11435/v1`. **API Key:** leave empty if Cursor allows; if it requires a value, use a placeholder (e.g. `ollama`).
+5. Click **Verify**. If it succeeds, Cursor is using Qwen on the Acer.
+6. **Add custom model:** In Cursor, add a custom model with name `qwen2.5-coder:32b` (Cursor accepts it). Or use `qwen2.5-coder:latest` / `qwen:32b` to match what `ollama list` shows on the Acer.
+7. Use Chat or Composer; requests go to Qwen via the tunnel.
+
+If you get “Problem reaching OpenAI”, Cursor may be routing via their backend (which cannot reach localhost). Then use **ngrok** to expose port 11435 and put the ngrok HTTPS URL in Base URL, or use **Continue.dev** / **Open WebUI** pointed at `http://localhost:11435` (they talk directly to localhost). Full steps: `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md`.
 
 ### 9.4 Test Code Review via API
 
