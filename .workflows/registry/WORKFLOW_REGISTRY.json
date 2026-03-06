@@ -1,8 +1,8 @@
 {
   "version": "1.1",
   "last_updated": "2025-12-26T12:00:00Z",
-  "total_workflows": 14,
-  "active_workflows": 13,
+  "total_workflows": 15,
+  "active_workflows": 14,
   "failing_workflows": 1,
 
   "workflows": [
@@ -312,6 +312,20 @@
       "tags": ["investor-relations", "monthly", "tracking"]
     },
     {
+      "id": "morning-feature-workflow",
+      "name": "Morning Feature Workflow",
+      "type": "local-script",
+      "file": ".workflows/morning-feature-workflow.md",
+      "description": "Create feature branch from main, run build and test, then implement. Scripts: scripts/morning-feature-workflow.ps1, scripts/morning-feature-workflow.sh",
+      "schedule": {
+        "frequency": "on-demand",
+        "trigger": ["manual"]
+      },
+      "status": "active",
+      "owner": "dev-team",
+      "tags": ["branch", "build", "test", "daily", "implementation"]
+    },
+    {
       "id": "site-quality-implementation",
       "name": "Site Quality Implementation Workflow",
       "type": "site-workflow",
@@ -348,16 +362,17 @@
       "monthly": 3,
       "on-push": 5,
       "on-pr": 1,
-      "manual": 1
+      "manual": 2
     },
     "by_status": {
-      "active": 13,
+      "active": 14,
       "failing": 1,
       "disabled": 0
     },
     "by_type": {
       "github-action": 13,
-      "site-workflow": 1
+      "site-workflow": 1,
+      "local-script": 1
     },
     "by_criticality": {
       "critical": 4,
