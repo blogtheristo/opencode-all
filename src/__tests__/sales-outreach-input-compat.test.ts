@@ -17,7 +17,7 @@ describe('SalesOutreachAgent input compatibility', () => {
 
   beforeEach(() => {
     agent = new SalesOutreachAgent();
-    vi.spyOn(agent as never, 'callLLM').mockResolvedValue({
+    vi.spyOn(agent as any, 'callLLM').mockResolvedValue({
       content: JSON.stringify({ summary: 'placeholder' }),
       model: 'placeholder',
       inputTokens: 0,
