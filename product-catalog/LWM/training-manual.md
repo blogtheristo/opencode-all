@@ -65,7 +65,14 @@ DWS IQ 6 targets EU-regulated industries requiring domain-specific AI capabiliti
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+### 1.4 Planning Phase & External Advice
 
+While the core LWM training workflow is defined in the three parts below, **planning-phase** guidance is captured in the field note **[Grok advice: LWM planning & multi-tool workflow](../../docs/field-notes/2026-03-04-grok-advice-lwm-planning-multi-tool.md)**. Key takeaways:
+
+- **Lightweight PoCs first:** This manual already uses QLoRA + synthetic data (Part 2); avoid large full fine-tunes until eval benchmarks are met.
+- **OpenSandbox:** Use OpenSandbox (Stage 1.5 on Acer Veriton GN100) for isolated, reproducible training/eval loops; see `DWS_SECURITY_STANDARD.md` §14.6.
+- **Success metrics:** Define 3–5 LWM eval benchmarks (e.g. Fit-for-55 Q&A, compliance gap coverage, Article 12 readiness) before scaling; see Part 3 and the field note for next steps.
+- **Synthetic data first:** Prioritise synthetic data generation (Claude API) to reduce raw data dependency; align with 2026 best practice for domain-specific models.
 
 -----
 

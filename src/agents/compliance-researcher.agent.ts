@@ -276,9 +276,12 @@ export class ComplianceResearcherAgent extends BaseAgent {
       throw new Error('topic must be a descriptive string (min 5 chars)');
     }
     const validRegs: Regulation[] = ['csrd', 'ets', 'cbam', 'fit55', 'nis2', 'eu-ai-act', 'taxonomy'];
-    const regs = Array.isArray(input.regulations)
+    const regs: Regulation[] = Array.isArray(input.regulations)
       ? (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[]
-      : ['csrd'] as Regulation[];
+      : ['csrd'];
+    if (Array.isArray(input.regulations) && regs.length === 0) {
+      throw new Error(`No valid regulations provided. Must include at least one of: ${validRegs.join(', ')}`);
+    }
     const depth = ['quick', 'standard', 'deep'].includes(input.depth as string)
       ? (input.depth as 'quick' | 'standard' | 'deep')
       : 'standard';
@@ -401,6 +404,14 @@ export class ComplianceResearcherAgent extends BaseAgent {
         nextSteps: [],
       };
     }
+    // Deterministic fallback
+    const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
+    return {
+      title: `${input.industry} Compliance Research`,
+      executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+      sections: [],
+      nextSteps: [],
+    };
   }
 
   private calculateConfidence(input: ComplianceResearcherInput): number {
