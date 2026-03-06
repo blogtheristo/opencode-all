@@ -1,8 +1,29 @@
 # Site Quality Standards & Management Policy
 
-**Version:** 1.0
-**Effective Date:** 2025-12-26
-**Last Updated:** 2025-12-26
+---
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
+
+Document Status:
+  - Created: 26.12.2025
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
+**Version:** 2.0
+**Effective Date:** 2026-03-02
+**Last Updated:** 2026-03-02
 **Status:** Active
 
 ---
@@ -38,7 +59,7 @@ Applies to:
 1. **Consistency First** - Same components behave identically across all pages
 2. **Single Source of Truth** - No code duplication; use shared components
 3. **Mobile-First** - All features work on mobile before desktop
-4. **Accessibility** - WCAG 2.1 AA compliance minimum
+4. **Accessibility** - WCAG 2.2 AA compliance minimum
 5. **Performance** - Page load under 3 seconds on 3G
 
 ---
@@ -819,6 +840,110 @@ git push origin main
 
 ---
 
+## TypeScript & React Quality Standards
+
+### TypeScript Requirements
+
+All React components and Express routes MUST use strict TypeScript:
+
+```json
+// tsconfig.json — required settings
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  }
+}
+```
+
+**Component typing rules:**
+```tsx
+// ❌ Bad — implicit any, untyped props
+export function ProductCard({ product, onClick }) {
+  return <div onClick={onClick}>{product.name}</div>
+}
+
+// ✅ Good — explicit types, no implicit any
+interface ProductCardProps {
+  product: Pick<Product, 'id' | 'name' | 'price'>;
+  onSelect: (id: string) => void;
+}
+export function ProductCard({ product, onSelect }: ProductCardProps) {
+  return <button onClick={() => onSelect(product.id)}>{product.name}</button>
+}
+```
+
+### Zod for Runtime Validation
+
+All data at system boundaries (form submissions, API responses, URL params) MUST use Zod:
+
+```tsx
+import { z } from 'zod';
+
+const AgentInputSchema = z.object({
+  industry: z.enum(['construction', 'manufacturing', 'logistics']),
+  regulation: z.string().min(2).max(100),
+  customerId: z.string().uuid().optional(),
+});
+
+type AgentInput = z.infer<typeof AgentInputSchema>;
+
+// In form handler
+const result = AgentInputSchema.safeParse(formData);
+if (!result.success) {
+  // Handle validation errors — never trust unvalidated input
+}
+```
+
+### React Quality Rules
+
+| Rule | Pattern |
+|------|---------|
+| No prop drilling beyond 2 levels | Use Context or Zustand for shared state |
+| No useEffect for derived state | Compute derived values inline or with useMemo |
+| No index as key in lists | Use stable unique ID (`product.id`, not `index`) |
+| No anonymous default exports | Named exports only: `export function Component` |
+| Error boundaries on async boundaries | Wrap Suspense + async data fetchers with ErrorBoundary |
+
+### Testing Requirements (React)
+
+**Unit tests** — Vitest + React Testing Library:
+```tsx
+// Every interactive component needs a test
+describe('ProductCard', () => {
+  it('calls onSelect with product id when clicked', () => {
+    const onSelect = vi.fn();
+    render(<ProductCard product={mockProduct} onSelect={onSelect} />);
+    fireEvent.click(screen.getByRole('button'));
+    expect(onSelect).toHaveBeenCalledWith(mockProduct.id);
+  });
+});
+```
+
+**Minimum coverage thresholds:**
+- Utility functions: 90%
+- Component logic (event handlers, state): 80%
+- Pure render components: no test required
+
+**E2E tests** — Playwright for critical user paths:
+- Store checkout flow
+- Agent submission and result display
+- SSE/live workflow progress updates
+
+### Performance Budget
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Lighthouse Performance | ≥ 85 | Chrome DevTools / CI |
+| First Contentful Paint | < 1.5s | Lighthouse |
+| Largest Contentful Paint | < 2.5s | Lighthouse |
+| Bundle size (initial JS) | < 200KB gzipped | Vite build output |
+| WCAG 2.2 AA violations | 0 | axe-core in CI |
+
+---
+
 ## Enforcement & Review
 
 ### Code Review Requirements (Automated HIL)
@@ -905,6 +1030,94 @@ git push origin main
 **Questions about standards?**
 - Create GitHub issue with label `quality-standards`
 - Tag relevant section in this document
+
+---
+
+## Agent-Driven UI Patterns (DWS7)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent runtime emits events that drive real-time dashboard updates. Frontend components must handle streaming agent responses and multi-step workflow progress.
+
+### Agent Response Display
+
+| Pattern | When | Component Approach |
+|---------|------|--------------------|
+| **Single agent result** | User triggers one agent | Show loading → result card with confidence score, reasoning, recommendations |
+| **Workflow progress** | Multi-agent workflow running | Step-by-step progress bar; each step shows agent name + status (pending/running/done/failed) |
+| **Agent delegation chain** | Agent delegates to another agent | Nested cards — parent agent card contains child agent result inline |
+| **Streaming events** | SSE connection to `/mcp/sse` | Real-time event feed panel; filter by event type pattern |
+
+### Confidence Score Visualization
+
+All agent responses include a `confidence` score (0-1). Display rules:
+
+| Score Range | Visual | Label | Color |
+|-------------|--------|-------|-------|
+| 0.8 - 1.0 | Solid badge | High confidence | `text-green-400` |
+| 0.5 - 0.79 | Outlined badge | Medium confidence | `text-yellow-400` |
+| 0.0 - 0.49 | Warning badge | Low confidence | `text-red-400` |
+
+Always show the confidence score alongside agent results. Users must understand how reliable the analysis is.
+
+### Real-Time Agent Event Feed
+
+For dashboards displaying the Situation Room or live compliance monitoring:
+
+```
+EventSource connection: /mcp/sse
+
+Event types to display:
+- agent.execution_complete → "Agent completed: {agentName}"
+- compliance.gap_detected → "Compliance gap: {payload.gap}" (highlight red)
+- workflow.*.started → "Workflow started: {workflowName}"
+- workflow.*.completed → "Workflow done: {stepCount} steps"
+```
+
+**Reconnection:** If SSE connection drops, reconnect with exponential backoff (1s, 2s, 4s, max 30s).
+
+### Agent-Specific UI Components
+
+| Agent | Result Display | Key Metrics |
+|-------|---------------|-------------|
+| `compliance` | Regulation score cards + gap list + deadline timeline | Overall score, gaps count, days to deadline |
+| `sitesense` | Safety score gauge + weather risk badge + capacity bar | Safety score (0-100), risk level, worker capacity |
+| `material-oracle` | Carbon breakdown chart (A1-A3, A4, A5, B, C, D stages) | Total embodied carbon (kgCO2e), alternatives count |
+| `schedule-genius` | Gantt chart with critical path highlighted | Project duration, float days, at-risk task count |
+| `viability` | ROI card + NPV/IRR metrics + carbon credit valuation | Payback period, NPV, IRR percentage |
+| `customer-sat` | Health score donut + churn probability bar | Health score, churn %, retention recommendations |
+| `quality-gate` | Pass/Warn/Fail traffic light + blocking issues list | Quality score, blocker count, coverage % |
+
+### Workflow Progress Component
+
+For multi-agent workflows (compliance-assessment, construction-full, seo-pipeline):
+
+```
+┌─ Workflow: compliance-assessment ─────────────────┐
+│                                                     │
+│  [✓] Emissions Analysis      ── 2.3s ── 0.85      │
+│  [▶] Compliance Check        ── running...          │
+│  [ ] Viability Assessment    ── pending              │
+│  [ ] Notify Complete         ── pending              │
+│                                                     │
+│  Status: Running (step 2/4)   Timeout: 4:52         │
+└─────────────────────────────────────────────────────┘
+```
+
+- Each step shows: status icon, agent name, duration, confidence score
+- Running step pulses with animation (`animate-pulse`)
+- Failed step shows red with error message expandable
+- Completed workflow shows total duration and aggregate confidence
+
+### Error States
+
+| State | Display | Action |
+|-------|---------|--------|
+| Agent returned `confidence: 0` | Yellow warning banner: "Low confidence — verify results manually" | Show full reasoning text |
+| Agent execution failed | Red error card with error message | "Retry" button triggers same agent with same input |
+| Workflow timed out | Orange timeout card with completed steps | "Resume" button re-triggers from last successful step |
+| LLM unavailable | Info banner: "AI analysis unavailable — showing deterministic results only" | No action needed — graceful degradation |
+| Delegation depth exceeded | Warning: "Agent chain too deep — partial results shown" | Show results from completed agents in chain |
 
 ---
 

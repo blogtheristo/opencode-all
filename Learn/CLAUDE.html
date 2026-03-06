@@ -103,6 +103,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 Overview</a></li>
 <li><a href="#ai-agent-behavior-guidelines-karpathy-principles" id="toc-ai-agent-behavior-guidelines-karpathy-principles">AI Agent
 Behavior Guidelines (Karpathy Principles)</a></li>
+<li><a href="#email-rules-critical" id="toc-email-rules-critical">Email
+Rules (CRITICAL)</a></li>
 <li><a href="#tech-stack" id="toc-tech-stack">Tech Stack</a></li>
 <li><a href="#repository-structure" id="toc-repository-structure">Repository Structure</a></li>
 <li><a href="#development-commands" id="toc-development-commands">Development Commands</a></li>
@@ -155,11 +157,121 @@ sovereignty badges</td>
 <td><code>UI_SKILLS_GAMMA.md</code></td>
 <td>Tailwind, Radix UI, accessibility, animations</td>
 </tr>
+<tr>
+<td><strong>Security Standard</strong></td>
+<td><code>DWS_SECURITY_STANDARD.md</code></td>
+<td>AI safety, enterprise security framework</td>
+</tr>
+<tr>
+<td><strong>Security Compliance</strong></td>
+<td><code>Admin/SECURITY_COMPLIANCE.md</code></td>
+<td>Deployment, controls, certifications, vendor risk</td>
+</tr>
+<tr>
+<td><strong>Market Research Standard</strong></td>
+<td><code>DWS_MARKET_RESEARCH_STANDARD.md</code></td>
+<td>Competitive intelligence, product improvement, data collection</td>
+</tr>
+<tr>
+<td><strong>Site Quality Standards</strong></td>
+<td><code>SITE_QUALITY_STANDARDS.md</code></td>
+<td>Code quality, components, nav, logos, CTA, testing</td>
+</tr>
+<tr>
+<td><strong>Cloud Environments</strong></td>
+<td><code>docs/CLOUD_ENVIRONMENTS.md</code></td>
+<td>US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data
+residency</td>
+</tr>
+<tr>
+<td><strong>Product Catalog</strong></td>
+<td><code>product-catalog/README.md</code></td>
+<td>Product catalog structure, Store Product Format, Google Merchant
+fields</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Rule:</strong> These standards apply equally to all tools —
 Claude Code, Cursor, VS Code, Codex, and human developers. No
 exceptions.</p>
+<h3 id="store-product-format-rule-critical">Store Product Format Rule
+(CRITICAL)</h3>
+<p>Files in <code>Store/</code> are <strong>store products</strong>
+consumed by the build pipeline (<code>scripts/build_store.py</code>).
+They use <strong>YAML frontmatter</strong> — NOT the DWS Document
+Standard header.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 25%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Location</th>
+<th>Format</th>
+<th>Header Style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Store/*.md</code></td>
+<td>Store Product Format</td>
+<td>YAML frontmatter (<code>title</code>, <code>price</code>,
+<code>sku</code>)</td>
+</tr>
+<tr>
+<td><code>dws10.com/config/products.json</code></td>
+<td>Primary product source</td>
+<td>JSON (all ~30 products)</td>
+</tr>
+<tr>
+<td>Everything else</td>
+<td>DWS Document Standard</td>
+<td>VERSION AND AGENT HISTORY block</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Never put DWS Document Standard headers in
+<code>Store/*.md</code> files.</strong> The YAML parser will fail and
+the product will be excluded from the Google Merchant feed, store page,
+and product pages.</p>
+<h3 id="use-dws-standard-rule-critical">“Use DWS Standard” Rule
+(CRITICAL)</h3>
+<p>When the human says <strong>“Use DWS standard”</strong> (or any
+variation like “with DWS standards”, “follow DWS standards”), this is a
+shorthand that means:</p>
+<ol type="1">
+<li><strong>Apply ALL relevant standards from the table above</strong> —
+not just one. Evaluate which standards apply to the task and follow
+every one that is relevant.</li>
+<li><strong>Update the standards themselves</strong> if the work adds
+new products, features, security controls, or brand elements. Standards
+are living documents that must grow with the platform.</li>
+<li><strong>Ensure market-value readiness</strong> — every product
+artifact must be complete enough to sell: Google Merchant JSON, product
+specification, store listing, competitive positioning, and pricing.</li>
+<li><strong>Ensure security coverage</strong> — every new feature must
+have security controls documented in the relevant security
+standard.</li>
+<li><strong>Nurture, don’t just comply</strong> — proactively improve
+standards when gaps are found. If a standard is missing coverage for
+what you’re building, add it.</li>
+</ol>
+<p><strong>Example:</strong> “Create a new product with DWS standard”
+means: - <code>dws10.com/config/products.json</code> → Add product entry
+(primary source: name, price, SKU, category, image, description) -
+<code>Store/*.md</code> → Optionally create extended product page with
+<strong>Store Product Format</strong> (YAML frontmatter, NOT DWS
+Document Standard) - <code>DWS_BRAND_STANDARD.md</code> → Add to store
+category, product card, correct badges -
+<code>DWS_MARKET_RESEARCH_STANDARD.md</code> → Define competitor set,
+create competitive analysis - <code>Admin/SECURITY_COMPLIANCE.md</code>
+→ Document security controls for the product -
+<code>product-catalog/</code> → Create product-specification.md +
+google-merchant-product.json (for enterprise/NVIDIA products)</p>
+<p><strong>This is not optional.</strong> Delivering work without
+updating relevant standards is incomplete work.</p>
 <h2 id="project-overview">Project Overview</h2>
 <p><strong>DWS IQ 6</strong> is an enterprise-grade industrial climate
 intelligence and compliance platform for EU-regulated industries. It
@@ -303,6 +415,21 @@ properly configured</li>
 for fixing avoidable mistakes. You have unlimited stamina—use it to loop
 on hard problems, but don’t loop on the wrong problem because you failed
 to clarify the goal.</p>
+<h2 id="email-rules-critical">Email Rules (CRITICAL)</h2>
+<ul>
+<li><strong>NEVER use <code>noreply@</code> addresses.</strong> All
+emails must be sent from a real, replyable address.</li>
+<li><strong>Default sender:</strong>
+<code>risto@onelifetime.world</code> (verified domain in Resend)</li>
+<li><strong>Default recipient:</strong>
+<code>risto@lifetime.fi</code></li>
+<li><strong>Verified domain:</strong> <code>onelifetime.world</code> —
+this is the only domain configured in Resend. Do NOT use
+<code>dws6.com</code> or any other domain as a sender.</li>
+<li>When adding new email-sending code, always use
+<code>process.env.EMAIL_FROM || &#39;risto@onelifetime.world&#39;</code> as the
+sender fallback.</li>
+</ul>
 <h2 id="tech-stack">Tech Stack</h2>
 <h3 id="frontend">Frontend</h3>
 <ul>
@@ -398,26 +525,113 @@ BOTH:</strong></p>
 <p><strong>Deployment targets:</strong> - Root folders → Cloudflare
 Workers (testing) - Landing-pages folders → Cloudflare Pages
 (production)</p>
-<p><strong>Workflow: When editing ANY landing page:</strong> 1.
-<strong>First</strong> update the root folder (e.g.,
+<p><strong>Workflow: When editing ANY page on ANY DWS domain:</strong>
+1. <strong>ALWAYS update the root folder FIRST</strong> (e.g.,
 <code>dws10.com/</code>) 2. <strong>Test</strong> that it works on
-Cloudflare Workers 3. <strong>Then</strong> copy to landing-pages folder
-(e.g., <code>landing-pages/dws10-com/</code>)</p>
+Cloudflare Workers 3. <strong>THEN copy to landing-pages folder</strong>
+(e.g., <code>landing-pages/dws10-com/</code>) 4. Never update
+landing-pages first — root folder is the source of truth</p>
 <p>This ensures changes are tested before going to production.</p>
+<p><strong>Per-domain rules:</strong></p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Root Folder First</th>
+<th>Then Landing Pages</th>
+<th>Navigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dws6.com</td>
+<td><code>dws6.com/</code></td>
+<td><code>landing-pages/dws6-com/</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>dws10.com</td>
+<td><code>dws10.com/</code></td>
+<td><code>landing-pages/dws10-com/</code></td>
+<td>Gamma Ironclad
+(<code>/shared-assets/nav/ironclad-nav.js</code>)</td>
+</tr>
+<tr>
+<td>onelifetime.world</td>
+<td><code>onelifetime.world/</code></td>
+<td><code>landing-pages/onelifetime-world/</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>lifetime.fi</td>
+<td><code>lifetime.fi/</code></td>
+<td><code>landing-pages/lifetime-fi/</code> <em>(coming)</em></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>dws10.com navigation standard:</strong> All pages on
+dws10.com MUST use the Gamma Ironclad navigation via
+<code>&lt;script src=&quot;/shared-assets/nav/ironclad-nav.js&quot;&gt;&lt;/script&gt;</code>.
+Do NOT use embedded navigation HTML or the older
+<code>nav-loader.js</code> approach. The <code>ironclad-nav.js</code> is
+self-contained (injects both HTML and CSS).</p>
+<h3 id="store-update-rule-critical">Store Update Rule (CRITICAL)</h3>
+<p>When modifying the store page (<code>buy/index.html</code>), product
+pages, <code>products.json</code>, or any store-related assets, you MUST
+follow this checklist <strong>in every commit</strong>:</p>
+<ol type="1">
+<li><strong>Update root first</strong> — Edit
+<code>dws10.com/buy/index.html</code> (source of truth)</li>
+<li><strong>Sync to landing-pages immediately</strong> — Copy to
+<code>landing-pages/dws10-com/buy/index.html</code> in the <strong>same
+commit</strong></li>
+<li><strong>Sync config</strong> — If
+<code>dws10.com/config/products.json</code> changed, copy to
+<code>landing-pages/dws10-com/config/products.json</code></li>
+<li><strong>Sync shared assets</strong> — If <code>shared-assets/</code>
+files changed (nav, vat-locale), copy to
+<code>landing-pages/dws10-com/shared-assets/</code></li>
+<li><strong>Sync subpages</strong> — If category pages
+(<code>buy/page2/</code>, <code>page3/</code>, <code>page4/</code>)
+changed, copy all to landing-pages</li>
+<li><strong>Verify paths</strong> — All relative paths
+(<code>../config/</code>, <code>../shared-assets/</code>,
+<code>../static/</code>) must resolve in both locations</li>
+</ol>
+<p><strong>Why this is critical:</strong> Cloudflare Pages serves from
+<code>landing-pages/</code>. If you only update <code>dws10.com/</code>,
+the live site stays on the old version. This has caused production
+incidents.</p>
+<p><strong>Verification command:</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Must return empty (no differences)</span></span></code></pre></div>
+<p><strong>This rule applies to ALL store artifacts:</strong> -
+<code>buy/index.html</code> and <code>buy/page*/index.html</code> -
+<code>config/products.json</code> - <code>products//*.html</code>
+(individual product pages) - <code>shared-assets/</code> (nav,
+vat-locale) - <code>feeds/</code> (Google Merchant feed) - Static images
+referenced by products</p>
 <h2 id="development-commands">Development Commands</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backend development</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev              <span class="co"># Start Express backend with hot reload (tsx watch)</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run start            <span class="co"># Production server</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build            <span class="co"># Build TypeScript</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run test             <span class="co"># Run Vitest tests</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint             <span class="co"># ESLint</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dashboard development (in dws6.com/dashboard/firehorse/v9-react/)</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev              <span class="co"># Start Vite dev server</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build            <span class="co"># Production build</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Docker development</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> <span class="at">-f</span> docker-compose.hybrid.yml up <span class="at">-d</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backend development</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev              <span class="co"># Start Express backend with hot reload (tsx watch)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run start            <span class="co"># Production server</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build            <span class="co"># Build TypeScript</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run test             <span class="co"># Run Vitest tests</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint             <span class="co"># ESLint</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dashboard development (in dws6.com/dashboard/firehorse/v9-react/)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev              <span class="co"># Start Vite dev server</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build            <span class="co"># Production build</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Docker development</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> <span class="at">-f</span> docker-compose.hybrid.yml up <span class="at">-d</span></span></code></pre></div>
 <h2 id="code-quality-standards">Code Quality Standards</h2>
 <h3 id="linting-formatting">Linting &amp; Formatting</h3>
 <ul>
@@ -581,21 +795,21 @@ environments</li>
 </ul>
 <h4 id="quick-start">Quick Start</h4>
 <p><strong>Windows (PowerShell):</strong></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new worktree with proper setup</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;feature-auth&quot;</span> <span class="op">-</span>LaunchClaude</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or step by step:</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;fix-api-bug&quot;</span> <span class="op">-</span>BaseBranch <span class="st">&quot;develop&quot;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="st">&quot;C:\Users\</span><span class="va">$env</span><span class="op">:</span><span class="va">USERNAME</span><span class="st">\.claude-worktrees\dws6\fix-api-bug&quot;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>claude</span></code></pre></div>
-<p><strong>Linux/macOS/Chromebook/iOS (Bash):</strong></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new worktree with proper setup</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> feature-auth <span class="at">--launch-claude</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new worktree with proper setup</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;feature-auth&quot;</span> <span class="op">-</span>LaunchClaude</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or step by step:</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> fix-api-bug develop</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/.claude-worktrees/dws6/fix-api-bug</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;fix-api-bug&quot;</span> <span class="op">-</span>BaseBranch <span class="st">&quot;develop&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="st">&quot;C:\Users\</span><span class="va">$env</span><span class="op">:</span><span class="va">USERNAME</span><span class="st">\.claude-worktrees\dws6\fix-api-bug&quot;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>claude</span></code></pre></div>
+<p><strong>Linux/macOS/Chromebook/iOS (Bash):</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new worktree with proper setup</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> feature-auth <span class="at">--launch-claude</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or step by step:</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> fix-api-bug develop</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/.claude-worktrees/dws6/fix-api-bug</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span></span></code></pre></div>
 <h4 id="what-the-scripts-handle-automatically">What the Scripts Handle
 Automatically</h4>
 <ol type="1">
@@ -690,15 +904,53 @@ vs. Copied</h4>
 </tbody>
 </table>
 <h4 id="manual-worktree-commands">Manual Worktree Commands</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all worktrees</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree list</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove worktree when done (from main repo)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree remove /path/to/worktree</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree prune</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Emergency: Force remove stuck worktree</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree remove <span class="at">--force</span> /path/to/worktree</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all worktrees</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree list</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove worktree when done (from main repo)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree remove /path/to/worktree</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree prune</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Emergency: Force remove stuck worktree</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree remove <span class="at">--force</span> /path/to/worktree</span></code></pre></div>
+<h4 id="claude-session-data-backup-critical">Claude Session Data Backup
+(CRITICAL)</h4>
+<p><strong>NEVER delete worktrees without backing up Claude session data
+first!</strong></p>
+<p>Claude Code sessions contain valuable trained agents, commands,
+skills, and settings that are NOT committed to Git. Each worktree has
+its own <code>.claude/</code> directory with session-specific data.</p>
+<h5 id="daily-automated-backup">Daily Automated Backup</h5>
+<ul>
+<li><strong>GitHub Actions</strong>: Runs daily at 6:00 AM UTC</li>
+<li><strong>Location</strong>:
+<code>.github/workflows/daily-claude-backup.yml</code></li>
+<li><strong>Storage</strong>: Creates <code>sessions-backup</code>
+branch with timestamped archives</li>
+</ul>
+<h5 id="manual-backup">Manual Backup</h5>
+<div class="sourceCode" id="cb12"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run backup script</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Backup-ClaudeSessions<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or manually backup specific worktree</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="op">-</span>r <span class="op">/</span>path<span class="op">/</span>to<span class="op">/</span>worktree<span class="op">/.</span><span class="fu">claude</span> <span class="op">/</span>safe<span class="op">/</span>backup<span class="op">/</span>location<span class="op">/</span></span></code></pre></div>
+<h5 id="what-gets-backed-up">What Gets Backed Up</h5>
+<ul>
+<li><code>agents/</code> - Custom Claude agents</li>
+<li><code>commands/</code> - Custom commands and macros</li>
+<li><code>hooks/</code> - Automation hooks</li>
+<li><code>skills/</code> - Trained Claude capabilities</li>
+<li><code>settings.local.json</code> - Session preferences</li>
+</ul>
+<h5 id="before-deleting-worktrees">Before Deleting Worktrees</h5>
+<ol type="1">
+<li><strong>Backup session data</strong> using the script above</li>
+<li><strong>Verify no active Claude sessions</strong> are running in the
+worktree</li>
+<li><strong>Document what the worktree contained</strong> for future
+reference</li>
+<li><strong>Only then</strong> safely remove the worktree</li>
+</ol>
 <h4 id="security-checklist-automated-by-scripts">Security Checklist
 (Automated by Scripts)</h4>
 <p>The scripts verify these automatically, but for manual worktrees:</p>
@@ -716,23 +968,23 @@ main repo’s virtual environment</label></li>
 <h4 id="activating-python-environment-in-worktrees">Activating Python
 Environment in Worktrees</h4>
 <p><strong>Windows:</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink works:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> <span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink failed (no admin/Developer Mode):</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6\<span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink works:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> <span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink failed (no admin/Developer Mode):</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6\<span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
 <p><strong>Linux/macOS:</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div>
 <h4 id="using-worktrees-with-vs-code-and-cursor">Using Worktrees with VS
 Code and Cursor</h4>
 <p><strong>Opening a worktree in VS Code:</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in VS Code</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>code <span class="op">.</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in VS Code</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>code <span class="op">.</span></span></code></pre></div>
 <p><strong>Opening a worktree in Cursor:</strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in Cursor</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">.</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in Cursor</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">.</span></span></code></pre></div>
 <p><strong>VS Code/Cursor Workspace Settings:</strong> Each worktree can
 have its own <code>.vscode/settings.json</code> for workspace-specific
 settings.</p>
@@ -744,18 +996,18 @@ the main repo’s git configuration.</p>
 Worktrees</h4>
 <p>If a worktree shows unexpected files (like user home directory files)
 in <code>git status</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Check if it&#39;s a proper worktree</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">.</span><span class="fu">git</span>  <span class="co"># Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/&lt;name&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. If it shows a folder (.git/) instead of file, it&#39;s broken - remove it:</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse <span class="op">-</span>Force <span class="st">&quot;path/to/broken/worktree&quot;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Prune orphaned references</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>git worktree prune</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Recreate properly using the script</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;your-branch&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Check if it&#39;s a proper worktree</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">.</span><span class="fu">git</span>  <span class="co"># Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/&lt;name&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. If it shows a folder (.git/) instead of file, it&#39;s broken - remove it:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse <span class="op">-</span>Force <span class="st">&quot;path/to/broken/worktree&quot;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Prune orphaned references</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>git worktree prune</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Recreate properly using the script</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;your-branch&quot;</span></span></code></pre></div>
 <p><strong>CRITICAL: Windows Worktree Location</strong> On Windows,
 worktrees MUST be created on F: drive (or the same drive as main repo),
 NEVER in <code>C:\Users\</code>. The script enforces this automatically,
@@ -763,6 +1015,37 @@ but if creating manually, always use: - ✅
 <code>F:\2026\Repos2026\.claude-worktrees\dws6\</code> - ❌
 <code>C:\Users\risto\.claude-worktrees\dws6\</code> (AVOID - causes
 security issues)</p>
+<h4 id="windows-managed-settings-path-change">Windows Managed Settings
+Path Change</h4>
+<p><strong>Effective March 11, 2026</strong>, Claude Code on Windows
+will no longer read managed settings from the legacy path. Update any
+deployment scripts or documentation that reference the old path.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Old (deprecated)</strong></td>
+<td><code>C:\ProgramData\ClaudeCode\managed-settings.json</code></td>
+</tr>
+<tr>
+<td><strong>New</strong></td>
+<td><code>C:\Program Files\ClaudeCode\managed-settings.json</code></td>
+</tr>
+</tbody>
+</table>
+<p>The new path is already supported as of <strong>Claude Code
+2.0.58</strong>. If you are running 2.0.58 or later, you can migrate
+immediately. After March 11, 2026, the old path will be ignored
+entirely.</p>
 <h4 id="references">References</h4>
 <ul>
 <li><a href="https://x.com/dani_avila7">Daniel San’s Ghostty + Worktrees
@@ -839,18 +1122,99 @@ Lineage”</li>
 <li>Integration code in <code>src/integrations/esg/</code></li>
 </ul>
 <h2 id="deployment">Deployment</h2>
+<blockquote>
+<p><strong>Full cloud environment documentation:</strong>
+<code>docs/CLOUD_ENVIRONMENTS.md</code></p>
+</blockquote>
+<h3 id="cloud-accounts">Cloud Accounts</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 40%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Account</th>
+<th>Email / ID</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pilot / EU Cloud</strong></td>
+<td><code>risto.paarni2024@lifetime.fi</code></td>
+<td>GCP, Supabase, backend, AI agents, development</td>
+</tr>
+<tr>
+<td><strong>US Public Cloud</strong></td>
+<td>dws6.com (Cloudflare)</td>
+<td>Public sites, CDN, edge workers, DNS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud-environments">Cloud Environments</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 25%" />
+<col style="width: 20%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Provider</th>
+<th>Region</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>US Cloud (Public)</strong></td>
+<td>Cloudflare Pages/Workers</td>
+<td>Global</td>
+<td>Landing pages, dashboard SPA, edge API</td>
+</tr>
+<tr>
+<td><strong>EU Cloud (Backend)</strong></td>
+<td>Google Cloud Run + Supabase</td>
+<td>europe-north1 (Finland)</td>
+<td>Backend API, AI agents, database, auth</td>
+</tr>
+<tr>
+<td><strong>Aiwen (EU AI Act)</strong></td>
+<td>EU Cloud overlay</td>
+<td>EU-only</td>
+<td>Article 12 logging, reasoning lineage, audit trails</td>
+</tr>
+<tr>
+<td><strong>Hetzner (V3)</strong></td>
+<td>Hetzner Helsinki</td>
+<td>Finland</td>
+<td>Jitsi Meet, email service (Firehorse V3)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deployment-targets">Deployment Targets</h3>
 <ul>
-<li><strong>Primary</strong>: Google Cloud Run + Groq</li>
+<li><strong>Primary</strong>: Google Cloud Run (europe-north1) +
+Groq</li>
 <li><strong>Edge</strong>: Cloudflare Workers (dws6.com, dws10.com)</li>
 <li><strong>Data</strong>: Supabase (EU-hosted)</li>
 <li><strong>Edge AI</strong>: NVIDIA Jetson Orin Nano</li>
 <li><strong>Orchestration</strong>: Temporal.io</li>
+<li><strong>Backup</strong>: Scaleway Serverless (fr-par)</li>
+<li><strong>V3 Infra</strong>: Hetzner Helsinki (Jitsi + Email)</li>
 </ul>
 <h2 id="documentation">Documentation</h2>
 <p>Key documentation files: - <code>README.md</code> - Project overview
-- <code>ADMIN_MANUAL_*.md</code> - Administration guides -
-<code>SECURITY_COMPLIANCE.md</code> - Security documentation -
-<code>Firehorse/</code> directory - Product documentation</p>
+- <code>docs/CLOUD_ENVIRONMENTS.md</code> - Cloud environments,
+accounts, DWS 6→7 migration - <code>DWS7_ROADMAP.md</code> - DWS 7
+production roadmap (247 PRs) - <code>ADMIN_MANUAL_*.md</code> -
+Administration guides - <code>SECURITY_COMPLIANCE.md</code> - Security
+documentation - <code>Firehorse/</code> directory - Product
+documentation</p>
 <h2 id="git-workflow">Git Workflow</h2>
 <ul>
 <li>Main development on feature branches</li>
@@ -859,6 +1223,34 @@ AI-assisted work</li>
 <li>PR-based workflow with automated security checks</li>
 <li>15 CI/CD workflows in <code>.github/workflows/</code></li>
 </ul>
+<h3 id="branch-auto-deletion-after-merge-critical">Branch Auto-Deletion
+After Merge (CRITICAL)</h3>
+<p><strong>GitHub is configured to automatically delete branches after
+PR merge.</strong> This means:</p>
+<ol type="1">
+<li>After a PR is merged, the feature branch (e.g.,
+<code>claude/update-store-hero-section-N2Hw2</code>) is <strong>deleted
+on the remote</strong> by GitHub</li>
+<li><strong>Do NOT</strong> try to push to the same branch name for a
+new PR — it will need to be recreated</li>
+<li>When continuing work on a deleted branch:
+<ul>
+<li>Fetch latest main: <code>git fetch origin main</code></li>
+<li>Rebase local branch onto main:
+<code>git rebase origin/main</code></li>
+<li>Force-push to recreate the branch:
+<code>git push -u origin &lt;branch-name&gt; --force</code></li>
+</ul></li>
+<li><strong>GitHub compare links break</strong> after branch deletion —
+<code>&quot;There isn&#39;t anything to compare&quot;</code> error is expected</li>
+<li>After recreating and pushing, create a <strong>new PR</strong> — the
+old PR number is closed</li>
+</ol>
+<p><strong>Workflow for continued work after merge:</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> fetch origin main</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rebase origin/main</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin claude/<span class="op">&lt;</span>feature<span class="op">&gt;</span>-<span class="op">&lt;</span>id<span class="op">&gt;</span> --force</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Then create new PR via GitHub UI or gh CLI</span></span></code></pre></div>
 <h3 id="worktree-best-practices">Worktree Best Practices</h3>
 <p><strong>Git worktree is now the RECOMMENDED workflow</strong> for
 parallel Claude Code sessions.</p>
@@ -878,12 +1270,43 @@ gitignored</li>
 </ol>
 <p><strong>DO NOT create worktrees manually.</strong> Always use the
 provided scripts:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\s</span>cripts<span class="dt">\N</span>ew-ClaudeWorktree.ps1 <span class="at">-BranchName</span> <span class="st">&quot;your-branch&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux/macOS/Chromebook</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> your-branch</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\s</span>cripts<span class="dt">\N</span>ew-ClaudeWorktree.ps1 <span class="at">-BranchName</span> <span class="st">&quot;your-branch&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux/macOS/Chromebook</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> your-branch</span></code></pre></div>
 <p>See <a href="#4-claude-code-worktree-workflow-recommended">Section 4:
 Claude Code Worktree Workflow</a> for full documentation.</p>
+<h3 id="mobile-session-rules-critical">Mobile Session Rules
+(CRITICAL)</h3>
+<p><strong>How to detect:</strong> The session is mobile/web when the
+git remote URL contains <code>local_proxy@127.0.0.1</code> (e.g.,
+<code>http://local_proxy@127.0.0.1:30643/git/...</code>).</p>
+<p><strong>What is NOT available on mobile sessions:</strong> -
+<code>gh</code> CLI — <strong>never installed, never will be. Do NOT
+attempt to use it.</strong> - GitHub API tokens
+(<code>GITHUB_TOKEN</code>, <code>GH_TOKEN</code>) — not available in
+environment - <code>conda</code>, system package managers — cannot
+install <code>gh</code> as a workaround - Interactive tools
+(<code>vim</code>, <code>nano</code>, <code>less</code>)</p>
+<p><strong>What WORKS on mobile sessions:</strong> -
+<code>git push</code>, <code>git pull</code>, <code>git fetch</code> —
+via the local proxy - All file read/write/edit tools - <code>npm</code>,
+<code>node</code>, <code>python3</code>, <code>curl</code> - Standard
+bash commands</p>
+<p><strong>When the user asks to create a PR from a mobile
+session:</strong> 1. <strong>Do NOT</strong> try
+<code>gh pr create</code> — it will fail 2. <strong>Do NOT</strong> try
+to install <code>gh</code> — it will fail 3. <strong>Do NOT</strong> try
+GitHub API calls with Python/curl — no token available 4.
+<strong>DO</strong> push the branch with
+<code>git push -u origin &lt;branch&gt;</code> 5. <strong>DO</strong>
+provide the GitHub compare URL immediately:
+<code>https://github.com/blogtheristo/dws6/compare/main...&lt;branch-name&gt;</code>
+6. <strong>DO</strong> provide the PR title and body as copyable
+text</p>
+<p><strong>Rule:</strong> Go straight to the compare link. Zero attempts
+at <code>gh</code> or API calls. Every failed attempt wastes the user’s
+time.</p>
 </body>
 </html>

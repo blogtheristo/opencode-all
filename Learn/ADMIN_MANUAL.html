@@ -153,6 +153,8 @@ Information</a></li>
 <li><a href="#dws-iq-6-security-framework" id="toc-dws-iq-6-security-framework">DWS IQ 6 Security
 Framework</a></li>
 <li><a href="#training" id="toc-training">Training</a></li>
+<li><a href="#appendix-a-ceo-cockpit-morning-briefing" id="toc-appendix-a-ceo-cockpit-morning-briefing">Appendix A: CEO Cockpit
+Morning Briefing</a></li>
 <li><a href="#document-changelog" id="toc-document-changelog">Document
 Changelog</a></li>
 </ul></li>
@@ -200,7 +202,9 @@ Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login,
 splatting fix - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session:
 claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes:
 Script versioning, engine choice (HTML/PDF), Supabase sync in startup
-pipeline, code/scripts backup</td>
+pipeline, code/scripts backup - Version: 2.2 | Tool: Claude Code (Opus
+4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 |
+Changes: Appendix A — CEO Cockpit Morning Briefing user manual</td>
 </tr>
 <tr>
 <td>Session Links &amp; References: - Claude Code (Rm8Jw):
@@ -209,7 +213,7 @@ https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-
 https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL.md</td>
 </tr>
 <tr>
-<td>Document Status: - Created: 23.11.2025 - Last Modified: 07.02.2026 -
+<td>Document Status: - Created: 23.11.2025 - Last Modified: 17.02.2026 -
 Language: English - Languages Available: English - Publication Status:
 ✅ ACTIVE</td>
 </tr>
@@ -262,6 +266,8 @@ Protection</a></li>
 <li><a href="#emergency-procedures">Emergency Procedures</a></li>
 <li><a href="#training">Training</a></li>
 </ol>
+<p><strong>Appendices</strong> - <a href="#appendix-a-ceo-cockpit-morning-briefing">Appendix A: CEO Cockpit
+Morning Briefing</a></p>
 <hr />
 <h2 id="admin-manuals-index">Admin Manuals Index</h2>
 <p>All admin manuals across the DWS6 repository, organized by
@@ -4511,6 +4517,323 @@ Target &lt;8 hours - [ ] LWM model training success rate: Target &gt;90%
 - [ ] Security incident response time: Target &lt;2 hours - [ ] User
 satisfaction score: Target &gt;4.5/5</p>
 <hr />
+<h2 id="appendix-a-ceo-cockpit-morning-briefing">Appendix A: CEO Cockpit
+Morning Briefing</h2>
+<p><strong>Status:</strong> ✅ <strong>ACTIVE</strong> (since February
+2026) <strong>Delivery:</strong> Mon–Sat at 06:00 Helsinki time via
+GitHub Actions <strong>Workflow:</strong>
+<code>.github/workflows/morning-briefing.yml</code></p>
+<h3 id="what-it-is">What It Is</h3>
+<p>A 5-minute daily briefing email delivering a prioritized CEO action
+summary. Pulls live data from Supabase and sends via Resend.</p>
+<h3 id="schedule">Schedule</h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 27%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>When</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Automatic</strong></td>
+<td>Mon–Sat 06:00 Helsinki</td>
+<td>Dual cron (03:00 + 04:00 UTC) covers both DST offsets</td>
+</tr>
+<tr>
+<td><strong>Manual</strong></td>
+<td>Anytime</td>
+<td>GitHub Actions → “Morning Briefing” → Run workflow</td>
+</tr>
+</tbody>
+</table>
+<p>The send script has a Helsinki time guard: it only sends when the
+Helsinki hour is exactly 6. The “wrong” cron entry silently exits.
+Manual triggers (<code>workflow_dispatch</code>) skip the time guard
+automatically.</p>
+<h3 id="email-sections">Email Sections</h3>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 22%" />
+<col style="width: 37%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Section</th>
+<th>What It Shows</th>
+<th>Data Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>3 Changes</strong></td>
+<td>Pipeline movement, product velocity, delivery milestones (last
+24h)</td>
+<td><code>v_outreach_enriched</code>, <code>agent_metrics</code>,
+<code>firehorse_leads</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Today’s 3 Bets</strong></td>
+<td>Top 3 actions for the day (auto-generated from overdue/due
+threads)</td>
+<td><code>v_outreach_enriched</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Top Risk</strong></td>
+<td>Most overdue thread + days overdue + next action</td>
+<td><code>v_outreach_enriched</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Captain Momentum</strong></td>
+<td>Contacts to ping today + suggested artifact to prepare</td>
+<td><code>v_outreach_enriched</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Metrics Strip</strong></td>
+<td>MRR, active convos, weekly commits, MVP ETA</td>
+<td>GitHub API, Supabase, env vars</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Send List</strong></td>
+<td>Top 3–5 contacts to manually message, sorted by urgency</td>
+<td><code>v_outreach_enriched</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-trigger-manually">How to Trigger Manually</h3>
+<ol type="1">
+<li>Go to <strong>GitHub → Actions → “Morning Briefing”</strong></li>
+<li>Click <strong>“Run workflow”</strong></li>
+<li>Optionally enter a recipient email to override the default</li>
+<li>Click the green <strong>“Run workflow”</strong> button</li>
+</ol>
+<h3 id="how-to-enter-data">How to Enter Data</h3>
+<h4 id="outreach-contacts-feeds-pipeline-bets-risk-momentum-send-list">Outreach
+Contacts (feeds Pipeline, Bets, Risk, Momentum, Send List)</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/outreach/inbound <span class="dt">\</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;X-Outreach-Key: YOUR_KEY&quot;</span> <span class="dt">\</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;first_name&quot;: &quot;Matti&quot;,</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;org_name&quot;: &quot;Wärtsilä&quot;,</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;pipeline&quot;: &quot;customer&quot;,</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;source&quot;: &quot;linkedin&quot;</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+<p><strong>Pipeline values:</strong> <code>investor</code>,
+<code>customer</code>, <code>partner</code> <strong>Source
+values:</strong> <code>boardy</code>, <code>linkedin</code>,
+<code>conference</code>, <code>referral</code>, <code>cold</code>,
+<code>inbound</code>, <code>manual</code></p>
+<p>Or add/edit records directly in <strong>Supabase Dashboard → Table
+Editor</strong>: - <code>outreach_threads</code> — thread status,
+next_action, next_action_date - <code>persons</code> — contact details -
+<code>outreach_orgs</code> — company info</p>
+<h4 id="firehorse-leads-feeds-delivery-changes">Firehorse Leads (feeds
+Delivery changes)</h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/firehorse/leads <span class="dt">\</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;: &quot;matti@wartsila.com&quot;, &quot;first_name&quot;: &quot;Matti&quot;, &quot;company&quot;: &quot;Wärtsilä&quot;, &quot;country&quot;: &quot;FI&quot;}&#39;</span></span></code></pre></div>
+<p><strong>CSV bulk import:</strong></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> tsx scripts/import-leads-csv.ts data/leads.csv</span></code></pre></div>
+<h4 id="metrics-mrr-mvp-eta">Metrics (MRR, MVP ETA)</h4>
+<p>Set as <strong>GitHub repository secrets</strong> (Settings → Secrets
+and variables → Actions → Secrets):</p>
+<table>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MRR_EUR</code></td>
+<td><code>500</code></td>
+<td>Monthly recurring revenue in EUR</td>
+</tr>
+<tr>
+<td><code>MVP_ETA</code></td>
+<td><code>2026-Q2</code></td>
+<td>Estimated MVP date</td>
+</tr>
+</tbody>
+</table>
+<p>Weekly commits are fetched live from the GitHub API — no manual
+config needed.</p>
+<h3 id="manual-api-trigger">Manual API Trigger</h3>
+<p>If the Express server is running:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/morning-briefing/send <span class="dt">\</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;x-admin-key: YOUR_ADMIN_KEY&quot;</span></span></code></pre></div>
+<h3 id="configuration-github-secrets">Configuration (GitHub
+Secrets)</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 34%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RESEND_API_KEY</code></td>
+<td><em>(required)</em></td>
+<td>Resend email provider API key</td>
+</tr>
+<tr>
+<td><code>SUPABASE_URL</code></td>
+<td><em>(required)</em></td>
+<td>Supabase project URL</td>
+</tr>
+<tr>
+<td><code>SUPABASE_SERVICE_KEY</code></td>
+<td><em>(required)</em></td>
+<td>Supabase service role key</td>
+</tr>
+<tr>
+<td><code>EMAIL_FROM</code></td>
+<td><code>risto@onelifetime.world</code></td>
+<td>Sender address (must be on Resend-verified domain)</td>
+</tr>
+<tr>
+<td><code>OUTREACH_DIGEST_EMAIL</code></td>
+<td><code>risto@lifetime.fi</code></td>
+<td>Recipient address</td>
+</tr>
+<tr>
+<td><code>GITHUB_TOKEN</code></td>
+<td><em>(auto-provided by Actions)</em></td>
+<td>For live commit count</td>
+</tr>
+<tr>
+<td><code>MRR_EUR</code></td>
+<td>—</td>
+<td>Monthly recurring revenue</td>
+</tr>
+<tr>
+<td><code>MVP_ETA</code></td>
+<td>—</td>
+<td>MVP estimated date</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-map">File Map</h3>
+<pre><code>scripts/send-morning-briefing.ts          # Entry point (GitHub Actions runs this)
+src/morning-briefing/
+  ├── data-collectors.ts                  # Supabase queries for all 6 sections
+  ├── briefing-template.ts                # HTML + plain text email templates
+  ├── scheduler.ts                        # Send logic (Resend API call)
+  └── index.ts                            # Module exports
+.github/workflows/morning-briefing.yml    # Cron schedule + workflow_dispatch</code></pre>
+<h3 id="troubleshooting-2">Troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 33%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“domain not verified” from Resend</td>
+<td><code>EMAIL_FROM</code> secret set to unverified domain</td>
+<td>Set secret to <code>risto@onelifetime.world</code> or verify the
+domain in Resend</td>
+</tr>
+<tr>
+<td>“column does not exist” in logs</td>
+<td>Supabase table schema changed</td>
+<td>Check column names in <code>data-collectors.ts</code> match actual
+table</td>
+</tr>
+<tr>
+<td>Email arrives at 05:00 or 07:00</td>
+<td>DST offset change</td>
+<td>Both cron entries (03:00 + 04:00 UTC) handle this; time guard
+ensures only 06:00 sends</td>
+</tr>
+<tr>
+<td>Commits show 0</td>
+<td><code>GITHUB_TOKEN</code> not in workflow env</td>
+<td>Verify workflow passes
+<code>GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}</code></td>
+</tr>
+<tr>
+<td>“No product signals captured”</td>
+<td>No rows in <code>agent_metrics</code> for yesterday</td>
+<td>Agents must write daily metrics; table may be empty</td>
+</tr>
+<tr>
+<td>Email not received</td>
+<td>No <code>RESEND_API_KEY</code> secret</td>
+<td>Add the secret in GitHub repository settings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fix-history">Fix History</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 40%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>PR</th>
+<th>Date</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#501</td>
+<td>2026-02-17</td>
+<td><code>v_outreach_enriched.updated_at</code> →
+<code>created_at</code>; <code>firehorse_leads.status</code> →
+<code>state</code></td>
+</tr>
+<tr>
+<td>#504</td>
+<td>2026-02-17</td>
+<td><code>firehorse_leads.updated_at</code> →
+<code>created_at</code></td>
+</tr>
+<tr>
+<td>#505</td>
+<td>2026-02-17</td>
+<td><code>agent_logs</code> → <code>agent_metrics</code>; live commit
+count via GitHub API</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="document-changelog">Document Changelog</h2>
 <table>
 <colgroup>
@@ -4528,6 +4851,13 @@ satisfaction score: Target &gt;4.5/5</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2.2</td>
+<td>Feb 17, 2026</td>
+<td>Appendix A: CEO Cockpit Morning Briefing — schedule, data entry,
+configuration, troubleshooting, fix history</td>
+<td>K3bXV</td>
+</tr>
 <tr>
 <td>1.8</td>
 <td>Feb 6, 2026</td>

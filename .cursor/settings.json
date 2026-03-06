@@ -1,0 +1,8 @@
+{
+  "plugins": {
+    "cursor-team-kit": {
+      "enabled": true
+    }
+  },
+  "openai.baseUrl": "http://localhost:11435/v1"
+}
