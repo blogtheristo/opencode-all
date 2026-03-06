@@ -277,14 +277,11 @@ export class SalesOutreachAgent extends BaseAgent {
     }
     try {
       const parsed = JSON.parse(result.content);
-      if (
-        result.model === 'placeholder' ||
-        !Array.isArray(parsed.companies) ||
-        parsed.companies.length === 0
-      ) {
+      const companies = parsed.companies;
+      if (!Array.isArray(companies) || companies.length === 0) {
         return this.generatePlaceholderCompanies(input);
       }
-      return parsed.companies.slice(0, input.maxCompanies);
+      return companies.slice(0, input.maxCompanies);
     } catch {
       // proceed to fallback
     }
