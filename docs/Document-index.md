@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Compliance Engine section with new source files; updated Architecture Docs with middleware files; added MVP Feature List to Miscellaneous
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Initial creation - comprehensive document index for faster search
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Added last-modified dates, scripts section, sync tracking info
 
@@ -91,6 +92,35 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 | 09 Production Deployment | `/docs/architecture/09-PRODUCTION-DEPLOYMENT.md` | ACTIVE | Production rollout |
 | 10 Delivery Launch | `/docs/architecture/10-DELIVERY-LAUNCH.md` | ACTIVE | Launch procedures |
 | Summary | `/docs/architecture/SUMMARY.md` | ACTIVE | Architecture summary |
+
+### Compliance Engine (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| ESRS Registry | `/src/compliance/esrs-registry.ts` | ACTIVE | 82 ESRS disclosure requirements (E1-E5, S1-S4, G1) |
+| Scoring Engine | `/src/compliance/scoring-engine.ts` | ACTIVE | CSRD/ETS/CBAM deterministic scoring logic |
+| Report Generator | `/src/compliance/report-generator.ts` | ACTIVE | Structured JSON compliance reports |
+| Compliance API Routes | `/src/routes/compliance.routes.ts` | ACTIVE | POST /assess, GET /registry endpoints |
+| CSRD Data Model | `/supabase/migrations/042_csrd_compliance_data.sql` | ACTIVE | Compliance profiles, ESRS data points, assessments |
+| Scoring Tests | `/src/__tests__/compliance-scoring.test.ts` | ACTIVE | 14 unit tests for scoring engine |
+
+### Backend Middleware (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Handler | `/src/middleware/error-handler.ts` | ACTIVE | Centralized error handling with AppError class |
+| Request Validation | `/src/middleware/validate.ts` | ACTIVE | Zod schema validation middleware |
+| Correlation ID | `/src/middleware/correlation-id.ts` | ACTIVE | Request tracing middleware |
+| Env Validation | `/src/config/validate-env.ts` | ACTIVE | Startup environment validation |
+
+### Dashboard Resilience (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Boundary | `/dws6.com/dashboard/.../components/ErrorBoundary.tsx` | ACTIVE | Per-section error isolation |
+| Skeleton Loaders | `/dws6.com/dashboard/.../components/Skeleton.tsx` | ACTIVE | Loading state components |
+| Empty States | `/dws6.com/dashboard/.../components/EmptyState.tsx` | ACTIVE | No-data guidance components |
+| API Hook | `/dws6.com/dashboard/.../hooks/useApi.ts` | ACTIVE | Centralized fetch with retry |
 
 ---
 
@@ -341,6 +371,7 @@ Other important documentation.
 | V2 Firehorse | `/V2_Firehorse.md` | ACTIVE | Firehorse v2 spec |
 | Executive Summary | `/EXECUTIVE_SUMMARY.md` | ACTIVE | Project summary |
 | Exit Playbook | `/docs/EXIT_PLAYBOOK.md` | ACTIVE | Exit procedures |
+| MVP Feature List | `/docs/MVP_FEATURE_LIST_V1.md` | ACTIVE | Root-cause MVP analysis |
 | Implementation Tracker | `/docs/IMPLEMENTATION_TRACKER.md` | ACTIVE | Progress tracking |
 | Skills Required | `/docs/SKILLS_REQUIRED.md` | ACTIVE | Team skills |
 | ERP Integrations | `/docs/ERP_INTEGRATIONS.md` | ACTIVE | SAP, IFS, Dynamics |
@@ -352,15 +383,15 @@ Other important documentation.
 
 ## Document Statistics
 
-**Last Updated:** 07.02.2026
+**Last Updated:** 07.03.2026
 
 | Metric | Value |
 |--------|-------|
-| Total Markdown Files | 135+ |
-| Active Documents | 105+ |
+| Total Markdown Files | 140+ |
+| Active Documents | 115+ |
 | Archived Documents | 15+ |
 | Languages | EN, FI |
-| Categories | 14 (added Scripts & Automation) |
+| Categories | 17 (added Compliance Engine, Backend Middleware, Dashboard Resilience) |
 
 ### Sync Tracking
 
