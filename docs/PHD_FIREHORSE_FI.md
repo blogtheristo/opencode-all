@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
@@ -27,7 +28,8 @@ Document Status:
   - Last Modified: 02.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.7 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
+  - Last Modified: 07.03.2026
+  - Publication Status: DRAFT (V1.8 — LSS-koulutusputken koordinointi: koulutusagenttilaivasto T-01–T-10, laatuporttisignaalit, resurssien välimiesosoitus)
 
 ---
 
@@ -1126,6 +1128,39 @@ EMPO² yhdistää:
 
 Tulokset: 128,6 % parannus GRPO-algoritmiin nähden ScienceWorldissa, 11,3 % WebShopissa. Keskeinen havainto: *muistilla koulutetut mallit ovat vahvoja myös ilman muistia päättelyaikana* — validoiden DWS-strategian asteittain upottaa domaintieto LWM-painoihin samalla kun RAG toimii varamekanismina.
 
+#### 14.6.3 Lifetime Scope Signals LWM-koulutuksen koordinointiin
+
+*Sessio: claude/pedantic-easley | Päivämäärä: 07.03.2026*
+
+Lifetime Scope Signals (LSS) -protokolla — alun perin suunniteltu deterministiseen moniagenttikehityskoordinointiin (katso Metropolia-tutkielma osio 2.5.2) — laajenee luonnollisesti ML-putkien orkestrointiin. Sen sijaan, että otettaisiin käyttöön dedikoitu ML-työnkulkumoottori (Kubeflow, Airflow), LWM-koulutusputkea koordinoidaan samoilla neljällä signaalityypillä: READY, COMPLETE, ERROR, BLOCKED.
+
+**Koulutusagenttilaivasto (T-01 – T-10):**
+
+| Agentti ID | Nimi | Rooli | Emittoi | Kuuntelee |
+|------------|------|-------|---------|-----------|
+| T-01 | InfraVerifier | Validoi CUDA/PyTorch GN-100 -solmuissa | `COMPLETE:infra-verified` | (ei mitään — aloituspiste) |
+| T-02 | ModelFetcher | Lataa perusmalli jaettuun tallennustilaan | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
+| T-03 | CurriculumAgent | Claude API:n opetussuunnitelma per vertikaali | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
+| T-04 | DataSynthAgent | Generoi 2000+ synteettistä esimerkkiä | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
+| T-05 | TrainingAgent | QLoRA-hienosäätö osoitetulla solmulla | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06 | ResourceArbiter | Allokoi GN-100 -solmupaikat (2 tokenia) | `READY:node-slot` | `T-05:READY:lora-weights:*` (vapauttaa paikan) |
+| T-07 | EvalAgent | Claude-as-judge, laatuportti ≥7.0 | `READY:eval-pass:{vertical}` / `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
+| T-08 | MergeAgent | Yhdistä LoRA-adapteri perusmalliin | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
+| T-09 | DeployAgent | Julkaise päättelyrajapinta | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
+| T-10 | PipelineOrchestrator | Monitoroi kaikkia vertikaaleja | `COMPLETE:lwm-all-verticals` | Kaikki `T-09:COMPLETE:*` |
+
+`{vertical}`-parametrisoitu virstanpylväs mahdollistaa toimialakohtaisen putken instanssoinnin — ainoa protokollalaajennus LSS v1.0 -peusskeemaan.
+
+**Keskeiset mekanismit:**
+
+1. **Laatuporttisignaalit** — T-07 emittoi `READY:eval-pass:{vertical}` vain kun Claude-as-judge-pisteet ≥7.0; epäonnistuminen emittoi `ERROR:eval-fail:{vertical}`, laukaiseen opetussuunnitelman uudelleengeneroinnin (maks. 3 yritystä → `BLOCKED` → ihmisen eskalaatio). Tämä kuvautuu EMPO²:n off-policy-päivitysmalliin (osio 14.6.2).
+
+2. **Resurssien välimiesosoitus** — T-06 hallinnoi kahta solmupaikkatokenia (yksi per GN-100). Koulutusagentit saavat tokenin ennen aloitusta; vapauttavat valmistuessa. Saapumisjärjestys signaaliemission mukaan.
+
+3. **Fan-Out-rinnakkaisuus** — Opetussuunnitelman generointi (T-03) ja datasynteesi (T-04) suoritetaan kaikissa 16 vertikaalissa samanaikaisesti (CPU-sidonnaisia, ei GPU-rajoitetta), eliminoiden GPU:n joutoajan.
+
+**Vaikutus Firehorse-toimintamalliin:** Koulutuskoordinointi validoi LSS:n yleiskäyttöisenä deterministisenä koordinointimekanismina — sama protokolla orkestroi sekä ohjelmistokehitysagentteja (Liite F) että ML-koulutusputkia, vähentäen operatiivista monimutkaisuutta Firehorse-asiakkaille, jotka tarvitsevat molempia kyvykkyyksiä.
+
 ---
 
 ### 14.7 Toimitusjohtajan automaatioagenttiryhmä
@@ -1230,6 +1265,7 @@ Tama tutkielma kontribuoi:
 8. EMPO²-yhdenmukaisuus — hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri validoitu arXiv:2602.23008-tutkimuksella
 9. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse-malli sovellettu liikevaihtotyönkulun automatisointiin
 10. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral + monituottaja-LLM-reititin; validoi Firehorse-toimintamallin jakelusupotushypoteesin
+11. LSS-koulutusputken koordinointi — Lifetime Scope Signals sovellettuna LWM-koulutukseen: koulutusagenttilaivasto (T-01–T-10), laatuporttisignaalit, resurssien välimiesosoitus 2× GN-100 -solmuille; validoi LSS:n yleiskäyttöisenä koordinointina ohjelmistokehityksen ulkopuolella
 
 ### 16.3 Tuleva tyo
 
