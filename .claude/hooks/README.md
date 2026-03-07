@@ -12,15 +12,18 @@ and reference scripts in this directory. They execute at specific lifecycle even
 | Script | Trigger | Purpose |
 |--------|---------|---------|
 | `pre-bash-safety.sh` | PreToolUse (Bash) | Warns about destructive shell patterns |
+| `session-start.sh` | SessionStart | Injects trust boundary context, checks branch/dirty state, MCP health |
+| `session-stop.sh` | Stop | Pre-exit governance checklist (uncommitted changes, dual folder sync, thesis rules) |
 
 ## Hook Events
 
 | Event | When | Use Case |
 |-------|------|----------|
+| `SessionStart` | New session or after context compaction | Context injection, environment checks |
 | `PreToolUse` | Before any tool call | Input validation, safety checks |
 | `PostToolUse` | After tool completes | Output normalization, logging |
 | `Notification` | Agent sends notification | Alert routing, audit logging |
-| `Stop` | Agent stops | Cleanup, handover documentation |
+| `Stop` | Agent stops | Governance checklist, cleanup, handover documentation |
 
 ## Enabling Hooks
 
@@ -29,14 +32,27 @@ Add to `.claude/settings.local.json` (project-level) or `~/.claude/settings.json
 ```json
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/session-start.sh" }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/pre-bash-safety.sh"
-          }
+          { "type": "command", "command": "bash .claude/hooks/pre-bash-safety.sh" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/session-stop.sh" }
         ]
       }
     ]
@@ -62,3 +78,4 @@ catching issues before they reach the shell layer.
 - CLAUDE.md: "Never Delete Files — Always Move (CRITICAL)"
 - CLAUDE.md: Security Coding Rules section
 - Admin/ADMIN_MANUAL.md: Section 27 — Claude Code Project Engineering Structure
+- docs/AUTO_MODE_TRUST_BOUNDARY.md: GREEN/YELLOW/RED zone definitions for auto-enable-mode
