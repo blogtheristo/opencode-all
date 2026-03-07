@@ -26,8 +26,7 @@ jobs:
     # Skip bot-triggered events to prevent fix loops
     if: |
       github.actor != 'github-actions[bot]' &&
-      github.actor != 'copilot[bot]' &&
-      !contains(github.event.head_commit.message, '[skip ci]')
+      github.actor != 'copilot[bot]'
 
     steps:
       - name: Checkout code
@@ -36,19 +35,33 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 
+      - name: Check for skip-ci in last commit
+        id: skip_check
+        run: |
+          LAST_MSG=$(git log -1 --pretty=%B)
+          if echo "$LAST_MSG" | grep -q '\[skip ci\]'; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Setup Node.js
+        if: steps.skip_check.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
+        if: steps.skip_check.outputs.skip != 'true'
         run: npm ci
 
       - name: Install Claude Code CLI
+        if: steps.skip_check.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run Claude Auto-Fix
+        if: steps.skip_check.outputs.skip != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -67,6 +80,7 @@ jobs:
           head -c 50000 claude-output.json
 
       - name: Commit fixes
+        if: steps.skip_check.outputs.skip != 'true'
         run: |
           git config user.name "Claude Code Bot"
           git config user.email "claude-bot@dws6.com"
