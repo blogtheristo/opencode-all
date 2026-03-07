@@ -4,9 +4,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.17
+Version: 3.19
 
 Sessions & Modifications:
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 2.5.2.1 (LSS Applied to LWM Training Pipeline Coordination — Training Agent Fleet T-01 through T-10, dependency graph, quality gate signal mechanism, resource arbitration for 2× GN-100, Fan-Out/Reflection pattern integration); updated Appendix C (parameterized milestones, quality gate pattern schema); updated Appendix E (signal coordination cross-reference to 2.5.2.1)
+  - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning loop via Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective learning framework for AI-assisted product development
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift 3.12-3.15. Added Section 10.11 (CEO Automation Agent Suite: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); Section 10.12 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); added Key Contributions #10-11; updated footer
@@ -43,7 +45,7 @@ Document Status:
   - Last Modified: 02.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure & DWS7 agent modernization)
+  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure: AI workflow as first-class engineering)
 
 ---
 
@@ -327,6 +329,71 @@ The Lifetime Scope Signals protocol is a novel coordination mechanism developed 
 | `COMPLETE` | All agent work finished | Agent transitions to ready state |
 | `ERROR` | Agent encountered an error | Alerts coordinator |
 | `BLOCKED` | Waiting for external dependency | No action until unblocked |
+
+#### 2.5.2.1 Application: LWM Training Pipeline Coordination
+
+The Lifetime Scope Signals protocol generalizes beyond software development coordination to ML pipeline orchestration. The following demonstrates LSS applied to the Lifetime World Model (LWM) training workflow (see Appendix E for hardware infrastructure).
+
+The LWM training pipeline — curriculum design, synthetic data generation, QLoRA fine-tuning, and Claude-as-judge evaluation — involves multiple autonomous stages with explicit dependencies. Rather than using a dedicated ML workflow engine (e.g., Kubeflow, Airflow), LSS coordinates the entire pipeline using the same four signal types defined above. Training agents use a `T-` prefix to distinguish them from the V1.0 development fleet (Appendix F).
+
+**Training Agent Fleet:**
+
+| Agent ID | Name | Role | Emits | Listens For |
+|----------|------|------|-------|-------------|
+| T-01 | InfraVerifier | Validate CUDA/PyTorch on GN-100 nodes | `COMPLETE:infra-verified` | (none — entry point) |
+| T-02 | ModelFetcher | Download Llama 3.1 8B base model | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
+| T-03 | CurriculumAgent | Claude API curriculum design per vertical | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
+| T-04 | DataSynthAgent | Generate 2000+ synthetic examples | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
+| T-05 | TrainingAgent | QLoRA fine-tuning on assigned node | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:*` (releases slot) |
+| T-07 | EvalAgent | Claude-as-judge evaluation, quality gate ≥7.0 | `READY:eval-pass:{vertical}` or `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
+| T-08 | MergeAgent | Merge LoRA adapter into base model | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
+| T-09 | DeployAgent | Deploy Flask API, register in LWM registry | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
+| T-10 | PipelineOrchestrator | Monitor all verticals, aggregate completion | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:lwm-deployed:*` |
+
+The `{vertical}` token is a parameterized milestone — an industry identifier (e.g., `logistics`, `construction`, `energy`) that enables the same agent pipeline to be instantiated per vertical. This is the only protocol extension over the base LSS v1.0 schema.
+
+**Training Dependency Graph:**
+
+```
+Phase 1 — Infrastructure (sequential, 4-6h)
+  T-01 (InfraVerifier)  →  T-02 (ModelFetcher)
+    COMPLETE:infra-verified     READY:base-model
+                                   │
+Phase 2 — Data + Training (Fan-Out per vertical, 16-24h)
+                                   ▼
+              ┌─── T-03:logistics ─── T-04:logistics ─── ┐
+              ├─── T-03:construction ─ T-04:construction ─┤─► T-06 (ResourceArbiter)
+              ├─── T-03:energy ────── T-04:energy ────── ┤    manages 2 node-slot
+              └─── T-03:healthcare ── T-04:healthcare ── ┘    tokens (2× GN-100)
+                                                               │
+                                                          T-05 (TrainingAgent)
+                                                          acquires node-slot
+                                                               │
+Phase 3 — Evaluation + Deployment (per vertical, 4-6h)
+                                                               ▼
+                                                          T-07 (EvalAgent)
+                                                          score ≥7.0 → READY:eval-pass
+                                                          score <7.0 → ERROR:eval-fail
+                                                               │
+                                                     ┌────────┴────────┐
+                                                  PASS              FAIL
+                                                     │            retry T-03
+                                                T-08 (Merge)    (max 3 attempts
+                                                     │         → BLOCKED → human)
+                                                T-09 (Deploy)
+                                                     │
+                                                T-10 (Orchestrator)
+                                                  all verticals → COMPLETE:lwm-all-verticals
+```
+
+**Quality Gate Signal Mechanism.** The T-07 EvalAgent implements a conditional signal emission pattern: it emits `READY:eval-pass:{vertical}` only when the Claude-as-judge score meets the ≥7.0 threshold. On failure, it emits `ERROR:eval-fail:{vertical}`, which triggers the PipelineOrchestrator (T-10) to re-queue T-03 with an adjusted curriculum targeting the low-scoring dimensions. After three consecutive failures, T-10 emits `BLOCKED:vertical-max-retries:{vertical}` for human escalation. This quality gate maps to the EMPO² off-policy update pattern (Section 10.10): evaluation failure is the "tip" signal that drives curriculum adjustment — the same mechanism that EMPO² uses to generate corrective training data from memory buffers. The signal audit trail (stored in the training signal registry) satisfies EU AI Act Article 12 logging requirements.
+
+**Resource Arbitration.** The two GN-100 nodes create a hardware contention constraint. T-06 (ResourceArbiter) manages two node-slot tokens — one per node. When a T-05 instance requests training, it must first receive `T-06:READY:node-slot`. Upon training completion, T-05 emits `READY:lora-weights:{vertical}`, which T-06 observes to release the token for the next queued vertical. This is deliberately simple: first-come-first-served by signal emission order, not a priority scheduler. LSS expresses resource constraints as signal tokens, consistent with the declarative emission principle.
+
+**Fan-Out and Reflection Patterns.** The training pipeline instantiates two of the three MCP Hub orchestration patterns (Section 2.5.3). The **Fan-Out pattern** activates when T-02 emits `READY:base-model`: curriculum generation (T-03) and data synthesis (T-04) run in full parallel across all 16 industry verticals, since these stages are CPU-bound and not constrained by GPU node slots. This eliminates idle GPU time — all datasets are queued before the first training slot opens. The **Reflection pattern** manifests in the T-07 → T-03 retry loop: Claude-as-judge evaluates, fails, adjusts the curriculum, re-generates data, and re-trains — an iterative self-improvement cycle driven entirely by LSS signals.
+
+This training coordination case demonstrates that the Lifetime Scope Signals protocol requires no modification to coordinate ML pipelines. The same four signal types (READY, COMPLETE, ERROR, BLOCKED) express hardware contention, quality gates, and iterative model improvement — validating LSS as a general-purpose deterministic coordination mechanism beyond its original software development context.
 
 ### 2.5.3 MCP Hub Orchestration Patterns
 
@@ -1167,6 +1234,67 @@ The 2-month payback promise has been validated with real customer deployments:
 2. **Document Solution Factory** — public cost calculator, AgentFoundry templates
 3. **Validate second vertical** — Construction (NCC, T2H)
 
+## 9.5 Learn Thinking — A Reflective Learning Framework for AI-Assisted Development
+
+A critical innovation of the Firehorse operating model is **Learn Thinking** — a systematic approach where every AI-assisted development session produces not only code and documentation, but also **structural learning** that returns to the developer the following morning.
+
+### Learn Thinking Principles
+
+| Principle | Implementation | Impact |
+|-----------|---------------|--------|
+| **Daily reflection** | Learn/ folder HTML output opens in Edge every morning | Developer starts each day with a review of the latest state |
+| **Versioned learning journal** | Thesis version history = learning journal | Each version documents what was learned and why |
+| **AI as learning partner** | Claude Code / Copilot generates content, human validates | Dual loop: AI proposes → human evaluates → AI corrects |
+| **Three-layer memory** | GitHub (version control) + Proton Drive (encrypted) + Supabase (EU cloud) | Learning never gets lost — three independent copies |
+| **Research-production bridge** | Thesis guides product development, product development validates theory | No separate research and production — same loop |
+
+### Learning Loop Structure
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    LEARN THINKING LOOP                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. MORNING REVIEW (Windows startup)                       │
+│     └─ Startup-DailySync.bat                               │
+│        ├─ git pull origin main                             │
+│        ├─ Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs     │
+│        └─ Edge opens changed HTML files                    │
+│                                                             │
+│  2. REFLECTION (human reads Learn/ folder content)         │
+│     └─ Identifies gaps, errors, new opportunities          │
+│                                                             │
+│  3. DEVELOPMENT SESSION (Claude Code / Copilot / Cursor)   │
+│     └─ Fixes, adds, improves code and documentation        │
+│                                                             │
+│  4. VERSIONING (git commit + push)                         │
+│     └─ Thesis version increments, learning journal         │
+│        updates automatically                                │
+│                                                             │
+│  5. NEXT MORNING → return to step 1                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Why Learn Thinking Matters for Thesis Work
+
+In a traditional thesis process, the researcher writes a document once and submits it. In the Learn Thinking model:
+
+1. **The thesis is a living document** — 30+ versions over 3 months, each documenting a concrete learning contribution
+2. **AI tools are learning partners** — Claude Code, Copilot, and Cursor don't just generate code, they produce structural reflection via version history
+3. **The Learn/ folder is proof of learning** — a concrete, daily-updating portfolio of thesis progress
+4. **Research and production converge** — thesis findings directly guide DWS product development and vice versa
+
+### Connection to Build-Measure-Learn Cycle
+
+Learn Thinking extends the Lean Startup Build-Measure-Learn cycle:
+
+| Lean Startup | Learn Thinking | DWS Implementation |
+|--------------|----------------|--------------------|
+| Build | Development session (code + documentation) | Claude Code + git commit |
+| Measure | Morning review (changes in Edge browser) | Generate-PDFs.ps1 → Learn/ |
+| Learn | Reflection and next action | Version history = learning journal |
+
 ---
 
 # 10. Conclusions
@@ -1939,6 +2067,22 @@ This aligns with the broader principle documented throughout this thesis: the Fi
     "COMPLETE": "All agent work finished",
     "ERROR": "Agent encountered an error",
     "BLOCKED": "Waiting for external dependency"
+  },
+  "parameterized_milestones": {
+    "description": "Milestones may contain {tokens} for domain-specific parameterization",
+    "example": "[T-03]:READY:curriculum:{vertical}:2026-03-07T10:00:00Z",
+    "tokens": {
+      "{vertical}": "Industry identifier (e.g., logistics, construction, energy)"
+    }
+  },
+  "quality_gate_pattern": {
+    "description": "Conditional signal emission based on evaluation threshold",
+    "agent": "T-07 (EvalAgent)",
+    "condition": "Claude-as-judge score >= 7.0",
+    "pass_signal": "READY:eval-pass:{vertical}",
+    "fail_signal": "ERROR:eval-fail:{vertical}",
+    "max_retries": 3,
+    "escalation": "BLOCKED:vertical-max-retries:{vertical}"
   }
 }
 ```
@@ -1994,6 +2138,8 @@ Your code will be watched -- write accordingly."
 4. Evaluation & deployment (Claude-as-judge, target >7.0/10)
 
 **Cost:** EUR 80-125 per industry model (vs. EUR 15,000+ traditionally, 99% cost reduction)
+
+**Signal Coordination:** The training pipeline is coordinated using the Lifetime Scope Signals protocol — see Section 2.5.2.1 for the Training Agent Fleet (T-01 through T-10), dependency graph, quality gate mechanism, and resource arbitration across 2× GN-100 nodes.
 
 ## Appendix F: V1.0 Agent Fleet
 
@@ -2187,6 +2333,8 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 11. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral; multi-LLM router resolving EU AI Act sovereignty tension in practice
 12. Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas
 12. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
+13. Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development
+14. LSS Training Pipeline Coordination — Lifetime Scope Signals protocol applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes, Fan-Out/Reflection pattern integration; validates LSS as general-purpose coordination beyond software development
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
