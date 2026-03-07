@@ -378,8 +378,9 @@ if ($SkipEncrypt) {
     Write-Host "  [GPG] $DumpFile -> $EncryptedFile" -ForegroundColor Yellow
 } else {
     try {
-        & $Gpg --batch --yes --symmetric --cipher-algo AES256 `
-            --passphrase $GpgPassphrase `
+        $GpgPassphrase | & $Gpg --batch --yes --symmetric --cipher-algo AES256 `
+            --pinentry-mode loopback `
+            --passphrase-fd 0 `
             -o $EncryptedFile $DumpFile
 
         if ($LASTEXITCODE -ne 0) {
