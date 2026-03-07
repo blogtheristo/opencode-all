@@ -14,7 +14,16 @@
 
 set -euo pipefail
 
-BRANCH=${1:-$(git branch --show-current)}
+CURRENT_BRANCH=$(git branch --show-current)
+BRANCH=${1:-$CURRENT_BRANCH}
+
+# Verify requested branch matches current branch
+if [ "$BRANCH" != "$CURRENT_BRANCH" ]; then
+  echo "ERROR: Requested branch '$BRANCH' does not match current branch '$CURRENT_BRANCH'"
+  echo "Either switch to '$BRANCH' first, or omit the argument to use the current branch."
+  exit 1
+fi
+
 LAST_COMMIT=$(git log -1 --format="%h — %s")
 
 # Try to get PR URL (gh may not be available in all environments)
