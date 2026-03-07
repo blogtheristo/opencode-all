@@ -367,9 +367,14 @@ if ($SkipVerify -or $DryRun) {
         $sourceHost = $env:SUPABASE_DB_HOST ?? "unknown"
         $sourceDb = $env:SUPABASE_DB_NAME ?? "postgres"
 
+        # Escape single quotes in values before embedding in SQL to prevent injection
+        $escapedSourceHost = $sourceHost.Replace("'", "''")
+        $escapedSourceDb   = $sourceDb.Replace("'", "''")
+        $escapedPostCounts = $postCounts.Replace("'", "''")
+
         $insertQuery = @"
 INSERT INTO _backup_metadata (source_host, source_db, backup_date, row_counts, notes)
-VALUES ('$sourceHost', '$sourceDb', '$datestamp', '$postCounts'::jsonb, 'Automated mirror restore')
+VALUES ('$escapedSourceHost', '$escapedSourceDb', '$datestamp', '$escapedPostCounts'::jsonb, 'Automated mirror restore')
 ON CONFLICT DO NOTHING
 "@
         & $Psql -h $AivenHost -p $AivenPort -U $AivenUser -d $AivenDb -c $insertQuery 2>&1 | Out-Null
