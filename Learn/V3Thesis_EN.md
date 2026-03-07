@@ -1125,7 +1125,7 @@ The 2-month payback promise has been validated with real customer deployments:
 | **Cloud** | Google Cloud Run + Groq API | MCP Hub on port 8765 |
 | **Edge** | NVIDIA Jetson Orin Nano | <100ms inference (25x faster) |
 | **E-commerce** | dws6.com (Cloudflare Pages) | EUR 0/month, 99.95% uptime |
-| **Orchestration** | MCP Hub + LlamaStack | 3 workflow patterns implemented |
+| **Orchestration** | MCP Hub + LlamaStack | 4 workflow patterns implemented (Fan-Out, Sequential, Reflection, Pipeline) |
 
 ### 8.5.3 RQ3: Technical Solution Evaluation
 

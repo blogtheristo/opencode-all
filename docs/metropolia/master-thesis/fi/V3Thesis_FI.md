@@ -1116,7 +1116,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | **Pilvi** | Google Cloud Run + Groq API | MCP Hub portissa 8765 |
 | **Reuna** | NVIDIA Jetson Orin Nano | <100ms päättely (25x nopeampi) |
 | **Verkkokauppa** | dws6.com (Cloudflare Pages) | €0/kk, 99,95% käytettävyys |
-| **Orkestrointi** | MCP Hub + LlamaStack | 3 työnkulkumallia toteutettu |
+| **Orkestrointi** | MCP Hub + LlamaStack | 4 työnkulkumallia toteutettu (Fan-Out, Sequential, Reflection, Pipeline) |
 
 ### 8.5.3 TK3: Teknisen ratkaisun arviointi
 
