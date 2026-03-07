@@ -73,6 +73,12 @@ export interface AgentConfig {
   capabilities: string[];
   /** LLM model identifier used by this agent */
   model: string;
+  /** JSON Schema for the agent's expected input — used by MCP tool builder for client autocomplete */
+  inputSchema?: {
+    type: 'object';
+    properties: Record<string, unknown>;
+    required?: string[];
+  };
   /** Tools this agent can use (DWS7: function calling) */
   tools?: ToolDefinition[];
   /** Agentic loop configuration (DWS7: observe-think-act) */

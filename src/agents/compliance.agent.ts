@@ -127,6 +127,31 @@ export class ComplianceAgent extends BaseAgent {
         'compliance-gap-analysis',
       ],
       model: 'llama-3.3-70b-versatile',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          projectId: { type: 'string', description: 'Project identifier' },
+          industry: { type: 'string', description: 'Industry sector (e.g., steel, cement, chemicals, construction)' },
+          regulations: {
+            type: 'array',
+            items: { type: 'string', enum: ['fit-for-55', 'ets', 'cbam', 'csrd', 'eu-ai-act'] },
+            description: 'Regulations to assess against',
+          },
+          currentMeasures: {
+            type: 'object',
+            properties: {
+              carbonReporting: { type: 'boolean' },
+              emissionsMonitoring: { type: 'boolean' },
+              supplyChainDueDiligence: { type: 'boolean' },
+              aiSystemLogging: { type: 'boolean' },
+            },
+            description: 'Current compliance measures in place',
+          },
+          annualEmissions: { type: 'number', description: 'Annual CO2 emissions in tonnes' },
+          importValue: { type: 'number', description: 'Annual import value in EUR (for CBAM assessment)' },
+        },
+        required: ['industry', 'regulations'],
+      },
     });
   }
 

@@ -127,24 +127,40 @@ function buildToolList(): MCPToolDefinition[] {
   });
 
   // Agent tools — one per registered agent
+  // When an agent defines inputSchema, expose its properties directly for better
+  // IDE autocomplete and client validation. Otherwise fall back to generic {input}.
   for (const agent of agents) {
+    const hasSchema = agent.inputSchema && Object.keys(agent.inputSchema.properties).length > 0;
+
     tools.push({
       name: `dws_${agent.name.replace(/-/g, '_')}`,
       description: `[DWS IQ Agent] ${agent.description}. Capabilities: ${agent.capabilities.join(', ')}. Model: ${agent.model}.`,
-      inputSchema: {
-        type: 'object',
-        properties: {
-          input: {
+      inputSchema: hasSchema
+        ? {
             type: 'object',
-            description: `Input payload for the ${agent.name} agent. Structure depends on the agent.`,
+            properties: {
+              ...agent.inputSchema!.properties,
+              projectId: {
+                type: 'string',
+                description: 'Project identifier (optional, defaults to "mcp-session")',
+              },
+            },
+            required: agent.inputSchema!.required,
+          }
+        : {
+            type: 'object',
+            properties: {
+              input: {
+                type: 'object',
+                description: `Input payload for the ${agent.name} agent. Structure depends on the agent.`,
+              },
+              projectId: {
+                type: 'string',
+                description: 'Project identifier (optional, defaults to "mcp-session")',
+              },
+            },
+            required: ['input'],
           },
-          projectId: {
-            type: 'string',
-            description: 'Project identifier (optional, defaults to "mcp-session")',
-          },
-        },
-        required: ['input'],
-      },
     });
   }
 
@@ -271,7 +287,11 @@ async function executeToolCall(
   // Agent tools — strip "dws_" prefix and convert underscores back to hyphens
   if (toolName.startsWith('dws_')) {
     const agentName = toolName.slice(4).replace(/_/g, '-');
-    const input = (args.input as Record<string, unknown>) || args;
+    // Support both wrapped ({input: {...}}) and flat schema formats
+    const input = (args.input as Record<string, unknown>) || (() => {
+      const { projectId: _pid, ...rest } = args;
+      return rest;
+    })();
     return agentRegistry.executeAgent(agentName, context, input);
   }
 
