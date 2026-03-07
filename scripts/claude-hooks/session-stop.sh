@@ -36,6 +36,13 @@ if echo "$CHANGED_FILES" | grep -q "^dws6.com/"; then
   fi
 fi
 
+# Check onelifetime.world <-> landing-pages sync
+if echo "$CHANGED_FILES" | grep -q "^onelifetime\.world/"; then
+  if ! echo "$CHANGED_FILES" | grep -q "^landing-pages/onelifetime-world/"; then
+    WARNINGS="${WARNINGS}\n- DUAL FOLDER DESYNC: onelifetime.world/ was modified but landing-pages/onelifetime-world/ was not updated"
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
 # Check 3: Thesis file consistency (if any thesis file was modified)
 if echo "$CHANGED_FILES" | grep -q "V3Thesis_EN\|V3Thesis_FI\|PHD_FIREHORSE_EN\|PHD_FIREHORSE_FI"; then
   # Count how many thesis files were changed
