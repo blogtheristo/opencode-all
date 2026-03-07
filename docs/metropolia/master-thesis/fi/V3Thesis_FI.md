@@ -342,7 +342,7 @@ LWM-koulutusputki — opetussuunnitelman suunnittelu, synteettisen datan generoi
 | T-09 | DeployAgent | Julkaise Flask API, rekisteröi LWM-rekisteriin | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
 | T-10 | PipelineOrchestrator | Monitoroi kaikkia vertikaaleja, aggregoi valmistuminen | `COMPLETE:lwm-all-verticals` | Kaikki `T-09:COMPLETE:lwm-deployed:*` |
 
-`{vertical}`-tokeni on parametrisoitu virstanpylväs — toimialan tunniste (esim. `logistics`, `construction`, `energy`), joka mahdollistaa saman agenttiputken instanssoinnin per vertikaali. Tämä on ainoa protokollalaajennus LSS v1.0 -peusskeemaan.
+`{vertical}`-tokeni on parametrisoitu virstanpylväs — toimialan tunniste (esim. `logistics`, `construction`, `energy`), joka mahdollistaa saman agenttiputken instanssoinnin per vertikaali. Tämä on ainoa protokollalaajennus LSS v1.0 -perusskeemaan.
 
 **Koulutuksen riippuvuusgraafi:**
 
