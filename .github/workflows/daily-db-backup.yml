@@ -1,0 +1,141 @@
+name: Daily Database Backup
+
+on:
+  schedule:
+    # 02:30 UTC daily (04:30 Helsinki time)
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: pg_dump Supabase → Encrypted Artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout (for backup reports only)
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+          sparse-checkout-cone-mode: false
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-15 gnupg
+
+      - name: Create backup directory
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          mkdir -p backups/db/$DATE
+
+      - name: pg_dump (custom format)
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          pg_dump \
+            -h db.${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co \
+            -U postgres \
+            -d postgres \
+            -F c \
+            -f backups/db/$DATE/dws6_${DATE}.dump
+
+          SIZE=$(stat -c%s backups/db/$DATE/dws6_${DATE}.dump)
+          echo "Dump size: $SIZE bytes"
+
+          if [ "$SIZE" -lt 1000 ]; then
+            echo "::error::Backup file suspiciously small: $SIZE bytes"
+            exit 1
+          fi
+
+      - name: Schema-only dump (SQL)
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          pg_dump \
+            -h db.${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co \
+            -U postgres \
+            -d postgres \
+            --schema-only \
+            -f backups/db/$DATE/schema_${DATE}.sql
+
+      - name: Row count snapshot
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          psql \
+            -h db.${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co \
+            -U postgres \
+            -d postgres \
+            -t -A \
+            -c "SELECT json_agg(row_to_json(t)) FROM (SELECT schemaname, relname, n_live_tup FROM pg_stat_user_tables ORDER BY n_live_tup DESC) t" \
+            > backups/db/$DATE/row_counts.json || echo "[]" > backups/db/$DATE/row_counts.json
+
+      - name: GPG encrypt backup
+        env:
+          GPG_PASSPHRASE: ${{ secrets.BACKUP_GPG_PASSPHRASE }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          gpg --batch --yes --symmetric --cipher-algo AES256 \
+            --passphrase "$GPG_PASSPHRASE" \
+            -o backups/db/$DATE/dws6_${DATE}.dump.gpg \
+            backups/db/$DATE/dws6_${DATE}.dump
+
+          # Remove unencrypted dump
+          rm backups/db/$DATE/dws6_${DATE}.dump
+
+          ENC_SIZE=$(stat -c%s backups/db/$DATE/dws6_${DATE}.dump.gpg)
+          echo "Encrypted backup size: $ENC_SIZE bytes"
+
+      - name: Create manifest
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          cat > backups/db/$DATE/manifest.json << EOF
+          {
+            "timestamp": "$(date -Iseconds)",
+            "date": "$DATE",
+            "source": "github-actions",
+            "workflow": "daily-db-backup",
+            "run_id": "${{ github.run_id }}",
+            "encrypted": true,
+            "files": {
+              "dump_gpg": "dws6_${DATE}.dump.gpg",
+              "schema": "schema_${DATE}.sql",
+              "row_counts": "row_counts.json"
+            }
+          }
+          EOF
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ github.run_id }}
+          path: backups/db/
+          retention-days: 30
+
+      - name: Backup summary
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          echo "## Database Backup Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Date | $DATE |" >> $GITHUB_STEP_SUMMARY
+          echo "| Encrypted | Yes (AES256) |" >> $GITHUB_STEP_SUMMARY
+          ls -lh backups/db/$DATE/ | tail -n +2 | while read line; do
+            FILE=$(echo "$line" | awk '{print $NF}')
+            SIZE=$(echo "$line" | awk '{print $5}')
+            echo "| $FILE | $SIZE |" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Row counts:" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat backups/db/$DATE/row_counts.json | head -20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

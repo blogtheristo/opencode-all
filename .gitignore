@@ -82,6 +82,12 @@ mcp-servers/**/*.log
 *.security.log
 security_*.log
 
+# --- DATABASE BACKUPS (never commit binary dumps) ---
+*.dump
+*.dump.gpg
+*.pgdump
+backups/db/
+
 # --- DOCKER VOLUMES (runtime data, not source) ---
 mcp-context-data/
 claude-sessions/
