@@ -393,7 +393,21 @@ if ($SkipEncrypt) {
         Write-Host "  [OK] Removed unencrypted .dump" -ForegroundColor Green
     } catch {
         Write-Host "  [ERROR] Encryption failed: $_" -ForegroundColor Red
-        Write-Warning "Unencrypted .dump file preserved at $DumpFile"
+
+        # Clean up any partially created encrypted file
+        if (Test-Path $EncryptedFile) {
+            Remove-Item $EncryptedFile -Force -ErrorAction SilentlyContinue
+        }
+
+        # Remove unencrypted dump to avoid leaving plaintext when encryption is required
+        if (Test-Path $DumpFile) {
+            Remove-Item $DumpFile -Force -ErrorAction SilentlyContinue
+            Write-Warning "Unencrypted .dump file removed due to encryption failure."
+        }
+
+        # Ensure the script fails with a non-zero exit code so automation can detect the error
+        $global:LASTEXITCODE = 1
+        throw
     }
 }
 
