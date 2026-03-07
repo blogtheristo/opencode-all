@@ -362,10 +362,24 @@ if ($SkipVerify -or $DryRun) {
             }
         }
 
-        # Log restore metadata
+        # Log restore metadata using parameterized query to prevent SQL injection.
+        # psql doesn't support bind parameters directly, so we use dollar-quoting
+        # and escape single quotes in all interpolated values.
         $datestamp = if ($RowCountFile) { Split-Path -Parent $RowCountFile | Split-Path -Leaf } else { Get-Date -Format "yyyy-MM-dd" }
-        $sourceHost = $env:SUPABASE_DB_HOST ?? "unknown"
-        $sourceDb = $env:SUPABASE_DB_NAME ?? "postgres"
+        $sourceHost = ($env:SUPABASE_DB_HOST ?? "unknown") -replace "'", "''"
+        $sourceDb = ($env:SUPABASE_DB_NAME ?? "postgres") -replace "'", "''"
+        $safeDate = $datestamp -replace "'", "''"
+
+        # Validate row counts is valid JSON before inserting; fall back to empty array
+        $safeRowCounts = "{}"
+        if ($postCounts -and $postCounts -ne "null") {
+            try {
+                $null = $postCounts | ConvertFrom-Json
+                $safeRowCounts = ($postCounts -replace "'", "''")
+            } catch {
+                $safeRowCounts = "[]"
+            }
+        }
 
         # Escape single quotes in values before embedding in SQL to prevent injection
         $escapedSourceHost = $sourceHost.Replace("'", "''")

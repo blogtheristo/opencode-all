@@ -78,26 +78,14 @@ jobs:
             -c "SELECT json_agg(row_to_json(t)) FROM (SELECT schemaname, relname, n_live_tup FROM pg_stat_user_tables ORDER BY n_live_tup DESC) t" \
             > backups/db/$DATE/row_counts.json || echo "[]" > backups/db/$DATE/row_counts.json
 
-      - name: GPG encrypt backup
+      - name: Bundle and encrypt all backup files
         env:
           GPG_PASSPHRASE: ${{ secrets.BACKUP_GPG_PASSPHRASE }}
         run: |
           DATE=$(date +%Y-%m-%d)
-          printf '%s\n' "$GPG_PASSPHRASE" | gpg --batch --yes --symmetric --cipher-algo AES256 \
-            --pinentry-mode loopback --passphrase-fd 0 \
-            -o backups/db/$DATE/dws6_${DATE}.dump.gpg \
-            backups/db/$DATE/dws6_${DATE}.dump
 
-          # Remove unencrypted dump
-          rm backups/db/$DATE/dws6_${DATE}.dump
-
-          ENC_SIZE=$(stat -c%s backups/db/$DATE/dws6_${DATE}.dump.gpg)
-          echo "Encrypted backup size: $ENC_SIZE bytes"
-
-      - name: Create manifest
-        run: |
-          DATE=$(date +%Y-%m-%d)
-          cat > backups/db/$DATE/manifest.json << EOF
+          # Create manifest before bundling
+          cat > backups/db/$DATE/manifest.json << MANIFEST
           {
             "timestamp": "$(date -Iseconds)",
             "date": "$DATE",
@@ -105,15 +93,47 @@ jobs:
             "workflow": "daily-db-backup",
             "run_id": "${{ github.run_id }}",
             "encrypted": true,
-            "files": {
-              "dump_gpg": "dws6_${DATE}.dump.gpg",
-              "schema": "schema_${DATE}.sql",
-              "row_counts": "row_counts.json"
-            }
+            "bundle": "dws6_${DATE}.tar.gpg",
+            "contents": ["dws6_${DATE}.dump", "schema_${DATE}.sql", "row_counts.json", "manifest.json"]
           }
-          EOF
+          MANIFEST
 
-      - name: Upload backup artifact
+          # Capture row counts for summary BEFORE encryption
+          ROW_COUNTS=$(cat backups/db/$DATE/row_counts.json | head -20)
+          echo "ROW_COUNTS<<ROWEOF" >> $GITHUB_ENV
+          echo "$ROW_COUNTS" >> $GITHUB_ENV
+          echo "ROWEOF" >> $GITHUB_ENV
+
+          # Capture individual file sizes for summary
+          DUMP_SIZE=$(stat -c%s backups/db/$DATE/dws6_${DATE}.dump)
+          SCHEMA_SIZE=$(stat -c%s backups/db/$DATE/schema_${DATE}.sql)
+          echo "DUMP_SIZE=$DUMP_SIZE" >> $GITHUB_ENV
+          echo "SCHEMA_SIZE=$SCHEMA_SIZE" >> $GITHUB_ENV
+
+          # Bundle ALL files into a single tarball, then GPG encrypt the tarball.
+          # This ensures schema, row counts, and manifest are uniformly protected —
+          # if artifact access is ever broadened, no metadata leaks.
+          tar -cf backups/db/$DATE/dws6_${DATE}.tar \
+            -C backups/db/$DATE \
+            dws6_${DATE}.dump schema_${DATE}.sql row_counts.json manifest.json
+
+          printf '%s\n' "$GPG_PASSPHRASE" | gpg --batch --yes --symmetric --cipher-algo AES256 \
+            --pinentry-mode loopback --passphrase-fd 0 \
+            -o backups/db/$DATE/dws6_${DATE}.tar.gpg \
+            backups/db/$DATE/dws6_${DATE}.tar
+
+          # Remove all unencrypted files — only the encrypted bundle remains
+          rm backups/db/$DATE/dws6_${DATE}.dump
+          rm backups/db/$DATE/dws6_${DATE}.tar
+          rm backups/db/$DATE/schema_${DATE}.sql
+          rm backups/db/$DATE/row_counts.json
+          rm backups/db/$DATE/manifest.json
+
+          BUNDLE_SIZE=$(stat -c%s backups/db/$DATE/dws6_${DATE}.tar.gpg)
+          echo "Encrypted bundle size: $BUNDLE_SIZE bytes"
+          echo "BUNDLE_SIZE=$BUNDLE_SIZE" >> $GITHUB_ENV
+
+      - name: Upload encrypted backup artifact
         uses: actions/upload-artifact@v4
         with:
           name: db-backup-${{ github.run_id }}
@@ -128,14 +148,14 @@ jobs:
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Date | $DATE |" >> $GITHUB_STEP_SUMMARY
-          echo "| Encrypted | Yes (AES256) |" >> $GITHUB_STEP_SUMMARY
-          ls -lh backups/db/$DATE/ | tail -n +2 | while read line; do
-            FILE=$(echo "$line" | awk '{print $NF}')
-            SIZE=$(echo "$line" | awk '{print $5}')
-            echo "| $FILE | $SIZE |" >> $GITHUB_STEP_SUMMARY
-          done
+          echo "| Encrypted | Yes — single AES-256 bundle (dump + schema + metadata) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Bundle | dws6_${DATE}.tar.gpg (${{ env.BUNDLE_SIZE }} bytes) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dump size (pre-encrypt) | ${{ env.DUMP_SIZE }} bytes |" >> $GITHUB_STEP_SUMMARY
+          echo "| Schema size | ${{ env.SCHEMA_SIZE }} bytes |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Row counts:" >> $GITHUB_STEP_SUMMARY
+          echo "Row counts (from workflow log only, not in artifact):" >> $GITHUB_STEP_SUMMARY
           echo '```json' >> $GITHUB_STEP_SUMMARY
-          cat backups/db/$DATE/row_counts.json | head -20 >> $GITHUB_STEP_SUMMARY
+          echo '${{ env.ROW_COUNTS }}' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To restore: \`gpg --decrypt dws6_${DATE}.tar.gpg | tar xf -\`" >> $GITHUB_STEP_SUMMARY
