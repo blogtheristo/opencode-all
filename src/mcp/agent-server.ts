@@ -25,6 +25,11 @@ import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import type { AgentContext } from '../agents/types.js';
 
+// ============ SUPPORTED WORKFLOWS REGISTRY ============
+// Single source of truth — used in tool descriptions, validation, and error messages.
+const SUPPORTED_WORKFLOWS = ['compliance-assessment', 'construction-full', 'seo-pipeline'] as const;
+type SupportedWorkflow = typeof SUPPORTED_WORKFLOWS[number];
+
 // ============ MCP PROTOCOL TYPES ============
 
 interface MCPToolDefinition {
@@ -90,7 +95,7 @@ function buildToolList(): MCPToolDefinition[] {
   // Meta-tool: trigger workflow
   tools.push({
     name: 'dws_workflow',
-    description: 'Trigger a multi-agent workflow. Available workflows: compliance-assessment, construction-full, seo-pipeline.',
+    description: `Trigger a multi-agent workflow. Available workflows: ${SUPPORTED_WORKFLOWS.join(', ')}.`,
     inputSchema: {
       type: 'object',
       properties: {
@@ -350,7 +355,7 @@ async function executeWorkflow(
     }
 
     default:
-      throw new Error(`Unknown workflow: ${workflowName}. Available: compliance-assessment, construction-full, seo-pipeline`);
+      throw new Error(`Unknown workflow: ${workflowName}. Available: ${SUPPORTED_WORKFLOWS.join(', ')}`);
   }
 }
 
