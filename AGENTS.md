@@ -5,7 +5,7 @@
 
 **Version:** 2.1
 **Created:** January 3, 2026
-**Updated:** March 4, 2026
+**Updated:** March 7, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -58,6 +58,14 @@ node coordinator.cjs status    # All agent statuses
 node coordinator.cjs ready     # Which agents can launch
 node coordinator.cjs signals   # Signal log
 node coordinator.cjs emit <agent> <signal>  # Emit signal
+
+# DWS CLI (v1.1.0)
+dws status                     # Quick environment + connection check
+dws agents --format table      # List agents in human-readable table
+dws health                     # Backend + MCP health check
+dws version                    # Show CLI version
+dws run compliance --input '{"industry":"steel"}'
+dws config                     # Show current configuration
 
 # MCP Hub
 cd mcp-hub && python server.py
@@ -590,19 +598,32 @@ See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, F
 | **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
 | **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
 
-**DWS CLI commands (examples):**
+**DWS CLI commands (v1.1.0):**
 ```bash
 dws agents                              # List all agents (JSON)
+dws agents --format table               # Human-readable table output
 dws run compliance --input '{"reg":"CSRD"}'
 dws run sitesense --input '{"siteId":"..."}'
 dws workflow compliance-assessment
 dws discover carbon
 dws workflows
-dws health
-dws mcp tools
+dws health                              # Backend + MCP health check
+dws status                              # Quick env + connection check
+dws config                              # Show current config
+dws version                             # CLI version info
+dws mcp tools                           # List MCP tools
+dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 ```
 
+**Output options:** `--format json|table|compact`, `--quiet` (suppress info messages).
+
+**Typo correction:** Mistyped commands show "Did you mean?" suggestions.
+
+**Error messages:** Connection failures now show actionable fix instructions.
+
 **Config:** `DWS_API_URL`, `DWS_API_TOKEN`, `DWS_PROJECT`, `DWS_SESSION`. See `cli/src/cli.ts` and [CLAUDE.md](CLAUDE.md) Build for Agents.
+
+**MCP Client Quickstart:** See `docs/MCP_CLIENT_QUICKSTART.md` for connecting Claude Code, Cursor, VS Code, or Python clients to the MCP Hub.
 
 **API key for Cline:** To get a token for Cline (or for `DWS_API_TOKEN`), run `node scripts/generate-cline-api-key.cjs` from the repo root (requires `JWT_SECRET` in `.env`). The script prints a 90-day JWT; use it in Cline as the API key when connecting to a DWS endpoint, or set as `DWS_API_TOKEN` for the CLI.
 
