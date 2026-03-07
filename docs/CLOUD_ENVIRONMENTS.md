@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Aiven PostgreSQL Sandbox as 5th environment in matrix — agent workspace + LWM training, EU Finland region, daily mirror from Supabase
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/mcp-google-cloud-run-BuSpY | Date: 23.02.2026 | Changes: Added MCP Gateway on Cloud Run section (Section 12) — Streamable HTTP for mobile Claude Code, secret provisioning script
   - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
@@ -482,21 +483,21 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 8.1 Complete Service-to-Environment Mapping
 
-| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) |
-|---------|----------------------|-------------------------|------------|---------------|
-| **Landing pages** | Cloudflare Pages | — | — | — |
-| **Dashboard SPA** | Cloudflare Pages | — | — | — |
-| **Edge API** | Cloudflare Workers | — | — | — |
-| **Backend API** | — | Cloud Run | Trace sidecar | — |
-| **AI Agents** | — | Cloud Run | Reasoning log | — |
-| **MCP Hub** | — | Cloud Run | Trace sidecar | — |
-| **Database** | — | Supabase EU | Audit tables | — |
-| **Auth** | — | Supabase Auth | Identity layer | — |
-| **Jitsi (V3)** | — | — | — | Self-hosted |
-| **Email (V3)** | — | — | — | Self-hosted |
-| **Training** | — | GCP A3 (burst) | — | — |
-| **Monitoring** | — | Prometheus + Grafana | — | — |
-| **Compliance** | — | — | Full Aiwen stack | — |
+| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) | Aiven (Sandbox) |
+|---------|----------------------|-------------------------|------------|---------------|-----------------|
+| **Landing pages** | Cloudflare Pages | — | — | — | — |
+| **Dashboard SPA** | Cloudflare Pages | — | — | — | — |
+| **Edge API** | Cloudflare Workers | — | — | — | — |
+| **Backend API** | — | Cloud Run | Trace sidecar | — | — |
+| **AI Agents** | — | Cloud Run | Reasoning log | — | Agent workspace |
+| **MCP Hub** | — | Cloud Run | Trace sidecar | — | — |
+| **Database** | — | Supabase EU (prod) | Audit tables | — | Daily mirror (sandbox) |
+| **Auth** | — | Supabase Auth | Identity layer | — | Auth stubs |
+| **Jitsi (V3)** | — | — | — | Self-hosted | — |
+| **Email (V3)** | — | — | — | Self-hosted | — |
+| **Training** | — | GCP A3 (burst) | — | — | LWM training data |
+| **Monitoring** | — | Prometheus + Grafana | — | — | — |
+| **Compliance** | — | — | Full Aiwen stack | — | — |
 
 ### 8.2 Domain-to-Environment Mapping
 

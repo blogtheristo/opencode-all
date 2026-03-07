@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 1.2
+version: 1.4
 created: 2026-02-07
-last_modified: 2026-02-23
+last_modified: 2026-03-07
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -18,15 +18,13 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
-  - Version: 1.2 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Expanded Section 13.3 with MCP CORS implementation standard — env-driven explicit origins, scoped methods/headers, fix applied to mcp-servers/supabase/server.py, pattern mandated for all new MCP servers
-Version: 1.3
-
-Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Section 3.6.1 (Database Backup & Disaster Recovery Controls) — 7 BCP/DR controls, RTO/RPO targets, backup retention policy, Aiven sandbox mirror, multi-destination backup architecture (local + Proton + Acer Helsinki + GitHub Actions)
   - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
+  - Version: 1.2 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Expanded Section 13.3 with MCP CORS implementation standard — env-driven explicit origins, scoped methods/headers, fix applied to mcp-servers/supabase/server.py, pattern mandated for all new MCP servers
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/security-dws6-vulnerabilities-bsqHe | Date: 21.02.2026 | Changes: Added Claw-layer security (Section 12), supply chain integrity policy (Section 13), CORS/SRI/exec standards, vulnerability assessment findings
   - Version: 1.0 | Tool: Claude Code (claude-opus-4-6) | Session: claude/safety-report-field-notes-cdl1W | Date: 07.02.2026 | Changes: Initial DWS Security Standard — integrating International AI Safety Report 2026 findings into enterprise security framework
 
@@ -35,8 +33,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 23.02.2026
-  - Last Modified: 21.02.2026 (v1.2)
+  - Last Modified: 07.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -311,9 +308,63 @@ The AI Safety Report 2026 recommends **defence-in-depth** — layering multiple 
 | Real-time output monitoring | Confidence scoring on AI outputs | Planned Q2 2026 |
 | Security event logging | Centralized security logging (src/logging/) | Active |
 | Vulnerability management | Weekly scans, 24h critical patching SLA | Active |
-| Business continuity | BCP/DR documentation with RTO/RPO commitments | Active |
+| Business continuity | BCP/DR with automated daily backups, 4-destination redundancy, Aiven sandbox mirror | Active |
 | Security scanning | Daily critical bug scanner + weekly full scan | Active |
 | Penetration testing | Annual third-party assessment | Completed Q4 2025 |
+
+#### 3.6.1 Database Backup & Disaster Recovery Controls
+
+**Context:** Production database (Supabase PostgreSQL) requires independent backup and disaster recovery capability. Supabase Free tier provides 7-day auto-snapshots but no PITR, no external copies, and no guaranteed recovery. This section implements NIS2 Art. 21(2)(c) business continuity requirements.
+
+**Architecture:**
+```
+Supabase (production) → pg_dump (daily) → 4 destinations:
+  1. Local (F:\2026\Backups\dws6-db) — 30-day retention
+  2. Proton Drive (encrypted .gpg) — 90-day retention
+  3. Acer Veriton GN100, Helsinki (SCP) — 90-day retention
+  4. GitHub Actions artifacts — 30-day retention
+  └→ pg_restore → Aiven PostgreSQL (sandbox/LWM training)
+```
+
+**Controls:**
+
+| # | Control | Implementation | Script/Tool | Status |
+|---|---------|---------------|-------------|--------|
+| DR-1 | Automated daily pg_dump | `scripts/Backup-Database.ps1` runs via `Startup-DailySync.bat` on Windows login + `.github/workflows/daily-db-backup.yml` as CI/CD safety net | PowerShell + GitHub Actions | Active |
+| DR-2 | Multi-destination backup | Local disk + Proton Drive (encrypted) + Acer Veriton Helsinki (SCP) + GitHub Actions artifacts. No single point of failure. | `Sync-ToProton.ps1` v2.0, `Backup-Database.ps1 -RemoteBackup` | Active |
+| DR-3 | Backup encryption | GPG symmetric AES-256 encryption before any cloud/remote transfer. Unencrypted dumps deleted after encryption. Passphrase in `.env` (never hardcoded). | `gpg --symmetric --cipher-algo AES256` | Active |
+| DR-4 | Restore verification | Row count snapshot (`row_counts.json`) taken during backup, compared after Aiven restore. Delta > 5% triggers warning. | `Backup-Database.ps1`, `Mirror-ToAiven.ps1` | Active |
+| DR-5 | Sandbox mirror (Aiven) | Daily mirror to Aiven PostgreSQL (EU Finland) for agent work and LWM training. Also serves as warm standby. Auth stubs for RLS compatibility. | `Mirror-ToAiven.ps1`, `aiven-init.sql` | Active |
+| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Boardy review | Active |
+| DR-7 | Deletion protection | Supabase project-level deletion protection enabled in dashboard. Aiven service termination protection enabled. | Provider dashboard settings | Active |
+
+**RTO/RPO Targets:**
+
+| Metric | Target | Method |
+|--------|--------|--------|
+| **RPO** (Recovery Point Objective) | 24 hours | Daily pg_dump (worst case: lose 1 day of data) |
+| **RTO** (Recovery Time Objective) | 4 hours | Restore from latest encrypted dump to Supabase or Aiven |
+| **RTO to Aiven failover** | 1 hour | Aiven already has yesterday's mirror; switch connection strings |
+| **RTO from GitHub Actions** | 2 hours | Download artifact, decrypt, restore |
+
+**Backup Retention Policy:**
+
+| Destination | Retention | Encryption | Transfer |
+|-------------|-----------|------------|----------|
+| Local (F:\2026\Backups\dws6-db) | 30 days | At rest (GPG) | N/A |
+| Proton Drive | 90 days | At rest (GPG) + in transit (Proton E2EE) | Proton sync |
+| Acer Veriton GN100, Helsinki | 90 days | At rest (GPG) + in transit (SCP/SSH) | SCP |
+| GitHub Actions artifacts | 30 days | At rest (GitHub) + in transit (TLS) | GitHub API |
+| Supabase auto-snapshots | 7 days | Provider managed | Provider managed |
+
+**Verification Schedule:**
+
+| Frequency | Action | Owner |
+|-----------|--------|-------|
+| Daily | Automated backup + Aiven mirror (Startup-DailySync.bat) | Automated |
+| Weekly | Verify latest backup decrypts successfully | Engineering |
+| Monthly | Full restore drill to Aiven, row count comparison | Engineering |
+| Quarterly | Disaster recovery drill (simulate Supabase loss, restore from cold backup) | Security |
 
 ---
 
@@ -426,7 +477,7 @@ The **NIS2 Directive (EU 2022/2555)** applies to DWS as a provider of digital se
 | **Art. 21(1)** | Risk management measures | DWS Security Standard (this document) | Active | Report: "risk management frameworks are still immature" — our framework addresses this |
 | **Art. 21(2)(a)** | Policies on risk analysis and information system security | Threat model (AgentFoundry/Security.md), SECURITY_COMPLIANCE.md | Active | Report: three risk categories (malicious use, malfunction, systemic) integrated |
 | **Art. 21(2)(b)** | Incident handling | 24h early warning to Traficom, 72h final report | Active | Report: AI-assisted cyberattacks require faster detection |
-| **Art. 21(2)(c)** | Business continuity and crisis management | BCP/DR documentation, RTO/RPO commitments | Active | Report: societal resilience requires recovery capability |
+| **Art. 21(2)(c)** | Business continuity and crisis management | Daily pg_dump → 4 destinations (local/Proton/Helsinki/GitHub), Aiven sandbox mirror, RPO 24h, RTO 4h. See Section 3.6.1 | Active | Report: societal resilience requires recovery capability |
 | **Art. 21(2)(d)** | Supply chain security | Sub-processor list, vendor risk assessment | Active | Report: open-weight models cannot be recalled — supply chain risk |
 | **Art. 21(2)(e)** | Security in network and information systems | VPC isolation, TLS 1.3, mTLS | Active | Report: AI expands attack surface |
 | **Art. 21(2)(f)** | Policies and procedures for assessing effectiveness | Quarterly security metrics review, red team exercises | Planned Q2 | Report: "evaluation gap" — testing must be continuous |

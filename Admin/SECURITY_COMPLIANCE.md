@@ -166,7 +166,7 @@ We maintain a complete vendor risk package ready for your procurement team:
 | **Security Policy Package** | Access control, incident response, change management | On request |
 | **Sub-processor List** | All third-party processors with EU adequacy status | On request |
 | **Penetration Test Report** | Annual third-party assessment | Under NDA |
-| **BCP/DR Documentation** | Business continuity, RTO/RPO commitments | On request |
+| **BCP/DR Documentation** | Business continuity: daily pg_dump → 4 destinations, Aiven mirror, RPO 24h, RTO 4h. See `DWS_SECURITY_STANDARD.md` Section 3.6.1 | On request |
 | **Insurance Certificate** | Cyber liability coverage | On request |
 
 ### Common Vendor Assessment Questions
@@ -516,6 +516,7 @@ The MCP Agent Server at `/mcp` has the following security controls:
 | Groq | LLM inference | SOC 2 | EU endpoint |
 | NVIDIA | Edge hardware | ISO 27001 | On-premise |
 | Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
+| Aiven | PostgreSQL sandbox (agent workspace, LWM training, DR mirror) | SOC 2, ISO 27001 | google-europe-north1 (Finland) |
 | 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
 
 All sub-processors maintain equivalent or higher security certifications.
