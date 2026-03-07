@@ -344,6 +344,7 @@ Yhdistää rinnakkaisen ja peräkkäisen suorituksen vaiheistettujen työnkulkuj
 | Reflection | Ei | Palautesilmukka | Laatukriittinen tuloste |
 | Pipeline | Rinnakkainen vaiheiden sisällä | Vaihe → Vaihe | Tuotantotyökuormat |
 
+Yhteenvetona MCP Hub -orkestroija tukee neljää työnkulkumallia (Fan-Out, Sequential, Reflection, Pipeline), joita voidaan yhdistellä tuotantotason työnkuluiksi.
 ### 2.5.4 Skillit ja CLI:t agenttirajapintoina
 
 "Build for Agents" -periaate edellyttää, että jokaisen DWS-tuotteen on oltava käytettävissä kolmen toisiaan täydentävän rajapinnan kautta GUI:n lisäksi: CLI, MCP-palvelin ja Claude Code -skillit.
