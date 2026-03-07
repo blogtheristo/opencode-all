@@ -1,0 +1,81 @@
+name: Claude Auto-Fix
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task for Claude to perform'
+        required: true
+        type: string
+      allowed_tools:
+        description: 'Comma-separated allowed tools'
+        required: false
+        default: 'Read,Edit,Bash(npm run lint),Bash(npm run test)'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-fix:
+    name: Claude Auto-Fix
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Skip bot-triggered events to prevent fix loops
+    if: |
+      github.actor != 'github-actions[bot]' &&
+      github.actor != 'copilot[bot]' &&
+      !contains(github.event.head_commit.message, '[skip ci]')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run Claude Auto-Fix
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TASK="${{ github.event.inputs.task || 'Fix all ESLint errors and run tests' }}"
+          TOOLS="${{ github.event.inputs.allowed_tools || 'Read,Edit,Bash(npm run lint),Bash(npm run test)' }}"
+
+          echo "Task: $TASK"
+          echo "Allowed tools: $TOOLS"
+
+          claude -p "$TASK" \
+            --allowedTools "$TOOLS" \
+            --output-format json \
+            > claude-output.json 2>&1 || true
+
+          # Log output (truncate if too large)
+          head -c 50000 claude-output.json
+
+      - name: Commit fixes
+        run: |
+          git config user.name "Claude Code Bot"
+          git config user.email "claude-bot@dws6.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            # Stage only source files, not logs or artifacts
+            git add -A -- ':!claude-output.json'
+            git commit -m "fix: auto-fix by Claude Code [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
