@@ -7,7 +7,7 @@
 Version: 3.19
 
 Sessions & Modifications:
-  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 2.5.2.1 (LSS Applied to LWM Training Pipeline Coordination — Training Agent Fleet T-01 through T-10, dependency graph, quality gate signal mechanism, resource arbitration for 2× GN-100, Fan-Out/Reflection pattern integration); updated Appendix C (parameterized milestones, quality gate pattern schema); updated Appendix E (signal coordination cross-reference to 2.5.2.1)
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3 MCP Hub Orchestration Patterns with implementation details (4 patterns: Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing, production readiness table; added Section 2.5.4 Skills and CLIs as Agent Interfaces (Three-Interface Rule: CLI + MCP + Skills)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning loop via Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective learning framework for AI-assisted product development
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
@@ -42,10 +42,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure: AI workflow as first-class engineering)
+  - Publication Status: DRAFT (V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces)
 
 ---
 
@@ -330,78 +330,60 @@ The Lifetime Scope Signals protocol is a novel coordination mechanism developed 
 | `ERROR` | Agent encountered an error | Alerts coordinator |
 | `BLOCKED` | Waiting for external dependency | No action until unblocked |
 
-#### 2.5.2.1 Application: LWM Training Pipeline Coordination
-
-The Lifetime Scope Signals protocol generalizes beyond software development coordination to ML pipeline orchestration. The following demonstrates LSS applied to the Lifetime World Model (LWM) training workflow (see Appendix E for hardware infrastructure).
-
-The LWM training pipeline — curriculum design, synthetic data generation, QLoRA fine-tuning, and Claude-as-judge evaluation — involves multiple autonomous stages with explicit dependencies. Rather than using a dedicated ML workflow engine (e.g., Kubeflow, Airflow), LSS coordinates the entire pipeline using the same four signal types defined above. Training agents use a `T-` prefix to distinguish them from the V1.0 development fleet (Appendix F).
-
-**Training Agent Fleet:**
-
-| Agent ID | Name | Role | Emits | Listens For |
-|----------|------|------|-------|-------------|
-| T-01 | InfraVerifier | Validate CUDA/PyTorch on GN-100 nodes | `COMPLETE:infra-verified` | (none — entry point) |
-| T-02 | ModelFetcher | Download Llama 3.1 8B base model | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
-| T-03 | CurriculumAgent | Claude API curriculum design per vertical | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
-| T-04 | DataSynthAgent | Generate 2000+ synthetic examples | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
-| T-05 | TrainingAgent | QLoRA fine-tuning on assigned node | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
-| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:*` (releases slot) |
-| T-07 | EvalAgent | Claude-as-judge evaluation, quality gate ≥7.0 | `READY:eval-pass:{vertical}` or `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
-| T-08 | MergeAgent | Merge LoRA adapter into base model | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
-| T-09 | DeployAgent | Deploy Flask API, register in LWM registry | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
-| T-10 | PipelineOrchestrator | Monitor all verticals, aggregate completion | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:lwm-deployed:*` |
-
-The `{vertical}` token is a parameterized milestone — an industry identifier (e.g., `logistics`, `construction`, `energy`) that enables the same agent pipeline to be instantiated per vertical. This is the only protocol extension over the base LSS v1.0 schema.
-
-**Training Dependency Graph:**
-
-```
-Phase 1 — Infrastructure (sequential, 4-6h)
-  T-01 (InfraVerifier)  →  T-02 (ModelFetcher)
-    COMPLETE:infra-verified     READY:base-model
-                                   │
-Phase 2 — Data + Training (Fan-Out per vertical, 16-24h)
-                                   ▼
-              ┌─── T-03:logistics ─── T-04:logistics ─── ┐
-              ├─── T-03:construction ─ T-04:construction ─┤─► T-06 (ResourceArbiter)
-              ├─── T-03:energy ────── T-04:energy ────── ┤    manages 2 node-slot
-              └─── T-03:healthcare ── T-04:healthcare ── ┘    tokens (2× GN-100)
-                                                               │
-                                                          T-05 (TrainingAgent)
-                                                          acquires node-slot
-                                                               │
-Phase 3 — Evaluation + Deployment (per vertical, 4-6h)
-                                                               ▼
-                                                          T-07 (EvalAgent)
-                                                          score ≥7.0 → READY:eval-pass
-                                                          score <7.0 → ERROR:eval-fail
-                                                               │
-                                                     ┌────────┴────────┐
-                                                  PASS              FAIL
-                                                     │            retry T-03
-                                                T-08 (Merge)    (max 3 attempts
-                                                     │         → BLOCKED → human)
-                                                T-09 (Deploy)
-                                                     │
-                                                T-10 (Orchestrator)
-                                                  all verticals → COMPLETE:lwm-all-verticals
-```
-
-**Quality Gate Signal Mechanism.** The T-07 EvalAgent implements a conditional signal emission pattern: it emits `READY:eval-pass:{vertical}` only when the Claude-as-judge score meets the ≥7.0 threshold. On failure, it emits `ERROR:eval-fail:{vertical}`, which triggers the PipelineOrchestrator (T-10) to re-queue T-03 with an adjusted curriculum targeting the low-scoring dimensions. After three consecutive failures, T-10 emits `BLOCKED:vertical-max-retries:{vertical}` for human escalation. This quality gate maps to the EMPO² off-policy update pattern (Section 10.10): evaluation failure is the "tip" signal that drives curriculum adjustment — the same mechanism that EMPO² uses to generate corrective training data from memory buffers. The signal audit trail (stored in the training signal registry) satisfies EU AI Act Article 12 logging requirements.
-
-**Resource Arbitration.** The two GN-100 nodes create a hardware contention constraint. T-06 (ResourceArbiter) manages two node-slot tokens — one per node. When a T-05 instance requests training, it must first receive `T-06:READY:node-slot`. Upon training completion, T-05 emits `READY:lora-weights:{vertical}`, which T-06 observes to release the token for the next queued vertical. This is deliberately simple: first-come-first-served by signal emission order, not a priority scheduler. LSS expresses resource constraints as signal tokens, consistent with the declarative emission principle.
-
-**Fan-Out and Reflection Patterns.** The training pipeline instantiates two of the three MCP Hub orchestration patterns (Section 2.5.3). The **Fan-Out pattern** activates when T-02 emits `READY:base-model`: curriculum generation (T-03) and data synthesis (T-04) run in full parallel across all 16 industry verticals, since these stages are CPU-bound and not constrained by GPU node slots. This eliminates idle GPU time — all datasets are queued before the first training slot opens. The **Reflection pattern** manifests in the T-07 → T-03 retry loop: Claude-as-judge evaluates, fails, adjusts the curriculum, re-generates data, and re-trains — an iterative self-improvement cycle driven entirely by LSS signals.
-
-This training coordination case demonstrates that the Lifetime Scope Signals protocol requires no modification to coordinate ML pipelines. The same four signal types (READY, COMPLETE, ERROR, BLOCKED) express hardware contention, quality gates, and iterative model improvement — validating LSS as a general-purpose deterministic coordination mechanism beyond its original software development context.
-
 ### 2.5.3 MCP Hub Orchestration Patterns
 
-The Model Context Protocol (MCP) Hub implements three workflow patterns for agent coordination:
+The Model Context Protocol (MCP) Hub (`mcp-hub/server.py`, port 8765) implements four workflow patterns for multi-agent coordination. Each pattern exposes a dedicated HTTP endpoint and handles agent routing, error propagation, and result aggregation.
 
-1. **Fan-Out pattern:** Parallel task distribution to multiple agents
-2. **Reflection pattern:** Self-evaluation and iterative improvement
-3. **Sequential pattern:** Step-by-step execution with dependencies
+**1. Fan-Out Pattern** (`POST /workflow/fan-out`)
+Distributes tasks to multiple agents in parallel using `asyncio.gather()`. All agents execute concurrently with a shared HTTP client (300s timeout). Exceptions are serialized per-task, enabling partial success — if one agent fails, others still return results. Used for Category B (Operations) agents where tasks are independent.
+
+**2. Sequential Pattern** (`POST /workflow/sequential`)
+Executes tasks one by one in dependency order. Each task's result is injected as `context["previous_result"]` into the next task, creating an explicit data flow chain. Suitable for pipelines where output of one agent feeds the next (e.g., data extraction → analysis → report generation).
+
+**3. Reflection Pattern** (`POST /workflow/reflection`)
+Implements an iterative implementation-evaluation loop. An implementation agent produces output, an evaluation agent scores it (0.0–1.0) and provides feedback. If the score falls below a configurable threshold (default 0.85), the feedback is injected back into the implementation agent for another iteration (max 3 by default). Used for Category C (Customer-facing) agents where output quality is critical.
+
+**4. Pipeline Pattern** (`POST /workflow/pipeline`) — *Recommended for production*
+Combines parallel and sequential execution through staged workflows. Each stage contains a list of tasks that execute in parallel (fan-out within stage), while stages execute sequentially (results from stage N flow as context into stage N+1). This avoids the sequential bottleneck while maintaining dependency ordering between logical phases.
+
+| Pattern | Parallelism | Context Passing | Best For |
+|---------|------------|-----------------|----------|
+| Fan-Out | Full parallel | None | Independent tasks |
+| Sequential | None | Previous → Next | Dependent chains |
+| Reflection | None | Feedback loop | Quality-critical output |
+| Pipeline | Parallel within stages | Stage → Stage | Production workloads |
+
+### 2.5.4 Skills and CLIs as Agent Interfaces
+
+The "Build for Agents" principle establishes that every DWS product must be accessible through three complementary interfaces beyond the GUI: a CLI, an MCP server, and Claude Code Skills.
+
+**CLI (Command-Line Interface)**
+The CLI (`npx tsx cli/src/cli.ts <command>`) provides structured JSON output for every agent operation. This follows the industry trend where AI agents consume tools through command-line interfaces rather than graphical interfaces. Key commands:
+
+- `dws agents` — List all registered agents
+- `dws run <agent> --input '{...}'` — Execute a named agent with structured input
+- `dws workflow <name>` — Trigger a multi-agent workflow
+
+The CLI-first approach ensures that every feature is automatable, testable, and composable. A product that exists only as GUI is considered incomplete.
+
+**MCP Server**
+The MCP endpoint (`/mcp`, JSON-RPC 2.0) makes all agents auto-discoverable via `tools/list`. External AI systems (Claude Code, Cursor, VS Code Copilot) can connect to the MCP server and invoke any agent as a tool. This implements the Model Context Protocol specification for standardized tool integration.
+
+**Claude Code Skills**
+Skills (`.claude/commands/*.md`) are reusable workflow components that encapsulate agent invocations as slash commands. Six production skills are deployed:
+
+| Skill | Purpose |
+|-------|---------|
+| `/compliance-check` | EU regulatory gap analysis (ETS, CBAM, CSRD) |
+| `/agent-run` | Execute any named agent with structured input |
+| `/workflow` | Trigger multi-agent workflows |
+| `/discover-agents` | Find agents by capability keyword |
+| `/site-safety` | Construction site safety assessment |
+| `/carbon-analysis` | Embodied carbon footprint calculation |
+
+Each skill is a callable, testable component that combines prompt engineering with tool orchestration. The skill pattern ensures that agent capabilities are accessible without requiring users to understand the underlying MCP protocol or CLI syntax.
+
+**Three-Interface Rule:** Every new agent must ship with all three interfaces (CLI command, MCP tool, Claude Code Skill). This guarantees that agents are usable by humans (CLI), other AI systems (MCP), and within development workflows (Skills).
 
 ## 2.6 Conceptual Model: Firehorse Solution Factory
 
@@ -1143,7 +1125,7 @@ The 2-month payback promise has been validated with real customer deployments:
 | **Cloud** | Google Cloud Run + Groq API | MCP Hub on port 8765 |
 | **Edge** | NVIDIA Jetson Orin Nano | <100ms inference (25x faster) |
 | **E-commerce** | dws6.com (Cloudflare Pages) | EUR 0/month, 99.95% uptime |
-| **Orchestration** | MCP Hub + LlamaStack | 3 workflow patterns implemented |
+| **Orchestration** | MCP Hub + LlamaStack | 4 workflow patterns implemented (Fan-Out, Sequential, Reflection, Pipeline) |
 
 ### 8.5.3 RQ3: Technical Solution Evaluation
 
@@ -2067,22 +2049,6 @@ This aligns with the broader principle documented throughout this thesis: the Fi
     "COMPLETE": "All agent work finished",
     "ERROR": "Agent encountered an error",
     "BLOCKED": "Waiting for external dependency"
-  },
-  "parameterized_milestones": {
-    "description": "Milestones may contain {tokens} for domain-specific parameterization",
-    "example": "[T-03]:READY:curriculum:{vertical}:2026-03-07T10:00:00Z",
-    "tokens": {
-      "{vertical}": "Industry identifier (e.g., logistics, construction, energy)"
-    }
-  },
-  "quality_gate_pattern": {
-    "description": "Conditional signal emission based on evaluation threshold",
-    "agent": "T-07 (EvalAgent)",
-    "condition": "Claude-as-judge score >= 7.0",
-    "pass_signal": "READY:eval-pass:{vertical}",
-    "fail_signal": "ERROR:eval-fail:{vertical}",
-    "max_retries": 3,
-    "escalation": "BLOCKED:vertical-max-retries:{vertical}"
   }
 }
 ```
@@ -2138,8 +2104,6 @@ Your code will be watched -- write accordingly."
 4. Evaluation & deployment (Claude-as-judge, target >7.0/10)
 
 **Cost:** EUR 80-125 per industry model (vs. EUR 15,000+ traditionally, 99% cost reduction)
-
-**Signal Coordination:** The training pipeline is coordinated using the Lifetime Scope Signals protocol — see Section 2.5.2.1 for the Training Agent Fleet (T-01 through T-10), dependency graph, quality gate mechanism, and resource arbitration across 2× GN-100 nodes.
 
 ## Appendix F: V1.0 Agent Fleet
 
@@ -2305,10 +2269,9 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.17 — Climate IQ Pantheon + Industry Specialist agents
-**Status:** DRAFT - V3.17 — Claude Code Engineering Structure (CLAUDE.md as project memory, Skills, Hooks, Subagents)
-**Version:** 3.17
-**Last Modified:** 02.03.2026
+**Status:** DRAFT - V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces
+**Version:** 3.19
+**Last Modified:** 07.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2332,9 +2295,9 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 10. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validates Solution Factory replicability for revenue-critical workflows
 11. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral; multi-LLM router resolving EU AI Act sovereignty tension in practice
 12. Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas
-13. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
-14. Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development
-15. LSS Training Pipeline Coordination — Lifetime Scope Signals protocol applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes, Fan-Out/Reflection pattern integration; validates LSS as general-purpose coordination beyond software development
+12. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
+13. Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development
+14. MCP Hub Orchestration + Three-Interface Rule — Four production workflow patterns (Fan-Out, Sequential, Reflection, Pipeline) with documented endpoints; Skills/CLI as mandatory agent interfaces ensuring every agent is accessible to humans, AI systems, and development workflows
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
