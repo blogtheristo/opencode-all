@@ -10,7 +10,8 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(git:*)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(node scripts/gen-thesis-html.cjs)"
     ]
   }
 }

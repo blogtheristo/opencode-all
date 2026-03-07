@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.18
+Version: 3.19
 
 Sessions & Modifications:
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
@@ -41,10 +42,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
+  - Publication Status: DRAFT (V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina)
 
 ---
 
@@ -322,11 +323,58 @@ Lifetime Scope Signals -protokolla on uusi koordinointimekanismi, joka kehitetti
 
 ### 2.5.3 MCP Hub -orkestrointimallit
 
-Model Context Protocol (MCP) Hub toteuttaa kolme työnkulkumallia agenttien koordinointiin:
+Model Context Protocol (MCP) Hub (`mcp-hub/server.py`, portti 8765) toteuttaa neljä työnkulkumallia moniagenttien koordinointiin. Jokainen malli tarjoaa oman HTTP-päätepisteen ja hoitaa agenttien reitityksen, virheiden välityksen ja tulosten koostamisen.
 
-1. **Fan-Out -malli:** Rinnakkainen tehtävien jakelu useille agenteille
-2. **Reflection-malli:** Itsearviointi ja iteratiivinen parantaminen
-3. **Sequential-malli:** Vaiheittainen suoritus riippuvuuksien kanssa
+**1. Fan-Out -malli** (`POST /workflow/fan-out`)
+Jakaa tehtävät useille agenteille rinnakkaisesti `asyncio.gather()`-kutsulla. Kaikki agentit suoritetaan samanaikaisesti jaetulla HTTP-asiakkaalla (300s aikakatkaisu). Poikkeukset serialisoidaan tehtäväkohtaisesti, mikä mahdollistaa osittaisen onnistumisen — jos yksi agentti epäonnistuu, muut palauttavat silti tulokset. Käytetään kategorian B (Operatiiviset) agenteille, joiden tehtävät ovat toisistaan riippumattomia.
+
+**2. Sequential-malli** (`POST /workflow/sequential`)
+Suorittaa tehtävät yksi kerrallaan riippuvuusjärjestyksessä. Jokaisen tehtävän tulos injektoidaan seuraavan tehtävän `context["previous_result"]`-kenttään, luoden eksplisiittisen tietovirran. Sopii putkistoihin, joissa yhden agentin tuloste syöttää seuraavaa (esim. tiedon poiminta → analyysi → raportin luonti).
+
+**3. Reflection-malli** (`POST /workflow/reflection`)
+Toteuttaa iteratiivisen toteutus-arviointi -silmukan. Toteutusagentti tuottaa tulosteen, arviointiagentti pisteyttää sen (0.0–1.0) ja antaa palautetta. Jos pistemäärä jää alle konfiguroitavan kynnysarvon (oletus 0.85), palaute injektoidaan takaisin toteutusagentille uutta iteraatiota varten (enintään 3 oletuksena). Käytetään kategorian C (Asiakasrajapinta) agenteille, joissa tulosteen laatu on kriittistä.
+
+**4. Pipeline-malli** (`POST /workflow/pipeline`) — *Suositeltu tuotantokäyttöön*
+Yhdistää rinnakkaisen ja peräkkäisen suorituksen vaiheistettujen työnkulkujen avulla. Jokainen vaihe sisältää tehtävälistan, joka suoritetaan rinnakkaisesti (fan-out vaiheen sisällä), kun taas vaiheet suoritetaan peräkkäin (vaiheen N tulokset virtaavat kontekstina vaiheeseen N+1). Tämä välttää peräkkäisen pullonkaulan säilyttäen samalla riippuvuusjärjestyksen loogisten vaiheiden välillä.
+
+| Malli | Rinnakkaisuus | Kontekstin välitys | Sopii parhaiten |
+|-------|--------------|---------------------|-----------------|
+| Fan-Out | Täysin rinnakkainen | Ei | Riippumattomat tehtävät |
+| Sequential | Ei | Edellinen → Seuraava | Riippuvuusketjut |
+| Reflection | Ei | Palautesilmukka | Laatukriittinen tuloste |
+| Pipeline | Rinnakkainen vaiheiden sisällä | Vaihe → Vaihe | Tuotantotyökuormat |
+
+### 2.5.4 Skillit ja CLI:t agenttirajapintoina
+
+"Build for Agents" -periaate edellyttää, että jokaisen DWS-tuotteen on oltava käytettävissä kolmen toisiaan täydentävän rajapinnan kautta GUI:n lisäksi: CLI, MCP-palvelin ja Claude Code -skillit.
+
+**CLI (komentorivikäyttöliittymä)**
+CLI (`npx tsx cli/src/cli.ts <komento>`) tuottaa strukturoidun JSON-tulosteen jokaiselle agenttitoiminnolle. Tämä seuraa toimialan trendiä, jossa tekoälyagentit käyttävät työkaluja komentorivikäyttöliittymien kautta graafisten käyttöliittymien sijaan. Keskeiset komennot:
+
+- `dws agents` — Listaa kaikki rekisteröidyt agentit
+- `dws run <agentti> --input '{...}'` — Suorita nimetty agentti strukturoidulla syötteellä
+- `dws workflow <nimi>` — Käynnistä moniagenttityönkulku
+
+CLI-ensin -lähestymistapa varmistaa, että jokainen ominaisuus on automatisoitavissa, testattavissa ja yhdisteltävissä. Tuote, joka on olemassa vain GUI:na, katsotaan keskeneräiseksi.
+
+**MCP-palvelin**
+MCP-päätepiste (`/mcp`, JSON-RPC 2.0) tekee kaikista agenteista automaattisesti löydettäviä `tools/list`-kutsulla. Ulkoiset tekoälyjärjestelmät (Claude Code, Cursor, VS Code Copilot) voivat yhdistää MCP-palvelimeen ja kutsua mitä tahansa agenttia työkaluna. Tämä toteuttaa Model Context Protocol -määrityksen standardoitua työkaluintegraatiota varten.
+
+**Claude Code -skillit**
+Skillit (`.claude/commands/*.md`) ovat uudelleenkäytettäviä työnkulkukomponentteja, jotka kapseloivat agenttikutsut slash-komennoiksi. Kuusi tuotantoskilliä on käytössä:
+
+| Skilli | Tarkoitus |
+|--------|-----------|
+| `/compliance-check` | EU-säädösten puuteanalyysi (ETS, CBAM, CSRD) |
+| `/agent-run` | Suorita mikä tahansa nimetty agentti strukturoidulla syötteellä |
+| `/workflow` | Käynnistä moniagenttityönkulkuja |
+| `/discover-agents` | Etsi agentteja kyvykkyysavainsanalla |
+| `/site-safety` | Rakennustyömaan turvallisuusarviointi |
+| `/carbon-analysis` | Hiilijalanjäljen laskenta (embodied carbon) |
+
+Jokainen skilli on kutsuttava, testattava komponentti, joka yhdistää kehotesuunnittelun ja työkalujen orkestroinnin. Skillimalli varmistaa, että agenttikyvykkyydet ovat käytettävissä ilman, että käyttäjän tarvitsee ymmärtää alla olevaa MCP-protokollaa tai CLI-syntaksia.
+
+**Kolmen rajapinnan sääntö:** Jokaisen uuden agentin on toimitettava kaikilla kolmella rajapinnalla (CLI-komento, MCP-työkalu, Claude Code -skilli). Tämä takaa, että agentit ovat käytettävissä ihmisille (CLI), muille tekoälyjärjestelmille (MCP) ja kehitystyönkuluissa (skillit).
 
 ## 2.6 Käsitteellinen malli: Firehorse Solution Factory
 
@@ -2146,10 +2194,9 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.17 — Climate IQ Pantheon + toimialaerityiset agentit
-**Tila:** DRAFT - V3.17 — Claude Code -suunnittelurakenne (CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
-**Versio:** 3.17
-**Viimeisin päivitys:** 02.03.2026
+**Tila:** DRAFT - V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina
+**Versio:** 3.19
+**Viimeisin päivitys:** 07.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2174,6 +2221,7 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 11. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral; monituottaja-LLM-reititin ratkaisee EU AI Act -suvereniteettijännitteen käytännössä
 12. Climate IQ Pantheon — 13-agenttinen kreikkalais-roomalainen jumaljärjestelmä (6 orkestraattoria + 7 toimialaerityistä) SOUL.md-identiteettimallilla, prompt injection -turvallisuudella, EU AI Act artikla 12 -lokituksella ja markkinointikiilapersoona-strategialla
 13. Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen
+14. MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
