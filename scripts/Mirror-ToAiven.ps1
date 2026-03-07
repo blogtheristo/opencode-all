@@ -276,11 +276,16 @@ if ($DryRun) {
         # pg_restore returns non-zero on warnings (like "table does not exist" for --clean)
         # Capture output and check for actual errors
         $output = & $PgRestore @restoreArgs 2>&1
+        $exitCode = $LASTEXITCODE
         $errors = $output | Where-Object { $_ -match "ERROR" -and $_ -notmatch "does not exist" }
 
         if ($errors) {
-            Write-Warning "pg_restore completed with errors:"
+            Write-Warning "pg_restore completed with errors (exit code $exitCode):"
             $errors | ForEach-Object { Write-Host "  $_" -ForegroundColor Red }
+            exit 1
+        } elseif ($exitCode -ne 0) {
+            # Non-zero exit code but no ERROR lines detected; likely benign --clean/--if-exists warnings
+            Write-Warning "pg_restore exited with code $exitCode but no ERROR lines were detected. This may be benign (e.g. --clean/--if-exists warnings)."
         } else {
             Write-Host "  [OK] Restore complete" -ForegroundColor Green
         }
