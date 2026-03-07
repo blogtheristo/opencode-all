@@ -54,7 +54,7 @@ if echo "$CHANGED_FILES" | grep -q "V3Thesis_EN\|V3Thesis_FI\|PHD_FIREHORSE_EN\|
 fi
 
 # Check 4: .md files in public site folders
-PUBLIC_MD=$(echo "$CHANGED_FILES" | grep -E "^(landing-pages/|dws10\.com/|onelifetime\.world/).*\.md$" || true)
+PUBLIC_MD=$(echo "$CHANGED_FILES" | grep -E "^(landing-pages/|dws6\.com/|dws10\.com/|onelifetime\.world/).*\.md$" || true)
 if [ -n "$PUBLIC_MD" ]; then
   WARNINGS="${WARNINGS}\n- MD IN PUBLIC FOLDER: .md files found in public site folders: $PUBLIC_MD"
   ERRORS=$((ERRORS + 1))
