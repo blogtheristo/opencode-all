@@ -175,8 +175,37 @@ if (-not $ActualDumpFile) {
             Write-Host "Decrypting $($gpgCandidate.Name)..." -ForegroundColor Cyan
 
             if (-not $DryRun) {
-                & gpg --batch --yes --decrypt --passphrase $GpgPassphrase `
-                    -o $ActualDumpFile $gpgCandidate.FullName
+                # Use stdin for passphrase to avoid exposing it in process command line
+                $gpgArgs = @(
+                    "--batch",
+                    "--yes",
+                    "--decrypt",
+                    "--pinentry-mode", "loopback",
+                    "--passphrase-fd", "0",
+                    "-o", "`"$ActualDumpFile`"",
+                    "`"$($gpgCandidate.FullName)`""
+                ) -join ' '
+
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                $psi.FileName = "gpg"
+                $psi.Arguments = $gpgArgs
+                $psi.UseShellExecute = $false
+                $psi.RedirectStandardInput = $true
+                $psi.RedirectStandardOutput = $false
+                $psi.RedirectStandardError = $false
+
+                $proc = [System.Diagnostics.Process]::Start($psi)
+                try {
+                    # Write passphrase to stdin (not visible in process list)
+                    $proc.StandardInput.WriteLine($GpgPassphrase)
+                    $proc.StandardInput.Close()
+                    $proc.WaitForExit()
+                    $LASTEXITCODE = $proc.ExitCode
+                } finally {
+                    if ($proc -ne $null) {
+                        $proc.Dispose()
+                    }
+                }
                 if ($LASTEXITCODE -ne 0) {
                     Write-Error "GPG decryption failed"
                     exit 1
