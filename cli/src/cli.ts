@@ -288,10 +288,35 @@ async function cmdAgent(name: string): Promise<void> {
   output(result);
 }
 
-async function cmdRun(name: string, inputJson: string, useStdin: boolean): Promise<void> {
+async function cmdRun(name: string, inputJson: string, useStdin: boolean, useFirst: boolean): Promise<void> {
+  let agentName = name;
   let input: Record<string, unknown>;
 
-  if (useStdin) {
+  if (useFirst) {
+    // --first: read agent list from stdin, pick the first one
+    const stdinData = await readStdin();
+    if (!stdinData) error('--first requires piped input (e.g., dws discover carbon | dws run --first)');
+    try {
+      const parsed = JSON.parse(stdinData);
+      const agents = Array.isArray(parsed) ? parsed : parsed.agents || [];
+      if (agents.length === 0) error('--first: no agents found in input');
+      agentName = agents[0].name || agents[0];
+      if (typeof agentName !== 'string') error('--first: could not extract agent name from input');
+    } catch (e) {
+      if (e instanceof Error && e.message.startsWith('--first')) throw e;
+      error(`--first: invalid JSON on stdin`);
+    }
+    // Parse --input if provided alongside --first
+    if (inputJson) {
+      try {
+        input = JSON.parse(inputJson);
+      } catch {
+        error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`);
+      }
+    } else {
+      input = {};
+    }
+  } else if (useStdin) {
     const stdinData = await readStdin();
     if (!stdinData) error('--stdin specified but no data on stdin');
     try {
@@ -309,8 +334,8 @@ async function cmdRun(name: string, inputJson: string, useStdin: boolean): Promi
     input = {};
   }
 
-  info(`Running agent: ${name}...`);
-  const result = await api(`/api/agents/${encodeURIComponent(name)}/execute`, 'POST', {
+  info(`Running agent: ${agentName}...`);
+  const result = await api(`/api/agents/${encodeURIComponent(agentName)}/execute`, 'POST', {
     context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
     input,
   });
@@ -406,6 +431,7 @@ COMMANDS:
   dws agent <name>                        Get agent details
   dws run <name> --input '{...}'          Execute an agent
   dws run <name> --stdin                  Execute with JSON from stdin
+  dws run --first --input '{...}'         Run first agent from piped discover output
   dws discover <capability>               Find agents by capability tag
   dws workflows                           List available workflows
   dws workflow <name> --input '{...}'     Trigger a multi-agent workflow
@@ -476,7 +502,7 @@ function parseArgs(argv: string[]): {
     if (arg.startsWith('--')) {
       const key = arg.slice(2);
       // Boolean flags
-      if (key === 'stdin' || key === 'help' || key === 'quiet' || key === 'version') {
+      if (key === 'stdin' || key === 'help' || key === 'quiet' || key === 'version' || key === 'first') {
         flags[key] = 'true';
       } else {
         i++;
@@ -536,8 +562,8 @@ async function main(): Promise<void> {
         break;
 
       case 'run':
-        if (!subcommand) error('Usage: dws run <agent-name> --input \'{...}\' or --stdin');
-        await cmdRun(subcommand, flags.input || '', flags.stdin === 'true');
+        if (!subcommand && flags.first !== 'true') error('Usage: dws run <agent-name> --input \'{...}\' or --stdin or --first');
+        await cmdRun(subcommand || '', flags.input || '', flags.stdin === 'true', flags.first === 'true');
         break;
 
       case 'discover':
