@@ -1,10 +1,20 @@
 # Auto-Mode Trust Boundary Matrix
 
-VERSION AND AGENT HISTORY
+***
+# VERSION AND AGENT HISTORY
+
+## Sessions & Modifications
 - Version: 1.0
 - Date: 2026-03-07
 - Agent: Claude Opus 4.6
 
+## Session Links & References
+- N/A
+
+## Document Status
+- Status: Draft
+
+***
 ## Purpose
 
 Defines the GREEN / YELLOW / RED zones for Claude Code auto-enable-mode in DWS6. This document is the single source of truth for what auto-mode can do without human approval.
