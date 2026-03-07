@@ -65,6 +65,7 @@ if echo "$CHANGED_FILES" | grep -q "^src/"; then
   STANDARDS_MODIFIED=$(echo "$CHANGED_FILES" | grep -c "STANDARD\|COMPLIANCE\|BRAND" || true)
   if [ "$STANDARDS_MODIFIED" -eq 0 ]; then
     WARNINGS="${WARNINGS}\n- STANDARDS REMINDER: Source code was modified but no standards files were updated. Check if DWS standards need updating."
+    ERRORS=$((ERRORS + 1))
   fi
 fi
 
