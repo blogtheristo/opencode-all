@@ -63,6 +63,8 @@ Thumbs.db
 *.iml
 .idea/
 .claude/
+claude-output.json
+review-output.json
 nul
 # .vscode/ is tracked - contains shared tasks.json for sync tools
 misc.xml

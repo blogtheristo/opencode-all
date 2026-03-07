@@ -13,5 +13,22 @@
       "Bash(start:*)",
       "Bash(node $CLAUDE_PROJECT_DIR/scripts/gen-thesis-html.cjs)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pretooluse-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/sql-safety-guard.sh"
+          }
+        ]
+      }
+    ]
   }
 }
