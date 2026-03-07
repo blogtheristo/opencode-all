@@ -32,7 +32,7 @@ export interface AgentContext {
 /** Sandbox isolation context attached to agent executions */
 export interface SandboxContext {
   /** Current isolation stage: 1 = SDK sandbox, 2 = Cloud Run ephemeral, 3 = persistent container */
-  stage: '1' | '2' | '3';
+  stage: '1' | '2' | '3' | 'opensandbox';
   /** Tenant subscription tier */
   tier: 'sandbox' | 'professional' | 'enterprise';
   /** Whether EU data residency is enforced */
