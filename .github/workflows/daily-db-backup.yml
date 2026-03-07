@@ -83,8 +83,8 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.BACKUP_GPG_PASSPHRASE }}
         run: |
           DATE=$(date +%Y-%m-%d)
-          gpg --batch --yes --symmetric --cipher-algo AES256 \
-            --passphrase "$GPG_PASSPHRASE" \
+          printf '%s\n' "$GPG_PASSPHRASE" | gpg --batch --yes --symmetric --cipher-algo AES256 \
+            --pinentry-mode loopback --passphrase-fd 0 \
             -o backups/db/$DATE/dws6_${DATE}.dump.gpg \
             backups/db/$DATE/dws6_${DATE}.dump
 
