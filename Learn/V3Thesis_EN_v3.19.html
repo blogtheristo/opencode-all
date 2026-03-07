@@ -377,11 +377,11 @@ The LWM training pipeline — curriculum design, synthetic data generation, QLoR
 | T-03 | CurriculumAgent | Claude API curriculum design per vertical | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
 | T-04 | DataSynthAgent | Generate 2000+ synthetic examples | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
 | T-05 | TrainingAgent | QLoRA fine-tuning on assigned node | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
-| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:<em>` (releases slot) |
+| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:*` (releases slot) |
 | T-07 | EvalAgent | Claude-as-judge evaluation, quality gate ≥7.0 | `READY:eval-pass:{vertical}` or `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
 | T-08 | MergeAgent | Merge LoRA adapter into base model | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
 | T-09 | DeployAgent | Deploy Flask API, register in LWM registry | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
-| T-10 | PipelineOrchestrator | Monitor all verticals, aggregate completion | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:lwm-deployed:</em>` |
+| T-10 | PipelineOrchestrator | Monitor all verticals, aggregate completion | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:lwm-deployed:*` |
 
 The `{vertical}` token is a parameterized milestone — an industry identifier (e.g., `logistics`, `construction`, `energy`) that enables the same agent pipeline to be instantiated per vertical. This is the only protocol extension over the base LSS v1.0 schema.
 
