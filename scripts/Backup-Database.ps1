@@ -176,13 +176,33 @@ if ($PsqlPath) {
 
 # --- Find gpg ---
 $Gpg = $null
+
+# Explicit override for allowing plaintext remote backup when gpg is missing.
+# Set ALLOW_PLAINTEXT_REMOTE=1|true|yes in the environment to opt in.
+$allowPlaintextRemote = $false
+if ($env:ALLOW_PLAINTEXT_REMOTE) {
+    $allowPlaintextRemoteValue = $env:ALLOW_PLAINTEXT_REMOTE.ToString().ToLowerInvariant()
+    if ($allowPlaintextRemoteValue -in @("1", "true", "yes")) {
+        $allowPlaintextRemote = $true
+    }
+}
+
 if (-not $SkipEncrypt) {
     $GpgPath = Get-Command gpg -ErrorAction SilentlyContinue
     if ($GpgPath) {
         $Gpg = $GpgPath.Source
     } else {
-        Write-Warning "gpg not found. Encryption will be skipped. Install GnuPG or use -SkipEncrypt."
-        $SkipEncrypt = [switch]::new($true)
+        if ($RemoteBackup) {
+            if (-not $allowPlaintextRemote) {
+                Write-Error "gpg not found but -RemoteBackup was specified. Remote backups require encryption. Install GnuPG or explicitly allow plaintext remote transfer via ALLOW_PLAINTEXT_REMOTE=1."
+                exit 1
+            }
+            Write-Warning "gpg not found and -RemoteBackup was specified. ALLOW_PLAINTEXT_REMOTE is set, so remote backup will proceed WITHOUT encryption. The .dump file will be transferred in plaintext."
+            $SkipEncrypt = [switch]::new($true)
+        } else {
+            Write-Warning "gpg not found. Encryption will be skipped for local backup. Install GnuPG or use -SkipEncrypt."
+            $SkipEncrypt = [switch]::new($true)
+        }
     }
 }
 
