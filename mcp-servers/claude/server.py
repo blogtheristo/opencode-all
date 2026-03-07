@@ -78,7 +78,17 @@ app.add_middleware(
 CLAUDE_MCP_PORT: int = int(os.getenv("CLAUDE_MCP_PORT", "8771"))
 PLATFORM: str = os.getenv("CLAUDE_MCP_PLATFORM", "win11")  # win11 | mobile | vscode | cli
 REPO_PATH: str = os.getenv("REPO_PATH", "/repo")
-HANDOFF_FILE: str = os.path.join(REPO_PATH, ".claude", "handoff.md")
+# HANDOFF_FILE: explicit env var, or derived from REPO_PATH.
+# In Docker (REPO_PATH=/handoff, mount at /handoff/handoff.md:ro) → /handoff/handoff.md
+# In local dev (REPO_PATH=/repo) → /repo/.claude/handoff.md
+HANDOFF_FILE: str = os.getenv(
+    "HANDOFF_FILE",
+    os.path.join(REPO_PATH, "handoff.md")
+    if REPO_PATH == "/handoff"
+    else os.path.join(REPO_PATH, ".claude", "handoff.md"),
+)
+# Whether git operations are available (need a real repo mount)
+_GIT_AVAILABLE: bool = os.path.isdir(os.path.join(REPO_PATH, ".git"))
 
 # Supabase — used for cross-platform persistence
 supabase: Client | None = None
@@ -98,7 +108,12 @@ def _db() -> Client:
 
 
 def _git(*args: str) -> str:
-    """Run a git command in REPO_PATH, return stdout."""
+    """Run a git command in REPO_PATH, return stdout.
+
+    Returns empty string when no git repo is mounted (Docker handoff-only mode).
+    """
+    if not _GIT_AVAILABLE:
+        return ""
     try:
         result = subprocess.run(
             ["git", "-C", REPO_PATH, *args],
@@ -110,11 +125,17 @@ def _git(*args: str) -> str:
 
 
 def _write_handoff(content: str) -> None:
-    """Write .claude/handoff.md for Claude Code CLI to pick up on next start."""
+    """Write handoff file for Claude Code CLI to pick up on next start.
+
+    Skips silently when the mount is read-only (Docker mode).
+    """
     try:
         os.makedirs(os.path.dirname(HANDOFF_FILE), exist_ok=True)
         with open(HANDOFF_FILE, "w", encoding="utf-8") as f:
             f.write(content)
+    except OSError as e:
+        # Expected in Docker where /handoff/handoff.md is :ro
+        logger.info("Handoff file not writable (read-only mount?): %s", e)
     except Exception as e:
         logger.warning("Could not write handoff file: %s", e)
 
@@ -349,7 +370,7 @@ async def queue_migration(req: MigrationQueueRequest):
             .limit(1)
             .execute()
         )
-        last = existing.data[0]["migration_number"] if existing.data else 39
+        last = existing.data[0]["migration_number"] if existing.data else 42
         next_number = last + 1
     padded = str(next_number).zfill(3)
 
@@ -454,8 +475,28 @@ async def mark_applied(migration_id: str, req: MigrationApplyRequest):
 
 @app.delete("/migrations/{migration_id}")
 async def discard_migration(migration_id: str):
-    """Discard a pending migration (e.g. superseded by another)."""
+    """Discard a pending migration (e.g. superseded by another).
+
+    Same platform gate as apply — only win11 can discard migrations.
+    """
+    if PLATFORM != "win11":
+        raise HTTPException(
+            403,
+            f"Migration discard only allowed from win11 platform (current: {PLATFORM})"
+        )
     db = _db()
+    check = (
+        db.table("mcp_migration_queue")
+        .select("status")
+        .eq("id", migration_id)
+        .execute()
+    )
+    if not check.data:
+        raise HTTPException(404, f"Migration {migration_id} not found")
+    if check.data[0]["status"] != "pending":
+        raise HTTPException(
+            409, f"Migration {migration_id} is '{check.data[0]['status']}', not pending"
+        )
     db.table("mcp_migration_queue").update(
         {"status": "discarded", "applied_at": datetime.utcnow().isoformat()}
     ).eq("id", migration_id).execute()

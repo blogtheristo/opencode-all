@@ -1,5 +1,5 @@
--- Migration 040: MCP session sync tables
--- Created: 2026-02-23 (renumbered from 033)
+-- Migration 042: MCP session sync tables
+-- Created: 2026-02-23 (renumbered from 033 → 042; 040-041 already exist)
 -- Purpose: Cross-platform session checkpoints and migration number authority
 --          for dws-mcp-claude (port 8771)
 
@@ -57,7 +57,8 @@ CREATE POLICY "service_full_access_migrations"
 
 
 -- Sequence for atomic migration numbering (prevents race conditions)
-CREATE SEQUENCE IF NOT EXISTS mcp_migration_number_seq START WITH 40;
+-- Start at 43 (042 is this migration; 043 is the first queued number)
+CREATE SEQUENCE IF NOT EXISTS mcp_migration_number_seq START WITH 43;
 
 -- RPC function for atomic migration number allocation
 CREATE OR REPLACE FUNCTION next_migration_number()

@@ -7,7 +7,7 @@ Version: 1.0
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Initial field note — MCP server expansion (cloudrun-mcp 8769, lwm-mcp 8770, claude-mcp 8771), Supabase session sync migration 033
-  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/ecstatic-murdock | Date: 07.03.2026 | Changes: Fix schema docs to match migration, add auth docs, update next steps, renumber migration to 040
+  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/ecstatic-murdock | Date: 07.03.2026 | Changes: Fix schema docs to match migration, add auth docs, update next steps, renumber migration to 042, fix REPO_PATH/HANDOFF_FILE contract, add discard platform gate
 
 Session Links & References:
   - GitHub branch: https://github.com/blogtheristo/dws6/tree/claude/zealous-mcclintock
@@ -23,7 +23,7 @@ Document Status:
 
 Related Documents:
   - Admin/ADMIN_MANUAL.md (v2.3 — MCP Configuration section)
-  - supabase/migrations/040_mcp_session_sync.sql
+  - supabase/migrations/042_mcp_session_sync.sql
   - docker-compose.hybrid.yml
   - mcp-hub/server.py
   - mcp-servers/cloudrun/
@@ -34,7 +34,7 @@ Related Documents:
 
 ## Executive Summary
 
-Three new MCP (Model Context Protocol) servers were added to the DWS IQ 6 platform on 23 February 2026, completing the MCP fleet to 6 servers. A new Supabase migration (`040_mcp_session_sync.sql`) adds persistent session state tables, enabling cross-session continuity for AI agents operating across the multi-server cluster. All servers use Bearer token auth via `MCP_HUB_API_KEY` (matching the mcp-hub pattern).
+Three new MCP (Model Context Protocol) servers were added to the DWS IQ 6 platform on 23 February 2026, completing the MCP fleet to 6 servers. A new Supabase migration (`042_mcp_session_sync.sql`) adds persistent session state tables, enabling cross-session continuity for AI agents operating across the multi-server cluster. All servers use Bearer token auth via `MCP_HUB_API_KEY` (matching the mcp-hub pattern).
 
 **Impact:** MCP coverage now spans Cloud infrastructure (GCP), edge AI hardware (NVIDIA GN100/Jetson), and Claude Code coding agents — creating a complete development + operations + training loop.
 
@@ -105,9 +105,9 @@ MCP Hub (FastAPI, port 8765)
 
 ---
 
-## Database: Supabase Migration 040
+## Database: Supabase Migration 042
 
-Migration file: `supabase/migrations/040_mcp_session_sync.sql`
+Migration file: `supabase/migrations/042_mcp_session_sync.sql`
 
 ### Tables Created
 
@@ -138,7 +138,7 @@ Migration file: `supabase/migrations/040_mcp_session_sync.sql`
 | `notes` | text | Free-form notes |
 | `created_at` | timestamptz NOT NULL | Auto-set to NOW() |
 
-**Sequence:** `mcp_migration_number_seq` (starts at 40) for atomic numbering.
+**Sequence:** `mcp_migration_number_seq` (starts at 43) for atomic numbering.
 **RPC:** `next_migration_number()` returns next integer from sequence.
 **RLS Policy:** Both tables use `service_role` access only — no public/anon reads/writes.
 
