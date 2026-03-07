@@ -11,7 +11,7 @@
       "Bash(python:*)",
       "Bash(git:*)",
       "Bash(start:*)",
-      "Bash(node scripts/gen-thesis-html.cjs)"
+      "Bash(node $CLAUDE_PROJECT_DIR/scripts/gen-thesis-html.cjs)"
     ]
   }
 }
