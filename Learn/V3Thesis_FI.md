@@ -4,9 +4,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.17
+Version: 3.19
 
 Sessions & Modifications:
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 2.5.2.1 (LSS sovellettuna LWM-koulutusputken koordinointiin — koulutusagenttilaivasto T-01 – T-10, riippuvuusgraafi, laatuportin signaaliemekanismi, resurssien välimiesosoitus 2× GN-100, Fan-Out/Reflection -mallien integrointi); päivitetty Liite C (parametrisoidut virstanpylväät, laatuporttiskeema); päivitetty Liite E (signaalikoordinoinnin ristiviittaus osioon 2.5.2.1)
+  - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautumisen 3.12-3.15. Lisätty osio 10.11 (Toimitusjohtajan automaatioagenttiryhmä: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); osio 10.12 (Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral + Monituottaja-LLM-reititin); lisätty avainpanokset #10-11; päivitetty alatunniste
@@ -318,6 +320,71 @@ Lifetime Scope Signals -protokolla on uusi koordinointimekanismi, joka kehitetti
 | `COMPLETE` | Kaikki agentin työ valmis | Agentti siirtyy valmis-tilaan |
 | `ERROR` | Agentti kohtasi virheen | Hälyttää koordinaattorin |
 | `BLOCKED` | Odottaa ulkoista riippuvuutta | Ei toimintaa ennen vapautusta |
+
+#### 2.5.2.1 Soveltaminen: LWM-koulutusputken koordinointi
+
+Lifetime Scope Signals -protokolla yleistyy ohjelmistokehityskoordinoinnin ulkopuolelle ML-putken orkestrointiin. Seuraava osoittaa LSS:n soveltamista Lifetime World Model (LWM) -koulutustyönkulkuun (katso Liite E laitteistoinfrastruktuurista).
+
+LWM-koulutusputki — opetussuunnitelman suunnittelu, synteettisen datan generointi, QLoRA-hienosäätö ja Claude-as-judge-arviointi — sisältää useita autonomisia vaiheita, joilla on eksplisiittiset riippuvuudet. Sen sijaan, että käytettäisiin dedikoitua ML-työnkulkumoottoria (esim. Kubeflow, Airflow), LSS koordinoi koko putken käyttäen samoja neljää signaalitiyppiä, jotka on määritelty yllä. Koulutusagentit käyttävät `T-`-etuliitettä erottaakseen ne V1.0-kehityslaivastosta (Liite F).
+
+**Koulutusagenttilaivasto:**
+
+| Agentti ID | Nimi | Rooli | Emittoi | Kuuntelee |
+|------------|------|-------|---------|-----------|
+| T-01 | InfraVerifier | Validoi CUDA/PyTorch GN-100 -solmuissa | `COMPLETE:infra-verified` | (ei mitään — aloituspiste) |
+| T-02 | ModelFetcher | Lataa Llama 3.1 8B -perusmalli | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
+| T-03 | CurriculumAgent | Claude API:n opetussuunnitelma per vertikaali | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
+| T-04 | DataSynthAgent | Generoi 2000+ synteettistä esimerkkiä | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
+| T-05 | TrainingAgent | QLoRA-hienosäätö osoitetulla solmulla | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06 | ResourceArbiter | Allokoi GN-100 -solmupaikat (2 tokenia) | `READY:node-slot` | `T-05:READY:lora-weights:*` (vapauttaa paikan) |
+| T-07 | EvalAgent | Claude-as-judge-arviointi, laatuportti ≥7.0 | `READY:eval-pass:{vertical}` tai `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
+| T-08 | MergeAgent | Yhdistä LoRA-adapteri perusmalliin | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
+| T-09 | DeployAgent | Julkaise Flask API, rekisteröi LWM-rekisteriin | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
+| T-10 | PipelineOrchestrator | Monitoroi kaikkia vertikaaleja, aggregoi valmistuminen | `COMPLETE:lwm-all-verticals` | Kaikki `T-09:COMPLETE:lwm-deployed:*` |
+
+`{vertical}`-tokeni on parametrisoitu virstanpylväs — toimialan tunniste (esim. `logistics`, `construction`, `energy`), joka mahdollistaa saman agenttiputken instanssoinnin per vertikaali. Tämä on ainoa protokollalaajennus LSS v1.0 -peusskeemaan.
+
+**Koulutuksen riippuvuusgraafi:**
+
+```
+Vaihe 1 — Infrastruktuuri (peräkkäinen, 4-6h)
+  T-01 (InfraVerifier)  →  T-02 (ModelFetcher)
+    COMPLETE:infra-verified     READY:base-model
+                                   │
+Vaihe 2 — Data + Koulutus (Fan-Out per vertikaali, 16-24h)
+                                   ▼
+              ┌─── T-03:logistics ─── T-04:logistics ─── ┐
+              ├─── T-03:construction ─ T-04:construction ─┤─► T-06 (ResourceArbiter)
+              ├─── T-03:energy ────── T-04:energy ────── ┤    hallinnoi 2 solmupaikkaa
+              └─── T-03:healthcare ── T-04:healthcare ── ┘    (2× GN-100)
+                                                               │
+                                                          T-05 (TrainingAgent)
+                                                          saa solmupaikan
+                                                               │
+Vaihe 3 — Arviointi + Käyttöönotto (per vertikaali, 4-6h)
+                                                               ▼
+                                                          T-07 (EvalAgent)
+                                                          pisteet ≥7.0 → READY:eval-pass
+                                                          pisteet <7.0 → ERROR:eval-fail
+                                                               │
+                                                     ┌────────┴────────┐
+                                                  HYVÄKSYTTY       HYLÄTTY
+                                                     │            uudelleen T-03
+                                                T-08 (Merge)    (maks. 3 yritystä
+                                                     │         → BLOCKED → ihminen)
+                                                T-09 (Deploy)
+                                                     │
+                                                T-10 (Orchestrator)
+                                                  kaikki vertikaalit → COMPLETE:lwm-all-verticals
+```
+
+**Laatuportin signaaliemekanismi.** T-07 EvalAgent toteuttaa ehdollisen signaaliemission: se emittoi `READY:eval-pass:{vertical}` vain kun Claude-as-judge-pisteet täyttävät ≥7.0-kynnyksen. Epäonnistumisessa se emittoi `ERROR:eval-fail:{vertical}`, joka laukaisee PipelineOrchestratorin (T-10) uudelleenjonottamaan T-03:n muokatulla opetussuunnitelmalla, joka kohdistuu heikosti pisteytettyihin dimensioihin. Kolmen peräkkäisen epäonnistumisen jälkeen T-10 emittoi `BLOCKED:vertical-max-retries:{vertical}` ihmisen eskalaatiota varten. Tämä laatuportti kuvautuu EMPO²:n off-policy-päivitysmalliin (osio 10.10): arviointivirhe on "vihje"-signaali, joka ohjaa opetussuunnitelman muokkausta — sama mekanismi, jota EMPO² käyttää korjaavan koulutusdatan generointiin muistipuskureista. Signaalien auditointipolku (tallennettu koulutussignaalirekisteriin) täyttää EU:n tekoälysäädöksen artikla 12:n lokitusvaatimukset.
+
+**Resurssien välimiesosoitus.** Kaksi GN-100-solmua luovat laitteistokiistanalaisen rajoitteen. T-06 (ResourceArbiter) hallinnoi kahta solmupaikkatokenia — yksi per solmu. Kun T-05-instanssi pyytää koulutusta, sen on ensin vastaanotettava `T-06:READY:node-slot`. Koulutuksen valmistuttua T-05 emittoi `READY:lora-weights:{vertical}`, jonka T-06 havaitsee vapauttaakseen tokenin seuraavalle jonotetullevertikaalille. Tämä on tarkoituksellisen yksinkertaista: saapumisjärjestyksessä signaaliemission mukaan, ei prioriteettiajoittaja. LSS ilmaisee resurssirajoitteet signaalitoken-muodossa, deklaratiivisen emission periaatteen mukaisesti.
+
+**Fan-Out- ja Reflection-mallit.** Koulutusputki toteuttaa kaksi kolmesta MCP Hub -orkestrointimallista (osio 2.5.3). **Fan-Out-malli** aktivoituu kun T-02 emittoi `READY:base-model`: opetussuunnitelman generointi (T-03) ja datasynteesi (T-04) suoritetaan täysin rinnakkain kaikissa 16 toimialavertikaalissa, koska nämä vaiheet ovat CPU-sidonnaisia eivätkä GPU-solmupaikkojen rajoittamia. Tämä eliminoi GPU:n joutoajan — kaikki datasetit ovat jonossa ennen ensimmäisen koulutuspaikan avautumista. **Reflection-malli** ilmenee T-07 → T-03 -uudelleenyrityssilmukassa: Claude-as-judge arvioi, epäonnistuu, muokkaa opetussuunnitelmaa, regeneroi datan ja kouluttaa uudelleen — iteratiivinen itseparannussykli, jota ohjaavat kokonaan LSS-signaalit.
+
+Tämä koulutuskoordinaatiotapaus osoittaa, että Lifetime Scope Signals -protokolla ei vaadi muutoksia ML-putkien koordinointiin. Samat neljä signaalityyppiä (READY, COMPLETE, ERROR, BLOCKED) ilmaisevat laitteistokiistanalaisia rajoitteita, laatuportteja ja iteratiivista mallinparannusta — validoiden LSS:n yleiskäyttöisenä deterministisenä koordinointimekanismina alkuperäisen ohjelmistokehityskontekstin ulkopuolella.
 
 ### 2.5.3 MCP Hub -orkestrointimallit
 
@@ -1158,6 +1225,67 @@ Firehorse-toimintamalli Claude Codella saavutti:
 2. **Dokumentoi Solution Factory** — julkinen kustannuslaskuri, AgentFoundry-pohjat
 3. **Validoi toinen vertikaali** — Rakentaminen (NCC, T2H)
 
+## 9.5 Learn Thinking — Oppimisajattelu tekoälyavusteisessa tuotekehityksessä
+
+Firehorse-toimintamallin kriittinen innovaatio on **Learn Thinking** (oppimisajattelu) — systemaattinen lähestymistapa, jossa jokainen tekoälyavusteinen kehityssessio tuottaa paitsi koodia ja dokumentaatiota, myös **rakenteellista oppimista** joka palautuu kehittäjälle seuraavana aamuna.
+
+### Oppimisajattelun periaatteet
+
+| Periaate | Toteutus | Vaikutus |
+|----------|----------|----------|
+| **Päivittäinen reflektio** | Learn/-kansion HTML-tuloste Edge-selaimessa aamuisin | Kehittäjä aloittaa päivän viimeisimmän tilan katsauksella |
+| **Versioitu oppimispäiväkirja** | Opinnäytetyön versiohistoria = oppimispäiväkirja | Jokainen versio dokumentoi mitä opittiin ja miksi |
+| **Tekoäly oppimiskumppanina** | Claude Code / Copilot tuottaa sisältöä, ihminen validoi | Kaksoissilmukka: tekoäly ehdottaa → ihminen arvioi → tekoäly korjaa |
+| **Kolmikerroksinen muisti** | GitHub (versionhallinta) + Proton Drive (salattu) + Supabase (EU-pilvi) | Oppiminen ei katoa — kolme riippumatonta kopiota |
+| **Tutkimus-tuotanto-silta** | Opinnäytetyö ohjaa tuotekehitystä, tuotekehitys validoi teoriaa | Ei erillistä tutkimusta ja tuotantoa — sama silmukka |
+
+### Oppimissilmukan rakenne
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   LEARN THINKING -SILMUKKA                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. AAMUKATSAUS (Windows-käynnistys)                       │
+│     └─ Startup-DailySync.bat                               │
+│        ├─ git pull origin main                             │
+│        ├─ Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs     │
+│        └─ Edge avaa muuttuneet HTML-tiedostot              │
+│                                                             │
+│  2. REFLEKTIO (ihminen lukee Learn/-kansion sisällön)      │
+│     └─ Tunnistaa puutteet, virheet, uudet mahdollisuudet   │
+│                                                             │
+│  3. KEHITYSSESSIO (Claude Code / Copilot / Cursor)         │
+│     └─ Korjaa, lisää, parantaa koodia ja dokumentaatiota   │
+│                                                             │
+│  4. VERSIOINTI (git commit + push)                         │
+│     └─ Opinnäytetyön versio kasvaa, oppimispäiväkirja      │
+│        päivittyy automaattisesti                            │
+│                                                             │
+│  5. SEURAAVA AAMU → palaa kohtaan 1                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Miksi oppimisajattelu on tärkeää opinnäytetyössä
+
+Perinteisessä opinnäytetyöprosessissa tutkija kirjoittaa dokumentin kerran ja palauttaa sen. Learn Thinking -mallissa:
+
+1. **Opinnäytetyö on elävä dokumentti** — 30+ versiota 3 kuukauden aikana, jokainen dokumentoi konkreettisen oppimispanoksen
+2. **Tekoälytyökalut ovat oppimiskumppaneita** — Claude Code, Copilot ja Cursor eivät vain generoi koodia, vaan tuottavat rakenteellista reflektiota versiohistorian kautta
+3. **Learn/-kansio on oppimisen todiste** — konkreettinen, päivittäin päivittyvä portfolio opinnäytetyön etenemisestä
+4. **Tutkimus ja tuotanto konvergoituvat** — opinnäytetyön löydökset ohjaavat suoraan DWS-tuotekehitystä ja päinvastoin
+
+### Yhteys Build-Measure-Learn -sykliin
+
+Learn Thinking laajentaa Lean Startup -viitekehyksen Build-Measure-Learn -sykliä:
+
+| Lean Startup | Learn Thinking | DWS-toteutus |
+|--------------|----------------|---------------|
+| Build | Kehityssessio (koodi + dokumentaatio) | Claude Code + git commit |
+| Measure | Aamukatselmus (muutokset Edge-selaimessa) | Generate-PDFs.ps1 → Learn/ |
+| Learn | Reflektio ja seuraava toimenpide | Versiohistoria = oppimispäiväkirja |
+
 ---
 
 # 10. Johtopäätökset
@@ -1894,6 +2022,22 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
     "COMPLETE": "Kaikki agentin työ valmis",
     "ERROR": "Agentti kohtasi virheen",
     "BLOCKED": "Odottaa ulkoista riippuvuutta"
+  },
+  "parameterized_milestones": {
+    "description": "Virstanpylväät voivat sisältää {tokeneja} toimialakohtaista parametrisointia varten",
+    "example": "[T-03]:READY:curriculum:{vertical}:2026-03-07T10:00:00Z",
+    "tokens": {
+      "{vertical}": "Toimialatunniste (esim. logistics, construction, energy)"
+    }
+  },
+  "quality_gate_pattern": {
+    "description": "Ehdollinen signaaliemissio arviointikynnyksen perusteella",
+    "agent": "T-07 (EvalAgent)",
+    "condition": "Claude-as-judge-pisteet >= 7.0",
+    "pass_signal": "READY:eval-pass:{vertical}",
+    "fail_signal": "ERROR:eval-fail:{vertical}",
+    "max_retries": 3,
+    "escalation": "BLOCKED:vertical-max-retries:{vertical}"
   }
 }
 ```
@@ -1949,6 +2093,8 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 4. Arviointi & käyttöönotto (Claude-as-judge, tavoite >7.0/10)
 
 **Kustannus:** €80-125 per toimialamalli (vs. €15 000+ perinteisesti, 99% kustannusvähennys)
+
+**Signaalikoordinointi:** Koulutusputkea koordinoidaan Lifetime Scope Signals -protokollalla — katso osio 2.5.2.1 koulutusagenttilaivastosta (T-01 – T-10), riippuvuusgraafista, laatuporttimekanismista ja resurssien välimiesosoituksesta 2× GN-100 -solmujen välillä.
 
 ## Liite F: V1.0 Agenttilaivasto
 
@@ -2111,6 +2257,8 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 10. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validoi Solution Factory -toistettavuuden liikevaihtokriittisille työnkuluille
 11. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral; monituottaja-LLM-reititin ratkaisee EU AI Act -suvereniteettijännitteen käytännössä
 12. Climate IQ Pantheon — 13-agenttinen kreikkalais-roomalainen jumaljärjestelmä (6 orkestraattoria + 7 toimialaerityistä) SOUL.md-identiteettimallilla, prompt injection -turvallisuudella, EU AI Act artikla 12 -lokituksella ja markkinointikiilapersoona-strategialla
+13. Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen
+14. LSS-koulutusputken koordinointi — Lifetime Scope Signals -protokolla sovellettuna LWM-koulutukseen: koulutusagenttilaivasto (T-01–T-10), laatuporttisignaalit, resurssien välimiesosoitus 2× GN-100 -solmuille, Fan-Out/Reflection-mallien integrointi; validoi LSS:n yleiskäyttöisenä koordinointina ohjelmistokehityksen ulkopuolella
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
