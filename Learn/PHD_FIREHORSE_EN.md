@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
@@ -24,10 +25,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.7 — Claude Code Engineering Structure: CLAUDE.md as project memory, Skills, Hooks, Subagents)
+  - Publication Status: DRAFT (V1.8 — Agent System Hardening: 6 TS errors fixed, MCP/HIL route wiring, locale-deterministic formatting)
 
 ---
 
@@ -1457,8 +1458,30 @@ Background agents enable parallel research and task execution without exhausting
 **Conclusion**
 The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
+### Section 14.10: Agent System Hardening — Production Reliability
+
+The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failures across module boundaries. These were not design flaws but integration debt — the kind that emerges when independently correct modules evolve at different speeds.
+
+**Fixes applied:**
+
+1. **SandboxContext type alignment** — `SandboxContext.stage` in `types.ts` was missing the `'opensandbox'` literal that `SandboxStage` in `sandbox/index.ts` defined. This blocked agent execution in Stage 1.5 (Acer Veriton Docker).
+
+2. **MCP route wiring** — `createMCPRouter()` was defined in `src/mcp/agent-server.ts` but never imported in `app.ts`. All 31 agents were invisible to external MCP clients.
+
+3. **HIL route wiring** — The Human-in-the-Loop endpoint (`/api/hil`) for morning briefing task completion was unreachable. Captain Pre-Briefing "Done" buttons returned 404.
+
+4. **Locale-deterministic formatting** — Emissions Data Analyst used `toLocaleString()` without locale, producing space-separated numbers on EU servers. Fixed with explicit `'en-US'` locale for consistent output.
+
+5. **Resend batch type safety** — Email service `.map()` call failed on `CreateBatchSuccessResponse` union type. Added runtime array detection.
+
+6. **Dependency hygiene** — `luxon` was imported but missing from `package.json`.
+
+**Result:** 0 TypeScript errors (was 6), 47/47 tests passing (was 44/47).
+
+**Research insight:** In multi-agent architectures, integration debt accumulates at module boundaries, not within modules. Systematic hardening sessions — touching multiple subsystems in a single commit — are more effective than per-module fixes because they restore cross-cutting invariants that individual modules cannot enforce alone.
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 02.03.2026*
-*Version: 1.7*
+*Last updated: 07.03.2026*
+*Version: 1.8*

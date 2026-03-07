@@ -9,9 +9,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
@@ -24,10 +25,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.7 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
+  - Publication Status: DRAFT (V1.8 — Agenttijärjestelmän koventaminen: 6 TS-virhettä korjattu, MCP/HIL-reittien kytkentä, lokaalivarma muotoilu)
 
 ---
 
@@ -1447,8 +1448,30 @@ Laadunvalvonta on **rakenteellista, ei käyttäytymiseen perustuvaa** — koulut
 **Johtopäätös**
 Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.
 
+### Osio 14.10: Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+31-agenttinen järjestelmä oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa moduulirajojen yli. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa — sellaista, joka syntyy kun itsenäisesti oikeat moduulit kehittyvät eri nopeuksilla.
+
+**Tehdyt korjaukset:**
+
+1. **SandboxContext-tyyppilinjaus** — `SandboxContext.stage` `types.ts`-tiedostossa puuttui `'opensandbox'`-literaali, jonka `SandboxStage` `sandbox/index.ts`-tiedostossa määritteli. Tämä esti agentin suorittamisen vaiheessa 1.5 (Acer Veriton Docker).
+
+2. **MCP-reittien kytkentä** — `createMCPRouter()` oli määritelty `src/mcp/agent-server.ts`-tiedostossa mutta ei koskaan tuotu `app.ts`-tiedostoon. Kaikki 31 agenttia olivat näkymättömiä ulkoisille MCP-asiakkaille.
+
+3. **HIL-reittien kytkentä** — Ihminen silmukassa -päätepiste (`/api/hil`) aamubrief-tehtävien suorittamista varten oli tavoittamattomissa. Captain Pre-Briefing -agentin "Valmis"-painikkeet palauttivat 404.
+
+4. **Lokaalivarma muotoilu** — Päästödatan analyytikko käytti `toLocaleString()`-metodia ilman lokaalia, tuottaen välilyöntierotellut luvut EU-palvelimilla. Korjattu eksplisiittisellä `'en-US'`-lokaalilla.
+
+5. **Resend-erävasteen tyyppiturvallisuus** — Sähköpostipalvelun `.map()`-kutsu epäonnistui `CreateBatchSuccessResponse`-unionityypillä. Lisätty suoritusaikainen taulukkotunnistus.
+
+6. **Riippuvuushygienia** — `luxon` oli tuotu mutta puuttui `package.json`-tiedostosta.
+
+**Tulos:** 0 TypeScript-virhettä (oli 6), 47/47 testiä läpi (oli 44/47).
+
+**Tutkimusnäkemys:** Moniagenttiarkkitehtuureissa integraatiovelka kertyy moduulirajoille, ei moduulien sisälle. Systemaattiset koventamissessiot — jotka koskevat useita alijärjestelmiä yhdessä commitissa — ovat tehokkaampia kuin moduulikohtaiset korjaukset, koska ne palauttavat leikkaavia invariantteja, joita yksittäiset moduulit eivät voi valvoa yksin.
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 02.03.2026*
-*Versio: 1.7*
+*Viimeksi paivitetty: 07.03.2026*
+*Versio: 1.8*

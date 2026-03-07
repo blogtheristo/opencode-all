@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.18
+Version: 3.19
 
 Sessions & Modifications:
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #14; updated footer
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning loop via Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective learning framework for AI-assisted product development
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
@@ -2211,6 +2212,41 @@ The Pantheon naming strategy doubles as a marketing wedge. Each agent carries a 
 
 These personas appear at onelifetime.world/team alongside human staff, reinforcing the product thesis: humans and AI agents work side by side. One of them never sleeps.
 
+## 10.14 Agent System Hardening — Production Reliability
+
+### 10.14.1 Motivation
+
+The 31-agent system (13 core + 5 SEO + 13 workflow/industry) had accumulated 6 TypeScript compilation errors and 3 test failures that blocked production builds. These were not design flaws but integration debt: type mismatches across module boundaries, missing route wiring, uninstalled dependencies, and locale-dependent formatting. This section documents the systematic hardening that restored zero-error compilation and full test coverage.
+
+### 10.14.2 Type System Alignment: SandboxContext
+
+The `SandboxStage` type in `src/sandbox/index.ts` defined four stages: `'1' | 'opensandbox' | '2' | '3'`, where `'opensandbox'` represents the Stage 1.5 Docker-based isolation on Acer Veriton GN100 hardware (Section 10.10). However, `SandboxContext.stage` in `src/agents/types.ts` only accepted `'1' | '2' | '3'`, creating a compile-time error when `BaseAgent` attempted to assign the sandbox stage. The fix aligned both types, ensuring agents can execute in all four isolation stages.
+
+### 10.14.3 Route Wiring: MCP and Human-in-the-Loop
+
+Two critical routes were unreachable due to missing imports in `src/app.ts`:
+
+1. **MCP Agent Server** (`/mcp`) — The `createMCPRouter()` function from `src/mcp/agent-server.ts` exposes all agents as MCP tools via JSON-RPC 2.0. Without this import, external MCP clients (Claude Desktop, other AI agents) could not discover or invoke DWS agents.
+
+2. **Human-in-the-Loop** (`/api/hil`) — The HIL endpoint enables one-click task completion from morning briefing emails. Without this route, the Captain Pre-Briefing Agent's "Done" buttons returned 404 errors.
+
+### 10.14.4 Locale-Deterministic Number Formatting
+
+The Emissions Data Analyst agent formats ETS cost estimates using `Number.toLocaleString()`. On EU-locale machines (Finland, Germany), this produces space-separated numbers (e.g., `2 040 000`), while tests expected US comma-separated format (`2,040,000`). The fix specifies `'en-US'` locale explicitly, ensuring deterministic output regardless of deployment environment. This is critical for EU-hosted Cloud Run instances where system locale defaults to European conventions.
+
+### 10.14.5 Dependency Hygiene
+
+The `luxon` library (timezone-aware date handling for Helsinki business hours) was imported in the Social Scheduler but never added to `package.json`. The Resend email SDK's batch response type was a union (`undefined[] | CreateBatchSuccessResponse`) that required runtime array detection before calling `.map()`.
+
+### 10.14.6 Research Contribution
+
+This hardening session demonstrates a pattern relevant to multi-agent system maintenance: **integration debt accumulates at module boundaries, not within modules**. Each individual agent was correctly implemented, but the connections between agents, sandbox, routes, and tests had drifted. The fix touched 6 files across 5 subsystems in a single commit, restoring:
+
+- **0 TypeScript errors** (was 6)
+- **47/47 tests passing** (was 44/47)
+- **Full MCP discoverability** for all 31 agents
+- **HIL operational** for morning briefing workflows
+
 ---
 
 **Document Information:**
@@ -2221,10 +2257,9 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.17 — Climate IQ Pantheon + Industry Specialist agents
-**Status:** DRAFT - V3.17 — Claude Code Engineering Structure (CLAUDE.md as project memory, Skills, Hooks, Subagents)
-**Version:** 3.17
-**Last Modified:** 02.03.2026
+**Status:** DRAFT - V3.19 — Agent System Hardening (6 TS errors fixed, 3 test failures resolved, MCP/HIL route wiring, locale-deterministic formatting)
+**Version:** 3.19
+**Last Modified:** 07.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2250,6 +2285,7 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 12. Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas
 12. Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline
 13. Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development
+14. Agent System Hardening — Production reliability restoration: 6 TypeScript compilation errors fixed across 5 subsystems, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; demonstrates integration debt patterns in multi-agent systems
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
