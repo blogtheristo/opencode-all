@@ -1,7 +1,7 @@
 {
   "name": "firehorse-mobile",
-  "version": "1.0.0",
-  "description": "Firehorse Mobile - Nordic Construction Management",
+  "version": "2.0.0",
+  "description": "Firehorse Mobile - Nordic Construction Management Suite by DWS IQ 6",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
