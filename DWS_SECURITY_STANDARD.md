@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 17 (Database Disaster Recovery Security) — dual-database architecture, recovery scripts, RTO < 5 min schema / < 15 min full restore, backup encryption (GPG), Aiven auth stubs for RLS compatibility, backup test drive validation
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Supabase migration 043 — persistent storage for api_keys, usage_events, usage_counters, report_schedules tables with RLS, atomic counter increment function (increment_usage_counter), sanity checks; services updated with Supabase-first + in-memory fallback pattern; shared backend Supabase client (src/config/supabase.ts)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 16 (MVP Security Controls) — API Key Management (SHA-256 hashing, per-user limits, scope-based access), Usage Metering (tier enforcement, rate limiting per billing period), Report Export (authenticated download, usage-gated exports)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Section 15 (API Middleware Security Controls) — centralized error handler security, request validation with Zod, correlation ID tracing, env validation, health check endpoint hardening; compliance engine API security
@@ -1330,7 +1331,49 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 
 ---
 
-**Document Version:** 1.7
+## 17. Database Disaster Recovery Security
+
+### 17.1 Dual-Database Architecture
+
+| Control | Implementation |
+|---------|---------------|
+| Primary database | Supabase `dws6-production` (EU, europe-north1) with RLS on all tables |
+| Warm standby | Aiven PostgreSQL `dws-test` (EU, Finland) — daily mirror from Supabase |
+| Auth stub isolation | Aiven uses `auth.uid()` / `auth.jwt()` / `auth.role()` stubs returning dummy values — RLS policies load but do not enforce (acceptable for sandbox) |
+| Backup encryption | All backup dumps encrypted with GPG symmetric encryption (`BACKUP_GPG_PASSPHRASE`) |
+| 4-destination redundancy | Local disk + Proton Drive + Acer Veriton Helsinki + GitHub Actions artifacts |
+
+### 17.2 Recovery Scripts Security Controls
+
+| Control | Script | Implementation |
+|---------|--------|---------------|
+| Credential isolation | `db-recovery.sh` | Loads credentials from `.env` only — never hardcoded |
+| Connection validation | `db-recovery.sh` | Tests connection before applying any changes |
+| Dry-run mode | `db-recovery.sh` | `--dry-run` previews all actions without database changes |
+| GPG decryption | `db-recovery.sh` | Automatic decryption of `.gpg` backup files with passphrase from env |
+| Integrity verification | `db-backup-test.sh` | Row count comparison between source and target after restore |
+| RLS verification | `db-recovery.sh` | Checks RLS enabled on all MVP tables post-recovery |
+| Function verification | `db-recovery.sh` | Verifies `increment_usage_counter()` SECURITY DEFINER function exists |
+
+### 17.3 RTO/RPO Targets
+
+| Scenario | RTO | RPO |
+|----------|-----|-----|
+| Schema rebuild (migrations only) | < 5 minutes | N/A (schema from git) |
+| Full restore (schema + data) | < 15 minutes | 24 hours (daily backup) |
+| Aiven warm standby switchover | < 5 minutes | 24 hours (daily mirror) |
+
+### 17.4 Security Requirements for Recovery
+
+- Recovery scripts MUST NOT be run with `--skip-migrations` and `--restore-dump` simultaneously without understanding the implications
+- GPG passphrase MUST be stored in `.env` (never in script arguments visible in process list)
+- After recovery, verify RLS is enabled on all tables before routing production traffic
+- Aiven stubs make RLS effectively open — never route real customer traffic to Aiven without proper auth integration
+- Document all recovery events in `docs/field-notes/` with timestamp, operator, and verification results
+
+---
+
+**Document Version:** 1.8
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 34 (Database Disaster Recovery Operations) — db-recovery.sh Linux recovery script, db-backup-test.sh backup test drive, dual-database architecture (Supabase dws6-production + Aiven dws-test), minutes-target RTO procedures
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 31 (API Key Management Operations), Section 32 (Usage Metering & Billing Operations), Section 33 (Report Export & Scheduling Operations) — operational procedures for 3 new MVP features with customer-facing endpoints
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Sections 28-30 (Health Check & Monitoring, Compliance Scoring Engine Operations, Dashboard Resilience Troubleshooting) — operational procedures for 3 MVP features
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
@@ -3283,6 +3284,122 @@ Report exports count against the user's `reportExports` tier limit. A 429 respon
 - Service: `src/services/report-export.service.ts`
 - Routes: `src/routes/report-export.routes.ts`
 - Dashboard UI: `SettingsPage.tsx` — "Compliance Report Export" section with CSV/JSON buttons
+
+---
+
+## 34. Database Disaster Recovery Operations
+
+### 34.1 Architecture Overview
+
+DWS6 uses a dual-database architecture for production resilience:
+
+| Database | Provider | Role | Region |
+|----------|----------|------|--------|
+| `dws6-production` | Supabase | Primary (production) | EU (europe-north1) |
+| `dws-test` | Aiven PostgreSQL | Warm standby + agent workspace | EU (Finland) |
+
+**Recovery Time Objective (RTO):** Minutes (< 5 minutes for schema rebuild, < 15 minutes for full data restore).
+
+**Recovery Point Objective (RPO):** 24 hours (daily automated backups).
+
+### 34.2 Recovery Script
+
+**Script:** `scripts/db-recovery.sh`
+
+Rebuilds the full DWS6 database schema from 43+ migration files. Supports three targets:
+
+```bash
+# Recover to a new Supabase project
+./scripts/db-recovery.sh --target supabase
+
+# Recover to Aiven warm standby
+./scripts/db-recovery.sh --target aiven
+
+# Recover to any PostgreSQL instance
+./scripts/db-recovery.sh --target custom --db-url "postgresql://user:pass@host:5432/db"
+
+# Schema + data restore from backup dump
+./scripts/db-recovery.sh --target supabase --restore-dump backups/dws6-20260308.sql
+
+# Dry run (preview without executing)
+./scripts/db-recovery.sh --target aiven --dry-run
+```
+
+**What it does:**
+1. Loads credentials from `.env`
+2. Tests database connection
+3. Applies Aiven auth stubs (if targeting Aiven)
+4. Replays all numbered migrations in order (002–043+)
+5. Optionally restores data from pg_dump backup (supports GPG-encrypted dumps)
+6. Verifies: table existence, row counts, RLS status, function availability
+7. Reports total time vs. RTO target
+
+### 34.3 Backup Test Drive
+
+**Script:** `scripts/db-backup-test.sh`
+
+Validates the full backup → verify → restore cycle:
+
+```bash
+# Full test: export Supabase → verify → restore to Aiven → compare
+./scripts/db-backup-test.sh
+
+# Export and verify only (no restore)
+./scripts/db-backup-test.sh --export-only
+
+# Restore a specific dump to Aiven
+./scripts/db-backup-test.sh --dump /path/to/backup.sql
+```
+
+**Test steps:**
+1. Test source connection (Supabase)
+2. Export via pg_dump (schema + data)
+3. Verify dump integrity (file size, table count, core tables)
+4. Collect source row counts
+5. Test target connection (Aiven)
+6. Apply Aiven auth stubs
+7. Restore dump to Aiven
+8. Compare row counts (source vs target)
+9. Functional tests on restored tables
+
+### 34.4 Backup Infrastructure
+
+| Destination | Method | Frequency | Script |
+|-------------|--------|-----------|--------|
+| Local disk | pg_dump + GPG | Daily | `Backup-Database.ps1` |
+| Proton Drive | Encrypted sync | Daily | `Sync-ToProton.ps1` |
+| Acer Veriton Helsinki | SCP | Daily | `Backup-Database.ps1` |
+| GitHub Actions | Artifact | Daily 02:30 UTC | `daily-db-backup.yml` |
+| Aiven PostgreSQL | Full mirror | Daily | `Mirror-ToAiven.ps1` |
+
+### 34.5 Emergency Recovery Procedure
+
+1. **Assess:** Determine if Supabase is down or data is corrupted
+2. **Decide target:** New Supabase project or Aiven
+3. **Run recovery:**
+   ```bash
+   # If Aiven warm standby has recent data:
+   # Update .env with Aiven credentials, switch app to use Aiven
+
+   # If rebuilding from scratch:
+   ./scripts/db-recovery.sh --target supabase --restore-dump latest-backup.sql
+   ```
+4. **Verify:** Check table counts and functional tests
+5. **Switch:** Update `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in production `.env`
+6. **Notify:** Document the incident in `docs/field-notes/`
+
+### 34.6 Prerequisites
+
+- `psql` and `pg_dump` installed (`sudo apt-get install postgresql-client`)
+- `.env` with `SUPABASE_DB_*` and `AIVEN_DATABASE_URL` variables
+- For encrypted backups: `gpg` installed and `BACKUP_GPG_PASSPHRASE` set
+
+### Files
+
+- Recovery script: `scripts/db-recovery.sh`
+- Backup test: `scripts/db-backup-test.sh`
+- Aiven init: `scripts/aiven-init.sql`
+- Migrations: `supabase/migrations/002_*.sql` through `043_*.sql`
 
 ---
 
