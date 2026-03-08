@@ -332,7 +332,7 @@ The script auto-injects a `<footer class="ironclad-footer">` at the end of `<bod
 |--------|-------|
 | **Products** | Platform & Products, AI & Cloud Consulting, Expert Advisory, Digital Services, Enterprise Offers (mailto) |
 | **Industries** | Construction, Energy, Manufacturing, Real Estate, Logistics, Healthcare, Financial Services, Public Sector |
-| **Platform** | Login, Dashboard, DWS IQ 6, Firehorse Reports, Firehorse Automation, Firehorse Omnichannel, Architecture |
+| **Platform** | Login, Dashboard, DWS IQ 6, DWS IQ Report, Firehorse Automation, Firehorse Omnichannel, Architecture |
 | **Compliance** | Fit for 55, CSRD Reporting, EU AI Act, Regulatory Notice, Dual Use, Carbon Calculator |
 | **Help & Company** | Lifetime Consulting, Careers, Partners, Investor Relations, Community, Support (mailto), Sales (mailto), Legal Hub |
 

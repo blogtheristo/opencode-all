@@ -40,7 +40,7 @@ Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-02.
 | FH-AUTO-001 | Firehorse Automation | €4,950 | one-time | platform | active |
 | LIFETIME-BUNDLE-2026 | Climate Reporting Starter Bundle | €6,500 | one-time + €1,999/yr | platform | active |
 | FH-OMNI-001 | Firehorse Omnichannel Next | €499 | one-time | platform | active |
-| FH-RPT-001 | Firehorse Report | €1,999 | one-time | platform | active |
+| FH-RPT-001 | DWS IQ Report | €1,999 | one-time | platform | active |
 | FH-CMS-001 | Firehorse Content Management | €2,999 | one-time | platform | active |
 
 ### Advisory & Training
