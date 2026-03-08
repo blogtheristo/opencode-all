@@ -13,6 +13,9 @@ import { authenticateToken } from '../middleware/auth.middleware.js';
 import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DISCLOSURES } from '../compliance/esrs-registry.js';
+import { estimateETSCost } from '../compliance/ets-calculator.js';
+import { estimateCBAMCost, isCBAMCovered } from '../compliance/cbam-calculator.js';
+import { ETS_CARBON_PRICE_EUR, CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/emission-factors.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -148,6 +151,40 @@ router.get('/overview', authenticateToken, async (req: Request, res: Response, n
       regulations: regulationScores,
       totalGaps: demoResult.gaps.length,
       criticalGaps: demoResult.gaps.filter(g => g.severity === 'critical').length,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/v1/compliance/cost-estimate
+ * Estimate ETS + CBAM compliance costs for a given scenario.
+ * Quick calculation without full assessment — useful for onboarding and sales.
+ */
+router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { annualEmissions = 0, importQuantity = 0, sector = 'manufacturing', originCountry = 'CN', freeAllocation = 0 } = req.body;
+
+    const ets = estimateETSCost(annualEmissions, freeAllocation);
+    const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
+
+    res.json({
+      ets: {
+        surrenderObligation: ets.surrenderObligation,
+        estimatedCost: ets.estimatedCost,
+        carbonPrice: ETS_CARBON_PRICE_EUR,
+        unit: 'EUR',
+      },
+      cbam: {
+        covered: cbam.covered,
+        embeddedEmissions: cbam.embeddedEmissions,
+        estimatedCost: cbam.estimatedCost,
+        certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
+        unit: 'EUR',
+      },
+      totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,
+      note: 'Estimates use EU default emission factors. Actual costs depend on verified data.',
     });
   } catch (err) {
     next(err);
