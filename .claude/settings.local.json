@@ -15,17 +15,24 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
+    "SessionStart": [
       {
-        "matcher": "Bash",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/pretooluse-guard.sh"
-          },
+            "command": "./.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/sql-safety-guard.sh"
+            "command": "./.claude/hooks/session-stop.sh"
           }
         ]
       }

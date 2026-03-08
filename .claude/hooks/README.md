@@ -13,7 +13,11 @@ invokes a tool (e.g., `Bash`), the hook receives JSON on stdin describing the ca
 {"tool_name": "Bash", "tool_input": {"command": "rm -rf /"}}
 ```
 
-The hook script decides:
+| Script | Trigger | Purpose |
+|--------|---------|---------|
+| `pre-bash-safety.sh` | PreToolUse (Bash) | Warns about destructive shell patterns |
+| `session-start.sh` | SessionStart | Injects trust boundary context, checks branch/dirty state, MCP health |
+| `session-stop.sh` | Stop | Pre-exit governance checklist (uncommitted changes, dual folder sync, thesis rules) |
 
 | Exit Code | Meaning | Effect |
 |-----------|---------|--------|
@@ -21,42 +25,13 @@ The hook script decides:
 | `2` | BLOCK | Command is rejected; stderr message shown to agent |
 | `0` + JSON stdout | ASK | User is prompted for approval |
 
-## Scripts
-
-### pretooluse-guard.sh
-
-Primary guardrail for all Bash tool calls. Three-tier decision:
-
-**BLOCK (exit 2) -- destructive patterns:**
-- `rm -rf`, `rm -r /`, force-delete on broad paths
-- `DROP TABLE`, `TRUNCATE`, `DELETE FROM` without `WHERE`
-- `git push --force`, `git reset --hard`, `git clean -f`
-- Reading `.env`, `.env.*`, `*.key`, `*.pem`, `*.secret`, `credentials.json`, `service-account-*.json`
-- Pipe-to-shell attacks: `curl | sh`, `curl | bash`, `wget | sh`
-- `sudo` commands
-- `exec()` with string interpolation patterns
-
-**ALLOW (exit 0) -- safe patterns:**
-- `npm run *`, `npx *`, `node *`, `tsx *`, `vitest *`
-- `git status`, `git diff`, `git log`, `git add`, `git commit`, `git push` (non-force)
-- Read-only: `ls`, `pwd`, `echo`, `cat`, `head`, `tail`, `find`, `grep`
-- Build tools: `make`, `cargo`, `python`, `docker`, `gh`, `chmod`, `mkdir`, `cp`, `mv`
-
-**ASK (JSON stdout) -- everything else:**
-Commands not in either list prompt the user for explicit approval.
-
-### sql-safety-guard.sh
-
-Boardy-enforced SQL safety checks. Only activates when a Bash command contains
-SQL-like content (`CREATE TABLE`, `ALTER TABLE`, `psql`, etc.).
-
-**Checks enforced:**
-1. Migration SQL must have `BEGIN`/`COMMIT` transaction wrappers
-2. `SECURITY DEFINER` is blocked (use `SECURITY INVOKER` instead)
-3. `CREATE TABLE` must include `ENABLE ROW LEVEL SECURITY`
-4. `DROP TABLE` requires an approval comment (`-- APPROVED` or `-- boardy-approved`)
-
-See CLAUDE.md section "Safety Rules for SQL (Boardy Enforced)" for rationale.
+| Event | When | Use Case |
+|-------|------|----------|
+| `SessionStart` | New session or after context compaction | Context injection, environment checks |
+| `PreToolUse` | Before any tool call | Input validation, safety checks |
+| `PostToolUse` | After tool completes | Output normalization, logging |
+| `Notification` | Agent sends notification | Alert routing, audit logging |
+| `Stop` | Agent stops | Governance checklist, cleanup, handover documentation |
 
 ## Configuration
 
@@ -65,18 +40,27 @@ Hooks are registered in `.claude/settings.local.json`:
 ```json
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/session-start.sh" }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/pretooluse-guard.sh"
-          },
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/sql-safety-guard.sh"
-          }
+          { "type": "command", "command": "bash .claude/hooks/pre-bash-safety.sh" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/session-stop.sh" }
         ]
       }
     ]
@@ -123,7 +107,7 @@ The audit log is gitignored (`.claude/hooks/audit.log` matches `*.log` in `.giti
 
 ## References
 
-- CLAUDE.md: "Security Coding Rules (CRITICAL)"
-- CLAUDE.md: "Never Delete Files -- Always Move (CRITICAL)"
-- CLAUDE.md: "Safety Rules for SQL (Boardy Enforced)"
-- DWS_SECURITY_STANDARD.md: Enterprise security framework
+- CLAUDE.md: "Never Delete Files — Always Move (CRITICAL)"
+- CLAUDE.md: Security Coding Rules section
+- Admin/ADMIN_MANUAL.md: Section 27 — Claude Code Project Engineering Structure
+- docs/AUTO_MODE_TRUST_BOUNDARY.md: GREEN/YELLOW/RED zone definitions for auto-enable-mode
