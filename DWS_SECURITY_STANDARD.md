@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Section 15 (API Middleware Security Controls) — centralized error handler security, request validation with Zod, correlation ID tracing, env validation, health check endpoint hardening; compliance engine API security
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Section 3.6.1 (Database Backup & Disaster Recovery Controls) — 7 BCP/DR controls, RTO/RPO targets, backup retention policy, Aiven sandbox mirror, multi-destination backup architecture (local + Proton + Acer Helsinki + GitHub Actions)
   - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
@@ -1147,6 +1148,79 @@ All tools exposed via MCP `tools/list`:
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
 - [OECD 2026: Exploring Possible AI Trajectories through 2030](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Scenario analysis
+---
+
+## 15. API Middleware Security Controls (MVP)
+
+Added: 07.03.2026 | Session: claude/implement-mvp-features-D2e9d
+
+### 15.1 Centralized Error Handler Security
+
+All API errors MUST flow through the centralized error handler (`src/middleware/error-handler.ts`). Direct `res.status().json()` in route handlers is prohibited for new code.
+
+| Rule | Enforcement |
+|------|-------------|
+| Never expose stack traces in production | `errorHandler` strips `stack` unless `NODE_ENV=development` |
+| Never expose database schema in errors | `AppError.isOperational` gates user-facing messages |
+| Consistent error response shape | All errors return `{ error, message, code, correlationId }` |
+| Log all 5xx errors with full context | `logger.error()` with path, method, correlationId |
+| 4xx errors logged as warnings only | Avoid log noise from client errors |
+
+### 15.2 Request Validation at API Boundary
+
+All incoming requests MUST be validated using Zod schemas via `validate()` middleware before reaching business logic.
+
+```typescript
+// CORRECT: Validate first, then handle
+router.post('/assess', validate({ body: AssessmentSchema }), handler);
+
+// WRONG: Parse body inside handler
+router.post('/assess', (req, res) => { const data = req.body; /* untrusted */ });
+```
+
+**Middleware ordering (MANDATORY for all routes):**
+1. `correlationId` — attach trace ID
+2. `helmet` — security headers
+3. `cors` — origin validation
+4. `rateLimit` — abuse prevention
+5. `validate({ body, query, params })` — Zod schema validation
+6. `authenticateToken` — JWT verification
+7. Route handler
+8. `notFoundHandler` — catch unmatched routes
+9. `errorHandler` — final error catch
+
+### 15.3 Correlation ID for Security Audits
+
+Every request receives a `X-Correlation-ID` header (client-provided or auto-generated UUID). This ID:
+- Appears in all log entries for the request
+- Is returned in error responses
+- Enables tracing a single request across services
+- MUST be preserved in Article 12 audit logs
+
+### 15.4 Startup Environment Validation
+
+The server MUST validate all required environment variables on boot using `validateEnv()`. Missing or malformed variables cause immediate process exit with a clear error listing all issues.
+
+**Required variables (fail if missing):** `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `JWT_SECRET` (min 16 chars)
+
+### 15.5 Health Check Endpoint Security
+
+The `/health` endpoint exposes service availability status. Security rules:
+- MUST NOT expose secrets, API keys, or internal URLs
+- MUST NOT expose exact software versions beyond major version
+- Memory stats are rounded to MB (no byte-level precision)
+- Rate limited under the general `/api/` limiter
+
+### 15.6 Compliance Engine API Security
+
+The compliance API (`/api/v1/compliance/*`) handles sensitive corporate data:
+- Assessment results contain industry, emissions, and regulatory gap data
+- RLS policies on `compliance_profiles`, `esrs_data_points`, `compliance_assessments` tables restrict access to organization members only
+- Report IDs are non-sequential (UUID + timestamp) to prevent enumeration
+- No `SECURITY DEFINER` functions in compliance migration
+
+---
+
 - [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) — Regulation (EU) 2024/1689
 - [NIS2 Directive](https://eur-lex.europa.eu/eli/dir/2022/2555/oj) — Directive (EU) 2022/2555
 - [OWASP Top 10 for LLM Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
@@ -1170,7 +1244,7 @@ All tools exposed via MCP `tools/list`:
 
 ---
 
-**Document Version:** 1.3
+**Document Version:** 1.5
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Sections 28-30 (Health Check & Monitoring, Compliance Scoring Engine Operations, Dashboard Resilience Troubleshooting) — operational procedures for 3 MVP features
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
@@ -3006,6 +3007,128 @@ cp .mcp.json.example .mcp.json
 cd dws6.com/dashboard/firehorse/v9-react && npm run dev  # Frontend
 npm run dev  # Backend (root)
 ```
+
+---
+
+## Section 28: Health Check & Monitoring
+
+Added: 07.03.2026 | MVP Feature 1
+
+### Health Check Endpoint
+
+The `/health` endpoint reports backend service status for Cloud Run readiness probes and manual monitoring.
+
+**URL:** `GET /health`
+**Auth:** None required (public endpoint, rate limited)
+
+**Response fields:**
+
+| Field | Description |
+|-------|-------------|
+| `status` | `"ok"` if server is running |
+| `uptime` | Seconds since server start |
+| `memory.heapUsed` | Heap memory in MB |
+| `services.supabase` | `true` if `SUPABASE_URL` configured |
+| `services.groqLlm` | `true` if `GROQ_API_KEY` configured |
+| `services.email` | `true` if Redis email queue connected |
+
+**Monitoring checklist:**
+1. Set up Cloud Run readiness probe: `GET /health` with 10s interval
+2. Alert if `status` is not `"ok"` for 3 consecutive checks
+3. Alert if `memory.heapUsed` exceeds 400 MB (indicates memory leak)
+4. Weekly review of service availability flags
+
+### Startup Environment Validation
+
+The server validates all required environment variables on boot. If validation fails, the process exits immediately with a clear error message listing all missing variables.
+
+**Required variables:** `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `JWT_SECRET`
+
+If the server fails to start, check the container logs for `Environment validation failed:` message.
+
+---
+
+## Section 29: Compliance Scoring Engine Operations
+
+Added: 07.03.2026 | MVP Feature 2
+
+### Running a Compliance Assessment
+
+**API:** `POST /api/v1/compliance/assess`
+
+**Required fields:**
+```json
+{
+  "companyName": "Example Corp",
+  "industry": "steel",
+  "dataPoints": [{ "disclosureId": "E1-1", "provided": true }],
+  "annualEmissions": 30000,
+  "importValue": 200000,
+  "hasTransitionPlan": true,
+  "hasEmissionsMonitoring": true,
+  "hasSupplyChainDD": false
+}
+```
+
+**Response:** Compliance report with `overallScore`, `regulationScores` (CSRD/ETS/CBAM), `gaps`, and `recommendations`.
+
+### Browsing the ESRS Registry
+
+**API:** `GET /api/v1/compliance/registry`
+
+Query params:
+- `?standard=E1` — filter by standard
+- `?category=environment` — filter by category
+- `?mandatory=true` — show only mandatory disclosures
+
+### Verifying Scoring Accuracy
+
+Run the test suite to verify all scoring logic:
+```bash
+npx vitest run src/__tests__/compliance-scoring.test.ts
+```
+
+All 14 tests must pass. Key tests verify:
+- Empty data returns low score
+- Full data + measures reaches "compliant" status
+- High emissions without monitoring triggers ETS penalty
+- High imports without DD triggers CBAM penalty
+
+### Database Tables
+
+| Table | Purpose | RLS |
+|-------|---------|-----|
+| `compliance_profiles` | Organization compliance profile | Org-scoped |
+| `esrs_data_points` | ESRS disclosure data per profile | Org-scoped |
+| `compliance_assessments` | Assessment results history | Org-scoped |
+
+Migration: `supabase/migrations/042_csrd_compliance_data.sql`
+
+---
+
+## Section 30: Dashboard Resilience Troubleshooting
+
+Added: 07.03.2026 | MVP Feature 3
+
+### Common Issues
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Red error card in a section | Component threw during render | Click "Try again" button. If persistent, check browser console for error details |
+| Shimmer placeholders that never resolve | API call failed or timed out | Check network tab for failed requests. Verify backend `/health` is ok |
+| "No projects yet" when projects exist | Supabase connection failed | Verify `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env` |
+| White screen (no error boundary) | Error outside ErrorBoundary scope | Check browser console. This is a bug — all sections should be wrapped |
+
+### Error Boundary Components
+
+Located at: `dws6.com/dashboard/firehorse/v10-react/src/components/`
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| `ErrorBoundary` | `ErrorBoundary.tsx` | Catches render errors, shows retry button |
+| `ProjectCardSkeleton` | `Skeleton.tsx` | Loading placeholder for project cards |
+| `EmptyState` | `EmptyState.tsx` | Guidance when no data available |
+| `useApi` | `hooks/useApi.ts` | Centralized API calls with error/loading/data states |
 
 ---
 
