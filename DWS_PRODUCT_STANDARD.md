@@ -158,7 +158,7 @@ Both channels serve the same product, but different buying contexts. The store s
 | FH-AUTO-001 | Firehorse Automation | **€4,950** | One-time per project | |
 | LIFETIME-BUNDLE-2026 | Climate Reporting Starter Bundle | **€6,500** | One-time setup | + €1,999/year |
 | FH-OMNI-001 | Firehorse Omnichannel Next | **€1,499** | One-time per campaign | **UPDATED from €499** |
-| FH-RPT-001 | Firehorse Report | **€1,999** | One-time per template | |
+| FH-RPT-001 | DWS IQ Report | **€1,999** | One-time per template | |
 | FH-CMS-001 | Firehorse Content Management | **€2,999** | One-time setup + migration | |
 
 ### 4.2 Enterprise Subscription Tiers (Enterprise Direct Channel)
@@ -439,7 +439,7 @@ Example: 6.1.0 = DWS 6, first product revision, initial release
 |---------------|----------------|----------|---------------------|
 | DWS IQ Platform | **v6.0** | DWS 6 | v7.0 |
 | Firehorse Automation | **v6.1.0** | DWS 6 | v7.1.0 |
-| Firehorse Report | **v6.1.0** | DWS 6 | v7.1.0 |
+| DWS IQ Report | **v6.1.0** | DWS 6 | v7.1.0 |
 | Firehorse Omnichannel | **v6.1.0** | DWS 6 | v7.1.0 |
 | Firehorse Content Management | **v6.1.0** | DWS 6 | v7.1.0 |
 | Climate Reporting Bundle | **v6.1.0** | DWS 6 | v7.1.0 |

@@ -522,7 +522,7 @@ Based on the AI Safety Report's findings on AI-assisted cyberattacks and agent m
 |---|---|---|---|---|
 | **ISO 27001** | Information security management | Gap assessment Q1 2026 | Q3 2026 (TÜV Rheinland) | Report validates need for formalized security management |
 | **NIS2 Directive** | Network and information security | Active compliance | N/A (directive, not certification) | Report: AI-assisted cyberattacks require stronger network security |
-| **EU AI Act** | AI system governance | 80% ready | August 2, 2026 (mandatory) | Report is the scientific foundation informing the Act |
+| **EU AI Act** | AI system governance | 80% ready | August 2, 2026 (mandatory); **Omnibus may delay to Dec 2027** — timelines now tied to availability of harmonised standards/guidance (Nov 2025 proposal, trilogue ongoing) | Report is the scientific foundation informing the Act |
 | **GDPR** | Data protection | 95% ready | Active (ongoing) | Report: data sovereignty and privacy are foundational |
 | **Fit for 55** | Climate compliance | 90% ready | Ongoing targets | Report: AI infrastructure environmental costs are growing |
 | **CSRD** | Sustainability reporting | 85% ready | Active (ongoing) | Report: systemic risks include environmental costs |
@@ -572,7 +572,7 @@ DWS threat modeling uses **MITRE ATLAS** (Adversarial Threat Landscape for AI Sy
 
 | Regulation | Readiness | Deadline | DWS Action Required |
 |------------|-----------|----------|-------------------|
-| **EU AI Act** | 80% | August 2, 2026 | Close Article 12 logging gaps, complete technical documentation |
+| **EU AI Act** | 80% | August 2, 2026 (original); **Dec 2027 if Omnibus passes** — high-risk applicability now tied to availability of harmonised standards/guidance per Nov 2025 Digital Omnibus on AI proposal | Close Article 12 logging gaps, complete technical documentation. **Note:** Omnibus does NOT weaken Article 12 substance — logging remains mandatory. Lighter QMS/doc burden for SMEs. |
 | **GDPR** | 95% | Active | Maintain DPA readiness, quarterly privacy review |
 | **NIS2 Directive** | 75% | Active | Expand incident response, strengthen supply chain security |
 | **Fit for 55** | 90% | Ongoing | Validate carbon footprint calculator, expand industry coverage |
@@ -587,7 +587,7 @@ Based on the AI Safety Report 2026 findings, these additional compliance actions
 | Action | Priority | Deadline | Owner |
 |--------|----------|----------|-------|
 | Implement domain-specific AI evaluation suite | CRITICAL | Q1 2026 | Engineering |
-| Close EU AI Act Article 12 gaps (20% remaining) | CRITICAL | July 2026 | Compliance |
+| Close EU AI Act Article 12 gaps (20% remaining) | CRITICAL | July 2026 (original); **Omnibus may extend to H2 2027** — but early certification = marketing win & proactive posture. Timelines now tied to harmonised standards availability. | Compliance |
 | Strengthen NIS2 posture (25% gap) | HIGH | Q2 2026 | Security |
 | Deploy real-time AI output monitoring | HIGH | Q2 2026 | Engineering |
 | Establish quarterly red team exercises | HIGH | Q2 2026 | Security |
