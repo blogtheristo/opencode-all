@@ -33,6 +33,9 @@ import complianceRoutes from './routes/compliance.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import hilRoutes from './routes/hil.routes.js';
+import apiKeyRoutes from './routes/api-keys.routes.js';
+import usageRoutes from './routes/usage.routes.js';
+import reportExportRoutes from './routes/report-export.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -233,6 +236,15 @@ app.use('/api/situation-room', situationRoomRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// MVP Feature 1: API Key Management (self-service CRUD)
+app.use('/api/v1/user/api-keys', apiKeyRoutes);
+
+// MVP Feature 2: Usage Metering (tier limits, stats)
+app.use('/api/v1/usage', usageRoutes);
+
+// MVP Feature 3: Compliance Report Export & Scheduling
+app.use('/api/v1/reports', reportExportRoutes);
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {

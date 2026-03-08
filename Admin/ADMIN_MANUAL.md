@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 31 (API Key Management Operations), Section 32 (Usage Metering & Billing Operations), Section 33 (Report Export & Scheduling Operations) — operational procedures for 3 new MVP features with customer-facing endpoints
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Sections 28-30 (Health Check & Monitoring, Compliance Scoring Engine Operations, Dashboard Resilience Troubleshooting) — operational procedures for 3 MVP features
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
@@ -3129,6 +3130,159 @@ Located at: `dws6.com/dashboard/firehorse/v10-react/src/components/`
 | `ProjectCardSkeleton` | `Skeleton.tsx` | Loading placeholder for project cards |
 | `EmptyState` | `EmptyState.tsx` | Guidance when no data available |
 | `useApi` | `hooks/useApi.ts` | Centralized API calls with error/loading/data states |
+
+---
+
+## 31. API Key Management Operations
+
+Added: 08.03.2026 | MVP Feature 1 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Self-service API key management allows customers to create, list, and revoke API keys for programmatic access to the DWS IQ platform. Keys are scoped (e.g., `compliance:read`, `reports:export`) and hashed with SHA-256 before storage.
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/user/api-keys` | JWT | Create a new API key |
+| GET | `/api/v1/user/api-keys` | JWT | List user's API keys |
+| DELETE | `/api/v1/user/api-keys/:id` | JWT | Revoke an API key |
+
+### Key Lifecycle
+
+1. **Creation** — User provides a name and optional scopes. System generates `dws_live_<32hex>` key, stores SHA-256 hash, returns raw key once
+2. **Usage** — Key validated against hash store on every API call. `lastUsedAt` updated automatically
+3. **Revocation** — Soft delete (sets `revoked=true`). Audit trail preserved
+
+### Available Scopes
+
+`compliance:read`, `compliance:write`, `assistant:read`, `assistant:write`, `reports:read`, `reports:export`, `usage:read`
+
+### Limits
+
+- Maximum 10 active (non-revoked) keys per user
+- Optional expiry: 1–365 days from creation
+
+### Files
+
+- Service: `src/services/api-key.service.ts`
+- Routes: `src/routes/api-keys.routes.ts`
+- Dashboard UI: `dws6.com/dashboard/firehorse/v10-react/src/pages/SettingsPage.tsx`
+
+---
+
+## 32. Usage Metering & Billing Operations
+
+Added: 08.03.2026 | MVP Feature 2 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Usage metering tracks API calls, AI assistant messages, and report exports per user per billing period. Three subscription tiers (Free/Pro/Enterprise) enforce monthly limits. Usage data is exposed via API and displayed in the dashboard Settings page.
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/v1/usage` | JWT | User's usage stats for current period |
+| GET | `/api/v1/usage/tiers` | JWT | Available subscription tiers and limits |
+| GET | `/api/v1/usage/platform` | JWT + admin/owner | Platform-wide aggregate stats |
+
+### Tier Limits
+
+| Tier | API Calls/mo | Assistant Messages/mo | Report Exports/mo | Max Projects |
+|------|-------------|----------------------|-------------------|-------------|
+| Free | 100 | 20 | 2 | 1 |
+| Pro | 5,000 | 500 | 50 | 10 |
+| Enterprise | 100,000 | 10,000 | 500 | 100 |
+
+### Usage Tracking Middleware
+
+The `trackUsage()` middleware can be attached to any route to automatically meter API calls:
+
+```typescript
+import { trackUsage } from '../middleware/usage-tracking.middleware.js';
+
+// Track as API call
+router.get('/data', authenticateToken, trackUsage('api_call'), handler);
+
+// Track as assistant message
+router.post('/chat', authenticateToken, trackUsage('assistant_message'), handler);
+```
+
+### Response Headers
+
+Every metered response includes:
+- `X-Usage-Remaining`: calls remaining in current period
+- `X-Usage-Limit`: total allowed calls for user's tier
+
+### Files
+
+- Service: `src/services/usage-metering.service.ts`
+- Middleware: `src/middleware/usage-tracking.middleware.ts`
+- Routes: `src/routes/usage.routes.ts`
+- Dashboard UI: `SettingsPage.tsx` — "Usage & Plan" section with progress bars
+
+---
+
+## 33. Report Export & Scheduling Operations
+
+Added: 08.03.2026 | MVP Feature 3 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Compliance report export generates downloadable reports (JSON/CSV) from the scoring engine. Report scheduling allows recurring automated generation for regulatory filing deadlines (monthly, quarterly, annually).
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/reports/export` | JWT | Generate and download a compliance report |
+| POST | `/api/v1/reports/schedule` | JWT | Create a recurring report schedule |
+| GET | `/api/v1/reports/schedules` | JWT | List user's report schedules |
+| DELETE | `/api/v1/reports/schedule/:id` | JWT | Delete a schedule |
+| PATCH | `/api/v1/reports/schedule/:id/toggle` | JWT | Enable/disable a schedule |
+
+### Export Request Body
+
+```json
+{
+  "companyName": "Acme Oy",
+  "industry": "steel",
+  "country": "FI",
+  "format": "csv",
+  "includeGaps": true,
+  "includeRecommendations": true
+}
+```
+
+### Schedule Configuration
+
+```json
+{
+  "companyName": "Acme Oy",
+  "industry": "steel",
+  "country": "FI",
+  "frequency": "quarterly",
+  "format": "json",
+  "recipientEmail": "compliance@acme.fi",
+  "enabled": true
+}
+```
+
+### CSV Report Structure
+
+Reports include: company metadata, regulation scores, identified gaps, and prioritized recommendations. CSV format is compatible with CSRD filing tools.
+
+### Usage Metering Integration
+
+Report exports count against the user's `reportExports` tier limit. A 429 response is returned when the limit is exceeded, with guidance to upgrade.
+
+### Files
+
+- Service: `src/services/report-export.service.ts`
+- Routes: `src/routes/report-export.routes.ts`
+- Dashboard UI: `SettingsPage.tsx` — "Compliance Report Export" section with CSV/JSON buttons
 
 ---
 

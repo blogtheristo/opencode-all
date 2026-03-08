@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Customer Data Controls section — API key hashing (SHA-256), usage metering tier enforcement, report export authentication, self-service key lifecycle management
   - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
@@ -576,7 +577,21 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.8
-**Last Updated:** 2026-03-07
+---
+
+## Customer Data Controls (MVP Features)
+
+Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
+
+| Control | Implementation | CISO Relevance |
+|---------|---------------|----------------|
+| **API Key Hashing** | Raw keys never stored; SHA-256 hash only. Prefix (12 chars) visible in UI for identification | Keys cannot be recovered from storage breach |
+| **Key Scoping** | Each API key carries explicit scopes (e.g., `compliance:read`). Access denied outside scope | Principle of least privilege enforced per key |
+| **Usage Metering** | Per-user, per-tier monthly limits enforced server-side. 429 response on exceeded | Prevents runaway costs; enables billing transparency |
+| **Report Export Auth** | JWT required for all report generation; exports counted against tier limits | No anonymous report access; metered downloads |
+| **Schedule Ownership** | Users can only manage their own report schedules (enforced by userId check) | No cross-tenant data exposure in scheduled reports |
+
+**Document Version:** 1.9
+**Last Updated:** 2026-03-08
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
