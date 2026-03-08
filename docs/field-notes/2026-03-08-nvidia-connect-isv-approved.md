@@ -26,12 +26,22 @@ NVIDIA Connect ISV application for **Lifetime Oy** has been officially approved.
 3. **Personalized recommendations** — benefit suggestions based on product profile
 4. **Credibility signal** — "NVIDIA Connect ISV Partner" is independently verifiable by investors, customers, and OEMs
 
-## Immediate Next Steps
+## Implementation Status (as of 2026-03-08)
+
+- [x] NVIDIA Connect ISV Partner confirmed (official email)
+- [x] Badge added to Optimus V3 hero row
+- [x] Stack card added to Fleet index partner grid
+- [x] Moat slide upgraded to "Connect ISV Partner"
+- [x] Investor page cleaned, no more "(applied)" credits
+- [x] Nav updated: Lifetime Fleet submenu with Fleet Overview, Optimus V3, NVIDIA ISV Partner
+- [x] Products dropdown: "DWS IQ Report" label, href unchanged
+- [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
+- [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
+
+## Remaining Next Steps
 
 - [ ] Complete product profile in NVIDIA partner portal (required to unlock benefits)
 - [ ] Add DWS IQ 6 product details — EU climate compliance + Jetson edge deployment
-- [ ] Update investor relations page — change status from claimed to confirmed
-- [ ] Use in sales outreach: "NVIDIA-certified infrastructure" is now a verified fact
 - [ ] Add badge/logo per NVIDIA brand guidelines (check portal for assets)
 
 ## Sales Outreach Talking Points
