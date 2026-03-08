@@ -1,6 +1,6 @@
 # Admin Manual: V8 Dashboard Management
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

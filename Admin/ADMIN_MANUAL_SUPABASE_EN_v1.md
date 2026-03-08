@@ -1,6 +1,6 @@
 # Admin Manual: Supabase Database Management for DWS6
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

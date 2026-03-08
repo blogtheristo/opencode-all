@@ -1,14 +1,15 @@
 # Site Quality Standards & Management Policy
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Dashboard Resilience Patterns section — ErrorBoundary, Skeleton, EmptyState, useApi component standards; updated Error States table with middleware error integration
   - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added MVP features — Onboarding Wizard, Compliance Score Widget, CLI Rich Output; updated component registry; added customer journey quality gates
 
 Session Links & References:
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
@@ -22,9 +23,9 @@ Document Status:
 
 ***
 
-**Version:** 2.1
-**Effective Date:** 2026-03-07
-**Last Updated:** 2026-03-07
+**Version:** 2.2
+**Effective Date:** 2026-03-08
+**Last Updated:** 2026-03-08
 **Status:** Active
 
 ---

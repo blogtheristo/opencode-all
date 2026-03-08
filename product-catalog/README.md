@@ -1,6 +1,6 @@
 # Product Catalog - DWS IQ Platform
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.0

@@ -1,6 +1,6 @@
 # DWS IQ Platform - Admin Manual
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.9

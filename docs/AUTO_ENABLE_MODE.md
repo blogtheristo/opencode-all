@@ -1,6 +1,6 @@
 # Auto-Enable Mode: Permission Rules Matrix for Claude Code
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

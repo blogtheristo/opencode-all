@@ -1,6 +1,6 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.0
