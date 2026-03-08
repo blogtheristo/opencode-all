@@ -1,6 +1,6 @@
 # LinkedIn Social Note — Merz, China & European Competitiveness
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

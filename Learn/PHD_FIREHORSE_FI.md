@@ -6,7 +6,7 @@
 **Laitos:** DWS IQ Research
 **Dokumenttityyppi:** Pro Gradu -tutkielma
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.0

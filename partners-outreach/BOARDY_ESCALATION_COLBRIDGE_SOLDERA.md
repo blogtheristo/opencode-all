@@ -1,6 +1,6 @@
 # Boardy Intro Escalation — Colbridge Ventures + Soldera
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

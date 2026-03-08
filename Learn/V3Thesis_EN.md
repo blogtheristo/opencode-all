@@ -1,7 +1,7 @@
 # Firehorse Product Manufacturing Operating Model
 ## Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 3.20

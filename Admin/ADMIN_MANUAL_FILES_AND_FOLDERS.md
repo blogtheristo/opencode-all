@@ -1,6 +1,6 @@
 # Admin Manual: Files and Folders Structure
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.2

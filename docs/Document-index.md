@@ -1,6 +1,6 @@
 # DWS6 Document Index
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

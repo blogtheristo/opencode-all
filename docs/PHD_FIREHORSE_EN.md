@@ -6,7 +6,7 @@
 **Institution:** DWS IQ Research
 **Document Type:** Master Thesis Documentation
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.0

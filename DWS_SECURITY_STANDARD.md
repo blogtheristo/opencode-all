@@ -15,7 +15,7 @@ toc-depth: 3
 
 # DWS Security Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.8

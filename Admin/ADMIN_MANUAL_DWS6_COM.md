@@ -1,6 +1,6 @@
 # 👨‍💼 ADMIN MANUAL: dws6.com Deployment & Management
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1
