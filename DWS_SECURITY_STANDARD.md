@@ -18,9 +18,10 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Supabase migration 043 — persistent storage for api_keys, usage_events, usage_counters, report_schedules tables with RLS, atomic counter increment function (increment_usage_counter), sanity checks; services updated with Supabase-first + in-memory fallback pattern; shared backend Supabase client (src/config/supabase.ts)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 16 (MVP Security Controls) — API Key Management (SHA-256 hashing, per-user limits, scope-based access), Usage Metering (tier enforcement, rate limiting per billing period), Report Export (authenticated download, usage-gated exports)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Section 15 (API Middleware Security Controls) — centralized error handler security, request validation with Zod, correlation ID tracing, env validation, health check endpoint hardening; compliance engine API security
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Section 3.6.1 (Database Backup & Disaster Recovery Controls) — 7 BCP/DR controls, RTO/RPO targets, backup retention policy, Aiven sandbox mirror, multi-destination backup architecture (local + Proton + Acer Helsinki + GitHub Actions)
@@ -1251,6 +1252,24 @@ The compliance API (`/api/v1/compliance/*`) handles sensitive corporate data:
 
 Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
 
+### 16.0 Database Persistence (Migration 043)
+
+All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback.
+
+**Migration:** `supabase/migrations/043_mvp_api_keys_usage_schedules.sql`
+**Shared client:** `src/config/supabase.ts` (service_role key, singleton)
+
+| Table | RLS | Policies | Purpose |
+|-------|-----|----------|---------|
+| `api_keys` | Enabled + Forced | service_role full; authenticated own-row only | API key storage (hashed) |
+| `usage_events` | Enabled + Forced | service_role full; authenticated read-own | Append-only event log |
+| `usage_counters` | Enabled + Forced | service_role full; authenticated read-own | Monthly usage aggregates |
+| `report_schedules` | Enabled + Forced | service_role full; authenticated own-row only | Recurring report config |
+
+**Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
+
+**Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
 ### 16.1 API Key Management Security
 
 **Implementation:** `src/services/api-key.service.ts`, `src/routes/api-keys.routes.ts`
@@ -1311,7 +1330,7 @@ Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
 
 ---
 
-**Document Version:** 1.6
+**Document Version:** 1.7
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)
