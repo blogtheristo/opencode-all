@@ -120,11 +120,18 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
       const userId = session.session?.user?.id;
 
       if (userId) {
+        // Persist profile data to user_profiles table
         await supabase.from('user_profiles').upsert({
           id: userId,
           email: userEmail,
           // Only upsert columns that are known to exist on user_profiles
           updated_at: new Date().toISOString(),
+        });
+
+        // Also set auth user_metadata so the check in App.tsx works
+        // across devices/browsers without querying user_profiles
+        await supabase.auth.updateUser({
+          data: { onboarding_completed: true },
         });
       }
 

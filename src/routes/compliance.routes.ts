@@ -9,6 +9,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { validate } from '../middleware/validate.js';
+import { authenticateToken } from '../middleware/auth.middleware.js';
 import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DISCLOSURES } from '../compliance/esrs-registry.js';
@@ -115,15 +116,16 @@ router.get('/registry', (req: Request, res: Response) => {
  * Dashboard widget endpoint — returns overall compliance score with regulation breakdown.
  * Used by the ComplianceScoreWidget component.
  */
-router.get('/overview', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/overview', authenticateToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Build a quick assessment from org defaults or provide demo data
-    // In production this would pull the latest saved assessment from the database
+    // Fixed demo assessment — deterministic so scores are stable across refreshes.
+    // In production this would pull the latest saved assessment from the database.
+    const mandatoryDisclosures = getMandatoryDisclosures().slice(0, 30);
     const demoResult = scoreCompliance({
       industry: 'manufacturing',
-      dataPoints: getMandatoryDisclosures().slice(0, 30).map(d => ({
+      dataPoints: mandatoryDisclosures.map((d, i) => ({
         disclosureId: d.id,
-        provided: Math.random() > 0.3,
+        provided: i % 3 !== 0, // ~67% provided — deterministic pattern
       })),
       annualEmissions: 25000,
       importValue: 100000,
@@ -132,21 +134,16 @@ router.get('/overview', async (req: Request, res: Response, next: NextFunction) 
       hasSupplyChainDD: false,
     });
 
-    const regulationScores = demoResult.regulationScores.map(r => {
-      const id = r.regulation.toLowerCase().replace(/\s+/g, '-');
-      const gapsForRegulation = demoResult.gaps.filter(g => g.regulation === r.regulation).length;
-
-      return {
-        id,
-        name: r.regulation,
-        score: r.score,
-        status: r.status,
-        gaps: gapsForRegulation,
-      };
-    });
+    const regulationScores = demoResult.regulationScores.map(r => ({
+      id: r.regulation.toLowerCase().replace(/\s+/g, '-'),
+      name: r.regulation,
+      score: r.score,
+      status: r.status,
+      gaps: demoResult.gaps.filter(g => g.regulation === r.regulation).length,
+    }));
     res.json({
       overallScore: demoResult.overallScore,
-      previousScore: Math.max(0, demoResult.overallScore - Math.floor(Math.random() * 15)),
+      previousScore: Math.max(0, demoResult.overallScore - 8),
       lastAssessment: new Date(Date.now() - 86400000 * 2).toISOString(),
       regulations: regulationScores,
       totalGaps: demoResult.gaps.length,

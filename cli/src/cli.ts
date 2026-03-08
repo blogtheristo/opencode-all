@@ -129,11 +129,16 @@ function error(msg: string): never {
 
 async function cmdAgents(): Promise<void> {
   const s = spinner('Fetching agents...');
-  const result = await api('/api/agents') as {
-    agents: Array<{ name: string; description: string; capabilities: string[]; model: string }>;
-  };
-  s.stop();
-  output(result.agents, (data) => formatAgentList(data as typeof result.agents));
+  try {
+    const result = await api('/api/agents') as {
+      agents: Array<{ name: string; description: string; capabilities: string[]; model: string }>;
+    };
+    s.stop();
+    output(result.agents, (data) => formatAgentList(data as typeof result.agents));
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
 }
 
 async function cmdAgent(name: string): Promise<void> {
@@ -337,18 +342,23 @@ async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
     }
   }
 
-  const result = await api(`/api/agents/${name}/execute`, 'POST', {
-    context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
-    input,
-  });
-  s.stop();
+  try {
+    const result = await api(`/api/agents/${name}/execute`, 'POST', {
+      context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+      input,
+    });
+    s.stop();
 
-  // Try to format compliance results nicely
-  const r = result as Record<string, unknown>;
-  if (r.overallScore !== undefined || r.regulations) {
-    output(result, (d) => formatComplianceResult(d as Parameters<typeof formatComplianceResult>[0]));
-  } else {
-    output(result);
+    // Try to format compliance results nicely
+    const r = result as Record<string, unknown>;
+    if (r.overallScore !== undefined || r.regulations) {
+      output(result, (d) => formatComplianceResult(d as Parameters<typeof formatComplianceResult>[0]));
+    } else {
+      output(result);
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
   }
 }
 

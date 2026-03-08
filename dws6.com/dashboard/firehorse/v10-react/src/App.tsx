@@ -204,7 +204,7 @@ function App() {
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Compliance Score Widget — visible when no side panel, or on mobile */}
+              {/* Compliance Score Widget — hidden when a side panel is open (all screens) */}
               {!sidePanel && (
                 <div className="lg:col-span-1 order-first lg:order-none">
                   <ErrorBoundary>

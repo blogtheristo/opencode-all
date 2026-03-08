@@ -1,6 +1,6 @@
 # DWS Gamma Brand Standard v2.4
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.4
