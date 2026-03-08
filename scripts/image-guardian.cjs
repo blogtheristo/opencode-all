@@ -15,7 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { execSync } = require('child_process');
+const { execFileSync, spawnSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const MANIFEST_PATH = path.join(ROOT, 'dws10.com', 'config', 'image-manifest.json');
@@ -152,8 +152,10 @@ function findHTMLImageRefs() {
 
 function getDeletedImagesFromGit() {
     try {
-        const output = execSync(
-            'git log --diff-filter=D --name-only --pretty=format:"COMMIT:%H %s" -50 -- "*.png" "*.jpg" "*.jpeg" "*.svg" "*.webp" "*.gif"',
+        const output = execFileSync(
+            'git',
+            ['log', '--diff-filter=D', '--name-only', '--pretty=format:COMMIT:%H %s', '-50',
+             '--', '*.png', '*.jpg', '*.jpeg', '*.svg', '*.webp', '*.gif'],
             { cwd: ROOT, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }
         );
         const lines = output.trim().split('\n');
@@ -175,8 +177,9 @@ function getDeletedImagesFromGit() {
 function restoreFromGit(filepath) {
     try {
         // Find the last commit where this file existed
-        const commitHash = execSync(
-            `git log --diff-filter=D --format="%H" -1 -- "${filepath}"`,
+        const commitHash = execFileSync(
+            'git',
+            ['log', '--diff-filter=D', '--format=%H', '-1', '--', filepath],
             { cwd: ROOT, encoding: 'utf8' }
         ).trim();
 
@@ -186,15 +189,23 @@ function restoreFromGit(filepath) {
         }
 
         // Restore from the commit BEFORE deletion
-        const parentHash = commitHash + '~1';
+        const parentRef = commitHash + '~1';
         const absPath = path.join(ROOT, filepath);
         const dir = path.dirname(absPath);
         fs.mkdirSync(dir, { recursive: true });
 
-        execSync(`git show "${parentHash}:${filepath}" > "${absPath}"`, {
+        // Use spawnSync to avoid shell injection — write stdout directly to file
+        const result = spawnSync('git', ['show', `${parentRef}:${filepath}`], {
             cwd: ROOT,
-            shell: true
+            maxBuffer: 50 * 1024 * 1024
         });
+
+        if (result.status !== 0) {
+            console.log(`  ❌ Failed to restore: ${filepath} (git show exited ${result.status})`);
+            return false;
+        }
+
+        fs.writeFileSync(absPath, result.stdout);
 
         if (fs.existsSync(absPath) && fs.statSync(absPath).size > 0) {
             console.log(`  ✅ Restored: ${filepath} (from ${commitHash.slice(0, 8)})`);
