@@ -25,8 +25,14 @@
             --nvidia-green: #76b900;
             --nvidia-green-dim: rgba(118, 185, 0, 0.15);
             --nvidia-green-border: rgba(118, 185, 0, 0.3);
-            --dark: #0f172a;
-            --dark-card: rgba(30, 41, 59, 0.6);
+            --nvidia-black: #000000;
+            --nvidia-dark: #1a1a1a;
+            --gold: #d4a843;
+            --gold-light: #f0d78c;
+            --gold-dim: rgba(212, 168, 67, 0.15);
+            --gold-border: rgba(212, 168, 67, 0.4);
+            --dark: #0a0a0a;
+            --dark-card: rgba(26, 26, 26, 0.8);
             --text: #e2e8f0;
             --text-dim: #94a3b8;
             --blue: #60a5fa;
@@ -38,7 +44,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: var(--text);
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background: #000000;
             min-height: 100vh;
         }
 
@@ -47,48 +53,96 @@
         /* Hero */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 100px 20px 70px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(118,185,0,0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 50% 100%, rgba(212,168,67,0.06) 0%, transparent 50%),
+                        #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--nvidia-green), var(--gold), var(--nvidia-green), transparent);
         }
         .hero-badge {
             display: inline-block;
-            color: var(--nvidia-green);
-            border: 1px solid var(--nvidia-green-border);
-            background: var(--nvidia-green-dim);
+            color: var(--gold-light);
+            border: 1px solid var(--gold-border);
+            background: var(--gold-dim);
             border-radius: 20px;
-            padding: 6px 18px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            margin-bottom: 24px;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            animation: badge-glow 3s ease-in-out infinite;
+        }
+        @keyframes badge-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212,168,67,0.15); }
+            50% { box-shadow: 0 0 30px rgba(212,168,67,0.3); }
         }
         .hero h1 {
-            font-size: 2.6rem;
-            color: var(--text);
-            margin-bottom: 20px;
-            line-height: 1.2;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #c49b38 70%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            line-height: 1.15;
+            font-weight: 800;
         }
-        .hero h1 span { color: var(--nvidia-green); }
+        .hero h1 .nvidia-text {
+            background: linear-gradient(135deg, var(--nvidia-green), #8fd400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-partner-line {
+            font-size: 1.1rem;
+            color: var(--nvidia-green);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
         .hero-sub {
             font-size: 1.25rem;
             color: var(--text-dim);
             max-width: 700px;
-            margin: 0 auto 32px;
+            margin: 0 auto 36px;
         }
         .hero-value {
             font-size: 1.05rem;
             color: var(--text);
-            background: var(--dark-card);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(20,20,20,0.95));
             border: 1px solid var(--nvidia-green-border);
             border-radius: 12px;
-            padding: 20px 28px;
+            padding: 24px 28px;
             max-width: 750px;
             margin: 0 auto;
             text-align: left;
+            position: relative;
+        }
+        .hero-value::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--nvidia-green-border), var(--gold-border), var(--nvidia-green-border));
+            z-index: -1;
         }
         .hero-value strong { color: var(--nvidia-green); }
 
         /* Sections */
-        .section { padding: 60px 20px; }
+        .section {
+            padding: 60px 20px;
+            background: var(--nvidia-black);
+            border-top: 1px solid rgba(118,185,0,0.08);
+        }
         .section-label {
             color: var(--nvidia-green);
             font-size: 0.8rem;
@@ -159,10 +213,15 @@
             gap: 20px;
         }
         .card {
-            background: var(--dark-card);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
+            border: 1px solid rgba(118,185,0,0.12);
             border-radius: 12px;
             padding: 28px;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+        .card:hover {
+            border-color: var(--nvidia-green-border);
+            transform: translateY(-2px);
         }
         .card h3 {
             color: var(--text);
@@ -182,8 +241,8 @@
             margin: 0 auto;
         }
         .cosell-side {
-            background: var(--dark-card);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
+            border: 1px solid rgba(118,185,0,0.12);
             border-radius: 12px;
             padding: 28px;
             text-align: center;
@@ -209,7 +268,7 @@
             text-align: center;
             margin-top: 32px;
             padding: 20px;
-            background: var(--dark-card);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(15,15,15,0.95));
             border: 1px solid var(--nvidia-green-border);
             border-radius: 12px;
             max-width: 600px;
@@ -223,6 +282,8 @@
         .cta-section {
             text-align: center;
             padding: 60px 20px 80px;
+            background: var(--nvidia-black);
+            border-top: 1px solid rgba(118,185,0,0.08);
         }
         .cta-section h2 {
             font-size: 1.8rem;
@@ -260,7 +321,8 @@
         .back-link:hover { color: var(--text); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 80px 20px 50px; }
+            .hero h1 { font-size: 2rem; }
             .stack-layer { grid-template-columns: 1fr; }
             .stack-label { border-bottom: 1px solid rgba(255,255,255,0.05); }
             .stack-detail { border-left: none; }
@@ -277,9 +339,10 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge">✦ NVIDIA Connect ISV Partner</div>
-        <h1><span>NVIDIA</span> Brings the Compute.<br>DWS IQ Brings the Compliance.</h1>
-        <p class="hero-sub">Two certified layers, one integration. No custom driver work, no compatibility risk, no surprises at integration.</p>
+        <div class="hero-badge">✦ Official NVIDIA Connect Partner ✦</div>
+        <h1>We Are <span class="nvidia-text">NVIDIA</span> Connect Partner</h1>
+        <div class="hero-partner-line">Lifetime Oy — Certified ISV Partner 2026</div>
+        <p class="hero-sub">DWS IQ Platform runs on certified NVIDIA infrastructure. Two validated layers, one seamless integration — no compatibility risk.</p>
         <div class="hero-value">
             DWS IQ runs on <strong>certified NVIDIA infrastructure</strong> — from Grace Blackwell edge clusters to Jetson robotics modules. When an OEM or system integrator sees "NVIDIA Connect ISV Partner", it means: <strong>tested, validated, and supported through NVIDIA's official ecosystem.</strong>
             <p style="margin-top: 12px; font-size: 0.9rem;"><a href="https://www.nvidia.com/en-us/about-nvidia/partners/partner-locator/" style="color: var(--nvidia-green);" target="_blank" rel="noopener noreferrer">Verify on NVIDIA Partner Locator →</a></p>
