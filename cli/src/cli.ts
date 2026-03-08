@@ -228,12 +228,119 @@ async function cmdMcpCall(toolName: string, argsJson: string): Promise<void> {
   output(result);
 }
 
+// ============ SCENARIO SHORTCUTS ============
+
+const SCENARIOS: Record<string, { description: string; commands: Array<{ label: string; cmd: string }> }> = {
+  construction: {
+    description: 'Construction site compliance & safety monitoring',
+    commands: [
+      { label: 'Site safety check', cmd: 'dws run sitesense --input \'{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}\'' },
+      { label: 'Carbon footprint', cmd: 'dws run material-oracle --input \'{"materials":[{"name":"concrete","quantity":500,"unit":"m3"}]}\'' },
+      { label: 'Full assessment', cmd: 'dws workflow construction-full --input \'{"siteId":"site-1"}\'' },
+    ],
+  },
+  manufacturing: {
+    description: 'Manufacturing emissions tracking & ETS compliance',
+    commands: [
+      { label: 'ETS compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["ets","cbam"]}\'' },
+      { label: 'Emissions analysis', cmd: 'dws run emissions-data-analyst --input \'{"query":"scope 1 total by facility"}\'' },
+      { label: 'Quality gate', cmd: 'dws run quality-gate --input \'{"productId":"batch-2026-03"}\'' },
+    ],
+  },
+  logistics: {
+    description: 'Fleet emissions, route optimization & CSRD reporting',
+    commands: [
+      { label: 'Fleet emissions', cmd: 'dws run emissions-data-analyst --input \'{"query":"fleet fuel consumption by route"}\'' },
+      { label: 'CSRD check', cmd: 'dws run compliance --input \'{"industry":"logistics","regulations":["csrd","fit-for-55"]}\'' },
+      { label: 'Competitor scan', cmd: 'dws run competitor-surveillance --input \'{"industry":"logistics","region":"EU"}\'' },
+    ],
+  },
+  energy: {
+    description: 'Energy grid optimization & Fit for 55 compliance',
+    commands: [
+      { label: 'Fit for 55', cmd: 'dws run compliance --input \'{"industry":"energy","regulations":["ets","fit-for-55"]}\'' },
+      { label: 'Emissions report', cmd: 'dws run emissions-data-analyst --input \'{"query":"total GHG by source"}\'' },
+      { label: 'SEO pipeline', cmd: 'dws workflow seo-pipeline --input \'{"domain":"energy-portal.eu"}\'' },
+    ],
+  },
+  quickstart: {
+    description: 'First-time setup: verify connection, list agents, run a demo',
+    commands: [
+      { label: 'Health check', cmd: 'dws health' },
+      { label: 'List agents', cmd: 'dws agents' },
+      { label: 'Demo compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'' },
+      { label: 'List workflows', cmd: 'dws workflows' },
+    ],
+  },
+};
+
+async function cmdScenario(name?: string): Promise<void> {
+  if (!name || !SCENARIOS[name]) {
+    // List all scenarios
+    const list = Object.entries(SCENARIOS).map(([key, s]) => ({
+      name: key,
+      description: s.description,
+      commandCount: s.commands.length,
+    }));
+    output(list);
+    return;
+  }
+
+  const scenario = SCENARIOS[name];
+  output({
+    scenario: name,
+    description: scenario.description,
+    commands: scenario.commands,
+    hint: 'Copy and run any command above, or pipe: dws scenario construction | jq \'.commands[0].cmd\'',
+  });
+}
+
+async function cmdQuickstart(): Promise<void> {
+  // Interactive-style quickstart that runs health + agents
+  console.error('DWS IQ — Quick Start');
+  console.error('====================\n');
+
+  console.error('1/3  Checking backend health...');
+  try {
+    const health = await api('/health');
+    console.error('     Backend: OK');
+    const mcpHealth = await api('/mcp/health').catch(() => null);
+    console.error(`     MCP:     ${mcpHealth ? 'OK' : 'Not available'}`);
+  } catch {
+    console.error('     Backend: OFFLINE — set DWS_API_URL or start the server');
+    console.error(`     Current: ${API_URL}`);
+    output({ status: 'offline', apiUrl: API_URL, hint: 'Run: npm run dev  (in the dws6 root)' });
+    return;
+  }
+
+  console.error('\n2/3  Discovering agents...');
+  try {
+    const result = await api('/api/agents') as { agents: Array<{ name: string; description: string }> };
+    const agents = result.agents || [];
+    console.error(`     Found ${agents.length} agent(s)`);
+    agents.slice(0, 5).forEach(a => console.error(`     - ${a.name}: ${a.description}`));
+    if (agents.length > 5) console.error(`     ... and ${agents.length - 5} more`);
+  } catch {
+    console.error('     Could not list agents');
+  }
+
+  console.error('\n3/3  Ready! Try these next:');
+  console.error('     dws scenario quickstart     — guided first steps');
+  console.error('     dws scenario construction   — construction site workflow');
+  console.error('     dws scenario manufacturing  — ETS/CBAM compliance');
+  console.error('     dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'');
+  console.error('');
+
+  output({ status: 'ready', apiUrl: API_URL, hint: 'Run: dws scenario <name> for guided workflows' });
+}
+
 // ============ HELP ============
 
 const HELP = `
 dws — DWS IQ CLI. Built for agents.
 
 COMMANDS:
+  dws quickstart                          First-time setup & connection check
   dws agents                              List all registered agents
   dws agent <name>                        Get agent details
   dws run <name> --input '{...}'          Execute an agent
@@ -241,10 +348,18 @@ COMMANDS:
   dws discover <capability>               Find agents by capability tag
   dws workflows                           List available workflows
   dws workflow <name> --input '{...}'     Trigger a multi-agent workflow
+  dws scenario [name]                     Usage scenarios (construction, manufacturing, logistics, energy)
   dws events [--pattern <p>] [--limit N]  Show recent events
   dws health                              Backend + MCP health check
   dws mcp tools                           List MCP tools
   dws mcp call <tool> --args '{...}'      Call an MCP tool directly
+
+SCENARIOS (dws scenario <name>):
+  quickstart      First-time setup: health check, list agents, demo run
+  construction    Site safety, carbon footprint, full assessment workflow
+  manufacturing   ETS compliance, emissions analysis, quality gates
+  logistics       Fleet emissions, CSRD reporting, competitor scan
+  energy          Fit for 55, GHG reporting, SEO pipeline
 
 ENVIRONMENT:
   DWS_API_URL     Backend URL (default: http://localhost:8080)
@@ -258,8 +373,14 @@ PIPING:
   dws discover carbon | jq '.[0].name' | xargs -I{} dws run {} --input '{}'
 
 EXAMPLES:
+  # Quick start (first time)
+  dws quickstart
+
+  # See what's available for construction projects
+  dws scenario construction
+
   # Check EU compliance for a steel company
-  dws run compliance --input '{"projectId":"demo","industry":"steel","regulations":["ets","cbam","csrd"],"currentMeasures":{"carbonReporting":true,"emissionsMonitoring":false,"supplyChainDueDiligence":false,"aiSystemLogging":false},"annualEmissions":50000,"importValue":200000}'
+  dws run compliance --input '{"projectId":"demo","industry":"steel","regulations":["ets","cbam","csrd"],"currentMeasures":{"carbonReporting":true,"emissionsMonitoring":false},"annualEmissions":50000}'
 
   # Run full construction assessment workflow
   dws workflow construction-full --input '{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}'
@@ -355,6 +476,14 @@ async function main(): Promise<void> {
 
       case 'health':
         await cmdHealth();
+        break;
+
+      case 'scenario':
+        await cmdScenario(subcommand);
+        break;
+
+      case 'quickstart':
+        await cmdQuickstart();
         break;
 
       case 'mcp':
