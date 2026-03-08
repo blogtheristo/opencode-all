@@ -3,9 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.9
 
 Sessions & Modifications:
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 34 (Database Disaster Recovery Operations) — db-recovery.sh Linux recovery script, db-backup-test.sh backup test drive, dual-database architecture (Supabase dws6-production + Aiven dws-test), minutes-target RTO procedures
+  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 31 (API Key Management Operations), Section 32 (Usage Metering & Billing Operations), Section 33 (Report Export & Scheduling Operations) — operational procedures for 3 new MVP features with customer-facing endpoints
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Sections 28-30 (Health Check & Monitoring, Compliance Scoring Engine Operations, Dashboard Resilience Troubleshooting) — operational procedures for 3 MVP features
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
@@ -3129,6 +3131,275 @@ Located at: `dws6.com/dashboard/firehorse/v10-react/src/components/`
 | `ProjectCardSkeleton` | `Skeleton.tsx` | Loading placeholder for project cards |
 | `EmptyState` | `EmptyState.tsx` | Guidance when no data available |
 | `useApi` | `hooks/useApi.ts` | Centralized API calls with error/loading/data states |
+
+---
+
+## 31. API Key Management Operations
+
+Added: 08.03.2026 | MVP Feature 1 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Self-service API key management allows customers to create, list, and revoke API keys for programmatic access to the DWS IQ platform. Keys are scoped (e.g., `compliance:read`, `reports:export`) and hashed with SHA-256 before storage.
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/user/api-keys` | JWT | Create a new API key |
+| GET | `/api/v1/user/api-keys` | JWT | List user's API keys |
+| DELETE | `/api/v1/user/api-keys/:id` | JWT | Revoke an API key |
+
+### Key Lifecycle
+
+1. **Creation** — User provides a name and optional scopes. System generates `dws_live_<32hex>` key, stores SHA-256 hash, returns raw key once
+2. **Usage** — Key validated against hash store on every API call. `lastUsedAt` updated automatically
+3. **Revocation** — Soft delete (sets `revoked=true`). Audit trail preserved
+
+### Available Scopes
+
+`compliance:read`, `compliance:write`, `assistant:read`, `assistant:write`, `reports:read`, `reports:export`, `usage:read`
+
+### Limits
+
+- Maximum 10 active (non-revoked) keys per user
+- Optional expiry: 1–365 days from creation
+
+### Files
+
+- Service: `src/services/api-key.service.ts`
+- Routes: `src/routes/api-keys.routes.ts`
+- Dashboard UI: `dws6.com/dashboard/firehorse/v10-react/src/pages/SettingsPage.tsx`
+
+---
+
+## 32. Usage Metering & Billing Operations
+
+Added: 08.03.2026 | MVP Feature 2 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Usage metering tracks API calls, AI assistant messages, and report exports per user per billing period. Three subscription tiers (Free/Pro/Enterprise) enforce monthly limits. Usage data is exposed via API and displayed in the dashboard Settings page.
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/v1/usage` | JWT | User's usage stats for current period |
+| GET | `/api/v1/usage/tiers` | JWT | Available subscription tiers and limits |
+| GET | `/api/v1/usage/platform` | JWT + admin/owner | Platform-wide aggregate stats |
+
+### Tier Limits
+
+| Tier | API Calls/mo | Assistant Messages/mo | Report Exports/mo | Max Projects |
+|------|-------------|----------------------|-------------------|-------------|
+| Free | 100 | 20 | 2 | 1 |
+| Pro | 5,000 | 500 | 50 | 10 |
+| Enterprise | 100,000 | 10,000 | 500 | 100 |
+
+### Usage Tracking Middleware
+
+The `trackUsage()` middleware can be attached to any route to automatically meter API calls:
+
+```typescript
+import { trackUsage } from '../middleware/usage-tracking.middleware.js';
+
+// Track as API call
+router.get('/data', authenticateToken, trackUsage('api_call'), handler);
+
+// Track as assistant message
+router.post('/chat', authenticateToken, trackUsage('assistant_message'), handler);
+```
+
+### Response Headers
+
+Every metered response includes:
+- `X-Usage-Remaining`: calls remaining in current period
+- `X-Usage-Limit`: total allowed calls for user's tier
+
+### Files
+
+- Service: `src/services/usage-metering.service.ts`
+- Middleware: `src/middleware/usage-tracking.middleware.ts`
+- Routes: `src/routes/usage.routes.ts`
+- Dashboard UI: `SettingsPage.tsx` — "Usage & Plan" section with progress bars
+
+---
+
+## 33. Report Export & Scheduling Operations
+
+Added: 08.03.2026 | MVP Feature 3 | Session: claude/build-mvp-features-nFk7k
+
+### Overview
+
+Compliance report export generates downloadable reports (JSON/CSV) from the scoring engine. Report scheduling allows recurring automated generation for regulatory filing deadlines (monthly, quarterly, annually).
+
+### API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/reports/export` | JWT | Generate and download a compliance report |
+| POST | `/api/v1/reports/schedule` | JWT | Create a recurring report schedule |
+| GET | `/api/v1/reports/schedules` | JWT | List user's report schedules |
+| DELETE | `/api/v1/reports/schedule/:id` | JWT | Delete a schedule |
+| PATCH | `/api/v1/reports/schedule/:id/toggle` | JWT | Enable/disable a schedule |
+
+### Export Request Body
+
+```json
+{
+  "companyName": "Acme Oy",
+  "industry": "steel",
+  "country": "FI",
+  "format": "csv",
+  "includeGaps": true,
+  "includeRecommendations": true
+}
+```
+
+### Schedule Configuration
+
+```json
+{
+  "companyName": "Acme Oy",
+  "industry": "steel",
+  "country": "FI",
+  "frequency": "quarterly",
+  "format": "json",
+  "recipientEmail": "compliance@acme.fi",
+  "enabled": true
+}
+```
+
+### CSV Report Structure
+
+Reports include: company metadata, regulation scores, identified gaps, and prioritized recommendations. CSV format is compatible with CSRD filing tools.
+
+### Usage Metering Integration
+
+Report exports count against the user's `reportExports` tier limit. A 429 response is returned when the limit is exceeded, with guidance to upgrade.
+
+### Files
+
+- Service: `src/services/report-export.service.ts`
+- Routes: `src/routes/report-export.routes.ts`
+- Dashboard UI: `SettingsPage.tsx` — "Compliance Report Export" section with CSV/JSON buttons
+
+---
+
+## 34. Database Disaster Recovery Operations
+
+### 34.1 Architecture Overview
+
+DWS6 uses a dual-database architecture for production resilience:
+
+| Database | Provider | Role | Region |
+|----------|----------|------|--------|
+| `dws6-production` | Supabase | Primary (production) | EU (europe-north1) |
+| `dws-test` | Aiven PostgreSQL | Warm standby + agent workspace | EU (Finland) |
+
+**Recovery Time Objective (RTO):** Minutes (< 5 minutes for schema rebuild, < 15 minutes for full data restore).
+
+**Recovery Point Objective (RPO):** 24 hours (daily automated backups).
+
+### 34.2 Recovery Script
+
+**Script:** `scripts/db-recovery.sh`
+
+Rebuilds the full DWS6 database schema from 43+ migration files. Supports three targets:
+
+```bash
+# Recover to a new Supabase project
+./scripts/db-recovery.sh --target supabase
+
+# Recover to Aiven warm standby
+./scripts/db-recovery.sh --target aiven
+
+# Recover to any PostgreSQL instance
+./scripts/db-recovery.sh --target custom --db-url "postgresql://user:pass@host:5432/db"
+
+# Schema + data restore from backup dump
+./scripts/db-recovery.sh --target supabase --restore-dump backups/dws6-20260308.sql
+
+# Dry run (preview without executing)
+./scripts/db-recovery.sh --target aiven --dry-run
+```
+
+**What it does:**
+1. Loads credentials from `.env`
+2. Tests database connection
+3. Applies Aiven auth stubs (if targeting Aiven)
+4. Replays all numbered migrations in order (002–043+)
+5. Optionally restores data from pg_dump backup (supports GPG-encrypted dumps)
+6. Verifies: table existence, row counts, RLS status, function availability
+7. Reports total time vs. RTO target
+
+### 34.3 Backup Test Drive
+
+**Script:** `scripts/db-backup-test.sh`
+
+Validates the full backup → verify → restore cycle:
+
+```bash
+# Full test: export Supabase → verify → restore to Aiven → compare
+./scripts/db-backup-test.sh
+
+# Export and verify only (no restore)
+./scripts/db-backup-test.sh --export-only
+
+# Restore a specific dump to Aiven
+./scripts/db-backup-test.sh --dump /path/to/backup.sql
+```
+
+**Test steps:**
+1. Test source connection (Supabase)
+2. Export via pg_dump (schema + data)
+3. Verify dump integrity (file size, table count, core tables)
+4. Collect source row counts
+5. Test target connection (Aiven)
+6. Apply Aiven auth stubs
+7. Restore dump to Aiven
+8. Compare row counts (source vs target)
+9. Functional tests on restored tables
+
+### 34.4 Backup Infrastructure
+
+| Destination | Method | Frequency | Script |
+|-------------|--------|-----------|--------|
+| Local disk | pg_dump + GPG | Daily | `Backup-Database.ps1` |
+| Proton Drive | Encrypted sync | Daily | `Sync-ToProton.ps1` |
+| Acer Veriton Helsinki | SCP | Daily | `Backup-Database.ps1` |
+| GitHub Actions | Artifact | Daily 02:30 UTC | `daily-db-backup.yml` |
+| Aiven PostgreSQL | Full mirror | Daily | `Mirror-ToAiven.ps1` |
+
+### 34.5 Emergency Recovery Procedure
+
+1. **Assess:** Determine if Supabase is down or data is corrupted
+2. **Decide target:** New Supabase project or Aiven
+3. **Run recovery:**
+   ```bash
+   # If Aiven warm standby has recent data:
+   # Update .env with Aiven credentials, switch app to use Aiven
+
+   # If rebuilding from scratch:
+   ./scripts/db-recovery.sh --target supabase --restore-dump latest-backup.sql
+   ```
+4. **Verify:** Check table counts and functional tests
+5. **Switch:** Update `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in production `.env`
+6. **Notify:** Document the incident in `docs/field-notes/`
+
+### 34.6 Prerequisites
+
+- `psql` and `pg_dump` installed (`sudo apt-get install postgresql-client`)
+- `.env` with `SUPABASE_DB_*` and `AIVEN_DATABASE_URL` variables
+- For encrypted backups: `gpg` installed and `BACKUP_GPG_PASSPHRASE` set
+
+### Files
+
+- Recovery script: `scripts/db-recovery.sh`
+- Backup test: `scripts/db-backup-test.sh`
+- Aiven init: `scripts/aiven-init.sql`
+- Migrations: `supabase/migrations/002_*.sql` through `043_*.sql`
 
 ---
 

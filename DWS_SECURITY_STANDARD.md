@@ -18,9 +18,12 @@ toc-depth: 3
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 17 (Database Disaster Recovery Security) — dual-database architecture, recovery scripts, RTO < 5 min schema / < 15 min full restore, backup encryption (GPG), Aiven auth stubs for RLS compatibility, backup test drive validation
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Supabase migration 043 — persistent storage for api_keys, usage_events, usage_counters, report_schedules tables with RLS, atomic counter increment function (increment_usage_counter), sanity checks; services updated with Supabase-first + in-memory fallback pattern; shared backend Supabase client (src/config/supabase.ts)
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 16 (MVP Security Controls) — API Key Management (SHA-256 hashing, per-user limits, scope-based access), Usage Metering (tier enforcement, rate limiting per billing period), Report Export (authenticated download, usage-gated exports)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Section 15 (API Middleware Security Controls) — centralized error handler security, request validation with Zod, correlation ID tracing, env validation, health check endpoint hardening; compliance engine API security
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Section 3.6.1 (Database Backup & Disaster Recovery Controls) — 7 BCP/DR controls, RTO/RPO targets, backup retention policy, Aiven sandbox mirror, multi-destination backup architecture (local + Proton + Acer Helsinki + GitHub Actions)
   - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
@@ -1244,7 +1247,133 @@ The compliance API (`/api/v1/compliance/*`) handles sensitive corporate data:
 
 ---
 
-**Document Version:** 1.5
+---
+
+## 16. MVP Security Controls
+
+Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
+
+### 16.0 Database Persistence (Migration 043)
+
+All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback.
+
+**Migration:** `supabase/migrations/043_mvp_api_keys_usage_schedules.sql`
+**Shared client:** `src/config/supabase.ts` (service_role key, singleton)
+
+| Table | RLS | Policies | Purpose |
+|-------|-----|----------|---------|
+| `api_keys` | Enabled + Forced | service_role full; authenticated own-row only | API key storage (hashed) |
+| `usage_events` | Enabled + Forced | service_role full; authenticated read-own | Append-only event log |
+| `usage_counters` | Enabled + Forced | service_role full; authenticated read-own | Monthly usage aggregates |
+| `report_schedules` | Enabled + Forced | service_role full; authenticated own-row only | Recurring report config |
+
+**Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
+
+**Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
+### 16.1 API Key Management Security
+
+**Implementation:** `src/services/api-key.service.ts`, `src/routes/api-keys.routes.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Key generation | Cryptographically secure: `crypto.randomBytes(16)` → `dws_live_<32hex>` |
+| Key storage | SHA-256 hash only — raw key returned once at creation, never stored |
+| Key prefix | First 12 chars stored for UI display (e.g., `dws_live_a3b1****`) |
+| Per-user limit | Maximum 10 active keys per user (prevents key sprawl) |
+| Scope-based access | Keys carry scopes: `compliance:read`, `assistant:write`, `reports:export`, etc. |
+| Expiry support | Optional TTL (1–365 days), checked on every validation call |
+| Soft revocation | Keys are marked revoked (audit trail preserved), not deleted |
+| Authentication | All CRUD endpoints require JWT authentication via `authenticateToken` middleware |
+| Constant-time validation | Full key store scan with hash comparison (prevents timing attacks) |
+
+**Endpoints:**
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/user/api-keys` | JWT | Create key (returns raw key once) |
+| GET | `/api/v1/user/api-keys` | JWT | List keys (hashes excluded) |
+| DELETE | `/api/v1/user/api-keys/:id` | JWT | Revoke key (soft delete) |
+
+### 16.2 Usage Metering Security
+
+**Implementation:** `src/services/usage-metering.service.ts`, `src/middleware/usage-tracking.middleware.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Tier enforcement | Three tiers (Free/Pro/Enterprise) with monthly call limits |
+| Rate limiting | Per-endpoint via `trackUsage()` middleware — returns 429 when exceeded |
+| Non-blocking tracking | Metering failures never block the request (graceful degradation) |
+| Admin-only aggregates | Platform-wide stats require `admin` or `owner` role |
+| Usage headers | `X-Usage-Remaining` and `X-Usage-Limit` on every metered response |
+
+**Tier Limits:**
+
+| Tier | API Calls/mo | Assistant Messages/mo | Report Exports/mo |
+|------|-------------|----------------------|-------------------|
+| Free | 100 | 20 | 2 |
+| Pro | 5,000 | 500 | 50 |
+| Enterprise | 100,000 | 10,000 | 500 |
+
+### 16.3 Report Export Security
+
+**Implementation:** `src/services/report-export.service.ts`, `src/routes/report-export.routes.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Authentication | JWT required for all export/schedule operations |
+| Usage gating | Report exports count against tier limits (429 if exceeded) |
+| Input validation | Zod schemas for export and schedule requests |
+| Download headers | `Content-Disposition: attachment` forces download (prevents browser rendering) |
+| Schedule ownership | Users can only view/modify their own schedules |
+| Email validation | Schedule recipient email validated with `z.string().email()` |
+| Format restriction | Only `json` and `csv` formats allowed (no arbitrary file generation) |
+
+---
+
+## 17. Database Disaster Recovery Security
+
+### 17.1 Dual-Database Architecture
+
+| Control | Implementation |
+|---------|---------------|
+| Primary database | Supabase `dws6-production` (EU, europe-north1) with RLS on all tables |
+| Warm standby | Aiven PostgreSQL `dws-test` (EU, Finland) — daily mirror from Supabase |
+| Auth stub isolation | Aiven uses `auth.uid()` / `auth.jwt()` / `auth.role()` stubs returning dummy values — RLS policies load but do not enforce (acceptable for sandbox) |
+| Backup encryption | All backup dumps encrypted with GPG symmetric encryption (`BACKUP_GPG_PASSPHRASE`) |
+| 4-destination redundancy | Local disk + Proton Drive + Acer Veriton Helsinki + GitHub Actions artifacts |
+
+### 17.2 Recovery Scripts Security Controls
+
+| Control | Script | Implementation |
+|---------|--------|---------------|
+| Credential isolation | `db-recovery.sh` | Loads credentials from `.env` only — never hardcoded |
+| Connection validation | `db-recovery.sh` | Tests connection before applying any changes |
+| Dry-run mode | `db-recovery.sh` | `--dry-run` previews all actions without database changes |
+| GPG decryption | `db-recovery.sh` | Automatic decryption of `.gpg` backup files with passphrase from env |
+| Integrity verification | `db-backup-test.sh` | Row count comparison between source and target after restore |
+| RLS verification | `db-recovery.sh` | Checks RLS enabled on all MVP tables post-recovery |
+| Function verification | `db-recovery.sh` | Verifies `increment_usage_counter()` SECURITY DEFINER function exists |
+
+### 17.3 RTO/RPO Targets
+
+| Scenario | RTO | RPO |
+|----------|-----|-----|
+| Schema rebuild (migrations only) | < 5 minutes | N/A (schema from git) |
+| Full restore (schema + data) | < 15 minutes | 24 hours (daily backup) |
+| Aiven warm standby switchover | < 5 minutes | 24 hours (daily mirror) |
+
+### 17.4 Security Requirements for Recovery
+
+- Recovery scripts MUST NOT be run with `--skip-migrations` and `--restore-dump` simultaneously without understanding the implications
+- GPG passphrase MUST be stored in `.env` (never in script arguments visible in process list)
+- After recovery, verify RLS is enabled on all tables before routing production traffic
+- Aiven stubs make RLS effectively open — never route real customer traffic to Aiven without proper auth integration
+- Document all recovery events in `docs/field-notes/` with timestamp, operator, and verification results
+
+---
+
+**Document Version:** 1.8
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)
