@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Date: 08.03.2026 | Changes: Initial field note — side-by-side analysis of DWS IQ Optimus V3 landing page claims vs. official EU AI Act Article 12 requirements + 2025 Digital Omnibus on AI; alignment assessment, Omnibus implications, broader regulation coverage, industry verdict, mini SWOT
+  - Version: 1.1 | Tool: Claude Code | Date: 08.03.2026 | Changes: Added Section 6 OEM Feedback Integration — 4 critical points from robot industry review (over-delivery strongest card, biometric gap, Omnibus advantage, 27-country scaling objection). Updated Next Steps with completed deliverables.
 
 Document Status:
   - Created: 08.03.2026
@@ -109,6 +110,36 @@ DWS is not selling vaporware — their JSON-RPC 2.0 spec, ≤10 ms control loop,
 
 ---
 
+## 6. OEM Feedback Integration (March 2026)
+
+Four critical points surfaced from robot industry review:
+
+### 6.1 Over-Delivery on Logging Is the Strongest Card
+
+The "over-delivers on logging" point is the strongest card with OEMs. Confidence scores + reasoning lineage goes beyond what Article 12 requires, and that's exactly what notified bodies want when something goes wrong on a production line. When a robot arm crushes a part or a safety stop fires, the notified body doesn't want "event happened" — they want the full AI decision chain that led to the action. DWS provides this by default.
+
+**Action:** Lead every OEM conversation with the reasoning lineage demo, not the compliance checkbox list.
+
+### 6.2 Annex III Biometric Gap — Real but Narrow
+
+If Optimus V3 uses cameras for anything that could classify people, DWS must explicitly address period of use and reference database fields per Annex III minimum requirements. For pure industrial manipulation tasks (95% of expected pilots), this gap is irrelevant. But it's worth a one-liner on the legal page to preempt the question.
+
+**Action:** Add conditional biometric fields to the log schema spec. Add a one-liner to the landing page noting biometric-ready logging available on request.
+
+### 6.3 Omnibus Delay Is Good News
+
+If enforcement slips to Dec 2027 per the Digital Omnibus proposal, DWS's Nov 2026 "first robot at customer site" target looks proactive rather than rushed. Early certification becomes a marketing win — DWS can say "we were Article 12 compliant before the deadline moved."
+
+**Action:** Position the timeline as "ahead of schedule" rather than "on time."
+
+### 6.4 The 27-Country Scaling Objection Is the Real DD Question
+
+"Tiny Finnish firm scaling to 27-country support" is the concern that will come up in every serious due diligence conversation. This is the real objection to prepare for — not technical capability (which is proven) but operational scale.
+
+**Action:** Prepare the partner ecosystem response: the compliance layer is software (runs on customer's GN-100), not people. Local system integrators handle installation. Finland is a feature (non-CLOUD Act EU sovereignty). Offer 30-day technical evaluation as proof point.
+
+---
+
 ## Bottom Line
 
 This is one of the cleaner regulatory-bridge plays from a small EU player. The specs line up with what Article 12 actually demands (and the Omnibus doesn't weaken). For any humanoid OEM serious about EU industrial revenue in 2027, this page is worth a 30-minute technical deep-dive — not because it's a done deal, but because the compliance pain it solves is 100 % real.
@@ -117,6 +148,7 @@ This is one of the cleaner regulatory-bridge plays from a small EU player. The s
 
 ## Next Steps (Available on Request)
 
-- Full log schema comparison (DWS Aiwen vs. Article 12 minimum fields)
+- Full log schema comparison (DWS Aiwen vs. Article 12 minimum fields) — **DONE:** `docs/article-12-annex-iv-log-schema-mapping.md`
+- Sales outreach brief for robot OEMs — **DONE:** `docs/sales-outreach-robot-oem-partnership.md`
 - Machinery Regulation cross-check (CE marking path for humanoid robots)
 - Competitor analysis: how Boston Dynamics / Figure are handling the same requirements
