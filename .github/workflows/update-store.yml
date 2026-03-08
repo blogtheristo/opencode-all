@@ -2,10 +2,12 @@ name: Update Store Feed
 
 on:
   push:
+    branches: [main]
     paths:
       - 'Store/**'
       - 'dws10.com/config/products.json'
       - 'scripts/build_store.py'
+      - 'scripts/generate-google-feed.cjs'
   workflow_dispatch:
 
 permissions:
@@ -27,14 +29,24 @@ jobs:
         run: |
           pip install pyyaml markdown defusedxml
 
-      - name: Generate Store Feed and Pages
+      - name: Generate Store Feed and Pages (Python)
         run: |
           python scripts/build_store.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate Google Merchant XML Feed
+        run: |
+          node scripts/generate-google-feed.cjs
+          cp landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products.csv landing-pages/dws10-com/products/
+          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products.csv landing-pages/dws10-com/products/ landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: Update Google Merchant Feed and Product Pages" && git push)
 
