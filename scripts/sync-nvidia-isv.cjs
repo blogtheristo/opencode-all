@@ -7,7 +7,7 @@
  *   - dws10.com/config/nvidia-isv.json (NVIDIA-specific data)
  *
  * Updates:
- *   - dws10.com/lifetime-fleet/nvidia-isv/index.html (injects current product names)
+ *   - dws10.com/lifetime-fleet/nvidia-isv/index.html (detects drift in hardware specs)
  *   - dws10.com/config/nvidia-isv.json (syncs product names from products.json)
  *
  * Usage: node scripts/sync-nvidia-isv.cjs [--check]
@@ -69,18 +69,40 @@ function syncHTML(nvidia) {
         return [];
     }
 
-    let html = fs.readFileSync(NVIDIA_HTML_PATH, 'utf8');
-    let changes = [];
+    const html = fs.readFileSync(NVIDIA_HTML_PATH, 'utf8');
+    const changes = [];
 
-    // Inject hardware specs if they've changed
+    // Build expected hardware description strings from config
     const computeSpec = nvidia.hardware.compute;
-    const expectedComputeDesc = `<strong>${computeSpec.name}</strong> — ${computeSpec.soc} SoC · ${computeSpec.memory} memory · ${computeSpec.os} · ${computeSpec.power}. Industrial-grade AI workstation at partner rates. ${computeSpec.deployed}.`;
+    const expectedComputeDesc = `${computeSpec.name} — ${computeSpec.soc} SoC · ${computeSpec.memory} memory · ${computeSpec.os} · ${computeSpec.power}`;
 
-    // Check edge spec
     const edgeSpec = nvidia.hardware.edge;
-    const expectedEdgeDesc = `<strong>${edgeSpec.name}</strong> — ${edgeSpec.use}, local prediction engine. ${edgeSpec.latency} control loop for robot coordination.`;
+    const expectedEdgeDesc = `${edgeSpec.name} — ${edgeSpec.use}`;
 
-    // Report what's in the config vs HTML (informational)
+    // Detect drift: check if HTML contains the expected hardware names/specs
+    if (!html.includes(computeSpec.name)) {
+        changes.push(`Compute hardware name "${computeSpec.name}" not found in HTML`);
+    }
+    if (!html.includes(computeSpec.soc)) {
+        changes.push(`Compute SoC "${computeSpec.soc}" not found in HTML`);
+    }
+    if (!html.includes(edgeSpec.name)) {
+        changes.push(`Edge hardware "${edgeSpec.name}" not found in HTML`);
+    }
+    if (!html.includes(nvidia.products.platform.name)) {
+        changes.push(`Platform name "${nvidia.products.platform.name}" not found in HTML`);
+    }
+    if (!html.includes(nvidia.products.forensicReport.name)) {
+        changes.push(`Forensic product "${nvidia.products.forensicReport.name}" not found in HTML`);
+    }
+
+    if (changes.length > 0) {
+        console.log(`\n⚠️  HTML drift detected (${changes.length} issues):`);
+        changes.forEach(c => console.log(`  - ${c}`));
+        console.log('  → Update dws10.com/lifetime-fleet/nvidia-isv/index.html to match config');
+    }
+
+    // Summary
     console.log(`\nNVIDIA ISV Config Summary:`);
     console.log(`  Platform: ${nvidia.products.platform.name} v${nvidia.products.platform.version}`);
     console.log(`  Forensic: ${nvidia.products.forensicReport.name}`);
@@ -126,7 +148,12 @@ try {
         console.log('✅ Product names in sync');
     }
 
-    syncHTML(nvidia);
+    const htmlDrifts = syncHTML(nvidia);
+
+    if (isCheckMode && htmlDrifts.length > 0) {
+        console.log('\n❌ HTML drift check failed. Update the HTML to match nvidia-isv.json.');
+        process.exit(1);
+    }
 
     if (!isCheckMode) {
         saveJSON(NVIDIA_CONFIG_PATH, nvidia);
