@@ -110,4 +110,49 @@ router.get('/registry', (req: Request, res: Response) => {
   });
 });
 
+/**
+ * GET /api/v1/compliance/overview
+ * Dashboard widget endpoint — returns overall compliance score with regulation breakdown.
+ * Used by the ComplianceScoreWidget component.
+ */
+router.get('/overview', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Build a quick assessment from org defaults or provide demo data
+    // In production this would pull the latest saved assessment from the database
+    const demoResult = scoreCompliance({
+      industry: 'manufacturing',
+      dataPoints: getMandatoryDisclosures().slice(0, 30).map(d => ({
+        disclosureId: d.id,
+        provided: Math.random() > 0.3,
+      })),
+      annualEmissions: 25000,
+      importValue: 100000,
+      hasTransitionPlan: true,
+      hasEmissionsMonitoring: true,
+      hasSupplyChainDD: false,
+    });
+
+    const regulationScores = demoResult.regulationScores.map(r => ({
+      id: r.regulation.toLowerCase().replace(/\s+/g, '-'),
+      name: r.regulation,
+      score: r.score,
+      status: r.score >= 80 ? 'compliant' as const
+            : r.score >= 50 ? 'partial' as const
+            : 'non-compliant' as const,
+      gaps: r.gaps?.length ?? 0,
+    }));
+
+    res.json({
+      overallScore: demoResult.overallScore,
+      previousScore: Math.max(0, demoResult.overallScore - Math.floor(Math.random() * 15)),
+      lastAssessment: new Date(Date.now() - 86400000 * 2).toISOString(),
+      regulations: regulationScores,
+      totalGaps: demoResult.gaps.length,
+      criticalGaps: demoResult.gaps.filter(g => g.severity === 'critical').length,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;
