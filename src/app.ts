@@ -32,6 +32,8 @@ import bimRoutes from './routes/bim.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
+import hilRoutes from './routes/hil.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';

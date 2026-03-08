@@ -37,7 +37,7 @@ export function validate(schemas: ValidationSchemas) {
       next();
     } catch (err) {
       if (err instanceof ZodError) {
-        const fieldErrors = err.errors.map((e) => ({
+        const fieldErrors = err.issues.map((e) => ({
           field: e.path.join('.'),
           message: e.message,
           code: e.code,
@@ -81,7 +81,12 @@ export const ComplianceCheckSchema = z.object({
     emissionsMonitoring: z.boolean().default(false),
     supplyChainDueDiligence: z.boolean().default(false),
     aiSystemLogging: z.boolean().default(false),
-  }).default({}),
+  }).default({
+    carbonReporting: false,
+    emissionsMonitoring: false,
+    supplyChainDueDiligence: false,
+    aiSystemLogging: false,
+  }),
   annualEmissions: z.number().min(0).default(0),
   importValue: z.number().min(0).default(0),
 });
