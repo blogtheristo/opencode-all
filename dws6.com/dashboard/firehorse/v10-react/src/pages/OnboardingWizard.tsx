@@ -123,19 +123,16 @@ export function OnboardingWizard({ userEmail, onComplete, onSkip }: OnboardingWi
         await supabase.from('user_profiles').upsert({
           id: userId,
           email: userEmail,
-          company: data.companyName,
-          industry: data.industry,
-          company_size: data.companySize,
-          country: data.country,
-          onboarding_completed: true,
-          onboarding_completed_at: new Date().toISOString(),
+          // Only upsert columns that are known to exist on user_profiles
           updated_at: new Date().toISOString(),
         });
       }
 
       onComplete(data);
-    } catch {
-      // Still complete even if save fails — data is local
+    } catch (error) {
+      // Log the error but still complete even if save fails — data is local
+      // eslint-disable-next-line no-console
+      console.error('Failed to save onboarding data to Supabase', error);
       onComplete(data);
     } finally {
       setSaving(false);
