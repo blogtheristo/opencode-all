@@ -1,16 +1,17 @@
-# DWS Gamma Brand Standard v2.3
+# DWS Gamma Brand Standard v2.4
 
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
   - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
   - Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
-  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added Section 19 — Onboarding Wizard Standard, Section 20 — Compliance Score Widget Standard, Section 21 — CLI Rich Output Standard
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added Section 19 — Onboarding Wizard Standard, Section 20 — Compliance Score Widget Standard, Section 21 — CLI Rich Output Standard
 
 Session Links & References:
   - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -18,7 +19,7 @@ Session Links & References:
 
 Document Status:
   - Created: 01.01.2026
-  - Last Modified: 03.03.2026
+  - Last Modified: 08.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -336,7 +337,7 @@ The script auto-injects a `<footer class="ironclad-footer">` at the end of `<bod
 |--------|-------|
 | **Products** | Platform & Products, AI & Cloud Consulting, Expert Advisory, Digital Services, Enterprise Offers (mailto) |
 | **Industries** | Construction, Energy, Manufacturing, Real Estate, Logistics, Healthcare, Financial Services, Public Sector |
-| **Platform** | Login, Dashboard, DWS IQ 6, Firehorse Reports, Firehorse Automation, Firehorse Omnichannel, Architecture |
+| **Platform** | Login, Dashboard, DWS IQ 6, DWS IQ Report, Firehorse Automation, Firehorse Omnichannel, Architecture |
 | **Compliance** | Fit for 55, CSRD Reporting, EU AI Act, Regulatory Notice, Dual Use, Carbon Calculator |
 | **Help & Company** | Lifetime Consulting, Careers, Partners, Investor Relations, Community, Support (mailto), Sales (mailto), Legal Hub |
 
@@ -631,6 +632,7 @@ For products and pages related to EU data sovereignty compliance.
 | NIS2 Ready | `#8b5cf6` (purple) | `.sovereignty-badge.nis2` | NIS2 Directive compliant |
 | EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
 | CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
 
 **Badge CSS:**
 ```css
@@ -648,7 +650,31 @@ For products and pages related to EU data sovereignty compliance.
 .sovereignty-badge.nis2 { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
 .sovereignty-badge.eu-ai-act { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 .sovereignty-badge.cloud-act-free { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.sovereignty-badge.nvidia-isv { background: rgba(118, 185, 0, 0.15); color: #76b900; border: 1px solid rgba(118, 185, 0, 0.3); }
 ```
+
+### 11.1 NVIDIA Connect ISV Partner Badge
+
+**Status:** Confirmed (2026-03-08). Independently verifiable at NVIDIA Partner Locator.
+
+**Colors:** NVIDIA Green `#76b900`, NVIDIA Black `#000000`, Gold accent `#d4a843` (for hero/celebration contexts).
+
+**Usage rules:**
+- Display on Lifetime Fleet pages, Optimus V3, and hardware-related product pages
+- Hero sections on NVIDIA pages use gold gradient text with NVIDIA black background
+- Always link to NVIDIA Partner Locator for independent verification
+- Never claim "NVIDIA certified" — correct term is "NVIDIA Connect ISV Partner"
+
+**Implementation checklist (2026-03-08):**
+- [x] NVIDIA Connect ISV Partner confirmed (official email)
+- [x] Badge added to Optimus V3 hero row
+- [x] Stack card added to Fleet index partner grid
+- [x] Moat slide upgraded to "Connect ISV Partner"
+- [x] Investor page cleaned, no more "(applied)" credits
+- [x] Nav updated: Lifetime Fleet submenu with Fleet Overview, Optimus V3, NVIDIA ISV Partner
+- [x] Products dropdown: "DWS IQ Report" label, href unchanged
+- [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
+- [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
 
 ---
 
@@ -1474,7 +1500,7 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 | Version | Date | Changes |
 |---------|------|---------|
-| v2.3 | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
+| v2.4 | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
 | v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
 | v2.0 | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0. |

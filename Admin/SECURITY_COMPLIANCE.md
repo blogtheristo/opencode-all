@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 2.0
 
 Sessions & Modifications:
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Updated NVIDIA entry in Infrastructure Providers — added Connect ISV Partner confirmed status (2026-03-08)
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Customer Data Controls section — API key hashing (SHA-256), usage metering tier enforcement, report export authentication, self-service key lifecycle management
   - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
@@ -135,7 +136,7 @@ We align our compliance roadmap with the specific requirements of each target in
 
 ```
 Q1 2026: ISO 27001 gap assessment + ISMS documentation
-Q2 2026: Internal audit + management review + EU AI Act assessment
+Q2 2026: Internal audit + management review + EU AI Act assessment (Note: Digital Omnibus may shift high-risk deadline to Dec 2027 — tied to harmonised standards availability)
 Q3 2026: ISO 27001 Stage 1 & 2 audits → CERTIFICATION
 Q4 2026: SOC 2 Type II audit (Lifetime Fleet priority)
 Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
@@ -150,7 +151,7 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 | **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
 | **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
 | **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
-| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
+| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review. **Digital Omnibus (Nov 2025):** High-risk applicability may delay from Aug 2026 to Dec 2027 — timelines now tied to availability of harmonised standards/guidance. Article 12 logging substance unchanged. Lighter QMS/doc burden for SMEs/small mid-caps. Trilogue ongoing as of Mar 2026. |
 | **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
 | **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
 
@@ -568,7 +569,7 @@ Added: 07.03.2026 | Implements MVP Feature 2
 | Google Cloud | Core platform | ISO 27001, SOC 2 | europe-north1 (Finland) |
 | Supabase | Database | SOC 2 Type II | eu-central-1 (Germany) |
 | Groq | LLM inference | SOC 2 | EU endpoint |
-| NVIDIA | Edge hardware | ISO 27001 | On-premise |
+| NVIDIA | Edge hardware (Connect ISV Partner — confirmed 2026-03-08) | ISO 27001 | On-premise |
 | Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
 | Aiven | PostgreSQL sandbox (agent workspace, LWM training, DR mirror) | SOC 2, ISO 27001 | google-europe-north1 (Finland) |
 | 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
