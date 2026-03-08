@@ -3,13 +3,14 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
   - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
   - Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
 
 Session Links & References:
   - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -17,7 +18,7 @@ Session Links & References:
 
 Document Status:
   - Created: 01.01.2026
-  - Last Modified: 03.03.2026
+  - Last Modified: 08.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -627,6 +628,7 @@ For products and pages related to EU data sovereignty compliance.
 | NIS2 Ready | `#8b5cf6` (purple) | `.sovereignty-badge.nis2` | NIS2 Directive compliant |
 | EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
 | CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
 
 **Badge CSS:**
 ```css
@@ -644,7 +646,31 @@ For products and pages related to EU data sovereignty compliance.
 .sovereignty-badge.nis2 { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
 .sovereignty-badge.eu-ai-act { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 .sovereignty-badge.cloud-act-free { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.sovereignty-badge.nvidia-isv { background: rgba(118, 185, 0, 0.15); color: #76b900; border: 1px solid rgba(118, 185, 0, 0.3); }
 ```
+
+### 11.1 NVIDIA Connect ISV Partner Badge
+
+**Status:** Confirmed (2026-03-08). Independently verifiable at NVIDIA Partner Locator.
+
+**Colors:** NVIDIA Green `#76b900`, NVIDIA Black `#000000`, Gold accent `#d4a843` (for hero/celebration contexts).
+
+**Usage rules:**
+- Display on Lifetime Fleet pages, Optimus V3, and hardware-related product pages
+- Hero sections on NVIDIA pages use gold gradient text with NVIDIA black background
+- Always link to NVIDIA Partner Locator for independent verification
+- Never claim "NVIDIA certified" — correct term is "NVIDIA Connect ISV Partner"
+
+**Implementation checklist (2026-03-08):**
+- [x] NVIDIA Connect ISV Partner confirmed (official email)
+- [x] Badge added to Optimus V3 hero row
+- [x] Stack card added to Fleet index partner grid
+- [x] Moat slide upgraded to "Connect ISV Partner"
+- [x] Investor page cleaned, no more "(applied)" credits
+- [x] Nav updated: Lifetime Fleet submenu with Fleet Overview, Optimus V3, NVIDIA ISV Partner
+- [x] Products dropdown: "DWS IQ Report" label, href unchanged
+- [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
+- [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
 
 ---
 
