@@ -132,16 +132,18 @@ router.get('/overview', async (req: Request, res: Response, next: NextFunction) 
       hasSupplyChainDD: false,
     });
 
-    const regulationScores = demoResult.regulationScores.map(r => ({
-      id: r.regulation.toLowerCase().replace(/\s+/g, '-'),
-      name: r.regulation,
-      score: r.score,
-      status: r.score >= 80 ? 'compliant' as const
-            : r.score >= 50 ? 'partial' as const
-            : 'non-compliant' as const,
-      gaps: r.gaps?.length ?? 0,
-    }));
+    const regulationScores = demoResult.regulationScores.map(r => {
+      const id = r.regulation.toLowerCase().replace(/\s+/g, '-');
+      const gapsForRegulation = demoResult.gaps.filter(g => g.regulation === r.regulation).length;
 
+      return {
+        id,
+        name: r.regulation,
+        score: r.score,
+        status: r.status,
+        gaps: gapsForRegulation,
+      };
+    });
     res.json({
       overallScore: demoResult.overallScore,
       previousScore: Math.max(0, demoResult.overallScore - Math.floor(Math.random() * 15)),
