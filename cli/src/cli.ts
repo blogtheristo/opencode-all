@@ -487,6 +487,51 @@ async function cmdQuickstart(): Promise<void> {
   output({ status: 'ready', apiUrl: API_URL, hint: 'Run: dws scenario <name> for guided workflows' });
 }
 
+// ============ KYA COMMANDS ============
+
+async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boolean): Promise<void> {
+  console.error(`⚠️  Initiating Leash Snap for session: ${sessionId}`);
+  const s = spinner('Executing TC-4 Chain Termination...');
+
+  try {
+    const result = await api('/api/v1/kya/snap', 'POST', {
+      sessionId,
+      reason,
+      forceCascade,
+      source: 'cli-simulation',
+    });
+    s.stop();
+
+    const r = result as {
+      sessionId: string;
+      agentsTerminated: number;
+      reason: string;
+      durationMs: number;
+    };
+
+    if (JSON_MODE) {
+      output(result);
+    } else {
+      console.log('');
+      console.log(`  ${fmt.red('⚡')} ${fmt.bold('LEASH SNAP EXECUTED')}`);
+      console.log(`  Session:     ${r.sessionId}`);
+      console.log(`  Reason:      ${r.reason}`);
+      console.log(`  Terminated:  ${fmt.red(String(r.agentsTerminated))} agent(s)`);
+      console.log(`  Duration:    ${fmt.green(r.durationMs + 'ms')}`);
+      console.log(`  Source:      ${fmt.dim('DWS CLI (Simulation)')}`);
+      console.log('');
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdKyaStatus(sessionId: string): Promise<void> {
+  const result = await api(`/api/v1/kya/status/${encodeURIComponent(sessionId)}`);
+  output(result);
+}
+
 // ============ HELP ============
 
 const HELP = `
@@ -497,6 +542,10 @@ GETTING STARTED:
   dws quickstart                          First-time setup & connection check
   dws status                              Platform status at a glance
   dws health                              Backend + MCP health check
+
+KYA (Know Your Agent):
+  dws kya snap <session_id> --reason <code>  Trigger a Leash Snap (TC-4 termination)
+  dws kya status <session_id>                Check KYA trust score for a session
 
 AGENTS:
   dws agents                              List all registered agents
@@ -581,7 +630,7 @@ function parseArgs(argv: string[]): {
     if (arg.startsWith('--')) {
       const key = arg.slice(2);
       // Boolean flag (--stdin) or value flag (--input '{...}')
-      if (key === 'stdin' || key === 'help' || key === 'json' || key === 'first') {
+      if (key === 'stdin' || key === 'help' || key === 'json' || key === 'first' || key === 'force-cascade') {
         flags[key] = 'true';
       } else {
         i++;
@@ -672,6 +721,22 @@ async function main(): Promise<void> {
 
       case 'quickstart':
         await cmdQuickstart();
+        break;
+
+      case 'kya':
+        if (subcommand === 'snap') {
+          const kyaSessionId = positional[1];
+          if (!kyaSessionId) error('Usage: dws kya snap <session_id> --reason <code>');
+          const kyaReason = flags.reason || 'MANUAL_SNAP';
+          const forceCascade = flags['force-cascade'] === 'true';
+          await cmdKyaSnap(kyaSessionId, kyaReason, forceCascade);
+        } else if (subcommand === 'status') {
+          const kyaStatusId = positional[1];
+          if (!kyaStatusId) error('Usage: dws kya status <session_id>');
+          await cmdKyaStatus(kyaStatusId);
+        } else {
+          error('Usage: dws kya [snap <session_id> --reason <code> | status <session_id>]');
+        }
         break;
 
       case 'mcp':

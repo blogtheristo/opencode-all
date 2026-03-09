@@ -9,6 +9,17 @@
  */
 
 export { calculateATS, isPathPermitted } from './ats-engine.js';
+export {
+  evaluateSignal,
+  executeDecision,
+  terminateChain,
+} from './kya-engine.js';
+export type {
+  ShuftiWebhookPayload,
+  PolicyAction,
+  PolicyDecision,
+  ChainTerminationResult,
+} from './kya-engine.js';
 export type {
   CapabilityManifest,
   ManifestSignature,
