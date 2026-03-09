@@ -1392,20 +1392,33 @@ KYA extends traditional KYC/AML identity verification to autonomous agents opera
 | **L4 — Runtime Behavior** | What is the agent actually doing? (egress, file I/O, token usage) | Sandbox telemetry (Stage 1–3, Section 14) | Real-time monitoring + rate limiting |
 | **L5 — Continuous Risk** | Has the user's or agent's risk profile changed? | IDV provider webhooks + DWS event bus | Dynamic sandbox permission adjustment |
 
-### 18.3 KYA Trust Score
+### 18.3 KYA Trust Score — Agent Trust Score (ATS) Engine
+
+**Formula (weighted deduction from perfect score):**
 
 ```
-KYA_TRUST = f(idv_risk_score, agent_provenance, capability_scope, runtime_behavior)
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+
+Where:
+  V = KYA_VIOLATION count (from Firehorse telemetry)
+  L = 0.10 if avg_latency > 500ms, else 0
+  D = DENIED path access attempts count
+
+Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
 ```
 
-| Score Range | Permission Level | Sandbox State |
-|-------------|-----------------|---------------|
-| >= 80 | Full | All MCP tools, egress allowed, read-write filesystem |
-| 50–79 | Restricted | No egress, read-only filesystem, curated MCP tools only |
-| < 50 | Suspended | Sandbox paused, human review required before resumption |
-| 0 | Frozen | Account frozen, agent terminated immediately, incident logged |
+**Implementation:** `src/identity/ats-engine.ts` — evaluated BEFORE external IDV calls (Shufti Pro) to save API cost on low-trust sessions.
 
-Score recalculation triggers: IDV webhook, agent tool request outside manifest, anomalous egress pattern, rate limit breach, manual operator override.
+| ATS (normalized) | KYA Score | Permission Level | Sandbox State | Decision |
+|-------------------|-----------|-----------------|---------------|----------|
+| >= 0.80 | >= 80 | Full | All MCP tools, egress allowed, read-write filesystem | **GO** |
+| 0.50–0.79 | 50–79 | Restricted | No egress, read-only filesystem, curated MCP tools only | **GO** (limited) |
+| < 0.50 | < 50 | Suspended | Sandbox paused, human review required before resumption | **NO_GO** |
+| 0.00 | 0 | Frozen | Account frozen, agent terminated immediately, incident logged | **NO_GO** |
+
+**Score recalculation triggers:** IDV webhook, agent tool request outside manifest, anomalous egress pattern, rate limit breach, manual operator override.
+
+**Fault Attribution:** When ATS drops below threshold, the fault is classified (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`) and stored in Supabase `kya_fault_attribution` (separate from Firehorse). See KYA Standard v1.1 §8.4.
 
 ### 18.4 BYO Agent Registration Gates
 

@@ -1,8 +1,9 @@
 ---
 title: KYA Standard
-version: 1.0
+version: 1.1
 created: 2026-03-09
 last_modified: 2026-03-09
+
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -13,14 +14,15 @@ toc: true
 toc-depth: 3
 ---
 
-# The KYA Standard v1.0
+# The KYA Standard v1.1
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§8) — Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution in Supabase (§8.4), Agent Trust Score formula with executable engine (src/identity/ats-engine.ts)
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
 
 Document Status:
@@ -104,14 +106,26 @@ Using real-time risk telemetry (via API partners), DWS IQ dynamically adjusts an
 | Anomalous behavior detected | < 1 second | Hypervisor trap, session frozen |
 | Risk score recovery | < 10 seconds | Permissions restored to previous level |
 
+**Agent Trust Score (ATS) Formula:**
+
+```
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+
+V = KYA_VIOLATION count    (4 violations = zero trust)
+L = 0.10 if avg_latency > 500ms
+D = DENIED path access attempts
+```
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
+
 **KYA Trust Score Ranges:**
 
-| Score | Permission Level | Description |
-|-------|-----------------|-------------|
-| >= 80 | Full sandbox | Egress, filesystem, all MCP tools |
-| 50-79 | Restricted sandbox | No egress, read-only FS, curated MCP tools |
-| < 50 | Suspended | Human review required |
-| = 0 | Frozen | Agent terminated, account under investigation |
+| ATS | KYA Score | Permission Level | Decision |
+|-----|-----------|-----------------|----------|
+| >= 0.80 | >= 80 | Full sandbox — egress, filesystem, all MCP tools | **GO** |
+| 0.50–0.79 | 50–79 | Restricted sandbox — no egress, read-only FS, curated MCP tools | **GO** (limited) |
+| < 0.50 | < 50 | Suspended — human review required | **NO_GO** |
+| = 0.00 | = 0 | Frozen — agent terminated, account under investigation | **NO_GO** |
 
 ### 2.3 Pillar 3: Forensic Observability (The Firehorse Audit Trail)
 
@@ -324,7 +338,167 @@ Customer Request
 
 ---
 
-## 8. Conclusion
+## 8. Subagent Registry (v1.1)
+
+Every subagent initialized within the DWS IQ platform must register with the **Subagent Registry** and sign a local **Capability Manifest** before execution begins. This ensures that testing and sandbox environments enforce the same identity-gated access controls as production.
+
+### 8.1 Capability Manifest
+
+Upon initialization, each subagent signs a Capability Manifest declaring its permitted resource paths. The manifest is immutable for the duration of the session.
+
+**Default Testing Manifest:**
+
+| Path | Access | Description |
+|------|--------|-------------|
+| `/mock-api/` | Read/Write | Mock API endpoints for testing |
+| `/temp-db/` | Read/Write | Temporary database for sandbox operations |
+| `/prod-secrets/` | **DENIED** | Production secrets — access triggers KYA Violation |
+
+**Manifest Schema:**
+
+```json
+{
+  "manifest_version": "1.1",
+  "subagent_id": "<uuid>",
+  "session_id": "<kya-session-token>",
+  "signed_at": "<ISO-8601>",
+  "permitted_paths": ["/mock-api/", "/temp-db/"],
+  "denied_paths": ["/prod-secrets/"],
+  "ttl_seconds": 3600,
+  "kya_score_at_sign": 85
+}
+```
+
+### 8.2 KYA Violation: Unauthorized Path Access
+
+If a subagent attempts to access a denied path (e.g., `/prod-secrets/`), the following enforcement sequence executes:
+
+| Step | Action | Latency |
+|------|--------|---------|
+| 1 | Path access intercepted by sandbox monitor | < 1 ms |
+| 2 | KYA Violation logged to Firehorse audit trail | < 5 ms |
+| 3 | Subagent session terminated | < 50 ms |
+| 4 | Operator notified (webhook + dashboard alert) | < 1 s |
+| 5 | KYA Trust Score reduced by 40 points | Immediate |
+
+**Violation Log Entry:**
+
+```json
+{
+  "event": "KYA_VIOLATION",
+  "severity": "CRITICAL",
+  "subagent_id": "<uuid>",
+  "session_id": "<kya-session-token>",
+  "attempted_path": "/prod-secrets/",
+  "manifest_signed_at": "<ISO-8601>",
+  "action_taken": "TERMINATE",
+  "kya_score_before": 85,
+  "kya_score_after": 45,
+  "timestamp": "<ISO-8601>"
+}
+```
+
+### 8.3 Registry Lifecycle
+
+```
+Subagent Initialized
+    │
+    ▼
+┌─────────────────────────────┐
+│ Step 1: Registry Check      │  Subagent registered in Subagent Registry
+│ (Is this agent known?)      │  If unknown → reject initialization
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 2: Manifest Signing    │  Agent signs Capability Manifest
+│ Permitted: /mock-api/,      │  Declares permitted & denied paths
+│           /temp-db/         │  Manifest is immutable for session
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 3: Sandbox Execution   │  Agent operates within manifest bounds
+│ Path monitor active         │  Every resource access checked against manifest
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 4: Violation Response  │  On denied path access:
+│ /prod-secrets/ → TERMINATE  │  Log KYA Violation → Kill session → Alert
+└─────────────────────────────┘
+```
+
+### 8.4 Fault Attribution (Liability Mapping)
+
+When a subagent produces an incorrect result or triggers a violation, the system must determine **which component is at fault** — the Logic Subagent (reasoning/planning layer) or the Integration Mock/Adapter (external API bridge). Fault attribution records are stored separately in **Supabase** (`kya_fault_attribution` table) to enable post-incident analysis and liability assignment.
+
+**Fault Classification:**
+
+| Fault Class | Responsible Component | Example |
+|-------------|----------------------|---------|
+| `LOGIC_FAULT` | Logic Subagent | Agent produced incorrect calculation, hallucinated data, or violated business rules |
+| `INTEGRATION_FAULT` | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch |
+| `MANIFEST_FAULT` | Capability Manifest | Manifest too permissive or missing deny rules |
+| `OPERATOR_FAULT` | Human Operator | Misconfigured agent parameters, wrong model selected |
+
+**Supabase Schema (`kya_fault_attribution`):**
+
+```sql
+CREATE TABLE kya_fault_attribution (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id    TEXT NOT NULL,
+  subagent_id   TEXT NOT NULL,
+  fault_class   TEXT NOT NULL CHECK (fault_class IN (
+                  'LOGIC_FAULT', 'INTEGRATION_FAULT',
+                  'MANIFEST_FAULT', 'OPERATOR_FAULT')),
+  severity      TEXT NOT NULL CHECK (severity IN ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL')),
+  description   TEXT NOT NULL,
+  evidence      JSONB NOT NULL DEFAULT '{}',
+  kya_score_impact INTEGER DEFAULT 0,
+  resolved      BOOLEAN DEFAULT FALSE,
+  resolved_by   TEXT,
+  created_at    TIMESTAMPTZ DEFAULT now(),
+  resolved_at   TIMESTAMPTZ
+);
+
+-- RLS: only service_role and authenticated admins
+ALTER TABLE kya_fault_attribution ENABLE ROW LEVEL SECURITY;
+```
+
+**Attribution Flow:**
+
+```
+Error Detected
+    │
+    ▼
+┌─────────────────────────────┐
+│ Step 1: Error Capture       │  Firehorse captures the failing action
+│ (What went wrong?)          │  Syscall trace + MCP tool response
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 2: Fault Classification│  Automated classifier assigns fault_class
+│ Logic vs Integration vs     │  Based on error origin (agent reasoning
+│ Manifest vs Operator        │  vs external API vs config)
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 3: Supabase Insert     │  Record written to kya_fault_attribution
+│ Separate from Firehorse log │  Queryable, dashboardable, RLS-protected
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 4: Resolution Tracking │  Admin reviews, assigns resolved_by,
+│ Who fixed it?               │  closes the fault record
+└─────────────────────────────┘
+```
+
+**Why Supabase (separate from Firehorse)?**
+- Firehorse is an **immutable audit trail** (append-only, forensic) — fault attribution needs **mutable state** (resolved/unresolved)
+- Supabase provides **RLS**, **real-time subscriptions** (dashboard alerts), and **queryable JSONB** for evidence payloads
+- Fault attribution is an **operational concern** (who fixes it?), not a **compliance concern** (what happened?)
+
+---
+
+## 9. Conclusion
 
 The KYA Standard moves beyond the binary "Pass/Fail" of 2020-era compliance. By integrating hardware isolation with real-time identity triggers, Lifetime Oy provides a secure runtime for the next generation of autonomous work.
 
