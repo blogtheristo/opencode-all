@@ -32,12 +32,31 @@ The Captain Program is built on a "Trinity" of global partnerships that ensures 
 
 The program introduces a new hierarchy for the 2026 industrial economy, moving beyond simple software subscriptions to Asset Ownership:
 
-| Level | Role | Stake | Description |
-|-------|------|-------|-------------|
-| **1** | **Fleet Admiral** | EUR 500k SAFE | VC or major partner (xAI, NVIDIA, Google, Mistral) — strategic lead investors who standardize the DWS IQ protocol across entire industry verticals |
-| **2** | **Platinum Industry Captain** | Investment + fleet | Investor family fund, business angel, or industrial partner (e.g. ABB) — deploys the 8-Seat Genesis Fleet, owns proprietary World Models and Acer-powered hardware |
-| **3** | **Navigator** | USD 25,000 + hardware | Industry professionals who use the DWS IQ interface to chart the course through energy optimization and carbon credit harvesting |
-| **4** | **Patron** | USD 5,000 | Supports the DWS IQ ecosystem with a stake — access to community intelligence and ecosystem benefits |
+| Level | Role | Investment | Annual | What You Get |
+|-------|------|-----------|--------|-------------|
+| **1** | **Fleet Admiral** | EUR 100k SAFE | EUR 25k/year | 16-vertical Lifetime World Model, DWS IQ resale rights, customer AI roadmap access (e.g. Audi, MB automotive agents), Captain + Deputy Captain certifications, ecosystem access, DWS IQ Alpha |
+| **2** | **Industry Captain** | EUR 50k SAFE | OR EUR 25k/year subscription | Growth strategy leadership, industry roadmap ownership, certification program, 8-Seat Genesis Fleet with proprietary World Models and Acer-powered hardware |
+| **3** | **Navigator** | USD 25,000 + hardware | — | Certified professional operating the DWS IQ interface for energy optimization and carbon credit harvesting |
+| **4** | **Patron** | USD 5,000 | — | Ecosystem supporter with access to community intelligence and network benefits |
+
+### Fleet Admiral Value Proposition
+
+Fleet Admirals lead vertical execution across entire industries. The EUR 25k/year operational fee pays for itself from the first training project alone — Admirals can resell certification consulting to their own customers through DWS IQ certification.
+
+### Industry Captain Value Proposition
+
+Industry Captains own their growth strategy and industry roadmap. A different product for a different buyer than the Fleet Admiral — Captains deploy fleets and build proprietary intelligence assets.
+
+---
+
+## Certification Program (Robertsson Partnership)
+
+The Captain Program includes a professional certification track developed in partnership with Robertsson. The certification program trains Navigators and validates expertise across the DWS IQ platform, covering:
+
+- Climate compliance automation (ETS, CBAM, CSRD)
+- Lifetime World Model operation and customization
+- Multi-agent orchestration and fleet management
+- Edge AI deployment with NVIDIA Jetson architecture
 
 ---
 
@@ -57,6 +76,6 @@ DWS IQ is a specialized AI firm focusing on the "Last Mile" of industrial deploy
 
 ---
 
-**For Partnership or Investment Inquiries (EUR 500k SAFE):**
+**For Partnership or Investment Inquiries:**
 Visit: dws10.com/captain/
 Email: press@dws10.com
