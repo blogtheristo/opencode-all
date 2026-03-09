@@ -47,6 +47,10 @@ Related Documents:
 
 ---
 
+> **Verify the Human. Sandbox the Agent. Secure the Intent.**
+
+---
+
 ## 1. Executive Summary
 
 In the 2026 industrial landscape, identity verification is no longer a one-dimensional problem. Traditional KYC (Know Your Customer) identifies the human at the door, but fails to govern the autonomous entities they bring with them. As enterprises integrate "Bring Your Own" (BYO) agents — ranging from Microsoft CoWork and Tencent Workbuddy to proprietary industrial tools like Clawbot — a new governance layer is required.
