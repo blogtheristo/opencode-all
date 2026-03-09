@@ -414,6 +414,76 @@ Subagent Initialized
 └─────────────────────────────┘
 ```
 
+### 8.4 Fault Attribution (Liability Mapping)
+
+When a subagent produces an incorrect result or triggers a violation, the system must determine **which component is at fault** — the Logic Subagent (reasoning/planning layer) or the Integration Mock/Adapter (external API bridge). Fault attribution records are stored separately in **Supabase** (`kya_fault_attribution` table) to enable post-incident analysis and liability assignment.
+
+**Fault Classification:**
+
+| Fault Class | Responsible Component | Example |
+|-------------|----------------------|---------|
+| `LOGIC_FAULT` | Logic Subagent | Agent produced incorrect calculation, hallucinated data, or violated business rules |
+| `INTEGRATION_FAULT` | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch |
+| `MANIFEST_FAULT` | Capability Manifest | Manifest too permissive or missing deny rules |
+| `OPERATOR_FAULT` | Human Operator | Misconfigured agent parameters, wrong model selected |
+
+**Supabase Schema (`kya_fault_attribution`):**
+
+```sql
+CREATE TABLE kya_fault_attribution (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id    TEXT NOT NULL,
+  subagent_id   TEXT NOT NULL,
+  fault_class   TEXT NOT NULL CHECK (fault_class IN (
+                  'LOGIC_FAULT', 'INTEGRATION_FAULT',
+                  'MANIFEST_FAULT', 'OPERATOR_FAULT')),
+  severity      TEXT NOT NULL CHECK (severity IN ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL')),
+  description   TEXT NOT NULL,
+  evidence      JSONB NOT NULL DEFAULT '{}',
+  kya_score_impact INTEGER DEFAULT 0,
+  resolved      BOOLEAN DEFAULT FALSE,
+  resolved_by   TEXT,
+  created_at    TIMESTAMPTZ DEFAULT now(),
+  resolved_at   TIMESTAMPTZ
+);
+
+-- RLS: only service_role and authenticated admins
+ALTER TABLE kya_fault_attribution ENABLE ROW LEVEL SECURITY;
+```
+
+**Attribution Flow:**
+
+```
+Error Detected
+    │
+    ▼
+┌─────────────────────────────┐
+│ Step 1: Error Capture       │  Firehorse captures the failing action
+│ (What went wrong?)          │  Syscall trace + MCP tool response
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 2: Fault Classification│  Automated classifier assigns fault_class
+│ Logic vs Integration vs     │  Based on error origin (agent reasoning
+│ Manifest vs Operator        │  vs external API vs config)
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 3: Supabase Insert     │  Record written to kya_fault_attribution
+│ Separate from Firehorse log │  Queryable, dashboardable, RLS-protected
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 4: Resolution Tracking │  Admin reviews, assigns resolved_by,
+│ Who fixed it?               │  closes the fault record
+└─────────────────────────────┘
+```
+
+**Why Supabase (separate from Firehorse)?**
+- Firehorse is an **immutable audit trail** (append-only, forensic) — fault attribution needs **mutable state** (resolved/unresolved)
+- Supabase provides **RLS**, **real-time subscriptions** (dashboard alerts), and **queryable JSONB** for evidence payloads
+- Fault attribution is an **operational concern** (who fixes it?), not a **compliance concern** (what happened?)
+
 ---
 
 ## 9. Conclusion

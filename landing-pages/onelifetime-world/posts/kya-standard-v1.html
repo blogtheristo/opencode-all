@@ -188,11 +188,25 @@
                     </div>
                 </div>
 
-                <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-6">
+                <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-6 mb-6">
                     <h3 class="text-lg font-bold text-red-300 mb-3">KYA Violation Enforcement</h3>
                     <p class="text-gray-400 leading-relaxed">
                         If a subagent accesses <code class="bg-slate-700 px-2 py-0.5 rounded text-red-400 text-sm">/prod-secrets/</code>: intercepted in &lt; 1 ms, logged to Firehorse, session terminated in &lt; 50 ms, KYA Trust Score reduced by 40 points, operator notified via webhook.
                     </p>
+                </div>
+
+                <div class="pillar-card rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M9 11h6M9 15h4M7 4h10l1 3H6l1-3z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-cyan-300">Fault Attribution (Supabase)</h3>
+                            <p class="text-gray-400 mt-2 leading-relaxed">
+                                When a subagent fails, the system classifies the fault: <code class="bg-slate-700 px-2 py-0.5 rounded text-yellow-400 text-sm">LOGIC_FAULT</code> (agent reasoning), <code class="bg-slate-700 px-2 py-0.5 rounded text-yellow-400 text-sm">INTEGRATION_FAULT</code> (mock/API), <code class="bg-slate-700 px-2 py-0.5 rounded text-yellow-400 text-sm">MANIFEST_FAULT</code> (config), or <code class="bg-slate-700 px-2 py-0.5 rounded text-yellow-400 text-sm">OPERATOR_FAULT</code> (human). Stored separately in Supabase &mdash; not Firehorse &mdash; because faults need mutable state and real-time dashboard queries.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 

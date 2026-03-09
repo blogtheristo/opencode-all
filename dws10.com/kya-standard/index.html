@@ -425,6 +425,27 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre>
   "kya_score_at_sign": 85
 }</pre>
 
+        <h3>Fault Attribution (Liability Mapping)</h3>
+        <p>When a subagent produces an incorrect result or triggers a violation, the system determines <strong>which component is at fault</strong>. Fault attribution records are stored separately in <strong>Supabase</strong> (<code>kya_fault_attribution</code>) &mdash; not in the Firehose audit trail &mdash; because faults need mutable state (resolved/unresolved) and real-time dashboard queries.</p>
+
+        <div class="summary-table">
+            <table>
+                <thead>
+                    <tr><th>Fault Class</th><th>Responsible Component</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>LOGIC_FAULT</code></td><td>Logic Subagent</td><td>Incorrect calculation, hallucinated data, business rule violation</td></tr>
+                    <tr><td><code>INTEGRATION_FAULT</code></td><td>Integration Mock/Adapter</td><td>Stale mock data, API timeout, schema mismatch</td></tr>
+                    <tr><td><code>MANIFEST_FAULT</code></td><td>Capability Manifest</td><td>Manifest too permissive or missing deny rules</td></tr>
+                    <tr><td><code>OPERATOR_FAULT</code></td><td>Human Operator</td><td>Misconfigured agent parameters, wrong model selected</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="callout">
+            <p><strong>Why Supabase?</strong> Firehorse is an immutable, append-only forensic log (&ldquo;what happened?&rdquo;). Fault attribution is an operational concern (&ldquo;who fixes it?&rdquo;) that needs mutable state, RLS, real-time subscriptions, and queryable JSONB evidence payloads.</p>
+        </div>
+
         <hr>
 
         <h2>9. Identity Provider Integration</h2>
