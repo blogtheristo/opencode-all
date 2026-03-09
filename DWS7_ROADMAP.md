@@ -1077,6 +1077,7 @@ These capabilities are **production-ready in DWS6** on branch `claude/modernize-
 | `SITE_QUALITY_STANDARDS.md` | Agent-Driven UI Patterns | Frontend patterns for agent results, workflows, events |
 | `docs/CLOUD_ENVIRONMENTS.md` | §13: MCP Agent Server | Deployment, endpoints, event streaming architecture |
 | `DWS7_ROADMAP.md` | Agent Evolution Roadmap (this section) | Track what shipped early vs what remains |
+| `docs/DWS7_CLI_ROADMAP.md` | CLI Roadmap (50 PRs, 6 phases) | Terminal-native agent platform: dry-run, memory, model routing, batch, fleet |
 
 ### What Still Needs DWS7 Phase 4
 
