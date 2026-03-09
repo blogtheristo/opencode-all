@@ -210,6 +210,43 @@ Key points communicated:
 | **KYA as feature, not product** | Shows working platform needing a plug, not a co-build ask |
 | **"Architecture not demo"** | Positions call as peer-to-peer technical discussion |
 
+## Pre-Call Email to Aitsam — Round 3 (Draft, Ready to Send)
+
+**To:** Aitsam (Shufti Pro)
+**Subject:** Re: Shufti / DWS10 — Technical Partnership
+
+> Hi Aitsam,
+>
+> Thanks for the follow-up.
+>
+> I've reviewed Shufti's hybrid model. While it's a strong fit for onboarding, we are solving a more specific problem for our Q1 launch: execution-layer trust.
+>
+> We are currently scaling the DWS10 Control Room, where users deploy heterogeneous agents (Microsoft, Tencent, Clawbot) into our DWS IQ environment. We've moved away from standard "Pass/Fail" KYC in favor of a protocol we call KYA (Know Your Agent).
+>
+> I'd like to discuss a technical pilot where Shufti's real-time risk signals act as the dynamic trigger for our Firecracker MicroVM sandboxes. If a user's risk profile changes, our hypervisor automatically restricts the agent's intent in real-time.
+>
+> I'd rather talk architecture than sit through a product demo — does your technical lead have 15 minutes next week to discuss bridging Shufti's signals with our KYA layer?
+>
+> Best regards,
+> Risto
+> Founder | dws10.com
+>
+> P.S. I just published a field note on our KYA architecture that might give your team some context on the integration points we're looking for: https://onelifetime.world/posts/kya-standard-v1.html
+
+### Why This 1-2 Punch Works
+
+| Asset | Purpose |
+|-------|---------|
+| **Journal Post** (P.S. link) | Proves "Zero-Blast Radius" architecture. Aitsam's tech lead sees "Firecracker MicroVM" and "Zero Shared Kernel" and knows this is enterprise-grade. |
+| **Email** | Ignores his sales pitch and gives him a Technical Requirement. You aren't a "lead" to be managed; you are an Infrastructure Architect to be supported. |
+
+### Pre-Send Checklist
+
+- [ ] Verify link is live: https://onelifetime.world/posts/kya-standard-v1.html
+- [ ] Click link from mobile to confirm rendering
+- [ ] Confirm Cloudflare Pages deployment is current (landing-pages/onelifetime-world/posts/kya-standard-v1.html synced)
+- [ ] Send from: risto@onelifetime.world
+
 ## Ontology Tags
 
 - **Geography:** Europe > Finland (Lifetime Oy), Global (Shufti Pro)
@@ -220,15 +257,20 @@ Key points communicated:
 
 ## Next Steps
 
-- [ ] Await Shufti response to Round 2 pitch
+- [ ] Verify LSJ link is live and rendering on mobile
+- [ ] Send Round 3 pre-call email to Aitsam (with P.S. link)
+- [ ] Await Shufti response
 - [ ] Schedule 15-min architecture call with Shufti technical lead
 - [ ] Send Technical Requirements attachment (see `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md`)
 - [ ] Draft Shufti API adapter (`src/integrations/idv/shufti.ts`) — interface only, pending API docs
 - [x] Add KYA framework to DWS Security Standard (Section 18) — done v1.9
 - [x] Define KYA as DWS IQ feature (not standalone product)
+- [x] Publish KYA Field Note to Lifetime Scope Journal — `onelifetime.world/posts/kya-standard-v1.html`
+- [x] Sync to `landing-pages/onelifetime-world/posts/kya-standard-v1.html`
 - [ ] Define BYO agent registration API schema
 - [ ] Update AGENTS.md with KYA/BYO agent lifecycle
+- [ ] Add KYA Standard to `Legal/KYA_STANDARD_v1.md` — done
 
 ---
 
-**Source:** Partnership email to Aitsam (Shufti Pro), 2026-03-09 | Control Room pitch draft, 2026-03-09
+**Source:** Partnership email to Aitsam (Shufti Pro), 2026-03-09 | Control Room pitch draft, 2026-03-09 | LSJ Field Note published, 2026-03-09
