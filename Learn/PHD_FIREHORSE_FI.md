@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
@@ -1503,8 +1504,30 @@ Laadunvalvonta on **rakenteellista, ei käyttäytymiseen perustuvaa** — koulut
 **Johtopäätös**
 Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.
 
+### Osio 14.10: Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+31-agenttinen järjestelmä oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa moduulirajojen yli. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa.
+
+**Tehdyt korjaukset:**
+
+1. **SandboxContext-tyyppilinjaus** — `SandboxContext.stage` puuttui `'opensandbox'`-literaali. Tämä esti agentin suorittamisen vaiheessa 1.5 (Acer Veriton Docker).
+
+2. **MCP-reittien kytkentä** — `createMCPRouter()` oli määritelty mutta ei tuotu `app.ts`-tiedostoon. Kaikki 31 agenttia olivat näkymättömiä ulkoisille MCP-asiakkaille.
+
+3. **HIL-reittien kytkentä** — Ihminen silmukassa -päätepiste (`/api/hil`) oli tavoittamattomissa. Captain Pre-Briefing -agentin "Valmis"-painikkeet palauttivat 404.
+
+4. **Lokaalivarma muotoilu** — Päästödatan analyytikko käytti `toLocaleString()`-metodia ilman lokaalia. Korjattu eksplisiittisellä `'en-US'`-lokaalilla.
+
+5. **Resend-erävasteen tyyppiturvallisuus** — Sähköpostipalvelun `.map()`-kutsu epäonnistui unionityypillä. Lisätty suoritusaikainen taulukkotunnistus.
+
+6. **Riippuvuushygienia** — `luxon` oli tuotu mutta puuttui `package.json`-tiedostosta.
+
+**Tulos:** 0 TypeScript-virhettä (oli 6), 47/47 testiä läpi (oli 44/47).
+
+**Tutkimusnäkemys:** Moniagenttiarkkitehtuureissa integraatiovelka kertyy moduulirajoille, ei moduulien sisälle. Systemaattiset koventamissessiot ovat tehokkaampia kuin moduulikohtaiset korjaukset, koska ne palauttavat leikkaavia invariantteja.
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 02.03.2026*
-*Versio: 1.7*
+*Viimeksi paivitetty: 09.03.2026*
+*Versio: 2.1*
