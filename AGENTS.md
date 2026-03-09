@@ -235,6 +235,14 @@ dws6/
 │  │  Servers: Docker MCP | ZenFree | Browser MCP                       │     │
 │  └────────────────────────────────────────────────────────────────────┘     │
 │                                                                              │
+│  ┌────────────────────────────────────────────────────────────────────┐     │
+│  │  BYO AGENTS (External) — Customer-deployed third-party agents      │     │
+│  │  Microsoft CoWork | Tencent Workbuddy | Clawbot | Anthropic Cowork │     │
+│  │  Gate: KYA 6-Stage Registration (IDV → KYB → Capability → Sandbox) │     │
+│  │  Runtime: Firecracker MicroVM, zero shared kernel, KYA trust score │     │
+│  │  See: §18 BYO Lifecycle, Legal/KYA_STANDARD_v1.md                  │     │
+│  └────────────────────────────────────────────────────────────────────┘     │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -688,6 +696,152 @@ All compliance routes use the following middleware chain:
 
 ---
 
+## 18. Bring Your Own Agent (BYO) Lifecycle & KYA Trust Framework
+
+*Added: March 9, 2026 — Session: claude/sandbox-industrial-models-GXxbN*
+
+The DWS10 Control Room manages 16 industrial-grade models in isolated sandboxes. Customers can deploy third-party agents — Microsoft CoWork, Tencent Workbuddy, Clawbot, or any MCP-compatible agent — into the environment via the **BYO (Bring Your Own) Agent** process.
+
+Every BYO agent is governed by the **KYA (Know Your Agent)** protocol, a DWS IQ feature that extends KYC/KYB to autonomous agents.
+
+### 18.1 KYA Three Pillars
+
+| Pillar | Name | Function |
+|--------|------|----------|
+| 1 | **Identity Attribution** (The Anchor) | Cryptographically binds agent session to KYC-verified human/entity |
+| 2 | **Capability Gating** (The Leash) | Real-time risk telemetry dynamically adjusts agent permissions |
+| 3 | **Forensic Observability** (The Firehorse Audit Trail) | Sub-second syscall + network telemetry, immutable audit chain |
+
+### 18.2 BYO Agent Registration (6-Stage Gate)
+
+```
+Customer Request
+    │
+    ▼
+┌──────────────────────────────────┐
+│ Stage 1: Registration            │  Agent manifest submitted to DWS Agent Registry
+│ (No identity gate)               │  Manifest: name, version, provider, requested MCP tools
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 2: Identity Binding        │  ← IDV GATE (BLOCKING)
+│ Human operator verified          │  Document + face match + AML screen
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 3: Org Verification        │  ← KYB GATE (BLOCKING for BYO)
+│ Organization behind agent        │  Business verification, UBO checks
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 4: Capability Review       │  MCP tool approval against org policy
+│ What tools does it need?         │  DWS IQ admin reviews requested capabilities
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 5: Sandbox Entry           │  ← KYA SCORE CHECK (≥ 50 to enter)
+│ Firecracker MicroVM spun up      │  Isolated runtime, tier-based limits
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 6: Runtime Monitoring      │  Continuous telemetry (Firehorse)
+│ + Dynamic Restriction            │  ← WEBHOOK on risk change
+│                                  │  Sandbox permissions adjust in real-time
+└──────────────────────────────────┘
+```
+
+### 18.3 KYA Trust Score
+
+The KYA trust score determines sandbox permissions. Identity provider risk signals are the master key.
+
+| Score | Sandbox Tier | Description |
+|-------|-------------|-------------|
+| ≥ 80 | **Full Agency** | Egress, filesystem, all MCP tools, write to models |
+| 50–79 | **Restricted** | No egress, read-only FS, curated MCP tools |
+| < 50 | **Suspended** | Human review required, agent paused |
+| = 0 | **Quarantine** | Agent terminated, Firehorse forensic dump triggered |
+
+**Dynamic adjustment:** If an identity provider webhook signals a risk change (AML hit, document expiry, anomalous behavior), the hypervisor adjusts sandbox permissions in < 5 seconds.
+
+### 18.4 Hardware Isolation (Firecracker MicroVMs)
+
+Every BYO agent runs in a dedicated Firecracker MicroVM with zero shared kernel access.
+
+| Property | Value |
+|----------|-------|
+| Boot time | < 125 ms |
+| Memory overhead | < 5 MB per MicroVM |
+| Guest kernel | Isolated per sandbox |
+| Host kernel access | None (paravirtualized) |
+| Egress control | Hypervisor-level, per-session whitelist |
+
+```
+Operator (KYA Score: 87)
+    │
+    ├── MicroVM-1: CoWork      [egress: microsoft.com]
+    ├── MicroVM-2: Workbuddy   [egress: api.tencent.com]
+    ├── MicroVM-3: Clawbot     [egress: none (air-gapped)]
+    └── MicroVM-4: Cowork      [egress: api.anthropic.com]
+
+Cross-sandbox access → TRAP → SESSION FROZEN → KYA score −30
+```
+
+### 18.5 BYO Agent Manifest Schema
+
+Every BYO agent must submit a manifest at registration (Stage 1):
+
+```json
+{
+  "agent": {
+    "name": "Clawbot",
+    "version": "2.1.0",
+    "provider": "OpenClaw Ltd",
+    "provider_country": "DE"
+  },
+  "capabilities": {
+    "mcp_tools_requested": ["material-oracle", "schedule-genius"],
+    "egress_endpoints": ["api.openclaw.io"],
+    "filesystem": "read-write",
+    "max_tokens_per_request": 16000
+  },
+  "identity": {
+    "operator_email": "ops@example.com",
+    "org_registration_id": "HRB-12345-DE"
+  }
+}
+```
+
+### 18.6 Sandbox Stages (Integration with DWS Security Standard §14)
+
+| Stage | Runtime | Isolation | KYA Gate |
+|-------|---------|-----------|----------|
+| 1 | SDK native | No network, read-only FS | L1 IDV only |
+| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU | L1 + L2 |
+| 2 | Cloud Run ephemeral | Sandboxed by default | L1 + L2 + L3 |
+| 3 | Production (Firecracker MicroVM) | Full hardware isolation | All 5 layers |
+
+### 18.7 Firehorse Forensic Logging
+
+| Layer | Data Captured | Retention |
+|-------|---------------|-----------|
+| Syscall | File I/O, process spawns, IPC | 90 days |
+| Network | Egress/ingress, DNS lookups | 90 days |
+| MCP Tool | Invocations, parameters, responses | 1 year |
+| Token Usage | Input/output tokens per agent per session | 1 year |
+| Identity Events | KYA score changes, permission adjustments | 5 years (EU AI Act Art. 12) |
+
+### 18.8 Related Standards
+
+| Standard | Section | Scope |
+|----------|---------|-------|
+| `DWS_SECURITY_STANDARD.md` | §14 (Sandbox Isolation), §18 (KYA & BYO) | Security controls, trust model |
+| `Legal/KYA_STANDARD_v1.md` | Full document | Technical proposal, compliance alignment |
+| `src/cloudflare/tenant-sandbox.ts` | Implementation | Sandbox tiers, rate limiting, usage tracking |
+| `docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md` | Field note | Partnership strategy, email drafts |
+| `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md` | Tech spec | Integration points for identity providers |
+
+---
+
 ## Related Documents
 
 - [CLAUDE.md](CLAUDE.md) - AI coding agent behavior guidelines
@@ -700,7 +854,7 @@ All compliance routes use the following middleware chain:
 
 ---
 
-**Document Version:** 2.2
-**Last Updated:** March 7, 2026
+**Document Version:** 2.3
+**Last Updated:** March 9, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026
