@@ -1,17 +1,14 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
-***
+---
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 1.6
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Updated NVIDIA entry in Infrastructure Providers — added Connect ISV Partner confirmed status (2026-03-08)
-  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Customer Data Controls section — API key hashing (SHA-256), usage metering tier enforcement, report export authentication, self-service key lifecycle management
   - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
-  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Dashboard Resilience Controls section, Backend Middleware Security Controls, Compliance Engine Data Protection controls; updated agent failure recovery playbook with middleware error handling
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/review-dws-ai-compliance-996LB | Date: 03.03.2026 | Changes: Updated EU AI Act row from ambiguous "High-risk assessment Q2 2026" to accurate limited-risk self-classification status with Article 12 active
 
 Session Links & References:
@@ -136,7 +133,7 @@ We align our compliance roadmap with the specific requirements of each target in
 
 ```
 Q1 2026: ISO 27001 gap assessment + ISMS documentation
-Q2 2026: Internal audit + management review + EU AI Act assessment (Note: Digital Omnibus may shift high-risk deadline to Dec 2027 — tied to harmonised standards availability)
+Q2 2026: Internal audit + management review + EU AI Act assessment
 Q3 2026: ISO 27001 Stage 1 & 2 audits → CERTIFICATION
 Q4 2026: SOC 2 Type II audit (Lifetime Fleet priority)
 Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
@@ -151,7 +148,7 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 | **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
 | **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
 | **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
-| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review. **Digital Omnibus (Nov 2025):** High-risk applicability may delay from Aug 2026 to Dec 2027 — timelines now tied to availability of harmonised standards/guidance. Article 12 logging substance unchanged. Lighter QMS/doc burden for SMEs/small mid-caps. Trilogue ongoing as of Mar 2026. |
+| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
 | **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
 | **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
 
@@ -169,7 +166,7 @@ We maintain a complete vendor risk package ready for your procurement team:
 | **Security Policy Package** | Access control, incident response, change management | On request |
 | **Sub-processor List** | All third-party processors with EU adequacy status | On request |
 | **Penetration Test Report** | Annual third-party assessment | Under NDA |
-| **BCP/DR Documentation** | Business continuity: daily pg_dump → 4 destinations, Aiven mirror, RPO 24h, RTO 4h. See `DWS_SECURITY_STANDARD.md` Section 3.6.1 | On request |
+| **BCP/DR Documentation** | Business continuity, RTO/RPO commitments | On request |
 | **Insurance Certificate** | Cyber liability coverage | On request |
 
 ### Common Vendor Assessment Questions
@@ -507,58 +504,6 @@ The MCP Agent Server at `/mcp` has the following security controls:
 3. **Workflow failure:** Partial results returned. Re-trigger workflow with same input — all steps are idempotent.
 4. **Event bus saturation:** In-memory log capped at 1,000 events. Old events evicted. Redis persistence is best-effort.
 5. **Delegation storm:** Max depth 5 + governance rate limiting. If sustained, increase `rate-limit` policy `max_calls` threshold.
-6. **Middleware error handler crash:** If `errorHandler` itself throws, Node.js `uncaughtException` handler logs and exits. Cloud Run restarts automatically. Alert on repeated container restarts.
-7. **Zod validation rejection:** Returns 400 with field-level errors. Logged as warning, not error. No retry needed — client must fix input.
-
----
-
-## Dashboard Resilience Controls
-
-Added: 07.03.2026 | Implements MVP Feature 3
-
-| Control | Implementation | Risk Mitigated |
-|---------|---------------|----------------|
-| **Error Boundaries** | `ErrorBoundary.tsx` wraps every major section (metrics, projects, side panels, agents) | Single component crash doesn't take down entire dashboard |
-| **Skeleton Loading** | `Skeleton.tsx` components show content-shaped placeholders | Users see structure while data loads — prevents perceived downtime |
-| **Empty States** | `EmptyState.tsx` with action CTAs | New users see guidance instead of blank screens |
-| **API Error Hook** | `useApi.ts` with retry, abort, auth token refresh | Failed API calls don't cause white screens |
-| **Component Isolation** | Each `ProjectCard` wrapped in individual `ErrorBoundary` | One broken project card doesn't hide all others |
-
-### Dashboard Security Boundaries
-
-- Error boundary error messages NEVER display stack traces to users
-- API errors show generic message; full error logged to console only in development
-- `useApi` hook automatically strips expired tokens and redirects to login
-- Side panel errors are isolated — chat failure doesn't affect meeting panel
-
----
-
-## Backend Middleware Security Controls
-
-Added: 07.03.2026 | Implements MVP Feature 1
-
-| Control | File | Purpose |
-|---------|------|---------|
-| Centralized error handler | `src/middleware/error-handler.ts` | Consistent error shapes, no stack leakage in production |
-| Zod request validation | `src/middleware/validate.ts` | Validate at boundary before business logic |
-| Correlation ID | `src/middleware/correlation-id.ts` | Trace requests across logs for incident investigation |
-| Env validation | `src/config/validate-env.ts` | Fail fast on startup if required secrets missing |
-| Enhanced health check | `/health` endpoint in `src/app.ts` | Cloud Run readiness probe with service status |
-
----
-
-## Compliance Engine Data Protection
-
-Added: 07.03.2026 | Implements MVP Feature 2
-
-| Data Type | Protection | Storage |
-|-----------|-----------|---------|
-| ESRS disclosure data | RLS per organization | `esrs_data_points` table |
-| Compliance scores | RLS per organization | `compliance_assessments` table |
-| Industry/emissions data | RLS per organization | `compliance_profiles` table |
-| Assessment reports | Non-sequential UUIDs, org-scoped | Generated JSON (not persisted in MVP) |
-
-**CSRD Data Classification:** All compliance assessment data is classified as BUSINESS CONFIDENTIAL. Cross-organization data access is prevented by PostgreSQL RLS policies.
 
 ---
 
@@ -569,30 +514,15 @@ Added: 07.03.2026 | Implements MVP Feature 2
 | Google Cloud | Core platform | ISO 27001, SOC 2 | europe-north1 (Finland) |
 | Supabase | Database | SOC 2 Type II | eu-central-1 (Germany) |
 | Groq | LLM inference | SOC 2 | EU endpoint |
-| NVIDIA | Edge hardware (Connect ISV Partner — confirmed 2026-03-08) | ISO 27001 | On-premise |
+| NVIDIA | Edge hardware | ISO 27001 | On-premise |
 | Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
-| Aiven | PostgreSQL sandbox (agent workspace, LWM training, DR mirror) | SOC 2, ISO 27001 | google-europe-north1 (Finland) |
 | 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
 
 All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
----
-
-## Customer Data Controls (MVP Features)
-
-Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
-
-| Control | Implementation | CISO Relevance |
-|---------|---------------|----------------|
-| **API Key Hashing** | Raw keys never stored; SHA-256 hash only. Prefix (12 chars) visible in UI for identification | Keys cannot be recovered from storage breach |
-| **Key Scoping** | Each API key carries explicit scopes (e.g., `compliance:read`). Access denied outside scope | Principle of least privilege enforced per key |
-| **Usage Metering** | Per-user, per-tier monthly limits enforced server-side. 429 response on exceeded | Prevents runaway costs; enables billing transparency |
-| **Report Export Auth** | JWT required for all report generation; exports counted against tier limits | No anonymous report access; metered downloads |
-| **Schedule Ownership** | Users can only manage their own report schedules (enforced by userId check) | No cross-tenant data exposure in scheduled reports |
-
-**Document Version:** 1.9
-**Last Updated:** 2026-03-08
+**Document Version:** 1.6
+**Last Updated:** 2026-03-02
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi

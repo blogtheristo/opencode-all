@@ -1,6 +1,6 @@
 # ADMIN MANUAL: DWS10.com Store & Revolut Payments
 
-***
+---
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

@@ -1,7 +1,7 @@
 # Firehorse Omnichannel Next - Admin Manual
 # Complete System Administration & Operations Guide
 
-***
+---
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

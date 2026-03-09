@@ -16,9 +16,6 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
-import { correlationId } from './middleware/correlation-id.js';
-import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
-import { validateEnv } from './config/validate-env.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
@@ -29,15 +26,10 @@ import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
-import complianceRoutes from './routes/compliance.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
-import hilRoutes from './routes/hil.routes.js';
-import apiKeyRoutes from './routes/api-keys.routes.js';
-import usageRoutes from './routes/usage.routes.js';
-import reportExportRoutes from './routes/report-export.routes.js';
-import onboardRoutes from './routes/onboard.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
+import hilRoutes from './routes/hil.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -45,11 +37,8 @@ import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction
 
 dotenv.config();
 
-// Validate environment on startup — fail fast with clear messages
-const env = validateEnv();
-
 const app: Express = express();
-const PORT = env.PORT || 8080; // Cloud Run default
+const PORT = process.env.PORT || 8080; // Cloud Run default
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -70,9 +59,6 @@ app.use(helmet({
     },
   },
 }));
-
-// Correlation ID — attach trace ID to every request
-app.use(correlationId);
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
@@ -155,27 +141,16 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
 
 // ============ HEALTH CHECK ============
 
-app.get('/health', async (_req: Request, res: Response) => {
-  const uptime = process.uptime();
-  const memUsage = process.memoryUsage();
-
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
     service: 'DWS IQ Backend',
     version: '1.0.0',
-    uptime: Math.round(uptime),
-    memory: {
-      rss: Math.round(memUsage.rss / 1024 / 1024),
-      heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024),
-      heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024),
-    },
-    services: {
-      supabase: !!process.env.SUPABASE_URL,
-      groqLlm: !!process.env.GROQ_API_KEY,
-      anthropicLlm: !!process.env.ANTHROPIC_API_KEY,
-      email: emailQueue.isAvailable(),
-      redis: !!process.env.REDIS_URL,
+    features: {
+      climateAssistant: !!process.env.GROQ_API_KEY,
+      gatedAccess: true,
+      emailQueue: emailQueue.isAvailable(),
     },
   });
 });
@@ -198,9 +173,6 @@ app.use('/landing-pages', express.static(landingPagesPath));
 // Auth routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
-
-// Compliance Engine API (CSRD readiness, ETS, CBAM scoring)
-app.use('/api/v1/compliance', complianceRoutes);
 
 // Climate Assistant AI routes (for V10 dashboard)
 app.use('/api/climate-assistant', climateAssistantRoutes);
@@ -237,18 +209,6 @@ app.use('/api/situation-room', situationRoomRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
-
-// MVP Feature 1: API Key Management (self-service CRUD)
-app.use('/api/v1/user/api-keys', apiKeyRoutes);
-
-// MVP Feature 2: Usage Metering (tier limits, stats)
-app.use('/api/v1/usage', usageRoutes);
-
-// MVP Feature 3: Compliance Report Export & Scheduling
-app.use('/api/v1/reports', reportExportRoutes);
-
-// MVP Feature 4: Customer Onboarding (wizard → baseline assessment)
-app.use('/api/v1/onboard', onboardRoutes);
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
@@ -303,11 +263,30 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
 
 // ============ ERROR HANDLING ============
 
-// 404 handler — catch unmatched routes
-app.use(notFoundHandler);
+// 404 handler
+app.use((req: Request, res: Response) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: `Route ${req.method} ${req.path} not found`,
+    path: req.path,
+  });
+});
 
-// Global error handler — consistent error response shape
-app.use(errorHandler);
+// Global error handler
+app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
+  logger.error('Unhandled error', {
+    error: err.message,
+    stack: err.stack,
+    path: req.path,
+    method: req.method,
+  });
+
+  res.status(err.status || 500).json({
+    error: err.name || 'Internal Server Error',
+    message: err.message || 'An unexpected error occurred',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+  });
+});
 
 // ============ SERVER START ============
 

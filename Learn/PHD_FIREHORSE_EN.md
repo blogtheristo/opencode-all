@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
@@ -1513,8 +1514,30 @@ Background agents enable parallel research and task execution without exhausting
 **Conclusion**
 The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
+### Section 14.10: Agent System Hardening — Production Reliability
+
+The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failures across module boundaries. These were not design flaws but integration debt — the kind that emerges when independently correct modules evolve at different speeds.
+
+**Fixes applied:**
+
+1. **SandboxContext type alignment** — `SandboxContext.stage` in `types.ts` was missing the `'opensandbox'` literal that `SandboxStage` in `sandbox/index.ts` defined. This blocked agent execution in Stage 1.5 (Acer Veriton Docker).
+
+2. **MCP route wiring** — `createMCPRouter()` was defined in `src/mcp/agent-server.ts` but never imported in `app.ts`. All 31 agents were invisible to external MCP clients.
+
+3. **HIL route wiring** — The Human-in-the-Loop endpoint (`/api/hil`) for morning briefing task completion was unreachable. Captain Pre-Briefing "Done" buttons returned 404.
+
+4. **Locale-deterministic formatting** — Emissions Data Analyst used `toLocaleString()` without locale, producing space-separated numbers on EU servers. Fixed with explicit `'en-US'` locale for consistent output.
+
+5. **Resend batch type safety** — Email service `.map()` call failed on `CreateBatchSuccessResponse` union type. Added runtime array detection.
+
+6. **Dependency hygiene** — `luxon` was imported but missing from `package.json`.
+
+**Result:** 0 TypeScript errors (was 6), 47/47 tests passing (was 44/47).
+
+**Research insight:** In multi-agent architectures, integration debt accumulates at module boundaries, not within modules. Systematic hardening sessions — touching multiple subsystems in a single commit — are more effective than per-module fixes because they restore cross-cutting invariants that individual modules cannot enforce alone.
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 08.03.2026*
-*Version: 2.0*
+*Last updated: 09.03.2026*
+*Version: 2.1*

@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.20
+Version: 3.21
 
 Sessions & Modifications:
+  - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
@@ -2200,6 +2201,40 @@ Kreikkalais-roomalainen panteon tarjoaa kaksi etua:
 
 Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumisessa, kirjoittaen `agent_executions` Supabase-tauluun. Tämä täyttää EU AI Act artiklan 12 automaattiset lokivaatimukset korkean riskin tekoälyjärjestelmille.
 
+## 10.14 Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+### 10.14.1 Motivaatio
+
+31-agenttinen järjestelmä (13 ydin + 5 SEO + 13 työnkulku/toimiala) oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa, jotka estivät tuotantokääntämisen. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa: tyyppien yhteensopimattomuuksia moduulirajojen yli, puuttuvia reittejä, asentamattomia riippuvuuksia ja lokaalikohtaista muotoilua.
+
+### 10.14.2 Tyyppijärjestelmän linjaus: SandboxContext
+
+`SandboxStage`-tyyppi `src/sandbox/index.ts`-tiedostossa määritteli neljä vaihetta: `'1' | 'opensandbox' | '2' | '3'`, missä `'opensandbox'` edustaa vaiheen 1.5 Docker-pohjaista eristystä Acer Veriton GN100 -laitteistolla (osio 10.10). `SandboxContext.stage` `src/agents/types.ts`-tiedostossa hyväksyi kuitenkin vain `'1' | '2' | '3'`, luoden käännösaikaisen virheen. Korjaus linjasi molemmat tyypit.
+
+### 10.14.3 Reittien kytkentä: MCP ja ihminen silmukassa
+
+Kaksi kriittistä reittiä oli tavoittamattomissa puuttuvien tuontien vuoksi `src/app.ts`-tiedostossa:
+
+1. **MCP-agenttipalvelin** (`/mcp`) — `createMCPRouter()`-funktio paljastaa kaikki agentit MCP-työkaluina JSON-RPC 2.0:n kautta.
+2. **Ihminen silmukassa** (`/api/hil`) — HIL-päätepiste mahdollistaa yhden klikkauksen tehtävien suorittamisen aamubrief-sähköposteista.
+
+### 10.14.4 Lokaalivarma numeromuotoilu
+
+Päästödatan analyytikkoagentti muotoilee ETS-kustannusarvioita `Number.toLocaleString()`-metodilla. EU-lokaaleilla tämä tuottaa välilyönnillä erotellut luvut. Korjaus määrittää `'en-US'`-lokaalin eksplisiittisesti, varmistaen deterministisen tulostuksen käyttöympäristöstä riippumatta.
+
+### 10.14.5 Riippuvuushygienia
+
+`luxon`-kirjasto oli tuotu Social Schedulerissa mutta ei koskaan lisätty `package.json`-tiedostoon. Resend-sähköposti-SDK:n erävasteen tyyppi vaati suoritusaikaisen taulukkotunnistuksen.
+
+### 10.14.6 Tutkimuspanos
+
+Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvän kuvion: **integraatiovelka kertyy moduulirajoille, ei moduulien sisälle**. Korjaus koski 6 tiedostoa 5 alijärjestelmässä, palauttaen:
+
+- **0 TypeScript-virhettä** (oli 6)
+- **47/47 testiä läpi** (oli 44/47)
+- **Täysi MCP-löydettävyys** kaikille 31 agentille
+- **HIL-toiminnallisuus** aamubrief-työnkuluille
+
 ---
 
 **Dokumentin tiedot:**
@@ -2210,9 +2245,9 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina
-**Versio:** 3.19
-**Viimeisin päivitys:** 07.03.2026
+**Tila:** DRAFT - V3.21 — Agenttijärjestelmän koventaminen (6 TS-virhettä korjattu, 3 testivikaa ratkaistu, MCP/HIL-reittien kytkentä)
+**Versio:** 3.21
+**Viimeisin päivitys:** 09.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2239,6 +2274,7 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 13. Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen
 14. MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille
 15. Asiakaskeskeiset MVP-ominaisuudet — Kolme tuotanto-ominaisuutta, jotka siirtävät DWS IQ:n kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi: (a) Itsepalvelu-API-avainten hallinta SHA-256-tiivistyksellä ja oikeuspohjaisella pääsynhallinnalla, (b) Käyttömittarointi 3-tasoisella laskutuksen valvonnalla (Free/Pro/Enterprise) ja kojelaudan edistymispalkeilla, (c) Vaatimustenmukaisuusraporttien vienti CSV/JSON-latauksella ja toistuvan aikataulun tuella. Validoi Solution Factory -tuotteistamishypoteesin — alusta on markkinavalmis säännellyille EU-toimialoille
+16. Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

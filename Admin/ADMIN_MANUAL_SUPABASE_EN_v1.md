@@ -1,12 +1,11 @@
 # Admin Manual: Supabase Database Management for DWS6
 
-***
+---
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Expanded Section 9 with automated backup pipeline (§9.2), Aiven sandbox mirror (§9.3), disaster recovery procedures (§9.4), verification checklist (§9.5)
   - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
   - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
@@ -24,10 +23,10 @@ Document Status:
 
 ---
 
-**Version:** 1.3
+**Version:** 1.2
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 07.03.2026
+**Updated:** 04.03.2026
 
 ---
 
@@ -906,197 +905,91 @@ ORDER BY idx_scan DESC;
 
 ## 9. Backup and Recovery
 
-### 9.1 Supabase Automatic Backups
+### 9.1 Automatic Backups
 
-**Supabase Free Tier** (current plan):
-- Daily automatic backups by Supabase
+**Supabase Free Tier**:
+- Daily automatic backups
 - Retained for 7 days
-- **No point-in-time recovery (PITR)**
-- **No external copy** — if Supabase deletes backups, they're gone
+- No point-in-time recovery
 
-**WARNING:** Free tier backups are NOT sufficient for production. They cannot survive a Supabase account lockout, accidental project deletion, or provider outage. The automated pipeline below provides independent, encrypted backups.
-
-**Access Supabase Backups**:
+**Access Backups**:
 1. Go to Project Dashboard → Database → Backups
 2. View available backups
 3. Download or restore as needed
 
-### 9.2 Automated Daily Backup Pipeline
+### 9.2 Manual Backup
 
-**Architecture:**
-```
-Supabase (production) → pg_dump → GPG encrypt → 4 destinations:
-  1. Local F:\2026\Backups\dws6-db (30-day retention)
-  2. Proton Drive (encrypted, 90-day retention)
-  3. Acer Veriton GN100 Helsinki (SCP, 90-day retention)
-  4. GitHub Actions artifacts (30-day retention)
-```
-
-**Daily automation (Startup-DailySync.bat v1.5):**
-
-The backup runs automatically on Windows login as part of the daily sync pipeline:
-
-```
-Step 1: git pull origin main
-Step 2: Sync-ToProton.ps1 (files + encrypted DB backups)
-Step 3: Sync-ToSupabase.ps1 (EU cloud backup)
-Step 4: Backup-Database.ps1 (pg_dump + GPG encrypt)
-Step 5: Mirror-ToAiven.ps1 (restore to Aiven sandbox)
-```
-
-**Manual backup:**
-
-```powershell
-# Standard backup (encrypt + local storage)
-.\scripts\Backup-Database.ps1
-
-# Dry run (see what would happen)
-.\scripts\Backup-Database.ps1 -DryRun
-
-# Include remote backup to Acer Veriton Helsinki
-.\scripts\Backup-Database.ps1 -RemoteBackup
-
-# Schema only (no data)
-.\scripts\Backup-Database.ps1 -SchemaOnly
-```
-
-**CI/CD backup (GitHub Actions):**
-
-The `.github/workflows/daily-db-backup.yml` workflow runs at 02:30 UTC daily as a safety net in case the local machine misses a backup. It creates encrypted artifacts with 30-day retention.
-
-**Manual backup commands** (if scripts unavailable):
+#### Full Database Backup
 
 ```bash
-# Full database (custom format for fast restore)
 pg_dump -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-        -U postgres -d postgres -F c \
+        -U postgres \
+        -d postgres \
+        -F c \
         -f dws6_backup_$(date +%Y%m%d_%H%M%S).dump
+```
 
-# Table-specific
+#### Table-Specific Backup
+
+```bash
+# Backup projects table
 pg_dump -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-        -U postgres -d postgres -t projects -F c \
+        -U postgres \
+        -d postgres \
+        -t projects \
+        -F c \
         -f projects_backup_$(date +%Y%m%d).dump
 
-# Schema-only (SQL readable)
+# Backup alerts table
 pg_dump -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-        -U postgres -d postgres --schema-only \
+        -U postgres \
+        -d postgres \
+        -t alerts \
+        -F c \
+        -f alerts_backup_$(date +%Y%m%d).dump
+```
+
+#### Schema-Only Backup
+
+```bash
+pg_dump -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
+        -U postgres \
+        -d postgres \
+        --schema-only \
         -f schema_backup_$(date +%Y%m%d).sql
 ```
 
-**Required environment variables** (in `.env`):
-
-```
-SUPABASE_DB_HOST=db.kpucuwwfhuwurdxyjjtz.supabase.co
-SUPABASE_DB_PORT=5432
-SUPABASE_DB_NAME=postgres
-SUPABASE_DB_USER=postgres
-SUPABASE_DB_PASSWORD=<your-password>
-BACKUP_GPG_PASSPHRASE=<your-passphrase>
-```
-
-### 9.3 Aiven Sandbox Mirror
-
-**Purpose:** Daily mirror of production data to Aiven PostgreSQL for:
-- AI agent workspace (safe read/write without production risk)
-- Lifetime World Model (LWM) training data
-- Schema testing and migration validation
-- Warm standby for disaster recovery (RTO: 1 hour)
-
-**Aiven setup (one-time):**
-
-1. Create Aiven PostgreSQL service at aiven.io
-   - Cloud: Google Cloud, Region: google-europe-north1 (Finland)
-   - Plan: Hobbyist (free, 5GB) or Startup ($19/mo, 80GB)
-2. Run initialization script:
-   ```bash
-   psql "$AIVEN_DATABASE_URL" -f scripts/aiven-init.sql
-   ```
-3. Add to `.env`:
-   ```
-   AIVEN_ENABLED=true
-   AIVEN_DB_HOST=pg-xxxxx.aivencloud.com
-   AIVEN_DB_PORT=12345
-   AIVEN_DB_NAME=defaultdb
-   AIVEN_DB_USER=avnadmin
-   AIVEN_DB_PASSWORD=<from-aiven-console>
-   AIVEN_DB_SSLMODE=require
-   ```
-
-**Daily mirror (automated via Startup-DailySync.bat):**
-
-```powershell
-# Auto-detects latest backup, decrypts if needed, restores to Aiven
-.\scripts\Mirror-ToAiven.ps1
-
-# Dry run
-.\scripts\Mirror-ToAiven.ps1 -DryRun
-
-# Specific dump file
-.\scripts\Mirror-ToAiven.ps1 -DumpFile "F:\2026\Backups\dws6-db\2026-03-07\dws6_2026-03-07.dump"
-```
-
-**Auth compatibility:** Supabase RLS policies reference `auth.uid()` and `auth.jwt()`. The `aiven-init.sql` script creates stub functions that return dummy values. RLS policies parse correctly but are effectively open on the sandbox (acceptable for non-production use).
-
-### 9.4 Disaster Recovery Procedures
-
-**Scenario 1: Supabase drops the database**
-
-1. Retrieve latest encrypted backup from local (`F:\2026\Backups\dws6-db\`) or Proton Drive
-2. Decrypt: `gpg --decrypt dws6_YYYY-MM-DD.dump.gpg > dws6_restore.dump`
-3. Create new Supabase project (or restore to existing)
-4. Restore: `pg_restore -h <new-host> -U postgres -d postgres -c -v dws6_restore.dump`
-5. Verify row counts against `row_counts.json`
-6. Update `.env` with new connection strings
-7. Estimated RTO: 4 hours
-
-**Scenario 2: Need immediate failover**
-
-1. Switch application connection strings from Supabase to Aiven
-2. Aiven already has yesterday's mirror — RTO: 1 hour
-3. Note: Auth functions return dummy values on Aiven, so RLS is open
-4. Use as temporary production only while Supabase is restored
-
-**Scenario 3: Supabase account locked/deleted**
-
-1. Latest backup available at: local disk, Proton Drive, Acer Helsinki, GitHub Actions
-2. Restore to Aiven as production replacement
-3. Or create new Supabase project and restore from backup
-4. Run all 39 migrations to verify schema: `supabase db push`
-
-### 9.5 Backup Verification Checklist
-
-| Frequency | Action | How |
-|-----------|--------|-----|
-| **Daily** | Verify backup ran | Check `F:\2026\Backups\dws6-db\<today>\manifest.json` exists |
-| **Daily** | Verify Aiven mirror | Check `_backup_metadata` table on Aiven |
-| **Weekly** | Decrypt test | `gpg --decrypt <latest>.dump.gpg > /dev/null` |
-| **Monthly** | Full restore drill | Restore to Aiven, compare row counts with source |
-| **Quarterly** | DR drill | Simulate Supabase loss, restore from cold backup, measure RTO |
-
-### 9.6 Restore Procedures (Manual)
+### 9.3 Restore Procedures
 
 #### Restore Full Database
 
 ```bash
 pg_restore -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-           -U postgres -d postgres -c -v \
-           dws6_backup_20260307_120000.dump
+           -U postgres \
+           -d postgres \
+           -c \
+           -v \
+           dws6_backup_20251230_120000.dump
 ```
 
 #### Restore Specific Table
 
 ```bash
 pg_restore -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-           -U postgres -d postgres -t projects -c \
-           projects_backup_20260307.dump
+           -U postgres \
+           -d postgres \
+           -t projects \
+           -c \
+           projects_backup_20251230.dump
 ```
 
 #### Restore from SQL File
 
 ```bash
 psql -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
-     -U postgres -d postgres \
-     -f schema_backup_20260307.sql
+     -U postgres \
+     -d postgres \
+     -f schema_backup_20251230.sql
 ```
 
 ---
