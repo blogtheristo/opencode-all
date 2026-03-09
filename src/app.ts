@@ -30,6 +30,7 @@ import situationRoomRoutes from './routes/situation-room.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import hilRoutes from './routes/hil.routes.js';
+import captainRoutes from './routes/captain.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -194,6 +195,7 @@ app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
