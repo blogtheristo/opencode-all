@@ -31,6 +31,8 @@ import capTableRouter from './investor-reports/cap-table-routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import hilRoutes from './routes/hil.routes.js';
 import captainRoutes from './routes/captain.routes.js';
+import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -199,6 +201,52 @@ app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
+
+// KYA Webhook Bridge (Shufti Pro → Policy Engine)
+app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// KYA CLI Snap endpoint (simulation trigger for demo)
+app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['authorization']?.replace('Bearer ', '')
+    || req.headers['x-admin-key'];
+
+  if (adminKey && provided) {
+    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+  }
+
+  const { sessionId, reason, forceCascade, source } = req.body;
+
+  if (!sessionId || typeof sessionId !== 'string') {
+    res.status(400).json({ error: 'sessionId is required' });
+    return;
+  }
+
+  try {
+    const result = await terminateChain(sessionId, {
+      reason: reason || 'MANUAL_SNAP',
+      forensicDump: true,
+    });
+
+    logger.info('KYA Snap executed via CLI', {
+      sessionId,
+      reason,
+      source: source || 'api',
+      forceCascade,
+    });
+
+    res.json(result);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('KYA Snap failed', { error: msg, sessionId });
+    res.status(500).json({ error: 'Snap execution failed', message: msg });
+  }
+});
 
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
