@@ -10,11 +10,13 @@ import { ClimateAssistant } from './components/ClimateAssistant';
 import { MeetingPanel } from './components/MeetingPanel';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
 import { ClaudeCodePanel } from './components/ClaudeCodePanel';
+import { ComplianceScoreWidget } from './components/ComplianceScoreWidget';
 import { ProfileMenu } from './components/ProfileMenu';
 import { HamburgerMenu } from './components/HamburgerMenu';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ProjectCardSkeleton } from './components/Skeleton';
 import { EmptyState } from './components/EmptyState';
+import { OnboardingWizard } from './pages/OnboardingWizard';
 import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
@@ -27,7 +29,35 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
   const [appView, setAppView] = useState<AppView>('dashboard');
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const { user, signOut } = useAuth();
+
+  // Check if user needs onboarding (first login, no profile data)
+  useEffect(() => {
+    if (!user) return;
+    const onboardingDone = user.user_metadata?.onboarding_completed
+      || localStorage.getItem(`dws_onboarded_${user.id}`);
+    if (!onboardingDone) {
+      setShowOnboarding(true);
+    }
+  }, [user]);
+
+  // Show onboarding wizard before dashboard
+  if (showOnboarding && user) {
+    return (
+      <OnboardingWizard
+        userEmail={user.email || ''}
+        onComplete={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+        onSkip={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+      />
+    );
+  }
 
   useEffect(() => {
     async function loadProjects() {
@@ -174,8 +204,17 @@ function App() {
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Compliance Score Widget — hidden when a side panel is open (all screens) */}
+              {!sidePanel && (
+                <div className="lg:col-span-1 order-first lg:order-none">
+                  <ErrorBoundary>
+                    <ComplianceScoreWidget onRunAssessment={() => setSidePanel('chat')} />
+                  </ErrorBoundary>
+                </div>
+              )}
+
               {/* Projects Section */}
-              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-2'}`}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     Projects ({projects.length})
