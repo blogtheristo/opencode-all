@@ -22,7 +22,7 @@ toc-depth: 3
 Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§9) — Capability Manifests, path-scoped access control (/mock-api/, /temp-db/), KYA Violation logging and auto-termination for /prod-secrets/ access
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§8) — Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution in Supabase (§8.4), Agent Trust Score formula with executable engine (src/identity/ats-engine.ts)
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
 
 Document Status:
@@ -106,14 +106,26 @@ Using real-time risk telemetry (via API partners), DWS IQ dynamically adjusts an
 | Anomalous behavior detected | < 1 second | Hypervisor trap, session frozen |
 | Risk score recovery | < 10 seconds | Permissions restored to previous level |
 
+**Agent Trust Score (ATS) Formula:**
+
+```
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+
+V = KYA_VIOLATION count    (4 violations = zero trust)
+L = 0.10 if avg_latency > 500ms
+D = DENIED path access attempts
+```
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
+
 **KYA Trust Score Ranges:**
 
-| Score | Permission Level | Description |
-|-------|-----------------|-------------|
-| >= 80 | Full sandbox | Egress, filesystem, all MCP tools |
-| 50-79 | Restricted sandbox | No egress, read-only FS, curated MCP tools |
-| < 50 | Suspended | Human review required |
-| = 0 | Frozen | Agent terminated, account under investigation |
+| ATS | KYA Score | Permission Level | Decision |
+|-----|-----------|-----------------|----------|
+| >= 0.80 | >= 80 | Full sandbox — egress, filesystem, all MCP tools | **GO** |
+| 0.50–0.79 | 50–79 | Restricted sandbox — no egress, read-only FS, curated MCP tools | **GO** (limited) |
+| < 0.50 | < 50 | Suspended — human review required | **NO_GO** |
+| = 0.00 | = 0 | Frozen — agent terminated, account under investigation | **NO_GO** |
 
 ### 2.3 Pillar 3: Forensic Observability (The Firehorse Audit Trail)
 

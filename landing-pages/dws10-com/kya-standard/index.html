@@ -274,19 +274,29 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre>
 
         <hr>
 
-        <h2>4. KYA Trust Score</h2>
+        <h2>4. Agent Trust Score (ATS)</h2>
+        <div class="callout">
+            <p><strong>Formula:</strong> <code>ATS = max(0, 1.0 &minus; V&times;0.25 &minus; L &minus; D&times;0.05)</code><br>
+            Where V = KYA violations, L = latency penalty (0.10 if avg &gt; 500ms), D = denied path attempts.<br>
+            <strong>Hard kill:</strong> ATS = 0.0 if manifest is unsigned or TTL expired.</p>
+        </div>
+
         <div class="summary-table">
             <table>
                 <thead>
-                    <tr><th>Score</th><th>Permission Level</th><th>Description</th></tr>
+                    <tr><th>ATS</th><th>KYA Score</th><th>Permission Level</th><th>Decision</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>&ge; 80</strong></td><td>Full sandbox</td><td>Egress, filesystem, all MCP tools</td></tr>
-                    <tr><td><strong>50&ndash;79</strong></td><td>Restricted sandbox</td><td>No egress, read-only FS, curated MCP tools</td></tr>
-                    <tr><td><strong>&lt; 50</strong></td><td>Suspended</td><td>Human review required</td></tr>
-                    <tr><td><strong>= 0</strong></td><td>Frozen</td><td>Agent terminated, account under investigation</td></tr>
+                    <tr><td><strong>&ge; 0.80</strong></td><td>&ge; 80</td><td>Full sandbox &mdash; egress, filesystem, all MCP tools</td><td><strong style="color: #0d7a3e;">GO</strong></td></tr>
+                    <tr><td><strong>0.50&ndash;0.79</strong></td><td>50&ndash;79</td><td>Restricted sandbox &mdash; no egress, read-only FS</td><td><strong style="color: #b45309;">GO (limited)</strong></td></tr>
+                    <tr><td><strong>&lt; 0.50</strong></td><td>&lt; 50</td><td>Suspended &mdash; human review required</td><td><strong style="color: #dc2626;">NO_GO</strong></td></tr>
+                    <tr><td><strong>= 0.00</strong></td><td>= 0</td><td>Frozen &mdash; agent terminated, investigation</td><td><strong style="color: #dc2626;">NO_GO</strong></td></tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="section-note">
+            <strong>Implementation:</strong> <code>src/identity/ats-engine.ts</code> &mdash; evaluated before external IDV calls (Shufti Pro) to save API cost on low-trust sessions. 4 violations = zero trust.
         </div>
 
         <hr>
