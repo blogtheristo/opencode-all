@@ -3,9 +3,9 @@
 > Following the [agents.md](https://github.com/agentsmd/agents.md) open specification.
 > A README for AI coding agents: context, instructions, and operational guidance.
 
-**Version:** 2.1
+**Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** March 4, 2026
+**Updated:** March 7, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -621,6 +621,73 @@ dws mcp tools
 
 ---
 
+## 17. Compliance Scoring Engine Architecture
+
+Added: March 7, 2026 | MVP Feature 2
+
+The Compliance Scoring Engine is the core product logic — deterministic, testable, no LLM dependency for scoring. The existing `ComplianceAgent` (`src/agents/compliance.agent.ts`) now delegates real calculations to the scoring engine.
+
+### Architecture
+
+```
+ComplianceAgent (orchestration layer)
+  ├── scoring-engine.ts (deterministic scoring)
+  │   ├── scoreCsrdReadiness()  — ESRS data point coverage
+  │   ├── scoreEtsExposure()    — emissions threshold analysis
+  │   └── scoreCbamRisk()       — import value risk assessment
+  ├── esrs-registry.ts (82 ESRS disclosures, E1-E5/S1-S4/G1)
+  ├── report-generator.ts (structured JSON for auditors)
+  └── LLM (gap analysis enhancement — optional)
+```
+
+### Scoring Formula
+
+```
+CSRD Score = (mandatory data points provided / total mandatory) × 80
+           + transition plan bonus (10)
+           + emissions monitoring bonus (10)
+
+ETS Score  = 100 - penalties for:
+           - No emissions monitoring (-40 if above threshold)
+           - No transition plan (-20)
+           - No GHG data E1-6 (-25)
+
+CBAM Score = 100 - penalties for:
+           - No supply chain DD (-40 if above €150K imports)
+           - No supplier data G1-2 (-20)
+           - No pollution data E2-4 (-15)
+
+Overall    = CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25
+```
+
+### API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/v1/compliance/assess` | Run compliance assessment, returns scored report |
+| GET | `/api/v1/compliance/registry` | Get ESRS disclosure registry (filterable by standard/category/mandatory) |
+
+### Database Schema
+
+| Table | Purpose |
+|-------|---------|
+| `compliance_profiles` | Organization compliance profile (industry, emissions, imports) |
+| `esrs_data_points` | Individual ESRS disclosure data (82 possible per profile) |
+| `compliance_assessments` | Assessment results with scores and gaps |
+
+All tables have RLS policies scoped to `organization_id`.
+
+### Middleware Stack (Required Order)
+
+All compliance routes use the following middleware chain:
+
+1. `correlationId` → trace ID
+2. `validate({ body: AssessmentSchema })` → Zod validation
+3. Route handler → calls `scoreCompliance()` + `generateReport()`
+4. `errorHandler` → catches and formats errors
+
+---
+
 ## Related Documents
 
 - [CLAUDE.md](CLAUDE.md) - AI coding agent behavior guidelines
@@ -633,7 +700,7 @@ dws mcp tools
 
 ---
 
-**Document Version:** 2.1
-**Last Updated:** March 4, 2026
+**Document Version:** 2.2
+**Last Updated:** March 7, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026

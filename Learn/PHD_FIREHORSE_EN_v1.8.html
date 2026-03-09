@@ -44,7 +44,7 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 Version: 1.8
 
 Sessions & Modifications:
-  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
@@ -57,10 +57,11 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 07.03.2026
+  - Last Modified: 02.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.8 — Agent System Hardening: 6 TS errors fixed, MCP/HIL route wiring, locale-deterministic formatting)
+  - Last Modified: 07.03.2026
+  - Publication Status: DRAFT (V1.8 — LSS Training Pipeline Coordination: Training Agent Fleet T-01–T-10, quality gate signals, resource arbitration)
 
 <hr />
 
@@ -1164,6 +1165,39 @@ Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key ins
 
 The OpenSandbox environment additionally serves as a <strong>safe EMPO²-style RL training sandbox</strong>: isolated containers provide the clean, reproducible environments needed for RL-based memory training without affecting production infrastructure.
 
+<h4>14.6.3 Lifetime Scope Signals for LWM Training Coordination</h4>
+
+</em>Session: claude/pedantic-easley | Date: 07.03.2026<em>
+
+The Lifetime Scope Signals (LSS) protocol — originally designed for deterministic multi-agent development coordination (see Metropolia thesis Section 2.5.2) — extends naturally to ML pipeline orchestration. Rather than introducing a dedicated ML workflow engine (Kubeflow, Airflow), the LWM training pipeline is coordinated using the same four signal types: READY, COMPLETE, ERROR, BLOCKED.
+
+<strong>Training Agent Fleet (T-01 through T-10):</strong>
+
+| Agent ID | Name | Role | Emits | Listens For |
+|----------|------|------|-------|-------------|
+| T-01 | InfraVerifier | Validate CUDA/PyTorch on GN-100 nodes | `COMPLETE:infra-verified` | (none — entry point) |
+| T-02 | ModelFetcher | Download base model to shared storage | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
+| T-03 | CurriculumAgent | Claude API curriculum design per vertical | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
+| T-04 | DataSynthAgent | Generate 2000+ synthetic examples | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
+| T-05 | TrainingAgent | QLoRA fine-tuning on assigned node | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:</em>` (releases slot) |
+| T-07 | EvalAgent | Claude-as-judge, quality gate ≥7.0 | `READY:eval-pass:{vertical}` / `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
+| T-08 | MergeAgent | Merge LoRA adapter into base model | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
+| T-09 | DeployAgent | Deploy inference API | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
+| T-10 | PipelineOrchestrator | Monitor all verticals | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:<em>` |
+
+The `{vertical}` parameterized milestone enables per-industry pipeline instantiation — the only protocol extension over base LSS v1.0.
+
+<strong>Key mechanisms:</strong>
+
+<li><strong>Quality gate signals</strong> — T-07 emits `READY:eval-pass:{vertical}` only when Claude-as-judge score ≥7.0; failure emits `ERROR:eval-fail:{vertical}`, triggering curriculum re-generation (max 3 retries → `BLOCKED` → human escalation). This maps to the EMPO² off-policy update pattern (Section 14.6.2).</li>
+
+<li><strong>Resource arbitration</strong> — T-06 manages two node-slot tokens (one per GN-100). Training agents acquire a token before starting; release on completion. First-come-first-served by signal emission order.</li>
+
+<li><strong>Fan-Out parallelism</strong> — Curriculum generation (T-03) and data synthesis (T-04) run across all 16 verticals simultaneously (CPU-bound, no GPU constraint), eliminating idle GPU time.</li>
+
+<strong>Firehorse operating model impact:</strong> The training coordination validates LSS as a general-purpose deterministic coordination mechanism — the same protocol orchestrates both software development agents (Appendix F) and ML training pipelines, reducing operational complexity for Firehorse customers who need both capabilities.
+
 <h3>14.7 CEO Automation Agent Suite</h3>
 
 </em>Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig<em>
@@ -1270,6 +1304,7 @@ This thesis contributes:
 <li>EMPO² alignment — hybrid parametric/non-parametric memory architecture validated by arXiv:2602.23008</li>
 <li>CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation</li>
 <li>Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model</li>
+<li>LSS Training Pipeline Coordination — Lifetime Scope Signals applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes; validates LSS as general-purpose coordination beyond software development</li>
 
 <h3>16.3 Future Work</h3>
 
@@ -1490,32 +1525,10 @@ Background agents enable parallel research and task execution without exhausting
 <strong>Conclusion</strong>
 The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
-<h3>Section 14.10: Agent System Hardening — Production Reliability</h3>
-
-The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failures across module boundaries. These were not design flaws but integration debt — the kind that emerges when independently correct modules evolve at different speeds.
-
-<strong>Fixes applied:</strong>
-
-<li><strong>SandboxContext type alignment</strong> — `SandboxContext.stage` in `types.ts` was missing the `'opensandbox'` literal that `SandboxStage` in `sandbox/index.ts` defined. This blocked agent execution in Stage 1.5 (Acer Veriton Docker).</li>
-
-<li><strong>MCP route wiring</strong> — `createMCPRouter()` was defined in `src/mcp/agent-server.ts` but never imported in `app.ts`. All 31 agents were invisible to external MCP clients.</li>
-
-<li><strong>HIL route wiring</strong> — The Human-in-the-Loop endpoint (`/api/hil`) for morning briefing task completion was unreachable. Captain Pre-Briefing "Done" buttons returned 404.</li>
-
-<li><strong>Locale-deterministic formatting</strong> — Emissions Data Analyst used `toLocaleString()` without locale, producing space-separated numbers on EU servers. Fixed with explicit `'en-US'` locale for consistent output.</li>
-
-<li><strong>Resend batch type safety</strong> — Email service `.map()` call failed on `CreateBatchSuccessResponse` union type. Added runtime array detection.</li>
-
-<li><strong>Dependency hygiene</strong> — `luxon` was imported but missing from `package.json`.</li>
-
-<strong>Result:</strong> 0 TypeScript errors (was 6), 47/47 tests passing (was 44/47).
-
-<strong>Research insight:</strong> In multi-agent architectures, integration debt accumulates at module boundaries, not within modules. Systematic hardening sessions — touching multiple subsystems in a single commit — are more effective than per-module fixes because they restore cross-cutting invariants that individual modules cannot enforce alone.
-
 <hr />
 
 </em>Document generated using Firehorse Operations Model with Claude Code<em>
-</em>Last updated: 07.03.2026<em>
-</em>Version: 1.8*
+</em>Last updated: 02.03.2026<em>
+</em>Version: 1.7*
 </body>
 </html>

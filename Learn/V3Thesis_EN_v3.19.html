@@ -39,7 +39,7 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 Version: 3.19
 
 Sessions & Modifications:
-  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #14; updated footer
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3 MCP Hub Orchestration Patterns with implementation details (4 patterns: Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing, production readiness table; added Section 2.5.4 Skills and CLIs as Agent Interfaces (Three-Interface Rule: CLI + MCP + Skills)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning loop via Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective learning framework for AI-assisted product development
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 10.13 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 Orchestrators + 7 Industry Specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging); added Key Contribution #12; updated footer
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 10.13 (Claude Code Engineering Structure: AI Workflow as First-Class Engineering) — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated validation, Subagents for parallel execution; added Key Contribution #12; updated footer; validated against emerging Claude Code community best practices
@@ -74,10 +74,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code engineering structure: AI workflow as first-class engineering)
+  - Publication Status: DRAFT (V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces)
 
 <hr />
 
@@ -364,11 +364,58 @@ The Lifetime Scope Signals protocol is a novel coordination mechanism developed 
 
 <h3>2.5.3 MCP Hub Orchestration Patterns</h3>
 
-The Model Context Protocol (MCP) Hub implements three workflow patterns for agent coordination:
+The Model Context Protocol (MCP) Hub (`mcp-hub/server.py`, port 8765) implements four workflow patterns for multi-agent coordination. Each pattern exposes a dedicated HTTP endpoint and handles agent routing, error propagation, and result aggregation.
 
-<li><strong>Fan-Out pattern:</strong> Parallel task distribution to multiple agents</li>
-<li><strong>Reflection pattern:</strong> Self-evaluation and iterative improvement</li>
-<li><strong>Sequential pattern:</strong> Step-by-step execution with dependencies</li>
+<strong>1. Fan-Out Pattern</strong> (`POST /workflow/fan-out`)
+Distributes tasks to multiple agents in parallel using `asyncio.gather()`. All agents execute concurrently with a shared HTTP client (300s timeout). Exceptions are serialized per-task, enabling partial success — if one agent fails, others still return results. Used for Category B (Operations) agents where tasks are independent.
+
+<strong>2. Sequential Pattern</strong> (`POST /workflow/sequential`)
+Executes tasks one by one in dependency order. Each task's result is injected as `context["previous_result"]` into the next task, creating an explicit data flow chain. Suitable for pipelines where output of one agent feeds the next (e.g., data extraction → analysis → report generation).
+
+<strong>3. Reflection Pattern</strong> (`POST /workflow/reflection`)
+Implements an iterative implementation-evaluation loop. An implementation agent produces output, an evaluation agent scores it (0.0–1.0) and provides feedback. If the score falls below a configurable threshold (default 0.85), the feedback is injected back into the implementation agent for another iteration (max 3 by default). Used for Category C (Customer-facing) agents where output quality is critical.
+
+<strong>4. Pipeline Pattern</strong> (`POST /workflow/pipeline`) — <em>Recommended for production</em>
+Combines parallel and sequential execution through staged workflows. Each stage contains a list of tasks that execute in parallel (fan-out within stage), while stages execute sequentially (results from stage N flow as context into stage N+1). This avoids the sequential bottleneck while maintaining dependency ordering between logical phases.
+
+| Pattern | Parallelism | Context Passing | Best For |
+|---------|------------|-----------------|----------|
+| Fan-Out | Full parallel | None | Independent tasks |
+| Sequential | None | Previous → Next | Dependent chains |
+| Reflection | None | Feedback loop | Quality-critical output |
+| Pipeline | Parallel within stages | Stage → Stage | Production workloads |
+
+<h3>2.5.4 Skills and CLIs as Agent Interfaces</h3>
+
+The "Build for Agents" principle establishes that every DWS product must be accessible through three complementary interfaces beyond the GUI: a CLI, an MCP server, and Claude Code Skills.
+
+<strong>CLI (Command-Line Interface)</strong>
+The CLI (`npx tsx cli/src/cli.ts <command>`) provides structured JSON output for every agent operation. This follows the industry trend where AI agents consume tools through command-line interfaces rather than graphical interfaces. Key commands:
+
+<li>`dws agents` — List all registered agents</li>
+<li>`dws run <agent> --input '{...}'` — Execute a named agent with structured input</li>
+<li>`dws workflow <name>` — Trigger a multi-agent workflow</li>
+
+The CLI-first approach ensures that every feature is automatable, testable, and composable. A product that exists only as GUI is considered incomplete.
+
+<strong>MCP Server</strong>
+The MCP endpoint (`/mcp`, JSON-RPC 2.0) makes all agents auto-discoverable via `tools/list`. External AI systems (Claude Code, Cursor, VS Code Copilot) can connect to the MCP server and invoke any agent as a tool. This implements the Model Context Protocol specification for standardized tool integration.
+
+<strong>Claude Code Skills</strong>
+Skills (`.claude/commands/<em>.md`) are reusable workflow components that encapsulate agent invocations as slash commands. Six production skills are deployed:
+
+| Skill | Purpose |
+|-------|---------|
+| `/compliance-check` | EU regulatory gap analysis (ETS, CBAM, CSRD) |
+| `/agent-run` | Execute any named agent with structured input |
+| `/workflow` | Trigger multi-agent workflows |
+| `/discover-agents` | Find agents by capability keyword |
+| `/site-safety` | Construction site safety assessment |
+| `/carbon-analysis` | Embodied carbon footprint calculation |
+
+Each skill is a callable, testable component that combines prompt engineering with tool orchestration. The skill pattern ensures that agent capabilities are accessible without requiring users to understand the underlying MCP protocol or CLI syntax.
+
+<strong>Three-Interface Rule:</strong> Every new agent must ship with all three interfaces (CLI command, MCP tool, Claude Code Skill). This guarantees that agents are usable by humans (CLI), other AI systems (MCP), and within development workflows (Skills).
 
 <h2>2.6 Conceptual Model: Firehorse Solution Factory</h2>
 
@@ -1110,7 +1157,7 @@ The 2-month payback promise has been validated with real customer deployments:
 | <strong>Cloud</strong> | Google Cloud Run + Groq API | MCP Hub on port 8765 |
 | <strong>Edge</strong> | NVIDIA Jetson Orin Nano | <100ms inference (25x faster) |
 | <strong>E-commerce</strong> | dws6.com (Cloudflare Pages) | EUR 0/month, 99.95% uptime |
-| <strong>Orchestration</strong> | MCP Hub + LlamaStack | 3 workflow patterns implemented |
+| <strong>Orchestration</strong> | MCP Hub + LlamaStack | 4 workflow patterns implemented (Fan-Out, Sequential, Reflection, Pipeline) |
 
 <h3>8.5.3 RQ3: Technical Solution Evaluation</h3>
 
@@ -1596,8 +1643,8 @@ A parallel insight emerged during implementation: <strong>the primary consumers 
 |---------|---------------|---------|
 | <strong>CLI</strong> | `cli/src/cli.ts` — zero-dependency, JSON-only output | Agents run commands, pipe output |
 | <strong>MCP Server</strong> | `/mcp` endpoint, JSON-RPC 2.0 | Claude Code / Cursor discover and call agents |
-| <strong>Claude Code Skills</strong> | `.claude/commands/<em>.md` (6 skills) | Natural language → agent execution |
-| <strong>REST API</strong> | `/api/agents/</em>` (existing + new endpoints) | Traditional integration |
+| <strong>Claude Code Skills</strong> | `.claude/commands/</em>.md` (6 skills) | Natural language → agent execution |
+| <strong>REST API</strong> | `/api/agents/<em>` (existing + new endpoints) | Traditional integration |
 | <strong>Event Bus</strong> | Pattern-based pub/sub + SSE streaming | Real-time agent coordination |
 
 <strong>Key CLI commands:</strong>
@@ -1632,7 +1679,7 @@ This modernization validates two thesis hypotheses:
 
 <h2>10.10 Agent Foundry Stage 1.5: OpenSandbox on Acer Veriton GN100</h2>
 
-<em>Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026</em>
+</em>Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026<em>
 
 <h3>10.10.1 Background</h3>
 
@@ -1665,7 +1712,7 @@ Security properties: filesystem isolation per task, network egress deny-by-defau
 
 <h3>10.10.4 Agent Memory: EMPO² (arXiv:2602.23008)</h3>
 
-The OpenSandbox integration coincides with important new research on agent memory. The paper <em>"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"</em> (EMPO², February 2026) proposes a hybrid RL framework that addresses the core bottleneck of LLM agent training: <strong>exploration in novel environments</strong>.
+The OpenSandbox integration coincides with important new research on agent memory. The paper </em>"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"<em> (EMPO², February 2026) proposes a hybrid RL framework that addresses the core bottleneck of LLM agent training: <strong>exploration in novel environments</strong>.
 
 <strong>EMPO² dual-update mechanism:</strong>
 <li><strong>Parametric updates</strong> (RL): fine-tunes model weights using on/off-policy rollouts</li>
@@ -1686,13 +1733,13 @@ The DWS Lifetime World Model (LWM) already combines both memory types theoretica
 | Memory buffer | Supabase `agent_loop_iterations` table |
 | Tip retrieval | Context injection from Compliance/Carbon databases |
 
-The EMPO² finding — <em>"learning with memory enables models to become robust both with and without memory at inference time"</em> — validates the DWS strategy of progressively embedding domain knowledge into model weights via QLoRA fine-tuning on the Acer Veriton, while maintaining non-parametric retrieval as a real-time fallback.
+The EMPO² finding — </em>"learning with memory enables models to become robust both with and without memory at inference time"<em> — validates the DWS strategy of progressively embedding domain knowledge into model weights via QLoRA fine-tuning on the Acer Veriton, while maintaining non-parametric retrieval as a real-time fallback.
 
 The OpenSandbox environment on the Acer Veriton GN100 now serves both roles: <strong>EMPO²-style RL training sandbox</strong> (isolated exploration environment) and <strong>production agent isolation runtime</strong> (secure execution per task).
 
 <h3>10.10.5 MCP Integration</h3>
 
-Six MCP tools expose OpenSandbox through the DWS MCP Hub (`/sandbox/<em>`):
+Six MCP tools expose OpenSandbox through the DWS MCP Hub (`/sandbox/</em>`):
 
 | Tool | Purpose |
 |------|---------|
@@ -1719,7 +1766,7 @@ Stage 1.5 demonstrates three thesis claims simultaneously:
 
 <h2>10.11 CEO Automation Agent Suite</h2>
 
-</em>Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig<em>
+<em>Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig</em>
 
 Three production AI agents that automate the CEO's daily operational rhythm, fully integrated into the Firehorse platform (GitHub Actions cron, Supabase, Resend).
 
@@ -1766,7 +1813,7 @@ Fetches RSS from EU Commission, EUR-Lex, Carbon Pulse, and Euractiv. Classifies 
 
 <h2>10.12 Strategic Partnerships: NVIDIA, Siemens, ABB, xAI & Mistral</h2>
 
-</em>Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1<em>
+<em>Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1</em>
 
 DWS7 builds a multi-partner ecosystem spanning industrial automation (NVIDIA, Siemens, ABB), frontier AI inference (xAI, Mistral), and edge computing. Each partner fills a distinct role in the Brain-Memory-Body-Hands architecture.
 
@@ -1817,21 +1864,21 @@ The multi-LLM router architecture also demonstrates practical resolution of the 
 
 <h2>Academic Literature</h2>
 
-<li>Ries, E. (2011). </em>The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses<em>. Crown Business.</li>
+<li>Ries, E. (2011). <em>The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses</em>. Crown Business.</li>
 
-<li>Blank, S. (2013). </em>The Four Steps to the Epiphany: Successful Strategies for Products that Win<em>. K&S Ranch.</li>
+<li>Blank, S. (2013). <em>The Four Steps to the Epiphany: Successful Strategies for Products that Win</em>. K&S Ranch.</li>
 
-<li>Parker, G., Van Alstyne, M., & Choudary, S. (2016). </em>Platform Revolution: How Networked Markets Are Transforming the Economy<em>. W.W. Norton.</li>
+<li>Parker, G., Van Alstyne, M., & Choudary, S. (2016). <em>Platform Revolution: How Networked Markets Are Transforming the Economy</em>. W.W. Norton.</li>
 
-<li>European Commission (2021). </em>Industry 5.0: Towards a Sustainable, Human-Centric and Resilient European Industry<em>. Publications Office of the EU.</li>
+<li>European Commission (2021). <em>Industry 5.0: Towards a Sustainable, Human-Centric and Resilient European Industry</em>. Publications Office of the EU.</li>
 
-<li>Shi, W., Cao, J., Zhang, Q., Li, Y., & Xu, L. (2016). "Edge Computing: Vision and Challenges." </em>IEEE Internet of Things Journal<em>, 3(5), 637-646.</li>
+<li>Shi, W., Cao, J., Zhang, Q., Li, Y., & Xu, L. (2016). "Edge Computing: Vision and Challenges." <em>IEEE Internet of Things Journal</em>, 3(5), 637-646.</li>
 
-<li>Christensen, C. M., Hall, T., Dillon, K., & Duncan, D. S. (2016). "Know Your Customers' Jobs to Be Done." </em>Harvard Business Review<em>, 94(9), 54-62.</li>
+<li>Christensen, C. M., Hall, T., Dillon, K., & Duncan, D. S. (2016). "Know Your Customers' Jobs to Be Done." <em>Harvard Business Review</em>, 94(9), 54-62.</li>
 
-<li>Wooldridge, M. (2009). </em>An Introduction to MultiAgent Systems<em> (2nd ed.). Wiley.</li>
+<li>Wooldridge, M. (2009). <em>An Introduction to MultiAgent Systems</em> (2nd ed.). Wiley.</li>
 
-<li>Jennings, N. R., & Wooldridge, M. (1998). "Applications of intelligent agents." </em>Agent Technology: Foundations, Applications, and Markets<em>, 3-28.</li>
+<li>Jennings, N. R., & Wooldridge, M. (1998). "Applications of intelligent agents." <em>Agent Technology: Foundations, Applications, and Markets</em>, 3-28.</li>
 
 <h2>Multi-Agent Systems and AI Coordination</h2>
 
@@ -1858,7 +1905,7 @@ The multi-LLM router architecture also demonstrates practical resolution of the 
 <li>General Data Protection Regulation (GDPR) (EU) 2016/679</li>
 <li>Cybersecurity Act (EU) 2019/881</li>
 <li>ISO/IEC 27001:2022</li>
-<li>European Commission (2025). </em>Omnibus package<em>.</li>
+<li>European Commission (2025). <em>Omnibus package</em>.</li>
 <li>EN 15978:2011 Sustainability of Construction Works</li>
 <li>Energy Performance of Buildings Directive (EPBD) (EU) 2024/1275</li>
 <li>Google Merchant Center Technical Specifications (2026)</li>
@@ -1869,7 +1916,7 @@ The multi-LLM router architecture also demonstrates practical resolution of the 
 
 <h2>Internal Reference Artifacts</h2>
 
-<li>Lifetime Oy (2026). </em>Lifetime World LLM Scaling Blueprint (GN-100 hybrid + cloud path).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.</li>
+<li>Lifetime Oy (2026). <em>Lifetime World LLM Scaling Blueprint (GN-100 hybrid + cloud path).</em> `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.</li>
 
 <hr />
 
@@ -2244,41 +2291,6 @@ The Pantheon naming strategy doubles as a marketing wedge. Each agent carries a 
 
 These personas appear at onelifetime.world/team alongside human staff, reinforcing the product thesis: humans and AI agents work side by side. One of them never sleeps.
 
-<h2>10.14 Agent System Hardening — Production Reliability</h2>
-
-<h3>10.14.1 Motivation</h3>
-
-The 31-agent system (13 core + 5 SEO + 13 workflow/industry) had accumulated 6 TypeScript compilation errors and 3 test failures that blocked production builds. These were not design flaws but integration debt: type mismatches across module boundaries, missing route wiring, uninstalled dependencies, and locale-dependent formatting. This section documents the systematic hardening that restored zero-error compilation and full test coverage.
-
-<h3>10.14.2 Type System Alignment: SandboxContext</h3>
-
-The `SandboxStage` type in `src/sandbox/index.ts` defined four stages: `'1' | 'opensandbox' | '2' | '3'`, where `'opensandbox'` represents the Stage 1.5 Docker-based isolation on Acer Veriton GN100 hardware (Section 10.10). However, `SandboxContext.stage` in `src/agents/types.ts` only accepted `'1' | '2' | '3'`, creating a compile-time error when `BaseAgent` attempted to assign the sandbox stage. The fix aligned both types, ensuring agents can execute in all four isolation stages.
-
-<h3>10.14.3 Route Wiring: MCP and Human-in-the-Loop</h3>
-
-Two critical routes were unreachable due to missing imports in `src/app.ts`:
-
-<li><strong>MCP Agent Server</strong> (`/mcp`) — The `createMCPRouter()` function from `src/mcp/agent-server.ts` exposes all agents as MCP tools via JSON-RPC 2.0. Without this import, external MCP clients (Claude Desktop, other AI agents) could not discover or invoke DWS agents.</li>
-
-<li><strong>Human-in-the-Loop</strong> (`/api/hil`) — The HIL endpoint enables one-click task completion from morning briefing emails. Without this route, the Captain Pre-Briefing Agent's "Done" buttons returned 404 errors.</li>
-
-<h3>10.14.4 Locale-Deterministic Number Formatting</h3>
-
-The Emissions Data Analyst agent formats ETS cost estimates using `Number.toLocaleString()`. On EU-locale machines (Finland, Germany), this produces space-separated numbers (e.g., `2 040 000`), while tests expected US comma-separated format (`2,040,000`). The fix specifies `'en-US'` locale explicitly, ensuring deterministic output regardless of deployment environment. This is critical for EU-hosted Cloud Run instances where system locale defaults to European conventions.
-
-<h3>10.14.5 Dependency Hygiene</h3>
-
-The `luxon` library (timezone-aware date handling for Helsinki business hours) was imported in the Social Scheduler but never added to `package.json`. The Resend email SDK's batch response type was a union (`undefined[] | CreateBatchSuccessResponse`) that required runtime array detection before calling `.map()`.
-
-<h3>10.14.6 Research Contribution</h3>
-
-This hardening session demonstrates a pattern relevant to multi-agent system maintenance: <strong>integration debt accumulates at module boundaries, not within modules</strong>. Each individual agent was correctly implemented, but the connections between agents, sandbox, routes, and tests had drifted. The fix touched 6 files across 5 subsystems in a single commit, restoring:
-
-<li><strong>0 TypeScript errors</strong> (was 6)</li>
-<li><strong>47/47 tests passing</strong> (was 44/47)</li>
-<li><strong>Full MCP discoverability</strong> for all 31 agents</li>
-<li><strong>HIL operational</strong> for morning briefing workflows</li>
-
 <hr />
 
 <strong>Document Information:</strong>
@@ -2289,7 +2301,7 @@ This hardening session demonstrates a pattern relevant to multi-agent system mai
 <strong>Program:</strong> Smart Factory, Master's Degree (YAMK)
 <strong>Supervisor:</strong> Jarno Varteva (with Erkki Räsänen)
 <strong>Company:</strong> Lifetime Oy (Firehorse brand)
-<strong>Status:</strong> DRAFT - V3.19 — Agent System Hardening (6 TS errors fixed, 3 test failures resolved, MCP/HIL route wiring, locale-deterministic formatting)
+<strong>Status:</strong> DRAFT - V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces
 <strong>Version:</strong> 3.19
 <strong>Last Modified:</strong> 07.03.2026
 <strong>V1.0 Release Target:</strong> 23 February 2026
@@ -2317,7 +2329,7 @@ This hardening session demonstrates a pattern relevant to multi-agent system mai
 <li>Climate IQ Pantheon — 13-agent Greek/Roman god system (6 orchestrators + 7 industry specialists) with SOUL.md identity pattern, prompt injection security, EU AI Act Article 12 logging, and marketing wedge personas</li>
 <li>Claude Code Engineering Structure — CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement; demonstrates AI workflow design as software engineering discipline</li>
 <li>Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development</li>
-<li>Agent System Hardening — Production reliability restoration: 6 TypeScript compilation errors fixed across 5 subsystems, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; demonstrates integration debt patterns in multi-agent systems</li>
+<li>MCP Hub Orchestration + Three-Interface Rule — Four production workflow patterns (Fan-Out, Sequential, Reflection, Pipeline) with documented endpoints; Skills/CLI as mandatory agent interfaces ensuring every agent is accessible to humans, AI systems, and development workflows</li>
 
 <strong>License:</strong> Proprietary - Lifetime Oy
 <strong>Contact:</strong> risto@lifetime.fi

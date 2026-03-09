@@ -27,6 +27,11 @@
  *   DWS_SESSION   — Default session ID
  */
 
+import {
+  fmt, table, spinner, box, progressBar,
+  formatAgentList, formatHealth, formatComplianceResult,
+} from './format.js';
+
 // ============ CONFIG ============
 
 const API_URL = process.env.DWS_API_URL || 'http://localhost:8080';
@@ -98,23 +103,42 @@ async function readStdin(): Promise<string> {
 
 // ============ OUTPUT ============
 
-function output(data: unknown): void {
-  // Always JSON — agents can parse it, humans can pipe to jq
-  console.log(JSON.stringify(data, null, 2));
+// --json flag = machine output, otherwise human-friendly
+let JSON_MODE = false;
+
+function output(data: unknown, humanFormatter?: (data: unknown) => string): void {
+  if (JSON_MODE || !process.stdout.isTTY) {
+    console.log(JSON.stringify(data, null, 2));
+  } else if (humanFormatter) {
+    console.log(humanFormatter(data));
+  } else {
+    console.log(JSON.stringify(data, null, 2));
+  }
 }
 
 function error(msg: string): never {
-  console.error(`error: ${msg}`);
+  if (process.stderr.isTTY) {
+    console.error(`\x1b[31m✗ ${msg}\x1b[0m`);
+  } else {
+    console.error(`error: ${msg}`);
+  }
   process.exit(1);
 }
 
 // ============ COMMANDS ============
 
 async function cmdAgents(): Promise<void> {
-  const result = await api('/api/agents') as {
-    agents: Array<{ name: string; description: string; capabilities: string[]; model: string }>;
-  };
-  output(result.agents);
+  const s = spinner('Fetching agents...');
+  try {
+    const result = await api('/api/agents') as {
+      agents: Array<{ name: string; description: string; capabilities: string[]; model: string }>;
+    };
+    s.stop();
+    output(result.agents, (data) => formatAgentList(data as typeof result.agents));
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
 }
 
 async function cmdAgent(name: string): Promise<void> {
@@ -198,15 +222,144 @@ async function cmdEvents(pattern?: string, limit?: number): Promise<void> {
 }
 
 async function cmdHealth(): Promise<void> {
+  const s = spinner('Checking system health...');
   const [backendHealth, mcpHealth] = await Promise.allSettled([
     api('/health'),
     api('/mcp/health'),
   ]);
+  s.stop();
 
-  output({
+  const data = {
     backend: backendHealth.status === 'fulfilled' ? backendHealth.value : { error: (backendHealth as PromiseRejectedResult).reason?.message },
     mcp: mcpHealth.status === 'fulfilled' ? mcpHealth.value : { error: (mcpHealth as PromiseRejectedResult).reason?.message },
-  });
+  };
+  output(data, (d) => formatHealth(d as typeof data));
+}
+
+// ============ NEW: INTERACTIVE COMMANDS ============
+
+async function cmdInit(): Promise<void> {
+  // Guided setup for first-time CLI users
+  const readline = await import('readline');
+  const rl = readline.createInterface({ input: process.stdin, output: process.stderr });
+
+  const ask = (q: string): Promise<string> =>
+    new Promise(resolve => rl.question(q, resolve));
+
+  console.error(box('DWS IQ Setup', 'Configure your CLI connection to the DWS IQ platform.'));
+  console.error('');
+
+  const url = await ask(`${fmt.cyan('?')} API URL ${fmt.dim(`(${API_URL})`)}: `);
+  const token = await ask(`${fmt.cyan('?')} API Token ${fmt.dim('(paste JWT)')}: `);
+  const project = await ask(`${fmt.cyan('?')} Default Project ID ${fmt.dim(`(${PROJECT_ID})`)}: `);
+  rl.close();
+
+  const config = {
+    DWS_API_URL: url.trim() || API_URL,
+    DWS_API_TOKEN: token.trim() || '',
+    DWS_PROJECT: project.trim() || PROJECT_ID,
+  };
+
+  // Output as env vars the user can export
+  console.error('');
+  console.error(fmt.success('Configuration ready! Add these to your shell profile:'));
+  console.error('');
+
+  for (const [key, value] of Object.entries(config)) {
+    if (value) {
+      console.log(`export ${key}="${value}"`);
+    }
+  }
+
+  console.error('');
+  console.error(fmt.dim('# Or create a .env file: dws init > .env'));
+}
+
+async function cmdStatus(): Promise<void> {
+  const s = spinner('Gathering status...');
+
+  const results = await Promise.allSettled([
+    api('/health'),
+    api('/api/agents'),
+    api('/api/v1/usage'),
+  ]);
+  s.stop();
+
+  const health = results[0].status === 'fulfilled' ? results[0].value as Record<string, unknown> : null;
+  const agents = results[1].status === 'fulfilled'
+    ? (results[1].value as { agents?: unknown[] }).agents
+    : null;
+  const usage = results[2].status === 'fulfilled' ? results[2].value as Record<string, unknown> : null;
+
+  if (JSON_MODE) {
+    output({ health, agents: agents?.length, usage });
+    return;
+  }
+
+  const lines: string[] = [
+    fmt.bold('DWS IQ Status'),
+    '',
+    `  Server     ${health ? fmt.status('healthy') : fmt.status('error')}  ${fmt.dim(API_URL)}`,
+    `  Agents     ${agents ? fmt.green(String(agents.length)) : fmt.red('?')} registered`,
+  ];
+
+  if (usage) {
+    const tier = (usage as { tierName?: string }).tierName || 'Free';
+    lines.push(`  Plan       ${fmt.cyan(tier)}`);
+
+    const u = (usage as { usage?: Record<string, { used: number; limit: number; percentage: number }> }).usage;
+    if (u) {
+      for (const [key, metric] of Object.entries(u)) {
+        const label = key.replace(/([A-Z])/g, ' $1').trim();
+        lines.push(`  ${label.padEnd(12)} ${progressBar(metric.used, metric.limit, 20)}`);
+      }
+    }
+  }
+
+  if (health) {
+    const uptime = (health as { uptime?: number }).uptime;
+    if (uptime) {
+      const hours = Math.floor(uptime / 3600);
+      const mins = Math.floor((uptime % 3600) / 60);
+      lines.push(`  Uptime     ${fmt.dim(`${hours}h ${mins}m`)}`);
+    }
+  }
+
+  lines.push('');
+  console.log(lines.join('\n'));
+}
+
+async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
+  const s = spinner(`Running ${name}...`);
+
+  let input: Record<string, unknown> = {};
+  if (inputJson) {
+    try {
+      input = JSON.parse(inputJson);
+    } catch {
+      s.stop();
+      error(`Invalid JSON in --input`);
+    }
+  }
+
+  try {
+    const result = await api(`/api/agents/${name}/execute`, 'POST', {
+      context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+      input,
+    });
+    s.stop();
+
+    // Try to format compliance results nicely
+    const r = result as Record<string, unknown>;
+    if (r.overallScore !== undefined || r.regulations) {
+      output(result, (d) => formatComplianceResult(d as Parameters<typeof formatComplianceResult>[0]));
+    } else {
+      output(result);
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
 }
 
 async function cmdMcpTools(): Promise<void> {
@@ -228,23 +381,150 @@ async function cmdMcpCall(toolName: string, argsJson: string): Promise<void> {
   output(result);
 }
 
+// ============ SCENARIO SHORTCUTS ============
+
+const SCENARIOS: Record<string, { description: string; commands: Array<{ label: string; cmd: string }> }> = {
+  construction: {
+    description: 'Construction site compliance & safety monitoring',
+    commands: [
+      { label: 'Site safety check', cmd: 'dws run sitesense --input \'{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}\'' },
+      { label: 'Carbon footprint', cmd: 'dws run material-oracle --input \'{"materials":[{"name":"concrete","quantity":500,"unit":"m3"}]}\'' },
+      { label: 'Full assessment', cmd: 'dws workflow construction-full --input \'{"siteId":"site-1"}\'' },
+    ],
+  },
+  manufacturing: {
+    description: 'Manufacturing emissions tracking & ETS compliance',
+    commands: [
+      { label: 'ETS compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["ets","cbam"]}\'' },
+      { label: 'Emissions analysis', cmd: 'dws run emissions-data-analyst --input \'{"query":"scope 1 total by facility"}\'' },
+      { label: 'Quality gate', cmd: 'dws run quality-gate --input \'{"productId":"batch-2026-03"}\'' },
+    ],
+  },
+  logistics: {
+    description: 'Fleet emissions, route optimization & CSRD reporting',
+    commands: [
+      { label: 'Fleet emissions', cmd: 'dws run emissions-data-analyst --input \'{"query":"fleet fuel consumption by route"}\'' },
+      { label: 'CSRD check', cmd: 'dws run compliance --input \'{"industry":"logistics","regulations":["csrd","fit-for-55"]}\'' },
+      { label: 'Competitor scan', cmd: 'dws run competitor-surveillance --input \'{"industry":"logistics","region":"EU"}\'' },
+    ],
+  },
+  energy: {
+    description: 'Energy grid optimization & Fit for 55 compliance',
+    commands: [
+      { label: 'Fit for 55', cmd: 'dws run compliance --input \'{"industry":"energy","regulations":["ets","fit-for-55"]}\'' },
+      { label: 'Emissions report', cmd: 'dws run emissions-data-analyst --input \'{"query":"total GHG by source"}\'' },
+      { label: 'SEO pipeline', cmd: 'dws workflow seo-pipeline --input \'{"domain":"energy-portal.eu"}\'' },
+    ],
+  },
+  quickstart: {
+    description: 'First-time setup: verify connection, list agents, run a demo',
+    commands: [
+      { label: 'Health check', cmd: 'dws health' },
+      { label: 'List agents', cmd: 'dws agents' },
+      { label: 'Demo compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'' },
+      { label: 'List workflows', cmd: 'dws workflows' },
+    ],
+  },
+};
+
+async function cmdScenario(name?: string): Promise<void> {
+  if (!name || !SCENARIOS[name]) {
+    // List all scenarios
+    const list = Object.entries(SCENARIOS).map(([key, s]) => ({
+      name: key,
+      description: s.description,
+      commandCount: s.commands.length,
+    }));
+    output(list);
+    return;
+  }
+
+  const scenario = SCENARIOS[name];
+  output({
+    scenario: name,
+    description: scenario.description,
+    commands: scenario.commands,
+    hint: 'Copy and run any command above, or pipe: dws scenario construction | jq \'.commands[0].cmd\'',
+  });
+}
+
+async function cmdQuickstart(): Promise<void> {
+  // Interactive-style quickstart that runs health + agents
+  console.error('DWS IQ — Quick Start');
+  console.error('====================\n');
+
+  console.error('1/3  Checking backend health...');
+  try {
+    const health = await api('/health');
+    console.error('     Backend: OK');
+    const mcpHealth = await api('/mcp/health').catch(() => null);
+    console.error(`     MCP:     ${mcpHealth ? 'OK' : 'Not available'}`);
+  } catch {
+    console.error('     Backend: OFFLINE — set DWS_API_URL or start the server');
+    console.error(`     Current: ${API_URL}`);
+    output({ status: 'offline', apiUrl: API_URL, hint: 'Run: npm run dev  (in the dws6 root)' });
+    return;
+  }
+
+  console.error('\n2/3  Discovering agents...');
+  try {
+    const result = await api('/api/agents') as { agents: Array<{ name: string; description: string }> };
+    const agents = result.agents || [];
+    console.error(`     Found ${agents.length} agent(s)`);
+    agents.slice(0, 5).forEach(a => console.error(`     - ${a.name}: ${a.description}`));
+    if (agents.length > 5) console.error(`     ... and ${agents.length - 5} more`);
+  } catch {
+    console.error('     Could not list agents');
+  }
+
+  console.error('\n3/3  Ready! Try these next:');
+  console.error('     dws scenario quickstart     — guided first steps');
+  console.error('     dws scenario construction   — construction site workflow');
+  console.error('     dws scenario manufacturing  — ETS/CBAM compliance');
+  console.error('     dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'');
+  console.error('');
+
+  output({ status: 'ready', apiUrl: API_URL, hint: 'Run: dws scenario <name> for guided workflows' });
+}
+
 // ============ HELP ============
 
 const HELP = `
-dws — DWS IQ CLI. Built for agents.
+dws — DWS IQ CLI. Built for agents & humans.
 
-COMMANDS:
+GETTING STARTED:
+  dws init                                Interactive setup wizard
+  dws quickstart                          First-time setup & connection check
+  dws status                              Platform status at a glance
+  dws health                              Backend + MCP health check
+
+AGENTS:
   dws agents                              List all registered agents
   dws agent <name>                        Get agent details
   dws run <name> --input '{...}'          Execute an agent
   dws run <name> --stdin                  Execute with JSON from stdin
   dws discover <capability>               Find agents by capability tag
+
+WORKFLOWS:
   dws workflows                           List available workflows
   dws workflow <name> --input '{...}'     Trigger a multi-agent workflow
+  dws scenario [name]                     Usage scenarios (construction, manufacturing, logistics, energy)
   dws events [--pattern <p>] [--limit N]  Show recent events
-  dws health                              Backend + MCP health check
+
+MCP:
   dws mcp tools                           List MCP tools
   dws mcp call <tool> --args '{...}'      Call an MCP tool directly
+
+SCENARIOS (dws scenario <name>):
+  quickstart      First-time setup: health check, list agents, demo run
+  construction    Site safety, carbon footprint, full assessment workflow
+  manufacturing   ETS compliance, emissions analysis, quality gates
+  logistics       Fleet emissions, CSRD reporting, competitor scan
+  energy          Fit for 55, GHG reporting, SEO pipeline
+
+OPTIONS:
+  --json        Force JSON output (default when piped)
+  --help        Show this help message
 
 ENVIRONMENT:
   DWS_API_URL     Backend URL (default: http://localhost:8080)
@@ -258,8 +538,20 @@ PIPING:
   dws discover carbon | jq '.[0].name' | xargs -I{} dws run {} --input '{}'
 
 EXAMPLES:
+  # First-time setup
+  dws init
+
+  # Quick status check
+  dws status
+
+  # Quick start (first time)
+  dws quickstart
+
+  # See what's available for construction projects
+  dws scenario construction
+
   # Check EU compliance for a steel company
-  dws run compliance --input '{"projectId":"demo","industry":"steel","regulations":["ets","cbam","csrd"],"currentMeasures":{"carbonReporting":true,"emissionsMonitoring":false,"supplyChainDueDiligence":false,"aiSystemLogging":false},"annualEmissions":50000,"importValue":200000}'
+  dws run compliance --input '{"projectId":"demo","industry":"steel","regulations":["ets","cbam","csrd"],"currentMeasures":{"carbonReporting":true,"emissionsMonitoring":false},"annualEmissions":50000}'
 
   # Run full construction assessment workflow
   dws workflow construction-full --input '{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}'
@@ -289,7 +581,7 @@ function parseArgs(argv: string[]): {
     if (arg.startsWith('--')) {
       const key = arg.slice(2);
       // Boolean flag (--stdin) or value flag (--input '{...}')
-      if (key === 'stdin' || key === 'help') {
+      if (key === 'stdin' || key === 'help' || key === 'json' || key === 'first') {
         flags[key] = 'true';
       } else {
         i++;
@@ -314,6 +606,11 @@ function parseArgs(argv: string[]): {
 async function main(): Promise<void> {
   const { command, subcommand, flags, positional } = parseArgs(process.argv);
 
+  // Set JSON mode if --json flag or piped output
+  if (flags.json === 'true' || !process.stdout.isTTY) {
+    JSON_MODE = true;
+  }
+
   if (flags.help || command === 'help' || command === '--help' || command === '-h') {
     console.log(HELP);
     return;
@@ -321,6 +618,14 @@ async function main(): Promise<void> {
 
   try {
     switch (command) {
+      case 'init':
+        await cmdInit();
+        break;
+
+      case 'status':
+        await cmdStatus();
+        break;
+
       case 'agents':
         await cmdAgents();
         break;
@@ -332,7 +637,11 @@ async function main(): Promise<void> {
 
       case 'run':
         if (!subcommand) error('Usage: dws run <agent-name> --input \'{...}\' or --stdin');
-        await cmdRun(subcommand, flags.input || '', flags.stdin === 'true');
+        if (flags.stdin === 'true') {
+          await cmdRun(subcommand, '', true);
+        } else {
+          await cmdQuickRun(subcommand, flags.input || '');
+        }
         break;
 
       case 'discover':
@@ -355,6 +664,14 @@ async function main(): Promise<void> {
 
       case 'health':
         await cmdHealth();
+        break;
+
+      case 'scenario':
+        await cmdScenario(subcommand);
+        break;
+
+      case 'quickstart':
+        await cmdQuickstart();
         break;
 
       case 'mcp':

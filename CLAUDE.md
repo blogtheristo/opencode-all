@@ -352,7 +352,7 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`. Every new agent MUST have a corresponding skill.
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 
@@ -395,7 +395,8 @@ dws workflow compliance-assessment
 - GitHub auto-deletes branches after merge
 
 ### Merge Conflict Resolution (CRITICAL)
-Human resolves conflicts in GitHub PR web UI, not locally. Push the branch, tell the human what conflicts exist, wait. After resolution on GitHub, `git pull` then push.
+1. **Locally if possible** — `git fetch origin main && git merge origin/main`, resolve conflicts in the worktree, commit, and push.
+2. **Human resolves in GitHub PR web UI** — If local resolution fails or conflicts are too complex, push the branch, tell the human what conflicts exist, and wait. After resolution on GitHub, `git pull` then push.
 
 ### Auto-Push Rule (CRITICAL)
 When a PR exists for the current branch, every completed task MUST end with commit + push. Do not wait for the user to ask. Exception: user says "don't push yet".

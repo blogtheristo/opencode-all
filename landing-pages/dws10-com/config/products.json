@@ -124,7 +124,7 @@
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
-      "name": "Firehorse Report",
+      "name": "DWS IQ Report",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -144,7 +144,7 @@
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "brand": "Firehorse",
+        "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
       },

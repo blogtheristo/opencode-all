@@ -1,13 +1,15 @@
 # Site Quality Standards & Management Policy
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Dashboard Resilience Patterns section — ErrorBoundary, Skeleton, EmptyState, useApi component standards; updated Error States table with middleware error integration
   - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added MVP features — Onboarding Wizard, Compliance Score Widget, CLI Rich Output; updated component registry; added customer journey quality gates
 
 Session Links & References:
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
@@ -21,9 +23,9 @@ Document Status:
 
 ***
 
-**Version:** 2.0
-**Effective Date:** 2026-03-02
-**Last Updated:** 2026-03-02
+**Version:** 2.2
+**Effective Date:** 2026-03-08
+**Last Updated:** 2026-03-08
 **Status:** Active
 
 ---
@@ -1108,6 +1110,73 @@ For multi-agent workflows (compliance-assessment, construction-full, seo-pipelin
 - Running step pulses with animation (`animate-pulse`)
 - Failed step shows red with error message expandable
 - Completed workflow shows total duration and aggregate confidence
+
+### Dashboard Resilience Patterns (MVP)
+
+Added: 07.03.2026 | Standard for all dashboard components
+
+#### Error Boundaries
+
+Every major dashboard section MUST be wrapped in an `ErrorBoundary` component:
+
+| Section | Boundary Scope | Fallback |
+|---------|---------------|----------|
+| Metrics Header | `<ErrorBoundary>` around `<MetricsHeader />` | Error card with retry button |
+| Project Cards | Individual `<ErrorBoundary>` per card | Single card shows error; others unaffected |
+| Side Panel (Chat/Meeting/Repo) | `<ErrorBoundary>` around entire panel | Panel shows error; main content unaffected |
+| Agent Monitor | `<ErrorBoundary>` around `<AgentMonitorDashboard />` | Error card with retry |
+
+**Rules:**
+- Error boundary fallback MUST show: error icon, "Something went wrong" heading, error message (no stack), "Try again" button
+- Styling: `bg-red-50 border-red-200` card with `text-red-800` heading
+- NEVER display `err.stack` in production — only in `console.error()`
+
+#### Skeleton Loading Components
+
+Use skeleton components (not spinners) to show content shape while loading:
+
+| Component | Usage | File |
+|-----------|-------|------|
+| `<ProjectCardSkeleton />` | While projects load | `components/Skeleton.tsx` |
+| `<MetricCardSkeleton />` | While metrics load | `components/Skeleton.tsx` |
+| `<ComplianceScoreSkeleton />` | While compliance data loads | `components/Skeleton.tsx` |
+| `<TableRowSkeleton columns={N} />` | While table data loads | `components/Skeleton.tsx` |
+
+**Rules:**
+- Use `animate-pulse` for shimmer effect (TailwindCSS built-in)
+- Skeleton shape MUST match the component it replaces
+- Add `aria-hidden="true"` to skeleton elements
+- Show 4 skeleton cards for project grid (matches typical viewport)
+
+#### Empty State Components
+
+Every data section MUST have an empty state — never show blank white space:
+
+| Context | Icon | Title | CTA |
+|---------|------|-------|-----|
+| No projects | `chart` | "No projects yet" | "Run Assessment" → opens AI assistant |
+| No compliance data | `compliance` | "No compliance data yet" | "Run your first assessment" |
+| No reports | `document` | "No reports generated" | "Generate Report" |
+| Search no results | `search` | "No results found" | Adjust filters |
+
+**Rules:**
+- `EmptyState` component: centered layout, icon in `bg-gray-100` circle, title + description + optional CTA button
+- CTA button uses `bg-primary-600 hover:bg-primary-700` styling
+- Description text in `text-gray-500`, max 1-2 sentences
+
+#### useApi Hook Standard
+
+All API calls from the dashboard MUST use the `useApi` hook (`hooks/useApi.ts`):
+
+```typescript
+const { data, loading, error, execute } = useApi<ResponseType>();
+```
+
+**Rules:**
+- Auto-includes Supabase auth token in `Authorization: Bearer` header
+- Retries failed requests once with 1s delay
+- Aborts in-flight requests on component unmount (prevents memory leaks)
+- Returns `{ data, loading, error }` — components render all 3 states
 
 ### Error States
 

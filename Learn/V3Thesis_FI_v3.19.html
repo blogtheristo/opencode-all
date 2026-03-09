@@ -39,7 +39,7 @@ a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
 Version: 3.19
 
 Sessions & Modifications:
-  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 07.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #14; päivitetty alatunniste
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
@@ -74,10 +74,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
+  - Publication Status: DRAFT (V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina)
 
 <hr />
 
@@ -355,11 +355,58 @@ Lifetime Scope Signals -protokolla on uusi koordinointimekanismi, joka kehitetti
 
 <h3>2.5.3 MCP Hub -orkestrointimallit</h3>
 
-Model Context Protocol (MCP) Hub toteuttaa kolme työnkulkumallia agenttien koordinointiin:
+Model Context Protocol (MCP) Hub (`mcp-hub/server.py`, portti 8765) toteuttaa neljä työnkulkumallia moniagenttien koordinointiin. Jokainen malli tarjoaa oman HTTP-päätepisteen ja hoitaa agenttien reitityksen, virheiden välityksen ja tulosten koostamisen.
 
-<li><strong>Fan-Out -malli:</strong> Rinnakkainen tehtävien jakelu useille agenteille</li>
-<li><strong>Reflection-malli:</strong> Itsearviointi ja iteratiivinen parantaminen</li>
-<li><strong>Sequential-malli:</strong> Vaiheittainen suoritus riippuvuuksien kanssa</li>
+<strong>1. Fan-Out -malli</strong> (`POST /workflow/fan-out`)
+Jakaa tehtävät useille agenteille rinnakkaisesti `asyncio.gather()`-kutsulla. Kaikki agentit suoritetaan samanaikaisesti jaetulla HTTP-asiakkaalla (300s aikakatkaisu). Poikkeukset serialisoidaan tehtäväkohtaisesti, mikä mahdollistaa osittaisen onnistumisen — jos yksi agentti epäonnistuu, muut palauttavat silti tulokset. Käytetään kategorian B (Operatiiviset) agenteille, joiden tehtävät ovat toisistaan riippumattomia.
+
+<strong>2. Sequential-malli</strong> (`POST /workflow/sequential`)
+Suorittaa tehtävät yksi kerrallaan riippuvuusjärjestyksessä. Jokaisen tehtävän tulos injektoidaan seuraavan tehtävän `context["previous_result"]`-kenttään, luoden eksplisiittisen tietovirran. Sopii putkistoihin, joissa yhden agentin tuloste syöttää seuraavaa (esim. tiedon poiminta → analyysi → raportin luonti).
+
+<strong>3. Reflection-malli</strong> (`POST /workflow/reflection`)
+Toteuttaa iteratiivisen toteutus-arviointi -silmukan. Toteutusagentti tuottaa tulosteen, arviointiagentti pisteyttää sen (0.0–1.0) ja antaa palautetta. Jos pistemäärä jää alle konfiguroitavan kynnysarvon (oletus 0.85), palaute injektoidaan takaisin toteutusagentille uutta iteraatiota varten (enintään 3 oletuksena). Käytetään kategorian C (Asiakasrajapinta) agenteille, joissa tulosteen laatu on kriittistä.
+
+<strong>4. Pipeline-malli</strong> (`POST /workflow/pipeline`) — <em>Suositeltu tuotantokäyttöön</em>
+Yhdistää rinnakkaisen ja peräkkäisen suorituksen vaiheistettujen työnkulkujen avulla. Jokainen vaihe sisältää tehtävälistan, joka suoritetaan rinnakkaisesti (fan-out vaiheen sisällä), kun taas vaiheet suoritetaan peräkkäin (vaiheen N tulokset virtaavat kontekstina vaiheeseen N+1). Tämä välttää peräkkäisen pullonkaulan säilyttäen samalla riippuvuusjärjestyksen loogisten vaiheiden välillä.
+
+| Malli | Rinnakkaisuus | Kontekstin välitys | Sopii parhaiten |
+|-------|--------------|---------------------|-----------------|
+| Fan-Out | Täysin rinnakkainen | Ei | Riippumattomat tehtävät |
+| Sequential | Ei | Edellinen → Seuraava | Riippuvuusketjut |
+| Reflection | Ei | Palautesilmukka | Laatukriittinen tuloste |
+| Pipeline | Rinnakkainen vaiheiden sisällä | Vaihe → Vaihe | Tuotantotyökuormat |
+
+<h3>2.5.4 Skillit ja CLI:t agenttirajapintoina</h3>
+
+"Build for Agents" -periaate edellyttää, että jokaisen DWS-tuotteen on oltava käytettävissä kolmen toisiaan täydentävän rajapinnan kautta GUI:n lisäksi: CLI, MCP-palvelin ja Claude Code -skillit.
+
+<strong>CLI (komentorivikäyttöliittymä)</strong>
+CLI (`npx tsx cli/src/cli.ts <komento>`) tuottaa strukturoidun JSON-tulosteen jokaiselle agenttitoiminnolle. Tämä seuraa toimialan trendiä, jossa tekoälyagentit käyttävät työkaluja komentorivikäyttöliittymien kautta graafisten käyttöliittymien sijaan. Keskeiset komennot:
+
+<li>`dws agents` — Listaa kaikki rekisteröidyt agentit</li>
+<li>`dws run <agentti> --input '{...}'` — Suorita nimetty agentti strukturoidulla syötteellä</li>
+<li>`dws workflow <nimi>` — Käynnistä moniagenttityönkulku</li>
+
+CLI-ensin -lähestymistapa varmistaa, että jokainen ominaisuus on automatisoitavissa, testattavissa ja yhdisteltävissä. Tuote, joka on olemassa vain GUI:na, katsotaan keskeneräiseksi.
+
+<strong>MCP-palvelin</strong>
+MCP-päätepiste (`/mcp`, JSON-RPC 2.0) tekee kaikista agenteista automaattisesti löydettäviä `tools/list`-kutsulla. Ulkoiset tekoälyjärjestelmät (Claude Code, Cursor, VS Code Copilot) voivat yhdistää MCP-palvelimeen ja kutsua mitä tahansa agenttia työkaluna. Tämä toteuttaa Model Context Protocol -määrityksen standardoitua työkaluintegraatiota varten.
+
+<strong>Claude Code -skillit</strong>
+Skillit (`.claude/commands/<em>.md`) ovat uudelleenkäytettäviä työnkulkukomponentteja, jotka kapseloivat agenttikutsut slash-komennoiksi. Kuusi tuotantoskilliä on käytössä:
+
+| Skilli | Tarkoitus |
+|--------|-----------|
+| `/compliance-check` | EU-säädösten puuteanalyysi (ETS, CBAM, CSRD) |
+| `/agent-run` | Suorita mikä tahansa nimetty agentti strukturoidulla syötteellä |
+| `/workflow` | Käynnistä moniagenttityönkulkuja |
+| `/discover-agents` | Etsi agentteja kyvykkyysavainsanalla |
+| `/site-safety` | Rakennustyömaan turvallisuusarviointi |
+| `/carbon-analysis` | Hiilijalanjäljen laskenta (embodied carbon) |
+
+Jokainen skilli on kutsuttava, testattava komponentti, joka yhdistää kehotesuunnittelun ja työkalujen orkestroinnin. Skillimalli varmistaa, että agenttikyvykkyydet ovat käytettävissä ilman, että käyttäjän tarvitsee ymmärtää alla olevaa MCP-protokollaa tai CLI-syntaksia.
+
+<strong>Kolmen rajapinnan sääntö:</strong> Jokaisen uuden agentin on toimitettava kaikilla kolmella rajapinnalla (CLI-komento, MCP-työkalu, Claude Code -skilli). Tämä takaa, että agentit ovat käytettävissä ihmisille (CLI), muille tekoälyjärjestelmille (MCP) ja kehitystyönkuluissa (skillit).
 
 <h2>2.6 Käsitteellinen malli: Firehorse Solution Factory</h2>
 
@@ -507,7 +554,7 @@ Omnibus-paketti <strong>ei muuta</strong> Fit for 55:n ydintavoitteita:
 <li><strong>Vapaaehtoinen EFRAG SME -standardi</strong> luo kysynnän edulliselle ratkaisulle</li>
 <li><strong>€0-350/kk hinta</strong> on kilpailukykyinen vapaaehtoisen raportoinnin markkinoilla</li>
 
-<strong>Lähde:</strong> European Commission. (2025). <em>Omnibus package</em>. <a href="https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en">https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en</a>
+<strong>Lähde:</strong> European Commission. (2025). </em>Omnibus package<em>. <a href="https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en">https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en</a>
 
 <h2>3.2 Kilpailija-analyysi</h2>
 
@@ -1101,7 +1148,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | <strong>Pilvi</strong> | Google Cloud Run + Groq API | MCP Hub portissa 8765 |
 | <strong>Reuna</strong> | NVIDIA Jetson Orin Nano | <100ms päättely (25x nopeampi) |
 | <strong>Verkkokauppa</strong> | dws6.com (Cloudflare Pages) | €0/kk, 99,95% käytettävyys |
-| <strong>Orkestrointi</strong> | MCP Hub + LlamaStack | 3 työnkulkumallia toteutettu |
+| <strong>Orkestrointi</strong> | MCP Hub + LlamaStack | 4 työnkulkumallia toteutettu (Fan-Out, Sequential, Reflection, Pipeline) |
 
 <h3>8.5.3 TK3: Teknisen ratkaisun arviointi</h3>
 
@@ -1587,8 +1634,8 @@ Toteutuksen aikana syntyi rinnakkainen oivallus: <strong>DWS IQ:n ensisijaiset k
 |-------|----------|-----------|
 | <strong>CLI</strong> | `cli/src/cli.ts` — nollariippuvuus, vain JSON-tuloste | Agentit ajavat komentoja, putkittavat tulosteen |
 | <strong>MCP-palvelin</strong> | `/mcp`-päätepiste, JSON-RPC 2.0 | Claude Code / Cursor löytää ja kutsuu agentteja |
-| <strong>Claude Code Skills</strong> | `.claude/commands/<em>.md` (6 taitoa) | Luonnollinen kieli → agentin suoritus |
-| <strong>REST API</strong> | `/api/agents/</em>` (olemassa olevat + uudet päätepisteet) | Perinteinen integraatio |
+| <strong>Claude Code Skills</strong> | `.claude/commands/</em>.md` (6 taitoa) | Luonnollinen kieli → agentin suoritus |
+| <strong>REST API</strong> | `/api/agents/<em>` (olemassa olevat + uudet päätepisteet) | Perinteinen integraatio |
 | <strong>Tapahtumaväylä</strong> | Kuviopohjainen pub/sub + SSE-suoratoisto | Reaaliaikainen agenttikoordinaatio |
 
 <strong>Keskeiset CLI-komennot:</strong>
@@ -1623,7 +1670,7 @@ Tämä modernisointi validoi kaksi opinnäytetyön hypoteesia:
 
 <h2>10.10 Agent Foundry Vaihe 1.5: OpenSandbox Acer Veriton GN100 -laitteella</h2>
 
-<em>Sessio: claude/sandbox-agents-opensandbox-HatfC | Päiväys: 01.03.2026</em>
+</em>Sessio: claude/sandbox-agents-opensandbox-HatfC | Päiväys: 01.03.2026<em>
 
 <h3>10.10.1 Tausta</h3>
 
@@ -1656,7 +1703,7 @@ Tietoturvaominaisuudet: tiedostojärjestelmäeristys per tehtävä, verkon ulost
 
 <h3>10.10.4 Agenttimuisti: EMPO² (arXiv:2602.23008)</h3>
 
-OpenSandbox-integraation kanssa samanaikaisesti julkaistiin tärkeä uusi tutkimus agenttimuistista. Artikkeli <em>"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"</em> (EMPO², helmikuu 2026) ehdottaa hybridi-RL-kehystä, joka ratkaisee LLM-agenttikoulutuksen ydinkapeapaikan: <strong>tutkimisen uusissa ympäristöissä</strong>.
+OpenSandbox-integraation kanssa samanaikaisesti julkaistiin tärkeä uusi tutkimus agenttimuistista. Artikkeli </em>"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"<em> (EMPO², helmikuu 2026) ehdottaa hybridi-RL-kehystä, joka ratkaisee LLM-agenttikoulutuksen ydinkapeapaikan: <strong>tutkimisen uusissa ympäristöissä</strong>.
 
 <strong>EMPO²:n kaksoispäivitysmekanismi:</strong>
 <li><strong>Parametriset päivitykset</strong> (RL): hienosäätää mallin painoja on/off-policy -rullausajoilla</li>
@@ -1677,11 +1724,11 @@ DWS Lifetime World Model (LWM) yhdistää jo molemmat EMPO²:n ehdottamat muisti
 | Muistipuskuri | Supabase `agent_loop_iterations` -taulu |
 | Vinkkien haku | Konteksti-injektio Compliance/Hiili-tietokannoista |
 
-EMPO²:n havainto — <em>"muistilla oppiminen mahdollistaa mallien vahvuuden myös ilman muistia päättelyaikana"</em> — validoi DWS-strategian asteittain upottaa domaintieto mallin painoihin QLoRA-hienosäädöllä Acer Veriton GN100:lla samalla kun ei-parametrinen haku toimii reaaliaikaisena varamekanismina.
+EMPO²:n havainto — </em>"muistilla oppiminen mahdollistaa mallien vahvuuden myös ilman muistia päättelyaikana"<em> — validoi DWS-strategian asteittain upottaa domaintieto mallin painoihin QLoRA-hienosäädöllä Acer Veriton GN100:lla samalla kun ei-parametrinen haku toimii reaaliaikaisena varamekanismina.
 
 <h3>10.10.5 MCP-integraatio</h3>
 
-Kuusi MCP-työkalua paljastaa OpenSandboxin DWS MCP Hubin kautta (`/sandbox/<em>`):
+Kuusi MCP-työkalua paljastaa OpenSandboxin DWS MCP Hubin kautta (`/sandbox/</em>`):
 
 | Työkalu | Tarkoitus |
 |---------|----------|
@@ -1706,7 +1753,7 @@ Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
 
 <h2>10.11 Toimitusjohtajan automaatioagenttiryhmä</h2>
 
-</em>Käyttöönotettu: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig<em>
+<em>Käyttöönotettu: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig</em>
 
 Kolme tuotantoagenttia automatisoivat toimitusjohtajan päivittäisen operatiivisen rytmin — GitHub Actions cron, Supabase ja Resend.
 
@@ -1734,7 +1781,7 @@ Hakee RSS-syötteitä EU-komissiolta, EUR-Lexistä, Carbon Pulselta ja Euractiv'
 
 <h2>10.12 Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI & Mistral</h2>
 
-</em>Dokumentoitu: 27.02.2026 | Lähde: docs/DWS6_TO_DWS7_UPDATE.md v1.1<em>
+<em>Dokumentoitu: 27.02.2026 | Lähde: docs/DWS6_TO_DWS7_UPDATE.md v1.1</em>
 
 DWS7 rakentaa monipuolisen kumppaniekosysteemin kattaen teollisuusautomaation (NVIDIA, Siemens, ABB), rajatekoälyn (xAI, Mistral) ja reunalaskennan. Jokainen kumppani täyttää erillisen roolin Aivot-Muisti-Keho-Kädet -arkkitehtuurissa.
 
@@ -1771,21 +1818,21 @@ Monituottaja-LLM-reititin osoittaa käytännön ratkaisun <strong>EU AI Act -suv
 
 <h2>Akateeminen kirjallisuus</h2>
 
-<li>Ries, E. (2011). </em>The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses<em>. Crown Business.</li>
+<li>Ries, E. (2011). <em>The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses</em>. Crown Business.</li>
 
-<li>Blank, S. (2013). </em>The Four Steps to the Epiphany: Successful Strategies for Products that Win<em>. K&S Ranch.</li>
+<li>Blank, S. (2013). <em>The Four Steps to the Epiphany: Successful Strategies for Products that Win</em>. K&S Ranch.</li>
 
-<li>Parker, G., Van Alstyne, M., & Choudary, S. (2016). </em>Platform Revolution: How Networked Markets Are Transforming the Economy<em>. W.W. Norton.</li>
+<li>Parker, G., Van Alstyne, M., & Choudary, S. (2016). <em>Platform Revolution: How Networked Markets Are Transforming the Economy</em>. W.W. Norton.</li>
 
-<li>Euroopan komissio (2021). </em>Teollisuus 5.0: Kohti kestävää, ihmiskeskeistä ja resilienttiä eurooppalaista teollisuutta<em>. EU:n julkaisutoimisto.</li>
+<li>Euroopan komissio (2021). <em>Teollisuus 5.0: Kohti kestävää, ihmiskeskeistä ja resilienttiä eurooppalaista teollisuutta</em>. EU:n julkaisutoimisto.</li>
 
-<li>Shi, W., Cao, J., Zhang, Q., Li, Y., & Xu, L. (2016). "Edge Computing: Vision and Challenges." </em>IEEE Internet of Things Journal<em>, 3(5), 637-646.</li>
+<li>Shi, W., Cao, J., Zhang, Q., Li, Y., & Xu, L. (2016). "Edge Computing: Vision and Challenges." <em>IEEE Internet of Things Journal</em>, 3(5), 637-646.</li>
 
-<li>Christensen, C. M., Hall, T., Dillon, K., & Duncan, D. S. (2016). "Know Your Customers' Jobs to Be Done." </em>Harvard Business Review<em>, 94(9), 54-62.</li>
+<li>Christensen, C. M., Hall, T., Dillon, K., & Duncan, D. S. (2016). "Know Your Customers' Jobs to Be Done." <em>Harvard Business Review</em>, 94(9), 54-62.</li>
 
-<li>Wooldridge, M. (2009). </em>An Introduction to MultiAgent Systems<em> (2. painos). Wiley.</li>
+<li>Wooldridge, M. (2009). <em>An Introduction to MultiAgent Systems</em> (2. painos). Wiley.</li>
 
-<li>Jennings, N. R., & Wooldridge, M. (1998). "Applications of intelligent agents." </em>Agent Technology: Foundations, Applications, and Markets<em>, 3-28.</li>
+<li>Jennings, N. R., & Wooldridge, M. (1998). "Applications of intelligent agents." <em>Agent Technology: Foundations, Applications, and Markets</em>, 3-28.</li>
 
 <h2>Moniagenttijärjestelmät ja AI-koordinointi</h2>
 
@@ -1812,7 +1859,7 @@ Monituottaja-LLM-reititin osoittaa käytännön ratkaisun <strong>EU AI Act -suv
 <li>Yleinen tietosuoja-asetus (GDPR) (EU) 2016/679</li>
 <li>Kyberturvallisuusasetus (EU) 2019/881</li>
 <li>ISO/IEC 27001:2022</li>
-<li>European Commission (2025). </em>Omnibus package<em>.</li>
+<li>European Commission (2025). <em>Omnibus package</em>.</li>
 <li>EN 15978:2011 Rakentamisen kestävyys</li>
 <li>Rakennusten energiatehokkuusdirektiivi (EPBD) (EU) 2024/1275</li>
 <li>Google Merchant Center -tekniset määritykset (2026)</li>
@@ -1821,7 +1868,7 @@ Monituottaja-LLM-reititin osoittaa käytännön ratkaisun <strong>EU AI Act -suv
 
 <h2>Sisäiset viiteartefaktit</h2>
 
-<li>Lifetime Oy (2026). </em>Lifetime World LLM Scaling Blueprint (GN-100 hybridi + pilvipolku).* `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.</li>
+<li>Lifetime Oy (2026). <em>Lifetime World LLM Scaling Blueprint (GN-100 hybridi + pilvipolku).</em> `Admin/Model/LLM_TRAINING_FEASIBILITY.md`.</li>
 <li>Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008</li>
 <li>Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox</li>
 
@@ -2169,41 +2216,6 @@ Kreikkalais-roomalainen panteon tarjoaa kaksi etua:
 
 Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumisessa, kirjoittaen `agent_executions` Supabase-tauluun. Tämä täyttää EU AI Act artiklan 12 automaattiset lokivaatimukset korkean riskin tekoälyjärjestelmille.
 
-<h2>10.14 Agenttijärjestelmän koventaminen — tuotantoluotettavuus</h2>
-
-<h3>10.14.1 Motivaatio</h3>
-
-31-agenttinen järjestelmä (13 ydin + 5 SEO + 13 työnkulku/toimiala) oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa, jotka estivät tuotantokääntämisen. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa: tyyppien yhteensopimattomuuksia moduulirajojen yli, puuttuvia reittejä, asentamattomia riippuvuuksia ja lokaalikohtaista muotoilua. Tämä osio dokumentoi systemaattisen koventamisen, joka palautti nollavirhe-kääntämisen ja täyden testikattavuuden.
-
-<h3>10.14.2 Tyyppijärjestelmän linjaus: SandboxContext</h3>
-
-`SandboxStage`-tyyppi `src/sandbox/index.ts`-tiedostossa määritteli neljä vaihetta: `'1' | 'opensandbox' | '2' | '3'`, missä `'opensandbox'` edustaa vaiheen 1.5 Docker-pohjaista eristystä Acer Veriton GN100 -laitteistolla (osio 10.10). `SandboxContext.stage` `src/agents/types.ts`-tiedostossa hyväksyi kuitenkin vain `'1' | '2' | '3'`, luoden käännösaikaisen virheen kun `BaseAgent` yritti asettaa hiekkalaatikkovaiheen. Korjaus linjasi molemmat tyypit.
-
-<h3>10.14.3 Reittien kytkentä: MCP ja ihminen silmukassa</h3>
-
-Kaksi kriittistä reittiä oli tavoittamattomissa puuttuvien tuontien vuoksi `src/app.ts`-tiedostossa:
-
-<li><strong>MCP-agenttipalvelin</strong> (`/mcp`) — `createMCPRouter()`-funktio paljastaa kaikki agentit MCP-työkaluina JSON-RPC 2.0:n kautta. Ilman tätä tuontia ulkoiset MCP-asiakkaat eivät voineet löytää tai kutsua DWS-agentteja.</li>
-
-<li><strong>Ihminen silmukassa</strong> (`/api/hil`) — HIL-päätepiste mahdollistaa yhden klikkauksen tehtävien suorittamisen aamubrief-sähköposteista. Ilman tätä reittiä Captain Pre-Briefing -agentin "Valmis"-painikkeet palauttivat 404-virheitä.</li>
-
-<h3>10.14.4 Lokaalivarma numeromuotoilu</h3>
-
-Päästödatan analyytikkoagentti muotoilee ETS-kustannusarvioita `Number.toLocaleString()`-metodilla. EU-lokaaleilla (Suomi, Saksa) tämä tuottaa välilyönnillä erotellut luvut (esim. `2 040 000`), kun testit odottivat US-pilkulla eroteltua muotoa (`2,040,000`). Korjaus määrittää `'en-US'`-lokaalin eksplisiittisesti, varmistaen deterministisen tulostuksen käyttöympäristöstä riippumatta.
-
-<h3>10.14.5 Riippuvuushygienia</h3>
-
-`luxon`-kirjasto (aikavyöhyketietoinen päivämääräkäsittely Helsingin työaikoja varten) oli tuotu Social Schedulerissa mutta ei koskaan lisätty `package.json`-tiedostoon. Resend-sähköposti-SDK:n erävasteen tyyppi oli unioni, joka vaati suoritusaikaisen taulukkotunnistuksen ennen `.map()`-kutsua.
-
-<h3>10.14.6 Tutkimuspanos</h3>
-
-Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvän kuvion: <strong>integraatiovelka kertyy moduulirajoille, ei moduulien sisälle</strong>. Korjaus koski 6 tiedostoa 5 alijärjestelmässä yhdessä commitissa, palauttaen:
-
-<li><strong>0 TypeScript-virhettä</strong> (oli 6)</li>
-<li><strong>47/47 testiä läpi</strong> (oli 44/47)</li>
-<li><strong>Täysi MCP-löydettävyys</strong> kaikille 31 agentille</li>
-<li><strong>HIL-toiminnallisuus</strong> aamubrief-työnkuluille</li>
-
 <hr />
 
 <strong>Dokumentin tiedot:</strong>
@@ -2214,7 +2226,7 @@ Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvä
 <strong>Koulutusohjelma:</strong> Smart Factory, YAMK
 <strong>Ohjaaja:</strong> Jarno Varteva (mukana Erkki Räsänen)
 <strong>Yritys:</strong> Lifetime Oy (Firehorse-brändi)
-<strong>Tila:</strong> DRAFT - V3.19 — Agenttijärjestelmän koventaminen (6 TS-virhettä korjattu, 3 testivikaa ratkaistu, MCP/HIL-reittien kytkentä, lokaalivarma muotoilu)
+<strong>Tila:</strong> DRAFT - V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina
 <strong>Versio:</strong> 3.19
 <strong>Viimeisin päivitys:</strong> 07.03.2026
 <strong>V1.0 Julkaisutavoite:</strong> 23. helmikuuta 2026
@@ -2241,7 +2253,7 @@ Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvä
 <li>Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral; monituottaja-LLM-reititin ratkaisee EU AI Act -suvereniteettijännitteen käytännössä</li>
 <li>Climate IQ Pantheon — 13-agenttinen kreikkalais-roomalainen jumaljärjestelmä (6 orkestraattoria + 7 toimialaerityistä) SOUL.md-identiteettimallilla, prompt injection -turvallisuudella, EU AI Act artikla 12 -lokituksella ja markkinointikiilapersoona-strategialla</li>
 <li>Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen</li>
-<li>Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä</li>
+<li>MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille</li>
 
 <strong>Lisenssi:</strong> Proprietary - Lifetime Oy
 <strong>Yhteystieto:</strong> risto@lifetime.fi

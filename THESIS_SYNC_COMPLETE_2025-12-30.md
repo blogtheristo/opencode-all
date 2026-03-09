@@ -1,6 +1,6 @@
 # Thesis Synchronization Complete - December 30, 2025
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -35,7 +35,7 @@ Both English (`THESIS_EN.md`) and Finnish (`OPINNAYTETYO_FI.md`) thesis files ha
 
 **English (THESIS_EN.md):**
 ```markdown
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -54,7 +54,7 @@ Document Status:
 
 **Finnish (OPINNAYTETYO_FI.md):**
 ```markdown
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
