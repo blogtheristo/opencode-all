@@ -1,8 +1,9 @@
 ---
 title: KYA Standard
-version: 1.0
+version: 1.1
 created: 2026-03-09
 last_modified: 2026-03-09
+
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -13,14 +14,15 @@ toc: true
 toc-depth: 3
 ---
 
-# The KYA Standard v1.0
+# The KYA Standard v1.1
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§9) — Capability Manifests, path-scoped access control (/mock-api/, /temp-db/), KYA Violation logging and auto-termination for /prod-secrets/ access
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
 
 Document Status:
@@ -324,7 +326,97 @@ Customer Request
 
 ---
 
-## 8. Conclusion
+## 8. Subagent Registry (v1.1)
+
+Every subagent initialized within the DWS IQ platform must register with the **Subagent Registry** and sign a local **Capability Manifest** before execution begins. This ensures that testing and sandbox environments enforce the same identity-gated access controls as production.
+
+### 8.1 Capability Manifest
+
+Upon initialization, each subagent signs a Capability Manifest declaring its permitted resource paths. The manifest is immutable for the duration of the session.
+
+**Default Testing Manifest:**
+
+| Path | Access | Description |
+|------|--------|-------------|
+| `/mock-api/` | Read/Write | Mock API endpoints for testing |
+| `/temp-db/` | Read/Write | Temporary database for sandbox operations |
+| `/prod-secrets/` | **DENIED** | Production secrets — access triggers KYA Violation |
+
+**Manifest Schema:**
+
+```json
+{
+  "manifest_version": "1.1",
+  "subagent_id": "<uuid>",
+  "session_id": "<kya-session-token>",
+  "signed_at": "<ISO-8601>",
+  "permitted_paths": ["/mock-api/", "/temp-db/"],
+  "denied_paths": ["/prod-secrets/"],
+  "ttl_seconds": 3600,
+  "kya_score_at_sign": 85
+}
+```
+
+### 8.2 KYA Violation: Unauthorized Path Access
+
+If a subagent attempts to access a denied path (e.g., `/prod-secrets/`), the following enforcement sequence executes:
+
+| Step | Action | Latency |
+|------|--------|---------|
+| 1 | Path access intercepted by sandbox monitor | < 1 ms |
+| 2 | KYA Violation logged to Firehorse audit trail | < 5 ms |
+| 3 | Subagent session terminated | < 50 ms |
+| 4 | Operator notified (webhook + dashboard alert) | < 1 s |
+| 5 | KYA Trust Score reduced by 40 points | Immediate |
+
+**Violation Log Entry:**
+
+```json
+{
+  "event": "KYA_VIOLATION",
+  "severity": "CRITICAL",
+  "subagent_id": "<uuid>",
+  "session_id": "<kya-session-token>",
+  "attempted_path": "/prod-secrets/",
+  "manifest_signed_at": "<ISO-8601>",
+  "action_taken": "TERMINATE",
+  "kya_score_before": 85,
+  "kya_score_after": 45,
+  "timestamp": "<ISO-8601>"
+}
+```
+
+### 8.3 Registry Lifecycle
+
+```
+Subagent Initialized
+    │
+    ▼
+┌─────────────────────────────┐
+│ Step 1: Registry Check      │  Subagent registered in Subagent Registry
+│ (Is this agent known?)      │  If unknown → reject initialization
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 2: Manifest Signing    │  Agent signs Capability Manifest
+│ Permitted: /mock-api/,      │  Declares permitted & denied paths
+│           /temp-db/         │  Manifest is immutable for session
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 3: Sandbox Execution   │  Agent operates within manifest bounds
+│ Path monitor active         │  Every resource access checked against manifest
+└─────────────┬───────────────┘
+              ▼
+┌─────────────────────────────┐
+│ Step 4: Violation Response  │  On denied path access:
+│ /prod-secrets/ → TERMINATE  │  Log KYA Violation → Kill session → Alert
+└─────────────────────────────┘
+```
+
+---
+
+## 9. Conclusion
 
 The KYA Standard moves beyond the binary "Pass/Fail" of 2020-era compliance. By integrating hardware isolation with real-time identity triggers, Lifetime Oy provides a secure runtime for the next generation of autonomous work.
 
