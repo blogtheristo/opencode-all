@@ -127,7 +127,40 @@ This is the first integration that bridges **human identity verification** with 
 
 If the PoC succeeds, Shufti becomes the identity layer for all BYO agents entering the DWS IQ ecosystem — a new market category.
 
-## The Outreach Email (Sent)
+## Product Positioning: KYA is a Feature, Not a Product
+
+**KYA (Know Your Agent) is a core feature of DWS IQ** — not a standalone product.
+
+- **DWS IQ** = the brain/orchestrator platform (the product customers buy)
+- **KYA** = the identity & intent verification protocol inside DWS IQ that gates agent access to industrial models
+- **Shufti** = the identity signal provider that powers KYA Layer 1 (Human Identity) and Layer 5 (Continuous Risk)
+
+This positioning is deliberate: telling a partner "we have a working product and need a plug for one feature" is far more attractive than "help us build a new product." Shufti slots into an existing architecture.
+
+## The Control Room: 16 Industrial Models in Sandboxes
+
+The DWS10 Control Room manages **16 industrial-grade models** — one per EU-regulated industry under the Fit for 55 package (see `16-INDUSTRIES.md`). Each model runs in an isolated sandbox, orchestrated by DWS IQ agents.
+
+**Sandbox Tiers (per `src/cloudflare/tenant-sandbox.ts`):**
+
+| Tier | Tokens/Req | Req/Min | Concurrent | Storage |
+|------|-----------|---------|------------|---------|
+| Sandbox | 4K | 20 | 2 | 100 MB |
+| Professional | 16K | 100 | 10 | 1 GB |
+| Enterprise | 100K | 1,000 | 50 | 10 GB |
+
+**OpenSandbox Stages (per `DWS_SECURITY_STANDARD.md` Section 14):**
+
+| Stage | Runtime | Isolation |
+|-------|---------|-----------|
+| 1 | SDK native | No network, read-only FS |
+| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU |
+| 2 | Cloud Run ephemeral | Sandboxed by default |
+| 3 | Production | Monitored, broader permissions |
+
+**BYO Agent Flow:** Customer brings a third-party agent (Clawbot, Microsoft CoWork, Tencent Workbuddy) into a new hardened sandbox. KYA gates every step — identity anchor, capability review, runtime monitoring, dynamic restriction.
+
+## The Outreach Email — Round 1 (Sent)
 
 **To:** Aitsam (Shufti Pro)
 **Subject:** Partnership Proposal: Integrating Shufti IDV with DWS10's Open Sandbox
@@ -139,6 +172,44 @@ Key points communicated:
 - First "Zero-Trust" workspace for autonomous agents
 - Architecture call requested (15 min, next week)
 
+## The Control Room Partnership Pitch — Round 2 (Draft)
+
+**To:** Aitsam (Shufti Pro)
+**Subject:** RE: DWS10 Control Room — 16 Industrial Models + BYO Agent Identity Layer
+
+> Hi Aitsam,
+>
+> Following up on my previous note—to give you a sense of the scale we're discussing, our DWS10 Control Room currently manages 16 industrial-grade models running in isolated sandboxes, orchestrated by our own DWS IQ agents.
+>
+> We are now opening the ecosystem to **BYO (Bring Your Own) Processes**. Our customers can now drop third-party agents—like Clawbot, Microsoft CoWork, or Tencent Workbuddy—directly into a new, hardened sandbox within our environment.
+>
+> **Where Shufti comes in:**
+>
+> This is where our **KYA (Know Your Agent)** feature becomes critical. We don't just need to verify the human who initiates the process; we need to verify the "Agent Identity" of the third-party tool they are bringing in.
+>
+> I'm proposing a pilot where we use Shufti's identity signals to anchor these third-party agents to a verified organization or individual. Specifically:
+>
+> - **Identity Anchor:** A user brings a Tencent Workbuddy agent into a DWS10 sandbox.
+> - **Shufti Trigger:** Shufti verifies the user's credentials and risk level.
+> - **Dynamic Gating:** DWS IQ uses that Shufti score to decide exactly how much "reach" that Workbuddy agent has into our industrial models.
+>
+> We are building the first environment where industrial-scale AI and third-party agents can co-exist without compromising the core infrastructure.
+>
+> I'd rather talk architecture than sit through a product demo—do you or your technical lead have 15 minutes next week to discuss how Shufti can power the identity layer of this Control Room?
+>
+> Best regards,
+> Risto
+> Founder | dws10.com
+
+### Strategy Notes
+
+| Tactic | Purpose |
+|--------|---------|
+| **Big Tech name drop** (Microsoft, Tencent, Clawbot) | Signals enterprise-level platform; creates FOMO |
+| **"Control Room" imagery** | Shifts perception from "website" to "industrial command center" |
+| **KYA as feature, not product** | Shows working platform needing a plug, not a co-build ask |
+| **"Architecture not demo"** | Positions call as peer-to-peer technical discussion |
+
 ## Ontology Tags
 
 - **Geography:** Europe > Finland (Lifetime Oy), Global (Shufti Pro)
@@ -149,13 +220,15 @@ Key points communicated:
 
 ## Next Steps
 
-- [ ] Await Shufti response to partnership proposal
+- [ ] Await Shufti response to Round 2 pitch
 - [ ] Schedule 15-min architecture call with Shufti technical lead
+- [ ] Send Technical Requirements attachment (see `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md`)
 - [ ] Draft Shufti API adapter (`src/integrations/idv/shufti.ts`) — interface only, pending API docs
-- [ ] Add KYA framework to DWS Security Standard (Section 18)
+- [x] Add KYA framework to DWS Security Standard (Section 18) — done v1.9
+- [x] Define KYA as DWS IQ feature (not standalone product)
 - [ ] Define BYO agent registration API schema
 - [ ] Update AGENTS.md with KYA/BYO agent lifecycle
 
 ---
 
-**Source:** Partnership email to Aitsam (Shufti Pro), 2026-03-09
+**Source:** Partnership email to Aitsam (Shufti Pro), 2026-03-09 | Control Room pitch draft, 2026-03-09
