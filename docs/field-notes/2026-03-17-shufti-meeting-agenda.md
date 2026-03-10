@@ -143,6 +143,22 @@ We are opening the platform to **BYO (Bring Your Own) agents** and need Shufti t
 ### Fallback plan
 If ongoing monitoring isn't available: (a) DWS cron triggers periodic Shufti re-verification, or (b) add Sumsub later for transaction monitoring while keeping Shufti for onboarding.
 
+### IDV Competitive Landscape (Internal — Walk-Away Alternatives)
+
+If Shufti doesn't offer partnership terms, these are real alternatives — ranked by strategic fit:
+
+| Provider | HQ | Strengths for DWS | Weaknesses | Partnership Likelihood |
+|----------|----|--------------------|------------|----------------------|
+| **Veriff** | Estonia | Nordic company, developer-friendly API, fellow Nordic operator — easiest to negotiate with. Strong biometrics. | Smaller enterprise presence than Entrust/Jumio | **HIGH** — Nordic solidarity, hungry for enterprise use cases |
+| **Signicat** | Norway | Nordic-native, specializes in eID and regulated industries. Strong fit for healthcare/KELA. Knows Nordic regulatory landscape. | Less known outside Nordics, smaller global coverage | **HIGH** — perfect regulatory fit, would value AI agent angle |
+| **iDenfy** | Lithuania | EU-first, competitive pricing, NFC + biometrics. Smaller = hungrier for partnerships. | Less enterprise credibility, smaller team | **HIGH** — would likely offer best commercial terms |
+| **Onfido (Entrust)** | UK/US | Strong EU presence, GDPR-native, excellent API docs. Entrust acquisition = enterprise-grade backing. | Post-acquisition bureaucracy, harder to get partnership terms from a large corp | **MEDIUM** — good tech, but Entrust sales cycle is slow |
+| **Jumio** | US | Strongest enterprise credibility, comprehensive compliance stack. | Most expensive, US-headquartered (data residency complexity), enterprise sales cycle | **LOW** — would treat DWS as a customer, not a partner |
+
+**Strategy:** Don't mention competitors on the Shufti call. But if Shufti offers standard customer pricing, the next call is to **Veriff** (Nordic, developer-friendly, most likely to do rev share) or **Signicat** (regulated industries specialist, knows the Finnish market).
+
+**Key insight:** Shufti is our first choice because we already built the integration. But the integration is ~200 lines of TypeScript — switching providers is a 2-day refactor, not a 2-month project. This is leverage. We're not locked in.
+
 ### Budget & monetization strategy
 - **PoC phase:** Should cost DWS nothing. Ask for free sandbox API access. Both sides invest engineering time.
 - **Shufti retail pricing:** $0.20-$0.75/verification + $1,250-$2,500 setup. DO NOT agree to this — this is their standard customer pricing.
