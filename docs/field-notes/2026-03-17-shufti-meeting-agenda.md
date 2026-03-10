@@ -150,8 +150,22 @@ If ongoing monitoring isn't available: (a) DWS cron triggers periodic Shufti re-
 - **Negotiation leverage:** DWS is a distribution channel into a market Shufti doesn't serve yet (AI agent identity). Every DWS customer = recurring Shufti volume. This is worth more than one customer paying retail.
 - **Timing:** Don't discuss money on March 17. Focus on PoC. Commercial terms after demo works. You have more leverage with a working demo than with a slide deck.
 
-### Key negotiation principle
-"We already built the integration. We're not asking you to teach us or build anything. We need API credentials to connect our code to your API. The business question isn't 'how much do we pay you' — it's 'how do we both make money from a new market category.'"
+### Walk-in Strategy (CRITICAL)
+
+**The ask (pick one, in priority order):**
+1. **Co-sell agreement with revenue share** — DWS names Shufti as the IDV layer in enterprise deals, both companies sell together, revenue shared on verification volume
+2. **Discounted/free tier for KYA integrations** — In exchange for being named as the official IDV layer in DWS enterprise deals and marketing
+
+**The walk-away line:** If Shufti pushes standard retail pricing ($0.20-$0.75/verification + setup fee), that's the moment to walk. Say: "We appreciate the conversation, but at standard pricing we'll evaluate other IDV providers who want the first-mover position in agent identity." Alternatives: Sumsub (stronger ongoing monitoring), Onfido/Entrust (better biometrics), Veriff (EU-native).
+
+**Why this works:** Shufti gets nothing if DWS picks a competitor. Shufti gets a new market + enterprise pipeline if they partner. The standard pricing model treats DWS as a customer — the partnership model treats DWS as a channel.
+
+**What NOT to say on the call:**
+- Don't mention specific competitors by name (desperate)
+- Don't agree to "let's start with standard pricing and revisit later" (you'll never revisit)
+- Don't discuss money in detail — plant the seed ("co-sell / rev share"), get the PoC credentials, negotiate commercial terms after the demo works
+
+**Script:** "We've already built the webhook handler, policy engine, and trust score calculator. What we need from you is API access for a PoC. The commercial question we'd like to explore after the PoC is a co-sell arrangement — we name Shufti as our IDV layer in enterprise deals across 20 EU industries, and we work out a revenue share model. Does that direction interest your team?"
 
 ## Materials to Share
 
