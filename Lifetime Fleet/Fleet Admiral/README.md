@@ -1,11 +1,12 @@
 # Fleet Admiral — Lifetime Fleet Investor Division
 
 VERSION AND AGENT HISTORY
-Version: 2.0
+Version: 3.0
 Date: 2026-03-10
 Agent: Claude Opus 4.6 (claude/fleet-admiral-folder-s1s57)
 v1.0 — Created Fleet Admiral folder structure
 v2.0 — Full GTM asset package: pitch, manifest, playbook, auto-response
+v3.0 — Added Acer-DGX Sandbox Strategy + Firehorse audit trail schema
 END VERSION AND AGENT HISTORY
 
 ## Purpose
@@ -22,6 +23,15 @@ Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Phys
 | `KYA_STANDARD_v1.4_MANIFEST.md` | Technical manifest — 11% Efficiency Law, Firecracker MicroVMs, kill-switches | Locked |
 | `HELSINKI_SANDBOX_PLAYBOOK.md` | Site visit protocol, live demo loop, investor profiles, due diligence auto-response | Locked |
 | `README.md` | This file — package index |
+
+### Supporting Technical Assets
+
+| File | Description |
+|------|-------------|
+| `docs/field-notes/2026-03-10-acer-dgx-sandbox-strategy.md` | Zero-budget sandbox strategy — Acer Veriton GN100 as Desktop AI Factory |
+| `src/firehorse/audit-schema.ts` | Firehorse audit trail TypeScript schema — KYA v1.4 optimization logging |
+| `src/sandbox/opensandbox.ts` | OpenSandbox Docker isolation (Stage 1.5 on Acer Veriton) |
+| `Legal/KYA_STANDARD_v1.md` | KYA Standard v1.1 — full legal/technical specification |
 
 ## The 3 Diamonds Framework
 
