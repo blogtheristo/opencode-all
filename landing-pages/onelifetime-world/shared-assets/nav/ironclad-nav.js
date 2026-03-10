@@ -1,10 +1,11 @@
 /**
- * OneLifetime.World Iron Clad Navigation v1.0
+ * OneLifetime.World Iron Clad Navigation v1.1
  * Dark theme navigation for all onelifetime.world pages
  *
  * Usage: Add to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v1.1 — 2026-03-10: Rename "AI Agents" to "God Agents" for Pantheon branding.
  * v1.0 — 2026-03-10: Initial release. Dark theme, hamburger mobile menu,
  *        structured for OneLifetime.World site map.
  *
@@ -60,11 +61,11 @@
                     </ul>
                 </li>
 
-                <!-- AI Agents ▾ -->
+                <!-- God Agents ▾ -->
                 <li class="olw-menu-item">
-                    <a href="#" class="olw-link">AI Agents ▾</a>
+                    <a href="#" class="olw-link">God Agents ▾</a>
                     <ul class="olw-dropdown olw-dropdown-wide">
-                        <li><a href="${basePath}pantheon/" class="olw-primary">The DWS Pantheon</a></li>
+                        <li><a href="${basePath}pantheon/" class="olw-primary">The DWS Pantheon — 14 God Agents</a></li>
                         <li class="olw-separator"></li>
                         <li class="olw-section-label">Orchestrators</li>
                         <li><a href="${basePath}pantheon/atlas.html">&#x1F30D; Atlas — Chief of Staff</a></li>
