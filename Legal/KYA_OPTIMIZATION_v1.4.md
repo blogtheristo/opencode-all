@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety), ATS autoresearch delta, financial multiplier per trust tier, per-industry efficiency gains (9–22%), Capability Manifest v1.2, Karpathy field note, projected EU-wide impact
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Financial Value Model — per-industry KYA revenue sizing, verification volume economics, insurance & liability reduction, carbon penalty avoidance ROI
@@ -30,7 +31,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Architecture Standard v1.4
+**Version:** KYA Architecture Standard v1.5
 **Status:** Singularity-Ready (Q2 2026 Launch — Research-as-a-Service & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -67,7 +68,7 @@ Related Documents:
 
 KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. The core assumption: any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables safe progression toward the **Agent Singularity** — where autonomous agents iteratively improve their own models, policies, and performance without human iteration bottlenecks.
 
-The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autoresearch runs) that translate into measurable financial value across all 19 industries: reduced energy OPEX, faster compliance cycles, lower stranded-asset risk, and new revenue from AI-optimized industrial processes.
+The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autoresearch runs) that translate into measurable financial value across all 20 industries: reduced energy OPEX, faster compliance cycles, lower stranded-asset risk, and new revenue from AI-optimized industrial processes.
 
 **New financial multipliers** (embedded in Agent Trust Score & Capability Manifest):
 
@@ -92,8 +93,8 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 | Positioning | Model-as-a-Service | **Research-as-a-Service** |
 | Named Laws | None | **Agentic Efficiency Law, Stacking Effect** |
 | Swarm Management | Manual | **Orchestrator Layer (kill early, promote winners)** |
-| Industry Coverage | 16 (Fit for 55) | **19** (+ Fintech, Pharma, Cybersecurity) |
-| Compliance | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ Autoresearch audit trail for Art. 12/14** |
+| Industry Coverage | 16 (Fit for 55) | **20** (+ Fintech, Pharma, Cybersecurity, Healthcare/MedTech) |
+| Compliance | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ SOC 2 Type II, ISO 42001, Autoresearch audit trail for Art. 12/14** |
 
 ---
 
@@ -162,13 +163,22 @@ A = autoresearch improvement factor (capped at 0.25, validated on industry proxy
 
 **The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.25 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor.
 
+**Third-Party Validation Gate (CRITICAL):** An agent that self-reports autoresearch gains can inflate A. To prevent gaming, A factor contributions require **independent validation** before contributing to ATS:
+
+| Validation Step | Requirement | Enforcement |
+|-----------------|-------------|-------------|
+| Proxy metric independently measured | Third-party benchmark or holdout dataset — never agent-reported metrics alone | Orchestrator validates against external reference |
+| Human domain expert sign-off | For A > 0.15, a qualified domain specialist must confirm the improvement is genuine | 72h human gate |
+| Cross-validation on unseen data | Improvement must reproduce on data the agent never accessed during autoresearch | Orchestrator runs holdout evaluation |
+| Temporal stability check | Improvement must persist for ≥48h in staging without degradation | Automated monitoring |
+
 **Security baseline (without A factor):** See `Legal/KYA_SECURITY_v1.2.md` §3. The security standard uses `ATS = max(0, 1.0 - V×0.25 - L - D×0.05)` — security scoring is never inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 
 ### 3.2 Trust Score Ranges with Financial Multiplier (19 Industries)
 
-| ATS Range | KYA Score | Permission Level | Financial Multiplier (19 industries) | Decision |
+| ATS Range | KYA Score | Permission Level | Financial Multiplier (20 industries) | Decision |
 |-----------|-----------|-----------------|---------------------------------------|----------|
 | >= 0.80 | >= 80 | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr | **GO + Monetize** |
 | 0.50–0.79 | 50–79 | Restricted + limited autoresearch | 1.3–2.0x | **GO** (limited) |
@@ -233,7 +243,7 @@ This class is stored in the `kya_fault_attribution` Supabase table alongside exi
 
 KYA is not a cost center — it is a **revenue-generating compliance layer**. Every BYO agent session generates verification events, and every autoresearch improvement generates financially attributable value.
 
-KYA governance applies to **any industry where autonomous agents operate** — not only the 16 EU Fit for 55 regulated sectors. v1.4 expands coverage with 3 additional high-value wedge industries where autoresearch creates immediate financial impact.
+KYA governance applies to **any industry where autonomous agents operate** — not only the 16 EU Fit for 55 regulated sectors. v1.4 expands coverage with 4 additional high-value wedge industries where autoresearch creates immediate financial impact.
 
 ### 5.1 Tier 1: Critical Emissions — High KYA Value (Fit for 55 Core)
 
@@ -263,13 +273,14 @@ KYA governance applies to **any industry where autonomous agents operate** — n
 
 ### 5.3 Tier 3: Wedge Industries — High Agent Density, High Autoresearch Value (NEW in v1.4)
 
-These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale.
+These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale. Healthcare/MedTech added in v1.5 per Boardy review — EU MDR compliance for autonomous diagnostic agents is a massive liability surface comparable to Pharma.
 
 | # | Industry | Autoresearch Application | Proxy Metric (depth=12 equivalent) | Financial Value per Enterprise (EUR/yr) |
 |---|----------|--------------------------|-------------------------------------|---------------------------------------|
 | 17 | Fintech & Trading | Agents tune alpha-discovery models on 1-hour "proxy" markets before scaling to live trading | Sharpe ratio on synthetic market data | **2M–15M** |
 | 18 | Pharma & Biotech | Swarms optimize protein folding simulations, tuning energy loss functions autonomously | Binding affinity prediction accuracy | **5M–50M** (Time to Molecule -15–20%) |
 | 19 | Cybersecurity | Autoresearch on anomaly detection thresholds — reduce false positives while maintaining sensitivity | SOC alert-to-breach detection ratio | **500k–3M** (alert fatigue reduction) |
+| 20 | Healthcare & MedTech | Autonomous diagnostic agents tuning clinical decision support models, EU MDR compliance automation | Diagnostic accuracy on validated test sets | **1M–12M** (EU MDR liability + diagnostic throughput) |
 
 ### 5.4 Revenue Model
 
@@ -282,7 +293,7 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault Attribution** | EUR 5.00 per fault investigation record | Incident frequency x severity |
 | **Compliance Certificates** | EUR 500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
 | **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Autoresearch Revenue Share** (v1.4) | 5–12% of attributed efficiency gains | Financial attribution from Firehorse → Supabase |
+| **Alpha-Share** (v1.4) | **7.5% flat** of all attributed efficiency gains (OpEx reduction or revenue uplift) | Financial attribution from Firehorse → Supabase |
 
 ### 5.5 Platform Revenue Projections (19 Industries, 2026–2030)
 
@@ -330,10 +341,26 @@ How KYA generates revenue for Lifetime Oy:
 |---------|--------|
 | **Hardware isolation** | Firecracker MicroVM expertise is rare; most competitors use container-level isolation (breakable) |
 | **Identity provider integration** | Shufti/IDV webhook pipeline is live; competitors would need 6–12 months to integrate |
-| **19-industry regulatory + domain knowledge** | Lifetime World Model encodes 15k+ EU regulations + fintech/pharma/cyber domain models — competitors would need to build from scratch |
+| **20-industry regulatory + domain knowledge** | Lifetime World Model encodes 15k+ EU regulations + fintech/pharma/cyber/medtech domain models — competitors would need to build from scratch |
 | **Forensic audit trail** | Firehorse is a purpose-built telemetry system, not a bolted-on logging library |
 | **Fault attribution** | No competitor has automated liability mapping between agent layers |
 | **Autoresearch governance** (v1.4) | No competitor has governed self-optimization with financial attribution at scale |
+
+### 5.9 Competitive Positioning: KYA vs Palantir AIP
+
+**Palantir AIP** is the closest competitor on governed agentic pipelines for regulated industries. Direct comparison:
+
+| Dimension | Palantir AIP | KYA (DWS IQ) | Advantage |
+|-----------|-------------|---------------|-----------|
+| **Agent isolation** | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, 122ms) | **KYA** — hardware > software |
+| **Identity attribution** | Enterprise SSO / Foundry permissions | KYC/KYB-verified identity → agent session binding | **KYA** — legally attributable |
+| **Autoresearch** | Not offered (manual model tuning) | Governed self-optimization with financial attribution | **KYA** — unique capability |
+| **EU compliance** | Generic (GDPR, some SOC 2) | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55 | **KYA** — EU-first |
+| **Revenue model** | Platform license (annual contract) | Per-event + Alpha-Share (scales with value created) | **KYA** — aligned incentives |
+| **Industry depth** | Defense, healthcare, energy (3–5 deep) | 20 industries with per-industry proxy metrics | **KYA** — wider + deeper |
+| **Data residency** | US-primary (FedRAMP) | EU-primary (Finland/Germany, GDPR-native) | Context-dependent |
+
+**Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, 122ms hardware termination. In regulated industries, hardware kill > software kill.
 
 ---
 
@@ -345,7 +372,7 @@ Empirical evidence from autonomous agent research (see §7, Karpathy nanochat ex
 
 > **The Agentic Efficiency Law:** Human-tuned systems are, by definition, sub-optimal. An agent swarm can achieve ~11%+ efficiency gains on "well-tuned" systems simply by exploring the high-dimensional parameter space humans find too tedious to map.
 
-**Implication for 19 industries:** Every industrial model deployed in the DWS10 Control Room is a "well-tuned" base state. KYA-governed autoresearch will find the ~11% the human engineers missed — in energy efficiency, emissions calculations, process optimization, trading alpha, drug discovery, and threat detection accuracy.
+**Implication for 20 industries:** Every industrial model deployed in the DWS10 Control Room is a "well-tuned" base state. KYA-governed autoresearch will find the ~11% the human engineers missed — in energy efficiency, emissions calculations, process optimization, trading alpha, drug discovery, and threat detection accuracy.
 
 ### 6.2 The Stacking Effect
 
@@ -559,10 +586,11 @@ In Karpathy's work, depth=12 models served as proxies for depth=24 models. Chang
 
 Before promoting proxy results to full-scale:
 
-1. **Correlation check** — Proxy improvements must correlate >0.85 with scale improvements on historical data
-2. **Confidence interval** — Estimated improvement range must be statistically significant (p < 0.05)
-3. **Domain expert review** — Human specialist confirms the proxy-to-scale mapping is physically/logically valid
-4. **Rollback plan** — Automatic 24h rollback if scale results diverge from proxy predictions by >2x
+1. **Spearman Correlation check** — Proxy improvements must show Spearman rank correlation >0.85 with scale improvements on historical data (rank-based to resist outlier gaming)
+2. **Distribution shift test (MANDATORY)** — Correlation >0.85 is necessary but not sufficient. Before promotion, run a Kolmogorov-Smirnov test or Jensen-Shannon divergence check between proxy and production data distributions. If distributions diverge significantly (KS p-value < 0.05 or JS divergence > 0.1), the transfer is BLOCKED regardless of correlation score. This catches silent failures where proxy and production have different variance structures
+3. **Confidence interval** — Estimated improvement range must be statistically significant (p < 0.05)
+4. **Domain expert review** — Human specialist confirms the proxy-to-scale mapping is physically/logically valid
+5. **Rollback plan** — Automatic 24h rollback if scale results diverge from proxy predictions by >2x
 
 ---
 
@@ -662,7 +690,7 @@ Three principles govern this architecture:
 - **The Stacking Effect** guarantees that those improvements compound — twenty 0.5% gains become a 10.5% competitive moat
 - **The Orchestrator Layer** manages the swarm at scale — killing failures early, promoting winners, and enforcing budget discipline
 
-Combined with **KYA governance** (identity attribution, capability gating, forensic observability from `Legal/KYA_SECURITY_v1.2.md`), every optimization is attributed, auditable, and owned. Financial value flows through 19 industries — from EU climate compliance to fintech, pharma, and cybersecurity.
+Combined with **KYA governance** (identity attribution, capability gating, forensic observability from `Legal/KYA_SECURITY_v1.2.md`), every optimization is attributed, auditable, and owned. Financial value flows through 20 industries — from EU climate compliance to fintech, pharma, and cybersecurity.
 
 **Implement today. The swarm is already tuning. KYA makes sure it stays yours.**
 

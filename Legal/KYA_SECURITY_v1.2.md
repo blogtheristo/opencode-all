@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Added SOC 2 Type II and ISO 42001 (AI Management Systems) to compliance alignment (§8). Dual acronym KYA retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Combined KYA Standard — Subagent Registry, Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution, Agent Trust Score formula (see Legal/KYA_STANDARD_v1.md — public document)
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (see Legal/KYA_STANDARD_v1.md — public document)
@@ -31,7 +32,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Security Standard v1.2
+**Version:** KYA Security Standard v1.3
 **Status:** Implementation Ready (Q1 2026 Launch)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -418,6 +419,8 @@ Customer Request
 | **GDPR** | Data residency (EU-only), right to erasure (agent data) |
 | **Fit for 55** | Industrial models comply with ETS/CBAM/CSRD |
 | **DORA** | ICT risk management for financial sector agents |
+| **SOC 2 Type II** | Trust services criteria (security, availability, processing integrity) — required for US enterprise sales |
+| **ISO 42001** | AI Management Systems — emerging international standard for AI governance, gaining traction faster than expected |
 
 ---
 
