@@ -2,9 +2,10 @@
  * KYA Identity Module
  *
  * Agent Trust Score calculation, Capability Manifest validation,
- * and Fault Attribution types for the KYA Standard v1.1.
+ * and Fault Attribution types for the KYA Standard.
  *
- * @see Legal/KYA_STANDARD_v1.md
+ * @see Legal/KYA_SECURITY_v1.2.md (Know Your Agent — security foundation)
+ * @see Legal/KYA_OPTIMIZATION_v1.4.md (Know Your Architecture — autoresearch extensions)
  * @see DWS_SECURITY_STANDARD.md §18
  */
 

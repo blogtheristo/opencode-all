@@ -1418,7 +1418,7 @@ Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
 
 **Score recalculation triggers:** IDV webhook, agent tool request outside manifest, anomalous egress pattern, rate limit breach, manual operator override.
 
-**Fault Attribution:** When ATS drops below threshold, the fault is classified (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`) and stored in Supabase `kya_fault_attribution` (separate from Firehorse). See KYA Standard v1.1 §8.4.
+**Fault Attribution:** When ATS drops below threshold, the fault is classified (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`, `AUTORESEARCH_FAULT`) and stored in Supabase `kya_fault_attribution` (separate from Firehorse). See `Legal/KYA_SECURITY_v1.2.md` §9.4 (base classes) and `Legal/KYA_OPTIMIZATION_v1.4.md` §4.2 (AUTORESEARCH_FAULT).
 
 ### 18.4 BYO Agent Registration Gates
 

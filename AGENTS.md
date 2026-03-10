@@ -13,13 +13,13 @@
 
 ## 1. Project Context
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture:** Brain-Memory-Body-Hands
 
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
 **Tech stack:** React 19, Vite 7, TypeScript 5.9, TailwindCSS 4, Express 4, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
@@ -240,7 +240,7 @@ dws6/
 │  │  Microsoft CoWork | Tencent Workbuddy | Clawbot | Anthropic Cowork │     │
 │  │  Gate: KYA 6-Stage Registration (IDV → KYB → Capability → Sandbox) │     │
 │  │  Runtime: Firecracker MicroVM, zero shared kernel, KYA trust score │     │
-│  │  See: §18 BYO Lifecycle, Legal/KYA_STANDARD_v1.md                  │     │
+│  │  See: §18 BYO Lifecycle, Legal/KYA_SECURITY_v1.2.md                │     │
 │  └────────────────────────────────────────────────────────────────────┘     │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -835,7 +835,9 @@ Every BYO agent must submit a manifest at registration (Stage 1):
 | Standard | Section | Scope |
 |----------|---------|-------|
 | `DWS_SECURITY_STANDARD.md` | §14 (Sandbox Isolation), §18 (KYA & BYO) | Security controls, trust model |
-| `Legal/KYA_STANDARD_v1.md` | Full document | Technical proposal, compliance alignment |
+| `Legal/KYA_STANDARD_v1.md` | v1.0–v1.1 | Public foundational KYA document |
+| `Legal/KYA_SECURITY_v1.2.md` | v1.2 | Know Your Agent — identity, isolation, forensics, guardrails |
+| `Legal/KYA_OPTIMIZATION_v1.4.md` | v1.4 | Know Your Architecture — autoresearch, financial value, orchestrator |
 | `src/cloudflare/tenant-sandbox.ts` | Implementation | Sandbox tiers, rate limiting, usage tracking |
 | `docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md` | Field note | Partnership strategy, email drafts |
 | `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md` | Tech spec | Integration points for identity providers |
