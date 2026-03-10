@@ -167,7 +167,7 @@ Agents that self-optimize MUST operate within declared bounds with independent v
 - A factor contributions MUST pass third-party validation before counting toward ATS:
   - Independent metric measurement (not agent self-reported)
   - Distribution shift test (KS-test or Jensen-Shannon divergence between proxy and production)
-  - Spearman rank correlation > 0.85 between proxy and scale improvements
+  - Spearman rank correlation > 0.90 between proxy and scale improvements
   - Human domain expert sign-off for A > 0.15
 - All autoresearch proposals, validation deltas, and parameter changes MUST be immutably logged
 - MicroVM boundaries, kernel isolation, and egress rules are NEVER tunable by autoresearch
@@ -189,10 +189,11 @@ D = DENIED path access attempts
 ### 4.2 Extended Formula (with Autoresearch)
 
 ```
-ATS_extended = max(0, 1.0 - V*0.25 - L - D*0.05 + A*0.25)
+ATS_extended = max(0, 1.0 - V*0.25 - L - D*0.05 + A*0.18)
 
-A = validated autoresearch improvement factor (capped at 0.25)
-    Requires third-party validation gate before contributing
+A = validated autoresearch improvement factor (capped at 0.18)
+    Requires: proxy-to-scale correlation > 0.90, KS + JS divergence < 0.15,
+    72h human gate, third-party validation
 ```
 
 ### 4.3 Trust Tiers and Enforcement

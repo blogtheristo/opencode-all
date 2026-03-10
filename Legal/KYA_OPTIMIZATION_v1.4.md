@@ -1,4 +1,4 @@
-# KYA Standard v1.4 — Know Your Architecture: Financial Value & Governed Autonomy Optimization
+# KYA Standard v1.4 — Know Your Architecture: Financial Value & Agent Self-Optimization Governance
 
 ***
 # VERSION AND AGENT HISTORY
@@ -34,25 +34,31 @@ Related Documents:
 
 **DWS IQ Platform | Lifetime Oy**
 **Version:** KYA Architecture Standard v1.5
-**Status:** Production-Ready (Q2 2026 Launch — Governed Autonomy & Financial ROI Layer)
+**Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
 **Foundation Standard:** `Legal/KYA_SECURITY_v1.2.md` (Know Your Agent — identity, isolation, forensics)
 
 ---
 
-> **Govern the Autonomy. Monetize the Swarm.**
+> **Govern the Self-Optimization. Monetize the Swarm.**
 
 ---
 
-**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.2.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and governed autonomy safety. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
+### Why Dual KYA?
+
+**KYA** expands as **Know Your Agent** (security & identity — The No) or **Know Your Architecture** (financial optimization & agent self-optimization governance — The More) depending on audience. The same three letters cover both with zero overlap in content. CISOs get the security standard they need. CFOs get the financial model they need. One brand, two entry points.
+
+---
+
+**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.2.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and agent self-optimization governance. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
 
 ---
 
 ## Table of Contents
 
 1. [Core Upgrade Summary (v1.1 → v1.4)](#1-core-upgrade-summary-v11--v14)
-2. [Pillar 4: Autoresearch & Governed Autonomy Safety Layer](#2-pillar-4-autoresearch--governed-autonomy-safety-layer)
+2. [Pillar 4: Autoresearch & Agent Self-Optimization Governance Layer](#2-pillar-4-autoresearch--agent-self-optimization-governance-layer)
 3. [Agent Trust Score Extensions (v1.4)](#3-agent-trust-score-extensions-v14)
 4. [Capability Manifest v1.2](#4-capability-manifest-v12)
 5. [Financial Value Layer — 19 Industries](#5-financial-value-layer--19-industries)
@@ -68,7 +74,7 @@ Related Documents:
 
 ## 1. Core Upgrade Summary (v1.1 → v1.4)
 
-KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. The core assumption: any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables **governed autonomy** — where autonomous agents iteratively improve their own models, policies, and performance under hardware-attested safety bounds, with court-defensible audit trails and liability containment.
+KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. The core assumption: any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables **agent self-optimization governance** — where autonomous agents iteratively improve their own models, policies, and performance under hardware-attested safety bounds, delivering audit-ready self-optimization, liability containment, continuous efficiency gains, and faster deployment speed.
 
 The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autoresearch runs) that translate into measurable financial value across all 20 industries: reduced energy OPEX, faster compliance cycles, lower stranded-asset risk, and new revenue from AI-optimized industrial processes.
 
@@ -87,8 +93,8 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 
 | What Changed | v1.1 | v1.4 |
 |--------------|------|------|
-| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Governed Autonomy Safety) |
-| ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.25` |
+| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Agent Self-Optimization Governance) |
+| ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.18` |
 | Trust Score Table | 4 tiers, no financial column | **4 tiers + Financial Multiplier per tier** |
 | Financial Layer | None | **Per-industry ROI, €14–38B EU-wide by 2030** |
 | Manifest Schema | v1.1 (paths only) | **v1.2 (+ autoresearch, target metrics, financial attribution)** |
@@ -100,7 +106,7 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 
 ---
 
-## 2. Pillar 4: Autoresearch & Governed Autonomy Safety Layer
+## 2. Pillar 4: Autoresearch & Agent Self-Optimization Governance Layer
 
 Every governed agent can now run internal **autoresearch loops** (depth=12 → depth=24 scaling) under strict KYA bounds. Changes are proposed, validated on proxy models, stacked, and promoted only if they improve the target metric (validation loss, energy efficiency, emissions, latency, etc.). All experiments are immutably logged in Firehorse and attributed to the verified identity.
 
@@ -154,22 +160,23 @@ This turns autonomous self-optimization into enterprise-grade, auditable, financ
 ### 3.1 Updated Formula
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05 + A×0.25)
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05 + A×0.18)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
 L = 0.10 if avg_latency > 500ms
 D = DENIED path access attempts
-A = autoresearch improvement factor (capped at 0.25, validated on industry proxy metrics)
+A = autoresearch improvement factor (capped at 0.18, validated on industry proxy metrics)
     e.g., +0.11 for 11% energy efficiency gain; +0.09 for 9% process optimization
 ```
 
-**The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.25 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor.
+**The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.18 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor.
 
 **Third-Party Validation Gate (CRITICAL):** An agent that self-reports autoresearch gains can inflate A. To prevent gaming, A factor contributions require **independent validation** before contributing to ATS:
 
 | Validation Step | Requirement | Enforcement |
 |-----------------|-------------|-------------|
-| Proxy metric independently measured | Third-party benchmark or holdout dataset — never agent-reported metrics alone | Orchestrator validates against external reference |
+| Proxy-to-scale correlation | Spearman rank correlation > 0.90 between proxy and production improvements | Orchestrator validates automatically |
+| Distribution shift tests | Kolmogorov-Smirnov test + Jensen-Shannon divergence < 0.15 | Orchestrator blocks if distributions diverge |
 | Human domain expert sign-off | For A > 0.15, a qualified domain specialist must confirm the improvement is genuine | 72h human gate |
 | Cross-validation on unseen data | Improvement must reproduce on data the agent never accessed during autoresearch | Orchestrator runs holdout evaluation |
 | Temporal stability check | Improvement must persist for ≥48h in staging without degradation | Automated monitoring |
@@ -295,7 +302,7 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault Attribution** | EUR 5.00 per fault investigation record | Incident frequency x severity |
 | **Compliance Certificates** | EUR 500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
 | **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Alpha-Share** (v1.4) | **7.5% flat** of all attributed efficiency gains (OpEx reduction or revenue uplift) | Financial attribution from Firehorse → Supabase |
+| **Alpha-Share** (v1.4) | **6–10% tiered** of attributed efficiency gains (6% at ATS 0.50–0.79, 9% at ATS 0.80–0.94, 10% at ATS ≥ 0.95) | Financial attribution from Firehorse → Supabase |
 
 ### 5.5 Platform Revenue Projections (19 Industries, 2026–2030)
 
@@ -588,8 +595,8 @@ In Karpathy's work, depth=12 models served as proxies for depth=24 models. Chang
 
 Before promoting proxy results to full-scale:
 
-1. **Spearman Correlation check** — Proxy improvements must show Spearman rank correlation >0.85 with scale improvements on historical data (rank-based to resist outlier gaming)
-2. **Distribution shift test (MANDATORY)** — Correlation >0.85 is necessary but not sufficient. Before promotion, run a Kolmogorov-Smirnov test or Jensen-Shannon divergence check between proxy and production data distributions. If distributions diverge significantly (KS p-value < 0.05 or JS divergence > 0.1), the transfer is BLOCKED regardless of correlation score. This catches silent failures where proxy and production have different variance structures
+1. **Spearman Correlation check** — Proxy improvements must show Spearman rank correlation >0.90 with scale improvements on historical data (rank-based to resist outlier gaming)
+2. **Distribution shift test (MANDATORY)** — Correlation >0.90 is necessary but not sufficient. Before promotion, run a Kolmogorov-Smirnov test + Jensen-Shannon divergence check between proxy and production data distributions. If JS divergence > 0.15 or KS p-value < 0.05, the transfer is BLOCKED regardless of correlation score. This catches silent failures where proxy and production have different variance structures
 3. **Confidence interval** — Estimated improvement range must be statistically significant (p < 0.05)
 4. **Domain expert review** — Human specialist confirms the proxy-to-scale mapping is physically/logically valid
 5. **Rollback plan** — Automatic 24h rollback if scale results diverge from proxy predictions by >2x
@@ -684,7 +691,7 @@ Lifetime Oy's contribution is the **governance layer** that makes autoresearch e
 
 ## 12. Conclusion
 
-The KYA Architecture Standard v1.4 delivers **governed autonomy** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
+The KYA Architecture Standard v1.4 delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 
 Three principles govern this architecture:
 

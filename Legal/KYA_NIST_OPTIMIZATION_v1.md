@@ -202,7 +202,7 @@ Leash-Aware Self-Correction:
 ### 3.3 Validation Requirements
 
 Per KYA-NIST-SP-001 §3.4, all autoresearch improvements require:
-- Spearman rank correlation > 0.85 between proxy and scale
+- Spearman rank correlation > 0.90 between proxy and scale
 - KS-test or Jensen-Shannon divergence check (distribution shift detection)
 - Third-party validation (not agent self-reported metrics)
 - Human domain expert sign-off for A factor > 0.15

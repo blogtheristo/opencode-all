@@ -1,4 +1,4 @@
-# KYA Standard v1.4 — Know Your Agent: Governed Autonomy for Enterprise Agent Swarms
+# KYA Standard v1.4 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
 ***
 # VERSION AND AGENT HISTORY
@@ -35,20 +35,31 @@ Related Documents:
 
 **DWS IQ Platform | Lifetime Oy**
 **Version:** KYA Standard v1.4
-**Status:** Production-Ready (Q2 2026 Launch — Governed Autonomy & Financial ROI Layer)
+**Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026 (v1.4 update)
 **Previous:** v1.1 (Implementation Ready, Q1 2026)
 
 ---
 
-> **Verify the Human. Sandbox the Agent. Govern the Autonomy.**
+> **Verify the Human. Sandbox the Agent. Govern the Self-Optimization.**
+
+---
+
+### Why Dual KYA?
+
+**KYA** expands as **Know Your Agent** (security & identity — The No) or **Know Your Architecture** (financial optimization & agent self-optimization governance — The More) depending on audience. The same three letters cover both with zero overlap in content. This is intentional semantic engineering that gives CISOs and CFOs exactly what they need under one trusted brand.
+
+| Document | KYA Expansion | Audience | Function |
+|----------|--------------|----------|----------|
+| `KYA_SECURITY_v1.2.md` | Know Your **Agent** | CISOs, Security Architects, Regulators | The No — identity, isolation, kill, forensics |
+| `KYA_OPTIMIZATION_v1.4.md` | Know Your **Architecture** | CFOs, CTOs, Product Leaders | The More — efficiency, attribution, ROI |
 
 ---
 
 ## 1. Core Upgrade Summary (v1.1 → v1.4)
 
-KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. It assumes that any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables **governed autonomy** — where autonomous agents iteratively improve their own models, policies, and performance under hardware-attested safety bounds, with court-defensible audit trails.
+KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. It assumes that any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables **agent self-optimization governance** — where autonomous agents iteratively improve their own models, policies, and performance under hardware-attested safety bounds, with court-defensible audit trails.
 
 The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresearch runs) that translate into measurable financial value across all 16 Fit for 55 industries: reduced energy OPEX, faster compliance cycles, lower stranded-asset risk, and new revenue from AI-optimized industrial processes.
 
@@ -64,7 +75,7 @@ The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresea
 
 | What Changed | v1.1 | v1.4 |
 |--------------|------|------|
-| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Governed Autonomy Safety) |
+| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Agent Self-Optimization Governance Safety) |
 | ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.15` |
 | Trust Score Table | 4 tiers, no financial column | **4 tiers + Financial Multiplier per tier** |
 | Financial Layer | None | **Per-industry ROI, €14–38B EU-wide by 2030** |
@@ -139,7 +150,7 @@ Agent Syscall → Firehorse Telemetry → KYA Session → Verified Identity
                     Immutable Forensic Record
 ```
 
-### 2.4 Pillar 4: Autoresearch & Governed Autonomy Safety Layer (NEW in v1.4)
+### 2.4 Pillar 4: Autoresearch & Agent Self-Optimization Governance Safety Layer (NEW in v1.4)
 
 Every governed agent can now run internal **autoresearch loops** (depth=12 → depth=24 scaling) under strict KYA bounds. Changes are proposed, validated on proxy models, stacked, and promoted only if they improve the target metric (validation loss, energy efficiency, emissions, latency, etc.). All experiments are immutably logged in Firehorse and attributed to the verified identity.
 
@@ -885,7 +896,7 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ## 14. Conclusion
 
-The KYA Standard v1.4 delivers **governed autonomy** — the infrastructure for autonomous agents that improve themselves safely, auditably, and with financial accountability. Hardware isolation, real-time identity triggers, governed autoresearch, and the Orchestrator Layer make enterprise agent swarms audit-ready and liability-contained.
+The KYA Standard v1.4 delivers **agent self-optimization governance** — the infrastructure for autonomous agents that improve themselves safely, auditably, and with financial accountability. Hardware isolation, real-time identity triggers, governed autoresearch, and the Orchestrator Layer make enterprise agent swarms audit-ready and liability-contained.
 
 KYA v1.4 turns autonomous self-optimization from a research curiosity into enterprise-grade, financially quantifiable intelligence across 20 industries — from EU climate compliance to fintech, pharma, and cybersecurity. CISOs get the audit trail. CTOs get the efficiency gains. The board gets liability containment.
 

@@ -220,7 +220,7 @@ L = 0.10 if avg_latency > 500ms
 D = DENIED path access attempts
 ```
 
-**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with an autoresearch improvement factor (+A×0.25). This security standard uses the base formula without the A factor, because security scoring should not be inflatable by optimization performance.
+**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with an autoresearch improvement factor (+A×0.18, capped). This security standard uses the base formula without the A factor, because security scoring should not be inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 

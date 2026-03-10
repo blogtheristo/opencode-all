@@ -41,7 +41,7 @@ Financial projections in a NIST standards document weaken credibility. Standards
 | **Fault Attribution** | €5.00 per fault classification | Automated liability assignment |
 | **Compliance Certificates** | €500 per quarter per industry | CBAM, ETS, CSRD audit-ready reports |
 | **Insurance Discounts** | 8–15% premium reduction | Actuarial data from ATS + Firehorse |
-| **Alpha-Share** | **7.5% flat** of attributed efficiency gains | Financial attribution from governed autoresearch |
+| **Alpha-Share** | **6–10% tiered** of attributed efficiency gains | 6% (ATS 0.50–0.79), 9% (ATS 0.80–0.94), 10% (ATS ≥ 0.95) |
 
 ---
 
