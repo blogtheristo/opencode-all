@@ -63,10 +63,20 @@ We are opening the platform to **BYO (Bring Your Own) agents** and need Shufti t
 
 **Demo scenario:** User onboards via Shufti IDV → deploys BYO agent → Shufti flags AML hit → sandbox restricts egress in real-time.
 
-### 6. Commercial & Next Steps (2 min)
+### 6. Business Model & Next Steps (5 min)
 
-- Pricing model discussion (per-verification vs. monthly, volume)
-- PoC timeline (Q1-Q2 2026 target)
+**Framing:** DWS is not a typical Shufti customer buying verifications. DWS is a distribution channel bringing Shufti into a new market (AI agent identity) that no IDV vendor currently serves.
+
+- **PoC phase:** Free sandbox API access, both sides invest engineering time
+- **Post-PoC commercial model:**
+  - Revenue share: DWS customers pay for verification as part of DWS IQ subscription, Shufti gets per-verification revenue share
+  - OR: DWS resells Shufti as "KYA Verification" at markup, pays Shufti wholesale rate
+  - NOT: DWS as a standard Shufti customer paying retail per-verification rates
+- **What DWS brings to Shufti:**
+  - New market category (agent identity — no competing IDV vendor is here)
+  - Enterprise pipeline across 20 EU-regulated industries
+  - Every DWS customer = recurring Shufti verification volume
+  - Case study / co-marketing opportunity in AI governance space
 - Technical contact exchange
 - Follow-up meeting schedule
 
@@ -133,16 +143,21 @@ We are opening the platform to **BYO (Bring Your Own) agents** and need Shufti t
 ### Fallback plan
 If ongoing monitoring isn't available: (a) DWS cron triggers periodic Shufti re-verification, or (b) add Sumsub later for transaction monitoring while keeping Shufti for onboarding.
 
-### Budget estimate
-- Setup: ~$1,250-$2,500 one-time
-- Per verification: $0.20-$0.75
-- PoC cost: minimal with sandbox credentials
+### Budget & monetization strategy
+- **PoC phase:** Should cost DWS nothing. Ask for free sandbox API access. Both sides invest engineering time.
+- **Shufti retail pricing:** $0.20-$0.75/verification + $1,250-$2,500 setup. DO NOT agree to this — this is their standard customer pricing.
+- **Target commercial model:** Revenue share or wholesale resale. DWS charges customers for "KYA Verification" as part of the platform subscription, pays Shufti a wholesale per-verification rate (target: $0.05-$0.15/verification).
+- **Negotiation leverage:** DWS is a distribution channel into a market Shufti doesn't serve yet (AI agent identity). Every DWS customer = recurring Shufti volume. This is worth more than one customer paying retail.
+- **Timing:** Don't discuss money on March 17. Focus on PoC. Commercial terms after demo works. You have more leverage with a working demo than with a slide deck.
+
+### Key negotiation principle
+"We already built the integration. We're not asking you to teach us or build anything. We need API credentials to connect our code to your API. The business question isn't 'how much do we pay you' — it's 'how do we both make money from a new market category.'"
 
 ## Materials to Share
 
+- **KYA Technical Whitepaper** (`2026-03-17-shufti-kya-whitepaper.md`) — send to Shufti engineers post-call so they can review architecture, API contracts, and webhook specs async. This replaces the need for you to explain technical details on the call.
 - KYA Technical Requirements document (attached or post-call)
-- Integration architecture diagram
-- DWS IQ platform overview presentation
+- DWS IQ platform overview presentation (HTML slides)
 
 ---
 
