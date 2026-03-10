@@ -1,4 +1,4 @@
-# KYA Standard v1.4 — Know Your Architecture: Financial Value & Singularity-Ready Optimization
+# KYA Standard v1.4 — Know Your Architecture: Financial Value & Governed Autonomy Optimization
 
 ***
 # VERSION AND AGENT HISTORY
@@ -34,25 +34,25 @@ Related Documents:
 
 **DWS IQ Platform | Lifetime Oy**
 **Version:** KYA Architecture Standard v1.5
-**Status:** Singularity-Ready (Q2 2026 Launch — Research-as-a-Service & Financial ROI Layer)
+**Status:** Production-Ready (Q2 2026 Launch — Governed Autonomy & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
 **Foundation Standard:** `Legal/KYA_SECURITY_v1.2.md` (Know Your Agent — identity, isolation, forensics)
 
 ---
 
-> **Govern the Singularity. Monetize the Swarm.**
+> **Govern the Autonomy. Monetize the Swarm.**
 
 ---
 
-**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.2.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and singularity safety. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
+**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.2.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and governed autonomy safety. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
 
 ---
 
 ## Table of Contents
 
 1. [Core Upgrade Summary (v1.1 → v1.4)](#1-core-upgrade-summary-v11--v14)
-2. [Pillar 4: Autoresearch & Singularity Safety Layer](#2-pillar-4-autoresearch--singularity-safety-layer)
+2. [Pillar 4: Autoresearch & Governed Autonomy Safety Layer](#2-pillar-4-autoresearch--governed-autonomy-safety-layer)
 3. [Agent Trust Score Extensions (v1.4)](#3-agent-trust-score-extensions-v14)
 4. [Capability Manifest v1.2](#4-capability-manifest-v12)
 5. [Financial Value Layer — 19 Industries](#5-financial-value-layer--19-industries)
@@ -68,7 +68,7 @@ Related Documents:
 
 ## 1. Core Upgrade Summary (v1.1 → v1.4)
 
-KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. The core assumption: any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables safe progression toward the **Agent Singularity** — where autonomous agents iteratively improve their own models, policies, and performance without human iteration bottlenecks.
+KYA v1.4 moves beyond "Model-as-a-Service" to **Research-as-a-Service**. The core assumption: any system deployed is merely a "base state" that an agent swarm should immediately begin optimizing against real-world telemetry. This directly enables **governed autonomy** — where autonomous agents iteratively improve their own models, policies, and performance under hardware-attested safety bounds, with court-defensible audit trails and liability containment.
 
 The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autoresearch runs) that translate into measurable financial value across all 20 industries: reduced energy OPEX, faster compliance cycles, lower stranded-asset risk, and new revenue from AI-optimized industrial processes.
 
@@ -87,7 +87,7 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 
 | What Changed | v1.1 | v1.4 |
 |--------------|------|------|
-| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Singularity Safety) |
+| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Governed Autonomy Safety) |
 | ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.25` |
 | Trust Score Table | 4 tiers, no financial column | **4 tiers + Financial Multiplier per tier** |
 | Financial Layer | None | **Per-industry ROI, €14–38B EU-wide by 2030** |
@@ -100,7 +100,7 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 
 ---
 
-## 2. Pillar 4: Autoresearch & Singularity Safety Layer
+## 2. Pillar 4: Autoresearch & Governed Autonomy Safety Layer
 
 Every governed agent can now run internal **autoresearch loops** (depth=12 → depth=24 scaling) under strict KYA bounds. Changes are proposed, validated on proxy models, stacked, and promoted only if they improve the target metric (validation loss, energy efficiency, emissions, latency, etc.). All experiments are immutably logged in Firehorse and attributed to the verified identity.
 
@@ -684,7 +684,7 @@ Lifetime Oy's contribution is the **governance layer** that makes autoresearch e
 
 ## 12. Conclusion
 
-The KYA Architecture Standard v1.4 delivers **singularity-readiness** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat.
+The KYA Architecture Standard v1.4 delivers **governed autonomy** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 
 Three principles govern this architecture:
 
