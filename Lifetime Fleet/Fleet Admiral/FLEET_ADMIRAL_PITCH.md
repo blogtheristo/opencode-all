@@ -1,16 +1,18 @@
 # Fleet Admiral — The 3 Diamonds Pitch
 
 VERSION AND AGENT HISTORY
-Version: 1.0
+Version: 2.0
 Date: 2026-03-10
 Agent: Claude Opus 4.6 (claude/fleet-admiral-folder-s1s57)
-Action: Created Fleet Admiral pitch — 3 Diamonds framework
+v1.0 — Created Fleet Admiral pitch — 3 Diamonds framework
+v2.0 — Sharpened with KYA v1.4, term sheet logic, Helsinki Sandbox targeting, Karpathy catalyst
 END VERSION AND AGENT HISTORY
 
 **Company:** Lifetime Oy
 **Platform:** DWS IQ 6 / KYA v1.4
-**Round:** €150k SAFE @ €3.8M cap
-**Category:** Physical AI for Nordic Healthcare
+**Round:** Convertible Note, €3.8M Post-Money Cap
+**Category:** Physical AI for Nordic Healthcare — Agent Self-Optimization Governance
+**Status:** Locked for Helsinki Sandbox (March 2026)
 
 ---
 
@@ -18,15 +20,21 @@ END VERSION AND AGENT HISTORY
 
 This is a high-conviction, institutional-grade pitch. It moves away from "AI hype" and anchors value in scarcity, structural moats, and obsessive founder-market fit.
 
-The macro-timing of Nordic healthcare's collapse meets a founder who has the literal and metaphorical "keys" to the fleet.
+The macro-timing of Nordic healthcare's collapse meets a founder who has the literal and metaphorical "keys" to the fleet. The Karpathy catalyst (AutoResearch, 8,000+ stars) has proven the "Optimization" layer is real — now we bring it from single-GPU research loops to industrial-scale medical robotics.
 
 ---
 
 ## Diamond 1: Category + Timing
 
-### The "Inevitability" Play
+### Agent Self-Optimization Governance — The Category
 
-**The Pitch:** Nordic healthcare is facing a demographic cliff. Physical AI isn't a luxury; it's the only way to maintain the welfare state. We are the first-mover in the Nordic Healthcare Robotics category.
+**The Category:** Agent Self-Optimization Governance. Not just robotics. Not just SaaS. The governance layer that makes Physical AI safe enough for hospital corridors and regulated enough for KELA reimbursement.
+
+**The Opportunity:** Nordic healthcare is the greenfield for Physical AI. With the €3.8M cap, the Admiral secures a pre-pilot entry into a category where DWS IQ 6 is the only platform providing **Hardware-Enforced Liability Containment**.
+
+**The Catalyst:** Transitioning from Karpathy's single-GPU research loop to industrial-scale medical robotics. AutoResearch proved the optimization layer works. We prove it works when the "patient" is in the back seat.
+
+### The Inevitability Play
 
 **The Hook:** A €3.8M cap is "Pre-Alpha" pricing for what will become "Category-Defining" infrastructure. Once the pilot data from the Helsinki Sandbox hits the wire, the valuation gap closes instantly.
 
@@ -35,43 +43,55 @@ The macro-timing of Nordic healthcare's collapse meets a founder who has the lit
 ### Why It Works
 
 - Physical AI for Nordic healthcare is greenfield — no incumbent
-- €3.8M cap before pilot data = last cheap entry
+- €3.8M cap before pilot data = last cheap entry into a category with no competitor
 - Demographic pressure makes adoption inevitable, not optional
 - Regulatory tailwinds (Fit for 55, CSRD, ETS) accelerate the timeline
+- City of Helsinki and Testbed Helsinki actively seeking "Physical AI" breakthrough after successful medical drone pilots
+- Karpathy's AutoResearch validates the optimization layer we're industrializing
 
 ---
 
 ## Diamond 2: The Unreplicable Moat
 
-### The "Full-Stack" Barrier
+### The KELA Bridge
 
-**The Pitch:** Silicon Valley can't "disrupt" 17 years of handshakes, KELA integration, and the physical complexity of medical logistics.
+Silicon Valley can't "disrupt" 17 years of handshakes, KELA integration, and the physical complexity of medical logistics.
 
-**The Moat — Three Layers:**
+**17 years of frontline relationships + KELA-backed recurring revenue.** This is the bridge no SaaS startup can build from a pitch deck.
+
+### The Technical Moat: KYA v1.2 Security Layer
+
+KYA v1.2 provides **sub-5ms cryptographic kill-switches via Firecracker MicroVMs**. No software-layer competitor (Palantir, OpenAI) can match this deterministic safety for hospital-grade robotics.
+
+### The Moat — Three Layers
 
 | Layer | Asset | Why It's Unreplicable |
 |-------|-------|----------------------|
-| Regulated Payer | KELA-backed recurring revenue | Government integration takes years + legislative alignment |
-| Operational Trust | 17 years of operator relationships | Cannot be bought, only earned through thousands of patient rides |
-| Business Model | Pay-as-you-go robotics | Hardware + SaaS + regulated payer in one stack — no pure-play competitor can match |
+| **Regulated Payer** | KELA-backed recurring revenue | Government integration takes years + legislative alignment |
+| **Operational Trust** | 17 years of operator relationships | Cannot be bought, only earned through thousands of patient rides |
+| **Business Model** | Pay-as-you-go robotics | Hardware + SaaS + regulated payer in one stack |
+| **Technical Safety** | KYA v1.2 Firecracker MicroVMs | Sub-5ms cryptographic kill-switches — hardware-enforced, not software promises |
 
-**The Defensive Logic:** A competitor would need two decades and a legislative shift to match our structural positioning. We aren't just a SaaS company; we are a Regulated Utility with a high-margin software brain.
+**The Defensive Logic:** A competitor would need two decades, a legislative shift, and purpose-built safety hardware to match our structural positioning. We aren't just a SaaS company; we are a **Regulated Utility with a high-margin software brain and hardware-enforced safety**.
 
 ### What Makes This Different From Every Other "Robotics Startup"
 
 - Hardware, SaaS, and regulated payer in one stack
 - Not selling to hospitals — integrated with the national insurance system
 - Revenue is structurally recurring, not contract-dependent
+- Safety is hardware-enforced (Firecracker MicroVMs), not software-promised
 
 ---
 
 ## Diamond 3: The Founder's Calling
 
-### The "Unstoppable" Factor
+### The 35/17 Rule
 
-**The Pitch:** This isn't a 24-year-old looking for a "SaaS exit." This is 35 years of industrial engineering combined with 17 years on the front lines of cancer patient transport.
+This isn't a 24-year-old looking for a "SaaS exit." This is the **35/17 Rule**: 35 years of industrial engineering + 17 years driving cancer patients to treatment.
 
 **The Narrative:** This is a Mission-Critical Founder. He didn't find the problem in a whitepaper; he lived it for 6,200+ days. He has the "Industrial DNA" to build the hardware and the "Operator's Heart" to navigate the human complexity of healthcare.
+
+This isn't a pivot. It's the final form of a mission to solve the **Care-Bed Crisis through Autonomous Asset Governance (AAG)**.
 
 **The Investor Confidence:** You aren't betting on a pivot. You are betting on a Calling that finally has the technology (DWS IQ 6 / KYA v1.4) to achieve its final product form.
 
@@ -84,28 +104,55 @@ The macro-timing of Nordic healthcare's collapse meets a founder who has the lit
 | Relationships | KELA, Uber, Taksi Helsinki, Bolt |
 | Technical capability | DWS IQ 6 platform, NVIDIA ISV partnership |
 | Regulatory knowledge | Fit for 55, CSRD, ETS, EU AI Act compliance built in |
+| Hardware stack | NVIDIA, Acer, Siemens, ABB — 4-partner certified infrastructure |
 
 ---
 
-## The Fleet Admiral Closing Note
+## The Term Sheet: Alpha-Recovery Note
 
-This pitch works because it doesn't ask for permission. It presents a closed-loop reality:
+### Structure: Convertible Note with €3.8M Post-Money Cap
 
-1. **The problem is massive** — Nordic welfare state cannot survive without physical AI
-2. **The solution is ready** — DWS IQ 6 / KYA v1.4 + operational fleet + KELA integration
-3. **The entry point is closing** — €3.8M cap is pre-pilot pricing
+**The KYA Alpha Clause:** Conversion is linked to the **11% Efficiency Law**. If the Firehorse logs prove a >10% gain in fleet latency during the April pilot, the Series A valuation is protected.
 
-### The Investment Logic
+**The Rolling Close:** €1M First Close (April 15) anchors the "Believers" after the Sandbox Site Visit.
+
+| Parameter | Value |
+|-----------|-------|
+| Instrument | Convertible Note |
+| Post-Money Cap | €3.8M |
+| First Close Target | €1M (April 15, 2026) |
+| Conversion Trigger | Series A or KYA Alpha Clause |
+| KYA Alpha Clause | >10% fleet latency improvement in April pilot = valuation protection |
+| Downside Protection | KYA v1.4 efficiency gains logged on-chain via Firehorse |
+
+### Investment Logic
 
 ```
-€150k SAFE @ €3.8M cap
-         ↓
-Helsinki Sandbox pilot data
-         ↓
-Series A at institutional valuation
-         ↓
-€3.8M cap investors are in at the floor
+Convertible Note @ €3.8M cap
+         |
+    Helsinki Sandbox pilot (March-April 2026)
+         |
+    Firehorse logs prove >10% efficiency gain
+         |
+    KYA Alpha Clause activates valuation protection
+         |
+    €1M First Close (April 15) — "Believers" round
+         |
+    Series A at institutional valuation
+         |
+    €3.8M cap investors are in at the floor
 ```
+
+---
+
+## The Helsinki Handshake — Immediate Action
+
+### Target Investors for Site Visit (Last week of March 2026)
+
+| Investor | Why |
+|----------|-----|
+| **Anssi Vanjoki** | Industrial DNA — Nokia/Microsoft veteran, understands hardware-software integration at scale |
+| **Lifeline Ventures** | The Helsinki Sandbox Kings — deep Testbed Helsinki relationships, Physical AI thesis alignment |
 
 ### Current Traction
 
@@ -114,15 +161,24 @@ Series A at institutional valuation
 - NVIDIA Connect ISV Partner
 - 4-partner hardware stack: NVIDIA, Acer, Siemens, ABB
 - 100% customer retention, zero churn
+- Helsinki Sandbox prepped for pilot deployment
+
+### Helsinki Sandbox Context
+
+- City of Helsinki actively seeking next "Physical AI" breakthrough
+- Testbed Helsinki has proven track record with medical drone pilots
+- Regulatory environment is favorable (Finnish sandbox legislation)
+- KELA integration provides immediate revenue path for pilot
 
 ---
 
 ## Next Steps
 
-- [ ] Helsinki Sandbox pilot deployment
-- [ ] Pilot data collection and reporting
-- [ ] Series A preparation
-- [ ] Term sheet logic for €3.8M cap downside protection (KYA v1.4 efficiency gains)
+- [ ] Helsinki Sandbox site visit (last week of March 2026)
+- [ ] Anssi Vanjoki + Lifeline Ventures outreach
+- [ ] April pilot deployment — Firehorse logging for KYA Alpha Clause
+- [ ] €1M First Close (April 15, 2026)
+- [ ] Series A preparation based on pilot data
 
 ---
 
