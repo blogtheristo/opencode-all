@@ -74,14 +74,50 @@ We are opening the platform to **BYO (Bring Your Own) agents** and need Shufti t
 
 ## Key Questions for Shufti
 
-1. **Webhook reliability** — Delivery guarantees? Retry policy? Dead letter queue?
-2. **Risk score granularity** — Continuous 0–100? Sub-scores for AML, fraud, document separately?
-3. **KYB capability** — Can Shufti verify the organization behind a BYO agent?
-4. **Latency under load** — Real-time IDV response time? Webhook delivery latency?
-5. **Sandbox/test environment** — API sandbox with mock verification flows for PoC?
-6. **EU data residency** — Can Shufti process data in EU-only (Finland/Germany)?
+### Critical (make-or-break for PoC)
+
+1. **Risk score format** — Is the score pass/fail, categorical, or continuous 0–100? Can we get sub-scores for AML, fraud, and document separately? (DWS needs numeric input for the KYA trust formula)
+2. **Ongoing AML monitoring** — Do you offer continuous post-onboarding monitoring (user added to sanctions list months later), or only point-in-time checks at verification?
+3. **EU data residency** — Can all PII processing be guaranteed EU-only (GDPR/NIS2)? Which data centers?
+
+### Important (affects architecture)
+
+4. **Webhook reliability** — What are retry policies and guaranteed delivery SLAs? Dead letter queue? P99 delivery latency for high-concurrency notifications?
+5. **Latency** — P99 response time for automated document verification vs. manual fallback review?
+6. **Sandbox/test environment** — Do you provide a mock environment that simulates specific failure states (expired ID, high-risk flag, AML hit)?
+
+### Nice to have (PoC scoping)
+
+7. **KYB depth** — How do you handle deep-tier beneficial ownership verification for corporate entities deploying agents?
+8. **Pricing for PoC** — Sandbox API access cost? Per-verification pricing at low volume (<100/month)?
 
 ---
+
+## Realistic Expectations (Internal — Do Not Share)
+
+### What Shufti can definitely do
+- Onboarding IDV (document + face + liveness) — their core product, REST API, well-documented
+- KYB org verification — business registry checks, 1,700+ watchlists
+- Webhook on verification status change (accepted/declined/review)
+- On-premise deployment option for EU data residency
+
+### What needs confirmation on the call
+- **Ongoing AML monitoring** — most IDV vendors do point-in-time, not continuous. This is the make-or-break for L5.
+- **Risk score granularity** — may be pass/fail, not 0-100 numeric. If so, DWS needs to derive its own score.
+- **Webhook latency** — "5 second sandbox restriction" depends on Shufti's delivery speed, likely async.
+
+### What's probably not realistic
+- Shufti co-marketing "Zero-Trust Agent Workspace" — they process millions of verifications, a PoC partner won't drive their roadmap
+- Real-time (<5s) webhook SLA with contractual guarantee
+- Volume pricing negotiation — premature without actual volume
+
+### Fallback plan
+If ongoing monitoring isn't available: (a) DWS cron triggers periodic Shufti re-verification, or (b) add Sumsub later for transaction monitoring while keeping Shufti for onboarding.
+
+### Budget estimate
+- Setup: ~$1,250-$2,500 one-time
+- Per verification: $0.20-$0.75
+- PoC cost: minimal with sandbox credentials
 
 ## Materials to Share
 
