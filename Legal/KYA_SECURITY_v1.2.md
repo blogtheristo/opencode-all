@@ -1,14 +1,14 @@
-# KYA Standard v1.1 — Know Your Agent: Identity, Isolation & Forensics
+# KYA Standard v1.2 — Know Your Agent: Identity, Isolation & Forensics
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1.1
+Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§9) — Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution in Supabase (§9.4), Agent Trust Score formula with executable engine (src/identity/ats-engine.ts)
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Combined KYA Standard — Subagent Registry, Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution, Agent Trust Score formula (see Legal/KYA_STANDARD_v1.md — public document)
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (see Legal/KYA_STANDARD_v1.md — public document)
 
 Document Status:
   - Created: 09.03.2026
@@ -30,7 +30,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Security Standard v1.1.1
+**Version:** KYA Security Standard v1.2
 **Status:** Implementation Ready (Q1 2026 Launch)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -67,13 +67,13 @@ As enterprises deploy autonomous AI agents — their own and third-party "BYO" (
 
 **KYA is the security foundation.** This standard defines the "No" — identity attribution, capability gating, forensic observability, and the hardware isolation that makes BYO agents safe. For the "More" — financial value, autoresearch optimization, and agent swarm governance — see the companion standard: `Legal/KYA_OPTIMIZATION_v1.4.md`.
 
-KYA bridges this gap with three pillars (plus two security extensions in v1.1.1):
+KYA bridges this gap with three pillars (plus two security extensions in v1.2):
 
 1. **Identity Attribution** — Every agent session is cryptographically anchored to a KYC-verified human or entity
 2. **Capability Gating** — Agent permissions are dynamically adjusted based on real-time risk signals
 3. **Forensic Observability** — An immutable audit trail links every agent action to its verified owner
-4. **Agent Identity Watermarking** (v1.1.1) — Cryptographic provenance embedded in every agent output
-5. **Behavioral Guardrails** (v1.1.1) — Pre-execution boundary enforcement beyond path-level gating
+4. **Agent Identity Watermarking** (v1.2) — Cryptographic provenance embedded in every agent output
+5. **Behavioral Guardrails** (v1.2) — Pre-execution boundary enforcement beyond path-level gating
 
 ---
 
@@ -134,7 +134,7 @@ Agent Syscall → Firehorse Telemetry → KYA Session → Verified Identity
                     Immutable Forensic Record
 ```
 
-### 2.4 Agent Identity Watermarking (v1.1.1)
+### 2.4 Agent Identity Watermarking (v1.2)
 
 Every output produced by a KYA-governed agent carries a **cryptographic watermark** that embeds provenance metadata directly into the output. This enables post-hoc attribution even when outputs are forwarded, copied, or integrated into downstream systems.
 
@@ -160,9 +160,9 @@ Every output produced by a KYA-governed agent carries a **cryptographic watermar
 - Detect if an agent output has been tampered with after production
 - Resolve disputes: "Which agent produced this calculation?" → watermark answers instantly
 
-### 2.5 Behavioral Guardrails (v1.1.1)
+### 2.5 Behavioral Guardrails (v1.2)
 
-Beyond path-level access control (Pillar 2) and post-hoc forensics (Pillar 3), v1.1.1 introduces **pre-execution behavioral guardrails** — constraints evaluated *before* an agent action executes, not after.
+Beyond path-level access control (Pillar 2) and post-hoc forensics (Pillar 3), v1.2 introduces **pre-execution behavioral guardrails** — constraints evaluated *before* an agent action executes, not after.
 
 **Guardrail Categories:**
 

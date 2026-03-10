@@ -20,7 +20,7 @@ Document Status:
   - Document Type: Technical Standard / Financial & Optimization Architecture
 
 Related Documents:
-  - Legal/KYA_SECURITY_v1.1.md (Companion: Know Your Agent v1.1 — REQUIRED FOUNDATION)
+  - Legal/KYA_SECURITY_v1.2.md (Companion: Know Your Agent v1.1 — REQUIRED FOUNDATION)
   - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
   - docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology)
   - 16-INDUSTRIES.md (16 EU-regulated industries)
@@ -33,7 +33,7 @@ Related Documents:
 **Status:** Singularity-Ready (Q2 2026 Launch — Research-as-a-Service & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
-**Foundation Standard:** `Legal/KYA_SECURITY_v1.1.md` (Know Your Agent — identity, isolation, forensics)
+**Foundation Standard:** `Legal/KYA_SECURITY_v1.2.md` (Know Your Agent — identity, isolation, forensics)
 
 ---
 
@@ -41,7 +41,7 @@ Related Documents:
 
 ---
 
-**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.1.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and singularity safety. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
+**Dependency:** Requires Know Your Agent v1.1 (`Legal/KYA_SECURITY_v1.2.md`) as foundation. This standard extends KYA governance with autoresearch capabilities, financial attribution, and singularity safety. Know Your Agent provides Identity Attribution, Capability Gating, and Forensic Observability. Know Your Architecture builds the financial, optimization, and orchestration layers on top.
 
 ---
 
@@ -161,7 +161,7 @@ A = autoresearch improvement factor (capped at 0.25, validated on industry proxy
 
 **The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.25 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor.
 
-**Security baseline (without A factor):** See `Legal/KYA_SECURITY_v1.1.md` §3. The security standard uses `ATS = max(0, 1.0 - V×0.25 - L - D×0.05)` — security scoring is never inflatable by optimization performance.
+**Security baseline (without A factor):** See `Legal/KYA_SECURITY_v1.2.md` §3. The security standard uses `ATS = max(0, 1.0 - V×0.25 - L - D×0.05)` — security scoring is never inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 
@@ -182,7 +182,7 @@ A = autoresearch improvement factor (capped at 0.25, validated on industry proxy
 
 ### 4.1 Autoresearch Extensions
 
-The Capability Manifest v1.2 extends the v1.1 path-scoped schema (see `Legal/KYA_SECURITY_v1.1.md` §9.1) with autoresearch governance fields:
+The Capability Manifest v1.2 extends the v1.1 path-scoped schema (see `Legal/KYA_SECURITY_v1.2.md` §9.1) with autoresearch governance fields:
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -218,7 +218,7 @@ The Capability Manifest v1.2 extends the v1.1 path-scoped schema (see `Legal/KYA
 
 ### 4.2 AUTORESEARCH_FAULT Class
 
-v1.4 adds a new fault classification to the existing fault attribution system (see `Legal/KYA_SECURITY_v1.1.md` §9.4):
+v1.4 adds a new fault classification to the existing fault attribution system (see `Legal/KYA_SECURITY_v1.2.md` §9.4):
 
 | Fault Class | Responsible Component | Example |
 |-------------|----------------------|---------|
@@ -619,7 +619,7 @@ This section standardizes how KYA-governed agents perform hyperparameter tuning 
 ### 11.1 What We Own
 
 **Lifetime Oy owns the KYA governance layer:**
-- The KYA Standard (this document and `Legal/KYA_SECURITY_v1.1.md`)
+- The KYA Standard (this document and `Legal/KYA_SECURITY_v1.2.md`)
 - The Agent Trust Score formula and engine (`src/identity/ats-engine.ts`)
 - The Orchestrator Layer architecture
 - The Firehorse forensic audit trail
@@ -661,7 +661,7 @@ Three principles govern this architecture:
 - **The Stacking Effect** guarantees that those improvements compound — twenty 0.5% gains become a 10.5% competitive moat
 - **The Orchestrator Layer** manages the swarm at scale — killing failures early, promoting winners, and enforcing budget discipline
 
-Combined with **KYA governance** (identity attribution, capability gating, forensic observability from `Legal/KYA_SECURITY_v1.1.md`), every optimization is attributed, auditable, and owned. Financial value flows through 19 industries — from EU climate compliance to fintech, pharma, and cybersecurity.
+Combined with **KYA governance** (identity attribution, capability gating, forensic observability from `Legal/KYA_SECURITY_v1.2.md`), every optimization is attributed, auditable, and owned. Financial value flows through 19 industries — from EU climate compliance to fintech, pharma, and cybersecurity.
 
 **Implement today. The swarm is already tuning. KYA makes sure it stays yours.**
 
@@ -669,7 +669,7 @@ Combined with **KYA governance** (identity attribution, capability gating, foren
 
 ### Related Documents
 
-- `Legal/KYA_SECURITY_v1.1.md` — Companion: Know Your Agent v1.1.1 (REQUIRED FOUNDATION)
+- `Legal/KYA_SECURITY_v1.2.md` — Companion: Know Your Agent v1.2 (REQUIRED FOUNDATION)
 - `DWS_SECURITY_STANDARD.md` — Section 18: KYA & BYO Agent Security
 - `docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md` — Autoresearch methodology field note
 - `16-INDUSTRIES.md` — 16 EU-regulated industries
