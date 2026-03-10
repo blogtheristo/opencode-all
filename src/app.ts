@@ -14,6 +14,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
@@ -28,6 +29,9 @@ import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
+import paymentRoutes from './routes/payment.routes.js';
+import hilRoutes from './routes/hil.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -187,6 +191,9 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
+// Payment proxy (PayPal, Revolut subscription checkout)
+app.use('/api/v1/payments', paymentRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
@@ -207,6 +214,24 @@ app.use('/api/situation-room', situationRoomRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// Project delivery status (investor view) — dashboard fetches latest on admin login
+app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
+  const configPath = path.join(process.cwd(), 'config', 'project-delivery-status.json');
+  const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
+  try {
+    const raw = fs.readFileSync(configPath, 'utf-8');
+    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    res.json({
+      timestamp: data.timestamp ?? fallback.timestamp,
+      mvp: data.mvp ?? fallback.mvp,
+      v1: data.v1 ?? fallback.v1,
+      dws7: data.dws7 ?? fallback.dws7,
+    });
+  } catch {
+    res.json(fallback);
+  }
+});
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
