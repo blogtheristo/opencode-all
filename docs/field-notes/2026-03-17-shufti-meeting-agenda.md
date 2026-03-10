@@ -150,9 +150,10 @@ If Shufti doesn't offer partnership terms, these are real alternatives — ranke
 | Provider | HQ | Strengths for DWS | Weaknesses | Partnership Likelihood |
 |----------|----|--------------------|------------|----------------------|
 | **Veriff** | Estonia | Nordic company, developer-friendly API, fellow Nordic operator — easiest to negotiate with. Strong biometrics. | Smaller enterprise presence than Entrust/Jumio | **HIGH** — Nordic solidarity, hungry for enterprise use cases |
-| **Signicat** | Norway | Nordic-native, specializes in eID and regulated industries. Strong fit for healthcare/KELA. Knows Nordic regulatory landscape. | Less known outside Nordics, smaller global coverage | **HIGH** — perfect regulatory fit, would value AI agent angle |
+| **Signicat** | Norway (Finnish roots) | **TOP PICK if Shufti fails.** eID-native, deep Finnish market presence, already embedded in regulated industries including healthcare. Will understand KELA context without explanation. Nordic HQ in Oslo but Finnish operations. | Less known outside Nordics, smaller global coverage | **HIGHEST** — perfect regulatory fit, Finnish market knowledge, would value AI agent angle |
 | **iDenfy** | Lithuania | EU-first, competitive pricing, NFC + biometrics. Smaller = hungrier for partnerships. | Less enterprise credibility, smaller team | **HIGH** — would likely offer best commercial terms |
 | **Onfido (Entrust)** | UK/US | Strong EU presence, GDPR-native, excellent API docs. Entrust acquisition = enterprise-grade backing. | Post-acquisition bureaucracy, harder to get partnership terms from a large corp | **MEDIUM** — good tech, but Entrust sales cycle is slow |
+| **Nets (Nexi)** | Denmark/Finland | Danish-Finnish, runs Nordic payment infrastructure. Identity layer built on actual financial transaction data. Strong in Nordic financial identity. | Primarily payments company, IDV is secondary. May not have deep AML screening. | **HIGH** — Nordic roots, financial infrastructure credibility, would value AI governance angle |
 | **Jumio** | US | Strongest enterprise credibility, comprehensive compliance stack. | Most expensive, US-headquartered (data residency complexity), enterprise sales cycle | **LOW** — would treat DWS as a customer, not a partner |
 
 **Telia ID — Existing Supplier (ACE CARD)**
@@ -165,7 +166,7 @@ Telia is already a DWS/Lifetime supplier. This changes the entire negotiation dy
 - Telia may lack deep AML/sanctions screening, but for L1 identity (Finnish customers) it's arguably stronger than any foreign IDV vendor
 - **Hybrid model:** Telia for L1 identity (Finnish/Nordic customers) + specialist for L5 continuous AML monitoring
 
-**If Shufti doesn't partner:** The path is Telia ID for Finnish/Nordic identity + Veriff or Signicat for AML/sanctions layer. Two Nordic vendors, no foreign data transfers, strongest possible compliance posture.
+**If Shufti doesn't partner:** The path is **Signicat** (eID + regulated industries, understands Finnish healthcare/KELA natively) + **Telia ID** for carrier-backed identity. All Nordic, no foreign data transfers, strongest possible compliance posture. Signicat is the #1 alternative — they won't need the KELA context explained to them.
 
 **Strategy:** Don't mention Telia or any competitors on the Shufti call. But internally, know that walking away costs DWS almost nothing — you already have an identity provider. Shufti is an upgrade opportunity, not a dependency.
 
