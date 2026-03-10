@@ -431,8 +431,39 @@
     </div>
   </div>
 
-  <!-- Slide 5: Trust Score -->
+  <!-- Slide 5: KYA Visual Pyramid -->
   <div class="slide" id="slide-5">
+    <div class="content">
+      <h2>KYA Trust Layers — <span class="highlight">Visual Architecture</span></h2>
+      <p class="subtitle">Identity verification flows upward from human to continuous monitoring</p>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 32px;">
+        <div style="width: 35%; background: rgba(249,115,22,0.2); border: 2px solid var(--orange); border-radius: 8px; padding: 14px; text-align: center;">
+          <strong class="highlight-orange">L5 — Continuous Risk</strong><br>
+          <span class="text-dim text-sm">Shufti webhooks fire on AML/sanctions changes &rarr; sandbox adjusts in real-time</span>
+        </div>
+        <div style="width: 45%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center;">
+          <strong>L4 — Runtime Behavior</strong><br>
+          <span class="text-dim text-sm">Sandbox telemetry: egress attempts, file writes, token usage, anomaly detection</span>
+        </div>
+        <div style="width: 55%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center;">
+          <strong>L3 — Agent Capability</strong><br>
+          <span class="text-dim text-sm">MCP tool manifest review: which APIs/tools does the agent request access to?</span>
+        </div>
+        <div style="width: 65%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center;">
+          <strong>L2 — Agent Provenance</strong><br>
+          <span class="text-dim text-sm">DWS Agent Registry: source, version, publisher, code signature verification</span>
+        </div>
+        <div style="width: 75%; background: rgba(249,115,22,0.2); border: 2px solid var(--orange); border-radius: 8px; padding: 14px; text-align: center;">
+          <strong class="highlight-orange">L1 — Human Identity</strong><br>
+          <span class="text-dim text-sm">Shufti IDV: document + face + liveness + AML screening at onboarding</span>
+        </div>
+      </div>
+      <p class="text-dim text-sm mt-24" style="text-align: center;"><span class="highlight-orange">Orange = Shufti-powered layers</span> &nbsp;&middot;&nbsp; Grey = DWS internal layers</p>
+    </div>
+  </div>
+
+  <!-- Slide 6: Trust Score -->
+  <div class="slide" id="slide-6">
     <div class="content">
       <h2>KYA Trust Score — <span class="highlight">Dynamic Gating</span></h2>
       <p class="subtitle">Shufti risk signals control what agents can do inside the sandbox</p>
@@ -472,8 +503,8 @@
     </div>
   </div>
 
-  <!-- Slide 6: Integration Flow -->
-  <div class="slide" id="slide-6">
+  <!-- Slide 7: Integration Flow -->
+  <div class="slide" id="slide-7">
     <div class="content">
       <h2>Integration Architecture</h2>
       <p class="subtitle">Three integration points between Shufti and DWS IQ</p>
@@ -513,8 +544,8 @@
     </div>
   </div>
 
-  <!-- Slide 7: What's Already Built -->
-  <div class="slide" id="slide-7">
+  <!-- Slide 8: What's Already Built -->
+  <div class="slide" id="slide-8">
     <div class="content">
       <h2>What's <span class="highlight-green">Already Built</span></h2>
       <p class="subtitle">DWS side of the integration is architected and partially implemented</p>
@@ -550,8 +581,8 @@
     </div>
   </div>
 
-  <!-- Slide 8: PoC Demo Scenario -->
-  <div class="slide" id="slide-8">
+  <!-- Slide 9: PoC Demo Scenario -->
+  <div class="slide" id="slide-9">
     <div class="content">
       <h2>PoC Demo Scenario</h2>
       <p class="subtitle">End-to-end: onboarding &rarr; BYO deploy &rarr; risk flag &rarr; sandbox restricts</p>
@@ -584,8 +615,8 @@
     </div>
   </div>
 
-  <!-- Slide 9: Compliance -->
-  <div class="slide" id="slide-9">
+  <!-- Slide 10: Compliance -->
+  <div class="slide" id="slide-10">
     <div class="content">
       <h2>Compliance & Infrastructure</h2>
       <p class="subtitle">Built for EU regulatory requirements from day one</p>
@@ -630,8 +661,8 @@
     </div>
   </div>
 
-  <!-- Slide 10: Value Proposition -->
-  <div class="slide" id="slide-10">
+  <!-- Slide 11: Value Proposition -->
+  <div class="slide" id="slide-11">
     <div class="content">
       <h2>Why This Matters for <span class="highlight-orange">Shufti</span></h2>
       <p class="subtitle">First-mover in a new market category</p>
@@ -659,8 +690,8 @@
     </div>
   </div>
 
-  <!-- Slide 11: Next Steps -->
-  <div class="slide" id="slide-11">
+  <!-- Slide 12: Next Steps -->
+  <div class="slide" id="slide-12">
     <div class="content">
       <h2>Next Steps</h2>
       <p class="subtitle">From architecture call to working PoC</p>
@@ -717,7 +748,7 @@
 </div>
 
 <!-- Navigation -->
-<div class="slide-counter"><span id="current">1</span> / <span id="total">11</span></div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">12</span></div>
 <div class="nav">
   <button onclick="prev()">&larr; Prev</button>
   <button onclick="next()">Next &rarr;</button>
@@ -725,7 +756,7 @@
 
 <script>
   let current = 1;
-  const total = 11;
+  const total = 12;
 
   function show(n) {
     document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));

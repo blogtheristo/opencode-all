@@ -76,19 +76,38 @@ We are opening the platform to **BYO (Bring Your Own) agents** and need Shufti t
 
 ### Critical (make-or-break for PoC)
 
-1. **Risk score format** — Is the score pass/fail, categorical, or continuous 0–100? Can we get sub-scores for AML, fraud, and document separately? (DWS needs numeric input for the KYA trust formula)
-2. **Ongoing AML monitoring** — Do you offer continuous post-onboarding monitoring (user added to sanctions list months later), or only point-in-time checks at verification?
-3. **EU data residency** — Can all PII processing be guaranteed EU-only (GDPR/NIS2)? Which data centers?
+1. **Risk score format**
+   - **What we know:** Shufti exposes a User Risk Assessment engine with customizable risk bands (low/medium/high/prohibited) plus decision + reason codes. Raw sub-scores (facial-match confidence, document OCR confidence, AML severity) are NOT in public docs — appears to be composite + configurable bands.
+   - **Ask:** "Can the API response include granular component scores (PEP confidence, liveness score, document OCR confidence, AML sub-risks) or only the final band + reasons?" DWS needs numeric input for the KYA trust formula.
+
+2. **Ongoing AML monitoring**
+   - **What we know:** KYB enhanced tier mentions "continuous AML monitoring." Standard KYC appears point-in-time.
+   - **Ask:** "Do you offer continuous post-onboarding monitoring where webhooks fire if a verified user is later added to sanctions/PEP lists? Or only at verification time?" This is make-or-break for KYA Layer 5.
+
+3. **EU data residency**
+   - **What we know:** Full GDPR compliance + QG-GDPR certification. Flexible deployment (SaaS, private cloud, on-premise). Explicitly marketed for data-residency requirements.
+   - **Ask:** "Can we contractually guarantee all PII and verification events remain in EU/EEA-only infrastructure? What NIS2-specific controls or attestations do you provide?"
 
 ### Important (affects architecture)
 
-4. **Webhook reliability** — What are retry policies and guaranteed delivery SLAs? Dead letter queue? P99 delivery latency for high-concurrency notifications?
-5. **Latency** — P99 response time for automated document verification vs. manual fallback review?
-6. **Sandbox/test environment** — Do you provide a mock environment that simulates specific failure states (expired ID, high-risk flag, AML hit)?
+4. **Webhook reliability**
+   - **What we know:** Server-to-server callbacks with automatic retries. No public SLA on delivery guarantees or exact retry count/interval. Trial accounts limited to 20 req/min; production rate limits are account-specific.
+   - **Ask:** "What are the exact retry count, back-off policy, and dead-letter handling? Do you offer configurable webhooks or queue guarantees for 1,000+ concurrent agent events?"
+
+5. **Latency**
+   - **What we know:** Marketing claims <5s for automated flows, <1s for eIDV routes. No official P99 numbers. Manual fallback available but slower.
+   - **Ask:** "What are your current P95/P99 latencies for fully automated document + biometric verification, and how does the system route to manual review without breaking real-time agent gating?"
+
+6. **Sandbox/test environment**
+   - **What we know:** Full sandbox/test mode exists (standard for all accounts). Public docs don't explicitly list mock failure state simulation.
+   - **Ask:** "Does the sandbox allow simulation of specific failure modes (liveness spoof, sanctions hit, synthetic identity, expired document) so we can test our 80+/50+/<50 gating logic end-to-end?"
 
 ### Nice to have (PoC scoping)
 
-7. **KYB depth** — How do you handle deep-tier beneficial ownership verification for corporate entities deploying agents?
+7. **KYB depth**
+   - **What we know:** KYB covers 240+ jurisdictions with company registry, ownership structure, UBO identification, directors/shareholders. Enhanced tier adds deeper ownership chains.
+   - **Ask:** "What is the maximum ownership-chain depth you reliably resolve automatically, and do you support ongoing delta monitoring + webhooks when UBO risk changes?"
+
 8. **Pricing for PoC** — Sandbox API access cost? Per-verification pricing at low volume (<100/month)?
 
 ---
