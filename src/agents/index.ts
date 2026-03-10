@@ -42,6 +42,7 @@ import { CeresAgent } from './workflow/industry/ceres.agent.js';
 import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
 import { MarsAgent } from './workflow/industry/mars.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
+import { ArgusAgent } from './argus.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -208,6 +209,9 @@ export class AgentRegistry {
     this.register(new PrometheusAgent());  // Hydrogen & Energy Transition
     this.register(new MarsAgent());        // Construction & Buildings
     this.register(new GaiaAgent());        // Cement & Earth Materials
+
+    // KYA Vision — Orbital Target Labeling (ICEYE SAR partnership)
+    this.register(new ArgusAgent());        // All-seeing orbital eye — 20-industry detection
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

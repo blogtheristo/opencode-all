@@ -1,11 +1,12 @@
-# KYA Standard v1.4 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
+# KYA Standard v1.5 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Research-as-a-Service positioning, Agentic Efficiency Law (§11.1), Stacking Effect principle (§11.2), Orchestrator Layer architecture (§12.1), technical takeaways for implementers (§11.3), Gemini-informed conceptual upgrades merged with Grok financial layer
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety Layer), updated ATS formula with autoresearch delta (+A×0.15), financial multiplier column in trust score table, per-industry efficiency gains (9–22%), Capability Manifest v1.2 with autoresearch extensions, inline Karpathy field note, €14–38B projected EU-wide impact by 2030, Grok-informed financial ROI layer
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Add Financial Value Model (§9) — per-industry KYA revenue sizing for 16 EU-regulated industries, verification volume economics, insurance & liability reduction framework, carbon penalty avoidance ROI, Autoresearch Optimization Protocol (§10) inspired by Karpathy nanochat agent swarm methodology
@@ -30,19 +31,23 @@ Related Documents:
   - docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology field note)
   - src/cloudflare/tenant-sandbox.ts (Sandbox isolation implementation)
   - 16-INDUSTRIES.md (16 EU-regulated industries)
+  - src/agents/argus.agent.ts (Argus — AI Orbital Target Labeling agent)
+  - src/integrations/iceye/client.ts (ICEYE SAR satellite API client)
+  - src/integrations/iceye/types.ts (Orbital target labeling type definitions)
+  - .claude/commands/orbital-eye.md (Orbital Eye skill for Claude Code)
 
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Standard v1.4
-**Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
+**Version:** KYA Standard v1.5
+**Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance, Financial ROI Layer & Orbital Vision)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026 (v1.4 update)
 **Previous:** v1.1 (Implementation Ready, Q1 2026)
 
 ---
 
-> **Verify the Human. Sandbox the Agent. Govern the Self-Optimization.**
+> **Verify the Human. Sandbox the Agent. Govern the Self-Optimization. Label Every Target from Orbit.**
 
 ---
 
@@ -196,6 +201,85 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 | **Out-of-scope penalty** | Unauthorized autoresearch attempts → ATS drops 40 points, session frozen |
 
 **This turns Karpathy's "wild" capability into enterprise-grade, auditable, financially quantifiable intelligence.**
+
+### 2.5 Pillar 5: AI Orbital Target Labeling — KYA Vision (NEW in v1.5)
+
+> **"Label every target from orbit."** — Before governing an agent, know what it's governing. KYA Vision gives the platform eyes.
+
+**Partner:** ICEYE (Espoo, Finland) — world's largest SAR satellite constellation (60+ satellites, sub-daily revisit, 16cm Gen4 resolution). SAR sees through clouds, darkness, rain — 24/7 all-weather industrial monitoring.
+
+**Agent:** Argus (named after Argus Panoptes, the all-seeing giant of Greek mythology)
+
+**Pipeline:**
+```
+┌───────────────────────────────────────────────────────────────┐
+│  KYA Vision — Orbital Target Labeling Pipeline                │
+│                                                               │
+│  ┌──────────┐    ┌──────────────┐    ┌──────────────┐        │
+│  │ ICEYE    │───>│ SAR Signature│───>│ LLM Refine   │        │
+│  │ SAR Data │    │ Pre-Classify │    │ (Claude)     │        │
+│  └──────────┘    └──────────────┘    └──────────────┘        │
+│       │                │                    │                 │
+│    Tasking &       Deterministic        Co-location &        │
+│    Catalog API     pattern match        plausibility         │
+│       │                │                    │                 │
+│       v                v                    v                 │
+│  ┌──────────────────────────────────────────────────┐        │
+│  │              KYA Governance Layer                 │        │
+│  │  • Every label → Firehorse audit trail            │        │
+│  │  • Low confidence → human review required         │        │
+│  │  • Wedge industries → always human review         │        │
+│  │  • Agent Trust Score applied to labeling agent     │        │
+│  └──────────────────────────────────────────────────┘        │
+│                          │                                    │
+│                          v                                    │
+│  ┌──────────────────────────────────────────────────┐        │
+│  │           20-Industry Target Database             │        │
+│  │  Targets × Industries × Time → Change Detection   │        │
+│  └──────────────────────────────────────────────────┘        │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**20 Industries — SAR Detectability Tiers:**
+
+| Tier | Industries | SAR Detectability | Method |
+|------|-----------|-------------------|--------|
+| **Tier 1** (8) | Power, Steel, Cement, Chemicals, Aviation, Maritime, Transport, Construction | **High** — distinct metallic/geometric SAR signatures | Direct SAR pattern matching |
+| **Tier 2** (8) | Agriculture, Waste, Aluminium, Pulp/Paper, Petroleum, Food, Glass, Mining | **Medium** — identifiable with multi-temporal analysis | SAR + temporal change detection |
+| **Tier 3** (4) | Fintech, Pharma, Cybersecurity, Healthcare | **Low** — buildings look like generic urban | Co-location inference + external data fusion |
+
+**ICEYE Integration:**
+
+| API | Purpose | DWS Usage |
+|-----|---------|-----------|
+| **Tasking API** | Command satellites to acquire new imagery | On-demand high-res spotlight over specific sites |
+| **Catalog API** | Search 60k+ archive images | Baseline monitoring, historical change detection |
+
+**SAR Physics for Industry Detection:**
+- **Metallic structures** (steel mills, refineries) → high backscatter (bright in SAR)
+- **Water/flat surfaces** (ports, runways) → low backscatter (dark, specular reflection)
+- **Urban/industrial** → mixed bright/dark with geometric double-bounce patterns
+- **Open excavations** (mining, quarries) → distinct shadow/layover signatures
+- **Temporal change** (construction sites) → rapid decorrelation between acquisitions
+
+**KYA Vision Governance Rules:**
+
+| Rule | Enforcement |
+|------|-------------|
+| Every orbital label gets Firehorse trace ID | Immutable — `fh-argus-{session}-{target}` |
+| Confidence < 50% → human review required | Agent cannot finalize classification |
+| Wedge industries → always human review | Orbital detection too uncertain for auto-classification |
+| Agent KYA score < 50 → labeling suspended | Low-trust agents cannot classify targets |
+| Change detection deltas > 50% → compliance alert | Auto-triggers ETS/CBAM cross-reference |
+| All SAR data → EU data residency | ICEYE ISO 27001 + DWS europe-north1 storage |
+
+**Why ICEYE + DWS (Both Finnish):**
+- Same regulatory environment (Finnish/EU jurisdiction)
+- Same customer base (Nordic heavy industry, EU-regulated sectors)
+- ICEYE provides the eyes (SAR constellation), DWS provides the brain (KYA-governed AI labeling)
+- Combined: autonomous, all-weather industrial monitoring with court-defensible audit trails
+
+**Implementation:** `src/agents/argus.agent.ts`, `src/integrations/iceye/`, CLI: `dws run argus`, Skill: `/orbital-eye`
 
 ---
 
