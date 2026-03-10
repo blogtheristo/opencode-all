@@ -155,9 +155,21 @@ If Shufti doesn't offer partnership terms, these are real alternatives — ranke
 | **Onfido (Entrust)** | UK/US | Strong EU presence, GDPR-native, excellent API docs. Entrust acquisition = enterprise-grade backing. | Post-acquisition bureaucracy, harder to get partnership terms from a large corp | **MEDIUM** — good tech, but Entrust sales cycle is slow |
 | **Jumio** | US | Strongest enterprise credibility, comprehensive compliance stack. | Most expensive, US-headquartered (data residency complexity), enterprise sales cycle | **LOW** — would treat DWS as a customer, not a partner |
 
-**Strategy:** Don't mention competitors on the Shufti call. But if Shufti offers standard customer pricing, the next call is to **Veriff** (Nordic, developer-friendly, most likely to do rev share) or **Signicat** (regulated industries specialist, knows the Finnish market).
+**Telia ID — Existing Supplier (ACE CARD)**
 
-**Key insight:** Shufti is our first choice because we already built the integration. But the integration is ~200 lines of TypeScript — switching providers is a 2-day refactor, not a 2-month project. This is leverage. We're not locked in.
+Telia is already a DWS/Lifetime supplier. This changes the entire negotiation dynamic:
+- **Finnish carrier-backed identity** — Mobiilivarmenne, Finnish Trust Network, BankID integration
+- **Strongest trust signal for regulated Finnish industries** — healthcare, KELA-adjacent, municipal services
+- **Existing commercial relationship** — no new vendor onboarding, no new DPA, no new procurement cycle
+- **Consulting credibility** — Risto already has a relationship, not cold-calling
+- Telia may lack deep AML/sanctions screening, but for L1 identity (Finnish customers) it's arguably stronger than any foreign IDV vendor
+- **Hybrid model:** Telia for L1 identity (Finnish/Nordic customers) + specialist for L5 continuous AML monitoring
+
+**If Shufti doesn't partner:** The path is Telia ID for Finnish/Nordic identity + Veriff or Signicat for AML/sanctions layer. Two Nordic vendors, no foreign data transfers, strongest possible compliance posture.
+
+**Strategy:** Don't mention Telia or any competitors on the Shufti call. But internally, know that walking away costs DWS almost nothing — you already have an identity provider. Shufti is an upgrade opportunity, not a dependency.
+
+**Key insight:** The integration is ~200 lines of TypeScript — switching providers is a 2-day refactor, not a 2-month project. And for Finnish customers, Telia ID may actually be the better L1 choice regardless of what Shufti offers.
 
 ### Budget & monetization strategy
 - **PoC phase:** Should cost DWS nothing. Ask for free sandbox API access. Both sides invest engineering time.
