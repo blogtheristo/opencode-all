@@ -38,7 +38,7 @@ Related Documents:
 
 ## Abstract
 
-This companion standard defines the security architecture for KYA (Know Your Agent) governance, focusing on hardware-rooted trust mechanisms. It specifies how TPM 2.0 attestation, Firecracker MicroVM isolation, and sub-5ms behavioral guardrails create a defense-in-depth model for autonomous AI agents in regulated environments.
+This companion standard defines the security architecture for KYA (Know Your Agent) governance, focusing on hardware-rooted trust mechanisms. DWS IQ is a platform to train and run enterprise industrial agent swarms safely — this document specifies how TPM 2.0 attestation, Firecracker MicroVM isolation, and sub-5ms behavioral guardrails create the defense-in-depth model that makes safe swarm execution possible.
 
 The key differentiator from software-layer agent security: KYA's enforcement mechanisms cannot be circumvented by the agent. The hypervisor kills in 122ms. The agent has no say.
 

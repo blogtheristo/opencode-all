@@ -46,7 +46,7 @@ This document proposes a governance framework — Know Your Agent (KYA) — for 
 
 The framework addresses a governance gap: existing Know Your Customer (KYC) and Know Your Business (KYB) standards verify humans and organizations, but no standard governs the autonomous actions that AI agents take on their behalf. KYA bridges this gap with four pillars anchored to hardware root of trust, providing court-defensible audit trails compliant with the EU AI Act (Articles 12, 14), NIS2, DORA, GDPR, and the EU Emissions Trading System (Fit for 55).
 
-Reference implementation: DWS IQ Platform, deployed across 20 industries with Firecracker MicroVM isolation, 122ms hardware kill capability, and TPM 2.0 attestation chain.
+Reference implementation: DWS IQ Platform — a platform to train and run enterprise industrial agent swarms safely — deployed across 20 industries with Firecracker MicroVM isolation, 122ms hardware kill capability, and TPM 2.0 attestation chain.
 
 ---
 
@@ -333,22 +333,24 @@ The Helsinki Sandbox (Acer Veriton GN100, air-gapped EU) provides a physical pro
 
 ---
 
-## 8. Competitive Differentiation
+## 8. Architectural Differentiation: Hardware-Attested vs. Software-Layer
 
-| Dimension | Software-Layer Approaches (e.g., Palantir AIP) | KYA (Hardware-Attested) |
-|-----------|------------------------------------------------|------------------------|
+| Dimension | Software-Layer Approaches | KYA (Hardware-Attested) |
+|-----------|--------------------------|------------------------|
 | Agent isolation | Container/permission-based | Firecracker MicroVM (hardware kill 122ms) |
 | Identity binding | Enterprise SSO | KYC/KYB-verified, TPM 2.0 attested |
 | Kill mechanism | Software signal (agent must cooperate) | Hypervisor trap (agent cannot resist) |
 | Guardrail bypass risk | Agent can potentially circumvent software checks | Hardware-enforced, agent has no access to enforcement layer |
 | Forensic integrity | Application-level logging (tamper risk) | TPM 2.0 sealed logs (tamper-evident) |
-| Autoresearch governance | Not offered | Governed, validated, financially attributed |
+| Autoresearch governance | Not offered | Governed, validated, attributed |
+
+Partnership opportunities with complementary platforms are documented separately.
 
 ---
 
 ## 9. Conclusion
 
-KYA proposes a hardware-attested governance framework for autonomous AI agents that extends NIST Zero Trust Architecture to the agentic AI paradigm. By anchoring agent identity, capabilities, and forensic records to TPM 2.0 hardware root of trust, KYA provides the first court-defensible governance standard for multi-agent systems in regulated industries.
+KYA proposes a hardware-attested governance framework for autonomous AI agents that extends NIST Zero Trust Architecture to the agentic AI paradigm. DWS IQ is a platform to train and run enterprise industrial agent swarms safely — by anchoring agent identity, capabilities, and forensic records to TPM 2.0 hardware root of trust, KYA provides the first court-defensible governance standard for multi-agent systems in regulated industries.
 
 The framework is deployed across 20 industries, with a reference implementation on the DWS IQ Platform. We propose this as a candidate for NIST Special Publication consideration, addressing the governance gap between human identity verification (KYC/KYB) and autonomous agent actions.
 

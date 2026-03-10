@@ -38,9 +38,11 @@ Related Documents:
 
 ## Abstract
 
-This companion standard defines the financial attribution and optimization layer of the KYA (Know Your Agent) governance framework. It demonstrates how hardware-attested agent governance creates court-defensible audit trails for EU Carbon Border Adjustment Mechanism (CBAM) compliance, with a reference implementation for Green Steel at the 50-tonne import threshold.
+This companion standard defines the optimization and compliance layer of the KYA (Know Your Agent) governance framework. DWS IQ is a platform to train and run enterprise industrial agent swarms safely — this document demonstrates how hardware-attested agent governance creates court-defensible audit trails for EU Carbon Border Adjustment Mechanism (CBAM) compliance, with a reference implementation for Green Steel at the 50-tonne import threshold.
 
 Key capabilities: 122ms Firehorse Snap for real-time compliance enforcement, Rebate Pulse for continuous emissions rebate verification, and 35% efficiency uplift from leash-aware self-correction (autoresearch governed by KYA capability manifests). The Helsinki Sandbox provides a physical proof environment for the decarbonization dividend.
+
+Note: Financial projections and revenue models are maintained separately (see `docs/field-notes/2026-03-10-kya-financial-projections.md`). This document focuses on technical architecture and compliance mechanisms.
 
 ---
 
@@ -257,64 +259,17 @@ The Helsinki Sandbox demonstrates the **decarbonization dividend** — the measu
 
 ---
 
-## 5. Financial Value Model — 20 Industries
+## 5. Industry Coverage
 
-### 5.1 Revenue Model
+KYA governance applies across 20 industries in three tiers:
 
-| Revenue Stream | Unit Economics | Enforcement |
-|---------------|---------------|-------------|
-| **Verification Events** | €1.20 per agent session verification | Per BYO agent, per session |
-| **Fault Attribution** | €5.00 per fault classification | Automated liability assignment |
-| **Compliance Certificates** | €500 per quarter per industry | CBAM, ETS, CSRD audit-ready reports |
-| **Insurance Discounts** | 8–15% premium reduction | Actuarial data from ATS + Firehorse |
-| **Alpha-Share** | **7.5% flat** of attributed efficiency gains | Financial attribution from governed autoresearch |
+| Tier | Industries | Count |
+|------|-----------|-------|
+| **Tier 1 — Critical Emissions** | Power & Heat, Iron & Steel, Cement, Chemicals, Aviation, Maritime, Road Transport, Construction | 8 |
+| **Tier 2 — Important Emissions** | Agriculture, Waste Management, Aluminium, Pulp & Paper, Petroleum Refining, Food & Beverage, Glass & Ceramics, Mining | 8 |
+| **Tier 3 — Wedge Industries** | Fintech & Trading, Pharma & Biotech, Cybersecurity, Healthcare & MedTech | 4 |
 
-### 5.2 Per-Industry Financial Impact (EUR/year per enterprise)
-
-**Tier 1 — Critical Emissions (Fit for 55 Core):**
-
-| Industry | Autoresearch Gain | Value/Enterprise/Year |
-|----------|-------------------|----------------------|
-| Power & Heat | 9–15% efficiency | €560k–€2.2M |
-| Iron & Steel | 11–15% efficiency | €1M–€5.1M |
-| Cement & Lime | 10–14% process | €524k–€3.1M |
-| Chemicals | 9–13% efficiency | €848k–€4.2M |
-| Aviation | 7–12% fuel | €230k–€1.1M |
-| Maritime | 8–12% fuel | €336k–€1.6M |
-| Road Transport | 9–12% fleet | €272k–€1.1M |
-| Construction | 11–22% predictive | €1.1M–€5.4M |
-
-**Tier 2 — Important Emissions:**
-
-| Industry | Autoresearch Gain | Value/Enterprise/Year |
-|----------|-------------------|----------------------|
-| Agriculture | 8–11% yield | €230k–€950k |
-| Waste Management | 9–13% throughput | €280k–€1.2M |
-| Aluminium | 10–14% energy | €780k–€3.8M |
-| Pulp & Paper | 8–12% process | €350k–€1.5M |
-| Petroleum Refining | 9–13% energy | €1.2M–€6.1M |
-| Food & Beverage | 7–11% cold chain | €180k–€780k |
-| Glass & Ceramics | 8–12% kiln | €290k–€1.3M |
-| Mining | 9–14% fleet + blast | €520k–€2.8M |
-
-**Tier 3 — Wedge Industries:**
-
-| Industry | Autoresearch Gain | Value/Enterprise/Year |
-|----------|-------------------|----------------------|
-| Fintech & Trading | 12–18% latency | €2M–€50M |
-| Pharma & Biotech | 15–22% trial design | €5M–€45M |
-| Cybersecurity | 10–16% alert tuning | €500k–€3M |
-| Healthcare & MedTech | 12–20% diagnostic | €1M–€12M |
-
-### 5.3 Projected EU-Wide Impact
-
-| Year | KYA-Governed Agents | Annual Value Protected/Created |
-|------|--------------------|---------------------------------|
-| 2026 | 500–1,000 | €0.6M–€2M |
-| 2027 | 5,000–15,000 | €12M–€45M |
-| 2028 | 50,000–150,000 | €240M–€900M |
-| 2029 | 500,000–1M | €2.4B–€9B |
-| 2030 | 2M–5M | €18B–€48B |
+Each industry has specific autoresearch proxy metrics (e.g., CO2/tonne for steel, kWh/output for power, kiln efficiency for cement). Financial projections are maintained in a separate business document — see `docs/field-notes/2026-03-10-kya-financial-projections.md`.
 
 ---
 
@@ -330,7 +285,7 @@ The Helsinki Sandbox demonstrates the **decarbonization dividend** — the measu
 > - `E_base` = single-agent efficiency
 > - `k` = knowledge transfer coefficient (0.05–0.12 observed)
 > - `n` = number of governed agents
-> - `G(n)` = governance overhead (linear, ~€0.02/agent/hour for KYA)
+> - `G(n)` = governance overhead per agent
 
 ### 6.2 The Stacking Effect
 
@@ -352,33 +307,11 @@ implicit coordination channel).
 
 ---
 
-## 7. Competitive Positioning
+## 7. Conclusion
 
-### 7.1 KYA vs Palantir AIP
+KYA-NIST-SP-003 demonstrates that a platform to train and run enterprise industrial agent swarms safely can deliver court-defensible CBAM compliance at the 50-tonne threshold, real-time Rebate Pulse for carbon price differentials, and 35% uplift from leash-aware self-correction — creating a **decarbonization dividend** that makes governance operationally valuable.
 
-| Dimension | Palantir AIP | KYA (DWS IQ) |
-|-----------|-------------|---------------|
-| Agent isolation | Software permissions | Hardware MicroVM (122ms kill) |
-| CBAM compliance | Not offered | Native (50-tonne threshold, Rebate Pulse) |
-| Autoresearch | Manual model tuning | Governed self-optimization with financial attribution |
-| Carbon price tracking | Not offered | Rebate Pulse (real-time differential engine) |
-| EU regulatory depth | Generic GDPR | EU AI Act Art.12/14, NIS2, DORA, Fit for 55, CBAM |
-| Revenue model | Platform license | Per-event + 7.5% Alpha-Share |
-| Industry coverage | 3–5 deep | 20 industries with per-industry proxy metrics |
-
-### 7.2 Key Differentiator
-
-Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, 122ms hardware termination. In regulated industries where non-compliance means carbon penalties of €100+/tCO2e, hardware kill > software kill.
-
----
-
-## 8. Conclusion
-
-KYA-NIST-SP-003 demonstrates that hardware-attested agent governance is not just a security measure — it is a revenue-generating financial instrument. Court-defensible CBAM compliance at the 50-tonne threshold, real-time Rebate Pulse for carbon price differentials, and 35% uplift from leash-aware self-correction create a **decarbonization dividend** that makes governance profitable.
-
-The Helsinki Sandbox proves this tomorrow. The 20-industry financial model scales it to €18–48B EU-wide by 2030.
-
-Dog leashed. Steel auditable. Main rig primed.
+The Helsinki Sandbox proves it. Dog leashed. Steel auditable. Main rig primed.
 
 ---
 
