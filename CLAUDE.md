@@ -165,7 +165,7 @@ POTENTIAL CONCERNS:
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
-- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.

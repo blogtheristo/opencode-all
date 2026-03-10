@@ -8,12 +8,13 @@
  * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
  *
  * Email delivery priority:
- *   1. SMTP via nodemailer (primary — Hetzner Helsinki when provisioned)
- *   2. Resend SDK (fallback — until SMTP server is live)
+ *   1. SMTP via nodemailer (primary — Amazon SES)
+ *   2. Resend SDK (fallback)
  *   3. Console print (dev / no credentials)
  *
+ * risto@onelifetime.world managed by Amazon SES.
  * SMTP env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE
- * Resend env var: RESEND_API_KEY
+ * Resend env var: RESEND_API_KEY (fallback)
  */
 
 import nodemailer from 'nodemailer';
