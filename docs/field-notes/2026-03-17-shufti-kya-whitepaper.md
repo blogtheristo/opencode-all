@@ -327,13 +327,23 @@ KYA Certification is a commercial relationship between Lifetime Oy (DWS IQ 6 pla
 | Co-marketing rights | Joint case study in AI governance / agent identity category |
 | Enterprise deal flow | Every DWS enterprise customer = recurring IDV verification volume |
 
-### 9.2 Commercial Models (Negotiable)
+### 9.2 Commercial Models
 
-| Model | Structure | Revenue Flow |
-|-------|-----------|-------------|
-| **Certification fee** | IDV provider pays annual KYA Certification fee for access to DWS enterprise channel across 20 industry verticals | IDV provider → DWS |
-| **Revenue share** | DWS brings enterprise clients into the IDV provider's platform. Provider pays DWS a percentage of verification revenue from DWS-originated clients. | End customer → IDV provider → DWS (share) |
-| **Wholesale resale** | DWS resells IDV as "KYA Verification" within its platform at platform pricing. DWS pays IDV provider wholesale rate. | End customer → DWS → IDV provider (wholesale) |
+| Model | Structure | Indicative Range | Revenue Flow |
+|-------|-----------|-----------------|-------------|
+| **Certification fee** | Annual KYA Certification fee for access to DWS enterprise channel across 20 industry verticals | **€5,000–15,000/year** depending on tier (single-layer vs. full-stack L1+L2+L5) | IDV provider → DWS |
+| **Revenue share** | DWS brings enterprise clients into the IDV provider's platform. Provider pays DWS percentage of verification revenue from DWS-originated clients. | **15–25%** of DWS-originated verification revenue | End customer → IDV provider → DWS (share) |
+| **Wholesale resale** | DWS resells IDV as "KYA Verification" within its platform at platform pricing. DWS pays IDV provider wholesale rate. | **40–60% discount** off provider's retail per-verification rate | End customer → DWS → IDV provider (wholesale) |
+
+**Models are combinable.** A typical structure: certification fee (base) + revenue share (upside). The certification fee covers DWS engineering effort for adapter maintenance and Firehorse audit integration. The revenue share aligns incentives on volume growth.
+
+**Tier structure:**
+
+| Tier | Layers Covered | Annual Certification Fee |
+|------|---------------|------------------------|
+| **L1 only** | Onboarding IDV (KYC/AML) | €5,000/year |
+| **L1 + L2** | Onboarding IDV + KYB (org verification) | €8,000/year |
+| **Full stack (L1 + L2 + L5)** | Onboarding + KYB + Continuous Monitoring | €12,000–15,000/year |
 
 ### 9.3 Evaluation Criteria
 
