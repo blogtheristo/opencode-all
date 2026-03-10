@@ -173,17 +173,35 @@ Telia is already a DWS/Lifetime supplier. This changes the entire negotiation dy
 **Key insight:** The integration is ~200 lines of TypeScript — switching providers is a 2-day refactor, not a 2-month project. And for Finnish customers, Telia ID may actually be the better L1 choice regardless of what Shufti offers.
 
 ### Budget & monetization strategy
-- **PoC phase:** Should cost DWS nothing. Ask for free sandbox API access. Both sides invest engineering time.
-- **Shufti retail pricing:** $0.20-$0.75/verification + $1,250-$2,500 setup. DO NOT agree to this — this is their standard customer pricing.
-- **Target commercial model:** Revenue share or wholesale resale. DWS charges customers for "KYA Verification" as part of the platform subscription, pays Shufti a wholesale per-verification rate (target: $0.05-$0.15/verification).
-- **Negotiation leverage:** DWS is a distribution channel into a market Shufti doesn't serve yet (AI agent identity). Every DWS customer = recurring Shufti volume. This is worth more than one customer paying retail.
-- **Timing:** Don't discuss money on March 17. Focus on PoC. Commercial terms after demo works. You have more leverage with a working demo than with a slide deck.
+
+**KEY INSIGHT: Shufti may want market entry into EU/Nordics. If so, THEY may want to pay US.**
+
+Shufti Pro is Pakistan-headquartered. Breaking into EU-regulated industries (healthcare, construction, energy) is hard without a local partner. DWS gives them:
+- A live EU platform with 20 industry verticals
+- A Finnish company with EU data residency infrastructure
+- An integration already built (they just plug in)
+- Case study in AI governance — a brand-new market category
+
+**Commercial models — ranked by value to DWS:**
+
+| Model | Who Pays | DWS Position |
+|-------|---------|-------------|
+| **E. Shufti pays DWS integration/channel fee** | Shufti pays DWS | Best case — they pay for EU market access through DWS channel |
+| **C. DWS resells Shufti at markup** | End customers pay DWS | Strong — DWS owns customer relationship, pays Shufti wholesale |
+| **B. Revenue share** | End customers pay, split | Good — partnership model, shared risk |
+| **D. Free PoC, terms later** | Nobody (PoC phase) | Safe — defer money, build leverage |
+| **A. DWS pays Shufti per verification** | DWS pays them | Worst case — never agree to this |
+
+- **PoC phase:** Should cost DWS nothing. Free sandbox API access, both sides invest engineering time.
+- **Shufti retail pricing:** $0.20-$0.75/verification + $1,250-$2,500 setup. DO NOT agree to this.
+- **Timing:** Don't discuss money in detail on March 17. Plant the seed: "We're interested in a channel partnership — what does Shufti's partner program look like?" Let them pitch you.
 
 ### Walk-in Strategy (CRITICAL)
 
 **The ask (pick one, in priority order):**
-1. **Co-sell agreement with revenue share** — DWS names Shufti as the IDV layer in enterprise deals, both companies sell together, revenue shared on verification volume
-2. **Discounted/free tier for KYA integrations** — In exchange for being named as the official IDV layer in DWS enterprise deals and marketing
+1. **Market entry fee** — Shufti pays DWS a one-time or annual fee for being the named IDV layer in DWS enterprise deals across the Nordics. DWS is Shufti's Nordic channel.
+2. **Revenue share on every enterprise client** — DWS brings Shufti into Nordic enterprise deals, Shufti pays DWS a percentage of verification revenue from those clients. Recurring, scales with success.
+3. **Co-sell agreement** — Both companies sell together into enterprise accounts, shared pipeline, rev share on verification volume.
 
 **The walk-away line:** If Shufti pushes standard retail pricing ($0.20-$0.75/verification + setup fee), that's the moment to walk. Say: "We appreciate the conversation, but at standard pricing we'll evaluate other IDV providers who want the first-mover position in agent identity." Alternatives: Sumsub (stronger ongoing monitoring), Onfido/Entrust (better biometrics), Veriff (EU-native).
 
@@ -194,7 +212,9 @@ Telia is already a DWS/Lifetime supplier. This changes the entire negotiation dy
 - Don't agree to "let's start with standard pricing and revisit later" (you'll never revisit)
 - Don't discuss money in detail — plant the seed ("co-sell / rev share"), get the PoC credentials, negotiate commercial terms after the demo works
 
-**Script:** "We've already built the webhook handler, policy engine, and trust score calculator. What we need from you is API access for a PoC. The commercial question we'd like to explore after the PoC is a co-sell arrangement — we name Shufti as our IDV layer in enterprise deals across 20 EU industries, and we work out a revenue share model. Does that direction interest your team?"
+**Script (updated — channel partner framing):** "We've already built the integration — webhook handler, policy engine, trust score calculator. What we need is API access for a PoC. On the commercial side, we see this as a channel partnership: DWS brings Shufti into 20 EU-regulated industries through a market category that doesn't exist yet — AI agent identity. We'd like to understand what Shufti's partner program looks like for a channel like this."
+
+**Why this script works:** You're asking THEM to pitch YOU. You're not asking for a discount — you're asking what their partner program offers. This puts Shufti in the position of selling their partnership terms to you, not the other way around.
 
 ## Materials to Share
 
