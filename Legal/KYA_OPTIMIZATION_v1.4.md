@@ -22,7 +22,9 @@ Document Status:
 
 Related Documents:
   - Legal/KYA_STANDARD_v1.md (Parent: Combined KYA Standard v1.0–v1.1 — public document)
-  - Legal/KYA_SECURITY_v1.2.md (Companion: Know Your Agent v1.2 — REQUIRED FOUNDATION)
+  - Legal/KYA_SECURITY_v1.2.md (Companion: Know Your Agent v1.3 — REQUIRED FOUNDATION)
+  - Legal/KYA_NIST_STANDARD_v1.md (NIST derivative: KYA-NIST-SP-001)
+  - Legal/KYA_NIST_OPTIMIZATION_v1.md (NIST derivative: KYA-NIST-SP-003 — Green Steel CBAM)
   - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
   - docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology)
   - 16-INDUSTRIES.md (16 EU-regulated industries)
