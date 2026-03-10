@@ -4,7 +4,8 @@
  * Core interfaces for the Agent Trust Score engine,
  * Capability Manifests, and Fault Attribution.
  *
- * @see Legal/KYA_STANDARD_v1.md (§8)
+ * @see Legal/KYA_SECURITY_v1.2.md §9 (Subagent Registry, Manifest v1.1, Fault Attribution)
+ * @see Legal/KYA_OPTIMIZATION_v1.4.md §4 (Manifest v1.2 autoresearch extensions)
  * @see DWS_SECURITY_STANDARD.md (§18)
  */
 

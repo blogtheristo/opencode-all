@@ -12,7 +12,8 @@
  *   = 0.00 (KYA = 0) → Frozen (NO_GO, immediate termination)
  *
  * @section DWS_SECURITY_STANDARD §18.3
- * @see Legal/KYA_STANDARD_v1.md (§2.2 Capability Gating)
+ * @see Legal/KYA_SECURITY_v1.2.md §3 (ATS base formula)
+ * @see Legal/KYA_OPTIMIZATION_v1.4.md §3 (ATS with autoresearch A×0.25 extension)
  */
 
 import type {

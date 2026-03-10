@@ -9,7 +9,7 @@
  *   - declined  → TC-4 Cascade: terminate entire trust chain
  *   - ongoing changed → Tighten sandbox (revoke egress/write)
  *
- * @see Legal/KYA_STANDARD_v1.md §4 (Policy Engine)
+ * @see Legal/KYA_SECURITY_v1.2.md §2.2 (Capability Gating — The Leash)
  * @see DWS_SECURITY_STANDARD.md §18.5 (Leash Snap Protocol)
  */
 
