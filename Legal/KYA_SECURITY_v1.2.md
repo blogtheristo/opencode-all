@@ -20,7 +20,8 @@ Document Status:
   - Document Type: Technical Standard / Security Architecture
 
 Related Documents:
-  - Legal/KYA_OPTIMIZATION_v1.4.md (Companion: Know Your Architecture — financial layer, autoresearch, orchestrator)
+  - Legal/KYA_STANDARD_v1.md (Parent: Combined KYA Standard v1.0–v1.1 — public document)
+  - Legal/KYA_OPTIMIZATION_v1.4.md (Companion: Know Your Architecture v1.4 — financial layer, autoresearch, orchestrator)
   - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
   - docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
   - docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)

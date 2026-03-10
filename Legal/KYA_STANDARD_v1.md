@@ -22,6 +22,8 @@ Document Status:
   - Document Type: Technical Standard / Partner Proposal
 
 Related Documents:
+  - Legal/KYA_SECURITY_v1.2.md (Successor: Know Your Agent v1.2 — security/identity split)
+  - Legal/KYA_OPTIMIZATION_v1.4.md (Successor: Know Your Architecture v1.4 — financial/optimization split)
   - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
   - docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
   - docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)

@@ -20,7 +20,8 @@ Document Status:
   - Document Type: Technical Standard / Financial & Optimization Architecture
 
 Related Documents:
-  - Legal/KYA_SECURITY_v1.2.md (Companion: Know Your Agent v1.1 — REQUIRED FOUNDATION)
+  - Legal/KYA_STANDARD_v1.md (Parent: Combined KYA Standard v1.0–v1.1 — public document)
+  - Legal/KYA_SECURITY_v1.2.md (Companion: Know Your Agent v1.2 — REQUIRED FOUNDATION)
   - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
   - docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology)
   - 16-INDUSTRIES.md (16 EU-regulated industries)
