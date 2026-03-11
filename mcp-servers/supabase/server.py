@@ -1,6 +1,6 @@
 """
-DWS IQ 6 Supabase MCP Server
-Custom MCP server for Supabase integration with carbon calculation tools
+DWS IQ 6 Carbon API
+Custom REST wrapper for carbon and compliance operations on Supabase
 """
 
 import os
@@ -13,7 +13,7 @@ from pydantic import BaseModel
 
 from supabase import Client, create_client
 
-app = FastAPI(title="DWS Supabase MCP Server", version="1.0.0")
+app = FastAPI(title="DWS Carbon API", version="1.0.0")
 
 # Enable CORS — explicit origins only (never wildcard per DWS_SECURITY_STANDARD.md)
 _CORS_ORIGINS: list[str] = os.getenv(
@@ -65,7 +65,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "dws-supabase-mcp",
+        "service": "dws-carbon-api",
         "timestamp": datetime.now().isoformat(),
     }
 

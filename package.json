@@ -5,7 +5,10 @@
   "version": "1.0.0",
   "description": "DWS IQ Auth Backend (Express + TypeScript)",
   "scripts": {
+    "docker:build:carbon-api": "docker build -t dws6-carbon-api:latest ./mcp-servers/supabase",
+    "docker:build:supabase-official-mcp": "docker build -t dws6-supabase-official-mcp:latest ./mcp-servers/supabase-official",
     "db:migrate:042": "tsx scripts/apply-migration-042.ts",
+    "db:migrate:043": "tsx scripts/apply-migration-043.ts",
     "db:seed:projects": "tsx scripts/seed-demo-projects.ts",
     "db:push": "bash scripts/db_push.sh",
     "db:push:skip-link": "bash scripts/db_push.sh --skip-link",

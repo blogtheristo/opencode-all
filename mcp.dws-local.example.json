@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "DWS Carbon MCP": {
+    "DWS Carbon API": {
       "_type": "rest-api",
-      "_container": "dws-carbon-mcp",
+      "_container": "dws-carbon-api",
       "_endpoints": {
         "query": "POST http://localhost:8766/tools/query",
         "insert": "POST http://localhost:8766/tools/insert",

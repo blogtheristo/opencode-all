@@ -32,7 +32,7 @@ These are still useful, but they are **not** the default public MCP layer:
 
 | Service | Type | Purpose |
 |---------|------|---------|
-| `DWS Carbon MCP` | local REST wrapper | Carbon/compliance query, insert, and activity logging via local container |
+| `DWS Carbon API` | local REST wrapper | Carbon/compliance query, insert, and activity logging via local container |
 | `Supabase Official (Docker)` | dockerized stdio MCP | Official Supabase MCP tools via Docker image |
 | `Redis MCP` | external/local MCP | Cache and session inspection |
 | `MCP Hub` | local DWS service | Multi-agent coordination and orchestration |
@@ -213,16 +213,16 @@ These services are repo-specific and should be documented separately from the of
 
 Use the committed example file `mcp.dws-local.example.json` when you want this local stack as your starting point.
 
-### 4.1 DWS Carbon MCP
+### 4.1 DWS Carbon API
 
 This is a **local DWS wrapper** running on `localhost:8766`. It is useful for local carbon/compliance and table operations, but it is not the same thing as the official Supabase MCP.
 
 ```json
 {
   "mcpServers": {
-    "DWS Carbon MCP": {
+    "DWS Carbon API": {
       "_type": "rest-api",
-      "_container": "dws-carbon-mcp",
+      "_container": "dws-carbon-api",
       "_endpoints": {
         "query": "POST http://localhost:8766/tools/query",
         "insert": "POST http://localhost:8766/tools/insert",
@@ -267,19 +267,19 @@ Example insert payload:
 }
 ```
 
-**Important:** This Docker MCP is **not** a raw SQL endpoint. Sending a body like `{ "query": "CREATE TABLE ..." }` will fail validation because `/tools/query` expects `table`, not SQL text.
+**Important:** This local API is **not** a raw SQL endpoint. Sending a body like `{ "query": "CREATE TABLE ..." }` will fail validation because `/tools/query` expects `table`, not SQL text.
 
 For schema migrations such as `supabase/migrations/042_projects_dashboard.sql`, use:
 
 1. Supabase SQL Editor
 2. a migration runner that supports raw SQL
 
-Use Docker MCP for verification, reads, inserts, and logging after the schema exists.
+Use the local API for verification, reads, inserts, and logging after the schema exists.
 
 Start it with:
 
 ```bash
-docker-compose -f docker-compose.hybrid.yml up -d carbon-mcp
+docker-compose -f docker-compose.hybrid.yml up -d carbon-api
 ```
 
 ### 4.2 Supabase Official (Docker)
@@ -454,8 +454,8 @@ Check:
 ### 7.2 DWS-local Supabase wrapper is unreachable
 
 ```bash
-docker ps --filter "name=dws-carbon-mcp"
-docker logs dws-carbon-mcp
+docker ps --filter "name=dws-carbon-api"
+docker logs dws-carbon-api
 curl http://127.0.0.1:8766/health
 ```
 
@@ -478,7 +478,7 @@ For `dws6`, the recommended order is:
 1. `GitHub Official`
 2. `Docker Hub`
 3. `Cloud Run`
-4. Add DWS-local `DWS Carbon MCP`, `Supabase Official (Docker)`, `Redis MCP`, and `MCP Hub` only when your task actually needs them
+4. Add DWS-local `DWS Carbon API`, `Supabase Official (Docker)`, `Redis MCP`, and `MCP Hub` only when your task actually needs them
 
 This keeps the default setup aligned with the official Docker catalog while preserving the repo-specific local services as an optional second layer.
 
