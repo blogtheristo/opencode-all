@@ -451,7 +451,7 @@ Check:
 3. The referenced credentials and mounted paths are valid.
 4. Claude Code was restarted after changing the config.
 
-### 7.2 DWS-local Supabase wrapper is unreachable
+### 7.2 DWS Carbon API is unreachable
 
 ```bash
 docker ps --filter "name=dws-carbon-api"

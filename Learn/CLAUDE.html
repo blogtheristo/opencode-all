@@ -450,7 +450,8 @@ POTENTIAL CONCERNS:
 <li><strong>NEVER use <code>noreply@</code> addresses.</strong> All
 emails from a real, replyable address.</li>
 <li><strong>Default sender:</strong>
-<code>risto@onelifetime.world</code> (verified domain in Resend)</li>
+<code>risto@onelifetime.world</code> (verified in Amazon SES and
+Resend.com)</li>
 <li><strong>Default recipient:</strong>
 <code>risto@lifetime.fi</code></li>
 <li><strong>Verified domain:</strong> <code>onelifetime.world</code>
@@ -675,9 +676,11 @@ worktree</li>
 folder (not a file), it’s broken. Remove it, run
 <code>git worktree prune</code>, recreate with the script.</p>
 <p><strong>Windows Managed Settings:</strong> Effective March 12, 2026,
-use <code>C:\Program Files\ClaudeCode\managed-settings.json</code> (legacy
-<code>C:\ProgramData\ClaudeCode\</code> stops being read). Supported since
-Claude Code 2.0.58.</p>
+use <code>C:\Program Files\ClaudeCode\managed-settings.json</code> (old:
+<code>C:\ProgramData\ClaudeCode\</code>). Legacy path stops being read
+on March 12. Supported since Claude Code 2.0.58. Template:
+<code>Admin/ClaudeCode/managed-settings.json.example</code>. Verify:
+<code>.\scripts\Test-ClaudeManagedSettings.ps1</code>.</p>
 <h2 id="eu-ai-act-compliance">2026 EU AI Act Compliance</h2>
 <table>
 <colgroup>

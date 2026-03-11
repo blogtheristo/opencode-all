@@ -12,7 +12,7 @@ Start the DWS Carbon API container, then use the local API tools:
 docker-compose -f docker-compose.hybrid.yml up -d carbon-api
 ```
 
-The live Docker MCP on `http://localhost:8766` is a **structured table API**, not a raw SQL executor.
+The live local API on `http://localhost:8766` is a **structured table API**, not a raw SQL executor.
 
 - `POST /tools/query` expects: `table`, optional `select`, `filters`, `limit`
 - `POST /tools/insert` expects: `table`, `data`
@@ -24,7 +24,7 @@ For migration `042`, use one of these instead:
 1. **Supabase SQL Editor**: paste `supabase/migrations/042_projects_dashboard.sql`
 2. **npm script**: `npm run db:migrate:042`
 
-Use Docker MCP after that for verification and data operations.
+Use the local API after that for verification and data operations.
 
 ### Option A2: Supabase Official (Docker)
 

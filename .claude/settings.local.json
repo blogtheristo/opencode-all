@@ -12,5 +12,10 @@
       "Bash(git:*)",
       "Bash(start:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "Supabase MCP",
+    "Upstash Redis",
+    "MCP Hub"
+  ]
 }

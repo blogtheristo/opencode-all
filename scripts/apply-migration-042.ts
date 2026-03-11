@@ -20,6 +20,11 @@ for (const f of ['.env', '100326.env', '.env.local']) {
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  getConnectionDebugInfo,
+  getInsecureSslConfig,
+  sanitizePostgresConnectionString,
+} from './lib/pg-connection.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,13 +39,17 @@ async function main() {
     process.exit(1);
   }
 
+  const sanitizedDbUrl = sanitizePostgresConnectionString(dbUrl);
+  const connectionInfo = getConnectionDebugInfo(sanitizedDbUrl);
+
   const pg = await import('pg');
   const client = new pg.default.Client({
-    connectionString: dbUrl,
-    ssl: { rejectUnauthorized: false },
+    connectionString: sanitizedDbUrl,
+    ssl: getInsecureSslConfig(),
   });
 
   try {
+    console.log(`Connecting to ${connectionInfo.host}:${connectionInfo.port} with sanitized SSL settings...`);
     await client.connect();
     const sql = readFileSync(
       join(__dirname, '..', 'supabase', 'migrations', '042_projects_dashboard.sql'),
