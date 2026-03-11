@@ -14,7 +14,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
 | **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
-| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
@@ -254,11 +254,14 @@ docker-compose -f docker-compose.hybrid.yml up -d
 
 ## Code Quality & Testing
 
+- **Formatting:** `.editorconfig` (2-space indent, LF, 100-char lines, UTF-8) — see `SITE_QUALITY_STANDARDS.md` §3 Code Formatting Standards
 - **JS/TS:** ESLint; **Python:** Ruff + Black; **Security:** Bandit, Safety
 - **Tests:** Vitest in `src/__tests__/`; run `npm run test` or `npm run test:ui`
 - **Pre-commit:** Branch name validation in `.githooks/`
 
 **Patterns:** Strict TypeScript + Zod schemas; functional React components + TailwindCSS; RESTful Express + JWT; `.env.example` (144+ variables).
+
+**Formatting rules (quick reference):** 2 spaces, single quotes (JS/TS), double quotes (JSX/JSON), semicolons required, trailing commas in multi-line, K&R braces, imports grouped by origin. Full spec in `SITE_QUALITY_STANDARDS.md`.
 
 ## Security Considerations
 
