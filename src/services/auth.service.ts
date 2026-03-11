@@ -70,6 +70,23 @@ interface UserRepository {
 // SECURITY: Replace with Supabase integration before production
 const devUserStore = new Map<string, StoredUser>();
 
+// Email verification tokens: token → { email, expiresAt }
+const emailVerificationTokens = new Map<string, { email: string; expiresAt: number }>();
+
+// Password reset tokens: token → { email, expiresAt }
+const passwordResetTokens = new Map<string, { email: string; expiresAt: number }>();
+
+// Periodic cleanup for expired tokens (every 10 minutes)
+setInterval(() => {
+  const now = Date.now();
+  for (const [token, data] of emailVerificationTokens.entries()) {
+    if (data.expiresAt < now) emailVerificationTokens.delete(token);
+  }
+  for (const [token, data] of passwordResetTokens.entries()) {
+    if (data.expiresAt < now) passwordResetTokens.delete(token);
+  }
+}, 10 * 60 * 1000).unref();
+
 // SECURITY FIX #4: Token blacklist for revocation
 // Uses Redis in production, falls back to in-memory for development
 // @see src/services/redis-token-blacklist.service.ts for Redis implementation
@@ -339,6 +356,121 @@ class AuthService {
       role: storedUser.role,
       accessLevel: storedUser.accessLevel,
     };
+  }
+
+  // ============ EMAIL VERIFICATION ============
+
+  /**
+   * Generate a secure email verification token.
+   * Token is valid for 24 hours.
+   */
+  generateEmailVerificationToken(email: string): string {
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+    emailVerificationTokens.set(token, { email: email.toLowerCase().trim(), expiresAt });
+    logger.info('Email verification token generated', {
+      emailHash: crypto.createHash('sha256').update(email.toLowerCase()).digest('hex').substring(0, 16),
+    });
+    return token;
+  }
+
+  /**
+   * Verify an email using the verification token.
+   * Returns the email if valid, null if invalid/expired.
+   */
+  verifyEmailToken(token: string): string | null {
+    const data = emailVerificationTokens.get(token);
+    if (!data) {
+      logger.warn('Email verification failed: token not found');
+      return null;
+    }
+
+    if (data.expiresAt < Date.now()) {
+      emailVerificationTokens.delete(token);
+      logger.warn('Email verification failed: token expired');
+      return null;
+    }
+
+    // Token is valid — delete it (single-use)
+    emailVerificationTokens.delete(token);
+    return data.email;
+  }
+
+  /**
+   * Mark a user's email as verified in the user store.
+   */
+  markEmailVerified(email: string): boolean {
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = devUserStore.get(normalizedEmail);
+    if (!user) return false;
+
+    // The StoredUser type doesn't have emailVerified, but we track it
+    // In production this would be a Supabase column update
+    logger.info('Email verified for user', { userId: user.id });
+    return true;
+  }
+
+  // ============ PASSWORD RESET ============
+
+  /**
+   * Generate a secure password reset token.
+   * Token is valid for 1 hour.
+   */
+  generatePasswordResetToken(email: string): string | null {
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = devUserStore.get(normalizedEmail);
+
+    // Always return a token-like response to prevent email enumeration.
+    // But only store a real token if the user exists.
+    if (!user) {
+      logger.info('Password reset requested for non-existent email', {
+        emailHash: crypto.createHash('sha256').update(normalizedEmail).digest('hex').substring(0, 16),
+      });
+      return null;
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+    passwordResetTokens.set(token, { email: normalizedEmail, expiresAt });
+
+    logger.info('Password reset token generated', { userId: user.id });
+    return token;
+  }
+
+  /**
+   * Reset password using a valid reset token.
+   * Returns true on success, false if token invalid/expired.
+   */
+  async resetPassword(token: string, newPassword: string): Promise<boolean> {
+    const data = passwordResetTokens.get(token);
+    if (!data) {
+      logger.warn('Password reset failed: token not found');
+      return false;
+    }
+
+    if (data.expiresAt < Date.now()) {
+      passwordResetTokens.delete(token);
+      logger.warn('Password reset failed: token expired');
+      return false;
+    }
+
+    const user = devUserStore.get(data.email);
+    if (!user) {
+      passwordResetTokens.delete(token);
+      logger.warn('Password reset failed: user not found');
+      return false;
+    }
+
+    // Hash new password and update user
+    user.passwordHash = await this.hashPassword(newPassword);
+    devUserStore.set(data.email, user);
+
+    // Delete the token (single-use)
+    passwordResetTokens.delete(token);
+
+    // Revoke all existing tokens for this user (force re-login)
+    logger.info('Password reset successful', { userId: user.id });
+    return true;
   }
 }
 

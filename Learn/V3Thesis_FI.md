@@ -1,12 +1,16 @@
 # Firehorse-tuotevalmistuksen toimintamalli
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 3.17
+Version: 3.21
 
 Sessions & Modifications:
+  - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
+  - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
+  - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
+  - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-identiteettimalli, prompt injection -korjaus, EU AI Act artikla 12 -lokituki); lisätty avainpanos #12; päivitetty alatunniste
   - Version: 3.17 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty osio 10.13 (Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina) — CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automatisoituna laadunvalvontana, aliagentit rinnakkaissuoritukseen; lisätty avainpanos #12; päivitetty alatunniste; validoitu kehittyvää Claude Code -yhteisön parhaita käytäntöjä vastaan
   - Version: 3.16 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautumisen 3.12-3.15. Lisätty osio 10.11 (Toimitusjohtajan automaatioagenttiryhmä: Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor); osio 10.12 (Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral + Monituottaja-LLM-reititin); lisätty avainpanokset #10-11; päivitetty alatunniste
@@ -40,10 +44,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 02.03.2026
+  - Last Modified: 07.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.17 — Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
+  - Publication Status: DRAFT (V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina)
 
 ---
 
@@ -321,11 +325,59 @@ Lifetime Scope Signals -protokolla on uusi koordinointimekanismi, joka kehitetti
 
 ### 2.5.3 MCP Hub -orkestrointimallit
 
-Model Context Protocol (MCP) Hub toteuttaa kolme työnkulkumallia agenttien koordinointiin:
+Model Context Protocol (MCP) Hub (`mcp-hub/server.py`, portti 8765) toteuttaa neljä työnkulkumallia moniagenttien koordinointiin. Jokainen malli tarjoaa oman HTTP-päätepisteen ja hoitaa agenttien reitityksen, virheiden välityksen ja tulosten koostamisen.
 
-1. **Fan-Out -malli:** Rinnakkainen tehtävien jakelu useille agenteille
-2. **Reflection-malli:** Itsearviointi ja iteratiivinen parantaminen
-3. **Sequential-malli:** Vaiheittainen suoritus riippuvuuksien kanssa
+**1. Fan-Out -malli** (`POST /workflow/fan-out`)
+Jakaa tehtävät useille agenteille rinnakkaisesti `asyncio.gather()`-kutsulla. Kaikki agentit suoritetaan samanaikaisesti jaetulla HTTP-asiakkaalla (300s aikakatkaisu). Poikkeukset serialisoidaan tehtäväkohtaisesti, mikä mahdollistaa osittaisen onnistumisen — jos yksi agentti epäonnistuu, muut palauttavat silti tulokset. Käytetään kategorian B (Operatiiviset) agenteille, joiden tehtävät ovat toisistaan riippumattomia.
+
+**2. Sequential-malli** (`POST /workflow/sequential`)
+Suorittaa tehtävät yksi kerrallaan riippuvuusjärjestyksessä. Jokaisen tehtävän tulos injektoidaan seuraavan tehtävän `context["previous_result"]`-kenttään, luoden eksplisiittisen tietovirran. Sopii putkistoihin, joissa yhden agentin tuloste syöttää seuraavaa (esim. tiedon poiminta → analyysi → raportin luonti).
+
+**3. Reflection-malli** (`POST /workflow/reflection`)
+Toteuttaa iteratiivisen toteutus-arviointi -silmukan. Toteutusagentti tuottaa tulosteen, arviointiagentti pisteyttää sen (0.0–1.0) ja antaa palautetta. Jos pistemäärä jää alle konfiguroitavan kynnysarvon (oletus 0.85), palaute injektoidaan takaisin toteutusagentille uutta iteraatiota varten (enintään 3 oletuksena). Käytetään kategorian C (Asiakasrajapinta) agenteille, joissa tulosteen laatu on kriittistä.
+
+**4. Pipeline-malli** (`POST /workflow/pipeline`) — *Suositeltu tuotantokäyttöön*
+Yhdistää rinnakkaisen ja peräkkäisen suorituksen vaiheistettujen työnkulkujen avulla. Jokainen vaihe sisältää tehtävälistan, joka suoritetaan rinnakkaisesti (fan-out vaiheen sisällä), kun taas vaiheet suoritetaan peräkkäin (vaiheen N tulokset virtaavat kontekstina vaiheeseen N+1). Tämä välttää peräkkäisen pullonkaulan säilyttäen samalla riippuvuusjärjestyksen loogisten vaiheiden välillä.
+
+| Malli | Rinnakkaisuus | Kontekstin välitys | Sopii parhaiten |
+|-------|--------------|---------------------|-----------------|
+| Fan-Out | Täysin rinnakkainen | Ei | Riippumattomat tehtävät |
+| Sequential | Ei | Edellinen → Seuraava | Riippuvuusketjut |
+| Reflection | Ei | Palautesilmukka | Laatukriittinen tuloste |
+| Pipeline | Rinnakkainen vaiheiden sisällä | Vaihe → Vaihe | Tuotantotyökuormat |
+
+Yhteenvetona MCP Hub -orkestroija tukee neljää työnkulkumallia (Fan-Out, Sequential, Reflection, Pipeline), joita voidaan yhdistellä tuotantotason työnkuluiksi.
+### 2.5.4 Skillit ja CLI:t agenttirajapintoina
+
+"Build for Agents" -periaate edellyttää, että jokaisen DWS-tuotteen on oltava käytettävissä kolmen toisiaan täydentävän rajapinnan kautta GUI:n lisäksi: CLI, MCP-palvelin ja Claude Code -skillit.
+
+**CLI (komentorivikäyttöliittymä)**
+CLI (`npx tsx cli/src/cli.ts <komento>`) tuottaa strukturoidun JSON-tulosteen jokaiselle agenttitoiminnolle. Tämä seuraa toimialan trendiä, jossa tekoälyagentit käyttävät työkaluja komentorivikäyttöliittymien kautta graafisten käyttöliittymien sijaan. Keskeiset komennot:
+
+- `dws agents` — Listaa kaikki rekisteröidyt agentit
+- `dws run <agentti> --input '{...}'` — Suorita nimetty agentti strukturoidulla syötteellä
+- `dws workflow <nimi>` — Käynnistä moniagenttityönkulku
+
+CLI-ensin -lähestymistapa varmistaa, että jokainen ominaisuus on automatisoitavissa, testattavissa ja yhdisteltävissä. Tuote, joka on olemassa vain GUI:na, katsotaan keskeneräiseksi.
+
+**MCP-palvelin**
+MCP-päätepiste (`/mcp`, JSON-RPC 2.0) tekee kaikista agenteista automaattisesti löydettäviä `tools/list`-kutsulla. Ulkoiset tekoälyjärjestelmät (Claude Code, Cursor, VS Code Copilot) voivat yhdistää MCP-palvelimeen ja kutsua mitä tahansa agenttia työkaluna. Tämä toteuttaa Model Context Protocol -määrityksen standardoitua työkaluintegraatiota varten.
+
+**Claude Code -skillit**
+Skillit (`.claude/commands/*.md`) ovat uudelleenkäytettäviä työnkulkukomponentteja, jotka kapseloivat agenttikutsut slash-komennoiksi. Kuusi tuotantoskilliä on käytössä:
+
+| Skilli | Tarkoitus |
+|--------|-----------|
+| `/compliance-check` | EU-säädösten puuteanalyysi (ETS, CBAM, CSRD) |
+| `/agent-run` | Suorita mikä tahansa nimetty agentti strukturoidulla syötteellä |
+| `/workflow` | Käynnistä moniagenttityönkulkuja |
+| `/discover-agents` | Etsi agentteja kyvykkyysavainsanalla |
+| `/site-safety` | Rakennustyömaan turvallisuusarviointi |
+| `/carbon-analysis` | Hiilijalanjäljen laskenta (embodied carbon) |
+
+Jokainen skilli on kutsuttava, testattava komponentti, joka yhdistää kehotesuunnittelun ja työkalujen orkestroinnin. Skillimalli varmistaa, että agenttikyvykkyydet ovat käytettävissä ilman, että käyttäjän tarvitsee ymmärtää alla olevaa MCP-protokollaa tai CLI-syntaksia.
+
+**Kolmen rajapinnan sääntö:** Jokaisen uuden agentin on toimitettava kaikilla kolmella rajapinnalla (CLI-komento, MCP-työkalu, Claude Code -skilli). Tämä takaa, että agentit ovat käytettävissä ihmisille (CLI), muille tekoälyjärjestelmille (MCP) ja kehitystyönkuluissa (skillit).
 
 ## 2.6 Käsitteellinen malli: Firehorse Solution Factory
 
@@ -1067,7 +1119,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | **Pilvi** | Google Cloud Run + Groq API | MCP Hub portissa 8765 |
 | **Reuna** | NVIDIA Jetson Orin Nano | <100ms päättely (25x nopeampi) |
 | **Verkkokauppa** | dws6.com (Cloudflare Pages) | €0/kk, 99,95% käytettävyys |
-| **Orkestrointi** | MCP Hub + LlamaStack | 3 työnkulkumallia toteutettu |
+| **Orkestrointi** | MCP Hub + LlamaStack | 4 työnkulkumallia toteutettu (Fan-Out, Sequential, Reflection, Pipeline) |
 
 ### 8.5.3 TK3: Teknisen ratkaisun arviointi
 
@@ -1157,6 +1209,67 @@ Firehorse-toimintamalli Claude Codella saavutti:
 1. **Toteuta V1.0 julkaisu (23. helmikuuta 2026)**
 2. **Dokumentoi Solution Factory** — julkinen kustannuslaskuri, AgentFoundry-pohjat
 3. **Validoi toinen vertikaali** — Rakentaminen (NCC, T2H)
+
+## 9.5 Learn Thinking — Oppimisajattelu tekoälyavusteisessa tuotekehityksessä
+
+Firehorse-toimintamallin kriittinen innovaatio on **Learn Thinking** (oppimisajattelu) — systemaattinen lähestymistapa, jossa jokainen tekoälyavusteinen kehityssessio tuottaa paitsi koodia ja dokumentaatiota, myös **rakenteellista oppimista** joka palautuu kehittäjälle seuraavana aamuna.
+
+### Oppimisajattelun periaatteet
+
+| Periaate | Toteutus | Vaikutus |
+|----------|----------|----------|
+| **Päivittäinen reflektio** | Learn/-kansion HTML-tuloste Edge-selaimessa aamuisin | Kehittäjä aloittaa päivän viimeisimmän tilan katsauksella |
+| **Versioitu oppimispäiväkirja** | Opinnäytetyön versiohistoria = oppimispäiväkirja | Jokainen versio dokumentoi mitä opittiin ja miksi |
+| **Tekoäly oppimiskumppanina** | Claude Code / Copilot tuottaa sisältöä, ihminen validoi | Kaksoissilmukka: tekoäly ehdottaa → ihminen arvioi → tekoäly korjaa |
+| **Kolmikerroksinen muisti** | GitHub (versionhallinta) + Proton Drive (salattu) + Supabase (EU-pilvi) | Oppiminen ei katoa — kolme riippumatonta kopiota |
+| **Tutkimus-tuotanto-silta** | Opinnäytetyö ohjaa tuotekehitystä, tuotekehitys validoi teoriaa | Ei erillistä tutkimusta ja tuotantoa — sama silmukka |
+
+### Oppimissilmukan rakenne
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   LEARN THINKING -SILMUKKA                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. AAMUKATSAUS (Windows-käynnistys)                       │
+│     └─ Startup-DailySync.bat                               │
+│        ├─ git pull origin main                             │
+│        ├─ Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs     │
+│        └─ Edge avaa muuttuneet HTML-tiedostot              │
+│                                                             │
+│  2. REFLEKTIO (ihminen lukee Learn/-kansion sisällön)      │
+│     └─ Tunnistaa puutteet, virheet, uudet mahdollisuudet   │
+│                                                             │
+│  3. KEHITYSSESSIO (Claude Code / Copilot / Cursor)         │
+│     └─ Korjaa, lisää, parantaa koodia ja dokumentaatiota   │
+│                                                             │
+│  4. VERSIOINTI (git commit + push)                         │
+│     └─ Opinnäytetyön versio kasvaa, oppimispäiväkirja      │
+│        päivittyy automaattisesti                            │
+│                                                             │
+│  5. SEURAAVA AAMU → palaa kohtaan 1                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Miksi oppimisajattelu on tärkeää opinnäytetyössä
+
+Perinteisessä opinnäytetyöprosessissa tutkija kirjoittaa dokumentin kerran ja palauttaa sen. Learn Thinking -mallissa:
+
+1. **Opinnäytetyö on elävä dokumentti** — 30+ versiota 3 kuukauden aikana, jokainen dokumentoi konkreettisen oppimispanoksen
+2. **Tekoälytyökalut ovat oppimiskumppaneita** — Claude Code, Copilot ja Cursor eivät vain generoi koodia, vaan tuottavat rakenteellista reflektiota versiohistorian kautta
+3. **Learn/-kansio on oppimisen todiste** — konkreettinen, päivittäin päivittyvä portfolio opinnäytetyön etenemisestä
+4. **Tutkimus ja tuotanto konvergoituvat** — opinnäytetyön löydökset ohjaavat suoraan DWS-tuotekehitystä ja päinvastoin
+
+### Yhteys Build-Measure-Learn -sykliin
+
+Learn Thinking laajentaa Lean Startup -viitekehyksen Build-Measure-Learn -sykliä:
+
+| Lean Startup | Learn Thinking | DWS-toteutus |
+|--------------|----------------|---------------|
+| Build | Kehityssessio (koodi + dokumentaatio) | Claude Code + git commit |
+| Measure | Aamukatselmus (muutokset Edge-selaimessa) | Generate-PDFs.ps1 → Learn/ |
+| Learn | Reflektio ja seuraava toimenpide | Versiohistoria = oppimispäiväkirja |
 
 ---
 
@@ -1730,6 +1843,20 @@ Monituottaja-LLM-reititin osoittaa käytännön ratkaisun **EU AI Act -suverenit
 28. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
 29. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
 
+30. Lifetime Oy (2026). *DWS Security Standard*, versio 1.5. `DWS_SECURITY_STANDARD.md`. Sisäinen viitekehys, joka ohjaa tekoälyn turvallisuutta, väliohjelmiston tietoturvakontrolleja (korrelaatio-ID, Zod-validointi, keskitetty virhekäsittely), CORS-käytäntöjä, SRI-eheyttä, artikla 12 -kirjausta ja API-rajapinnan validointia. Määrittelee tietoturva-arkkitehtuurin kaikille backend-API-reiteille ja MCP-agenttipalvelimelle.
+
+31. Lifetime Oy (2026). *ESRS-tietopisterekisteri*, versio 1.0. `src/compliance/esrs-registry.ts`. Koneluettava kartoitus kaikista 82 eurooppalaisesta kestävyysraportointistandardien (ESRS) tiedonantovaatimuksesta kategorioittain E1–E5 (ympäristö), S1–S4 (sosiaalinen) ja G1 (hallinto). Kukin tiedonanto on luokiteltu pakolliseksi tai vapaaehtoiseksi CSRD-direktiivin (EU) 2022/2464 mukaisesti.
+
+32. Lifetime Oy (2026). *Vaatimustenmukaisuuden pisteytysmoottori*, versio 1.0. `src/compliance/scoring-engine.ts`. Deterministinen vaatimustenmukaisuuden pisteytysalgoritmi, joka laskee CSRD-valmiuden, ETS-altistuksen ja CBAM-riskipisteet. Kaava: kokonaispistemäärä = CSRD(0,50) + ETS(0,25) + CBAM(0,25), jossa CSRD = (annetut pakolliset tietopisteet / pakolliset yhteensä) × 80 + bonusmuuttujat.
+
+33. Lifetime Oy (2026). *Site Quality Standards*, versio 2.1. `SITE_QUALITY_STANDARDS.md`. Koodin laatu-, komponenttiarkkitehtuuri- ja käyttöliittymän vikasietoisuusstandardit DWS IQ -hallintapaneelille. Määrittelee ErrorBoundary-, Skeleton-lataus- ja EmptyState-komponenttistandardit yritystason käyttökokemukselle.
+
+34. Lifetime Oy (2026). *AGENTS.md*, versio 2.2. `AGENTS.md`. Agentti-inventaario ja operatiiviset ohjeet agents.md-avoimen spesifikaation mukaisesti. Dokumentoi 15 tekoälyagenttia, vaatimustenmukaisuuden pisteytysarkkitehtuurin, väliohjelmistopinon järjestyksen ja "Build for Agents" -tuotesäännön, joka edellyttää CLI + MCP + Skills -rajapintoja.
+
+35. Lifetime Oy (2026). *DWS IQ Platform Admin Manual*, versio 2.7. `Admin/ADMIN_MANUAL.md`. Operatiiviset menettelyt terveystarkistusten valvontaan, vaatimustenmukaisuusmoottorin hallintaan ja hallintapaneelin vikasietoisuuden vianetsintään. Sisältää Claude Code -projektin suunnittelurakenteen ja moniagenttiorkestrointiosiot.
+
+36. Lifetime Oy (2026). *Enterprise Security & Compliance*, versio 1.8. `Admin/SECURITY_COMPLIANCE.md`. Tietoturvakontrollit tietoturvajohtajille ja hankintatiimeille. Dokumentoi agenttien ajonaikaiset turvakontrollit, hallintapaneelin vikasietoisyyskontrollit, backend-väliohjelmiston turvakontrollit ja vaatimustenmukaisuusmoottorin tietosuojan RLS-käytännöillä.
+
 ---
 
 ## 10.13 Claude Code -suunnittelurakenne: tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina
@@ -2074,6 +2201,40 @@ Kreikkalais-roomalainen panteon tarjoaa kaksi etua:
 
 Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumisessa, kirjoittaen `agent_executions` Supabase-tauluun. Tämä täyttää EU AI Act artiklan 12 automaattiset lokivaatimukset korkean riskin tekoälyjärjestelmille.
 
+## 10.14 Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+### 10.14.1 Motivaatio
+
+31-agenttinen järjestelmä (13 ydin + 5 SEO + 13 työnkulku/toimiala) oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa, jotka estivät tuotantokääntämisen. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa: tyyppien yhteensopimattomuuksia moduulirajojen yli, puuttuvia reittejä, asentamattomia riippuvuuksia ja lokaalikohtaista muotoilua.
+
+### 10.14.2 Tyyppijärjestelmän linjaus: SandboxContext
+
+`SandboxStage`-tyyppi `src/sandbox/index.ts`-tiedostossa määritteli neljä vaihetta: `'1' | 'opensandbox' | '2' | '3'`, missä `'opensandbox'` edustaa vaiheen 1.5 Docker-pohjaista eristystä Acer Veriton GN100 -laitteistolla (osio 10.10). `SandboxContext.stage` `src/agents/types.ts`-tiedostossa hyväksyi kuitenkin vain `'1' | '2' | '3'`, luoden käännösaikaisen virheen. Korjaus linjasi molemmat tyypit.
+
+### 10.14.3 Reittien kytkentä: MCP ja ihminen silmukassa
+
+Kaksi kriittistä reittiä oli tavoittamattomissa puuttuvien tuontien vuoksi `src/app.ts`-tiedostossa:
+
+1. **MCP-agenttipalvelin** (`/mcp`) — `createMCPRouter()`-funktio paljastaa kaikki agentit MCP-työkaluina JSON-RPC 2.0:n kautta.
+2. **Ihminen silmukassa** (`/api/hil`) — HIL-päätepiste mahdollistaa yhden klikkauksen tehtävien suorittamisen aamubrief-sähköposteista.
+
+### 10.14.4 Lokaalivarma numeromuotoilu
+
+Päästödatan analyytikkoagentti muotoilee ETS-kustannusarvioita `Number.toLocaleString()`-metodilla. EU-lokaaleilla tämä tuottaa välilyönnillä erotellut luvut. Korjaus määrittää `'en-US'`-lokaalin eksplisiittisesti, varmistaen deterministisen tulostuksen käyttöympäristöstä riippumatta.
+
+### 10.14.5 Riippuvuushygienia
+
+`luxon`-kirjasto oli tuotu Social Schedulerissa mutta ei koskaan lisätty `package.json`-tiedostoon. Resend-sähköposti-SDK:n erävasteen tyyppi vaati suoritusaikaisen taulukkotunnistuksen.
+
+### 10.14.6 Tutkimuspanos
+
+Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvän kuvion: **integraatiovelka kertyy moduulirajoille, ei moduulien sisälle**. Korjaus koski 6 tiedostoa 5 alijärjestelmässä, palauttaen:
+
+- **0 TypeScript-virhettä** (oli 6)
+- **47/47 testiä läpi** (oli 44/47)
+- **Täysi MCP-löydettävyys** kaikille 31 agentille
+- **HIL-toiminnallisuus** aamubrief-työnkuluille
+
 ---
 
 **Dokumentin tiedot:**
@@ -2084,10 +2245,9 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.17 — Climate IQ Pantheon + toimialaerityiset agentit
-**Tila:** DRAFT - V3.17 — Claude Code -suunnittelurakenne (CLAUDE.md projektimuistina, taidot, koukut, aliagentit)
-**Versio:** 3.17
-**Viimeisin päivitys:** 02.03.2026
+**Tila:** DRAFT - V3.21 — Agenttijärjestelmän koventaminen (6 TS-virhettä korjattu, 3 testivikaa ratkaistu, MCP/HIL-reittien kytkentä)
+**Versio:** 3.21
+**Viimeisin päivitys:** 09.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2111,6 +2271,10 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 10. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; validoi Solution Factory -toistettavuuden liikevaihtokriittisille työnkuluille
 11. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral; monituottaja-LLM-reititin ratkaisee EU AI Act -suvereniteettijännitteen käytännössä
 12. Climate IQ Pantheon — 13-agenttinen kreikkalais-roomalainen jumaljärjestelmä (6 orkestraattoria + 7 toimialaerityistä) SOUL.md-identiteettimallilla, prompt injection -turvallisuudella, EU AI Act artikla 12 -lokituksella ja markkinointikiilapersoona-strategialla
+13. Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen
+14. MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille
+15. Asiakaskeskeiset MVP-ominaisuudet — Kolme tuotanto-ominaisuutta, jotka siirtävät DWS IQ:n kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi: (a) Itsepalvelu-API-avainten hallinta SHA-256-tiivistyksellä ja oikeuspohjaisella pääsynhallinnalla, (b) Käyttömittarointi 3-tasoisella laskutuksen valvonnalla (Free/Pro/Enterprise) ja kojelaudan edistymispalkeilla, (c) Vaatimustenmukaisuusraporttien vienti CSV/JSON-latauksella ja toistuvan aikataulun tuella. Validoi Solution Factory -tuotteistamishypoteesin — alusta on markkinavalmis säännellyille EU-toimialoille
+16. Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

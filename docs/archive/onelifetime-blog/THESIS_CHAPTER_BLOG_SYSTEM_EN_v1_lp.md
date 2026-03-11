@@ -1,6 +1,6 @@
 # Master Thesis Chapter: Dynamic Blog Management System Implementation
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

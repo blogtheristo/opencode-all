@@ -1,6 +1,6 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.6

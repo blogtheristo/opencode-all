@@ -5,8 +5,20 @@
 
 import React, { useState } from 'react';
 import { Navigate, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { MetricsHeader } from './components/MetricsHeader';
+import { ProjectCard } from './components/ProjectCard';
+import { ClimateAssistant } from './components/ClimateAssistant';
+import { MeetingPanel } from './components/MeetingPanel';
+import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
+import { ClaudeCodePanel } from './components/ClaudeCodePanel';
+import { ComplianceScoreWidget } from './components/ComplianceScoreWidget';
 import { ProfileMenu } from './components/ProfileMenu';
 import { HamburgerMenu } from './components/HamburgerMenu';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { ProjectCardSkeleton } from './components/Skeleton';
+import { EmptyState } from './components/EmptyState';
+import { OnboardingWizard } from './pages/OnboardingWizard';
 import { useAuth } from './hooks/useAuth';
 import { LoginPage } from './pages/LoginPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
@@ -57,6 +69,12 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 }
 
 function DashboardWithPanels() {
+function App() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
+  const [appView, setAppView] = useState<AppView>('dashboard');
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
@@ -68,6 +86,62 @@ function DashboardWithPanels() {
       case 'settings': navigate('/settings'); break;
       case 'billing': navigate('/billing'); break;
       default: break;
+  // Check if user needs onboarding (first login, no profile data)
+  useEffect(() => {
+    if (!user) return;
+    const onboardingDone = user.user_metadata?.onboarding_completed
+      || localStorage.getItem(`dws_onboarded_${user.id}`);
+    if (!onboardingDone) {
+      setShowOnboarding(true);
+    }
+  }, [user]);
+
+  // Show onboarding wizard before dashboard
+  if (showOnboarding && user) {
+    return (
+      <OnboardingWizard
+        userEmail={user.email || ''}
+        onComplete={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+        onSkip={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+      />
+    );
+  }
+
+  useEffect(() => {
+    async function loadProjects() {
+      setLoading(true);
+      const data = await fetchProjects();
+
+      // Transform Supabase data to Project type
+      const transformedProjects: Project[] = data.map(p => ({
+        id: p.id,
+        name: p.name,
+        status: p.status as 'green' | 'amber' | 'red',
+        spi: p.spi || 0,
+        cpi: p.cpi || 0,
+        carbon_footprint: p.carbon_footprint || 0,
+        compliance_status: {
+          csrd: true, // TODO: Get from actual compliance data
+          epbd: true,
+          ets: true,
+          cbam: false,
+          last_check: new Date().toISOString(),
+        },
+        location: p.location,
+        start_date: p.start_date,
+        end_date: p.end_date,
+        budget: p.budget,
+        spent: p.spent,
+      }));
+
+      setProjects(transformedProjects);
+      setLoading(false);
     }
   };
 
@@ -249,6 +323,89 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {children}
+        {appView === 'agents' ? (
+          <ErrorBoundary>
+            <AgentMonitorDashboard onClose={() => setAppView('dashboard')} />
+          </ErrorBoundary>
+        ) : (
+          <>
+            {/* Metrics */}
+            <ErrorBoundary>
+              <MetricsHeader />
+            </ErrorBoundary>
+
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Compliance Score Widget — hidden when a side panel is open (all screens) */}
+              {!sidePanel && (
+                <div className="lg:col-span-1 order-first lg:order-none">
+                  <ErrorBoundary>
+                    <ComplianceScoreWidget onRunAssessment={() => setSidePanel('chat')} />
+                  </ErrorBoundary>
+                </div>
+              )}
+
+              {/* Projects Section */}
+              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-2'}`}>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    Projects ({projects.length})
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+                      <option>All Status</option>
+                      <option>Green</option>
+                      <option>Amber</option>
+                      <option>Red</option>
+                    </select>
+                  </div>
+                </div>
+
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                      <ProjectCardSkeleton key={i} />
+                    ))}
+                  </div>
+                ) : projects.length === 0 ? (
+                  <EmptyState
+                    icon="chart"
+                    title="No projects yet"
+                    description="Run your first compliance assessment to see your portfolio here."
+                    actionLabel="Run Assessment"
+                    onAction={() => setSidePanel('chat')}
+                  />
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map(project => (
+                      <ErrorBoundary key={project.id}>
+                        <ProjectCard project={project} />
+                      </ErrorBoundary>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Side Panel: AI Assistant or Meeting */}
+              {sidePanel && (
+                <div className="lg:col-span-1">
+                  <div className="sticky top-24">
+                    <ErrorBoundary>
+                      {sidePanel === 'chat' && <ClimateAssistant />}
+                      {sidePanel === 'meeting' && (
+                        <MeetingPanel
+                          userName={user?.user_metadata?.full_name || user?.email || 'DWS6 User'}
+                          userEmail={user?.email}
+                        />
+                      )}
+                      {sidePanel === 'repo' && <ClaudeCodePanel />}
+                    </ErrorBoundary>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </main>
 
       <footer className="mt-12 py-6 border-t border-gray-200">

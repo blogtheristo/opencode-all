@@ -1,12 +1,17 @@
 # DWS6 Document Index
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.2
 
 Sessions & Modifications:
   - Version: 1.2 | Tool: Claude Code | Date: 11.03.2026 | Changes: Added Acer Veriton GN100 admin manual and three GN100 field notes to the document index
+Version: 1.3
+
+Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 08.03.2026 | Changes: Added Authentication, Outreach, Climate Assistant & Agent System sections from older feature audit
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Compliance Engine section with new source files; updated Architecture Docs with middleware files; added MVP Feature List to Miscellaneous
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Initial creation - comprehensive document index for faster search
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Added last-modified dates, scripts section, sync tracking info
 
@@ -93,6 +98,70 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 | 09 Production Deployment | `/docs/architecture/09-PRODUCTION-DEPLOYMENT.md` | ACTIVE | Production rollout |
 | 10 Delivery Launch | `/docs/architecture/10-DELIVERY-LAUNCH.md` | ACTIVE | Launch procedures |
 | Summary | `/docs/architecture/SUMMARY.md` | ACTIVE | Architecture summary |
+
+### Compliance Engine (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| ESRS Registry | `/src/compliance/esrs-registry.ts` | ACTIVE | 82 ESRS disclosure requirements (E1-E5, S1-S4, G1) |
+| Scoring Engine | `/src/compliance/scoring-engine.ts` | ACTIVE | CSRD/ETS/CBAM deterministic scoring logic |
+| Report Generator | `/src/compliance/report-generator.ts` | ACTIVE | Structured JSON compliance reports |
+| Compliance API Routes | `/src/routes/compliance.routes.ts` | ACTIVE | POST /assess, GET /registry endpoints |
+| CSRD Data Model | `/supabase/migrations/042_csrd_compliance_data.sql` | ACTIVE | Compliance profiles, ESRS data points, assessments |
+| Scoring Tests | `/src/__tests__/compliance-scoring.test.ts` | ACTIVE | 14 unit tests for scoring engine |
+
+### Backend Middleware (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Handler | `/src/middleware/error-handler.ts` | ACTIVE | Centralized error handling with AppError class |
+| Request Validation | `/src/middleware/validate.ts` | ACTIVE | Zod schema validation middleware |
+| Correlation ID | `/src/middleware/correlation-id.ts` | ACTIVE | Request tracing middleware |
+| Env Validation | `/src/config/validate-env.ts` | ACTIVE | Startup environment validation |
+
+### Dashboard Resilience (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Boundary | `/dws6.com/dashboard/.../components/ErrorBoundary.tsx` | ACTIVE | Per-section error isolation |
+| Skeleton Loaders | `/dws6.com/dashboard/.../components/Skeleton.tsx` | ACTIVE | Loading state components |
+| Empty States | `/dws6.com/dashboard/.../components/EmptyState.tsx` | ACTIVE | No-data guidance components |
+| API Hook | `/dws6.com/dashboard/.../hooks/useApi.ts` | ACTIVE | Centralized fetch with retry |
+
+### Authentication System (Pre-MVP — audited 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Auth Routes | `/src/routes/auth.routes.ts` | ACTIVE | Register, login, logout, refresh, verify-email, forgot-password |
+| Auth Service | `/src/services/auth.service.ts` | ACTIVE | JWT generation, bcrypt hashing, token blacklist (Redis + in-memory) |
+| Auth Middleware | `/src/middleware/auth.middleware.ts` | ACTIVE | authenticateToken, requireRole, requireOrgAdmin, loginRateLimit |
+| Redis Token Blacklist | `/src/services/redis-token-blacklist.service.ts` | ACTIVE | Redis-backed token revocation |
+| Auth DB Migration | `/supabase/migrations/007_auth_users_orgs.sql` | ACTIVE | user_profiles, organizations, org_members, sessions + RLS |
+| JWT Security Tests | `/src/__tests__/jwt-validation-security.test.ts` | ACTIVE | 7 tests for token validation |
+
+### Outreach & Sales Pipeline (Pre-MVP — refactored 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Outreach Inbound | `/src/routes/outreach.routes.ts` | ACTIVE | Lead intake API (Supabase SDK) |
+| Outreach Quick-Send | `/src/routes/outreach-send.routes.ts` | ACTIVE | Prospect email send (Supabase SDK) |
+| Daily Digest | `/src/outreach/daily-digest.ts` | ACTIVE | Aggregated outreach activity digest |
+| Reply Parser | `/src/outreach/reply-parser.ts` | ACTIVE | Email reply intent extraction |
+| Prospect Templates | `/src/outreach/prospect-email-templates.ts` | ACTIVE | Cold, followup, consultative email templates |
+| Outreach Tests | `/src/__tests__/sales-outreach-input-compat.test.ts` | ACTIVE | Input normalization tests |
+
+### Climate Assistant & AI Agent System (Pre-MVP — audited 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Climate Assistant Routes | `/src/routes/climate-assistant.routes.ts` | ACTIVE | Chat API with Groq LLM, rate limiting |
+| Climate Assistant Service | `/src/services/climate-assistant.service.ts` | ACTIVE | LLM chat processing, health check, usage stats |
+| Base Agent | `/src/agents/base.agent.ts` | ACTIVE | Abstract agent with agentic loop, multi-provider LLM, governance |
+| Agent Types | `/src/agents/types.ts` | ACTIVE | AgentContext, AgentResponse, ToolDefinition types |
+| LLM Client | `/src/agents/llm-client.ts` | ACTIVE | Multi-provider (Anthropic, Groq, OpenAI-compatible) |
+| Agent Routes | `/src/agents/routes.ts` | ACTIVE | Discovery + execution HTTP routes for 18 agents |
+| Agent Tools | `/src/agents/tools.ts` | ACTIVE | Built-in tool library (query_database, emit_event, delegate_to_agent) |
+| Gated Auth Tests | `/src/__tests__/climate-assistant-gated-auth.test.ts` | ACTIVE | 10 authentication tests |
 
 ---
 
@@ -346,6 +415,7 @@ Other important documentation.
 | V2 Firehorse | `/V2_Firehorse.md` | ACTIVE | Firehorse v2 spec |
 | Executive Summary | `/EXECUTIVE_SUMMARY.md` | ACTIVE | Project summary |
 | Exit Playbook | `/docs/EXIT_PLAYBOOK.md` | ACTIVE | Exit procedures |
+| MVP Feature List | `/docs/MVP_FEATURE_LIST_V1.md` | ACTIVE | Root-cause MVP analysis |
 | Implementation Tracker | `/docs/IMPLEMENTATION_TRACKER.md` | ACTIVE | Progress tracking |
 | Skills Required | `/docs/SKILLS_REQUIRED.md` | ACTIVE | Team skills |
 | ERP Integrations | `/docs/ERP_INTEGRATIONS.md` | ACTIVE | SAP, IFS, Dynamics |
@@ -361,11 +431,11 @@ Other important documentation.
 
 | Metric | Value |
 |--------|-------|
-| Total Markdown Files | 135+ |
-| Active Documents | 105+ |
+| Total Markdown Files | 140+ |
+| Active Documents | 115+ |
 | Archived Documents | 15+ |
 | Languages | EN, FI |
-| Categories | 14 (added Scripts & Automation) |
+| Categories | 17 (added Compliance Engine, Backend Middleware, Dashboard Resilience) |
 
 ### Sync Tracking
 

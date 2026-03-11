@@ -63,6 +63,8 @@ Thumbs.db
 *.iml
 .idea/
 .claude/
+claude-output.json
+review-output.json
 nul
 # .vscode/ is tracked - contains shared tasks.json for sync tools
 misc.xml
@@ -81,6 +83,12 @@ mcp-hub/*.log
 mcp-servers/**/*.log
 *.security.log
 security_*.log
+
+# --- DATABASE BACKUPS (never commit binary dumps) ---
+*.dump
+*.dump.gpg
+*.pgdump
+backups/db/
 
 # --- DOCKER VOLUMES (runtime data, not source) ---
 mcp-context-data/

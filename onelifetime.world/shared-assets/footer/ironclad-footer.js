@@ -5,6 +5,7 @@
  * Usage: Add this script to any page before </body>:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.1 — 2026-03-10: Add Pantheon link, update copyright year
  * v1.0 — 2026-03-02: Initial release for onelifetime.world
  *        5-column links, payment methods, legal bar, copyright
  *
@@ -78,6 +79,7 @@
             <a href="/careers/">Careers</a>
             <a href="/Partners/">Partners</a>
             <a href="/pledge/">Climate Pledge</a>
+            <a href="/pantheon/">AI Pantheon</a>
             <a href="mailto:support@lifetime.fi">Support</a>
             <a href="mailto:sales@lifetime.fi">Sales</a>
         </div>

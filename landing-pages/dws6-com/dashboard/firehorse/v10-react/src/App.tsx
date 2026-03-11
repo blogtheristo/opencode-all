@@ -10,8 +10,13 @@ import { ClimateAssistant } from './components/ClimateAssistant';
 import { MeetingPanel } from './components/MeetingPanel';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
 import { ClaudeCodePanel } from './components/ClaudeCodePanel';
+import { ComplianceScoreWidget } from './components/ComplianceScoreWidget';
 import { ProfileMenu } from './components/ProfileMenu';
 import { HamburgerMenu } from './components/HamburgerMenu';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { ProjectCardSkeleton } from './components/Skeleton';
+import { EmptyState } from './components/EmptyState';
+import { OnboardingWizard } from './pages/OnboardingWizard';
 import { useAuth } from './hooks/useAuth';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
@@ -24,7 +29,35 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
   const [appView, setAppView] = useState<AppView>('dashboard');
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const { user, signOut } = useAuth();
+
+  // Check if user needs onboarding (first login, no profile data)
+  useEffect(() => {
+    if (!user) return;
+    const onboardingDone = user.user_metadata?.onboarding_completed
+      || localStorage.getItem(`dws_onboarded_${user.id}`);
+    if (!onboardingDone) {
+      setShowOnboarding(true);
+    }
+  }, [user]);
+
+  // Show onboarding wizard before dashboard
+  if (showOnboarding && user) {
+    return (
+      <OnboardingWizard
+        userEmail={user.email || ''}
+        onComplete={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+        onSkip={() => {
+          localStorage.setItem(`dws_onboarded_${user.id}`, 'true');
+          setShowOnboarding(false);
+        }}
+      />
+    );
+  }
 
   useEffect(() => {
     async function loadProjects() {
@@ -159,16 +192,29 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {appView === 'agents' ? (
-          <AgentMonitorDashboard onClose={() => setAppView('dashboard')} />
+          <ErrorBoundary>
+            <AgentMonitorDashboard onClose={() => setAppView('dashboard')} />
+          </ErrorBoundary>
         ) : (
           <>
             {/* Metrics */}
-            <MetricsHeader />
+            <ErrorBoundary>
+              <MetricsHeader />
+            </ErrorBoundary>
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Compliance Score Widget — hidden when a side panel is open (all screens) */}
+              {!sidePanel && (
+                <div className="lg:col-span-1 order-first lg:order-none">
+                  <ErrorBoundary>
+                    <ComplianceScoreWidget onRunAssessment={() => setSidePanel('chat')} />
+                  </ErrorBoundary>
+                </div>
+              )}
+
               {/* Projects Section */}
-              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+              <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-2'}`}>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">
                     Projects ({projects.length})
@@ -186,24 +232,23 @@ function App() {
                 {loading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[...Array(4)].map((_, i) => (
-                      <div key={i} className="card animate-pulse">
-                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                        <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                      </div>
+                      <ProjectCardSkeleton key={i} />
                     ))}
                   </div>
                 ) : projects.length === 0 ? (
-                  <div className="card text-center py-12">
-                    <p className="text-gray-500 mb-4">No projects found</p>
-                    <p className="text-sm text-gray-400">
-                      Connect to Supabase to view your portfolio
-                    </p>
-                  </div>
+                  <EmptyState
+                    icon="chart"
+                    title="No projects yet"
+                    description="Run your first compliance assessment to see your portfolio here."
+                    actionLabel="Run Assessment"
+                    onAction={() => setSidePanel('chat')}
+                  />
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {projects.map(project => (
-                      <ProjectCard key={project.id} project={project} />
+                      <ErrorBoundary key={project.id}>
+                        <ProjectCard project={project} />
+                      </ErrorBoundary>
                     ))}
                   </div>
                 )}
@@ -213,14 +258,16 @@ function App() {
               {sidePanel && (
                 <div className="lg:col-span-1">
                   <div className="sticky top-24">
-                    {sidePanel === 'chat' && <ClimateAssistant />}
-                    {sidePanel === 'meeting' && (
-                      <MeetingPanel
-                        userName={user?.user_metadata?.full_name || user?.email || 'DWS6 User'}
-                        userEmail={user?.email}
-                      />
-                    )}
-                    {sidePanel === 'repo' && <ClaudeCodePanel />}
+                    <ErrorBoundary>
+                      {sidePanel === 'chat' && <ClimateAssistant />}
+                      {sidePanel === 'meeting' && (
+                        <MeetingPanel
+                          userName={user?.user_metadata?.full_name || user?.email || 'DWS6 User'}
+                          userEmail={user?.email}
+                        />
+                      )}
+                      {sidePanel === 'repo' && <ClaudeCodePanel />}
+                    </ErrorBoundary>
                   </div>
                 </div>
               )}
