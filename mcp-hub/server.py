@@ -115,7 +115,10 @@ app.add_middleware(
 MCP_SERVERS: dict[str, str] = {
     "github": os.getenv("GITHUB_MCP_URL", "http://localhost:8767"),
     "gemini": os.getenv("GEMINI_MCP_URL", "http://localhost:8768"),
-    "supabase-mcp": os.getenv("SUPABASE_MCP_URL", "http://supabase-mcp:8766"),
+    "carbon-api": os.getenv(
+        "CARBON_API_URL",
+        os.getenv("CARBON_MCP_URL", os.getenv("SUPABASE_MCP_URL", "http://carbon-api:8766")),
+    ),
     "cloudrun-mcp": os.getenv("CLOUDRUN_MCP_URL", "http://cloudrun-mcp:8769"),
     "backend": os.getenv("BACKEND_URL", "http://localhost:3002"),
     "prometheus": os.getenv("PROMETHEUS_URL", "http://localhost:9091"),

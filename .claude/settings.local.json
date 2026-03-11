@@ -37,5 +37,10 @@
         ]
       }
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "Supabase MCP",
+    "Upstash Redis",
+    "MCP Hub"
+  ]
 }

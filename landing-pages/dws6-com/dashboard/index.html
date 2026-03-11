@@ -101,7 +101,7 @@
         import { getCurrentUser, getUserRole } from '../shared/js/supabase-client.js';
         import { logout, handleOAuthCallback } from '../shared/js/auth-handler.js';
 
-        const DELIVERY_STATUS = {
+        const DELIVERY_STATUS_FALLBACK = {
             timestamp: '2026-03-02',
             mvp: 72,
             v1: 46,
@@ -174,12 +174,13 @@
             }
         }
 
-        function renderDeliveryStatus() {
-            document.getElementById('deliveryTimestamp').textContent = `Snapshot: ${DELIVERY_STATUS.timestamp} · investor view`;
+        function renderDeliveryStatus(status) {
+            const s = status || DELIVERY_STATUS_FALLBACK;
+            document.getElementById('deliveryTimestamp').textContent = `Snapshot: ${s.timestamp} · investor view`;
             const progress = [
-                { label: 'MVP Completion', value: DELIVERY_STATUS.mvp },
-                { label: 'V1 Completion', value: DELIVERY_STATUS.v1 },
-                { label: 'DWS7 Implementation', value: DELIVERY_STATUS.dws7 }
+                { label: 'MVP Completion', value: s.mvp },
+                { label: 'V1 Completion', value: s.v1 },
+                { label: 'DWS7 Implementation', value: s.dws7 }
             ];
 
             document.getElementById('deliveryProgress').innerHTML = progress.map(item => `
@@ -257,7 +258,22 @@
             }
         }
 
-        renderDeliveryStatus();
+        async function loadDeliveryStatus() {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('/api/v1/dashboard/delivery-status', {
+                    headers: token ? { Authorization: `Bearer ${token}` } : {}
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderDeliveryStatus(data);
+                    return;
+                }
+            } catch (_e) { /* fallback */ }
+            renderDeliveryStatus(DELIVERY_STATUS_FALLBACK);
+        }
+
+        await loadDeliveryStatus();
         renderBriefHistory();
         await loadAgentStatus();
 
