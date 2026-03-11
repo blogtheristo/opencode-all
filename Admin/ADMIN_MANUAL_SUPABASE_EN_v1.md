@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
   - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
   - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
@@ -16,17 +17,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 04.03.2026
+  - Last Modified: 11.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.2
+**Version:** 1.3
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 04.03.2026
+**Updated:** 11.03.2026
 
 ---
 
@@ -46,6 +47,7 @@ Document Status:
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
 11. [Troubleshooting](#11-troubleshooting)
+   - [11.2 Direct Postgres vs MCP Under VPN](#112-direct-postgres-vs-mcp-under-vpn)
 12. [Database Drift Detection](#12-database-drift-detection)
 13. [Alert Router & Redis Pub/Sub](#13-alert-router--redis-pubsub)
 14. [Glossary](#14-glossary)
@@ -1128,6 +1130,71 @@ WHERE state = 'active'
 4. Optimize queries
 5. Consider upgrading plan
 
+### 11.2 Direct Postgres vs MCP Under VPN
+
+**Observed behavior (March 2026):**
+- Supabase SQL execution through MCP works while VPN is enabled
+- Direct `DATABASE_URL` connections from local tools may fail under VPN
+- Common direct-DB errors seen in practice:
+  - `connect EACCES ...:5432` — direct PostgreSQL socket blocked, often on IPv6
+  - `SELF_SIGNED_CERT_IN_CHAIN` — TLS query params in `DATABASE_URL` conflicting with local client SSL config
+  - `28P01 password authentication failed` — wrong or placeholder DB password in `DATABASE_URL`
+
+**Why MCP works while `pg` fails:**
+- MCP traffic usually goes over HTTPS (`443`) through an API layer
+- Direct Postgres uses raw TCP to `db.<project-ref>.supabase.co:5432`
+- VPN/browser bypass rules may allow HTTPS while still blocking raw `5432`
+
+**Important conclusion:**
+- If MCP works but `npm run db:test` fails, the problem is usually network/VPN routing, not the SQL migration itself
+- If direct DB works only with VPN off, use MCP or Supabase SQL Editor when VPN must remain on
+
+**Known DWS6 host:**
+- Direct DB target: `db.kpucuwwfhuwurdxyjjtz.supabase.co:5432`
+- Supabase web UI: `https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/sql/new`
+
+**VPN notes:**
+- Hostname-only bypass may be insufficient for direct Postgres
+- Some VPN clients bypass browser HTTPS correctly but still intercept local TCP clients (`node`, Cursor terminal, DGX Spark)
+- If the VPN warns that bypass does not work with DNS over HTTPS (DoH), disable DoH before testing hostname-based bypass rules
+
+**Recommended test order:**
+1. Test MCP path first. If MCP SQL works, schema/app logic is probably fine.
+2. Test direct Postgres path with `npm run db:test`
+3. Compare VPN on vs VPN off
+4. If VPN on fails and VPN off works, report the issue as direct Postgres/TCP `5432` interception, not a SQL bug
+
+**Reusable direct DB test:**
+```bash
+npm run db:test
+```
+
+This script:
+- loads `.env`, `100326.env`, `.env.local`
+- sanitizes SSL query params from `DATABASE_URL`
+- tests direct Postgres connectivity
+- runs a harmless query and prints connection details
+
+**Migration helpers for partial-history environments:**
+```bash
+npm run db:migrate:042
+npm run db:migrate:043
+```
+
+Both migration runners:
+- strip SSL query params from `DATABASE_URL`
+- force a local non-verifying SSL config for compatibility
+- print the target DB host/port for debugging
+
+**Password source rule:**
+- `DATABASE_URL` must use the actual PostgreSQL password from `Supabase Dashboard -> Project Settings -> Database`
+- Do not use `anon`, `service_role`, or `sb_secret_*` keys as the Postgres password
+
+**Safe fallback when direct DB is blocked:**
+1. Use Supabase SQL Editor
+2. Or use MCP-based SQL execution / migration apply path
+3. Defer direct `pg` tooling until VPN bypass for `db.<project-ref>.supabase.co:5432` is proven to work
+
 ---
 
 ## 12. Database Drift Detection
@@ -1233,6 +1300,9 @@ Requires `SUPABASE_ACCESS_TOKEN` (personal access token from supabase.com/dashbo
 |--------|---------|
 | `scripts/db-drift-check.py` | Plan + Verify phases — detects schema drift, publishes alerts |
 | `scripts/alert-publisher.py` | Fetches Supabase Performance Advisor results, publishes to Redis |
+| `scripts/test-db-connection.ts` | Tests direct PostgreSQL connectivity using `DATABASE_URL`; use to compare VPN on vs off |
+| `scripts/apply-migration-042.ts` | Applies migration 042 directly via `pg` when migration history prevents full `supabase db push` |
+| `scripts/apply-migration-043.ts` | Applies migration 043 directly via `pg` when migration history prevents full `supabase db push` |
 
 ---
 

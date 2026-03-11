@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: GPT-5.4 | Date: 11.03.2026 | Changes: Added Veriton Edge Stack Runbook and client endpoint templates for Control Room / Situation Room delivery
   - Version: 1.5 | Tool: Claude Code | Date: 11.03.2026 | Changes: Add successful NVIDIA PyTorch ARM64 container validation, record GB10 support warning, and promote NVIDIA NGC PyTorch as validated GN100 baseline
   - Version: 1.4 | Tool: Claude Code | Date: 11.03.2026 | Changes: Document GN100 Docker/CUDA validation, confirm ARM64 host environment, record NVIDIA GB10 runtime status, and set ARM64-first PyTorch container decision
   - Version: 1.3 | Tool: Claude Code | Date: 11.03.2026 | Changes: Add Ollama systemd override runbook, remote bind verification, Continue CLI/extension base URL guidance, and direct-vs-local troubleshooting
@@ -326,6 +327,11 @@ http://127.0.0.1:11434
 
 | Document | Location |
 |----------|----------|
+| Veriton Edge Stack Runbook | `Admin/Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md` |
+| Client endpoint templates | `Admin/Acer-Veriton-GN100/templates/CLIENT_ENDPOINT_TEMPLATES.md` |
+| Continue tunnel template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-tunnel.yaml` |
+| Continue direct template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-direct.yaml` |
+| Veriton env template | `Admin/Acer-Veriton-GN100/templates/veriton-edge.env.example` |
 | Docker + CUDA validation (2026-03-11) | `docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` |
 | Ollama + dev environment (Cursor, Cline, Claude Code) | `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` |
 | NVIDIA GPG Key Fix (2026-02-27) | `docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` |
