@@ -331,7 +331,8 @@ http://127.0.0.1:11434
 | Client endpoint templates | `Admin/Acer-Veriton-GN100/templates/CLIENT_ENDPOINT_TEMPLATES.md` |
 | Continue tunnel template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-tunnel.yaml` |
 | Continue direct template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-direct.yaml` |
-| Veriton env template | `Admin/Acer-Veriton-GN100/templates/veriton-edge.env.example` |
+| Client Veriton offers | `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md` |
+| Veriton config template | `Admin/Acer-Veriton-GN100/templates/veriton-edge-config.example` |
 | Docker + CUDA validation (2026-03-11) | `docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` |
 | Ollama + dev environment (Cursor, Cline, Claude Code) | `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` |
 | NVIDIA GPG Key Fix (2026-02-27) | `docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` |

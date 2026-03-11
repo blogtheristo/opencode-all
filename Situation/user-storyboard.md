@@ -108,7 +108,7 @@ flowchart LR
 ## 6. Related Documents
 
 - `Situation/DWS_IQ6_USER_MANUAL.md`
-- `Admin/CLIENT_VERITON_OFFERS_EN_v1.md`
+- `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`
 - `Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`
 - `Situation/admin-storyboard.md`
 

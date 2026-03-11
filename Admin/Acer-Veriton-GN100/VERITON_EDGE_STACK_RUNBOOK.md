@@ -338,7 +338,7 @@ Action:
 
 ## 11. Related Files
 
-- `Admin/CLIENT_VERITON_OFFERS_EN_v1.md`
+- `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`
 - `Admin/Acer-Veriton-GN100/README.md`
 - `Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md`
 - `src/sandbox/index.ts`

@@ -379,7 +379,7 @@ def save_leads_csv(leads: list[dict], output_path: Path) -> int:
 
     # Read existing leads
     if output_path.exists():
-        with open(output_path, "r", encoding="utf-8") as f:
+        with open(output_path, encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 existing_ids.add(row.get("notice_id", ""))
@@ -536,9 +536,8 @@ def send_email(subject: str, html: str, text: str) -> bool:
         result = response.json()
         logger.info(f"Email sent via Resend. ID: {result.get('id', 'unknown')}")
         return True
-    else:
-        logger.error(f"Resend failed ({response.status_code}): {response.text}")
-        return False
+    logger.error(f"Resend failed ({response.status_code}): {response.text}")
+    return False
 
 
 # ============================================================================

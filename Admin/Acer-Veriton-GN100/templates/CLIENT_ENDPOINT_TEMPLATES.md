@@ -101,5 +101,5 @@ SUPABASE_URL=https://your-project.supabase.co
 
 See also:
 
-- `templates/veriton-edge.env.example`
+- `templates/veriton-edge-config.example`
 - `Admin/Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md`

@@ -119,7 +119,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 | Manual | Location | Language | Description |
 |--------|----------|----------|-------------|
-| **Client Veriton Offers** | [`CLIENT_VERITON_OFFERS_EN_v1.md`](CLIENT_VERITON_OFFERS_EN_v1.md) | EN | Product definition for Control Room Acer Veriton and Situation Room Acer Veriton-backed |
+| **Client Veriton Offers** | [`Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`](Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md) | EN | Product definition for Control Room Acer Veriton and Situation Room Acer Veriton-backed |
 | **Veriton Edge Stack Runbook** | [`Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md`](Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md) | EN | Docker, Ollama, OpenSandbox, MCP, tunnel, and health-check runbook |
 | **User Storyboard** | [`../Situation/user-storyboard.md`](../Situation/user-storyboard.md) | EN | End-user path from public entry to Dashboard V10 and local Control Room |
 | **Admin Storyboard** | [`../Situation/admin-storyboard.md`](../Situation/admin-storyboard.md) | EN | Admin path for Dashboard V10 oversight, local admin app, and Veriton operations |

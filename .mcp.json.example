@@ -46,6 +46,40 @@
         "GOOGLE_APPLICATION_CREDENTIALS": "/gcloud/application_default_credentials.json"
       }
     },
+    "Supabase MCP": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "SUPABASE_ACCESS_TOKEN",
+        "-e",
+        "SUPABASE_PROJECT_REF",
+        "dws6-supabase-official-mcp:latest"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
+        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
+      }
+    },
+    "Upstash Redis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/redis-mcp@latest"
+      ],
+      "env": {
+        "REDIS_URL": "redis://user:password@host:port"
+      }
+    },
+    "MCP Hub": {
+      "_type": "coordination-hub",
+      "_port": 8765,
+      "_endpoints": {
+        "hub": "http://localhost:8765"
+      }
+    },
     "Supabase Official (Docker)": {
       "command": "docker",
       "args": [
