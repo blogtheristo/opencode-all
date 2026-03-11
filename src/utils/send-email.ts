@@ -2,7 +2,8 @@
  * Send Email — SMTP (Amazon SES) primary, Resend fallback
  *
  * All DWS emails use risto@onelifetime.world (verified in SES and Resend.com).
- * Priority: SMTP (SES) → Resend → console
+ * Priority: SMTP (SES) → Resend. If both transports are unavailable or fail,
+ * the function returns { ok: false, error } for the caller to handle (e.g. logging).
  *
  * Env vars:
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (for Amazon SES)
