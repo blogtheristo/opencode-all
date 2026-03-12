@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
@@ -1276,6 +1277,8 @@ This thesis contributes:
 9. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation
 10. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model
 11. LSS Training Pipeline Coordination — Lifetime Scope Signals applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes; validates LSS as general-purpose coordination beyond software development
+12. Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export; Firehorse operations model transition to customer-deliverable SaaS
+13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
 
 ### 16.3 Future Work
 
@@ -1538,6 +1541,32 @@ The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failu
 
 ---
 
+### Section 14.11: PostgreSQL Columnar HTAP Architecture — DWS Data Standard
+
+The Firehorse operations model generates growing volumes of campaign events, agent execution logs, and audit trail data. Running analytics against transactional heap tables creates performance bottlenecks as data scales.
+
+**Solution: Single-database HTAP on Aiven EU**
+
+The PostgreSQL columnar extension pattern — pioneered by Hydra — enables true HTAP within a single database. Six production-ready solutions were evaluated:
+
+| Solution | Engine | Aiven Support | Firehorse Fit |
+|----------|--------|---------------|---------------|
+| TimescaleDB | PostgreSQL | Yes | Primary — time-series agent metrics, audit compression |
+| pg_duckdb | DuckDB | Verify | Primary — campaign funnel acceleration |
+| pg_mooncake | DuckDB | No | Future — lakehouse export (EU Data Act) |
+
+**DWS Data Standard created** (`DWS_DATA_STANDARD.md`) governing:
+- Storage engine decisions (row vs columnar vs hybrid)
+- Extension governance with EU sovereignty assessment
+- Retention policies mapped to 11 EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2: 5yr, Finnish Accounting Act: 10yr)
+- Partitioning and compression standards
+
+**4-phase rollout:** Phase 0 (table partitioning) → Phase 1 (TimescaleDB on Aiven) → Phase 2 (pg_duckdb HTAP) → Phase 3 (lakehouse integration).
+
+**Research contribution:** Demonstrates that single-database HTAP is viable for regulated EU e-commerce platforms — same SQL, same clients, same RLS, zero ETL.
+
+---
+
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 09.03.2026*
-*Version: 2.1*
+*Last updated: 12.03.2026*
+*Version: 2.2*

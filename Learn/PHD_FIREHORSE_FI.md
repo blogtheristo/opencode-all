@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
@@ -1528,6 +1529,32 @@ Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja te
 
 ---
 
+### Osio 14.11: PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi
+
+Firehorse-toimintamalli tuottaa kasvavia määriä kampanjatapahtumia, agenttisuorituslokeja ja auditointijälkidataa. Analytiikan suorittaminen transaktiotaulujen varastoon luo suorituskyvyn pullonkauloja datan kasvaessa.
+
+**Ratkaisu: Yksitietokantainen HTAP Aiven EU:ssa**
+
+PostgreSQL:n sarakemuotoinen laajennusmalli mahdollistaa aidon HTAP:n yksittäisessä tietokannassa. Kuusi tuotantovalmista ratkaisua arvioitiin:
+
+| Ratkaisu | Moottori | Aiven-tuki | Firehorse-sopivuus |
+|----------|----------|------------|-------------------|
+| TimescaleDB | PostgreSQL | Kyllä | Ensisijainen — aikasarja-agenttimetriikat, auditointipakkaus |
+| pg_duckdb | DuckDB | Varmistettava | Ensisijainen — kampanjasuppilon nopeutus |
+| pg_mooncake | DuckDB | Ei | Tulevaisuus — lakehouse-vienti (EU Data Act) |
+
+**DWS-tietostandardi luotu** (`DWS_DATA_STANDARD.md`):
+- Tallennusmoottoripäätökset (rivi vs sarake vs hybridi)
+- Laajennusten hallinta EU-suvereniteettiarviolla
+- Säilytysperiaatteet 11 EU-säädökseen sidottuina (GDPR Art 17, EU AI Act Art 12: 7v, NIS2: 5v, kirjanpitolaki: 10v)
+- Osiointi- ja pakkausstandardit
+
+**4-vaiheinen käyttöönotto:** Vaihe 0 (tauluosiointi) → Vaihe 1 (TimescaleDB Aivenilla) → Vaihe 2 (pg_duckdb HTAP) → Vaihe 3 (lakehouse-integraatio).
+
+**Tutkimuspanos:** Osoittaa, että yksitietokantainen HTAP on toteuttamiskelpoinen säännellyille EU-verkkokauppa-alustoille — sama SQL, samat asiakasohjelmat, sama RLS, nolla ETL:ää.
+
+---
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 09.03.2026*
-*Versio: 2.1*
+*Viimeksi paivitetty: 12.03.2026*
+*Versio: 2.2*

@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.21
+Version: 3.22
 
 Sessions & Modifications:
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 10.15 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU for single-database HTAP, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance matrix (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); added Key Contribution #17; updated footer
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #16; updated footer
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #15 (Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export with scheduling); demonstrates transition from developer tools to customer-ready SaaS platform; validates Solution Factory productization hypothesis
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3 MCP Hub Orchestration Patterns with implementation details (4 patterns: Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing, production readiness table; added Section 2.5.4 Skills and CLIs as Agent Interfaces (Three-Interface Rule: CLI + MCP + Skills)
@@ -2312,6 +2313,61 @@ This hardening session demonstrates a pattern relevant to multi-agent system mai
 
 ---
 
+## 10.15 PostgreSQL Columnar HTAP Architecture — DWS Data Standard
+
+### 10.15.1 Motivation
+
+DWS6 runs all analytics against transactional heap tables with no columnar or HTAP capabilities. As the platform scales toward IoT telemetry (DWS7 Phase 4), 7-year Article 12 audit retention, and growing agent execution logs, the single-engine approach creates performance bottlenecks: campaign funnel aggregation hits raw event tables, agent cost rollups require full table scans, and audit log storage costs grow linearly with no compression.
+
+The PostgreSQL "columnar extension" pattern — pioneered by Hydra and now production-ready across six implementations — enables true HTAP (Hybrid Transactional/Analytical Processing) within a single database: transactional tables remain as standard heap, analytics tables become columnar, with seamless joins and zero data movement.
+
+### 10.15.2 Extension Evaluation
+
+Six Hydra-like solutions were evaluated for DWS compatibility:
+
+| Solution | Execution Engine | Lakehouse | Aiven Support | DWS Fit |
+|----------|-----------------|-----------|---------------|---------|
+| pg_duckdb | DuckDB (vectorized) | Excellent | Verify | Primary — query acceleration |
+| TimescaleDB | PostgreSQL | Basic | **Yes** | Primary — time-series + compression |
+| pg_mooncake | DuckDB | Excellent | No | Future — lakehouse export |
+| ParadeDB | DuckDB | Best | No | Redundant (TSVECTOR exists) |
+| Citus Columnar | PostgreSQL | Basic | No | Not recommended (Azure-locked) |
+| Hydra | DuckDB | Good | No | Reference architecture |
+
+### 10.15.3 Recommended Stack
+
+**TimescaleDB + pg_duckdb on Aiven PostgreSQL (EU Finland):**
+
+- **TimescaleDB hypertables** for agent_metrics, agent_costs, article12_audit_log, and DWS7 IoT sensor data. Automatic compression tiering: hot (0-90d) → warm (90d-1yr, LZ4) → cold (1-7yr, ZSTD). Expected 90-95% compression on audit logs.
+- **pg_duckdb** for analytical query acceleration on existing heap tables (campaign funnels, financial reports, CSRD rollups). Drop-in — no schema changes required.
+- **pg_mooncake** (Phase 3, 2027) for Iceberg/Parquet export satisfying EU Data Act 2023/2854 IoT data portability requirements.
+
+### 10.15.4 DWS Data Standard
+
+A new `DWS_DATA_STANDARD.md` was created to govern all data storage decisions. Key sections:
+
+1. **Storage Engine Policy** — decision matrix for row vs columnar vs hybrid
+2. **Extension Governance** — approved registry with sovereignty assessment
+3. **Retention Policy** — per-table rules mapped to EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2 Art 23: 5yr, Finnish Accounting Act 1336/1997: 10yr)
+4. **Partitioning Standard** — TimescaleDB hypertables preferred over native partitioning
+5. **Compression Policy** — tiered compression targets (1:1 hot → 20:1 archive)
+6. **EU Regulatory Compliance** — matrix mapping 11 EU regulations to database requirements
+
+### 10.15.5 Phased Rollout
+
+| Phase | Timeline | Target | Actions |
+|-------|----------|--------|---------|
+| 0 | Q1 2026 | Supabase (current) | Table partitioning, materialized views, pg_stat_statements |
+| 1 | Q2 2026 | Aiven V1 | TimescaleDB hypertables, continuous aggregates |
+| 2 | Q3-Q4 2026 | Aiven DWS7 | pg_duckdb acceleration, IoT hypertables, audit compression |
+| 3 | 2027 | Full HTAP | pg_mooncake lakehouse, Iceberg/Parquet, external tool access |
+
+### 10.15.6 Research Contribution
+
+This work demonstrates that the **single-database HTAP pattern** is viable for regulated EU industrial platforms: same SQL, same clients, same RLS, zero ETL. The phased approach — starting with natively-supported extensions on a managed EU-sovereign provider (Aiven Finland) — eliminates the traditional choice between operational simplicity and analytical capability. The DWS Data Standard codifies this as an organizational standard, ensuring that storage engine decisions are deliberate, documented, and EU-compliant.
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -2320,9 +2376,9 @@ This hardening session demonstrates a pattern relevant to multi-agent system mai
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.21 — Agent System Hardening (6 TS errors fixed, 3 test failures resolved, MCP/HIL route wiring, locale-deterministic formatting)
-**Version:** 3.21
-**Last Modified:** 09.03.2026
+**Status:** DRAFT - V3.22 — PostgreSQL Columnar HTAP Architecture (DWS Data Standard, pg_duckdb + TimescaleDB, 4-phase rollout, EU regulatory compliance)
+**Version:** 3.22
+**Last Modified:** 12.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2351,6 +2407,7 @@ This hardening session demonstrates a pattern relevant to multi-agent system mai
 14. MCP Hub Orchestration + Three-Interface Rule — Four production workflow patterns (Fan-Out, Sequential, Reflection, Pipeline) with documented endpoints; Skills/CLI as mandatory agent interfaces ensuring every agent is accessible to humans, AI systems, and development workflows
 15. Customer-Facing MVP Features — Three production features transitioning DWS IQ from developer tooling to customer-ready SaaS: (a) Self-service API Key Management with SHA-256 hashing and scope-based access, (b) Usage Metering with 3-tier billing enforcement (Free/Pro/Enterprise) and dashboard progress bars, (c) Compliance Report Export with CSV/JSON download and recurring schedule support. Validates Solution Factory productization hypothesis — platform is market-ready for regulated EU industries
 16. Agent System Hardening — Production reliability restoration: 6 TypeScript compilation errors fixed across 5 subsystems, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; demonstrates integration debt patterns in multi-agent systems
+17. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, and EU regulatory compliance (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act); 4-phase rollout from table partitioning to lakehouse integration
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

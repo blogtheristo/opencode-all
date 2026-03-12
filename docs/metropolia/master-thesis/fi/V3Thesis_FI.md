@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.21
+Version: 3.22
 
 Sessions & Modifications:
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 10.15 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa yksitietokantaiseen HTAP:iin, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuusmatriisi (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); lisätty avainpanos #17; päivitetty alatunniste
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
@@ -2237,6 +2238,60 @@ Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvä
 
 ---
 
+## 10.15 PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi
+
+### 10.15.1 Motivaatio
+
+DWS6 suorittaa kaikki analytiikkakyselyt transaktiotaulujen varastoon ilman sarakemuotoisia tai HTAP-ominaisuuksia. Alustan skaalautuessa IoT-telemetriaan (DWS7 vaihe 4), 7 vuoden artikla 12 -auditointisäilytykseen ja kasvaviin agenttisuorituslokeihin, yksimoottorilähestymistapa luo suorituskyvyn pullonkauloja.
+
+PostgreSQL:n "sarakemuotoinen laajennus" -malli mahdollistaa aidon HTAP:n (Hybrid Transactional/Analytical Processing) yksittäisen tietokannan sisällä: transaktiotaulut pysyvät tavallisina heap-tauluina, analytiikkataulut muuttuvat sarakemuotoisiksi, saumattomilla liitoksilla ja ilman tiedonsiirtoa.
+
+### 10.15.2 Laajennusten arviointi
+
+Kuusi Hydra-tyyppistä ratkaisua arvioitiin DWS-yhteensopivuuden osalta:
+
+| Ratkaisu | Suoritusmoottori | Aiven-tuki | DWS-sopivuus |
+|----------|-----------------|------------|-------------|
+| pg_duckdb | DuckDB (vektorisoitu) | Varmistettava | Ensisijainen — kyselyjen nopeutus |
+| TimescaleDB | PostgreSQL | **Kyllä** | Ensisijainen — aikasarjat + pakkaus |
+| pg_mooncake | DuckDB | Ei | Tulevaisuus — lakehouse-vienti |
+| ParadeDB | DuckDB | Ei | Tarpeeton (TSVECTOR käytössä) |
+| Citus Columnar | PostgreSQL | Ei | Ei suositella (Azure-sidottu) |
+
+### 10.15.3 Suositeltu pino
+
+**TimescaleDB + pg_duckdb Aiven PostgreSQL:ssä (EU Suomi):**
+
+- **TimescaleDB-hypertaulut** agent_metrics, agent_costs, article12_audit_log ja DWS7 IoT-sensoridatalle. Automaattinen pakkauskerrostus: kuuma (0-90pv) → lämmin (90pv-1v, LZ4) → kylmä (1-7v, ZSTD). Odotettu 90-95% pakkaus auditointilokille.
+- **pg_duckdb** analyyttisten kyselyjen nopeuttamiseen heap-tauluilla (kampanjasupilot, taloudelliset raportit, CSRD-koontikyselyt).
+- **pg_mooncake** (vaihe 3, 2027) Iceberg/Parquet-vientiin EU Data Act 2023/2854 IoT-tiedon siirrettävyysvaatimusten täyttämiseksi.
+
+### 10.15.4 DWS-tietostandardi
+
+Uusi `DWS_DATA_STANDARD.md` luotiin ohjaamaan kaikkia tiedon tallennuspäätöksiä:
+
+1. **Tallennusmoottoripolitiikka** — päätösmatriisi rivi vs sarake vs hybridi
+2. **Laajennusten hallinta** — hyväksytty rekisteri suvereniteettiarviolla
+3. **Säilytysperiaatteet** — taulukohtaiset säännöt EU-säädöksiin sidottuina (GDPR Art 17, EU AI Act Art 12: 7v, NIS2 Art 23: 5v, kirjanpitolaki 1336/1997: 10v)
+4. **Osiointistandardit** — TimescaleDB-hypertaulut ensisijaisena natiiviosioinnin sijaan
+5. **Pakkauspolitiikka** — kerroksittaiset pakkaustavoitteet (1:1 kuuma → 20:1 arkisto)
+6. **EU-sääntelynmukaisuus** — matriisi, joka yhdistää 11 EU-säädöstä tietokantavaatimuksiin
+
+### 10.15.5 Vaiheittainen käyttöönotto
+
+| Vaihe | Aikataulu | Kohde | Toimenpiteet |
+|-------|-----------|-------|-------------|
+| 0 | Q1 2026 | Supabase (nykyinen) | Taulujen osiointi, materialisoidut näkymät |
+| 1 | Q2 2026 | Aiven V1 | TimescaleDB-hypertaulut, jatkuvat aggregaatit |
+| 2 | Q3-Q4 2026 | Aiven DWS7 | pg_duckdb-nopeutus, IoT-hypertaulut |
+| 3 | 2027 | Täysi HTAP | pg_mooncake lakehouse, Iceberg/Parquet |
+
+### 10.15.6 Tutkimuspanos
+
+Tämä työ osoittaa, että **yksitietokantainen HTAP-malli** on toteuttamiskelpoinen säännellyille EU-teollisuusalustoille: sama SQL, samat asiakasohjelmat, sama RLS, nolla ETL:ää. DWS-tietostandardi kodifioi tämän organisaatiostandardiksi varmistaen, että tallennusmoottoripäätökset ovat harkittuja, dokumentoituja ja EU-vaatimusten mukaisia.
+
+---
+
 **Dokumentin tiedot:**
 
 **Otsikko:** Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
@@ -2245,9 +2300,9 @@ Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvä
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.21 — Agenttijärjestelmän koventaminen (6 TS-virhettä korjattu, 3 testivikaa ratkaistu, MCP/HIL-reittien kytkentä)
-**Versio:** 3.21
-**Viimeisin päivitys:** 09.03.2026
+**Tila:** DRAFT - V3.22 — PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri (DWS-tietostandardi, pg_duckdb + TimescaleDB, 4-vaiheinen käyttöönotto, EU-sääntelynmukaisuus)
+**Versio:** 3.22
+**Viimeisin päivitys:** 12.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2275,6 +2330,7 @@ Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvä
 14. MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille
 15. Asiakaskeskeiset MVP-ominaisuudet — Kolme tuotanto-ominaisuutta, jotka siirtävät DWS IQ:n kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi: (a) Itsepalvelu-API-avainten hallinta SHA-256-tiivistyksellä ja oikeuspohjaisella pääsynhallinnalla, (b) Käyttömittarointi 3-tasoisella laskutuksen valvonnalla (Free/Pro/Enterprise) ja kojelaudan edistymispalkeilla, (c) Vaatimustenmukaisuusraporttien vienti CSV/JSON-latauksella ja toistuvan aikataulun tuella. Validoi Solution Factory -tuotteistamishypoteesin — alusta on markkinavalmis säännellyille EU-toimialoille
 16. Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä
+17. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — Yksitietokantainen HTAP pg_duckdb + TimescaleDB:llä Aiven EU:ssa; DWS-tietostandardin luominen tallennusmoottoreiden, laajennusrekisterin, säilytyspolitiikkojen ja EU-sääntelynmukaisuuden (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act) hallintaan; 4-vaiheinen käyttöönotto tauluosioinista lakehouse-integraatioon
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
