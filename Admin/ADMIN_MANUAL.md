@@ -3,9 +3,11 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
+  - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
+  - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
   - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
@@ -68,6 +70,7 @@ Document Status:
 24. [Sensitive Data Protection](#sensitive-data-protection)
 25. [Emergency Procedures](#emergency-procedures)
 26. [Training](#training)
+27. [Claude Code Project Engineering Structure](#claude-code-project-engineering-structure) ⭐ **NEW in v2.6**
 
 **Appendices**
 - [Appendix A: CEO Cockpit Morning Briefing](#appendix-a-ceo-cockpit-morning-briefing)
@@ -1042,6 +1045,37 @@ MCP Hub (Port 8765) + Temporal.io
 
 See `DWS_SECURITY_STANDARD.md` Section 14 for full security architecture.
 
+### Climate IQ Pantheon Agent Registry
+
+DWS IQ runs **13 named agents** organized in two tiers, registered at startup in `src/agents/index.ts`.
+
+**Tier 1 — Orchestrators (6 agents)**
+
+| Agent | Deity | Role | Capabilities |
+|-------|-------|------|-------------|
+| `atlas` | Titan | Chief of Staff | workflow-orchestration, executive-briefing, request-routing |
+| `athena` | Greek | EU Compliance | eu-regulatory, ets-monitoring, cbam-assessment, csrd-reporting |
+| `hephaestus` | Greek | Field & Site | site-safety, materials-analysis, schedule-management |
+| `iris` | Greek | Research & Intel | competitor-analysis, market-research, deep-wiki-extraction |
+| `hermes` | Greek | Logistics & Ops | logistics-optimization, supply-chain-risk, quality-gate |
+| `apollo` | Greek | Content & Outreach | content-strategy, seo-optimization, sales-outreach |
+
+**Tier 2 — Industry Specialists (7 agents)**
+
+| Agent | Deity | Industry | Key Regulation |
+|-------|-------|----------|---------------|
+| `vulcan` | Roman | Steel & Metals | ETS Phase 4, CBAM iron/steel |
+| `helios` | Greek | Energy & Renewables | RED III 42.5%, REPowerEU |
+| `neptune` | Roman | Maritime & Shipping | FuelEU Maritime, ETS shipping |
+| `ceres` | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O |
+| `prometheus` | Greek | Hydrogen | RFNBO additionality, RED III |
+| `mars` | Roman | Construction & Buildings | EPBD, EN 15978 whole-life carbon |
+| `gaia` | Greek | Cement & Earth Materials | CBAM clinker benchmark 766 tCO2/1000t |
+
+**Identity pattern:** Each agent has `src/agents/workflow/{tier}/{name}/SOUL.md` injected as system prompt.
+**Logging:** All agents call `logExecution()` to `agent_executions` Supabase table (EU AI Act Article 12).
+**Security:** No `...input` spreads to sub-agents — all delegation uses explicit typed field extraction.
+
 ### Per-Industry Open LLM Selection (IMPORTANT)
 
 **Do NOT default to Llama 3.3 70B for every industry.** Each of the 16 EU industries DWS IQ serves has different domain characteristics. The agent system must evaluate and select the best open LLM per industry vertical.
@@ -1928,6 +1962,55 @@ Before approving/merging a PR:
 
 ---
 
+## Tools
+
+### Database Migration (db_push)
+
+Push Supabase migrations to the linked project (ref: `kpucuwwfhuwurdxyjjtz`).
+
+```powershell
+# Full run (link + push)
+pwsh -File scripts/db_push.ps1
+
+# Or via npm
+npm run db:push
+
+# Skip link if already linked
+pwsh -File scripts/db_push.ps1 -SkipLink
+npm run db:push:skip-link
+```
+
+**When to run:** After adding new migrations in `supabase/migrations/`, or when setting up on a new machine.
+
+**Check pending migrations:**
+```bash
+npx supabase migration list
+```
+
+### Supabase MCP
+
+The **Supabase MCP Server** (`mcp-servers/supabase/server.py`) provides AI-accessible tools for Supabase integration:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /tools/query_carbon_calculations` | Query carbon calculation history |
+| `POST /tools/log_agent_activity` | Log agent activity to database |
+| `POST /tools/query_compliance` | Query compliance data |
+
+**Configuration:** Port 8766. Set `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in `.env.mcp`.
+
+**Docker:** Runs as `supabase-mcp` in `docker-compose.hybrid.yml`.
+
+### Supabase Skills (Cursor)
+
+For AI-assisted database operations in Cursor, configure Supabase skills:
+
+- **MCP File System:** Supabase tool descriptors in `mcps/<server>/tools/`
+- **Skills:** Create `.cursor/skills/` or use Cursor's built-in Supabase MCP integration
+- **Reference:** `ADMIN_MANUAL_SUPABASE_EN_v1.md` for full database administration
+
+---
+
 ## Maintenance Tasks
 
 ### Weekly Tasks
@@ -2792,6 +2875,9 @@ Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`
 
 | Version | Date | Changes | Session ID |
 |---------|------|---------|-----------|
+| 2.6 | Mar 2, 2026 | Claude Code Project Engineering Structure (Section 27): CLAUDE.md as project memory, Skills, Hooks, Subagents, MCP; repository gap analysis from exploration | F3xqn |
+| 2.5 | Feb 24, 2026 | Client Handover document (DWS_HANDOVER.md) added to Related Documentation index | kJunm |
+| 2.4 | Feb 21, 2026 | Enhanced LWM definition as enterprise learning layer | Q0lzp |
 | 2.3 | Feb 20, 2026 | Automated PR Workflow (HIL Automation): Claude + Gemini dual review, Copilot fix loop, auto-merge, Cloud Run dws6run6 | e5wXD |
 | 2.2 | Feb 17, 2026 | Appendix A: CEO Cockpit Morning Briefing — schedule, data entry, configuration, troubleshooting, fix history | K3bXV |
 | 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
@@ -2806,6 +2892,123 @@ Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`
 
 ---
 
-**License:** Proprietary - Lifetime Oy  
-**Maintained by:** Lifetime Oy Development Team  
+## Claude Code Project Engineering Structure
+
+*Added in v2.6 | 02.03.2026*
+
+This section documents the DWS6 Claude Code engineering structure — the patterns that make AI-assisted development reliable, consistent, and scalable. Based on a repository audit conducted on 02.03.2026.
+
+### Architecture: Five Pillars
+
+#### 1. CLAUDE.md — Project Memory
+
+`CLAUDE.md` (repo root, 2,000+ lines) is the primary intelligence substrate for all Claude Code sessions. It is not documentation — it is institutional memory. Every session inherits:
+
+- Brand, document, security, UI, and market research standards
+- Architecture decisions (Brain-Memory-Body-Hands, dual folder rule, store update checklist)
+- Critical rules (git mv not rm, .md never published to public sites, email sender rules)
+- EU compliance requirements (GDPR, Article 12, data residency)
+- Security coding rules (execFile not exec, CORS, SRI hashes)
+
+**Impact:** Zero per-session context repetition. Zero behavioral drift from standards.
+
+#### 2. Skills — Reusable Workflow Components (`.claude/commands/`)
+
+Seven production skills replace ad-hoc prompting with callable, documented, testable workflow components:
+
+| Skill | Invocation | Output |
+|-------|-----------|--------|
+| `/agent-run` | `dws run <agent> --input '...'` | Scored JSON |
+| `/workflow` | `dws workflow <name>` | Multi-agent unified report |
+| `/compliance-check` | Auto-triggered | EU gap analysis |
+| `/discover-agents` | Agent discovery | Capability index |
+| `/site-safety` | SiteSense agent | Safety score 0-100 |
+| `/carbon-analysis` | Material Oracle | kgCO2e lifecycle |
+| `/email` | Resend integration | Delivery status |
+
+**Principle:** If a capability cannot be invoked as `dws <command>`, it is not shipped.
+
+#### 3. Hooks — Automated Quality Enforcement
+
+**Git hooks** (`.githooks/`, installed via `git config core.hooksPath .githooks`):
+
+| Hook | Trigger | Enforcement |
+|------|---------|-------------|
+| `pre-push` | Before git push | Branch name validation, blocks destructive deletes |
+| `post-merge` | After merge | Syncs Admin/, AgentFoundry/, docs/ to backup |
+
+**Claude Code hooks** (`.claude/hooks/`) — implemented. `PreToolUse` hook active for Bash commands.
+
+**Active hooks:**
+- `pre-bash-safety.sh`: Warn-only safety validator for destructive shell patterns (triggered on every Bash tool call). Patterns checked: `rm -rf` on root paths, `git clean -fd`, `git reset --hard`, force-push to main, `DROP TABLE`, `truncate` at root.
+
+**Planned hooks:**
+- `post-tool-use`: Normalize agent JSON output to standard schema
+- `notification`: Alert on task completion for long-running agents
+
+#### 4. Subagents — Context Isolation and Parallel Execution
+
+Claude Code subagent types used in DWS6:
+
+| Type | Use Case | Isolation |
+|------|----------|-----------|
+| `Explore` | Codebase search, file discovery | Protects main context |
+| `Plan` | Architecture design, trade-off analysis | Read-only, no side effects |
+| `general-purpose` | Multi-step research, document analysis | Full tool access |
+| Background | Parallel independent tasks | Non-blocking |
+
+**Rule:** Run independent research in parallel background agents whenever possible.
+
+#### 5. MCP Integration (`/mcp`, `mcp.json`, `mcp-hub/`)
+
+MCP exposes all DWS agents as auto-discoverable tools via JSON-RPC 2.0:
+
+```bash
+# List all agents
+curl POST /mcp -d '{"method": "tools/list"}'
+
+# Execute agent
+curl POST /mcp -d '{"method": "tools/call", "params": {"name": "compliance", "arguments": {...}}}'
+```
+
+**Current gap:** `mcp.json` not committed to repo (users must copy `.mcp.json.example`). **Action: commit safe default config.**
+
+### Repository Gap Analysis (Audit: 02.03.2026)
+
+| Gap | Priority | Status |
+|-----|----------|--------|
+| `.claude/hooks/` directory and `pre-bash-safety.sh` | High | **Done** |
+| `mcp.json` not committed | High | Planned |
+| No pre-commit lint hook | Medium | Planned |
+| No consolidated `docs/MCP_TOOLS.md` | Medium | Planned |
+| Supabase MCP server is stub only | Medium | In progress |
+| No dev server launcher script | Low | Planned |
+
+### Operational Checklist: New Claude Code Session Setup
+
+```bash
+# 1. Verify hooks installed
+git config core.hooksPath
+# Expected: .githooks
+
+# 2. Verify skills accessible
+ls .claude/commands/
+# Expected: 7 .md files
+
+# 3. Verify CLAUDE.md loaded
+# Claude Code reads this automatically on session start
+
+# 4. Set up MCP (if needed)
+cp .mcp.json.example .mcp.json
+# Edit with actual Supabase/Redis credentials
+
+# 5. Start dev server
+cd dws6.com/dashboard/firehorse/v9-react && npm run dev  # Frontend
+npm run dev  # Backend (root)
+```
+
+---
+
+**License:** Proprietary - Lifetime Oy
+**Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin

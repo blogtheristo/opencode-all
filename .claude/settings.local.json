@@ -9,10 +9,38 @@
       "Bash(python -X utf8 -c:*)",
       "Bash(ls:*)",
       "Bash(python:*)",
-      "Bash(echo:*)",
-      "Bash(git remote get-url:*)",
-      "Bash(git push:*)"
+      "Bash(git:*)",
+      "Bash(start:*)",
+      "Bash(node $CLAUDE_PROJECT_DIR/scripts/gen-thesis-html.cjs)"
     ]
   },
-  "hooks": {}
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/session-stop.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "Supabase MCP",
+    "Upstash Redis",
+    "MCP Hub"
+  ]
 }

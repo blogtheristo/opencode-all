@@ -84,7 +84,13 @@ To add/remove files from backup:
 2. View recent runs
 3. Click on any run to see details
 
-### Email Notifications
+### Email (risto@onelifetime.world)
+Workflows that send email (morning-briefing, outreach-digest, weekly-report, etc.) use:
+- **Primary:** Amazon SES (SMTP) — `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`
+- **Fallback:** `RESEND_API_KEY`
+- **Sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
+
+### Workflow Failure Notifications
 GitHub automatically sends emails on workflow failures to repository admins.
 
 ### View Backup Logs

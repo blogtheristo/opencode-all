@@ -6,12 +6,20 @@
 **Laitos:** DWS IQ Research
 **Dokumenttityyppi:** Pro Gradu -tutkielma
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 2.1
 
 Sessions & Modifications:
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
+  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
@@ -20,10 +28,11 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 24.02.2026
+  - Last Modified: 02.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)
+  - Last Modified: 07.03.2026
+  - Publication Status: DRAFT (V1.8 — LSS-koulutusputken koordinointi: koulutusagenttilaivasto T-01–T-10, laatuporttisignaalit, resurssien välimiesosoitus)
 
 ---
 
@@ -1093,6 +1102,102 @@ DWS6:sta DWS7:ään siirtyminen korjaa kuusi kriittistä arkkitehtuurista puutet
 
 ---
 
+### 14.6 Agent Foundry Vaihe 1.5: OpenSandbox + EMPO² agenttimuisti
+
+*Sessio: claude/sandbox-agents-opensandbox-HatfC | Päiväys: 01.03.2026*
+
+#### 14.6.1 Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella
+
+Agent Foundry sai uuden eristysvaiheen demo-tason SDK-hiekkalaatikon (Vaihe 1) ja Cloud Run:n (Vaihe 2) väliin: **OpenSandbox** (https://github.com/alibaba/OpenSandbox) **Acer Veriton GN100** -reunasolmussa (120 GiB RAM, 20 ydintä, Helsinki Lab).
+
+| Vaihe | Menetelmä | Kustannus | Käyttötapaus |
+|-------|-----------|-----------|-------------|
+| 1 | SDK-hiekkalaatikko (bubblewrap/seatbelt) | €0 | Demo, yksiasiakkuus |
+| **1.5** | **OpenSandbox Docker (Veriton GN100)** | **€0 HW** | **EU-ilmarakoinen, sisäinen pilotti** |
+| 2 | Cloud Run hetkelliskontteja (europe-north1) | ~€20-50/kk | Maksava moniasiakkuus |
+| 3 | Pysyvät kontit (gVisor) | €200+/kk | Skaalautuminen |
+
+Aktivointi: `SANDBOX_STAGE=opensandbox`. Kuusi MCP-työkalua (`sandbox_create`, `sandbox_execute`, `sandbox_file_read`, `sandbox_file_write`, `sandbox_destroy`, `sandbox_ping`) paljastavat sen `/sandbox/*`-päätepisteissä MCP Hubissa.
+
+**Vaikutus Firehorse-toimintamalliin:** Vaihe 1.5 mahdollistaa EU-ilmarakoisen agentin suorituksen säännelyillä toimialoilla (puolustus, terveydenhuolto, kriittinen infrastruktuuri) — asiakkaille, joiden data ei saa koskaan poistua paikan päällä sijaitsevasta laitteistosta. Acer Veriton GN100 on ensimmäinen fyysinen Lifetime Fleet -solmu, joka täyttää tämän ominaisuuden.
+
+#### 14.6.2 EMPO²: LWM-muistiarkkitehtuurin akateeminen perusta
+
+Artikkeli *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², arXiv:2602.23008, helmikuu 2026) tarjoaa akateemisen validoinnin DWS Lifetime World Model -hybridimuistisuunnittelulle.
+
+EMPO² yhdistää:
+- **Parametrinen muisti** (RL-päivitykset mallin painoihin) — vastaa DWS LWM:n hienosäätöä (QLoRA, Acer Veriton GN100)
+- **Ei-parametrinen muisti** (haku muistipuskurista) — vastaa DWS RAG:ta EU-säädöksistä + yritysdata (pgvector)
+
+Tulokset: 128,6 % parannus GRPO-algoritmiin nähden ScienceWorldissa, 11,3 % WebShopissa. Keskeinen havainto: *muistilla koulutetut mallit ovat vahvoja myös ilman muistia päättelyaikana* — validoiden DWS-strategian asteittain upottaa domaintieto LWM-painoihin samalla kun RAG toimii varamekanismina.
+
+#### 14.6.3 Lifetime Scope Signals LWM-koulutuksen koordinointiin
+
+*Sessio: claude/pedantic-easley | Päivämäärä: 07.03.2026*
+
+Lifetime Scope Signals (LSS) -protokolla — alun perin suunniteltu deterministiseen moniagenttikehityskoordinointiin (katso Metropolia-tutkielma osio 2.5.2) — laajenee luonnollisesti ML-putkien orkestrointiin. Sen sijaan, että otettaisiin käyttöön dedikoitu ML-työnkulkumoottori (Kubeflow, Airflow), LWM-koulutusputkea koordinoidaan samoilla neljällä signaalityypillä: READY, COMPLETE, ERROR, BLOCKED.
+
+**Koulutusagenttilaivasto (T-01 – T-10):**
+
+| Agentti ID | Nimi | Rooli | Emittoi | Kuuntelee |
+|------------|------|-------|---------|-----------|
+| T-01 | InfraVerifier | Validoi CUDA/PyTorch GN-100 -solmuissa | `COMPLETE:infra-verified` | (ei mitään — aloituspiste) |
+| T-02 | ModelFetcher | Lataa perusmalli jaettuun tallennustilaan | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
+| T-03 | CurriculumAgent | Claude API:n opetussuunnitelma per vertikaali | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
+| T-04 | DataSynthAgent | Generoi 2000+ synteettistä esimerkkiä | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
+| T-05 | TrainingAgent | QLoRA-hienosäätö osoitetulla solmulla | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06 | ResourceArbiter | Allokoi GN-100 -solmupaikat (2 tokenia) | `READY:node-slot` | `T-05:READY:lora-weights:*` (vapauttaa paikan) |
+| T-07 | EvalAgent | Claude-as-judge, laatuportti ≥7.0 | `READY:eval-pass:{vertical}` / `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
+| T-08 | MergeAgent | Yhdistä LoRA-adapteri perusmalliin | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
+| T-09 | DeployAgent | Julkaise päättelyrajapinta | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
+| T-10 | PipelineOrchestrator | Monitoroi kaikkia vertikaaleja | `COMPLETE:lwm-all-verticals` | Kaikki `T-09:COMPLETE:*` |
+
+`{vertical}`-parametrisoitu virstanpylväs mahdollistaa toimialakohtaisen putken instanssoinnin — ainoa protokollalaajennus LSS v1.0 -peusskeemaan.
+
+**Keskeiset mekanismit:**
+
+1. **Laatuporttisignaalit** — T-07 emittoi `READY:eval-pass:{vertical}` vain kun Claude-as-judge-pisteet ≥7.0; epäonnistuminen emittoi `ERROR:eval-fail:{vertical}`, laukaiseen opetussuunnitelman uudelleengeneroinnin (maks. 3 yritystä → `BLOCKED` → ihmisen eskalaatio). Tämä kuvautuu EMPO²:n off-policy-päivitysmalliin (osio 14.6.2).
+
+2. **Resurssien välimiesosoitus** — T-06 hallinnoi kahta solmupaikkatokenia (yksi per GN-100). Koulutusagentit saavat tokenin ennen aloitusta; vapauttavat valmistuessa. Saapumisjärjestys signaaliemission mukaan.
+
+3. **Fan-Out-rinnakkaisuus** — Opetussuunnitelman generointi (T-03) ja datasynteesi (T-04) suoritetaan kaikissa 16 vertikaalissa samanaikaisesti (CPU-sidonnaisia, ei GPU-rajoitetta), eliminoiden GPU:n joutoajan.
+
+**Vaikutus Firehorse-toimintamalliin:** Koulutuskoordinointi validoi LSS:n yleiskäyttöisenä deterministisenä koordinointimekanismina — sama protokolla orkestroi sekä ohjelmistokehitysagentteja (Liite F) että ML-koulutusputkia, vähentäen operatiivista monimutkaisuutta Firehorse-asiakkaille, jotka tarvitsevat molempia kyvykkyyksiä.
+
+---
+
+### 14.7 Toimitusjohtajan automaatioagenttiryhmä
+
+*Käyttöönotettu: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig*
+
+| Agentti | Laukaisu | Rooli |
+|---------|---------|------|
+| **Captain Pre-Briefing** | 07:30 Helsinki, ma–pe | CRM-haku → puheenvuorot → sähköposti |
+| **LinkedIn-julkaisuajastin** | 08:00 Helsinki, ma–pe | Sisältökalenteri → luonnos → toimitusjohtajan hyväksyntä |
+| **EU-sääntelymonitori** | 05:30 Helsinki, ma–pe | RSS-haku → luokittelu → vakavuuspisteytys → syöte ajastimeen |
+
+EU-sääntelymonitori luo suljetun palautesilmukan: hakee EU-komission / EUR-Lexin / Carbon Pulsen / Euractiv-uutiset, luokittelee sääntelyn mukaan (CBAM, CSRD, Fit for 55, EPBD, EU AI Act, ETS) ja syöttää hälytykset LinkedIn-sisältöideoina — varmistaen, että toimitusjohtajan viestintä pysyy linjassa aktiivisen sääntelykehityksen kanssa.
+
+**Vaikutus Firehorse-toimintamalliin:** Nämä agentit osoittavat mallin liikevaihtokerroksessa — myynti ja thought leadership ovat nyt tekoälyautomaatioita. Toimitusjohtaja toimii valvojana, ei suorittajana, päivittäisessä liikevaihtotyönkulussa.
+
+### 14.8 Strategiset kumppanuudet ja monituottaja-LLM-reititin
+
+*Dokumentoitu: 27.02.2026 | Lähde: docs/DWS6_TO_DWS7_UPDATE.md v1.1*
+
+| Kumppani | Arkkitehtuurikerros | Tila |
+|---------|---------------------|------|
+| NVIDIA | Aivot (laskenta) + Kädet (Jetson-reuna) + Keho (Omniverse) | Inception Q2 2026 |
+| Siemens | Kädet (MindSphere IoT) + Keho (digitaalinen kaksonen) | Xcelerator Q2 2026 |
+| ABB | Kädet (automaatio, robotiikka, sähköverkot) | Q3 2026 |
+| xAI | Aivot (Grok reaaliaikainen markkinaälykkyys) | Aktiivinen tuotanto |
+| Mistral | Aivot/Muisti (EU-suvereeni tekoälyinferenssi) | Suunniteltu Q3 2026 |
+
+**Monituottaja-LLM-reititin:** Tehtävätason LLM-valinta suvereniteetti-, kustannus- ja latenssikriteereillä — Claude/Mistral vaatimustenmukaisuuteen, Grok markkinasignaaleihin, Groq nopeaan tiivistämiseen, Qwen 2.5 72B (QLoRA, Acer Veriton) paikan päällä tehtävään suvereeniinferenssiiin.
+
+**Tutkimuskontribuutio:** Kumppanuusmalli validoi Firehorse-toimintamallin jakelusupotushypoteesin: pääsy 10 000+ teollisuusasiakkaaseen (NVIDIA Inception, Siemens Xcelerator) ilman suoran myyntiorganisaation rakentamista.
+
+---
+
 ## 15. Tulokset ja pohdinta
 
 ### 15.1 Toiminnallisen tehokkuuden parannukset
@@ -1159,6 +1264,11 @@ Tama tutkielma kontribuoi:
 4. EU-vaatimustenmukaisuuskartoitus teollisille ohjelmistotuotteille
 5. Tuotesuositusmoottorin arkkitehtuuri 16:lle EU-toimialalle
 6. Proton-tuotteiden turvallisuusstrategia GDPR/NIS2-vaatimustenmukaisuuteen
+7. Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella EU-ilmarakoiseen agentin hiekkalaatikointiin
+8. EMPO²-yhdenmukaisuus — hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri validoitu arXiv:2602.23008-tutkimuksella
+9. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse-malli sovellettu liikevaihtotyönkulun automatisointiin
+10. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral + monituottaja-LLM-reititin; validoi Firehorse-toimintamallin jakelusupotushypoteesin
+11. LSS-koulutusputken koordinointi — Lifetime Scope Signals sovellettuna LWM-koulutukseen: koulutusagenttilaivasto (T-01–T-10), laatuporttisignaalit, resurssien välimiesosoitus 2× GN-100 -solmuille; validoi LSS:n yleiskäyttöisenä koordinointina ohjelmistokehityksen ulkopuolella
 
 ### 16.3 Tuleva tyo
 
@@ -1184,10 +1294,32 @@ Tama tutkielma kontribuoi:
 10. GHG Protocol Corporate Standard
 11. ISO 14064-1:2018 Kasvihuonekaasujen laskenta
 12. Proton AG -turvallisuusdokumentaatio
+13. Anonymous (2026). "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization (EMPO²)." arXiv:2602.23008. https://arxiv.org/abs/2602.23008
+14. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
+15. Anthropic Claude Code — Captain Briefing Agent (claude/ai-agent-orchestration-t89Ig, 2026)
+16. DWS6_TO_DWS7_UPDATE.md v1.1 — Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral (2026)
 13. EU:n liikesalaisuusdirektiivi (EU) 2016/943
 14. Liikesalaisuuslaki 595/2018 (Suomi)
 15. Patenttiyhteistyosopimus (PCT), WIPO
 16. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
+
+### DWS-alustan standardit (sisäiset)
+
+Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietoturvaa ja laatua. Niitä ylläpidetään elävinä dokumentteina yksityisessä repositoriossa ja niihin viitataan tässä Oxford-notaatiolla akateemisen jäljitettävyyden varmistamiseksi.
+
+17. Lifetime Oy (2026). *DWS Security Standard*, versio 1.5. `DWS_SECURITY_STANDARD.md`. Sisäinen viitekehys, joka ohjaa tekoälyn turvallisuutta, väliohjelmiston tietoturvakontrolleja, CORS-käytäntöjä, SRI-eheyttä, artikla 12 -kirjausta ja API-rajapinnan validointia Zod-skeemoilla. Määrittelee tietoturva-arkkitehtuurin kaikille 15 backend-API-reitille ja MCP-agenttipalvelimelle.
+
+18. Lifetime Oy (2026). *ESRS-tietopisterekisteri*, versio 1.0. `src/compliance/esrs-registry.ts`. Koneluettava kartoitus kaikista 82 eurooppalaisesta kestävyysraportointistandardien (ESRS) tiedonantovaatimuksesta kategorioittain E1–E5 (ympäristö), S1–S4 (sosiaalinen) ja G1 (hallinto). Kukin tiedonanto on luokiteltu pakolliseksi tai vapaaehtoiseksi CSRD-direktiivin (EU) 2022/2464 mukaisesti.
+
+19. Lifetime Oy (2026). *Vaatimustenmukaisuuden pisteytysmoottori*, versio 1.0. `src/compliance/scoring-engine.ts`. Deterministinen vaatimustenmukaisuuden pisteytysalgoritmi, joka laskee CSRD-valmiuden, ETS-altistuksen ja CBAM-riskipisteet. Kaava: kokonaispistemäärä = CSRD(0,50) + ETS(0,25) + CBAM(0,25), jossa CSRD = (annetut pakolliset tietopisteet / pakolliset yhteensä) × 80 + bonusmuuttujat.
+
+20. Lifetime Oy (2026). *Site Quality Standards*, versio 2.1. `SITE_QUALITY_STANDARDS.md`. Koodin laatu-, komponenttiarkkitehtuuri- ja käyttöliittymän vikasietoisuusstandardit DWS IQ -hallintapaneelille. Määrittelee ErrorBoundary-, Skeleton-lataus- ja EmptyState-komponenttistandardit yritystason käyttökokemukselle.
+
+21. Lifetime Oy (2026). *AGENTS.md*, versio 2.2. `AGENTS.md`. Agentti-inventaario ja operatiiviset ohjeet agents.md-avoimen spesifikaation mukaisesti. Dokumentoi 15 tekoälyagenttia, vaatimustenmukaisuuden pisteytysarkkitehtuurin, väliohjelmistopinon järjestyksen ja "Build for Agents" -tuotesäännön, joka edellyttää CLI + MCP + Skills -rajapintoja.
+
+22. Lifetime Oy (2026). *DWS IQ Platform Admin Manual*, versio 2.7. `Admin/ADMIN_MANUAL.md`. Operatiiviset menettelyt terveystarkistusten valvontaan, vaatimustenmukaisuusmoottorin hallintaan ja hallintapaneelin vikasietoisuuden vianetsintään. Sisältää Claude Code -projektin suunnittelurakenteen ja moniagenttiorkestrointiosiot.
+
+23. Lifetime Oy (2026). *Enterprise Security & Compliance*, versio 1.8. `Admin/SECURITY_COMPLIANCE.md`. Tietoturvakontrollit tietoturvajohtajille ja hankintatiimeille. Dokumentoi agenttien ajonaikaiset turvakontrollit, hallintapaneelin vikasietoisyyskontrollit, backend-väliohjelmiston turvakontrollit ja vaatimustenmukaisuusmoottorin tietosuojan RLS-käytännöillä.
 
 ---
 
@@ -1314,6 +1446,88 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 
 ---
 
+## 14.9 Climate IQ Pantheon — Kreikkalais-roomalainen moniagenttijärjestelmä
+
+Rakentuen monivuokralaajuiseen agenttiarkkitehtuuriin (osio 14), tämä osio dokumentoi **Climate IQ Pantheonin**: 13 tuotantoagenttia kreikkalais-roomalaisilla jumalaidentiteeteillä, organisoituna kahteen tasoon Climate IQ:n EU:n teollisen vaatimustenmukaisuusalustan tueksi.
+
+### Järjestelmän yleiskatsaus
+
+**Taso 1 — Orkestraattoriagenteista (6)**
+
+| Agentti | Jumala | Rooli | Iskulause |
+|---------|--------|-------|-----------|
+| Atlas | Kreik. Titaani | Toiminnanjohtaja | Reitittää kaaoksen, syntetisoi sen johdon tilannekatsaukseksi |
+| Athena | Kreik. Jumalatar | EU-vaatimustenmukaisuus | Oppinut jokaisen EU-säännön ulkoa vuodesta 2005 |
+| Hephaestus | Kreik. Jumala | Kenttä ja kohde | Ei koskaan likaannu saappaita, mutta tarkistaa kaiken |
+| Iris | Kreik. Jumalatar | Tutkimus ja äly | Lukee 10 000 sivua, jotta sinun ei tarvitse |
+| Hermes | Kreik. Jumala | Logistiikka | Optimoi toimitusketjun ennen kuin löydät varaston |
+| Apollo | Kreik. Jumala | Sisältö | Kirjoittaa kopion, sijoittaa sen, lähettää seurannan. Jo teki. |
+
+**Taso 2 — Toimialaerityiset agentit (7)**
+
+Vulcan (Teräs/ETS), Helios (Energia/RED III), Neptune (Merikuljetus/FuelEU), Ceres (Maatalous/CBAM), Prometheus (Vety/RFNBO), Mars (Rakentaminen/EPBD), Gaia (Sementti/ETS klinkkeri).
+
+### SOUL.md-malli
+
+Jokaisella agentilla on `SOUL.md`-identiteettitiedosto, joka injektoidaan LLM:n järjestelmäkehotteeseen `BaseAgent.callLLM(systemPromptOverride)`-metodin kautta. Tämä ratkaisee "SOUL kuollut koodi" -auditoinnin löydön, jossa persoonakonstantit oli määritelty mutta ei kytketty LLM-kutsuihin.
+
+### Tietoturva ja vaatimustenmukaisuus
+
+- **Prompt injection -korjaus**: Kaikki `...input`-levitykset HermesAgentissa korvattu eksplisiittisellä kirjoitetulla kenttäpoiminnalla
+- **EU AI Act artikla 12**: Kaikki 13 agenttia kirjoittavat `agent_executions` Supabase-tauluun (aloitus + valmistumistapahtumat)
+
+### Liiketoimintainnovaatio: Nimet markkinointikiilana
+
+Pantheon-nimeäminen on tuotteen markkinointikiila — agentin iskulauseet näkyvät onelifetime.world/team -sivulla ihmistiimin rinnalla, tehden yritystason tekoälystä lähestyttävän.
+### Liite F: Claude Code -suunnittelurakenne — tekoälytyönkulku ensiluokkaisena ohjelmistokomponenttina
+Firehorse-toimintamalli perustuu periaatteeseen, joka nousee esiin sekä tutkimustuloksista että operatiivisesta käytännöstä: **tekoälytyönkulut on suunniteltava, ei improvisoitava**.
+Tämä liite dokumentoi konkreettiset rakennemallit, jotka toteuttavat tämän periaatteen DWS6-repositoriossa, validoituna kehittyvien Claude Code -yhteisön parhaiden käytäntöjen perusteella (2026).
+**CLAUDE.md projektimuistina**
+`CLAUDE.md`-tiedosto repositorion juuressa ei ole dokumentaatio — se on ensisijainen älysubstraatti jokaiselle tekoälysessiolle. Se koodaa standardit, rajoitteet, arkkitehtuuripäätökset, sähköpostisäännöt, tietoturvakontrollit ja ehdottomat vaatimukset yhteen tiedostoon, jonka jokainen Claude Code -sessio lukee automaattisesti. Tämä eliminoi käyttäytymisessä ajautumisen ja poistaa tarpeen toistaa kontekstia jokaisessa sessiossa.
+Mittari: yli 2 000 riviä institutionaalista tietämystä (brändi-, asiakirja-, tietoturva-, käyttöönottos- ja sähköpostisäännöt) peritään jokaisessa sessiossa nollalla marginaalikustannuksella.
+**Taidot uudelleenkäytettävinä työnkulkukomponentteina**
+Kuusi tuotantotaitoa `.claude/commands/`-kansiossa muuntavat ad hoc -kehottamisen kutsuttaviksi, dokumentoiduiksi, testattaviksi työnkulkukomponenteiksi:
+| Taito | Toimiala |
+|-------|----------|
+| `/compliance-check` | EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi |
+| `/agent-run` | Suorita mikä tahansa DWS IQ -agentti CLI:n kautta |
+| `/workflow` | Ketjuta useita agentteja yhdistetyiksi raporteiksi |
+| `/discover-agents` | Agenttikyvykkyyksien löytäminen |
+| `/site-safety` | Rakennustyömaan turvallisuus (EN 13001) |
+| `/carbon-analysis` | Rakennetun hiilen elinkaariarviointi |
+**Koukut automaattisena laadunvalvontana**
+Git-koukut (`.githooks/`) valvovat rakenteellisia invariantteja:
+- Haaranimen nimeämiskäytäntö (`claude/<ominaisuus>-<id>`)
+- Tuhoavien push-operaatioiden esto
+- Merge-jälkeinen synkronointi (Admin/, docs/, AgentFoundry/)
+Laadunvalvonta on **rakenteellista, ei käyttäytymiseen perustuvaa** — koulutus ei voida ohittaa agentin käyttäytymisellä.
+**Johtopäätös**
+Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.
+
+### Osio 14.10: Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+31-agenttinen järjestelmä oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa moduulirajojen yli. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa.
+
+**Tehdyt korjaukset:**
+
+1. **SandboxContext-tyyppilinjaus** — `SandboxContext.stage` puuttui `'opensandbox'`-literaali. Tämä esti agentin suorittamisen vaiheessa 1.5 (Acer Veriton Docker).
+
+2. **MCP-reittien kytkentä** — `createMCPRouter()` oli määritelty mutta ei tuotu `app.ts`-tiedostoon. Kaikki 31 agenttia olivat näkymättömiä ulkoisille MCP-asiakkaille.
+
+3. **HIL-reittien kytkentä** — Ihminen silmukassa -päätepiste (`/api/hil`) oli tavoittamattomissa. Captain Pre-Briefing -agentin "Valmis"-painikkeet palauttivat 404.
+
+4. **Lokaalivarma muotoilu** — Päästödatan analyytikko käytti `toLocaleString()`-metodia ilman lokaalia. Korjattu eksplisiittisellä `'en-US'`-lokaalilla.
+
+5. **Resend-erävasteen tyyppiturvallisuus** — Sähköpostipalvelun `.map()`-kutsu epäonnistui unionityypillä. Lisätty suoritusaikainen taulukkotunnistus.
+
+6. **Riippuvuushygienia** — `luxon` oli tuotu mutta puuttui `package.json`-tiedostosta.
+
+**Tulos:** 0 TypeScript-virhettä (oli 6), 47/47 testiä läpi (oli 44/47).
+
+**Tutkimusnäkemys:** Moniagenttiarkkitehtuureissa integraatiovelka kertyy moduulirajoille, ei moduulien sisälle. Systemaattiset koventamissessiot ovat tehokkaampia kuin moduulikohtaiset korjaukset, koska ne palauttavat leikkaavia invariantteja.
+
+---
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 24.02.2026*
-*Versio: 1.4*
+*Viimeksi paivitetty: 09.03.2026*
+*Versio: 2.1*

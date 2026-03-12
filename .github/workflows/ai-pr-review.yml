@@ -7,7 +7,7 @@ name: AI Code Review (HIL Automation)
 #
 # LIVELOCK PREVENTION:
 #   - Bot actors are excluded (Copilot pushes must not re-trigger the review)
-#   - Max 3 Copilot fix iterations enforced via label counting
+#   - Max 3 Copilot fix iterations enforced by counting prior "@copilot Please fix" comments
 #   - After 3 iterations, issue is escalated to human review
 
 on:

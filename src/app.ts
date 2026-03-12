@@ -9,10 +9,12 @@
 
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
@@ -26,7 +28,15 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import capTableRouter from './investor-reports/cap-table-routes.js';
+import paymentRoutes from './routes/payment.routes.js';
+import hilRoutes from './routes/hil.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import hilRoutes from './routes/hil.routes.js';
+import captainRoutes from './routes/captain.routes.js';
+import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -157,6 +167,14 @@ app.get('/health', (_req: Request, res: Response) => {
 const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath));
 
+const dws6SitePath = path.join(__dirname, '..', 'dws6.com');
+const dws10SitePath = path.join(__dirname, '..', 'dws10.com');
+const landingPagesPath = path.join(__dirname, '..', 'landing-pages');
+
+app.use('/dws6.com', express.static(dws6SitePath));
+app.use('/dws10.com', express.static(dws10SitePath));
+app.use('/landing-pages', express.static(landingPagesPath));
+
 // ============ API ROUTES ============
 
 // Auth routes
@@ -178,27 +196,112 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
+// Payment proxy (PayPal, Revolut subscription checkout)
+app.use('/api/v1/payments', paymentRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
+// KYA Webhook Bridge (Shufti Pro → Policy Engine)
+app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// KYA CLI Snap endpoint (simulation trigger for demo)
+app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['authorization']?.replace('Bearer ', '')
+    || req.headers['x-admin-key'];
+
+  if (adminKey && provided) {
+    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+  }
+
+  const { sessionId, reason, forceCascade, source } = req.body;
+
+  if (!sessionId || typeof sessionId !== 'string') {
+    res.status(400).json({ error: 'sessionId is required' });
+    return;
+  }
+
+  try {
+    const result = await terminateChain(sessionId, {
+      reason: reason || 'MANUAL_SNAP',
+      forensicDump: true,
+    });
+
+    logger.info('KYA Snap executed via CLI', {
+      sessionId,
+      reason,
+      source: source || 'api',
+      forceCascade,
+    });
+
+    res.json(result);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('KYA Snap failed', { error: msg, sessionId });
+    res.status(500).json({ error: 'Snap execution failed', message: msg });
+  }
+});
+
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
+
+// HIL (Human-in-the-Loop) one-click task completion from morning briefing email
+app.use('/api/hil', hilRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
+// Peachscore Accelerator — Cap Table & Financials
+app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// Project delivery status (investor view) — dashboard fetches latest on admin login
+app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
+  const configPath = path.join(process.cwd(), 'config', 'project-delivery-status.json');
+  const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
+  try {
+    const raw = fs.readFileSync(configPath, 'utf-8');
+    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    res.json({
+      timestamp: data.timestamp ?? fallback.timestamp,
+      mvp: data.mvp ?? fallback.mvp,
+      v1: data.v1 ?? fallback.v1,
+      dws7: data.dws7 ?? fallback.dws7,
+    });
+  } catch {
+    res.json(fallback);
+  }
+});
+
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = req.headers['x-admin-key'];
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Use constant-time comparison to prevent timing attacks
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!provided || typeof provided !== 'string') {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }

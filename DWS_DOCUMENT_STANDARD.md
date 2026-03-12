@@ -1,6 +1,6 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.6
@@ -13,6 +13,7 @@ Sessions & Modifications:
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
   - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
@@ -24,16 +25,16 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 27.02.2026
+  - Last Modified: 28.02.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.6
-**Effective Date:** 2026-02-27
-**Last Updated:** 2026-02-27
+**Version:** 1.7
+**Effective Date:** 2026-02-28
+**Last Updated:** 2026-02-28
 **Status:** Active
 
 ---
@@ -55,7 +56,9 @@ Document Status:
 13. [Enforcement](#13-enforcement)
 14. [LLM Model Versioning](#14-llm-model-versioning) ⭐ NEW
 15. [Localization & Multi-Language Management](#15-localization--multi-language-management) ⭐ NEW
-16. [Document Index](#16-document-index) ⭐ NEW
+16. [Document Index](#16-document-index)
+17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
+18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 
 ---
 
@@ -1635,6 +1638,163 @@ diff /tmp/md_files.txt docs/Document-index.md
 
 ---
 
+## 17. Web Content Index Check
+
+### 17.1 Purpose / Tarkoitus
+
+Every document update MUST be followed by a **web content check** — a review of which live web pages are affected by the change.
+
+Jokaisen dokumenttipäivityksen jälkeen TÄYTYY tehdä **verkkosisältötarkistus** — selvittää, mitkä live-verkkosivut muutoksesta vaikuttuvat.
+
+### 17.2 Web Content Index
+
+**Location:** `docs/WEB_CONTENT_INDEX.md`
+
+This index maps every repository document to its corresponding web domain pages (dws10.com, dws6.com, onelifetime.world). It is the authoritative source for:
+
+- Which web pages reflect which documents
+- What to review after a document update
+- Which pages are web-only (no .md counterpart)
+
+### 17.3 Post-Update Web Check Procedure
+
+**After every document update** (commit or PR), the author MUST:
+
+```
+POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record "reviewed, no change"
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          "Web check: /page-name reviewed [no change | updated]"
+Step 4 — Run: diff <root-page> <landing-pages-copy>  → must be empty
+```
+
+**Skip condition:** If the document is internal-only (marked `—` in all web columns), no web check is needed — state "internal only" in PR description.
+
+### 17.4 Agent Skill
+
+Run `/content-index check <document-path>` to look up web impact for any document.
+
+```bash
+/content-index check DWS_BRAND_STANDARD.md
+# → Lists: dws10.com/gamma/, dws6.com/shared/
+# → Instruction: Review these pages for content currency
+```
+
+### 17.5 Content-Index Update Trigger
+
+**Update `docs/WEB_CONTENT_INDEX.md` when:**
+- A new `.md` document is created that has web counterparts
+- A new web page is launched that corresponds to a doc
+- A document is archived (remove or mark row)
+- A web page is renamed or deleted
+
+---
+
+## 18. Learn HTML Generation
+
+### 18.1 Rule / Sääntö
+
+**Every standards document update MUST produce a new versioned HTML artifact in `Learn/`.**
+
+This ensures:
+- AI agents and humans can read the latest standard in rendered HTML
+- Morning briefing email links to current standards
+- Version history is preserved (never overwrite old versions)
+
+**Jokainen standardidokumentin päivitys TÄYTYY tuottaa uuden versioidun HTML-artefaktin kansioon `Learn/`.**
+
+### 18.2 Which Documents Require Learn/ HTML
+
+| Document | Learn/ HTML Required | Pattern |
+|----------|---------------------|---------|
+| `DWS_DOCUMENT_STANDARD.md` | ✅ Yes | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html` |
+| `DWS_BRAND_STANDARD.md` | ✅ Yes | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html` |
+| `DWS_SECURITY_STANDARD.md` | ✅ Yes | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html` |
+| `Admin/ADMIN_MANUAL.md` | ✅ Yes | `Learn/ADMIN_MANUAL_v{VERSION}.html` |
+| `Admin/SECURITY_COMPLIANCE.md` | ✅ Yes | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html` |
+| `CLAUDE.md` | ✅ Yes | `Learn/CLAUDE_v{VERSION}.html` |
+| `docs/Document-index.md` | ✅ Yes | `Learn/Document-index_v{VERSION}.html` |
+| `docs/WEB_CONTENT_INDEX.md` | ✅ Yes | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html` |
+| Field notes (`docs/field-notes/*.md`) | ✅ Yes | `Learn/{date}-{slug}.html` |
+| Thesis files | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc. |
+| `Store/*.md` product files | ❌ No | These use YAML — built by build_store.py instead |
+| Architecture docs (one-time) | ⚠️ Optional | Generate once on initial creation |
+
+### 18.3 Generation Method
+
+**Preferred: Pandoc (automated)**
+
+```bash
+pandoc DWS_DOCUMENT_STANDARD.md \
+  -f markdown -t html5 \
+  --standalone \
+  -o Learn/DWS_DOCUMENT_STANDARD_v1.7.html
+```
+
+**Alternative: Manual HTML**
+
+When pandoc is unavailable, generate minimal but valid HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Document Title] v[VERSION]</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+    code { background: #f4f4f4; padding: 0.2em 0.4em; }
+    h1, h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+  </style>
+</head>
+<body>
+  <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
+  [HTML CONTENT]
+</body>
+</html>
+```
+
+### 18.4 Versioning Rules
+
+- **NEVER overwrite** an existing versioned file (e.g., `_v1.6.html`)
+- **Always create a new file** with the new version number
+- **Also update** the unversioned copy (e.g., `Learn/DWS_DOCUMENT_STANDARD.html`) so agents always have a stable URL
+- For thesis files: follow the Thesis Update Rule (4 files together)
+
+### 18.5 Morning Briefing Integration
+
+The CEO Cockpit morning brief (06:00 Helsinki) includes a **Learn Artifacts** section showing recently updated HTML files with direct GitHub links.
+
+When you publish a new Learn/ HTML:
+- The morning briefing automatically detects files modified in the last 7 days
+- It links to: `https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}`
+
+**Skill:** Run `/content-index learn` to see which Learn/ artifacts were published recently.
+
+### 18.6 Learn Artifact Naming
+
+```
+Learn/[DOCUMENT_SLUG]_v[MAJOR].[MINOR].html    ← versioned (permanent)
+Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)
+```
+
+Examples:
+```
+Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
+Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
+Learn/WEB_CONTENT_INDEX_v1.0.html       ← versioned
+Learn/WEB_CONTENT_INDEX.html            ← latest
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1700,9 +1860,19 @@ Document Status:
 
 ---
 
-**Version:** 1.5
-**Effective Date:** 21. February 2026
+**Version:** 1.7
+**Effective Date:** 28. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.7:**
+- Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages
+- Added Learn HTML Generation rule (Section 18) — every standards update produces a versioned HTML artifact in Learn/
+- Created `docs/WEB_CONTENT_INDEX.md` — maps docs to web pages across all three domains
+- Created `.claude/commands/content-index.md` — agent skill for web content index
+- Added Learn Artifacts section to morning briefing email (06:00 Helsinki)
+
+**Major Changes in v1.6:**
+- Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
 
 **Major Changes in v1.5:**
 - Added OUTDATED publication status for documents pending archive
