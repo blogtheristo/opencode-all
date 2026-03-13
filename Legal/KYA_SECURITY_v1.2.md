@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 13.03.2026 | Changes: External review integration — ATS Hard Stop (V>0 nullifies A factor, §3.1). Cold-Start Latency Penalty added to L factor (§4.1). 5ms behavioral guardrail confirmed as security containment (§2.5). U.S. Executive Order 14110 + OECD AI Principles added to compliance (§8). D&O Insurance safe harbor positioning (§8.1). KYA-S/KYA-O internal naming convention (§1). Tiered Fault Attribution fees by industry risk (§9.5)
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Added SOC 2 Type II and ISO 42001 (AI Management Systems) to compliance alignment (§8). Dual acronym KYA retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Combined KYA Standard — Subagent Registry, Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution, Agent Trust Score formula (see Legal/KYA_STANDARD_v1.md — public document)
@@ -13,7 +14,7 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 09.03.2026
-  - Last Modified: 10.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -34,7 +35,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Security Standard v1.3
+**Version:** KYA Security Standard v1.4 (KYA-S)
 **Status:** Implementation Ready (Q1 2026 Launch)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -70,6 +71,8 @@ The **Know Your Agent (KYA)** standard answers a question that no existing compl
 As enterprises deploy autonomous AI agents — their own and third-party "BYO" (Bring Your Own) agents — into industrial control rooms, a critical governance gap emerges. KYC (Know Your Customer) verifies identity. KYB (Know Your Business) verifies organizations. But neither addresses the autonomous actions that AI agents take on behalf of verified humans and entities.
 
 **KYA is the security foundation.** This standard defines the "No" — identity attribution, capability gating, forensic observability, and the hardware isolation that makes BYO agents safe. For the "More" — financial value, autoresearch optimization, and agent swarm governance — see the companion standard: `Legal/KYA_OPTIMIZATION_v1.4.md`.
+
+**Internal Naming Convention (v1.4):** To avoid acronym collision during audits, internal documentation uses **KYA-S** (Security — Know Your Agent) and **KYA-O** (Optimization — Know Your Architecture). External marketing retains "KYA Standard" with the tagline: *"We give you the Identity to trust the agent and the Architecture to profit from it."*
 
 KYA bridges this gap with three pillars (plus two security extensions in v1.2):
 
@@ -206,6 +209,8 @@ Agent Intent Declared
 
 **Key Principle:** Guardrails are evaluated in < 5ms. They must never become a performance bottleneck. The intent classifier uses a lightweight policy engine (not an LLM call) for speed.
 
+**Architectural Decision (v1.4):** The 5ms behavioral guardrail lives in **KYA-S (Security)**, not KYA-O (Optimization). Even though guardrails contribute to efficiency by killing failing experiments early, their primary function is **containment**. If guardrails were classified as a "performance feature" in the optimization standard, CISOs would discount their security validity. Guardrails are "The No." They stay in the security standard to justify the "Forensic Observability" pillar.
+
 ---
 
 ## 3. Agent Trust Score (ATS)
@@ -213,14 +218,22 @@ Agent Intent Declared
 ### 3.1 Formula (Security Baseline)
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+ATS_Base = max(0, 1.0 - V×0.25 - L - D×0.05)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
-L = 0.10 if avg_latency > 500ms
+L = 0.10 if avg_latency > 500ms (+ Cold-Start Latency Penalty, see §4.1)
 D = DENIED path access attempts
 ```
 
-**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with an autoresearch improvement factor (+A×0.18, capped). This security standard uses the base formula without the A factor, because security scoring should not be inflatable by optimization performance.
+**The V > 0 Hard Stop (v1.4 CRITICAL):** If `V > 0`, the autoresearch improvement factor `A` is **automatically nullified** in the companion optimization standard. You cannot optimize your way out of a security violation. This is enforced at the ATS engine level:
+
+```
+ATS_Final = ATS_Base × (1 + A)    where A = 0 if V > 0
+```
+
+An agent may be highly "optimal" (high A) but fundamentally "leaky" (moderate V). Under the previous additive formula, such an agent could maintain a high score. The multiplicative formula with the V > 0 gate eliminates this inflation vector entirely.
+
+**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with the autoresearch improvement factor. The A factor is only active when `V = 0` (zero violations). A must be validated against the Industry Proxy Metric (Optimization §9) to prevent agents "marking their own homework." This security standard uses `ATS_Base` without the A factor — security scoring is never inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 
@@ -252,6 +265,14 @@ Every BYO process is encapsulated in a dedicated MicroVM.
 | Guest kernel | Isolated per sandbox |
 | Host kernel access | None (paravirtualized) |
 | Storage | Ephemeral by default, persistent opt-in |
+
+**Cold-Start Latency Penalty (v1.4):** Excessive MicroVM cycling (boot → terminate → boot) is penalized in the L factor to discourage agents from gaming isolation by rapidly spinning up fresh sandboxes. If an agent triggers >5 cold starts within a 1-hour window, the L factor applies a cumulative penalty:
+
+```
+L_cold = 0.02 × (cold_starts - 5)    (added to base L factor)
+```
+
+This discourages patterns where an agent terminates its own sandbox to shed audit trail state and immediately re-enters with a clean session.
 
 ### 4.2 No Shared Kernel Access
 
@@ -413,7 +434,7 @@ Customer Request
 
 ## 8. Compliance Alignment
 
-| Regulation | KYA Coverage |
+| Regulation | KYA-S Coverage |
 |------------|-------------|
 | **EU AI Act** (Article 12) | Forensic logging, human oversight, traceability |
 | **EU AI Act** (Article 14) | Human-in-the-loop via KYA score thresholds |
@@ -423,6 +444,20 @@ Customer Request
 | **DORA** | ICT risk management for financial sector agents |
 | **SOC 2 Type II** | Trust services criteria (security, availability, processing integrity) — required for US enterprise sales |
 | **ISO 42001** | AI Management Systems — emerging international standard for AI governance, gaining traction faster than expected |
+| **U.S. Executive Order 14110** (v1.4) | "Dual-Use Foundation Models with Widely Available Weights" reporting requirements — KYA audit trail satisfies provenance and safety reporting obligations for US market entry |
+| **OECD AI Principles** (v1.4) | Essential for global Tier 1 maritime/aviation sectors — KYA maps to all 5 OECD principles (inclusive growth, human-centred values, transparency, robustness, accountability) |
+
+### 8.1 D&O Insurance Safe Harbor (v1.4)
+
+**Directors & Officers Liability:** Position KYA-S as a "safe harbor" against personal liability for AI hallucinations or autonomous financial loss. Board members deploying AI agents without governance face personal liability under EU AI Act Article 99 and national corporate governance codes.
+
+**KYA-S provides the defense:**
+- Identity attribution proves *which agent* produced the flawed output (not "our AI")
+- Fault attribution separates LOGIC_FAULT from OPERATOR_FAULT — isolating director decisions from agent failures
+- Forensic observability provides the "reasonable measures" evidence D&O insurers require
+- Behavioral guardrails (§2.5) demonstrate pre-execution controls were in place
+
+**Target:** 8–12% D&O premium reduction for enterprises with KYA-S certification, positioned alongside cyber liability savings.
 
 ---
 
@@ -589,6 +624,18 @@ Error Detected
 - Supabase provides **RLS**, **real-time subscriptions** (dashboard alerts), and **queryable JSONB** for evidence payloads
 - Fault attribution is an **operational concern** (who fixes it?), not a **compliance concern** (what happened?)
 
+### 9.5 Tiered Fault Attribution Fees by Industry Risk (v1.4)
+
+Fault attribution investigation costs vary by industry risk tier. Higher-risk industries (Tier 1) involve regulatory exposure, physical safety, and environmental liability — justifying higher investigation fees and faster SLA.
+
+| Industry Tier | Fault Investigation Fee (EUR) | SLA (resolution time) | Rationale |
+|---------------|-------------------------------|----------------------|-----------|
+| **Tier 1** (Critical Emissions) | EUR 15.00 per fault record | 4h (CRITICAL), 24h (HIGH) | ETS/CBAM regulatory exposure, physical safety risk, carbon penalty liability |
+| **Tier 2** (Important Emissions) | EUR 8.00 per fault record | 8h (CRITICAL), 48h (HIGH) | Moderate regulatory exposure, supply chain impact |
+| **Tier 3** (Wedge Industries) | EUR 5.00 per fault record | 12h (CRITICAL), 72h (HIGH) | High agent density but lower physical safety risk |
+
+**Escalation:** If a fault in any tier triggers a `KYA_VIOLATION` (§9.2), the investigation fee doubles and a mandatory post-incident review is scheduled within 48h. For Tier 1 CRITICAL faults affecting physical systems (Power, Steel, Cement, Construction), a real-time incident bridge is activated.
+
 ---
 
 ## 10. Conclusion
@@ -605,7 +652,7 @@ The standard is designed to be **pluggable** — any identity verification provi
 | L2 — Agent Provenance | KYB (business/organization verification) | REST API |
 | L5 — Continuous Risk | Risk change notifications | Webhook (push), < 5s delivery |
 
-Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 19 industries and multi-agent sessions, this creates volume at scale — not one-off KYC checks.
+Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 20 industries and multi-agent sessions, this creates volume at scale — not one-off KYC checks.
 
 For financial value modeling, autoresearch governance, and agent swarm orchestration, see the companion standard: `Legal/KYA_OPTIMIZATION_v1.4.md`.
 
