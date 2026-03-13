@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Revised 30-day timeline (internal demo Day 7→11), added RedGet.io partnership-first GTM track for maritime, added §10.4 Platform Partnership model (revenue-share, co-sell), removed Cobra reference
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Initial creation — Revised DSaaS strategy with CLI-first mandatory gateway, 30-day build plan, enterprise pricing (€499–€4,999/mo), Aiven ECE + TimescaleDB Hypercore HTAP stack, sovereignty enforcement, DWS IQ 6 sync gating
 
 Session Links & References:
@@ -274,48 +275,63 @@ volumes:
 
 ## 5. 30-Day Build Plan
 
-### Phase 1: CLI Skeleton + Local Docker (Days 1–3) — MVP-Ready
+### Phase 1: Local-First + Sovereignty Check (Days 1–3) — Show the Problem
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
 | CLI project scaffold (Node.js/TypeScript) | `dws init` | Build |
-| Local Docker environment | `dws local up` | Build |
-| Sovereignty status checker | `dws sovereignty status` | Build |
+| Local Docker environment (Supabase/PG + TimescaleDB) | `dws local up` | Build |
 | Hard EU-region lock enforcer | (internal module) | Build |
-| JSON + TTY dual output | All commands | Build |
+| JSON + TTY dual output | All commands | Exists |
 
-### Phase 2: Aiven Integration (Days 4–7) — Demo-Ready (Internal Only)
+**Day 3 output:** Maritime prospect sees `dws local up` spin a sovereign database in 30 seconds.
+
+### Phase 2: Sovereignty Scoring + Aiven (Days 4–8) — Show the Solution
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
+| Real DB sovereignty introspection (region, encryption, RLS) | `dws sovereignty check` | Build |
+| Sovereignty status dashboard (CLI) | `dws sovereignty status` | Build |
 | Aiven API integration | `dws create --level 2` | Build |
 | TimescaleDB auto-enable on Aiven | (post-provisioning hook) | Build |
 | Hypercore compression policy | (auto-applied to hypertables) | Build |
-| Basic sovereignty validation | `dws sovereignty check` | Build |
 
-**Day 7 output:** Private demo for internal team only. No investor announcement, no production traffic.
+**Day 8 output:** Run `dws sovereignty check` against any PostgreSQL → get NIS2 gap report. One-command Aiven provisioning works.
 
-### Phase 3: Level 3 Sovereign + Compliance (Days 8–14) — Beta
+### Phase 3: Internal Demo + RedGet Discovery (Days 9–11) — Validate
+
+| Deliverable | Details | Status |
+|-------------|---------|--------|
+| Internal demo (team-only) | Full CLI walkthrough: local → check → create → sovereignty score | Demo |
+| RedGet.io discovery call | 30-min: what DB does RedGet use? Where are sovereignty pain points? | Partnership |
+| Demo recording | Loom/screen capture for async sharing | Document |
+
+**Day 11 output:** Internal team aligned. RedGet discovery call completed. Partnership fit validated or pivoted.
+
+### Phase 4: NIS2 Compliance + Maritime Templates (Days 12–16) — Maritime-Specific
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
-| Hetzner/Exoscale/OVH BYOC modules | `dws create --level 3 --provider hetzner` | Build |
 | NIS2 compliance export | `dws compliance export --regulation nis2` | Build |
 | CSRD compliance export | `dws compliance export --regulation csrd` | Build |
 | EU AI Act audit trail | `dws compliance export --regulation eu-ai-act` | Build |
 | PDF report generation | `dws compliance export --format pdf` | Build |
+| Maritime template (AIS, vessel telemetry, port sensors) | `dws init --template maritime-nis2` | Build |
+| Hetzner/Exoscale BYOC modules | `dws create --level 3 --provider hetzner` | Build |
 
-### Phase 4: DWS IQ 6 Sync + Auth (Days 15–21) — Production Core
+### Phase 5: Auth + RedGet Live Demo (Days 17–21) — Partnership Demo
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
-| DWS IQ 6 hot data sync | `dws deploy --iq6-sync` | Build |
-| Mandatory CLI gating (blocks non-CLI provisioning) | (enforcement layer) | Build |
 | OAuth2 + Lifetime Oy SSO | `dws auth login` | Build |
 | API key management | `dws auth token create` | Build |
-| Template deployment | `dws init --template climate-esg` | Build |
+| DWS IQ 6 hot data sync | `dws deploy --iq6-sync` | Build |
+| Mandatory CLI gating (blocks non-CLI provisioning) | (enforcement layer) | Build |
+| RedGet live demo | `dws sovereignty check` against RedGet-like schema | Partnership |
 
-### Phase 5: Pricing + Dashboard + CI/CD (Days 22–26) — Ready for Pilots
+**Day 21 output:** RedGet sees DSaaS running under their stack. Partnership terms discussed.
+
+### Phase 6: Dashboard + CI/CD (Days 22–26) — Production Ready
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
@@ -325,15 +341,17 @@ volumes:
 | Full test suite | `npm run test` | Build |
 | CI/CD pipeline | GitHub Actions | Build |
 | Error handling + retries | All commands | Build |
+| Template deployment | `dws init --template climate-esg` | Build |
 
-### Phase 6: Launch (Days 27–30) — Go-to-Market
+### Phase 7: Maritime Pilot Launch (Days 27–30) — Go-to-Market
 
 | Deliverable | Details | Status |
 |-------------|---------|--------|
 | Documentation | CLI reference, tutorials, API docs | Build |
 | dws10.com/sovereignty landing page | Product page with pricing | Build |
-| Pilot cohort onboarding | First 3 paid pilots (maritime/logistics) | Launch |
-| Investor update | "DSaaS MVP live with first pilot revenue" | Communicate |
+| Maritime pilot onboarding | Via RedGet partnership or direct maritime operator | Launch |
+| Partnership agreement | RedGet.io revenue-share or co-sell terms | Close |
+| Investor update | "DSaaS MVP live with maritime pilot" | Communicate |
 
 ---
 
@@ -497,6 +515,48 @@ Must include:
 - Aiven partnership reference
 - Customer pilot testimonials (post-Day 30)
 
+### 10.4 Platform Partnership Model (Maritime-First GTM)
+
+**Primary maritime entry: RedGet.io partnership**
+
+RedGet.io (Danail Marinov, Founder) — maritime compliance platform automating EU greenhouse gas emissions reporting for shipping companies and ports. Currently in closed beta with maritime operators.
+
+**Why partnership-first, not direct sales:**
+
+| Direct sales | Partnership via RedGet |
+|-------------|----------------------|
+| Cold outreach to maritime operators | Warm intro to operators already using RedGet |
+| 6–12 month enterprise sales cycle | RedGet embeds DSaaS → every RedGet customer is a DSaaS customer |
+| Must build maritime credibility from zero | RedGet already has maritime credibility |
+| Invoice kills early-stage conversation | Revenue-share aligns incentives |
+
+**Partnership structure:**
+
+| Element | Terms |
+|---------|-------|
+| **Pilot period** | 3 months free — RedGet uses DSaaS as default database layer |
+| **Revenue model** | Revenue-share on sovereignty tier uplift when RedGet customers pay for compliance |
+| **Co-sell** | Joint pitch: "RedGet for maritime GHG compliance + DSaaS for sovereign database" |
+| **Integration** | RedGet's data layer runs on `dws create --level 2` (Aiven ECE, EU-region-locked) |
+| **Exit clause** | Either party can exit after pilot; RedGet keeps data, migrates off DSaaS if needed |
+
+**Pitch (founder-to-founder):**
+
+> "Ship DSaaS as your default database layer. Your maritime customers will ask about NIS2 data residency and EU AI Act audit trails within 12 months. We make that problem disappear with one CLI command. You focus on GHG reporting, we handle sovereign infrastructure. When your customers pay for sovereignty compliance, we split the upside."
+
+**Timeline:**
+
+| Day | Action |
+|-----|--------|
+| 1 | Warm intro via mutual connection |
+| 2–3 | 30-min discovery: what DB does RedGet use? Pain points? |
+| 4–8 | Build `dws local up` + `dws sovereignty check` tailored to RedGet's schema |
+| 9–11 | Internal demo + RedGet discovery debrief |
+| 17–21 | Live demo: `dws sovereignty check` against RedGet-like PostgreSQL |
+| 27–30 | Partnership terms signed, first joint maritime operator pilot |
+
+**Fallback:** If RedGet partnership doesn't materialize, pivot to direct maritime operator outreach using the same CLI demo assets. The demo works regardless of the GTM channel.
+
 ---
 
 ## 11. Risk Assessment
@@ -510,6 +570,8 @@ Must include:
 | Timeline slips past 30 days | Medium | Low | Phase 1–2 are independent of Phase 3–6; ship incrementally |
 | Competitor launches sovereign PostgreSQL | Low | Medium | First-mover advantage + DWS IQ 6 integration moat |
 | Pricing too high for SMEs | Low | Low | Free tier + Pro at €499 covers SME budget |
+| RedGet partnership doesn't close | Medium | Low | Demo assets work for direct maritime outreach; partnership is accelerator, not dependency |
+| RedGet is pre-revenue, can't co-sell | Medium | Low | Revenue-share model means zero upfront cost; monetize through their customer base later |
 
 ### 11.2 What We Are NOT Doing
 
@@ -530,7 +592,7 @@ Must include:
 | Local Docker parity | 100% schema match | Automated comparison |
 | Aiven provisioning | < 3 minutes | CLI timing |
 | Sovereignty score accuracy | > 95% match with manual audit | SovereigntyMonitor agent validation |
-| Pilot clients onboarded | 3 | CRM tracking |
+| Pilot clients onboarded | 1 partnership + 1 direct | CRM tracking |
 
 ### 12.2 90-Day Metrics
 
