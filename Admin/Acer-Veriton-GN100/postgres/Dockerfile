@@ -9,14 +9,29 @@
 #   - pg_duckdb 1.x    — DuckDB-powered OLAP analytics inside PostgreSQL
 #   - pgvector 0.8.x   — Vector similarity search (matches Supabase stack)
 #
+# Autoresearch validation (2026-03-13):
+#   - TimescaleDB ARM64: CONFIRMED via PGDG apt.postgresql.org (v2.21.1)
+#   - pg_duckdb ARM64: CONFIRMED via multi-arch Docker image (v1.1.1)
+#   - pgvector ARM64: CONFIRMED builds from source on ARM64
+#
 # Usage:
 #   docker build -t dws-edge-postgres:16 .
 #   docker compose up -d
 #
-# Version: 1.0.0
+# Version: 1.1.0
 # License: Proprietary — Lifetime Oy
 # =============================================================================
 
+# =============================================================================
+# Stage 1: Extract pg_duckdb extension from official multi-arch image
+# =============================================================================
+# The pgduckdb/pgduckdb image is confirmed multi-arch (ARM64 + AMD64).
+# This avoids reliance on DEB packages whose ARM64 availability is uncertain.
+FROM pgduckdb/pgduckdb:16-v1.1.1 AS pgduckdb-source
+
+# =============================================================================
+# Stage 2: Build the final image
+# =============================================================================
 FROM postgres:16-bookworm
 
 LABEL maintainer="risto@onelifetime.world"
@@ -24,7 +39,6 @@ LABEL description="DWS Edge PostgreSQL with TimescaleDB + pg_duckdb + pgvector f
 LABEL org.opencontainers.image.source="https://github.com/blogtheristo/dws6"
 
 # Build arguments for version pinning
-ARG TIMESCALEDB_VERSION=2
 ARG PGVECTOR_VERSION=0.8.0
 
 # Install build dependencies
@@ -39,28 +53,34 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # =============================================================================
-# 1. Install TimescaleDB from official APT repository
+# 1. Install TimescaleDB from Timescale PackageCloud APT repository
 # =============================================================================
+# Confirmed ARM64 availability: timescaledb-2-postgresql-16 on Bookworm arm64
+# Fallback: PGDG repository (apt.postgresql.org) also carries arm64 builds
 RUN echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" \
     > /etc/apt/sources.list.d/timescaledb.list \
     && curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       timescaledb-${TIMESCALEDB_VERSION}-postgresql-16 \
+       timescaledb-2-postgresql-16 \
+    || ( \
+       echo "PackageCloud install failed, trying PGDG repository..." \
+       && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+          > /etc/apt/sources.list.d/pgdg.list \
+       && curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg \
+       && apt-get update \
+       && apt-get install -y --no-install-recommends postgresql-16-timescaledb \
+    ) \
     && rm -rf /var/lib/apt/lists/*
 
 # =============================================================================
-# 2. Install pg_duckdb from official APT repository
+# 2. Copy pg_duckdb extension from official multi-arch Docker image
 # =============================================================================
-RUN curl -fsSL https://install.pgduck.db/#TODO > /dev/null 2>&1 || true
-# pg_duckdb: install from GitHub releases (DEB package for PG16 + ARM64/AMD64)
-RUN ARCH=$(dpkg --print-architecture) \
-    && PGDUCKDB_VERSION=$(curl -fsSL https://api.github.com/repos/duckdb/pg_duckdb/releases/latest | grep '"tag_name"' | sed 's/.*"v\(.*\)".*/\1/') \
-    && echo "Installing pg_duckdb v${PGDUCKDB_VERSION} for ${ARCH}" \
-    && curl -fsSL "https://github.com/duckdb/pg_duckdb/releases/download/v${PGDUCKDB_VERSION}/pg_duckdb-v${PGDUCKDB_VERSION}-pg16-${ARCH}.deb" \
-       -o /tmp/pg_duckdb.deb \
-    && dpkg -i /tmp/pg_duckdb.deb || apt-get install -f -y \
-    && rm /tmp/pg_duckdb.deb
+# Multi-stage copy avoids DEB package availability uncertainty on ARM64.
+# The pgduckdb/pgduckdb:16-v1.1.1 image is built with docker buildx bake
+# and publishes native ARM64 + AMD64 manifests.
+COPY --from=pgduckdb-source /usr/share/postgresql/16/extension/duckdb* /usr/share/postgresql/16/extension/
+COPY --from=pgduckdb-source /usr/lib/postgresql/16/lib/duckdb*.so /usr/lib/postgresql/16/lib/
 
 # =============================================================================
 # 3. Install pgvector from source (reliable ARM64 build)

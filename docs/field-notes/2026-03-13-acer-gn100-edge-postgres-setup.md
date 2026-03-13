@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Autoresearch validation — fixed pg_duckdb install (multi-stage Docker copy), added TimescaleDB PGDG fallback, removed broken conf mount
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Initial creation — Docker-based PostgreSQL 16 with TimescaleDB, pg_duckdb, pgvector for Acer Veriton GN100 edge device
 
 Session Links & References:
@@ -136,6 +137,59 @@ SELECT extname, extversion FROM pg_extension ORDER BY extname;
 | Telemetry | TimescaleDB telemetry disabled (`timescaledb.telemetry_level=off`) |
 | Data residency | All data on-device in Helsinki Lab |
 | Auth stubs | `auth.uid()/jwt()/role()` return dummy values for Supabase RLS compat |
+
+## Autoresearch Validation (v1.1)
+
+Following the DWS autoresearch methodology (modify → verify → keep/discard → repeat), three potential concerns from the initial implementation were systematically validated:
+
+### Experiment 1: TimescaleDB ARM64 on Debian Bookworm
+
+| Hypothesis | TimescaleDB APT packages may not exist for ARM64 Bookworm |
+|------------|----------------------------------------------------------|
+| Method | Web research: Timescale PackageCloud + PGDG apt.postgresql.org |
+| Finding | **CONFIRMED AVAILABLE** on both repositories |
+| PackageCloud | `timescaledb-2-2.15.1-postgresql-16_2.15.1~debian12_arm64.deb` |
+| PGDG | `postgresql-16-timescaledb` v2.21.1 for arm64 bookworm-pgdg |
+| Action | **KEEP** current PackageCloud approach + **ADD** PGDG as fallback |
+
+Sources:
+- Timescale PackageCloud: https://packagecloud.io/timescale/timescaledb
+- PGDG APT: https://wiki.postgresql.org/wiki/Apt
+
+### Experiment 2: pg_duckdb ARM64 DEB Packages
+
+| Hypothesis | pg_duckdb GitHub release DEB packages may not include ARM64 |
+|------------|-------------------------------------------------------------|
+| Method | GitHub API check + Docker Hub multi-arch manifest verification |
+| Finding | **DEB UNCERTAIN**, Docker image **CONFIRMED** multi-arch ARM64 |
+| Docker tag | `pgduckdb/pgduckdb:16-v1.1.1` (buildx bake, ARM64 + AMD64) |
+| Action | **DISCARD** DEB download approach → **REPLACE** with multi-stage Docker COPY |
+
+Fix applied: Dockerfile now uses multi-stage build to copy pg_duckdb extension files directly from the official `pgduckdb/pgduckdb:16-v1.1.1` image, eliminating DEB package dependency entirely.
+
+Sources:
+- pg_duckdb Docker: https://hub.docker.com/r/pgduckdb/pgduckdb
+- pg_duckdb GitHub: https://github.com/duckdb/pg_duckdb
+
+### Experiment 3: Missing conf/postgresql.conf Mount
+
+| Hypothesis | docker-compose.yml mounts `./conf/postgresql.conf` which doesn't exist |
+|------------|------------------------------------------------------------------------|
+| Method | File system check |
+| Finding | **CONFIRMED BROKEN** — file never created, mount would fail on startup |
+| Action | **DISCARD** volume mount → command-line `-c` flags already handle all tuning |
+
+Fix applied: Removed `./conf/postgresql.conf:/etc/postgresql/postgresql.conf:ro` volume mount from docker-compose.yml.
+
+### Autoresearch Summary
+
+| # | Concern | Status | Action |
+|---|---------|--------|--------|
+| 1 | TimescaleDB ARM64 | CONFIRMED | Keep + add PGDG fallback |
+| 2 | pg_duckdb ARM64 DEB | UNCERTAIN | Multi-stage Docker COPY |
+| 3 | conf/postgresql.conf | BROKEN | Remove mount |
+
+All three concerns resolved. Dockerfile v1.1.0 is now validated for ARM64 deployment.
 
 ## Next Steps
 

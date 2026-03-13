@@ -40,7 +40,7 @@ services:
       - "127.0.0.1:5432:5432"  # localhost only — use SSH tunnel for remote access
     volumes:
       - edge_pg_data:/var/lib/postgresql/data
-      - ./conf/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      # All tuning via command-line flags below — no external config file needed
     command: >
       postgres
         -c shared_preload_libraries=timescaledb
