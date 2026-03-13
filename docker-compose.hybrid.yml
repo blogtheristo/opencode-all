@@ -56,7 +56,7 @@ services:
       # Service URLs (Docker internal hostnames)
       BACKEND_URL: http://backend-dev:8080
       GITHUB_MCP_URL: http://github-mcp:8767
-      SUPABASE_MCP_URL: http://supabase-mcp:8766
+      CARBON_API_URL: http://carbon-api:8766
       PROMETHEUS_URL: http://prometheus:9090
       GRAFANA_URL: http://grafana:3000
       AGENT_FOUNDRY_URL: http://agent-foundry:8080
@@ -106,14 +106,14 @@ services:
     restart: unless-stopped
 
   # ============================================================================
-  # Supabase MCP Server
+  # DWS Carbon API
   # ============================================================================
   
-  supabase-mcp:
+  carbon-api:
     build:
-      context: ./mcp-hub
-      dockerfile: Dockerfile.supabase
-    container_name: dws-supabase-mcp
+      context: ./mcp-servers/supabase
+      dockerfile: Dockerfile
+    container_name: dws-carbon-api
     environment:
       SUPABASE_MCP_PORT: 8766
       SUPABASE_URL: ${SUPABASE_URL}
@@ -305,7 +305,7 @@ services:
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     depends_on:
       - mcp-hub
-      - supabase-mcp
+      - carbon-api
     networks:
       - dws-hybrid-network
     restart: unless-stopped

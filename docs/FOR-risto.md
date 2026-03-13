@@ -1,6 +1,6 @@
 # FOR-risto: Claude Code Sessions Registry
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1

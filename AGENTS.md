@@ -3,9 +3,9 @@
 > Following the [agents.md](https://github.com/agentsmd/agents.md) open specification.
 > A README for AI coding agents: context, instructions, and operational guidance.
 
-**Version:** 2.1
+**Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** March 4, 2026
+**Updated:** March 7, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -13,13 +13,13 @@
 
 ## 1. Project Context
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture:** Brain-Memory-Body-Hands
 
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
 **Tech stack:** React 19, Vite 7, TypeScript 5.9, TailwindCSS 4, Express 4, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
@@ -235,6 +235,14 @@ dws6/
 │  │  Servers: Docker MCP | ZenFree | Browser MCP                       │     │
 │  └────────────────────────────────────────────────────────────────────┘     │
 │                                                                              │
+│  ┌────────────────────────────────────────────────────────────────────┐     │
+│  │  BYO AGENTS (External) — Customer-deployed third-party agents      │     │
+│  │  Microsoft CoWork | Tencent Workbuddy | Clawbot | Anthropic Cowork │     │
+│  │  Gate: KYA 6-Stage Registration (IDV → KYB → Capability → Sandbox) │     │
+│  │  Runtime: Firecracker MicroVM, zero shared kernel, KYA trust score │     │
+│  │  See: §18 BYO Lifecycle, Legal/KYA_SECURITY_v1.2.md                │     │
+│  └────────────────────────────────────────────────────────────────────┘     │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -251,6 +259,7 @@ These are production agents that customers interact with via the API.
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
 | `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
 | `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
 
 ---
 
@@ -317,6 +326,46 @@ These are production agents that customers interact with via the API.
 ```
 
 **Output:** Gate decision (pass/fail/warn), quality score (0-100), blocking issues, recommendations.
+
+### Sovereignty Monitor Agent (`sovereignty-monitor`)
+
+**Why:** The CLOUD Act (2018) allows US authorities to access data held by US-owned providers regardless of server location. 78% of EU companies plan to reduce US cloud dependency. This agent automates database sovereignty assessment across 8 dimensions and provides continuous monitoring with HIL escalation.
+
+**Capabilities:**
+- `database-sovereignty-assessment` — Score database sovereignty across 8 dimensions (0–100)
+- `cloud-act-exposure-check` — Detect US-owned provider CLOUD Act risk
+- `data-residency-verification` — Verify EU data residency compliance
+- `gdpr-database-readiness` — GDPR DSAR, deletion, consent process readiness
+- `nis2-database-compliance` — NIS2 critical infrastructure data handling
+
+**Input:**
+```typescript
+{
+  host?: string;              // Database hostname
+  provider?: string;          // e.g., "supabase-eu", "aws", "hetzner"
+  region?: string;            // e.g., "europe-north1", "eu-west-1"
+  tables?: string[];          // Tables to assess
+  industry?: string;          // Industry context
+  encryptionAtRest?: boolean;
+  encryptionInTransit?: boolean;
+  rlsEnabled?: boolean;
+  rlsCoverage?: number;       // 0-100%
+  backupRegion?: string;
+  accessControlMethod?: string; // e.g., "rbac", "jwt"
+  gdprDsarProcess?: boolean;
+  gdprDeletionProcess?: boolean;
+  gdprConsentManagement?: boolean;
+}
+```
+
+**Output:** Sovereignty score (0–100), tier (sovereign/compliant/partial/exposed), 8-dimension check results, gap list, remediation recommendations. HIL escalation triggered when confidence < 80%.
+
+**CLI:**
+```bash
+dws sovereignty-assess --input '{"provider":"aws","region":"eu-west-1","encryptionAtRest":true}'
+```
+
+**Product:** Sovereign Database (SKU: DWS-SOVEREIGN-DB-001) — 4 tiers: Assess (free), Standard (€499/mo), Growth (€1,499/mo), Enterprise (€4,999/mo).
 
 ---
 
@@ -621,6 +670,221 @@ dws mcp tools
 
 ---
 
+## 17. Compliance Scoring Engine Architecture
+
+Added: March 7, 2026 | MVP Feature 2
+
+The Compliance Scoring Engine is the core product logic — deterministic, testable, no LLM dependency for scoring. The existing `ComplianceAgent` (`src/agents/compliance.agent.ts`) now delegates real calculations to the scoring engine.
+
+### Architecture
+
+```
+ComplianceAgent (orchestration layer)
+  ├── scoring-engine.ts (deterministic scoring)
+  │   ├── scoreCsrdReadiness()  — ESRS data point coverage
+  │   ├── scoreEtsExposure()    — emissions threshold analysis
+  │   └── scoreCbamRisk()       — import value risk assessment
+  ├── esrs-registry.ts (82 ESRS disclosures, E1-E5/S1-S4/G1)
+  ├── report-generator.ts (structured JSON for auditors)
+  └── LLM (gap analysis enhancement — optional)
+```
+
+### Scoring Formula
+
+```
+CSRD Score = (mandatory data points provided / total mandatory) × 80
+           + transition plan bonus (10)
+           + emissions monitoring bonus (10)
+
+ETS Score  = 100 - penalties for:
+           - No emissions monitoring (-40 if above threshold)
+           - No transition plan (-20)
+           - No GHG data E1-6 (-25)
+
+CBAM Score = 100 - penalties for:
+           - No supply chain DD (-40 if above €150K imports)
+           - No supplier data G1-2 (-20)
+           - No pollution data E2-4 (-15)
+
+Overall    = CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25
+```
+
+### API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/v1/compliance/assess` | Run compliance assessment, returns scored report |
+| GET | `/api/v1/compliance/registry` | Get ESRS disclosure registry (filterable by standard/category/mandatory) |
+
+### Database Schema
+
+| Table | Purpose |
+|-------|---------|
+| `compliance_profiles` | Organization compliance profile (industry, emissions, imports) |
+| `esrs_data_points` | Individual ESRS disclosure data (82 possible per profile) |
+| `compliance_assessments` | Assessment results with scores and gaps |
+
+All tables have RLS policies scoped to `organization_id`.
+
+### Middleware Stack (Required Order)
+
+All compliance routes use the following middleware chain:
+
+1. `correlationId` → trace ID
+2. `validate({ body: AssessmentSchema })` → Zod validation
+3. Route handler → calls `scoreCompliance()` + `generateReport()`
+4. `errorHandler` → catches and formats errors
+
+---
+
+## 18. Bring Your Own Agent (BYO) Lifecycle & KYA Trust Framework
+
+*Added: March 9, 2026 — Session: claude/sandbox-industrial-models-GXxbN*
+
+The DWS10 Control Room manages 16 industrial-grade models in isolated sandboxes. Customers can deploy third-party agents — Microsoft CoWork, Tencent Workbuddy, Clawbot, or any MCP-compatible agent — into the environment via the **BYO (Bring Your Own) Agent** process.
+
+Every BYO agent is governed by the **KYA (Know Your Agent)** protocol, a DWS IQ feature that extends KYC/KYB to autonomous agents.
+
+### 18.1 KYA Three Pillars
+
+| Pillar | Name | Function |
+|--------|------|----------|
+| 1 | **Identity Attribution** (The Anchor) | Cryptographically binds agent session to KYC-verified human/entity |
+| 2 | **Capability Gating** (The Leash) | Real-time risk telemetry dynamically adjusts agent permissions |
+| 3 | **Forensic Observability** (The Firehorse Audit Trail) | Sub-second syscall + network telemetry, immutable audit chain |
+
+### 18.2 BYO Agent Registration (6-Stage Gate)
+
+```
+Customer Request
+    │
+    ▼
+┌──────────────────────────────────┐
+│ Stage 1: Registration            │  Agent manifest submitted to DWS Agent Registry
+│ (No identity gate)               │  Manifest: name, version, provider, requested MCP tools
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 2: Identity Binding        │  ← IDV GATE (BLOCKING)
+│ Human operator verified          │  Document + face match + AML screen
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 3: Org Verification        │  ← KYB GATE (BLOCKING for BYO)
+│ Organization behind agent        │  Business verification, UBO checks
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 4: Capability Review       │  MCP tool approval against org policy
+│ What tools does it need?         │  DWS IQ admin reviews requested capabilities
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 5: Sandbox Entry           │  ← KYA SCORE CHECK (≥ 50 to enter)
+│ Firecracker MicroVM spun up      │  Isolated runtime, tier-based limits
+└──────────────┬───────────────────┘
+               ▼
+┌──────────────────────────────────┐
+│ Stage 6: Runtime Monitoring      │  Continuous telemetry (Firehorse)
+│ + Dynamic Restriction            │  ← WEBHOOK on risk change
+│                                  │  Sandbox permissions adjust in real-time
+└──────────────────────────────────┘
+```
+
+### 18.3 KYA Trust Score
+
+The KYA trust score determines sandbox permissions. Identity provider risk signals are the master key.
+
+| Score | Sandbox Tier | Description |
+|-------|-------------|-------------|
+| ≥ 80 | **Full Agency** | Egress, filesystem, all MCP tools, write to models |
+| 50–79 | **Restricted** | No egress, read-only FS, curated MCP tools |
+| < 50 | **Suspended** | Human review required, agent paused |
+| = 0 | **Quarantine** | Agent terminated, Firehorse forensic dump triggered |
+
+**Dynamic adjustment:** If an identity provider webhook signals a risk change (AML hit, document expiry, anomalous behavior), the hypervisor adjusts sandbox permissions in < 5 seconds.
+
+### 18.4 Hardware Isolation (Firecracker MicroVMs)
+
+Every BYO agent runs in a dedicated Firecracker MicroVM with zero shared kernel access.
+
+| Property | Value |
+|----------|-------|
+| Boot time | < 125 ms |
+| Memory overhead | < 5 MB per MicroVM |
+| Guest kernel | Isolated per sandbox |
+| Host kernel access | None (paravirtualized) |
+| Egress control | Hypervisor-level, per-session whitelist |
+
+```
+Operator (KYA Score: 87)
+    │
+    ├── MicroVM-1: CoWork      [egress: microsoft.com]
+    ├── MicroVM-2: Workbuddy   [egress: api.tencent.com]
+    ├── MicroVM-3: Clawbot     [egress: none (air-gapped)]
+    └── MicroVM-4: Cowork      [egress: api.anthropic.com]
+
+Cross-sandbox access → TRAP → SESSION FROZEN → KYA score −30
+```
+
+### 18.5 BYO Agent Manifest Schema
+
+Every BYO agent must submit a manifest at registration (Stage 1):
+
+```json
+{
+  "agent": {
+    "name": "Clawbot",
+    "version": "2.1.0",
+    "provider": "OpenClaw Ltd",
+    "provider_country": "DE"
+  },
+  "capabilities": {
+    "mcp_tools_requested": ["material-oracle", "schedule-genius"],
+    "egress_endpoints": ["api.openclaw.io"],
+    "filesystem": "read-write",
+    "max_tokens_per_request": 16000
+  },
+  "identity": {
+    "operator_email": "ops@example.com",
+    "org_registration_id": "HRB-12345-DE"
+  }
+}
+```
+
+### 18.6 Sandbox Stages (Integration with DWS Security Standard §14)
+
+| Stage | Runtime | Isolation | KYA Gate |
+|-------|---------|-----------|----------|
+| 1 | SDK native | No network, read-only FS | L1 IDV only |
+| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU | L1 + L2 |
+| 2 | Cloud Run ephemeral | Sandboxed by default | L1 + L2 + L3 |
+| 3 | Production (Firecracker MicroVM) | Full hardware isolation | All 5 layers |
+
+### 18.7 Firehorse Forensic Logging
+
+| Layer | Data Captured | Retention |
+|-------|---------------|-----------|
+| Syscall | File I/O, process spawns, IPC | 90 days |
+| Network | Egress/ingress, DNS lookups | 90 days |
+| MCP Tool | Invocations, parameters, responses | 1 year |
+| Token Usage | Input/output tokens per agent per session | 1 year |
+| Identity Events | KYA score changes, permission adjustments | 5 years (EU AI Act Art. 12) |
+
+### 18.8 Related Standards
+
+| Standard | Section | Scope |
+|----------|---------|-------|
+| `DWS_SECURITY_STANDARD.md` | §14 (Sandbox Isolation), §18 (KYA & BYO) | Security controls, trust model |
+| `Legal/KYA_STANDARD_v1.md` | v1.0–v1.1 | Public foundational KYA document |
+| `Legal/KYA_SECURITY_v1.2.md` | v1.2 | Know Your Agent — identity, isolation, forensics, guardrails |
+| `Legal/KYA_OPTIMIZATION_v1.4.md` | v1.4 | Know Your Architecture — autoresearch, financial value, orchestrator |
+| `src/cloudflare/tenant-sandbox.ts` | Implementation | Sandbox tiers, rate limiting, usage tracking |
+| `docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md` | Field note | Partnership strategy, email drafts |
+| `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md` | Tech spec | Integration points for identity providers |
+
+---
+
 ## Related Documents
 
 - [CLAUDE.md](CLAUDE.md) - AI coding agent behavior guidelines
@@ -633,7 +897,7 @@ dws mcp tools
 
 ---
 
-**Document Version:** 2.1
-**Last Updated:** March 4, 2026
+**Document Version:** 2.3
+**Last Updated:** March 9, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026

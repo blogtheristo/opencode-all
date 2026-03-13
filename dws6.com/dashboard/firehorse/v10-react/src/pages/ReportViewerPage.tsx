@@ -6,6 +6,7 @@
  */
 
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 type ReportType = 'Carbon' | 'Compliance' | 'Financial';
@@ -43,6 +44,7 @@ const STATUS_LABELS: Record<ReportStatus, string> = {
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export function ReportViewerPage() {
+  const navigate = useNavigate();
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterType, setFilterType] = useState<ReportType | 'All'>('All');
@@ -129,8 +131,14 @@ export function ReportViewerPage() {
             <p className="text-sm text-gray-400 mt-1">Firehorse Report Engine &middot; {reports.length} reports</p>
           </div>
 
-          {/* Filter by type */}
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => navigate('/templates')}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-700 text-gray-300 hover:bg-gray-600"
+            >
+              Edit Templates
+            </button>
             {(['All', 'Carbon', 'Compliance', 'Financial'] as const).map((type) => (
               <button
                 key={type}
