@@ -43,6 +43,7 @@ import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
 import { MarsAgent } from './workflow/industry/mars.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
 import { ArgusAgent } from './argus.agent.js';
+import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -212,6 +213,9 @@ export class AgentRegistry {
 
     // KYA Vision — Orbital Target Labeling (ICEYE SAR partnership)
     this.register(new ArgusAgent());        // All-seeing orbital eye — 20-industry detection
+
+    // Sovereignty — Database & infrastructure sovereignty assessment
+    this.register(new SovereigntyMonitorAgent());  // EU data sovereignty scoring
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
