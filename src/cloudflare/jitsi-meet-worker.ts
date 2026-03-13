@@ -306,7 +306,7 @@ function lobbyPageHtml(jitsiDomain: string): string {
     </form>
 
     <div class="footer">
-      Free &middot; No account needed &middot; End-to-end encrypted<br>
+      Free &middot; No account needed &middot; Encrypted in transit<br>
       Lifetime Oy &middot; ${BRAND.name}
     </div>
   </div>
