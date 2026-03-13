@@ -19,7 +19,7 @@ Input: $ARGUMENTS
 
 ## Available agents
 
-sitesense, schedule-genius, material-oracle, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, compliance-researcher, sales-outreach, construction, logistics, compliance, quality-gate, keyword-intent, competitor-surveillance, content-brief, seo-audit, lead-feedback
+sitesense, schedule-genius, material-oracle, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, compliance-researcher, sales-outreach, construction, logistics, compliance, quality-gate, keyword-intent, competitor-surveillance, content-brief, seo-audit, lead-feedback, designer
 
 ## Examples
 

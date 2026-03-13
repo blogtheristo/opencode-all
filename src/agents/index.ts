@@ -44,6 +44,7 @@ import { MarsAgent } from './workflow/industry/mars.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
 import { ArgusAgent } from './argus.agent.js';
 import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
+import { DesignerAgent } from './designer.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -216,6 +217,9 @@ export class AgentRegistry {
 
     // Sovereignty — Database & infrastructure sovereignty assessment
     this.register(new SovereigntyMonitorAgent());  // EU data sovereignty scoring
+
+    // Designer — Design-to-code bridge (Anthropic designer workflow)
+    this.register(new DesignerAgent());  // Figma-to-code, style changes, component creation
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
