@@ -274,6 +274,11 @@ export class GrokConsentService {
     });
 
     if (error) {
+      // Non-fatal but must be visible: consent audit trail must never be silently lost
+      logger.error('Failed to write Grok consent audit log to Supabase', {
+        error: error.message,
+        orgId,
+        action,
       logger.error('Failed to log Grok consent event', {
         error: error.message,
         orgId,
