@@ -325,10 +325,14 @@
       if (room) joinRoom(room);
     })();
 
+    function sanitizeRoomName(name) {
+      return name.replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
     function startMeeting(e) {
       e.preventDefault();
-      const input = document.getElementById('room').value.trim();
-      const roomName = input || 'dws6-' + Math.random().toString(36).substring(2, 10);
+      const raw = document.getElementById('room').value.trim();
+      const roomName = raw ? sanitizeRoomName(raw) : 'dws6-' + Math.random().toString(36).substring(2, 10);
       joinRoom(roomName);
     }
 
@@ -382,17 +386,29 @@
       document.getElementById('lobby').classList.remove('hidden');
     }
 
+    function clipCopy(text, inputId) {
+      if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text).catch(() => {
+          const el = document.getElementById(inputId);
+          el.select();
+          document.execCommand('copy');
+        });
+      }
+      const el = document.getElementById(inputId);
+      el.select();
+      document.execCommand('copy');
+      return Promise.resolve();
+    }
+
     function copyLink(btn) {
-      const url = document.getElementById('share-url').value;
-      navigator.clipboard.writeText(url).then(() => {
+      clipCopy(document.getElementById('share-url').value, 'share-url').then(() => {
         btn.textContent = 'Copied!';
         setTimeout(() => btn.textContent = 'Copy Link', 2000);
       });
     }
 
     function copyDirectLink(btn) {
-      const url = document.getElementById('jitsi-direct-url').value;
-      navigator.clipboard.writeText(url).then(() => {
+      clipCopy(document.getElementById('jitsi-direct-url').value, 'jitsi-direct-url').then(() => {
         btn.textContent = 'Copied!';
         setTimeout(() => btn.textContent = 'Copy Jitsi Link', 2000);
       });
@@ -409,7 +425,7 @@
       const email = document.getElementById('invite-email').value.trim();
       if (!email) { showToast('Please enter an email address'); return; }
       const roomInput = document.getElementById('invite-room').value.trim();
-      const roomName = roomInput || 'dws6-' + Math.random().toString(36).substring(2, 10);
+      const roomName = roomInput ? sanitizeRoomName(roomInput) : 'dws6-' + Math.random().toString(36).substring(2, 10);
       const dateInput = document.getElementById('invite-date').value;
       const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
       const shareUrl = window.location.origin + window.location.pathname + '#room=' + encodeURIComponent(roomName);
