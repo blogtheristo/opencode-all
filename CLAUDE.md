@@ -47,6 +47,16 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### Code Versioning Rule (CRITICAL)
+
+When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Section 19:
+
+1. Add a syntax-safe **Code Versioning Note** in the file header/comment block.
+2. Tie lineage to PR number using `Introduced-In: PR-<number>` (example: `PR-699`).
+3. Include `Code-Version`, `Branch`, `Commit` (when known), `Date`, and `Owner`.
+4. If runtime config contract changes, bump `ENV_SCHEMA_VERSION` in `.env.example`.
+5. Never include secrets or live `.env` values in version notes.
+
 ### Thesis Update Rule (CRITICAL)
 
 When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **"opinnäytetyö"**, ALL 4 thesis files MUST be updated together:
@@ -318,7 +328,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 **Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
 
-**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `Admin/ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
+**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
 
 ## 2026 EU AI Act Compliance
 
