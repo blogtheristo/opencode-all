@@ -259,6 +259,7 @@ These are production agents that customers interact with via the API.
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
 | `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
 | `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
 
 ---
 
@@ -325,6 +326,46 @@ These are production agents that customers interact with via the API.
 ```
 
 **Output:** Gate decision (pass/fail/warn), quality score (0-100), blocking issues, recommendations.
+
+### Sovereignty Monitor Agent (`sovereignty-monitor`)
+
+**Why:** The CLOUD Act (2018) allows US authorities to access data held by US-owned providers regardless of server location. 78% of EU companies plan to reduce US cloud dependency. This agent automates database sovereignty assessment across 8 dimensions and provides continuous monitoring with HIL escalation.
+
+**Capabilities:**
+- `database-sovereignty-assessment` — Score database sovereignty across 8 dimensions (0–100)
+- `cloud-act-exposure-check` — Detect US-owned provider CLOUD Act risk
+- `data-residency-verification` — Verify EU data residency compliance
+- `gdpr-database-readiness` — GDPR DSAR, deletion, consent process readiness
+- `nis2-database-compliance` — NIS2 critical infrastructure data handling
+
+**Input:**
+```typescript
+{
+  host?: string;              // Database hostname
+  provider?: string;          // e.g., "supabase-eu", "aws", "hetzner"
+  region?: string;            // e.g., "europe-north1", "eu-west-1"
+  tables?: string[];          // Tables to assess
+  industry?: string;          // Industry context
+  encryptionAtRest?: boolean;
+  encryptionInTransit?: boolean;
+  rlsEnabled?: boolean;
+  rlsCoverage?: number;       // 0-100%
+  backupRegion?: string;
+  accessControlMethod?: string; // e.g., "rbac", "jwt"
+  gdprDsarProcess?: boolean;
+  gdprDeletionProcess?: boolean;
+  gdprConsentManagement?: boolean;
+}
+```
+
+**Output:** Sovereignty score (0–100), tier (sovereign/compliant/partial/exposed), 8-dimension check results, gap list, remediation recommendations. HIL escalation triggered when confidence < 80%.
+
+**CLI:**
+```bash
+dws sovereignty-assess --input '{"provider":"aws","region":"eu-west-1","encryptionAtRest":true}'
+```
+
+**Product:** Sovereign Database (SKU: DWS-SOVEREIGN-DB-001) — 4 tiers: Assess (free), Standard (€499/mo), Growth (€1,499/mo), Enterprise (€4,999/mo).
 
 ---
 

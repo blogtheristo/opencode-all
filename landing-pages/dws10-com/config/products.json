@@ -900,6 +900,36 @@
       },
       "storeCategory": "hardware"
     },
+    "DWS-SOVEREIGN-DB-001": {
+      "id": "DWS-SOVEREIGN-DB-001",
+      "gtin": null,
+      "mpn": "SOVEREIGN-DB-2026",
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "price": 0,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
+      "features": [
+        "Zero CLOUD Act exposure",
+        "Continuous sovereignty monitoring agent",
+        "8-dimension compliance scoring"
+      ],
+      "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/sovereign-database.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
+    },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
       "gtin": null,

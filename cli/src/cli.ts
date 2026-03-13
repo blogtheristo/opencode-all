@@ -381,6 +381,82 @@ async function cmdMcpCall(toolName: string, argsJson: string): Promise<void> {
   output(result);
 }
 
+// ============ SOVEREIGNTY ASSESSMENT ============
+
+async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promise<void> {
+  let input: Record<string, unknown>;
+
+  if (useStdin) {
+    const stdinData = await readStdin();
+    if (!stdinData) error('--stdin specified but no data on stdin');
+    try {
+      input = JSON.parse(stdinData);
+    } catch {
+      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`);
+    }
+  } else if (inputJson) {
+    try {
+      input = JSON.parse(inputJson);
+    } catch {
+      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`);
+    }
+  } else {
+    input = {};
+  }
+
+  const s = spinner('Running sovereignty assessment...');
+
+  try {
+    const result = await api('/api/agents/sovereignty-monitor/execute', 'POST', {
+      context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+      input,
+    });
+    s.stop();
+
+    const r = result as Record<string, unknown>;
+    if (!JSON_MODE && process.stdout.isTTY) {
+      const res = r.result as Record<string, unknown>;
+      const score = res?.overallScore as number ?? 0;
+      const tier = res?.tier as string ?? 'unknown';
+      const gaps = (res?.gaps as unknown[])?.length ?? 0;
+      const exposed = res?.cloudActExposed as boolean ?? false;
+
+      const tierColor = tier === 'sovereign' ? fmt.green : tier === 'compliant' ? fmt.cyan : tier === 'partial' ? fmt.yellow : fmt.red;
+
+      console.log('');
+      console.log(fmt.bold('  Sovereignty Assessment'));
+      console.log('');
+      console.log(`  Score      ${score >= 70 ? fmt.green(String(score)) : score >= 40 ? fmt.yellow(String(score)) : fmt.red(String(score))}/100`);
+      console.log(`  Tier       ${tierColor(tier.toUpperCase())}`);
+      console.log(`  CLOUD Act  ${exposed ? fmt.red('EXPOSED') : fmt.green('Free')}`);
+      console.log(`  Gaps       ${gaps > 0 ? fmt.yellow(String(gaps)) : fmt.green('0')}`);
+      console.log('');
+
+      const recs = r.recommendations as string[] ?? [];
+      if (recs.length > 0) {
+        console.log(fmt.dim('  Recommendations:'));
+        recs.slice(0, 5).forEach((rec, i) => {
+          console.log(`  ${i + 1}. ${rec}`);
+        });
+        console.log('');
+      }
+
+      // HIL escalation notice
+      const hil = (res as Record<string, unknown>)?.hilEscalation as Record<string, unknown> | undefined;
+      if (hil?.required) {
+        console.log(fmt.yellow('  ⚠ Low confidence — escalated to human review'));
+        console.log(fmt.dim(`    Reason: ${hil.reason}`));
+        console.log('');
+      }
+    } else {
+      output(result);
+    }
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
 // ============ SCENARIO SHORTCUTS ============
 
 const SCENARIOS: Record<string, { description: string; commands: Array<{ label: string; cmd: string }> }> = {
@@ -414,6 +490,14 @@ const SCENARIOS: Record<string, { description: string; commands: Array<{ label: 
       { label: 'Fit for 55', cmd: 'dws run compliance --input \'{"industry":"energy","regulations":["ets","fit-for-55"]}\'' },
       { label: 'Emissions report', cmd: 'dws run emissions-data-analyst --input \'{"query":"total GHG by source"}\'' },
       { label: 'SEO pipeline', cmd: 'dws workflow seo-pipeline --input \'{"domain":"energy-portal.eu"}\'' },
+    ],
+  },
+  sovereignty: {
+    description: 'Database sovereignty assessment & EU compliance',
+    commands: [
+      { label: 'Assess Supabase EU', cmd: 'dws sovereignty-assess --input \'{"provider":"supabase-eu","region":"europe-north1","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":85}\'' },
+      { label: 'Check AWS exposure', cmd: 'dws sovereignty-assess --input \'{"provider":"aws","region":"eu-west-1","encryptionAtRest":true,"encryptionInTransit":true}\'' },
+      { label: 'Full sovereign audit', cmd: 'dws sovereignty-assess --input \'{"provider":"hetzner","region":"helsinki","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":100,"backupRegion":"frankfurt","accessControlMethod":"rbac","gdprDsarProcess":true,"gdprDeletionProcess":true,"gdprConsentManagement":true}\'' },
     ],
   },
   quickstart: {
@@ -559,6 +643,10 @@ WORKFLOWS:
   dws workflow <name> --input '{...}'     Trigger a multi-agent workflow
   dws scenario [name]                     Usage scenarios (construction, manufacturing, logistics, energy)
   dws events [--pattern <p>] [--limit N]  Show recent events
+
+SOVEREIGNTY:
+  dws sovereignty-assess --input '{...}'  Scan database for EU sovereignty compliance
+  dws sovereignty-assess --stdin          Read config from stdin
 
 MCP:
   dws mcp tools                           List MCP tools
@@ -737,6 +825,10 @@ async function main(): Promise<void> {
         } else {
           error('Usage: dws kya [snap <session_id> --reason <code> | status <session_id>]');
         }
+        break;
+
+      case 'sovereignty-assess':
+        await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
       case 'mcp':
