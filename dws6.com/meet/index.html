@@ -298,8 +298,8 @@
       <div class="share-row">
         <label></label>
         <div class="share-actions">
-          <button class="btn-sm" onclick="copyLink()">Copy Link</button>
-          <button class="btn-sm" onclick="copyDirectLink()">Copy Jitsi Link</button>
+          <button class="btn-sm" onclick="copyLink(this)">Copy Link</button>
+          <button class="btn-sm" onclick="copyDirectLink(this)">Copy Jitsi Link</button>
           <button class="btn-email" onclick="emailInviteFromMeeting()">&#9993; Email Invite</button>
           <button class="btn-sm" style="background:#475569;" onclick="leaveMeeting()">Leave</button>
         </div>
@@ -382,14 +382,20 @@
       document.getElementById('lobby').classList.remove('hidden');
     }
 
-    function copyLink() {
+    function copyLink(btn) {
       const url = document.getElementById('share-url').value;
-      navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy Link', 2000);
+      });
     }
 
-    function copyDirectLink() {
+    function copyDirectLink(btn) {
       const url = document.getElementById('jitsi-direct-url').value;
-      navigator.clipboard.writeText(url).then(() => showToast('Jitsi link copied!'));
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy Jitsi Link', 2000);
+      });
     }
 
     function emailInviteFromMeeting() {
