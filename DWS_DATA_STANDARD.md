@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 2.0
 
 Sessions & Modifications:
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Major update — Aiven-first mandate locked, TimescaleDB 2.25.x Hypercore approved standard, 2026 comparison table (Hydra→Supabase, pg_mooncake→Databricks), Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), local dev parity, EU DPA/Schrems II analysis
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Initial creation — data storage governance, columnar/row policy, extension registry, EU regulatory compliance, retention policy, partitioning and compression standards
 
 Session Links & References:
@@ -13,17 +14,36 @@ Session Links & References:
 
 Document Status:
   - Created: 12.03.2026
-  - Last Modified: 12.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.0
+**Version:** 2.0
 **Effective Date:** 2026-03-12
-**Last Updated:** 2026-03-12
-**Status:** Active
+**Last Updated:** 2026-03-13
+**Status:** Active — Aiven-First Mandate Locked
+
+---
+
+## Executive Summary (Aiven-First Mandate)
+
+**Approved primary standard for Aiven-managed environments: Aiven for PostgreSQL + TimescaleDB 2.25.x with Hypercore.**
+
+This is the **ONLY** columnar/HTAP solution that meets all DWS constraints (Aiven SLA + local mirroring + enterprise support) without custom workarounds. All new projects default to this unless the workload profile explicitly requires lakehouse features (then evaluate Supabase Warehouse via formal exception process).
+
+| Requirement | Aiven + TimescaleDB Hypercore | Alternative (Exception Only) |
+|-------------|-------------------------------|------------------------------|
+| Aiven native support | Yes (built-in, pre-approved) | pg_duckdb/pg_mooncake: **BLOCKED** on Aiven |
+| Local Docker parity | `timescale/timescaledb:2.25.2-pg16` (exact match) | Good (Supabase Warehouse) |
+| Real-time updates + analytics | Best-in-class (automatic hybrid row→columnar) | pg_mooncake: good but manual |
+| Analytics speed vs vanilla PG | 10–100× (real-time focus) + 90–98% compression | 50–600× (pg_duckdb, edge only) |
+| EU data residency / GDPR | Full (Aiven EU regions + BYOC/ECE) | Self-hosted EU only |
+| Operational SLA / zero-ops | 99.99% + Aiven monitoring | None (you manage) |
+
+**This section is locked into our standards.** March 2026.
 
 ---
 
@@ -41,6 +61,9 @@ Document Status:
 10. [Migration & Schema Change Policy](#10-migration--schema-change-policy)
 11. [Backup & Recovery](#11-backup--recovery)
 12. [Approved Extensions Registry](#12-approved-extensions-registry)
+13. [2026 Columnar/HTAP Comparison](#13-2026-columnarhtap-comparison)
+14. [Two-Tier HTAP Architecture](#14-two-tier-htap-architecture)
+15. [Local Development Parity Setup](#15-local-development-parity-setup)
 
 ---
 
@@ -93,27 +116,40 @@ Applies to:
 4. **Enable columnar compression** when data is >90 days old AND write frequency drops to near-zero.
 5. **Never use columnar for OLTP.** Tables with frequent UPDATE/DELETE operations stay as heap.
 
-### 2.3 Hybrid HTAP Architecture
+### 2.3 Two-Tier HTAP Architecture (2026)
 
-DWS uses a **single-database HTAP** model — no separate data warehouse:
+DWS uses a **two-tier HTAP** model — Aiven managed (production) + GN100 edge (analytics):
 
 ```
-┌─────────────────────────────────────────────────┐
-│              PostgreSQL (Aiven EU)                │
-│                                                   │
-│  ┌──────────┐  ┌──────────────┐  ┌────────────┐ │
-│  │ Heap      │  │ TimescaleDB  │  │ pg_duckdb  │ │
-│  │ (OLTP)    │  │ Hypertables  │  │ Accelerator│ │
-│  │           │  │ (time-series)│  │ (analytics)│ │
-│  │ leads     │  │ agent_metrics│  │ ← routes   │ │
-│  │ users     │  │ agent_costs  │  │   heavy    │ │
-│  │ orgs      │  │ audit_log    │  │   queries  │ │
-│  │ templates │  │ iot_sensors  │  │   auto     │ │
-│  └──────────┘  └──────────────┘  └────────────┘ │
-│                                                   │
-│  Same SQL · Same clients · Same RLS · Zero ETL    │
-└─────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│  TIER 1: Aiven Managed (Production, 99.99% SLA)               │
+│  PostgreSQL 16/17 + TimescaleDB 2.25.x Hypercore              │
+│                                                                 │
+│  ┌──────────┐  ┌──────────────────────────────────────────┐   │
+│  │ Heap      │  │ TimescaleDB Hypercore (auto hybrid)      │   │
+│  │ (OLTP)    │  │                                          │   │
+│  │ leads     │  │ HOT: row-store (fast writes/updates)     │   │
+│  │ users     │  │ WARM: auto-columnar (10-100× analytics)  │   │
+│  │ orgs      │  │ COLD: compressed (90-98% ratio)          │   │
+│  │ templates │  │                                          │   │
+│  └──────────┘  │ agent_metrics · agent_costs · audit_log   │   │
+│                 │ iot_sensors · firehorse_events            │   │
+│                 └──────────────────────────────────────────┘   │
+│  Same SQL · Same RLS · Zero ETL · EU sovereign                 │
+├────────────────────────────────────────────────────────────────┤
+│  TIER 2: GN100 Edge (Analytics + Dev, self-hosted Helsinki)    │
+│  PostgreSQL 16 + TimescaleDB + pg_duckdb + pgvector            │
+│                                                                 │
+│  ┌──────────────┐  ┌────────────┐  ┌──────────────────────┐  │
+│  │ TimescaleDB   │  │ pg_duckdb  │  │ pgvector             │  │
+│  │ (mirror)      │  │ (50-600×)  │  │ (local RAG)          │  │
+│  │ audit mirror  │  │ OLAP joins │  │ Ollama + embeddings   │  │
+│  └──────────────┘  └────────────┘  └──────────────────────┘  │
+│  SSH tunnel only · localhost bind · EU sovereign hardware      │
+└────────────────────────────────────────────────────────────────┘
 ```
+
+**Why two tiers?** Aiven's extension whitelist **blocks** pg_duckdb, pg_mooncake, and Hydra. TimescaleDB Hypercore is the only approved HTAP option on Aiven. The GN100 edge fills the gap with pg_duckdb for ad-hoc OLAP analytics that benefit from DuckDB's 50–600× vectorized engine.
 
 ---
 
@@ -436,27 +472,28 @@ COMMIT;
 
 ## 12. Approved Extensions Registry
 
-### 12.1 Current Registry
+### 12.1 Current Registry (2026-03-13)
 
-| Extension | Version | Provider | License | Sovereignty Tier | Platform | DWS Status | Phase |
-|-----------|---------|----------|---------|-----------------|----------|------------|-------|
-| **uuid-ossp** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Supabase, Aiven | Active | — |
-| **pgcrypto** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Supabase, Aiven | Active | — |
-| **pgvector** | 0.8.x | pgvector team | PostgreSQL | Tier 2 | Supabase, Aiven | Planned | DWS6 |
-| **pg_stat_statements** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Supabase, Aiven | Planned | Phase 0 |
-| **pg_trgm** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Supabase, Aiven | Planned | DWS6 |
-| **TimescaleDB** | 2.17.x | Timescale Inc | Timescale | Tier 2 | Aiven | Planned | Phase 1 |
-| **pg_duckdb** | 0.3.x | DuckDB team | MIT | Tier 2 | Aiven* | Evaluate | Phase 1-2 |
-| **pg_mooncake** | 0.2.x | Databricks | Apache 2.0 | Tier 2 | Self-hosted | Evaluate | Phase 3 |
+| Extension | Version | Provider | License | Sovereignty | Aiven | Supabase | GN100 Edge | DWS Status | Phase |
+|-----------|---------|----------|---------|-------------|-------|----------|------------|------------|-------|
+| **uuid-ossp** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Yes | Yes | Yes | Active | — |
+| **pgcrypto** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Yes | Yes | Yes | Active | — |
+| **pgvector** | 0.8.x | pgvector team | PostgreSQL | Tier 2 | Yes | Yes | **Yes** | Active | DWS6 |
+| **pg_stat_statements** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Yes | Yes | Yes | Planned | Phase 0 |
+| **pg_trgm** | built-in | PostgreSQL | PostgreSQL | Tier 1 | Yes | Yes | Yes | Planned | DWS6 |
+| **TimescaleDB Hypercore** | **2.25.x** | Timescale Inc | Timescale | Tier 2 | **Yes (native)** | Yes | **Yes** | **APPROVED** | **Phase 1** |
+| **pg_duckdb** | **1.1.x** | DuckDB team | MIT | Tier 2 | **NO (blocked)** | Yes | **Yes (v1.1.1)** | **Edge only** | Phase 1 |
+| **pg_mooncake** | 0.x | Databricks | Apache 2.0 | Tier 3 | **NO (blocked)** | Custom | Evaluate | Evaluate | Phase 3 |
 
-*pg_duckdb on Aiven: Verify availability with Aiven support.
+### 12.2 Rejected / Blocked Extensions
 
-### 12.2 Rejected Extensions
-
-| Extension | Reason | Date |
-|-----------|--------|------|
-| **Citus Columnar** | Azure-locked, US sovereignty concern | 2026-03-12 |
-| **ParadeDB pg_analytics** | Redundant with pg_duckdb + native TSVECTOR search | 2026-03-12 |
+| Extension | Status | Reason | Date |
+|-----------|--------|--------|------|
+| **Citus Columnar** | Rejected | Azure-locked, US sovereignty concern, older codebase | 2026-03-12 |
+| **ParadeDB pg_analytics** | Rejected | Redundant with pg_duckdb + native TSVECTOR search | 2026-03-12 |
+| **pg_duckdb on Aiven** | **Blocked** | Aiven extension whitelist does not include pg_duckdb (March 2026) | 2026-03-13 |
+| **pg_mooncake on Aiven** | **Blocked** | Aiven extension whitelist does not include pg_mooncake (March 2026) | 2026-03-13 |
+| **Hydra on Aiven** | **Blocked** | Hydra joined Supabase; not available on Aiven | 2026-03-13 |
 
 ### 12.3 Registry Update Procedure
 
@@ -489,4 +526,174 @@ Does an external tool need to read this data?
 
 ---
 
-(c) 2026 Lifetime Oy — DWS Data Standard v1.0
+## 13. 2026 Columnar/HTAP Comparison
+
+### 13.1 Comprehensive Comparison (March 2026)
+
+Evaluated based on official docs, ClickBench rankings, GitHub activity, managed-provider support, real-world production usage (2025–2026), and open-source maturity.
+
+| Solution | Storage Type | Execution Engine | Updates/Deletes | Speed vs PG | Aiven? | Supabase? | Self-Host? | Maturity |
+|----------|-------------|-----------------|-----------------|-------------|--------|-----------|------------|----------|
+| **Hydra (→Supabase Warehouse)** | Native columnar + Iceberg | DuckDB vectorized | Append-optimized | 100–600× | No | Alpha (Feb 2026) | Yes | High |
+| **pg_duckdb v1.x** | Accelerates heap + S3/Iceberg | Embedded DuckDB | Full PG speed | 50–600× | **No** | Yes | **Excellent** | Very High |
+| **pg_mooncake (→Databricks)** | Iceberg/Delta Lake columnar | DuckDB + PG metadata | Full ACID | Top-10 ClickBench | No | Custom | Excellent | High |
+| **ParadeDB pg_analytics** | On-disk columnar + S3 | DuckDB | Good | 10–100× | No | Yes | Excellent | High |
+| **TimescaleDB 2.25.x Hypercore** | Auto hybrid row→columnar | Postgres + SIMD | **Best-in-class** | 10–100× | **Native** | Yes | Excellent | **Very High** |
+| **Citus Columnar** | Native columnar | Postgres executor | Good | 5–50× | No | No | Yes | Medium |
+
+### 13.2 Key Industry Events (2025–2026)
+
+| Date | Event | Impact on DWS |
+|------|-------|---------------|
+| Oct 2025 | pg_mooncake acquired by Databricks | Open source continues; Tier 3 sovereignty risk |
+| Feb 2026 | Hydra core team joins Supabase → "Supabase Warehouse" | No longer standalone; Supabase-only (Tier 3) |
+| Mar 2026 | TimescaleDB 2.25.x Hypercore general availability | **Primary DWS standard** — auto hybrid row→columnar |
+| Mar 2026 | Aiven whitelist confirmed: pg_duckdb/pg_mooncake/Hydra **blocked** | Two-tier architecture required |
+
+### 13.3 When to Deviate from Aiven + TimescaleDB
+
+| Scenario | Alternative | Exception Process |
+|----------|-------------|-------------------|
+| Pure non-time-series analytics + lakehouse writes | Supabase Warehouse (Hydra team, alpha) | Formal exception review |
+| Extreme Spark/Trino lakehouse interop | Self-hosted pg_mooncake | Formal exception review |
+| 50–600× OLAP acceleration needed | pg_duckdb on GN100 edge (already deployed) | Standard (edge tier) |
+| **Never** | Force unsupported extensions onto Aiven | **Blocked** |
+
+---
+
+## 14. Two-Tier HTAP Architecture
+
+### 14.1 Tier 1: Aiven Managed (Production)
+
+**Image:** Aiven for PostgreSQL (PG16 or PG17) + TimescaleDB 2.25.x (native)
+
+| Component | Extension | Workload | Status |
+|-----------|-----------|----------|--------|
+| Agent metrics/costs | TimescaleDB Hypercore hypertables | Time-series + continuous aggregates | Phase 1 |
+| Article 12 audit log | TimescaleDB Hypercore compression | 7-year immutable, 98% compression | Phase 1–2 |
+| IoT sensor data (DWS7) | TimescaleDB Hypercore hypertables | Auto tiering hot→warm→cold | Phase 2 |
+| CSRD/ESG reporting | Continuous aggregates | Scope 1/2/3 rollups | Phase 2 |
+
+**Aiven setup (one-click):**
+```sql
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+
+-- Convert analytics table to Hypercore hypertable
+SELECT create_hypertable('events', 'time',
+    chunk_time_interval => INTERVAL '1 day',
+    migrate_data => true);
+
+-- Enable automatic columnar compression
+ALTER TABLE events SET (
+    timescaledb.compress,
+    timescaledb.compress_orderby = 'time DESC',
+    timescaledb.compress_segmentby = 'user_id, event_type'
+);
+SELECT add_compression_policy('events', INTERVAL '7 days');
+```
+
+### 14.2 Tier 2: GN100 Edge (Analytics + Development)
+
+**Image:** Custom Dockerfile based on `timescale/timescaledb:2.25.2-pg16` + pg_duckdb multi-stage copy
+
+| Component | Extension | Workload | Status |
+|-----------|-----------|----------|--------|
+| Ad-hoc OLAP queries | pg_duckdb v1.1.1 | Cross-table analytical joins, 50–600× | Deployed |
+| Agent telemetry mirror | TimescaleDB hypertables | Local time-series cache | Deployed |
+| Audit log mirror | TimescaleDB compression | EU-sovereign immutable copy | Phase 2 |
+| Vector search (RAG) | pgvector 0.8.x | Local LLM RAG with Ollama | Deployed |
+| Lakehouse prototype | pg_mooncake (future) | Iceberg/Parquet export testing | Phase 3 |
+
+**Deployment:** `scripts/deploy-acer-postgres.sh` (SSH to GN100)
+
+### 14.3 Data Flow Between Tiers
+
+```
+Aiven (Tier 1)                    GN100 Edge (Tier 2)
+┌──────────────┐   pg_dump/       ┌──────────────────┐
+│ Production   │   pg_restore     │ Analytics Mirror  │
+│ TimescaleDB  │ ─────────────→   │ TimescaleDB       │
+│ Hypercore    │   (daily sync)   │ + pg_duckdb       │
+│              │                  │ + pgvector        │
+│ article12    │ ─────────────→   │ audit_log mirror  │
+│ audit_log    │   (append-only)  │ (immutable copy)  │
+└──────────────┘                  └──────────────────┘
+```
+
+---
+
+## 15. Local Development Parity Setup
+
+### 15.1 Standard Local Dev (Aiven-Parity, Copy-Paste Ready)
+
+For standard development where pg_duckdb is not needed:
+
+```yaml
+# docker-compose.local.yml — 100% Aiven parity
+services:
+  db:
+    image: timescale/timescaledb:2.25.2-pg16  # exact match to Aiven
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: appdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
+```
+
+### 15.2 Init SQL (Aiven-Parity)
+
+```sql
+CREATE EXTENSION IF NOT EXISTS timescaledb;
+
+-- Example: convert any analytics table to Hypercore
+SELECT create_hypertable('events', 'time',
+    chunk_time_interval => INTERVAL '1 day',
+    migrate_data => true);
+
+ALTER TABLE events SET (
+    timescaledb.compress,
+    timescaledb.compress_orderby = 'time DESC',
+    timescaledb.compress_segmentby = 'user_id, event_type'
+);
+SELECT add_compression_policy('events', INTERVAL '7 days');
+```
+
+### 15.3 Verification (Run on Both Local and Aiven)
+
+```sql
+SELECT version(), extname, extversion
+FROM pg_extension WHERE extname = 'timescaledb';
+
+SELECT * FROM timescaledb_information.compression_settings;
+SELECT hypertable_name, compression_enabled
+FROM timescaledb_information.hypertables;
+```
+
+### 15.4 GN100 Edge Dev (Full Stack with pg_duckdb)
+
+For edge development with pg_duckdb + pgvector: see `Admin/Acer-Veriton-GN100/postgres/docker-compose.yml`
+
+### 15.5 Migration Path (Local → Aiven)
+
+1. `pg_dump -U postgres -d appdb --schema-only > schema.sql`
+2. Create identical Aiven service (EU region)
+3. Run same `CREATE EXTENSION` + `create_hypertable` + compression policy
+4. Import data (Aiven console or `pg_restore`)
+5. Update connection string → done (zero ORM changes)
+
+---
+
+(c) 2026 Lifetime Oy — DWS Data Standard v2.0

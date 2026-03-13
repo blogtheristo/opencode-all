@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Aiven-first mandate integration — rebased Dockerfile on timescale/timescaledb:2.25.2-pg16 (Aiven parity), updated comparison table with Aiven whitelist reality, pg_duckdb confirmed edge-only
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Autoresearch validation — fixed pg_duckdb install (multi-stage Docker copy), added TimescaleDB PGDG fallback, removed broken conf mount
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Initial creation — Docker-based PostgreSQL 16 with TimescaleDB, pg_duckdb, pgvector for Acer Veriton GN100 edge device
 
@@ -39,8 +40,8 @@ This setup follows the DWS Data Standard (Phase 1 → Phase 3 progression) and b
 
 | Concern | Supabase | Aiven | GN100 Edge |
 |---------|----------|-------|------------|
-| TimescaleDB | Not available | Available (Startup+) | Available |
-| pg_duckdb | Not available | Not available | Available |
+| TimescaleDB Hypercore | Yes (pre-installed) | **Yes (native 2.25.x)** | **Yes (2.25.2)** |
+| pg_duckdb | Yes (database.dev) | **NO (whitelist blocked)** | **Yes (v1.1.1)** |
 | pgvector | Available | Available | Available |
 | Data sovereignty | US-managed | EU-managed (Finland) | Self-hosted (Helsinki Lab) |
 | Latency to device | 50-200ms | 10-50ms | <1ms |

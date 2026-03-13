@@ -17,7 +17,10 @@
 # Connect:
 #   psql postgresql://dws_edge:${EDGE_PG_PASSWORD}@localhost:5432/dws_edge
 #
-# @version 1.0.0
+# Base: timescale/timescaledb:2.25.2-pg16 (Aiven parity)
+# Edge extras: pg_duckdb v1.1.1 (OLAP, blocked on Aiven) + pgvector 0.8.x
+#
+# @version 2.0.0
 # @license Proprietary — Lifetime Oy
 # =============================================================================
 

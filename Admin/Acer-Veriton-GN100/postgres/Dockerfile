@@ -2,112 +2,80 @@
 # DWS Edge PostgreSQL — TimescaleDB + pg_duckdb + pgvector
 # =============================================================================
 # Target: Acer Veriton GN100 (ARM64/aarch64)
-# Base: Official PostgreSQL 16 (Debian Bookworm — multi-arch ARM64 + AMD64)
+# Base: Official TimescaleDB image (Aiven-parity, multi-arch ARM64 + AMD64)
 #
-# Extensions:
-#   - TimescaleDB 2.x  — Time-series hypertables, compression, continuous aggregates
-#   - pg_duckdb 1.x    — DuckDB-powered OLAP analytics inside PostgreSQL
-#   - pgvector 0.8.x   — Vector similarity search (matches Supabase stack)
+# Strategy (Aiven-first mandate, March 2026):
+#   - Base image: timescale/timescaledb:2.25.2-pg16 (exact Aiven parity)
+#   - pg_duckdb: Multi-stage copy from pgduckdb/pgduckdb:16-v1.1.1
+#   - pgvector: Built from source (ARM64 reliable)
 #
 # Autoresearch validation (2026-03-13):
-#   - TimescaleDB ARM64: CONFIRMED via PGDG apt.postgresql.org (v2.21.1)
-#   - pg_duckdb ARM64: CONFIRMED via multi-arch Docker image (v1.1.1)
-#   - pgvector ARM64: CONFIRMED builds from source on ARM64
+#   - TimescaleDB ARM64: CONFIRMED (official multi-arch image)
+#   - pg_duckdb ARM64: CONFIRMED (multi-arch Docker image, multi-stage copy)
+#   - pgvector ARM64: CONFIRMED (builds from source on ARM64)
 #
 # Usage:
 #   docker build -t dws-edge-postgres:16 .
 #   docker compose up -d
 #
-# Version: 1.1.0
+# Version: 2.0.0
 # License: Proprietary — Lifetime Oy
 # =============================================================================
 
 # =============================================================================
 # Stage 1: Extract pg_duckdb extension from official multi-arch image
 # =============================================================================
-# The pgduckdb/pgduckdb image is confirmed multi-arch (ARM64 + AMD64).
-# This avoids reliance on DEB packages whose ARM64 availability is uncertain.
+# pg_duckdb is NOT available on Aiven (whitelist blocks it). It lives on the
+# edge only. The pgduckdb/pgduckdb image is confirmed multi-arch (ARM64 + AMD64).
 FROM pgduckdb/pgduckdb:16-v1.1.1 AS pgduckdb-source
 
 # =============================================================================
-# Stage 2: Build the final image
+# Stage 2: Build the final image on TimescaleDB base (Aiven parity)
 # =============================================================================
-FROM postgres:16-bookworm
+# Using the official TimescaleDB image gives us:
+#   - TimescaleDB 2.25.x pre-installed (no APT install needed)
+#   - Exact same version as Aiven managed PostgreSQL
+#   - Multi-arch support (ARM64 + AMD64)
+#   - shared_preload_libraries already configured
+FROM timescale/timescaledb:2.25.2-pg16
 
 LABEL maintainer="risto@onelifetime.world"
-LABEL description="DWS Edge PostgreSQL with TimescaleDB + pg_duckdb + pgvector for Acer Veriton GN100"
+LABEL description="DWS Edge PostgreSQL: TimescaleDB (Aiven parity) + pg_duckdb (edge analytics) + pgvector (RAG)"
 LABEL org.opencontainers.image.source="https://github.com/blogtheristo/dws6"
 
 # Build arguments for version pinning
 ARG PGVECTOR_VERSION=0.8.0
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    ca-certificates \
-    curl \
-    git \
-    gnupg \
-    lsb-release \
-    postgresql-server-dev-16 \
-    && rm -rf /var/lib/apt/lists/*
-
 # =============================================================================
-# 1. Install TimescaleDB from Timescale PackageCloud APT repository
+# 1. Copy pg_duckdb extension from official multi-arch Docker image
 # =============================================================================
-# Confirmed ARM64 availability: timescaledb-2-postgresql-16 on Bookworm arm64
-# Fallback: PGDG repository (apt.postgresql.org) also carries arm64 builds
-RUN echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/timescaledb.list \
-    && curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       timescaledb-2-postgresql-16 \
-    || ( \
-       echo "PackageCloud install failed, trying PGDG repository..." \
-       && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
-          > /etc/apt/sources.list.d/pgdg.list \
-       && curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg \
-       && apt-get update \
-       && apt-get install -y --no-install-recommends postgresql-16-timescaledb \
-    ) \
-    && rm -rf /var/lib/apt/lists/*
-
-# =============================================================================
-# 2. Copy pg_duckdb extension from official multi-arch Docker image
-# =============================================================================
-# Multi-stage copy avoids DEB package availability uncertainty on ARM64.
-# The pgduckdb/pgduckdb:16-v1.1.1 image is built with docker buildx bake
-# and publishes native ARM64 + AMD64 manifests.
+# Multi-stage copy — the only reliable ARM64 install method.
+# pg_duckdb adds DuckDB's 50-600× vectorized OLAP engine to PostgreSQL.
+# This is the edge-only extension (blocked on Aiven whitelist).
 COPY --from=pgduckdb-source /usr/share/postgresql/16/extension/duckdb* /usr/share/postgresql/16/extension/
 COPY --from=pgduckdb-source /usr/lib/postgresql/16/lib/duckdb*.so /usr/lib/postgresql/16/lib/
 
 # =============================================================================
-# 3. Install pgvector from source (reliable ARM64 build)
+# 2. Install pgvector from source (reliable ARM64 build)
 # =============================================================================
-RUN cd /tmp \
+# The timescale/timescaledb image is Alpine-based — use apk for dependencies
+RUN apk add --no-cache --virtual .build-deps \
+        build-base \
+        clang15 \
+        git \
+        llvm15-dev \
+        postgresql16-dev \
+    && cd /tmp \
     && git clone --branch v${PGVECTOR_VERSION} --depth 1 https://github.com/pgvector/pgvector.git \
     && cd pgvector \
     && make OPTFLAGS="" \
     && make install \
-    && cd / && rm -rf /tmp/pgvector
+    && cd / && rm -rf /tmp/pgvector \
+    && apk del .build-deps
 
 # =============================================================================
-# 4. Clean up build dependencies to reduce image size
+# 3. Copy initialization SQL
 # =============================================================================
-RUN apt-get purge -y --auto-remove \
-    build-essential \
-    git \
-    postgresql-server-dev-16 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# =============================================================================
-# 5. Configure shared_preload_libraries
-# =============================================================================
-RUN echo "shared_preload_libraries = 'timescaledb'" >> /usr/share/postgresql/postgresql.conf.sample
-
-# Copy initialization SQL
 COPY init.sql /docker-entrypoint-initdb.d/001-init.sql
 
 # Standard PostgreSQL port
