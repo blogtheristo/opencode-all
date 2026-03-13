@@ -29,10 +29,15 @@ const BRAND = {
 
 function generateRoomId(): string {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const randomBytes = new Uint8Array(8);
+  crypto.getRandomValues(randomBytes);
+
   let id = '';
-  for (let i = 0; i < 8; i++) {
-    id += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < randomBytes.length; i++) {
+    const index = randomBytes[i] % chars.length;
+    id += chars[index];
   }
+
   return `dws6-${id}`;
 }
 
