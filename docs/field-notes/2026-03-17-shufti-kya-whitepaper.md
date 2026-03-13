@@ -361,23 +361,62 @@ KYA Certification is a commercial relationship between Lifetime Oy (DWS IQ 6 pla
 | Co-marketing rights | Joint case study in AI governance / agent identity category |
 | Enterprise deal flow | Every DWS enterprise customer = recurring IDV verification volume |
 
-### 9.2 Commercial Models
+### 9.2 Three Revenue Streams
 
-| Model | Structure | Indicative Range | Revenue Flow |
-|-------|-----------|-----------------|-------------|
-| **Certification fee** | Annual KYA Certification fee for access to DWS enterprise channel across 20 industry verticals | **€5,000–15,000/year** depending on tier (single-layer vs. full-stack L1+L2+L5) | IDV provider → DWS |
-| **Revenue share** | DWS brings enterprise clients into the IDV provider's platform. Provider pays DWS percentage of verification revenue from DWS-originated clients. | **15–25%** of DWS-originated verification revenue | End customer → IDV provider → DWS (share) |
-| **Wholesale resale** | DWS resells IDV as "KYA Verification" within its platform at platform pricing. DWS pays IDV provider wholesale rate. | **40–60% discount** off provider's retail per-verification rate | End customer → DWS → IDV provider (wholesale) |
+KYA Certification generates three distinct revenue streams from the maturity ladder itself:
 
-**Models are combinable.** A typical structure: certification fee (base) + revenue share (upside). The certification fee covers DWS engineering effort for adapter maintenance and Firehorse audit integration. The revenue share aligns incentives on volume growth.
+#### Stream 1: Certification Assessment Fee (Per Tier)
 
-**Tier structure:**
+Providers pay to be assessed at each tier. They pay again when they want to move up.
 
-| Tier | Layers Covered | Annual Certification Fee |
-|------|---------------|------------------------|
-| **L1 only** | Onboarding IDV (KYC/AML) | €5,000/year |
-| **L1 + L2** | Onboarding IDV + KYB (org verification) | €8,000/year |
-| **Full stack (L1 + L2 + L5)** | Onboarding + KYB + Continuous Monitoring | €12,000–15,000/year |
+| Tier | Layers Assessed | Assessment Fee | What Provider Gets |
+|------|----------------|---------------|-------------------|
+| **Tier 1: KYA Foundation** | L1 (Onboarding IDV) | **€5,000** | KYA Certified badge, DWS enterprise channel access, Firehorse audit integration |
+| **Tier 2: KYA Enterprise** | L1 + L2 (+ KYB) | **€10,000** | All Tier 1 + org verification integration, BYO agent publisher screening |
+| **Tier 3: KYA Full Stack** | L1 + L2 + L5 | **€25,000** | All Tier 2 + primary identity partner designation, co-marketing, premium deal flow |
+
+**Upgrade fee:** Provider certified at Tier 1 pays Tier 2 assessment fee (€10K) to move up — not the delta. Each tier is a full assessment against that tier's requirements.
+
+#### Stream 2: Annual Recertification
+
+Compliance doesn't stand still. NIS2/GDPR requirements evolve, EU AI Act delegated acts get published, sanctions lists change, and DWS adds industry verticals. A Tier 2 certification today needs re-audit in 12 months.
+
+| Tier | Annual Recertification Fee | Includes |
+|------|---------------------------|---------|
+| **Tier 1** | **€3,000/year** | Compliance re-audit, adapter compatibility check, updated Firehorse integration |
+| **Tier 2** | **€5,000/year** | All Tier 1 + KYB re-assessment, new industry vertical coverage review |
+| **Tier 3** | **€12,000/year** | All Tier 2 + L5 monitoring SLA review, webhook reliability audit, detection latency benchmarking |
+
+**Lapse policy:** Certification expires if recertification is not completed within 60 days of anniversary. Provider loses "KYA Certified" designation and DWS enterprise channel access until re-certified.
+
+#### Stream 3: L5 Ready Co-Development Consulting
+
+No provider has native L5 (continuous AML monitoring with same-day webhook delivery) today. DWS defines the L5 standard AND is the only entity that can certify against it. This creates a consulting engagement:
+
+| Engagement | Scope | Fee | Duration |
+|-----------|-------|-----|----------|
+| **L5 Readiness Assessment** | Gap analysis: what the provider has vs. L5 requirements (webhook infra, detection latency, payload schema, SLA) | **€8,000** | 2 weeks |
+| **L5 Co-Development Sprint** | Joint engineering: DWS + provider build the L5 webhook pipeline to KYA spec. DWS provides the spec, test harness, and Firehorse integration. Provider builds the monitoring pipeline. | **€25,000–40,000** | 6–10 weeks |
+| **L5 Certification** | Full Tier 3 assessment after co-development completes | **€25,000** (Tier 3 fee) | 2 weeks |
+
+**Strategic lock-in:** The provider that co-develops L5 with DWS has the inside track to Tier 3 certification. They helped build the spec — they know exactly what to deliver. This is the most defensible revenue stream: DWS owns the standard AND the certification authority.
+
+#### Revenue Model Summary
+
+| Stream | Type | Year 1 Revenue (per provider) | Recurring? |
+|--------|------|-------------------------------|-----------|
+| **Certification** | Assessment fee | €5K–25K (depends on tier) | Per tier upgrade |
+| **Recertification** | Annual | €3K–12K/year | Yes — mandatory |
+| **L5 Co-Development** | Consulting | €33K–65K (assessment + sprint + cert) | One-time per provider |
+
+**Plus volume-based revenue (unchanged):**
+
+| Model | Structure | Range | Revenue Flow |
+|-------|-----------|-------|-------------|
+| **Revenue share** | DWS brings enterprise clients → provider gets verification volume → DWS takes share | **15–25%** of DWS-originated verification revenue | End customer → IDV provider → DWS |
+| **Wholesale resale** | DWS resells IDV as "KYA Verification" at platform pricing | **40–60% discount** off retail per-verification rate | End customer → DWS → IDV provider |
+
+**Models are combinable.** Typical structure: certification fee (base) + annual recertification (recurring) + revenue share (volume upside). The certification fee funds the assessment. The recertification fee funds ongoing compliance. The revenue share aligns incentives on growth.
 
 ### 9.3 Evaluation Criteria
 
@@ -392,7 +431,7 @@ DWS evaluates IDV providers on:
 | 5 | KYB depth (UBO resolution) (L2) | High | Tier 2+ requirement |
 | 6 | Continuous AML monitoring (L5) | **Differentiator** | No vendor has this natively today — first to deliver it owns Tier 3 |
 | 7 | Nordic market presence and regulatory knowledge | Medium | Preferred but not required |
-| 8 | Commercial partnership alignment | Medium | Willingness to co-develop the L5 capability counts |
+| 8 | Willingness to co-develop L5 | **High** | Co-development engagement = fastest path to Tier 3 + deepest integration |
 
 **Maturity-based certification.** Providers are certified at their current tier (1, 2, or 3) and can upgrade as capabilities mature. DWS may certify multiple providers at different tiers, or certify different providers for different layers (e.g., one for L1+L2, another for L5 when the market matures). The first provider to achieve Tier 3 (full-stack L1+L2+L5) becomes the primary identity partner.
 
