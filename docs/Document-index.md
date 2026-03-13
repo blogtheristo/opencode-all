@@ -249,6 +249,7 @@ Coding, documentation, and process standards.
 | Document | Path | Status | Last Modified | Description |
 |----------|------|--------|---------------|-------------|
 | DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | 2026-02-07 | Master document standard (v1.4) |
+| DWS Data Standard | `/DWS_DATA_STANDARD.md` | ACTIVE | 2026-03-13 | Data storage governance, columnar/row policy, extension registry, Aiven-first mandate (v2.0) |
 | CLAUDE.md | `/CLAUDE.md` | ACTIVE | 2026-02-05 | AI agent guidelines |
 | Ontology | `/ONTOLOGY.md` | ACTIVE | 2026-01-21 | LWM ontology framework |
 | Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | - | GitHub Copilot rules |
