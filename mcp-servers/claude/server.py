@@ -374,8 +374,7 @@ async def queue_migration(req: MigrationQueueRequest):
         next_number = last + 1
     padded = str(next_number).zfill(3)
 
-    # Generate timestamp prefix matching Supabase convention
-    ts = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    # Generate filename using padded migration number
     filename = f"{padded}_{req.name}.sql"
 
     payload = {
