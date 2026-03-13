@@ -668,6 +668,31 @@ dws mcp tools
 
 **Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
 
+### Important add-on: gstack (Claude Code Skill System)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/blogtheristo/gstack |
+| **Origin** | Designed by Garry Tan (Y Combinator President & CEO) |
+| **What it is** | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts. |
+| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
+| **License** | MIT |
+
+**Six Skills (adapted for DWS6):**
+
+| Skill | Role | Claude Code Command | Purpose |
+|-------|------|---------------------|---------|
+| Plan (CEO) | Founder/CEO | `/plan-ceo-review` | 10-star product review, scope challenge, strategic fit |
+| Plan (Eng) | Engineering Manager | `/plan-eng-review` | Architecture lock, data flow, edge cases, security |
+| Review | Staff Engineer | `/review` | Production-breaking bug hunt, security, DWS compliance |
+| Ship | Release Engineer | `/ship` | Automated sync, test, commit, push, PR creation |
+| Browse | QA Engineer | `/browse` | Browser automation, screenshots, UI verification |
+| Retro | Engineering Manager | `/retro` | Weekly velocity analysis, work patterns, recommendations |
+
+**Recommended workflow:** `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
+
+**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, Boardy security checks, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+
 ---
 
 ## 17. Compliance Scoring Engine Architecture
