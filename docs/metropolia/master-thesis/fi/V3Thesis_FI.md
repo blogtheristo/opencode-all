@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.23
+Version: 3.24
 
 Sessions & Modifications:
+  - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Laajennettu Liite G sanasto: Tietoarkkitehtuuri (9 termiä) ja Tutkimusmenetelmät (4 termiä) — autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale
   - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 10.15 Aiven-first mandaatilla: Hydra→Supabase Warehouse (helmi 2026), pg_mooncake→Databricks (loka 2025), TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP (Aiven hallittu + GN100 reuna), reunatietokanta käyttöönotettu; lisätty Keskeiset löydökset #18; päivitetty alatunniste
   - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 10.15 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa yksitietokantaiseen HTAP:iin, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuusmatriisi (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); lisätty avainpanos #17; päivitetty alatunniste
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
@@ -49,7 +50,7 @@ Document Status:
   - Last Modified: 13.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.23 — Kaksitasoinen HTAP-arkkitehtuuri, Aiven-first mandaatti)
+  - Publication Status: DRAFT (V3.24 — Laajennettu sanasto: Tietoarkkitehtuuri ja Tutkimusmenetelmät)
 
 ---
 
@@ -2117,6 +2118,29 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 | **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
 | **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
 
+### Tietoarkkitehtuuri ja analytiikka
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Autoresearch** | Autotutkimus | Karpathyn inspiroima autonominen validointisilmukka: hypoteesi → muokkaus → todentaminen → säilytä/hylkää → toista |
+| **Columnar Storage** | Saraketallennustila | Tietokantatallennus, joka järjestää datan sarakkeittain rivien sijaan — mahdollistaa 10-100× pakkauksen ja nopeammat analyyttiset kyselyt |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — yksi tietokanta palvelee sekä OLTP- että OLAP-työkuormia |
+| **Hypercore** | Hypercore | TimescaleDB:n automaattinen hybridi rivi→sarake -tasointimoottori, 90-98% pakkaus |
+| **Hypertable** | Hypertaulu | TimescaleDB:n aikaosioitu taulu aikasarjadatalle automaattisella lohkonhallinnalla |
+| **pg_duckdb** | pg_duckdb | PostgreSQL-laajennus, joka upottaa DuckDB:n 50-600× OLAP-kiihdytykseen (DWS:ssä vain reunalaitteilla) |
+| **pgvector** | pgvector | PostgreSQL-laajennus vektorihakuun, käytetään RAG-putkistoissa |
+| **TimescaleDB** | TimescaleDB | PostgreSQL-laajennus aikasarjadatalle pakkauksella ja jatkuvilla aggregaateilla |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Arkkitehtuurimalli: Taso 1 (Aiven-hallinnoitu, TimescaleDB) + Taso 2 (itsehallittu reuna, pg_duckdb) |
+
+### Tutkimusmenetelmät
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS-periaate, joka edellyttää kaikkien tuotantotietokannan laajennusten Aiven-yhteensopivuutta ennen käyttöönottoa |
+| **DWS Data Standard** | DWS-tietostandardi | Sisäinen standardi tiedon tallennuspäätöksille, laajennusten hallinnalle ja EU-sääntelyyn vaatimustenmukaisuudelle |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — kaksoistarkoitusstandardi AI-agenttien turvallisuudelle (Kilpi) ja optimoinnin hallinnalle (Miekka) |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathyn malli: validoi muutokset pienellä välityspalvelimella (depth=12) ennen tuotantoon skaalausta (depth=24) |
+
 ---
 
 ## Liite H: Automatisoitu PR-tyonkulku (HIL-automaatio)
@@ -2314,8 +2338,8 @@ Tämä työ osoittaa, että **yksitietokantainen HTAP-malli** on toteuttamiskelp
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.23 — Kaksitasoinen HTAP-arkkitehtuuri (Aiven-first mandaatti, TimescaleDB 2.25.x Hypercore tuotantostandardi, pg_duckdb reunalaitteelle, GN100-reunatietokanta)
-**Versio:** 3.23
+**Tila:** DRAFT - V3.24 — Laajennettu sanasto: Tietoarkkitehtuuri ja Tutkimusmenetelmät (autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale)
+**Versio:** 3.24
 **Viimeisin päivitys:** 13.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 

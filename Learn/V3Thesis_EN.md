@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.23
+Version: 3.24
 
 Sessions & Modifications:
+  - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Expanded Appendix G glossary with Data Architecture (9 terms) and Research Methodology (4 terms) — autoresearch, HTAP, Hypercore, two-tier architecture, KYA, proxy-to-scale
   - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 10.15 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist confirmed (pg_duckdb BLOCKED), two-tier HTAP (Aiven managed + GN100 edge), edge PostgreSQL deployment; added Key Contribution #18; updated footer
   - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 10.15 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU for single-database HTAP, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance matrix (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); added Key Contribution #17; updated footer
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #16; updated footer
@@ -49,7 +50,7 @@ Document Status:
   - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.23 — Aiven-first mandate, two-tier HTAP, TimescaleDB Hypercore + edge pg_duckdb)
+  - Publication Status: DRAFT (V3.24 — Appendix G glossary expanded: Data Architecture + Research Methodology terms)
 
 ---
 
@@ -2161,6 +2162,29 @@ Your code will be watched -- write accordingly."
 | **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
 | **RLS** | Rivitason suojaus | Row-Level Security - database-level access control per user/organization |
 
+### Data Architecture and Analytics
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression and faster analytical queries |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
+| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
+| **Hypertable** | Hypertaulu | TimescaleDB time-partitioned table for time-series data with automatic chunk management |
+| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
+| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
+| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture pattern: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+
+### Research Methodology
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring all production database extensions to be Aiven-compatible before adoption |
+| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage decisions, extension governance, and EU regulatory compliance |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — dual-purpose standard for AI agent security (Shield) and optimization governance (Sword) |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate changes on small proxy (depth=12) before scaling to production (depth=24) |
+
 ---
 
 ## Appendix H: Automated PR Workflow (HIL Automation)
@@ -2414,8 +2438,8 @@ The March 2026 Aiven whitelist finding adds a critical practical contribution: *
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.23
-**Version:** 3.23
+**Status:** DRAFT - V3.24
+**Version:** 3.24
 **Last Modified:** 13.03.2026
 **V1.0 Release Target:** 23 February 2026
 

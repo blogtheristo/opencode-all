@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
@@ -33,7 +34,7 @@ Document Status:
   - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.3 — Two-Tier HTAP Architecture: Aiven-first mandate, TimescaleDB Hypercore, edge pg_duckdb on GN100)
+  - Publication Status: DRAFT (V2.4 — Appendix G Glossary: 21 terms across Platform, Data Architecture, Security/Compliance)
 
 ---
 
@@ -1584,6 +1585,46 @@ Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-mana
 
 ---
 
+## Appendix G: Glossary
+
+### Platform and Business Concepts
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **AgentFoundry** | AgentFoundry | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
+| **Edge AI** | Reunatekoäly | AI processing on local devices instead of cloud servers |
+| **Firehorse** | Firehorse | DWS6 product suite (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
+| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+
+### Data Architecture and Analytics
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
+| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
+| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
+| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
+| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+
+### Security and Compliance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring production extensions to be Aiven-compatible before adoption |
+| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage, extension governance, and EU regulatory compliance |
+| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — AI agent security (Shield) and optimization governance (Sword) |
+| **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate on small proxy before scaling to production |
+| **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
+
+---
+
 *Document generated using Firehorse Operations Model with Claude Code*
 *Last updated: 13.03.2026*
-*Version: 2.3*
+*Version: 2.4*
