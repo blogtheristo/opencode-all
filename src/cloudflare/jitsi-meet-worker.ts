@@ -143,7 +143,7 @@ function meetingPageHtml(roomName: string, jitsiDomain: string): string {
   <div class="share-bar">
     <span>Share link:</span>
     <input class="share-url" id="share-url" readonly value="" />
-    <button class="btn-copy" onclick="copyLink()">Copy</button>
+    <button class="btn-copy" onclick="copyLink(this)">Copy</button>
   </div>
   <div class="meeting-container">
     <div id="jitsi-container"></div>
@@ -156,11 +156,15 @@ function meetingPageHtml(roomName: string, jitsiDomain: string): string {
   <script>
     document.getElementById('share-url').value = window.location.href;
 
-    function copyLink() {
-      const url = document.getElementById('share-url');
-      url.select();
-      navigator.clipboard.writeText(url.value).then(() => {
-        const btn = document.querySelector('.btn-copy');
+    function copyLink(btn) {
+      const url = document.getElementById('share-url').value;
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      }).catch(() => {
+        const input = document.getElementById('share-url');
+        input.select();
+        document.execCommand('copy');
         btn.textContent = 'Copied!';
         setTimeout(() => btn.textContent = 'Copy', 2000);
       });
@@ -288,12 +292,12 @@ function lobbyPageHtml(jitsiDomain: string): string {
 </head>
 <body>
   <div class="card">
-      <h3>Example Meeting</h3>
-      <p><span class="date">Friday, 10:00 (local time)</span></p>
-      <p>Participants: Alice &amp; Bob</p>
-      <p>Room: <code>example-room-1234</code></p>
+    <div class="logo">F</div>
+    <h1>${BRAND.tagline}</h1>
+    <p class="subtitle">Secure video meetings &middot; No account needed</p>
+
     <div class="scheduled">
-        <a href="/meet/example-room-1234">Join Meeting</a>
+      <h3>Example Meeting</h3>
       <p><span class="date">Friday, 10:00 (local time)</span></p>
       <p>Participants: Alice &amp; Bob</p>
       <p>Room: <code>example-room-1234</code></p>
