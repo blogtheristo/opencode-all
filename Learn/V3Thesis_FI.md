@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.22
+Version: 3.23
 
 Sessions & Modifications:
+  - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 10.15 Aiven-first mandaatilla: Hydra→Supabase Warehouse (helmi 2026), pg_mooncake→Databricks (loka 2025), TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP (Aiven hallittu + GN100 reuna), reunatietokanta käyttöönotettu; lisätty Keskeiset löydökset #18; päivitetty alatunniste
   - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 10.15 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa yksitietokantaiseen HTAP:iin, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuusmatriisi (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); lisätty avainpanos #17; päivitetty alatunniste
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
@@ -45,10 +46,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 07.03.2026
+  - Last Modified: 13.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina)
+  - Publication Status: DRAFT (V3.23 — Kaksitasoinen HTAP-arkkitehtuuri, Aiven-first mandaatti)
 
 ---
 
@@ -2248,23 +2249,35 @@ PostgreSQL:n "sarakemuotoinen laajennus" -malli mahdollistaa aidon HTAP:n (Hybri
 
 ### 10.15.2 Laajennusten arviointi
 
-Kuusi Hydra-tyyppistä ratkaisua arvioitiin DWS-yhteensopivuuden osalta:
+Kuusi Hydra-tyyppistä ratkaisua arvioitiin DWS-yhteensopivuuden osalta. **Päivitetty maaliskuu 2026** Aiven-sallittujen listan todentamisen ja ekosysteemimuutosten jälkeen:
 
-| Ratkaisu | Suoritusmoottori | Aiven-tuki | DWS-sopivuus |
-|----------|-----------------|------------|-------------|
-| pg_duckdb | DuckDB (vektorisoitu) | Varmistettava | Ensisijainen — kyselyjen nopeutus |
-| TimescaleDB | PostgreSQL | **Kyllä** | Ensisijainen — aikasarjat + pakkaus |
-| pg_mooncake | DuckDB | Ei | Tulevaisuus — lakehouse-vienti |
-| ParadeDB | DuckDB | Ei | Tarpeeton (TSVECTOR käytössä) |
-| Citus Columnar | PostgreSQL | Ei | Ei suositella (Azure-sidottu) |
+| Ratkaisu | Suoritusmoottori | Aiven-tuki | DWS-sopivuus | Tila (maaliskuu 2026) |
+|----------|-----------------|------------|-------------|----------------------|
+| TimescaleDB 2.25.x Hypercore | PostgreSQL | **Kyllä** | **HYVÄKSYTTY STANDARDI** — AINOA sarakemainen/HTAP-vaihtoehto Aivenissa | Tuotantovalmis |
+| pg_duckdb | DuckDB (vektorisoitu) | **ESTETTY Aiven-sallittujen listalla** | Vain GN100-reuna | Rajoitettu reunalaitteelle |
+| Hydra | DuckDB | Ei (lakkautettu) | → Supabase Warehouse (helmi 2026) | Siirtynyt |
+| pg_mooncake | DuckDB | Ei (lakkautettu) | → Databricks (loka 2025) | Siirtynyt |
+| ParadeDB | DuckDB | Ei | Tarpeeton (TSVECTOR käytössä) | Ei käytössä |
+| Citus Columnar | PostgreSQL | Ei | Ei suositella (Azure-sidottu) | Ei käytössä |
 
-### 10.15.3 Suositeltu pino
+### 10.15.3 Suositeltu pino — Kaksitasoinen HTAP-arkkitehtuuri
 
-**TimescaleDB + pg_duckdb Aiven PostgreSQL:ssä (EU Suomi):**
+**Taso 1: Aiven-hallittu (tuotanto)**
 
-- **TimescaleDB-hypertaulut** agent_metrics, agent_costs, article12_audit_log ja DWS7 IoT-sensoridatalle. Automaattinen pakkauskerrostus: kuuma (0-90pv) → lämmin (90pv-1v, LZ4) → kylmä (1-7v, ZSTD). Odotettu 90-95% pakkaus auditointilokille.
-- **pg_duckdb** analyyttisten kyselyjen nopeuttamiseen heap-tauluilla (kampanjasupilot, taloudelliset raportit, CSRD-koontikyselyt).
-- **pg_mooncake** (vaihe 3, 2027) Iceberg/Parquet-vientiin EU Data Act 2023/2854 IoT-tiedon siirrettävyysvaatimusten täyttämiseksi.
+- **TimescaleDB 2.25.x Hypercore** — AINOA sarakemainen/HTAP-laajennus Aiven-sallittujen listalla
+- Hypertaulut: agent_metrics, agent_costs, article12_audit_log, DWS7 IoT-sensoridata
+- Automaattinen pakkauskerrostus: kuuma (0-90pv) → lämmin (90pv-1v, LZ4) → kylmä (1-7v, ZSTD)
+- Odotettu 90-95% pakkaus auditointilokille
+- Jatkuvat aggregaatit korvaamaan materialisoidut näkymät
+- **Ei pg_duckdb:tä** — estetty Aiven-sallittujen listalla
+
+**Taso 2: GN100-reuna (analytiikka)**
+
+- **TimescaleDB + pg_duckdb + pgvector** täydellä laajennuspaketilla
+- Acer Veriton GN100 (NVIDIA Jetson Orin Nano) itsenäisenä reunatietokantana
+- pg_duckdb analyyttisten kyselyjen nopeuttamiseen (kampanjasupilot, taloudelliset raportit, CSRD-koontikyselyt)
+- pgvector upotuksille ja semanttiselle haulle
+- Ei Aiven-sallittujen listan rajoituksia — täysi PostgreSQL-laajennusvapaus
 
 ### 10.15.4 DWS-tietostandardi
 
@@ -2281,10 +2294,11 @@ Uusi `DWS_DATA_STANDARD.md` luotiin ohjaamaan kaikkia tiedon tallennuspäätöks
 
 | Vaihe | Aikataulu | Kohde | Toimenpiteet |
 |-------|-----------|-------|-------------|
-| 0 | Q1 2026 | Supabase (nykyinen) | Taulujen osiointi, materialisoidut näkymät |
-| 1 | Q2 2026 | Aiven V1 | TimescaleDB-hypertaulut, jatkuvat aggregaatit |
-| 2 | Q3-Q4 2026 | Aiven DWS7 | pg_duckdb-nopeutus, IoT-hypertaulut |
-| 3 | 2027 | Täysi HTAP | pg_mooncake lakehouse, Iceberg/Parquet |
+| 0 | Q1 2026 | Supabase (nykyinen) | Taulujen osiointi, materialisoidut näkymät, pg_stat_statements |
+| 1 | Q2 2026 | Aiven V1 | TimescaleDB 2.25.x Hypercore -hypertaulut, jatkuvat aggregaatit |
+| 2 | Q3-Q4 2026 | Aiven DWS7 | IoT-hypertaulut, auditointipakkaus, Taso 1 tuotanto |
+| 3 | Q4 2026 | GN100-reuna | pg_duckdb + pgvector reunatietokanta, Taso 2 analytiikka |
+| 4 | 2027 | Täysi HTAP | Lakehouse-vienti (Databricks/Iceberg), ulkoisten työkalujen pääsy |
 
 ### 10.15.6 Tutkimuspanos
 
@@ -2300,9 +2314,9 @@ Tämä työ osoittaa, että **yksitietokantainen HTAP-malli** on toteuttamiskelp
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.22 — PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri (DWS-tietostandardi, pg_duckdb + TimescaleDB, 4-vaiheinen käyttöönotto, EU-sääntelynmukaisuus)
-**Versio:** 3.22
-**Viimeisin päivitys:** 12.03.2026
+**Tila:** DRAFT - V3.23 — Kaksitasoinen HTAP-arkkitehtuuri (Aiven-first mandaatti, TimescaleDB 2.25.x Hypercore tuotantostandardi, pg_duckdb reunalaitteelle, GN100-reunatietokanta)
+**Versio:** 3.23
+**Viimeisin päivitys:** 13.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2331,6 +2345,7 @@ Tämä työ osoittaa, että **yksitietokantainen HTAP-malli** on toteuttamiskelp
 15. Asiakaskeskeiset MVP-ominaisuudet — Kolme tuotanto-ominaisuutta, jotka siirtävät DWS IQ:n kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi: (a) Itsepalvelu-API-avainten hallinta SHA-256-tiivistyksellä ja oikeuspohjaisella pääsynhallinnalla, (b) Käyttömittarointi 3-tasoisella laskutuksen valvonnalla (Free/Pro/Enterprise) ja kojelaudan edistymispalkeilla, (c) Vaatimustenmukaisuusraporttien vienti CSV/JSON-latauksella ja toistuvan aikataulun tuella. Validoi Solution Factory -tuotteistamishypoteesin — alusta on markkinavalmis säännellyille EU-toimialoille
 16. Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä
 17. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — Yksitietokantainen HTAP pg_duckdb + TimescaleDB:llä Aiven EU:ssa; DWS-tietostandardin luominen tallennusmoottoreiden, laajennusrekisterin, säilytyspolitiikkojen ja EU-sääntelynmukaisuuden (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act) hallintaan; 4-vaiheinen käyttöönotto tauluosioinista lakehouse-integraatioon
+18. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti lukitsee TimescaleDB 2.25.x Hypercore hyväksytyksi tuotantostandardiksi; pg_duckdb rajoitettu reunalaitteelle Aiven-sallittujen listan vuoksi; GN100-reunatietokanta käyttöönotettu täydellä laajennuspaketilla
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

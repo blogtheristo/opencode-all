@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
@@ -29,10 +30,9 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 13.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Last Modified: 07.03.2026
   - Publication Status: DRAFT (V1.8 — LSS-koulutusputken koordinointi: koulutusagenttilaivasto T-01–T-10, laatuporttisignaalit, resurssien välimiesosoitus)
 
 ---
@@ -1270,6 +1270,9 @@ Tama tutkielma kontribuoi:
 9. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse-malli sovellettu liikevaihtotyönkulun automatisointiin
 10. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral + monituottaja-LLM-reititin; validoi Firehorse-toimintamallin jakelusupotushypoteesin
 11. LSS-koulutusputken koordinointi — Lifetime Scope Signals sovellettuna LWM-koulutukseen: koulutusagenttilaivasto (T-01–T-10), laatuporttisignaalit, resurssien välimiesosoitus 2× GN-100 -solmuille; validoi LSS:n yleiskäyttöisenä koordinointina ohjelmistokehityksen ulkopuolella
+12. Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti; osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
+13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
+14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
 
 ### 16.3 Tuleva tyo
 
@@ -1533,28 +1536,45 @@ Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja te
 
 Firehorse-toimintamalli tuottaa kasvavia määriä kampanjatapahtumia, agenttisuorituslokeja ja auditointijälkidataa. Analytiikan suorittaminen transaktiotaulujen varastoon luo suorituskyvyn pullonkauloja datan kasvaessa.
 
-**Ratkaisu: Yksitietokantainen HTAP Aiven EU:ssa**
+**Ratkaisu: Kaksitasoinen HTAP Aiven-first-mandaatilla**
 
-PostgreSQL:n sarakemuotoinen laajennusmalli mahdollistaa aidon HTAP:n yksittäisessä tietokannassa. Kuusi tuotantovalmista ratkaisua arvioitiin:
+Alkuperäinen v2.2-arviointi oletti yksitasoista HTAP:ta. Maaliskuun 2026 päivitykset muuttavat arkkitehtuuria merkittävästi:
 
-| Ratkaisu | Moottori | Aiven-tuki | Firehorse-sopivuus |
-|----------|----------|------------|-------------------|
-| TimescaleDB | PostgreSQL | Kyllä | Ensisijainen — aikasarja-agenttimetriikat, auditointipakkaus |
-| pg_duckdb | DuckDB | Varmistettava | Ensisijainen — kampanjasuppilon nopeutus |
-| pg_mooncake | DuckDB | Ei | Tulevaisuus — lakehouse-vienti (EU Data Act) |
+**Markkinamuutokset (helmi–maaliskuu 2026):**
+- **Hydra liittyi Supabaseen** (helmi 2026) → Supabase Warehouse, ei enää itsenäinen; Firehorse ei käytä Supabasea tuotannossa → Hydra putoaa arvioinnista
+- **pg_mooncake → Databricks-yrityskauppa** → lisenssiriski; putoaa arvioinnista
+- **pg_duckdb: ESTETTY Aiven-sallittujen listalla** → ei voida käyttää hallinnoidussa tuotannossa; siirtyy vain reunalaitelisenssin alle
+- **TimescaleDB 2.25.x Hypercore** → ainoa hyväksytty hallittu vaihtoehto Aiven EU:ssa
+
+**Päivitetty arviointitaulukko:**
+
+| Ratkaisu | Moottori | Aiven-tuki | Tila v2.3 | Firehorse-sopivuus |
+|----------|----------|------------|-----------|-------------------|
+| TimescaleDB 2.25.x Hypercore | PostgreSQL | Kyllä (sallittu) | **Tuotantostandardi** | Ensisijainen — aikasarja-agenttimetriikat, auditointipakkaus, sarakemuotoinen Hypercore |
+| pg_duckdb | DuckDB | **ESTETTY** | Vain reunalaite | GN100-reunatietokanta — kampanjasuppilon nopeutus, pgvector-RAG |
+| Hydra | Citus Columnar | Ei (Supabase Warehouse) | Pudotettu | Supabase-sidonnainen; ei sovellettavissa |
+| pg_mooncake | DuckDB | Ei | Pudotettu | Databricks-yrityskauppa → lisenssiriski |
+
+**Kaksitasoinen arkkitehtuuri:**
+
+| Taso | Alusta | Laajennukset | Käyttötarkoitus |
+|------|--------|-------------|----------------|
+| **Taso 1: Aiven EU (tuotanto)** | Aiven for PostgreSQL, europe-north1 | TimescaleDB 2.25.x Hypercore | OLTP + aikasarjat + sarakepakkaus, RLS, EU-tietojen sijainti |
+| **Taso 2: GN100-reuna (kehitys/reunalaskenta)** | Acer Veriton GN100, itsehallinnoitu | TimescaleDB + pg_duckdb + pgvector | Paikallinen HTAP, vektori-RAG, offline-analytiikka |
 
 **DWS-tietostandardi luotu** (`DWS_DATA_STANDARD.md`):
 - Tallennusmoottoripäätökset (rivi vs sarake vs hybridi)
 - Laajennusten hallinta EU-suvereniteettiarviolla
 - Säilytysperiaatteet 11 EU-säädökseen sidottuina (GDPR Art 17, EU AI Act Art 12: 7v, NIS2: 5v, kirjanpitolaki: 10v)
 - Osiointi- ja pakkausstandardit
+- **Aiven-sallittujen lista** ohjaa tuotantolaajennuksia; estetyt laajennukset (pg_duckdb) siirtyvät reunatasolle
 
-**4-vaiheinen käyttöönotto:** Vaihe 0 (tauluosiointi) → Vaihe 1 (TimescaleDB Aivenilla) → Vaihe 2 (pg_duckdb HTAP) → Vaihe 3 (lakehouse-integraatio).
+**4-vaiheinen käyttöönotto (päivitetty):** Vaihe 0 (tauluosiointi) → Vaihe 1 (TimescaleDB Hypercore Aivenilla) → Vaihe 2 (GN100-reunatietokanta pg_duckdb + pgvector) → Vaihe 3 (lakehouse-integraatio).
 
-**Tutkimuspanos:** Osoittaa, että yksitietokantainen HTAP on toteuttamiskelpoinen säännellyille EU-verkkokauppa-alustoille — sama SQL, samat asiakasohjelmat, sama RLS, nolla ETL:ää.
+**Tutkimuspanos:** Osoittaa, että hallinnoidun palveluntarjoajan rajoitteet (Aiven-sallittujen lista) toimivat arkkitehtuurin ohjaajana — pakottavat kaksitasoisen HTAP-mallin, jossa tuotanto ja reunalaskenta eriytyvät. TimescaleDB Hypercore on ainoa yhden tietokannan HTAP-ratkaisu, joka täyttää sekä Aiven-yhteensopivuuden että EU-tietojen sijaintivaatimukset.
 
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 12.03.2026*
-*Versio: 2.2*
+*Viimeksi paivitetty: 13.03.2026*
+*Versio: 2.3*

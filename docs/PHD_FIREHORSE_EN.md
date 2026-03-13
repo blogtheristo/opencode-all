@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
@@ -29,11 +30,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Last Modified: 07.03.2026
-  - Publication Status: DRAFT (V1.8 — LSS Training Pipeline Coordination: Training Agent Fleet T-01–T-10, quality gate signals, resource arbitration)
+  - Publication Status: DRAFT (V2.3 — Two-Tier HTAP Architecture: Aiven-first mandate, TimescaleDB Hypercore, edge pg_duckdb on GN100)
 
 ---
 
@@ -1279,6 +1279,7 @@ This thesis contributes:
 11. LSS Training Pipeline Coordination — Lifetime Scope Signals applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes; validates LSS as general-purpose coordination beyond software development
 12. Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export; Firehorse operations model transition to customer-deliverable SaaS
 13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
+14. Two-Tier HTAP Architecture — Aiven-first mandate, TimescaleDB Hypercore for production, pg_duckdb for edge analytics; validates managed-provider constraint as architectural driver
 
 ### 16.3 Future Work
 
@@ -1545,28 +1546,44 @@ The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failu
 
 The Firehorse operations model generates growing volumes of campaign events, agent execution logs, and audit trail data. Running analytics against transactional heap tables creates performance bottlenecks as data scales.
 
-**Solution: Single-database HTAP on Aiven EU**
+**Solution: Two-Tier HTAP — Aiven-first mandate (updated 13.03.2026)**
 
-The PostgreSQL columnar extension pattern — pioneered by Hydra — enables true HTAP within a single database. Six production-ready solutions were evaluated:
+The original v2.2 plan assumed pg_duckdb availability on Aiven. Three market shifts invalidated that assumption:
 
-| Solution | Engine | Aiven Support | Firehorse Fit |
-|----------|--------|---------------|---------------|
-| TimescaleDB | PostgreSQL | Yes | Primary — time-series agent metrics, audit compression |
-| pg_duckdb | DuckDB | Verify | Primary — campaign funnel acceleration |
-| pg_mooncake | DuckDB | No | Future — lakehouse export (EU Data Act) |
+1. **Hydra joined Supabase** (Feb 2026) — renamed "Supabase Warehouse"; no longer independent, not on Aiven.
+2. **pg_mooncake acquired by Databricks** (Oct 2025) — roadmap pivoted to lakehouse; Aiven listing unlikely.
+3. **pg_duckdb: BLOCKED on Aiven whitelist** — extension not in Aiven's approved list; no ETA for inclusion.
 
-**DWS Data Standard created** (`DWS_DATA_STANDARD.md`) governing:
+**Extension evaluation (revised):**
+
+| Extension | Engine | Aiven Status | Verdict |
+|-----------|--------|-------------|---------|
+| TimescaleDB 2.25.x | PostgreSQL (Hypercore) | **Approved** | ONLY managed option — hypertables + columnar compression |
+| pg_duckdb | DuckDB | **BLOCKED** (not whitelisted) | Edge-only — approved for GN100 self-managed nodes |
+| Hydra | Citus columnar | **Dead** — joined Supabase (Feb 2026) | Removed from evaluation |
+| pg_mooncake | DuckDB | **Dead** — acquired by Databricks (Oct 2025) | Removed from evaluation |
+
+**Recommended stack — two-tier HTAP:**
+
+| Tier | Host | Extensions | Role |
+|------|------|-----------|------|
+| **Production** | Aiven PostgreSQL (EU) | TimescaleDB 2.25.x Hypercore | OLTP + time-series compression, audit logs, agent metrics |
+| **Edge analytics** | Acer Veriton GN100 (ARM64) | TimescaleDB + pg_duckdb + pgvector | Local OLAP, fleet telemetry, AI inference |
+
+Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-managed.
+
+**DWS Data Standard** (`DWS_DATA_STANDARD.md`) governing:
 - Storage engine decisions (row vs columnar vs hybrid)
-- Extension governance with EU sovereignty assessment
+- Extension governance with EU sovereignty assessment and Aiven whitelist compliance
 - Retention policies mapped to 11 EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2: 5yr, Finnish Accounting Act: 10yr)
 - Partitioning and compression standards
 
-**4-phase rollout:** Phase 0 (table partitioning) → Phase 1 (TimescaleDB on Aiven) → Phase 2 (pg_duckdb HTAP) → Phase 3 (lakehouse integration).
+**Revised rollout:** Phase 0 (table partitioning) → Phase 1 (TimescaleDB Hypercore on Aiven) → Phase 2 (edge pg_duckdb on GN100) → Phase 3 (Aiven↔GN100 replication).
 
-**Research contribution:** Demonstrates that single-database HTAP is viable for regulated EU e-commerce platforms — same SQL, same clients, same RLS, zero ETL.
+**Research contribution:** Demonstrates that managed-provider extension whitelists are a first-class architectural constraint — not a deployment detail. When the preferred extension (pg_duckdb) is blocked, the architecture must split into tiers rather than compromise on provider choice. The two-tier pattern (managed cloud + self-managed edge) preserves both EU data residency and analytical capability.
 
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 12.03.2026*
-*Version: 2.2*
+*Last updated: 13.03.2026*
+*Version: 2.3*
