@@ -288,12 +288,12 @@ function lobbyPageHtml(jitsiDomain: string): string {
     <p class="subtitle">Secure video meetings powered by Jitsi Meet</p>
 
     <div class="scheduled">
-      <h3>Scheduled Meeting</h3>
-      <p><span class="date">Friday 13 March 2026, 10:00 EET</span></p>
-      <p>Participants: Risto &amp; Hannamari</p>
-      <p>Room: <code>dws6-hannamari-20260313</code></p>
+      <h3>Example Meeting</h3>
+      <p><span class="date">Friday, 10:00 (local time)</span></p>
+      <p>Participants: Alice &amp; Bob</p>
+      <p>Room: <code>example-room-1234</code></p>
       <div class="quick-join">
-        <a href="/meet/dws6-hannamari-20260313">Join Meeting</a>
+        <a href="/meet/example-room-1234">Join Meeting</a>
       </div>
     </div>
 
