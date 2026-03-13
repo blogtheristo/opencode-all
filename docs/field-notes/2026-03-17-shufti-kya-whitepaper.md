@@ -67,6 +67,40 @@ IDV providers that meet the requirements in this document are eligible for **KYA
 
 **The IDV partner powers 3 of 5 layers:** L1 (human identity), L2 (org verification), and L5 (continuous risk). DWS handles L3 (capability manifests) and L4 (runtime scoring) internally.
 
+### KYA Maturity Ladder — Certification Tiers
+
+No IDV vendor today covers all three layers natively. That's the point — KYA-IDV-CERT defines the maturity ladder, and providers certify at their current level while building toward full-stack coverage.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  KYA-IDV-CERT Maturity Ladder                                    │
+│                                                                 │
+│  Tier 3: KYA FULL STACK (L1 + L2 + L5)          ┌──────────┐  │
+│  Continuous monitoring + KYB + IDV.              │ ★★★      │  │
+│  The gold standard. No vendor here yet.          │ €12–15K  │  │
+│  First to certify Tier 3 owns the category.      └──────────┘  │
+│                                                                 │
+│  Tier 2: KYA ENTERPRISE (L1 + L2)                ┌──────────┐  │
+│  Onboarding IDV + organization verification.     │ ★★       │  │
+│  Strong starting position. L5 via roadmap or     │ €8K      │  │
+│  partner integration.                            └──────────┘  │
+│                                                                 │
+│  Tier 1: KYA FOUNDATION (L1 only)                ┌──────────┐  │
+│  Human identity verification at onboarding.      │ ★        │  │
+│  Entry-level certification. Upgrade path clear.  │ €5K      │  │
+│                                                  └──────────┘  │
+│                                                                 │
+│  ─── Aspiration tier ─────────────────────────────────────────  │
+│                                                                 │
+│  Tier 3+ : KYA L5 READY                          ┌──────────┐  │
+│  Provider has continuous AML/sanctions webhooks   │ ★★★+     │  │
+│  with < 24h detection latency. First-mover       │ Premium  │  │
+│  advantage in AI agent identity market.           └──────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Strategic implication:** Providers compete to climb the ladder. L5 is where the recurring revenue is — continuous monitoring per verified user per month. The provider that reaches Tier 3 first gets named as DWS's primary identity partner across 20 industry verticals.
+
 ---
 
 ## 3. Architecture — Where the IDV Provider Plugs In
@@ -349,17 +383,18 @@ KYA Certification is a commercial relationship between Lifetime Oy (DWS IQ 6 pla
 
 DWS evaluates IDV providers on:
 
-| # | Criterion | Weight |
-|---|-----------|--------|
-| 1 | Continuous AML monitoring capability (L5) | **Critical** — make or break |
-| 2 | EU/EEA-only data processing guarantee | **Critical** |
-| 3 | Webhook reliability and latency | High |
-| 4 | Numeric risk scoring (not just pass/fail) | High |
-| 5 | KYB depth (UBO resolution) | Medium |
-| 6 | Nordic market presence and regulatory knowledge | Medium |
-| 7 | Commercial partnership alignment | Medium |
+| # | Criterion | Weight | Notes |
+|---|-----------|--------|-------|
+| 1 | EU/EEA-only data processing guarantee | **Critical** | Hard gate — no transatlantic PII transfers |
+| 2 | Onboarding IDV quality (L1) | **Critical** | Document + face + liveness + AML in single flow |
+| 3 | Webhook reliability and latency | High | Webhook infra required for all tiers |
+| 4 | Numeric risk scoring (not just pass/fail) | High | Enables per-industry weighting |
+| 5 | KYB depth (UBO resolution) (L2) | High | Tier 2+ requirement |
+| 6 | Continuous AML monitoring (L5) | **Differentiator** | No vendor has this natively today — first to deliver it owns Tier 3 |
+| 7 | Nordic market presence and regulatory knowledge | Medium | Preferred but not required |
+| 8 | Commercial partnership alignment | Medium | Willingness to co-develop the L5 capability counts |
 
-**Multiple providers may be certified.** DWS may certify one primary provider and one backup, or certify different providers for different layers (e.g., one for L1 onboarding, another for L5 continuous monitoring).
+**Maturity-based certification.** Providers are certified at their current tier (1, 2, or 3) and can upgrade as capabilities mature. DWS may certify multiple providers at different tiers, or certify different providers for different layers (e.g., one for L1+L2, another for L5 when the market matures). The first provider to achieve Tier 3 (full-stack L1+L2+L5) becomes the primary identity partner.
 
 ---
 

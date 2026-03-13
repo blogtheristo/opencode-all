@@ -28,9 +28,11 @@ The document covers:
 - PoC scope — 4 weeks to working demo (Section 8)
 - Commercial terms — certification fee tiers, revenue share (Section 9)
 
-We're evaluating multiple IDV providers for certification. The first provider to complete a PoC gets first-mover advantage in a category that doesn't exist yet — AI agent identity.
+KYA Certification is tiered: Tier 1 (L1 onboarding IDV), Tier 2 (L1+L2 with KYB), Tier 3 (full-stack L1+L2+L5 with continuous monitoring). No IDV vendor has achieved Tier 3 yet — the first to do so becomes our primary identity partner across all 20 verticals.
 
-Happy to walk through the architecture on the call. The key questions for Shufti are in the document — continuous AML monitoring capability is the critical one.
+We're evaluating multiple providers. The first to complete a PoC gets first-mover advantage in a market category that doesn't exist yet — AI agent identity.
+
+On the call, I'd like to understand where Shufti fits on the maturity ladder — especially your continuous AML monitoring capability and whether it can deliver same-day webhook notifications on risk status changes.
 
 Best,
 Risto Paarni
@@ -63,7 +65,7 @@ What KYA Certification delivers:
 - First-mover in AI agent identity — no IDV vendor serves this market today
 - EU AI Act compliance chain — IDV decisions logged in court-defensible Firehorse audit trail
 
-The certification covers three identity layers: L1 (human KYC/AML), L2 (organization verification/KYB), and L5 (continuous risk monitoring). Annual certification: €5,000–15,000 depending on layer coverage.
+KYA Certification is tiered: Tier 1 (L1 onboarding IDV, €5K/year), Tier 2 (L1+L2 with KYB, €8K/year), Tier 3 (full-stack including continuous monitoring, €12–15K/year). No IDV vendor has achieved Tier 3 yet — the first provider to do so becomes primary identity partner across all 20 verticals. With your Nordic eID infrastructure, IN Groupe is well-positioned to start at Tier 2 and build toward Tier 3.
 
 Requirements document (KYA-IDV-CERT v1.0) attached. Happy to do a 30-minute walkthrough — we're starting PoC evaluations in Q2 2026.
 
@@ -97,7 +99,7 @@ What KYA Certification delivers:
 - AI agent identity is a new market category. No IDV vendor has a product here yet.
 - EU data residency by design — our infrastructure runs in Finland (europe-north1)
 
-The certification covers three layers: L1 (human identity/KYC), L2 (organization verification), and L5 (continuous risk monitoring via webhooks). Annual certification: €5,000–15,000 depending on coverage.
+KYA Certification is tiered: Tier 1 (L1 onboarding, €5K/year), Tier 2 (L1+L2 with KYB, €8K/year), Tier 3 (full-stack including continuous monitoring, €12–15K/year). With TIBS covering strong authentication and Ubisecure handling KYB via LEI, Telia is a natural Tier 2 candidate — and could be first to Tier 3 if continuous monitoring is on the roadmap.
 
 Requirements document (KYA-IDV-CERT v1.0) attached. Happy to do a 30-minute technical walkthrough — we're starting PoC evaluations in Q2.
 
@@ -133,13 +135,15 @@ dws10.com
 - Send IN Groupe + Telia: March 17–18 (same week as Shufti call)
 - When Shufti asks "are others evaluating?" the answer is yes — IN Groupe and Telia are in the pipeline
 
-### Provider Fit Summary
+### Provider Fit Summary (Maturity Ladder)
 
-| Provider | L1 (KYC/IDV) | L2 (KYB) | L5 (Continuous AML) | Nordic Presence | Overall |
+| Provider | L1 (KYC/IDV) | L2 (KYB) | L5 (Continuous AML) | Current Tier | Path to Tier 3 |
 |----------|:---:|:---:|:---:|:---:|---------|
-| **Shufti Pro** | Yes | Yes | ? (critical question for March 17) | Global, no Nordic office | Strong if L5 confirmed |
-| **IN Groupe** (ex-Nets) | Yes | Partial | ? | Copenhagen, Aarhus, Oslo | Strong L1, needs L5 clarity |
-| **Telia** | Yes (TIBS) | Yes (Ubisecure/LEI) | No | FI, SE, NO, DK, Baltics | Best L1+L2, weak L5 |
+| **Shufti Pro** | Yes | Yes | ? (March 17 question) | Tier 2 (confirmed), Tier 3 if L5 exists | Closest to Tier 3 — ask on call |
+| **IN Groupe** (ex-Nets) | Yes | Partial | ? | Tier 1–2 | Strong Nordic infra, L5 unclear |
+| **Telia** | Yes (TIBS) | Yes (Ubisecure/LEI) | No | Tier 2 | Best L1+L2, needs AML partner for L5 |
+
+**Race to Tier 3:** No provider has full-stack L1+L2+L5 today. The first to achieve Tier 3 certification becomes the primary identity partner. Use this as competitive leverage in all conversations — "others are in the pipeline."
 
 ### What NOT to Say
 
