@@ -145,9 +145,87 @@ dws10.com
 
 **Race to Tier 3:** No provider has full-stack L1+L2+L5 today. The first to achieve Tier 3 certification becomes the primary identity partner. Use this as competitive leverage in all conversations — "others are in the pipeline."
 
+### March 17 Call Playbook — Shufti Pro
+
+**Duration:** 30 minutes
+**Your role:** Platform certifying providers. Not a buyer shopping for a vendor.
+
+#### Opening (2 min)
+
+"We sent the KYA-IDV-CERT requirements document ahead of the call. Did you have a chance to review it? Great — let me walk through the architecture quickly, then I have specific questions about Shufti's capabilities."
+
+#### Architecture Walkthrough (5 min)
+
+Walk them through the KYA pyramid (Section 2). Key point: DWS handles L3+L4 internally. The IDV partner powers L1, L2, and L5. Explain the maturity ladder — Tier 1/2/3 — and that no provider has achieved Tier 3 yet.
+
+**Frame:** "We're not looking for a vendor. We're certifying providers for a new market category — AI agent identity. The first provider to reach Tier 3 becomes our primary identity partner across 20 EU-regulated industry verticals."
+
+#### Discovery Questions (10 min)
+
+Ask in this order — each answer informs the next question:
+
+1. **L1 baseline:** "Walk me through your onboarding IDV flow — document + face + liveness + AML in a single API call, or separate calls?"
+   - What you need: Single-flow preferred. Numeric risk score (not just pass/fail).
+
+2. **L2 / KYB:** "How deep does your KYB go? Specifically UBO resolution for multi-level holding structures — if an AI agent publisher is owned by a holding company owned by another holding company, how many levels do you resolve?"
+   - What you need: At least 2 levels. Sanctions/PEP screening on directors.
+
+3. **EU data residency:** "Where does PII sit during and after verification? Do you have an EU-only SaaS instance, or does data transit through non-EU infrastructure at any point?"
+   - Hard gate. If they say "our servers are in UK" or "data transits through US" — that's a problem. Needs to be EU/EEA only.
+
+4. **L5 — the critical question:** "Do you offer ongoing AML/sanctions monitoring after initial verification? Specifically: if a verified user appears on a sanctions list 30 days after onboarding, does Shufti detect that and send a webhook notification?"
+   - **If yes:** "What's the detection latency — same day, next day, weekly batch?" and "What does the webhook payload look like?" This is the Tier 3 qualifier.
+   - **If no/partial:** Don't push. Just note it. This is where the readiness assessment comes in later.
+
+5. **Webhooks:** "What's your webhook infrastructure? HMAC-SHA256 signing? Retry policy on failed delivery? Can we get the payload schema documentation?"
+   - What you need: Signed webhooks, retry on failure, documented payload.
+
+#### Pricing Conversation (5 min)
+
+**DO NOT lead with the €25-40K co-development sprint.** Sequence matters:
+
+1. **Start with Tier 2 certification:** "Based on what you've described, Shufti fits Tier 2 — L1 onboarding IDV plus L2 org verification. Tier 2 certification is a €10K assessment."
+
+2. **If they have L5:** "If your continuous monitoring meets L5 requirements, you're looking at Tier 3 — that's €25K certification and you become our primary identity partner. Let's validate that in the PoC."
+
+3. **If they don't have L5 (most likely):** "The gap to Tier 3 is L5 — continuous monitoring with webhook delivery. We offer an L5 Readiness Assessment for €8K. It's a 2-week engagement where we map what you have against L5 requirements and tell you exactly what to build. If the gap is bridgeable, we can discuss a co-development sprint after that."
+   - **€8K is the right entry point.** Low enough to say yes to. Qualifies whether the full co-development (€25-40K) is even realistic before either side commits.
+   - **DO NOT mention the co-development sprint pricing on this call** unless they specifically ask "what comes after the readiness assessment?" Even then, say "€25-40K depending on scope — but let's see the readiness assessment results first."
+
+4. **Revenue share:** "On top of certification, every DWS enterprise customer = recurring verification volume for Shufti. We take 15-25% of DWS-originated verification revenue. This is where the real money is for both sides."
+
+#### Close (5 min)
+
+**Ask for two things:**
+
+1. "Can we get sandbox/test API credentials this week? We want to start the PoC integration — 4 weeks to a working demo."
+2. "Send me your webhook documentation — payload schema, retry policy, signing method."
+
+**If they ask about other providers:** "Yes, we're evaluating multiple providers. The maturity ladder means we can certify at different tiers. But there's only one primary identity partner slot at Tier 3 — that's first-come, first-certified."
+
+**If they ask about timeline:** "PoC evaluations start Q2. We want to have at least one Tier 2 certified provider by end of Q2. Tier 3 is the aspirational target — whoever gets there first."
+
+#### Red Flags to Watch For
+
+- **"We can do everything"** — Push back. Ask for specifics. "Show me the webhook payload for an ongoing AML alert."
+- **"Our data is in the UK"** — Problem. UK is not EU/EEA post-Brexit for GDPR adequacy purposes in sensitive sectors.
+- **"We'll build L5 for you"** — Good intent, but validate. "Great — let's start with the €8K readiness assessment to scope what that means."
+- **They focus on per-verification pricing** — Redirect. "Per-verification pricing matters, but the certification tier is what gets you into the DWS enterprise channel. Let's nail the capability assessment first."
+
+#### After the Call
+
+- [ ] Send follow-up email summarizing what was discussed and agreed
+- [ ] Request sandbox API credentials (deliverable: Week 1 of PoC)
+- [ ] Request webhook documentation
+- [ ] Update provider fit table with confirmed capabilities
+- [ ] If L5 is a gap: propose €8K readiness assessment in follow-up email
+- [ ] Send IN Groupe + Telia cold outreach (March 17-18)
+
 ### What NOT to Say
 
 - Don't mention specific pricing discussed with other providers
 - Don't say "we're a startup looking for a vendor" — you're a platform certifying providers
 - Don't lead with "we need help with KYC" — lead with "we're certifying providers for a new market"
 - Don't mention Nets to IN Groupe as if they're the same company — acknowledge the acquisition positively
+- Don't lead with the €25-40K co-development sprint — lead with the €8K readiness assessment
+- Don't mention co-development sprint pricing unless directly asked
