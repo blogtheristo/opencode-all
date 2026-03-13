@@ -317,11 +317,29 @@ function lobbyPageHtml(jitsiDomain: string): string {
   </div>
 
   <script>
+    function sanitizeRoomName(name) {
+      // Allow only [a-zA-Z0-9_-], replace others with '-'
+      let sanitized = name.replace(/[^a-zA-Z0-9_-]+/g, '-');
+      // Collapse multiple dashes and trim leading/trailing dashes
+      sanitized = sanitized.replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+      return sanitized;
+    }
+
+    function generateRandomRoom() {
+      return 'dws6-' + Math.random().toString(36).substring(2, 10);
+    }
+
     function startMeeting(e) {
       e.preventDefault();
-      const room = document.getElementById('room').value.trim();
-      const roomName = room || 'dws6-' + Math.random().toString(36).substring(2, 10);
-      window.location.href = '/meet/' + encodeURIComponent(roomName);
+      const raw = document.getElementById('room').value.trim();
+      let roomName = raw ? sanitizeRoomName(raw) : '';
+
+      if (!roomName) {
+        roomName = generateRandomRoom();
+      }
+
+      // Room name is already limited to [a-zA-Z0-9_-], no need to URL-encode
+      window.location.href = '/meet/' + roomName;
     }
   </script>
 </body>
