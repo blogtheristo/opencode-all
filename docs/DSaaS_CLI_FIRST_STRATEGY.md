@@ -278,7 +278,7 @@ volumes:
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
-| CLI project scaffold (Cobra/Node.js) | `dws init` | Build |
+| CLI project scaffold (Node.js/TypeScript) | `dws init` | Build |
 | Local Docker environment | `dws local up` | Build |
 | Sovereignty status checker | `dws sovereignty status` | Build |
 | Hard EU-region lock enforcer | (internal module) | Build |
