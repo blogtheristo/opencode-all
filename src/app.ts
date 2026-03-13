@@ -1,6 +1,10 @@
 /**
  * DWS IQ Backend - Express Server
  * Google Cloud Run compatible
+ *
+ * DWS7 Modernization:
+ * - MCP agent server mounted at /mcp (Fix #5)
+ * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
 import express, { Express, Request, Response, NextFunction } from 'express';
@@ -22,6 +26,7 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -170,8 +175,11 @@ app.use('/api/v1/outreach', outreachRoutes);
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
 
-// AI Agent routes (5 agents: SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
+// AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
+
+// MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
+app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);

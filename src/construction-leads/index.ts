@@ -30,6 +30,19 @@ export {
   buildNoticeUrl,
   DEFAULT_QUERY_CONFIG,
 } from './ted-api.js';
+export {
+  LEAD_SOURCES,
+  getActiveSources,
+  getPlannedSources,
+  getSourcesSummary,
+  getSourceCounts,
+} from './lead-sources.js';
+export type {
+  LeadSource,
+  LeadSourceStatus,
+  LeadSourceAccess,
+  LeadSourceCoverage,
+} from './lead-sources.js';
 export type {
   TedNotice,
   TedSearchResponse,

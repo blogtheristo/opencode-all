@@ -7,6 +7,25 @@
 **Dokumenttityyppi:** Pro Gradu -tutkielma
 
 ---
+# VERSION AND AGENT HISTORY
+
+Version: 1.4
+
+Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen
+
+Document Status:
+  - Created: 15.01.2026
+  - Last Modified: 24.02.2026
+  - Language: Finnish
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)
+
+---
 
 ## Tiivistelma
 
@@ -31,10 +50,11 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 11. [Proton-tuotestrategia](#11-proton-tuotestrategia)
 12. [IPR-suojaus ja liikesalaisuusstrategia](#12-ipr-suojaus-ja-liikesalaisuusstrategia)
 13. [Prompt-valimuistiarkkitehtuuri tekoalyagenteille](#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille)
-14. [Tulokset ja pohdinta](#14-tulokset-ja-pohdinta)
-15. [Johtopaatotkset](#15-johtopaatotkset)
-16. [Lahteet](#16-lahteet)
-17. [Liitteet](#17-liitteet)
+14. [Yrityksen monivuokralainen agenttiarkkitehtuuri](#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri)
+15. [Tulokset ja pohdinta](#15-tulokset-ja-pohdinta)
+16. [Johtopäätökset](#16-johtopaatotkset)
+17. [Lahteet](#17-lahteet)
+18. [Liitteet](#18-liitteet)
 
 ---
 
@@ -936,9 +956,146 @@ Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle ka
 
 ---
 
-## 14. Tulokset ja pohdinta
+## 14. Yrityksen monivuokralainen agenttiarkkitehtuuri
 
-### 12.1 Toiminnallisen tehokkuuden parannukset
+### 14.1 Toimialakohtainen avoimen LLM:n valinta
+
+Yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle, joita DWS IQ palvelee. Jokaisella toimialavertikaalilla on oma sääntelykieli, toimialaosaamisvaatimukset ja rakenteellisen tulosteen tarpeet. `AgentConfig.model`-kenttä on jo agenttikohtainen, joten jokainen konkreettinen agentti voidaan konfiguroida eri koulutetulla Lifetime World Model (LWM) -mallilla + avoimella LLM:llä, jatkuvalla vertailuarvioinnilla.
+
+**Avoimen LLM:n ehdokkaat toimialaklustereittain:**
+
+| Toimialaklusteri | Ehdokkaat | Keskeinen toimialavaatimus |
+|-----------------|-----------|--------------------------|
+| Rakentaminen, Kiinteistöt | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 elinkaarivaiheet, pohjoismaiset rakennusmääräykset, EPBD |
+| Energia, Teräs & Metallit, Sementti | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS-päästöoikeuslaskelmat, prosessipäästöt, CBAM |
+| Valmistus, Kemianteollisuus | Qwen 2.5 72B, Llama 3.3 | CBAM-tuoteluokittelu, osaluetteloanalyysi, REACH |
+| Logistiikka, Merenkulku, Ilmailu | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, reittioptimiointi |
+| Maatalous, Elintarvikkeet | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 toimitusketju, pakkauselinkaari |
+| Rahoitus, Julkinen sektori | Mistral Large (EU-isännöity), Llama 3.3 | SFDR, EU-taksonomia, kaksoisolennaisuus, GPP |
+| Terveydenhuolto, Tekstiilit | Gemma 2 (EU-isännöity), Qwen 2.5 | Digitaalinen tuotepassi, lääketeollisuuden toimitusketju |
+
+**Valintakriteerit:** toimialaosaamisen syvyys, monikielisyys, rakenteellisen tulosteen luotettavuus, konteksti-ikkuna (128k+), päättelynopeus, EU-tietojen sijainti ja kaupallinen lisenssi.
+
+**Jatkuva vertailuarviointiprosessi:** Jokainen toimiala-agentti suorittaa viikoittain automaattiset vaatimustenmukaisuuskehotteet (EN 15978, CSRD ESRS E1, CBAM-ilmoitukset) nykyistä mallia ja 2-3 vaihtoehtoa vastaan. Jos vaihtoehto saa johdonmukaisesti korkeammat pisteet tarkkuudessa ja rakenteellisessa tulosteessa, malli merkitään tarkistettavaksi ja mahdollisesti vaihdettavaksi.
+
+### 14.2 Tuo omat agentit (BYOA) -arkkitehtuuri
+
+Yritysasiakkaat tuovat omat tekoälyagenttinsa työskentelemään DWS IQ:ssa. Tässä osiossa käytetään NCC:tä (pohjoismainen rakennusyhtiö) havainnollistavana tapauksena.
+
+**NCC:n agenttiekosysteemi:**
+
+| Agenttilähde | Määrä | Esimerkit |
+|-------------|-------|----------|
+| **NCC:n sisäiset** | 7 | Hankinta, Turvallisuus, BIM, Kestävyys, Kustannusarvio, Laatu, Projektisuunnittelu |
+| **Urakoitsijoiden agentit** | 14 | LVI-urakoitsija, Sähkö, Betonitoimittaja, Terästoimittaja, Ikkunavalmistaja, Eristys jne. |
+| **DWS IQ -alusta** | 3 | Vaatimustenmukaisuuslaskenta, Firehorse-raportti, Hiililaskuri |
+| **Yhteensä** | 24 | Kaikki yhdistetty A2A + MCP -protokollilla |
+
+**Vuokralaiskohtainen Lifetime World Model (LWM):**
+
+Lifetime World Model on yrityksen oppimiskerros, joka sijaitsee valitun avoimen LLM:n päällä. Se ei ole pelkästään hienosäädetty malli — se on strateginen tiedustelukerros, joka:
+
+1. **Hienosäätää yrityksen dataa ja sääntelyä** — sisäistää asiakkaan operatiivisen datan, toimialastandardit ja EU-sääntelykontekstin luodakseen toimialakohtaista älykkyyttä, jota geneeriset LLM:t eivät pysty tarjoamaan
+2. **Optimoi markkina-arvon** — oppii jatkuvasti vaatimustenmukaisuuden tuloksista, energiatehokkuustuloksista ja operatiivisista mittareista tunnistaakseen arvonluontimahdollisuuksia
+3. **Varmistaa kilpailuedun moniagenttityökaluilla** — yhdistämällä vuokralaiskohtaisen tietämyksen moniagenttien orkestrointiin (A2A + MCP), LWM muuttaa raaan tekoälykyvykkyyden korvaamattomaksi operatiiviseksi voimavaraksi
+
+Jokainen yritysvuokralainen saa oman LWM-instanssinsa:
+- **Pohja-LLM:** Valittu toimiala-arvioinnin perusteella (esim. Qwen 2.5 72B pohjoismaiseen rakentamiseen)
+- **Hienosäädetty:** Vuokralaisen omalla projektidatalla, toimialakoodeilla (RT-kortisto), sääntelykontekstilla
+- **Liittimet:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (päästökertoimet)
+- **Hiekkalaatikko:** Vaihe 2 hetkelliskontteja (europe-north1) tai Vaihe 3 pysyviä (skaalassa)
+
+**Miksi 16 toimialaa tekee LWM:stä vahvemman:** Jokainen alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän anonymisoitujen vaatimustenmukaisuuskaavojen ristioppimisen kautta. Sementinvalmistuksessa todistettu hiilidioksidipäästöjen vähennystekniikka tuottaa siirrettävää tietoa rakentamiseen. Valmistuksen toimitusketjun Scope 3 -agentit siirtyvät elintarviketeollisuuteen. 16. toimialan asiakas hyötyy kaikkien 15 toimialan kertyneestä älykkyydestä — luoden vallihaudan, jota yksittäisen toimialan kilpailijat eivät voi replikoida.
+
+### 14.3 Agent Orchestration Studio: Graafinen työnkulkurakentaja
+
+Jotta yritysasiakkaat voivat rakentaa yhteyksiä 24+ agentin välille, alusta tarjoaa visuaalisen työnkulkurakentajan.
+
+**Työkalujen arviointi:**
+
+| Työkalu | Lisenssi | MCP-tuki | A2A-tuki | EU-isännöinti | Paras käyttö |
+|---------|---------|----------|---------|--------------|-------------|
+| **Langflow** | Apache 2.0 | Natiivi (client + server) | Mukautetuilla solmuilla | Kyllä | Agenttiorkestrointi, LLM-työnkulut |
+| **n8n** | Fair Code | Yhteisösolmuilla | HTTP-solmuilla | Kyllä | ERP/BIM-liittimet, dataputket |
+| **React Flow** | MIT | Mukautettu | Mukautettu | N/A (kirjasto) | Mukautettu visuaalinen käyttöliittymä |
+| **Flowise** | Apache 2.0 | Osittainen | Ei | Kyllä | Chatbot RAG -työnkulut |
+| **Node-RED** | Apache 2.0 | FlowFusen kautta | HTTP | Kyllä | IoT/reuna, teollinen automaatio |
+| **Temporal UI** | MIT | Ei | Ei | Kyllä | Työnkulun suorituksen seuranta |
+
+**Suositeltu: Langflow + React Flow + Temporal.io**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  DWS IQ Agent Orchestration Studio (React)              │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  React Flow -visuaalinen kanvas                   │  │
+│  │  - Vedä ja pudota -agenttisolmut                  │  │
+│  │  - Agenttikohtainen LLM-mallin valinta            │  │
+│  │  - Visuaalinen liitinten kytkentä                 │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Langflow-moottori (MCP + A2A -orkestrointi)      │  │
+│  │  - Agenttisolmut = A2A Agent Cards                │  │
+│  │  - Liittimet = MCP-työkalut                       │  │
+│  │  - Työnkulut viedään Temporal.io-työnkuluiksi     │  │
+│  └───────────────────────────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Temporal.io (kestävä suoritus, jo käytössä)      │  │
+│  │  - Uudelleenyritys, aikakatkaisu, kompensointi    │  │
+│  │  - EU:n tekoälysäädöksen artikla 12 -auditointipolku │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Perusteet:**
+1. **React Flow** (MIT) — Mukautettu visuaalinen kanvas DWS IQ React -hallintapaneelissa. Nolla toimittajalukkiutumista.
+2. **Langflow** (Apache 2.0) — Natiivi MCP + A2A -tuki. EU-isännöity. IBM:n yrityskumppanuus.
+3. **Temporal.io** — Jo käytössä. Kestävä suoritus täydellä artikla 12 -auditointipolulla.
+4. **n8n** — Täydentävä ERP/BIM-liitin­työnkuluissa (Tekla ↔ IFS Cloud -synkronointi).
+
+### 14.4 Urakoitsija-agentin käyttöönotto
+
+```
+1. Urakoitsija julkaisee Agent Cardin (/.well-known/agent.json)
+2. NCC:n ylläpitäjä avaa Agent Orchestration Studion
+3. Studio löytää urakoitsija-agentin A2A-protokollalla
+4. Ylläpitäjä vetää urakoitsijan kanvakselle, yhdistää työnkulkuihin
+5. Studio validoi yhteyden (A2A-terveystarkistus)
+6. Työnkulku otetaan käyttöön Temporal.io:ssa
+7. Kaikki vuorovaikutukset kirjataan EU:n tekoälysäädöksen artikla 12 mukaisesti
+```
+
+### 14.5 DWS7 agenttiarkkitehtuurin modernisointi
+
+DWS6:sta DWS7:ään siirtyminen korjaa kuusi kriittistä arkkitehtuurista puutetta, jotka havaittiin tuotantokäytön aikana. Toteutettu yhdessä Claude Code -sessiossa (24.02.2026), nämä korjaukset muuttavat agenttijärjestelmän 2023-aikakauden mallista tuotantotason agenttialustaksi.
+
+**Kuusi korjausta:**
+
+| # | Puute | Korjaus | Tiedosto |
+|---|-------|---------|----------|
+| 1 | Yksittäiskutsu-LLM | Havainnoi-ajattele-toimi -silmukka (`runLoop()`) | `base.agent.ts` |
+| 2 | Ei työkalujen käyttöä | Työkaluajoympäristö JSON Schemalla + 4 sisäänrak. työkalua | `tools.ts` |
+| 3 | Kovakoodattu Groq-kutsu | Monituottaja-asiakas (Anthropic > Groq > OpenAI) | `llm-client.ts` |
+| 4 | Ei agenttiviestintää | Delegointi + syvyysseuranta + löytämis-API | `index.ts` |
+| 5 | MCP oli tyhjä lupaus | JSON-RPC 2.0 -palvelin osoitteessa `/mcp` | `agent-server.ts` |
+| 6 | Vain Express | Tapahtumaväylä pub/sub + Redis Streams | `event-bus.ts` |
+
+**Build for Agents -periaate:** Jokaisen DWS-tuotteen tulee olla saavutettavissa:
+- **CLI** (`cli/src/cli.ts`) — JSON-tuloste, putkitettava, nollariippuvuudet
+- **MCP** (`/mcp`-päätepiste) — Claude Code / Cursor löytää automaattisesti
+- **Claude Code Skills** (`.claude/commands/`) — luonnollisen kielen agentin kutsuminen
+- **REST API** (`/api/agents/`) — perinteinen HTTP-integraatio
+- **Tapahtumaväylä** — reaaliaikainen agenttikoordinaatio SSE:n kautta
+
+**EU:n tekoälysäädöksen artikla 12:** Agenttisilmukka-arkkitehtuuri täyttää luontaisesti automaattisen kirjausvaatimuksen. Jokainen iteraatio tallentaa havainnon, ajattelun, toiminnot ja tulokset `agent_loop_iterations` Supabase-tauluun — luoden täydellisen päättelyketjun syötteestä tulosteeseen.
+
+**Vaikutus Firehorse-toimintamalliin:** CLI ja Skills -kerros tarkoittaa, että Firehorse-kaupan hallinta voidaan nyt automatisoida tekoälyagenteilla päästä päähän: vaatimustenmukaisuustarkistukset `/compliance-check`-komennolla, hiilianalyysi `/carbon-analysis`-komennolla ja moniagentin työnkulut `/workflow`-komennolla — kaikki ilman ihmisen GUI-vuorovaikutusta.
+
+---
+
+## 15. Tulokset ja pohdinta
+
+### 15.1 Toiminnallisen tehokkuuden parannukset
 
 Firehorse-toimintamalli Claude Codella saavutti:
 
@@ -950,7 +1107,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Virheprosentti | 5 % | <1 % | 80 % |
 | Kauppasivun paivitykset | 4 tuntia | 15 minuuttia | 94 % |
 
-### 12.2 Google Merchant Center -suorituskyky
+### 15.2 Google Merchant Center -suorituskyky
 
 Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
@@ -961,7 +1118,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | Kassakonversio | Suora maksuun |
 | Syotetiedoston koko | 32 893 tavua |
 
-### 12.3 Vaatimustenmukaisuusvalmiuden arviointi
+### 15.3 Vaatimustenmukaisuusvalmiuden arviointi
 
 | Saannos | Valmius | Puuteanalyysi |
 |---------|---------|---------------|
@@ -971,7 +1128,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | NIS2 | 75 % | Turvallisuusarviointi tarvitaan |
 | CSRD | 85 % | Raportointipohjat valmiina |
 
-### 12.4 Rajoitukset
+### 15.4 Rajoitukset
 
 1. **Aanichat ei viela kaytossa** - Suunnitelma dokumentoitu, Q1 2026 tavoite
 2. **Kumppaniekosysteemi** - Kumppanuudet kehitteilla
@@ -980,9 +1137,9 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
 ---
 
-## 15. Johtopaatotkset
+## 16. Johtopäätökset
 
-### 13.1 Yhteenveto
+### 16.1 Yhteenveto
 
 Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta voi:
 
@@ -992,7 +1149,7 @@ Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta vo
 4. **Valmistaa infrastruktuurin** aanipohjaiseen asiakasvuorovaikutukseen
 5. **Tukea teollisia asiakkaita** hiilijalanjalkililaskurin integraatiolla
 
-### 13.2 Keskeiset kontribuutiot
+### 16.2 Keskeiset kontribuutiot
 
 Tama tutkielma kontribuoi:
 
@@ -1003,7 +1160,7 @@ Tama tutkielma kontribuoi:
 5. Tuotesuositusmoottorin arkkitehtuuri 16:lle EU-toimialalle
 6. Proton-tuotteiden turvallisuusstrategia GDPR/NIS2-vaatimustenmukaisuuteen
 
-### 13.3 Tuleva tyo
+### 16.3 Tuleva tyo
 
 1. **Q1 2026:** Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella
 2. **Q2 2026:** Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla
@@ -1013,7 +1170,7 @@ Tama tutkielma kontribuoi:
 
 ---
 
-## 16. Lahteet
+## 17. Lahteet
 
 1. EU:n tekoalysaados, Asetus (EU) 2024/1689
 2. Google Merchant Center -tekniset maaritykset (2026)
@@ -1034,7 +1191,7 @@ Tama tutkielma kontribuoi:
 
 ---
 
-## 17. Liitteet
+## 18. Liitteet
 
 ### Liite A: Taysi tuotekatalogi
 
@@ -1158,5 +1315,5 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 1.1*
+*Viimeksi paivitetty: 24.02.2026*
+*Versio: 1.4*

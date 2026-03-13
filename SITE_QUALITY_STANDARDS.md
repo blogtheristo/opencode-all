@@ -908,6 +908,94 @@ git push origin main
 
 ---
 
+## Agent-Driven UI Patterns (DWS7)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent runtime emits events that drive real-time dashboard updates. Frontend components must handle streaming agent responses and multi-step workflow progress.
+
+### Agent Response Display
+
+| Pattern | When | Component Approach |
+|---------|------|--------------------|
+| **Single agent result** | User triggers one agent | Show loading → result card with confidence score, reasoning, recommendations |
+| **Workflow progress** | Multi-agent workflow running | Step-by-step progress bar; each step shows agent name + status (pending/running/done/failed) |
+| **Agent delegation chain** | Agent delegates to another agent | Nested cards — parent agent card contains child agent result inline |
+| **Streaming events** | SSE connection to `/mcp/sse` | Real-time event feed panel; filter by event type pattern |
+
+### Confidence Score Visualization
+
+All agent responses include a `confidence` score (0-1). Display rules:
+
+| Score Range | Visual | Label | Color |
+|-------------|--------|-------|-------|
+| 0.8 - 1.0 | Solid badge | High confidence | `text-green-400` |
+| 0.5 - 0.79 | Outlined badge | Medium confidence | `text-yellow-400` |
+| 0.0 - 0.49 | Warning badge | Low confidence | `text-red-400` |
+
+Always show the confidence score alongside agent results. Users must understand how reliable the analysis is.
+
+### Real-Time Agent Event Feed
+
+For dashboards displaying the Situation Room or live compliance monitoring:
+
+```
+EventSource connection: /mcp/sse
+
+Event types to display:
+- agent.execution_complete → "Agent completed: {agentName}"
+- compliance.gap_detected → "Compliance gap: {payload.gap}" (highlight red)
+- workflow.*.started → "Workflow started: {workflowName}"
+- workflow.*.completed → "Workflow done: {stepCount} steps"
+```
+
+**Reconnection:** If SSE connection drops, reconnect with exponential backoff (1s, 2s, 4s, max 30s).
+
+### Agent-Specific UI Components
+
+| Agent | Result Display | Key Metrics |
+|-------|---------------|-------------|
+| `compliance` | Regulation score cards + gap list + deadline timeline | Overall score, gaps count, days to deadline |
+| `sitesense` | Safety score gauge + weather risk badge + capacity bar | Safety score (0-100), risk level, worker capacity |
+| `material-oracle` | Carbon breakdown chart (A1-A3, A4, A5, B, C, D stages) | Total embodied carbon (kgCO2e), alternatives count |
+| `schedule-genius` | Gantt chart with critical path highlighted | Project duration, float days, at-risk task count |
+| `viability` | ROI card + NPV/IRR metrics + carbon credit valuation | Payback period, NPV, IRR percentage |
+| `customer-sat` | Health score donut + churn probability bar | Health score, churn %, retention recommendations |
+| `quality-gate` | Pass/Warn/Fail traffic light + blocking issues list | Quality score, blocker count, coverage % |
+
+### Workflow Progress Component
+
+For multi-agent workflows (compliance-assessment, construction-full, seo-pipeline):
+
+```
+┌─ Workflow: compliance-assessment ─────────────────┐
+│                                                     │
+│  [✓] Emissions Analysis      ── 2.3s ── 0.85      │
+│  [▶] Compliance Check        ── running...          │
+│  [ ] Viability Assessment    ── pending              │
+│  [ ] Notify Complete         ── pending              │
+│                                                     │
+│  Status: Running (step 2/4)   Timeout: 4:52         │
+└─────────────────────────────────────────────────────┘
+```
+
+- Each step shows: status icon, agent name, duration, confidence score
+- Running step pulses with animation (`animate-pulse`)
+- Failed step shows red with error message expandable
+- Completed workflow shows total duration and aggregate confidence
+
+### Error States
+
+| State | Display | Action |
+|-------|---------|--------|
+| Agent returned `confidence: 0` | Yellow warning banner: "Low confidence — verify results manually" | Show full reasoning text |
+| Agent execution failed | Red error card with error message | "Retry" button triggers same agent with same input |
+| Workflow timed out | Orange timeout card with completed steps | "Resume" button re-triggers from last successful step |
+| LLM unavailable | Info banner: "AI analysis unavailable — showing deterministic results only" | No action needed — graceful degradation |
+| Delegation depth exceeded | Warning: "Agent chain too deep — partial results shown" | Show results from completed agents in chain |
+
+---
+
 **Document Owner:** Development Team
 **Review Cycle:** Quarterly
 **Next Review:** 2026-03-26

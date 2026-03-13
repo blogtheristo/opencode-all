@@ -60,10 +60,15 @@ export class SAPConnector extends BaseERPConnector {
 
     try {
       const odataPath = this.sapConfig.odataVersion === 'v4' ? '/sap/opu/odata4' : '/sap/opu/odata/sap';
-      const filter = since ? `?$filter=LastChangeDate gt datetime'${since.toISOString()}'` : '';
+      // SECURITY FIX: Use params object instead of string interpolation to prevent OData injection
+      const params: Record<string, string> = {};
+      if (since) {
+        params.$filter = `LastChangeDate gt datetime'${since.toISOString()}'`;
+      }
 
       const response = await this.get<{ d: { results: any[] } }>(
-        `${odataPath}/API_PRODUCTION_ORDER_2_SRV/A_ProductionOrder${filter}`
+        `${odataPath}/API_PRODUCTION_ORDER_2_SRV/A_ProductionOrder`,
+        { params }
       );
 
       operation.recordsProcessed = response.d.results.length;
