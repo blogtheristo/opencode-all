@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 1.4
+version: 1.9
 created: 2026-02-07
-last_modified: 2026-03-07
+last_modified: 2026-03-09
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -15,12 +15,13 @@ toc-depth: 3
 
 # DWS Security Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-dws-integration-G73xs | Date: 09.03.2026 | Changes: Added Section 18 (Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security) — 5-layer KYA trust framework, BYO agent registration gates, Shufti IDV integration architecture, dynamic sandbox permission triggers, partner access controls for IDV providers
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 17 (Database Disaster Recovery Security) — dual-database architecture, recovery scripts, RTO < 5 min schema / < 15 min full restore, backup encryption (GPG), Aiven auth stubs for RLS compatibility, backup test drive validation
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Supabase migration 043 — persistent storage for api_keys, usage_events, usage_counters, report_schedules tables with RLS, atomic counter increment function (increment_usage_counter), sanity checks; services updated with Supabase-first + in-memory fallback pattern; shared backend Supabase client (src/config/supabase.ts)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 16 (MVP Security Controls) — API Key Management (SHA-256 hashing, per-user limits, scope-based access), Usage Metering (tier enforcement, rate limiting per billing period), Report Export (authenticated download, usage-gated exports)
@@ -37,7 +38,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 07.03.2026
+  - Last Modified: 09.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -1373,7 +1374,86 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 
 ---
 
-**Document Version:** 1.8
+## 18. Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security
+
+### 18.1 Overview
+
+KYA extends traditional KYC/AML identity verification to autonomous agents operating within DWS IQ workspaces. BYO defines the secure onboarding process for external agents entering the ecosystem. Together they close the compliance gap between human identity verification and agent runtime behavior.
+
+**Rationale:** In agent-native architectures, human identity is the entry point — not the risk surface. The agent's runtime behavior (egress, filesystem access, tool calls, token consumption) is the actual attack vector. No existing IDV/KYC framework addresses this.
+
+### 18.2 KYA Trust Layers
+
+| Layer | What It Verifies | Source | Enforcement |
+|-------|-----------------|--------|-------------|
+| **L1 — Human Identity** | Real person behind the account (KYC/AML/IDV) | IDV provider API (e.g., Shufti Pro) | Supabase Auth + IDV verification gate |
+| **L2 — Agent Provenance** | Where did the agent come from? (registry, custom build, fork) | DWS Agent Registry + MCP `tools/list` | Agent manifest required at registration |
+| **L3 — Agent Capability** | What tools/APIs does the agent request access to? | MCP tool manifest, sandbox policy engine | MCP Tool Approval (Section 17) |
+| **L4 — Runtime Behavior** | What is the agent actually doing? (egress, file I/O, token usage) | Sandbox telemetry (Stage 1–3, Section 14) | Real-time monitoring + rate limiting |
+| **L5 — Continuous Risk** | Has the user's or agent's risk profile changed? | IDV provider webhooks + DWS event bus | Dynamic sandbox permission adjustment |
+
+### 18.3 KYA Trust Score — Agent Trust Score (ATS) Engine
+
+**Formula (weighted deduction from perfect score):**
+
+```
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+
+Where:
+  V = KYA_VIOLATION count (from Firehorse telemetry)
+  L = 0.10 if avg_latency > 500ms, else 0
+  D = DENIED path access attempts count
+
+Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
+```
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated BEFORE external IDV calls (Shufti Pro) to save API cost on low-trust sessions.
+
+| ATS (normalized) | KYA Score | Permission Level | Sandbox State | Decision |
+|-------------------|-----------|-----------------|---------------|----------|
+| >= 0.80 | >= 80 | Full | All MCP tools, egress allowed, read-write filesystem | **GO** |
+| 0.50–0.79 | 50–79 | Restricted | No egress, read-only filesystem, curated MCP tools only | **GO** (limited) |
+| < 0.50 | < 50 | Suspended | Sandbox paused, human review required before resumption | **NO_GO** |
+| 0.00 | 0 | Frozen | Account frozen, agent terminated immediately, incident logged | **NO_GO** |
+
+**Score recalculation triggers:** IDV webhook, agent tool request outside manifest, anomalous egress pattern, rate limit breach, manual operator override.
+
+**Fault Attribution:** When ATS drops below threshold, the fault is classified (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`, `AUTORESEARCH_FAULT`) and stored in Supabase `kya_fault_attribution` (separate from Firehorse). See `Legal/KYA_SECURITY_v1.2.md` §9.4 (base classes) and `Legal/KYA_OPTIMIZATION_v1.4.md` §4.2 (AUTORESEARCH_FAULT).
+
+### 18.4 BYO Agent Registration Gates
+
+| Gate | Requirement | Enforcement |
+|------|-------------|-------------|
+| **G1 — Manifest** | Agent manifest submitted (name, version, tool requirements, source URL) | DWS Agent Registry API |
+| **G2 — Identity Binding** | Agent bound to a verified human identity (KYA L1 pass required) | IDV verification must be PASSED before agent registration |
+| **G3 — Capability Review** | Requested MCP tools reviewed against org policy | MCP Tool Approval workflow (Section 17) |
+| **G4 — Sandbox Entry** | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier) | Sandbox Isolation Architecture (Section 14) |
+| **G5 — Runtime Monitoring** | Continuous telemetry active: egress attempts, file writes, token consumption | KYA L4 telemetry pipeline |
+| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time | KYA L5 webhook → event bus → sandbox policy engine |
+
+**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier.
+
+### 18.5 Partner Access Controls for IDV Providers
+
+IDV providers (e.g., Shufti Pro) are treated as NIS2 sub-processors (Section 7.4) with additional controls:
+
+| Control | Requirement |
+|---------|-------------|
+| API authentication | OAuth 2.0 or API key with rotation policy (90 days max) |
+| Data minimization | Only verification result + risk score transmitted — no raw biometric data stored in DWS |
+| Webhook verification | All IDV webhooks signed and verified before processing |
+| Fallback | If IDV provider is unreachable, new agent deployments blocked (fail-closed) |
+| Audit logging | All IDV API calls logged with correlation ID to agent session |
+| Data residency | IDV provider must process EU citizen data within EU (GDPR Art. 44–49) |
+| Sub-processor agreement | DPA (Data Processing Agreement) required before production use |
+
+### 18.6 NIS2 Compliance Statement
+
+> "DWS IQ 6 extends identity verification beyond the human operator to the autonomous agents they deploy. The Know Your Agent (KYA) framework provides five-layer trust verification — from human KYC through agent provenance, capability review, runtime monitoring, and continuous risk assessment. All BYO agents execute in isolated sandboxes (Section 14) with permissions dynamically adjusted based on real-time IDV risk signals. This architecture ensures that no autonomous agent operates without auditable identity binding and continuous behavioral monitoring, exceeding NIS2 Article 21(2)(i) human resources and access control requirements."
+
+---
+
+**Document Version:** 1.9
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

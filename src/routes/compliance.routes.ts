@@ -9,9 +9,13 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { validate } from '../middleware/validate.js';
+import { authenticateToken } from '../middleware/auth.middleware.js';
 import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DISCLOSURES } from '../compliance/esrs-registry.js';
+import { estimateETSCost } from '../compliance/ets-calculator.js';
+import { estimateCBAMCost, isCBAMCovered } from '../compliance/cbam-calculator.js';
+import { ETS_CARBON_PRICE_EUR, CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/emission-factors.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -108,6 +112,83 @@ router.get('/registry', (req: Request, res: Response) => {
     mandatoryCount: MANDATORY_DISCLOSURES,
     disclosures,
   });
+});
+
+/**
+ * GET /api/v1/compliance/overview
+ * Dashboard widget endpoint — returns overall compliance score with regulation breakdown.
+ * Used by the ComplianceScoreWidget component.
+ */
+router.get('/overview', authenticateToken, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Fixed demo assessment — deterministic so scores are stable across refreshes.
+    // In production this would pull the latest saved assessment from the database.
+    const mandatoryDisclosures = getMandatoryDisclosures().slice(0, 30);
+    const demoResult = scoreCompliance({
+      industry: 'manufacturing',
+      dataPoints: mandatoryDisclosures.map((d, i) => ({
+        disclosureId: d.id,
+        provided: i % 3 !== 0, // ~67% provided — deterministic pattern
+      })),
+      annualEmissions: 25000,
+      importValue: 100000,
+      hasTransitionPlan: true,
+      hasEmissionsMonitoring: true,
+      hasSupplyChainDD: false,
+    });
+
+    const regulationScores = demoResult.regulationScores.map(r => ({
+      id: r.regulation.toLowerCase().replace(/\s+/g, '-'),
+      name: r.regulation,
+      score: r.score,
+      status: r.status,
+      gaps: demoResult.gaps.filter(g => g.regulation === r.regulation).length,
+    }));
+    res.json({
+      overallScore: demoResult.overallScore,
+      previousScore: Math.max(0, demoResult.overallScore - 8),
+      lastAssessment: new Date(Date.now() - 86400000 * 2).toISOString(),
+      regulations: regulationScores,
+      totalGaps: demoResult.gaps.length,
+      criticalGaps: demoResult.gaps.filter(g => g.severity === 'critical').length,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/v1/compliance/cost-estimate
+ * Estimate ETS + CBAM compliance costs for a given scenario.
+ * Quick calculation without full assessment — useful for onboarding and sales.
+ */
+router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { annualEmissions = 0, importQuantity = 0, sector = 'manufacturing', originCountry = 'CN', freeAllocation = 0 } = req.body;
+
+    const ets = estimateETSCost(annualEmissions, freeAllocation);
+    const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
+
+    res.json({
+      ets: {
+        surrenderObligation: ets.surrenderObligation,
+        estimatedCost: ets.estimatedCost,
+        carbonPrice: ETS_CARBON_PRICE_EUR,
+        unit: 'EUR',
+      },
+      cbam: {
+        covered: cbam.covered,
+        embeddedEmissions: cbam.embeddedEmissions,
+        estimatedCost: cbam.estimatedCost,
+        certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
+        unit: 'EUR',
+      },
+      totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,
+      note: 'Estimates use EU default emission factors. Actual costs depend on verified data.',
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;

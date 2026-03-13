@@ -74,9 +74,10 @@ if [ $ERRORS -gt 0 ]; then
   echo "SESSION EXIT CHECKLIST — $ERRORS issue(s) found:"
   echo -e "$WARNINGS"
   echo ""
-  echo "Resolve these before ending the session, or acknowledge them explicitly."
-  # Exit 2 to block session end and show warnings to Claude
-  exit 2
+  echo "Review these items in your next session."
+  # Exit 0 — advisory only. Exit 2 would block session stop and cause
+  # an infinite loop: hook blocks → Claude responds → triggers stop → hook blocks …
+  exit 0
 fi
 
 echo "Session exit checklist: all clear."

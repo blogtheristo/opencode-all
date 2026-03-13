@@ -1,15 +1,17 @@
-# DWS Gamma Brand Standard v2.2
+# DWS Gamma Brand Standard v2.4
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.4
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
   - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
   - Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added Section 19 — Onboarding Wizard Standard, Section 20 — Compliance Score Widget Standard, Section 21 — CLI Rich Output Standard
 
 Session Links & References:
   - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -17,7 +19,7 @@ Session Links & References:
 
 Document Status:
   - Created: 01.01.2026
-  - Last Modified: 03.03.2026
+  - Last Modified: 08.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -56,6 +58,9 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 16 | Page Template | New pages |
 | 17 | Climate IQ Pantheon Agent Brand Identity | onelifetime.world agent cards |
 | 18 | Dashboard Profile Menu Standard | Logged-in dashboard (v10-react) |
+| 19 | Onboarding Wizard Standard | First-run experience (v10-react) |
+| 20 | Compliance Score Widget Standard | Dashboard compliance ring (v10-react) |
+| 21 | CLI Rich Output Standard | CLI human-readable formatting |
 
 ---
 
@@ -627,6 +632,7 @@ For products and pages related to EU data sovereignty compliance.
 | NIS2 Ready | `#8b5cf6` (purple) | `.sovereignty-badge.nis2` | NIS2 Directive compliant |
 | EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
 | CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
 
 **Badge CSS:**
 ```css
@@ -644,7 +650,31 @@ For products and pages related to EU data sovereignty compliance.
 .sovereignty-badge.nis2 { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
 .sovereignty-badge.eu-ai-act { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 .sovereignty-badge.cloud-act-free { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.sovereignty-badge.nvidia-isv { background: rgba(118, 185, 0, 0.15); color: #76b900; border: 1px solid rgba(118, 185, 0, 0.3); }
 ```
+
+### 11.1 NVIDIA Connect ISV Partner Badge
+
+**Status:** Confirmed (2026-03-08). Independently verifiable at NVIDIA Partner Locator.
+
+**Colors:** NVIDIA Green `#76b900`, NVIDIA Black `#000000`, Gold accent `#d4a843` (for hero/celebration contexts).
+
+**Usage rules:**
+- Display on Lifetime Fleet pages, Optimus V3, and hardware-related product pages
+- Hero sections on NVIDIA pages use gold gradient text with NVIDIA black background
+- Always link to NVIDIA Partner Locator for independent verification
+- Never claim "NVIDIA certified" — correct term is "NVIDIA Connect ISV Partner"
+
+**Implementation checklist (2026-03-08):**
+- [x] NVIDIA Connect ISV Partner confirmed (official email)
+- [x] Badge added to Optimus V3 hero row
+- [x] Stack card added to Fleet index partner grid
+- [x] Moat slide upgraded to "Connect ISV Partner"
+- [x] Investor page cleaned, no more "(applied)" credits
+- [x] Nav updated: Lifetime Fleet submenu with Fleet Overview, Optimus V3, NVIDIA ISV Partner
+- [x] Products dropdown: "DWS IQ Report" label, href unchanged
+- [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
+- [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
 
 ---
 
@@ -1359,10 +1389,118 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 ---
 
+---
+
+## 19. Onboarding Wizard Standard (v1.0)
+
+**File:** `dws6.com/dashboard/firehorse/v10-react/src/pages/OnboardingWizard.tsx`
+**Trigger:** Shown on first login when `onboarding_completed` is not set.
+
+### 19.1 Flow
+
+| Step | Title | Purpose | Required Fields |
+|------|-------|---------|-----------------|
+| 1 | Select Industry | Tailor compliance checks | `industry` (one of 16 EU sectors) |
+| 2 | Company Details | Calibrate requirements | `companyName`, `companySize`, `country` |
+| 3 | Data Sources | Plan integrations | `dataSources[]` (min 1) |
+| 4 | Regulations | Set monitoring scope | `regulations[]` (min 1) + summary + submit |
+
+### 19.2 Design Rules
+
+- **Dark theme** — `bg-gray-950` background, `bg-gray-900` card, `border-gray-800`
+- **Selection cards** — `border-2 border-blue-500 bg-blue-600/20` when selected
+- **Progress bar** — Blue gradient, `h-1.5 rounded-full`, step labels below
+- **Touch targets** — All selection buttons min 48px height for mobile
+- **Skip option** — Always available on step 1 ("Skip setup" link)
+- **Mobile-first** — Grid `grid-cols-2` for selection cards, stacks on small screens
+- **Max width** — `max-w-lg` for wizard container
+
+### 19.3 Data Persistence
+
+- Saves to `user_profiles` table via Supabase on completion
+- Falls back to `localStorage` key `dws_onboarded_{userId}` for skip
+- `onboarding_completed_at` timestamp stored for analytics
+
+---
+
+## 20. Compliance Score Widget Standard (v1.0)
+
+**File:** `dws6.com/dashboard/firehorse/v10-react/src/components/ComplianceScoreWidget.tsx`
+**API:** `GET /api/v1/compliance/overview`
+
+### 20.1 Visual Components
+
+| Component | Description | Design |
+|-----------|-------------|--------|
+| Score Ring | SVG animated circle | 160px, 12px stroke, color by score tier |
+| Score Counter | Animated number | `text-3xl font-bold`, ease-out cubic animation |
+| Trend Indicator | Arrow + delta | Green up, red down, gray neutral |
+| Regulation Bars | Horizontal bars | Per-regulation progress bars with status badge |
+| Gap Summary | Total / Critical | Two-column layout with divider |
+| Action Button | "Run New Assessment" | Full-width `bg-gray-900` button |
+
+### 20.2 Color Tiers
+
+| Score Range | Ring Color | Status |
+|-------------|-----------|--------|
+| 80–100 | `#22c55e` (green-500) | Compliant |
+| 60–79 | `#f59e0b` (amber-500) | Partial |
+| 40–59 | `#f97316` (orange-500) | At Risk |
+| 0–39 | `#ef4444` (red-500) | Non-compliant |
+
+### 20.3 Responsive Behavior
+
+- Shows in main grid when no side panel is open (`lg:col-span-1`)
+- Hidden when chat/meeting panel is active (space constraint)
+- Full-width on mobile
+
+---
+
+## 21. CLI Rich Output Standard (v1.0)
+
+**File:** `cli/src/format.ts`
+
+### 21.1 Output Modes
+
+| Mode | When | Format |
+|------|------|--------|
+| Human | Interactive TTY | Colors, tables, spinners, progress bars |
+| JSON | Piped or `--json` flag | Structured JSON for machine consumption |
+
+### 21.2 Color Semantics
+
+| Element | Color | ANSI |
+|---------|-------|------|
+| Success | Green | `\x1b[32m` |
+| Error | Red | `\x1b[31m` |
+| Warning | Yellow | `\x1b[33m` |
+| Info | Cyan | `\x1b[36m` |
+| Agent names | Cyan | `\x1b[36m` |
+| Tags/capabilities | Yellow | `\x1b[33m` |
+| Dim/secondary | Gray | `\x1b[90m` |
+| Status badges | Inverted bg | `\x1b[42;30m` etc. |
+
+### 21.3 New Commands
+
+| Command | Purpose | Human Output |
+|---------|---------|--------------|
+| `dws init` | Interactive setup wizard | Guided prompts → env export |
+| `dws status` | Platform overview | Health, agents, usage bars |
+| `dws health` | System health | Service status indicators |
+
+### 21.4 Spinner Pattern
+
+- Braille animation (⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏) at 80ms interval
+- Outputs to stderr (doesn't pollute JSON stdout)
+- Graceful fallback: plain text when not TTY
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.4 | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
 | v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
 | v2.0 | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0. |

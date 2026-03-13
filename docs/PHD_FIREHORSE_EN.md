@@ -6,12 +6,16 @@
 **Institution:** DWS IQ Research
 **Document Type:** Master Thesis Documentation
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.4
 
 Sessions & Modifications:
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
@@ -27,11 +31,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Last Modified: 07.03.2026
-  - Publication Status: DRAFT (V1.8 — LSS Training Pipeline Coordination: Training Agent Fleet T-01–T-10, quality gate signals, resource arbitration)
+  - Publication Status: DRAFT (V2.4 — Appendix G Glossary: 21 terms across Platform, Data Architecture, Security/Compliance)
 
 ---
 
@@ -1275,6 +1278,9 @@ This thesis contributes:
 9. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation
 10. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model
 11. LSS Training Pipeline Coordination — Lifetime Scope Signals applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes; validates LSS as general-purpose coordination beyond software development
+12. Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export; Firehorse operations model transition to customer-deliverable SaaS
+13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
+14. Two-Tier HTAP Architecture — Aiven-first mandate, TimescaleDB Hypercore for production, pg_duckdb for edge analytics; validates managed-provider constraint as architectural driver
 
 ### 16.3 Future Work
 
@@ -1513,8 +1519,112 @@ Background agents enable parallel research and task execution without exhausting
 **Conclusion**
 The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
+### Section 14.10: Agent System Hardening — Production Reliability
+
+The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failures across module boundaries. These were not design flaws but integration debt — the kind that emerges when independently correct modules evolve at different speeds.
+
+**Fixes applied:**
+
+1. **SandboxContext type alignment** — `SandboxContext.stage` in `types.ts` was missing the `'opensandbox'` literal that `SandboxStage` in `sandbox/index.ts` defined. This blocked agent execution in Stage 1.5 (Acer Veriton Docker).
+
+2. **MCP route wiring** — `createMCPRouter()` was defined in `src/mcp/agent-server.ts` but never imported in `app.ts`. All 31 agents were invisible to external MCP clients.
+
+3. **HIL route wiring** — The Human-in-the-Loop endpoint (`/api/hil`) for morning briefing task completion was unreachable. Captain Pre-Briefing "Done" buttons returned 404.
+
+4. **Locale-deterministic formatting** — Emissions Data Analyst used `toLocaleString()` without locale, producing space-separated numbers on EU servers. Fixed with explicit `'en-US'` locale for consistent output.
+
+5. **Resend batch type safety** — Email service `.map()` call failed on `CreateBatchSuccessResponse` union type. Added runtime array detection.
+
+6. **Dependency hygiene** — `luxon` was imported but missing from `package.json`.
+
+**Result:** 0 TypeScript errors (was 6), 47/47 tests passing (was 44/47).
+
+**Research insight:** In multi-agent architectures, integration debt accumulates at module boundaries, not within modules. Systematic hardening sessions — touching multiple subsystems in a single commit — are more effective than per-module fixes because they restore cross-cutting invariants that individual modules cannot enforce alone.
+
+---
+
+### Section 14.11: PostgreSQL Columnar HTAP Architecture — DWS Data Standard
+
+The Firehorse operations model generates growing volumes of campaign events, agent execution logs, and audit trail data. Running analytics against transactional heap tables creates performance bottlenecks as data scales.
+
+**Solution: Two-Tier HTAP — Aiven-first mandate (updated 13.03.2026)**
+
+The original v2.2 plan assumed pg_duckdb availability on Aiven. Three market shifts invalidated that assumption:
+
+1. **Hydra joined Supabase** (Feb 2026) — renamed "Supabase Warehouse"; no longer independent, not on Aiven.
+2. **pg_mooncake acquired by Databricks** (Oct 2025) — roadmap pivoted to lakehouse; Aiven listing unlikely.
+3. **pg_duckdb: BLOCKED on Aiven whitelist** — extension not in Aiven's approved list; no ETA for inclusion.
+
+**Extension evaluation (revised):**
+
+| Extension | Engine | Aiven Status | Verdict |
+|-----------|--------|-------------|---------|
+| TimescaleDB 2.25.x | PostgreSQL (Hypercore) | **Approved** | ONLY managed option — hypertables + columnar compression |
+| pg_duckdb | DuckDB | **BLOCKED** (not whitelisted) | Edge-only — approved for GN100 self-managed nodes |
+| Hydra | Citus columnar | **Dead** — joined Supabase (Feb 2026) | Removed from evaluation |
+| pg_mooncake | DuckDB | **Dead** — acquired by Databricks (Oct 2025) | Removed from evaluation |
+
+**Recommended stack — two-tier HTAP:**
+
+| Tier | Host | Extensions | Role |
+|------|------|-----------|------|
+| **Production** | Aiven PostgreSQL (EU) | TimescaleDB 2.25.x Hypercore | OLTP + time-series compression, audit logs, agent metrics |
+| **Edge analytics** | Acer Veriton GN100 (ARM64) | TimescaleDB + pg_duckdb + pgvector | Local OLAP, fleet telemetry, AI inference |
+
+Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-managed.
+
+**DWS Data Standard** (`DWS_DATA_STANDARD.md`) governing:
+- Storage engine decisions (row vs columnar vs hybrid)
+- Extension governance with EU sovereignty assessment and Aiven whitelist compliance
+- Retention policies mapped to 11 EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2: 5yr, Finnish Accounting Act: 10yr)
+- Partitioning and compression standards
+
+**Revised rollout:** Phase 0 (table partitioning) → Phase 1 (TimescaleDB Hypercore on Aiven) → Phase 2 (edge pg_duckdb on GN100) → Phase 3 (Aiven↔GN100 replication).
+
+**Research contribution:** Demonstrates that managed-provider extension whitelists are a first-class architectural constraint — not a deployment detail. When the preferred extension (pg_duckdb) is blocked, the architecture must split into tiers rather than compromise on provider choice. The two-tier pattern (managed cloud + self-managed edge) preserves both EU data residency and analytical capability.
+
+---
+
+## Appendix G: Glossary
+
+### Platform and Business Concepts
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **AgentFoundry** | AgentFoundry | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
+| **Edge AI** | Reunatekoäly | AI processing on local devices instead of cloud servers |
+| **Firehorse** | Firehorse | DWS6 product suite (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
+| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+
+### Data Architecture and Analytics
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
+| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
+| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
+| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
+| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+
+### Security and Compliance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring production extensions to be Aiven-compatible before adoption |
+| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage, extension governance, and EU regulatory compliance |
+| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — AI agent security (Shield) and optimization governance (Sword) |
+| **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate on small proxy before scaling to production |
+| **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 08.03.2026*
-*Version: 2.0*
+*Last updated: 13.03.2026*
+*Version: 2.4*

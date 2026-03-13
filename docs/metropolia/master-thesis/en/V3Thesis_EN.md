@@ -1,12 +1,16 @@
 # Firehorse Product Manufacturing Operating Model
 ## Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 3.20
+Version: 3.24
 
 Sessions & Modifications:
+  - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Expanded Appendix G glossary with Data Architecture (9 terms) and Research Methodology (4 terms) — autoresearch, HTAP, Hypercore, two-tier architecture, KYA, proxy-to-scale
+  - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 10.15 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist confirmed (pg_duckdb BLOCKED), two-tier HTAP (Aiven managed + GN100 edge), edge PostgreSQL deployment; added Key Contribution #18; updated footer
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 10.15 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU for single-database HTAP, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance matrix (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); added Key Contribution #17; updated footer
+  - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #16; updated footer
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #15 (Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export with scheduling); demonstrates transition from developer tools to customer-ready SaaS platform; validates Solution Factory productization hypothesis
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3 MCP Hub Orchestration Patterns with implementation details (4 patterns: Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing, production readiness table; added Section 2.5.4 Skills and CLIs as Agent Interfaces (Three-Interface Rule: CLI + MCP + Skills)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Added Section 9.5 Learn Thinking — daily learning loop via Learn/ folder, thesis files added to Generate-PDFs pipeline, reflective learning framework for AI-assisted product development
@@ -43,10 +47,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 07.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces)
+  - Publication Status: DRAFT (V3.24 — Appendix G glossary expanded: Data Architecture + Research Methodology terms)
 
 ---
 
@@ -2158,6 +2162,29 @@ Your code will be watched -- write accordingly."
 | **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
 | **RLS** | Rivitason suojaus | Row-Level Security - database-level access control per user/organization |
 
+### Data Architecture and Analytics
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression and faster analytical queries |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
+| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
+| **Hypertable** | Hypertaulu | TimescaleDB time-partitioned table for time-series data with automatic chunk management |
+| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
+| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
+| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture pattern: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+
+### Research Methodology
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring all production database extensions to be Aiven-compatible before adoption |
+| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage decisions, extension governance, and EU regulatory compliance |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — dual-purpose standard for AI agent security (Shield) and optimization governance (Sword) |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate changes on small proxy (depth=12) before scaling to production (depth=24) |
+
 ---
 
 ## Appendix H: Automated PR Workflow (HIL Automation)
@@ -2274,6 +2301,133 @@ The Pantheon naming strategy doubles as a marketing wedge. Each agent carries a 
 
 These personas appear at onelifetime.world/team alongside human staff, reinforcing the product thesis: humans and AI agents work side by side. One of them never sleeps.
 
+## 10.14 Agent System Hardening — Production Reliability
+
+### 10.14.1 Motivation
+
+The 31-agent system (13 core + 5 SEO + 13 workflow/industry) had accumulated 6 TypeScript compilation errors and 3 test failures that blocked production builds. These were not design flaws but integration debt: type mismatches across module boundaries, missing route wiring, uninstalled dependencies, and locale-dependent formatting. This section documents the systematic hardening that restored zero-error compilation and full test coverage.
+
+### 10.14.2 Type System Alignment: SandboxContext
+
+The `SandboxStage` type in `src/sandbox/index.ts` defined four stages: `'1' | 'opensandbox' | '2' | '3'`, where `'opensandbox'` represents the Stage 1.5 Docker-based isolation on Acer Veriton GN100 hardware (Section 10.10). However, `SandboxContext.stage` in `src/agents/types.ts` only accepted `'1' | '2' | '3'`, creating a compile-time error when `BaseAgent` attempted to assign the sandbox stage. The fix aligned both types, ensuring agents can execute in all four isolation stages.
+
+### 10.14.3 Route Wiring: MCP and Human-in-the-Loop
+
+Two critical routes were unreachable due to missing imports in `src/app.ts`:
+
+1. **MCP Agent Server** (`/mcp`) — The `createMCPRouter()` function from `src/mcp/agent-server.ts` exposes all agents as MCP tools via JSON-RPC 2.0. Without this import, external MCP clients (Claude Desktop, other AI agents) could not discover or invoke DWS agents.
+
+2. **Human-in-the-Loop** (`/api/hil`) — The HIL endpoint enables one-click task completion from morning briefing emails. Without this route, the Captain Pre-Briefing Agent's "Done" buttons returned 404 errors.
+
+### 10.14.4 Locale-Deterministic Number Formatting
+
+The Emissions Data Analyst agent formats ETS cost estimates using `Number.toLocaleString()`. On EU-locale machines (Finland, Germany), this produces space-separated numbers (e.g., `2 040 000`), while tests expected US comma-separated format (`2,040,000`). The fix specifies `'en-US'` locale explicitly, ensuring deterministic output regardless of deployment environment. This is critical for EU-hosted Cloud Run instances where system locale defaults to European conventions.
+
+### 10.14.5 Dependency Hygiene
+
+The `luxon` library (timezone-aware date handling for Helsinki business hours) was imported in the Social Scheduler but never added to `package.json`. The Resend email SDK's batch response type was a union (`undefined[] | CreateBatchSuccessResponse`) that required runtime array detection before calling `.map()`.
+
+### 10.14.6 Research Contribution
+
+This hardening session demonstrates a pattern relevant to multi-agent system maintenance: **integration debt accumulates at module boundaries, not within modules**. Each individual agent was correctly implemented, but the connections between agents, sandbox, routes, and tests had drifted. The fix touched 6 files across 5 subsystems in a single commit, restoring:
+
+- **0 TypeScript errors** (was 6)
+- **47/47 tests passing** (was 44/47)
+- **Full MCP discoverability** for all 31 agents
+- **HIL operational** for morning briefing workflows
+
+---
+
+## 10.15 PostgreSQL Columnar HTAP Architecture — DWS Data Standard
+
+### 10.15.1 Motivation
+
+DWS6 runs all analytics against transactional heap tables with no columnar or HTAP capabilities. As the platform scales toward IoT telemetry (DWS7 Phase 4), 7-year Article 12 audit retention, and growing agent execution logs, the single-engine approach creates performance bottlenecks: campaign funnel aggregation hits raw event tables, agent cost rollups require full table scans, and audit log storage costs grow linearly with no compression.
+
+The PostgreSQL "columnar extension" pattern — pioneered by Hydra and now production-ready across six implementations — enables true HTAP (Hybrid Transactional/Analytical Processing) within a single database: transactional tables remain as standard heap, analytics tables become columnar, with seamless joins and zero data movement.
+
+### 10.15.2 Extension Evaluation (Updated March 2026 — Aiven-First Mandate)
+
+The original v3.22 evaluation assumed pg_duckdb availability on Aiven. March 2026 findings invalidated this:
+
+- **Hydra** core team joined Supabase (Feb 2026) to build "Supabase Warehouse" — Hydra is effectively dead as an independent project.
+- **pg_mooncake** acquired by Databricks (Oct 2025) — future uncertain for self-hosted deployments.
+- **CRITICAL: pg_duckdb is BLOCKED on the Aiven extension whitelist** — it is NOT available on Aiven managed PostgreSQL. This was the key finding that forced the two-tier architecture redesign.
+- **TimescaleDB 2.25.x Hypercore** is the ONLY columnar/HTAP option natively available on Aiven.
+
+**ClickBench performance context:** pg_duckdb achieves 50-600× over vanilla PostgreSQL; TimescaleDB Hypercore achieves 10-100× with 98% compression on time-series data.
+
+Updated evaluation reflecting 2026 reality:
+
+| Solution | Engine | Speed vs PG | Aiven? | Supabase? | Self-Host? | DWS Fit |
+|----------|--------|-------------|--------|-----------|------------|---------|
+| Hydra (→Supabase Warehouse) | DuckDB | 100-600× | No | Alpha | Yes | Monitor |
+| pg_duckdb v1.x | DuckDB | 50-600× | **NO (blocked)** | Yes | **Yes** | Edge only |
+| pg_mooncake (→Databricks) | DuckDB | Top-10 ClickBench | No | Custom | Yes | Phase 3 |
+| TimescaleDB 2.25.x Hypercore | PG+SIMD | 10-100× | **Yes (native)** | Yes | **Yes** | **PRIMARY** |
+| ParadeDB pg_analytics | DuckDB | 10-100× | No | Yes | Yes | Not recommended |
+| Citus Columnar | PG | 5-50× | No | No | Yes | Not recommended |
+
+### 10.15.3 Recommended Stack (Two-Tier HTAP Architecture)
+
+The Aiven whitelist constraint (pg_duckdb BLOCKED) drives a **two-tier architecture** — managed production on Aiven with full extension freedom on edge hardware:
+
+**Tier 1: Aiven Managed (Production) — TimescaleDB 2.25.x Hypercore ONLY**
+
+- Automatic hybrid row→columnar storage via Hypercore: recent data stays in heap for OLTP, older data compresses into columnar format automatically.
+- 98% compression on time-series and audit data (agent_metrics, agent_costs, article12_audit_log, IoT sensor data).
+- 10-100× analytical acceleration over vanilla PostgreSQL via SIMD vectorized scans.
+- 99.99% SLA, EU Finland (europe-north1), managed backups, automatic failover.
+- No pg_duckdb, no Hydra, no pg_mooncake — only Aiven-whitelisted extensions.
+
+```sql
+-- TimescaleDB Hypercore hybrid table (Aiven production)
+CREATE TABLE events (
+  time TIMESTAMPTZ NOT NULL,
+  device_id TEXT NOT NULL,
+  metric_name TEXT NOT NULL,
+  value DOUBLE PRECISION
+) WITH (timescaledb.hybrid = true);
+SELECT create_hypertable('events', 'time');
+```
+
+**Tier 2: GN100 Edge (Analytics) — TimescaleDB + pg_duckdb + pgvector**
+
+- Deployed 2026-03-13 on Acer Veriton GN100 via Docker with SSH tunnel to Aiven.
+- Full extension stack: pg_duckdb (50-600× OLAP), pgvector (AI embeddings), TimescaleDB (time-series).
+- Use cases: ad-hoc analytical queries, ClickBench-class workloads, AI vector search, data exploration.
+- Not production-critical — edge device serves as analytical sandbox.
+
+**Local dev parity:** `timescale/timescaledb:2.25.2-pg16` Docker image ensures developers match Aiven production schema.
+
+**pg_mooncake** (Phase 3, 2027) for Iceberg/Parquet export satisfying EU Data Act 2023/2854 IoT data portability requirements — pending Databricks acquisition outcome.
+
+### 10.15.4 DWS Data Standard
+
+A new `DWS_DATA_STANDARD.md` was created to govern all data storage decisions. Key sections:
+
+1. **Storage Engine Policy** — decision matrix for row vs columnar vs hybrid
+2. **Extension Governance** — approved registry with sovereignty assessment
+3. **Retention Policy** — per-table rules mapped to EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2 Art 23: 5yr, Finnish Accounting Act 1336/1997: 10yr)
+4. **Partitioning Standard** — TimescaleDB hypertables preferred over native partitioning
+5. **Compression Policy** — tiered compression targets (1:1 hot → 20:1 archive)
+6. **EU Regulatory Compliance** — matrix mapping 11 EU regulations to database requirements
+
+### 10.15.5 Phased Rollout (Updated — Aiven-First Mandate)
+
+| Phase | Timeline | Target | Actions |
+|-------|----------|--------|---------|
+| 0 | Q1 2026 | Supabase | Table partitioning, materialized views |
+| 1 | Q2 2026 | Aiven V1 + GN100 Edge | TimescaleDB Hypercore hypertables (Aiven), pg_duckdb + pgvector deployed on edge (done) |
+| 2 | Q3-Q4 2026 | Aiven + Edge | Audit log compression (98%), IoT hypertables, edge analytical queries |
+| 3 | 2027 | Full HTAP | pg_mooncake lakehouse, Iceberg/Parquet |
+
+### 10.15.6 Research Contribution
+
+This work demonstrates that the **single-database HTAP pattern** is viable for regulated EU industrial platforms: same SQL, same clients, same RLS, zero ETL. The phased approach — starting with natively-supported extensions on a managed EU-sovereign provider (Aiven Finland) — eliminates the traditional choice between operational simplicity and analytical capability. The DWS Data Standard codifies this as an organizational standard, ensuring that storage engine decisions are deliberate, documented, and EU-compliant.
+
+The March 2026 Aiven whitelist finding adds a critical practical contribution: **managed-provider extension constraints drive architectural decisions in ways not captured by extension benchmarks alone.** The pg_duckdb extension achieves 50-600× analytical speedups but is unusable on Aiven managed PostgreSQL. This forced the two-tier HTAP architecture (Aiven managed + GN100 edge), demonstrating how real-world provider constraints shape database architecture for regulated EU deployments — a pattern likely applicable to any organization adopting managed PostgreSQL with HTAP ambitions.
+
 ---
 
 **Document Information:**
@@ -2284,9 +2438,9 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.19 — MCP Hub orchestration patterns + Skills/CLI agent interfaces
-**Version:** 3.19
-**Last Modified:** 07.03.2026
+**Status:** DRAFT - V3.24
+**Version:** 3.24
+**Last Modified:** 13.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2314,6 +2468,9 @@ These personas appear at onelifetime.world/team alongside human staff, reinforci
 13. Learn Thinking — Reflective learning framework: thesis as living document, daily Learn/ folder reflection loop, extension of Build-Measure-Learn cycle for AI-assisted product development
 14. MCP Hub Orchestration + Three-Interface Rule — Four production workflow patterns (Fan-Out, Sequential, Reflection, Pipeline) with documented endpoints; Skills/CLI as mandatory agent interfaces ensuring every agent is accessible to humans, AI systems, and development workflows
 15. Customer-Facing MVP Features — Three production features transitioning DWS IQ from developer tooling to customer-ready SaaS: (a) Self-service API Key Management with SHA-256 hashing and scope-based access, (b) Usage Metering with 3-tier billing enforcement (Free/Pro/Enterprise) and dashboard progress bars, (c) Compliance Report Export with CSV/JSON download and recurring schedule support. Validates Solution Factory productization hypothesis — platform is market-ready for regulated EU industries
+16. Agent System Hardening — Production reliability restoration: 6 TypeScript compilation errors fixed across 5 subsystems, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; demonstrates integration debt patterns in multi-agent systems
+17. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, and EU regulatory compliance (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act); 4-phase rollout from table partitioning to lakehouse integration
+18. Two-Tier HTAP Architecture — Aiven-first mandate locks TimescaleDB 2.25.x Hypercore as approved standard for managed production (10-100× analytics, 98% compression); pg_duckdb (50-600× OLAP) relegated to edge device only due to Aiven whitelist; GN100 edge PostgreSQL deployed with full extension stack for ad-hoc analytics
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

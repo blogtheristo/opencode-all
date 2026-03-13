@@ -1,8 +1,13 @@
 # DWS6 Document Index
 
----
+***
 # VERSION AND AGENT HISTORY
 
+Version: 1.4
+
+Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS CLI-First Strategy document to Standards & Guidelines section
+  - Version: 1.2 | Tool: Claude Code | Date: 11.03.2026 | Changes: Added Acer Veriton GN100 admin manual and three GN100 field notes to the document index
 Version: 1.3
 
 Sessions & Modifications:
@@ -18,7 +23,7 @@ Session Links & References:
 
 Document Status:
   - Created: 04.02.2026
-  - Last Modified: 07.02.2026
+  - Last Modified: 11.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -41,7 +46,7 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 |----------|-------|-------------|
 | [Admin Manuals](#admin-manuals) | 8 | System administration and deployment guides |
 | [Architecture](#architecture-docs) | 12 | Technical architecture blueprints |
-| [Field Notes](#field-notes) | 7 | LWM knowledge capture from real-world events |
+| [Field Notes](#field-notes) | 10+ | LWM knowledge capture from real-world events |
 | [Firehorse Product](#firehorse-product) | 35+ | Product suite documentation |
 | [Standards & Guidelines](#standards--guidelines) | 10+ | Coding and documentation standards |
 | [Security](#security) | 5+ | Security policies and compliance |
@@ -70,6 +75,7 @@ System administration and deployment guides. All admin manuals are in `Admin/` f
 | Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | 2026-02-06 | Security & compliance |
 | Security Testing | `/Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md` | ACTIVE | 2026-02-06 | Security test procedures |
 | Security Monitoring | `/Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md` | ACTIVE | 2026-02-06 | Monitoring setup |
+| Acer Veriton GN100 | `/Admin/Acer-Veriton-GN100/README.md` | ACTIVE | 2026-03-11 | GN100 edge AI device admin manual and runtime notes |
 | Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | 2026-01-11 | 2026-01 audit results |
 | Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | - | Authentication setup |
 
@@ -174,6 +180,9 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
 | Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
+| GN100 NVIDIA GPG Key Fix | `/docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` | 2026-02-27 | NVIDIA Workbench repo key renewal | GN100, NVIDIA, Maintenance |
+| GN100 Ollama Dev Environment | `/docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` | 2026-03-01 | Ollama, Cursor, Cline, Claude Code setup | GN100, Ollama, Local Dev |
+| GN100 Docker CUDA Validation | `/docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` | 2026-03-11 | Docker GPU validation and ARM64 container policy | GN100, Docker, CUDA, ARM64 |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
@@ -241,6 +250,8 @@ Coding, documentation, and process standards.
 | Document | Path | Status | Last Modified | Description |
 |----------|------|--------|---------------|-------------|
 | DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | 2026-02-07 | Master document standard (v1.4) |
+| DWS Data Standard | `/DWS_DATA_STANDARD.md` | ACTIVE | 2026-03-13 | Data storage governance, columnar/row policy, extension registry, Aiven-first mandate (v2.0) |
+| DSaaS CLI-First Strategy | `/docs/DSaaS_CLI_FIRST_STRATEGY.md` | ACTIVE | 2026-03-13 | Database Sovereignty as a Service — CLI-first mandatory gateway, 30-day build plan, enterprise pricing, Aiven ECE + TimescaleDB Hypercore (v1.0) |
 | CLAUDE.md | `/CLAUDE.md` | ACTIVE | 2026-02-05 | AI agent guidelines |
 | Ontology | `/ONTOLOGY.md` | ACTIVE | 2026-01-21 | LWM ontology framework |
 | Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | - | GitHub Copilot rules |
@@ -419,7 +430,7 @@ Other important documentation.
 
 ## Document Statistics
 
-**Last Updated:** 07.03.2026
+**Last Updated:** 11.03.2026
 
 | Metric | Value |
 |--------|-------|

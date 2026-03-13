@@ -1,12 +1,16 @@
 # Firehorse-tuotevalmistuksen toimintamalli
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 3.20
+Version: 3.24
 
 Sessions & Modifications:
+  - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Laajennettu Liite G sanasto: Tietoarkkitehtuuri (9 termiä) ja Tutkimusmenetelmät (4 termiä) — autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale
+  - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 10.15 Aiven-first mandaatilla: Hydra→Supabase Warehouse (helmi 2026), pg_mooncake→Databricks (loka 2025), TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP (Aiven hallittu + GN100 reuna), reunatietokanta käyttöönotettu; lisätty Keskeiset löydökset #18; päivitetty alatunniste
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 10.15 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa yksitietokantaiseen HTAP:iin, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuusmatriisi (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); lisätty avainpanos #17; päivitetty alatunniste
+  - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
   - Version: 3.18 | Tool: GitHub Copilot (Claude Opus 4.6) | Session: Learn-Thinking | Date: 04.03.2026 | Changes: Lisätty osio 9.5 Learn Thinking (oppimisajattelu) — päivittäinen oppimissilmukka Learn/-kansion kautta, opinnäytetyötiedostot lisätty Generate-PDFs-putkeen, reflektiivinen oppimiskehys tekoälyavusteiselle tuotekehitykselle
@@ -43,10 +47,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 07.03.2026
+  - Last Modified: 13.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina)
+  - Publication Status: DRAFT (V3.24 — Laajennettu sanasto: Tietoarkkitehtuuri ja Tutkimusmenetelmät)
 
 ---
 
@@ -2114,6 +2118,29 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 | **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
 | **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
 
+### Tietoarkkitehtuuri ja analytiikka
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Autoresearch** | Autotutkimus | Karpathyn inspiroima autonominen validointisilmukka: hypoteesi → muokkaus → todentaminen → säilytä/hylkää → toista |
+| **Columnar Storage** | Saraketallennustila | Tietokantatallennus, joka järjestää datan sarakkeittain rivien sijaan — mahdollistaa 10-100× pakkauksen ja nopeammat analyyttiset kyselyt |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — yksi tietokanta palvelee sekä OLTP- että OLAP-työkuormia |
+| **Hypercore** | Hypercore | TimescaleDB:n automaattinen hybridi rivi→sarake -tasointimoottori, 90-98% pakkaus |
+| **Hypertable** | Hypertaulu | TimescaleDB:n aikaosioitu taulu aikasarjadatalle automaattisella lohkonhallinnalla |
+| **pg_duckdb** | pg_duckdb | PostgreSQL-laajennus, joka upottaa DuckDB:n 50-600× OLAP-kiihdytykseen (DWS:ssä vain reunalaitteilla) |
+| **pgvector** | pgvector | PostgreSQL-laajennus vektorihakuun, käytetään RAG-putkistoissa |
+| **TimescaleDB** | TimescaleDB | PostgreSQL-laajennus aikasarjadatalle pakkauksella ja jatkuvilla aggregaateilla |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Arkkitehtuurimalli: Taso 1 (Aiven-hallinnoitu, TimescaleDB) + Taso 2 (itsehallittu reuna, pg_duckdb) |
+
+### Tutkimusmenetelmät
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS-periaate, joka edellyttää kaikkien tuotantotietokannan laajennusten Aiven-yhteensopivuutta ennen käyttöönottoa |
+| **DWS Data Standard** | DWS-tietostandardi | Sisäinen standardi tiedon tallennuspäätöksille, laajennusten hallinnalle ja EU-sääntelyyn vaatimustenmukaisuudelle |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — kaksoistarkoitusstandardi AI-agenttien turvallisuudelle (Kilpi) ja optimoinnin hallinnalle (Miekka) |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathyn malli: validoi muutokset pienellä välityspalvelimella (depth=12) ennen tuotantoon skaalausta (depth=24) |
+
 ---
 
 ## Liite H: Automatisoitu PR-tyonkulku (HIL-automaatio)
@@ -2200,6 +2227,107 @@ Kreikkalais-roomalainen panteon tarjoaa kaksi etua:
 
 Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumisessa, kirjoittaen `agent_executions` Supabase-tauluun. Tämä täyttää EU AI Act artiklan 12 automaattiset lokivaatimukset korkean riskin tekoälyjärjestelmille.
 
+## 10.14 Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+### 10.14.1 Motivaatio
+
+31-agenttinen järjestelmä (13 ydin + 5 SEO + 13 työnkulku/toimiala) oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa, jotka estivät tuotantokääntämisen. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa: tyyppien yhteensopimattomuuksia moduulirajojen yli, puuttuvia reittejä, asentamattomia riippuvuuksia ja lokaalikohtaista muotoilua.
+
+### 10.14.2 Tyyppijärjestelmän linjaus: SandboxContext
+
+`SandboxStage`-tyyppi `src/sandbox/index.ts`-tiedostossa määritteli neljä vaihetta: `'1' | 'opensandbox' | '2' | '3'`, missä `'opensandbox'` edustaa vaiheen 1.5 Docker-pohjaista eristystä Acer Veriton GN100 -laitteistolla (osio 10.10). `SandboxContext.stage` `src/agents/types.ts`-tiedostossa hyväksyi kuitenkin vain `'1' | '2' | '3'`, luoden käännösaikaisen virheen. Korjaus linjasi molemmat tyypit.
+
+### 10.14.3 Reittien kytkentä: MCP ja ihminen silmukassa
+
+Kaksi kriittistä reittiä oli tavoittamattomissa puuttuvien tuontien vuoksi `src/app.ts`-tiedostossa:
+
+1. **MCP-agenttipalvelin** (`/mcp`) — `createMCPRouter()`-funktio paljastaa kaikki agentit MCP-työkaluina JSON-RPC 2.0:n kautta.
+2. **Ihminen silmukassa** (`/api/hil`) — HIL-päätepiste mahdollistaa yhden klikkauksen tehtävien suorittamisen aamubrief-sähköposteista.
+
+### 10.14.4 Lokaalivarma numeromuotoilu
+
+Päästödatan analyytikkoagentti muotoilee ETS-kustannusarvioita `Number.toLocaleString()`-metodilla. EU-lokaaleilla tämä tuottaa välilyönnillä erotellut luvut. Korjaus määrittää `'en-US'`-lokaalin eksplisiittisesti, varmistaen deterministisen tulostuksen käyttöympäristöstä riippumatta.
+
+### 10.14.5 Riippuvuushygienia
+
+`luxon`-kirjasto oli tuotu Social Schedulerissa mutta ei koskaan lisätty `package.json`-tiedostoon. Resend-sähköposti-SDK:n erävasteen tyyppi vaati suoritusaikaisen taulukkotunnistuksen.
+
+### 10.14.6 Tutkimuspanos
+
+Tämä koventamissessio osoittaa moniagenttijärjestelmien ylläpitoon liittyvän kuvion: **integraatiovelka kertyy moduulirajoille, ei moduulien sisälle**. Korjaus koski 6 tiedostoa 5 alijärjestelmässä, palauttaen:
+
+- **0 TypeScript-virhettä** (oli 6)
+- **47/47 testiä läpi** (oli 44/47)
+- **Täysi MCP-löydettävyys** kaikille 31 agentille
+- **HIL-toiminnallisuus** aamubrief-työnkuluille
+
+---
+
+## 10.15 PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi
+
+### 10.15.1 Motivaatio
+
+DWS6 suorittaa kaikki analytiikkakyselyt transaktiotaulujen varastoon ilman sarakemuotoisia tai HTAP-ominaisuuksia. Alustan skaalautuessa IoT-telemetriaan (DWS7 vaihe 4), 7 vuoden artikla 12 -auditointisäilytykseen ja kasvaviin agenttisuorituslokeihin, yksimoottorilähestymistapa luo suorituskyvyn pullonkauloja.
+
+PostgreSQL:n "sarakemuotoinen laajennus" -malli mahdollistaa aidon HTAP:n (Hybrid Transactional/Analytical Processing) yksittäisen tietokannan sisällä: transaktiotaulut pysyvät tavallisina heap-tauluina, analytiikkataulut muuttuvat sarakemuotoisiksi, saumattomilla liitoksilla ja ilman tiedonsiirtoa.
+
+### 10.15.2 Laajennusten arviointi
+
+Kuusi Hydra-tyyppistä ratkaisua arvioitiin DWS-yhteensopivuuden osalta. **Päivitetty maaliskuu 2026** Aiven-sallittujen listan todentamisen ja ekosysteemimuutosten jälkeen:
+
+| Ratkaisu | Suoritusmoottori | Aiven-tuki | DWS-sopivuus | Tila (maaliskuu 2026) |
+|----------|-----------------|------------|-------------|----------------------|
+| TimescaleDB 2.25.x Hypercore | PostgreSQL | **Kyllä** | **HYVÄKSYTTY STANDARDI** — AINOA sarakemainen/HTAP-vaihtoehto Aivenissa | Tuotantovalmis |
+| pg_duckdb | DuckDB (vektorisoitu) | **ESTETTY Aiven-sallittujen listalla** | Vain GN100-reuna | Rajoitettu reunalaitteelle |
+| Hydra | DuckDB | Ei (lakkautettu) | → Supabase Warehouse (helmi 2026) | Siirtynyt |
+| pg_mooncake | DuckDB | Ei (lakkautettu) | → Databricks (loka 2025) | Siirtynyt |
+| ParadeDB | DuckDB | Ei | Tarpeeton (TSVECTOR käytössä) | Ei käytössä |
+| Citus Columnar | PostgreSQL | Ei | Ei suositella (Azure-sidottu) | Ei käytössä |
+
+### 10.15.3 Suositeltu pino — Kaksitasoinen HTAP-arkkitehtuuri
+
+**Taso 1: Aiven-hallittu (tuotanto)**
+
+- **TimescaleDB 2.25.x Hypercore** — AINOA sarakemainen/HTAP-laajennus Aiven-sallittujen listalla
+- Hypertaulut: agent_metrics, agent_costs, article12_audit_log, DWS7 IoT-sensoridata
+- Automaattinen pakkauskerrostus: kuuma (0-90pv) → lämmin (90pv-1v, LZ4) → kylmä (1-7v, ZSTD)
+- Odotettu 90-95% pakkaus auditointilokille
+- Jatkuvat aggregaatit korvaamaan materialisoidut näkymät
+- **Ei pg_duckdb:tä** — estetty Aiven-sallittujen listalla
+
+**Taso 2: GN100-reuna (analytiikka)**
+
+- **TimescaleDB + pg_duckdb + pgvector** täydellä laajennuspaketilla
+- Acer Veriton GN100 (NVIDIA Jetson Orin Nano) itsenäisenä reunatietokantana
+- pg_duckdb analyyttisten kyselyjen nopeuttamiseen (kampanjasupilot, taloudelliset raportit, CSRD-koontikyselyt)
+- pgvector upotuksille ja semanttiselle haulle
+- Ei Aiven-sallittujen listan rajoituksia — täysi PostgreSQL-laajennusvapaus
+
+### 10.15.4 DWS-tietostandardi
+
+Uusi `DWS_DATA_STANDARD.md` luotiin ohjaamaan kaikkia tiedon tallennuspäätöksiä:
+
+1. **Tallennusmoottoripolitiikka** — päätösmatriisi rivi vs sarake vs hybridi
+2. **Laajennusten hallinta** — hyväksytty rekisteri suvereniteettiarviolla
+3. **Säilytysperiaatteet** — taulukohtaiset säännöt EU-säädöksiin sidottuina (GDPR Art 17, EU AI Act Art 12: 7v, NIS2 Art 23: 5v, kirjanpitolaki 1336/1997: 10v)
+4. **Osiointistandardit** — TimescaleDB-hypertaulut ensisijaisena natiiviosioinnin sijaan
+5. **Pakkauspolitiikka** — kerroksittaiset pakkaustavoitteet (1:1 kuuma → 20:1 arkisto)
+6. **EU-sääntelynmukaisuus** — matriisi, joka yhdistää 11 EU-säädöstä tietokantavaatimuksiin
+
+### 10.15.5 Vaiheittainen käyttöönotto
+
+| Vaihe | Aikataulu | Kohde | Toimenpiteet |
+|-------|-----------|-------|-------------|
+| 0 | Q1 2026 | Supabase (nykyinen) | Taulujen osiointi, materialisoidut näkymät, pg_stat_statements |
+| 1 | Q2 2026 | Aiven V1 | TimescaleDB 2.25.x Hypercore -hypertaulut, jatkuvat aggregaatit |
+| 2 | Q3-Q4 2026 | Aiven DWS7 | IoT-hypertaulut, auditointipakkaus, Taso 1 tuotanto |
+| 3 | Q4 2026 | GN100-reuna | pg_duckdb + pgvector reunatietokanta, Taso 2 analytiikka |
+| 4 | 2027 | Täysi HTAP | Lakehouse-vienti (Databricks/Iceberg), ulkoisten työkalujen pääsy |
+
+### 10.15.6 Tutkimuspanos
+
+Tämä työ osoittaa, että **yksitietokantainen HTAP-malli** on toteuttamiskelpoinen säännellyille EU-teollisuusalustoille: sama SQL, samat asiakasohjelmat, sama RLS, nolla ETL:ää. DWS-tietostandardi kodifioi tämän organisaatiostandardiksi varmistaen, että tallennusmoottoripäätökset ovat harkittuja, dokumentoituja ja EU-vaatimusten mukaisia.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2210,9 +2338,9 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.19 — MCP Hub -orkestrointimallit + skillit/CLI agenttirajapintoina
-**Versio:** 3.19
-**Viimeisin päivitys:** 07.03.2026
+**Tila:** DRAFT - V3.24 — Laajennettu sanasto: Tietoarkkitehtuuri ja Tutkimusmenetelmät (autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale)
+**Versio:** 3.24
+**Viimeisin päivitys:** 13.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2239,6 +2367,9 @@ Kaikki 13 agenttia kutsuvat `logExecution()`-metodia aloituksessa ja valmistumis
 13. Learn Thinking — Oppimisajattelukehys: opinnäytetyö elävänä dokumenttina, päivittäinen Learn/-kansion reflektiosilmukka, Build-Measure-Learn-syklin laajennus tekoälyavusteiseen tuotekehitykseen
 14. MCP Hub -orkestrointi + kolmen rajapinnan sääntö — Neljä tuotantotyönkulkumallia (Fan-Out, Sequential, Reflection, Pipeline) dokumentoiduilla päätepisteillä; skillit/CLI pakollisina agenttirajapintoina varmistaen, että jokainen agentti on käytettävissä ihmisille, tekoälyjärjestelmille ja kehitystyönkuluille
 15. Asiakaskeskeiset MVP-ominaisuudet — Kolme tuotanto-ominaisuutta, jotka siirtävät DWS IQ:n kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi: (a) Itsepalvelu-API-avainten hallinta SHA-256-tiivistyksellä ja oikeuspohjaisella pääsynhallinnalla, (b) Käyttömittarointi 3-tasoisella laskutuksen valvonnalla (Free/Pro/Enterprise) ja kojelaudan edistymispalkeilla, (c) Vaatimustenmukaisuusraporttien vienti CSV/JSON-latauksella ja toistuvan aikataulun tuella. Validoi Solution Factory -tuotteistamishypoteesin — alusta on markkinavalmis säännellyille EU-toimialoille
+16. Agenttijärjestelmän koventaminen — Tuotantoluotettavuuden palautus: 6 TypeScript-kääntövirhettä korjattu 5 alijärjestelmässä, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; osoittaa integraatiovelkamallit moniagenttijärjestelmissä
+17. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — Yksitietokantainen HTAP pg_duckdb + TimescaleDB:llä Aiven EU:ssa; DWS-tietostandardin luominen tallennusmoottoreiden, laajennusrekisterin, säilytyspolitiikkojen ja EU-sääntelynmukaisuuden (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act) hallintaan; 4-vaiheinen käyttöönotto tauluosioinista lakehouse-integraatioon
+18. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti lukitsee TimescaleDB 2.25.x Hypercore hyväksytyksi tuotantostandardiksi; pg_duckdb rajoitettu reunalaitteelle Aiven-sallittujen listan vuoksi; GN100-reunatietokanta käyttöönotettu täydellä laajennuspaketilla
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

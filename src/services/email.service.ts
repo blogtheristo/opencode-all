@@ -193,8 +193,10 @@ class EmailService {
       if (error) {
         throw new Error(`Resend batch error: ${error.message}`);
       }
-      const responseData = data as unknown as { id: string }[] | undefined;
-      const ids = (responseData ?? []).map((r) => r.id);
+      const list = Array.isArray(data) ? data : [];
+      const ids = list.map((r: { id: string }) => r.id);
+      const results = data ?? [];
+      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
       logger.info('Batch emails sent via Resend', { count: ids.length });
       return ids;
     } catch (err) {

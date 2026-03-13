@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store - DWS IQ Platform</title>
     <link>https://dws10.com/buy/</link>
     <description>DWS IQ Platform, Firehorse Automation, AI Consulting, and Climate Compliance solutions by Lifetime Oy.</description>
-    <lastBuildDate>2026-03-08T06:36:22.447Z</lastBuildDate>
+    <lastBuildDate>2026-03-13T04:02:57.012Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -515,6 +515,24 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
         <g:custom_label_0>hardware</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-SOVEREIGN-DB-001</g:id>
+        <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
+        <g:description>Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.</g:description>
+        <g:link>https://dws10.com/products/sovereign-database.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>SOVEREIGN-DB-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>

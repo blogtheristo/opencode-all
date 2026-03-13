@@ -1,6 +1,6 @@
 # DWS Information Layering Strategy
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3
@@ -102,7 +102,7 @@ Claude's base training, Constitutional AI, and Anthropic safety policies. These 
 
 ### Layer 1 — Organization Policies
 
-**File:** `C:\Program Files\ClaudeCode\managed-settings.json` (Windows, effective 2026-03-11+)
+**File:** `C:\Program Files\ClaudeCode\managed-settings.json` (Windows, effective 2026-03-12+; legacy path stops being read)
 
 Organization-wide permissions applied before any project context is loaded. Controls which tools are allowed, which hosts can be contacted, and global permission overrides.
 
