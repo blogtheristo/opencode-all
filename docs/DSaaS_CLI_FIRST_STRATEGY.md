@@ -6,7 +6,7 @@
 Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Revised 30-day timeline (internal demo Day 7→11), added RedGet.io partnership-first GTM track for maritime, added §10.4 Platform Partnership model (revenue-share, co-sell), removed Cobra reference
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Autoresearch: rejected RedGet.io (pre-seed, unverifiable). Replaced with OceanScore (Series A, €5M, MSC/Döhle investors) as primary partner + ZERO44 (seed+, Berlin) as secondary. Added §10.4 partnership model with budget (€600–€1,800). Revised 7-phase timeline with OceanScore integration points. Windward disqualified (Israel/CLOUD Act)
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Initial creation — Revised DSaaS strategy with CLI-first mandatory gateway, 30-day build plan, enterprise pricing (€499–€4,999/mo), Aiven ECE + TimescaleDB Hypercore HTAP stack, sovereignty enforcement, DWS IQ 6 sync gating
 
 Session Links & References:
@@ -298,15 +298,16 @@ volumes:
 
 **Day 8 output:** Run `dws sovereignty check` against any PostgreSQL → get NIS2 gap report. One-command Aiven provisioning works.
 
-### Phase 3: Internal Demo + RedGet Discovery (Days 9–11) — Validate
+### Phase 3: Internal Demo + Partnership Prep (Days 9–11) — Validate
 
 | Deliverable | Details | Status |
 |-------------|---------|--------|
 | Internal demo (team-only) | Full CLI walkthrough: local → check → create → sovereignty score | Demo |
-| RedGet.io discovery call | 30-min: what DB does RedGet use? Where are sovereignty pain points? | Partnership |
+| OceanScore tech stack research | Public docs, API docs, job postings for DB/infra clues | Research |
+| OceanScore-specific demo deck | Tailored to EU ETS data sovereignty + NIS2 gaps | Build |
 | Demo recording | Loom/screen capture for async sharing | Document |
 
-**Day 11 output:** Internal team aligned. RedGet discovery call completed. Partnership fit validated or pivoted.
+**Day 11 output:** Internal team aligned. OceanScore partnership deck ready. Outreach begins Day 12.
 
 ### Phase 4: NIS2 Compliance + Maritime Templates (Days 12–16) — Maritime-Specific
 
@@ -319,7 +320,7 @@ volumes:
 | Maritime template (AIS, vessel telemetry, port sensors) | `dws init --template maritime-nis2` | Build |
 | Hetzner/Exoscale BYOC modules | `dws create --level 3 --provider hetzner` | Build |
 
-### Phase 5: Auth + RedGet Live Demo (Days 17–21) — Partnership Demo
+### Phase 5: Auth + OceanScore Live Demo (Days 17–21) — Partnership Demo
 
 | Deliverable | Command | Status |
 |-------------|---------|--------|
@@ -327,9 +328,9 @@ volumes:
 | API key management | `dws auth token create` | Build |
 | DWS IQ 6 hot data sync | `dws deploy --iq6-sync` | Build |
 | Mandatory CLI gating (blocks non-CLI provisioning) | (enforcement layer) | Build |
-| RedGet live demo | `dws sovereignty check` against RedGet-like schema | Partnership |
+| OceanScore live demo | `dws sovereignty check` against EU ETS emissions schema | Partnership |
 
-**Day 21 output:** RedGet sees DSaaS running under their stack. Partnership terms discussed.
+**Day 21 output:** OceanScore sees DSaaS running under their compliance stack. Partnership terms discussed.
 
 ### Phase 6: Dashboard + CI/CD (Days 22–26) — Production Ready
 
@@ -349,8 +350,8 @@ volumes:
 |-------------|---------|--------|
 | Documentation | CLI reference, tutorials, API docs | Build |
 | dws10.com/sovereignty landing page | Product page with pricing | Build |
-| Maritime pilot onboarding | Via RedGet partnership or direct maritime operator | Launch |
-| Partnership agreement | RedGet.io revenue-share or co-sell terms | Close |
+| Maritime pilot onboarding | Via OceanScore partnership or direct maritime operator | Launch |
+| Partnership agreement | OceanScore revenue-share or co-sell terms | Close |
 | Investor update | "DSaaS MVP live with maritime pilot" | Communicate |
 
 ---
@@ -517,45 +518,76 @@ Must include:
 
 ### 10.4 Platform Partnership Model (Maritime-First GTM)
 
-**Primary maritime entry: RedGet.io partnership**
+#### 10.4.1 Autoresearch Results (March 2026)
 
-RedGet.io (Danail Marinov, Founder) — maritime compliance platform automating EU greenhouse gas emissions reporting for shipping companies and ports. Currently in closed beta with maritime operators.
+Partnership candidates vetted via DWS autoresearch. RedGet.io (original candidate) **rejected** — no funding records, no verifiable founder profile, no customers. Pre-seed or pre-product risk too high.
 
-**Why partnership-first, not direct sales:**
+**Vetted shortlist:**
 
-| Direct sales | Partnership via RedGet |
-|-------------|----------------------|
-| Cold outreach to maritime operators | Warm intro to operators already using RedGet |
-| 6–12 month enterprise sales cycle | RedGet embeds DSaaS → every RedGet customer is a DSaaS customer |
-| Must build maritime credibility from zero | RedGet already has maritime credibility |
-| Invoice kills early-stage conversation | Revenue-share aligns incentives |
+| # | Company | Stage | Funding | HQ | What They Do | DB Need |
+|---|---------|-------|---------|-----|-------------|---------|
+| 1 | **OceanScore** | Series A | €5M (Sep 2024) | Funchal/Hamburg | EU ETS + FuelEU Maritime compliance platform | Sovereign PostgreSQL for emissions data, audit trails |
+| 2 | **ZERO44** | Seed+ | €2.5M+ (2023–2025) | Berlin | EU ETS invoicing, trading, CII management | Sovereign DB for transaction records, compliance reporting |
+| 3 | **Windward** | Late-stage | $32M+ | Tel Aviv | Maritime AI risk/compliance (116K+ companies) | ~~Disqualified: Israel-based, CLOUD Act exposure via US investors~~ |
+
+#### 10.4.2 Primary Target: OceanScore (Series A, €5M)
+
+**Why OceanScore is the right partner:**
+
+- **Funded and growing** — Series A closed Sep 2024, expanding to Singapore and Tokyo
+- **Strategic investors** — MSC (world's largest shipping company), Peter Döhle, Stolt Ventures, Motion Ventures
+- **Real customers** — 100+ shipping companies using EU ETS + FuelEU Maritime compliance tools
+- **EU-based** — HQ in Funchal (Portugal), offices in Hamburg, Poland, Singapore, Tokyo
+- **They need us** — Their platform generates massive emissions/compliance data that needs NIS2-compliant sovereign storage. They don't build DB infrastructure — they build compliance software on top of it.
 
 **Partnership structure:**
 
 | Element | Terms |
 |---------|-------|
-| **Pilot period** | 3 months free — RedGet uses DSaaS as default database layer |
-| **Revenue model** | Revenue-share on sovereignty tier uplift when RedGet customers pay for compliance |
-| **Co-sell** | Joint pitch: "RedGet for maritime GHG compliance + DSaaS for sovereign database" |
-| **Integration** | RedGet's data layer runs on `dws create --level 2` (Aiven ECE, EU-region-locked) |
-| **Exit clause** | Either party can exit after pilot; RedGet keeps data, migrates off DSaaS if needed |
+| **Pilot period** | 3 months free — OceanScore evaluates DSaaS as sovereign DB layer for compliance data |
+| **Revenue model** | Revenue-share when OceanScore's enterprise clients upgrade to sovereign DB tier |
+| **Co-sell** | Joint pitch: "OceanScore for EU ETS/FuelEU compliance + DSaaS for NIS2-sovereign database" |
+| **Integration** | OceanScore's compliance data runs on `dws create --level 2` (Aiven ECE, EU-region-locked) |
+| **Exit clause** | Either party can exit after pilot; OceanScore keeps data, migrates off DSaaS if needed |
 
-**Pitch (founder-to-founder):**
+**Pitch (founder-to-founder, to OceanScore leadership):**
 
-> "Ship DSaaS as your default database layer. Your maritime customers will ask about NIS2 data residency and EU AI Act audit trails within 12 months. We make that problem disappear with one CLI command. You focus on GHG reporting, we handle sovereign infrastructure. When your customers pay for sovereignty compliance, we split the upside."
+> "Your enterprise clients — MSC, Döhle, Stolt — will face NIS2 mandatory compliance for their data infrastructure within 12 months. EU ETS data at 100% coverage from 2026 means audit trail volumes are about to explode. We make the sovereign database problem disappear with one CLI command. You focus on emissions compliance, we handle NIS2-compliant infrastructure. When your enterprise clients pay for sovereignty tier, we split the upside."
 
 **Timeline:**
 
 | Day | Action |
 |-----|--------|
-| 1 | Warm intro via mutual connection |
-| 2–3 | 30-min discovery: what DB does RedGet use? Pain points? |
-| 4–8 | Build `dws local up` + `dws sovereignty check` tailored to RedGet's schema |
-| 9–11 | Internal demo + RedGet discovery debrief |
-| 17–21 | Live demo: `dws sovereignty check` against RedGet-like PostgreSQL |
-| 27–30 | Partnership terms signed, first joint maritime operator pilot |
+| 1–3 | Research OceanScore's tech stack (public docs, API docs, job postings for DB clues) |
+| 4–8 | Build `dws local up` + `dws sovereignty check` tailored to emissions/compliance schema |
+| 9–11 | Internal demo + prepare OceanScore-specific deck |
+| 12–14 | Warm intro via maritime network or direct LinkedIn outreach to OceanScore leadership |
+| 15–18 | 30-min discovery: what DB does OceanScore use? Where are NIS2 gaps? |
+| 19–21 | Live demo: `dws sovereignty check` against OceanScore-like PostgreSQL |
+| 27–30 | Partnership terms discussed, pilot agreement |
 
-**Fallback:** If RedGet partnership doesn't materialize, pivot to direct maritime operator outreach using the same CLI demo assets. The demo works regardless of the GTM channel.
+#### 10.4.3 Secondary Target: ZERO44 (Seed+, Berlin)
+
+**Why ZERO44 as backup:**
+
+- Berlin-based, EU-native
+- MariApps as distribution partner (Singapore reach)
+- EU ETS invoicing = financial transaction data that requires sovereign storage
+- Smaller than OceanScore but growing; seed+ with follow-on funding in 2025
+
+**Risk:** Still seed-stage. If they can't co-sell, the partnership is just a reference customer. Acceptable as secondary.
+
+#### 10.4.4 Partnership Budget
+
+| Item | Cost | Notes |
+|------|------|-------|
+| OceanScore pilot infrastructure (3 months free Aiven ECE) | ~€600 | Pro tier at cost, subsidized |
+| Demo environment (local Docker + Aiven dev) | €0 | Free tier |
+| Travel (1 meeting in Hamburg or Funchal) | €500–€1,200 | Optional; video call first |
+| Custom maritime-nis2 template development | €0 | Internal engineering time |
+| **Total partnership GTM budget** | **€600–€1,800** | Phase 1 only |
+
+**Fallback:** If neither OceanScore nor ZERO44 close, pivot to direct maritime operator outreach using the same CLI demo assets. The demo works regardless of the GTM channel.
 
 ---
 
@@ -570,12 +602,12 @@ RedGet.io (Danail Marinov, Founder) — maritime compliance platform automating 
 | Timeline slips past 30 days | Medium | Low | Phase 1–2 are independent of Phase 3–6; ship incrementally |
 | Competitor launches sovereign PostgreSQL | Low | Medium | First-mover advantage + DWS IQ 6 integration moat |
 | Pricing too high for SMEs | Low | Low | Free tier + Pro at €499 covers SME budget |
-| RedGet partnership doesn't close | Medium | Low | Demo assets work for direct maritime outreach; partnership is accelerator, not dependency |
-| RedGet is pre-revenue, can't co-sell | Medium | Low | Revenue-share model means zero upfront cost; monetize through their customer base later |
+| OceanScore partnership doesn't close | Medium | Low | Demo assets work for direct maritime outreach or ZERO44 fallback; partnership is accelerator, not dependency |
+| OceanScore already has sovereign DB vendor | Low | Medium | DSaaS adds NIS2 compliance automation + sovereignty scoring that generic DB vendors don't offer |
 
 ### 11.2 What We Are NOT Doing
 
-- **NOT announcing to investors before Day 30.** Day 7 is internal demo only.
+- **NOT announcing to investors before Day 30.** Day 11 is internal demo only.
 - **NOT supporting non-PostgreSQL databases.** PostgreSQL + TimescaleDB is the standard.
 - **NOT building a custom database engine.** We wrap Aiven/BYOC with sovereignty + compliance.
 - **NOT competing with Aiven on managed PostgreSQL.** We are a layer above (sovereignty + compliance + agent integration).
