@@ -76,23 +76,27 @@ jobs:
             exit 1
           fi
       
-      - name: Verify pre-commit hook
+      - name: Verify pre-commit secret hook
         id: verify-hook
         run: |
-          echo "🔍 Verifying pre-commit hook..."
+          echo "🔍 Verifying pre-commit secret hook..."
           
           if [ ! -f "scripts/gdpr-safety-check.ps1" ]; then
             echo "::error::Pre-commit hook script not found"
             exit 1
           fi
           
-          # Check for deployment file patterns in hook
-          if ! grep -q "deployment" scripts/gdpr-safety-check.ps1; then
-            echo "::error::Pre-commit hook missing deployment file checks"
+          # Check for secret-file and key-pattern checks in hook
+          if ! grep -q "\.env secret file" scripts/gdpr-safety-check.ps1; then
+            echo "::error::Pre-commit hook missing .env secret checks"
+            exit 1
+          fi
+          if ! grep -q "service account key json" scripts/gdpr-safety-check.ps1; then
+            echo "::error::Pre-commit hook missing service account secret checks"
             exit 1
           fi
           
-          echo "✅ Pre-commit hook verified"
+          echo "✅ Pre-commit secret hook verified"
       
       - name: Check security documentation
         id: check-docs

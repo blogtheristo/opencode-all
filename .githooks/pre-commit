@@ -1,0 +1,55 @@
+#!/usr/bin/env sh
+# DWS6 pre-commit security gate
+# Safer policy: block by secret patterns/content, not folders.
+
+set -e
+
+if command -v pwsh >/dev/null 2>&1; then
+  pwsh -NoProfile -ExecutionPolicy Bypass -File "scripts/gdpr-safety-check.ps1"
+  exit $?
+fi
+
+if command -v powershell >/dev/null 2>&1; then
+  powershell -NoProfile -ExecutionPolicy Bypass -File "scripts/gdpr-safety-check.ps1"
+  exit $?
+fi
+
+echo "[WARN] PowerShell not found; running minimal fallback checks..."
+
+staged="$(git diff --cached --name-only --diff-filter=ACMR)"
+[ -z "$staged" ] && exit 0
+
+blocked=0
+for f in $staged; do
+  case "$f" in
+    .env|.env.*)
+      case "$f" in
+        .env.example|.env.*.example) ;;
+        *)
+          echo "BLOCKED: $f [.env secret file]"
+          blocked=1
+          ;;
+      esac
+      ;;
+    *.pem|*.key|*credentials.json|*service-account-*.json)
+      echo "BLOCKED: $f [secret file pattern]"
+      blocked=1
+      ;;
+    Admin/Claudecode_Secrets/*)
+      case "$f" in
+        Admin/Claudecode_Secrets/README.md|Admin/Claudecode_Secrets/*.example) ;;
+        *)
+          echo "BLOCKED: $f [reserved sensitive folder]"
+          blocked=1
+          ;;
+      esac
+      ;;
+  esac
+done
+
+if [ "$blocked" -ne 0 ]; then
+  echo "Commit blocked by pre-commit security checks."
+  exit 1
+fi
+
+exit 0
