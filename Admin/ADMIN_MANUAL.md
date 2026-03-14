@@ -895,11 +895,13 @@ All automation scripts include version headers and change logs.
 
 | Script | Version | Purpose |
 |--------|---------|---------|
-| `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
-| `scripts/Sync-ToProton.ps1` | v1.7 | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Startup-DailySync.bat` | v1.6 | Login trigger: health check + git pull + Proton sync + docs + Supabase |
+| `scripts/Test-DailySync.ps1` | v1.0 | Pre-flight health check (GitHub, Proton, Supabase) with JSON output |
+| `scripts/Sync-ToProton.ps1` | v1.9 | Proton Drive sync (folders, secrets, docs, Learn/ HTML, sales, investor) |
 | `scripts/Generate-PDFs.ps1` | v1.6 | Markdown to HTML/PDF (pandoc, output to Learn/) |
 | `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
-| `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
+| `scripts/Sync-ToSupabase.ps1` | v1.5 | EU cloud backup to Supabase Storage (auto-creates bucket) |
+| `scripts/Sync-Report.ps1` | v1.0 | Full pipeline wrapper with structured JSON report output |
 
 ### Daily Operations
 
@@ -912,7 +914,8 @@ All automation scripts include version headers and change logs.
 | Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
 | Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine) |
 | Generate docs (PDF) | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf` |
-| Supabase backup | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`) |
+| Supabase backup | `.\scripts\Sync-ToSupabase.ps1 -CreateBucket` (or `-DryRun`) |
+| Health check | `.\scripts\Test-DailySync.ps1` (or `-JsonOnly` for agent output) |
 
 ### Windows Startup Auto-Sync
 
@@ -930,10 +933,11 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 
 **What it does on every Windows login:**
 1. Waits 120 seconds (for network + Proton Drive to mount)
-2. `git pull origin main` (gets latest from GitHub)
-3. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
-4. Runs `Sync-ToSupabase.ps1` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
-5. Opens changed documents in Edge for morning review
+2. Runs `Test-DailySync.ps1` (pre-flight health check — GitHub, Proton, Supabase)
+3. `git pull origin main` (gets latest from GitHub)
+4. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
+5. Runs `Sync-ToSupabase.ps1 -CreateBucket` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
+6. Opens changed documents in Edge for morning review
 
 ### Document Generation (Pandoc)
 
