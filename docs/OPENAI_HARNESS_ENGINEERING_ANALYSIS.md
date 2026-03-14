@@ -4,6 +4,7 @@
 Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/openai-harness-documentation-3QVGZ | Date: 14.03.2026 | Changes: Added Section 10 — AGENTS.md staleness management with 3 autonomous agents (freshness checker, slimmer, auto-syncer), refactoring plan, thesis perspective
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/openai-harness-documentation-3QVGZ | Date: 14.03.2026 | Changes: Added Section 8 — concrete improvement proposals per principle to reach 95% readiness, updated readiness scores, added implementation roadmap
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/openai-harness-documentation-3QVGZ | Date: 14.03.2026 | Changes: Initial creation — OpenAI Harness Engineering analysis, DWS readiness assessment, master thesis preparation
 
@@ -454,3 +455,170 @@ Harness Engineering -artikkeli tukee seuraavia thesis-argumentteja:
 | 7 | Compounding Returns | 85% | 95% | +10% |
 | 8 | Ympäristösuunnittelu | 80% | 95% | +15% |
 | | **Kokonaisvalmiusaste** | **79%** | **95%** | **+16%** |
+
+---
+
+## 10. AGENTS.md vanhentumisen hallinta — agenttipohjaiset ratkaisut
+
+### 10.1 Ongelma
+
+OpenAI tunnisti neljä syytä miksi monoliittinen ohjetiedosto epäonnistuu:
+
+1. **Syö kontekstibudjettia** — 903 riviä = ~3 500 tokenia injektoituna joka sessioon
+2. **Vanhenee välittömästi** — Kun koodi muuttuu, dokumentti ei päivity automaattisesti
+3. **Vaikea verifioida** — Ei mekaanista tapaa tarkistaa onko tieto ajantasaista
+4. **Liikaa = ei mitään** — Kun kaikki on "tärkeää", mikään ei ole
+
+DWS:n AGENTS.md (903 riviä) on paisunut yli suositellun. Se sisältää yksityiskohtaista API-skeemaa (§8), täyden koodiesimerkin (§9, 80 riviä TypeScript), arkkitehtuurikaavioita (§7, 50 riviä ASCII art) ja KYA-protokollan (§18, 150 riviä) — nämä kaikki kuuluvat `docs/`-alihakemistoon.
+
+### 10.2 Ratkaisu: kolme agenttia
+
+#### Agentti 1: `agents-md-freshness` — Vanhentumisvahti
+
+**Tehtävä:** Tarkista viikoittain, ovatko AGENTS.md:n väitteet edelleen tosia.
+
+**Toteutus:** GitHub Actions -workflow (`agents-md-freshness.yml`)
+
+```yaml
+name: AGENTS.md Freshness Check
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Maanantai klo 06:00
+  workflow_dispatch: {}
+
+jobs:
+  freshness-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify AGENTS.md claims
+        run: |
+          # 1. Tarkista tech stack -versiot vs package.json
+          node scripts/verify-agents-md.mjs --section tech-stack
+
+          # 2. Tarkista agenttilista vs src/agents/*.agent.ts
+          node scripts/verify-agents-md.mjs --section agent-list
+
+          # 3. Tarkista API-endpointit vs src/agents/routes.ts
+          node scripts/verify-agents-md.mjs --section api-endpoints
+
+          # 4. Tarkista tiedostopolut vs todellinen hakemistorakenne
+          node scripts/verify-agents-md.mjs --section file-paths
+
+          # 5. Tarkista workflow-lukumäärä vs .github/workflows/
+          node scripts/verify-agents-md.mjs --section workflow-count
+```
+
+**Verifiointiskripti (`scripts/verify-agents-md.mjs`):**
+
+| Tarkistus | Menetelmä | Esimerkki |
+|-----------|-----------|-----------|
+| Tech stack -versiot | Parse `package.json` dependencies, vertaa AGENTS.md §1 | "React 19" → tarkista `react` version |
+| Agenttilista | `ls src/agents/*.agent.ts`, vertaa §7 taulukkoon | Puuttuko agentti? Onko ylimääräinen? |
+| API-endpointit | Grep `router.get\|router.post` routes.ts:stä | Onko `/api/agents/:name/execute` edelleen oikein? |
+| Tiedostopolut | `fs.existsSync()` jokaiselle §15 polulle | `src/agents/base.agent.ts` → löytyykö? |
+| CI/CD lukumäärä | `ls .github/workflows/*.yml \| wc -l` | "15 workflows" → todellisuudessa 37 |
+
+**Output:** Issue avataan automaattisesti jos poikkeamia löytyy. Label: `agents-md-stale`.
+
+---
+
+#### Agentti 2: `agents-md-slim` — Tiivistäjä
+
+**Tehtävä:** Pidä AGENTS.md ~150 rivin karttana. Siirrä yksityiskohdat automaattisesti `docs/`-tiedostoihin.
+
+**Toteutus:** Manuaalinen refaktorointi + jatkuva validointi.
+
+**Siirrettävät osiot:**
+
+| Nykyinen osio | Rivit | Siirto | Jää karttaan |
+|---------------|-------|--------|--------------|
+| §7 Agent Ecosystem ASCII art | ~50 | `docs/AGENT_ECOSYSTEM.md` | 1-rivin viittaus |
+| §8 V2 Agents: input/output -skeemat | ~100 | `docs/AGENT_API_REFERENCE.md` | Taulukko: nimi + 1 lause |
+| §9 How to Add Agent (koodi) | ~80 | `docs/AGENT_DEVELOPMENT_GUIDE.md` | 1-rivin viittaus |
+| §10 Lifetime Scope Signals | ~50 | `docs/SIGNAL_PROTOCOL.md` | 1-rivin viittaus |
+| §17 Compliance Scoring Engine | ~70 | `docs/COMPLIANCE_SCORING.md` | 1-rivin viittaus |
+| §18 BYO/KYA (150 riviä) | ~150 | `docs/KYA_BYO_LIFECYCLE.md` | 2-rivin viittaus |
+| **Yhteensä siirrettävää** | **~500** | | |
+
+**Tavoite:** AGENTS.md 903 → ~400 riviä (vaihe 1), lopulta ~150 riviä (vaihe 2).
+
+**Karttaformaatti (esimerkki):**
+
+```markdown
+## 7. Agent Ecosystem
+8 platform agents, 10 dev agents, 7 team agents, 2 workflow agents.
+→ Details: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md)
+
+## 8. Agent API Reference
+POST /api/agents/:name/execute (JWT required)
+→ Full schemas: [docs/AGENT_API_REFERENCE.md](docs/AGENT_API_REFERENCE.md)
+```
+
+**Validointi:** Pre-commit hook tarkistaa AGENTS.md rivimäärän. >200 riviä = varoitus, >400 = blokki.
+
+---
+
+#### Agentti 3: `agents-md-sync` — Automaattinen päivittäjä
+
+**Tehtävä:** Kun koodipohja muuttuu, päivitä AGENTS.md automaattisesti.
+
+**Toteutus:** GitHub Actions -workflow, triggeröityy koodimuutoksista.
+
+```yaml
+name: AGENTS.md Auto-Sync
+on:
+  push:
+    paths:
+      - 'src/agents/**'
+      - 'package.json'
+      - '.github/workflows/**'
+      - 'mcp-hub/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regenerate AGENTS.md sections
+        run: node scripts/sync-agents-md.mjs
+      - name: Commit if changed
+        run: |
+          git diff --quiet AGENTS.md || {
+            git add AGENTS.md
+            git commit -m "chore: auto-sync AGENTS.md from codebase"
+            git push
+          }
+```
+
+**Synkronoitavat osiot:**
+
+| Osio | Lähde | Menetelmä |
+|------|-------|-----------|
+| Tech stack -versiot | `package.json` | Parse dependencies, päivitä §1 |
+| Agenttilista (§7 taulukko) | `src/agents/*.agent.ts` | Parse constructors, generoi taulukko |
+| Tiedostopolut (§15) | Hakemistorakenne | `fs.readdirSync`, päivitä taulukko |
+| CI/CD workflow count | `.github/workflows/` | `ls \| wc -l`, päivitä teksti |
+| Viimeisin päivitys | Automaattinen | `Updated: YYYY-MM-DD` |
+
+**Ei synkronoida automaattisesti:** Prosa-kuvaukset, arkkitehtuuripäätökset, turvallisuussäännöt — nämä vaativat ihmisen.
+
+### 10.3 Toteutusjärjestys
+
+| Vaihe | Agentti | Työ | Prioriteetti |
+|-------|---------|-----|-------------|
+| 1 | `agents-md-slim` (manuaalinen refaktorointi) | 3 h | **Kriittinen** — suurin vaikutus |
+| 2 | `agents-md-freshness` (vanhentumisvahti) | 2 h | Korkea |
+| 3 | `agents-md-sync` (automaattinen päivittäjä) | 3 h | Keskitaso |
+
+**Kokonaistyömäärä:** ~8 h
+
+### 10.4 Thesis-näkökulma
+
+Tämä on suora vastine OpenAI:n havaintoon: *"A monolithic instruction file fails because it crowds out task context, causes agents to pattern-match locally instead of navigating intentionally, rots instantly as rules go stale, and is hard to verify mechanically."*
+
+DWS:n ratkaisu menee pidemmälle kuin OpenAI:n:
+- **OpenAI:** "Keep AGENTS.md short" (ohje ihmisille)
+- **DWS:** Kolme agenttia, jotka automaattisesti valvovat, tiivistävät ja synkronoivat (ohje koneille)
+
+Tämä on esimerkki **compounding returns** -periaatteesta: rakennetaan kyvykkyys, joka parantaa kaikkia tulevia sessioita.
