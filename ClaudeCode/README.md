@@ -1,11 +1,11 @@
 # Claude Code Managed Settings (L1 Org Policies)
 
----
+***
 # VERSION AND AGENT HISTORY
 Version: 1.0
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor | Date: 10.03.2026 | Changes: Initial ClaudeCode/ — managed-settings migration docs, template, verification script
----
+***
 
 **Effective:** March 12, 2026 (legacy path stops being read)  
 **Supported:** Claude Code 2.0.58+
