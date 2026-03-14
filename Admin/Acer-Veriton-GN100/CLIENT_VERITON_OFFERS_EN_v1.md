@@ -1,6 +1,6 @@
 # Client Offers: Control Room and Situation Room on Acer Veriton
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -18,7 +18,7 @@ Document Status:
   - Languages Available: English
   - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.0
 **Purpose:** Define the two Acer Veriton-based client delivery packages and map them to the existing DWS6 implementation
