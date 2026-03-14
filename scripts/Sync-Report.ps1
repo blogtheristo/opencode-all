@@ -127,9 +127,31 @@ try {
 $report.steps += $step0
 
 # --- Step 1: git pull ---
-Push-Location $RepoPath
-$step1 = Run-Step -Name "git-pull" -Command "git" -Args @("pull", "origin", "main")
-Pop-Location
+$locationPushed = $false
+try {
+    if (-not (Test-Path -LiteralPath $RepoPath)) {
+        throw "RepoPath '$RepoPath' does not exist or is not accessible."
+    }
+
+    Push-Location -Path $RepoPath -ErrorAction Stop
+    $locationPushed = $true
+
+    $step1 = Run-Step -Name "git-pull" -Command "git" -Args @("pull", "origin", "main")
+} catch {
+    # Record git-pull as a failed step if location change or git command fails
+    $step1 = @{
+        name       = "git-pull"
+        status     = "fail"
+        started_at = (Get-Date -Format "o")
+        duration_s = 0
+        output     = "Exception during git-pull step: $_"
+        exit_code  = 1
+    }
+} finally {
+    if ($locationPushed) {
+        Pop-Location
+    }
+}
 $report.steps += $step1
 
 # --- Step 2: Proton Drive sync ---
