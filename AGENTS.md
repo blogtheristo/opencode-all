@@ -22,7 +22,7 @@
 - **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -152,7 +152,7 @@ dws6/
 ├── Firehorse/               # Product suite
 ├── landing-pages/           # Production landing pages
 ├── supabase/migrations/     # Database migrations
-└── .github/workflows/       # CI/CD (35 workflows)
+└── .github/workflows/       # CI/CD (36 workflows)
 ```
 
 ---
