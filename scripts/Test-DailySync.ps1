@@ -137,8 +137,16 @@ if (-not $SupabaseUrl -or -not $SupabaseKey) {
         $results.checks.supabase.status = "ok"
         $results.checks.supabase.message = "Bucket '$BucketName' exists and accessible"
     } catch {
-        $statusCode = $_.Exception.Response.StatusCode.value__
-        if ($statusCode -eq 404) {
+        $statusCode = $null
+        if ($_.Exception.Response -and $_.Exception.Response.StatusCode) {
+            $statusCode = $_.Exception.Response.StatusCode.value__
+        }
+
+        if ($statusCode -eq $null) {
+            # No HTTP response available (likely network/DNS/TLS error)
+            $results.checks.supabase.status = "fail"
+            $results.checks.supabase.message = "No HTTP response from Supabase (network/DNS/TLS error): $_"
+        } elseif ($statusCode -eq 404) {
             $results.checks.supabase.status = "fail"
             $results.checks.supabase.message = "Bucket '$BucketName' not found (404). Run: Sync-ToSupabase.ps1 -CreateBucket"
         } elseif ($statusCode -eq 401 -or $statusCode -eq 403) {
