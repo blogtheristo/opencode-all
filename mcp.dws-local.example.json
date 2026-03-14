@@ -43,6 +43,19 @@
       "_endpoints": {
         "hub": "http://localhost:8765"
       }
+    },
+    "Agent Browser": {
+      "_type": "cli-tool",
+      "_description": "Native Rust headless browser automation for AI agents (vercel-labs/agent-browser)",
+      "_install": "npm install -g agent-browser && agent-browser install",
+      "_usage": {
+        "snapshot": "agent-browser snapshot",
+        "navigate": "agent-browser open <url>",
+        "click": "agent-browser click @e1",
+        "fill": "agent-browser fill @e2 'text'",
+        "screenshot": "agent-browser screenshot ./path.png"
+      },
+      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome."
     }
   }
 }
