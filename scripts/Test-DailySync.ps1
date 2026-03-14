@@ -123,7 +123,7 @@ if (Test-Path $ProtonPath) {
 # --- Check 3: Supabase Storage ---
 if (-not $JsonOnly) { Write-Host "Checking Supabase Storage..." -ForegroundColor Cyan }
 if (-not $SupabaseUrl -or -not $SupabaseKey) {
-    $results.checks.supabase.status = "skip"
+    $results.checks.supabase.status = "fail"
     $results.checks.supabase.message = "Missing SUPABASE_URL or SUPABASE_SERVICE_KEY in .env"
 } else {
     try {
