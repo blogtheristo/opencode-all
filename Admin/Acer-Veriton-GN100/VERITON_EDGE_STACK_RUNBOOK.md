@@ -1,6 +1,6 @@
 # Veriton Edge Stack Runbook
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -18,14 +18,14 @@ Document Status:
   - Languages Available: English
   - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.0
 **Purpose:** Standard operating runbook for deploying the Veriton edge stack used by Control Room and Situation Room client offers
 **Audience:** Delivery, DevOps, Support, Security, Solutions Engineering
 **Updated:** 11.03.2026
 
----
+***
 
 ## 1. Scope
 
