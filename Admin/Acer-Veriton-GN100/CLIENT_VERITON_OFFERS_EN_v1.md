@@ -9,7 +9,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: GPT-5.4 | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Initial client-offer definition for Control Room Acer Veriton and Situation Room Acer Veriton-backed, including capability mapping to agents, MCP tools, and backend services
 
 Session Links & References:
-  - Source plan: `c:\Users\risto\.cursor\plans\client_edge_rollout_f94083cd.plan.md`
+  - Source plan: `client_edge_rollout_f94083cd.plan.md`
 
 Document Status:
   - Created: 11.03.2026
