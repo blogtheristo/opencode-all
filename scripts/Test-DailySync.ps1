@@ -89,10 +89,11 @@ $results = @{
 
 # --- Check 1: GitHub ---
 if (-not $JsonOnly) { Write-Host "Checking GitHub..." -ForegroundColor Cyan }
+$pushed = $false
 try {
-    Push-Location $RepoPath
+    Push-Location -Path $RepoPath -ErrorAction Stop
+    $pushed = $true
     $gitOutput = git ls-remote --exit-code origin HEAD 2>&1
-    Pop-Location
     if ($LASTEXITCODE -eq 0) {
         $results.checks.github.status = "ok"
         $results.checks.github.message = "GitHub remote reachable"
@@ -101,9 +102,12 @@ try {
         $results.checks.github.message = "git ls-remote failed (exit $LASTEXITCODE)"
     }
 } catch {
-    Pop-Location
     $results.checks.github.status = "fail"
     $results.checks.github.message = "Exception: $_"
+} finally {
+    if ($pushed) {
+        Pop-Location
+    }
 }
 
 # --- Check 2: Proton Drive ---
