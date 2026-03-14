@@ -236,6 +236,17 @@ When modifying `buy/index.html`, product pages, `products.json`, or store assets
 
 Applies to all store artifacts: `buy/`, `config/products.json`, `products/*.html`, `shared-assets/`, `feeds/`, product images.
 
+### Blog Post Rule (CRITICAL)
+
+Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every blog post:
+
+1. Create HTML file in `onelifetime.world/posts/<slug>.html` (source of truth)
+2. Copy to `landing-pages/onelifetime-world/posts/<slug>.html` in the **same commit**
+3. Use the same nav/footer pattern as existing posts (see `kya-standard-v1.html` as template)
+4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
+5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
+6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+
 ## Development Commands
 
 ```bash
