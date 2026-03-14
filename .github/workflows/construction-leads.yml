@@ -78,8 +78,12 @@ jobs:
         if: steps.timecheck.outputs.should_run == 'true'
         env:
           TED_API_KEY: ${{ secrets.TED_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'risto@onelifetime.world' }}
+          EMAIL_FROM: risto@onelifetime.world
           EMAIL_TO: ${{ secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
         run: |
           ARGS=""

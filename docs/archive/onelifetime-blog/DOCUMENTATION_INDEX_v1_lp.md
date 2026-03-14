@@ -1,6 +1,6 @@
 # Blog System Documentation Index
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -266,7 +266,7 @@ All documentation follows:
 ### Version History Format
 
 ```markdown
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: X.Y
