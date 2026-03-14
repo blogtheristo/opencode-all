@@ -5,7 +5,7 @@
  * Usage:
  *   npx tsx scripts/autosend-x.ts "Your tweet text here"
  *
- * Required env vars: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
+ * Requires either: xurl CLI configured, or env vars X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
  */
 
 import { autosendToX, isXConfigured } from '../src/social-scheduler/x-publisher.js';
@@ -29,10 +29,10 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  if (!isXConfigured()) {
+  if (!(await isXConfigured())) {
     console.error(JSON.stringify({
       success: false,
-      error: 'X API not configured. Set env vars: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET',
+      error: 'X API not configured. Either install xurl (npm i -g @xdevplatform/xurl) or set env vars: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET',
     }));
     process.exit(1);
   }

@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-autosend-x-agent-YOdoQ | Date: 14.03.2026 | Changes: Integrated xurl (official X CLI v1.0.3) as primary transport with native OAuth fallback
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-autosend-x-agent-YOdoQ | Date: 14.03.2026 | Changes: Initial creation — X API v2 use case documentation for developer portal application
 
 Session Links & References:
@@ -14,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 14.03.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 14.03.2026 (v1.1)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -104,9 +105,16 @@ We do **NOT**:
 
 We use **only** the tweet creation endpoint. No read, search, or user endpoints are used.
 
-### 5.2 Authentication
+### 5.2 Authentication & CLI Tooling
 
-- OAuth 1.0a with HMAC-SHA1 signing
+**Primary transport:** `xurl` — official X API CLI by @xdevplatform (v1.0.3)
+- Handles OAuth 1.0a and OAuth 2.0 PKCE automatically
+- Credential storage in `~/.xurl` (YAML, multi-app)
+- Installed as pinned devDependency: `@xdevplatform/xurl@1.0.3`
+- GitHub: https://github.com/xdevplatform/xurl
+
+**Fallback transport:** Native OAuth 1.0a HMAC-SHA1 signing (built-in, no external deps)
+
 - Read and Write permissions
 - Single authorized user context (@blogtheristo)
 
@@ -120,11 +128,12 @@ We use **only** the tweet creation endpoint. No read, search, or user endpoints 
 
 | Component | File |
 |-----------|------|
-| X Publisher | `src/social-scheduler/x-publisher.ts` |
+| X Publisher (xurl + native fallback) | `src/social-scheduler/x-publisher.ts` |
 | CLI Script | `scripts/autosend-x.ts` |
 | Post Queue | `src/social-scheduler/queue.ts` |
 | Types | `src/social-scheduler/types.ts` |
 | DB Migration | `supabase/migrations/034_social_posts.sql` |
+| xurl devDependency | `package.json` (`@xdevplatform/xurl@1.0.3`) |
 
 ## 6. Compliance
 

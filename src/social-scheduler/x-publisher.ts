@@ -1,27 +1,29 @@
 /**
  * Social Scheduler — X (Twitter) Publisher
  *
- * Publishes posts to X.com via the X API v2 with OAuth 1.0a HMAC-SHA1 signing.
+ * Transport priority:
+ *   1. xurl CLI (@xdevplatform/xurl) — official X API CLI, handles OAuth automatically
+ *   2. Native fetch + OAuth 1.0a HMAC-SHA1 — built-in fallback, no external deps
  *
- * Required env vars:
- *   X_API_KEY            — Consumer API key (from X Developer Portal)
- *   X_API_SECRET         — Consumer API secret
- *   X_ACCESS_TOKEN       — User access token
- *   X_ACCESS_TOKEN_SECRET — User access token secret
+ * xurl setup (recommended):
+ *   npm i -g @xdevplatform/xurl   (or devDep: @xdevplatform/xurl@1.0.3)
+ *   xurl auth apps add dws-iq     (interactive credential setup)
+ *   xurl auth oauth1 dws-iq       (store OAuth 1.0a tokens in ~/.xurl)
  *
- * How to get credentials:
- *   1. Create a project at https://developer.x.com/
- *   2. Enable OAuth 1.0a with read+write permissions
- *   3. Generate consumer keys and access tokens
+ * Fallback env vars (native OAuth):
+ *   X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
  *
  * X API v2 docs:
  *   https://developer.x.com/en/docs/x-api/tweets/manage-tweets/api-reference/post-tweets
  */
 
 import crypto from 'node:crypto';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import logger from '../utils/logger.js';
 import type { SocialPost } from './types.js';
 
+const execFileAsync = promisify(execFile);
 const X_API_BASE = 'https://api.x.com';
 
 // ============================================================================
@@ -32,11 +34,61 @@ export interface XPublishResult {
   success: boolean;
   tweetId?: string;
   tweetUrl?: string;
+  transport?: 'xurl' | 'native';
   error?: string;
 }
 
 // ============================================================================
-// OAUTH 1.0a SIGNING
+// XURL TRANSPORT (PRIMARY)
+// ============================================================================
+
+/**
+ * Check if xurl CLI is available on PATH.
+ */
+async function isXurlAvailable(): Promise<boolean> {
+  try {
+    await execFileAsync('xurl', ['--version']);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Publish via xurl CLI.
+ * Uses execFile with argument arrays (never string interpolation — DWS security rule).
+ */
+async function publishViaXurl(text: string): Promise<XPublishResult> {
+  try {
+    const body = JSON.stringify({ text });
+
+    const { stdout } = await execFileAsync('xurl', [
+      '-X', 'POST',
+      '/2/tweets',
+      '-d', body,
+    ]);
+
+    const response = JSON.parse(stdout);
+
+    if (response?.data?.id) {
+      const tweetId = response.data.id;
+      const tweetUrl = `https://x.com/i/status/${tweetId}`;
+      return { success: true, tweetId, tweetUrl, transport: 'xurl' };
+    }
+
+    return {
+      success: false,
+      transport: 'xurl',
+      error: `xurl response missing data.id: ${stdout.substring(0, 200)}`,
+    };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    return { success: false, transport: 'xurl', error: `xurl failed: ${msg}` };
+  }
+}
+
+// ============================================================================
+// NATIVE OAUTH 1.0a TRANSPORT (FALLBACK)
 // ============================================================================
 
 function percentEncode(str: string): string {
@@ -72,20 +124,17 @@ function buildOAuthHeader(
     oauth_version: '1.0',
   };
 
-  // Build parameter string (sorted)
   const paramString = Object.keys(oauthParams)
     .sort()
     .map((k) => `${percentEncode(k)}=${percentEncode(oauthParams[k])}`)
     .join('&');
 
-  // Build signature base string
   const signatureBase = [
     method.toUpperCase(),
     percentEncode(url),
     percentEncode(paramString),
   ].join('&');
 
-  // Sign with HMAC-SHA1
   const signingKey = `${percentEncode(consumerSecret)}&${percentEncode(tokenSecret)}`;
   const signature = crypto
     .createHmac('sha1', signingKey)
@@ -94,7 +143,6 @@ function buildOAuthHeader(
 
   oauthParams.oauth_signature = signature;
 
-  // Build Authorization header
   const authHeader = Object.keys(oauthParams)
     .sort()
     .map((k) => `${percentEncode(k)}="${percentEncode(oauthParams[k])}"`)
@@ -103,44 +151,22 @@ function buildOAuthHeader(
   return `OAuth ${authHeader}`;
 }
 
-// ============================================================================
-// PUBLISHER
-// ============================================================================
-
-/**
- * Publish a post to X (Twitter).
- * Returns the tweet ID and URL on success.
- */
-export async function publishToX(post: SocialPost): Promise<XPublishResult> {
+async function publishViaNative(text: string): Promise<XPublishResult> {
   const apiKey = process.env.X_API_KEY;
   const apiSecret = process.env.X_API_SECRET;
   const accessToken = process.env.X_ACCESS_TOKEN;
   const tokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
 
-  if (!apiKey || !apiSecret) {
-    return { success: false, error: 'X_API_KEY or X_API_SECRET not set' };
-  }
-  if (!accessToken || !tokenSecret) {
-    return { success: false, error: 'X_ACCESS_TOKEN or X_ACCESS_TOKEN_SECRET not set' };
-  }
-
-  // X API v2 tweet limit: 280 characters
-  if (post.content.length > 280) {
+  if (!apiKey || !apiSecret || !accessToken || !tokenSecret) {
     return {
       success: false,
-      error: `Tweet exceeds 280 characters (${post.content.length} chars)`,
+      transport: 'native',
+      error: 'X API env vars not set (X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET)',
     };
   }
 
   const url = `${X_API_BASE}/2/tweets`;
-  const authHeader = buildOAuthHeader(
-    'POST',
-    url,
-    apiKey,
-    apiSecret,
-    accessToken,
-    tokenSecret
-  );
+  const authHeader = buildOAuthHeader('POST', url, apiKey, apiSecret, accessToken, tokenSecret);
 
   try {
     const response = await fetch(url, {
@@ -149,35 +175,64 @@ export async function publishToX(post: SocialPost): Promise<XPublishResult> {
         Authorization: authHeader,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ text: post.content }),
+      body: JSON.stringify({ text }),
     });
 
     if (response.ok) {
-      const data = (await response.json()) as {
-        data: { id: string; text: string };
-      };
+      const data = (await response.json()) as { data: { id: string; text: string } };
       const tweetId = data.data.id;
       const tweetUrl = `https://x.com/i/status/${tweetId}`;
-
-      logger.info('X post published', { postId: post.id, tweetId, tweetUrl });
-      return { success: true, tweetId, tweetUrl };
+      return { success: true, tweetId, tweetUrl, transport: 'native' };
     }
 
     const errorText = await response.text();
-    logger.warn('X publish failed', {
-      postId: post.id,
-      status: response.status,
-      error: errorText,
-    });
     return {
       success: false,
+      transport: 'native',
       error: `HTTP ${response.status}: ${errorText}`,
     };
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('X publish error', { postId: post.id, error: msg });
-    return { success: false, error: msg };
+    return { success: false, transport: 'native', error: msg };
   }
+}
+
+// ============================================================================
+// PUBLIC API
+// ============================================================================
+
+/**
+ * Publish a post to X.
+ * Tries xurl first, falls back to native OAuth 1.0a.
+ */
+export async function publishToX(post: SocialPost): Promise<XPublishResult> {
+  if (post.content.length > 280) {
+    return {
+      success: false,
+      error: `Tweet exceeds 280 characters (${post.content.length} chars)`,
+    };
+  }
+
+  // Try xurl first
+  if (await isXurlAvailable()) {
+    logger.info('X publish: using xurl transport', { postId: post.id });
+    const result = await publishViaXurl(post.content);
+    if (result.success) {
+      logger.info('X post published via xurl', { postId: post.id, tweetId: result.tweetId });
+      return result;
+    }
+    logger.warn('xurl publish failed, falling back to native', { error: result.error });
+  }
+
+  // Fallback to native OAuth
+  logger.info('X publish: using native OAuth transport', { postId: post.id });
+  const result = await publishViaNative(post.content);
+  if (result.success) {
+    logger.info('X post published via native OAuth', { postId: post.id, tweetId: result.tweetId });
+  } else {
+    logger.error('X publish failed (both transports)', { postId: post.id, error: result.error });
+  }
+  return result;
 }
 
 /**
@@ -212,7 +267,11 @@ export async function autosendToX(text: string): Promise<XPublishResult> {
 // CONFIGURATION CHECK
 // ============================================================================
 
-export function isXConfigured(): boolean {
+/**
+ * Check if X publishing is configured (either xurl or env vars).
+ */
+export async function isXConfigured(): Promise<boolean> {
+  if (await isXurlAvailable()) return true;
   return !!(
     process.env.X_API_KEY &&
     process.env.X_API_SECRET &&
