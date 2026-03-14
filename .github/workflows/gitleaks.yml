@@ -1,0 +1,54 @@
+name: Gitleaks Secret Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        run: |
+          GITLEAKS_VERSION="8.24.3"
+          wget -q "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          chmod +x gitleaks
+
+      - name: Run gitleaks (PR scan - changed files only)
+        if: github.event_name == 'pull_request'
+        run: |
+          ./gitleaks detect \
+            --source . \
+            --log-opts "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" \
+            --report-format sarif \
+            --report-path gitleaks-report.sarif \
+            --verbose
+
+      - name: Run gitleaks (push scan - latest commit)
+        if: github.event_name == 'push'
+        run: |
+          ./gitleaks detect \
+            --source . \
+            --log-opts "HEAD~1..HEAD" \
+            --report-format sarif \
+            --report-path gitleaks-report.sarif \
+            --verbose
+
+      - name: Upload SARIF report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: gitleaks-report.sarif
+        continue-on-error: true
