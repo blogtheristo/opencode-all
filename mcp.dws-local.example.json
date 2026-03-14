@@ -53,9 +53,13 @@
         "navigate": "agent-browser open <url>",
         "click": "agent-browser click @e1",
         "fill": "agent-browser fill @e2 'text'",
-        "screenshot": "agent-browser screenshot ./path.png"
+        "screenshot": "agent-browser screenshot ./path.png",
+        "auto-connect": "./scripts/agent-browser-auto-connect.sh open <url>"
       },
-      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome."
+      "_env": {
+        "AGENT_BROWSER_AUTO_CONNECT": "1"
+      },
+      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome. Set AGENT_BROWSER_AUTO_CONNECT=1 to auto-discover running Chrome."
     }
   }
 }

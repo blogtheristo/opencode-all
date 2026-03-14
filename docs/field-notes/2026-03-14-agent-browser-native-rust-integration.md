@@ -1,7 +1,7 @@
 ---
 VERSION AND AGENT HISTORY
 Document: Agent Browser — Native Rust Integration
-Version: 1.0
+Version: 1.1
 Date: 2026-03-14
 Author: Claude Code (Opus 4.6)
 Status: Active
@@ -68,6 +68,59 @@ agent-browser set device "iPhone 14"
 agent-browser set viewport 1920 1080
 ```
 
+## Auto-Connect to Running Chrome
+
+The `scripts/agent-browser-auto-connect.sh` wrapper auto-discovers a running Chrome instance and connects agent-browser to it via CDP, eliminating manual `--cdp-url` configuration.
+
+### Usage
+
+```bash
+# Wrapper script (recommended)
+./scripts/agent-browser-auto-connect.sh open https://dws10.com/buy/
+./scripts/agent-browser-auto-connect.sh snapshot
+
+# Via environment variable (for direct agent-browser calls)
+AGENT_BROWSER_AUTO_CONNECT=1 agent-browser open https://dws10.com/buy/
+```
+
+### How It Works
+
+1. Scans Chrome remote-debugging ports (9222-9229)
+2. Queries `/json/version` on each port to find an active Chrome instance
+3. Falls back to scanning `/proc` and `ps` for `--remote-debugging-port` flags
+4. If no Chrome found, launches one with `--remote-debugging-port=9222`
+5. Passes `--cdp-url ws://localhost:<port>` to agent-browser
+
+### Starting Chrome with Remote Debugging
+
+```bash
+# Linux/Chromebook
+google-chrome --remote-debugging-port=9222 &
+
+# macOS
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 &
+```
+
+The script handles this automatically if no running Chrome is detected.
+
+### Platform Support
+
+| Platform | Auto-Connect | Notes |
+|----------|-------------|-------|
+| Linux/Chromebook | Full | Process scan + port discovery |
+| macOS | Full | Port discovery + Chrome launch |
+| Windows (WSL) | Partial | Port discovery works; Chrome launch requires Windows Chrome path |
+| iOS/Android | Not supported | No CDP access on mobile browsers |
+
+### Device Emulation (Mobile Testing Without Mobile)
+
+To test mobile layouts from desktop:
+```bash
+./scripts/agent-browser-auto-connect.sh set device "iPhone 14"
+./scripts/agent-browser-auto-connect.sh open https://dws10.com/buy/
+./scripts/agent-browser-auto-connect.sh screenshot ./mobile-test.png
+```
+
 ## DWS Use Cases
 
 1. **Store UI verification** — Automated testing of dws10.com product pages, cart flow, category navigation
@@ -87,7 +140,8 @@ agent-browser set viewport 1920 1080
 ## Files Updated
 
 - `AGENTS.md` — Active MCP Servers table + Rise of CLIs section
-- `mcp.dws-local.example.json` — Agent Browser entry added
+- `mcp.dws-local.example.json` — Agent Browser entry with auto-connect env var
+- `scripts/agent-browser-auto-connect.sh` — Auto-connect wrapper script
 
 ## References
 
