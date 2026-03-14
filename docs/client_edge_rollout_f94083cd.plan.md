@@ -39,9 +39,9 @@ flowchart LR
 
 This follows the existing repo split:
 
-- MCP/agent orchestration and API control plane in the DWS backend and MCP Hub, as described in [CLAUDE.md](f:/2026/Repos2026/dws6/CLAUDE.md), [AGENTS.md](f:/2026/Repos2026/dws6/AGENTS.md), and [docs/CLOUD_ENVIRONMENTS.md](f:/2026/Repos2026/dws6/docs/CLOUD_ENVIRONMENTS.md)
-- Client-hosted inference on hardware like GN100 / DGX as an edge service, not as a replacement for the control plane, per [Admin/Acer-Veriton-GN100/README.md](f:/2026/Repos2026/dws6/Admin/Acer-Veriton-GN100/README.md)
-- MCP or HTTPS for remote operations instead of raw TCP dependencies where possible, per [Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md](f:/2026/Repos2026/dws6/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md)
+- MCP/agent orchestration and API control plane in the DWS backend and MCP Hub, as described in [CLAUDE.md](CLAUDE.md), [AGENTS.md](AGENTS.md), and [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md)
+- Client-hosted inference on hardware like GN100 / DGX as an edge service, not as a replacement for the control plane, per [Admin/Acer-Veriton-GN100/README.md](Admin/Acer-Veriton-GN100/README.md)
+- MCP or HTTPS for remote operations instead of raw TCP dependencies where possible, per [Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md](Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md)
 
 ## Product Framing
 
