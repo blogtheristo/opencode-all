@@ -1,9 +1,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/openai-harness-documentation-3QVGZ | Date: 14.03.2026 | Changes: Added Section 8 — concrete improvement proposals per principle to reach 95% readiness, updated readiness scores, added implementation roadmap
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/openai-harness-documentation-3QVGZ | Date: 14.03.2026 | Changes: Initial creation — OpenAI Harness Engineering analysis, DWS readiness assessment, master thesis preparation
 
 Session Links & References:
@@ -36,6 +37,7 @@ Document Status:
 5. [Erot OpenAI:n lähestymistapaan](#5-erot-openain-lähestymistapaan)
 6. [Thesis-näkökulmat](#6-thesis-näkökulmat)
 7. [Lähteet](#7-lähteet)
+8. [Parannusehdotukset: 95 % tavoitetaso](#8-parannusehdotukset-95--tavoitetaso)
 
 ---
 
@@ -261,3 +263,194 @@ Harness Engineering -artikkeli tukee seuraavia thesis-argumentteja:
 
 - DWS IQ 6, CLAUDE.md
   CLAUDE.md
+
+---
+
+## 8. Parannusehdotukset: 95 % tavoitetaso
+
+### 8.1 AGENTS.md = kartta (90% → 95%)
+
+**Nykytila:** CLAUDE.md 507 riviä + AGENTS.md 903 riviä. JIT-lataus toimii, mutta AGENTS.md on paisunut yli OpenAI:n suositteleman ~100 rivin.
+
+**Puute:** AGENTS.md sisältää yksityiskohtaista tietoa, joka kuuluisi `docs/`-alihakemistoon. Kontekstibudjetti kärsii.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Tiivistä AGENTS.md ~150 riviin** | Siirrä yksityiskohdat (ERP-integraatiot, deployment-ohjeet, agenttikuvaukset) `docs/`-tiedostoihin. AGENTS.md jää karttatasoksi. | 2 h |
+| **Lisää `docs/AGENTS_DETAIL.md`** | Syvätieto, johon AGENTS.md viittaa: agenttiluettelo, ERP-rajapinnat, workflow-kuvaukset. | 1 h |
+| **Mittaa token-käyttö** | Kirjaa AGENTS.md:n token-kustannus ennen/jälkeen. Tavoite: <2 000 tokenia injektoituna vs. nykyinen ~3 500. | 0,5 h |
+
+**Tavoitetulos:** AGENTS.md on kartta (~150 riviä), `docs/` sisältää syvätiedon. Token-säästö ~40 %.
+
+---
+
+### 8.2 "Boring Technology" (95% → 95%)
+
+**Nykytila:** Jo tavoitetasolla. Express 4, React 19, PostgreSQL, Vite, Tailwind.
+
+**Ylläpitotoimenpide:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Dokumentoi "Technology Radar"** | Lisää `docs/TECH_RADAR.md`: hyväksytyt teknologiat (Adopt), kokeiltavat (Trial), vältettävät (Hold). Agentit tarkistavat ennen uuden kirjaston käyttöönottoa. | 1 h |
+| **Lisää riippuvuusvalidointi** | Pre-commit hook: uusi `package.json` dependency → tarkista onko Technology Radar -listalla. | 1 h |
+
+---
+
+### 8.3 Golden Principles -laadunhallinta (75% → 95%)
+
+**Nykytila:** 11 standardia repossa, 37 CI/CD workflowta, Boardy-katselmointi. Mutta: ei automaattista taustaskannausta, joka avaisi korjaus-PR:iä säännöllisesti.
+
+**Puute:** OpenAI:n "garbage collection" -malli puuttuu: taustatehtävät, jotka skannaavat poikkeamia ja avaavat korjaus-PR:iä automaattisesti.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Golden Principle Scanner -workflow** | Uusi `.github/workflows/golden-principle-scan.yml`: viikoittainen ajastettu workflow, joka ajaa Claude Code -agentin skannaamaan repoa standardipoikkeamien varalta. Avaa korjaus-PR:iä automaattisesti. | 4 h |
+| **Koodaa 5 mekaanista sääntöä** | 1) `.md`-tiedostot julkisissa poluissa, 2) DWS Document Standard -header puuttuu, 3) hardcoded secrets, 4) `exec()` vs `execFile()`, 5) CORS `origin: '*'`. Näistä 3 on jo `ai-pr-review.yml`:ssä — laajenna kattavuutta. | 3 h |
+| **Automaattinen teknisen velan seuranta** | Lisää `scripts/golden-principle-check.sh`: ajaa tarkistukset paikallisesti, tulostaa "quality grade" (A–F). Tulos tallennetaan `docs/quality-grades.json`. | 2 h |
+| **Friday Cleanup → Cron Cleanup** | Muuta manuaalinen perjantaisiivous automaattiseksi: cron-pohjaiset Codex/Claude-tehtävät maanantaisin klo 06:00. | 1 h |
+
+**Tavoitetulos:** Automaattinen viikkoskannaus + korjaus-PR:t + quality grade -seuranta. Tekninen velka maksetaan päivittäin pienissä erissä.
+
+---
+
+### 8.4 Arkkitehtuurin mekaaninen valvonta (60% → 95%)
+
+**Nykytila:** ESLint EI ole konfiguroitu (lint-skripti: `echo "No linter configured"`). Python-puolella Ruff 13-sääntöjoukolla. Turvallisuuslinting AI-review-gateissa.
+
+**Puute:** Suurin yksittäinen aukko. Ei TypeScript-lintausta, ei arkkitehtuuritason riippuvuusvalidointia, ei lintterin virheviesteissä korjausohjeita.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Konfiguroi ESLint flat config** | `eslint.config.mjs`: TypeScript-strict, import-järjestys, käyttämättömät muuttujat, React-hookit, accessibility-säännöt. Käytä `@typescript-eslint/strict-type-checked`. | 3 h |
+| **Arkkitehtuurisääntö: riippuvuussuunta** | Custom ESLint-sääntö tai `eslint-plugin-boundaries`: pakota `types/ → config/ → repo/ → service/ → runtime/ → ui/`. Virheilmoitus sisältää korjausohjeen: "Move this import to the correct layer. See docs/ARCHITECTURE_LAYERS.md". | 4 h |
+| **Korjausohjeet virheviesteissä** | Jokaiseen custom-sääntöön: virheilmoitus = mikä on väärin + miten korjata + viittaus standardiin. Agentti lukee virheviestin ja korjaa itse. | 2 h |
+| **Pre-commit lint hook** | Lisää `.githooks/pre-commit`: `npx eslint --fix` + `ruff check --fix`. Estää lint-virheiden pääsyn repoon. | 1 h |
+| **Docs: `docs/ARCHITECTURE_LAYERS.md`** | Dokumentoi riippuvuussuunta, kerrosarkkitehtuuri, sallitut importit per kerros. | 1 h |
+
+**Tavoitetulos:** Jokaiselle commitille: ESLint + Ruff + arkkitehtuuritason validointi. Virheilmoitukset ovat agentin kontekstia. "Markdown-ohje on ehdotus; build-virhe on sääntö."
+
+---
+
+### 8.5 Tieto kuuluu repoon (95% → 95%)
+
+**Nykytila:** Jo tavoitetasolla. 71 dokumenttia `docs/`-hakemistossa, DWS Document Standard, VERSION AND AGENT HISTORY.
+
+**Ylläpitotoimenpide:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Dokumentti-indeksin automaatio** | `docs/Document-index.md` päivittyy automaattisesti CI:ssä: skriptaa kaikkien `docs/*.md`-tiedostojen versiot, statukset, viimeisin muokkaaja. | 1 h |
+| **Staleness-tarkistus** | Workflow: merkitse dokumentit, joita ei ole päivitetty 90 päivään, "REVIEW NEEDED" -statuksella. | 1 h |
+
+---
+
+### 8.6 Agentti-agentti-katselmointi (50% → 95%)
+
+**Nykytila:** 5-tasoinen PR-review-järjestelmä (Aikido → Claude → Gemini → Copilot fix → Ollama). Mutta: ei systemaattista itsekatselmointi-silmukkaa ennen PR:n avaamista. `/simplify`-skill ei ole toteutettu.
+
+**Puute:** OpenAI:n "Ralph Wiggum Loop" puuttuu: agentti katselmoi omat muutoksensa, korjaa, iteroi, pyytää lisäkatselmointia — ENNEN kuin PR avataan.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Toteuta `/simplify`-skill** | Luo `.claude/commands/simplify.md`: tarkista muutettu koodi uudelleenkäytön, laadun ja tehokkuuden osalta. Korjaa löydetyt ongelmat. | 1 h |
+| **Pre-PR self-review hook** | `.claude/hooks/pre-push-review`: ennen git push → agentti katselmoi omat muutoksensa (`git diff HEAD~1`), listaa ongelmat, korjaa triviaalit automaattisesti. | 3 h |
+| **Boardy-automaatiosilmukka** | Workflow: PR avataan → Claude katselmoi (nykyinen) → löydetyt ongelmat → automaattinen korjausyritys (max 2 iteraatiota) → ihminen vain jos korjaus epäonnistuu. Ero OpenAI:iin: max 2 iteraatiota (ei 3), koska EU-kontekstissa ihmisen nopea eskalaatio on tärkeämpää. | 4 h |
+| **Ihminen-silmukassa-periaate (DWS-erityinen)** | ÄLÄ kopioi OpenAI:n täysautomaatiota. Säilytä ihminen lopullisena hyväksyjänä, mutta lisää agenttisilmukka ENNEN ihmiskatselmointia. Ihminen näkee vain valmiiksi katselmoidun, korjatun koodin. | Arkkitehtuuripäätös |
+
+**Tavoitetulos:** Agentti katselmoi ja korjaa ennen kuin ihminen näkee koodin. Ihminen katselmoi vain agentti-esikatselmoidun tuloksen. Tehokkuus nousee, mutta ihminen pysyy silmukassa (EU-vaatimus).
+
+---
+
+### 8.7 Compounding Returns (85% → 95%)
+
+**Nykytila:** 10 skilliä, 16 agenttia, MCP Hub. Mutta: kun agentti kohtaa esteen, ei automaattista "mikä kyvykkyys puuttuu?" -analyysiä.
+
+**Puute:** Reaktiivinen ongelmanratkaisu vs. proaktiivinen kyvykkyyksien rakentaminen.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **Capability Gap Logger** | Kun agentti kohtaa esteen (tool call fails, tiedostoa ei löydy, API-virhe), kirjaa gap `docs/capability-gaps.json`: `{gap, context, timestamp, resolution}`. | 2 h |
+| **Viikoittainen gap-analyysi** | Cron-workflow: lue `capability-gaps.json`, priorisoi, avaa issue per top-3 gap. Claude-agentti ehdottaa ratkaisun (uusi skill, MCP-tool, dokumentti). | 2 h |
+| **Skill-generaattori** | Kun uusi agentti lisätään: automaattisesti generoi `.claude/commands/<agent>.md` skeleton. Nykyinen vaatimus on manuaalinen (CLAUDE.md: "Every new agent MUST have a corresponding skill"). | 1 h |
+| **MCP-tool auto-discovery** | Varmista, että jokainen uusi agentti rekisteröityy automaattisesti `tools/list`-vasteeseen. Lisää validointitesti. | 1 h |
+
+**Tavoitetulos:** Esteet muuttuvat automaattisesti kyvykkyysvaatimuksiksi → issueiksi → toteutuksiksi. Kumuloituva kasvu systemaattista.
+
+---
+
+### 8.8 Insinöörit ympäristösuunnittelijoina (80% → 95%)
+
+**Nykytila:** Worktree-workflow, session handover protocol, auto-mode trust boundary. Mutta: ei throughput-mittareita, ei systemaattista seurantaa.
+
+**Puute:** OpenAI mittaa 3,5 PR/insinööri/päivä. DWS ei mittaa.
+
+**Parannus:**
+
+| Toimenpide | Kuvaus | Työmäärä |
+|------------|--------|----------|
+| **PR Throughput Dashboard** | `scripts/pr-throughput.sh`: `gh pr list --state merged --json createdAt,author,mergedAt`. Laske PR/d per author. Tallenna `docs/metrics/pr-throughput.json`. | 2 h |
+| **Session Productivity Tracker** | Laajenna session handover protocol: jokainen sessio kirjaa `{tasks_completed, files_changed, lines_added, lines_removed, duration_minutes}`. Tallenna `docs/metrics/sessions.json`. | 2 h |
+| **Viikoittainen harness health -raportti** | Workflow: yhdistä throughput + quality grades + capability gaps + review iteration count → yhden sivun viikkoraportti. | 2 h |
+| **Agent-first task templating** | Luo `docs/TASK_TEMPLATES.md`: valmiit tehtävänkuvaukset yleisimmille tehtäville (bug fix, feature, refactor, doc update). Agentti saa valmiin rakenteen eikä tarvitse improvisoida. | 1 h |
+
+**Tavoitetulos:** Mitattu throughput, tuottavuusseuranta, viikoittainen harness health. Tiedolla johtaminen, ei mutu-tuntumalla.
+
+---
+
+## 9. Toteutuksen roadmap
+
+### Vaihe 1: Quick Wins (viikko 1) — suurin vaikutus, pienin työ
+
+| # | Toimenpide | Periaate | Työ | Vaikutus |
+|---|-----------|----------|-----|----------|
+| 1 | Toteuta `/simplify`-skill | 8.6 | 1 h | Korkea |
+| 2 | Konfiguroi ESLint flat config | 8.4 | 3 h | Kriittinen |
+| 3 | Pre-commit lint hook | 8.4 | 1 h | Korkea |
+| 4 | Tiivistä AGENTS.md ~150 riviin | 8.1 | 2 h | Korkea |
+| 5 | Technology Radar -dokumentti | 8.2 | 1 h | Keskitaso |
+
+### Vaihe 2: Automaatio (viikko 2–3)
+
+| # | Toimenpide | Periaate | Työ | Vaikutus |
+|---|-----------|----------|-----|----------|
+| 6 | Golden Principle Scanner -workflow | 8.3 | 4 h | Kriittinen |
+| 7 | Pre-PR self-review hook | 8.6 | 3 h | Korkea |
+| 8 | Capability Gap Logger | 8.7 | 2 h | Korkea |
+| 9 | PR Throughput Dashboard | 8.8 | 2 h | Keskitaso |
+| 10 | Arkkitehtuurisääntö (boundaries) | 8.4 | 4 h | Korkea |
+
+### Vaihe 3: Hienosäätö (viikko 4)
+
+| # | Toimenpide | Periaate | Työ | Vaikutus |
+|---|-----------|----------|-----|----------|
+| 11 | Boardy-automaatiosilmukka PR:lle | 8.6 | 4 h | Korkea |
+| 12 | Viikoittainen harness health -raportti | 8.8 | 2 h | Keskitaso |
+| 13 | Gap-analyysi cron-workflow | 8.7 | 2 h | Keskitaso |
+| 14 | Staleness-tarkistus dokumenteille | 8.5 | 1 h | Matala |
+
+**Kokonaistyömäärä: ~35 h** (4–5 työpäivää)
+
+### Odotettu lopputulos
+
+| # | Periaate | Nyt | Tavoite | Muutos |
+|---|----------|-----|---------|--------|
+| 1 | AGENTS.md = kartta | 90% | 95% | +5% |
+| 2 | Boring technology | 95% | 95% | — |
+| 3 | Golden Principles | 75% | 95% | +20% |
+| 4 | Mekaaninen valvonta | 60% | 95% | +35% |
+| 5 | Tieto repossa | 95% | 95% | — |
+| 6 | Agentti-katselmointi | 50% | 95% | +45% |
+| 7 | Compounding Returns | 85% | 95% | +10% |
+| 8 | Ympäristösuunnittelu | 80% | 95% | +15% |
+| | **Kokonaisvalmiusaste** | **79%** | **95%** | **+16%** |
