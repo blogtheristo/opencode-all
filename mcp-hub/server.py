@@ -120,6 +120,8 @@ MCP_SERVERS: dict[str, str] = {
         os.getenv("CARBON_MCP_URL", os.getenv("SUPABASE_MCP_URL", "http://carbon-api:8766")),
     ),
     "cloudrun-mcp": os.getenv("CLOUDRUN_MCP_URL", "http://cloudrun-mcp:8769"),
+    "lwm-mcp": os.getenv("LWM_MCP_URL", "http://lwm-mcp:8770"),
+    "claude-mcp": os.getenv("CLAUDE_MCP_URL", "http://claude-mcp:8771"),
     "backend": os.getenv("BACKEND_URL", "http://localhost:3002"),
     "prometheus": os.getenv("PROMETHEUS_URL", "http://localhost:9091"),
     "grafana": os.getenv("GRAFANA_URL", "http://localhost:3001"),

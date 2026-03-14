@@ -130,15 +130,36 @@ export class ComplianceAgent extends BaseAgent {
     });
   }
 
+  /** Normalize loose input into the strict ComplianceInput shape */
+  private normalizeInput(input: Record<string, unknown>): ComplianceInput {
+    const raw = input as Record<string, any>;
+    return {
+      projectId: raw.projectId ?? raw.project_id ?? raw.project ?? 'unknown',
+      industry: raw.industry ?? 'default',
+      regulations: Array.isArray(raw.regulations)
+        ? raw.regulations
+        : typeof raw.regulation === 'string'
+          ? [raw.regulation]
+          : ['ets', 'cbam', 'csrd'],
+      currentMeasures: {
+        carbonReporting: raw.currentMeasures?.carbonReporting ?? raw.carbonReporting ?? false,
+        emissionsMonitoring: raw.currentMeasures?.emissionsMonitoring ?? raw.emissionsMonitoring ?? false,
+        supplyChainDueDiligence: raw.currentMeasures?.supplyChainDueDiligence ?? raw.supplyChainDueDiligence ?? false,
+        aiSystemLogging: raw.currentMeasures?.aiSystemLogging ?? raw.aiSystemLogging ?? false,
+      },
+      annualEmissions: raw.annualEmissions ?? raw.annual_emissions ?? raw.emissions ?? 0,
+      importValue: raw.importValue ?? raw.import_value ?? raw.imports ?? 0,
+    };
+  }
+
   async execute(
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const compInput = input as unknown as ComplianceInput;
     const { projectId, industry, regulations, currentMeasures, annualEmissions, importValue } =
-      compInput;
+      this.normalizeInput(input);
 
     logger.info('Compliance agent executing', {
       projectId,

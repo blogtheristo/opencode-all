@@ -1,7 +1,7 @@
 # Firehorse-tuotevalmistuksen toimintamalli
 ## Hybridi AI-edge-arkkitehtuuri ilmastointelligeenteille teollisille alustoille
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.1

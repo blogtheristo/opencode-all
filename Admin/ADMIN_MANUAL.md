@@ -115,6 +115,14 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **Security Testing** | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md) | EN | Penetration testing, vulnerability scanning |
 | **Security Audit Report** | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md) | EN | Latest security audit findings |
 
+### Edge Infrastructure
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **Acer GN100 Admin** | [`Admin/Acer-Veriton-GN100/README.md`](Acer-Veriton-GN100/README.md) | EN | Edge AI device: Docker, CUDA, Ollama, OpenSandbox, PostgreSQL |
+| **Edge PostgreSQL Setup** | [`Admin/Acer-Veriton-GN100/postgres/`](Acer-Veriton-GN100/postgres/) | EN | Docker Compose + Dockerfile for TimescaleDB + pg_duckdb + pgvector |
+| **DWS Data Standard** | [`DWS_DATA_STANDARD.md`](../DWS_DATA_STANDARD.md) | EN | Data storage governance, Aiven-first mandate, extension registry (v2.0) |
+
 ### Products & Architecture
 
 | Manual | Location | Language | Description |

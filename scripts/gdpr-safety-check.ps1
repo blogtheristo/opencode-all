@@ -55,6 +55,17 @@ foreach ($file in $stagedNames) {
         $file -notmatch '^Admin/Claudecode_Secrets/.*\.example$'
     ) {
         Add-Blocked $file "reserved sensitive folder (use secure vault, not git)"
+# Check for secret files (exclude .env.example — it's a tracked template with no real secrets)
+$secretPatterns = @("\.env\.", "CLOUDFLARE_SECRETS", "ADD_TOKEN_TO_GITHUB", "SFTP_SECRETS")
+foreach ($pattern in $secretPatterns) {
+    $secretFiles = $stagedNames | Where-Object { $_ -match $pattern -and $_ -notmatch '\.env\.example$' }
+    if ($secretFiles -and $secretFiles.Count -gt 0) {
+        Write-Host "`n[BLOCKED] Secret files detected!" -ForegroundColor Red
+        $secretFiles | ForEach-Object {
+            Write-Host "   - $_" -ForegroundColor Red
+            $BLOCKED_FILES += $_
+        }
+        $BLOCKED = $true
     }
 }
 

@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.9
+    Version: 2.0
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -16,6 +16,7 @@
       v1.7 - 08.02.2026 - Fix: sync Learn/ (generated HTML/PDF) to Proton after generation
       v1.8 - 10.02.2026 - Added docs/ folder to folder mappings
       v1.9 - 04.03.2026 - Added investor-outreach/ and sales-outreach/ folders to folder mappings
+      v2.0 - 07.03.2026 - Added encrypted database backup sync (.gpg files from Backup-Database.ps1)
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -283,6 +284,26 @@ foreach ($fileName in $SensitiveFiles) {
 }
 if ($sensitiveCount -eq 0) {
     Write-Host "  (no sensitive files found - this is normal on cloud)" -ForegroundColor Gray
+}
+
+# --- Sync encrypted database backups to Proton Drive ---
+$dbBackupDir = $env:BACKUP_LOCAL_DIR
+if (-not $dbBackupDir) { $dbBackupDir = "F:\2026\Backups\dws6-db" }
+$protonDbDest = Join-Path $ProtonRoot "Repos2026\dws6-db-backups"
+
+if (Test-Path $dbBackupDir) {
+    Write-Host "Syncing encrypted database backups -> $protonDbDest" -ForegroundColor Magenta
+    # Only sync encrypted .gpg files, manifests, row counts, and schema SQL
+    # NEVER sync unencrypted .dump files to cloud
+    Get-ChildItem -Path $dbBackupDir -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Extension -in @(".gpg", ".json", ".sql") } |
+        ForEach-Object {
+            $rel = $_.FullName.Substring($dbBackupDir.Length + 1)
+            $dest = Join-Path $protonDbDest $rel
+            Sync-Item -Source $_.FullName -Destination $dest
+        }
+} else {
+    Write-Host "  (no database backups found at $dbBackupDir)" -ForegroundColor Gray
 }
 
 # --- Full repo backup (when -FullRepo flag is set) ---

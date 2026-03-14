@@ -1,6 +1,6 @@
 # DWS Information Layering Strategy
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

@@ -317,9 +317,9 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
           recommendations.push('Consider purchasing ETS allowances for surplus emissions');
         }
         if (normFlags.length === 0 && missingUnitCount === 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString()}`);
+          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')}`);
         } else if (normalizedTotal > 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString()} (partial — excludes records with unrecognized units)`);
+          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')} (partial — excludes records with unrecognized units)`);
         } else {
           recommendations.push('Convert all emission data to tCO2e to enable accurate ETS cost estimation (EU ETS price ~EUR 68/tonne)');
         }

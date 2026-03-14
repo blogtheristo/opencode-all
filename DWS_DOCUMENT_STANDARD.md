@@ -1,11 +1,12 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
   - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
   - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
@@ -27,6 +28,7 @@ Session Links & References:
 Document Status:
   - Created: 30.12.2025
   - Last Modified: 13.03.2026
+  - Last Modified: 12.03.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
@@ -36,6 +38,8 @@ Document Status:
 **Version:** 1.8
 **Effective Date:** 2026-03-13
 **Last Updated:** 2026-03-13
+**Effective Date:** 2026-03-12
+**Last Updated:** 2026-03-12
 **Status:** Active
 
 ---
