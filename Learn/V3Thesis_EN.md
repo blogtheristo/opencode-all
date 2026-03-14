@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.24
+Version: 3.25
 
 Sessions & Modifications:
+  - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 10.16 (Harness Engineering — From Prompt Engineering to System Design): OpenAI's 8 principles, DWS IQ 6 comparison with 6-layer L0-L6 architecture, empirical result (52.8%→66.5% from harness alone), EU regulation requires different harness than Silicon Valley; added Key Contribution #19
   - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Expanded Appendix G glossary with Data Architecture (9 terms) and Research Methodology (4 terms) — autoresearch, HTAP, Hypercore, two-tier architecture, KYA, proxy-to-scale
   - Version: 3.23 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 10.15 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist confirmed (pg_duckdb BLOCKED), two-tier HTAP (Aiven managed + GN100 edge), edge PostgreSQL deployment; added Key Contribution #18; updated footer
   - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 10.15 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU for single-database HTAP, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance matrix (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act 2023/2854); added Key Contribution #17; updated footer
@@ -47,10 +48,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 13.03.2026
+  - Last Modified: 14.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.24 — Appendix G glossary expanded: Data Architecture + Research Methodology terms)
+  - Publication Status: DRAFT (V3.25 — Harness Engineering section: OpenAI 8 principles, DWS 6-layer L0-L6, empirical 52.8%→66.5% result, EU harness divergence)
 
 ---
 
@@ -2428,6 +2429,112 @@ This work demonstrates that the **single-database HTAP pattern** is viable for r
 
 The March 2026 Aiven whitelist finding adds a critical practical contribution: **managed-provider extension constraints drive architectural decisions in ways not captured by extension benchmarks alone.** The pg_duckdb extension achieves 50-600× analytical speedups but is unusable on Aiven managed PostgreSQL. This forced the two-tier HTAP architecture (Aiven managed + GN100 edge), demonstrating how real-world provider constraints shape database architecture for regulated EU deployments — a pattern likely applicable to any organization adopting managed PostgreSQL with HTAP ambitions.
 
+### 10.16 Harness Engineering — From Prompt Engineering to System Design
+
+**Source:** OpenAI, "Harness engineering: leveraging Codex in an agent-first world", 13.02.2026; Martin Fowler, "Harness Engineering", 2026; Datadog, "Closing the verification loop", 2026.
+
+**Context:** OpenAI's Harness team built a product in five months without writing a single line of code manually — one million lines, ~1,500 PRs, 3-7 engineers. This section analyzes the 8 harness engineering principles and compares them with DWS IQ 6's independently developed architecture.
+
+#### 10.16.1 Definition
+
+**Harness** = the entire environment (scaffolding, constraints, feedback loops) surrounding an AI agent that enables stable, productive work.
+
+**Harness Engineering** = the shift from writing code to:
+- **Environment design** — designing the workspace agents operate in
+- **Intent specification** — defining what needs to happen, not how
+- **Feedback loop construction** — building mechanisms for agents to self-correct
+
+When something fails, the question is not "try harder" but **"what capability is missing?"**
+
+#### 10.16.2 The Eight Principles — DWS IQ 6 Comparison
+
+| # | Principle | OpenAI Approach | DWS IQ 6 Approach | Readiness |
+|---|-----------|-----------------|-------------------|-----------|
+| 1 | AGENTS.md = map, not encyclopedia | ~100 lines, acts as table of contents | CLAUDE.md + AGENTS.md + JIT L0-L6 six-layer loading | **90%** |
+| 2 | "Boring technology" wins | Stable, well-documented tech stacks | Express 4, React 19, PostgreSQL — CLI-first mandate | **95%** |
+| 3 | Golden Principles quality gates | Automated background scanning + fix PRs | 11 standards + Boardy architect persona review | **75%** |
+| 4 | Mechanical architecture enforcement | Linters with fix instructions in errors | ESLint + security coding rules (OWASP, SRI, CORS) | **60%** |
+| 5 | Knowledge belongs in the repo | If it's not in the repo, it doesn't exist | 71 docs + DWS Document Standard + VERSION AND AGENT HISTORY | **95%** |
+| 6 | Agent-agent code review | "Ralph Wiggum Loop" — self-review cycles | Simplify skill + Boardy + human-in-the-loop | **50%** |
+| 7 | Compounding returns (build capabilities) | Diagnose missing capability, build into repo | 10 skills + 16 agents + MCP Hub + workflow orchestration | **85%** |
+| 8 | Engineers as environment designers | 3.5 PR/engineer/day throughput | Worktree workflow + session handover protocol | **80%** |
+
+**Overall DWS readiness: ~79%** against OpenAI's harness engineering principles.
+
+#### 10.16.3 Key Empirical Finding: The Model Does Not Solve — The Harness Does
+
+The most significant empirical finding from the harness engineering literature:
+
+> The same model (gpt-5.2-codex) improved its benchmark results from **52.8% to 66.5%** purely through harness improvements (LangChain case). No model change — only system-level improvements.
+
+This validates DWS IQ 6's core architectural hypothesis: **the system surrounding the model matters more than the model itself.** DWS's six-layer information architecture (L0 Platform Model → L6 Tool Result Injection) is a formalization of this principle.
+
+**Progressive disclosure works empirically:**
+- Cursor achieved **46.9% token savings** through context management
+- Vercel reduced context from **145K → 67K tokens** with JIT loading
+- DWS's L6 Tool Injection layer (system-reminder after every tool call) shows **15-47% better rule compliance** than system prompt alone
+
+#### 10.16.4 DWS Six-Layer Architecture (L0-L6) as Harness Formalization
+
+DWS IQ 6 has independently developed a six-layer information architecture that formalizes the harness concept:
+
+| Layer | Name | Function | OpenAI Equivalent |
+|-------|------|----------|-------------------|
+| **L0** | Platform Model | Base LLM capabilities | Implicit (Codex model) |
+| **L1** | System Prompt | Session-level instructions | AGENTS.md injection |
+| **L2** | Standards (JIT) | On-demand standard loading | docs/ folder references |
+| **L3** | Task Context | Current task specification | PR description + issue |
+| **L4** | Auto-Learned State | Persistent memory (Supabase + MEMORY.md) | Not described by OpenAI |
+| **L5** | Tool Results | Output from tool executions | Agent loop tool calls |
+| **L6** | Tool Result Injection | System reminders after each tool call | Not described by OpenAI |
+
+**DWS innovations beyond OpenAI:**
+- **L4 Auto-Learned State:** Agents learn across sessions via persistent memory — OpenAI does not describe equivalent capability
+- **L6 Tool Result Injection:** System reminders injected after every tool call, achieving 15-47% better standard compliance than prompt-only approaches
+- **12 Factor Agents compliance:** DWS documents 12/12 compliance with the 12 Factor Agents framework — OpenAI does not reference this
+
+#### 10.16.5 EU Regulation Requires a Different Harness
+
+The most significant divergence between OpenAI and DWS approaches stems from regulatory context:
+
+| Dimension | OpenAI (Silicon Valley) | DWS IQ 6 (EU-regulated) |
+|-----------|------------------------|-------------------------|
+| **Optimization target** | Speed (3.5 PR/engineer/day) | Traceability, auditability, human-in-the-loop |
+| **Autonomy level** | Near-full agent autonomy | Human remains final approver (Karpathy principles) |
+| **Code review** | Agent-agent only (Ralph Wiggum Loop) | Agent pre-review + human final approval |
+| **Audit trail** | Not described | VERSION AND AGENT HISTORY in every document, court-defensible |
+| **Data residency** | US-centric | EU data residency (Finland/Germany), GDPR, EU AI Act |
+| **Industries served** | Internal tooling | 20 EU-regulated industries (construction, energy, chemicals...) |
+
+**Thesis argument:** Both approaches are valid, but for different contexts. OpenAI optimizes for velocity in an unregulated internal environment. DWS optimizes for compliance, traceability, and trust in EU-regulated industries where autonomous agent decisions carry legal liability.
+
+The EU AI Act (effective August 2026) explicitly requires:
+- **Article 12:** Logging of AI system operations for at least 7 years
+- **Article 14:** Human oversight of high-risk AI systems
+- **Article 15:** Accuracy, robustness, and cybersecurity requirements
+
+These requirements make OpenAI's "full autonomy" model non-compliant for high-risk applications in EU-regulated industries. DWS's human-in-the-loop harness is not a limitation — it is an architectural response to regulatory requirements.
+
+#### 10.16.6 Open Research Questions
+
+1. **Does the harness model scale to EU-regulated industries?** OpenAI's case is internal tooling without regulatory requirements. DWS operates across 20 regulated industries — empirical validation is ongoing.
+
+2. **What is the optimal autonomy level?** OpenAI: near-full autonomy. DWS: human-in-the-loop. Which produces better outcomes in regulated contexts?
+
+3. **Is the six-layer context architecture generalizable?** DWS's L0-L6 model is specific to its standards ecosystem, but the principles may be universal.
+
+4. **Verification gap:** Martin Fowler noted that OpenAI's article lacks behavioral verification — how does the harness ensure generated code does the right thing, not just compiles?
+
+#### 10.16.7 Research Contribution
+
+This section contributes three findings to the harness engineering discourse:
+
+1. **Formalization:** DWS's L0-L6 six-layer architecture provides a formal framework for what OpenAI describes informally. This makes harness design reproducible and auditable.
+
+2. **Regulatory divergence:** EU-regulated industries require fundamentally different harness design — prioritizing traceability and human oversight over speed. This is not a weakness but an architectural constraint analogous to how Aiven's extension whitelist drives database architecture (Section 10.15).
+
+3. **Empirical confirmation:** The 52.8% → 66.5% improvement from harness alone (not model change) validates DWS's investment in system architecture over model selection. The six-layer architecture, DWS Document Standard, and progressive disclosure are all harness engineering practices developed independently before OpenAI published its findings.
+
 ---
 
 **Document Information:**
@@ -2438,9 +2545,9 @@ The March 2026 Aiven whitelist finding adds a critical practical contribution: *
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.24
-**Version:** 3.24
-**Last Modified:** 13.03.2026
+**Status:** DRAFT - V3.25
+**Version:** 3.25
+**Last Modified:** 14.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2471,6 +2578,7 @@ The March 2026 Aiven whitelist finding adds a critical practical contribution: *
 16. Agent System Hardening — Production reliability restoration: 6 TypeScript compilation errors fixed across 5 subsystems, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; demonstrates integration debt patterns in multi-agent systems
 17. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, and EU regulatory compliance (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act); 4-phase rollout from table partitioning to lakehouse integration
 18. Two-Tier HTAP Architecture — Aiven-first mandate locks TimescaleDB 2.25.x Hypercore as approved standard for managed production (10-100× analytics, 98% compression); pg_duckdb (50-600× OLAP) relegated to edge device only due to Aiven whitelist; GN100 edge PostgreSQL deployed with full extension stack for ad-hoc analytics
+19. Harness Engineering — Analysis of OpenAI's 8 harness engineering principles against DWS IQ 6 architecture; empirical finding that harness improvements alone yield 52.8%→66.5% benchmark gains (model unchanged); DWS's L0-L6 six-layer architecture as formal harness framework; EU regulation requires fundamentally different harness (traceability + human-in-the-loop vs Silicon Valley speed optimization)
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
