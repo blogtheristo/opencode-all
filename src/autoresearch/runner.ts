@@ -81,9 +81,16 @@ export async function runAutoresearch(
   });
 
   const kept = results.filter((r) => r.decision === 'KEEP');
+
+  // Baseline should be independent of sorter order from runKyaTuner.
+  // Use the earliest experiment (smallest experimentId) as the baseline source.
   const baseline = results.length > 0
-    ? results[results.length - 1].auditEvent.optimization.before_value
+    ? results.reduce(
+        (earliest, r) => (r.experimentId < earliest.experimentId ? r : earliest),
+        results[0],
+      ).auditEvent.optimization.before_value
     : 0;
+
   const best = kept.length > 0 ? kept[0].combinedScore : baseline;
   const improvement = baseline > 0 ? ((best - baseline) / baseline) * 100 : 0;
 
