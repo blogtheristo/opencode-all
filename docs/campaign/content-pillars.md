@@ -13,86 +13,108 @@ VERSION AND AGENT HISTORY
 - Distribution: Blog (primary), Newsletter (weekly digest), LinkedIn (best 2-3/week)
 - SEO targets: Google organic + AI search (Perplexity, ChatGPT, Gemini)
 
-## 7 Content Pillars (Rooted in Real Engineering Decisions)
+## 10 Content Pillars
 
-The content moat is not AI-generated fluff — it's 2,000 real commits and 1,500 real PRs, each a technical decision with a business reason. These pillars are organized by git history themes, then enriched with legal, industry, and AI news.
+The content moat is not AI-generated fluff — it's 2,000 real commits and 1,500 real PRs, each a technical decision with a business reason. These pillars are organized by git history themes.
 
 "Why we chose GL journal entries over a native ESG endpoint" is a better post than any generic CSRD explainer. We have 1,500 more like it.
 
-### Pillar 1: ERP Integration & Transition (~115 posts)
-**Git source:** commits in `src/integrations/erp/`, SAP/Visma/IFS/Dynamics connectors
-**Focus:** Real engineering decisions from ERP integration work + Visma sale disruption
+### Pillar 1: ERP Integration (~115 posts)
+**Git source:** commits in `src/integrations/erp/`, SAP/Visma/IFS/Monitor/Dynamics connectors
+**Focus:** Real engineering stories from ERP integration, Visma sale disruption, Monitor, IFS Cloud
 **Content pattern:** "We had to connect to SAP S/4HANA's OData API. Here's what actually works."
 **Audience:** CIOs, IT directors, CFOs at Nordic mid-market (50-500 employees)
-**Keywords:** ERP migration, Visma alternative, SAP integration, IFS connector, ERP data migration
+**Keywords:** ERP migration, Visma alternative, SAP integration, IFS connector, Monitor ERP
 **CTA:** Book ERP transition consultation (dws10.com/contact)
 
 ### Pillar 2: Compliance Automation (~115 posts)
-**Git source:** commits in `src/agents/`, compliance scoring, CSRD/ETS/CBAM calculations
-**Focus:** How compliance code actually works, regulation article-by-article implementation
+**Git source:** commits in `src/agents/`, compliance scoring, CSRD/EPBD/ETS/CBAM calculations
+**Focus:** How compliance code actually works — CSRD, EPBD, Fit for 55, regulation-driven engineering
 **Content pattern:** "CSRD Article 19a(2) requires double materiality. Here's how we automated it."
 **Audience:** Compliance officers, sustainability managers, CFOs
-**Keywords:** CSRD automation, ETS Phase 4, CBAM calculator, double materiality, Fit for 55
+**Keywords:** CSRD automation, EPBD compliance, Fit for 55, ETS Phase 4, CBAM calculator
 **CTA:** DWS IQ compliance dashboard (dws10.com/buy)
 
-### Pillar 3: Agent Architecture & AI (~115 posts)
-**Git source:** commits in `src/mcp/`, `mcp-servers/`, agent orchestration, KYA governance
-**Focus:** MCP protocol decisions, agent swarm architecture, LLM choice rationale
-**Content pattern:** "Why we chose MCP over REST for agent-to-ERP communication."
-**Audience:** CTOs, tech leads, innovation managers
-**Keywords:** MCP protocol, agent swarm, industrial AI, KYA standard, AI orchestration
-**CTA:** DWS IQ Platform demo (dws10.com/products/dwsiq.html)
+### Pillar 3: Legal & Governance (~115 posts)
+**Git source:** commits in KYA standard, Legal/, D&O safe harbor, RLS policies, security hardening
+**Focus:** KYA Standard governance, D&O safe harbor for AI decisions, EU AI Act implementation, data sovereignty
+**Content pattern:** "KYA Standard v1: why we built hardware-level governance before the EU AI Act required it."
+**Audience:** Legal teams, CISOs, DPOs, board-level governance
+**Keywords:** KYA standard, EU AI Act, D&O safe harbor, AI governance, sovereign database, CLOUD Act
+**CTA:** Sovereignty consulting (dws10.com/products/sovereignty-cloud-consulting.html)
 
-### Pillar 4: Industry Deep-Dives (~115 posts)
-**Git source:** commits per industry (`construction/`, `manufacturing/`, `energy/`) + 16-INDUSTRIES.md
-**Focus:** Sector-specific compliance math, carbon tracking, regulation mapping
-**Content pattern:** "EN 15978 lifecycle stages A1-D: how we calculate embodied carbon for Nordic construction."
-**Audience:** Industry-specific decision makers
-**Keywords:** construction carbon, steel ETS, CBAM steel imports, EPBD real estate
-**CTA:** Industry solutions (dws10.com/construction, /manufacturing, etc.)
-
-### Pillar 5: Security & Sovereignty (~115 posts)
-**Git source:** commits in security hardening, KYA standard, RLS policies, data residency
-**Focus:** CLOUD Act risk, sovereign infrastructure decisions, GDPR engineering
-**Content pattern:** "We moved from Supabase hosted to self-hosted PostgreSQL. Here's the sovereignty math."
-**Audience:** CISOs, DPOs, IT directors
-**Keywords:** EU data sovereignty, CLOUD Act risk, sovereign database, GDPR ERP, RLS
-**CTA:** Sovereignty assessment (dws10.com/products/sovereignty-cloud-consulting.html)
-
-### Pillar 6: ESG Data & Performance (~115 posts)
-**Git source:** commits in `src/integrations/esg/`, Worldfavor/PositionGreen, pgvector, embeddings
-**Focus:** ESG data pipeline engineering, climate LLM, measurement methodology
-**Content pattern:** "Why we chose GL journal entries over a native ESG endpoint."
-**Audience:** Technical buyers, ESG data teams, sustainability engineers
-**Keywords:** ESG data pipeline, climate intelligence, pgvector, Firehorse reports, edge AI
-**CTA:** Climate Reporting Bundle (dws10.com/products/bundle.html)
-
-### Pillar 7: Business & Industry News (~115 posts)
-**Focus:** Legal compliance updates, AI news impact analysis, industry news, Nordic market trends
-**Content mix:**
-- Legal compliance news: New EU regulations, deadline changes, enforcement actions
-- AI news: Model releases, agent frameworks, tool announcements — analyzed for business impact
-- Industry news: M&A (Visma sale), market shifts, Nordic digitalization trends
-- Behind the Build: Real DWS engineering decisions turned into business stories
-**Audience:** CEOs, founders, board members, investors
-**Keywords:** Nordic digital transformation, EU AI Act news, B2B content strategy
+### Pillar 4: Business News (~115 posts)
+**Focus:** Nordic industry M&A, ERP market disruption (Visma sale), market shifts, funding rounds, competitive intelligence
+**Content pattern:** "Visma acquisition: what Hg Capital's bid means for 500,000 Nordic ERP customers."
+**Audience:** CEOs, founders, board members, investors, industry analysts
+**Keywords:** Visma sale, Nordic ERP market, construction tech M&A, B2B Nordic, digital transformation
 **CTA:** Expert advisory (dws10.com/products/expert-advisory.html)
 
-## Rotation Pattern
+### Pillar 5: AI News (~115 posts)
+**Focus:** Agent architecture, MCP protocol, agentic efficiency, model releases, AI Act enforcement
+**Content pattern:** "Claude 4.6 launched. Here's what it means for industrial compliance agents."
+**Audience:** CTOs, AI leads, innovation managers, developers
+**Keywords:** MCP protocol, AI agent, agentic AI, agent swarm, industrial AI, EU AI Act
+**CTA:** DWS IQ Platform (dws10.com/products/dwsiq.html)
 
-Posts rotate through pillars cyclically to catch both new and returning readers:
+### Pillar 6: Industry News (~115 posts)
+**Focus:** Construction, logistics, healthcare, manufacturing — vertical-specific news, regulation impact, sector benchmarks
+**Content pattern:** "EN 15978 lifecycle stages A1-D: how we calculate embodied carbon for Nordic construction."
+**Audience:** Industry-specific decision makers, sector analysts
+**Keywords:** construction carbon, steel ETS, CBAM steel, EPBD real estate, logistics ETS
+**CTA:** Industry solutions (dws10.com/construction, /manufacturing, etc.)
 
-| Day | Pillar |
-|-----|--------|
-| 1, 8, 15, 22... | ERP Transition |
-| 2, 9, 16, 23... | EU Compliance |
-| 3, 10, 17, 24... | AI & Automation |
-| 4, 11, 18, 25... | Industry Deep-Dives |
-| 5, 12, 19, 26... | Sovereign Technology |
-| 6, 13, 20, 27... | Product Knowledge |
-| 7, 14, 21, 28... | Business Strategy |
+### Pillar 7: KYA / Agent Architecture (~115 posts)
+**Git source:** commits in `src/mcp/`, `mcp-servers/`, KYA standard, agent orchestration
+**Focus:** Technical depth from commit history — MCP decisions, agent swarm architecture, KYA governance, ESG data pipelines
+**Content pattern:** "Why we chose MCP over REST for agent-to-ERP communication." / "Why GL journal entries over a native ESG endpoint."
+**Audience:** CTOs, tech leads, solution architects, AI engineers
+**Keywords:** MCP protocol, KYA standard, agent architecture, pgvector, edge AI, Firehorse
+**CTA:** Climate Reporting Bundle (dws10.com/products/bundle.html)
 
-This means every week covers all 7 pillars. A reader who discovers the blog on any day gets exposed to the full breadth of topics within their first week of reading.
+### Pillar 8: Brain News — DWS IQ Platform (~80 posts)
+**Architecture layer:** Brain (DWS IQ 6 — Agent Swarm Training & Orchestration)
+**Focus:** Platform updates, new agent capabilities, compliance dashboard features, KYA governance releases
+**Content pattern:** "DWS IQ now supports automatic CBAM quarterly reporting. Here's how it works."
+**Audience:** Existing customers, technical evaluators, platform adopters
+**Keywords:** DWS IQ update, compliance dashboard, agent training, platform release
+**CTA:** DWS IQ Platform (dws10.com/products/dwsiq.html)
+
+### Pillar 9: Body News — Firehorse Suite (~80 posts)
+**Architecture layer:** Body (Firehorse — Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
+**Focus:** Firehorse module releases, automation workflows, report templates, content management, omnichannel marketing
+**Content pattern:** "Firehorse Automation: new CSRD double materiality workflow saves 30 hours per quarter."
+**Audience:** Operations teams, marketing teams, report consumers
+**Keywords:** Firehorse automation, compliance reports, content DMS, omnichannel, ESG reporting
+**CTA:** Firehorse products (dws10.com/buy)
+
+### Pillar 10: Hands News — Lifetime Fleet & Edge AI (~80 posts)
+**Architecture layer:** Hands (Lifetime Fleet — IoT/Robots for physical execution)
+**Focus:** Edge AI hardware, NVIDIA ISV partnership, Jetson/Acer Veriton deployments, sovereign inference, IoT integration
+**Content pattern:** "We deployed Qwen 72B on an Acer Veriton GN100. Here's the inference latency vs cloud."
+**Audience:** Infrastructure teams, edge computing engineers, fleet managers
+**Keywords:** edge AI, NVIDIA Jetson, sovereign inference, Lifetime Fleet, IoT compliance
+**CTA:** Edge Node (dws10.com/products/edge-node.html)
+
+## Rotation Pattern (10-Day Cycle)
+
+Posts rotate through 10 pillars cyclically. Every 10 days covers all pillars.
+A reader who discovers the blog gets exposed to the full breadth within 10 days.
+
+| Day | Pillar | Layer |
+|-----|--------|-------|
+| 1, 11, 21, 31... | ERP Integration | Core |
+| 2, 12, 22, 32... | Compliance Automation | Core |
+| 3, 13, 23, 33... | Legal & Governance | Core |
+| 4, 14, 24, 34... | Business News | News |
+| 5, 15, 25, 35... | AI News | News |
+| 6, 16, 26, 36... | Industry News | News |
+| 7, 17, 27, 37... | KYA / Agent Architecture | Core |
+| 8, 18, 28, 38... | Brain News (DWS IQ Platform) | Product |
+| 9, 19, 29, 39... | Body News (Firehorse Suite) | Product |
+| 10, 20, 30, 40... | Hands News (Fleet & Edge AI) | Product |
+
+**Per pillar over 800 days: 80 posts each = 800 posts per language, 1,600 total**
 
 ## Phase Structure
 
