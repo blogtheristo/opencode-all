@@ -1,23 +1,27 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service using Resend SDK.
+ * Production-ready email delivery service.
+ * Priority: Amazon SES (SMTP) → Resend SDK (fallback).
  *
  * Features:
- *   - Resend SDK for outbound email (captures resend_email_id for delivery tracking)
+ *   - SES via SMTP as primary transport (nodemailer)
+ *   - Resend SDK as fallback when SES is unavailable or fails
  *   - Batch sending for digest/bulk emails (Resend /emails/batch)
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   RESEND_API_KEY       - Resend API key (required)
+ *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (for Amazon SES)
+ *   RESEND_API_KEY       - Resend API key (fallback)
  *   EMAIL_FROM           - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL         - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
 import { Resend } from 'resend';
+import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
   welcomeTemplate,
@@ -60,6 +64,7 @@ interface EmailLogEntry {
   sent_at: string | null;
   error: string | null;
   metadata: Record<string, unknown> | null;
+  transport?: string | null;
   resend_email_id?: string | null;
 }
 
@@ -83,9 +88,19 @@ class EmailService {
       this.resend = new Resend(apiKey);
     } else {
       this.resend = null;
+    }
+
+    const hasSmtp = !!process.env.SMTP_HOST;
+    const hasResend = !!apiKey;
+    if (!hasSmtp && !hasResend) {
       logger.warn(
-        'RESEND_API_KEY not configured. Emails will be logged but not delivered.'
+        'No email transport configured (SMTP_HOST or RESEND_API_KEY). Emails will be logged but not delivered.'
       );
+    } else {
+      logger.info('Email service initialized', {
+        primary: hasSmtp ? 'SES (SMTP)' : 'Resend',
+        fallback: hasSmtp && hasResend ? 'Resend' : 'none',
+      });
     }
   }
 
@@ -191,13 +206,16 @@ class EmailService {
   /**
    * Send multiple emails in a single Resend batch request (up to 100).
    * Returns array of Resend email IDs for tracking.
-   * Falls back to sequential sending if Resend SDK unavailable.
+   * Falls back to sequential sending via SES→Resend per-email if batch unavailable.
    */
   async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
     if (!this.resend) {
-      logger.warn('RESEND_API_KEY not configured — batch email not delivered', {
+      logger.info('Resend batch unavailable — sending sequentially via SES→Resend fallback', {
         count: emails.length,
       });
+      for (const e of emails) {
+        await this.sendEmail({ to: e.to, subject: e.subject, html: e.html, templateType: e.templateType });
+      }
       return [];
     }
 
@@ -213,7 +231,8 @@ class EmailService {
       if (error) {
         throw new Error(`Resend batch error: ${error.message}`);
       }
-      const ids = (data?.data ?? []).map((r: { id: string }) => r.id);
+      const results = data ?? [];
+      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
       logger.info('Batch emails sent via Resend', { count: ids.length });
       return ids;
     } catch (err) {
@@ -228,8 +247,8 @@ class EmailService {
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Resend SDK.
-   * Captures resend_email_id for delivery tracking.
+   * Send an email through SES (SMTP) primary → Resend fallback.
+   * Uses src/utils/send-email.ts which handles the SES→Resend cascade.
    * Logs every attempt to Supabase when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
@@ -241,28 +260,19 @@ class EmailService {
       templateType: templateType || 'custom',
     });
 
-    if (!this.resend) {
-      logger.warn('RESEND_API_KEY not configured - email not delivered', {
+    try {
+      const result = await sendEmailUtil({
+        from: this.fromAddress,
         to,
         subject,
+        html,
       });
-      await this.logEmail({
-        to_email: to,
-        from_email: this.fromAddress,
-        subject,
-        template_type: templateType || null,
-        status: 'failed',
-        sent_at: null,
-        error: 'RESEND_API_KEY not configured',
-        metadata: metadata || null,
-        resend_email_id: null,
-      });
-      return;
-    }
 
-    try {
-      const resendEmailId = await this.sendViaResend(to, subject, html);
-      logger.info('Email sent via Resend', { to, subject, resendEmailId });
+      if (!result.ok) {
+        throw new Error(result.error || 'Email delivery failed');
+      }
+
+      logger.info('Email sent', { to, subject, transport: result.transport });
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
@@ -272,12 +282,12 @@ class EmailService {
         sent_at: new Date().toISOString(),
         error: null,
         metadata: metadata || null,
-        resend_email_id: resendEmailId,
+        transport: result.transport || null,
       });
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : 'Unknown Resend error';
-      logger.error('Resend send failed', { to, error: errorMessage });
+        err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Email send failed', { to, error: errorMessage });
 
       await this.logEmail({
         to_email: to,
@@ -288,38 +298,11 @@ class EmailService {
         sent_at: null,
         error: errorMessage,
         metadata: metadata || null,
-        resend_email_id: null,
+        transport: null,
       });
 
       throw new Error(`Email delivery failed: ${errorMessage}`);
     }
-  }
-
-  // ----------------------------------------------------------
-  // PROVIDER IMPLEMENTATION
-  // ----------------------------------------------------------
-
-  /**
-   * Send email via Resend SDK.
-   * Returns the Resend email ID for delivery tracking.
-   */
-  private async sendViaResend(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<string> {
-    const { data, error } = await this.resend!.emails.send({
-      from: this.fromAddress,
-      to: [to],
-      subject,
-      html,
-    });
-
-    if (error) {
-      throw new Error(`Resend API error: ${error.message}`);
-    }
-
-    return data?.id ?? '';
   }
 
   // ----------------------------------------------------------

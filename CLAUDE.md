@@ -145,6 +145,26 @@ POTENTIAL CONCERNS:
 - [any risks]
 ```
 
+### Copy-Paste Output Rule (CRITICAL)
+
+When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"**, deliver content as:
+
+1. **One single fenced code block** — the user will triple-click or Ctrl+A inside it to copy
+2. **No tables** — tables break on mobile paste and require reformatting
+3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
+4. **No split windows** — everything in ONE block, not multiple blocks
+5. **Add a `--- COPY ABOVE ---` marker** after the block so the user knows where content ends
+
+```
+--- START COPY ---
+[All content here as plain text]
+[Use dashes for bullets, not markdown]
+[No tables, no bold, no headers inside]
+--- END COPY ---
+```
+
+**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
+
 ### Failure Modes to Avoid
 
 1. Making wrong assumptions without checking
@@ -166,10 +186,12 @@ POTENTIAL CONCERNS:
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
+- **Transport priority:** Amazon SES (SMTP) is **primary**, Resend SDK is **fallback**. Both use the same verified sender.
 - **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
+- **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES→Resend transport cascade).
 
 ## Tech Stack
 
