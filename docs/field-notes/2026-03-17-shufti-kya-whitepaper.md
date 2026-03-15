@@ -409,14 +409,37 @@ No provider has native L5 (continuous AML monitoring with same-day webhook deliv
 | **Recertification** | Annual | €3K–12K/year | Yes — mandatory |
 | **L5 Co-Development** | Consulting | €33K–65K (assessment + sprint + cert) | One-time per provider |
 
-**Plus volume-based revenue (unchanged):**
+**Plus volume-based revenue:**
 
-| Model | Structure | Range | Revenue Flow |
-|-------|-----------|-------|-------------|
-| **Revenue share** | DWS brings enterprise clients → provider gets verification volume → DWS takes share | **15–25%** of DWS-originated verification revenue | End customer → IDV provider → DWS |
-| **Wholesale resale** | DWS resells IDV as "KYA Verification" at platform pricing | **40–60% discount** off retail per-verification rate | End customer → DWS → IDV provider |
+#### Primary Model: Wholesale Resale
 
-**Models are combinable.** Typical structure: certification fee (base) + annual recertification (recurring) + revenue share (volume upside). The certification fee funds the assessment. The recertification fee funds ongoing compliance. The revenue share aligns incentives on growth.
+DWS buys verifications wholesale from the certified IDV provider and resells as "KYA Verification" at platform pricing. DWS owns the customer relationship and controls the money flow.
+
+| Element | Detail |
+|---------|--------|
+| **Structure** | IDV provider gives DWS a dedicated API key / sub-account at wholesale rate |
+| **Discount** | **40–60% off** provider's retail per-verification rate |
+| **Revenue flow** | End customer → DWS → IDV provider (DWS invoices the customer, pays provider wholesale) |
+| **Tracking** | All verifications through DWS API key are DWS-originated by definition — no audit rights needed |
+| **Enforcement** | Fully enforceable — DWS controls the billing relationship and the API key |
+
+**Why wholesale resale is primary:** Revenue share models (provider reports DWS-originated volume, DWS takes a cut) require audit rights, accurate provider reporting, and contractual enforcement mechanisms that are unrealistic with early-stage providers. Wholesale resale eliminates these problems — DWS sees every transaction because DWS routes every transaction.
+
+#### Alternative Model: Revenue Share (Large Providers Only)
+
+For established providers with mature reporting infrastructure (e.g., IN Groupe, Telia), a revenue share model may be appropriate as an alternative or complement:
+
+| Element | Detail |
+|---------|--------|
+| **Structure** | DWS brings enterprise clients → provider gets verification volume → DWS takes share |
+| **Range** | **15–25%** of DWS-originated verification revenue |
+| **Revenue flow** | End customer → IDV provider → DWS (provider invoices customer, pays DWS share) |
+| **Tracking** | DWS session ID in `reference` field + quarterly reconciliation report |
+| **Enforcement** | Requires contractual audit rights + provider reporting infrastructure |
+
+**When to use revenue share instead of wholesale:** Only when the provider (a) has auditable reporting infrastructure, (b) has an established billing relationship with the end customer that would be disruptive to reroute through DWS, and (c) agrees to quarterly reconciliation with audit rights.
+
+**Typical structure:** Certification fee (base) + annual recertification (recurring) + wholesale resale (volume). The certification fee funds the assessment. The recertification fee funds ongoing compliance. Wholesale resale captures volume upside while keeping enforcement simple.
 
 ### 9.3 Evaluation Criteria
 

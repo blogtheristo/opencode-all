@@ -192,7 +192,11 @@ Ask in this order — each answer informs the next question:
    - **€8K is the right entry point.** Low enough to say yes to. Qualifies whether the full co-development (€25-40K) is even realistic before either side commits.
    - **DO NOT mention the co-development sprint pricing on this call** unless they specifically ask "what comes after the readiness assessment?" Even then, say "€25-40K depending on scope — but let's see the readiness assessment results first."
 
-4. **Revenue share:** "On top of certification, every DWS enterprise customer = recurring verification volume for Shufti. We take 15-25% of DWS-originated verification revenue. This is where the real money is for both sides."
+4. **Volume model — lead with wholesale resale:** "On top of certification, here's how the ongoing volume works: DWS buys verifications from Shufti at a wholesale rate — you give us a dedicated API key, we resell as 'KYA Verification' at platform pricing. DWS owns the customer relationship and handles billing. You get guaranteed volume through the DWS enterprise channel without building revenue attribution reporting."
+   - **Target discount: 40% off retail** per-verification rate. This is standard reseller territory and doesn't require volume commitments you can't back up yet.
+   - **Do NOT ask for 60%** — that's a volume-dependent discount and you don't have the transaction volume to justify it. Start at 40%, negotiate toward 50% as volume ramps with a tiered schedule (e.g., 40% for 0-10K verifications/month, 50% for 10K+).
+   - **Do NOT pitch revenue share to Shufti.** Revenue share requires audit rights and reporting infrastructure that a startup won't have. Wholesale is cleaner — you control the money flow, they don't need to build attribution reporting.
+   - **If they push back on wholesale:** "Think of it like Stripe Atlas reselling Stripe — we bring the customers, handle the billing, and you get guaranteed volume at a predictable rate. No attribution headaches on your side."
 
 #### Close (5 min)
 
