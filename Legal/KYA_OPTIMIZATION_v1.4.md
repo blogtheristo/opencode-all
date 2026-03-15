@@ -6,7 +6,7 @@
 Version: 1.6
 
 Sessions & Modifications:
-  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 13.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Clawback Clause (§5.4). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety), ATS autoresearch delta, financial multiplier per trust tier, per-industry efficiency gains (9–22%), Capability Manifest v1.2, Karpathy field note, projected EU-wide impact
@@ -14,7 +14,7 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 10.03.2026
-  - Last Modified: 13.03.2026
+  - Last Modified: 15.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -339,7 +339,20 @@ How KYA generates revenue for Lifetime Oy:
 | EUR 1M–10M | **8%** | Established value, scaling phase |
 | Above EUR 10M | **5%** | Enterprise-scale; lower share retains large accounts |
 
-**Clawback Clause (v1.6):** If an optimization (A factor contribution) causes an `INTEGRATION_FAULT` or `AUTORESEARCH_FAULT` within **30 days** of production deployment, the revenue share for that optimization period is **refunded in full** to the client. This aligns Lifetime Oy's incentives with production stability, not just delta generation.
+**Clawback Clause (v1.6) → Performance Guarantee (v1.6 revised):**
+
+This clause operates at **two layers** with identical economics but different framing:
+
+**Internal (Revenue Recognition):** Lifetime Oy defers Alpha-Share revenue for 30 days post-production deployment. If an optimization causes an `INTEGRATION_FAULT` or `AUTORESEARCH_FAULT` within the deferral window, revenue is never recognized for that period. This protects revenue recognition integrity and aligns internal incentives with production stability.
+
+**Customer-Facing (Contract Language):** Presented as a **"Performance Guarantee"** — if a KYA-O optimization causes a verified production fault within 30 days, the client receives a service credit equal to that period's Alpha-Share. The word "clawback" never appears in customer contracts.
+
+| Layer | Term Used | Mechanism | Procurement Impact |
+|-------|-----------|-----------|-------------------|
+| Internal (Lifetime Oy) | Revenue Deferral | Alpha-Share not recognized for 30 days | N/A — invisible to client |
+| Customer contract | Performance Guarantee | Service credit issued on verified fault | **Positive** — signals confidence |
+
+**Why the split matters:** "We guarantee our optimizations" closes deals. "We'll claw back revenue if things break" stalls them. Same economics, opposite sales psychology.
 
 **Verification Credit Rebate (v1.6):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
 
