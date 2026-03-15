@@ -258,8 +258,6 @@ export class OpenClawBridge {
         signal: controller.signal,
       });
 
-      clearTimeout(timeout);
-
       if (!response.ok) {
         throw new Error(`OpenClaw returned ${response.status}: ${response.statusText}`);
       }
@@ -321,6 +319,8 @@ export class OpenClawBridge {
         auditEventId,
         durationMs: Date.now() - startTime,
       };
+    } finally {
+      clearTimeout(timeout);
     }
   }
 }
