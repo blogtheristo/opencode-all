@@ -21,7 +21,7 @@ def extract_reddit_path(url: str) -> str | None:
         if "reddit.com" not in parsed.netloc:
             return None
         return parsed.path
-    except:
+    except Exception:
         return None
 
 
@@ -43,8 +43,7 @@ def fetch_thread_data(url: str, mock_data: dict | None = None) -> dict[str, Any]
         return None
 
     try:
-        data = http.get_reddit_json(path)
-        return data
+        return http.get_reddit_json(path)
     except http.HTTPError:
         return None
 
