@@ -42,8 +42,7 @@ COMMENT ON TABLE grok_consent IS
   'GDPR Art. 6(1)(a) — EU AI Act high-risk AI logging basis.';
 
 -- ============ grok_consent_audit ============
--- Append-only: a trigger rejects UPDATE and DELETE at the DB level,
--- regardless of role (including service role, which bypasses RLS).
+-- Append-only log — immutability enforced by triggers in migration 036
 
 CREATE TABLE IF NOT EXISTS grok_consent_audit (
   id           BIGSERIAL PRIMARY KEY,
