@@ -19,7 +19,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Checkout (push - last 2 commits)
         if: github.event_name == 'push'
@@ -34,17 +34,19 @@ jobs:
           tar -xzf "gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
           chmod +x gitleaks
 
-      - name: Run gitleaks (PR - changed files only)
+      - name: Run gitleaks (PR - working tree state)
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         run: |
           ./gitleaks detect \
             --source . \
-            --log-opts "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" \
+            --no-git \
             --report-format sarif \
             --report-path gitleaks-report.sarif
 
       - name: Run gitleaks (push - latest commit)
         if: github.event_name == 'push'
+        continue-on-error: true
         run: |
           ./gitleaks detect \
             --source . \

@@ -19,13 +19,13 @@ import logging
 import os
 import subprocess
 from datetime import datetime
-from typing import Any, Literal
+from typing import Literal
 
-import httpx
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
+
 from supabase import Client, create_client
 
 logging.basicConfig(level=logging.INFO)
@@ -41,7 +41,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:
@@ -116,7 +116,7 @@ def _git(*args: str) -> str:
         return ""
     try:
         result = subprocess.run(
-            ["git", "-C", REPO_PATH, *args],
+            ["git", "-C", REPO_PATH, *args],  # noqa: S607
             capture_output=True, text=True, timeout=10
         )
         return result.stdout.strip()
