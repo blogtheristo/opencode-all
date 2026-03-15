@@ -6,12 +6,19 @@
 **Laitos:** DWS IQ Research
 **Dokumenttityyppi:** Pro Gradu -tutkielma
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 2.5
 
 Sessions & Modifications:
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
@@ -25,11 +32,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 14.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Last Modified: 07.03.2026
-  - Publication Status: DRAFT (V1.8 — LSS-koulutusputken koordinointi: koulutusagenttilaivasto T-01–T-10, laatuporttisignaalit, resurssien välimiesosoitus)
+  - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
 
 ---
 
@@ -1266,6 +1272,9 @@ Tama tutkielma kontribuoi:
 9. Toimitusjohtajan automaatioagenttiryhmä — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse-malli sovellettu liikevaihtotyönkulun automatisointiin
 10. Monituottajakumppaniekosysteemi — NVIDIA, Siemens, ABB, xAI, Mistral + monituottaja-LLM-reititin; validoi Firehorse-toimintamallin jakelusupotushypoteesin
 11. LSS-koulutusputken koordinointi — Lifetime Scope Signals sovellettuna LWM-koulutukseen: koulutusagenttilaivasto (T-01–T-10), laatuporttisignaalit, resurssien välimiesosoitus 2× GN-100 -solmuille; validoi LSS:n yleiskäyttöisenä koordinointina ohjelmistokehityksen ulkopuolella
+12. Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti; osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
+13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
+14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
 
 ### 16.3 Tuleva tyo
 
@@ -1299,6 +1308,24 @@ Tama tutkielma kontribuoi:
 14. Liikesalaisuuslaki 595/2018 (Suomi)
 15. Patenttiyhteistyosopimus (PCT), WIPO
 16. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
+
+### DWS-alustan standardit (sisäiset)
+
+Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietoturvaa ja laatua. Niitä ylläpidetään elävinä dokumentteina yksityisessä repositoriossa ja niihin viitataan tässä Oxford-notaatiolla akateemisen jäljitettävyyden varmistamiseksi.
+
+17. Lifetime Oy (2026). *DWS Security Standard*, versio 1.5. `DWS_SECURITY_STANDARD.md`. Sisäinen viitekehys, joka ohjaa tekoälyn turvallisuutta, väliohjelmiston tietoturvakontrolleja, CORS-käytäntöjä, SRI-eheyttä, artikla 12 -kirjausta ja API-rajapinnan validointia Zod-skeemoilla. Määrittelee tietoturva-arkkitehtuurin kaikille 15 backend-API-reitille ja MCP-agenttipalvelimelle.
+
+18. Lifetime Oy (2026). *ESRS-tietopisterekisteri*, versio 1.0. `src/compliance/esrs-registry.ts`. Koneluettava kartoitus kaikista 82 eurooppalaisesta kestävyysraportointistandardien (ESRS) tiedonantovaatimuksesta kategorioittain E1–E5 (ympäristö), S1–S4 (sosiaalinen) ja G1 (hallinto). Kukin tiedonanto on luokiteltu pakolliseksi tai vapaaehtoiseksi CSRD-direktiivin (EU) 2022/2464 mukaisesti.
+
+19. Lifetime Oy (2026). *Vaatimustenmukaisuuden pisteytysmoottori*, versio 1.0. `src/compliance/scoring-engine.ts`. Deterministinen vaatimustenmukaisuuden pisteytysalgoritmi, joka laskee CSRD-valmiuden, ETS-altistuksen ja CBAM-riskipisteet. Kaava: kokonaispistemäärä = CSRD(0,50) + ETS(0,25) + CBAM(0,25), jossa CSRD = (annetut pakolliset tietopisteet / pakolliset yhteensä) × 80 + bonusmuuttujat.
+
+20. Lifetime Oy (2026). *Site Quality Standards*, versio 2.1. `SITE_QUALITY_STANDARDS.md`. Koodin laatu-, komponenttiarkkitehtuuri- ja käyttöliittymän vikasietoisuusstandardit DWS IQ -hallintapaneelille. Määrittelee ErrorBoundary-, Skeleton-lataus- ja EmptyState-komponenttistandardit yritystason käyttökokemukselle.
+
+21. Lifetime Oy (2026). *AGENTS.md*, versio 2.2. `AGENTS.md`. Agentti-inventaario ja operatiiviset ohjeet agents.md-avoimen spesifikaation mukaisesti. Dokumentoi 15 tekoälyagenttia, vaatimustenmukaisuuden pisteytysarkkitehtuurin, väliohjelmistopinon järjestyksen ja "Build for Agents" -tuotesäännön, joka edellyttää CLI + MCP + Skills -rajapintoja.
+
+22. Lifetime Oy (2026). *DWS IQ Platform Admin Manual*, versio 2.7. `Admin/ADMIN_MANUAL.md`. Operatiiviset menettelyt terveystarkistusten valvontaan, vaatimustenmukaisuusmoottorin hallintaan ja hallintapaneelin vikasietoisuuden vianetsintään. Sisältää Claude Code -projektin suunnittelurakenteen ja moniagenttiorkestrointiosiot.
+
+23. Lifetime Oy (2026). *Enterprise Security & Compliance*, versio 1.8. `Admin/SECURITY_COMPLIANCE.md`. Tietoturvakontrollit tietoturvajohtajille ja hankintatiimeille. Dokumentoi agenttien ajonaikaiset turvakontrollit, hallintapaneelin vikasietoisyyskontrollit, backend-väliohjelmiston turvakontrollit ja vaatimustenmukaisuusmoottorin tietosuojan RLS-käytännöillä.
 
 ---
 
@@ -1483,8 +1510,173 @@ Laadunvalvonta on **rakenteellista, ei käyttäytymiseen perustuvaa** — koulut
 **Johtopäätös**
 Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli — se on suunnittelukuri. CLAUDE.md, taidot, koukut ja aliagentit ovat infrastruktuuri, joka tekee Firehorse-mallista luotettavan, johdonmukaisen ja skaalautuvan.
 
+### Osio 14.10: Agenttijärjestelmän koventaminen — tuotantoluotettavuus
+
+31-agenttinen järjestelmä oli kerryttänyt 6 TypeScript-kääntövirhettä ja 3 testivikaa moduulirajojen yli. Nämä eivät olleet suunnitteluvirheitä vaan integraatiovelkaa.
+
+**Tehdyt korjaukset:**
+
+1. **SandboxContext-tyyppilinjaus** — `SandboxContext.stage` puuttui `'opensandbox'`-literaali. Tämä esti agentin suorittamisen vaiheessa 1.5 (Acer Veriton Docker).
+
+2. **MCP-reittien kytkentä** — `createMCPRouter()` oli määritelty mutta ei tuotu `app.ts`-tiedostoon. Kaikki 31 agenttia olivat näkymättömiä ulkoisille MCP-asiakkaille.
+
+3. **HIL-reittien kytkentä** — Ihminen silmukassa -päätepiste (`/api/hil`) oli tavoittamattomissa. Captain Pre-Briefing -agentin "Valmis"-painikkeet palauttivat 404.
+
+4. **Lokaalivarma muotoilu** — Päästödatan analyytikko käytti `toLocaleString()`-metodia ilman lokaalia. Korjattu eksplisiittisellä `'en-US'`-lokaalilla.
+
+5. **Resend-erävasteen tyyppiturvallisuus** — Sähköpostipalvelun `.map()`-kutsu epäonnistui unionityypillä. Lisätty suoritusaikainen taulukkotunnistus.
+
+6. **Riippuvuushygienia** — `luxon` oli tuotu mutta puuttui `package.json`-tiedostosta.
+
+**Tulos:** 0 TypeScript-virhettä (oli 6), 47/47 testiä läpi (oli 44/47).
+
+**Tutkimusnäkemys:** Moniagenttiarkkitehtuureissa integraatiovelka kertyy moduulirajoille, ei moduulien sisälle. Systemaattiset koventamissessiot ovat tehokkaampia kuin moduulikohtaiset korjaukset, koska ne palauttavat leikkaavia invariantteja.
+
 ---
 
+### Osio 14.11: PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi
+
+Firehorse-toimintamalli tuottaa kasvavia määriä kampanjatapahtumia, agenttisuorituslokeja ja auditointijälkidataa. Analytiikan suorittaminen transaktiotaulujen varastoon luo suorituskyvyn pullonkauloja datan kasvaessa.
+
+**Ratkaisu: Kaksitasoinen HTAP Aiven-first-mandaatilla**
+
+Alkuperäinen v2.2-arviointi oletti yksitasoista HTAP:ta. Maaliskuun 2026 päivitykset muuttavat arkkitehtuuria merkittävästi:
+
+**Markkinamuutokset (helmi–maaliskuu 2026):**
+- **Hydra liittyi Supabaseen** (helmi 2026) → Supabase Warehouse, ei enää itsenäinen; Firehorse ei käytä Supabasea tuotannossa → Hydra putoaa arvioinnista
+- **pg_mooncake → Databricks-yrityskauppa** → lisenssiriski; putoaa arvioinnista
+- **pg_duckdb: ESTETTY Aiven-sallittujen listalla** → ei voida käyttää hallinnoidussa tuotannossa; siirtyy vain reunalaitelisenssin alle
+- **TimescaleDB 2.25.x Hypercore** → ainoa hyväksytty hallittu vaihtoehto Aiven EU:ssa
+
+**Päivitetty arviointitaulukko:**
+
+| Ratkaisu | Moottori | Aiven-tuki | Tila v2.3 | Firehorse-sopivuus |
+|----------|----------|------------|-----------|-------------------|
+| TimescaleDB 2.25.x Hypercore | PostgreSQL | Kyllä (sallittu) | **Tuotantostandardi** | Ensisijainen — aikasarja-agenttimetriikat, auditointipakkaus, sarakemuotoinen Hypercore |
+| pg_duckdb | DuckDB | **ESTETTY** | Vain reunalaite | GN100-reunatietokanta — kampanjasuppilon nopeutus, pgvector-RAG |
+| Hydra | Citus Columnar | Ei (Supabase Warehouse) | Pudotettu | Supabase-sidonnainen; ei sovellettavissa |
+| pg_mooncake | DuckDB | Ei | Pudotettu | Databricks-yrityskauppa → lisenssiriski |
+
+**Kaksitasoinen arkkitehtuuri:**
+
+| Taso | Alusta | Laajennukset | Käyttötarkoitus |
+|------|--------|-------------|----------------|
+| **Taso 1: Aiven EU (tuotanto)** | Aiven for PostgreSQL, europe-north1 | TimescaleDB 2.25.x Hypercore | OLTP + aikasarjat + sarakepakkaus, RLS, EU-tietojen sijainti |
+| **Taso 2: GN100-reuna (kehitys/reunalaskenta)** | Acer Veriton GN100, itsehallinnoitu | TimescaleDB + pg_duckdb + pgvector | Paikallinen HTAP, vektori-RAG, offline-analytiikka |
+
+**DWS-tietostandardi luotu** (`DWS_DATA_STANDARD.md`):
+- Tallennusmoottoripäätökset (rivi vs sarake vs hybridi)
+- Laajennusten hallinta EU-suvereniteettiarviolla
+- Säilytysperiaatteet 11 EU-säädökseen sidottuina (GDPR Art 17, EU AI Act Art 12: 7v, NIS2: 5v, kirjanpitolaki: 10v)
+- Osiointi- ja pakkausstandardit
+- **Aiven-sallittujen lista** ohjaa tuotantolaajennuksia; estetyt laajennukset (pg_duckdb) siirtyvät reunatasolle
+
+**4-vaiheinen käyttöönotto (päivitetty):** Vaihe 0 (tauluosiointi) → Vaihe 1 (TimescaleDB Hypercore Aivenilla) → Vaihe 2 (GN100-reunatietokanta pg_duckdb + pgvector) → Vaihe 3 (lakehouse-integraatio).
+
+**Tutkimuspanos:** Osoittaa, että hallinnoidun palveluntarjoajan rajoitteet (Aiven-sallittujen lista) toimivat arkkitehtuurin ohjaajana — pakottavat kaksitasoisen HTAP-mallin, jossa tuotanto ja reunalaskenta eriytyvät. TimescaleDB Hypercore on ainoa yhden tietokannan HTAP-ratkaisu, joka täyttää sekä Aiven-yhteensopivuuden että EU-tietojen sijaintivaatimukset.
+
+### 14.12 Harness Engineering ja forensiikkatelemetria
+
+**Lähde:** OpenAI, "Harness engineering: leveraging Codex in an agent-first world", 13.02.2026; analyysi tiedostossa `docs/OPENAI_HARNESS_ENGINEERING_ANALYSIS.md`.
+
+**Konteksti:** OpenAI:n harness engineering -kehys kuvaa miten AI-agenttia ympäröivä ympäristö (scaffolding, rajoitteet, palautesilmukat) määrittää agentin tehokkuuden enemmän kuin itse malli. Tämä osio yhdistää harness engineeringin Firehorse-forensiikkatelemetriaan ja laajempaan väitöskirjatutkimukseen oikeudellisesti pätevistä AI-operaatioista.
+
+#### 14.12.1 Harness-forensiikka-yhteys
+
+OpenAI:n harness-malli keskittyy **kehittäjien tuottavuuteen** — tuotteiden rakentamisen nopeuttamiseen AI-agenttien avulla. DWS IQ 6 laajentaa harness-käsitteen **forensisiin operaatioihin**, joissa jokaisen agenttitoimenpiteen on oltava jäljitettävissä, auditoitavissa ja oikeudellisesti pätevä.
+
+| Harness-kerros | OpenAI:n tarkoitus | Firehorse-forensiikan tarkoitus |
+|----------------|--------------------|---------------------------------|
+| **AGENTS.md** | Kartta kehittäjäagenteille | Auditoitavissa oleva järjestelmäkuvaus sääntelyviranomaisille |
+| **Golden Principles** | Koodin laadunvarmistus | Vaatimustenmukaisuusstandardien noudattaminen 20 toimialalla |
+| **Tieto repossa** | Kehittäjädokumentaatio | VERSION AND AGENT HISTORY — muuttumaton muokkauspäiväkirja |
+| **Agentti-agentti-katselmointi** | Koodin laadun iteraatio | Monimallikatselmointi, joka luo forensisen todistusketjun |
+| **Palautesilmukat** | Kehittäjien tuottavuus | Oikeudellisesti pätevä päätösten jäljitettävyys |
+
+**Keskeinen oivallus:** DWS-dokumenttistandardin VERSION AND AGENT HISTORY -lohko muuttaa jokaisen dokumentin forensiseksi artefaktiksi. Jokainen muokkaus tallentaa: versionumeron, käytetyn työkalun, session ID:n, päivämäärän ja tehdyt muutokset. Tämä on harness-mekanismi, jota OpenAI ei kuvaa — koska he optimoivat nopeutta, eivät oikeudellista puolustettavuutta.
+
+#### 14.12.2 KYA-standardi laitteistotason harness-todennuksena
+
+OpenAI:n harness toimii kokonaan ohjelmistotasolla — rajoitteet, linterit, koodikatselmointi-silmukat. DWS:n KYA-standardi (Know Your Agent/Architecture) laajentaa harnessin laitteistotasolle:
+
+| Harness-tyyppi | OpenAI | DWS KYA |
+|---------------|--------|---------|
+| **Agentti-identiteetti** | Ohjelmistotason sessio-ID:t | Laitteistotodennettu agentin identiteetti (TPM/Secure Boot) |
+| **Suorituksen eristys** | Konttien hiekkalaatikko | Laitteistoeristetyt suoritusympäristöt |
+| **Auditoinnin muuttumattomuus** | Git-historia | Laitteistotodennetut auditointilokit (peukaloinnin kestävät) |
+| **Luottamusraja** | Prosessitaso | Laitteistoturvamoduulin raja |
+
+KYA-standardin Kilpi (turvallisuus) ja Miekka (optimointi) -paradigma osoittaa, että **laitteistotason harness tarjoaa takuita, joita ohjelmisto-harness ei voi antaa** — erityisesti EU-reguloiduilla toimialoilla, joilla agenttipäätöksillä on oikeudellinen vastuu.
+
+#### 14.12.3 Empiirinen validointi: harness ylittää mallin
+
+Harness engineering -kirjallisuus tarjoaa empiirisiä todisteita Firehorse-toimintamallin tueksi:
+
+- **52,8 % → 66,5 % parannus** pelkillä harness-muutoksilla (LangChain-tapaus, sama gpt-5.2-codex-malli)
+- **46,9 % tokenisäästö** progressiivisella paljastamisella (Cursor)
+- **15–47 % parempi sääntöjen noudattaminen** L6 Tool Result Injection vs pelkkä systeemiprompt (DWS:n sisäinen mittaus)
+
+Nämä löydökset validoivat Firehorse-mallin investoinnin operatiiviseen infrastruktuuriin (forensiikkatelemetria, automatisoitu PR-katselmointi, session handover -protokolla) mallivalinnan sijaan. Malli on vaihdettavissa — harness on kilpailuetu.
+
+#### 14.12.4 EU-regulaation eroavaisuus
+
+Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin on täytettävä rajoitteet, joita OpenAI:n sisäiset työkalut eivät kohtaa:
+
+| EU-vaatimus | Harness-implikaatio | Firehorse-toteutus |
+|-------------|--------------------|--------------------|
+| **EU AI Act Art 12** (7 vuoden lokitus) | Jokainen agenttitoimenpide kirjattava muuttumattomasti | VERSION AND AGENT HISTORY + Supabase-auditointitaulut |
+| **EU AI Act Art 14** (ihmisen valvonta) | Ihminen silmukassa pakollinen korkean riskin järjestelmissä | Karpathy-periaatteet: "ihminen on arkkitehti" |
+| **GDPR Art 17** (oikeus tulla unohdetuksi) | Datan poisto säilyttäen auditointipolku | Pseudonymisoidut auditointilokit erillisellä PII-tallennuksella |
+| **NIS2 Art 23** (häiriöilmoitukset) | 24 tunnin tietoturvaloukkauksesta ilmoittaminen | Firehorse-automatisoitu häiriötelemetria |
+
+**Tutkimuspanos:** Tämä osio osoittaa, että **harness engineering ei ole yksi koko kaikille.** EU-regulaatiokonteksti vaatii perustavanlaatuisesti erilaisen harness-suunnittelun — sellaisen, joka priorisoi jäljitettävyyttä, ihmisen valvontaa ja oikeudellista puolustettavuutta nopeuden sijaan. OpenAI:n 3,5 PR/insinööri/päivä -mittari on irrelevantti, kun ensisijainen mittari on vaatimustenmukaisuuden varmistaminen ja auditointivalmius.
+
+---
+
+## Liite G: Sanasto
+
+### Alusta- ja liiketoimintakäsitteet
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **AgentFoundry** | AgentFoundry | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
+| **Edge AI** | Reunatekoäly | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
+| **Firehorse** | Firehorse | DWS6-tuoteperhe (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
+| **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+
+### Tietoarkkitehtuuri ja analytiikka
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Autoresearch** | Autotutkimus | Karpathyn inspiroima autonominen validointisilmukka: hypoteesi → muokkaus → todentaminen → säilytä/hylkää → toista |
+| **Columnar Storage** | Saraketallennustila | Tietokantatallennus, joka järjestää datan sarakkeittain — mahdollistaa 10-100× pakkauksen ja nopeammat analyyttiset kyselyt |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — yksi tietokanta palvelee sekä OLTP- että OLAP-työkuormia |
+| **Hypercore** | Hypercore | TimescaleDB:n automaattinen hybridi rivi→sarake -tasointimoottori, 90-98% pakkaus |
+| **pg_duckdb** | pg_duckdb | PostgreSQL-laajennus DuckDB-upotuksella 50-600× OLAP-kiihdytykseen (DWS:ssä vain reunalaitteilla) |
+| **pgvector** | pgvector | PostgreSQL-laajennus vektorihakuun RAG-putkistoissa |
+| **TimescaleDB** | TimescaleDB | PostgreSQL-laajennus aikasarjadatalle pakkauksella ja jatkuvilla aggregaateilla |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Arkkitehtuurimalli: Taso 1 (Aiven-hallinnoitu, TimescaleDB) + Taso 2 (itsehallittu reuna, pg_duckdb) |
+
+### Turvallisuus ja vaatimustenmukaisuus
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS-periaate, joka edellyttää tuotantolaajennusten Aiven-yhteensopivuutta |
+| **DWS Data Standard** | DWS-tietostandardi | Sisäinen standardi tiedon tallennuspäätöksille ja EU-sääntelyvaatimustenmukaisuudelle |
+| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU:n tietosuoja-asetus |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — AI-agenttien turvallisuus (Kilpi) ja optimoinnin hallinta (Miekka) |
+| **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathyn malli: validoi muutokset pienellä mallilla ennen tuotantoskaalausta |
+| **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
+
+---
+
+**Keskeiset kontribuutiot:**
+1-14. (Katso VERSION AND AGENT HISTORY)
+15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 02.03.2026*
-*Versio: 1.7*
+*Viimeksi päivitetty: 14.03.2026*
+*Versio: 2.5*

@@ -14,6 +14,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
@@ -27,11 +28,24 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import grokConsentRoutes from './routes/grok-consent.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
+import paymentRoutes from './routes/payment.routes.js';
+import hilRoutes from './routes/hil.routes.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import captainRoutes from './routes/captain.routes.js';
+import usageRoutes from './routes/usage.routes.js';
+import onboardRoutes from './routes/onboard.routes.js';
+import complianceRoutes from './routes/compliance.routes.js';
+import reportExportRoutes from './routes/report-export.routes.js';
+import apiKeyRoutes from './routes/api-keys.routes.js';
+import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 
 dotenv.config();
 
@@ -102,6 +116,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
 };
 app.use(cors(corsOptions));
+
+// API versioning header on all responses
+app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
 app.use(express.json({ limit: '10kb' }));
@@ -187,14 +204,79 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
+// Usage metering (MVP Feature 2)
+app.use('/api/v1/usage', usageRoutes);
+
+// Onboarding wizard (baseline compliance assessment)
+app.use('/api/v1/onboard', onboardRoutes);
+
+// Compliance assessment API (scoring, registry, cost estimate)
+app.use('/api/v1/compliance', complianceRoutes);
+
+// Report export & scheduling (MVP Feature 3)
+app.use('/api/v1/reports', reportExportRoutes);
+
+// API key management (MVP Feature 1)
+app.use('/api/v1/user/api-keys', apiKeyRoutes);
+
+// Payment proxy (PayPal, Revolut subscription checkout)
+app.use('/api/v1/payments', paymentRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
+
+// KYA Webhook Bridge (Shufti Pro → Policy Engine)
+app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// KYA CLI Snap endpoint (simulation trigger for demo)
+app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['authorization']?.replace('Bearer ', '')
+    || req.headers['x-admin-key'];
+
+  if (adminKey && provided) {
+    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+  }
+
+  const { sessionId, reason, forceCascade, source } = req.body;
+
+  if (!sessionId || typeof sessionId !== 'string') {
+    res.status(400).json({ error: 'sessionId is required' });
+    return;
+  }
+
+  try {
+    const result = await terminateChain(sessionId, {
+      reason: reason || 'MANUAL_SNAP',
+      forensicDump: true,
+    });
+
+    logger.info('KYA Snap executed via CLI', {
+      sessionId,
+      reason,
+      source: source || 'api',
+      forceCascade,
+    });
+
+    res.json(result);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('KYA Snap failed', { error: msg, sessionId });
+    res.status(500).json({ error: 'Snap execution failed', message: msg });
+  }
+});
 
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
@@ -205,8 +287,29 @@ app.use('/api/hil', hilRoutes);
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
+// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
+app.use('/api/grok-consent', grokConsentRoutes);
+
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// Project delivery status (investor view) — dashboard fetches latest on admin login
+app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
+  const configPath = path.join(process.cwd(), 'config', 'project-delivery-status.json');
+  const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
+  try {
+    const raw = fs.readFileSync(configPath, 'utf-8');
+    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    res.json({
+      timestamp: data.timestamp ?? fallback.timestamp,
+      mvp: data.mvp ?? fallback.mvp,
+      v1: data.v1 ?? fallback.v1,
+      dws7: data.dws7 ?? fallback.dws7,
+    });
+  } catch {
+    res.json(fallback);
+  }
+});
 
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
@@ -256,6 +359,107 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Manual construction leads fetch failed', { error: msg });
     res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
+  }
+});
+
+// Captain inquiry status update — triggers pre-briefing email on "booked"
+app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const { id } = req.params;
+  const { status } = req.body;
+  const validStatuses = ['new', 'contacted', 'booked', 'closed'];
+
+  if (!status || !validStatuses.includes(status)) {
+    res.status(400).json({ error: 'Invalid status', valid: validStatuses });
+    return;
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    res.status(500).json({ error: 'Supabase not configured' });
+    return;
+  }
+
+  try {
+    // Fetch the inquiry first (need name/email/industry for the email)
+    const fetchRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}&select=name,email,industry,seat_level,status`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
+    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    if (rows.length === 0) {
+      res.status(404).json({ error: 'Inquiry not found' });
+      return;
+    }
+
+    const inquiry = rows[0];
+
+    // Update status
+    const updateRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
+
+    // If status changed to "booked", send pre-briefing email
+    let emailSent = false;
+    if (status === 'booked' && inquiry.status !== 'booked') {
+      try {
+        const emailService = (await import('./services/email.service.js')).default;
+        await emailService.sendCaptainPreBriefing(
+          inquiry.email,
+          inquiry.name,
+          inquiry.industry,
+          inquiry.seat_level
+        );
+        emailSent = true;
+        logger.info('Captain pre-briefing email sent', {
+          to: inquiry.email,
+          industry: inquiry.industry,
+        });
+      } catch (emailErr) {
+        const msg = emailErr instanceof Error ? emailErr.message : 'Unknown error';
+        logger.error('Captain pre-briefing email failed', { error: msg, to: inquiry.email });
+        // Don't fail the status update if email fails
+      }
+    }
+
+    res.json({
+      status: 'updated',
+      inquiry_id: id,
+      new_status: status,
+      email_sent: emailSent,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Captain inquiry status update failed', { error: msg, id });
+    res.status(500).json({ error: 'Update failed', message: msg });
   }
 });
 

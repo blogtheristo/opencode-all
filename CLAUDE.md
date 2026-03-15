@@ -14,9 +14,10 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
 | **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
-| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -89,12 +90,12 @@ The script (`scripts/gen-thesis-html.cjs`):
 
 ## Project Overview
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture: Brain-Memory-Body-Hands**
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
@@ -165,7 +166,7 @@ POTENTIAL CONCERNS:
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
-- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
@@ -235,6 +236,17 @@ When modifying `buy/index.html`, product pages, `products.json`, or store assets
 
 Applies to all store artifacts: `buy/`, `config/products.json`, `products/*.html`, `shared-assets/`, `feeds/`, product images.
 
+### Blog Post Rule (CRITICAL)
+
+Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every blog post:
+
+1. Create HTML file in `onelifetime.world/posts/<slug>.html` (source of truth)
+2. Copy to `landing-pages/onelifetime-world/posts/<slug>.html` in the **same commit**
+3. Use the same nav/footer pattern as existing posts (see `kya-standard-v1.html` as template)
+4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
+5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
+6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+
 ## Development Commands
 
 ```bash
@@ -254,11 +266,14 @@ docker-compose -f docker-compose.hybrid.yml up -d
 
 ## Code Quality & Testing
 
+- **Formatting:** `.editorconfig` (2-space indent, LF, 100-char lines, UTF-8) — see `SITE_QUALITY_STANDARDS.md` §3 Code Formatting Standards
 - **JS/TS:** ESLint; **Python:** Ruff + Black; **Security:** Bandit, Safety
 - **Tests:** Vitest in `src/__tests__/`; run `npm run test` or `npm run test:ui`
 - **Pre-commit:** Branch name validation in `.githooks/`
 
 **Patterns:** Strict TypeScript + Zod schemas; functional React components + TailwindCSS; RESTful Express + JWT; `.env.example` (144+ variables).
+
+**Formatting rules (quick reference):** 2 spaces, single quotes (JS/TS), double quotes (JSX/JSON), semicolons required, trailing commas in multi-line, K&R braces, imports grouped by origin. Full spec in `SITE_QUALITY_STANDARDS.md`.
 
 ## Security Considerations
 
@@ -318,7 +333,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 **Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
 
-**Windows Managed Settings:** Effective March 11, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Supported since Claude Code 2.0.58.
+**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `Admin/ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
 
 ## 2026 EU AI Act Compliance
 
@@ -352,7 +367,9 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`, `/sovereignty-assess`, `/flow-status`, `/email`. Every new agent MUST have a corresponding skill.
+
+**gstack Skills (development workflow, based on Garry Tan's gstack):** `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro`. Recommended flow: plan → review → ship → retro. See AGENTS.md Section 16.
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 

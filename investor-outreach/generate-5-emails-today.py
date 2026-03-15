@@ -13,9 +13,8 @@ Output:
     - Takes 2 minutes to run, 10 minutes to send all 5
 """
 
-import os
 import csv
-import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -98,10 +97,10 @@ def load_investors():
 
     if not os.path.exists(CONTACT_CSV):
         print(f"❌ ERROR: {CONTACT_CSV} not found!")
-        print(f"Create it with columns: Name, Email, LinkedIn, Phone, Location, Focus Area, Contact Status")
+        print("Create it with columns: Name, Email, LinkedIn, Phone, Location, Focus Area, Contact Status")
         return []
 
-    with open(CONTACT_CSV, 'r', encoding='utf-8') as f:
+    with open(CONTACT_CSV, encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             # Skip if already contacted
@@ -191,9 +190,9 @@ def save_email(email, index):
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(f"TO: {email['to']}\n")
         f.write(f"SUBJECT: {email['subject']}\n")
-        f.write(f"\n" + "="*60 + "\n\n")
+        f.write("\n" + "="*60 + "\n\n")
         f.write(email['body'])
-        f.write(f"\n\n" + "="*60 + "\n")
+        f.write("\n\n" + "="*60 + "\n")
         f.write(f"\nINVESTOR: {email['investor_name']}\n")
         f.write(f"FOCUS: {email['investor_focus']}\n")
 

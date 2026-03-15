@@ -1,6 +1,6 @@
 # Supabase Project Strategy - DWS6 Ecosystem
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

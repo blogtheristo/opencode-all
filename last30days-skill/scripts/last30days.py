@@ -25,7 +25,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from lib import (
+from lib import (  # noqa: E402
     dates,
     dedupe,
     env,
@@ -384,10 +384,7 @@ def main():
 
     # Mock mode can work without keys
     if args.mock:
-        if args.sources == "auto":
-            sources = "both"
-        else:
-            sources = args.sources
+        sources = "both" if args.sources == "auto" else args.sources
     else:
         # Validate requested sources against available
         sources, error = env.validate_sources(args.sources, available, args.include_web)

@@ -47,19 +47,16 @@ jobs:
 
       - name: Send Morning Briefing Email
         env:
-          # SMTP — primary sender (Hetzner Helsinki). Set secrets when server is provisioned.
+          # Amazon SES (SMTP) — primary. risto@onelifetime.world verified in SES + Resend.
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
           SMTP_SECURE: ${{ secrets.SMTP_SECURE || 'false' }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          # Resend — fallback until SMTP server is live
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          # Required for data collection
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          # Optional overrides for email content and delivery
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'risto@onelifetime.world' }}
+          EMAIL_FROM: risto@onelifetime.world
           OUTREACH_DIGEST_EMAIL: ${{ inputs.recipient || secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}

@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 1.4
+version: 1.9
 created: 2026-02-07
-last_modified: 2026-03-07
+last_modified: 2026-03-09
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -15,12 +15,17 @@ toc-depth: 3
 
 # DWS Security Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-dws-integration-G73xs | Date: 09.03.2026 | Changes: Added Section 18 (Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security) — 5-layer KYA trust framework, BYO agent registration gates, Shufti IDV integration architecture, dynamic sandbox permission triggers, partner access controls for IDV providers
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 17 (Database Disaster Recovery Security) — dual-database architecture, recovery scripts, RTO < 5 min schema / < 15 min full restore, backup encryption (GPG), Aiven auth stubs for RLS compatibility, backup test drive validation
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Supabase migration 043 — persistent storage for api_keys, usage_events, usage_counters, report_schedules tables with RLS, atomic counter increment function (increment_usage_counter), sanity checks; services updated with Supabase-first + in-memory fallback pattern; shared backend Supabase client (src/config/supabase.ts)
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 16 (MVP Security Controls) — API Key Management (SHA-256 hashing, per-user limits, scope-based access), Usage Metering (tier enforcement, rate limiting per billing period), Report Export (authenticated download, usage-gated exports)
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Section 15 (API Middleware Security Controls) — centralized error handler security, request validation with Zod, correlation ID tracing, env validation, health check endpoint hardening; compliance engine API security
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Section 3.6.1 (Database Backup & Disaster Recovery Controls) — 7 BCP/DR controls, RTO/RPO targets, backup retention policy, Aiven sandbox mirror, multi-destination backup architecture (local + Proton + Acer Helsinki + GitHub Actions)
   - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (OpenSandbox on Acer Veriton — Stage 1.5); updated isolation stages table; added MCP endpoint list for /sandbox/* tools; updated SANDBOX_STAGE values to include 'opensandbox'
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added Section 14 (Multi-Tenant Sandbox Isolation Architecture) — SDK native sandbox, Cloud Run ephemeral containers, staged isolation, NIS2 audit statement, governance integration
@@ -33,7 +38,7 @@ Session Links & References:
 
 Document Status:
   - Created: 07.02.2026
-  - Last Modified: 07.03.2026
+  - Last Modified: 09.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -518,7 +523,7 @@ Based on the AI Safety Report's findings on AI-assisted cyberattacks and agent m
 |---|---|---|---|---|
 | **ISO 27001** | Information security management | Gap assessment Q1 2026 | Q3 2026 (TÜV Rheinland) | Report validates need for formalized security management |
 | **NIS2 Directive** | Network and information security | Active compliance | N/A (directive, not certification) | Report: AI-assisted cyberattacks require stronger network security |
-| **EU AI Act** | AI system governance | 80% ready | August 2, 2026 (mandatory) | Report is the scientific foundation informing the Act |
+| **EU AI Act** | AI system governance | 80% ready | August 2, 2026 (mandatory); **Omnibus may delay to Dec 2027** — timelines now tied to availability of harmonised standards/guidance (Nov 2025 proposal, trilogue ongoing) | Report is the scientific foundation informing the Act |
 | **GDPR** | Data protection | 95% ready | Active (ongoing) | Report: data sovereignty and privacy are foundational |
 | **Fit for 55** | Climate compliance | 90% ready | Ongoing targets | Report: AI infrastructure environmental costs are growing |
 | **CSRD** | Sustainability reporting | 85% ready | Active (ongoing) | Report: systemic risks include environmental costs |
@@ -568,7 +573,7 @@ DWS threat modeling uses **MITRE ATLAS** (Adversarial Threat Landscape for AI Sy
 
 | Regulation | Readiness | Deadline | DWS Action Required |
 |------------|-----------|----------|-------------------|
-| **EU AI Act** | 80% | August 2, 2026 | Close Article 12 logging gaps, complete technical documentation |
+| **EU AI Act** | 80% | August 2, 2026 (original); **Dec 2027 if Omnibus passes** — high-risk applicability now tied to availability of harmonised standards/guidance per Nov 2025 Digital Omnibus on AI proposal | Close Article 12 logging gaps, complete technical documentation. **Note:** Omnibus does NOT weaken Article 12 substance — logging remains mandatory. Lighter QMS/doc burden for SMEs. |
 | **GDPR** | 95% | Active | Maintain DPA readiness, quarterly privacy review |
 | **NIS2 Directive** | 75% | Active | Expand incident response, strengthen supply chain security |
 | **Fit for 55** | 90% | Ongoing | Validate carbon footprint calculator, expand industry coverage |
@@ -583,7 +588,7 @@ Based on the AI Safety Report 2026 findings, these additional compliance actions
 | Action | Priority | Deadline | Owner |
 |--------|----------|----------|-------|
 | Implement domain-specific AI evaluation suite | CRITICAL | Q1 2026 | Engineering |
-| Close EU AI Act Article 12 gaps (20% remaining) | CRITICAL | July 2026 | Compliance |
+| Close EU AI Act Article 12 gaps (20% remaining) | CRITICAL | July 2026 (original); **Omnibus may extend to H2 2027** — but early certification = marketing win & proactive posture. Timelines now tied to harmonised standards availability. | Compliance |
 | Strengthen NIS2 posture (25% gap) | HIGH | Q2 2026 | Security |
 | Deploy real-time AI output monitoring | HIGH | Q2 2026 | Engineering |
 | Establish quarterly red team exercises | HIGH | Q2 2026 | Security |
@@ -1147,6 +1152,79 @@ All tools exposed via MCP `tools/list`:
 **External standards and research:**
 - [International AI Safety Report 2026](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Bengio et al.
 - [OECD 2026: Exploring Possible AI Trajectories through 2030](https://internationalaisafetyreport.org/publication/international-ai-safety-report-2026) — Scenario analysis
+---
+
+## 15. API Middleware Security Controls (MVP)
+
+Added: 07.03.2026 | Session: claude/implement-mvp-features-D2e9d
+
+### 15.1 Centralized Error Handler Security
+
+All API errors MUST flow through the centralized error handler (`src/middleware/error-handler.ts`). Direct `res.status().json()` in route handlers is prohibited for new code.
+
+| Rule | Enforcement |
+|------|-------------|
+| Never expose stack traces in production | `errorHandler` strips `stack` unless `NODE_ENV=development` |
+| Never expose database schema in errors | `AppError.isOperational` gates user-facing messages |
+| Consistent error response shape | All errors return `{ error, message, code, correlationId }` |
+| Log all 5xx errors with full context | `logger.error()` with path, method, correlationId |
+| 4xx errors logged as warnings only | Avoid log noise from client errors |
+
+### 15.2 Request Validation at API Boundary
+
+All incoming requests MUST be validated using Zod schemas via `validate()` middleware before reaching business logic.
+
+```typescript
+// CORRECT: Validate first, then handle
+router.post('/assess', validate({ body: AssessmentSchema }), handler);
+
+// WRONG: Parse body inside handler
+router.post('/assess', (req, res) => { const data = req.body; /* untrusted */ });
+```
+
+**Middleware ordering (MANDATORY for all routes):**
+1. `correlationId` — attach trace ID
+2. `helmet` — security headers
+3. `cors` — origin validation
+4. `rateLimit` — abuse prevention
+5. `validate({ body, query, params })` — Zod schema validation
+6. `authenticateToken` — JWT verification
+7. Route handler
+8. `notFoundHandler` — catch unmatched routes
+9. `errorHandler` — final error catch
+
+### 15.3 Correlation ID for Security Audits
+
+Every request receives a `X-Correlation-ID` header (client-provided or auto-generated UUID). This ID:
+- Appears in all log entries for the request
+- Is returned in error responses
+- Enables tracing a single request across services
+- MUST be preserved in Article 12 audit logs
+
+### 15.4 Startup Environment Validation
+
+The server MUST validate all required environment variables on boot using `validateEnv()`. Missing or malformed variables cause immediate process exit with a clear error listing all issues.
+
+**Required variables (fail if missing):** `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `JWT_SECRET` (min 16 chars)
+
+### 15.5 Health Check Endpoint Security
+
+The `/health` endpoint exposes service availability status. Security rules:
+- MUST NOT expose secrets, API keys, or internal URLs
+- MUST NOT expose exact software versions beyond major version
+- Memory stats are rounded to MB (no byte-level precision)
+- Rate limited under the general `/api/` limiter
+
+### 15.6 Compliance Engine API Security
+
+The compliance API (`/api/v1/compliance/*`) handles sensitive corporate data:
+- Assessment results contain industry, emissions, and regulatory gap data
+- RLS policies on `compliance_profiles`, `esrs_data_points`, `compliance_assessments` tables restrict access to organization members only
+- Report IDs are non-sequential (UUID + timestamp) to prevent enumeration
+- No `SECURITY DEFINER` functions in compliance migration
+
+---
+
 - [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) — Regulation (EU) 2024/1689
 - [NIS2 Directive](https://eur-lex.europa.eu/eli/dir/2022/2555/oj) — Directive (EU) 2022/2555
 - [OWASP Top 10 for LLM Applications 2025](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
@@ -1170,7 +1248,212 @@ All tools exposed via MCP `tools/list`:
 
 ---
 
-**Document Version:** 1.3
+---
+
+## 16. MVP Security Controls
+
+Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
+
+### 16.0 Database Persistence (Migration 043)
+
+All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback.
+
+**Migration:** `supabase/migrations/043_mvp_api_keys_usage_schedules.sql`
+**Shared client:** `src/config/supabase.ts` (service_role key, singleton)
+
+| Table | RLS | Policies | Purpose |
+|-------|-----|----------|---------|
+| `api_keys` | Enabled + Forced | service_role full; authenticated own-row only | API key storage (hashed) |
+| `usage_events` | Enabled + Forced | service_role full; authenticated read-own | Append-only event log |
+| `usage_counters` | Enabled + Forced | service_role full; authenticated read-own | Monthly usage aggregates |
+| `report_schedules` | Enabled + Forced | service_role full; authenticated own-row only | Recurring report config |
+
+**Atomic counter increment:** `increment_usage_counter()` — `SECURITY DEFINER` function with service_role caller guard. Uses `INSERT ... ON CONFLICT DO UPDATE` for race-free counter updates.
+
+**Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
+
+### 16.1 API Key Management Security
+
+**Implementation:** `src/services/api-key.service.ts`, `src/routes/api-keys.routes.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Key generation | Cryptographically secure: `crypto.randomBytes(16)` → `dws_live_<32hex>` |
+| Key storage | SHA-256 hash only — raw key returned once at creation, never stored |
+| Key prefix | First 12 chars stored for UI display (e.g., `dws_live_a3b1****`) |
+| Per-user limit | Maximum 10 active keys per user (prevents key sprawl) |
+| Scope-based access | Keys carry scopes: `compliance:read`, `assistant:write`, `reports:export`, etc. |
+| Expiry support | Optional TTL (1–365 days), checked on every validation call |
+| Soft revocation | Keys are marked revoked (audit trail preserved), not deleted |
+| Authentication | All CRUD endpoints require JWT authentication via `authenticateToken` middleware |
+| Constant-time validation | Full key store scan with hash comparison (prevents timing attacks) |
+
+**Endpoints:**
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/v1/user/api-keys` | JWT | Create key (returns raw key once) |
+| GET | `/api/v1/user/api-keys` | JWT | List keys (hashes excluded) |
+| DELETE | `/api/v1/user/api-keys/:id` | JWT | Revoke key (soft delete) |
+
+### 16.2 Usage Metering Security
+
+**Implementation:** `src/services/usage-metering.service.ts`, `src/middleware/usage-tracking.middleware.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Tier enforcement | Three tiers (Free/Pro/Enterprise) with monthly call limits |
+| Rate limiting | Per-endpoint via `trackUsage()` middleware — returns 429 when exceeded |
+| Non-blocking tracking | Metering failures never block the request (graceful degradation) |
+| Admin-only aggregates | Platform-wide stats require `admin` or `owner` role |
+| Usage headers | `X-Usage-Remaining` and `X-Usage-Limit` on every metered response |
+
+**Tier Limits:**
+
+| Tier | API Calls/mo | Assistant Messages/mo | Report Exports/mo |
+|------|-------------|----------------------|-------------------|
+| Free | 100 | 20 | 2 |
+| Pro | 5,000 | 500 | 50 |
+| Enterprise | 100,000 | 10,000 | 500 |
+
+### 16.3 Report Export Security
+
+**Implementation:** `src/services/report-export.service.ts`, `src/routes/report-export.routes.ts`
+
+| Control | Implementation |
+|---------|---------------|
+| Authentication | JWT required for all export/schedule operations |
+| Usage gating | Report exports count against tier limits (429 if exceeded) |
+| Input validation | Zod schemas for export and schedule requests |
+| Download headers | `Content-Disposition: attachment` forces download (prevents browser rendering) |
+| Schedule ownership | Users can only view/modify their own schedules |
+| Email validation | Schedule recipient email validated with `z.string().email()` |
+| Format restriction | Only `json` and `csv` formats allowed (no arbitrary file generation) |
+
+---
+
+## 17. Database Disaster Recovery Security
+
+### 17.1 Dual-Database Architecture
+
+| Control | Implementation |
+|---------|---------------|
+| Primary database | Supabase `dws6-production` (EU, europe-north1) with RLS on all tables |
+| Warm standby | Aiven PostgreSQL `dws-test` (EU, Finland) — daily mirror from Supabase |
+| Auth stub isolation | Aiven uses `auth.uid()` / `auth.jwt()` / `auth.role()` stubs returning dummy values — RLS policies load but do not enforce (acceptable for sandbox) |
+| Backup encryption | All backup dumps encrypted with GPG symmetric encryption (`BACKUP_GPG_PASSPHRASE`) |
+| 4-destination redundancy | Local disk + Proton Drive + Acer Veriton Helsinki + GitHub Actions artifacts |
+
+### 17.2 Recovery Scripts Security Controls
+
+| Control | Script | Implementation |
+|---------|--------|---------------|
+| Credential isolation | `db-recovery.sh` | Loads credentials from `.env` only — never hardcoded |
+| Connection validation | `db-recovery.sh` | Tests connection before applying any changes |
+| Dry-run mode | `db-recovery.sh` | `--dry-run` previews all actions without database changes |
+| GPG decryption | `db-recovery.sh` | Automatic decryption of `.gpg` backup files with passphrase from env |
+| Integrity verification | `db-backup-test.sh` | Row count comparison between source and target after restore |
+| RLS verification | `db-recovery.sh` | Checks RLS enabled on all MVP tables post-recovery |
+| Function verification | `db-recovery.sh` | Verifies `increment_usage_counter()` SECURITY DEFINER function exists |
+
+### 17.3 RTO/RPO Targets
+
+| Scenario | RTO | RPO |
+|----------|-----|-----|
+| Schema rebuild (migrations only) | < 5 minutes | N/A (schema from git) |
+| Full restore (schema + data) | < 15 minutes | 24 hours (daily backup) |
+| Aiven warm standby switchover | < 5 minutes | 24 hours (daily mirror) |
+
+### 17.4 Security Requirements for Recovery
+
+- Recovery scripts MUST NOT be run with `--skip-migrations` and `--restore-dump` simultaneously without understanding the implications
+- GPG passphrase MUST be stored in `.env` (never in script arguments visible in process list)
+- After recovery, verify RLS is enabled on all tables before routing production traffic
+- Aiven stubs make RLS effectively open — never route real customer traffic to Aiven without proper auth integration
+- Document all recovery events in `docs/field-notes/` with timestamp, operator, and verification results
+
+---
+
+## 18. Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security
+
+### 18.1 Overview
+
+KYA extends traditional KYC/AML identity verification to autonomous agents operating within DWS IQ workspaces. BYO defines the secure onboarding process for external agents entering the ecosystem. Together they close the compliance gap between human identity verification and agent runtime behavior.
+
+**Rationale:** In agent-native architectures, human identity is the entry point — not the risk surface. The agent's runtime behavior (egress, filesystem access, tool calls, token consumption) is the actual attack vector. No existing IDV/KYC framework addresses this.
+
+### 18.2 KYA Trust Layers
+
+| Layer | What It Verifies | Source | Enforcement |
+|-------|-----------------|--------|-------------|
+| **L1 — Human Identity** | Real person behind the account (KYC/AML/IDV) | IDV provider API (e.g., Shufti Pro) | Supabase Auth + IDV verification gate |
+| **L2 — Agent Provenance** | Where did the agent come from? (registry, custom build, fork) | DWS Agent Registry + MCP `tools/list` | Agent manifest required at registration |
+| **L3 — Agent Capability** | What tools/APIs does the agent request access to? | MCP tool manifest, sandbox policy engine | MCP Tool Approval (Section 17) |
+| **L4 — Runtime Behavior** | What is the agent actually doing? (egress, file I/O, token usage) | Sandbox telemetry (Stage 1–3, Section 14) | Real-time monitoring + rate limiting |
+| **L5 — Continuous Risk** | Has the user's or agent's risk profile changed? | IDV provider webhooks + DWS event bus | Dynamic sandbox permission adjustment |
+
+### 18.3 KYA Trust Score — Agent Trust Score (ATS) Engine
+
+**Formula (weighted deduction from perfect score):**
+
+```
+ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+
+Where:
+  V = KYA_VIOLATION count (from Firehorse telemetry)
+  L = 0.10 if avg_latency > 500ms, else 0
+  D = DENIED path access attempts count
+
+Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
+```
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated BEFORE external IDV calls (Shufti Pro) to save API cost on low-trust sessions.
+
+| ATS (normalized) | KYA Score | Permission Level | Sandbox State | Decision |
+|-------------------|-----------|-----------------|---------------|----------|
+| >= 0.80 | >= 80 | Full | All MCP tools, egress allowed, read-write filesystem | **GO** |
+| 0.50–0.79 | 50–79 | Restricted | No egress, read-only filesystem, curated MCP tools only | **GO** (limited) |
+| < 0.50 | < 50 | Suspended | Sandbox paused, human review required before resumption | **NO_GO** |
+| 0.00 | 0 | Frozen | Account frozen, agent terminated immediately, incident logged | **NO_GO** |
+
+**Score recalculation triggers:** IDV webhook, agent tool request outside manifest, anomalous egress pattern, rate limit breach, manual operator override.
+
+**Fault Attribution:** When ATS drops below threshold, the fault is classified (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`, `AUTORESEARCH_FAULT`) and stored in Supabase `kya_fault_attribution` (separate from Firehorse). See `Legal/KYA_SECURITY_v1.2.md` §9.4 (base classes) and `Legal/KYA_OPTIMIZATION_v1.4.md` §4.2 (AUTORESEARCH_FAULT).
+
+### 18.4 BYO Agent Registration Gates
+
+| Gate | Requirement | Enforcement |
+|------|-------------|-------------|
+| **G1 — Manifest** | Agent manifest submitted (name, version, tool requirements, source URL) | DWS Agent Registry API |
+| **G2 — Identity Binding** | Agent bound to a verified human identity (KYA L1 pass required) | IDV verification must be PASSED before agent registration |
+| **G3 — Capability Review** | Requested MCP tools reviewed against org policy | MCP Tool Approval workflow (Section 17) |
+| **G4 — Sandbox Entry** | Agent placed in isolated sandbox (Stage 1–3 based on tenant tier) | Sandbox Isolation Architecture (Section 14) |
+| **G5 — Runtime Monitoring** | Continuous telemetry active: egress attempts, file writes, token consumption | KYA L4 telemetry pipeline |
+| **G6 — Dynamic Restriction** | If IDV risk score changes, sandbox permissions adjust in real-time | KYA L5 webhook → event bus → sandbox policy engine |
+
+**Critical rule:** No BYO agent may execute outside a sandbox. Sandbox stage selection follows Section 14 based on tenant tier.
+
+### 18.5 Partner Access Controls for IDV Providers
+
+IDV providers (e.g., Shufti Pro) are treated as NIS2 sub-processors (Section 7.4) with additional controls:
+
+| Control | Requirement |
+|---------|-------------|
+| API authentication | OAuth 2.0 or API key with rotation policy (90 days max) |
+| Data minimization | Only verification result + risk score transmitted — no raw biometric data stored in DWS |
+| Webhook verification | All IDV webhooks signed and verified before processing |
+| Fallback | If IDV provider is unreachable, new agent deployments blocked (fail-closed) |
+| Audit logging | All IDV API calls logged with correlation ID to agent session |
+| Data residency | IDV provider must process EU citizen data within EU (GDPR Art. 44–49) |
+| Sub-processor agreement | DPA (Data Processing Agreement) required before production use |
+
+### 18.6 NIS2 Compliance Statement
+
+> "DWS IQ 6 extends identity verification beyond the human operator to the autonomous agents they deploy. The Know Your Agent (KYA) framework provides five-layer trust verification — from human KYC through agent provenance, capability review, runtime monitoring, and continuous risk assessment. All BYO agents execute in isolated sandboxes (Section 14) with permissions dynamically adjusted based on real-time IDV risk signals. This architecture ensures that no autonomous agent operates without auditable identity binding and continuous behavioral monitoring, exceeding NIS2 Article 21(2)(i) human resources and access control requirements."
+
+---
+
+**Document Version:** 1.9
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)

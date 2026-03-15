@@ -25,6 +25,7 @@ import {
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  captainPreBriefingTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -151,6 +152,25 @@ class EmailService {
   }
 
   /**
+   * Send a pre-briefing email when a captain inquiry is booked.
+   * Includes deck link, term sheet, and what to prepare.
+   */
+  async sendCaptainPreBriefing(
+    to: string,
+    name: string,
+    industry: string,
+    seatLevel: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: `Your Captain Briefing Is Confirmed — ${industry}`,
+      html: captainPreBriefingTemplate(name, industry, seatLevel),
+      templateType: 'captain_pre_briefing',
+      metadata: { name, industry, seatLevel },
+    });
+  }
+
+  /**
    * Send an invoice email with payment details.
    */
   async sendInvoiceEmail(
@@ -193,7 +213,10 @@ class EmailService {
       if (error) {
         throw new Error(`Resend batch error: ${error.message}`);
       }
-      const ids = (data ?? []).map((r: { id: string }) => r.id);
+      const list = Array.isArray(data) ? data : [];
+      const ids = list.map((r: { id: string }) => r.id);
+      const results = data ?? [];
+      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
       logger.info('Batch emails sent via Resend', { count: ids.length });
       return ids;
     } catch (err) {
