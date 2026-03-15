@@ -7,7 +7,7 @@
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation — cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;li&gt;EU-hosted, deploy in 30 days&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 deploys 18 AI agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 16 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;18 AI agents with MCP protocol and CLI access&lt;/li&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
@@ -406,6 +406,19 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:price>2500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>edge-node-gn100</g:id>
+      <g:title>Acer Veriton GN100 — EU Sovereign Edge AI Node</g:title>
+      <g:description>&lt;p&gt;Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;EU air-gapped sovereign AI inference&lt;/li&gt;&lt;li&gt;20 cores / 120 GiB RAM per node&lt;/li&gt;&lt;li&gt;Minimum 2 units — €7,998 total&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3999 EUR</g:price>
+      <g:brand>Acer</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>

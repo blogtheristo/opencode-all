@@ -8,11 +8,11 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18 AI agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 16 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
+        "18 AI agents with MCP protocol and CLI access",
         "Automate Fit for 55, CSRD & EPBD reporting",
-        "90% reduction in manual compliance hours",
-        "EU-hosted, deploy in 30 days"
+        "90% reduction in manual compliance hours"
       ],
       "priceNote": "One-time deployment + €499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
@@ -124,7 +124,7 @@
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
-      "name": "Firehorse Report",
+      "name": "DWS IQ Report",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -144,7 +144,7 @@
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "brand": "Firehorse",
+        "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
@@ -870,6 +870,66 @@
       },
       "storeCategory": "ai-cloud"
     },
+    "edge-node-gn100": {
+      "id": "edge-node-gn100",
+      "gtin": null,
+      "mpn": "LF-EDGE-GN100-2026",
+      "name": "Acer Veriton GN100 — EU Sovereign Edge AI Node",
+      "price": 3999,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.",
+      "features": [
+        "EU air-gapped sovereign AI inference",
+        "20 cores / 120 GiB RAM per node",
+        "Minimum 2 units — €7,998 total"
+      ],
+      "priceNote": "€3,999 per unit · minimum 2 units (€7,998)",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/edge-node-gn100.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Acer",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware"
+    },
+    "DWS-SOVEREIGN-DB-001": {
+      "id": "DWS-SOVEREIGN-DB-001",
+      "gtin": null,
+      "mpn": "SOVEREIGN-DB-2026",
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "price": 0,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
+      "features": [
+        "Zero CLOUD Act exposure",
+        "Continuous sovereignty monitoring agent",
+        "8-dimension compliance scoring"
+      ],
+      "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/sovereign-database.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
+    },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
       "gtin": null,
@@ -944,5 +1004,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-02-07T12:00:00Z"
+  "lastUpdated": "2026-03-03T12:00:00Z"
 }

@@ -276,15 +276,11 @@ export class ComplianceResearcherAgent extends BaseAgent {
       throw new Error('topic must be a descriptive string (min 5 chars)');
     }
     const validRegs: Regulation[] = ['csrd', 'ets', 'cbam', 'fit55', 'nis2', 'eu-ai-act', 'taxonomy'];
-    let regs: Regulation[];
-    if (Array.isArray(input.regulations)) {
-      const filtered = (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[];
-      if (filtered.length === 0) {
-        throw new Error(`No valid regulations provided. Valid values: ${validRegs.join(', ')}`);
-      }
-      regs = filtered;
-    } else {
-      regs = ['csrd'];
+    const regs: Regulation[] = Array.isArray(input.regulations)
+      ? (input.regulations as string[]).filter((r) => validRegs.includes(r as Regulation)) as Regulation[]
+      : ['csrd'];
+    if (Array.isArray(input.regulations) && regs.length === 0) {
+      throw new Error(`No valid regulations provided. Must include at least one of: ${validRegs.join(', ')}`);
     }
     const depth = ['quick', 'standard', 'deep'].includes(input.depth as string)
       ? (input.depth as 'quick' | 'standard' | 'deep')
@@ -373,7 +369,7 @@ export class ComplianceResearcherAgent extends BaseAgent {
       facts: Array<{ regulation: string; fact: string }>;
       deadlines: Array<{ regulation: string; deadline: string; description: string }>;
     },
-  ): Promise<Record<string, unknown> | string> {
+  ): Promise<{ title: string; executiveSummary: string; sections: Array<{ heading: string; content: string }>; nextSteps: string[] }> {
     const prompt = [
       `Write a compliance research report for the ${input.industry} industry.`,
       `Topic: ${input.topic}`,
@@ -391,16 +387,31 @@ export class ComplianceResearcherAgent extends BaseAgent {
 
     const result = await this.callLLM(prompt);
     try {
-      const parsed = JSON.parse(result.content) as Record<string, unknown>;
-      if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
-        return parsed;
-      }
-      return result.content;
+      const parsed = JSON.parse(result.content);
+      return {
+        title: parsed.title || '',
+        executiveSummary: parsed.executiveSummary || '',
+        sections: Array.isArray(parsed.sections) ? parsed.sections : [],
+        nextSteps: Array.isArray(parsed.nextSteps) ? parsed.nextSteps : [],
+      };
     } catch {
       // Deterministic fallback
       const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
-      return `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`;
+      return {
+        title: `Compliance Research: ${input.industry} — ${input.topic}`,
+        executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+        sections: plan.focusAreas.map((area) => ({ heading: area, content: '' })),
+        nextSteps: [],
+      };
     }
+    // Deterministic fallback
+    const regNames = input.regulations.map((r) => REGULATION_DB[r].fullName).join(', ');
+    return {
+      title: `${input.industry} Compliance Research`,
+      executiveSummary: `Compliance research for ${input.industry}: Analyzed ${input.regulations.length} regulation(s) (${regNames}). Found ${findings.facts.length} key requirements and ${findings.deadlines.length} deadlines. Refer to detailed findings for actionable items.`,
+      sections: [],
+      nextSteps: [],
+    };
   }
 
   private calculateConfidence(input: ComplianceResearcherInput): number {

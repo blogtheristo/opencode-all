@@ -1,0 +1,216 @@
+# MVP Feature List V1 — What Must Be Built to Ship
+
+> **Document Standard:** DWS Document Standard v2.0
+> **Version:** 1.0.0
+> **Status:** Active
+> **Created:** 2026-03-07
+> **Updated:** 2026-03-07 — Initial creation (Claude Code, claude/mvp-feature-list-WgjHq)
+>
+> VERSION AND AGENT HISTORY
+> v1.0.0 | 2026-03-07 | Claude Code (claude/mvp-feature-list-WgjHq) | Root-cause MVP analysis from codebase audit
+
+---
+
+## Philosophy: Root Cause Over Quick Fix
+
+This document applies **root cause thinking**. Every item answers: "Why can't we ship today?" — not "What would be nice to have." If removing an item means the product still works for a paying customer, it's not MVP.
+
+**MVP definition:** A customer in an EU-regulated industry can sign up, connect their data, get a compliance assessment, view results in a dashboard, and pay for the service. Everything else is Phase 2+.
+
+---
+
+## Current State (March 2026)
+
+| Layer | What Exists | What's Missing |
+|-------|-------------|----------------|
+| **Backend** | Express/TS, 11 route files, 15 agents, auth, email, MCP | No error handling middleware, no request validation, no health check |
+| **Dashboard** | v10-react with 10 components, 5 pages, auth hook | No error boundaries, no loading states, no offline handling |
+| **Agents** | 15 agent files, 6 CLI skills, MCP endpoint | Agents return simulated/stub data — no real computation |
+| **Database** | 20+ migrations, auth/org schema, Supabase | No compliance data models (ETS/CBAM/CSRD tables don't exist) |
+| **Tests** | 6 test files in `src/__tests__/` | No coverage gate, no integration tests, no E2E |
+| **CI/CD** | 15 GitHub workflows | No staging environment, no migration pipeline, no error tracking |
+| **Landing Pages** | 60+ pages across 3 domains | Operational — not blocking MVP |
+| **Store** | 25-30 products, Google Merchant feed | Operational — not blocking MVP |
+
+---
+
+## The 5 Root Causes Blocking MVP
+
+### Root Cause 1: No Real Compliance Engine
+
+**Symptom:** Agents return mock scores. A customer running `/compliance-check` gets a simulated number, not a real assessment.
+
+**Why it matters:** This is the product. Without real compliance calculations, there is nothing to sell. Everything else (dashboard, auth, landing pages) is packaging around an empty box.
+
+**What must be built:**
+
+| # | Feature | Files | Why |
+|---|---------|-------|-----|
+| 1.1 | **CSRD readiness data model** | `supabase/migrations/030_csrd_data_points.sql` | Can't store compliance data without schema |
+| 1.2 | **ESRS data point registry** | `src/compliance/esrs-registry.ts` | 82 ESRS disclosure requirements mapped to input fields |
+| 1.3 | **Compliance scoring engine** | `src/compliance/scoring-engine.ts` | Replace stub scores with real gap analysis: (data provided / data required) × weight |
+| 1.4 | **ETS emission calculator (Scope 1)** | `src/compliance/ets-calculator.ts` | Activity data × emission factor = tonnes CO2e. Standard methodology, not AI guessing |
+| 1.5 | **CBAM embedded emissions** | `src/compliance/cbam-calculator.ts` | Import volume × product emission factor. Uses EU default values as fallback |
+| 1.6 | **Compliance report generator** | `src/compliance/report-generator.ts` | Structured JSON/PDF output a customer can submit to auditors |
+
+**Root cause:** The compliance agent was built as a demo shell before the data model existed. Fix the data model first, then the agent becomes a thin orchestration layer over real calculators.
+
+---
+
+### Root Cause 2: Backend Cannot Survive Production Traffic
+
+**Symptom:** No structured error handling, no request validation, no health checks. A single bad request can crash the process. Cloud Run has no way to know if the service is healthy.
+
+**Why it matters:** Paying customers expect uptime. Without these, the first production incident takes down every customer.
+
+**What must be built:**
+
+| # | Feature | Files | Why |
+|---|---------|-------|-----|
+| 2.1 | **Centralized error handler** | `src/middleware/error-handler.ts` | Replace 50+ scattered try/catch blocks with one middleware. Return consistent error shapes |
+| 2.2 | **Zod request validation** | `src/middleware/validate.ts` | Validate all incoming requests at the boundary. express-validator is already a dep but inconsistently used |
+| 2.3 | **Health check endpoint** | `src/routes/health.routes.ts` | `/health` returns Supabase + Redis + LLM provider status. Cloud Run needs this for readiness probes |
+| 2.4 | **Graceful shutdown** | `src/app.ts` (modify) | SIGTERM → drain connections → close DB pools → exit. Cloud Run sends SIGTERM before killing |
+| 2.5 | **Startup env validation** | `src/config/validate-env.ts` | Zod schema checks all required env vars on boot. Fail fast with clear message, not cryptic runtime errors |
+| 2.6 | **Correlation ID middleware** | `src/middleware/correlation-id.ts` | Attach trace ID to every request for debugging production issues |
+
+**Root cause:** The backend was built feature-by-feature without a middleware architecture. Each route handles its own errors differently. Fix the middleware layer once, and every route benefits.
+
+---
+
+### Root Cause 3: Zero Test Coverage = Zero Confidence to Ship
+
+**Symptom:** 6 test files exist. No coverage gate. No integration tests. Deploying to production is a leap of faith.
+
+**Why it matters:** Without tests, every change risks breaking existing features. Teams can't iterate fast if they're afraid to deploy.
+
+**What must be built:**
+
+| # | Feature | Files | Why |
+|---|---------|-------|-----|
+| 3.1 | **Vitest coverage config + CI gate** | `vitest.config.ts`, `.github/workflows/test.yml` | Set 60% minimum. Block merges below threshold |
+| 3.2 | **Auth service unit tests** | `src/__tests__/auth.test.ts` | Register, login, JWT refresh, password reset — the most critical path |
+| 3.3 | **Compliance engine unit tests** | `src/__tests__/compliance-scoring.test.ts` | Every calculator (ETS, CBAM, CSRD) needs deterministic input→output tests |
+| 3.4 | **Auth route integration tests** | `src/__tests__/integration/auth.integration.test.ts` | Supertest: POST /api/v1/auth/register → 201. POST /api/v1/auth/login → JWT |
+| 3.5 | **Agent route integration tests** | `src/__tests__/integration/agents.integration.test.ts` | POST /api/v1/agents/compliance → valid response shape |
+| 3.6 | **E2E smoke test** | `src/__tests__/e2e/smoke.test.ts` | Login → dashboard loads → climate query → response received |
+
+**Root cause:** Tests weren't written alongside features because the codebase was in rapid prototyping mode. Now prototyping is over. Every new feature must include tests, and critical existing paths need retroactive coverage.
+
+---
+
+### Root Cause 4: Dashboard Shows Data but Can't Handle Failure
+
+**Symptom:** No error boundaries, no loading states, no empty states. If an API call fails, the user sees a white screen or a React stack trace.
+
+**Why it matters:** Enterprise customers judge software quality by what happens when things go wrong. A white screen = "this is not production software."
+
+**What must be built:**
+
+| # | Feature | Files | Why |
+|---|---------|-------|-----|
+| 4.1 | **Error boundaries per section** | `v10-react/src/components/ErrorBoundary.tsx` | Catch render errors, show "Something went wrong" with retry button. Don't crash the whole app |
+| 4.2 | **Loading skeleton components** | `v10-react/src/components/Skeleton.tsx` | Consistent shimmer placeholders while data loads. Not spinners — skeletons signal content shape |
+| 4.3 | **Empty state components** | `v10-react/src/components/EmptyState.tsx` | "No compliance data yet. Run your first assessment →" Not blank white space |
+| 4.4 | **API error handling hook** | `v10-react/src/hooks/useApi.ts` | Centralized fetch wrapper: loading, error, data states. Retry logic. Auth token refresh |
+| 4.5 | **Responsive layout** | `v10-react/src/App.tsx` + all pages | Tablet + mobile breakpoints. Enterprise users check dashboards on iPads |
+| 4.6 | **Carbon tracking page (real data)** | `v10-react/src/pages/CarbonTrackingPage.tsx` | Connect to compliance engine, show real Scope 1/2/3 data. Currently placeholder |
+
+**Root cause:** The dashboard was built for demos, not for production use. Demo dashboards show happy-path data. Production dashboards handle every state: loading, error, empty, partial, and full.
+
+---
+
+### Root Cause 5: No Customer Onboarding Path
+
+**Symptom:** A new customer can sign up (auth exists) but has no guided path from "I just logged in" to "I'm getting value from this product."
+
+**Why it matters:** Without onboarding, every new customer needs manual hand-holding. That doesn't scale past 3 customers.
+
+**What must be built:**
+
+| # | Feature | Files | Why |
+|---|---------|-------|-----|
+| 5.1 | **Onboarding wizard** | `v10-react/src/pages/OnboardingPage.tsx` | 4 steps: Industry → Company profile → Data sources → First assessment |
+| 5.2 | **Organization setup API** | `src/routes/onboarding.routes.ts` | POST /api/v1/onboard: create org, set industry, configure initial settings |
+| 5.3 | **Welcome email sequence** | `src/services/onboarding-email.service.ts` | Day 0: Welcome + first steps. Day 3: "Run your first assessment." Day 7: Check-in |
+| 5.4 | **First-run compliance assessment** | Connects to Root Cause 1 features | After onboarding, auto-run a baseline CSRD readiness check |
+| 5.5 | **Settings page completion** | `v10-react/src/pages/SettingsPage.tsx` | Org profile, member management, notification preferences — currently stubbed |
+
+**Root cause:** The product was built bottom-up (agents, APIs, infrastructure) instead of top-down (user journey). The bottom layers are strong. Now the top-of-funnel user experience needs to match.
+
+---
+
+## Priority Matrix
+
+**P0 = Must have for first paying customer. P1 = Must have for 3rd customer. P2 = Phase 2.**
+
+| Priority | Root Cause | Items | Effort Estimate |
+|----------|-----------|-------|-----------------|
+| **P0** | RC1: Compliance Engine | 1.1, 1.2, 1.3, 1.6 | Core data model + scoring |
+| **P0** | RC2: Backend Production | 2.1, 2.2, 2.3, 2.5 | Middleware layer |
+| **P0** | RC3: Test Coverage | 3.1, 3.2, 3.3 | Coverage gate + critical paths |
+| **P0** | RC4: Dashboard Resilience | 4.1, 4.2, 4.3, 4.4 | Error/loading/empty states |
+| **P0** | RC5: Onboarding | 5.1, 5.2, 5.4 | Wizard + first assessment |
+| **P1** | RC1: ETS + CBAM | 1.4, 1.5 | Regulation-specific calculators |
+| **P1** | RC2: Ops | 2.4, 2.6 | Graceful shutdown, tracing |
+| **P1** | RC3: Integration | 3.4, 3.5, 3.6 | API + E2E tests |
+| **P1** | RC4: Polish | 4.5, 4.6 | Responsive + real carbon data |
+| **P1** | RC5: Retention | 5.3, 5.5 | Email drip + settings |
+
+---
+
+## What Is NOT MVP (Resist the Urge)
+
+These are real features on the roadmap but **not required to ship V1:**
+
+| Feature | Why Not MVP | When |
+|---------|-------------|------|
+| EU AI Act / Aiwen layer | Regulatory deadline is later; ship compliance engine first | Phase 2 |
+| Multi-tenancy / tenant isolation | First 3 customers can share infrastructure safely with RLS | Phase 3 |
+| ISO 27001 / SOC 2 certification | Certification process takes 6+ months; start after MVP revenue | Phase 3 |
+| ERP integrations (SAP, IFS) | Customers can manually upload data for MVP; API integration comes after | Phase 2 |
+| IoT pipeline (Jetson Orin Nano) | Edge deployment is a competitive advantage, not a launch requirement | Phase 4 |
+| Agentic workflows (multi-agent chains) | Single agent calls work for MVP; orchestration is optimization | Phase 4 |
+| XBRL/XML export | Customers can use PDF reports initially; machine-readable format is Phase 2 | Phase 2 |
+| Supplier portal (CBAM) | Use email-based data collection for MVP; self-service portal is Phase 2 | Phase 2 |
+| Jitsi/Email self-hosted (Hetzner) | Use Resend for email, Google Meet for calls; self-hosting is cost optimization | Phase 2 |
+| On-premise AI (GN100) | Cloud inference works; on-premise is a selling point for later customers | Phase 3 |
+
+---
+
+## Execution Order
+
+Ship in this order. Each step builds on the previous:
+
+```
+Week 1-2:  RC2 (Backend middleware) → Makes everything after this safer
+Week 2-3:  RC1.1-1.2 (Data model + registry) → Foundation for compliance
+Week 3-4:  RC1.3 (Scoring engine) → Core product logic
+Week 4-5:  RC4.1-4.4 (Dashboard resilience) → Can show real data safely
+Week 5-6:  RC5.1-5.2 (Onboarding wizard) → Customer can self-serve
+Week 6-7:  RC3.1-3.3 (Test coverage) → Confidence to iterate
+Week 7-8:  RC1.4-1.5 (ETS + CBAM calculators) → Expand compliance coverage
+Week 8:    RC5.4 (First-run assessment) → Close the loop
+```
+
+**Why this order:**
+1. Backend middleware first — every subsequent feature benefits from proper error handling
+2. Data model before scoring engine — can't calculate without schema
+3. Dashboard resilience before onboarding — onboarding lands on the dashboard
+4. Tests after core features — test real code, not stubs
+5. ETS/CBAM after CSRD — CSRD readiness is the broadest need; ETS/CBAM are sector-specific
+
+---
+
+## Success Criteria
+
+MVP is shipped when a customer can:
+
+1. Sign up and complete onboarding (select industry, enter company data)
+2. Run a CSRD readiness assessment and get a real score with specific gaps
+3. View compliance status on the dashboard (not a white screen on error)
+4. Download/view a compliance report
+5. The system stays up under normal load (health check passes, errors are caught)
+6. Core paths have test coverage (auth, compliance scoring, API routes)
+
+**If all 6 are true, ship it. Everything else is iteration.**

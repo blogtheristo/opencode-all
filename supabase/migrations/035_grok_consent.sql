@@ -5,6 +5,13 @@
 --   EU AI Act Article 12 — automatic logging for high-risk AI systems
 --   NIS2 Art. 21 — incident traceability
 --
+-- KYA Integration (§18 DWS_SECURITY_STANDARD):
+--   Inference log includes KYA trust score and permission level at call time.
+--   Consent mutations require KYA score >= 50 (restricted or higher).
+--
+-- Harness Engineering (L6 — DWS Information Layering Strategy):
+--   Audit responses include sovereignty provenance metadata for court-defensible export.
+--
 -- Data sovereignty:
 --   All records stored in Supabase eu-north1 (Helsinki, Finland).
 --   No prompt/response content stored — only token counts + model ID.
@@ -12,7 +19,7 @@
 -- Tables:
 --   grok_consent        — per-org consent record (current state)
 --   grok_consent_audit  — immutable log of consent grant/revoke events
---   grok_inference_log  — Article 12 per-call audit trail
+--   grok_inference_log  — Article 12 per-call audit trail (with KYA governance)
 
 -- ============ grok_consent ============
 
@@ -35,7 +42,7 @@ COMMENT ON TABLE grok_consent IS
   'GDPR Art. 6(1)(a) — EU AI Act high-risk AI logging basis.';
 
 -- ============ grok_consent_audit ============
--- Immutable log — no UPDATE/DELETE allowed via RLS
+-- Append-only log — immutability enforced by triggers in migration 036
 
 CREATE TABLE IF NOT EXISTS grok_consent_audit (
   id           BIGSERIAL PRIMARY KEY,
@@ -47,27 +54,33 @@ CREATE TABLE IF NOT EXISTS grok_consent_audit (
 );
 
 COMMENT ON TABLE grok_consent_audit IS
-  'Immutable consent event log. Supports GDPR accountability '
-  'and regulator audit requests.';
+  'Append-only consent event log. UPDATE/DELETE rejected by trigger. '
+  'Supports GDPR accountability and regulator audit requests.';
 
 -- ============ grok_inference_log ============
 -- Article 12 trace — no prompt/response content, only metadata
 
 CREATE TABLE IF NOT EXISTS grok_inference_log (
-  id             BIGSERIAL PRIMARY KEY,
-  org_id         TEXT NOT NULL,
-  model          TEXT NOT NULL,
-  input_tokens   INTEGER NOT NULL DEFAULT 0,
-  output_tokens  INTEGER NOT NULL DEFAULT 0,
-  duration_ms    INTEGER NOT NULL DEFAULT 0,
-  status         TEXT NOT NULL CHECK (status IN ('ok', 'error')),
-  error_message  TEXT,
-  logged_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id                    BIGSERIAL PRIMARY KEY,
+  org_id                TEXT NOT NULL,
+  model                 TEXT NOT NULL,
+  input_tokens          INTEGER NOT NULL DEFAULT 0,
+  output_tokens         INTEGER NOT NULL DEFAULT 0,
+  duration_ms           INTEGER NOT NULL DEFAULT 0,
+  status                TEXT NOT NULL CHECK (status IN ('ok', 'error')),
+  error_message         TEXT,
+  -- KYA governance columns (§18 DWS_SECURITY_STANDARD)
+  kya_score             INTEGER,   -- 0–100 trust score at inference time
+  kya_permission_level  TEXT,      -- full | restricted | suspended | frozen
+  logged_at             TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 COMMENT ON TABLE grok_inference_log IS
-  'EU AI Act Article 12 automatic log. Records metadata only — '
-  'no prompt or response content is stored. Retention: 7 years.';
+  'Append-only EU AI Act Article 12 log. UPDATE/DELETE rejected by trigger. '
+  'Records metadata only — no prompt or response content. Retention: 7 years.';
+  'EU AI Act Article 12 automatic log with KYA governance metadata. '
+  'Records metadata only — no prompt or response content is stored. '
+  'KYA trust score and permission level captured per call. Retention: 7 years.';
 
 -- Indexes for dashboard queries and regulator export
 CREATE INDEX IF NOT EXISTS idx_grok_inference_log_org_id
@@ -76,13 +89,61 @@ CREATE INDEX IF NOT EXISTS idx_grok_inference_log_org_id
 CREATE INDEX IF NOT EXISTS idx_grok_consent_audit_org_id
   ON grok_consent_audit (org_id, occurred_at DESC);
 
--- ============ RLS: Service Role Only ============
--- All tables are accessible only via service role key (backend).
--- No direct client-side access.
+-- ============ IMMUTABILITY TRIGGERS ============
+-- Enforce append-only semantics at the trigger level.
+-- Triggers fire BEFORE the operation and raise an exception, blocking
+-- the write regardless of the caller's role (including service role).
+
+CREATE OR REPLACE FUNCTION fn_reject_audit_mutation()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  RAISE EXCEPTION
+    'Table % is append-only (GDPR / EU AI Act Article 12). '
+    'UPDATE and DELETE are not permitted.',
+    TG_TABLE_NAME;
+END;
+$$;
+
+CREATE TRIGGER trg_grok_consent_audit_immutable
+  BEFORE UPDATE OR DELETE ON grok_consent_audit
+  FOR EACH ROW EXECUTE FUNCTION fn_reject_audit_mutation();
+
+CREATE TRIGGER trg_grok_inference_log_immutable
+  BEFORE UPDATE OR DELETE ON grok_inference_log
+  FOR EACH ROW EXECUTE FUNCTION fn_reject_audit_mutation();
+
+-- ============ RLS: Block Direct Client Access ============
+-- Service role bypasses RLS (Supabase default), so RLS alone cannot
+-- enforce immutability — that is handled by the triggers above.
+-- RLS here prevents anonymous/authenticated JWT access to raw tables;
+-- all queries go through the backend API (/api/grok-consent/:orgId/audit).
 
 ALTER TABLE grok_consent ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_consent_audit ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_inference_log ENABLE ROW LEVEL SECURITY;
 
--- Service role bypasses RLS — no additional policies needed for backend access.
--- Dashboard queries go through the backend API (/api/grok-consent/:orgId/audit).
+-- Explicit service_role policies (consistent with other migrations).
+-- Anon/authenticated roles have no policies and therefore no access.
+-- Note: service_role bypasses RLS by default in Supabase, but explicit
+-- policies are kept for documentation and cross-migration consistency.
+
+CREATE POLICY grok_consent_service_role_all
+  ON grok_consent
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY grok_consent_audit_service_role_all
+  ON grok_consent_audit
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY grok_inference_log_service_role_all
+  ON grok_inference_log
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);

@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: 015pW | Date: 13.03.2026 | Changes: Added Section 13 — Jitsi Video Meeting integration (architecture, deployment, security)
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: Rm8Jw | Date: 06.02.2026 | Changes: Initial creation - Revolut Merchant API integration, Cloudflare Worker deployment, store payment flow documentation
 
 Session Links & References:
@@ -14,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 06.02.2026
-  - Last Modified: 06.02.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -41,6 +42,7 @@ Document Status:
 10. [Troubleshooting](#10-troubleshooting)
 11. [Monitoring & Logs](#11-monitoring--logs)
 12. [Revolut Dashboard Operations](#12-revolut-dashboard-operations)
+13. [Jitsi Video Meeting Integration](#13-jitsi-video-meeting-integration)
 
 ---
 
@@ -676,6 +678,81 @@ npx wrangler whoami
 # Local development (sandbox)
 cd src/cloudflare && npx wrangler dev -c wrangler.revolut.toml --env development
 ```
+
+## 13. Jitsi Video Meeting Integration
+
+### Overview
+
+Firehorse Video Meeting provides free, secure video conferencing embedded in DWS6 via the public meet.jit.si infrastructure (Phase 1). No accounts required.
+
+### Architecture
+
+```
+User Browser                  dws6.com/meet/          meet.jit.si
+     |                              |                       |
+     |  1. Open lobby page          |                       |
+     |----------------------------->|                       |
+     |  2. Click "Start Meeting"    |                       |
+     |  3. JS creates room name     |                       |
+     |  4. Load Jitsi IFrame API    |                       |
+     |----------------------------------------------------->|
+     |  5. Jitsi WebRTC session     |                       |
+     |<====================================================>|
+```
+
+### Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| Landing page | `dws6.com/meet/index.html` | Lobby + embedded meeting view |
+| Landing page (prod) | `landing-pages/dws6-com/meet/index.html` | Synced copy for Cloudflare Pages |
+| Cloudflare Worker | `src/cloudflare/jitsi-meet-worker.ts` | Server-side lobby + meeting routes |
+| Worker config | `src/cloudflare/wrangler.jitsi.toml` | Cloudflare Worker deployment |
+
+### Dual Folder Sync
+
+| File | Root (Workers/testing) | Landing-pages (Pages/production) |
+|------|----------------------|----------------------------------|
+| Meet page | `dws6.com/meet/index.html` | `landing-pages/dws6-com/meet/index.html` |
+
+### Deployment
+
+**Static landing page (Cloudflare Pages):**
+Pages auto-deploy from `landing-pages/dws6-com/` on push to main.
+
+**Cloudflare Worker (optional server-side mode):**
+```bash
+cd src/cloudflare
+wrangler deploy --config wrangler.jitsi.toml
+```
+
+### Environment Variables (Worker)
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `JITSI_DOMAIN` | `meet.jit.si` | Jitsi server domain (change for self-hosted) |
+
+### Room Names
+
+- Auto-generated: `dws6-` + 8 random alphanumeric characters
+- User-provided: sanitized to `[a-zA-Z0-9_-]` only
+- Shared via URL hash: `dws6.com/meet/#room=dws6-abc12345`
+
+### Security Notes
+
+- External API script loaded from `meet.jit.si` (CDN)
+- Worker applies `X-Frame-Options: DENY` and `X-Content-Type-Options: nosniff`
+- Room names sanitized server-side (Worker regex: `[a-zA-Z0-9_-]+`) and client-side
+- Clipboard API with `execCommand('copy')` fallback for HTTP contexts
+- No user data stored — stateless design
+
+### Phase 2 (Future)
+
+- Self-hosted Jitsi on Hetzner Helsinki (EU data residency)
+- JWT authentication for private rooms
+- Resend.com email invitations (replacing mailto: links)
+
+---
 
 ## Appendix B: File Locations
 
