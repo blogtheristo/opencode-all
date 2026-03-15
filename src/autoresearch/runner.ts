@@ -9,6 +9,15 @@ import { runKyaTuner, DEFAULT_KYA_PARAMS, SECURITY_CONSTANTS } from './kya-tuner
 import type { ExperimentResult, TunerConfig } from './kya-tuner.js';
 import { getSessionStats, generateSyntheticSessions } from './synthetic-kya.js';
 
+// Derive KYA decision thresholds from shared SECURITY_CONSTANTS to avoid drift
+const {
+  efficiencyThresholdPercent: KYA_EFFICIENCY_THRESHOLD_PERCENT = 11,
+  logicDriftThresholdPercent: KYA_LOGIC_DRIFT_THRESHOLD_PERCENT = 25,
+} = SECURITY_CONSTANTS as {
+  efficiencyThresholdPercent?: number;
+  logicDriftThresholdPercent?: number;
+};
+
 // ============================================================================
 // CLI OUTPUT FORMAT
 // ============================================================================
@@ -80,8 +89,8 @@ export async function runAutoresearch(
 
   // Determine overall KYA decision
   let kyaDecision = 'NO_CHANGE';
-  if (improvement > 25) kyaDecision = 'ROLLBACK';
-  else if (improvement > 11) kyaDecision = 'PENDING_HUMAN_GATE';
+  if (improvement > KYA_LOGIC_DRIFT_THRESHOLD_PERCENT) kyaDecision = 'ROLLBACK';
+  else if (improvement > KYA_EFFICIENCY_THRESHOLD_PERCENT) kyaDecision = 'PENDING_HUMAN_GATE';
   else if (improvement > 0) kyaDecision = 'AUTO_DEPLOY';
 
   // Extract final parameters from last kept experiment
