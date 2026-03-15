@@ -5,6 +5,13 @@
 --   EU AI Act Article 12 — automatic logging for high-risk AI systems
 --   NIS2 Art. 21 — incident traceability
 --
+-- KYA Integration (§18 DWS_SECURITY_STANDARD):
+--   Inference log includes KYA trust score and permission level at call time.
+--   Consent mutations require KYA score >= 50 (restricted or higher).
+--
+-- Harness Engineering (L6 — DWS Information Layering Strategy):
+--   Audit responses include sovereignty provenance metadata for court-defensible export.
+--
 -- Data sovereignty:
 --   All records stored in Supabase eu-north1 (Helsinki, Finland).
 --   No prompt/response content stored — only token counts + model ID.
@@ -12,7 +19,7 @@
 -- Tables:
 --   grok_consent        — per-org consent record (current state)
 --   grok_consent_audit  — immutable log of consent grant/revoke events
---   grok_inference_log  — Article 12 per-call audit trail
+--   grok_inference_log  — Article 12 per-call audit trail (with KYA governance)
 
 -- ============ grok_consent ============
 
@@ -54,20 +61,24 @@ COMMENT ON TABLE grok_consent_audit IS
 -- Article 12 trace — no prompt/response content, only metadata
 
 CREATE TABLE IF NOT EXISTS grok_inference_log (
-  id             BIGSERIAL PRIMARY KEY,
-  org_id         TEXT NOT NULL,
-  model          TEXT NOT NULL,
-  input_tokens   INTEGER NOT NULL DEFAULT 0,
-  output_tokens  INTEGER NOT NULL DEFAULT 0,
-  duration_ms    INTEGER NOT NULL DEFAULT 0,
-  status         TEXT NOT NULL CHECK (status IN ('ok', 'error')),
-  error_message  TEXT,
-  logged_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id                    BIGSERIAL PRIMARY KEY,
+  org_id                TEXT NOT NULL,
+  model                 TEXT NOT NULL,
+  input_tokens          INTEGER NOT NULL DEFAULT 0,
+  output_tokens         INTEGER NOT NULL DEFAULT 0,
+  duration_ms           INTEGER NOT NULL DEFAULT 0,
+  status                TEXT NOT NULL CHECK (status IN ('ok', 'error')),
+  error_message         TEXT,
+  -- KYA governance columns (§18 DWS_SECURITY_STANDARD)
+  kya_score             INTEGER,   -- 0–100 trust score at inference time
+  kya_permission_level  TEXT,      -- full | restricted | suspended | frozen
+  logged_at             TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 COMMENT ON TABLE grok_inference_log IS
-  'EU AI Act Article 12 automatic log. Records metadata only — '
-  'no prompt or response content is stored. Retention: 7 years.';
+  'EU AI Act Article 12 automatic log with KYA governance metadata. '
+  'Records metadata only — no prompt or response content is stored. '
+  'KYA trust score and permission level captured per call. Retention: 7 years.';
 
 -- Indexes for dashboard queries and regulator export
 CREATE INDEX IF NOT EXISTS idx_grok_inference_log_org_id
