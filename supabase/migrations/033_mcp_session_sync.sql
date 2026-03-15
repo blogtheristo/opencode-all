@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS mcp_sessions (
     created_at  timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_mcp_sessions_branch  ON mcp_sessions (branch);
-CREATE INDEX idx_mcp_sessions_tool    ON mcp_sessions (tool);
-CREATE INDEX idx_mcp_sessions_created ON mcp_sessions (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_mcp_sessions_branch  ON mcp_sessions (branch);
+CREATE INDEX IF NOT EXISTS idx_mcp_sessions_tool    ON mcp_sessions (tool);
+CREATE INDEX IF NOT EXISTS idx_mcp_sessions_created ON mcp_sessions (created_at DESC);
 
 -- Enable RLS — only service key can write; anon can read own branch
 ALTER TABLE mcp_sessions ENABLE ROW LEVEL SECURITY;
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS mcp_migration_queue (
     created_at         timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_mcp_migration_queue_status ON mcp_migration_queue (status);
-CREATE INDEX idx_mcp_migration_queue_number ON mcp_migration_queue (migration_number);
+CREATE INDEX IF NOT EXISTS idx_mcp_migration_queue_status ON mcp_migration_queue (status);
+CREATE INDEX IF NOT EXISTS idx_mcp_migration_queue_number ON mcp_migration_queue (migration_number);
 
 ALTER TABLE mcp_migration_queue ENABLE ROW LEVEL SECURITY;
 
