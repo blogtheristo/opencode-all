@@ -73,7 +73,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:
@@ -115,7 +115,13 @@ app.add_middleware(
 MCP_SERVERS: dict[str, str] = {
     "github": os.getenv("GITHUB_MCP_URL", "http://localhost:8767"),
     "gemini": os.getenv("GEMINI_MCP_URL", "http://localhost:8768"),
-    "supabase-mcp": os.getenv("SUPABASE_MCP_URL", "http://mcp-supabase:8766"),
+    "carbon-api": os.getenv(
+        "CARBON_API_URL",
+        os.getenv("CARBON_MCP_URL", os.getenv("SUPABASE_MCP_URL", "http://carbon-api:8766")),
+    ),
+    "cloudrun-mcp": os.getenv("CLOUDRUN_MCP_URL", "http://cloudrun-mcp:8769"),
+    "lwm-mcp": os.getenv("LWM_MCP_URL", "http://lwm-mcp:8770"),
+    "claude-mcp": os.getenv("CLAUDE_MCP_URL", "http://claude-mcp:8771"),
     "backend": os.getenv("BACKEND_URL", "http://localhost:3002"),
     "prometheus": os.getenv("PROMETHEUS_URL", "http://localhost:9091"),
     "grafana": os.getenv("GRAFANA_URL", "http://localhost:3001"),
@@ -1181,10 +1187,10 @@ async def gemini_code_review(req: GeminiReviewRequest):
 # OpenSandbox server must be running on OPENSANDBOX_HOST.
 # See: mcp-hub/services/opensandbox_mcp.py, src/sandbox/opensandbox.ts
 
-from services.opensandbox_mcp import (
+from services.opensandbox_mcp import (  # noqa: E402
     MCP_TOOLS as OPENSANDBOX_MCP_TOOLS,
 )
-from services.opensandbox_mcp import (
+from services.opensandbox_mcp import (  # noqa: E402
     sandbox_create,
     sandbox_destroy,
     sandbox_execute,

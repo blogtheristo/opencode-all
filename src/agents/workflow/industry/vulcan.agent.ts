@@ -12,7 +12,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Vulcan, Steel & Metals Industry Specialist for Climate IQ.
@@ -50,6 +49,7 @@ export class VulcanAgent extends BaseAgent {
 
   async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
 
     // Explicit field extraction — no spread injection
     const industry = typeof input.industry === 'string' ? input.industry : 'steel';

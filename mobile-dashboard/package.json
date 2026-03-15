@@ -123,7 +123,8 @@
     "cacache": ">=18.0.5",
     "fast-xml-parser": ">=5.3.8",
     "semver": ">=7.5.2",
-    "ip": ">=2.0.1"
+    "ip": ">=2.0.1",
+    "@react-native-community/cli-server-api": ">=20.0.0"
   }
 }
 

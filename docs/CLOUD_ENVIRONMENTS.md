@@ -3,9 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 13.8 (Database Disaster Recovery Architecture) — dual-database (Supabase dws6-production + Aiven dws-test), Linux recovery scripts, RTO < 5 min schema / < 15 min full, 4-destination backup redundancy
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Aiven PostgreSQL Sandbox as 5th environment in matrix — agent workspace + LWM training, EU Finland region, daily mirror from Supabase
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/mcp-google-cloud-run-BuSpY | Date: 23.02.2026 | Changes: Added MCP Gateway on Cloud Run section (Section 12) — Streamable HTTP for mobile Claude Code, secret provisioning script
   - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
@@ -17,7 +19,7 @@ Session Links & References:
 
 Document Status:
   - Created: 16.02.2026
-  - Last Modified: 23.02.2026
+  - Last Modified: 08.03.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -482,21 +484,21 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 8.1 Complete Service-to-Environment Mapping
 
-| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) |
-|---------|----------------------|-------------------------|------------|---------------|
-| **Landing pages** | Cloudflare Pages | — | — | — |
-| **Dashboard SPA** | Cloudflare Pages | — | — | — |
-| **Edge API** | Cloudflare Workers | — | — | — |
-| **Backend API** | — | Cloud Run | Trace sidecar | — |
-| **AI Agents** | — | Cloud Run | Reasoning log | — |
-| **MCP Hub** | — | Cloud Run | Trace sidecar | — |
-| **Database** | — | Supabase EU | Audit tables | — |
-| **Auth** | — | Supabase Auth | Identity layer | — |
-| **Jitsi (V3)** | — | — | — | Self-hosted |
-| **Email (V3)** | — | — | — | Self-hosted |
-| **Training** | — | GCP A3 (burst) | — | — |
-| **Monitoring** | — | Prometheus + Grafana | — | — |
-| **Compliance** | — | — | Full Aiwen stack | — |
+| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) | Aiven (Sandbox) |
+|---------|----------------------|-------------------------|------------|---------------|-----------------|
+| **Landing pages** | Cloudflare Pages | — | — | — | — |
+| **Dashboard SPA** | Cloudflare Pages | — | — | — | — |
+| **Edge API** | Cloudflare Workers | — | — | — | — |
+| **Backend API** | — | Cloud Run | Trace sidecar | — | — |
+| **AI Agents** | — | Cloud Run | Reasoning log | — | Agent workspace |
+| **MCP Hub** | — | Cloud Run | Trace sidecar | — | — |
+| **Database** | — | Supabase EU (prod) | Audit tables | — | Daily mirror (sandbox) |
+| **Auth** | — | Supabase Auth | Identity layer | — | Auth stubs |
+| **Jitsi (V3)** | — | — | — | Self-hosted | — |
+| **Email (V3)** | — | — | — | Self-hosted | — |
+| **Training** | — | GCP A3 (burst) | — | — | LWM training data |
+| **Monitoring** | — | Prometheus + Grafana | — | — | — |
+| **Compliance** | — | — | Full Aiwen stack | — | — |
 
 ### 8.2 Domain-to-Environment Mapping
 
@@ -801,6 +803,52 @@ The MCP Agent Server deploys as part of the Express backend — no separate serv
 | `seo-pipeline` | 3 | keyword-intent → competitor-surveillance → content-brief | 10 min |
 
 Workflows execute in-process via `src/agents/workflows.ts`. When Temporal.io is wired (DWS7 Phase 4), these definitions export directly to Temporal workflow activities.
+
+---
+
+## 13.8 Database Disaster Recovery Architecture
+
+### Dual-Database Strategy
+
+| Database | Provider | Role | Region | Project Name |
+|----------|----------|------|--------|-------------|
+| **Primary** | Supabase | Production (all customer data) | EU (europe-north1) | `dws6-production` |
+| **Warm standby** | Aiven PostgreSQL | Sandbox, agent workspace, LWM training, DR target | EU (Finland) | `dws-test` |
+
+### Recovery Time Objectives
+
+| Scenario | RTO | RPO | Method |
+|----------|-----|-----|--------|
+| Schema rebuild from migrations | < 5 min | N/A (schema in git) | `scripts/db-recovery.sh --target aiven` |
+| Full data restore (schema + dump) | < 15 min | 24 hours | `scripts/db-recovery.sh --target supabase --restore-dump <file>` |
+| Aiven warm standby switchover | < 5 min | 24 hours | Update `.env` SUPABASE_URL → AIVEN_DATABASE_URL |
+
+### Backup Destinations (4-Destination Redundancy)
+
+| # | Destination | Method | Frequency | Script |
+|---|-------------|--------|-----------|--------|
+| 1 | Local disk (F: drive) | pg_dump + GPG | Daily | `Backup-Database.ps1` |
+| 2 | Proton Drive | Encrypted sync | Daily | `Sync-ToProton.ps1` |
+| 3 | Acer Veriton Helsinki | SCP over SSH | Daily | `Backup-Database.ps1` |
+| 4 | GitHub Actions artifacts | pg_dump | Daily 02:30 UTC | `daily-db-backup.yml` |
+| 5 | Aiven PostgreSQL | Full mirror restore | Daily | `Mirror-ToAiven.ps1` |
+
+### Recovery Scripts (Linux)
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/db-recovery.sh` | Rebuilds full schema from 43+ migrations, restores from backup dump, verifies tables + RLS |
+| `scripts/db-backup-test.sh` | End-to-end backup test drive: export → verify → restore → row count comparison |
+| `scripts/aiven-init.sql` | Aiven auth stubs (auth.uid, auth.jwt, auth.role) for RLS policy compatibility |
+
+### Emergency Procedure
+
+1. **Detect** — Supabase outage or data corruption identified
+2. **Assess** — Determine scope: schema-only or full data loss
+3. **Recover** — Run `db-recovery.sh --target supabase` (new project) or switch to Aiven
+4. **Verify** — Check table counts, RLS status, function availability
+5. **Switch** — Update production `.env` with new database credentials
+6. **Document** — Create field note in `docs/field-notes/`
 
 ---
 

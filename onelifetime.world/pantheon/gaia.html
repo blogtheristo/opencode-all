@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaia — The Earth's Conscience | DWS Pantheon</title>
+    <meta name="description" content="Cement & Earth Materials Intelligence. 8% of global CO2. Earth does not negotiate with limestone. Ancient, unsparing, geologically disappointed.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(180deg, #1a1710 0%, #0f172a 40%, #0a1628 100%); }
+        .glow-stone { text-shadow: 0 0 50px rgba(120, 113, 108, 0.5); }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(120, 113, 108, 0.2); }
+        .earth-card { background: rgba(28, 25, 23, 0.6); border: 1px solid rgba(120, 113, 108, 0.15); }
+        @keyframes earth-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(120, 113, 108, 0.2); }
+            50% { box-shadow: 0 0 40px 10px rgba(120, 113, 108, 0.1); }
+        }
+        .earth-pulse { animation: earth-pulse 6s ease infinite; }
+        @keyframes topo-scroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 200px; }
+        }
+        .topo-bg {
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(120, 113, 108, 0.05) 19px, rgba(120, 113, 108, 0.05) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(120, 113, 108, 0.03) 19px, rgba(120, 113, 108, 0.03) 20px);
+            animation: topo-scroll 30s linear infinite;
+        }
+        .carbon-source { background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), transparent); border-left: 3px solid #ef4444; }
+        .carbon-sink { background: linear-gradient(90deg, rgba(34, 197, 94, 0.15), transparent); border-left: 3px solid #22c55e; }
+        .hum { animation: earth-hum 4s ease-in-out infinite; }
+        @keyframes earth-hum {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100 topo-bg">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO: The Lithosphere Ledger -->
+    <header class="py-20 md:py-32 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-xs uppercase tracking-[0.4em] text-stone-400 mb-6">The Lithosphere Ledger</p>
+            <div class="text-8xl md:text-9xl mb-6 hum">&#x1FAA8;</div>
+            <h1 class="text-5xl md:text-7xl font-black glow-stone mb-4">GAIA</h1>
+            <p class="text-xl md:text-2xl text-stone-300 font-light mb-2">Primordial Goddess of Earth</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">Ancient beyond measure. Mother of all. Cement comes from her bones. She's not angry about it &mdash; she's geologically disappointed.</p>
+
+            <!-- KPI Badge -->
+            <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3 earth-pulse">
+                <span class="w-3 h-3 bg-stone-400 rounded-full"></span>
+                <span class="text-stone-300 font-bold text-lg">Net-Zero Geological Impact</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+
+        <!-- Carbon Sink vs Source Visualization -->
+        <section class="mb-16">
+            <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gray-950 rounded-xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold text-stone-400 uppercase tracking-wider">Carbon Sink vs. Carbon Source</h3>
+                        <span class="text-xs text-slate-500 font-mono">Your Land Assets &middot; Annual Assessment</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="carbon-source rounded-lg p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs font-bold text-red-400 uppercase">Carbon Source</span>
+                                    <p class="text-sm text-slate-200 mt-1">Cement Plant Kiln #3 &mdash; Clinker production</p>
+                                    <p class="text-xs text-slate-500 mt-1">Process emissions (CaCO&sub3; &rarr; CaO + CO&sub2;) + Fuel combustion</p>
+                                </div>
+                                <span class="text-lg font-bold text-red-300">847,000 tCO&sub2;/yr</span>
+                            </div>
+                        </div>
+                        <div class="carbon-source rounded-lg p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs font-bold text-red-400 uppercase">Carbon Source</span>
+                                    <p class="text-sm text-slate-200 mt-1">Quarry Operations &mdash; Limestone extraction</p>
+                                    <p class="text-xs text-slate-500 mt-1">Land use change + Transport + Blasting</p>
+                                </div>
+                                <span class="text-lg font-bold text-red-300">23,400 tCO&sub2;/yr</span>
+                            </div>
+                        </div>
+                        <div class="carbon-sink rounded-lg p-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs font-bold text-green-400 uppercase">Carbon Sink</span>
+                                    <p class="text-sm text-slate-200 mt-1">Rehabilitated Quarry Zone B &mdash; Reforestation</p>
+                                    <p class="text-xs text-slate-500 mt-1">14 hectares, planted 2019, 7-year sequestration</p>
+                                </div>
+                                <span class="text-lg font-bold text-green-300">-2,100 tCO&sub2;/yr</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-500">NET POSITION</span>
+                        <span class="text-lg font-bold text-red-400">+868,300 tCO&sub2;/yr</span>
+                    </div>
+                    <p class="text-xs text-stone-500 mt-2 italic font-mono">Gaia's note: "The reforestation is admirable. It offsets 0.24% of your kiln. Calcination CO&sub2; is physics. You need carbon capture."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mythology & Voice -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-stone-400 mb-6">The Myth</h2>
+            <div class="glass rounded-2xl p-8">
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-stone-300">Gaia</strong> was the primordial goddess of Earth itself &mdash; not a deity who rules over the Earth, but the Earth personified. She existed before the Titans, before the Olympians, before time had a name. Mother of Kronos, grandmother of Zeus.</p>
+                <p class="text-lg text-slate-300 mb-6">In DWS IQ 6, Gaia monitors cement and earth materials &mdash; the industry responsible for 8% of all global CO&sub2; emissions. Her patience is geological. Her standards are absolute. She has zero tolerance for greenwashing via clinker ratio games.</p>
+                <blockquote class="border-l-4 border-stone-500 pl-6 py-4 my-6 bg-stone-950/30 rounded-r-lg">
+                    <p class="text-xl text-stone-200 italic">"Ancient and unsparing. Cement = 8% of global CO&sub2;. Earth does not negotiate with limestone. Calcination CO&sub2; is unavoidable &mdash; carbon capture is the only long-term fix."</p>
+                    <cite class="text-sm text-stone-500 mt-2 block">&mdash; Gaia, to a cement CEO presenting a "green concrete" brochure</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-stone-400 mb-8 text-center">Capabilities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F3ED;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">CBAM Cement</h3>
+                    <p class="text-sm text-slate-400">Carbon content declarations for cement imports. Process emissions (calcination) + fuel combustion. Clinker factor tracking per product.</p>
+                </div>
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F4CA;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">ETS Clinker Benchmark</h3>
+                    <p class="text-sm text-slate-400">Tracks your installation against the EU ETS clinker benchmark. Free allowances declining. Carbon leakage list monitoring.</p>
+                </div>
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x267B;&#xFE0F;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">Clinker Substitution</h3>
+                    <p class="text-sm text-slate-400">Evaluates GGBS, fly ash, calcined clay (LC3), and novel binders. But warns: ratio games without CCS are temporary fixes.</p>
+                </div>
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F4D1;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">Cement CSRD</h3>
+                    <p class="text-sm text-slate-400">ESRS E1 (climate), E3 (water), E5 (resource use) for cement producers. Double materiality: limestone extraction impacts.</p>
+                </div>
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F33F;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">Low-Carbon Cement</h3>
+                    <p class="text-sm text-slate-400">Evaluates CCS/CCU viability, electrochemical cement, and Solidia pathways. Honest assessment: most aren't ready for scale yet.</p>
+                </div>
+                <div class="earth-card rounded-xl p-6">
+                    <div class="text-2xl mb-3">&#x1F6F0;&#xFE0F;</div>
+                    <h3 class="text-lg font-bold text-stone-300 mb-2">Argus Integration</h3>
+                    <p class="text-sm text-slate-400">Methane plume detection via SAR. Quarry monitoring. When Argus detects anomalies in earth materials operations, Gaia investigates.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Feed -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-stone-400 mb-8 text-center">The Feed</h2>
+            <div class="glass rounded-2xl p-6 space-y-4">
+                <div class="earth-card rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-orange-400 text-lg">&#x26A0;&#xFE0F;</span>
+                        <div>
+                            <p class="text-sm text-slate-300"><strong class="text-orange-300">Methane plume detected</strong> via Argus in Sector B quarry. Gaia is disappointed. Corrective action required.</p>
+                            <p class="text-xs text-slate-500 mt-1">Source: SAR change detection &middot; Confidence: 0.91 &middot; Neptune + Athena notified</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="earth-card rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-red-400 text-lg">&#x1F6A8;</span>
+                        <div>
+                            <p class="text-sm text-slate-300"><strong class="text-red-300">Clinker ratio game detected.</strong> Product "EcoBlend 40" claims 40% clinker substitution but uses limestone filler, not reactive SCM. Greenwash risk: HIGH.</p>
+                            <p class="text-xs text-slate-500 mt-1">Gaia: "Limestone filler doesn't react. It dilutes. This isn't green cement, it's marketing cement."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="earth-card rounded-lg p-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-green-400 text-lg">&#x2705;</span>
+                        <div>
+                            <p class="text-sm text-slate-300"><strong class="text-green-300">CCS pilot (Brevik, Norway)</strong> on track. 400,000 tCO&sub2;/yr capture capacity. First full-scale cement CCS globally.</p>
+                            <p class="text-xs text-slate-500 mt-1">Gaia: "Finally. This is the only path that changes the calcination equation."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Fans -->
+        <section class="mb-16 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-stone-400 mb-8 text-center">The Fans</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl">&#x1F4CA;</span>
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-300">The ESG Director</h3>
+                            <p class="text-xs text-slate-500">Sustainability & Reporting Teams</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Desperate for "Ground Truth" data to back up their sustainability reports. Satellite imagery + Gaia's analysis = audit-proof environmental claims.</p>
+                </div>
+                <div class="glass rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl">&#x1F33E;</span>
+                        <div>
+                            <h3 class="text-lg font-bold text-stone-300">The Land Steward</h3>
+                            <p class="text-xs text-slate-500">Sustainable Farmers & Foresters</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400">Treats the soil like a high-value asset. Uses Gaia to quantify carbon sequestration from regenerative practices and get certified credits that actually hold up.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Hard Truth -->
+        <section class="mb-16 max-w-3xl mx-auto text-center">
+            <div class="glass rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-stone-300 mb-4">The Hard Truth About Cement</h3>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <div class="text-3xl font-black text-red-400">8%</div>
+                        <div class="text-xs text-slate-500 mt-1">of global CO&sub2;</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-stone-400">60%</div>
+                        <div class="text-xs text-slate-500 mt-1">from calcination<br>(unavoidable chemistry)</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-yellow-400">40%</div>
+                        <div class="text-xs text-slate-500 mt-1">from fuel combustion<br>(fixable)</div>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-400">CaCO&sub3; + heat &rarr; CaO + CO&sub2;. This is chemistry, not a policy problem. You can switch fuels for the 40%. For the 60%, you need carbon capture. Gaia has geological patience, but not infinite patience.</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center mb-16">
+            <a href="/assistant/" class="inline-flex items-center gap-3 bg-gradient-to-r from-stone-600 to-stone-500 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-stone-500/20 transition-all hover:-translate-y-1">
+                &#x1FAA8; Summon Gaia
+            </a>
+            <p class="text-slate-500 text-sm mt-4">Opens the DWS IQ Assistant with Gaia earth materials capabilities</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-stone-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; Cement & Earth Materials Intelligence &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>
