@@ -56,13 +56,14 @@ services:
       # Service URLs (Docker internal hostnames)
       BACKEND_URL: http://backend-dev:8080
       GITHUB_MCP_URL: http://github-mcp:8767
+      SUPABASE_MCP_URL: http://supabase-mcp:8766
       CARBON_API_URL: http://carbon-api:8766
-      PROMETHEUS_URL: http://prometheus:9090
-      GRAFANA_URL: http://grafana:3000
-      AGENT_FOUNDRY_URL: http://agent-foundry:8080
       CLOUDRUN_MCP_URL: http://cloudrun-mcp:8769
       LWM_MCP_URL: http://lwm-mcp:8770
       CLAUDE_MCP_URL: http://claude-mcp:8771
+      PROMETHEUS_URL: http://prometheus:9090
+      GRAFANA_URL: http://grafana:3000
+      AGENT_FOUNDRY_URL: http://agent-foundry:8080
 
       # Session Management
       SESSION_TTL_HOURS: 168

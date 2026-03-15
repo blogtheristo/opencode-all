@@ -3,7 +3,7 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Initial field note — MCP server expansion (cloudrun-mcp 8769, lwm-mcp 8770, claude-mcp 8771), Supabase session sync migration 033
@@ -259,4 +259,4 @@ This is a key milestone for the thesis research objective: demonstrating that a 
 5. ☐ Test `docker compose up cloudrun-mcp lwm-mcp claude-mcp`
 6. ☐ Write integration tests in `src/__tests__/mcp-expansion.test.ts`
 7. ☐ Validate GN100 connectivity from `lwm-mcp` container
-8. ☐ End-to-end session handover test (checkpoint → handoff → resume)
+8. ☐ End-to-end session handover test (checkpoint → resume)

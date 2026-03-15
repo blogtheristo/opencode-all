@@ -37,6 +37,7 @@ Document Status:
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V2.5 — Harness Engineering and Forensic Telemetry: harness-forensics connection, court-defensible harness, KYA hardware attestation)
 
+
 ---
 
 ## Abstract
@@ -62,11 +63,10 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 11. [Proton Products Strategy](#11-proton-products-strategy)
 12. [IPR Protection & Trade Secret Strategy](#12-ipr-protection--trade-secret-strategy)
 13. [Prompt Caching Architecture for AI Agents](#13-prompt-caching-architecture-for-ai-agents)
-14. [Enterprise Multi-Tenant Agent Architecture](#14-enterprise-multi-tenant-agent-architecture)
-15. [Results and Discussion](#15-results-and-discussion)
-16. [Conclusion](#16-conclusion)
-17. [References](#17-references)
-18. [Appendices](#18-appendices)
+14. [Results and Discussion](#14-results-and-discussion)
+15. [Conclusion](#15-conclusion)
+16. [References](#16-references)
+17. [Appendices](#17-appendices)
 
 ---
 
@@ -970,7 +970,7 @@ These economics are critical for Firehorse's AI-assisted store operations, where
 
 ---
 
-## 14. Enterprise Multi-Tenant Agent Architecture
+## 14. Results and Discussion
 
 ### 14.1 Per-Industry Open LLM Selection
 
@@ -1222,7 +1222,7 @@ The Firehorse Operations Model with Claude Code achieved:
 | Error rate | 5% | <1% | 80% |
 | Store page updates | 4 hours | 15 minutes | 94% |
 
-### 15.2 Google Merchant Center Performance
+### 12.2 Google Merchant Center Performance
 
 After implementing Revolut checkout links and fixing feed issues:
 
@@ -1233,7 +1233,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | Checkout conversion | Direct to payment |
 | Feed file size | 32,893 bytes |
 
-### 15.3 Compliance Readiness Assessment
+### 12.3 Compliance Readiness Assessment
 
 | Regulation | Readiness | Gap Analysis |
 |------------|-----------|--------------|
@@ -1243,7 +1243,7 @@ After implementing Revolut checkout links and fixing feed issues:
 | NIS2 | 75% | Security assessment needed |
 | CSRD | 85% | Reporting templates ready |
 
-### 15.4 Limitations
+### 12.4 Limitations
 
 1. **Audio chat not yet deployed** - Roadmap documented, Q1 2026 target
 2. **Partner ecosystem** - Partnerships in development
@@ -1252,9 +1252,9 @@ After implementing Revolut checkout links and fixing feed issues:
 
 ---
 
-## 16. Conclusion
+## 15. Conclusion
 
-### 16.1 Summary
+### 13.1 Summary
 
 The Firehorse Operations Model demonstrates that AI-assisted e-commerce management can:
 
@@ -1264,7 +1264,7 @@ The Firehorse Operations Model demonstrates that AI-assisted e-commerce manageme
 4. **Prepare infrastructure** for voice-based customer interactions
 5. **Support industrial customers** with carbon calculator integration
 
-### 16.2 Key Contributions
+### 13.2 Key Contributions
 
 This thesis contributes:
 
@@ -1283,7 +1283,7 @@ This thesis contributes:
 13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
 14. Two-Tier HTAP Architecture — Aiven-first mandate, TimescaleDB Hypercore for production, pg_duckdb for edge analytics; validates managed-provider constraint as architectural driver
 
-### 16.3 Future Work
+### 13.3 Future Work
 
 1. **Q1 2026:** Deploy audio chat Phase 1 with EU AI Act transparency
 2. **Q2 2026:** Implement industry carbon calculator with Scope 1/2/3
@@ -1293,7 +1293,7 @@ This thesis contributes:
 
 ---
 
-## 17. References
+## 16. References
 
 1. EU AI Act, Regulation (EU) 2024/1689
 2. Google Merchant Center Technical Specifications (2026)
@@ -1336,7 +1336,7 @@ The following internal standards govern the DWS IQ 6 platform architecture, secu
 
 ---
 
-## 18. Appendices
+## 17. Appendices
 
 ### Appendix A: Complete Product Catalog
 

@@ -1,97 +1,344 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHD Firehorse-toimintamalli (FI) v1.4</title>
-<style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #1a1a2e; background: #fafafa; }
-h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
-h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
-h3 { color: #334155; }
-h4 { color: #475569; }
-code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; }
-pre code { background: none; color: inherit; }
-table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
-th { background: #1e3a5f; color: white; }
-tr:nth-child(even) { background: #f8fafc; }
-blockquote { border-left: 4px solid #fbbf24; margin: 20px 0; padding: 10px 20px; background: #fffbeb; }
-a { color: #2563eb; }
-strong { color: #0f172a; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PHD Firehorse FI v1.4</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-<h1>Pro Gradu: Firehorse-toimintamalli tekoalyavusteiseen verkkokauppaan</h1>
-<p><strong>Otsikko:</strong> Tekoalynatiivi verkkokaupan hallinta: Tapaustutkimus Firehorse-mallin toteutuksesta Claude Codella
+<header id="title-block-header">
+<h1 class="title">PHD Firehorse FI v1.4</h1>
+</header>
+<h1
+id="pro-gradu-firehorse-toimintamalli-tekoalyavusteiseen-verkkokauppaan">Pro
+Gradu: Firehorse-toimintamalli tekoalyavusteiseen verkkokauppaan</h1>
+<p><strong>Otsikko:</strong> Tekoalynatiivi verkkokaupan hallinta:
+Tapaustutkimus Firehorse-mallin toteutuksesta Claude Codella
 <strong>Tekija:</strong> Lifetime Oy Tutkimusosasto
-<strong>Paivamaara:</strong> Tammikuu 2026
-<strong>Laitos:</strong> DWS IQ Research
-<strong>Dokumenttityyppi:</strong> Pro Gradu -tutkielma</p>
+<strong>Paivamaara:</strong> Tammikuu 2026 <strong>Laitos:</strong> DWS
+IQ Research <strong>Dokumenttityyppi:</strong> Pro Gradu -tutkielma</p>
 <hr />
-<h1>VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.4</p>
-<p>Sessions &amp; Modifications:
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
-  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen</p>
-<p>Document Status:
-  - Created: 15.01.2026
-  - Last Modified: 24.02.2026
-  - Language: Finnish
-  - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.4 — DWS7 agenttimoderinsointi)</p>
+<h2 id="tiivistelma">Tiivistelma</h2>
+<p>Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka
+on tekoalyavusteinen lahestymistapa verkkokaupan hallintaan Claude Codea
+kayttaen. Malli osoittaa merkittavia tehokkuusparannuksia tuotekatalogin
+hallinnassa, Google Merchant Center -integraatiossa ja maksukasittelyssa
+Revolut Businessin kautta. Esittelemme teknisen arkkitehtuurin,
+toiminnalliset tyonkulut ja tulevan kehityksen kohti aanipohjaista
+asiakasvuorovaikutusta toimialakohtaisella hiilijalanjalkililaskurilla
+ja EU-saantelyvaatimusten tuntemuksella.</p>
+<p><strong>Avainsanat:</strong> Tekoalytoiminnot, Verkkokaupan
+automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n
+tekoalysaados, Hiilijalanjalkililaskuri, Teollinen
+vaatimustenmukaisuus</p>
 <hr />
-<h2>Tiivistelma</h2>
-<p>Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalyavusteinen lahestymistapa verkkokaupan hallintaan Claude Codea kayttaen. Malli osoittaa merkittavia tehokkuusparannuksia tuotekatalogin hallinnassa, Google Merchant Center -integraatiossa ja maksukasittelyssa Revolut Businessin kautta. Esittelemme teknisen arkkitehtuurin, toiminnalliset tyonkulut ja tulevan kehityksen kohti aanipohjaista asiakasvuorovaikutusta toimialakohtaisella hiilijalanjalkililaskurilla ja EU-saantelyvaatimusten tuntemuksella.</p>
-<p><strong>Avainsanat:</strong> Tekoalytoiminnot, Verkkokaupan automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n tekoalysaados, Hiilijalanjalkililaskuri, Teollinen vaatimustenmukaisuus</p>
-<hr />
-<h2>Sisallysluettelo</h2>
-<ol>
+<h2 id="sisallysluettelo">Sisallysluettelo</h2>
+<ol type="1">
 <li><a href="#1-johdanto">Johdanto</a></li>
 <li><a href="#2-kirjallisuuskatsaus">Kirjallisuuskatsaus</a></li>
-<li><a href="#3-firehorse-toimintamalli">Firehorse-toimintamalli</a></li>
+<li><a
+href="#3-firehorse-toimintamalli">Firehorse-toimintamalli</a></li>
 <li><a href="#4-tekninen-toteutus">Tekninen toteutus</a></li>
-<li><a href="#5-maksuintegraatio-revolut-business">Maksuintegraatio (Revolut Business)</a></li>
-<li><a href="#6-google-merchant-center--toiminnot">Google Merchant Center -toiminnot</a></li>
-<li><a href="#7-eu-saantelyvaatimustenmukaisuus">EU-saantelyvaatimustenmukaisuus</a></li>
+<li><a href="#5-maksuintegraatio-revolut-business">Maksuintegraatio
+(Revolut Business)</a></li>
+<li><a href="#6-google-merchant-center--toiminnot">Google Merchant
+Center -toiminnot</a></li>
+<li><a
+href="#7-eu-saantelyvaatimustenmukaisuus">EU-saantelyvaatimustenmukaisuus</a></li>
 <li><a href="#8-tuotesuositusmoottori">Tuotesuositusmoottori</a></li>
-<li><a href="#9-aanichatin-kehityssuunnitelma">Aanichatin kehityssuunnitelma</a></li>
-<li><a href="#10-toimialan-hiilijalanjalkililaskuri">Toimialan hiilijalanjalkililaskuri</a></li>
+<li><a href="#9-aanichatin-kehityssuunnitelma">Aanichatin
+kehityssuunnitelma</a></li>
+<li><a href="#10-toimialan-hiilijalanjalkililaskuri">Toimialan
+hiilijalanjalkililaskuri</a></li>
 <li><a href="#11-proton-tuotestrategia">Proton-tuotestrategia</a></li>
-<li><a href="#12-ipr-suojaus-ja-liikesalaisuusstrategia">IPR-suojaus ja liikesalaisuusstrategia</a></li>
-<li><a href="#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille">Prompt-valimuistiarkkitehtuuri tekoalyagenteille</a></li>
-<li><a href="#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri">Yrityksen monivuokralainen agenttiarkkitehtuuri</a></li>
+<li><a href="#12-ipr-suojaus-ja-liikesalaisuusstrategia">IPR-suojaus ja
+liikesalaisuusstrategia</a></li>
+<li><a
+href="#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille">Prompt-valimuistiarkkitehtuuri
+tekoalyagenteille</a></li>
+<li><a
+href="#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri">Yrityksen
+monivuokralainen agenttiarkkitehtuuri</a></li>
 <li><a href="#15-tulokset-ja-pohdinta">Tulokset ja pohdinta</a></li>
 <li><a href="#16-johtopaatotkset">Johtopäätökset</a></li>
 <li><a href="#17-lahteet">Lahteet</a></li>
 <li><a href="#18-liitteet">Liitteet</a></li>
 </ol>
 <hr />
-<h2>1. Johdanto</h2>
-<h3>1.1 Tausta</h3>
-<p>Yritysohjelmistomarkkinat vaativat yha enemman nopeaa tuotekehitysta, EU-saannosten noudattamista ja saumatonta asiakaskokemusta. Perinteinen verkkokauppatoiminta vaatii manuaalista puuttumista tuotepaivityksiin, syotehallintaan ja asiakastukeen. Firehorse-toimintamalli vastaa naihin haasteisiin tekoalynatiivilla automaatiolla Claude Codea kayttaen.</p>
-<p>Lifetime Oy operoi DWS10.com-alustaa, yritysverkkokauppaa joka palvelee ilmastoalykkyyden ratkaisuja, vaatimustenmukaisuusohjelmistoja ja ammattimaisia konsultointipalveluita 16:lle EU-saannellylle toimialalle. Alusta integroituu:</p>
+<h2 id="johdanto">1. Johdanto</h2>
+<h3 id="tausta">1.1 Tausta</h3>
+<p>Yritysohjelmistomarkkinat vaativat yha enemman nopeaa tuotekehitysta,
+EU-saannosten noudattamista ja saumatonta asiakaskokemusta. Perinteinen
+verkkokauppatoiminta vaatii manuaalista puuttumista tuotepaivityksiin,
+syotehallintaan ja asiakastukeen. Firehorse-toimintamalli vastaa naihin
+haasteisiin tekoalynatiivilla automaatiolla Claude Codea kayttaen.</p>
+<p>Lifetime Oy operoi DWS10.com-alustaa, yritysverkkokauppaa joka
+palvelee ilmastoalykkyyden ratkaisuja, vaatimustenmukaisuusohjelmistoja
+ja ammattimaisia konsultointipalveluita 16:lle EU-saannellylle
+toimialalle. Alusta integroituu:</p>
 <ul>
-<li><strong>Google Merchant Center</strong> (Tili-ID: 8496329) tuotenakyvyydelle</li>
-<li><strong>Revolut Business</strong> kassan ja maksukasittelyn hoitamiseen</li>
-<li><strong>Claude Code</strong> automatisoituun kaupan yllapitoon Firehorse-mallin kautta</li>
-<li><strong>Cloudflare Pages</strong> staattiseen hostingiin EU-tietojen sijaintikriteerein</li>
+<li><strong>Google Merchant Center</strong> (Tili-ID: 8496329)
+tuotenakyvyydelle</li>
+<li><strong>Revolut Business</strong> kassan ja maksukasittelyn
+hoitamiseen</li>
+<li><strong>Claude Code</strong> automatisoituun kaupan yllapitoon
+Firehorse-mallin kautta</li>
+<li><strong>Cloudflare Pages</strong> staattiseen hostingiin EU-tietojen
+sijaintikriteerein</li>
 </ul>
-<h3>1.2 Tutkimuskysymykset</h3>
-<ol>
-<li>Miten tekoalyavustajat voivat tehokkaasti hallita verkkokaupan tuotekatalogeja?</li>
-<li>Mitka tehokkuusparannukset ovat saavutettavissa automatisoidulla syotehallinnalla?</li>
-<li>Miten aanipohjiaisen asiakasvuorovaikutuksen tulisi kehittya suositellakseen toimialakohtaisia ratkaisuja?</li>
-<li>Mitka EU:n tekoalysaadoksen vaatimukset vaikuttavat tekoalyavusteisiin myyntikanaviin?</li>
-<li>Miten hiilijalanjalkililaskurit voivat ohjata tuotesuosituksia teollisille asiakkaille?</li>
+<h3 id="tutkimuskysymykset">1.2 Tutkimuskysymykset</h3>
+<ol type="1">
+<li>Miten tekoalyavustajat voivat tehokkaasti hallita verkkokaupan
+tuotekatalogeja?</li>
+<li>Mitka tehokkuusparannukset ovat saavutettavissa automatisoidulla
+syotehallinnalla?</li>
+<li>Miten aanipohjiaisen asiakasvuorovaikutuksen tulisi kehittya
+suositellakseen toimialakohtaisia ratkaisuja?</li>
+<li>Mitka EU:n tekoalysaadoksen vaatimukset vaikuttavat
+tekoalyavusteisiin myyntikanaviin?</li>
+<li>Miten hiilijalanjalkililaskurit voivat ohjata tuotesuosituksia
+teollisille asiakkaille?</li>
 </ol>
-<h3>1.3 Laajuus</h3>
-<p>Tama tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotetta seuraavissa kategorioissa:</p>
+<h3 id="laajuus">1.3 Laajuus</h3>
+<p>Tama tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli
+30 tuotetta seuraavissa kategorioissa:</p>
 <table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 29%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr>
 <th>Kategoria</th>
@@ -128,9 +375,13 @@ strong { color: #0f172a; }
 </tbody>
 </table>
 <hr />
-<h2>2. Kirjallisuuskatsaus</h2>
-<h3>2.1 Tekoaly verkkokauppatoiminnoissa</h3>
-<p>Viimeaikaiset edistysaskeleet suurissa kielimalleissa (LLM) mahdollistavat luonnollisen kielen kayttoliittymat monimutkaisiin teknisiin toimintoihin. Claude Code, joka perustuu Anthropicin Claude-malliin, tarjoaa:</p>
+<h2 id="kirjallisuuskatsaus">2. Kirjallisuuskatsaus</h2>
+<h3 id="tekoaly-verkkokauppatoiminnoissa">2.1 Tekoaly
+verkkokauppatoiminnoissa</h3>
+<p>Viimeaikaiset edistysaskeleet suurissa kielimalleissa (LLM)
+mahdollistavat luonnollisen kielen kayttoliittymat monimutkaisiin
+teknisiin toimintoihin. Claude Code, joka perustuu Anthropicin
+Claude-malliin, tarjoaa:</p>
 <ul>
 <li>Tiedostojarjestelman kasittelyn</li>
 <li>Koodin generoinnin ja muokkauksen</li>
@@ -138,7 +389,7 @@ strong { color: #0f172a; }
 <li>Monivaiheisen tehtavien orkestroinnin</li>
 <li>Git-versionhallinnan integraation</li>
 </ul>
-<h3>2.2 Tuotetietojen hallinta</h3>
+<h3 id="tuotetietojen-hallinta">2.2 Tuotetietojen hallinta</h3>
 <p>Modernit tuotetietojen hallintajarjestelmat (PIM) vaativat:</p>
 <ul>
 <li>Keskitetyn tietovaraston (products.json)</li>
@@ -147,9 +398,15 @@ strong { color: #0f172a; }
 <li>Dynaamiset hinnoitteluominaisuudet</li>
 <li>Kassalinkkien integraation</li>
 </ul>
-<h3>2.3 EU:n saantelykehys</h3>
-<p>Euroopan unionin saantelymaisema tekoalyavusteisessa kaupassa sisaltaa:</p>
+<h3 id="eun-saantelykehys">2.3 EU:n saantelykehys</h3>
+<p>Euroopan unionin saantelymaisema tekoalyavusteisessa kaupassa
+sisaltaa:</p>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 40%" />
+<col style="width: 31%" />
+</colgroup>
 <thead>
 <tr>
 <th>Saannos</th>
@@ -201,9 +458,10 @@ strong { color: #0f172a; }
 </tbody>
 </table>
 <hr />
-<h2>3. Firehorse-toimintamalli</h2>
-<h3>3.1 Mallin yleiskatsaus</h3>
-<p>Firehorse-toimintamalli on ihmisen ja tekoalyn yhteistyokehys verkkokaupan hallintaan:</p>
+<h2 id="firehorse-toimintamalli">3. Firehorse-toimintamalli</h2>
+<h3 id="mallin-yleiskatsaus">3.1 Mallin yleiskatsaus</h3>
+<p>Firehorse-toimintamalli on ihmisen ja tekoalyn yhteistyokehys
+verkkokaupan hallintaan:</p>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                   FIREHORSE-TOIMINNOT                        │
 ├─────────────────────────────────────────────────────────────┤
@@ -219,18 +477,27 @@ strong { color: #0f172a; }
 │                   │(Koodi, Docs)│     │(Kayttoonotot)│      │
 │                   └─────────────┘     └─────────────┘       │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>3.2 Perusperiaatteet</h3>
-<ol>
-<li><strong>Luonnollisen kielen kayttoliittyma</strong>: Toiminnot ilmaistaan selkokielella</li>
-<li><strong>Versionhallinta</strong>: Kaikki muutokset seurataan Gitin kautta</li>
-<li><strong>Auditointipolku</strong>: Taysi historia EU:n tekoalysaadoksen noudattamiseen</li>
-<li><strong>Toistettavuus</strong>: Dokumentoidut prosessit johdonmukaisuuden varmistamiseksi</li>
-<li><strong>Jaljitettavyys</strong>: Paatosketjut saantelyvaatimuksia varten</li>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="perusperiaatteet">3.2 Perusperiaatteet</h3>
+<ol type="1">
+<li><strong>Luonnollisen kielen kayttoliittyma</strong>: Toiminnot
+ilmaistaan selkokielella</li>
+<li><strong>Versionhallinta</strong>: Kaikki muutokset seurataan Gitin
+kautta</li>
+<li><strong>Auditointipolku</strong>: Taysi historia EU:n
+tekoalysaadoksen noudattamiseen</li>
+<li><strong>Toistettavuus</strong>: Dokumentoidut prosessit
+johdonmukaisuuden varmistamiseksi</li>
+<li><strong>Jaljitettavyys</strong>: Paatosketjut saantelyvaatimuksia
+varten</li>
 </ol>
-<h3>3.3 Toiminnalliset osa-alueet</h3>
+<h3 id="toiminnalliset-osa-alueet">3.3 Toiminnalliset osa-alueet</h3>
 <table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 42%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr>
 <th>Osa-alue</th>
@@ -266,7 +533,7 @@ strong { color: #0f172a; }
 </tr>
 </tbody>
 </table>
-<h3>3.4 Tyonkulkuesimerkit</h3>
+<h3 id="tyonkulkuesimerkit">3.4 Tyonkulkuesimerkit</h3>
 <p><strong>Tuotepaivityksen tyonkulku:</strong></p>
 <pre><code>Kayttaja: &quot;Lisaa uusi tuote X hintaan 999 EUR&quot;
 Claude Code:
@@ -274,8 +541,7 @@ Claude Code:
   2. Validoi pakolliset kentat
   3. Generoi Google Merchant -syotteen uudelleen
   4. Committaa muutokset Gitiin
-  5. Lahettaa syotteen SFTP:lla
-</code></pre>
+  5. Lahettaa syotteen SFTP:lla</code></pre>
 <p><strong>Dokumentaation tyonkulku:</strong></p>
 <pre><code>Kayttaja: &quot;Luo yllapitokasikirja&quot;
 Claude Code:
@@ -283,11 +549,10 @@ Claude Code:
   2. Analysoi jarjestelman arkkitehtuurin
   3. Generoi kattavan dokumentaation
   4. Luo kaksikieliset versiot (EN/FI)
-  5. Committaa repositoryyn
-</code></pre>
+  5. Committaa repositoryyn</code></pre>
 <hr />
-<h2>4. Tekninen toteutus</h2>
-<h3>4.1 Arkkitehtuuri</h3>
+<h2 id="tekninen-toteutus">4. Tekninen toteutus</h2>
+<h3 id="arkkitehtuuri">4.1 Arkkitehtuuri</h3>
 <pre><code>dws10.com/
 ├── buy/                    # Kauppasivut
 │   ├── index.html         # Paakauppa (Sivu 1)
@@ -301,69 +566,76 @@ Claude Code:
 ├── return-policy/
 │   └── index.html         # Palautuskaytanto (Googlen vaatimus)
 ├── static/images/         # Tuotekuvat
-└── docs/                   # Dokumentaatio
-</code></pre>
-<h3>4.2 Tuotetietomalli</h3>
-<pre><code class="language-json">{
-  &quot;id&quot;: &quot;DWS-IQ-006&quot;,
-  &quot;gtin&quot;: null,
-  &quot;mpn&quot;: &quot;DWSIQ-V6-2026&quot;,
-  &quot;name&quot;: &quot;Lifetime DWS IQ Platform (Version 6)&quot;,
-  &quot;price&quot;: 4999,
-  &quot;currency&quot;: &quot;EUR&quot;,
-  &quot;type&quot;: &quot;one-time&quot;,
-  &quot;description&quot;: &quot;Teollinen aivot Fit for 55 -vaatimustenmukaisuuteen. Tekoalynatiivi alusta 5 agentilla pilviymparistossasi.&quot;,
-  &quot;priceNote&quot;: &quot;Kertakayttooonotto + 499 EUR/kk tilaus&quot;,
-  &quot;revolutLink&quot;: &quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;,
-  &quot;image&quot;: &quot;/DWS_IQ2026.png&quot;,
-  &quot;detailsUrl&quot;: &quot;../buy/&quot;,
-  &quot;featured&quot;: true,
-  &quot;google&quot;: {
-    &quot;productCategory&quot;: &quot;Software &gt; Business &amp; Productivity Software&quot;,
-    &quot;condition&quot;: &quot;new&quot;,
-    &quot;availability&quot;: &quot;in_stock&quot;,
-    &quot;brand&quot;: &quot;Lifetime&quot;,
-    &quot;targetCountry&quot;: &quot;FI&quot;,
-    &quot;contentLanguage&quot;: &quot;en&quot;
-  }
-}
-</code></pre>
-<h3>4.3 Syotteen generointiputki</h3>
-<pre><code class="language-javascript">// generate-feed.cjs tyonkulku
-const generateFeed = () =&gt; {
-  // 1. Lataa products.json
-  const products = require('../config/products.json');
-
-  // 2. Validoi pakolliset kentat
-  validateProducts(products); // id, mpn, price, brand
-
-  // 3. Generoi XML g:-nimiavaruudella
-  let xml = generateXMLHeader();
-
-  for (const product of products) {
-    xml += generateProductItem(product);
-
-    // 4. Lisaa checkout_link_template Revolutille
-    const checkoutLink = product.revolutLink || 'https://revolut.me/lifetimeoy';
-    xml += `&lt;g:checkout_link_template&gt;${checkoutLink}&lt;/g:checkout_link_template&gt;`;
-  }
-
-  // 5. Kirjoita google-products.xml
-  writeFile('google-products.xml', xml);
-};
-</code></pre>
-<h3>4.4 Kayttoonottoputki</h3>
+└── docs/                   # Dokumentaatio</code></pre>
+<h3 id="tuotetietomalli">4.2 Tuotetietomalli</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;DWS-IQ-006&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;gtin&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mpn&quot;</span><span class="fu">:</span> <span class="st">&quot;DWSIQ-V6-2026&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime DWS IQ Platform (Version 6)&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;price&quot;</span><span class="fu">:</span> <span class="dv">4999</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;currency&quot;</span><span class="fu">:</span> <span class="st">&quot;EUR&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;one-time&quot;</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;Teollinen aivot Fit for 55 -vaatimustenmukaisuuteen. Tekoalynatiivi alusta 5 agentilla pilviymparistossasi.&quot;</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;priceNote&quot;</span><span class="fu">:</span> <span class="st">&quot;Kertakayttooonotto + 499 EUR/kk tilaus&quot;</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;revolutLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;</span><span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;image&quot;</span><span class="fu">:</span> <span class="st">&quot;/DWS_IQ2026.png&quot;</span><span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;detailsUrl&quot;</span><span class="fu">:</span> <span class="st">&quot;../buy/&quot;</span><span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;featured&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;google&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;productCategory&quot;</span><span class="fu">:</span> <span class="st">&quot;Software &gt; Business &amp; Productivity Software&quot;</span><span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;condition&quot;</span><span class="fu">:</span> <span class="st">&quot;new&quot;</span><span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;availability&quot;</span><span class="fu">:</span> <span class="st">&quot;in_stock&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;brand&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime&quot;</span><span class="fu">,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;targetCountry&quot;</span><span class="fu">:</span> <span class="st">&quot;FI&quot;</span><span class="fu">,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;contentLanguage&quot;</span><span class="fu">:</span> <span class="st">&quot;en&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="syotteen-generointiputki">4.3 Syotteen generointiputki</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// generate-feed.cjs tyonkulku</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> generateFeed <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. Lataa products.json</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> products <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;../config/products.json&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Validoi pakolliset kentat</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validateProducts</span>(products)<span class="op">;</span> <span class="co">// id, mpn, price, brand</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. Generoi XML g:-nimiavaruudella</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> xml <span class="op">=</span> <span class="fu">generateXMLHeader</span>()<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> product <span class="kw">of</span> products) {</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    xml <span class="op">+=</span> <span class="fu">generateProductItem</span>(product)<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 4. Lisaa checkout_link_template Revolutille</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> checkoutLink <span class="op">=</span> product<span class="op">.</span><span class="at">revolutLink</span> <span class="op">||</span> <span class="st">&#39;https://revolut.me/lifetimeoy&#39;</span><span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    xml <span class="op">+=</span> <span class="vs">`&lt;g:checkout_link_template&gt;</span><span class="sc">${</span>checkoutLink<span class="sc">}</span><span class="vs">&lt;/g:checkout_link_template&gt;`</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 5. Kirjoita google-products.xml</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeFile</span>(<span class="st">&#39;google-products.xml&#39;</span><span class="op">,</span> xml)<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h3 id="kayttoonottoputki">4.4 Kayttoonottoputki</h3>
 <ul>
 <li><strong>Hosting:</strong> Cloudflare Pages (staattinen HTML)</li>
-<li><strong>Build:</strong> Automaattinen kayttoonotto git push -komennolla</li>
+<li><strong>Build:</strong> Automaattinen kayttoonotto git push
+-komennolla</li>
 <li><strong>Valimuisti:</strong> Edge-valimuisti suorituskyvylle</li>
-<li><strong>Vaatimustenmukaisuus:</strong> EU:n tietojen sijainti (Suomi/Saksa)</li>
+<li><strong>Vaatimustenmukaisuus:</strong> EU:n tietojen sijainti
+(Suomi/Saksa)</li>
 </ul>
 <hr />
-<h2>5. Maksuintegraatio (Revolut Business)</h2>
-<h3>5.1 Miksi Revolut Business</h3>
-<p>Lifetime Oy valitsi Revolut Businessin maksukasittelyyn seuraavien ominaisuuksien perusteella:</p>
+<h2 id="maksuintegraatio-revolut-business">5. Maksuintegraatio (Revolut
+Business)</h2>
+<h3 id="miksi-revolut-business">5.1 Miksi Revolut Business</h3>
+<p>Lifetime Oy valitsi Revolut Businessin maksukasittelyyn seuraavien
+ominaisuuksien perusteella:</p>
 <table>
+<colgroup>
+<col style="width: 63%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr>
 <th>Ominaisuus</th>
@@ -397,41 +669,45 @@ const generateFeed = () =&gt; {
 </tr>
 </tbody>
 </table>
-<h3>5.2 Kassalinkkiarkkitehtuuri</h3>
+<h3 id="kassalinkkiarkkitehtuuri">5.2 Kassalinkkiarkkitehtuuri</h3>
 <pre><code>┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Tuote-    │ ──► │   Google    │ ──► │   Revolut   │
 │   katalogi  │     │  Merchant   │     │    Kassa    │
 └─────────────┘     └─────────────┘     └─────────────┘
        │                   │                    │
        │    checkout_link_template              │
-       └───────────────────────────────────────►│
-</code></pre>
-<h3>5.3 Maksuvirta</h3>
-<ol>
+       └───────────────────────────────────────►│</code></pre>
+<h3 id="maksuvirta">5.3 Maksuvirta</h3>
+<ol type="1">
 <li>Asiakas loytyy tuotteen Google Shoppingin kautta</li>
 <li>Klikkaa Revolut-kassaan</li>
 <li>Suorittaa maksun kortilla/Apple Pay/Google Pay</li>
 <li>Valitoon tilitys Lifetime Oy:n tilille</li>
 <li>Tilausvahvistus lahetetaan automaattisesti</li>
 </ol>
-<h3>5.4 Kassalinkkien konfigurointi</h3>
+<h3 id="kassalinkkien-konfigurointi">5.4 Kassalinkkien
+konfigurointi</h3>
 <p><strong>Tuotekohtaiset linkit:</strong></p>
-<pre><code class="language-json">&quot;revolutLink&quot;: &quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;
-</code></pre>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;revolutLink&quot;</span><span class="er">:</span> <span class="st">&quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;</span></span></code></pre></div>
 <p><strong>Varalinkki tuotteille ilman erityista linkkia:</strong></p>
-<pre><code class="language-json">&quot;revolutFallbackLink&quot;: &quot;https://revolut.me/lifetimeoy&quot;
-</code></pre>
-<h3>5.5 Yllapidon edistysaskeleet</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;revolutFallbackLink&quot;</span><span class="er">:</span> <span class="st">&quot;https://revolut.me/lifetimeoy&quot;</span></span></code></pre></div>
+<h3 id="yllapidon-edistysaskeleet">5.5 Yllapidon edistysaskeleet</h3>
 <p>Viimeaikaiset toteutetut parannukset:</p>
 <ul>
-<li><strong>Tuotekohtaiset kassalinkit</strong> (vs. yleinen maksuSivu)</li>
+<li><strong>Tuotekohtaiset kassalinkit</strong> (vs. yleinen
+maksuSivu)</li>
 <li><strong>Vara-URL</strong> tuotteille ilman erityisia linkkeja</li>
-<li><strong>Google Merchant -integraatio</strong> <code>checkout_link_template</code>:n kautta</li>
-<li><strong>Monivaluuttatuki</strong> valmiina Pohjoismaiden laajentumiseen</li>
+<li><strong>Google Merchant -integraatio</strong>
+<code>checkout_link_template</code>:n kautta</li>
+<li><strong>Monivaluuttatuki</strong> valmiina Pohjoismaiden
+laajentumiseen</li>
 </ul>
 <hr />
-<h2>6. Google Merchant Center -toiminnot</h2>
-<h3>6.1 Tilin konfigurointi</h3>
+<h2 id="google-merchant-center--toiminnot">6. Google Merchant Center
+-toiminnot</h2>
+<h3 id="tilin-konfigurointi">6.1 Tilin konfigurointi</h3>
 <table>
 <thead>
 <tr>
@@ -466,7 +742,8 @@ const generateFeed = () =&gt; {
 </tr>
 </tbody>
 </table>
-<h3>6.2 Syotteen vaatimustenmukaisuusvaatimukset</h3>
+<h3 id="syotteen-vaatimustenmukaisuusvaatimukset">6.2 Syotteen
+vaatimustenmukaisuusvaatimukset</h3>
 <table>
 <thead>
 <tr>
@@ -489,7 +766,7 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:brand</td>
 <td>Tuotemerkki</td>
-<td>"Lifetime" tai "Firehorse"</td>
+<td>“Lifetime” tai “Firehorse”</td>
 </tr>
 <tr>
 <td>g:price</td>
@@ -499,7 +776,7 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:availability</td>
 <td>Varastotilanne</td>
-<td>Aina "in_stock" palveluille</td>
+<td>Aina “in_stock” palveluille</td>
 </tr>
 <tr>
 <td>g:checkout_link_template</td>
@@ -509,22 +786,28 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:condition</td>
 <td>Tuotteen kunto</td>
-<td>Aina "new"</td>
+<td>Aina “new”</td>
 </tr>
 </tbody>
 </table>
-<h3>6.3 SFTP-latausprosessi</h3>
-<pre><code class="language-bash"># Viikoittainen syotelataus Google Merchant Centeriin
-curl -T google-products.xml \
-  -u &quot;mc-sftp-8496329:SALASANA&quot; \
-  --insecure \
-  &quot;sftp://partnerupload.google.com:19321/google-products.xml&quot;
-</code></pre>
+<h3 id="sftp-latausprosessi">6.3 SFTP-latausprosessi</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Viikoittainen syotelataus Google Merchant Centeriin</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-T</span> google-products.xml <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-u</span> <span class="st">&quot;mc-sftp-8496329:SALASANA&quot;</span> <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--insecure</span> <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;sftp://partnerupload.google.com:19321/google-products.xml&quot;</span></span></code></pre></div>
 <p><strong>Salasanan koodaus:</strong> Erikoismerkit taytyy URL-koodata
-- <code>$</code> muuttuu <code>%24</code>
-- <code>!</code> muuttuu <code>%21</code></p>
-<h3>6.4 Historialliset ongelmat ja ratkaisut</h3>
+- <code>$</code> muuttuu <code>%24</code> - <code>!</code> muuttuu
+<code>%21</code></p>
+<h3 id="historialliset-ongelmat-ja-ratkaisut">6.4 Historialliset
+ongelmat ja ratkaisut</h3>
 <table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 34%" />
+<col style="width: 34%" />
+</colgroup>
 <thead>
 <tr>
 <th>Ongelma</th>
@@ -561,18 +844,32 @@ curl -T google-products.xml \
 </tbody>
 </table>
 <hr />
-<h2>7. EU-saantelyvaatimustenmukaisuus</h2>
-<h3>7.1 EU:n tekoalysaadoksen vaatimukset (elokuu 2026)</h3>
-<p>EU:n tekoalysaados luokittelee tekoalyjarjestelmat riskitason mukaan. Aanichat- ja suositusjärjestelmamme kuuluu <strong>Rajoitetun riskin</strong> kategoriaan, joka vaatii:</p>
-<ol>
-<li><strong>Lapinaakyvyys:</strong> Ilmoita kayttajille etta he ovat vuorovaikutuksessa tekoalyn kanssa</li>
-<li><strong>Ihmisen valvonta:</strong> Eskaloinnin polku ihmistukeen</li>
-<li><strong>Dokumentaatio:</strong> Jarjestelman kyvykkyydet ja rajoitukset</li>
-<li><strong>Tietosuoja:</strong> GDPR-vaatimustenmukainen tietojen kasittely</li>
+<h2 id="eu-saantelyvaatimustenmukaisuus">7.
+EU-saantelyvaatimustenmukaisuus</h2>
+<h3 id="eun-tekoalysaadoksen-vaatimukset-elokuu-2026">7.1 EU:n
+tekoalysaadoksen vaatimukset (elokuu 2026)</h3>
+<p>EU:n tekoalysaados luokittelee tekoalyjarjestelmat riskitason mukaan.
+Aanichat- ja suositusjärjestelmamme kuuluu <strong>Rajoitetun
+riskin</strong> kategoriaan, joka vaatii:</p>
+<ol type="1">
+<li><strong>Lapinaakyvyys:</strong> Ilmoita kayttajille etta he ovat
+vuorovaikutuksessa tekoalyn kanssa</li>
+<li><strong>Ihmisen valvonta:</strong> Eskaloinnin polku
+ihmistukeen</li>
+<li><strong>Dokumentaatio:</strong> Jarjestelman kyvykkyydet ja
+rajoitukset</li>
+<li><strong>Tietosuoja:</strong> GDPR-vaatimustenmukainen tietojen
+kasittely</li>
 <li><strong>Paattelyketju:</strong> Jaljitettavat paatosketjut</li>
 </ol>
-<h3>7.2 Vaatimustenmukaisuuden kartoitus tuotteittain</h3>
+<h3 id="vaatimustenmukaisuuden-kartoitus-tuotteittain">7.2
+Vaatimustenmukaisuuden kartoitus tuotteittain</h3>
 <table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 48%" />
+<col style="width: 34%" />
+</colgroup>
 <thead>
 <tr>
 <th>Saannos</th>
@@ -623,15 +920,22 @@ curl -T google-products.xml \
 </tr>
 </tbody>
 </table>
-<h3>7.3 Artikla 12 -vaatimustenmukaisuus (automaattinen lokitus)</h3>
-<p>Firehorse-toimintamalli varmistaa EU:n tekoalysaadoksen artikla 12 -vaatimustenmukaisuuden:</p>
+<h3 id="artikla-12--vaatimustenmukaisuus-automaattinen-lokitus">7.3
+Artikla 12 -vaatimustenmukaisuus (automaattinen lokitus)</h3>
+<p>Firehorse-toimintamalli varmistaa EU:n tekoalysaadoksen artikla 12
+-vaatimustenmukaisuuden:</p>
 <ul>
-<li><strong>Git-versionhallinta:</strong> Kaikki muutokset lokitetaan aikaleimoin</li>
-<li><strong>Commit-historia:</strong> Paatoosten alkupera dokumentoitu</li>
-<li><strong>Syotteen generointilokit:</strong> Kasittelyrekisterit yllaapidetaan</li>
-<li><strong>Auditointipolku:</strong> Taysi historia saantelyyn arviointiin</li>
+<li><strong>Git-versionhallinta:</strong> Kaikki muutokset lokitetaan
+aikaleimoin</li>
+<li><strong>Commit-historia:</strong> Paatoosten alkupera
+dokumentoitu</li>
+<li><strong>Syotteen generointilokit:</strong> Kasittelyrekisterit
+yllaapidetaan</li>
+<li><strong>Auditointipolku:</strong> Taysi historia saantelyyn
+arviointiin</li>
 </ul>
-<h3>7.4 Vaatimustenmukaisuusilmoituksen malli</h3>
+<h3 id="vaatimustenmukaisuusilmoituksen-malli">7.4
+Vaatimustenmukaisuusilmoituksen malli</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │ VAATIMUSTENMUKAISUUSILMOITUS (EU:n tekoalysaados artikla 52)│
 ├─────────────────────────────────────────────────────────────┤
@@ -645,11 +949,11 @@ curl -T google-products.xml \
 │ • GDPR - Tietosuojavelvoitteet                             │
 │                                                              │
 │ Ihmistuki: support@lifetime.fi                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+└─────────────────────────────────────────────────────────────┘</code></pre>
 <hr />
-<h2>8. Tuotesuositusmoottori</h2>
-<h3>8.1 Arkkitehtuurin yleiskatsaus</h3>
+<h2 id="tuotesuositusmoottori">8. Tuotesuositusmoottori</h2>
+<h3 id="arkkitehtuurin-yleiskatsaus">8.1 Arkkitehtuurin
+yleiskatsaus</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │            TUOTESUOSITUSMOOTTORI                             │
 ├─────────────────────────────────────────────────────────────┤
@@ -671,10 +975,14 @@ curl -T google-products.xml \
 │                    │     tuloste     │                     │
 │                    └─────────────────┘                     │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>8.2 Toimialan tunnistussaannot</h3>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="toimialan-tunnistussaannot">8.2 Toimialan tunnistussaannot</h3>
 <table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 32%" />
+<col style="width: 34%" />
+</colgroup>
 <thead>
 <tr>
 <th>Toimialaindikaattori</th>
@@ -684,48 +992,49 @@ curl -T google-products.xml \
 </thead>
 <tbody>
 <tr>
-<td>"sementti", "betoni"</td>
+<td>“sementti”, “betoni”</td>
 <td>Sementti</td>
 <td>DWS IQ v6, Climate Bundle</td>
 </tr>
 <tr>
-<td>"teras", "metalli"</td>
+<td>“teras”, “metalli”</td>
 <td>Teras</td>
 <td>DWS IQ v6, Firehorse Automation</td>
 </tr>
 <tr>
-<td>"kemikaali", "petrokemia"</td>
+<td>“kemikaali”, “petrokemia”</td>
 <td>Kemikaalit</td>
 <td>Firehorse Report, Consulting</td>
 </tr>
 <tr>
-<td>"autoteollisuus", "ajoneuvo"</td>
+<td>“autoteollisuus”, “ajoneuvo”</td>
 <td>Autoteollisuus</td>
 <td>DWS IQ v6, Expert Advisory</td>
 </tr>
 <tr>
-<td>"merenkulku", "laivaliikenne"</td>
+<td>“merenkulku”, “laivaliikenne”</td>
 <td>Merenkulku</td>
 <td>Firehorse Automation, Report</td>
 </tr>
 <tr>
-<td>"ilmailu", "lentoyhtioo"</td>
+<td>“ilmailu”, “lentoyhtioo”</td>
 <td>Ilmailu</td>
 <td>DWS IQ v6, Consulting Fit55</td>
 </tr>
 <tr>
-<td>"rakennus", "rakentaminen"</td>
+<td>“rakennus”, “rakentaminen”</td>
 <td>Rakennukset</td>
 <td>Firehorse CMS, Automation</td>
 </tr>
 <tr>
-<td>"maatalous", "viljely"</td>
+<td>“maatalous”, “viljely”</td>
 <td>Maatalous</td>
 <td>Climate Bundle, Advisory</td>
 </tr>
 </tbody>
 </table>
-<h3>8.3 Saannoksen laukaisumatriisi</h3>
+<h3 id="saannoksen-laukaisumatriisi">8.3 Saannoksen
+laukaisumatriisi</h3>
 <pre><code>┌──────────────┬──────────────┬───────────────────────┐
 │ Saannos      │ Laukaisin    │ Suositeltu tuote      │
 ├──────────────┼──────────────┼───────────────────────┤
@@ -735,11 +1044,12 @@ curl -T google-products.xml \
 │ GDPR         │ Henk.koht.   │ Protonmail Impl.      │
 │ NIS2         │ Kriitt. infr.│ FH CMS, Protonmail    │
 │ CBAM         │ EU-tuonti    │ DWS IQ, Consulting    │
-└──────────────┴──────────────┴───────────────────────┘
-</code></pre>
-<h3>8.4 Paketin generointilogiikka</h3>
-<p>Kun useita saannoksia sovelletaan, generoidaan optimoidut paketit:</p>
-<p><strong>Esimerkki: Valmistava yritys (250+ tyontekijaa, tuo materiaaleja)</strong></p>
+└──────────────┴──────────────┴───────────────────────┘</code></pre>
+<h3 id="paketin-generointilogiikka">8.4 Paketin generointilogiikka</h3>
+<p>Kun useita saannoksia sovelletaan, generoidaan optimoidut
+paketit:</p>
+<p><strong>Esimerkki: Valmistava yritys (250+ tyontekijaa, tuo
+materiaaleja)</strong></p>
 <pre><code>Tunnistetut saannokset:
 - Fit for 55 (hiiliraportointi)
 - CSRD (kestavyysraportointi)
@@ -753,14 +1063,17 @@ Generoitu paketti:
 4. Protonmail Implementation (499 EUR) - Turvallinen viestinta
 
 Yhteensa: 10 497 EUR + 3 000 EUR/kk jatkuva
-Saasto vs. yksittain: 15 %
-</code></pre>
+Saasto vs. yksittain: 15 %</code></pre>
 <hr />
-<h2>9. Aanichatin kehityssuunnitelma</h2>
-<h3>9.1 Visio</h3>
-<p>Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi alykkkailla tuotesuosituksilla kayttaen toimialakohtaisia hiilijalanjalkililaskureita ja EU-saantelytuntemusta.</p>
-<h3>9.2 Vaihe 1: Perusta (Q1 2026)</h3>
-<p><strong>Tavoite:</strong> Perus-aanichat tuotekatalogin tuntemuksella</p>
+<h2 id="aanichatin-kehityssuunnitelma">9. Aanichatin
+kehityssuunnitelma</h2>
+<h3 id="visio">9.1 Visio</h3>
+<p>Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi
+alykkkailla tuotesuosituksilla kayttaen toimialakohtaisia
+hiilijalanjalkililaskureita ja EU-saantelytuntemusta.</p>
+<h3 id="vaihe-1-perusta-q1-2026">9.2 Vaihe 1: Perusta (Q1 2026)</h3>
+<p><strong>Tavoite:</strong> Perus-aanichat tuotekatalogin
+tuntemuksella</p>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                     AANICHAT v1.0                            │
 ├─────────────────────────────────────────────────────────────┤
@@ -774,27 +1087,22 @@ Saasto vs. yksittain: 15 %
 │  │  Aani-  │ ◄── Teksti puheeksi ◄───── │   Vastaus-  │     │
 │  │  tuloste│                            │  generaattori│    │
 │  └─────────┘                            └─────────────┘     │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Ominaisuudet:</strong>
-- Aaniaanesyote/-tuloste (suomi, englanti, ruotsi)
-- Tuotekatalogin haku
-- Perus-Q&amp;A palveluista
-- Siirto ihmistukeen
-- EU:n tekoalysaadoksen lapinaakyvyysilmoitus</p>
-<p><strong>Tekninen pino:</strong>
-- Puhe tekstiksi: Whisper API
-- Teksti puheeksi: ElevenLabs
-- LLM: Groq-inferenssi Llama-malleilla (kustannustehokas)
-- Hosting: Cloudflare Workers</p>
-<h3>9.3 Vaihe 2: Hiilijalanjalkililaskurin integraatio (Q2 2026)</h3>
-<p><strong>Tavoite:</strong> Toimialakohtainen hiilijalanjalkilaskenta tuotesuosituksin</p>
-<p><strong>Ominaisuudet:</strong>
-- Toimialasektorin tunnistus (16 EU-toimialaa)
-- Hiilijalanjalarvio (Scope 1, 2, 3)
-- Automaattiset tuotesuositukset paastoprofiilin perusteella
-- Vaatimustenmukaisuusvaatimusten tunnistus
-- ROI-laskenta vaatimustenmukaisuusratkaisuille</p>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<p><strong>Ominaisuudet:</strong> - Aaniaanesyote/-tuloste (suomi,
+englanti, ruotsi) - Tuotekatalogin haku - Perus-Q&amp;A palveluista -
+Siirto ihmistukeen - EU:n tekoalysaadoksen lapinaakyvyysilmoitus</p>
+<p><strong>Tekninen pino:</strong> - Puhe tekstiksi: Whisper API -
+Teksti puheeksi: ElevenLabs - LLM: Groq-inferenssi Llama-malleilla
+(kustannustehokas) - Hosting: Cloudflare Workers</p>
+<h3 id="vaihe-2-hiilijalanjalkililaskurin-integraatio-q2-2026">9.3 Vaihe
+2: Hiilijalanjalkililaskurin integraatio (Q2 2026)</h3>
+<p><strong>Tavoite:</strong> Toimialakohtainen hiilijalanjalkilaskenta
+tuotesuosituksin</p>
+<p><strong>Ominaisuudet:</strong> - Toimialasektorin tunnistus (16
+EU-toimialaa) - Hiilijalanjalarvio (Scope 1, 2, 3) - Automaattiset
+tuotesuositukset paastoprofiilin perusteella -
+Vaatimustenmukaisuusvaatimusten tunnistus - ROI-laskenta
+vaatimustenmukaisuusratkaisuille</p>
 <p><strong>Esimerkkivuorovaikutus:</strong></p>
 <pre><code>Asiakas: &quot;Olemme sementtivalmistaja, joka tuottaa 500 000 tonnia vuosittain.
           Mika on arvioitu hiilijalanjalkemme ja miten voitte auttaa?&quot;
@@ -811,16 +1119,14 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
            Kokonaisinvestointi: 9 949 EUR ja 90 % ajansaasto raportoinnissa.
 
            Haluatko minun selittavan EU:n tekoalysaadoksen vaatimukset
-           naille tekoalykayttoisille vaatimustenmukaisuustyokaluille?&quot;
-</code></pre>
-<h3>9.4 Vaihe 3: EU-saantelytuntemus (Q3 2026)</h3>
-<p><strong>Tavoite:</strong> Ennakoivat saantelyvaatimustenmukaisuussuositukset</p>
-<p><strong>Ominaisuudet:</strong>
-- Reaaliaikainen saantelyseuranta
-- Asiakasprofiilin analyysi
-- Ennakoivat vaatimustenmukaisuushalytykset
-- Monisaantoospaketin optimointi
-- Kumppanituotteiden integraatio</p>
+           naille tekoalykayttoisille vaatimustenmukaisuustyokaluille?&quot;</code></pre>
+<h3 id="vaihe-3-eu-saantelytuntemus-q3-2026">9.4 Vaihe 3:
+EU-saantelytuntemus (Q3 2026)</h3>
+<p><strong>Tavoite:</strong> Ennakoivat
+saantelyvaatimustenmukaisuussuositukset</p>
+<p><strong>Ominaisuudet:</strong> - Reaaliaikainen saantelyseuranta -
+Asiakasprofiilin analyysi - Ennakoivat vaatimustenmukaisuushalytykset -
+Monisaantoospaketin optimointi - Kumppanituotteiden integraatio</p>
 <p><strong>Saannoksen tunnistusmatriisi:</strong></p>
 <pre><code>Asiakasprofiilin analyysi:
 ├── Toimialasektori
@@ -831,21 +1137,25 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 
 → Automatisoitu saannoskartoitus
 → Tuotesuositukset
-→ Vaatimustenmukaisuusaikataulu
-</code></pre>
-<h3>9.5 Vaihe 4: Kumppaniekosysteemi (Q4 2026)</h3>
-<p><strong>Tavoite:</strong> Laajenna suositukset kattamaan kumppanien tarjoamat</p>
-<p><strong>Kumppaniakategoriat:</strong>
-- Vaatimustenmukaisuusohjelmistokumppanit
-- ESG-tietotarjoajat
-- Hiilipaastaohyvitysmarkkinapaikat
-- Juridisen neuvonnan kumppanit
-- Sertifiointielimet</p>
-<p><strong>Ansaintamalli:</strong>
-- Lifetime-tuotteet: Suoramyynti
-- Kumppanituotteet: Valityspalkkio (10-20 %)</p>
-<h3>9.6 Toteutusaikataulu</h3>
+→ Vaatimustenmukaisuusaikataulu</code></pre>
+<h3 id="vaihe-4-kumppaniekosysteemi-q4-2026">9.5 Vaihe 4:
+Kumppaniekosysteemi (Q4 2026)</h3>
+<p><strong>Tavoite:</strong> Laajenna suositukset kattamaan kumppanien
+tarjoamat</p>
+<p><strong>Kumppaniakategoriat:</strong> -
+Vaatimustenmukaisuusohjelmistokumppanit - ESG-tietotarjoajat -
+Hiilipaastaohyvitysmarkkinapaikat - Juridisen neuvonnan kumppanit -
+Sertifiointielimet</p>
+<p><strong>Ansaintamalli:</strong> - Lifetime-tuotteet: Suoramyynti -
+Kumppanituotteet: Valityspalkkio (10-20 %)</p>
+<h3 id="toteutusaikataulu">9.6 Toteutusaikataulu</h3>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+<col style="width: 42%" />
+</colgroup>
 <thead>
 <tr>
 <th>Vaihe</th>
@@ -882,8 +1192,9 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 </tbody>
 </table>
 <hr />
-<h2>10. Toimialan hiilijalanjalkililaskuri</h2>
-<h3>10.1 Laskurin arkkitehtuuri</h3>
+<h2 id="toimialan-hiilijalanjalkililaskuri">10. Toimialan
+hiilijalanjalkililaskuri</h2>
+<h3 id="laskurin-arkkitehtuuri">10.1 Laskurin arkkitehtuuri</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │              TOIMIALAN HIILILILASKURI                        │
 ├─────────────────────────────────────────────────────────────┤
@@ -913,9 +1224,8 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 │  │  Kartoittaa hiilijprofiilin → Lifetime-tuotteet   │     │
 │  └────────────────────────────────────────────────────┘     │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>10.2 Toimialan paastokertoimet</h3>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="toimialan-paastokertoimet">10.2 Toimialan paastokertoimet</h3>
 <table>
 <thead>
 <tr>
@@ -1007,8 +1317,14 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 </tr>
 </tbody>
 </table>
-<h3>10.3 Tuotekartoitus hiilijprofiilin mukaan</h3>
+<h3 id="tuotekartoitus-hiilijprofiilin-mukaan">10.3 Tuotekartoitus
+hiilijprofiilin mukaan</h3>
 <table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 21%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr>
 <th>Hiilijalanjalprofiili</th>
@@ -1039,7 +1355,7 @@ Aanichat: &quot;Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 </tr>
 </tbody>
 </table>
-<h3>10.4 ROI-laskuri</h3>
+<h3 id="roi-laskuri">10.4 ROI-laskuri</h3>
 <pre><code>Syote:
 - Nykyiset manuaaliset raportointitunnit: 200 h/vuosi
 - Tuntikustannus: 75 EUR/h
@@ -1057,16 +1373,16 @@ Saastot:
 ROI:
 - Ensimmainen vuosi: 13 500 EUR - 10 987 EUR = 2 513 EUR nettopositiivinen
 - Takaisinmaksuaika: 9,8 kuukautta
-- 3 vuoden saastot: 40 500 EUR
-</code></pre>
+- 3 vuoden saastot: 40 500 EUR</code></pre>
 <hr />
-<h2>11. Proton-tuotestrategia</h2>
-<h3>11.1 Turvallisuustuoteportfolio</h3>
-<p>Lifetime Oy tarjoaa Proton Business Suite -toteutusta turvallisuuskeskeisenaa tuotteena:</p>
-<p><strong>Tuote:</strong> Protonmail Secure Email &amp; Domains Implementation
-<strong>Hinta:</strong> 499 EUR (8 tunnin toteutus)
+<h2 id="proton-tuotestrategia">11. Proton-tuotestrategia</h2>
+<h3 id="turvallisuustuoteportfolio">11.1 Turvallisuustuoteportfolio</h3>
+<p>Lifetime Oy tarjoaa Proton Business Suite -toteutusta
+turvallisuuskeskeisenaa tuotteena:</p>
+<p><strong>Tuote:</strong> Protonmail Secure Email &amp; Domains
+Implementation <strong>Hinta:</strong> 499 EUR (8 tunnin toteutus)
 <strong>MPN:</strong> PROTON-EMAIL-2026</p>
-<h3>11.2 Sisaltyvat palvelut</h3>
+<h3 id="sisaltyvat-palvelut">11.2 Sisaltyvat palvelut</h3>
 <table>
 <thead>
 <tr>
@@ -1101,7 +1417,8 @@ ROI:
 </tr>
 </tbody>
 </table>
-<h3>11.3 Vaatimustenmukaisuuskattavuus</h3>
+<h3 id="vaatimustenmukaisuuskattavuus">11.3
+Vaatimustenmukaisuuskattavuus</h3>
 <table>
 <thead>
 <tr>
@@ -1128,16 +1445,16 @@ ROI:
 </tr>
 </tbody>
 </table>
-<h3>11.4 Suosituslaukaisimet</h3>
+<h3 id="suosituslaukaisimet">11.4 Suosituslaukaisimet</h3>
 <p>Aanichat suosittelee Proton-toteutusta kun havaitaan:</p>
 <ul>
-<li>"tietoturvahuolet" tai "tietosuoja"</li>
-<li>"GDPR-vaatimustenmukaisuus" tai "yksityisyys"</li>
-<li>"salattu sahkoposti" tai "turvallinen viestinta"</li>
-<li>"NIS2" tai "kyberturvallisuusvaatimukset"</li>
+<li>“tietoturvahuolet” tai “tietosuoja”</li>
+<li>“GDPR-vaatimustenmukaisuus” tai “yksityisyys”</li>
+<li>“salattu sahkoposti” tai “turvallinen viestinta”</li>
+<li>“NIS2” tai “kyberturvallisuusvaatimukset”</li>
 <li>Toimialasektorit: Terveydenhuolto, lakiasiat, rahoitus</li>
 </ul>
-<h3>11.5 Suosituksen tuloste</h3>
+<h3 id="suosituksen-tuloste">11.5 Suosituksen tuloste</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │ TURVALLISUUSSUOSITUS: Protonmail-toteutus                   │
 ├─────────────────────────────────────────────────────────────┤
@@ -1163,13 +1480,21 @@ ROI:
 │ • Nollatietoarkkitehtuuri                                   │
 │ • Avoin lahdekoodi, auditoitu turvallisuus                 │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+└─────────────────────────────────────────────────────────────┘</code></pre>
 <hr />
-<h2>12. IPR-suojaus ja liikesalaisuusstrategia</h2>
-<h3>12.1 Kolmitasoinen IPR-kehys</h3>
-<p>Firehorse-toimintamalli ja sen taustateknologiat vaativat jasennetyn immateriaalioikeuksien (IPR) suojausstrategian. Lifetime Oy kayttaa kolmitasoista luokittelukehysta:</p>
+<h2 id="ipr-suojaus-ja-liikesalaisuusstrategia">12. IPR-suojaus ja
+liikesalaisuusstrategia</h2>
+<h3 id="kolmitasoinen-ipr-kehys">12.1 Kolmitasoinen IPR-kehys</h3>
+<p>Firehorse-toimintamalli ja sen taustateknologiat vaativat jasennetyn
+immateriaalioikeuksien (IPR) suojausstrategian. Lifetime Oy kayttaa
+kolmitasoista luokittelukehysta:</p>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 45%" />
+</colgroup>
 <thead>
 <tr>
 <th>Taso</th>
@@ -1200,24 +1525,42 @@ ROI:
 <tr>
 <td><strong>Taso 3B: Liikesalaisuus</strong></td>
 <td>Sisaiset kontrollit</td>
-<td>Tietograafin rakenne (10 000+ solmua), painotukset, koulutusdatan</td>
+<td>Tietograafin rakenne (10 000+ solmua), painotukset,
+koulutusdatan</td>
 <td>EU 2016/943, Liikesalaisuuslaki 595/2018</td>
 </tr>
 </tbody>
 </table>
-<h3>12.2 NDA-portti tekniselle tiedonjakamiselle</h3>
-<p>Ennen teknista syvennystä kumppanien, sijoittajien tai asiakkaiden kanssa vastaanottavan osapuolen on allekirjoitettava Lifetime Oy:n NDA (EU:n liikesalaisuusdirektiivin 2016/943 mukainen). NDA kattaa:</p>
+<h3 id="nda-portti-tekniselle-tiedonjakamiselle">12.2 NDA-portti
+tekniselle tiedonjakamiselle</h3>
+<p>Ennen teknista syvennystä kumppanien, sijoittajien tai asiakkaiden
+kanssa vastaanottavan osapuolen on allekirjoitettava Lifetime Oy:n NDA
+(EU:n liikesalaisuusdirektiivin 2016/943 mukainen). NDA kattaa:</p>
 <ul>
-<li><strong>LWM-arkkitehtuuri</strong> — komponenttikaavio, tietovirrat, kasittelyputki</li>
-<li><strong>Tietograafin rakenne</strong> — solmutaksonomia, reunatyypit, suhdenmalli</li>
-<li><strong>BYOC (Bring Your Own Cloud) -logiikka</strong> — pilvikaytonotto, vuokralaisieristys, tietojen sijainti</li>
-<li><strong>Agenttien orkestrointi</strong> — MCP-palvelimen konfiguraatio, koordinointiprotokollat</li>
-<li><strong>Integraatioarkkitehtuuri</strong> — ERP-liittimet (SAP, IFS, Dynamics)</li>
+<li><strong>LWM-arkkitehtuuri</strong> — komponenttikaavio, tietovirrat,
+kasittelyputki</li>
+<li><strong>Tietograafin rakenne</strong> — solmutaksonomia,
+reunatyypit, suhdenmalli</li>
+<li><strong>BYOC (Bring Your Own Cloud) -logiikka</strong> —
+pilvikaytonotto, vuokralaisieristys, tietojen sijainti</li>
+<li><strong>Agenttien orkestrointi</strong> — MCP-palvelimen
+konfiguraatio, koordinointiprotokollat</li>
+<li><strong>Integraatioarkkitehtuuri</strong> — ERP-liittimet (SAP, IFS,
+Dynamics)</li>
 </ul>
-<p>Julkisia/markkinointimateriaaleja (taso 1) voidaan jakaa vapaasti ilman NDA:ta: tuote-esittelyt, FCD-konseptin yleiskatsaus, markkinakoko ja ylatasonarkkitehtuurikaaviot.</p>
-<h3>12.3 Patenttistrategia</h3>
-<p>Patentoitavat innovaatiot haetaan PRH:n (Patentti- ja rekisterihallitus) kautta kansainvalista PCT-laajennusta hyodyntaen:</p>
+<p>Julkisia/markkinointimateriaaleja (taso 1) voidaan jakaa vapaasti
+ilman NDA:ta: tuote-esittelyt, FCD-konseptin yleiskatsaus, markkinakoko
+ja ylatasonarkkitehtuurikaaviot.</p>
+<h3 id="patenttistrategia">12.3 Patenttistrategia</h3>
+<p>Patentoitavat innovaatiot haetaan PRH:n (Patentti- ja
+rekisterihallitus) kautta kansainvalista PCT-laajennusta hyodyntaen:</p>
 <table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 14%" />
+</colgroup>
 <thead>
 <tr>
 <th>Prioriteetti</th>
@@ -1247,10 +1590,19 @@ ROI:
 </tr>
 </tbody>
 </table>
-<p><strong>Kriittinen saanto:</strong> Patenttihakemukset ON jatettava ennen menetelman julkista paljastamista. NDA:lla suojatut paljastukset eivat tuhoa patentoitavuutta.</p>
-<h3>12.4 Liikesalaisuus tietograafin ensisijaisena suojana</h3>
-<p>Tietograafille (10 000+ solmua) liikesalaisuussuoja on strategisesti parempi vaihtoehto kuin patentti:</p>
+<p><strong>Kriittinen saanto:</strong> Patenttihakemukset ON jatettava
+ennen menetelman julkista paljastamista. NDA:lla suojatut paljastukset
+eivat tuhoa patentoitavuutta.</p>
+<h3 id="liikesalaisuus-tietograafin-ensisijaisena-suojana">12.4
+Liikesalaisuus tietograafin ensisijaisena suojana</h3>
+<p>Tietograafille (10 000+ solmua) liikesalaisuussuoja on strategisesti
+parempi vaihtoehto kuin patentti:</p>
 <table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 27%" />
+<col style="width: 48%" />
+</colgroup>
 <thead>
 <tr>
 <th>Tekija</th>
@@ -1281,35 +1633,65 @@ ROI:
 </tr>
 </tbody>
 </table>
-<p>Liikesalaisuusasema EU:n direktiivin 2016/943 mukaan edellyttaa: (1) tieto on salaista, (2) silla on kaupallista arvoa salaisuutensa vuoksi ja (3) kohtuullisia toimenpiteita on toteutettu sen pitamiseksi salassa. Lifetime Oy yllapitaa paasyvalvontaa, salausta, tyontekijoiden salassapitosopimuksia ja sisaisia luokittelurekistereita.</p>
-<h3>12.5 Vaikutukset Firehorse-toimintaan</h3>
+<p>Liikesalaisuusasema EU:n direktiivin 2016/943 mukaan edellyttaa: (1)
+tieto on salaista, (2) silla on kaupallista arvoa salaisuutensa vuoksi
+ja (3) kohtuullisia toimenpiteita on toteutettu sen pitamiseksi salassa.
+Lifetime Oy yllapitaa paasyvalvontaa, salausta, tyontekijoiden
+salassapitosopimuksia ja sisaisia luokittelurekistereita.</p>
+<h3 id="vaikutukset-firehorse-toimintaan">12.5 Vaikutukset
+Firehorse-toimintaan</h3>
 <p>IPR-kehys vaikuttaa suoraan Firehorse-verkkokauppatoimintaan:</p>
 <ul>
-<li><strong>Tuotekuvaukset</strong> dws10.com:ssa kertovat <em>mita</em> alusta tekee (taso 1), eivat koskaan <em>miten</em> se toimii</li>
-<li><strong>Sijoittajapitchit</strong> jakavat ongelman/ratkaisun/markkinan vapaasti; arkkitehtuuriyksityiskohdat vaativat NDA:n</li>
-<li><strong>Konferenssiesitykset</strong> kasittelevat EU:n vaatimustenmukaisuuspuutteita, eivat algoritmien yksityiskohtia</li>
-<li><strong>Asiakasdemonstraatiot</strong> toimivat NDA:n alla vesileimattuja materiaaleja kayttaen</li>
-<li><strong>Kaupan tuotesivut</strong> viittaavat ominaisuuksiin, eivat toteutuksen yksityiskohtiin</li>
+<li><strong>Tuotekuvaukset</strong> dws10.com:ssa kertovat <em>mita</em>
+alusta tekee (taso 1), eivat koskaan <em>miten</em> se toimii</li>
+<li><strong>Sijoittajapitchit</strong> jakavat
+ongelman/ratkaisun/markkinan vapaasti; arkkitehtuuriyksityiskohdat
+vaativat NDA:n</li>
+<li><strong>Konferenssiesitykset</strong> kasittelevat EU:n
+vaatimustenmukaisuuspuutteita, eivat algoritmien yksityiskohtia</li>
+<li><strong>Asiakasdemonstraatiot</strong> toimivat NDA:n alla
+vesileimattuja materiaaleja kayttaen</li>
+<li><strong>Kaupan tuotesivut</strong> viittaavat ominaisuuksiin, eivat
+toteutuksen yksityiskohtiin</li>
 </ul>
 <hr />
-<h2>13. Prompt-valimuistiarkkitehtuuri tekoalyagenteille</h2>
-<h3>13.1 Suunnitteluperiaate: valimuisti ratkaisee kaiken</h3>
-<p>Firehorse-toimintamalli nojaa pitkakestoisiin tekoalyagenttisessioihin (Claude Code) kaupan hallintaan, tuotepaivityksiin ja vaatimustenmukaisuusautomaatioon. Prompt-valimuisti (prompt caching) on perustava suunnitteluperiaate, joka tekee naista sessioista taloudellisesti kannattavia.</p>
-<p><strong>Lahde:</strong> Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).</p>
-<p><strong>Ydinnakyma:</strong> Prompt-valimuisti kayttaa uudelleen laskentatuloksia aiemmista API-kierroksista etuliitesovituksen (prefix matching) avulla. API tallentaa valimuistiin kaiken pyynton alusta kunkin <code>cache_control</code>-katkaisupisteen kohdalle. Korkea valimuistin osumisprosentti vahentaa kustannuksia ja viivetta merkittavasti.</p>
-<h3>13.2 Jarjestelmapromptin asettelu valimuistia varten</h3>
-<p>Promptin sisallon jarjestys on ratkaiseva — staattinen sisalto ensin, dynaaminen viimeisena:</p>
+<h2 id="prompt-valimuistiarkkitehtuuri-tekoalyagenteille">13.
+Prompt-valimuistiarkkitehtuuri tekoalyagenteille</h2>
+<h3 id="suunnitteluperiaate-valimuisti-ratkaisee-kaiken">13.1
+Suunnitteluperiaate: valimuisti ratkaisee kaiken</h3>
+<p>Firehorse-toimintamalli nojaa pitkakestoisiin
+tekoalyagenttisessioihin (Claude Code) kaupan hallintaan,
+tuotepaivityksiin ja vaatimustenmukaisuusautomaatioon. Prompt-valimuisti
+(prompt caching) on perustava suunnitteluperiaate, joka tekee naista
+sessioista taloudellisesti kannattavia.</p>
+<p><strong>Lahde:</strong> Thariq Shihipar (Anthropic), “Lessons from
+Building Claude Code: Prompt Caching Is Everything” (2026).</p>
+<p><strong>Ydinnakyma:</strong> Prompt-valimuisti kayttaa uudelleen
+laskentatuloksia aiemmista API-kierroksista etuliitesovituksen (prefix
+matching) avulla. API tallentaa valimuistiin kaiken pyynton alusta
+kunkin <code>cache_control</code>-katkaisupisteen kohdalle. Korkea
+valimuistin osumisprosentti vahentaa kustannuksia ja viivetta
+merkittavasti.</p>
+<h3 id="jarjestelmapromptin-asettelu-valimuistia-varten">13.2
+Jarjestelmapromptin asettelu valimuistia varten</h3>
+<p>Promptin sisallon jarjestys on ratkaiseva — staattinen sisalto ensin,
+dynaaminen viimeisena:</p>
 <pre><code>1. Staattinen jjarjestelma prompti &amp; tyokalut  (globaalisti valimuistissa)
 2. CLAUDE.md / projektikonfiguraatio            (valimuistissa projektin sisalla)
 3. Sessiokonteksti                               (valimuistissa session sisalla)
-4. Keskusteluviestit                              (uusia joka kierroksella)
-</code></pre>
-<p><strong>Herkkyysvaroitus:</strong> Valimuistijaarjestys rikkoutuu kun:
-- Aikaleimat sijoitetaan staattiseen jarjestelmapromptiin
-- Tyokalumaaritelmat sekoitetaan ei-deterministisesti
-- Tyokaluparametreja paivitetaan kesken session (esim. kaytettavissa olevat agentit)</p>
-<h3>13.3 Kuusi suunnittelusaantoa agenttien valimuistille</h3>
+4. Keskusteluviestit                              (uusia joka kierroksella)</code></pre>
+<p><strong>Herkkyysvaroitus:</strong> Valimuistijaarjestys rikkoutuu
+kun: - Aikaleimat sijoitetaan staattiseen jarjestelmapromptiin -
+Tyokalumaaritelmat sekoitetaan ei-deterministisesti - Tyokaluparametreja
+paivitetaan kesken session (esim. kaytettavissa olevat agentit)</p>
+<h3 id="kuusi-suunnittelusaantoa-agenttien-valimuistille">13.3 Kuusi
+suunnittelusaantoa agenttien valimuistille</h3>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 35%" />
+<col style="width: 35%" />
+</colgroup>
 <thead>
 <tr>
 <th>Saanto</th>
@@ -1326,42 +1708,56 @@ ROI:
 <tr>
 <td><strong>2. Kayta jarjestelmaviesteja paivityksiin</strong></td>
 <td>Ala muokkaa staattista promptia kesken session</td>
-<td>Vaali ajan, tiedostomuutosten ja tilasiirtymien valittaminen <code>&lt;system-reminder&gt;</code>-tageina</td>
+<td>Vaali ajan, tiedostomuutosten ja tilasiirtymien valittaminen
+<code>&lt;system-reminder&gt;</code>-tageina</td>
 </tr>
 <tr>
 <td><strong>3. Ala vaihda mallia kesken session</strong></td>
 <td>Prompt-valimuistit ovat mallikohtaisia</td>
-<td>Haiku-vaihto 100k tokenin kohdalla maksaa enemman kuin Opus-jatkaminen (valimuistin uudelleenrakennus)</td>
+<td>Haiku-vaihto 100k tokenin kohdalla maksaa enemman kuin
+Opus-jatkaminen (valimuistin uudelleenrakennus)</td>
 </tr>
 <tr>
 <td><strong>4. Ala lisaa/poista tyokaluja kesken session</strong></td>
 <td>Tyokalut ovat osa valimuistietuliitetta</td>
-<td>Kayta tyokalutynkia <code>defer_loading: true</code> -asetuksella; loyda ToolSearchilla</td>
+<td>Kayta tyokalutynkia <code>defer_loading: true</code> -asetuksella;
+loyda ToolSearchilla</td>
 </tr>
 <tr>
-<td><strong>5. Suunnittele ominaisuudet valimuistin ehdoilla</strong></td>
+<td><strong>5. Suunnittele ominaisuudet valimuistin
+ehdoilla</strong></td>
 <td>Tilasiirtymat tyokaluilla, ei tyokalujoukon vaihdoilla</td>
-<td>Suunnittelutila = jarjestelmaaviesti + ExitPlanMode-tyokalu, ei tyokalujoukon vaihtaminen</td>
+<td>Suunnittelutila = jarjestelmaaviesti + ExitPlanMode-tyokalu, ei
+tyokalujoukon vaihtaminen</td>
 </tr>
 <tr>
 <td><strong>6. Haarautumisoperaatiot jakavat ylaviitteen</strong></td>
 <td>Tiivistys/yhteenvedot on kaytettava valimuistia uudelleen</td>
-<td>Kayta identtista jarjestelmaapromptia, tyokaluja ja viestihistoriaa haarautuneissa pyynnissa</td>
+<td>Kayta identtista jarjestelmaapromptia, tyokaluja ja viestihistoriaa
+haarautuneissa pyynnissa</td>
 </tr>
 </tbody>
 </table>
-<h3>13.4 Tiivistys: valimuistiturvallinen kontekstin haarautuminen</h3>
-<p>Kun agenttisessiot lahestyvat konteksti-ikkunan rajaa, tiivistyksen (compaction) on sailytettava valimuisti:</p>
+<h3 id="tiivistys-valimuistiturvallinen-kontekstin-haarautuminen">13.4
+Tiivistys: valimuistiturvallinen kontekstin haarautuminen</h3>
+<p>Kun agenttisessiot lahestyvat konteksti-ikkunan rajaa, tiivistyksen
+(compaction) on sailytettava valimuisti:</p>
 <pre><code>VAARIN: Uusi API-kutsu eri jarjestelmapromptilla + ei tyokaluja
         → Taysi valimuistihuti, kallista
 
 OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
         + tiivistysprompt lisattyna uutena kayttajaviestina
-        → Valimuistiosuma ylatasoan etuliitteelle, vain uudet tokenit ovat prompti
-</code></pre>
-<h3>13.5 Toiminnallinen vaikutus Firehorseen</h3>
-<p>DWS10.com-kauppatoiminnoissa nama valimuistiperiaatteet tarkoittavat:</p>
+        → Valimuistiosuma ylatasoan etuliitteelle, vain uudet tokenit ovat prompti</code></pre>
+<h3 id="toiminnallinen-vaikutus-firehorseen">13.5 Toiminnallinen
+vaikutus Firehorseen</h3>
+<p>DWS10.com-kauppatoiminnoissa nama valimuistiperiaatteet
+tarkoittavat:</p>
 <table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 48%" />
+<col style="width: 25%" />
+</colgroup>
 <thead>
 <tr>
 <th>Toiminto</th>
@@ -1392,9 +1788,19 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<p><strong>Seuranta:</strong> Valimuistin osumisprosenttia kasitellaan kayttoaikamittarina. Osumien lasku kaynnistaa tutkimuksen — se osoittaa jarjestelmapromptin muutoksen, tyokalumaaritysten siirtyman tai mallinvaihdon joka vaatii korjauksen.</p>
-<h3>13.6 Kustannus- ja viivevaikutukset</h3>
+<p><strong>Seuranta:</strong> Valimuistin osumisprosenttia kasitellaan
+kayttoaikamittarina. Osumien lasku kaynnistaa tutkimuksen — se osoittaa
+jarjestelmapromptin muutoksen, tyokalumaaritysten siirtyman tai
+mallinvaihdon joka vaatii korjauksen.</p>
+<h3 id="kustannus--ja-viivevaikutukset">13.6 Kustannus- ja
+viivevaikutukset</h3>
 <table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 28%" />
+<col style="width: 39%" />
+<col style="width: 12%" />
+</colgroup>
 <thead>
 <tr>
 <th>Skenaario</th>
@@ -1430,13 +1836,28 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<p>Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle kauppatoiminnalle, jossa sessiot kasittelevat rutiininomaisesti yli 30 tuotetta useissa tiedostoissa.</p>
+<p>Nama taloudelliset realiteetit ovat kriittisia Firehorsen
+tekoalyavusteiselle kauppatoiminnalle, jossa sessiot kasittelevat
+rutiininomaisesti yli 30 tuotetta useissa tiedostoissa.</p>
 <hr />
-<h2>14. Yrityksen monivuokralainen agenttiarkkitehtuuri</h2>
-<h3>14.1 Toimialakohtainen avoimen LLM:n valinta</h3>
-<p>Yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle, joita DWS IQ palvelee. Jokaisella toimialavertikaalilla on oma sääntelykieli, toimialaosaamisvaatimukset ja rakenteellisen tulosteen tarpeet. <code>AgentConfig.model</code>-kenttä on jo agenttikohtainen, joten jokainen konkreettinen agentti voidaan konfiguroida eri koulutetulla Lifetime World Model (LWM) -mallilla + avoimella LLM:llä, jatkuvalla vertailuarvioinnilla.</p>
+<h2 id="yrityksen-monivuokralainen-agenttiarkkitehtuuri">14. Yrityksen
+monivuokralainen agenttiarkkitehtuuri</h2>
+<h3 id="toimialakohtainen-avoimen-llmn-valinta">14.1 Toimialakohtainen
+avoimen LLM:n valinta</h3>
+<p>Yksikään avoin LLM ei ole optimaalinen kaikille 16 EU-toimialalle,
+joita DWS IQ palvelee. Jokaisella toimialavertikaalilla on oma
+sääntelykieli, toimialaosaamisvaatimukset ja rakenteellisen tulosteen
+tarpeet. <code>AgentConfig.model</code>-kenttä on jo agenttikohtainen,
+joten jokainen konkreettinen agentti voidaan konfiguroida eri
+koulutetulla Lifetime World Model (LWM) -mallilla + avoimella LLM:llä,
+jatkuvalla vertailuarvioinnilla.</p>
 <p><strong>Avoimen LLM:n ehdokkaat toimialaklustereittain:</strong></p>
 <table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 20%" />
+<col style="width: 48%" />
+</colgroup>
 <thead>
 <tr>
 <th>Toimialaklusteri</th>
@@ -1448,7 +1869,8 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 <tr>
 <td>Rakentaminen, Kiinteistöt</td>
 <td>Llama 3.3 70B, Qwen 2.5 72B, Mistral Large</td>
-<td>EN 15978 elinkaarivaiheet, pohjoismaiset rakennusmääräykset, EPBD</td>
+<td>EN 15978 elinkaarivaiheet, pohjoismaiset rakennusmääräykset,
+EPBD</td>
 </tr>
 <tr>
 <td>Energia, Teräs &amp; Metallit, Sementti</td>
@@ -1482,12 +1904,29 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<p><strong>Valintakriteerit:</strong> toimialaosaamisen syvyys, monikielisyys, rakenteellisen tulosteen luotettavuus, konteksti-ikkuna (128k+), päättelynopeus, EU-tietojen sijainti ja kaupallinen lisenssi.</p>
-<p><strong>Jatkuva vertailuarviointiprosessi:</strong> Jokainen toimiala-agentti suorittaa viikoittain automaattiset vaatimustenmukaisuuskehotteet (EN 15978, CSRD ESRS E1, CBAM-ilmoitukset) nykyistä mallia ja 2-3 vaihtoehtoa vastaan. Jos vaihtoehto saa johdonmukaisesti korkeammat pisteet tarkkuudessa ja rakenteellisessa tulosteessa, malli merkitään tarkistettavaksi ja mahdollisesti vaihdettavaksi.</p>
-<h3>14.2 Tuo omat agentit (BYOA) -arkkitehtuuri</h3>
-<p>Yritysasiakkaat tuovat omat tekoälyagenttinsa työskentelemään DWS IQ:ssa. Tässä osiossa käytetään NCC:tä (pohjoismainen rakennusyhtiö) havainnollistavana tapauksena.</p>
+<p><strong>Valintakriteerit:</strong> toimialaosaamisen syvyys,
+monikielisyys, rakenteellisen tulosteen luotettavuus, konteksti-ikkuna
+(128k+), päättelynopeus, EU-tietojen sijainti ja kaupallinen
+lisenssi.</p>
+<p><strong>Jatkuva vertailuarviointiprosessi:</strong> Jokainen
+toimiala-agentti suorittaa viikoittain automaattiset
+vaatimustenmukaisuuskehotteet (EN 15978, CSRD ESRS E1, CBAM-ilmoitukset)
+nykyistä mallia ja 2-3 vaihtoehtoa vastaan. Jos vaihtoehto saa
+johdonmukaisesti korkeammat pisteet tarkkuudessa ja rakenteellisessa
+tulosteessa, malli merkitään tarkistettavaksi ja mahdollisesti
+vaihdettavaksi.</p>
+<h3 id="tuo-omat-agentit-byoa--arkkitehtuuri">14.2 Tuo omat agentit
+(BYOA) -arkkitehtuuri</h3>
+<p>Yritysasiakkaat tuovat omat tekoälyagenttinsa työskentelemään DWS
+IQ:ssa. Tässä osiossa käytetään NCC:tä (pohjoismainen rakennusyhtiö)
+havainnollistavana tapauksena.</p>
 <p><strong>NCC:n agenttiekosysteemi:</strong></p>
 <table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr>
 <th>Agenttilähde</th>
@@ -1499,12 +1938,14 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 <tr>
 <td><strong>NCC:n sisäiset</strong></td>
 <td>7</td>
-<td>Hankinta, Turvallisuus, BIM, Kestävyys, Kustannusarvio, Laatu, Projektisuunnittelu</td>
+<td>Hankinta, Turvallisuus, BIM, Kestävyys, Kustannusarvio, Laatu,
+Projektisuunnittelu</td>
 </tr>
 <tr>
 <td><strong>Urakoitsijoiden agentit</strong></td>
 <td>14</td>
-<td>LVI-urakoitsija, Sähkö, Betonitoimittaja, Terästoimittaja, Ikkunavalmistaja, Eristys jne.</td>
+<td>LVI-urakoitsija, Sähkö, Betonitoimittaja, Terästoimittaja,
+Ikkunavalmistaja, Eristys jne.</td>
 </tr>
 <tr>
 <td><strong>DWS IQ -alusta</strong></td>
@@ -1519,22 +1960,54 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tbody>
 </table>
 <p><strong>Vuokralaiskohtainen Lifetime World Model (LWM):</strong></p>
-<p>Lifetime World Model on yrityksen oppimiskerros, joka sijaitsee valitun avoimen LLM:n päällä. Se ei ole pelkästään hienosäädetty malli — se on strateginen tiedustelukerros, joka:</p>
-<ol>
-<li><strong>Hienosäätää yrityksen dataa ja sääntelyä</strong> — sisäistää asiakkaan operatiivisen datan, toimialastandardit ja EU-sääntelykontekstin luodakseen toimialakohtaista älykkyyttä, jota geneeriset LLM:t eivät pysty tarjoamaan</li>
-<li><strong>Optimoi markkina-arvon</strong> — oppii jatkuvasti vaatimustenmukaisuuden tuloksista, energiatehokkuustuloksista ja operatiivisista mittareista tunnistaakseen arvonluontimahdollisuuksia</li>
-<li><strong>Varmistaa kilpailuedun moniagenttityökaluilla</strong> — yhdistämällä vuokralaiskohtaisen tietämyksen moniagenttien orkestrointiin (A2A + MCP), LWM muuttaa raaan tekoälykyvykkyyden korvaamattomaksi operatiiviseksi voimavaraksi</li>
+<p>Lifetime World Model on yrityksen oppimiskerros, joka sijaitsee
+valitun avoimen LLM:n päällä. Se ei ole pelkästään hienosäädetty malli —
+se on strateginen tiedustelukerros, joka:</p>
+<ol type="1">
+<li><strong>Hienosäätää yrityksen dataa ja sääntelyä</strong> —
+sisäistää asiakkaan operatiivisen datan, toimialastandardit ja
+EU-sääntelykontekstin luodakseen toimialakohtaista älykkyyttä, jota
+geneeriset LLM:t eivät pysty tarjoamaan</li>
+<li><strong>Optimoi markkina-arvon</strong> — oppii jatkuvasti
+vaatimustenmukaisuuden tuloksista, energiatehokkuustuloksista ja
+operatiivisista mittareista tunnistaakseen
+arvonluontimahdollisuuksia</li>
+<li><strong>Varmistaa kilpailuedun moniagenttityökaluilla</strong> —
+yhdistämällä vuokralaiskohtaisen tietämyksen moniagenttien
+orkestrointiin (A2A + MCP), LWM muuttaa raaan tekoälykyvykkyyden
+korvaamattomaksi operatiiviseksi voimavaraksi</li>
 </ol>
-<p>Jokainen yritysvuokralainen saa oman LWM-instanssinsa:
-- <strong>Pohja-LLM:</strong> Valittu toimiala-arvioinnin perusteella (esim. Qwen 2.5 72B pohjoismaiseen rakentamiseen)
-- <strong>Hienosäädetty:</strong> Vuokralaisen omalla projektidatalla, toimialakoodeilla (RT-kortisto), sääntelykontekstilla
-- <strong>Liittimet:</strong> Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (päästökertoimet)
-- <strong>Hiekkalaatikko:</strong> Vaihe 2 hetkelliskontteja (europe-north1) tai Vaihe 3 pysyviä (skaalassa)</p>
-<p><strong>Miksi 16 toimialaa tekee LWM:stä vahvemman:</strong> Jokainen alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän anonymisoitujen vaatimustenmukaisuuskaavojen ristioppimisen kautta. Sementinvalmistuksessa todistettu hiilidioksidipäästöjen vähennystekniikka tuottaa siirrettävää tietoa rakentamiseen. Valmistuksen toimitusketjun Scope 3 -agentit siirtyvät elintarviketeollisuuteen. 16. toimialan asiakas hyötyy kaikkien 15 toimialan kertyneestä älykkyydestä — luoden vallihaudan, jota yksittäisen toimialan kilpailijat eivät voi replikoida.</p>
-<h3>14.3 Agent Orchestration Studio: Graafinen työnkulkurakentaja</h3>
-<p>Jotta yritysasiakkaat voivat rakentaa yhteyksiä 24+ agentin välille, alusta tarjoaa visuaalisen työnkulkurakentajan.</p>
+<p>Jokainen yritysvuokralainen saa oman LWM-instanssinsa: -
+<strong>Pohja-LLM:</strong> Valittu toimiala-arvioinnin perusteella
+(esim. Qwen 2.5 72B pohjoismaiseen rakentamiseen) -
+<strong>Hienosäädetty:</strong> Vuokralaisen omalla projektidatalla,
+toimialakoodeilla (RT-kortisto), sääntelykontekstilla -
+<strong>Liittimet:</strong> Tekla Structures (BIM), IFS Cloud (ERP),
+CO2data.fi (päästökertoimet) - <strong>Hiekkalaatikko:</strong> Vaihe 2
+hetkelliskontteja (europe-north1) tai Vaihe 3 pysyviä (skaalassa)</p>
+<p><strong>Miksi 16 toimialaa tekee LWM:stä vahvemman:</strong> Jokainen
+alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan
+LWM:stä älykkäämmän anonymisoitujen vaatimustenmukaisuuskaavojen
+ristioppimisen kautta. Sementinvalmistuksessa todistettu
+hiilidioksidipäästöjen vähennystekniikka tuottaa siirrettävää tietoa
+rakentamiseen. Valmistuksen toimitusketjun Scope 3 -agentit siirtyvät
+elintarviketeollisuuteen. 16. toimialan asiakas hyötyy kaikkien 15
+toimialan kertyneestä älykkyydestä — luoden vallihaudan, jota
+yksittäisen toimialan kilpailijat eivät voi replikoida.</p>
+<h3 id="agent-orchestration-studio-graafinen-työnkulkurakentaja">14.3
+Agent Orchestration Studio: Graafinen työnkulkurakentaja</h3>
+<p>Jotta yritysasiakkaat voivat rakentaa yhteyksiä 24+ agentin välille,
+alusta tarjoaa visuaalisen työnkulkurakentajan.</p>
 <p><strong>Työkalujen arviointi:</strong></p>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+</colgroup>
 <thead>
 <tr>
 <th>Työkalu</th>
@@ -1616,84 +2089,27 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 │  │  - Uudelleenyritys, aikakatkaisu, kompensointi    │  │
 │  │  - EU:n tekoälysäädöksen artikla 12 -auditointipolku │
 │  └───────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Perusteet:</strong>
-1. <strong>React Flow</strong> (MIT) — Mukautettu visuaalinen kanvas DWS IQ React -hallintapaneelissa. Nolla toimittajalukkiutumista.
-2. <strong>Langflow</strong> (Apache 2.0) — Natiivi MCP + A2A -tuki. EU-isännöity. IBM:n yrityskumppanuus.
-3. <strong>Temporal.io</strong> — Jo käytössä. Kestävä suoritus täydellä artikla 12 -auditointipolulla.
-4. <strong>n8n</strong> — Täydentävä ERP/BIM-liitin­työnkuluissa (Tekla ↔ IFS Cloud -synkronointi).</p>
-<h3>14.4 Urakoitsija-agentin käyttöönotto</h3>
+└─────────────────────────────────────────────────────────┘</code></pre>
+<p><strong>Perusteet:</strong> 1. <strong>React Flow</strong> (MIT) —
+Mukautettu visuaalinen kanvas DWS IQ React -hallintapaneelissa. Nolla
+toimittajalukkiutumista. 2. <strong>Langflow</strong> (Apache 2.0) —
+Natiivi MCP + A2A -tuki. EU-isännöity. IBM:n yrityskumppanuus. 3.
+<strong>Temporal.io</strong> — Jo käytössä. Kestävä suoritus täydellä
+artikla 12 -auditointipolulla. 4. <strong>n8n</strong> — Täydentävä
+ERP/BIM-liitin­työnkuluissa (Tekla ↔︎ IFS Cloud -synkronointi).</p>
+<h3 id="urakoitsija-agentin-käyttöönotto">14.4 Urakoitsija-agentin
+käyttöönotto</h3>
 <pre><code>1. Urakoitsija julkaisee Agent Cardin (/.well-known/agent.json)
 2. NCC:n ylläpitäjä avaa Agent Orchestration Studion
 3. Studio löytää urakoitsija-agentin A2A-protokollalla
 4. Ylläpitäjä vetää urakoitsijan kanvakselle, yhdistää työnkulkuihin
 5. Studio validoi yhteyden (A2A-terveystarkistus)
 6. Työnkulku otetaan käyttöön Temporal.io:ssa
-7. Kaikki vuorovaikutukset kirjataan EU:n tekoälysäädöksen artikla 12 mukaisesti
-</code></pre>
-<h3>14.5 DWS7 agenttiarkkitehtuurin modernisointi</h3>
-<p>DWS6:sta DWS7:ään siirtyminen korjaa kuusi kriittistä arkkitehtuurista puutetta, jotka havaittiin tuotantokäytön aikana. Toteutettu yhdessä Claude Code -sessiossa (24.02.2026), nämä korjaukset muuttavat agenttijärjestelmän 2023-aikakauden mallista tuotantotason agenttialustaksi.</p>
-<p><strong>Kuusi korjausta:</strong></p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Puute</th>
-<th>Korjaus</th>
-<th>Tiedosto</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Yksittäiskutsu-LLM</td>
-<td>Havainnoi-ajattele-toimi -silmukka (<code>runLoop()</code>)</td>
-<td><code>base.agent.ts</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Ei työkalujen käyttöä</td>
-<td>Työkaluajoympäristö JSON Schemalla + 4 sisäänrak. työkalua</td>
-<td><code>tools.ts</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Kovakoodattu Groq-kutsu</td>
-<td>Monituottaja-asiakas (Anthropic &gt; Groq &gt; OpenAI)</td>
-<td><code>llm-client.ts</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Ei agenttiviestintää</td>
-<td>Delegointi + syvyysseuranta + löytämis-API</td>
-<td><code>index.ts</code></td>
-</tr>
-<tr>
-<td>5</td>
-<td>MCP oli tyhjä lupaus</td>
-<td>JSON-RPC 2.0 -palvelin osoitteessa <code>/mcp</code></td>
-<td><code>agent-server.ts</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Vain Express</td>
-<td>Tapahtumaväylä pub/sub + Redis Streams</td>
-<td><code>event-bus.ts</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Build for Agents -periaate:</strong> Jokaisen DWS-tuotteen tulee olla saavutettavissa:
-- <strong>CLI</strong> (<code>cli/src/cli.ts</code>) — JSON-tuloste, putkitettava, nollariippuvuudet
-- <strong>MCP</strong> (<code>/mcp</code>-päätepiste) — Claude Code / Cursor löytää automaattisesti
-- <strong>Claude Code Skills</strong> (<code>.claude/commands/</code>) — luonnollisen kielen agentin kutsuminen
-- <strong>REST API</strong> (<code>/api/agents/</code>) — perinteinen HTTP-integraatio
-- <strong>Tapahtumaväylä</strong> — reaaliaikainen agenttikoordinaatio SSE:n kautta</p>
-<p><strong>EU:n tekoälysäädöksen artikla 12:</strong> Agenttisilmukka-arkkitehtuuri täyttää luontaisesti automaattisen kirjausvaatimuksen. Jokainen iteraatio tallentaa havainnon, ajattelun, toiminnot ja tulokset <code>agent_loop_iterations</code> Supabase-tauluun — luoden täydellisen päättelyketjun syötteestä tulosteeseen.</p>
-<p><strong>Vaikutus Firehorse-toimintamalliin:</strong> CLI ja Skills -kerros tarkoittaa, että Firehorse-kaupan hallinta voidaan nyt automatisoida tekoälyagenteilla päästä päähän: vaatimustenmukaisuustarkistukset <code>/compliance-check</code>-komennolla, hiilianalyysi <code>/carbon-analysis</code>-komennolla ja moniagentin työnkulut <code>/workflow</code>-komennolla — kaikki ilman ihmisen GUI-vuorovaikutusta.</p>
+7. Kaikki vuorovaikutukset kirjataan EU:n tekoälysäädöksen artikla 12 mukaisesti</code></pre>
 <hr />
-<h2>15. Tulokset ja pohdinta</h2>
-<h3>15.1 Toiminnallisen tehokkuuden parannukset</h3>
+<h2 id="tulokset-ja-pohdinta">15. Tulokset ja pohdinta</h2>
+<h3 id="toiminnallisen-tehokkuuden-parannukset">15.1 Toiminnallisen
+tehokkuuden parannukset</h3>
 <p>Firehorse-toimintamalli Claude Codella saavutti:</p>
 <table>
 <thead>
@@ -1737,8 +2153,10 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<h3>15.2 Google Merchant Center -suorituskyky</h3>
-<p>Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:</p>
+<h3 id="google-merchant-center--suorituskyky">15.2 Google Merchant
+Center -suorituskyky</h3>
+<p>Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen
+jalkeen:</p>
 <table>
 <thead>
 <tr>
@@ -1765,7 +2183,8 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<h3>15.3 Vaatimustenmukaisuusvalmiuden arviointi</h3>
+<h3 id="vaatimustenmukaisuusvalmiuden-arviointi">15.3
+Vaatimustenmukaisuusvalmiuden arviointi</h3>
 <table>
 <thead>
 <tr>
@@ -1802,45 +2221,63 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<h3>15.4 Rajoitukset</h3>
-<ol>
-<li><strong>Aanichat ei viela kaytossa</strong> - Suunnitelma dokumentoitu, Q1 2026 tavoite</li>
+<h3 id="rajoitukset">15.4 Rajoitukset</h3>
+<ol type="1">
+<li><strong>Aanichat ei viela kaytossa</strong> - Suunnitelma
+dokumentoitu, Q1 2026 tavoite</li>
 <li><strong>Kumppaniekosysteemi</strong> - Kumppanuudet kehitteilla</li>
-<li><strong>Monikielituki</strong> - Talla hetkella vain englanti/suomi</li>
-<li><strong>Hiilijalanjalkililaskuri</strong> - Vaatii toimialatietojen validoinnin</li>
+<li><strong>Monikielituki</strong> - Talla hetkella vain
+englanti/suomi</li>
+<li><strong>Hiilijalanjalkililaskuri</strong> - Vaatii toimialatietojen
+validoinnin</li>
 </ol>
 <hr />
-<h2>16. Johtopäätökset</h2>
-<h3>16.1 Yhteenveto</h3>
-<p>Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta voi:</p>
-<ol>
-<li><strong>Vahentaa toiminnallista ylikuormitusta</strong> yli 90 % automatisoidulla tuotehallinnalla</li>
-<li><strong>Varmistaa vaatimustenmukaisuuden</strong> EU-saantosten kanssa dokumentoiduilla auditointipoluilla</li>
-<li><strong>Mahdollistaa nopean iteroinnin</strong> tuotetarjonnassa luonnollisen kielen kayttoliittymilla</li>
-<li><strong>Valmistaa infrastruktuurin</strong> aanipohjaiseen asiakasvuorovaikutukseen</li>
-<li><strong>Tukea teollisia asiakkaita</strong> hiilijalanjalkililaskurin integraatiolla</li>
+<h2 id="johtopäätökset">16. Johtopäätökset</h2>
+<h3 id="yhteenveto">16.1 Yhteenveto</h3>
+<p>Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan
+hallinta voi:</p>
+<ol type="1">
+<li><strong>Vahentaa toiminnallista ylikuormitusta</strong> yli 90 %
+automatisoidulla tuotehallinnalla</li>
+<li><strong>Varmistaa vaatimustenmukaisuuden</strong> EU-saantosten
+kanssa dokumentoiduilla auditointipoluilla</li>
+<li><strong>Mahdollistaa nopean iteroinnin</strong> tuotetarjonnassa
+luonnollisen kielen kayttoliittymilla</li>
+<li><strong>Valmistaa infrastruktuurin</strong> aanipohjaiseen
+asiakasvuorovaikutukseen</li>
+<li><strong>Tukea teollisia asiakkaita</strong>
+hiilijalanjalkililaskurin integraatiolla</li>
 </ol>
-<h3>16.2 Keskeiset kontribuutiot</h3>
+<h3 id="keskeiset-kontribuutiot">16.2 Keskeiset kontribuutiot</h3>
 <p>Tama tutkielma kontribuoi:</p>
-<ol>
-<li>Dokumentoitu kehys tekoalyavusteiseen kauppatoimintaan (Firehorse-malli)</li>
-<li>Integraatiomallit Google Merchant Centerille ja Revolut Businessille</li>
-<li>Suunnitelma aanichatille hiilijalanjalkililaskurin integraatiolla (4 vaihetta)</li>
-<li>EU-vaatimustenmukaisuuskartoitus teollisille ohjelmistotuotteille</li>
+<ol type="1">
+<li>Dokumentoitu kehys tekoalyavusteiseen kauppatoimintaan
+(Firehorse-malli)</li>
+<li>Integraatiomallit Google Merchant Centerille ja Revolut
+Businessille</li>
+<li>Suunnitelma aanichatille hiilijalanjalkililaskurin integraatiolla (4
+vaihetta)</li>
+<li>EU-vaatimustenmukaisuuskartoitus teollisille
+ohjelmistotuotteille</li>
 <li>Tuotesuositusmoottorin arkkitehtuuri 16:lle EU-toimialalle</li>
-<li>Proton-tuotteiden turvallisuusstrategia GDPR/NIS2-vaatimustenmukaisuuteen</li>
+<li>Proton-tuotteiden turvallisuusstrategia
+GDPR/NIS2-vaatimustenmukaisuuteen</li>
 </ol>
-<h3>16.3 Tuleva tyo</h3>
-<ol>
-<li><strong>Q1 2026:</strong> Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella</li>
-<li><strong>Q2 2026:</strong> Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla</li>
+<h3 id="tuleva-tyo">16.3 Tuleva tyo</h3>
+<ol type="1">
+<li><strong>Q1 2026:</strong> Ota kayttoon aanichatin vaihe 1 EU:n
+tekoalysaadoksen lapinaakyvyydella</li>
+<li><strong>Q2 2026:</strong> Toteuta toimialan hiilijalanjalkililaskuri
+Scope 1/2/3:lla</li>
 <li><strong>Q3 2026:</strong> Lanseeraa saantelytuntemusmoottori</li>
-<li><strong>Q4 2026:</strong> Perusta kumppaniekosysteemi provisiomallin kanssa</li>
-<li><strong>2027:</strong> Laajenna muille EU-markkinoille (SE, NO, DK, DE)</li>
+<li><strong>Q4 2026:</strong> Perusta kumppaniekosysteemi provisiomallin
+kanssa</li>
+<li><strong>2027:</strong> Laajenna muille EU-markkinoille (SE, NO, DK,
+DE)</li>
 </ol>
 <hr />
-<h2>17. Lahteet</h2>
-<ol>
+<h2 id="lahteet">17. Lahteet</h2>
+<ol type="1">
 <li>EU:n tekoalysaados, Asetus (EU) 2024/1689</li>
 <li>Google Merchant Center -tekniset maaritykset (2026)</li>
 <li>Revolut Business API -dokumentaatio</li>
@@ -1856,12 +2293,20 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 <li>EU:n liikesalaisuusdirektiivi (EU) 2016/943</li>
 <li>Liikesalaisuuslaki 595/2018 (Suomi)</li>
 <li>Patenttiyhteistyosopimus (PCT), WIPO</li>
-<li>Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog</li>
+<li>Shihipar, T. (2026). “Lessons from Building Claude Code: Prompt
+Caching Is Everything.” Anthropic Engineering Blog</li>
 </ol>
 <hr />
-<h2>18. Liitteet</h2>
-<h3>Liite A: Taysi tuotekatalogi</h3>
+<h2 id="liitteet">18. Liitteet</h2>
+<h3 id="liite-a-taysi-tuotekatalogi">Liite A: Taysi tuotekatalogi</h3>
 <table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
 <thead>
 <tr>
 <th>ID</th>
@@ -2084,7 +2529,8 @@ OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
 </tr>
 </tbody>
 </table>
-<h3>Liite B: Viikoittainen yllapitotarkistuslista</h3>
+<h3 id="liite-b-viikoittainen-yllapitotarkistuslista">Liite B:
+Viikoittainen yllapitotarkistuslista</h3>
 <pre><code>MAANANTAI - Syotteen terveystarkistus
 [ ] Avaa Google Merchant Center -diagnostiikka
 [ ] Tarkista tuotteen hyvaksymisstatus
@@ -2104,21 +2550,20 @@ PERJANTAI - Optimointi &amp; lataus
 [ ] Validoi XML (xmllint --noout)
 [ ] Laheta SFTP:lla
 [ ] Committaa muutokset Gitiin
-[ ] Varmista lataus Merchant Centerissa
-</code></pre>
-<h3>Liite C: Aanichatin vaatimustenmukaisuusilmoitukset</h3>
-<p><strong>Vaadittu ilmoitus (EU:n tekoalysaados artikla 52):</strong></p>
+[ ] Varmista lataus Merchant Centerissa</code></pre>
+<h3 id="liite-c-aanichatin-vaatimustenmukaisuusilmoitukset">Liite C:
+Aanichatin vaatimustenmukaisuusilmoitukset</h3>
+<p><strong>Vaadittu ilmoitus (EU:n tekoalysaados artikla
+52):</strong></p>
 <pre><code>&quot;Olet nyt yhteydessa Lifetimen tekoalyavustajaan. Tama on automaattinen
 jarjestelma, joka kayttaa tekoalya. Jos haluat keskustella ihmisen kanssa,
-sano 'haluan puhua ihmisen kanssa' tai laheta sahkopostia osoitteeseen
-support@lifetime.fi.&quot;
-</code></pre>
+sano &#39;haluan puhua ihmisen kanssa&#39; tai laheta sahkopostia osoitteeseen
+support@lifetime.fi.&quot;</code></pre>
 <p><strong>Englanninkielinen versio:</strong></p>
-<pre><code>&quot;You are now connected to Lifetime's AI assistant. This is an automated
-system using artificial intelligence. For human support, say 'speak to
-a person' or email support@lifetime.fi.&quot;
-</code></pre>
-<h3>Liite D: SFTP-tunnusten viite</h3>
+<pre><code>&quot;You are now connected to Lifetime&#39;s AI assistant. This is an automated
+system using artificial intelligence. For human support, say &#39;speak to
+a person&#39; or email support@lifetime.fi.&quot;</code></pre>
+<h3 id="liite-d-sftp-tunnusten-viite">Liite D: SFTP-tunnusten viite</h3>
 <table>
 <thead>
 <tr>
@@ -2149,15 +2594,24 @@ a person' or email support@lifetime.fi.&quot;
 </tr>
 </tbody>
 </table>
-<h3>Liite E: Automatisoitu PR-tyonkulku (HIL-automaatio)</h3>
-<p>Firehorse-toimintamalli sisaltaa taysin automatisoidun pull request -tarkistus- ja yhdistamistyonkulun, joka korvaa manuaalisen ihminen-silmukassa (HIL) -koodikatselmoinnin. Tama on keskeinen operatiivinen tehokkuusparannus yksinyrittajille ja pienille tiimeille, jotka hallitsevat yritystason koodikantoja.</p>
+<h3 id="liite-e-automatisoitu-pr-tyonkulku-hil-automaatio">Liite E:
+Automatisoitu PR-tyonkulku (HIL-automaatio)</h3>
+<p>Firehorse-toimintamalli sisaltaa taysin automatisoidun pull request
+-tarkistus- ja yhdistamistyonkulun, joka korvaa manuaalisen
+ihminen-silmukassa (HIL) -koodikatselmoinnin. Tama on keskeinen
+operatiivinen tehokkuusparannus yksinyrittajille ja pienille tiimeille,
+jotka hallitsevat yritystason koodikantoja.</p>
 <p><strong>Arkkitehtuuri:</strong></p>
 <pre><code>Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @copilot korjaukset → CI → automaattinen yhdistaminen
                                                     ↑                         |
-                                                    └─────────────────────────┘  (korjaussilmukka)
-</code></pre>
+                                                    └─────────────────────────┘  (korjaussilmukka)</code></pre>
 <p><strong>Komponentit:</strong></p>
 <table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 23%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr>
 <th>Komponentti</th>
@@ -2198,15 +2652,21 @@ a person' or email support@lifetime.fi.&quot;
 </tr>
 </tbody>
 </table>
-<p><strong>Keskeinen suunnittelupaatos:</strong> Gemini oletusarvoisesti vaatii muutoksia (REQUEST_CHANGES) jokaisessa katselmoinnissa. Tama varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen. Vain koodi, jossa on nolla ongelmaa, riittava testikattavuus ja konventioiden noudattaminen, saa hyvaksynnan (APPROVE).</p>
-<p><strong>Operatiiviset mittarit (odotettu):</strong>
-- Kehittajan osallistuminen vahenee loppukatselmointiin (~5 min per PR)
-- 70-90% perus-/refaktorointi-/testiongelmista havaitaan ennen ihmiskatselmoijaa
+<p><strong>Keskeinen suunnittelupaatos:</strong> Gemini oletusarvoisesti
+vaatii muutoksia (REQUEST_CHANGES) jokaisessa katselmoinnissa. Tama
+varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen.
+Vain koodi, jossa on nolla ongelmaa, riittava testikattavuus ja
+konventioiden noudattaminen, saa hyvaksynnan (APPROVE).</p>
+<p><strong>Operatiiviset mittarit (odotettu):</strong> - Kehittajan
+osallistuminen vahenee loppukatselmointiin (~5 min per PR) - 70-90%
+perus-/refaktorointi-/testiongelmista havaitaan ennen ihmiskatselmoijaa
 - Tyypillinen korjaussilmukka: 1-3 iteraatiota ennen hyvaksyntaa</p>
-<p><strong>Kayttoonotto:</strong> Cloud Run -palvelu <code>dws6run6</code> (europe-north1, Suomi). MCP Hub <code>POST /gemini/review</code> on-demand-koodianalyysiin.</p>
+<p><strong>Kayttoonotto:</strong> Cloud Run -palvelu
+<code>dws6run6</code> (europe-north1, Suomi). MCP Hub
+<code>POST /gemini/review</code> on-demand-koodianalyysiin.</p>
 <hr />
-<p><em>Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla</em>
-<em>Viimeksi paivitetty: 24.02.2026</em>
-<em>Versio: 1.4</em></p>
+<p><em>Dokumentti generoitu Firehorse-toimintamallilla Claude Coden
+avulla</em> <em>Viimeksi paivitetty: Helmikuu 2026</em> <em>Versio:
+1.1</em></p>
 </body>
 </html>

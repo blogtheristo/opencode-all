@@ -156,7 +156,7 @@ async def health():
 
 
 @app.get("/services")
-def list_services():
+async def list_services():
     """List all Cloud Run services in project/region."""
     client = _get_run_client()
     if not client:
@@ -188,7 +188,7 @@ def list_services():
 
 
 @app.get("/services/{name}")
-def get_service(name: str):
+async def get_service(name: str):
     """Get Cloud Run service status, URL, latest revision."""
     client = _get_run_client()
     if not client:
@@ -210,7 +210,7 @@ def get_service(name: str):
 
 
 @app.post("/services/{name}/deploy")
-def deploy_service(name: str, req: DeployRequest):
+async def deploy_service(name: str, req: DeployRequest):
     """Trigger a new deployment with the given image."""
     client = _get_run_client()
     if not client:
@@ -236,7 +236,7 @@ def deploy_service(name: str, req: DeployRequest):
 
 
 @app.get("/services/{name}/logs")
-def get_logs(name: str, limit: int = 50):
+async def get_logs(name: str, limit: int = 50):
     """Fetch recent Cloud Logging entries for a Cloud Run service."""
     lc = _get_logging_client()
     if not lc:
@@ -262,7 +262,7 @@ def get_logs(name: str, limit: int = 50):
 
 
 @app.patch("/services/{name}/traffic")
-def update_traffic(name: str, req: TrafficRequest):
+async def update_traffic(name: str, req: TrafficRequest):
     """Update traffic splits between revisions (canary/rollback)."""
     client = _get_run_client()
     if not client:
@@ -289,7 +289,7 @@ def update_traffic(name: str, req: TrafficRequest):
 
 
 @app.get("/services/{name}/metrics")
-def get_metrics(name: str):
+async def get_metrics(name: str):
     """Request count, CPU, memory from Cloud Monitoring (last 15 min)."""
     if not GCP_PROJECT_ID:
         raise HTTPException(503, "GCP_PROJECT_ID not configured")
@@ -336,7 +336,7 @@ def get_metrics(name: str):
 
 
 @app.patch("/services/{name}/env")
-def update_env(name: str, req: EnvUpdateRequest):
+async def update_env(name: str, req: EnvUpdateRequest):
     """Update environment variables for a Cloud Run service."""
     client = _get_run_client()
     if not client:

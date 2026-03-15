@@ -36,7 +36,6 @@ Document Status:
   - Language: Finnish
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
-
 ---
 
 ## Tiivistelma
@@ -62,11 +61,10 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 11. [Proton-tuotestrategia](#11-proton-tuotestrategia)
 12. [IPR-suojaus ja liikesalaisuusstrategia](#12-ipr-suojaus-ja-liikesalaisuusstrategia)
 13. [Prompt-valimuistiarkkitehtuuri tekoalyagenteille](#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille)
-14. [Yrityksen monivuokralainen agenttiarkkitehtuuri](#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri)
-15. [Tulokset ja pohdinta](#15-tulokset-ja-pohdinta)
-16. [Johtopäätökset](#16-johtopaatotkset)
-17. [Lahteet](#17-lahteet)
-18. [Liitteet](#18-liitteet)
+14. [Tulokset ja pohdinta](#14-tulokset-ja-pohdinta)
+15. [Johtopaatotkset](#15-johtopaatotkset)
+16. [Lahteet](#16-lahteet)
+17. [Liitteet](#17-liitteet)
 
 ---
 
@@ -968,7 +966,7 @@ Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle ka
 
 ---
 
-## 14. Yrityksen monivuokralainen agenttiarkkitehtuuri
+## 14. Tulokset ja pohdinta
 
 ### 14.1 Toimialakohtainen avoimen LLM:n valinta
 
@@ -1215,7 +1213,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Virheprosentti | 5 % | <1 % | 80 % |
 | Kauppasivun paivitykset | 4 tuntia | 15 minuuttia | 94 % |
 
-### 15.2 Google Merchant Center -suorituskyky
+### 12.2 Google Merchant Center -suorituskyky
 
 Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
@@ -1226,7 +1224,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | Kassakonversio | Suora maksuun |
 | Syotetiedoston koko | 32 893 tavua |
 
-### 15.3 Vaatimustenmukaisuusvalmiuden arviointi
+### 12.3 Vaatimustenmukaisuusvalmiuden arviointi
 
 | Saannos | Valmius | Puuteanalyysi |
 |---------|---------|---------------|
@@ -1236,7 +1234,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | NIS2 | 75 % | Turvallisuusarviointi tarvitaan |
 | CSRD | 85 % | Raportointipohjat valmiina |
 
-### 15.4 Rajoitukset
+### 12.4 Rajoitukset
 
 1. **Aanichat ei viela kaytossa** - Suunnitelma dokumentoitu, Q1 2026 tavoite
 2. **Kumppaniekosysteemi** - Kumppanuudet kehitteilla
@@ -1245,9 +1243,9 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
 ---
 
-## 16. Johtopäätökset
+## 15. Johtopaatotkset
 
-### 16.1 Yhteenveto
+### 13.1 Yhteenveto
 
 Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta voi:
 
@@ -1257,7 +1255,7 @@ Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta vo
 4. **Valmistaa infrastruktuurin** aanipohjaiseen asiakasvuorovaikutukseen
 5. **Tukea teollisia asiakkaita** hiilijalanjalkililaskurin integraatiolla
 
-### 16.2 Keskeiset kontribuutiot
+### 13.2 Keskeiset kontribuutiot
 
 Tama tutkielma kontribuoi:
 
@@ -1276,7 +1274,7 @@ Tama tutkielma kontribuoi:
 13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
 14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
 
-### 16.3 Tuleva tyo
+### 13.3 Tuleva tyo
 
 1. **Q1 2026:** Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella
 2. **Q2 2026:** Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla
@@ -1286,7 +1284,7 @@ Tama tutkielma kontribuoi:
 
 ---
 
-## 17. Lahteet
+## 16. Lahteet
 
 1. EU:n tekoalysaados, Asetus (EU) 2024/1689
 2. Google Merchant Center -tekniset maaritykset (2026)
@@ -1329,7 +1327,7 @@ Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietot
 
 ---
 
-## 18. Liitteet
+## 17. Liitteet
 
 ### Liite A: Taysi tuotekatalogi
 
