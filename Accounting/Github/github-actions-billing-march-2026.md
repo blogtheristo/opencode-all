@@ -27,4 +27,4 @@ A $0 spending budget is set for Actions, which blocks further usage until the cy
 
 ## Reference
 
-GitHub docs: Usage limits, billing, and administration for GitHub Actions
+GitHub docs: [Usage limits, billing, and administration for GitHub Actions](https://docs.github.com/en/billing/managing-billing-for-github-actions/usage-limits-billing-and-administration-for-github-actions)
