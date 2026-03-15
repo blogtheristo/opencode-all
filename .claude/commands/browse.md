@@ -40,7 +40,7 @@ npx playwright --version 2>/dev/null || echo "Playwright not installed — insta
 ### 2. Navigate and Screenshot
 ```bash
 # Take a screenshot of the target URL
-npx playwright screenshot --wait-for-timeout=3000 "$URL" screenshot.png
+npx playwright screenshot --wait-for-timeout=3000 "$ARGUMENTS" screenshot.png
 ```
 
 ### 3. Verify
@@ -51,7 +51,7 @@ npx playwright screenshot --wait-for-timeout=3000 "$URL" screenshot.png
 ### 4. Interactive Testing (if needed)
 For complex flows, use Playwright's codegen or script mode:
 ```bash
-npx playwright codegen "$URL"
+npx playwright codegen "$ARGUMENTS"
 ```
 
 ## Output Format
