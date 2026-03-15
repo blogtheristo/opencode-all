@@ -25,7 +25,9 @@ export const supabaseConfig = {
     'watsonx_user': '/dashboard/watsonx/',
     'investor_lobby': '/dashboard/investor-lobby/'
     ,
-    'construction_free': '/dashboard/construction-lobby/'
+    'construction_free': '/dashboard/construction-lobby/',
+    'control_room': '/dashboard/control-room/',
+    'situation_room': '/dashboard/situation-room/'
   },
   
   // Login page URLs for each role type
@@ -43,7 +45,9 @@ export const supabaseConfig = {
     'watsonx_user': '/login/watsonx/',
     'investor_lobby': '/login/investor-lobby/'
     ,
-    'construction_free': '/login/construction-lobby/'
+    'construction_free': '/login/construction-lobby/',
+    'control_room': '/login/dws-iq/',
+    'situation_room': '/login/dws-iq/'
   },
   
   // Role display names
@@ -61,7 +65,9 @@ export const supabaseConfig = {
     'watsonx_user': 'IBM watsonx.ai',
     'investor_lobby': 'Investor Lobby (Confidential)'
     ,
-    'construction_free': 'Construction Lobby (FREE)'
+    'construction_free': 'Construction Lobby (FREE)',
+    'control_room': 'Control Room Operator',
+    'situation_room': 'Situation Room Analyst'
   },
   
   // Authentication settings

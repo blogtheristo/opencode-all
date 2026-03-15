@@ -3,17 +3,18 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: Initial field note — MCP server expansion (cloudrun-mcp 8769, lwm-mcp 8770, claude-mcp 8771), Supabase session sync migration 033
+  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/ecstatic-murdock | Date: 07.03.2026 | Changes: Fix schema docs to match migration, add auth docs, update next steps, renumber migration to 042, fix REPO_PATH/HANDOFF_FILE contract, add discard platform gate
 
 Session Links & References:
   - GitHub branch: https://github.com/blogtheristo/dws6/tree/claude/zealous-mcclintock
 
 Document Status:
   - Created: 23.02.2026
-  - Last Modified: 23.02.2026
+  - Last Modified: 07.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -22,7 +23,7 @@ Document Status:
 
 Related Documents:
   - Admin/ADMIN_MANUAL.md (v2.3 — MCP Configuration section)
-  - supabase/migrations/033_mcp_session_sync.sql
+  - supabase/migrations/042_mcp_session_sync.sql
   - docker-compose.hybrid.yml
   - mcp-hub/server.py
   - mcp-servers/cloudrun/
@@ -33,7 +34,7 @@ Related Documents:
 
 ## Executive Summary
 
-Three new MCP (Model Context Protocol) servers were added to the DWS IQ 6 platform on 23 February 2026, completing the MCP fleet to 6 servers. A new Supabase migration (`033_mcp_session_sync.sql`) adds persistent session state tables, enabling cross-session continuity for AI agents operating across the multi-server cluster.
+Three new MCP (Model Context Protocol) servers were added to the DWS IQ 6 platform on 23 February 2026, completing the MCP fleet to 6 servers. A new Supabase migration (`042_mcp_session_sync.sql`) adds persistent session state tables, enabling cross-session continuity for AI agents operating across the multi-server cluster. All servers use Bearer token auth via `MCP_HUB_API_KEY` (matching the mcp-hub pattern).
 
 **Impact:** MCP coverage now spans Cloud infrastructure (GCP), edge AI hardware (NVIDIA GN100/Jetson), and Claude Code coding agents — creating a complete development + operations + training loop.
 
@@ -104,9 +105,9 @@ MCP Hub (FastAPI, port 8765)
 
 ---
 
-## Database: Supabase Migration 033
+## Database: Supabase Migration 042
 
-Migration file: `supabase/migrations/033_mcp_session_sync.sql`
+Migration file: `supabase/migrations/042_mcp_session_sync.sql`
 
 ### Tables Created
 
@@ -115,25 +116,31 @@ Migration file: `supabase/migrations/033_mcp_session_sync.sql`
 |--------|------|-------|
 | `id` | uuid (PK) | Auto-generated |
 | `branch` | text NOT NULL | Git branch the session was on |
-| `tool` | text NOT NULL | Tool/agent name (e.g., `claude-mcp`) |
-| `checkpoint` | jsonb | Last checkpoint state (JSON payload) |
-| `summary` | text | Session summary for handover |
-| `closed_at` | timestamptz | When session ended |
-| `created_at` | timestamptz | Auto-set to NOW() |
+| `tool` | text NOT NULL CHECK | `win11` / `mobile` / `vscode` / `cli` / `chromebook` |
+| `checkpoint` | jsonb | Todos, files_modified, next_action, notes |
+| `summary` | text | Set on session close |
+| `closed_at` | timestamptz | null = session still open |
+| `created_at` | timestamptz NOT NULL | Auto-set to NOW() |
 
-**`mcp_migration_queue`** — Migration tracking for Supabase apply status
+**`mcp_migration_queue`** — Migration number authority across platforms
 | Column | Type | Notes |
 |--------|------|-------|
 | `id` | uuid (PK) | Auto-generated |
-| `migration_number` | integer UNIQUE NOT NULL | e.g., `33` |
+| `migration_number` | integer UNIQUE NOT NULL | Assigned atomically via sequence |
 | `filename` | text NOT NULL | SQL filename |
-| `sql` | text | Full SQL content |
-| `status` | text | `pending` / `applied` / `discarded` |
-| `applied_by` | text | Who applied it |
+| `sql` | text NOT NULL | Full SQL content |
+| `author_tool` | text NOT NULL | Platform that queued it |
+| `author_branch` | text NOT NULL | Branch it was queued from |
+| `status` | text NOT NULL | `pending` / `applied` / `discarded` |
 | `supabase_applied` | boolean | Whether Supabase CLI ran it |
-| `created_at` | timestamptz | Auto-set to NOW() |
+| `applied_by` | text | Server-assigned platform (win11) |
+| `applied_at` | timestamptz | When it was applied |
+| `notes` | text | Free-form notes |
+| `created_at` | timestamptz NOT NULL | Auto-set to NOW() |
 
-**RLS Policy:** Both tables use `service_role` access only — no public reads/writes.
+**Sequence:** `mcp_migration_number_seq` (starts at 43) for atomic numbering.
+**RPC:** `next_migration_number()` returns next integer from sequence.
+**RLS Policy:** Both tables use `service_role` access only — no public/anon reads/writes.
 
 ---
 
@@ -166,11 +173,12 @@ claude-mcp:
   build: ./mcp-servers/claude
   ports: ["8771:8771"]
   volumes:
-    - .:/repo
+    - ./.claude/handoff.md:/handoff/handoff.md:ro
   environment:
     - CLAUDE_MCP_PORT=8771
     - CLAUDE_MCP_PLATFORM=${CLAUDE_MCP_PLATFORM:-win11}
-    - REPO_PATH=/repo
+    - REPO_PATH=/handoff
+    - MCP_HUB_API_KEY=${MCP_HUB_API_KEY}
   restart: unless-stopped
 ```
 
@@ -225,7 +233,8 @@ Dependencies for new servers:
 - All server-to-server communication is via Docker network (`docker network: mcp-network`)
 - `GCP_PROJECT_ID` and `GOOGLE_APPLICATION_CREDENTIALS_JSON` must never be committed
 - GN100 `SSH` private key must be handled via Supabase Vault or environment-only
-- `claude-mcp` mounts entire repo as volume — ensure `.env` is not readable inside container (use `.dockerignore`)
+- `claude-mcp` mounts only `.claude/handoff.md` as read-only — no full repo exposure
+- All 3 servers enforce Bearer token auth via `MCP_HUB_API_KEY` (exempt: `/health`, `/docs`)
 
 ---
 
@@ -243,9 +252,11 @@ This is a key milestone for the thesis research objective: demonstrating that a 
 
 ## Next Steps
 
-1. ☐ Implement actual `server.py` handlers for each new MCP server (tools: deploy, logs, train, sync)
-2. ☐ Add `.env.example` entries for all new variables
-3. ☐ Test `docker compose up cloudrun-mcp lwm-mcp claude-mcp`
-4. ☐ Write integration tests in `src/__tests__/mcp-expansion.test.ts`
-5. ☐ Connect `claude-mcp` to `mcp_sessions` Supabase table (read/write checkpoints)
-6. ☐ Validate GN100 connectivity from `lwm-mcp` container
+1. ☑ Implement `server.py` handlers for each new MCP server — DONE
+2. ☑ Add Bearer token auth to all 3 servers — DONE
+3. ☑ Fix security: handoff-only volume mount, error sanitization — DONE
+4. ☐ Add `.env.example` entries for all new variables (`MCP_HUB_API_KEY`, `GCP_PROJECT_ID`, etc.)
+5. ☐ Test `docker compose up cloudrun-mcp lwm-mcp claude-mcp`
+6. ☐ Write integration tests in `src/__tests__/mcp-expansion.test.ts`
+7. ☐ Validate GN100 connectivity from `lwm-mcp` container
+8. ☐ End-to-end session handover test (checkpoint → resume)

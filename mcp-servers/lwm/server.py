@@ -14,14 +14,40 @@ from datetime import datetime
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="DWS LWM MCP Server", version="1.0.0")
+# ---------------------------------------------------------------------------
+# Authentication — Bearer token gate (matches mcp-hub pattern)
+# ---------------------------------------------------------------------------
+_API_KEY: str = os.getenv("MCP_HUB_API_KEY", "")
+_bearer_scheme = HTTPBearer(auto_error=False)
+_AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redoc"}
+
+
+async def require_api_key(
+    request: Request,
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> None:
+    """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
+    if request.url.path in _AUTH_EXEMPT_PATHS:
+        return
+    if not _API_KEY:
+        return
+    if credentials is None or credentials.credentials != _API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid or missing API key")
+
+
+app = FastAPI(
+    title="DWS LWM MCP Server",
+    version="1.0.0",
+    dependencies=[Depends(require_api_key)],
+)
 
 # CORS — explicit origins only (DWS_SECURITY_STANDARD.md §13.3.1)
 _CORS_ORIGINS: list[str] = os.getenv(
@@ -153,7 +179,8 @@ async def launch_job(req: TrainingJobRequest):
         result = await _gn100_post("/jobs/launch", payload)
         return {"job_id": job_id, "status": "launched", **result}
     except Exception as e:
-        raise HTTPException(500, f"Failed to launch job: {e}")
+        logger.error("Failed to launch job: %s", e)
+        raise HTTPException(500, "Failed to launch training job — check server logs")
 
 
 @app.get("/jobs")
@@ -164,7 +191,8 @@ async def list_jobs():
     try:
         return await _gn100_get("/jobs")
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.get("/jobs/{job_id}")
@@ -177,7 +205,8 @@ async def get_job(job_id: str):
     except httpx.HTTPStatusError as e:
         raise HTTPException(e.response.status_code, f"Job {job_id} not found")
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.delete("/jobs/{job_id}")
@@ -188,7 +217,8 @@ async def cancel_job(job_id: str):
     try:
         return await _gn100_post(f"/jobs/{job_id}/cancel", {})
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.get("/checkpoints")
@@ -199,7 +229,8 @@ async def list_checkpoints():
     try:
         return await _gn100_get("/checkpoints")
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.post("/checkpoints/{checkpoint_id}/quantize")
@@ -214,7 +245,8 @@ async def quantize_checkpoint(checkpoint_id: str, req: QuantizeRequest):
         payload["checkpoint_id"] = checkpoint_id
         return await _gn100_post("/checkpoints/quantize", payload)
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.post("/checkpoints/{checkpoint_id}/deploy")
@@ -228,7 +260,8 @@ async def deploy_checkpoint(checkpoint_id: str, req: DeployCheckpointRequest):
         payload["gcs_bucket"] = GCS_CHECKPOINTS_BUCKET
         return await _gn100_post("/checkpoints/deploy", payload)
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.get("/metrics")
@@ -247,7 +280,8 @@ async def get_metrics():
             ],
         }
     except Exception as e:
-        raise HTTPException(503, f"MLflow not reachable: {e}")
+        logger.error("MLflow not reachable: %s", e)
+        raise HTTPException(503, "MLflow not reachable — check server logs")
 
 
 @app.get("/datasets")
@@ -258,7 +292,8 @@ async def list_datasets():
     try:
         return await _gn100_get("/datasets")
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 @app.post("/datasets/validate")
@@ -269,7 +304,8 @@ async def validate_dataset(req: DatasetValidateRequest):
     try:
         return await _gn100_post("/datasets/validate", req.model_dump())
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("LWM operation failed: %s", e)
+        raise HTTPException(500, "Internal server error — check server logs")
 
 
 # ---------------------------------------------------------------------------

@@ -37,6 +37,9 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
+# Copy config (project delivery status for dashboard)
+COPY --chown=nodejs:nodejs config/ ./config/
+
 # Copy public assets if they exist
 COPY --chown=nodejs:nodejs public/ ./public/
 

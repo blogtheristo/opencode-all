@@ -26,7 +26,7 @@ This template shows the recommended format for tracking document versions and th
 Copy this section to the **beginning of every document** (after title):
 
 ```yaml
----
+***
 # VERSION AND AGENT HISTORY
 # (Näyttää kuka teki ja milloin, linkit sessioon)
 
@@ -172,7 +172,7 @@ In document:
 ### Example 1: Single Author (Claude Code) - Public Document
 
 ```yaml
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 0.1
@@ -206,7 +206,7 @@ Repository Status:
 ### Example 2: Multiple Authors (Claude → Cursor → Claude) - Public Documentation
 
 ```yaml
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 0.3
@@ -243,7 +243,7 @@ Repository Status:
 ### Example 3: With Linear Tracking
 
 ```yaml
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 0.2
@@ -280,7 +280,7 @@ Repository Status:
 ### Example 4: Automated Workflow (Weekly Reports)
 
 ```yaml
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 0.2

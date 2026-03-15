@@ -1,6 +1,6 @@
 # DWS Brand Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1

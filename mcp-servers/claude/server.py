@@ -22,15 +22,41 @@ from datetime import datetime
 from typing import Any, Literal
 
 import httpx
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 from supabase import Client, create_client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="DWS Claude Session Sync MCP", version="1.0.0")
+# ---------------------------------------------------------------------------
+# Authentication — Bearer token gate (matches mcp-hub pattern)
+# ---------------------------------------------------------------------------
+_API_KEY: str = os.getenv("MCP_HUB_API_KEY", "")
+_bearer_scheme = HTTPBearer(auto_error=False)
+_AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redoc"}
+
+
+async def require_api_key(
+    request: Request,
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> None:
+    """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
+    if request.url.path in _AUTH_EXEMPT_PATHS:
+        return
+    if not _API_KEY:
+        return
+    if credentials is None or credentials.credentials != _API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid or missing API key")
+
+
+app = FastAPI(
+    title="DWS Claude Session Sync MCP",
+    version="1.0.0",
+    dependencies=[Depends(require_api_key)],
+)
 
 # CORS — explicit origins only (DWS_SECURITY_STANDARD.md §13.3.1)
 _CORS_ORIGINS: list[str] = os.getenv(
@@ -52,7 +78,17 @@ app.add_middleware(
 CLAUDE_MCP_PORT: int = int(os.getenv("CLAUDE_MCP_PORT", "8771"))
 PLATFORM: str = os.getenv("CLAUDE_MCP_PLATFORM", "win11")  # win11 | mobile | vscode | cli
 REPO_PATH: str = os.getenv("REPO_PATH", "/repo")
-HANDOFF_FILE: str = os.path.join(REPO_PATH, ".claude", "handoff.md")
+# HANDOFF_FILE: explicit env var, or derived from REPO_PATH.
+# In Docker (REPO_PATH=/handoff, mount at /handoff/handoff.md:ro) → /handoff/handoff.md
+# In local dev (REPO_PATH=/repo) → /repo/.claude/handoff.md
+HANDOFF_FILE: str = os.getenv(
+    "HANDOFF_FILE",
+    os.path.join(REPO_PATH, "handoff.md")
+    if REPO_PATH == "/handoff"
+    else os.path.join(REPO_PATH, ".claude", "handoff.md"),
+)
+# Whether git operations are available (need a real repo mount)
+_GIT_AVAILABLE: bool = os.path.isdir(os.path.join(REPO_PATH, ".git"))
 
 # Supabase — used for cross-platform persistence
 supabase: Client | None = None
@@ -72,7 +108,12 @@ def _db() -> Client:
 
 
 def _git(*args: str) -> str:
-    """Run a git command in REPO_PATH, return stdout."""
+    """Run a git command in REPO_PATH, return stdout.
+
+    Returns empty string when no git repo is mounted (Docker handoff-only mode).
+    """
+    if not _GIT_AVAILABLE:
+        return ""
     try:
         result = subprocess.run(
             ["git", "-C", REPO_PATH, *args],
@@ -84,11 +125,17 @@ def _git(*args: str) -> str:
 
 
 def _write_handoff(content: str) -> None:
-    """Write .claude/handoff.md for Claude Code CLI to pick up on next start."""
+    """Write handoff file for Claude Code CLI to pick up on next start.
+
+    Skips silently when the mount is read-only (Docker mode).
+    """
     try:
         os.makedirs(os.path.dirname(HANDOFF_FILE), exist_ok=True)
         with open(HANDOFF_FILE, "w", encoding="utf-8") as f:
             f.write(content)
+    except OSError as e:
+        # Expected in Docker where /handoff/handoff.md is :ro
+        logger.info("Handoff file not writable (read-only mount?): %s", e)
     except Exception as e:
         logger.warning("Could not write handoff file: %s", e)
 
@@ -124,8 +171,6 @@ class MigrationQueueRequest(BaseModel):
 
 class MigrationApplyRequest(BaseModel):
     """Win11 gate: mark migration as applied after running it."""
-    migration_id: str
-    applied_by: Platform = "win11"
     supabase_applied: bool = False
 
 
@@ -312,20 +357,24 @@ async def queue_migration(req: MigrationQueueRequest):
     sequential number atomically — no more collision between mobile and Win11.
     """
     db = _db()
-    # Get highest existing number
-    existing = (
-        db.table("mcp_migration_queue")
-        .select("migration_number")
-        .order("migration_number", desc=True)
-        .limit(1)
-        .execute()
-    )
-    last = existing.data[0]["migration_number"] if existing.data else 32
-    next_number = last + 1
+    # Atomic numbering via PostgreSQL sequence (no race condition)
+    try:
+        seq_result = db.rpc("next_migration_number", {}).execute()
+        next_number = seq_result.data
+    except Exception:
+        logger.warning("Sequence RPC unavailable, falling back to max+1")
+        existing = (
+            db.table("mcp_migration_queue")
+            .select("migration_number")
+            .order("migration_number", desc=True)
+            .limit(1)
+            .execute()
+        )
+        last = existing.data[0]["migration_number"] if existing.data else 42
+        next_number = last + 1
     padded = str(next_number).zfill(3)
 
-    # Generate timestamp prefix matching Supabase convention
-    ts = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    # Generate filename using padded migration number
     filename = f"{padded}_{req.name}.sql"
 
     payload = {
@@ -391,13 +440,31 @@ async def list_all_migrations():
 async def mark_applied(migration_id: str, req: MigrationApplyRequest):
     """
     Win11 calls this after running the migration in Supabase Studio or CLI.
-    Updates status to 'applied'.
+    Server-side platform enforcement: only win11 can apply migrations.
     """
+    if PLATFORM != "win11":
+        raise HTTPException(
+            403,
+            f"Migration apply only allowed from win11 platform (current: {PLATFORM})"
+        )
     db = _db()
+    # Verify migration exists and is pending
+    check = (
+        db.table("mcp_migration_queue")
+        .select("status")
+        .eq("id", migration_id)
+        .execute()
+    )
+    if not check.data:
+        raise HTTPException(404, f"Migration {migration_id} not found")
+    if check.data[0]["status"] != "pending":
+        raise HTTPException(
+            409, f"Migration {migration_id} is '{check.data[0]['status']}', not pending"
+        )
     db.table("mcp_migration_queue").update(
         {
             "status": "applied",
-            "applied_by": req.applied_by,
+            "applied_by": PLATFORM,  # Server-controlled, not client-supplied
             "supabase_applied": req.supabase_applied,
             "applied_at": datetime.utcnow().isoformat(),
         }
@@ -407,8 +474,28 @@ async def mark_applied(migration_id: str, req: MigrationApplyRequest):
 
 @app.delete("/migrations/{migration_id}")
 async def discard_migration(migration_id: str):
-    """Discard a pending migration (e.g. superseded by another)."""
+    """Discard a pending migration (e.g. superseded by another).
+
+    Same platform gate as apply — only win11 can discard migrations.
+    """
+    if PLATFORM != "win11":
+        raise HTTPException(
+            403,
+            f"Migration discard only allowed from win11 platform (current: {PLATFORM})"
+        )
     db = _db()
+    check = (
+        db.table("mcp_migration_queue")
+        .select("status")
+        .eq("id", migration_id)
+        .execute()
+    )
+    if not check.data:
+        raise HTTPException(404, f"Migration {migration_id} not found")
+    if check.data[0]["status"] != "pending":
+        raise HTTPException(
+            409, f"Migration {migration_id} is '{check.data[0]['status']}', not pending"
+        )
     db.table("mcp_migration_queue").update(
         {"status": "discarded", "applied_at": datetime.utcnow().isoformat()}
     ).eq("id", migration_id).execute()

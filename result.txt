@@ -1,0 +1,17 @@
+This file is intentionally kept as plain-text documentation, not as a command output artifact.
+
+If you need to inspect directory contents during development, run the relevant shell or PowerShell
+commands locally (for example, `ls` or `Get-ChildItem`) instead of saving their raw output here.
+
+Do NOT store:
+- Directory listings
+- Local environment file contents
+- Secrets, tokens, or API keys
+
+For environment configuration, refer to:
+- .env.example
+- .ENV_CHECKLIST.md
+- .ENV_SETUP_GUIDE_MVP.md
+
+This file should remain a small, static note so that automated tooling does not flag it as
+a local development artifact.

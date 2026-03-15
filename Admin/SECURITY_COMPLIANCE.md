@@ -1,5 +1,29 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.6
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/review-dws-ai-compliance-996LB | Date: 03.03.2026 | Changes: Updated EU AI Act row from ambiguous "High-risk assessment Q2 2026" to accurate limited-risk self-classification status with Article 12 active
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/SECURITY_COMPLIANCE.md
+
+Document Status:
+  - Created: 01.01.2026
+  - Last Modified: 03.03.2026
+  - Language: English
+  - Languages Available: English
+  - Classification: Public (detailed versions available under NDA)
+  - Publication Status: ACTIVE
+
+***
+
 > **For CISOs, Procurement, and Security Teams**
 
 ---
@@ -124,7 +148,7 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 | **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
 | **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
 | **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
-| **EU AI Act** | All AI components | High-risk assessment Q2 2026 |
+| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
 | **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
 | **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
 
@@ -498,7 +522,7 @@ All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.5
-**Last Updated:** February 24, 2026
+**Document Version:** 1.6
+**Last Updated:** 2026-03-02
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi

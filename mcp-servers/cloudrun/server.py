@@ -11,14 +11,40 @@ import logging
 from datetime import datetime
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="DWS Cloud Run MCP Server", version="1.0.0")
+# ---------------------------------------------------------------------------
+# Authentication — Bearer token gate (matches mcp-hub pattern)
+# ---------------------------------------------------------------------------
+_API_KEY: str = os.getenv("MCP_HUB_API_KEY", "")
+_bearer_scheme = HTTPBearer(auto_error=False)
+_AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redoc"}
+
+
+async def require_api_key(
+    request: Request,
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+) -> None:
+    """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
+    if request.url.path in _AUTH_EXEMPT_PATHS:
+        return
+    if not _API_KEY:
+        return
+    if credentials is None or credentials.credentials != _API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid or missing API key")
+
+
+app = FastAPI(
+    title="DWS Cloud Run MCP Server",
+    version="1.0.0",
+    dependencies=[Depends(require_api_key)],
+)
 
 # CORS — explicit origins only (DWS_SECURITY_STANDARD.md §13.3.1)
 _CORS_ORIGINS: list[str] = os.getenv(
@@ -146,12 +172,20 @@ async def list_services():
                     "generation": svc.generation,
                     "create_time": str(svc.create_time),
                     "update_time": str(svc.update_time),
-                    "conditions": [str(c) for c in svc.terminal_condition.__class__.__mro__[:1]],
+                    "conditions": [
+                        {
+                            "type": svc.terminal_condition.type_,
+                            "state": str(svc.terminal_condition.state),
+                            "message": svc.terminal_condition.message,
+                            "reason": svc.terminal_condition.reason,
+                        }
+                    ] if svc.terminal_condition else [],
                 }
             )
         return {"services": services, "count": len(services)}
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Failed to list services: %s", e)
+        raise HTTPException(500, "Failed to list Cloud Run services")
 
 
 @app.get("/services/{name}")
@@ -172,7 +206,8 @@ async def get_service(name: str):
             "observed_generation": svc.observed_generation,
         }
     except Exception as e:
-        raise HTTPException(404, f"Service {name} not found: {e}")
+        logger.error("Service %s lookup failed: %s", name, e)
+        raise HTTPException(404, f"Service '{name}' not found")
 
 
 @app.post("/services/{name}/deploy")
@@ -182,7 +217,6 @@ async def deploy_service(name: str, req: DeployRequest):
     if not client:
         raise HTTPException(503, "GCP client not available")
     try:
-        from google.cloud import run_v2
         svc = client.get_service(name=_service_name(name))
         container = svc.template.containers[0]
         container.image = req.image
@@ -198,7 +232,8 @@ async def deploy_service(name: str, req: DeployRequest):
             "operation": op.operation.name,
         }
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Deploy failed for %s: %s", name, e)
+        raise HTTPException(500, f"Failed to deploy service '{name}'")
 
 
 @app.get("/services/{name}/logs")
@@ -223,7 +258,8 @@ async def get_logs(name: str, limit: int = 50):
             })
         return {"service": name, "entries": entries}
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Failed to fetch logs for %s: %s", name, e)
+        raise HTTPException(500, f"Failed to fetch logs for service '{name}'")
 
 
 @app.patch("/services/{name}/traffic")
@@ -249,7 +285,8 @@ async def update_traffic(name: str, req: TrafficRequest):
         op = client.update_service(service=svc)
         return {"status": "updating", "splits": req.splits, "operation": op.operation.name}
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Traffic update failed for %s: %s", name, e)
+        raise HTTPException(500, f"Failed to update traffic for service '{name}'")
 
 
 @app.get("/services/{name}/metrics")
@@ -294,7 +331,8 @@ async def get_metrics(name: str):
                 results[label] = None
         return results
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Metrics fetch failed for %s: %s", name, e)
+        raise HTTPException(500, f"Failed to fetch metrics for service '{name}'")
 
 
 @app.patch("/services/{name}/env")
@@ -319,7 +357,8 @@ async def update_env(name: str, req: EnvUpdateRequest):
             "operation": op.operation.name,
         }
     except Exception as e:
-        raise HTTPException(500, str(e))
+        logger.error("Env update failed for %s: %s", name, e)
+        raise HTTPException(500, f"Failed to update env for service '{name}'")
 
 
 # ---------------------------------------------------------------------------

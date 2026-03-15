@@ -23,14 +23,17 @@
 import logger from '../utils/logger.js';
 import { buildSDKSandboxConfig, validateNIS2Compliance } from './sdk-sandbox.js';
 import { executeInEphemeralContainer, groqInference } from './cloudrun-ephemeral.js';
+import { buildOpenSandboxClient, runAgentInOpenSandbox } from './opensandbox.js';
 import type { SDKSandboxConfig, TenantSandboxOptions } from './sdk-sandbox.js';
 import type { CloudRunTaskConfig, CloudRunTaskResult } from './cloudrun-ephemeral.js';
+import type { AgentSandboxResult } from './opensandbox.js';
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export type SandboxStage = '1' | '2' | '3';
+/** Stage 1.5 uses OpenSandbox on Acer Veriton local Docker host */
+export type SandboxStage = '1' | 'opensandbox' | '2' | '3';
 
 export interface AgentFoundryConfig {
   /** Current isolation stage */
@@ -60,6 +63,7 @@ export interface AgentExecutionResult {
   result: Record<string, unknown>;
   sandboxConfig?: SDKSandboxConfig;
   containerResult?: CloudRunTaskResult;
+  openSandboxResult?: AgentSandboxResult;
 }
 
 // ============================================================================
@@ -71,8 +75,8 @@ export interface AgentExecutionResult {
  */
 export function getSandboxStage(): SandboxStage {
   const stage = process.env.SANDBOX_STAGE || '1';
-  if (stage === '1' || stage === '2' || stage === '3') {
-    return stage;
+  if (stage === '1' || stage === 'opensandbox' || stage === '2' || stage === '3') {
+    return stage as SandboxStage;
   }
   logger.warn(`Invalid SANDBOX_STAGE "${stage}", defaulting to "1"`);
   return '1';
@@ -112,6 +116,9 @@ export async function executeIsolatedAgent(
   switch (config.stage) {
     case '1':
       return executeStage1(request, config);
+
+    case 'opensandbox':
+      return executeStageOpenSandbox(request, config);
 
     case '2':
       return executeStage2(request, config);
@@ -169,6 +176,59 @@ async function executeStage1(
 }
 
 // ============================================================================
+// Stage 1.5: OpenSandbox on Acer Veriton
+// ============================================================================
+
+/**
+ * Execute an agent task inside OpenSandbox running on the Acer Veriton.
+ *
+ * Selected when SANDBOX_STAGE=opensandbox.
+ * Requires OPENSANDBOX_HOST pointing to the Veriton's IP/hostname.
+ *
+ * Best for:
+ * - Internal pilots without cloud egress
+ * - EU air-gapped data scenarios
+ * - Development / pre-production testing with real Docker isolation
+ */
+async function executeStageOpenSandbox(
+  request: AgentExecutionRequest,
+  _config: AgentFoundryConfig,
+): Promise<AgentExecutionResult> {
+  const client = buildOpenSandboxClient();
+
+  const sandboxResult = await runAgentInOpenSandbox({
+    client,
+    tenantId: request.tenantId,
+    agentName: request.agentName,
+    input: request.input,
+    sandboxOpts: {
+      networkPolicy: {
+        allowedDomains: [
+          'api.anthropic.com',
+          'api.groq.com',
+          'mcp-hub.dws10.com',
+          'api.dws10.com',
+        ],
+        denyByDefault: true,
+      },
+    },
+  });
+
+  if (sandboxResult.status === 'error') {
+    throw new Error(`OpenSandbox execution failed: ${sandboxResult.error}`);
+  }
+
+  return {
+    stage: 'opensandbox',
+    isolationMethod: 'opensandbox-docker-veriton',
+    tenantId: request.tenantId,
+    agentName: request.agentName,
+    result: sandboxResult.artifacts,
+    openSandboxResult: sandboxResult,
+  };
+}
+
+// ============================================================================
 // Stage 2: Cloud Run Ephemeral Containers
 // ============================================================================
 
@@ -201,5 +261,7 @@ async function executeStage2(
 
 export { buildSDKSandboxConfig, validateNIS2Compliance } from './sdk-sandbox.js';
 export { executeInEphemeralContainer, groqInference } from './cloudrun-ephemeral.js';
+export { buildOpenSandboxClient, runAgentInOpenSandbox, OpenSandboxClient } from './opensandbox.js';
 export type { SDKSandboxConfig, TenantSandboxOptions } from './sdk-sandbox.js';
 export type { CloudRunTaskConfig, CloudRunTaskResult, EphemeralContainerStatus } from './cloudrun-ephemeral.js';
+export type { OpenSandboxConfig, AgentSandboxResult, OpenSandboxInstance } from './opensandbox.js';

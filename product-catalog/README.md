@@ -1,8 +1,106 @@
 # Product Catalog - DWS IQ Platform
+
+***
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Claude Code | Session: r6bU3 | Date: 23.01.2026 | Changes: Initial product catalog structure, Google Merchant schema, file naming conventions
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; added full 30-product catalog table from products.json; added product lifecycle stages; added Store Product Format section
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/product-catalog/README.md
+
+Document Status:
+  - Created: 23.01.2026
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
 **Structured Product Information Repository**
 
-Last Updated: 2026-02-14
+Last Updated: 2026-03-02
 Managed By: Product Management & Marketing
+
+---
+
+## 📦 Complete Product Catalog (30 Products)
+
+Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-02.
+
+### Platform Products
+
+| ID | Name | Price | Type | Category | Status |
+|----|------|-------|------|----------|--------|
+| DWS-IQ-006 | Lifetime DWS IQ Platform (Version 6) | €4,999 | one-time + €499/mo | platform | active |
+| FH-AUTO-001 | Firehorse Automation | €4,950 | one-time | platform | active |
+| LIFETIME-BUNDLE-2026 | Climate Reporting Starter Bundle | €6,500 | one-time + €1,999/yr | platform | active |
+| FH-OMNI-001 | Firehorse Omnichannel Next | €499 | one-time | platform | active |
+| FH-RPT-001 | DWS IQ Report | €1,999 | one-time | platform | active |
+| FH-CMS-001 | Firehorse Content Management | €2,999 | one-time | platform | active |
+
+### Advisory & Training
+
+| ID | Name | Price | Type | Category | Status |
+|----|------|-------|------|----------|--------|
+| expert-services | Workshop 3 Days — Expert Advisory | €4,500 | one-time | advisory | active |
+| consulting-hourly | Consulting — Hourly Rate | €98 | hourly | advisory | active |
+| LIFETIME-EXP-001 | Expert Advisory & Implementation | €3,000 | monthly | advisory | active |
+| consulting-fit55 | Consulting Fit for 55 Specialist | €3,000 | monthly | advisory | active |
+| lean-project | AI Project Accelerator | €4,960 | one-time | advisory | active |
+| ai-consultant-day | AI Consultant Day | €699 | one-time | advisory | active |
+| business-mentor-30 | Business Mentor — AI Strategy 30 Hours | €4,960 | one-time | advisory | active |
+| firehorse-coach | EU AI Act Literacy Training | €499 | one-time | advisory | active |
+| omnichannel-multimodal | Firehorse Omnichannel & Multimodal AI Assistant | €699 | monthly | advisory | active |
+| ai-koulutus-3d | AI Koulutus 3 Days Programme | €6,250 | one-time | advisory | active |
+
+### AI Cloud & Engineering
+
+| ID | Name | Price | Type | Category | Status |
+|----|------|-------|------|----------|--------|
+| aws-consultancy | AI Engineering & Cloud Solutions Consultancy | €4,500 | one-time | ai-cloud | active |
+| conversational-agent | Conversational Agent Solution | €3,500 | one-time | ai-cloud | active |
+| ai-agent-engineering | AI & Agent Engineering | €99 | hourly | ai-cloud | active |
+| devops-lead | Manufacturing AI Readiness Assessment | €2,500 | one-time | ai-cloud | active |
+| ai-consulting-agentic | AI Consulting — Agentic Software Development | €2,500 | one-time | ai-cloud | active |
+| sovereignty-cloud-consulting | Sovereignty Cloud Consulting — European Cloud Migration | €1,500 | monthly | ai-cloud | active |
+
+### Digital Services
+
+| ID | Name | Price | Type | Category | Status |
+|----|------|-------|------|----------|--------|
+| m365-consultancy | Microsoft Consultancy | €1,120 | one-time | digital | active |
+| firehorse-flow | AI Customer Agent | €499 | one-time | digital | active |
+| professional-web-pages | Professional Web Pages | €799 | one-time | digital | active |
+| secure-email-proton | Protonmail Secure Email & Domains Implementation | €499 | one-time | digital | active |
+| firehorse-data-services | Firehorse Data Services | €899 | one-time | digital | active |
+| agentti-sanasto | Agentti Sanasto Englanti-Suomi | €0.99 | one-time | digital | active |
+| digital-design-gold | Digital Design Gold | €2,499 | one-time | digital | active |
+| cloud-ready-teams | On-Demand AI & Cloud Engineers | €950 | one-time | digital | active |
+
+---
+
+## 🔄 Product Lifecycle Stages
+
+Every product MUST have one of these lifecycle states set in `products.json` under `availability` and tracked here:
+
+| Stage | `availability` value | Meaning | Action Required |
+|-------|---------------------|---------|-----------------|
+| **draft** | `preorder` | Under development, not yet for sale | Set `availability: preorder` in products.json |
+| **active** | `in_stock` | Live, purchasable, fully supported | Default state |
+| **limited** | `in_stock` | Active but being phased out — no new features | Add `limited: true` to product metadata |
+| **deprecated** | `out_of_stock` | No longer sold; existing customers supported | Set `availability: out_of_stock`, add sunset date |
+| **sunset** | *(remove from products.json)* | Removed from catalog entirely | Move to `product-catalog/archive/` |
+
+**Lifecycle transition rules:**
+- `draft → active`: Product Manager + Engineering sign-off required
+- `active → limited`: Product Manager decision, communicate to sales team
+- `limited → deprecated`: 90-day notice to existing customers required
+- `deprecated → sunset`: After all customer contracts expire; archive catalog entry
 
 ---
 
@@ -371,8 +469,7 @@ These guarantees apply to explicitly designated EU-sovereign deployment options 
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** 2026-01-23
-**Session:** r6bU3
+**Document Version:** 2.0
+**Last Updated:** 2026-03-02
 
 © 2026 Lifetime Oy · Product Catalog Management System
