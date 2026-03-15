@@ -56,10 +56,7 @@
         "screenshot": "agent-browser screenshot ./path.png",
         "auto-connect": "./scripts/agent-browser-auto-connect.sh open <url>"
       },
-      "_env": {
-        "AGENT_BROWSER_AUTO_CONNECT": "1"
-      },
-      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome. Set AGENT_BROWSER_AUTO_CONNECT=1 to auto-discover running Chrome."
+      "_notes": "140+ commands. Uses Snapshot+Refs for 93% token savings. Native Rust CLI + CDP direct to Chrome. Use ./scripts/agent-browser-auto-connect.sh (which can rely on AGENT_BROWSER_AUTO_CONNECT=1) to auto-discover a running Chrome instance; plain `agent-browser` commands do not auto-discover Chrome by default."
     }
   }
 }
