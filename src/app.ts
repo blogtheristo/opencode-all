@@ -45,6 +45,7 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 
 dotenv.config();
 
@@ -115,6 +116,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
 };
 app.use(cors(corsOptions));
+
+// API versioning header on all responses
+app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
 app.use(express.json({ limit: '10kb' }));
