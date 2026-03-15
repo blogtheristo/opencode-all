@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS CLI-First Strategy document to Standards & Guidelines section
   - Version: 1.2 | Tool: Claude Code | Date: 11.03.2026 | Changes: Added Acer Veriton GN100 admin manual and three GN100 field notes to the document index
 Version: 1.3
 
@@ -250,6 +251,7 @@ Coding, documentation, and process standards.
 |----------|------|--------|---------------|-------------|
 | DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | 2026-02-07 | Master document standard (v1.4) |
 | DWS Data Standard | `/DWS_DATA_STANDARD.md` | ACTIVE | 2026-03-13 | Data storage governance, columnar/row policy, extension registry, Aiven-first mandate (v2.0) |
+| DSaaS CLI-First Strategy | `/docs/DSaaS_CLI_FIRST_STRATEGY.md` | ACTIVE | 2026-03-13 | Database Sovereignty as a Service — CLI-first mandatory gateway, 30-day build plan, enterprise pricing, Aiven ECE + TimescaleDB Hypercore (v1.0) |
 | CLAUDE.md | `/CLAUDE.md` | ACTIVE | 2026-02-05 | AI agent guidelines |
 | Ontology | `/ONTOLOGY.md` | ACTIVE | 2026-01-21 | LWM ontology framework |
 | Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | - | GitHub Copilot rules |
