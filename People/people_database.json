@@ -354,5 +354,235 @@
       "created_by": "risto-001",
       "updated_by": "risto-001"
     }
+  },
+  {
+    "id": "alexander-danielsson-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Alexander",
+      "last_name": "Danielsson",
+      "full_name": "Alexander Danielsson",
+      "title": "Partner",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Norrsken VC",
+      "department": "Investment",
+      "role": "Partner",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Former TA Associates (Private Equity)",
+      "expertise": [
+        "Climate Tech",
+        "AI",
+        "Nordic Markets",
+        "UK/Ireland Markets",
+        "Private Equity",
+        "Early-Stage Investing"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "norrsken",
+        "climate",
+        "ai",
+        "ai-for-good",
+        "nordic",
+        "sfdr-article-9",
+        "cold-outreach",
+        "fleet-admiral-candidate",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Climate tech in UK/Ireland/Nordics",
+        "AI for Good strategy",
+        "Impact investing"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Cold outreach — Norrsken deploying €300M AI for Good strategy. Pitch KYA + Alpha-Share audit data. Pre-Arctic 15 timing.",
+      "notes": "Partner at Norrsken VC (SFDR Article 9 Dark Green fund). Covers climate tech across UK, Ireland, Nordics. Former TA Associates (PE). Norrsken portfolio includes Northvolt, Einride, 1KOMMA5°. Fund raising €350-400M Fund III. €300M committed to AI for Good strategy (climate, health, food). Best first contact at Norrsken for DWS IQ 6."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "daria-saharova-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Daria",
+      "last_name": "Saharova",
+      "full_name": "Daria Saharova",
+      "title": "Co-founder & General Partner",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "World Fund",
+      "department": "Investment",
+      "role": "Co-founder & General Partner",
+      "location": {
+        "city": "Berlin",
+        "country": "Germany",
+        "region": "Europe"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "Climate Tech",
+        "Manufacturing",
+        "Buildings",
+        "Transport",
+        "Science-Based Methodology",
+        "CO2 Avoidance Measurement"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "world-fund",
+        "climate",
+        "manufacturing",
+        "buildings",
+        "transport",
+        "seed",
+        "series-b",
+        "science-based",
+        "cold-outreach",
+        "fleet-admiral-candidate",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Science-based CO2 avoidance methodology",
+        "Manufacturing and buildings decarbonization",
+        "Climate tech Seed to Series B"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Cold outreach — pitch Alpha-Share audit data + KYA as verifiable CO2 measurement framework. Aligns with World Fund's TU Berlin methodology.",
+      "notes": "Co-founder & GP at World Fund (€350M Fund I). Science-based climate methodology developed with TU Berlin, Project Drawdown, Project Frame. Invests Seed to Series B in key emitting sectors: Energy, Food/Agriculture, Manufacturing, Buildings, Transport. Alpha-Share + Firehorse telemetry provides auditable efficiency data that aligns with their measurement approach. Pre-Arctic 15 timing."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "christian-jolck-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Christian",
+      "last_name": "Jolck",
+      "full_name": "Christian Jolck",
+      "title": "Co-founder",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "2150",
+      "department": "Investment",
+      "role": "Co-founder",
+      "location": {
+        "city": "Copenhagen",
+        "country": "Denmark",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "Urban Climate Tech",
+        "Built Environment",
+        "Industrial Decarbonization",
+        "Construction Materials",
+        "Series A Investing"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "2150",
+        "climate",
+        "urban-tech",
+        "built-environment",
+        "industrial",
+        "construction",
+        "series-a",
+        "cold-outreach",
+        "series-a-target",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Urban and industrial climate tech",
+        "Built environment decarbonization",
+        "Construction and materials innovation"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Relationship building — 2150 is Series A fit (€5-6M checks), not seed. Start conversation now, pitch after August 15 sales data. Note: LP Security Trading Oy is Finnish — possible warm path.",
+      "notes": "Co-founder at 2150 (Fund II closed Jan 2026 at €210M, €500M AUM). Copenhagen office. Invests in urban/industrial climate tech: materials, construction, energy systems, industrial processes. Check size €5-6M at Series A — too large for seed round but perfect Series A candidate for Q3-Q4 2026. Portfolio: 27 companies, >$1B aggregate revenue, >1 megatonne CO2e mitigated/year. SFDR Article 9. LP Security Trading Oy (Finnish) could be warm intro path."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "Series A",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
   }
 ]
