@@ -3,8 +3,8 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 1.4  
-**Last Updated:** January 18, 2026  
+**Document Version:** 2.1
+**Last Updated:** March 15, 2026  
 **Status:** Active Fundraising  
 **Platform Status:** Public Cloud Version V1 - Production Ready
 
@@ -12,15 +12,16 @@
 
 ## Investment Opportunity Overview
 
-**Current Metrics:**
-- MRR: **€7k live run-rate** (current) / **€10k achieved during pilot** (validation)
+**Current Metrics (March 2026):**
+- MRR: **€7k live run-rate**
 - Paying Customers: 5
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k annual value per logo
 
-**Target:**
-- Q1 2026: €14k MRR
-- 2026: €900k ARR
+**Sales Timeline:**
+- March–June 14, 2026: Pipeline building, pilot conversions
+- **June 15 – August 15, 2026: 100% sales sprint** (2-month dedicated sales push)
+- 2026: €900k ARR target
 - Series A: 2026 at €15M+ pre-money valuation
 
 ---
@@ -29,13 +30,22 @@
 
 ### Round Structure
 - **Instrument:** SAFE (Simple Agreement for Future Equity)
-- **Round Size:** €500k
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
 
-### Investment Tickets
-- **Business Angels:** €15k–€50k
-- **Institutional Investors:** €100k–€500k
+### Seat Tiers
+
+| Tier | Investment | Seats Available |
+|------|-----------|-----------------|
+| **Fleet Admiral** | €500,000 | 1 |
+| **Captain** | €150,000 | Limited |
+| **Industry Captain** | €50,000 | 8 (one per industry tranche) |
+| **Deputy Captain** | Unlimited entry | Unlimited |
+
+- **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
+- **Captain** — Named industry leader. Quarterly strategy briefings, priority pilot routing, founding Situation Room access.
+- **Industry Captain** — Named captain of one of 20 EU-regulated industries. Annual briefings, industry-specific intelligence.
+- **Deputy Captain** — Open tier, unlimited seats. Quarterly briefings, upgrade path to Captain/Industry Captain.
 
 ---
 
@@ -135,12 +145,47 @@ Timeframe:                 ~2 years (2024→2026)
 
 ---
 
+## Proprietary Moat: KYA Standard & Alpha-Share Revenue
+
+### KYA Standard — Know Your Agent / Know Your Architecture
+
+DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework unique in the market:
+
+- **Know Your Agent (KYA-S):** Hardware-attested agent identity, capability gating, and forensic audit trails. Every AI agent deployed through DWS IQ 6 carries a cryptographic identity, operates within explicit capability bounds, and produces court-defensible logs. This is the security layer CISOs require.
+- **Know Your Architecture (KYA-O):** Financial optimization and agent self-optimization governance. Agents iteratively improve their own models under safety bounds, delivering **11–30% efficiency gains** benchmarked from real autoresearch runs. This is the ROI layer CFOs require.
+
+**Why this matters to investors:** KYA is not a feature — it is a *standard*. Customers build compliance workflows on top of it. Switching costs are structural, not contractual. No competitor has an equivalent governance framework for autonomous agent swarms across EU-regulated industries.
+
+### Alpha-Share Revenue Model
+
+DWS IQ 6 captures value through **Alpha-Share** — a 7.5% flat revenue share on measurable efficiency gains delivered by agent swarms:
+
+| Component | Mechanism |
+|-----------|-----------|
+| **Base SaaS** | Platform subscription (MRR) |
+| **Alpha-Share** | 7.5% of verified efficiency gains (energy savings, compliance cost reduction, carbon credit arbitrage) |
+| **Verification Credit Rebate** | Customer receives credit if gains fall below guarantee threshold |
+
+**Financial impact:** Alpha-Share creates a second revenue stream that scales with customer success. As agents optimize deeper (energy OPEX, tender wins, carbon penalties avoided), DWS revenue grows without additional sales effort. Projected **8–22x ROI** within 18 months in heavy-industry deployments.
+
+### D&O Insurance Positioning
+
+Agent-governed decisions create personal liability exposure for directors and officers. DWS IQ 6 addresses this directly:
+
+- **Audit trail completeness:** Every agent decision is logged with reasoning lineage (Firehorse forensic telemetry), making D&O insurance underwriting simpler and premiums lower.
+- **Parametric insurance integration:** KYA trust scores can trigger automatic coverage adjustments — agents with higher trust scores attract lower premiums.
+- **Liability containment:** The KYA Standard's capability gating ensures agents cannot exceed their authorized scope, reducing directors' exposure to "rogue AI" claims.
+
+**Investor relevance:** D&O insurance is a €2B+ European market. DWS IQ 6 positions as the compliance infrastructure that makes AI-driven operations insurable — a prerequisite for enterprise adoption at scale.
+
+---
+
 ## Why Invest Now?
 
 ### Market Opportunity
 - **CSRD Mandatory Reporting:** Starting 2025, affects 50,000+ EU companies
 - **Fit for 55 / EPBD Mandates:** Hitting hard 2025–2028
-- **Construction Market:** 3.5M EU construction firms = forced purchases
+- **20 EU-Regulated Industries:** From construction to pharma — forced compliance spend
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
 - **EU Green Deal:** Multi-year regulatory push for industrial decarbonization
 - **Pain Point:** €10k–€50k in fines per project, 40–80 hours manual work eliminated
@@ -306,8 +351,8 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ---
 
 **Document Control:**
-- Version: 1.4
-- Last Updated: January 18, 2026
+- Version: 2.1
+- Last Updated: March 15, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
 - Confidentiality: For Potential Investors Only

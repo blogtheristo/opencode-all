@@ -3,14 +3,15 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Alpha-Share updated to Decline-to-Scale (12%/8%/5%). Performance Guarantee replaces Clawback language. D&O Insurance investor section added (§6). Carbon Credit Arbitrage cross-referenced. Synced with KYA-O v1.6
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Extracted from KYA-NIST-SP-003 to keep standards documents credibility-focused. Contains revenue model, per-industry financial impact, EU-wide projections, Alpha-Share pricing
 
 Document Status:
   - Created: 10.03.2026
-  - Last Modified: 10.03.2026
+  - Last Modified: 15.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: INTERNAL
@@ -41,7 +42,9 @@ Financial projections in a NIST standards document weaken credibility. Standards
 | **Fault Attribution** | €5.00 per fault classification | Automated liability assignment |
 | **Compliance Certificates** | €500 per quarter per industry | CBAM, ETS, CSRD audit-ready reports |
 | **Insurance Discounts** | 8–15% premium reduction | Actuarial data from ATS + Firehorse |
-| **Alpha-Share** | **6–10% tiered** of attributed efficiency gains | 6% (ATS 0.50–0.79), 9% (ATS 0.80–0.94), 10% (ATS ≥ 0.95) |
+| **Alpha-Share** (v1.6) | **Decline-to-Scale**: 12% (first €1M), 8% (€1M–€10M), 5% (above €10M) | Financial attribution from Firehorse → Supabase |
+| **Performance Guarantee** | Service credit on verified production fault within 30 days | Internally: revenue deferral; externally: guarantee |
+| **Verification Credit Rebate** | 10% of Alpha-Share returned as KYA-S verification credits | Flywheel: optimization funds security |
 
 ---
 
@@ -121,6 +124,49 @@ The governance overhead is linear; the value created scales logarithmically with
 | 7.5% Alpha-Share acceptance | MEDIUM | Market validation needed; alternatives: flat SaaS fee |
 | Autoresearch gains hold at scale | MEDIUM | Helsinki Sandbox proves proxy; production validation Q3 2026 |
 | EU regulatory enforcement timeline | LOW | CBAM already in transitional phase; full enforcement 2026 |
+
+---
+
+## 6. D&O Insurance — Risk Mitigation for Investor Note
+
+*This section is designed to drop into the risk mitigation section of the investor deck. It addresses a direct, quantifiable cost saving that board members and risk officers understand immediately.*
+
+### The Liability Problem
+
+Under EU AI Act Article 99, **directors and officers are personally liable** for AI systems deployed without adequate governance. Fines up to EUR 35M or 7% of annual global turnover. National corporate governance codes add personal exposure for board members who approved autonomous agent deployments without documented controls.
+
+This is not theoretical. The first AI Act enforcement actions are expected Q3–Q4 2026. Every board member approving AI agent deployments is exposed.
+
+### How KYA-S Creates a Safe Harbor
+
+KYA-S (Know Your Agent — Security Standard) provides the three evidence layers D&O insurers require:
+
+| Evidence Layer | What It Proves | D&O Relevance |
+|---------------|---------------|---------------|
+| **Identity Attribution** | *Which agent* produced the output — not "our AI" | Isolates director decision from agent failure |
+| **Fault Attribution** | Separates LOGIC_FAULT (agent) from OPERATOR_FAULT (human) from MANIFEST_FAULT (configuration) | Proves the board's governance framework was adequate even when an agent fails |
+| **Behavioral Guardrails** | Pre-execution controls were active (< 5ms enforcement) | Demonstrates "reasonable measures" — the legal standard for safe harbor |
+
+### Quantified Impact
+
+| Metric | Value | Basis |
+|--------|-------|-------|
+| **D&O Premium Reduction** | 8–12% | Based on comparable governance framework discounts in cyber liability (comparable: SOC 2 certification yields 5–15% cyber premium reduction) |
+| **Target Enterprises** | Every KYA-certified enterprise with board-approved AI deployments | EU AI Act applies to all "deployers" — not just "providers" |
+| **Revenue Model** | Included in KYA-S platform fee — no separate D&O product | D&O savings are a **selling accelerator**, not a revenue stream |
+
+### Investor Messaging
+
+> **One-liner:** "Every board member deploying AI agents without KYA is personally liable under EU AI Act Article 99. KYA-S provides the documented governance that D&O insurers require for safe harbor — targeting 8–12% premium reduction."
+
+> **Expansion:** KYA doesn't sell D&O insurance. It provides the evidence package that makes D&O insurance cheaper. Identity attribution proves which agent failed. Fault attribution proves the board's governance was adequate. Behavioral guardrails prove controls were active before the agent acted. This is the "reasonable measures" defense — the legal standard for personal liability safe harbor across EU member states.
+
+### Why This Matters Now
+
+- EU AI Act full enforcement: August 2026
+- First D&O claims on AI governance expected: Q4 2026–Q1 2027
+- Insurers are already pricing "AI governance deficit" into D&O premiums
+- KYA-S certification is positioned to be the SOC 2 equivalent for AI agent governance
 
 ---
 
