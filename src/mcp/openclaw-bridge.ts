@@ -41,7 +41,7 @@ export interface OpenClawSkillManifest {
   /** Whether this skill requires filesystem access */
   requiresFilesystem: boolean;
 
-  /** KYA trust score minimum to invoke this skill */
+  /** KYA trust score minimum to invoke this skill (ATS 0–100) */
   minimumATS: number;
 }
 
@@ -217,18 +217,18 @@ export class OpenClawBridge {
       };
     }
 
-    // 2. Check ATS minimum
-    if (callerATS < skill.minimumATS / 100) {
+    // 2. Check ATS minimum (ATS is treated as 0–100)
+    if (callerATS < skill.minimumATS) {
       logger.warn('OpenClaw bridge: ATS too low', {
         skill: request.method,
         callerATS,
-        required: skill.minimumATS / 100,
+        required: skill.minimumATS,
         caller: request.callerAgentId,
       });
       return {
         success: false,
         result: null,
-        error: `Caller ATS (${(callerATS * 100).toFixed(0)}) below minimum (${skill.minimumATS}) for skill "${request.method}"`,
+        error: `Caller ATS (${callerATS.toFixed(0)}) below minimum (${skill.minimumATS}) for skill "${request.method}"`,
         auditEventId,
         durationMs: Date.now() - startTime,
       };
