@@ -32,9 +32,12 @@ import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
-import { createMCPRouter } from './mcp/agent-server.js';
-import hilRoutes from './routes/hil.routes.js';
 import captainRoutes from './routes/captain.routes.js';
+import usageRoutes from './routes/usage.routes.js';
+import onboardRoutes from './routes/onboard.routes.js';
+import complianceRoutes from './routes/compliance.routes.js';
+import reportExportRoutes from './routes/report-export.routes.js';
+import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
@@ -195,6 +198,21 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
+
+// Usage metering (MVP Feature 2)
+app.use('/api/v1/usage', usageRoutes);
+
+// Onboarding wizard (baseline compliance assessment)
+app.use('/api/v1/onboard', onboardRoutes);
+
+// Compliance assessment API (scoring, registry, cost estimate)
+app.use('/api/v1/compliance', complianceRoutes);
+
+// Report export & scheduling (MVP Feature 3)
+app.use('/api/v1/reports', reportExportRoutes);
+
+// API key management (MVP Feature 1)
+app.use('/api/v1/user/api-keys', apiKeyRoutes);
 
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
