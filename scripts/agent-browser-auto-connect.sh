@@ -53,7 +53,7 @@ find_chrome_debug_port() {
   if [ -d /proc ]; then
     for pid_dir in /proc/[0-9]*/cmdline; do
       if [ -f "$pid_dir" ]; then
-        port=$(tr '\0' ' ' < "$pid_dir" 2>/dev/null | grep -o '\-\-remote-debugging-port=[0-9]*' | cut -d= -f2)
+        port=$(tr '\0' ' ' < "$pid_dir" 2>/dev/null | grep -o '\-\-remote-debugging-port=[0-9]*' | cut -d= -f2 || true)
         if [ -n "$port" ]; then
           echo "$port"
           return 0
@@ -63,7 +63,7 @@ find_chrome_debug_port() {
   fi
 
   # Method 2: Check ps output (macOS/Linux)
-  port=$(ps aux 2>/dev/null | grep -o '\-\-remote-debugging-port=[0-9]*' | head -1 | cut -d= -f2)
+  port=$(ps aux 2>/dev/null | grep -o '\-\-remote-debugging-port=[0-9]*' | head -1 | cut -d= -f2 || true)
   if [ -n "$port" ]; then
     echo "$port"
     return 0
