@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 # agent-browser-auto-connect.sh — Auto-discover running Chrome and connect agent-browser
 #
-# Usage:
+# Usage (via this wrapper):
+#   # Default: auto-connect enabled (AGENT_BROWSER_AUTO_CONNECT defaults to 1)
 #   ./scripts/agent-browser-auto-connect.sh open https://dws10.com
-#   AGENT_BROWSER_AUTO_CONNECT=1 agent-browser open https://dws10.com
+#   # Using a custom agent-browser command:
+#   AGENT_BROWSER_CMD="pnpm agent-browser" ./scripts/agent-browser-auto-connect.sh open https://dws10.com
+#   # Disable auto-connect and just pass through to agent-browser:
+#   AGENT_BROWSER_AUTO_CONNECT=0 ./scripts/agent-browser-auto-connect.sh open https://dws10.com
+#
+# Note: AGENT_BROWSER_AUTO_CONNECT is read by this wrapper script only. Setting
+#   AGENT_BROWSER_AUTO_CONNECT=1 on a direct `agent-browser ...` invocation has
+#   no effect unless the `agent-browser` binary itself supports that env var.
 #
 # How it works:
 #   1. Scans common Chrome remote-debugging ports (9222-9229)
