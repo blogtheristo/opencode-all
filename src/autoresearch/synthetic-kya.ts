@@ -53,16 +53,19 @@ class SeededRandom {
   private state: number;
 
   constructor(seed: number) {
-    this.state = seed;
+    // Ensure seed is treated as a 32-bit integer
+    this.state = seed | 0;
   }
 
   /** Returns a float in [0, 1) */
   next(): number {
-    // xorshift32
+    // xorshift32 on 32-bit integer state
     this.state ^= this.state << 13;
     this.state ^= this.state >> 17;
     this.state ^= this.state << 5;
-    return Math.abs(this.state) / 2147483647;
+    // Coerce to 32-bit signed int, then normalize unsigned to [0, 1)
+    this.state |= 0;
+    return (this.state >>> 0) / 0x100000000;
   }
 
   /** Returns a float in [min, max) */
