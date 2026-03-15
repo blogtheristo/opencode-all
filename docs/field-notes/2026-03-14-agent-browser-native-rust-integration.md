@@ -75,13 +75,15 @@ The `scripts/agent-browser-auto-connect.sh` wrapper auto-discovers a running Chr
 ### Usage
 
 ```bash
-# Wrapper script (recommended)
-./scripts/agent-browser-auto-connect.sh open https://dws10.com/buy/
-./scripts/agent-browser-auto-connect.sh snapshot
-
-# Via environment variable (for direct agent-browser calls)
-AGENT_BROWSER_AUTO_CONNECT=1 agent-browser open https://dws10.com/buy/
+# Wrapper script (recommended, with auto-connect enabled via env var)
+AGENT_BROWSER_AUTO_CONNECT=1 ./scripts/agent-browser-auto-connect.sh open https://dws10.com/buy/
+AGENT_BROWSER_AUTO_CONNECT=1 ./scripts/agent-browser-auto-connect.sh snapshot
 ```
+
+Note: `AGENT_BROWSER_AUTO_CONNECT` is currently consumed by the
+`scripts/agent-browser-auto-connect.sh` wrapper script. The `agent-browser`
+CLI itself does not read this environment variable directly; use the wrapper
+to enable auto-connect behavior.
 
 ### How It Works
 
