@@ -26,6 +26,7 @@
 │   ├── fix-agent.js            # Main fix agent
 │   ├── audit-agent.js          # Audit agent
 │   └── recovery-protocols/     # Recovery procedures
+├── morning-feature-workflow.md # Morning workflow: branch + build + implement
 └── templates/                  # Workflow templates
     ├── github-action.yml       # GitHub Action template
     └── site-workflow.md        # Site workflow template

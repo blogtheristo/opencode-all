@@ -589,58 +589,28 @@ export async function sendDailyDigestEmail(): Promise<void> {
   });
   const subject = `Outreach ${dateStr}`;
 
-  const resendKey = process.env.RESEND_API_KEY;
-  const sendgridKey = process.env.SENDGRID_API_KEY;
+  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
 
-  if (resendKey) {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [recipient],
-        reply_to: replyToAddress,
-        subject,
-        html,
-        text: plainText,
-      }),
-    });
-
-    if (response.ok) {
-      logger.info('Daily digest sent via Resend', { to: recipient, replyTo: replyToAddress });
-      return;
-    }
-    logger.warn('Resend failed, trying SendGrid fallback');
+  if (!hasTransport) {
+    logger.warn('No SMTP or RESEND_API_KEY configured. Printing digest to console.');
+    console.log('\n' + plainText);
+    return;
   }
 
-  if (sendgridKey) {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sendgridKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: recipient }] }],
-        from: { email: fromAddress },
-        reply_to: { email: replyToAddress },
-        subject,
-        content: [
-          { type: 'text/plain', value: plainText },
-          { type: 'text/html', value: html },
-        ],
-      }),
-    });
+  const { sendEmail } = await import('../utils/send-email.js');
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    replyTo: replyToAddress,
+    subject,
+    html,
+    text: plainText,
+  });
 
-    if (response.ok || response.status === 202) {
-      logger.info('Daily digest sent via SendGrid', { to: recipient, replyTo: replyToAddress });
-      return;
-    }
+  if (result.ok) {
+    logger.info('Daily digest sent', { to: recipient, transport: result.transport, replyTo: replyToAddress });
+    return;
   }
 
-  logger.warn('No email provider configured. Printing digest to console.');
-  console.log('\n' + plainText);
+  logger.error('Daily digest send failed', { error: result.error });
 }

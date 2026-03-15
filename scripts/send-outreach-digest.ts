@@ -9,7 +9,7 @@
  *   npx tsx scripts/send-outreach-digest.ts
  *
  * Required env vars:
- *   RESEND_API_KEY or SENDGRID_API_KEY
+ *   RESEND_API_KEY
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for live data)
  *
  * Optional env vars:
@@ -51,10 +51,9 @@ async function main(): Promise<void> {
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
   const resendKey = process.env.RESEND_API_KEY;
-  const sendgridKey = process.env.SENDGRID_API_KEY;
 
-  if (!resendKey && !sendgridKey) {
-    console.error('ERROR: No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY.');
+  if (!resendKey) {
+    console.error('ERROR: RESEND_API_KEY not configured.');
     process.exit(1);
   }
 
@@ -74,69 +73,31 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  // Try Resend first
-  if (resendKey) {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [recipient],
-        reply_to: replyToAddress,
-        subject,
-        html,
-        text: plainText,
-      }),
-    });
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${resendKey}`,
+    },
+    body: JSON.stringify({
+      from: fromAddress,
+      to: [recipient],
+      reply_to: replyToAddress,
+      subject,
+      html,
+      text: plainText,
+    }),
+  });
 
-    if (response.ok) {
-      const result = await response.json();
-      console.log(`Sent via Resend. ID: ${(result as any).id}`);
-      return;
-    }
-
-    const errorBody = await response.text();
-    console.warn(`Resend failed (${response.status}): ${errorBody}`);
-
-    if (!sendgridKey) {
-      console.error('No fallback provider. Exiting.');
-      process.exit(1);
-    }
-    console.log('Falling back to SendGrid...');
+  if (response.ok) {
+    const result = await response.json();
+    console.log(`Sent via Resend. ID: ${(result as any).id}`);
+    return;
   }
 
-  // Fallback to SendGrid
-  if (sendgridKey) {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sendgridKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: recipient }] }],
-        from: { email: fromAddress },
-        reply_to: { email: replyToAddress },
-        subject,
-        content: [
-          { type: 'text/plain', value: plainText },
-          { type: 'text/html', value: html },
-        ],
-      }),
-    });
-
-    if (response.ok || response.status === 202) {
-      console.log('Sent via SendGrid.');
-      return;
-    }
-
-    const errorBody = await response.text();
-    console.error(`SendGrid failed (${response.status}): ${errorBody}`);
-    process.exit(1);
-  }
+  const errorBody = await response.text();
+  console.error(`Resend failed (${response.status}): ${errorBody}`);
+  process.exit(1);
 }
 
 main().catch((err) => {

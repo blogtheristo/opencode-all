@@ -1,0 +1,47 @@
+# Jitsi Meet Worker — Cloudflare Configuration
+#
+# Free-tier Cloudflare Worker serving Jitsi meeting landing pages.
+# Uses meet.jit.si (free public infrastructure) for video.
+#
+# Deployment:
+#   npx wrangler deploy -c src/cloudflare/wrangler.jitsi.toml
+#
+# Local dev:
+#   npx wrangler dev -c src/cloudflare/wrangler.jitsi.toml
+#
+# @version 1.0.0
+# @license Proprietary - Lifetime Oy
+
+name = "dws6-jitsi-meet"
+main = "jitsi-meet-worker.ts"
+compatibility_date = "2024-12-01"
+
+# ============================================================================
+# Worker Settings
+# ============================================================================
+
+[vars]
+JITSI_DOMAIN = "meet.jit.si"
+
+# ============================================================================
+# Routes — uncomment and configure for custom domain
+# ============================================================================
+# [[routes]]
+# pattern = "meet.dws6.com/*"
+# zone_name = "dws6.com"
+
+# ============================================================================
+# EU Data Residency
+# ============================================================================
+[placement]
+mode = "smart"
+
+# ============================================================================
+# Observability
+# ============================================================================
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true

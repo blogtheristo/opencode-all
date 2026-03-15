@@ -150,9 +150,9 @@ Located in `.github/workflows/` - these run automatically on PRs and commits:
 
 ### Email Rules (CRITICAL)
 - **NEVER use `noreply@` addresses** - all emails must be replyable
-- Default sender: `risto@onelifetime.world` (verified Resend domain)
+- Default sender: `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - Default recipient: `risto@lifetime.fi`
-- Pattern: `process.env.EMAIL_FROM || 'risto@onelifetime.world'`
+- Delivery: SMTP (SES) primary, Resend fallback. Pattern: `process.env.EMAIL_FROM || 'risto@onelifetime.world'`
 
 ## Security (NEVER COMMIT SECRETS)
 

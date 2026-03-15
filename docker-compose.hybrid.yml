@@ -57,11 +57,14 @@ services:
       BACKEND_URL: http://backend-dev:8080
       GITHUB_MCP_URL: http://github-mcp:8767
       SUPABASE_MCP_URL: http://supabase-mcp:8766
+      CARBON_API_URL: http://carbon-api:8766
+      CLOUDRUN_MCP_URL: http://cloudrun-mcp:8769
+      LWM_MCP_URL: http://lwm-mcp:8770
+      CLAUDE_MCP_URL: http://claude-mcp:8771
       PROMETHEUS_URL: http://prometheus:9090
       GRAFANA_URL: http://grafana:3000
       AGENT_FOUNDRY_URL: http://agent-foundry:8080
-      CLOUDRUN_MCP_URL: http://cloudrun-mcp:8769
-      
+
       # Session Management
       SESSION_TTL_HOURS: 168
       AUTO_GENERATE_CLAUDE_MD: true
@@ -104,14 +107,14 @@ services:
     restart: unless-stopped
 
   # ============================================================================
-  # Supabase MCP Server
+  # DWS Carbon API
   # ============================================================================
   
-  supabase-mcp:
+  carbon-api:
     build:
-      context: ./mcp-hub
-      dockerfile: Dockerfile.supabase
-    container_name: dws-supabase-mcp
+      context: ./mcp-servers/supabase
+      dockerfile: Dockerfile
+    container_name: dws-carbon-api
     environment:
       SUPABASE_MCP_PORT: 8766
       SUPABASE_URL: ${SUPABASE_URL}
@@ -128,6 +131,96 @@ services:
       - dws-hybrid-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8766/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # Cloud Run MCP Server (port 8769)
+  # ============================================================================
+
+  cloudrun-mcp:
+    build:
+      context: ./mcp-servers/cloudrun
+      dockerfile: Dockerfile
+    container_name: dws-cloudrun-mcp
+    environment:
+      CLOUDRUN_MCP_PORT: 8769
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID:?GCP_PROJECT_ID required}
+      GCP_REGION: ${GCP_REGION:-europe-north1}
+      GCP_ARTIFACT_REGISTRY: ${GCP_ARTIFACT_REGISTRY:-europe-north1-docker.pkg.dev}
+      GCP_REPOSITORY: ${GCP_REPOSITORY:-dws-iq}
+      GOOGLE_APPLICATION_CREDENTIALS_JSON: ${GOOGLE_APPLICATION_CREDENTIALS_JSON}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+    ports:
+      - "8769:8769"
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8769/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # LWM Training Bridge MCP Server (port 8770)
+  # ============================================================================
+
+  lwm-mcp:
+    build:
+      context: ./mcp-servers/lwm
+      dockerfile: Dockerfile
+    container_name: dws-lwm-mcp
+    environment:
+      LWM_MCP_PORT: 8770
+      GN100_HOST: ${GN100_HOST:-192.168.1.100}
+      GN100_PORT: ${GN100_PORT:-8890}
+      MLFLOW_URL: ${MLFLOW_URL:-http://192.168.1.100:5000}
+      GCS_CHECKPOINTS_BUCKET: ${GCS_CHECKPOINTS_BUCKET:-lifetime-llm-checkpoints}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+    ports:
+      - "8770:8770"
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8770/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ============================================================================
+  # Claude Session Sync MCP Server (port 8771)
+  # ============================================================================
+
+  claude-mcp:
+    build:
+      context: ./mcp-servers/claude
+      dockerfile: Dockerfile
+    container_name: dws-claude-mcp
+    environment:
+      CLAUDE_MCP_PORT: 8771
+      SUPABASE_URL: ${SUPABASE_URL:?SUPABASE_URL required}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:?SUPABASE_SERVICE_KEY required}
+      REPO_PATH: /handoff
+      CLAUDE_MCP_PLATFORM: ${CLAUDE_MCP_PLATFORM:-win11}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+    ports:
+      - "8771:8771"
+    volumes:
+      - ./.claude/handoff.md:/handoff/handoff.md:ro
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8771/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -213,7 +306,7 @@ services:
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     depends_on:
       - mcp-hub
-      - supabase-mcp
+      - carbon-api
     networks:
       - dws-hybrid-network
     restart: unless-stopped
