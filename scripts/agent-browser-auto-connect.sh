@@ -143,7 +143,7 @@ main() {
     if [ -n "$extra_port" ]; then
       log_info "Found Chrome debug port ${extra_port} via process scan"
       response=$(curl -s --max-time 1 "http://localhost:${extra_port}/json/version" 2>/dev/null) || true
-      ws_url=$(echo "$response" | grep -o '"webSocketDebuggerUrl":"[^"]*"' | cut -d'"' -f4)
+      ws_url=$(echo "$response" | grep -o '"webSocketDebuggerUrl":"[^"]*"' | cut -d'"' -f4 || true)
     fi
   fi
 
