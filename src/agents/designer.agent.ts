@@ -121,11 +121,12 @@ function classifyComplexity(action: DesignerAction, description: string): {
   engineerReview: boolean;
 } {
   const desc = description.toLowerCase();
+  const riskyPatterns = /api|fetch|database|auth|token|session|route|navigation|form.*submit|delete|mutation/i;
 
   // Safe: purely visual changes
   if (action === 'style-change' || action === 'polish-fix') {
     const visualOnly = /color|font|spacing|padding|margin|border|radius|shadow|opacity|size|width|height|align|text/i;
-    if (visualOnly.test(desc) && !desc.includes('state') && !desc.includes('data')) {
+    if (visualOnly.test(desc) && !desc.includes('state') && !desc.includes('data') && !riskyPatterns.test(desc)) {
       return {
         level: 'safe',
         reason: 'Visual-only change — safe for designer to ship',
@@ -143,7 +144,6 @@ function classifyComplexity(action: DesignerAction, description: string): {
     };
   }
 
-  const riskyPatterns = /api|fetch|database|auth|token|session|route|navigation|form.*submit|delete|mutation/i;
   if (riskyPatterns.test(desc)) {
     return {
       level: 'review-required',
