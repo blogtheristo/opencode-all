@@ -169,10 +169,7 @@ function CarbonTrendsChart({ data }: { data: CarbonTrendData[] }) {
           <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" />
           <Tooltip
             contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-            formatter={(value, name) => [
-              `${value} t CO₂e`,
-              name === 'emissions' ? 'Emissions' : name === 'target' ? 'Target' : 'Savings',
-            ]}
+            formatter={(value, name) => [`${value} t CO₂e`, name as string]}
           />
           <Legend />
           <Line
