@@ -7,8 +7,8 @@ Training orchestrator API: http://GN100_HOST:8890 (docker-compose.training.yml)
 CORS: env-driven explicit origins (DWS_SECURITY_STANDARD.md §13.3.1)
 """
 
-import os
 import logging
+import os
 import uuid
 from datetime import datetime
 from typing import Any
@@ -32,7 +32,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:

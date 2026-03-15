@@ -6,8 +6,8 @@ Port: 8769
 CORS: env-driven explicit origins (DWS_SECURITY_STANDARD.md §13.3.1)
 """
 
-import os
 import logging
+import os
 from datetime import datetime
 from typing import Any
 
@@ -29,7 +29,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:
@@ -83,7 +83,6 @@ def _get_run_client():
             from google.cloud import run_v2
             creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
             if creds_json:
-                import json
                 import tempfile
                 with tempfile.NamedTemporaryFile(
                     mode="w", suffix=".json", delete=False
@@ -295,9 +294,10 @@ def get_metrics(name: str):
     if not GCP_PROJECT_ID:
         raise HTTPException(503, "GCP_PROJECT_ID not configured")
     try:
+        import time
+
         from google.cloud import monitoring_v3
         from google.protobuf.timestamp_pb2 import Timestamp
-        import time
 
         mc = monitoring_v3.MetricServiceClient()
         project_name = f"projects/{GCP_PROJECT_ID}"

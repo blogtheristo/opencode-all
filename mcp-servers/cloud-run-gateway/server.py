@@ -283,7 +283,7 @@ def github_list_issues(
                 "title": i["title"],
                 "state": i["state"],
                 "author": i["user"]["login"],
-                "labels": [l["name"] for l in i.get("labels", [])],
+                "labels": [label["name"] for label in i.get("labels", [])],
                 "created_at": i["created_at"],
                 "url": i["html_url"],
             }
