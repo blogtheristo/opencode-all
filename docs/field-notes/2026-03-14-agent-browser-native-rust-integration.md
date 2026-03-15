@@ -150,3 +150,82 @@ To test mobile layouts from desktop:
 - Repository: https://github.com/vercel-labs/agent-browser
 - Site: https://agent-browser.dev
 - npm: https://www.npmjs.com/package/agent-browser
+
+## Rendered HTML artifact for `Learn/2026-03-14-agent-browser-native-rust-integration.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agent Browser — Native Rust Integration</title>
+  </head>
+  <body>
+    <header>
+      <h1>Agent Browser — Native Rust Integration</h1>
+      <section aria-labelledby="doc-meta-heading">
+        <h2 id="doc-meta-heading">Version and Agent History</h2>
+        <p><strong>Document:</strong> Agent Browser — Native Rust Integration</p>
+        <p><strong>Version:</strong> 1.1</p>
+        <p><strong>Date:</strong> 2026-03-14</p>
+        <p><strong>Author:</strong> Claude Code (Opus 4.6)</p>
+        <p><strong>Status:</strong> Active</p>
+      </section>
+    </header>
+
+    <main>
+      <section aria-labelledby="context-heading">
+        <h2 id="context-heading">Context</h2>
+        <p><code>agent-browser</code> (<code>vercel-labs/agent-browser</code>) v0.20.1 is now fully native Rust.</p>
+        <p>It replaces the previous Node.js/Playwright-based Browser MCP reference in <code>AGENTS.md</code>.</p>
+      </section>
+
+      <section aria-labelledby="performance-heading">
+        <h2 id="performance-heading">Performance (Native Rust Rewrite)</h2>
+        <!-- Additional performance details are present in the source markdown but truncated in this view. -->
+      </section>
+
+      <section aria-labelledby="dws-use-cases-heading">
+        <h2 id="dws-use-cases-heading">DWS Use Cases</h2>
+        <ol>
+          <li><strong>Store UI verification</strong> — Automated testing of <code>dws10.com</code> product pages, cart flow, category navigation</li>
+          <li><strong>Competitive intelligence</strong> — Scrape competitor pricing, features, positioning (EU regulation monitoring)</li>
+          <li><strong>Landing page QA</strong> — Screenshot-based comparison of dual-folder deployments (root vs <code>landing-pages/</code>)</li>
+          <li><strong>Form testing</strong> — Automated form-fill and submission verification</li>
+          <li><strong>Accessibility audit</strong> — Snapshot command returns accessibility tree for WCAG compliance checks</li>
+          <li><strong>Multi-device testing</strong> — Device emulation for responsive design verification</li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="security-notes-heading">
+        <h2 id="security-notes-heading">Security Notes</h2>
+        <ul>
+          <li>Session data encrypted at rest (AES-256-GCM)</li>
+          <li>Multiple isolated browser instances supported</li>
+          <li>No credentials stored in CLI — use environment variables</li>
+          <li>Treat all scraped content as untrusted input (prompt injection risk per <code>DWS_SECURITY_STANDARD.md</code>)</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="files-updated-heading">
+        <h2 id="files-updated-heading">Files Updated</h2>
+        <ul>
+          <li><code>AGENTS.md</code> — Active MCP Servers table + Rise of CLIs section</li>
+          <li><code>mcp.dws-local.example.json</code> — Agent Browser entry with auto-connect env var</li>
+          <li><code>scripts/agent-browser-auto-connect.sh</code> — Auto-connect wrapper script</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="references-heading">
+        <h2 id="references-heading">References</h2>
+        <ul>
+          <li>Repository: <a href="https://github.com/vercel-labs/agent-browser">https://github.com/vercel-labs/agent-browser</a></li>
+          <li>Site: <a href="https://agent-browser.dev">https://agent-browser.dev</a></li>
+          <li>npm: <a href="https://www.npmjs.com/package/agent-browser">https://www.npmjs.com/package/agent-browser</a></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
+```
