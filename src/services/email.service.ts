@@ -30,6 +30,7 @@ import {
   notificationTemplate,
   invoiceTemplate,
   captainPreBriefingTemplate,
+  investorOutreachTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -182,6 +183,24 @@ class EmailService {
       html: captainPreBriefingTemplate(name, industry, seatLevel),
       templateType: 'captain_pre_briefing',
       metadata: { name, industry, seatLevel },
+    });
+  }
+
+  /**
+   * Send an investor outreach email for initial contact.
+   */
+  async sendInvestorOutreach(
+    to: string,
+    name: string,
+    investorType: 'vc' | 'angel' | 'family_office' | 'operator',
+    industry?: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: 'DWS IQ 6 — AI Compliance Platform for EU Industries',
+      html: investorOutreachTemplate(name, investorType, industry),
+      templateType: 'investor_outreach',
+      metadata: { name, investorType, industry },
     });
   }
 

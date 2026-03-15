@@ -483,6 +483,132 @@ export function captainPreBriefingTemplate(
 }
 
 // ============================================================
+// INVESTOR OUTREACH
+// ============================================================
+
+/**
+ * Investor outreach email template for initial contact.
+ * Supports multiple investor profiles (VC, angel, family office).
+ */
+export function investorOutreachTemplate(
+  name: string,
+  investorType: 'vc' | 'angel' | 'family_office' | 'operator',
+  industry?: string,
+): string {
+  const escapedName = escapeHtml(name);
+  const escapedIndustry = industry ? escapeHtml(industry) : 'EU-regulated industries';
+
+  const typeLabels: Record<string, string> = {
+    vc: 'Climate / Industrial VC',
+    angel: 'Operator Angel',
+    family_office: 'Family Office',
+    operator: 'Industry Executive',
+  };
+  const typeLabel = typeLabels[investorType] || 'Investor';
+
+  const body = `
+    <h1 style="margin: 0 0 16px 0; font-size: 24px; font-weight: 700; color: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      DWS IQ 6 — Investor Introduction
+    </h1>
+    <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Hi ${escapedName},
+    </p>
+    <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      I'm Risto Paarni, founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
+      platform for ${escapedIndustry}. We have €7k MRR, 5 paying customers with 100% retention,
+      and are raising a SAFE round at a €3.8M cap.
+    </p>
+
+    <!-- Key metrics card -->
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #1e293b; border-radius: 8px; border: 1px solid #374151; margin-bottom: 24px;">
+      <tr>
+        <td style="padding: 20px 24px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="padding-bottom: 12px; border-bottom: 1px solid #374151;">
+                <span style="font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Investor Profile</span><br>
+                <span style="font-size: 16px; font-weight: 600; color: #60a5fa;">${escapeHtml(typeLabel)}</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 12px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td style="width: 33%; text-align: center; padding: 8px 0;">
+                      <span style="font-size: 24px; font-weight: 700; color: #f9fafb;">€7k</span><br>
+                      <span style="font-size: 11px; color: #9ca3af; text-transform: uppercase;">MRR</span>
+                    </td>
+                    <td style="width: 33%; text-align: center; padding: 8px 0; border-left: 1px solid #374151; border-right: 1px solid #374151;">
+                      <span style="font-size: 24px; font-weight: 700; color: #f9fafb;">100%</span><br>
+                      <span style="font-size: 11px; color: #9ca3af; text-transform: uppercase;">Retention</span>
+                    </td>
+                    <td style="width: 33%; text-align: center; padding: 8px 0;">
+                      <span style="font-size: 24px; font-weight: 700; color: #f9fafb;">20</span><br>
+                      <span style="font-size: 11px; color: #9ca3af; text-transform: uppercase;">Industries</span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <h2 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 600; color: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Why Now
+    </h2>
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 24px;">
+      <tr>
+        <td style="padding: 10px 16px; background-color: #1e293b; border-radius: 8px; border-left: 3px solid #60a5fa; margin-bottom: 8px;">
+          <p style="margin: 0; font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <strong style="color: #f9fafb;">CSRD + Fit for 55</strong> mandate compliance spend for 50,000+ EU companies
+          </p>
+        </td>
+      </tr>
+      <tr><td style="height: 6px;"></td></tr>
+      <tr>
+        <td style="padding: 10px 16px; background-color: #1e293b; border-radius: 8px; border-left: 3px solid #60a5fa;">
+          <p style="margin: 0; font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <strong style="color: #f9fafb;">KYA Standard</strong> creates structural switching costs (agent governance, not just SaaS)
+          </p>
+        </td>
+      </tr>
+      <tr><td style="height: 6px;"></td></tr>
+      <tr>
+        <td style="padding: 10px 16px; background-color: #1e293b; border-radius: 8px; border-left: 3px solid #60a5fa;">
+          <p style="margin: 0; font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <strong style="color: #f9fafb;">Alpha-Share</strong> (7.5% of verified efficiency gains) scales revenue with customer success
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <!-- CTA -->
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+      <tr>
+        <td align="center" style="background-color: #2563eb; border-radius: 8px;">
+          <a href="https://dws10.com/investor-relations/" target="_blank" class="btn" style="display: inline-block; padding: 14px 32px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            View Investor Materials
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin: 0 0 16px 0; font-size: 14px; color: #d1d5db; line-height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Happy to send the full deck or schedule a 30-minute call at your convenience.
+    </p>
+
+    <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Risto Anton Paarni &middot; CEO, Lifetime Oy &middot; Helsinki, Finland<br>
+      <a href="https://dws10.com" style="color: #60a5fa; text-decoration: none;">dws10.com</a> &middot;
+      <a href="https://www.crunchbase.com/organization/lifetime-oy" style="color: #60a5fa; text-decoration: none;">Crunchbase</a>
+    </p>
+  `;
+  return baseLayout('DWS IQ 6 — Investor Introduction', body);
+}
+
+// ============================================================
 // UTILITIES
 // ============================================================
 

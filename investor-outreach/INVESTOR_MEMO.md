@@ -3,7 +3,7 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 2.0
+**Document Version:** 2.1
 **Last Updated:** March 15, 2026  
 **Status:** Active Fundraising  
 **Platform Status:** Public Cloud Version V1 - Production Ready
@@ -142,6 +142,41 @@ Timeframe:                 ~2 years (2024→2026)
    - Series B: ~20-25% dilution
    - Series C+: ~15-20% dilution per round
    - Employee option pool: ~10-15% over time
+
+---
+
+## Proprietary Moat: KYA Standard & Alpha-Share Revenue
+
+### KYA Standard — Know Your Agent / Know Your Architecture
+
+DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework unique in the market:
+
+- **Know Your Agent (KYA-S):** Hardware-attested agent identity, capability gating, and forensic audit trails. Every AI agent deployed through DWS IQ 6 carries a cryptographic identity, operates within explicit capability bounds, and produces court-defensible logs. This is the security layer CISOs require.
+- **Know Your Architecture (KYA-O):** Financial optimization and agent self-optimization governance. Agents iteratively improve their own models under safety bounds, delivering **11–30% efficiency gains** benchmarked from real autoresearch runs. This is the ROI layer CFOs require.
+
+**Why this matters to investors:** KYA is not a feature — it is a *standard*. Customers build compliance workflows on top of it. Switching costs are structural, not contractual. No competitor has an equivalent governance framework for autonomous agent swarms across EU-regulated industries.
+
+### Alpha-Share Revenue Model
+
+DWS IQ 6 captures value through **Alpha-Share** — a 7.5% flat revenue share on measurable efficiency gains delivered by agent swarms:
+
+| Component | Mechanism |
+|-----------|-----------|
+| **Base SaaS** | Platform subscription (MRR) |
+| **Alpha-Share** | 7.5% of verified efficiency gains (energy savings, compliance cost reduction, carbon credit arbitrage) |
+| **Verification Credit Rebate** | Customer receives credit if gains fall below guarantee threshold |
+
+**Financial impact:** Alpha-Share creates a second revenue stream that scales with customer success. As agents optimize deeper (energy OPEX, tender wins, carbon penalties avoided), DWS revenue grows without additional sales effort. Projected **8–22x ROI** within 18 months in heavy-industry deployments.
+
+### D&O Insurance Positioning
+
+Agent-governed decisions create personal liability exposure for directors and officers. DWS IQ 6 addresses this directly:
+
+- **Audit trail completeness:** Every agent decision is logged with reasoning lineage (Firehorse forensic telemetry), making D&O insurance underwriting simpler and premiums lower.
+- **Parametric insurance integration:** KYA trust scores can trigger automatic coverage adjustments — agents with higher trust scores attract lower premiums.
+- **Liability containment:** The KYA Standard's capability gating ensures agents cannot exceed their authorized scope, reducing directors' exposure to "rogue AI" claims.
+
+**Investor relevance:** D&O insurance is a €2B+ European market. DWS IQ 6 positions as the compliance infrastructure that makes AI-driven operations insurable — a prerequisite for enterprise adoption at scale.
 
 ---
 
@@ -316,7 +351,7 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ---
 
 **Document Control:**
-- Version: 2.0
+- Version: 2.1
 - Last Updated: March 15, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
