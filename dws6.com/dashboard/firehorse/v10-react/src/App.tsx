@@ -3,25 +3,21 @@
  * DWS IQ Climate Intelligence Dashboard with routing and AI Assistant
  */
 
-import React, { useState, useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
-import { ProfileMenu } from './components/ProfileMenu';
-import { HamburgerMenu } from './components/HamburgerMenu';
-import { OnboardingWizard } from './pages/OnboardingWizard';
-import { useAuth } from './hooks/useAuth';
-import { LoginPage } from './pages/LoginPage';
-import { ResetPasswordPage } from './pages/ResetPasswordPage';
-import { DashboardPage } from './pages/DashboardPage';
-import { SettingsPage } from './pages/SettingsPage';
-import { CarbonTrackingPage } from './pages/CarbonTrackingPage';
-import { ReportViewerPage } from './pages/ReportViewerPage';
-import { TemplateEditorPage } from './pages/TemplateEditorPage';
-import { BillingPage } from './pages/BillingPage';
-import { HealthPage } from './pages/HealthPage';
-import { CommandPalette } from './components/CommandPalette';
+import { useEffect, useState } from 'react';
+import { MetricsHeader } from './components/MetricsHeader';
+import { ProjectCard } from './components/ProjectCard';
+import { ClimateAssistant } from './components/ClimateAssistant';
+import { InsightsDashboard } from './components/InsightsDashboard';
+import { fetchProjects } from './lib/supabase';
+import type { Project } from './types/dashboard';
 
-type SidePanel = 'chat' | 'meeting' | 'repo' | null;
+type ViewMode = 'projects' | 'insights';
+
+function App() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showChat, setShowChat] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('projects');
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -131,135 +127,96 @@ function DashboardWithPanels() {
                 </div>
               </div>
             </div>
+
+            <div className="flex items-center gap-4">
+              {/* View Mode Tabs */}
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => setViewMode('projects')}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'projects'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  Projects
+                </button>
+                <button
+                  onClick={() => setViewMode('insights')}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    viewMode === 'insights'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  Insights
+                </button>
+              </div>
+
+              {/* AI Assistant Toggle */}
+              <button
+                onClick={() => setShowChat(!showChat)}
+                className="btn-primary"
+              >
+                {showChat ? 'Hide Assistant' : 'AI Assistant'}
+              </button>
+            </div>
           </div>
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <DashboardPage user={user} sidePanel={sidePanel} onSetSidePanel={setSidePanel} />
-      </main>
-      <footer className="mt-12 py-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-gray-700">Documentation</a>
-              <a href="#" className="hover:text-gray-700">API</a>
-              <a href="#" className="hover:text-gray-700">Support</a>
-            </div>
+        {/* Metrics */}
+        <MetricsHeader />
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Content Section */}
+          <div className={`${showChat ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+            {viewMode === 'projects' ? (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    Projects ({projects.length})
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+                      <option>All Status</option>
+                      <option>Green</option>
+                      <option>Amber</option>
+                      <option>Red</option>
+                    </select>
+                  </div>
+                </div>
+
+                {loading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="card animate-pulse">
+                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-20 bg-gray-200 rounded mb-4"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : projects.length === 0 ? (
+                  <div className="card text-center py-12">
+                    <p className="text-gray-500 mb-4">No projects found</p>
+                    <p className="text-sm text-gray-400">
+                      Connect to Supabase to view your portfolio
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {projects.map(project => (
+                      <ProjectCard key={project.id} project={project} />
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <InsightsDashboard />
+            )}
           </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { user, signOut } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isAgentsView = location.pathname === '/agents';
-  const isHealthView = location.pathname === '/health';
-  const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
-
-  const handleNavigate = (view: string) => {
-    switch (view) {
-      case 'dashboard':
-        navigate('/');
-        setSidePanel(null);
-        break;
-      case 'agents':
-        navigate('/agents');
-        break;
-      case 'health':
-        navigate('/health');
-        break;
-      case 'reports':
-        navigate('/reports');
-        break;
-      case 'templates':
-        navigate('/templates');
-        break;
-      case 'settings':
-        navigate('/settings');
-        break;
-      case 'billing':
-        navigate('/billing');
-        break;
-      default:
-        break;
-    }
-  };
-
-  const isDashboardHome = location.pathname === '/';
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex items-center justify-between gap-4">
-            <div
-              className="flex items-center gap-3 min-w-0 cursor-pointer"
-              onClick={() => navigate('/')}
-              onKeyDown={(e) => e.key === 'Enter' && navigate('/')}
-              role="button"
-              tabIndex={0}
-              aria-label="Go to dashboard"
-            >
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center shrink-0">
-                <span className="text-white font-bold text-lg">D</span>
-              </div>
-              <div className="min-w-0">
-                <h1 className="text-xl font-bold text-gray-900 leading-tight">DWS IQ Dashboard</h1>
-                <p className="text-xs text-gray-500 leading-tight">Climate Intelligence · V10</p>
-              </div>
-            </div>
-
-            <div className="hidden md:flex items-center gap-2">
-              <button
-                onClick={() => navigate(isAgentsView ? '/' : '/agents')}
-                className={isAgentsView ? 'btn-primary' : 'btn-secondary'}
-              >
-                Agent Monitor
-              </button>
-              <button
-                onClick={() => navigate(isHealthView ? '/' : '/health')}
-                className={isHealthView ? 'btn-primary' : 'btn-secondary'}
-              >
-                Health
-              </button>
-              {isDashboardHome && (
-                <>
-                  <button
-                    onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')}
-                    className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}
-                  >
-                    AI Assistant
-                  </button>
-                  <button
-                    onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')}
-                    className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}
-                  >
-                    Meeting
-                  </button>
-                  <button
-                    onClick={() => setSidePanel(sidePanel === 'repo' ? null : 'repo')}
-                    className={sidePanel === 'repo' ? 'btn-primary' : 'btn-secondary'}
-                    title="Claude Code repo engineering health & gap analysis"
-                  >
-                    Repo Health
-                  </button>
-                </>
-              )}
-            </div>
-
-            <div className="flex items-center gap-2 shrink-0">
-              <div className="hidden md:block">
-                <ProfileMenu
-                  user={user}
-                  onSignOut={signOut}
-                  onNavigate={handleNavigate}
-                />
-              </div>
 
               <HamburgerMenu
                 user={user}
