@@ -186,10 +186,12 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
+- **Transport priority:** Amazon SES (SMTP) is **primary**, Resend SDK is **fallback**. Both use the same verified sender.
 - **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
+- **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES→Resend transport cascade).
 
 ## Tech Stack
 
