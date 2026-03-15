@@ -16,7 +16,7 @@
 # How it works:
 #   1. Scans common Chrome remote-debugging ports (9222-9229)
 #   2. Queries /json/version on each to find an active Chrome instance
-#   3. Passes --cdp-url ws://localhost:<port> to agent-browser
+#   3. Passes --cdp-url <webSocketDebuggerUrl> from /json/version (includes host + path) to agent-browser
 #
 # If no running Chrome is found, falls back to launching a new instance.
 
