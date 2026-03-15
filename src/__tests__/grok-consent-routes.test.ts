@@ -440,18 +440,33 @@ describe('Grok Consent Routes', () => {
       });
       vi.mocked(grokConsentService.logInferenceEvent).mockResolvedValue(undefined);
 
+      // Stub the underlying fetch call so no real network request is made.
+      const fetchSpy = vi
+        .spyOn(globalThis as any, 'fetch')
+        .mockResolvedValue({
+          ok: false,
+          status: 401,
+          statusText: 'Unauthorized',
+          headers: { get: () => null },
+          json: async () => ({ error: { message: 'Unauthorized' } }),
+          text: async () => 'Unauthorized',
+        } as any);
+
       const client = new LLMClient(grokConfig);
 
-      // The xAI API call itself will fail (no real API key / network) — we only
+      // The xAI API call itself will "fail" via our stubbed fetch — we only
       // care that the consent gate was passed, not that the API call succeeded.
       let thrownError: Error | undefined;
       try {
         await client.chat([{ role: 'user', content: 'Hello' }], undefined, { orgId: ORG_ID });
       } catch (err) {
         thrownError = err as Error;
+      } finally {
+        // Ensure fetch is restored for any subsequent tests.
+        fetchSpy.mockRestore();
       }
 
-      // An error must have been thrown (network / auth failure from the API)
+      // An error must have been thrown (API/network failure from the stubbed call)
       expect(thrownError).toBeDefined();
       // The error must NOT be a consent block — it should be an API/network error
       expect(thrownError?.message).not.toMatch(/Grok inference blocked/i);
