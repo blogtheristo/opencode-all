@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 15.02.2026 | Changes: Alkuperäinen DWS Sovereignty Standard — EU-datan suvereniteetti, NIS2/EU AI Act/GDPR/Cybersecurity Act -vaatimustenmukaisuus, MVP (Supabase) → V1 (EU-suvereeni) migraatiopolku, TK4-tutkimuskysymyksen vastaus
+  - Version: 1.1 | Tool: Claude Code | Session: claude/amazon-ses-google-drive | Date: 10.03.2026 | Changes: V1 Aiven plan decision — Developer + Startup; pricing update
 
 Session Links & References:
   - Claude Code (claude/nordic-sales-strategy-1p5VB): https://github.com/blogtheristo/dws6/commits/claude/nordic-sales-strategy-1p5VB
@@ -14,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 15.02.2026
-  - Last Modified: 15.02.2026
+  - Last Modified: 10.03.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
@@ -266,10 +267,12 @@ EU-tuomioistuimen Schrems II -päätös (C-311/18) kumosi Privacy Shield -sopimu
 | **FISA 702 -altistuminen** | ✅ EI ALTISTUMISTA | Ei US-yritys |
 | **EU-dataresudenssitakuu** | ✅ Oikeudellisesti pätevä | ETA-hosting, siirrot vaativat asiakkaan hyväksynnän |
 | **Multi-cloud** | ✅ AWS, GCP, Azure, UpCloud | Joustavuus infra-valinnassa |
-| **Hinta** | ⚠️ Korkeampi | Startup ~$100/kk, Business ~$300-700/kk |
+| **Hinta** | ✅ Kilpailukykyinen | Developer $5/kk, Startup $75/kk |
 | **BaaS-ominaisuudet** | ❌ Puuttuu | Ei Auth, Storage, Realtime, auto-API |
 
 **Tuomio:** V1-suositus tietokantakerrokselle. Vaatii lisäkomponentteja (Keycloak, MinIO, WebSocket).
+
+**V1 plan decision (10.03.2026):** Aiven **Developer** ($5/mo) + **Startup** ($75/mo). Developer for dev/staging or lighter workloads; Startup for production (99.99% SLA, HA options). Total ~$80/mo for V1 database layer.
 
 ---
 
@@ -288,8 +291,11 @@ EU-tuomioistuimen Schrems II -päätös (C-311/18) kumosi Privacy Shield -sopimu
 
 ### Suositus: primääri ja varasuunnitelma
 
+**V1 Aiven plans:** Developer ($5/mo) + Startup ($75/mo) — decision 10.03.2026.
+
 ```
 PRIMÄÄRI:     Aiven PostgreSQL (Helsinki, europe-north1)
+              → Developer (dev/staging) + Startup (production)
               → Suomalainen yritys, ISO 27001, pgvector, multi-cloud
 
 VARASUUNN.:   UpCloud Managed DB (Helsinki)

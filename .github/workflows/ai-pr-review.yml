@@ -123,9 +123,11 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: ${{ secrets.GOOGLE_API_KEY != '' }}
+        if: ${{ secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '' }}
         env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          # Prefer GOOGLE_AI_API_KEY (backwards-compatible name used across the repo);
+          # fall back to GOOGLE_API_KEY for environments that only have the shorter name.
+          GEMINI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY || secrets.GOOGLE_API_KEY }}
           # Pass PR metadata via env to avoid single-quote shell injection
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY_RAW: ${{ github.event.pull_request.body }}
@@ -240,7 +242,7 @@ IMPORTANT RULES:
 
           # Call Gemini API
           RESPONSE=$(curl -s --max-time 90 -X POST \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GOOGLE_API_KEY}" \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD" \
             | jq -r '.candidates[0].content.parts[0].text // "Gemini review unavailable"')
@@ -257,8 +259,8 @@ IMPORTANT RULES:
       # ──────────────────────────────────────────────
       # STEP 2b: Grok Fast Review (xAI — alternative gate)
       # Uses grok-3-fast via OpenAI-compatible xAI API.
-      # Acts as tiebreaker / Gemini fallback when GOOGLE_API_KEY
-      # is absent. Any REQUEST_CHANGES from any reviewer blocks merge.
+      # Acts as tiebreaker / Gemini fallback when neither GOOGLE_AI_API_KEY
+      # nor GOOGLE_API_KEY is configured. Any REQUEST_CHANGES from any reviewer blocks merge.
       # ──────────────────────────────────────────────
       - name: Grok Fast Review
         id: grok-review
@@ -374,7 +376,7 @@ FORMAT EXACTLY AS:
             } else if (gate === 'grok-gate') {
               body += '> Dual-model review: Claude (sanity) + Grok Fast (HIL gate — Gemini unavailable)\n\n';
             } else if (gate === 'claude-only') {
-              body += '> Claude review only (configure `GOOGLE_API_KEY` or `XAI_API_KEY` to enable HIL gate)\n\n';
+              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` (or `GOOGLE_API_KEY`) or `XAI_API_KEY` to enable HIL gate)\n\n';
             } else {
               body += '> No AI review available (configure API key secrets)\n\n';
             }

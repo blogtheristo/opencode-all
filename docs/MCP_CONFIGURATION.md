@@ -1,495 +1,490 @@
 # DWS IQ 6 - MCP Configuration Guide
 
-Complete setup instructions for Model Context Protocol (MCP) servers used by Claude Code for AI-assisted development.
+Practical setup guide for Model Context Protocol (MCP) servers used in `dws6`.
 
-**Last Updated:** February 5, 2026
-**Estimated Time:** 15-20 minutes
-
----
-
-## Table of Contents
-
-1. [Overview](#1-overview)
-2. [Prerequisites](#2-prerequisites)
-3. [Quick Start](#3-quick-start)
-4. [Supabase MCP Server](#4-supabase-mcp-server)
-5. [DWS Supabase API (Docker)](#5-dws-supabase-api-docker)
-6. [Upstash Redis MCP](#6-upstash-redis-mcp)
-7. [MCP Hub](#7-mcp-hub)
-8. [Security Best Practices](#8-security-best-practices)
-9. [Troubleshooting](#9-troubleshooting)
+**Last Updated:** March 11, 2026  
+**Estimated Time:** 10-15 minutes
 
 ---
 
 ## 1. Overview
 
-### What is MCP?
+This repository now uses a **two-tier MCP model**:
 
-Model Context Protocol (MCP) is a standard for connecting AI assistants like Claude to external tools and data sources. In DWS6, we use MCP servers to give Claude Code access to:
+1. **Official Docker catalog MCPs**: the default layer for day-to-day development.
+2. **DWS-local services**: optional repo-specific integrations that run on localhost or inside the project Docker stack.
 
-- **Supabase** - Database queries, authentication, real-time subscriptions
-- **Redis** - Caching, rate limiting, token blacklisting, session storage
-- **Custom APIs** - DWS-specific tools running in Docker
+This split matters because the official Docker catalog servers are standard MCP servers, while some DWS-local integrations are local wrappers or internal services. They should not be documented as if they were the same thing.
 
-### Architecture
+### Recommended default MCPs
 
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   Claude Code   │────▶│   MCP Servers    │────▶│  External APIs  │
-└─────────────────┘     └──────────────────┘     └─────────────────┘
-                              │
-                              ├── Supabase MCP (@supabase/mcp-server-supabase)
-                              ├── Upstash Redis MCP (@upstash/redis-mcp)
-                              ├── DWS Supabase API (Docker on :8766)
-                              └── MCP Hub (Coordination on :8765)
-```
+The default `dws6` stack is based on the three official Docker catalog servers already identified in Docker MCP Search:
 
----
+| Server | Tools | Best use in `dws6` |
+|--------|-------|--------------------|
+| `GitHub Official` | 40 | PRs, issues, workflow status, code search, repository automation |
+| `Docker Hub` | 13 | Image discovery, repository/tag inspection, Docker Hardened Images |
+| `Cloud Run` | 8 | GCP/Cloud Run deployment and debugging workflows |
 
-## 2. Prerequisites
+### Optional DWS-local services
 
-Before starting, ensure you have:
+These are still useful, but they are **not** the default public MCP layer:
 
-- [ ] Claude Code installed and configured
-- [ ] Node.js 18+ installed
-- [ ] Docker Desktop running (for DWS Supabase API)
-- [ ] A Supabase account with project credentials
-- [ ] An Upstash account (free tier works)
+| Service | Type | Purpose |
+|---------|------|---------|
+| `DWS Carbon API` | local REST wrapper | Carbon/compliance query, insert, and activity logging via local container |
+| `Supabase Official (Docker)` | dockerized stdio MCP | Official Supabase MCP tools via Docker image |
+| `Redis MCP` | external/local MCP | Cache and session inspection |
+| `MCP Hub` | local DWS service | Multi-agent coordination and orchestration |
 
 ---
 
-## 3. Quick Start
+## 2. Quick Start
 
-### 3.1 Copy the Template
+### 2.1 Copy the template
 
 ```bash
 # From repo root
 cp .mcp.json.example .mcp.json
 ```
 
-### 3.2 Fill in Credentials
+If you want the repo-specific local services instead of the default Docker catalog set, start from:
 
-Edit `.mcp.json` with your actual credentials:
+```bash
+cp mcp.dws-local.example.json .mcp.json
+```
+
+### 2.2 Fill in credentials
+
+Edit `.mcp.json` and replace the placeholder values:
+
+- `GITHUB_PERSONAL_ACCESS_TOKEN`
+- `HUB_PAT_TOKEN`
+- Docker Hub username
+- Google Cloud application default credentials path
+
+### 2.3 Verify `.mcp.json` is local-only
+
+```bash
+git check-ignore .mcp.json
+```
+
+Expected result: `.mcp.json` should be ignored by Git.
+
+---
+
+## 3. Tier 1: Official Docker Catalog MCPs
+
+These are the MCP servers we recommend enabling by default in `dws6`.
+
+### 3.1 GitHub Official
+
+**Why it matters here**
+
+This repo already relies heavily on GitHub-centric automation:
+
+- AI PR review
+- PR auto-merge
+- weekly reporting via issues and PR queries
+- CI and workflow monitoring
+
+Use `GitHub Official` when you want the agent to work directly with GitHub objects instead of relying on browser/manual review steps.
+
+**Template entry**
 
 ```json
 {
   "mcpServers": {
-    "Supabase MCP": {
+    "GitHub Official": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key-here",
-        "SUPABASE_ANON_KEY": "your-anon-key-here"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_personal_access_token_here"
       }
-    },
-    "Upstash Redis": {
+    }
+  }
+}
+```
+
+**Credential**
+
+- Personal access token with the scopes required for the GitHub operations you intend to run
+
+### 3.2 Docker Hub
+
+**Why it matters here**
+
+Use `Docker Hub` when you need:
+
+- image discovery
+- repository and tag inspection
+- Docker Hardened Images lookup
+- Docker Hub namespace/repository management
+
+This is useful for supply-chain work, but it is **not** currently the primary deployment path for `dws6`.
+
+**Template entry**
+
+```json
+{
+  "mcpServers": {
+    "Docker Hub": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "HUB_PAT_TOKEN",
+        "mcp/dockerhub",
+        "--transport=stdio",
+        "--username=your-dockerhub-username"
+      ],
       "env": {
-        "UPSTASH_REDIS_REST_URL": "https://your-redis.upstash.io",
-        "UPSTASH_REDIS_REST_TOKEN": "your-token-here"
+        "HUB_PAT_TOKEN": "your_docker_hub_pat_here"
       }
     }
   }
 }
 ```
 
-### 3.3 Verify Configuration
+**Credentials**
 
-```bash
-# Check file is gitignored
-git check-ignore .mcp.json  # Should output: .mcp.json
+- Docker Hub username
+- Docker Hub personal access token
 
-# Verify Docker container (if using DWS Supabase API)
-docker ps --filter "name=dws-supabase-mcp"
-```
+### 3.3 Cloud Run
 
----
+**Why it matters here**
 
-## 4. Supabase MCP Server
+Use `Cloud Run` when you are actively deploying or debugging GCP-hosted services. This is useful for DWS cloud experimentation and future hosted MCP work, even though the repo’s main deployment workflow currently targets Scaleway.
 
-The official Supabase MCP server provides Claude with direct database access.
-
-### 4.1 Configuration
+**Template entry**
 
 ```json
 {
-  "Supabase MCP": {
-    "command": "npx",
-    "args": ["-y", "@supabase/mcp-server-supabase@latest"],
-    "env": {
-      "SUPABASE_URL": "https://your-project.supabase.co",
-      "SUPABASE_SERVICE_KEY": "your-service-role-key",
-      "SUPABASE_ANON_KEY": "your-anon-key"
+  "mcpServers": {
+    "Cloud Run": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GOOGLE_APPLICATION_CREDENTIALS",
+        "-v",
+        "C:/Users/you/.config/gcloud:/gcloud",
+        "mcp/cloud-run-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/gcloud/application_default_credentials.json"
+      }
     }
   }
 }
 ```
 
-### 4.2 Getting Credentials
+**Credential**
 
-1. Go to [Supabase Dashboard](https://supabase.com/dashboard)
-2. Select your project
-3. Go to **Settings** → **API**
-4. Copy:
-   - **Project URL** → `SUPABASE_URL`
-   - **service_role key** → `SUPABASE_SERVICE_KEY` (keep secret!)
-   - **anon/public key** → `SUPABASE_ANON_KEY`
+- Local Google Cloud application default credentials file mounted into the container
 
-### 4.3 Capabilities
+### 3.4 Docker Desktop note
 
-With Supabase MCP, Claude can:
-- Query and insert data into tables
-- Manage database schema
-- Handle authentication operations
-- Access real-time subscriptions
+If you are on Docker Desktop `4.43+`, the easiest path is to add these servers through the MCP Toolkit / catalog UI and then let Docker Desktop generate the config for you.
+
+Use the committed `.mcp.json.example` as:
+
+- a repo-level starting point
+- a fallback when you want explicit file-based config
+- a reference for worktree copies
 
 ---
 
-## 5. DWS Supabase API (Docker)
+## 4. Tier 2: Optional DWS-Local Services
 
-A custom REST API wrapper providing additional DWS-specific tools.
+These services are repo-specific and should be documented separately from the official Docker catalog MCPs.
 
-### 5.1 Configuration
+Use the committed example file `mcp.dws-local.example.json` when you want this local stack as your starting point.
+
+### 4.1 DWS Carbon API
+
+This is a **local DWS wrapper** running on `localhost:8766`. It is useful for local carbon/compliance and table operations, but it is not the same thing as the official Supabase MCP.
 
 ```json
 {
-  "DWS Supabase API": {
-    "_comment": "Custom REST API wrapper running in Docker on port 8766",
-    "_type": "rest-api",
-    "_container": "dws-supabase-mcp",
-    "_endpoints": {
-      "query": "POST http://localhost:8766/tools/query",
-      "insert": "POST http://localhost:8766/tools/insert",
-      "log_activity": "POST http://localhost:8766/tools/log_agent_activity",
-      "health": "GET http://localhost:8766/health"
+  "mcpServers": {
+    "DWS Carbon API": {
+      "_type": "rest-api",
+      "_container": "dws-carbon-api",
+      "_endpoints": {
+        "query": "POST http://localhost:8766/tools/query",
+        "insert": "POST http://localhost:8766/tools/insert",
+        "log_activity": "POST http://localhost:8766/tools/log_agent_activity",
+        "health": "GET http://localhost:8766/health"
+      }
     }
   }
 }
 ```
 
-### 5.2 Starting the Container
+**Live OpenAPI contract observed on Mar 11, 2026:**
 
-```bash
-# Pull and run the container
-docker run -d \
-  --name dws-supabase-mcp \
-  -p 8766:8766 \
-  -e SUPABASE_URL="https://your-project.supabase.co" \
-  -e SUPABASE_SERVICE_KEY="your-service-key" \
-  dws6-supabase-mcp:latest
+- `POST /tools/query`
+ - body: `table` required
+ - optional: `select`, `filters`, `limit`
+- `POST /tools/insert`
+ - body: `table` required
+ - body: `data` required
+- `POST /tools/log_agent_activity`
+ - body: `agent_name`, `task`, `status`
 
-# Verify it's running
-docker ps --filter "name=dws-supabase-mcp"
-
-# Check health
-curl http://localhost:8766/health
-```
-
-### 5.3 Available Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/tools/query` | POST | Execute database queries |
-| `/tools/insert` | POST | Insert data into tables |
-| `/tools/log_agent_activity` | POST | Log AI agent activities |
-| `/health` | GET | Health check |
-
----
-
-## 6. Upstash Redis MCP
-
-Serverless Redis for caching, rate limiting, and session management.
-
-### 6.1 Why Upstash?
-
-- **Free tier**: 256MB storage, 500K commands/month
-- **Serverless**: No infrastructure to manage
-- **REST API**: Works through HTTP (no TCP connection needed)
-- **Global**: Edge-optimized with low latency
-
-### 6.2 Configuration
+Example query payload:
 
 ```json
 {
-  "Upstash Redis": {
-    "command": "npx",
-    "args": ["-y", "@upstash/redis-mcp@latest"],
-    "env": {
-      "UPSTASH_REDIS_REST_URL": "https://your-redis.upstash.io",
-      "UPSTASH_REDIS_REST_TOKEN": "your-token-here"
+  "table": "projects",
+  "select": "*",
+  "limit": 10
+}
+```
+
+Example insert payload:
+
+```json
+{
+  "table": "projects",
+  "data": {
+    "name": "Example Project",
+    "status": "green"
+  }
+}
+```
+
+**Important:** This local API is **not** a raw SQL endpoint. Sending a body like `{ "query": "CREATE TABLE ..." }` will fail validation because `/tools/query` expects `table`, not SQL text.
+
+For schema migrations such as `supabase/migrations/042_projects_dashboard.sql`, use:
+
+1. Supabase SQL Editor
+2. a migration runner that supports raw SQL
+
+Use the local API for verification, reads, inserts, and logging after the schema exists.
+
+Start it with:
+
+```bash
+docker-compose -f docker-compose.hybrid.yml up -d carbon-api
+```
+
+### 4.2 Supabase Official (Docker)
+
+Use this when you want the **real Supabase MCP** in Docker via stdio transport.
+
+Build the local image:
+
+```bash
+docker build -t dws6-supabase-official-mcp:latest ./mcp-servers/supabase-official
+```
+
+Example MCP config:
+
+```json
+{
+  "mcpServers": {
+    "Supabase Official (Docker)": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "SUPABASE_ACCESS_TOKEN",
+        "-e",
+        "SUPABASE_PROJECT_REF",
+        "dws6-supabase-official-mcp:latest"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
+        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
+      }
     }
   }
 }
 ```
 
-### 6.3 Getting Credentials
+Use `SUPABASE_ACCESS_TOKEN` (personal access token) and `SUPABASE_PROJECT_REF` for the official server.
 
-1. Go to [Upstash Console](https://console.upstash.com/)
-2. Create a new Redis database (or use existing)
-3. Select **Global** for best latency
-4. Copy:
-   - **REST URL** → `UPSTASH_REDIS_REST_URL`
-   - **REST Token** → `UPSTASH_REDIS_REST_TOKEN`
+### 4.3 Redis MCP
 
-### 6.4 Use Cases in DWS6
-
-| Use Case | Key Pattern | TTL |
-|----------|-------------|-----|
-| Token blacklist | `blacklist:token:{jti}` | Token expiry |
-| Rate limiting | `ratelimit:{ip}:{endpoint}` | 1 minute |
-| Session cache | `session:{userId}` | 7 days |
-| API response cache | `cache:{endpoint}:{hash}` | 5 minutes |
-
-### 6.5 SDK Integration
-
-For direct integration in your application code (beyond MCP), Upstash provides official SDKs:
-
-#### TypeScript/JavaScript SDK
-
-```bash
-npm install @upstash/redis
-```
-
-```typescript
-import { Redis } from '@upstash/redis';
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
-// Basic operations
-await redis.set('key', 'value');
-const data = await redis.get('key');
-
-// Sorted sets, lists, hashes
-await redis.zadd('scores', { score: 1, member: 'team1' });
-await redis.lpush('queue', 'item');
-await redis.hset('user:1', { name: 'joe', role: 'admin' });
-```
-
-**Benefits over ioredis:**
-- Connectionless (HTTP/REST) - no TCP overhead
-- Works in Cloudflare Workers, Vercel Edge, Lambda
-- No connection pooling needed
-
-Reference: https://github.com/upstash/redis-js
-
-#### Python SDK
-
-```bash
-pip install upstash-redis
-```
-
-```python
-from upstash_redis import Redis
-
-# Initialize
-redis = Redis(url="YOUR_URL", token="YOUR_TOKEN")
-# Or from environment
-redis = Redis.from_env()
-
-# Basic operations
-redis.set("key", "value")
-result = redis.get("key")
-
-# Async support
-from upstash_redis.asyncio import Redis as AsyncRedis
-
-async def main():
-    redis = AsyncRedis.from_env()
-    await redis.set("a", "b")
-    value = await redis.get("a")
-
-# Pipelines (non-atomic batching)
-pipeline = redis.pipeline()
-pipeline.set("foo", 1).incr("foo").get("foo")
-results = pipeline.exec()  # [True, 2, '2']
-
-# Transactions (atomic)
-transaction = redis.multi()
-transaction.set("foo", 1).incr("foo")
-results = transaction.exec()
-```
-
-**Python 3.8+ required. Use Cases in Firehorse Automation:**
-- LinkedIn outreach rate limiting
-- Session state caching
-- Queue management for batch operations
-
-Reference: https://github.com/upstash/redis-py
-
-### 6.6 Upstash Redis Search (Coming 2026)
-
-Upstash is launching Redis Search in early 2026 with full-text search capabilities:
-
-**Features:**
-- Type-safe schema builder (Zod-like API)
-- Five query operators: `$smart`, `$eq`, `$phrase`, `$fuzzy`, `$regex`
-- Field boosting for relevance tuning
-- Native SDK integration
-
-**Example Schema:**
-```typescript
-const schema = s.object({
-  name: s.string(),
-  sku: s.string().noTokenize(),    // Preserve exact codes
-  brand: s.string().noStem(),       // Preserve proper nouns
-  price: s.number(),
-});
-```
-
-**Query Operators:**
-| Operator | Description | Use Case |
-|----------|-------------|----------|
-| `$smart` | Intelligent auto-matching | General search |
-| `$eq` | Exact equality | IDs, codes |
-| `$phrase` | Adjacent words with slop | Quoted searches |
-| `$fuzzy` | Typo-tolerant | User input |
-| `$regex` | Pattern matching | Structured data |
-
-**Potential DWS6 Use Cases:**
-- Real-time compliance document search
-- Product catalog discovery
-- Audit log full-text search
-
-Reference: [Upstash Redis Search Blog](https://upstash.com/blog/first-look-at-upstash-redis-search)
-
----
-
-## 7. MCP Hub
-
-Coordination hub for multi-agent workflows.
-
-### 7.1 Configuration
+Use this for cache/session inspection when Redis access is relevant to the task:
 
 ```json
 {
-  "MCP Hub": {
-    "_comment": "MCP Coordination Hub on port 8765",
-    "_type": "coordination-hub",
-    "_port": 8765,
-    "_endpoints": {
-      "hub": "http://localhost:8765"
+  "mcpServers": {
+    "Redis MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/redis-mcp@latest"
+      ],
+      "env": {
+        "REDIS_URL": "redis://user:password@host:port"
+      }
     }
   }
 }
 ```
 
-### 7.2 Purpose
+### 4.3 MCP Hub
 
-The MCP Hub coordinates:
-- Multi-agent task distribution
-- Workflow orchestration with Temporal.io
-- Agent activity logging
-- Session persistence
+The DWS MCP Hub is the internal coordination layer for multi-agent workflows:
+
+```json
+{
+  "mcpServers": {
+    "MCP Hub": {
+      "_type": "coordination-hub",
+      "_port": 8765,
+      "_endpoints": {
+        "hub": "http://localhost:8765"
+      }
+    }
+  }
+}
+```
+
+Use it when you are testing repo-specific orchestration flows, not as a replacement for the official Docker catalog servers.
+
+If you need both layers, merge the entries from `.mcp.json.example` and `mcp.dws-local.example.json` into your local `.mcp.json`.
 
 ---
 
-## 8. Security Best Practices
+## 5. Workflow Mapping
 
-### 8.1 File Security
+The current GitHub Actions setup explains which MCPs matter most.
 
-| File | Git Status | Contains |
-|------|------------|----------|
-| `.mcp.json` | **GITIGNORED** | Actual credentials |
-| `.mcp.json.example` | Committed | Template with placeholders |
-| `.env.mcp` | **GITIGNORED** | Environment overrides |
-| `env.mcp.example` | Committed | Template |
+### 5.1 Highest-value MCP: GitHub Official
 
-### 8.2 Credential Rotation
+These workflows are the clearest match:
 
-**Supabase:**
-- Service role keys can be rotated in Supabase Dashboard → Settings → API
-- Update `.mcp.json` and `.env.mcp` after rotation
+- `ai-pr-review.yml`
+- `pr-auto-merge.yml`
+- `weekly-report.yml`
+- `security-check-pr.yml`
+- `dependency_review.yml`
 
-**Upstash:**
-- Tokens can be rotated in Upstash Console → Database → Security
-- Consider using read-only tokens for production
+If you are choosing only one MCP to enable first, enable `GitHub Official`.
 
-### 8.3 Least Privilege
+### 5.2 Useful but secondary: Docker Hub
 
-- Use `anon` key for frontend operations
-- Reserve `service_role` key for backend/admin operations only
-- Upstash supports read-only tokens for cache-only use cases
+Best fit for:
 
-### 8.4 Worktree Security
+- image lookup during deployment work
+- registry/repository inspection
+- hardened image checks
+- container supply-chain exploration
 
-When using Git worktrees with Claude Code:
+### 5.3 Useful but situational: Cloud Run
+
+Best fit for:
+
+- GCP service deployment
+- service inspection and logs
+- future DWS hosted MCP / agent infrastructure
+
+Current note: the tracked deployment workflow in this repo is `deploy-scaleway.yml`, so `Cloud Run` is additive rather than the default deployment path today.
+
+---
+
+## 6. Security Rules
+
+### 6.1 Keep secrets out of Git
+
+| File | Rule |
+|------|------|
+| `.mcp.json` | local only, gitignored |
+| `.mcp.json.example` | committed template only |
+| `.env.mcp` | local only, gitignored |
+| `env.mcp.example` | committed template only |
+
+### 6.2 Least privilege
+
+- Use the smallest GitHub token scope set that still supports your workflow.
+- Use a dedicated Docker Hub PAT, not your password.
+- Use Google Cloud credentials with the minimum required project access.
+- Keep DWS-local admin credentials in `.env` or external secret storage, never in committed config.
+
+### 6.3 Worktrees
+
+Gitignored MCP files are **not** shared automatically between worktrees.
+
+Preferred workflow:
 
 ```bash
-# Use the automated script (copies .mcp.json securely)
 ./scripts/new-claude-worktree.sh feature-branch
-
-# Or manually copy
-cp .mcp.json /path/to/worktree/.mcp.json
 ```
 
-The worktree scripts automatically:
-- Verify `.gitignore` includes `.mcp.json`
-- Copy (not symlink) credential files
-- Validate worktree creation
+Or on Windows:
+
+```powershell
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "feature-branch"
+```
+
+These scripts are responsible for copying `.mcp.json` into the new worktree when present.
 
 ---
 
-## 9. Troubleshooting
+## 7. Troubleshooting
 
-### MCP Server Not Starting
+### 7.1 Claude Code does not see MCP servers
+
+Check:
+
+1. `.mcp.json` exists in the current repo or worktree root.
+2. Docker Desktop is running.
+3. The referenced credentials and mounted paths are valid.
+4. Claude Code was restarted after changing the config.
+
+### 7.2 DWS Carbon API is unreachable
 
 ```bash
-# Check if npx can find the package
-npx -y @supabase/mcp-server-supabase@latest --version
-
-# Clear npx cache if needed
-npx clear-npx-cache
+docker ps --filter "name=dws-carbon-api"
+docker logs dws-carbon-api
+curl http://127.0.0.1:8766/health
 ```
 
-### Docker Container Issues
+### 7.3 Worktree has no MCP tools
 
-```bash
-# View logs
-docker logs dws-supabase-mcp
+Most common cause: `.mcp.json` was never copied into that worktree.
 
-# Restart container
-docker restart dws-supabase-mcp
+Fix:
 
-# Rebuild if needed
-docker build -t dws6-supabase-mcp:latest ./mcp-servers/supabase
-```
-
-### Connection Refused
-
-1. Check if the service is running on the expected port
-2. Verify firewall/antivirus isn't blocking localhost
-3. Try explicit IP: `http://127.0.0.1:8766` instead of `localhost`
-
-### Invalid Credentials
-
-1. Verify credentials are copied correctly (no trailing whitespace)
-2. Check credential validity in respective dashboards
-3. Ensure `.mcp.json` has valid JSON syntax
-
-### Claude Code Not Finding MCP Servers
-
-1. Ensure `.mcp.json` is in the repo root (or worktree root)
-2. Restart Claude Code after configuration changes
-3. Check Claude Code logs for MCP initialization errors
+1. Copy the local `.mcp.json` into the worktree root.
+2. Restart Claude Code in that worktree.
+3. Prefer the automated worktree scripts next time.
 
 ---
 
-## Quick Reference
+## 8. Bottom Line
 
-| Service | Dashboard | Documentation |
-|---------|-----------|---------------|
-| Supabase | https://supabase.com/dashboard | https://supabase.com/docs |
-| Upstash | https://console.upstash.com | https://upstash.com/docs |
-| Claude Code | N/A | https://docs.anthropic.com |
+For `dws6`, the recommended order is:
 
-| MCP Server | Port | Health Check |
-|------------|------|--------------|
-| DWS Supabase API | 8766 | `curl http://localhost:8766/health` |
-| MCP Hub | 8765 | `curl http://localhost:8765/health` |
+1. `GitHub Official`
+2. `Docker Hub`
+3. `Cloud Run`
+4. Add DWS-local `DWS Carbon API`, `Supabase Official (Docker)`, `Redis MCP`, and `MCP Hub` only when your task actually needs them
+
+This keeps the default setup aligned with the official Docker catalog while preserving the repo-specific local services as an optional second layer.
 
 ---
 
-**Document Version:** 1.0
-**Created:** February 5, 2026
+**Document Version:** 2.0  
+**Created:** February 5, 2026  
+**Last Updated:** March 11, 2026  
 **Author:** DWS IQ Team

@@ -134,32 +134,47 @@
         }
 
         .login-button {
-            width: 100%;
-            padding: 12px 16px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
             font-weight: 600;
+            font-size: 16px;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 16px;
+            transition: all 200ms ease;
+            min-width: 160px;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+            width: 100%;
         }
 
         .login-button:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
         }
 
         .login-button:active {
             transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
         }
 
         .login-button:disabled {
             background: #64748b;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
+        }
+
+        .login-button:focus {
+            outline: none;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2), 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .divider {
@@ -188,25 +203,33 @@
         }
 
         .social-button {
-            padding: 10px 16px;
+            background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(96, 165, 250, 0.2);
-            border-radius: 8px;
-            background: rgba(15, 23, 42, 0.5);
             color: #cbd5e1;
-            font-size: 13px;
             font-weight: 600;
+            font-size: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
+            transition: all 200ms ease;
+            min-height: 48px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            width: 100%;
         }
 
         .social-button:hover {
             background: rgba(96, 165, 250, 0.1);
             border-color: #60a5fa;
             color: #93c5fd;
+            transform: translateY(-1px);
+        }
+
+        .social-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
         }
 
         .signup-link {
@@ -241,23 +264,18 @@
             display: block;
         }
 
-        .loading {
-            display: inline-block;
-            width: 4px;
-            height: 4px;
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
             border-radius: 50%;
-            background: white;
-            animation: loading 1.4s infinite;
-            margin: 0 2px;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes loading {
-            0%, 100% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 1;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .security-badge {
@@ -394,7 +412,7 @@
             const rememberMe = document.querySelector('input[name="remember"]').checked;
 
             loginBtn.disabled = true;
-            loginBtn.innerHTML = 'Signing in<span class="loading"></span>';
+            loginBtn.innerHTML = '<span class="loading-spinner"></span> Signing in...';
             errorMessage.classList.remove('show');
 
             try {

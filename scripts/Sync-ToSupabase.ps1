@@ -3,7 +3,7 @@
     Uploads DWS6 business files to Supabase Storage as EU cloud backup.
 
 .DESCRIPTION
-    Version: 1.3
+    Version: 1.5
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: Supabase Storage upload, bucket management

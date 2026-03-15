@@ -105,44 +105,38 @@ def get_live_tables() -> set[str]:
     except Exception:
         pass
 
-    if not SUPABASE_URL:
-        print("WARNING: SUPABASE_URL not set. Skipping live table comparison.")
-        return set()
+    # 2. Try Supabase PostgREST OpenAPI spec
+    if SUPABASE_URL and SUPABASE_KEY:
+        url = f"{SUPABASE_URL}/rest/v1/"
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Accept": "application/openapi+json",
+        }
+        try:
+            resp = httpx.get(url, headers=headers, timeout=15)
+            if resp.status_code == 200:
+                data = resp.json()
+                # OpenAPI spec has paths like /table_name and /rpc/func_name
+                tables = set()
+                for path in data.get("paths", {}).keys():
+                    table = path.lstrip("/")
+                    if table and not table.startswith("rpc/"):
+                        tables.add(table)
+                if tables:
+                    return tables
+                print("ERROR: Supabase REST returned an empty table list.")
+                print("  Check that SUPABASE_SERVICE_KEY has service_role privileges.")
+            else:
+                print(f"ERROR: Supabase REST returned {resp.status_code}. Cannot enumerate live tables.")
+                print(f"  URL: {SUPABASE_URL}")
+        except Exception as e:
+            print(f"ERROR: Failed to reach Supabase ({SUPABASE_URL}): {e}")
 
-    if not SUPABASE_KEY:
-        print("ERROR: SUPABASE_SERVICE_KEY not set. Cannot enumerate live tables via Supabase REST.")
-        print("  Set SUPABASE_SERVICE_KEY (service_role key) to enable live table comparison.")
         print("  Live table comparison will be skipped.")
         return set()
 
-    # 2. Try Supabase PostgREST OpenAPI spec
-    url = f"{SUPABASE_URL}/rest/v1/"
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-        "Accept": "application/openapi+json",
-    }
-    try:
-        resp = httpx.get(url, headers=headers, timeout=15)
-        if resp.status_code == 200:
-            data = resp.json()
-            # OpenAPI spec has paths like /table_name and /rpc/func_name
-            tables = set()
-            for path in data.get("paths", {}).keys():
-                table = path.lstrip("/")
-                if table and not table.startswith("rpc/"):
-                    tables.add(table)
-            if tables:
-                return tables
-            print("ERROR: Supabase REST returned an empty table list.")
-            print("  Check that SUPABASE_SERVICE_KEY has service_role privileges.")
-        else:
-            print(f"ERROR: Supabase REST returned {resp.status_code}. Cannot enumerate live tables.")
-            print(f"  URL: {SUPABASE_URL}")
-    except Exception as e:
-        print(f"ERROR: Failed to reach Supabase ({SUPABASE_URL}): {e}")
-
-    print("  Live table comparison will be skipped.")
+    print("WARNING: SUPABASE_URL not set. Skipping live table comparison.")
     return set()
 
 

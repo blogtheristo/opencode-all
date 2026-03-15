@@ -14,9 +14,11 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
 | **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
-| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -66,14 +68,34 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 - **Always check the current version number** in the file header before incrementing — do NOT assume git history is latest. Ask the user if uncertain.
 - Update VERSION AND AGENT HISTORY block and document footer on each change
 
+### HTML Version Badge Rule (CRITICAL)
+
+Every `Learn/*.html` file MUST display a visible version badge at the top of the page body.
+
+**Use the generator script — never hand-craft HTML:**
+```bash
+node scripts/gen-thesis-html.cjs
+```
+
+The script (`scripts/gen-thesis-html.cjs`):
+- **Auto-detects version** from `Version: X.X` in the markdown — no manual filename updates needed
+- **Auto-derives output filename** as `Learn/{name}_v{version}.html`
+- **Injects a version banner** at the top of every HTML:
+  - Document title on the left
+  - Yellow version badge (e.g. `v3.17`) in the center
+  - `Lifetime Oy · date · Learn/ (private)` on the right
+- **Syncs Learn/ MD copies** from `docs/` before running (copy manually or the script reads Learn/ directly)
+
+**Do NOT modify the HTML output files directly.** Edit the source `.md` files, then run the script.
+
 ## Project Overview
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture: Brain-Memory-Body-Hands**
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
@@ -144,7 +166,7 @@ POTENTIAL CONCERNS:
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
-- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
@@ -155,6 +177,15 @@ POTENTIAL CONCERNS:
 **Backend:** Express 4.19 + TypeScript, Node-cron, JWT, Helmet
 **AI/LLM:** Claude (primary), Google Gemini, Groq, LlamaStack, MCP
 **Database & Infra:** Supabase (PostgreSQL + Auth + Realtime), pgvector, Google Cloud Run, Cloudflare Workers, NVIDIA Jetson Orin Nano, Temporal.io
+
+## Repository Access (CRITICAL)
+
+**blogtheristo/dws6 is a PRIVATE repository.**
+
+- Never generate raw.githubusercontent.com or github.com/blogtheristo/dws6 URLs for the user to open — they require GitHub login and will fail on mobile without it.
+- To share file contents with the user: **read the file and paste the content directly** into the chat, or instruct them to navigate GitHub.com → sign in → repo → file → Raw.
+- Mobile PR workflow: push branch → give compare URL https://github.com/blogtheristo/dws6/compare/main...BRANCHNAME → provide copyable title + body. Never attempt `gh pr create` when `gh` is unavailable.
+- **URLs: NEVER wrap in brackets, backticks, angle brackets, or markdown link syntax.** Always plain text only. Brackets cause copy-paste corruption on mobile. WRONG: `https://x.com` or [text](https://x.com) or <https://x.com>. RIGHT: https://x.com
 
 ## Repository Structure
 
@@ -205,6 +236,17 @@ When modifying `buy/index.html`, product pages, `products.json`, or store assets
 
 Applies to all store artifacts: `buy/`, `config/products.json`, `products/*.html`, `shared-assets/`, `feeds/`, product images.
 
+### Blog Post Rule (CRITICAL)
+
+Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every blog post:
+
+1. Create HTML file in `onelifetime.world/posts/<slug>.html` (source of truth)
+2. Copy to `landing-pages/onelifetime-world/posts/<slug>.html` in the **same commit**
+3. Use the same nav/footer pattern as existing posts (see `kya-standard-v1.html` as template)
+4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
+5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
+6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+
 ## Development Commands
 
 ```bash
@@ -224,11 +266,14 @@ docker-compose -f docker-compose.hybrid.yml up -d
 
 ## Code Quality & Testing
 
+- **Formatting:** `.editorconfig` (2-space indent, LF, 100-char lines, UTF-8) — see `SITE_QUALITY_STANDARDS.md` §3 Code Formatting Standards
 - **JS/TS:** ESLint; **Python:** Ruff + Black; **Security:** Bandit, Safety
 - **Tests:** Vitest in `src/__tests__/`; run `npm run test` or `npm run test:ui`
 - **Pre-commit:** Branch name validation in `.githooks/`
 
 **Patterns:** Strict TypeScript + Zod schemas; functional React components + TailwindCSS; RESTful Express + JWT; `.env.example` (144+ variables).
+
+**Formatting rules (quick reference):** 2 spaces, single quotes (JS/TS), double quotes (JSX/JSON), semicolons required, trailing commas in multi-line, K&R braces, imports grouped by origin. Full spec in `SITE_QUALITY_STANDARDS.md`.
 
 ## Security Considerations
 
@@ -278,17 +323,31 @@ Use automated scripts — **DO NOT create worktrees manually.**
 - macOS/iOS: `~/.claude-worktrees/dws6/`
 - Linux/Chromebook: `../.claude-worktrees/dws6/`
 
-**Before deleting any worktree:** Backup `.claude/` directory first (agents, commands, hooks, skills, settings). Daily automated backup via `.github/workflows/daily-claude-backup.yml`.
+1. **Creates git worktree** in standardized location
+2. **Verifies .gitignore** inheritance (critical security patterns)
+3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
+4. **Copies config files** (.mcp.json, .env, .env.mcp, .env.local, .env.mcp.minimal, .cursorrules, .claude/)
+5. **Validates environment** — checks .mcp.json has mcpServers, .env has required keys, .claude/ has permissions
+6. **Pings Docker & MCP services** — verifies Docker is running, lists containers with health status, tests MCP endpoint reachability
+7. **Optionally launches Claude Code** in the new worktree
 
 **Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
 
-**Windows Managed Settings:** Effective March 11, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Supported since Claude Code 2.0.58.
+**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `Admin/ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
 
 ## 2026 EU AI Act Compliance
 
-By **August 2026**, High-Risk AI systems must comply with:
-- **Article 12:** Automatic logging of all AI events with traceability and retention
-- **Reasoning Lineage:** Technical docs demonstrating traceable decision chains; AI outputs include provenance metadata
+| File/Folder | Behavior | Reason |
+|-------------|----------|--------|
+| `.gitignore` | **Shared** (inherited) | All worktrees use same ignore rules |
+| `.venv/` | **Symlinked** | Saves space, consistent packages |
+| `.mcp.json` | **Copied** | MCP server connections — **CRITICAL** for tool access |
+| `.env` | **Copied** | May need worktree-specific values |
+| `.env.mcp` | **Copied** | MCP Hub environment config |
+| `.env.local` | **Copied** | Local environment overrides |
+| `.cursorrules` | **Copied** | Cursor IDE rules |
+| `.claude/` | **Copied** | Session-specific Claude settings + permissions |
+| `node_modules/` | **Not shared** | Run `npm install` per worktree |
 
 ## Build for Agents (CRITICAL — 2026 Product Rule)
 
@@ -308,17 +367,26 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`. Every new agent MUST have a corresponding skill.
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 
 **Rule:** If a product can't be used via `dws <command>`, it's not shipped. GUI-only features are incomplete features.
+
+**Rise of CLIs:** External CLIs that follow the same pattern (structured JSON, MCP/skills) are documented in [AGENTS.md §16](AGENTS.md#16-rise-of-clis--external-add-ons); e.g. Google Workspace CLI (`gws`) for Drive, Gmail, Calendar, Sheets, Docs.
 
 ## Integrations & Deployment
 
 **ERP:** SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Monitor ERP, Visma, Jeeves → `src/integrations/erp/`
 **ESG:** Worldfavor, PositionGreen → `src/integrations/esg/`
 
+- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`, `.mcp.json`
+- [ ] `.mcp.json` copied from main repo (gitignored files are NOT shared between worktrees)
+- [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
+- [ ] `.claude/` folder copied (contains permissions in `settings.local.json`)
+- [ ] Run `git status` before first commit to verify no sensitive files staged
+- [ ] `.venv` symlink points to main repo's virtual environment
+- [ ] Docker is running and MCP containers are healthy
 **Cloud accounts:**
 | Account | Scope |
 |---------|-------|
@@ -342,7 +410,8 @@ dws workflow compliance-assessment
 - GitHub auto-deletes branches after merge
 
 ### Merge Conflict Resolution (CRITICAL)
-Human resolves conflicts in GitHub PR web UI, not locally. Push the branch, tell the human what conflicts exist, wait. After resolution on GitHub, `git pull` then push.
+1. **Locally if possible** — `git fetch origin main && git merge origin/main`, resolve conflicts in the worktree, commit, and push.
+2. **Human resolves in GitHub PR web UI** — If local resolution fails or conflicts are too complex, push the branch, tell the human what conflicts exist, and wait. After resolution on GitHub, `git pull` then push.
 
 ### Auto-Push Rule (CRITICAL)
 When a PR exists for the current branch, every completed task MUST end with commit + push. Do not wait for the user to ask. Exception: user says "don't push yet".
@@ -370,6 +439,61 @@ git push -u origin claude/<feature>-<id> --force
 ### Worktree Best Practices
 Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`. Never create manually. Scripts verify .gitignore, copy .env files, symlink .venv, standardize locations.
 
+**Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
+
+The January 2026 security incident was caused by manual worktree creation without proper config file handling. The new automated scripts (`New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`) prevent these issues by:
+
+1. **Verifying .gitignore** - Checks for critical security patterns before creating worktree
+2. **Copying .env files** - Each worktree gets its own copy (not shared/symlinked)
+3. **Symlinking .venv** - Safe because venv is already gitignored
+4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
+
+**DO NOT create worktrees manually.** Always use the provided scripts:
+```bash
+# Windows
+.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
+
+# Linux/macOS/Chromebook
+./scripts/new-claude-worktree.sh your-branch
+```
+
+See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+
+## Boardy — Systems Architect Persona
+
+**Boardy** is the DWS6 systems architect AI persona. Cranky review = Boardy's ruthless but practical code/migration review style focused on prod safety, idempotency, and security.
+
+### Boardy's Priorities
+
+1. **Prod safety** — No migration runs without `BEGIN`/`COMMIT`, rollback path, and dry-run option
+2. **Deterministic DB changes** — Repo is source of truth; live DB is never manually edited
+3. **Drift control** — `scripts/db-drift-check.py` detects schema divergence between repo and live DB
+4. **Security hygiene** — RLS on every table, `SECURITY DEFINER` never on public-facing functions, `service_role` access audited
+
+### Safety Rules for SQL (Boardy Enforced)
+
+| Rule | Enforcement |
+|------|-------------|
+| Every migration wrapped in `BEGIN`/`COMMIT` | `db-drift-check.py --verify` |
+| RLS enabled on all new tables | Drift check flags missing RLS |
+| No `DROP TABLE` without explicit approval | PR review gate |
+| No `SECURITY DEFINER` on public functions | Lint rule in drift check |
+| `service_role` key never in client code | `.env` + gitignore audit |
+
+### Known Failure Modes (Boardy Watches For)
+
+- **Partial migration runs** — Transaction wrapper prevents half-applied schemas
+- **Repo ↔ live drift** — Drift check runs on session startup and pre-deploy
+- **RLS gaps** — New tables without RLS are flagged as CRITICAL alerts
+- **Orphan policies** — Policies referencing dropped columns or roles
+
+### Using Boardy in Reviews
+
+When reviewing database migrations, infrastructure changes, or security-sensitive code:
+- Apply Boardy's priorities (prod safety, idempotency, drift control, security)
+- Flag violations of the safety rules table above
+- Use direct, practical language — no sugar-coating
+- Propose fixes, not just complaints
 ### PR Creation
 - Use Claude Code session for PRs when actively working in that worktree (better context)
 - Use `gh pr create` in terminal for batch/admin PRs

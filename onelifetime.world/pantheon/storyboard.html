@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Storyboard of Joy — Behind the Curtain | DWS Pantheon</title>
+    <meta name="description" content="14 god agents. Chaos backstage. Iron discipline on stage. A storyboard of joy, happiness, and ruthless EU compliance.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0a0a0f; }
+        .curtain-left, .curtain-right {
+            position: fixed; top: 0; bottom: 0; width: 0;
+            background: linear-gradient(90deg, #7f1d1d, #991b1b, #7f1d1d);
+            z-index: 100; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .curtain-left { left: 0; }
+        .curtain-right { right: 0; }
+        .curtains-closed .curtain-left, .curtains-closed .curtain-right { width: 50%; }
+        .stage { background: linear-gradient(180deg, #1a0a00 0%, #0f0a1e 30%, #0a0a0f 60%); }
+        .backstage { background: linear-gradient(180deg, #1a1a0a 0%, #0a0f1a 50%, #0a0a0f 100%); }
+        .glass { background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.1); }
+        .spotlight {
+            background: radial-gradient(ellipse at center, rgba(234, 179, 8, 0.08) 0%, transparent 60%);
+        }
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        @keyframes bounce-joy {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes chaos-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes peek {
+            0%, 80%, 100% { transform: translateX(-100%); }
+            85%, 95% { transform: translateX(0); }
+        }
+        @keyframes float-around {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -8px) rotate(5deg); }
+            50% { transform: translate(-5px, -15px) rotate(-3deg); }
+            75% { transform: translate(-10px, -5px) rotate(2deg); }
+        }
+        .wobble { animation: wobble 2s ease-in-out infinite; }
+        .bounce { animation: bounce-joy 1.5s ease-in-out infinite; }
+        .float { animation: float-around 6s ease-in-out infinite; }
+        .peek { animation: peek 8s ease-in-out infinite; }
+        .scene-card {
+            border: 1px solid rgba(234, 179, 8, 0.15);
+            background: rgba(15, 15, 20, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .act-divider {
+            background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.3), transparent);
+            height: 1px;
+        }
+        .muppet-quote {
+            font-style: italic;
+            border-left: 3px solid #eab308;
+            padding-left: 1rem;
+            color: #fbbf24;
+        }
+        .strict-quote {
+            font-style: normal;
+            border-left: 3px solid #ef4444;
+            padding-left: 1rem;
+            color: #fca5a5;
+            font-family: 'Courier New', monospace;
+        }
+        .chaos-bubble {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            animation: float-around 8s ease-in-out infinite;
+        }
+        .stage-directions {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- Curtains -->
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+
+    <!-- TITLE CARD -->
+    <header class="stage spotlight py-24 md:py-36 px-4 text-center relative overflow-hidden">
+        <!-- Floating chaos emojis in background -->
+        <div class="chaos-bubble" style="top: 10%; left: 15%; animation-delay: 0s;">&#x1F525;</div>
+        <div class="chaos-bubble" style="top: 20%; right: 20%; animation-delay: 1s;">&#x2696;&#xFE0F;</div>
+        <div class="chaos-bubble" style="top: 60%; left: 10%; animation-delay: 2s;">&#x1F531;</div>
+        <div class="chaos-bubble" style="top: 40%; right: 10%; animation-delay: 3s;">&#x1FAA8;</div>
+        <div class="chaos-bubble" style="top: 70%; left: 25%; animation-delay: 4s;">&#x1F6F0;&#xFE0F;</div>
+        <div class="chaos-bubble" style="top: 15%; left: 50%; animation-delay: 5s;">&#x1F308;</div>
+
+        <div class="relative z-10 max-w-3xl mx-auto">
+            <p class="stage-directions mb-8">The Olympus Theatre presents</p>
+            <h1 class="text-5xl md:text-7xl font-black mb-4" style="text-shadow: 0 0 60px rgba(234, 179, 8, 0.3);">
+                The Storyboard<br>of Joy
+            </h1>
+            <p class="text-xl md:text-2xl text-yellow-200/70 font-light mb-4">&#x1F3AD; Chaos Backstage. Iron Discipline On Stage.</p>
+            <p class="text-slate-500 text-sm max-w-xl mx-auto mb-8">14 god agents. Muppet-level backstage pandemonium. But when the curtain rises and a CBAM deadline looms &mdash; not one of them blinks.</p>
+            <div class="glass inline-block rounded-full px-6 py-2 text-xs text-slate-400">
+                &#x1F3AC; A DWS Pantheon Production &middot; Season 1 &middot; 7 Acts
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-20">
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- DRAMATIS PERSONAE: THE SUPPORTING CAST -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Dramatis Personae</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-4">The Supporting Cast</h2>
+            <p class="text-center text-slate-500 text-sm mb-4">The gods are the gods. But every great show needs the mortals who walk through the door.</p>
+            <p class="text-center text-slate-600 text-xs mb-12 italic">Classic EU literature characters. Real compliance problems. Hidden joy.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+
+                <!-- Sofia Quijano (ES) — Don Quixote -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F438;</span>
+                        <div>
+                            <span class="text-green-300 font-bold">Sofia Quijano</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Compliance Officer</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EA;&#x1F1F8;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Tilts at regulatory windmills &mdash; and wins every time. Holds 6 EU regulations together with sheer Castilian stubbornness. "I see giants, not windmills. And they all need CBAM filings." Athena's most frequent caller.</p>
+                </div>
+
+                <!-- Cosette Marchand (FR) — Les Mis&eacute;rables -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F451;</span>
+                        <div>
+                            <span class="text-pink-300 font-bold">Cosette Marchand</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The CEO</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EB;&#x1F1F7;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Rose from nothing. Demands justice &mdash; and quarterly results. Karate-chops anyone who brings incomplete CBAM filings. Secretly terrified of Athena. Paris energy meets Brussels steel.</p>
+                </div>
+
+                <!-- Alexis Zorbas (GR) — Zorba the Greek -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F43B;</span>
+                        <div>
+                            <span class="text-amber-300 font-bold">Alexis Zorbas</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Sales Director</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EC;&#x1F1F7;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Opens every pitch dancing. Greek passion meets carbon credits. "Our green steel is SO green &mdash; let me tell you over ouzo!" Vulcan destroys his claims in 3 data points. Keeps dancing. Lovable.</p>
+                </div>
+
+                <!-- V&auml;in&ouml; Ilmarinen (FI) — Kalevala -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F525;</span>
+                        <div>
+                            <span class="text-red-300 font-bold">V&auml;in&ouml; Ilmarinen</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Crane Operator</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EB;&#x1F1EE;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Named after the eternal smith of the Kalevala. LIFT! LIFT! LIFT! Forged the Sampo, now forges steel beams. Hephaestus tells him to stop. He stops. Even V&auml;in&ouml; respects EN 13001.</p>
+                </div>
+
+                <!-- Pippi Lindgren (SE) — Pippi Longstocking -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F4A5;</span>
+                        <div>
+                            <span class="text-violet-300 font-bold">Pippi Lindgren</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Startup Founder</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1F8;&#x1F1EA;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Strongest founder in the world. Launches herself at problems nobody asked about. "What if we electrolyze Baltic seawater on a barge?" Prometheus loves her. Athena does not. Villa Villekulla energy.</p>
+                </div>
+
+                <!-- Josef &Scaron;vejk (CZ) — Good Soldier &Scaron;vejk -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F4CB;</span>
+                        <div>
+                            <span class="text-orange-300 font-bold">Josef &Scaron;vejk</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Junior Auditor</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1E8;&#x1F1FF;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">"Boss! Boss! The emission factors don't match!" Bumbles between Athena and Argus with binders. Looks incompetent. Is accidentally brilliant. First year at Deloitte Prague. Ha&scaron;ek would be proud.</p>
+                </div>
+
+                <!-- Heinrich Faust & Virgilio Dante (DE + IT) -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F474;</span>
+                        <div>
+                            <span class="text-stone-300 font-bold">Heinrich Faust &amp; Virgilio Dante</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Board Members</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1E9;&#x1F1EA; &#x1F1EE;&#x1F1F9;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">One sold his soul for knowledge, the other toured Hell for poetry. Sit in the back of every board meeting. Heckle the sustainability report. "That was the worst ESG presentation I've ever seen." "Lasciate ogni speranza." "See you next quarter!"</p>
+                </div>
+
+                <!-- Leopold Bloom (IE) — Ulysses -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F468;&#x200D;&#x1F373;</span>
+                        <div>
+                            <span class="text-cyan-300 font-bold">Leopold Bloom</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Logistics Manager</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EE;&#x1F1EA;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Wanders through supply chains like Dublin on June 16th. Nobody fully understands his routing algorithms. Talks in a stream of consciousness and container codes. Shipments arrive anyway. Every time. Joycean precision.</p>
+                </div>
+
+                <!-- Javert van den Berg (NL) — Les Mis&eacute;rables archetype -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F985;</span>
+                        <div>
+                            <span class="text-blue-300 font-bold">Javert van den Berg</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The EU Regulator</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1F3;&#x1F1F1;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Disapproves of everything. Walks in unannounced from Brussels. The law is the law is the law. Athena respects him. Everyone else hides. Has never smiled. (He has. Once. In Amsterdam. Nobody saw it.)</p>
+                </div>
+
+                <!-- Tadeusz Kowalski (PL) — Pan Tadeusz -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F3B9;</span>
+                        <div>
+                            <span class="text-yellow-300 font-bold">Tadeusz Kowalski</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The ESG Director</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1F5;&#x1F1F1;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Philosophical. Named after Mickiewicz's hero. Plays Chopin while reading CSRD guidelines. Writes beautiful sustainability reports. Gaia's favourite mortal. Warsaw soul, Brussels discipline.</p>
+                </div>
+
+                <!-- Nemo Kallio (FI) — Twenty Thousand Leagues -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x2693;</span>
+                        <div>
+                            <span class="text-stone-300 font-bold">Nemo Kallio</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Fleet Captain</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EB;&#x1F1EE;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">&Aring;land-born. Named after the captain who knew every ocean. Street-smart. Knows every Baltic port shortcut. Tried turning off AIS once. Neptune found him in 4 minutes. Never again.</p>
+                </div>
+
+                <!-- Cosimo Rampante (IT) — The Baron in the Trees -->
+                <div class="scene-card rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">&#x1F9EA;</span>
+                        <div>
+                            <span class="text-emerald-300 font-bold">Cosimo Rampante</span>
+                            <span class="text-slate-600 mx-2">&mdash;</span>
+                            <span class="text-slate-400 italic">The Lab Technician</span>
+                            <span class="text-xs text-slate-700 ml-1">&#x1F1EE;&#x1F1F9;</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-1 ml-10">Like Calvino's baron, sees everything from an unusual angle. Tests clinker samples for Gaia at Politecnico di Milano. Things occasionally explode. Data is always correct. Never comes down from his perch.</p>
+                </div>
+
+            </div>
+
+            <p class="text-center text-slate-600 text-xs mt-8 italic">"Ladies and gentlemen, it's the Olympus Show, with our very special guest stars &mdash; every CEO who thought they were compliant!" &mdash; Josef</p>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT I: THE GREEN ROOM -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act I</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Green Room</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Interior &mdash; Olympus Green Room &mdash; 06:45 UTC</p>
+                <div class="flex flex-wrap gap-4 justify-center text-4xl mb-6">
+                    <span class="wobble" style="animation-delay: 0s">&#x1F30D;</span>
+                    <span class="bounce" style="animation-delay: 0.2s">&#x2696;&#xFE0F;</span>
+                    <span class="wobble" style="animation-delay: 0.4s">&#x1F528;</span>
+                    <span class="bounce" style="animation-delay: 0.6s">&#x1F308;</span>
+                    <span class="wobble" style="animation-delay: 0.8s">&#x1F3C3;</span>
+                    <span class="bounce" style="animation-delay: 1.0s">&#x2600;&#xFE0F;</span>
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-yellow-300">Atlas</strong> is trying to hold up a whiteboard that keeps falling. <strong class="text-purple-300">Athena</strong> is correcting the whiteboard's grammar. <strong class="text-orange-300">Hephaestus</strong> is duct-taping the whiteboard to the wall. <strong class="text-pink-300">Iris</strong> is live-tweeting the whole thing.</p>
+
+                <div class="muppet-quote my-4">
+                    "Has anyone seen my trident? I left it in the coffee machine again." &mdash; Neptune
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-cyan-300">Hermes</strong> zooms through carrying 47 packages. Trips over <strong class="text-stone-300">Gaia</strong>, who is sitting cross-legged on the floor, meditating on limestone deposits. A package lands on <strong class="text-red-300">Vulcan's</strong> head.</p>
+
+                <div class="muppet-quote my-4">
+                    "That was a load-bearing package." &mdash; Hermes, not stopping
+                </div>
+
+                <div class="muppet-quote my-4">
+                    "I felt that in my clinker ratio." &mdash; Gaia, without opening her eyes
+                </div>
+            </div>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8">
+                <p class="stage-directions mb-4">The coffee corner</p>
+                <p class="text-slate-300 mb-4"><strong class="text-violet-300">Prometheus</strong> is trying to make coffee by electrolyzing water into hydrogen and burning it. The espresso machine is on fire. <strong class="text-amber-300">Helios</strong> watches, unimpressed.</p>
+
+                <div class="muppet-quote my-4">
+                    "You know the machine has a plug, right?" &mdash; Helios
+                </div>
+                <div class="muppet-quote my-4">
+                    "Where's the disruption in plugging things in?" &mdash; Prometheus, eyebrows singed
+                </div>
+
+                <p class="text-slate-300 mt-4"><strong class="text-yellow-300">Apollo</strong> is composing a sonnet about the coffee. It's in iambic pentameter. Nobody asked for it. <strong class="text-teal-300">Argus</strong> is watching all of this from 500km altitude and taking notes.</p>
+
+                <div class="muppet-quote my-4">
+                    "I can see the fire from orbit. Also, Hermes left a package in Sector 7." &mdash; Argus
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT II: THE MORNING BRIEFING -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act II</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Morning Briefing</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Interior &mdash; The Parthenon Conference Room &mdash; 07:00 UTC</p>
+
+                <p class="text-slate-300 mb-4"><strong class="text-yellow-300">Atlas</strong> stands at the head of a round marble table. Everyone is present. <strong class="text-green-300">Ceres</strong> has brought pastries. <strong class="text-red-300">Mars</strong> has brought blueprints. <strong class="text-sky-300">Neptune</strong> has brought a live fish, for reasons he won't explain. In the waiting room, <strong class="text-pink-300">Sofia Quijano</strong> is pacing, tilting at the CBAM filing windmill again.</p>
+
+                <div class="muppet-quote my-4">
+                    "It's a metaphor." &mdash; Neptune<br>
+                    "For what?" &mdash; Atlas<br>
+                    "Maritime situational awareness." &mdash; Neptune<br>
+                    "It's a herring." &mdash; Athena<br>
+                    "A <em>red</em> herring." &mdash; Neptune, grinning
+                </div>
+
+                <p class="text-slate-300 mb-4">Atlas clears his throat. The room quiets. He holds up one document.</p>
+
+                <!-- THE SWITCH: Fun → Strict -->
+                <div class="my-8 p-6 rounded-xl" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.05) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <p class="stage-directions mb-4 text-red-400">&#x1F6A8; The curtain rises. Business mode activated.</p>
+
+                    <div class="strict-quote my-4">
+                        "CBAM Quarterly Report Q1 2026. Due in 21 days. Three clients haven't filed. Athena?" &mdash; Atlas
+                    </div>
+
+                    <p class="text-slate-300 mb-4">Every god straightens. Neptune puts the fish away. Prometheus extinguishes himself. The room temperature drops 10 degrees.</p>
+
+                    <div class="strict-quote my-4">
+                        "Client A: steel imports from Turkey, missing embedded emissions data. I've drafted the penalty exposure memo &mdash; &euro;340,000 if unfiled by March 31. Client B: cement from Egypt, actual emissions required, default values sunset Q3. Client C: aluminium, compliant but using 2023 emission factors. Non-conformity risk: moderate." &mdash; Athena, without blinking
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Vulcan, I need verified steel mill emission intensities by Thursday. Gaia, cement clinker factors for the Egyptian plant. Neptune, confirm FuelEU Maritime filing status for Client B's shipping fleet." &mdash; Atlas
+                    </div>
+
+                    <p class="text-slate-300 mt-4">Three gods nod simultaneously. No jokes. No pastries. This is the part the clients see.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT III: THE FIELD MISSION -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act III</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Field Mission</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Exterior &mdash; Construction Site, Helsinki &mdash; 09:30 UTC &mdash; Light snow</p>
+
+                <p class="text-slate-300 mb-4"><strong class="text-orange-300">Hephaestus</strong> arrives at the site. <strong class="text-red-300">Mars</strong> is already there, measuring wind speed. <strong class="text-teal-300">Argus</strong> is overhead, confirming the crane position via SAR.</p>
+
+                <div class="muppet-quote my-4">
+                    "Argus, can you see if my hard hat is the right colour?" &mdash; Hephaestus<br>
+                    "It's orange. Like your personality." &mdash; Argus<br>
+                    "I'm going to take that as a compliment." &mdash; Hephaestus
+                </div>
+
+                <p class="text-slate-300 mb-4">A crane operator radios in. Wind is picking up.</p>
+
+                <!-- THE SWITCH -->
+                <div class="my-8 p-6 rounded-xl" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.05) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <p class="stage-directions mb-4 text-red-400">&#x1F6A8; Safety mode. Zero jokes.</p>
+
+                    <div class="strict-quote my-4">
+                        "Wind: 14.2 m/s, gusting 18. EN 13001 limit for this crane class: 15 m/s sustained. We are at 95% threshold. Recommendation: SUSPEND LIFTING OPERATIONS. Resume when sustained wind drops below 12 m/s for 15 consecutive minutes." &mdash; Hephaestus
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Confirmed from orbit. SAR wind field shows gust corridor from NW. Estimated duration: 2.5 hours. Advise securing boom in weathervane position." &mdash; Argus
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Schedule impact: 2.5 hours lost on critical path activity CP-14 (steel erection). Float remaining: 1.2 days. Impact on CSRD material delivery deadline: NONE if resolved today. Hermes notified for material logistics adjustment." &mdash; Mars
+                    </div>
+                </div>
+
+                <p class="text-slate-300 mt-4">The crane stops. Workers take shelter. Nobody argues with the gods when safety is on the line.</p>
+
+                <div class="muppet-quote mt-6">
+                    "Tea break! I brought Finnish pulla." &mdash; Ceres, appearing from nowhere with a basket
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT IV: THE INTELLIGENCE WAR ROOM -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act IV</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Intelligence War Room</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Interior &mdash; Iris's Research Lab &mdash; 11:00 UTC &mdash; Screens everywhere</p>
+
+                <p class="text-slate-300 mb-4"><strong class="text-pink-300">Iris</strong> has 14 browser tabs open. <strong class="text-teal-300">Argus</strong> is feeding satellite imagery to screen 3. <strong class="text-yellow-300">Apollo</strong> is drafting outreach copy on screen 7. They're all talking at once.</p>
+
+                <div class="muppet-quote my-4">
+                    "Competitor X just launched a 'green steel' product. I found it on LinkedIn, their investor deck, AND a leaked internal memo." &mdash; Iris<br>
+                    "How did you get an internal memo?" &mdash; Apollo<br>
+                    "I'm the goddess of rainbows. Light passes through me. So does information." &mdash; Iris
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-red-300">Vulcan</strong> walks in, looks at the competitor analysis, and snorts.</p>
+
+                <!-- THE SWITCH -->
+                <div class="my-8 p-6 rounded-xl" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.05) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <p class="stage-directions mb-4 text-red-400">&#x1F6A8; Competitive intelligence mode. Precision required.</p>
+
+                    <div class="strict-quote my-4">
+                        "Their 'green steel' claims 1.2 tCO&sub2;/t crude steel. That's BF-BOF with 30% scrap. Real green steel (EAF + renewable) is 0.4 tCO&sub2;/t. They're greenwashing. Athena, can we cite Article 2(2) of the Green Claims Directive?" &mdash; Vulcan
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Already drafted. Proposal 2023/0085(COD). Their claim fails the 'substantiation requirement' test. I recommend we prepare a comparative positioning document for our steel-sector clients." &mdash; Athena
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Argus confirms: their steel mill in Sector 4 shows thermal signature consistent with blast furnace operation, not EAF. SAR pass 03:00 UTC, confidence 0.94." &mdash; Iris, reading Argus's feed
+                    </div>
+                </div>
+
+                <div class="muppet-quote mt-6">
+                    "Should I write the blog post title? I'm thinking: 'Green Steel, Red Flags, and the Gods Who See Through Marketing.'" &mdash; Apollo<br>
+                    "...That's actually good." &mdash; Athena, visibly annoyed at complimenting Apollo
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT V: THE OCEAN INCIDENT -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act V</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Ocean Incident</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Exterior &mdash; Gulf of Finland &mdash; 14:00 UTC &mdash; Overcast</p>
+
+                <p class="text-slate-300 mb-4"><strong class="text-sky-300">Neptune</strong> is monitoring his fleet dashboard when an alert fires. <strong class="text-teal-300">Argus</strong> picked up a vessel going dark.</p>
+
+                <div class="muppet-quote my-4">
+                    "Someone turned off their AIS. In MY ocean." &mdash; Neptune, standing up slowly
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-stone-300">Gaia</strong> looks up from her meditation. <strong class="text-purple-300">Athena</strong> is already pulling up maritime law.</p>
+
+                <div class="muppet-quote my-4">
+                    "Is it the herring again?" &mdash; Atlas, via intercom<br>
+                    "This time it's a BULK CARRIER." &mdash; Neptune
+                </div>
+
+                <!-- THE SWITCH -->
+                <div class="my-8 p-6 rounded-xl" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.05) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <p class="stage-directions mb-4 text-red-400">&#x1F6A8; Maritime enforcement. Multi-god coordination.</p>
+
+                    <div class="strict-quote my-4">
+                        "Argus: SAR confirms vessel at 59.4&deg;N, 24.7&deg;E. Bulk carrier class, ~45,000 DWT. AIS dark for 6 hours. Heading: SE at 12 knots. Confidence: 0.91." &mdash; Argus
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Cross-referencing MRV database. Vessel matches profile of 'Atlas Carrier' &mdash; last MRV filing: 3 months overdue. FuelEU Maritime compliance: UNKNOWN. ETS allowance status: DEFICIENT." &mdash; Neptune
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "Legal exposure: MRV non-compliance (Regulation 2015/757 Art. 20): &euro;5,000&ndash;250,000. ETS non-surrender (Directive 2003/87/EC Art. 16): &euro;100/tCO&sub2; &times; unreported. AIS manipulation (IMO SOLAS V/19.2.4): flag state jurisdiction. Total estimated exposure: &euro;1.2M." &mdash; Athena
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "If they're carrying cement, I want to know the clinker content. For science." &mdash; Gaia
+                    </div>
+                </div>
+
+                <div class="muppet-quote mt-6">
+                    "Neptune, please stop calling enforcement actions 'releasing the Kraken.'" &mdash; Atlas<br>
+                    "I will not." &mdash; Neptune
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT VI: THE HYDROGEN DEBATE -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act VI</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Hydrogen Debate</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Interior &mdash; The Agora (Common Area) &mdash; 16:00 UTC &mdash; Pastries depleted</p>
+
+                <p class="text-slate-300 mb-4"><strong class="text-violet-300">Prometheus</strong> and <strong class="text-amber-300">Helios</strong> are in their daily argument. Everyone else has learned to just watch.</p>
+
+                <div class="muppet-quote my-4">
+                    "Hydrogen is the future!" &mdash; Prometheus<br>
+                    "Hydrogen is an energy CARRIER, not a SOURCE. I AM the source." &mdash; Helios<br>
+                    "You're a ball of gas!" &mdash; Prometheus<br>
+                    "So is hydrogen!" &mdash; Helios
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-green-300">Ceres</strong> is eating the last pastry. <strong class="text-red-300">Mars</strong> is sketching a hydrogen storage building. <strong class="text-pink-300">Iris</strong> is recording the argument for "content purposes."</p>
+
+                <!-- THE SWITCH -->
+                <div class="my-8 p-6 rounded-xl" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.05) 0%, rgba(239, 68, 68, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <p class="stage-directions mb-4 text-red-400">&#x1F6A8; A client walks in. Instant transformation.</p>
+
+                    <div class="strict-quote my-4">
+                        "Welcome. Your RFNBO certification requires three things: temporal correlation (monthly until 2030, then hourly), geographical correlation (same bidding zone), and additionality (renewable capacity commissioned within 36 months of electrolyser). Your current setup meets two of three. The additionality clause fails because your solar farm was commissioned in 2019." &mdash; Prometheus, suddenly in a suit
+                    </div>
+
+                    <div class="strict-quote my-4">
+                        "I can model three alternative configurations. Option A: new 12 MW solar PPA, &euro;890k/yr, meets additionality. Option B: existing wind + battery storage, temporal correlation via 15-minute PPA matching. Option C: grid-connected with Guarantee of Origin, but this only qualifies as 'low-carbon hydrogen,' not RFNBO." &mdash; Helios, pulling up a spreadsheet that didn't exist 3 seconds ago
+                    </div>
+                </div>
+
+                <p class="text-slate-300 mt-4">The client leaves, impressed. The door closes.</p>
+
+                <div class="muppet-quote mt-6">
+                    "Where were we?" &mdash; Prometheus<br>
+                    "You were calling me a ball of gas." &mdash; Helios<br>
+                    "Right. Ball of gas." &mdash; Prometheus<br>
+                    "Energy carrier." &mdash; Helios<br>
+                    <span class="text-slate-600">(This continues until 18:00 UTC.)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!-- ACT VII: THE CLOSING -->
+        <!-- ═══════════════════════════════════════ -->
+        <section class="py-16">
+            <div class="act-divider mb-8"></div>
+            <p class="stage-directions text-center mb-2">Act VII &mdash; Finale</p>
+            <h2 class="text-3xl font-bold text-yellow-400 text-center mb-12">The Curtain Call</h2>
+
+            <div class="scene-card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="stage-directions mb-4">Interior &mdash; Olympus Main Hall &mdash; 18:30 UTC &mdash; Golden hour</p>
+
+                <p class="text-slate-300 mb-4">The day is done. All 14 gods gather in the main hall. The screens show green across the board: 3 CBAM filings completed, 1 maritime incident resolved, 1 construction site kept safe, 1 greenwash competitor exposed, 1 hydrogen client properly certified.</p>
+
+                <div class="my-8 text-center">
+                    <div class="flex flex-wrap gap-3 justify-center text-3xl mb-6">
+                        <span class="bounce" style="animation-delay: 0s">&#x1F30D;</span>
+                        <span class="bounce" style="animation-delay: 0.1s">&#x2696;&#xFE0F;</span>
+                        <span class="bounce" style="animation-delay: 0.2s">&#x1F528;</span>
+                        <span class="bounce" style="animation-delay: 0.3s">&#x1F308;</span>
+                        <span class="bounce" style="animation-delay: 0.4s">&#x1F3C3;</span>
+                        <span class="bounce" style="animation-delay: 0.5s">&#x2600;&#xFE0F;</span>
+                        <span class="bounce" style="animation-delay: 0.6s">&#x2692;&#xFE0F;</span>
+                        <span class="bounce" style="animation-delay: 0.7s">&#x1F506;</span>
+                        <span class="bounce" style="animation-delay: 0.8s">&#x1F531;</span>
+                        <span class="bounce" style="animation-delay: 0.9s">&#x1F33E;</span>
+                        <span class="bounce" style="animation-delay: 1.0s">&#x1F525;</span>
+                        <span class="bounce" style="animation-delay: 1.1s">&#x1F3D7;&#xFE0F;</span>
+                        <span class="bounce" style="animation-delay: 1.2s">&#x1FAA8;</span>
+                        <span class="bounce" style="animation-delay: 1.3s">&#x1F6F0;&#xFE0F;</span>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 mb-4"><strong class="text-green-300">Ceres</strong> has somehow produced more pastries. <strong class="text-sky-300">Neptune</strong> is telling a joke about a kraken and a CBAM form. <strong class="text-violet-300">Prometheus</strong> and <strong class="text-amber-300">Helios</strong> are arm-wrestling. <strong class="text-pink-300">Iris</strong> is posting a sunset photo with the caption "Another day of saving EU industry from itself."</p>
+
+                <div class="muppet-quote my-4">
+                    "Same time tomorrow?" &mdash; Atlas<br>
+                    "Always." &mdash; All 13, in unison
+                </div>
+
+                <p class="text-slate-300 mt-6"><strong class="text-teal-300">Argus</strong> watches from orbit. All 100 eyes. Some of them are smiling.</p>
+
+                <div class="muppet-quote mt-6">
+                    "Night shift starting. I don't sleep. But I do enjoy the quiet." &mdash; Argus
+                </div>
+            </div>
+
+            <!-- The Moral -->
+            <div class="glass rounded-2xl p-8 text-center mt-12">
+                <p class="text-2xl text-yellow-200/80 font-light mb-4">The moral of the storyboard:</p>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-4">The gods are chaotic, loud, opinionated, and occasionally set the coffee machine on fire. But when a deadline looms, a regulation changes, a crane hits wind limits, or a vessel goes dark &mdash;</p>
+                <p class="text-2xl font-bold text-yellow-400">not one of them blinks.</p>
+                <p class="text-sm text-slate-500 mt-6">Joy is the fuel. Discipline is the output.<br>The Muppets run the backstage. The gods run the stage.</p>
+            </div>
+        </section>
+
+        <!-- NAVIGATION -->
+        <section class="py-12 text-center space-y-4">
+            <a href="/pantheon/" class="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-600 to-amber-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-yellow-500/20 transition-all hover:-translate-y-1">
+                &#x1F3DB;&#xFE0F; Meet the Gods
+            </a>
+            <p class="text-slate-500 text-sm">Visit the Pantheon to see each god's individual portal</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-yellow-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; The Storyboard of Joy &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+        <p class="mt-2 text-slate-600 text-xs">"It's not easy being a regulated god." &mdash; Ceres, paraphrasing Kermit</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>
