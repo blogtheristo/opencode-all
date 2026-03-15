@@ -162,6 +162,26 @@ const DEFAULT_TUNER_CONFIG: TunerConfig = {
 // PARAMETER MUTATION (the "train.py" equivalent)
 // ============================================================================
 
+// Deterministic PRNG for reproducible parameter mutations.
+// Seed is taken from KYA_TUNER_SEED (if provided), otherwise a fixed default is used.
+const KYA_TUNER_RNG_MODULUS = 2 ** 32;
+const KYA_TUNER_DEFAULT_SEED = 123456789;
+
+let kyaTunerRngState: number = (() => {
+  const rawSeed = process.env.KYA_TUNER_SEED;
+  const parsed = rawSeed !== undefined ? Number(rawSeed) : NaN;
+  if (Number.isFinite(parsed) && parsed > 0) {
+    return parsed % KYA_TUNER_RNG_MODULUS;
+  }
+  return KYA_TUNER_DEFAULT_SEED;
+})();
+
+function nextRandom(): number {
+  // Linear congruential generator (LCG) with 32-bit arithmetic
+  kyaTunerRngState = (1664525 * kyaTunerRngState + 1013904223) % KYA_TUNER_RNG_MODULUS;
+  return kyaTunerRngState / KYA_TUNER_RNG_MODULUS;
+}
+
 /**
  * Generate a mutated parameter set. Each experiment perturbs one parameter
  * by a small amount (±10% of current value). This is the autoresearch
@@ -169,11 +189,11 @@ const DEFAULT_TUNER_CONFIG: TunerConfig = {
  */
 function mutateParams(base: KyaTunableParams): { params: KyaTunableParams; hypothesis: string } {
   const keys = Object.keys(base) as (keyof KyaTunableParams)[];
-  const targetKey = keys[Math.floor(Math.random() * keys.length)];
+  const targetKey = keys[Math.floor(nextRandom() * keys.length)];
   const currentValue = base[targetKey];
 
   // Perturb by ±10%
-  const perturbation = (Math.random() * 0.2 - 0.1) * currentValue;
+  const perturbation = (nextRandom() * 0.2 - 0.1) * currentValue;
   const newValue = Math.max(0.001, currentValue + perturbation);
 
   const mutated = { ...base, [targetKey]: Number(newValue.toFixed(6)) };
