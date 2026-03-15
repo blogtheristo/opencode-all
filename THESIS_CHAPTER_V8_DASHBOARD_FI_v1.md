@@ -1,6 +1,6 @@
 # Opinnäytetyön luku: V8-kojelauta Supabase-integraatiolla
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3
@@ -412,7 +412,7 @@ V8-kojelauta toimii kattavassa DWS IQ 6 -tietoturvakehyksessä, joka on 5-kerrok
 │  Tekoälyn hallinto | Vaatimustenmukaisuusraportointi | Auditointipolku │
 ├─────────────────────────────────────────────────────────────────┤
 │                    KERROS 4: VALVONTA                           │
-│  Aikido-uhkatunnistus | Snyk-skannaus | Ruff-linttaus           │
+│  ZenFree-uhkatunnistus | Dependabot-skannaus | Ruff-linttaus           │
 ├─────────────────────────────────────────────────────────────────┤
 │                    KERROS 3: SOVELLUSTIETOTURVA                 │
 │  Syötteen validointi | CSRF-suojaus | XSS-esto | CORS           │
@@ -431,8 +431,8 @@ DWS IQ 6 -alusta käyttää kattavaa tietoturvatyökaluketjua:
 
 | Työkalu | Tarkoitus | Integraatiopiste |
 |---------|-----------|------------------|
-| **Snyk** | Riippuvuusskannaus (SCA, SAST) | GitHub Actions |
-| **Aikido** | Ajonaikainen uhkatunnistus | CI/CD-putki |
+| **ZenFree** | Tietoturvaskannaus (kriittiset bugit, CWE) | GitHub Actions |
+| **Dependabot** | Riippuvuushaavoittuvuusskannaus | GitHub Native |
 | **Ruff** | Python-tietoturvalinttaus | Pre-commit + CI |
 | **CodeQL** | Koodianalyysi (SARIF) | GitHub Actions |
 | **pip-audit** | Python-haavoittuvuusskannaus | Päivittäinen työnkulku |

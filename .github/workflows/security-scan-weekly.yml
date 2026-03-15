@@ -74,7 +74,7 @@ jobs:
 
       - name: Create Weekly Summary Issue
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -195,7 +195,7 @@ jobs:
 
       - name: Create Individual Issues for Critical/High
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -206,17 +206,32 @@ jobs:
               console.log('Could not read results:', e);
               return;
             }
-            
+
             const findings = results.sources?.zenfree?.findings || [];
-            
-            // Create individual issues for critical/high severity
+
+            // Fetch existing open issues with zenfree label to avoid duplicates
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'zenfree',
+              state: 'open',
+              per_page: 100
+            });
+            const existingTitles = new Set(existingIssues.data.map(i => i.title));
+
+            // Create individual issues for critical/high severity (skip duplicates)
             for (const finding of findings) {
               if (['critical', 'high'].includes(finding.severity?.toLowerCase())) {
+                const title = `🔐 [${finding.severity.toUpperCase()}] ${finding.full_description}`;
+                if (existingTitles.has(title)) {
+                  console.log(`Skipping duplicate: ${finding.file}:${finding.line}`);
+                  continue;
+                }
                 try {
                   await github.rest.issues.create({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
-                    title: `🔐 [${finding.severity.toUpperCase()}] ${finding.full_description}`,
+                    title: title,
                     body: `## Security Finding\n\n**Source:** ZenFree Weekly Scan\n**Severity:** ${finding.severity}\n**CWE:** ${finding.cwe}\n**Type:** ${finding.type}\n\n### Location\n- **File:** \`${finding.file}\`\n- **Line:** ${finding.line}\n\n### Code\n\`\`\`\n${finding.code}\n\`\`\`\n\n### Issue\n${finding.description}\n\n### Related\n- [Weekly Security Report](../../security-reports/WEEKLY_SECURITY_REPORT.md)\n- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)\n- [Security Scanning Guide](../../security-reports/ZENFREE_SECURITY_SCANNING_GUIDE.md)`,
                     labels: ['security', 'zenfree', `severity-${finding.severity}`, 'weekly-scan']
                   });
@@ -240,7 +255,7 @@ jobs:
 
       - name: Post Scan Summary
         if: always()
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');

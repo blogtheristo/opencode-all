@@ -47,7 +47,7 @@ pip install -r dev-requirements.txt
 The GitHub Actions workflow automatically:
 1. Creates consolidated `requirements.txt` from all sources
 2. Installs dependencies
-3. Runs Snyk security scan
+3. Runs Dependabot + ZenFree security scan
 
 ### For Production
 
@@ -60,12 +60,13 @@ pip install -r mcp-hub/requirements.txt
 
 ## 🔒 Security Scanning
 
-### Snyk Integration
+### Security Scanning (ZenFree + Dependabot)
 
-The security scan workflow (`.github/workflows/security_scan.yml`) automatically:
-- Consolidates all requirements files
-- Scans for vulnerabilities (medium severity and above)
-- Reports to GitHub Security tab
+Security scanning is handled by multiple GitHub Actions workflows:
+- **Daily:** `security-scan-daily.yml` — ZenFree critical bug scanner (02:30 UTC)
+- **Weekly:** `security-scan-weekly.yml` — Full ZenFree scan (Sunday 21:00 UTC)
+- **On PRs:** `dependency_review.yml` — pip-audit, safety, license checks
+- **Native:** Dependabot — Automatic dependency vulnerability alerts
 
 ### Manual Security Scan
 
@@ -79,9 +80,9 @@ pip-audit -r requirements.txt
 safety check -r requirements.txt
 ```
 
-**Using Snyk CLI:**
+**Using ZenFree scanner:**
 ```bash
-snyk test --file=requirements.txt --severity-threshold=medium
+python scripts/scan_critical_bugs.py --full
 ```
 
 ---
@@ -148,14 +149,15 @@ requests>=2.31.0      # Minimum version (security)
 
 ## 🚨 Troubleshooting
 
-### Snyk Scan Fails
+### Security Scan Fails
 
-**Error:** "Could not find requirements.txt"
+**Error:** ZenFree scan produces no output
 
-**Solution:** The workflow now auto-generates it. If still failing:
-1. Check `.github/workflows/security_scan.yml`
+**Solution:**
+1. Check `scripts/scan_critical_bugs.py` exists and is executable
 2. Ensure `requirements-security.txt` exists
 3. Verify GitHub Actions has proper permissions
+4. Check workflow run logs at https://github.com/blogtheristo/dws6/actions
 
 ### Dependency Conflicts
 
@@ -206,7 +208,7 @@ The security scan runs:
 2. **Setup Python 3.11**
 3. **Create consolidated requirements.txt**
 4. **Install dependencies**
-5. **Run Snyk scan**
+5. **Run ZenFree security scan**
 6. **Upload results to GitHub Security**
 
 ### Viewing Results
@@ -214,8 +216,8 @@ The security scan runs:
 **GitHub Security Tab:**
 https://github.com/blogtheristo/dws6/security
 
-**Snyk Dashboard:**
-https://app.snyk.io/
+**Dependabot Alerts:**
+https://github.com/blogtheristo/dws6/security/dependabot
 
 ---
 
@@ -233,7 +235,7 @@ https://app.snyk.io/
 ## 📚 Related Documentation
 
 - **Security Manual:** `Admin/Security/GITHUB_APP_SECURITY_ADMIN.md`
-- **Snyk Setup:** `.github/workflows/security_scan.yml`
+- **Security Scans:** `.github/workflows/security-scan-daily.yml`, `security-scan-weekly.yml`
 - **Environment Config:** `env.mcp.example`
 
 ---

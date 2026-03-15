@@ -8,12 +8,13 @@
 
 ---
 
-## 🚀 PILOT PHASE: RUNNING
-**Status:** Validating with Tier 1 European Partners
-**Update:** Omnibus pivot 03.01.2026
+## PRODUCTION: V1.0 LAUNCHED
+**Status:** V1.0 launched February 23, 2026 — Pilot validation with Tier 1 European Partners
+**Update:** Customer onboarding wizard + compliance scoring shipped March 2026
 **Revenue:** €7k MRR today (scaling to €14k via Lifetime Fleet AND to €60k MRR with DWS IQ Sales 2026)
 **Runway:** Fixed (Operational revenue covers core burn)
-**V1.0 Launch:** Feb 23, 2026
+**Agents:** 18 platform agents across 20 EU-regulated industries
+**CI/CD:** 37 automated workflows (security, deployment, monitoring, compliance)
 
 ---
 
@@ -21,9 +22,9 @@
 
 > **"The first industrial AI platform that thinks, remembers, executes, AND physically deploys — already generating revenue."**
 
-DWS IQ 6 is not a point solution. It is a **complete industrial intelligence organism** designed to automate climate compliance for **16 EU-regulated industries**.
+DWS IQ 6 is not a point solution. It is a **complete industrial intelligence organism** designed to automate climate compliance for **20 EU-regulated industries**.
 
-### 🎯 The De Facto Platform for Fit for 55
+### The De Facto Platform for Fit for 55
 
 > **DWS IQ 6 is the de facto platform for Fit for 55 compliance — covering critical and important carbon credit works across the entire EU regulatory stack.**
 
@@ -37,10 +38,11 @@ DWS IQ 6 is not a point solution. It is a **complete industrial intelligence org
 | **LULUCF** | Land Use & Forestry | Carbon sink accounting, forestry compliance |
 | **ReFuelEU** | Aviation & Maritime | SAF mandates, fuel intensity tracking |
 | **NIS2** | Cybersecurity | Secure infrastructure for critical entities |
+| **EU AI Act** | AI Governance | Article 12 logging, reasoning lineage (Aiwen layer Q2 2026) |
 
-📖 **Full Industry Coverage:** [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
+Full Industry Coverage: [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
 
-### 🧠 Thinking Enlargement: From Compliance to Competitive Advantage
+### Thinking Enlargement: From Compliance to Competitive Advantage
 
 DWS IQ 6 doesn't just help you comply — it transforms compliance into strategic advantage:
 
@@ -70,48 +72,49 @@ LEVEL 5: TRANSFORMATION (DWS IQ 6 Ecosystem)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    🧠 BRAIN - DWS IQ 6 Platform                 │
-│         Multi-agent AI Orchestration & Decision Engine          │
-│        (EU Google Cloud + Groq + Enterprise Private Cloud)      │
+│                    BRAIN - DWS IQ 6 Platform                    │
+│     18-Agent AI Swarm Orchestration & Decision Engine            │
+│     (EU Google Cloud + Groq + Claude + Enterprise Cloud)        │
 ├─────────────────────────────────────────────────────────────────┤
-│                   💾 MEMORY - Lifetime World Model              │
-│    Climate LLM + Enterprise Integrations (SAP, ABB, NVIDIA)     │
+│                   MEMORY - Lifetime World Model                 │
+│    Climate LLM + 15,000+ EU Regulations + Industry Models       │
+│    Enterprise Integrations (SAP, ABB, NVIDIA, Aspentech)        │
 ├─────────────────────────────────────────────────────────────────┤
-│              🏢 BODY - 16 Industrial Solutions                  │
-│   Firehorse™ Report | Automation | Content DMS | Omnichannel    │
+│              BODY - 20 Industrial Solutions                      │
+│   Firehorse Report | Automation | Content DMS | Omnichannel     │
+│   32 Products in DWS Store (dws10.com)                          │
 ├─────────────────────────────────────────────────────────────────┤
-│                  🤖 HANDS - Lifetime Fleet                      │
-│           Robots • Vehicles • Drones • IoT (€7-14k MRR)         │
+│                  HANDS - Lifetime Fleet                          │
+│           Robots • Vehicles • Drones • IoT (€7-14k MRR)        │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### 🧠 BRAIN (DWS IQ 6 Platform)
-Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
+### BRAIN (DWS IQ 6 Platform)
+Multi-agent AI orchestration with 18 specialized agents. Powered by EU-hosted Google Cloud Run + Groq (Llama 3.3 70B) + Claude API.
 - **62% faster decisions** vs. manual processes
 - **73% fewer errors** through AI-driven validation
+- **Agent-first design**: Every feature accessible via `dws <command>` CLI, MCP tools, and Claude Code skills
 
-### 💾 MEMORY (Lifetime World Model)
-Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM, Omnibus) and Enterprise own Models and Tool stack trained in industries own specifications and standards.
+**Core Agents:** SiteSense (safety), MaterialOracle (carbon), ScheduleGenius (planning), CustomerSat (health), Compliance (EU regs), ConstructionAgent, LogisticsAgent, EmissionsDataAnalyst, QualityGate, SovereigntyMonitor, Argus (satellite imagery), and more.
+
+### MEMORY (Lifetime World Model)
+Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM, Omnibus) and enterprise models trained on industry specifications and standards.
 - **15,000+ EU regulations** indexed and searchable
-- **16 industry verticals** pre-trained (Fit for 55 coverage)
+- **20 industry verticals** pre-trained (Fit for 55 coverage)
+- **pgvector** semantic search for regulations and compliance rules
 
 **Enterprise Integrations:** SAP S/4HANA • Aspentech • ABB Robotics • NVIDIA Omniverse • Microsoft Azure • Google Workspace
 
-### 🏢 BODY (16 Industrial Solutions + Firehorse™ Suite)
+### BODY (20 Industrial Solutions + Firehorse Suite)
 Vertical-specific applications for Construction, Manufacturing, Logistics, and more:
-- **Firehorse™ Report Engine** – Automated compliance reporting
-- **Firehorse™ Automation** – Workflow orchestration & triggers
-- **Firehorse™ Content DMS** – Document management for audits
-- **Firehorse™ Omnichannel Next** – Multi-channel delivery (email, API, portal)
+- **Firehorse Report Engine** – Automated compliance reporting
+- **Firehorse Automation** – Workflow orchestration & triggers
+- **Firehorse Content DMS** – Document management for audits
+- **Firehorse Omnichannel Next** – Multi-channel delivery (email, API, portal)
+- **DWS Store** – 32 products across platform, services, and education categories
 
-### 🤖 HANDS (Lifetime Fleet)
+### HANDS (Lifetime Fleet)
 Physical execution via Robots, Vehicles, Drones, and IoT. **(Currently generating €7-14k MRR)** — proof of market-product fit.
-
-- 🧠 BRAIN (DWS IQ 6 Platform)**: Multi-agent AI orchestration, reasoning, and decision-making. Powered by EU hosted Google Cloud + Groq + Enterprise Private Cloud.
-- 💾 MEMORY (Lifetime World Model)**: Specialized Climate LLM with deep knowledge of EU Regulations (Fit for 55, ETS, CBAM.Omnibus) and Enteprise own Models and Tool stack with integrations (SAP, Aspentech, ABB Robotics, NVIDIA) trained in industries own specifications and standards.
-- 🏢 BODY (8 Industrial Solutions and Firehorse™Apps): Vertical-specific applications for Construction, Manufacturing, Logistics, and more. Applications are supported with Firehorse™Report Engine,
-Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Next.
-- 🤖 HANDS (Lifetime Fleet)**: Physical execution via Robots, Vehicles, and IoT. (Currently generating €7-14k MRR).
 
 ---
 
@@ -121,34 +124,34 @@ Firehorse™Automation, Firehorse™Content DMS, and Firehorse™ Omnichannel Ne
 
 ![Lifetime 16 Industries - Fit for 55](FitFor55_16_Industries.png)
 
-**DWS™IQ for intelligent industries**
+**DWS IQ for intelligent industries**
 
-**Lifetime™World. Lifetime Friends. Sustainability™Partner.**
+**Lifetime World. Lifetime Friends. Sustainability Partner.**
 
 ### Platform Products
-- DWS™IQ 6 - Industrial Climate Intelligence Platform
-- Lifetime™AIQ solutions
-- LTW™Investor Studio
-- Lifetime™RAG AI
-- Lifetime™Studio 2026
+- DWS IQ 6 - Industrial Climate Intelligence Platform
+- Lifetime AIQ solutions
+- LTW Investor Studio
+- Lifetime RAG AI
+- Lifetime Studio 2026
 
 ### Firehorse Product line
-- Firehorse™Report Engine,
-- Firehorse™Automation,
-- Firehorse™Content DMS, and
-- Firehorse™ Omnichannel Next.
+- Firehorse Report Engine
+- Firehorse Automation
+- Firehorse Content DMS
+- Firehorse Omnichannel Next
 
 ### Technology
-- Lifetime™Quantum Elements
-- Lifetime™Robotics
-- Lifetime™Cloud
+- Lifetime Quantum Elements
+- Lifetime Robotics
+- Lifetime Cloud
 
 ### Digital Assets
-- **Lifetime™World Coin ($LTW)**
-- **Lifetime World Coin®**
-- **LTWCash®**
-- **LTWCertificate®**
-- **LTW Partners Certificate®**
+- **Lifetime World Coin ($LTW)**
+- **Lifetime World Coin**
+- **LTWCash**
+- **LTWCertificate**
+- **LTW Partners Certificate**
 
 ---
 
@@ -161,7 +164,7 @@ Renewable Energy + Solar + Wind + H2 + Storage + Electricity + Heat/Cool + Water
 
 ---
 
-## Why DWS™IQ for Intelligent Industries?
+## Why DWS IQ for Intelligent Industries?
 
 DWS is an industrial platform for enterprises who wish to transform their purpose and operations into **intelligent industries** using Physical Artificial Intelligence and data-driven decisioning.
 
@@ -188,7 +191,7 @@ Changing environmental compliance requirements demand action now.
 
 The EU mandates embodied carbon measurement for buildings >1,000 m² by 2028. Fit for 55 targets (55% emissions reduction by 2030) aren't aspirational—they're compliance deadlines.
 
-Buildings account for approximately 40% of CO₂ emissions in the EU over their whole life cycle. Manufacturing contributes 24% of EU greenhouse gas emissions, while SMEs account for 63% of all European carbon emissions.
+Buildings account for approximately 40% of CO2 emissions in the EU over their whole life cycle. Manufacturing contributes 24% of EU greenhouse gas emissions, while SMEs account for 63% of all European carbon emissions.
 
 Construction firms and manufacturing SMEs face the same problem: **climate compliance requires constant decisions about materials, suppliers, and processes. Your teams can't keep pace manually.**
 
@@ -231,13 +234,36 @@ We are validating DWS6 with 2-3 construction or manufacturing companies in Europ
 
 ## Technical Architecture
 
-### Hybrid AWS + Google + NVIDIA
+### Tech Stack
+
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| **Frontend** | React, Vite, TypeScript, TailwindCSS | 19.2, 7.2, 5.9, 4.1 |
+| **Backend** | Express + TypeScript, Node.js | 4.19, 22 |
+| **AI/LLM** | Groq (Llama 3.3 70B), Claude API, Gemini | Production |
+| **Database** | Supabase (PostgreSQL + pgvector + Auth) | EU region (europe-north1) |
+| **Orchestration** | MCP Hub (JSON-RPC 2.0), Temporal.io | Active |
+| **Infrastructure** | Google Cloud Run, Cloudflare Pages/Workers | Auto-scaling 0-10 |
+| **Edge** | NVIDIA Jetson Orin Nano | 50 sites |
+| **Testing** | Vitest | 4.0 |
+| **CI/CD** | GitHub Actions | 37 workflows |
+
+### Cloud Environments
+
+| Environment | Provider | Region | Purpose |
+|-------------|----------|--------|---------|
+| **US Cloud** | Cloudflare Pages/Workers | Global CDN | Landing pages, store, dashboard SPA |
+| **EU Cloud** | Google Cloud Run + Supabase | europe-north1 (Finland) | Backend, agents, database, auth |
+| **Aiwen** | EU Cloud overlay | EU-only | EU AI Act Article 12 logging (Q2 2026) |
+| **Hetzner** | Self-hosted CX22 | Helsinki | Jitsi Meet + Email (V3) |
+| **Aiven** | PostgreSQL sandbox | Finland | Agent workspace, DR mirror |
+
+### Hybrid Cloud + NVIDIA Edge
 
 - **Edge Layer**: AWS IoT Greengrass + NVIDIA Jetson Orin Nano (50 sites)
-- **Core Platform**: Google Cloud Run + Groq API + LlamaStack
+- **Core Platform**: Google Cloud Run + Groq API + Claude API
 - **Client**: Chromebook Plus with Progressive Web App
 - **Data Storage**: Supabase (hot) + AWS S3 (cold archive)
-- **Cost**: $180/month after credits (86% cheaper than AWS-only)
 
 ### The NVIDIA Edge Advantage
 
@@ -250,30 +276,30 @@ We are validating DWS6 with 2-3 construction or manufacturing companies in Europ
 
 ### DWS MCP Hub - Multi-Agent Orchestration Platform
 
-**✅ MCP Hub Implementation Complete**
-
-**The control layer that coordinates Cursor, Claude, Gemini and DWS IQ agents with your construction planning tools and Lifetime Firehorse products, supported by the Lifetime World Model and a fleet of cars, drones and robots on the construction site – so every automated, predictable workflow (including reports, schedules and compliance packs) runs from a single, climate-intelligent brain instead of disconnected scripts.**
+**The control layer that coordinates Claude, Gemini, Cursor and DWS IQ agents with your construction planning tools and Lifetime Firehorse products, supported by the Lifetime World Model and a fleet of cars, drones and robots on the construction site – so every automated, predictable workflow (including reports, schedules and compliance packs) runs from a single, climate-intelligent brain instead of disconnected scripts.**
 
 Our Model Context Protocol (MCP) Hub enables sophisticated multi-agent orchestration across the entire DWS IQ ecosystem:
 
 **Core Components:**
 1. **Multi-Agent Orchestration**
-   - MCP Coordination Hub (port 8765): Coordinates Cursor AI, Claude Code, and Gemini Pro
-   - Supabase MCP Server (port 8766): Integration with Firehorse Add-Ons and customer-owned tools
+   - MCP Coordination Hub: Coordinates Claude Code, Cursor AI, and Gemini Pro
+   - Supabase MCP Server: Integration with Firehorse Add-Ons and customer-owned tools
+   - 6 MCP servers (Supabase, Cloud Run Gateway, Claude, LWM, and more)
    - Three Workflow Patterns:
      - **Fan-out**: Parallel development tasks
      - **Reflection**: Iterative quality loops
      - **Sequential**: BIM → Carbon → Compliance pipelines
 
-2. **Session Persistence**
-   - Claude Code sessions stored in Supabase
-   - Auto-generated CLAUDE.md from session history
-   - Context continuity across development sessions
+2. **Agent-First Architecture**
+   - CLI: `dws <command>` for all agent operations
+   - MCP: JSON-RPC 2.0 endpoint at `/mcp`
+   - Claude Code Skills: 11 executable commands in `.claude/commands/`
+   - Every agent discoverable via `dws agents` and `tools/list`
 
 3. **Infrastructure (Docker)**
    - Fully containerized architecture
    - Temporal.io for workflow durability
-   - PostgreSQL context store
+   - PostgreSQL context store with pgvector
    - Real-time monitoring via Temporal UI
 
 4. **Database Schema**
@@ -297,9 +323,9 @@ cp env.mcp.example .env.mcp  # Configure
 docker-compose -f docker-compose.mcp.yml up -d
 ```
 
-**📖 Complete Documentation:** See [MCP_HUB_DEPLOYMENT.md](MCP_HUB_DEPLOYMENT.md) for detailed setup, configuration, and troubleshooting.
+Complete Documentation: See [MCP_HUB_DEPLOYMENT.md](MCP_HUB_DEPLOYMENT.md) for detailed setup, configuration, and troubleshooting.
 
-**⚖️ Legal Terms:** [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md) | [Privacy Policy](privacy-policy/privacy-policy_V1.md)
+Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.md) | [Privacy Policy](privacy-policy/privacy-policy_V1.md)
 
 ---
 
@@ -329,12 +355,10 @@ docker-compose -f docker-compose.mcp.yml up -d
 
 ## Startup Programs Applied
 
-- ✅ AWS for Startups: $25,000 credits (edge computing services)
-- ✅ Groq for Startups: $10,000 credits (inference)
-- ✅ Google for Startups: $100,000 credits (core platform)
-- ✅ GitHub for Startups: Advanced enterprise features, 20 seats (collaboration & CI/CD)
-
-**GitHub Repository**: https://github.com/blogtheristo/dws6
+- AWS for Startups: $25,000 credits (edge computing services)
+- Groq for Startups: $10,000 credits (inference)
+- Google for Startups: $100,000 credits (core platform)
+- GitHub for Startups: Advanced enterprise features, 20 seats (collaboration & CI/CD)
 
 **Result**: $135,000 in credits + GitHub Enterprise + €54,200 NVIDIA hardware = 6 years free infrastructure + massive edge AI moat
 
@@ -354,14 +378,15 @@ docker-compose -f docker-compose.mcp.yml up -d
 
 ## Timeline
 
-- **Days 1-30**: Foundation (Google Cloud + Groq setup)
-- **Days 31-60**: Pilot validation with European construction/manufacturing partner
-- **Days 61-90**: Production launch
-- **Month 12**: Profitability
+- **Feb 23, 2026**: V1.0 Launch (completed)
+- **Q1 2026**: Customer onboarding wizard, compliance scoring, 18-agent swarm
+- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Aiwen layer
+- **Q3 2026**: ISO 27001 certification, production scaling
+- **Q4 2026**: SOC 2 Type II, profitability target
 
 ---
 
-## 🔒 Enterprise Security & Compliance
+## Enterprise Security & Compliance
 
 > **"We only buy SOC 2 audited vendors."** — We offer VPC deployment in your environment, pen test reports, and ISO 27001 certification roadmap (Q3 2026).
 
@@ -382,27 +407,25 @@ DWS IQ 6 is designed for **enterprise-grade deployment** in regulated industries
 
 | Standard | Construction | Manufacturing | Lifetime Fleet |
 |----------|--------------|---------------|----------------|
-| **ISO 27001** | Q3 2026 ⭐ | Q3 2026 ⭐ | Q3 2026 |
-| **NIS2** | ✅ Active | ✅ Active | — |
+| **ISO 27001** | Q3 2026 | Q3 2026 | Q3 2026 |
+| **NIS2** | Active | Active | — |
 | **IEC 62443** | — | Q4 2026 | — |
-| **SOC 2 Type II** | — | — | Q4 2026 ⭐ |
+| **SOC 2 Type II** | — | — | Q4 2026 |
 | **DORA** | — | — | Roadmap 2026 |
-| **GDPR** | ✅ Active | ✅ Active | ✅ Active |
+| **GDPR** | Active | Active | Active |
 | **EU AI Act** | Q2 2026 | Q2 2026 | Q2 2026 |
-
-⭐ = Primary anchor standard for that vertical
 
 ### Vendor Risk Package (Ready)
 
 Pre-prepared documentation for your procurement team:
 
-- ✅ **Data Processing Agreement (DPA)** — GDPR Art. 28, EU SCCs included
-- ✅ **Security Policy Package** — Access control, incident response, change management
-- ✅ **Penetration Test Report** — Annual third-party assessment (under NDA)
-- ✅ **Sub-processor List** — All vendors with EU adequacy status
-- ✅ **BCP/DR Documentation** — RTO 4h, RPO 1h, 99.9% SLA
+- **Data Processing Agreement (DPA)** — GDPR Art. 28, EU SCCs included
+- **Security Policy Package** — Access control, incident response, change management
+- **Penetration Test Report** — Annual third-party assessment (under NDA)
+- **Sub-processor List** — All vendors with EU adequacy status
+- **BCP/DR Documentation** — RTO 4h, RPO 1h, 99.9% SLA
 
-📖 **Full Security Documentation:** [SECURITY_COMPLIANCE.md](SECURITY_COMPLIANCE.md)
+Full Security Documentation: [SECURITY_COMPLIANCE.md](Admin/SECURITY_COMPLIANCE.md)
 
 ### Legal & Privacy
 
@@ -416,44 +439,80 @@ Pre-prepared documentation for your procurement team:
 
 ---
 
-## Development & Troubleshooting
+## Development
+
+### Quick Start
+
+```bash
+# Backend
+npm run dev       # Express backend with hot reload
+npm run build     # Build TypeScript
+npm run test      # Vitest
+npm run lint      # ESLint
+
+# Dashboard (dws6.com/dashboard/firehorse/v9-react/)
+npm run dev       # Vite dev server
+npm run build     # Production build
+
+# Docker
+docker-compose -f docker-compose.hybrid.yml up -d
+
+# Agent CLI
+dws agents                                    # List all agents
+dws run compliance --input '{"reg":"CSRD"}'   # Run single agent
+dws workflow compliance-assessment             # Run multi-agent workflow
+```
+
+### Repository Structure
+
+```
+dws6/
+├── src/                     # Backend/shared logic (Express + TypeScript)
+│   ├── app.ts              # Main Express app
+│   ├── agents/             # 18 AI agent implementations
+│   ├── firehorse/          # Firehorse product integration
+│   ├── integrations/       # ERP (SAP, IFS, Dynamics) & ESG integrations
+│   ├── mcp/                # Model Context Protocol implementation
+│   └── __tests__/          # Vitest test suite
+├── dws6.com/               # Web applications
+│   └── dashboard/firehorse/v9-react/  # Main React 19.2 dashboard
+├── Firehorse/              # Product suite (Omnichannel, Report, Automation, ContentMS)
+├── landing-pages/          # Cloudflare Pages (production)
+├── mcp-hub/                # MCP Orchestration Platform
+├── mcp-servers/            # 6 individual MCP servers
+├── product-catalog/        # 32 products (Google Merchant format)
+├── scripts/                # Dev & deployment scripts
+├── supabase/migrations/    # Database migrations (045+)
+├── .claude/commands/       # 11 Claude Code skills
+└── .github/workflows/      # 37 CI/CD pipelines
+```
 
 ### Git Repository Issues
 
 If you encounter git corruption or branch issues:
 
-- ⚡ **START HERE:** [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Complete overview and action plan
-- 🚨 **Quick Fix:** [QUICK_FIX.md](QUICK_FIX.md) - 5-minute solution for git corruption
-- 📖 **Full Guide:** [GIT_CORRUPTION_RECOVERY.md](GIT_CORRUPTION_RECOVERY.md) - Complete recovery documentation
-- 🔀 **PR #142 Resolution:** [PR_142_RESOLUTION.md](PR_142_RESOLUTION.md) - Resolve merge conflicts
-- 🔧 **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
-
-**Common Issues:**
-- Corrupted branch refs with special characters
-- Unable to push or pull from GitHub
-- Merge conflicts in PR #142 or other PRs
-- Branch name livelock situations
+- **START HERE:** [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md) - Complete overview and action plan
+- **Quick Fix:** [QUICK_FIX.md](QUICK_FIX.md) - 5-minute solution for git corruption
+- **Full Guide:** [GIT_CORRUPTION_RECOVERY.md](GIT_CORRUPTION_RECOVERY.md) - Complete recovery documentation
+- **Recovery Script:** `scripts/recover-from-corrupted-refs.sh` - Automated recovery tool
 
 **Prevention:** The repository includes git hooks (`.githooks/pre-push`) that validate branch names to prevent future corruption.
-
-**Quick Start:** `cd dws6 && cat EXECUTIVE_SUMMARY.md`
 
 ---
 
 ## Contact
 
-**Risto Anton Päärni**
+**Risto Anton Paarni**
 Founder & CEO, Lifetime Consulting
 
 - Email: risto@lifetime.fi
-- LinkedIn: [linkedin.com/in/ristopaarni](https://linkedin.com/in/ristopaarni)
-- Crunchbase: [Lifetime Oy](https://www.crunchbase.com/organization/lifetime-oy)
-- GitHub: [DWS6 Repository](https://github.com/blogtheristo/dws6)
+- LinkedIn: https://linkedin.com/in/ristopaarni
+- Crunchbase: https://www.crunchbase.com/organization/lifetime-oy
 
 ---
 
-Document Version: 2.6
-Last Updated: January 3, 2026
-Prepared by: Risto Anton Päärni / Lifetime Consulting
-AI Agents Used: Gemini, Claude Code, Kimi K2, GitHub Copilot, Cursor.ai
+Document Version: 3.0
+Last Updated: March 15, 2026
+Prepared by: Risto Anton Paarni / Lifetime Consulting
+AI Agents Used: Claude Code, Gemini, Groq (Llama 3.3 70B), GitHub Copilot, Cursor.ai
 License: Proprietary - Lifetime Oy

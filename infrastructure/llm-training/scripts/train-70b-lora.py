@@ -20,39 +20,41 @@ Usage:
            train-70b-lora.py --config configs/70b-lora.yaml
 """
 
-import os
-import sys
 import argparse
 import logging
-from pathlib import Path
+import os
+import sys
 from datetime import datetime
+from pathlib import Path
 
 import torch
 import yaml
-from datasets import load_dataset, Dataset
+from datasets import Dataset, load_dataset
+from peft import (
+    LoraConfig,
+    TaskType,
+    get_peft_model,
+    prepare_model_for_kbit_training,
+)
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
     BitsAndBytesConfig,
-)
-from peft import (
-    LoraConfig,
-    get_peft_model,
-    prepare_model_for_kbit_training,
-    TaskType,
+    TrainingArguments,
 )
 from trl import SFTTrainer
 
 # Optional imports
 try:
     import wandb
+
     WANDB_AVAILABLE = True
 except ImportError:
     WANDB_AVAILABLE = False
 
 try:
     import mlflow
+
     MLFLOW_AVAILABLE = True
 except ImportError:
     MLFLOW_AVAILABLE = False
@@ -70,14 +72,19 @@ DEFAULT_CONFIG = {
     "bnb_4bit_compute_dtype": "bfloat16",
     "bnb_4bit_quant_type": "nf4",
     "use_double_quant": True,
-    
     # LoRA
     "lora_r": 64,
     "lora_alpha": 128,
     "lora_dropout": 0.05,
-    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj", 
-                       "gate_proj", "up_proj", "down_proj"],
-    
+    "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],
     # Training
     "output_dir": "/checkpoints/70b-lora",
     "num_train_epochs": 3,
@@ -92,19 +99,16 @@ DEFAULT_CONFIG = {
     "bf16": True,
     "gradient_checkpointing": True,
     "optim": "paged_adamw_8bit",
-    
     # Data
     "dataset_name": None,  # Set via config or CLI
     "dataset_path": None,  # Local dataset path
     "text_column": "text",
     "max_samples": None,
-    
     # Logging
     "logging_steps": 10,
     "save_steps": 100,
     "eval_steps": 100,
     "save_total_limit": 3,
-    
     # Tracking
     "use_wandb": True,
     "wandb_project": "lifetime-world-model",
@@ -129,12 +133,12 @@ def setup_logging(log_level: str = "INFO") -> logging.Logger:
 def load_config(config_path: str) -> dict:
     """Load configuration from YAML file."""
     config = DEFAULT_CONFIG.copy()
-    
+
     if config_path and Path(config_path).exists():
-        with open(config_path, "r") as f:
+        with open(config_path) as f:
             user_config = yaml.safe_load(f)
             config.update(user_config)
-    
+
     return config
 
 
@@ -148,9 +152,9 @@ def get_bnb_config(config: dict) -> BitsAndBytesConfig:
             bnb_4bit_compute_dtype=compute_dtype,
             bnb_4bit_use_double_quant=config["use_double_quant"],
         )
-    elif config["use_8bit"]:
+    if config["use_8bit"]:
         return BitsAndBytesConfig(load_in_8bit=True)
-    
+
     return None
 
 
@@ -169,21 +173,21 @@ def get_lora_config(config: dict) -> LoraConfig:
 def load_model_and_tokenizer(config: dict, logger: logging.Logger):
     """Load model and tokenizer with quantization."""
     logger.info(f"Loading model: {config['model_name']}")
-    
+
     # Quantization config
     bnb_config = get_bnb_config(config)
-    
+
     # Load tokenizer
     tokenizer = AutoTokenizer.from_pretrained(
         config["model_name"],
         trust_remote_code=True,
         token=os.environ.get("HF_TOKEN"),
     )
-    
+
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         tokenizer.pad_token_id = tokenizer.eos_token_id
-    
+
     # Load model
     model = AutoModelForCausalLM.from_pretrained(
         config["model_name"],
@@ -194,27 +198,31 @@ def load_model_and_tokenizer(config: dict, logger: logging.Logger):
         torch_dtype=torch.bfloat16 if config["bf16"] else torch.float16,
         attn_implementation="flash_attention_2",
     )
-    
+
     # Prepare model for k-bit training
     if bnb_config:
         model = prepare_model_for_kbit_training(
             model,
             use_gradient_checkpointing=config["gradient_checkpointing"],
         )
-    
+
     # Apply LoRA
     lora_config = get_lora_config(config)
     model = get_peft_model(model, lora_config)
-    
+
     # Log trainable parameters
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total_params = sum(p.numel() for p in model.parameters())
-    logger.info(f"Trainable params: {trainable_params:,} ({100 * trainable_params / total_params:.2f}%)")
-    
+    logger.info(
+        f"Trainable params: {trainable_params:,} ({100 * trainable_params / total_params:.2f}%)"
+    )
+
     return model, tokenizer
 
 
-def load_dataset_from_config(config: dict, tokenizer, logger: logging.Logger) -> Dataset:
+def load_dataset_from_config(
+    config: dict, _tokenizer, logger: logging.Logger
+) -> Dataset:
     """Load and prepare dataset."""
     if config["dataset_path"]:
         logger.info(f"Loading local dataset: {config['dataset_path']}")
@@ -224,12 +232,12 @@ def load_dataset_from_config(config: dict, tokenizer, logger: logging.Logger) ->
         dataset = load_dataset(config["dataset_name"], split="train")
     else:
         raise ValueError("Either dataset_name or dataset_path must be specified")
-    
+
     # Sample if max_samples specified
     if config["max_samples"]:
         dataset = dataset.select(range(min(len(dataset), config["max_samples"])))
         logger.info(f"Using {len(dataset)} samples")
-    
+
     return dataset
 
 
@@ -271,16 +279,16 @@ def main():
     parser.add_argument("--lora-r", type=int, help="LoRA rank")
     parser.add_argument("--log-level", type=str, default="INFO", help="Logging level")
     args = parser.parse_args()
-    
+
     # Setup logging
     logger = setup_logging(args.log_level)
     logger.info("=" * 60)
     logger.info("LIFETIME WORLD - 70B LoRA Fine-Tuning")
     logger.info("=" * 60)
-    
+
     # Load config
     config = load_config(args.config)
-    
+
     # Override with CLI args
     if args.model:
         config["model_name"] = args.model
@@ -297,7 +305,7 @@ def main():
         config["per_device_train_batch_size"] = args.batch_size
     if args.lora_r:
         config["lora_r"] = args.lora_r
-    
+
     # Initialize tracking
     if config["use_wandb"] and WANDB_AVAILABLE:
         wandb.init(
@@ -305,22 +313,22 @@ def main():
             config=config,
             name=f"70b-lora-{datetime.now():%Y%m%d_%H%M%S}",
         )
-    
+
     if config["use_mlflow"] and MLFLOW_AVAILABLE:
         mlflow.set_experiment(config["mlflow_experiment"])
         mlflow.start_run()
         mlflow.log_params(config)
-    
+
     try:
         # Load model and tokenizer
         model, tokenizer = load_model_and_tokenizer(config, logger)
-        
+
         # Load dataset
         dataset = load_dataset_from_config(config, tokenizer, logger)
-        
+
         # Create trainer
         training_args = get_training_args(config)
-        
+
         trainer = SFTTrainer(
             model=model,
             train_dataset=dataset,
@@ -329,23 +337,23 @@ def main():
             tokenizer=tokenizer,
             args=training_args,
         )
-        
+
         # Train
         logger.info("Starting training...")
         trainer.train()
-        
+
         # Save final model
         final_path = Path(config["output_dir"]) / "final"
         logger.info(f"Saving final model to {final_path}")
         trainer.save_model(str(final_path))
         tokenizer.save_pretrained(str(final_path))
-        
+
         logger.info("Training complete!")
-        
+
     except Exception as e:
         logger.error(f"Training failed: {e}")
         raise
-    
+
     finally:
         if config["use_wandb"] and WANDB_AVAILABLE:
             wandb.finish()

@@ -1,524 +1,408 @@
-# AGENTS.md - Master Agent Index
-## DWS IQ 6 - Agent Architecture & Coordination
+# AGENTS.md
 
-**Version:** 1.0  
-**Created:** January 3, 2026  
-**Owner:** Lifetime Oy  
+> Following the [agents.md](https://github.com/agentsmd/agents.md) open specification.
+> A README for AI coding agents: context, instructions, and operational guidance.
+
+**Version:** 2.2
+**Created:** January 3, 2026
+**Updated:** March 15, 2026
+**Owner:** Lifetime Oy
 **Status:** Active
 
 ---
 
-## Table of Contents
+## 1. Project Context
 
-1. [Agent Architecture Overview](#1-agent-architecture-overview)
-2. [Lifetime Scope Signals Protocol](#2-lifetime-scope-signals-protocol)
-3. [V1.0 Development Agents](#3-v10-development-agents)
-4. [Internal DWS Team Agents](#4-internal-dws-team-agents)
-5. [Customer-Facing Agents](#5-customer-facing-agents)
-6. [MCP Servers Integration](#6-mcp-servers-integration)
-7. [Agent Guidelines & Conventions](#7-agent-guidelines--conventions)
-8. [Quick Reference](#8-quick-reference)
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
----
+**Architecture:** Brain-Memory-Body-Hands
 
-## 1. Agent Architecture Overview
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
+- **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-### Agent Types
-
-DWS IQ 6 uses three categories of AI agents:
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        DWS IQ 6 AGENT ECOSYSTEM                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │  V1.0 DEVELOPMENT AGENTS (10 agents)                            │   │
-│  │  Purpose: Build DWS IQ 6 for Feb 23, 2026 launch                │   │
-│  │  Scope: One-time sprint, plan mode coordination                 │   │
-│  │  Tools: Cursor AI, Claude, Gemini                               │   │
-│  └─────────────────────────────────────────────────────────────────┘   │
-│                                                                         │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │  INTERNAL DWS TEAM AGENTS (7 agents)                            │   │
-│  │  Purpose: Design, build, deploy, secure, maintain DWS6         │   │
-│  │  Scope: Ongoing operations, continuous improvement              │   │
-│  │  Tools: LlamaStack, Groq, Claude                                │   │
-│  └─────────────────────────────────────────────────────────────────┘   │
-│                                                                         │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │  CUSTOMER-FACING AGENTS (5+ agents)                             │   │
-│  │  Purpose: Help customers optimize their businesses              │   │
-│  │  Scope: Per-vertical deployment, phased rollout                 │   │
-│  │  Tools: AgentFoundry configs, MCP Hub                           │   │
-│  └─────────────────────────────────────────────────────────────────┘   │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-### Technology Stack
-
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
-| **Fast Inference** | Groq API (Llama 3.1 70B) | High-speed agent responses |
-| **Complex Reasoning** | Claude Sonnet 4.5 | Deep analysis, planning |
-| **Multi-Agent** | LlamaStack | Agent orchestration |
-| **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
-| **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
-| **Notifications** | Slack, Email (Resend) | Agent alerts |
-
-### MCP Hub Coordination Patterns
-
-The MCP Hub (`mcp-hub/server.py`) supports three workflow patterns:
-
-1. **Fan-Out Pattern**: Parallel task distribution to multiple agents
-2. **Reflection Pattern**: Self-review and iterative improvement
-3. **Sequential Pattern**: Step-by-step task execution with dependencies
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
-## 2. Lifetime Scope Signals Protocol
+## 2. Development Environment
 
-### What Are Lifetime Scope Signals?
+### Setup
 
-Signals are the communication mechanism between agents. When an agent completes a milestone, it **emits** a signal. Other agents **listen** for signals before proceeding with dependent tasks.
-
-### Signal Format
-
-```
-[AGENT-XX]:SIGNAL_TYPE:MILESTONE:TIMESTAMP
-```
-
-**Components:**
-- `AGENT-XX`: Agent identifier (e.g., `AGENT-01`, `AGENT-07`)
-- `SIGNAL_TYPE`: `READY`, `COMPLETE`, `ERROR`, `BLOCKED`
-- `MILESTONE`: Specific deliverable (e.g., `supabase-auth`, `rls-policies`)
-- `TIMESTAMP`: ISO 8601 format
-
-**Examples:**
-```
-[AGENT-07]:READY:rls-policies:2026-01-05T14:30:00Z
-[AGENT-01]:COMPLETE:v1-auth:2026-01-10T09:00:00Z
-[AGENT-02]:BLOCKED:report-api:2026-01-06T10:15:00Z
-```
-
-### Signal Types
-
-| Type | Meaning | Action |
-|------|---------|--------|
-| `READY` | Milestone achieved, dependent agents can proceed | Unblocks downstream agents |
-| `COMPLETE` | All agent work finished | Agent moves to complete status |
-| `ERROR` | Agent encountered failure | Alerts coordinator, may block others |
-| `BLOCKED` | Agent waiting for external dependency | No action until unblocked |
-
-### How Agents Learn Signals
-
-#### Option A: File-Based (Current Implementation)
-
-Agents read from `AGENT_SIGNAL_REGISTRY.json`:
-
-```javascript
-// coordinator.cjs
-const registry = JSON.parse(fs.readFileSync('AGENT_SIGNAL_REGISTRY.json'));
-const myDependencies = registry.agents['agent-02'].signals.listening;
-const emittedSignals = collectEmittedSignals(registry);
-const unmet = myDependencies.filter(sig => !emittedSignals.has(sig));
-// If unmet.length === 0, agent can proceed
-```
-
-**Commands:**
 ```bash
+# Install dependencies
+npm install
+
+# Copy environment template
+cp .env.example .env
+# Fill in: SUPABASE_URL, SUPABASE_SERVICE_KEY, GROQ_API_KEY, JWT_SECRET
+```
+
+### Key Commands
+
+```bash
+# Backend
+npm run dev          # Express backend with hot reload (tsx watch)
+npm run build        # TypeScript compilation
+npm run test         # Vitest test suite
+npm run lint         # ESLint
+
+# Dashboard (in dws6.com/dashboard/firehorse/v9-react/)
+npm run dev          # Vite dev server
+npm run build        # Production build
+
+# Agent Coordination
 cd .workflows/agents
-node coordinator.cjs status    # Show all agent statuses
-node coordinator.cjs signals   # Show signal log
-node coordinator.cjs ready     # Show which agents can launch
-node coordinator.cjs emit agent-07 READY:schema-users  # Emit signal
+node coordinator.cjs status    # All agent statuses
+node coordinator.cjs ready     # Which agents can launch
+node coordinator.cjs signals   # Signal log
+node coordinator.cjs emit <agent> <signal>  # Emit signal
+
+# MCP Hub
+cd mcp-hub && python server.py
+
+# Docker
+docker-compose -f docker-compose.hybrid.yml up -d
 ```
 
-#### Option B: MCP Hub Real-Time (Future)
-
-```python
-# mcp-hub/server.py addition
-@app.post("/signals/emit")
-async def emit_signal(agent_id: str, signal: str):
-    await supabase.table("agent_signals").insert({...})
-    await notify_listeners(agent_id, signal)
-```
-
-### Signal Dependency Map
-
-```
-PHASE 1 (Foundation - No Dependencies)
-├── Agent-01 (Auth)      ──EMITS──► READY:supabase-auth
-├── Agent-07 (Database)  ──EMITS──► READY:rls-policies, READY:schema-users
-└── Agent-10 (Docs)      ──EMITS──► READY:api-docs
-         │
-         ▼
-PHASE 2 (Core Backend - Needs Phase 1)
-├── Agent-02 (Firehorse) ◄──LISTENS── Agent-01:supabase-auth, Agent-07:rls-policies
-├── Agent-04 (AI Agents) ◄──LISTENS── Agent-07:rls-policies
-└── Agent-09 (Email)     ◄──LISTENS── Agent-07:schema-users
-         │
-         ▼
-PHASE 3 (Frontend - Needs Phase 2)
-├── Agent-03 (Dashboard) ◄──LISTENS── Agent-02:report-api, Agent-04:customersat
-└── Agent-05 (Mobile)    ◄──LISTENS── Agent-02:report-api, Agent-04:mcp-hub
-         │
-         ▼
-PHASE 4 (Enhancements - Optional)
-├── Agent-08 (Payments)  ◄──LISTENS── Agent-01:v1-auth, Agent-07:v1-database
-└── Agent-06 (Enterprise) ⊘ DEFERRED TO V1.1
-```
-
-### Key Signal References
-
-| File | Purpose |
-|------|---------|
-| `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` | Signal state database |
-| `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | Visual coordination guide |
-| `.workflows/agents/coordinator.cjs` | CLI tool for signal management |
+### Important: Always use `npm run dev` while iterating. Avoid production builds during agent sessions.
 
 ---
 
-## 3. V1.0 Development Agents
+## 3. Code Conventions
 
-**Purpose:** Build DWS IQ 6 for February 23, 2026 launch  
-**Total:** 10 agents  
-**Operating Mode:** Plan mode with Lifetime Scope Signals  
-**Coordination:** `.workflows/agents/ULTRA_AGENT_COORDINATOR.md`
+### TypeScript
 
-### Agent Fleet
+- Strict TypeScript with `tsconfig.json` enforced
+- Zod schemas for runtime validation at system boundaries
+- Interface-first design for API contracts
+- Kebab-case for file names, PascalCase for classes, camelCase for functions/variables
 
-| ID | Name | Phase | Priority | Status | Estimated Days |
-|----|------|-------|----------|--------|----------------|
-| Agent-01 | DWS IQ Login System | 1 | Critical | Running | 3-4 |
-| Agent-02 | Firehorse Apps | 2 | Critical | Waiting | 4-6 |
-| Agent-03 | Customer Dashboard | 3 | Critical | Waiting | 5-7 |
-| Agent-04 | AI Agents | 2 | Critical | Waiting | 5-7 |
-| Agent-05 | Mobile Dashboard | 3 | High | Waiting | 10-14 |
-| Agent-06 | Enterprise Integrations | V1.1 | Low | Deferred | 3-4 |
-| Agent-07 | Supabase Database | 1 | Critical | Running | 2 |
-| Agent-08 | Payment Integration | 4 | Medium | Waiting | 3-4 |
-| Agent-09 | Email System | 2 | High | Waiting | 2 |
-| Agent-10 | Documentation | 1 | Low | Running | Ongoing |
+### Agent Code
 
-### Agent Details
+- All agents extend `BaseAgent` from `src/agents/base.agent.ts`
+- Agent names use kebab-case: `customer-sat`, `sitesense`, `compliance-monitor`
+- Every agent returns `AgentResponse` with `confidence`, `reasoning`, `recommendations`
+- Execution is logged to Supabase `agent_executions` table
+- LLM calls go through `this.callLLM()` which handles Groq API fallback gracefully
 
-#### Agent-01: DWS IQ Login System
-**Signals Emitted:** `jwt-service`, `auth-middleware`, `supabase-auth`, `login-ui`, `oauth-google`, `oauth-microsoft`, `v1-auth`  
-**Unlocks:** Agent-02, Agent-03, Agent-05, Agent-08  
-**Reference:** `V1_FEATURE_LIST.md` Section 1
+### React (Dashboard)
 
-#### Agent-02: Firehorse Apps
-**Listens For:** `Agent-01:supabase-auth`, `Agent-07:rls-policies`  
-**Signals Emitted:** `report-api`, `automation-api`, `dms-upload`, `v1-firehorse`  
-**Unlocks:** Agent-03, Agent-05  
-**Reference:** `V1_FEATURE_LIST.md` Section 2, `Firehorse/` directory
+- Functional components with hooks
+- TailwindCSS for styling, component co-location
+- Located in `dws6.com/dashboard/firehorse/v9-react/`
 
-#### Agent-03: Customer Dashboard
-**Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:customersat`  
-**Signals Emitted:** `nextjs-setup`, `dashboard-layout`, `project-view`, `carbon-dashboard`, `agent-chat`, `v1-dashboard`  
-**Reference:** `V1_FEATURE_LIST.md` Section 3
+### Security (Non-negotiable)
 
-#### Agent-04: AI Agents
-**Listens For:** `Agent-07:rls-policies`  
-**Signals Emitted:** `mcp-hub`, `groq-integration`, `sitesense`, `schedulegenius`, `materialoracle`, `customersat`, `v1-agents`  
-**Unlocks:** Agent-03, Agent-05  
-**Reference:** `V1_FEATURE_LIST.md` Section 4, `mcp-hub/server.py`
-
-#### Agent-05: Mobile Dashboard
-**Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:mcp-hub`  
-**Signals Emitted:** `expo-setup`, `redux-store`, `navigation`, `dashboard-screen`, `projects-screen`, `offline-sync`, `v1-mobile`  
-**Reference:** `V1_FEATURE_LIST.md` Section 5, `mobile-dashboard/` directory
-
-#### Agent-06: Enterprise Integrations
-**Status:** DEFERRED TO V1.1  
-**Reference:** `V1_FEATURE_LIST.md` Section 6
-
-#### Agent-07: Supabase Database
-**Signals Emitted:** `schema-users`, `schema-orgs`, `rls-policies`, `seed-data`, `v1-database`  
-**Unlocks:** Agent-01, Agent-02, Agent-04, Agent-09  
-**Reference:** `V1_FEATURE_LIST.md` Section 7, `supabase/` directory
-
-#### Agent-08: Payment Integration
-**Listens For:** `Agent-01:v1-auth`, `Agent-07:v1-database`  
-**Signals Emitted:** `stripe-setup`, `subscription-plans`, `billing-ui`, `v1-payments`  
-**Reference:** `V1_FEATURE_LIST.md` Section 8, `PAYMENT_INTEGRATION.md`
-
-#### Agent-09: Email System
-**Listens For:** `Agent-07:schema-users`  
-**Signals Emitted:** `transactional`, `notifications`, `v1-email`  
-**Reference:** `V1_FEATURE_LIST.md` Section 9
-
-#### Agent-10: Documentation
-**Signals Emitted:** `api-docs`, `integration-guides`, `v1-docs`  
-**Reference:** `V1_FEATURE_LIST.md` Section 10
+- Never hardcode API keys, secrets, or tokens
+- Use `process.env.*` with `.env` files only
+- Email sender must be `risto@onelifetime.world` (verified Resend domain)
+- JWT authentication on all agent API routes
+- Input validation with express-validator
+- EU data residency (Finland/Germany) for all customer data
 
 ---
 
-## 4. Internal DWS Team Agents
-
-**Purpose:** Design, build, deploy, secure, and maintain DWS6  
-**Total:** 7 agents (5 development + 2 sales)  
-**Operating Mode:** Semi-automated → Autonomous  
-**Reference:** `CloudAgents/dws-team/README.md`
-
-### Development Agents
-
-| Agent | Role | Weekly Deliverable |
-|-------|------|-------------------|
-| **Architect Agent** | System designer, technical decisions | ADRs, diagrams, tech debt log |
-| **Builder Agent** | Code generator, implementation | Agent implementations, test coverage |
-| **DevOps Agent** | Infrastructure automation | Cost report, uptime report, CI/CD health |
-| **Security Agent** | Security hardening, compliance | Vulnerability scans, compliance checklist |
-| **Product Agent** | Progress tracking, reporting | Weekly reports (EN/FI), roadmap updates |
-
-### Sales & Market Intelligence Agents
-
-| Agent | Role | Weekly Deliverable |
-|-------|------|-------------------|
-| **Market Signal Agent** | Market intelligence, demand detection | Market signal report, product opportunities |
-| **Product Page Generator** | Dynamic sales page creation | Updated product pages, landing pages |
-
-### Weekly Coordination Cycle
-
-**Fridays:**
-1. Market Signal Agent → market insights
-2. Product Page Generator → page updates
-3. DevOps Agent → cost data + metrics
-4. Security Agent → scan results
-5. Builder Agent → code review summary
-6. Architect Agent → architecture changelog
-7. Product Agent → compiles final report
-
----
-
-## 5. Customer-Facing Agents
-
-**Purpose:** Help customers optimize their businesses  
-**Deployment:** Per-vertical (Construction, Manufacturing, Energy)  
-**Phases:** Silent Pilot → Advisor → Autonomous  
-**Reference:** `AgentFoundry/` directory
-
-### Core Agents
-
-| Agent | Purpose | Template |
-|-------|---------|----------|
-| **CustomerSat Agent** | Monitor satisfaction, prevent churn | `configs/templates/customer-satisfaction-agent.yaml` |
-| **Viability Agent** | Unit economics, financial health | `configs/templates/viability-agent.yaml` |
-| **SiteSense Agent** | Edge AI, site monitoring | `SiteSense/` (NVIDIA Jetson) |
-| **ScheduleGenius Agent** | Timeline optimization | Planned |
-| **MaterialOracle Agent** | Carbon tracking, procurement | Planned |
-
-### Deployment Phases
-
-```yaml
-# Phase 1: Silent Pilot (30 days)
-mode: "silent_pilot"
-actions: ["observe", "generate_reports", "calibrate"]
-approval: none
-output: "Daily reports to Slack"
-
-# Phase 2: Advisor (60 days)
-mode: "advisor"
-actions: ["recommend", "flag_risks", "suggest_actions"]
-approval: required
-output: "Recommendations with human approval"
-
-# Phase 3: Autonomous
-mode: "autonomous"
-actions: ["execute", "send_emails", "create_tasks"]
-approval: exception_only
-guardrails: ["max_emails", "approval_for_discounts"]
-```
-
-### Agent Configuration Structure
-
-```yaml
-agent:
-  id: "customersat-construction-001"
-  model:
-    provider: "anthropic"
-    name: "claude-sonnet-4.5"
-    temperature: 0.3
-  
-  system_prompt: |
-    You are a Customer Satisfaction Specialist...
-  
-  knowledge_base:
-    - type: "vector_db"
-      provider: "supabase_pgvector"
-    - type: "api"
-      provider: "hubspot_crm"
-  
-  deployment:
-    phase_1: { mode: "silent_pilot", duration_days: 30 }
-    phase_2: { mode: "advisor", duration_days: 60 }
-    phase_3: { mode: "autonomous" }
-  
-  tools:
-    - name: "query_crm"
-    - name: "calculate_health_score"
-    - name: "send_notification"
-  
-  cost_tracking:
-    budget_monthly_eur: 100
-```
-
----
-
-## 6. MCP Servers Integration
-
-### Active MCP Servers
-
-| Server | Purpose | Status |
-|--------|---------|--------|
-| **Docker MCP** | Container management, GitHub integration | Active |
-| **Snyk MCP** | Security scanning | Active |
-| **Browser MCP** | Web testing, UI verification | Active |
-
-### Available MCP Servers (Not Configured)
-
-| Server | Purpose | Required Secrets |
-|--------|---------|------------------|
-| **Stripe MCP** | Payment integration | `stripe.secret_key` |
-| **Stripe Remote MCP** | Remote Stripe access | - |
-
-### Adding New MCP Servers
+## 4. Testing
 
 ```bash
-# Find available servers
-docker mcp find <query>
+# Run all tests
+npm run test
 
-# Add server (requires secrets)
-docker mcp secret set <server>.<secret>=<value>
-docker mcp add <server>
+# Run specific test
+npx vitest run src/__tests__/specific-test.ts
 
-# Example: Add Stripe
-docker mcp secret set stripe.secret_key=sk_live_xxx
-docker mcp add stripe --activate
+# Run with UI
+npm run test:ui
 ```
 
-### MCP Hub Endpoints
+- Tests live in `src/__tests__/`
+- Use Vitest (not Jest)
+- All new agent code must include tests
+- Test the deterministic scoring logic, not the LLM output
+
+---
+
+## 5. Repository Structure
+
+```
+dws6/
+├── src/agents/              # Agent implementations (V2 core)
+│   ├── base.agent.ts        # Abstract base class
+│   ├── types.ts             # AgentContext, AgentResponse, AgentConfig
+│   ├── index.ts             # AgentRegistry (singleton)
+│   ├── routes.ts            # Express API routes (/api/agents/*)
+│   ├── customer-sat.agent.ts
+│   ├── sitesense.agent.ts
+│   ├── schedule-genius.agent.ts
+│   ├── material-oracle.agent.ts
+│   ├── viability.agent.ts
+│   ├── compliance.agent.ts       # V2: EU compliance monitoring
+│   └── quality-gate.agent.ts     # V2: Code & deployment quality
+├── src/app.ts               # Main Express app
+├── src/middleware/           # Auth, rate limiting
+├── src/integrations/        # ERP (SAP, IFS, Dynamics) & ESG
+├── src/mcp/                 # MCP implementation
+├── mcp-hub/                 # MCP orchestration hub (Python FastAPI)
+├── mcp-servers/             # Individual MCP servers
+├── AgentFoundry/            # Customer-facing agent configs (YAML)
+├── .workflows/agents/       # Signal coordination system
+├── dws6.com/                # Web applications
+├── Firehorse/               # Product suite
+├── landing-pages/           # Production landing pages
+├── supabase/migrations/     # Database migrations
+└── .github/workflows/       # CI/CD (37 workflows)
+```
+
+---
+
+## 6. Agent API
+
+### Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| `GET` | `/api/agents` | JWT | List all registered agents |
+| `GET` | `/api/agents/:name` | JWT | Get agent details |
+| `POST` | `/api/agents/:name/execute` | JWT + Rate limit | Execute agent |
+
+### Execute Request
+
+```json
+{
+  "context": {
+    "projectId": "proj-123",
+    "sessionId": "sess-456"
+  },
+  "input": {
+    // agent-specific payload
+  }
+}
+```
+
+`userId` and `orgId` are injected from the JWT token, not the request body.
+
+### Rate Limits
+
+- 30 executions per minute per IP
+- Configurable via `express-rate-limit`
+
+---
+
+## 7. Agent Ecosystem (V2)
+
+8 platform agents, 10 dev agents, 7 team agents, 2 workflow agents, MCP orchestration, BYO agents.
+→ Architecture diagrams, agent details, input/output schemas: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md)
+
+### Platform Agents (Runtime)
+
+| Agent | Name | Purpose | Model |
+|-------|------|---------|-------|
+| `customer-sat` | CustomerSat | Customer health scoring, churn prediction, retention | Llama 3.3 70B |
+| `sitesense` | SiteSense | Site safety scoring, weather risk, worker capacity | Llama 3.3 70B |
+| `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
+| `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
+| `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
+| `argus` | ArgusAgent | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5. | Llama 3.3 70B |
+| `compliance-researcher` | ComplianceResearcherAgent | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments | Llama 3.3 70B |
+| `construction` | ConstructionAgent | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B |
+| `deepwiki-extractor` | DeepWikiExtractorAgent | Analyzes GitHub repositories via DeepWiki to plan extraction of specific functionality into self-contained, dependency-free code | Llama 3.3 70B |
+| `emissions-data-analyst` | EmissionsDataAnalystAgent | Analyzes emissions and sustainability data using natural language queries with EU regulatory context (ETS, CSRD, CBAM, EN 15978) | Llama 3.3 70B |
+| `logistics` | LogisticsAgent | Orchestrates fleet compliance, route optimization, driver dispatch, and supply chain carbon tracking for EU-regulated logistics operations | Llama 3.3 70B |
+| `sales-outreach` | SalesOutreachAgent | Researches target companies and drafts personalized B2B outreach emails for DWS climate compliance products | Llama 3.3 70B |
+| `compliance` | Compliance (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
+| `quality-gate` | QualityGate (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | SovereigntyMonitor (V2) | Database sovereignty assessment | Llama 3.3 70B |
+
+---
+
+## 8. V2 Agent Details
+
+V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output schemas, capabilities, and product details.
+→ [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#v2-agent-details)
+
+---
+
+## 9. How to Add a New Agent
+
+→ Full guide with code template, registration, tests, cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md)
+
+Quick steps: 1) Create `src/agents/your-agent.agent.ts` extending `BaseAgent`, 2) Register in `src/agents/index.ts`, 3) Add tests, 4) `agents-md-sync` auto-updates this table, 5) Add Claude Code skill.
+
+---
+
+## 10. Lifetime Scope Signals Protocol
+
+Development agent coordination via file-based signals. Commands: `node coordinator.cjs status|ready|emit`.
+→ Full protocol, signal format, dependency map: [docs/SIGNAL_PROTOCOL.md](docs/SIGNAL_PROTOCOL.md)
+
+---
+
+## 11. MCP Orchestration
+
+### Hub (`mcp-hub/server.py`)
 
 | Endpoint | Method | Purpose |
 |----------|--------|---------|
 | `/` | GET | Service info |
 | `/health` | GET | Health check with MCP server status |
 | `/workflows/execute` | POST | Execute workflow (fan-out, reflection, sequential) |
-| `/pipelines/bim-carbon` | POST | BIM Carbon analysis pipeline |
+| `/pipelines/bim-carbon` | POST | BIM carbon analysis pipeline |
+
+### Workflow Patterns
+
+1. **Fan-Out**: Parallel task distribution to multiple agents
+2. **Reflection**: Self-review and iterative improvement
+3. **Sequential**: Step-by-step with dependencies
+
+### Active MCP Servers
+
+| Server | Purpose |
+|--------|---------|
+| Docker MCP | Container management, GitHub integration |
+| ZenFree | Security scanning (replaced Snyk) |
+| Agent Browser | Web testing, UI verification, competitive intelligence (native Rust, vercel-labs/agent-browser) |
 
 ---
 
-## 7. Agent Guidelines & Conventions
+## 12. Team Agents & Cost Tracking
 
-### Documentation Standards
-
-All AI agents follow `AI_AGENT_GUIDELINES.md`:
-
-- **Naming:** `[Document] - [Tool] - [SessionID] - Versio X.Y`
-- **Metadata:** Tool, SessionID, Version required
-- **Versioning:** 0.1 → 0.2 → ... → 1.0
-- **Git Integration:** `claude/[task]-[SessionID]` branches
-
-### Security Requirements
-
-From `AI_AGENT_GUIDELINES.md` Part 8:
-
-**NEVER include in documents:**
-- API keys, secrets, passwords
-- PII without anonymization
-- Credentials or tokens
-
-**ALWAYS include:**
-- Anonymized examples
-- Architecture diagrams
-- Decision rationales
-
-### Agent Cost Tracking
-
-Each agent has a monthly budget:
-
-```yaml
-cost_tracking:
-  budget_monthly_eur: 100-150
-  alert_at_percentage: 80
-  model_costs:
-    claude_sonnet_4_5:
-      input_per_1m_tokens: 3.00
-      output_per_1m_tokens: 15.00
-```
+7 team agents in weekly Friday coordination cycle. Budget: €100-150/agent/month.
+→ Details: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#team-agents-operations)
+→ Cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md#agent-cost-tracking)
 
 ---
 
-## 8. Quick Reference
+## 14. PR & Contribution Guidelines
+
+- Branch naming: `claude/<feature>-<sessionId>` for AI-assisted work
+- All agent routes require JWT authentication
+- Input validation with express-validator on all new endpoints
+- Test deterministic logic (scoring, thresholds) - not LLM output
+- Follow the dual-folder rule for landing pages (root folder first, then landing-pages/)
+- Never commit `.env`, credentials, or API keys
+- Title format for agent PRs: `[agents] Description of change`
+
+---
+
+## 15. Quick Reference
 
 ### File Locations
 
 | Resource | Path |
 |----------|------|
-| V1.0 Feature List | `V1_FEATURE_LIST.md` |
-| Signal Registry | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Coordinator Script | `.workflows/agents/coordinator.cjs` |
-| Coordinator Guide | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
-| Agent Guidelines | `AI_AGENT_GUIDELINES.md` |
-| DWS Team Agents | `CloudAgents/dws-team/README.md` |
-| Customer Agent Configs | `AgentFoundry/configs/templates/` |
+| Agent implementations | `src/agents/` |
+| Agent registry | `src/agents/index.ts` |
+| Agent API routes | `src/agents/routes.ts` |
+| Agent types | `src/agents/types.ts` |
+| Signal registry | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
+| Signal coordinator | `.workflows/agents/coordinator.cjs` |
 | MCP Hub | `mcp-hub/server.py` |
+| AgentFoundry configs | `AgentFoundry/configs/` |
+| Workflow agents | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
+| Tests | `src/__tests__/` |
 
-### Common Commands
+### External CLIs & Add-ons
 
+See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, Firehorse via CLI/API) and **external add-on** (Google Workspace CLI `gws`).
+
+### Environment Variables (Agent-relevant)
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `GROQ_API_KEY` | Yes | Groq API for Llama inference |
+| `SUPABASE_URL` | Yes | Database connection |
+| `SUPABASE_SERVICE_KEY` | Yes | Database auth |
+| `JWT_SECRET` | Yes | API authentication |
+| `ANTHROPIC_API_KEY` | Optional | Claude for complex reasoning |
+| `PORT` | Optional | Server port (default 3000) |
+
+---
+
+## 16. Rise of CLIs & External Add-ons
+
+**Context:** In 2026, CLIs are first-class agent interfaces. Agents (and humans) benefit from tools that expose structured JSON output, tab-completion, `--help`/`--dry-run`, and MCP or skill surfaces. DWS follows this with the DWS CLI and Firehorse (agent-accessible via CLI/API); the same pattern applies to external tooling.
+
+### Our output: DWS CLI & Firehorse CLI
+
+| CLI | Invocation | Purpose |
+|-----|------------|---------|
+| **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
+| **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
+
+**DWS CLI commands (examples):**
 ```bash
-# V1.0 Agent Coordination
-cd .workflows/agents
-node coordinator.cjs status           # All agent statuses
-node coordinator.cjs ready            # Ready to launch
-node coordinator.cjs emit agent-07 READY:schema-users  # Emit signal
-
-# MCP Servers
-docker mcp find stripe               # Find MCP server
-docker mcp add stripe                # Add server
-
-# Start MCP Hub
-cd mcp-hub && python server.py
+dws agents                              # List all agents (JSON)
+dws run compliance --input '{"reg":"CSRD"}'
+dws run sitesense --input '{"siteId":"..."}'
+dws workflow compliance-assessment
+dws discover carbon
+dws workflows
+dws health
+dws mcp tools
 ```
 
-### V1.0 Completion Criteria
+**Config:** `DWS_API_URL`, `DWS_API_TOKEN`, `DWS_PROJECT`, `DWS_SESSION`. See `cli/src/cli.ts` and [CLAUDE.md](CLAUDE.md) Build for Agents.
 
-| Agent | Completion Signal | Required for V1.0 |
-|-------|-------------------|-------------------|
-| Agent-01 | `COMPLETE:v1-auth` | YES |
-| Agent-02 | `COMPLETE:v1-firehorse` | YES |
-| Agent-03 | `COMPLETE:v1-dashboard` | YES |
-| Agent-04 | `COMPLETE:v1-agents` | YES |
-| Agent-05 | `COMPLETE:v1-mobile` | TestFlight OK |
-| Agent-06 | `COMPLETE:v1-enterprise` | V1.1 |
-| Agent-07 | `COMPLETE:v1-database` | YES |
-| Agent-08 | `COMPLETE:v1-payments` | Optional |
-| Agent-09 | `COMPLETE:v1-email` | YES |
-| Agent-10 | `COMPLETE:v1-docs` | YES |
+**API key for Cline:** To get a token for Cline (or for `DWS_API_TOKEN`), run `node scripts/generate-cline-api-key.cjs` from the repo root (requires `JWT_SECRET` in `.env`). The script prints a 90-day JWT; use it in Cline as the API key when connecting to a DWS endpoint, or set as `DWS_API_TOKEN` for the CLI.
 
-### Timeline
+### Important add-on: Google Workspace CLI (`gws`)
 
-- **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
-- **Estimated Work:** 41-56 days
-- **Buffer:** -5 to 10 days
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/googleworkspace/cli |
+| **Install** | `npm install -g @googleworkspace/cli` |
+| **What it is** | One CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin — dynamically built from Google Discovery Service. Zero boilerplate, structured JSON output. |
+| **Why it matters** | 40+ agent skills included; MCP server (`gws mcp -s drive,gmail,calendar`); Gemini CLI extension. Fits the same "Build for Agents" pattern: every response is structured JSON, so LLMs can manage Workspace without custom tooling. |
+| **Auth** | `gws auth setup` (interactive), service account, or exported credentials for headless/CI. |
+| **Use with DWS** | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills. |
+
+**Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
+
+### Important add-on: Agent Browser (`agent-browser`)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/vercel-labs/agent-browser |
+| **Install** | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`) |
+| **What it is** | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead. |
+| **Why it matters** | 1.6x faster cold start, 18x less memory, 99x smaller install vs Playwright MCP. Snapshot+Refs system saves ~93% context window by returning compact element references (`@e1`, `@e2`) instead of full DOM trees. |
+| **Key commands** | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage` |
+| **Use with DWS** | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI. |
+
+**Architecture:** Rust CLI (cold start <50ms) → CDP WebSocket → Chrome. Supports headed/headless modes, multiple isolated sessions, AES-256-GCM encrypted session storage, and device emulation.
+
+---
+
+## 17. Compliance Scoring Engine
+
+Deterministic scoring (CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25), no LLM dependency. API: `POST /api/v1/compliance/assess`.
+→ Full architecture, scoring formula, DB schema: [docs/COMPLIANCE_SCORING.md](docs/COMPLIANCE_SCORING.md)
+
+---
+
+## 18. BYO Agent Lifecycle & KYA Trust Framework
+
+KYA (Know Your Agent) 6-stage gate: Registration → IDV → KYB → Capability Review → Sandbox → Runtime Monitoring.
+Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine. Firecracker MicroVM isolation.
+→ Full protocol, manifest schema, sandbox stages, forensic logging: [docs/KYA_BYO_LIFECYCLE.md](docs/KYA_BYO_LIFECYCLE.md)
 
 ---
 
 ## Related Documents
 
-- [V1_FEATURE_LIST.md](V1_FEATURE_LIST.md) - Complete feature tracking
+- [CLAUDE.md](CLAUDE.md) - AI coding agent behavior guidelines
 - [AI_AGENT_GUIDELINES.md](AI_AGENT_GUIDELINES.md) - Documentation standards
+- [DWS_SECURITY_STANDARD.md](DWS_SECURITY_STANDARD.md) - Security framework
 - [ARCHITECTURE_SUMMARY.md](ARCHITECTURE_SUMMARY.md) - System architecture
-- [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
-- [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
+- [V1_FEATURE_LIST.md](V1_FEATURE_LIST.md) - Feature tracking
+- [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Team agents
+- [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agent configs
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 3, 2026  
-**Status:** Active  
-**Next Review:** January 10, 2026
+**Document Version:** 2.3
+**Last Updated:** March 15, 2026
+**Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
+**Next Review:** April 4, 2026

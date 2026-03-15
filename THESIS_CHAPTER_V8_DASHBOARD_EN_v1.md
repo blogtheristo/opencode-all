@@ -1,6 +1,6 @@
 # Master Thesis Chapter: V8 Dashboard with Supabase Integration
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3
@@ -597,7 +597,7 @@ The V8 Dashboard operates within the comprehensive DWS IQ 6 Security Framework, 
 │  AI Governance | Compliance Reporting | Audit Trail             │
 ├─────────────────────────────────────────────────────────────────┤
 │                    LAYER 4: MONITORING                          │
-│  Aikido Threat Detection | Snyk Scanning | Ruff Linting         │
+│  ZenFree Threat Detection | Dependabot Scanning | Ruff Linting         │
 ├─────────────────────────────────────────────────────────────────┤
 │                    LAYER 3: APPLICATION SECURITY                │
 │  Input Validation | CSRF Protection | XSS Prevention | CORS     │
@@ -616,8 +616,8 @@ The DWS IQ 6 platform utilizes a comprehensive security toolchain:
 
 | Tool | Purpose | Integration Point |
 |------|---------|------------------|
-| **Snyk** | Dependency scanning (SCA, SAST) | GitHub Actions |
-| **Aikido** | Runtime threat detection | CI/CD Pipeline |
+| **ZenFree** | Security scanning (critical bugs, CWE) | GitHub Actions |
+| **Dependabot** | Dependency vulnerability scanning | GitHub Native |
 | **Ruff** | Python security linting | Pre-commit + CI |
 | **CodeQL** | Code analysis (SARIF) | GitHub Actions |
 | **pip-audit** | Python vulnerability scanning | Daily workflow |

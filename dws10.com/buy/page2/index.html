@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lifetime Firehorse Store | Page 2 - More Products</title>
-    <meta name="description" content="More products from Lifetime Firehorse Store. AI consulting, cloud solutions, and digital services.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lifetime Firehorse Store | AI &amp; Cloud Consulting</title>
+    <meta name="description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="AI consulting, cloud consulting, sovereignty cloud, agentic AI">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Lifetime Firehorse Store | AI & Cloud Consulting">
+    <meta property="og:description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/buy/page2/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lifetime Firehorse Store | AI & Cloud Consulting">
+    <meta name="twitter:description" content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/buy/page2/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
@@ -13,7 +27,7 @@
         .subtitle { text-align: center; font-size: 1.2rem; color: #94a3b8; margin: 0 auto 40px; max-width: 800px; font-weight: 500; }
 
         /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .product-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(96, 165, 250, 0.3); }
         .product-image { width: 100%; height: 200px; object-fit: cover; background: #1e293b; }
@@ -30,135 +44,146 @@
         .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); }
         .btn-secondary { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; }
         .btn-secondary:hover { background: rgba(96, 165, 250, 0.1); }
+        .btn-revolut { background: linear-gradient(135deg, #0075EB, #0058B7); color: white; }
+        .btn-revolut:hover { background: linear-gradient(135deg, #1a85f0, #0068D8); transform: translateY(-1px); }
+        .btn-paypal { background: linear-gradient(135deg, #FFC439, #FFB300); color: #003087; }
+        .btn-paypal:hover { background: linear-gradient(135deg, #FFD060, #FFC439); transform: translateY(-1px); }
+        .btn-details { background: transparent; color: #60a5fa; border: 1px solid #60a5fa; display: block; text-align: center; margin-top: 8px; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-details:hover { background: rgba(96, 165, 250, 0.1); }
 
         /* Payment Badge */
         .payment-badge { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
         .payment-badge span { font-size: 0.8rem; color: #64748b; }
 
-        /* Navigation */
-        .nav-header { background: #1e293b; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-size: 1.4rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: #60a5fa; }
 
-        /* Pagination */
-        .pagination { display: flex; justify-content: center; gap: 16px; margin: 40px 0; }
-        .pagination a { padding: 12px 24px; background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #e2e8f0; text-decoration: none; font-weight: 600; transition: all 0.2s; }
-        .pagination a:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); }
-        .pagination a.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; }
+        /* Category Navigation - DWS Gamma Brand */
+        .category-nav { display: flex; justify-content: center; gap: 8px; margin: 40px 0; padding: 0 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .category-btn { padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; white-space: nowrap; min-height: 48px; display: inline-flex; align-items: center; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.15); background: rgba(30, 41, 59, 0.7); color: #e2e8f0; }
+        .category-btn:hover { background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.3); color: #60a5fa; }
+        .category-btn.active { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-        /* Footer */
-        .site-footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.85rem; background: #1e293b; border-top: 1px solid #334155; }
-        .site-footer a { color: #60a5fa; text-decoration: none; }
-        .site-footer a:hover { text-decoration: underline; }
+        /* Footer - Revolut-style multi-column */
+        .site-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; }
+        .site-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+        .site-footer a:hover { color: #60a5fa; }
+        .footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
+        .footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+        .footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
+        .footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+        .footer-payments span { font-size: 0.8rem; }
+        .footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
+        .footer-locale svg { flex-shrink: 0; }
+        .footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
+        .footer-legal a { color: #64748b; font-size: 0.8rem; }
+        .footer-legal a:hover { color: #60a5fa; }
+        .footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* Locale & VAT Selector */
+        .locale-btn { background: none; border: 1px solid rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 4px; cursor: pointer; color: #94a3b8; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: all 0.2s; font-family: inherit; }
+        .locale-btn.active { border-color: #60a5fa; color: #e2e8f0; background: rgba(96, 165, 250, 0.1); }
+        .locale-btn:hover { border-color: #60a5fa; color: #e2e8f0; }
+        .vat-notice { text-align: center; padding: 8px 16px; background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.15); border-radius: 6px; font-size: 0.85rem; color: #94a3b8; margin-bottom: 24px; }
 
         @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 24px 16px; }
             .product-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 12px; }
-            .btn-group { flex-direction: column; }
+            .product-image { height: 140px; }
+            .btn-group { flex-direction: row; }
+            .category-nav { justify-content: flex-start; gap: 6px; padding: 0 12px; }
+            .category-btn { padding: 12px 18px; font-size: 0.875rem; }
+            .footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 20px 24px; gap: 24px; }
+            .footer-payments { padding: 0 20px 20px; }
+            .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .footer-legal { gap: 12px; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav-header">
-        <a href="../../" class="nav-brand">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#60a5fa" stroke-width="2"/><path d="M10 16l4 4 8-8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            DWS IQ Platform
-        </a>
-        <div class="nav-links">
-            <a href="../../">Home</a>
-            <a href="../" style="color: #60a5fa; font-weight: 600;">Store</a>
-            <a href="../../legal/">Legal</a>
-            <a href="../../dashboard/login/" class="btn btn-primary" style="padding: 8px 16px;">Login</a>
-        </div>
-    </nav>
+    <!-- Gamma Ironclad Navigation -->
+    <script src="../../shared-assets/nav/ironclad-nav.js"></script>
 
     <main class="container">
-        <h1>More Products</h1>
-        <p class="subtitle">Additional services, consulting, and digital solutions</p>
+        <h1>AI &amp; Cloud Consulting</h1>
+        <p class="subtitle">95% of AI pilots fail to reach production. We bridge the gap with hands-on agentic development, sovereign cloud migration, and senior AI engineering. <a href="mailto:risto@lifetime.fi" style="color:#60a5fa;">risto@lifetime.fi</a></p>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="../">Page 1</a>
-            <a href="./" class="active">Page 2</a>
-            <a href="../page3/">Page 3</a>
-        </div>
+        <!-- Category Navigation -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="../" class="category-btn">Platform &amp; Products</a>
+            <a href="./" class="category-btn active" aria-current="page">AI &amp; Cloud Consulting</a>
+            <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="../page4/" class="category-btn">Digital Services</a>
+        </nav>
 
-        <!-- Products Grid - Page 2 products -->
+        <!-- VAT Notice -->
+        <div class="vat-notice" id="vatNotice">All prices excl. VAT &middot; EU Business (B2B)</div>
+
+        <!-- Products Grid - AI & Cloud Consulting -->
         <div class="product-grid">
-            <!-- Continuous Workflow Agent Delivery -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Continuous Workflow Agent Delivery" class="product-image">
+            <!-- AI Consulting - Agentic Software Development -->
+            <div class="product-card featured" style="position:relative;">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Consulting" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Continuous Workflow Agent Delivery</h2>
-                    <div class="product-price">€2,500</div>
-                    <div class="product-price-note">Foundation package</div>
-                    <p class="product-excerpt">Manufacturing Intelligence Starter package. Workflow assessment, AI readiness scoring, ROI projection, automated workflow deployment, performance dashboard, and 30-day monitoring.</p>
+                    <h2 class="product-title">AI Consulting &ndash; Agentic Software Development</h2>
+                    <div class="product-price">&euro;2,500</div>
+                    <div class="product-price-note">Assessment from &euro;2,500 | Retainers from &euro;5,000/mo</div>
+                    <p class="product-excerpt">Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance &mdash; from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/2500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Consulting+%E2%80%93+Agentic+Software+Development&amount=2500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../../products/ai-consulting.html" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Digital Design Gold -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Digital Design Gold" class="product-image">
+            <!-- Sovereignty Cloud Consulting -->
+            <div class="product-card featured" style="position:relative;">
+                <img src="../../static/images/Risto_Malta.png" alt="Sovereignty Cloud Consulting" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Lifetime World - Digital Design Gold</h2>
-                    <div class="product-price">€2,499</div>
-                    <div class="product-price-note">One-time setup</div>
-                    <p class="product-excerpt">Digital marketing dashboard and design services. Complete marketing intelligence solution with analytics and visualization.</p>
+                    <h2 class="product-title">Sovereignty Cloud Consulting &ndash; EU Migration</h2>
+                    <div class="product-price">&euro;1,500/mo</div>
+                    <div class="product-price-note">Standard &euro;1,500/mo | Growth &euro;3,000/mo | Partner from &euro;5,000/mo</div>
+                    <p class="product-excerpt">Your US-hosted data is exposed to the CLOUD Act &mdash; and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/1500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Sovereignty+Cloud+Consulting+%E2%80%93+EU+Migration&amount=1500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../../products/sovereignty-cloud-consulting.html" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
 
-            <!-- AI Koulutus 3 Days -->
+            <!-- AI Engineering & Cloud Solutions -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="AI Koulutus 3 Days" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Engineering" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">AI Koulutus 3 Days Programme</h2>
-                    <div class="product-price">€6,250</div>
-                    <div class="product-price-note">3-day programme</div>
-                    <p class="product-excerpt">Intensive 3-day AI training programme for organizations. In-house coaching covering AI strategy, implementation, and team upskilling.</p>
+                    <h2 class="product-title">AI Engineering &amp; Cloud Solutions Consultancy</h2>
+                    <div class="product-price">&euro;4,500</div>
+                    <div class="product-price-note">25 hours, valid 12 months</div>
+                    <p class="product-excerpt">25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/4500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Engineering+%26+Cloud+Solutions+Consultancy&amount=4500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Solution Ready Team -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Solution Ready Team" class="product-image">
-                <div class="product-content">
-                    <h2 class="product-title">Solution Ready Team - Do it Right</h2>
-                    <div class="product-price">€950</div>
-                    <div class="product-price-note">Team setup</div>
-                    <p class="product-excerpt">Cloud-ready team solution for organizations needing immediate technical expertise. Pre-vetted professionals ready for deployment.</p>
-                    <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
-                    </div>
-                    <div class="payment-badge">
-                        <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
@@ -168,120 +193,99 @@
                 <img src="../../static/images/Firehorse_Store.jpg" alt="Conversational Agent Solution" class="product-image">
                 <div class="product-content">
                     <h2 class="product-title">Conversational Agent Solution</h2>
-                    <div class="product-price">€3,500</div>
+                    <div class="product-price">&euro;3,500</div>
                     <div class="product-price-note">25 hours standard implementation</div>
-                    <p class="product-excerpt">AI-powered conversational agents for enterprise workflows. Integrates with Microsoft Teams, Google Workspace, Zoom, WhatsApp Business. Supports Groq, Anthropic, OpenAI, and self-hosted LLMs.</p>
+                    <p class="product-excerpt">Deploy AI agents where your team already works &mdash; Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/3500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Conversational+Agent+Solution&amount=3500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Professional Web Pages -->
+            <!-- Continuous Workflow Agent Delivery -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Professional Web Pages" class="product-image">
+                <img src="../../static/images/Firehorse_Store.jpg" alt="Continuous Workflow Agent Delivery" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Professional Web Pages</h2>
-                    <div class="product-price">€799</div>
-                    <div class="product-price-note">Starting price</div>
-                    <p class="product-excerpt">Professional responsive web pages for new businesses, products, or companies. Technology options include React.JS, Blazor, WordPress, Squarespace. AI chatbot and e-commerce add-ons available.</p>
+                    <h2 class="product-title">Manufacturing AI Readiness Assessment</h2>
+                    <div class="product-price">&euro;2,500</div>
+                    <div class="product-price-note">Foundation package</div>
+                    <p class="product-excerpt">Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/2500EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Continuous+Workflow+Agent+Delivery&amount=2500&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Agentti Sanasto -->
+            <!-- AI Consultant Day -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Agentti Sanasto" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI Consultant Day" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Agentti Sanasto Englanti-Suomi</h2>
-                    <div class="product-price">€0.99</div>
-                    <div class="product-price-note">1-year license</div>
-                    <p class="product-excerpt">Digital glossary translating English-to-Finnish AI agent terminology. Includes comprehensive explanations and reference list.</p>
+                    <h2 class="product-title">AI Consultant Day</h2>
+                    <div class="product-price">&euro;699</div>
+                    <div class="product-price-note">Per day, VAT excl.</div>
+                    <p class="product-excerpt">One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2&ndash;3 days for a full sprint.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/699EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+Consultant+Day&amount=699&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Firehorse Data Services -->
+            <!-- AI & Agent Engineering -->
             <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Firehorse Data Services" class="product-image">
+                <img src="../../static/images/Risto_Malta.png" alt="AI & Agent Engineering" class="product-image">
                 <div class="product-content">
-                    <h2 class="product-title">Firehorse Data Services</h2>
-                    <div class="product-price">€899</div>
-                    <div class="product-price-note">Consultancy engagement</div>
-                    <p class="product-excerpt">Comprehensive data consultancy with API-driven data products, data brokerage, management strategy, implementation support, and analysis/enrichment.</p>
+                    <h2 class="product-title">AI &amp; Agent Engineering</h2>
+                    <div class="product-price">&euro;99/hr</div>
+                    <div class="product-price-note">Per hour</div>
+                    <p class="product-excerpt">Hire a senior AI engineer by the hour &mdash; no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.</p>
                     <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
+                        <a href="https://revolut.me/lifetimeoy/99EUR" class="btn btn-revolut" target="_blank" rel="noopener">Pay &ndash; Revolut</a>
+                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI+%26+Agent+Engineering+(1+hour)&amount=99&currency_code=EUR" class="btn btn-paypal" target="_blank" rel="noopener">Pay &ndash; PayPal</a>
                     </div>
+                    <a href="../" class="btn-details">Details</a>
                     <div class="payment-badge">
                         <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Protonmail Secure Email -->
-            <div class="product-card">
-                <img src="../../static/images/Firehorse_Store.jpg" alt="Protonmail Secure Email" class="product-image">
-                <div class="product-content">
-                    <h2 class="product-title">Protonmail Secure Email & Domains Implementation</h2>
-                    <div class="product-price">€499</div>
-                    <div class="product-price-note">8-hour implementation</div>
-                    <p class="product-excerpt">Full Proton Business Suite implementation with end-to-end encryption. Includes encrypted email, cloud storage, password management, VPN. GDPR, NIS2, EU AI Act compliant.</p>
-                    <div class="btn-group">
-                        <a href="https://revolut.me/lifetimeoy" class="btn btn-primary" target="_blank">Buy Now</a>
-                        <a href="../" class="btn btn-secondary">Details</a>
-                    </div>
-                    <div class="payment-badge">
-                        <span>Secure payment via</span>
-                        <span style="color: #60a5fa; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+                        <span style="color: #94a3b8;">|</span>
+                        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="../">Page 1</a>
-            <a href="./" class="active">Page 2</a>
-            <a href="../page3/">Page 3</a>
-        </div>
+        <!-- Category Navigation Bottom -->
+        <nav class="category-nav" aria-label="Product categories">
+            <a href="../" class="category-btn">Platform &amp; Products</a>
+            <a href="./" class="category-btn active" aria-current="page">AI &amp; Cloud Consulting</a>
+            <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
+            <a href="../page4/" class="category-btn">Digital Services</a>
+        </nav>
     </main>
-
-    <footer class="site-footer">
-        <div style="margin-bottom: 16px;">
-            <strong>LEGAL NOTICE</strong><br>
-            <strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland)<br>
-            <strong>Regulatory Framework:</strong> GDPR, DSA, NIS2 Directive, EU AI Act
-        </div>
-        <div>
-            <a href="../../privacy-policy/">Privacy</a> ·
-            <a href="../../terms/">Terms</a> ·
-            <a href="../../return-policy/">Returns</a> ·
-            <a href="mailto:support@lifetime.fi">Support</a>
-        </div>
-        <div style="margin-top: 16px;">
-            Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
-        </div>
-    </footer>
+<script src="../../shared-assets/vat-locale.js"></script>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

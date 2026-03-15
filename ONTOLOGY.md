@@ -1,11 +1,12 @@
 # DWS Ontology & Lifetime World Model (LWM)
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 20-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
   - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
 Session Links & References:
@@ -14,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 21.01.2026
-  - Last Modified: 21.01.2026
+  - Last Modified: 11.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -378,6 +379,221 @@ entities:
   - product: [DWS-IQ6, Firehorse, ...]
   - regulation: [GDPR, FCA_Rules, ...]
   - technology: [LLM, RAG, Vector_DB, ...]
+```
+
+### DWS6 Enterprise Ontology
+
+#### EU Institutions
+
+```yaml
+eu_institutions:
+  european_commission:
+    role: Executive branch of the EU
+    relevance: Proposes legislation (Fit for 55, AI Act), enforces compliance
+    key_bodies:
+      - DG CNECT (Digital policy)
+      - DG CLIMA (Climate action)
+      - DG GROW (Internal market, industry)
+      - DG ENER (Energy)
+
+  european_council:
+    role: Defines EU political direction and priorities
+    relevance: Alden Biesen Informal Retreat (Feb 2026) — competitiveness, autonomy, prosperity
+    key_events:
+      - Alden Biesen Retreat 2026-02-12: Single Market as "Europe's superpower" (450M consumers)
+      - Franco-German Digital Sovereignty Summit (Nov 2025)
+
+  european_parliament:
+    role: Co-legislator with Council
+    relevance: Adopted EU AI Act, Fit for 55 package
+
+  council_of_the_eu:
+    role: Represents member state governments
+    relevance: Negotiates and adopts EU legislation
+
+  european_investment_bank:
+    role: EU financing institution
+    relevance: EIB SESI funding (€880k-1.52M pipeline), InvestEU Portal (INPO-20254383)
+```
+
+#### EU Single Market
+
+```yaml
+eu_single_market:
+  consumers: 450_million
+  member_states: 27
+  description: "Europe's true superpower — world's largest harmonized regulatory market"
+  strategic_value:
+    - One compliance investment serves all 27 member states
+    - Harmonized regulation = "Brussels Effect" (global standard-setting)
+    - EU-compliant companies get privileged market access
+    - Non-compliant competitors excluded by design
+  dws6_leverage:
+    - 16 EU industries served across Single Market
+    - Compliance = access key (not cost center)
+    - Regulatory-first DNA as competitive advantage
+```
+
+#### EU Regulatory Framework (DWS6 Compliance Stack)
+
+```yaml
+eu_regulations:
+  fit_for_55:
+    type: Climate legislation package
+    scope: EU-wide emissions reduction 55% by 2030
+    dws6_relevance: Core compliance automation target across 16 industries
+    status: Active — implementation ongoing
+
+  eu_ets:
+    full_name: EU Emissions Trading System
+    type: Carbon pricing mechanism
+    scope: Industrial emissions across Single Market
+    dws6_relevance: Automated ETS reporting and compliance for industrial clients
+
+  cbam:
+    full_name: Carbon Border Adjustment Mechanism
+    type: Border carbon tariff
+    scope: Imports into EU (cement, steel, aluminium, fertilizers, electricity, hydrogen)
+    dws6_relevance: CBAM compliance automation for importers
+    effective: Transitional phase active, full enforcement 2026
+
+  csrd:
+    full_name: Corporate Sustainability Reporting Directive
+    type: Sustainability reporting mandate
+    scope: ~50,000 EU companies
+    dws6_relevance: Automated CSRD report generation via Firehorse Report suite
+
+  eu_ai_act:
+    type: AI regulation
+    scope: All AI systems operating in EU Single Market
+    enforcement: August 2, 2026
+    dws6_relevance:
+      - Article 12 automatic logging (built-in)
+      - Reasoning lineage documentation (LWM architecture)
+      - High-risk AI system compliance for 16 industries
+    status: Pre-enforcement — DWS IQ 6 designed for compliance
+
+  gdpr:
+    full_name: General Data Protection Regulation
+    type: Data protection law
+    scope: All EU data subjects
+    dws6_relevance: Data residency (Finland/Germany), no CLOUD Act exposure
+
+  nis2:
+    full_name: Network and Information Security Directive 2
+    type: Cybersecurity directive
+    scope: Essential and important entities across EU
+    dws6_relevance: NIS2 Article 21 compliance built during development (114 requirements)
+```
+
+#### DWS IQ 6 Platform
+
+```yaml
+dws_iq6:
+  architecture: Brain-Memory-Body-Hands
+  components:
+    brain: DWS IQ 6 Platform (Multi-agent AI Orchestration)
+    memory: Lifetime World Model (Climate LLM + EU Regulations)
+    body: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+    hands: Lifetime Fleet (IoT/Robots for physical execution)
+
+  products:
+    - DWS IQ 6: Industrial climate intelligence platform
+    - Firehorse Report: Analytics and CSRD reporting
+    - Firehorse Automation: Python automation scripts
+    - Firehorse ContentMS: Content management
+    - Firehorse Omnichannel: Multi-channel outreach
+
+  16_eu_industries:
+    - Construction
+    - Manufacturing
+    - Energy
+    - Logistics & Transport
+    - Healthcare
+    - Industrial Automation
+    - Real Estate
+    - Waste Management
+    - Water & Wastewater
+    - Agriculture
+    - Mining & Minerals
+    - Chemicals
+    - Food & Beverage
+    - Textiles
+    - Pulp & Paper
+    - Steel & Metals
+
+  20_moat_fortress:
+    tier_1_impossible:
+      - "1. EU/Nordic Operations + Single Market Access (450M consumers)"
+      - "2. Government Validation (Kela)"
+      - "3. NCC Reference"
+      - "4. InvestEU Portal Acknowledgment + EU Competitiveness Alignment"
+      - "5. Tech Stack Partnerships (NVIDIA, Google, AWS, Groq)"
+    tier_2_very_hard:
+      - "6. NIS2 Article 21 Expertise"
+      - "7. Edge Computing Deployed (NVIDIA Jetson)"
+      - "8. CIDM Patent"
+      - "9. Multi-Tenant Architecture"
+      - "10. B2B2G Model"
+    tier_3_moderate:
+      - "11. Nordic Languages"
+      - "12. Construction Domain Expertise"
+      - "13. Dual Product Strategy (DWS + Firehorse)"
+      - "14. Offline Capability"
+      - "15. Regulatory-First DNA"
+    tier_4_operational:
+      - "16. €3.50/month Infrastructure"
+      - "17. Sub-100ms Latency"
+      - "18. Data Benchmarking (network effects)"
+      - "19. €135k Non-Dilutive Credits"
+      - "20. Working-Class Positioning"
+    total_barrier: "€3.05M-8.35M + 24-36 months"
+
+  technology_stack:
+    frontend: [React 19, Vite 7, TypeScript 5.9, TailwindCSS 4]
+    backend: [Express 4.19, Node-cron, JWT, Helmet]
+    ai_llm: [Claude (Anthropic), Google Gemini, Groq API, LlamaStack, MCP]
+    database: [Supabase (PostgreSQL), pgvector]
+    infrastructure: [Google Cloud Run, Cloudflare Workers, NVIDIA Jetson Orin Nano]
+    orchestration: [Temporal.io, MCP Hub]
+
+  data_sovereignty:
+    data_residency: [Finland, Germany]
+    cloud_provider: Supabase (EU-hosted)
+    gaia_x_alignment: Level 3 (sovereign tier) — in progress
+    cloud_act_exposure: None (EU-native infrastructure)
+```
+
+#### Key Geographic Entities
+
+```yaml
+geography_dws6:
+  headquarters:
+    country: Finland
+    entity: Lifetime Oy
+    advantages:
+      - "Finland implements EU directives 6-12 months faster than most member states"
+      - "AAA credit rating"
+      - "NATO member (2023)"
+      - "Most rigorous GDPR enforcement in EU"
+
+  target_markets:
+    primary: [Finland, Sweden, Norway]
+    secondary: [Denmark, Germany, Netherlands, Belgium]
+    tam: "€24.5B (Nordic) → €177B+ (EU cloud market)"
+
+  eu_political_events:
+    - event: Alden Biesen Informal Retreat
+      date: 2026-02-12
+      location: Belgium
+      significance: "EU leaders frame Single Market (450M consumers) as Europe's superpower"
+      impact_on_dws6: "Validates fortress moat strategy — compliance = market access"
+    - event: Franco-German Digital Sovereignty Summit
+      date: 2025-11
+      significance: "Established 2026 digital sovereignty action agenda"
+    - event: EU AI Act Full Enforcement
+      date: 2026-08-02
+      significance: "High-risk AI systems must comply — DWS IQ 6 designed for this"
 ```
 
 ---

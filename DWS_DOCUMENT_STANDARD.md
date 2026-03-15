@@ -1,34 +1,42 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.9
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
-  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
-  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
+  - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
+  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
   - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
   - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
   - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+  - Claude Code (claude/automate-pr-workflow-e5wXD): https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 04.02.2026
+  - Last Modified: 14.03.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
-**Version:** 1.3
-**Effective Date:** 2026-02-04
-**Last Updated:** 2026-02-04
+**Version:** 1.9
+**Effective Date:** 2026-03-14
+**Last Updated:** 2026-03-14
 **Status:** Active
 
 ---
@@ -50,7 +58,9 @@ Document Status:
 13. [Enforcement](#13-enforcement)
 14. [LLM Model Versioning](#14-llm-model-versioning) ⭐ NEW
 15. [Localization & Multi-Language Management](#15-localization--multi-language-management) ⭐ NEW
-16. [Document Index](#16-document-index) ⭐ NEW
+16. [Document Index](#16-document-index)
+17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
+18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 
 ---
 
@@ -74,6 +84,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 
+**Does NOT apply to:**
+- `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
+- `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
+
 ### Principles / Periaatteet
 
 1. **Traceability** - Every document must be traceable to its creator and session
@@ -90,10 +104,16 @@ Applies to:
 
 **ALL documents MUST include this header block at the top:**
 
+> **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
+> the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
+> which causes parse errors because the history block isn't valid YAML.
+> Both `***` and `---` render as horizontal rules in markdown, but only `---` triggers
+> YAML parsing.
+
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: X.Y
@@ -110,9 +130,9 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Primary Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED]
 
----
+***
 ```
 
 ### 2.2 Header Components
@@ -129,17 +149,77 @@ Document Status:
 | **Last Modified** | ✅ Yes | Last modification date | `30.12.2025` |
 | **Language** | ✅ Yes | Primary language | `English`, `Finnish`, `Bilingual` |
 | **Languages Available** | ✅ Yes | All available languages | `English, Suomi` |
-| **Publication Status** | ✅ Yes | Document status | `✅ ACTIVE`, `🚧 DRAFT`, `📦 ARCHIVED` |
+| **Publication Status** | ✅ Yes | Document status | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED` |
 
 ### 2.3 Publication Status Values
 
-| Status | Icon | Meaning |
-|--------|------|---------|
-| **ACTIVE** | ✅ | Document is current and in use |
-| **DRAFT** | 🚧 | Document is work in progress |
-| **ARCHIVED** | 📦 | Document is superseded but kept for reference |
-| **DEPRECATED** | ⚠️ | Document is outdated and should not be used |
-| **UNDER REVIEW** | 🔍 | Document is being reviewed |
+Use plain text status labels. Emoji icons are optional (display only).
+
+| Status | Meaning |
+|--------|---------|
+| **ACTIVE** | Document is current and in use |
+| **DRAFT** | Document is work in progress |
+| **OUTDATED** | Document is superseded, no longer maintained — pending archive |
+| **ARCHIVED** | Document is in `docs/archive/`, kept for historical reference |
+| **DEPRECATED** | Document is outdated and should not be used |
+| **UNDER REVIEW** | Document is being reviewed |
+
+> **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
+> HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
+> canonical value; emoji is decorative.
+
+### 2.4 Document Lifecycle
+
+Documents follow this lifecycle:
+
+```
+DRAFT → ACTIVE → OUTDATED → ARCHIVED
+```
+
+| Transition | When | Who | Action |
+|-----------|------|-----|--------|
+| DRAFT → ACTIVE | Document complete and approved | Author | Set `Publication Status: ACTIVE` |
+| ACTIVE → OUTDATED | Superseded by newer document | Author or reviewer | Add OUTDATED header block (see below) |
+| OUTDATED → ARCHIVED | Moved to `docs/archive/` | Maintainer | Move file, update Document Index |
+
+### 2.5 Marking a Document as OUTDATED (Procedure)
+
+When a document is superseded or no longer maintained, mark it as OUTDATED **before** archiving.
+
+**Step 1:** Add this block immediately after the document title (before `***`):
+
+```markdown
+> **STATUS: OUTDATED** — This document is no longer maintained.
+> Superseded by: [link to replacement document or description]
+> Archived: DD.MM.YYYY
+```
+
+**Step 2:** Update the VERSION AND AGENT HISTORY block:
+
+```markdown
+Document Status:
+  - Publication Status: OUTDATED
+```
+
+**Step 3:** Move the file to the appropriate `docs/archive/` subfolder:
+
+```
+docs/archive/
+├── dws10-hero/          — dws10.com Hero campaign docs
+├── dws10-docs/          — dws10.com store admin manuals
+├── dws10-misc/          — dws10.com READMEs, config docs
+├── dws6-deployment/     — dws6.com deployment guides
+├── dws6-status/         — dws6.com completion/delivery reports
+├── dws6-dashboard/      — dws6.com v7-v9 dashboard architecture
+└── onelifetime-blog/    — onelifetime.world blog system docs
+```
+
+**Step 4:** Update the Document Index (`docs/Document-index.md`) to reflect the new location and ARCHIVED status.
+
+**Rules:**
+- **Never delete** — always move to `docs/archive/` (CLAUDE.md Rule 8)
+- Keep `_lp` suffix copies if they exist (preserve git rename history)
+- Add a session entry to the version history recording the archive action
 
 ---
 
@@ -263,6 +343,38 @@ security_audit_v1.py
 backup_database_v2.sh
 deploy_production_v1.js
 ```
+
+### 4.5 SQL Migration Files (Supabase / Postgres)
+
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+
+**Format:**
+```
+[number]_[DDMMYY]_[name].sql
+```
+
+- **number**: Zero-padded, 3-digit migration number matching execution order  
+  - Examples: `002`, `013`, `030`, `036`
+- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format  
+  - Examples: `270226` = 27.02.2026
+- **name**: Short, lowercase, snake_case description (`_` is allowed and encouraged)
+
+**Examples:**
+```
+002_190126_firehorse_pilot.sql
+013_190126_agent_tracking.sql
+030_220226_agent_logging_tables.sql
+031_220226_supabase_advisor_fixes.sql
+036_270226_construction_leads.sql
+```
+
+**Rules:**
+- Filenames live in the filesystem only – Postgres does **not** read them, but:
+  - The **number** communicates migration ordering to humans and tooling.
+  - The **DDMMYY** encodes creation context and helps when scanning history.
+  - The **name** must be descriptive enough to understand purpose at a glance.
+- Always use `_` (underscore) as separator; avoid spaces and mixed separators.
+- When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
 
 ### 4.4 Prohibited Naming Patterns
 
@@ -450,134 +562,113 @@ Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseks
 
 ### 8.3 Conversion Methods
 
-#### Method 1: Browser-Based (Recommended) ⭐
+#### Method 1: Generate-PDFs.ps1 (Recommended)
 
-**Advantages:**
-- No additional software required
-- Consistent results
-- Professional styling
-- Fast and reliable
+**Standard script:** `scripts/Generate-PDFs.ps1` (v1.5)
 
-**Process:**
-1. Convert markdown to HTML using Python script
-2. Open HTML in browser (Chrome, Edge, Firefox)
-3. Press `Ctrl+P` (Print)
-4. Select "Save as PDF" as printer
-5. Configure settings:
-   - Layout: Portrait
-   - Margins: Default or Minimum
-   - Background graphics: Enabled
-   - Scale: 100% or "Fit to page"
-6. Save with appropriate filename
-
-**Expected Result:** 1-5 MB PDF
-
-#### Method 2: Pandoc with wkhtmltopdf
+Converts 16 key markdown files to styled HTML or PDF using pandoc. Runs standalone
+or automatically via `Sync-ToProton.ps1 -GeneratePDFs`.
 
 ```powershell
-# Install wkhtmltopdf from: https://wkhtmltopdf.org/downloads.html
+# Install pandoc (required)
+winget install JohnMacFarlane.Pandoc
 
-pandoc "input.md" -o "output.pdf" \
-  --pdf-engine=wkhtmltopdf \
-  --toc --toc-depth=2
+# HTML output (default, always works, opens in Edge)
+.\scripts\Generate-PDFs.ps1
+
+# PDF output (requires wkhtmltopdf)
+winget install wkhtmltopdf
+.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf
+
+# Open changed files in Edge for review
+.\scripts\Generate-PDFs.ps1 -OpenNew
+
+# Preview without generating
+.\scripts\Generate-PDFs.ps1 -DryRun
 ```
 
-#### Method 3: Pandoc with LaTeX (MiKTeX)
+**Key pandoc flags for DWS documents:**
+```
+-f markdown-yaml_metadata_block+smart   # Disable YAML parsing (DWS headers aren't YAML)
+--standalone --embed-resources           # Self-contained HTML with embedded CSS
+--toc --toc-depth=2                      # Table of contents
+--css dws6-pdf-style.css                 # DWS brand styling
+```
+
+#### Method 2: Browser Print-to-PDF
+
+1. Generate HTML with Method 1
+2. Open `.html` in Edge/Chrome
+3. Press `Ctrl+P` > "Save as PDF"
+4. Set margins to Minimum, enable Background graphics
+
+#### Method 3: Pandoc CLI (manual)
 
 ```powershell
-# Install MiKTeX from: https://miktex.org/download
+# HTML (always works)
+pandoc "input.md" -o "output.html" --standalone --toc -f markdown-yaml_metadata_block+smart
 
-pandoc "input.md" -o "output.pdf" \
-  -V geometry:margin=1in \
-  -V fontsize=11pt \
-  --toc --toc-depth=2
+# PDF via wkhtmltopdf (no LaTeX needed)
+pandoc "input.md" -o "output.pdf" --pdf-engine=wkhtmltopdf --toc -f markdown-yaml_metadata_block+smart
+
+# PDF via LaTeX (avoid - emoji/Unicode issues)
+pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_metadata_block+smart
 ```
 
-### 8.4 HTML Styling Standard
+> **WARNING:** Do NOT use `pdflatex` - it cannot handle Unicode emoji.
+> Do NOT use `---` delimiters in document headers - pandoc treats them as YAML.
+> Use `***` delimiters instead (see Section 2.1).
 
-**Required CSS styling for PDF conversion:**
+### 8.4 HTML Styling Standard (DWS Brand)
+
+**DWS brand CSS (used by Generate-PDFs.ps1):**
 
 ```css
-@page {
-    size: A4;
-    margin: 2cm;
-}
-
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 11pt;
     line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
     color: #333;
 }
-
-h1 {
-    color: #2c3e50;
-    border-bottom: 3px solid #3498db;
-    page-break-before: always;
-}
-
-h2 {
-    color: #34495e;
-    border-bottom: 2px solid #95a5a6;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    page-break-inside: avoid;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-}
+h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+h3 { color: #333; }
+code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+th { background: #0a1628; color: white; }
+tr:nth-child(even) { background: #f9f9f9; }
+a { color: #0066cc; }
+blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
 ```
 
-### 8.5 Python Conversion Script
+**Brand colors reference:**
+- Primary: `#0a1628` (dark navy) - headings, table headers
+- Accent: `#0066cc` (enterprise blue) - links, borders, blockquotes
+- Text: `#333` - body text
 
-**Standard script location:** `{project-root}/scripts/create_pdf.py`
+### 8.5 Conversion Scripts
 
-**Required features:**
-- Markdown to HTML conversion
-- Professional CSS styling
-- Multiple PDF engine support
-- File size validation
-- Error handling with fallback options
+**Standard script:** `scripts/Generate-PDFs.ps1` (PowerShell, v1.5)
 
-**Example implementation:**
+| Feature | Detail |
+|---------|--------|
+| Engine choice | `-Engine html` (default) or `-Engine wkhtmltopdf` |
+| Source files | 16 markdown files (admin manuals, sales, investor) |
+| Output location | `F:\Proton\Proton\My files\2026\generated-pdfs\` |
+| Skip unchanged | Compares source vs output timestamps |
+| Auto-open | `-OpenNew` opens changed files in Edge |
+| DWS branding | Inline CSS with brand colors |
+| Pandoc flags | Disables YAML parsing, enables TOC, smart typography |
 
-```python
-import markdown
-from pathlib import Path
-
-# Convert markdown to HTML
-with open('input.md', 'r', encoding='utf-8') as f:
-    md_content = f.read()
-
-html_content = markdown.markdown(
-    md_content,
-    extensions=['tables', 'fenced_code', 'toc']
-)
-
-# Add professional styling
-styled_html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        /* Standard CSS styling */
-    </style>
-</head>
-<body>
-{html_content}
-</body>
-</html>
-"""
-
-# Save HTML
-with open('output.html', 'w', encoding='utf-8') as f:
-    f.write(styled_html)
-```
+**Integration:**
+- Called by `Sync-ToProton.ps1 -GeneratePDFs`
+- Runs automatically on Windows login via `Startup-DailySync.bat`
+- VS Code task: "Generate PDFs (pandoc)" or "Sync + Generate PDFs"
 
 ### 8.6 Quality Checklist
 
@@ -677,7 +768,7 @@ jobs:
 ```markdown
 # Admin Manual: DWS6.com Deployment
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -687,16 +778,16 @@ Sessions & Modifications:
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ADMIN_MANUAL_DWS6_COM.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
   - Created: 30.12.2025
   - Last Modified: 30.12.2025
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.0  
 **Purpose:** Admin and deployment guide for dws6.com  
@@ -1549,6 +1640,163 @@ diff /tmp/md_files.txt docs/Document-index.md
 
 ---
 
+## 17. Web Content Index Check
+
+### 17.1 Purpose / Tarkoitus
+
+Every document update MUST be followed by a **web content check** — a review of which live web pages are affected by the change.
+
+Jokaisen dokumenttipäivityksen jälkeen TÄYTYY tehdä **verkkosisältötarkistus** — selvittää, mitkä live-verkkosivut muutoksesta vaikuttuvat.
+
+### 17.2 Web Content Index
+
+**Location:** `docs/WEB_CONTENT_INDEX.md`
+
+This index maps every repository document to its corresponding web domain pages (dws10.com, dws6.com, onelifetime.world). It is the authoritative source for:
+
+- Which web pages reflect which documents
+- What to review after a document update
+- Which pages are web-only (no .md counterpart)
+
+### 17.3 Post-Update Web Check Procedure
+
+**After every document update** (commit or PR), the author MUST:
+
+```
+POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record "reviewed, no change"
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          "Web check: /page-name reviewed [no change | updated]"
+Step 4 — Run: diff <root-page> <landing-pages-copy>  → must be empty
+```
+
+**Skip condition:** If the document is internal-only (marked `—` in all web columns), no web check is needed — state "internal only" in PR description.
+
+### 17.4 Agent Skill
+
+Run `/content-index check <document-path>` to look up web impact for any document.
+
+```bash
+/content-index check DWS_BRAND_STANDARD.md
+# → Lists: dws10.com/gamma/, dws6.com/shared/
+# → Instruction: Review these pages for content currency
+```
+
+### 17.5 Content-Index Update Trigger
+
+**Update `docs/WEB_CONTENT_INDEX.md` when:**
+- A new `.md` document is created that has web counterparts
+- A new web page is launched that corresponds to a doc
+- A document is archived (remove or mark row)
+- A web page is renamed or deleted
+
+---
+
+## 18. Learn HTML Generation
+
+### 18.1 Rule / Sääntö
+
+**Every standards document update MUST produce a new versioned HTML artifact in `Learn/`.**
+
+This ensures:
+- AI agents and humans can read the latest standard in rendered HTML
+- Morning briefing email links to current standards
+- Version history is preserved (never overwrite old versions)
+
+**Jokainen standardidokumentin päivitys TÄYTYY tuottaa uuden versioidun HTML-artefaktin kansioon `Learn/`.**
+
+### 18.2 Which Documents Require Learn/ HTML
+
+| Document | Learn/ HTML Required | Pattern |
+|----------|---------------------|---------|
+| `DWS_DOCUMENT_STANDARD.md` | ✅ Yes | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html` |
+| `DWS_BRAND_STANDARD.md` | ✅ Yes | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html` |
+| `DWS_SECURITY_STANDARD.md` | ✅ Yes | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html` |
+| `Admin/ADMIN_MANUAL.md` | ✅ Yes | `Learn/ADMIN_MANUAL_v{VERSION}.html` |
+| `Admin/SECURITY_COMPLIANCE.md` | ✅ Yes | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html` |
+| `CLAUDE.md` | ✅ Yes | `Learn/CLAUDE_v{VERSION}.html` |
+| `docs/Document-index.md` | ✅ Yes | `Learn/Document-index_v{VERSION}.html` |
+| `docs/WEB_CONTENT_INDEX.md` | ✅ Yes | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html` |
+| Field notes (`docs/field-notes/*.md`) | ✅ Yes | `Learn/{date}-{slug}.html` |
+| Thesis files | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc. |
+| `Store/*.md` product files | ❌ No | These use YAML — built by build_store.py instead |
+| Architecture docs (one-time) | ⚠️ Optional | Generate once on initial creation |
+
+### 18.3 Generation Method
+
+**Preferred: Pandoc (automated)**
+
+```bash
+pandoc DWS_DOCUMENT_STANDARD.md \
+  -f markdown -t html5 \
+  --standalone \
+  -o Learn/DWS_DOCUMENT_STANDARD_v1.7.html
+```
+
+**Alternative: Manual HTML**
+
+When pandoc is unavailable, generate minimal but valid HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Document Title] v[VERSION]</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+    code { background: #f4f4f4; padding: 0.2em 0.4em; }
+    h1, h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+  </style>
+</head>
+<body>
+  <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
+  [HTML CONTENT]
+</body>
+</html>
+```
+
+### 18.4 Versioning Rules
+
+- **NEVER overwrite** an existing versioned file (e.g., `_v1.6.html`)
+- **Always create a new file** with the new version number
+- **Also update** the unversioned copy (e.g., `Learn/DWS_DOCUMENT_STANDARD.html`) so agents always have a stable URL
+- For thesis files: follow the Thesis Update Rule (4 files together)
+
+### 18.5 Morning Briefing Integration
+
+The CEO Cockpit morning brief (06:00 Helsinki) includes a **Learn Artifacts** section showing recently updated HTML files with direct GitHub links.
+
+When you publish a new Learn/ HTML:
+- The morning briefing automatically detects files modified in the last 7 days
+- It links to: `https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}`
+
+**Skill:** Run `/content-index learn` to see which Learn/ artifacts were published recently.
+
+### 18.6 Learn Artifact Naming
+
+```
+Learn/[DOCUMENT_SLUG]_v[MAJOR].[MINOR].html    ← versioned (permanent)
+Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)
+```
+
+Examples:
+```
+Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
+Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
+Learn/WEB_CONTENT_INDEX_v1.0.html       ← versioned
+Learn/WEB_CONTENT_INDEX.html            ← latest
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1556,7 +1804,7 @@ diff /tmp/md_files.txt docs/Document-index.md
 ```markdown
 # [Document Title]
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -1573,10 +1821,12 @@ Document Status:
   - Last Modified: DD.MM.YYYY
   - Language: [Language]
   - Languages Available: [List]
-  - Publication Status: [Status]
+  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED]
 
----
+***
 ```
+
+> **Remember:** Use `***` not `---` for pandoc compatibility.
 
 ### Workflow Naming Template
 
@@ -1603,6 +1853,8 @@ Document Status:
 ### Related Documents
 
 - **Ontology & Lifetime World Model:** `ONTOLOGY.md` ⭐ NEW
+- **DWS Brand Standard:** `docs/DWS_BRAND_STANDARD.md` — Gamma design system, colors, typography, navigation, UX guidelines
+  - Associated agents/skills: `ui-ux-designer`, `ux-researcher-designer`, `senior-frontend`
 - **AI Agent Guidelines:** `AI_AGENT_GUIDELINES.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
@@ -1610,9 +1862,32 @@ Document Status:
 
 ---
 
-**Version:** 1.3
-**Effective Date:** 04. February 2026
+**Version:** 1.7
+**Effective Date:** 28. February 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.7:**
+- Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages
+- Added Learn HTML Generation rule (Section 18) — every standards update produces a versioned HTML artifact in Learn/
+- Created `docs/WEB_CONTENT_INDEX.md` — maps docs to web pages across all three domains
+- Created `.claude/commands/content-index.md` — agent skill for web content index
+- Added Learn Artifacts section to morning briefing email (06:00 Helsinki)
+
+**Major Changes in v1.6:**
+- Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+
+**Major Changes in v1.5:**
+- Added OUTDATED publication status for documents pending archive
+- Added document lifecycle (DRAFT → ACTIVE → OUTDATED → ARCHIVED)
+- Added marking procedure (sections 2.4-2.5) with step-by-step instructions
+- Added `docs/archive/` folder structure reference
+
+**Major Changes in v1.4:**
+- Pandoc compatibility: changed `---` to `***` delimiters in document headers
+- Updated PDF section (8) with actual Generate-PDFs.ps1 script reference
+- DWS brand CSS colors replace generic blue palette
+- Publication status: plain text labels (ACTIVE, DRAFT) as canonical values
+- Added pandoc CLI flags reference and warnings about YAML/Unicode issues
 
 **Major Changes in v1.3:**
 - Added LLM Model Versioning section (14) - track which AI models create documents

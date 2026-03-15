@@ -3,30 +3,32 @@
 Convert DWS7 Integration Roadmap from Markdown to PDF
 """
 
-import markdown2
-from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
 import os
+
+import markdown2
+from weasyprint import HTML
+from weasyprint.text.fonts import FontConfiguration
+
 
 def convert_markdown_to_pdf(md_file, pdf_file):
     """Convert markdown file to PDF with styling"""
 
     # Read the markdown file
-    with open(md_file, 'r', encoding='utf-8') as f:
+    with open(md_file, encoding="utf-8") as f:
         md_content = f.read()
 
     # Convert markdown to HTML
     html_content = markdown2.markdown(
         md_content,
         extras=[
-            'fenced-code-blocks',
-            'tables',
-            'header-ids',
-            'toc',
-            'break-on-newline',
-            'code-friendly',
-            'cuddled-lists'
-        ]
+            "fenced-code-blocks",
+            "tables",
+            "header-ids",
+            "toc",
+            "break-on-newline",
+            "code-friendly",
+            "cuddled-lists",
+        ],
     )
 
     # Create styled HTML document
@@ -249,10 +251,7 @@ def convert_markdown_to_pdf(md_file, pdf_file):
 
     # Convert HTML to PDF
     print(f"Converting {md_file} to PDF...")
-    HTML(string=styled_html).write_pdf(
-        pdf_file,
-        font_config=font_config
-    )
+    HTML(string=styled_html).write_pdf(pdf_file, font_config=font_config)
 
     print(f"✓ PDF created successfully: {pdf_file}")
 
@@ -260,10 +259,11 @@ def convert_markdown_to_pdf(md_file, pdf_file):
     file_size = os.path.getsize(pdf_file)
     print(f"  File size: {file_size / 1024:.1f} KB")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Set file paths
-    md_file = '/home/user/dws6/dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.md'
-    pdf_file = '/home/user/dws6/dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.pdf'
+    md_file = "/home/user/dws6/dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.md"
+    pdf_file = "/home/user/dws6/dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.pdf"
 
     # Convert
     convert_markdown_to_pdf(md_file, pdf_file)

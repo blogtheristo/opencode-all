@@ -1,20 +1,29 @@
 # DWS6 Document Index
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS CLI-First Strategy document to Standards & Guidelines section
+  - Version: 1.2 | Tool: Claude Code | Date: 11.03.2026 | Changes: Added Acer Veriton GN100 admin manual and three GN100 field notes to the document index
+Version: 1.3
+
+Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 08.03.2026 | Changes: Added Authentication, Outreach, Climate Assistant & Agent System sections from older feature audit
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Compliance Engine section with new source files; updated Architecture Docs with middleware files; added MVP Feature List to Miscellaneous
   - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Initial creation - comprehensive document index for faster search
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Added last-modified dates, scripts section, sync tracking info
 
 Session Links & References:
   - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/Document-index.md
 
 Document Status:
   - Created: 04.02.2026
-  - Last Modified: 04.02.2026
+  - Last Modified: 11.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -37,7 +46,7 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 |----------|-------|-------------|
 | [Admin Manuals](#admin-manuals) | 8 | System administration and deployment guides |
 | [Architecture](#architecture-docs) | 12 | Technical architecture blueprints |
-| [Field Notes](#field-notes) | 7 | LWM knowledge capture from real-world events |
+| [Field Notes](#field-notes) | 10+ | LWM knowledge capture from real-world events |
 | [Firehorse Product](#firehorse-product) | 35+ | Product suite documentation |
 | [Standards & Guidelines](#standards--guidelines) | 10+ | Coding and documentation standards |
 | [Security](#security) | 5+ | Security policies and compliance |
@@ -50,18 +59,25 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 
 ## Admin Manuals
 
-System administration and deployment guides.
+System administration and deployment guides. All admin manuals are in `Admin/` folder.
 
-| Document | Path | Status | LLM Model | Description |
-|----------|------|--------|-----------|-------------|
-| Authentication Manual | `/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | Manual | Supabase auth setup |
-| Dashboard V8 Manual | `/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | Cursor AI | Dashboard v8 guide |
-| Supabase Manual | `/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | Cursor AI | Supabase configuration |
-| Gaps Analysis | `/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | Claude | Documentation gap analysis |
-| DWS6.com Manual | `/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | Cursor AI | Main site deployment |
-| Testing Manual | `/ADMIN_MANUAL_TESTING.md` | ACTIVE | Manual | Testing procedures |
-| Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | Claude | 2026-01 audit results |
-| Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | Manual | Authentication setup |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| Admin Manual (main) | `/Admin/ADMIN_MANUAL.md` | ACTIVE | 2026-02-07 | Master admin manual (v2.1) |
+| Authentication Manual | `/Admin/ADMIN_MANUAL_AUTHENTICATION.md` | ACTIVE | 2026-02-06 | Supabase auth setup |
+| Dashboard V8 Manual | `/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | ACTIVE | 2026-02-06 | Dashboard v8 guide |
+| Supabase Manual | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md` | ACTIVE | 2026-02-06 | Supabase configuration |
+| Gaps Analysis | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md` | ACTIVE | 2026-02-06 | Documentation gap analysis |
+| DWS6.com Manual | `/Admin/ADMIN_MANUAL_DWS6_COM.md` | ACTIVE | 2026-02-06 | Main site deployment |
+| DWS10 Store Payments | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md` | ACTIVE | 2026-02-06 | Revolut Web SDK store |
+| Testing Manual | `/Admin/ADMIN_MANUAL_TESTING.md` | ACTIVE | 2026-02-06 | Testing procedures |
+| Files & Folders | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md` | ACTIVE | 2026-02-06 | Repo structure guide |
+| Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | 2026-02-06 | Security & compliance |
+| Security Testing | `/Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md` | ACTIVE | 2026-02-06 | Security test procedures |
+| Security Monitoring | `/Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md` | ACTIVE | 2026-02-06 | Monitoring setup |
+| Acer Veriton GN100 | `/Admin/Acer-Veriton-GN100/README.md` | ACTIVE | 2026-03-11 | GN100 edge AI device admin manual and runtime notes |
+| Documentation Audit | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md` | ARCHIVED | 2026-01-11 | 2026-01 audit results |
+| Auth Setup Guide | `/docs/AUTH_SETUP_GUIDE.md` | ACTIVE | - | Authentication setup |
 
 ---
 
@@ -84,6 +100,70 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 | 10 Delivery Launch | `/docs/architecture/10-DELIVERY-LAUNCH.md` | ACTIVE | Launch procedures |
 | Summary | `/docs/architecture/SUMMARY.md` | ACTIVE | Architecture summary |
 
+### Compliance Engine (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| ESRS Registry | `/src/compliance/esrs-registry.ts` | ACTIVE | 82 ESRS disclosure requirements (E1-E5, S1-S4, G1) |
+| Scoring Engine | `/src/compliance/scoring-engine.ts` | ACTIVE | CSRD/ETS/CBAM deterministic scoring logic |
+| Report Generator | `/src/compliance/report-generator.ts` | ACTIVE | Structured JSON compliance reports |
+| Compliance API Routes | `/src/routes/compliance.routes.ts` | ACTIVE | POST /assess, GET /registry endpoints |
+| CSRD Data Model | `/supabase/migrations/042_csrd_compliance_data.sql` | ACTIVE | Compliance profiles, ESRS data points, assessments |
+| Scoring Tests | `/src/__tests__/compliance-scoring.test.ts` | ACTIVE | 14 unit tests for scoring engine |
+
+### Backend Middleware (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Handler | `/src/middleware/error-handler.ts` | ACTIVE | Centralized error handling with AppError class |
+| Request Validation | `/src/middleware/validate.ts` | ACTIVE | Zod schema validation middleware |
+| Correlation ID | `/src/middleware/correlation-id.ts` | ACTIVE | Request tracing middleware |
+| Env Validation | `/src/config/validate-env.ts` | ACTIVE | Startup environment validation |
+
+### Dashboard Resilience (MVP — added 07.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Error Boundary | `/dws6.com/dashboard/.../components/ErrorBoundary.tsx` | ACTIVE | Per-section error isolation |
+| Skeleton Loaders | `/dws6.com/dashboard/.../components/Skeleton.tsx` | ACTIVE | Loading state components |
+| Empty States | `/dws6.com/dashboard/.../components/EmptyState.tsx` | ACTIVE | No-data guidance components |
+| API Hook | `/dws6.com/dashboard/.../hooks/useApi.ts` | ACTIVE | Centralized fetch with retry |
+
+### Authentication System (Pre-MVP — audited 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Auth Routes | `/src/routes/auth.routes.ts` | ACTIVE | Register, login, logout, refresh, verify-email, forgot-password |
+| Auth Service | `/src/services/auth.service.ts` | ACTIVE | JWT generation, bcrypt hashing, token blacklist (Redis + in-memory) |
+| Auth Middleware | `/src/middleware/auth.middleware.ts` | ACTIVE | authenticateToken, requireRole, requireOrgAdmin, loginRateLimit |
+| Redis Token Blacklist | `/src/services/redis-token-blacklist.service.ts` | ACTIVE | Redis-backed token revocation |
+| Auth DB Migration | `/supabase/migrations/007_auth_users_orgs.sql` | ACTIVE | user_profiles, organizations, org_members, sessions + RLS |
+| JWT Security Tests | `/src/__tests__/jwt-validation-security.test.ts` | ACTIVE | 7 tests for token validation |
+
+### Outreach & Sales Pipeline (Pre-MVP — refactored 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Outreach Inbound | `/src/routes/outreach.routes.ts` | ACTIVE | Lead intake API (Supabase SDK) |
+| Outreach Quick-Send | `/src/routes/outreach-send.routes.ts` | ACTIVE | Prospect email send (Supabase SDK) |
+| Daily Digest | `/src/outreach/daily-digest.ts` | ACTIVE | Aggregated outreach activity digest |
+| Reply Parser | `/src/outreach/reply-parser.ts` | ACTIVE | Email reply intent extraction |
+| Prospect Templates | `/src/outreach/prospect-email-templates.ts` | ACTIVE | Cold, followup, consultative email templates |
+| Outreach Tests | `/src/__tests__/sales-outreach-input-compat.test.ts` | ACTIVE | Input normalization tests |
+
+### Climate Assistant & AI Agent System (Pre-MVP — audited 08.03.2026)
+
+| Document | Path | Status | Description |
+|----------|------|--------|-------------|
+| Climate Assistant Routes | `/src/routes/climate-assistant.routes.ts` | ACTIVE | Chat API with Groq LLM, rate limiting |
+| Climate Assistant Service | `/src/services/climate-assistant.service.ts` | ACTIVE | LLM chat processing, health check, usage stats |
+| Base Agent | `/src/agents/base.agent.ts` | ACTIVE | Abstract agent with agentic loop, multi-provider LLM, governance |
+| Agent Types | `/src/agents/types.ts` | ACTIVE | AgentContext, AgentResponse, ToolDefinition types |
+| LLM Client | `/src/agents/llm-client.ts` | ACTIVE | Multi-provider (Anthropic, Groq, OpenAI-compatible) |
+| Agent Routes | `/src/agents/routes.ts` | ACTIVE | Discovery + execution HTTP routes for 18 agents |
+| Agent Tools | `/src/agents/tools.ts` | ACTIVE | Built-in tool library (query_database, emit_event, delegate_to_agent) |
+| Gated Auth Tests | `/src/__tests__/climate-assistant-gated-auth.test.ts` | ACTIVE | 10 authentication tests |
+
 ---
 
 ## Field Notes
@@ -99,6 +179,10 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | EU Tech Sovereignty | `/docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md` | 2026-01-28 | EU data sovereignty | Compliance, EU, Strategy |
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
+| Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
+| GN100 NVIDIA GPG Key Fix | `/docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` | 2026-02-27 | NVIDIA Workbench repo key renewal | GN100, NVIDIA, Maintenance |
+| GN100 Ollama Dev Environment | `/docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` | 2026-03-01 | Ollama, Cursor, Cline, Claude Code setup | GN100, Ollama, Local Dev |
+| GN100 Docker CUDA Validation | `/docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` | 2026-03-11 | Docker GPU validation and ARM64 container policy | GN100, Docker, CUDA, ARM64 |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
@@ -163,15 +247,17 @@ Product suite documentation for Firehorse (Reports, Automation, ContentMS, Omnic
 
 Coding, documentation, and process standards.
 
-| Document | Path | Status | Description |
-|----------|------|--------|-------------|
-| DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | Master document standard |
-| CLAUDE.md | `/CLAUDE.md` | ACTIVE | AI agent guidelines |
-| Ontology | `/ONTOLOGY.md` | ACTIVE | LWM ontology framework |
-| Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | GitHub Copilot rules |
-| GitHub Copilot Guide | `/.workflows/GITHUB_COPILOT_GUIDE.md` | ACTIVE | Copilot workflow guide |
-| Ultra Agent Coordinator | `/.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | ACTIVE | Agent coordination |
-| Agent Signal Instructions | `/.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md` | ACTIVE | Signal protocols |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| DWS Document Standard | `/DWS_DOCUMENT_STANDARD.md` | ACTIVE | 2026-02-07 | Master document standard (v1.4) |
+| DWS Data Standard | `/DWS_DATA_STANDARD.md` | ACTIVE | 2026-03-13 | Data storage governance, columnar/row policy, extension registry, Aiven-first mandate (v2.0) |
+| DSaaS CLI-First Strategy | `/docs/DSaaS_CLI_FIRST_STRATEGY.md` | ACTIVE | 2026-03-13 | Database Sovereignty as a Service — CLI-first mandatory gateway, 30-day build plan, enterprise pricing, Aiven ECE + TimescaleDB Hypercore (v1.0) |
+| CLAUDE.md | `/CLAUDE.md` | ACTIVE | 2026-02-05 | AI agent guidelines |
+| Ontology | `/ONTOLOGY.md` | ACTIVE | 2026-01-21 | LWM ontology framework |
+| Copilot Instructions | `/.github/copilot-instructions.md` | ACTIVE | - | GitHub Copilot rules |
+| GitHub Copilot Guide | `/.workflows/GITHUB_COPILOT_GUIDE.md` | ACTIVE | - | Copilot workflow guide |
+| Ultra Agent Coordinator | `/.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | ACTIVE | - | Agent coordination |
+| Agent Signal Instructions | `/.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md` | ACTIVE | - | Signal protocols |
 
 ---
 
@@ -181,7 +267,7 @@ Security policies, compliance, and guidelines.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
-| Security Compliance | `/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
+| Security Compliance | `/Admin/SECURITY_COMPLIANCE.md` | ACTIVE | Compliance overview |
 | README Security | `/README_SECURITY.md` | ACTIVE | Security readme |
 | AgentFoundry Security | `/AgentFoundry/Security.md` | ACTIVE | Agent security |
 | Argus Code Review | `/ARGUS_CODE_REVIEW_SETUP.md` | ACTIVE | Code review security |
@@ -262,19 +348,37 @@ Industry-specific documentation for 16 EU industries.
 
 ---
 
+## Scripts & Automation
+
+PowerShell/Bash automation scripts with version tracking.
+
+| Script | Path | Version | Last Modified | Description |
+|--------|------|---------|---------------|-------------|
+| Startup Daily Sync | `/scripts/Startup-DailySync.bat` | v1.4 | 2026-02-07 | Login trigger: pull + sync + docs + Supabase |
+| Sync to Proton | `/scripts/Sync-ToProton.ps1` | v1.4 | 2026-02-07 | Proton Drive sync (folders, secrets) |
+| Generate PDFs | `/scripts/Generate-PDFs.ps1` | v1.5 | 2026-02-07 | Markdown to HTML/PDF (pandoc) |
+| Install Startup | `/scripts/Install-StartupSync.ps1` | v1.1 | 2026-02-07 | Creates Startup shortcut |
+| Sync to Supabase | `/scripts/Sync-ToSupabase.ps1` | v1.2 | 2026-02-07 | EU cloud backup |
+
+---
+
 ## Sales & Marketing
 
 Sales materials and marketing documentation.
 
-| Document | Path | Status | Description |
-|----------|------|--------|-------------|
-| Sales Manifesto Q1 2026 | `/DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` | ACTIVE | Q1 sales strategy |
-| Campaign Summary | `/CAMPAIGN_SUMMARY.md` | ACTIVE | Marketing campaigns |
-| Investor Memo | `/Firehorse/Omnichannel/Investors/INVESTOR_MEMO.md` | ACTIVE | Investor pitch |
-| Investor Profiles | `/Firehorse/Omnichannel/Investors/DWS6_INVESTOR_PROFILES.md` | ACTIVE | Target investors |
-| Outreach Workflow | `/Firehorse/Omnichannel/Investors/OUTREACH_WORKFLOW.md` | ACTIVE | Sales workflow |
-| Firehorse Sales Workflow | `/FIREHORSE_SALES_WORKFLOW.md` | ACTIVE | Product sales |
-| App Store Strategy | `/APP_STORE_STRATEGY.md` | ACTIVE | Distribution plan |
+| Document | Path | Status | Last Modified | Description |
+|----------|------|--------|---------------|-------------|
+| Enterprise Sales | `/sales-outreach/enterprise-sales.md` | ACTIVE | 2026-01-06 | Enterprise sales playbook |
+| Sales AI Agent | `/sales-outreach/SALES_AI_AGENT_DESIGN_FI_v1.md` | ACTIVE | 2026-01-06 | AI agent sales design |
+| Sales Manifesto Q1 2026 | `/DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` | ACTIVE | - | Q1 sales strategy |
+| Campaign Summary | `/CAMPAIGN_SUMMARY.md` | ACTIVE | - | Marketing campaigns |
+| Investor Memo | `/investor-outreach/INVESTOR_MEMO.md` | ACTIVE | 2026-01-18 | Investor pitch |
+| Investor Pitch Deck | `/investor-outreach/investor-pitch-deck.md` | ACTIVE | 2026-01-06 | Pitch deck |
+| Investor PD v3 | `/investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` | ACTIVE | 2026-01-06 | Investor presentation |
+| Investor Profiles | `/Firehorse/Omnichannel/Investors/DWS6_INVESTOR_PROFILES.md` | ACTIVE | - | Target investors |
+| Outreach Workflow | `/Firehorse/Omnichannel/Investors/OUTREACH_WORKFLOW.md` | ACTIVE | - | Sales workflow |
+| Firehorse Sales Workflow | `/FIREHORSE_SALES_WORKFLOW.md` | ACTIVE | - | Product sales |
+| App Store Strategy | `/APP_STORE_STRATEGY.md` | ACTIVE | - | Distribution plan |
 
 ---
 
@@ -298,6 +402,7 @@ MCP server and orchestration documentation.
 
 | Document | Path | Status | Description |
 |----------|------|--------|-------------|
+| MCP Configuration Guide | `/docs/MCP_CONFIGURATION.md` | ACTIVE | Complete MCP setup guide |
 | MCP Hub | `/mcp-hub/` | ACTIVE | MCP orchestration |
 | MCP Servers | `/mcp-servers/` | ACTIVE | Individual servers |
 
@@ -313,26 +418,40 @@ Other important documentation.
 | V2 Firehorse | `/V2_Firehorse.md` | ACTIVE | Firehorse v2 spec |
 | Executive Summary | `/EXECUTIVE_SUMMARY.md` | ACTIVE | Project summary |
 | Exit Playbook | `/docs/EXIT_PLAYBOOK.md` | ACTIVE | Exit procedures |
+| MVP Feature List | `/docs/MVP_FEATURE_LIST_V1.md` | ACTIVE | Root-cause MVP analysis |
 | Implementation Tracker | `/docs/IMPLEMENTATION_TRACKER.md` | ACTIVE | Progress tracking |
 | Skills Required | `/docs/SKILLS_REQUIRED.md` | ACTIVE | Team skills |
 | ERP Integrations | `/docs/ERP_INTEGRATIONS.md` | ACTIVE | SAP, IFS, Dynamics |
 | Trust System 2026 | `/FIELD_NOTE_TRUST_SYSTEM_2026.md` | ACTIVE | Trust framework |
 | NVIDIA Inception | `/docs/NVIDIA_INCEPTION_IMPROVEMENTS.md` | ACTIVE | NVIDIA program |
 | Create PR Instructions | `/CREATE_PR_INSTRUCTIONS.md` | ACTIVE | PR workflow |
+| Ollama (Cloud & Local) | `/docs/Ollama.md` | ACTIVE | Ollama cloud (NVIDIA B300), local edge, OpenClaw integration |
 
 ---
 
 ## Document Statistics
 
-**Last Updated:** 04.02.2026
+**Last Updated:** 11.03.2026
 
 | Metric | Value |
 |--------|-------|
-| Total Markdown Files | 130+ |
-| Active Documents | 100+ |
+| Total Markdown Files | 140+ |
+| Active Documents | 115+ |
 | Archived Documents | 15+ |
 | Languages | EN, FI |
-| Categories | 12 |
+| Categories | 17 (added Compliance Engine, Backend Middleware, Dashboard Resilience) |
+
+### Sync Tracking
+
+Files are synced to three backup locations on each Windows login:
+
+| Destination | Script | Content |
+|-------------|--------|---------|
+| GitHub (private) | `git push` | All tracked files |
+| Proton Drive | `Sync-ToProton.ps1` | Admin, scripts, Firehorse, docs, secrets |
+| Supabase Storage | `Sync-ToSupabase.ps1` | Admin, scripts, src, Firehorse, sales, investor |
+
+Last modified dates in this index are from `git log -1 --format="%ai"` per file.
 
 ---
 

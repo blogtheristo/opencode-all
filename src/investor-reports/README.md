@@ -115,7 +115,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_KEY=your-service-key
 
 # Email delivery
-SMTP_SENDER=noreply@dws6.com
+SMTP_SENDER=risto@onelifetime.world
 SMTP_PASSWORD=your-smtp-password
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
