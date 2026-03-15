@@ -145,6 +145,26 @@ POTENTIAL CONCERNS:
 - [any risks]
 ```
 
+### Copy-Paste Output Rule (CRITICAL)
+
+When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"**, deliver content as:
+
+1. **One single fenced code block** — the user will triple-click or Ctrl+A inside it to copy
+2. **No tables** — tables break on mobile paste and require reformatting
+3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
+4. **No split windows** — everything in ONE block, not multiple blocks
+5. **Add a `--- COPY ABOVE ---` marker** after the block so the user knows where content ends
+
+```
+--- START COPY ---
+[All content here as plain text]
+[Use dashes for bullets, not markdown]
+[No tables, no bold, no headers inside]
+--- END COPY ---
+```
+
+**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
+
 ### Failure Modes to Avoid
 
 1. Making wrong assumptions without checking
