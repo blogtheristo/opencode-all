@@ -3,7 +3,8 @@
 **Date:** March 2026
 **Author:** Lifetime Oy
 **Classification:** INTERNAL — outreach drafts for Risto to review and send
-**Targets:** Shufti Pro, Telia, IN Groupe (acquired Nets eID business Nov 2024)
+**Targets:** Shufti Pro, Veriff, Signicat, Telia, DNA, Elisa, IN Groupe
+**Fallback order:** Shufti → Veriff → Signicat → Telia → DNA → Elisa
 
 ---
 
@@ -111,39 +112,226 @@ dws10.com
 
 ---
 
+## 4. Veriff — Cold Outreach
+
+**Context:** Estonian IDV provider, EU-native. HQ in Tallinn. Strong L1 (12K+ doc types, passive liveness, iBeta Level 2), newly acquired KYB (Vespia, early 2026), continuous AML monitoring (+$0.09/verification). HMAC-SHA256 webhooks with retries up to 1 week. Pricing: $0.80–1.89/verification retail. Investors include Nordic Ninja.
+
+**To:** Veriff — Enterprise Sales / Partnerships
+**From:** risto@onelifetime.world
+**Subject:** KYA Certification — AI agent identity layer for EU regulated industries
+
+---
+
+Hi,
+
+I'm Risto Paarni, founder of Lifetime Oy (Helsinki). We operate DWS IQ 6, an enterprise AI platform running autonomous agent swarms across 20 EU-regulated industries.
+
+The EU AI Act (2026) mandates identity traceability for high-risk AI systems. We've built KYA (Know Your Agent) — a framework that extends KYC/AML from the human operator to every autonomous AI agent they deploy, continuously.
+
+We're certifying IDV providers for the KYA identity layer. Veriff is on our shortlist — you're EU-native (Estonian HQ, EEA infrastructure), your IDV covers 12,000+ document types with passive liveness, and your continuous AML monitoring maps directly to our L5 (ongoing risk monitoring) requirement. The Vespia acquisition gives you KYB for our L2 (agent publisher verification) layer.
+
+What KYA Certification delivers:
+- Named as approved identity layer in DWS enterprise deployments across 20 EU-regulated verticals
+- Recurring verification volume per customer (onboarding + every agent deployment + continuous monitoring)
+- First-mover in AI agent identity — no IDV vendor has a product here yet
+- EU AI Act compliance chain — IDV decisions logged in court-defensible Firehorse audit trail
+
+KYA Certification is tiered: Tier 1 (L1 onboarding, €5K), Tier 2 (L1+L2 with KYB, €10K), Tier 3 (full-stack including continuous monitoring, €25K). With your L1 depth, new KYB capability, and existing continuous AML monitoring, Veriff is potentially a Tier 3 candidate — the first provider to achieve that becomes our primary identity partner across all 20 verticals.
+
+Four technical requirements before we proceed:
+1. EU data residency — all PII processed and stored within EU/EEA. No transatlantic transfers.
+2. Unified IDV flow — document + face + liveness + AML in a single API call.
+3. HMAC-SHA256 signed webhooks.
+4. EU-only processing confirmation in writing.
+
+Requirements document (KYA-IDV-CERT v1.0) available upon confirmation. Happy to do a 30-minute technical walkthrough — we're starting PoC evaluations in Q2 2026.
+
+Best,
+Risto Anton Päärni
+Founder, CEO, Lifetime Oy — DWS IQ 6 Platform
+risto@onelifetime.world
+
+---
+
+## 5. Signicat — Cold Outreach
+
+**Context:** Norwegian IDV provider (Trondheim), owned by Nordic Capital. eIDAS QTSP. All 4 Nordic BankIDs (NO/SE/FI/DK) via single integration. Continuous AML monitoring via Monitoring Services API + Strise partnership. HMAC-SHA256 webhooks (X-Idfy-Signature), 7 retries with exponential backoff. 13 European offices. 13,000–20,000+ organizations. ISO 27001/27018/27701, SOC 2 Type II. Customers include DNB, Klarna, Nordnet, BMW.
+
+**To:** Signicat — Enterprise Sales / Nordic Identity team
+**From:** risto@onelifetime.world
+**Subject:** KYA Certification — AI agent identity for Nordic regulated industries
+
+---
+
+Hi,
+
+I'm Risto Paarni, founder of Lifetime Oy (Helsinki). We operate DWS IQ 6, an enterprise AI platform running autonomous agent swarms across 20 EU-regulated industries.
+
+The EU AI Act mandates identity traceability for high-risk AI systems. We've built KYA (Know Your Agent) — a framework that extends KYC/AML verification from the human operator to every AI agent they deploy. Continuous identity assurance while agents run autonomously in sandboxed environments.
+
+We're certifying IDV providers for the KYA identity layer. Signicat is on our shortlist — your coverage of all four Nordic BankIDs (Norwegian, Swedish, Finnish, Danish) via a single integration point, your eIDAS QTSP status, and your continuous AML monitoring through the Monitoring Services API map directly to our three identity layers. The Mint orchestration platform with 200+ data sources is exactly the kind of infrastructure we need for per-industry identity weighting across 20 regulated verticals.
+
+What KYA Certification delivers:
+- Named as approved identity layer in DWS enterprise deployments across 20 industry verticals
+- Recurring verification volume — onboarding + agent deployment + continuous monitoring per customer
+- AI agent identity is a new market category. No IDV vendor has a product here yet.
+- EU data residency by design — our infrastructure runs in Finland (europe-north1)
+
+KYA Certification is tiered: Tier 1 (L1 onboarding, €5K), Tier 2 (L1+L2 with KYB, €10K), Tier 3 (full-stack including continuous monitoring, €25K). With your Nordic BankID coverage, KYB capabilities, and continuous AML monitoring, Signicat is a strong Tier 3 candidate — the first provider to achieve that becomes our primary identity partner across all 20 verticals.
+
+Four technical requirements before we proceed:
+1. EU data residency — all PII processed and stored within EU/EEA. No transatlantic transfers.
+2. Unified IDV flow — document + face + liveness + AML in a single API call.
+3. HMAC-SHA256 signed webhooks.
+4. EU-only processing confirmation in writing.
+
+Requirements document (KYA-IDV-CERT v1.0) available upon confirmation. Happy to do a 30-minute technical walkthrough — PoC evaluations starting Q2 2026.
+
+Best,
+Risto Anton Päärni
+Founder, CEO, Lifetime Oy — DWS IQ 6 Platform
+risto@onelifetime.world
+
+---
+
+## 6. DNA — Cold Outreach
+
+**Context:** Finnish telco (owned by Telenor). Strong authentication via Finnish Trust Network (FTN). EU-native data processing (Finland). IDV capabilities likely limited to strong authentication / BankID brokering — not full document verification or AML screening. May need to be paired with a dedicated IDV/AML provider.
+
+**To:** DNA — Business Solutions / Digital Trust team
+**From:** risto@onelifetime.world
+**Subject:** KYA Certification — AI agent identity, Finnish strong authentication
+
+---
+
+Hi,
+
+I'm Risto Paarni, founder of Lifetime Oy (Helsinki). We operate DWS IQ 6, an enterprise AI platform running autonomous agent swarms across 20 EU-regulated industries.
+
+The EU AI Act mandates identity traceability for high-risk AI systems. We've built KYA (Know Your Agent) — a framework extending KYC/AML to autonomous AI agents. The identity chain starts with strong authentication at onboarding and continues with ongoing monitoring while agents operate in sandboxed environments.
+
+We're evaluating Finnish strong authentication providers for the L1 (human identity) layer of our KYA framework. DNA's FTN integration and Finnish-native data processing align with our EU data residency requirements.
+
+What KYA Certification delivers:
+- Named as approved identity layer in DWS enterprise deployments across 20 regulated verticals
+- Recurring authentication volume per customer (onboarding + every agent deployment session)
+- EU AI Act compliance chain — identity decisions logged in court-defensible audit trail
+- All infrastructure runs in Finland (europe-north1)
+
+We're starting PoC evaluations in Q2 2026. If DNA offers or is building enterprise-grade identity verification services beyond strong authentication — particularly document verification, AML screening, or continuous monitoring — I'd be interested in a 30-minute technical conversation.
+
+Best,
+Risto Anton Päärni
+Founder, CEO, Lifetime Oy — DWS IQ 6 Platform
+risto@onelifetime.world
+
+---
+
+## 7. Elisa — Cold Outreach
+
+**Context:** Finnish telco. Strong authentication via Finnish Trust Network (FTN). Elisa Tunnistus (identification service). EU-native data processing (Finland). Similar to DNA — likely limited to strong authentication brokering. May need pairing with a dedicated IDV/AML provider.
+
+**To:** Elisa — Business Solutions / Digital Trust team
+**From:** risto@onelifetime.world
+**Subject:** KYA Certification — AI agent identity, Finnish strong authentication
+
+---
+
+Hi,
+
+I'm Risto Paarni, founder of Lifetime Oy (Helsinki). We operate DWS IQ 6, an enterprise AI platform running autonomous agent swarms across 20 EU-regulated industries.
+
+The EU AI Act mandates identity traceability for high-risk AI systems. We've built KYA (Know Your Agent) — a framework extending KYC/AML to autonomous AI agents. The identity chain starts with strong authentication at onboarding and continues with ongoing monitoring while agents operate in sandboxed environments.
+
+We're evaluating Finnish strong authentication providers for the L1 (human identity) layer of our KYA framework. Elisa Tunnistus and your FTN integration, combined with Finnish-native data processing, align with our EU data residency requirements.
+
+What KYA Certification delivers:
+- Named as approved identity layer in DWS enterprise deployments across 20 regulated verticals
+- Recurring authentication volume per customer (onboarding + every agent deployment session)
+- EU AI Act compliance chain — identity decisions logged in court-defensible audit trail
+- All infrastructure runs in Finland (europe-north1)
+
+We're starting PoC evaluations in Q2 2026. If Elisa offers or is building enterprise-grade identity verification services beyond strong authentication — particularly document verification, AML screening, or continuous monitoring — I'd be interested in a 30-minute technical conversation.
+
+Best,
+Risto Anton Päärni
+Founder, CEO, Lifetime Oy — DWS IQ 6 Platform
+risto@onelifetime.world
+
+---
+
 ## Notes for Risto
 
 ### Research Findings (March 2026)
 
-**Nets/Nexi — DEAD END:** Nexi sold their entire eID business to IN Groupe (France) in Nov 2024 for €127.5M. 300+ identity staff transferred. Nets is payments-only now. Do NOT contact Nets for IDV — contact IN Groupe instead.
+**Veriff** (Tallinn, Estonia) — EU-native. 12,000+ document types, 230+ countries, passive liveness (iBeta Level 2). Continuous AML monitoring at +$0.09/verification (PEP/sanctions/adverse media, NOT transaction monitoring). KYB via Vespia acquisition (early 2026, maturity TBD). HMAC-SHA256 webhooks with retries up to 1 week. Pricing: $0.80 (Essential), $1.39 (Plus), $1.89 (Premium), Enterprise custom. Customers: Bolt, Trustpilot, Blockchain.com, TransferGo. **Gap: No Nordic industrial sector customers — digital-first focus. KYB is new/unproven.**
 
-**IN Groupe** inherited: MitID (5M+ Danish users), NemLog-in, eID Broker (Signaturgruppen), Qualified Trust Services, Nets Digital Identity Platform (200+ passport/ID verification). Nordic offices in Copenhagen, Aarhus, Oslo. Strong L1 + L2 fit. L5 (continuous monitoring) — unclear, needs confirmation.
+**Signicat** (Trondheim, Norway) — EEA-native, owned by Nordic Capital. eIDAS QTSP. All 4 Nordic BankIDs (NO/SE/FI/DK) via single integration. Continuous AML via Monitoring Services API + Strise partnership (AMLR 2027 ready). KYB with UBO, ownership structures, roles, financials. HMAC-SHA256 webhooks (X-Idfy-Signature), 7 retries exponential backoff. Mint orchestration with 200+ data sources. ISO 27001/27018/27701, SOC 2 Type II. Customers: DNB, Klarna, Nordnet, BMW, Santander. **Gap: Data center locations need confirmation. Pricing quote-based.**
 
 **Telia** has: TIBS (Identification Broker Service, 20+ eID providers, 58M+ authentications in 2021), Mobile ID (Finland), Certificate Authority. Platform powered by Ubisecure (Finnish). KYB via Ubisecure LEI integration. **Gap: No dedicated continuous AML monitoring (L5).** Telia would likely need to be paired with a dedicated AML provider for full-stack certification.
 
+**DNA** (Helsinki, Finnish, owned by Telenor) — Strong authentication via FTN. Finnish-native data processing. **Gap: No dedicated IDV/AML product. Strong auth only. Would be L1 partial (authentication, not full document verification).**
+
+**Elisa** (Helsinki, Finnish) — Elisa Tunnistus identification service. FTN integration. Finnish-native data processing. **Gap: Same as DNA — strong auth brokering, not full IDV/AML. L1 partial only.**
+
+**IN Groupe** (ex-Nets) inherited: MitID (5M+ Danish users), NemLog-in, eID Broker (Signaturgruppen), Qualified Trust Services, Nets Digital Identity Platform (200+ passport/ID verification). Nordic offices in Copenhagen, Aarhus, Oslo. Strong L1 + L2 fit. L5 (continuous monitoring) — unclear, needs confirmation.
+
+**Nets/Nexi — DEAD END:** Nexi sold their entire eID business to IN Groupe (France) in Nov 2024 for €127.5M. 300+ identity staff transferred. Nets is payments-only now. Do NOT contact Nets for IDV — contact IN Groupe instead.
+
 ### Sending Strategy
 
-1. **Shufti** — Send before March 17 call. They already have context. This email sets the frame: you're not shopping, they're applying.
+**Priority 1 (sent):**
+1. **Shufti** — Red lines email sent (March 15). Waiting for EU residency confirmation. If they can't confirm, dead.
 
-2. **IN Groupe** — Find contact via LinkedIn (search: "IN Groupe Nordic identity" OR "IN Groupe Copenhagen digital trust"). Target: Head of Nordic Digital Identity, BD Director. They're actively building out the acquired Nets business — good timing.
+**Priority 2 (send March 17–18, parallel):**
+2. **Veriff** — Cold outreach. Target: Enterprise Sales or Partnerships team. LinkedIn search: "Veriff enterprise sales" OR "Veriff partnerships". Estonian company, should be responsive to EU AI Act positioning.
+3. **Signicat** — Cold outreach. Target: Nordic Identity team or Enterprise Sales. LinkedIn search: "Signicat enterprise" OR "Signicat Nordic identity". Strong existing Nordic enterprise relationships (DNB, Klarna).
 
-3. **Telia** — Find contact via LinkedIn (search: "Telia TIBS" OR "Telia strong authentication" OR "Telia digital trust services"). Target: Head of Identity Services, Digital Trust BD. Ubisecure team (Finnish company) may be a faster path to technical discussion.
+**Priority 3 (send March 18–19, if needed):**
+4. **Telia** — Cold outreach. Target: Head of Identity Services via Ubisecure team (Finnish). LinkedIn search: "Telia TIBS" OR "Ubisecure identity".
+5. **IN Groupe** — Cold outreach. Target: Head of Nordic Digital Identity, Copenhagen office.
+
+**Priority 4 (hold — only if Tier 1/2 providers can't deliver):**
+6. **DNA** — Only if you need Finnish strong auth as a supplementary L1 layer alongside a dedicated IDV/AML provider.
+7. **Elisa** — Same as DNA. Strong auth only, not standalone IDV.
 
 ### Timing
 
-- Send Shufti email: March 14 (3 days before call)
-- Send IN Groupe + Telia: March 17–18 (same week as Shufti call)
-- When Shufti asks "are others evaluating?" the answer is yes — IN Groupe and Telia are in the pipeline
+- Shufti red lines email: SENT (March 15)
+- Veriff + Signicat cold outreach: March 17–18 (don't wait for Shufti response)
+- Telia + IN Groupe: March 18–19
+- DNA + Elisa: Hold unless you need supplementary strong auth
+- When any provider asks "are others evaluating?" the answer is always yes
 
 ### Provider Fit Summary (Maturity Ladder)
 
-| Provider | L1 (KYC/IDV) | L2 (KYB) | L5 (Continuous AML) | Current Tier | Path to Tier 3 |
-|----------|:---:|:---:|:---:|:---:|---------|
-| **Shufti Pro** | Yes | Yes | ? (March 17 question) | Tier 2 (confirmed), Tier 3 if L5 exists | Closest to Tier 3 — ask on call |
-| **IN Groupe** (ex-Nets) | Yes | Partial | ? | Tier 1–2 | Strong Nordic infra, L5 unclear |
-| **Telia** | Yes (TIBS) | Yes (Ubisecure/LEI) | No | Tier 2 | Best L1+L2, needs AML partner for L5 |
+**Fallback order:** Shufti → Veriff → Signicat → Telia → DNA → Elisa
+
+| # | Provider | HQ | EU Native? | L1 (KYC/IDV) | L2 (KYB) | L5 (Continuous AML) | HMAC Webhooks | Current Tier | Path to Tier 3 |
+|---|----------|-----|:---:|:---:|:---:|:---:|:---:|:---:|---------|
+| 1 | **Shufti Pro** | UK/PK | No (UK HQ) | Yes | Yes | ? (red line email sent) | ? | Tier 2 | EU residency is hard gate — pending confirmation |
+| 2 | **Veriff** | Tallinn, EE | **Yes** | Yes (12K+ docs) | New (Vespia) | Yes ($0.09/verif) | Yes | Tier 2–3 | Strongest technical fit. KYB maturity TBD |
+| 3 | **Signicat** | Trondheim, NO | **Yes** | Yes | Yes (UBO) | Yes (Strise) | Yes | **Tier 3 candidate** | Best all-round. 4 Nordic BankIDs. eIDAS QTSP |
+| 4 | **Telia** | Helsinki/Stockholm | **Yes** | Yes (TIBS) | Yes (Ubisecure/LEI) | No | ? | Tier 2 | Needs AML partner for L5 |
+| 5 | **DNA** | Helsinki, FI | **Yes** | Partial (FTN auth only) | No | No | N/A | Tier 1 partial | Strong auth only — not full IDV |
+| 6 | **Elisa** | Helsinki, FI | **Yes** | Partial (Tunnistus/FTN) | No | No | N/A | Tier 1 partial | Strong auth only — not full IDV |
+| — | **IN Groupe** (ex-Nets) | Paris, FR | **Yes** | Yes | Partial | ? | ? | Tier 1–2 | Strong Nordic infra, L5 unclear |
+
+**Assessment:** Signicat is the strongest overall candidate (L1+L2+L5 all confirmed, Nordic BankIDs, eIDAS QTSP). Veriff is the strongest technical IDV with EU residency but KYB is new. DNA and Elisa are strong-auth-only — useful as L1 authentication layer but need pairing with a full IDV/AML provider.
 
 **Race to Tier 3:** No provider has full-stack L1+L2+L5 today. The first to achieve Tier 3 certification becomes the primary identity partner. Use this as competitive leverage in all conversations — "others are in the pipeline."
+
+### EU Residency Escalation Script
+
+**If any provider hedges on EU data residency, your reply is one line:**
+
+"We need written confirmation that all PII is processed and stored exclusively within EU/EEA member states. UK and US infrastructure does not qualify. Can you provide this?"
+
+**If they can't confirm in writing, the meeting doesn't happen.** Move to next provider in the fallback order.
+
+**UK is not EU/EEA.** Post-Brexit, UK does not have GDPR adequacy for all sensitive processing contexts. Providers with UK HQ or UK data centers (Shufti, Onfido) fail this gate unless they can demonstrate EU-only processing with contractual DPA addendum.
+
+**Providers that pass EU residency without negotiation:** Veriff (Estonian), Signicat (Norwegian), Telia (Finnish/Swedish), DNA (Finnish), Elisa (Finnish), IN Groupe (French). All EU/EEA-native.
 
 ### March 17 Call Playbook — Shufti Pro
 
