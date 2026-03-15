@@ -1,0 +1,140 @@
+/**
+ * OneLifetime.World Iron Clad Footer v1.0
+ * Unified footer for all pages — mirrors DWS10.com Ironclad Footer design standard
+ *
+ * Usage: Add this script to any page before </body>:
+ * <script src="/shared-assets/footer/ironclad-footer.js"></script>
+ *
+ * v1.1 — 2026-03-10: Add Pantheon link, update copyright year
+ * v1.0 — 2026-03-02: Initial release for onelifetime.world
+ *        5-column links, payment methods, legal bar, copyright
+ *
+ * Auto-injects footer before </body>, removing any existing <footer> element.
+ */
+
+(function() {
+    'use strict';
+
+    const footerCSS = `
+/* === OneLifetime.World Iron Clad Footer v1.0 === */
+.ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: system-ui, -apple-system, sans-serif; }
+.ironclad-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+.ironclad-footer a:hover { color: #60a5fa; }
+.ironclad-footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
+.ironclad-footer-col h4 { color: #e2e8f0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px 0; }
+.ironclad-footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; }
+.ironclad-footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+.ironclad-footer-payments span { font-size: 0.8rem; }
+.ironclad-footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.ironclad-footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
+.ironclad-footer-legal a { color: #64748b; font-size: 0.8rem; }
+.ironclad-footer-legal a:hover { color: #60a5fa; }
+.ironclad-footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+@media (max-width: 900px) {
+    .ironclad-footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 16px 24px; gap: 24px; }
+    .ironclad-footer-payments { padding: 0 16px 20px; }
+    .ironclad-footer-bottom { padding: 16px 16px; flex-direction: column; align-items: flex-start; }
+    .ironclad-footer-legal { gap: 12px; }
+}
+@media (max-width: 480px) {
+    .ironclad-footer-columns { grid-template-columns: 1fr; gap: 20px; padding: 24px 16px 20px; }
+}
+`;
+
+    const footerHTML = `
+<!-- OneLifetime.World Iron Clad Footer v1.0 -->
+<footer class="ironclad-footer">
+    <div class="ironclad-footer-columns">
+        <div class="ironclad-footer-col">
+            <h4>Products</h4>
+            <a href="https://dws10.com/buy/">DWS IQ Platform</a>
+            <a href="https://dws10.com/products/dwsiq.html">Climate IQ</a>
+            <a href="https://dws10.com/products/firehorse-reports.html">Firehorse Suite</a>
+            <a href="https://dws10.com/buy/page2/">AI &amp; Cloud Consulting</a>
+            <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
+        </div>
+        <div class="ironclad-footer-col">
+            <h4>Industries</h4>
+            <a href="https://dws10.com/construction/">Construction</a>
+            <a href="https://dws10.com/energy/">Energy &amp; Renewables</a>
+            <a href="https://dws10.com/logistics/">Maritime &amp; Logistics</a>
+            <a href="https://dws10.com/manufacturing/">Steel &amp; Manufacturing</a>
+            <a href="https://dws10.com/real-estate/">Buildings &amp; Real Estate</a>
+            <a href="https://dws10.com/public-sector/">Public Sector</a>
+        </div>
+        <div class="ironclad-footer-col">
+            <h4>Platform</h4>
+            <a href="https://dws6.com/login">Login</a>
+            <a href="https://dws6.com/dashboard/">Dashboard</a>
+            <a href="https://dws10.com/compliance/">EU AI Act Compliance</a>
+            <a href="https://dws10.com/fit-for-55/">Fit for 55</a>
+            <a href="https://dws10.com/csrd/">CSRD Reporting</a>
+            <a href="https://dws10.com/calculator/">Carbon Calculator</a>
+        </div>
+        <div class="ironclad-footer-col">
+            <h4>Community</h4>
+            <a href="/blog/">Blog</a>
+            <a href="/posts/">Posts &amp; Articles</a>
+            <a href="/careers/">Careers</a>
+            <a href="/Partners/">Partners</a>
+            <a href="/pledge/">Climate Pledge</a>
+            <a href="/pantheon/">AI Pantheon</a>
+            <a href="mailto:support@lifetime.fi">Support</a>
+            <a href="mailto:sales@lifetime.fi">Sales</a>
+        </div>
+        <div class="ironclad-footer-col">
+            <h4>Legal &amp; Company</h4>
+            <a href="/terms/">Website Terms</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/regulatory-notice/">Regulatory Notice</a>
+            <a href="/investment-safety/">Investment Safety</a>
+            <a href="/legal/">Legal Hub</a>
+            <a href="https://dws10.com/architecture/">Architecture</a>
+        </div>
+    </div>
+    <div class="ironclad-footer-payments">
+        <span style="color: #64748b;">Accepted payments:</span>
+        <span style="color: #0075EB; font-weight: 600;">Revolut Business</span>
+        <span style="color: #003087; font-weight: 600;">PayPal Business</span>
+        <span style="color: #4ade80; font-weight: 600;">SEPA EUR</span>
+        <span style="color: #64748b;">Bank Transfer</span>
+    </div>
+    <div class="ironclad-footer-bottom">
+        <div class="ironclad-footer-legal">
+            <a href="/terms/">Website Terms</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/legal/">Legal Hub</a>
+            <a href="/investment-safety/">Investment Safety</a>
+            <a href="/regulatory-notice/">Regulatory Notice</a>
+        </div>
+        <div class="ironclad-footer-copyright">
+            &copy; 2025&ndash;2026 Lifetime Oy &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
+        </div>
+    </div>
+</footer>
+`;
+
+    function init() {
+        // Inject CSS
+        var style = document.createElement('style');
+        style.textContent = footerCSS;
+        document.head.appendChild(style);
+
+        // Remove any existing footer
+        var oldFooters = document.querySelectorAll('footer, div.footer');
+        oldFooters.forEach(function(el) { el.remove(); });
+
+        // Inject footer HTML before </body>
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = footerHTML.trim();
+        var footerEl = wrapper.firstElementChild;
+        document.body.appendChild(footerEl);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();

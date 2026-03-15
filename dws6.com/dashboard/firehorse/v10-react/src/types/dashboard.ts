@@ -131,3 +131,46 @@ export interface SupabaseAlert {
   created_at: string;
   acknowledged: boolean;
 }
+
+// Insights Dashboard Types
+export interface TimeSeriesDataPoint {
+  date: string;
+  value: number;
+  label?: string;
+}
+
+export interface CarbonTrendData {
+  month: string;
+  emissions: number;
+  target: number;
+  savings: number;
+}
+
+export interface ComplianceTrendData {
+  month: string;
+  csrd: number;
+  epbd: number;
+  ets: number;
+  cbam: number;
+}
+
+export interface PerformanceTrendData {
+  month: string;
+  spi: number;
+  cpi: number;
+}
+
+export interface ProjectStatusDistribution {
+  status: RAGStatus;
+  count: number;
+  percentage: number;
+}
+
+export interface InsightsData {
+  carbonTrends: CarbonTrendData[];
+  complianceTrends: ComplianceTrendData[];
+  performanceTrends: PerformanceTrendData[];
+  statusDistribution: ProjectStatusDistribution[];
+  topCarbonProjects: Project[];
+  riskAlerts: Alert[];
+}

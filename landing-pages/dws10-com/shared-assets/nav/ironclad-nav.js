@@ -91,7 +91,14 @@
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
                                 <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
-                                <li><a href="${basePath}lifetime-fleet/">Lifetime Fleet</a></li>
+                                <li class="ironclad-has-submenu">
+                                    <a href="${basePath}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
+                                    <ul class="ironclad-submenu">
+                                        <li><a href="${basePath}lifetime-fleet/">Fleet Overview</a></li>
+                                        <li><a href="${basePath}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
+                                        <li><a href="${basePath}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <!-- Designs flyout -->
@@ -192,7 +199,7 @@
                         <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
                         <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>
                         <li><a href="${basePath}products/consulting-fit55.html">Consulting Fit for 55</a></li>
-                        <li><a href="${basePath}products/firehorse-reports.html">Firehorse Report</a></li>
+                        <li><a href="${basePath}products/firehorse-reports.html">DWS IQ Report</a></li>
                         <li><a href="${basePath}products/consulting.html">Consulting – Hourly</a></li>
                         <li class="ironclad-separator"></li>
                         <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic</a></li>

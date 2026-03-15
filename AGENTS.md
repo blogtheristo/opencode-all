@@ -3,9 +3,9 @@
 > Following the [agents.md](https://github.com/agentsmd/agents.md) open specification.
 > A README for AI coding agents: context, instructions, and operational guidance.
 
-**Version:** 2.0
+**Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** February 18, 2026
+**Updated:** March 15, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -13,16 +13,16 @@
 
 ## 1. Project Context
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture:** Brain-Memory-Body-Hands
 
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.9, TailwindCSS 4, Express 4, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -152,7 +152,7 @@ dws6/
 ├── Firehorse/               # Product suite
 ├── landing-pages/           # Production landing pages
 ├── supabase/migrations/     # Database migrations
-└── .github/workflows/       # CI/CD (15 workflows)
+└── .github/workflows/       # CI/CD (37 workflows)
 ```
 
 ---
@@ -192,55 +192,10 @@ dws6/
 
 ## 7. Agent Ecosystem (V2)
 
-### Architecture
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                         DWS IQ 6 AGENT ECOSYSTEM V2                         │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  PLATFORM AGENTS (7 agents) — Runtime production agents             │     │
-│  │  customer-sat | sitesense | schedule-genius | material-oracle        │     │
-│  │  viability | compliance | quality-gate                              │     │
-│  │  Stack: TypeScript, BaseAgent, Groq Llama 3.3 70B                   │     │
-│  │  API: /api/agents/:name/execute                                     │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  DEVELOPMENT AGENTS (10 agents) — Build-time coordination           │     │
-│  │  Agent-01..Agent-10, Lifetime Scope Signals protocol                │     │
-│  │  Stack: File-based signals, coordinator.cjs CLI                     │     │
-│  │  Status: Phase 1-4 phased rollout                                   │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  TEAM AGENTS (7 agents) — Ongoing operations                        │     │
-│  │  Architect | Builder | DevOps | Security | Product                  │     │
-│  │  Market Signal | Product Page Generator                             │     │
-│  │  Weekly Friday coordination cycle                                   │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  WORKFLOW AGENTS (2 agents) — CI/CD automation                      │     │
-│  │  audit-agent.js | fix-agent.js                                      │     │
-│  │  Stack: Node.js CLI, GitHub workflow analysis                       │     │
-│  │  Location: .workflows/agents/                                       │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  MCP ORCHESTRATION — Multi-agent coordination                       │     │
-│  │  Hub: mcp-hub/server.py (FastAPI)                                   │     │
-│  │  Patterns: Fan-Out | Reflection | Sequential                       │     │
-│  │  Servers: Docker MCP | ZenFree | Browser MCP                       │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+8 platform agents, 10 dev agents, 7 team agents, 2 workflow agents, MCP orchestration, BYO agents.
+→ Architecture diagrams, agent details, input/output schemas: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md)
 
 ### Platform Agents (Runtime)
-
-These are production agents that customers interact with via the API.
 
 | Agent | Name | Purpose | Model |
 |-------|------|---------|-------|
@@ -249,223 +204,38 @@ These are production agents that customers interact with via the API.
 | `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
 | `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
-| `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
-| `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `argus` | ArgusAgent | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5. | Llama 3.3 70B |
+| `compliance-researcher` | ComplianceResearcherAgent | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments | Llama 3.3 70B |
+| `construction` | ConstructionAgent | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B |
+| `deepwiki-extractor` | DeepWikiExtractorAgent | Analyzes GitHub repositories via DeepWiki to plan extraction of specific functionality into self-contained, dependency-free code | Llama 3.3 70B |
+| `emissions-data-analyst` | EmissionsDataAnalystAgent | Analyzes emissions and sustainability data using natural language queries with EU regulatory context (ETS, CSRD, CBAM, EN 15978) | Llama 3.3 70B |
+| `logistics` | LogisticsAgent | Orchestrates fleet compliance, route optimization, driver dispatch, and supply chain carbon tracking for EU-regulated logistics operations | Llama 3.3 70B |
+| `sales-outreach` | SalesOutreachAgent | Researches target companies and drafts personalized B2B outreach emails for DWS climate compliance products | Llama 3.3 70B |
+| `compliance` | Compliance (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
+| `quality-gate` | QualityGate (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | SovereigntyMonitor (V2) | Database sovereignty assessment | Llama 3.3 70B |
 
 ---
 
-## 8. V2 Agents: Design & Purpose
+## 8. V2 Agent Details
 
-### Compliance Agent (`compliance`)
-
-**Why:** The EU AI Act (August 2026 deadline), Fit for 55, ETS, CBAM, and CSRD create a compliance matrix that is too complex for manual tracking. This agent automates compliance gap analysis and Article 12 logging readiness.
-
-**Capabilities:**
-- `eu-regulation-compliance` — Check project against Fit for 55, ETS, CBAM, CSRD
-- `article-12-readiness` — EU AI Act Article 12 automatic logging assessment
-- `carbon-boundary-check` — CBAM carbon boundary verification
-- `compliance-gap-analysis` — Identify gaps between current state and requirements
-
-**Input:**
-```typescript
-{
-  projectId: string;
-  industry: string;         // e.g., "construction", "manufacturing", "energy"
-  regulations: string[];    // e.g., ["fit-for-55", "ets", "cbam", "csrd"]
-  currentMeasures: {
-    carbonReporting: boolean;
-    emissionsMonitoring: boolean;
-    supplyChainDueDiligence: boolean;
-    aiSystemLogging: boolean;
-  };
-  annualEmissions: number;  // tonnes CO2e
-  importValue: number;      // EUR, for CBAM threshold
-}
-```
-
-**Output:** Compliance score (0-100), gap list, deadline urgency, remediation recommendations.
-
-### Quality Gate Agent (`quality-gate`)
-
-**Why:** With 15 CI/CD workflows, multiple deployment targets (GCP, Cloudflare, Hetzner), and dual-folder landing page structure, deployment quality requires automated validation before release.
-
-**Capabilities:**
-- `deployment-readiness` — Pre-deployment quality checks
-- `test-coverage-analysis` — Test coverage assessment against thresholds
-- `security-scan-summary` — Aggregate security scan results
-- `landing-page-sync-check` — Verify dual-folder sync (root vs landing-pages)
-
-**Input:**
-```typescript
-{
-  projectId: string;
-  deployTarget: string;      // "gcp" | "cloudflare" | "hetzner"
-  testResults: {
-    passed: number;
-    failed: number;
-    skipped: number;
-    coverage: number;        // percentage
-  };
-  securityScan: {
-    critical: number;
-    high: number;
-    medium: number;
-    low: number;
-  };
-  buildStatus: string;       // "success" | "failure" | "pending"
-}
-```
-
-**Output:** Gate decision (pass/fail/warn), quality score (0-100), blocking issues, recommendations.
+V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output schemas, capabilities, and product details.
+→ [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#v2-agent-details)
 
 ---
 
 ## 9. How to Add a New Agent
 
-Follow this pattern exactly:
+→ Full guide with code template, registration, tests, cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md)
 
-### Step 1: Create the agent file
-
-```bash
-# File: src/agents/your-agent.agent.ts
-```
-
-```typescript
-import { BaseAgent } from './base.agent.js';
-import type { AgentContext, AgentResponse } from './types.js';
-
-interface YourAgentInput {
-  // Define input schema
-}
-
-export class YourAgent extends BaseAgent {
-  constructor() {
-    super({
-      name: 'your-agent',           // kebab-case, unique
-      description: 'One sentence',
-      capabilities: ['cap-1', 'cap-2'],
-      model: 'llama-3.3-70b-versatile',
-    });
-  }
-
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
-    const startTime = Date.now();
-    const typedInput = input as unknown as YourAgentInput;
-
-    // Log start
-    await this.logExecution({
-      agent_name: this.config.name,
-      user_id: context.userId,
-      org_id: context.orgId,
-      session_id: context.sessionId,
-      project_id: context.projectId,
-      input, output: null, status: 'started',
-      duration_ms: 0,
-      created_at: new Date().toISOString(),
-    });
-
-    // 1. Deterministic scoring first (naive then optimize)
-    // 2. LLM enhancement via this.callLLM()
-    // 3. Build response
-
-    const durationMs = Date.now() - startTime;
-
-    const response: AgentResponse = {
-      agentName: this.config.name,
-      result: { /* your output */ },
-      confidence: 0.85,
-      reasoning: 'Explain the scoring logic',
-      recommendations: ['Action 1', 'Action 2'],
-      metadata: { durationMs },
-    };
-
-    // Log completion
-    await this.logExecution({
-      agent_name: this.config.name,
-      user_id: context.userId,
-      org_id: context.orgId,
-      session_id: context.sessionId,
-      project_id: context.projectId,
-      input, output: response, status: 'completed',
-      duration_ms: durationMs,
-      created_at: new Date().toISOString(),
-    });
-
-    return response;
-  }
-}
-```
-
-### Step 2: Register in the registry
-
-```typescript
-// src/agents/index.ts — add import and registration
-import { YourAgent } from './your-agent.agent.js';
-
-// In registerDefaults():
-this.register(new YourAgent());
-```
-
-### Step 3: Add tests
-
-```typescript
-// src/__tests__/your-agent.test.ts
-```
-
-### Step 4: Update this file
-
-Add the agent to the Platform Agents table in Section 7.
+Quick steps: 1) Create `src/agents/your-agent.agent.ts` extending `BaseAgent`, 2) Register in `src/agents/index.ts`, 3) Add tests, 4) `agents-md-sync` auto-updates this table, 5) Add Claude Code skill.
 
 ---
 
 ## 10. Lifetime Scope Signals Protocol
 
-### Signal Format
-
-```
-[AGENT-XX]:SIGNAL_TYPE:MILESTONE:TIMESTAMP
-```
-
-| Component | Description |
-|-----------|-------------|
-| `AGENT-XX` | Agent identifier (e.g., `AGENT-01`, `AGENT-07`) |
-| `SIGNAL_TYPE` | `READY` / `COMPLETE` / `ERROR` / `BLOCKED` |
-| `MILESTONE` | Specific deliverable (e.g., `supabase-auth`) |
-| `TIMESTAMP` | ISO 8601 |
-
-### Signal Commands
-
-```bash
-cd .workflows/agents
-node coordinator.cjs status                         # All statuses
-node coordinator.cjs ready                          # Ready to launch
-node coordinator.cjs emit agent-07 READY:rls-policies  # Emit signal
-```
-
-### Dependency Map
-
-```
-PHASE 1 (Foundation)
-├── Agent-01 (Auth)      → READY:supabase-auth
-├── Agent-07 (Database)  → READY:rls-policies, READY:schema-users
-└── Agent-10 (Docs)      → READY:api-docs
-         │
-PHASE 2 (Core Backend)
-├── Agent-02 (Firehorse) ← Agent-01, Agent-07
-├── Agent-04 (AI Agents) ← Agent-07
-└── Agent-09 (Email)     ← Agent-07
-         │
-PHASE 3 (Frontend)
-├── Agent-03 (Dashboard) ← Agent-02, Agent-04
-└── Agent-05 (Mobile)    ← Agent-02, Agent-04
-         │
-PHASE 4 (Enhancements)
-├── Agent-08 (Payments)  ← Agent-01, Agent-07
-└── Agent-06 (Enterprise) → DEFERRED V1.1
-```
+Development agent coordination via file-based signals. Commands: `node coordinator.cjs status|ready|emit`.
+→ Full protocol, signal format, dependency map: [docs/SIGNAL_PROTOCOL.md](docs/SIGNAL_PROTOCOL.md)
 
 ---
 
@@ -492,44 +262,15 @@ PHASE 4 (Enhancements)
 |--------|---------|
 | Docker MCP | Container management, GitHub integration |
 | ZenFree | Security scanning (replaced Snyk) |
-| Browser MCP | Web testing, UI verification |
+| Agent Browser | Web testing, UI verification, competitive intelligence (native Rust, vercel-labs/agent-browser) |
 
 ---
 
-## 12. Team Agents (Operations)
+## 12. Team Agents & Cost Tracking
 
-Weekly Friday coordination cycle:
-
-| Order | Agent | Deliverable |
-|-------|-------|-------------|
-| 1 | Market Signal Agent | Market insights, demand detection |
-| 2 | Product Page Generator | Updated product/landing pages |
-| 3 | DevOps Agent | Cost report, uptime, CI/CD health |
-| 4 | Security Agent | Vulnerability scans, compliance checklist |
-| 5 | Builder Agent | Code review summary, agent implementations |
-| 6 | Architect Agent | ADRs, architecture changelog |
-| 7 | Product Agent | Compiles final weekly report (EN/FI) |
-
----
-
-## 13. Agent Cost Tracking
-
-Every agent has a monthly budget:
-
-```yaml
-cost_tracking:
-  budget_monthly_eur: 100-150
-  alert_at_percentage: 80
-  model_costs:
-    llama_3_3_70b:
-      provider: groq
-      input_per_1m_tokens: 0.59
-      output_per_1m_tokens: 0.79
-    claude_sonnet_4_5:
-      provider: anthropic
-      input_per_1m_tokens: 3.00
-      output_per_1m_tokens: 15.00
-```
+7 team agents in weekly Friday coordination cycle. Budget: €100-150/agent/month.
+→ Details: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#team-agents-operations)
+→ Cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md#agent-cost-tracking)
 
 ---
 
@@ -562,6 +303,10 @@ cost_tracking:
 | Workflow agents | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
 | Tests | `src/__tests__/` |
 
+### External CLIs & Add-ons
+
+See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, Firehorse via CLI/API) and **external add-on** (Google Workspace CLI `gws`).
+
 ### Environment Variables (Agent-relevant)
 
 | Variable | Required | Purpose |
@@ -572,6 +317,76 @@ cost_tracking:
 | `JWT_SECRET` | Yes | API authentication |
 | `ANTHROPIC_API_KEY` | Optional | Claude for complex reasoning |
 | `PORT` | Optional | Server port (default 3000) |
+
+---
+
+## 16. Rise of CLIs & External Add-ons
+
+**Context:** In 2026, CLIs are first-class agent interfaces. Agents (and humans) benefit from tools that expose structured JSON output, tab-completion, `--help`/`--dry-run`, and MCP or skill surfaces. DWS follows this with the DWS CLI and Firehorse (agent-accessible via CLI/API); the same pattern applies to external tooling.
+
+### Our output: DWS CLI & Firehorse CLI
+
+| CLI | Invocation | Purpose |
+|-----|------------|---------|
+| **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
+| **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
+
+**DWS CLI commands (examples):**
+```bash
+dws agents                              # List all agents (JSON)
+dws run compliance --input '{"reg":"CSRD"}'
+dws run sitesense --input '{"siteId":"..."}'
+dws workflow compliance-assessment
+dws discover carbon
+dws workflows
+dws health
+dws mcp tools
+```
+
+**Config:** `DWS_API_URL`, `DWS_API_TOKEN`, `DWS_PROJECT`, `DWS_SESSION`. See `cli/src/cli.ts` and [CLAUDE.md](CLAUDE.md) Build for Agents.
+
+**API key for Cline:** To get a token for Cline (or for `DWS_API_TOKEN`), run `node scripts/generate-cline-api-key.cjs` from the repo root (requires `JWT_SECRET` in `.env`). The script prints a 90-day JWT; use it in Cline as the API key when connecting to a DWS endpoint, or set as `DWS_API_TOKEN` for the CLI.
+
+### Important add-on: Google Workspace CLI (`gws`)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/googleworkspace/cli |
+| **Install** | `npm install -g @googleworkspace/cli` |
+| **What it is** | One CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin — dynamically built from Google Discovery Service. Zero boilerplate, structured JSON output. |
+| **Why it matters** | 40+ agent skills included; MCP server (`gws mcp -s drive,gmail,calendar`); Gemini CLI extension. Fits the same "Build for Agents" pattern: every response is structured JSON, so LLMs can manage Workspace without custom tooling. |
+| **Auth** | `gws auth setup` (interactive), service account, or exported credentials for headless/CI. |
+| **Use with DWS** | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills. |
+
+**Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
+
+### Important add-on: Agent Browser (`agent-browser`)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/vercel-labs/agent-browser |
+| **Install** | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`) |
+| **What it is** | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead. |
+| **Why it matters** | 1.6x faster cold start, 18x less memory, 99x smaller install vs Playwright MCP. Snapshot+Refs system saves ~93% context window by returning compact element references (`@e1`, `@e2`) instead of full DOM trees. |
+| **Key commands** | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage` |
+| **Use with DWS** | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI. |
+
+**Architecture:** Rust CLI (cold start <50ms) → CDP WebSocket → Chrome. Supports headed/headless modes, multiple isolated sessions, AES-256-GCM encrypted session storage, and device emulation.
+
+---
+
+## 17. Compliance Scoring Engine
+
+Deterministic scoring (CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25), no LLM dependency. API: `POST /api/v1/compliance/assess`.
+→ Full architecture, scoring formula, DB schema: [docs/COMPLIANCE_SCORING.md](docs/COMPLIANCE_SCORING.md)
+
+---
+
+## 18. BYO Agent Lifecycle & KYA Trust Framework
+
+KYA (Know Your Agent) 6-stage gate: Registration → IDV → KYB → Capability Review → Sandbox → Runtime Monitoring.
+Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine. Firecracker MicroVM isolation.
+→ Full protocol, manifest schema, sandbox stages, forensic logging: [docs/KYA_BYO_LIFECYCLE.md](docs/KYA_BYO_LIFECYCLE.md)
 
 ---
 
@@ -587,7 +402,7 @@ cost_tracking:
 
 ---
 
-**Document Version:** 2.0
-**Last Updated:** February 18, 2026
+**Document Version:** 2.3
+**Last Updated:** March 15, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
-**Next Review:** March 4, 2026
+**Next Review:** April 4, 2026
