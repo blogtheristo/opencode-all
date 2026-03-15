@@ -91,11 +91,23 @@ export const ComplianceCheckSchema = z.object({
   importValue: z.number().min(0).default(0),
 });
 
-/** Onboarding request body */
+/** ERP connection configuration */
+export const ErpConnectionSchema = z.object({
+  type: z.enum(['sap', 'ifs', 'dynamics', 'monitor', 'visma', 'jeeves', 'manual', 'api']),
+  host: z.string().url().optional(),
+  authMethod: z.enum(['api-key', 'oauth2', 'basic', 'none']).default('none'),
+  tenantId: z.string().max(200).optional(),
+  verified: z.boolean().default(false),
+});
+
+/** Onboarding request body — DWS7 multi-step wizard */
 export const OnboardingSchema = z.object({
   companyName: z.string().min(1, 'Company name is required').max(200),
   industry: z.string().min(1, 'Industry is required'),
-  country: z.string().length(2, 'Country must be ISO 3166-1 alpha-2').default('FI'),
+  country: z.string().min(1, 'Country is required').max(100),
   employeeCount: z.enum(['1-50', '51-250', '251-1000', '1000+']).default('1-50'),
+  annualRevenue: z.string().optional(),
   regulations: z.array(z.string()).min(1).default(['csrd']),
+  dataSources: z.array(z.string()).default([]),
+  erpConnection: ErpConnectionSchema.optional(),
 });
