@@ -100,8 +100,8 @@ app.add_middleware(
         "http://localhost:3000,http://localhost:3002,https://dws10.com,https://onelifetime.world",
     ).split(","),
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
 
 
