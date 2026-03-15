@@ -1,12 +1,25 @@
 # OpenClaw & NemoClaw Integration Research for DWS6 & Firehorse
 
-VERSION AND AGENT HISTORY
-Version: 1.0
-Date: 2026-03-15
-Author: Claude Code (Opus 4.6)
-Branch: claude/clawdbot-dws6-research-Zfc5d
+***
+# VERSION AND AGENT HISTORY
 
----
+## Sessions & Modifications
+- Version 1.0 (15.03.2026) — Initial research draft by Claude Code (Opus 4.6) on branch `claude/clawdbot-dws6-research-Zfc5d`.
+
+## Session Links & References
+- TBD – add link to primary DWS6 HIL session and related PR once available.
+
+## Document Status
+- Created: 15.03.2026
+- Last Modified: 15.03.2026
+- Language: English
+- Languages Available: English
+- Publication Status: Internal draft – research only, not customer-facing.
+
+**Owner:** Claude Code (Opus 4.6)  
+**Repository Branch:** `claude/clawdbot-dws6-research-Zfc5d`
+
+***
 
 ## Executive Summary
 
