@@ -9,6 +9,8 @@ import { ProjectCard } from '../components/ProjectCard';
 import { ClimateAssistant } from '../components/ClimateAssistant';
 import { MeetingPanel } from '../components/MeetingPanel';
 import { ClaudeCodePanel } from '../components/ClaudeCodePanel';
+import { QuickActions } from '../components/QuickActions';
+import { ActivityFeed } from '../components/ActivityFeed';
 import { fetchProjects } from '../lib/supabase';
 import type { Project } from '../types/dashboard';
 import type { User } from '@supabase/supabase-js';
@@ -105,6 +107,12 @@ export function DashboardPage({ user, sidePanel, onSetSidePanel: _onSetSidePanel
               ))}
             </div>
           )}
+
+          {/* Quick Actions + Activity Feed below projects */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <QuickActions />
+            <ActivityFeed />
+          </div>
         </div>
 
         {sidePanel && (
