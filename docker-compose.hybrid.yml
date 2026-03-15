@@ -64,6 +64,7 @@ services:
       PROMETHEUS_URL: http://prometheus:9090
       GRAFANA_URL: http://grafana:3000
       AGENT_FOUNDRY_URL: http://agent-foundry:8080
+      LIGHTPANDA_CDP_URL: ws://lightpanda:9222
 
       # Session Management
       SESSION_TTL_HOURS: 168
@@ -452,6 +453,19 @@ services:
     restart: unless-stopped
     profiles:
       - monitoring
+
+  # ============================================================================
+  # Lightpanda Browser (Headless CDP for Agent Browsing)
+  # ============================================================================
+
+  lightpanda:
+    image: lightpanda/browser:nightly
+    container_name: dws-lightpanda
+    ports:
+      - "9222:9222"
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
 
   # ============================================================================
   # AI Agents (Agent Foundry)
