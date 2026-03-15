@@ -1,11 +1,11 @@
----
+***
 VERSION AND AGENT HISTORY
 Document: Agent Browser — Native Rust Integration
 Version: 1.1
 Date: 2026-03-14
 Author: Claude Code (Opus 4.6)
 Status: Active
----
+***
 
 # Agent Browser — Native Rust Integration
 
