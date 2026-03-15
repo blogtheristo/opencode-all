@@ -13,55 +13,69 @@ VERSION AND AGENT HISTORY
 - Distribution: Blog (primary), Newsletter (weekly digest), LinkedIn (best 2-3/week)
 - SEO targets: Google organic + AI search (Perplexity, ChatGPT, Gemini)
 
-## 7 Content Pillars
+## 7 Content Pillars (Rooted in Real Engineering Decisions)
 
-### Pillar 1: ERP Transition (~115 posts)
-**Focus:** Visma sale disruption, ERP evaluation, migration planning, vendor lock-in risks
-**Target audience:** CIOs, IT directors, CFOs at Nordic mid-market companies (50-500 employees)
-**Keywords:** ERP migration, Visma alternative, ERP vendor change, ERP due diligence
-**Content types:** Checklists, comparison guides, risk assessments, migration timelines
+The content moat is not AI-generated fluff — it's 2,000 real commits and 1,500 real PRs, each a technical decision with a business reason. These pillars are organized by git history themes, then enriched with legal, industry, and AI news.
+
+"Why we chose GL journal entries over a native ESG endpoint" is a better post than any generic CSRD explainer. We have 1,500 more like it.
+
+### Pillar 1: ERP Integration & Transition (~115 posts)
+**Git source:** commits in `src/integrations/erp/`, SAP/Visma/IFS/Dynamics connectors
+**Focus:** Real engineering decisions from ERP integration work + Visma sale disruption
+**Content pattern:** "We had to connect to SAP S/4HANA's OData API. Here's what actually works."
+**Audience:** CIOs, IT directors, CFOs at Nordic mid-market (50-500 employees)
+**Keywords:** ERP migration, Visma alternative, SAP integration, IFS connector, ERP data migration
 **CTA:** Book ERP transition consultation (dws10.com/contact)
 
-### Pillar 2: EU Compliance (~115 posts)
-**Focus:** Fit for 55, CSRD, ETS Phase 4, CBAM, EPBD, ESR, NIS2, EU AI Act
-**Target audience:** Compliance officers, sustainability managers, CFOs
-**Keywords:** CSRD reporting, double materiality, ETS compliance, CBAM calculator, Fit for 55
-**Content types:** Regulatory deep-dives, step-by-step guides, deadline trackers, penalty analysis
-**CTA:** Try DWS IQ compliance dashboard (dws10.com/buy)
+### Pillar 2: Compliance Automation (~115 posts)
+**Git source:** commits in `src/agents/`, compliance scoring, CSRD/ETS/CBAM calculations
+**Focus:** How compliance code actually works, regulation article-by-article implementation
+**Content pattern:** "CSRD Article 19a(2) requires double materiality. Here's how we automated it."
+**Audience:** Compliance officers, sustainability managers, CFOs
+**Keywords:** CSRD automation, ETS Phase 4, CBAM calculator, double materiality, Fit for 55
+**CTA:** DWS IQ compliance dashboard (dws10.com/buy)
 
-### Pillar 3: AI & Automation (~115 posts)
-**Focus:** AI agents, MCP protocol, LLM in industry, agent swarms, automation ROI
-**Target audience:** CTOs, tech leads, innovation managers
-**Keywords:** AI compliance automation, MCP protocol, agent swarm, industrial AI
-**Content types:** Technical guides, architecture diagrams, ROI calculations, use cases
+### Pillar 3: Agent Architecture & AI (~115 posts)
+**Git source:** commits in `src/mcp/`, `mcp-servers/`, agent orchestration, KYA governance
+**Focus:** MCP protocol decisions, agent swarm architecture, LLM choice rationale
+**Content pattern:** "Why we chose MCP over REST for agent-to-ERP communication."
+**Audience:** CTOs, tech leads, innovation managers
+**Keywords:** MCP protocol, agent swarm, industrial AI, KYA standard, AI orchestration
 **CTA:** DWS IQ Platform demo (dws10.com/products/dwsiq.html)
 
 ### Pillar 4: Industry Deep-Dives (~115 posts)
-**Focus:** Construction (EN 15978), manufacturing, energy, logistics, steel, cement, chemicals, real estate
-**Target audience:** Industry-specific decision makers
-**Keywords:** construction carbon tracking, steel ETS compliance, CBAM steel, EPBD real estate
-**Content types:** Sector analysis, case studies, benchmarks, regulation mapping
-**CTA:** Industry-specific solutions (dws10.com/construction, dws10.com/manufacturing, etc.)
+**Git source:** commits per industry (`construction/`, `manufacturing/`, `energy/`) + 16-INDUSTRIES.md
+**Focus:** Sector-specific compliance math, carbon tracking, regulation mapping
+**Content pattern:** "EN 15978 lifecycle stages A1-D: how we calculate embodied carbon for Nordic construction."
+**Audience:** Industry-specific decision makers
+**Keywords:** construction carbon, steel ETS, CBAM steel imports, EPBD real estate
+**CTA:** Industry solutions (dws10.com/construction, /manufacturing, etc.)
 
-### Pillar 5: Sovereign Technology (~115 posts)
-**Focus:** EU data sovereignty, CLOUD Act, GDPR, data residency, sovereign cloud, edge AI
-**Target audience:** CISOs, DPOs, IT directors
-**Keywords:** EU data sovereignty, CLOUD Act risk, sovereign database, GDPR ERP
-**Content types:** Risk assessments, architecture guides, compliance checklists, vendor comparisons
+### Pillar 5: Security & Sovereignty (~115 posts)
+**Git source:** commits in security hardening, KYA standard, RLS policies, data residency
+**Focus:** CLOUD Act risk, sovereign infrastructure decisions, GDPR engineering
+**Content pattern:** "We moved from Supabase hosted to self-hosted PostgreSQL. Here's the sovereignty math."
+**Audience:** CISOs, DPOs, IT directors
+**Keywords:** EU data sovereignty, CLOUD Act risk, sovereign database, GDPR ERP, RLS
 **CTA:** Sovereignty assessment (dws10.com/products/sovereignty-cloud-consulting.html)
 
-### Pillar 6: Product Knowledge (~115 posts)
-**Focus:** DWS IQ features, Firehorse modules, edge AI hardware, platform capabilities
-**Target audience:** Technical buyers, procurement, IT teams
-**Keywords:** DWS IQ platform, Firehorse automation, climate reporting, edge AI inference
-**Content types:** Feature guides, setup tutorials, comparison tables, pricing analysis
-**CTA:** Browse products (dws10.com/buy)
+### Pillar 6: ESG Data & Performance (~115 posts)
+**Git source:** commits in `src/integrations/esg/`, Worldfavor/PositionGreen, pgvector, embeddings
+**Focus:** ESG data pipeline engineering, climate LLM, measurement methodology
+**Content pattern:** "Why we chose GL journal entries over a native ESG endpoint."
+**Audience:** Technical buyers, ESG data teams, sustainability engineers
+**Keywords:** ESG data pipeline, climate intelligence, pgvector, Firehorse reports, edge AI
+**CTA:** Climate Reporting Bundle (dws10.com/products/bundle.html)
 
-### Pillar 7: Business Strategy (~115 posts)
-**Focus:** Nordic market trends, B2B marketing, digital transformation, content strategy
-**Target audience:** CEOs, founders, marketing directors
-**Keywords:** Nordic digital transformation, B2B content marketing, expert positioning
-**Content types:** Market analysis, strategy frameworks, trend reports, case studies
+### Pillar 7: Business & Industry News (~115 posts)
+**Focus:** Legal compliance updates, AI news impact analysis, industry news, Nordic market trends
+**Content mix:**
+- Legal compliance news: New EU regulations, deadline changes, enforcement actions
+- AI news: Model releases, agent frameworks, tool announcements — analyzed for business impact
+- Industry news: M&A (Visma sale), market shifts, Nordic digitalization trends
+- Behind the Build: Real DWS engineering decisions turned into business stories
+**Audience:** CEOs, founders, board members, investors
+**Keywords:** Nordic digital transformation, EU AI Act news, B2B content strategy
 **CTA:** Expert advisory (dws10.com/products/expert-advisory.html)
 
 ## Rotation Pattern
