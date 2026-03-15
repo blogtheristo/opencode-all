@@ -80,10 +80,12 @@ export function InsightsDashboard() {
         />
         <SummaryCard
           title="Avg Compliance"
-          value={`${Math.round((data.complianceTrends[data.complianceTrends.length - 1]?.csrd || 0 +
-            data.complianceTrends[data.complianceTrends.length - 1]?.epbd || 0 +
-            data.complianceTrends[data.complianceTrends.length - 1]?.ets || 0 +
-            data.complianceTrends[data.complianceTrends.length - 1]?.cbam || 0) / 4)}%`}
+          value={`${Math.round((
+            (data.complianceTrends[data.complianceTrends.length - 1]?.csrd ?? 0) +
+            (data.complianceTrends[data.complianceTrends.length - 1]?.epbd ?? 0) +
+            (data.complianceTrends[data.complianceTrends.length - 1]?.ets ?? 0) +
+            (data.complianceTrends[data.complianceTrends.length - 1]?.cbam ?? 0)
+          ) / 4)}%`}
           change="+5%"
           positive
           icon="✓"
