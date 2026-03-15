@@ -11,7 +11,7 @@
 | Plan included minutes | 3,000 min/month |
 | Minutes used | 3,000 min (100%) |
 | Overage | $0 budget set — further usage blocked |
-| Usage resets | April 01, 2026 (22 days from alert) |
+| Usage resets | April 01, 2026 (17 days from alert) |
 
 ## Details
 
