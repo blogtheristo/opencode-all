@@ -8,14 +8,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 
-// EN 15978 lifecycle stages
-interface LifecycleStage {
-  code: string;
-  label: string;
-  description: string;
-  kgCO2e: number;
-}
-
 interface ProjectCarbon {
   id: string;
   name: string;

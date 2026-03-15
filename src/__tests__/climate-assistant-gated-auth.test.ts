@@ -9,6 +9,27 @@ import express, { Express } from 'express';
 import climateAssistantGatedRoutes from '../routes/climate-assistant-gated.routes.js';
 import AuthService from '../services/auth.service.js';
 
+// Shared rate-limit counter — reset between tests so each test starts clean
+const { rateLimitCounts } = vi.hoisted(() => ({
+  rateLimitCounts: new Map<string, number>(),
+}));
+
+// Mock express-rate-limit so each test gets a fresh quota
+vi.mock('express-rate-limit', () => ({
+  default: (opts: { max?: number; message?: Record<string, string> }) => {
+    const max = opts?.max ?? 5;
+    return (req: any, res: any, next: any) => {
+      const key = req.ip || '127.0.0.1';
+      const count = (rateLimitCounts.get(key) || 0) + 1;
+      rateLimitCounts.set(key, count);
+      if (count > max) {
+        return res.status(429).json(opts?.message || { error: 'Too many requests' });
+      }
+      next();
+    };
+  },
+}));
+
 // Mock the logger to avoid console spam
 vi.mock('../utils/logger.js', () => ({
   default: {
@@ -41,6 +62,9 @@ describe('Climate Assistant Gated Routes - JWT Authentication Security', () => {
   let invalidToken: string;
 
   beforeEach(() => {
+    // Reset rate limiter counts so each test starts with fresh quota
+    rateLimitCounts.clear();
+
     // Create a fresh Express app for each test
     app = express();
     app.use(express.json());

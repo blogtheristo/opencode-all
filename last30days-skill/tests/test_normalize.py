@@ -26,11 +26,11 @@ class TestNormalizeRedditItems(unittest.TestCase):
 
         result = normalize.normalize_reddit_items(items, "2026-01-01", "2026-01-31")
 
-        self.assertEqual(len(result), 1)
-        self.assertIsInstance(result[0], schema.RedditItem)
-        self.assertEqual(result[0].id, "R1")
-        self.assertEqual(result[0].title, "Test Thread")
-        self.assertEqual(result[0].date_confidence, "high")
+        assert len(result) == 1
+        assert isinstance(result[0], schema.RedditItem)
+        assert result[0].id == "R1"
+        assert result[0].title == "Test Thread"
+        assert result[0].date_confidence == "high"
 
     def test_sets_low_confidence_for_old_date(self):
         items = [
@@ -46,7 +46,7 @@ class TestNormalizeRedditItems(unittest.TestCase):
 
         result = normalize.normalize_reddit_items(items, "2026-01-01", "2026-01-31")
 
-        self.assertEqual(result[0].date_confidence, "low")
+        assert result[0].date_confidence == "low"
 
     def test_handles_engagement(self):
         items = [
@@ -66,9 +66,9 @@ class TestNormalizeRedditItems(unittest.TestCase):
 
         result = normalize.normalize_reddit_items(items, "2026-01-01", "2026-01-31")
 
-        self.assertIsNotNone(result[0].engagement)
-        self.assertEqual(result[0].engagement.score, 100)
-        self.assertEqual(result[0].engagement.num_comments, 50)
+        assert result[0].engagement is not None
+        assert result[0].engagement.score == 100
+        assert result[0].engagement.num_comments == 50
 
 
 class TestNormalizeXItems(unittest.TestCase):
@@ -87,10 +87,10 @@ class TestNormalizeXItems(unittest.TestCase):
 
         result = normalize.normalize_x_items(items, "2026-01-01", "2026-01-31")
 
-        self.assertEqual(len(result), 1)
-        self.assertIsInstance(result[0], schema.XItem)
-        self.assertEqual(result[0].id, "X1")
-        self.assertEqual(result[0].author_handle, "testuser")
+        assert len(result) == 1
+        assert isinstance(result[0], schema.XItem)
+        assert result[0].id == "X1"
+        assert result[0].author_handle == "testuser"
 
     def test_handles_x_engagement(self):
         items = [
@@ -111,9 +111,9 @@ class TestNormalizeXItems(unittest.TestCase):
 
         result = normalize.normalize_x_items(items, "2026-01-01", "2026-01-31")
 
-        self.assertIsNotNone(result[0].engagement)
-        self.assertEqual(result[0].engagement.likes, 100)
-        self.assertEqual(result[0].engagement.reposts, 25)
+        assert result[0].engagement is not None
+        assert result[0].engagement.likes == 100
+        assert result[0].engagement.reposts == 25
 
 
 class TestItemsToDicts(unittest.TestCase):
@@ -129,9 +129,9 @@ class TestItemsToDicts(unittest.TestCase):
 
         result = normalize.items_to_dicts(items)
 
-        self.assertEqual(len(result), 1)
-        self.assertIsInstance(result[0], dict)
-        self.assertEqual(result[0]["id"], "R1")
+        assert len(result) == 1
+        assert isinstance(result[0], dict)
+        assert result[0]["id"] == "R1"
 
 
 if __name__ == "__main__":

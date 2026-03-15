@@ -1,6 +1,6 @@
 # Signaalipohjainen Myynti – DWS IQ 6 Sales-Outreach Automaatio
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

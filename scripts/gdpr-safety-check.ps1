@@ -28,11 +28,13 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
         $_ -notmatch '^Admin/Security/REORGANIZATION_.*\.md$' -and
         $_ -notmatch '^Admin/SECURITY_.*\.md$' -and
         $_ -notmatch '^Admin/ADMIN_MANUAL\.md$' -and
+        $_ -notmatch '^Admin/ADMIN_MANUAL_SUPABASE_EN_v1\.md$' -and
         $_ -notmatch '^Admin/TWITTER_AUTOMATION_GUIDE\.md$' -and
         $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and
         $_ -notmatch '^Admin/GIT_CORRUPTION_RESOLUTION_NOTE\.md$' -and
         $_ -notlike 'Admin/Installation/*' -and
-        $_ -notlike 'Admin/Li/*'
+        $_ -notlike 'Admin/Li/*' -and
+        $_ -notlike 'Admin/Acer-Veriton-GN100/*'
     }
     
     if ($blockedAdminFiles -and $blockedAdminFiles.Count -gt 0) {
@@ -49,10 +51,10 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
 # Note: Sensitive keyword checking disabled - use Admin/ folder protection instead
 # This prevents false positives while maintaining compliance through folder-level access control
 
-# Check for secret files
+# Check for secret files (exclude .env.example — it's a tracked template with no real secrets)
 $secretPatterns = @("\.env\.", "CLOUDFLARE_SECRETS", "ADD_TOKEN_TO_GITHUB", "SFTP_SECRETS")
 foreach ($pattern in $secretPatterns) {
-    $secretFiles = $stagedNames | Where-Object { $_ -match $pattern }
+    $secretFiles = $stagedNames | Where-Object { $_ -match $pattern -and $_ -notmatch '\.env\.example$' }
     if ($secretFiles -and $secretFiles.Count -gt 0) {
         Write-Host "`n[BLOCKED] Secret files detected!" -ForegroundColor Red
         $secretFiles | ForEach-Object {

@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -36,6 +36,110 @@ function pipelineTag(pipeline: string): string {
   const color = PIPELINE_COLORS[pipeline] || '#888';
   const label = pipeline.toUpperCase().slice(0, 4);
   return `<span style="color: ${color}; font-size: 10px; font-weight: 600;">[${label}]</span>`;
+}
+
+// ============================================================================
+// OUTREACH SUMMARY RENDERER
+// ============================================================================
+
+const PIPELINE_TAG_LABELS: Record<string, string> = {
+  investor: 'INV',
+  customer: 'CUST',
+  partner: 'PART',
+};
+
+function renderOutreachSummaryHtml(summary: OutreachSummaryData): string {
+  // Pipeline summary line: INVESTOR: 1 (1 open, 0 active) | CUSTOMER: 1 ...
+  const pipelineOrder = ['investor', 'customer', 'partner'];
+  const pipelineParts = pipelineOrder
+    .filter((p) => summary.pipelines[p])
+    .map((p) => {
+      const s = summary.pipelines[p];
+      const color = PIPELINE_COLORS[p] || '#888';
+      return `<span style="color: ${color}; font-weight: 600;">${p.toUpperCase()}: ${s.total}</span> <span style="color: #666;">(${s.open} open, ${s.active} active)</span>`;
+    })
+    .join(' &nbsp;|&nbsp; ');
+
+  // Overdue/Today badge
+  const badges: string[] = [];
+  if (summary.overdueCount > 0) {
+    badges.push(`<span style="color: #ff4444; font-weight: 700;">OVERDUE: ${summary.overdueCount}</span>`);
+  }
+  if (summary.todayCount > 0) {
+    badges.push(`<span style="color: #ffaa00; font-weight: 700;">TODAY: ${summary.todayCount}</span>`);
+  }
+  if (summary.emailsReceivedToday > 0) {
+    badges.push(`<span style="color: #60a5fa;">${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received</span>`);
+  }
+
+  // Top overdue threads (quick action)
+  const overdueRows = summary.topOverdue.length > 0
+    ? summary.topOverdue.map((t) => {
+        const tag = PIPELINE_TAG_LABELS[t.pipeline] || t.pipeline.toUpperCase().slice(0, 4);
+        const tagColor = PIPELINE_COLORS[t.pipeline] || '#888';
+        const action = t.next_action || `Follow up with ${t.name}`;
+        const org = t.org ? ` (${esc(t.org)})` : '';
+        return `<div style="padding: 6px 0; border-bottom: 1px solid #222;">
+          <div style="font-size: 13px; color: #e0e0e0;">
+            <span style="color: #ff4444; font-weight: 600; font-size: 10px;">OVERDUE</span>
+            <span style="color: #555; font-size: 10px; font-family: monospace;">T:${esc(t.token)}</span>
+            <span style="color: ${tagColor}; font-size: 11px;">[${tag}]</span>
+            <strong>${esc(t.name)}${org}</strong> — ${t.status.replace(/_/g, ' ')}
+          </div>
+          <div style="font-size: 12px; color: #aaa; margin-top: 2px;">&rarr; ${esc(action)}</div>
+        </div>`;
+      }).join('')
+    : '';
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 8px; font-size: 12px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1.5px;">Outreach Pipeline</h3>
+      <div style="font-size: 12px; margin-bottom: 6px;">${pipelineParts}</div>
+      ${badges.length > 0 ? `<div style="font-size: 12px; margin-bottom: 8px;">${badges.join(' &nbsp;|&nbsp; ')}</div>` : ''}
+      ${overdueRows}
+      ${summary.topOverdue.length > 0 && summary.overdueCount > summary.topOverdue.length
+        ? `<p style="margin: 4px 0 0; font-size: 11px; color: #555;">+${summary.overdueCount - summary.topOverdue.length} more overdue</p>`
+        : ''}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Reply to outreach digest email with T:TOKEN commands to update threads</p>
+    </td></tr>`;
+}
+
+function renderOutreachSummaryPlainText(summary: OutreachSummaryData): string {
+  const lines: string[] = [];
+  lines.push('OUTREACH PIPELINE');
+
+  const pipelineOrder = ['investor', 'customer', 'partner'];
+  const pipelineParts = pipelineOrder
+    .filter((p) => summary.pipelines[p])
+    .map((p) => {
+      const s = summary.pipelines[p];
+      return `${p.toUpperCase()}: ${s.total} (${s.open} open, ${s.active} active)`;
+    });
+  lines.push(`  ${pipelineParts.join('  |  ')}`);
+
+  const badges: string[] = [];
+  if (summary.overdueCount > 0) badges.push(`OVERDUE: ${summary.overdueCount}`);
+  if (summary.todayCount > 0) badges.push(`TODAY: ${summary.todayCount}`);
+  if (summary.emailsReceivedToday > 0) {
+    badges.push(`${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received today`);
+  }
+  if (badges.length > 0) {
+    lines.push(`  ${badges.join('  |  ')}`);
+  }
+
+  for (const t of summary.topOverdue) {
+    const tag = PIPELINE_TAG_LABELS[t.pipeline] || t.pipeline.toUpperCase().slice(0, 4);
+    const org = t.org ? ` (${t.org})` : '';
+    const action = t.next_action || `Follow up with ${t.name}`;
+    lines.push(`  OVERDUE T:${t.token} [${tag}] ${t.name}${org} — ${t.status.replace(/_/g, ' ')}`);
+    lines.push(`  → ${action}`);
+  }
+  if (summary.overdueCount > summary.topOverdue.length) {
+    lines.push(`  +${summary.overdueCount - summary.topOverdue.length} more overdue`);
+  }
+
+  lines.push('');
+  return lines.join('\n');
 }
 
 // ============================================================================
@@ -327,13 +431,22 @@ function renderConstructionLeadsHtml(data: ConstructionLeadsData): string {
     ? `<p style="margin: 6px 0 0; font-size: 11px; color: #555;">+${moreCount} more leads</p>`
     : '';
 
+  // Lead sources info
+  const sourcesHtml = data.sourceCounts.total > 0
+    ? `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #222;">
+        <p style="margin: 0 0 2px; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.5px;">Lead Sources (${data.sourceCounts.active} active, ${data.sourceCounts.planned} planned, ${data.sourceCounts.reference} reference)</p>
+        <p style="margin: 0; font-size: 11px; color: #666;">${esc(data.sourcesSummary)}</p>
+      </div>`
+    : '';
+
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
-      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">Construction Leads (TED)</h3>
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">Construction Leads</h3>
       ${summaryHtml}
       ${newLeadsHtml}
       ${moreHtml}
       ${deadlinesHtml}
+      ${sourcesHtml}
     </td></tr>`;
 }
 
@@ -345,7 +458,7 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
     return '';
   }
 
-  lines.push('CONSTRUCTION LEADS (TED)');
+  lines.push('CONSTRUCTION LEADS');
 
   if (summary) {
     lines.push(`  ${summary.new_count} new | ${summary.qualified_count} qualified | ${summary.outreach_count} outreach | ${summary.deadlines_this_week} deadlines this week`);
@@ -387,6 +500,182 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
     }
   }
 
+  // Lead sources
+  if (data.sourcesSummary) {
+    lines.push(`  Sources (${data.sourceCounts.active} active, ${data.sourceCounts.planned} planned): ${data.sourcesSummary}`);
+  }
+
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
+// CAPTAIN INQUIRIES SECTION
+// ============================================================================
+
+const SEAT_COLORS: Record<string, string> = {
+  platinum: '#d4a843',
+  deputy: '#60a5fa',
+};
+
+function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const rows = data.inquiries
+    .map((inq) => {
+      const seatColor = SEAT_COLORS[inq.seat_level] || '#888';
+      const seatLabel = inq.seat_level.toUpperCase();
+      const time = new Date(inq.created_at).toLocaleString('en-GB', {
+        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        timeZone: 'Europe/Helsinki',
+      });
+      const msgLine = inq.message
+        ? `<div style="font-size: 11px; color: #666; margin-top: 2px; font-style: italic;">"${esc(inq.message.length > 120 ? inq.message.slice(0, 117) + '...' : inq.message)}"</div>`
+        : '';
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: ${seatColor}; font-size: 10px; font-weight: 600;">[${seatLabel}]</span>
+          <strong>${esc(inq.name)}</strong>
+          <span style="color: #555;"> — ${esc(inq.industry)}</span>
+        </div>
+        <div style="font-size: 11px; color: #888; margin-top: 2px;">
+          <a href="mailto:${esc(inq.email)}" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
+          &nbsp;|&nbsp; ${time}
+        </div>
+        ${msgLine}
+      </div>`;
+// LEARN ARTIFACTS SECTION
+// ============================================================================
+
+function renderLearnArtifactsHtml(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const rows = data.artifacts
+    .map((a) => `<div style="padding: 5px 0; border-bottom: 1px solid #1a1a1a;">
+      <a href="${esc(a.githubUrl)}" style="color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 500;">${esc(a.title)}</a>
+      <span style="color: #444; font-size: 11px; margin-left: 8px;">${esc(a.modifiedDate)}</span>
+    </div>`)
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #60a5fa; text-transform: uppercase; letter-spacing: 1.5px;">Learn — Updated This Week</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;"><a href="https://github.com/blogtheristo/dws6/tree/main/Learn" style="color: #444; text-decoration: none;">All Learn artifacts &rarr;</a></p>
+    </td></tr>`;
+}
+
+function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push('LEARN — UPDATED THIS WEEK');
+  for (const a of data.artifacts) {
+    lines.push(`  ${a.modifiedDate} — ${a.title}`);
+    lines.push(`  ${a.githubUrl}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
+// HIL TODO SECTION
+// ============================================================================
+
+const CATEGORY_COLORS: Record<string, string> = {
+  competitor_price:  '#ffaa00',
+  market_brief:      '#60a5fa',
+  config_gap:        '#c084fc',
+  manual:            '#00d4aa',
+  pending_migration: '#ff4444',
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  competitor_price:  'PRICE',
+  market_brief:      'BRIEF',
+  config_gap:        'CFG',
+  manual:            'MANUAL',
+  pending_migration: 'SQL',
+};
+
+function renderHilTodosHtml(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const rows = data.todos
+    .map((t) => {
+      const color = CATEGORY_COLORS[t.category] || '#888';
+      const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase().slice(0, 5);
+      const doneUrl = `${data.backendUrl}/api/hil/done/${encodeURIComponent(t.done_token)}`;
+      const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+      const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+      return `
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e1e1e;">
+          <div style="flex: 1;">
+            <span style="color: ${color}; font-size: 10px; font-weight: 700; margin-right: 6px;">[${label}]</span>
+            <span style="font-size: 13px; color: #e0e0e0;">${esc(t.description)}</span>
+            <span style="color: #444; font-size: 10px; margin-left: 8px;">${esc(ageLabel)}</span>
+          </div>
+          <a href="${esc(doneUrl)}"
+             style="margin-left: 12px; padding: 4px 10px; background: #1a3a1a; color: #00d4aa;
+                    border: 1px solid #00d4aa; border-radius: 4px; font-size: 11px;
+                    font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0;">
+            ✅ Done
+          </a>
+        </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+    </td></tr>`;
+}
+
+function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`CAPTAIN INQUIRIES (${data.newCount} new)`);
+
+  for (const inq of data.inquiries) {
+    const seat = inq.seat_level.toUpperCase();
+    const time = new Date(inq.created_at).toLocaleString('en-GB', {
+      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+      timeZone: 'Europe/Helsinki',
+    });
+    lines.push(`  [${seat}] ${inq.name} — ${inq.industry}`);
+    lines.push(`    Email: ${inq.email} | ${time}`);
+    if (inq.message) {
+      const msg = inq.message.length > 100 ? inq.message.slice(0, 97) + '...' : inq.message;
+      lines.push(`    "${msg}"`);
+    }
+  }
+
+  lines.push('  → Reply within 24h: industry brief + SAFE term sheet + calendar link');
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a; background: #0d1a0d;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">
+        ⚠ HIL ToDo &nbsp;<span style="color: #555; font-weight: 400; font-size: 11px;">(${data.todos.length} open)</span>
+      </h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Click ✅ Done to clear a task. Tasks auto-appear from Monday market run and automated collectors.</p>
+    </td></tr>`;
+}
+
+function renderHilTodosPlainText(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`HIL TODO (${data.todos.length} open)`);
+  for (const t of data.todos) {
+    const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase();
+    const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+    const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+    lines.push(`  [${label}] ${t.description} (${ageLabel})`);
+    lines.push(`  Done: ${data.backendUrl}/api/hil/done/${t.done_token}`);
+  }
   lines.push('');
   return lines.join('\n');
 }
@@ -417,6 +706,8 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
       </td>
     </tr>
 
+    ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderCaptainInquiriesHtml(data.captainInquiries)}
     ${renderChanges(data)}
     ${renderBets(data.bets)}
     ${renderRisk(data)}
@@ -424,6 +715,8 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     ${renderMetrics(data)}
     ${renderWorkflow(data.workflow)}
     ${renderConstructionLeadsHtml(data.constructionLeads)}
+    ${renderLearnArtifactsHtml(data.learnArtifacts)}
+    ${renderHilTodosHtml(data.hilTodos)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -450,6 +743,18 @@ export function buildCockpitPlainText(data: CockpitData): string {
   lines.push(`CEO COCKPIT — ${data.dateFormatted}`);
   lines.push('='.repeat(50));
   lines.push('');
+
+  // Outreach Pipeline Summary
+  const outreachText = renderOutreachSummaryPlainText(data.outreachSummary);
+  if (outreachText) {
+    lines.push(outreachText);
+  }
+
+  // Captain Inquiries
+  const captainText = renderCaptainInquiriesPlainText(data.captainInquiries);
+  if (captainText) {
+    lines.push(captainText);
+  }
 
   // 3 Changes
   lines.push('3 CHANGES');
@@ -512,6 +817,18 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const clText = renderConstructionLeadsPlainText(data.constructionLeads);
   if (clText) {
     lines.push(clText);
+  }
+
+  // Learn Artifacts
+  const learnText = renderLearnArtifactsPlainText(data.learnArtifacts);
+  if (learnText) {
+    lines.push(learnText);
+  }
+
+  // HIL ToDo
+  const hilText = renderHilTodosPlainText(data.hilTodos);
+  if (hilText) {
+    lines.push(hilText);
   }
 
   // Send List

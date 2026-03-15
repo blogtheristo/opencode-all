@@ -1,11 +1,16 @@
 /**
- * Shared Types for DWS IQ 6 AI Agent System
+ * Shared Types for DWS IQ 6/7 AI Agent System
  *
  * Defines the core interfaces used across all agents:
  * - AgentContext: Execution context (who, where, session)
  * - AgentResponse: Standardized agent output
- * - AgentConfig: Agent registration metadata
+ * - AgentConfig: Agent registration metadata + tool/loop config
  * - AgentExecutionLog: Supabase persistence shape
+ * - ToolDefinition / ToolCall / ToolResult: Function calling types
+ * - LLMMessage / LLMResponse: Multi-turn conversation types
+ * - AgentLoopConfig: Observe-think-act loop settings
+ *
+ * DWS7 Modernization: Added tool use, agentic loops, agent-to-agent types.
  */
 
 // ============ AGENT CONTEXT ============
@@ -26,8 +31,8 @@ export interface AgentContext {
 
 /** Sandbox isolation context attached to agent executions */
 export interface SandboxContext {
-  /** Current isolation stage: 1 = SDK sandbox, 2 = Cloud Run ephemeral, 3 = persistent container */
-  stage: '1' | '2' | '3';
+  /** Current isolation stage: 1 = SDK sandbox, opensandbox = Acer Veriton Docker, 2 = Cloud Run ephemeral, 3 = persistent container */
+  stage: '1' | 'opensandbox' | '2' | '3';
   /** Tenant subscription tier */
   tier: 'sandbox' | 'professional' | 'enterprise';
   /** Whether EU data residency is enforced */
@@ -68,6 +73,98 @@ export interface AgentConfig {
   capabilities: string[];
   /** LLM model identifier used by this agent */
   model: string;
+  /** Tools this agent can use (DWS7: function calling) */
+  tools?: ToolDefinition[];
+  /** Agentic loop configuration (DWS7: observe-think-act) */
+  loop?: AgentLoopConfig;
+}
+
+// ============ TOOL USE / FUNCTION CALLING (DWS7) ============
+
+/** JSON Schema-based tool definition sent to the LLM */
+export interface ToolDefinition {
+  /** Tool name (kebab-case, must match registered handler) */
+  name: string;
+  /** Human-readable description for the LLM */
+  description: string;
+  /** JSON Schema for the tool's parameters */
+  parameters: Record<string, unknown>;
+}
+
+/** A tool call requested by the LLM */
+export interface ToolCall {
+  /** Unique call ID for matching results */
+  id: string;
+  /** Tool name to invoke */
+  name: string;
+  /** Parsed arguments from the LLM */
+  arguments: Record<string, unknown>;
+}
+
+/** Result of executing a tool call */
+export interface ToolResult {
+  /** Matches the ToolCall.id */
+  toolCallId: string;
+  /** Tool name */
+  name: string;
+  /** Result data returned to the LLM */
+  result: Record<string, unknown>;
+  /** Whether the tool execution failed */
+  isError: boolean;
+}
+
+// ============ LLM CONVERSATION TYPES (DWS7) ============
+
+/** A message in a multi-turn LLM conversation */
+export interface LLMMessage {
+  role: 'system' | 'user' | 'assistant' | 'tool';
+  content: string | Record<string, unknown>;
+  /** For tool result messages: the tool call ID this result belongs to */
+  toolCallId?: string;
+  /** For assistant messages: tool calls the LLM wants to make */
+  toolCalls?: ToolCall[];
+}
+
+/** Response from the LLM client */
+export interface LLMResponse {
+  content: string;
+  model: string;
+  inputTokens: number;
+  outputTokens: number;
+  /** Tool calls the LLM wants to execute (present when stopReason === 'tool_use') */
+  toolCalls?: ToolCall[];
+  /** Why the LLM stopped: 'end_turn' (done) or 'tool_use' (wants to call tools) */
+  stopReason: 'end_turn' | 'tool_use';
+}
+
+// ============ AGENTIC LOOP CONFIG (DWS7) ============
+
+/** Configuration for the observe-think-act loop */
+export interface AgentLoopConfig {
+  /** Maximum loop iterations before forcing termination (default: 10) */
+  maxIterations: number;
+  /** Whether the agent can delegate to other agents mid-loop */
+  allowDelegation: boolean;
+  /** Whether to log each loop iteration to Supabase */
+  logIterations: boolean;
+}
+
+/** A single iteration in the agent loop (for tracing/Article 12 logging) */
+export interface AgentLoopIteration {
+  iteration: number;
+  phase: 'observe' | 'think' | 'act';
+  /** What the agent observed (input data, tool results) */
+  observation?: string;
+  /** The agent's reasoning for this step */
+  thought?: string;
+  /** Actions taken (tool calls, delegations) */
+  actions?: ToolCall[];
+  /** Results from actions */
+  actionResults?: ToolResult[];
+  /** Timestamp */
+  timestamp: string;
+  /** Duration of this iteration in ms */
+  durationMs: number;
 }
 
 // ============ AGENT EXECUTION LOG ============

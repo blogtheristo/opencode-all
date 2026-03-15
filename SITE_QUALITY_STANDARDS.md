@@ -1,8 +1,32 @@
 # Site Quality Standards & Management Policy
 
-**Version:** 1.0
-**Effective Date:** 2025-12-26
-**Last Updated:** 2025-12-26
+***
+# VERSION AND AGENT HISTORY
+
+Version: 2.3
+
+Sessions & Modifications:
+  - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added Dashboard Resilience Patterns section — ErrorBoundary, Skeleton, EmptyState, useApi component standards; updated Error States table with middleware error integration
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added MVP features — Onboarding Wizard, Compliance Score Widget, CLI Rich Output; updated component registry; added customer journey quality gates
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-code-formatting-OX1kv | Date: 11.03.2026 | Changes: Added Code Formatting Standards section — .editorconfig, indent/line-length rules, import ordering, Prettier-compatible defaults, naming conventions, comment guidelines, file structure rules
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
+
+Document Status:
+  - Created: 26.12.2025
+  - Last Modified: 02.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: ACTIVE
+
+***
+
+**Version:** 2.3
+**Effective Date:** 2026-03-11
+**Last Updated:** 2026-03-11
 **Status:** Active
 
 ---
@@ -11,14 +35,15 @@
 
 1. [Overview](#overview)
 2. [Code Quality Standards](#code-quality-standards)
-3. [Component Architecture](#component-architecture)
-4. [Navigation & Menu Standards](#navigation--menu-standards)
-5. [Logo & Branding Standards](#logo--branding-standards)
-6. [Media Management](#media-management)
-7. [CTA Best Practices](#cta-best-practices)
-8. [Testing & Quality Assurance](#testing--quality-assurance)
-9. [Deployment Process](#deployment-process)
-10. [Enforcement & Review](#enforcement--review)
+3. [Code Formatting Standards](#code-formatting-standards)
+4. [Component Architecture](#component-architecture)
+5. [Navigation & Menu Standards](#navigation--menu-standards)
+6. [Logo & Branding Standards](#logo--branding-standards)
+7. [Media Management](#media-management)
+8. [CTA Best Practices](#cta-best-practices)
+9. [Testing & Quality Assurance](#testing--quality-assurance)
+10. [Deployment Process](#deployment-process)
+11. [Enforcement & Review](#enforcement--review)
 
 ---
 
@@ -38,7 +63,7 @@ Applies to:
 1. **Consistency First** - Same components behave identically across all pages
 2. **Single Source of Truth** - No code duplication; use shared components
 3. **Mobile-First** - All features work on mobile before desktop
-4. **Accessibility** - WCAG 2.1 AA compliance minimum
+4. **Accessibility** - WCAG 2.2 AA compliance minimum
 5. **Performance** - Page load under 3 seconds on 3G
 
 ---
@@ -168,6 +193,278 @@ import { Header } from '@/components/layout/Header';
   --text-5xl: 3rem;      /* 48px */
 }
 ```
+
+---
+
+## Code Formatting Standards
+
+Consistent formatting reduces cognitive load during code review and prevents formatting-only diffs from polluting git history. These rules apply to all TypeScript, JavaScript, HTML, CSS, and JSON files across the DWS6 codebase.
+
+### 1. Whitespace & Indentation
+
+| Setting | Value | Rationale |
+|---------|-------|-----------|
+| Indent style | Spaces | Consistent across editors and terminals |
+| Indent size | 2 spaces | Node.js/React ecosystem convention |
+| Tab width | 2 | Matches indent size |
+| Line endings | LF (`\n`) | Cross-platform consistency (`.gitattributes` enforces) |
+| Max line length | 100 characters | Readable in side-by-side diff views without wrapping |
+| Trailing whitespace | Trimmed | No trailing spaces on any line |
+| Final newline | Required | POSIX compliance; prevents "no newline at end of file" diffs |
+| Blank lines | Max 1 consecutive | No double-blank-line gaps in code |
+
+**Exceptions:**
+- Markdown files (`.md`): trailing whitespace preserved (line breaks in Markdown)
+- Generated files (`dist/`, `*.min.*`): excluded from formatting
+
+### 2. Semicolons & Quotes
+
+| Setting | Value | Rationale |
+|---------|-------|-----------|
+| Semicolons | Required | Prevents ASI edge cases; explicit is better than implicit |
+| Quotes (JS/TS) | Single quotes | `'hello'` — Node.js convention, fewer keystrokes |
+| Quotes (JSX) | Double quotes | `<div className="foo">` — HTML convention carried into JSX |
+| Quotes (JSON) | Double quotes | JSON spec requires double quotes |
+| Template literals | Use for interpolation only | `` `Hello ${name}` `` — never for plain strings |
+
+### 3. Trailing Commas
+
+Use **ES5-compatible trailing commas** in multi-line constructs:
+
+```typescript
+// ✅ Good — trailing comma in multi-line
+const config = {
+  host: 'localhost',
+  port: 3000,
+  debug: true,   // ← trailing comma
+};
+
+const colors = [
+  'red',
+  'green',
+  'blue',   // ← trailing comma
+];
+
+function createAgent(
+  name: string,
+  industry: string,
+  confidence: number,   // ← trailing comma
+) {
+  // ...
+}
+
+// ✅ Good — no trailing comma in single-line
+const point = { x: 1, y: 2 };
+```
+
+**Why:** Trailing commas produce cleaner git diffs (adding a line doesn't modify the previous line).
+
+### 4. Braces & Brackets
+
+```typescript
+// ✅ Good — opening brace on same line (1TBS / K&R style)
+if (condition) {
+  doSomething();
+} else {
+  doOther();
+}
+
+// ❌ Bad — Allman style (opening brace on new line)
+if (condition)
+{
+  doSomething();
+}
+
+// ✅ Good — always use braces, even for single-line
+if (error) {
+  return null;
+}
+
+// ❌ Bad — braceless single-line (error-prone)
+if (error) return null;
+
+// ✅ Good — arrow functions: omit braces only for simple expressions
+const double = (n: number) => n * 2;
+const process = (item: Item) => {
+  validate(item);
+  return transform(item);
+};
+```
+
+### 5. Import Ordering
+
+Imports MUST be grouped and ordered consistently. Separate groups with a blank line:
+
+```typescript
+// 1. Node.js built-ins
+import path from 'node:path';
+import { readFile } from 'node:fs/promises';
+
+// 2. External packages (npm)
+import express from 'express';
+import { z } from 'zod';
+import { createClient } from '@supabase/supabase-js';
+
+// 3. Internal aliases (@/ paths)
+import { cn } from '@/lib/utils';
+import { useApi } from '@/hooks/useApi';
+
+// 4. Relative imports (parent before sibling)
+import { AppConfig } from '../config';
+import { Button } from './Button';
+
+// 5. Type-only imports (last)
+import type { Request, Response } from 'express';
+import type { AgentInput } from '@/types/agent';
+```
+
+**Rules:**
+- Alphabetical within each group
+- Named imports sorted alphabetically: `import { Alpha, Beta, Gamma } from '...'`
+- No unused imports (enforced by TypeScript `noUnusedLocals`)
+- Prefer `import type` for type-only imports (smaller bundles)
+
+### 6. Naming Conventions
+
+| Construct | Convention | Example |
+|-----------|-----------|---------|
+| Variables & functions | camelCase | `agentScore`, `calculateRisk()` |
+| Constants (module-level) | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT`, `API_BASE_URL` |
+| Constants (local) | camelCase | `const maxItems = 10;` |
+| Classes | PascalCase | `class ComplianceEngine` |
+| Interfaces & types | PascalCase | `interface AgentConfig`, `type WorkflowStep` |
+| React components | PascalCase | `function ProductCard()` |
+| File names (components) | PascalCase | `ProductCard.tsx`, `ErrorBoundary.tsx` |
+| File names (utilities) | kebab-case | `api-client.ts`, `date-utils.ts` |
+| File names (tests) | Match source + `.test` | `api-client.test.ts` |
+| CSS classes (Tailwind) | kebab-case | Standard Tailwind convention |
+| Environment variables | UPPER_SNAKE_CASE | `SUPABASE_URL`, `DWS_API_KEY` |
+| Database columns | snake_case | `created_at`, `agent_name` |
+| URL paths | kebab-case | `/api/compliance-check` |
+| Zod schemas | PascalCase + `Schema` suffix | `AgentInputSchema` |
+| Boolean variables | `is`/`has`/`should` prefix | `isLoading`, `hasError`, `shouldRetry` |
+| Event handlers | `on` prefix (props), `handle` prefix (implementation) | `onSelect` (prop), `handleSelect` (handler) |
+
+### 7. Comment Standards
+
+```typescript
+// ✅ Good — explains WHY, not WHAT
+// Retry with backoff because the compliance API throttles at 10 req/s
+const delay = Math.min(1000 * 2 ** attempt, 30000);
+
+// ❌ Bad — restates the code
+// Set delay to minimum of 1000 times 2 to the power of attempt and 30000
+const delay = Math.min(1000 * 2 ** attempt, 30000);
+
+// ✅ Good — TODO with owner and context
+// TODO(risto): Replace with Temporal workflow once migration complete
+const cronJob = cron.schedule('0 * * * *', runCompliance);
+
+// ❌ Bad — orphan TODO with no context
+// TODO: fix this later
+
+// ✅ Good — JSDoc for public API functions (exported)
+/**
+ * Run a named agent with structured input.
+ * Returns scored results with confidence and reasoning.
+ */
+export async function runAgent(name: string, input: AgentInput): Promise<AgentResult> {
+
+// ❌ Bad — JSDoc on internal/private helpers (unnecessary noise)
+/** Adds two numbers */
+function add(a: number, b: number) { return a + b; }
+```
+
+**Rules:**
+- Use `//` for inline comments, `/** */` for JSDoc on exported functions
+- No commented-out code in committed files (use git history instead)
+- TODOs must include context: `TODO(owner): description`
+- No `@author` tags (git blame provides this)
+- No change-log comments (`// Added 2026-03-11` — git log provides this)
+
+### 8. Function & Block Formatting
+
+```typescript
+// ✅ Good — one blank line between top-level declarations
+export function validateInput(data: unknown): AgentInput {
+  const result = AgentInputSchema.safeParse(data);
+  if (!result.success) {
+    throw new ValidationError(result.error.message);
+  }
+  return result.data;
+}
+
+export function runAgent(name: string, input: AgentInput): Promise<AgentResult> {
+  // ...
+}
+
+// ✅ Good — no blank line between closely related statements
+const startTime = Date.now();
+const result = await execute(agent, input);
+const duration = Date.now() - startTime;
+
+// ✅ Good — early return over deep nesting
+export function getAgent(name: string): Agent | null {
+  const agent = registry.get(name);
+  if (!agent) {
+    return null;
+  }
+  if (!agent.isEnabled) {
+    return null;
+  }
+  return agent;
+}
+
+// ❌ Bad — deep nesting (pyramid of doom)
+export function getAgent(name: string): Agent | null {
+  const agent = registry.get(name);
+  if (agent) {
+    if (agent.isEnabled) {
+      return agent;
+    }
+  }
+  return null;
+}
+```
+
+### 9. File Structure
+
+Every TypeScript/JavaScript file should follow this order:
+
+```
+1. File-level comments (if needed — license, module doc)
+2. Imports (grouped per §5)
+3. Type definitions / interfaces
+4. Constants
+5. Helper functions (non-exported)
+6. Exported functions / components
+7. Default export (if any — named exports preferred)
+```
+
+### 10. EditorConfig
+
+The repository includes `.editorconfig` at the root. All editors (VS Code, Cursor, Vim, JetBrains) MUST respect it. This provides baseline formatting without requiring a specific formatter tool.
+
+### 11. Formatter & Linter Integration
+
+**Current state and migration path:**
+
+| Tool | Scope | Status |
+|------|-------|--------|
+| `.editorconfig` | All files — indent, line endings, trim | Active (root) |
+| ESLint (flat config) | React dashboard (`v10-react/`) | Active |
+| ESLint (root backend) | Backend TypeScript (`src/`) | Planned — follow dashboard config pattern |
+| TypeScript strict | Dashboard: `strict: true`; Backend: `strict: false` | Backend migration planned |
+
+**Formatting enforcement priority:**
+1. `.editorconfig` — baseline for all files (enforced now)
+2. ESLint — code quality and style rules (enforced in dashboard, extend to backend)
+3. TypeScript strict mode — type safety (enforced in dashboard, extend to backend)
+
+**Rules:**
+- Never commit formatting-only changes mixed with logic changes (separate commits)
+- When touching a file for logic changes, fix formatting in that file only (boy scout rule)
+- Do not reformat entire files you didn't otherwise modify
 
 ---
 
@@ -819,6 +1116,110 @@ git push origin main
 
 ---
 
+## TypeScript & React Quality Standards
+
+### TypeScript Requirements
+
+All React components and Express routes MUST use strict TypeScript:
+
+```json
+// tsconfig.json — required settings
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  }
+}
+```
+
+**Component typing rules:**
+```tsx
+// ❌ Bad — implicit any, untyped props
+export function ProductCard({ product, onClick }) {
+  return <div onClick={onClick}>{product.name}</div>
+}
+
+// ✅ Good — explicit types, no implicit any
+interface ProductCardProps {
+  product: Pick<Product, 'id' | 'name' | 'price'>;
+  onSelect: (id: string) => void;
+}
+export function ProductCard({ product, onSelect }: ProductCardProps) {
+  return <button onClick={() => onSelect(product.id)}>{product.name}</button>
+}
+```
+
+### Zod for Runtime Validation
+
+All data at system boundaries (form submissions, API responses, URL params) MUST use Zod:
+
+```tsx
+import { z } from 'zod';
+
+const AgentInputSchema = z.object({
+  industry: z.enum(['construction', 'manufacturing', 'logistics']),
+  regulation: z.string().min(2).max(100),
+  customerId: z.string().uuid().optional(),
+});
+
+type AgentInput = z.infer<typeof AgentInputSchema>;
+
+// In form handler
+const result = AgentInputSchema.safeParse(formData);
+if (!result.success) {
+  // Handle validation errors — never trust unvalidated input
+}
+```
+
+### React Quality Rules
+
+| Rule | Pattern |
+|------|---------|
+| No prop drilling beyond 2 levels | Use Context or Zustand for shared state |
+| No useEffect for derived state | Compute derived values inline or with useMemo |
+| No index as key in lists | Use stable unique ID (`product.id`, not `index`) |
+| No anonymous default exports | Named exports only: `export function Component` |
+| Error boundaries on async boundaries | Wrap Suspense + async data fetchers with ErrorBoundary |
+
+### Testing Requirements (React)
+
+**Unit tests** — Vitest + React Testing Library:
+```tsx
+// Every interactive component needs a test
+describe('ProductCard', () => {
+  it('calls onSelect with product id when clicked', () => {
+    const onSelect = vi.fn();
+    render(<ProductCard product={mockProduct} onSelect={onSelect} />);
+    fireEvent.click(screen.getByRole('button'));
+    expect(onSelect).toHaveBeenCalledWith(mockProduct.id);
+  });
+});
+```
+
+**Minimum coverage thresholds:**
+- Utility functions: 90%
+- Component logic (event handlers, state): 80%
+- Pure render components: no test required
+
+**E2E tests** — Playwright for critical user paths:
+- Store checkout flow
+- Agent submission and result display
+- SSE/live workflow progress updates
+
+### Performance Budget
+
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Lighthouse Performance | ≥ 85 | Chrome DevTools / CI |
+| First Contentful Paint | < 1.5s | Lighthouse |
+| Largest Contentful Paint | < 2.5s | Lighthouse |
+| Bundle size (initial JS) | < 200KB gzipped | Vite build output |
+| WCAG 2.2 AA violations | 0 | axe-core in CI |
+
+---
+
 ## Enforcement & Review
 
 ### Code Review Requirements (Automated HIL)
@@ -905,6 +1306,161 @@ git push origin main
 **Questions about standards?**
 - Create GitHub issue with label `quality-standards`
 - Tag relevant section in this document
+
+---
+
+## Agent-Driven UI Patterns (DWS7)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+The DWS7 agent runtime emits events that drive real-time dashboard updates. Frontend components must handle streaming agent responses and multi-step workflow progress.
+
+### Agent Response Display
+
+| Pattern | When | Component Approach |
+|---------|------|--------------------|
+| **Single agent result** | User triggers one agent | Show loading → result card with confidence score, reasoning, recommendations |
+| **Workflow progress** | Multi-agent workflow running | Step-by-step progress bar; each step shows agent name + status (pending/running/done/failed) |
+| **Agent delegation chain** | Agent delegates to another agent | Nested cards — parent agent card contains child agent result inline |
+| **Streaming events** | SSE connection to `/mcp/sse` | Real-time event feed panel; filter by event type pattern |
+
+### Confidence Score Visualization
+
+All agent responses include a `confidence` score (0-1). Display rules:
+
+| Score Range | Visual | Label | Color |
+|-------------|--------|-------|-------|
+| 0.8 - 1.0 | Solid badge | High confidence | `text-green-400` |
+| 0.5 - 0.79 | Outlined badge | Medium confidence | `text-yellow-400` |
+| 0.0 - 0.49 | Warning badge | Low confidence | `text-red-400` |
+
+Always show the confidence score alongside agent results. Users must understand how reliable the analysis is.
+
+### Real-Time Agent Event Feed
+
+For dashboards displaying the Situation Room or live compliance monitoring:
+
+```
+EventSource connection: /mcp/sse
+
+Event types to display:
+- agent.execution_complete → "Agent completed: {agentName}"
+- compliance.gap_detected → "Compliance gap: {payload.gap}" (highlight red)
+- workflow.*.started → "Workflow started: {workflowName}"
+- workflow.*.completed → "Workflow done: {stepCount} steps"
+```
+
+**Reconnection:** If SSE connection drops, reconnect with exponential backoff (1s, 2s, 4s, max 30s).
+
+### Agent-Specific UI Components
+
+| Agent | Result Display | Key Metrics |
+|-------|---------------|-------------|
+| `compliance` | Regulation score cards + gap list + deadline timeline | Overall score, gaps count, days to deadline |
+| `sitesense` | Safety score gauge + weather risk badge + capacity bar | Safety score (0-100), risk level, worker capacity |
+| `material-oracle` | Carbon breakdown chart (A1-A3, A4, A5, B, C, D stages) | Total embodied carbon (kgCO2e), alternatives count |
+| `schedule-genius` | Gantt chart with critical path highlighted | Project duration, float days, at-risk task count |
+| `viability` | ROI card + NPV/IRR metrics + carbon credit valuation | Payback period, NPV, IRR percentage |
+| `customer-sat` | Health score donut + churn probability bar | Health score, churn %, retention recommendations |
+| `quality-gate` | Pass/Warn/Fail traffic light + blocking issues list | Quality score, blocker count, coverage % |
+
+### Workflow Progress Component
+
+For multi-agent workflows (compliance-assessment, construction-full, seo-pipeline):
+
+```
+┌─ Workflow: compliance-assessment ─────────────────┐
+│                                                     │
+│  [✓] Emissions Analysis      ── 2.3s ── 0.85      │
+│  [▶] Compliance Check        ── running...          │
+│  [ ] Viability Assessment    ── pending              │
+│  [ ] Notify Complete         ── pending              │
+│                                                     │
+│  Status: Running (step 2/4)   Timeout: 4:52         │
+└─────────────────────────────────────────────────────┘
+```
+
+- Each step shows: status icon, agent name, duration, confidence score
+- Running step pulses with animation (`animate-pulse`)
+- Failed step shows red with error message expandable
+- Completed workflow shows total duration and aggregate confidence
+
+### Dashboard Resilience Patterns (MVP)
+
+Added: 07.03.2026 | Standard for all dashboard components
+
+#### Error Boundaries
+
+Every major dashboard section MUST be wrapped in an `ErrorBoundary` component:
+
+| Section | Boundary Scope | Fallback |
+|---------|---------------|----------|
+| Metrics Header | `<ErrorBoundary>` around `<MetricsHeader />` | Error card with retry button |
+| Project Cards | Individual `<ErrorBoundary>` per card | Single card shows error; others unaffected |
+| Side Panel (Chat/Meeting/Repo) | `<ErrorBoundary>` around entire panel | Panel shows error; main content unaffected |
+| Agent Monitor | `<ErrorBoundary>` around `<AgentMonitorDashboard />` | Error card with retry |
+
+**Rules:**
+- Error boundary fallback MUST show: error icon, "Something went wrong" heading, error message (no stack), "Try again" button
+- Styling: `bg-red-50 border-red-200` card with `text-red-800` heading
+- NEVER display `err.stack` in production — only in `console.error()`
+
+#### Skeleton Loading Components
+
+Use skeleton components (not spinners) to show content shape while loading:
+
+| Component | Usage | File |
+|-----------|-------|------|
+| `<ProjectCardSkeleton />` | While projects load | `components/Skeleton.tsx` |
+| `<MetricCardSkeleton />` | While metrics load | `components/Skeleton.tsx` |
+| `<ComplianceScoreSkeleton />` | While compliance data loads | `components/Skeleton.tsx` |
+| `<TableRowSkeleton columns={N} />` | While table data loads | `components/Skeleton.tsx` |
+
+**Rules:**
+- Use `animate-pulse` for shimmer effect (TailwindCSS built-in)
+- Skeleton shape MUST match the component it replaces
+- Add `aria-hidden="true"` to skeleton elements
+- Show 4 skeleton cards for project grid (matches typical viewport)
+
+#### Empty State Components
+
+Every data section MUST have an empty state — never show blank white space:
+
+| Context | Icon | Title | CTA |
+|---------|------|-------|-----|
+| No projects | `chart` | "No projects yet" | "Run Assessment" → opens AI assistant |
+| No compliance data | `compliance` | "No compliance data yet" | "Run your first assessment" |
+| No reports | `document` | "No reports generated" | "Generate Report" |
+| Search no results | `search` | "No results found" | Adjust filters |
+
+**Rules:**
+- `EmptyState` component: centered layout, icon in `bg-gray-100` circle, title + description + optional CTA button
+- CTA button uses `bg-primary-600 hover:bg-primary-700` styling
+- Description text in `text-gray-500`, max 1-2 sentences
+
+#### useApi Hook Standard
+
+All API calls from the dashboard MUST use the `useApi` hook (`hooks/useApi.ts`):
+
+```typescript
+const { data, loading, error, execute } = useApi<ResponseType>();
+```
+
+**Rules:**
+- Auto-includes Supabase auth token in `Authorization: Bearer` header
+- Retries failed requests once with 1s delay
+- Aborts in-flight requests on component unmount (prevents memory leaks)
+- Returns `{ data, loading, error }` — components render all 3 states
+
+### Error States
+
+| State | Display | Action |
+|-------|---------|--------|
+| Agent returned `confidence: 0` | Yellow warning banner: "Low confidence — verify results manually" | Show full reasoning text |
+| Agent execution failed | Red error card with error message | "Retry" button triggers same agent with same input |
+| Workflow timed out | Orange timeout card with completed steps | "Resume" button re-triggers from last successful step |
+| LLM unavailable | Info banner: "AI analysis unavailable — showing deterministic results only" | No action needed — graceful degradation |
+| Delegation depth exceeded | Warning: "Agent chain too deep — partial results shown" | Show results from completed agents in chain |
 
 ---
 
