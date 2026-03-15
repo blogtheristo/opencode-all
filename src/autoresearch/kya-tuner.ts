@@ -282,17 +282,21 @@ export async function runKyaTuner(
     const evaluation = evaluateParams(candidateParams, sessions);
 
     // 4. EVALUATE — compare to current best using 11% Efficiency Law
-    const [kyaDecision, reason] = evaluateOptimization(bestScore, evaluation.combinedScore);
+    // NOTE: evaluateOptimization assumes "lower is better" with delta = (before - after) / before.
+    // combinedScore is "higher is better", so we invert it to a loss metric to align semantics.
+    const beforeLoss = 1 - bestScore;
+    const afterLoss = 1 - evaluation.combinedScore;
+    const [kyaDecision, reason] = evaluateOptimization(beforeLoss, afterLoss);
 
-    // Create Firehorse audit event
+    // Create Firehorse audit event (using loss metric so governance thresholds apply correctly)
     const auditEvent = createOptimizationEvent({
       agentId: cfg.agentId,
       microvmId: `tuner-experiment-${i}`,
       attestationHash: `sha256:experiment-${i}-${Date.now()}`,
       scope: 'resource_allocation',
-      metricName: 'kya_combined_score',
-      beforeValue: bestScore,
-      afterValue: evaluation.combinedScore,
+      metricName: 'kya_combined_score_loss',
+      beforeValue: beforeLoss,
+      afterValue: afterLoss,
       logBasePath: cfg.logBasePath,
     });
 
