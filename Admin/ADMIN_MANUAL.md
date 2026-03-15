@@ -24,6 +24,7 @@ Sessions & Modifications:
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
+  - Version: 2.3 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: MCP Server Expansion — cloudrun-mcp (8769), lwm-mcp (8770), claude-mcp (8771); Supabase migration 033_mcp_session_sync; docker-compose and mcp-hub updates
 
 Session Links & References:
   - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
@@ -31,7 +32,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 24.02.2026
+  - Last Modified: 23.02.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -137,7 +138,6 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **MCP Configuration** | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md) | Model Context Protocol server setup |
 | **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md) | Security framework and compliance status |
 | **Security Glossary** | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) | Security terms and OWASP references |
-| **Client Handover** | [`docs/DWS_HANDOVER.md`](../docs/DWS_HANDOVER.md) | Client handover — delivery scope, gaps, SLA, training, sign-off |
 
 ---
 
@@ -511,7 +511,7 @@ curl -X POST https://api.dws10.com/checkout/create-order \
 ## MCP Configuration
 
 **Status:** ✅ **ACTIVE**
-**Last Updated:** February 5, 2026
+**Last Updated:** February 23, 2026
 
 ### Overview
 
@@ -525,6 +525,15 @@ Model Context Protocol (MCP) connects Claude Code and other AI tools to external
 | **Upstash Redis MCP** | - | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
 | **DWS Supabase API** | 8766 | Custom REST wrapper | Docker-based |
 | **MCP Hub** | 8765 | Multi-agent workflow coordination | Temporal.io integration |
+| **CloudRun MCP** | 8769 | GCP Cloud Run management, container deployment | `GCP_PROJECT_ID`, `GCP_REGION` |
+| **LWM MCP** | 8770 | Lifetime World Model training, NVIDIA Jetson GN100 | `LWM_MCP_PORT`, `GN100_HOST`, `MLFLOW_URL` |
+| **Claude MCP** | 8771 | Claude Code session sync, git repo tools | `CLAUDE_MCP_PORT`, `REPO_PATH` |
+
+**New in v2.3 — Session Persistence:** Migration `033_mcp_session_sync.sql` adds two Supabase tables:
+- `mcp_sessions` — Persists agent branch, tool, checkpoint, and session summary across restarts
+- `mcp_migration_queue` — Tracks migration state with unique migration numbers and Supabase apply status
+
+Both tables use RLS with `service_role` policies. See `supabase/migrations/033_mcp_session_sync.sql`.
 
 ### Setup
 
@@ -736,28 +745,19 @@ app.use(cors({
 
 ---
 
-## Google Cloud Run
+## Google Cloud Run (Optional/Backup)
 
-**Status:** ✅ **ACTIVE** - Billing enabled on `admin@dws6.com`
+**Status:** ⏸️ **PENDING** - Requires billing setup
 
-### Project: dws6run6
+### Project: dws6run
 
 | Property | Value |
 |----------|-------|
-| **Project ID** | `dws6run6` |
+| **Project ID** | `dws6run` |
 | **Project Number** | `446442351781` |
 | **Region** | `europe-north1` (Finland) |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
 | **Admin Account** | `admin@dws6.com` |
-
-### Gemini for Google Cloud API
-
-| Property | Value |
-|----------|-------|
-| **Status** | ❌ **DISABLED** (17.02.2026) |
-| **Reason** | €62/month not needed — using free Gemini Code Assist in VS Code instead |
-| **Decision** | Use free Gemini Code Assist for individuals (VS Code extension, no GCP project required) |
-| **Re-enable if** | Enterprise features needed (Cloud Assist, BigQuery, Security, Looker) |
 
 ### Service Account Permissions
 
@@ -769,10 +769,10 @@ Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requ
 
 ```powershell
 # Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --project=dws6run6
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
 
 # Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run6 --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
 ```
 
 ---
@@ -1151,7 +1151,6 @@ new ConstructionAgent({
 
 - **MCP Configuration:** [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)
 - **Agent Teams field note:** [`docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md`](../docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md)
-- **Sandbox Isolation Architecture:** `DWS_SECURITY_STANDARD.md` Section 14
 
 ---
 
@@ -2533,15 +2532,6 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 - **Duration:** 8-16 hours (hands-on)
 - **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
 - **Location:** `product-catalog/LWM/training-manual.md`
-
-**What is the Lifetime World Model (LWM)?**
-
-The LWM is the **enterprise learning layer** that adds intelligence on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:
-1. **Fine-tunes enterprise data and regulation** — ingests customer operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide
-2. **Optimizes market value** — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities the enterprise would otherwise miss
-3. **Ensures competitive advantage with multi-agent tools** — by combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
-
-The 16-industry architecture compounds this value: each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns.
 
 **Topics Covered:**
 1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)

@@ -72,4 +72,31 @@ export interface SystemHealth {
   avgResponseTime: number; // ms
 }
 
-export type ViewMode = 'office' | 'control' | 'situation';
+export type ViewMode = 'office' | 'control' | 'situation' | 'runner';
+
+export interface AgentCatalogEntry {
+  name: string;
+  description: string;
+  capabilities: string[];
+  inputSchema: Record<string, AgentInputField>;
+}
+
+export interface AgentInputField {
+  type: 'string' | 'number' | 'boolean' | 'select';
+  label: string;
+  required: boolean;
+  placeholder?: string;
+  options?: string[];
+  defaultValue?: string | number | boolean;
+}
+
+export interface AgentExecutionResult {
+  agentName: string;
+  status: 'success' | 'error';
+  confidence: number;
+  reasoning: string;
+  recommendations: string[];
+  result: Record<string, unknown>;
+  durationMs: number;
+  timestamp: string;
+}

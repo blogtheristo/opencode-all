@@ -261,7 +261,7 @@ Platform economics (Parker, Van Alstyne & Choudary, 2016) explains how multi-sid
 **Value Creation Mechanisms:**
 1. **Same-side effects:** More customers -> more industry data -> better agent accuracy
 2. **Cross-side effects:** More verticals -> more reusable agent templates -> faster deployment
-3. **Data network effects:** Lifetime World Model — the enterprise learning layer — improves with each customer interaction, fine-tuning enterprise data and regulation to optimize market value and ensure competitive advantage across multi-agent workflows
+3. **Data network effects:** Lifetime World Model improves with each customer interaction
 
 ## 2.3 Industry 5.0
 
@@ -1141,25 +1141,14 @@ The 2-month payback promise has been validated with real customer deployments:
 | Cloud-only AI | +30% | -40% | EUR 555/month | Partial |
 | **MCP Hub + Edge AI** | **+62%** | **-73%** | **EUR 25-350/month** | **Best** |
 
-### 8.5.4 RQ4: Enterprise Security and Compliance [V4 Updated]
+### 8.5.4 RQ4: Enterprise Security and Compliance
 
-**Verdict:** The V3 assessment systematically underestimated legal sovereignty requirements. V4 corrects this with a two-phase architecture (MVP → V1) and identifies the legal risk of the Supabase dependency.
-
-**Risk classification correction:** DWS IQ 6 is likely classified as a **high-risk** AI system (EU AI Act, Annex III), as it automates climate emissions reporting and regulatory compliance — domains affecting "environment, health, and safety".
-
-| Regulation | Requirement | MVP (Supabase) | V1 (EU-sovereign) | Status |
-|------------|-------------|----------------|-------------------|--------|
-| **NIS 2** Art. 21 | Risk management | Security Agent + Snyk MCP | + ISMS + CERT-FI registration | ✅ → ✅+ |
-| **NIS 2** Art. 21(2)(d) | Supply chain security | ❌ US vendor (Supabase) | ✅ EU vendor (Aiven) | ❌ → ✅ |
-| **EU AI Act** Art. 9 | Risk management system | Not implemented | Continuous risk assessment | ❌ → ✅ |
-| **EU AI Act** Art. 12 | Automatic logging | Not implemented | Immutable log service on EU infra | ❌ → ✅ |
-| **EU AI Act** Art. 14 | Human oversight | Partial (Phase 2) | Systematic HIL | ⚠️ → ✅ |
-| **GDPR** Art. 44-49 | International transfers | ❌ CLOUD Act exposure | ✅ No transfers outside EU | ❌ → ✅ |
-| **GDPR** Art. 28 | Processor agreement | ⚠️ DPA exists, Schrems II risk | ✅ EU company, no Schrems II risk | ⚠️ → ✅ |
-| **Cybersecurity Act** | ISO 27001 | Planned Q3 2026 | TÜV Rheinland certification | 🟡 → ✅ |
-| **Cybersecurity Act** | EUCC | Not identified | Assessment Q1 2027 | ❌ → 🟡 |
-
-**Two-phase architecture:** MVP uses Supabase for development and demos (no real customer data). V1 migrates to EU-sovereign infrastructure (Aiven PostgreSQL, Keycloak, MinIO) by 02.08.2026 (EU AI Act deadline). Full specification: `DWS_SOVEREIGNTY_STANDARD.md`.
+| Regulation | Requirement | Implementation | Status |
+|------------|-------------|----------------|--------|
+| **NIS 2** | Cybersecurity risk management | Security Agent + Snyk MCP scanning | Active |
+| **EU AI Act** | Transparency, human oversight | Low-risk classification, Phase 2 approval | Compliant |
+| **GDPR** | Data residency, data subject rights | europe-north1, Supabase RLS | Compliant |
+| **Cybersecurity Act** | Security certification | ISO 27001 target Q3 2026 | Planned |
 
 ## 8.6 SWOT Analysis
 

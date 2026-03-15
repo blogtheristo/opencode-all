@@ -1133,25 +1133,14 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Pelkkä pilvi-AI | +30% | -40% | €555/kk | Osittain |
 | **MCP Hub + Reunatekoäly** | **+62%** | **-73%** | **€25-350/kk** | **Paras** |
 
-### 8.5.4 TK4: Yritysturvallisuus ja vaatimustenmukaisuus [V4 päivitetty]
+### 8.5.4 TK4: Yritysturvallisuus ja vaatimustenmukaisuus
 
-**Tuomio:** V3-arvio aliarvioi systemaattisesti oikeudellisen suvereniteetin vaatimukset. V4 korjaa tämän kaksivaiheisella arkkitehtuurilla (MVP → V1) ja tunnistaa Supabase-riippuvuuden oikeudellisen riskin.
-
-**Riskiarviointikorjaus:** DWS IQ 6 luokitellaan todennäköisesti **korkean riskin** tekoälyjärjestelmäksi (EU AI Act, Liite III), koska se automatisoi ilmastopäästöraportointia ja sääntelyvaatimustenmukaisuutta — toimialoja, jotka vaikuttavat "ympäristöön, terveyteen ja turvallisuuteen".
-
-| Sääntely | Vaatimus | MVP (Supabase) | V1 (EU-suvereeni) | Tila |
-|----------|----------|----------------|-------------------|------|
-| **NIS 2** Art. 21 | Riskinhallinta | Security Agent + Snyk MCP | + ISMS + CERT-FI rekist. | ✅ → ✅+ |
-| **NIS 2** Art. 21(2)(d) | Toimitusketjun turvallisuus | ❌ US-toimittaja (Supabase) | ✅ EU-toimittaja (Aiven) | ❌ → ✅ |
-| **EU AI Act** Art. 9 | Riskinhallintajärjestelmä | Ei toteutettu | Jatkuva riskiarviointi | ❌ → ✅ |
-| **EU AI Act** Art. 12 | Automaattinen lokitus | Ei toteutettu | Muuttumaton lokipalvelu EU-infralla | ❌ → ✅ |
-| **EU AI Act** Art. 14 | Ihmisen valvonta | Osittainen (Vaihe 2) | Systemaattinen HIL | ⚠️ → ✅ |
-| **GDPR** Art. 44-49 | Kansainväliset siirrot | ❌ CLOUD Act -uhka | ✅ Ei siirtoja EU:n ulkopuolelle | ❌ → ✅ |
-| **GDPR** Art. 28 | Käsittelijäsopimus | ⚠️ DPA, Schrems II -riski | ✅ EU-yritys, ei Schrems II -riskiä | ⚠️ → ✅ |
-| **Cybersecurity Act** | ISO 27001 | Suunniteltu Q3 2026 | TÜV Rheinland -sertifiointi | 🟡 → ✅ |
-| **Cybersecurity Act** | EUCC | Ei tunnistettu | Arviointi Q1 2027 | ❌ → 🟡 |
-
-**Kaksivaiheinen arkkitehtuuri:** MVP käyttää Supabasea kehityksessä ja demoissa (ei oikeaa asiakasdata). V1 siirtyy EU-suvereenille infrastruktuurille (Aiven PostgreSQL, Keycloak, MinIO) viimeistään 02.08.2026 (EU AI Act -deadline). Täydellinen kuvaus: `DWS_SOVEREIGNTY_STANDARD.md`.
+| Sääntely | Vaatimus | Toteutus | Tila |
+|----------|----------|----------|------|
+| **NIS 2** | Kyberturvallisuuden riskinhallinta | Security Agent + Snyk MCP -skannaus | Aktiivinen |
+| **EU AI Act** | Läpinäkyvyys, ihmisen valvonta | Matalan riskin luokitus, Vaihe 2 hyväksyntä | Yhteensopiva |
+| **GDPR** | Datan sijainti, rekisteröidyn oikeudet | europe-north1, Supabase RLS | Yhteensopiva |
+| **Cybersecurity Act** | Turvallisuussertifiointi | ISO 27001 tavoite Q3 2026 | Suunniteltu |
 
 ## 8.6 SWOT-analyysi
 
