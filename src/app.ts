@@ -362,6 +362,107 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
   }
 });
 
+// Captain inquiry status update — triggers pre-briefing email on "booked"
+app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const { id } = req.params;
+  const { status } = req.body;
+  const validStatuses = ['new', 'contacted', 'booked', 'closed'];
+
+  if (!status || !validStatuses.includes(status)) {
+    res.status(400).json({ error: 'Invalid status', valid: validStatuses });
+    return;
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    res.status(500).json({ error: 'Supabase not configured' });
+    return;
+  }
+
+  try {
+    // Fetch the inquiry first (need name/email/industry for the email)
+    const fetchRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}&select=name,email,industry,seat_level,status`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
+    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    if (rows.length === 0) {
+      res.status(404).json({ error: 'Inquiry not found' });
+      return;
+    }
+
+    const inquiry = rows[0];
+
+    // Update status
+    const updateRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
+
+    // If status changed to "booked", send pre-briefing email
+    let emailSent = false;
+    if (status === 'booked' && inquiry.status !== 'booked') {
+      try {
+        const emailService = (await import('./services/email.service.js')).default;
+        await emailService.sendCaptainPreBriefing(
+          inquiry.email,
+          inquiry.name,
+          inquiry.industry,
+          inquiry.seat_level
+        );
+        emailSent = true;
+        logger.info('Captain pre-briefing email sent', {
+          to: inquiry.email,
+          industry: inquiry.industry,
+        });
+      } catch (emailErr) {
+        const msg = emailErr instanceof Error ? emailErr.message : 'Unknown error';
+        logger.error('Captain pre-briefing email failed', { error: msg, to: inquiry.email });
+        // Don't fail the status update if email fails
+      }
+    }
+
+    res.json({
+      status: 'updated',
+      inquiry_id: id,
+      new_status: status,
+      email_sent: emailSent,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Captain inquiry status update failed', { error: msg, id });
+    res.status(500).json({ error: 'Update failed', message: msg });
+  }
+});
+
 // ============ ERROR HANDLING ============
 
 // 404 handler

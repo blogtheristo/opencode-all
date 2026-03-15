@@ -76,14 +76,43 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 </ul>
 </li>
 </ul>
-<h2>The 5 DWS IQ Agents</h2>
+<h2>18 AI Agents — Agentic Architecture</h2>
+<p>DWS IQ 6 runs a production-grade <strong>multi-agent system</strong> with observe-think-act agentic loops, tool use, and agent-to-agent delegation. All agents are discoverable via MCP (Model Context Protocol) and CLI.</p>
+<h3>Core Agents</h3>
 <ol>
-<li><strong>Data Validator:</strong> Checks incoming streams for quality and consistency.</li>
-<li><strong>Compliance Monitor:</strong> Tracks real-time performance against EU regulations (ETS, CSRD).</li>
-<li><strong>Integration Agent:</strong> Manages secure connections to SAP, ERP, and IoT devices.</li>
-<li><strong>Security Guardian:</strong> Enforces NIS2-compliant access controls and encryption.</li>
-<li><strong>Orchestrator:</strong> Manages the flow of data between the Core and Firehorse apps.</li>
+<li><strong>SiteSense:</strong> Construction site safety, weather, and progress monitoring.</li>
+<li><strong>ScheduleGenius:</strong> Project scheduling with dependency tracking and delay prediction.</li>
+<li><strong>MaterialOracle:</strong> Carbon footprint analysis per EN 15978 lifecycle assessment (A1-D).</li>
+<li><strong>CustomerSat:</strong> Customer satisfaction tracking and NPS analysis.</li>
+<li><strong>Viability:</strong> Financial viability assessment for construction and infrastructure projects.</li>
+<li><strong>Compliance:</strong> Real-time EU regulatory compliance checks (ETS, CSRD, CBAM, EPBD).</li>
+<li><strong>QualityGate:</strong> Code and data quality validation against DWS standards.</li>
 </ol>
+<h3>Research &amp; Extraction Agents</h3>
+<ol start="8">
+<li><strong>DeepWikiExtractor:</strong> Automated extraction from regulatory documentation.</li>
+<li><strong>EmissionsDataAnalyst:</strong> Scope 1, 2, 3 emissions data analysis and gap detection.</li>
+<li><strong>ComplianceResearcher:</strong> EU regulatory research and impact assessment.</li>
+<li><strong>SalesOutreach:</strong> Automated prospect research and outreach orchestration.</li>
+</ol>
+<h3>Orchestration Agents</h3>
+<ol start="12">
+<li><strong>Construction:</strong> End-to-end construction project orchestration (delegates to SiteSense, MaterialOracle, ScheduleGenius).</li>
+<li><strong>Logistics:</strong> Supply chain and fleet logistics optimization.</li>
+</ol>
+<h3>SEO Sales Pipeline (5 Agents)</h3>
+<ol start="14">
+<li><strong>KeywordIntent:</strong> Keyword research and search intent analysis.</li>
+<li><strong>CompetitorSurveillance:</strong> Competitive intelligence monitoring.</li>
+<li><strong>ContentBrief:</strong> Automated content brief generation.</li>
+<li><strong>SeoAudit:</strong> Technical SEO and site audit.</li>
+<li><strong>LeadFeedback:</strong> Lead quality scoring and feedback loops.</li>
+</ol>
+<h3>Multi-Agent Workflows</h3>
+<ul>
+<li><strong>compliance-assessment:</strong> Emissions analysis → Compliance check (sequential)</li>
+<li><strong>construction-full:</strong> SiteSense + MaterialOracle + ScheduleGenius → Construction (parallel then sequential)</li>
+<li><strong>seo-pipeline:</strong> Keywords → Competitors → Content Brief (sequential)</li>
 <h2>DWS Data Sovereignty Standard</h2>
 <p><strong>Your database governed by 11 EU regulations.</strong></p>
 <p>DWS IQ 6 includes the DWS Data Sovereignty Standard &mdash; a comprehensive governance framework that maps every storage decision to EU regulatory requirements:</p>
@@ -96,15 +125,18 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 </ul>
 <h2>Technical Specifications</h2>
 <ul>
-<li><strong>Deployment:</strong> Google Cloud Run, Azure Private Link, or On-Premises.</li>
-<li><strong>Integration:</strong> Standard connectors for SAP S/4HANA, Microsoft Dynamics, Salesforce.</li>
-<li><strong>Security:</strong> NIS2 Compliant, Encryption at Rest and in Transit.</li>
-<li><strong>Architecture:</strong> Event-Driven Microservices (Python/FastAPI).</li>
+<li><strong>Deployment:</strong> Google Cloud Run (europe-north1, Finland), Azure Private Link, or On-Premises.</li>
+<li><strong>Integration:</strong> Standard connectors for SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365.</li>
+<li><strong>Security:</strong> NIS2 Compliant, Encryption at Rest and in Transit, EU Data Residency.</li>
+<li><strong>Architecture:</strong> Express/TypeScript with MCP Agent Server, event-driven pub/sub bus, multi-provider LLM client (Anthropic Claude, Groq, OpenAI-compatible).</li>
+<li><strong>Agent Protocol:</strong> MCP (Model Context Protocol) JSON-RPC 2.0 — all 18 agents auto-discoverable by Claude Code, Cursor, VS Code.</li>
+<li><strong>CLI Access:</strong> <code>dws agents</code>, <code>dws run &lt;agent&gt;</code>, <code>dws workflow &lt;name&gt;</code> — JSON output, pipeable.</li>
+<li><strong>EU AI Act:</strong> Article 12 compliant — automatic reasoning lineage logging per agentic loop iteration.</li>
 </ul>
 <hr />
 <h3>References</h3>
-<p>¹ <strong>Gartner.</strong> (2023). <em>Data Management for the AI Era</em>. (Estimates automation reduces data preparation overhead by 40%).
-*   <strong>EU Commission.</strong> (2023). <em>Fit for 55 Package Legislation</em>.</p>
+<p>¹ <strong>Gartner.</strong> (October 2025). <em>2026 Planning Guide for Data Management</em>. AI-driven data automation platforms commonly deliver 30–50% reductions in data preparation time (Gartner, Forrester, IDC 2024–2025).</p>
+<p>² <strong>EU Council &amp; European Commission.</strong> (2023–2025). <em>Fit for 55 Legislative Package</em> (as amended). Directive (EU) 2023/959 (ETS reform), Regulation (EU) 2023/956 (CBAM). Includes 2025 CBAM simplification proposal and December 2025 provisional agreement on 2040 climate target (90% net GHG reduction). <a href="https://www.consilium.europa.eu/en/policies/fit-for-55/" style="color: #60a5fa;">consilium.europa.eu/en/policies/fit-for-55/</a></p>
         </div>
         <div style="background: rgba(0,51,153,0.06); border: 1px solid rgba(0,51,153,0.2); border-radius: 10px; padding: 20px; margin: 28px 0;">
             <p style="font-weight:700; color: #0a1628; margin-bottom: 8px;">🖥️ Maximum Sovereignty: Add the On-Premises Hardware Layer</p>
