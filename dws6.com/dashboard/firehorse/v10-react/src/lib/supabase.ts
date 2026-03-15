@@ -199,6 +199,89 @@ export async function fetchInsightsData() {
   // Generate demo trend data (in production, this would come from historical tables)
   const demoData = generateDemoInsightsData();
 
+  // Helper to calculate status distribution with percentages summing to 100
+  const calculateStatusDistribution = (
+    greenCount: number,
+    amberCount: number,
+    redCount: number,
+    totalCount: number,
+  ): { status: 'green' | 'amber' | 'red'; count: number; percentage: number }[] => {
+    if (totalCount === 0) {
+      return [
+        { status: 'green', count: 0, percentage: 0 },
+        { status: 'amber', count: 0, percentage: 0 },
+        { status: 'red', count: 0, percentage: 0 },
+      ];
+    }
+
+    const items: {
+      status: 'green' | 'amber' | 'red';
+      count: number;
+      raw: number;
+      floor: number;
+      frac: number;
+    }[] = [
+      {
+        status: 'green',
+        count: greenCount,
+        raw: (greenCount / totalCount) * 100,
+        floor: 0,
+        frac: 0,
+      },
+      {
+        status: 'amber',
+        count: amberCount,
+        raw: (amberCount / totalCount) * 100,
+        floor: 0,
+        frac: 0,
+      },
+      {
+        status: 'red',
+        count: redCount,
+        raw: (redCount / totalCount) * 100,
+        floor: 0,
+        frac: 0,
+      },
+    ];
+
+    let sumFloors = 0;
+    for (const item of items) {
+      const floored = Math.floor(item.raw);
+      item.floor = floored;
+      item.frac = item.raw - floored;
+      sumFloors += floored;
+    }
+
+    let remainder = 100 - sumFloors;
+
+    if (remainder > 0) {
+      // Distribute remaining percentage points to items with largest fractional parts
+      const sortedByFrac = [...items].sort((a, b) => b.frac - a.frac);
+      let index = 0;
+      while (remainder > 0) {
+        sortedByFrac[index % sortedByFrac.length].floor += 1;
+        remainder -= 1;
+        index += 1;
+      }
+    }
+
+    // Map back to the original order: green, amber, red
+    const floorsByStatus: Record<'green' | 'amber' | 'red', number> = {
+      green: 0,
+      amber: 0,
+      red: 0,
+    };
+    for (const item of items) {
+      floorsByStatus[item.status] = item.floor;
+    }
+
+    return [
+      { status: 'green', count: greenCount, percentage: floorsByStatus.green },
+      { status: 'amber', count: amberCount, percentage: floorsByStatus.amber },
+      { status: 'red', count: redCount, percentage: floorsByStatus.red },
+    ];
+  };
+
   // Calculate actual status distribution if we have projects
   let statusDistribution = demoData.statusDistribution;
   if (projects && projects.length > 0) {
@@ -207,11 +290,7 @@ export async function fetchInsightsData() {
     const red = projects.filter(p => p.status === 'red').length;
     const total = projects.length;
 
-    statusDistribution = [
-      { status: 'green' as const, count: green, percentage: Math.round((green / total) * 100) },
-      { status: 'amber' as const, count: amber, percentage: Math.round((amber / total) * 100) },
-      { status: 'red' as const, count: red, percentage: Math.round((red / total) * 100) },
-    ];
+    statusDistribution = calculateStatusDistribution(green, amber, red, total);
   }
 
   // Get top carbon projects
