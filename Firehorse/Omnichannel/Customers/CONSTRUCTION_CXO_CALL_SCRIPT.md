@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Removed Deputy Captain price (TBD per memo v3.1, not €25K), replaced sequential funnel math with parallel outreach model (LinkedIn DM + email + calls simultaneously), added channel saturation warning for 88-contact pool
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Initial creation — construction industry CXO sales call script with Captain seat pitch, objection handling, CSRD/EPBD/Fit for 55 pain points, Monitor ERP integration hook
 
 Session Links & References:
@@ -23,7 +24,7 @@ Document Status:
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-SALES-CALL-001 |
-| **Version** | 1.0 |
+| **Version** | 1.1 |
 | **Date** | 2026-03-15 |
 | **Owner** | Risto Paarni, CEO |
 | **Status** | Active |
@@ -210,7 +211,18 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 | Keskimääräinen soiton kesto | 8–12 min |
 | Demo-varauksia per viikko | 3–5 |
 
-**Funnel-aritmetiikka:** 80 first touch → 30 soittoa → 12 demoa → 4 Captain-keskustelua → 1 Captain allekirjoitus. Tavoite: 8 Captainia = ~640 first touchia.
+**Funnel-aritmetiikka (rinnakkaiskanavat):** Rakennusalan kontaktilista on 88 CEO/CXO-kontaktia. Yhdellä kanavalla peräkkäin tämä riittää yhteen Captainiin. Siksi kaikkia kolmea kanavaa ajetaan samanaikaisesti:
+
+| Kanava | Kontaktit | Konversio demoon | Demoja |
+|--------|-----------|------------------|--------|
+| LinkedIn DM | 88 | 15% | 13 |
+| Sähköposti | 88 | 10% | 9 |
+| Puhelu (tämä runko) | 30 (lämpimät) | 40% | 12 |
+| **Yhteensä (deduplikoitu)** | **88 uniikkia** | — | **~20–25 demoa** |
+
+20–25 demoa → 6–8 Captain-keskustelua → 2–3 allekirjoitusta. Tämä on realistinen tavoite 88 kontaktilla.
+
+**Kriittinen:** LinkedIn DM ja sähköposti lähtevät viikko 1. Soitot alkavat viikko 2 lämpimiin kontakteihin (vastannut DM:ään tai avannut sähköpostin). Älä soita kylmänä koko listaa.
 
 ---
 
@@ -218,7 +230,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 
 - **Pilottiyhtiöt:** 2 kpl, €59 900 allekirjoitettu
 - **Captain-hinta:** €50 000 SAFE (20% alennus, MFN, €3.8M cap)
-- **Deputy Captain:** €25 000 SAFE
+- **Deputy Captain:** hinta TBD (ei mainita soitossa ennen kuin lukittu)
 - **Rakennusalan paikka:** FILLING — kiire
 - **Arctic 15:** Helsinki, 15.6.2026 — V1-julkaisu
 - **MRR:** €7–14K nykyinen
