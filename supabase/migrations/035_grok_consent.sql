@@ -42,7 +42,7 @@ COMMENT ON TABLE grok_consent IS
   'GDPR Art. 6(1)(a) — EU AI Act high-risk AI logging basis.';
 
 -- ============ grok_consent_audit ============
--- Immutable log — no UPDATE/DELETE allowed via RLS
+-- Append-only log — immutability enforced by triggers in migration 036
 
 CREATE TABLE IF NOT EXISTS grok_consent_audit (
   id           BIGSERIAL PRIMARY KEY,
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS grok_consent_audit (
 );
 
 COMMENT ON TABLE grok_consent_audit IS
-  'Immutable consent event log. Supports GDPR accountability '
-  'and regulator audit requests.';
+  'Append-only consent event log. UPDATE/DELETE rejected by trigger. '
+  'Supports GDPR accountability and regulator audit requests.';
 
 -- ============ grok_inference_log ============
 -- Article 12 trace — no prompt/response content, only metadata
@@ -76,6 +76,8 @@ CREATE TABLE IF NOT EXISTS grok_inference_log (
 );
 
 COMMENT ON TABLE grok_inference_log IS
+  'Append-only EU AI Act Article 12 log. UPDATE/DELETE rejected by trigger. '
+  'Records metadata only — no prompt or response content. Retention: 7 years.';
   'EU AI Act Article 12 automatic log with KYA governance metadata. '
   'Records metadata only — no prompt or response content is stored. '
   'KYA trust score and permission level captured per call. Retention: 7 years.';
@@ -87,9 +89,34 @@ CREATE INDEX IF NOT EXISTS idx_grok_inference_log_org_id
 CREATE INDEX IF NOT EXISTS idx_grok_consent_audit_org_id
   ON grok_consent_audit (org_id, occurred_at DESC);
 
--- ============ RLS: Service Role Only ============
--- All tables are accessible only via service role key (backend).
--- No direct client-side access.
+-- ============ IMMUTABILITY TRIGGERS ============
+-- Enforce append-only semantics at the trigger level.
+-- Triggers fire BEFORE the operation and raise an exception, blocking
+-- the write regardless of the caller's role (including service role).
+
+CREATE OR REPLACE FUNCTION fn_reject_audit_mutation()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  RAISE EXCEPTION
+    'Table % is append-only (GDPR / EU AI Act Article 12). '
+    'UPDATE and DELETE are not permitted.',
+    TG_TABLE_NAME;
+END;
+$$;
+
+CREATE TRIGGER trg_grok_consent_audit_immutable
+  BEFORE UPDATE OR DELETE ON grok_consent_audit
+  FOR EACH ROW EXECUTE FUNCTION fn_reject_audit_mutation();
+
+CREATE TRIGGER trg_grok_inference_log_immutable
+  BEFORE UPDATE OR DELETE ON grok_inference_log
+  FOR EACH ROW EXECUTE FUNCTION fn_reject_audit_mutation();
+
+-- ============ RLS: Block Direct Client Access ============
+-- Service role bypasses RLS (Supabase default), so RLS alone cannot
+-- enforce immutability — that is handled by the triggers above.
+-- RLS here prevents anonymous/authenticated JWT access to raw tables;
+-- all queries go through the backend API (/api/grok-consent/:orgId/audit).
 
 ALTER TABLE grok_consent ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grok_consent_audit ENABLE ROW LEVEL SECURITY;
@@ -97,6 +124,8 @@ ALTER TABLE grok_inference_log ENABLE ROW LEVEL SECURITY;
 
 -- Explicit service_role policies (consistent with other migrations).
 -- Anon/authenticated roles have no policies and therefore no access.
+-- Note: service_role bypasses RLS by default in Supabase, but explicit
+-- policies are kept for documentation and cross-migration consistency.
 
 CREATE POLICY grok_consent_service_role_all
   ON grok_consent
@@ -118,4 +147,3 @@ CREATE POLICY grok_inference_log_service_role_all
   TO service_role
   USING (true)
   WITH CHECK (true);
--- Dashboard queries go through the backend API (/api/grok-consent/:orgId/audit).

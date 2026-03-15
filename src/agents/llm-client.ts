@@ -31,11 +31,12 @@ export interface LLMClientConfig {
 }
 
 /** Resolve provider config from environment + agent config */
-export function resolveProvider(
-  agentModel: string,
-  opts?: { orgId?: string },
-): LLMClientConfig | null {
-  // Priority: ANTHROPIC_API_KEY > GROK_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
+export function resolveProvider(agentModel: string): LLMClientConfig | null {
+  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > GROK_API_KEY > OPENAI_API_KEY
+  // NOTE: Grok is intentionally lower priority than Groq.  Grok requires an
+  // explicit per-org consent check on every call (GDPR + EU AI Act Art. 12),
+  // so routing existing agents through Grok without orgId would throw.  Groq
+  // is the safe default for general-purpose agents that don't carry orgId.
   if (process.env.ANTHROPIC_API_KEY) {
     return {
       provider: 'anthropic',
@@ -43,6 +44,17 @@ export function resolveProvider(
       baseUrl: 'https://api.anthropic.com/v1',
       model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
       maxTokens: 4096,
+      temperature: 0.3,
+    };
+  }
+
+  if (process.env.GROQ_API_KEY) {
+    return {
+      provider: 'groq',
+      apiKey: process.env.GROQ_API_KEY,
+      baseUrl: 'https://api.groq.com/openai/v1',
+      model: agentModel || 'llama-3.3-70b-versatile',
+      maxTokens: 1024,
       temperature: 0.3,
     };
   }
@@ -58,17 +70,6 @@ export function resolveProvider(
       baseUrl: 'https://api.x.ai/v1',
       model: process.env.GROK_MODEL || 'grok-3',
       maxTokens: 4096,
-      temperature: 0.3,
-    };
-  }
-
-  if (process.env.GROQ_API_KEY) {
-    return {
-      provider: 'groq',
-      apiKey: process.env.GROQ_API_KEY,
-      baseUrl: 'https://api.groq.com/openai/v1',
-      model: agentModel || 'llama-3.3-70b-versatile',
-      maxTokens: 1024,
       temperature: 0.3,
     };
   }
