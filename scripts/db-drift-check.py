@@ -33,11 +33,9 @@ Date: 2026-02-10
 
 import argparse
 import hashlib
-import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 try:
@@ -54,8 +52,12 @@ except ImportError:
 
 # Import shared alert module (single source of truth for publishing)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from dws_alerts import publish_alert, run_advisor_check, REDIS_HOST, REDIS_PORT  # noqa: E402
-
+from dws_alerts import (  # noqa: E402
+    REDIS_HOST,
+    REDIS_PORT,
+    publish_alert,
+    run_advisor_check,
+)
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -105,44 +107,38 @@ def get_live_tables() -> set[str]:
     except Exception:
         pass
 
-    if not SUPABASE_URL:
-        print("WARNING: SUPABASE_URL not set. Skipping live table comparison.")
-        return set()
+    # 2. Try Supabase PostgREST OpenAPI spec
+    if SUPABASE_URL and SUPABASE_KEY:
+        url = f"{SUPABASE_URL}/rest/v1/"
+        headers = {
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Accept": "application/openapi+json",
+        }
+        try:
+            resp = httpx.get(url, headers=headers, timeout=15)
+            if resp.status_code == 200:
+                data = resp.json()
+                # OpenAPI spec has paths like /table_name and /rpc/func_name
+                tables = set()
+                for path in data.get("paths", {}):
+                    table = path.lstrip("/")
+                    if table and not table.startswith("rpc/"):
+                        tables.add(table)
+                if tables:
+                    return tables
+                print("ERROR: Supabase REST returned an empty table list.")
+                print("  Check that SUPABASE_SERVICE_KEY has service_role privileges.")
+            else:
+                print(f"ERROR: Supabase REST returned {resp.status_code}. Cannot enumerate live tables.")
+                print(f"  URL: {SUPABASE_URL}")
+        except Exception as e:
+            print(f"ERROR: Failed to reach Supabase ({SUPABASE_URL}): {e}")
 
-    if not SUPABASE_KEY:
-        print("ERROR: SUPABASE_SERVICE_KEY not set. Cannot enumerate live tables via Supabase REST.")
-        print("  Set SUPABASE_SERVICE_KEY (service_role key) to enable live table comparison.")
         print("  Live table comparison will be skipped.")
         return set()
 
-    # 2. Try Supabase PostgREST OpenAPI spec
-    url = f"{SUPABASE_URL}/rest/v1/"
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
-        "Accept": "application/openapi+json",
-    }
-    try:
-        resp = httpx.get(url, headers=headers, timeout=15)
-        if resp.status_code == 200:
-            data = resp.json()
-            # OpenAPI spec has paths like /table_name and /rpc/func_name
-            tables = set()
-            for path in data.get("paths", {}).keys():
-                table = path.lstrip("/")
-                if table and not table.startswith("rpc/"):
-                    tables.add(table)
-            if tables:
-                return tables
-            print("ERROR: Supabase REST returned an empty table list.")
-            print("  Check that SUPABASE_SERVICE_KEY has service_role privileges.")
-        else:
-            print(f"ERROR: Supabase REST returned {resp.status_code}. Cannot enumerate live tables.")
-            print(f"  URL: {SUPABASE_URL}")
-    except Exception as e:
-        print(f"ERROR: Failed to reach Supabase ({SUPABASE_URL}): {e}")
-
-    print("  Live table comparison will be skipped.")
+    print("WARNING: SUPABASE_URL not set. Skipping live table comparison.")
     return set()
 
 
@@ -235,12 +231,12 @@ def run_plan(dry_run: bool = False):
             if table_name:
                 rls_enabled_tables.add(table_name.lower())
 
-    for table, files in migration_tables.items():
+    for table, _files in migration_tables.items():
         if table not in rls_enabled_tables:
             no_rls_tables.append(table)
 
     if no_rls_tables:
-        print(f"\n[SECURITY] Tables without RLS in migrations:")
+        print("\n[SECURITY] Tables without RLS in migrations:")
         for t in no_rls_tables:
             print(f"  ! {t}")
 
@@ -257,7 +253,7 @@ def run_plan(dry_run: bool = False):
         unapplied = repo_tables - live_tables
 
         if unmigrated:
-            print(f"\n[DRIFT] Tables in live DB but NOT in migration files:")
+            print("\n[DRIFT] Tables in live DB but NOT in migration files:")
             for t in sorted(unmigrated):
                 print(f"  ! {t}")
                 drift_alerts.append({
@@ -267,7 +263,7 @@ def run_plan(dry_run: bool = False):
                 })
 
         if unapplied:
-            print(f"\n[PENDING] Tables in migrations but NOT in live DB:")
+            print("\n[PENDING] Tables in migrations but NOT in live DB:")
             for t in sorted(unapplied):
                 files = migration_tables.get(t, [])
                 print(f"  ? {t} (defined in: {', '.join(files)})")

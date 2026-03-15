@@ -15,10 +15,9 @@ Auth: Bearer token (MCP_GATEWAY_API_KEY env var)
 Secrets: Google Secret Manager or environment variables
 """
 
-import json
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from mcp.server.fastmcp import FastMCP
@@ -284,7 +283,7 @@ def github_list_issues(
                 "title": i["title"],
                 "state": i["state"],
                 "author": i["user"]["login"],
-                "labels": [l["name"] for l in i.get("labels", [])],
+                "labels": [label["name"] for label in i.get("labels", [])],
                 "created_at": i["created_at"],
                 "url": i["html_url"],
             }
@@ -470,7 +469,7 @@ def gateway_health() -> dict[str, Any]:
     """Check the health of the MCP gateway and connected services."""
     status: dict[str, Any] = {
         "gateway": "healthy",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "services": {},
     }
 

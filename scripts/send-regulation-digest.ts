@@ -8,13 +8,9 @@
  * Usage:
  *   npx tsx scripts/send-regulation-digest.ts
  *
- * Required env vars:
- *   RESEND_API_KEY
- *
- * Optional env vars:
- *   REGULATION_DIGEST_EMAIL (default: risto@lifetime.fi)
- *   EMAIL_FROM (default: risto@onelifetime.world)
- *   SKIP_TIME_CHECK (default: false)
+ * Email: risto@onelifetime.world (Amazon SES primary, Resend fallback)
+ * Required: SMTP_* (SES) or RESEND_API_KEY
+ * Optional: REGULATION_DIGEST_EMAIL, EMAIL_FROM, SKIP_TIME_CHECK
  */
 
 import dotenv from 'dotenv';
@@ -25,6 +21,7 @@ import {
   buildRegulationDigestHtml,
   buildRegulationDigestPlainText,
 } from '../src/regulation-monitor/digest-template.js';
+import { sendEmail } from '../src/utils/send-email.js';
 
 async function main(): Promise<void> {
   // Helsinki time guard (same pattern as morning briefing)
@@ -50,7 +47,7 @@ async function main(): Promise<void> {
 
   const recipient = process.env.REGULATION_DIGEST_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const resendKey = process.env.RESEND_API_KEY;
+  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
 
   // Step 1: Fetch regulatory news
   console.log('Fetching regulatory news from EU sources...');
@@ -71,13 +68,13 @@ async function main(): Promise<void> {
   const html = buildRegulationDigestHtml(digest);
   const text = buildRegulationDigestPlainText(digest);
 
-  if (!resendKey) {
-    console.log('\n--- No RESEND_API_KEY, printing to console ---\n');
+  if (!hasTransport) {
+    console.log('\n--- No SMTP or RESEND_API_KEY, printing to console ---\n');
     console.log(text);
     return;
   }
 
-  // Step 3: Send via Resend
+  // Step 3: Send (SMTP/SES primary, Resend fallback)
   const dateStr = new Date().toLocaleDateString('en-GB', {
     weekday: 'short',
     month: 'short',
@@ -88,31 +85,22 @@ async function main(): Promise<void> {
 
   console.log(`\nSending: "${subject}" → ${recipient}`);
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text,
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
+      'X-DWS-Email-Type': 'regulation-monitor',
+      'X-DWS-Urgent-Count': String(digest.urgentItems.length),
     },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      subject,
-      html,
-      text,
-      headers: {
-        'X-DWS-Email-Type': 'regulation-monitor',
-        'X-DWS-Urgent-Count': String(digest.urgentItems.length),
-      },
-    }),
   });
 
-  if (response.ok) {
-    const result = (await response.json()) as { id: string };
-    console.log(`Regulation digest sent (id: ${result.id})`);
+  if (result.ok) {
+    console.log(`Regulation digest sent via ${result.transport}`);
   } else {
-    const errorBody = await response.text();
-    console.error('Failed to send regulation digest:', response.status, errorBody);
+    console.error('Failed to send:', result.error);
     process.exit(1);
   }
 }

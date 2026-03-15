@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 11 (Usage Metering & Billing Rules) — tier definitions (Free/Pro/Enterprise), metering categories, billing event triggers, customer-facing usage dashboard
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-sales-strategy-1p5VB | Date: 13.02.2026 | Changes: Initial creation - DWS Product Standard establishing authoritative pricing, product taxonomy, two-channel model, and quality rules for all DWS IQ 6, Firehorse, and Lifetime products
 
 Session Links & References:
@@ -157,7 +158,7 @@ Both channels serve the same product, but different buying contexts. The store s
 | FH-AUTO-001 | Firehorse Automation | **€4,950** | One-time per project | |
 | LIFETIME-BUNDLE-2026 | Climate Reporting Starter Bundle | **€6,500** | One-time setup | + €1,999/year |
 | FH-OMNI-001 | Firehorse Omnichannel Next | **€1,499** | One-time per campaign | **UPDATED from €499** |
-| FH-RPT-001 | Firehorse Report | **€1,999** | One-time per template | |
+| FH-RPT-001 | DWS IQ Report | **€1,999** | One-time per template | |
 | FH-CMS-001 | Firehorse Content Management | **€2,999** | One-time setup + migration | |
 
 ### 4.2 Enterprise Subscription Tiers (Enterprise Direct Channel)
@@ -438,7 +439,7 @@ Example: 6.1.0 = DWS 6, first product revision, initial release
 |---------------|----------------|----------|---------------------|
 | DWS IQ Platform | **v6.0** | DWS 6 | v7.0 |
 | Firehorse Automation | **v6.1.0** | DWS 6 | v7.1.0 |
-| Firehorse Report | **v6.1.0** | DWS 6 | v7.1.0 |
+| DWS IQ Report | **v6.1.0** | DWS 6 | v7.1.0 |
 | Firehorse Omnichannel | **v6.1.0** | DWS 6 | v7.1.0 |
 | Firehorse Content Management | **v6.1.0** | DWS 6 | v7.1.0 |
 | Climate Reporting Bundle | **v6.1.0** | DWS 6 | v7.1.0 |
@@ -558,6 +559,46 @@ When updating any product price:
 | 13.02.2026 | AI Agent Engineering | €99/hr | €150/hr | Aligned with consulting floor | Product Standard v1.0 |
 | 13.02.2026 | Firehorse Omnichannel | €499 | €1,499 | Undervalued AI campaign engine | Product Standard v1.0 |
 | 13.02.2026 | Workshop 3 Days | €4,500 | €6,500 | Below cost floor | Product Standard v1.0 |
+
+***
+
+## 11. Usage Metering & Billing Rules
+
+Added: 08.03.2026 | Session: claude/build-mvp-features-nFk7k
+
+### 11.1 Subscription Tiers
+
+| Tier | Target Customer | Monthly Price | API Calls | Assistant Messages | Report Exports | Max Projects |
+|------|----------------|---------------|-----------|-------------------|----------------|-------------|
+| Free | Trial / Evaluation | €0 | 100 | 20 | 2 | 1 |
+| Pro | SME / Mid-market | €499/mo | 5,000 | 500 | 50 | 10 |
+| Enterprise | Large / Regulated | Custom | 100,000 | 10,000 | 500 | 100 |
+
+### 11.2 Metering Categories
+
+| Category | What Counts | Example |
+|----------|------------|---------|
+| API Call | Any authenticated request to `/api/v1/*` | GET `/api/v1/compliance/registry` |
+| Assistant Message | Each message sent to the AI Climate Assistant | POST `/api/climate-assistant` |
+| Report Export | Each compliance report download (CSV/JSON) | POST `/api/v1/reports/export` |
+
+### 11.3 Billing Event Triggers
+
+- **80% usage**: Email notification to user
+- **100% usage**: API returns 429 with upgrade guidance
+- **Period reset**: First of each calendar month (UTC)
+
+### 11.4 Customer-Facing Usage Dashboard
+
+Available at: Settings → Usage & Plan (in DWS IQ Dashboard)
+
+Displays: progress bars per metering category, current tier, billing period start, percentage utilization with color coding (green < 70%, amber 70-90%, red > 90%).
+
+### 11.5 Self-Service API Key Management
+
+Customers can generate, list, and revoke API keys from the Settings page. Keys are scoped to specific capabilities (e.g., `compliance:read`, `reports:export`). Maximum 10 active keys per user.
+
+**Included in all tiers** — no additional charge for API key management.
 
 ***
 

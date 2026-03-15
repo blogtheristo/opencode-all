@@ -84,6 +84,16 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 <li><strong>Security Guardian:</strong> Enforces NIS2-compliant access controls and encryption.</li>
 <li><strong>Orchestrator:</strong> Manages the flow of data between the Core and Firehorse apps.</li>
 </ol>
+<h2>DWS Data Sovereignty Standard</h2>
+<p><strong>Your database governed by 11 EU regulations.</strong></p>
+<p>DWS IQ 6 includes the DWS Data Sovereignty Standard &mdash; a comprehensive governance framework that maps every storage decision to EU regulatory requirements:</p>
+<ul>
+<li><strong>Two-Tier HTAP Architecture:</strong> Aiven PostgreSQL (EU Finland) for production + on-premises edge nodes for local analytics. Both tiers EU-sovereign, zero CLOUD Act exposure.</li>
+<li><strong>TimescaleDB Hypercore:</strong> 90&ndash;98% compression on audit logs. 10&ndash;100&times; faster analytics. The only columnar engine approved on EU-managed Aiven.</li>
+<li><strong>Retention policies per regulation:</strong> EU AI Act Art 12 (7yr immutable audit), GDPR Art 17 (erasure rights), NIS2 (5yr incidents), Finnish Accounting Act (10yr), CSRD (ESG traceability).</li>
+<li><strong>Extension governance:</strong> Every PostgreSQL extension assessed for EU sovereignty (vendor HQ, DPA, Schrems II, telemetry). No unapproved extensions in production.</li>
+<li><strong>KYA Agent Trust Scores:</strong> Hardware-attested isolation governs which agents access which data tiers. Court-defensible audit trails.</li>
+</ul>
 <h2>Technical Specifications</h2>
 <ul>
 <li><strong>Deployment:</strong> Google Cloud Run, Azure Private Link, or On-Premises.</li>
@@ -95,6 +105,11 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 <h3>References</h3>
 <p>¹ <strong>Gartner.</strong> (2023). <em>Data Management for the AI Era</em>. (Estimates automation reduces data preparation overhead by 40%).
 *   <strong>EU Commission.</strong> (2023). <em>Fit for 55 Package Legislation</em>.</p>
+        </div>
+        <div style="background: rgba(0,51,153,0.06); border: 1px solid rgba(0,51,153,0.2); border-radius: 10px; padding: 20px; margin: 28px 0;">
+            <p style="font-weight:700; color: #0a1628; margin-bottom: 8px;">🖥️ Maximum Sovereignty: Add the On-Premises Hardware Layer</p>
+            <p style="color: #475569; margin-bottom: 12px; font-size:0.95rem;">For defense, critical infrastructure, or zero-cloud mandates — pair DWS IQ 6 with the <strong>Acer Veriton GN100 Edge AI Node</strong> to run the full platform entirely on your premises. No internet. No CLOUD Act. No third-party processors.</p>
+            <a href="edge-node-gn100.html" style="color: #0066cc; font-weight: 600; font-size: 0.95rem;">→ Acer Veriton GN100 — €3,999/unit (min. 2 units)</a>
         </div>
         <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 30px;">
             <a href="../checkout/?product=dwsiq-v6" class="buy-btn" style="flex: 1; min-width: 200px; text-align: center;">Buy Now - €4,999</a>

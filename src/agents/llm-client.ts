@@ -60,9 +60,10 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
   }
 
   // Grok (xAI) — requires explicit per-org consent (GDPR + EU AI Act).
-  // Consent is enforced at call time in LLMClient.chat(); key presence
-  // here only signals that the operator has configured the key.
-  if (process.env.GROK_API_KEY) {
+  // Only selected when orgId is provided so that call sites without org context
+  // (e.g. callLLM() backward-compat path) fall through to the next provider
+  // rather than throwing a consent-gate error at runtime.
+  if (process.env.GROK_API_KEY && opts?.orgId) {
     return {
       provider: 'grok',
       apiKey: process.env.GROK_API_KEY,
@@ -418,9 +419,13 @@ export class LLMClient {
 /**
  * Create an LLM client from environment, falling back gracefully.
  * Returns null if no API key is configured.
+ *
+ * Pass `orgId` to enable Grok (xAI) when GROK_API_KEY is configured.
+ * Without `orgId`, Grok is skipped and the next available provider is used,
+ * so backward-compat call sites (callLLM, system-level loops) are unaffected.
  */
-export function createLLMClient(agentModel: string): LLMClient | null {
-  const config = resolveProvider(agentModel);
+export function createLLMClient(agentModel: string, orgId?: string): LLMClient | null {
+  const config = resolveProvider(agentModel, { orgId });
   if (!config) {
     logger.debug('No LLM provider configured (no API key found)');
     return null;

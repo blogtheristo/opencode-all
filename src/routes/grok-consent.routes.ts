@@ -34,6 +34,18 @@ function getCallerUserId(req: Request): string {
   return ((req as unknown as Record<string, unknown>).userId as string) ?? 'unknown';
 }
 
+/** Extract KYA score from request (set by KYA middleware or header). */
+function getCallerKyaScore(req: Request): number | undefined {
+  const fromMiddleware = (req as unknown as Record<string, unknown>).kyaScore;
+  if (typeof fromMiddleware === 'number') return fromMiddleware;
+  const fromHeader = req.headers['x-kya-score'];
+  if (fromHeader && typeof fromHeader === 'string') {
+    const parsed = parseInt(fromHeader, 10);
+    if (!isNaN(parsed) && parsed >= 0 && parsed <= 100) return parsed;
+  }
+  return undefined;
+}
+
 /** Block cross-org access: caller must own the orgId in the path. */
 function assertOrgAccess(req: Request, res: Response, orgId: string): boolean {
   const callerOrg = getCallerOrgId(req);
@@ -50,13 +62,16 @@ function assertOrgAccess(req: Request, res: Response, orgId: string): boolean {
 /**
  * GET /grok-consent/:orgId
  * Returns current consent status for the org.
+ * Includes KYA governance context (harness L6 metadata).
  */
 router.get('/:orgId', async (req: Request, res: Response) => {
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
+  const callerKyaScore = getCallerKyaScore(req);
+
   try {
-    const status = await grokConsentService.checkConsent(orgId);
+    const status = await grokConsentService.checkConsent(orgId, callerKyaScore);
     res.json({ orgId, ...status });
   } catch (err: unknown) {
     logger.error('Failed to check Grok consent', { orgId, error: String(err) });
@@ -81,9 +96,12 @@ router.post('/:orgId/grant', async (req: Request, res: Response) => {
   };
 
   const userId = getCallerUserId(req);
+  const callerKyaScore = getCallerKyaScore(req);
 
   try {
-    await grokConsentService.grantConsent(orgId, userId, allowedCategories, note);
+    const { kya } = await grokConsentService.grantConsent(
+      orgId, userId, allowedCategories, note, callerKyaScore,
+    );
     res.status(201).json({
       orgId,
       granted: true,
@@ -91,10 +109,14 @@ router.post('/:orgId/grant', async (req: Request, res: Response) => {
       grantedAt: new Date().toISOString(),
       allowedCategories: allowedCategories ?? ['climate', 'carbon', 'compliance'],
       message: 'Grok inference consent granted. All calls will be logged per EU AI Act Article 12.',
+      kya,
     });
   } catch (err: unknown) {
-    logger.error('Failed to grant Grok consent', { orgId, error: String(err) });
-    res.status(500).json({ error: 'Internal error granting consent' });
+    const msg = String(err instanceof Error ? err.message : err);
+    // KYA trust gate returns 403; other errors return 500
+    const status = msg.includes('KYA trust score') ? 403 : 500;
+    logger.error('Failed to grant Grok consent', { orgId, error: msg });
+    res.status(status).json({ error: msg });
   }
 });
 
@@ -110,19 +132,23 @@ router.post('/:orgId/revoke', async (req: Request, res: Response) => {
 
   const { reason } = req.body as { reason?: string };
   const userId = getCallerUserId(req);
+  const callerKyaScore = getCallerKyaScore(req);
 
   try {
-    await grokConsentService.revokeConsent(orgId, userId, reason);
+    const { kya } = await grokConsentService.revokeConsent(orgId, userId, reason, callerKyaScore);
     res.json({
       orgId,
       granted: false,
       revokedByUserId: userId,
       revokedAt: new Date().toISOString(),
       message: 'Grok inference consent revoked. All future calls are blocked immediately.',
+      kya,
     });
   } catch (err: unknown) {
-    logger.error('Failed to revoke Grok consent', { orgId, error: String(err) });
-    res.status(500).json({ error: 'Internal error revoking consent' });
+    const msg = String(err instanceof Error ? err.message : err);
+    const status = msg.includes('KYA trust score') ? 403 : 500;
+    logger.error('Failed to revoke Grok consent', { orgId, error: msg });
+    res.status(status).json({ error: msg });
   }
 });
 
@@ -152,7 +178,7 @@ router.get('/:orgId/audit', async (req: Request, res: Response) => {
   const offset = parsedOffset;
 
   try {
-    const { events, total } = await grokConsentService.getAuditLog(orgId, limit, offset);
+    const { events, total, harness } = await grokConsentService.getAuditLog(orgId, limit, offset);
     res.json({
       orgId,
       total,
@@ -164,6 +190,7 @@ router.get('/:orgId/audit', async (req: Request, res: Response) => {
         dataStored: 'Token counts and model ID only. No prompt or response content.',
         residency: 'Supabase eu-north1 (Helsinki, Finland). CLOUD Act-free.',
       },
+      harness,
     });
   } catch (err: unknown) {
     logger.error('Failed to fetch Grok audit log', { orgId, error: String(err) });

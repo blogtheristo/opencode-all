@@ -1,6 +1,6 @@
 # AI Agent Guidelines
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

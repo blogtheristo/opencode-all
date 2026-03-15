@@ -1,6 +1,6 @@
 # Supabase OAuth Setup Guide - DWS6
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

@@ -13,7 +13,20 @@ export type AgentRole =
   | 'finance'
   | 'compliance'
   | 'carbon'
-  | 'security';
+  | 'security'
+  // Climate IQ Pantheon — workflow orchestrators
+  | 'orchestrator'
+  | 'intel'
+  | 'logistics'
+  | 'content'
+  // Climate IQ Industry Specialists — per-sector agents
+  | 'industry-steel'
+  | 'industry-energy'
+  | 'industry-maritime'
+  | 'industry-agriculture'
+  | 'industry-hydrogen'
+  | 'industry-construction'
+  | 'industry-cement';
 
 export interface AgentTask {
   id: string;
