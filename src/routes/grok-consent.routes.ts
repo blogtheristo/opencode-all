@@ -14,12 +14,32 @@
  */
 
 import express, { Router, Request, Response } from 'express';
+import { param, query, validationResult } from 'express-validator';
 import { grokConsentService } from '../services/grok-consent.service.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 
 const router: Router = express.Router();
 
+// ============ VALIDATION ============
+
+const validateRequest = (req: Request, res: Response): boolean => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({
+      error: 'Validation failed',
+      details: errors.array().map((e) => ({
+        field: e.type === 'field' ? (e as { path: string }).path : 'unknown',
+        message: e.msg,
+      })),
+    });
+    return false;
+  }
+  return true;
+};
+
+/** Shared validator: :orgId must be a UUID */
+const orgIdParam = param('orgId').isUUID().withMessage('orgId must be a valid UUID');
 // Require a valid JWT on every endpoint in this router.
 router.use(authenticateToken);
 
@@ -64,7 +84,8 @@ function assertOrgAccess(req: Request, res: Response, orgId: string): boolean {
  * Returns current consent status for the org.
  * Includes KYA governance context (harness L6 metadata).
  */
-router.get('/:orgId', async (req: Request, res: Response) => {
+router.get('/:orgId', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
@@ -86,7 +107,8 @@ router.get('/:orgId', async (req: Request, res: Response) => {
  * Records explicit opt-in consent (GDPR Art. 6(1)(a)).
  * The authenticated user is recorded as the consent author.
  */
-router.post('/:orgId/grant', async (req: Request, res: Response) => {
+router.post('/:orgId/grant', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
@@ -126,7 +148,8 @@ router.post('/:orgId/grant', async (req: Request, res: Response) => {
  *
  * Revokes consent immediately. Grok inference is blocked from this point.
  */
-router.post('/:orgId/revoke', async (req: Request, res: Response) => {
+router.post('/:orgId/revoke', [orgIdParam], async (req: Request, res: Response) => {
+  if (!validateRequest(req, res)) return;
   const { orgId } = req.params;
   if (!assertOrgAccess(req, res, orgId)) return;
 
