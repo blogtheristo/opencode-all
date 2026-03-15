@@ -351,7 +351,7 @@ function TopCarbonProjectsList({ projects }: { projects: InsightsData['topCarbon
                 </span>
               </div>
               <span className="text-sm font-semibold text-gray-700">
-                {project.carbon_footprint.toLocaleString()} t
+                {project.carbon_footprint.toLocaleString()} kg CO2e
               </span>
             </div>
           ))}
