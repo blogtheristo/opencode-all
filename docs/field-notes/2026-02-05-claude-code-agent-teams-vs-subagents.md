@@ -1,6 +1,6 @@
 # Claude Code Agent Teams, Subagents & Cowork: Architecture Comparison
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

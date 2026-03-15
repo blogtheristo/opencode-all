@@ -11,7 +11,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Prometheus, Hydrogen & Energy Transition Specialist for Climate IQ.
@@ -42,6 +41,7 @@ export class PrometheusAgent extends BaseAgent {
 
   async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
     const annualEmissions = typeof input.annualEmissions === 'number' ? input.annualEmissions : 0;
     const hydrogenType = typeof input.hydrogenType === 'string' ? input.hydrogenType : 'unknown';
     const productionCapacity = typeof input.productionCapacity === 'number' ? input.productionCapacity : null;

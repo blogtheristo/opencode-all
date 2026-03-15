@@ -113,6 +113,14 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **Security Testing** | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md) | EN | Penetration testing, vulnerability scanning |
 | **Security Audit Report** | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md) | EN | Latest security audit findings |
 
+### Edge Infrastructure
+
+| Manual | Location | Language | Description |
+|--------|----------|----------|-------------|
+| **Acer GN100 Admin** | [`Admin/Acer-Veriton-GN100/README.md`](Acer-Veriton-GN100/README.md) | EN | Edge AI device: Docker, CUDA, Ollama, OpenSandbox, PostgreSQL |
+| **Edge PostgreSQL Setup** | [`Admin/Acer-Veriton-GN100/postgres/`](Acer-Veriton-GN100/postgres/) | EN | Docker Compose + Dockerfile for TimescaleDB + pg_duckdb + pgvector |
+| **DWS Data Standard** | [`DWS_DATA_STANDARD.md`](../DWS_DATA_STANDARD.md) | EN | Data storage governance, Aiven-first mandate, extension registry (v2.0) |
+
 ### Products & Architecture
 
 | Manual | Location | Language | Description |
@@ -895,11 +903,13 @@ All automation scripts include version headers and change logs.
 
 | Script | Version | Purpose |
 |--------|---------|---------|
-| `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
-| `scripts/Sync-ToProton.ps1` | v1.7 | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Startup-DailySync.bat` | v1.6 | Login trigger: health check + git pull + Proton sync + docs + Supabase |
+| `scripts/Test-DailySync.ps1` | v1.0 | Pre-flight health check (GitHub, Proton, Supabase) with JSON output |
+| `scripts/Sync-ToProton.ps1` | v1.9 | Proton Drive sync (folders, secrets, docs, Learn/ HTML, sales, investor) |
 | `scripts/Generate-PDFs.ps1` | v1.6 | Markdown to HTML/PDF (pandoc, output to Learn/) |
 | `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
-| `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
+| `scripts/Sync-ToSupabase.ps1` | v1.5 | EU cloud backup to Supabase Storage (auto-creates bucket) |
+| `scripts/Sync-Report.ps1` | v1.0 | Full pipeline wrapper with structured JSON report output |
 
 ### Daily Operations
 
@@ -912,7 +922,8 @@ All automation scripts include version headers and change logs.
 | Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
 | Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine) |
 | Generate docs (PDF) | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf` |
-| Supabase backup | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`) |
+| Supabase backup | `.\scripts\Sync-ToSupabase.ps1 -CreateBucket` (or `-DryRun`) |
+| Health check | `.\scripts\Test-DailySync.ps1` (or `-JsonOnly` for agent output) |
 
 ### Windows Startup Auto-Sync
 
@@ -930,10 +941,11 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 
 **What it does on every Windows login:**
 1. Waits 120 seconds (for network + Proton Drive to mount)
-2. `git pull origin main` (gets latest from GitHub)
-3. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
-4. Runs `Sync-ToSupabase.ps1` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
-5. Opens changed documents in Edge for morning review
+2. Runs `Test-DailySync.ps1` (pre-flight health check — GitHub, Proton, Supabase)
+3. `git pull origin main` (gets latest from GitHub)
+4. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
+5. Runs `Sync-ToSupabase.ps1 -CreateBucket` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
+6. Opens changed documents in Edge for morning review
 
 ### Document Generation (Pandoc)
 
@@ -1959,6 +1971,55 @@ Before approving/merging a PR:
 2. **Run Snyk before pushing** - Catch vulnerabilities early
 3. **Review deployment file protections** - Pre-commit hook should block sensitive files
 4. **Check GitHub Actions results** - Automated security scans catch what humans miss
+
+---
+
+## Tools
+
+### Database Migration (db_push)
+
+Push Supabase migrations to the linked project (ref: `kpucuwwfhuwurdxyjjtz`).
+
+```powershell
+# Full run (link + push)
+pwsh -File scripts/db_push.ps1
+
+# Or via npm
+npm run db:push
+
+# Skip link if already linked
+pwsh -File scripts/db_push.ps1 -SkipLink
+npm run db:push:skip-link
+```
+
+**When to run:** After adding new migrations in `supabase/migrations/`, or when setting up on a new machine.
+
+**Check pending migrations:**
+```bash
+npx supabase migration list
+```
+
+### Supabase MCP
+
+The **Supabase MCP Server** (`mcp-servers/supabase/server.py`) provides AI-accessible tools for Supabase integration:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /tools/query_carbon_calculations` | Query carbon calculation history |
+| `POST /tools/log_agent_activity` | Log agent activity to database |
+| `POST /tools/query_compliance` | Query compliance data |
+
+**Configuration:** Port 8766. Set `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in `.env.mcp`.
+
+**Docker:** Runs as `supabase-mcp` in `docker-compose.hybrid.yml`.
+
+### Supabase Skills (Cursor)
+
+For AI-assisted database operations in Cursor, configure Supabase skills:
+
+- **MCP File System:** Supabase tool descriptors in `mcps/<server>/tools/`
+- **Skills:** Create `.cursor/skills/` or use Cursor's built-in Supabase MCP integration
+- **Reference:** `ADMIN_MANUAL_SUPABASE_EN_v1.md` for full database administration
 
 ---
 

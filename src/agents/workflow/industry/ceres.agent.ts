@@ -10,7 +10,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Ceres, Agriculture & Fertilizers Industry Specialist for Climate IQ.
@@ -36,6 +35,7 @@ export class CeresAgent extends BaseAgent {
 
   async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
     const annualEmissions = typeof input.annualEmissions === 'number' ? input.annualEmissions : 0;
     const importValue = typeof input.importValue === 'number' ? input.importValue : 0;
     const fertilizerType = typeof input.fertilizerType === 'string' ? input.fertilizerType : 'urea';

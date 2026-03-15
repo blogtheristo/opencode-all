@@ -559,7 +559,7 @@ export abstract class BaseAgent {
     }
 
     const sandboxContext: SandboxContext = {
-      stage,
+      stage: stage === 'opensandbox' ? '1' : stage,
       tier,
       euDataResidency: true,
       allowedPaths: sandboxConfig.filesystem.allowedPaths,

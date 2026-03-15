@@ -9,7 +9,6 @@
  */
 
 import { BaseAgent } from '../../base.agent.js';
-import { agentRegistry } from '../../index.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Mars, Construction & Buildings Industry Specialist for Climate IQ.
@@ -36,6 +35,7 @@ export class MarsAgent extends BaseAgent {
 
   async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
+    const { agentRegistry } = await import('../../index.js');
     const annualEmissions = typeof input.annualEmissions === 'number' ? input.annualEmissions : 0;
     const buildingType = typeof input.buildingType === 'string' ? input.buildingType : 'commercial';
     const floorAreaM2 = typeof input.floorAreaM2 === 'number' ? input.floorAreaM2 : null;

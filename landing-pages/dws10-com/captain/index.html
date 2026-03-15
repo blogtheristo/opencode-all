@@ -594,6 +594,134 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
+        /* ── Application Form ── */
+        .apply-form-section {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .apply-form {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 40px 36px;
+        }
+
+        .apply-form h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .apply-form .form-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--text-accent);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #475569;
+        }
+
+        .form-group select option {
+            background: #1e293b;
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .apply-form { padding: 28px 20px; }
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+            transition: all var(--transition-base);
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 15px 40px rgba(0, 102, 204, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .form-success h3 {
+            font-size: 1.5rem;
+            color: var(--text-success);
+            margin-bottom: 12px;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
         /* Boilerplate */
         .boilerplate {
             max-width: 900px;
@@ -753,7 +881,7 @@
                 </div>
 
                 <div class="hero-actions">
-                    <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="btn-hero-primary">
+                    <a href="#apply" class="btn-hero-primary">
                         <span>Claim Your Seat</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
@@ -982,13 +1110,127 @@
         </div>
     </section>
 
-    <!-- ── CTA ── -->
-    <section class="cta-section">
-        <h3>Claim Your Industry</h3>
-        <p>8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
-        <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="cta-email">
-            Contact risto@lifetime.fi
-        </a>
+    <!-- ── APPLICATION FORM ── -->
+    <section class="apply-form-section" id="apply">
+        <div class="apply-form" id="captain-form-container">
+            <h3>Claim Your Industry</h3>
+            <p class="form-subtitle">8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
+
+            <form id="captain-form">
+                <!-- Honeypot for bots -->
+                <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" placeholder="Company name">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Seat Type</label>
+                        <select id="role" name="seat_type" required>
+                            <option value="" disabled selected>Select seat</option>
+                            <option value="Platinum Captain (EUR 50k)">Platinum Captain — EUR 50,000</option>
+                            <option value="Deputy Captain (EUR 25k)">Deputy Captain — EUR 25,000</option>
+                            <option value="Fleet Admiral (all 16)">Fleet Admiral — All 16 Industries</option>
+                            <option value="KYA Software Captain">KYA Software Industry Captain</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="industry">Target Industry</label>
+                    <select id="industry" name="industry" required>
+                        <option value="" disabled selected>Select industry</option>
+                        <option value="Power & Heat Generation">Power & Heat Generation</option>
+                        <option value="Iron & Steel">Iron & Steel</option>
+                        <option value="Cement & Lime">Cement & Lime</option>
+                        <option value="Chemicals & Petrochemicals">Chemicals & Petrochemicals</option>
+                        <option value="Aviation">Aviation</option>
+                        <option value="Maritime Shipping">Maritime Shipping</option>
+                        <option value="Road Transport & Logistics">Road Transport & Logistics</option>
+                        <option value="Construction & Buildings">Construction & Buildings</option>
+                        <option value="Software / KYA">Software / Know Your Agent (KYA)</option>
+                        <option value="All 16 Industries">All 16 Industries (Fleet Admiral)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">What makes you the right Captain for this industry?</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Domain expertise, network, vision..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submit-btn">
+                    Submit Application
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </form>
+
+            <script>
+            (function() {
+                var API_BASE = 'https://dws-iq-backend-1081980804498.europe-north1.run.app';
+                var form = document.getElementById('captain-form');
+                var success = document.getElementById('form-success');
+                var submitBtn = document.getElementById('submit-btn');
+
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Honeypot check
+                    if (form.querySelector('[name="_honey"]').value) return;
+
+                    var data = {
+                        name: form.querySelector('#name').value.trim(),
+                        email: form.querySelector('#email').value.trim(),
+                        company: form.querySelector('#company').value.trim(),
+                        seat_type: form.querySelector('#role').value,
+                        industry: form.querySelector('#industry').value,
+                        message: form.querySelector('#message').value.trim()
+                    };
+
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+
+                    fetch(API_BASE + '/api/v1/captain/apply', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    })
+                    .then(function(res) { return res.json(); })
+                    .then(function(result) {
+                        if (result.success) {
+                            form.style.display = 'none';
+                            success.classList.add('visible');
+                        } else {
+                            alert(result.error || 'Something went wrong. Please try again.');
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Submit Application';
+                        }
+                    })
+                    .catch(function() {
+                        alert('Network error. Please try again.');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Application';
+                    });
+                });
+            })();
+            </script>
+
+            <div class="form-success" id="form-success">
+                <h3>Application Received</h3>
+                <p>We'll review your application and get back to you within 48 hours. Welcome to the Captain's Table.</p>
+            </div>
+        </div>
     </section>
 
     <!-- ── Boilerplate ── -->
@@ -1006,7 +1248,7 @@
             <div class="contact-info">
                 <strong>Media & Investor Contact:</strong><br>
                 Risto Paarni, Founder & CEO<br>
-                <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
+                <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a><br>
                 Lifetime Oy — Helsinki, Finland<br>
                 <a href="https://dws10.com">dws10.com</a>
             </div>
