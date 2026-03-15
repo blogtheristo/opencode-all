@@ -3,8 +3,8 @@
 **Company:** DWS6 (Lifetime Oy)  
 **Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation  
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)  
-**Document Version:** 1.4  
-**Last Updated:** January 18, 2026  
+**Document Version:** 2.0
+**Last Updated:** March 15, 2026  
 **Status:** Active Fundraising  
 **Platform Status:** Public Cloud Version V1 - Production Ready
 
@@ -12,15 +12,16 @@
 
 ## Investment Opportunity Overview
 
-**Current Metrics:**
-- MRR: **€7k live run-rate** (current) / **€10k achieved during pilot** (validation)
+**Current Metrics (March 2026):**
+- MRR: **€7k live run-rate**
 - Paying Customers: 5
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k annual value per logo
 
-**Target:**
-- Q1 2026: €14k MRR
-- 2026: €900k ARR
+**Sales Timeline:**
+- March–June 14, 2026: Pipeline building, pilot conversions
+- **June 15 – August 15, 2026: 100% sales sprint** (2-month dedicated sales push)
+- 2026: €900k ARR target
 - Series A: 2026 at €15M+ pre-money valuation
 
 ---
@@ -29,13 +30,22 @@
 
 ### Round Structure
 - **Instrument:** SAFE (Simple Agreement for Future Equity)
-- **Round Size:** €500k
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
 
-### Investment Tickets
-- **Business Angels:** €15k–€50k
-- **Institutional Investors:** €100k–€500k
+### Seat Tiers
+
+| Tier | Investment | Seats Available |
+|------|-----------|-----------------|
+| **Fleet Admiral** | €500,000 | 1 |
+| **Captain** | €150,000 | Limited |
+| **Industry Captain** | €50,000 | 8 (one per industry tranche) |
+| **Deputy Captain** | Unlimited entry | Unlimited |
+
+- **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
+- **Captain** — Named industry leader. Quarterly strategy briefings, priority pilot routing, founding Situation Room access.
+- **Industry Captain** — Named captain of one of 20 EU-regulated industries. Annual briefings, industry-specific intelligence.
+- **Deputy Captain** — Open tier, unlimited seats. Quarterly briefings, upgrade path to Captain/Industry Captain.
 
 ---
 
@@ -140,7 +150,7 @@ Timeframe:                 ~2 years (2024→2026)
 ### Market Opportunity
 - **CSRD Mandatory Reporting:** Starting 2025, affects 50,000+ EU companies
 - **Fit for 55 / EPBD Mandates:** Hitting hard 2025–2028
-- **Construction Market:** 3.5M EU construction firms = forced purchases
+- **20 EU-Regulated Industries:** From construction to pharma — forced compliance spend
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
 - **EU Green Deal:** Multi-year regulatory push for industrial decarbonization
 - **Pain Point:** €10k–€50k in fines per project, 40–80 hours manual work eliminated
@@ -306,8 +316,8 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ---
 
 **Document Control:**
-- Version: 1.4
-- Last Updated: January 18, 2026
+- Version: 2.0
+- Last Updated: March 15, 2026
 - Author: Risto Anton Päärni
 - Status: Active - Fundraising in Progress
 - Confidentiality: For Potential Investors Only

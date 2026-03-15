@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Resolved conflicting signals. New seat tier structure (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). Updated MRR to EUR 7K March 2026. Added sales sprint June 15 – August 15.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Full audit of investor materials, email outreach infrastructure, public IR pages. MVP and V1 feature gap analysis with actionable prompts. Legal Hub for investors scoped.
 
 Document Status:
@@ -46,15 +47,16 @@ Related Documents:
 
 **Verdict: Every investor document is stale.** None mention KYA (the strongest value prop), Alpha-Share (the revenue model), Performance Guarantee, D&O insurance angle, or the 20-industry expansion. The Hook Deck (Feb 2026) is closest to current but still missing the governance layer.
 
-### 1.2 Conflicting Signals
+### 1.2 Conflicting Signals — RESOLVED (v1.1)
 
-| Signal | Document A | Document B | Problem |
-|--------|-----------|-----------|---------|
-| Round size | €150K (email templates) | €500K (memo) / €2M (Firehorse pitch) | Investor confusion |
-| Industry count | 8 (root doc) | 16 (hook deck) | Now 20 in KYA v1.6 |
-| MRR | €7K (Dec 2025) | €7–14K (email templates) | Stale — what is March 2026 MRR? |
-| Valuation cap | €3.8M (all) | Consistent | OK |
-| Contact email | investor@dws10.com (memo) | risto@lifetime.fi (emails) | Which is live? |
+| Signal | Was | Now (March 15, 2026) | Status |
+|--------|-----|---------------------|--------|
+| Seat tiers | €150K / €500K / €2M (3 conflicting docs) | Fleet Admiral €500K, Captain €150K, Industry Captain €50K × 8, Deputy unlimited | RESOLVED |
+| Industry count | 8 / 16 (stale) | 20 industries | RESOLVED |
+| MRR | €7K (Dec 2025) stale | €7K (March 2026) confirmed | RESOLVED |
+| Sales timeline | None specified | 2-month 100% sales sprint: June 15 – August 15, 2026 | RESOLVED |
+| Valuation cap | €3.8M (all) | €3.8M — consistent | OK |
+| Contact email | investor@dws10.com vs risto@lifetime.fi | risto@lifetime.fi (primary) | RESOLVED |
 
 ### 1.3 Email Outreach — Broken Pipeline
 
