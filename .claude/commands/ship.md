@@ -28,10 +28,12 @@ git log --oneline HEAD...origin/main | head -5
 
 ```bash
 # Run test suite
-npm run test 2>&1 | tail -20
+TEST_OUTPUT=$(npm run test 2>&1)
+printf '%s\n' "$TEST_OUTPUT" | tail -20
 
 # Run linter
-npm run lint 2>&1 | tail -20
+LINT_OUTPUT=$(npm run lint 2>&1)
+printf '%s\n' "$LINT_OUTPUT" | tail -20
 ```
 
 If tests or lint fail: STOP. Fix issues first, then re-run `/ship`.
@@ -39,7 +41,8 @@ If tests or lint fail: STOP. Fix issues first, then re-run `/ship`.
 ### 3. Build Verification
 
 ```bash
-npm run build 2>&1 | tail -10
+BUILD_OUTPUT=$(npm run build 2>&1)
+printf '%s\n' "$BUILD_OUTPUT" | tail -10
 ```
 
 ### 4. Stage and Commit
