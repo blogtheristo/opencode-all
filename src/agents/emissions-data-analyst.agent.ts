@@ -49,15 +49,6 @@ interface EmissionsDataAnalystInput {
 
 // ============ REGULATORY THRESHOLDS ============
 
-/** EU ETS Phase 4 thresholds and benchmarks */
-const ETS_BENCHMARKS: Record<string, number> = {
-  cement_clinker: 0.766,        // tCO2/t product
-  steel_hot_metal: 1.328,       // tCO2/t product
-  aluminium: 1.514,             // tCO2/t product
-  refinery: 0.0295,             // tCO2/CWT
-  electricity: 0.376,           // tCO2/MWh (EU average)
-};
-
 /** CSRD double materiality thresholds */
 const CSRD_THRESHOLDS = {
   scope1_material: 10000,       // tCO2e - likely material if above
@@ -211,6 +202,16 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
     if (!Array.isArray(input.data) || input.data.length === 0) {
       throw new Error('data must be a non-empty array of emission records');
     }
+    // Validate individual records
+    const invalidRecords = (input.data as Record<string, unknown>[]).filter((r) => {
+      if (typeof r !== 'object' || r === null) return true;
+      const isValidAmount = typeof r.amount === 'number' && isFinite(r.amount);
+      const isValidUnit = typeof r.unit === 'string' && (r.unit as string).trim() !== '';
+      return !isValidAmount || !isValidUnit;
+    });
+    if (invalidRecords.length > 0) {
+      throw new Error(`${invalidRecords.length} record(s) missing required fields: 'amount' (finite number) and 'unit' (non-empty string)`);
+    }
     const validContexts = ['ets', 'csrd', 'cbam', 'en15978', 'general'];
     const ctx = typeof input.context === 'string' ? input.context : 'general';
     if (!validContexts.includes(ctx)) {
@@ -316,9 +317,9 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
           recommendations.push('Consider purchasing ETS allowances for surplus emissions');
         }
         if (normFlags.length === 0 && missingUnitCount === 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString()}`);
+          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')}`);
         } else if (normalizedTotal > 0) {
-          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString()} (partial — excludes records with unrecognized units)`);
+          recommendations.push(`Current EU ETS price ~EUR 68/tonne. Estimated partial cost: EUR ${Math.round(normalizedTotal * 68).toLocaleString('en-US')} (partial — excludes records with unrecognized units)`);
         } else {
           recommendations.push('Convert all emission data to tCO2e to enable accurate ETS cost estimation (EU ETS price ~EUR 68/tonne)');
         }

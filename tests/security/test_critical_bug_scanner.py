@@ -34,14 +34,15 @@ class TestCriticalBugScanner:
     def test_scanner_detects_command_injection(self, tmp_path):
         """Test that scanner detects command injection vulnerabilities"""
         # Create a file with command injection vulnerability
+        # Note: Pattern is constructed via concatenation to avoid scanner false-positives on this file
         vuln_file = tmp_path / "vulnerable.js"
-        vuln_file.write_text("""
-const { execSync } = require('child_process');
-
-function processFile(filename) {
-    execSync(`git add ${filename}`);
-}
-""")
+        cmd_injection_pattern = "execSync(`git add $" + "{filename}`);"
+        vuln_file.write_text(
+            "const { execSync } = require('child_process');\n\n"
+            "function processFile(filename) {\n"
+            f"    {cmd_injection_pattern}\n"
+            "}\n"
+        )
 
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
@@ -54,12 +55,14 @@ function processFile(filename) {
 
     def test_scanner_detects_sql_injection(self, tmp_path):
         """Test that scanner detects SQL injection vulnerabilities"""
+        # Note: Pattern is constructed via concatenation to avoid scanner false-positives on this file
         vuln_file = tmp_path / "vulnerable.js"
-        vuln_file.write_text("""
-function getUserData(userId) {
-    return db.query(`SELECT * FROM users WHERE id = ${userId}`);
-}
-""")
+        sql_injection_pattern = "return db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);"  # noqa: S608
+        vuln_file.write_text(
+            "function getUserData(userId) {\n"
+            f"    {sql_injection_pattern}\n"
+            "}\n"
+        )
 
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
@@ -96,8 +99,9 @@ function processFile(filename) {
         critical_file.write_text(critical_cmd)
 
         high_file = tmp_path / "high.js"
-        # Construct path traversal test pattern to avoid scanner false positives on test file
-        path_traversal_pattern = "fs.readFile(userPath " + "+ filename);"
+        # Split the readFile identifier to avoid scanner false positives on this test file's source
+        read_fn = "read" + "File"
+        path_traversal_pattern = f"fs.{read_fn}(userPath + filename);"
         high_file.write_text(path_traversal_pattern)
 
         scanner = CriticalBugScanner(tmp_path)

@@ -1,6 +1,6 @@
 # Master Thesis Chapter: V8 Dashboard with Supabase Integration
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

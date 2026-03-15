@@ -5,9 +5,15 @@
     "UI_SKILLS_GAMMA.md": "markdown"
   },
   "search.exclude": {
+    "**/.claude": true,
+    "**/Learn": true,
     "**/node_modules": true,
     "**/dist": true,
     "**/.git": true
+  },
+  "files.exclude": {
+    "**/.claude": true,
+    "**/Learn": true
   },
   "terminal.integrated.profiles.windows": {
     "DWS6 Env (pwsh)": {
@@ -24,6 +30,9 @@
     }
   },
   "terminal.integrated.defaultProfile.windows": "DWS6 Env (pwsh)",
+  "htmlhint.options": {
+    "inline-style-disabled": false
+  },
   "python.terminal.activateEnvironment": true,
   "python.terminal.useEnvFile": true
 }

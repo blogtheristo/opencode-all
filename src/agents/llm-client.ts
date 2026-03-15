@@ -32,27 +32,17 @@ export interface LLMClientConfig {
 
 /** Resolve provider config from environment + agent config */
 export function resolveProvider(agentModel: string): LLMClientConfig | null {
-  // Priority: ANTHROPIC_API_KEY > GROK_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
+  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > GROK_API_KEY > OPENAI_API_KEY
+  // NOTE: Grok is intentionally lower priority than Groq.  Grok requires an
+  // explicit per-org consent check on every call (GDPR + EU AI Act Art. 12),
+  // so routing existing agents through Grok without orgId would throw.  Groq
+  // is the safe default for general-purpose agents that don't carry orgId.
   if (process.env.ANTHROPIC_API_KEY) {
     return {
       provider: 'anthropic',
       apiKey: process.env.ANTHROPIC_API_KEY,
       baseUrl: 'https://api.anthropic.com/v1',
       model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
-      maxTokens: 4096,
-      temperature: 0.3,
-    };
-  }
-
-  // Grok (xAI) — requires explicit per-org consent (GDPR + EU AI Act).
-  // Consent is enforced at call time in LLMClient.chat(); key presence
-  // here only signals that the operator has configured the key.
-  if (process.env.GROK_API_KEY) {
-    return {
-      provider: 'grok',
-      apiKey: process.env.GROK_API_KEY,
-      baseUrl: 'https://api.x.ai/v1',
-      model: process.env.GROK_MODEL || 'grok-3',
       maxTokens: 4096,
       temperature: 0.3,
     };
@@ -65,6 +55,21 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
       baseUrl: 'https://api.groq.com/openai/v1',
       model: agentModel || 'llama-3.3-70b-versatile',
       maxTokens: 1024,
+      temperature: 0.3,
+    };
+  }
+
+  // Grok (xAI) — requires explicit per-org consent (GDPR + EU AI Act).
+  // Only selected when orgId is provided so that call sites without org context
+  // (e.g. callLLM() backward-compat path) fall through to the next provider
+  // rather than throwing a consent-gate error at runtime.
+  if (process.env.GROK_API_KEY && opts?.orgId) {
+    return {
+      provider: 'grok',
+      apiKey: process.env.GROK_API_KEY,
+      baseUrl: 'https://api.x.ai/v1',
+      model: process.env.GROK_MODEL || 'grok-3',
+      maxTokens: 4096,
       temperature: 0.3,
     };
   }
@@ -414,9 +419,13 @@ export class LLMClient {
 /**
  * Create an LLM client from environment, falling back gracefully.
  * Returns null if no API key is configured.
+ *
+ * Pass `orgId` to enable Grok (xAI) when GROK_API_KEY is configured.
+ * Without `orgId`, Grok is skipped and the next available provider is used,
+ * so backward-compat call sites (callLLM, system-level loops) are unaffected.
  */
-export function createLLMClient(agentModel: string): LLMClient | null {
-  const config = resolveProvider(agentModel);
+export function createLLMClient(agentModel: string, orgId?: string): LLMClient | null {
+  const config = resolveProvider(agentModel, { orgId });
   if (!config) {
     logger.debug('No LLM provider configured (no API key found)');
     return null;
