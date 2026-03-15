@@ -303,6 +303,7 @@ export class OpenClawSandbox {
   updateATS(newScore: number): { tierChanged: boolean; oldTier: SandboxTier; newTier: SandboxTier } {
     const oldTier = this.config.tier;
     const newTier = resolveTier(newScore);
+    const oldATS = this.state.currentATS;
 
     this.state.currentATS = newScore;
 
@@ -329,7 +330,7 @@ export class OpenClawSandbox {
         sandboxId: this.config.sandboxId,
         oldTier,
         newTier,
-        oldATS: this.config.atsScore,
+        oldATS,
         newATS: newScore,
       });
     }
