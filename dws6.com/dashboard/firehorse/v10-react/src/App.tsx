@@ -18,6 +18,8 @@ import { CarbonTrackingPage } from './pages/CarbonTrackingPage';
 import { ReportViewerPage } from './pages/ReportViewerPage';
 import { TemplateEditorPage } from './pages/TemplateEditorPage';
 import { BillingPage } from './pages/BillingPage';
+import { HealthPage } from './pages/HealthPage';
+import { CommandPalette } from './components/CommandPalette';
 
 type SidePanel = 'chat' | 'meeting' | 'repo' | null;
 
@@ -156,6 +158,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
   const isAgentsView = location.pathname === '/agents';
+  const isHealthView = location.pathname === '/health';
   const [sidePanel, setSidePanel] = useState<SidePanel>('chat');
 
   const handleNavigate = (view: string) => {
@@ -166,6 +169,9 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
         break;
       case 'agents':
         navigate('/agents');
+        break;
+      case 'health':
+        navigate('/health');
         break;
       case 'reports':
         navigate('/reports');
@@ -214,6 +220,12 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
                 className={isAgentsView ? 'btn-primary' : 'btn-secondary'}
               >
                 Agent Monitor
+              </button>
+              <button
+                onClick={() => navigate(isHealthView ? '/' : '/health')}
+                className={isHealthView ? 'btn-primary' : 'btn-secondary'}
+              >
+                Health
               </button>
               {isDashboardHome && (
                 <>
@@ -296,6 +308,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
+    <>
+    <CommandPalette />
     <Routes>
       <Route path="/login" element={
         <PublicRoute>
@@ -356,9 +370,17 @@ function App() {
           </DashboardLayout>
         </ProtectedRoute>
       } />
+      <Route path="/health" element={
+        <ProtectedRoute>
+          <DashboardLayout>
+            <HealthPage />
+          </DashboardLayout>
+        </ProtectedRoute>
+      } />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
 
