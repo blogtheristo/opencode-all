@@ -398,6 +398,146 @@
             color: var(--color-accent);
         }
 
+        /* === LEARN SECTION === */
+        .learn-section {
+            margin-top: var(--space-8);
+        }
+
+        .learn-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+
+        .learn-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-gray-900);
+        }
+
+        .learn-new-badge {
+            display: inline-block;
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--color-accent);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            margin-left: var(--space-2);
+            vertical-align: middle;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .learn-view-all {
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .learn-view-all:hover {
+            text-decoration: underline;
+        }
+
+        .learn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .learn-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-5);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .learn-card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--card-accent, var(--color-accent));
+            border-radius: 0 2px 2px 0;
+        }
+
+        .learn-card:hover {
+            border-color: var(--card-accent, var(--color-accent));
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .learn-card-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .learn-card-date {
+            font-size: 0.7rem;
+            color: var(--color-gray-400);
+            font-family: monospace;
+        }
+
+        .learn-card-type {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .learn-card-type.standard {
+            background: rgba(0, 102, 204, 0.08);
+            color: var(--color-accent);
+        }
+
+        .learn-card-type.field-note {
+            background: rgba(13, 122, 62, 0.08);
+            color: var(--color-success);
+        }
+
+        .learn-card-type.admin {
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--color-gold);
+        }
+
+        .learn-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-gray-800);
+            line-height: 1.35;
+        }
+
+        .learn-card-arrow {
+            font-size: 0.75rem;
+            color: var(--color-gray-400);
+            margin-top: auto;
+            transition: color var(--transition-fast);
+        }
+
+        .learn-card:hover .learn-card-arrow {
+            color: var(--card-accent, var(--color-accent));
+        }
+
+        /* Card accent colors */
+        .learn-card.standard { --card-accent: #0066cc; }
+        .learn-card.field-note { --card-accent: #0d7a3e; }
+        .learn-card.admin { --card-accent: #b8860b; }
+        .learn-card.security { --card-accent: #dc2626; }
+
         /* === FOOTER === */
         .footer {
             background: var(--color-primary);
@@ -442,28 +582,13 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Card colors - Tools */
+        .section-card.tools { --card-color: #8b5cf6; }
     </style>
+    <script src="/shared-assets/nav/ironclad-admin-nav.js" defer></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="header-left">
-                <a href="/" class="logo">
-                    <span class="logo-icon">🔐</span>
-                    <span class="logo-text">DWS6 Admin</span>
-                </a>
-                <span class="header-badge">Administrator</span>
-            </div>
-            <nav class="header-nav">
-                <a href="/admin/" class="nav-link active">Portal</a>
-                <a href="/admin/connectors/" class="nav-link">Connectors</a>
-                <a href="/dashboard/" class="nav-link">Dashboards</a>
-                <a href="/" class="nav-link">Home</a>
-            </nav>
-            <a href="/admin/login/" class="login-btn">🔑 Admin Login</a>
-        </div>
-    </header>
+    <!-- Ironclad Admin Navigation injected via /shared-assets/nav/ironclad-admin-nav.js -->
 
     <!-- Main Content -->
     <main class="main">
@@ -556,6 +681,14 @@
                 <p class="section-desc">Configure authentication settings, branding, email templates, and system preferences.</p>
                 <span class="section-badge">Requires Login</span>
             </a>
+
+            <!-- Admin Tools -->
+            <a href="/admin/tools/jsonl-review/" class="section-card tools">
+                <div class="section-icon">🛠️</div>
+                <div class="section-title">Admin Tools</div>
+                <p class="section-desc">JSONL Session Review, Claude Code timeline analysis, and developer management utilities.</p>
+                <span class="section-badge">Requires Login</span>
+            </a>
         </div>
 
         <!-- Quick Links -->
@@ -570,6 +703,7 @@
                 <a href="/Firehorse/" class="quick-link">🔥 Firehorse</a>
                 <a href="/register/" class="quick-link">📝 Register</a>
                 <a href="/forgot-password/" class="quick-link">🔐 Reset Password</a>
+                <a href="/admin/tools/jsonl-review/" class="quick-link">📋 JSONL Review</a>
                 <a href="/" class="quick-link">🏠 Home</a>
                 <a href="https://dws10.com" class="quick-link">🌐 DWS10.com</a>
                 <a href="https://onelifetime.world" class="quick-link">🌍 OneLifetime</a>
@@ -577,6 +711,118 @@
             </div>
         </div>
     </main>
+
+    <!-- What's New — Learn Artifacts -->
+    <section class="learn-section">
+        <div class="learn-header">
+            <h3 class="learn-title">
+                What's New
+                <span class="learn-new-badge">Learn</span>
+            </h3>
+            <a href="https://github.com/blogtheristo/dws6/tree/main/Learn" target="_blank" rel="noopener" class="learn-view-all">
+                All artifacts &rarr;
+            </a>
+        </div>
+        <div class="learn-grid">
+
+            <!-- DWS Document Standard v1.7 — 2026-02-28 -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/DWS_DOCUMENT_STANDARD_v1.7.html"
+               target="_blank" rel="noopener"
+               class="learn-card standard">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-28</span>
+                    <span class="learn-card-type standard">Standard</span>
+                </div>
+                <div class="learn-card-title">DWS Document Standard v1.7</div>
+                <div class="learn-card-arrow">Web Content Index check + Learn HTML generation rule &rarr;</div>
+            </a>
+
+            <!-- Web Content Index v1.0 — 2026-02-28 -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/WEB_CONTENT_INDEX_v1.0.html"
+               target="_blank" rel="noopener"
+               class="learn-card standard">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-28</span>
+                    <span class="learn-card-type standard">Index</span>
+                </div>
+                <div class="learn-card-title">Web Content Index v1.0</div>
+                <div class="learn-card-arrow">Maps docs to dws10.com / dws6.com / onelifetime pages &rarr;</div>
+            </a>
+
+            <!-- Morning Email Incident Field Note — 2026-02-17 -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-17-morning-email-0600-eest-incident.html"
+               target="_blank" rel="noopener"
+               class="learn-card field-note">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-17</span>
+                    <span class="learn-card-type field-note">Field Note</span>
+                </div>
+                <div class="learn-card-title">Morning Email 06:00 EEST Incident</div>
+                <div class="learn-card-arrow">CEO Cockpit timing fix &rarr;</div>
+            </a>
+
+            <!-- NVIDIA Blackwell Ultra — 2026-02-16 -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.html"
+               target="_blank" rel="noopener"
+               class="learn-card field-note">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-16</span>
+                    <span class="learn-card-type field-note">Field Note</span>
+                </div>
+                <div class="learn-card-title">NVIDIA Blackwell Ultra — Agentic AI Inference</div>
+                <div class="learn-card-arrow">Read field note &rarr;</div>
+            </a>
+
+            <!-- OpenClaw / Moltworker — 2026-02-15 -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-15-moltworker-openclaw-dws-assistant.html"
+               target="_blank" rel="noopener"
+               class="learn-card field-note">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-15</span>
+                    <span class="learn-card-type field-note">Field Note</span>
+                </div>
+                <div class="learn-card-title">Moltworker / OpenClaw — DWS Assistant</div>
+                <div class="learn-card-arrow">Read field note &rarr;</div>
+            </a>
+
+            <!-- Admin Manual -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/ADMIN_MANUAL.html"
+               target="_blank" rel="noopener"
+               class="learn-card admin">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-07</span>
+                    <span class="learn-card-type admin">Admin</span>
+                </div>
+                <div class="learn-card-title">Admin Manual v2.1</div>
+                <div class="learn-card-arrow">Full administration guide &rarr;</div>
+            </a>
+
+            <!-- Security Compliance -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/SECURITY_COMPLIANCE.html"
+               target="_blank" rel="noopener"
+               class="learn-card security">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-06</span>
+                    <span class="learn-card-type" style="background:rgba(220,38,38,0.08);color:#dc2626;">Security</span>
+                </div>
+                <div class="learn-card-title">Security Compliance</div>
+                <div class="learn-card-arrow">NIS2, GDPR, EU AI Act controls &rarr;</div>
+            </a>
+
+            <!-- CLAUDE Guidelines -->
+            <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/CLAUDE.html"
+               target="_blank" rel="noopener"
+               class="learn-card admin">
+                <div class="learn-card-meta">
+                    <span class="learn-card-date">2026-02-05</span>
+                    <span class="learn-card-type admin">AI</span>
+                </div>
+                <div class="learn-card-title">CLAUDE Agent Guidelines</div>
+                <div class="learn-card-arrow">AI agent behavior & coding rules &rarr;</div>
+            </a>
+
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">

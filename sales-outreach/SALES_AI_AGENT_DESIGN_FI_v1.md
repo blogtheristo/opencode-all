@@ -1,6 +1,6 @@
 # Sales AI Agent Design - DWS IQ 6 Myyntiautomaatio
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

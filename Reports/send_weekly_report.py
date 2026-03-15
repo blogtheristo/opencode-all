@@ -8,8 +8,8 @@ import base64
 import glob
 import json
 import os
-import urllib.request
 import urllib.error
+import urllib.request
 from datetime import datetime
 
 
@@ -104,7 +104,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M")}"""
     )
 
     try:
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req) as resp:  # noqa: S310
             result = json.loads(resp.read().decode("utf-8"))
             print(f"Weekly report sent to {recipient_email}")
             print("Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")

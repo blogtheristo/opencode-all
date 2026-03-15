@@ -94,7 +94,17 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    const client = this.getLLMClient();
+    // Use an org-scoped client so Grok can be selected when orgId is available.
+    // Falls back to getLLMClient() (which skips Grok) when context.orgId is absent.
+    const orgScopedClient = createLLMClient(this.config.model, context.orgId);
+    if (!orgScopedClient && context.orgId) {
+      // orgId was provided but no provider was resolved — log for debugging
+      logger.debug('runLoop: org-scoped client unavailable, falling back to default client', {
+        agent: this.config.name,
+        orgId: context.orgId,
+      });
+    }
+    const client = orgScopedClient ?? this.getLLMClient();
     if (!client) {
       return {
         content: JSON.stringify({
@@ -143,10 +153,10 @@ export abstract class BaseAgent {
     for (let i = 0; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
-      // OBSERVE + THINK: Send to LLM
+      // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
       let response: LLMResponse;
       try {
-        response = await client.chat(messages, allTools);
+        response = await client.chat(messages, allTools, { orgId: context.orgId });
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown LLM error';
         logger.error('Agentic loop LLM call failed', {
@@ -258,7 +268,14 @@ export abstract class BaseAgent {
    * For new agents: prefer runLoop() which supports tool use and multi-step reasoning.
    * This method is preserved for backward compatibility with existing agents.
    */
-  protected async callLLM(prompt: string): Promise<{
+  /**
+   * Optional SOUL system prompt set by subclasses to override the generic base prompt.
+   * When set, this is used as the system message in callLLM() instead of the auto-generated one.
+   * Set via: this.soulPrompt = SOUL; in the constructor or execute() method.
+   */
+  protected soulPrompt: string | null = null;
+
+  protected async callLLM(prompt: string, systemPromptOverride?: string): Promise<{
     content: string;
     model: string;
     inputTokens: number;
@@ -280,12 +297,14 @@ export abstract class BaseAgent {
       };
     }
 
+    // Priority: explicit override > soulPrompt > generic fallback
+    const systemContent = systemPromptOverride
+      ?? this.soulPrompt
+      ?? `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
+
     try {
       const response = await client.chat([
-        {
-          role: 'system',
-          content: `You are ${this.config.name}, a specialized AI agent for DWS IQ 6. ${this.config.description}. Always respond with valid JSON.`,
-        },
+        { role: 'system', content: systemContent },
         { role: 'user', content: prompt },
       ]);
 
@@ -540,7 +559,7 @@ export abstract class BaseAgent {
     }
 
     const sandboxContext: SandboxContext = {
-      stage,
+      stage: stage === 'opensandbox' ? '1' : stage,
       tier,
       euDataResidency: true,
       allowedPaths: sandboxConfig.filesystem.allowedPaths,

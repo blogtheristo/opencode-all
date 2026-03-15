@@ -3,9 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
   - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
 
 Session Links & References:
@@ -13,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 14.02.2026
-  - Last Modified: 14.02.2026
+  - Last Modified: 08.03.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -99,6 +101,7 @@ Every DWS product MUST have a defined competitor set. Competitors are categorize
 | **DWS IQ Platform** (€4,999) | Sphera, Ecoinvent, SimaPro | Worldfavor, PositionGreen | Coverage, EU focus, AI |
 | **Consulting Services** | McKinsey, Deloitte, KPMG | Freelancer platforms, in-house | Pricing, domain expertise |
 | **LWM V1** (€250k) | None (category-creating) | OpenAI, Anthropic (general AI) | Model size, domain specificity |
+| **DSaaS** (€499–€4,999/mo) | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud | Sovereignty enforcement, compliance automation, HTAP, pricing |
 
 ### 3.3 Supabase Schema: `competitors`
 
@@ -341,6 +344,27 @@ jobs:
 | `advisory` | 6 | Workshop 3D, Consulting Hourly, Expert Advisory, Fit55 Specialist, AI Koulutus, Business Mentor, Lean Project, Omnichannel MM |
 | `digital` | 6 | M365, Web Pages, Proton Email, Data Services, Design Gold, Cloud-Ready Teams, Agentti Sanasto |
 | `communication` | 2 | Firehorse V3 SME (€9.99), Firehorse V3 Professional (€19.99) |
+
+---
+
+## 8.1 Strategic Partnership Registry
+
+Track confirmed technology partnerships that create competitive moats and co-sell opportunities.
+
+| Partner | Program | Status | Confirmed | Competitive Impact |
+|---------|---------|--------|-----------|-------------------|
+| NVIDIA | Connect ISV Partner | Confirmed | 2026-03-08 | Certified compute layer — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network |
+
+**Partnership integration checklist (per partner):**
+- [x] Official confirmation received
+- [x] Badge/status on relevant product pages
+- [x] Investor page updated (remove "applied", show confirmed)
+- [x] Navigation updated with partner page
+- [x] Dedicated partner page live on dws10.com
+- [ ] Product profile submitted to partner portal
+- [ ] Co-marketing materials prepared
+
+**Rule:** Every confirmed partnership MUST appear in this registry within 24 hours of confirmation. Update `DWS_BRAND_STANDARD.md` badge system and `Admin/SECURITY_COMPLIANCE.md` infrastructure table simultaneously.
 
 ---
 

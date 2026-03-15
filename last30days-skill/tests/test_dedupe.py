@@ -13,51 +13,51 @@ from lib import dedupe, schema
 class TestNormalizeText(unittest.TestCase):
     def test_lowercase(self):
         result = dedupe.normalize_text("HELLO World")
-        self.assertEqual(result, "hello world")
+        assert result == "hello world"
 
     def test_removes_punctuation(self):
         result = dedupe.normalize_text("Hello, World!")
         # Punctuation replaced with space, then whitespace collapsed
-        self.assertEqual(result, "hello world")
+        assert result == "hello world"
 
     def test_collapses_whitespace(self):
         result = dedupe.normalize_text("hello    world")
-        self.assertEqual(result, "hello world")
+        assert result == "hello world"
 
 
 class TestGetNgrams(unittest.TestCase):
     def test_short_text(self):
         result = dedupe.get_ngrams("ab", n=3)
-        self.assertEqual(result, {"ab"})
+        assert result == {"ab"}
 
     def test_normal_text(self):
         result = dedupe.get_ngrams("hello", n=3)
-        self.assertIn("hel", result)
-        self.assertIn("ell", result)
-        self.assertIn("llo", result)
+        assert "hel" in result
+        assert "ell" in result
+        assert "llo" in result
 
 
 class TestJaccardSimilarity(unittest.TestCase):
     def test_identical_sets(self):
         set1 = {"a", "b", "c"}
         result = dedupe.jaccard_similarity(set1, set1)
-        self.assertEqual(result, 1.0)
+        assert result == 1.0
 
     def test_disjoint_sets(self):
         set1 = {"a", "b", "c"}
         set2 = {"d", "e", "f"}
         result = dedupe.jaccard_similarity(set1, set2)
-        self.assertEqual(result, 0.0)
+        assert result == 0.0
 
     def test_partial_overlap(self):
         set1 = {"a", "b", "c"}
         set2 = {"b", "c", "d"}
         result = dedupe.jaccard_similarity(set1, set2)
-        self.assertEqual(result, 0.5)  # 2 overlap / 4 union
+        assert result == 0.5  # 2 overlap / 4 union
 
     def test_empty_sets(self):
         result = dedupe.jaccard_similarity(set(), set())
-        self.assertEqual(result, 0.0)
+        assert result == 0.0
 
 
 class TestFindDuplicates(unittest.TestCase):
@@ -71,7 +71,7 @@ class TestFindDuplicates(unittest.TestCase):
             ),
         ]
         result = dedupe.find_duplicates(items)
-        self.assertEqual(result, [])
+        assert result == []
 
     def test_finds_duplicates(self):
         items = [
@@ -89,8 +89,8 @@ class TestFindDuplicates(unittest.TestCase):
             ),
         ]
         result = dedupe.find_duplicates(items, threshold=0.7)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0], (0, 1))
+        assert len(result) == 1
+        assert result[0] == (0, 1)
 
 
 class TestDedupeItems(unittest.TestCase):
@@ -112,8 +112,8 @@ class TestDedupeItems(unittest.TestCase):
             ),
         ]
         result = dedupe.dedupe_items(items, threshold=0.6)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0].id, "R1")
+        assert len(result) == 1
+        assert result[0].id == "R1"
 
     def test_keeps_all_unique(self):
         items = [
@@ -125,16 +125,16 @@ class TestDedupeItems(unittest.TestCase):
             ),
         ]
         result = dedupe.dedupe_items(items)
-        self.assertEqual(len(result), 2)
+        assert len(result) == 2
 
     def test_empty_list(self):
         result = dedupe.dedupe_items([])
-        self.assertEqual(result, [])
+        assert result == []
 
     def test_single_item(self):
         items = [schema.RedditItem(id="R1", title="Test", url="", subreddit="")]
         result = dedupe.dedupe_items(items)
-        self.assertEqual(len(result), 1)
+        assert len(result) == 1
 
 
 if __name__ == "__main__":

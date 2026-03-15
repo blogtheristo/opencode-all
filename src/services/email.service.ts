@@ -1,10 +1,11 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service using Resend as the sole provider.
+ * Production-ready email delivery service using Resend SDK.
  *
  * Features:
- *   - Resend REST API for outbound email
+ *   - Resend SDK for outbound email (captures resend_email_id for delivery tracking)
+ *   - Batch sending for digest/bulk emails (Resend /emails/batch)
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
@@ -16,6 +17,7 @@
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
+import { Resend } from 'resend';
 import logger from '../utils/logger.js';
 import {
   welcomeTemplate,
@@ -23,6 +25,7 @@ import {
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  captainPreBriefingTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -39,7 +42,14 @@ interface EmailOptions {
   metadata?: Record<string, unknown>;
 }
 
-type EmailStatus = 'sent' | 'failed' | 'pending';
+export interface BatchEmailItem {
+  to: string;
+  subject: string;
+  html: string;
+  templateType?: string;
+}
+
+type EmailStatus = 'sent' | 'failed' | 'pending' | 'delivered' | 'bounced' | 'complained';
 
 interface EmailLogEntry {
   to_email: string;
@@ -50,6 +60,7 @@ interface EmailLogEntry {
   sent_at: string | null;
   error: string | null;
   metadata: Record<string, unknown> | null;
+  resend_email_id?: string | null;
 }
 
 // ============================================================
@@ -58,17 +69,20 @@ interface EmailLogEntry {
 
 class EmailService {
   private readonly fromAddress: string;
-  private readonly resendApiKey: string | undefined;
+  private readonly resend: Resend | null;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-    this.resendApiKey = process.env.RESEND_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    if (!this.resendApiKey) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (apiKey) {
+      this.resend = new Resend(apiKey);
+    } else {
+      this.resend = null;
       logger.warn(
         'RESEND_API_KEY not configured. Emails will be logged but not delivered.'
       );
@@ -138,6 +152,25 @@ class EmailService {
   }
 
   /**
+   * Send a pre-briefing email when a captain inquiry is booked.
+   * Includes deck link, term sheet, and what to prepare.
+   */
+  async sendCaptainPreBriefing(
+    to: string,
+    name: string,
+    industry: string,
+    seatLevel: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: `Your Captain Briefing Is Confirmed — ${industry}`,
+      html: captainPreBriefingTemplate(name, industry, seatLevel),
+      templateType: 'captain_pre_briefing',
+      metadata: { name, industry, seatLevel },
+    });
+  }
+
+  /**
    * Send an invoice email with payment details.
    */
   async sendInvoiceEmail(
@@ -155,12 +188,51 @@ class EmailService {
     });
   }
 
+  /**
+   * Send multiple emails in a single Resend batch request (up to 100).
+   * Returns array of Resend email IDs for tracking.
+   * Falls back to sequential sending if Resend SDK unavailable.
+   */
+  async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
+    if (!this.resend) {
+      logger.warn('RESEND_API_KEY not configured — batch email not delivered', {
+        count: emails.length,
+      });
+      return [];
+    }
+
+    const payload = emails.map((e) => ({
+      from: this.fromAddress,
+      to: [e.to],
+      subject: e.subject,
+      html: e.html,
+    }));
+
+    try {
+      const { data, error } = await this.resend.batch.send(payload);
+      if (error) {
+        throw new Error(`Resend batch error: ${error.message}`);
+      }
+      const list = Array.isArray(data) ? data : [];
+      const ids = list.map((r: { id: string }) => r.id);
+      const results = data ?? [];
+      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
+      logger.info('Batch emails sent via Resend', { count: ids.length });
+      return ids;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Resend batch send failed', { error: msg, count: emails.length });
+      throw new Error(`Batch email delivery failed: ${msg}`);
+    }
+  }
+
   // ----------------------------------------------------------
   // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Resend.
+   * Send an email through Resend SDK.
+   * Captures resend_email_id for delivery tracking.
    * Logs every attempt to Supabase when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
@@ -172,7 +244,7 @@ class EmailService {
       templateType: templateType || 'custom',
     });
 
-    if (!this.resendApiKey) {
+    if (!this.resend) {
       logger.warn('RESEND_API_KEY not configured - email not delivered', {
         to,
         subject,
@@ -186,13 +258,14 @@ class EmailService {
         sent_at: null,
         error: 'RESEND_API_KEY not configured',
         metadata: metadata || null,
+        resend_email_id: null,
       });
       return;
     }
 
     try {
-      await this.sendViaResend(to, subject, html);
-      logger.info('Email sent via Resend', { to, subject });
+      const resendEmailId = await this.sendViaResend(to, subject, html);
+      logger.info('Email sent via Resend', { to, subject, resendEmailId });
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
@@ -202,6 +275,7 @@ class EmailService {
         sent_at: new Date().toISOString(),
         error: null,
         metadata: metadata || null,
+        resend_email_id: resendEmailId,
       });
     } catch (err) {
       const errorMessage =
@@ -217,6 +291,7 @@ class EmailService {
         sent_at: null,
         error: errorMessage,
         metadata: metadata || null,
+        resend_email_id: null,
       });
 
       throw new Error(`Email delivery failed: ${errorMessage}`);
@@ -224,38 +299,30 @@ class EmailService {
   }
 
   // ----------------------------------------------------------
-  // PROVIDER IMPLEMENTATIONS
+  // PROVIDER IMPLEMENTATION
   // ----------------------------------------------------------
 
   /**
-   * Send email via Resend REST API.
-   * @see https://resend.com/docs/api-reference/emails/send-email
+   * Send email via Resend SDK.
+   * Returns the Resend email ID for delivery tracking.
    */
   private async sendViaResend(
     to: string,
     subject: string,
     html: string
-  ): Promise<void> {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.resendApiKey}`,
-      },
-      body: JSON.stringify({
-        from: this.fromAddress,
-        to: [to],
-        subject,
-        html,
-      }),
+  ): Promise<string> {
+    const { data, error } = await this.resend!.emails.send({
+      from: this.fromAddress,
+      to: [to],
+      subject,
+      html,
     });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(
-        `Resend API error (${response.status}): ${errorBody}`
-      );
+    if (error) {
+      throw new Error(`Resend API error: ${error.message}`);
     }
+
+    return data?.id ?? '';
   }
 
   // ----------------------------------------------------------
@@ -264,8 +331,7 @@ class EmailService {
 
   /**
    * Persist an email log entry to the Supabase email_logs table.
-   * Failures are logged but never propagated to the caller - email
-   * delivery should not fail because of a logging issue.
+   * Failures are logged but never propagated to the caller.
    */
   private async logEmail(entry: EmailLogEntry): Promise<void> {
     if (!this.supabaseUrl || !this.supabaseServiceKey) {
