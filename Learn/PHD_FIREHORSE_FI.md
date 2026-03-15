@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-meeting-prep-IHXUi | Date: 15.03.2026 | Changes: Lisätty Liite G (Sanasto) kolmella kategorialla: Alusta/Liiketoiminta (5 termiä), Identiteetti/Agenttien hallinta (10 KYA-termiä — KYA, ATS, Shanghai-malli, tukkumyynti-jälleenmyynti, KYB, L5-seuranta, kyvykkyysmanifesti, TC-4-ketjuterminointi, REVAL_LEASH), Turvallisuus/Vaatimustenmukaisuus (4 termiä); päivitetty alatunniste
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
@@ -1526,8 +1527,44 @@ Arkkitehtuurinen opetus Firehorse-toimintamallille: ero tekoälykokeilujen ja te
 
 **Tutkimusnäkemys:** Moniagenttiarkkitehtuureissa integraatiovelka kertyy moduulirajoille, ei moduulien sisälle. Systemaattiset koventamissessiot ovat tehokkaampia kuin moduulikohtaiset korjaukset, koska ne palauttavat leikkaavia invariantteja.
 
+### Liite G: Sanasto
+
+#### Alusta- ja liiketoimintakäsitteet
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **AgentFoundry** | AgentFoundry | Monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoon teollisissa vertikaaleissa |
+| **Edge AI** | Reunatekoäly | Tekoälyprosessointi paikallislaitteilla pilvipalvelimien sijaan |
+| **Firehorse** | Firehorse | DWS6-tuoteperhe (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
+| **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+
+#### Identiteetti ja agenttien hallinta
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **KYA (Know Your Agent)** | KYA (Tunne agenttisi) | DWS-kehys, joka laajentaa KYC/AML-henkilöllisyyden todentamisen autonomisiin AI-agentteihin yrityksen hiekkalaatikoissa |
+| **KYA Certification** | KYA-sertifiointi | Kaupallinen nimitys IDV-palveluntarjoajille, jotka täyttävät KYA-IDV-CERT-vaatimukset L1/L2/L5-identiteettikerroksissa |
+| **Agent Trust Score (ATS)** | Agentin luottamuspisteet | Reaaliaikainen 0–100-pisteet hiekkalaatikon telemetriasta + IDV-signaaleista; määrittää hiekkalaatikon käyttöoikeustason (Täysi/Rajoitettu/Keskeytetty/Jäädytetty) |
+| **Shanghai Model** | Shanghai-malli | KYA-politiikkamoottori, joka kartoittaa IDV-signaalit reaaliaikaisiin hiekkalaatikkotoimintoihin (TERMINATE_CHAIN / REVAL_LEASH / UPDATE_SCORE) < 200 ms:ssa |
+| **Wholesale Resale** | Tukkumyynti-jälleenmyynti | Ensisijainen volyymimalli, jossa DWS ostaa IDV-todennuksia tukkuhintaan (40–60 % alennus) omalla API-avaimella ja jälleenmyy "KYA Verification" -nimellä alustahinnoin |
+| **KYB (Know Your Business)** | KYB (Tunne yrityksesi) | Organisaation todentaminen BYO-agenttien julkaisijoille — yritysrekisteri, UBO-ketju, pakote-/PEP-seulonta johtajista |
+| **L5 Continuous Monitoring** | L5 Jatkuva seuranta | Jatkuva AML/pakote/PEP-seuranta alkuperäisen todennuksen jälkeen samana päivänä webhook-ilmoituksella riskitilan muutoksista |
+| **Capability Manifest** | Kyvykkyysmanifesti | Allekirjoitettu ilmoitus agentin sallituista työkaluista, tiedostopoluista ja istunnon TTL:stä — KYA-identiteettipyramidin kerros 3 |
+| **TC-4 Cascade** | TC-4-ketjuterminointi | Ketjuterminointiprotokolla — lopettaa kaikki käyttäjän istunnon agentit AML-seulonnan hylätessä |
+| **REVAL_LEASH** | REVAL_LEASH | Hiekkalaatikon kiristämistoiminto — poistaa verkkolähdön ja asettaa tiedostojärjestelmän vain luku -tilaan lopettamatta agentteja |
+
+#### Turvallisuus ja vaatimustenmukaisuus
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **EU AI Act** | EU:n tekoälysäädös | EU:n säädös tekoälyjärjestelmille (elokuun 2026 määräaika) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU:n tietosuoja-asetus |
+| **NIS2** | NIS2 | EU:n kyberturvallisuusdirektiivi kriittiselle infrastruktuurille |
+| **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
+
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: 09.03.2026*
-*Versio: 2.1*
+*Viimeksi paivitetty: 15.03.2026*
+*Versio: 2.2*

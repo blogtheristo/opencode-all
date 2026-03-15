@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.21
+Version: 3.22
 
 Sessions & Modifications:
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-meeting-prep-IHXUi | Date: 15.03.2026 | Changes: Added Identity and Agent Governance subsection to Appendix G Glossary with 10 KYA terms (KYA, KYA Certification, ATS, Shanghai Model, Wholesale Resale, KYB, L5 Continuous Monitoring, Capability Manifest, TC-4 Cascade, REVAL_LEASH); bilingual EN/FI definitions
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 10.14 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment with opensandbox stage, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene (luxon); added Key Contribution #16; updated footer
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #15 (Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export with scheduling); demonstrates transition from developer tools to customer-ready SaaS platform; validates Solution Factory productization hypothesis
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Expanded Section 2.5.3 MCP Hub Orchestration Patterns with implementation details (4 patterns: Fan-Out, Sequential, Reflection, Pipeline), endpoints, context passing, production readiness table; added Section 2.5.4 Skills and CLIs as Agent Interfaces (Three-Interface Rule: CLI + MCP + Skills)
@@ -2149,6 +2150,21 @@ Your code will be watched -- write accordingly."
 | **Lifetime Scope Signals** | Lifetime Scope Signals | Coordination protocol for multi-agent development via declarative signal emission |
 | **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
 | **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+
+### Identity and Agent Governance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **KYA (Know Your Agent)** | KYA (Tunne agenttisi) | DWS framework extending KYC/AML identity verification to autonomous AI agents operating inside enterprise sandboxes |
+| **KYA Certification** | KYA-sertifiointi | Commercial designation for IDV providers that meet KYA-IDV-CERT requirements across L1/L2/L5 identity layers |
+| **Agent Trust Score (ATS)** | Agentin luottamuspisteet | Real-time 0–100 score computed from sandbox telemetry + IDV signals; determines sandbox permission level (Full/Restricted/Suspended/Frozen) |
+| **Shanghai Model** | Shanghai-malli | KYA Policy Engine that maps IDV signals to real-time sandbox actions (TERMINATE_CHAIN / REVAL_LEASH / UPDATE_SCORE) in < 200ms |
+| **Wholesale Resale** | Tukkumyynti-jälleenmyynti | Primary volume model where DWS buys IDV verifications at wholesale rate (40–60% discount) via dedicated API key and resells as "KYA Verification" at platform pricing |
+| **KYB (Know Your Business)** | KYB (Tunne yrityksesi) | Organization verification for BYO agent publishers — company registry, UBO chain, sanctions/PEP screening on directors |
+| **L5 Continuous Monitoring** | L5 Jatkuva seuranta | Ongoing AML/sanctions/PEP monitoring after initial verification with same-day webhook notification on risk status changes |
+| **Capability Manifest** | Kyvykkyysmanifesti | Signed declaration of an agent's permitted tools, file paths, and session TTL — Layer 3 of the KYA identity pyramid |
+| **TC-4 Cascade** | TC-4-ketjuterminointi | Chain termination protocol — kills all running agents in a user's session when AML screening declines |
+| **REVAL_LEASH** | REVAL_LEASH | Sandbox tightening action — removes network egress and sets filesystem to read-only without killing agents |
 
 ### Security and Compliance
 

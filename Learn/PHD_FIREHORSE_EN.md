@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-meeting-prep-IHXUi | Date: 15.03.2026 | Changes: Added Appendix G (Glossary) with 3 categories: Platform/Business (5 terms), Identity/Agent Governance (10 KYA terms — KYA, ATS, Shanghai Model, Wholesale Resale, KYB, L5 Monitoring, Capability Manifest, TC-4 Cascade, REVAL_LEASH), Security/Compliance (4 terms); updated footer
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
@@ -1536,8 +1537,44 @@ The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failu
 
 **Research insight:** In multi-agent architectures, integration debt accumulates at module boundaries, not within modules. Systematic hardening sessions — touching multiple subsystems in a single commit — are more effective than per-module fixes because they restore cross-cutting invariants that individual modules cannot enforce alone.
 
+### Appendix G: Glossary
+
+#### Platform and Business Concepts
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **AgentFoundry** | AgentFoundry | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
+| **Edge AI** | Reunatekoäly | AI processing on local devices instead of cloud servers |
+| **Firehorse** | Firehorse | DWS6 product suite (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
+| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+
+#### Identity and Agent Governance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **KYA (Know Your Agent)** | KYA (Tunne agenttisi) | DWS framework extending KYC/AML identity verification to autonomous AI agents operating inside enterprise sandboxes |
+| **KYA Certification** | KYA-sertifiointi | Commercial designation for IDV providers that meet KYA-IDV-CERT requirements across L1/L2/L5 identity layers |
+| **Agent Trust Score (ATS)** | Agentin luottamuspisteet | Real-time 0–100 score computed from sandbox telemetry + IDV signals; determines sandbox permission level (Full/Restricted/Suspended/Frozen) |
+| **Shanghai Model** | Shanghai-malli | KYA Policy Engine that maps IDV signals to real-time sandbox actions (TERMINATE_CHAIN / REVAL_LEASH / UPDATE_SCORE) in < 200ms |
+| **Wholesale Resale** | Tukkumyynti-jälleenmyynti | Primary volume model where DWS buys IDV verifications at wholesale rate (40–60% discount) via dedicated API key and resells as "KYA Verification" at platform pricing |
+| **KYB (Know Your Business)** | KYB (Tunne yrityksesi) | Organization verification for BYO agent publishers — company registry, UBO chain, sanctions/PEP screening on directors |
+| **L5 Continuous Monitoring** | L5 Jatkuva seuranta | Ongoing AML/sanctions/PEP monitoring after initial verification with same-day webhook notification on risk status changes |
+| **Capability Manifest** | Kyvykkyysmanifesti | Signed declaration of an agent's permitted tools, file paths, and session TTL — Layer 3 of the KYA identity pyramid |
+| **TC-4 Cascade** | TC-4-ketjuterminointi | Chain termination protocol — kills all running agents in a user's session when AML screening declines |
+| **REVAL_LEASH** | REVAL_LEASH | Sandbox tightening action — removes network egress and sets filesystem to read-only without killing agents |
+
+#### Security and Compliance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
+| **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
+| **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
+
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 09.03.2026*
-*Version: 2.1*
+*Last updated: 15.03.2026*
+*Version: 2.2*

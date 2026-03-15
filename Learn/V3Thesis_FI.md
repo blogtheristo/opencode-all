@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.21
+Version: 3.22
 
 Sessions & Modifications:
+  - Version: 3.22 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-meeting-prep-IHXUi | Date: 15.03.2026 | Changes: Lisätty Identiteetti ja agenttien hallinta -alaosio Liite G Sanastoon 10 KYA-termillä (KYA, KYA-sertifiointi, ATS, Shanghai-malli, tukkumyynti-jälleenmyynti, KYB, L5 jatkuva seuranta, kyvykkyysmanifesti, TC-4-ketjuterminointi, REVAL_LEASH); kaksikieliset EN/FI-määritelmät
   - Version: 3.21 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 10.14 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus opensandbox-vaiheen kanssa, MCP/HIL-reitityksen kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia (luxon); lisätty avainpanos #16; päivitetty alatunniste
   - Version: 3.20 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #15 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi 3-tasoisella laskutuksella, vaatimustenmukaisuusraporttien vienti aikataulutuksella); osoittaa siirtymän kehittäjätyökaluista asiakasvalmiiksi SaaS-alustaksi; validoi Solution Factory -tuotteistamishypoteesin
   - Version: 3.19 | Tool: Claude Code (Opus 4.6) | Session: claude/happy-rhodes | Date: 07.03.2026 | Changes: Laajennettu osio 2.5.3 MCP Hub -orkestrointimallit toteutustiedoilla (4 mallia: Fan-Out, Sequential, Reflection, Pipeline), päätepisteet, kontekstin välitys, tuotantovalmiustaulukko; lisätty osio 2.5.4 Skillit ja CLI:t agenttirajapintoina (kolmen rajapinnan sääntö: CLI + MCP + skillit)
@@ -2105,6 +2106,21 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 | **Lifetime Scope Signals** | Lifetime Scope Signals | Koordinointiprotokolla moniagenttikehitykselle deklaratiivisen signaalin emission kautta |
 | **MCP Hub** | MCP Hub | Model Context Protocol -koordinointipalvelin moniagenttiorkestroinnille |
 | **Solution Factory** | Solution Factory | Toimintamalli useiden teollisten AI-alustojen tuottamiseen jaetuista komponenteista |
+
+### Identiteetti ja agenttien hallinta
+
+| Termi (EN) | Suomeksi | Määritelmä |
+|------------|----------|------------|
+| **KYA (Know Your Agent)** | KYA (Tunne agenttisi) | DWS-kehys, joka laajentaa KYC/AML-henkilöllisyyden todentamisen autonomisiin AI-agentteihin yrityksen hiekkalaatikoissa |
+| **KYA Certification** | KYA-sertifiointi | Kaupallinen nimitys IDV-palveluntarjoajille, jotka täyttävät KYA-IDV-CERT-vaatimukset L1/L2/L5-identiteettikerroksissa |
+| **Agent Trust Score (ATS)** | Agentin luottamuspisteet | Reaaliaikainen 0–100-pisteet hiekkalaatikon telemetriasta + IDV-signaaleista; määrittää hiekkalaatikon käyttöoikeustason (Täysi/Rajoitettu/Keskeytetty/Jäädytetty) |
+| **Shanghai Model** | Shanghai-malli | KYA-politiikkamoottori, joka kartoittaa IDV-signaalit reaaliaikaisiin hiekkalaatikkotoimintoihin (TERMINATE_CHAIN / REVAL_LEASH / UPDATE_SCORE) < 200 ms:ssa |
+| **Wholesale Resale** | Tukkumyynti-jälleenmyynti | Ensisijainen volyymimalli, jossa DWS ostaa IDV-todennuksia tukkuhintaan (40–60 % alennus) omalla API-avaimella ja jälleenmyy "KYA Verification" -nimellä alustahinnoin |
+| **KYB (Know Your Business)** | KYB (Tunne yrityksesi) | Organisaation todentaminen BYO-agenttien julkaisijoille — yritysrekisteri, UBO-ketju, pakote-/PEP-seulonta johtajista |
+| **L5 Continuous Monitoring** | L5 Jatkuva seuranta | Jatkuva AML/pakote/PEP-seuranta alkuperäisen todennuksen jälkeen samana päivänä webhook-ilmoituksella riskitilan muutoksista |
+| **Capability Manifest** | Kyvykkyysmanifesti | Allekirjoitettu ilmoitus agentin sallituista työkaluista, tiedostopoluista ja istunnon TTL:stä — KYA-identiteettipyramidin kerros 3 |
+| **TC-4 Cascade** | TC-4-ketjuterminointi | Ketjuterminointiprotokolla — lopettaa kaikki käyttäjän istunnon agentit AML-seulonnan hylätessä |
+| **REVAL_LEASH** | REVAL_LEASH | Hiekkalaatikon kiristämistoiminto — poistaa verkkolähdön ja asettaa tiedostojärjestelmän vain luku -tilaan lopettamatta agentteja |
 
 ### Turvallisuus ja vaatimustenmukaisuus
 
