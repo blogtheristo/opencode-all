@@ -10,6 +10,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { DigitalOffice } from './DigitalOffice';
 import { ControlRoom } from './ControlRoom';
 import { SituationRoom } from './SituationRoom';
+import { AgentRunner } from './AgentRunner';
 import { ALL_AGENTS as INITIAL_AGENTS, getSystemHealth, getAllActivities } from './agentData';
 import type { ViewMode, MonitorAgent } from './types';
 
@@ -17,6 +18,7 @@ const TABS: { id: ViewMode; label: string; description: string }[] = [
   { id: 'office', label: 'Digital Office', description: 'Visual office floor' },
   { id: 'control', label: 'Control Room', description: 'System monitoring' },
   { id: 'situation', label: 'Situation Room', description: 'Executive overview' },
+  { id: 'runner', label: 'Agent Runner', description: 'Execute agents' },
 ];
 
 interface AgentMonitorDashboardProps {
@@ -105,6 +107,7 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
       {view === 'office' && <DigitalOffice agents={agents} />}
       {view === 'control' && <ControlRoom agents={agents} health={health} activities={activities} />}
       {view === 'situation' && <SituationRoom agents={agents} health={health} activities={activities} />}
+      {view === 'runner' && <AgentRunner />}
     </div>
   );
 }

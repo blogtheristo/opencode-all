@@ -5,7 +5,7 @@
 
 **Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** March 7, 2026
+**Updated:** March 15, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -22,7 +22,7 @@
 - **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.9, TailwindCSS 4, Express 4, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -152,7 +152,7 @@ dws6/
 ├── Firehorse/               # Product suite
 ├── landing-pages/           # Production landing pages
 ├── supabase/migrations/     # Database migrations
-└── .github/workflows/       # CI/CD (15 workflows)
+└── .github/workflows/       # CI/CD (37 workflows)
 ```
 
 ---
@@ -192,63 +192,10 @@ dws6/
 
 ## 7. Agent Ecosystem (V2)
 
-### Architecture
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                         DWS IQ 6 AGENT ECOSYSTEM V2                         │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  PLATFORM AGENTS (7 agents) — Runtime production agents             │     │
-│  │  customer-sat | sitesense | schedule-genius | material-oracle        │     │
-│  │  viability | compliance | quality-gate                              │     │
-│  │  Stack: TypeScript, BaseAgent, Groq Llama 3.3 70B                   │     │
-│  │  API: /api/agents/:name/execute                                     │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  DEVELOPMENT AGENTS (10 agents) — Build-time coordination           │     │
-│  │  Agent-01..Agent-10, Lifetime Scope Signals protocol                │     │
-│  │  Stack: File-based signals, coordinator.cjs CLI                     │     │
-│  │  Status: Phase 1-4 phased rollout                                   │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  TEAM AGENTS (7 agents) — Ongoing operations                        │     │
-│  │  Architect | Builder | DevOps | Security | Product                  │     │
-│  │  Market Signal | Product Page Generator                             │     │
-│  │  Weekly Friday coordination cycle                                   │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  WORKFLOW AGENTS (2 agents) — CI/CD automation                      │     │
-│  │  audit-agent.js | fix-agent.js                                      │     │
-│  │  Stack: Node.js CLI, GitHub workflow analysis                       │     │
-│  │  Location: .workflows/agents/                                       │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  MCP ORCHESTRATION — Multi-agent coordination                       │     │
-│  │  Hub: mcp-hub/server.py (FastAPI)                                   │     │
-│  │  Patterns: Fan-Out | Reflection | Sequential                       │     │
-│  │  Servers: Docker MCP | ZenFree | Browser MCP                       │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-│  ┌────────────────────────────────────────────────────────────────────┐     │
-│  │  BYO AGENTS (External) — Customer-deployed third-party agents      │     │
-│  │  Microsoft CoWork | Tencent Workbuddy | Clawbot | Anthropic Cowork │     │
-│  │  Gate: KYA 6-Stage Registration (IDV → KYB → Capability → Sandbox) │     │
-│  │  Runtime: Firecracker MicroVM, zero shared kernel, KYA trust score │     │
-│  │  See: §18 BYO Lifecycle, Legal/KYA_SECURITY_v1.2.md                │     │
-│  └────────────────────────────────────────────────────────────────────┘     │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+8 platform agents, 10 dev agents, 7 team agents, 2 workflow agents, MCP orchestration, BYO agents.
+→ Architecture diagrams, agent details, input/output schemas: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md)
 
 ### Platform Agents (Runtime)
-
-These are production agents that customers interact with via the API.
 
 | Agent | Name | Purpose | Model |
 |-------|------|---------|-------|
@@ -257,264 +204,38 @@ These are production agents that customers interact with via the API.
 | `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
 | `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
-| `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
-| `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
-| `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
+| `argus` | ArgusAgent | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5. | Llama 3.3 70B |
+| `compliance-researcher` | ComplianceResearcherAgent | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments | Llama 3.3 70B |
+| `construction` | ConstructionAgent | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B |
+| `deepwiki-extractor` | DeepWikiExtractorAgent | Analyzes GitHub repositories via DeepWiki to plan extraction of specific functionality into self-contained, dependency-free code | Llama 3.3 70B |
+| `emissions-data-analyst` | EmissionsDataAnalystAgent | Analyzes emissions and sustainability data using natural language queries with EU regulatory context (ETS, CSRD, CBAM, EN 15978) | Llama 3.3 70B |
+| `logistics` | LogisticsAgent | Orchestrates fleet compliance, route optimization, driver dispatch, and supply chain carbon tracking for EU-regulated logistics operations | Llama 3.3 70B |
+| `sales-outreach` | SalesOutreachAgent | Researches target companies and drafts personalized B2B outreach emails for DWS climate compliance products | Llama 3.3 70B |
+| `compliance` | Compliance (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
+| `quality-gate` | QualityGate (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | SovereigntyMonitor (V2) | Database sovereignty assessment | Llama 3.3 70B |
 
 ---
 
-## 8. V2 Agents: Design & Purpose
+## 8. V2 Agent Details
 
-### Compliance Agent (`compliance`)
-
-**Why:** The EU AI Act (August 2026 deadline), Fit for 55, ETS, CBAM, and CSRD create a compliance matrix that is too complex for manual tracking. This agent automates compliance gap analysis and Article 12 logging readiness.
-
-**Capabilities:**
-- `eu-regulation-compliance` — Check project against Fit for 55, ETS, CBAM, CSRD
-- `article-12-readiness` — EU AI Act Article 12 automatic logging assessment
-- `carbon-boundary-check` — CBAM carbon boundary verification
-- `compliance-gap-analysis` — Identify gaps between current state and requirements
-
-**Input:**
-```typescript
-{
-  projectId: string;
-  industry: string;         // e.g., "construction", "manufacturing", "energy"
-  regulations: string[];    // e.g., ["fit-for-55", "ets", "cbam", "csrd"]
-  currentMeasures: {
-    carbonReporting: boolean;
-    emissionsMonitoring: boolean;
-    supplyChainDueDiligence: boolean;
-    aiSystemLogging: boolean;
-  };
-  annualEmissions: number;  // tonnes CO2e
-  importValue: number;      // EUR, for CBAM threshold
-}
-```
-
-**Output:** Compliance score (0-100), gap list, deadline urgency, remediation recommendations.
-
-### Quality Gate Agent (`quality-gate`)
-
-**Why:** With 15 CI/CD workflows, multiple deployment targets (GCP, Cloudflare, Hetzner), and dual-folder landing page structure, deployment quality requires automated validation before release.
-
-**Capabilities:**
-- `deployment-readiness` — Pre-deployment quality checks
-- `test-coverage-analysis` — Test coverage assessment against thresholds
-- `security-scan-summary` — Aggregate security scan results
-- `landing-page-sync-check` — Verify dual-folder sync (root vs landing-pages)
-
-**Input:**
-```typescript
-{
-  projectId: string;
-  deployTarget: string;      // "gcp" | "cloudflare" | "hetzner"
-  testResults: {
-    passed: number;
-    failed: number;
-    skipped: number;
-    coverage: number;        // percentage
-  };
-  securityScan: {
-    critical: number;
-    high: number;
-    medium: number;
-    low: number;
-  };
-  buildStatus: string;       // "success" | "failure" | "pending"
-}
-```
-
-**Output:** Gate decision (pass/fail/warn), quality score (0-100), blocking issues, recommendations.
-
-### Sovereignty Monitor Agent (`sovereignty-monitor`)
-
-**Why:** The CLOUD Act (2018) allows US authorities to access data held by US-owned providers regardless of server location. 78% of EU companies plan to reduce US cloud dependency. This agent automates database sovereignty assessment across 8 dimensions and provides continuous monitoring with HIL escalation.
-
-**Capabilities:**
-- `database-sovereignty-assessment` — Score database sovereignty across 8 dimensions (0–100)
-- `cloud-act-exposure-check` — Detect US-owned provider CLOUD Act risk
-- `data-residency-verification` — Verify EU data residency compliance
-- `gdpr-database-readiness` — GDPR DSAR, deletion, consent process readiness
-- `nis2-database-compliance` — NIS2 critical infrastructure data handling
-
-**Input:**
-```typescript
-{
-  host?: string;              // Database hostname
-  provider?: string;          // e.g., "supabase-eu", "aws", "hetzner"
-  region?: string;            // e.g., "europe-north1", "eu-west-1"
-  tables?: string[];          // Tables to assess
-  industry?: string;          // Industry context
-  encryptionAtRest?: boolean;
-  encryptionInTransit?: boolean;
-  rlsEnabled?: boolean;
-  rlsCoverage?: number;       // 0-100%
-  backupRegion?: string;
-  accessControlMethod?: string; // e.g., "rbac", "jwt"
-  gdprDsarProcess?: boolean;
-  gdprDeletionProcess?: boolean;
-  gdprConsentManagement?: boolean;
-}
-```
-
-**Output:** Sovereignty score (0–100), tier (sovereign/compliant/partial/exposed), 8-dimension check results, gap list, remediation recommendations. HIL escalation triggered when confidence < 80%.
-
-**CLI:**
-```bash
-dws sovereignty-assess --input '{"provider":"aws","region":"eu-west-1","encryptionAtRest":true}'
-```
-
-**Product:** Sovereign Database (SKU: DWS-SOVEREIGN-DB-001) — 4 tiers: Assess (free), Standard (€499/mo), Growth (€1,499/mo), Enterprise (€4,999/mo).
+V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output schemas, capabilities, and product details.
+→ [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#v2-agent-details)
 
 ---
 
 ## 9. How to Add a New Agent
 
-Follow this pattern exactly:
+→ Full guide with code template, registration, tests, cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md)
 
-### Step 1: Create the agent file
-
-```bash
-# File: src/agents/your-agent.agent.ts
-```
-
-```typescript
-import { BaseAgent } from './base.agent.js';
-import type { AgentContext, AgentResponse } from './types.js';
-
-interface YourAgentInput {
-  // Define input schema
-}
-
-export class YourAgent extends BaseAgent {
-  constructor() {
-    super({
-      name: 'your-agent',           // kebab-case, unique
-      description: 'One sentence',
-      capabilities: ['cap-1', 'cap-2'],
-      model: 'llama-3.3-70b-versatile',
-    });
-  }
-
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
-    const startTime = Date.now();
-    const typedInput = input as unknown as YourAgentInput;
-
-    // Log start
-    await this.logExecution({
-      agent_name: this.config.name,
-      user_id: context.userId,
-      org_id: context.orgId,
-      session_id: context.sessionId,
-      project_id: context.projectId,
-      input, output: null, status: 'started',
-      duration_ms: 0,
-      created_at: new Date().toISOString(),
-    });
-
-    // 1. Deterministic scoring first (naive then optimize)
-    // 2. LLM enhancement via this.callLLM()
-    // 3. Build response
-
-    const durationMs = Date.now() - startTime;
-
-    const response: AgentResponse = {
-      agentName: this.config.name,
-      result: { /* your output */ },
-      confidence: 0.85,
-      reasoning: 'Explain the scoring logic',
-      recommendations: ['Action 1', 'Action 2'],
-      metadata: { durationMs },
-    };
-
-    // Log completion
-    await this.logExecution({
-      agent_name: this.config.name,
-      user_id: context.userId,
-      org_id: context.orgId,
-      session_id: context.sessionId,
-      project_id: context.projectId,
-      input, output: response, status: 'completed',
-      duration_ms: durationMs,
-      created_at: new Date().toISOString(),
-    });
-
-    return response;
-  }
-}
-```
-
-### Step 2: Register in the registry
-
-```typescript
-// src/agents/index.ts — add import and registration
-import { YourAgent } from './your-agent.agent.js';
-
-// In registerDefaults():
-this.register(new YourAgent());
-```
-
-### Step 3: Add tests
-
-```typescript
-// src/__tests__/your-agent.test.ts
-```
-
-### Step 4: Update this file
-
-Add the agent to the Platform Agents table in Section 7.
+Quick steps: 1) Create `src/agents/your-agent.agent.ts` extending `BaseAgent`, 2) Register in `src/agents/index.ts`, 3) Add tests, 4) `agents-md-sync` auto-updates this table, 5) Add Claude Code skill.
 
 ---
 
 ## 10. Lifetime Scope Signals Protocol
 
-### Signal Format
-
-```
-[AGENT-XX]:SIGNAL_TYPE:MILESTONE:TIMESTAMP
-```
-
-| Component | Description |
-|-----------|-------------|
-| `AGENT-XX` | Agent identifier (e.g., `AGENT-01`, `AGENT-07`) |
-| `SIGNAL_TYPE` | `READY` / `COMPLETE` / `ERROR` / `BLOCKED` |
-| `MILESTONE` | Specific deliverable (e.g., `supabase-auth`) |
-| `TIMESTAMP` | ISO 8601 |
-
-### Signal Commands
-
-```bash
-cd .workflows/agents
-node coordinator.cjs status                         # All statuses
-node coordinator.cjs ready                          # Ready to launch
-node coordinator.cjs emit agent-07 READY:rls-policies  # Emit signal
-```
-
-### Dependency Map
-
-```
-PHASE 1 (Foundation)
-├── Agent-01 (Auth)      → READY:supabase-auth
-├── Agent-07 (Database)  → READY:rls-policies, READY:schema-users
-└── Agent-10 (Docs)      → READY:api-docs
-         │
-PHASE 2 (Core Backend)
-├── Agent-02 (Firehorse) ← Agent-01, Agent-07
-├── Agent-04 (AI Agents) ← Agent-07
-└── Agent-09 (Email)     ← Agent-07
-         │
-PHASE 3 (Frontend)
-├── Agent-03 (Dashboard) ← Agent-02, Agent-04
-└── Agent-05 (Mobile)    ← Agent-02, Agent-04
-         │
-PHASE 4 (Enhancements)
-├── Agent-08 (Payments)  ← Agent-01, Agent-07
-└── Agent-06 (Enterprise) → DEFERRED V1.1
-```
+Development agent coordination via file-based signals. Commands: `node coordinator.cjs status|ready|emit`.
+→ Full protocol, signal format, dependency map: [docs/SIGNAL_PROTOCOL.md](docs/SIGNAL_PROTOCOL.md)
 
 ---
 
@@ -541,44 +262,15 @@ PHASE 4 (Enhancements)
 |--------|---------|
 | Docker MCP | Container management, GitHub integration |
 | ZenFree | Security scanning (replaced Snyk) |
-| Browser MCP | Web testing, UI verification |
+| Agent Browser | Web testing, UI verification, competitive intelligence (native Rust, vercel-labs/agent-browser) |
 
 ---
 
-## 12. Team Agents (Operations)
+## 12. Team Agents & Cost Tracking
 
-Weekly Friday coordination cycle:
-
-| Order | Agent | Deliverable |
-|-------|-------|-------------|
-| 1 | Market Signal Agent | Market insights, demand detection |
-| 2 | Product Page Generator | Updated product/landing pages |
-| 3 | DevOps Agent | Cost report, uptime, CI/CD health |
-| 4 | Security Agent | Vulnerability scans, compliance checklist |
-| 5 | Builder Agent | Code review summary, agent implementations |
-| 6 | Architect Agent | ADRs, architecture changelog |
-| 7 | Product Agent | Compiles final weekly report (EN/FI) |
-
----
-
-## 13. Agent Cost Tracking
-
-Every agent has a monthly budget:
-
-```yaml
-cost_tracking:
-  budget_monthly_eur: 100-150
-  alert_at_percentage: 80
-  model_costs:
-    llama_3_3_70b:
-      provider: groq
-      input_per_1m_tokens: 0.59
-      output_per_1m_tokens: 0.79
-    claude_sonnet_4_5:
-      provider: anthropic
-      input_per_1m_tokens: 3.00
-      output_per_1m_tokens: 15.00
-```
+7 team agents in weekly Friday coordination cycle. Budget: €100-150/agent/month.
+→ Details: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#team-agents-operations)
+→ Cost tracking: [docs/AGENT_DEVELOPMENT_GUIDE.md](docs/AGENT_DEVELOPMENT_GUIDE.md#agent-cost-tracking)
 
 ---
 
@@ -693,220 +385,33 @@ dws mcp tools
 
 **DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, Boardy security checks, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
 
----
+### Important add-on: Agent Browser (`agent-browser`)
 
-## 17. Compliance Scoring Engine Architecture
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/vercel-labs/agent-browser |
+| **Install** | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`) |
+| **What it is** | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead. |
+| **Why it matters** | 1.6x faster cold start, 18x less memory, 99x smaller install vs Playwright MCP. Snapshot+Refs system saves ~93% context window by returning compact element references (`@e1`, `@e2`) instead of full DOM trees. |
+| **Key commands** | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage` |
+| **Use with DWS** | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI. |
 
-Added: March 7, 2026 | MVP Feature 2
-
-The Compliance Scoring Engine is the core product logic — deterministic, testable, no LLM dependency for scoring. The existing `ComplianceAgent` (`src/agents/compliance.agent.ts`) now delegates real calculations to the scoring engine.
-
-### Architecture
-
-```
-ComplianceAgent (orchestration layer)
-  ├── scoring-engine.ts (deterministic scoring)
-  │   ├── scoreCsrdReadiness()  — ESRS data point coverage
-  │   ├── scoreEtsExposure()    — emissions threshold analysis
-  │   └── scoreCbamRisk()       — import value risk assessment
-  ├── esrs-registry.ts (82 ESRS disclosures, E1-E5/S1-S4/G1)
-  ├── report-generator.ts (structured JSON for auditors)
-  └── LLM (gap analysis enhancement — optional)
-```
-
-### Scoring Formula
-
-```
-CSRD Score = (mandatory data points provided / total mandatory) × 80
-           + transition plan bonus (10)
-           + emissions monitoring bonus (10)
-
-ETS Score  = 100 - penalties for:
-           - No emissions monitoring (-40 if above threshold)
-           - No transition plan (-20)
-           - No GHG data E1-6 (-25)
-
-CBAM Score = 100 - penalties for:
-           - No supply chain DD (-40 if above €150K imports)
-           - No supplier data G1-2 (-20)
-           - No pollution data E2-4 (-15)
-
-Overall    = CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25
-```
-
-### API Endpoints
-
-| Method | Path | Description |
-|--------|------|-------------|
-| POST | `/api/v1/compliance/assess` | Run compliance assessment, returns scored report |
-| GET | `/api/v1/compliance/registry` | Get ESRS disclosure registry (filterable by standard/category/mandatory) |
-
-### Database Schema
-
-| Table | Purpose |
-|-------|---------|
-| `compliance_profiles` | Organization compliance profile (industry, emissions, imports) |
-| `esrs_data_points` | Individual ESRS disclosure data (82 possible per profile) |
-| `compliance_assessments` | Assessment results with scores and gaps |
-
-All tables have RLS policies scoped to `organization_id`.
-
-### Middleware Stack (Required Order)
-
-All compliance routes use the following middleware chain:
-
-1. `correlationId` → trace ID
-2. `validate({ body: AssessmentSchema })` → Zod validation
-3. Route handler → calls `scoreCompliance()` + `generateReport()`
-4. `errorHandler` → catches and formats errors
+**Architecture:** Rust CLI (cold start <50ms) → CDP WebSocket → Chrome. Supports headed/headless modes, multiple isolated sessions, AES-256-GCM encrypted session storage, and device emulation.
 
 ---
 
-## 18. Bring Your Own Agent (BYO) Lifecycle & KYA Trust Framework
+## 17. Compliance Scoring Engine
 
-*Added: March 9, 2026 — Session: claude/sandbox-industrial-models-GXxbN*
+Deterministic scoring (CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25), no LLM dependency. API: `POST /api/v1/compliance/assess`.
+→ Full architecture, scoring formula, DB schema: [docs/COMPLIANCE_SCORING.md](docs/COMPLIANCE_SCORING.md)
 
-The DWS10 Control Room manages 16 industrial-grade models in isolated sandboxes. Customers can deploy third-party agents — Microsoft CoWork, Tencent Workbuddy, Clawbot, or any MCP-compatible agent — into the environment via the **BYO (Bring Your Own) Agent** process.
+---
 
-Every BYO agent is governed by the **KYA (Know Your Agent)** protocol, a DWS IQ feature that extends KYC/KYB to autonomous agents.
+## 18. BYO Agent Lifecycle & KYA Trust Framework
 
-### 18.1 KYA Three Pillars
-
-| Pillar | Name | Function |
-|--------|------|----------|
-| 1 | **Identity Attribution** (The Anchor) | Cryptographically binds agent session to KYC-verified human/entity |
-| 2 | **Capability Gating** (The Leash) | Real-time risk telemetry dynamically adjusts agent permissions |
-| 3 | **Forensic Observability** (The Firehorse Audit Trail) | Sub-second syscall + network telemetry, immutable audit chain |
-
-### 18.2 BYO Agent Registration (6-Stage Gate)
-
-```
-Customer Request
-    │
-    ▼
-┌──────────────────────────────────┐
-│ Stage 1: Registration            │  Agent manifest submitted to DWS Agent Registry
-│ (No identity gate)               │  Manifest: name, version, provider, requested MCP tools
-└──────────────┬───────────────────┘
-               ▼
-┌──────────────────────────────────┐
-│ Stage 2: Identity Binding        │  ← IDV GATE (BLOCKING)
-│ Human operator verified          │  Document + face match + AML screen
-└──────────────┬───────────────────┘
-               ▼
-┌──────────────────────────────────┐
-│ Stage 3: Org Verification        │  ← KYB GATE (BLOCKING for BYO)
-│ Organization behind agent        │  Business verification, UBO checks
-└──────────────┬───────────────────┘
-               ▼
-┌──────────────────────────────────┐
-│ Stage 4: Capability Review       │  MCP tool approval against org policy
-│ What tools does it need?         │  DWS IQ admin reviews requested capabilities
-└──────────────┬───────────────────┘
-               ▼
-┌──────────────────────────────────┐
-│ Stage 5: Sandbox Entry           │  ← KYA SCORE CHECK (≥ 50 to enter)
-│ Firecracker MicroVM spun up      │  Isolated runtime, tier-based limits
-└──────────────┬───────────────────┘
-               ▼
-┌──────────────────────────────────┐
-│ Stage 6: Runtime Monitoring      │  Continuous telemetry (Firehorse)
-│ + Dynamic Restriction            │  ← WEBHOOK on risk change
-│                                  │  Sandbox permissions adjust in real-time
-└──────────────────────────────────┘
-```
-
-### 18.3 KYA Trust Score
-
-The KYA trust score determines sandbox permissions. Identity provider risk signals are the master key.
-
-| Score | Sandbox Tier | Description |
-|-------|-------------|-------------|
-| ≥ 80 | **Full Agency** | Egress, filesystem, all MCP tools, write to models |
-| 50–79 | **Restricted** | No egress, read-only FS, curated MCP tools |
-| < 50 | **Suspended** | Human review required, agent paused |
-| = 0 | **Quarantine** | Agent terminated, Firehorse forensic dump triggered |
-
-**Dynamic adjustment:** If an identity provider webhook signals a risk change (AML hit, document expiry, anomalous behavior), the hypervisor adjusts sandbox permissions in < 5 seconds.
-
-### 18.4 Hardware Isolation (Firecracker MicroVMs)
-
-Every BYO agent runs in a dedicated Firecracker MicroVM with zero shared kernel access.
-
-| Property | Value |
-|----------|-------|
-| Boot time | < 125 ms |
-| Memory overhead | < 5 MB per MicroVM |
-| Guest kernel | Isolated per sandbox |
-| Host kernel access | None (paravirtualized) |
-| Egress control | Hypervisor-level, per-session whitelist |
-
-```
-Operator (KYA Score: 87)
-    │
-    ├── MicroVM-1: CoWork      [egress: microsoft.com]
-    ├── MicroVM-2: Workbuddy   [egress: api.tencent.com]
-    ├── MicroVM-3: Clawbot     [egress: none (air-gapped)]
-    └── MicroVM-4: Cowork      [egress: api.anthropic.com]
-
-Cross-sandbox access → TRAP → SESSION FROZEN → KYA score −30
-```
-
-### 18.5 BYO Agent Manifest Schema
-
-Every BYO agent must submit a manifest at registration (Stage 1):
-
-```json
-{
-  "agent": {
-    "name": "Clawbot",
-    "version": "2.1.0",
-    "provider": "OpenClaw Ltd",
-    "provider_country": "DE"
-  },
-  "capabilities": {
-    "mcp_tools_requested": ["material-oracle", "schedule-genius"],
-    "egress_endpoints": ["api.openclaw.io"],
-    "filesystem": "read-write",
-    "max_tokens_per_request": 16000
-  },
-  "identity": {
-    "operator_email": "ops@example.com",
-    "org_registration_id": "HRB-12345-DE"
-  }
-}
-```
-
-### 18.6 Sandbox Stages (Integration with DWS Security Standard §14)
-
-| Stage | Runtime | Isolation | KYA Gate |
-|-------|---------|-----------|----------|
-| 1 | SDK native | No network, read-only FS | L1 IDV only |
-| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU | L1 + L2 |
-| 2 | Cloud Run ephemeral | Sandboxed by default | L1 + L2 + L3 |
-| 3 | Production (Firecracker MicroVM) | Full hardware isolation | All 5 layers |
-
-### 18.7 Firehorse Forensic Logging
-
-| Layer | Data Captured | Retention |
-|-------|---------------|-----------|
-| Syscall | File I/O, process spawns, IPC | 90 days |
-| Network | Egress/ingress, DNS lookups | 90 days |
-| MCP Tool | Invocations, parameters, responses | 1 year |
-| Token Usage | Input/output tokens per agent per session | 1 year |
-| Identity Events | KYA score changes, permission adjustments | 5 years (EU AI Act Art. 12) |
-
-### 18.8 Related Standards
-
-| Standard | Section | Scope |
-|----------|---------|-------|
-| `DWS_SECURITY_STANDARD.md` | §14 (Sandbox Isolation), §18 (KYA & BYO) | Security controls, trust model |
-| `Legal/KYA_STANDARD_v1.md` | v1.0–v1.1 | Public foundational KYA document |
-| `Legal/KYA_SECURITY_v1.2.md` | v1.2 | Know Your Agent — identity, isolation, forensics, guardrails |
-| `Legal/KYA_OPTIMIZATION_v1.4.md` | v1.4 | Know Your Architecture — autoresearch, financial value, orchestrator |
-| `src/cloudflare/tenant-sandbox.ts` | Implementation | Sandbox tiers, rate limiting, usage tracking |
-| `docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md` | Field note | Partnership strategy, email drafts |
-| `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md` | Tech spec | Integration points for identity providers |
+KYA (Know Your Agent) 6-stage gate: Registration → IDV → KYB → Capability Review → Sandbox → Runtime Monitoring.
+Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine. Firecracker MicroVM isolation.
+→ Full protocol, manifest schema, sandbox stages, forensic logging: [docs/KYA_BYO_LIFECYCLE.md](docs/KYA_BYO_LIFECYCLE.md)
 
 ---
 
@@ -923,6 +428,6 @@ Every BYO agent must submit a manifest at registration (Stage 1):
 ---
 
 **Document Version:** 2.3
-**Last Updated:** March 9, 2026
+**Last Updated:** March 15, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026

@@ -9,9 +9,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
   - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
@@ -31,11 +32,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 13.03.2026
+  - Last Modified: 14.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.8 — LSS-koulutusputken koordinointi: koulutusagenttilaivasto T-01–T-10, laatuporttisignaalit, resurssien välimiesosoitus)
-
+  - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
 ---
 
 ## Tiivistelma
@@ -61,11 +61,10 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 11. [Proton-tuotestrategia](#11-proton-tuotestrategia)
 12. [IPR-suojaus ja liikesalaisuusstrategia](#12-ipr-suojaus-ja-liikesalaisuusstrategia)
 13. [Prompt-valimuistiarkkitehtuuri tekoalyagenteille](#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille)
-14. [Yrityksen monivuokralainen agenttiarkkitehtuuri](#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri)
-15. [Tulokset ja pohdinta](#15-tulokset-ja-pohdinta)
-16. [Johtopäätökset](#16-johtopaatotkset)
-17. [Lahteet](#17-lahteet)
-18. [Liitteet](#18-liitteet)
+14. [Tulokset ja pohdinta](#14-tulokset-ja-pohdinta)
+15. [Johtopaatotkset](#15-johtopaatotkset)
+16. [Lahteet](#16-lahteet)
+17. [Liitteet](#17-liitteet)
 
 ---
 
@@ -967,7 +966,7 @@ Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle ka
 
 ---
 
-## 14. Yrityksen monivuokralainen agenttiarkkitehtuuri
+## 14. Tulokset ja pohdinta
 
 ### 14.1 Toimialakohtainen avoimen LLM:n valinta
 
@@ -1214,7 +1213,7 @@ Firehorse-toimintamalli Claude Codella saavutti:
 | Virheprosentti | 5 % | <1 % | 80 % |
 | Kauppasivun paivitykset | 4 tuntia | 15 minuuttia | 94 % |
 
-### 15.2 Google Merchant Center -suorituskyky
+### 12.2 Google Merchant Center -suorituskyky
 
 Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
@@ -1225,7 +1224,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | Kassakonversio | Suora maksuun |
 | Syotetiedoston koko | 32 893 tavua |
 
-### 15.3 Vaatimustenmukaisuusvalmiuden arviointi
+### 12.3 Vaatimustenmukaisuusvalmiuden arviointi
 
 | Saannos | Valmius | Puuteanalyysi |
 |---------|---------|---------------|
@@ -1235,7 +1234,7 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 | NIS2 | 75 % | Turvallisuusarviointi tarvitaan |
 | CSRD | 85 % | Raportointipohjat valmiina |
 
-### 15.4 Rajoitukset
+### 12.4 Rajoitukset
 
 1. **Aanichat ei viela kaytossa** - Suunnitelma dokumentoitu, Q1 2026 tavoite
 2. **Kumppaniekosysteemi** - Kumppanuudet kehitteilla
@@ -1244,9 +1243,9 @@ Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
 
 ---
 
-## 16. Johtopäätökset
+## 15. Johtopaatotkset
 
-### 16.1 Yhteenveto
+### 13.1 Yhteenveto
 
 Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta voi:
 
@@ -1256,7 +1255,7 @@ Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta vo
 4. **Valmistaa infrastruktuurin** aanipohjaiseen asiakasvuorovaikutukseen
 5. **Tukea teollisia asiakkaita** hiilijalanjalkililaskurin integraatiolla
 
-### 16.2 Keskeiset kontribuutiot
+### 13.2 Keskeiset kontribuutiot
 
 Tama tutkielma kontribuoi:
 
@@ -1275,7 +1274,7 @@ Tama tutkielma kontribuoi:
 13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
 14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
 
-### 16.3 Tuleva tyo
+### 13.3 Tuleva tyo
 
 1. **Q1 2026:** Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella
 2. **Q2 2026:** Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla
@@ -1285,7 +1284,7 @@ Tama tutkielma kontribuoi:
 
 ---
 
-## 17. Lahteet
+## 16. Lahteet
 
 1. EU:n tekoalysaados, Asetus (EU) 2024/1689
 2. Google Merchant Center -tekniset maaritykset (2026)
@@ -1328,7 +1327,7 @@ Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietot
 
 ---
 
-## 18. Liitteet
+## 17. Liitteet
 
 ### Liite A: Taysi tuotekatalogi
 
@@ -1574,6 +1573,62 @@ Alkuperäinen v2.2-arviointi oletti yksitasoista HTAP:ta. Maaliskuun 2026 päivi
 
 **Tutkimuspanos:** Osoittaa, että hallinnoidun palveluntarjoajan rajoitteet (Aiven-sallittujen lista) toimivat arkkitehtuurin ohjaajana — pakottavat kaksitasoisen HTAP-mallin, jossa tuotanto ja reunalaskenta eriytyvät. TimescaleDB Hypercore on ainoa yhden tietokannan HTAP-ratkaisu, joka täyttää sekä Aiven-yhteensopivuuden että EU-tietojen sijaintivaatimukset.
 
+### 14.12 Harness Engineering ja forensiikkatelemetria
+
+**Lähde:** OpenAI, "Harness engineering: leveraging Codex in an agent-first world", 13.02.2026; analyysi tiedostossa `docs/OPENAI_HARNESS_ENGINEERING_ANALYSIS.md`.
+
+**Konteksti:** OpenAI:n harness engineering -kehys kuvaa miten AI-agenttia ympäröivä ympäristö (scaffolding, rajoitteet, palautesilmukat) määrittää agentin tehokkuuden enemmän kuin itse malli. Tämä osio yhdistää harness engineeringin Firehorse-forensiikkatelemetriaan ja laajempaan väitöskirjatutkimukseen oikeudellisesti pätevistä AI-operaatioista.
+
+#### 14.12.1 Harness-forensiikka-yhteys
+
+OpenAI:n harness-malli keskittyy **kehittäjien tuottavuuteen** — tuotteiden rakentamisen nopeuttamiseen AI-agenttien avulla. DWS IQ 6 laajentaa harness-käsitteen **forensisiin operaatioihin**, joissa jokaisen agenttitoimenpiteen on oltava jäljitettävissä, auditoitavissa ja oikeudellisesti pätevä.
+
+| Harness-kerros | OpenAI:n tarkoitus | Firehorse-forensiikan tarkoitus |
+|----------------|--------------------|---------------------------------|
+| **AGENTS.md** | Kartta kehittäjäagenteille | Auditoitavissa oleva järjestelmäkuvaus sääntelyviranomaisille |
+| **Golden Principles** | Koodin laadunvarmistus | Vaatimustenmukaisuusstandardien noudattaminen 20 toimialalla |
+| **Tieto repossa** | Kehittäjädokumentaatio | VERSION AND AGENT HISTORY — muuttumaton muokkauspäiväkirja |
+| **Agentti-agentti-katselmointi** | Koodin laadun iteraatio | Monimallikatselmointi, joka luo forensisen todistusketjun |
+| **Palautesilmukat** | Kehittäjien tuottavuus | Oikeudellisesti pätevä päätösten jäljitettävyys |
+
+**Keskeinen oivallus:** DWS-dokumenttistandardin VERSION AND AGENT HISTORY -lohko muuttaa jokaisen dokumentin forensiseksi artefaktiksi. Jokainen muokkaus tallentaa: versionumeron, käytetyn työkalun, session ID:n, päivämäärän ja tehdyt muutokset. Tämä on harness-mekanismi, jota OpenAI ei kuvaa — koska he optimoivat nopeutta, eivät oikeudellista puolustettavuutta.
+
+#### 14.12.2 KYA-standardi laitteistotason harness-todennuksena
+
+OpenAI:n harness toimii kokonaan ohjelmistotasolla — rajoitteet, linterit, koodikatselmointi-silmukat. DWS:n KYA-standardi (Know Your Agent/Architecture) laajentaa harnessin laitteistotasolle:
+
+| Harness-tyyppi | OpenAI | DWS KYA |
+|---------------|--------|---------|
+| **Agentti-identiteetti** | Ohjelmistotason sessio-ID:t | Laitteistotodennettu agentin identiteetti (TPM/Secure Boot) |
+| **Suorituksen eristys** | Konttien hiekkalaatikko | Laitteistoeristetyt suoritusympäristöt |
+| **Auditoinnin muuttumattomuus** | Git-historia | Laitteistotodennetut auditointilokit (peukaloinnin kestävät) |
+| **Luottamusraja** | Prosessitaso | Laitteistoturvamoduulin raja |
+
+KYA-standardin Kilpi (turvallisuus) ja Miekka (optimointi) -paradigma osoittaa, että **laitteistotason harness tarjoaa takuita, joita ohjelmisto-harness ei voi antaa** — erityisesti EU-reguloiduilla toimialoilla, joilla agenttipäätöksillä on oikeudellinen vastuu.
+
+#### 14.12.3 Empiirinen validointi: harness ylittää mallin
+
+Harness engineering -kirjallisuus tarjoaa empiirisiä todisteita Firehorse-toimintamallin tueksi:
+
+- **52,8 % → 66,5 % parannus** pelkillä harness-muutoksilla (LangChain-tapaus, sama gpt-5.2-codex-malli)
+- **46,9 % tokenisäästö** progressiivisella paljastamisella (Cursor)
+- **15–47 % parempi sääntöjen noudattaminen** L6 Tool Result Injection vs pelkkä systeemiprompt (DWS:n sisäinen mittaus)
+
+Nämä löydökset validoivat Firehorse-mallin investoinnin operatiiviseen infrastruktuuriin (forensiikkatelemetria, automatisoitu PR-katselmointi, session handover -protokolla) mallivalinnan sijaan. Malli on vaihdettavissa — harness on kilpailuetu.
+
+#### 14.12.4 EU-regulaation eroavaisuus
+
+Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin on täytettävä rajoitteet, joita OpenAI:n sisäiset työkalut eivät kohtaa:
+
+| EU-vaatimus | Harness-implikaatio | Firehorse-toteutus |
+|-------------|--------------------|--------------------|
+| **EU AI Act Art 12** (7 vuoden lokitus) | Jokainen agenttitoimenpide kirjattava muuttumattomasti | VERSION AND AGENT HISTORY + Supabase-auditointitaulut |
+| **EU AI Act Art 14** (ihmisen valvonta) | Ihminen silmukassa pakollinen korkean riskin järjestelmissä | Karpathy-periaatteet: "ihminen on arkkitehti" |
+| **GDPR Art 17** (oikeus tulla unohdetuksi) | Datan poisto säilyttäen auditointipolku | Pseudonymisoidut auditointilokit erillisellä PII-tallennuksella |
+| **NIS2 Art 23** (häiriöilmoitukset) | 24 tunnin tietoturvaloukkauksesta ilmoittaminen | Firehorse-automatisoitu häiriötelemetria |
+
+**Tutkimuspanos:** Tämä osio osoittaa, että **harness engineering ei ole yksi koko kaikille.** EU-regulaatiokonteksti vaatii perustavanlaatuisesti erilaisen harness-suunnittelun — sellaisen, joka priorisoi jäljitettävyyttä, ihmisen valvontaa ja oikeudellista puolustettavuutta nopeuden sijaan. OpenAI:n 3,5 PR/insinööri/päivä -mittari on irrelevantti, kun ensisijainen mittari on vaatimustenmukaisuuden varmistaminen ja auditointivalmius.
+
 ---
 
 ## Liite G: Sanasto
@@ -1616,6 +1671,10 @@ Alkuperäinen v2.2-arviointi oletti yksitasoista HTAP:ta. Maaliskuun 2026 päivi
 
 ---
 
+**Keskeiset kontribuutiot:**
+1-14. (Katso VERSION AND AGENT HISTORY)
+15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
+
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 13.03.2026*
-*Versio: 2.4*
+*Viimeksi päivitetty: 14.03.2026*
+*Versio: 2.5*
