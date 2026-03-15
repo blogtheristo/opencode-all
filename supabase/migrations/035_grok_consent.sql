@@ -123,6 +123,7 @@ BEGIN
   RAISE EXCEPTION
     'Audit log records are immutable: % is not permitted on %',
     TG_OP, TG_TABLE_NAME;
+  RETURN NULL;
 END;
 $$;
 
