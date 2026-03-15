@@ -9,9 +9,13 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.5
 
 Sessions & Modifications:
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
   - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
@@ -28,11 +32,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 02.03.2026
+  - Last Modified: 14.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Last Modified: 07.03.2026
-  - Publication Status: DRAFT (V1.8 — LSS Training Pipeline Coordination: Training Agent Fleet T-01–T-10, quality gate signals, resource arbitration)
+  - Publication Status: DRAFT (V2.5 — Harness Engineering and Forensic Telemetry: harness-forensics connection, court-defensible harness, KYA hardware attestation)
 
 ---
 
@@ -1276,6 +1279,9 @@ This thesis contributes:
 9. CEO Automation Agent Suite — Captain Briefing, LinkedIn Scheduler, EU Regulation Monitor; Firehorse model applied to revenue workflow automation
 10. Multi-Partner AI Ecosystem — NVIDIA, Siemens, ABB, xAI, Mistral + multi-LLM router; validates distribution hypothesis of the Firehorse operating model
 11. LSS Training Pipeline Coordination — Lifetime Scope Signals applied to LWM training: Training Agent Fleet (T-01–T-10), quality gate signals, resource arbitration for 2× GN-100 nodes; validates LSS as general-purpose coordination beyond software development
+12. Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export; Firehorse operations model transition to customer-deliverable SaaS
+13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
+14. Two-Tier HTAP Architecture — Aiven-first mandate, TimescaleDB Hypercore for production, pg_duckdb for edge analytics; validates managed-provider constraint as architectural driver
 
 ### 16.3 Future Work
 
@@ -1538,6 +1544,148 @@ The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failu
 
 ---
 
+### Section 14.11: PostgreSQL Columnar HTAP Architecture — DWS Data Standard
+
+The Firehorse operations model generates growing volumes of campaign events, agent execution logs, and audit trail data. Running analytics against transactional heap tables creates performance bottlenecks as data scales.
+
+**Solution: Two-Tier HTAP — Aiven-first mandate (updated 13.03.2026)**
+
+The original v2.2 plan assumed pg_duckdb availability on Aiven. Three market shifts invalidated that assumption:
+
+1. **Hydra joined Supabase** (Feb 2026) — renamed "Supabase Warehouse"; no longer independent, not on Aiven.
+2. **pg_mooncake acquired by Databricks** (Oct 2025) — roadmap pivoted to lakehouse; Aiven listing unlikely.
+3. **pg_duckdb: BLOCKED on Aiven whitelist** — extension not in Aiven's approved list; no ETA for inclusion.
+
+**Extension evaluation (revised):**
+
+| Extension | Engine | Aiven Status | Verdict |
+|-----------|--------|-------------|---------|
+| TimescaleDB 2.25.x | PostgreSQL (Hypercore) | **Approved** | ONLY managed option — hypertables + columnar compression |
+| pg_duckdb | DuckDB | **BLOCKED** (not whitelisted) | Edge-only — approved for GN100 self-managed nodes |
+| Hydra | Citus columnar | **Dead** — joined Supabase (Feb 2026) | Removed from evaluation |
+| pg_mooncake | DuckDB | **Dead** — acquired by Databricks (Oct 2025) | Removed from evaluation |
+
+**Recommended stack — two-tier HTAP:**
+
+| Tier | Host | Extensions | Role |
+|------|------|-----------|------|
+| **Production** | Aiven PostgreSQL (EU) | TimescaleDB 2.25.x Hypercore | OLTP + time-series compression, audit logs, agent metrics |
+| **Edge analytics** | Acer Veriton GN100 (ARM64) | TimescaleDB + pg_duckdb + pgvector | Local OLAP, fleet telemetry, AI inference |
+
+Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-managed.
+
+**DWS Data Standard** (`DWS_DATA_STANDARD.md`) governing:
+- Storage engine decisions (row vs columnar vs hybrid)
+- Extension governance with EU sovereignty assessment and Aiven whitelist compliance
+- Retention policies mapped to 11 EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2: 5yr, Finnish Accounting Act: 10yr)
+- Partitioning and compression standards
+
+**Revised rollout:** Phase 0 (table partitioning) → Phase 1 (TimescaleDB Hypercore on Aiven) → Phase 2 (edge pg_duckdb on GN100) → Phase 3 (Aiven↔GN100 replication).
+
+**Research contribution:** Demonstrates that managed-provider extension whitelists are a first-class architectural constraint — not a deployment detail. When the preferred extension (pg_duckdb) is blocked, the architecture must split into tiers rather than compromise on provider choice. The two-tier pattern (managed cloud + self-managed edge) preserves both EU data residency and analytical capability.
+
+### 14.12 Harness Engineering and Forensic Telemetry
+
+**Source:** OpenAI, "Harness engineering: leveraging Codex in an agent-first world", 13.02.2026; analysis in `docs/OPENAI_HARNESS_ENGINEERING_ANALYSIS.md`.
+
+**Context:** OpenAI's harness engineering framework describes how the environment surrounding AI agents (scaffolding, constraints, feedback loops) determines agent effectiveness more than the model itself. This section connects harness engineering to Firehorse's forensic telemetry and the broader PHD research on court-defensible AI operations.
+
+#### 14.12.1 The Harness-Forensics Connection
+
+OpenAI's harness model focuses on **developer productivity** — building products faster with AI agents. DWS IQ 6 extends the harness concept to **forensic operations**, where every agent action must be traceable, auditable, and court-defensible.
+
+| Harness Layer | OpenAI Purpose | Firehorse Forensic Purpose |
+|---------------|---------------|---------------------------|
+| **AGENTS.md** | Map for developer agents | Audit-ready system description for regulators |
+| **Golden Principles** | Code quality enforcement | Compliance standard adherence across 20 industries |
+| **Knowledge in repo** | Developer documentation | VERSION AND AGENT HISTORY — immutable modification log |
+| **Agent-agent review** | Code quality iteration | Multi-model review creating forensic evidence trail |
+| **Feedback loops** | Developer productivity | Court-defensible decision provenance |
+
+**Key insight:** The DWS Document Standard's VERSION AND AGENT HISTORY block transforms every document into a forensic artifact. Each modification records: version number, tool used, session ID, date, and specific changes. This is a harness mechanism that OpenAI does not describe — because they optimize for speed, not legal defensibility.
+
+#### 14.12.2 KYA Standard as Hardware-Attested Harness
+
+OpenAI's harness operates entirely at the software level — constraints, linters, code review loops. DWS's KYA (Know Your Agent/Architecture) Standard extends the harness into hardware:
+
+| Harness Type | OpenAI | DWS KYA |
+|-------------|--------|---------|
+| **Agent identity** | Software-level session IDs | Hardware-attested agent identity (TPM/Secure Boot) |
+| **Execution isolation** | Container sandboxing | Hardware-isolated execution environments |
+| **Audit immutability** | Git history | Hardware-attested audit logs (tamper-evident) |
+| **Trust boundary** | Process-level | Hardware security module boundary |
+
+The KYA Standard's Shield (security) and Sword (optimization) paradigm demonstrates that **hardware-level harness provides guarantees that software harness cannot** — particularly for EU-regulated industries where agent decisions carry legal liability.
+
+#### 14.12.3 Empirical Validation: Harness Over Model
+
+The harness engineering literature provides empirical evidence supporting the Firehorse Operations Model:
+
+- **52.8% → 66.5% improvement** from harness changes alone (LangChain case, same gpt-5.2-codex model)
+- **46.9% token savings** from progressive disclosure (Cursor)
+- **15-47% better rule compliance** from L6 Tool Result Injection vs system prompt alone (DWS internal measurement)
+
+These findings validate the Firehorse model's investment in operational infrastructure (forensic telemetry, automated PR review, session handover protocol) over model selection. The model is interchangeable — the harness is the competitive advantage.
+
+#### 14.12.4 EU Regulatory Divergence
+
+For Firehorse operations serving EU-regulated industries, the harness must satisfy constraints that OpenAI's internal tooling does not face:
+
+| EU Requirement | Harness Implication | Firehorse Implementation |
+|----------------|--------------------|-----------------------|
+| **EU AI Act Art 12** (7-year logging) | Every agent action logged immutably | VERSION AND AGENT HISTORY + Supabase audit tables |
+| **EU AI Act Art 14** (human oversight) | Human-in-the-loop mandatory for high-risk | Karpathy principles: "human is the architect" |
+| **GDPR Art 17** (right to erasure) | Data deletion while preserving audit trail | Pseudonymized audit logs with separate PII store |
+| **NIS2 Art 23** (incident reporting) | 24-hour breach notification capability | Firehorse automated incident telemetry |
+
+**Research contribution:** This section demonstrates that **harness engineering is not one-size-fits-all.** The EU regulatory context requires a fundamentally different harness design — one that prioritizes traceability, human oversight, and legal defensibility over speed. OpenAI's 3.5 PR/engineer/day metric is irrelevant when the primary metric is compliance assurance and audit readiness.
+
+---
+
+## Appendix G: Glossary
+
+### Platform and Business Concepts
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **AgentFoundry** | AgentFoundry | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
+| **Edge AI** | Reunatekoäly | AI processing on local devices instead of cloud servers |
+| **Firehorse** | Firehorse | DWS6 product suite (Reports, Automation, Omnichannel, CMS) |
+| **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
+| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+
+### Data Architecture and Analytics
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression |
+| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
+| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
+| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
+| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
+| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
+| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+
+### Security and Compliance
+
+| Term (EN) | Finnish | Definition |
+|-----------|---------|------------|
+| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring production extensions to be Aiven-compatible before adoption |
+| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage, extension governance, and EU regulatory compliance |
+| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline) |
+| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
+| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — AI agent security (Shield) and optimization governance (Sword) |
+| **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
+| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate on small proxy before scaling to production |
+| **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
+
+---
+
+**Key Contributions:**
+1-14. (See VERSION AND AGENT HISTORY)
+15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
+
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 09.03.2026*
-*Version: 2.1*
+*Last updated: 14.03.2026*
+*Version: 2.5*

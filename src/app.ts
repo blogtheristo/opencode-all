@@ -28,19 +28,24 @@ import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import grokConsentRoutes from './routes/grok-consent.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
-import { createMCPRouter } from './mcp/agent-server.js';
-import hilRoutes from './routes/hil.routes.js';
 import captainRoutes from './routes/captain.routes.js';
+import usageRoutes from './routes/usage.routes.js';
+import onboardRoutes from './routes/onboard.routes.js';
+import complianceRoutes from './routes/compliance.routes.js';
+import reportExportRoutes from './routes/report-export.routes.js';
+import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 
 dotenv.config();
 
@@ -111,6 +116,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
 };
 app.use(cors(corsOptions));
+
+// API versioning header on all responses
+app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
 app.use(express.json({ limit: '10kb' }));
@@ -196,6 +204,21 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
+// Usage metering (MVP Feature 2)
+app.use('/api/v1/usage', usageRoutes);
+
+// Onboarding wizard (baseline compliance assessment)
+app.use('/api/v1/onboard', onboardRoutes);
+
+// Compliance assessment API (scoring, registry, cost estimate)
+app.use('/api/v1/compliance', complianceRoutes);
+
+// Report export & scheduling (MVP Feature 3)
+app.use('/api/v1/reports', reportExportRoutes);
+
+// API key management (MVP Feature 1)
+app.use('/api/v1/user/api-keys', apiKeyRoutes);
+
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
 
@@ -263,6 +286,9 @@ app.use('/api/hil', hilRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
+
+// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
+app.use('/api/grok-consent', grokConsentRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);

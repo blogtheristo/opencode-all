@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Add Edge PostgreSQL section — TimescaleDB + pg_duckdb + pgvector Docker setup, SSH deployment script, GN100-tuned configuration
   - Version: 1.5 | Tool: Claude Code | Date: 11.03.2026 | Changes: Add successful NVIDIA PyTorch ARM64 container validation, record GB10 support warning, and promote NVIDIA NGC PyTorch as validated GN100 baseline
   - Version: 1.4 | Tool: Claude Code | Date: 11.03.2026 | Changes: Document GN100 Docker/CUDA validation, confirm ARM64 host environment, record NVIDIA GB10 runtime status, and set ARM64-first PyTorch container decision
   - Version: 1.3 | Tool: Claude Code | Date: 11.03.2026 | Changes: Add Ollama systemd override runbook, remote bind verification, Continue CLI/extension base URL guidance, and direct-vs-local troubleshooting
@@ -19,7 +20,7 @@ Session Links & References:
 
 Document Status:
   - Created: 27.02.2026
-  - Last Modified: 11.03.2026
+  - Last Modified: 13.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -326,6 +327,7 @@ http://127.0.0.1:11434
 
 | Document | Location |
 |----------|----------|
+| Edge PostgreSQL setup (2026-03-13) | `docs/field-notes/2026-03-13-acer-gn100-edge-postgres-setup.md` |
 | Docker + CUDA validation (2026-03-11) | `docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` |
 | Ollama + dev environment (Cursor, Cline, Claude Code) | `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` |
 | NVIDIA GPG Key Fix (2026-02-27) | `docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` |
@@ -333,10 +335,61 @@ http://127.0.0.1:11434
 | OpenSandbox MCP Service (Python) | `mcp-hub/services/opensandbox_mcp.py` |
 | Security Standard §14.6 | `DWS_SECURITY_STANDARD.md` |
 
+## Edge PostgreSQL — TimescaleDB + pg_duckdb + pgvector
+
+A Docker-based PostgreSQL 16 instance runs on the GN100 for edge analytics, time-series telemetry, and local vector search.
+
+### Extensions
+
+| Extension | Version | Purpose |
+|-----------|---------|---------|
+| TimescaleDB | 2.x | Time-series hypertables, compression, continuous aggregates |
+| pg_duckdb | 1.x | DuckDB-powered OLAP analytics inside PostgreSQL |
+| pgvector | 0.8.x | Vector similarity search (matches Supabase stack) |
+
+### Quick Start
+
+```bash
+# 1. Configure credentials
+cd Admin/Acer-Veriton-GN100/postgres/
+cp .env.example .env
+# Edit .env — set EDGE_PG_PASSWORD
+
+# 2. Deploy via SSH
+./scripts/deploy-acer-postgres.sh
+
+# 3. Check status
+./scripts/deploy-acer-postgres.sh --status
+
+# 4. Connect via SSH tunnel
+./scripts/deploy-acer-postgres.sh --tunnel
+# Then: psql postgresql://dws_edge@localhost:15432/dws_edge
+```
+
+### Network Security
+
+PostgreSQL is bound to `127.0.0.1:5432` only — not exposed to the network. Remote access requires SSH tunnel:
+
+```bash
+ssh -L 15432:127.0.0.1:5432 admin100@gn100-cb5d
+```
+
+### GN100-Tuned Parameters
+
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| shared_buffers | 8 GB | ~25% of 32 GB container allocation |
+| effective_cache_size | 24 GB | ~75% of allocation |
+| max_parallel_workers | 8 | 8 of 10 cores for PG |
+| shm_size | 4 GB | Docker shared memory for sorting |
+
+See: `docs/field-notes/2026-03-13-acer-gn100-edge-postgres-setup.md`
+
 ## Maintenance Log
 
 | Date | Action | Notes |
 |------|--------|-------|
+| 2026-03-13 | Edge PostgreSQL deployed | PostgreSQL 16 + TimescaleDB + pg_duckdb + pgvector in Docker |
 | 2026-03-11 | Docker GPU runtime and PyTorch validated | Confirmed `linux/aarch64` host, `NVIDIA GB10`, working `nvidia/cuda:12.8.0-runtime-ubuntu24.04`, validated `nvcr.io/nvidia/pytorch:25.02-py3`, and ARM64-first container policy |
 | 2026-03-01 | OpenSandbox server deployed | Stage 1.5 agent sandboxing activated |
 | 2026-02-27 | NVIDIA GPG key expired | Documented fix procedure in field note |

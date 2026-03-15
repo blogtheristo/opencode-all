@@ -17,6 +17,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -234,6 +235,17 @@ When modifying `buy/index.html`, product pages, `products.json`, or store assets
 6. Verify: `diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html` → must be empty
 
 Applies to all store artifacts: `buy/`, `config/products.json`, `products/*.html`, `shared-assets/`, `feeds/`, product images.
+
+### Blog Post Rule (CRITICAL)
+
+Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every blog post:
+
+1. Create HTML file in `onelifetime.world/posts/<slug>.html` (source of truth)
+2. Copy to `landing-pages/onelifetime-world/posts/<slug>.html` in the **same commit**
+3. Use the same nav/footer pattern as existing posts (see `kya-standard-v1.html` as template)
+4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
+5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
+6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
 
 ## Development Commands
 

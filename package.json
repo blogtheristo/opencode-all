@@ -21,13 +21,14 @@
     "start": "node dist/app.js",
     "build": "tsc -p tsconfig.json",
     "sync:landing-pages": "node scripts/sync-landing-pages.js",
-    "lint": "echo \"No linter configured\"",
+    "lint": "eslint src/ --max-warnings 0",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@alibaba-group/opensandbox": "^0.1.0",
     "@anthropic-ai/claude-agent-sdk": "^0.2.50",
+    "@aws-sdk/client-ses": "^3.1006.0",
     "@supabase/supabase-js": "^2.39.0",
     "@upstash/redis": "^1.36.2",
     "bcryptjs": "^2.4.3",
@@ -64,6 +65,7 @@
     "supertest": "^7.2.2",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "@xdevplatform/xurl": "1.0.3"
   }
 }
