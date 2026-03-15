@@ -367,7 +367,9 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`, `/sovereignty-assess`, `/flow-status`, `/email`. Every new agent MUST have a corresponding skill.
+
+**gstack Skills (development workflow, based on Garry Tan's gstack):** `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro`. Recommended flow: plan → review → ship → retro. See AGENTS.md Section 16.
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 
