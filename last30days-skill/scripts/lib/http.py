@@ -67,7 +67,7 @@ def request(
         data = json.dumps(json_data).encode("utf-8")
         headers.setdefault("Content-Type", "application/json")
 
-    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)  # noqa: S310
 
     log(f"{method} {url}")
     if json_data:
@@ -76,7 +76,7 @@ def request(
     last_error = None
     for attempt in range(retries):
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as response:
+            with urllib.request.urlopen(req, timeout=timeout) as response:  # noqa: S310
                 body = response.read().decode("utf-8")
                 log(f"Response: {response.status} ({len(body)} bytes)")
                 return json.loads(body) if body else {}
@@ -96,7 +96,7 @@ def request(
 
             # Don't retry client errors (4xx) except rate limits
             if 400 <= e.code < 500 and e.code != 429:
-                raise last_error
+                raise last_error from e
 
             if attempt < retries - 1:
                 time.sleep(RETRY_DELAY * (attempt + 1))
@@ -108,7 +108,7 @@ def request(
         except json.JSONDecodeError as e:
             log(f"JSON decode error: {e}")
             last_error = HTTPError(f"Invalid JSON response: {e}")
-            raise last_error
+            raise last_error from e
         except (OSError, TimeoutError, ConnectionResetError) as e:
             # Handle socket-level errors (connection reset, timeout, etc.)
             log(f"Connection error: {type(e).__name__}: {e}")

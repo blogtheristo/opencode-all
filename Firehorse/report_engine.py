@@ -43,8 +43,8 @@ try:
         Table,
         TableStyle,
     )
-
     from simpleeval import simple_eval
+
     from supabase import Client, create_client
 except ImportError as e:
     print(f"Warning: Some dependencies not installed: {e}")

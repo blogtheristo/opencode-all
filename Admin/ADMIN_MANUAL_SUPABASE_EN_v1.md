@@ -1,11 +1,13 @@
 # Admin Manual: Supabase Database Management for DWS6
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
+  - Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
   - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
   - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
@@ -16,17 +18,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 04.03.2026
+  - Last Modified: 14.03.2026
   - Language: English
   - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
-**Version:** 1.2
+**Version:** 1.4
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 04.03.2026
+**Updated:** 14.03.2026
 
 ---
 
@@ -1347,6 +1349,55 @@ r.publish("supabase:alerts", json.dumps(alert))
 **CASCADE blast radius:** Unintended data loss caused by `ON DELETE CASCADE` chains when deleting a parent row.
 
 **TOCTOU race:** "Time of check, time of use" race where `SELECT` then `INSERT` can collide under concurrency. Usually fixed with `INSERT ... ON CONFLICT`.
+
+---
+
+## 15. PostgreSQL Columnar Extensions Roadmap
+
+### 15.1 Current State
+
+DWS6 runs on Supabase PostgreSQL (EU) with only `uuid-ossp` and `pgcrypto` extensions active. All analytics queries run against transactional heap tables with no columnar or HTAP capabilities.
+
+### 15.2 Extension Availability
+
+| Extension | Supabase | Aiven (V1) | Self-hosted | Purpose |
+|-----------|----------|-------------|-------------|---------|
+| uuid-ossp | **Active** | Available | Available | UUID generation |
+| pgcrypto | **Active** | Available | Available | Cryptographic functions |
+| pgvector | Available | Available | Available | Vector embeddings (planned) |
+| pg_stat_statements | Available | Available | Available | Query profiling (Phase 0) |
+| TimescaleDB | No | **Available** | Available | Time-series hypertables (Phase 1) |
+| pg_duckdb | No | Verify | Available | Analytical acceleration (Phase 2) |
+| pg_mooncake | No | No | Available | Lakehouse export (Phase 3) |
+
+### 15.3 Phased Rollout
+
+**Phase 0 (Q1 2026 — Supabase):** Table partitioning on `article12_audit_log` and `firehorse_events`, materialized views for campaign funnels, enable `pg_stat_statements`.
+
+**Phase 1 (Q2 2026 — Aiven V1):** Enable TimescaleDB. Convert `agent_metrics` and `agent_costs` to hypertables with compression policies (90d hot → compressed). Continuous aggregates for dashboards.
+
+**Phase 2 (Q3-Q4 2026 — Aiven DWS7):** Install pg_duckdb for analytical query acceleration. IoT sensor data → hypertables. Article 12 audit log → columnar compressed (7-year retention).
+
+**Phase 3 (2027):** pg_mooncake for Iceberg/Parquet export. EU Data Act IoT portability compliance.
+
+### 15.4 Governing Standard
+
+All extension and storage engine decisions are governed by `DWS_DATA_STANDARD.md` (root-level DWS standard). Refer to that document for:
+
+- Storage engine decision matrix (row vs columnar vs hybrid)
+- Extension governance and approval process
+- Data retention policies mapped to EU regulations
+- Partitioning and compression standards
+- EU regulatory compliance matrix
+
+### 15.5 Admin Actions
+
+**Before installing any new extension:**
+1. Verify it is in the Approved Extensions Registry (`DWS_DATA_STANDARD.md` §12)
+2. Test on Aiven Developer plan ($5/mo) first
+3. Create a migration file following `DWS_DATA_STANDARD.md` §10.4 template
+4. Run `scripts/db-drift-check.py` before and after
+5. Document in this manual
 
 **Modular bias:** Slight non-uniformity when mapping random bytes into an alphabet using `% N`. Fine for short email tokens, not fine for cryptography.
 
