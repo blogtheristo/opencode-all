@@ -119,13 +119,28 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 5. **Phasing Discipline (Ship First, Harden Later)** — Phase order: Ship → Verify → Harden. Do not harden undeployed code.
 
-6. **Scope Discipline** — Touch only what you're asked to touch. No unsolicited refactoring, cleanup, or comment removal.
+6. **Validated Mock Data Rule (CRITICAL)** — MVP features MAY use mock/static data, but that data MUST come from validated, citable sources — never invented numbers. Every mock value must have a `source` field or comment citing the real data source.
 
-7. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
+   | Data Type | Acceptable Sources | Example |
+   |-----------|-------------------|---------|
+   | Emission factors | EU ETS benchmarks (Reg. 2021/447), CBAM defaults (Reg. 2023/1773), IPCC 2006 | `factor: 1.328, source: 'EU ETS Benchmark 2021-2025'` |
+   | Sector averages | EEA GHG Inventory, Eurostat SBS/env_ac_ainah_r2 | `avgEmissions: 185000, source: 'EEA GHG Inventory 2024'` |
+   | Carbon prices | ECB SDW, ICE/ECX auction data | `price: 65, source: 'EU ETS 2024 average'` |
+   | Regulatory thresholds | Official regulation text (EUR-Lex) | `CBAM_IMPORT_THRESHOLD: 150000` (from Reg. 2023/956) |
+   | ESRS disclosures | EFRAG ESRS 2023 final set | 82 disclosures mapped in `esrs-registry.ts` |
+   | Company data | Company ESG reports, annual reports | Extracted via `esg-report-extractor.ts` |
 
-8. **Never Delete Files — Always Move (CRITICAL)** — Use `git mv` to move files, never `git rm` or delete. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+   **Reference files:** `src/compliance/emission-factors.ts` (ETS/CBAM factors), `src/compliance/eu-benchmarks.ts` (sector averages), `src/compliance/esrs-registry.ts` (ESRS disclosures).
 
-9. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
+   **Why:** Fake compliance scores are worse than no scores — they erode trust with enterprise buyers and auditors. Real-sourced mock data is production-ready data that simply hasn't been personalized yet.
+
+7. **Scope Discipline** — Touch only what you're asked to touch. No unsolicited refactoring, cleanup, or comment removal.
+
+8. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
+
+9. **Never Delete Files — Always Move (CRITICAL)** — Use `git mv` to move files, never `git rm` or delete. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+
+10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
 ### Leverage Patterns
 
