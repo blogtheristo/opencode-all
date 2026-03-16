@@ -113,7 +113,7 @@
 
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>Switching ERP systems is one of the highest-risk decisions a manufacturing company can make. The average ERP implementation takes 14 to 21 months, costs 2 to 5 times the initial software license, and carries a 50 to 75 percent risk of schedule overrun according to Panorama Consulting's 2025 ERP Report. Yet for many Nordic manufacturers facing vendor consolidation, rising costs, or compliance gaps, switching is becoming unavoidable.</p>
+                <p>Switching ERP systems is one of the highest-risk decisions a manufacturing company can make. The average ERP implementation takes 14 to 21 months, costs 2 to 5 times the initial software license, and carries a 50 to 75 percent risk of schedule overrun according to Panorama Consulting's 2025 ERP Report<sup>[1]</sup>. Yet for many Nordic manufacturers facing vendor consolidation, rising costs, or compliance gaps, switching is becoming unavoidable.</p>
 
                 <p>This checklist is designed for CIOs, CFOs, and operations directors evaluating ERP alternatives. It covers the areas that most commonly derail transitions when overlooked during due diligence.</p>
 
@@ -137,7 +137,7 @@
                 <p>By 2026, most Nordic manufacturers need integrated sustainability data collection. An ERP that requires a third-party bolt-on for CSRD reporting adds cost, complexity, and data integrity risk. Ask for a live demonstration of ESRS data flows, not a roadmap slide.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">6. Where is data stored, and under which jurisdiction?</h3>
-                <p>GDPR requires clear data processing agreements. The European Data Act (Regulation 2023/2854) adds new data portability rights. Verify that production data stays within the EU and that the vendor has Data Processing Agreements compliant with GDPR Article 28.</p>
+                <p>GDPR requires clear data processing agreements. The European Data Act (Regulation 2023/2854)<sup>[2]</sup> adds new data portability rights. Verify that production data stays within the EU and that the vendor has Data Processing Agreements compliant with GDPR Article 28<sup>[3]</sup>.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">7. How does the ERP handle carbon accounting?</h3>
                 <p>With ETS Phase 4 and CBAM now operational, carbon data is becoming as critical as financial data. The ERP should track energy consumption, emission factors, and Scope 1/2/3 emissions at the transaction level, not as a quarterly batch process.</p>
@@ -151,7 +151,7 @@
                 <p>Proprietary integration methods lock you in. Modern ERPs must provide well-documented, versioned APIs with OAuth 2.0 authentication. Test API performance during evaluation: response times, rate limits, and data volume handling.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">10. Is the ERP compatible with AI agent protocols (MCP)?</h3>
-                <p>The Model Context Protocol is becoming the standard for AI-to-enterprise-system communication. An ERP that supports MCP can be augmented with AI agents for compliance automation, predictive maintenance, and intelligent procurement without custom development.</p>
+                <p>The Model Context Protocol (MCP)<sup>[4]</sup> is becoming the standard for AI-to-enterprise-system communication. An ERP that supports MCP can be augmented with AI agents for compliance automation, predictive maintenance, and intelligent procurement without custom development.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">11. What is the deployment model?</h3>
                 <p>Cloud-only, on-premise, or hybrid? For regulated industries, hybrid models that keep sensitive data on-premise while leveraging cloud for non-critical workloads often provide the best balance. Verify you can choose your cloud region and provider.</p>
@@ -170,6 +170,14 @@
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">15. What are the contractual exit terms from day one?</h3>
                 <p>Negotiate exit terms before you sign, not when you want to leave. Include: data export format and timeline, transition assistance period, maximum termination fees, and intellectual property rights for customizations developed during the contract.</p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Panorama Consulting Group, <em>2025 ERP Report</em> — survey of 200+ ERP implementations covering timeline, cost overruns, and success rates.</li>
+                    <li>[2] European Parliament and Council, Regulation (EU) 2023/2854 (European Data Act), OJ L, 22.12.2023 — data portability and cloud switching rights.</li>
+                    <li>[3] European Parliament and Council, Regulation (EU) 2016/679 (GDPR), Article 28 — requirements for data processing agreements with processors.</li>
+                    <li>[4] Anthropic, <em>Model Context Protocol Specification</em>, 2024 — open standard for AI-to-enterprise system integration via JSON-RPC 2.0.</li>
+                </ol>
+
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> Use this checklist as a scoring framework during your ERP evaluation. DWS IQ provides a vendor-independent compliance and automation layer that works across ERP systems, reducing your dependency on any single vendor. Learn more at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
                 </p>
@@ -187,7 +195,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-001-what-happens-when-erp-vendor-sold.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 1</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">What Happens When Your ERP Vendor Gets Sold?</p>
@@ -195,6 +203,10 @@
                     <a href="day-015-erp-data-migration-survival-guide.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 15</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">ERP Data Migration Survival Guide</p>
+                    </a>
+                    <a href="day-010-mcp-protocol-connecting-ai-to-erp.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 10</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">MCP Protocol: Connecting AI Agents to Your ERP System</p>
                     </a>
                 </div>
             </div>

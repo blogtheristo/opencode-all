@@ -115,11 +115,11 @@
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
                 <p>The biggest bottleneck in enterprise AI adoption is not the AI itself. It is <strong>connecting AI agents to the systems where business data actually lives</strong>: ERP, MES, SCADA, HR, and financial platforms. Every custom integration is expensive, brittle, and creates a maintenance burden that grows exponentially with each new system.</p>
 
-                <p>The Model Context Protocol (MCP), introduced by Anthropic in late 2024, provides a standardized way for AI agents to discover and interact with external systems. Think of it as the USB standard for AI-to-enterprise connectivity: one protocol, many devices.</p>
+                <p>The Model Context Protocol (MCP)<sup>[1]</sup>, introduced by Anthropic in late 2024, provides a standardized way for AI agents to discover and interact with external systems. Think of it as the USB standard for AI-to-enterprise connectivity: one protocol, many devices.</p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">How MCP Works</h2>
 
-                <p>MCP follows a client-server architecture built on JSON-RPC 2.0. The core components are:</p>
+                <p>MCP follows a client-server architecture built on JSON-RPC 2.0<sup>[1]</sup>. The core components are:</p>
 
                 <p><strong>MCP Server:</strong> Exposes a set of "tools" that represent operations on an external system. An ERP MCP server might expose tools like <code class="bg-slate-700 px-1 rounded">get_sales_orders</code>, <code class="bg-slate-700 px-1 rounded">query_inventory</code>, or <code class="bg-slate-700 px-1 rounded">create_purchase_order</code>. Each tool has a defined input schema (what parameters it accepts) and output schema (what data it returns).</p>
 
@@ -155,7 +155,7 @@
 
                 <p><strong>Data filtering.</strong> The MCP server can filter sensitive fields before returning data to the AI agent. PII, salary data, or trade secrets can be redacted or excluded based on the calling agent's role.</p>
 
-                <p><strong>Audit logging.</strong> Every tool invocation is logged with timestamp, calling agent identity, parameters, and response summary. This creates the Article 12-compliant audit trail required under the EU AI Act for AI systems interacting with enterprise data.</p>
+                <p><strong>Audit logging.</strong> Every tool invocation is logged with timestamp, calling agent identity, parameters, and response summary. This creates the Article 12-compliant audit trail required under the EU AI Act<sup>[2]</sup> for AI systems interacting with enterprise data.</p>
 
                 <p><strong>Rate limiting and circuit breakers.</strong> MCP servers should implement rate limiting to prevent runaway agents from overwhelming ERP systems. Circuit breakers automatically stop forwarding requests if the ERP system becomes unresponsive.</p>
 
@@ -170,6 +170,13 @@
                 <p><strong>Phase 3 (Month 2): Workflow integration.</strong> Connect MCP tools to approval workflows. An AI agent creates a purchase order draft; the MCP server routes it through the existing ERP approval chain before execution.</p>
 
                 <p><strong>Phase 4 (Month 3+): Multi-system orchestration.</strong> Connect multiple MCP servers (ERP, MES, HR, carbon tracking) so agent swarms can orchestrate cross-system workflows like compliance reporting that pulls data from five different sources.</p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Anthropic, <em>Model Context Protocol Specification</em>, November 2024 — open standard for AI-to-enterprise system connectivity via JSON-RPC 2.0.</li>
+                    <li>[2] European Parliament and Council, Regulation (EU) 2024/1689 (EU Artificial Intelligence Act), OJ L, 12.7.2024 — Article 12 on record-keeping for AI systems.</li>
+                    <li>[3] SAP SE, <em>SAP OData V4 API Reference</em> — OData-based API framework for SAP S/4HANA integration.</li>
+                </ol>
 
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> DWS IQ provides pre-built MCP servers for SAP, IFS, Dynamics, Monitor, and Visma. Connect your ERP to AI agents in days, not months. See the integration catalog at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
@@ -188,7 +195,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-003-ai-agents-replace-manual-compliance.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 3</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">How AI Agents Replace Manual Compliance Reporting</p>
@@ -196,6 +203,10 @@
                     <a href="day-017-building-compliance-agent-swarm.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 17</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Building a Compliance Agent Swarm: Architecture Guide</p>
+                    </a>
+                    <a href="day-013-edge-ai-setup-guide-sovereign-inference.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 13</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Edge AI Setup Guide: Sovereign Inference on Your Hardware</p>
                     </a>
                 </div>
             </div>

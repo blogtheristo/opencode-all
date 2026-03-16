@@ -114,17 +114,17 @@
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
                 <p class="text-lg leading-relaxed">
-                    Data sovereignty is not just a legal requirement &mdash; it is an architectural decision. When your compliance data must reside in the EU, you need a database architecture that guarantees residency at every layer: storage, processing, backup, and monitoring. This guide walks through a production-grade sovereign database stack built on PostgreSQL, pgvector, and EU-hosted infrastructure.
+                    Data sovereignty is not just a legal requirement &mdash; it is an architectural decision. When your compliance data must reside in the EU under GDPR Articles 44-49<sup>[1]</sup>, you need a database architecture that guarantees residency at every layer: storage, processing, backup, and monitoring. This guide walks through a production-grade sovereign database stack built on PostgreSQL, pgvector, and EU-hosted infrastructure.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Architecture Principles</h2>
                 <p>
-                    A sovereign database architecture must satisfy four constraints simultaneously. First, <strong>jurisdictional control</strong>: all data at rest and in transit must remain within EU legal jurisdiction, on infrastructure operated by EU-incorporated entities. Second, <strong>operational independence</strong>: no foreign entity can compel access to the data through their domestic legal process. Third, <strong>technical completeness</strong>: backups, replicas, logs, and monitoring data are all within scope &mdash; not just the primary database. Fourth, <strong>auditability</strong>: the architecture must produce evidence of compliance for regulators and auditors.
+                    A sovereign database architecture must satisfy four constraints simultaneously. First, <strong>jurisdictional control</strong>: all data at rest and in transit must remain within EU legal jurisdiction, on infrastructure operated by EU-incorporated entities<sup>[2]</sup>. Second, <strong>operational independence</strong>: no foreign entity can compel access to the data through their domestic legal process. Third, <strong>technical completeness</strong>: backups, replicas, logs, and monitoring data are all within scope &mdash; not just the primary database. Fourth, <strong>auditability</strong>: the architecture must produce evidence of compliance for regulators and auditors.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Why PostgreSQL</h2>
                 <p>
-                    PostgreSQL is the foundation of sovereign database architecture for several reasons. It is open-source with a permissive license (PostgreSQL License), meaning no single vendor controls its development or can restrict its use. It supports enterprise features natively: row-level security (RLS), transparent data encryption, logical replication, and point-in-time recovery. And with the pgvector extension, it provides production-grade vector similarity search for AI/ML workloads without requiring a separate vector database.
+                    PostgreSQL is the foundation of sovereign database architecture for several reasons. It is open-source with a permissive license (PostgreSQL License)<sup>[3]</sup>, meaning no single vendor controls its development or can restrict its use. It supports enterprise features natively: row-level security (RLS), transparent data encryption, logical replication, and point-in-time recovery. And with the pgvector extension, it provides production-grade vector similarity search for AI/ML workloads without requiring a separate vector database.
                 </p>
                 <p>
                     For compliance workloads specifically, PostgreSQL's RLS capability is essential. You can enforce data access policies at the database level, ensuring that even if application code has a bug, the database itself prevents unauthorized data access. This is a defense-in-depth measure that auditors appreciate.
@@ -149,7 +149,7 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Schema Design for Compliance Data</h2>
                 <p>
-                    Compliance data has specific characteristics that influence schema design. It is append-heavy (audit logs, assessment records), rarely updated in place, requires temporal queries (state at a point in time), and must support regulatory retention periods (often 7-10 years).
+                    Compliance data has specific characteristics that influence schema design. It is append-heavy (audit logs, assessment records), rarely updated in place, requires temporal queries (state at a point in time), and must support regulatory retention periods (often 7-10 years)<sup>[4]</sup>.
                 </p>
                 <p>
                     We recommend a temporal schema pattern: every compliance record includes <code>valid_from</code> and <code>valid_to</code> timestamps, enabling point-in-time queries without losing historical state. Combined with PostgreSQL's table partitioning (partition by date range), this approach scales to millions of records while maintaining query performance and supporting retention policies.
@@ -162,6 +162,14 @@
                 <p>
                     Use EU-hosted monitoring: Grafana Cloud (EU region), self-hosted Prometheus + Grafana on EU infrastructure, or Supabase's built-in monitoring. Ensure log aggregation (if used) also resides in EU jurisdiction. This is the detail that separates genuine sovereignty from checkbox compliance.
                 </p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Regulation (EU) 2016/679 (General Data Protection Regulation), Chapter V, Articles 44-49 on transfers of personal data to third countries. OJ L 119, 4.5.2016. EUR-Lex: 32016R0679.</li>
+                    <li>[2] European Data Protection Board, &ldquo;Recommendations 01/2020 on measures that supplement transfer tools to ensure compliance with the EU level of protection of personal data,&rdquo; Version 2.0, adopted 18 June 2021.</li>
+                    <li>[3] The PostgreSQL Global Development Group, &ldquo;PostgreSQL License,&rdquo; a liberal open source license similar to the BSD or MIT licenses. postgresql.org/about/licence/.</li>
+                    <li>[4] Directive 2006/43/EC on statutory audits of annual accounts (as amended by Directive 2014/56/EU), Article 45 &mdash; retention of audit working papers for a minimum of five years; national implementations (e.g. Finland: Kirjanpitolaki 1336/1997 &sect;10) require 6-10 years for accounting records.</li>
+                </ol>
 
                 <p class="text-lg font-semibold mt-8" style="color: #e2e8f0;">
                     DWS IQ uses this exact architecture: PostgreSQL + pgvector on Supabase EU, with Hetzner Helsinki for backup. See our platform at <a href="https://dws10.com" class="text-blue-400 hover:underline">dws10.com</a>.
@@ -180,7 +188,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-005-why-erp-data-should-stay-in-eu.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Why Your ERP Data Should Stay in the EU</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 5 &middot; Sovereign Technology</span>
@@ -188,6 +196,10 @@
                     <a href="day-019-cloud-act-risk-nordic-manufacturers.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">CLOUD Act Risk for Nordic Manufacturers</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 19 &middot; Sovereign Technology</span>
+                    </a>
+                    <a href="day-013-edge-ai-setup-guide-sovereign-inference.html" class="pillar-card p-4 rounded-lg block no-underline">
+                        <span class="text-sm font-semibold" style="color: #e2e8f0;">Edge AI Setup Guide: Sovereign Inference on Your Hardware</span>
+                        <span class="block text-xs text-gray-500 mt-1">Day 13 &middot; Product Knowledge</span>
                     </a>
                 </div>
             </div>

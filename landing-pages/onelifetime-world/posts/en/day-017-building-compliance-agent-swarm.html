@@ -119,7 +119,7 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Why Swarms, Not Single Agents</h2>
 
-                <p>EU compliance in 2026 is not one problem. It is at least five distinct regulatory domains (CSRD/ESRS, EU ETS, CBAM, EU AI Act, GDPR), each with its own data requirements, calculation methodologies, reporting formats, and deadlines. A single "compliance agent" attempting to handle all of these would need expertise in sustainability accounting, carbon market mechanics, customs procedures, AI governance, and data protection law simultaneously.</p>
+                <p>EU compliance in 2026 is not one problem. It is at least five distinct regulatory domains (CSRD/ESRS, EU ETS, CBAM, EU AI Act<sup>[1]</sup>, GDPR), each with its own data requirements, calculation methodologies, reporting formats, and deadlines. A single "compliance agent" attempting to handle all of these would need expertise in sustainability accounting, carbon market mechanics, customs procedures, AI governance, and data protection law simultaneously.</p>
 
                 <p>The swarm approach mirrors how human compliance departments work: specialized teams coordinated by management. Each agent in the swarm has deep expertise in one domain, and an orchestrator agent coordinates their work, resolves conflicts, and assembles the final outputs.</p>
 
@@ -128,18 +128,18 @@
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">Layer 1: Data Agents</h3>
                 <p>Data agents handle the interface between the swarm and external data sources. Each data agent specializes in one source system: the ERP data agent extracts financial and operational data, the energy data agent reads smart meter and SCADA outputs, the HR data agent pulls workforce statistics, and the supply chain data agent queries supplier portals and logistics systems.</p>
 
-                <p>Data agents use the Model Context Protocol (MCP) to connect to source systems, providing a standardized interface regardless of the underlying technology. This means the same compliance swarm architecture works whether your ERP is SAP, IFS, Monitor, or Visma.</p>
+                <p>Data agents use the Model Context Protocol (MCP)<sup>[5]</sup> to connect to source systems, providing a standardized interface regardless of the underlying technology. This means the same compliance swarm architecture works whether your ERP is SAP, IFS, Monitor, or Visma.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">Layer 2: Domain Agents</h3>
                 <p>Domain agents are the compliance specialists. Each understands one regulatory framework deeply:</p>
 
-                <p><strong>CSRD Agent:</strong> Understands all 12 ESRS topical standards (E1-E5, S1-S4, G1) plus the cross-cutting standards (ESRS 1 and 2). It maps raw data to disclosure requirements, performs double materiality scoring, and generates ESRS-compliant narrative and quantitative disclosures.</p>
+                <p><strong>CSRD Agent:</strong> Understands all 12 ESRS topical standards (E1-E5, S1-S4, G1) plus the cross-cutting standards (ESRS 1 and 2)<sup>[2]</sup>. It maps raw data to disclosure requirements, performs double materiality scoring, and generates ESRS-compliant narrative and quantitative disclosures.</p>
 
                 <p><strong>ETS Agent:</strong> Tracks emission allowances, calculates benchmark comparisons, monitors free allocation phase-down, and prepares annual emissions verification reports. It models carbon cost scenarios under different EUA price trajectories.</p>
 
                 <p><strong>CBAM Agent:</strong> Calculates embedded emissions for imported goods, manages supplier emissions data collection, prepares quarterly CBAM declarations, and tracks CBAM certificate purchases and surrenders.</p>
 
-                <p><strong>AI Governance Agent:</strong> Monitors the swarm itself for EU AI Act compliance. It logs all agent decisions (Article 12), enforces human oversight checkpoints (Article 14), generates transparency reports (Article 13), and maintains the risk classification documentation required for high-risk AI systems.</p>
+                <p><strong>AI Governance Agent:</strong> Monitors the swarm itself for EU AI Act compliance. It logs all agent decisions (Article 12)<sup>[3]</sup>, enforces human oversight checkpoints (Article 14)<sup>[4]</sup>, generates transparency reports (Article 13), and maintains the risk classification documentation required for high-risk AI systems.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">Layer 3: Orchestrator Agent</h3>
                 <p>The orchestrator is the swarm's brain. It receives compliance tasks (for example, "generate Q1 2026 CSRD report"), decomposes them into sub-tasks, assigns sub-tasks to the appropriate domain and data agents, monitors execution progress, and handles failures and retries.</p>
@@ -173,6 +173,15 @@
 
                 <p><strong>Testing.</strong> The swarm must be testable with synthetic data. Each agent has unit tests with mocked data sources. Integration tests run the full swarm against a synthetic company dataset that exercises all regulatory domains. This ensures that changes to one agent do not break cross-domain workflows.</p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). OJ L, 12.7.2024. EUR-Lex: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" class="text-cyan-400 hover:underline">eur-lex.europa.eu/eli/reg/2024/1689/oj</a>.</li>
+                    <li>[2] Commission Delegated Regulation (EU) 2023/2772 of 31 July 2023 supplementing Directive 2013/34/EU as regards sustainability reporting standards (ESRS). ESRS 1 (General Requirements) and ESRS 2 (General Disclosures) plus 10 topical standards E1-E5, S1-S4, G1. OJ L, 22.12.2023.</li>
+                    <li>[3] Regulation (EU) 2024/1689, Article 12 — Record-keeping: providers of high-risk AI systems shall ensure automatic logging of events over the lifetime of the system.</li>
+                    <li>[4] Regulation (EU) 2024/1689, Article 14 — Human oversight: high-risk AI systems shall be designed to be effectively overseen by natural persons during the period of use.</li>
+                    <li>[5] Anthropic, "Model Context Protocol (MCP) Specification," 2024. Open standard for connecting AI models to external data sources and tools. <a href="https://modelcontextprotocol.io/specification" class="text-cyan-400 hover:underline">modelcontextprotocol.io/specification</a>.</li>
+                </ol>
+
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> See the compliance agent swarm in action. DWS IQ provides a pre-built swarm covering CSRD, ETS, CBAM, and EU AI Act compliance for Nordic manufacturers. Request a technical architecture review at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
                 </p>
@@ -190,7 +199,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-003-ai-agents-replace-manual-compliance.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 3</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">How AI Agents Replace Manual Compliance Reporting</p>
@@ -198,6 +207,10 @@
                     <a href="day-010-mcp-protocol-connecting-ai-to-erp.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 10</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">MCP Protocol: Connecting AI Agents to Your ERP System</p>
+                    </a>
+                    <a href="day-020-dws-iq-platform-vs-manual-compliance.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 20</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">DWS IQ Platform vs Manual Compliance: Cost Comparison</p>
                     </a>
                 </div>
             </div>

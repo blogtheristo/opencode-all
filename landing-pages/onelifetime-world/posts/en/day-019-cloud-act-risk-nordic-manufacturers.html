@@ -119,10 +119,10 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Understanding the Legal Mechanism</h2>
                 <p>
-                    The US CLOUD Act (18 U.S.C. &sect; 2713) requires US companies to produce data in their possession, custody, or control when served with a valid legal process, regardless of where the data is stored. The key term is "control." If Microsoft, Amazon, or Google controls the infrastructure, they control the data &mdash; even if the server sits in Helsinki.
+                    The US CLOUD Act (18 U.S.C. &sect; 2713)<sup>[1]</sup> requires US companies to produce data in their possession, custody, or control when served with a valid legal process, regardless of where the data is stored. The key term is "control." If Microsoft, Amazon, or Google controls the infrastructure, they control the data &mdash; even if the server sits in Helsinki.
                 </p>
                 <p>
-                    The law includes a "comity analysis" provision allowing providers to challenge requests that conflict with foreign law. In practice, this provision has rarely been invoked successfully. US courts have consistently held that the burden of demonstrating a conflict lies with the provider, and the threshold is high. For a Nordic manufacturer, relying on your cloud provider to fight a US court order on your behalf is not a compliance strategy.
+                    The law includes a "comity analysis" provision allowing providers to challenge requests that conflict with foreign law.<sup>[3]</sup> In practice, this provision has rarely been invoked successfully. US courts have consistently held that the burden of demonstrating a conflict lies with the provider, and the threshold is high. For a Nordic manufacturer, relying on your cloud provider to fight a US court order on your behalf is not a compliance strategy.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">What Data Is Exposed</h2>
@@ -141,7 +141,7 @@
                     The Finnish Security Intelligence Service (Suojelupoliisi) has explicitly warned about foreign intelligence interest in Finnish technology companies. Sweden's Sapo has issued similar advisories. While these warnings primarily reference state-sponsored espionage, the CLOUD Act creates a legal pathway that achieves similar data access through judicial process rather than covert means.
                 </p>
                 <p>
-                    Additionally, Nordic companies bidding on EU defense procurement under the European Defence Fund (EDF) face increasing scrutiny of their data handling practices. The European Commission's guidance on foreign subsidies and foreign access to sensitive data is creating a competitive disadvantage for companies with US cloud dependency.
+                    Additionally, Nordic companies bidding on EU defense procurement under the European Defence Fund (EDF)<sup>[4]</sup> face increasing scrutiny of their data handling practices. The European Commission's guidance on foreign subsidies and foreign access to sensitive data is creating a competitive disadvantage for companies with US cloud dependency.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Mitigation Strategies</h2>
@@ -157,11 +157,19 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">The Cost of Inaction</h2>
                 <p>
-                    The financial risk of CLOUD Act exposure is concrete. GDPR fines for unauthorized international data transfers can reach EUR 20 million or 4% of global turnover. Loss of defense procurement eligibility can cost tens of millions in contract value. Competitive intelligence leaked through a CLOUD Act disclosure can undermine years of R&amp;D investment. And reputational damage from a publicized data access incident affects customer trust and employee retention.
+                    The financial risk of CLOUD Act exposure is concrete. GDPR fines for unauthorized international data transfers can reach EUR 20 million or 4% of global turnover.<sup>[2]</sup> Loss of defense procurement eligibility can cost tens of millions in contract value. Competitive intelligence leaked through a CLOUD Act disclosure can undermine years of R&amp;D investment. And reputational damage from a publicized data access incident affects customer trust and employee retention.
                 </p>
                 <p>
                     Against these risks, the cost of sovereign infrastructure is modest. A production PostgreSQL deployment on Hetzner Helsinki costs approximately EUR 200-500 per month for most manufacturing ERP workloads. The migration effort is typically 3-6 months for a phased approach. The ROI calculation is straightforward.
                 </p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Clarifying Lawful Overseas Use of Data Act (CLOUD Act), H.R. 4943, enacted as part of the Consolidated Appropriations Act, 2018 (Pub.L. 115-141). Codified at 18 U.S.C. &sect; 2713.</li>
+                    <li>[2] Regulation (EU) 2016/679 (General Data Protection Regulation), Article 83(5) — Administrative fines up to EUR 20,000,000 or 4% of total worldwide annual turnover for infringements of Chapter V (international transfers). EUR-Lex: <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" class="text-cyan-400 hover:underline">eur-lex.europa.eu/eli/reg/2016/679/oj</a>.</li>
+                    <li>[3] Court of Justice of the European Union, Case C-311/18 (Data Protection Commissioner v Facebook Ireland Ltd and Maximillian Schrems), 16 July 2020 ("Schrems II"). Invalidated EU-US Privacy Shield and reinforced obligations for supplementary measures on international transfers. ECLI:EU:C:2020:559.</li>
+                    <li>[4] Regulation (EU) 2021/697 of the European Parliament and of the Council of 29 April 2021 establishing the European Defence Fund. OJ L 170, 12.5.2021. EUR-Lex: <a href="https://eur-lex.europa.eu/eli/reg/2021/697/oj" class="text-cyan-400 hover:underline">eur-lex.europa.eu/eli/reg/2021/697/oj</a>.</li>
+                </ol>
 
                 <p class="text-lg font-semibold mt-8" style="color: #e2e8f0;">
                     DWS IQ provides EU-sovereign compliance infrastructure for Nordic manufacturers. No CLOUD Act exposure. Full GDPR compliance. See our solutions at <a href="https://dws10.com" class="text-blue-400 hover:underline">dws10.com</a>.
@@ -180,7 +188,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-005-why-erp-data-should-stay-in-eu.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Why Your ERP Data Should Stay in the EU</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 5 &middot; Sovereign Technology</span>
@@ -188,6 +196,10 @@
                     <a href="day-012-sovereign-database-architecture-guide.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Sovereign Database Architecture: A Technical Guide</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 12 &middot; Sovereign Technology</span>
+                    </a>
+                    <a href="day-021-nordic-digital-transformation-state-2026.html" class="pillar-card p-4 rounded-lg block no-underline">
+                        <span class="text-sm font-semibold" style="color: #e2e8f0;">Nordic Digital Transformation: State of Play in 2026</span>
+                        <span class="block text-xs text-gray-500 mt-1">Day 21 &middot; Business Strategy</span>
                     </a>
                 </div>
             </div>
