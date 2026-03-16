@@ -98,14 +98,37 @@ export class QualityGateAgent extends BaseAgent {
     });
   }
 
+  /** Normalize loose input into the strict QualityGateInput shape */
+  private normalizeInput(input: Record<string, unknown>): QualityGateInput {
+    const raw = input as Record<string, any>;
+    const tests = raw.testResults ?? raw.test_results ?? raw.tests ?? {};
+    const scan = raw.securityScan ?? raw.security_scan ?? raw.security ?? {};
+    return {
+      projectId: raw.projectId ?? raw.project_id ?? raw.repository ?? raw.project ?? 'unknown',
+      deployTarget: raw.deployTarget ?? raw.deploy_target ?? raw.target ?? raw.check ?? 'gcp',
+      testResults: {
+        passed: tests.passed ?? 0,
+        failed: tests.failed ?? 0,
+        skipped: tests.skipped ?? 0,
+        coverage: tests.coverage ?? 0,
+      },
+      securityScan: {
+        critical: scan.critical ?? 0,
+        high: scan.high ?? 0,
+        medium: scan.medium ?? 0,
+        low: scan.low ?? 0,
+      },
+      buildStatus: raw.buildStatus ?? raw.build_status ?? raw.build ?? 'unknown',
+    };
+  }
+
   async execute(
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const gateInput = input as unknown as QualityGateInput;
-    const { projectId, deployTarget, testResults, securityScan, buildStatus } = gateInput;
+    const { projectId, deployTarget, testResults, securityScan, buildStatus } = this.normalizeInput(input);
 
     logger.info('QualityGate agent executing', {
       projectId,

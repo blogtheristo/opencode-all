@@ -258,7 +258,7 @@ def render_context_snippet(report: schema.Report) -> str:
         all_items.append((item.score, "Web", item.title[:50] + "...", item.url))
 
     all_items.sort(key=lambda x: -x[0])
-    for score, source, text, url in all_items[:7]:
+    for _score, source, text, _url in all_items[:7]:
         lines.append(f"- [{source}] {text}")
 
     lines.append("")

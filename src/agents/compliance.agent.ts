@@ -127,7 +127,54 @@ export class ComplianceAgent extends BaseAgent {
         'compliance-gap-analysis',
       ],
       model: 'llama-3.3-70b-versatile',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          projectId: { type: 'string', description: 'Project identifier' },
+          industry: { type: 'string', description: 'Industry sector (e.g., steel, cement, chemicals, construction)' },
+          regulations: {
+            type: 'array',
+            items: { type: 'string', enum: ['fit-for-55', 'ets', 'cbam', 'csrd', 'eu-ai-act'] },
+            description: 'Regulations to assess against',
+          },
+          currentMeasures: {
+            type: 'object',
+            properties: {
+              carbonReporting: { type: 'boolean' },
+              emissionsMonitoring: { type: 'boolean' },
+              supplyChainDueDiligence: { type: 'boolean' },
+              aiSystemLogging: { type: 'boolean' },
+            },
+            description: 'Current compliance measures in place',
+          },
+          annualEmissions: { type: 'number', description: 'Annual CO2 emissions in tonnes' },
+          importValue: { type: 'number', description: 'Annual import value in EUR (for CBAM assessment)' },
+        },
+        required: ['industry', 'regulations'],
+      },
     });
+  }
+
+  /** Normalize loose input into the strict ComplianceInput shape */
+  private normalizeInput(input: Record<string, unknown>): ComplianceInput {
+    const raw = input as Record<string, any>;
+    return {
+      projectId: raw.projectId ?? raw.project_id ?? raw.project ?? 'unknown',
+      industry: raw.industry ?? 'default',
+      regulations: Array.isArray(raw.regulations)
+        ? raw.regulations
+        : typeof raw.regulation === 'string'
+          ? [raw.regulation]
+          : ['ets', 'cbam', 'csrd'],
+      currentMeasures: {
+        carbonReporting: raw.currentMeasures?.carbonReporting ?? raw.carbonReporting ?? false,
+        emissionsMonitoring: raw.currentMeasures?.emissionsMonitoring ?? raw.emissionsMonitoring ?? false,
+        supplyChainDueDiligence: raw.currentMeasures?.supplyChainDueDiligence ?? raw.supplyChainDueDiligence ?? false,
+        aiSystemLogging: raw.currentMeasures?.aiSystemLogging ?? raw.aiSystemLogging ?? false,
+      },
+      annualEmissions: raw.annualEmissions ?? raw.annual_emissions ?? raw.emissions ?? 0,
+      importValue: raw.importValue ?? raw.import_value ?? raw.imports ?? 0,
+    };
   }
 
   async execute(
@@ -136,9 +183,8 @@ export class ComplianceAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const compInput = input as unknown as ComplianceInput;
     const { projectId, industry, regulations, currentMeasures, annualEmissions, importValue } =
-      compInput;
+      this.normalizeInput(input);
 
     logger.info('Compliance agent executing', {
       projectId,

@@ -1,6 +1,6 @@
 # DWS IQ 6 - Complete Agent Guide for Human-in-the-Loop (HIL) Understanding
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

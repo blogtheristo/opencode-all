@@ -3,19 +3,23 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 13.8 (Database Disaster Recovery Architecture) — dual-database (Supabase dws6-production + Aiven dws-test), Linux recovery scripts, RTO < 5 min schema / < 15 min full, 4-destination backup redundancy
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Aiven PostgreSQL Sandbox as 5th environment in matrix — agent workspace + LWM training, EU Finland region, daily mirror from Supabase
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/mcp-google-cloud-run-BuSpY | Date: 23.02.2026 | Changes: Added MCP Gateway on Cloud Run section (Section 12) — Streamable HTTP for mobile Claude Code, secret provisioning script
   - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
 
 Session Links & References:
+  - Claude Code (claude/mcp-google-cloud-run-BuSpY): https://github.com/blogtheristo/dws6/commits/claude/mcp-google-cloud-run-BuSpY
   - Claude Code (claude/zealous-mcclintock): https://github.com/blogtheristo/dws6/commits/claude/zealous-mcclintock
   - Claude Code (claude/document-cloud-environments-EK7iZ): https://github.com/blogtheristo/dws6/commits/claude/document-cloud-environments-EK7iZ
 
 Document Status:
   - Created: 16.02.2026
-  - Last Modified: 20.02.2026
+  - Last Modified: 08.03.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -166,6 +170,7 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 - Express.js backend on Cloud Run (europe-north1)
 - AI agent services (Lead Scout, Outreach, Discovery, Meeting, Proposal, Customer Success)
 - MCP Hub orchestration
+- **MCP Gateway on Cloud Run** — Streamable HTTP transport for mobile Claude Code sessions (Supabase + GitHub tools)
 - Supabase PostgreSQL + pgvector
 - Temporal.io workflow engine (development)
 - LLM training infrastructure (on-demand GPU bursting)
@@ -479,21 +484,21 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 8.1 Complete Service-to-Environment Mapping
 
-| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) |
-|---------|----------------------|-------------------------|------------|---------------|
-| **Landing pages** | Cloudflare Pages | — | — | — |
-| **Dashboard SPA** | Cloudflare Pages | — | — | — |
-| **Edge API** | Cloudflare Workers | — | — | — |
-| **Backend API** | — | Cloud Run | Trace sidecar | — |
-| **AI Agents** | — | Cloud Run | Reasoning log | — |
-| **MCP Hub** | — | Cloud Run | Trace sidecar | — |
-| **Database** | — | Supabase EU | Audit tables | — |
-| **Auth** | — | Supabase Auth | Identity layer | — |
-| **Jitsi (V3)** | — | — | — | Self-hosted |
-| **Email (V3)** | — | — | — | Self-hosted |
-| **Training** | — | GCP A3 (burst) | — | — |
-| **Monitoring** | — | Prometheus + Grafana | — | — |
-| **Compliance** | — | — | Full Aiwen stack | — |
+| Service | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU) | Hetzner (V3) | Aiven (Sandbox) |
+|---------|----------------------|-------------------------|------------|---------------|-----------------|
+| **Landing pages** | Cloudflare Pages | — | — | — | — |
+| **Dashboard SPA** | Cloudflare Pages | — | — | — | — |
+| **Edge API** | Cloudflare Workers | — | — | — | — |
+| **Backend API** | — | Cloud Run | Trace sidecar | — | — |
+| **AI Agents** | — | Cloud Run | Reasoning log | — | Agent workspace |
+| **MCP Hub** | — | Cloud Run | Trace sidecar | — | — |
+| **Database** | — | Supabase EU (prod) | Audit tables | — | Daily mirror (sandbox) |
+| **Auth** | — | Supabase Auth | Identity layer | — | Auth stubs |
+| **Jitsi (V3)** | — | — | — | Self-hosted | — |
+| **Email (V3)** | — | — | — | Self-hosted | — |
+| **Training** | — | GCP A3 (burst) | — | — | LWM training data |
+| **Monitoring** | — | Prometheus + Grafana | — | — | — |
+| **Compliance** | — | — | Full Aiwen stack | — | — |
 
 ### 8.2 Domain-to-Environment Mapping
 
@@ -608,7 +613,246 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ---
 
-## 12. References
+## 12. MCP Gateway on Cloud Run (Mobile Claude Code)
+
+### 12.1 Problem
+
+Claude Code on mobile (web sessions) cannot spawn local MCP server processes via stdio transport. MCP tools (Supabase, GitHub) are unavailable in mobile sessions.
+
+### 12.2 Solution
+
+A lightweight MCP Gateway runs on Cloud Run (europe-north1) exposing MCP tools over **Streamable HTTP** transport. Any Claude Code session — mobile or desktop — can connect to it via URL.
+
+```
+┌─────────────────────┐         ┌──────────────────────────────┐
+│  Claude Code Mobile  │──HTTP──▶│  MCP Gateway (Cloud Run)     │
+│  (web session)       │         │  europe-north1               │
+└─────────────────────┘         │                              │
+                                │  Tools: Supabase, GitHub     │
+┌─────────────────────┐         │  Secrets: GCP Secret Manager │
+│  Claude Code Desktop │──HTTP──▶│  Transport: Streamable HTTP  │
+│  (also works)        │         │  Auth: Bearer token          │
+└─────────────────────┘         └──────────────────────────────┘
+```
+
+### 12.3 Cloud Run Service
+
+| Property | Value |
+|----------|-------|
+| Service name | `mcp-gateway` |
+| Region | europe-north1 |
+| Image | `europe-north1-docker.pkg.dev/PROJECT_ID/dws-iq/mcp-gateway` |
+| Service account | `mcp-gateway@PROJECT_ID.iam.gserviceaccount.com` |
+| Min instances | 0 (scale to zero) |
+| Max instances | 3 |
+| Memory | 512 Mi |
+| Auth | Bearer token (no-allow-unauthenticated) |
+| Cost | ~€3-6/month |
+
+### 12.4 Secrets Required
+
+| Secret Name (GCP) | Source Env Var | Purpose |
+|--------------------|---------------|---------|
+| `supabase-url` | SUPABASE_URL | Supabase project URL |
+| `supabase-service-key` | SUPABASE_SERVICE_KEY | Supabase service role key |
+| `github-token` | GITHUB_TOKEN | GitHub personal access token |
+| `mcp-gateway-api-key` | MCP_GATEWAY_API_KEY | Gateway authentication |
+
+### 12.5 Claude Code Configuration
+
+```json
+{
+  "mcpServers": {
+    "dws-gateway": {
+      "type": "url",
+      "url": "https://mcp-gateway-XXXXX-ew.a.run.app/mcp"
+    }
+  }
+}
+```
+
+### 12.6 Deployment
+
+```bash
+# 1. Provision secrets from .env
+./scripts/provision-secrets.sh
+
+# 2. Deploy to Cloud Run
+gcloud builds submit --config=mcp-servers/cloud-run-gateway/cloudbuild.yaml .
+```
+
+### 12.7 Available Tools
+
+**Supabase:** `supabase_query`, `supabase_insert`, `supabase_update`, `supabase_rpc`, `supabase_list_tables`
+
+**GitHub:** `github_list_repos`, `github_get_repo`, `github_list_issues`, `github_list_prs`, `github_get_file`, `github_search_code`, `github_create_issue`
+
+**Gateway:** `gateway_health`
+
+### 12.8 Files
+
+| File | Purpose |
+|------|---------|
+| `mcp-servers/cloud-run-gateway/server.py` | MCP Gateway server |
+| `mcp-servers/cloud-run-gateway/Dockerfile` | Cloud Run container |
+| `mcp-servers/cloud-run-gateway/cloudbuild.yaml` | CI/CD pipeline |
+| `mcp-servers/cloud-run-gateway/mcp-config.example.json` | Claude Code config template |
+| `scripts/provision-secrets.sh` | .env → Google Secret Manager |
+
+---
+
+## 13. MCP Agent Server (DWS7 — In-Process)
+
+*Added: 2026-02-24 | Session: claude/modernize-dws7-77v2B*
+
+While Section 12 covers the **Cloud Run MCP Gateway** (HTTP bridge for mobile Claude Code), this section documents the **in-process MCP Agent Server** that exposes all 18 DWS IQ agents as MCP tools directly from the Express backend.
+
+### 13.1 Architecture
+
+```
+External ADE (Claude Code, Cursor, Codex)
+  ↓ JSON-RPC over HTTP
+Express Backend (/mcp endpoint)
+  ↓
+MCP Agent Server (src/mcp/agent-server.ts)
+  ├─ tools/list → 22+ tools (18 agents + 4 meta-tools)
+  ├─ tools/call → AgentRegistry.executeAgent()
+  └─ SSE stream → EventBus subscription
+```
+
+**Key difference from Section 12:** The Cloud Run Gateway (Section 12) is a standalone Python service for mobile/web sessions. This MCP server runs inside the Express backend and has direct access to all agents, the event bus, and Supabase.
+
+### 13.2 Endpoints
+
+| Endpoint | Method | Purpose | Auth |
+|----------|--------|---------|------|
+| `/mcp` | POST | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call` | JWT |
+| `/mcp/sse` | GET | Server-Sent Events — real-time agent events | JWT |
+| `/mcp/health` | GET | Health check with agent count and protocol version | None |
+
+### 13.3 Available Meta-Tools
+
+| Tool | Description |
+|------|-------------|
+| `dws_list_agents` | List all registered agents with capabilities and models |
+| `dws_discover` | Find agents by capability tag (A2A-style discovery) |
+| `dws_workflow` | Trigger a predefined multi-agent workflow |
+| `dws_events` | Get recent events from the event bus |
+
+### 13.4 Agent Endpoint Security
+
+| Control | Implementation |
+|---------|----------------|
+| Authentication | JWT extracted from Authorization header |
+| Rate limiting | 30 requests/minute per IP (Express middleware) |
+| Tool allowlist | Only agents in registry exposed — no dynamic registration |
+| SSRF protection | `fetch_external` tool validates against domain allowlist |
+| Input validation | JSON-RPC format enforced |
+| Delegation limits | Max depth 5 per session |
+| Governance | All agent executions pass through governance policy engine |
+
+### 13.5 Event Streaming Architecture
+
+The `/mcp/sse` endpoint provides real-time agent activity via Server-Sent Events:
+
+```
+Client connects → EventBus.subscribe("*") → Events streamed as SSE data frames
+Client disconnects → Subscription auto-removed → No resource leak
+```
+
+**Event types emitted by the agent runtime:**
+
+| Event Type | Trigger | Payload |
+|-----------|---------|---------|
+| `agent.execution_complete` | Any agent finishes | `{ agentName, confidence, durationMs }` |
+| `compliance.gap_detected` | Compliance agent finds gap | `{ regulation, gap, severity }` |
+| `workflow.{name}.started` | Workflow begins | `{ workflowName, input }` |
+| `workflow.{name}.completed` | Workflow finishes | `{ workflowName, stepResults }` |
+| `workflow.{name}.failed` | Workflow errors | `{ workflowName, error }` |
+
+**Persistence:** Events are stored in-memory (last 1,000) and optionally persisted to Redis Streams at `dws:events:{orgId}`.
+
+### 13.6 Deployment
+
+The MCP Agent Server deploys as part of the Express backend — no separate service needed:
+
+| Environment | Endpoint | Notes |
+|-------------|----------|-------|
+| Local dev | `http://localhost:8080/mcp` | Full access |
+| Cloud Run (EU) | `https://dws-iq-backend-*.run.app/mcp` | JWT required |
+| Cloudflare Workers | Not available | Workers run frontend only |
+
+**Claude Code configuration:**
+```json
+{
+  "mcpServers": {
+    "dws-agents": {
+      "type": "url",
+      "url": "https://dws-iq-backend-XXXXX-ew.a.run.app/mcp"
+    }
+  }
+}
+```
+
+### 13.7 Available Workflows
+
+| Workflow | Steps | Agents | Timeout |
+|----------|-------|--------|---------|
+| `compliance-assessment` | 4 | emissions-data-analyst → compliance → viability → notify | 5 min |
+| `construction-full` | 4 | [sitesense, material-oracle, schedule-genius] → construction → notify | 5 min |
+| `seo-pipeline` | 3 | keyword-intent → competitor-surveillance → content-brief | 10 min |
+
+Workflows execute in-process via `src/agents/workflows.ts`. When Temporal.io is wired (DWS7 Phase 4), these definitions export directly to Temporal workflow activities.
+
+---
+
+## 13.8 Database Disaster Recovery Architecture
+
+### Dual-Database Strategy
+
+| Database | Provider | Role | Region | Project Name |
+|----------|----------|------|--------|-------------|
+| **Primary** | Supabase | Production (all customer data) | EU (europe-north1) | `dws6-production` |
+| **Warm standby** | Aiven PostgreSQL | Sandbox, agent workspace, LWM training, DR target | EU (Finland) | `dws-test` |
+
+### Recovery Time Objectives
+
+| Scenario | RTO | RPO | Method |
+|----------|-----|-----|--------|
+| Schema rebuild from migrations | < 5 min | N/A (schema in git) | `scripts/db-recovery.sh --target aiven` |
+| Full data restore (schema + dump) | < 15 min | 24 hours | `scripts/db-recovery.sh --target supabase --restore-dump <file>` |
+| Aiven warm standby switchover | < 5 min | 24 hours | Update `.env` SUPABASE_URL → AIVEN_DATABASE_URL |
+
+### Backup Destinations (4-Destination Redundancy)
+
+| # | Destination | Method | Frequency | Script |
+|---|-------------|--------|-----------|--------|
+| 1 | Local disk (F: drive) | pg_dump + GPG | Daily | `Backup-Database.ps1` |
+| 2 | Proton Drive | Encrypted sync | Daily | `Sync-ToProton.ps1` |
+| 3 | Acer Veriton Helsinki | SCP over SSH | Daily | `Backup-Database.ps1` |
+| 4 | GitHub Actions artifacts | pg_dump | Daily 02:30 UTC | `daily-db-backup.yml` |
+| 5 | Aiven PostgreSQL | Full mirror restore | Daily | `Mirror-ToAiven.ps1` |
+
+### Recovery Scripts (Linux)
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/db-recovery.sh` | Rebuilds full schema from 43+ migrations, restores from backup dump, verifies tables + RLS |
+| `scripts/db-backup-test.sh` | End-to-end backup test drive: export → verify → restore → row count comparison |
+| `scripts/aiven-init.sql` | Aiven auth stubs (auth.uid, auth.jwt, auth.role) for RLS policy compatibility |
+
+### Emergency Procedure
+
+1. **Detect** — Supabase outage or data corruption identified
+2. **Assess** — Determine scope: schema-only or full data loss
+3. **Recover** — Run `db-recovery.sh --target supabase` (new project) or switch to Aiven
+4. **Verify** — Check table counts, RLS status, function availability
+5. **Switch** — Update production `.env` with new database credentials
+6. **Document** — Create field note in `docs/field-notes/`
+
+---
+
+## 14. References
 
 - **DWS7 Roadmap:** `DWS7_ROADMAP.md` — 247-PR production roadmap
 - **DWS7 NVIDIA/Siemens:** `dws7/DWS7_INTEGRATION_ROADMAP_NVIDIA_SIEMENS.md` — Partnership strategy
@@ -622,8 +866,8 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 ---
 
 **Document Owner:** Platform Architecture
-**Last Updated:** 2026-02-16
-**Session:** claude/document-cloud-environments-EK7iZ
+**Last Updated:** 2026-02-24
+**Session:** claude/modernize-dws7-77v2B
 
 ---
 
