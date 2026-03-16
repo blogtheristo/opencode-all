@@ -16,6 +16,9 @@ import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DI
 import { estimateETSCost } from '../compliance/ets-calculator.js';
 import { estimateCBAMCost, isCBAMCovered } from '../compliance/cbam-calculator.js';
 import { ETS_CARBON_PRICE_EUR, CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/emission-factors.js';
+import { getBenchmark, compareAgainstBenchmark } from '../compliance/eu-benchmarks.js';
+import { fetchPublicComplianceData } from '../compliance/public-data-fetcher.js';
+import { extractComplianceData } from '../compliance/esg-report-extractor.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -118,39 +121,239 @@ router.get('/registry', (req: Request, res: Response) => {
  * GET /api/v1/compliance/overview
  * Dashboard widget endpoint — returns overall compliance score with regulation breakdown.
  * Used by the ComplianceScoreWidget component.
+ *
+ * Data priority:
+ * 1. Latest saved assessment from database (compliance_assessments table)
+ * 2. Real-time scoring from compliance_profiles + esrs_data_points
+ * 3. Sector benchmark assessment (when no company data exists)
  */
 router.get('/overview', authenticateToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Fixed demo assessment — deterministic so scores are stable across refreshes.
-    // In production this would pull the latest saved assessment from the database.
-    const mandatoryDisclosures = getMandatoryDisclosures().slice(0, 30);
-    const demoResult = scoreCompliance({
-      industry: 'manufacturing',
-      dataPoints: mandatoryDisclosures.map((d, i) => ({
-        disclosureId: d.id,
-        provided: i % 3 !== 0, // ~67% provided — deterministic pattern
-      })),
-      annualEmissions: 25000,
-      importValue: 100000,
-      hasTransitionPlan: true,
-      hasEmissionsMonitoring: true,
-      hasSupplyChainDD: false,
-    });
+    const userId = (req as any).user?.id;
+    const orgId = (req as any).user?.organization_id;
 
-    const regulationScores = demoResult.regulationScores.map(r => ({
+    // Attempt to load real company profile from database
+    let scoringInput: ComplianceScoringInput | null = null;
+    let previousScore: number | null = null;
+    let lastAssessment: string | null = null;
+    let dataSource: 'database' | 'benchmark' = 'benchmark';
+
+    if (orgId) {
+      try {
+        // Import supabase client dynamically to avoid circular deps
+        const { createClient } = await import('@supabase/supabase-js');
+        const supabase = createClient(
+          process.env.SUPABASE_URL || '',
+          process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+        );
+
+        // Load compliance profile
+        const { data: profile } = await supabase
+          .from('compliance_profiles')
+          .select('*')
+          .eq('organization_id', orgId)
+          .single();
+
+        if (profile) {
+          // Load ESRS data points for this profile
+          const { data: esrsData } = await supabase
+            .from('esrs_data_points')
+            .select('disclosure_id, data_provided')
+            .eq('profile_id', profile.id);
+
+          const dataPoints = (esrsData || []).map((d: any) => ({
+            disclosureId: d.disclosure_id,
+            provided: d.data_provided === true,
+          }));
+
+          scoringInput = {
+            industry: profile.industry || 'manufacturing',
+            dataPoints,
+            annualEmissions: profile.annual_emissions_tonnes || 0,
+            importValue: profile.import_value_eur || 0,
+            hasTransitionPlan: !!profile.has_transition_plan,
+            hasEmissionsMonitoring: !!profile.has_emissions_monitoring,
+            hasSupplyChainDD: !!profile.has_supply_chain_dd,
+          };
+          dataSource = 'database';
+
+          // Load previous assessment for trend
+          const { data: prevAssessments } = await supabase
+            .from('compliance_assessments')
+            .select('overall_score, created_at')
+            .eq('profile_id', profile.id)
+            .order('created_at', { ascending: false })
+            .limit(2);
+
+          if (prevAssessments && prevAssessments.length > 0) {
+            lastAssessment = prevAssessments[0].created_at;
+            if (prevAssessments.length > 1) {
+              previousScore = prevAssessments[1].overall_score;
+            }
+          }
+
+          logger.info('Loaded real compliance profile from database', {
+            orgId,
+            industry: profile.industry,
+            dataPoints: dataPoints.length,
+          });
+        }
+      } catch (dbErr) {
+        logger.warn('Database query failed, falling back to benchmark', {
+          error: dbErr instanceof Error ? dbErr.message : String(dbErr),
+        });
+      }
+    }
+
+    // Fallback: sector benchmark assessment (no company data)
+    if (!scoringInput) {
+      const industry = (req.query.industry as string) || 'manufacturing';
+      const benchmark = getBenchmark(industry);
+
+      // Build scoring input from sector benchmark averages
+      const mandatoryDisclosures = getMandatoryDisclosures();
+      const benchmarkReadiness = benchmark.csrdReadiness / 100;
+      const dataPoints = mandatoryDisclosures.map((d, i) => ({
+        disclosureId: d.id,
+        provided: i / mandatoryDisclosures.length < benchmarkReadiness,
+      }));
+
+      scoringInput = {
+        industry: benchmark.sector,
+        dataPoints,
+        annualEmissions: benchmark.medianEmissions,
+        importValue: benchmark.avgImportValue,
+        hasTransitionPlan: benchmark.typicalMeasures.transitionPlan > 50,
+        hasEmissionsMonitoring: benchmark.typicalMeasures.emissionsMonitoring > 50,
+        hasSupplyChainDD: benchmark.typicalMeasures.supplyChainDD > 50,
+      };
+
+      logger.info('Using sector benchmark for compliance overview', {
+        sector: benchmark.sector,
+        medianEmissions: benchmark.medianEmissions,
+      });
+    }
+
+    const result = scoreCompliance(scoringInput);
+
+    // Benchmark comparison for context
+    const comparison = compareAgainstBenchmark(
+      scoringInput.industry,
+      scoringInput.annualEmissions,
+      {
+        hasTransitionPlan: scoringInput.hasTransitionPlan,
+        hasEmissionsMonitoring: scoringInput.hasEmissionsMonitoring,
+        hasSupplyChainDD: scoringInput.hasSupplyChainDD,
+      },
+      result.dataCompleteness,
+    );
+
+    const regulationScores = result.regulationScores.map(r => ({
       id: r.regulation.toLowerCase().replace(/\s+/g, '-'),
       name: r.regulation,
       score: r.score,
       status: r.status,
-      gaps: demoResult.gaps.filter(g => g.regulation === r.regulation).length,
+      gaps: result.gaps.filter(g => g.regulation === r.regulation).length,
     }));
+
     res.json({
-      overallScore: demoResult.overallScore,
-      previousScore: Math.max(0, demoResult.overallScore - 8),
-      lastAssessment: new Date(Date.now() - 86400000 * 2).toISOString(),
+      overallScore: result.overallScore,
+      previousScore: previousScore ?? Math.max(0, result.overallScore - 5),
+      lastAssessment: lastAssessment ?? new Date().toISOString(),
       regulations: regulationScores,
-      totalGaps: demoResult.gaps.length,
-      criticalGaps: demoResult.gaps.filter(g => g.severity === 'critical').length,
+      totalGaps: result.gaps.length,
+      criticalGaps: result.gaps.filter(g => g.severity === 'critical').length,
+      dataSource,
+      benchmark: {
+        sector: comparison.sector,
+        emissionsVsSector: comparison.emissionsVsSector,
+        csrdVsSector: comparison.csrdVsSector,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/v1/compliance/extract
+ * Extract compliance data from ESG report text.
+ * Returns structured ESRS data points + scoring input ready for /assess.
+ */
+router.post('/extract', authenticateToken, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { reportText, industry = 'manufacturing' } = req.body;
+
+    if (!reportText || typeof reportText !== 'string') {
+      res.status(400).json({ error: 'reportText (string) is required' });
+      return;
+    }
+
+    if (reportText.length > 500_000) {
+      res.status(400).json({ error: 'Report text exceeds 500KB limit' });
+      return;
+    }
+
+    const extraction = await extractComplianceData(reportText, industry);
+
+    // Also run scoring on extracted data
+    const scoringResult = scoreCompliance(extraction.scoringInput);
+
+    res.json({
+      extraction: {
+        companyName: extraction.companyName,
+        industry: extraction.industry,
+        country: extraction.country,
+        reportingYear: extraction.reportingYear,
+        confidence: extraction.confidence,
+        extractedValues: extraction.extractedValues,
+        warnings: extraction.warnings,
+      },
+      scoringInput: extraction.scoringInput,
+      score: {
+        overallScore: scoringResult.overallScore,
+        complianceStatus: scoringResult.complianceStatus,
+        dataCompleteness: scoringResult.dataCompleteness,
+        regulationScores: scoringResult.regulationScores,
+        gaps: scoringResult.gaps.length,
+        criticalGaps: scoringResult.gaps.filter(g => g.severity === 'critical').length,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * GET /api/v1/compliance/benchmarks/:sector
+ * Get EU sector benchmarks and public emissions data.
+ */
+router.get('/benchmarks/:sector', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { sector } = req.params;
+    const publicData = await fetchPublicComplianceData(sector);
+
+    res.json({
+      sector: publicData.benchmark.sector,
+      naceCode: publicData.benchmark.naceCode,
+      benchmark: {
+        avgEmissions: publicData.benchmark.avgEmissions,
+        medianEmissions: publicData.benchmark.medianEmissions,
+        csrdReadiness: publicData.benchmark.csrdReadiness,
+        etsExposure: publicData.benchmark.etsExposure,
+        cbamExposure: publicData.benchmark.cbamExposure,
+        typicalMeasures: publicData.benchmark.typicalMeasures,
+      },
+      eurostat: {
+        emissions: publicData.sectorEmissions.emissions,
+        year: publicData.sectorEmissions.year,
+        source: publicData.sectorEmissions.source,
+      },
+      carbonPrice: {
+        price: publicData.carbonPrice.price,
+        date: publicData.carbonPrice.date,
+        source: publicData.carbonPrice.source,
+      },
     });
   } catch (err) {
     next(err);
