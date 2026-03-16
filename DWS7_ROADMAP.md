@@ -1055,6 +1055,47 @@ Record every weekly correction here to maintain reasoning lineage.
 |------|------|------------|--------|--------|
 | W07 | 2026-02-12 | Initial roadmap created | Baseline: 247 PRs across 6 phases | Codebase analysis + competitive research |
 | W09 | 2026-02-24 | **DWS7 Agent Modernization — 6 critical fixes implemented in DWS6** | Ship now for DWS6 customers, not wait for DWS7 Phase 4. Accelerates PRs 078, 079, 138–150 | Session: claude/modernize-dws7-77v2B |
+| W12 | 2026-03-16 | **NVIDIA GTC 2026 — 5 roadmap additions** | NemoClaw/OpenClaw (Phase 2), Groq 3 LPU (Phase 3), Vera Rubin infra (Phase 4), DRIVE Hyperion fleet (Phase 5), DWS 8 roadmap created (Feynman 2028) | Field note: 2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md |
+
+---
+
+## NVIDIA GTC 2026 — Technology Integration Plan
+
+*Added: 2026-03-16 | Session: claude/nvidia-gtc-2026-notes-cYO48*
+*Source: Jensen Huang GTC 2026 Keynote (March 16, 2026, SAP Center, San Jose)*
+
+GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items are mapped to existing phases — no new phases required.
+
+### GTC 2026 → DWS 7 Mapping
+
+| Phase | New PR | Title | Priority | Source Technology | Description |
+|-------|--------|-------|----------|-------------------|-------------|
+| 2 | 248 | NemoClaw/OpenClaw agent sandbox evaluation | P1 | NemoClaw stack | Evaluate OpenShell Runtime as KYA-compatible agent sandbox. Map to existing BaseAgent framework. Test Nemotron open-source models as Climate LLM candidates vs Llama 3.3 70B |
+| 2 | 249 | NVIDIA Agent Toolkit as MCP tool provider | P2 | NemoClaw stack | Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling |
+| 3 | 250 | Groq 3 LPU inference benchmarking | P1 | Groq acquisition ($20B) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. Ships Q3 2026 |
+| 4 | 251 | Vera Rubin infrastructure planning | P2 | Vera Rubin platform | Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026 |
+| 5 | 252 | DRIVE Hyperion fleet evaluation | P3 | Autonomous driving | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles |
+
+**Updated totals:** 252 PRs (was 247) across 6 phases.
+
+### Strategic Context
+
+- **NVIDIA ISV Partnership:** Lifetime Oy is approved NVIDIA Connect ISV Partner (2026-03-08). GTC announcements unlock: NemoClaw early access, Vera Rubin allocation via partner channel, Groq 3 beta testing, "Built on NVIDIA" co-marketing.
+- **Groq dependency strengthened:** DWS already uses Groq as provider in `src/agents/llm-client.ts`. NVIDIA's $20B Groq acquisition aligns DWS inference stack with NVIDIA ecosystem. GN100 (Blackwell) provides independent fallback.
+- **$1T order book:** Combined Blackwell + Vera Rubin orders through 2027 signal sustained NVIDIA infrastructure investment — safe to build on.
+
+### DWS 8 Horizon Items (Not DWS 7)
+
+These technologies are tracked for DWS 8 (2028+), not DWS 7:
+
+| Technology | Why DWS 8 | Timeline |
+|-----------|-----------|----------|
+| Feynman architecture (Rosa CPU, LP40, BlueField-5) | Purpose-built agentic CPU not available until 2028 | 2028 |
+| Silicon photonics | Optical interconnects for sovereign on-premise — lower power, higher density | 2028 |
+| Space-1 orbital data centers | Validates edge paradigm but no commercial application yet | 2029+ |
+| DLSS 5 neural rendering | Gaming tech — only relevant if DWS builds Omniverse digital twin visualization | N/A |
+
+See `DWS8_ROADMAP.md` for full DWS 8 planning.
 
 ---
 
