@@ -1055,7 +1055,7 @@ Record every weekly correction here to maintain reasoning lineage.
 |------|------|------------|--------|--------|
 | W07 | 2026-02-12 | Initial roadmap created | Baseline: 247 PRs across 6 phases | Codebase analysis + competitive research |
 | W09 | 2026-02-24 | **DWS7 Agent Modernization — 6 critical fixes implemented in DWS6** | Ship now for DWS6 customers, not wait for DWS7 Phase 4. Accelerates PRs 078, 079, 138–150 | Session: claude/modernize-dws7-77v2B |
-| W12 | 2026-03-16 | **NVIDIA GTC 2026 — 5 roadmap additions** | NemoClaw/OpenClaw (Phase 2), Groq 3 LPU (Phase 3), Vera Rubin infra (Phase 4), DRIVE Hyperion fleet (Phase 5), DWS 8 roadmap created (Feynman 2028) | Field note: 2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md |
+| W12 | 2026-03-16 | **NVIDIA GTC 2026 — 6 roadmap additions** | NemoClaw/OpenClaw (Phase 2), Groq 3 LPU (Phase 3), cuDF structured data (Phase 3), Vera Rubin infra (Phase 4), DRIVE Hyperion fleet (Phase 5), DWS 8 roadmap created (Feynman 2028) | Field note: 2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md |
 
 ---
 
@@ -1072,11 +1072,12 @@ GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items 
 |-------|--------|-------|----------|-------------------|-------------|
 | 2 | 248 | NemoClaw/OpenClaw agent sandbox evaluation | P1 | NemoClaw stack | Evaluate OpenShell Runtime as KYA-compatible agent sandbox. Map to existing BaseAgent framework. Test Nemotron open-source models as Climate LLM candidates vs Llama 3.3 70B |
 | 2 | 249 | NVIDIA Agent Toolkit as MCP tool provider | P2 | NemoClaw stack | Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling |
-| 3 | 250 | Groq 3 LPU inference benchmarking | P1 | Groq acquisition ($20B) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. Ships Q3 2026 |
+| 3 | 250 | Groq 3 LPU inference benchmarking | P1 | Groq acquisition ($20B, full asset purchase) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. NVIDIA now owns training AND inference silicon. Ships Q3 2026 |
 | 4 | 251 | Vera Rubin infrastructure planning | P2 | Vera Rubin platform | Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026 |
 | 5 | 252 | DRIVE Hyperion fleet evaluation | P3 | Autonomous driving | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles |
+| 3 | 253 | cuDF pilot for compliance bulk assessment | P2 | cuDF ($120B structured data) | GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration |
 
-**Updated totals:** 252 PRs (was 247) across 6 phases.
+**Updated totals:** 253 PRs (was 247) across 6 phases.
 
 ### Strategic Context
 
