@@ -53,7 +53,7 @@ list broadcasts, and verify domains directly from any MCP client:
 
 ## Rules
 
-- Sender MUST be `risto@onelifetime.world` (verified Resend domain)
+- Sender MUST be `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - Never use noreply@ addresses
 - Log all sends to Supabase `email_logs` with `resend_email_id`
 - Delivery status (delivered/bounced/complained) flows via `/webhooks/resend/inbound`
@@ -62,4 +62,4 @@ list broadcasts, and verify domains directly from any MCP client:
 
 - Running an AI agent → use `/agent-run`
 - Triggering a multi-agent workflow → use `/workflow`
-- Domain is not `onelifetime.world` → do not send, the domain is not verified in Resend
+- Domain is not `onelifetime.world` → do not send; only this domain is verified (SES + Resend)
