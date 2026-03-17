@@ -118,7 +118,7 @@
     "printWidth": 100
   },
   "overrides": {
-    "tar": ">=7.5.8",
+    "tar": ">=7.5.11",
     "send": ">=0.19.0",
     "cacache": ">=18.0.5",
     "fast-xml-parser": ">=5.3.8",
