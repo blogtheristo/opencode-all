@@ -45,6 +45,10 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --pr)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: --pr requires a value"
+                exit 1
+            fi
             PR_NUMBER="${2:-}"
             shift 2
             ;;

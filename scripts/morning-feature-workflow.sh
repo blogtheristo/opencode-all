@@ -27,6 +27,10 @@ while [[ $# -gt 0 ]]; do
         --run-fix-agent)  RUN_FIX_AGENT=true; shift ;;
         --use-worktree)   USE_WORKTREE=true; shift ;;
         --pr)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: --pr requires a value"
+                exit 1
+            fi
             PR_NUMBER="${2:-}"
             shift 2
             ;;
