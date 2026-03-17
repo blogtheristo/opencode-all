@@ -150,7 +150,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 3. Eivät käsittele toimialakohtaisia compliance-työnkulkuja
 
 **Firehorse (DWS6)** ratkaisee tämän uudella toimintamallilla, joka yhdistää:
-- Ilmaistason pilvi-infrastruktuurin (€0-350/kk vs €1 400+)
+- AI-avusteisen kehityksen (Cursor Pro + Claude Code Max, 15 viikon MVP)
 - Edge AI (NVIDIA Jetson) <100ms päättelylle
 - Toimialakohtaiset AI-agentit (Rakentaminen, Valmistus, Energia)
 - Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja → Autonominen)
@@ -159,7 +159,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 ## 1.2 Tutkimusongelma
 
 **Päätutkimuskysymys:**
-Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
+Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
 
 **Alatutkimuskysymykset:**
 
@@ -176,7 +176,7 @@ Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden h
 ## 1.3 Työn tavoitteet
 
 1. Dokumentoida Firehorse-toimintamalli (MVP → V1)
-2. Validoida ilmaistason kustannusmalli (€0/kk tavoite)
+2. Validoida kustannustehokas kehitysmalli (Cursor Pro + Claude Code Max)
 3. Mitata asiakashyöty (≤2kk takaisinmaksuaika)
 4. Luoda toistettava malli muille teollisuuden startup-yrityksille
 5. **Validoida verkkokauppakanava Google Merchant Center -integraatiolla** [V3.0]
@@ -299,7 +299,7 @@ Takaisinmaksuaika: 1,95 kuukautta
 
 ## 2.5 Moniagenttijärjestelmien teoria ja Lifetime Scope Signals
 
-Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin bootstrapatuissa teollisissa tekoälyalustoissa.
+Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin resurssirajoitteisissa teollisissa tekoälyalustoissa.
 
 ### 2.5.1 Moniagenttijärjestelmien tausta
 
@@ -1177,7 +1177,7 @@ Firehorse-toimintamalli Claude Codella saavutti (päivitetty v3.26):
 
 ### Uhat
 - Isojen teknologiayritysten tulo markkinoille
-- Krediittien päättyminen (12 kk)
+- Kustannusten skaalautuminen kasvuvaiheessa
 - Kilpailu vakiintuneilta toimijoilta
 - **EU AI Act -täytäntöönpanon aikataulu (elokuu 2026)**
 
@@ -1220,7 +1220,7 @@ Tuotevalidointi neliportaisen palautekanavoinnin kautta (osio 1.6):
 
 ## 9.2 Toistettavuus: Solution Factory -malli
 
-**Vaihe 1: Bootstrap (6 kk, €0-350/kk)** — Ilmaistasot, 5 pilottiasiakasta
+**Vaihe 1: MVP-kehitys (15 viikkoa, Cursor Pro + Claude Code Max)** — Kumppanuudet, 5 pilottiasiakasta
 
 **Vaihe 2: Validoi (6 kk, €5-15k MRR)** — Maksavat asiakkaat, <2 kk takaisinmaksu
 
@@ -1327,7 +1327,7 @@ Firehorse-toimintamalli osoittaa, että tekoälyavusteinen verkkokaupan hallinta
 ## 10.3 Kontribuutio teoriaan
 
 ### Lifetime Scope Signals -protokolla
-Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja bootstrap-optimointi.
+Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja käynnistysvaiheen optimointi.
 
 ### Solution Factory -malli
 Syntetisoi Lean Startupin, Alustatalouden, Teollisuus 5.0:n ja Reunalaskennan taloustieteen yhtenäiseksi viitekehykseksi.
@@ -2018,7 +2018,7 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
 │  KUSTANNUSRAKENNE                 │  TULONLÄHTEET                        │
 │  • €0-350/kk infrastruktuuri      │  • SaaS-tilaukset                    │
 │  • Cursor Pro + Claude Code Max   │  • Reunalaitteiston marginaali       │
-│  • Yksi kehittäjä (bootstrap)     │  • Ammattipalvelut                   │
+│  • Yksi kehittäjä (AI-avusteinen) │  • Ammattipalvelut                   │
 │  • Ei markkinointikuluja (org.)   │  • Solution Factory -lisensointi     │
 │                                   │                                      │
 └─────────────────────────────────────────────────────────────────────────┘
