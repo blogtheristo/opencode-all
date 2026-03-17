@@ -82,6 +82,7 @@
   },
   "overrides": {
     "rollup-plugin-inject": "npm:@rollup/plugin-inject@^5.0.0",
-    "esbuild": "^0.27.0"
+    "esbuild": "^0.27.0",
+    "minimatch": ">=3.1.3"
   }
 }
