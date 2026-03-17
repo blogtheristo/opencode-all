@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety), ATS autoresearch delta, financial multiplier per trust tier, per-industry efficiency gains (9–22%), Capability Manifest v1.2, Karpathy field note, projected EU-wide impact
@@ -13,7 +14,7 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 10.03.2026
-  - Last Modified: 10.03.2026
+  - Last Modified: 15.03.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -33,7 +34,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Architecture Standard v1.5
+**Version:** KYA Architecture Standard v1.6 (KYA-O)
 **Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -48,6 +49,8 @@ Related Documents:
 ### Why Dual KYA?
 
 **KYA** expands as **Know Your Agent** (security & identity — The No) or **Know Your Architecture** (financial optimization & agent self-optimization governance — The More) depending on audience. The same three letters cover both with zero overlap in content. CISOs get the security standard they need. CFOs get the financial model they need. One brand, two entry points.
+
+**Internal Naming (v1.6):** To avoid acronym collision during audits, internal documentation uses **KYA-S** (Security) and **KYA-O** (Optimization). External messaging: *"We give you the Identity to trust the agent and the Architecture to profit from it."*
 
 ---
 
@@ -94,7 +97,7 @@ The upgrade delivers **11–30%+ efficiency gains** (benchmarked from real autor
 | What Changed | v1.1 | v1.4 |
 |--------------|------|------|
 | Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Agent Self-Optimization Governance) |
-| ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.18` |
+| ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `ATS_Base × (1 + A)` where A=0 if V>0 |
 | Trust Score Table | 4 tiers, no financial column | **4 tiers + Financial Multiplier per tier** |
 | Financial Layer | None | **Per-industry ROI, €14–38B EU-wide by 2030** |
 | Manifest Schema | v1.1 (paths only) | **v1.2 (+ autoresearch, target metrics, financial attribution)** |
@@ -157,19 +160,26 @@ This turns autonomous self-optimization into enterprise-grade, auditable, financ
 
 ## 3. Agent Trust Score Extensions (v1.4)
 
-### 3.1 Updated Formula
+### 3.1 Updated Formula (v1.6 — Multiplicative with V>0 Hard Stop)
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05 + A×0.18)
+ATS_Base  = max(0, 1.0 - V×0.25 - L - D×0.05)
+ATS_Final = ATS_Base × (1 + A)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
-L = 0.10 if avg_latency > 500ms
+L = 0.10 if avg_latency > 500ms (+ Cold-Start Latency Penalty, see KYA-S §4.1)
 D = DENIED path access attempts
-A = autoresearch improvement factor (capped at 0.18, validated on industry proxy metrics)
+A = autoresearch improvement factor (capped at 0.25, validated on industry proxy metrics)
     e.g., +0.11 for 11% energy efficiency gain; +0.09 for 9% process optimization
+
+CRITICAL: If V > 0, then A = 0. No exceptions.
 ```
 
-**The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.18 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor.
+**Why Multiplicative (v1.6):** The previous additive formula `ATS = ... + A×0.18` was mathematically risky. An agent could be highly "optimal" (high A) but fundamentally "leaky" (moderate V) and still maintain a high score. The multiplicative formula ensures A *amplifies* a clean security baseline rather than *compensating* for security failures.
+
+**The V > 0 Hard Stop:** If an agent has **any** KYA violations, the A factor is zeroed. You cannot optimize your way out of a security violation. This aligns with the procurement pincer: the CISO's "No" (V=0 required) gates the CFO's "More" (A factor active).
+
+**The A Factor:** The autoresearch improvement factor rewards agents that demonstrably improve system performance through governed self-optimization. It is computed from the agent's validated autoresearch results, capped at 0.25 to prevent score inflation. Only improvements validated through the full Propose → Validate → Stack → Promote cycle count toward the A factor. A must be validated against the Industry Proxy Metric (§9) to prevent agents "marking their own homework."
 
 **Third-Party Validation Gate (CRITICAL):** An agent that self-reports autoresearch gains can inflate A. To prevent gaming, A factor contributions require **independent validation** before contributing to ATS:
 
@@ -177,11 +187,13 @@ A = autoresearch improvement factor (capped at 0.18, validated on industry proxy
 |-----------------|-------------|-------------|
 | Proxy-to-scale correlation | Spearman rank correlation > 0.90 between proxy and production improvements | Orchestrator validates automatically |
 | Distribution shift tests | Kolmogorov-Smirnov test + Jensen-Shannon divergence < 0.15 | Orchestrator blocks if distributions diverge |
+| **Spectral Convergence Test** (v1.6) | Verify gradient flow remains stable across scales during hyperparameter transfer (depth=12 → depth=24) | Orchestrator runs eigenvalue analysis on loss landscape |
+| **Ablation Attribution** (v1.6) | Agent must provide a "Sensitivity Map" showing which specific change contributed what % of the A factor. If attribution is non-linear or hallucinated, A is voided | Orchestrator validates linearity of attribution claims |
 | Human domain expert sign-off | For A > 0.15, a qualified domain specialist must confirm the improvement is genuine | 72h human gate |
 | Cross-validation on unseen data | Improvement must reproduce on data the agent never accessed during autoresearch | Orchestrator runs holdout evaluation |
 | Temporal stability check | Improvement must persist for ≥48h in staging without degradation | Automated monitoring |
 
-**Security baseline (without A factor):** See `Legal/KYA_SECURITY_v1.2.md` §3. The security standard uses `ATS = max(0, 1.0 - V×0.25 - L - D×0.05)` — security scoring is never inflatable by optimization performance.
+**Security baseline (without A factor):** See `Legal/KYA_SECURITY_v1.2.md` §3. The security standard uses `ATS_Base = max(0, 1.0 - V×0.25 - L - D×0.05)` — security scoring is never inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 
@@ -246,6 +258,8 @@ v1.4 adds a new fault classification to the existing fault attribution system (s
 
 This class is stored in the `kya_fault_attribution` Supabase table alongside existing fault classes (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`). RLS policies apply identically.
 
+**Tiered Fault Fees (v1.6):** Fault investigation fees are tiered by industry risk — see `Legal/KYA_SECURITY_v1.2.md` §9.5. Tier 1 (Critical Emissions) pays EUR 15/fault with 4h SLA; Tier 3 (Wedge) pays EUR 5/fault with 12h SLA. `AUTORESEARCH_FAULT` follows the same tier pricing but with a mandatory 30-day Clawback window on any associated Alpha-Share revenue.
+
 ---
 
 ## 5. Financial Value Layer — 19 Industries
@@ -266,6 +280,19 @@ KYA governance applies to **any industry where autonomous agents operate** — n
 | 6 | Maritime Shipping | 8–12% fuel & maintenance | Voyage emissions + FuelEU compliance | **336k–1.6M** |
 | 7 | Road Transport & Logistics | 9–12% fleet optimization | ETS2 readiness + zero-emission transition | **272k–1.1M** |
 | 8 | Construction & Buildings | 11–22% predictive maintenance & yield | EPBD + lifecycle carbon + BIM integration | **1.1M–5.4M** |
+
+### 5.1.1 Carbon Credit Arbitrage (v1.6 — Missing Value Driver)
+
+For the 16 Fit for 55 sectors, KYA-optimized systems don't just reduce costs — they generate **verifiable Scope 1/2 reductions** that can be monetized as carbon credits or used to reduce CBAM border adjustment obligations.
+
+| Mechanism | How KYA Enables It | Financial Impact |
+|-----------|-------------------|------------------|
+| **ETS Allowance Surplus** | KYA-governed autoresearch reduces energy consumption → fewer allowances needed → surplus sold on EU ETS market | EUR 60–100/tCO2 × surplus tonnage |
+| **CBAM Avoidance** | Auditable carbon calculations from KYA agents reduce CBAM liability on imports | 5–15% reduction in border adjustment costs |
+| **Voluntary Carbon Credits** | Firehorse audit trail provides MRV (Measurement, Reporting, Verification) evidence for voluntary carbon market credits (Gold Standard, Verra) | EUR 15–80/tCO2 depending on methodology |
+| **Article 6.4 (Paris Agreement)** | KYA's identity attribution + forensic observability satisfies the "corresponding adjustment" transparency requirements for international carbon trading | Access to sovereign carbon markets |
+
+**Example (Steel):** A KYA-governed autoresearch agent reduces blast furnace energy consumption by 11%. For a 2M tonne/yr steel plant, this translates to ~220k tCO2 Scope 1 reduction. At EUR 70/tCO2 ETS price: **EUR 15.4M/yr** in allowance surplus value — on top of the energy OPEX savings.
 
 ### 5.2 Tier 2: Important Emissions — Moderate KYA Value (Fit for 55 Extended)
 
@@ -302,7 +329,32 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault Attribution** | EUR 5.00 per fault investigation record | Incident frequency x severity |
 | **Compliance Certificates** | EUR 500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
 | **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Alpha-Share** (v1.4) | **6–10% tiered** of attributed efficiency gains (6% at ATS 0.50–0.79, 9% at ATS 0.80–0.94, 10% at ATS ≥ 0.95) | Financial attribution from Firehorse → Supabase |
+| **Alpha-Share** (v1.6) | **Decline-to-Scale** of attributed efficiency gains (see below) | Financial attribution from Firehorse → Supabase |
+
+**Alpha-Share Decline-to-Scale Model (v1.6):**
+
+| Gain Bracket | Revenue Share | Rationale |
+|-------------|--------------|-----------|
+| First EUR 1M in gains | **12%** | High-touch onboarding, proof-of-value phase |
+| EUR 1M–10M | **8%** | Established value, scaling phase |
+| Above EUR 10M | **5%** | Enterprise-scale; lower share retains large accounts |
+
+**Clawback Clause (v1.6) → Performance Guarantee (v1.6 revised):**
+
+This clause operates at **two layers** with identical economics but different framing:
+
+**Internal (Revenue Recognition):** Lifetime Oy defers Alpha-Share revenue for 30 days post-production deployment. If an optimization causes an `INTEGRATION_FAULT` or `AUTORESEARCH_FAULT` within the deferral window, revenue is never recognized for that period. This protects revenue recognition integrity and aligns internal incentives with production stability.
+
+**Customer-Facing (Contract Language):** Presented as a **"Performance Guarantee"** — if a KYA-O optimization causes a verified production fault within 30 days, the client receives a service credit equal to that period's Alpha-Share. The word "clawback" never appears in customer contracts.
+
+| Layer | Term Used | Mechanism | Procurement Impact |
+|-------|-----------|-----------|-------------------|
+| Internal (Lifetime Oy) | Revenue Deferral | Alpha-Share not recognized for 30 days | N/A — invisible to client |
+| Customer contract | Performance Guarantee | Service credit issued on verified fault | **Positive** — signals confidence |
+
+**Why the split matters:** "We guarantee our optimizations" closes deals. "We'll claw back revenue if things break" stalls them. Same economics, opposite sales psychology.
+
+**Verification Credit Rebate (v1.6):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
 
 ### 5.5 Platform Revenue Projections (19 Industries, 2026–2030)
 
@@ -327,6 +379,18 @@ How KYA generates revenue for Lifetime Oy:
 - NIS2 Directive: fines up to **EUR 10M or 2% of annual global turnover**
 - GDPR: fines up to **EUR 20M or 4% of annual global turnover**
 - KYA's audit trail + identity attribution provides the "reasonable measures" defense
+
+**D&O Insurance (Directors & Officers) (v1.6):**
+- KYA positions as a "safe harbor" against **personal liability** for AI hallucinations or autonomous financial loss
+- Board members deploying AI agents without governance face personal liability under EU AI Act Article 99
+- KYA-S certification demonstrates "reasonable measures" — targeting **8–12% D&O premium reduction**
+- See `Legal/KYA_SECURITY_v1.2.md` §8.1 for full D&O safe harbor framework
+
+**Parametric Insurance Integration (v1.6):**
+- Automated verification of KYA Compliance Certificates (KYA-S) triggers **real-time adjustment** of operational risk premiums
+- Target: **12% reduction** in "AI Malpractice" coverage costs for KYA-certified deployments
+- Integration pattern: KYA-S issues certificate → Firehorse publishes compliance event → Insurer API receives structured proof → Premium adjusted programmatically
+- This creates a third revenue flywheel: KYA-O gains → KYA-S certificates issued → insurance premiums drop → client ROI increases → more agents deployed
 
 **Carbon Penalty Avoidance:**
 - ETS non-compliance: **EUR 100/tCO2 penalty** (on top of market price, currently ~EUR 60/tCO2)
@@ -355,7 +419,20 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault attribution** | No competitor has automated liability mapping between agent layers |
 | **Autoresearch governance** (v1.4) | No competitor has governed self-optimization with financial attribution at scale |
 
-### 5.9 Competitive Positioning: KYA vs Palantir AIP
+### 5.9 Competitive Positioning
+
+#### 5.9.1 Emerging Competitors (v1.6)
+
+| Competitor | Strength | KYA Advantage |
+|-----------|----------|---------------|
+| **Weights & Biases (W&B) Prompts** | Moving toward governance; strong experiment tracking | Lacks the "Hard No" of Firecracker isolation — W&B is observability, not containment. No hardware kill switch |
+| **Arthur.ai** | AI observability and model monitoring | Lacks Autonomous Hyperparameter Tuning protocol — observes but doesn't govern self-optimization |
+| **Arize AI** | ML observability, drift detection | Same gap as Arthur — no governed autoresearch, no financial attribution, no identity binding |
+| **Guardrails AI** | LLM output validation | Software-level guardrails only; no hardware isolation, no identity attribution, no industrial domain models |
+
+**Key insight:** W&B/Arthur/Arize are **observability platforms** — they watch agents. KYA is a **governance platform** — it controls agents. In regulated industries, watching is not enough; you need the ability to kill at the hypervisor level in < 5ms.
+
+#### 5.9.2 KYA vs Palantir AIP
 
 **Palantir AIP** is the closest competitor on governed agentic pipelines for regulated industries. Direct comparison:
 
@@ -508,7 +585,7 @@ KYA has multiple tunable parameters that directly affect security posture and fi
 | ATS violation weight (Vx) | 0.25 | 0.10–0.40 | False positive rate vs security |
 | Latency penalty (L threshold) | 500ms | 200ms–1000ms | Performance vs security |
 | Denied access weight (Dx) | 0.05 | 0.02–0.15 | Agent usability vs lockdown |
-| Autoresearch bonus (Ax) | 0.25 (capped) | 0.10–0.30 | Reward vs score inflation |
+| Autoresearch bonus (Ax) | 0.25 (capped; 0 if V>0) | 0.10–0.30 | Reward vs score inflation; Hard Stop gate |
 | Trust recovery rate | Manual | 0.01–0.10 per hour | Session uptime vs caution |
 | Session TTL extension | +5 on approval | +1 to +10 | Session efficiency |
 | Sandbox boot timeout | 125ms | 50ms–500ms | Cost vs cold-start |
@@ -591,7 +668,26 @@ In Karpathy's work, depth=12 models served as proxies for depth=24 models. Chang
 | Pharma | 1,000-molecule binding screen | 100,000-molecule full screen | High (pharmacokinetic transfer) |
 | Cybersecurity | 10,000-event synthetic SOC dataset | Live SOC feed (30-day window) | Medium-High |
 
-### 9.3 Transfer Validation Protocol
+### 9.3 Proxy-to-Scale Integrity Tests (v1.6)
+
+To ensure the 11% gains found at depth=12 actually hold at depth=24, v1.6 adds two mandatory integrity tests:
+
+**Spectral Convergence Test:** Verification that the gradient flow remains stable across scales during hyperparameter transfer. The Orchestrator runs eigenvalue analysis on the loss landscape at both depth=12 and depth=24. If the top-k eigenvalue ratio diverges by >20%, the transfer is flagged as **scale-unstable** and requires manual review before promotion.
+
+```
+spectral_ratio = eigenvalues_depth24[:k] / eigenvalues_depth12[:k]
+If max(|spectral_ratio - 1.0|) > 0.20 → BLOCK transfer, require domain expert review
+```
+
+**Ablation Attribution:** The agent must provide a "Sensitivity Map" showing which specific change (e.g., QKnorm scaler, AdamW beta tuning) contributed what percentage of the A factor. This prevents opaque "black box" improvements.
+
+| Validation | Pass Condition | Fail Action |
+|-----------|---------------|-------------|
+| Attribution linearity | Sum of per-change contributions = total A factor (±5% tolerance) | A factor voided; improvements not promoted |
+| Contribution monotonicity | Removing any single change reduces A (no hidden regressions) | Offending change flagged for manual review |
+| Hallucination check | Claimed contributions must be reproducible in isolation | If isolated reproduction fails, A is voided and AUTORESEARCH_FAULT logged |
+
+### 9.4 Transfer Validation Protocol (Updated)
 
 Before promoting proxy results to full-scale:
 
@@ -675,6 +771,8 @@ This section standardizes how KYA-governed agents perform hyperparameter tuning 
 - The concept of agent swarms optimizing neural networks is a general research direction pursued by multiple labs
 - Karpathy's specific findings (QKnorm scaler, Value Embeddings regularization, etc.) are his work on his project
 
+**Attribution Footnote (v1.6):** *"Optimization principles derived from open-source Karpathy nanochat research (March 2026); KYA provides the governance wrapper for autonomous implementation in regulated enterprise environments. The Agentic Efficiency Law and Stacking Effect are Lifetime Oy's formalization of observed empirical patterns, not claims on the underlying methodology."*
+
 ### 11.3 Our Contribution
 
 Lifetime Oy's contribution is the **governance layer** that makes autoresearch enterprise-safe:
@@ -691,7 +789,7 @@ Lifetime Oy's contribution is the **governance layer** that makes autoresearch e
 
 ## 12. Conclusion
 
-The KYA Architecture Standard v1.4 delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
+The KYA Architecture Standard v1.6 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 
 Three principles govern this architecture:
 

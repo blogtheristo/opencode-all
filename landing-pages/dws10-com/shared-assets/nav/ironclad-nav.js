@@ -1,10 +1,11 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.0
+ * DWS10.com Iron Clad / Gamma Navigation v3.1
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
  * v2.0 — Comprehensive Home menu with flyouts
  * v1.1 — Initial Gamma-aligned release
@@ -24,6 +25,15 @@
     };
 
     const basePath = getBasePath();
+
+    // Language configuration (expandable — add new languages here)
+    const ironcladLanguages = [
+        { code: 'en', label: 'English' },
+        { code: 'fi', label: 'Suomeksi' },
+        { code: 'sv', label: 'Svenska' }
+    ];
+    const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
+    const ironcladCurrentLabel = (ironcladLanguages.find(l => l.code === ironcladCurrentLang) || ironcladLanguages[0]).label;
 
     // Navigation HTML (Gamma-aligned with hamburger support)
     const navHTML = `
@@ -254,6 +264,18 @@
                                 <li><a href="${basePath}return-policy/">Return Policy</a></li>
                             </ul>
                         </li>
+                    </ul>
+                </li>
+
+                <!-- Language Selector -->
+                <li class="ironclad-menu-item ironclad-lang-item">
+                    <button class="ironclad-lang-toggle" aria-label="Select language" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span class="ironclad-lang-code">${ironcladCurrentLang.toUpperCase()}</span>
+                        <span class="ironclad-lang-arrow">&#9662;</span>
+                    </button>
+                    <ul class="ironclad-lang-dropdown">
+                        ${ironcladLanguages.map(l => '<li><button class="ironclad-lang-option' + (l.code === ironcladCurrentLang ? ' ironclad-lang-active' : '') + '" data-lang="' + l.code + '">' + l.label + '</button></li>').join('\n                        ')}
                     </ul>
                 </li>
 
@@ -537,6 +559,90 @@
 }
 
 /* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.ironclad-lang-item {
+    position: relative;
+}
+.ironclad-lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #334155;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ironclad-lang-toggle:hover {
+    background: #f1f5f9;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+.ironclad-lang-toggle svg {
+    flex-shrink: 0;
+}
+.ironclad-lang-code {
+    font-weight: 600;
+}
+.ironclad-lang-arrow {
+    font-size: 0.65rem;
+    opacity: 0.6;
+}
+.ironclad-lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    min-width: 140px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 6px 0;
+    display: none;
+    z-index: 102;
+    border: 1px solid #e2e8f0;
+    list-style: none;
+    margin: 4px 0 0 0;
+}
+.ironclad-lang-item:hover > .ironclad-lang-dropdown,
+.ironclad-lang-dropdown.open {
+    display: block;
+}
+.ironclad-lang-dropdown li {
+    padding: 0;
+}
+.ironclad-lang-dropdown li::before {
+    display: none;
+}
+.ironclad-lang-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    color: #475569;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ironclad-lang-option:hover {
+    background: #f8fafc;
+    color: #0066cc;
+}
+.ironclad-lang-active {
+    color: #0066cc;
+    font-weight: 600;
+    background: #eff6ff;
+}
+
+/* ============================================
    HAMBURGER BUTTON — hidden on desktop
    ============================================ */
 .ironclad-hamburger {
@@ -805,6 +911,39 @@
     .ironclad-store-image {
         height: 28px;
     }
+
+    /* Language selector — mobile */
+    .ironclad-lang-item {
+        border-bottom: 1px solid #f1f5f9;
+        width: 100%;
+    }
+    .ironclad-lang-toggle {
+        width: 100%;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 0;
+        justify-content: flex-start;
+    }
+    .ironclad-lang-dropdown {
+        position: static;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        min-width: 0;
+        width: 100%;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        margin: 0;
+    }
+    .ironclad-lang-item:hover > .ironclad-lang-dropdown {
+        display: none;
+    }
+    .ironclad-lang-dropdown.open {
+        display: block !important;
+    }
+    .ironclad-lang-option {
+        padding: 11px 20px 11px 36px;
+    }
 }
 `;
 
@@ -919,6 +1058,56 @@
             }
         });
 
-        console.log('Iron Clad / Gamma Navigation v3.0 loaded (mobile hamburger ready)');
+        // ---- Language Selector Logic ----
+        const langToggle = document.querySelector('.ironclad-lang-toggle');
+        const langDropdown = document.querySelector('.ironclad-lang-dropdown');
+
+        if (langToggle && langDropdown) {
+            // Toggle dropdown on click (mobile-friendly)
+            langToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const isOpen = langDropdown.classList.contains('open');
+                langDropdown.classList.toggle('open');
+                langToggle.setAttribute('aria-expanded', !isOpen);
+            });
+
+            // Handle language selection
+            document.querySelectorAll('.ironclad-lang-option').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const lang = btn.getAttribute('data-lang');
+                    localStorage.setItem('dws-lang', lang);
+
+                    // Update toggle display
+                    var codeEl = langToggle.querySelector('.ironclad-lang-code');
+                    if (codeEl) codeEl.textContent = lang.toUpperCase();
+
+                    // Update active state
+                    document.querySelectorAll('.ironclad-lang-option').forEach(function(b) {
+                        b.classList.remove('ironclad-lang-active');
+                    });
+                    btn.classList.add('ironclad-lang-active');
+
+                    // Close dropdown
+                    langDropdown.classList.remove('open');
+                    langToggle.setAttribute('aria-expanded', 'false');
+
+                    // Dispatch custom event for page-level reactions
+                    window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
+                    langDropdown.classList.remove('open');
+                    langToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        console.log('Iron Clad / Gamma Navigation v3.1 loaded (language selector + mobile hamburger)');
     });
 })();
