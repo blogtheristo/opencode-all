@@ -61,7 +61,7 @@
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^7.0.11",
     "@types/supertest": "^6.0.3",
-    "@vitest/ui": "^4.0.16",
+    "@vitest/ui": "^4.1.0",
     "@xdevplatform/xurl": "1.0.3",
     "pg": "^8.20.0",
     "supertest": "^7.2.2",
