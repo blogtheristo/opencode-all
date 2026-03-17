@@ -126,7 +126,8 @@
     "ip": ">=2.0.2",
     "lodash": ">=4.17.21",
     "@react-native-community/cli-server-api": ">=20.0.0",
-    "flatted": ">=3.4.0"
+    "flatted": ">=3.4.0",
+    "@tootallnate/once": ">=3.0.1"
   }
 }
 
