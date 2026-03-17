@@ -544,9 +544,9 @@ id="toc-mahdollisuudet">Mahdollisuudet</a></li>
 id="toc-keskeiset-löydökset-ja-vaikutukset">9.1 Keskeiset löydökset ja
 vaikutukset</a>
 <ul>
-<li><a href="#ilmaistason-bootstrap-mallin-validointi"
-id="toc-ilmaistason-bootstrap-mallin-validointi">9.1.1 Ilmaistason
-Bootstrap-mallin validointi</a></li>
+<li><a href="#ai-avusteisen-kehitysmallin-validointi"
+id="toc-ai-avusteisen-kehitysmallin-validointi">9.1.1 AI-avusteisen
+kehitysmallin validointi</a></li>
 </ul></li>
 <li><a href="#toistettavuus-solution-factory--malli"
 id="toc-toistettavuus-solution-factory--malli">9.2 Toistettavuus:
@@ -808,14 +808,14 @@ vuoteen 2030 mennessä), sisältyvän hiilen mittausvaatimukset vuoteen
 arkkitehtuurit (korkea latenssi, korkeat käyttökustannukset) 3. Eivät
 käsittele toimialakohtaisia compliance-työnkulkuja</p>
 <p><strong>Firehorse (DWS6)</strong> ratkaisee tämän uudella
-toimintamallilla, joka yhdistää: - Ilmaistason pilvi-infrastruktuurin
-(€0-350/kk vs €1 400+) - Edge AI (NVIDIA Jetson) &lt;100ms päättelylle -
+toimintamallilla, joka yhdistää: - AI-avusteisen kehityksen (Cursor Pro + Claude Code Max, 15 viikon MVP)
+- Edge AI (NVIDIA Jetson) &lt;100ms päättelylle -
 Toimialakohtaiset AI-agentit (Rakentaminen, Valmistus, Energia) -
 Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja →
 Autonominen) - <strong>Verkkokauppavalidointi DWS10.com:n, Google
 Merchant Centerin ja Revolut Businessin kautta</strong> [V3.0]</p>
 <h2 id="tutkimusongelma">1.2 Tutkimusongelma</h2>
-<p><strong>Päätutkimuskysymys:</strong> Miten bootstrapattu teollinen
+<p><strong>Päätutkimuskysymys:</strong> Miten AI-avusteisesti kehitetty teollinen
 AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi
 pilvi-edge-toimintamallin kautta säilyttäen samalla &lt;€400/kk
 käyttökustannukset?</p>
@@ -838,7 +838,7 @@ tuote-markkinasopivuuden? [V3.0]</p></li>
 <h2 id="työn-tavoitteet">1.3 Työn tavoitteet</h2>
 <ol type="1">
 <li>Dokumentoida Firehorse-toimintamalli (MVP → V1)</li>
-<li>Validoida ilmaistason kustannusmalli (€0/kk tavoite)</li>
+<li>Validoida kustannustehokas kehitysmalli (Cursor Pro + Claude Code Max)</li>
 <li>Mitata asiakashyöty (≤2kk takaisinmaksuaika)</li>
 <li>Luoda toistettava malli muille teollisuuden startup-yrityksille</li>
 <li><strong>Validoida verkkokauppakanava Google Merchant Center
@@ -1071,7 +1071,7 @@ Takaisinmaksuaika: 1,95 kuukautta</code></pre>
 Moniagenttijärjestelmien teoria ja Lifetime Scope Signals</h2>
 <p>Tämä osio esittelee uuden teoreettisen kontribuution:
 <strong>Lifetime Scope Signals -protokollan</strong>
-moniagenttikoordinointiin bootstrapatuissa teollisissa
+moniagenttikoordinointiin resurssirajoitteisissa teollisissa
 tekoälyalustoissa.</p>
 <h3 id="moniagenttijärjestelmien-tausta">2.5.1 Moniagenttijärjestelmien
 tausta</h3>
@@ -1161,7 +1161,7 @@ teollisten alustojen rakentamiseen:</p>
 │  STRATEGINEN KERROS (Liiketoimintamalli)                         │
 │  ├─ Lifetime World Model (55B) → Ristivertikaalinen tiedustelu  │
 │  ├─ 8 vertikaalimallia → Uudelleenkäytettävät agenttikonfigit   │
-│  ├─ Ilmaistason bootstrap → $15K krediitit = 6+ vuotta runwayta │
+│  ├─ AI-avusteinen kehitys → Cursor Pro + Claude Code Max, 15 vk MVP │
 │  └─ EU-vaatimustenmukaisuusvalli → Fit for 55, NIS2, GDPR       │
 │                                                                  │
 │  OPERATIIVINEN KERROS (AgentFoundry + Lifetime Scope Signals)    │
@@ -1180,7 +1180,7 @@ teollisten alustojen rakentamiseen:</p>
 <p>Tämä käsitemalli tarjoaa toistettavan viitekehyksen muille
 teollisille AI-startupeille, jotka pyrkivät saavuttamaan
 tuote-markkinasopivuuden pitäen operatiiviset kustannukset matalina
-startup-krediittien, reunalaskennan ja moniagenttkoordinoinnin
+AI-avusteisen kehityksen, reunalaskennan ja moniagenttikoordinoinnin
 strategisen käytön avulla.</p>
 <hr />
 <h1 id="nykytila-analyysi">3. Nykytila-analyysi</h1>
@@ -1647,44 +1647,9 @@ tuottamiseen useilla vertikaaleilla.</p>
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘</code></pre>
 <h3 id="strategiset-innovaatiot">4.1.2 Strategiset innovaatiot</h3>
-<p><strong>1. Ilmaistason Bootstrap-strategia</strong> Hyödyntämällä $15
-300 startup-krediittejä palveluntarjoajilta:</p>
-<table>
-<thead>
-<tr>
-<th>Tarjoaja</th>
-<th>Krediitti</th>
-<th>Kesto</th>
-<th>Tila</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Groq</td>
-<td>$10 000</td>
-<td>12 kk</td>
-<td>Aktiivinen</td>
-</tr>
-<tr>
-<td>Google Cloud</td>
-<td>$300</td>
-<td>3 kk</td>
-<td>Aktiivinen</td>
-</tr>
-<tr>
-<td>AWS</td>
-<td>$5 000</td>
-<td>24 kk</td>
-<td>Aktiivinen</td>
-</tr>
-<tr>
-<td><strong>Yhteensä</strong></td>
-<td><strong>$15 300</strong></td>
-<td><strong>6+ vuotta runwayta</strong></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
+<p><strong>1. AI-avusteinen kehitysstrategia</strong>
+MVP rakennettu 15 viikossa hyödyntäen Cursor Pro + Claude Code Max -työkaluketjua.
+Yksi kehittäjä + AI-parikoodaus mahdollistaa nopean iteraation ilman ulkoista pääomaa.</p>
 <p><strong>2. EU-vaatimustenmukaisuus kilpailuetuna</strong></p>
 <ul>
 <li>Tietojen sijainti: europe-north1 (Suomi/Ruotsi)</li>
@@ -1865,7 +1830,7 @@ SAFE-rahoituksella (vs 6,7 kuukautta ilman MCP:tä)</p>
 <tr>
 <td><strong>MVP</strong></td>
 <td>€0/kk</td>
-<td>Groq $10K krediitit + Cloud Run free tier</td>
+<td>NVIDIA Connect -kumppanuus + Cloud Run free tier</td>
 </tr>
 <tr>
 <td><strong>Alpha</strong></td>
@@ -2929,7 +2894,7 @@ vaikutukset</h2>
 <h3 id="ilmaistason-bootstrap-mallin-validointi">9.1.1 Ilmaistason
 Bootstrap-mallin validointi</h3>
 <p><strong>Löydös 1: Startup-krediitit pääomasijoitusten
-korvaajana</strong> - $15 300 startup-krediittejä tarjoaa 6+ vuotta
+korvaajana</strong> - startup-kumppanuudet ja krediitit tarjoavat 6+ vuotta
 infrastruktuuri-runwayta - Eliminoi tarpeen varhaisvaiheen
 infrastruktuuri-investoinneille</p>
 <p><strong>Löydös 2: Reunatekoäly tarjoaa kestävän

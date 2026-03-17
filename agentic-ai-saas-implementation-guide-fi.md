@@ -479,7 +479,7 @@ DWS IQ Platform yhdistää:
 
 ### Infrastruktuurikustannukset
 
-#### Vuosi 1 Kustannukset (Startup-krediiteillä)
+#### Vuosi 1 Kustannukset
 
 **Reunainfrastruktuuri:**
 - NVIDIA Jetson Orin Nano: 37 450 € (50 × 749 €)
@@ -812,8 +812,8 @@ Tämä ei ole vain nopeampi - se on **25x nopeampi kuin vain-pilvi-ratkaisut** j
 ### Talous
 
 **Pääoman Tehokkuus:**
-- Startup-krediitit: 135 000 € (Google, AWS, Groq, GitHub)
-- Reunalaitteisto: 54 200 € (maksaa itse takaisin 2,5 kuukaudessa)
+- AI-kehitystyökalut: Cursor Pro + Claude Code Max (15 viikon MVP)
+- NVIDIA Connect -kumppanuus + Reunalaitteisto: 54 200 € (maksaa itse takaisin 2,5 kuukaudessa)
 - Yhteensä tarvitaan pääomaa: 191 630 € 12 kuukaudeksi
 - Teidän sijoituksenne: 150 000 € 3,8M € cap:lla, 20% alennus
 

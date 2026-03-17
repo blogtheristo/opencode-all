@@ -1206,7 +1206,7 @@ DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands archit
 
 **Multi-LLM Router:** Task-level LLM selection based on sovereignty, cost, and latency — Claude/Mistral for compliance, Grok for market signals, Groq for low-latency summarization, Qwen 2.5 72B (QLoRA, Acer Veriton) for on-premises sovereign inference.
 
-**Research contribution:** The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization — a key enabler of the free-tier bootstrap strategy applied at scale.
+**Research contribution:** The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization — a key enabler of the partnership distribution strategy applied at scale.
 
 ---
 

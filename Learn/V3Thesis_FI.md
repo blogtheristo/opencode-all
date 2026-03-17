@@ -397,7 +397,7 @@ Firehorse Solution Factory -malli syntetisoi edellä mainitut teoreettiset viite
 │  STRATEGINEN KERROS (Liiketoimintamalli)                         │
 │  ├─ Lifetime World Model (55B) → Ristivertikaalinen tiedustelu  │
 │  ├─ 8 vertikaalimallia → Uudelleenkäytettävät agenttikonfigit   │
-│  ├─ Ilmaistason bootstrap → $15K krediitit = 6+ vuotta runwayta │
+│  ├─ AI-avusteinen kehitys (Cursor Pro + Claude Code Max, 15 viikon MVP) │
 │  └─ EU-vaatimustenmukaisuusvalli → Fit for 55, NIS2, GDPR       │
 │                                                                  │
 │  OPERATIIVINEN KERROS (AgentFoundry + Lifetime Scope Signals)    │
@@ -415,7 +415,7 @@ Firehorse Solution Factory -malli syntetisoi edellä mainitut teoreettiset viite
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-Tämä käsitemalli tarjoaa toistettavan viitekehyksen muille teollisille AI-startupeille, jotka pyrkivät saavuttamaan tuote-markkinasopivuuden pitäen operatiiviset kustannukset matalina startup-krediittien, reunalaskennan ja moniagenttkoordinoinnin strategisen käytön avulla.
+Tämä käsitemalli tarjoaa toistettavan viitekehyksen muille teollisille AI-startupeille, jotka pyrkivät saavuttamaan tuote-markkinasopivuuden pitäen operatiiviset kustannukset matalina AI-avusteisten kehitystyökalujen, reunalaskennan ja moniagenttkoordinoinnin strategisen käytön avulla.
 
 ---
 
@@ -618,24 +618,14 @@ Solution Factory -malli muuttaa DWS6:n yksittäisestä tuotteesta toistettavaksi
 
 ### 4.1.2 Strategiset innovaatiot
 
-**1. Ilmaistason Bootstrap-strategia**
-Hyödyntämällä $15 300 startup-krediittejä palveluntarjoajilta:
-
-| Tarjoaja | Krediitti | Kesto | Tila |
-|----------|-----------|-------|------|
-| Groq | $10 000 | 12 kk | Aktiivinen |
-| Google Cloud | $300 | 3 kk | Aktiivinen |
-| AWS | $5 000 | 24 kk | Aktiivinen |
-| **Yhteensä** | **$15 300** | **6+ vuotta runwayta** | - |
-
-**2. EU-vaatimustenmukaisuus kilpailuetuna**
+**1. EU-vaatimustenmukaisuus kilpailuetuna**
 
 - Tietojen sijainti: europe-north1 (Suomi/Ruotsi)
 - EU AI Act: Matalan riskin luokitus ihmisen valvonnalla
 - NIS2: Turvallisuus suunnittelulla kriittisen infrastruktuurin asiakkaille
 - Fit for 55: Natiivi hiiliseuranta vuoden 2028 määräaikaan
 
-**3. Verkostovaikutukset yli vertikaalien**
+**2. Verkostovaikutukset yli vertikaalien**
 
 - Logistiikan reittioptimointidata → Rakentamisen toimitusaikataulutus
 - Valmistuksen laatudata → Kiinteistöjen huollon ennustaminen
@@ -735,7 +725,7 @@ AgentFoundry on monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoo
 
 | Vaihe | Kustannus | Teknologia |
 |-------|-----------|------------|
-| **MVP** | €0/kk | Groq $10K krediitit + Cloud Run free tier |
+| **MVP** | €0/kk | Cloud Run free tier + Cursor Pro + Claude Code Max |
 | **Alpha** | €50-150/kk | Groq + Supabase Pro |
 | **V1** | €350/kk | Groq + Supabase + Monitoring |
 
@@ -1218,11 +1208,11 @@ Tuotevalidointi neliportaisen palautekanavoinnin kautta (osio 1.6):
 
 ## 9.1 Keskeiset löydökset ja vaikutukset
 
-### 9.1.1 Ilmaistason Bootstrap-mallin validointi
+### 9.1.1 AI-avusteisen kehitysmallin validointi
 
-**Löydös 1: Startup-krediitit pääomasijoitusten korvaajana**
-- $15 300 startup-krediittejä tarjoaa 6+ vuotta infrastruktuuri-runwayta
-- Eliminoi tarpeen varhaisvaiheen infrastruktuuri-investoinneille
+**Löydös 1: Cursor Pro ja Claude Code Max mahdollistavat nopean MVP-kehityksen**
+- AI-avusteiset kehitystyökalut (Cursor Pro + Claude Code Max) mahdollistivat 15 viikon MVP-syklin
+- Eliminoi tarpeen suurelle kehitystiimille varhaisvaiheessa
 
 **Löydös 2: Reunatekoäly tarjoaa kestävän kustannusedun**
 - 82% kustannusvähennys vs. pelkkä pilvi -arkkitehtuuri
@@ -1819,7 +1809,7 @@ Tehtävätyyppi → LLM-valinta
 
 ### 10.12.2 Tutkimuskontribuutio
 
-Monituottajaekosysteemi validoi **Solution Factory -mallin kolmannen pilarin** (osio 4.1.3 — jakeluleverage). Kytkemällä DWS7 Siemens Xceleratoriin ja NVIDIA Inceptioniin alusta saa pääsyn 10 000+ teollisuusasiakkaaseen ilman suoran myyntiorganisaation rakentamista — yhdenmukainen ilmaistason bootstrap-strategian kanssa kumppanuustasolla.
+Monituottajaekosysteemi validoi **Solution Factory -mallin kolmannen pilarin** (osio 4.1.3 — jakeluleverage). Kytkemällä DWS7 Siemens Xceleratoriin ja NVIDIA Inceptioniin alusta saa pääsyn 10 000+ teollisuusasiakkaaseen ilman suoran myyntiorganisaation rakentamista — yhdenmukainen kumppanuusjakelustrategian kanssa.
 
 Monituottaja-LLM-reititin osoittaa käytännön ratkaisun **EU AI Act -suvereniteettijännitteeseen**: säännellyt toimialat voivat käyttää Mistralia vaatimustenmukaisuusgeneroinnissa (EU-domisiili, GDPR-yhteensopiva) hyödyntäen samalla Claudea ja Grookia säätelemättömiin analyyttisiin tehtäviin.
 
@@ -2001,7 +1991,7 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
 │                                                                          │
 │  ONGELMA                          │  RATKAISU                            │
 │  • EU-vaatimustenmukaisuuden      │  • Vaiheittainen AI-käyttöönotto     │
-│    määräajat                      │  • Ilmaistason bootstrap             │
+│    määräajat                      │  • AI-avusteinen kehitys             │
 │  • Korkeat SaaS-kustannukset      │  • Reunatekoäly (<100ms)             │
 │    (€1 400+)                      │  • €0-350/kk hinnoittelu             │
 │  • Pelkkä pilvi -latenssi         │                                      │
@@ -2027,7 +2017,7 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
 │                                                                          │
 │  KUSTANNUSRAKENNE                 │  TULONLÄHTEET                        │
 │  • €0-350/kk infrastruktuuri      │  • SaaS-tilaukset                    │
-│  • Startup-krediitit ($15K)       │  • Reunalaitteiston marginaali       │
+│  • Cursor Pro + Claude Code Max   │  • Reunalaitteiston marginaali       │
 │  • Yksi kehittäjä (bootstrap)     │  • Ammattipalvelut                   │
 │  • Ei markkinointikuluja (org.)   │  • Solution Factory -lisensointi     │
 │                                   │                                      │
@@ -2499,7 +2489,7 @@ Tämä osio tuottaa kolme löydöstä harness engineering -keskusteluun:
 **Keskeiset kontribuutiot:**
 1. Lifetime Scope Signals -protokolla — Uusi moniagenttikoordinointiviitekehys
 2. Solution Factory -malli — Toistettava teollisen AI-alustan pohja
-3. Ilmaistason bootstrap-strategia — Startup-krediitit pääomasijoitusten korvaajana
+3. AI-avusteinen kehitys — Cursor Pro ja Claude Code Max mahdollistavat nopean 15 viikon MVP:n
 4. Vaiheittainen käyttöönottokehys — Luottamuksen rakentaminen AI:lle säännellyillä toimialoilla
 5. DWS10.com-verkkokauppavalidointi — Google Merchant Center + Revolut Business
 6. HIL-oppimisputki — Päivittäinen ihminen-tekoäly-palautesilmukka
