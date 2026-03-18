@@ -113,7 +113,7 @@
 
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>The construction sector accounts for approximately <strong>37% of global CO2 emissions</strong>, with embodied carbon in materials representing a growing share as operational energy efficiency improves. For Nordic construction companies, the EN 15978 standard provides the framework for calculating and reporting whole-life carbon of buildings. Understanding it is no longer optional: Finland's updated Building Act (Rakentamislaki 751/2023) now requires lifecycle carbon assessments for new building permits.</p>
+                <p>The construction sector accounts for approximately <strong>37% of global CO2 emissions</strong><sup>[1]</sup>, with embodied carbon in materials representing a growing share as operational energy efficiency improves. For Nordic construction companies, the EN 15978 standard<sup>[2]</sup> provides the framework for calculating and reporting whole-life carbon of buildings. Understanding it is no longer optional: Finland's updated Building Act (Rakentamislaki 751/2023)<sup>[3]</sup> now requires lifecycle carbon assessments for new building permits.</p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">EN 15978: The Lifecycle Framework</h2>
 
@@ -122,7 +122,7 @@
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">Product Stage (A1-A3)</h3>
                 <p><strong>A1: Raw material supply.</strong> Extraction and processing of raw materials. For concrete, this includes limestone quarrying and clay mining. For steel, it covers iron ore mining and coking coal production.</p>
                 <p><strong>A2: Transport to manufacturer.</strong> All transport from raw material extraction to the manufacturing plant. Distances and transport modes matter: Nordic timber transported 200 km by truck has a very different profile than Chinese steel shipped 15,000 km by sea.</p>
-                <p><strong>A3: Manufacturing.</strong> Energy consumed and emissions generated during product manufacturing. This is where cement production's process emissions (calcination) dominate the concrete footprint at roughly 600 kg CO2 per tonne of Portland cement.</p>
+                <p><strong>A3: Manufacturing.</strong> Energy consumed and emissions generated during product manufacturing. This is where cement production's process emissions (calcination) dominate the concrete footprint at roughly 600 kg CO2 per tonne of Portland cement<sup>[4]</sup>.</p>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3" style="color: #e2e8f0;">Construction Stage (A4-A5)</h3>
                 <p><strong>A4: Transport to site.</strong> Delivery of products from factory gate to construction site. In the Nordics, long distances and winter logistics can significantly increase this stage's contribution.</p>
@@ -139,15 +139,24 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Practical Challenges for Nordic Companies</h2>
 
-                <p><strong>Data quality varies enormously.</strong> Generic emission factors from databases like Ecoinvent or the Finnish CO2data.fi provide starting points, but product-specific Environmental Product Declarations (EPDs) following EN 15804 are required for accurate A1-A3 calculations. Many Nordic material suppliers now publish EPDs, but gaps remain, especially for specialized products and imported materials.</p>
+                <p><strong>Data quality varies enormously.</strong> Generic emission factors from databases like Ecoinvent or the Finnish CO2data.fi provide starting points, but product-specific Environmental Product Declarations (EPDs) following EN 15804<sup>[5]</sup> are required for accurate A1-A3 calculations. Many Nordic material suppliers now publish EPDs, but gaps remain, especially for specialized products and imported materials.</p>
 
                 <p><strong>The reference study period matters.</strong> Finnish regulations use a 50-year reference study period. A building designed for 100 years with high embodied carbon in durable materials may actually perform better per-year than a lighter 50-year building that needs major refurbishment. The calculation timeframe changes the conclusion.</p>
 
-                <p><strong>Carbon handprint versus footprint.</strong> Nordic timber construction has a unique advantage in stage D: stored biogenic carbon. A large CLT apartment building can store 500 to 1,000 tonnes of CO2 equivalent in its structure. Whether and how this credit is accounted for is still debated in regulatory circles, but Finland's Rakentamislaki acknowledges biogenic carbon storage.</p>
+                <p><strong>Carbon handprint versus footprint.</strong> Nordic timber construction has a unique advantage in stage D: stored biogenic carbon. A large CLT apartment building can store 500 to 1,000 tonnes of CO2 equivalent in its structure. Whether and how this credit is accounted for is still debated in regulatory circles, but Finland's Rakentamislaki acknowledges biogenic carbon storage<sup>[3]</sup>.</p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Automating EN 15978 Calculations</h2>
 
                 <p>Manual lifecycle carbon calculations using spreadsheets are error-prone and time-consuming. A typical mid-rise residential building contains 200 to 500 distinct material items, each requiring A1-A3 emission factors, transport distances for A4, and waste factors for C stages. Automating this pipeline, from BIM model to EN 15978-compliant report, reduces calculation time from weeks to hours and ensures consistency across projects.</p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] UNEP, <em>2023 Global Status Report for Buildings and Construction</em>, United Nations Environment Programme, 2023.</li>
+                    <li>[2] CEN, EN 15978:2011, <em>Sustainability of construction works — Assessment of environmental performance of buildings — Calculation method</em>.</li>
+                    <li>[3] Finnish Parliament, Rakentamislaki 751/2023 (Building Act), entered into force 1.1.2025 — requiring lifecycle carbon assessment for new building permits.</li>
+                    <li>[4] IPCC, <em>2006 IPCC Guidelines for National Greenhouse Gas Inventories</em>, Volume 3: Industrial Processes — cement process emissions.</li>
+                    <li>[5] CEN, EN 15804:2012+A2:2019, <em>Sustainability of construction works — Environmental Product Declarations — Core rules for the product category of construction products</em>.</li>
+                </ol>
 
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> Connect your construction project data to automated carbon calculation tools. DWS IQ integrates with BIM systems and EPD databases to generate EN 15978-compliant lifecycle assessments. Explore the platform at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
@@ -166,14 +175,18 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-011-cbam-steel-importers-guide.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 11</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">CBAM for Steel Importers: Compliance Timeline and Costs</p>
                     </a>
-                    <a href="day-002-csrd-double-materiality-practical-guide.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Day 2</span>
-                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">CSRD Double Materiality: A Practical Guide</p>
+                    <a href="day-018-epbd-real-estate-energy-performance.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 18</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">EPBD: Real Estate Energy Performance Directive</p>
+                    </a>
+                    <a href="day-016-ets-phase-4-carbon-pricing-nordic-industry.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 16</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">ETS Phase 4: Carbon Pricing Impact on Nordic Industry</p>
                     </a>
                 </div>
             </div>

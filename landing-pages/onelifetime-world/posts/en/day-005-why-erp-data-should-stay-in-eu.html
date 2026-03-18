@@ -114,15 +114,15 @@
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
                 <p class="text-lg leading-relaxed">
-                    Your ERP system contains the most sensitive operational data in your organization: customer contracts, supplier pricing, production volumes, employee records, financial forecasts. If that data is stored on US-controlled cloud infrastructure, it is subject to the US CLOUD Act &mdash; regardless of where the data center is physically located. For European manufacturers, this is not a theoretical risk. It is a documented legal exposure.
+                    Your ERP system contains the most sensitive operational data in your organization: customer contracts, supplier pricing, production volumes, employee records, financial forecasts. If that data is stored on US-controlled cloud infrastructure, it is subject to the US CLOUD Act<sup>[1]</sup> &mdash; regardless of where the data center is physically located. For European manufacturers, this is not a theoretical risk. It is a documented legal exposure.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">The CLOUD Act Problem</h2>
                 <p>
-                    The Clarifying Lawful Overseas Use of Data Act, signed into law in 2018, grants US law enforcement the authority to compel US-headquartered technology companies to produce data stored on their servers, regardless of where that data is physically located. This means that if your ERP system runs on Microsoft Azure, Amazon Web Services, or Google Cloud &mdash; even in a Frankfurt or Helsinki data center &mdash; the US government can request access to that data without notifying you.
+                    The Clarifying Lawful Overseas Use of Data Act (H.R. 4943), signed into law in 2018<sup>[1]</sup>, grants US law enforcement the authority to compel US-headquartered technology companies to produce data stored on their servers, regardless of where that data is physically located. This means that if your ERP system runs on Microsoft Azure, Amazon Web Services, or Google Cloud &mdash; even in a Frankfurt or Helsinki data center &mdash; the US government can request access to that data without notifying you.
                 </p>
                 <p>
-                    The European Data Protection Board (EDPB) has repeatedly flagged this conflict with GDPR. The Schrems II ruling (Case C-311/18) invalidated the EU-US Privacy Shield precisely because US surveillance laws provide insufficient protection for EU personal data. While the EU-US Data Privacy Framework was adopted in 2023, legal scholars widely expect it to face the same fate as its predecessors.
+                    The European Data Protection Board (EDPB) has repeatedly flagged this conflict with GDPR. The Schrems II ruling (Case C-311/18)<sup>[2]</sup> invalidated the EU-US Privacy Shield precisely because US surveillance laws provide insufficient protection for EU personal data. While the EU-US Data Privacy Framework was adopted in 2023, legal scholars widely expect it to face the same fate as its predecessors.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">What ERP Data Is at Risk</h2>
@@ -130,7 +130,7 @@
                     Consider what a typical SAP S/4HANA or IFS Cloud installation contains: employee personal data (names, salaries, social security numbers), customer master data (contracts, pricing, payment terms), supplier agreements with confidential pricing, production planning data revealing capacity and capability, financial records including unreported quarterly figures, and R&amp;D project data with intellectual property value.
                 </p>
                 <p>
-                    Under GDPR Article 48, transferring personal data to a third country based solely on a foreign court order is prohibited unless there is an international agreement in force. The CLOUD Act has no such agreement with the EU. This creates a direct legal conflict: complying with a CLOUD Act request may violate GDPR, and refusing may violate US law.
+                    Under GDPR Article 48<sup>[3]</sup>, transferring personal data to a third country based solely on a foreign court order is prohibited unless there is an international agreement in force. The CLOUD Act has no such agreement with the EU. This creates a direct legal conflict: complying with a CLOUD Act request may violate GDPR, and refusing may violate US law.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">The Nordic Dimension</h2>
@@ -138,7 +138,7 @@
                     Nordic manufacturers face a particularly acute version of this problem. Finland, Sweden, and Norway have strong domestic data protection traditions and increasingly sophisticated regulatory enforcement. The Finnish Data Protection Ombudsman has been active in enforcement, issuing significant fines for GDPR violations. Sweden's IMY has similarly taken a hard line on international data transfers.
                 </p>
                 <p>
-                    More importantly, many Nordic manufacturers operate in sectors classified as critical infrastructure or defense-adjacent. A Finnish company supplying components to the defense industry, for example, faces export control regulations (EU Regulation 2021/821) that explicitly restrict unauthorized foreign access to controlled technology data. Hosting such data on US-controlled infrastructure creates a compliance gap that auditors are increasingly flagging.
+                    More importantly, many Nordic manufacturers operate in sectors classified as critical infrastructure or defense-adjacent. A Finnish company supplying components to the defense industry, for example, faces export control regulations (EU Regulation 2021/821)<sup>[4]</sup> that explicitly restrict unauthorized foreign access to controlled technology data. Hosting such data on US-controlled infrastructure creates a compliance gap that auditors are increasingly flagging.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Practical Steps for Data Residency</h2>
@@ -163,6 +163,15 @@
                     Beyond compliance, EU data residency makes commercial sense. Nordic customers and partners increasingly ask about data sovereignty in procurement processes. Government contracts often require EU data residency as a condition. And the reputational risk of a CLOUD Act disclosure &mdash; particularly one involving customer or employee data &mdash; far exceeds the cost of sovereign infrastructure.
                 </p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] United States Congress, H.R. 4943 — Clarifying Lawful Overseas Use of Data Act (CLOUD Act), enacted 23.3.2018.</li>
+                    <li>[2] Court of Justice of the European Union, Case C-311/18 — <em>Data Protection Commissioner v. Facebook Ireland and Maximillian Schrems</em> (Schrems II), 16.7.2020.</li>
+                    <li>[3] European Parliament and Council, Regulation (EU) 2016/679 (General Data Protection Regulation — GDPR), OJ L 119, 4.5.2016 — Article 48 on transfers not authorised by Union law.</li>
+                    <li>[4] European Parliament and Council, Regulation (EU) 2021/821 (Dual-Use Regulation), OJ L 206, 11.6.2021 — setting up an EU regime for the control of exports of dual-use items.</li>
+                    <li>[5] European Commission, Commission Implementing Decision (EU) 2023/1795 on the EU-US Data Privacy Framework, 10.7.2023.</li>
+                </ol>
+
                 <p class="text-lg font-semibold mt-8" style="color: #e2e8f0;">
                     DWS IQ runs on EU-sovereign infrastructure with PostgreSQL and pgvector, hosted in Finland. No CLOUD Act exposure, full GDPR compliance. Learn more at <a href="https://dws10.com" class="text-blue-400 hover:underline">dws10.com</a>.
                 </p>
@@ -180,7 +189,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-012-sovereign-database-architecture-guide.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Sovereign Database Architecture: A Technical Guide</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 12 &middot; Sovereign Technology</span>
@@ -188,6 +197,10 @@
                     <a href="day-019-cloud-act-risk-nordic-manufacturers.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">CLOUD Act Risk for Nordic Manufacturers</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 19 &middot; Sovereign Technology</span>
+                    </a>
+                    <a href="day-001-what-happens-when-erp-vendor-sold.html" class="pillar-card p-4 rounded-lg block no-underline">
+                        <span class="text-sm font-semibold" style="color: #e2e8f0;">What Happens When Your ERP Vendor Gets Sold?</span>
+                        <span class="block text-xs text-gray-500 mt-1">Day 1 &middot; ERP Transition</span>
                     </a>
                 </div>
             </div>

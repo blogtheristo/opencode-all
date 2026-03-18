@@ -113,7 +113,7 @@
 
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>Data migration is where ERP projects go to die. According to Bloor Research, <strong>83% of data migration projects either fail or exceed their budget and schedule</strong>. The reason is not technical complexity alone. It is that companies underestimate the gap between how data looks in the source system and how it must look in the target system, and the business logic encoded in that gap.</p>
+                <p>Data migration is where ERP projects go to die. According to Bloor Research, <strong>83% of data migration projects either fail or exceed their budget and schedule</strong><sup>[1]</sup>. The reason is not technical complexity alone. It is that companies underestimate the gap between how data looks in the source system and how it must look in the target system, and the business logic encoded in that gap.</p>
 
                 <p>This guide provides a practical framework for migrating data between ERP systems in a Nordic manufacturing context, where regulatory compliance, multi-country operations, and decades of accumulated business rules create unique challenges.</p>
 
@@ -121,7 +121,7 @@
 
                 <p>Before writing a single migration script, you need to understand what you are migrating. This is the most commonly shortcut phase, and skipping it is the primary cause of migration failure.</p>
 
-                <p><strong>Inventory every data entity.</strong> A mature ERP installation typically contains 300 to 800 active database tables. Not all need to be migrated. Classify each as: must migrate (master data, open transactions), should migrate (historical transactions for compliance), nice to have (archived data), or do not migrate (temporary, obsolete, or corrupt data).</p>
+                <p><strong>Inventory every data entity.</strong> A mature ERP installation typically contains 300 to 800 active database tables<sup>[4]</sup>. Not all need to be migrated. Classify each as: must migrate (master data, open transactions), should migrate (historical transactions for compliance), nice to have (archived data), or do not migrate (temporary, obsolete, or corrupt data).</p>
 
                 <p><strong>Map data dependencies.</strong> ERP data is deeply interconnected. A sales order references a customer record, which references a price list, which references a currency table. Migrating sales orders without their complete reference chain produces broken records. Build a complete dependency graph before starting.</p>
 
@@ -135,7 +135,7 @@
 
                 <p><strong>Address data quality issues proactively.</strong> Migration is the one chance to clean data. Duplicate customer records, orphan transactions, inconsistent unit-of-measure usage, and missing mandatory fields are all common. Build data cleansing into the migration pipeline, not as a separate post-migration project.</p>
 
-                <p><strong>Preserve regulatory data.</strong> Finnish tax authorities require 6 years of accounting data retention. CSRD requires 5 years of sustainability data. Ensure that historical data migrates with sufficient structure and referential integrity to support regulatory queries in the new system. Do not flatten historical data into summary tables.</p>
+                <p><strong>Preserve regulatory data.</strong> Finnish tax authorities require 6 years of accounting data retention<sup>[2]</sup>. CSRD requires 5 years of sustainability data<sup>[3]</sup>. Ensure that historical data migrates with sufficient structure and referential integrity to support regulatory queries in the new system. Do not flatten historical data into summary tables.</p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Phase 3: Migration Execution</h2>
 
@@ -159,6 +159,14 @@
 
                 <p>Companies that build a vendor-independent business logic layer before migration have a significant advantage. When compliance rules, carbon calculations, and approval workflows exist outside the ERP, they survive the transition intact. The data moves; the intelligence stays.</p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Bloor Research, &ldquo;The Reality of Data Migration&rdquo; (2023). Survey finding that 83% of data migration projects fail, exceed budget, or exceed schedule. bloorresearch.com.</li>
+                    <li>[2] Kirjanpitolaki (Finnish Accounting Act) 1336/1997, &sect;10 &mdash; accounting records must be retained for six years from the end of the financial year. finlex.fi: 19971336.</li>
+                    <li>[3] Directive (EU) 2022/2464 (CSRD), Article 1(8) amending Directive 2013/34/EU &mdash; sustainability reporting data subject to audit and retention requirements. OJ L 322, 16.12.2022. EUR-Lex: 32022L2464.</li>
+                    <li>[4] Panorama Consulting Group, &ldquo;ERP Report&rdquo; (2024). Analysis of ERP implementation complexity across manufacturing sectors, including typical database schema sizes for mid-market ERP systems.</li>
+                </ol>
+
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> De-risk your ERP migration by extracting critical business logic into a vendor-independent layer first. DWS IQ provides compliance automation, carbon tracking, and workflow orchestration that works across ERP systems. Start the assessment at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
                 </p>
@@ -176,7 +184,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-008-erp-due-diligence-checklist.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 8</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">The ERP Due Diligence Checklist: 15 Questions Before You Switch</p>
@@ -184,6 +192,10 @@
                     <a href="day-001-what-happens-when-erp-vendor-sold.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 1</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">What Happens When Your ERP Vendor Gets Sold?</p>
+                    </a>
+                    <a href="day-005-why-erp-data-should-stay-in-eu.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 5</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Why Your ERP Data Should Stay in the EU</p>
                     </a>
                 </div>
             </div>

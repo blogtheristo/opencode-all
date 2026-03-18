@@ -119,15 +119,15 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Why Edge AI for Compliance</h2>
                 <p>
-                    Cloud-based AI inference creates three compliance concerns. First, your data leaves your premises and enters infrastructure controlled by a third party, creating GDPR processor obligations and potential CLOUD Act exposure. Second, API calls to cloud AI services generate metadata (query content, timing, frequency) that reveals business intelligence about your operations. Third, cloud service availability depends on external factors &mdash; network connectivity, provider SLAs, and geopolitical decisions about service availability.
+                    Cloud-based AI inference creates three compliance concerns. First, your data leaves your premises and enters infrastructure controlled by a third party, creating GDPR processor obligations<sup>[1]</sup> and potential CLOUD Act exposure<sup>[2]</sup>. Second, API calls to cloud AI services generate metadata (query content, timing, frequency) that reveals business intelligence about your operations. Third, cloud service availability depends on external factors &mdash; network connectivity, provider SLAs, and geopolitical decisions about service availability.
                 </p>
                 <p>
-                    Edge AI eliminates all three. Your data stays on your hardware, in your facility, under your jurisdiction. No metadata leaks to external services. And availability depends only on your local infrastructure, which you control. For compliance-sensitive workloads like document classification, risk scoring, and regulatory text analysis, edge AI is the architecturally correct choice.
+                    Edge AI eliminates all three. Your data stays on your hardware, in your facility, under your jurisdiction. No metadata leaks to external services. And availability depends only on your local infrastructure, which you control. For compliance-sensitive workloads like document classification, risk scoring, and regulatory text analysis &mdash; particularly under the EU AI Act (Regulation 2024/1689)<sup>[4]</sup> which imposes transparency and data governance obligations on high-risk AI systems &mdash; edge AI is the architecturally correct choice.
                 </p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Hardware Options</h2>
                 <p>
-                    <strong>NVIDIA Jetson Orin Nano (8GB).</strong> This compact board (100mm x 79mm) delivers 40 TOPS of AI performance at just 15W power consumption. It runs full Linux (JetPack SDK based on Ubuntu), supports CUDA, cuDNN, and TensorRT, and can handle multiple concurrent inference tasks. At approximately EUR 250, it is the most cost-effective entry point for edge AI. Ideal for: document classification, compliance text analysis, anomaly detection in sensor data.
+                    <strong>NVIDIA Jetson Orin Nano (8GB).</strong> This compact board (100mm x 79mm) delivers 40 TOPS of AI performance at just 15W power consumption<sup>[3]</sup>. It runs full Linux (JetPack SDK based on Ubuntu), supports CUDA, cuDNN, and TensorRT, and can handle multiple concurrent inference tasks. At approximately EUR 250, it is the most cost-effective entry point for edge AI. Ideal for: document classification, compliance text analysis, anomaly detection in sensor data.
                 </p>
                 <p>
                     <strong>Acer Veriton (with NVIDIA GPU).</strong> For workloads that require more compute &mdash; larger language models, multi-document analysis, or high-throughput batch processing &mdash; a compact workstation with a dedicated NVIDIA GPU provides significantly more power. The Acer Veriton N series with an RTX 4060 or RTX 4070 offers 100-200+ TOPS in a small form factor suitable for server room or under-desk deployment. Price range: EUR 1,500-2,500 depending on configuration.
@@ -163,6 +163,14 @@
                     DWS IQ supports a hybrid architecture where edge AI handles sensitive inference locally while the cloud platform manages orchestration, storage, and reporting. The edge device runs the AI inference and sends only structured results (classifications, scores, extracted entities) to the cloud platform &mdash; never raw document content. This gives you the analytical power of the full DWS IQ platform with the sovereignty guarantee of local inference.
                 </p>
 
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Regulation (EU) 2016/679 (General Data Protection Regulation), Articles 28-29 on processor obligations and Article 32 on security of processing. OJ L 119, 4.5.2016. EUR-Lex: 32016R0679.</li>
+                    <li>[2] U.S. Clarifying Lawful Overseas Use of Data Act (CLOUD Act), H.R. 4943, enacted 23 March 2018. Allows U.S. law enforcement to compel disclosure of data held by U.S.-headquartered providers regardless of data location.</li>
+                    <li>[3] NVIDIA, &ldquo;Jetson Orin Nano Developer Kit Specifications,&rdquo; developer.nvidia.com/embedded/jetson-orin-nano. 40 TOPS INT8 AI performance, 15W max power, 100 mm x 79 mm module.</li>
+                    <li>[4] Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). OJ L, 12.7.2024. EUR-Lex: 32024R1689.</li>
+                </ol>
+
                 <p class="text-lg font-semibold mt-8" style="color: #e2e8f0;">
                     Interested in edge AI for your compliance workloads? DWS IQ supports hybrid edge-cloud deployment. Learn more at <a href="https://dws10.com" class="text-blue-400 hover:underline">dws10.com</a>.
                 </p>
@@ -180,7 +188,7 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="day-006-firehorse-automation-5-workflows.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Firehorse Automation: 5 Workflows That Save 20 Hours Per Week</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 6 &middot; Product Knowledge</span>
@@ -188,6 +196,10 @@
                     <a href="day-012-sovereign-database-architecture-guide.html" class="pillar-card p-4 rounded-lg block no-underline">
                         <span class="text-sm font-semibold" style="color: #e2e8f0;">Sovereign Database Architecture: A Technical Guide</span>
                         <span class="block text-xs text-gray-500 mt-1">Day 12 &middot; Sovereign Technology</span>
+                    </a>
+                    <a href="day-017-building-compliance-agent-swarm.html" class="pillar-card p-4 rounded-lg block no-underline">
+                        <span class="text-sm font-semibold" style="color: #e2e8f0;">Building a Compliance Agent Swarm</span>
+                        <span class="block text-xs text-gray-500 mt-1">Day 17 &middot; Product Knowledge</span>
                     </a>
                 </div>
             </div>

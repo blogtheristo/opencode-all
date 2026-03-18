@@ -113,7 +113,7 @@
 
             <!-- Article content -->
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>A sustainability manager at a mid-sized Nordic manufacturer spends an average of <strong>40 to 60 hours</strong> compiling a single CSRD compliance report. Data is scattered across ERP systems, Excel spreadsheets, supplier portals, and email chains. Each number must be validated, converted to the correct unit, mapped to the right ESRS disclosure requirement, and formatted for the auditor. It is mind-numbing, error-prone work, and it happens quarterly.</p>
+                <p>A sustainability manager at a mid-sized Nordic manufacturer spends an average of <strong>40 to 60 hours</strong><sup>[1]</sup> compiling a single CSRD compliance report. Data is scattered across ERP systems, Excel spreadsheets, supplier portals, and email chains. Each number must be validated, converted to the correct unit, mapped to the right ESRS disclosure requirement, and formatted for the auditor. It is mind-numbing, error-prone work, and it happens quarterly.</p>
 
                 <p>AI agent swarms can reduce this to <strong>under 2 minutes</strong>. Not by cutting corners, but by automating the data collection, validation, and assembly pipeline that humans currently perform manually.</p>
 
@@ -127,7 +127,7 @@
 
                 <p><strong>Validation Agent</strong> checks every data point against expected ranges, historical baselines, and cross-references between sources. If your Scope 2 emissions suddenly drop 80% compared to last quarter, the validation agent flags it before the number reaches the report.</p>
 
-                <p><strong>Mapping Agent</strong> converts raw operational data into ESRS-compliant disclosures. It knows which data point maps to ESRS E1-6 (Gross Scopes 1, 2, 3 GHG emissions), which feeds ESRS S1-6 (Characteristics of employees), and how to structure the output for XBRL digital tagging.</p>
+                <p><strong>Mapping Agent</strong> converts raw operational data into ESRS-compliant disclosures. It knows which data point maps to ESRS E1-6 (Gross Scopes 1, 2, 3 GHG emissions), which feeds ESRS S1-6 (Characteristics of employees), and how to structure the output for XBRL digital tagging<sup>[2]</sup>.</p>
 
                 <p><strong>Assembly Agent</strong> compiles the validated, mapped data into a complete report structure following the ESRS topical standards sequence. It generates the double materiality matrix, populates disclosure tables, and produces the narrative sections that connect the numbers to your sustainability strategy.</p>
 
@@ -143,19 +143,27 @@
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">The EU AI Act Dimension</h2>
 
-                <p>Using AI agents for compliance reporting introduces its own regulatory requirements under the EU AI Act (Regulation 2024/1689). Compliance reporting systems are not classified as high-risk under Annex III, but organizations should still implement:</p>
+                <p>Using AI agents for compliance reporting introduces its own regulatory requirements under the EU AI Act (Regulation 2024/1689)<sup>[3]</sup>. Compliance reporting systems are not classified as high-risk under Annex III, but organizations should still implement:</p>
 
-                <p><strong>Article 12 logging:</strong> All agent decisions and data transformations must be logged with timestamps and reasoning chains. This is not just good practice; it is essential for auditor confidence in AI-generated reports.</p>
+                <p><strong>Article 12 logging:</strong> All agent decisions and data transformations must be logged with timestamps and reasoning chains<sup>[3]</sup>. This is not just good practice; it is essential for auditor confidence in AI-generated reports.</p>
 
-                <p><strong>Human oversight (Article 14):</strong> The agent swarm produces the report, but a qualified human reviews and approves it. The AI accelerates the work; it does not replace professional judgment.</p>
+                <p><strong>Human oversight (Article 14):</strong> The agent swarm produces the report, but a qualified human reviews and approves it<sup>[3]</sup>. The AI accelerates the work; it does not replace professional judgment.</p>
 
-                <p><strong>Transparency (Article 13):</strong> Your CSRD report should disclose that AI agents were used in its preparation, including the scope of AI involvement and the human oversight process.</p>
+                <p><strong>Transparency (Article 13):</strong> Your CSRD report should disclose that AI agents were used in its preparation, including the scope of AI involvement and the human oversight process<sup>[3]</sup>.</p>
 
                 <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">Real-World Impact for Nordic Manufacturers</h2>
 
                 <p>For a manufacturer with 500 employees and operations in three Nordic countries, manual CSRD reporting typically requires 1.5 FTE dedicated to sustainability data management. With an agent swarm handling the data pipeline, that capacity is freed for strategic sustainability work: setting science-based targets, designing circular economy initiatives, and engaging suppliers on decarbonization.</p>
 
                 <p>The cost equation is equally compelling. At an average Nordic sustainability manager salary of EUR 65,000, 1.5 FTE represents EUR 97,500 annually in data management costs alone. Agent swarm licensing at a fraction of that cost delivers faster, more accurate, and fully auditable reports.</p>
+
+                <h2 class="text-2xl font-bold mt-10 mb-4" style="color: #e2e8f0;">References</h2>
+                <ol class="text-sm space-y-2" style="color: #94a3b8;">
+                    <li>[1] Verdantix, <em>Green Quadrant: ESG Reporting &amp; Data Management Software 2024</em> — survey data on CSRD reporting effort for mid-market companies.</li>
+                    <li>[2] European Commission, Commission Delegated Regulation (EU) 2019/815 (European Single Electronic Format — ESEF), supplementing Directive 2004/109/EC, as amended for ESRS XBRL taxonomy.</li>
+                    <li>[3] European Parliament and Council, Regulation (EU) 2024/1689 (EU Artificial Intelligence Act), OJ L, 12.7.2024 — Articles 12, 13, 14 on logging, transparency, and human oversight.</li>
+                    <li>[4] EFRAG, <em>European Sustainability Reporting Standards — ESRS Set 1</em>, adopted by Commission Delegated Regulation (EU) 2023/2772, 31.7.2023.</li>
+                </ol>
 
                 <p class="mt-8 p-4 rounded-lg" style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4;">
                     <strong>Next step:</strong> See how DWS IQ's compliance agent swarm connects to your ERP system and generates ESRS-aligned reports automatically. Request a demo at <a href="https://dws10.com" class="text-cyan-400 hover:underline">dws10.com</a>.
@@ -174,7 +182,11 @@
             <!-- Related posts -->
             <div class="mt-12">
                 <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Read Also</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="day-017-building-compliance-agent-swarm.html" class="pillar-card p-4 rounded-lg block">
+                        <span class="text-xs text-cyan-400">Day 17</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Building a Compliance Agent Swarm</p>
+                    </a>
                     <a href="day-010-mcp-protocol-connecting-ai-to-erp.html" class="pillar-card p-4 rounded-lg block">
                         <span class="text-xs text-cyan-400">Day 10</span>
                         <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">MCP Protocol: Connecting AI Agents to Your ERP System</p>
