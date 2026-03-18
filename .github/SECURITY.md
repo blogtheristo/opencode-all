@@ -1,3 +1,12 @@
+***
+VERSION: 1.0.0
+STATUS: Active
+OWNER: Security Engineering (DWS IQ 6)
+LAST-UPDATED: 2026-03-17
+AGENT-HISTORY:
+  - 2026-03-17: Initial creation and standardization of SECURITY.md (AI-assisted update)
+***
+
 # Security Policy
 
 ## Supported Versions
