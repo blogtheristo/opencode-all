@@ -70,7 +70,36 @@ export class SiteSenseAgent extends BaseAgent {
         'incident-trend-detection',
       ],
       model: 'llama-3.3-70b-versatile',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          temperature: { type: 'number', description: 'Temperature in Celsius' },
+          humidity: { type: 'number', description: 'Relative humidity percentage (0-100)' },
+          windSpeed: { type: 'number', description: 'Wind speed in m/s' },
+          workerCount: { type: 'number', description: 'Number of workers on site' },
+          incidentCount: { type: 'number', description: 'Incidents in last 30 days' },
+          siteId: { type: 'string', description: 'Site identifier' },
+        },
+        required: ['temperature', 'humidity', 'windSpeed', 'workerCount'],
+      },
     });
+  }
+
+  /** Normalize loose input into the strict SiteSenseInput shape */
+  private normalizeInput(input: Record<string, unknown>): SiteSenseInput {
+    const raw = input as Record<string, any>;
+    // Accept both nested { metrics: {...} } and flat { temperature, humidity, ... }
+    const m = raw.metrics ?? raw;
+    return {
+      siteId: raw.siteId ?? raw.site_id ?? raw.site ?? 'unknown-site',
+      metrics: {
+        temperature: m.temperature ?? 20,
+        humidity: m.humidity ?? 50,
+        windSpeed: m.windSpeed ?? m.wind_speed ?? m.wind ?? 0,
+        workers: m.workers ?? m.workerCount ?? m.worker_count ?? 0,
+        incidents: m.incidents ?? m.recentIncidents?.length ?? 0,
+      },
+    };
   }
 
   async execute(
@@ -79,8 +108,7 @@ export class SiteSenseAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const siteInput = input as unknown as SiteSenseInput;
-    const { siteId, metrics } = siteInput;
+    const { siteId, metrics } = this.normalizeInput(input);
 
     logger.info('SiteSense agent executing', {
       siteId,

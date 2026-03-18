@@ -21,9 +21,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { Resend } from 'resend';
 import { collectCockpitData } from '../src/morning-briefing/data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from '../src/morning-briefing/briefing-template.js';
+import { sendEmail } from '../src/utils/send-email.js';
 
 async function main(): Promise<void> {
   // Helsinki time guard: only send when Helsinki hour is 6.
@@ -51,10 +51,9 @@ async function main(): Promise<void> {
 
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const resendKey = process.env.RESEND_API_KEY;
 
-  if (!resendKey) {
-    console.error('ERROR: RESEND_API_KEY not configured.');
+  if (!process.env.SMTP_HOST && !process.env.RESEND_API_KEY) {
+    console.error('ERROR: Neither SMTP_HOST (SES) nor RESEND_API_KEY configured.');
     process.exit(1);
   }
 
@@ -73,22 +72,15 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  const resend = new Resend(resendKey);
-  const { data: result, error } = await resend.emails.send({
-    from: fromAddress,
-    to: [recipient],
-    subject,
-    html,
-    text,
-  });
+  const result = await sendEmail({ from: fromAddress, to: recipient, subject, html, text });
 
-  if (error) {
-    console.error(`Resend failed: ${error.message}`);
-    process.exit(1);
+  if (result.ok) {
+    console.log(`Sent via ${result.transport}. Morning briefing delivered to ${recipient}`);
+    return;
   }
 
-  console.log(`Sent via Resend. ID: ${result?.id}`);
-  console.log(`✅ Morning briefing sent successfully to ${recipient} from ${fromAddress}`);
+  console.error(`Email delivery failed: ${result.error}`);
+  process.exit(1);
 }
 
 main().catch((err) => {

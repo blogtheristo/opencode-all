@@ -1,6 +1,71 @@
 # Session Tracking for Risto
 
-**Last Updated**: 2026-01-25
+**Last Updated**: 2026-02-23
+
+---
+
+## Session VS-230223: MCP Stack Expansion + CORS Security Hardening
+
+**Branch**: `claude/oppimispaivakirja-update`
+**Tool**: GitHub Copilot in VS Code (Claude Sonnet 4.6) — NOT Claude Code CLI
+**Status**: ⏳ IN PROGRESS
+**Date**: February 23, 2026
+**Controversies**: ✅ NONE
+
+### Context
+
+This session is tracked in git (branch + commit history) but NOT in `.claude/` — GitHub Copilot VS Code sessions don't generate Claude Code CLI session IDs. All work is recoverable from `git log` on branch `claude/oppimispaivakirja-update`.
+
+### Work in This Session
+
+Three MCP servers are under active development:
+
+#### 1. `dws-mcp-supabase` (port 8766) — ✅ RUNNING
+- Container was not started at session start → launched with `docker compose up -d supabase-mcp`
+- **Security fix**: replaced `allow_origins=["*"]` (and method/header wildcards) with env-driven explicit list per `DWS_SECURITY_STANDARD.md §13.3`
+- `CORS_ALLOWED_ORIGINS` env var added to `docker-compose.hybrid.yml` supabase-mcp service
+- Fallback hostname fixed in `mcp-hub/server.py`: `mcp-supabase` → `supabase-mcp`
+- Health confirmed: `{"service":"DWS Supabase MCP Server","supabase_connected":true}`
+
+#### 2. `dws-mcp-cloudrun` (port 8769) — ⏳ IN PROGRESS
+- Service registered in `mcp-hub/server.py` (`cloudrun-mcp` entry)
+- `mcp-servers/cloudrun/` directory to be created with:
+  - `server.py` — FastAPI, endpoints: list/deploy/logs/traffic/metrics/env for Cloud Run
+  - `Dockerfile`
+  - `requirements.txt` (google-cloud-run, google-cloud-logging, google-cloud-monitoring)
+- `docker-compose.hybrid.yml` service block to be added
+- `.env.example` GCP vars to be added (`GCP_PROJECT_ID`, `GCP_REGION`, etc.)
+
+#### 3. `dws-mcp-lwm` (port 8770) — ⏳ IN PROGRESS
+- Decided as **separate MCP** (not extending mcp-hub) — training is GPU-bound, stateful, long-running
+- Bridges `dws-hybrid-network` → GN-100 `training-orchestrator` at port 8890
+- Endpoints: `POST /jobs`, `GET /jobs/{id}`, `GET /checkpoints`, `POST /checkpoints/{id}/quantize`, `POST /checkpoints/{id}/deploy`, `GET /metrics`
+- References existing `infrastructure/llm-training/` scripts and config
+
+### Security Standard Update
+- `DWS_SECURITY_STANDARD.md` bumped v1.1 → v1.2
+- New Section 13.3.1: MCP CORS Implementation Pattern with canonical Python code block, docker-compose template, audit log table, mandatory code review rule
+
+### Commits in This Session
+- `aaef01ef` — fix: CORS wildcard hardening for MCP servers + document standard
+- `5c4b6b44` — 230226 (continuation commit)
+
+### Files Changed So Far
+| File | Change |
+|------|--------|
+| `mcp-servers/supabase/server.py` | CORS wildcard → explicit scoped lists |
+| `docker-compose.hybrid.yml` | CORS_ALLOWED_ORIGINS for supabase-mcp; cloudrun-mcp URL |
+| `mcp-hub/server.py` | Fix supabase hostname; register cloudrun-mcp + lwm-mcp |
+| `DWS_SECURITY_STANDARD.md` | v1.2, Section 13.3.1 added |
+
+### Next Steps (remaining in this session)
+- [ ] Create `mcp-servers/cloudrun/server.py`, `Dockerfile`, `requirements.txt`
+- [ ] Create `mcp-servers/lwm/server.py`, `Dockerfile`, `requirements.txt`
+- [ ] Add both services to `docker-compose.hybrid.yml`
+- [ ] Add GCP + LWM vars to `.env.example`
+- [ ] Commit + push + PR
+
+---
 
 ---
 

@@ -29,46 +29,102 @@ export default function HomeScreen({ navigation }: any) {
         </Card.Content>
       </Card>
 
-      {/* Quick Actions */}
-      <Text style={styles.sectionTitle}>QUICK ACTIONS</Text>
-      
+      {/* Firehorse Products */}
+      <Text style={styles.sectionTitle}>FIREHORSE PRODUCTS</Text>
+
       <View style={styles.actionGrid}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.actionCard, styles.actionPrimary]}
-          onPress={() => navigation.navigate('Diary')}
+          onPress={() => navigation.navigate('Omnichannel')}
         >
-          <Icon name="notebook-plus" size={32} color={nordicColors.white} />
-          <Text style={styles.actionTitle}>Uusi Päiväkirja</Text>
-          <Text style={styles.actionSubtitle}>RT 16-10660</Text>
+          <Icon name="bullhorn" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Omnichannel</Text>
+          <Text style={styles.actionSubtitle}>Sales & CRM</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.actionCard, styles.actionSecondary]}
-          onPress={() => navigation.navigate('Inspection')}
+          onPress={() => navigation.navigate('Automation')}
         >
-          <Icon name="clipboard-check" size={32} color={nordicColors.white} />
-          <Text style={styles.actionTitle}>Tarkastus</Text>
-          <Text style={styles.actionSubtitle}>BIM + AI</Text>
+          <Icon name="robot" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Automation</Text>
+          <Text style={styles.actionSubtitle}>Workflows</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.actionCard, styles.actionSuccess]}
-          onPress={() => navigation.navigate('CarbonReport')}
+          onPress={() => navigation.navigate('Report')}
         >
-          <Icon name="leaf" size={32} color={nordicColors.white} />
-          <Text style={styles.actionTitle}>Carbon Report</Text>
-          <Text style={styles.actionSubtitle}>EN 15978</Text>
+          <Icon name="file-chart" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Report</Text>
+          <Text style={styles.actionSubtitle}>Analytics</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.actionCard, styles.actionAccent]}
           onPress={() => navigation.navigate('Dashboard')}
         >
-          <Icon name="chart-line" size={32} color={nordicColors.text} />
+          <Icon name="chart-line" size={28} color={nordicColors.text} />
           <Text style={[styles.actionTitle, { color: nordicColors.text }]}>Dashboard</Text>
           <Text style={[styles.actionSubtitle, { color: nordicColors.textSecondary }]}>DWS IQ 6</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Field Operations */}
+      <Text style={styles.sectionTitle}>FIELD OPERATIONS</Text>
+
+      <View style={styles.actionGrid}>
+        <TouchableOpacity
+          style={[styles.actionCard, styles.actionPrimary]}
+          onPress={() => navigation.navigate('Diary')}
+        >
+          <Icon name="notebook-plus" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Diary</Text>
+          <Text style={styles.actionSubtitle}>RT 16-10660</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.actionCard, styles.actionSecondary]}
+          onPress={() => navigation.navigate('Inspection')}
+        >
+          <Icon name="clipboard-check" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Inspection</Text>
+          <Text style={styles.actionSubtitle}>BIM + AI</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.actionCard, styles.actionSuccess]}
+          onPress={() => navigation.navigate('CarbonReport')}
+        >
+          <Icon name="leaf" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Carbon Report</Text>
+          <Text style={styles.actionSubtitle}>EN 15978</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.actionCard, { backgroundColor: nordicColors.primaryDark }]}
+          onPress={() => navigation.navigate('ControlRoom')}
+        >
+          <Icon name="monitor-dashboard" size={28} color={nordicColors.white} />
+          <Text style={styles.actionTitle}>Control Room</Text>
+          <Text style={styles.actionSubtitle}>Field Ops</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Command Center */}
+      <Text style={styles.sectionTitle}>COMMAND CENTER</Text>
+
+      <TouchableOpacity
+        style={styles.situationBanner}
+        onPress={() => navigation.navigate('SituationRoom')}
+      >
+        <Icon name="shield-crown" size={32} color={nordicColors.accent} />
+        <View style={styles.situationContent}>
+          <Text style={styles.situationTitle}>Situation Room</Text>
+          <Text style={styles.situationSubtitle}>Strategic Command Center · Portfolio · Compliance</Text>
+        </View>
+        <Icon name="chevron-right" size={24} color={nordicColors.accent} />
+      </TouchableOpacity>
 
       {/* Recent Activity */}
       <Text style={styles.sectionTitle}>RECENT ACTIVITY</Text>
@@ -240,6 +296,31 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     marginTop: spacing.xs,
     textAlign: 'center',
+  },
+  situationBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: spacing.md,
+    marginBottom: spacing.md,
+    padding: spacing.lg,
+    backgroundColor: nordicColors.primaryDark,
+    borderRadius: 12,
+    ...shadows.medium,
+  },
+  situationContent: {
+    flex: 1,
+    marginLeft: spacing.md,
+  },
+  situationTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: nordicColors.white,
+  },
+  situationSubtitle: {
+    fontSize: 12,
+    color: nordicColors.white,
+    opacity: 0.9,
+    marginTop: spacing.xs,
   },
   activityItem: {
     flexDirection: 'row',

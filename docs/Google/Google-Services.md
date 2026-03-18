@@ -238,9 +238,8 @@ Region: `europe-north1` (Finland)
 |----------|-------|
 | **Code** | `src/morning-briefing/scheduler.ts` |
 | **Schedule** | Mon-Sat 06:00 Helsinki time |
-| **Email provider** | Resend (primary), SendGrid (fallback) |
+| **Email** | risto@onelifetime.world (verified in SES and Resend.com) |
 | **Recipient** | `risto@lifetime.fi` |
-| **Sender** | `noreply@dws6.com` |
 
 ---
 
@@ -257,7 +256,7 @@ Secrets stored in Google Secret Manager (project `dws6run6`):
 | `jwt-secret` | Backend auth |
 | `apollo-api-key` | Lead Scout |
 | `clearbit-api-key` | Lead Scout |
-| `resend-api-key` | Outreach, Morning Briefing |
+| `resend-api-key` | Fallback email (SES SMTP primary) |
 | `slack-webhook` | Notifications |
 | `linkedin-email` | Outreach |
 | `linkedin-password` | Outreach |
@@ -369,7 +368,13 @@ External costs (not GCP):
 
 ---
 
-## 14. Troubleshooting & Lessons Learned
+## 14. Google Drive Archive
+
+For DWS 6 document archives (weekly reports, investor PDFs, compliance, thesis, NotebookLM), see **[docs/google-drive.md](../google-drive.md)**. All archives use `risto.paarni2024@lifetime.fi`. Setup script: `scripts/Setup-GoogleDriveFolders.ps1`.
+
+---
+
+## 15. Troubleshooting & Lessons Learned
 
 ### The Gemini Authentication Mess (17.02.2026)
 
@@ -441,7 +446,7 @@ The project ID `dws6run` appeared in `Admin/ADMIN_MANUAL.md` and `cloudbuild.yam
 ---
 
 **Document Owner:** Platform Operations
-**Related:** [Cloud Environments](../CLOUD_ENVIRONMENTS.md) | [Admin Manual](../../Admin/ADMIN_MANUAL.md)
+**Related:** [Cloud Environments](../CLOUD_ENVIRONMENTS.md) | [Google Drive](../google-drive.md) | [Admin Manual](../../Admin/ADMIN_MANUAL.md)
 
 ---
 
