@@ -30,7 +30,7 @@ Include in your report:
 | Stage | Target |
 |-------|--------|
 | Acknowledgment | Within 48 hours |
-| Triage and severity assessment | Within 7 days |
+| Triage and severity assessment | Within 7 days (within 24 hours for any report that appears potentially Critical or High severity) |
 | Critical fix (CVSS 9.0+) | Within 24 hours of triage |
 | High fix (CVSS 7.0-8.9) | Within 7 days of triage |
 | Medium/Low fix | Within 30 days of triage |
