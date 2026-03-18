@@ -87,6 +87,6 @@ We consider security research conducted in good faith to be authorized. We will 
 
 ## References
 
-- `DWS_SECURITY_STANDARD.md` — Internal security framework (v1.3)
-- `Admin/SECURITY_COMPLIANCE.md` — Enterprise security and compliance (v1.7)
+- `DWS_SECURITY_STANDARD.md` — Internal security framework
+- `Admin/SECURITY_COMPLIANCE.md` — Enterprise security and compliance
 - `docs/SECURITY_GLOSSARY.md` — Security terminology
