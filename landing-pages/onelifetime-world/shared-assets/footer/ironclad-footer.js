@@ -42,6 +42,7 @@
 @media (max-width: 900px) {
     .ironclad-footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 16px 24px; gap: 24px; }
     .ironclad-footer-payments { padding: 0 16px 20px; }
+    .ironclad-footer-app { padding: 0 16px 20px; }
     .ironclad-footer-bottom { padding: 16px 16px; flex-direction: column; align-items: flex-start; }
     .ironclad-footer-legal { gap: 12px; }
 }
