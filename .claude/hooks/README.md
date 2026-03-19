@@ -13,11 +13,11 @@ invokes a tool (e.g., `Bash`), the hook receives JSON on stdin describing the ca
 {"tool_name": "Bash", "tool_input": {"command": "rm -rf /"}}
 ```
 
-| Script | Trigger | Purpose |
-|--------|---------|---------|
-| `pre-bash-safety.sh` | PreToolUse (Bash) | Warns about destructive shell patterns |
-| `session-start.sh` | SessionStart | Injects trust boundary context, checks branch/dirty state, MCP health |
-| `session-stop.sh` | Stop | Pre-exit governance checklist (uncommitted changes, dual folder sync, thesis rules) |
+| Script | Trigger | Availability | Purpose |
+|--------|---------|--------------|---------|
+| `pre-bash-safety.sh` | PreToolUse (Bash) | Optional (enable via `.claude/settings.local.json`) | Warns about destructive shell patterns |
+| `session-start.sh` | SessionStart | Enabled by default | Injects trust boundary context, checks branch/dirty state, MCP health |
+| `session-stop.sh` | Stop | Enabled by default | Pre-exit governance checklist (uncommitted changes, dual folder sync, thesis rules) |
 
 | Exit Code | Meaning | Effect |
 |-----------|---------|--------|
@@ -35,7 +35,9 @@ invokes a tool (e.g., `Bash`), the hook receives JSON on stdin describing the ca
 
 ## Configuration
 
-Hooks are registered in `.claude/settings.local.json`:
+Hooks are registered in `.claude/settings.local.json`.
+
+The repository’s default configuration wires up the `SessionStart` and `Stop` hooks:
 
 ```json
 {
@@ -48,19 +50,28 @@ Hooks are registered in `.claude/settings.local.json`:
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          { "type": "command", "command": "bash .claude/hooks/pre-bash-safety.sh" }
-        ]
-      }
-    ],
     "Stop": [
       {
         "matcher": "",
         "hooks": [
           { "type": "command", "command": "./.claude/hooks/session-stop.sh" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+To enable the optional Bash `PreToolUse` safety guardrail, add a `PreToolUse` entry to your local `.claude/settings.local.json`:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bash .claude/hooks/pre-bash-safety.sh" }
         ]
       }
     ]
