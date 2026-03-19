@@ -55,6 +55,18 @@ export interface BatterySpec {
   country: string;
 }
 
+/** Data center facility specification (optional — for PUE + facility Scope 2) */
+export interface DataCenterFacility {
+  /** Total IT load (MW) */
+  itLoadMw: number;
+  /** Total facility power draw (MW) — includes cooling, lighting, etc. */
+  totalFacilityPowerMw: number;
+  /** Annual facility energy consumption (MWh) — for CSRD full Scope 2 */
+  annualFacilityMwh: number;
+  /** Facility name (for reporting) */
+  name?: string;
+}
+
 /** Full BESS compliance assessment input */
 export interface BESSComplianceInput {
   /** Q-System dispatch schedule (hourly entries) */
@@ -67,6 +79,8 @@ export interface BESSComplianceInput {
   carbonPriceEur?: number;
   /** Whether co-located generation asset is ETS-covered */
   colocatedEtsCovered?: boolean;
+  /** Data center facility — enables PUE check and facility-level Scope 2 */
+  facility?: DataCenterFacility;
 }
 
 /** Compliance cost breakdown returned to Q-System */
@@ -134,6 +148,22 @@ export interface BESSComplianceCost {
     etsCoveredPct: number;
   };
 
+  /** Data center PUE assessment (present when facility input provided) */
+  dataCenter?: {
+    /** Power Usage Effectiveness = totalFacilityPower / itLoad */
+    pue: number;
+    /** EU Taxonomy 8.1 threshold: PUE < 1.5. Binary pass/fail */
+    taxonomyCompliant: boolean;
+    /** Facility-level Scope 2 emissions (tCO2e) — full site, not just BESS */
+    facilityScope2Tonnes: number;
+    /** Facility-level Scope 2 carbon cost (EUR) */
+    facilityScope2CostEur: number;
+    /** BESS share of total facility consumption (%) */
+    bessSharePct: number;
+    /** Warning message if PUE exceeds threshold */
+    warning?: string;
+  };
+
   /** Carbon price used (EUR/tCO2e) */
   carbonPriceEur: number;
   /** Assessment year */
@@ -184,6 +214,11 @@ const ETS_COVERED_MARKETS = ['day-ahead', 'intraday'];
 /** EU Taxonomy activity code for electricity storage */
 const TAXONOMY_ACTIVITY_CODE = '4.10';
 
+/** EU Taxonomy 8.1 PUE threshold for data centres.
+ * Source: EU Taxonomy Climate Delegated Act, Annex I, Activity 8.1
+ * "Data processing, hosting and related activities" — PUE < 1.5 required */
+const EU_TAXONOMY_PUE_THRESHOLD = 1.5;
+
 // ============ CALCULATOR ============
 
 /**
@@ -211,7 +246,7 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
     if (entry.dischargedMwh > 0) {
       totalDischargedMwh += entry.dischargedMwh;
     }
-    if (ETS_COVERED_MARKETS.includes(entry.market)) {
+    if (ETS_COVERED_MARKETS.includes(entry.market) && entry.dischargedMwh > 0) {
       etsCoveredHours++;
     }
   }
@@ -246,8 +281,12 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
   const currentCapacityPct = Math.max(0, 100 * Math.pow(1 - battery.annualDegradationRate, assetAge));
   const remainingLifeYears = Math.max(0, battery.usefulLifeYears - assetAge);
   const annualDepreciationEur = round2(battery.capitalCostEur / battery.usefulLifeYears);
-  const capacityLossFraction = 1 - (currentCapacityPct / 100);
-  const impairmentEur = round2(battery.capitalCostEur * capacityLossFraction - (annualDepreciationEur * assetAge));
+  // Impairment = max(0, carrying_value - fair_value)
+  // Carrying value = capitalCost - accumulated depreciation
+  // Fair value = capitalCost × remaining capacity fraction (capacity-adjusted)
+  const carryingValue = battery.capitalCostEur - (annualDepreciationEur * assetAge);
+  const fairValue = battery.capitalCostEur * (currentCapacityPct / 100);
+  const impairmentEur = round2(Math.max(0, carryingValue - fairValue));
   const replacementYear = battery.installationYear + battery.usefulLifeYears;
 
   // ---- EU Taxonomy ----
@@ -256,11 +295,40 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
     ? 'BESS net-positive: avoided emissions exceed charging emissions'
     : 'BESS net-negative: charging emissions exceed avoided emissions — review grid mix';
 
+  // ---- Data center PUE + facility Scope 2 (optional) ----
+  let dataCenterResult: BESSComplianceCost['dataCenter'] | undefined;
+  let facilityScope2CostEur = 0;
+  if (input.facility) {
+    const f = input.facility;
+    const pue = f.itLoadMw > 0 ? round2(f.totalFacilityPowerMw / f.itLoadMw) : 0;
+    // EU Taxonomy 8.1 "Data processing, hosting and related activities": PUE < 1.5
+    const taxonomyCompliant = pue > 0 && pue < EU_TAXONOMY_PUE_THRESHOLD;
+    const facilityGridFactor = weightedGridFactor > 0 ? weightedGridFactor : getDefaultGridFactor(battery.country);
+    const facilityScope2Tonnes = round2((f.annualFacilityMwh * facilityGridFactor * 1000) / 1_000_000);
+    facilityScope2CostEur = round2(facilityScope2Tonnes * carbonPrice);
+    const bessAnnualMwh = totalChargedMwh; // Simplification: one day × 365 would be annual
+    const bessSharePct = f.annualFacilityMwh > 0
+      ? round2((bessAnnualMwh / f.annualFacilityMwh) * 100)
+      : 0;
+
+    dataCenterResult = {
+      pue,
+      taxonomyCompliant,
+      facilityScope2Tonnes,
+      facilityScope2CostEur,
+      bessSharePct,
+      ...(pue >= EU_TAXONOMY_PUE_THRESHOLD && pue > 0 ? {
+        warning: `PUE ${pue} exceeds EU Taxonomy 8.1 threshold (${EU_TAXONOMY_PUE_THRESHOLD}). Green financing classification BLOCKED until PUE improved.`,
+      } : {}),
+    };
+  }
+
   // ---- Total cost ----
   const totalCostEur = round2(
     scope2ChargingCostEur +
     roundtripLossCostEur +
     etsColocatedCostEur +
+    facilityScope2CostEur +
     CSRD_REPORTING_COST_BASE_EUR +
     TAXONOMY_CERTIFICATION_COST_EUR,
   );
@@ -299,6 +367,7 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
         ? round2((etsCoveredHours / dispatch.length) * 100)
         : 0,
     },
+    ...(dataCenterResult ? { dataCenter: dataCenterResult } : {}),
     carbonPriceEur: carbonPrice,
     year,
     calculatedAt: new Date().toISOString(),

@@ -180,7 +180,7 @@ describe('BESS Compliance Calculator', () => {
 
       const result = calculateBESSCompliance(input);
 
-      // 5 discharge hours in 'day-ahead' (ETS-covered) out of 24 total
+      // 5 discharge hours in 'day-ahead' with dischargedMwh > 0 (ETS-covered) out of 24 total
       expect(result.etsMarketHours.etsCoveredHours).toBe(5);
       expect(result.etsMarketHours.totalHours).toBe(24);
       expect(result.etsMarketHours.etsCoveredPct).toBeCloseTo(20.83, 1);
@@ -256,6 +256,88 @@ describe('BESS Compliance Calculator', () => {
 
       // Should use EU average (230 gCO2/kWh)
       expect(result.scope2Tonnes).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Data Center PUE + Facility Scope 2', () => {
+    it('calculates PUE and flags Taxonomy compliance', () => {
+      const dispatch = generateDailyDispatch(385);
+      const input: BESSComplianceInput = {
+        dispatch,
+        battery: germanBattery,
+        year: 2026,
+        facility: {
+          itLoadMw: 100,
+          totalFacilityPowerMw: 130, // PUE = 1.3 (compliant)
+          annualFacilityMwh: 1_000_000,
+        },
+      };
+
+      const result = calculateBESSCompliance(input);
+
+      expect(result.dataCenter).toBeDefined();
+      expect(result.dataCenter!.pue).toBe(1.3);
+      expect(result.dataCenter!.taxonomyCompliant).toBe(true);
+      expect(result.dataCenter!.facilityScope2Tonnes).toBeGreaterThan(0);
+      expect(result.dataCenter!.warning).toBeUndefined();
+    });
+
+    it('blocks Taxonomy when PUE exceeds 1.5', () => {
+      const dispatch = generateDailyDispatch(385);
+      const input: BESSComplianceInput = {
+        dispatch,
+        battery: germanBattery,
+        year: 2026,
+        facility: {
+          itLoadMw: 100,
+          totalFacilityPowerMw: 170, // PUE = 1.7 (non-compliant)
+          annualFacilityMwh: 1_200_000,
+        },
+      };
+
+      const result = calculateBESSCompliance(input);
+
+      expect(result.dataCenter).toBeDefined();
+      expect(result.dataCenter!.pue).toBe(1.7);
+      expect(result.dataCenter!.taxonomyCompliant).toBe(false);
+      expect(result.dataCenter!.warning).toContain('BLOCKED');
+      expect(result.dataCenter!.warning).toContain('1.5');
+    });
+
+    it('calculates facility-level Scope 2 cost', () => {
+      const dispatch = generateDailyDispatch(385);
+      const input: BESSComplianceInput = {
+        dispatch,
+        battery: germanBattery,
+        year: 2026,
+        facility: {
+          itLoadMw: 100,
+          totalFacilityPowerMw: 130,
+          annualFacilityMwh: 1_000_000, // 1 TWh
+        },
+      };
+
+      const result = calculateBESSCompliance(input);
+
+      // 1,000,000 MWh × 385 gCO2/kWh × 1000 / 1,000,000 = 385,000 tCO2e
+      expect(result.dataCenter!.facilityScope2Tonnes).toBe(385000);
+      // 385,000 × €65 = €25,025,000
+      expect(result.dataCenter!.facilityScope2CostEur).toBe(25025000);
+      // Facility cost should be included in total
+      expect(result.totalCostEur).toBeGreaterThan(25_000_000);
+    });
+
+    it('omits dataCenter when no facility provided', () => {
+      const dispatch = generateDailyDispatch(385);
+      const input: BESSComplianceInput = {
+        dispatch,
+        battery: germanBattery,
+        year: 2026,
+      };
+
+      const result = calculateBESSCompliance(input);
+
+      expect(result.dataCenter).toBeUndefined();
     });
   });
 
