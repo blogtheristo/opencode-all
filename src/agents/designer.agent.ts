@@ -400,20 +400,21 @@ export class DesignerAgent extends BaseAgent {
     const recommendations: string[] = [];
     const designSystem = input.designSystem || DWS_DESIGN_TOKENS;
 
-    // Build LLM prompt for screenshot analysis
+    // Build LLM prompt for description-driven UI generation (no direct image analysis)
     const prompt = [
-      'A designer has provided a screenshot/mockup and wants working code.',
+      'A designer has provided a textual description of a UI (optionally based on a screenshot/mockup) and wants working code.',
       '',
       `Description: ${input.description}`,
       `Framework: ${input.framework}`,
       `Target file: ${input.targetFile || 'auto-detect'}`,
       `Design tokens: ${JSON.stringify(designSystem, null, 2)}`,
+      `Screenshot metadata: ${input.screenshot ? 'provided (image contents are not directly visible to the model)' : 'not provided'}`,
       '',
       'Generate a JSON response with:',
       '1. "component": The component name (PascalCase)',
       '2. "code": Complete working code using TailwindCSS',
       '3. "explanation": Plain-language explanation for a non-technical designer',
-      '4. "visualBreakdown": List of visual elements identified in the design',
+      '4. "visualBreakdown": List of visual elements implied by the description',
       '5. "responsive": How the layout adapts across breakpoints',
       '6. "accessibility": ARIA labels and keyboard navigation included',
     ].join('\n');
@@ -430,7 +431,7 @@ export class DesignerAgent extends BaseAgent {
     recommendations.push('Check responsive behavior at mobile (320px) and desktop (1280px)');
     recommendations.push('Verify colors match your Figma design tokens');
     if (input.screenshot) {
-      recommendations.push('Compare screenshot side-by-side with the rendered code');
+      recommendations.push('Compare your screenshot or mockup side-by-side with the rendered code');
     }
 
     return {
@@ -441,14 +442,14 @@ export class DesignerAgent extends BaseAgent {
         screenshotProvided: !!input.screenshot,
         generatedCode: llmResult,
         workflow: [
-          '1. Designer pastes Figma screenshot',
-          '2. Agent analyzes layout, colors, typography, spacing',
-          '3. Agent generates working TailwindCSS + React code',
-          '4. Designer reviews in browser',
+          '1. Designer writes a textual description of the desired UI (optionally referencing a screenshot or mockup)',
+          '2. Agent interprets the textual description to infer layout, colors, typography, and spacing',
+          '3. Agent generates working TailwindCSS + React code based on the description and design tokens',
+          '4. Designer reviews in browser (and compares with any existing screenshot/mockup)',
           '5. Designer ships or iterates',
         ],
       },
-      reasoning: `Screenshot-to-code for "${input.description}". Generated ${input.framework} component with TailwindCSS. ${input.screenshot ? 'Screenshot provided for visual analysis.' : 'No screenshot — working from description only.'}`,
+      reasoning: `Screenshot-to-code for "${input.description}". Generated ${input.framework} component with TailwindCSS based on the textual description. ${input.screenshot ? 'A screenshot was noted for human comparison but was not directly analyzed by the model.' : 'No screenshot was provided; generation is based solely on the description.'}`,
       recommendations,
     };
   }
