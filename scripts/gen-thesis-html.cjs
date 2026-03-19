@@ -53,7 +53,8 @@ function escHtml(s) {
  * Returns e.g. "3.17" or "1.7"
  */
 function extractVersion(md) {
-  const m = md.match(/^Version:\s*(\S+)/m);
+  // Match "Version: X.X" with optional markdown formatting (bold, blockquote prefix)
+  const m = md.match(/^\s*>?\s*\*{0,2}Version:?\*{0,2}\s*(\S+)/m);
   return m ? m[1] : 'unknown';
 }
 
@@ -165,6 +166,12 @@ const SOURCES = [
     titleBase: 'PHD Firehorse — Väitöstutkimus (FI)',
     outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
     lang:      'fi',
+  },
+  {
+    src:       'Learn/DWS7_ROADMAP.md',
+    titleBase: 'DWS7 Roadmap — From Pilot to 16 Paying Industrial Customers',
+    outPrefix: 'Learn/DWS7_ROADMAP_v',
+    lang:      'en',
   },
 ];
 

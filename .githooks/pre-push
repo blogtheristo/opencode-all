@@ -47,5 +47,36 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   esac
 done
 
+# ZenFree security scan — block push on critical/high findings
+# Runs locally to avoid GitHub Actions costs
+SCANNER="$(git rev-parse --show-toplevel)/scripts/scan_critical_bugs.py"
+if [ -f "$SCANNER" ] && command -v python3 >/dev/null 2>&1; then
+  echo "🔒 Running ZenFree security scan..."
+  output=$(python3 "$SCANNER" --quick 2>&1)
+  critical=$(echo "$output" | grep -oP 'Critical: \K[0-9]+' || echo "0")
+  high=$(echo "$output" | grep -oP 'High: \K[0-9]+' || echo "0")
+  if [ "$critical" -gt 0 ] || [ "$high" -gt 0 ]; then
+    echo "$output"
+    echo ""
+    echo "ERROR: ZenFree found $critical critical and $high high severity issues." 1>&2
+    echo "Fix them before pushing, or bypass with: git push --no-verify" 1>&2
+    exit 1
+  fi
+  echo "✅ ZenFree: no critical/high issues found"
+elif [ -f "$SCANNER" ] && command -v python >/dev/null 2>&1; then
+  echo "🔒 Running ZenFree security scan..."
+  output=$(python "$SCANNER" --quick 2>&1)
+  critical=$(echo "$output" | grep -oP 'Critical: \K[0-9]+' || echo "0")
+  high=$(echo "$output" | grep -oP 'High: \K[0-9]+' || echo "0")
+  if [ "$critical" -gt 0 ] || [ "$high" -gt 0 ]; then
+    echo "$output"
+    echo ""
+    echo "ERROR: ZenFree found $critical critical and $high high severity issues." 1>&2
+    echo "Fix them before pushing, or bypass with: git push --no-verify" 1>&2
+    exit 1
+  fi
+  echo "✅ ZenFree: no critical/high issues found"
+fi
+
 exit 0
 

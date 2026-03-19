@@ -170,7 +170,7 @@ class CriticalBugScanner:
             "patterns": [
                 (r"JSON\.parse\s*\([^)]*req\.(body|query)", "Unsafe JSON parse"),
                 # Pattern constructed to avoid triggering scanners on this file
-                (r"ev" + r"al\s*\(", "Use of eval()"),
+                (r"(?<!simple)(?<!simple_)ev" + r"al\s*\(", "Use of eval()"),
                 (r"pickle\.loads?\s*\(", "Unsafe pickle deserialization"),
                 (r"yaml\.load\s*\([^)]*Loader\s*=\s*yaml\.Loader", "Unsafe YAML load"),
             ],
@@ -221,6 +221,9 @@ class CriticalBugScanner:
                 for pattern, description in vuln_data["patterns"]:
                     for line_num, line in enumerate(lines, 1):
                         if re.search(pattern, line, re.IGNORECASE):
+                            # Skip lines with inline suppression comments
+                            if re.search(r'#\s*nosec|//\s*nosec|#\s*zenfree:ignore|//\s*zenfree:ignore', line):
+                                continue
                             finding = {
                                 "file": str(rel_path),
                                 "line": line_num,
