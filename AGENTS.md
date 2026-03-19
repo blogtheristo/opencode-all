@@ -5,7 +5,7 @@
 
 **Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** March 15, 2026
+**Updated:** March 19, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -22,7 +22,7 @@
 - **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -160,7 +160,7 @@ dws6/
 ├── Firehorse/               # Product suite
 ├── landing-pages/           # Production landing pages
 ├── supabase/migrations/     # Database migrations
-└── .github/workflows/       # CI/CD (37 workflows)
+└── .github/workflows/       # CI/CD (40 workflows)
 ```
 
 ---
@@ -449,6 +449,6 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 ---
 
 **Document Version:** 2.3
-**Last Updated:** March 15, 2026
+**Last Updated:** March 19, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026
