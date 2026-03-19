@@ -81,10 +81,10 @@ Cost: Split event fees; no contractual commitment required.
 | DWS IQ 6 CBAM calculator | Built — `src/compliance/cbam-calculator.ts` |
 | DWS IQ 6 CSRD/ESRS scoring (82 disclosures) | Built — `src/compliance/esrs-registry.ts` |
 | Helios energy industry agent | Built — `src/agents/workflow/industry/helios.agent.ts` |
-| Dispatch schedule ingestion from external systems | Not yet built — requires integration work |
+| Dispatch schedule ingestion from external systems | Scoped — 4–6 weeks to build once Q-System JSON format is confirmed |
 | Q-System JSON export API | To be confirmed with Qantic |
 
-**Estimated integration effort:** 4–6 weeks for dispatch-to-compliance data pipeline (assuming Q-System provides structured JSON export).
+**Estimated integration effort:** 4–6 weeks for the dispatch-to-compliance data pipeline. Work begins once we confirm Q-System's JSON export format in the scoping call.
 
 ## Next Step
 
