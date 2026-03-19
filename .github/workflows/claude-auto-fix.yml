@@ -46,22 +46,22 @@ jobs:
           fi
 
       - name: Setup Node.js
-        if: steps.skip_check.outputs.skip != 'true'
+        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        if: steps.skip_check.outputs.skip != 'true'
+        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
         run: npm ci
 
       - name: Install Claude Code CLI
-        if: steps.skip_check.outputs.skip != 'true'
+        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run Claude Auto-Fix
-        if: steps.skip_check.outputs.skip != 'true'
+        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -80,7 +80,7 @@ jobs:
           head -c 50000 claude-output.json
 
       - name: Commit fixes
-        if: steps.skip_check.outputs.skip != 'true'
+        if: steps.skip_check.outputs.skip != 'true' && secrets.ANTHROPIC_API_KEY != ''
         run: |
           git config user.name "Claude Code Bot"
           git config user.email "claude-bot@dws6.com"
