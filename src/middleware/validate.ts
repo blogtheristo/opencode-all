@@ -6,13 +6,13 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { z, ZodError, ZodSchema } from 'zod';
+import { z, ZodError, ZodType } from 'zod';
 import { AppError } from './error-handler.js';
 
 interface ValidationSchemas {
-  body?: ZodSchema;
-  query?: ZodSchema;
-  params?: ZodSchema;
+  body?: ZodType;
+  query?: ZodType;
+  params?: ZodType;
 }
 
 /**
