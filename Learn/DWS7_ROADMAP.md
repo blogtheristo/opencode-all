@@ -8,6 +8,13 @@
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
+## VERSION AND AGENT HISTORY
+
+Version: 1.1.0
+
+- Date: 12.02.2026 — Initial draft.
+- Date: 01.03.2026 — Added sovereign on-premise AI gap, GN100 infrastructure asset, Blackwell watch signal (Claude Code, claude/dws6-dws7-update-doc-I2Cgk)
+
 ---
 
 ## Executive Summary
