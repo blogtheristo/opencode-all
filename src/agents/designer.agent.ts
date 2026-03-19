@@ -42,6 +42,7 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { createHash } from 'crypto';
 
 // ============ INPUT INTERFACES ============
 
@@ -235,11 +236,39 @@ export class DesignerAgent extends BaseAgent {
     ].join('\n');
   }
 
+  private sanitizeInputForLogging(input: Record<string, unknown>): Record<string, unknown> {
+    if (!input || typeof input !== 'object') {
+      return input;
+    }
+
+    const cloned: Record<string, unknown> = { ...input };
+
+    const screenshot = cloned.screenshot;
+    if (typeof screenshot === 'string') {
+      const byteLength = Buffer.byteLength(screenshot, 'base64');
+      let sha256: string | undefined;
+      try {
+        sha256 = createHash('sha256').update(screenshot).digest('hex');
+      } catch {
+        // If hashing fails for any reason, proceed without the hash
+      }
+
+      cloned.screenshot = {
+        redacted: true,
+        byteLength,
+        ...(sha256 ? { sha256 } : {}),
+      };
+    }
+
+    return cloned;
+  }
+
   async execute(
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
     const startTime = Date.now();
+    const sanitizedInput = this.sanitizeInputForLogging(input);
 
     await this.logExecution({
       agent_name: this.config.name,
@@ -247,7 +276,7 @@ export class DesignerAgent extends BaseAgent {
       org_id: context.orgId,
       session_id: context.sessionId,
       project_id: context.projectId,
-      input,
+      input: sanitizedInput,
       output: null,
       status: 'started',
       duration_ms: 0,
@@ -322,7 +351,7 @@ export class DesignerAgent extends BaseAgent {
         org_id: context.orgId,
         session_id: context.sessionId,
         project_id: context.projectId,
-        input,
+        input: sanitizedInput,
         output: response,
         status: 'completed',
         duration_ms: Date.now() - startTime,
