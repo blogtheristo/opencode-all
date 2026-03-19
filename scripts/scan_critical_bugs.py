@@ -29,6 +29,39 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+SUPPRESSION_COMMENT_RE = re.compile(
+    r"#\s*nosec|//\s*nosec|#\s*zenfree:ignore|//\s*zenfree:ignore",
+    re.IGNORECASE,
+)
+
+
+def _should_skip_line(line: str, pattern: str) -> bool:
+    """Return True if a matched line should be skipped.
+
+    This supports:
+    - Inline suppression comments: "# nosec" or "zenfree:ignore"
+    - Avoiding false positives for simple_eval(...).
+
+    Doctests:
+
+    >>> _should_skip_line("eval('1')  # nosec", r"eval\\(")
+    True
+    >>> _should_skip_line("user_value = simple_eval('1 + 2')", r"eval\\(")
+    True
+    >>> _should_skip_line("result = eval('1 + 2')", r"eval\\(")
+    False
+    """
+    # Skip lines with inline suppression comments
+    if SUPPRESSION_COMMENT_RE.search(line):
+        return True
+
+    # If this pattern is looking for eval(...) calls, do not flag simple_eval(...)
+    if "eval" in pattern and re.search(r"\bsimple_eval\s*\(", line):
+        return True
+
+    return False
+
+
 # Import ZenFree for runtime pattern detection
 try:
     sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -221,8 +254,7 @@ class CriticalBugScanner:
                 for pattern, description in vuln_data["patterns"]:
                     for line_num, line in enumerate(lines, 1):
                         if re.search(pattern, line, re.IGNORECASE):
-                            # Skip lines with inline suppression comments
-                            if re.search(r'#\s*nosec|//\s*nosec|#\s*zenfree:ignore|//\s*zenfree:ignore', line):
+                            if _should_skip_line(line, pattern):
                                 continue
                             finding = {
                                 "file": str(rel_path),
