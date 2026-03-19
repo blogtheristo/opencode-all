@@ -212,6 +212,10 @@ dws6/
 | `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
 | `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
+| `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
+| `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
+| `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
+| `designer` | **Designer** (V2) | Design-to-code bridge: Figma→prototype, style changes, components, edge case audit | Claude Sonnet 4 |
 | `argus` | ArgusAgent | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5. | Llama 3.3 70B |
 | `compliance-researcher` | ComplianceResearcherAgent | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments | Llama 3.3 70B |
 | `construction` | ConstructionAgent | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B |
@@ -229,6 +233,53 @@ dws6/
 
 V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output schemas, capabilities, and product details.
 → [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md#v2-agent-details)
+
+### Designer Agent (`designer`)
+
+**Why:** At Anthropic, designers now ship production code with no engineer in the loop. They paste Figma screenshots into Claude Code and get functional prototypes. They implement front-end changes directly in the codebase. They make state management changes. They file GitHub issues and Claude proposes fixes that they review and ship. This agent brings that workflow to DWS IQ 6 — enabling non-technical designers to ship production code safely.
+
+**The Anthropic Pattern:**
+1. Designer takes Figma mockup → pastes into Claude Code → gets functional prototype
+2. Designer implements typefaces, colors, spacing, layout directly in codebase
+3. Designer makes state management changes (with engineer review)
+4. Designer files GitHub issue → agent proposes code fix → designer reviews and ships
+5. Designer maps edge cases during design phase, before engineering starts
+
+**Capabilities:**
+- `screenshot-to-code` — Convert Figma/design screenshots to working React + TailwindCSS
+- `style-implementation` — Implement visual changes (colors, fonts, spacing, layout) directly
+- `component-creation` — Generate new UI components with all states and edge cases
+- `state-management` — Guided state management changes with safety checks
+- `design-polish` — Fix visual bugs and polish issues from natural language descriptions
+- `edge-case-audit` — Discover edge cases during design phase (8 categories, 30+ checks)
+- `design-review` — Review components against design system, accessibility, responsive standards
+
+**Input:**
+```typescript
+{
+  action: "screenshot-to-code" | "style-change" | "component-create" |
+          "state-change" | "polish-fix" | "edge-case-audit" | "design-review";
+  description: string;        // Plain language — "make the sidebar wider and darker"
+  screenshot?: string;        // Base64 or URL of design mockup
+  targetFile?: string;        // Optional file path to modify
+  framework?: string;         // "react" | "html" | "vue" (default: "react")
+  designSystem?: {            // Custom tokens (defaults to DWS Brand)
+    colors?: Record<string, string>;
+    fonts?: { heading?: string; body?: string };
+    spacing?: { unit: number; scale: number[] };
+  };
+}
+```
+
+**Output:** Code changes, plain-language explanations, complexity classification (safe/moderate/review-required), engineer review flag, ship recommendation.
+
+**Safety model:** Visual-only changes (CSS, spacing, colors) are `safe` to ship without engineer review. State management changes always require engineer review. The agent classifies every change and flags when an engineer should review before shipping.
+
+**CLI:**
+```bash
+dws run designer --input '{"action":"style-change","description":"make the primary button larger with rounded corners"}'
+dws run designer --input '{"action":"edge-case-audit","description":"user profile settings form"}'
+```
 
 ---
 
