@@ -139,6 +139,51 @@ function mdToHtml(md, titleBase, lang, version, date) {
     '</body>',
     '</html>',
   ].join('\n');
+table{border-collapse:collapse;width:100%;margin:20px 0}
+
+/**
+ * Extract a date string from the markdown.
+ *
+ * Supports:
+ *   - "Date: DD.MM.YYYY" (original thesis format)
+ *   - ISO dates "YYYY-MM-DD" in:
+ *       - Top-level header lines (e.g. "# Title — 2026-03-01")
+ *       - "Updated:" / "Created:" metadata lines
+ *       - Anywhere in the document as a final fallback
+ *
+ * @param {string} md
+ * @returns {string}
+ */
+function extractDate(md) {
+  if (typeof md !== 'string') {
+    return '';
+  }
+
+  // 1) Original format: "Date: DD.MM.YYYY"
+  const euDateMatch = md.match(/^Date:\s*([0-3]\d\.[0-1]\d\.\d{4})/mi);
+  if (euDateMatch && euDateMatch[1]) {
+    return euDateMatch[1];
+  }
+
+  // 2) ISO date in top-level header, e.g. "# DWS7 Roadmap — 2026-03-01"
+  const headerIsoMatch = md.match(/^#.*?\b(\d{4}-\d{2}-\d{2})\b/m);
+  if (headerIsoMatch && headerIsoMatch[1]) {
+    return headerIsoMatch[1];
+  }
+
+  // 3) ISO date in metadata lines like "Updated: 2026-03-01" or "Created: 2026-03-01"
+  const metaIsoMatch = md.match(/^(Updated|Created)\s*:\s*(\d{4}-\d{2}-\d{2})/mi);
+  if (metaIsoMatch && metaIsoMatch[2]) {
+    return metaIsoMatch[2];
+  }
+
+  // 4) Fallback: first ISO date anywhere in the document
+  const anyIsoMatch = md.match(/\b(\d{4}-\d{2}-\d{2})\b/);
+  if (anyIsoMatch && anyIsoMatch[1]) {
+    return anyIsoMatch[1];
+  }
+
+  return '';
 }
 
 // Source files — version and output filename are auto-derived from the markdown
