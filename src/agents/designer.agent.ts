@@ -116,7 +116,7 @@ const DWS_DESIGN_TOKENS = {
 // ============ COMPLEXITY CLASSIFICATION ============
 
 /** Classify change complexity for designer safety */
-function classifyComplexity(action: DesignerAction, description: string): {
+export function classifyComplexity(action: DesignerAction, description: string): {
   level: 'safe' | 'moderate' | 'review-required';
   reason: string;
   engineerReview: boolean;
@@ -926,4 +926,63 @@ export class DesignerAgent extends BaseAgent {
 
     return Math.max(0.1, Math.min(1, confidence));
   }
+  // ...additional methods and helpers (if any) would go here...
+}
+
+// ============ LOCAL TESTS (VITEST) ============
+
+if (import.meta.vitest) {
+  const { describe, it, expect } = import.meta.vitest;
+
+  describe('classifyComplexity', () => {
+  it('classifies purely visual style changes as safe without engineer review', () => {
+    const result = classifyComplexity(
+      'style-change',
+      'Update button color and padding for better visual hierarchy'
+    );
+
+    expect(result.level).toBe('safe');
+    expect(result.engineerReview).toBe(false);
+  });
+
+  it('requires engineer review for explicit state-change actions', () => {
+    const result = classifyComplexity(
+      'state-change',
+      'Refactor dashboard widget state management to fix race condition'
+    );
+
+    expect(result.level).toBe('review-required');
+    expect(result.engineerReview).toBe(true);
+  });
+
+  it('requires engineer review when risky patterns like API or auth are present', () => {
+    const result = classifyComplexity(
+      'style-change',
+      'Update form layout and connect submit to new auth API endpoint'
+    );
+
+    expect(result.level).toBe('review-required');
+    expect(result.engineerReview).toBe(true);
+  });
+
+  it('classifies new components or screenshot-to-code as moderate without mandatory review', () => {
+    const result = classifyComplexity(
+      'component-create',
+      'Create new card component with header, body, and footer regions'
+    );
+
+    expect(result.level).toBe('moderate');
+    expect(result.engineerReview).toBe(false);
+  });
+
+  it('defaults to moderate for mixed changes without risky patterns', () => {
+    const result = classifyComplexity(
+      'design-review',
+      'Review layout and interaction of settings page, including hover states'
+    );
+
+    expect(result.level).toBe('moderate');
+    expect(result.engineerReview).toBe(false);
+  });
+  });
 }
