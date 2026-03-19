@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad Footer v1.0
+ * DWS Iron Clad Footer v1.0
  * Unified footer for all pages (matches store page footer design)
  *
  * Usage: Add this script to any page:
@@ -16,7 +16,7 @@
     'use strict';
 
     const footerCSS = `
-/* === DWS10.com Iron Clad Footer v1.1 === */
+/* === DWS Iron Clad Footer v1.1 === */
 .ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: system-ui, -apple-system, sans-serif; }
 .ironclad-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
 .ironclad-footer a:hover { color: #60a5fa; }
