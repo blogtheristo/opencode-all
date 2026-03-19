@@ -1,7 +1,7 @@
 {
   "name": "firehorse-mobile",
-  "version": "1.0.0",
-  "description": "Firehorse Mobile - Nordic Construction Management",
+  "version": "2.0.0",
+  "description": "Firehorse Mobile - Nordic Construction Management Suite by DWS IQ 6",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
@@ -47,13 +47,14 @@
   },
   "private": true,
   "overrides": {
-    "tar": ">=7.5.8",
+    "tar": ">=7.5.11",
     "send": "^0.19.0",
     "cacache": ">=17.0.0",
     "fast-xml-parser": ">=5.3.8",
     "semver": ">=7.5.2",
     "@babel/runtime": ">=7.26.10",
-    "ip": ">=2.0.1",
+    "ip": ">=2.0.2",
+    "lodash": ">=4.17.21",
     "@react-native-community/cli-server-api": ">=20.0.0"
   }
 }

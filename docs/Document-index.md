@@ -425,6 +425,7 @@ Other important documentation.
 | Trust System 2026 | `/FIELD_NOTE_TRUST_SYSTEM_2026.md` | ACTIVE | Trust framework |
 | NVIDIA Inception | `/docs/NVIDIA_INCEPTION_IMPROVEMENTS.md` | ACTIVE | NVIDIA program |
 | Create PR Instructions | `/CREATE_PR_INSTRUCTIONS.md` | ACTIVE | PR workflow |
+| Ollama (Cloud & Local) | `/docs/Ollama.md` | ACTIVE | Ollama cloud (NVIDIA B300), local edge, OpenClaw integration |
 
 ---
 

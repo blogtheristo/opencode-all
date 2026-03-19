@@ -3,7 +3,7 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 3.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 26.12.2025 | Changes: Initial creation — code quality, components, nav, logos, CTA, testing, deployment
@@ -11,6 +11,8 @@ Sessions & Modifications:
   - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; updated WCAG 2.1 → 2.2; added TypeScript/React Quality section; aligned agent UI component standards already present in document
   - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added MVP features — Onboarding Wizard, Compliance Score Widget, CLI Rich Output; updated component registry; added customer journey quality gates
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-code-formatting-OX1kv | Date: 11.03.2026 | Changes: Added Code Formatting Standards section — .editorconfig, indent/line-length rules, import ordering, Prettier-compatible defaults, naming conventions, comment guidelines, file structure rules
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 07.03.2026 | Changes: Added CI/CD Continuous Improvement section; multi-step form standards; CLI UX quality gates; MCP client integration standards
+  - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 15.03.2026 | Changes: Merged main — combined version histories, resolved CLI conflicts
 
 Session Links & References:
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SITE_QUALITY_STANDARDS.md
@@ -24,9 +26,9 @@ Document Status:
 
 ***
 
-**Version:** 2.3
-**Effective Date:** 2026-03-11
-**Last Updated:** 2026-03-11
+**Version:** 3.1
+**Effective Date:** 2026-03-15
+**Last Updated:** 2026-03-15
 **Status:** Active
 
 ---
@@ -1464,6 +1466,72 @@ const { data, loading, error, execute } = useApi<ResponseType>();
 
 ---
 
+## CI/CD Continuous Improvement Standard
+
+*Added: 2026-03-07 | Session: claude/improve-dws6-ux-1RWJg*
+
+Continuous improvement is not a milestone — it's a daily practice. Every tool, every CLI flag, every error message is a surface for quality improvement.
+
+### Principles
+
+1. **Fix the small things daily** — A missing `--version` flag, a cryptic error message, an unclear help text. These compound into trust or frustration.
+2. **Listen to friction** — When something feels "slightly off", that's a signal. Log it, fix it, ship it.
+3. **Stay close to users** — Both human operators and AI agents are users. CLI output must serve both.
+4. **Ship → Verify → Harden** — Don't gold-plate. Ship the fix, verify it works, harden if needed.
+
+### CLI Quality Gates
+
+Every CLI command MUST meet these standards before shipping:
+
+| Requirement | Example | Enforced By |
+|-------------|---------|-------------|
+| `--help` on every command | `dws run --help` shows usage | Code review |
+| `--version` flag | `dws version` or `dws --version` | CLI arg parser |
+| Actionable error messages | "Cannot connect to localhost:8080 — start backend with `npm run dev`" | Error handler |
+| JSON output by default | All output is valid JSON | `output()` function |
+| `--format table` option | Human-readable table for list commands | `printTable()` |
+| `--quiet` mode | Suppress info messages for scripting | Global flag |
+| Timeout handling | Request times out after 30s with clear message | HTTP client |
+| Typo suggestions | `dws agentss` → "Did you mean: dws agents?" | Levenshtein distance |
+
+### Form & Multi-Step UX Standards
+
+For dashboard forms and multi-page experiences:
+
+| Requirement | Implementation |
+|-------------|---------------|
+| Zod validation on all form inputs | Use `z.object()` schemas per step |
+| Conditional step visibility | `showWhen: (data) => boolean` on step definitions |
+| Progress indicator | `StepIndicator` component with completed/current/upcoming states |
+| Back navigation without data loss | Form state preserved across step changes |
+| Keyboard navigation | Enter to advance, Escape to go back |
+| Error display per field | Inline error messages below each invalid field |
+| Loading state on submit | `isSubmitting` flag disables submit button |
+
+### MCP Integration Quality
+
+| Requirement | Standard |
+|-------------|----------|
+| Client quickstart doc | `docs/MCP_CLIENT_QUICKSTART.md` |
+| Connection test command | `dws status` checks backend + MCP |
+| `.mcp.json` template | Documented for Claude Code, Cursor, VS Code |
+| Auto-discovery | Every registered agent auto-becomes an MCP tool |
+| Health endpoint | `/mcp/health` returns agent count + protocol version |
+| SSE streaming | `/mcp/sse` for real-time event subscriptions |
+
+### Continuous Improvement Checklist
+
+When fixing "small annoying things":
+
+- [ ] Is the fix backward-compatible? (No breaking changes to CLI output format)
+- [ ] Does it serve both humans AND agents? (JSON default + `--format table`)
+- [ ] Is the error message actionable? (Says what went wrong + how to fix it)
+- [ ] Is there a test? (If logic changed, add a test)
+- [ ] Is it documented? (Update help text, README, or standards)
+- [ ] Does it follow the existing pattern? (Consistent with rest of codebase)
+
+---
+
 **Document Owner:** Development Team
 **Review Cycle:** Quarterly
-**Next Review:** 2026-03-26
+**Next Review:** 2026-06-07
