@@ -73,6 +73,8 @@ Cost: Split event fees; no contractual commitment required.
 | EU Taxonomy Delegated Acts | Ongoing | BESS must prove "substantial contribution" for green financing |
 | EPBD recast | 2027 (public buildings) | Behind-the-meter BESS needs building-level carbon reporting |
 
+**Qantic white paper finding:** Ignoring battery degradation overestimates BESS revenues by up to 41% (Qantic, "Success Factors in Revenue Modelling for Large-Scale Energy Storage," p. 7). This same degradation data drives CSRD asset impairment and replacement capex disclosures — revenue modelling and compliance reporting share the same technical inputs.
+
 ## What Exists Today
 
 | Capability | Status |
