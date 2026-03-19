@@ -701,12 +701,24 @@ export class DesignerAgent extends BaseAgent {
       throw new Error('description (string) is required — describe what you want in plain language');
     }
 
+    const allowedFrameworks: Array<'react' | 'html' | 'vue'> = ['react', 'html', 'vue'];
+    const rawFramework = (input as { framework?: unknown }).framework;
+    let framework: 'react' | 'html' | 'vue';
+
+    if (rawFramework === undefined) {
+      framework = 'react';
+    } else if (typeof rawFramework === 'string' && allowedFrameworks.includes(rawFramework as 'react' | 'html' | 'vue')) {
+      framework = rawFramework as 'react' | 'html' | 'vue';
+    } else {
+      throw new Error(`framework must be one of: ${allowedFrameworks.join(', ')}`);
+    }
+
     return {
       action: input.action as DesignerAction,
       description: input.description as string,
       screenshot: input.screenshot as string | undefined,
       targetFile: input.targetFile as string | undefined,
-      framework: (input.framework as 'react' | 'html' | 'vue') || 'react',
+      framework,
       designSystem: input.designSystem as DesignSystem | undefined,
       issueUrl: input.issueUrl as string | undefined,
       componentName: input.componentName as string | undefined,
