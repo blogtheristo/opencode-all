@@ -42,7 +42,6 @@
 @media (max-width: 900px) {
     .ironclad-footer-columns { grid-template-columns: repeat(2, 1fr); padding: 32px 16px 24px; gap: 24px; }
     .ironclad-footer-payments { padding: 0 16px 20px; }
-    .ironclad-footer-app { padding: 0 16px 20px; }
     .ironclad-footer-bottom { padding: 16px 16px; flex-direction: column; align-items: flex-start; }
     .ironclad-footer-legal { gap: 12px; }
 }
@@ -111,7 +110,7 @@
     </div>
     <div class="ironclad-footer-app">
         <a href="https://play.google.com/store/apps/details?id=com.dws6.firehorse" target="_blank" rel="noopener noreferrer" class="ironclad-footer-app-badge" aria-label="Get Firehorse Mobile on Google Play">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#4285F4"/>
                 <path d="M17.556 8.237L5.178.807a1.005 1.005 0 0 0-1.07.063l9.684 9.684 3.764-2.317z" fill="#34A853"/>
                 <path d="M17.556 15.763l-3.764-2.317-9.684 9.684c.327.232.746.275 1.07.063l12.378-7.43z" fill="#EA4335"/>
