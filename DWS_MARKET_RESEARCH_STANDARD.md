@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Added Qantic GmbH (Berlin) as adjacent competitor for DWS IQ Platform — energy simulation company with CSRD gap, full analysis in docs/market-research/qantic-energy-analysis.md
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
   - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
@@ -15,7 +16,7 @@ Session Links & References:
 
 Document Status:
   - Created: 14.02.2026
-  - Last Modified: 08.03.2026
+  - Last Modified: 20.03.2026
   - Language: EN
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -98,7 +99,7 @@ Every DWS product MUST have a defined competitor set. Competitors are categorize
 | **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams | Jitsi.org (free), Whereby, Proton | Pricing, features, EU hosting |
 | **Firehorse V3 Email** | Gmail, Outlook, Proton Mail | Migadu, Fastmail, Tutanota | Storage, price, sovereignty |
 | **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore | Manual audit firms, Buildots | Speed, accuracy, price |
-| **DWS IQ Platform** (€4,999) | Sphera, Ecoinvent, SimaPro | Worldfavor, PositionGreen | Coverage, EU focus, AI |
+| **DWS IQ Platform** (€4,999) | Sphera, Ecoinvent, SimaPro | Worldfavor, PositionGreen, Qantic (energy simulation, adjacent) | Coverage, EU focus, AI, CSRD gap |
 | **Consulting Services** | McKinsey, Deloitte, KPMG | Freelancer platforms, in-house | Pricing, domain expertise |
 | **LWM V1** (€250k) | None (category-creating) | OpenAI, Anthropic (general AI) | Model size, domain specificity |
 | **DSaaS** (€499–€4,999/mo) | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud | Sovereignty enforcement, compliance automation, HTAP, pricing |
