@@ -342,6 +342,8 @@ Development agent coordination via file-based signals. Commands: `node coordinat
 - Follow the dual-folder rule for landing pages (root folder first, then landing-pages/)
 - Never commit `.env`, credentials, or API keys
 - Title format for agent PRs: `[agents] Description of change`
+- For new code files and major rewrites, include Code Versioning Note per `DWS_DOCUMENT_STANDARD.md` §19 (must reference `Introduced-In: PR-<number>`, e.g. `PR-699`)
+- If env contract changes, update `.env.example` and bump `ENV_SCHEMA_VERSION` (schema version only, never secrets)
 
 ---
 

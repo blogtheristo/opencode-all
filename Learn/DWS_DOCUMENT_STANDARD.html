@@ -125,6 +125,11 @@ LLM Model Versioning</a></li>
 Multi-Language Management</a></li>
 <li><a href="#document-index" id="toc-document-index">16. Document
 Index</a></li>
+<li><a href="#web-content-index-check" id="toc-web-content-index-check">17. Web Content Index Check</a></li>
+<li><a href="#learn-html-generation" id="toc-learn-html-generation">18.
+Learn HTML Generation</a></li>
+<li><a href="#code-versioning-pr-traceability" id="toc-code-versioning-pr-traceability">19. Code Versioning &amp; PR
+Traceability</a></li>
 <li><a href="#quick-reference" id="toc-quick-reference">📋 Quick
 Reference</a></li>
 <li><a href="#support" id="toc-support">📞 Support</a></li>
@@ -145,7 +150,7 @@ Format</a></li>
 <td># VERSION AND AGENT HISTORY</td>
 </tr>
 <tr>
-<td>Version: 1.4</td>
+<td>Version: 1.8</td>
 </tr>
 <tr>
 <td>Sessions &amp; Modifications: - Version: 1.0 | Tool: Cursor AI |
@@ -162,7 +167,22 @@ Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date:
 tracking (15), document index reference - Version: 1.4 | Tool: Claude
 Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw |
 Date: 07.02.2026 | Changes: Pandoc compatibility - changed — to ***
-delimiters, updated PDF section with Generate-PDFs.ps1</td>
+delimiters, updated PDF section with Generate-PDFs.ps1 - Version: 1.5 |
+Tool: Claude Code (Opus 4.6) | Session:
+claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added
+OUTDATED status and document lifecycle procedure (sections 2.4-2.5),
+archive folder structure, marking procedure - Version: 1.6 | Tool:
+Cursor AI | Session: cursor/update-sql-migration-naming | Date:
+27.02.2026 | Changes: Added SQL migration file naming convention using
+number_ddmmyy_name.sql pattern - Version: 1.7 | Tool: Claude Code
+(Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date:
+28.02.2026 | Changes: Added Web Content Index check procedure (§17),
+Learn HTML generation rule (§18), content-index agent skill; updated
+morning briefing with Learn artifact links - Version: 1.8 | Tool: Codex
+(GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 |
+Changes: Added Code Versioning &amp; PR Traceability Standard (§19),
+syntax-safe code version note templates, and .env schema versioning
+policy</td>
 </tr>
 <tr>
 <td>Session Links &amp; References: - Cursor AI (2025-12-30):
@@ -172,11 +192,13 @@ Claude Code (claude/update-docs-qwen3-coder-FFGgN):
 https://github.com/blogtheristo/dws6 - Claude Code
 (claude/research-dws-brand-standard-Rm8Jw):
 https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
-- View on GitHub:
+- Claude Code (claude/automate-pr-workflow-e5wXD):
+https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow - View on
+GitHub:
 https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md</td>
 </tr>
 <tr>
-<td>Document Status: - Created: 30.12.2025 - Last Modified: 07.02.2026 -
+<td>Document Status: - Created: 30.12.2025 - Last Modified: 13.03.2026 -
 Language: English &amp; Finnish (bilingual) - Languages Available:
 English, Suomi - Publication Status: ACTIVE</td>
 </tr>
@@ -184,8 +206,8 @@ English, Suomi - Publication Status: ACTIVE</td>
 <td>***</td>
 </tr>
 <tr>
-<td><strong>Version:</strong> 1.4 <strong>Effective Date:</strong>
-2026-02-07 <strong>Last Updated:</strong> 2026-02-07
+<td><strong>Version:</strong> 1.8 <strong>Effective Date:</strong>
+2026-03-13 <strong>Last Updated:</strong> 2026-03-13
 <strong>Status:</strong> Active</td>
 </tr>
 </tbody>
@@ -213,7 +235,13 @@ Conventions</a></li>
 NEW</li>
 <li><a href="#15-localization--multi-language-management">Localization
 &amp; Multi-Language Management</a> ⭐ NEW</li>
-<li><a href="#16-document-index">Document Index</a> ⭐ NEW</li>
+<li><a href="#16-document-index">Document Index</a></li>
+<li><a href="#17-web-content-index-check">Web Content Index Check</a> ⭐
+NEW</li>
+<li><a href="#18-learn-html-generation">Learn HTML Generation</a> ⭐
+NEW</li>
+<li><a href="#19-code-versioning--pr-traceability">Code Versioning &amp;
+PR Traceability</a> ⭐ NEW</li>
 </ol>
 <hr />
 <h2 id="overview">1. Overview</h2>
@@ -284,7 +312,7 @@ parsing.</p>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last Modified: DD.MM.YYYY</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: <span class="co">[</span><span class="ot">Primary Language</span><span class="co">]</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: <span class="co">[</span><span class="ot">List</span><span class="co">]</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: <span class="co">[</span><span class="ot">ACTIVE / DRAFT / ARCHIVED / DEPRECATED</span><span class="co">]</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: <span class="co">[</span><span class="ot">ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED</span><span class="co">]</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>***</span></code></pre></div>
 <h3 id="header-components">2.2 Header Components</h3>
@@ -371,8 +399,8 @@ parsing.</p>
 <td><strong>Publication Status</strong></td>
 <td>✅ Yes</td>
 <td>Document status</td>
-<td><code>✅ ACTIVE</code>, <code>🚧 DRAFT</code>,
-<code>📦 ARCHIVED</code></td>
+<td><code>ACTIVE</code>, <code>DRAFT</code>, <code>OUTDATED</code>,
+<code>ARCHIVED</code></td>
 </tr>
 </tbody>
 </table>
@@ -380,6 +408,10 @@ parsing.</p>
 <p>Use plain text status labels. Emoji icons are optional (display
 only).</p>
 <table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 52%" />
+</colgroup>
 <thead>
 <tr>
 <th>Status</th>
@@ -396,8 +428,13 @@ only).</p>
 <td>Document is work in progress</td>
 </tr>
 <tr>
+<td><strong>OUTDATED</strong></td>
+<td>Document is superseded, no longer maintained — pending archive</td>
+</tr>
+<tr>
 <td><strong>ARCHIVED</strong></td>
-<td>Document is superseded but kept for reference</td>
+<td>Document is in <code>docs/archive/</code>, kept for historical
+reference</td>
 </tr>
 <tr>
 <td><strong>DEPRECATED</strong></td>
@@ -415,6 +452,75 @@ generating PDF via LaTeX. HTML engine handles emoji fine. Use text
 labels (<code>ACTIVE</code>, <code>DRAFT</code>, etc.) as the canonical
 value; emoji is decorative.</p>
 </blockquote>
+<h3 id="document-lifecycle">2.4 Document Lifecycle</h3>
+<p>Documents follow this lifecycle:</p>
+<pre><code>DRAFT → ACTIVE → OUTDATED → ARCHIVED</code></pre>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th>Transition</th>
+<th>When</th>
+<th>Who</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAFT → ACTIVE</td>
+<td>Document complete and approved</td>
+<td>Author</td>
+<td>Set <code>Publication Status: ACTIVE</code></td>
+</tr>
+<tr>
+<td>ACTIVE → OUTDATED</td>
+<td>Superseded by newer document</td>
+<td>Author or reviewer</td>
+<td>Add OUTDATED header block (see below)</td>
+</tr>
+<tr>
+<td>OUTDATED → ARCHIVED</td>
+<td>Moved to <code>docs/archive/</code></td>
+<td>Maintainer</td>
+<td>Move file, update Document Index</td>
+</tr>
+</tbody>
+</table>
+<h3 id="marking-a-document-as-outdated-procedure">2.5 Marking a Document
+as OUTDATED (Procedure)</h3>
+<p>When a document is superseded or no longer maintained, mark it as
+OUTDATED <strong>before</strong> archiving.</p>
+<p><strong>Step 1:</strong> Add this block immediately after the
+document title (before <code>***</code>):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **STATUS: OUTDATED** — This document is no longer maintained.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Superseded by: </span><span class="co">[</span><span class="ot">link to replacement document or description</span><span class="co">]</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Archived: DD.MM.YYYY</span></span></code></pre></div>
+<p><strong>Step 2:</strong> Update the VERSION AND AGENT HISTORY
+block:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="an">Document Status:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: OUTDATED</span></code></pre></div>
+<p><strong>Step 3:</strong> Move the file to the appropriate
+<code>docs/archive/</code> subfolder:</p>
+<pre><code>docs/archive/
+├── dws10-hero/          — dws10.com Hero campaign docs
+├── dws10-docs/          — dws10.com store admin manuals
+├── dws10-misc/          — dws10.com READMEs, config docs
+├── dws6-deployment/     — dws6.com deployment guides
+├── dws6-status/         — dws6.com completion/delivery reports
+├── dws6-dashboard/      — dws6.com v7-v9 dashboard architecture
+└── onelifetime-blog/    — onelifetime.world blog system docs</code></pre>
+<p><strong>Step 4:</strong> Update the Document Index
+(<code>docs/Document-index.md</code>) to reflect the new location and
+ARCHIVED status.</p>
+<p><strong>Rules:</strong> - <strong>Never delete</strong> — always move
+to <code>docs/archive/</code> (CLAUDE.md Rule 8) - Keep <code>_lp</code>
+suffix copies if they exist (preserve git rename history) - Add a
+session entry to the version history recording the archive action</p>
 <hr />
 <h2 id="workflow-naming-standard">3. Workflow Naming Standard</h2>
 <h3 id="github-actions-workflow-naming">3.1 GitHub Actions Workflow
@@ -488,30 +594,30 @@ test_workflow.yml                    ← Use hyphens, not underscores
 SecurityScan-v1.yml                  ← Use lowercase</code></pre>
 <h3 id="workflow-file-header">3.3 Workflow File Header</h3>
 <p><strong>ALL workflow files MUST include this header:</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: [Workflow Name]</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v[X]</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: YYYY-MM-DD</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Modified: YYYY-MM-DD</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: [Brief description]</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schedule: [Cron expression or trigger]</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: [List of dependencies]</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Maintainer: [Team or person]</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Workflow Display Name</span><span class="kw">]</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;[cron expression]&#39;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">  # ... job definitions</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: [Workflow Name]</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v[X]</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: YYYY-MM-DD</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Modified: YYYY-MM-DD</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: [Brief description]</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schedule: [Cron expression or trigger]</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: [List of dependencies]</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Maintainer: [Team or person]</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Workflow Display Name</span><span class="kw">]</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;[cron expression]&#39;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">  # ... job definitions</span></span></code></pre></div>
 <h3 id="workflow-version-history">3.4 Workflow Version History</h3>
 <p><strong>Include version history in workflow file:</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VERSION HISTORY:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># v1 (2025-12-30): Initial creation</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># v2 (2026-01-15): Added error handling</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># v3 (2026-02-01): Optimized performance</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VERSION HISTORY:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># v1 (2025-12-30): Initial creation</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># v2 (2026-01-15): Added error handling</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># v3 (2026-02-01): Optimized performance</span></span></code></pre></div>
 <hr />
 <h2 id="file-naming-conventions">4. File Naming Conventions</h2>
 <h3 id="document-files">4.1 Document Files</h3>
@@ -535,6 +641,43 @@ cloudflare-production-config-v2.yml</code></pre>
 <pre><code>security_audit_v1.py
 backup_database_v2.sh
 deploy_production_v1.js</code></pre>
+<h3 id="sql-migration-files-supabase-postgres">4.5 SQL Migration Files
+(Supabase / Postgres)</h3>
+<p>Used for <code>supabase/migrations/*.sql</code> and any hand-written
+DDL migrations.</p>
+<p><strong>Format:</strong></p>
+<pre><code>[number]_[DDMMYY]_[name].sql</code></pre>
+<ul>
+<li><strong>number</strong>: Zero-padded, 3-digit migration number
+matching execution order
+<ul>
+<li>Examples: <code>002</code>, <code>013</code>, <code>030</code>,
+<code>036</code></li>
+</ul></li>
+<li><strong>DDMMYY</strong>: Creation date (day, month, year) in
+<code>ddmmyy</code> format
+<ul>
+<li>Examples: <code>270226</code> = 27.02.2026</li>
+</ul></li>
+<li><strong>name</strong>: Short, lowercase, snake_case description
+(<code>_</code> is allowed and encouraged)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code>002_190126_firehorse_pilot.sql
+013_190126_agent_tracking.sql
+030_220226_agent_logging_tables.sql
+031_220226_supabase_advisor_fixes.sql
+036_270226_construction_leads.sql</code></pre>
+<p><strong>Rules:</strong> - Filenames live in the filesystem only –
+Postgres does <strong>not</strong> read them, but: - The
+<strong>number</strong> communicates migration ordering to humans and
+tooling. - The <strong>DDMMYY</strong> encodes creation context and
+helps when scanning history. - The <strong>name</strong> must be
+descriptive enough to understand purpose at a glance. - Always use
+<code>_</code> (underscore) as separator; avoid spaces and mixed
+separators. - When renumbering or adding late migrations
+(e.g. <code>036_*</code>), keep the original date to preserve historical
+traceability.</p>
 <h3 id="prohibited-naming-patterns">4.4 Prohibited Naming Patterns</h3>
 <p>❌ <strong>DO NOT USE:</strong> - Spaces in filenames:
 <code>my document.md</code> - Special characters:
@@ -590,13 +733,13 @@ Adding examples or clarifications</p>
 document restructuring - Changing document purpose or scope - Breaking
 changes to standards - Merging multiple documents</p>
 <h3 id="version-history-format">5.3 Version History Format</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Version History</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version <span class="pp">|</span> Date <span class="pp">|</span> Author/Tool <span class="pp">|</span> Changes <span class="pp">|</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|-------------|---------|</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0 <span class="pp">|</span> 2025-12-30 <span class="pp">|</span> Cursor AI <span class="pp">|</span> Initial creation <span class="pp">|</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1 <span class="pp">|</span> 2026-01-15 <span class="pp">|</span> Claude Code <span class="pp">|</span> Added workflow section <span class="pp">|</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2.0 <span class="pp">|</span> 2026-02-01 <span class="pp">|</span> Manual <span class="pp">|</span> Complete restructure <span class="pp">|</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Version History</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version <span class="pp">|</span> Date <span class="pp">|</span> Author/Tool <span class="pp">|</span> Changes <span class="pp">|</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|-------------|---------|</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0 <span class="pp">|</span> 2025-12-30 <span class="pp">|</span> Cursor AI <span class="pp">|</span> Initial creation <span class="pp">|</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1 <span class="pp">|</span> 2026-01-15 <span class="pp">|</span> Claude Code <span class="pp">|</span> Added workflow section <span class="pp">|</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2.0 <span class="pp">|</span> 2026-02-01 <span class="pp">|</span> Manual <span class="pp">|</span> Complete restructure <span class="pp">|</span></span></code></pre></div>
 <hr />
 <h2 id="language-policy">6. Language Policy</h2>
 <h3 id="supported-languages">6.1 Supported Languages</h3>
@@ -637,70 +780,70 @@ changes to standards - Merging multiple documents</p>
 DOCUMENT_NAME_FI.md          # Finnish only
 DOCUMENT_NAME_EN_FI.md       # Bilingual</code></pre>
 <p><strong>In document header:</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="an">Document Status:</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: English</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: English, Suomi</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="an">Document Status:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: English</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: English, Suomi</span></code></pre></div>
 <h3 id="bilingual-document-structure">6.3 Bilingual Document
 Structure</h3>
 <p><strong>For bilingual documents, use this structure:</strong></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Document Title / Dokumentin otsikko</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section 1 / Osio 1</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### English</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English content...</span><span class="co">]</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suomi</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Finnish content...</span><span class="co">]</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section 2 / Osio 2</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### English</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English content...</span><span class="co">]</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suomi</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Finnish content...</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Document Title / Dokumentin otsikko</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section 1 / Osio 1</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### English</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English content...</span><span class="co">]</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suomi</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Finnish content...</span><span class="co">]</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Section 2 / Osio 2</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### English</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English content...</span><span class="co">]</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Suomi</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Finnish content...</span><span class="co">]</span></span></code></pre></div>
 <hr />
 <h2 id="metadata-requirements">7. Metadata Requirements</h2>
 <h3 id="document-metadata">7.1 Document Metadata</h3>
 <p><strong>ALL documents MUST include:</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Document Title</span><span class="kw">]</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">X.</span><span class="ch">Y</span><span class="kw">]</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">YYYY-MM-DD</span><span class="kw">]</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Tool/Person</span><span class="kw">]</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EN/FI/EN_FI</span><span class="kw">]</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">ACTIVE/DRAFT/ARCHIVED</span><span class="kw">]</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">category</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">admin/technical/thesis/workflow</span><span class="kw">]</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">tag1</span><span class="kw">,</span><span class="at"> tag2</span><span class="kw">,</span><span class="at"> tag3</span><span class="kw">]</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Document Title</span><span class="kw">]</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">X.</span><span class="ch">Y</span><span class="kw">]</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">YYYY-MM-DD</span><span class="kw">]</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Tool/Person</span><span class="kw">]</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">EN/FI/EN_FI</span><span class="kw">]</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">ACTIVE/DRAFT/ARCHIVED</span><span class="kw">]</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">category</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">admin/technical/thesis/workflow</span><span class="kw">]</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tags</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">tag1</span><span class="kw">,</span><span class="at"> tag2</span><span class="kw">,</span><span class="at"> tag3</span><span class="kw">]</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <h3 id="workflow-metadata">7.2 Workflow Metadata</h3>
 <p><strong>ALL workflows MUST include:</strong></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metadata</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Category: [security/backup/deploy/test/audit]</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency: [daily/weekly/monthly/on-demand]</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v[X]</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: YYYY-MM-DD</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Run: YYYY-MM-DD</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Status: [active/disabled/deprecated]</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: [list]</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metadata</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Category: [security/backup/deploy/test/audit]</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency: [daily/weekly/monthly/on-demand]</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v[X]</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: YYYY-MM-DD</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Run: YYYY-MM-DD</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Status: [active/disabled/deprecated]</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: [list]</span></span></code></pre></div>
 <h3 id="code-metadata">7.3 Code Metadata</h3>
 <p><strong>ALL scripts MUST include:</strong></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">Script: [Script Name]</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">Version: v[X]</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">Created: YYYY-MM-DD</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">Author: [Tool/Person]</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">Purpose: [Brief description]</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">Dependencies: [list]</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">Usage: python script_name.py [args]</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">Script: [Script Name]</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">Version: v[X]</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">Created: YYYY-MM-DD</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">Author: [Tool/Person]</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">Purpose: [Brief description]</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">Dependencies: [list]</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">Usage: python script_name.py [args]</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
 <hr />
 <h2 id="pdf-standard">8. PDF Standard</h2>
 <h3 id="purpose-tarkoitus-1">8.1 Purpose / Tarkoitus</h3>
@@ -725,21 +868,21 @@ Generate-PDFs.ps1 (Recommended)</h4>
 <p>Converts 16 key markdown files to styled HTML or PDF using pandoc.
 Runs standalone or automatically via
 <code>Sync-ToProton.ps1 -GeneratePDFs</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install pandoc (required)</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>winget install JohnMacFarlane<span class="op">.</span><span class="fu">Pandoc</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML output (default, always works, opens in Edge)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF output (requires wkhtmltopdf)</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>winget install wkhtmltopdf</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>Engine wkhtmltopdf</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Open changed files in Edge for review</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OpenNew</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview without generating</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>DryRun</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install pandoc (required)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>winget install JohnMacFarlane<span class="op">.</span><span class="fu">Pandoc</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML output (default, always works, opens in Edge)</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF output (requires wkhtmltopdf)</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>winget install wkhtmltopdf</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>Engine wkhtmltopdf</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Open changed files in Edge for review</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OpenNew</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview without generating</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Generate-PDFs<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>DryRun</span></code></pre></div>
 <p><strong>Key pandoc flags for DWS documents:</strong></p>
 <pre><code>-f markdown-yaml_metadata_block+smart   # Disable YAML parsing (DWS headers aren&#39;t YAML)
 --standalone --embed-resources           # Self-contained HTML with embedded CSS
@@ -754,14 +897,14 @@ Print-to-PDF</h4>
 <li>Set margins to Minimum, enable Background graphics</li>
 </ol>
 <h4 id="method-3-pandoc-cli-manual">Method 3: Pandoc CLI (manual)</h4>
-<div class="sourceCode" id="cb22"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML (always works)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.html&quot;</span> <span class="op">--</span>standalone <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF via wkhtmltopdf (no LaTeX needed)</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.pdf&quot;</span> <span class="op">--</span>pdf-engine<span class="op">=</span>wkhtmltopdf <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF via LaTeX (avoid - emoji/Unicode issues)</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.pdf&quot;</span> <span class="op">--</span>pdf-engine<span class="op">=</span>xelatex <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML (always works)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.html&quot;</span> <span class="op">--</span>standalone <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF via wkhtmltopdf (no LaTeX needed)</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.pdf&quot;</span> <span class="op">--</span>pdf-engine<span class="op">=</span>wkhtmltopdf <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF via LaTeX (avoid - emoji/Unicode issues)</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>pandoc <span class="st">&quot;input.md&quot;</span> <span class="op">-</span>o <span class="st">&quot;output.pdf&quot;</span> <span class="op">--</span>pdf-engine<span class="op">=</span>xelatex <span class="op">--</span>toc <span class="op">-</span>f markdown-yaml_metadata_block<span class="op">+</span>smart</span></code></pre></div>
 <blockquote>
 <p><strong>WARNING:</strong> Do NOT use <code>pdflatex</code> - it
 cannot handle Unicode emoji. Do NOT use <code>---</code> delimiters in
@@ -771,26 +914,26 @@ delimiters instead (see Section 2.1).</p>
 <h3 id="html-styling-standard-dws-brand">8.4 HTML Styling Standard (DWS
 Brand)</h3>
 <p><strong>DWS brand CSS (used by Generate-PDFs.ps1):</strong></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>body {</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-family</span><span class="ch">:</span> <span class="st">&#39;Segoe UI&#39;</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-size</span><span class="ch">:</span> <span class="dv">11</span><span class="dt">pt</span><span class="op">;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">max-width</span><span class="ch">:</span> <span class="dv">900</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin</span><span class="ch">:</span> <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span><span class="ch">:</span> <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">#333</span><span class="op">;</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>h1 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">3</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0066cc</span><span class="op">;</span> <span class="kw">padding-bottom</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span><span class="op">;</span> }</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>h2 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> <span class="kw">padding-bottom</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span> }</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>h3 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#333</span><span class="op">;</span> }</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>code { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">6</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">3</span><span class="dt">px</span><span class="op">;</span> }</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>pre { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">12</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> }</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>table { <span class="kw">border-collapse</span><span class="ch">:</span> <span class="dv">collapse</span><span class="op">;</span> <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span> <span class="kw">margin</span><span class="ch">:</span> <span class="dv">12</span><span class="dt">px</span> <span class="dv">0</span><span class="op">;</span> }</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>th<span class="op">,</span> td { <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">12</span><span class="dt">px</span><span class="op">;</span> <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">left</span><span class="op">;</span> }</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>th { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span> }</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>tr<span class="in">:nth-child(</span><span class="dv">even</span><span class="in">)</span> { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f9f9f9</span><span class="op">;</span> }</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>a { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0066cc</span><span class="op">;</span> }</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>blockquote { <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0066cc</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">16</span><span class="dt">px</span><span class="op">;</span> <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f0f7ff</span><span class="op">;</span> }</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>body {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-family</span><span class="ch">:</span> <span class="st">&#39;Segoe UI&#39;</span><span class="op">,</span> <span class="dv">Arial</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-size</span><span class="ch">:</span> <span class="dv">11</span><span class="dt">pt</span><span class="op">;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">line-height</span><span class="ch">:</span> <span class="dv">1.6</span><span class="op">;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">max-width</span><span class="ch">:</span> <span class="dv">900</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin</span><span class="ch">:</span> <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span><span class="ch">:</span> <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">#333</span><span class="op">;</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>h1 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">3</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0066cc</span><span class="op">;</span> <span class="kw">padding-bottom</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span><span class="op">;</span> }</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>h2 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> <span class="kw">padding-bottom</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span> }</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>h3 { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#333</span><span class="op">;</span> }</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>code { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">6</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">3</span><span class="dt">px</span><span class="op">;</span> }</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>pre { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">12</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span> <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> }</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>table { <span class="kw">border-collapse</span><span class="ch">:</span> <span class="dv">collapse</span><span class="op">;</span> <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span> <span class="kw">margin</span><span class="ch">:</span> <span class="dv">12</span><span class="dt">px</span> <span class="dv">0</span><span class="op">;</span> }</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>th<span class="op">,</span> td { <span class="kw">border</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#ddd</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">12</span><span class="dt">px</span><span class="op">;</span> <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">left</span><span class="op">;</span> }</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>th { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#0a1628</span><span class="op">;</span> <span class="kw">color</span><span class="ch">:</span> <span class="cn">white</span><span class="op">;</span> }</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>tr<span class="in">:nth-child(</span><span class="dv">even</span><span class="in">)</span> { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f9f9f9</span><span class="op">;</span> }</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>a { <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0066cc</span><span class="op">;</span> }</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>blockquote { <span class="kw">border-left</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0066cc</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">16</span><span class="dt">px</span><span class="op">;</span> <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f0f7ff</span><span class="op">;</span> }</span></code></pre></div>
 <p><strong>Brand colors reference:</strong> - Primary:
 <code>#0a1628</code> (dark navy) - headings, table headers - Accent:
 <code>#0066cc</code> (enterprise blue) - links, borders, blockquotes -
@@ -889,35 +1032,35 @@ for version tracking - Add descriptive suffixes: OPTIMIZED, FINAL, DRAFT
 <h3 id="automation">8.9 Automation</h3>
 <p><strong>For frequent PDF generation, create GitHub
 Action:</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Generate PDF Documents</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&#39;docs/**/*.md&#39;</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&#39;investor-outreach/**/*.md&#39;</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">generate-pdfs</span><span class="kw">:</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Setup Python</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;3.11&#39;</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pip install markdown weasyprint</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Generate PDFs</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> python scripts/create_pdf.py</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Commit PDFs</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>          git config user.name &quot;GitHub Actions&quot;</span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>          git config user.email &quot;actions@github.com&quot;</span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>          git add *.pdf</span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>          git commit -m &quot;Auto-generate PDFs from markdown&quot;</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>          git push</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Generate PDF Documents</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&#39;docs/**/*.md&#39;</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&#39;investor-outreach/**/*.md&#39;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">generate-pdfs</span><span class="kw">:</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Setup Python</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;3.11&#39;</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pip install markdown weasyprint</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Generate PDFs</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> python scripts/create_pdf.py</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Commit PDFs</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>          git config user.name &quot;GitHub Actions&quot;</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>          git config user.email &quot;actions@github.com&quot;</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>          git add *.pdf</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>          git commit -m &quot;Auto-generate PDFs from markdown&quot;</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>          git push</span></code></pre></div>
 <h3 id="distribution">8.10 Distribution</h3>
 <p><strong>For investor and client documents:</strong> - Store PDFs in
 appropriate folders (e.g., <code>investor-outreach/</code>) - Keep file
@@ -926,94 +1069,94 @@ trail - Include metadata in filename for easy identification</p>
 <hr />
 <h2 id="examples">9. Examples</h2>
 <h3 id="complete-document-example">9.1 Complete Document Example</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Admin Manual: DWS6.com Deployment</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># VERSION AND AGENT HISTORY</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>Version: 1.0</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>Session Links &amp; References:</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>Document Status:</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Created: 30.12.2025</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last Modified: 30.12.2025</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: English &amp; Finnish (bilingual)</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: English, Suomi</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: ACTIVE</span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>**Version:** 1.0  </span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>**Purpose:** Admin and deployment guide for dws6.com  </span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>**Audience:** DevOps, System Administrators  </span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>**Updated:** 30.12.2025</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Table of Contents</span></span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">... rest of document ...</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Admin Manual: DWS6.com Deployment</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># VERSION AND AGENT HISTORY</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>Version: 1.0</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>Session Links &amp; References:</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>Document Status:</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Created: 30.12.2025</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last Modified: 30.12.2025</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: English &amp; Finnish (bilingual)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: English, Suomi</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: ACTIVE</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>**Version:** 1.0  </span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>**Purpose:** Admin and deployment guide for dws6.com  </span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>**Audience:** DevOps, System Administrators  </span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>**Updated:** 30.12.2025</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Table of Contents</span></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">... rest of document ...</span><span class="co">]</span></span></code></pre></div>
 <h3 id="complete-workflow-example">9.2 Complete Workflow Example</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: Daily Security Scan</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v1</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: 2025-12-30</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Modified: 2025-12-30</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Automated daily security scanning</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schedule: Daily at 02:00 UTC</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: snyk, npm audit</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Maintainer: Security Team</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># VERSION HISTORY:</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># v1 (2025-12-30): Initial creation</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Security Scan - Daily v1</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;0 2 * * *&#39;</span><span class="co">  # Daily at 02:00 UTC</span></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">security-scan</span><span class="kw">:</span></span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout code</span></span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run security scan</span></span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm audit</span></span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Report results</span></span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo &quot;Security scan completed&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Workflow: Daily Security Scan</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Version: v1</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Created: 2025-12-30</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Last Modified: 2025-12-30</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Automated daily security scanning</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schedule: Daily at 02:00 UTC</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dependencies: snyk, npm audit</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Maintainer: Security Team</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># VERSION HISTORY:</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># v1 (2025-12-30): Initial creation</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Security Scan - Daily v1</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;0 2 * * *&#39;</span><span class="co">  # Daily at 02:00 UTC</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">security-scan</span><span class="kw">:</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout code</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run security scan</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm audit</span></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Report results</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> echo &quot;Security scan completed&quot;</span></span></code></pre></div>
 <h3 id="complete-script-example">9.3 Complete Script Example</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">Script: Security Audit</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">Version: v1</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">Created: 2025-12-30</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">Author: Cursor AI</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">Purpose: Comprehensive security audit of DWS6 project</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">Dependencies: python3, requests, pyyaml</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">Usage: python security_audit_v1.py [--output report.md]</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">VERSION HISTORY:</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">v1 (2025-12-30): Initial creation</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> argparse</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Main function&quot;&quot;&quot;</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Security Audit v1 - </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... audit logic ...</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">Script: Security Audit</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">Version: v1</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">Created: 2025-12-30</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">Author: Cursor AI</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">Purpose: Comprehensive security audit of DWS6 project</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">Dependencies: python3, requests, pyyaml</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">Usage: python security_audit_v1.py [--output report.md]</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co">VERSION HISTORY:</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">v1 (2025-12-30): Initial creation</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> argparse</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Main function&quot;&quot;&quot;</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Security Audit v1 - </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... audit logic ...</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div>
 <hr />
 <h2 id="knowledge-management-storage">10. Knowledge Management &amp;
 Storage</h2>
@@ -1104,17 +1247,17 @@ bubbles and enterprise ontology.</p>
 <p><strong>Decision Path:</strong></p>
 <ol type="1">
 <li><p><strong>Initial Capture:</strong> Database</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> field_notes (author, content, tags, sector)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="st">&#39;you@dws.com&#39;</span>, <span class="st">&#39;Karp quote about...&#39;</span>, <span class="dt">ARRAY</span>[<span class="st">&#39;AI&#39;</span>, <span class="st">&#39;Ontology&#39;</span>, <span class="st">&#39;Enterprise&#39;</span>], <span class="st">&#39;Strategy&#39;</span>);</span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> field_notes (author, content, tags, sector)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="st">&#39;you@dws.com&#39;</span>, <span class="st">&#39;Karp quote about...&#39;</span>, <span class="dt">ARRAY</span>[<span class="st">&#39;AI&#39;</span>, <span class="st">&#39;Ontology&#39;</span>, <span class="st">&#39;Enterprise&#39;</span>], <span class="st">&#39;Strategy&#39;</span>);</span></code></pre></div></li>
 <li><p><strong>Processing:</strong> Markdown Document</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Field Note: Palantir CEO on Enterprise AI</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Full analysis as shown in your message</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Field Note: Palantir CEO on Enterprise AI</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Full analysis as shown in your message</span><span class="co">]</span></span></code></pre></div>
 <p>Saved to:
 <code>/docs/field-notes/2026-01-21-karp-enterprise-ai.md</code></p></li>
 <li><p><strong>Refinement:</strong> Core Artifact</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Artifact: Enterprise AI Implementation Strategy</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ART-2026-001</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Extracted principles for DWS implementation</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Artifact: Enterprise AI Implementation Strategy</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ART-2026-001</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Extracted principles for DWS implementation</span><span class="co">]</span></span></code></pre></div>
 <p>Saved to:
 <code>/artifacts/STRATEGY/ART-2026-001-enterprise-ai-ontology.md</code></p></li>
 </ol>
@@ -1276,59 +1419,59 @@ ART-2026-003-eu-gdpr-updates.md</code></pre>
 </table>
 <h3 id="artifact-file-structure">11.5 Artifact File Structure</h3>
 <p><strong>Required Sections:</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Artifact: [Descriptive Title]</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## METADATA (The &quot;Coordinates&quot;)</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Artifact ID:** ART-YYYY-NNN</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Stamp:** ISO8601 timestamp</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ontology Anchors:**</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Object: <span class="co">[</span><span class="ot">e.g., Financial_Services</span><span class="co">]</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Sector: <span class="co">[</span><span class="ot">e.g., Underwriting</span><span class="co">]</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Geography: <span class="co">[</span><span class="ot">e.g., UK, London</span><span class="co">]</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Regulatory Context: <span class="co">[</span><span class="ot">e.g., FCA 2025 Cross-Border Rules</span><span class="co">]</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Safety Status:** ✅ Verified | 🧪 Experimental | ⚠️ Deprecated</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence Score:** 0.XX (0.0-1.0)</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source:** <span class="co">[</span><span class="ot">Field Note reference</span><span class="co">]</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## NARRATIVE (The &quot;Divine Story&quot;)</span></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Observation</span></span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">What was learned from the field</span><span class="co">]</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why It Failed</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If applicable: why generic AI/process failed</span><span class="co">]</span></span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Ground Truth</span></span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Reality that contradicts generic assumptions</span><span class="co">]</span></span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## LOGIC (The &quot;Orchestration Rule&quot;)</span></span>
-<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Proposed Rule</span></span>
-<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If-then logic, code, or decision tree</span><span class="co">]</span></span>
-<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### LWM Update Instruction</span></span>
-<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">How this updates the world model</span><span class="co">]</span></span>
-<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## VALIDATION &amp; FEEDBACK</span></span>
-<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Usage history, success rate, confidence updates</span><span class="co">]</span></span>
-<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## RELATED ARTIFACTS</span></span>
-<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Supersedes:** <span class="co">[</span><span class="ot">Previous artifact IDs</span><span class="co">]</span></span>
-<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Related:** <span class="co">[</span><span class="ot">Related artifact IDs</span><span class="co">]</span></span>
-<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**References:** <span class="co">[</span><span class="ot">External documents</span><span class="co">]</span></span>
-<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## VERSION HISTORY</span></span>
-<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v1.0** (YYYY-MM-DD): <span class="co">[</span><span class="ot">Changes</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Artifact: [Descriptive Title]</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## METADATA (The &quot;Coordinates&quot;)</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Artifact ID:** ART-YYYY-NNN</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Stamp:** ISO8601 timestamp</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ontology Anchors:**</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Object: <span class="co">[</span><span class="ot">e.g., Financial_Services</span><span class="co">]</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Sector: <span class="co">[</span><span class="ot">e.g., Underwriting</span><span class="co">]</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Geography: <span class="co">[</span><span class="ot">e.g., UK, London</span><span class="co">]</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Regulatory Context: <span class="co">[</span><span class="ot">e.g., FCA 2025 Cross-Border Rules</span><span class="co">]</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Safety Status:** ✅ Verified | 🧪 Experimental | ⚠️ Deprecated</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence Score:** 0.XX (0.0-1.0)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source:** <span class="co">[</span><span class="ot">Field Note reference</span><span class="co">]</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## NARRATIVE (The &quot;Divine Story&quot;)</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Observation</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">What was learned from the field</span><span class="co">]</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why It Failed</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If applicable: why generic AI/process failed</span><span class="co">]</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Ground Truth</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Reality that contradicts generic assumptions</span><span class="co">]</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## LOGIC (The &quot;Orchestration Rule&quot;)</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Proposed Rule</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If-then logic, code, or decision tree</span><span class="co">]</span></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### LWM Update Instruction</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">How this updates the world model</span><span class="co">]</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## VALIDATION &amp; FEEDBACK</span></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Usage history, success rate, confidence updates</span><span class="co">]</span></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## RELATED ARTIFACTS</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Supersedes:** <span class="co">[</span><span class="ot">Previous artifact IDs</span><span class="co">]</span></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Related:** <span class="co">[</span><span class="ot">Related artifact IDs</span><span class="co">]</span></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**References:** <span class="co">[</span><span class="ot">External documents</span><span class="co">]</span></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## VERSION HISTORY</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v1.0** (YYYY-MM-DD): <span class="co">[</span><span class="ot">Changes</span><span class="co">]</span></span></code></pre></div>
 <h3 id="artifact-lifecycle">11.6 Artifact Lifecycle</h3>
 <pre><code>1. CAPTURE:    Field Note → Database
 2. PROCESS:    Database → /docs/field-notes/[date]-[topic].md
@@ -1422,21 +1565,21 @@ Convention</h3>
 <p><strong>Purpose:</strong> Make field notes searchable and
 linkable.</p>
 <p><strong>Required Tags:</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ontology Tags</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Geography:** <span class="co">[</span><span class="ot">Continent &gt; Country &gt; City</span><span class="co">]</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sector:** <span class="co">[</span><span class="ot">Industry &gt; Vertical &gt; Use Case</span><span class="co">]</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Entities:** <span class="co">[</span><span class="ot">People, Organizations, Products, Regulations</span><span class="co">]</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Context:** <span class="co">[</span><span class="ot">Date, Regulatory Period, Fiscal Year</span><span class="co">]</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence:** High | Medium | Low</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ontology Tags</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Geography:** <span class="co">[</span><span class="ot">Continent &gt; Country &gt; City</span><span class="co">]</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sector:** <span class="co">[</span><span class="ot">Industry &gt; Vertical &gt; Use Case</span><span class="co">]</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Entities:** <span class="co">[</span><span class="ot">People, Organizations, Products, Regulations</span><span class="co">]</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Context:** <span class="co">[</span><span class="ot">Date, Regulatory Period, Fiscal Year</span><span class="co">]</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence:** High | Medium | Low</span></code></pre></div>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ontology Tags</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Geography:** Europe &gt; UK &gt; London</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sector:** Financial_Services &gt; Insurance &gt; Underwriting</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Entities:** Customer ABC Ltd, FCA, GDPR, DWS-IQ6</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Context:** 2026-Q1, Post-2025 UK FCA Rules</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence:** High</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ontology Tags</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Geography:** Europe &gt; UK &gt; London</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sector:** Financial_Services &gt; Insurance &gt; Underwriting</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Entities:** Customer ABC Ltd, FCA, GDPR, DWS-IQ6</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Temporal Context:** 2026-Q1, Post-2025 UK FCA Rules</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Confidence:** High</span></code></pre></div>
 <h3 id="from-field-note-to-core-artifact">12.7 From Field Note to Core
 Artifact</h3>
 <p><strong>Elevation Criteria:</strong></p>
@@ -1459,17 +1602,17 @@ database, generate embeddings</li>
 <h2 id="enforcement">13. Enforcement</h2>
 <h3 id="automated-checks">10.1 Automated Checks</h3>
 <p><strong>Pre-commit hooks:</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check document header</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="ot">! </span><span class="fu">grep</span> <span class="at">-q</span> <span class="st">&quot;VERSION AND AGENT HISTORY&quot;</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;ERROR: Missing VERSION AND AGENT HISTORY header in </span><span class="va">$file</span><span class="st">&quot;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check workflow naming</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span> <span class="ot">=~</span> <span class="dt">\.</span><span class="ss">yml</span><span class="op">$</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span> <span class="ot">=~</span> <span class="ss">-v</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="pp">+</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">4</span><span class="va">}</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">2</span><span class="va">}</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">2</span><span class="va">}</span><span class="dt">\.</span><span class="ss">yml</span><span class="op">$</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;ERROR: Workflow </span><span class="va">$file</span><span class="st"> does not follow naming standard&quot;</span></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check document header</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="ot">! </span><span class="fu">grep</span> <span class="at">-q</span> <span class="st">&quot;VERSION AND AGENT HISTORY&quot;</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;ERROR: Missing VERSION AND AGENT HISTORY header in </span><span class="va">$file</span><span class="st">&quot;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check workflow naming</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span> <span class="ot">=~</span> <span class="dt">\.</span><span class="ss">yml</span><span class="op">$</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="st">&quot;</span><span class="va">$file</span><span class="st">&quot;</span> <span class="ot">=~</span> <span class="ss">-v</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="pp">+</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">4</span><span class="va">}</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">2</span><span class="va">}</span><span class="ss">-</span><span class="op">[</span><span class="ss">0</span><span class="op">-</span><span class="ss">9</span><span class="op">]</span><span class="va">{</span><span class="dv">2</span><span class="va">}</span><span class="dt">\.</span><span class="ss">yml</span><span class="op">$</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;ERROR: Workflow </span><span class="va">$file</span><span class="st"> does not follow naming standard&quot;</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
 <h3 id="manual-review-checklist">10.2 Manual Review Checklist</h3>
 <p><strong>Before committing any document:</strong></p>
 <ul class="task-list">
@@ -1543,13 +1686,13 @@ for LWM training</li>
 <h3 id="llm-model-tracking-in-document-header">14.3 LLM Model Tracking
 in Document Header</h3>
 <p><strong>Extended header format:</strong></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: X.Y | Tool: <span class="co">[</span><span class="ot">Tool Name</span><span class="co">]</span> (<span class="co">[</span><span class="ot">LLM Model</span><span class="co">]</span>) | Session: <span class="co">[</span><span class="ot">ID</span><span class="co">]</span> | Date: DD.MM.YYYY | Changes: <span class="co">[</span><span class="ot">Description</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: X.Y | Tool: <span class="co">[</span><span class="ot">Tool Name</span><span class="co">]</span> (<span class="co">[</span><span class="ot">LLM Model</span><span class="co">]</span>) | Session: <span class="co">[</span><span class="ot">ID</span><span class="co">]</span> | Date: DD.MM.YYYY | Changes: <span class="co">[</span><span class="ot">Description</span><span class="co">]</span></span></code></pre></div>
 <p><strong>Example:</strong></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review</span></code></pre></div>
 <h3 id="supported-llm-models-registry">14.4 Supported LLM Models
 Registry</h3>
 <p><strong>Active Models (as of Q1 2026):</strong></p>
@@ -1618,12 +1761,12 @@ Workflow</h3>
 6. VALIDATE:  Human review for critical documents
 7. ARCHIVE:   Keep previous version for audit trail</code></pre>
 <p><strong>Database Query for Version Tracking:</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find documents created with specific LLM model</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> filename, version, created_date, llm_model</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> documents</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> llm_model <span class="kw">LIKE</span> <span class="st">&#39;claude-opus-4%&#39;</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> created_date <span class="op">&lt;</span> <span class="st">&#39;2026-02-01&#39;</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> priority <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Find documents created with specific LLM model</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> filename, version, created_date, llm_model</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> documents</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> llm_model <span class="kw">LIKE</span> <span class="st">&#39;claude-opus-4%&#39;</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> created_date <span class="op">&lt;</span> <span class="st">&#39;2026-02-01&#39;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> priority <span class="kw">DESC</span>;</span></code></pre></div>
 <h3 id="llm-model-deprecation">14.6 LLM Model Deprecation</h3>
 <p><strong>When a model is deprecated:</strong></p>
 <table>
@@ -1849,28 +1992,28 @@ ADMIN_MANUAL_AUTHENTICATION_DE_v1.md     # German
 ADMIN_MANUAL_AUTHENTICATION_SV_v1.md     # Swedish</code></pre>
 <h3 id="localization-tracking-database-schema">15.4 Localization
 Tracking Database Schema</h3>
-<div class="sourceCode" id="cb51"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> document_translations (</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> UUID <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    source_doc_id UUID <span class="kw">REFERENCES</span> documents(<span class="kw">id</span>),</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    source_language <span class="dt">VARCHAR</span>(<span class="dv">5</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">DEFAULT</span> <span class="st">&#39;EN&#39;</span>,</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    target_language <span class="dt">VARCHAR</span>(<span class="dv">5</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    translation_status <span class="dt">VARCHAR</span>(<span class="dv">20</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Status: PENDING, IN_PROGRESS, TRANSLATED, REVIEWED, PUBLISHED</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    source_version <span class="dt">VARCHAR</span>(<span class="dv">10</span>),</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    translated_version <span class="dt">VARCHAR</span>(<span class="dv">10</span>),</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    translator_type <span class="dt">VARCHAR</span>(<span class="dv">20</span>), <span class="co">-- HUMAN, LLM, HYBRID</span></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>    llm_model <span class="dt">VARCHAR</span>(<span class="dv">50</span>),</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>    translated_date <span class="dt">TIMESTAMP</span>,</span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    reviewed_by <span class="dt">VARCHAR</span>(<span class="dv">100</span>),</span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    reviewed_date <span class="dt">TIMESTAMP</span>,</span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>    sync_status <span class="dt">VARCHAR</span>(<span class="dv">20</span>), <span class="co">-- SYNCED, OUT_OF_SYNC, NEEDS_UPDATE</span></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    created_at <span class="dt">TIMESTAMP</span> <span class="kw">DEFAULT</span> NOW(),</span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>    updated_at <span class="dt">TIMESTAMP</span> <span class="kw">DEFAULT</span> NOW()</span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a><span class="co">-- Index for finding out-of-sync translations</span></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_sync_status <span class="kw">ON</span> document_translations(sync_status);</span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_source_doc <span class="kw">ON</span> document_translations(source_doc_id);</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> document_translations (</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> UUID <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    source_doc_id UUID <span class="kw">REFERENCES</span> documents(<span class="kw">id</span>),</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    source_language <span class="dt">VARCHAR</span>(<span class="dv">5</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">DEFAULT</span> <span class="st">&#39;EN&#39;</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    target_language <span class="dt">VARCHAR</span>(<span class="dv">5</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    translation_status <span class="dt">VARCHAR</span>(<span class="dv">20</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Status: PENDING, IN_PROGRESS, TRANSLATED, REVIEWED, PUBLISHED</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    source_version <span class="dt">VARCHAR</span>(<span class="dv">10</span>),</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    translated_version <span class="dt">VARCHAR</span>(<span class="dv">10</span>),</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    translator_type <span class="dt">VARCHAR</span>(<span class="dv">20</span>), <span class="co">-- HUMAN, LLM, HYBRID</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    llm_model <span class="dt">VARCHAR</span>(<span class="dv">50</span>),</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    translated_date <span class="dt">TIMESTAMP</span>,</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    reviewed_by <span class="dt">VARCHAR</span>(<span class="dv">100</span>),</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>    reviewed_date <span class="dt">TIMESTAMP</span>,</span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>    sync_status <span class="dt">VARCHAR</span>(<span class="dv">20</span>), <span class="co">-- SYNCED, OUT_OF_SYNC, NEEDS_UPDATE</span></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>    created_at <span class="dt">TIMESTAMP</span> <span class="kw">DEFAULT</span> NOW(),</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>    updated_at <span class="dt">TIMESTAMP</span> <span class="kw">DEFAULT</span> NOW()</span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a><span class="co">-- Index for finding out-of-sync translations</span></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_sync_status <span class="kw">ON</span> document_translations(sync_status);</span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_source_doc <span class="kw">ON</span> document_translations(source_doc_id);</span></code></pre></div>
 <h3 id="translation-status-tracking">15.5 Translation Status
 Tracking</h3>
 <table>
@@ -1921,18 +2064,18 @@ Tracking</h3>
 </table>
 <h3 id="localization-dashboard-query">15.6 Localization Dashboard
 Query</h3>
-<div class="sourceCode" id="cb52"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Language coverage report</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    d.filename,</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    d.version <span class="kw">AS</span> source_version,</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> dt.target_language) <span class="kw">AS</span> languages_translated,</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">27</span> <span class="op">-</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> dt.target_language) <span class="kw">AS</span> languages_missing,</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> dt.sync_status <span class="op">=</span> <span class="st">&#39;OUT_OF_SYNC&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span> <span class="cf">END</span>) <span class="kw">AS</span> needs_update</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> documents d</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> document_translations dt <span class="kw">ON</span> d.<span class="kw">id</span> <span class="op">=</span> dt.source_doc_id</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> d.language <span class="op">=</span> <span class="st">&#39;EN&#39;</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> d.<span class="kw">id</span>, d.filename, d.version</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> languages_missing <span class="kw">DESC</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Language coverage report</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    d.filename,</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    d.version <span class="kw">AS</span> source_version,</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> dt.target_language) <span class="kw">AS</span> languages_translated,</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">27</span> <span class="op">-</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> dt.target_language) <span class="kw">AS</span> languages_missing,</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(<span class="cf">CASE</span> <span class="cf">WHEN</span> dt.sync_status <span class="op">=</span> <span class="st">&#39;OUT_OF_SYNC&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span> <span class="cf">END</span>) <span class="kw">AS</span> needs_update</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> documents d</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> document_translations dt <span class="kw">ON</span> d.<span class="kw">id</span> <span class="op">=</span> dt.source_doc_id</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> d.language <span class="op">=</span> <span class="st">&#39;EN&#39;</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> d.<span class="kw">id</span>, d.filename, d.version</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> languages_missing <span class="kw">DESC</span>;</span></code></pre></div>
 <h3 id="translation-workflow">15.7 Translation Workflow</h3>
 <p><strong>For new documents:</strong></p>
 <pre><code>1. CREATE:     Write source document (EN)
@@ -1973,24 +2116,24 @@ for Localized Docs</h3>
 <p><strong>Master glossary location:</strong>
 <code>/docs/localization/GLOSSARY_MASTER.json</code></p>
 <p><strong>Format:</strong></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;terms&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;en&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime World Model&quot;</span><span class="fu">,</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;fi&quot;</span><span class="fu">:</span> <span class="st">&quot;Elinikäinen maailmanmalli&quot;</span><span class="fu">,</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;de&quot;</span><span class="fu">:</span> <span class="st">&quot;Lebenslang-Weltmodell&quot;</span><span class="fu">,</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;sv&quot;</span><span class="fu">:</span> <span class="st">&quot;Livstidsvärldsmodell&quot;</span><span class="fu">,</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="st">&quot;Core AI concept - do not translate literally&quot;</span><span class="fu">,</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;abbreviation&quot;</span><span class="fu">:</span> <span class="st">&quot;LWM&quot;</span></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;en&quot;</span><span class="fu">:</span> <span class="st">&quot;Climate compliance&quot;</span><span class="fu">,</span></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;fi&quot;</span><span class="fu">:</span> <span class="st">&quot;Ilmastovaatimustenmukaisuus&quot;</span><span class="fu">,</span></span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;de&quot;</span><span class="fu">:</span> <span class="st">&quot;Klimakonformität&quot;</span><span class="fu">,</span></span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="st">&quot;EU regulatory term&quot;</span></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;terms&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;en&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime World Model&quot;</span><span class="fu">,</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;fi&quot;</span><span class="fu">:</span> <span class="st">&quot;Elinikäinen maailmanmalli&quot;</span><span class="fu">,</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;de&quot;</span><span class="fu">:</span> <span class="st">&quot;Lebenslang-Weltmodell&quot;</span><span class="fu">,</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;sv&quot;</span><span class="fu">:</span> <span class="st">&quot;Livstidsvärldsmodell&quot;</span><span class="fu">,</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="st">&quot;Core AI concept - do not translate literally&quot;</span><span class="fu">,</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;abbreviation&quot;</span><span class="fu">:</span> <span class="st">&quot;LWM&quot;</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;en&quot;</span><span class="fu">:</span> <span class="st">&quot;Climate compliance&quot;</span><span class="fu">,</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;fi&quot;</span><span class="fu">:</span> <span class="st">&quot;Ilmastovaatimustenmukaisuus&quot;</span><span class="fu">,</span></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;de&quot;</span><span class="fu">:</span> <span class="st">&quot;Klimakonformität&quot;</span><span class="fu">,</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="st">&quot;EU regulatory term&quot;</span></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <h3 id="quality-assurance-for-translations">15.10 Quality Assurance for
 Translations</h3>
 <p><strong>Review checklist:</strong> - [ ] Technical terms match
@@ -2014,38 +2157,353 @@ Status tracking - Quick links</p>
 <p><strong>See:</strong> <a href="/docs/Document-index.md">Document-index.md</a></p>
 <h3 id="index-update-workflow">16.3 Index Update Workflow</h3>
 <p><strong>Automated (weekly):</strong></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate document inventory</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;*.md&quot;</span> <span class="at">-type</span> f <span class="kw">|</span> <span class="fu">sort</span> <span class="op">&gt;</span> /tmp/md_files.txt</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with current index</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> /tmp/md_files.txt docs/Document-index.md</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate document inventory</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">&quot;*.md&quot;</span> <span class="at">-type</span> f <span class="kw">|</span> <span class="fu">sort</span> <span class="op">&gt;</span> /tmp/md_files.txt</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with current index</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span> /tmp/md_files.txt docs/Document-index.md</span></code></pre></div>
 <p><strong>Manual triggers:</strong> - New document created → Add to
 index - Document deprecated → Update status in index - Major
 restructuring → Full index regeneration</p>
 <hr />
+<h2 id="web-content-index-check">17. Web Content Index Check</h2>
+<h3 id="purpose-tarkoitus-8">17.1 Purpose / Tarkoitus</h3>
+<p>Every document update MUST be followed by a <strong>web content
+check</strong> — a review of which live web pages are affected by the
+change.</p>
+<p>Jokaisen dokumenttipäivityksen jälkeen TÄYTYY tehdä
+<strong>verkkosisältötarkistus</strong> — selvittää, mitkä
+live-verkkosivut muutoksesta vaikuttuvat.</p>
+<h3 id="web-content-index">17.2 Web Content Index</h3>
+<p><strong>Location:</strong> <code>docs/WEB_CONTENT_INDEX.md</code></p>
+<p>This index maps every repository document to its corresponding web
+domain pages (dws10.com, dws6.com, onelifetime.world). It is the
+authoritative source for:</p>
+<ul>
+<li>Which web pages reflect which documents</li>
+<li>What to review after a document update</li>
+<li>Which pages are web-only (no .md counterpart)</li>
+</ul>
+<h3 id="post-update-web-check-procedure">17.3 Post-Update Web Check
+Procedure</h3>
+<p><strong>After every document update</strong> (commit or PR), the
+author MUST:</p>
+<pre><code>POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record &quot;reviewed, no change&quot;
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          &quot;Web check: /page-name reviewed [no change | updated]&quot;
+Step 4 — Run: diff &lt;root-page&gt; &lt;landing-pages-copy&gt;  → must be empty</code></pre>
+<p><strong>Skip condition:</strong> If the document is internal-only
+(marked <code>—</code> in all web columns), no web check is needed —
+state “internal only” in PR description.</p>
+<h3 id="agent-skill">17.4 Agent Skill</h3>
+<p>Run <code>/content-index check &lt;document-path&gt;</code> to look
+up web impact for any document.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/content-index</span> check DWS_BRAND_STANDARD.md</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># → Lists: dws10.com/gamma/, dws6.com/shared/</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co"># → Instruction: Review these pages for content currency</span></span></code></pre></div>
+<h3 id="content-index-update-trigger">17.5 Content-Index Update
+Trigger</h3>
+<p><strong>Update <code>docs/WEB_CONTENT_INDEX.md</code> when:</strong>
+- A new <code>.md</code> document is created that has web counterparts -
+A new web page is launched that corresponds to a doc - A document is
+archived (remove or mark row) - A web page is renamed or deleted</p>
+<hr />
+<h2 id="learn-html-generation">18. Learn HTML Generation</h2>
+<h3 id="rule-sääntö">18.1 Rule / Sääntö</h3>
+<p><strong>Every standards document update MUST produce a new versioned
+HTML artifact in <code>Learn/</code>.</strong></p>
+<p>This ensures: - AI agents and humans can read the latest standard in
+rendered HTML - Morning briefing email links to current standards -
+Version history is preserved (never overwrite old versions)</p>
+<p><strong>Jokainen standardidokumentin päivitys TÄYTYY tuottaa uuden
+versioidun HTML-artefaktin kansioon <code>Learn/</code>.</strong></p>
+<h3 id="which-documents-require-learn-html">18.2 Which Documents Require
+Learn/ HTML</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 52%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Document</th>
+<th>Learn/ HTML Required</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DWS_DOCUMENT_STANDARD.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>DWS_BRAND_STANDARD.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/DWS_BRAND_STANDARD_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>DWS_SECURITY_STANDARD.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/DWS_SECURITY_STANDARD_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>Admin/ADMIN_MANUAL.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/ADMIN_MANUAL_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>Admin/SECURITY_COMPLIANCE.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/SECURITY_COMPLIANCE_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/CLAUDE_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>docs/Document-index.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/Document-index_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td><code>docs/WEB_CONTENT_INDEX.md</code></td>
+<td>✅ Yes</td>
+<td><code>Learn/WEB_CONTENT_INDEX_v{VERSION}.html</code></td>
+</tr>
+<tr>
+<td>Field notes (<code>docs/field-notes/*.md</code>)</td>
+<td>✅ Yes</td>
+<td><code>Learn/{date}-{slug}.html</code></td>
+</tr>
+<tr>
+<td>Thesis files</td>
+<td>✅ Yes — see Thesis Rule</td>
+<td><code>Learn/V3Thesis_EN_v{VERSION}.html</code> etc.</td>
+</tr>
+<tr>
+<td><code>Store/*.md</code> product files</td>
+<td>❌ No</td>
+<td>These use YAML — built by build_store.py instead</td>
+</tr>
+<tr>
+<td>Architecture docs (one-time)</td>
+<td>⚠️ Optional</td>
+<td>Generate once on initial creation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="generation-method">18.3 Generation Method</h3>
+<p><strong>Preferred: Pandoc (automated)</strong></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> DWS_DOCUMENT_STANDARD.md <span class="dt">\</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-f</span> markdown <span class="at">-t</span> html5 <span class="dt">\</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--standalone</span> <span class="dt">\</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> Learn/DWS_DOCUMENT_STANDARD_v1.7.html</span></code></pre></div>
+<p><strong>Alternative: Manual HTML</strong></p>
+<p>When pandoc is unavailable, generate minimal but valid HTML:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">&quot;en&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">&quot;utf-8&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;width=device-width, initial-scale=1&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>[Document Title] v[VERSION]<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    body { <span class="kw">font-family</span><span class="ch">:</span> <span class="dv">system-ui</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span> <span class="kw">max-width</span><span class="ch">:</span> <span class="dv">900</span><span class="dt">px</span><span class="op">;</span> <span class="kw">margin</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">rem</span> <span class="bu">auto</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0</span> <span class="dv">1</span><span class="dt">rem</span><span class="op">;</span> }</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>    pre { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">rem</span><span class="op">;</span> <span class="kw">overflow-x</span><span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span> }</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    code { <span class="kw">background</span><span class="ch">:</span> <span class="cn">#f4f4f4</span><span class="op">;</span> <span class="kw">padding</span><span class="ch">:</span> <span class="dv">0.2</span><span class="dt">em</span> <span class="dv">0.4</span><span class="dt">em</span><span class="op">;</span> }</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    h1<span class="op">,</span> h2<span class="op">,</span> h3 { <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#eee</span><span class="op">;</span> <span class="kw">padding-bottom</span><span class="ch">:</span> <span class="dv">0.3</span><span class="dt">em</span><span class="op">;</span> }</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Converted from [source.md] on [date] — DWS IQ 6 --&gt;</span></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>  [HTML CONTENT]</span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="versioning-rules">18.4 Versioning Rules</h3>
+<ul>
+<li><strong>NEVER overwrite</strong> an existing versioned file (e.g.,
+<code>_v1.6.html</code>)</li>
+<li><strong>Always create a new file</strong> with the new version
+number</li>
+<li><strong>Also update</strong> the unversioned copy (e.g.,
+<code>Learn/DWS_DOCUMENT_STANDARD.html</code>) so agents always have a
+stable URL</li>
+<li>For thesis files: follow the Thesis Update Rule (4 files
+together)</li>
+</ul>
+<h3 id="morning-briefing-integration">18.5 Morning Briefing
+Integration</h3>
+<p>The CEO Cockpit morning brief (06:00 Helsinki) includes a
+<strong>Learn Artifacts</strong> section showing recently updated HTML
+files with direct GitHub links.</p>
+<p>When you publish a new Learn/ HTML: - The morning briefing
+automatically detects files modified in the last 7 days - It links to:
+<code>https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}</code></p>
+<p><strong>Skill:</strong> Run <code>/content-index learn</code> to see
+which Learn/ artifacts were published recently.</p>
+<h3 id="learn-artifact-naming">18.6 Learn Artifact Naming</h3>
+<pre><code>Learn/[DOCUMENT_SLUG]_v[MAJOR].[MINOR].html    ← versioned (permanent)
+Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)</code></pre>
+<p>Examples:</p>
+<pre><code>Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
+Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
+Learn/WEB_CONTENT_INDEX_v1.0.html       ← versioned
+Learn/WEB_CONTENT_INDEX.html            ← latest</code></pre>
+<hr />
+<h2 id="code-versioning-pr-traceability">19. Code Versioning &amp; PR
+Traceability</h2>
+<h3 id="rule-sääntö-1">19.1 Rule / Sääntö</h3>
+<p>All net-new production code files and all major rewrites MUST include
+a <strong>Code Versioning Note</strong> that ties the code to PR and
+commit lineage.</p>
+<p>Jokaisen uuden tuotantokooditiedoston ja merkittävän
+uudelleenkirjoituksen TÄYTYY sisältää <strong>Code Versioning
+Note</strong>, joka sitoo koodin PR- ja commit-historiaan.</p>
+<p><strong>Why:</strong> Enables fast forensic search (“where did this
+come from?”), rollback targeting, and compliance-grade traceability.</p>
+<h3 id="required-fields">19.2 Required Fields</h3>
+<p>Every Code Versioning Note MUST contain:</p>
+<ul>
+<li><code>Code-Version</code> (semantic:
+<code>MAJOR.MINOR.PATCH</code>)</li>
+<li><code>Introduced-In</code> (PR number,
+e.g. <code>PR-699</code>)</li>
+<li><code>Branch</code> (e.g. <code>claude/pr-699</code>)</li>
+<li><code>Commit</code> (short SHA at merge point when known)</li>
+<li><code>Date</code> (<code>YYYY-MM-DD</code>)</li>
+<li><code>Owner</code> (team or tool)</li>
+<li><code>Env-Schema</code> (e.g. <code>env-v1.0</code>) if runtime
+config is required</li>
+</ul>
+<h3 id="syntax-safe-templates-critical">19.3 Syntax-Safe Templates
+(CRITICAL)</h3>
+<p>Use language-appropriate comment syntax. Never insert markdown prose
+directly into executable syntax.</p>
+<p><strong>TypeScript / JavaScript (<code>.ts</code>, <code>.tsx</code>,
+<code>.js</code>, <code>.jsx</code>):</strong></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * CODE VERSIONING </span><span class="al">NOTE</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * Code-Version: 1.0.0</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * Introduced-In: PR-699</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * Branch: claude/pr-699</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * Commit: abc1234</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * Date: 2026-03-13</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * Owner: DWS Platform / AI Agent</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * Env-Schema: env-v1.0</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span></code></pre></div>
+<p><strong>Python (<code>.py</code>):</strong></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co">CODE VERSIONING </span><span class="al">NOTE</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co">Code-Version: 1.0.0</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co">Introduced-In: PR-699</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="co">Branch: claude/pr-699</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co">Commit: abc1234</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="co">Date: 2026-03-13</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="co">Owner: DWS Platform / AI Agent</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="co">Env-Schema: env-v1.0</span></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div>
+<p><strong>SQL migrations (<code>.sql</code>):</strong></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- CODE VERSIONING </span><span class="al">NOTE</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- Code-Version: 1.0.0</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Introduced-In: PR-699</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Branch: claude/pr-699</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Commit: abc1234</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Date: 2026-03-13</span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Owner: DWS Platform / AI Agent</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Env-Schema: env-v1.0</span></span></code></pre></div>
+<p><strong>Shell / YAML / Dockerfile:</strong></p>
+<pre class="text"><code># CODE VERSIONING NOTE
+# Code-Version: 1.0.0
+# Introduced-In: PR-699
+# Branch: claude/pr-699
+# Commit: abc1234
+# Date: 2026-03-13
+# Owner: DWS Platform / AI Agent
+# Env-Schema: env-v1.0</code></pre>
+<h3 id="increment-rules-for-code-version">19.4 Increment Rules for
+<code>Code-Version</code></h3>
+<ul>
+<li>Patch (<code>x.y.Z</code>): bug fix, no behavior contract
+change</li>
+<li>Minor (<code>x.Y.z</code>): additive behavior, backward
+compatible</li>
+<li>Major (<code>X.y.z</code>): breaking behavior/API/contract
+change</li>
+</ul>
+<h3 id="env-versioning-policy">19.5 .env Versioning Policy</h3>
+<p>Runtime secret files are not versioned in Git, but the schema is.</p>
+<ul>
+<li>Never commit <code>.env</code> (secrets)</li>
+<li>Always version <code>.env.example</code> structure</li>
+<li>Track schema via <code>ENV_SCHEMA_VERSION</code> in
+<code>.env.example</code></li>
+<li>Bump rules:
+<ul>
+<li>Major: breaking or renamed required variable</li>
+<li>Minor: new optional/required variable added</li>
+<li>Patch: comment/docs clarifications only</li>
+</ul></li>
+<li>Record schema changes in standards/history and PR description</li>
+</ul>
+<h3 id="enforcement-checklist-code-reviews">19.6 Enforcement Checklist
+(Code Reviews)</h3>
+<p>Before merging code PRs:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>New/rewritten files include Code
+Versioning Note</label></li>
+<li><label><input type="checkbox"></input><code>Introduced-In</code>
+references current PR number (e.g., <code>PR-699</code>)</label></li>
+<li><label><input type="checkbox"></input><code>Code-Version</code> increment
+is justified by change scope</label></li>
+<li><label><input type="checkbox"></input>If config changed:
+<code>.env.example</code> updated and <code>ENV_SCHEMA_VERSION</code>
+bumped</label></li>
+<li><label><input type="checkbox"></input>No secrets/keys included in version
+notes</label></li>
+</ul>
+<h3 id="hunt-queries-trace-any-code-fast">19.7 Hunt Queries (Trace Any
+Code Fast)</h3>
+<p>Use these repository queries to trace lineage:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All code versioning notes</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rg</span> <span class="st">&quot;CODE VERSIONING NOTE&quot;</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># All artifacts introduced in PR-699</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rg</span> <span class="st">&quot;Introduced-In:</span><span class="dt">\\</span><span class="st">s*PR-699&quot;</span></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="co"># All files using env schema lineage</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="ex">rg</span> <span class="st">&quot;Env-Schema:</span><span class="dt">\\</span><span class="st">s*env-v&quot;</span></span></code></pre></div>
+<hr />
 <h2 id="quick-reference">📋 Quick Reference</h2>
 <h3 id="document-header-template">Document Header Template</h3>
-<div class="sourceCode" id="cb58"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># [Document Title]</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>***</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># VERSION AND AGENT HISTORY</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>Version: 1.0</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: <span class="co">[</span><span class="ot">Tool</span><span class="co">]</span> | Session: <span class="co">[</span><span class="ot">ID</span><span class="co">]</span> | Date: DD.MM.YYYY | Changes: <span class="co">[</span><span class="ot">Description</span><span class="co">]</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>Session Links &amp; References:</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">Tool</span><span class="co">]</span> (<span class="co">[</span><span class="ot">ID</span><span class="co">]</span>): <span class="co">[</span><span class="ot">Link</span><span class="co">]</span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>View on GitHub: <span class="co">[</span><span class="ot">Link</span><span class="co">]</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>Document Status:</span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Created: DD.MM.YYYY</span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last Modified: DD.MM.YYYY</span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: <span class="co">[</span><span class="ot">Language</span><span class="co">]</span></span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: <span class="co">[</span><span class="ot">List</span><span class="co">]</span></span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: <span class="co">[</span><span class="ot">ACTIVE / DRAFT / ARCHIVED</span><span class="co">]</span></span>
-<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>***</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># [Document Title]</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>***</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># VERSION AND AGENT HISTORY</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>Version: 1.0</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: <span class="co">[</span><span class="ot">Tool</span><span class="co">]</span> | Session: <span class="co">[</span><span class="ot">ID</span><span class="co">]</span> | Date: DD.MM.YYYY | Changes: <span class="co">[</span><span class="ot">Description</span><span class="co">]</span></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>Session Links &amp; References:</span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span><span class="co">[</span><span class="ot">Tool</span><span class="co">]</span> (<span class="co">[</span><span class="ot">ID</span><span class="co">]</span>): <span class="co">[</span><span class="ot">Link</span><span class="co">]</span></span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>View on GitHub: <span class="co">[</span><span class="ot">Link</span><span class="co">]</span></span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>Document Status:</span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Created: DD.MM.YYYY</span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Last Modified: DD.MM.YYYY</span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Language: <span class="co">[</span><span class="ot">Language</span><span class="co">]</span></span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Languages Available: <span class="co">[</span><span class="ot">List</span><span class="co">]</span></span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Publication Status: <span class="co">[</span><span class="ot">ACTIVE / DRAFT / OUTDATED / ARCHIVED</span><span class="co">]</span></span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a>***</span></code></pre></div>
 <blockquote>
 <p><strong>Remember:</strong> Use <code>***</code> not <code>---</code>
 for pandoc compatibility.</p>
@@ -2083,8 +2541,31 @@ typography, navigation, UX guidelines
 <code>ADMIN_MANUAL_DWS6_COM.md</code></li>
 </ul>
 <hr />
-<p><strong>Version:</strong> 1.4 <strong>Effective Date:</strong> 07.
-February 2026 <strong>Next Review:</strong> Q2 2026</p>
+<p><strong>Version:</strong> 1.8 <strong>Effective Date:</strong> 13.
+March 2026 <strong>Next Review:</strong> Q2 2026</p>
+<p><strong>Major Changes in v1.8:</strong> - Added Code Versioning &amp;
+PR Traceability Standard (Section 19) - Added syntax-safe per-language
+templates for code version notes - Added <code>.env</code> schema
+versioning policy (<code>ENV_SCHEMA_VERSION</code> in
+<code>.env.example</code>) - Added explicit PR-linked requirement
+(<code>Introduced-In: PR-&lt;number&gt;</code>,
+e.g. <code>PR-699</code>)</p>
+<p><strong>Major Changes in v1.7:</strong> - Added Web Content Index
+check procedure (Section 17) — post-update web check to detect drift
+between docs and live pages - Added Learn HTML Generation rule (Section
+18) — every standards update produces a versioned HTML artifact in
+Learn/ - Created <code>docs/WEB_CONTENT_INDEX.md</code> — maps docs to
+web pages across all three domains - Created
+<code>.claude/commands/content-index.md</code> — agent skill for web
+content index - Added Learn Artifacts section to morning briefing email
+(06:00 Helsinki)</p>
+<p><strong>Major Changes in v1.6:</strong> - Added SQL migration file
+naming convention using number_ddmmyy_name.sql pattern</p>
+<p><strong>Major Changes in v1.5:</strong> - Added OUTDATED publication
+status for documents pending archive - Added document lifecycle (DRAFT →
+ACTIVE → OUTDATED → ARCHIVED) - Added marking procedure (sections
+2.4-2.5) with step-by-step instructions - Added
+<code>docs/archive/</code> folder structure reference</p>
 <p><strong>Major Changes in v1.4:</strong> - Pandoc compatibility:
 changed <code>---</code> to <code>***</code> delimiters in document
 headers - Updated PDF section (8) with actual Generate-PDFs.ps1 script
@@ -2236,17 +2717,17 @@ Reference</h2>
 <h2 id="appendix-b-version-history-format">Appendix B: Version History
 Format</h2>
 <h3 id="compact-format-for-headers">Compact Format (for headers)</h3>
-<div class="sourceCode" id="cb61"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.1 | Tool: Claude Code | Session: QVvDX | Date: 15.01.2026 | Changes: Added examples</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>Sessions &amp; Modifications:</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Version: 1.1 | Tool: Claude Code | Session: QVvDX | Date: 15.01.2026 | Changes: Added examples</span></code></pre></div>
 <h3 id="table-format-for-detailed-history">Table Format (for detailed
 history)</h3>
-<div class="sourceCode" id="cb62"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Version History</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version <span class="pp">|</span> Date <span class="pp">|</span> Tool/Author <span class="pp">|</span> Session <span class="pp">|</span> Changes <span class="pp">|</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|-------------|---------|---------|</span></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0 <span class="pp">|</span> 30.12.2025 <span class="pp">|</span> Cursor AI <span class="pp">|</span> 2025-12-30 <span class="pp">|</span> Initial creation <span class="pp">|</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1 <span class="pp">|</span> 15.01.2026 <span class="pp">|</span> Claude Code <span class="pp">|</span> QVvDX <span class="pp">|</span> Added examples <span class="pp">|</span></span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2.0 <span class="pp">|</span> 01.02.2026 <span class="pp">|</span> Manual <span class="pp">|</span> N/A <span class="pp">|</span> Complete restructure <span class="pp">|</span></span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Version History</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version <span class="pp">|</span> Date <span class="pp">|</span> Tool/Author <span class="pp">|</span> Session <span class="pp">|</span> Changes <span class="pp">|</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|------|-------------|---------|---------|</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.0 <span class="pp">|</span> 30.12.2025 <span class="pp">|</span> Cursor AI <span class="pp">|</span> 2025-12-30 <span class="pp">|</span> Initial creation <span class="pp">|</span></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1.1 <span class="pp">|</span> 15.01.2026 <span class="pp">|</span> Claude Code <span class="pp">|</span> QVvDX <span class="pp">|</span> Added examples <span class="pp">|</span></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2.0 <span class="pp">|</span> 01.02.2026 <span class="pp">|</span> Manual <span class="pp">|</span> N/A <span class="pp">|</span> Complete restructure <span class="pp">|</span></span></code></pre></div>
 </body>
 </html>

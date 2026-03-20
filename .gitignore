@@ -15,6 +15,9 @@
 .env.local
 .env.*.local
 .env.mcp
+env100326.mcp
+[0-9][0-9][0-9][0-9][0-9][0-9].env
+[0-9][0-9][0-9][0-9][0-9][0-9]mcp.env
 .mcp.json
 credentials.json
 service-account-*.json
