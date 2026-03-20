@@ -1,13 +1,13 @@
 # Admin Manual: Supabase Database Management for DWS6
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
   - Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
   - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
   - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
   - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
@@ -18,17 +18,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 11.03.2026
+  - Last Modified: 14.03.2026
   - Language: English
   - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+  - Publication Status: ACTIVE
 
----
+***
 
-**Version:** 1.3
+**Version:** 1.4
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 11.03.2026
+**Updated:** 14.03.2026
 
 ---
 

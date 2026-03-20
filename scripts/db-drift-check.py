@@ -121,7 +121,7 @@ def get_live_tables() -> set[str]:
                 data = resp.json()
                 # OpenAPI spec has paths like /table_name and /rpc/func_name
                 tables = set()
-                for path in data.get("paths", {}).keys():
+                for path in data.get("paths", {}):
                     table = path.lstrip("/")
                     if table and not table.startswith("rpc/"):
                         tables.add(table)
@@ -231,7 +231,7 @@ def run_plan(dry_run: bool = False):
             if table_name:
                 rls_enabled_tables.add(table_name.lower())
 
-    for table, files in migration_tables.items():
+    for table, _files in migration_tables.items():
         if table not in rls_enabled_tables:
             no_rls_tables.append(table)
 

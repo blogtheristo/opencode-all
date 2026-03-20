@@ -5,7 +5,7 @@
 
 **Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** March 14, 2026
+**Updated:** March 15, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -22,7 +22,7 @@
 - **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -58,6 +58,14 @@ node coordinator.cjs status    # All agent statuses
 node coordinator.cjs ready     # Which agents can launch
 node coordinator.cjs signals   # Signal log
 node coordinator.cjs emit <agent> <signal>  # Emit signal
+
+# DWS CLI (v1.1.0)
+dws status                     # Quick environment + connection check
+dws agents --format table      # List agents in human-readable table
+dws health                     # Backend + MCP health check
+dws version                    # Show CLI version
+dws run compliance --input '{"industry":"steel"}'
+dws config                     # Show current configuration
 
 # MCP Hub
 cd mcp-hub && python server.py
@@ -152,7 +160,7 @@ dws6/
 ├── Firehorse/               # Product suite
 ├── landing-pages/           # Production landing pages
 ├── supabase/migrations/     # Database migrations
-└── .github/workflows/       # CI/CD (36 workflows)
+└── .github/workflows/       # CI/CD (37 workflows)
 ```
 
 ---
@@ -262,7 +270,7 @@ Development agent coordination via file-based signals. Commands: `node coordinat
 |--------|---------|
 | Docker MCP | Container management, GitHub integration |
 | ZenFree | Security scanning (replaced Snyk) |
-| Browser MCP | Web testing, UI verification |
+| Agent Browser | Web testing, UI verification, competitive intelligence (native Rust, vercel-labs/agent-browser) |
 
 ---
 
@@ -333,19 +341,32 @@ See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, F
 | **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
 | **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
 
-**DWS CLI commands (examples):**
+**DWS CLI commands (v1.1.0):**
 ```bash
 dws agents                              # List all agents (JSON)
+dws agents --format table               # Human-readable table output
 dws run compliance --input '{"reg":"CSRD"}'
 dws run sitesense --input '{"siteId":"..."}'
 dws workflow compliance-assessment
 dws discover carbon
 dws workflows
-dws health
-dws mcp tools
+dws health                              # Backend + MCP health check
+dws status                              # Quick env + connection check
+dws config                              # Show current config
+dws version                             # CLI version info
+dws mcp tools                           # List MCP tools
+dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 ```
 
+**Output options:** `--format json|table|compact`, `--quiet` (suppress info messages).
+
+**Typo correction:** Mistyped commands show "Did you mean?" suggestions.
+
+**Error messages:** Connection failures now show actionable fix instructions.
+
 **Config:** `DWS_API_URL`, `DWS_API_TOKEN`, `DWS_PROJECT`, `DWS_SESSION`. See `cli/src/cli.ts` and [CLAUDE.md](CLAUDE.md) Build for Agents.
+
+**MCP Client Quickstart:** See `docs/MCP_CLIENT_QUICKSTART.md` for connecting Claude Code, Cursor, VS Code, or Python clients to the MCP Hub.
 
 **API key for Cline:** To get a token for Cline (or for `DWS_API_TOKEN`), run `node scripts/generate-cline-api-key.cjs` from the repo root (requires `JWT_SECRET` in `.env`). The script prints a 90-day JWT; use it in Cline as the API key when connecting to a DWS endpoint, or set as `DWS_API_TOKEN` for the CLI.
 
@@ -361,6 +382,44 @@ dws mcp tools
 | **Use with DWS** | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills. |
 
 **Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
+
+### Important add-on: gstack (Claude Code Skill System)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/blogtheristo/gstack |
+| **Origin** | Designed by Garry Tan (Y Combinator President & CEO) |
+| **What it is** | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts. |
+| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
+| **License** | MIT |
+
+**Six Skills (adapted for DWS6):**
+
+| Skill | Role | Claude Code Command | Purpose |
+|-------|------|---------------------|---------|
+| Plan (CEO) | Founder/CEO | `/plan-ceo-review` | 10-star product review, scope challenge, strategic fit |
+| Plan (Eng) | Engineering Manager | `/plan-eng-review` | Architecture lock, data flow, edge cases, security |
+| Review | Staff Engineer | `/review` | Production-breaking bug hunt, security, DWS compliance |
+| Ship | Release Engineer | `/ship` | Automated sync, test, commit, push, PR creation |
+| Browse | QA Engineer | `/browse` | Browser automation, screenshots, UI verification |
+| Retro | Engineering Manager | `/retro` | Weekly velocity analysis, work patterns, recommendations |
+
+**Recommended workflow:** `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
+
+**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, Boardy security checks, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+
+### Important add-on: Agent Browser (`agent-browser`)
+
+| Item | Detail |
+|------|--------|
+| **Repo** | https://github.com/vercel-labs/agent-browser |
+| **Install** | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`) |
+| **What it is** | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead. |
+| **Why it matters** | 1.6x faster cold start, 18x less memory, 99x smaller install vs Playwright MCP. Snapshot+Refs system saves ~93% context window by returning compact element references (`@e1`, `@e2`) instead of full DOM trees. |
+| **Key commands** | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage` |
+| **Use with DWS** | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI. |
+
+**Architecture:** Rust CLI (cold start <50ms) → CDP WebSocket → Chrome. Supports headed/headless modes, multiple isolated sessions, AES-256-GCM encrypted session storage, and device emulation.
 
 ---
 
@@ -392,6 +451,6 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 ---
 
 **Document Version:** 2.3
-**Last Updated:** March 14, 2026
+**Last Updated:** March 15, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026

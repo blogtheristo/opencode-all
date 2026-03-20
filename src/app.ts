@@ -27,22 +27,42 @@ import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
+import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
+import grokConsentRoutes from './routes/grok-consent.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
-import hilRoutes from './routes/hil.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
-import { createMCPRouter } from './mcp/agent-server.js';
-import hilRoutes from './routes/hil.routes.js';
 import captainRoutes from './routes/captain.routes.js';
+import usageRoutes from './routes/usage.routes.js';
+import onboardRoutes from './routes/onboard.routes.js';
+import complianceRoutes from './routes/compliance.routes.js';
+import reportExportRoutes from './routes/report-export.routes.js';
+import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
+import { correlationId } from './middleware/correlation-id.js';
+import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
+import { healthCheck, livenessCheck } from './middleware/health.js';
+import { validateEnv } from './middleware/env-validation.js';
 
 dotenv.config();
+
+// ============ STARTUP VALIDATION ============
+
+const envResult = validateEnv();
+if (!envResult.valid && process.env.NODE_ENV === 'production') {
+  // In production, fail fast if required vars are missing
+  logger.fatal('Startup aborted — missing required environment variables', {
+    missing: envResult.missing,
+  });
+  process.exit(1);
+}
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080; // Cloud Run default
@@ -108,9 +128,15 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
 };
 app.use(cors(corsOptions));
+
+// Correlation ID — trace every request through logs
+app.use(correlationId);
+
+// API versioning header on all responses
+app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
 app.use(express.json({ limit: '10kb' }));
@@ -137,30 +163,23 @@ app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
 
-// Request logging middleware
+// Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.path}`, {
     ip: req.ip,
     userAgent: req.get('user-agent'),
+    correlationId: req.headers['x-correlation-id'],
   });
   next();
 });
 
 // ============ HEALTH CHECK ============
 
-app.get('/health', (_req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    service: 'DWS IQ Backend',
-    version: '1.0.0',
-    features: {
-      climateAssistant: !!process.env.GROQ_API_KEY,
-      gatedAccess: true,
-      emailQueue: emailQueue.isAvailable(),
-    },
-  });
-});
+// Full health check with dependency status (Supabase, email, LLM)
+app.get('/health', healthCheck);
+
+// Lightweight liveness probe (no dependency calls)
+app.get('/livez', livenessCheck);
 
 // ============ STATIC FILES ============
 
@@ -195,6 +214,21 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
+
+// Usage metering (MVP Feature 2)
+app.use('/api/v1/usage', usageRoutes);
+
+// Onboarding wizard (baseline compliance assessment)
+app.use('/api/v1/onboard', onboardRoutes);
+
+// Compliance assessment API (scoring, registry, cost estimate)
+app.use('/api/v1/compliance', complianceRoutes);
+
+// Report export & scheduling (MVP Feature 3)
+app.use('/api/v1/reports', reportExportRoutes);
+
+// API key management (MVP Feature 1)
+app.use('/api/v1/user/api-keys', apiKeyRoutes);
 
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
@@ -263,6 +297,9 @@ app.use('/api/hil', hilRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
+
+// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
+app.use('/api/grok-consent', grokConsentRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
@@ -336,32 +373,114 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
   }
 });
 
+// Captain inquiry status update — triggers pre-briefing email on "booked"
+app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'] as string;
+
+  if (!adminKey || provided !== adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const { id } = req.params;
+  const { status } = req.body;
+  const validStatuses = ['new', 'contacted', 'booked', 'closed'];
+
+  if (!status || !validStatuses.includes(status)) {
+    res.status(400).json({ error: 'Invalid status', valid: validStatuses });
+    return;
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    res.status(500).json({ error: 'Supabase not configured' });
+    return;
+  }
+
+  try {
+    // Fetch the inquiry first (need name/email/industry for the email)
+    const fetchRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}&select=name,email,industry,seat_level,status`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
+    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    if (rows.length === 0) {
+      res.status(404).json({ error: 'Inquiry not found' });
+      return;
+    }
+
+    const inquiry = rows[0];
+
+    // Update status
+    const updateRes = await fetch(
+      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
+
+    // If status changed to "booked", send pre-briefing email
+    let emailSent = false;
+    if (status === 'booked' && inquiry.status !== 'booked') {
+      try {
+        const emailService = (await import('./services/email.service.js')).default;
+        await emailService.sendCaptainPreBriefing(
+          inquiry.email,
+          inquiry.name,
+          inquiry.industry,
+          inquiry.seat_level
+        );
+        emailSent = true;
+        logger.info('Captain pre-briefing email sent', {
+          to: inquiry.email,
+          industry: inquiry.industry,
+        });
+      } catch (emailErr) {
+        const msg = emailErr instanceof Error ? emailErr.message : 'Unknown error';
+        logger.error('Captain pre-briefing email failed', { error: msg, to: inquiry.email });
+        // Don't fail the status update if email fails
+      }
+    }
+
+    res.json({
+      status: 'updated',
+      inquiry_id: id,
+      new_status: status,
+      email_sent: emailSent,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Captain inquiry status update failed', { error: msg, id });
+    res.status(500).json({ error: 'Update failed', message: msg });
+  }
+});
+
 // ============ ERROR HANDLING ============
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    error: 'Not Found',
-    message: `Route ${req.method} ${req.path} not found`,
-    path: req.path,
-  });
-});
+// 404 handler — must be after all routes
+app.use(notFoundHandler);
 
-// Global error handler
-app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-  logger.error('Unhandled error', {
-    error: err.message,
-    stack: err.stack,
-    path: req.path,
-    method: req.method,
-  });
-
-  res.status(err.status || 500).json({
-    error: err.name || 'Internal Server Error',
-    message: err.message || 'An unexpected error occurred',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-  });
-});
+// Centralized error handler — must be LAST middleware
+app.use(errorHandler);
 
 // ============ SERVER START ============
 
@@ -403,6 +522,25 @@ const server = app.listen(PORT, () => {
       error: err.message,
     });
   });
+});
+
+// ============ PROCESS ERROR HANDLERS ============
+
+// Catch unhandled promise rejections (prevents silent failures)
+process.on('unhandledRejection', (reason: unknown) => {
+  const message = reason instanceof Error ? reason.message : String(reason);
+  const stack = reason instanceof Error ? reason.stack : undefined;
+  logger.error('Unhandled promise rejection', { error: message, stack });
+});
+
+// Catch uncaught exceptions (log and exit — process is in unknown state)
+process.on('uncaughtException', (err: Error) => {
+  logger.fatal('Uncaught exception — shutting down', {
+    error: err.message,
+    stack: err.stack,
+  });
+  // Give logger time to flush, then exit
+  setTimeout(() => process.exit(1), 1000);
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)

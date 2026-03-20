@@ -6,8 +6,8 @@ Port: 8769
 CORS: env-driven explicit origins (DWS_SECURITY_STANDARD.md §13.3.1)
 """
 
-import os
 import logging
+import os
 from datetime import datetime
 from typing import Any
 
@@ -29,7 +29,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:
@@ -83,7 +83,6 @@ def _get_run_client():
             from google.cloud import run_v2
             creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
             if creds_json:
-                import json
                 import tempfile
                 with tempfile.NamedTemporaryFile(
                     mode="w", suffix=".json", delete=False
@@ -157,7 +156,7 @@ async def health():
 
 
 @app.get("/services")
-def list_services():
+async def list_services():
     """List all Cloud Run services in project/region."""
     client = _get_run_client()
     if not client:
@@ -189,7 +188,7 @@ def list_services():
 
 
 @app.get("/services/{name}")
-def get_service(name: str):
+async def get_service(name: str):
     """Get Cloud Run service status, URL, latest revision."""
     client = _get_run_client()
     if not client:
@@ -211,7 +210,7 @@ def get_service(name: str):
 
 
 @app.post("/services/{name}/deploy")
-def deploy_service(name: str, req: DeployRequest):
+async def deploy_service(name: str, req: DeployRequest):
     """Trigger a new deployment with the given image."""
     client = _get_run_client()
     if not client:
@@ -237,7 +236,7 @@ def deploy_service(name: str, req: DeployRequest):
 
 
 @app.get("/services/{name}/logs")
-def get_logs(name: str, limit: int = 50):
+async def get_logs(name: str, limit: int = 50):
     """Fetch recent Cloud Logging entries for a Cloud Run service."""
     lc = _get_logging_client()
     if not lc:
@@ -263,7 +262,7 @@ def get_logs(name: str, limit: int = 50):
 
 
 @app.patch("/services/{name}/traffic")
-def update_traffic(name: str, req: TrafficRequest):
+async def update_traffic(name: str, req: TrafficRequest):
     """Update traffic splits between revisions (canary/rollback)."""
     client = _get_run_client()
     if not client:
@@ -290,14 +289,15 @@ def update_traffic(name: str, req: TrafficRequest):
 
 
 @app.get("/services/{name}/metrics")
-def get_metrics(name: str):
+async def get_metrics(name: str):
     """Request count, CPU, memory from Cloud Monitoring (last 15 min)."""
     if not GCP_PROJECT_ID:
         raise HTTPException(503, "GCP_PROJECT_ID not configured")
     try:
+        import time
+
         from google.cloud import monitoring_v3
         from google.protobuf.timestamp_pb2 import Timestamp
-        import time
 
         mc = monitoring_v3.MetricServiceClient()
         project_name = f"projects/{GCP_PROJECT_ID}"
@@ -336,7 +336,7 @@ def get_metrics(name: str):
 
 
 @app.patch("/services/{name}/env")
-def update_env(name: str, req: EnvUpdateRequest):
+async def update_env(name: str, req: EnvUpdateRequest):
     """Update environment variables for a Cloud Run service."""
     client = _get_run_client()
     if not client:

@@ -73,7 +73,7 @@ _AUTH_EXEMPT_PATHS: set[str] = {"/", "/health", "/docs", "/openapi.json", "/redo
 
 async def require_api_key(
     request: Request,
-    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),  # noqa: B008
 ) -> None:
     """Reject requests without a valid API key when MCP_HUB_API_KEY is set."""
     if request.url.path in _AUTH_EXEMPT_PATHS:
@@ -100,8 +100,8 @@ app.add_middleware(
         "http://localhost:3000,http://localhost:3002,https://dws10.com,https://onelifetime.world",
     ).split(","),
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
 
 
@@ -1187,10 +1187,10 @@ async def gemini_code_review(req: GeminiReviewRequest):
 # OpenSandbox server must be running on OPENSANDBOX_HOST.
 # See: mcp-hub/services/opensandbox_mcp.py, src/sandbox/opensandbox.ts
 
-from services.opensandbox_mcp import (
+from services.opensandbox_mcp import (  # noqa: E402
     MCP_TOOLS as OPENSANDBOX_MCP_TOOLS,
 )
-from services.opensandbox_mcp import (
+from services.opensandbox_mcp import (  # noqa: E402
     sandbox_create,
     sandbox_destroy,
     sandbox_execute,
