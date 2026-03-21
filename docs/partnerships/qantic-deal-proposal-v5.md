@@ -8,6 +8,7 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: DRAFT — INTERNAL ONLY (prospect stage, no NDA signed)
 
 Sessions & Modifications:
+  - Version: 5.2 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added expansion framing — "20 industries, one vendor" one-liner for 26.03 call. LWM details held back until BESS pilot proves itself.
   - Version: 5.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 8 — Mutual Credibility Window sales argument (DWS10.com as Qantic's compliance credibility layer for their clients' due diligence)
   - Version: 5.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Consolidated deal proposal incorporating corrected pipeline (3-5 verified CSRD clients), Phase 1/2/3 approach, corrected COGS (Helsinki-Berlin travel), non-compete rationale, validation question for 26.03 call
   - Version: 1.0 (business-case) | Date: 19.03.2026 | Changes: Initial partnership business case
@@ -259,6 +260,30 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 **After this deal:** Qantic becomes our energy sector reference. We become Qantic's compliance credibility layer. Both logos strengthen each other's pitch decks.
 
 **Use on the call:** Frame DWS10.com as Qantic's credibility asset, not just a backend service. Their clients' due diligence works in our favor.
+
+### Expansion Framing (26.03 Call — One Sentence Only)
+
+> "Our platform covers 20 EU-regulated industries — as your client base grows beyond energy, you don't need a new vendor."
+
+**What this does:** Positions LWM as future value without exposing architecture. No details about 20 industry models, training approach, or LWM internals. Just the outcome: one vendor, full coverage, no switching cost.
+
+**What NOT to say on 26.03:**
+- Don't mention LWM by name
+- Don't mention 15,000+ regulations or 82 ESRS disclosures
+- Don't mention QLoRA, Climate LLM, or NVIDIA
+- Don't show the industry list
+
+**When to expand:** After BESS pilot proves itself (month 2-3), when the client asks "can you also cover our factory/logistics/construction emissions?" — that's when the 20-industry conversation opens naturally, and you have leverage.
+
+**Expansion revenue potential per Qantic client:**
+
+| Phase | Scope | Revenue |
+|-------|-------|---------|
+| Phase 1 | Energy (BESS) | €99/asset/month |
+| Phase 2 | +Manufacturing, +Logistics | €500/seat/month per industry |
+| Phase 3 | Full LWM platform license | €25,000+/year |
+
+Land with energy. Expand with LWM. Don't sell the roadmap before the first invoice is paid.
 
 ---
 
