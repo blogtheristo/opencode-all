@@ -150,7 +150,7 @@
 > Best,
 > **Risto Anton Päärni**
 > Founder & CEO, Lifetime Oy
-> risto@lifetime.fi
+> risto@onelifetime.world
 > [dws10.com](https://dws10.com)
 
 ---
