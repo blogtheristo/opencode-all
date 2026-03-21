@@ -171,8 +171,6 @@
 >
 > Just floating this back up. Wanted to make sure you saw this — happy to do a quick 15-minute call instead of a full demo if that's easier.
 >
-> Happy to do a quick 15-minute call instead of a full demo if that's easier.
->
 > — Risto
 
 ---
