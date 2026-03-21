@@ -21,7 +21,7 @@
 >
 > I'm building DWS IQ 6 — an industrial climate intelligence platform covering 16 EU regulated industries. We already have construction pilots running and EUR 7k+ MRR.
 >
-> We're opening 8 Platinum Industry Captain seats (EUR 50k SAFE, EUR 3.8M cap) for operators who want to own a vertical on the platform and shape how it serves their industry. Construction is filling now.
+> We're opening 8 Platinum Industry Captain seats (EUR 50k SAFE, EUR 3.8M cap) for operators who want to own a vertical on the platform and shape how it serves their industry. Construction is available.
 >
 > Would a 30-minute Situation Room demo for construction make sense? I can show you what we're tracking for EPBD and EN 15978 specifically.
 >
@@ -53,7 +53,7 @@
 >
 > **Where we are today:**
 > - EUR 7-14k MRR, 100% customer retention
-> - EUR 59,900 in signed construction pilots
+> - EUR 59,900 construction pilots (verify signed/in-progress before sending)
 > - SiteSense Agent running on construction sites (edge AI for real-time compliance)
 > - Platform runs on EUR 15-50/month infrastructure (capital efficient by design)
 >
@@ -61,7 +61,7 @@
 >
 > Instead of a generic angel round, I'm opening 8 **Platinum Industry Captain** seats at EUR 50,000 SAFE (EUR 3.8M cap, 20% discount). Each Captain owns one of 16 EU industry verticals — founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
 >
-> Construction is filling now. Seven more verticals open.
+> Construction is available. Seven more verticals open.
 >
 > Full details: [dws10.com/captain/](https://dws10.com/captain/)
 >
@@ -89,7 +89,7 @@
 
 > Hi [First Name],
 >
-> Just floating this back up. The Construction Captain seat has had interest — wanted to make sure you saw this before it fills.
+> Just floating this back up. Wanted to make sure you saw this — happy to do a quick 15-minute call instead of a full demo if that's easier.
 >
 > Happy to do a quick 15-minute call instead of a full demo if that's easier.
 >

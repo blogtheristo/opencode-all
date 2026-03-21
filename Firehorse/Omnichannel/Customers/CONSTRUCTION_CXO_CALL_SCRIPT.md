@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Fixed three credibility risks — softened €59,900 claim to verifiable "pilotissa/sopimusvaiheessa" language, removed artificial scarcity ("paikka on nyt täyttymässä"), corrected Captain close rate from 25% to 10-15% with recalculated funnel math
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Removed Deputy Captain price (TBD per memo v3.1, not €25K), replaced sequential funnel math with parallel outreach model (LinkedIn DM + email + calls simultaneously), added channel saturation warning for 88-contact pool
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Initial creation — construction industry CXO sales call script with Captain seat pitch, objection handling, CSRD/EPBD/Fit for 55 pain points, Monitor ERP integration hook
 
@@ -24,8 +25,8 @@ Document Status:
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-SALES-CALL-001 |
-| **Version** | 1.1 |
-| **Date** | 2026-03-15 |
+| **Version** | 1.2 |
+| **Date** | 2026-03-21 |
 | **Owner** | Risto Paarni, CEO |
 | **Status** | Active |
 | **Target** | CDO, CTO, CSO, CFO — rakennusyhtiöt (liikevaihto >€50M) |
@@ -52,10 +53,11 @@ Document Status:
 
 > "Hei [nimi], Risto Paarni Lifetime Oy:stä. Kiitos ajasta."
 >
-> "Meillä on kaksi rakennusyhtiötä pilotissa — €59 900 sopimukset allekirjoitettu. Soitan koska halusin kuulla suoraan teiltä: **mikä on teidän suurin kipupiste CSRD- ja Fit for 55 -raportoinnissa juuri nyt?**"
+> "Meillä on kaksi rakennusyhtiötä pilotissa — €59 900 luokan sopimukset. Soitan koska halusin kuulla suoraan teiltä: **mikä on teidän suurin kipupiste CSRD- ja Fit for 55 -raportoinnissa juuri nyt?**"
 
 **Miksi tämä toimii:**
-- Sosiaalinen todiste: kaksi yhtiötä jo mukana, rahasumma mainittu
+- Sosiaalinen todiste: kaksi yhtiötä jo mukana, hintaluokka mainittu
+- **HUOM:** Sano "allekirjoitettu" VAIN jos sopimukset ovat oikeasti allekirjoitettu. Jos pilotit ovat sopimusvaiheessa, käytä "sopimusvaiheessa" tai "pilotissa". Yksi CFO joka tarkistaa tämän tuhoaa uskottavuuden.
 - Avoin kysymys pakottaa vastauksen — ei "kyllä/ei"
 - Ei myyntiä, vain kuuntelua
 
@@ -122,7 +124,9 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 
 **Älä mainitse ennen kuin vastapuoli on osoittanut kiinnostusta.** Jos hän pyytää demoa, kysyy hintaa tai sanoo "tämä kuulostaa mielenkiintoiselta" — silloin:
 
-> "Meillä on **8 Platinum Captain -paikkaa**, €50 000 SAFE-instrumentti. Yksi on nimetty rakennusalalle — se on nyt täyttymässä."
+> "Meillä on **8 Platinum Captain -paikkaa**, €50 000 SAFE-instrumentti. Yksi on nimetty rakennusalalle — se on vielä auki."
+>
+> **HUOM:** Sano "täyttymässä" VAIN jos oikeasti on toinen Captain-keskustelu käynnissä rakennusalalla. Keinotekoinen niukkuus paljastuu CFO-tasolla välittömästi.
 >
 > "Captain saa:"
 > - **Oma toimialavertikaalin** DWS IQ -alustalla — nimetty ja pysyvä
@@ -195,6 +199,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 | Captain Deck (8 sivua) | dws10.com/captain/deck/ |
 | Captain Landing Page | dws10.com/captain/ |
 | LinkedIn DM -pohjat | `Firehorse/Omnichannel/Investors/CAPTAIN_LINKEDIN_DM_GENERIC.md` |
+| Email-pohjat (geneerinen) | `Firehorse/Omnichannel/Investors/CAPTAIN_EMAIL_OUTREACH_GENERIC.md` |
 | Acquisition Funnel | `Firehorse/Omnichannel/Investors/CAPTAIN_ACQUISITION_FUNNEL.md` |
 | Webinar Pitch | `Firehorse/Omnichannel/Investors/CAPTAIN_WEBINAR_PITCH.md` |
 | Referral Program | `Firehorse/Omnichannel/Customers/CAPTAIN_REFERRAL_ASK.md` |
@@ -207,7 +212,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 |---------|---------|
 | Soitosta demoon -konversio | >40% |
 | Demosta Captain-keskusteluun | >30% |
-| Captain-keskustelusta allekirjoitukseen | >25% |
+| Captain-keskustelusta allekirjoitukseen | 10–15% (€50K SAFE kylmästä kontaktista — realistinen taso) |
 | Keskimääräinen soiton kesto | 8–12 min |
 | Demo-varauksia per viikko | 3–5 |
 
@@ -220,7 +225,7 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 | Puhelu (tämä runko) | 30 (lämpimät) | 40% | 12 |
 | **Yhteensä (deduplikoitu)** | **88 uniikkia** | — | **~20–25 demoa** |
 
-20–25 demoa → 6–8 Captain-keskustelua → 2–3 allekirjoitusta. Tämä on realistinen tavoite 88 kontaktilla.
+20–25 demoa → 6–8 Captain-keskustelua → **1 allekirjoitus** (10–15% close rate). Toinen allekirjoitus vaatii joko referral-kanavaa tai kontaktilistan laajentamista yli 88:n. Älä lupaa 2–3:a tällä poolilla.
 
 **Kriittinen:** LinkedIn DM ja sähköposti lähtevät viikko 1. Soitot alkavat viikko 2 lämpimiin kontakteihin (vastannut DM:ään tai avannut sähköpostin). Älä soita kylmänä koko listaa.
 
@@ -228,10 +233,10 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 
 ## Avainluvut muistiin
 
-- **Pilottiyhtiöt:** 2 kpl, €59 900 allekirjoitettu
+- **Pilottiyhtiöt:** 2 kpl, €59 900 luokan sopimukset (tarkista status ennen soittoa: allekirjoitettu / sopimusvaiheessa / pilotissa)
 - **Captain-hinta:** €50 000 SAFE (20% alennus, MFN, €3.8M cap)
 - **Deputy Captain:** hinta TBD (ei mainita soitossa ennen kuin lukittu)
-- **Rakennusalan paikka:** FILLING — kiire
+- **Rakennusalan paikka:** OPEN — älä väitä "täyttymässä" ellei toinen Captain-keskustelu ole oikeasti käynnissä
 - **Arctic 15:** Helsinki, 15.6.2026 — V1-julkaisu
 - **MRR:** €7–14K nykyinen
 - **Gross margin:** >90%
