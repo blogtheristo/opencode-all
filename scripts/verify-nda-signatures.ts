@@ -93,6 +93,18 @@ async function main() {
       console.log('  Environment: DocuSign Sandbox (demo)');
       console.log('');
 
+      const readline = await import('readline');
+      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+      const answer = await new Promise<string>((resolve) => {
+        rl.question('Send NDA to both signers? (Y/n): ', resolve);
+      });
+      rl.close();
+
+      if (answer.toLowerCase() !== 'y' && answer !== '') {
+        console.log('Aborted.');
+        process.exit(0);
+      }
+
       const result = await client.sendMutualNDA({
         signer1Email: 'risto.paarni@lifetime.fi',
         signer1Name: 'Risto Anton Päärni',
