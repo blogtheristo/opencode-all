@@ -1,10 +1,13 @@
 ---
 VERSION AND AGENT HISTORY
-Version: 1.0
-Last Updated: 2026-03-19
+Version: 1.1
+Last Updated: 2026-03-21
 Author: Claude Code (Opus 4.6)
 Agent: claude/sensor-management-research-TgY2t
 Status: DRAFT — Pending CEO review
+Changes:
+  v1.1 (2026-03-21): Updated with davidfowl/aspire-docker-ssh-template findings — single-file AppHost, SSH deploy to GN100, YARP reverse proxy, Aspire MCP endpoint
+  v1.0 (2026-03-19): Initial plan
 ---
 
 # Sensor Management with .NET Aspire for DWS IQ 6
@@ -18,24 +21,37 @@ DWS IQ 6 has a mature edge infrastructure (Acer Veriton GN100 with TimescaleDB +
 ## Architecture Decision: Aspire as Sidecar Orchestrator
 
 ```
-                    .NET Aspire AppHost
-                    (dev/staging orchestration only)
+                    .NET Aspire AppHost (single-file apphost.cs)
+                    (dev/staging + SSH deploy to GN100)
                            |
-          +----------------+------------------+
-          |                |                  |
-   sensor-collector   express-backend    edge-postgres
-   (new TS service)   (existing, ref)   (TimescaleDB on GN100)
-          |                |                  |
-          +-------> OTLP Collector <----------+
+          +----------------+--+-----------------+
+          |                |  |                 |
+   sensor-collector   YARP   express-backend   edge-postgres
+   (Vite/TS service)  proxy  (existing, ref)   (TimescaleDB on GN100)
+          |                |  |                 |
+          +-------> OTLP Collector <------------+
                          |
                    +-----+-----+
                    |           |
               Aspire        Langfuse
               Dashboard     (EU Cloud)
-              (dev-time)    (production LLM traces)
+              (dev + MCP)   (production LLM traces)
 ```
 
 **Key decision:** Aspire does NOT replace Express, React, Supabase, or the MCP Hub. It orchestrates the new sensor-collector service alongside existing infrastructure and provides unified OpenTelemetry visualization.
+
+### Updated: Single-File AppHost Pattern (from davidfowl/aspire-docker-ssh-template)
+
+David Fowler's Aspire Docker SSH template (March 2026) introduces critical simplifications:
+
+1. **Single-file `apphost.cs`** — uses `#:sdk` and `#:package` directives instead of `.csproj`. Eliminates the multi-project structure entirely.
+2. **SSH Deploy support** — `builder.AddDockerComposeEnvironment("dcenv").WithSshDeploySupport()` enables deploying directly to GN100 over SSH via `aspire deploy`.
+3. **YARP reverse proxy** — serves static files and routes API requests. Can front the sensor HTTP endpoint with HTTPS (Let's Encrypt via Certbot container).
+4. **Aspire MCP endpoint** — `ASPIRE_DASHBOARD_MCP_ENDPOINT_URL` exposes the Aspire Dashboard as an MCP server, enabling direct integration with our MCP Hub.
+5. **`AddViteApp()`** — first-class Vite/Node.js resource support, exactly what sensor-collector needs.
+6. **GitHub Actions generation** — `aspire do gh-action-dcenv` auto-generates CI/CD workflow for SSH deploy.
+
+**Impact:** Phase 1 is significantly simpler. No `.csproj`, no `ServiceDefaults` project, no manual Docker Compose authoring. SSH deploy replaces the manual "export to Docker Compose" step in Phase 4.
 
 ## Phase 1: MVP — Edge Sensor Collection (Weeks 1-3, ~40h)
 
@@ -90,30 +106,62 @@ New service at `src/sensor-collector/`:
 - **OpenTelemetry instrumentation** (`@opentelemetry/sdk-node` — auto-instrument HTTP + PG)
 - **Offline buffer** — write to local SQLite when TimescaleDB unavailable
 
-### 1.3 Aspire AppHost Project
+### 1.3 Aspire AppHost (Single-File Pattern)
 
-New at `src/aspire/DwsAspire.AppHost/`:
-- Reference sensor-collector as Node.js resource
+New single file at `src/aspire/apphost.cs` — no `.csproj` needed:
+- Uses `#:sdk` and `#:package` directives (Aspire 13.0.1+)
+- Reference sensor-collector via `AddViteApp()` (polyglot Node.js support)
 - Reference edge PostgreSQL as existing resource
-- Configure OTLP exporter → Aspire Dashboard
-- `dotnet run` launches sensor-collector + dashboard together
+- Docker Compose environment with SSH deploy to GN100
+- YARP reverse proxy for sensor HTTP endpoint
+- `aspire run` launches sensor-collector + dashboard together
+- `aspire deploy` pushes directly to GN100 over SSH
 
 ```csharp
+#:sdk Aspire.AppHost.Sdk@13.0.1
+#:package Aspire.Hosting.Docker@13.0.1-preview.1.25575.3
+#:package Aspire.Hosting.Docker.SshDeploy@0.1.0-ci.131
+#:package Aspire.Hosting.JavaScript@13.0.1
+#:package Aspire.Hosting.Yarp@13.0.1
+#:package Aspire.Hosting.PostgreSQL@13.0.1
+
+using Aspire.Hosting.Yarp;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
+// Docker Compose + SSH deploy to GN100
+builder.AddDockerComposeEnvironment("dcenv")
+       .WithSshDeploySupport();
+
+// Edge PostgreSQL with TimescaleDB (on GN100)
 var edgeDb = builder.AddPostgres("edge-postgres")
-    .WithTimescaleDb()
     .WithEndpoint(port: 5432);
 
-var sensorCollector = builder.AddNodeApp("sensor-collector", "../sensor-collector")
+// Sensor collector service (TypeScript/Vite)
+var sensorCollector = builder.AddViteApp("sensor-collector", "../sensor-collector")
     .WithReference(edgeDb)
     .WithEnvironment("MQTT_BROKER", "mqtt://localhost:1883")
     .WithEnvironment("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318");
 
+// Existing Express backend (reference only)
 var expressBackend = builder.AddConnectionString("express-backend", "http://localhost:3000");
+
+// YARP reverse proxy for sensor API + HTTPS
+if (builder.ExecutionContext.IsPublishMode)
+{
+    builder.AddYarp("sensor-api")
+           .PublishWithStaticFiles(sensorCollector)
+           .WithHostPort(80)
+           .WithExternalHttpEndpoints();
+}
 
 builder.Build().Run();
 ```
+
+Supporting files:
+- `src/aspire/.aspire/settings.json` — `{"appHostPath": "../apphost.cs"}`
+- `src/aspire/apphost.settings.json` — `{"EnableHttps": false}` (enable for Let's Encrypt on GN100)
+- `src/aspire/nuget.config` — adds `davidfowl-aspire` feed for preview packages
 
 ### 1.4 Agent Sensor Query Tools
 
@@ -132,9 +180,13 @@ Add to `src/agents/tools.ts`:
 | `src/sensor-collector/src/storage/timescale-writer.ts` | **Create** — edge PG writer |
 | `src/sensor-collector/src/storage/supabase-sync.ts` | **Create** — cloud sync service |
 | `src/sensor-collector/package.json` | **Create** |
-| `src/aspire/DwsAspire.AppHost/Program.cs` | **Create** — Aspire orchestration |
-| `src/aspire/DwsAspire.AppHost/DwsAspire.AppHost.csproj` | **Create** |
-| `src/aspire/DwsAspire.ServiceDefaults/Extensions.cs` | **Create** — shared OTEL config |
+| `src/aspire/apphost.cs` | **Create** — single-file Aspire AppHost (replaces `.csproj` + `Program.cs`) |
+| `src/aspire/.aspire/settings.json` | **Create** — Aspire CLI settings |
+| `src/aspire/apphost.settings.json` | **Create** — HTTPS/deploy config |
+| `src/aspire/apphost.run.json` | **Create** — dev launch profiles |
+| `src/aspire/nuget.config` | **Create** — NuGet feed for preview packages |
+| ~~`src/aspire/DwsAspire.AppHost/DwsAspire.AppHost.csproj`~~ | **Removed** — single-file pattern eliminates this |
+| ~~`src/aspire/DwsAspire.ServiceDefaults/Extensions.cs`~~ | **Removed** — OTEL auto-configured by Aspire SDK |
 | `Admin/Acer-Veriton-GN100/postgres/init-sensors.sql` | **Create** — sensor schema |
 | `supabase/migrations/XXXXXX_sensor_readings.sql` | **Create** — cloud replica |
 | `src/agents/tools.ts` | **Modify** — add sensor query tools |
@@ -166,7 +218,10 @@ Add to `src/agents/tools.ts`:
 - ARM64 sensor-collector build for Jetson Orin Nano deployment
 - Offline-first resilience (SQLite buffer, automatic sync)
 - KYA audit integration — sensor readings attached to agent execution logs
-- Aspire → Docker Compose export for production deployment
+- **SSH deploy to GN100** — `aspire deploy` over SSH (replaces manual Docker Compose export, enabled by `WithSshDeploySupport()`)
+- **GitHub Actions CI/CD** — `aspire do gh-action-dcenv` generates workflow for automated SSH deploy on push
+- **HTTPS with Let's Encrypt** — enable `EnableHttps: true` in `apphost.settings.json`, Certbot container auto-provisions certs
+- **Aspire MCP → MCP Hub bridge** — connect `ASPIRE_DASHBOARD_MCP_ENDPOINT_URL` to existing MCP Hub for agent discovery of sensor topology
 - 5G RAN sensor integration (if pilot demand)
 
 ## Telemetry Unification Strategy
@@ -215,22 +270,26 @@ Per `docs/DEEP_TECH_THESIS.md` — adding Aspire-orchestrated sensor management 
 
 | Risk | Likelihood | Mitigation |
 |------|-----------|------------|
-| .NET SDK required on dev machines | Medium | Aspire AppHost is dev-only; CI/CD runs in container. Production uses plain Docker Compose. |
-| Team unfamiliarity with C# | Medium | Phase 1 sensor-collector is TypeScript. C# port only if AOT performance needed (Phase 4). |
-| Aspire maturity for Node.js resources | Low-Medium | Aspire 9.2 (March 2026) has improved polyglot support. Fallback: Aspire only for OTEL + dashboard. |
+| .NET SDK required on dev machines | Medium | Aspire CLI installs standalone; single-file `apphost.cs` has no project overhead. CI/CD runs in container. |
+| Team unfamiliarity with C# | Low | Single-file `apphost.cs` is ~30 lines of config, not application code. Sensor-collector is TypeScript. |
+| Aspire maturity for Node.js resources | Low | Aspire 13.0.1 `AddViteApp()` is production-ready (davidfowl template demonstrates this). |
+| Preview packages (SshDeploy) | Medium | `Aspire.Hosting.Docker.SshDeploy@0.1.0-ci` is pre-release. Fallback: manual `docker compose` over SSH. |
 | Edge PostgreSQL capacity on GN100 | Low | 120 GiB RAM, 8 GB allocated to PG. TimescaleDB compression reduces storage 10-20x. |
 | Sensor protocol diversity | Medium | Start with HTTP POST (universal). Add MQTT/Modbus only when specific sensors demand it. |
 
 ## Verification Plan
 
-1. `dotnet run` in `src/aspire/DwsAspire.AppHost/` → Aspire Dashboard opens, sensor-collector visible
+1. `aspire run` in `src/aspire/` → Aspire Dashboard opens, sensor-collector visible as Vite resource
 2. `curl -X POST http://localhost:5100/api/sensors/readings` with test payload → data in TimescaleDB
 3. Run SiteSense agent with `siteId` that has sensors → auto-populates metrics
 4. `npm run test` — sensor query tool unit tests pass
 5. Aspire Dashboard shows sensor metrics (readings/sec, latency)
+6. `aspire deploy` with SSH target → deploys to GN100, YARP proxy serves sensor API
+7. Aspire MCP endpoint responds to `tools/list` → sensor topology discoverable by MCP Hub
 
 ## Sources
 
 - AspireConf March 23, 2026: aspire.dev/aspireconf
 - .NET Aspire Telemetry docs: learn.microsoft.com/en-us/dotnet/aspire/fundamentals/telemetry
 - Aspire Roadmap 2025-2026: github.com/dotnet/aspire/discussions/10644
+- David Fowler's Aspire Docker SSH template: github.com/davidfowl/aspire-docker-ssh-template (single-file AppHost, SSH deploy, YARP, Aspire MCP endpoint)
