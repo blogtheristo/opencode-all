@@ -129,21 +129,13 @@
 >
 > Quick question: how is your organization handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle assessments? I've spoken with dozens of construction operators and the answer is usually "consultants + spreadsheets + pain."
 >
-> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 20 regulated industries.
 >
 > **Where we are today:**
 > - EUR 7-14k MRR, 100% customer retention
 > - Construction sector customers engaged (include specific status only if contract signed)
 > - SiteSense Agent running on construction sites (edge AI for real-time compliance)
 > - Platform runs on EUR 15-50/month infrastructure (capital efficient by design)
->
-> **What I'm doing differently with this raise:**
->
-> Instead of a generic angel round, I'm opening 8 **Platinum Industry Captain** seats at EUR 50,000 SAFE (EUR 3.8M cap, 20% discount). Each Captain owns one of 16 EU industry verticals — founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
->
-> Construction is available. Seven more verticals open.
->
-> Full details: [dws10.com/captain/](https://dws10.com/captain/)
 >
 > Would a 30-minute Situation Room demo make sense? I can walk you through what we're tracking for EPBD and EN 15978 specifically — live data, not slides.
 >
@@ -152,6 +144,8 @@
 > Founder & CEO, Lifetime Oy
 > risto@onelifetime.world
 > [dws10.com](https://dws10.com)
+
+> **NOTE:** The Captain seat pitch (EUR 50k SAFE, 3.8M cap, dws10.com/captain/) moves to the **email follow-up** after they respond — not the first cold email.
 
 ---
 
