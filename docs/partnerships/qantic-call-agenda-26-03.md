@@ -68,9 +68,6 @@ Technical question that unlocks Phase 2 planning.
    - Without this number, revenue models overstate returns
    - Qantic gives the revenue side, we give the cost side — together it's the complete picture
 
-3. **"Our platform covers 20 EU-regulated industries — as your client base grows beyond energy, you don't need a new vendor."**
-   - One sentence. Don't elaborate. Let it land.
-
 ---
 
 ## 3. The Ask (5 min)
@@ -111,6 +108,11 @@ Only say this if the conversation is going well and Thomas is engaged. Skip if t
 **Good outcome:** Thomas needs to check with a client first. Set a follow-up call for the following week.
 
 **Minimum outcome:** Thomas is interested but vague. Ask: "What would you need to see to move forward?" Then deliver that specific thing.
+
+**Only if he asks about scope beyond energy:**
+> "Our platform covers 20 EU-regulated industries — as your client base grows beyond energy, you don't need a new vendor."
+
+Don't volunteer this. It plants a bigger decision than he needs to make right now. If he doesn't ask, save it for month 2-3.
 
 **After the call:**
 1. Send NDA within 2 hours
