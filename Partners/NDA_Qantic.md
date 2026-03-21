@@ -32,7 +32,7 @@ Business Identity Code: HRB 202069 B (Amtsgericht Charlottenburg, Berlin)
 Registered Address: c/o Factory Works GmbH, Lohmühlenstraße 65, 12435 Berlin, Germany
 Country of Incorporation: Germany
 Contact: Thomas A. Kalitzky, Managing Director
-Email: support@qantic.com
+Email: t.kalitzky@qantic.com
 Phone: +49 (0)30 892 099 03
 
 (Each individually a "Party" and collectively the "Parties")
@@ -366,7 +366,7 @@ Name: Thomas A. Kalitzky
 Title: Managing Director
 Date: _________________
 Place: Berlin, Germany
-Email: support@qantic.com
+Email: t.kalitzky@qantic.com
 Phone: +49 (0)30 892 099 03
 
 
@@ -394,7 +394,7 @@ Lifetime Oy:
 3.
 
 Qantic GmbH:
-1. Thomas A. Kalitzky - Managing Director - support@qantic.com - Full
+1. Thomas A. Kalitzky - Managing Director - t.kalitzky@qantic.com - Full
 2.
 3.
 

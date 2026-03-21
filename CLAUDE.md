@@ -224,6 +224,19 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 
 **Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
 
+### DocuSign Account
+
+| Field | Value |
+|-------|-------|
+| **Developer Account** | risto.paarni@lifetime.fi |
+| **Environment** | Demo (sandbox) for testing, Production for live signing |
+| **NDA Template** | `Partners/NDA_TEMPLATE_EU_2026.md` (v2.0, mutual) |
+| **Send Script** | `npx tsx scripts/verify-nda-signatures.ts send <file>` |
+
+### Qantic GmbH Contact (CRITICAL)
+
+Thomas Kalitzky's email is `t.kalitzky@qantic.com` — NOT `support@qantic.com`. Always use the personal email for contracts and NDAs.
+
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
