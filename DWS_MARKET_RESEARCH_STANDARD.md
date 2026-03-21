@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat to Strategic Partnership Registry (§8.1), added Red Hat Key Findings market intelligence (§8.1.1) — $644B GenAI market, 4-Pillar Blueprint, inference shift, DWS IQ 6 validation
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
   - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
@@ -354,6 +355,7 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 | Partner | Program | Status | Confirmed | Competitive Impact |
 |---------|---------|--------|-----------|-------------------|
 | NVIDIA | Connect ISV Partner | Confirmed | 2026-03-08 | Certified compute layer — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network |
+| Red Hat | Technology Partner | Active | 2026-03-21 | AgentOps BYOA platform — enterprise Kubernetes for agent deployment, OpenShift AI, joint NVIDIA secure AI infra. Open-source alignment with EU sovereignty. |
 
 **Partnership integration checklist (per partner):**
 - [x] Official confirmation received
@@ -365,6 +367,38 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 - [ ] Co-marketing materials prepared
 
 **Rule:** Every confirmed partnership MUST appear in this registry within 24 hours of confirmation. Update `DWS_BRAND_STANDARD.md` badge system and `Admin/SECURITY_COMPLIANCE.md` infrastructure table simultaneously.
+
+### 8.1.1 Red Hat Key Findings: The Adaptable Enterprise (2025)
+
+**Source:** Red Hat "The Adaptable Enterprise" report (2025). Contact: Mikko Pylväs, Red Hat Finland (AI event, March 2026).
+
+**Core thesis:** The question is not what your AI strategy should be, but how to build an adaptable enterprise — adaptability is the prerequisite for any AI strategy to succeed.
+
+**Market data points (validated, citable):**
+
+| Data Point | Value | Source |
+|-----------|-------|--------|
+| Worldwide GenAI spending 2025 | $644 billion (76.4% YoY increase) | Red Hat Key Findings 2025 (citing IDC) |
+| CEOs investing before understanding value | 64% | Red Hat Key Findings 2025 (citing Bain) |
+| Orgs blocked by lack of AI expertise | 42% | Bain & Company quarterly AI survey |
+| Data center accelerators for inference by 2028 | >80% | Red Hat Key Findings 2025 (citing Gartner) |
+
+**Red Hat 4-Pillar Blueprint for Adaptable Enterprise:**
+
+1. **Define Business Outcomes First** — avoid the "technological wilderness"; align AI to specific high-value business challenges
+2. **Build a Culture of Experimentation** — invest in people and time; 42% blocked by lack of in-house expertise
+3. **Hybrid Data + AI Architecture** — AI strategy must be hybrid cloud strategy; train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty
+4. **Modernize Before You Automate** — move from proprietary silos to open, flexible hybrid cloud (Linux, containers, Kubernetes)
+
+**Key signals for DWS IQ 6:**
+
+- **Inference > Training:** By 2028, 80%+ of accelerators deployed for inference, not training. DWS IQ 6 is already inference-native (GN-100 edge + Cloud Run).
+- **MCP as bridge:** Red Hat identifies MCP as critical for bridging legacy systems with agentic AI — matches DWS IQ 6 MCP+A2A architecture.
+- **Durability > Resiliency:** A durable enterprise doesn't just bounce back — it continuously delivers value while the world changes. This validates the KYA governed self-optimization model.
+- **Hybrid sovereignty:** Red Hat's hybrid cloud imperative maps to DWS IQ 6 deployment model (EU Cloud + Edge + Aiwen overlay).
+- **BYOA alignment:** Red Hat's Bring Your Own Agent framework validates DWS IQ 6's framework-agnostic agent orchestration.
+
+**Competitive positioning use:** Reference these data points in Ecosummit pitch, investor materials, and partner conversations. The Red Hat thesis independently validates DWS IQ 6 architecture choices: open, compliant, hybrid, agent-native infrastructure for EU industrial sovereignty.
 
 ---
 

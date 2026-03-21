@@ -685,7 +685,7 @@ For products and pages related to EU data sovereignty compliance.
 
 **Colors:** Red Hat Red `#ee0000`, White `#ffffff`.
 
-**Context:** Red Hat hosted an AI event with partners in Finland (March 2026). Their AgentOps strategy — Bring Your Own Agent (BYOA) — aligns with DWS IQ 6's multi-framework agent orchestration. Red Hat + NVIDIA joint work on secure AI infrastructure directly supports the KYA-governed agent isolation model.
+**Context:** Red Hat hosted an AI event with partners in Finland (March 2026). Their AgentOps strategy — Bring Your Own Agent (BYOA) — aligns with DWS IQ 6's multi-framework agent orchestration. Red Hat + NVIDIA joint work on secure AI infrastructure directly supports the KYA-governed agent isolation model. Red Hat's "The Adaptable Enterprise" (2025) Key Findings report validates DWS IQ 6 architecture: inference-native, MCP-native, hybrid-deployable, open-source aligned. Market data: $644B GenAI spending 2025, 80%+ accelerators for inference by 2028.
 
 **Usage rules:**
 - Display on partners page, technology ecosystem sections, and agent infrastructure pages
