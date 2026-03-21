@@ -8,6 +8,7 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: INTERNAL ONLY — Never share with Qantic
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/verify-nda-signatures-rdgOj | Date: 21.03.2026 | Changes: Added Section 6 — DocuSign NDA status, account details, signing workflow, Thomas contact verified
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Created from expansion strategy removed from deal proposal. Separate internal-only playbook for Risto's eyes only.
 
 Document Status:
@@ -111,7 +112,71 @@ Gap to €7k: 1-2 more direct clients or construction pilot revenue. This is tig
 
 ---
 
-**Document Owner:** Risto Päärni — Personal Strategy
+## 6. NDA & DocuSign Status
+
+### Mutual NDA — Signed via DocuSign (21.03.2026)
+
+| Field | Value |
+|-------|-------|
+| Document | Partners/NDA_Qantic.md |
+| Document ID | NDA-LT-2026-002 |
+| Type | Mutual NDA (both parties disclose and receive) |
+| Term | 5 years, trade secrets indefinite |
+| Penalty | EUR 100,000 per breach |
+| Governing Law | Finnish law, Helsinki arbitration |
+
+### Thomas Kalitzky — Verified Contact
+
+| Field | Value |
+|-------|-------|
+| Name | Thomas Andre Kalitzky |
+| Title | Managing Director |
+| Email | t.kalitzky@qantic.com |
+| Phone | +49 (0)30 892 099 03 |
+| NEVER use | support@qantic.com (general inbox, not for contracts) |
+
+### Qantic GmbH — Verified Legal Details
+
+| Field | Value |
+|-------|-------|
+| Company | Qantic GmbH |
+| Register | Amtsgericht Charlottenburg HRB 202069 B |
+| Address | c/o Factory Works GmbH, Lohmuhlenstrasse 65, 12435 Berlin, Germany |
+| Capital | EUR 25,000 |
+| Founded | 2018 |
+| Previous address (OLD) | c/o Kalitzky, Boxhagener Strasse 28, 10245 Berlin |
+
+Source: German Handelsregister (HRB 202069 B), verified 21.03.2026.
+
+### DocuSign Developer Account
+
+| Field | Value |
+|-------|-------|
+| Account | risto.paarni@lifetime.fi |
+| Environment | Demo (sandbox) for testing |
+| Integration Key | 3fc9680c-fae6-41bc-93eb-3f4377db51d0 |
+| Account ID | 6eb1e2af-f0f0-475f-9464-a3cc17c4d8d1 |
+
+### Send Command
+
+```
+npx tsx scripts/verify-nda-signatures.ts send Partners/NDA_Qantic.md
+```
+
+Auto-converts MD to PDF (pandoc), shows signer emails, prompts Y/n, sends to both signers.
+
+### Production Checklist (before sending real NDA)
+
+- [ ] Switch DOCUSIGN_ENVIRONMENT=production in .env
+- [ ] Generate new RSA key pair in DocuSign production
+- [ ] Update integration key, user ID, account ID for production
+- [ ] Grant consent via production URL (one-time)
+- [ ] Add signature anchors /sn1/ and /sn2/ to NDA document
+- [ ] Test internal signing before external
+
+---
+
+**Document Owner:** Risto Paarni — Personal Strategy
 **Distribution:** STRICTLY INTERNAL — Lifetime Oy founder only
 
-© 2026 Lifetime Oy · Internal Playbook · Confidential
+2026 Lifetime Oy · Internal Playbook · Confidential
