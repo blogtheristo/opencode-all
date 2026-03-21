@@ -19,7 +19,8 @@ This Mutual Non-Disclosure Agreement (hereinafter "**Agreement**") is entered in
 **PARTY A:**
 
 **Lifetime Oy** (hereinafter "**Lifetime**")
-Business Identity Code: 3464035-4
+Business Identity Code: 0772407-9
+VAT ID: FI07724079
 Registered Address: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 Postal Address: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 Country of Incorporation: Finland

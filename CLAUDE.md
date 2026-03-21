@@ -208,6 +208,22 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
 
+## Lifetime Oy Legal Identity Rule (CRITICAL)
+
+Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoices, and legal documents:
+
+| Field | Value |
+|-------|-------|
+| **Company Name** | Lifetime Oy |
+| **Business Identity Code (Y-tunnus)** | 0772407-9 |
+| **VAT ID (ALV-tunnus)** | FI07724079 |
+| **Registered Address** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| **Country** | Finland |
+| **CEO** | Risto Anton Päärni |
+| **Email** | risto.paarni@lifetime.fi |
+
+**Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
+
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
