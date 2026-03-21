@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 11 deal analysis (product vs API), corrected pipeline projection to verified client base (~10), fixed workshop COGS (Helsinki-Berlin travel), added 3-year revenue projection, non-compete clause rationale
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: NDA sent to Qantic GmbH — partnership status upgraded from TODO to IN PROGRESS, added NDA tracking section, updated action items
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Initial competitive analysis — Qantic GmbH energy simulation company, Q-System product, partnership and CSRD gap analysis
 
@@ -323,6 +324,123 @@ Qanticin referensseissä EI OLE yhtään:
 | SEED Energy ODYSSEY | seed-energy.fr/en/odyssey.html | 2026-03-20 |
 | EU ETS Regulation | EUR-Lex Reg. 2021/447 | Reference |
 | CSRD Directive | EUR-Lex Directive 2022/2464 | Reference |
+
+---
+
+---
+
+## 11. Deal Analysis: Product Bundle vs API Integration
+
+### 11.1 Option A — Product Deal (Channel Partner)
+
+Qantic refers energy clients to us, we sell direct.
+
+**Per client revenue (full stack):**
+
+| Product | Price | Why |
+|---------|-------|-----|
+| Climate Reporting Starter Bundle | €6,500 | DWS IQ + Firehorse Report + Workshop |
+| Firehorse Automation | €4,950 | Event-driven CSRD workflows |
+| Firehorse Data Services | €899 | API bridge Q-System → DWS IQ |
+| Fit for 55 Specialist Consulting | €4,500 | ETS/CBAM/EPBD guidance |
+| **Total per client (full stack)** | **€16,849** | |
+
+**Minimum deal:** Firehorse Reports (€1,999) + Data Services (€899) = **€2,898**
+
+**COGS per client (corrected):**
+
+| Cost | Amount | Notes |
+|------|--------|-------|
+| Cloud hosting + AI compute | ~€2,000/year | |
+| Workshop delivery (3 days) | ~2,300 EUR | Helsinki-Berlin flights ~€400 RT, 2 nights hotel ~€400, per diem 3 days ~€500, facilitator time ~€1,000 |
+| Integration setup (one-time) | ~€500 | |
+| **Total COGS** | **~€4,800** | |
+
+**Gross margin:** Full stack: €16,849 - €4,800 = €12,049 (72%). Minimum deal: €2,898 - €2,500 = €398 (14%).
+
+### 11.2 Option B — API Deal (OEM / Embedded)
+
+Qantic integrates our compliance API into Q-System. Their clients get CSRD reporting inside Q-System UI.
+
+| Model | Pricing | Year 1 (10 clients) | Notes |
+|-------|---------|---------------------|-------|
+| B1 — Per-seat SaaS | 200-500 EUR/seat/month | €180,000 | 50 seats × €300 × 12 |
+| B2 — Per-report transaction | 500-1,500 EUR/report | €48,000 | 10 clients × 6 reports × €800 |
+| B3 — Platform license (OEM) | 25,000-50,000 EUR/year + activation | €57,500 | License + 10 × €750 |
+| B4 — Revenue share | 30-40% of Qantic's charge | €35,000 | 10 × €10,000 × 35% |
+
+**Recommended:** B1 (per-seat SaaS) — predictable, scalable, fair. Do NOT offer B4 first.
+
+### 11.3 Pipeline Reality Check (CORRECTED)
+
+**Verified client base:** ~10 named references on qantic.com (Section 3)
+- Public sector: dena, LANUV NRW, EU regulator, German TSO (4)
+- Private sector: MAN, Naturstrom, Energox, int'l project developer, int'l manufacturer (5+)
+
+**Key validation question for 26.03 call:**
+"How many of your current clients have active CSRD reporting obligations this year?"
+→ This separates actual pipeline (CSRD-obligated NOW) from theoretical pipeline (might need it someday).
+
+**NOT all 10 are CSRD-obligated:**
+- Government agencies (dena, LANUV NRW): NOT subject to CSRD — they are regulators, not reporting entities
+- EU regulator: NOT subject to CSRD
+- German TSO: YES — likely CSRD scope (large company)
+- MAN Energy Solutions: YES — €4B+ revenue, CSRD Wave 1
+- Naturstrom AG: YES — energy supplier, likely CSRD Wave 2
+- Energox GmbH: MAYBE — depends on size thresholds
+- Int'l project developer: UNKNOWN
+- Int'l plant manufacturer: UNKNOWN
+
+**Realistic CSRD pipeline: 3-5 clients (not 10)**
+
+### 11.4 Three-Year Revenue Projection (CORRECTED)
+
+**Conservative (verified pipeline of 3-5 CSRD-obligated clients):**
+
+| Year | Product Deals | API Clients | Revenue |
+|------|--------------|-------------|---------|
+| Year 1 | 3 product deals | 0 | €44,547 |
+| Year 2 | 1 product deal | 5 API (B1, est. 15 seats) | €69,849 |
+| Year 3 | 0 | 10-15 API | €108,000-162,000 |
+| **3-year cumulative** | | | **€222,396-276,396** |
+
+**Optimistic (Qantic's network effect — their clients' partners, TSO ecosystem):**
+
+| Year | Product Deals | API Clients | Revenue |
+|------|--------------|-------------|---------|
+| Year 1 | 3 product deals | 0 | €44,547 |
+| Year 2 | 2 product deals | 8 API | €59,698 + €28,800 = €88,498 |
+| Year 3 | 0 | 20-25 API | €216,000-270,000 |
+| **3-year cumulative** | | | **€349,045-403,045** |
+
+**Previous projection of 50 API clients / €1.09M was OVERESTIMATED.** Qantic's verified base supports 3-5 CSRD clients directly, with network growth to 20-25 maximum by year 3.
+
+### 11.5 Recommended Approach: Phase 1 → 2 → 3
+
+**Phase 1 (now → month 3): Product deals for first 2-3 clients**
+- Revenue while API is being built
+- Learn Q-System's actual export formats firsthand
+- Get case studies and reference logos
+
+**Phase 2 (month 3-6): Build API integration**
+- Use Phase 1 learnings to design the right API surface
+- Firehorse Data Services (€899) is already the bridge product
+- Extend into REST/MCP endpoint for Q-System
+
+**Phase 3 (month 6+): API deal with B1 pricing (per-seat SaaS)**
+- 200-500 EUR/seat/month
+- Qantic sells to their full client base
+- We maintain the API, they do everything else
+
+### 11.6 Non-Negotiable Contract Terms
+
+| Term | Detail | Rationale |
+|------|--------|-----------|
+| **3-year non-compete** | Qantic cannot build competing CSRD/ESRS reporting engine | Thomas's "evening work" comment (21.03.2026) — if they can frame it as trivial to build, they will build it without the clause |
+| **Minimum annual commitment** | €25,000/year from Qantic | Covers our API hosting + support costs |
+| **API SLA** | 99.5% uptime, 2s response, EU-only hosting | Our differentiator vs US-hosted competitors |
+| **Data ownership** | Client owns their data, we process under DPA | GDPR requirement |
+| **IP protection** | DWS IQ engine, ESRS mappings, emission factor logic remain Lifetime Oy IP | Prevents reverse-engineering via API inspection |
 
 ---
 
