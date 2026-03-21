@@ -578,7 +578,7 @@ export function investorOutreachTemplate(
       <tr>
         <td style="padding: 10px 16px; background-color: #1e293b; border-radius: 8px; border-left: 3px solid #60a5fa;">
           <p style="margin: 0; font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-            <strong style="color: #f9fafb;">Alpha-Share</strong> (7.5% of verified efficiency gains) scales revenue with customer success
+            <strong style="color: #f9fafb;">SaaS + API pricing</strong> — predictable monthly cost that scales with your usage
           </p>
         </td>
       </tr>

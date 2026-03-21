@@ -95,28 +95,39 @@ Agent-governed decisions create personal liability exposure for directors and of
 
 ---
 
-## Alpha-Share Model & Performance Guarantee
+## Revenue Model — Two Tiers
 
-DWS IQ 6 captures value through **Alpha-Share** — a 7.5% flat revenue share on measurable efficiency gains delivered by agent swarms:
+DWS IQ 6 uses a **dual revenue model** optimized for market segment:
+
+### DWS6 (Standard SaaS — Tiers 1–3)
+
+| Component | Mechanism |
+|-----------|-----------|
+| **SaaS Subscription** | Fixed monthly fee: €499–€1,999/mo (Enterprise: custom) |
+| **API Transactions** | Per-call pricing for agent operations — usage-based |
+| **Performance Guarantee** | Service credit issued on verified production fault within 30 days |
+
+**Why SaaS:** SaaS-era enterprise buyers expect predictable monthly costs. Revenue sharing models (gain-share, outcome-based) create friction in procurement — CFOs want a line item, not a variable percentage. SaaS + API is the model they know and trust.
+
+### Enterprise World (Tier 4 — Alpha-Share)
+
+For **Enterprise World** customers at pricing Tier 4 — large-scale deployments where Alpha-Share's value-aligned incentives are understood and welcomed:
 
 | Component | Mechanism |
 |-----------|-----------|
 | **Base SaaS** | Platform subscription (MRR) |
-| **Alpha-Share** | 7.5% of verified efficiency gains (energy savings, compliance cost reduction, carbon credit arbitrage) |
-| **Performance Guarantee** | If gains fall below the guaranteed threshold, the customer receives a proportional credit against their next billing cycle |
+| **Alpha-Share** | Decline-to-Scale: 12% (first €1M), 8% (€1M–€10M), 5% (above €10M) of verified efficiency gains |
+| **Performance Guarantee** | Forward-looking credit on verified production fault within 30 days |
 
-### Performance Guarantee (replaces clawback language)
+**Why Tier 4 only:** Alpha-Share requires sophisticated buyers who understand value-based pricing. SaaS-era customers see revenue sharing as risk, not alignment. Enterprise World customers — large industrials, sovereign deployments — see it as proof that DWS has skin in the game.
 
-The Performance Guarantee is a forward-looking credit mechanism, not a clawback:
+### Performance Guarantee (both tiers)
 
-- **Threshold:** Each deployment sets a minimum efficiency gain target (agreed at onboarding based on baseline audit).
+- **Threshold:** Minimum efficiency gain target agreed at onboarding based on baseline audit.
 - **Measurement:** Gains verified quarterly via Firehorse forensic telemetry — auditable, tamper-evident data.
-- **If underperformance:** Customer receives a credit on the next billing cycle proportional to the shortfall. No cash refunds, no retroactive adjustments.
-- **If overperformance:** Standard 7.5% Alpha-Share applies to the full verified gain.
+- **If underperformance:** Customer receives a credit on the next billing cycle proportional to the shortfall.
 
-**Why this matters:** The Performance Guarantee de-risks adoption for the customer while protecting DWS revenue. Credits are forward-looking (reducing future invoices) rather than backward-looking (clawing back past payments). This preserves cash flow predictability for DWS while giving customers confidence.
-
-**Financial impact:** Alpha-Share creates a second revenue stream that scales with customer success. As agents optimize deeper (energy OPEX, tender wins, carbon penalties avoided), DWS revenue grows without additional sales effort. Projected **8–22x ROI** within 18 months in heavy-industry deployments.
+**Financial impact:** The dual model maximizes addressable market. SaaS captures the broad mid-market; Alpha-Share captures outsized value from Enterprise World deployments. Projected **8–22x ROI** within 18 months in heavy-industry deployments.
 
 ---
 
@@ -134,7 +145,7 @@ This is not a methodology. It is a **governance wrapper** — the KYA Standard e
 - Compliance agents that learn from one regulatory filing reduce preparation time for the next filing across all customers.
 - The 11–30% efficiency gains measured in autoresearch runs are *per-agent*. Fleet-level gains compound.
 
-**Investor relevance:** The Agentic Efficiency Law creates a flywheel — more agents deployed → more data → better optimization → higher Alpha-Share revenue → more customer value → more agents deployed. This is the network effect for industrial AI.
+**Investor relevance:** The Agentic Efficiency Law creates a flywheel — more agents deployed → more data → better optimization → higher platform revenue (SaaS + API + Enterprise World Alpha-Share) → more customer value → more agents deployed. This is the network effect for industrial AI.
 
 ---
 

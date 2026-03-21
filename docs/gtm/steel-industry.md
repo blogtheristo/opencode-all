@@ -101,7 +101,7 @@ A steel importer crosses the CBAM 50-tonne threshold. Here's what happens with a
 | Annual value per enterprise | €1M–€5.1M |
 | CBAM rebate recovery | €40–60/tCO2e |
 | Governance cost | €0.02/agent/hour |
-| Alpha-Share (efficiency gains) | 7.5% flat — you keep 92.5% |
+| SaaS Platform | €499–€1,999/mo + API transaction fees |
 | ROI at 100 agents | 13–308x |
 | Stacking Effect (multi-agent) | 3–7% bonus from cross-agent learning |
 
@@ -180,7 +180,7 @@ If the sea is not ready, move on. No drip campaigns. No automation spam.
 | "We don't use AI agents yet" | CBAM compliance will require automated monitoring at scale. Question is whether your future agents will have court-defensible audit trails or not. |
 | "NIST submission doesn't mean NIST-approved" | Correct. It means the framework is rigorous enough to submit. Your auditors will see TPM 2.0 attestation chain — that's what matters. |
 | "122ms kill switch sounds aggressive" | It's the safety net. Agents that stay within manifest never trigger it. The value is that you can prove to regulators your AI governance has teeth. |
-| "What's the catch with 7.5% Alpha-Share?" | You keep 92.5% of efficiency gains. If our agents don't generate gains, we earn nothing. Our incentives are aligned. |
+| "What's the pricing model?" | Fixed SaaS subscription + transparent API fees. You keep 100% of efficiency gains. No revenue sharing — predictable monthly cost. |
 
 ---
 
@@ -203,7 +203,7 @@ If the sea is not ready, move on. No drip campaigns. No automation spam.
 2. **LinkedIn connect sequence** — DM with Rebate Pulse hook (Day 2–3)
 3. **15-minute demo** — Helsinki Sandbox walkthrough (see `KYA_HELSINKI_SANDBOX_DEMO_SCRIPT.md`)
 4. **Technical evaluation** — Partner-only sandbox access
-5. **Close** — Governance subscription (€0.02/agent/hour) + Alpha-Share (7.5%)
+5. **Close** — SaaS subscription (€499–€1,999/mo) + API transaction fees
 
 **The decarbonization dividend is tomorrow. Dog leashed. Steel auditable. Main rig primed.**
 
