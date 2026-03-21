@@ -134,19 +134,20 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 | Company | Country | Language | Contacts |
 |---------|---------|----------|----------|
-| NCC | Sweden | Swedish | 8 |
-| Skanska | Sweden | Swedish (7), English (Katy Dowding UK), Norwegian (Ståle Roed) | 8 |
-| PORR | Austria | German | 8 |
-| STRABAG | Austria/Germany | German | 8 |
-| HOCHTIEF | Germany | German | 8 |
-| Vinci | France | French | 8 |
-| Bouygues | France | French | 8 |
-| Eiffage | France | French | 8 |
-| Balfour Beatty | UK | English | 8 |
-| Sweco | Sweden/Finland | Swedish (7), Finnish (Petri Kasari) | 8 |
+| NCC | Sweden | Swedish (8) | 8 |
+| Skanska | Sweden/intl | Swedish (5), English (2: Kennedy USA, Dowding UK), Norwegian (1: Rød) | 8 |
+| PORR | Austria | German (8) | 8 |
+| STRABAG | Austria/Germany | German (8) | 8 |
+| HOCHTIEF | Germany | German (8) | 8 |
+| Vinci | France | French (8) | 8 |
+| Bouygues | France | French (8) | 8 |
+| Eiffage | France | French (8) | 8 |
+| Balfour Beatty | UK | English (8) | 8 |
+| Royal BAM | Netherlands | Dutch (7), English (1: COO UK/Ireland) | 8 |
+| Sweco | Sweden/Finland | Swedish (7), Finnish (1: Petri Kasari) | 8 |
 | **Total** | | | **88** |
 
-**Language split:** Swedish ~22, German ~24, French ~24, English ~9, Finnish ~1, Norwegian ~1
+**Language split:** Swedish 20, German 24, French 24, English 11, Dutch 7, Finnish 1, Norwegian 1 = **88**
 
 ---
 

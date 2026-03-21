@@ -94,7 +94,7 @@ This document describes the end-to-end investor outreach workflow, connecting co
   - Reference specific portfolio company
   - Mention CSRD/Fit for 55 regulatory wave
   - Highlight traction (€7k MRR, 100% retention)
-  - Include link to investor-relations page
+  - Include link to Captain page (https://dws10.com/captain/)
 - **CTA**: "Open to a brief call next week?"
 - **Tracking**: UTM parameters + campaign_id + investor_id
 
@@ -125,15 +125,16 @@ Founder & CEO, Lifetime Oy
 risto@onelifetime.world
 ```
 
-### 2. Investor Relations Page
+### 2. Captain Landing Page
 
-**URL**: https://dws10.com/investor-relations/
+**URL**: https://dws10.com/captain/
+**Deck**: https://dws10.com/captain/deck/
 
 **Page Content:**
 1. **Hero Section**
-   - Headline: "DWS IQ 6: Climate Intelligence for Construction & Infrastructure Portfolios"
-   - Subtitle: "Automated compliance reporting for Fit for 55 / CSRD"
-   - Key metrics: €7k MRR, 100% retention, mandatory market
+   - Headline: "Own an Industry Vertical — Platinum Captain Seats"
+   - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 20% discount"
+   - Key metrics: EUR 7k+ MRR, 100% retention, mandatory market
    - CTA: "Request full deck / intro call"
 
 2. **Problem Section**
@@ -568,7 +569,7 @@ EMAIL_FROM_NAME=Risto Anton Päärni
 # Daily cap for investor outreach emails (LinkedIn DMs handled separately)
 DAILY_LIMIT=5
 SEND_HOUR=9
-INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
+INVESTOR_PAGE_URL=https://dws10.com/captain/
 ```
 
 ---
@@ -581,7 +582,8 @@ INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 - **Founder**: Risto Anton Päärni
 
 ### Key Resources
-- **Investor Page**: https://dws10.com/investor-relations/
+- **Captain Page**: https://dws10.com/captain/
+- **Captain Deck**: https://dws10.com/captain/deck/
 - **Crunchbase**: https://www.crunchbase.com/organization/lifetime-oy
 - **Peachscore**: https://app.peachscore.com/company/lifetime-oy
 - **GitHub**: https://github.com/blogtheristo/dws6
