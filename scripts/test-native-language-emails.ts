@@ -1,19 +1,30 @@
 /**
  * Test script: Send 5 native-language Captain DM emails (SV, DE, FI, FR, EN)
- * Uses Resend API directly (no nodemailer dependency needed).
+ * Uses the production transport cascade: Amazon SES (SMTP) primary → Resend fallback.
  * All sent to risto@lifetime.fi for review before real outreach.
+ *
+ * Requires: SMTP_HOST + SMTP_USER + SMTP_PASS (SES primary)
+ *           RESEND_API_KEY (fallback only)
  *
  * Usage: npx tsx scripts/test-native-language-emails.ts
  */
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+import { sendEmail } from '../src/utils/send-email.js';
+
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const TO = 'risto@lifetime.fi';
 
-if (!RESEND_API_KEY) {
-  console.error('ERROR: RESEND_API_KEY not set. Check .env');
+const hasSmtp = !!process.env.SMTP_HOST;
+const hasResend = !!process.env.RESEND_API_KEY;
+
+if (!hasSmtp && !hasResend) {
+  console.error('ERROR: No email transport configured.');
+  console.error('  Primary: SMTP_HOST, SMTP_USER, SMTP_PASS (Amazon SES)');
+  console.error('  Fallback: RESEND_API_KEY');
   process.exit(1);
 }
+
+console.log(`Transport: ${hasSmtp ? 'SES (SMTP) primary' : 'SES not configured'}${hasResend ? ' + Resend fallback' : ''}`);
 
 interface TestEmail {
   lang: string;
@@ -109,30 +120,6 @@ const emails: TestEmail[] = [
   },
 ];
 
-async function sendViaResend(email: TestEmail): Promise<{ ok: boolean; id?: string; error?: string }> {
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-    },
-    body: JSON.stringify({
-      from: FROM,
-      to: [TO],
-      subject: email.subject,
-      html: email.body,
-      reply_to: FROM,
-    }),
-  });
-
-  if (response.ok) {
-    const data = await response.json() as { id: string };
-    return { ok: true, id: data.id };
-  }
-  const errBody = await response.text();
-  return { ok: false, error: `${response.status}: ${errBody}` };
-}
-
 async function main() {
   console.log('=== Native Language Captain DM Test Emails ===\n');
   console.log(`From: ${FROM}`);
@@ -143,9 +130,15 @@ async function main() {
 
   for (const email of emails) {
     process.stdout.write(`  ${email.lang}... `);
-    const result = await sendViaResend(email);
+    const result = await sendEmail({
+      from: FROM,
+      to: TO,
+      subject: email.subject,
+      html: email.body,
+      replyTo: FROM,
+    });
     if (result.ok) {
-      console.log(`OK (id: ${result.id})`);
+      console.log(`OK via ${result.transport}`);
       sent++;
     } else {
       console.log(`FAIL: ${result.error}`);
