@@ -1,12 +1,13 @@
 # MVP Feature List V1 — What Must Be Built to Ship
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.1.0
+> **Version:** 1.2.0
 > **Status:** Active
 > **Created:** 2026-03-07
-> **Updated:** 2026-03-15 — Audit-based readiness update: real metrics from codebase (Claude Code, claude/status-report-mvp-vbug1)
+> **Updated:** 2026-03-21 — P0 hardening: asyncHandler, request timeout, dashboard Suspense/404, error middleware tests
 >
 > VERSION AND AGENT HISTORY
+> v1.2.0 | 2026-03-21 | Claude Code (claude/review-dws-v1-features-AZD14) | P0 fixes: RC1 compliance engine confirmed 95% real (not stub), RC2 asyncHandler+timeout added, RC4 Suspense+404+a11y, RC5 onboarding confirmed complete, 21 test files
 > v1.1.0 | 2026-03-15 | Claude Code (claude/status-report-mvp-vbug1) | Audit-based update: 1846 commits, 342 PRs, real component readiness scores, updated current state table
 > v1.0.0 | 2026-03-07 | Claude Code (claude/mvp-feature-list-WgjHq) | Root-cause MVP analysis from codebase audit
 
@@ -26,14 +27,14 @@ This document applies **root cause thinking**. Every item answers: "Why can't we
 
 | Layer | What Exists (Audited) | Readiness | What's Missing |
 |-------|----------------------|-----------|----------------|
-| **Backend** | Express/TS, route files, 15 agents, auth, JWT, Helmet, email (SES+Resend) | **75%** | Error handling middleware, request validation, health check endpoint |
-| **Dashboard** | v9-react (Vite + React 19), components, pages, auth hook | **60%** | Error boundaries, loading states, responsive layout, offline handling |
-| **Agents** | 15 platform agents (8 core + 7 specialized), all with Llama 3.3 70B | **85%** | Real compliance computation (agents return simulated data) |
+| **Backend** | Express/TS, 20 routes, error handler, asyncHandler, request timeout, Zod validation, health checks, correlation IDs, graceful shutdown | **85%** | Production load testing, circuit breakers |
+| **Dashboard** | v10-react (Vite 7.2 + React 19.2), ErrorBoundary, Skeleton, Toast, useApi w/ retry, Suspense lazy loading, 404 page, a11y alerts | **75%** | Error tracking service (Sentry), request deduplication |
+| **Agents** | 20+ platform agents (8 core + 7 specialized + workflow), real compliance scoring (ETS/CBAM/CSRD/ESRS) | **85%** | Fit for 55 + EU AI Act deep scoring |
 | **MCP Hub** | 6 MCP servers (claude, cloud-run, cloudrun, lwm, supabase, supabase-official) | **80%** | Production load testing |
 | **CLI** | `dws agents`, `dws run`, `dws workflow` commands | **75%** | CLI coverage for all agents |
 | **Skills** | 17 Claude Code skills (compliance, agents, workflow, gstack, email, etc.) | **90%** | Skill documentation cleanup |
 | **Database** | 52 migrations, pgvector, RLS, auth/org schema, Supabase EU | **80%** | Compliance data models (ETS/CBAM/CSRD tables) |
-| **Tests** | 17 test files in `src/__tests__/` | **55%** | Coverage gate, integration tests, E2E |
+| **Tests** | 21 test files in `src/__tests__/` (auth, compliance, error middleware, agents, BESS/CBAM/ETS) | **62%** | Integration tests, E2E |
 | **CI/CD** | 38 GitHub workflows | **85%** | Staging environment, migration pipeline, error tracking |
 | **Integrations** | ERP (SAP, IFS, Dynamics), ESG (Worldfavor, PositionGreen), ICEYE, Trade | **50%** | Production-verified connectors |
 | **Security** | KYA standard, EU AI Act, GDPR, SRI hashes, drift checks, RLS | **80%** | ISO 27001 / SOC 2 (Phase 3) |
@@ -42,8 +43,8 @@ This document applies **root cause thinking**. Every item answers: "Why can't we
 | **Docker/Infra** | hybrid compose, Cloudflare Workers, GCP Cloud Run, Lightpanda | **70%** | Production hardening |
 | **Email** | Dual transport (SES primary + Resend fallback), templates, batch | **90%** | Operational — not blocking MVP |
 
-**Overall DWS IQ 6 Platform Readiness: 75%**
-**Overall DWS 6 MVP Readiness: 72%**
+**Overall DWS IQ 6 Platform Readiness: 82%**
+**Overall DWS 6 MVP Readiness: 80%**
 
 ---
 

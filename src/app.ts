@@ -50,6 +50,7 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { requestTimeout } from './middleware/request-timeout.js';
 
 dotenv.config();
 
@@ -162,6 +163,9 @@ const loginLimiter = rateLimit({
 app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
+
+// Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
+app.use(requestTimeout());
 
 // Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
