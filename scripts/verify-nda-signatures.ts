@@ -1,13 +1,14 @@
 /**
- * Verify NDA Signatures — DocuSign Integration Test
+ * Verify NDA Signatures — DocuSign Integration
  *
  * Usage:
- *   npx tsx scripts/verify-nda-signatures.ts auth     # Test JWT authentication
- *   npx tsx scripts/verify-nda-signatures.ts consent   # Get consent URL
- *   npx tsx scripts/verify-nda-signatures.ts list      # List recent envelopes
- *   npx tsx scripts/verify-nda-signatures.ts status <envelopeId>  # Check envelope
+ *   npx tsx scripts/verify-nda-signatures.ts auth       # Test JWT authentication
+ *   npx tsx scripts/verify-nda-signatures.ts consent     # Get consent URL
+ *   npx tsx scripts/verify-nda-signatures.ts list        # List recent envelopes
+ *   npx tsx scripts/verify-nda-signatures.ts status <id> # Check envelope
+ *   npx tsx scripts/verify-nda-signatures.ts send <file> # Send mutual NDA for signing
  *
- * Code-Version: 1.0.0
+ * Code-Version: 1.1.0
  * Date: 2026-03-21
  * Owner: risto.paarni2022@lifetime.fi
  */
@@ -79,9 +80,95 @@ async function main() {
       break;
     }
 
+    case 'send': {
+      const filePath = process.argv[3] || 'Partners/NDA_Qantic.md';
+      const fs = await import('fs');
+      const { execSync } = await import('child_process');
+      if (!fs.existsSync(filePath)) {
+        console.error(`File not found: ${filePath}`);
+        process.exit(1);
+      }
+
+      // Convert .md to .pdf — DocuSign cannot accept .md files
+      // Priority: pandoc (best quality) → markdown-pdf (fallback)
+      let sendPath = filePath;
+      if (filePath.endsWith('.md')) {
+        const pdfPath = filePath.replace(/\.md$/, '.pdf');
+        console.log(`Converting ${filePath} → PDF...`);
+
+        let converted = false;
+
+        // Try pandoc first (best quality, supports headers/footers)
+        try {
+          execSync('pandoc --version', { stdio: 'ignore' });
+          execSync(
+            `pandoc "${filePath}" -o "${pdfPath}" --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=11pt`,
+            { stdio: 'inherit' },
+          );
+          converted = fs.existsSync(pdfPath);
+          if (converted) console.log('  Converted with pandoc.');
+        } catch {
+          // pandoc not available or failed
+        }
+
+        // Fallback: markdown-pdf (npm)
+        if (!converted) {
+          try {
+            execSync(`npx --yes markdown-pdf "${filePath}" -o "${pdfPath}"`, { stdio: 'inherit' });
+            converted = fs.existsSync(pdfPath);
+            if (converted) console.log('  Converted with markdown-pdf.');
+          } catch {
+            // markdown-pdf failed
+          }
+        }
+
+        if (!converted) {
+          console.error('PDF conversion failed. Install pandoc or run: npm i -g markdown-pdf');
+          process.exit(1);
+        }
+
+        sendPath = pdfPath;
+        console.log('');
+      }
+      console.log(`Sending mutual NDA: ${filePath}`);
+      console.log('  Signer 1: Risto Anton Päärni <risto.paarni@lifetime.fi>');
+      console.log('  Signer 2: Thomas A. Kalitzky <t.kalitzky@qantic.com>');
+      console.log('  Environment: DocuSign');
+      console.log('');
+
+      const readline = await import('readline');
+      const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+      const answer = await new Promise<string>((resolve) => {
+        rl.question('Send NDA to both signers? (Y/n): ', resolve);
+      });
+      rl.close();
+
+      if (answer.toLowerCase() !== 'y' && answer !== '') {
+        console.log('Aborted.');
+        process.exit(0);
+      }
+
+      const result = await client.sendMutualNDA({
+        signer1Email: 'risto.paarni@lifetime.fi',
+        signer1Name: 'Risto Anton Päärni',
+        signer2Email: 't.kalitzky@qantic.com',
+        signer2Name: 'Thomas A. Kalitzky',
+        documentPath: sendPath,
+      });
+
+      console.log('SUCCESS — Mutual NDA sent for signing');
+      console.log(`  Envelope ID: ${result.envelopeId}`);
+      console.log(`  Status: ${result.status}`);
+      console.log(`  Sent at: ${result.statusDateTime}`);
+      console.log('');
+      console.log('Track status:');
+      console.log(`  npx tsx scripts/verify-nda-signatures.ts status ${result.envelopeId}`);
+      break;
+    }
+
     default:
       console.error(`Unknown command: ${command}`);
-      console.log('Commands: auth, consent, list, status <id>');
+      console.log('Commands: auth, consent, list, status <id>, send <file>');
       process.exit(1);
   }
 }

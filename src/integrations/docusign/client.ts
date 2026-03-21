@@ -361,6 +361,54 @@ export class DocuSignClient {
   }
 
   /**
+   * Send mutual NDA envelope — both parties sign.
+   * Signer 1 signs first (routingOrder 1), then Signer 2 (routingOrder 2).
+   */
+  async sendMutualNDA(params: {
+    signer1Email: string;
+    signer1Name: string;
+    signer2Email: string;
+    signer2Name: string;
+    documentPath: string;
+  }): Promise<EnvelopeResult> {
+    const documentBase64 = fs.readFileSync(params.documentPath).toString('base64');
+    const ext = path.extname(params.documentPath).replace('.', '');
+
+    const recipients: Recipient[] = [
+      {
+        email: params.signer1Email,
+        name: params.signer1Name,
+        type: RecipientType.SIGNER,
+        routingOrder: 1,
+        tabs: [{ anchorString: '/sn1/', anchorYOffset: '-10' }],
+      },
+      {
+        email: params.signer2Email,
+        name: params.signer2Name,
+        type: RecipientType.SIGNER,
+        routingOrder: 2,
+        tabs: [{ anchorString: '/sn2/', anchorYOffset: '-10' }],
+      },
+    ];
+
+    return this.sendEnvelope({
+      emailSubject: 'Mutual NDA — Lifetime Oy × Qantic GmbH — Please sign',
+      emailBlurb: 'Please review and sign the attached Mutual Non-Disclosure Agreement between Lifetime Oy and Qantic GmbH.',
+      documents: [
+        {
+          name: 'Mutual Non-Disclosure Agreement',
+          fileExtension: ext || 'pdf',
+          documentId: '1',
+          documentBase64,
+        },
+      ],
+      recipients,
+      status: 'sent',
+      signatureType: SignatureType.NDA,
+    });
+  }
+
+  /**
    * Get the consent URL for first-time JWT auth.
    * User must visit this URL once to grant consent.
    */

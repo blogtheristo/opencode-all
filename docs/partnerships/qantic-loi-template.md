@@ -31,7 +31,7 @@ Partnership for EU Compliance API Services
 
 ### 1. Parties
 
-- **Lifetime Oy** (Business ID: 3464035-4), Helsinki, Finland
+- **Lifetime Oy** (Business ID: 0772407-9, VAT: FI07724079), Espoo, Finland
   Represented by: Risto Päärni, CEO
 
 - **Qantic GmbH**, Berlin, Germany

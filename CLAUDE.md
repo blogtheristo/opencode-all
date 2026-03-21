@@ -148,7 +148,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 8. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
 
-9. **Never Delete Files — Always Move (CRITICAL)** — Use `git mv` to move files, never `git rm` or delete. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+9. **Never Delete Files — Always Rename to _OLD (CRITICAL)** — NEVER use `git rm` or delete. When "delete" is mentioned, rename the file by appending `_OLD` to the filename (before the extension). **Always ask the human for confirmation first** before renaming. No exceptions. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
@@ -207,6 +207,29 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 13. Not using DWS document standard
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
+
+## Lifetime Oy Legal Identity Rule (CRITICAL)
+
+Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoices, and legal documents:
+
+| Field | Value |
+|-------|-------|
+| **Company Name** | Lifetime Oy |
+| **Business Identity Code (Y-tunnus)** | 0772407-9 |
+| **VAT ID (ALV-tunnus)** | FI07724079 |
+| **Registered Address** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| **Country** | Finland |
+| **CEO** | Risto Anton Päärni |
+| **Email** | risto.paarni@lifetime.fi |
+
+**Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
+
+### DocuSign eSignature
+
+- **Developer account:** `risto.paarni@lifetime.fi`
+- **NDA Template:** `Partners/NDA_TEMPLATE_EU_2026.md` (v2.0, mutual)
+- **Send script:** `npx tsx scripts/verify-nda-signatures.ts send <file>`
+- **Full developer note:** `docs/field-notes/2026-03-21-docusign-esignature-integration.md`
 
 ## Email Rules (CRITICAL)
 
