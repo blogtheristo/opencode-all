@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-DM-CONST-001 |
-| **Version** | 1.0 |
-| **Date** | 2026-02-15 |
+| **Version** | 2.0 |
+| **Date** | 2026-03-21 |
 | **Funnel Stage** | Stage 1 — First Touch |
 | **Target** | Construction industry operators, BAs, ESG/sustainability leads |
 | **Channels** | LinkedIn DM + Email |
@@ -13,101 +13,93 @@
 
 ## LinkedIn DM (Construction — Business Angel / Operator)
 
-> Hi [First Name],
+> Hi [FILL IN: First Name],
 >
-> I noticed your work in [construction / their specific area — e.g. "sustainable concrete" or "NCC's green transformation"]. Quick question from a founder's perspective:
+> I noticed your work at [FILL IN: Company] — particularly [FILL IN: specific LinkedIn post, initiative, or news — DO NOT send with brackets]. Quick question from a founder's perspective:
 >
 > How is your team handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle? Manual spreadsheets, consultants, or something else?
 >
 > I'm building DWS IQ 6 — an industrial climate intelligence platform covering 20 EU regulated industries. We're live in production with EUR 7k+ MRR and construction sector customers.
 >
-> We're opening 8 Platinum Industry Captain seats (EUR 50k SAFE, EUR 3.8M cap) for operators who want to own a vertical on the platform and shape how it serves their industry. Construction is available.
->
 > Would a 30-minute Situation Room demo for construction make sense? I can show you what we're tracking for EPBD and EN 15978 specifically.
 >
 > — Risto
 
-**Character count:** ~680 (within LinkedIn DM limit)
+**Character count:** ~530 (within LinkedIn DM limit)
+
+> **NOTE:** Captain seat pitch (EUR 50k SAFE) goes in the **follow-up** after they respond — not the opener.
 
 ---
 
 ## LinkedIn DM — Svenska (NCC, Skanska, Sweco)
 
-> Hej [Fornamn],
+> Hej [FYLL I: Fornamn],
 >
-> Jag noterade ert arbete inom [bygg / deras specifika omrade — t.ex. "hallbart betong" eller "NCC:s grona omstallning"]. En snabb fraga fran ett grundarperspektiv:
+> Ert arbete pa [FYLL I: Foretag] fangade min uppmarksamhet — sarskilt [FYLL I: specifik LinkedIn-inlagg, initiativ eller nyhet — skicka INTE med hakparenteser]. En snabb fraga fran ett grundarperspektiv:
 >
 > Hur hanterar ert team Fit for 55-rapportering just nu — CSRD, EPBD, EN 15978 koldioxidlivscykel? Manuella kalkylark, konsulter, eller nagot annat?
 >
 > Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 20 EU-reglerade branscher. Vi ar i produktion med EUR 7k+ MRR och byggkunder.
 >
-> Vi oppnar 8 Platinum Industry Captain-platser (EUR 50k SAFE, EUR 3,8M cap) for operatorer som vill aga en vertikal pa plattformen och forma hur den betjanar deras bransch. Bygg ar tillgangligt.
->
 > Passar en 30-minuters Situation Room-demo for bygg? Jag kan visa vad vi trackar for EPBD och EN 15978 specifikt.
 >
 > — Risto
 
-**Teckenantal:** ~720
+**Teckenantal:** ~530
 
 ---
 
 ## LinkedIn DM — Deutsch (PORR, STRABAG, HOCHTIEF)
 
-> Hallo [Vorname],
+> Hallo [AUSFULLEN: Vorname],
 >
-> Ihre Arbeit im Bereich [Bau / spezifisches Gebiet — z.B. "nachhaltiger Beton" oder "STRABAGs digitale Transformation"] hat meine Aufmerksamkeit erregt. Eine kurze Frage aus Grunderperspektive:
+> Ihre Arbeit bei [AUSFULLEN: Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [AUSFULLEN: spezifischer LinkedIn-Post, Initiative oder Nachricht — NICHT mit Klammern senden]. Eine kurze Frage aus Grunderperspektive:
 >
 > Wie handhabt Ihr Team die Fit-for-55-Berichterstattung derzeit — CSRD, EPBD, EN 15978 CO2-Lebenszyklus? Manuelle Tabellenkalkulationen, Berater, oder etwas anderes?
 >
 > Ich baue DWS IQ 6 — eine industrielle Klimaintelligenz-Plattform fur 20 EU-regulierte Branchen. Wir sind in Produktion mit EUR 7k+ MRR und Baukunden.
 >
-> Wir vergeben 8 Platinum Industry Captain-Sitze (EUR 50k SAFE, EUR 3,8M Cap) an Operatoren, die eine Vertikale auf der Plattform besitzen und mitgestalten mochten. Bau ist verfugbar.
->
 > Passt eine 30-minutige Situation-Room-Demo fur den Baubereich? Ich kann zeigen, was wir fur EPBD und EN 15978 konkret tracken.
 >
 > — Risto
 
-**Zeichenanzahl:** ~750
+**Zeichenanzahl:** ~550
 
 ---
 
 ## LinkedIn DM — Suomi (Petri Kasari / Sweco, suomalaiset kontaktit)
 
-> Hei [Etunimi],
+> Hei [TAYTA: Etunimi],
 >
-> Huomasin tyosi [rakentaminen / tarkka alue — esim. "kestava betoni" tai "Swecon digitaalinen innovaatio"]. Nopea kysymys perustajan nakokulmasta:
+> Tyosi [TAYTA: Yritys]:ssa kiinnitti huomioni — erityisesti [TAYTA: tarkka LinkedIn-postaus, aloite tai uutinen — ALA laheta hakasulkeilla]. Nopea kysymys perustajan nakokulmasta:
 >
-> Miten tiiminna hoitaa Fit for 55 -raportoinnin talla hetkella — CSRD, EPBD, EN 15978 hiilijalanjaljen elinkaariarviointi? Manuaaliset taulukot, konsultit vai jokin muu?
+> Miten tiimisi hoitaa Fit for 55 -raportoinnin talla hetkella — CSRD, EPBD, EN 15978 hiilijalanjaljen elinkaariarviointi? Manuaaliset taulukot, konsultit vai jokin muu?
 >
 > Rakennan DWS IQ 6:ta — teollista ilmastoalyalustaa joka kattaa 20 EU-saanneltya toimialaa. Olemme tuotannossa EUR 7k+ MRR:lla ja rakennussektorin asiakkailla.
->
-> Avaamme 8 Platinum Industry Captain -paikkaa (EUR 50k SAFE, EUR 3,8M cap) operaattoreille jotka haluavat omistaa vertikaalin alustalla ja muokata miten se palvelee heidan toimialaansa. Rakentaminen on auki.
 >
 > Sopiiko 30 minuutin Situation Room -demo rakentamiselle? Voin nayttaa mita seuraamme EPBD:n ja EN 15978:n osalta konkreettisesti.
 >
 > — Risto
 
-**Merkkimaara:** ~740
+**Merkkimaara:** ~540
 
 ---
 
 ## LinkedIn DM — Francais (Vinci, Bouygues, Eiffage)
 
-> Bonjour [Prenom],
+> Bonjour [A REMPLIR : Prenom],
 >
-> J'ai remarque votre travail dans [la construction / leur domaine specifique — par ex. "le beton durable" ou "la transformation digitale de Vinci"]. Une question rapide du point de vue d'un fondateur :
+> Votre travail chez [A REMPLIR : Entreprise] a retenu mon attention — en particulier [A REMPLIR : post LinkedIn specifique, initiative ou actualite — NE PAS envoyer avec crochets]. Une question rapide du point de vue d'un fondateur :
 >
 > Comment votre equipe gere-t-elle le reporting Fit for 55 aujourd'hui — CSRD, EPBD, cycle de vie carbone EN 15978 ? Tableurs manuels, consultants, ou autre chose ?
 >
 > Je developpe DWS IQ 6 — une plateforme d'intelligence climatique industrielle couvrant 20 secteurs reglementes de l'UE. Nous sommes en production avec EUR 7k+ de MRR et des clients dans le secteur construction.
 >
-> Nous ouvrons 8 sieges Platinum Industry Captain (EUR 50k SAFE, cap EUR 3,8M) pour des operateurs qui souhaitent detenir une verticale sur la plateforme et faconner son service pour leur secteur. Construction est disponible.
->
 > Un demo Situation Room de 30 minutes pour la construction, ca vous dit ? Je peux vous montrer ce que nous suivons pour l'EPBD et l'EN 15978 specifiquement.
 >
 > — Risto
 
-**Nombre de caracteres :** ~780
+**Nombre de caracteres :** ~580
 
 ---
 
@@ -146,6 +138,24 @@
 > [dws10.com](https://dws10.com)
 
 > **NOTE:** The Captain seat pitch (EUR 50k SAFE, 3.8M cap, dws10.com/captain/) moves to the **email follow-up** after they respond — not the first cold email.
+
+---
+
+## Follow-Up: Captain Pitch (After They Respond)
+
+**When to use:** Only AFTER the contact replies and shows interest. Never in the opener.
+
+> Great to hear from you, [First Name]. Before the demo, a quick note on what makes this different:
+>
+> Instead of a generic angel round, I'm opening 8 Platinum Industry Captain seats — EUR 50k SAFE at EUR 3.8M cap with 20% discount. Each Captain owns one of 20 EU industry verticals: founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves construction.
+>
+> Construction is available. One seat per industry.
+>
+> Full details: https://dws10.com/captain/
+>
+> Happy to walk through the terms during the demo.
+>
+> — Risto
 
 ---
 
@@ -242,4 +252,4 @@ https://dws10.com/captain/?utm_source=email&utm_medium=cold&utm_campaign=captain
 
 ---
 
-*Document Version 1.0 — 15 February 2026 — Lifetime Oy*
+*Document Version 2.0 — 21 March 2026 — Lifetime Oy*
