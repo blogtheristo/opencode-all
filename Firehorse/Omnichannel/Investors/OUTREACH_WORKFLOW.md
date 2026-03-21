@@ -565,7 +565,8 @@ SUPABASE_KEY=your-service-role-key
 EMAIL_API_KEY=your-email-service-api-key
 EMAIL_FROM=risto@onelifetime.world
 EMAIL_FROM_NAME=Risto Anton Päärni
-DAILY_LIMIT=20
+# Daily cap for investor outreach emails (LinkedIn DMs handled separately)
+DAILY_LIMIT=5
 SEND_HOUR=9
 INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 ```
