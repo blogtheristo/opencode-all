@@ -120,7 +120,7 @@ Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{inv
 Open to a brief call next week?
 
 Best,
-Risto Paarni
+Risto Anton Päärni
 Founder & CEO, Lifetime Oy
 risto@onelifetime.world
 ```
@@ -394,7 +394,7 @@ Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{inv
 Open to a brief call next week?
 
 Best,
-Risto Paarni
+Risto Anton Päärni
 Founder & CEO, Lifetime Oy
 risto@onelifetime.world
 ```
@@ -429,7 +429,7 @@ Details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor
 Would value 15 minutes to get your take on our approach.
 
 Best,
-Risto Paarni
+Risto Anton Päärni
 Founder & CEO, Lifetime Oy
 risto@onelifetime.world
 ```
@@ -459,7 +459,7 @@ Full deck: https://dws10.com/captain/deck/?campaign={{campaign_id}}&investor={{i
 Available for a quick call this week?
 
 Best,
-Risto Paarni
+Risto Anton Päärni
 Founder & CEO, Lifetime Oy
 risto@onelifetime.world
 ```
@@ -564,7 +564,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-service-role-key
 EMAIL_API_KEY=your-email-service-api-key
 EMAIL_FROM=risto@onelifetime.world
-EMAIL_FROM_NAME=Risto Paarni
+EMAIL_FROM_NAME=Risto Anton Päärni
 DAILY_LIMIT=20
 SEND_HOUR=9
 INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
@@ -577,7 +577,7 @@ INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 ### Primary Contact
 - **Email**: risto@onelifetime.world (SES-verified sender)
 - **Alternative**: risto@lifetime.fi
-- **Founder**: Risto Paarni
+- **Founder**: Risto Anton Päärni
 
 ### Key Resources
 - **Investor Page**: https://dws10.com/investor-relations/

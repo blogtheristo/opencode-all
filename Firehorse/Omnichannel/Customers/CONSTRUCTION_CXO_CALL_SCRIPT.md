@@ -27,7 +27,7 @@ Document Status:
 | **Document ID** | DWS-SALES-CALL-001 |
 | **Version** | 1.2 |
 | **Date** | 2026-03-21 |
-| **Owner** | Risto Paarni, CEO |
+| **Owner** | Risto Anton Päärni, CEO |
 | **Status** | Active |
 | **Target** | CDO, CTO, CSO, CFO — rakennusyhtiöt (liikevaihto >€50M) |
 | **Product** | DWS IQ 6 + Captain Seat (Construction & Buildings) |
@@ -51,7 +51,7 @@ Document Status:
 
 ## Vaihe 1 — Avaus (30 sek)
 
-> "Hei [nimi], Risto Paarni Lifetime Oy:stä. Kiitos ajasta."
+> "Hei [nimi], Risto Anton Päärni Lifetime Oy:stä. Kiitos ajasta."
 >
 > "Meillä on kaksi rakennusyhtiötä pilotissa — €59 900 luokan sopimukset. Soitan koska halusin kuulla suoraan teiltä: **mikä on teidän suurin kipupiste CSRD- ja Fit for 55 -raportoinnissa juuri nyt?**"
 

@@ -49,7 +49,7 @@
 >
 > Quick question: how is your organization handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle assessments? I've spoken with dozens of construction operators and the answer is usually "consultants + spreadsheets + pain."
 >
-> I'm Risto Paarni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
 >
 > **Where we are today:**
 > - EUR 7-14k MRR, 100% customer retention
@@ -68,7 +68,7 @@
 > Would a 30-minute Situation Room demo make sense? I can walk you through what we're tracking for EPBD and EN 15978 specifically — live data, not slides.
 >
 > Best,
-> **Risto Paarni**
+> **Risto Anton Päärni**
 > Founder & CEO, Lifetime Oy
 > risto@lifetime.fi
 > [dws10.com](https://dws10.com)

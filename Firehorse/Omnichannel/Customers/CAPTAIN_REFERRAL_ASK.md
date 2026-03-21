@@ -56,7 +56,7 @@ A warm introduction from a user converts at 3-5x the rate of a cold outreach. On
 > Thank you for building this with us.
 >
 > Best,
-> **Risto Paarni**
+> **Risto Anton Päärni**
 > Founder & CEO, Lifetime Oy
 > risto@onelifetime.world
 
