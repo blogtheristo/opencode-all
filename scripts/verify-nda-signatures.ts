@@ -83,9 +83,52 @@ async function main() {
     case 'send': {
       const filePath = process.argv[3] || 'Partners/NDA_Qantic.md';
       const fs = await import('fs');
+      const { execSync } = await import('child_process');
       if (!fs.existsSync(filePath)) {
         console.error(`File not found: ${filePath}`);
         process.exit(1);
+      }
+
+      // Convert .md to .pdf — DocuSign cannot accept .md files
+      // Priority: pandoc (best quality) → markdown-pdf (fallback)
+      let sendPath = filePath;
+      if (filePath.endsWith('.md')) {
+        const pdfPath = filePath.replace(/\.md$/, '.pdf');
+        console.log(`Converting ${filePath} → PDF...`);
+
+        let converted = false;
+
+        // Try pandoc first (best quality, supports headers/footers)
+        try {
+          execSync('pandoc --version', { stdio: 'ignore' });
+          execSync(
+            `pandoc "${filePath}" -o "${pdfPath}" --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=11pt`,
+            { stdio: 'inherit' },
+          );
+          converted = fs.existsSync(pdfPath);
+          if (converted) console.log('  Converted with pandoc.');
+        } catch {
+          // pandoc not available or failed
+        }
+
+        // Fallback: markdown-pdf (npm)
+        if (!converted) {
+          try {
+            execSync(`npx --yes markdown-pdf "${filePath}" -o "${pdfPath}"`, { stdio: 'inherit' });
+            converted = fs.existsSync(pdfPath);
+            if (converted) console.log('  Converted with markdown-pdf.');
+          } catch {
+            // markdown-pdf failed
+          }
+        }
+
+        if (!converted) {
+          console.error('PDF conversion failed. Install pandoc or run: npm i -g markdown-pdf');
+          process.exit(1);
+        }
+
+        sendPath = pdfPath;
+        console.log('');
       }
       console.log(`Sending mutual NDA: ${filePath}`);
       console.log('  Signer 1: Risto Anton Päärni <risto.paarni@lifetime.fi>');
@@ -110,7 +153,7 @@ async function main() {
         signer1Name: 'Risto Anton Päärni',
         signer2Email: 't.kalitzky@qantic.com',
         signer2Name: 'Thomas A. Kalitzky',
-        documentPath: filePath,
+        documentPath: sendPath,
       });
 
       console.log('SUCCESS — Mutual NDA sent for signing');
