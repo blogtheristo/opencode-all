@@ -23,7 +23,7 @@ Document Status:
 
 ---
 
-## The Deal: €15,990 Setup + €1,200/Asset/Year API
+## The Deal: €15,990 Setup + €99/Asset/Month API + 30% Reseller Bonus
 
 ### Part 1 — Setup & Delivery (one-time)
 
@@ -84,6 +84,33 @@ Setup pays for your time and travel. API is pure margin on code that already exi
 
 ---
 
+## Reseller Bonus — 30%
+
+Qantic resells the package to their clients, earns 30% on everything.
+
+**Per deal Qantic earns:**
+- Setup: 30% × €15,990 = **€4,797 per client**
+- API: 30% × €99 = **€29.70/asset/month ongoing**
+
+**Example — Qantic sells to 5 clients over 2 years:**
+- Setup commissions: 5 × €4,797 = €23,985
+- API commissions (5 clients × 3 assets avg × 12 months): €5,346/year
+- Total Qantic earns Year 1-2: **€29,331+**
+
+**What Qantic does:** Identifies client, makes introduction, co-presents (optional). We deliver everything.
+
+**What we do:** Workshop delivery, compliance report, API hosting, regulation updates, SLA, support.
+
+Qantic carries zero delivery risk. Zero engineering. Zero support cost.
+
+**Revenue per client (our share after 30% commission):**
+- Setup: €15,990 − €4,797 = €11,193
+- API: €99 − €29.70 = €69.30/asset/month
+- COGS per client: €4,800 (cloud + travel + setup)
+- Gross margin per client: €6,393 (57% on setup alone)
+
+---
+
 ## What Exists Today
 
 | Feature | Status |
@@ -136,6 +163,8 @@ This is not a roadmap item. Code is written and tested.
 | Data residency | Finland (europe-north1), EU only |
 | IP | DWS IQ engine, ESRS mappings remain Lifetime Oy IP |
 | Data | Client data belongs to client, GDPR DPA |
+| Reseller commission | 30% on setup + API |
+| Commission payment | Within 30 days of client invoice |
 | Non-compete | 3 years — Qantic will not build competing CSRD/ESRS engine |
 | Termination | 90 days written notice after initial term |
 
@@ -145,8 +174,9 @@ This is not a roadmap item. Code is written and tested.
 
 1. **Mutual NDA** — standard, protects both parties, EU jurisdiction
 2. **Letter of Intent** — confirms pilot client, pricing, timeline (non-binding)
+3. **Reseller agreement** — 30% commission terms, non-compete, IP protection
 
-Both sent same day as call.
+All sent same day as call.
 
 ---
 
