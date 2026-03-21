@@ -89,14 +89,14 @@ async function main() {
       }
       console.log(`Sending mutual NDA: ${filePath}`);
       console.log('  Signer 1: Risto Anton Päärni <risto.paarni@lifetime.fi>');
-      console.log('  Signer 2: Thomas A. Kalitzky <support@qantic.com>');
+      console.log('  Signer 2: Thomas A. Kalitzky <t.kalitzky@qantic.com>');
       console.log('  Environment: DocuSign Sandbox (demo)');
       console.log('');
 
       const result = await client.sendMutualNDA({
         signer1Email: 'risto.paarni@lifetime.fi',
         signer1Name: 'Risto Anton Päärni',
-        signer2Email: 'support@qantic.com',
+        signer2Email: 't.kalitzky@qantic.com',
         signer2Name: 'Thomas A. Kalitzky',
         documentPath: filePath,
       });
