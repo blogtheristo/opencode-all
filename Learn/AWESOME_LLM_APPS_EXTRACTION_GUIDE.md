@@ -1,6 +1,6 @@
 # Awesome LLM Apps - Agent Extraction Guide for DWS6 & DWS7
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

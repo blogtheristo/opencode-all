@@ -1,19 +1,21 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.9
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
-  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
-  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
-  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
-  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
-  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
+  - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
+  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
+  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
@@ -25,16 +27,16 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 28.02.2026
+  - Last Modified: 14.03.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.7
-**Effective Date:** 2026-02-28
-**Last Updated:** 2026-02-28
+**Version:** 1.9
+**Effective Date:** 2026-03-14
+**Last Updated:** 2026-03-14
 **Status:** Active
 
 ---
@@ -59,6 +61,7 @@ Document Status:
 16. [Document Index](#16-document-index)
 17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
+19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 
 ---
 
@@ -1795,6 +1798,130 @@ Learn/WEB_CONTENT_INDEX.html            ← latest
 
 ---
 
+## 19. Code Versioning & PR Traceability
+
+### 19.1 Rule / Sääntö
+
+All net-new production code files and all major rewrites MUST include a **Code Versioning Note** that ties the code to PR and commit lineage.
+
+Jokaisen uuden tuotantokooditiedoston ja merkittävän uudelleenkirjoituksen TÄYTYY sisältää **Code Versioning Note**, joka sitoo koodin PR- ja commit-historiaan.
+
+**Why:** Enables fast forensic search ("where did this come from?"), rollback targeting, and compliance-grade traceability.
+
+### 19.2 Required Fields
+
+Every Code Versioning Note MUST contain:
+
+- `Code-Version` (semantic: `MAJOR.MINOR.PATCH`)
+- `Introduced-In` (PR number, e.g. `PR-699`)
+- `Branch` (e.g. `claude/pr-699`)
+- `Commit` (short SHA at merge point when known)
+- `Date` (`YYYY-MM-DD`)
+- `Owner` (team or tool)
+- `Env-Schema` (e.g. `env-v1.0`) if runtime config is required
+
+### 19.3 Syntax-Safe Templates (CRITICAL)
+
+Use language-appropriate comment syntax. Never insert markdown prose directly into executable syntax.
+
+**TypeScript / JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`):**
+```ts
+/**
+ * CODE VERSIONING NOTE
+ * Code-Version: 1.0.0
+ * Introduced-In: PR-699
+ * Branch: claude/pr-699
+ * Commit: abc1234
+ * Date: 2026-03-13
+ * Owner: DWS Platform / AI Agent
+ * Env-Schema: env-v1.0
+ */
+```
+
+**Python (`.py`):**
+```python
+"""
+CODE VERSIONING NOTE
+Code-Version: 1.0.0
+Introduced-In: PR-699
+Branch: claude/pr-699
+Commit: abc1234
+Date: 2026-03-13
+Owner: DWS Platform / AI Agent
+Env-Schema: env-v1.0
+"""
+```
+
+**SQL migrations (`.sql`):**
+```sql
+-- CODE VERSIONING NOTE
+-- Code-Version: 1.0.0
+-- Introduced-In: PR-699
+-- Branch: claude/pr-699
+-- Commit: abc1234
+-- Date: 2026-03-13
+-- Owner: DWS Platform / AI Agent
+-- Env-Schema: env-v1.0
+```
+
+**Shell / YAML / Dockerfile:**
+```text
+# CODE VERSIONING NOTE
+# Code-Version: 1.0.0
+# Introduced-In: PR-699
+# Branch: claude/pr-699
+# Commit: abc1234
+# Date: 2026-03-13
+# Owner: DWS Platform / AI Agent
+# Env-Schema: env-v1.0
+```
+
+### 19.4 Increment Rules for `Code-Version`
+
+- Patch (`x.y.Z`): bug fix, no behavior contract change
+- Minor (`x.Y.z`): additive behavior, backward compatible
+- Major (`X.y.z`): breaking behavior/API/contract change
+
+### 19.5 .env Versioning Policy
+
+Runtime secret files are not versioned in Git, but the schema is.
+
+- Never commit `.env` (secrets)
+- Always version `.env.example` structure
+- Track schema via `ENV_SCHEMA_VERSION` in `.env.example`
+- Bump rules:
+  - Major: breaking or renamed required variable
+  - Minor: new optional/required variable added
+  - Patch: comment/docs clarifications only
+- Record schema changes in standards/history and PR description
+
+### 19.6 Enforcement Checklist (Code Reviews)
+
+Before merging code PRs:
+
+- [ ] New/rewritten files include Code Versioning Note
+- [ ] `Introduced-In` references current PR number (e.g., `PR-699`)
+- [ ] `Code-Version` increment is justified by change scope
+- [ ] If config changed: `.env.example` updated and `ENV_SCHEMA_VERSION` bumped
+- [ ] No secrets/keys included in version notes
+
+### 19.7 Hunt Queries (Trace Any Code Fast)
+
+Use these repository queries to trace lineage:
+
+```bash
+# All code versioning notes
+rg "CODE VERSIONING NOTE"
+
+# All artifacts introduced in PR-699
+rg "Introduced-In:\\s*PR-699"
+
+# All files using env schema lineage
+rg "Env-Schema:\\s*env-v"
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1860,9 +1987,15 @@ Document Status:
 
 ---
 
-**Version:** 1.7
-**Effective Date:** 28. February 2026
+**Version:** 1.8
+**Effective Date:** 13. March 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.8:**
+- Added Code Versioning & PR Traceability Standard (Section 19)
+- Added syntax-safe per-language templates for code version notes
+- Added `.env` schema versioning policy (`ENV_SCHEMA_VERSION` in `.env.example`)
+- Added explicit PR-linked requirement (`Introduced-In: PR-<number>`, e.g. `PR-699`)
 
 **Major Changes in v1.7:**
 - Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages

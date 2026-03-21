@@ -41,7 +41,11 @@ import { NeptuneAgent } from './workflow/industry/neptune.agent.js';
 import { CeresAgent } from './workflow/industry/ceres.agent.js';
 import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
 import { MarsAgent } from './workflow/industry/mars.agent.js';
+import { BESSAgent } from './workflow/industry/bess.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
+import { ArgusAgent } from './argus.agent.js';
+import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
+import { DesignerAgent } from './designer.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -208,6 +212,16 @@ export class AgentRegistry {
     this.register(new PrometheusAgent());  // Hydrogen & Energy Transition
     this.register(new MarsAgent());        // Construction & Buildings
     this.register(new GaiaAgent());        // Cement & Earth Materials
+    this.register(new BESSAgent());        // Battery Energy Storage — Q-System integration
+
+    // KYA Vision — Orbital Target Labeling (ICEYE SAR partnership)
+    this.register(new ArgusAgent());        // All-seeing orbital eye — 20-industry detection
+
+    // Sovereignty — Database & infrastructure sovereignty assessment
+    this.register(new SovereigntyMonitorAgent());  // EU data sovereignty scoring
+
+    // Designer — Design-to-code bridge (Anthropic designer workflow)
+    this.register(new DesignerAgent());  // Figma-to-code, style changes, component creation
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

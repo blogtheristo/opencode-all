@@ -1,6 +1,6 @@
 # DWS Ontology & Lifetime World Model (LWM)
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1

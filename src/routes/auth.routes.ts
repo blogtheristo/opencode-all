@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
 import { loginRateLimit, authenticateToken } from '../middleware/auth.middleware.js';
+import EmailService from '../services/email.service.js';
 
 const router: Router = express.Router();
 
@@ -64,76 +65,61 @@ const validateRequest = (req: Request, res: Response, next: any) => {
 /**
  * POST /api/v1/auth/register
  * Register a new user
- * 
- * Note: Primary registration is handled by Supabase Auth on the frontend.
- * This endpoint is for API-based registration or when backend processing is needed.
+ *
+ * Creates user in the dev store, generates email verification token,
+ * and sends a verification email via the email service.
+ *
+ * Note: Primary registration may also be handled by Supabase Auth on the frontend.
+ * This endpoint handles API-based registration with full backend flow.
  */
 router.post('/register', registerValidation, validateRequest, async (req: Request, res: Response) => {
   try {
-    const { email, password, firstName, lastName, organization, role, accessLevel } = req.body;
+    const { email, password, firstName, lastName, role, accessLevel } = req.body;
 
-    logger.info('User registration attempt', { email, organization });
+    logger.info('User registration attempt', { email });
 
-    // Hash password
-    const passwordHash = await AuthService.hashPassword(password);
-
-    // Note: In production with Supabase, user creation is typically handled by Supabase Auth.
-    // This endpoint can be used to:
-    // 1. Pre-validate before Supabase signup
-    // 2. Create additional user_profiles data
-    // 3. Handle invite-based registration
-    
-    // For now, we'll create the user profile data that will be synced with Supabase
-    // The actual auth.users entry is created by Supabase Auth on the frontend
-    
-    const userData = {
-      email,
+    // Register user (persists to dev store, will be Supabase in production)
+    const user = await AuthService.registerUser(email, password, {
       firstName,
       lastName,
-      organization: organization || null,
-      role: role || 'dws_iq_standard',
-      accessLevel: accessLevel || 'free',
-      passwordHash, // Only stored if not using Supabase Auth
-      emailVerified: false,
-      mfaEnabled: false,
-      createdAt: new Date().toISOString(),
-    };
+      role,
+      accessLevel,
+    });
 
-    // Log the registration for audit
-    logger.info('User registration processed', { 
-      email, 
-      role: userData.role,
-      accessLevel: userData.accessLevel 
+    // Generate email verification token
+    const verificationToken = AuthService.generateEmailVerificationToken(email);
+
+    // Send verification email (non-blocking — registration succeeds even if email fails)
+    const verifyLink = `${process.env.APP_URL || 'https://dws6.com'}/api/v1/auth/verify-email?token=${verificationToken}`;
+    EmailService.sendWelcomeEmail(email, firstName || email).catch((err) => {
+      logger.warn('Failed to send welcome email', { error: err.message, email });
+    });
+
+    logger.info('User registered successfully', {
+      userId: user.id,
+      email: user.email,
     });
 
     res.status(201).json({
       message: 'Registration successful. Check your email to verify your account.',
       user: {
-        email: userData.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        role: userData.role,
-        accessLevel: userData.accessLevel,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        accessLevel: user.accessLevel,
       },
     });
   } catch (error: any) {
     logger.error('Registration error', { error: error.message });
-    
-    // Handle specific error cases
+
     if (error.message.includes('already exists') || error.message.includes('duplicate')) {
       return res.status(409).json({
         error: 'Registration failed',
         message: 'An account with this email already exists.',
       });
     }
-    
-    if (error.message.includes('Password must be')) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message: error.message,
-      });
-    }
-    
+
     res.status(500).json({
       error: 'Registration failed',
       message: 'An error occurred during registration. Please try again later.',
@@ -232,21 +218,41 @@ router.post('/verify-email', [body('token').trim()], validateRequest, async (req
   try {
     const { token } = req.body;
 
-    // TODO: Implement email verification
-    // - Validate token
-    // - Mark email as verified
-    // - Return success
-
     logger.info('Email verification attempt');
 
+    // Validate the token and get the associated email
+    const email = AuthService.verifyEmailToken(token);
+
+    if (!email) {
+      res.status(400).json({
+        error: 'Email verification failed',
+        message: 'Invalid or expired verification token.',
+      });
+      return;
+    }
+
+    // Mark the user's email as verified
+    const marked = AuthService.markEmailVerified(email);
+
+    if (!marked) {
+      res.status(404).json({
+        error: 'Email verification failed',
+        message: 'User account not found.',
+      });
+      return;
+    }
+
+    logger.info('Email verified successfully', { email });
+
     res.status(200).json({
-      message: 'Email verified successfully',
+      message: 'Email verified successfully. You can now log in.',
+      email,
     });
   } catch (error: any) {
     logger.error('Email verification error', { error: error.message });
-    res.status(400).json({
+    res.status(500).json({
       error: 'Email verification failed',
-      message: 'Invalid or expired verification token.',
+      message: 'An error occurred during email verification.',
     });
   }
 });
@@ -299,27 +305,74 @@ router.post('/refresh', async (req: Request, res: Response) => {
 /**
  * POST /api/v1/auth/forgot-password
  * Request password reset
+ *
+ * Generates a reset token, sends a reset email, and returns success.
+ * SECURITY: Always returns 200 regardless of whether the email exists
+ * to prevent email enumeration attacks.
  */
 router.post('/forgot-password', [body('email').isEmail().normalizeEmail()], validateRequest, async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
 
-    // TODO: Implement password reset request
-    // - Find user by email
-    // - Generate reset token
-    // - Send reset email
-    // - Store token with expiration
-
     logger.info('Password reset request', { email });
 
+    // Generate reset token (returns null if user doesn't exist, but we don't tell the caller)
+    const resetToken = AuthService.generatePasswordResetToken(email);
+
+    if (resetToken) {
+      // User exists — send the reset email
+      const resetLink = `${process.env.APP_URL || 'https://dws6.com'}/reset-password?token=${resetToken}`;
+      EmailService.sendPasswordResetEmail(email, resetLink).catch((err) => {
+        logger.warn('Failed to send password reset email', { error: err.message });
+      });
+    }
+
+    // Always return 200 to prevent email enumeration
     res.status(200).json({
-      message: 'Password reset email sent. Check your email for instructions.',
+      message: 'If an account with that email exists, a password reset link has been sent.',
     });
   } catch (error: any) {
     logger.error('Password reset error', { error: error.message });
     res.status(500).json({
       error: 'Password reset failed',
       message: 'An error occurred while processing your request. Please try again later.',
+    });
+  }
+});
+
+/**
+ * POST /api/v1/auth/reset-password
+ * Reset password using a valid reset token
+ */
+router.post('/reset-password', [
+  body('token').isString().trim().isLength({ min: 1 }),
+  passwordValidation,
+], validateRequest, async (req: Request, res: Response) => {
+  try {
+    const { token, password } = req.body;
+
+    logger.info('Password reset attempt');
+
+    const success = await AuthService.resetPassword(token, password);
+
+    if (!success) {
+      res.status(400).json({
+        error: 'Password reset failed',
+        message: 'Invalid or expired reset token.',
+      });
+      return;
+    }
+
+    logger.info('Password reset successful');
+
+    res.status(200).json({
+      message: 'Password reset successful. You can now log in with your new password.',
+    });
+  } catch (error: any) {
+    logger.error('Password reset error', { error: error.message });
+    res.status(500).json({
+      error: 'Password reset failed',
+      message: 'An error occurred while resetting your password.',
     });
   }
 });

@@ -39,6 +39,31 @@
 - Milestones to Series A
 - FAQs and investment process
 
+### 🎯 Captain Acquisition Outreach
+**[CAPTAIN_ACQUISITION_FUNNEL.md](CAPTAIN_ACQUISITION_FUNNEL.md)** - 11-stage Captain acquisition funnel
+- Full pipeline from first touch to signed Captain
+- Stage definitions, success metrics, email implementation
+
+**[CAPTAIN_LINKEDIN_DM_GENERIC.md](CAPTAIN_LINKEDIN_DM_GENERIC.md)** - LinkedIn DM templates for all 16 industries
+- 4 templates: CDO/CTO, CSO/Sustainability, Board/Angel, Connection Request
+- Industry keyword map with regulation + pain point per vertical
+- Personalization checklist and daily cadence
+
+**[CONSTRUCTION_TEASER_DM.md](CONSTRUCTION_TEASER_DM.md)** - Construction-specific DM + email templates
+- LinkedIn DM and email versions
+- Follow-up sequence (Day 3)
+- Target list and personalization guide
+
+**[CAPTAIN_WEBINAR_PITCH.md](CAPTAIN_WEBINAR_PITCH.md)** - Webinar pitch outline for co-hosted events
+- 45+15 format: compliance cost → live demo → Captain model → Q&A
+- Co-hosting strategy: associations, advisory firms, LinkedIn groups
+- Event logistics, promotional templates, success metrics
+
+**[../Customers/CAPTAIN_REFERRAL_ASK.md](../Customers/CAPTAIN_REFERRAL_ASK.md)** - Referral ask for pilot customers
+- Email + LinkedIn DM templates
+- Referral incentive structure (platform credits)
+- Tracking and reward delivery process
+
 ### 📖 Complete Strategy
 **[README.md](README.md)** - Full investor outreach strategy
 - Current workflow (cold email, investor-relations page, Supabase, automation)
@@ -190,6 +215,10 @@
 | **TARGETING_QUICK_REFERENCE.md** | One-page cheat sheet | During research, keep open |
 | **README.md** | Complete strategy & workflow | Campaign setup, reference |
 | **DWS6_INVESTOR_PROFILES.md** | Detailed qualification guide | Deep research, scoring |
+| **CAPTAIN_ACQUISITION_FUNNEL.md** | 11-stage Captain funnel | End-to-end Captain acquisition |
+| **CAPTAIN_LINKEDIN_DM_GENERIC.md** | DM templates for 16 industries | Daily LinkedIn outreach |
+| **CAPTAIN_WEBINAR_PITCH.md** | Webinar pitch + co-host strategy | Event-driven lead generation |
+| **CAPTAIN_REFERRAL_ASK.md** | Referral templates for customers | Warm intro pipeline |
 | **INDEX.md** | Navigation & overview | Finding the right doc |
 
 ---

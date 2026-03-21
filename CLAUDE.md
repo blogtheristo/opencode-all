@@ -14,9 +14,10 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
 | **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
 | **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
-| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, components, nav, logos, CTA, testing |
+| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
 | **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
+| **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -46,6 +47,16 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 **Example:** "Create a new product with DWS standard" means updating: `products.json`, `Store/*.md`, `DWS_BRAND_STANDARD.md`, `DWS_MARKET_RESEARCH_STANDARD.md`, `Admin/SECURITY_COMPLIANCE.md`, `product-catalog/`.
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
+
+### Code Versioning Rule (CRITICAL)
+
+When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Section 19:
+
+1. Add a syntax-safe **Code Versioning Note** in the file header/comment block.
+2. Tie lineage to PR number using `Introduced-In: PR-<number>` (example: `PR-699`).
+3. Include `Code-Version`, `Branch`, `Commit` (when known), `Date`, and `Owner`.
+4. If runtime config contract changes, bump `ENV_SCHEMA_VERSION` in `.env.example`.
+5. Never include secrets or live `.env` values in version notes.
 
 ### Thesis Update Rule (CRITICAL)
 
@@ -89,12 +100,12 @@ The script (`scripts/gen-thesis-html.cjs`):
 
 ## Project Overview
 
-**DWS IQ 6** is an enterprise-grade industrial climate intelligence and compliance platform for EU-regulated industries. It automates climate compliance (Fit for 55, ETS, CBAM, CSRD) across 16 EU industries.
+**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
 
 **Architecture: Brain-Memory-Body-Hands**
-- **Brain**: DWS IQ 6 Platform (Multi-agent AI Orchestration)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations)
-- **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
+- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
+- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
+- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
@@ -118,13 +129,28 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 5. **Phasing Discipline (Ship First, Harden Later)** — Phase order: Ship → Verify → Harden. Do not harden undeployed code.
 
-6. **Scope Discipline** — Touch only what you're asked to touch. No unsolicited refactoring, cleanup, or comment removal.
+6. **Validated Mock Data Rule (CRITICAL)** — MVP features MAY use mock/static data, but that data MUST come from validated, citable sources — never invented numbers. Every mock value must have a `source` field or comment citing the real data source.
 
-7. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
+   | Data Type | Acceptable Sources | Example |
+   |-----------|-------------------|---------|
+   | Emission factors | EU ETS benchmarks (Reg. 2021/447), CBAM defaults (Reg. 2023/1773), IPCC 2006 | `factor: 1.328, source: 'EU ETS Benchmark 2021-2025'` |
+   | Sector averages | EEA GHG Inventory, Eurostat SBS/env_ac_ainah_r2 | `avgEmissions: 185000, source: 'EEA GHG Inventory 2024'` |
+   | Carbon prices | ECB SDW, ICE/ECX auction data | `price: 65, source: 'EU ETS 2024 average'` |
+   | Regulatory thresholds | Official regulation text (EUR-Lex) | `CBAM_IMPORT_THRESHOLD: 150000` (from Reg. 2023/956) |
+   | ESRS disclosures | EFRAG ESRS 2023 final set | 82 disclosures mapped in `esrs-registry.ts` |
+   | Company data | Company ESG reports, annual reports | Extracted via `esg-report-extractor.ts` |
 
-8. **Never Delete Files — Always Move (CRITICAL)** — Use `git mv` to move files, never `git rm` or delete. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+   **Reference files:** `src/compliance/emission-factors.ts` (ETS/CBAM factors), `src/compliance/eu-benchmarks.ts` (sector averages), `src/compliance/esrs-registry.ts` (ESRS disclosures).
 
-9. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
+   **Why:** Fake compliance scores are worse than no scores — they erode trust with enterprise buyers and auditors. Real-sourced mock data is production-ready data that simply hasn't been personalized yet.
+
+7. **Scope Discipline** — Touch only what you're asked to touch. No unsolicited refactoring, cleanup, or comment removal.
+
+8. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
+
+9. **Never Delete Files — Always Rename to _OLD (CRITICAL)** — NEVER use `git rm` or delete. When "delete" is mentioned, rename the file by appending `_OLD` to the filename (before the extension). **Always ask the human for confirmation first** before renaming. No exceptions. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+
+10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
 ### Leverage Patterns
 
@@ -144,6 +170,26 @@ POTENTIAL CONCERNS:
 - [any risks]
 ```
 
+### Copy-Paste Output Rule (CRITICAL)
+
+When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"**, deliver content as:
+
+1. **One single fenced code block** — the user will triple-click or Ctrl+A inside it to copy
+2. **No tables** — tables break on mobile paste and require reformatting
+3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
+4. **No split windows** — everything in ONE block, not multiple blocks
+5. **Add a `--- COPY ABOVE ---` marker** after the block so the user knows where content ends
+
+```
+--- START COPY ---
+[All content here as plain text]
+[Use dashes for bullets, not markdown]
+[No tables, no bold, no headers inside]
+--- END COPY ---
+```
+
+**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
+
 ### Failure Modes to Avoid
 
 1. Making wrong assumptions without checking
@@ -162,13 +208,38 @@ POTENTIAL CONCERNS:
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
 
+## Lifetime Oy Legal Identity Rule (CRITICAL)
+
+Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoices, and legal documents:
+
+| Field | Value |
+|-------|-------|
+| **Company Name** | Lifetime Oy |
+| **Business Identity Code (Y-tunnus)** | 0772407-9 |
+| **VAT ID (ALV-tunnus)** | FI07724079 |
+| **Registered Address** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| **Country** | Finland |
+| **CEO** | Risto Anton Päärni |
+| **Email** | risto.paarni@lifetime.fi |
+
+**Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
+
+### DocuSign eSignature
+
+- **Developer account:** `risto.paarni@lifetime.fi`
+- **NDA Template:** `Partners/NDA_TEMPLATE_EU_2026.md` (v2.0, mutual)
+- **Send script:** `npx tsx scripts/verify-nda-signatures.ts send <file>`
+- **Full developer note:** `docs/field-notes/2026-03-21-docusign-esignature-integration.md`
+
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
-- **Default sender:** `risto@onelifetime.world` (verified domain in Resend)
+- **Transport priority:** Amazon SES (SMTP) is **primary**, Resend SDK is **fallback**. Both use the same verified sender.
+- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
+- **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES→Resend transport cascade).
 
 ## Tech Stack
 
@@ -235,6 +306,17 @@ When modifying `buy/index.html`, product pages, `products.json`, or store assets
 
 Applies to all store artifacts: `buy/`, `config/products.json`, `products/*.html`, `shared-assets/`, `feeds/`, product images.
 
+### Blog Post Rule (CRITICAL)
+
+Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every blog post:
+
+1. Create HTML file in `onelifetime.world/posts/<slug>.html` (source of truth)
+2. Copy to `landing-pages/onelifetime-world/posts/<slug>.html` in the **same commit**
+3. Use the same nav/footer pattern as existing posts (see `kya-standard-v1.html` as template)
+4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
+5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
+6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+
 ## Development Commands
 
 ```bash
@@ -254,11 +336,14 @@ docker-compose -f docker-compose.hybrid.yml up -d
 
 ## Code Quality & Testing
 
+- **Formatting:** `.editorconfig` (2-space indent, LF, 100-char lines, UTF-8) — see `SITE_QUALITY_STANDARDS.md` §3 Code Formatting Standards
 - **JS/TS:** ESLint; **Python:** Ruff + Black; **Security:** Bandit, Safety
 - **Tests:** Vitest in `src/__tests__/`; run `npm run test` or `npm run test:ui`
 - **Pre-commit:** Branch name validation in `.githooks/`
 
 **Patterns:** Strict TypeScript + Zod schemas; functional React components + TailwindCSS; RESTful Express + JWT; `.env.example` (144+ variables).
+
+**Formatting rules (quick reference):** 2 spaces, single quotes (JS/TS), double quotes (JSX/JSON), semicolons required, trailing commas in multi-line, K&R braces, imports grouped by origin. Full spec in `SITE_QUALITY_STANDARDS.md`.
 
 ## Security Considerations
 
@@ -318,7 +403,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 **Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
 
-**Windows Managed Settings:** Effective March 11, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Supported since Claude Code 2.0.58.
+**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
 
 ## 2026 EU AI Act Compliance
 
@@ -352,7 +437,9 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`, `/sovereignty-assess`, `/flow-status`, `/email`. Every new agent MUST have a corresponding skill.
+
+**gstack Skills (development workflow, based on Garry Tan's gstack):** `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro`. Recommended flow: plan → review → ship → retro. See AGENTS.md Section 16.
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 
@@ -395,7 +482,8 @@ dws workflow compliance-assessment
 - GitHub auto-deletes branches after merge
 
 ### Merge Conflict Resolution (CRITICAL)
-Human resolves conflicts in GitHub PR web UI, not locally. Push the branch, tell the human what conflicts exist, wait. After resolution on GitHub, `git pull` then push.
+1. **Locally if possible** — `git fetch origin main && git merge origin/main`, resolve conflicts in the worktree, commit, and push.
+2. **Human resolves in GitHub PR web UI** — If local resolution fails or conflicts are too complex, push the branch, tell the human what conflicts exist, and wait. After resolution on GitHub, `git pull` then push.
 
 ### Auto-Push Rule (CRITICAL)
 When a PR exists for the current branch, every completed task MUST end with commit + push. Do not wait for the user to ask. Exception: user says "don't push yet".

@@ -153,6 +153,23 @@ export interface OutreachSummaryData {
   }>;
 }
 
+/** Captain seat inquiry from /captain/ form */
+export interface CaptainInquiryItem {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string;
+  industry: string;
+  seat_level: string;
+  message: string | null;
+  status: string;
+}
+
+export interface CaptainInquiriesData {
+  newCount: number;
+  inquiries: CaptainInquiryItem[];
+}
+
 export interface CockpitData {
   date: string;
   dateFormatted: string;
@@ -166,6 +183,7 @@ export interface CockpitData {
   workflow: WorkflowData | null;
   constructionLeads: ConstructionLeadsData;
   outreachSummary: OutreachSummaryData;
+  captainInquiries: CaptainInquiriesData;
   learnArtifacts: LearnArtifactsData;
   hilTodos: HilTodosData;
 }
@@ -659,6 +677,22 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
 }
 
 // ============================================================================
+// CAPTAIN INQUIRIES COLLECTOR
+// ============================================================================
+
+/**
+ * Collect new captain seat inquiries (status = 'new').
+ * Shows all unprocessed inquiries so the CEO can follow up same day.
+ */
+async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
+  const inquiries = await supabaseFetch<CaptainInquiryItem[]>(
+    `captain_inquiries?status=eq.new&order=created_at.desc&limit=10&select=id,created_at,name,email,industry,seat_level,message,status`
+  );
+
+  return {
+    newCount: inquiries?.length || 0,
+    inquiries: inquiries || [],
+  };
 // LEARN ARTIFACTS COLLECTOR
 // ============================================================================
 
@@ -947,6 +981,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, captainInquiries] = await Promise.all([
   const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts, hilTodos] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
@@ -957,6 +992,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectWorkflowData(),
     collectConstructionLeads(),
     collectOutreachSummary(),
+    collectCaptainInquiries(),
     collectLearnArtifacts(),
     collectHilTodos(),
   ]);
@@ -974,6 +1010,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
     workflow,
     constructionLeads,
     outreachSummary,
+    captainInquiries,
     learnArtifacts,
     hilTodos,
   };

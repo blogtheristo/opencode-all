@@ -1,15 +1,14 @@
 /**
  * Provider-Agnostic LLM Client for DWS IQ 6/7
  *
- * Replaces the hardcoded Groq fetch() in base.agent.ts with a multi-provider
- * client that supports:
- *   - Groq (OpenAI-compatible) — existing default
- *   - Anthropic (Claude) — via @anthropic-ai/claude-agent-sdk
- *   - Generic OpenAI-compatible endpoints (Ollama, vLLM, Together, etc.)
+ * Two providers, mode-aware priority:
+ *   - Ollama (GN100 edge / local) — sovereign, keyless, agent-first
+ *   - Anthropic (Claude) — HIL-first, cloud fallback
  *
- * Key capability: Tool use / function calling across all providers.
+ * Agent work (autonomous): Ollama primary → Anthropic fallback
+ * HIL (human-in-the-loop): Anthropic primary → Ollama fallback
  *
- * Fix #2 (tool use) and Fix #3 (replace hardcoded Groq) from DWS7 modernization.
+ * Key capability: Tool use / function calling across both providers.
  */
 
 import logger from '../utils/logger.js';
@@ -17,7 +16,10 @@ import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse } from './types.
 
 // ============ PROVIDER CONFIGURATION ============
 
-export type LLMProvider = 'groq' | 'anthropic' | 'openai-compatible';
+export type LLMProvider = 'anthropic' | 'ollama' | 'openai-compatible';
+
+/** Request mode: 'agent' = autonomous work, 'hil' = human-in-the-loop */
+export type LLMMode = 'agent' | 'hil';
 
 export interface LLMClientConfig {
   provider: LLMProvider;
@@ -28,43 +30,51 @@ export interface LLMClientConfig {
   temperature?: number;
 }
 
-/** Resolve provider config from environment + agent config */
-export function resolveProvider(agentModel: string): LLMClientConfig | null {
-  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
-  if (process.env.ANTHROPIC_API_KEY) {
-    return {
-      provider: 'anthropic',
-      apiKey: process.env.ANTHROPIC_API_KEY,
-      baseUrl: 'https://api.anthropic.com/v1',
-      model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
-      maxTokens: 4096,
-      temperature: 0.3,
-    };
+const OLLAMA_CONFIG = (): LLMClientConfig | null => {
+  if (!process.env.OLLAMA_HOST) return null;
+  const baseUrl = process.env.OLLAMA_HOST.replace(/\/$/, '');
+  return {
+    provider: 'ollama',
+    apiKey: process.env.OLLAMA_API_KEY || 'ollama',
+    baseUrl: `${baseUrl}/v1`,
+    model: process.env.OLLAMA_MODEL || 'qwen3:8b',
+    maxTokens: 4096,
+    temperature: 0.3,
+  };
+};
+
+const ANTHROPIC_CONFIG = (): LLMClientConfig | null => {
+  if (!process.env.ANTHROPIC_API_KEY) return null;
+  return {
+    provider: 'anthropic',
+    apiKey: process.env.ANTHROPIC_API_KEY,
+    baseUrl: 'https://api.anthropic.com/v1',
+    model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+    maxTokens: 4096,
+    temperature: 0.3,
+  };
+};
+
+/**
+ * Resolve provider config from environment + mode.
+ *
+ * Priority depends on mode:
+ *   agent (autonomous): Ollama → Anthropic  (use edge when possible)
+ *   hil (human-in-loop): Anthropic → Ollama  (quality-first for human requests)
+ */
+export function resolveProvider(
+  agentModel: string,
+  opts?: { orgId?: string; mode?: LLMMode },
+): LLMClientConfig | null {
+  const mode = opts?.mode || 'agent';
+
+  if (mode === 'hil') {
+    // HIL: Anthropic primary, Ollama fallback
+    return ANTHROPIC_CONFIG() || OLLAMA_CONFIG();
   }
 
-  if (process.env.GROQ_API_KEY) {
-    return {
-      provider: 'groq',
-      apiKey: process.env.GROQ_API_KEY,
-      baseUrl: 'https://api.groq.com/openai/v1',
-      model: agentModel || 'llama-3.3-70b-versatile',
-      maxTokens: 1024,
-      temperature: 0.3,
-    };
-  }
-
-  if (process.env.OPENAI_API_KEY) {
-    return {
-      provider: 'openai-compatible',
-      apiKey: process.env.OPENAI_API_KEY,
-      baseUrl: process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1',
-      model: agentModel,
-      maxTokens: 4096,
-      temperature: 0.3,
-    };
-  }
-
-  return null;
+  // Agent: Ollama primary (edge/sovereign), Anthropic fallback
+  return OLLAMA_CONFIG() || ANTHROPIC_CONFIG();
 }
 
 // ============ LLM CLIENT ============
@@ -91,11 +101,12 @@ export class LLMClient {
   async chat(
     messages: LLMMessage[],
     tools?: ToolDefinition[],
+    _opts?: { orgId?: string },
   ): Promise<LLMResponse> {
     if (this.config.provider === 'anthropic') {
       return this.chatAnthropic(messages, tools);
     }
-    // Groq and OpenAI-compatible share the same API shape
+    // Ollama and OpenAI-compatible share the same API shape
     return this.chatOpenAICompatible(messages, tools);
   }
 
@@ -211,7 +222,7 @@ export class LLMClient {
     };
   }
 
-  // ============ OPENAI-COMPATIBLE PROVIDER (Groq, OpenAI, Ollama, etc.) ============
+  // ============ OPENAI-COMPATIBLE PROVIDER (Ollama, etc.) ============
 
   private async chatOpenAICompatible(
     messages: LLMMessage[],
@@ -266,7 +277,9 @@ export class LLMClient {
       body.tools = openaiTools;
     }
 
-    // If no tools, request JSON mode (backward compat with existing agents)
+    // If no tools, request JSON mode (backward compat with existing agents).
+    // Ollama supports JSON mode but some models handle it inconsistently,
+    // so we still set it — Ollama ignores unsupported fields gracefully.
     if (!tools || tools.length === 0) {
       body.response_format = { type: 'json_object' };
     }
@@ -324,14 +337,20 @@ export class LLMClient {
 
 /**
  * Create an LLM client from environment, falling back gracefully.
- * Returns null if no API key is configured.
+ * Returns null if no provider is configured (neither OLLAMA_HOST nor ANTHROPIC_API_KEY).
+ *
+ * mode: 'agent' (default) = Ollama first, 'hil' = Anthropic first.
  */
-export function createLLMClient(agentModel: string): LLMClient | null {
-  const config = resolveProvider(agentModel);
+export function createLLMClient(
+  agentModel: string,
+  orgId?: string,
+  mode: LLMMode = 'agent',
+): LLMClient | null {
+  const config = resolveProvider(agentModel, { orgId, mode });
   if (!config) {
-    logger.debug('No LLM provider configured (no API key found)');
+    logger.debug('No LLM provider configured (set OLLAMA_HOST or ANTHROPIC_API_KEY)');
     return null;
   }
-  logger.debug('LLM client created', { provider: config.provider, model: config.model });
+  logger.debug('LLM client created', { provider: config.provider, model: config.model, mode });
   return new LLMClient(config);
 }

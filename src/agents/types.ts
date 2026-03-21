@@ -31,8 +31,8 @@ export interface AgentContext {
 
 /** Sandbox isolation context attached to agent executions */
 export interface SandboxContext {
-  /** Current isolation stage: 1 = SDK sandbox, 2 = Cloud Run ephemeral, 3 = persistent container */
-  stage: '1' | '2' | '3';
+  /** Current isolation stage: 1 = SDK sandbox, opensandbox = Acer Veriton Docker, 2 = Cloud Run ephemeral, 3 = persistent container */
+  stage: '1' | 'opensandbox' | '2' | '3';
   /** Tenant subscription tier */
   tier: 'sandbox' | 'professional' | 'enterprise';
   /** Whether EU data residency is enforced */
@@ -73,6 +73,12 @@ export interface AgentConfig {
   capabilities: string[];
   /** LLM model identifier used by this agent */
   model: string;
+  /** JSON Schema for the agent's expected input — used by MCP tool builder for client autocomplete */
+  inputSchema?: {
+    type: 'object';
+    properties: Record<string, unknown>;
+    required?: string[];
+  };
   /** Tools this agent can use (DWS7: function calling) */
   tools?: ToolDefinition[];
   /** Agentic loop configuration (DWS7: observe-think-act) */

@@ -67,6 +67,14 @@ To enable the optional Bash `PreToolUse` safety guardrail, add a `PreToolUse` en
 ```json
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "./.claude/hooks/session-start.sh" }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",

@@ -94,7 +94,15 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    const client = this.getLLMClient();
+    // Agent loops use 'agent' mode: Ollama primary, Anthropic fallback
+    const orgScopedClient = createLLMClient(this.config.model, context.orgId, 'agent');
+    if (!orgScopedClient && context.orgId) {
+      logger.debug('runLoop: no provider available', {
+        agent: this.config.name,
+        orgId: context.orgId,
+      });
+    }
+    const client = orgScopedClient ?? this.getLLMClient();
     if (!client) {
       return {
         content: JSON.stringify({
@@ -143,10 +151,10 @@ export abstract class BaseAgent {
     for (let i = 0; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
-      // OBSERVE + THINK: Send to LLM
+      // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
       let response: LLMResponse;
       try {
-        response = await client.chat(messages, allTools);
+        response = await client.chat(messages, allTools, { orgId: context.orgId });
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown LLM error';
         logger.error('Agentic loop LLM call failed', {
@@ -549,7 +557,7 @@ export abstract class BaseAgent {
     }
 
     const sandboxContext: SandboxContext = {
-      stage,
+      stage: stage === 'opensandbox' ? '1' : stage,
       tier,
       euDataResidency: true,
       allowedPaths: sandboxConfig.filesystem.allowedPaths,
