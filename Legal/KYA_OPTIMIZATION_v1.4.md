@@ -258,7 +258,7 @@ v1.4 adds a new fault classification to the existing fault attribution system (s
 
 This class is stored in the `kya_fault_attribution` Supabase table alongside existing fault classes (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`). RLS policies apply identically.
 
-**Tiered Fault Fees (v1.6):** Fault investigation fees are tiered by industry risk — see `Legal/KYA_SECURITY_v1.2.md` §9.5. Tier 1 (Critical Emissions) pays EUR 15/fault with 4h SLA; Tier 3 (Wedge) pays EUR 5/fault with 12h SLA. `AUTORESEARCH_FAULT` follows the same tier pricing but with a mandatory 30-day Clawback window on any associated Alpha-Share revenue.
+**Tiered Fault Fees (v1.6):** Fault investigation fees are tiered by industry risk — see `Legal/KYA_SECURITY_v1.2.md` §9.5. Tier 1 (Critical Emissions) pays EUR 15/fault with 4h SLA; Tier 3 (Wedge) pays EUR 5/fault with 12h SLA. `AUTORESEARCH_FAULT` follows the same tier pricing. For Enterprise World (Tier 4) customers on Alpha-Share, a mandatory 30-day deferral window applies to associated Alpha-Share revenue.
 
 ---
 
@@ -329,9 +329,14 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault Attribution** | EUR 5.00 per fault investigation record | Incident frequency x severity |
 | **Compliance Certificates** | EUR 500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
 | **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Alpha-Share** (v1.6) | **Decline-to-Scale** of attributed efficiency gains (see below) | Financial attribution from Firehorse → Supabase |
+| **SaaS Platform** (v1.7) | Monthly subscription: EUR 499–1,999/mo (Enterprise: custom) | Customer count x tier |
+| **API Transactions** (v1.7) | Per agent operation — usage-based | Agent sessions x operations x frequency |
 
-**Alpha-Share Decline-to-Scale Model (v1.6):**
+### Alpha-Share — Enterprise World Tier 4 Only (v1.7)
+
+> **SCOPE CHANGE (v1.7):** Alpha-Share is no longer offered to standard DWS6 SaaS customers (Tiers 1–3). It is reserved exclusively for **Enterprise World** customers at pricing **Tier 4** — large-scale industrial deployments where value-based pricing is understood and preferred. Standard customers use SaaS subscription + API transaction fees.
+
+**Alpha-Share Decline-to-Scale Model (Enterprise World Tier 4):**
 
 | Gain Bracket | Revenue Share | Rationale |
 |-------------|--------------|-----------|
@@ -339,22 +344,16 @@ How KYA generates revenue for Lifetime Oy:
 | EUR 1M–10M | **8%** | Established value, scaling phase |
 | Above EUR 10M | **5%** | Enterprise-scale; lower share retains large accounts |
 
-**Clawback Clause (v1.6) → Performance Guarantee (v1.6 revised):**
+**Why Tier 4 only:** Alpha-Share requires sophisticated buyers who understand value-based pricing. SaaS-era customers see revenue sharing as risk, not alignment. Enterprise World customers — large industrials, sovereign deployments — see it as proof that DWS has skin in the game.
 
-This clause operates at **two layers** with identical economics but different framing:
-
-**Internal (Revenue Recognition):** Lifetime Oy defers Alpha-Share revenue for 30 days post-production deployment. If an optimization causes an `INTEGRATION_FAULT` or `AUTORESEARCH_FAULT` within the deferral window, revenue is never recognized for that period. This protects revenue recognition integrity and aligns internal incentives with production stability.
-
-**Customer-Facing (Contract Language):** Presented as a **"Performance Guarantee"** — if a KYA-O optimization causes a verified production fault within 30 days, the client receives a service credit equal to that period's Alpha-Share. The word "clawback" never appears in customer contracts.
+**Performance Guarantee (all tiers):**
 
 | Layer | Term Used | Mechanism | Procurement Impact |
 |-------|-----------|-----------|-------------------|
-| Internal (Lifetime Oy) | Revenue Deferral | Alpha-Share not recognized for 30 days | N/A — invisible to client |
-| Customer contract | Performance Guarantee | Service credit issued on verified fault | **Positive** — signals confidence |
+| SaaS (Tiers 1–3) | SLA Credit | Service credit issued on verified production fault within 30 days | **Standard** — industry norm |
+| Enterprise World (Tier 4) | Performance Guarantee | Service credit equal to that period's Alpha-Share on verified fault | **Positive** — signals confidence |
 
-**Why the split matters:** "We guarantee our optimizations" closes deals. "We'll claw back revenue if things break" stalls them. Same economics, opposite sales psychology.
-
-**Verification Credit Rebate (v1.6):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
+**Verification Credit Rebate (Enterprise World Tier 4 only):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
 
 ### 5.5 Platform Revenue Projections (19 Industries, 2026–2030)
 
@@ -442,7 +441,7 @@ This clause operates at **two layers** with identical economics but different fr
 | **Identity attribution** | Enterprise SSO / Foundry permissions | KYC/KYB-verified identity → agent session binding | **KYA** — legally attributable |
 | **Autoresearch** | Not offered (manual model tuning) | Governed self-optimization with financial attribution | **KYA** — unique capability |
 | **EU compliance** | Generic (GDPR, some SOC 2) | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55 | **KYA** — EU-first |
-| **Revenue model** | Platform license (annual contract) | Per-event + Alpha-Share (scales with value created) | **KYA** — aligned incentives |
+| **Revenue model** | Platform license (annual contract) | SaaS + API (Tiers 1–3); Alpha-Share for Enterprise World Tier 4 | **KYA** — flexible pricing |
 | **Industry depth** | Defense, healthcare, energy (3–5 deep) | 20 industries with per-industry proxy metrics | **KYA** — wider + deeper |
 | **Data residency** | US-primary (FedRAMP) | EU-primary (Finland/Germany, GDPR-native) | Context-dependent |
 

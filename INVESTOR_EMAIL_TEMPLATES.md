@@ -141,7 +141,7 @@ Lifetime Oy
 ### Product — KYA Governance
 - **DWS IQ 6** — train and run enterprise AI agent swarms safely
 - **KYA (Know Your Agent)** — hardware-attested isolation, court-defensible audit trails
-- **Alpha-Share revenue model** — Decline-to-Scale: 12% (first EUR 1M), 8% (EUR 1-10M), 5% (above EUR 10M)
+- **Dual revenue model** — SaaS subscription + API fees (Tiers 1–3); Alpha-Share Decline-to-Scale reserved for Enterprise World Tier 4 only
 - **Performance Guarantee** — 30-day service credit on verified fault (replaces "clawback")
 - **D&O Insurance angle** — 8-12% premium reduction for KYA-certified agents
 - **Edge AI** — NVIDIA Jetson Orin Nano, works offline, solar-capable, 7-15W
@@ -159,7 +159,7 @@ Lifetime Oy
 
 ### Business Model
 - **Per-industry value:** EUR 180K–EUR 50M annually per enterprise
-- **Alpha-Share:** Declining % of value delivered — aligns incentives
+- **Dual model:** SaaS (Tiers 1–3) + Alpha-Share (Enterprise World Tier 4) — broad market + value-aligned enterprise
 - **Target:** EUR 900K ARR by end of 2026
 
 ### Seat Structure
