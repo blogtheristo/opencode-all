@@ -90,7 +90,7 @@ async function main() {
       console.log(`Sending mutual NDA: ${filePath}`);
       console.log('  Signer 1: Risto Anton Päärni <risto.paarni@lifetime.fi>');
       console.log('  Signer 2: Thomas A. Kalitzky <t.kalitzky@qantic.com>');
-      console.log('  Environment: DocuSign Sandbox (demo)');
+      console.log('  Environment: DocuSign');
       console.log('');
 
       const readline = await import('readline');
