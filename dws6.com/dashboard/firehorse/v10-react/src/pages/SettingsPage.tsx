@@ -128,9 +128,51 @@ export function SettingsPage() {
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
 
-  // Load API keys and usage stats on mount
+  // Load user profile, API keys, and usage stats on mount
   useEffect(() => {
     async function loadData() {
+      // Load profile from Supabase auth + user_profiles
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setProfile((prev) => ({
+            ...prev,
+            email: user.email || prev.email,
+            fullName: (user.user_metadata?.full_name as string) || prev.fullName,
+          }));
+
+          // Load org data from user_profiles table
+          const { data: profileData } = await supabase
+            .from('user_profiles')
+            .select('full_name, company, role')
+            .eq('user_id', user.id)
+            .single();
+
+          if (profileData) {
+            setProfile({
+              fullName: profileData.full_name || (user.user_metadata?.full_name as string) || '',
+              email: user.email || '',
+              organization: profileData.company || '',
+              role: profileData.role || 'User',
+            });
+          }
+        }
+      } catch { /* Auth not available */ }
+
+      // Load notification preferences from localStorage
+      try {
+        const savedPrefs = localStorage.getItem('dws_notification_prefs');
+        if (savedPrefs) {
+          setNotifications(JSON.parse(savedPrefs));
+        }
+      } catch { /* Fallback to defaults */ }
+
+      // Load theme and locale from localStorage
+      const savedTheme = localStorage.getItem('dws_theme') as Theme | null;
+      if (savedTheme) setTheme(savedTheme);
+      const savedLocale = localStorage.getItem('dws_locale') as Locale | null;
+      if (savedLocale) setLocale(savedLocale);
+
       const headers = await getAuthHeaders();
 
       try {
@@ -158,7 +200,11 @@ export function SettingsPage() {
   }, []);
 
   const handleNotificationToggle = useCallback((field: keyof NotificationPrefs) => {
-    setNotifications((prev) => ({ ...prev, [field]: !prev[field] }));
+    setNotifications((prev) => {
+      const updated = { ...prev, [field]: !prev[field] };
+      localStorage.setItem('dws_notification_prefs', JSON.stringify(updated));
+      return updated;
+    });
   }, []);
 
   const handleSaveProfile = useCallback(async () => {
@@ -258,8 +304,8 @@ export function SettingsPage() {
         headers,
         body: JSON.stringify({
           companyName: profile.organization || 'My Company',
-          industry: 'manufacturing',
-          country: 'FI',
+          industry: localStorage.getItem('dws_onboarding_industry') || 'manufacturing',
+          country: localStorage.getItem('dws_onboarding_country') || 'FI',
           format,
         }),
       });
@@ -495,7 +541,7 @@ export function SettingsPage() {
                 {(['dark', 'light'] as const).map((t) => (
                   <button
                     key={t}
-                    onClick={() => setTheme(t)}
+                    onClick={() => { setTheme(t); localStorage.setItem('dws_theme', t); }}
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                       theme === t
                         ? 'bg-primary-600 text-white'
@@ -514,7 +560,7 @@ export function SettingsPage() {
               <select
                 id="locale"
                 value={locale}
-                onChange={(e) => setLocale(e.target.value as Locale)}
+                onChange={(e) => { const v = e.target.value as Locale; setLocale(v); localStorage.setItem('dws_locale', v); }}
                 className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {LOCALE_OPTIONS.map((opt) => (
