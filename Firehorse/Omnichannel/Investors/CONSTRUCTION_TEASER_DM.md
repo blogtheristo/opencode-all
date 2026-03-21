@@ -280,6 +280,24 @@ These include both public tenders AND private construction projects (developer-l
 | **Barbour ABI / Glenigan** | Strong in UK/Ireland with some European overlap. Useful if targeting UK-based EU contractors. | — |
 | **Tracker Intelligence** | Private sector leads and market intelligence. | — |
 
+### Example: Real TED Notice
+
+**TED Notice 196127-2026:** https://ted.europa.eu/en/notice/-/detail/196127-2026
+
+This is what a real construction tender looks like on TED. The workflow to convert this into a DM target:
+
+1. Open the notice — note the contracting authority, country, project description, and estimated value
+2. Identify the winning bidder or shortlisted companies
+3. Find their sustainability/compliance lead on LinkedIn
+4. Personalize the DM: *"I saw [Company] won the [project name] tender. With CSRD reporting now mandatory, how are you handling the carbon lifecycle reporting for a project of this scale?"*
+
+**TED search tips:**
+- CPV code `45000000-7` = all construction works
+- CPV code `45200000-9` = building works for civil engineering
+- CPV code `45300000-0` = building installation works
+- Filter by country, value range, and publication date
+- Set up email alerts for new notices matching your filters
+
 ### Lead Sourcing Strategy
 
 1. **Public vs. Private:** TED excels for government-funded projects (often large infrastructure). Commercial platforms are better for private developments and subcontractor opportunities.
