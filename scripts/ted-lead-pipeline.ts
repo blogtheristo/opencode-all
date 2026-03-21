@@ -121,17 +121,20 @@ const KNOWN_ERP: Record<string, string> = {
 
 // ── DM Personalization ─────────────────────────────────────────────────
 
+// Two-part DM: tender hook (peer signal) + procurement referral handoff
+// TED contacts are procurement professionals, not CSO/CFO decision-makers.
+// The DM should ask for the handoff explicitly to avoid dead-end conversations.
 const DM_TEMPLATES: Record<string, (buyer: string, title: string) => string> = {
   FI: (buyer, title) =>
-    `Näin että ${buyer} haki hanketta "${title}". CSRD-vaatimus koskee sitä suoraan — miten hoidatte hiilijalanjälkiraportoinnin tällä hetkellä?`,
+    `Näin hankinnan "${title}" (${buyer}). CSRD-vaatimus koskee sitä suoraan — automatisoimme hiilijalanjälkiraportoinnin rakennushankkeille. Sopiiko että ohjaat minut oikealle henkilölle CSRD-vastuussa?`,
   SV: (buyer, title) =>
-    `Jag såg att ${buyer} lade bud på "${title}". CSRD-kravet gäller direkt — hur hanterar ni koldioxidrapporteringen idag?`,
+    `Jag såg upphandlingen "${title}" (${buyer}). CSRD-kravet gäller direkt — vi automatiserar koldioxidrapporteringen för byggprojekt. Kan du hänvisa mig till rätt person med CSRD-ansvar?`,
   DE: (buyer, title) =>
-    `Ich habe gesehen, dass ${buyer} auf "${title}" geboten hat. Die CSRD-Anforderung gilt direkt — wie handhaben Sie die CO2-Berichterstattung derzeit?`,
+    `Ich habe die Ausschreibung "${title}" (${buyer}) gesehen. Die CSRD-Anforderung gilt direkt — wir automatisieren die CO2-Berichterstattung für Bauprojekte. Könnten Sie mich an die zuständige Person für CSRD weiterleiten?`,
   FR: (buyer, title) =>
-    `J'ai vu que ${buyer} a soumissionné pour "${title}". L'exigence CSRD s'applique directement — comment gérez-vous le reporting carbone actuellement ?`,
+    `J'ai vu l'appel d'offres "${title}" (${buyer}). L'exigence CSRD s'applique directement — nous automatisons le reporting carbone pour les projets de construction. Pourriez-vous me diriger vers la personne responsable CSRD ?`,
   EN: (buyer, title) =>
-    `I saw ${buyer} bid on "${title}". The CSRD requirement applies directly — how are you handling the carbon reporting for this?`,
+    `I saw the tender "${title}" (${buyer}). The CSRD requirement applies directly — we automate carbon reporting for construction projects. Could you point me to the right person handling CSRD compliance?`,
 };
 
 // ── CLI Args ───────────────────────────────────────────────────────────
