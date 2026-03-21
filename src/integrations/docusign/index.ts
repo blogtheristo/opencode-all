@@ -11,18 +11,4 @@
  */
 
 export { DocuSignClient } from './client';
-export {
-  DocuSignConfig,
-  DocuSignEnvironment,
-  EnvelopeStatus,
-  RecipientType,
-  SignatureType,
-  CreateEnvelopeRequest,
-  EnvelopeResult,
-  EnvelopeStatusResult,
-  RecipientStatus,
-  Recipient,
-  EnvelopeDocument,
-  SignatureTab,
-  DocuSignWebhookEvent,
-} from './types';
+export * from './types';
