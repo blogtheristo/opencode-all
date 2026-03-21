@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, CaptainInquiriesData, LearnArtifactsData, HilTodosData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -545,6 +545,18 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
         </div>
         ${msgLine}
       </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+    </td></tr>`;
+}
+
+// ============================================================================
 // LEARN ARTIFACTS SECTION
 // ============================================================================
 
@@ -627,10 +639,12 @@ function renderHilTodosHtml(data: HilTodosData): string {
     .join('');
 
   return `
-    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
-      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a; background: #0d1a0d;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">
+        ⚠ HIL ToDo &nbsp;<span style="color: #555; font-weight: 400; font-size: 11px;">(${data.todos.length} open)</span>
+      </h3>
       ${rows}
-      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Click ✅ Done to clear a task. Tasks auto-appear from Monday market run and automated collectors.</p>
     </td></tr>`;
 }
 
@@ -655,13 +669,8 @@ function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
   }
 
   lines.push('  → Reply within 24h: industry brief + SAFE term sheet + calendar link');
-    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a; background: #0d1a0d;">
-      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ffaa00; text-transform: uppercase; letter-spacing: 1.5px;">
-        ⚠ HIL ToDo &nbsp;<span style="color: #555; font-weight: 400; font-size: 11px;">(${data.todos.length} open)</span>
-      </h3>
-      ${rows}
-      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Click ✅ Done to clear a task. Tasks auto-appear from Monday market run and automated collectors.</p>
-    </td></tr>`;
+  lines.push('');
+  return lines.join('\n');
 }
 
 function renderHilTodosPlainText(data: HilTodosData): string {

@@ -693,6 +693,8 @@ async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
     newCount: inquiries?.length || 0,
     inquiries: inquiries || [],
   };
+}
+
 // LEARN ARTIFACTS COLLECTOR
 // ============================================================================
 
@@ -981,8 +983,7 @@ export async function collectCockpitData(): Promise<CockpitData> {
   });
   const dayOfWeek = now.toLocaleDateString('en-GB', { weekday: 'short' });
 
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, captainInquiries] = await Promise.all([
-  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, learnArtifacts, hilTodos] = await Promise.all([
+  const [changes, bets, risk, momentum, metrics, sendList, workflow, constructionLeads, outreachSummary, captainInquiries, learnArtifacts, hilTodos] = await Promise.all([
     collectThreeChanges(),
     collectTodaysBets(),
     collectTopRisk(),
