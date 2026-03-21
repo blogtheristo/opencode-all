@@ -22,7 +22,7 @@ Document Status:
 
 ## Complete System Overview
 
-This document describes the end-to-end investor outreach workflow, connecting cold email campaigns, the investor-relations page, Supabase tracking, and daily automation.
+This document describes the end-to-end investor outreach workflow, connecting cold email campaigns, the Captain landing page, Supabase tracking, and daily automation.
 
 ---
 
