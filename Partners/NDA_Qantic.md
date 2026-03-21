@@ -29,7 +29,7 @@ PARTY B:
 
 Qantic GmbH (hereinafter "Qantic")
 Business Identity Code: HRB 202069 B (Amtsgericht Charlottenburg, Berlin)
-Registered Address: c/o Factory Works GmbH, Lohmuhlenstrasse 65, 12435 Berlin, Germany
+Registered Address: c/o Factory Works GmbH, Lohmühlenstraße 65, 12435 Berlin, Germany
 Country of Incorporation: Germany
 Contact: Thomas A. Kalitzky, Managing Director
 Email: support@qantic.com
