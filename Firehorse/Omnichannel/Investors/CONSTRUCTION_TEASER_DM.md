@@ -31,6 +31,86 @@
 
 ---
 
+## LinkedIn DM — Svenska (NCC, Skanska, Sweco)
+
+> Hej [Fornamn],
+>
+> Jag noterade ert arbete inom [bygg / deras specifika omrade — t.ex. "hallbart betong" eller "NCC:s grona omstallning"]. En snabb fraga fran ett grundarperspektiv:
+>
+> Hur hanterar ert team Fit for 55-rapportering just nu — CSRD, EPBD, EN 15978 koldioxidlivscykel? Manuella kalkylark, konsulter, eller nagot annat?
+>
+> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 16 EU-reglerade branscher. Vi har redan byggpiloter igangoch EUR 7k+ MRR.
+>
+> Vi oppnar 8 Platinum Industry Captain-platser (EUR 50k SAFE, EUR 3,8M cap) for operatorer som vill aga en vertikal pa plattformen och forma hur den betjanar deras bransch. Bygg ar tillgangligt.
+>
+> Passar en 30-minuters Situation Room-demo for bygg? Jag kan visa vad vi trackar for EPBD och EN 15978 specifikt.
+>
+> — Risto
+
+**Teckenantal:** ~720
+
+---
+
+## LinkedIn DM — Deutsch (PORR, STRABAG, HOCHTIEF)
+
+> Hallo [Vorname],
+>
+> Ihre Arbeit im Bereich [Bau / spezifisches Gebiet — z.B. "nachhaltiger Beton" oder "STRABAGs digitale Transformation"] hat meine Aufmerksamkeit erregt. Eine kurze Frage aus Grunderperspektive:
+>
+> Wie handhabt Ihr Team die Fit-for-55-Berichterstattung derzeit — CSRD, EPBD, EN 15978 CO2-Lebenszyklus? Manuelle Tabellenkalkulationen, Berater, oder etwas anderes?
+>
+> Ich baue DWS IQ 6 — eine industrielle Klimaintelligenz-Plattform fur 16 EU-regulierte Branchen. Wir haben bereits Baupiloten laufen und EUR 7k+ MRR.
+>
+> Wir vergeben 8 Platinum Industry Captain-Sitze (EUR 50k SAFE, EUR 3,8M Cap) an Operatoren, die eine Vertikale auf der Plattform besitzen und mitgestalten mochten. Bau ist verfugbar.
+>
+> Passt eine 30-minutige Situation-Room-Demo fur den Baubereich? Ich kann zeigen, was wir fur EPBD und EN 15978 konkret tracken.
+>
+> — Risto
+
+**Zeichenanzahl:** ~750
+
+---
+
+## LinkedIn DM — Suomi (Petri Kasari / Sweco, suomalaiset kontaktit)
+
+> Hei [Etunimi],
+>
+> Huomasin tyosi [rakentaminen / tarkka alue — esim. "kestava betoni" tai "Swecon digitaalinen innovaatio"]. Nopea kysymys perustajan nakokulmasta:
+>
+> Miten tiiminna hoitaa Fit for 55 -raportoinnin talla hetkella — CSRD, EPBD, EN 15978 hiilijalanjaljen elinkaariarviointi? Manuaaliset taulukot, konsultit vai jokin muu?
+>
+> Rakennan DWS IQ 6:ta — teollista ilmastoalyalustaa joka kattaa 16 EU-saanneltya toimialaa. Meilla on jo rakennuspilotit kaynnissa ja EUR 7k+ MRR.
+>
+> Avaamme 8 Platinum Industry Captain -paikkaa (EUR 50k SAFE, EUR 3,8M cap) operaattoreille jotka haluavat omistaa vertikaalin alustalla ja muokata miten se palvelee heidan toimialaansa. Rakentaminen on auki.
+>
+> Sopiiko 30 minuutin Situation Room -demo rakentamiselle? Voin nayttaa mita seuraamme EPBD:n ja EN 15978:n osalta konkreettisesti.
+>
+> — Risto
+
+**Merkkimaara:** ~740
+
+---
+
+## LinkedIn DM — Francais (Vinci, Bouygues, Eiffage)
+
+> Bonjour [Prenom],
+>
+> J'ai remarque votre travail dans [la construction / leur domaine specifique — par ex. "le beton durable" ou "la transformation digitale de Vinci"]. Une question rapide du point de vue d'un fondateur :
+>
+> Comment votre equipe gere-t-elle le reporting Fit for 55 aujourd'hui — CSRD, EPBD, cycle de vie carbone EN 15978 ? Tableurs manuels, consultants, ou autre chose ?
+>
+> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique industrielle couvrant 16 secteurs reglementes de l'UE. Nous avons deja des pilotes construction en cours et EUR 7k+ de MRR.
+>
+> Nous ouvrons 8 sieges Platinum Industry Captain (EUR 50k SAFE, cap EUR 3,8M) pour des operateurs qui souhaitent detenir une verticale sur la plateforme et faconner son service pour leur secteur. Construction est disponible.
+>
+> Un demo Situation Room de 30 minutes pour la construction, ca vous dit ? Je peux vous montrer ce que nous suivons pour l'EPBD et l'EN 15978 specifiquement.
+>
+> — Risto
+
+**Nombre de caracteres :** ~780
+
+---
+
 ## Email Version (Construction)
 
 **Subject line options (test 2-3):**
@@ -38,8 +118,8 @@
 - `EPBD + EN 15978 automation — Captain seat open`
 - `[First Name], quick question about construction compliance`
 
-**From:** risto@lifetime.fi
-**Reply-to:** risto@lifetime.fi
+**From:** risto@onelifetime.world
+**Reply-to:** risto@onelifetime.world
 
 ---
 

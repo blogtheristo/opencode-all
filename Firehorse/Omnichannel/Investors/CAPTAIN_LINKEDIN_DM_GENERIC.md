@@ -1,10 +1,30 @@
 # Captain Seat — Generic LinkedIn DM Templates
 
+***
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Added native-language DM templates (Finnish, Swedish, German, French), language routing guide for 88 construction contacts, connection request templates in 4 languages
+  - Version: 1.0 | Tool: Claude Code | Date: 24.02.2026 | Changes: Initial creation — 4 English templates (A/B/C/D), industry keyword map, personalization checklist, daily cadence
+
+Session Links & References:
+  - Claude Code (claude/improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6/commits/claude/improve-sales-call-script-xg1zO
+
+Document Status:
+  - Created: 24.02.2026
+  - Last Modified: 21.03.2026
+  - Language: English (primary), Finnish, Swedish, German, French
+  - Publication Status: ACTIVE
+
+***
+
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-DM-GEN-001 |
-| **Version** | 1.0 |
-| **Date** | 2026-02-24 |
+| **Version** | 2.0 |
+| **Date** | 2026-03-21 |
 | **Funnel Stage** | Stage 1 — First Touch |
 | **Target** | CDOs, CTOs, CSOs, and sustainability leads in any of 16 EU regulated industries |
 | **Channels** | LinkedIn DM |
@@ -108,17 +128,232 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 ---
 
+## Language Routing Guide — 88 Construction Contacts
+
+**Rule:** Always DM in the contact's native language. CXOs respond 2-3x better in their mother tongue. Use English only for UK/US contacts or when unsure.
+
+| Company | Country | Language | Contacts |
+|---------|---------|----------|----------|
+| NCC | Sweden | Swedish | 8 |
+| Skanska | Sweden | Swedish (7), English (Katy Dowding UK), Norwegian (Ståle Roed) | 8 |
+| PORR | Austria | German | 8 |
+| STRABAG | Austria/Germany | German | 8 |
+| HOCHTIEF | Germany | German | 8 |
+| Vinci | France | French | 8 |
+| Bouygues | France | French | 8 |
+| Eiffage | France | French | 8 |
+| Balfour Beatty | UK | English | 8 |
+| Sweco | Sweden/Finland | Swedish (7), Finnish (Petri Kasari) | 8 |
+| **Total** | | | **88** |
+
+**Language split:** Swedish ~22, German ~24, French ~24, English ~9, Finnish ~1, Norwegian ~1
+
+---
+
+## Template A-SV — CDO / CTO (Svenska)
+
+> Hej [Fornamn],
+>
+> Ert arbete pa [Foretag] fangade min uppmarksamhet — sarskilt [specifik referens: LinkedIn-inlagg, foretagsinitiativ eller nyhet].
+>
+> En snabb fraga: hur automatiserar ert team [REGULATION]-efterlevnad idag? Vi ser att de flesta [bransch]-foretag fortfarande kor detta via konsulter och kalkylark till sexsiffriga arskostnader.
+>
+> Jag bygger DWS IQ 6 — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad over 16 EU-reglerade branscher. Vi har EUR 7k+ MRR, 100% retention och aktiva piloter inom [bransch].
+>
+> Vi oppnar 8 Platinum Captain-platser (EUR 50k SAFE) for operatorer som vill aga en branschvertikal pa plattformen. En plats per bransch. [Bransch] ar tillganglig.
+>
+> Passar en 30-minuters demo? Livedata, inga slides.
+>
+> — Risto
+
+**Teckenantal:** ~650
+
+---
+
+## Template A-DE — CDO / CTO (Deutsch)
+
+> Hallo [Vorname],
+>
+> Ihre Arbeit bei [Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [spezifische Referenz: LinkedIn-Post, Unternehmensinitiative oder Nachricht].
+>
+> Eine kurze Frage: Wie automatisiert Ihr Team die [REGULATION]-Compliance derzeit? Wir sehen, dass die meisten [Branche]-Unternehmen dies noch uber Berater und Tabellenkalkulationen abwickeln — zu sechsstelligen Jahreskosten.
+>
+> Ich baue DWS IQ 6 — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance uber 16 EU-regulierte Branchen automatisiert. Wir haben EUR 7k+ MRR, 100% Retention und aktive Piloten in der [Branche].
+>
+> Wir vergeben 8 Platinum Captain-Sitze (EUR 50k SAFE) an Operatoren, die eine Branchenvertikale auf der Plattform besitzen mochten. Ein Sitz pro Branche. [Branche] ist verfugbar.
+>
+> Passt eine 30-Minuten-Demo? Live-Daten, keine Slides.
+>
+> — Risto
+
+**Zeichenanzahl:** ~700
+
+---
+
+## Template A-FI — CDO / CTO (Suomi)
+
+> Hei [Etunimi],
+>
+> Tyonne [Yritys]:ssa kiinnitti huomioni — erityisesti [tarkka viite: LinkedIn-postaus, yritysaloite tai uutinen].
+>
+> Nopea kysymys: miten tiiminna automatisoi [REGULATION]-vaatimustenmukaisuutta talla hetkella? Naemme etta useimmat [toimiala]-yritykset hoitavat taman viela konsulteilla ja Excelilla — kuusinumeroisin vuosikustannuksin.
+>
+> Rakennan DWS IQ 6:ta — ilmastoalyalustaa joka automatisoi Fit for 55 -vaatimustenmukaisuuden 16 EU-saannellylla toimialalla. Meilla on EUR 7k+ MRR, 100% asiakaspysyvyys ja aktiivisia pilotteja [toimiala]-sektorilla.
+>
+> Avaamme 8 Platinum Captain -paikkaa (EUR 50k SAFE) operaattoreille jotka haluavat omistaa toimialavertikaalin alustalla. Yksi paikka per toimiala. [Toimiala] on auki.
+>
+> Sopiiko 30 minuutin demo? Livedataa, ei slideja.
+>
+> — Risto
+
+**Merkkimaara:** ~680
+
+---
+
+## Template A-FR — CDO / CTO (Francais)
+
+> Bonjour [Prenom],
+>
+> Votre travail chez [Entreprise] a retenu mon attention — en particulier [reference specifique : post LinkedIn, initiative d'entreprise ou actualite].
+>
+> Une question rapide : comment votre equipe automatise-t-elle la conformite [REGULATION] aujourd'hui ? Nous constatons que la plupart des entreprises du [secteur] gerent encore cela via des consultants et des tableurs — a un cout annuel a six chiffres.
+>
+> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique qui automatise la conformite Fit for 55 dans 16 secteurs reglementes de l'UE. Nous avons EUR 7k+ de MRR, 100% de retention et des pilotes actifs dans le [secteur].
+>
+> Nous ouvrons 8 sieges Platinum Captain (EUR 50k SAFE) pour des operateurs qui souhaitent detenir une verticale sectorielle sur la plateforme. Un siege par secteur. [Secteur] est disponible.
+>
+> Un demo de 30 minutes, ca vous dit ? Donnees en direct, pas de slides.
+>
+> — Risto
+
+**Nombre de caracteres :** ~720
+
+---
+
+## Template B-SV — CSO / Hallbarhetsansvarig (Svenska)
+
+> Hej [Fornamn],
+>
+> Jag laste [Foretag]s senaste hallbarhetsrapport — [specifik komplimang: t.ex. "er Scope 3-uppdelning ar mer detaljerad an de flesta i sektorn"]. Imponerande.
+>
+> En sak jag ar nyfiken pa: hur mycket av [REGULATION]-rapporteringen ar automatiserad kontra manuell? Jag har pratat med 40+ [bransch]-operatorer och svaret ar vanligtvis "for mycket Excel."
+>
+> Vi byggde DWS IQ 6 for att losa det — automatiserad compliance-intelligens for ETS, CBAM, CSRD och 12 fler EU-mandat. I produktion. EUR 7-14k MRR.
+>
+> Jag tar in kapital annorlunda: 8 Platinum Captain-platser a EUR 50k SAFE (EUR 3,8M cap, 20% rabatt). Varje Captain ager en branschvertikal. [Bransch] ar tillganglig.
+>
+> Vart 15 minuter?
+>
+> — Risto
+
+**Teckenantal:** ~640
+
+---
+
+## Template B-DE — CSO / Nachhaltigkeitsleitung (Deutsch)
+
+> Hallo [Vorname],
+>
+> Ich habe den aktuellen Nachhaltigkeitsbericht von [Unternehmen] gelesen — [spezifisches Kompliment: z.B. "Ihre Scope-3-Aufschlusselung ist detaillierter als bei den meisten in der Branche"]. Respekt.
+>
+> Eine Sache interessiert mich: Wie viel der [REGULATION]-Berichterstattung ist automatisiert vs. manuell? Ich habe mit 40+ [Branche]-Operatoren gesprochen und die Antwort ist meist "zu viel Excel."
+>
+> Wir haben DWS IQ 6 dafur gebaut — automatisierte Compliance-Intelligenz fur ETS, CBAM, CSRD und 12 weitere EU-Mandate. In Produktion. EUR 7-14k MRR.
+>
+> Ich raise anders: 8 Platinum Captain-Sitze a EUR 50k SAFE (EUR 3,8M Cap, 20% Discount). Jeder Captain besitzt eine Branchenvertikale. [Branche] ist verfugbar.
+>
+> 15 Minuten wert?
+>
+> — Risto
+
+**Zeichenanzahl:** ~660
+
+---
+
+## Template B-FI — CSO / Vastuullisuusjohtaja (Suomi)
+
+> Hei [Etunimi],
+>
+> Luin [Yritys]:n viimeisimman vastuullisuusraportin — [tarkka kehus: esim. "Scope 3 -erittelynne on yksityiskohtaisempi kuin useimmilla alalla"]. Kunnioitettavaa.
+>
+> Yksi asia kiinnostaa: kuinka paljon [REGULATION]-raportoinnista on automatisoitu vs. manuaalista? Olen puhunut 40+ [toimiala]-operaattorin kanssa ja vastaus on yleensa "liikaa Excelia."
+>
+> Rakensimme DWS IQ 6:n ratkaisemaan taman — automatisoitu compliance-aly ETS:lle, CBAM:lle, CSRD:lle ja 12 muulle EU-mandaatille. Tuotannossa. EUR 7-14k MRR.
+>
+> Keraän paaomaa eri tavalla: 8 Platinum Captain -paikkaa a EUR 50k SAFE (EUR 3,8M cap, 20% alennus). Jokainen Captain omistaa yhden toimialavertikaalin. [Toimiala] on auki.
+>
+> Onko 15 minuuttia mahdollista?
+>
+> — Risto
+
+**Merkkimaara:** ~660
+
+---
+
+## Template B-FR — CSO / Responsable Developpement Durable (Francais)
+
+> Bonjour [Prenom],
+>
+> J'ai lu le dernier rapport de developpement durable de [Entreprise] — [compliment specifique : par ex. "votre ventilation Scope 3 est plus detaillee que chez la plupart du secteur"]. Respect.
+>
+> Une chose m'interesse : quelle part du reporting [REGULATION] est automatisee vs. manuelle ? J'ai echange avec 40+ operateurs du [secteur] et la reponse est generalement "trop d'Excel."
+>
+> Nous avons construit DWS IQ 6 pour resoudre ca — intelligence de conformite automatisee pour ETS, CBAM, CSRD et 12 autres mandats UE. En production. EUR 7-14k de MRR.
+>
+> Je leve des fonds differemment : 8 sieges Platinum Captain a EUR 50k SAFE (cap EUR 3,8M, 20% de decote). Chaque Captain possede une verticale sectorielle. [Secteur] est disponible.
+>
+> 15 minutes, ca vaut le coup ?
+>
+> — Risto
+
+**Nombre de caracteres :** ~680
+
+---
+
+## Template D-SV — Kontaktforfragan (Svenska)
+
+> Hej [Fornamn] — jag bygger en klimat-complianceplattform for [bransch]. Din bakgrund inom [deras omrade] ar precis den profil vi soker i vart Captain-program. Vore kul att koppla ihop.
+
+**Teckenantal:** ~210
+
+---
+
+## Template D-DE — Kontaktanfrage (Deutsch)
+
+> Hallo [Vorname] — ich baue eine Klimat-Compliance-Plattform fur die [Branche]. Ihr Hintergrund in [deren Bereich] ist genau das Profil, das wir fur unser Captain-Programm suchen. Wurde mich freuen zu connecten.
+
+**Zeichenanzahl:** ~230
+
+---
+
+## Template D-FI — Yhteyspyynto (Suomi)
+
+> Hei [Etunimi] — rakennan ilmasto-compliancealustaa [toimiala]-sektorille. Taustasi [henkilon ala-alue] on juuri se profiili jota etsimme Captain-ohjelmaamme. Olisi hienoa verkostoitua.
+
+**Merkkimaara:** ~200
+
+---
+
+## Template D-FR — Demande de connexion (Francais)
+
+> Bonjour [Prenom] — je developpe une plateforme de conformite climatique pour le [secteur]. Votre parcours en [leur domaine] correspond exactement au profil que nous recherchons pour notre programme Captain. Ravi de connecter.
+
+**Nombre de caracteres :** ~240
+
+---
+
 ## Personalization Checklist
 
 Before sending ANY DM, verify:
 
 | # | Check | Where to Find |
 |---|-------|--------------|
-| 1 | Their exact role and industry | LinkedIn headline + About |
-| 2 | Company sustainability stance | Annual report, ESG page |
-| 3 | Something specific they said/did | Recent LinkedIn post, conference, press |
-| 4 | Correct regulation for their industry | Use the keyword map above |
-| 5 | Their company's size (determines urgency) | >250 employees = CSRD mandatory |
+| 1 | **Native language** | Use Language Routing Guide above. Swedish for NCC/Skanska/Sweco, German for PORR/STRABAG/HOCHTIEF, French for Vinci/Bouygues/Eiffage, English for Balfour Beatty |
+| 2 | Their exact role and industry | LinkedIn headline + About |
+| 3 | Company sustainability stance | Annual report, ESG page |
+| 4 | Something specific they said/did | Recent LinkedIn post, conference, press |
+| 5 | Correct regulation for their industry | Use the keyword map above |
+| 6 | Their company's size (determines urgency) | >250 employees = CSRD mandatory |
 
 **Rule:** If you can't find a specific personalization hook, don't send. Generic DMs get <5% reply rates. Personalized DMs get 15-25%.
 
@@ -146,4 +381,4 @@ https://dws10.com/captain/deck/?utm_source=linkedin&utm_medium=dm&utm_campaign=c
 
 ---
 
-*Document Version 1.0 — 24 February 2026 — Lifetime Oy*
+*Document Version 2.0 — 21 March 2026 — Lifetime Oy*
