@@ -355,6 +355,7 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 | Partner | Program | Status | Confirmed | Competitive Impact |
 |---------|---------|--------|-----------|-------------------|
 | NVIDIA | Connect ISV Partner | Confirmed | 2026-03-08 | Certified compute layer — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network |
+| Qantic GmbH | Energy Simulation Partnership | NDA Sent | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom) |
 
 **Partnership integration checklist (per partner):**
 - [x] Official confirmation received

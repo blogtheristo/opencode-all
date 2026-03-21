@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: NDA sent to Qantic GmbH — partnership status upgraded from TODO to IN PROGRESS, added NDA tracking section, updated action items
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Initial competitive analysis — Qantic GmbH energy simulation company, Q-System product, partnership and CSRD gap analysis
 
 Session Links & References:
@@ -13,7 +14,7 @@ Session Links & References:
 
 Document Status:
   - Created: 20.03.2026
-  - Last Modified: 20.03.2026
+  - Last Modified: 21.03.2026
   - Language: EN/FI (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
@@ -23,6 +24,7 @@ Document Status:
 **Document ID:** DWS-MR-QANTIC-001
 **Classification:** Market Research — Competitive Intelligence
 **DWS Products Affected:** DWS IQ Platform, Firehorse V2 Reports, LWM V1
+**Partnership Status:** NDA SENT (21.03.2026)
 
 ---
 
@@ -246,15 +248,27 @@ Qanticin referensseissä EI OLE yhtään:
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-### 7.3 Action Items
+### 7.3 NDA & Partnership Progress
+
+| Milestone | Date | Status |
+|-----------|------|--------|
+| Competitive analysis completed | 20.03.2026 | DONE |
+| NDA sent to Qantic GmbH | 21.03.2026 | SENT — awaiting countersignature |
+| NDA countersigned | — | PENDING |
+| Intro meeting scheduled | — | PENDING (after NDA) |
+| Joint technical assessment | — | PENDING |
+| Partnership agreement | — | PENDING |
+
+### 7.4 Action Items
 
 | # | Action | Owner | Priority | Status |
 |---|--------|-------|----------|--------|
-| 1 | Contact Thomas Kalitzky (MD) for intro meeting | Product Strategy | HIGH | TODO |
-| 2 | Prepare DWS IQ demo focused on CSRD for energy sector | Product | HIGH | TODO |
-| 3 | Map Q-System emission factor output → DWS IQ ESRS input | Engineering | MEDIUM | TODO |
-| 4 | Create joint value proposition one-pager (EN/DE) | Marketing | MEDIUM | TODO |
+| 1 | ~~Contact Thomas Kalitzky (MD) for intro meeting~~ | Product Strategy | HIGH | DONE — NDA sent 21.03.2026 |
+| 2 | Prepare DWS IQ demo focused on CSRD for energy sector | Product | HIGH | TODO — prepare before intro meeting |
+| 3 | Map Q-System emission factor output → DWS IQ ESRS input | Engineering | MEDIUM | TODO — after NDA signed |
+| 4 | Create joint value proposition one-pager (EN/DE) | Marketing | MEDIUM | TODO — after intro meeting |
 | 5 | Identify 3 shared target clients (dena, MAN, Naturstrom) | Sales | HIGH | TODO |
+| 6 | Follow up on NDA countersignature (7 business days) | Product Strategy | HIGH | TODO — follow up by 01.04.2026 |
 
 ---
 
