@@ -8,6 +8,7 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: DRAFT — INTERNAL ONLY (prospect stage, no NDA signed)
 
 Sessions & Modifications:
+  - Version: 5.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 8 — Mutual Credibility Window sales argument (DWS10.com as Qantic's compliance credibility layer for their clients' due diligence)
   - Version: 5.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Consolidated deal proposal incorporating corrected pipeline (3-5 verified CSRD clients), Phase 1/2/3 approach, corrected COGS (Helsinki-Berlin travel), non-compete rationale, validation question for 26.03 call
   - Version: 1.0 (business-case) | Date: 19.03.2026 | Changes: Initial partnership business case
   - Version: 1.0 (scoping-agenda) | Date: 19.03.2026 | Changes: 20-min call agenda
@@ -229,7 +230,39 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 
 ---
 
-## 8. What We Bring to the Table
+## 8. Mutual Credibility Window (Sales Argument)
+
+**Core insight:** Qantic's web presence is weak. Ours is strong. This is a selling point, not a gap.
+
+**The argument for the 26.03 call:**
+
+> "Your clients will research both of us. DWS10.com gives them the technical depth and compliance credibility to feel confident moving forward. We're not just a vendor — we're part of your pitch to your own clients."
+
+**Why this works both ways:**
+
+| Direction | What it proves |
+|-----------|---------------|
+| Qantic → Lifetime | Energy sector domain, BESS simulation IP, German market access, client network |
+| Lifetime → Qantic | Technical depth (dws10.com/csrd/), EU compliance credibility, working product (not vaporware), EU-hosted infra |
+
+**What Qantic's client sees when they Google us:**
+- dws10.com/csrd/ — CSRD compliance landing page with pricing, regulation detail, structured data
+- 82 ESRS disclosures mapped — visible technical depth
+- EU-hosted (Finland) — data sovereignty story
+- Products with real pricing — not "contact us for a demo"
+
+**What Qantic's client sees when they Google Qantic alone:**
+- Q-System product page — strong on energy simulation
+- No compliance story — gap that their client notices
+- No EU regulatory depth — makes the compliance module feel bolted-on
+
+**After this deal:** Qantic becomes our energy sector reference. We become Qantic's compliance credibility layer. Both logos strengthen each other's pitch decks.
+
+**Use on the call:** Frame DWS10.com as Qantic's credibility asset, not just a backend service. Their clients' due diligence works in our favor.
+
+---
+
+## 9. What We Bring to the Table
 
 | Asset | Status | Value |
 |-------|--------|-------|
@@ -244,7 +277,7 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 
 ---
 
-## 9. What We Need from Qantic
+## 10. What We Need from Qantic
 
 | Item | When | Priority |
 |------|------|----------|
@@ -257,7 +290,7 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 
 ---
 
-## 10. Next Steps
+## 11. Next Steps
 
 | # | Action | Owner | Deadline |
 |---|--------|-------|----------|

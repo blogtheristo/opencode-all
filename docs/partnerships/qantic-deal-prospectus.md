@@ -8,6 +8,7 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: FINAL — Ready for 26.03 call
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added mutual credibility bonus — DWS10.com as Qantic's compliance credibility layer
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Two-part deal — 16k setup + API fees. Replaces API-only and product-only proposals.
 
 Document Status:
@@ -192,6 +193,8 @@ All sent same day as call.
 | **Total Year 1** | **€18,960** | |
 
 Plus: energy sector reference client, Qantic partner logo, DACH market entry proof point.
+
+**Mutual credibility bonus:** Qantic's clients will research both parties. DWS10.com provides the technical depth and EU compliance credibility that strengthens Qantic's own pitch. We're not just a backend — we're part of Qantic's client confidence story.
 
 ---
 
