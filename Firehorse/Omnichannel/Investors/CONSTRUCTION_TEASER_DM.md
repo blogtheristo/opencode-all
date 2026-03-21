@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-DM-CONST-001 |
-| **Version** | 2.0 |
+| **Version** | 3.0 |
 | **Date** | 2026-03-21 |
 | **Funnel Stage** | Stage 1 — First Touch |
 | **Target** | Construction industry operators, BAs, ESG/sustainability leads |
@@ -15,17 +15,23 @@
 
 > Hi [FILL IN: First Name],
 >
-> I noticed your work at [FILL IN: Company] — particularly [FILL IN: specific LinkedIn post, initiative, or news — DO NOT send with brackets]. Quick question from a founder's perspective:
+> I noticed your work at [FILL IN: Company] — particularly [FILL IN: specific LinkedIn post, initiative, or news — DO NOT send with brackets].
 >
-> How is your team handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle? Manual spreadsheets, consultants, or something else?
+> I'm reaching out because the EU just made climate reporting mandatory for construction. Starting 2025-2026, every large construction company must report exactly how much CO2 their buildings produce — from raw materials to demolition. This comes from three new EU rules:
 >
-> I'm building DWS IQ 6 — an industrial climate intelligence platform covering 20 EU regulated industries. We're live in production with EUR 7k+ MRR and construction sector customers.
+> - **CSRD** — companies must now publish detailed sustainability reports (not just financials)
+> - **EPBD** — every building needs an energy performance rating and a plan to reduce emissions
+> - **EN 15978** — the technical standard for calculating a building's total carbon footprint across its entire lifecycle
 >
-> Would a 30-minute Situation Room demo for construction make sense? I can show you what we're tracking for EPBD and EN 15978 specifically.
+> Most construction teams I talk to are still doing this with consultants and spreadsheets. It works, but it's slow, expensive, and hard to scale across projects.
+>
+> I'm building software that automates this. **DWS IQ 6** reads your project data and generates the compliance reports automatically — the same reports that would take a consultant weeks to prepare. We cover construction and 19 other EU-regulated industries. We're live in production with paying customers.
+>
+> Would a 30-minute demo make sense? I can show you how it works for construction specifically — live data, not slides.
 >
 > — Risto
 
-**Character count:** ~530 (within LinkedIn DM limit)
+**Character count:** ~1100 (within LinkedIn DM limit)
 
 > **NOTE:** Captain seat pitch (EUR 50k SAFE) goes in the **follow-up** after they respond — not the opener.
 
@@ -35,17 +41,23 @@
 
 > Hej [FYLL I: Fornamn],
 >
-> Ert arbete pa [FYLL I: Foretag] fangade min uppmarksamhet — sarskilt [FYLL I: specifik LinkedIn-inlagg, initiativ eller nyhet — skicka INTE med hakparenteser]. En snabb fraga fran ett grundarperspektiv:
+> Ert arbete pa [FYLL I: Foretag] fangade min uppmarksamhet — sarskilt [FYLL I: specifik LinkedIn-inlagg, initiativ eller nyhet — skicka INTE med hakparenteser].
 >
-> Hur hanterar ert team Fit for 55-rapportering just nu — CSRD, EPBD, EN 15978 koldioxidlivscykel? Manuella kalkylark, konsulter, eller nagot annat?
+> Jag hor av mig for att EU just gjort klimatrapportering obligatorisk for byggsektorn. Fran 2025-2026 maste varje stort byggforetag rapportera exakt hur mycket CO2 deras byggnader producerar — fran ramaterial till rivning. Det kommer fran tre nya EU-regler:
 >
-> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 20 EU-reglerade branscher. Vi ar i produktion med EUR 7k+ MRR och byggkunder.
+> - **CSRD** — foretag maste nu publicera detaljerade hallbarhetsrapporter (inte bara finansiella)
+> - **EPBD** — varje byggnad behover en energiprestandaklassificering och en plan for att minska utslappen
+> - **EN 15978** — den tekniska standarden for att berakna en byggnads totala koldioxidavtryck over hela dess livscykel
 >
-> Passar en 30-minuters Situation Room-demo for bygg? Jag kan visa vad vi trackar for EPBD och EN 15978 specifikt.
+> De flesta byggteam jag pratar med gor fortfarande detta med konsulter och kalkylark. Det fungerar, men det ar langsamt, dyrt och svart att skala over projekt.
+>
+> Jag bygger mjukvara som automatiserar detta. **DWS IQ 6** laser era projektdata och genererar efterlevnadsrapporterna automatiskt — samma rapporter som en konsult behover veckor for att forbereda. Vi tacker bygg och 19 andra EU-reglerade branscher. Vi ar i produktion med betalande kunder.
+>
+> Passar en 30-minuters demo? Jag kan visa hur det fungerar for bygg specifikt — livedata, inga slides.
 >
 > — Risto
 
-**Teckenantal:** ~530
+**Teckenantal:** ~1150
 
 ---
 
@@ -53,17 +65,23 @@
 
 > Hallo [AUSFULLEN: Vorname],
 >
-> Ihre Arbeit bei [AUSFULLEN: Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [AUSFULLEN: spezifischer LinkedIn-Post, Initiative oder Nachricht — NICHT mit Klammern senden]. Eine kurze Frage aus Grunderperspektive:
+> Ihre Arbeit bei [AUSFULLEN: Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [AUSFULLEN: spezifischer LinkedIn-Post, Initiative oder Nachricht — NICHT mit Klammern senden].
 >
-> Wie handhabt Ihr Team die Fit-for-55-Berichterstattung derzeit — CSRD, EPBD, EN 15978 CO2-Lebenszyklus? Manuelle Tabellenkalkulationen, Berater, oder etwas anderes?
+> Ich melde mich, weil die EU gerade die Klimaberichterstattung fur den Bausektor verpflichtend gemacht hat. Ab 2025-2026 muss jedes grosse Bauunternehmen genau berichten, wie viel CO2 seine Gebaude erzeugen — vom Rohmaterial bis zum Abriss. Das kommt von drei neuen EU-Regeln:
 >
-> Ich baue DWS IQ 6 — eine industrielle Klimaintelligenz-Plattform fur 20 EU-regulierte Branchen. Wir sind in Produktion mit EUR 7k+ MRR und Baukunden.
+> - **CSRD** — Unternehmen mussen jetzt detaillierte Nachhaltigkeitsberichte veroffentlichen (nicht nur Finanzberichte)
+> - **EPBD** — jedes Gebaude braucht eine Energieeffizienz-Bewertung und einen Plan zur Emissionsreduzierung
+> - **EN 15978** — der technische Standard zur Berechnung des gesamten CO2-Fussabdrucks eines Gebaudes uber seinen gesamten Lebenszyklus
 >
-> Passt eine 30-minutige Situation-Room-Demo fur den Baubereich? Ich kann zeigen, was wir fur EPBD und EN 15978 konkret tracken.
+> Die meisten Bauteams, mit denen ich spreche, machen das noch mit Beratern und Tabellenkalkulationen. Es funktioniert, aber es ist langsam, teuer und schwer uber Projekte hinweg zu skalieren.
+>
+> Ich baue Software, die das automatisiert. **DWS IQ 6** liest Ihre Projektdaten und erstellt die Compliance-Berichte automatisch — dieselben Berichte, fur die ein Berater Wochen braucht. Wir decken Bau und 19 weitere EU-regulierte Branchen ab. Wir sind in Produktion mit zahlenden Kunden.
+>
+> Passt eine 30-minutige Demo? Ich kann zeigen, wie es fur den Baubereich konkret funktioniert — Live-Daten, keine Slides.
 >
 > — Risto
 
-**Zeichenanzahl:** ~550
+**Zeichenanzahl:** ~1200
 
 ---
 
@@ -71,17 +89,23 @@
 
 > Hei [TAYTA: Etunimi],
 >
-> Tyosi [TAYTA: Yritys]:ssa kiinnitti huomioni — erityisesti [TAYTA: tarkka LinkedIn-postaus, aloite tai uutinen — ALA laheta hakasulkeilla]. Nopea kysymys perustajan nakokulmasta:
+> Tyosi [TAYTA: Yritys]:ssa kiinnitti huomioni — erityisesti [TAYTA: tarkka LinkedIn-postaus, aloite tai uutinen — ALA laheta hakasulkeilla].
 >
-> Miten tiimisi hoitaa Fit for 55 -raportoinnin talla hetkella — CSRD, EPBD, EN 15978 hiilijalanjaljen elinkaariarviointi? Manuaaliset taulukot, konsultit vai jokin muu?
+> Otan yhteytta, koska EU teki juuri ilmastoraportoinnista pakollista rakennusalalle. Vuodesta 2025-2026 alkaen jokaisen suuren rakennusyhtion pitaa raportoida tarkasti, kuinka paljon CO2:ta heidan rakennuksensa tuottavat — raaka-aineista purkuun asti. Tama tulee kolmesta uudesta EU-saannosta:
 >
-> Rakennan DWS IQ 6:ta — teollista ilmastoalyalustaa joka kattaa 20 EU-saanneltya toimialaa. Olemme tuotannossa EUR 7k+ MRR:lla ja rakennussektorin asiakkailla.
+> - **CSRD** — yritysten pitaa nyt julkaista yksityiskohtaiset vastuullisuusraportit (ei pelkastaan tilinpaatos)
+> - **EPBD** — jokainen rakennus tarvitsee energiatehokkuusluokituksen ja suunnitelman paastojen vahentamiseksi
+> - **EN 15978** — tekninen standardi jolla lasketaan rakennuksen koko hiilijalanjalki sen koko elinkaaren ajalta
 >
-> Sopiiko 30 minuutin Situation Room -demo rakentamiselle? Voin nayttaa mita seuraamme EPBD:n ja EN 15978:n osalta konkreettisesti.
+> Suurin osa rakennusalan tiimeista joiden kanssa puhun tekee taman yha konsulteilla ja Excelilla. Se toimii, mutta se on hidasta, kallista ja vaikea skaalata projektien valille.
+>
+> Rakennan ohjelmistoa joka automatisoi taman. **DWS IQ 6** lukee projektidatanne ja tuottaa vaatimustenmukaisuusraportit automaattisesti — samat raportit joiden tekemiseen konsultilta menee viikkoja. Katamme rakentamisen ja 19 muuta EU-saanneltya toimialaa. Olemme tuotannossa maksavilla asiakkailla.
+>
+> Sopiiko 30 minuutin demo? Voin nayttaa miten se toimii rakentamiselle konkreettisesti — livedataa, ei slideja.
 >
 > — Risto
 
-**Merkkimaara:** ~540
+**Merkkimaara:** ~1150
 
 ---
 
@@ -89,53 +113,66 @@
 
 > Bonjour [A REMPLIR : Prenom],
 >
-> Votre travail chez [A REMPLIR : Entreprise] a retenu mon attention — en particulier [A REMPLIR : post LinkedIn specifique, initiative ou actualite — NE PAS envoyer avec crochets]. Une question rapide du point de vue d'un fondateur :
+> Votre travail chez [A REMPLIR : Entreprise] a retenu mon attention — en particulier [A REMPLIR : post LinkedIn specifique, initiative ou actualite — NE PAS envoyer avec crochets].
 >
-> Comment votre equipe gere-t-elle le reporting Fit for 55 aujourd'hui — CSRD, EPBD, cycle de vie carbone EN 15978 ? Tableurs manuels, consultants, ou autre chose ?
+> Je vous contacte parce que l'UE vient de rendre le reporting climatique obligatoire pour le secteur de la construction. A partir de 2025-2026, chaque grande entreprise de construction doit rapporter exactement combien de CO2 ses batiments produisent — des matieres premieres a la demolition. Cela vient de trois nouvelles regles europeennes :
 >
-> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique industrielle couvrant 20 secteurs reglementes de l'UE. Nous sommes en production avec EUR 7k+ de MRR et des clients dans le secteur construction.
+> - **CSRD** — les entreprises doivent desormais publier des rapports detailles sur leur impact environnemental (pas seulement les rapports financiers)
+> - **EPBD** — chaque batiment a besoin d'une classification de performance energetique et d'un plan pour reduire les emissions
+> - **EN 15978** — la norme technique pour calculer l'empreinte carbone totale d'un batiment sur l'ensemble de son cycle de vie
 >
-> Un demo Situation Room de 30 minutes pour la construction, ca vous dit ? Je peux vous montrer ce que nous suivons pour l'EPBD et l'EN 15978 specifiquement.
+> La plupart des equipes construction avec lesquelles je parle font encore cela avec des consultants et des tableurs. Ca fonctionne, mais c'est lent, couteux et difficile a mettre a l'echelle sur plusieurs projets.
+>
+> Je developpe un logiciel qui automatise tout cela. **DWS IQ 6** lit vos donnees de projet et genere les rapports de conformite automatiquement — les memes rapports qu'un consultant met des semaines a preparer. Nous couvrons la construction et 19 autres secteurs reglementes de l'UE. Nous sommes en production avec des clients payants.
+>
+> Une demo de 30 minutes, ca vous dit ? Je peux vous montrer comment ca fonctionne pour la construction concretement — donnees en direct, pas de slides.
 >
 > — Risto
 
-**Nombre de caracteres :** ~580
+**Nombre de caracteres :** ~1250
 
 ---
 
 ## Email Version (Construction)
 
 **Subject line options (test 2-3):**
-- `Construction + Fit for 55: who owns the compliance layer?`
-- `EPBD + EN 15978 automation — Captain seat open`
-- `[First Name], quick question about construction compliance`
+- `How is [FILL IN: Company] handling the new EU building carbon rules?`
+- `Construction climate reporting — still using consultants?`
+- `[FILL IN: First Name], quick question about building carbon compliance`
 
 **From:** risto@onelifetime.world
 **Reply-to:** risto@onelifetime.world
 
 ---
 
-> Hi [First Name],
+> Hi [FILL IN: First Name],
 >
-> I came across [your profile / your company's sustainability report / your LinkedIn post about X] and wanted to reach out directly.
+> I came across [FILL IN: their profile / sustainability report / LinkedIn post — DO NOT send with brackets] and wanted to reach out directly.
 >
-> Quick question: how is your organization handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle assessments? I've spoken with dozens of construction operators and the answer is usually "consultants + spreadsheets + pain."
+> You've probably noticed the wave of new EU climate rules hitting construction. Starting 2025-2026, every large construction company in the EU must report exactly how much CO2 their buildings produce — not just during operation, but across the entire lifecycle: raw materials, transport, construction, use, and demolition.
 >
-> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 20 regulated industries.
+> Three rules drive this:
+> - **CSRD** (Corporate Sustainability Reporting Directive) — mandatory sustainability reports alongside financials
+> - **EPBD** (Energy Performance of Buildings Directive) — energy ratings and emission reduction plans for every building
+> - **EN 15978** — the technical standard for calculating a building's total carbon footprint from cradle to grave
+>
+> I've spoken with dozens of construction operators and the answer is usually the same: consultants, spreadsheets, and a lot of manual work. It costs six figures per year and still doesn't scale across projects.
+>
+> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — software that automates this reporting. You feed in your project data, and the platform generates the compliance reports automatically. The same reports that take a consultant weeks to prepare.
 >
 > **Where we are today:**
-> - EUR 7-14k MRR, 100% customer retention
-> - Construction sector customers engaged (include specific status only if contract signed)
-> - SiteSense Agent running on construction sites (edge AI for real-time compliance)
+> - Live in production with paying customers
+> - Covers construction and 19 other EU-regulated industries
+> - SiteSense Agent running on construction sites (edge AI for real-time compliance monitoring)
 > - Platform runs on EUR 15-50/month infrastructure (capital efficient by design)
 >
-> Would a 30-minute Situation Room demo make sense? I can walk you through what we're tracking for EPBD and EN 15978 specifically — live data, not slides.
+> Would a 30-minute demo make sense? I can show you how it works for construction specifically — live data, not slides.
 >
 > Best,
 > **Risto Anton Päärni**
 > Founder & CEO, Lifetime Oy
 > risto@onelifetime.world
-> [dws10.com](https://dws10.com)
+> dws10.com
 
 > **NOTE:** The Captain seat pitch (EUR 50k SAFE, 3.8M cap, dws10.com/captain/) moves to the **email follow-up** after they respond — not the first cold email.
 
@@ -252,4 +289,4 @@ https://dws10.com/captain/?utm_source=email&utm_medium=cold&utm_campaign=captain
 
 ---
 
-*Document Version 2.0 — 21 March 2026 — Lifetime Oy*
+*Document Version 3.0 — 21 March 2026 — Lifetime Oy*
