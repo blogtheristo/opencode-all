@@ -1,28 +1,60 @@
 # DWS6 Investor Outreach Workflow
 
+***
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Aligned to Fleet Admiral / Captain / Deputy Captain tier structure from INVESTOR_MEMO.md, updated dates to March 2026, fixed email sender to risto@onelifetime.world, updated traction to EUR 7-14k MRR, aligned email templates to Captain framing
+  - Version: 1.0 | Tool: Claude Code | Date: 27.12.2025 | Changes: Initial creation — complete outreach workflow with email templates, Supabase tracking, daily automation
+
+Session Links & References:
+  - Claude Code (claude/improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6/commits/claude/improve-sales-call-script-xg1zO
+
+Document Status:
+  - Created: 27.12.2025
+  - Last Modified: 21.03.2026
+  - Language: English
+  - Publication Status: ACTIVE
+
+***
+
 ## Complete System Overview
 
 This document describes the end-to-end investor outreach workflow, connecting cold email campaigns, the investor-relations page, Supabase tracking, and daily automation.
 
 ---
 
-## 🎯 Campaign Goal
+## Campaign Goal
 
-**Objective**: Raise €500k SAFE at €3.8M cap to scale construction vertical  
-**Target**: 8-12 investor meetings per month  
-**Timeline**: Close Q1 2026  
-**Daily Activity**: 20 personalized outbound emails  
+**Objective**: Raise EUR 650K via Fleet Admiral / Captain tiered SAFE at EUR 3.8M cap
+
+| Tier | Investment | Seats | Status |
+|------|-----------|-------|--------|
+| **Fleet Admiral** | EUR 500,000 | 1 | OPEN |
+| **Captain** | EUR 50,000 | 8 (one per industry) | OPEN (Construction priority) |
+| **Deputy Captain** | TBD | Unlimited | NOT YET ACTIVE |
+
+**Round math:** EUR 500K (Fleet Admiral) + 8 x EUR 50K (Captain) = EUR 650K total
+
+**Target**: 8-12 investor meetings per month
+**Timeline**: Close Q2 2026
+**Daily Activity**: 5 LinkedIn DMs + 5 emails (parallel channels to same 88-contact list)
+**Arctic 15 deadline**: Helsinki 15.6.2026 — V1 launch, Captains in front row
 
 ---
 
-## 📊 Current Status (December 2025)
+## Current Status (March 2026)
 
 ### Traction Metrics
-- **MRR**: €7k with 5 paying customers
-- **Retention**: 100% (zero churn)
-- **Customer LTV**: €70k–€120k per logo
-- **Pipeline**: 2 construction pilots → +€6k MRR in Q1 2026
-- **Target**: €14k MRR by Q1 2026 → €900k ARR by 2026
+- **MRR**: EUR 7-14k with 5 paying customers
+- **Retention**: 100% (zero churn, 12+ months)
+- **Customer LTV**: EUR 70k-120k per logo
+- **Gross margin**: >90%
+- **Infra cost**: EUR 15-50/month
+- **Pipeline**: 2 construction pilots at EUR 59,900 level (verify: signed / in-progress / piloting)
+- **Target**: EUR 14k MRR → EUR 900k ARR by end 2026
 
 ### Third-Party Validation
 - **Crunchbase Growth Score**: 91
@@ -76,16 +108,21 @@ I noticed your investment in [Portfolio Company] and your focus
 on climate tech. We're building CSRD compliance automation for 
 construction portfolios.
 
-Current traction: €7k MRR, 100% retention, 2 construction pilots 
-converting to €6k+ MRR in Q1.
+Current traction: EUR 7-14k MRR, 100% retention (12+ months),
+2 construction pilots at EUR 59,900 level.
 
-Raising €500k SAFE to scale to 5 flagship portfolios. Would you 
-be open to a brief call?
+We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
+cap. Each Captain owns one of 16 EU industry verticals.
+Construction is available.
 
-Full details: https://dws10.com/investor-relations/?campaign=abc123&investor=xyz789
+Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
+
+Open to a brief call next week?
 
 Best,
-Risto
+Risto Paarni
+Founder & CEO, Lifetime Oy
+risto@onelifetime.world
 ```
 
 ### 2. Investor Relations Page
@@ -112,27 +149,31 @@ Risto
    - 4 weeks from contract to deployment
 
 4. **Traction Section**
-   - €7k MRR live (December 2025)
+   - EUR 7-14k MRR live (March 2026)
    - 5 paying customers
-   - 100% retention
+   - 100% retention (12+ months)
    - Customer table with annual values
-   - 2 construction pilots in progress
+   - 2 construction pilots at EUR 59,900 level
 
-5. **This Round Section**
-   - €500k SAFE at €3.8M cap
-   - Target close: Q1 2026
-   - What €500k buys:
-     - 3–5 flagship portfolios onboarded
-     - Productized Fit for 55 module
+5. **This Round Section — Fleet Admiral / Captain**
+   - Fleet Admiral: EUR 500K SAFE (1 seat — strategic co-pilot, board observer)
+   - Captain: EUR 50K SAFE x 8 (one per industry — own a vertical)
+   - Deputy Captain: TBD (unlimited, quarterly briefings, upgrade path)
+   - Total round: EUR 650K at EUR 3.8M cap, 20% discount
+   - Target close: Q2 2026 (Arctic 15 deadline: 15.6.2026)
+   - What EUR 650K buys:
+     - 3-5 flagship portfolios onboarded
+     - Productized Fit for 55 module across 16 industries
      - Firehorse workflow scaled
+     - 8 named industry verticals activated
 
-6. **€500K Campaign Carousel** (8 slides)
+6. **EUR 650K Campaign Carousel** (8 slides)
    - Slide 1: Big Hero (product headline)
    - Slide 2: The Pain (broken reporting)
    - Slide 3: Automation (how it works)
    - Slide 4: Better Reports & Dashboards
-   - Slide 5: Investment & Efficiency (€500k, €1,470 cost)
-   - Slide 6: Revenue & ROI (€9.5M target, 1,700% ROI)
+   - Slide 5: Investment & Efficiency (EUR 650K round, EUR 15-50/mo infra)
+   - Slide 6: Revenue & ROI (EUR 900K ARR target)
    - Slide 7: Why Now (regulation live, first-mover)
    - Slide 8: Campaign Video
 
@@ -340,20 +381,22 @@ industrial decarbonization. We're building compliance automation for
 construction's CSRD reporting challenge.
 
 Current traction:
-• €7k MRR, 100% retention
-• 2 construction pilots → +€6k MRR Q1 2026
-• 4 weeks from contract to audit-ready reports
+- EUR 7-14k MRR, 100% retention (12+ months)
+- 2 construction pilots at EUR 59,900 level
+- >90% gross margin, EUR 15-50/mo infra cost
 
-Raising €500k SAFE (€3.8M cap) to scale to 5 flagship portfolios.
+We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
+cap, 20% discount. Each Captain owns one of 16 EU industry verticals.
+Construction is available.
 
-Full details: https://dws10.com/investor-relations/?campaign={{campaign_id}}&investor={{investor_id}}
+Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
 
 Open to a brief call next week?
 
 Best,
-Risto Anton Päärni
-Founder & CEO, DWS6
-investor@dws10.com
+Risto Paarni
+Founder & CEO, Lifetime Oy
+risto@onelifetime.world
 ```
 
 ### Template 2: Construction Tech Investors
@@ -368,23 +411,27 @@ We're tackling the adjacent challenge of CSRD compliance automation
 for construction asset owners.
 
 The market:
-• 3.5M EU construction firms
-• Fit for 55 / CSRD mandatory 2025
-• €10k–€50k fines per project without compliance
+- 3.5M EU construction firms
+- Fit for 55 / CSRD mandatory 2025-2028
+- EUR 10k-50k fines per project without compliance
 
 Our traction:
-• €7k MRR live, 100% retention
-• €70k–€120k LTV per customer
-• 40+ hours/month saved per customer
+- EUR 7-14k MRR live, 100% retention (12+ months)
+- EUR 70k-120k LTV per customer
+- 40+ hours/month saved per customer
 
-Raising €500k SAFE to convert 2 pilots and onboard 3 more portfolios.
+We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
+cap. Each Captain owns one industry vertical on the platform.
+Construction is available.
 
-Details: https://dws10.com/investor-relations/?campaign={{campaign_id}}&investor={{investor_id}}
+Details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
 
 Would value 15 minutes to get your take on our approach.
 
 Best,
-Risto
+Risto Paarni
+Founder & CEO, Lifetime Oy
+risto@onelifetime.world
 ```
 
 ### Template 3: Business Angels
@@ -399,20 +446,22 @@ you understand the challenge of selling into conservative construction
 buyers.
 
 We're automating CSRD compliance for construction portfolios:
-• €7k MRR, 100% retention
-• 2 pilots converting to €6k+ MRR Q1
-• Mandatory market (Fit for 55 live 2025)
+- EUR 7-14k MRR, 100% retention (12+ months)
+- 2 construction pilots at EUR 59,900 level
+- Mandatory market (Fit for 55 live 2025-2028)
 
-Raising €500k SAFE (€15k–€50k tickets for angels).
+I'm filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M cap,
+20% discount. Each Captain owns one of 16 EU industry verticals.
+Also seeking one Fleet Admiral (EUR 500K, board observer rights).
 
-Would love your perspective on our positioning: 
-https://dws10.com/investor-relations/?campaign={{campaign_id}}&investor={{investor_id}}
+Full deck: https://dws10.com/captain/deck/?campaign={{campaign_id}}&investor={{investor_id}}
 
 Available for a quick call this week?
 
 Best,
-Risto Anton Päärni
-investor@dws10.com
+Risto Paarni
+Founder & CEO, Lifetime Oy
+risto@onelifetime.world
 ```
 
 ---
@@ -444,54 +493,67 @@ investor@dws10.com
 ### Campaign Performance Dashboard
 
 ```
-┌─────────────────────────────────────────┐
-│ December 2025 Campaign Performance      │
-├─────────────────────────────────────────┤
-│ Contacts in Database:        250        │
-│ Contacted This Month:        200        │
-│ Open Rate:                   26%        │
-│ Click Rate:                  11%        │
-│ Response Rate:               5%         │
-│ Meetings Scheduled:          10         │
-│ Term Sheets:                 0          │
-│ Committed:                   0          │
-└─────────────────────────────────────────┘
+Campaign Performance — March 2026 (target)
 
-Conversion Funnel:
-200 Contacted
-  ↓ 26%
-52 Opened
-  ↓ 42%
-22 Clicked
-  ↓ 45%
-10 Responded
-  ↓ 100%
-10 Meetings
-  ↓ 0%
-0 Committed (ongoing)
+88 Construction CXO contacts (parallel channels)
+  LinkedIn DM: 88 x 15% = 13 demos
+  Email:       88 x 10% = 9 demos
+  Calls:       30 warm x 40% = 12 demos
+  Deduplicated total: ~20-25 demos
+
+20-25 Demos
+  ↓ 30%
+6-8 Captain conversations
+  ↓ 10-15%
+1 Captain signature (EUR 50K SAFE)
+
+Second signature requires referral channel or list expansion beyond 88.
 ```
 
 ---
 
 ## 🎯 Investor Targeting (From TARGETING_QUICK_REFERENCE.md)
 
-### Institutional Investors (€100k–€500k)
-- **Sectors**: Climate tech, industrial decarbonization, construction/infra SaaS, ESG/CSRD automation
-- **Geography**: Nordics + DACH + Benelux + UK + EU-focused global funds
-- **Portfolio Fit**: Construction tech, infra/asset mgmt, climate/ESG reporting, regulatory SaaS
+### Fleet Admiral Target (EUR 500K — 1 seat)
+- **Profile**: Strategic co-pilot — fund, family office, or operator with board-level network
+- **Value**: Board observer rights, annual 1:1 strategy, first right of refusal on follow-on
+- **Geography**: Nordics + DACH + EU-focused global funds
+- **Channels**: Warm intro only (accelerators, accountancy firm referrals, Captain 1 referral)
 
-### Business Angels (€15k–€50k)
-- **Profile**: Exited founders, senior operators (construction, infra, logistics, climate/ESG)
-- **Value**: Sparring + door opening (construction/infra owners, ESG/CSRD consulting)
-- **Geography**: Nordics, DACH, Benelux, UK (EU-focused, EU regulatory understanding)
+### Captain Targets (EUR 50K — 8 seats)
+- **Profile**: Industry operators, CDOs, CTOs, CSOs in any of 16 EU regulated industries
+- **Value**: Own one industry vertical, quarterly briefings, founding Situation Room access
+- **Geography**: Nordics + DACH + Benelux + UK
+- **Channels**: LinkedIn DM, cold email, industry events, trade association referrals
+
+### Deputy Captain (TBD — unlimited, not yet active)
+- **Profile**: Passive angels, smaller check operators
+- **Value**: Quarterly briefings, upgrade path to Captain
+- **Activation**: After first 2-3 Captains close
 
 ---
 
-## 🔧 Technical Setup
+## Beyond LinkedIn — High-Signal CXO Channels
+
+These channels convert faster than cold DMs for Fleet Admiral and Captain seats:
+
+| # | Channel | Target | Why |
+|---|---------|--------|-----|
+| 1 | **Industry events** — Rakennusmessut, Nordic Built, Greenbuild Europe | All tiers | Warm handshake converts faster than any DM |
+| 2 | **Trade associations** — RAKLI, EBC (European Builders Confederation), FIEC | Captain | Members are exactly the operator tier |
+| 3 | **Referral from Captain 1** — whoever signs first | Captain + Fleet Admiral | One warm intro from a peer CFO = 50 cold DMs |
+| 4 | **Accelerators/hubs** — Business Finland, Cleantech Scandinavia, Nordic Innovation | Fleet Admiral + Captain | Curated CXO networks, warm intro culture |
+| 5 | **Accountancy/audit firms** — KPMG, Deloitte, PwC Nordic sustainability practices | Fleet Admiral | They advise the CFOs you're targeting, can refer you in as compliance tool |
+
+**Rule:** LinkedIn DM + email are Week 1 channels. Events, associations, and referral channels activate in parallel and accelerate through the funnel. The Fleet Admiral seat will likely close through channel 4 or 5, not cold outreach.
+
+---
+
+## Technical Setup
 
 ### Required Tools
 1. **Supabase**: Database for contacts and campaign tracking
-2. **Email Service**: SendGrid / Mailgun / AWS SES
+2. **Email Service**: Amazon SES (primary) / Resend (fallback)
 3. **Node.js**: Automation scripts
 4. **Cron / Task Scheduler**: Daily campaign execution
 5. **Analytics**: Supabase + custom dashboards
@@ -501,8 +563,8 @@ Conversion Funnel:
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-service-role-key
 EMAIL_API_KEY=your-email-service-api-key
-EMAIL_FROM=investor@dws10.com
-EMAIL_FROM_NAME=DWS6 Team
+EMAIL_FROM=risto@onelifetime.world
+EMAIL_FROM_NAME=Risto Paarni
 DAILY_LIMIT=20
 SEND_HOUR=9
 INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
@@ -513,9 +575,9 @@ INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 ## 📞 Contact & Resources
 
 ### Primary Contact
-- **Email**: investor@dws10.com
+- **Email**: risto@onelifetime.world (SES-verified sender)
 - **Alternative**: risto@lifetime.fi
-- **Founder**: Risto Anton Päärni
+- **Founder**: Risto Paarni
 
 ### Key Resources
 - **Investor Page**: https://dws10.com/investor-relations/
@@ -532,6 +594,6 @@ INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 
 ---
 
-**Last Updated**: December 27, 2025  
-**Status**: Active - Ready to launch  
-**Next Action**: Set up Supabase and send first 20 emails
+**Last Updated**: 21 March 2026
+**Status**: Active — Fleet Admiral / Captain aligned
+**Next Action**: Send Week 1 LinkedIn DMs to 6 priority construction contacts
