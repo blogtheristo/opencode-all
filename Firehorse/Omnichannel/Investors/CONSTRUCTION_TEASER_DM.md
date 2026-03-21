@@ -39,7 +39,7 @@
 >
 > Hur hanterar ert team Fit for 55-rapportering just nu — CSRD, EPBD, EN 15978 koldioxidlivscykel? Manuella kalkylark, konsulter, eller nagot annat?
 >
-> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 16 EU-reglerade branscher. Vi har redan byggpiloter igangoch EUR 7k+ MRR.
+> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 16 EU-reglerade branscher. Vi har redan byggpiloter igång och EUR 7k+ MRR.
 >
 > Vi oppnar 8 Platinum Industry Captain-platser (EUR 50k SAFE, EUR 3,8M cap) for operatorer som vill aga en vertikal pa plattformen och forma hur den betjanar deras bransch. Bygg ar tillgangligt.
 >
