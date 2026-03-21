@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 2.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Initial document — TED eProcurement Ontology overview, DWS integration strategy, lead sourcing workflow
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Added automation assessment — TED API v3 details, Supabase pipeline architecture, ERP qualifier, compliance-signal keywords, DM personalization templates
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Initial document — TED eProcurement Ontology overview, DWS integration strategy, lead sourcing workflow
 
 Session Links & References:
   - Claude Code (improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6
@@ -280,18 +281,177 @@ When you open a TED notice, look for these fields:
 
 ---
 
-## 8. Technical Integration Notes
+## 8. Technical Integration — Automation Assessment
 
-### For Future DWS Agent Development
+### Can We Automate Tranche 2? YES.
 
-The eProcurement Ontology enables programmatic access to TED data. When we build a TED Lead Sourcing Agent, it should:
+The TED Search API v3 is **free, open, requires no authentication, returns JSON, and has a 700 req/min rate limit**. This is everything we need for a fully automated daily pipeline.
 
-1. **Consume the TED API** — TED provides structured data via the eProcurement Ontology
-2. **Filter by CPV codes** — construction series `45xxxxxx-x`
-3. **Extract company names** from contract award notices
-4. **Cross-reference LinkedIn** — match company names to sustainability/compliance contacts
-5. **Auto-generate personalized DMs** — using tender details + our DM templates
-6. **Feed into campaign tracking** — structured JSON for our email/DM pipeline
+### TED API v3 — Key Facts
+
+| Aspect | Detail |
+|--------|--------|
+| **Endpoint** | `POST https://api.ted.europa.eu/v3/notices/search` |
+| **Auth** | None required for published notices |
+| **Format** | JSON request/response |
+| **Rate limit** | 700 requests/minute |
+| **Pagination** | `PAGE_NUMBER` (max 15k results) or `ITERATION` (unlimited) |
+| **Page size** | Max 250 notices per page |
+| **Swagger** | https://api.ted.europa.eu/swagger |
+| **Docs** | https://docs.ted.europa.eu/api/latest/search.html |
+| **Cost** | Free |
+
+### API Request Example
+
+```bash
+curl -X POST 'https://api.ted.europa.eu/v3/notices/search' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "query": "cpv=45000000 AND buyer-country=FIN",
+    "fields": ["publication-number", "notice-title", "buyer-name", "buyer-country",
+               "notice-type", "estimated-total-value", "publication-date"],
+    "limit": 50,
+    "scope": "ALL",
+    "checkQuerySyntax": false,
+    "paginationMode": "PAGE_NUMBER",
+    "pageNumber": 1
+  }'
+```
+
+### Expert Query Syntax
+
+| Operator | Example | Meaning |
+|----------|---------|---------|
+| `=` | `cpv=45000000` | Exact match on CPV code |
+| `~` | `buyer-name~"Skanska"` | Fuzzy/stemmed text search |
+| `IN` | `buyer-country IN (FIN,SWE,DEU)` | Match any of these countries |
+| `>=` | `publication-date>=20260301` | Date range filter |
+| `AND` | `cpv=45000000 AND buyer-country=FIN` | Combine filters |
+| `OR` | `cpv=45210000 OR cpv=45220000` | Match either |
+
+### Key Search Fields
+
+| Field | Description |
+|-------|-------------|
+| `publication-number` | Unique notice ID (e.g., 196127-2026) |
+| `notice-title` | Title of the tender/project |
+| `buyer-name` | Contracting authority name |
+| `buyer-country` | ISO 3-letter country code |
+| `notice-type` | `cn-standard`, `can-standard`, `pin-only` etc. |
+| `cpv` | Common Procurement Vocabulary code |
+| `estimated-total-value` | Contract value |
+| `place-of-performance` | Where the work happens |
+| `publication-date` | When published |
+| `deadline-receipt-tenders` | Bid deadline |
+
+### Compliance-Signal Search Terms
+
+Companies tendering for these keywords are already in buying mode for compliance tools:
+
+- `CSRD` — sustainability reporting mandate
+- `sustainability reporting` — general compliance signal
+- `carbon footprint` — lifecycle assessment need
+- `Fit for 55` — EU climate package
+- `EPBD compliance` — building energy performance
+- `EN 15978` — carbon lifecycle standard
+
+### Automated Daily Pipeline Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  DAILY CRON (node-cron, 06:00 UTC)                         │
+│                                                              │
+│  1. Query TED API v3                                         │
+│     POST api.ted.europa.eu/v3/notices/search                │
+│     - CPV: 45000000 (all construction)                       │
+│     - Countries: FIN, SWE, DEU, FRA, GBR                   │
+│     - Date: yesterday                                        │
+│     - Notice type: contract awards + new tenders            │
+│                                                              │
+│  2. Deduplicate against Supabase                            │
+│     SELECT publication_number FROM ted_leads                 │
+│     WHERE publication_number IN (...)                        │
+│                                                              │
+│  3. Enrich new leads                                        │
+│     - Map buyer-country → DM language (SV/DE/FI/FR/EN)     │
+│     - Generate tender-specific DM opener per language       │
+│     - Flag ERP qualifier (SAP/IFS/Monitor/Visma/Dynamics)   │
+│                                                              │
+│  4. Insert into Supabase                                    │
+│     INSERT INTO ted_leads (...)                              │
+│                                                              │
+│  5. Notify (optional)                                       │
+│     - Email digest: "12 new construction leads today"       │
+│     - Slack/webhook notification                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Supabase Table: `ted_leads`
+
+```sql
+CREATE TABLE ted_leads (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  publication_number TEXT UNIQUE NOT NULL,
+  title TEXT,
+  buyer_name TEXT,
+  buyer_country TEXT,
+  notice_type TEXT,
+  cpv TEXT,
+  estimated_value TEXT,
+  place_of_performance TEXT,
+  publication_date DATE,
+  ted_url TEXT,
+  dm_language TEXT,          -- EN/SV/DE/FI/FR
+  dm_personalization TEXT,   -- Pre-written tender-specific DM opener
+  erp_qualifier TEXT,        -- SAP/IFS/Monitor/Visma/Dynamics or NULL
+  linkedin_contact TEXT,     -- Filled manually or by future agent
+  outreach_status TEXT DEFAULT 'new', -- new/dm_sent/replied/demo_booked/closed
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- RLS: only service_role and authenticated admin users
+ALTER TABLE ted_leads ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admin access" ON ted_leads
+  FOR ALL USING (auth.role() = 'authenticated');
+
+-- Index for dedup check
+CREATE INDEX idx_ted_leads_pub_number ON ted_leads (publication_number);
+-- Index for daily digest
+CREATE INDEX idx_ted_leads_status ON ted_leads (outreach_status, created_at DESC);
+```
+
+### ERP Qualifier Step
+
+After identifying a lead, check if their ERP is one we integrate with natively:
+
+| ERP | Integration status | DM angle |
+|-----|--------------------|----------|
+| **SAP S/4HANA** | Native (`src/integrations/erp/sap/`) | "We connect directly to your SAP — no manual data entry" |
+| **IFS Cloud** | Native (`src/integrations/erp/ifs/`) | "We pull project data straight from IFS" |
+| **Monitor ERP** | Native (`src/integrations/erp/monitor/`) | "Native Monitor integration — your data flows automatically" |
+| **Visma** | Native (`src/integrations/erp/visma/`) | "Works with your Visma setup out of the box" |
+| **Dynamics 365** | Native (`src/integrations/erp/dynamics/`) | "Direct Dynamics connector — live data, not exports" |
+| **Other** | No native integration | Still a lead — focus on standalone compliance value |
+
+**Where to check:** Company annual report (IT section), job postings mentioning ERP, LinkedIn profiles of IT staff.
+
+### Implementation Script
+
+**Exists now:** `scripts/ted-lead-sourcer.ts` — CLI tool for manual/automated TED queries
+
+```bash
+# Manual run — Finnish construction, last 7 days
+npx tsx scripts/ted-lead-sourcer.ts --country=FIN --days=7
+
+# JSON output for pipeline integration
+npx tsx scripts/ted-lead-sourcer.ts --country=DEU --cpv=45210000 --output=json
+
+# All countries, high-value only
+npx tsx scripts/ted-lead-sourcer.ts --min-value=5000000 --days=1
+```
+
+**Next step:** Add Supabase insert + node-cron daily schedule. ~50-100 lines on top of existing script.
 
 ### eProcurement Ontology Technical Details
 
@@ -305,12 +465,12 @@ The eProcurement Ontology enables programmatic access to TED data. When we build
 | **Updates** | Maintained by EC Publications Office |
 | **No alternatives** | Only pan-European procurement ontology |
 
-### Potential DWS Agent: `ted-lead-sourcer`
+### DWS Agent: `ted-lead-sourcer`
 
 ```
 Agent: ted-lead-sourcer
-Input: { "cpv_codes": ["45000000-7"], "countries": ["SE","DE","FI","FR","GB"], "min_value": 5000000, "notice_type": "award" }
-Output: { "leads": [{ "company": "Skanska AB", "project": "School construction Malmö", "value": 45000000, "country": "SE", "dm_language": "SV", "suggested_contacts": ["sustainability", "compliance", "cto"] }] }
+Input: { "cpv_codes": ["45000000"], "countries": ["FIN","SWE","DEU","FRA","GBR"], "min_value": 5000000, "notice_type": "award" }
+Output: { "leads": [{ "company": "Skanska AB", "project": "School construction Malmö", "value": 45000000, "country": "SWE", "dm_language": "SV", "dm_personalization": "Jag såg att Skanska lade bud på...", "erp_qualifier": "SAP", "suggested_contacts": ["sustainability", "compliance", "cto"] }] }
 ```
 
 This agent would be registered in AGENTS.md and exposed via MCP `tools/list`.
@@ -339,4 +499,4 @@ This agent would be registered in AGENTS.md and exposed via MCP `tools/list`.
 
 ---
 
-*Document Version 1.0 — 21 March 2026 — Lifetime Oy*
+*Document Version 2.0 — 21 March 2026 — Lifetime Oy*
