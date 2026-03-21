@@ -19,7 +19,7 @@
 >
 > How is your team handling Fit for 55 reporting right now — CSRD, EPBD, EN 15978 carbon lifecycle? Manual spreadsheets, consultants, or something else?
 >
-> I'm building DWS IQ 6 — an industrial climate intelligence platform covering 16 EU regulated industries. We already have construction pilots running and EUR 7k+ MRR.
+> I'm building DWS IQ 6 — an industrial climate intelligence platform covering 20 EU regulated industries. We're live in production with EUR 7k+ MRR and construction sector customers.
 >
 > We're opening 8 Platinum Industry Captain seats (EUR 50k SAFE, EUR 3.8M cap) for operators who want to own a vertical on the platform and shape how it serves their industry. Construction is available.
 >
@@ -39,7 +39,7 @@
 >
 > Hur hanterar ert team Fit for 55-rapportering just nu — CSRD, EPBD, EN 15978 koldioxidlivscykel? Manuella kalkylark, konsulter, eller nagot annat?
 >
-> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 16 EU-reglerade branscher. Vi har redan byggpiloter igång och EUR 7k+ MRR.
+> Jag bygger DWS IQ 6 — en industriell klimatintelligensplattform som tacker 20 EU-reglerade branscher. Vi ar i produktion med EUR 7k+ MRR och byggkunder.
 >
 > Vi oppnar 8 Platinum Industry Captain-platser (EUR 50k SAFE, EUR 3,8M cap) for operatorer som vill aga en vertikal pa plattformen och forma hur den betjanar deras bransch. Bygg ar tillgangligt.
 >
@@ -59,7 +59,7 @@
 >
 > Wie handhabt Ihr Team die Fit-for-55-Berichterstattung derzeit — CSRD, EPBD, EN 15978 CO2-Lebenszyklus? Manuelle Tabellenkalkulationen, Berater, oder etwas anderes?
 >
-> Ich baue DWS IQ 6 — eine industrielle Klimaintelligenz-Plattform fur 16 EU-regulierte Branchen. Wir haben bereits Baupiloten laufen und EUR 7k+ MRR.
+> Ich baue DWS IQ 6 — eine industrielle Klimaintelligenz-Plattform fur 20 EU-regulierte Branchen. Wir sind in Produktion mit EUR 7k+ MRR und Baukunden.
 >
 > Wir vergeben 8 Platinum Industry Captain-Sitze (EUR 50k SAFE, EUR 3,8M Cap) an Operatoren, die eine Vertikale auf der Plattform besitzen und mitgestalten mochten. Bau ist verfugbar.
 >
@@ -79,7 +79,7 @@
 >
 > Miten tiiminna hoitaa Fit for 55 -raportoinnin talla hetkella — CSRD, EPBD, EN 15978 hiilijalanjaljen elinkaariarviointi? Manuaaliset taulukot, konsultit vai jokin muu?
 >
-> Rakennan DWS IQ 6:ta — teollista ilmastoalyalustaa joka kattaa 16 EU-saanneltya toimialaa. Meilla on jo rakennuspilotit kaynnissa ja EUR 7k+ MRR.
+> Rakennan DWS IQ 6:ta — teollista ilmastoalyalustaa joka kattaa 20 EU-saanneltya toimialaa. Olemme tuotannossa EUR 7k+ MRR:lla ja rakennussektorin asiakkailla.
 >
 > Avaamme 8 Platinum Industry Captain -paikkaa (EUR 50k SAFE, EUR 3,8M cap) operaattoreille jotka haluavat omistaa vertikaalin alustalla ja muokata miten se palvelee heidan toimialaansa. Rakentaminen on auki.
 >
@@ -99,7 +99,7 @@
 >
 > Comment votre equipe gere-t-elle le reporting Fit for 55 aujourd'hui — CSRD, EPBD, cycle de vie carbone EN 15978 ? Tableurs manuels, consultants, ou autre chose ?
 >
-> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique industrielle couvrant 16 secteurs reglementes de l'UE. Nous avons deja des pilotes construction en cours et EUR 7k+ de MRR.
+> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique industrielle couvrant 20 secteurs reglementes de l'UE. Nous sommes en production avec EUR 7k+ de MRR et des clients dans le secteur construction.
 >
 > Nous ouvrons 8 sieges Platinum Industry Captain (EUR 50k SAFE, cap EUR 3,8M) pour des operateurs qui souhaitent detenir une verticale sur la plateforme et faconner son service pour leur secteur. Construction est disponible.
 >
@@ -133,7 +133,7 @@
 >
 > **Where we are today:**
 > - EUR 7-14k MRR, 100% customer retention
-> - EUR 59,900 construction pilots (verify signed/in-progress before sending)
+> - Construction sector customers engaged (include specific status only if contract signed)
 > - SiteSense Agent running on construction sites (edge AI for real-time compliance)
 > - Platform runs on EUR 15-50/month infrastructure (capital efficient by design)
 >

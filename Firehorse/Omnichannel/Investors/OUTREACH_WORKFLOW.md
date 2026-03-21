@@ -112,7 +112,7 @@ Current traction: EUR 7-14k MRR, 100% retention (12+ months),
 2 construction pilots at EUR 59,900 level.
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
-cap. Each Captain owns one of 16 EU industry verticals.
+cap. Each Captain owns one of 20 EU industry verticals.
 Construction is available.
 
 Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
@@ -164,7 +164,7 @@ risto@onelifetime.world
    - Target close: Q2 2026 (Arctic 15 deadline: 15.6.2026)
    - What EUR 650K buys:
      - 3-5 flagship portfolios onboarded
-     - Productized Fit for 55 module across 16 industries
+     - Productized Fit for 55 module across 20 industries
      - Firehorse workflow scaled
      - 8 named industry verticals activated
 
@@ -387,7 +387,7 @@ Current traction:
 - >90% gross margin, EUR 15-50/mo infra cost
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
-cap, 20% discount. Each Captain owns one of 16 EU industry verticals.
+cap, 20% discount. Each Captain owns one of 20 EU industry verticals.
 Construction is available.
 
 Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
@@ -452,7 +452,7 @@ We're automating CSRD compliance for construction portfolios:
 - Mandatory market (Fit for 55 live 2025-2028)
 
 I'm filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M cap,
-20% discount. Each Captain owns one of 16 EU industry verticals.
+20% discount. Each Captain owns one of 20 EU industry verticals.
 Also seeking one Fleet Admiral (EUR 500K, board observer rights).
 
 Full deck: https://dws10.com/captain/deck/?campaign={{campaign_id}}&investor={{investor_id}}
@@ -522,7 +522,7 @@ Second signature requires referral channel or list expansion beyond 88.
 - **Channels**: Warm intro only (accelerators, accountancy firm referrals, Captain 1 referral)
 
 ### Captain Targets (EUR 50K — 8 seats)
-- **Profile**: Industry operators, CDOs, CTOs, CSOs in any of 16 EU regulated industries
+- **Profile**: Industry operators, CDOs, CTOs, CSOs in any of 20 EU regulated industries
 - **Value**: Own one industry vertical, quarterly briefings, founding Situation Room access
 - **Geography**: Nordics + DACH + Benelux + UK
 - **Channels**: LinkedIn DM, cold email, industry events, trade association referrals

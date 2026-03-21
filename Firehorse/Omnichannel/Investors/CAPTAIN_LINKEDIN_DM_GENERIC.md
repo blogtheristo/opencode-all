@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Fixed industry count 16→20 (added Aluminium, Petroleum Refining, Glass & Ceramics, Hydrogen), moved Captain/SAFE pitch from cold opener to follow-up sequence, softened unverified pilot claims, added Pre-Send Scrub Checklist with bracket warning, added Captain Pitch follow-up template
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Added native-language DM templates (Finnish, Swedish, German, French), language routing guide for 88 construction contacts, connection request templates in 4 languages
   - Version: 1.0 | Tool: Claude Code | Date: 24.02.2026 | Changes: Initial creation — 4 English templates (A/B/C/D), industry keyword map, personalization checklist, daily cadence
 
@@ -23,10 +24,10 @@ Document Status:
 | Field | Value |
 |-------|-------|
 | **Document ID** | DWS-DM-GEN-001 |
-| **Version** | 2.0 |
+| **Version** | 3.0 |
 | **Date** | 2026-03-21 |
 | **Funnel Stage** | Stage 1 — First Touch |
-| **Target** | CDOs, CTOs, CSOs, and sustainability leads in any of 16 EU regulated industries |
+| **Target** | CDOs, CTOs, CSOs, and sustainability leads in any of 20 EU regulated industries |
 | **Channels** | LinkedIn DM |
 
 ---
@@ -53,6 +54,10 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 | Real Estate | EPBD recast, taxonomy | EPC renovation targets + CRREM pathways |
 | Transport & Logistics | ETS (road), Mobility Package | well-to-wheel reporting + modal shift |
 | Waste & Recycling | IED, taxonomy | EPR compliance + circular economy KPIs |
+| Aluminium | ETS, CBAM (2026) | energy source tracking + renewable certificates |
+| Petroleum Refining | ETS, ReFuelEU | decline pathway planning + SAF production |
+| Glass & Ceramics | ETS, CBAM (indirect) | process emissions + material carbon tracking |
+| Hydrogen & Energy Transition | RED III, EU Hydrogen Strategy | electrolyser MRV + green H2 certification |
 
 ---
 
@@ -60,19 +65,19 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hi [First Name],
 >
-> Your work at [Company] caught my attention — particularly [specific reference: LinkedIn post, company initiative, or news].
+> Your work at [Company] caught my attention — particularly [FILL IN: specific LinkedIn post, company initiative, or news item — DO NOT send with brackets].
 >
 > Quick question: how is your team automating [REGULATION] compliance right now? We're seeing most [industry] companies still running this through consultants + spreadsheets at 6-figure annual cost.
 >
-> I'm building DWS IQ 6 — a climate intelligence platform that automates Fit for 55 compliance across 16 EU industries. We have EUR 7k+ MRR, 100% retention, and live pilots in [industry].
->
-> We're opening 8 Platinum Captain seats (EUR 50k SAFE) for operators who want to own an industry vertical on the platform. One seat per industry. [Industry] is open.
+> I'm building DWS IQ 6 — a climate intelligence platform that automates Fit for 55 compliance across 20 EU industries. We have EUR 7k+ MRR, 100% retention, and live deployments in [industry].
 >
 > Would a 30-minute demo make sense? Live data, not slides.
 >
 > — Risto
 
-**Character count:** ~620 (within LinkedIn 3,000 char limit)
+**Character count:** ~480 (within LinkedIn 3,000 char limit)
+
+> **NOTE:** The Captain seat pitch (EUR 50k SAFE) moves to the **follow-up** after they respond — not the opener. The demo CTA is the right first hook.
 
 ---
 
@@ -80,21 +85,19 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hi [First Name],
 >
-> I read [Company]'s latest sustainability report — [specific compliment: e.g. "your Scope 3 breakdown is more detailed than most in the sector"]. Respect.
+> I read [Company]'s latest sustainability report — [FILL IN: specific compliment, e.g. "your Scope 3 breakdown is more detailed than most in the sector" — DO NOT send with brackets]. Respect.
 >
 > One thing I'm curious about: how much of the [REGULATION] reporting is automated vs. manual? I've spoken with 40+ [industry] operators and the answer is usually "too much Excel."
 >
-> We built DWS IQ 6 to fix that — automated compliance intelligence for ETS, CBAM, CSRD, and 12 more EU mandates. Live in production. EUR 7-14k MRR.
+> We built DWS IQ 6 to fix that — automated compliance intelligence for ETS, CBAM, CSRD, and 16 more EU mandates. Live in production. EUR 7-14k MRR.
 >
-> I'm raising differently: 8 Platinum Industry Captain seats at EUR 50k SAFE (EUR 3.8M cap, 20% discount). Each Captain owns one industry vertical. [Industry] is available.
->
-> The short version: https://dws10.com/captain/
->
-> Worth 15 minutes?
+> Worth 15 minutes? I can show you live data for [industry] specifically.
 >
 > — Risto
 
-**Character count:** ~640
+**Character count:** ~500
+
+> **NOTE:** The Captain seat pitch and dws10.com/captain/ link move to the **follow-up** after they respond.
 
 ---
 
@@ -102,21 +105,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hi [First Name],
 >
-> I came across your investment in [portfolio company / sector interest]. We overlap.
+> I came across your investment in [FILL IN: portfolio company or sector interest — DO NOT send with brackets]. We overlap.
 >
-> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) for 16 regulated industries. EUR 7k+ MRR, 100% retention, EUR 15-50/mo infra cost. Capital efficient by design.
+> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) across 20 regulated industries. EUR 7k+ MRR, 100% retention, EUR 15-50/mo infra cost. Capital efficient by design.
 >
-> Instead of a generic angel round, I'm filling 8 Platinum Captain seats — EUR 50k SAFE at EUR 3.8M cap with 20% discount. Each Captain owns an industry vertical and shapes how the platform serves that sector.
->
-> One seat per industry. Seven still open.
->
-> Full deck: https://dws10.com/captain/deck/
->
-> Would a 30-minute briefing make sense?
+> Would a 30-minute briefing make sense? I can walk you through live data and the unit economics.
 >
 > — Risto
 
-**Character count:** ~580
+**Character count:** ~420
+
+> **NOTE:** The Captain seat terms (EUR 50k SAFE, 3.8M cap) and deck link move to the **follow-up** after they respond.
 
 ---
 
@@ -155,19 +154,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hej [Fornamn],
 >
-> Ert arbete pa [Foretag] fangade min uppmarksamhet — sarskilt [specifik referens: LinkedIn-inlagg, foretagsinitiativ eller nyhet].
+> Ert arbete pa [Foretag] fangade min uppmarksamhet — sarskilt [FYLL I: specifik LinkedIn-inlagg, foretagsinitiativ eller nyhet — skicka INTE med hakparenteser].
 >
 > En snabb fraga: hur automatiserar ert team [REGULATION]-efterlevnad idag? Vi ser att de flesta [bransch]-foretag fortfarande kor detta via konsulter och kalkylark till sexsiffriga arskostnader.
 >
-> Jag bygger DWS IQ 6 — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad over 16 EU-reglerade branscher. Vi har EUR 7k+ MRR, 100% retention och aktiva piloter inom [bransch].
->
-> Vi oppnar 8 Platinum Captain-platser (EUR 50k SAFE) for operatorer som vill aga en branschvertikal pa plattformen. En plats per bransch. [Bransch] ar tillganglig.
+> Jag bygger DWS IQ 6 — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad over 20 EU-reglerade branscher. Vi har EUR 7k+ MRR, 100% retention och aktiva kunder inom [bransch].
 >
 > Passar en 30-minuters demo? Livedata, inga slides.
 >
 > — Risto
 
-**Teckenantal:** ~650
+**Teckenantal:** ~520
 
 ---
 
@@ -175,19 +172,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hallo [Vorname],
 >
-> Ihre Arbeit bei [Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [spezifische Referenz: LinkedIn-Post, Unternehmensinitiative oder Nachricht].
+> Ihre Arbeit bei [Unternehmen] hat meine Aufmerksamkeit erregt — insbesondere [AUSFULLEN: spezifischer LinkedIn-Post, Unternehmensinitiative oder Nachricht — NICHT mit Klammern senden].
 >
 > Eine kurze Frage: Wie automatisiert Ihr Team die [REGULATION]-Compliance derzeit? Wir sehen, dass die meisten [Branche]-Unternehmen dies noch uber Berater und Tabellenkalkulationen abwickeln — zu sechsstelligen Jahreskosten.
 >
-> Ich baue DWS IQ 6 — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance uber 16 EU-regulierte Branchen automatisiert. Wir haben EUR 7k+ MRR, 100% Retention und aktive Piloten in der [Branche].
->
-> Wir vergeben 8 Platinum Captain-Sitze (EUR 50k SAFE) an Operatoren, die eine Branchenvertikale auf der Plattform besitzen mochten. Ein Sitz pro Branche. [Branche] ist verfugbar.
+> Ich baue DWS IQ 6 — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance uber 20 EU-regulierte Branchen automatisiert. Wir haben EUR 7k+ MRR, 100% Retention und aktive Kunden in der [Branche].
 >
 > Passt eine 30-Minuten-Demo? Live-Daten, keine Slides.
 >
 > — Risto
 
-**Zeichenanzahl:** ~700
+**Zeichenanzahl:** ~530
 
 ---
 
@@ -195,19 +190,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hei [Etunimi],
 >
-> Tyonne [Yritys]:ssa kiinnitti huomioni — erityisesti [tarkka viite: LinkedIn-postaus, yritysaloite tai uutinen].
+> Tyonne [Yritys]:ssa kiinnitti huomioni — erityisesti [TAYTA: tarkka LinkedIn-postaus, yritysaloite tai uutinen — ALA lahetä hakasulkeilla].
 >
 > Nopea kysymys: miten tiiminna automatisoi [REGULATION]-vaatimustenmukaisuutta talla hetkella? Naemme etta useimmat [toimiala]-yritykset hoitavat taman viela konsulteilla ja Excelilla — kuusinumeroisin vuosikustannuksin.
 >
-> Rakennan DWS IQ 6:ta — ilmastoalyalustaa joka automatisoi Fit for 55 -vaatimustenmukaisuuden 16 EU-saannellylla toimialalla. Meilla on EUR 7k+ MRR, 100% asiakaspysyvyys ja aktiivisia pilotteja [toimiala]-sektorilla.
->
-> Avaamme 8 Platinum Captain -paikkaa (EUR 50k SAFE) operaattoreille jotka haluavat omistaa toimialavertikaalin alustalla. Yksi paikka per toimiala. [Toimiala] on auki.
+> Rakennan DWS IQ 6:ta — ilmastoalyalustaa joka automatisoi Fit for 55 -vaatimustenmukaisuuden 20 EU-saannellylla toimialalla. Meilla on EUR 7k+ MRR, 100% asiakaspysyvyys ja aktiivisia asiakkaita [toimiala]-sektorilla.
 >
 > Sopiiko 30 minuutin demo? Livedataa, ei slideja.
 >
 > — Risto
 
-**Merkkimaara:** ~680
+**Merkkimaara:** ~510
 
 ---
 
@@ -215,19 +208,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Bonjour [Prenom],
 >
-> Votre travail chez [Entreprise] a retenu mon attention — en particulier [reference specifique : post LinkedIn, initiative d'entreprise ou actualite].
+> Votre travail chez [Entreprise] a retenu mon attention — en particulier [A REMPLIR : post LinkedIn specifique, initiative d'entreprise ou actualite — NE PAS envoyer avec crochets].
 >
 > Une question rapide : comment votre equipe automatise-t-elle la conformite [REGULATION] aujourd'hui ? Nous constatons que la plupart des entreprises du [secteur] gerent encore cela via des consultants et des tableurs — a un cout annuel a six chiffres.
 >
-> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique qui automatise la conformite Fit for 55 dans 16 secteurs reglementes de l'UE. Nous avons EUR 7k+ de MRR, 100% de retention et des pilotes actifs dans le [secteur].
->
-> Nous ouvrons 8 sieges Platinum Captain (EUR 50k SAFE) pour des operateurs qui souhaitent detenir une verticale sectorielle sur la plateforme. Un siege par secteur. [Secteur] est disponible.
+> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique qui automatise la conformite Fit for 55 dans 20 secteurs reglementes de l'UE. Nous avons EUR 7k+ de MRR, 100% de retention et des clients actifs dans le [secteur].
 >
 > Un demo de 30 minutes, ca vous dit ? Donnees en direct, pas de slides.
 >
 > — Risto
 
-**Nombre de caracteres :** ~720
+**Nombre de caracteres :** ~530
 
 ---
 
@@ -235,19 +226,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hej [Fornamn],
 >
-> Jag laste [Foretag]s senaste hallbarhetsrapport — [specifik komplimang: t.ex. "er Scope 3-uppdelning ar mer detaljerad an de flesta i sektorn"]. Imponerande.
+> Jag laste [Foretag]s senaste hallbarhetsrapport — [FYLL I: specifik komplimang, t.ex. "er Scope 3-uppdelning ar mer detaljerad an de flesta i sektorn" — skicka INTE med hakparenteser]. Imponerande.
 >
 > En sak jag ar nyfiken pa: hur mycket av [REGULATION]-rapporteringen ar automatiserad kontra manuell? Jag har pratat med 40+ [bransch]-operatorer och svaret ar vanligtvis "for mycket Excel."
 >
-> Vi byggde DWS IQ 6 for att losa det — automatiserad compliance-intelligens for ETS, CBAM, CSRD och 12 fler EU-mandat. I produktion. EUR 7-14k MRR.
+> Vi byggde DWS IQ 6 for att losa det — automatiserad compliance-intelligens for ETS, CBAM, CSRD och 16 fler EU-mandat. I produktion. EUR 7-14k MRR.
 >
-> Jag tar in kapital annorlunda: 8 Platinum Captain-platser a EUR 50k SAFE (EUR 3,8M cap, 20% rabatt). Varje Captain ager en branschvertikal. [Bransch] ar tillganglig.
->
-> Vart 15 minuter?
+> Vart 15 minuter? Jag kan visa livedata for [bransch] specifikt.
 >
 > — Risto
 
-**Teckenantal:** ~640
+**Teckenantal:** ~510
 
 ---
 
@@ -255,19 +244,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hallo [Vorname],
 >
-> Ich habe den aktuellen Nachhaltigkeitsbericht von [Unternehmen] gelesen — [spezifisches Kompliment: z.B. "Ihre Scope-3-Aufschlusselung ist detaillierter als bei den meisten in der Branche"]. Respekt.
+> Ich habe den aktuellen Nachhaltigkeitsbericht von [Unternehmen] gelesen — [AUSFULLEN: spezifisches Kompliment, z.B. "Ihre Scope-3-Aufschlusselung ist detaillierter als bei den meisten in der Branche" — NICHT mit Klammern senden]. Respekt.
 >
 > Eine Sache interessiert mich: Wie viel der [REGULATION]-Berichterstattung ist automatisiert vs. manuell? Ich habe mit 40+ [Branche]-Operatoren gesprochen und die Antwort ist meist "zu viel Excel."
 >
-> Wir haben DWS IQ 6 dafur gebaut — automatisierte Compliance-Intelligenz fur ETS, CBAM, CSRD und 12 weitere EU-Mandate. In Produktion. EUR 7-14k MRR.
+> Wir haben DWS IQ 6 dafur gebaut — automatisierte Compliance-Intelligenz fur ETS, CBAM, CSRD und 16 weitere EU-Mandate. In Produktion. EUR 7-14k MRR.
 >
-> Ich raise anders: 8 Platinum Captain-Sitze a EUR 50k SAFE (EUR 3,8M Cap, 20% Discount). Jeder Captain besitzt eine Branchenvertikale. [Branche] ist verfugbar.
->
-> 15 Minuten wert?
+> 15 Minuten wert? Ich kann Live-Daten fur [Branche] zeigen.
 >
 > — Risto
 
-**Zeichenanzahl:** ~660
+**Zeichenanzahl:** ~520
 
 ---
 
@@ -275,19 +262,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Hei [Etunimi],
 >
-> Luin [Yritys]:n viimeisimman vastuullisuusraportin — [tarkka kehus: esim. "Scope 3 -erittelynne on yksityiskohtaisempi kuin useimmilla alalla"]. Kunnioitettavaa.
+> Luin [Yritys]:n viimeisimman vastuullisuusraportin — [TAYTA: tarkka kehus, esim. "Scope 3 -erittelynne on yksityiskohtaisempi kuin useimmilla alalla" — ALA lahetä hakasulkeilla]. Kunnioitettavaa.
 >
 > Yksi asia kiinnostaa: kuinka paljon [REGULATION]-raportoinnista on automatisoitu vs. manuaalista? Olen puhunut 40+ [toimiala]-operaattorin kanssa ja vastaus on yleensa "liikaa Excelia."
 >
-> Rakensimme DWS IQ 6:n ratkaisemaan taman — automatisoitu compliance-aly ETS:lle, CBAM:lle, CSRD:lle ja 12 muulle EU-mandaatille. Tuotannossa. EUR 7-14k MRR.
+> Rakensimme DWS IQ 6:n ratkaisemaan taman — automatisoitu compliance-aly ETS:lle, CBAM:lle, CSRD:lle ja 16 muulle EU-mandaatille. Tuotannossa. EUR 7-14k MRR.
 >
-> Keraän paaomaa eri tavalla: 8 Platinum Captain -paikkaa a EUR 50k SAFE (EUR 3,8M cap, 20% alennus). Jokainen Captain omistaa yhden toimialavertikaalin. [Toimiala] on auki.
->
-> Onko 15 minuuttia mahdollista?
+> Onko 15 minuuttia mahdollista? Voin nayttaa livedataa [toimiala]-sektorilta.
 >
 > — Risto
 
-**Merkkimaara:** ~660
+**Merkkimaara:** ~520
 
 ---
 
@@ -295,19 +280,17 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 > Bonjour [Prenom],
 >
-> J'ai lu le dernier rapport de developpement durable de [Entreprise] — [compliment specifique : par ex. "votre ventilation Scope 3 est plus detaillee que chez la plupart du secteur"]. Respect.
+> J'ai lu le dernier rapport de developpement durable de [Entreprise] — [A REMPLIR : compliment specifique, par ex. "votre ventilation Scope 3 est plus detaillee que chez la plupart du secteur" — NE PAS envoyer avec crochets]. Respect.
 >
 > Une chose m'interesse : quelle part du reporting [REGULATION] est automatisee vs. manuelle ? J'ai echange avec 40+ operateurs du [secteur] et la reponse est generalement "trop d'Excel."
 >
-> Nous avons construit DWS IQ 6 pour resoudre ca — intelligence de conformite automatisee pour ETS, CBAM, CSRD et 12 autres mandats UE. En production. EUR 7-14k de MRR.
+> Nous avons construit DWS IQ 6 pour resoudre ca — intelligence de conformite automatisee pour ETS, CBAM, CSRD et 16 autres mandats UE. En production. EUR 7-14k de MRR.
 >
-> Je leve des fonds differemment : 8 sieges Platinum Captain a EUR 50k SAFE (cap EUR 3,8M, 20% de decote). Chaque Captain possede une verticale sectorielle. [Secteur] est disponible.
->
-> 15 minutes, ca vaut le coup ?
+> 15 minutes, ca vaut le coup ? Je peux montrer des donnees en direct pour le [secteur].
 >
 > — Risto
 
-**Nombre de caracteres :** ~680
+**Nombre de caracteres :** ~530
 
 ---
 
@@ -343,6 +326,19 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 
 ---
 
+## Pre-Send Scrub Checklist (CRITICAL)
+
+**Before sending ANY DM, Ctrl+F for `[` in your message.** If ANY square brackets remain that are not [First Name], [Company], [industry], or [REGULATION] keywords — DO NOT SEND. A template with visible `[tarkka viite: LinkedIn-postaus...]` or `[specific reference: ...]` brackets kills credibility instantly.
+
+| # | Scrub Check | Action |
+|---|-------------|--------|
+| 1 | **No unfilled brackets** | Ctrl+F `[` — every bracket must be filled with real content |
+| 2 | **Personalization is real** | The specific reference must be a real LinkedIn post, report, or news item you actually read |
+| 3 | **Correct language** | Use Language Routing Guide — Swedish for NCC/Skanska, German for PORR/STRABAG, etc. |
+| 4 | **No Captain pitch in opener** | Captain/SAFE terms go in follow-up only, after they respond |
+
+---
+
 ## Personalization Checklist
 
 Before sending ANY DM, verify:
@@ -357,6 +353,26 @@ Before sending ANY DM, verify:
 | 6 | Their company's size (determines urgency) | >250 employees = CSRD mandatory |
 
 **Rule:** If you can't find a specific personalization hook, don't send. Generic DMs get <5% reply rates. Personalized DMs get 15-25%.
+
+---
+
+## Follow-Up: Captain Pitch (After They Respond)
+
+**When to use:** Only AFTER the contact replies to your cold DM and shows interest (e.g., agrees to demo, asks questions, engages). Never in the opener.
+
+> Great to hear from you, [First Name]. Before the demo, a quick note on what makes this different:
+>
+> Instead of a generic angel round, I'm opening 8 Platinum Industry Captain seats — EUR 50k SAFE at EUR 3.8M cap with 20% discount. Each Captain owns one of 20 EU industry verticals: founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
+>
+> [Industry] is available. One seat per industry.
+>
+> Full details: https://dws10.com/captain/
+>
+> Happy to walk through the terms during the demo. Looking forward to it.
+>
+> — Risto
+
+**Character count:** ~520
 
 ---
 
@@ -382,4 +398,4 @@ https://dws10.com/captain/deck/?utm_source=linkedin&utm_medium=dm&utm_campaign=c
 
 ---
 
-*Document Version 2.0 — 21 March 2026 — Lifetime Oy*
+*Document Version 3.0 — 21 March 2026 — Lifetime Oy*
