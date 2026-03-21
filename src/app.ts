@@ -46,8 +46,23 @@ import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
+import { correlationId } from './middleware/correlation-id.js';
+import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
+import { healthCheck, livenessCheck } from './middleware/health.js';
+import { validateEnv } from './middleware/env-validation.js';
 
 dotenv.config();
+
+// ============ STARTUP VALIDATION ============
+
+const envResult = validateEnv();
+if (!envResult.valid && process.env.NODE_ENV === 'production') {
+  // In production, fail fast if required vars are missing
+  logger.fatal('Startup aborted — missing required environment variables', {
+    missing: envResult.missing,
+  });
+  process.exit(1);
+}
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080; // Cloud Run default
@@ -113,9 +128,12 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
 };
 app.use(cors(corsOptions));
+
+// Correlation ID — trace every request through logs
+app.use(correlationId);
 
 // API versioning header on all responses
 app.use(apiVersionMiddleware);
@@ -145,30 +163,23 @@ app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
 
-// Request logging middleware
+// Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.path}`, {
     ip: req.ip,
     userAgent: req.get('user-agent'),
+    correlationId: req.headers['x-correlation-id'],
   });
   next();
 });
 
 // ============ HEALTH CHECK ============
 
-app.get('/health', (_req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    service: 'DWS IQ Backend',
-    version: '1.0.0',
-    features: {
-      climateAssistant: !!process.env.GROQ_API_KEY,
-      gatedAccess: true,
-      emailQueue: emailQueue.isAvailable(),
-    },
-  });
-});
+// Full health check with dependency status (Supabase, email, LLM)
+app.get('/health', healthCheck);
+
+// Lightweight liveness probe (no dependency calls)
+app.get('/livez', livenessCheck);
 
 // ============ STATIC FILES ============
 
@@ -465,30 +476,11 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
 
 // ============ ERROR HANDLING ============
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    error: 'Not Found',
-    message: `Route ${req.method} ${req.path} not found`,
-    path: req.path,
-  });
-});
+// 404 handler — must be after all routes
+app.use(notFoundHandler);
 
-// Global error handler
-app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-  logger.error('Unhandled error', {
-    error: err.message,
-    stack: err.stack,
-    path: req.path,
-    method: req.method,
-  });
-
-  res.status(err.status || 500).json({
-    error: err.name || 'Internal Server Error',
-    message: err.message || 'An unexpected error occurred',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-  });
-});
+// Centralized error handler — must be LAST middleware
+app.use(errorHandler);
 
 // ============ SERVER START ============
 
@@ -530,6 +522,25 @@ const server = app.listen(PORT, () => {
       error: err.message,
     });
   });
+});
+
+// ============ PROCESS ERROR HANDLERS ============
+
+// Catch unhandled promise rejections (prevents silent failures)
+process.on('unhandledRejection', (reason: unknown) => {
+  const message = reason instanceof Error ? reason.message : String(reason);
+  const stack = reason instanceof Error ? reason.stack : undefined;
+  logger.error('Unhandled promise rejection', { error: message, stack });
+});
+
+// Catch uncaught exceptions (log and exit — process is in unknown state)
+process.on('uncaughtException', (err: Error) => {
+  logger.fatal('Uncaught exception — shutting down', {
+    error: err.message,
+    stack: err.stack,
+  });
+  // Give logger time to flush, then exit
+  setTimeout(() => process.exit(1), 1000);
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)

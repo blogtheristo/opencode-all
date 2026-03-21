@@ -61,6 +61,7 @@ Document Status:
 16. [Document Index](#16-document-index)
 17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
+19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 
 ---
 
@@ -1797,6 +1798,130 @@ Learn/WEB_CONTENT_INDEX.html            ← latest
 
 ---
 
+## 19. Code Versioning & PR Traceability
+
+### 19.1 Rule / Sääntö
+
+All net-new production code files and all major rewrites MUST include a **Code Versioning Note** that ties the code to PR and commit lineage.
+
+Jokaisen uuden tuotantokooditiedoston ja merkittävän uudelleenkirjoituksen TÄYTYY sisältää **Code Versioning Note**, joka sitoo koodin PR- ja commit-historiaan.
+
+**Why:** Enables fast forensic search ("where did this come from?"), rollback targeting, and compliance-grade traceability.
+
+### 19.2 Required Fields
+
+Every Code Versioning Note MUST contain:
+
+- `Code-Version` (semantic: `MAJOR.MINOR.PATCH`)
+- `Introduced-In` (PR number, e.g. `PR-699`)
+- `Branch` (e.g. `claude/pr-699`)
+- `Commit` (short SHA at merge point when known)
+- `Date` (`YYYY-MM-DD`)
+- `Owner` (team or tool)
+- `Env-Schema` (e.g. `env-v1.0`) if runtime config is required
+
+### 19.3 Syntax-Safe Templates (CRITICAL)
+
+Use language-appropriate comment syntax. Never insert markdown prose directly into executable syntax.
+
+**TypeScript / JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`):**
+```ts
+/**
+ * CODE VERSIONING NOTE
+ * Code-Version: 1.0.0
+ * Introduced-In: PR-699
+ * Branch: claude/pr-699
+ * Commit: abc1234
+ * Date: 2026-03-13
+ * Owner: DWS Platform / AI Agent
+ * Env-Schema: env-v1.0
+ */
+```
+
+**Python (`.py`):**
+```python
+"""
+CODE VERSIONING NOTE
+Code-Version: 1.0.0
+Introduced-In: PR-699
+Branch: claude/pr-699
+Commit: abc1234
+Date: 2026-03-13
+Owner: DWS Platform / AI Agent
+Env-Schema: env-v1.0
+"""
+```
+
+**SQL migrations (`.sql`):**
+```sql
+-- CODE VERSIONING NOTE
+-- Code-Version: 1.0.0
+-- Introduced-In: PR-699
+-- Branch: claude/pr-699
+-- Commit: abc1234
+-- Date: 2026-03-13
+-- Owner: DWS Platform / AI Agent
+-- Env-Schema: env-v1.0
+```
+
+**Shell / YAML / Dockerfile:**
+```text
+# CODE VERSIONING NOTE
+# Code-Version: 1.0.0
+# Introduced-In: PR-699
+# Branch: claude/pr-699
+# Commit: abc1234
+# Date: 2026-03-13
+# Owner: DWS Platform / AI Agent
+# Env-Schema: env-v1.0
+```
+
+### 19.4 Increment Rules for `Code-Version`
+
+- Patch (`x.y.Z`): bug fix, no behavior contract change
+- Minor (`x.Y.z`): additive behavior, backward compatible
+- Major (`X.y.z`): breaking behavior/API/contract change
+
+### 19.5 .env Versioning Policy
+
+Runtime secret files are not versioned in Git, but the schema is.
+
+- Never commit `.env` (secrets)
+- Always version `.env.example` structure
+- Track schema via `ENV_SCHEMA_VERSION` in `.env.example`
+- Bump rules:
+  - Major: breaking or renamed required variable
+  - Minor: new optional/required variable added
+  - Patch: comment/docs clarifications only
+- Record schema changes in standards/history and PR description
+
+### 19.6 Enforcement Checklist (Code Reviews)
+
+Before merging code PRs:
+
+- [ ] New/rewritten files include Code Versioning Note
+- [ ] `Introduced-In` references current PR number (e.g., `PR-699`)
+- [ ] `Code-Version` increment is justified by change scope
+- [ ] If config changed: `.env.example` updated and `ENV_SCHEMA_VERSION` bumped
+- [ ] No secrets/keys included in version notes
+
+### 19.7 Hunt Queries (Trace Any Code Fast)
+
+Use these repository queries to trace lineage:
+
+```bash
+# All code versioning notes
+rg "CODE VERSIONING NOTE"
+
+# All artifacts introduced in PR-699
+rg "Introduced-In:\\s*PR-699"
+
+# All files using env schema lineage
+rg "Env-Schema:\\s*env-v"
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1862,9 +1987,15 @@ Document Status:
 
 ---
 
-**Version:** 1.7
-**Effective Date:** 28. February 2026
+**Version:** 1.8
+**Effective Date:** 13. March 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.8:**
+- Added Code Versioning & PR Traceability Standard (Section 19)
+- Added syntax-safe per-language templates for code version notes
+- Added `.env` schema versioning policy (`ENV_SCHEMA_VERSION` in `.env.example`)
+- Added explicit PR-linked requirement (`Introduced-In: PR-<number>`, e.g. `PR-699`)
 
 **Major Changes in v1.7:**
 - Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages

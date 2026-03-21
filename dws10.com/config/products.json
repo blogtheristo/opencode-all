@@ -150,6 +150,36 @@
       },
       "storeCategory": "platform"
     },
+    "FH-SIGN-001": {
+      "id": "FH-SIGN-001",
+      "gtin": null,
+      "mpn": "FH-SIGNED-REPORTS-2026",
+      "name": "Firehorse Signed Reports",
+      "price": 199,
+      "currency": "EUR",
+      "type": "subscription",
+      "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
+      "features": [
+        "DocuSign eSignature on all Firehorse reports",
+        "Multi-party signing (author → reviewer → auditor)",
+        "Signed PDF download and audit trail"
+      ],
+      "priceNote": "€199/year add-on — requires Firehorse Report",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-reports.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "add-on"
+    },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
       "gtin": null,

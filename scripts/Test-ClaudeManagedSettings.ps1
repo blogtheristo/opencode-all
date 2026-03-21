@@ -25,7 +25,7 @@
 
 .NOTES
     Migration: legacy path C:\ProgramData\ClaudeCode\ stops being read on 2026-03-12.
-    See CLAUDE.md, docs/DWS_INFORMATION_LAYERING_STRATEGY.md, Admin/ClaudeCode/README.md
+    See CLAUDE.md, docs/DWS_INFORMATION_LAYERING_STRATEGY.md, ClaudeCode/README.md
 #>
 param(
     [switch]$ValidateJson,

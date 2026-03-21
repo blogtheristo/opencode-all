@@ -23,6 +23,12 @@ interface ComplianceOverview {
   regulations: RegulationScore[];
   totalGaps: number;
   criticalGaps: number;
+  dataSource?: 'database' | 'benchmark';
+  benchmark?: {
+    sector: string;
+    emissionsVsSector: string;
+    csrdVsSector: string;
+  };
 }
 
 // SVG ring chart — animated arc
@@ -98,22 +104,6 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
     const result = await execute('/api/v1/compliance/overview');
     if (result) {
       setOverview(result);
-    } else {
-      // Fallback demo data when API unavailable
-      setOverview({
-        overallScore: 72,
-        previousScore: 65,
-        lastAssessment: new Date(Date.now() - 86400000 * 3).toISOString(),
-        totalGaps: 14,
-        criticalGaps: 3,
-        regulations: [
-          { id: 'csrd', name: 'CSRD', score: 78, status: 'partial', gaps: 4 },
-          { id: 'ets', name: 'EU ETS', score: 85, status: 'compliant', gaps: 1 },
-          { id: 'cbam', name: 'CBAM', score: 45, status: 'non-compliant', gaps: 6 },
-          { id: 'epbd', name: 'EPBD', score: 82, status: 'compliant', gaps: 2 },
-          { id: 'fit-for-55', name: 'Fit for 55', score: 68, status: 'partial', gaps: 1 },
-        ],
-      });
     }
   }, [execute]);
 
@@ -154,7 +144,20 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
     );
   }
 
-  if (!overview) return null;
+  if (!overview) {
+    return (
+      <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
+        <p className="text-sm text-gray-500">No compliance data available</p>
+        <button
+          type="button"
+          onClick={onRunAssessment}
+          className="mt-3 px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-colors"
+        >
+          Run First Assessment
+        </button>
+      </div>
+    );
+  }
 
   const trend = overview.overallScore - overview.previousScore;
   const trendColor = trend > 0 ? 'text-green-500' : trend < 0 ? 'text-red-500' : 'text-gray-400';
@@ -225,6 +228,23 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
           </div>
         ))}
       </div>
+
+      {/* Data source indicator */}
+      {overview.dataSource && (
+        <div className="flex items-center gap-2 mb-3 px-2 py-1.5 bg-gray-50 rounded-lg">
+          <span className={`w-2 h-2 rounded-full ${overview.dataSource === 'database' ? 'bg-green-500' : 'bg-amber-500'}`} />
+          <span className="text-xs text-gray-600">
+            {overview.dataSource === 'database'
+              ? 'Live company data'
+              : `Sector benchmark (${overview.benchmark?.sector || 'manufacturing'})`}
+          </span>
+          {overview.benchmark?.emissionsVsSector && overview.dataSource === 'database' && (
+            <span className="ml-auto text-xs text-gray-500">
+              Emissions: {overview.benchmark.emissionsVsSector}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Action button */}
       <button

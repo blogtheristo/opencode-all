@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
+  - Version: 2.7 | Tool: GPT-5.4 | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Added Client Veriton offer documentation and Veriton Edge Stack runbook to the admin manual index
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
@@ -32,7 +33,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 23.02.2026
+  - Last Modified: 11.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -91,6 +92,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **Supabase Manual** | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md) | EN | Database, RLS, migrations, storage |
 | **Testing Manual** | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) | EN | Vitest, security tests, CI/CD testing |
 | **Gaps Analysis** | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md) | EN | Missing features and remediation plan |
+| **DWS IQ 6 User Manual** | [`../Situation/DWS_IQ6_USER_MANUAL.md`](../Situation/DWS_IQ6_USER_MANUAL.md) | EN | End-user workflow from `dws10.com` to `dws6.com`, Dashboard V10, Situation Room, and local Veriton-backed Control Room |
 
 ### Websites & Store
 
@@ -126,6 +128,10 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 | Manual | Location | Language | Description |
 |--------|----------|----------|-------------|
+| **Client Veriton Offers** | [`Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`](Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md) | EN | Product definition for Control Room Acer Veriton and Situation Room Acer Veriton-backed |
+| **Veriton Edge Stack Runbook** | [`Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md`](Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md) | EN | Docker, Ollama, OpenSandbox, MCP, tunnel, and health-check runbook |
+| **User Storyboard** | [`../Situation/user-storyboard.md`](../Situation/user-storyboard.md) | EN | End-user path from public entry to Dashboard V10 and local Control Room |
+| **Admin Storyboard** | [`../Situation/admin-storyboard.md`](../Situation/admin-storyboard.md) | EN | Admin path for Dashboard V10 oversight, local admin app, and Veriton operations |
 | **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN | Omnichannel product operations |
 | **Files & Folders** | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
 

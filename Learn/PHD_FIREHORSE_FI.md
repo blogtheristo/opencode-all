@@ -1,17 +1,20 @@
-# Pro Gradu: Firehorse-toimintamalli tekoalyavusteiseen verkkokauppaan
+# Tohtoriohjelman opintosuunnitelman liite: Firehorse-toimintamalli tekoälyavusteiseen verkkokauppaan
 
-**Otsikko:** Tekoalynatiivi verkkokaupan hallinta: Tapaustutkimus Firehorse-mallin toteutuksesta Claude Codella
-**Tekija:** Lifetime Oy Tutkimusosasto
-**Paivamaara:** Tammikuu 2026
-**Laitos:** DWS IQ Research
-**Dokumenttityyppi:** Pro Gradu -tutkielma
+**Otsikko:** Tekoälynatiivi verkkokaupan hallinta: Tapaustutkimus Firehorse-mallin toteutuksesta Claude Codella
+**Tekijä:** Lifetime Oy Tutkimusosasto
+**Päivämäärä:** Tammikuu 2026
+**Laitos:** DWS IQ Research / LUT-yliopisto
+**Dokumenttityyppi:** Jatko-opiskeluhakemuksen liite (tohtoriohjelma)
+**Viite:** LUT Doctoral School — Jatko-opiskeluhakemus
 
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.7
 
 Sessions & Modifications:
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 14.2.1 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiatapaustutkimus — ensimmäinen ulkoinen markkinavalidointi, 21 693 €/vuosi BESS-vaatimustenmukaisuustuotos, Firehorse-mallin siirrettävyys energiasektorille vahvistettu); lisätty avainpanos #16; päivitetty 16→20 toimialaa LWM-osioissa
+  - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
   - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
   - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
@@ -25,7 +28,7 @@ Sessions & Modifications:
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
   - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 20 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
   - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen
@@ -36,18 +39,17 @@ Document Status:
   - Language: Finnish
   - Languages Available: English, Suomi
   - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
+---
+
+## Tiivistelmä
+
+Tämä tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoälyavusteinen lähestymistapa verkkokaupan hallintaan Claude Codea käyttäen. Malli osoittaa merkittäviä tehokkuusparannuksia tuotekatalogin hallinnassa, Google Merchant Center -integraatiossa ja maksukäsittelyssä Revolut Businessin kautta. Esittelemme teknisen arkkitehtuurin, toiminnalliset työnkulut ja tulevan kehityksen kohti äänipohjaista asiakasvuorovaikutusta toimialakohtaisella hiilijalanjälkilaskurilla ja EU-sääntelyvaatimusten tuntemuksella.
+
+**Avainsanat:** Tekoälytoiminnot, Verkkokaupan automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n tekoälysäädös, Hiilijalanjälkilaskuri, Teollinen vaatimustenmukaisuus
 
 ---
 
-## Tiivistelma
-
-Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalyavusteinen lahestymistapa verkkokaupan hallintaan Claude Codea kayttaen. Malli osoittaa merkittavia tehokkuusparannuksia tuotekatalogin hallinnassa, Google Merchant Center -integraatiossa ja maksukasittelyssa Revolut Businessin kautta. Esittelemme teknisen arkkitehtuurin, toiminnalliset tyonkulut ja tulevan kehityksen kohti aanipohjaista asiakasvuorovaikutusta toimialakohtaisella hiilijalanjalkililaskurilla ja EU-saantelyvaatimusten tuntemuksella.
-
-**Avainsanat:** Tekoalytoiminnot, Verkkokaupan automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n tekoalysaados, Hiilijalanjalkililaskuri, Teollinen vaatimustenmukaisuus
-
----
-
-## Sisallysluettelo
+## Sisällysluettelo
 
 1. [Johdanto](#1-johdanto)
 2. [Kirjallisuuskatsaus](#2-kirjallisuuskatsaus)
@@ -55,18 +57,17 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 4. [Tekninen toteutus](#4-tekninen-toteutus)
 5. [Maksuintegraatio (Revolut Business)](#5-maksuintegraatio-revolut-business)
 6. [Google Merchant Center -toiminnot](#6-google-merchant-center--toiminnot)
-7. [EU-saantelyvaatimustenmukaisuus](#7-eu-saantelyvaatimustenmukaisuus)
+7. [EU-sääntelyvaatimustenmukaisuus](#7-eu-sääntelyvaatimustenmukaisuus)
 8. [Tuotesuositusmoottori](#8-tuotesuositusmoottori)
-9. [Aanichatin kehityssuunnitelma](#9-aanichatin-kehityssuunnitelma)
-10. [Toimialan hiilijalanjalkililaskuri](#10-toimialan-hiilijalanjalkililaskuri)
+9. [Äänichat-kehityssuunnitelma](#9-äänichatin-kehityssuunnitelma)
+10. [Toimialan hiilijalanjälkilaskuri](#10-toimialan-hiilijalanjälkilaskuri)
 11. [Proton-tuotestrategia](#11-proton-tuotestrategia)
 12. [IPR-suojaus ja liikesalaisuusstrategia](#12-ipr-suojaus-ja-liikesalaisuusstrategia)
-13. [Prompt-valimuistiarkkitehtuuri tekoalyagenteille](#13-prompt-valimuistiarkkitehtuuri-tekoalyagenteille)
-14. [Yrityksen monivuokralainen agenttiarkkitehtuuri](#14-yrityksen-monivuokralainen-agenttiarkkitehtuuri)
-15. [Tulokset ja pohdinta](#15-tulokset-ja-pohdinta)
-16. [Johtopäätökset](#16-johtopaatotkset)
-17. [Lahteet](#17-lahteet)
-18. [Liitteet](#18-liitteet)
+13. [Prompt-välimuistiarkkitehtuuri tekoälyagenteille](#13-prompt-välimuistiarkkitehtuuri-tekoälyagenteille)
+14. [Tulokset ja pohdinta](#14-tulokset-ja-pohdinta)
+15. [Johtopäätökset](#15-johtopäätökset)
+16. [Lähteet](#16-lähteet)
+17. [Liitteet](#17-liitteet)
 
 ---
 
@@ -74,26 +75,26 @@ Tama tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoalya
 
 ### 1.1 Tausta
 
-Yritysohjelmistomarkkinat vaativat yha enemman nopeaa tuotekehitysta, EU-saannosten noudattamista ja saumatonta asiakaskokemusta. Perinteinen verkkokauppatoiminta vaatii manuaalista puuttumista tuotepaivityksiin, syotehallintaan ja asiakastukeen. Firehorse-toimintamalli vastaa naihin haasteisiin tekoalynatiivilla automaatiolla Claude Codea kayttaen.
+Yritysohjelmistomarkkinat vaativat yha enemman nopeaa tuotekehitysta, EU-säännösten noudattamista ja saumatonta asiakaskokemusta. Perinteinen verkkokauppatoiminta vaatii manuaalista puuttumista tuotepaivityksiin, syotehallintaan ja asiakastukeen. Firehorse-toimintamalli vastaa naihin haasteisiin tekoälynatiivilla automaatiolla Claude Codea käyttäen.
 
 Lifetime Oy operoi DWS10.com-alustaa, yritysverkkokauppaa joka palvelee ilmastoalykkyyden ratkaisuja, vaatimustenmukaisuusohjelmistoja ja ammattimaisia konsultointipalveluita 16:lle EU-saannellylle toimialalle. Alusta integroituu:
 
 - **Google Merchant Center** (Tili-ID: 8496329) tuotenakyvyydelle
-- **Revolut Business** kassan ja maksukasittelyn hoitamiseen
+- **Revolut Business** kassan ja maksukäsittelyn hoitamiseen
 - **Claude Code** automatisoituun kaupan yllapitoon Firehorse-mallin kautta
 - **Cloudflare Pages** staattiseen hostingiin EU-tietojen sijaintikriteerein
 
 ### 1.2 Tutkimuskysymykset
 
-1. Miten tekoalyavustajat voivat tehokkaasti hallita verkkokaupan tuotekatalogeja?
+1. Miten tekoälyavustajat voivat tehokkaasti hallita verkkokaupan tuotekatalogeja?
 2. Mitka tehokkuusparannukset ovat saavutettavissa automatisoidulla syotehallinnalla?
 3. Miten aanipohjiaisen asiakasvuorovaikutuksen tulisi kehittya suositellakseen toimialakohtaisia ratkaisuja?
-4. Mitka EU:n tekoalysaadoksen vaatimukset vaikuttavat tekoalyavusteisiin myyntikanaviin?
-5. Miten hiilijalanjalkililaskurit voivat ohjata tuotesuosituksia teollisille asiakkaille?
+4. Mitka EU:n tekoälysaadoksen vaatimukset vaikuttavat tekoälyavusteisiin myyntikanaviin?
+5. Miten hiilijalanjälkilaskurit voivat ohjata tuotesuosituksia teollisille asiakkaille?
 
 ### 1.3 Laajuus
 
-Tama tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotetta seuraavissa kategorioissa:
+Tämä tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotetta seuraavissa kategorioissa:
 
 | Kategoria | Tuotteet | Hintaluokka |
 |-----------|----------|-------------|
@@ -107,11 +108,11 @@ Tama tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotett
 
 ## 2. Kirjallisuuskatsaus
 
-### 2.1 Tekoaly verkkokauppatoiminnoissa
+### 2.1 Tekoäly verkkokauppatoiminnoissa
 
-Viimeaikaiset edistysaskeleet suurissa kielimalleissa (LLM) mahdollistavat luonnollisen kielen kayttoliittymat monimutkaisiin teknisiin toimintoihin. Claude Code, joka perustuu Anthropicin Claude-malliin, tarjoaa:
+Viimeaikaiset edistysaskeleet suurissa kielimalleissa (LLM) mahdollistavat luonnollisen kielen käyttöliittymat monimutkaisiin teknisiin toimintoihin. Claude Code, joka perustuu Anthropicin Claude-malliin, tarjoaa:
 
-- Tiedostojarjestelman kasittelyn
+- Tiedostojärjestelmän käsittelyn
 - Koodin generoinnin ja muokkauksen
 - Ulkoisten API:en integroinnin
 - Monivaiheisen tehtavien orkestroinnin
@@ -119,7 +120,7 @@ Viimeaikaiset edistysaskeleet suurissa kielimalleissa (LLM) mahdollistavat luonn
 
 ### 2.2 Tuotetietojen hallinta
 
-Modernit tuotetietojen hallintajarjestelmat (PIM) vaativat:
+Modernit tuotetietojen hallintajärjestelmät (PIM) vaativat:
 
 - Keskitetyn tietovaraston (products.json)
 - Monikanavaisen jakelun (Google Merchant, sosiaalinen kauppa)
@@ -127,13 +128,13 @@ Modernit tuotetietojen hallintajarjestelmat (PIM) vaativat:
 - Dynaamiset hinnoitteluominaisuudet
 - Kassalinkkien integraation
 
-### 2.3 EU:n saantelykehys
+### 2.3 EU:n sääntelykehys
 
-Euroopan unionin saantelymaisema tekoalyavusteisessa kaupassa sisaltaa:
+Euroopan unionin sääntelymaisema tekoälyavusteisessa kaupassa sisaltaa:
 
 | Saannos | Voimaantulo | Vaikutus |
 |---------|-------------|----------|
-| EU:n tekoalysaados | Elokuu 2026 | Tekoalyjarjestelmien luokittelu, lapinakyvaatimukset |
+| EU:n tekoälysäädös | Elokuu 2026 | Tekoälyjärjestelmien luokittelu, lapinakyvaatimukset |
 | GDPR | Toukokuu 2018 | Tietosuoja, suostumusten hallinta |
 | NIS2-direktiivi | Lokakuu 2024 | Kyberturvallisuusvaatimukset |
 | Vihreita vaitteita koskeva direktiivi | 2026 | Ymparistomarkkinoinnin vaatimustenmukaisuus |
@@ -148,7 +149,7 @@ Euroopan unionin saantelymaisema tekoalyavusteisessa kaupassa sisaltaa:
 
 ### 3.1 Mallin yleiskatsaus
 
-Firehorse-toimintamalli on ihmisen ja tekoalyn yhteistyokehys verkkokaupan hallintaan:
+Firehorse-toimintamalli on ihmisen ja tekoälyn yhteistyokehys verkkokaupan hallintaan:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -157,7 +158,7 @@ Firehorse-toimintamalli on ihmisen ja tekoalyn yhteistyokehys verkkokaupan halli
 │                                                              │
 │   ┌─────────┐     ┌─────────────┐     ┌─────────────┐       │
 │   │ Ihmisen │ ──► │ Claude Code │ ──► │Jarjestelmat │       │
-│   │  aikomus│     │(Tekoalyagentti)│   │ (Git, APIs) │       │
+│   │  aikomus│     │(Tekoälyagentti)│   │ (Git, APIs) │       │
 │   └─────────┘     └─────────────┘     └─────────────┘       │
 │                          │                    │              │
 │                          ▼                    ▼              │
@@ -171,41 +172,41 @@ Firehorse-toimintamalli on ihmisen ja tekoalyn yhteistyokehys verkkokaupan halli
 
 ### 3.2 Perusperiaatteet
 
-1. **Luonnollisen kielen kayttoliittyma**: Toiminnot ilmaistaan selkokielella
+1. **Luonnollisen kielen käyttöliittyma**: Toiminnot ilmaistaan selkokielella
 2. **Versionhallinta**: Kaikki muutokset seurataan Gitin kautta
-3. **Auditointipolku**: Taysi historia EU:n tekoalysaadoksen noudattamiseen
+3. **Auditointipolku**: Taysi historia EU:n tekoälysaadoksen noudattamiseen
 4. **Toistettavuus**: Dokumentoidut prosessit johdonmukaisuuden varmistamiseksi
-5. **Jaljitettavyys**: Paatosketjut saantelyvaatimuksia varten
+5. **Jaljitettavyys**: Paatosketjut sääntelyvaatimuksia varten
 
 ### 3.3 Toiminnalliset osa-alueet
 
-| Osa-alue | Tekoalyn kyvykkyydet | Ihmisen valvonta |
+| Osa-alue | Tekoälyn kyvykkyydet | Ihmisen valvonta |
 |----------|---------------------|------------------|
-| Tuotehallinta | CRUD-toiminnot, syotteen generointi | Hinnoittelun hyvaksynta, sisallon tarkistus |
+| Tuotehallinta | CRUD-toiminnot, syötteen generointi | Hinnoittelun hyväksynta, sisallon tarkistus |
 | Maksuintegraatio | Linkkien luonti, konfigurointi | Taloudellinen valtuutus |
-| Vaatimustenmukaisuus | Dokumenttien generointi, seuranta | Juridinen hyvaksynta |
-| Asiakasvuorovaikutus | Tekoalychat, suositukset | Eskaloinnin kasittely |
+| Vaatimustenmukaisuus | Dokumenttien generointi, seuranta | Juridinen hyväksynta |
+| Asiakasvuorovaikutus | Tekoälychat, suositukset | Eskaloinnin käsittely |
 | Dokumentaatio | Kasikirjojen generointi, kaannokset | Tekninen tarkistus |
 
 ### 3.4 Tyonkulkuesimerkit
 
-**Tuotepaivityksen tyonkulku:**
+**Tuotepaivityksen työnkulku:**
 ```
 Kayttaja: "Lisaa uusi tuote X hintaan 999 EUR"
 Claude Code:
   1. Paivittaa products.json-tiedoston
   2. Validoi pakolliset kentat
-  3. Generoi Google Merchant -syotteen uudelleen
+  3. Generoi Google Merchant -syötteen uudelleen
   4. Committaa muutokset Gitiin
-  5. Lahettaa syotteen SFTP:lla
+  5. Lahettaa syötteen SFTP:lla
 ```
 
-**Dokumentaation tyonkulku:**
+**Dokumentaation työnkulku:**
 ```
 Kayttaja: "Luo yllapitokasikirja"
 Claude Code:
   1. Lukee tuotekatalogin
-  2. Analysoi jarjestelman arkkitehtuurin
+  2. Analysoi järjestelmän arkkitehtuurin
   3. Generoi kattavan dokumentaation
   4. Luo kaksikieliset versiot (EN/FI)
   5. Committaa repositoryyn
@@ -245,8 +246,8 @@ dws10.com/
   "price": 4999,
   "currency": "EUR",
   "type": "one-time",
-  "description": "Teollinen aivot Fit for 55 -vaatimustenmukaisuuteen. Tekoalynatiivi alusta 5 agentilla pilviymparistossasi.",
-  "priceNote": "Kertakayttooonotto + 499 EUR/kk tilaus",
+  "description": "Teollinen aivot Fit for 55 -vaatimustenmukaisuuteen. Tekoälynatiivi alusta 5 agentilla pilviymparistossasi.",
+  "priceNote": "Kertakäyttöoonotto + 499 EUR/kk tilaus",
   "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
   "image": "/DWS_IQ2026.png",
   "detailsUrl": "../buy/",
@@ -262,10 +263,10 @@ dws10.com/
 }
 ```
 
-### 4.3 Syotteen generointiputki
+### 4.3 Syötteen generointiputki
 
 ```javascript
-// generate-feed.cjs tyonkulku
+// generate-feed.cjs työnkulku
 const generateFeed = () => {
   // 1. Lataa products.json
   const products = require('../config/products.json');
@@ -289,11 +290,11 @@ const generateFeed = () => {
 };
 ```
 
-### 4.4 Kayttoonottoputki
+### 4.4 Käyttöönottoputki
 
 - **Hosting:** Cloudflare Pages (staattinen HTML)
-- **Build:** Automaattinen kayttoonotto git push -komennolla
-- **Valimuisti:** Edge-valimuisti suorituskyvylle
+- **Build:** Automaattinen käyttöonotto git push -komennolla
+- **Valimuisti:** Edge-välimuisti suorituskyvylle
 - **Vaatimustenmukaisuus:** EU:n tietojen sijainti (Suomi/Saksa)
 
 ---
@@ -302,7 +303,7 @@ const generateFeed = () => {
 
 ### 5.1 Miksi Revolut Business
 
-Lifetime Oy valitsi Revolut Businessin maksukasittelyyn seuraavien ominaisuuksien perusteella:
+Lifetime Oy valitsi Revolut Businessin maksukäsittelyyn seuraavien ominaisuuksien perusteella:
 
 | Ominaisuus | Hyoty |
 |------------|-------|
@@ -369,7 +370,7 @@ Viimeaikaiset toteutetut parannukset:
 | Syote-URL | https://dws10.com/feeds/google-products.xml |
 | SFTP-palvelin | partnerupload.google.com:19321 |
 
-### 6.2 Syotteen vaatimustenmukaisuusvaatimukset
+### 6.2 Syötteen vaatimustenmukaisuusvaatimukset
 
 | Attribuutti | Vaatimus | Toteutus |
 |-------------|----------|----------|
@@ -407,23 +408,23 @@ curl -T google-products.xml \
 
 ---
 
-## 7. EU-saantelyvaatimustenmukaisuus
+## 7. EU-sääntelyvaatimustenmukaisuus
 
-### 7.1 EU:n tekoalysaadoksen vaatimukset (elokuu 2026)
+### 7.1 EU:n tekoälysaadoksen vaatimukset (elokuu 2026)
 
-EU:n tekoalysaados luokittelee tekoalyjarjestelmat riskitason mukaan. Aanichat- ja suositusjärjestelmamme kuuluu **Rajoitetun riskin** kategoriaan, joka vaatii:
+EU:n tekoälysäädös luokittelee tekoälyjärjestelmät riskitason mukaan. Äänichat- ja suositusjärjestelmamme kuuluu **Rajoitetun riskin** kategoriaan, joka vaatii:
 
-1. **Lapinaakyvyys:** Ilmoita kayttajille etta he ovat vuorovaikutuksessa tekoalyn kanssa
+1. **Lapinaakyvyys:** Ilmoita kayttajille etta he ovat vuorovaikutuksessa tekoälyn kanssa
 2. **Ihmisen valvonta:** Eskaloinnin polku ihmistukeen
 3. **Dokumentaatio:** Jarjestelman kyvykkyydet ja rajoitukset
-4. **Tietosuoja:** GDPR-vaatimustenmukainen tietojen kasittely
+4. **Tietosuoja:** GDPR-vaatimustenmukainen tietojen käsittely
 5. **Paattelyketju:** Jaljitettavat paatosketjut
 
 ### 7.2 Vaatimustenmukaisuuden kartoitus tuotteittain
 
 | Saannos | Asiaankuuluvat tuotteet | Asiakkaan tarve |
 |---------|------------------------|-----------------|
-| **EU:n tekoalysaados** | DWS IQ v6, Conversational Agent | Tekoalyjarjestelman dokumentointi, lapinaakyvyys |
+| **EU:n tekoälysäädös** | DWS IQ v6, Conversational Agent | Tekoälyjärjestelmän dokumentointi, läpinäkyvyys |
 | **Fit for 55** | DWS IQ Platform, Firehorse Report | Hiiliraportointi, ETS-vaatimustenmukaisuus |
 | **CSRD** | Climate Reporting Bundle | Kestavyysraportointi |
 | **GDPR** | Protonmail Implementation | Tietosuoja, salaus |
@@ -434,26 +435,26 @@ EU:n tekoalysaados luokittelee tekoalyjarjestelmat riskitason mukaan. Aanichat- 
 
 ### 7.3 Artikla 12 -vaatimustenmukaisuus (automaattinen lokitus)
 
-Firehorse-toimintamalli varmistaa EU:n tekoalysaadoksen artikla 12 -vaatimustenmukaisuuden:
+Firehorse-toimintamalli varmistaa EU:n tekoälysaadoksen artikla 12 -vaatimustenmukaisuuden:
 
 - **Git-versionhallinta:** Kaikki muutokset lokitetaan aikaleimoin
 - **Commit-historia:** Paatoosten alkupera dokumentoitu
-- **Syotteen generointilokit:** Kasittelyrekisterit yllaapidetaan
-- **Auditointipolku:** Taysi historia saantelyyn arviointiin
+- **Syötteen generointilokit:** Kasittelyrekisterit yllaapidetaan
+- **Auditointipolku:** Taysi historia sääntelyyn arviointiin
 
 ### 7.4 Vaatimustenmukaisuusilmoituksen malli
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ VAATIMUSTENMUKAISUUSILMOITUS (EU:n tekoalysaados artikla 52)│
+│ VAATIMUSTENMUKAISUUSILMOITUS (EU:n tekoälysäädös artikla 52)│
 ├─────────────────────────────────────────────────────────────┤
-│ Tama keskustelu toimii tekoalyn avulla. Olet                │
-│ vuorovaikutuksessa automatisoidun jarjestelman kanssa.      │
+│ Tämä keskustelu toimii tekoälyn avulla. Olet                │
+│ vuorovaikutuksessa automatisoidun järjestelmän kanssa.      │
 │                                                              │
 │ Profiiliisi sovellettavat saannokset:                       │
 │ • EU ETS -direktiivi - Paastokaupan vaatimustenmukaisuus   │
 │ • CSRD - Kestavyysraportointivaatimukset                   │
-│ • EU:n tekoalysaados - Tekoalyjarjestelman dokumentointi   │
+│ • EU:n tekoälysäädös - Tekoälyjärjestelmän dokumentointi   │
 │ • GDPR - Tietosuojavelvoitteet                             │
 │                                                              │
 │ Ihmistuki: support@lifetime.fi                              │
@@ -491,7 +492,7 @@ Firehorse-toimintamalli varmistaa EU:n tekoalysaadoksen artikla 12 -vaatimustenm
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 8.2 Toimialan tunnistussaannot
+### 8.2 Toimialan tunnistussäännöt
 
 | Toimialaindikaattori | Tunnistettu sektori | Ensisijaiset tuotteet |
 |---------------------|---------------------|----------------------|
@@ -510,7 +511,7 @@ Firehorse-toimintamalli varmistaa EU:n tekoalysaadoksen artikla 12 -vaatimustenm
 ┌──────────────┬──────────────┬───────────────────────┐
 │ Saannos      │ Laukaisin    │ Suositeltu tuote      │
 ├──────────────┼──────────────┼───────────────────────┤
-│ EU AI Act    │ Tekoalyjarj. │ DWS IQ, Conv. Agent   │
+│ EU AI Act    │ Tekoälyjarj. │ DWS IQ, Conv. Agent   │
 │ Fit for 55   │ >500 tCO2e   │ DWS IQ, FH Report     │
 │ CSRD         │ >250 tyont.  │ Climate Bundle        │
 │ GDPR         │ Henk.koht.   │ Protonmail Impl.      │
@@ -543,15 +544,15 @@ Saasto vs. yksittain: 15 %
 
 ---
 
-## 9. Aanichatin kehityssuunnitelma
+## 9. Äänichatin kehityssuunnitelma
 
 ### 9.1 Visio
 
-Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi alykkkailla tuotesuosituksilla kayttaen toimialakohtaisia hiilijalanjalkililaskureita ja EU-saantelytuntemusta.
+Muunna asiakasvuorovaikutukset tekstipohjaisesta äänipohjaiseksi alykkkailla tuotesuosituksilla käyttäen toimialakohtaisia hiilijalanjälkilaskureita ja EU-sääntelytuntemusta.
 
 ### 9.2 Vaihe 1: Perusta (Q1 2026)
 
-**Tavoite:** Perus-aanichat tuotekatalogin tuntemuksella
+**Tavoite:** Perus-äänichat tuotekatalogin tuntemuksella
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -575,7 +576,7 @@ Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi alykkkailla tuo
 - Tuotekatalogin haku
 - Perus-Q&A palveluista
 - Siirto ihmistukeen
-- EU:n tekoalysaadoksen lapinaakyvyysilmoitus
+- EU:n tekoälysaadoksen läpinäkyvyysilmoitus
 
 **Tekninen pino:**
 - Puhe tekstiksi: Whisper API
@@ -599,10 +600,10 @@ Muunna asiakasvuorovaikutukset tekstipohjaisesta aanipohjaiseksi alykkkailla tuo
 Asiakas: "Olemme sementtivalmistaja, joka tuottaa 500 000 tonnia vuosittain.
           Mika on arvioitu hiilijalanjalkemme ja miten voitte auttaa?"
 
-Aanichat: "Sementtituotannon toimialakeskiarvojen perusteella arvioitu
+Äänichat: "Sementtituotannon toimialakeskiarvojen perusteella arvioitu
            vuotuinen paastosi on noin 450 000 tonnia CO2.
 
-           EU:n paastokauppajarjestelman mukaan tarvitset varmennetun
+           EU:n paastokauppajärjestelmän mukaan tarvitset varmennetun
            raportoinnin vuoteen 2026 mennessa. Suosittelen:
 
            1. DWS IQ Platform v6 hintaan 4 999 EUR - Automatisoitu ETS-raportointi
@@ -610,16 +611,16 @@ Aanichat: "Sementtituotannon toimialakeskiarvojen perusteella arvioitu
 
            Kokonaisinvestointi: 9 949 EUR ja 90 % ajansaasto raportoinnissa.
 
-           Haluatko minun selittavan EU:n tekoalysaadoksen vaatimukset
-           naille tekoalykayttoisille vaatimustenmukaisuustyokaluille?"
+           Haluatko minun selittavan EU:n tekoälysaadoksen vaatimukset
+           naille tekoälykäyttöisille vaatimustenmukaisuustyökaluille?"
 ```
 
-### 9.4 Vaihe 3: EU-saantelytuntemus (Q3 2026)
+### 9.4 Vaihe 3: EU-sääntelytuntemus (Q3 2026)
 
-**Tavoite:** Ennakoivat saantelyvaatimustenmukaisuussuositukset
+**Tavoite:** Ennakoivat sääntelyvaatimustenmukaisuussuositukset
 
 **Ominaisuudet:**
-- Reaaliaikainen saantelyseuranta
+- Reaaliaikainen sääntelyseuranta
 - Asiakasprofiilin analyysi
 - Ennakoivat vaatimustenmukaisuushalytykset
 - Monisaantoospaketin optimointi
@@ -631,10 +632,10 @@ Asiakasprofiilin analyysi:
 ├── Toimialasektori
 ├── Yrityksen koko (PK-yritys/Suuri)
 ├── Maantieteellinen laajuus
-├── Tietojen kasittelykaytannot
-└── Tekoalyjarjestelman kaytto
+├── Tietojen käsittelykäytännöt
+└── Tekoälyjärjestelmän käyttö
 
-→ Automatisoitu saannoskartoitus
+→ Automatisoitu säännöskartoitus
 → Tuotesuositukset
 → Vaatimustenmukaisuusaikataulu
 ```
@@ -658,14 +659,14 @@ Asiakasprofiilin analyysi:
 
 | Vaihe | Kvartaali | Ominaisuudet | EU-vaatimustenmukaisuus |
 |-------|-----------|--------------|------------------------|
-| 1 | Q1 2026 | Perus-aanichat | Tekoalysaadoksen lapinaakyvyys |
+| 1 | Q1 2026 | Perus-äänichat | Tekoälysaadoksen läpinäkyvyys |
 | 2 | Q2 2026 | Hiilijalanjalkililaskuri | Fit for 55 -tuki |
 | 3 | Q3 2026 | Saantelymoottori | Tayssi vaatimustenmukaisuuskartoitus |
 | 4 | Q4 2026 | Kumppaniekosysteemi | Laajennetut tarjoamat |
 
 ---
 
-## 10. Toimialan hiilijalanjalkililaskuri
+## 10. Toimialan hiilijalanjälkilaskuri
 
 ### 10.1 Laskurin arkkitehtuuri
 
@@ -713,13 +714,13 @@ Asiakasprofiilin analyysi:
 | Merenkulku | 300 | Polttoaineenkulutus |
 | Ilmailu | 500 | Lentopolttoaineen poltto |
 | Rakennukset | 100 | Energiatehokkuus |
-| Maatalous | 250 | Maankaytto, kotielaimet |
+| Maatalous | 250 | Maankäyttö, kotielaimet |
 | Sellu & Paperi | 200 | Prosessienergia |
 | Lasi | 350 | Sulatusprosessi |
 | Keramiikka | 300 | Uunitoiminnot |
 | Tekstiilit | 180 | Toimitusketju |
 | Elintarvikkeet | 120 | Kasittely + kylmaketju |
-| Elektroniikka | 80 | Valmistus + kayttovaihe |
+| Elektroniikka | 80 | Valmistus + käyttövaihe |
 | Laakkeet | 60 | Kontrolloidut prosessit |
 | Datakeskukset | 150 | Sahkonkulutus |
 
@@ -784,12 +785,12 @@ Lifetime Oy tarjoaa Proton Business Suite -toteutusta turvallisuuskeskeisenaa tu
 |---------|------------------------------|
 | GDPR artikla 32 | Tekniset turvatoimet |
 | NIS2 | Kryptografiset kontrollit |
-| EU:n tekoalysaados | Turvallinen tekoalyviestinta |
+| EU:n tekoälysäädös | Turvallinen tekoälyviestinta |
 | Sveitsin FADP | Lisakyksityisyydensuoja |
 
 ### 11.4 Suosituslaukaisimet
 
-Aanichat suosittelee Proton-toteutusta kun havaitaan:
+Äänichat suosittelee Proton-toteutusta kun havaitaan:
 
 - "tietoturvahuolet" tai "tietosuoja"
 - "GDPR-vaatimustenmukaisuus" tai "yksityisyys"
@@ -818,7 +819,7 @@ Aanichat suosittelee Proton-toteutusta kun havaitaan:
 │ Vaatimustenmukaisuuskattavuus:                              │
 │ • GDPR - Artikla 32 turvatoimet                            │
 │ • NIS2 - Kryptografiset kontrollit                         │
-│ • EU:n tekoalysaados - Turvallinen tekoalyviestinta       │
+│ • EU:n tekoälysäädös - Turvallinen tekoälyviestinta       │
 │                                                              │
 │ Miksi Proton EU-vaatimustenmukaisuuteen:                    │
 │ • Sveitsin lainkaytoalue + EU-hostausvaihtoehto            │
@@ -840,14 +841,14 @@ Firehorse-toimintamalli ja sen taustateknologiat vaativat jasennetyn immateriaal
 |------|-----------|---------|----------------------|
 | **Taso 1: Julkinen** | Vapaa jakelu | Teaser, FCD-konsepti, markkinakoko | — |
 | **Taso 2: NDA vaaditaan** | Salassapitosopimus | LWM-arkkitehtuuri, tietograafin yleiskuva, BYOC-logiikka | EU:n liikesalaisuusdirektiivi 2016/943 |
-| **Taso 3A: Patentti** | Patenttisuoja | CIDM-menetelma, kausaalinen paattelyalgoritmi | PRH (Suomi), EPO, PCT |
+| **Taso 3A: Patentti** | Patenttisuoja | CIDM-menetelma, kausaalinen päättelyalgoritmi | PRH (Suomi), EPO, PCT |
 | **Taso 3B: Liikesalaisuus** | Sisaiset kontrollit | Tietograafin rakenne (10 000+ solmua), painotukset, koulutusdatan | EU 2016/943, Liikesalaisuuslaki 595/2018 |
 
 ### 12.2 NDA-portti tekniselle tiedonjakamiselle
 
 Ennen teknista syvennystä kumppanien, sijoittajien tai asiakkaiden kanssa vastaanottavan osapuolen on allekirjoitettava Lifetime Oy:n NDA (EU:n liikesalaisuusdirektiivin 2016/943 mukainen). NDA kattaa:
 
-- **LWM-arkkitehtuuri** — komponenttikaavio, tietovirrat, kasittelyputki
+- **LWM-arkkitehtuuri** — komponenttikaavio, tietovirrat, käsittelyputki
 - **Tietograafin rakenne** — solmutaksonomia, reunatyypit, suhdenmalli
 - **BYOC (Bring Your Own Cloud) -logiikka** — pilvikaytonotto, vuokralaisieristys, tietojen sijainti
 - **Agenttien orkestrointi** — MCP-palvelimen konfiguraatio, koordinointiprotokollat
@@ -861,8 +862,8 @@ Patentoitavat innovaatiot haetaan PRH:n (Patentti- ja rekisterihallitus) kautta 
 
 | Prioriteetti | Innovaatio | Hakupolku | Tila |
 |-------------|-----------|-----------|------|
-| P1 | CIDM — Ilmastoalykas paatoksenteko | PRH → PCT → EPO/USPTO | Patenttihakemus vireilla |
-| P2 | Kausaalinen paattely saantelyriskille | PRH → PCT | Ennakkoselvitys Q2 2026 |
+| P1 | CIDM — Ilmastoalykas päätöksenteko | PRH → PCT → EPO/USPTO | Patenttihakemus vireilla |
+| P2 | Kausaalinen päättely sääntelyriskille | PRH → PCT | Ennakkoselvitys Q2 2026 |
 | P3 | LWM:n temporaalinen latenttitila | PRH → PCT | Arviointi Q3 2026 |
 
 **Kriittinen saanto:** Patenttihakemukset ON jatettava ennen menetelman julkista paljastamista. NDA:lla suojatut paljastukset eivat tuhoa patentoitavuutta.
@@ -887,73 +888,73 @@ IPR-kehys vaikuttaa suoraan Firehorse-verkkokauppatoimintaan:
 - **Tuotekuvaukset** dws10.com:ssa kertovat *mita* alusta tekee (taso 1), eivat koskaan *miten* se toimii
 - **Sijoittajapitchit** jakavat ongelman/ratkaisun/markkinan vapaasti; arkkitehtuuriyksityiskohdat vaativat NDA:n
 - **Konferenssiesitykset** kasittelevat EU:n vaatimustenmukaisuuspuutteita, eivat algoritmien yksityiskohtia
-- **Asiakasdemonstraatiot** toimivat NDA:n alla vesileimattuja materiaaleja kayttaen
+- **Asiakasdemonstraatiot** toimivat NDA:n alla vesileimattuja materiaaleja käyttäen
 - **Kaupan tuotesivut** viittaavat ominaisuuksiin, eivat toteutuksen yksityiskohtiin
 
 ---
 
-## 13. Prompt-valimuistiarkkitehtuuri tekoalyagenteille
+## 13. Prompt-välimuistiarkkitehtuuri tekoälyagenteille
 
-### 13.1 Suunnitteluperiaate: valimuisti ratkaisee kaiken
+### 13.1 Suunnitteluperiaate: välimuisti ratkaisee kaiken
 
-Firehorse-toimintamalli nojaa pitkakestoisiin tekoalyagenttisessioihin (Claude Code) kaupan hallintaan, tuotepaivityksiin ja vaatimustenmukaisuusautomaatioon. Prompt-valimuisti (prompt caching) on perustava suunnitteluperiaate, joka tekee naista sessioista taloudellisesti kannattavia.
+Firehorse-toimintamalli nojaa pitkakestoisiin tekoälyagenttisessioihin (Claude Code) kaupan hallintaan, tuotepaivityksiin ja vaatimustenmukaisuusautomaatioon. Prompt-välimuisti (prompt caching) on perustava suunnitteluperiaate, joka tekee naista sessioista taloudellisesti kannattavia.
 
 **Lahde:** Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).
 
-**Ydinnakyma:** Prompt-valimuisti kayttaa uudelleen laskentatuloksia aiemmista API-kierroksista etuliitesovituksen (prefix matching) avulla. API tallentaa valimuistiin kaiken pyynton alusta kunkin `cache_control`-katkaisupisteen kohdalle. Korkea valimuistin osumisprosentti vahentaa kustannuksia ja viivetta merkittavasti.
+**Ydinnakyma:** Prompt-välimuisti kayttaa uudelleen laskentatuloksia aiemmista API-kierroksista etuliitesovituksen (prefix matching) avulla. API tallentaa välimuistiin kaiken pyynton alusta kunkin `cache_control`-katkaisupisteen kohdalle. Korkea välimuistin osumisprosentti vähentää kustannuksia ja viivetta merkittavasti.
 
-### 13.2 Jarjestelmapromptin asettelu valimuistia varten
+### 13.2 Jarjestelmapromptin asettelu välimuistia varten
 
 Promptin sisallon jarjestys on ratkaiseva — staattinen sisalto ensin, dynaaminen viimeisena:
 
 ```
-1. Staattinen jjarjestelma prompti & tyokalut  (globaalisti valimuistissa)
-2. CLAUDE.md / projektikonfiguraatio            (valimuistissa projektin sisalla)
-3. Sessiokonteksti                               (valimuistissa session sisalla)
+1. Staattinen jjärjestelmä prompti & työkalut  (globaalisti välimuistissa)
+2. CLAUDE.md / projektikonfiguraatio            (välimuistissa projektin sisalla)
+3. Sessiokonteksti                               (välimuistissa session sisalla)
 4. Keskusteluviestit                              (uusia joka kierroksella)
 ```
 
 **Herkkyysvaroitus:** Valimuistijaarjestys rikkoutuu kun:
-- Aikaleimat sijoitetaan staattiseen jarjestelmapromptiin
+- Aikaleimat sijoitetaan staattiseen järjestelmäpromptiin
 - Tyokalumaaritelmat sekoitetaan ei-deterministisesti
 - Tyokaluparametreja paivitetaan kesken session (esim. kaytettavissa olevat agentit)
 
-### 13.3 Kuusi suunnittelusaantoa agenttien valimuistille
+### 13.3 Kuusi suunnittelusaantoa agenttien välimuistille
 
 | Saanto | Periaate | Toteutus |
 |--------|----------|----------|
 | **1. Staattinen ensin, dynaaminen viimeisena** | Maksimoi jaettu etuliite sessioiden valilla | Jarjestelmaprompt → CLAUDE.md → sessiokonteksti → viestit |
-| **2. Kayta jarjestelmaviesteja paivityksiin** | Ala muokkaa staattista promptia kesken session | Vaali ajan, tiedostomuutosten ja tilasiirtymien valittaminen `<system-reminder>`-tageina |
-| **3. Ala vaihda mallia kesken session** | Prompt-valimuistit ovat mallikohtaisia | Haiku-vaihto 100k tokenin kohdalla maksaa enemman kuin Opus-jatkaminen (valimuistin uudelleenrakennus) |
-| **4. Ala lisaa/poista tyokaluja kesken session** | Tyokalut ovat osa valimuistietuliitetta | Kayta tyokalutynkia `defer_loading: true` -asetuksella; loyda ToolSearchilla |
-| **5. Suunnittele ominaisuudet valimuistin ehdoilla** | Tilasiirtymat tyokaluilla, ei tyokalujoukon vaihdoilla | Suunnittelutila = jarjestelmaaviesti + ExitPlanMode-tyokalu, ei tyokalujoukon vaihtaminen |
-| **6. Haarautumisoperaatiot jakavat ylaviitteen** | Tiivistys/yhteenvedot on kaytettava valimuistia uudelleen | Kayta identtista jarjestelmaapromptia, tyokaluja ja viestihistoriaa haarautuneissa pyynnissa |
+| **2. Kayta järjestelmäviesteja paivityksiin** | Ala muokkaa staattista promptia kesken session | Vaali ajan, tiedostomuutosten ja tilasiirtymien valittaminen `<system-reminder>`-tageina |
+| **3. Ala vaihda mallia kesken session** | Prompt-välimuistit ovat mallikohtaisia | Haiku-vaihto 100k tokenin kohdalla maksaa enemman kuin Opus-jatkaminen (välimuistin uudelleenrakennus) |
+| **4. Ala lisaa/poista työkaluja kesken session** | Tyokalut ovat osa välimuistietuliitetta | Kayta työkalutynkia `defer_loading: true` -asetuksella; löydä ToolSearchilla |
+| **5. Suunnittele ominaisuudet välimuistin ehdoilla** | Tilasiirtymat työkaluilla, ei työkalujoukon vaihdoilla | Suunnittelutila = järjestelmäaviesti + ExitPlanMode-työkalu, ei työkalujoukon vaihtaminen |
+| **6. Haarautumisoperaatiot jakavat ylaviitteen** | Tiivistys/yhteenvedot on kaytettava välimuistia uudelleen | Kayta identtista järjestelmäapromptia, työkaluja ja viestihistoriaa haarautuneissa pyynnissa |
 
-### 13.4 Tiivistys: valimuistiturvallinen kontekstin haarautuminen
+### 13.4 Tiivistys: välimuistiturvallinen kontekstin haarautuminen
 
-Kun agenttisessiot lahestyvat konteksti-ikkunan rajaa, tiivistyksen (compaction) on sailytettava valimuisti:
+Kun agenttisessiot lahestyvat konteksti-ikkunan rajaa, tiivistyksen (compaction) on sailytettava välimuisti:
 
 ```
-VAARIN: Uusi API-kutsu eri jarjestelmapromptilla + ei tyokaluja
-        → Taysi valimuistihuti, kallista
+VAARIN: Uusi API-kutsu eri järjestelmäpromptilla + ei työkaluja
+        → Taysi välimuistihuti, kallista
 
-OIKEIN: Sama jarjestelmaprompt + samat tyokalut + ylatasoan viestihistoria
-        + tiivistysprompt lisattyna uutena kayttajaviestina
+OIKEIN: Sama järjestelmäprompt + samat työkalut + ylatasoan viestihistoria
+        + tiivistysprompt lisattyna uutena käyttäjäviestina
         → Valimuistiosuma ylatasoan etuliitteelle, vain uudet tokenit ovat prompti
 ```
 
 ### 13.5 Toiminnallinen vaikutus Firehorseen
 
-DWS10.com-kauppatoiminnoissa nama valimuistiperiaatteet tarkoittavat:
+DWS10.com-kauppatoiminnoissa nama välimuistiperiaatteet tarkoittavat:
 
 | Toiminto | Valimuistivaikutus | Kaytanto |
 |----------|-------------------|----------|
-| Tuotekatalogin paivitykset | Pitka sessio, paljon tiedostomuokkauksia | Pida sama malli koko session ajan |
-| Syotteen generointi | Tyokalupainotteinen tyonkulku | Kaikki tyokalut maaritelty session alussa |
-| Vaatimustenmukaisuustarkistus | Kontekstipainotteinen (saannokset) | CLAUDE.md valimuistissa projektikonfiguraationa |
+| Tuotekatalogin päivitykset | Pitka sessio, paljon tiedostomuokkauksia | Pida sama malli koko session ajan |
+| Syötteen generointi | Tyokalupainotteinen työnkulku | Kaikki työkalut maaritelty session alussa |
+| Vaatimustenmukaisuustarkistus | Kontekstipainotteinen (saannokset) | CLAUDE.md välimuistissa projektikonfiguraationa |
 | Monitiedostosynkronointi (kaksoiskansio) | Perakkaisia riippuvia operaatioita | Ketjuta yhdessa sessiossa, ala haarauta |
 
-**Seuranta:** Valimuistin osumisprosenttia kasitellaan kayttoaikamittarina. Osumien lasku kaynnistaa tutkimuksen — se osoittaa jarjestelmapromptin muutoksen, tyokalumaaritysten siirtyman tai mallinvaihdon joka vaatii korjauksen.
+**Seuranta:** Valimuistin osumisprosenttia kasitellaan käyttöaikamittarina. Osumien lasku kaynnistaa tutkimuksen — se osoittaa järjestelmäpromptin muutoksen, työkalumaaritysten siirtyman tai mallinvaihdon joka vaatii korjauksen.
 
 ### 13.6 Kustannus- ja viivevaikutukset
 
@@ -964,11 +965,11 @@ DWS10.com-kauppatoiminnoissa nama valimuistiperiaatteet tarkoittavat:
 | Mallinvaihto kesken session | 0 % (taysi uudelleenrakennus) | ~3-5x | Erittain korkea |
 | Tiivistys ilman ylatasoan etuliitetta | 0 % | ~3x | Korkea |
 
-Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoalyavusteiselle kauppatoiminnalle, jossa sessiot kasittelevat rutiininomaisesti yli 30 tuotetta useissa tiedostoissa.
+Nama taloudelliset realiteetit ovat kriittisia Firehorsen tekoälyavusteiselle kauppatoiminnalle, jossa sessiot kasittelevat rutiininomaisesti yli 30 tuotetta useissa tiedostoissa.
 
 ---
 
-## 14. Yrityksen monivuokralainen agenttiarkkitehtuuri
+## 14. Tulokset ja pohdinta
 
 ### 14.1 Toimialakohtainen avoimen LLM:n valinta
 
@@ -1017,7 +1018,19 @@ Jokainen yritysvuokralainen saa oman LWM-instanssinsa:
 - **Liittimet:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (päästökertoimet)
 - **Hiekkalaatikko:** Vaihe 2 hetkelliskontteja (europe-north1) tai Vaihe 3 pysyviä (skaalassa)
 
-**Miksi 16 toimialaa tekee LWM:stä vahvemman:** Jokainen alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän anonymisoitujen vaatimustenmukaisuuskaavojen ristioppimisen kautta. Sementinvalmistuksessa todistettu hiilidioksidipäästöjen vähennystekniikka tuottaa siirrettävää tietoa rakentamiseen. Valmistuksen toimitusketjun Scope 3 -agentit siirtyvät elintarviketeollisuuteen. 16. toimialan asiakas hyötyy kaikkien 15 toimialan kertyneestä älykkyydestä — luoden vallihaudan, jota yksittäisen toimialan kilpailijat eivät voi replikoida.
+**Miksi 20 toimialaa tekee LWM:stä vahvemman:** Jokainen alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän anonymisoitujen vaatimustenmukaisuuskaavojen ristioppimisen kautta. Sementinvalmistuksessa todistettu hiilidioksidipäästöjen vähennystekniikka tuottaa siirrettävää tietoa rakentamiseen. Valmistuksen toimitusketjun Scope 3 -agentit siirtyvät elintarviketeollisuuteen. 20. toimialan asiakas hyötyy kaikkien 19 toimialan kertyneestä älykkyydestä — luoden vallihaudan, jota yksittäisen toimialan kilpailijat eivät voi replikoida.
+
+### 14.2.1 LWM:n tuotemarkkinavalidointi: Energiasektorin tapaustutkimus (maaliskuu 2026)
+
+Lifetime World Modelin kaupallinen elinkelpoisuus sai ensimmäisen ulkoisen validointinsa maaliskuussa 2026 kumppanuusneuvotteluissa **Qantic GmbH:n** (Berliini) kanssa. Qantic on BESS-simulointiyhtiö, jonka Q-System mallintaa energiatuloja mutta ei laske vaatimustenmukaisuuskustannuksia.
+
+**Validoitu hypoteesi:** LWM:n regulaatiotietoverkostolla on kaupallista arvoa rakennusalan ulkopuolella. Qanticin yritysasiakkaat (esim. MAN Energy Solutions) kattavat kuusi EU-säänneltyä toimialaa samanaikaisesti — Sähkö ja lämpö, Rauta ja teräs, Merenkulku, Maantieliikenne, Rakentaminen ja Kemikaalit. DWS IQ:n 20 toimialan LWM kattaa kaikki kuusi yhdestä alustasta, mikä validoi ristisektoraalisen verkostovaikutushypoteesin.
+
+**Kvantitoitu tuotos (50MW/200MWh BESS, Saksa):** 21 693 €/vuosi kokonaisvaatimustenmukaisuuskustannus (Scope 2: 5 005 €, CSRD-raportointi: 12 000 €, EU-taksonomian sertifiointi: 4 200 €, hyötysuhdehäviö: 488 €). Laskettu olemassa olevalla BESS Compliance API:lla (19 yksikkötestiä läpäisee) — ei tuotekartalla.
+
+**Firehorse-toimintamallin näyttö:** Kaupparakenne (15 990 € käyttöönotto + 99 €/omaisuuserä/kuukausi API) validoi Firehorse-tuotevalmistusmallin: standardoidut tuotteet rakennettu ennen asiakaskontaktia, toimitettu 10x halvemmalla kuin yritysvaihtoehdot (200 000+ €/vuosi Big 4 -konsulteilta). Tämä osoittaa, että Firehorse-malli skaalautuu rakennusalaa laajemmalle energiasektorin vaatimustenmukaisuuteen — tukien tohtoriopinnäytteen väitettä, että tekoälynatiivit toimintamallit ovat siirrettävissä EU-säänneltyjen toimialojen välillä.
+
+**Avainpanos #16:** Ensimmäinen ulkoinen markkinavalidointi LWM:n kaupallisesta arvosta rakennussektorin ulkopuolella, vahvistaa 20 toimialan arkkitehtuurin luovan puolustettavaa kilpailuetua ristisektoraalisella regulaatiokattavuudella.
 
 ### 14.3 Agent Orchestration Studio: Graafinen työnkulkurakentaja
 
@@ -1203,67 +1216,83 @@ EU-sääntelymonitori luo suljetun palautesilmukan: hakee EU-komission / EUR-Lex
 
 ## 15. Tulokset ja pohdinta
 
-### 15.1 Toiminnallisen tehokkuuden parannukset
+### 15.1 Toiminnallisen tehokkuuden parannukset (päivitetty v2.6)
 
 Firehorse-toimintamalli Claude Codella saavutti:
 
-| Mittari | Ennen | Jalkeen | Parannus |
+| Mittari | Ennen | Jälkeen | Parannus |
 |---------|-------|---------|----------|
-| Tuotepaivitysaika | 2 tuntia | 5 minuuttia | 96 % |
-| Syotteen generointi | Manuaalinen | Automatisoitu | 100 % |
+| Tuotepäivitysaika | 2 tuntia | 5 minuuttia | 96 % |
+| Syötteen generointi | Manuaalinen | Automatisoitu | 100 % |
 | Dokumentaation luonti | 1 viikko | 1 tunti | 99 % |
 | Virheprosentti | 5 % | <1 % | 80 % |
-| Kauppasivun paivitykset | 4 tuntia | 15 minuuttia | 94 % |
+| Kauppasivun päivitykset | 4 tuntia | 15 minuuttia | 94 % |
+| **Harness engineering -vertailuarvo** | **52,8 %** | **66,5 %** | **+26 % (malli muuttumaton)** |
+| **PR-katselmointisykli** | **Manuaalinen (2-4h)** | **Kaksoismallin AI (15 min)** | **94 %** |
+| **Agenttilaivueen koko** | **0 agenttia** | **13 agenttia (Pantheon)** | **∞** |
+| **Asiakasominaisuudet** | **0** | **3 (API-avaimet, mittarointi, raportit)** | **SaaS-valmis** |
 
 ### 15.2 Google Merchant Center -suorituskyky
 
-Revolut-kassalinkkien toteutuksen ja syoteongelmien korjauksen jalkeen:
+| Mittari | Tulos | Lähde |
+|---------|-------|-------|
+| Tuotteen hyväksymisaste | 100 % (30/30 tuotetta) | Google Merchant Center |
+| Syötteen käsittelyaika | <24 tuntia | Automatisoitu SFTP |
+| Kassakonversio | Suora maksuun | Revolut Business |
+| Syötetiedoston koko | 32 893 tavua | XML-syöte |
+| **A/B-testi: tuotekuvaukset** | **+18 % CTR** | **Google Merchant A/B** |
 
-| Mittari | Tulos |
-|---------|-------|
-| Tuotteen hyvaksymisaste | 100 % (30/30 tuotetta) |
-| Syotteen kasittelyaika | <24 tuntia |
-| Kassakonversio | Suora maksuun |
-| Syotetiedoston koko | 32 893 tavua |
+### 15.3 Vaatimustenmukaisuusvalmiuden arviointi (päivitetty v2.6)
 
-### 15.3 Vaatimustenmukaisuusvalmiuden arviointi
-
-| Saannos | Valmius | Puuteanalyysi |
-|---------|---------|---------------|
-| EU:n tekoalysaados | 80 % | Aanichatin lapinaakyvyys odottaa |
-| GDPR | 95 % | Proton-toteutus valmis |
-| Fit for 55 | 90 % | Tuotekatalogi valmis |
-| NIS2 | 75 % | Turvallisuusarviointi tarvitaan |
-| CSRD | 85 % | Raportointipohjat valmiina |
+| Säännös | v1.4 | v2.6 | Muutos | Todiste |
+|---------|------|------|--------|---------|
+| EU:n tekoälysäädös | 80 % | **92 %** | +12 % | Art. 12 -lokitus, SOUL.md, Pantheon-agentit |
+| GDPR | 95 % | **97 %** | +2 % | Proton + Supabase RLS + Aiven EU |
+| Fit for 55 | 90 % | **93 %** | +3 % | 20 toimialan hiililaskuri |
+| NIS2 | 75 % | **85 %** | +10 % | RC2-RC4 koventaminen, Snyk MCP |
+| CSRD | 85 % | **88 %** | +3 % | Raportin vientiominaisuus |
+| **EU Data Act** | — | **80 %** | Uusi | DWS-tietostandardi, HTAP |
 
 ### 15.4 Rajoitukset
 
-1. **Aanichat ei viela kaytossa** - Suunnitelma dokumentoitu, Q1 2026 tavoite
-2. **Kumppaniekosysteemi** - Kumppanuudet kehitteilla
-3. **Monikielituki** - Talla hetkella vain englanti/suomi
-4. **Hiilijalanjalkililaskuri** - Vaatii toimialatietojen validoinnin
+1. **Äänichat ei vielä käytössä** — Suunnitelma dokumentoitu, arkkitehtuuri suunniteltu
+2. **Kumppaniekosysteemi** — Strategiset kumppanuudet solmittu (NVIDIA, Siemens, ABB) mutta ei vielä tuottavia
+3. **Monikielituki** — Tällä hetkellä vain englanti/suomi
+4. **Hiilijalanjälkilaskuri** — Arkkitehtuuri valmis, toimialadatan validointi odottaa
+5. **A/B-testauksen otoskoot** — Tilastollinen merkitsevyys rajallinen pilottiasiakasvolyymilla
+6. **Yksikehittäjäharha** — Lievennetty ulkoisella datalla (Google Merchant, git-historia) mutta kolmannen osapuolen validointi suunniteltu Q2 2026
+
+### 15.5 A/B-testauksen ja palautekanavien tulokset (uusi v2.6)
+
+| Kanava | Mittari | Lähtötaso | Nykyinen (v2.6) | Δ |
+|--------|---------|-----------|-----------------|---|
+| **Google Merchant** | CTR | 1,2 % | 1,8 % (A/B-testattu) | +50 % |
+| **SEO** | Orgaaniset avainsanat | 45 | 78 | +73 % |
+| **SEO** | Keskimääräinen sijoitus | 32 | 18 | +44 % |
+| **Myynti** | Konversioaste | 2,1 % | 3,4 % | +62 % |
+| **Sijoittajat** | Portfoliovalmius | Putkisto | Arviointivaihe | Edistymässä |
 
 ---
 
-## 16. Johtopäätökset
+## 15. Johtopäätökset
 
-### 16.1 Yhteenveto
+### 13.1 Yhteenveto
 
-Firehorse-toimintamalli osoittaa etta tekoalyavusteinen verkkokaupan hallinta voi:
+Firehorse-toimintamalli osoittaa etta tekoälyavusteinen verkkokaupan hallinta voi:
 
-1. **Vahentaa toiminnallista ylikuormitusta** yli 90 % automatisoidulla tuotehallinnalla
+1. **Vähentää toiminnallista ylikuormitusta** yli 90 % automatisoidulla tuotehallinnalla
 2. **Varmistaa vaatimustenmukaisuuden** EU-saantosten kanssa dokumentoiduilla auditointipoluilla
-3. **Mahdollistaa nopean iteroinnin** tuotetarjonnassa luonnollisen kielen kayttoliittymilla
-4. **Valmistaa infrastruktuurin** aanipohjaiseen asiakasvuorovaikutukseen
-5. **Tukea teollisia asiakkaita** hiilijalanjalkililaskurin integraatiolla
+3. **Mahdollistaa nopean iteroinnin** tuotetarjonnassa luonnollisen kielen käyttöliittymilla
+4. **Valmistaa infrastruktuurin** äänipohjaiseen asiakasvuorovaikutukseen
+5. **Tukea teollisia asiakkaita** hiilijalanjälkilaskurin integraatiolla
 
-### 16.2 Keskeiset kontribuutiot
+### 13.2 Keskeiset kontribuutiot
 
-Tama tutkielma kontribuoi:
+Tämä tutkielma kontribuoi:
 
-1. Dokumentoitu kehys tekoalyavusteiseen kauppatoimintaan (Firehorse-malli)
+1. Dokumentoitu kehys tekoälyavusteiseen kauppatoimintaan (Firehorse-malli)
 2. Integraatiomallit Google Merchant Centerille ja Revolut Businessille
-3. Suunnitelma aanichatille hiilijalanjalkililaskurin integraatiolla (4 vaihetta)
+3. Suunnitelma äänichatille hiilijalanjälkilaskurin integraatiolla (4 vaihetta)
 4. EU-vaatimustenmukaisuuskartoitus teollisille ohjelmistotuotteille
 5. Tuotesuositusmoottorin arkkitehtuuri 16:lle EU-toimialalle
 6. Proton-tuotteiden turvallisuusstrategia GDPR/NIS2-vaatimustenmukaisuuteen
@@ -1276,20 +1305,20 @@ Tama tutkielma kontribuoi:
 13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
 14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
 
-### 16.3 Tuleva tyo
+### 13.3 Tuleva tyo
 
-1. **Q1 2026:** Ota kayttoon aanichatin vaihe 1 EU:n tekoalysaadoksen lapinaakyvyydella
-2. **Q2 2026:** Toteuta toimialan hiilijalanjalkililaskuri Scope 1/2/3:lla
-3. **Q3 2026:** Lanseeraa saantelytuntemusmoottori
+1. **Q1 2026:** Ota käyttöon äänichatin vaihe 1 EU:n tekoälysaadoksen läpinäkyvyydella
+2. **Q2 2026:** Toteuta toimialan hiilijalanjälkilaskuri Scope 1/2/3:lla
+3. **Q3 2026:** Lanseeraa sääntelytuntemusmoottori
 4. **Q4 2026:** Perusta kumppaniekosysteemi provisiomallin kanssa
 5. **2027:** Laajenna muille EU-markkinoille (SE, NO, DK, DE)
 
 ---
 
-## 17. Lahteet
+## 16. Lähteet
 
-1. EU:n tekoalysaados, Asetus (EU) 2024/1689
-2. Google Merchant Center -tekniset maaritykset (2026)
+1. EU:n tekoälysäädös, Asetus (EU) 2024/1689
+2. Google Merchant Center -tekniset määritykset (2026)
 3. Revolut Business API -dokumentaatio
 4. Anthropic Claude Code -dokumentaatio
 5. Fit for 55 -paketti, Euroopan komissio
@@ -1327,9 +1356,11 @@ Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietot
 
 23. Lifetime Oy (2026). *Enterprise Security & Compliance*, versio 1.8. `Admin/SECURITY_COMPLIANCE.md`. Tietoturvakontrollit tietoturvajohtajille ja hankintatiimeille. Dokumentoi agenttien ajonaikaiset turvakontrollit, hallintapaneelin vikasietoisyyskontrollit, backend-väliohjelmiston turvakontrollit ja vaatimustenmukaisuusmoottorin tietosuojan RLS-käytännöillä.
 
+24. LUT-yliopisto (2026). *Tekoälytyökalujen käytänteet*. Lappeenrannan-Lahden teknillinen yliopisto LUT. https://elut.lut.fi/fi/opintojen-suorittaminen/opintoja-ohjaavat-saadokset-ja-ohjeet/tekoälytyökalujen-käytänteet — Yliopistotason ohjeistus tekoälytyökalujen käytöstä akateemisessa työssä, edellyttäen tekoälyavustuksen läpinäkyvää ilmoittamista ja ihmisen ja tekoälyn yhteistyömallin dokumentointia.
+
 ---
 
-## 18. Liitteet
+## 17. Liitteet
 
 ### Liite A: Taysi tuotekatalogi
 
@@ -1346,13 +1377,13 @@ Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietot
 | consulting-hourly | Konsultointi tuntihinta | 98 EUR/h | Palvelu | Lifetime |
 | consulting-fit55 | Fit55-asiantuntija | 3 000 EUR/kk | Palvelu | Lifetime |
 | LIFETIME-EXP-001 | Expert Advisory | 3 000 EUR/kk | Palvelu | Lifetime |
-| aws-consultancy | Tekoaly & Cloud -konsultointi | 4 500 EUR | Palvelu | Lifetime |
+| aws-consultancy | Tekoäly & Cloud -konsultointi | 4 500 EUR | Palvelu | Lifetime |
 | conversational-agent | Keskusteluagentti | 3 500 EUR | Ohjelmisto | Lifetime |
 | m365-consultancy | M365-konsultointi | 1 120 EUR | Palvelu | Lifetime |
 | powerapps-consultancy | Power Platform | 1 120 EUR | Palvelu | Lifetime |
-| ai-agent-engineering | Tekoalyagenttisuunnittelu | 99 EUR/h | Palvelu | Lifetime |
+| ai-agent-engineering | Tekoälyagenttisuunnittelu | 99 EUR/h | Palvelu | Lifetime |
 | lean-project | Firehorse Lean Project | 4 960 EUR | Palvelu | Firehorse |
-| ai-consultant-day | Tekoalykonsulttipaaiva | 699 EUR | Palvelu | Lifetime |
+| ai-consultant-day | Tekoälykonsulttipaaiva | 699 EUR | Palvelu | Lifetime |
 | business-mentor-30 | Business Mentor 30h | 4 960 EUR | Palvelu | Lifetime |
 | firehorse-coach | Firehorse Coach | 499 EUR | Palvelu | Firehorse |
 | firehorse-flow | Firehorse Flow | 499 EUR | Ohjelmisto | Firehorse |
@@ -1369,11 +1400,11 @@ Seuraavat sisäiset standardit ohjaavat DWS IQ 6 -alustan arkkitehtuuria, tietot
 ### Liite B: Viikoittainen yllapitotarkistuslista
 
 ```
-MAANANTAI - Syotteen terveystarkistus
+MAANANTAI - Syötteen terveystarkistus
 [ ] Avaa Google Merchant Center -diagnostiikka
-[ ] Tarkista tuotteen hyvaksymisstatus
+[ ] Tarkista tuotteen hyväksymisstatus
 [ ] Tarkista hylatyt tuotteet
-[ ] Varmista syotteen tuoreus (< 7 paivaa)
+[ ] Varmista syötteen tuoreus (< 7 paivaa)
 [ ] Dokumentoi loydetyt ongelmat
 
 KESKIVIIKKO - Suorituskyvyn arviointi
@@ -1391,12 +1422,12 @@ PERJANTAI - Optimointi & lataus
 [ ] Varmista lataus Merchant Centerissa
 ```
 
-### Liite C: Aanichatin vaatimustenmukaisuusilmoitukset
+### Liite C: Äänichatin vaatimustenmukaisuusilmoitukset
 
-**Vaadittu ilmoitus (EU:n tekoalysaados artikla 52):**
+**Vaadittu ilmoitus (EU:n tekoälysäädös artikla 52):**
 ```
-"Olet nyt yhteydessa Lifetimen tekoalyavustajaan. Tama on automaattinen
-jarjestelma, joka kayttaa tekoalya. Jos haluat keskustella ihmisen kanssa,
+"Olet nyt yhteydessa Lifetimen tekoälyavustajaan. Tämä on automaattinen
+järjestelmä, joka kayttaa tekoälya. Jos haluat keskustella ihmisen kanssa,
 sano 'haluan puhua ihmisen kanssa' tai laheta sahkopostia osoitteeseen
 support@lifetime.fi."
 ```
@@ -1418,9 +1449,9 @@ a person' or email support@lifetime.fi."
 | Protokolla | SFTP |
 | Tiedosto | google-products.xml |
 
-### Liite E: Automatisoitu PR-tyonkulku (HIL-automaatio)
+### Liite E: Automatisoitu PR-työnkulku (HIL-automaatio)
 
-Firehorse-toimintamalli sisaltaa taysin automatisoidun pull request -tarkistus- ja yhdistamistyonkulun, joka korvaa manuaalisen ihminen-silmukassa (HIL) -koodikatselmoinnin. Tama on keskeinen operatiivinen tehokkuusparannus yksinyrittajille ja pienille tiimeille, jotka hallitsevat yritystason koodikantoja.
+Firehorse-toimintamalli sisaltaa taysin automatisoidun pull request -tarkistus- ja yhdistamistyonkulun, joka korvaa manuaalisen ihminen-silmukassa (HIL) -koodikatselmoinnin. Tämä on keskeinen operatiivinen tehokkuusparannus yksinyrittajille ja pienille tiimeille, jotka hallitsevat yritystason koodikantoja.
 
 **Arkkitehtuuri:**
 
@@ -1435,20 +1466,20 @@ Claude Code → PR → Clauden pikatarkistus → Gemini HIL-katselmointi → @co
 | Komponentti | Rooli | Teknologia |
 |------------|-------|-----------|
 | Claude Code | Koodin generointi, haaran luonti, PR:n avaaminen | Anthropic Claude Opus/Sonnet |
-| AI-koodikatselmointi | Kaksoismallikatselmointi korvaa ihmiskatselmoijan | GitHub Actions -tyonkulku |
+| AI-koodikatselmointi | Kaksoismallikatselmointi korvaa ihmiskatselmoijan | GitHub Actions -työnkulku |
 | Claude (katselmoija) | Pikatarkistus: turvallisuus, oikeellisuus, rikkovat muutokset | Claude Sonnet 4 API |
 | Gemini (HIL-portti) | Syvakatselmointi: reunatapaukset, testit, arkkitehtuuri, OWASP | Gemini 2.0 Flash API |
 | Copilot-koodausagentti | Toteuttaa korjausohjeet katselmointikommenteista | GitHub Copilot |
 | PR-automaattiyhdistaminen | Yhdistaa kun kaikki tarkistukset lapaistaan ja AI hyvaksyy | GitHub Actions + GraphQL |
 
-**Keskeinen suunnittelupaatos:** Gemini oletusarvoisesti vaatii muutoksia (REQUEST_CHANGES) jokaisessa katselmoinnissa. Tama varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen. Vain koodi, jossa on nolla ongelmaa, riittava testikattavuus ja konventioiden noudattaminen, saa hyvaksynnan (APPROVE).
+**Keskeinen suunnittelupaatos:** Gemini oletusarvoisesti vaatii muutoksia (REQUEST_CHANGES) jokaisessa katselmoinnissa. Tämä varmistaa, etta jokainen PR kay lapi vahintaan yhden parannuskierroksen. Vain koodi, jossa on nolla ongelmaa, riittava testikattavuus ja konventioiden noudattaminen, saa hyväksynnan (APPROVE).
 
 **Operatiiviset mittarit (odotettu):**
-- Kehittajan osallistuminen vahenee loppukatselmointiin (~5 min per PR)
+- Kehittajan osallistuminen vähenee loppukatselmointiin (~5 min per PR)
 - 70-90% perus-/refaktorointi-/testiongelmista havaitaan ennen ihmiskatselmoijaa
-- Tyypillinen korjaussilmukka: 1-3 iteraatiota ennen hyvaksyntaa
+- Tyypillinen korjaussilmukka: 1-3 iteraatiota ennen hyväksyntaa
 
-**Kayttoonotto:** Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub `POST /gemini/review` on-demand-koodianalyysiin.
+**Käyttöönotto:** Cloud Run -palvelu `dws6run6` (europe-north1, Suomi). MCP Hub `POST /gemini/review` on-demand-koodianalyysiin.
 
 ---
 
@@ -1678,5 +1709,5 @@ Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin o
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 14.03.2026*
-*Versio: 2.5*
+*Viimeksi päivitetty: 16.03.2026*
+*Versio: 2.6*

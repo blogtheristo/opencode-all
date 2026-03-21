@@ -85,7 +85,7 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 <li><strong>MaterialOracle:</strong> Carbon footprint analysis per EN 15978 lifecycle assessment (A1-D).</li>
 <li><strong>CustomerSat:</strong> Customer satisfaction tracking and NPS analysis.</li>
 <li><strong>Viability:</strong> Financial viability assessment for construction and infrastructure projects.</li>
-<li><strong>Compliance:</strong> Real-time EU regulatory compliance checks (ETS, CSRD, CBAM, EPBD).</li>
+<li><strong>Compliance Engine V1.0:</strong> Deterministic EU regulatory scoring with ESRS-based gap analysis, ETS/CBAM cost estimation, and audit-ready report generation. Covers ETS, CSRD, CBAM, Fit for 55, and EU AI Act.</li>
 <li><strong>QualityGate:</strong> Code and data quality validation against DWS standards.</li>
 </ol>
 <h3>Research &amp; Extraction Agents</h3>
@@ -110,18 +110,18 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 </ol>
 <h3>Multi-Agent Workflows</h3>
 <ul>
-<li><strong>compliance-assessment:</strong> Emissions analysis → Compliance check (sequential)</li>
+<li><strong>compliance-assessment:</strong> Emissions analysis → Compliance Engine V1.0 scoring → Financial viability (sequential)</li>
 <li><strong>construction-full:</strong> SiteSense + MaterialOracle + ScheduleGenius → Construction (parallel then sequential)</li>
 <li><strong>seo-pipeline:</strong> Keywords → Competitors → Content Brief (sequential)</li>
-<h2>DWS Data Sovereignty Standard</h2>
-<p><strong>Your database governed by 11 EU regulations.</strong></p>
-<p>DWS IQ 6 includes the DWS Data Sovereignty Standard &mdash; a comprehensive governance framework that maps every storage decision to EU regulatory requirements:</p>
+</ul>
+<h2>Compliance Engine V1.0</h2>
+<p>The heart of DWS IQ 6's regulatory capability. The Compliance Engine provides <strong>deterministic, audit-grade scoring</strong> across five EU regulations — no guesswork, no AI hallucination.</p>
 <ul>
-<li><strong>Two-Tier HTAP Architecture:</strong> Aiven PostgreSQL (EU Finland) for production + on-premises edge nodes for local analytics. Both tiers EU-sovereign, zero CLOUD Act exposure.</li>
-<li><strong>TimescaleDB Hypercore:</strong> 90&ndash;98% compression on audit logs. 10&ndash;100&times; faster analytics. The only columnar engine approved on EU-managed Aiven.</li>
-<li><strong>Retention policies per regulation:</strong> EU AI Act Art 12 (7yr immutable audit), GDPR Art 17 (erasure rights), NIS2 (5yr incidents), Finnish Accounting Act (10yr), CSRD (ESG traceability).</li>
-<li><strong>Extension governance:</strong> Every PostgreSQL extension assessed for EU sovereignty (vendor HQ, DPA, Schrems II, telemetry). No unapproved extensions in production.</li>
-<li><strong>KYA Agent Trust Scores:</strong> Hardware-attested isolation governs which agents access which data tiers. Court-defensible audit trails.</li>
+<li><strong>ESRS-Based Scoring:</strong> Assessments grounded in the 82 ESRS disclosure standards (EFRAG 2023), with mandatory data point tracking.</li>
+<li><strong>ETS &amp; CBAM Cost Estimation:</strong> Real cost projections using EU-sourced emission factors and carbon pricing data.</li>
+<li><strong>Audit-Ready Reports:</strong> Structured compliance reports with gap severity, recommendations, and regulatory deadline tracking.</li>
+<li><strong>Five Regulations:</strong> CSRD, EU ETS, CBAM, Fit for 55, EU AI Act Article 12.</li>
+<li><strong>Enterprise Integration:</strong> Available via CLI, REST API, and MCP protocol — works with any automation pipeline.</li>
 </ul>
 <h2>Technical Specifications</h2>
 <ul>
