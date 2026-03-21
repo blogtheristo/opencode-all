@@ -256,6 +256,40 @@ Source: `investor-outreach/40_construction_CEO.md`
 
 ---
 
+## Tranche 2 — Lead Sourcing: Where to Find Construction Contacts
+
+Tranche 1 (above) targets known executives at large EU construction firms. Tranche 2 expands the funnel by mining construction project databases — tenders, bids, and project leads — where decision-makers surface organically.
+
+### Free / Public Sources
+
+| Source | What it is | How to use it |
+|--------|-----------|---------------|
+| **TED (Tenders Electronic Daily)** | The official EU portal for public procurement. Publishes hundreds of thousands of calls for tenders annually — including construction, infrastructure, building works, and related services. Free to search. Covers all EU member states + associated countries. | Filter by CPV codes (construction works = `45xxxxxx-x` series), keywords like "construction", "building", "civil engineering", country, value, or deadline. Website: https://ted.europa.eu/en |
+| **National e-procurement portals** | Many EU countries run their own portals that feed into TED but include smaller/local contracts below the EU threshold. Examples: Germany, France, Poland, Nordics all have national platforms. | Search for "[country name] public procurement portal". These often surface early-stage notices and sub-threshold contracts not yet on TED. |
+
+### Commercial / Paid Platforms
+
+These include both public tenders AND private construction projects (developer-led builds, renovations). Most offer filters for country, project type, value, stage, and decision-maker contacts. Many have free trials.
+
+| Platform | Strength | Website |
+|----------|----------|---------|
+| **Building Radar** | Early-stage project leads across Europe. Strong regional filters and tender tracking. Good for spotting trends by country or sector. | https://www.buildingradar.com/ |
+| **DTAD Platform** | AI-powered B2B leads — project updates, tenders, and direct contacts (architects, developers, contractors). Daily alerts tailored to your filters. | https://www.dtad.com/en/construction |
+| **Batieu** | Verified RFPs and tenders across Europe. Good for submitting estimates and finding high-value projects. | https://batieu.com/en/requests-and-tenders |
+| **Global Tenders** | Europe-specific construction management tenders/bids. Recent examples from Poland, France, etc. | https://www.globaltenders.com/eu/europe-construction-management-tenders |
+| **Barbour ABI / Glenigan** | Strong in UK/Ireland with some European overlap. Useful if targeting UK-based EU contractors. | — |
+| **Tracker Intelligence** | Private sector leads and market intelligence. | — |
+
+### Lead Sourcing Strategy
+
+1. **Public vs. Private:** TED excels for government-funded projects (often large infrastructure). Commercial platforms are better for private developments and subcontractor opportunities.
+2. **Set up alerts:** Filter by expertise (residential, commercial, civil engineering), location (Germany, France, Nordics, Poland), and contract value thresholds.
+3. **EU rules help us:** Public tenders above certain thresholds must be advertised EU-wide, promoting fair competition. This means we can find decision-makers at companies we haven't identified yet.
+4. **Recommended start:** Begin with TED for free public opportunities, then explore 1-2 paid platforms (Building Radar or DTAD) for private/early leads.
+5. **Convert to DM targets:** When we find a company winning or bidding on large construction tenders, look up their sustainability/compliance leads on LinkedIn — they are the ones who will feel the CSRD/EPBD pain most acutely.
+
+---
+
 ## Campaign Tracking
 
 **Email API call:**
