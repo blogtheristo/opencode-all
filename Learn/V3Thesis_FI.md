@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.26
+Version: 3.27
 
 Sessions & Modifications:
+  - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Lisätty Red Hat -avainlöydösten markkinadata alustatalouteen (§2.2), inferenssimuutoksen validointi reunalaskentaan (§2.4), Red Hat AgentOps -kumppanuus strategisiin kumppanuuksiin (§10.12.2), päivitetty SWOT-mahdollisuudet $644B markkinalla ja inferenssimuutosdatalla
   - Version: 3.26 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 8 Tulokset ja analyysi v3.16–3.25 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon-järjestelmä, asiakkaiden MVP-ominaisuudet (API-avaimet, mittarointi, raportit), PostgreSQL HTAP -arkkitehtuuri, A/B-testauksen tulosten integrointi, päivitetty vaatimustenmukaisuusvalmius (EU AI Act Art 12 toteutettu), päivitetty SWOT strategisilla kumppanuuksilla; lisätty uusi osio 8.7 A/B-testauksen ja palautekanavien tulokset
   - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 10.16 (Harness Engineering — promptisuunnittelusta järjestelmäsuunnitteluun): OpenAI:n 8 periaatetta, DWS IQ 6 vertailu 6-kerroksisella L0-L6-arkkitehtuurilla, empiirinen tulos (52,8%→66,5% pelkällä harness-parannuksella), EU-regulaatio vaatii erilaisen harnessin; lisätty avainpanos #19
   - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Laajennettu Liite G sanasto: Tietoarkkitehtuuri (9 termiä) ja Tutkimusmenetelmät (4 termiä) — autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale
@@ -150,7 +151,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 3. Eivät käsittele toimialakohtaisia compliance-työnkulkuja
 
 **Firehorse (DWS6)** ratkaisee tämän uudella toimintamallilla, joka yhdistää:
-- Ilmaistason pilvi-infrastruktuurin (€0-350/kk vs €1 400+)
+- AI-avusteisen kehityksen (Cursor Pro + Claude Code Max, 15 viikon MVP)
 - Edge AI (NVIDIA Jetson) <100ms päättelylle
 - Toimialakohtaiset AI-agentit (Rakentaminen, Valmistus, Energia)
 - Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja → Autonominen)
@@ -159,7 +160,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 ## 1.2 Tutkimusongelma
 
 **Päätutkimuskysymys:**
-Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
+Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
 
 **Alatutkimuskysymykset:**
 
@@ -176,7 +177,7 @@ Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden h
 ## 1.3 Työn tavoitteet
 
 1. Dokumentoida Firehorse-toimintamalli (MVP → V1)
-2. Validoida ilmaistason kustannusmalli (€0/kk tavoite)
+2. Validoida kustannustehokas kehitysmalli (Cursor Pro + Claude Code Max)
 3. Mitata asiakashyöty (≤2kk takaisinmaksuaika)
 4. Luoda toistettava malli muille teollisuuden startup-yrityksille
 5. **Validoida verkkokauppakanava Google Merchant Center -integraatiolla** [V3.0]
@@ -221,6 +222,8 @@ Customer Development -metodologia (Blank, 2013) laajentaa tätä periaatteella "
 ## 2.2 Alustatalous
 
 Alustatalous (Parker, Van Alstyne & Choudary, 2016) selittää, miten moniosaiset alustat luovat arvoa verkostovaikutusten kautta. Firehorse Solution Factory -malli laajentaa tätä teoriaa teolliseen tekoälyyn:
+
+**Markkinakonteksti:** Maailmanlaajuiset generatiivisen tekoälyn investoinnit yltävät arviolta 644 miljardiin dollariin vuonna 2025, 76,4 % kasvulla edellisvuodesta (Red Hat, 2025). Silti 64 % toimitusjohtajista investoi tekoälyteknologioihin ennen kuin ymmärtää selkeästi niiden tuottaman arvon, mikä luo teknistä velkaa ja strategista haavoittuvuutta. Tämä reaktiivinen asenne validoi Firehorse-alustakonseptin: tuloslähtöinen tekoäly sisäänrakennetulla vaatimustenmukaisuudella, eikä teknologia-edellä-kokeilua.
 
 **Monipuolinen alustasuunnittelu:**
 
@@ -297,9 +300,11 @@ Säästö: €5 456/vuosi (82% halvempi)
 Takaisinmaksuaika: 1,95 kuukautta
 ```
 
+**Inferenssimuutoksen validointi:** Vuoteen 2028 mennessä yli 80 % datakeskusten kuormituskiihdyttimistä otetaan käyttöön nimenomaan inferenssiin, ei koulutukseen (Red Hat, 2025). Tämä rakenteellinen muutos ajonaikaiseen suoritukseen validoi Firehorsen reuna-ensin-arkkitehtuurin: GN-100 Jetson Orin Nano suorittaa inferenssikuormia 120 €/vuosi vastaan pilven 6 660 €/vuosi — sijoittuen täsmälleen sinne, mihin alan investointiteesi on suuntaamassa.
+
 ## 2.5 Moniagenttijärjestelmien teoria ja Lifetime Scope Signals
 
-Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin bootstrapatuissa teollisissa tekoälyalustoissa.
+Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin resurssirajoitteisissa teollisissa tekoälyalustoissa.
 
 ### 2.5.1 Moniagenttijärjestelmien tausta
 
@@ -1161,7 +1166,7 @@ Firehorse-toimintamalli Claude Codella saavutti (päivitetty v3.26):
 - EU-vaatimustenmukaisuus sisäänrakennettu (5 sääntelyä seurannassa)
 - **13 agentin Pantheon-järjestelmä toiminnassa**
 - **Harness engineering validoitu (+26 % pelkästä järjestelmästä)**
-- **Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral**
+- **Strategiset kumppanuudet: NVIDIA, Siemens, ABB, xAI, Mistral, Red Hat**
 
 ### Heikkoudet
 - Yksi kehittäjä -riippuvuus (lievennetty toimitusjohtajan automaatioagenteilla)
@@ -1174,10 +1179,12 @@ Firehorse-toimintamalli Claude Codella saavutti (päivitetty v3.26):
 - NCC-hallituskumppanuus
 - **EU Data Act -vaatimustenmukaisuus erottautumistekijänä**
 - **Harness engineering IP-vallihautana**
+- **644 miljardin dollarin GenAI-markkina (2025), 76,4 % vuosikasvu validoi yritys-AI-kysynnän**
+- **Inferenssimuutos: 80 %+ kiihdyttimistä inferenssiin 2028 mennessä validoi reuna-ensin-arkkitehtuurin**
 
 ### Uhat
 - Isojen teknologiayritysten tulo markkinoille
-- Krediittien päättyminen (12 kk)
+- Kustannusten skaalautuminen kasvuvaiheessa
 - Kilpailu vakiintuneilta toimijoilta
 - **EU AI Act -täytäntöönpanon aikataulu (elokuu 2026)**
 
@@ -1220,7 +1227,7 @@ Tuotevalidointi neliportaisen palautekanavoinnin kautta (osio 1.6):
 
 ## 9.2 Toistettavuus: Solution Factory -malli
 
-**Vaihe 1: Bootstrap (6 kk, €0-350/kk)** — Ilmaistasot, 5 pilottiasiakasta
+**Vaihe 1: MVP-kehitys (15 viikkoa, Cursor Pro + Claude Code Max)** — Kumppanuudet, 5 pilottiasiakasta
 
 **Vaihe 2: Validoi (6 kk, €5-15k MRR)** — Maksavat asiakkaat, <2 kk takaisinmaksu
 
@@ -1327,7 +1334,7 @@ Firehorse-toimintamalli osoittaa, että tekoälyavusteinen verkkokaupan hallinta
 ## 10.3 Kontribuutio teoriaan
 
 ### Lifetime Scope Signals -protokolla
-Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja bootstrap-optimointi.
+Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja käynnistysvaiheen optimointi.
 
 ### Solution Factory -malli
 Syntetisoi Lean Startupin, Alustatalouden, Teollisuus 5.0:n ja Reunalaskennan taloustieteen yhtenäiseksi viitekehykseksi.
@@ -1793,6 +1800,7 @@ DWS7 rakentaa monipuolisen kumppaniekosysteemin kattaen teollisuusautomaation (N
 | **ABB** | Teollisuusautomaatio + robotiikka (Kädet), sähkönjakeluverkkojen hallinta | Integraatiotavoite Q3 2026 |
 | **xAI** | Reaaliaikainen markkinaälykkyys Grok, X/Twitter-signaalihavaitseminen (Aivot) | Aktiivinen (tuotanto) |
 | **Mistral** | EU-suvereeni tekoälyinferenssi, monikielinen vaatimustenmukaisuusgenerointi (Aivot/Muisti) | Suunniteltu Q3 2026 |
+| **Red Hat** | AgentOps BYOA -alusta (Keho), OpenShift AI agenttien käyttöönottoon, hybridipilvi-infra | Aktiivinen (maaliskuu 2026) |
 
 ### 10.12.1 Monituottaja-LLM-reititinarkkitehtuuri
 
@@ -1807,11 +1815,25 @@ Tehtävätyyppi → LLM-valinta
   Reunainferenssi (Acer Veriton)                → Qwen 2.5 72B (QLoRA-hienosäädetty, paikan päällä)
 ```
 
-### 10.12.2 Tutkimuskontribuutio
+### 10.12.2 Red Hat — AgentOps ja hybridipilvi-infrastruktuuri
 
-Monituottajaekosysteemi validoi **Solution Factory -mallin kolmannen pilarin** (osio 4.1.3 — jakeluleverage). Kytkemällä DWS7 Siemens Xceleratoriin ja NVIDIA Inceptioniin alusta saa pääsyn 10 000+ teollisuusasiakkaaseen ilman suoran myyntiorganisaation rakentamista — yhdenmukainen kumppanuusjakelustrategian kanssa.
+*Lisätty: 21.03.2026 | Lähde: Red Hat "The Adaptable Enterprise" -avainlöydökset (2025), Mikko Pylväs (Red Hat Finland AI-tapahtuma, maaliskuu 2026)*
 
-Monituottaja-LLM-reititin osoittaa käytännön ratkaisun **EU AI Act -suvereniteettijännitteeseen**: säännellyt toimialat voivat käyttää Mistralia vaatimustenmukaisuusgeneroinnissa (EU-domisiili, GDPR-yhteensopiva) hyödyntäen samalla Claudea ja Grookia säätelemättömiin analyyttisiin tehtäviin.
+Red Hatin AgentOps-strategia — **Bring Your Own Agent (BYOA)** — tarjoaa yritys-Kubernetesin (OpenShift) tekoälyagenttien käyttöönotto- ja orkestrointikerrokseksi. Heidän ydinteesin: mukautuvuus on edellytys minkä tahansa tekoälystrategian onnistumiselle.
+
+**Strateginen yhteensopivuus DWS IQ 6:n kanssa:**
+
+- **Hybridipilvi-imperatiivi:** Red Hat tunnistaa, että onnistunut tekoälystrategia on oltava hybridipilvistrategia — kouluta, viritä ja aja malleja missä tahansa data sijaitsee vaarantamatta turvallisuutta, vaatimustenmukaisuutta tai datasuvereniteettia. Tämä kartoittuu suoraan DWS IQ 6:n käyttöönottomalliin (EU-pilvi + GN-100-reuna + Aiwen-overlay).
+- **Modernisoi ennen automatisointia:** Avoin, joustava hybridipilvi (Linux, kontit, Kubernetes) linjautuu DWS7:n konttinatiiviin arkkitehtuuriin.
+- **Red Hat + NVIDIA yhteistyö** turvallisessa tekoälyagenttiinfrastruktuurissa tukee suoraan KYA-hallittua agenttien eristysmallia.
+- **MCP siltana:** Red Hat tunnistaa MCP:n kriittiseksi vanhojen järjestelmien ja agenttitekoälyn yhdistämisessä — validoiden DWS IQ 6:n MCP Hub -arkkitehtuurin (osio 2.5.3).
+- **Osaamisvaje:** 42 % organisaatioista on estetty talon sisäisen tekoälyosaamisen puutteen vuoksi (Bain & Company, 2025), mikä validoi hallitun alustamallin.
+
+### 10.12.3 Tutkimuskontribuutio
+
+Monituottajaekosysteemi validoi **Solution Factory -mallin kolmannen pilarin** (osio 4.1.3 — jakeluleverage). Kytkemällä DWS7 Siemens Xceleratoriin, NVIDIA Inceptioniin ja Red Hatin OpenShift-ekosysteemiin alusta saa pääsyn 10 000+ teollisuusasiakkaaseen ilman suoran myyntiorganisaation rakentamista — yhdenmukainen kumppanuusjakelustrategian kanssa.
+
+Monituottaja-LLM-reititin osoittaa käytännön ratkaisun **EU AI Act -suvereniteettijännitteeseen**: säännellyt toimialat voivat käyttää Mistralia vaatimustenmukaisuusgeneroinnissa (EU-domisiili, GDPR-yhteensopiva) hyödyntäen samalla Claudea ja Grookia säätelemättömiin analyyttisiin tehtäviin. Red Hatin BYOA-kehys vahvistaa edelleen tätä arkkitehtuuria — yritysasiakkaat voivat tuoda omat agenttikehyksensä, kun DWS IQ tarjoaa hallitun orkestroinnin ja vaatimustenmukaisuuskerroksen.
 
 ---
 
@@ -2018,7 +2040,7 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
 │  KUSTANNUSRAKENNE                 │  TULONLÄHTEET                        │
 │  • €0-350/kk infrastruktuuri      │  • SaaS-tilaukset                    │
 │  • Cursor Pro + Claude Code Max   │  • Reunalaitteiston marginaali       │
-│  • Yksi kehittäjä (bootstrap)     │  • Ammattipalvelut                   │
+│  • Yksi kehittäjä (AI-avusteinen) │  • Ammattipalvelut                   │
 │  • Ei markkinointikuluja (org.)   │  • Solution Factory -lisensointi     │
 │                                   │                                      │
 └─────────────────────────────────────────────────────────────────────────┘

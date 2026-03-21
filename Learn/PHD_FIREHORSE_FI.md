@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Lisätty Red Hat strategisiin kumppanuuksiin (§14.8) — AgentOps BYOA -alusta, $644B markkinadata, hybridipilvi-yhteensopivuus, 42 % osaamisvajevalidointi
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
   - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
@@ -1194,10 +1195,13 @@ EU-sääntelymonitori luo suljetun palautesilmukan: hakee EU-komission / EUR-Lex
 | ABB | Kädet (automaatio, robotiikka, sähköverkot) | Q3 2026 |
 | xAI | Aivot (Grok reaaliaikainen markkinaälykkyys) | Aktiivinen tuotanto |
 | Mistral | Aivot/Muisti (EU-suvereeni tekoälyinferenssi) | Suunniteltu Q3 2026 |
+| Red Hat | Keho (AgentOps BYOA, OpenShift AI, hybridipilvi-infra) | Aktiivinen (maaliskuu 2026) |
 
 **Monituottaja-LLM-reititin:** Tehtävätason LLM-valinta suvereniteetti-, kustannus- ja latenssikriteereillä — Claude/Mistral vaatimustenmukaisuuteen, Grok markkinasignaaleihin, Groq nopeaan tiivistämiseen, Qwen 2.5 72B (QLoRA, Acer Veriton) paikan päällä tehtävään suvereeniinferenssiiin.
 
-**Tutkimuskontribuutio:** Kumppanuusmalli validoi Firehorse-toimintamallin jakelusupotushypoteesin: pääsy 10 000+ teollisuusasiakkaaseen (NVIDIA Inception, Siemens Xcelerator) ilman suoran myyntiorganisaation rakentamista.
+**Red Hat -yhteensopivuus:** Red Hatin "The Adaptable Enterprise" (2025) tunnistaa, että maailmanlaajuiset GenAI-investoinnit yltävät 644 miljardiin dollariin vuonna 2025 (76,4 % vuosikasvu), mutta 42 % organisaatioista on estynyt talon sisäisen tekoälyosaamisen puutteen vuoksi. Heidän BYOA-kehyksensä (Bring Your Own Agent) — yritys-Kubernetes agenttien käyttöönottoon tuotantokaiteilla — validoi Firehorsen hallitun alustakonseptin ja täydentää NVIDIAn reunalaskentakerrosta.
+
+**Tutkimuskontribuutio:** Kumppanuusmalli validoi Firehorse-toimintamallin jakelusupotushypoteesin: pääsy 10 000+ teollisuusasiakkaaseen (NVIDIA Inception, Siemens Xcelerator, Red Hat OpenShift -ekosysteemi) ilman suoran myyntiorganisaation rakentamista.
 
 ---
 
