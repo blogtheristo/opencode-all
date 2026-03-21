@@ -1,13 +1,14 @@
 /**
- * Verify NDA Signatures — DocuSign Integration Test
+ * Verify NDA Signatures — DocuSign Integration
  *
  * Usage:
- *   npx tsx scripts/verify-nda-signatures.ts auth     # Test JWT authentication
- *   npx tsx scripts/verify-nda-signatures.ts consent   # Get consent URL
- *   npx tsx scripts/verify-nda-signatures.ts list      # List recent envelopes
- *   npx tsx scripts/verify-nda-signatures.ts status <envelopeId>  # Check envelope
+ *   npx tsx scripts/verify-nda-signatures.ts auth       # Test JWT authentication
+ *   npx tsx scripts/verify-nda-signatures.ts consent     # Get consent URL
+ *   npx tsx scripts/verify-nda-signatures.ts list        # List recent envelopes
+ *   npx tsx scripts/verify-nda-signatures.ts status <id> # Check envelope
+ *   npx tsx scripts/verify-nda-signatures.ts send <file> # Send mutual NDA for signing
  *
- * Code-Version: 1.0.0
+ * Code-Version: 1.1.0
  * Date: 2026-03-21
  * Owner: risto.paarni2022@lifetime.fi
  */
@@ -79,9 +80,40 @@ async function main() {
       break;
     }
 
+    case 'send': {
+      const filePath = process.argv[3] || 'Partners/NDA_Qantic.md';
+      const fs = await import('fs');
+      if (!fs.existsSync(filePath)) {
+        console.error(`File not found: ${filePath}`);
+        process.exit(1);
+      }
+      console.log(`Sending mutual NDA: ${filePath}`);
+      console.log('  Signer 1: Risto Anton Päärni <risto.paarni@lifetime.fi>');
+      console.log('  Signer 2: Thomas A. Kalitzky <support@qantic.com>');
+      console.log('  Environment: DocuSign Sandbox (demo)');
+      console.log('');
+
+      const result = await client.sendMutualNDA({
+        signer1Email: 'risto.paarni@lifetime.fi',
+        signer1Name: 'Risto Anton Päärni',
+        signer2Email: 'support@qantic.com',
+        signer2Name: 'Thomas A. Kalitzky',
+        documentPath: filePath,
+      });
+
+      console.log('SUCCESS — Mutual NDA sent for signing');
+      console.log(`  Envelope ID: ${result.envelopeId}`);
+      console.log(`  Status: ${result.status}`);
+      console.log(`  Sent at: ${result.statusDateTime}`);
+      console.log('');
+      console.log('Track status:');
+      console.log(`  npx tsx scripts/verify-nda-signatures.ts status ${result.envelopeId}`);
+      break;
+    }
+
     default:
       console.error(`Unknown command: ${command}`);
-      console.log('Commands: auth, consent, list, status <id>');
+      console.log('Commands: auth, consent, list, status <id>, send <file>');
       process.exit(1);
   }
 }
