@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 21.03.2026 | Changes: Updated Section 27 skills inventory (7→20 skills: 17 slash commands + 3 discipline skills), added gstack workflow, discipline skills (verification-gate, design-first, dual-folder-sync), skills guide reference (docs/DWS_SKILLS_GUIDE.md, Learn/DWS_SKILLS_GUIDE_v1.0.html)
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
@@ -2914,19 +2915,28 @@ This section documents the DWS6 Claude Code engineering structure — the patter
 
 **Impact:** Zero per-session context repetition. Zero behavioral drift from standards.
 
-#### 2. Skills — Reusable Workflow Components (`.claude/commands/`)
+#### 2. Skills — Reusable Workflow Components
 
-Seven production skills replace ad-hoc prompting with callable, documented, testable workflow components:
+**20 production skills** (17 slash commands in `.claude/commands/` + 3 discipline skills in `skills/`) replace ad-hoc prompting with callable, documented, testable workflow components.
 
-| Skill | Invocation | Output |
-|-------|-----------|--------|
-| `/agent-run` | `dws run <agent> --input '...'` | Scored JSON |
-| `/workflow` | `dws workflow <name>` | Multi-agent unified report |
-| `/compliance-check` | Auto-triggered | EU gap analysis |
-| `/discover-agents` | Agent discovery | Capability index |
-| `/site-safety` | SiteSense agent | Safety score 0-100 |
-| `/carbon-analysis` | Material Oracle | kgCO2e lifecycle |
-| `/email` | Resend integration | Delivery status |
+**Full guide:** `docs/DWS_SKILLS_GUIDE.md` | HTML: `Learn/DWS_SKILLS_GUIDE_v1.0.html`
+
+**gstack Development Workflow (Garry Tan):**
+`/plan-ceo-review` → `/plan-eng-review` → *implement* → `/review` → `/ship` → `/retro`
+
+| Category | Skills | Count |
+|----------|--------|-------|
+| gstack (dev workflow) | `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro` | 6 |
+| Agent discovery & execution | `/discover-agents`, `/agent-run`, `/workflow` | 3 |
+| EU compliance & analysis | `/compliance-check`, `/carbon-analysis`, `/sovereignty-assess`, `/site-safety` | 4 |
+| Operations & infrastructure | `/flow-status`, `/email`, `/remote-control` | 3 |
+| Code quality | `/simplify` | 1 |
+| Discipline skills (hard gates) | `verification-gate`, `design-first`, `dual-folder-sync` | 3 |
+
+**Discipline skills** (in `skills/*/SKILL.md`) are passive — agents follow them automatically:
+- **verification-gate:** No completion claims without fresh verification evidence
+- **design-first:** No implementation without design approval for 3+ file changes
+- **dual-folder-sync:** Root folder changes must sync to landing-pages in same commit
 
 **Principle:** If a capability cannot be invoked as `dws <command>`, it is not shipped.
 
@@ -2995,7 +3005,9 @@ git config core.hooksPath
 
 # 2. Verify skills accessible
 ls .claude/commands/
-# Expected: 7 .md files
+# Expected: 17 .md files (slash commands)
+ls skills/*/SKILL.md
+# Expected: 3 SKILL.md files (discipline skills)
 
 # 3. Verify CLAUDE.md loaded
 # Claude Code reads this automatically on session start
