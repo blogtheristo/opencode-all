@@ -3,8 +3,9 @@
  *
  * JWT Grant authentication + envelope operations.
  * Used for NDA signature tracking and contract management.
+ * Uses native fetch (Node.js 18+) — no external HTTP dependencies.
  *
- * Code-Version: 1.0.0
+ * Code-Version: 1.1.0
  * Branch: claude/verify-nda-signatures-rdgOj
  * Date: 2026-03-21
  * Owner: risto.paarni2022@lifetime.fi
@@ -12,7 +13,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import axios, { AxiosInstance } from 'axios';
 import {
   DocuSignConfig,
   DocuSignEnvironment,
@@ -32,7 +32,7 @@ const PROD_OAUTH_PATH = 'account.docusign.com';
 
 export class DocuSignClient {
   private config: DocuSignConfig;
-  private httpClient: AxiosInstance;
+  private basePath: string;
   private accessToken: string | null = null;
   private tokenExpiresAt: number = 0;
 
@@ -46,12 +46,7 @@ export class DocuSignClient {
         ? DEMO_OAUTH_PATH
         : PROD_OAUTH_PATH,
     };
-
-    this.httpClient = axios.create({
-      baseURL: this.config.basePath,
-      timeout: 30000,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    this.basePath = this.config.basePath!;
   }
 
   /**
@@ -116,45 +111,93 @@ export class DocuSignClient {
 
     const assertion = `${signingInput}.${signature}`;
 
-    const tokenResponse = await axios.post(
+    const tokenResponse = await fetch(
       `https://${this.config.oauthBasePath}/oauth/token`,
-      new URLSearchParams({
-        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-        assertion,
-      }).toString(),
       {
+        method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+          assertion,
+        }).toString(),
       }
     );
 
-    this.accessToken = tokenResponse.data.access_token;
-    this.tokenExpiresAt = Date.now() + (tokenResponse.data.expires_in * 1000);
+    if (!tokenResponse.ok) {
+      const errorData = await tokenResponse.json().catch(() => ({}));
+      const err = new Error(`DocuSign auth failed: ${tokenResponse.status}`);
+      (err as unknown as Record<string, unknown>).response = { data: errorData };
+      throw err;
+    }
 
-    // Update HTTP client auth header
-    this.httpClient.defaults.headers.common['Authorization'] =
-      `Bearer ${this.accessToken}`;
+    const tokenData = await tokenResponse.json() as { access_token: string; expires_in: number };
+
+    this.accessToken = tokenData.access_token;
+    this.tokenExpiresAt = Date.now() + (tokenData.expires_in * 1000);
 
     return this.accessToken!;
+  }
+
+  /**
+   * Make an authenticated API request to DocuSign.
+   */
+  private async apiRequest(
+    method: string,
+    endpoint: string,
+    body?: unknown,
+    options?: { params?: Record<string, string>; responseType?: 'json' | 'arraybuffer' },
+  ): Promise<unknown> {
+    await this.authenticate();
+
+    let url = `${this.basePath}${endpoint}`;
+    if (options?.params) {
+      const qs = new URLSearchParams(options.params).toString();
+      url += `?${qs}`;
+    }
+
+    const fetchOptions: RequestInit = {
+      method,
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (body) {
+      fetchOptions.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, fetchOptions);
+
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => '');
+      throw new Error(`DocuSign API error ${response.status}: ${errorText}`);
+    }
+
+    if (options?.responseType === 'arraybuffer') {
+      return Buffer.from(await response.arrayBuffer());
+    }
+
+    return response.json();
   }
 
   /**
    * Send an envelope (document for signing).
    */
   async sendEnvelope(request: CreateEnvelopeRequest): Promise<EnvelopeResult> {
-    await this.authenticate();
-
     const envelopeDefinition = this.buildEnvelopeDefinition(request);
 
-    const response = await this.httpClient.post(
+    const data = await this.apiRequest(
+      'POST',
       `/v2.1/accounts/${this.config.accountId}/envelopes`,
       envelopeDefinition,
-    );
+    ) as Record<string, string>;
 
     return {
-      envelopeId: response.data.envelopeId,
-      status: response.data.status,
-      statusDateTime: response.data.statusDateTime,
-      uri: response.data.uri,
+      envelopeId: data.envelopeId,
+      status: data.status,
+      statusDateTime: data.statusDateTime,
+      uri: data.uri,
     };
   }
 
@@ -162,29 +205,29 @@ export class DocuSignClient {
    * Get envelope status and recipient information.
    */
   async getEnvelopeStatus(envelopeId: string): Promise<EnvelopeStatusResult> {
-    await this.authenticate();
-
-    const [envelopeRes, recipientsRes] = await Promise.all([
-      this.httpClient.get(
+    const [envelope, recipientsData] = await Promise.all([
+      this.apiRequest(
+        'GET',
         `/v2.1/accounts/${this.config.accountId}/envelopes/${envelopeId}`
-      ),
-      this.httpClient.get(
+      ) as Promise<Record<string, unknown>>,
+      this.apiRequest(
+        'GET',
         `/v2.1/accounts/${this.config.accountId}/envelopes/${envelopeId}/recipients`
-      ),
+      ) as Promise<Record<string, unknown>>,
     ]);
 
-    const envelope = envelopeRes.data;
-    const signers = recipientsRes.data.signers || [];
+    const signers = (recipientsData.signers || []) as Record<string, string>[];
+    const sender = envelope.sender as Record<string, string> | undefined;
 
     return {
-      envelopeId: envelope.envelopeId,
-      status: envelope.status,
-      statusChangedDateTime: envelope.statusChangedDateTime,
+      envelopeId: envelope.envelopeId as string,
+      status: envelope.status as string,
+      statusChangedDateTime: envelope.statusChangedDateTime as string,
       sender: {
-        email: envelope.sender?.email || '',
-        name: envelope.sender?.userName || '',
+        email: sender?.email || '',
+        name: sender?.userName || '',
       },
-      recipients: signers.map((s: Record<string, string>) => ({
+      recipients: signers.map((s) => ({
         email: s.email,
         name: s.name,
         status: s.status,
@@ -193,12 +236,12 @@ export class DocuSignClient {
         declinedDateTime: s.declinedDateTime,
         declinedReason: s.declinedReason,
       })),
-      documentsUri: envelope.documentsUri,
-      createdDateTime: envelope.createdDateTime,
-      completedDateTime: envelope.completedDateTime,
-      declinedDateTime: envelope.declinedDateTime,
-      voidedDateTime: envelope.voidedDateTime,
-      voidedReason: envelope.voidedReason,
+      documentsUri: envelope.documentsUri as string,
+      createdDateTime: envelope.createdDateTime as string,
+      completedDateTime: envelope.completedDateTime as string,
+      declinedDateTime: envelope.declinedDateTime as string,
+      voidedDateTime: envelope.voidedDateTime as string,
+      voidedReason: envelope.voidedReason as string,
     };
   }
 
@@ -209,18 +252,18 @@ export class DocuSignClient {
     fromDate: string,
     status?: string,
   ): Promise<EnvelopeStatusResult[]> {
-    await this.authenticate();
-
     const params: Record<string, string> = { from_date: fromDate };
     if (status) params.status = status;
 
-    const response = await this.httpClient.get(
+    const data = await this.apiRequest(
+      'GET',
       `/v2.1/accounts/${this.config.accountId}/envelopes`,
+      undefined,
       { params },
-    );
+    ) as Record<string, unknown>;
 
-    return (response.data.envelopes || []).map(
-      (e: Record<string, string>) => ({
+    return ((data.envelopes || []) as Record<string, string>[]).map(
+      (e) => ({
         envelopeId: e.envelopeId,
         status: e.status,
         statusChangedDateTime: e.statusChangedDateTime,
@@ -241,19 +284,19 @@ export class DocuSignClient {
     documentId: string,
     outputPath: string,
   ): Promise<string> {
-    await this.authenticate();
-
-    const response = await this.httpClient.get(
+    const data = await this.apiRequest(
+      'GET',
       `/v2.1/accounts/${this.config.accountId}/envelopes/${envelopeId}/documents/${documentId}`,
+      undefined,
       { responseType: 'arraybuffer' },
-    );
+    ) as Buffer;
 
     const dir = path.dirname(outputPath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    fs.writeFileSync(outputPath, response.data);
+    fs.writeFileSync(outputPath, data);
     return outputPath;
   }
 
@@ -261,9 +304,8 @@ export class DocuSignClient {
    * Void (cancel) an envelope that hasn't been completed.
    */
   async voidEnvelope(envelopeId: string, reason: string): Promise<void> {
-    await this.authenticate();
-
-    await this.httpClient.put(
+    await this.apiRequest(
+      'PUT',
       `/v2.1/accounts/${this.config.accountId}/envelopes/${envelopeId}`,
       { status: 'voided', voidedReason: reason },
     );
