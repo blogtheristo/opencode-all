@@ -9,6 +9,7 @@
  * Usage: npx tsx scripts/test-native-language-emails.ts
  */
 
+import 'dotenv/config';
 import { sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
