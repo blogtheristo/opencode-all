@@ -1,7 +1,7 @@
 /**
  * DocuSign eSignature Integration — Types
  *
- * Code-Version: 1.0.0
+ * Code-Version: 1.1.0
  * Branch: claude/verify-nda-signatures-rdgOj
  * Date: 2026-03-21
  * Owner: risto.paarni2022@lifetime.fi
@@ -35,6 +35,7 @@ export enum SignatureType {
   CONTRACT = 'contract',
   AMENDMENT = 'amendment',
   MSA = 'msa',
+  REPORT = 'report',
 }
 
 // --- Config ---
