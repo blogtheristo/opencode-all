@@ -4,7 +4,7 @@
     Deploys managed-settings.json to C:\Program Files\ClaudeCode\ (requires admin).
 
 .DESCRIPTION
-    Copies Admin/ClaudeCode/managed-settings.json.example to the system location.
+    Copies ClaudeCode/managed-settings.json.example to the system location.
     Must be run as Administrator (right-click → Run as administrator).
 
 .EXAMPLE
@@ -17,7 +17,7 @@ param(
 
 $destDir = "C:\Program Files\ClaudeCode"
 $destFile = "$destDir\managed-settings.json"
-$src = Join-Path $RepoRoot "Admin\ClaudeCode\managed-settings.json.example"
+$src = Join-Path $RepoRoot "ClaudeCode\managed-settings.json.example"
 
 if (-not (Test-Path $src)) {
     Write-Error "Source not found: $src"

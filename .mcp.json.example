@@ -46,6 +46,23 @@
         "GOOGLE_APPLICATION_CREDENTIALS": "/gcloud/application_default_credentials.json"
       }
     },
+    "Upstash Redis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/redis-mcp@latest"
+      ],
+      "env": {
+        "REDIS_URL": "redis://user:password@host:port"
+      }
+    },
+    "MCP Hub": {
+      "_type": "coordination-hub",
+      "_port": 8765,
+      "_endpoints": {
+        "hub": "http://localhost:8765"
+      }
+    },
     "Supabase Official (Docker)": {
       "command": "docker",
       "args": [

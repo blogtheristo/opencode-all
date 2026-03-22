@@ -49,6 +49,16 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### Code Versioning Rule (CRITICAL)
+
+When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Section 19:
+
+1. Add a syntax-safe **Code Versioning Note** in the file header/comment block.
+2. Tie lineage to PR number using `Introduced-In: PR-<number>` (example: `PR-699`).
+3. Include `Code-Version`, `Branch`, `Commit` (when known), `Date`, and `Owner`.
+4. If runtime config contract changes, bump `ENV_SCHEMA_VERSION` in `.env.example`.
+5. Never include secrets or live `.env` values in version notes.
+
 ### Thesis Update Rule (CRITICAL)
 
 When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **"opinnäytetyö"**, ALL 4 thesis files MUST be updated together:
@@ -139,7 +149,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 8. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
 
-9. **Never Delete Files — Always Move (CRITICAL)** — Use `git mv` to move files, never `git rm` or delete. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+9. **Never Delete Files — Always Rename to _OLD (CRITICAL)** — NEVER use `git rm` or delete. When "delete" is mentioned, rename the file by appending `_OLD` to the filename (before the extension). **Always ask the human for confirmation first** before renaming. No exceptions. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
@@ -198,6 +208,29 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 13. Not using DWS document standard
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
+
+## Lifetime Oy Legal Identity Rule (CRITICAL)
+
+Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoices, and legal documents:
+
+| Field | Value |
+|-------|-------|
+| **Company Name** | Lifetime Oy |
+| **Business Identity Code (Y-tunnus)** | 0772407-9 |
+| **VAT ID (ALV-tunnus)** | FI07724079 |
+| **Registered Address** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| **Country** | Finland |
+| **CEO** | Risto Anton Päärni |
+| **Email** | risto.paarni@lifetime.fi |
+
+**Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
+
+### DocuSign eSignature
+
+- **Developer account:** `risto.paarni@lifetime.fi`
+- **NDA Template:** `Partners/NDA_TEMPLATE_EU_2026.md` (v2.0, mutual)
+- **Send script:** `npx tsx scripts/verify-nda-signatures.ts send <file>`
+- **Full developer note:** `docs/field-notes/2026-03-21-docusign-esignature-integration.md`
 
 ## Email Rules (CRITICAL)
 
@@ -371,7 +404,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 **Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
 
-**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `Admin/ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
+**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
 
 ## 2026 EU AI Act Compliance
 

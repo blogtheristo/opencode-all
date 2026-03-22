@@ -94,12 +94,10 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    // Use an org-scoped client so Grok can be selected when orgId is available.
-    // Falls back to getLLMClient() (which skips Grok) when context.orgId is absent.
-    const orgScopedClient = createLLMClient(this.config.model, context.orgId);
+    // Agent loops use 'agent' mode: Ollama primary, Anthropic fallback
+    const orgScopedClient = createLLMClient(this.config.model, context.orgId, 'agent');
     if (!orgScopedClient && context.orgId) {
-      // orgId was provided but no provider was resolved — log for debugging
-      logger.debug('runLoop: org-scoped client unavailable, falling back to default client', {
+      logger.debug('runLoop: no provider available', {
         agent: this.config.name,
         orgId: context.orgId,
       });

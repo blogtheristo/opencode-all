@@ -42,9 +42,11 @@ Financial projections in a NIST standards document weaken credibility. Standards
 | **Fault Attribution** | €5.00 per fault classification | Automated liability assignment |
 | **Compliance Certificates** | €500 per quarter per industry | CBAM, ETS, CSRD audit-ready reports |
 | **Insurance Discounts** | 8–15% premium reduction | Actuarial data from ATS + Firehorse |
-| **Alpha-Share** (v1.6) | **Decline-to-Scale**: 12% (first €1M), 8% (€1M–€10M), 5% (above €10M) | Financial attribution from Firehorse → Supabase |
-| **Performance Guarantee** | Service credit on verified production fault within 30 days | Internally: revenue deferral; externally: guarantee |
-| **Verification Credit Rebate** | 10% of Alpha-Share returned as KYA-S verification credits | Flywheel: optimization funds security |
+| **SaaS Platform** (v1.7) | €499–€1,999/mo subscription (Enterprise: custom) | Customer count x tier |
+| **API Transactions** (v1.7) | Per agent operation — usage-based | Agent sessions x operations x frequency |
+| **Alpha-Share** (Enterprise World Tier 4 only) | **Decline-to-Scale**: 12% (first €1M), 8% (€1M–€10M), 5% (above €10M) | Reserved for large-scale industrial deployments |
+| **Performance Guarantee** | Service credit on verified production fault within 30 days | All tiers: SLA credit; Tier 4: Alpha-Share credit |
+| **Verification Credit Rebate** | 10% of Alpha-Share returned as KYA-S verification credits | Enterprise World Tier 4 only |
 
 ---
 
@@ -121,7 +123,7 @@ The governance overhead is linear; the value created scales logarithmically with
 | Assumption | Risk Level | Mitigation |
 |-----------|-----------|-----------|
 | 2M–5M agents by 2030 | HIGH | Conservative: 500k agents still yields €2.4B |
-| 7.5% Alpha-Share acceptance | MEDIUM | Market validation needed; alternatives: flat SaaS fee |
+| Alpha-Share acceptance (Tier 4 only) | LOW | Scoped to Enterprise World Tier 4; standard customers use SaaS + API pricing |
 | Autoresearch gains hold at scale | MEDIUM | Helsinki Sandbox proves proxy; production validation Q3 2026 |
 | EU regulatory enforcement timeline | LOW | CBAM already in transitional phase; full enforcement 2026 |
 
