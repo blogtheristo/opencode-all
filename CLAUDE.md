@@ -101,13 +101,13 @@ The script (`scripts/gen-thesis-html.cjs`):
 
 ## Project Overview
 
-**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
+**DWS IQ 6** is a platform to **run enterprise industrial AI agents safely** following DWS standards. It provides multi-agent delegation with EU compliance scoring, ERP integration, and sales automation.
 
 **Architecture: Brain-Memory-Body-Hands**
-- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
-- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
-- **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
+- **Brain**: DWS IQ 6 Platform (Multi-Agent Orchestration via delegation & event bus — 16+ TypeScript agents with deterministic scoring)
+- **Memory**: Lifetime World Model (EU Regulations + Industry Models — *external dependency, not built in this repo*)
+- **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
+- **Hands**: Lifetime Fleet (IoT/Robots — *specification phase*)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 

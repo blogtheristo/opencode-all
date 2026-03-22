@@ -87,7 +87,7 @@ Return JSON: { "cbamCementScope", "etsClikerBenchmark", "clinkerSubstitutionPote
     );
 
     let synthesis = { cbamCementScope: '', etsClikerBenchmark: '', clinkerSubstitutionPotential: '', prioritizedActions: [] as string[], riskSummary: '' };
-    try { synthesis = JSON.parse(llmResult.content); } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
+    try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
 
     const durationMs = Date.now() - startTime;
     const response: AgentResponse = {

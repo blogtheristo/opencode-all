@@ -45,6 +45,7 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
@@ -211,6 +212,9 @@ app.use('/api/v1/outreach', outreachRoutes);
 
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
+
+// Firehorse Omnichannel Pilot (sales automation, signals, lead management)
+app.use('/api/v1/firehorse', firehorseRoutes);
 
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
@@ -504,6 +508,10 @@ const server = app.listen(PORT, () => {
   // Manual trigger available via POST /api/v1/construction-leads/fetch
   constructionLeadsScheduler.start();
 
+  // Firehorse Omnichannel Pilot: daily leads at 08:00, follow-ups every 6h
+  initFirehorsePilot();
+  logger.info('Firehorse Omnichannel Pilot started');
+
   // Start outreach digest scheduler (backup — primary is GitHub Actions).
   // On Cloud Run this may not fire reliably due to scale-to-zero,
   // but covers local dev and always-on deployments.
@@ -548,6 +556,7 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  shutdownFirehorsePilot();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -560,6 +569,7 @@ process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  shutdownFirehorsePilot();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

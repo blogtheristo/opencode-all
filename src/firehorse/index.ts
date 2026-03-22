@@ -13,6 +13,8 @@ export * from './email-service';
 export * from './linkedin-service';
 export * from './scheduler';
 export * from './helpers';
+export * from './report-module';
+export * from './workflow-engine';
 export { default as firehorseRoutes } from './routes';
 
 import { scheduler } from './scheduler';
