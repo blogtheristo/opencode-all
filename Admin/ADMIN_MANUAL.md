@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 22.03.2026 | Changes: Version bump (2.7 already applied externally), skills guide finalized
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 21.03.2026 | Changes: Updated Section 27 skills inventory (7→20 skills: 17 slash commands + 3 discipline skills), added gstack workflow, discipline skills (verification-gate, design-first, dual-folder-sync), skills guide reference (docs/DWS_SKILLS_GUIDE.md, Learn/DWS_SKILLS_GUIDE_v1.0.html)
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
