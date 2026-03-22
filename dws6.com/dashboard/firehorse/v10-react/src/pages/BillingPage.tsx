@@ -23,6 +23,23 @@ interface Plan {
   is_active: boolean;
 }
 
+interface UsageStats {
+  agent_calls_used: number;
+  agent_calls_limit: number;
+  report_exports_used: number;
+  report_exports_limit: number;
+  period_start: string;
+  period_end: string;
+}
+
+interface Invoice {
+  id: string;
+  amount_eur: number;
+  status: 'paid' | 'pending' | 'failed';
+  created_at: string;
+  period: string;
+}
+
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export function BillingPage() {
@@ -30,11 +47,15 @@ export function BillingPage() {
   const { session } = useAuth();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPlan] = useState<string | null>('free');
+  const [currentPlan, setCurrentPlan] = useState<string>('free');
+  const [usage, setUsage] = useState<UsageStats | null>(null);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
+  // Load plans, current subscription, usage stats, and invoices
   useEffect(() => {
-    async function loadPlans() {
+    async function loadAll() {
+      // 1. Load plans
       try {
         const { data, error } = await supabase
           .from('subscription_plans')
@@ -42,10 +63,9 @@ export function BillingPage() {
           .eq('is_active', true)
           .order('price_monthly_eur', { ascending: true });
 
-        if (error) {
-          console.error('Error fetching plans:', error);
+        if (error || !data || data.length === 0) {
           setPlans(getFallbackPlans());
-        } else if (data && data.length > 0) {
+        } else {
           setPlans(data.map((p: Record<string, unknown>) => ({
             id: p.id as string,
             tier: p.tier as string,
@@ -58,18 +78,78 @@ export function BillingPage() {
             support_type: (p.support_type as string) || 'Community',
             is_active: Boolean(p.is_active),
           })));
-        } else {
-          setPlans(getFallbackPlans());
         }
       } catch {
         setPlans(getFallbackPlans());
-      } finally {
-        setLoading(false);
       }
+
+      // 2. Load current subscription
+      if (session?.user?.id) {
+        try {
+          const { data: sub } = await supabase
+            .from('subscriptions')
+            .select('plan_tier, status')
+            .eq('user_id', session.user.id)
+            .eq('status', 'active')
+            .limit(1)
+            .maybeSingle();
+
+          if (sub?.plan_tier) {
+            setCurrentPlan(sub.plan_tier);
+          }
+        } catch {
+          // Keep default 'free'
+        }
+
+        // 3. Load usage stats
+        try {
+          const { data: usageData } = await supabase
+            .from('usage_records')
+            .select('action_type')
+            .eq('user_id', session.user.id)
+            .gte('created_at', new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
+
+          if (usageData) {
+            const agentCalls = usageData.filter((u: { action_type: string }) => u.action_type === 'agent_call').length;
+            const reportExports = usageData.filter((u: { action_type: string }) => u.action_type === 'report_export').length;
+            const periodStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+            const periodEnd = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+
+            setUsage({
+              agent_calls_used: agentCalls,
+              agent_calls_limit: currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 10000 : 100,
+              report_exports_used: reportExports,
+              report_exports_limit: currentPlan === 'enterprise' ? -1 : currentPlan === 'pro' ? 100 : 5,
+              period_start: periodStart.toISOString(),
+              period_end: periodEnd.toISOString(),
+            });
+          }
+        } catch {
+          // Usage stats unavailable
+        }
+
+        // 4. Load invoices
+        try {
+          const { data: invData } = await supabase
+            .from('invoices')
+            .select('id, amount_eur, status, created_at, period')
+            .eq('user_id', session.user.id)
+            .order('created_at', { ascending: false })
+            .limit(10);
+
+          if (invData && invData.length > 0) {
+            setInvoices(invData as Invoice[]);
+          }
+        } catch {
+          // Invoices unavailable
+        }
+      }
+
+      setLoading(false);
     }
 
-    loadPlans();
-  }, []);
+    loadAll();
+  }, [session?.user?.id]);
 
   function getFallbackPlans(): Plan[] {
     return [
@@ -262,7 +342,64 @@ export function BillingPage() {
         </div>
       )}
 
-      <div className="mt-8 card p-4">
+      {/* Usage Stats */}
+      {usage && (
+        <div className="mt-8 card p-6">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Current Period Usage</h3>
+          <p className="text-xs text-gray-500 mb-4">
+            {new Date(usage.period_start).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
+            {' — '}
+            {new Date(usage.period_end).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })}
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <UsageBar
+              label="Agent Calls"
+              used={usage.agent_calls_used}
+              limit={usage.agent_calls_limit}
+            />
+            <UsageBar
+              label="Report Exports"
+              used={usage.report_exports_used}
+              limit={usage.report_exports_limit}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Invoice History */}
+      {invoices.length > 0 && (
+        <div className="mt-6 card p-6">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Invoice History</h3>
+          <div className="divide-y divide-gray-100">
+            {invoices.map(inv => (
+              <div key={inv.id} className="flex items-center justify-between py-3">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">{inv.period}</p>
+                  <p className="text-xs text-gray-500">
+                    {new Date(inv.created_at).toLocaleDateString('en-GB', {
+                      day: 'numeric', month: 'short', year: 'numeric',
+                    })}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-900">
+                    &euro;{inv.amount_eur.toLocaleString()}
+                  </span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    inv.status === 'paid' ? 'bg-green-100 text-green-700' :
+                    inv.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {inv.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 card p-4">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Payment Methods</h3>
         <p className="text-sm text-gray-500">
           We accept PayPal and Revolut Business. Invoices are sent monthly. For Enterprise,
@@ -273,8 +410,31 @@ export function BillingPage() {
           onClick={() => navigate('/settings')}
           className="text-sm text-primary-600 hover:underline mt-2"
         >
-          ← Back to Settings
+          &larr; Back to Settings
         </button>
+      </div>
+    </div>
+  );
+}
+
+function UsageBar({ label, used, limit }: { label: string; used: number; limit: number }) {
+  const isUnlimited = limit === -1;
+  const pct = isUnlimited ? 0 : limit > 0 ? Math.min((used / limit) * 100, 100) : 0;
+  const barColor = pct >= 90 ? 'bg-red-500' : pct >= 70 ? 'bg-yellow-500' : 'bg-primary-500';
+
+  return (
+    <div>
+      <div className="flex justify-between text-sm mb-1">
+        <span className="text-gray-700 font-medium">{label}</span>
+        <span className="text-gray-500">
+          {used.toLocaleString()} / {isUnlimited ? 'Unlimited' : limit.toLocaleString()}
+        </span>
+      </div>
+      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          className={`h-full rounded-full transition-all ${barColor}`}
+          style={{ width: isUnlimited ? '5%' : `${pct}%` }}
+        />
       </div>
     </div>
   );

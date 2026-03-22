@@ -989,6 +989,126 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud"
+    },
+    "DWS-US-STARTER": {
+      "id": "DWS-US-STARTER",
+      "gtin": null,
+      "mpn": "DWS-US-STARTER-2026",
+      "name": "DWS IQ — US Cloud Starter",
+      "price": 299,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.",
+      "features": [
+        "3 AI agents (Compliance, Report, Discovery)",
+        "Basic CSRD compliance dashboard",
+        "Supabase + Cloudflare infrastructure"
+      ],
+      "priceNote": "€299/mo + €990 one-time setup | Annual: 2 months free",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/cloud-pricing.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "ai-cloud"
+    },
+    "DWS-US-PILOT": {
+      "id": "DWS-US-PILOT",
+      "gtin": null,
+      "mpn": "DWS-US-PILOT-2026",
+      "name": "DWS IQ — US Cloud Pilot",
+      "price": 799,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.",
+      "features": [
+        "8 AI agents (full Firehorse suite)",
+        "Firehorse Report module included",
+        "5 user seats + kickoff workshop"
+      ],
+      "priceNote": "€799/mo + €2,490 one-time setup | Annual: 2 months free",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/cloud-pricing.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "ai-cloud"
+    },
+    "DWS-EU-STARTER": {
+      "id": "DWS-EU-STARTER",
+      "gtin": null,
+      "mpn": "DWS-EU-STARTER-2026",
+      "name": "DWS IQ — EU Sovereign Starter",
+      "price": 499,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
+      "features": [
+        "Zero CLOUD Act exposure (EU-owned providers)",
+        "Aiven PostgreSQL + Hetzner/Scaleway",
+        "Sovereignty score monitoring"
+      ],
+      "priceNote": "€499/mo + €1,490 one-time setup | Annual: 2 months free",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/cloud-pricing.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "ai-cloud"
+    },
+    "DWS-EU-PILOT": {
+      "id": "DWS-EU-PILOT",
+      "gtin": null,
+      "mpn": "DWS-EU-PILOT-2026",
+      "name": "DWS IQ — EU Sovereign Pilot",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "features": [
+        "8 AI agents + Aiwen Article 12 logging",
+        "NIS2 compliance dashboard",
+        "Zero CLOUD Act + EU data residency"
+      ],
+      "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/cloud-pricing.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "ai-cloud"
     }
   },
   "settings": {
@@ -1034,5 +1154,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-03-03T12:00:00Z"
+  "lastUpdated": "2026-03-22T12:00:00Z"
 }
