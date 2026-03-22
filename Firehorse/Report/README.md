@@ -1,5 +1,7 @@
 # Campaign Analytics & Reporting
 
+> **Status: SKELETON** — Python report engine exists (`report_engine.py`) but has no templates, no API endpoints, and no orchestration. See AGENTS.md §19 Product Maturity Matrix.
+
 ## Overview
 
 Centralized reporting and analytics for all Firehorse campaigns across investors, customers, and partners.

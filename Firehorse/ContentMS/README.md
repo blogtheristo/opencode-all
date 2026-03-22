@@ -1,5 +1,7 @@
 # Content Management System
 
+> **Status: PLANNED** — This sub-product has no implementation code yet. This README describes the planned architecture. See AGENTS.md §19 Product Maturity Matrix for full status.
+
 ## Overview
 
 Central repository for all campaign content, templates, and messaging assets used across Firehorse campaigns.

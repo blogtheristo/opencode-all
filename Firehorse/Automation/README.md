@@ -1,5 +1,7 @@
 # Campaign Automation
 
+> **Status: ALPHA** — FastAPI stub exists (`main.py`) with in-memory storage. No database persistence, no real workflow execution logic. See AGENTS.md §19 Product Maturity Matrix.
+
 ## Overview
 
 Automation scripts, workflows, and integrations for running omnichannel campaigns at scale.

@@ -24,6 +24,7 @@ import { TemplateEditorPage } from './pages/TemplateEditorPage';
 import { BillingPage } from './pages/BillingPage';
 import { HealthPage } from './pages/HealthPage';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
+import { FirehorsePipelinePage } from './pages/FirehorsePipelinePage';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
 
@@ -204,6 +205,7 @@ function DashboardWithPanels() {
             </div>
             <div className="hidden md:flex items-center gap-2">
               <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
+              <button onClick={() => navigate('/firehorse')} className="btn-secondary">Firehorse</button>
               <button onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')} className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}>AI Assistant</button>
               <button onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')} className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}>Meeting</button>
             </div>
@@ -408,6 +410,13 @@ function App() {
           <ProtectedRoute>
             <DashboardLayout>
               <HealthPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/firehorse" element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <FirehorsePipelinePage />
             </DashboardLayout>
           </ProtectedRoute>
         } />
