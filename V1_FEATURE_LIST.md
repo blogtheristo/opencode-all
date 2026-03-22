@@ -510,7 +510,38 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 
 ---
 
-**Document Version:** 2.2
+---
+
+## MVP Gap Analysis (March 22, 2026)
+
+### Closed Since Last Update
+
+| # | Gap | Resolution | Date |
+|---|-----|-----------|------|
+| 1 | PDF Preview in browser | Implemented — iframe viewer with Supabase signed URL + fallback HTML preview | 2026-03-22 |
+| 2 | Payment UI wiring | BillingPage now shows current plan from Supabase, usage stats, invoice history | 2026-03-22 |
+| 3 | Database seeding | Comprehensive seed script covers projects, reports, subscription_plans, agent_executions | 2026-03-22 |
+
+### Still Open
+
+| # | Gap | Priority | Status | Target |
+|---|-----|----------|--------|--------|
+| 1 | Mobile App screens | V1.1 | Foundation only — deferred | Q2 2026 |
+| 2 | OAuth/SSO (Google, Microsoft) | V1.1 | Not started | Q2 2026 |
+| 3 | Email production credentials | High | Service ready, needs API keys | ASAP |
+| 4 | Workflow Builder UI | V1.1 | Backend state machine ready | Q2 2026 |
+| 5 | Full agent test suite | Medium | Partial coverage | Q2 2026 |
+| 6 | Stripe payment | V1.1 | PayPal + Revolut sufficient for EU | Q3 2026 |
+| 7 | EU-Sovereign Migration | Low | Plan decided (Aiven) | Aug 2026 |
+| 8 | LlamaStack integration | V1.1 | Groq fallback works | Q2 2026 |
+
+### Architecture Diagram
+
+See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
+
+---
+
+**Document Version:** 2.3
 **Created:** January 3, 2026
-**Last Updated:** March 10, 2026
-**Status:** V1 EU-Sovereign Migration (Aiven) added — Category 11, plan decided 10.03.2026
+**Last Updated:** March 22, 2026
+**Status:** Gap analysis updated — PDF preview, payment UI, DB seeding implemented
