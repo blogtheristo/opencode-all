@@ -35,6 +35,14 @@ export interface ReportRequest {
   periodStart: string; // ISO date
   periodEnd: string;   // ISO date
   industry: string;
+  // Real org data — if missing, report is marked as ESTIMATE
+  orgData?: {
+    annualEmissions?: number;    // tonnes CO2e — from ERP or monitoring
+    importValue?: number;        // EUR — from ERP
+    hasTransitionPlan?: boolean;
+    hasEmissionsMonitoring?: boolean;
+    hasSupplyChainDD?: boolean;
+  };
   options?: {
     includeERPData?: boolean;
     includeProjectDetails?: boolean;
@@ -92,28 +100,39 @@ export const FirehorseReportModule = {
     let dataSourceCount = 0;
 
     // 1. Compliance scoring (always included)
+    // If orgData is provided, use real values. Otherwise mark as ESTIMATE.
+    const usingEstimates = !request.orgData?.annualEmissions;
     try {
       const scoringInput: ComplianceScoringInput = {
         industry,
-        dataPoints: [], // Empty = baseline assessment
-        annualEmissions: 50000, // Default tonnes CO2e
-        importValue: 500000, // Default EUR
-        hasTransitionPlan: false,
-        hasEmissionsMonitoring: false,
-        hasSupplyChainDD: false,
+        dataPoints: [],
+        annualEmissions: request.orgData?.annualEmissions ?? 50000,
+        importValue: request.orgData?.importValue ?? 500000,
+        hasTransitionPlan: request.orgData?.hasTransitionPlan ?? false,
+        hasEmissionsMonitoring: request.orgData?.hasEmissionsMonitoring ?? false,
+        hasSupplyChainDD: request.orgData?.hasSupplyChainDD ?? false,
       };
       const scoring = scoreCompliance(scoringInput);
       complianceScore = scoring.overallScore;
       dataSourceCount++;
 
+      if (usingEstimates) {
+        logger.warn('Report using ESTIMATE defaults — no real org data provided', {
+          organizationId, format, defaults: { annualEmissions: 50000, importValue: 500000 },
+        });
+      }
+
       sections.push({
-        title: 'EU Compliance Score',
+        title: usingEstimates
+          ? 'EU Compliance Score (ESTIMATE — no org data provided)'
+          : 'EU Compliance Score',
         type: 'kpi',
         data: {
           overallScore: scoring.overallScore,
           complianceStatus: scoring.complianceStatus,
           dataCompleteness: scoring.dataCompleteness,
-          gaps: scoring.gaps.slice(0, 5), // Top 5 gaps
+          dataQuality: usingEstimates ? 'ESTIMATE' : 'ORG_DATA',
+          gaps: scoring.gaps.slice(0, 5),
           recommendations: scoring.recommendations,
           costBreakdown: scoring.costBreakdown,
         },

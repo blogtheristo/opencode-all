@@ -52,7 +52,14 @@ const REGULATION_DEADLINES: Record<string, { deadline: string; description: stri
   },
 };
 
-/** Measure weights for regulations not covered by scoring engine (fit-for-55, eu-ai-act) */
+/**
+ * Measure weights for regulations not covered by scoring engine (fit-for-55, eu-ai-act).
+ *
+ * DATA QUALITY: DRAFT — these are boolean checkbox scores, not real compliance analysis.
+ * Fit-for-55 requires sector-specific pathway verification (not implemented).
+ * EU AI Act Article 12 requires logging framework inspection (not implemented).
+ * Scores from these two regs should be treated as INDICATIVE ONLY.
+ */
 const MEASURE_WEIGHTS: Record<string, Record<string, number>> = {
   'fit-for-55': {
     carbonReporting: 0.30,
@@ -429,6 +436,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       regulation,
       score,
       status: score >= 80 ? 'compliant' : score >= 50 ? 'partial' : 'non-compliant',
+      dataQuality: 'DRAFT_CHECKBOX_ONLY',
       dataPointsProvided: 0,
       dataPointsRequired: 0,
     };

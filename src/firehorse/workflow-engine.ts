@@ -15,6 +15,8 @@
 
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
+import { agentRegistry } from '../agents/index.js';
+import { FirehorseReportModule } from './report-module.js';
 
 // --- Types ---
 
@@ -353,43 +355,81 @@ export const FirehorseWorkflowEngine = {
 
     switch (step.action) {
       case 'run_agent': {
-        // Delegate to agent execution via internal API
         const agentName = step.config.agent as string;
-        return {
-          action: 'run_agent',
-          agent: agentName,
-          status: 'delegated',
-          message: `Agent "${agentName}" execution queued`,
-        };
+        const agentInput = { ...input, ...(step.config.input as Record<string, unknown> || {}) };
+        try {
+          const context = {
+            userId: (input.userId as string) || 'workflow',
+            orgId: (input.orgId as string) || 'workflow',
+            sessionId: (input.sessionId as string) || `wf-${Date.now()}`,
+            projectId: (input.projectId as string) || 'workflow',
+          };
+          const agentResult = await agentRegistry.executeAgent(agentName, context, agentInput);
+          return {
+            action: 'run_agent',
+            agent: agentName,
+            status: 'completed',
+            confidence: agentResult.confidence,
+            result: agentResult.result,
+            recommendations: agentResult.recommendations,
+          };
+        } catch (err) {
+          logger.error('Workflow agent execution failed', { agentName, error: (err as Error).message });
+          return {
+            action: 'run_agent',
+            agent: agentName,
+            status: 'failed',
+            error: (err as Error).message,
+          };
+        }
       }
 
       case 'generate_report': {
         const format = step.config.format as string;
-        return {
-          action: 'generate_report',
-          format,
-          status: 'delegated',
-          message: `Report generation (${format}) queued`,
-        };
+        try {
+          const reportModule = new FirehorseReportModule();
+          const report = await reportModule.generate({
+            orgId: (input.orgId as string) || 'workflow',
+            format: format as 'board-pack' | 'annual-report' | 'compliance-summary' | 'carbon-footprint',
+            industry: (input.industry as string) || 'manufacturing',
+          });
+          return {
+            action: 'generate_report',
+            format,
+            status: 'completed',
+            reportId: report.id,
+            sections: report.sections.length,
+          };
+        } catch (err) {
+          logger.error('Workflow report generation failed', { format, error: (err as Error).message });
+          return {
+            action: 'generate_report',
+            format,
+            status: 'failed',
+            error: (err as Error).message,
+          };
+        }
       }
 
       case 'send_email': {
         const template = step.config.template as string;
+        // Email sending requires lead context — delegate to email service
         return {
           action: 'send_email',
           template,
           status: 'delegated',
-          message: `Email template "${template}" queued for sending`,
+          message: `Email template "${template}" queued — requires lead_id for personalization`,
         };
       }
 
       case 'sync_erp': {
         const direction = step.config.direction as string;
+        // ERP sync requires org-specific ERP credentials — not yet integrated
         return {
           action: 'sync_erp',
           direction,
-          status: 'delegated',
-          message: `ERP sync (${direction}) queued`,
+          status: 'not_implemented',
+          message: `ERP sync (${direction}) requires org ERP credentials — not yet integrated`,
         };
       }
 
