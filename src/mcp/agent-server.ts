@@ -23,7 +23,9 @@ import { Router, Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
+import { memoryService } from '../agents/memory.service.js';
 import type { AgentContext } from '../agents/types.js';
+import type { MemoryType } from '../agents/memory.types.js';
 
 // ============ SUPPORTED WORKFLOWS REGISTRY ============
 // Single source of truth — used in tool descriptions, validation, and error messages.
@@ -128,6 +130,70 @@ function buildToolList(): MCPToolDefinition[] {
           description: 'Maximum events to return (default: 20)',
         },
       },
+    },
+  });
+
+  // Memory tools
+  tools.push({
+    name: 'dws_memory_store',
+    description: 'Store a fact, preference, or knowledge as a persistent agent memory. Memories are embedded for vector search and scoped to the organization.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        content: { type: 'string', description: 'The content/text to remember' },
+        memory_type: {
+          type: 'string',
+          description: 'Type of memory: preference, knowledge, procedure, episode, fact, profile',
+        },
+        source: { type: 'string', description: 'Source identifier (e.g., conversation, document)' },
+        metadata: { type: 'object', description: 'Additional metadata tags' },
+      },
+      required: ['content'],
+    },
+  });
+
+  tools.push({
+    name: 'dws_memory_recall',
+    description: 'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Natural language search query' },
+        memory_type: { type: 'string', description: 'Filter by memory type (optional)' },
+        limit: { type: 'number', description: 'Maximum results (default: 5)' },
+        similarity_threshold: { type: 'number', description: 'Minimum similarity 0-1 (default: 0.5)' },
+      },
+      required: ['query'],
+    },
+  });
+
+  tools.push({
+    name: 'dws_memory_forget',
+    description: 'Soft-delete a memory by ID. Marked as expired for audit compliance, not hard-deleted.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        memory_id: { type: 'string', description: 'UUID of the memory to forget' },
+        reason: { type: 'string', description: 'Reason for forgetting (audit trail)' },
+      },
+      required: ['memory_id', 'reason'],
+    },
+  });
+
+  tools.push({
+    name: 'dws_memory_profile',
+    description: 'Get an aggregated profile built from stored memories for a customer or organization. Returns facts, preferences, and recent context.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        entity_id: { type: 'string', description: 'Customer UUID or organization ID' },
+        entity_type: {
+          type: 'string',
+          description: 'Entity type: customer or organization',
+          enum: ['customer', 'organization'],
+        },
+      },
+      required: ['entity_id', 'entity_type'],
     },
   });
 
@@ -287,6 +353,55 @@ async function executeToolCall(
     const pattern = args.pattern as string | undefined;
     const limit = (args.limit as number) || 20;
     return eventBus.getRecentEvents(pattern, limit);
+  }
+
+  // Memory tools
+  if (toolName === 'dws_memory_store') {
+    return memoryService.store({
+      content: args.content as string,
+      memoryType: (args.memory_type as MemoryType) || 'knowledge',
+      orgId: context.orgId,
+      source: (args.source as string) || 'mcp',
+      metadata: (args.metadata as Record<string, unknown>) || {},
+    });
+  }
+
+  if (toolName === 'dws_memory_recall') {
+    const result = await memoryService.recall({
+      query: args.query as string,
+      memoryType: args.memory_type as MemoryType | undefined,
+      orgId: context.orgId,
+      limit: (args.limit as number) || 5,
+      similarityThreshold: (args.similarity_threshold as number) || 0.5,
+    });
+    return {
+      memories: result.memories.map((m) => ({
+        id: m.id,
+        content: m.content,
+        type: m.memoryType,
+        similarity: m.similarity,
+        confidence: m.confidence,
+      })),
+      totalMatches: result.totalMatches,
+      searchMethod: result.searchMethod,
+      durationMs: result.durationMs,
+    };
+  }
+
+  if (toolName === 'dws_memory_forget') {
+    return memoryService.forget({
+      memoryId: args.memory_id as string,
+      orgId: context.orgId,
+      reason: args.reason as string,
+    });
+  }
+
+  if (toolName === 'dws_memory_profile') {
+    return memoryService.getProfile(
+      args.entity_id as string,
+      args.entity_type as 'customer' | 'organization',
+      context.orgId,
+    );
   }
 
   // Agent tools — strip "dws_" prefix and convert underscores back to hyphens
