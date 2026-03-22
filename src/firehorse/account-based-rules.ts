@@ -58,6 +58,106 @@ export const TOP_30_Q1 = [
 ];
 
 /**
+ * TOP 50 Accounts for Q2/2026 (April-June)
+ * Expands TOP 30 with 20 additional EU construction companies
+ */
+export const TOP_50_Q2 = [
+  ...TOP_30_Q1,
+
+  // Nordic Tier 2
+  'Lemminkäinen',
+  'Fira Group',
+  'Lehto Group',
+  'Bonava AB',
+  'Wästbygg Gruppen',
+  'Serneke Group',
+  'Hent AS',
+  'Kruse Smith',
+
+  // Central Europe Tier 2
+  'BAM Group',
+  'VolkerWessels',
+  'Goldbeck',
+  'Züblin (STRABAG)',
+  'Warbud',
+  'Erbud',
+  'CFE Group',
+  'Drees & Sommer',
+  'Sacyr',
+  'Dragados',
+  'Salini Impregilo',
+  'Astaldi',
+];
+
+/**
+ * TOP 100 Accounts for H2/2026 (July-December)
+ * Expands TOP 50 with 50 additional EU construction companies
+ */
+export const TOP_100_H2 = [
+  ...TOP_50_Q2,
+
+  // Nordic Tier 3
+  'Hartela',
+  'Rakennusliike Reponen',
+  'Jakon Rakennus',
+  'JL-Rakentajat',
+  'Sikla Group',
+  'Assemblin',
+  'Bravida',
+  'Instalco',
+  'Nyab Oyj',
+  'Destia',
+
+  // UK & Ireland
+  'Balfour Beatty',
+  'Kier Group',
+  'Morgan Sindall',
+  'Wates Group',
+  'Laing O\'Rourke',
+  'BAM Construct UK',
+  'Willmott Dixon',
+  'ISG',
+  'John Sisk & Son',
+  'Mercury Engineering',
+
+  // DACH Region
+  'Zech Group',
+  'Max Bögl',
+  'Lindner Group',
+  'Bauer AG',
+  'Swietelsky',
+  'Habau Group',
+  'Rhomberg Bau',
+  'Losinger Marazzi',
+  'Allplan',
+  'Doka Group',
+
+  // Iberia & Italy
+  'FCC Construcción',
+  'ACS Group',
+  'OHL',
+  'Técnicas Reunidas',
+  'Aldesa',
+  'Pizzarotti',
+  'Ghella',
+  'CMC Ravenna',
+  'Itinera',
+  'Rizzani de Eccher',
+
+  // Benelux & France
+  'Dura Vermeer',
+  'TBI Holdings',
+  'Van Oord',
+  'Boskalis',
+  'Eiffage Énergie',
+  'NGE',
+  'Spie',
+  'Colas',
+  'Demathieu Bard',
+  'Rabot Dutilleul',
+];
+
+/**
  * Get current target account list based on quarter
  */
 export function getCurrentTargetAccounts(): string[] {
@@ -72,14 +172,12 @@ export function getCurrentTargetAccounts(): string[] {
 
   // Q2 2026 (April-June) - Expand to TOP 50
   if (year === 2026 && month >= 4 && month <= 6) {
-    // TODO: Add TOP_50_Q2 list
-    return TOP_30_Q1; // Placeholder
+    return TOP_50_Q2;
   }
 
   // H2 2026 (July-December) - Expand to TOP 100
   if (year === 2026 && month >= 7) {
-    // TODO: Add TOP_100_H2 list
-    return TOP_30_Q1; // Placeholder
+    return TOP_100_H2;
   }
 
   // Default: Use Q1 list
@@ -141,12 +239,17 @@ export function getAccountPriority(company: string): string {
 
   const normalized = company.trim();
 
-  if (ultraPriority.includes(normalized)) return 'ULTRA';
-  if (highPriority.includes(normalized)) return 'HIGH';
+  if (ultraPriority.indexOf(normalized) >= 0) return 'ULTRA';
+  if (highPriority.indexOf(normalized) >= 0) return 'HIGH';
 
-  // Default based on position in list
-  const index = TOP_30_Q1.indexOf(normalized);
-  if (index >= 0 && index < 20) return 'MEDIUM';
+  // TOP 30 accounts are MEDIUM priority
+  if (TOP_30_Q1.indexOf(normalized) >= 0) return 'MEDIUM';
+
+  // TOP 50 expansion accounts are LOW priority
+  if (TOP_50_Q2.indexOf(normalized) >= 0) return 'LOW';
+
+  // TOP 100 expansion accounts are also LOW
+  if (TOP_100_H2.indexOf(normalized) >= 0) return 'LOW';
 
   return 'LOW';
 }
