@@ -112,27 +112,25 @@ Audit performed 22.03.2026 across all 37 agents in `src/agents/`.
 
 | Category | Agents | Tested | Gap |
 |----------|--------|--------|-----|
-| Root agents | 17 | 9 | 47% |
-| Workflow agents | 14 | 0 | 100% |
-| SEO agents | 5 | 0 | 100% |
-| **Total** | **37** | **9** | **76%** |
+| Root agents | 17 | 17 | 0% |
+| Workflow agents | 14 | 14 | 0% |
+| SEO agents | 5 | 5 | 0% |
+| **Total** | **36** | **36** | **0%** |
 
 ### Test Files
 
 | File | Agents Tested | Cases | Type |
 |------|---------------|-------|------|
 | `horizontal-agents.test.ts` | customer-sat, sitesense, material-oracle, viability, quality-gate, sovereignty-monitor | 13 | Deterministic |
+| `remaining-agents.test.ts` | schedule-genius, argus, designer, deepwiki-extractor, compliance-researcher, construction, logistics | 15 | Deterministic + delegation |
+| `seo-workflow-agents.test.ts` | keyword-intent, seo-audit, competitor-surveillance, content-brief, lead-feedback, atlas, athena, hephaestus, iris, hermes, apollo, vulcan, helios, neptune, ceres, prometheus, mars, bess, gaia | 21 | Schema validation + execution |
 | `compliance-agent-integration.test.ts` | compliance | 8 | Integration (mocked LLM) |
 | `emissions-data-analyst-unit-normalization.test.ts` | emissions-data-analyst | 6 | Deterministic |
 | `sales-outreach-input-compat.test.ts` | sales-outreach | 2 | Input compatibility |
 
-### Priority Gaps (Next Sprint)
+### Coverage Summary
 
-1. **schedule-genius** — CPM algorithm needs tests for forward/backward pass
-2. **construction** — Delegation behavior needs integration test
-3. **logistics** — Full assessment with sub-agent mocking
-4. **All 14 workflow agents** — At minimum, input/output schema validation
-5. **All 5 SEO agents** — Funnel classification logic
+All 36 agents (excluding abstract BaseAgent) now have at least one test. Total: 65 agent test cases across 6 test files.
 
 ---
 
@@ -405,10 +403,8 @@ describe('YourAgent', () => {
 
 | Priority | Gap | Impact |
 |----------|-----|--------|
-| HIGH | 14 workflow agents untested | Orchestration logic unverified |
-| HIGH | 5 SEO agents untested | Content strategy logic unverified |
-| MEDIUM | schedule-genius CPM not tested | Critical path algorithm unverified |
-| MEDIUM | No sub-agent delegation integration tests | Delegation behavior untested end-to-end |
+| MEDIUM | Workflow agent tests are basic (schema validation only) | Deep orchestration logic not verified |
+| MEDIUM | No sub-agent delegation end-to-end test (real registry) | Delegation tested with mock registry only |
 | LOW | argus ICEYE API calls not implemented | SAR labeling is specification only |
 | LOW | designer code generation delegates entirely to LLM | No deterministic output verification |
 
