@@ -9,10 +9,48 @@
  *
  * Volume only inside target account list.
  * Multi-threading 5-10 contacts per account.
+ * Daily send cap: 20 outbound messages per day.
  */
 
 import { db } from './database';
 import { Lead, LeadCountry } from './types';
+
+// ============================================================================
+// DAILY SEND LIMITS
+// ============================================================================
+
+/** Maximum outbound messages per day */
+export const DAILY_SEND_LIMIT = 20;
+
+/**
+ * Check if daily send limit has been reached
+ */
+export async function hasReachedDailySendLimit(): Promise<boolean> {
+  const todaySends = await db.getTodaySendCount();
+  return todaySends >= DAILY_SEND_LIMIT;
+}
+
+/**
+ * Get remaining sends for today
+ */
+export async function getRemainingSendsToday(): Promise<number> {
+  const todaySends = await db.getTodaySendCount();
+  return Math.max(0, DAILY_SEND_LIMIT - todaySends);
+}
+
+/**
+ * Enforce daily send limit before sending outbound message.
+ * Throws error if limit reached.
+ */
+export async function enforceDailySendLimit(): Promise<void> {
+  const remaining = await getRemainingSendsToday();
+  if (remaining <= 0) {
+    throw new Error(
+      `DAILY SEND LIMIT REACHED: ${DAILY_SEND_LIMIT} messages already sent today.\n` +
+      `Wait until tomorrow to send more outbound messages.`
+    );
+  }
+}
 
 // ============================================================================
 // ACCOUNT-BASED TARGETING RULES

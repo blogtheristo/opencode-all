@@ -230,6 +230,31 @@ class FirehorseDatabase {
   }
 
   // ==========================================================================
+  // DAILY SEND TRACKING
+  // ==========================================================================
+
+  /**
+   * Get total outbound sends for today (UTC)
+   */
+  async getTodaySendCount(): Promise<number> {
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+
+    const { count, error } = await this.supabase
+      .from('firehorse_events')
+      .select('*', { count: 'exact', head: true })
+      .in('event_type', ['cold_1_sent', 'cold_2_sent', 'cold_3_sent'])
+      .gte('created_at', todayStart.toISOString());
+
+    if (error) {
+      console.error('Error fetching today send count:', error);
+      return 0;
+    }
+
+    return count ?? 0;
+  }
+
+  // ==========================================================================
   // REPLY MANAGEMENT
   // ==========================================================================
 
