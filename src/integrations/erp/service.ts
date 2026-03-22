@@ -24,6 +24,14 @@ import {
   OEEMetrics,
   ERPWebhookEvent
 } from './types';
+import {
+  resolveCompanyERP,
+  resolveCompanyERPBatch,
+  getCompaniesByProvider,
+  getAllRegisteredCompanies,
+  CompanyLookupResult,
+  CompanyERPEntry
+} from './company-registry';
 
 const logger = pino({ name: 'erp-integration-service' });
 
@@ -317,6 +325,64 @@ export class ERPIntegrationService {
       settings.lastSyncAt = new Date();
       // TODO: Update in database
     }
+  }
+
+  // ============================================================================
+  // Company → ERP Resolution
+  // ============================================================================
+
+  /**
+   * Resolve a company name to its ERP provider.
+   * Returns null provider for unknown companies (manual check required).
+   */
+  resolveCompanyERP(companyName: string): CompanyLookupResult {
+    const result = resolveCompanyERP(companyName);
+
+    if (result.found) {
+      logger.info('Company ERP resolved', {
+        company: companyName,
+        provider: result.provider,
+        confidence: result.confidence,
+      });
+    } else {
+      logger.warn('Company ERP not found — manual check required', {
+        company: companyName,
+      });
+    }
+
+    return result;
+  }
+
+  /**
+   * Batch-resolve multiple company names to ERP providers.
+   */
+  resolveCompanyERPBatch(companyNames: string[]): CompanyLookupResult[] {
+    const results = resolveCompanyERPBatch(companyNames);
+
+    const found = results.filter((r) => r.found).length;
+    const notFound = results.filter((r) => !r.found).length;
+
+    logger.info('Batch company ERP resolution', {
+      total: companyNames.length,
+      found,
+      notFound,
+    });
+
+    return results;
+  }
+
+  /**
+   * List all companies registered for a specific ERP provider.
+   */
+  getCompaniesByProvider(provider: ERPProvider): CompanyERPEntry[] {
+    return getCompaniesByProvider(provider);
+  }
+
+  /**
+   * List all registered companies in the ERP registry.
+   */
+  getAllRegisteredCompanies(): CompanyERPEntry[] {
+    return getAllRegisteredCompanies();
   }
 
   private generateId(): string {
