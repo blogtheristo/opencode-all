@@ -65,7 +65,7 @@ export const COMPANY_ERP_REGISTRY: CompanyERPEntry[] = [
     country: 'SE',
     sector: 'construction',
     source: 'Skanska Annual Report 2024 — SAP S/4HANA rollout',
-    aliases: ['skanska', 'skanska ab', 'skanska sverige', 'skanska sweden', 'ifs skanska ab'],
+    aliases: ['skanska', 'skanska ab', 'skanska sverige', 'skanska sweden'],
   },
   {
     companyName: 'NCC Building',

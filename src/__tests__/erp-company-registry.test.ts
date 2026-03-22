@@ -20,11 +20,12 @@ describe('ERP Company Registry', () => {
   // ==========================================================================
 
   describe('required mappings', () => {
-    it('IFS Skanska AB → SAP', () => {
-      const result = resolveCompanyERP('IFS Skanska AB');
+    it('Skanska AB → SAP', () => {
+      const result = resolveCompanyERP('Skanska AB');
       expect(result.found).toBe(true);
       expect(result.provider).toBe(ERPProvider.SAP);
       expect(result.company?.companyName).toBe('Skanska AB');
+      expect(result.confidence).toBe('exact');
     });
 
     it('NCC Building → SAP', () => {
@@ -118,7 +119,7 @@ describe('ERP Company Registry', () => {
   describe('batch resolution', () => {
     it('resolves all 5 required companies in batch', () => {
       const results = resolveCompanyERPBatch([
-        'IFS Skanska AB',
+        'Skanska AB',
         'NCC Building',
         'Sweco Finland',
         'SRV Rakennus',
