@@ -20,6 +20,8 @@
  *   npx tsx scripts/ted-lead-sourcer.ts --min-value=5000000 --output=json
  */
 
+import { generateSectorDM, cpvToSector, sectorLabel } from './ted-sector-hooks.js';
+
 // ── Types ──────────────────────────────────────────────────────────────
 
 interface TEDSearchRequest {
@@ -181,21 +183,8 @@ function buildQuery(opts: ReturnType<typeof parseArgs>): string {
 
 // DM personalization templates — reference the specific TED tender
 // This turns cold outreach into a warm signal response
-// Two-part DM: tender hook (peer signal) + procurement referral handoff
-// TED contacts are procurement professionals, not CSO/CFO decision-makers.
-// The DM asks for explicit handoff to avoid dead-end conversations.
-const DM_PERSONALIZATION: Record<string, (buyer: string, title: string) => string> = {
-  FI: (buyer, title) =>
-    `Näin hankinnan "${title}" (${buyer}). CSRD-vaatimus koskee sitä suoraan — automatisoimme hiilijalanjälkiraportoinnin rakennushankkeille. Sopiiko että ohjaat minut oikealle henkilölle CSRD-vastuussa?`,
-  SV: (buyer, title) =>
-    `Jag såg upphandlingen "${title}" (${buyer}). CSRD-kravet gäller direkt — vi automatiserar koldioxidrapporteringen för byggprojekt. Kan du hänvisa mig till rätt person med CSRD-ansvar?`,
-  DE: (buyer, title) =>
-    `Ich habe die Ausschreibung "${title}" (${buyer}) gesehen. Die CSRD-Anforderung gilt direkt — wir automatisieren die CO2-Berichterstattung für Bauprojekte. Könnten Sie mich an die zuständige Person für CSRD weiterleiten?`,
-  FR: (buyer, title) =>
-    `J'ai vu l'appel d'offres "${title}" (${buyer}). L'exigence CSRD s'applique directement — nous automatisons le reporting carbone pour les projets de construction. Pourriez-vous me diriger vers la personne responsable CSRD ?`,
-  EN: (buyer, title) =>
-    `I saw the tender "${title}" (${buyer}). The CSRD requirement applies directly — we automate carbon reporting for construction projects. Could you point me to the right person handling CSRD compliance?`,
-};
+// DM personalization now uses sector-aware hooks from ted-sector-hooks.ts
+// CPV code → sector → regulation-specific hook → localized DM with referral handoff
 
 function noticeToLead(notice: TEDNotice): ConstructionLead {
   const country = notice['buyer-country'] || '';
@@ -204,9 +193,9 @@ function noticeToLead(notice: TEDNotice): ConstructionLead {
   const title = notice['notice-title'] || '(no title)';
   const dmLang = COUNTRY_TO_DM_LANGUAGE[country] || 'EN';
 
-  // Generate tender-specific DM opener
-  const personalizer = DM_PERSONALIZATION[dmLang] || DM_PERSONALIZATION.EN;
-  const dmPersonalization = personalizer(buyerName, title);
+  // Generate sector-aware DM opener (CPV → sector → regulation hook)
+  const cpv = notice['cpv'] || '';
+  const dmPersonalization = generateSectorDM(buyerName, title, cpv, dmLang);
 
   return {
     publicationNumber: pubNumber,
@@ -271,7 +260,7 @@ async function main(): Promise<void> {
 
   console.log('TED Lead Sourcer — DWS IQ 6');
   console.log('============================');
-  console.log(`CPV:     ${opts.cpv} (${Object.entries(CONSTRUCTION_CPV_CODES).find(([, v]) => v === opts.cpv)?.[0] || 'custom'})`);
+  console.log(`CPV:     ${opts.cpv} (${Object.entries(CONSTRUCTION_CPV_CODES).find(([, v]) => v === opts.cpv)?.[0] || 'custom'}) → ${sectorLabel(cpvToSector(opts.cpv))}`);
   console.log(`Country: ${opts.country || 'ALL'}`);
   console.log(`Days:    ${opts.days}`);
   console.log(`Limit:   ${opts.limit}`);

@@ -21,6 +21,7 @@
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { generateSectorDM, cpvToSector, sectorLabel } from './ted-sector-hooks.js';
 
 // ── Types ──────────────────────────────────────────────────────────────
 
@@ -120,22 +121,8 @@ const KNOWN_ERP: Record<string, string> = {
 };
 
 // ── DM Personalization ─────────────────────────────────────────────────
-
-// Two-part DM: tender hook (peer signal) + procurement referral handoff
-// TED contacts are procurement professionals, not CSO/CFO decision-makers.
-// The DM should ask for the handoff explicitly to avoid dead-end conversations.
-const DM_TEMPLATES: Record<string, (buyer: string, title: string) => string> = {
-  FI: (buyer, title) =>
-    `Näin hankinnan "${title}" (${buyer}). CSRD-vaatimus koskee sitä suoraan — automatisoimme hiilijalanjälkiraportoinnin rakennushankkeille. Sopiiko että ohjaat minut oikealle henkilölle CSRD-vastuussa?`,
-  SV: (buyer, title) =>
-    `Jag såg upphandlingen "${title}" (${buyer}). CSRD-kravet gäller direkt — vi automatiserar koldioxidrapporteringen för byggprojekt. Kan du hänvisa mig till rätt person med CSRD-ansvar?`,
-  DE: (buyer, title) =>
-    `Ich habe die Ausschreibung "${title}" (${buyer}) gesehen. Die CSRD-Anforderung gilt direkt — wir automatisieren die CO2-Berichterstattung für Bauprojekte. Könnten Sie mich an die zuständige Person für CSRD weiterleiten?`,
-  FR: (buyer, title) =>
-    `J'ai vu l'appel d'offres "${title}" (${buyer}). L'exigence CSRD s'applique directement — nous automatisons le reporting carbone pour les projets de construction. Pourriez-vous me diriger vers la personne responsable CSRD ?`,
-  EN: (buyer, title) =>
-    `I saw the tender "${title}" (${buyer}). The CSRD requirement applies directly — we automate carbon reporting for construction projects. Could you point me to the right person handling CSRD compliance?`,
-};
+// Sector-aware DM generation via ted-sector-hooks.ts
+// CPV code → sector → regulation-specific hook → localized DM with referral handoff
 
 // ── CLI Args ───────────────────────────────────────────────────────────
 
@@ -231,8 +218,8 @@ function enrichNotice(notice: TEDNotice): TedLeadRow {
   const dmLang = COUNTRY_TO_DM_LANG[country] || 'EN';
   const erp = matchERP(buyerName);
 
-  const personalizer = DM_TEMPLATES[dmLang] || DM_TEMPLATES.EN;
-  const dmText = personalizer(buyerName || '(company)', title || '(project)');
+  const cpv = notice['cpv'] || null;
+  const dmText = generateSectorDM(buyerName, title, cpv, dmLang);
 
   const rawValue = notice['estimated-total-value'];
   const estimatedValue = rawValue ? parseFloat(rawValue.replace(/[^0-9.]/g, '')) || null : null;
@@ -358,7 +345,7 @@ async function validateTender(pubNumber: string): Promise<void> {
   console.log(`  Publication: ${lead.publication_number}`);
   console.log(`  Title:       ${lead.title}`);
   console.log(`  Buyer:       ${lead.buyer_name} (${lead.buyer_country})`);
-  console.log(`  CPV:         ${lead.cpv}`);
+  console.log(`  CPV:         ${lead.cpv} → ${sectorLabel(cpvToSector(lead.cpv))}`);
   console.log(`  Value:       ${lead.estimated_value ? `EUR ${lead.estimated_value.toLocaleString()}` : '(not disclosed)'}`);
   console.log(`  DM Lang:     ${lead.dm_language}`);
   console.log(`  ERP:         ${lead.erp_qualifier || '(not in known list — check manually)'}`);
