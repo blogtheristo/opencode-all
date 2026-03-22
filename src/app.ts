@@ -51,6 +51,7 @@ import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
 import { requestTimeout } from './middleware/request-timeout.js';
+import { initErrorTracking, errorTrackingMiddleware } from './middleware/error-tracking.js';
 
 dotenv.config();
 
@@ -480,6 +481,9 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
 
 // ============ ERROR HANDLING ============
 
+// Error tracking middleware — captures exceptions before error handler formats response
+app.use(errorTrackingMiddleware());
+
 // 404 handler — must be after all routes
 app.use(notFoundHandler);
 
@@ -487,6 +491,9 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // ============ SERVER START ============
+
+// Initialize error tracking (Sentry when SENTRY_DSN is set, console fallback otherwise)
+initErrorTracking(app).catch(() => { /* logged internally */ });
 
 const server = app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`, {
