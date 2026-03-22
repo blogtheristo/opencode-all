@@ -181,6 +181,87 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
     },
   },
 
+  /** Store a memory for later recall */
+  memory_store: {
+    name: 'memory_store',
+    description:
+      'Store a fact, preference, or knowledge as a persistent memory. Memories are embedded for vector search and scoped to the organization.',
+    parameters: {
+      type: 'object',
+      properties: {
+        content: {
+          type: 'string',
+          description: 'The content/text to remember',
+        },
+        memory_type: {
+          type: 'string',
+          enum: ['preference', 'knowledge', 'procedure', 'episode', 'fact', 'profile'],
+          description: 'Type of memory (default: knowledge)',
+        },
+        source: {
+          type: 'string',
+          description: 'Source of this memory (e.g., "conversation", "document", "manual")',
+        },
+        metadata: {
+          type: 'object',
+          description: 'Additional metadata tags',
+        },
+      },
+      required: ['content'],
+    },
+  },
+
+  /** Recall memories by semantic/hybrid search */
+  memory_recall: {
+    name: 'memory_recall',
+    description:
+      'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Natural language search query',
+        },
+        memory_type: {
+          type: 'string',
+          enum: ['preference', 'knowledge', 'procedure', 'episode', 'fact', 'profile'],
+          description: 'Filter by memory type (optional)',
+        },
+        limit: {
+          type: 'number',
+          description: 'Maximum results to return (default: 5)',
+        },
+        similarity_threshold: {
+          type: 'number',
+          description: 'Minimum similarity score 0-1 (default: 0.5)',
+        },
+      },
+      required: ['query'],
+    },
+  },
+
+  /** Soft-delete a memory */
+  memory_forget: {
+    name: 'memory_forget',
+    description:
+      'Soft-delete a memory by ID. The memory is marked as expired (not hard-deleted) for audit compliance.',
+    parameters: {
+      type: 'object',
+      properties: {
+        memory_id: {
+          type: 'string',
+          description: 'UUID of the memory to forget',
+        },
+        reason: {
+          type: 'string',
+          description: 'Reason for forgetting this memory (logged for audit)',
+        },
+      },
+      required: ['memory_id', 'reason'],
+    },
+  },
+
   /** Emit an event to the event bus */
   emit_event: {
     name: 'emit_event',
@@ -323,6 +404,69 @@ export function registerBuiltinTools(): void {
     return { emitted: true, eventType };
   });
 
+  // Memory store handler
+  registerToolHandler('memory_store', async (args, context) => {
+    const { memoryService } = await import('./memory.service.js');
+    const content = args.content as string;
+    const memoryType = (args.memory_type as string) || 'knowledge';
+    const source = (args.source as string) || 'agent';
+    const metadata = (args.metadata as Record<string, unknown>) || {};
+
+    const result = await memoryService.store({
+      content,
+      memoryType: memoryType as 'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile',
+      orgId: context.orgId,
+      source,
+      metadata,
+    });
+
+    return result;
+  });
+
+  // Memory recall handler
+  registerToolHandler('memory_recall', async (args, context) => {
+    const { memoryService } = await import('./memory.service.js');
+    const query = args.query as string;
+    const memoryType = args.memory_type as string | undefined;
+    const limit = (args.limit as number) || 5;
+    const threshold = (args.similarity_threshold as number) || 0.5;
+
+    const result = await memoryService.recall({
+      query,
+      memoryType: memoryType as 'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile' | undefined,
+      orgId: context.orgId,
+      limit,
+      similarityThreshold: threshold,
+    });
+
+    return {
+      memories: result.memories.map((m) => ({
+        id: m.id,
+        content: m.content,
+        type: m.memoryType,
+        similarity: m.similarity,
+        confidence: m.confidence,
+        source: m.source,
+      })),
+      totalMatches: result.totalMatches,
+      searchMethod: result.searchMethod,
+      durationMs: result.durationMs,
+    };
+  });
+
+  // Memory forget handler
+  registerToolHandler('memory_forget', async (args, context) => {
+    const { memoryService } = await import('./memory.service.js');
+    const memoryId = args.memory_id as string;
+    const reason = args.reason as string;
+
+    return memoryService.forget({
+      memoryId,
+      orgId: context.orgId,
+      reason,
+    });
+  });
+
   // Agent delegation handler (wired to registry)
   registerToolHandler('delegate_to_agent', async (args, context) => {
     // Lazy import to avoid circular dependency
@@ -346,6 +490,6 @@ export function registerBuiltinTools(): void {
   });
 
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'delegate_to_agent'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'delegate_to_agent'],
   });
 }
