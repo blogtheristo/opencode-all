@@ -1,6 +1,6 @@
 # Campaign Analytics & Reporting
 
-> **Status: SKELETON** — Python report engine exists (`report_engine.py`) but has no templates, no API endpoints, and no orchestration. See AGENTS.md §19 Product Maturity Matrix.
+> **Status: SHIPPED** — TypeScript report module at `src/firehorse/report-module.ts` generates Board Pack, Annual Report, Compliance Summary, and Carbon Footprint formats from DWS IQ validated data. API routes at `/api/v1/firehorse/reports/*`. Legacy Python engine (`report_engine.py`) superseded.
 
 ## Overview
 

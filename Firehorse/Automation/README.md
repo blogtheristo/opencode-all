@@ -1,6 +1,6 @@
 # Campaign Automation
 
-> **Status: ALPHA** — FastAPI stub exists (`main.py`) with in-memory storage. No database persistence, no real workflow execution logic. See AGENTS.md §19 Product Maturity Matrix.
+> **Status: SHIPPED** — TypeScript workflow engine at `src/firehorse/workflow-engine.ts` with 4 built-in templates, Supabase persistence, and API routes. Legacy Python stub (`main.py`) superseded.
 
 ## Overview
 

@@ -520,8 +520,8 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 | Firehorse Omnichannel (sales automation) | ✅ Shipped | `src/firehorse/` — state machine, scheduler, 15 routes, mounted in app.ts |
 | Firehorse Signal-Based Sales | ✅ Shipped | Migration 012, ULTRA/HIGH correlation, approval workflow |
 | Firehorse Signed Reports (DocuSign) | ✅ Shipped | `src/firehorse/signed-reports.ts` — eSignature integration |
-| Firehorse Report Module | 🔧 In Progress | Python engine exists (`report_engine.py`), needs templates + API orchestration |
-| Firehorse Automation (workflows) | 🔧 Alpha | FastAPI stub (`main.py`), needs persistence + real workflow logic |
+| Firehorse Report Module | ✅ Shipped | `src/firehorse/report-module.ts` — Board Pack, Annual Report, Compliance, Carbon formats. Pulls from compliance engine + ERP data |
+| Firehorse Automation (workflows) | ✅ Shipped | `src/firehorse/workflow-engine.ts` — 4 templates (compliance, lead-nurture, ERP sync, carbon). Supabase persistence |
 | Firehorse ContentMS | 📋 Planned | Architecture documented, zero implementation code |
 
 ### Infrastructure & Security
