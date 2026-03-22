@@ -71,8 +71,9 @@ Upside:               Valuation growth only
 **Email**: investor@dws10.com  
 **Alternative**: risto@lifetime.fi  
 
-**Full Details**: https://dws10.com/investor-relations/  
-**Pitch Video**: https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs  
+**Captain Page**: https://dws10.com/captain/
+**Full Deck**: https://dws10.com/captain/deck/
+**Pitch Video**: https://youtu.be/7pLs8IEzZfg?si=XggZ67cAusqnXjzs
 **Crunchbase**: https://www.crunchbase.com/organization/lifetime-oy  
 
 ---
@@ -93,7 +94,7 @@ Excel into audit-ready reports.
 €7k MRR, 100% retention, 2 pilots converting Q1. Raising €500k 
 SAFE (€3.8M cap) to scale to 5 flagship portfolios.
 
-Full details: https://dws10.com/investor-relations/
+Full details: https://dws10.com/captain/
 
 Open to a brief call?
 
@@ -119,7 +120,7 @@ Our traction: €7k MRR, 100% retention, €70k–€120k LTV per customer.
 
 Raising €500k SAFE to convert 2 pilots + onboard 3 more portfolios.
 
-Would value your take: https://dws10.com/investor-relations/
+Would value your take: https://dws10.com/captain/
 
 Best,
 Risto
@@ -140,7 +141,7 @@ construction portfolios.
 Raising €500k SAFE (€15k–€50k angel tickets). For €15k, that's 
 ~3–4x paper uplift at €15M Series A, full capital at risk.
 
-Details: https://dws10.com/investor-relations/
+Details: https://dws10.com/captain/
 
 Quick call this week?
 
@@ -161,7 +162,7 @@ Noticed your focus on [climate tech / construction tech / ESG].
 We're automating CSRD compliance for construction portfolios 
 (€7k MRR, 100% retention). Raising €500k SAFE to scale.
 
-Worth a quick call? Full details: https://dws10.com/investor-relations/
+Worth a quick call? Full details: https://dws10.com/captain/
 
 Best,
 Risto
@@ -179,7 +180,7 @@ We're building CSRD automation for construction (€7k MRR,
 
 Raising €500k SAFE. Worth exploring?
 
-Details: https://dws10.com/investor-relations/
+Details: https://dws10.com/captain/
 
 - Risto
 ```
@@ -346,7 +347,8 @@ A: Finland (AAA credit rating, strong IP protection, Nordic innovation ecosystem
 - **Full Investor Memo**: See `INVESTOR_MEMO.md` (complete terms, FAQs, scenarios)
 - **Targeting Guide**: See `TARGETING_QUICK_REFERENCE.md` (investor profiles)
 - **Workflow Guide**: See `OUTREACH_WORKFLOW.md` (complete system)
-- **Investor Page**: https://dws10.com/investor-relations/
+- **Captain Page**: https://dws10.com/captain/
+- **Captain Deck**: https://dws10.com/captain/deck/
 
 ---
 
