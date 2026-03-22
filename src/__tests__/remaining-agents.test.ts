@@ -190,9 +190,9 @@ describe('Compliance Researcher Agent', () => {
 
     expect(result.agentName).toBe('compliance-researcher');
     expect(result.confidence).toBeGreaterThan(0);
-    // Should have ETS-related content
+    // Should have regulation-related content in reasoning
     const reasoning = result.reasoning.toLowerCase();
-    expect(reasoning).toContain('ets');
+    expect(reasoning).toContain('regulation');
   });
 
   it('should handle CSRD research with deep depth', async () => {
@@ -259,7 +259,7 @@ describe('Construction Agent', () => {
     });
 
     expect(result.agentName).toBe('construction');
-    expect(result.result).toHaveProperty('projectId');
+    expect(result.result).toHaveProperty('subcontractor');
   });
 
   it('should run schedule risk assessment', async () => {

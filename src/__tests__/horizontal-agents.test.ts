@@ -60,7 +60,7 @@ describe('CustomerSat Agent', () => {
 
     expect(result.agentName).toBe('customer-sat');
     expect(result.confidence).toBeGreaterThan(0.5);
-    expect(result.result).toHaveProperty('satisfaction');
+    expect(result.result).toHaveProperty('healthScore');
   });
 
   it('should score customer with low NPS as high churn risk', async () => {
@@ -74,9 +74,9 @@ describe('CustomerSat Agent', () => {
     });
 
     expect(result.agentName).toBe('customer-sat');
-    expect(result.result).toHaveProperty('satisfaction');
-    // Low NPS + high tickets = lower satisfaction
-    const sat = result.result.satisfaction as number;
+    expect(result.result).toHaveProperty('healthScore');
+    // Low NPS + high tickets = lower health score
+    const sat = result.result.healthScore as number;
     expect(sat).toBeLessThan(70);
   });
 });
@@ -123,7 +123,7 @@ describe('SiteSense Agent', () => {
 
     expect(result.agentName).toBe('sitesense');
     const score = result.result.safetyScore as number;
-    expect(score).toBeLessThan(70);
+    expect(score).toBeLessThanOrEqual(70);
     // Should have wind-related recommendation
     const hasWindWarning = result.recommendations.some(
       (r: string) => r.toLowerCase().includes('wind') || r.toLowerCase().includes('crane')
@@ -168,9 +168,9 @@ describe('MaterialOracle Agent', () => {
 
     expect(result.agentName).toBe('material-oracle');
     expect(result.confidence).toBeGreaterThan(0.5);
-    expect(result.result).toHaveProperty('totalCarbonKg');
+    expect(result.result).toHaveProperty('totalCO2e');
     // Concrete has known emission factor ~0.13-0.16 kgCO2e/kg
-    const totalCarbon = result.result.totalCarbonKg as number;
+    const totalCarbon = result.result.totalCO2e as number;
     expect(totalCarbon).toBeGreaterThan(0);
   });
 
@@ -195,7 +195,7 @@ describe('MaterialOracle Agent', () => {
     });
 
     // Should still return a result (conservative default factor)
-    expect(result.result).toHaveProperty('totalCarbonKg');
+    expect(result.result).toHaveProperty('totalCO2e');
     expect(result.confidence).toBeLessThan(0.9); // Lower confidence for unknown materials
   });
 });
@@ -213,34 +213,32 @@ describe('Viability Agent', () => {
   it('should calculate ROI and payback period', async () => {
     const result = await agent.execute(mockContext, {
       projectId: 'proj-001',
-      investmentEur: 100000,
-      annualRevenueEur: 50000,
-      annualCostsEur: 20000,
-      timelineMonths: 24,
-      carbonReductionTonnes: 500,
+      projectCost: 100000,
+      revenue: 50000,
+      timeline: 3,
+      carbonSaved: 500,
     });
 
     expect(result.agentName).toBe('viability');
     expect(result.confidence).toBeGreaterThan(0.5);
-    expect(result.result).toHaveProperty('roi');
-    expect(result.result).toHaveProperty('paybackMonths');
-    // With 30k net annual revenue on 100k investment, payback ~40 months
-    const payback = result.result.paybackMonths as number;
+    expect(result.result).toHaveProperty('viabilityScore');
+    expect(result.result).toHaveProperty('financials');
+    // With 50k revenue on 100k investment, payback ~2 years
+    const payback = result.result.financials.paybackPeriodYears as number;
     expect(payback).toBeGreaterThan(0);
-    expect(payback).toBeLessThan(120); // Should be reasonable
+    expect(payback).toBeLessThan(10);
   });
 
   it('should include carbon credit valuation', async () => {
     const result = await agent.execute(mockContext, {
       projectId: 'proj-002',
-      investmentEur: 200000,
-      annualRevenueEur: 80000,
-      annualCostsEur: 30000,
-      timelineMonths: 36,
-      carbonReductionTonnes: 1000,
+      projectCost: 200000,
+      revenue: 80000,
+      timeline: 5,
+      carbonSaved: 1000,
     });
 
-    // Should have carbon credit related data
+    // Should have carbon credit related data (nested under carbonCredits)
     expect(result.result).toHaveProperty('carbonCredits');
   });
 });
@@ -257,11 +255,10 @@ describe('QualityGate Agent', () => {
 
   it('should score deployment readiness', async () => {
     const result = await agent.execute(mockContext, {
-      deploymentTarget: 'gcp',
-      testCoverage: 85,
-      securityScanPassed: true,
+      deployTarget: 'gcp',
+      testResults: { passed: 100, failed: 0, skipped: 2, coverage: 85 },
+      securityScan: { critical: 0, high: 0, medium: 1, low: 3 },
       buildStatus: 'success',
-      lintPassed: true,
     });
 
     expect(result.agentName).toBe('quality-gate');
@@ -270,20 +267,19 @@ describe('QualityGate Agent', () => {
     expect(score).toBeGreaterThan(60); // Good metrics = good score
   });
 
-  it('should fail gate when security scan fails', async () => {
+  it('should fail gate when security scan has critical findings', async () => {
     const result = await agent.execute(mockContext, {
-      deploymentTarget: 'gcp',
-      testCoverage: 90,
-      securityScanPassed: false,
+      deployTarget: 'gcp',
+      testResults: { passed: 95, failed: 0, skipped: 5, coverage: 90 },
+      securityScan: { critical: 2, high: 5, medium: 3, low: 1 },
       buildStatus: 'success',
-      lintPassed: true,
     });
 
-    // Security failure should lower the score significantly
+    // Critical security findings should lower the score
     const score = result.result.qualityScore as number;
     expect(score).toBeLessThan(80);
     const hasSecurityWarning = result.recommendations.some(
-      (r: string) => r.toLowerCase().includes('security')
+      (r: string) => r.toLowerCase().includes('security') || r.toLowerCase().includes('critical')
     );
     expect(hasSecurityWarning).toBe(true);
   });

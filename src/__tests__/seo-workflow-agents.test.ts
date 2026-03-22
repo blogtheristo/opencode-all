@@ -11,6 +11,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { AgentContext } from '../agents/types.js';
 
+// Mock global fetch to prevent real HTTP calls (SEO agents fetch URLs)
+vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+  ok: true,
+  status: 200,
+  text: async () => '<html><head><title>Mock</title></head><body>Mock page</body></html>',
+  json: async () => ({}),
+  headers: new Headers({ 'content-type': 'text/html' }),
+}));
+
 vi.mock('../agents/base.agent.js', () => ({
   BaseAgent: class {
     config: any;
@@ -23,6 +32,22 @@ vi.mock('../agents/base.agent.js', () => ({
         model: 'mock',
         inputTokens: 0,
         outputTokens: 0,
+      };
+    }
+    async runLoop() {
+      return {
+        content: JSON.stringify({
+          findings: [{ agent: 'mock', urgency: 'medium', finding: 'Mock finding' }],
+          summary: 'Mock atlas summary',
+        }),
+        model: 'mock',
+        inputTokens: 0,
+        outputTokens: 0,
+        iterations: [
+          { phase: 'act', actions: [{ name: 'compliance' }] },
+          { phase: 'observe', actions: [] },
+        ],
+        totalTokens: { input: 100, output: 50 },
       };
     }
   },
@@ -467,14 +492,13 @@ describe('BESS Agent (Battery Storage)', () => {
     agent = new mod.BESSAgent();
   });
 
-  it('should execute battery storage assessment', async () => {
+  it('should execute battery storage quick estimate', async () => {
     const result = await agent.execute(ctx, {
-      query: 'Assess BESS compliance',
-      industry: 'energy-storage',
+      quickEstimate: { energyMwh: 100, country: 'FI', roundtripEfficiency: 0.9 },
     });
 
     expect(result.agentName).toBe('bess');
-    expect(result.confidence).toBeGreaterThan(0);
+    expect(result.confidence).toBeGreaterThanOrEqual(0.6);
   });
 });
 
