@@ -98,7 +98,7 @@ Hi [First name],
 
 I'm building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. The governance layer (KYA — Know Your Agent) provides hardware-attested isolation and court-defensible audit trails that reduce D&O insurance premiums by 8-12%.
 
-We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Inception, Microsoft Founders Hub, Google, AWS, Groq, and Acer Finland. 100% EU data residency (Finland, Germany).
+We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Inception, Microsoft Founders Hub, Google, AWS (Consulting Partner), Groq, Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
 
 I'm offering seats in a **SAFE at EUR 3.8M cap** — from EUR 50K Industry Captain seats (8 available, one per industry) to a single EUR 500K Fleet Admiral seat with board observer rights.
 
@@ -185,7 +185,7 @@ Lifetime Oy
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences
 
 ### Partnerships
-- **NVIDIA Inception**, Microsoft Founders Hub (L1-L4), Google, AWS, Groq, Acer Finland
+- **NVIDIA Inception**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
 - Three **InvestEU Portal** listings (INPO-20254383)
 - 100% EU data residency (Finland, Germany, Netherlands)
 
