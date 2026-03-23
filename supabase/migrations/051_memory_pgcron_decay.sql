@@ -10,6 +10,15 @@
 --
 -- NOTE: pg_cron must be enabled in Supabase Dashboard → Extensions first.
 -- This migration is idempotent — safe to re-run.
+--
+-- PRE-FLIGHT CHECK (run before applying):
+--   SELECT * FROM pg_extension WHERE extname = 'pg_cron';
+--   If empty → enable in Supabase Dashboard → Database → Extensions → pg_cron
+--   pg_cron requires Supabase Pro plan or higher.
+--
+-- AUDIT POLICY: KYA-S §10 requires court-defensible audit trail.
+-- Audit logs are NEVER deleted — they are archived to memory_audit_log_archive
+-- after 1 year for long-term retention and legal discovery.
 
 BEGIN;
 
@@ -101,12 +110,34 @@ SELECT cron.schedule(
   $$SELECT * FROM consolidate_memories(0.92, NULL)$$
 );
 
--- 3. Monthly audit log cleanup (keep 90 days)
---    Prunes old audit entries to control table size
+-- 3. Monthly audit log archival (move records older than 1 year to cold table)
+--    KYA-S §10 requires court-defensible chain of custody — NEVER delete audit logs.
+--    Instead, archive to memory_audit_log_archive for long-term retention.
+--    Active table stays fast; archive is queryable for compliance/legal discovery.
+
+-- Archive table (created once, append-only, immutable)
+CREATE TABLE IF NOT EXISTS memory_audit_log_archive (
+  LIKE memory_audit_log INCLUDING ALL
+);
+-- RLS: same policy as source — org isolation, immutable
+ALTER TABLE memory_audit_log_archive ENABLE ROW LEVEL SECURITY;
+CREATE POLICY IF NOT EXISTS "audit_archive_org_isolation"
+  ON memory_audit_log_archive FOR SELECT
+  USING (org_id = current_setting('app.org_id', true));
+-- No UPDATE/DELETE policies — archive is append-only
+
 SELECT cron.schedule(
-  'memory-audit-cleanup-monthly',
+  'memory-audit-archive-monthly',
   '0 5 1 * *',  -- 05:00 UTC on 1st of each month
-  $$DELETE FROM memory_audit_log WHERE created_at < NOW() - INTERVAL '90 days'$$
+  $$
+    WITH moved AS (
+      DELETE FROM memory_audit_log
+      WHERE created_at < NOW() - INTERVAL '365 days'
+      RETURNING *
+    )
+    INSERT INTO memory_audit_log_archive
+    SELECT * FROM moved
+  $$
 );
 
 COMMIT;
@@ -118,4 +149,7 @@ COMMIT;
 -- To unschedule:
 --   SELECT cron.unschedule('memory-decay-daily');
 --   SELECT cron.unschedule('memory-consolidation-weekly');
---   SELECT cron.unschedule('memory-audit-cleanup-monthly');
+--   SELECT cron.unschedule('memory-audit-archive-monthly');
+--
+-- To query archived audit logs:
+--   SELECT * FROM memory_audit_log_archive WHERE org_id = 'your-org' ORDER BY created_at DESC;
