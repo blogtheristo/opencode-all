@@ -115,6 +115,41 @@ export function FirehorsePipelinePage() {
         </div>
       </div>
 
+      {/* Conversion funnel */}
+      {leads.length > 0 && (
+        <div className="card mb-6">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">Pipeline Funnel</h3>
+          <div className="space-y-2">
+            {[
+              { label: 'New', key: 'New', color: 'bg-blue-500' },
+              { label: 'Cold Outreach', key: 'Cold_1_Sent', color: 'bg-yellow-500' },
+              { label: 'Engaged', key: 'Engaged', color: 'bg-green-500' },
+              { label: 'Meeting Booked', key: 'Meeting_Booked', color: 'bg-emerald-500' },
+              { label: 'Converted', key: 'Converted', color: 'bg-sky-500' },
+            ].map((stage) => {
+              const count = leadsByState[stage.key] || 0;
+              const pct = leads.length > 0 ? Math.round((count / leads.length) * 100) : 0;
+              return (
+                <div key={stage.key} className="flex items-center gap-3">
+                  <span className="text-xs text-gray-500 w-28 text-right">{stage.label}</span>
+                  <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+                    <div
+                      className={`h-full ${stage.color} rounded-full transition-all duration-500 flex items-center justify-end pr-2`}
+                      style={{ width: `${Math.max(pct, 2)}%` }}
+                    >
+                      {pct > 8 && (
+                        <span className="text-[10px] text-white font-medium">{count}</span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="text-xs text-gray-400 w-10">{pct}%</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Tab selector */}
       <div className="flex bg-gray-100 rounded-lg p-1 mb-4 w-fit">
         <button
