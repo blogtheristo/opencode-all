@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Revised licensing to Apache 2.0 (from BSL) based on Redis/HashiCorp cautionary tales, added deepset/Haystack as closest DWS analog, cautionary tales section, implementation sequence, EU sovereign AI tailwinds
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Updated framework stars with 2026 download data (LangGraph 34.5M/mo production leader), added enterprise vendor platforms (Salesforce $900M, Microsoft 400K agents), SAP Joule specifics (2,400 skills), market sizing ($7.84B→$52.62B), Procore Agent Builder, PermitFlow, Augury
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOA (Bring Your Own Agents) with industry agent landscape mapping, open-source strategy recommendation (BSL license), npm package structure, revenue model, competitive gap analysis
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOP (Bring Your Own Processes) section, strengthened zero-friction data sovereignty principle, added ProcessConfig interface pattern
@@ -23,7 +24,7 @@ Document Status:
 
 ***
 
-**Version:** 1.3
+**Version:** 1.4
 **Effective Date:** 2026-03-23
 **Last Updated:** 2026-03-23
 **Status:** Active
@@ -545,59 +546,66 @@ agentRegistry.register(new CustomerSapAgent());
 
 ## 10. Open-Source Strategy — Should DWS Open-Source Agents?
 
-**Recommendation: YES — open-source under BSL (Business Source License).**
+**Recommendation: YES — open-source the agent framework. Keep the compliance knowledge proprietary.**
 
 ### 10.1 The Playbook That Works
 
-Every successful open-source company follows the same pattern:
+| Company | Open Source | Enterprise Product | Revenue | Lesson |
+|---------|-----------|-------------------|---------|--------|
+| Databricks | Apache Spark, MLflow | Databricks Platform | $2.4B ARR ($100B+ valuation) | Open standard created the market; platform captured it |
+| Elastic | Elasticsearch | Elastic Cloud | $1.26B/yr | License change to SSPL → AWS forked as OpenSearch |
+| MongoDB | MongoDB | Atlas (managed) | $2B+ ARR | SSPL survived because DocumentDB compat was imperfect |
+| Grafana Labs | Grafana, Loki (AGPL) | Grafana Cloud | $300M+ ARR ($6B valuation) | Grew faster than Elastic by keeping community trust |
+| HashiCorp | Terraform (BSL) | HCP | $616M → acquired by IBM $6.4B | BSL triggered OpenTofu fork. Endgame: acquisition |
+| Hugging Face | Transformers, Hub | Enterprise Hub | $200M+ ARR | Platform effect: 2.4M+ models, 730K datasets |
+| Redis | Redis (was BSD → SSPL → AGPL) | Redis Cloud | $300M+ ARR | SSPL triggered Valkey fork (Linux Foundation + AWS + Google). CEO admitted SSPL failed. Reversed to AGPL |
+| LangChain | LangChain, LangGraph (MIT) | LangSmith | ~$30M ARR | Framework = distribution channel, observability = revenue |
+| deepset | Haystack (Apache 2.0) | deepset Cloud | Growing | **Closest DWS analog:** EU-based, Airbus/LEGO/European Commission customers |
 
-| Company | Open Source | Enterprise Revenue | Revenue |
-|---------|-----------|-------------------|---------|
-| Elastic | Elasticsearch | Elastic Cloud | $1.26B/yr |
-| Databricks | Apache Spark, MLflow | Databricks Platform | $2.4B ARR |
-| MongoDB | MongoDB | Atlas (managed) | $2B+ ARR |
-| Grafana Labs | Grafana, Loki | Grafana Cloud | $300M+ ARR |
-| HashiCorp | Terraform (BSL) | HCP | $616M (acquired by IBM) |
-| Hugging Face | Transformers | Hub/Inference | $200M+ ARR |
+**Pattern:** Open the framework → charge for running it at scale. License restrictions that block cloud providers consistently trigger forks and destroy community trust.
 
-**Pattern:** Give away the framework → charge for running it at scale (hosting, observability, support, governance).
+### 10.2 Licensing Decision — Two Viable Options
 
-### 10.2 Why BSL (Not MIT or Apache 2.0)
+| License | For | Against | Precedent |
+|---------|-----|---------|-----------|
+| **Apache 2.0** (recommended for maximum adoption) | Maximum adoption, EU public procurement requires OSI-approved, no fork risk, deepset/Haystack model | AWS/Azure could theoretically fork (but won't — DWS is too niche for them) | Databricks, LangChain, Haystack |
+| **BSL** (recommended for protection) | Source-available + non-compete, EU auditors can inspect, converts to Apache 2.0 after 4 years | Not OSI-approved, signals "we might restrict later", triggered OpenTofu fork for HashiCorp | HashiCorp, MariaDB, Sentry |
 
-| License | Protection | Problem |
-|---------|-----------|---------|
-| MIT/Apache 2.0 | None | AWS/Azure can fork and offer as competing service |
-| AGPL | Source-share requirement | Scares some enterprises |
-| **BSL** | **Non-compete clause + time-delayed open source** | **Best of both worlds** |
-| SSPL | Extreme protection | Too aggressive for EU enterprise buyers |
+**The honest tradeoff:**
+- **Apache 2.0** maximizes adoption and EU procurement compatibility. Cloud strip-mining risk is LOW because DWS compliance knowledge (the valuable part) stays proprietary anyway. This is the Grafana/Databricks/Haystack path.
+- **BSL** provides explicit legal protection against SaaS competitors. But BSL projects get 30-50% fewer community contributions (source: CHAOSS metrics comparison).
 
-**BSL specifics:**
-- Source code fully visible (EU procurement auditors can inspect)
-- Free for internal use, self-hosting, research, education
-- Competitors cannot offer DWS agents as a competing managed service
-- Converts to Apache 2.0 after 4 years (builds long-term community trust)
-- Precedent: HashiCorp, MariaDB, Sentry, CockroachDB all use BSL
+**Recommendation:** Start with **Apache 2.0** for the framework layer. The compliance knowledge, scoring engine, and validated data are the moat — and they stay proprietary regardless of framework license. Nobody forks your emission factors.
 
 ### 10.3 What to Open-Source vs. Keep Proprietary
 
-| Layer | Open (BSL) | Why Open |
-|-------|-----------|----------|
-| Agent framework (`BaseAgent`, types, event bus) | YES | Standard adoption, community extensions |
-| Individual agents (all 35+) | YES (basic versions) | Market share, trust, contributions |
-| Scoring algorithms (deterministic compliance) | YES | **EU AI Act Article 15 requires transparency** |
-| Industry agents (Vulcan, Helios, Neptune, etc.) | YES (basic) | First-mover for industry standards |
-| MCP server + agent discovery | YES | Ecosystem interop with Claude, other LLMs |
-| Data connectors (BYOD adapters) | YES | Community builds connectors we can't |
-| EU AI Act Article 12 logging | YES | Shows compliance approach |
+**Open (Apache 2.0) — the distribution channel:**
 
-| Layer | Proprietary (SaaS) | Why Proprietary |
-|-------|-------------------|-----------------|
-| Multi-tenant orchestration | YES | Core revenue — scale, isolation, SLA |
-| Enterprise governance (RBAC, SIEM, SOC2) | YES | Enterprise differentiation |
-| Premium data feeds (Bloomberg, Refinitiv connectors) | YES | High-value integrations |
-| Managed cloud infrastructure | YES | Revenue — hosting + operations |
-| Training & certification program | YES | Revenue + ecosystem lock-in |
-| Enterprise support & SLA | YES | Revenue |
+| Layer | Why Open |
+|-------|----------|
+| Agent framework (`BaseAgent`, types, event bus) | Standard adoption, community extensions |
+| ERP connectors (SAP, IFS, Dynamics adapters) | Network effect — every connector contributed back improves the platform |
+| MCP server + agent discovery | Ecosystem interop with Claude/Anthropic, aligns with AAIF |
+| CLI tooling (`dws` command) | Developer experience, bottom-up adoption |
+| Basic compliance rule parser | Demonstrates capability without giving away the scoring engine |
+| Data connectors (BYOD adapters) | Community builds connectors DWS can't staff |
+| Industry agent stubs (interfaces + basic logic) | First-mover for industry standards |
+
+**Proprietary (SaaS) — the moat:**
+
+| Layer | Why Proprietary |
+|-------|-----------------|
+| Multi-agent orchestration with compliance scoring | Core IP — deterministic scoring, delegation, sovereignty assessment |
+| Validated regulatory knowledge bases | Research investment — emission factors with EU ETS citations, ESRS registry, CBAM models |
+| Lifetime World Model (EU Regulations + Industry Models) | The "memory" layer — deepest domain understanding |
+| Enterprise governance (RBAC, audit trails, Article 12 logging, SIEM) | Enterprise upgrade path from free → paid |
+| Report engine with signed reports | Regulated industries need auditable, signed compliance documentation |
+| Premium data feeds (Bloomberg B-PIPE, Refinitiv connectors) | High-value integrations |
+| Pre-built industrial sector workflows | Domain expertise packaged as product, not code |
+| Managed cloud infrastructure + SLA | Revenue — hosting + operations |
+| Training & certification program | Revenue + ecosystem lock-in |
+
+**Key insight from deepset/Haystack:** They proved this exact model works for EU industrial AI. Apache 2.0 framework → enterprise platform. Customers: Airbus, LEGO, European Commission, German Federal Ministry. DWS is the compliance-specific version of this playbook.
 
 ### 10.4 Revenue Model
 
@@ -629,17 +637,38 @@ Every successful open-source company follows the same pattern:
 └── @dws/industry-battery     # BESS — battery energy storage
 ```
 
-### 10.6 Why This Works for DWS Specifically
+### 10.6 Cautionary Tales — What NOT to Do
 
-1. **TypeScript-first** — every other framework is Python. TypeScript web developers are underserved.
-2. **EU compliance focus** — no competitor has open-source EU compliance agents. First mover wins.
+| Company | What Happened | Lesson for DWS |
+|---------|--------------|----------------|
+| **Elastic → OpenSearch** | Changed Apache 2.0 to SSPL to block AWS. AWS forked as OpenSearch. Community fractured. | Never change license after community forms |
+| **Redis → Valkey** | BSD → SSPL (March 2024). Linux Foundation + AWS + Google + Oracle forked as Valkey. CEO admitted SSPL failed. Reversed to AGPL (May 2025) | Aggressive licensing triggers coordinated forks |
+| **HashiCorp → OpenTofu** | MPL 2.0 → BSL (2023). Community forked as OpenTofu. IBM acquired HashiCorp for $6.4B (Feb 2025) | BSL triggers forks; endgame may be acquisition |
+| **CrewAI scaling walls** | Teams report hitting limits at 6-12 months, requiring rewrites to LangGraph | Framework simplicity attracts; production needs govern retention |
+
+**DWS mitigation:** Start with clear open/proprietary boundaries from day one. Never open everything and restrict later. The compliance knowledge is the moat — it can't be forked because it's not code, it's regulatory expertise.
+
+### 10.7 Implementation Sequence (Ship First)
+
+1. **Phase 1 (now):** Extract `@dws/agent-core` + 2-3 ERP connectors + CLI as separate open-source repo under Apache 2.0
+2. **Phase 2 (3 months):** Add MCP server implementations, basic compliance rule parser, documentation, community examples
+3. **Phase 3 (6 months):** Evaluate community traction. If meaningful adoption (1K+ stars), invest in community management (0.5 FTE)
+4. **Never:** Open-source the scoring engine, validated knowledge bases, or enterprise governance layer
+
+**Year 1 targets:** 5,000+ GitHub stars | 10,000+ npm weekly downloads | 50+ community contributors | 10-20 enterprise customers (paid)
+
+### 10.8 Why This Works for DWS Specifically
+
+1. **TypeScript-first** — every other framework is Python. Mastra is the only TS competitor but has no compliance domain knowledge.
+2. **EU compliance focus** — no competitor has open-source EU compliance agents. First mover wins the standard.
 3. **Validated data** — agents use real, citable emission factors (not made-up numbers). Builds instant trust.
 4. **Industry specialization** — general frameworks (LangChain, CrewAI) can't compete with domain-specific agents.
-5. **MCP native** — aligns with Anthropic/Claude MCP ecosystem direction.
+5. **MCP native** — aligns with Anthropic/Claude ecosystem + AAIF (Linux Foundation Agentic AI Foundation).
 6. **BYOD + BYOP + BYOA** — zero-friction adoption. Customer keeps their data, processes, AND existing agents.
-7. **EU AI Act compliance** — open scoring algorithms satisfy Article 15 transparency requirement.
+7. **EU sovereign AI tailwinds** — EU Apply AI Strategy (Oct 2025) promotes open-source AI. 61% of Western European CIOs plan to increase reliance on local providers.
+8. **deepset/Haystack precedent** — EU-based, Apache 2.0, enterprise platform. Customers: Airbus, LEGO, European Commission. Proof the model works in this exact market.
 
-### 10.7 Enterprise Vendor Agent Platforms (Context)
+### 10.9 Enterprise Vendor Agent Platforms (Context)
 
 These are the giants. DWS does NOT compete with them — DWS COMPLEMENTS them via BYOA.
 
@@ -654,7 +683,7 @@ These are the giants. DWS does NOT compete with them — DWS COMPLEMENTS them vi
 
 **Pricing context:** Salesforce $0.10/action (Flex Credits), Microsoft $200/month per 25K credits. DWS open-source tier: free. DWS Professional: €99/user/month. DWS is 10-50x cheaper for compliance-specific use cases.
 
-### 10.8 Industry Gaps — Where DWS Has No Competition
+### 10.10 Industry Gaps — Where DWS Has No Competition
 
 | Gap | Enforcement Date | Competition | DWS Agent |
 |-----|-----------------|-------------|-----------|
