@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Updated framework stars with 2026 download data (LangGraph 34.5M/mo production leader), added enterprise vendor platforms (Salesforce $900M, Microsoft 400K agents), SAP Joule specifics (2,400 skills), market sizing ($7.84B→$52.62B), Procore Agent Builder, PermitFlow, Augury
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOA (Bring Your Own Agents) with industry agent landscape mapping, open-source strategy recommendation (BSL license), npm package structure, revenue model, competitive gap analysis
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOP (Bring Your Own Processes) section, strengthened zero-friction data sovereignty principle, added ProcessConfig interface pattern
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Initial research — mapped open data sources to DWS products and agents, Bloomberg alternative analysis, customer data input strategy
@@ -22,7 +23,7 @@ Document Status:
 
 ***
 
-**Version:** 1.2
+**Version:** 1.3
 **Effective Date:** 2026-03-23
 **Last Updated:** 2026-03-23
 **Status:** Active
@@ -399,27 +400,31 @@ const customerComplianceProcess: ProcessConfig = {
 | Vendor/Product | Type | What It Does | DWS Equivalent |
 |---------------|------|-------------|----------------|
 | Autodesk Construction IQ | Enterprise | Risk management, document analysis | `construction`, `mars` |
-| Buildots | Startup ($60M) | 360° camera progress tracking | `sitesense` (weather/safety focus) |
-| Nplan | Startup ($31M) | AI scheduling from historical data | `schedule-genius` |
-| OpenSpace | Startup ($102M) | Photo documentation + progress | `argus` (satellite-level) |
-| Alice Technologies | Startup ($7.5M) | Deep RL schedule optimization | `schedule-genius` |
+| Procore Agent Builder | Enterprise (open beta 2026) | Custom workflow agents for specs/RFIs | — (different scope) |
+| Buildots | Startup ($60M) | 360° camera vs BIM progress (230% task completion on NCC) | `sitesense` (weather/safety focus) |
+| Nplan | Startup ($31M, Bechtel partner) | Probabilistic schedule forecasting | `schedule-genius` |
+| OpenSpace | Startup ($102M) | 360° site capture (Vinci saved 5,200 work-hours) | `argus` (satellite-level) |
+| Alice Technologies | Startup ($7.5M, Bouygues) | Deep RL schedule optimization | `schedule-genius` |
+| PermitFlow | Startup ($54M Series B) | AI-driven permitting, 12M+ data points | — (US-focused) |
+| CompScience | Startup | CV-based site safety monitoring | `sitesense` |
 | IFCOpenShell | Open source (1.8K stars) | BIM/IFC parsing | — (complementary) |
 | SpeckleOS | Open source (1.2K stars) | AEC data interoperability | — (complementary) |
 
-**Gap DWS fills:** No open-source construction COMPLIANCE agent exists. Buildots/OpenSpace do vision, not regulatory compliance. DWS `mars` + `sitesense` + `material-oracle` is the only integrated stack.
+**Gap DWS fills:** No open-source construction COMPLIANCE agent exists. Buildots/OpenSpace do vision, not regulatory compliance. Procore/Autodesk are US-centric. DWS `mars` + `sitesense` + `material-oracle` is the only EU-focused integrated stack.
 
 #### Manufacturing & Industrial
 
 | Vendor/Product | Type | What It Does | DWS Equivalent |
 |---------------|------|-------------|----------------|
-| SAP Joule | Enterprise | Generative AI copilot for SAP ERP | — (DWS connects to SAP via BYOD) |
-| Siemens Industrial Copilot | Enterprise | Plant engineering, automation code gen | `vulcan` (steel compliance focus) |
-| PTC ThingWorx | Enterprise | Predictive maintenance, IIoT | — (different scope) |
+| SAP Joule | Enterprise (350 AI features, 2,400 skills) | Production Planning Agent (GA Q1 2026), 14 new agents Q4 2025 | — (DWS connects to SAP via BYOD) |
+| Siemens Industrial Copilot | Enterprise (100+ companies, Schaeffler, thyssenkrupp) | Engineering/Operations/Design Copilots, AI Agent Marketplace planned | `vulcan` (steel compliance focus) |
+| Rockwell FactoryTalk LogixAI | Enterprise | Predictive analytics + AI co-pilot | — (different scope) |
+| Microsoft Factory Safety Agent | Enterprise (Copilot Studio preview) | Low-code safety Q&A agent | `sitesense` |
 | Sight Machine | Startup ($73M) | Quality, throughput, sustainability analytics | `quality-gate` |
+| Augury | Startup ($75M Lightrock) | Predictive maintenance via machine health | — (complementary) |
 | Landing AI | Startup (Andrew Ng) | Visual inspection for manufacturing defects | — (complementary) |
-| Eclipse Ditto | Open source (500 stars) | Digital twin framework | — (complementary) |
 
-**Gap DWS fills:** Manufacturing has big vendors (SAP, Siemens) but NO open-source compliance agents. DWS industry agents (`vulcan`, `helios`, `prometheus`) cover EU ETS/CBAM compliance that SAP Joule doesn't touch.
+**Gap DWS fills:** Manufacturing has big vendors (SAP, Siemens, Rockwell) but NO open-source compliance agents. SAP Joule has 2,400 skills but zero EU ETS/CBAM compliance. DWS industry agents (`vulcan`, `helios`, `prometheus`) fill the regulatory gap.
 
 #### Energy & Utilities
 
@@ -468,22 +473,32 @@ const customerComplianceProcess: ProcessConfig = {
 
 ### 9.2 Open-Source Agent Frameworks — Competitive Landscape
 
-| Framework | Stars | Backer | Language | Enterprise Product | License |
-|-----------|-------|--------|----------|-------------------|---------|
-| **LangChain** | ~100K | Sequoia ($25M+) | Python/JS | LangSmith | MIT |
-| **AutoGen** | ~38K | Microsoft | Python | Azure AI | MIT |
-| **LlamaIndex** | ~38K | $35M+ | Python | LlamaCloud | MIT |
-| **CrewAI** | ~25K | $18M Series A | Python | CrewAI Enterprise | MIT |
-| **Semantic Kernel** | ~23K | Microsoft | C#/Python | Azure integration | MIT |
-| **DSPy** | ~20K | Stanford | Python | — (academic) | MIT |
-| **Swarm** | ~18K | OpenAI | Python | — (experimental) | MIT |
-| **Haystack** | ~18K | deepset ($30M+) | Python | deepset Cloud | Apache 2.0 |
+| Framework | Stars | Monthly Downloads | Backer | Language | Enterprise Product | License |
+|-----------|-------|-------------------|--------|----------|-------------------|---------|
+| **LangGraph** | ~25K | 34.5M | LangChain/Sequoia | Python | LangSmith | MIT |
+| **CrewAI** | ~45K | 5.2M | $18M Series A | Python | CrewAI Enterprise | MIT |
+| **AutoGen** | ~55K | 856K | Microsoft (maintenance mode) | Python | → Agent Framework | MIT |
+| **LlamaIndex** | ~38K | 1.5M+ | $35M+ | Python | LlamaCloud | MIT |
+| **Semantic Kernel** | ~23K | 2.6M | Microsoft | C#/Python/Java | Azure integration | MIT |
+| **OpenAI Agents SDK** | ~19K | 10.3M | OpenAI | Python | — | MIT |
+| **Google ADK** | ~18K | 3.3M | Google | Python | Vertex AI | Apache 2.0 |
+| **Haystack** | ~18K | 100K+ | deepset ($30M+) | Python | deepset Cloud | Apache 2.0 |
+| **Mastra** | ~10K | Growing | Gatsby.js team | **TypeScript** | Vercel/CF deploy | Apache 2.0 |
 
-**Critical observation:** ALL frameworks are horizontal/general-purpose and Python-first. NONE focus on:
+**Key dynamics (2026):**
+- **LangGraph** is the production leader — 400+ companies including Cisco, Uber, LinkedIn, JPMorgan. Stars ≠ production use.
+- **CrewAI** dominates prototyping — 60% of Fortune 500 have tried it. Common path: CrewAI (prototype) → LangGraph (production).
+- **AutoGen** is in maintenance mode — Microsoft merged it into unified Agent Framework (GA Q1 2026).
+- **Mastra** is the only TypeScript-first framework — built by Gatsby.js team. Still early.
+- **MCP support** is becoming a framework differentiator. PydanticAI, OpenAI SDK, Google ADK have native MCP.
+
+**Critical observation:** ALL frameworks are horizontal/general-purpose. NONE focus on:
 1. **EU industrial compliance** — zero coverage
-2. **TypeScript** — DWS is TypeScript-first, the only agent platform that matches modern web stacks
+2. **TypeScript-first with MCP native** — Mastra is closest but has no compliance domain knowledge
 3. **Industry-specific agents** — general frameworks require months of customization per industry
 4. **Validated data sources** — no framework ships with real, citable emission factors
+
+**Market size:** AI agent market $7.84B (2025) → $52.62B by 2030 (46.3% CAGR). GitHub AI agent repos grew 535% between 2024-2025. $700M+ in seed funding to AI agent startups in 2025 alone.
 
 ### 9.3 BYOA Interface — How Customers Plug In Their Own Agents
 
@@ -624,7 +639,22 @@ Every successful open-source company follows the same pattern:
 6. **BYOD + BYOP + BYOA** — zero-friction adoption. Customer keeps their data, processes, AND existing agents.
 7. **EU AI Act compliance** — open scoring algorithms satisfy Article 15 transparency requirement.
 
-### 10.7 Industry Gaps — Where DWS Has No Competition
+### 10.7 Enterprise Vendor Agent Platforms (Context)
+
+These are the giants. DWS does NOT compete with them — DWS COMPLEMENTS them via BYOA.
+
+| Vendor | Platform | Revenue/Adoption | DWS Integration Point |
+|--------|----------|-----------------|----------------------|
+| **Salesforce** | Agentforce 360 | 8,000 customers, $900M revenue in 6 months | BYOA — customer's Salesforce agents feed `customer-sat` |
+| **Microsoft** | Copilot Studio + Agent Framework | 160K orgs, 400K+ custom agents | BYOA — customer's Copilot agents join DWS workflows |
+| **ServiceNow** | AI Agent Orchestrator | #1 Gartner 2025 | BYOP — customer's ServiceNow workflows |
+| **SAP** | Joule + Joule Studio | 350 AI features, 2,400 skills | BYOD — SAP data via ERP connector, BYOA via Joule agents |
+| **Siemens** | Industrial Copilot | 100+ companies deployed | BYOA — manufacturing data feeds DWS compliance |
+| **Oracle** | Fusion AI | Embedded across subscriptions | BYOD — Oracle ERP data feeds |
+
+**Pricing context:** Salesforce $0.10/action (Flex Credits), Microsoft $200/month per 25K credits. DWS open-source tier: free. DWS Professional: €99/user/month. DWS is 10-50x cheaper for compliance-specific use cases.
+
+### 10.8 Industry Gaps — Where DWS Has No Competition
 
 | Gap | Enforcement Date | Competition | DWS Agent |
 |-----|-----------------|-------------|-----------|
