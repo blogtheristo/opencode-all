@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.27
+Version: 3.28
 
 Sessions & Modifications:
+  - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen strukturoitu faktojen poiminta keskusteluista subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM domainitieto + asiakassuhdemuisti), kolme puuttuvaa suorituskerrosta tunnistettu (Firehorse-tilakonemasiina, ERP-liitin, KYA-hallintakehys); päivitetty PR-tiekartta KYA-ensisijaisuusjärjestyksellä; lisätty avainpanos #20; huomioitu KYA Standard v1.4 sisäinen / v1.1 julkinen ero
   - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 10.7.3 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiasektorin tapaustutkimus — ensimmäinen ulkoinen validointi LWM:n kaupallisesta arvosta rakennusalan ulkopuolella, 21 693 €/vuosi BESS-vaatimustenmukaisuuskustannuslaskelma, 6 toimialan laajennuspolku MAN-tyyppisille asiakkaille, Solution Factory -malli vahvistettu); päivitetty 16→20 toimialaa LWM-osioissa; uudelleennumeroitu 10.7.3→10.7.4 Orchestration Studio
   - Version: 3.26 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 8 Tulokset ja analyysi v3.16–3.25 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon-järjestelmä, asiakkaiden MVP-ominaisuudet (API-avaimet, mittarointi, raportit), PostgreSQL HTAP -arkkitehtuuri, A/B-testauksen tulosten integrointi, päivitetty vaatimustenmukaisuusvalmius (EU AI Act Art 12 toteutettu), päivitetty SWOT strategisilla kumppanuuksilla; lisätty uusi osio 8.7 A/B-testauksen ja palautekanavien tulokset
   - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 10.16 (Harness Engineering — promptisuunnittelusta järjestelmäsuunnitteluun): OpenAI:n 8 periaatetta, DWS IQ 6 vertailu 6-kerroksisella L0-L6-arkkitehtuurilla, empiirinen tulos (52,8%→66,5% pelkällä harness-parannuksella), EU-regulaatio vaatii erilaisen harnessin; lisätty avainpanos #19
@@ -1782,6 +1783,57 @@ Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
 2. **Lifetime Fleet -konseptin validointi (osio 3.5):** Acer Veriton GN100 on ensimmäinen fyysinen solmu Lifetime Fleet -laivastossa — EU:ssa sijaitseva laitteisto, joka ajaa kontaineroituja tekoälykuormia täydessä operaattorin hallinnassa, täyttäen opinnäytetyössä ehdotetun reunatekoälyteoreettisen mallin.
 
 3. **EMPO²-muistiarkkitehtuurin yhdenmukaisuus:** EMPO²:n (arXiv:2602.23008) itsenäisesti validoima hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri vastaa DWS LWM -suunnittelua — tarjoten akateemisen perustan insinööri-intuitiolla tehdylle toteutusvalinnalle.
+
+### 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254)
+
+*Sessio: claude/agent-memory-fact-extraction-gLEss | Päiväys: 23.03.2026*
+
+EMPO²:n teoreettinen kehys (osio 10.10.4) operationalisoitiin **agenttimuistin faktojen poimintaputkella** — ensimmäinen tuotantototeutus ei-parametrisesta muistipäivityspolusta. Tämä ratkaisee kriittisen puutteen: agentit, jotka keskustelevat asiakkaiden kanssa mutta eivät säilytä strukturoitua tietoa sessioiden välillä.
+
+**Arkkitehtuuri — kaksoismuistimalli:**
+
+| Kerros | Tietotyyppi | Lähde | Esimerkki |
+|--------|------------|-------|-----------|
+| **LWM (Lifetime World Model)** | Domainitieto | EU-säädökset, päästökertoimet, toimialamallit | "CBAM-raja on 150 000 EUR" |
+| **Asiakasmuisti** | Suhdetieto | Keskustelut, sähköpostit, kokoukset | "ACME Corp suosii viikkoraportteja" |
+
+LWM tarjoaa *mitä agentti tietää maailmasta*; asiakasmuisti tarjoaa *mitä agentti tietää tästä asiakkaasta*. Kumpikaan yksinään ei riitä — agentti, joka tuntee EU-säädökset mutta unohtaa asiakkaan toimialan, kysyy samat kysymykset joka sessiossa.
+
+**Faktojen poimintaputki:**
+
+```
+Keskusteluteksti
+  → LLM-poiminta (Claude Haiku, strukturoitu kehote)
+  → JSON-taulukko: {subjekti, predikaatti, arvo, luottamus, kategoria}
+  → Luottamussuodatin (≥0,7 kynnysarvo)
+  → Duplikaattitunnistus (kosinisimilaarisuus >0,95 pgvectorissa)
+  → Tallennus `fact`-tyyppisenä semantic_memories-tauluun
+  → Käytettävissä hakuun hybridihakuna (vektori + teksti)
+```
+
+**Kolme puuttuvaa suorituskerrosta:**
+
+Faktojen poiminta yksinään luo *passiivista tietoa*. Kolme lisäkerrosta vaaditaan tiedon *toiminnallistamiseen*:
+
+1. **Firehorse-tilakonemasiina** — Suorituskerros, joka toimii muistin ja LWM:n tiedon perusteella. Ilman sitä alustalla on tieto mutta ei toimintakykyä.
+
+2. **ERP-liitinkerros** — Reaalimaailman datasyöte. Muisti ja LWM ovat vain yhtä hyviä kuin Visma/IFS/SAP:sta tuleva data. Asiakasmuisti tallentaa *ilmaistut* mieltymykset; ERP-data paljastaa *todellisen* käyttäytymisen.
+
+3. **KYA-hallintakehys** — Luottamuskerros. Asiakasmuisti + LWM ilman todistusta on chatbot. KYA (Know Your AI, sisäinen v1.4 / julkinen v1.1) käärii jokaisen muistipäätöksen auditoitavalla alkuperällä: "fakta A korvasi faktan B ajanhetkellä X, hyväksyjä agentti Y, kirjattu Firehorseen." Tämä on välttämätöntä EU-vaatimustenmukaisuusauditoinneissa CSRD:n ja EU AI Act artikla 12:n nojalla.
+
+**KYA-ensisijainen PR-järjestys:**
+
+| Prioriteetti | PR | Ominaisuus | Tila |
+|-------------|-----|-----------|------|
+| 1 | 254 | Faktojen poiminta | ✅ Toimitettu |
+| 2 | 255 | Ristiriitojen ratkaisu | Vaatii muistivaraston |
+| 3 | — | KYA-muistin auditointipolku | Vaatii ristiriitojen ratkaisun |
+| 4 | 257 | Luottamuksen rappeutumispisteytys | Itsenäinen |
+| 5 | 256 | Konsolidoinnin ajastettu tehtävä | Vaatii rappeutumispisteytyksen |
+| 6 | 259 | Liitin-synkronointi | Vaatii vakaan muisti-API:n |
+| 7 | 258 | Supermemory MCP EU-itseisännöinti | Infrastruktuuri, viimeinen |
+
+**Avainpanos #20:** Ensimmäinen tuotantototeutus agenttimuistin faktojen poiminnasta EU-yhteensopivalla teollisella tekoälyalustalla, osoittaen kaksois-LWM/asiakasmuistiarkkitehtuurin ja tunnistaen kolmikerroksisen suorituspuutteen (tilakonemasiina, ERP-liittimet, KYA-hallinta), joka vaaditaan toiminnalliseen yrityksen tekoälymuistiin.
 
 ---
 
