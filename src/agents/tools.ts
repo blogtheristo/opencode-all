@@ -526,6 +526,7 @@ export function registerBuiltinTools(): void {
       memoryId,
       orgId: context.orgId,
       reason,
+      agentId: context.userId || 'agent',
     });
   });
 
