@@ -20,12 +20,15 @@
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 
+**Sales Motion:**
+Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
+
 **Sales Timeline:**
 - March–June 14, 2026: Pipeline building, pilot conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
 - **August 15, 2026: First sales cycle data available** (investor decision point)
-- 2026: €900k ARR target
+- 2026: €900k ARR target (25 customers × €36K avg)
 - Series A: 2026 at €15M+ pre-money valuation
 
 ---
@@ -294,7 +297,7 @@ Timeframe:                 ~2 years (2024→2026)
 - **Logistics & Office:** Lucille Santiago
 - **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026. Building the engineering team is the top priority after close.
 - **Advisors:**
-  - Hanna Robertsson — CEO (Industry & Strategic Advisory)
+  - Hannamari Robertsson — CEO, Robertsson Oy (ESG Training & Business Consulting. PhD research on profitability through organizational transformation. Keynote speaker: Alma Talent, Rastor, Professio.)
   - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 - **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)

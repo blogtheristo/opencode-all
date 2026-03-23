@@ -133,9 +133,10 @@ Lifetime Oy
 
 ## Key Talking Points (For Calls)
 
-### Traction
+### Traction & Sales Motion
 - **EUR 7K/month MRR** (March 2026, 100% retention, zero churn)
 - **5+ paying/pilot accounts**
+- **Sales motion:** Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers at average EUR 36K ARR = EUR 900K.
 - **Sales sprint:** June 15 – August 15, 2026 (2 months, 100% sales focus)
 
 ### Product — KYA Governance
@@ -160,7 +161,7 @@ Lifetime Oy
 ### Business Model
 - **Per-industry value:** EUR 180K–EUR 50M annually per enterprise
 - **Dual model:** SaaS (Tiers 1–3) + Alpha-Share (Enterprise World Tier 4) — broad market + value-aligned enterprise
-- **Target:** EUR 900K ARR by end of 2026
+- **Target:** EUR 900K ARR by end of 2026 (25 customers x EUR 36K avg)
 
 ### Seat Structure
 
@@ -182,7 +183,7 @@ Lifetime Oy
 - **Lucille Santiago** — Logistics & Office
 - **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026
 - **Advisors:**
-  - Hanna Robertsson — CEO (Industry & Strategic Advisory)
+  - Hannamari Robertsson — CEO, Robertsson Oy (ESG & Business Consulting, PhD research, keynote speaker: Alma Talent, Rastor, Professio)
   - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 
