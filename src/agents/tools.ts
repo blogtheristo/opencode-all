@@ -262,6 +262,35 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
     },
   },
 
+  /** Extract structured facts from text */
+  extract_facts: {
+    name: 'extract_facts',
+    description:
+      'Extract structured facts (subject-predicate-value triples) from conversation text, documents, or any unstructured input. Facts are persisted as memories for later recall and profile building.',
+    parameters: {
+      type: 'object',
+      properties: {
+        text: {
+          type: 'string',
+          description: 'Text to extract facts from (conversation, document, etc.)',
+        },
+        source: {
+          type: 'string',
+          description: 'Source identifier (e.g., "conversation", "email", "document")',
+        },
+        persist: {
+          type: 'boolean',
+          description: 'Whether to store extracted facts as memories (default: true)',
+        },
+        min_confidence: {
+          type: 'number',
+          description: 'Minimum confidence to persist a fact (0-1, default: 0.7)',
+        },
+      },
+      required: ['text'],
+    },
+  },
+
   /** Emit an event to the event bus */
   emit_event: {
     name: 'emit_event',
@@ -467,6 +496,31 @@ export function registerBuiltinTools(): void {
     });
   });
 
+  // Fact extraction handler
+  registerToolHandler('extract_facts', async (args, context) => {
+    const { factExtractionService } = await import('./fact-extraction.service.js');
+    const text = args.text as string;
+    const source = (args.source as string) || 'agent';
+    const persist = args.persist !== false;
+    const minConfidence = (args.min_confidence as number) || 0.7;
+
+    const result = await factExtractionService.extract({
+      text,
+      orgId: context.orgId,
+      source,
+      persist,
+      minConfidence,
+    });
+
+    return {
+      facts: result.facts,
+      persisted: result.persisted,
+      skipped: result.skipped,
+      memoryIds: result.memoryIds,
+      durationMs: result.durationMs,
+    };
+  });
+
   // Agent delegation handler (wired to registry)
   registerToolHandler('delegate_to_agent', async (args, context) => {
     // Lazy import to avoid circular dependency
@@ -490,6 +544,6 @@ export function registerBuiltinTools(): void {
   });
 
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'delegate_to_agent'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'extract_facts', 'delegate_to_agent'],
   });
 }

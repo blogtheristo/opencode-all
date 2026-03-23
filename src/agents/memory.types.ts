@@ -157,6 +157,52 @@ export interface ProfileFact {
   lastUpdated: string;
 }
 
+// ============ FACT EXTRACTION ============
+
+/** A single extracted fact triple (subject-predicate-value) */
+export interface ExtractedFact {
+  /** Entity the fact is about (e.g., "ACME Corp", "user", "project") */
+  subject: string;
+  /** Relationship/attribute (e.g., "is_located_in", "has_employee_count", "prefers") */
+  predicate: string;
+  /** The fact value (e.g., "Helsinki", "250", "dark mode") */
+  value: string;
+  /** Extraction confidence 0-1 */
+  confidence: number;
+  /** Category for grouping facts */
+  category: 'identity' | 'preference' | 'relationship' | 'metric' | 'status' | 'other';
+}
+
+/** Input for fact extraction from text */
+export interface FactExtractionInput {
+  /** Text to extract facts from (conversation, document, etc.) */
+  text: string;
+  /** Organization ID for tenant isolation */
+  orgId: string;
+  /** Optional customer ID to scope extracted facts */
+  customerId?: string;
+  /** Source identifier (e.g., "conversation", "email", "document") */
+  source?: string;
+  /** Whether to store extracted facts as memories (default: true) */
+  persist?: boolean;
+  /** Minimum confidence to persist a fact (default: 0.7) */
+  minConfidence?: number;
+}
+
+/** Result of a fact extraction operation */
+export interface FactExtractionResult {
+  /** All extracted facts */
+  facts: ExtractedFact[];
+  /** Number of facts persisted as memories */
+  persisted: number;
+  /** Number of facts skipped (below confidence threshold or duplicates) */
+  skipped: number;
+  /** IDs of stored memory items */
+  memoryIds: string[];
+  /** Processing time in ms */
+  durationMs: number;
+}
+
 // ============ CACHE ============
 
 /** LRU cache entry for recall results */
