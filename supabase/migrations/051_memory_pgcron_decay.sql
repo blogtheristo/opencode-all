@@ -116,12 +116,19 @@ SELECT cron.schedule(
 --    Instead, archive to memory_audit_log_archive for long-term retention.
 --    Active table stays fast; archive is queryable for compliance/legal discovery.
 
--- Archive table (created once, append-only, immutable)
--- RETENTION POLICY: 7 years minimum (2555 days).
--- EU compliance disputes (GDPR Art. 17(3)(e), Finnish Accounting Act §2:10,
--- EU AI Act Art. 12 logging) can require records years after the fact.
--- There is NO scheduled job to delete from this table.
--- Manual purge requires: legal sign-off + DPO approval + documented reason.
+-- ┌──────────────────────────────────────────────────────────────────┐
+-- │ MEMORY_AUDIT_LOG_ARCHIVE                                       │
+-- │                                                                │
+-- │ This table has no DELETE policy by design.                     │
+-- │ Retention is permanent (7-year minimum, no automated purge).  │
+-- │ Audit chain of custody per KYA-S §10.                         │
+-- │ Any future DELETE migration requires legal review.            │
+-- │                                                                │
+-- │ Legal basis:                                                   │
+-- │   - EU AI Act Art. 12 (high-risk system logging)              │
+-- │   - Finnish Accounting Act §2:10 (6+1 year retention)         │
+-- │   - GDPR Art. 17(3)(e) (legal claims exception)              │
+-- └──────────────────────────────────────────────────────────────────┘
 CREATE TABLE IF NOT EXISTS memory_audit_log_archive (
   LIKE memory_audit_log INCLUDING ALL
 );
