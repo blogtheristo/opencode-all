@@ -40,6 +40,7 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -307,6 +308,9 @@ app.use('/api/grok-consent', grokConsentRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// Memory dashboard (stats, audit, decay dry-run)
+app.use('/api/v1/memory', memoryRoutes);
 
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
