@@ -8,11 +8,12 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: FINAL — Ready for 26.03 call
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 23.03.2026 | Changes: NDA ready via DocuSign (digital signature), updated documents-required section, signature verification script built
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added mutual credibility bonus — DWS10.com as Qantic's compliance credibility layer
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Two-part deal — 16k setup + API fees. Replaces API-only and product-only proposals.
 
 Document Status:
-  - Last Modified: 21.03.2026
+  - Last Modified: 23.03.2026
   - Classification: CONFIDENTIAL — Partnership Strategy
   - Publication Status: INTERNAL ONLY
 ---
@@ -145,7 +146,7 @@ This is not a roadmap item. Code is written and tested.
 | When | What |
 |---|---|
 | 26.03 | Scoping call — confirm pilot client |
-| 26.03 | NDA sent same day |
+| 26.03 | NDA sent via DocuSign same day |
 | April | Workshop in Berlin (3 days), compliance report delivered |
 | April | Invoice €15,990 |
 | May-June | Q-System JSON adapter built (4-6 weeks) |
@@ -173,11 +174,11 @@ This is not a roadmap item. Code is written and tested.
 
 ## Documents Required Before Technical Sharing
 
-1. **Mutual NDA** — standard, protects both parties, EU jurisdiction
-2. **Letter of Intent** — confirms pilot client, pricing, timeline (non-binding)
+1. **Mutual NDA via DocuSign** — EU 2016/943 compliant, digital signature, sent within 1 hour of call (template: Partners/NDA_TEMPLATE_EU_2026.md, DocuSign integration: src/integrations/docusign/)
+2. **Letter of Intent** — confirms pilot client, pricing, timeline (non-binding, template: docs/partnerships/qantic-loi-template.md)
 3. **Reseller agreement** — 30% commission terms, non-compete, IP protection
 
-All sent same day as call.
+NDA sent digitally same day. LOI + reseller agreement within 48 hours if terms agreed.
 
 ---
 

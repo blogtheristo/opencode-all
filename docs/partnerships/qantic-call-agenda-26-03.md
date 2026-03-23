@@ -1,17 +1,18 @@
 ---
 VERSION AND AGENT HISTORY
 Document: Qantic Call Agenda — 26.03.2026
-Version: 1.0
+Version: 1.1
 Created: 2026-03-21
 Author: Claude Opus 4.6 (DWS IQ 6 Agent)
 Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: FINAL — Ready for 26.03 call
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 23.03.2026 | Changes: NDA now ready via DocuSign — send digitally same day. Updated documents-ready section and after-call steps.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Call agenda with key points, questions, and talk track.
 
 Document Status:
-  - Last Modified: 21.03.2026
+  - Last Modified: 23.03.2026
   - Classification: INTERNAL — Call Preparation
   - Publication Status: INTERNAL ONLY
 ---
@@ -115,7 +116,7 @@ Only say this if the conversation is going well and Thomas is engaged. Skip if t
 Don't volunteer this. It plants a bigger decision than he needs to make right now. If he doesn't ask, save it for month 2-3.
 
 **After the call:**
-1. Send NDA within 2 hours
+1. Send NDA via DocuSign within 1 hour (template ready, digital signature)
 2. Send thank-you email summarizing what was agreed
 3. If pilot client named: begin scoping immediately
 4. If LOI appropriate: fill in template and send for review
@@ -150,8 +151,8 @@ Don't volunteer this. It plants a bigger decision than he needs to make right no
 
 ## Documents Ready to Send After Call
 
-1. **Mutual NDA** — send within 2 hours
-2. **LOI** — only if Thomas confirms pilot client and terms (template ready)
+1. **Mutual NDA via DocuSign** — EU 2016/943 compliant template ready, send within 1 hour for digital signature (Partners/NDA_TEMPLATE_EU_2026.md + DocuSign integration built)
+2. **LOI** — only if Thomas confirms pilot client and terms (template ready: docs/partnerships/qantic-loi-template.md)
 3. **BESS API example output** — can send as follow-up to demonstrate value
 
 ---
