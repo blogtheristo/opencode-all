@@ -156,11 +156,9 @@ describe('E2E Smoke Test: Login → Dashboard → Compliance Query → Response'
       .get('/api/v1/compliance/overview')
       .set('Authorization', `Bearer ${authToken}`);
 
-    // May return 200 with data or 500 if Supabase not configured — both are acceptable in test
-    expect([200, 500]).toContain(res.status);
-    if (res.status === 200) {
-      expect(res.body.overallScore).toBeDefined();
-    }
+    // Authenticated requests should succeed with a compliance overview payload
+    expect(res.status).toBe(200);
+    expect(res.body.overallScore).toBeDefined();
   });
 
   it('4b. Compliance overview rejects unauthenticated request', async () => {
