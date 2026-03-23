@@ -26,6 +26,7 @@ import { HealthPage } from './pages/HealthPage';
 import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
 import { FirehorsePipelinePage } from './pages/FirehorsePipelinePage';
 import { MemoryDashboard } from './components/MemoryDashboard';
+import { EC3DashboardPage } from './pages/EC3DashboardPage';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
 
@@ -102,6 +103,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
             <div className="hidden md:flex items-center gap-2">
               <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
               <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <div className="hidden md:block">
@@ -211,6 +213,7 @@ function DashboardWithPanels() {
             <div className="hidden md:flex items-center gap-2">
               <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
               <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
               <button onClick={() => navigate('/firehorse')} className="btn-secondary">Firehorse</button>
               <button onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')} className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}>AI Assistant</button>
               <button onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')} className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}>Meeting</button>
@@ -430,6 +433,13 @@ function App() {
           <ProtectedRoute>
             <DashboardLayout>
               <MemoryDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/ec3" element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <EC3DashboardPage />
             </DashboardLayout>
           </ProtectedRoute>
         } />
