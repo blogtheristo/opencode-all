@@ -103,6 +103,7 @@ DWS IQ 6 is a platform to train and run enterprise industrial agent swarms safel
 3. **Firehorse audit trails** — court-defensible forensic telemetry for regulated industries
 4. **20-vertical coverage** — pre-built industry models across EU-regulated sectors
 5. **CLI-first architecture** — every product is agent-accessible, enabling autonomous enterprise workflows
+6. **Open-source agent framework** (2027) — Apache 2.0 framework drives bottom-up adoption while proprietary compliance knowledge + scoring engine provides revenue moat. Modeled after deepset/Haystack (EU-based, Airbus/European Commission customers). See `docs/OPEN_DATA_SOURCES.md` §10
 
 ## Key Metrics to Track
 

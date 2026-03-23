@@ -4,7 +4,7 @@
 > **Version:** 1.2.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-03-15 — Codebase audit update: real metrics (1846 commits, 342/247 PRs, 15 agents, 52 migrations, 38 workflows), Phase 1 progress tracking (Claude Code, claude/status-report-mvp-vbug1)
+> **Updated:** 2026-03-23 — Added open-source agent framework strategy (Phase 5.4, PRs 207A–207F) based on `docs/OPEN_DATA_SOURCES.md` research
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -12,11 +12,11 @@
 
 ## Executive Summary
 
-DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **247 planned pull requests** organized in 6 phases.
+DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **253 planned pull requests** organized in 6 phases.
 
 **Actual velocity (audited 2026-03-15):** 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 247-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.
 
-**Why 247, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 247 PRs over 22 months = ~11 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.
+**Why 253, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 253 PRs over 22 months = ~11 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.
 
 ---
 
@@ -72,7 +72,7 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | **2** | May–Jul 2026 | **Compliance Engine** | 48 | Full Fit-for-55 coverage, EU AI Act compliance |
 | **3** | Aug–Oct 2026 | **Scale & Harden** | 44 | 8 customers, ISO 27001 initiated, SOC 2 prep |
 | **4** | Nov 2026–Jan 2027 | **Intelligence Layer** | 40 | Agentic AI workflows, IoT pipeline live |
-| **5** | Feb–May 2027 | **Market Expansion** | 38 | 16 customers, supplier portal, partner ecosystem |
+| **5** | Feb–May 2027 | **Market Expansion** | 44 | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
 | **6** | Jun–Dec 2027 | **DWS7 Release** | 32 | V7.0 GA, investor metrics dashboard, profitability |
 
 ---
@@ -380,7 +380,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 5: Market Expansion (Feb–May 2027) — 38 PRs
+## Phase 5: Market Expansion (Feb–May 2027) — 44 PRs
 
 ### 5.1 Supplier CBAM Portal (PRs 178–186)
 
@@ -426,7 +426,34 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 205 | Partner referral tracking | P2 | Attribution for partner-sourced customers |
 | 206 | Integration with One Click LCA (bidirectional) | P1 | Import LCA data, export compliance status |
 
-### 5.4 Mobile & Accessibility (PRs 207–215)
+### 5.4 Open-Source Agent Framework (PRs 207A–207F)
+
+**Strategic context:** Research analysis in `docs/OPEN_DATA_SOURCES.md` §10 recommends open-sourcing the agent framework under Apache 2.0 while keeping compliance knowledge proprietary. Modeled after deepset/Haystack (EU-based, Apache 2.0, Airbus/LEGO/European Commission customers).
+
+**Core insight:** The compliance knowledge is the moat, not the framework. Nobody forks your emission factors.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 207A | Extract `@dws/agent-core` package (BaseAgent, types, event bus) | P1 | Separate agent primitives into publishable npm package under Apache 2.0 |
+| 207B | Open-source ERP connectors (SAP, IFS, Dynamics adapters) | P1 | Network effect — every contributed connector improves the platform |
+| 207C | Open-source MCP server implementations | P1 | Aligns with AAIF (Linux Foundation), ecosystem interop with Claude/Anthropic |
+| 207D | Open-source CLI tooling (`dws` command) | P2 | Developer experience, bottom-up adoption, "try before you buy" |
+| 207E | Publish basic compliance rule parser (regulation → checklist) | P2 | Demonstrates capability without exposing scoring engine |
+| 207F | Community setup: CONTRIBUTING.md, issue templates, CI for open repo | P1 | Clear open/proprietary boundaries from day one |
+
+**What stays proprietary (never open-source):**
+- Multi-agent orchestration with compliance scoring (core IP)
+- Validated regulatory knowledge bases (emission factors, ESRS registry, CBAM models)
+- Lifetime World Model (EU Regulations + Industry Models)
+- Enterprise governance (RBAC, audit trails, Article 12 logging)
+- Report engine with signed reports
+- Pre-built industrial sector workflows
+
+**Licensing:** Apache 2.0 (not BSL). Maximizes EU public procurement compatibility, avoids fork risk (Redis→Valkey, HashiCorp→OpenTofu cautionary tales).
+
+**Year 1 targets:** 5,000+ GitHub stars | 10,000+ npm weekly downloads | 50+ community contributors
+
+### 5.5 Mobile & Accessibility (PRs 207–215)
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
@@ -527,10 +554,11 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | Supplier Portal | 9 | 5 |
 | Industry Verticals | 12 | 5 |
 | Partner Ecosystem | 8 | 5 |
+| Open-Source Agent Framework | 6 | 5 |
 | Mobile & i18n | 9 | 5 |
 | Investor & Financial | 9 | 6 |
 | Advanced Features | 13 | 6 |
-| **Total** | **247** | |
+| **Total** | **253** | |
 
 ---
 
@@ -631,7 +659,7 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 | Security breach before ISO 27001 | Critical | Daily security scans (existing), pentest (PR 099) |
 | Groq API pricing increase | Medium | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 (NVIDIA Blackwell, in-house) provides immediate fallback inference for Llama 3.3 70B and Mistral Large without cloud dependency |
 | Edge AI hardware supply issues | Medium | Cloud-only fallback mode for IoT pipeline |
-| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform |
+| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity |
 | Team scaling challenges | Medium | AI-assisted development (Claude Code), modular architecture |
 
 ---
