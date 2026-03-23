@@ -14,7 +14,7 @@
  * Date: 2026-03-21
  */
 
-import { emailService } from './email.service.js';
+import emailService from './email.service.js';
 import logger from '../utils/logger.js';
 
 // ============ SECURITY ============

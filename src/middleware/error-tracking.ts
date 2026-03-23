@@ -169,7 +169,9 @@ export function setUser(user: { id: string; email?: string } | null): void {
 
 /**
  * Express middleware that captures unhandled errors and forwards them.
- * Use as the LAST error middleware (after errorHandler).
+ *
+ * Register this BEFORE the main errorHandler so it can observe and track
+ * all errors, including those that errorHandler will terminate.
  */
 export function errorTrackingMiddleware() {
   return (err: Error, req: Request, _res: Response, next: NextFunction) => {
