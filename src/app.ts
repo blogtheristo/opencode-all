@@ -52,6 +52,8 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { requestTimeout } from './middleware/request-timeout.js';
+import { initErrorTracking, errorTrackingMiddleware } from './middleware/error-tracking.js';
 
 dotenv.config();
 
@@ -164,6 +166,9 @@ const loginLimiter = rateLimit({
 app.use('/api/v1/auth/login', loginLimiter);
 app.use('/api/v1/auth/register', loginLimiter);
 app.use('/api/v1/auth/forgot-password', loginLimiter);
+
+// Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
+app.use(requestTimeout());
 
 // Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
@@ -483,6 +488,14 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
 });
 
 // ============ ERROR HANDLING ============
+
+// Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
+// Called without app arg — we use errorTrackingMiddleware() below instead of
+// Sentry's own Express handler, so ordering is explicit and predictable.
+initErrorTracking().catch(() => { /* logged internally */ });
+
+// Error tracking middleware — captures exceptions before error handler formats response
+app.use(errorTrackingMiddleware());
 
 // 404 handler — must be after all routes
 app.use(notFoundHandler);

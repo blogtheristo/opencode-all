@@ -3,7 +3,7 @@
  * DWS IQ Climate Intelligence Dashboard with routing and AI Assistant
  */
 
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -17,18 +17,29 @@ import { HamburgerMenu } from './components/HamburgerMenu';
 import { OnboardingWizard } from './pages/OnboardingWizard';
 import { LoginPage } from './pages/LoginPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
-import { SettingsPage } from './pages/SettingsPage';
-import { CarbonTrackingPage } from './pages/CarbonTrackingPage';
-import { ReportViewerPage } from './pages/ReportViewerPage';
-import { TemplateEditorPage } from './pages/TemplateEditorPage';
-import { BillingPage } from './pages/BillingPage';
-import { HealthPage } from './pages/HealthPage';
-import { AgentMonitorDashboard } from './components/agent-monitor/AgentMonitorDashboard';
 import { FirehorsePipelinePage } from './pages/FirehorsePipelinePage';
 import { MemoryDashboard } from './components/MemoryDashboard';
 import { EC3DashboardPage } from './pages/EC3DashboardPage';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
+
+// Lazy-loaded pages — only fetched when user navigates to them
+const SettingsPage = lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.SettingsPage })));
+const CarbonTrackingPage = lazy(() => import('./pages/CarbonTrackingPage').then(m => ({ default: m.CarbonTrackingPage })));
+const ReportViewerPage = lazy(() => import('./pages/ReportViewerPage').then(m => ({ default: m.ReportViewerPage })));
+const TemplateEditorPage = lazy(() => import('./pages/TemplateEditorPage').then(m => ({ default: m.TemplateEditorPage })));
+const BillingPage = lazy(() => import('./pages/BillingPage').then(m => ({ default: m.BillingPage })));
+const HealthPage = lazy(() => import('./pages/HealthPage').then(m => ({ default: m.HealthPage })));
+const AgentMonitorDashboard = lazy(() => import('./components/agent-monitor/AgentMonitorDashboard').then(m => ({ default: m.AgentMonitorDashboard })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center py-20" role="status" aria-label="Loading page">
+      <div className="animate-pulse text-gray-500">Loading...</div>
+    </div>
+  );
+}
 
 type ViewMode = 'projects' | 'insights';
 type SidePanel = 'chat' | 'meeting' | 'repo' | null;
@@ -376,49 +387,63 @@ function App() {
         <Route path="/settings" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <SettingsPage />
+              <Suspense fallback={<PageLoader />}>
+                <SettingsPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/carbon" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <CarbonTrackingPage />
+              <Suspense fallback={<PageLoader />}>
+                <CarbonTrackingPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/reports" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <ReportViewerPage />
+              <Suspense fallback={<PageLoader />}>
+                <ReportViewerPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/templates" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <TemplateEditorPage />
+              <Suspense fallback={<PageLoader />}>
+                <TemplateEditorPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/billing" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <BillingPage />
+              <Suspense fallback={<PageLoader />}>
+                <BillingPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/agents" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <AgentMonitorDashboard onClose={() => window.history.back()} />
+              <Suspense fallback={<PageLoader />}>
+                <AgentMonitorDashboard onClose={() => window.history.back()} />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
         <Route path="/health" element={
           <ProtectedRoute>
             <DashboardLayout>
-              <HealthPage />
+              <Suspense fallback={<PageLoader />}>
+                <HealthPage />
+              </Suspense>
             </DashboardLayout>
           </ProtectedRoute>
         } />
@@ -444,7 +469,11 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={
+          <Suspense fallback={<PageLoader />}>
+            <NotFoundPage />
+          </Suspense>
+        } />
       </Routes>
     </ErrorBoundary>
   );
