@@ -46,7 +46,7 @@ I'm offering seats in a **SAFE round at EUR 3.8M cap**:
 - **Fleet Admiral** — EUR 500K (1 seat, board observer, first refusal on follow-on)
 - **Captain** — EUR 150K (strategy briefings, priority pilot routing)
 - **Industry Captain** — EUR 50K (named captain of 1 of 20 EU industries)
-- **Deputy Captain** — open entry, unlimited seats
+- **Deputy Captain** — EUR 5,000, unlimited seats
 
 If this fits your thesis, would you be open to a **20-minute call** to walk through the KYA governance framework and our path to **EUR 900K ARR by end of 2026**?
 
@@ -73,7 +73,7 @@ I'm building **DWS IQ 6** — a platform that governs AI agent swarms across 20 
 We're live with **EUR 7K/month MRR, 100% retention**, and I'm offering 8 Industry Captain seats — one per industry tranche:
 
 - **Industry Captain** — EUR 50K: Named captain of [industry]. Annual briefings, industry-specific regulatory intelligence, priority pilot routing.
-- **Deputy Captain** — open entry, unlimited: Quarterly briefings, upgrade path.
+- **Deputy Captain** — EUR 5,000, unlimited: Quarterly briefings, upgrade path.
 
 As someone who's lived the [industry] compliance problem, you'd be the ideal captain for that vertical.
 
@@ -170,7 +170,7 @@ Lifetime Oy
 | **Fleet Admiral** | EUR 500,000 | 1 | Board observer, first refusal on follow-on, annual 1:1 |
 | **Captain** | EUR 150,000 | Limited | Strategy briefings, priority pilots, Situation Room |
 | **Industry Captain** | EUR 50,000 | 8 | Named captain of 1 of 20 industries |
-| **Deputy Captain** | Open | Unlimited | Quarterly briefings, upgrade path |
+| **Deputy Captain** | EUR 5,000 | Unlimited | Quarterly briefings, upgrade path |
 
 - **Valuation cap:** EUR 3.8M
 - **Instrument:** SAFE with 20% discount

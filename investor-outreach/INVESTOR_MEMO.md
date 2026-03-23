@@ -48,13 +48,13 @@ Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25
 |------|-----------|-----------------|
 | **Fleet Admiral** | €500,000 | 1 |
 | **Captain** | €50,000 | 8 (one per industry tranche) |
-| **Deputy Captain** | Price TBD | Unlimited |
+| **Deputy Captain** | €5,000 | Unlimited |
 
 **Round math:** €500K (Fleet Admiral) + 8 × €50K (Captain Seats) = **€650K total**
 
 - **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
 - **Captain** — Named captain of one of 20 EU-regulated industries. Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
-- **Deputy Captain** — Open tier, unlimited seats. Price TBD. Quarterly briefings, upgrade path to Captain.
+- **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
 
 ---
 

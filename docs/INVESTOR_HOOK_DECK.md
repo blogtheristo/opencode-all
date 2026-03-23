@@ -73,7 +73,7 @@ Replace Claude with a different LLM tomorrow. The platform still works. The inte
 | **Fleet Admiral** | EUR 500,000 | 1 | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy. |
 | **Captain** | EUR 150,000 | Limited | Named industry leader. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access. |
 | **Industry Captain** | EUR 50,000 | 8 | Named captain of one of 20 EU industries. Annual briefings. Industry-specific intelligence. |
-| **Deputy Captain** | Open | Unlimited | Quarterly briefings. Upgrade path to Captain. No seat cap. |
+| **Deputy Captain** | EUR 5,000 | Unlimited | Quarterly briefings. Upgrade path to Captain. No seat cap. |
 
 **8 Industry Captain seats across 20 industries. First tranche gets the best terms.**
 
