@@ -37,7 +37,7 @@ Hi [First name],
 
 I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. Think: autonomous compliance agents for steel mills, construction sites, and chemical plants — governed by our KYA (Know Your Agent) standard with hardware-attested isolation and court-defensible audit trails.
 
-We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA (Groq), Microsoft, Google, AWS, IBM, and Acer Finland. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
+We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA Connect Partner (Groq), Microsoft, Google, AWS, IBM, Acer Finland, and Konfitech. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
 
 The moat: our **Lifetime World Model** — 15,000+ EU regulatory documents indexed across 20 industries, 7 years and 6 platform versions to build. Not a fine-tuned GPT. A proprietary regulatory intelligence graph.
 
