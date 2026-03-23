@@ -14,6 +14,7 @@ Sessions & Modifications:
 
 Session Links & References:
   - Claude Code (claude/research-open-data-sources-BMEJ0): https://github.com/blogtheristo/dws6/commits/claude/research-open-data-sources-BMEJ0
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/OPEN_DATA_SOURCES.md
 
 Document Status:
   - Created: 23.03.2026
