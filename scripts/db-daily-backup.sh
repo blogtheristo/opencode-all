@@ -260,16 +260,14 @@ FINAL_FILE="$DUMP_FILE"
 
 if ! $NO_ENCRYPT; then
   log_info "Step 4/6: Encrypting with GPG (AES-256)..."
-  gpg --batch --yes --symmetric \
+  printf '%s' "$BACKUP_GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --symmetric \
     --cipher-algo AES256 \
-    --passphrase "$BACKUP_GPG_PASSPHRASE" \
     --output "${DUMP_FILE}.gpg" \
     "$DUMP_FILE"
 
   # Also encrypt the checksum
-  gpg --batch --yes --symmetric \
+  printf '%s' "$BACKUP_GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --symmetric \
     --cipher-algo AES256 \
-    --passphrase "$BACKUP_GPG_PASSPHRASE" \
     --output "${CHECKSUM_FILE}.gpg" \
     "$CHECKSUM_FILE"
 
