@@ -25,6 +25,8 @@ import type {
   MemoryRecallResult,
   MemoryForgetInput,
   MemoryForgetResult,
+  MemorySupersedeInput,
+  MemorySupersedeResult,
   MemoryProfile,
   MemoryCacheEntry,
   ProfileFact,
@@ -136,6 +138,13 @@ export class MemoryService {
 
     // Invalidate cache for this org
     this.cache.invalidate(input.orgId);
+
+    // Audit log for store operations (KYA-S §10.1)
+    this.logAudit('store', input.source || 'agent', input.orgId, data.id, {
+      memory_type: input.memoryType,
+      confidence: input.confidence ?? 1.0,
+      source: input.source,
+    }).catch(() => {}); // fire-and-forget, don't block store
 
     logger.debug('Memory stored', {
       id: data.id,
@@ -321,6 +330,102 @@ export class MemoryService {
       updatedAt: new Date().toISOString(),
       memoryCount: data.length,
     };
+  }
+
+  /**
+   * Supersede a memory with newer information (temporal contradiction resolution).
+   * Implements KYA-S §10.2: confidence_delta > 0.3 triggers human review hard gate.
+   */
+  async supersede(input: MemorySupersedeInput): Promise<MemorySupersedeResult> {
+    const client = this.getClient();
+    if (!client) {
+      return {
+        newMemoryId: null,
+        requiresReview: false,
+        confidenceDelta: 0,
+        kyaDecision: 'error: supabase not configured',
+      };
+    }
+
+    const { data, error } = await client.rpc('supersede_memory', {
+      p_old_memory_id: input.oldMemoryId,
+      p_new_content: input.newContent,
+      p_new_confidence: input.newConfidence ?? 1.0,
+      p_new_source: input.newSource || 'agent',
+      p_reason: input.reason || 'temporal_supersede',
+      p_agent_id: input.agentId || 'system',
+      p_agent_ats: input.agentAts ?? null,
+      p_org_id: input.orgId,
+      p_customer_id: input.customerId || null,
+      p_new_metadata: input.metadata || {},
+    });
+
+    if (error) {
+      logger.error('Failed to supersede memory', { error: error.message });
+      return {
+        newMemoryId: null,
+        requiresReview: false,
+        confidenceDelta: 0,
+        kyaDecision: `error: ${error.message}`,
+      };
+    }
+
+    const row = Array.isArray(data) ? data[0] : data;
+    const result: MemorySupersedeResult = {
+      newMemoryId: row?.new_memory_id || null,
+      requiresReview: row?.requires_review || false,
+      confidenceDelta: row?.confidence_delta || 0,
+      kyaDecision: row?.kya_decision || 'unknown',
+    };
+
+    // Invalidate cache for this org
+    this.cache.invalidate(input.orgId);
+
+    if (result.requiresReview) {
+      logger.warn('Memory supersede requires human review', {
+        oldMemoryId: input.oldMemoryId,
+        confidenceDelta: result.confidenceDelta,
+        kyaDecision: result.kyaDecision,
+      });
+    } else {
+      logger.info('Memory superseded', {
+        oldMemoryId: input.oldMemoryId,
+        newMemoryId: result.newMemoryId,
+        kyaDecision: result.kyaDecision,
+      });
+    }
+
+    return result;
+  }
+
+  /**
+   * Log an audit entry for memory operations (store, extract).
+   * Forget and supersede are logged by their respective RPC functions.
+   */
+  async logAudit(
+    operation: 'store' | 'extract',
+    agentId: string,
+    orgId: string,
+    memoryId?: string,
+    metadata?: Record<string, unknown>,
+  ): Promise<string | null> {
+    const client = this.getClient();
+    if (!client) return null;
+
+    const { data, error } = await client.rpc('log_memory_audit', {
+      p_operation: operation,
+      p_agent_id: agentId,
+      p_memory_id: memoryId || null,
+      p_org_id: orgId,
+      p_metadata: metadata || {},
+    });
+
+    if (error) {
+      logger.warn('Failed to log memory audit', { error: error.message });
+      return null;
+    }
+
+    return data as string;
   }
 
   // ============ PRIVATE HELPERS ============
