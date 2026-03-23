@@ -291,6 +291,39 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
     },
   },
 
+  /** Supersede a memory with newer information (contradiction resolution) */
+  memory_supersede: {
+    name: 'memory_supersede',
+    description:
+      'Replace an existing memory with newer, more accurate information. Implements temporal contradiction resolution with KYA governance: if the confidence difference exceeds 0.3, human review is required before the supersede is applied.',
+    parameters: {
+      type: 'object',
+      properties: {
+        old_memory_id: {
+          type: 'string',
+          description: 'UUID of the memory to supersede',
+        },
+        new_content: {
+          type: 'string',
+          description: 'Updated content that replaces the old memory',
+        },
+        new_confidence: {
+          type: 'number',
+          description: 'Confidence score for the new memory (0-1, default: 1.0)',
+        },
+        new_source: {
+          type: 'string',
+          description: 'Source of the new information (e.g., "annual-report-2025", "conversation")',
+        },
+        reason: {
+          type: 'string',
+          description: 'Reason for superseding (e.g., "temporal_supersede: newer source with higher confidence")',
+        },
+      },
+      required: ['old_memory_id', 'new_content'],
+    },
+  },
+
   /** Emit an event to the event bus */
   emit_event: {
     name: 'emit_event',
@@ -496,6 +529,33 @@ export function registerBuiltinTools(): void {
     });
   });
 
+  // Memory supersede handler (contradiction resolution)
+  registerToolHandler('memory_supersede', async (args, context) => {
+    const { memoryService } = await import('./memory.service.js');
+    const oldMemoryId = args.old_memory_id as string;
+    const newContent = args.new_content as string;
+    const newConfidence = (args.new_confidence as number) ?? 1.0;
+    const newSource = (args.new_source as string) || 'agent';
+    const reason = (args.reason as string) || 'temporal_supersede';
+
+    const result = await memoryService.supersede({
+      oldMemoryId,
+      newContent,
+      orgId: context.orgId,
+      newConfidence,
+      newSource,
+      reason,
+      agentId: context.userId || 'agent',
+    });
+
+    return {
+      newMemoryId: result.newMemoryId,
+      requiresReview: result.requiresReview,
+      confidenceDelta: result.confidenceDelta,
+      kyaDecision: result.kyaDecision,
+    };
+  });
+
   // Fact extraction handler
   registerToolHandler('extract_facts', async (args, context) => {
     const { factExtractionService } = await import('./fact-extraction.service.js');
@@ -544,6 +604,6 @@ export function registerBuiltinTools(): void {
   });
 
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'extract_facts', 'delegate_to_agent'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent'],
   });
 }

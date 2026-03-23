@@ -203,6 +203,59 @@ export interface FactExtractionResult {
   durationMs: number;
 }
 
+// ============ SUPERSEDE (CONTRADICTION RESOLUTION) ============
+
+/** Input for superseding a memory (temporal contradiction resolution) */
+export interface MemorySupersedeInput {
+  /** ID of the memory being replaced */
+  oldMemoryId: string;
+  /** New content that supersedes the old */
+  newContent: string;
+  /** Organization ID for tenant isolation */
+  orgId: string;
+  /** Customer ID (optional) */
+  customerId?: string;
+  /** Confidence of new memory (0-1, default 1.0) */
+  newConfidence?: number;
+  /** Source of new information */
+  newSource?: string;
+  /** Reason for superseding */
+  reason?: string;
+  /** Agent performing the supersede */
+  agentId?: string;
+  /** Agent Trust Score at time of supersede */
+  agentAts?: number;
+  /** Metadata for new memory */
+  metadata?: Record<string, unknown>;
+}
+
+/** Result of a supersede operation */
+export interface MemorySupersedeResult {
+  /** ID of newly created memory (null if requires review) */
+  newMemoryId: string | null;
+  /** Whether human review is required (confidence_delta > 0.3) */
+  requiresReview: boolean;
+  /** Absolute difference in confidence scores */
+  confidenceDelta: number;
+  /** KYA governance decision */
+  kyaDecision: string;
+}
+
+/** An entry in the memory_audit_log table */
+export interface MemoryAuditEntry {
+  id: string;
+  operation: 'store' | 'supersede' | 'forget' | 'extract';
+  agentId: string;
+  agentAts?: number;
+  memoryId?: string;
+  oldMemoryId?: string;
+  orgId: string;
+  customerId?: string;
+  reason?: string;
+  metadata: Record<string, unknown>;
+  createdAt: string;
+}
+
 // ============ CACHE ============
 
 /** LRU cache entry for recall results */
