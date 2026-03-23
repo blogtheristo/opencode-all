@@ -158,7 +158,7 @@
 >
 > I've spoken with dozens of construction operators and the answer is usually the same: consultants, spreadsheets, and a lot of manual work. It costs six figures per year and still doesn't scale across projects.
 >
-> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — software that automates this reporting. You feed in your project data, and the platform generates the compliance reports automatically. The same reports that take a consultant weeks to prepare.
+> I'm Risto Anton Päärni, Founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — software that automates this reporting. You feed in your project data, and the platform generates the compliance reports automatically. The same reports that take a consultant weeks to prepare.
 >
 > **Where we are today:**
 > - Live in production with paying customers

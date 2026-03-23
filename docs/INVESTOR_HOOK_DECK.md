@@ -50,7 +50,7 @@ NVIDIA Jetson Orin Nano. EUR 500 per device. 7-15 watts. Solar-capable. Runs AI 
 ### Three pillars. Each takes years to build. Together they're a moat.
 
 **Pillar 1: The Lifetime World Model — proprietary intelligence.**
-15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build. 3-5 years to replicate.
+15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build — now at version 6 with a roadmap through version 8. 3-5 years to replicate.
 
 **Pillar 2: Edge deployment — hardware+software integration.**
 AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. Model quantization, OT-network security, power management — engineering problems, not software features. A competitor would need to redesign their entire architecture. 2-3 years to replicate.
@@ -73,7 +73,7 @@ Replace Claude with a different LLM tomorrow. The platform still works. The inte
 | **Fleet Admiral** | EUR 500,000 | 1 | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy. |
 | **Captain** | EUR 150,000 | Limited | Named industry leader. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access. |
 | **Industry Captain** | EUR 50,000 | 8 | Named captain of one of 20 EU industries. Annual briefings. Industry-specific intelligence. |
-| **Deputy Captain** | Open | Unlimited | Quarterly briefings. Upgrade path to Captain. No seat cap. |
+| **Deputy Captain** | EUR 5,000 | Unlimited | Quarterly briefings. Upgrade path to Captain. No seat cap. |
 
 **8 Industry Captain seats across 20 industries. First tranche gets the best terms.**
 
@@ -86,11 +86,14 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - Industry-specific regulatory intelligence and compliance alerts
 
 **The company:**
-- Lifetime Oy (Finland) — 35-year industrial IT veteran as founder/CEO
+- Lifetime Oy (Finland) — 35 years of domain expertise concentrated in the founder. Not learning the industry — encoding it into AI agents.
+- Team: Lucille Santiago (Logistics & Office). First €50K of raise funds senior technical hire by Q3 2026.
+- Advisors: Hannamari Robertsson (CEO, Robertsson Oy — ESG & Business Consulting), Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
+- Sales motion: Enterprise Navigator pilots at EUR 4,950 convert first to EUR 8,950 entry-level annual contracts, then expand via multi-site / multi-module upsells to a EUR 36K average ACV (25 customers x EUR 36K = EUR 900K ARR target).
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
-- NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS, Groq
+- NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
 **When a seat is taken, it's gone. Deputy Captain seats are unlimited.**

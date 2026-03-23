@@ -514,7 +514,7 @@ export function investorOutreachTemplate(
       Hi ${escapedName},
     </p>
     <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      I'm Risto Paarni, founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
+      I'm Risto Paarni, Founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
       platform for ${escapedIndustry}. We have €7k MRR, 5 paying customers with 100% retention,
       and are raising a SAFE round at a €3.8M cap.
     </p>

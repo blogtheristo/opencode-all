@@ -4,7 +4,7 @@
 
 Hi [Name],
 
-I'm Risto, founder of Lifetime / DWS IQ 6. We automate CSRD / Fit for 55 reporting for construction and infrastructure portfolios – turning 40–80 hours of Excel per project into audit-ready reports and live dashboards.
+I'm Risto, Founder of Lifetime / DWS IQ 6. We automate CSRD / Fit for 55 reporting for construction and infrastructure portfolios – turning 40–80 hours of Excel per project into audit-ready reports and live dashboards.
 
 We're at €7k MRR with 100% retention and raising a €500k SAFE round at a €3.8M cap to convert 2 construction pilots into 5 flagship portfolios (path to ~€900k ARR by 2026). For a typical €15k ticket, that's roughly a 3–4x paper uplift at a €15M Series A, with full capital at risk.
 
@@ -87,7 +87,7 @@ Subject: CSRD automation for construction - €7k MRR, 100% retention
 
 Hi [Name],
 
-I'm Risto, founder of DWS IQ 6. We automate CSRD / Fit for 55 
+I'm Risto, Founder of DWS IQ 6. We automate CSRD / Fit for 55 
 reporting for construction portfolios – turning 40–80 hours of 
 Excel into audit-ready reports.
 
@@ -110,7 +110,7 @@ Subject: Construction compliance automation - mandatory market
 
 Hi [Name],
 
-Risto here, founder of DWS IQ 6. We're automating CSRD compliance 
+Risto here, Founder of DWS IQ 6. We're automating CSRD compliance 
 for construction portfolios.
 
 The market: 3.5M EU firms, Fit for 55 mandatory 2025, €10k–€50k 
@@ -133,7 +133,7 @@ Subject: Construction climate compliance - €15k ticket
 
 Hi [Name],
 
-I'm Risto, founder of DWS IQ 6. We automate CSRD reporting for 
+I'm Risto, Founder of DWS IQ 6. We automate CSRD reporting for 
 construction portfolios.
 
 €7k MRR, 100% retention, mandatory market (Fit for 55 live 2025).
@@ -281,7 +281,7 @@ A: Early-stage, high-risk equity investment. Can go to zero. Upside from valuati
 A: Target Q3 2026 at €15M+ pre-money, assuming we hit €900k ARR.
 
 **Q: Who's the team?**  
-A: Risto (founder): 35+ years industrial management, enterprise software, SAP integration, AI infrastructure.
+A: Risto (Founder): 35+ years industrial management, enterprise software, SAP integration, AI infrastructure.
 
 **Q: Where are you based?**  
 A: Finland (AAA credit rating, strong IP protection, Nordic innovation ecosystem).

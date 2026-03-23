@@ -2,7 +2,7 @@
 
 **Prepared:** February 8, 2026
 **Last Updated:** March 14, 2026
-**Founder:** Risto Anton Paarni, CEO & Founder
+**Founder & CEO:** Risto Anton Paarni
 **Company:** Lifetime Oy (DWS IQ 6 platform)
 **Location:** Helsinki, Finland
 

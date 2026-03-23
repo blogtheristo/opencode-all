@@ -75,7 +75,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > Quick question: how is your team automating [REGULATION] compliance right now? I've spoken with 40+ [industry] operators and the answer is usually "consultants + spreadsheets at six-figure annual cost."
 >
-> I'm Risto Anton Päärni, founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, and 12 more EU mandates across 16 regulated industries.
+> I'm Risto Anton Päärni, Founder of Lifetime Oy (Helsinki). We build **DWS IQ 6** — an industrial climate intelligence platform automating ETS, CBAM, CSRD, and 12 more EU mandates across 16 regulated industries.
 >
 > **Where we are today:**
 > - EUR 7–14k MRR, 100% customer retention (12+ months)

@@ -20,12 +20,15 @@
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 
+**Sales Motion:**
+Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
+
 **Sales Timeline:**
 - March–June 14, 2026: Pipeline building, pilot conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
 - **August 15, 2026: First sales cycle data available** (investor decision point)
-- 2026: €900k ARR target
+- 2026: €900k ARR target (25 customers × €36K avg)
 - Series A: 2026 at €15M+ pre-money valuation
 
 ---
@@ -45,13 +48,13 @@
 |------|-----------|-----------------|
 | **Fleet Admiral** | €500,000 | 1 |
 | **Captain** | €50,000 | 8 (one per industry tranche) |
-| **Deputy Captain** | Price TBD | Unlimited |
+| **Deputy Captain** | €5,000 | Unlimited |
 
 **Round math:** €500K (Fleet Admiral) + 8 × €50K (Captain Seats) = **€650K total**
 
 - **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
 - **Captain** — Named captain of one of 20 EU-regulated industries. Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
-- **Deputy Captain** — Open tier, unlimited seats. Price TBD. Quarterly briefings, upgrade path to Captain.
+- **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
 
 ---
 
@@ -275,6 +278,7 @@ Timeframe:                 ~2 years (2024→2026)
 | Construction Co. B | Construction | Pilot | €80,000 (projected) |
 
 ### Competitive Advantages
+- **IP Depth:** Lifetime World Model — 7 years, 6 platform versions, roadmap through v8. Not a wrapper on GPT; a proprietary regulatory intelligence graph.
 - **Time to Value:** 4 weeks from contract to audit-ready report
 - **Automation Stack:** DWS IQ 6 + Firehorse workflow automation
 - **SAP/ERP Integration:** Plug into existing systems, no manual data entry
@@ -287,10 +291,15 @@ Timeframe:                 ~2 years (2024→2026)
 - **KYA-S Certified:** Only platform with hardware-attested agent governance and D&O safe harbor proof
 
 ### Team & Credentials
-- **Founder & CEO:** Risto Anton Päärni
-- **Experience:** 35+ years in industrial management, enterprise software, and AI infrastructure
+- **Founder & CEO:** Risto Anton Päärni — 35 years of domain expertise in industrial IT, construction, and infrastructure is the moat. This isn't a first-time founder learning the industry — it's a career operator who's lived the compliance problem from the factory floor to the boardroom, now encoding that knowledge into AI agents.
 - **Expertise:** SAP integration, regulatory compliance, agentic AI orchestration
 - **Track Record:** Successful enterprise deployments, Fortune 500 client projects
+- **Logistics & Office:** Lucille Santiago
+- **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026. Building the engineering team is the top priority after close.
+- **Advisors:**
+  - Hannamari Robertsson — CEO, Robertsson Oy (ESG Training & Business Consulting. PhD research on profitability through organizational transformation. Keynote speaker: Alma Talent, Rastor, Professio.)
+  - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
+  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 - **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)
 - **Third-Party Validation:**
   - Crunchbase Growth Score: 91
@@ -298,6 +307,7 @@ Timeframe:                 ~2 years (2024→2026)
   - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
+- **Partnerships:** NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - **Acer Partnership:** Acer provides GN-100 hardware for free for the coming months to build the remaining code and train the Lifetime World Model. This partnership forms the basis for Risto's Metropolia Applied Sciences University Master Thesis (YAMK) and contributes to the development of DWS 7 in 2027.
 
 ### Q1 2026 Technical Progress
