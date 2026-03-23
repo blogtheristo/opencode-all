@@ -302,7 +302,7 @@ Timeframe:                 ~2 years (2024→2026)
   - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
-- **Partnerships:** NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
+- **Partnerships:** NVIDIA Connect Partner, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
 - **Acer Partnership:** Acer provides GN-100 hardware for free for the coming months to build the remaining code and train the Lifetime World Model. This partnership forms the basis for Risto's Metropolia Applied Sciences University Master Thesis (YAMK) and contributes to the development of DWS 7 in 2027.
 
 ### Q1 2026 Technical Progress

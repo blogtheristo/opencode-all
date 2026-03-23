@@ -92,7 +92,7 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
-- NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
+- NVIDIA Connect Partner, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
 **When a seat is taken, it's gone. Deputy Captain seats are unlimited.**
