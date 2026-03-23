@@ -514,7 +514,7 @@ export function investorOutreachTemplate(
       Hi ${escapedName},
     </p>
     <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-      I'm Risto Paarni, founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
+      I'm Risto Paarni, Founder of Lifetime Oy. We're building DWS IQ 6 — the AI compliance
       platform for ${escapedIndustry}. We have €7k MRR, 5 paying customers with 100% retention,
       and are raising a SAFE round at a €3.8M cap.
     </p>
@@ -578,7 +578,7 @@ export function investorOutreachTemplate(
       <tr>
         <td style="padding: 10px 16px; background-color: #1e293b; border-radius: 8px; border-left: 3px solid #60a5fa;">
           <p style="margin: 0; font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-            <strong style="color: #f9fafb;">Alpha-Share</strong> (7.5% of verified efficiency gains) scales revenue with customer success
+            <strong style="color: #f9fafb;">SaaS + API pricing</strong> — predictable monthly cost that scales with your usage
           </p>
         </td>
       </tr>

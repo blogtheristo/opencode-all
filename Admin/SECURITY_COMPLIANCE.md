@@ -9,6 +9,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
   - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/verify-nda-signatures-rdgOj | Date: 21.03.2026 | Changes: Added DocuSign as sub-processor in infrastructure providers table (SOC 2 Type II, ISO 27001)
   - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/review-dws-ai-compliance-996LB | Date: 03.03.2026 | Changes: Updated EU AI Act row from ambiguous "High-risk assessment Q2 2026" to accurate limited-risk self-classification status with Article 12 active
 
 Session Links & References:
@@ -517,12 +518,13 @@ The MCP Agent Server at `/mcp` has the following security controls:
 | NVIDIA | Edge hardware | ISO 27001 | On-premise |
 | Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
 | 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
+| DocuSign | eSignature (NDA/contracts) | SOC 2 Type II, ISO 27001 | US (demo), EU available |
 
 All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.6
-**Last Updated:** 2026-03-02
+**Document Version:** 1.8
+**Last Updated:** 2026-03-21
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi

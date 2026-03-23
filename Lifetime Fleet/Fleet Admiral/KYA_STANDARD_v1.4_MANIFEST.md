@@ -31,6 +31,7 @@ KYA is not a software policy. It is a **hardware-enforced governance layer**.
 | **v1.2** | Security hardening | Firecracker MicroVM isolation, sub-5ms cryptographic kill-switches |
 | **v1.3** | Fleet orchestration | Fleet-wide emergency stop, rolling restart, canary deployment |
 | **v1.4** | Self-optimization governance | 11% Efficiency Law, bounded self-improvement, audit trail for optimization decisions |
+| **v1.5** | Memory audit trail | Agent memory mutations (store/supersede/forget/extract) governed with court-defensible provenance |
 
 ---
 
@@ -134,11 +135,13 @@ BRAIN (DWS IQ 6)
        ├── Firecracker MicroVM isolation (per-agent)
        └── Cryptographic kill-switch (<5ms)
 
-MEMORY (Lifetime World Model)
-  └── Firehorse DMS
+MEMORY (Lifetime World Model + Client Memory)
+  └── Firehorse DMS + semantic_memories (pgvector)
        ├── Optimization audit trail (immutable)
        ├── Fleet telemetry (real-time)
-       └── Alpha Clause evidence (30-day logs)
+       ├── Alpha Clause evidence (30-day logs)
+       ├── Agent fact extraction (PR-254, structured SPV triples)
+       └── Memory audit log (KYA-S §10, court-defensible)
 
 BODY (Firehorse Suite)
   └── Fleet orchestration

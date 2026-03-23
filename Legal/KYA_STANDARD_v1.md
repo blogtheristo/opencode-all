@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Research-as-a-Service positioning, Agentic Efficiency Law (§11.1), Stacking Effect principle (§11.2), Orchestrator Layer architecture (§12.1), technical takeaways for implementers (§11.3), Gemini-informed conceptual upgrades merged with Grok financial layer
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety Layer), updated ATS formula with autoresearch delta (+A×0.15), financial multiplier column in trust score table, per-industry efficiency gains (9–22%), Capability Manifest v1.2 with autoresearch extensions, inline Karpathy field note, €14–38B projected EU-wide impact by 2030, Grok-informed financial ROI layer
@@ -57,8 +58,8 @@ Related Documents:
 
 | Document | KYA Expansion | Audience | Function |
 |----------|--------------|----------|----------|
-| `KYA_SECURITY_v1.2.md` | Know Your **Agent** | CISOs, Security Architects, Regulators | The No — identity, isolation, kill, forensics |
-| `KYA_OPTIMIZATION_v1.4.md` | Know Your **Architecture** | CFOs, CTOs, Product Leaders | The More — efficiency, attribution, ROI |
+| `KYA_SECURITY_v1.2.md` | Know Your **Agent** (v1.5) | CISOs, Security Architects, Regulators | The No — identity, isolation, kill, forensics, **memory audit trail** |
+| `KYA_OPTIMIZATION_v1.4.md` | Know Your **Architecture** (v1.7) | CFOs, CTOs, Product Leaders | The More — efficiency, attribution, ROI, **memory-driven financial intelligence** |
 
 ---
 

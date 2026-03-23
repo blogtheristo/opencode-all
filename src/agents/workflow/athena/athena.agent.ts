@@ -107,7 +107,7 @@ Return JSON: {
 
     let synthesis = { deadlineSummary: '', criticalGaps: [], prioritizedActions: [], riskNarrative: '' };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.riskNarrative = llmResponse.content.slice(0, 300);
     }

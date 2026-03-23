@@ -79,7 +79,7 @@ Return JSON: { "cbamFertilizerScope", "n2oExposure", "csrdScope3Gap", "prioritiz
     );
 
     let synthesis = { cbamFertilizerScope: '', n2oExposure: '', csrdScope3Gap: '', prioritizedActions: [] as string[], riskSummary: '' };
-    try { synthesis = JSON.parse(llmResult.content); } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
+    try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
 
     const durationMs = Date.now() - startTime;
     const response: AgentResponse = {

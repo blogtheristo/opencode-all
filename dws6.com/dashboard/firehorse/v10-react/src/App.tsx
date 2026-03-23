@@ -4,7 +4,7 @@
  */
 
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { MetricsHeader } from './components/MetricsHeader';
@@ -17,6 +17,9 @@ import { HamburgerMenu } from './components/HamburgerMenu';
 import { OnboardingWizard } from './pages/OnboardingWizard';
 import { LoginPage } from './pages/LoginPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { FirehorsePipelinePage } from './pages/FirehorsePipelinePage';
+import { MemoryDashboard } from './components/MemoryDashboard';
+import { EC3DashboardPage } from './pages/EC3DashboardPage';
 import { fetchProjects } from './lib/supabase';
 import type { Project } from './types/dashboard';
 
@@ -86,6 +89,9 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
     switch (view) {
       case 'dashboard': navigate('/'); break;
       case 'agents': navigate('/agents'); break;
+      case 'memory': navigate('/memory'); break;
+      case 'firehorse': navigate('/firehorse'); break;
+      case 'health': navigate('/health'); break;
       case 'settings': navigate('/settings'); break;
       case 'billing': navigate('/billing'); break;
     }
@@ -107,6 +113,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
             </div>
             <div className="hidden md:flex items-center gap-2">
               <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
+              <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <div className="hidden md:block">
@@ -215,6 +223,9 @@ function DashboardWithPanels() {
             </div>
             <div className="hidden md:flex items-center gap-2">
               <button onClick={() => navigate('/agents')} className="btn-secondary">Agent Monitor</button>
+              <button onClick={() => navigate('/memory')} className="btn-secondary">Memory</button>
+              <button onClick={() => navigate('/ec3')} className="btn-secondary">EC3 Materials</button>
+              <button onClick={() => navigate('/firehorse')} className="btn-secondary">Firehorse</button>
               <button onClick={() => setSidePanel(sidePanel === 'chat' ? null : 'chat')} className={sidePanel === 'chat' ? 'btn-primary' : 'btn-secondary'}>AI Assistant</button>
               <button onClick={() => setSidePanel(sidePanel === 'meeting' ? null : 'meeting')} className={sidePanel === 'meeting' ? 'btn-primary' : 'btn-secondary'}>Meeting</button>
             </div>
@@ -433,6 +444,27 @@ function App() {
               <Suspense fallback={<PageLoader />}>
                 <HealthPage />
               </Suspense>
+            </DashboardLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/firehorse" element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <FirehorsePipelinePage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/memory" element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <MemoryDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/ec3" element={
+          <ProtectedRoute>
+            <DashboardLayout>
+              <EC3DashboardPage />
             </DashboardLayout>
           </ProtectedRoute>
         } />

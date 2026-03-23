@@ -36,6 +36,16 @@ import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 
+// Lazy import to avoid circular dependency (construction is registered in index.ts)
+let _registry: { executeAgent: (name: string, context: AgentContext, input: Record<string, unknown>) => Promise<AgentResponse> } | null = null;
+async function getRegistry() {
+  if (!_registry) {
+    const mod = await import('./index.js');
+    _registry = mod.agentRegistry;
+  }
+  return _registry;
+}
+
 // ============ INPUT INTERFACES ============
 
 interface ConstructionProject {
@@ -180,7 +190,7 @@ export class ConstructionAgent extends BaseAgent {
           ({ result, reasoning, recommendations } = this.runScheduleRisk(validated));
           break;
         case 'full-assessment':
-          ({ result, reasoning, recommendations } = this.runFullAssessment(validated));
+          ({ result, reasoning, recommendations } = await this.runFullAssessment(validated, context));
           break;
         default:
           throw new Error(`Unknown action: ${validated.action}`);
@@ -463,16 +473,59 @@ export class ConstructionAgent extends BaseAgent {
     };
   }
 
-  private runFullAssessment(input: ConstructionInput): {
+  private async runFullAssessment(input: ConstructionInput, context: AgentContext): Promise<{
     result: Record<string, unknown>;
     reasoning: string;
     recommendations: string[];
-  } {
-    // Run all sub-assessments
+  }> {
+    // Run local sub-assessments (always available, fast)
     const compliance = this.runComplianceCheck(input);
     const schedule = this.runScheduleRisk(input);
     const materials = this.runMaterialAssessment(input);
     const subcontractor = input.subcontractor ? this.runSubcontractorVet(input) : null;
+
+    // Delegate to real sub-agents for deeper analysis (graceful fallback)
+    const delegatedResults: Record<string, AgentResponse | null> = {};
+    try {
+      const registry = await getRegistry();
+      if (registry) {
+        const delegations = [];
+
+        // SiteSense: site safety scoring (if site data provided)
+        if (input.site) {
+          delegations.push(
+            registry.executeAgent('sitesense', context, {
+              siteId: input.projectId,
+              siteName: input.project.name,
+              ...input.site,
+            }).then(r => { delegatedResults.sitesense = r; }).catch(e => {
+              logger.warn('SiteSense delegation failed', { error: (e as Error).message });
+              delegatedResults.sitesense = null;
+            })
+          );
+        }
+
+        // MaterialOracle: carbon assessment (if materials provided)
+        if (input.materials) {
+          delegations.push(
+            registry.executeAgent('material-oracle', context, {
+              projectId: input.projectId,
+              ...input.materials,
+            }).then(r => { delegatedResults['material-oracle'] = r; }).catch(e => {
+              logger.warn('MaterialOracle delegation failed', { error: (e as Error).message });
+              delegatedResults['material-oracle'] = null;
+            })
+          );
+        }
+
+        // Run delegations in parallel
+        await Promise.all(delegations);
+      }
+    } catch (err) {
+      logger.warn('Sub-agent delegation unavailable — using local results only', {
+        error: (err as Error).message,
+      });
+    }
 
     const allRecommendations = [
       ...compliance.recommendations,
@@ -480,6 +533,13 @@ export class ConstructionAgent extends BaseAgent {
       ...materials.recommendations,
       ...(subcontractor?.recommendations || []),
     ];
+
+    // Merge sub-agent recommendations
+    for (const [agentName, response] of Object.entries(delegatedResults)) {
+      if (response?.recommendations) {
+        allRecommendations.push(...response.recommendations.map(r => `[${agentName}] ${r}`));
+      }
+    }
 
     // Deduplicate
     const uniqueRecs = [...new Set(allRecommendations)];
@@ -493,6 +553,16 @@ export class ConstructionAgent extends BaseAgent {
     else if (flags.length > 0 || winterOverlap) riskLevel = 'high';
     else if (compressed) riskLevel = 'medium';
 
+    // Lower risk if sub-agents provided good confidence
+    const sitesenseConfidence = delegatedResults.sitesense?.confidence;
+    if (sitesenseConfidence && sitesenseConfidence > 0.8 && riskLevel === 'high') {
+      riskLevel = 'medium'; // Sub-agent data improves assessment
+    }
+
+    const orchestrated = Object.entries(delegatedResults)
+      .filter(([, r]) => r !== null)
+      .map(([name, r]) => `${name} (confidence: ${r!.confidence})`);
+
     return {
       result: {
         projectId: input.projectId,
@@ -501,18 +571,15 @@ export class ConstructionAgent extends BaseAgent {
         schedule: schedule.result,
         materials: materials.result,
         subcontractor: subcontractor?.result || null,
-        agentOrchestration: [
-          'construction (this agent)',
-          '→ sitesense (site safety)',
-          '→ material-oracle (EN 15978 carbon)',
-          '→ schedule-genius (critical path)',
-          '→ viability (ROI + carbon credits)',
-          '→ emissions-data-analyst (reporting)',
-          '→ compliance-researcher (regulations)',
-        ],
+        delegatedAgents: orchestrated,
+        delegatedResults: Object.fromEntries(
+          Object.entries(delegatedResults)
+            .filter(([, r]) => r !== null)
+            .map(([name, r]) => [name, { confidence: r!.confidence, result: r!.result }])
+        ),
         recommendationCount: uniqueRecs.length,
       },
-      reasoning: `Full assessment for "${input.project.name}": Overall risk ${riskLevel.toUpperCase()}. ${flags.length} compliance flags, ${winterOverlap ? 'winter overlap' : 'no winter issues'}, ${compressed ? 'compressed schedule' : 'adequate schedule'}. ${uniqueRecs.length} recommendations generated across compliance, schedule, materials${subcontractor ? ', and subcontractor vetting' : ''}.`,
+      reasoning: `Full assessment for "${input.project.name}": Overall risk ${riskLevel.toUpperCase()}. ${flags.length} compliance flags, ${winterOverlap ? 'winter overlap' : 'no winter issues'}, ${compressed ? 'compressed schedule' : 'adequate schedule'}. ${orchestrated.length} sub-agents delegated. ${uniqueRecs.length} recommendations generated.`,
       recommendations: uniqueRecs,
     };
   }

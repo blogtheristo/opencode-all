@@ -4,9 +4,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.26
+Version: 3.28
 
 Sessions & Modifications:
+  - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen strukturoitu faktojen poiminta keskusteluista subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM domainitieto + asiakassuhdemuisti), kolme puuttuvaa suorituskerrosta tunnistettu (Firehorse-tilakonemasiina, ERP-liitin, KYA-hallintakehys); päivitetty PR-tiekartta KYA-ensisijaisuusjärjestyksellä; lisätty avainpanos #20; huomioitu KYA Standard v1.4 sisäinen / v1.1 julkinen ero
+  - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 10.7.3 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiasektorin tapaustutkimus — ensimmäinen ulkoinen validointi LWM:n kaupallisesta arvosta rakennusalan ulkopuolella, 21 693 €/vuosi BESS-vaatimustenmukaisuuskustannuslaskelma, 6 toimialan laajennuspolku MAN-tyyppisille asiakkaille, Solution Factory -malli vahvistettu); päivitetty 16→20 toimialaa LWM-osioissa; uudelleennumeroitu 10.7.3→10.7.4 Orchestration Studio
   - Version: 3.26 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 8 Tulokset ja analyysi v3.16–3.25 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon-järjestelmä, asiakkaiden MVP-ominaisuudet (API-avaimet, mittarointi, raportit), PostgreSQL HTAP -arkkitehtuuri, A/B-testauksen tulosten integrointi, päivitetty vaatimustenmukaisuusvalmius (EU AI Act Art 12 toteutettu), päivitetty SWOT strategisilla kumppanuuksilla; lisätty uusi osio 8.7 A/B-testauksen ja palautekanavien tulokset
   - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 10.16 (Harness Engineering — promptisuunnittelusta järjestelmäsuunnitteluun): OpenAI:n 8 periaatetta, DWS IQ 6 vertailu 6-kerroksisella L0-L6-arkkitehtuurilla, empiirinen tulos (52,8%→66,5% pelkällä harness-parannuksella), EU-regulaatio vaatii erilaisen harnessin; lisätty avainpanos #19
   - Version: 3.24 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Laajennettu Liite G sanasto: Tietoarkkitehtuuri (9 termiä) ja Tutkimusmenetelmät (4 termiä) — autotutkimus, HTAP, Hypercore, kaksitasoinen arkkitehtuuri, KYA, proxy-to-scale
@@ -25,8 +27,8 @@ Sessions & Modifications:
   - Version: 3.12 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-agent-orchestration-t89Ig | Date: 24.02.2026 | Changes: [SEURAAMATON AJAUTUMINEN] Toimitusjohtajan automaatioagenttiryhmä (3 agenttia)
   - Version: 3.11 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 10.10 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-viite (arXiv:2602.23008 — hybridi on/off-policy RL muistia hyödyntäville agenteille); päivitetty NCC Hiekkalaatikko-vaihe; lisätty avainpanos #9
   - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 10.9 DWS7 agenttiarkkitehtuurin modernisointi — dokumentoi 6 kriittistä korjausta (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, agenttien delegointi, MCP-palvelin, tapahtumaväylä), Build for Agents -periaate (CLI, Claude Code Skills), agenttikeskeinen tuotesuunnittelufilosofia
-  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 16 toimialan ristioppimisen verkostovaikutusten analyysi
-  - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (16 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
+  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä yrityksen oppimiskerroksena (hienosäätää dataa/sääntelyä, optimoi markkina-arvon, varmistaa kilpailuedun), lisätty 20 toimialan ristioppimisen verkostovaikutusten analyysi
+  - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Lisätty osiot 10.6 Toimialakohtainen avoimen LLM:n valinta (20 toimialaa, 7 ehdokasmallia), 10.7 Yrityksen BYOA-arkkitehtuuri (Tuo omat agentit — NCC-skenaario, 24 agenttia, Langflow+React Flow+Temporal.io graafinen työnkulkurakentaja, urakoitsija-agentin käyttöönotto)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisatty Liite H — Automatisoitu PR-tyonkulku (HIL-automaatio): kaksoismallin AI-katselmointi (Claude + Gemini), Copilot-korjaussilmukka, automaattiyhdistamistyonkulku, MCP Hub Gemini-paatepiste, Cloud Run dws6run6 -kayttoonotto. Generoitu versioidut HTML-tiedostot Learn/-kansioon
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Paivitetty DWS-standardit, admin-manuaalit HIL-automaatioviittauksilla. Versiotunnuksen korjaus (3.4-3.5 eivat olleet seurannassa)
   - Version: 3.5 | Tool: Claude Code (Opus 4.6) | Session: e7fe405 | Date: 20.02.2026 | Changes: Lisatty osio 12 IPR-suojaus ja liikesalaisuusstrategia, osio 13 Prompt caching -arkkitehtuuri AI-agenteille, uudelleennumeroitu osiot 12-15 → 14-17, lisatty EU:n liikesalaisuusdirektiivin viitteet
@@ -150,7 +152,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 3. Eivät käsittele toimialakohtaisia compliance-työnkulkuja
 
 **Firehorse (DWS6)** ratkaisee tämän uudella toimintamallilla, joka yhdistää:
-- Ilmaistason pilvi-infrastruktuurin (€0-350/kk vs €1 400+)
+- AI-avusteisen kehityksen (Cursor Pro + Claude Code Max, 15 viikon MVP)
 - Edge AI (NVIDIA Jetson) <100ms päättelylle
 - Toimialakohtaiset AI-agentit (Rakentaminen, Valmistus, Energia)
 - Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja → Autonominen)
@@ -159,7 +161,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 ## 1.2 Tutkimusongelma
 
 **Päätutkimuskysymys:**
-Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
+Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
 
 **Alatutkimuskysymykset:**
 
@@ -176,7 +178,7 @@ Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden h
 ## 1.3 Työn tavoitteet
 
 1. Dokumentoida Firehorse-toimintamalli (MVP → V1)
-2. Validoida ilmaistason kustannusmalli (€0/kk tavoite)
+2. Validoida kustannustehokas kehitysmalli (Cursor Pro + Claude Code Max)
 3. Mitata asiakashyöty (≤2kk takaisinmaksuaika)
 4. Luoda toistettava malli muille teollisuuden startup-yrityksille
 5. **Validoida verkkokauppakanava Google Merchant Center -integraatiolla** [V3.0]
@@ -299,7 +301,7 @@ Takaisinmaksuaika: 1,95 kuukautta
 
 ## 2.5 Moniagenttijärjestelmien teoria ja Lifetime Scope Signals
 
-Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin bootstrapatuissa teollisissa tekoälyalustoissa.
+Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin resurssirajoitteisissa teollisissa tekoälyalustoissa.
 
 ### 2.5.1 Moniagenttijärjestelmien tausta
 
@@ -1091,7 +1093,7 @@ Firehorse-toimintamalli Claude Codella saavutti (päivitetty v3.26):
 |---------|-------|-------|--------|---------|
 | EU:n tekoälysäädös | 80 % | **92 %** | +12 % | Artikla 12 -lokitus toteutettu (Pantheon-agentit), SOUL.md-malli |
 | GDPR | 95 % | **97 %** | +2 % | Proton + Supabase RLS + europe-north1 |
-| Fit for 55 | 90 % | **93 %** | +3 % | 16 toimialan hiililaskuri, tuotekatalogi |
+| Fit for 55 | 90 % | **93 %** | +3 % | 20 toimialan hiililaskuri, tuotekatalogi |
 | NIS2 | 75 % | **85 %** | +10 % | Turvallisuuskoventaminen (RC2-RC4), Snyk MCP, agenttijärjestelmän koventaminen |
 | CSRD | 85 % | **88 %** | +3 % | Raportointipohjat + vaatimustenmukaisuusraportin vientiominaisuus |
 | **EU Data Act** | — | **80 %** | Uusi | DWS-tietostandardi, HTAP-arkkitehtuuri |
@@ -1177,7 +1179,7 @@ Firehorse-toimintamalli Claude Codella saavutti (päivitetty v3.26):
 
 ### Uhat
 - Isojen teknologiayritysten tulo markkinoille
-- Krediittien päättyminen (12 kk)
+- Kustannusten skaalautuminen kasvuvaiheessa
 - Kilpailu vakiintuneilta toimijoilta
 - **EU AI Act -täytäntöönpanon aikataulu (elokuu 2026)**
 
@@ -1220,7 +1222,7 @@ Tuotevalidointi neliportaisen palautekanavoinnin kautta (osio 1.6):
 
 ## 9.2 Toistettavuus: Solution Factory -malli
 
-**Vaihe 1: Bootstrap (6 kk, €0-350/kk)** — Ilmaistasot, 5 pilottiasiakasta
+**Vaihe 1: MVP-kehitys (15 viikkoa, Cursor Pro + Claude Code Max)** — Kumppanuudet, 5 pilottiasiakasta
 
 **Vaihe 2: Validoi (6 kk, €5-15k MRR)** — Maksavat asiakkaat, <2 kk takaisinmaksu
 
@@ -1327,7 +1329,7 @@ Firehorse-toimintamalli osoittaa, että tekoälyavusteinen verkkokaupan hallinta
 ## 10.3 Kontribuutio teoriaan
 
 ### Lifetime Scope Signals -protokolla
-Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja bootstrap-optimointi.
+Uusi kontribuutio moniagenttijärjestelmien teoriaan — deklaratiivinen koordinointi, deterministiset riippuvuudet ja käynnistysvaiheen optimointi.
 
 ### Solution Factory -malli
 Syntetisoi Lean Startupin, Alustatalouden, Teollisuus 5.0:n ja Reunalaskennan taloustieteen yhtenäiseksi viitekehykseksi.
@@ -1366,15 +1368,15 @@ Keskeinen havainto alusta-arkkitehtuurityöstä on, että **yksikään avoin LLM
 
 Jokainen yritysvuokralainen voi kouluttaa oman Lifetime World Model -mallinsa omilla toimialatiedoillaan valitsemallaan LLM:llä pohjamallina.
 
-### 10.6.1 Miksi 16 toimialaa tekee DWS IQ:sta vahvemman
+### 10.6.1 Miksi 20 toimialaa tekee DWS IQ:sta vahvemman
 
-Asiakkaan näkökulmasta 16 EU-toimialan kattava alusta ei ole monimutkaisuutta — se on **kilpailuetu, jota he ostavat**. 16 toimialan arkkitehtuuri luo yhdistyvää arvoa, jota yksittäisen toimialan alusta ei pysty tarjoamaan:
+Asiakkaan näkökulmasta 16 EU-toimialan kattava alusta ei ole monimutkaisuutta — se on **kilpailuetu, jota he ostavat**. 20 toimialan arkkitehtuuri luo yhdistyvää arvoa, jota yksittäisen toimialan alusta ei pysty tarjoamaan:
 
 1. **Ristikkäinen sääntely-ymmärrys.** EU-sääntelyt kuten Fit for 55, CSRD ja CBAM vaikuttavat useisiin toimialoihin samanaikaisesti. Rakennusyrityksen Scope 3 -päästöt sisältävät terästä (ETS), sementtiä (CBAM), logistiikkaa (FuelEU) ja energiaa (RED III). Yksittäisen toimialan työkalu näkee yhden siivun; DWS IQ näkee koko sääntelyketjun. Asiakas saa vaatimustenmukaisuustiedustelun, joka ymmärtää heidän koko toimitusketjunsa, ei vain omaa vertikaalinsa.
 
 2. **Toimitusketjun näkyvyys yli vertikaalien.** Kun valmistusasiakas raportoi CBAM-tuonteja, DWS IQ ymmärtää jo teräksen tuottajan ETS-velvoitteet, logistiikkatarjoajan polttoainesääntelyt ja energiantoimittajan uusiutuvan energian sertifikaatit. Tämä ristikkäinen toimialatietämys tarkoittaa, että asiakkaan vaatimustenmukaisuusraportit ovat tarkempia, tarkastusvalmiita ja puolustettavia, koska alusta ymmärtää jokaisen lenkin heidän arvoketjussaan.
 
-3. **LWM:n ristioppiminen.** Lifetime World Model oppii anonymisoiduista kaavoista kaikista 16 toimialasta. Hiilidioksidipäästöjen vähennystekniikka, joka on todistettu sementinvalmistuksessa (esim. klinkkerisuhdeoptimointi), tuottaa siirrettävää tietoa rakentamiseen (vähähiilisen betonin spesifikaatio). Asiakas hyötyy LWM:stä, joka on koulutettu 16 toimialan ilmastotiedustelulla — ei vain heidän omalla kapealla toimialueellaan.
+3. **LWM:n ristioppiminen.** Lifetime World Model oppii anonymisoiduista kaavoista kaikista 16 toimialasta. Hiilidioksidipäästöjen vähennystekniikka, joka on todistettu sementinvalmistuksessa (esim. klinkkerisuhdeoptimointi), tuottaa siirrettävää tietoa rakentamiseen (vähähiilisen betonin spesifikaatio). Asiakas hyötyy LWM:stä, joka on koulutettu 20 toimialan ilmastotiedustelulla — ei vain heidän omalla kapealla toimialueellaan.
 
 4. **Agenttimallien uudelleenkäytettävyys.** Yhdellä toimialalla toimivat agenttikonfiguraatiot nopeuttavat käyttöönottoa liittyvillä toimialoilla. Rakentamiselle kehitetty BIM-vaatimustenmukaisuusagentti mukautetaan kiinteistöjen energiatodistuksiin. Valmistuksen toimitusketjun Scope 3 -agentti siirtyy elintarviketeollisuuteen. Myöhemmin käyttöönottavien toimialojen asiakkaat saavat taistelussa testattuja agentteja halvemmalla ja nopeammin.
 
@@ -1382,9 +1384,9 @@ Asiakkaan näkökulmasta 16 EU-toimialan kattava alusta ei ole monimutkaisuutta 
 
 6. **Vertailukehys vertaisiin ja viereisiin toimialoihin.** Energiayhtiö voi verrata päästöintensiteettiään paitsi muihin sähkölaitoksiin myös teollisuusasiakkaisiin joita se palvelee (valmistus, kaivostoiminta, kemianteollisuus). Tämä moniulotteinen vertailukehys antaa asiakkaalle strategisen näkemyksen siitä, missä he ovat laajemmassa hiilidioksidineutraalisuusmaisemassa.
 
-7. **Verkostovaikutukset kertautuvat ajan myötä.** Jokainen uusi alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän. 16. toimialan asiakas hyötyy kaikkien 15 toimialan kertyneestä älykkyydestä. Tämä luo **vallihaudan**: kilpailijan, joka aloittaa yhdellä toimialalla, on replikoitava vuosien ristikkäinen oppiminen vastatakseen DWS IQ:n kertynyttä älykkyyttä.
+7. **Verkostovaikutukset kertautuvat ajan myötä.** Jokainen uusi alustalle lisätty toimiala tekee jokaisen olemassa olevan toimialan LWM:stä älykkäämmän. 20. toimialan asiakas hyötyy kaikkien 19 toimialan kertyneestä älykkyydestä. Tämä luo **vallihaudan**: kilpailijan, joka aloittaa yhdellä toimialalla, on replikoitava vuosien ristikkäinen oppiminen vastatakseen DWS IQ:n kertynyttä älykkyyttä.
 
-**Tulos asiakkaan näkökulmasta:** DWS IQ:n 16 toimialan kattavuus tarkoittaa, että heidän vaatimustenmukaisuusälykkyytensä ei ole eristetty — se on yhteydessä koko EU:n teolliseen ekosysteemiin. He maksavat yhdestä alustasta ja saavat älykkyyttä, jonka likimääräistäminen vaatisi 16 erillistä työkalua.
+**Tulos asiakkaan näkökulmasta:** DWS IQ:n 20 toimialan kattavuus tarkoittaa, että heidän vaatimustenmukaisuusälykkyytensä ei ole eristetty — se on yhteydessä koko EU:n teolliseen ekosysteemiin. He maksavat yhdestä alustasta ja saavat älykkyyttä, jonka likimääräistäminen vaatisi 16 erillistä työkalua.
 
 ## 10.7 Yrityksen BYOA-arkkitehtuuri: Tuo omat agentit
 
@@ -1429,7 +1431,39 @@ NCC Lifetime World Model
 └── Hiekkalaatikko: Vaihe 1.5 (OpenSandbox, Acer Veriton GN100) → Vaihe 2 (Cloud Run, europe-north1)
 ```
 
-### 10.7.3 Graafinen työnkulkurakentaja: Agent Orchestration Studio
+### 10.7.3 LWM:n tuotemarkkinavalidointi: Energiasektorin tapaustutkimus (maaliskuu 2026)
+
+Lifetime World Modelin kaupallinen elinkelpoisuus sai ensimmäisen ulkoisen validointinsa maaliskuussa 2026 kumppanuusneuvotteluissa **Qantic GmbH:n** (Berliini) kanssa. Qantic on akkuenergiavarastojärjestelmien (BESS) simulointiyhtiö. Tämä tapaustutkimus osoittaa, kuinka LWM:n monitoimialaarkkitehtuuri luo konkreettista markkina-arvoa alkuperäisen rakennusalan kohderyhmän ulkopuolella.
+
+**Konteksti:** Qanticin Q-System mallintaa BESS-omaisuuserien energiatuloja (dispatch-optimointi, markkinaarbitraasi, hajoamiskäyrät). Heidän asiakkaansa — mukaan lukien teollisuusyritykset kuten MAN Energy Solutions — kohtaavat kuitenkin kasvavia EU-vaatimustenmukaisuuskustannuksia (CSRD, ETS, EU-taksonomia), joita Q-System ei laske. Tämä aukko tarkoittaa, että sijoittajien kannattavuusmallit aliarvioivat todellisia kustannuksia 5-15 %.
+
+**LWM-arvolupaus validoitu:**
+
+| Q-System (Qantic) | LWM / DWS IQ 6 (Lifetime) | Yhdessä |
+|---|---|---|
+| "Kuinka paljon tämä BESS tuottaa?" | "Mitä vaatimustenmukaisuus maksaa?" | "Mikä on todellinen nettotuotto?" |
+| Dispatch-tuotto markkinoittain | Scope 2 -hiilidioksidikustannus per MWh | Täysi tuloslaskelma mukaan lukien regulaatiokustannukset |
+| Akun hajoamiskäyrä | Omaisuuserän arvonalennusraportointi (CSRD) | Elinkaaren taloudellinen + vaatimustenmukaisuusnäkymä |
+
+**Kvantitoitu tulosesimerkki (50MW/200MWh BESS, Saksa):**
+
+| Vaatimustenmukaisuuskustannuskomponentti | EUR/vuosi | Lähde |
+|---|---|---|
+| Scope 2 -hiilidioksidikustannus | 5 005 € | ETS Phase 4 -laskin (ets-calculator.ts) |
+| Hyötysuhteen häviökustannus | 488 € | Sähköverkon päästökertoimet (18 EU-maata) |
+| CSRD-raportointikustannus | 12 000 € | Firehorse Reports -arvio |
+| EU-taksonomian sertifiointikustannus | 4 200 € | Taksonomian kohdistusmoottori |
+| **Vaatimustenmukaisuuskustannus yhteensä** | **21 693 €** | BESS Compliance API |
+
+Nämä luvut tulevat olemassa olevasta DWS IQ 6 -koodikannasta (19 yksikkötestiä läpäisee), eivät tuotekartasta. BESS Compliance API -päätepiste (`POST /api/v1/agents/bess/execute`) rakennettiin ja testattiin ennen kumppanuuskeskustelun alkamista — mikä validoi Solution Factory -lähestymistavan tuotteiden rakentamisesta ennen asiakkaiden etsimistä.
+
+**Monitoimialavallihauta demonstroitu:** Qanticin yritysasiakkaat (esim. MAN Energy Solutions) kattavat kuusi EU-säänneltyä toimialaa samanaikaisesti: Sähkö ja lämpö (ETS), Rauta ja teräs (ETS + CBAM), Merenkulku (ETS 2024 alkaen), Maantieliikenne (ETS2 2027 alkaen), Rakentaminen (EPBD) ja Kemikaalit (ETS + REACH). Yksittäisen toimialan vaatimustenmukaisuustyökalu kattaa näistä yhden; DWS IQ:n 20 toimialan LWM kattaa kaikki kuusi samasta alustasta. Tämä validoi osion 10.6 ristiinoppimisen verkostovaikutushypoteesin.
+
+**Tuotemarkkinasopivuussignaali:** Kumppanuusrakenne (15 990 € käyttöönotto + 99 €/omaisuuserä/kuukausi API + 30 % jälleenmyyntipalkkio suositelluista asiakkaista) kehitettiin tee-vai-osta-analyysistä, joka osoitti yritysvaihtoehtojen maksavan 200 000+ €/vuosi. Kymmenkertainen hintaetu tekee LWM:stä kaupallisesti elinkelpoisen pk- ja Mittelstand-segmentissä — markkinasegmentissä, jota Big 4 -konsulttiyritykset palvelevat huonosti.
+
+**Opinnäytetyön merkitys:** Tämä tapaustutkimus tarjoaa empiiristä näyttöä kolmesta väitteestä: (1) LWM:n regulaatiotietoverkostolla on kaupallista arvoa rakennusalan ulkopuolella; (2) 20 toimialan arkkitehtuuri luo puolustettavaa kilpailuetua ristisektoraalisella kattavuudella; (3) Solution Factory -malli (rakenna tuote → etsi asiakas) tuottaa nopeamman markkinavalidoinnin kuin perinteinen konsultointimalli (etsi asiakas → rakenna räätälöity ratkaisu).
+
+### 10.7.4 Graafinen työnkulkurakentaja: Agent Orchestration Studio
 
 Jotta NCC (ja vastaavat yritysasiakkaat) voivat rakentaa yhteyksiä ja työnkulkuja 24+ agentin välille, alusta tarvitsee **visuaalisen työnkulkurakentajan**. Kuuden avoimen lähdekoodin ehdokkaan arvioinnin jälkeen suositeltu arkkitehtuuri on:
 
@@ -1750,6 +1784,57 @@ Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
 
 3. **EMPO²-muistiarkkitehtuurin yhdenmukaisuus:** EMPO²:n (arXiv:2602.23008) itsenäisesti validoima hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri vastaa DWS LWM -suunnittelua — tarjoten akateemisen perustan insinööri-intuitiolla tehdylle toteutusvalinnalle.
 
+### 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254)
+
+*Sessio: claude/agent-memory-fact-extraction-gLEss | Päiväys: 23.03.2026*
+
+EMPO²:n teoreettinen kehys (osio 10.10.4) operationalisoitiin **agenttimuistin faktojen poimintaputkella** — ensimmäinen tuotantototeutus ei-parametrisesta muistipäivityspolusta. Tämä ratkaisee kriittisen puutteen: agentit, jotka keskustelevat asiakkaiden kanssa mutta eivät säilytä strukturoitua tietoa sessioiden välillä.
+
+**Arkkitehtuuri — kaksoismuistimalli:**
+
+| Kerros | Tietotyyppi | Lähde | Esimerkki |
+|--------|------------|-------|-----------|
+| **LWM (Lifetime World Model)** | Domainitieto | EU-säädökset, päästökertoimet, toimialamallit | "CBAM-raja on 150 000 EUR" |
+| **Asiakasmuisti** | Suhdetieto | Keskustelut, sähköpostit, kokoukset | "ACME Corp suosii viikkoraportteja" |
+
+LWM tarjoaa *mitä agentti tietää maailmasta*; asiakasmuisti tarjoaa *mitä agentti tietää tästä asiakkaasta*. Kumpikaan yksinään ei riitä — agentti, joka tuntee EU-säädökset mutta unohtaa asiakkaan toimialan, kysyy samat kysymykset joka sessiossa.
+
+**Faktojen poimintaputki:**
+
+```
+Keskusteluteksti
+  → LLM-poiminta (Claude Haiku, strukturoitu kehote)
+  → JSON-taulukko: {subjekti, predikaatti, arvo, luottamus, kategoria}
+  → Luottamussuodatin (≥0,7 kynnysarvo)
+  → Duplikaattitunnistus (kosinisimilaarisuus >0,95 pgvectorissa)
+  → Tallennus `fact`-tyyppisenä semantic_memories-tauluun
+  → Käytettävissä hakuun hybridihakuna (vektori + teksti)
+```
+
+**Kolme puuttuvaa suorituskerrosta:**
+
+Faktojen poiminta yksinään luo *passiivista tietoa*. Kolme lisäkerrosta vaaditaan tiedon *toiminnallistamiseen*:
+
+1. **Firehorse-tilakonemasiina** — Suorituskerros, joka toimii muistin ja LWM:n tiedon perusteella. Ilman sitä alustalla on tieto mutta ei toimintakykyä.
+
+2. **ERP-liitinkerros** — Reaalimaailman datasyöte. Muisti ja LWM ovat vain yhtä hyviä kuin Visma/IFS/SAP:sta tuleva data. Asiakasmuisti tallentaa *ilmaistut* mieltymykset; ERP-data paljastaa *todellisen* käyttäytymisen.
+
+3. **KYA-hallintakehys** — Luottamuskerros. Asiakasmuisti + LWM ilman todistusta on chatbot. KYA (Know Your AI, sisäinen v1.4 / julkinen v1.1) käärii jokaisen muistipäätöksen auditoitavalla alkuperällä: "fakta A korvasi faktan B ajanhetkellä X, hyväksyjä agentti Y, kirjattu Firehorseen." Tämä on välttämätöntä EU-vaatimustenmukaisuusauditoinneissa CSRD:n ja EU AI Act artikla 12:n nojalla.
+
+**KYA-ensisijainen PR-järjestys:**
+
+| Prioriteetti | PR | Ominaisuus | Tila |
+|-------------|-----|-----------|------|
+| 1 | 254 | Faktojen poiminta | ✅ Toimitettu |
+| 2 | 255 | Ristiriitojen ratkaisu | Vaatii muistivaraston |
+| 3 | — | KYA-muistin auditointipolku | Vaatii ristiriitojen ratkaisun |
+| 4 | 257 | Luottamuksen rappeutumispisteytys | Itsenäinen |
+| 5 | 256 | Konsolidoinnin ajastettu tehtävä | Vaatii rappeutumispisteytyksen |
+| 6 | 259 | Liitin-synkronointi | Vaatii vakaan muisti-API:n |
+| 7 | 258 | Supermemory MCP EU-itseisännöinti | Infrastruktuuri, viimeinen |
+
+**Avainpanos #20:** Ensimmäinen tuotantototeutus agenttimuistin faktojen poiminnasta EU-yhteensopivalla teollisella tekoälyalustalla, osoittaen kaksois-LWM/asiakasmuistiarkkitehtuurin ja tunnistaen kolmikerroksisen suorituspuutteen (tilakonemasiina, ERP-liittimet, KYA-hallinta), joka vaaditaan toiminnalliseen yrityksen tekoälymuistiin.
+
 ---
 
 ## 10.11 Toimitusjohtajan automaatioagenttiryhmä
@@ -2018,7 +2103,7 @@ Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaattee
 │  KUSTANNUSRAKENNE                 │  TULONLÄHTEET                        │
 │  • €0-350/kk infrastruktuuri      │  • SaaS-tilaukset                    │
 │  • Cursor Pro + Claude Code Max   │  • Reunalaitteiston marginaali       │
-│  • Yksi kehittäjä (bootstrap)     │  • Ammattipalvelut                   │
+│  • Yksi kehittäjä (AI-avusteinen) │  • Ammattipalvelut                   │
 │  • Ei markkinointikuluja (org.)   │  • Solution Factory -lisensointi     │
 │                                   │                                      │
 └─────────────────────────────────────────────────────────────────────────┘

@@ -95,9 +95,10 @@ The EU Carbon Border Adjustment Mechanism requires CBAM certificates at the 50-t
 | KYA Governance | Per agent/hour | €0.02 |
 | Compliance Certificates | Per quarter/industry | €500 |
 | Fault Attribution | Per incident | €5.00 |
-| Alpha-Share | % of attributed efficiency gains | 7.5% flat |
+| SaaS Platform | Monthly subscription | €499–€1,999/mo (Enterprise: custom) |
+| API Transactions | Per agent operation | Usage-based |
 
-**Alpha-Share model:** You keep 92.5% of every efficiency gain KYA agents create. We keep 7.5%. If agents generate €1M in energy savings, you keep €925k.
+**Simple SaaS pricing:** Fixed monthly fee + transparent API transaction costs. No revenue sharing, no surprise invoices. You keep 100% of efficiency gains.
 
 ---
 

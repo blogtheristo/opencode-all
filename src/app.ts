@@ -40,11 +40,13 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
@@ -217,6 +219,9 @@ app.use('/api/v1/outreach', outreachRoutes);
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
 
+// Firehorse Omnichannel Pilot (sales automation, signals, lead management)
+app.use('/api/v1/firehorse', firehorseRoutes);
+
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
@@ -308,6 +313,9 @@ app.use('/api/grok-consent', grokConsentRoutes);
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
+
+// Memory dashboard (stats, audit, decay dry-run)
+app.use('/api/v1/memory', memoryRoutes);
 
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
@@ -517,6 +525,10 @@ const server = app.listen(PORT, () => {
   // Manual trigger available via POST /api/v1/construction-leads/fetch
   constructionLeadsScheduler.start();
 
+  // Firehorse Omnichannel Pilot: daily leads at 08:00, follow-ups every 6h
+  initFirehorsePilot();
+  logger.info('Firehorse Omnichannel Pilot started');
+
   // Start outreach digest scheduler (backup — primary is GitHub Actions).
   // On Cloud Run this may not fire reliably due to scale-to-zero,
   // but covers local dev and always-on deployments.
@@ -561,6 +573,7 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  shutdownFirehorsePilot();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -573,6 +586,7 @@ process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  shutdownFirehorsePilot();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

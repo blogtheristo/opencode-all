@@ -1070,12 +1070,82 @@ Alternative (if needed):
 
 ---
 
+## 5.7 TypeScript Memory Service (DWS7 Modernization)
+
+**Added:** 2026-03-22 | **Inspired by:** Supermemory (supermemoryai)
+
+The Python `MemoryManager` (Section 5.3) is the reference design. The production
+implementation is a TypeScript service that integrates directly with the DWS7
+agent system, MCP server, and agentic loop.
+
+### Implementation Files
+
+| File | Purpose |
+|------|---------|
+| `src/agents/memory.types.ts` | Type definitions (MemoryItem, StoreInput, RecallInput, Profile) |
+| `src/agents/memory.service.ts` | Core service: store, recall, forget, getProfile |
+| `src/agents/tools.ts` | Agent tools: memory_store, memory_recall, memory_forget |
+| `src/mcp/agent-server.ts` | MCP tools: dws_memory_store/recall/forget/profile |
+| `supabase/migrations/047_hybrid_memory_search.sql` | Hybrid search, soft-delete, access tracking |
+
+### Key Improvements over Python Reference
+
+1. **Hybrid Search** — Combines pgVector cosine similarity with pg_trgm text matching. Configurable weights (default: 70% vector, 30% text). Falls back to text-only when OpenAI API unavailable.
+
+2. **LRU Cache** — 1000-entry, 5-minute TTL cache for repeated recall queries. Invalidated on store/forget.
+
+3. **Duplicate Detection** — Before storing, checks for near-duplicates (similarity > 0.95). Touches existing memory instead of creating duplicate.
+
+4. **Soft-Delete** — `forget()` marks memories with `expired_at` instead of deleting. Audit-logged for 7-year compliance. `superseded_by` for contradiction resolution.
+
+5. **Org-Scoped Isolation** — All queries filtered by `org_id`. Memory tools inject `context.orgId` automatically.
+
+6. **User/Org Profiles** — `getProfile()` aggregates facts, preferences, and recent context into a ~50ms-retrievable profile.
+
+7. **MCP-Accessible** — All memory operations exposed as MCP tools, usable from Claude Code, Cursor, or any MCP client.
+
+8. **Agentic Loop Integration** — `memory_store` and `memory_recall` available as built-in tools in every agent's observe-think-act loop.
+
+### Supermemory Self-Host Plan (Phase 4 — Future)
+
+Supermemory MCP server can be self-hosted on Cloudflare Workers (EU region) for:
+- Cross-platform memory (shared between Claude Code, Cursor, VS Code sessions)
+- External connector sync (Google Drive, Gmail, Notion → DWS semantic_memories)
+- Universal memory hub independent of any single AI platform
+
+**Decision:** Self-host in EU. Supermemory as supplementary connector, Supabase remains source of truth.
+
+### Memory Tool Usage in Agent Loop
+
+```typescript
+// Agents can store memories during execution
+const tools = [BUILTIN_TOOLS.memory_store, BUILTIN_TOOLS.memory_recall];
+const result = await this.runLoop(context, systemPrompt, userMessage, tools);
+
+// Or via the memory service directly
+const memories = await this.memory.recall({
+  query: 'customer compliance requirements',
+  orgId: context.orgId,
+  memoryType: 'knowledge',
+});
+```
+
+---
+
 **Phase Complete Checklist:**
-- [ ] Database schema designed
-- [ ] Memory manager implemented
-- [ ] RAG pipeline configured
-- [ ] Context builder created
-- [ ] GDPR compliance (deletion) implemented
-- [ ] Cost analysis completed
+- [x] Database schema designed
+- [x] Memory manager implemented (Python reference)
+- [x] TypeScript memory service implemented (DWS7)
+- [x] Hybrid search (vector + text) implemented
+- [x] MCP memory tools exposed
+- [x] Agent loop integration
+- [x] LRU cache for recall performance
+- [x] RAG pipeline configured
+- [x] Context builder created
+- [x] GDPR compliance (deletion) implemented
+- [x] Cost analysis completed
+- [ ] Supermemory self-host integration (Phase 4)
+- [ ] Fact extraction + contradiction resolution (Phase 2)
+- [ ] Memory consolidation + decay (Phase 3)
 
 **Next Phase:** Proceed to `06-PROMPT-ENGINEERING.md` for system prompt design.
