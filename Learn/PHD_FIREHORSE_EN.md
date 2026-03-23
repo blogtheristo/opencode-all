@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
@@ -1186,6 +1187,45 @@ The `{vertical}` parameterized milestone enables per-industry pipeline instantia
 3. **Fan-Out parallelism** — Curriculum generation (T-03) and data synthesis (T-04) run across all 16 verticals simultaneously (CPU-bound, no GPU constraint), eliminating idle GPU time.
 
 **Firehorse operating model impact:** The training coordination validates LSS as a general-purpose deterministic coordination mechanism — the same protocol orchestrates both software development agents (Appendix F) and ML training pipelines, reducing operational complexity for Firehorse customers who need both capabilities.
+
+#### 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254)
+
+*Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026*
+
+The EMPO² theoretical framework (Section 14.6.2) was operationalized through a **fact extraction pipeline** — the first production implementation of the non-parametric memory update path in the Firehorse operating model.
+
+**Dual Memory Architecture:**
+
+| Layer | Role | Firehorse Impact |
+|-------|------|-----------------|
+| **LWM** | Domain knowledge (regulations, emission factors, industry models) | Enables *what* the agent can analyze |
+| **Client Memory** | Relationship knowledge (preferences, decisions, open issues) | Enables *personalized* analysis per customer |
+
+The fact extraction pipeline converts unstructured conversation text into structured subject-predicate-value triples using LLM-based extraction (Claude Haiku), with confidence scoring, duplicate detection via cosine similarity (pgvector), and persistence as `fact` type memories in the semantic_memories table.
+
+**Three Execution Layers for Actionable Memory:**
+
+Fact extraction creates passive knowledge. The Firehorse operating model requires three additional layers:
+
+1. **Firehorse State Machine** — Acts on extracted facts. A fact "customer deadline Q2 2026" must trigger workflow escalation, not just sit in a database. This is the core Firehorse execution layer.
+
+2. **ERP Connector Layer** — Feeds live data from Visma/IFS/SAP/Dynamics into memory. Client memory captures stated preferences; ERP reveals actual behavior (order patterns, payment history).
+
+3. **KYA Governance Wrapper (v1.4 internal / v1.1 public)** — Wraps every memory mutation with audit-grade provenance. Critical insight: **contradiction resolution (PR-255) without KYA attestation means resolving memory conflicts with no audit trail for *why* one fact superseded another.** The court-defensible audit chain: "fact A replaced fact B at timestamp X, approved by agent Y, logged to Firehorse" — required for CSRD and EU AI Act Article 12 compliance.
+
+**KYA-First PR Ordering:**
+
+| Priority | PR | Feature |
+|----------|-----|---------|
+| 1 | 254 | Fact Extraction ✅ |
+| 2 | 255 | Contradiction Resolution |
+| 3 | — | KYA Memory Audit Trail |
+| 4 | 257 | Decay Scoring |
+| 5 | 256 | Consolidation Cron |
+| 6 | 259 | Connector Sync |
+| 7 | 258 | Supermemory MCP EU |
+
+**Key Contribution #17:** First production fact extraction pipeline for EU-compliant industrial AI, demonstrating dual LWM/client-memory architecture and identifying the three-layer execution gap (state machine, ERP connectors, KYA governance) essential for court-defensible enterprise AI memory in regulated industries.
 
 ### 14.7 CEO Automation Agent Suite
 

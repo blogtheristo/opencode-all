@@ -37,6 +37,7 @@ export function HealthPage() {
     { name: 'Agent Registry', endpoint: '/api/agents', status: 'checking' },
     { name: 'MCP Server', endpoint: '/mcp', status: 'checking' },
     { name: 'Compliance Engine', endpoint: '/api/v1/compliance', status: 'checking' },
+    { name: 'Memory Service', endpoint: '/api/v1/memory/stats', status: 'checking' },
   ]);
   const [healthData, setHealthData] = useState<HealthData | null>(null);
   const [lastChecked, setLastChecked] = useState<Date | null>(null);

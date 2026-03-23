@@ -53,7 +53,7 @@ Two Boardy-introduced contacts have been in `intro_requested` status for 2+ week
 
 **LinkedIn DM:**
 
-> Nicolas — I'm Risto Paarni, founder of DWS IQ (Helsinki). We automate CSRD/ETS/CBAM compliance for industrial companies by pulling directly from ERP systems. €84k ARR, 100% retention, 49,000 EU companies need to file.
+> Nicolas — I'm Risto Paarni, Founder of DWS IQ (Helsinki). We automate CSRD/ETS/CBAM compliance for industrial companies by pulling directly from ERP systems. €84k ARR, 100% retention, 49,000 EU companies need to file.
 >
 > Colbridge's portfolio (Continuum, WASE, Anzen) all operate in sectors facing mandatory EU climate reporting. DWS IQ is the compliance layer they'd need.
 >
@@ -65,7 +65,7 @@ Two Boardy-introduced contacts have been in `intro_requested` status for 2+ week
 
 Nicolas,
 
-I'm Risto Paarni, founder of DWS IQ in Helsinki. We automate EU climate compliance reporting (CSRD, ETS, CBAM) by connecting directly to ERP systems — SAP, IFS Cloud, Dynamics 365. No manual CSV uploads.
+I'm Risto Paarni, Founder of DWS IQ in Helsinki. We automate EU climate compliance reporting (CSRD, ETS, CBAM) by connecting directly to ERP systems — SAP, IFS Cloud, Dynamics 365. No manual CSV uploads.
 
 **Why Colbridge:** Your portfolio companies (Continuum Composite Recycling, WASE, Anzen) operate in industrial sectors where EU climate reporting is now mandatory. DWS IQ is the compliance automation layer they'd need — and the kind of tool their customers will need too.
 
@@ -87,7 +87,7 @@ risto@onelifetime.world
 
 **LinkedIn DM:**
 
-> Oliver — Risto Paarni here, founder of DWS IQ (Helsinki). We both work on regulation-to-workflow automation for climate compliance. You're doing it for renewable energy certification at Soldera, we're doing it for CSRD/ETS/CBAM across EU industrials.
+> Oliver — Risto Paarni here, Founder of DWS IQ (Helsinki). We both work on regulation-to-workflow automation for climate compliance. You're doing it for renewable energy certification at Soldera, we're doing it for CSRD/ETS/CBAM across EU industrials.
 >
 > Would enjoy a peer conversation about the regulatory automation space — playbooks, UK/EU market differences, partnership angles. 15 minutes?
 

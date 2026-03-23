@@ -2,10 +2,10 @@
  * DocuSign eSignature Integration — Client
  *
  * JWT Grant authentication + envelope operations.
- * Used for NDA signature tracking and contract management.
+ * Used for NDA signature tracking, contract management, and report signing.
  * Uses native fetch (Node.js 18+) — no external HTTP dependencies.
  *
- * Code-Version: 1.1.0
+ * Code-Version: 1.2.0
  * Branch: claude/verify-nda-signatures-rdgOj
  * Date: 2026-03-21
  * Owner: risto.paarni2022@lifetime.fi
@@ -357,6 +357,99 @@ export class DocuSignClient {
       recipients,
       status: 'sent',
       signatureType: SignatureType.NDA,
+    });
+  }
+
+  /**
+   * Send mutual NDA envelope — both parties sign.
+   * Signer 1 signs first (routingOrder 1), then Signer 2 (routingOrder 2).
+   */
+  async sendMutualNDA(params: {
+    signer1Email: string;
+    signer1Name: string;
+    signer2Email: string;
+    signer2Name: string;
+    documentPath: string;
+  }): Promise<EnvelopeResult> {
+    const documentBase64 = fs.readFileSync(params.documentPath).toString('base64');
+    const ext = path.extname(params.documentPath).replace('.', '');
+
+    const recipients: Recipient[] = [
+      {
+        email: params.signer1Email,
+        name: params.signer1Name,
+        type: RecipientType.SIGNER,
+        routingOrder: 1,
+        tabs: [{ anchorString: '/sn1/', anchorYOffset: '-10' }],
+      },
+      {
+        email: params.signer2Email,
+        name: params.signer2Name,
+        type: RecipientType.SIGNER,
+        routingOrder: 2,
+        tabs: [{ anchorString: '/sn2/', anchorYOffset: '-10' }],
+      },
+    ];
+
+    return this.sendEnvelope({
+      emailSubject: 'Mutual NDA — Lifetime Oy × Qantic GmbH — Please sign',
+      emailBlurb: 'Please review and sign the attached Mutual Non-Disclosure Agreement between Lifetime Oy and Qantic GmbH.',
+      documents: [
+        {
+          name: 'Mutual Non-Disclosure Agreement',
+          fileExtension: ext || 'pdf',
+          documentId: '1',
+          documentBase64,
+        },
+      ],
+      recipients,
+      status: 'sent',
+      signatureType: SignatureType.NDA,
+    });
+  }
+
+  /**
+   * Send a report for eSignature.
+   * Supports single approver or multi-party signing (e.g., author + reviewer).
+   * Signature anchors: /sn1/ for first signer, /sn2/ for second signer.
+   */
+  async sendReport(params: {
+    documentPath: string;
+    documentName: string;
+    signers: Array<{ email: string; name: string; role: string }>;
+    emailSubject?: string;
+    emailBlurb?: string;
+  }): Promise<EnvelopeResult> {
+    const documentBase64 = fs.readFileSync(params.documentPath).toString('base64');
+    const ext = path.extname(params.documentPath).replace('.', '');
+
+    const recipients: Recipient[] = params.signers.map((signer, i) => ({
+      email: signer.email,
+      name: signer.name,
+      type: RecipientType.SIGNER,
+      routingOrder: i + 1,
+      tabs: [{ anchorString: `/sn${i + 1}/`, anchorYOffset: '-10' }],
+    }));
+
+    const subject = params.emailSubject
+      || `Report for signature — ${params.documentName}`;
+    const blurb = params.emailBlurb
+      || `Please review and sign the attached report: ${params.documentName}`;
+
+    return this.sendEnvelope({
+      emailSubject: subject,
+      emailBlurb: blurb,
+      documents: [
+        {
+          name: params.documentName,
+          fileExtension: ext || 'pdf',
+          documentId: '1',
+          documentBase64,
+        },
+      ],
+      recipients,
+      status: 'sent',
+      signatureType: SignatureType.REPORT,
     });
   }
 

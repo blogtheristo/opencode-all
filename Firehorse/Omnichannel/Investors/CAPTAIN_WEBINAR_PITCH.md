@@ -27,7 +27,7 @@
 
 ### Section 1 — The Cost of Non-Compliance (10 min)
 
-**Presenter:** Risto Paarni (or co-host from advisory firm)
+**Presenter:** Risto Anton Päärni (or co-host from advisory firm)
 
 **Content:**
 - CBAM Phase 2 timeline: reporting → financial obligations in 2026
@@ -44,7 +44,7 @@
 
 ### Section 2 — How Leading Firms Automate Compliance Intelligence (15 min)
 
-**Presenter:** Risto Paarni
+**Presenter:** Risto Anton Päärni
 
 **Content — LIVE DEMO of DWS IQ 6:**
 1. **Situation Room** — show a real industry dashboard (anonymized pilot data)
@@ -67,7 +67,7 @@
 
 ### Section 3 — The Captain Model (10 min)
 
-**Presenter:** Risto Paarni
+**Presenter:** Risto Anton Päärni
 
 **Content:**
 - Not a generic angel round — a seat at the table

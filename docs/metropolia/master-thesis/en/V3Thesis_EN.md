@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.27
+Version: 3.28
 
 Sessions & Modifications:
+  - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based structured fact extraction from conversations to subject-predicate-value triples, dual memory architecture (LWM domain knowledge + client relationship memory), three missing execution layers identified (Firehorse state machine, ERP connector layer, KYA governance wrapper); updated PR roadmap with KYA-first ordering (255→KYA audit→257→256→259→258); added Key Contribution #20; noted KYA Standard v1.4 internal / v1.1 public delta
   - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 10.7.3 LWM Product-Market Validation (Qantic GmbH energy sector case study — first external validation of LWM commercial value outside construction, €21,693/year BESS compliance cost calculation, 6-industry expansion path for MAN-type clients, Solution Factory model confirmed); updated 16→20 industries in LWM sections; renumbered 10.7.3→10.7.4 Orchestration Studio
   - Version: 3.26 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 8 Results and Analysis with v3.16–3.25 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon system, customer MVP features (API keys, metering, reports), PostgreSQL HTAP architecture, A/B testing results integration, updated compliance readiness (EU AI Act Art 12 implemented), updated SWOT with strategic partnerships; added new section 8.7 A/B Testing and Feedback Channel Results
   - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 10.16 (Harness Engineering — From Prompt Engineering to System Design): OpenAI's 8 principles, DWS IQ 6 comparison with 6-layer L0-L6 architecture, empirical result (52.8%→66.5% from harness alone), EU regulation requires different harness than Silicon Valley; added Key Contribution #19
@@ -1794,6 +1795,63 @@ Stage 1.5 demonstrates three thesis claims simultaneously:
 2. **Lifetime Fleet concept validation (Section 3.5):** The Acer Veriton GN100 is the first physical node in the Lifetime Fleet — EU-resident hardware running containerized AI workloads under full operator control, fulfilling the edge-AI theoretical model proposed in the thesis.
 
 3. **EMPO² memory architecture alignment:** The hybrid parametric/non-parametric memory architecture independently validated by EMPO² (arXiv:2602.23008) matches the DWS LWM design — providing academic grounding for an implementation choice made on engineering intuition.
+
+### 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254)
+
+*Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026*
+
+The EMPO² theoretical framework (Section 10.10.4) was operationalized through the **Agent Memory Fact Extraction Pipeline** — the first production implementation of the non-parametric memory update path. This addresses a critical gap: agents that converse with customers but retain no structured knowledge between sessions.
+
+**Architecture — Dual Memory Model:**
+
+The system distinguishes two complementary memory layers:
+
+| Layer | Knowledge Type | Source | Example |
+|-------|---------------|--------|---------|
+| **LWM (Lifetime World Model)** | Domain knowledge | EU regulations, emission factors, industry models | "CBAM threshold is 150,000 EUR" |
+| **Client Memory** | Relationship knowledge | Conversations, emails, meetings | "ACME Corp prefers weekly reports" |
+
+LWM provides *what the agent knows about the world*; client memory provides *what the agent knows about this specific customer*. Neither alone is sufficient — an agent that knows EU regulations but forgets the customer's industry vertical will ask the same questions every session.
+
+**Fact Extraction Pipeline:**
+
+```
+Conversation text
+  → LLM extraction (Claude Haiku, structured prompt)
+  → JSON array of {subject, predicate, value, confidence, category}
+  → Confidence filter (≥0.7 threshold)
+  → Duplicate detection (cosine similarity >0.95 in pgvector)
+  → Persist as `fact` type in semantic_memories table
+  → Available for recall via hybrid search (vector + text)
+```
+
+The extraction prompt enforces strict rules: only explicit facts (never inferred), snake_case predicates for machine readability, six categories (identity, preference, relationship, metric, status, other), and confidence scoring (1.0 explicit, 0.8 strongly implied, 0.6 loosely implied).
+
+**Three Missing Execution Layers:**
+
+Fact extraction alone creates *passive knowledge*. Three additional layers are required to make this knowledge *actionable*:
+
+1. **Firehorse State Machine** — The execution layer that acts on what memory + LWM know. Without it, the platform has knowledge but no action capability. Facts like "customer deadline is Q2 2026" need a state machine to trigger escalation workflows.
+
+2. **ERP Connector Layer** — The real-world data feed. Memory and LWM are only as good as the live data flowing from Visma/IFS/SAP. Client memory captures *stated* preferences; ERP data reveals *actual* behavior (order patterns, payment history, usage metrics).
+
+3. **KYA Governance Wrapper** — The trust layer. Client memory + LWM without attestation is a chatbot. KYA (Know Your AI, internal v1.4 / public v1.1) wraps every memory decision with audit-grade provenance: "fact A replaced fact B at timestamp X, approved by agent Y, logged to Firehorse." This is essential for EU compliance audits under CSRD and EU AI Act Article 12.
+
+**KYA-First PR Ordering:**
+
+The original PR sequence (254→255→256→257→258→259) was reordered based on a critical insight: **contradiction resolution (PR-255) without KYA attestation means resolving conflicts in memory with no audit trail for *why* one fact superseded another.** The production order:
+
+| Priority | PR | Feature | Dependency |
+|----------|-----|---------|------------|
+| 1 | 254 | Fact Extraction | ✅ Shipped |
+| 2 | 255 | Contradiction Resolution | Requires memory store |
+| 3 | — | KYA Memory Audit Trail | Requires contradiction resolution |
+| 4 | 257 | Decay Scoring | Independent |
+| 5 | 256 | Consolidation Cron | Requires decay scoring |
+| 6 | 259 | Connector Sync | Requires stable memory API |
+| 7 | 258 | Supermemory MCP Self-Host EU | Infrastructure, last |
+
+**Key Contribution #20:** First production implementation of agent memory fact extraction in an EU-compliant industrial AI platform, demonstrating the dual LWM/client-memory architecture and identifying the three-layer execution gap (state machine, ERP connectors, KYA governance) required for actionable enterprise AI memory.
 
 ---
 
