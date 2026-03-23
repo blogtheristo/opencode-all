@@ -160,8 +160,11 @@ fi
 
 # ---------------------------------------------------------------------------
 # Build source connection URL
+#   NOTE: Do not embed password in the URL; use PGPASSWORD instead to
+#   avoid leaking credentials via process listings or shell history.
 # ---------------------------------------------------------------------------
-SOURCE_URL="postgresql://${SUPABASE_DB_USER:-postgres}:${SUPABASE_DB_PASSWORD:-}@${SUPABASE_DB_HOST:-localhost}:${SUPABASE_DB_PORT:-5432}/${SUPABASE_DB_NAME:-postgres}?sslmode=require"
+export PGPASSWORD="${SUPABASE_DB_PASSWORD:-}"
+SOURCE_URL="postgresql://${SUPABASE_DB_USER:-postgres}@${SUPABASE_DB_HOST:-localhost}:${SUPABASE_DB_PORT:-5432}/${SUPABASE_DB_NAME:-postgres}?sslmode=require"
 
 # ---------------------------------------------------------------------------
 # Determine backup type (daily / monthly / yearly)
