@@ -18,7 +18,8 @@
 --
 -- AUDIT POLICY: KYA-S §10 requires court-defensible audit trail.
 -- Audit logs are NEVER deleted — they are archived to memory_audit_log_archive
--- after 1 year for long-term retention and legal discovery.
+-- after 1 year for long-term retention. Archive retention: 7 years minimum
+-- (EU AI Act Art. 12, Finnish Accounting Act §2:10, GDPR Art. 17(3)(e)).
 
 BEGIN;
 
@@ -116,15 +117,25 @@ SELECT cron.schedule(
 --    Active table stays fast; archive is queryable for compliance/legal discovery.
 
 -- Archive table (created once, append-only, immutable)
+-- RETENTION POLICY: 7 years minimum (2555 days).
+-- EU compliance disputes (GDPR Art. 17(3)(e), Finnish Accounting Act §2:10,
+-- EU AI Act Art. 12 logging) can require records years after the fact.
+-- There is NO scheduled job to delete from this table.
+-- Manual purge requires: legal sign-off + DPO approval + documented reason.
 CREATE TABLE IF NOT EXISTS memory_audit_log_archive (
   LIKE memory_audit_log INCLUDING ALL
 );
+COMMENT ON TABLE memory_audit_log_archive IS
+  'Immutable audit archive. Retention: 7 years minimum. '
+  'No automated deletion. Manual purge requires legal + DPO approval. '
+  'KYA-S §10, EU AI Act Art. 12, Finnish Accounting Act §2:10.';
 -- RLS: same policy as source — org isolation, immutable
 ALTER TABLE memory_audit_log_archive ENABLE ROW LEVEL SECURITY;
 CREATE POLICY IF NOT EXISTS "audit_archive_org_isolation"
   ON memory_audit_log_archive FOR SELECT
   USING (org_id = current_setting('app.org_id', true));
 -- No UPDATE/DELETE policies — archive is append-only
+-- No pg_cron job to purge — retention is enforced by ABSENCE of deletion
 
 SELECT cron.schedule(
   'memory-audit-archive-monthly',
