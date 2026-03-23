@@ -133,6 +133,16 @@ Unlike generic SaaS, DWS IQ 6 runs in <em>your</em> cloud environment with clear
 <li><strong>CLI Access:</strong> <code>dws agents</code>, <code>dws run &lt;agent&gt;</code>, <code>dws workflow &lt;name&gt;</code> — JSON output, pipeable.</li>
 <li><strong>EU AI Act:</strong> Article 12 compliant — automatic reasoning lineage logging per agentic loop iteration.</li>
 </ul>
+<h2>Reliability &amp; Testing</h2>
+<p>DWS IQ 6 is validated with production-grade testing at every layer — from unit tests to full end-to-end smoke tests. No deployment ships without passing the complete test suite.</p>
+<ul>
+<li><strong>End-to-End Smoke Tests:</strong> Automated test suite covering the full user journey — login, dashboard access, compliance query, and response validation — run on every build.</li>
+<li><strong>SAP S/4HANA Connector Verified:</strong> 26 integration tests validate the SAP connector end-to-end — authentication, OData v2/v4 data paths, production order sync, machine data, OEE metrics, and maintenance events.</li>
+<li><strong>Load Tested:</strong> Concurrent load testing against all critical API endpoints with SLO enforcement — p95 latency under 2 seconds, error rate below 5%.</li>
+<li><strong>Error Tracking:</strong> Real-time exception monitoring with Sentry integration. Every unhandled error is captured with full request context, correlation ID, and stack trace.</li>
+<li><strong>24 Test Files:</strong> Comprehensive Vitest test suite covering authentication, compliance scoring, error middleware, route validation, ERP connectors, and E2E smoke tests. Coverage gates enforced on every pull request.</li>
+<li><strong>Security Scanning:</strong> Automated dependency audits (<code>npm audit</code>), SRI integrity hashes on all CDN resources, and OWASP Top 10 review on every change.</li>
+</ul>
 <hr />
 <h3>References</h3>
 <p>¹ <strong>Gartner.</strong> (October 2025). <em>2026 Planning Guide for Data Management</em>. AI-driven data automation platforms commonly deliver 30–50% reductions in data preparation time (Gartner, Forrester, IDC 2024–2025).</p>
