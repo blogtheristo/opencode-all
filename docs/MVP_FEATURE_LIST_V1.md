@@ -1,19 +1,25 @@
 # MVP Feature List V1 — What Must Be Built to Ship
 
-> **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.4.0
-> **Status:** Active
-> **Created:** 2026-03-07
-> **Updated:** 2026-03-22 — P0+P1+Final: E2E smoke tests, Sentry error tracking, load test, SAP connector verified
->
-> VERSION AND AGENT HISTORY
-> v1.4.0 | 2026-03-22 | Claude Code (claude/review-dws-v1-features-AZD14) | Final MVP items: E2E smoke test (8 tests, login→compliance→agents→404), Sentry error tracking (graceful fallback), production load test script (SLO: p95<2s, errors<5%), SAP connector E2E (26 tests: auth, OData v2/v4, sync lifecycle). 24 test files. Readiness 92%
-> v1.3.0 | 2026-03-21 | Claude Code (claude/review-dws-v1-features-AZD14) | P1 complete: integration tests (route validation + scoring pipeline), CarbonTrackingPage wired to compliance cost-estimate API, 3-step onboarding email drip, SettingsPage profile loading + prefs persistence. All P1 items done. Readiness 85%
-> v1.2.0 | 2026-03-21 | Claude Code (claude/review-dws-v1-features-AZD14) | P0 fixes: RC1 compliance engine confirmed 95% real (not stub), RC2 asyncHandler+timeout added, RC4 Suspense+404+a11y, RC5 onboarding confirmed complete, 21 test files
-> v1.1.0 | 2026-03-15 | Claude Code (claude/status-report-mvp-vbug1) | Audit-based update: 1846 commits, 342 PRs, real component readiness scores, updated current state table
-> v1.0.0 | 2026-03-07 | Claude Code (claude/mvp-feature-list-WgjHq) | Root-cause MVP analysis from codebase audit
+***
 
----
+**Document Standard:** DWS Document Standard v2.0
+**Version:** 1.4.0
+**Status:** Active
+**Created:** 07.03.2026
+**Updated:** 23.03.2026 — P0+P1+Final: E2E smoke tests, Sentry error tracking, load test, SAP connector verified
+
+# VERSION AND AGENT HISTORY
+
+Version: 1.4.0
+
+Sessions & Modifications:
+  - Version: 1.4.0 | Tool: Claude Code (Opus 4.6) | Session: claude/review-dws-v1-features-AZD14 | Date: 23.03.2026 | Changes: Final MVP items: E2E smoke test (8 tests, login→compliance→agents→404), Sentry error tracking (graceful fallback), production load test script (SLO: p95<2s, errors<5%), SAP connector E2E (26 tests: auth, OData v2/v4, sync lifecycle). HTML-escape fix for onboarding email templates (XSS). 24 test files. Readiness 92%
+  - Version: 1.3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/review-dws-v1-features-AZD14 | Date: 21.03.2026 | Changes: P1 complete: integration tests (route validation + scoring pipeline), CarbonTrackingPage wired to compliance cost-estimate API, 3-step onboarding email drip, SettingsPage profile loading + prefs persistence. All P1 items done. Readiness 85%
+  - Version: 1.2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/review-dws-v1-features-AZD14 | Date: 21.03.2026 | Changes: P0 fixes: RC1 compliance engine confirmed 95% real (not stub), RC2 asyncHandler+timeout added, RC4 Suspense+404+a11y, RC5 onboarding confirmed complete, 21 test files
+  - Version: 1.1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/status-report-mvp-vbug1 | Date: 15.03.2026 | Changes: Audit-based update: 1846 commits, 342 PRs, real component readiness scores, updated current state table
+  - Version: 1.0.0 | Tool: Claude Code (Opus 4.6) | Session: claude/mvp-feature-list-WgjHq | Date: 07.03.2026 | Changes: Root-cause MVP analysis from codebase audit
+
+***
 
 ## Philosophy: Root Cause Over Quick Fix
 

@@ -17,9 +17,25 @@
 import { emailService } from './email.service.js';
 import logger from '../utils/logger.js';
 
+// ============ SECURITY ============
+
+/** HTML-escape user-controlled strings before embedding in email markup. */
+function esc(str: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return str.replace(/[&<>"']/g, (c) => map[c]);
+}
+
 // ============ TEMPLATES ============
 
 function day0WelcomeHtml(name: string, industry: string): string {
+  const safeName = esc(name);
+  const safeIndustry = esc(industry);
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -28,11 +44,11 @@ function day0WelcomeHtml(name: string, industry: string): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;padding:32px 16px;">
 <tr><td>
   <div style="background:#0f172a;border-radius:12px;padding:32px;color:#f1f5f9;margin-bottom:24px;">
-    <h1 style="margin:0 0 8px;font-size:24px;font-weight:700;">Welcome to DWS IQ, ${name}</h1>
+    <h1 style="margin:0 0 8px;font-size:24px;font-weight:700;">Welcome to DWS IQ, ${safeName}</h1>
     <p style="margin:0;font-size:14px;color:#94a3b8;">Your EU compliance intelligence platform is ready.</p>
   </div>
   <div style="background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e2e8f0;">
-    <p style="font-size:15px;line-height:1.6;">You've set up your account for the <strong>${industry}</strong> industry. Here's what to do next:</p>
+    <p style="font-size:15px;line-height:1.6;">You've set up your account for the <strong>${safeIndustry}</strong> industry. Here's what to do next:</p>
     <ol style="font-size:14px;line-height:1.8;padding-left:20px;color:#334155;">
       <li><strong>Run your first compliance assessment</strong> — Open the dashboard, click "AI Assistant", and ask: <em>"Run a CSRD assessment for my company"</em></li>
       <li><strong>Review your gaps</strong> — The assessment shows exactly which ESRS disclosures you need to provide</li>
@@ -48,6 +64,7 @@ function day0WelcomeHtml(name: string, industry: string): string {
 }
 
 function day3NudgeHtml(name: string): string {
+  const safeName = esc(name);
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +73,7 @@ function day3NudgeHtml(name: string): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;padding:32px 16px;">
 <tr><td>
   <div style="background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e2e8f0;">
-    <h2 style="margin:0 0 12px;font-size:20px;">Ready for your first assessment, ${name}?</h2>
+    <h2 style="margin:0 0 12px;font-size:20px;">Ready for your first assessment, ${safeName}?</h2>
     <p style="font-size:14px;line-height:1.6;color:#475569;">
       Companies in your industry are preparing for <strong>CSRD Phase 1</strong> (deadline: June 2026).
       Run a baseline assessment now to see where you stand.
@@ -80,6 +97,7 @@ function day3NudgeHtml(name: string): string {
 }
 
 function day7CheckInHtml(name: string): string {
+  const safeName = esc(name);
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +106,7 @@ function day7CheckInHtml(name: string): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;padding:32px 16px;">
 <tr><td>
   <div style="background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e2e8f0;">
-    <h2 style="margin:0 0 12px;font-size:20px;">How's it going, ${name}?</h2>
+    <h2 style="margin:0 0 12px;font-size:20px;">How's it going, ${safeName}?</h2>
     <p style="font-size:14px;line-height:1.6;color:#475569;">
       You've been with DWS IQ for a week. Here are features you might not have tried yet:
     </p>
@@ -119,7 +137,7 @@ export const onboardingEmailService = {
     try {
       await emailService.sendRawEmail({
         to,
-        subject: `Welcome to DWS IQ, ${name} — Your compliance dashboard is ready`,
+        subject: `Welcome to DWS IQ, ${esc(name)} — Your compliance dashboard is ready`,
         html: day0WelcomeHtml(name, industry),
         templateType: 'onboarding_day0',
         metadata: { industry, step: 0 },
@@ -140,7 +158,7 @@ export const onboardingEmailService = {
     try {
       await emailService.sendRawEmail({
         to,
-        subject: `${name}, your first CSRD assessment is one click away`,
+        subject: `${esc(name)}, your first CSRD assessment is one click away`,
         html: day3NudgeHtml(name),
         templateType: 'onboarding_day3',
         metadata: { step: 3 },

@@ -481,6 +481,11 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
 
 // ============ ERROR HANDLING ============
 
+// Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
+// Called without app arg — we use errorTrackingMiddleware() below instead of
+// Sentry's own Express handler, so ordering is explicit and predictable.
+initErrorTracking().catch(() => { /* logged internally */ });
+
 // Error tracking middleware — captures exceptions before error handler formats response
 app.use(errorTrackingMiddleware());
 
@@ -491,9 +496,6 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // ============ SERVER START ============
-
-// Initialize error tracking (Sentry when SENTRY_DSN is set, console fallback otherwise)
-initErrorTracking(app).catch(() => { /* logged internally */ });
 
 const server = app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`, {

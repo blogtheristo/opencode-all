@@ -285,7 +285,7 @@ export function CarbonTrackingPage() {
               <div className="bg-gray-800/50 rounded-lg p-4">
                 <p className="text-sm text-gray-400 mb-1">EU ETS Allowances</p>
                 <p className="text-xl font-bold text-white">
-                  {costEstimate.ets.estimatedCost.toLocaleString('en-EU', { maximumFractionDigits: 0 })}
+                  {costEstimate.ets.estimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
                   <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
@@ -295,7 +295,7 @@ export function CarbonTrackingPage() {
               <div className="bg-gray-800/50 rounded-lg p-4">
                 <p className="text-sm text-gray-400 mb-1">CBAM Certificates</p>
                 <p className="text-xl font-bold text-white">
-                  {costEstimate.cbam.estimatedCost.toLocaleString('en-EU', { maximumFractionDigits: 0 })}
+                  {costEstimate.cbam.estimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
                   <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
@@ -305,7 +305,7 @@ export function CarbonTrackingPage() {
               <div className="bg-gray-800/50 rounded-lg p-4">
                 <p className="text-sm text-gray-400 mb-1">Total Annual Cost</p>
                 <p className="text-xl font-bold text-amber-400">
-                  {costEstimate.totalEstimatedCost.toLocaleString('en-EU', { maximumFractionDigits: 0 })}
+                  {costEstimate.totalEstimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
                   <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
                 </p>
                 <p className="text-xs text-gray-500 mt-1">ETS + CBAM + CSRD reporting</p>
