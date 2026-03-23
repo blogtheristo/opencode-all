@@ -90,7 +90,7 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - Team: Lucille Santiago (Logistics & Office). First €50K of raise funds senior technical hire by Q3 2026.
 - Advisors: Hannamari Robertsson (CEO, Robertsson Oy — ESG & Business Consulting), Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
-- Sales motion: Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers x EUR 36K avg = EUR 900K ARR.
+- Sales motion: Enterprise Navigator pilots at EUR 4,950 convert first to EUR 8,950 entry-level annual contracts, then expand via multi-site / multi-module upsells to a EUR 36K average ACV (25 customers x EUR 36K = EUR 900K ARR target).
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
 - NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
