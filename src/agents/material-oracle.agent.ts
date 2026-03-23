@@ -20,6 +20,7 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { normalizeToKg, type NormalizationResult } from './unit-normalization.js';
 
 // ============ EMISSION FACTORS DATABASE ============
 // kgCO2e per unit (based on ICE Database v3 and EPD averages)
@@ -247,6 +248,12 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
             name: m.name,
             quantity: m.quantity,
             unit: m.unit,
+            quantityKg: Math.round(m.unitNormalization.quantityKg * 100) / 100,
+            unitConversion: {
+              factor: m.unitNormalization.conversionFactor,
+              confidence: m.unitNormalization.confidence,
+              method: m.unitNormalization.method,
+            },
             matched: m.matched,
             category: m.category,
             totalCO2e: Math.round(m.totalCO2e * 100) / 100,
@@ -280,6 +287,11 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
             coveragePercent: materialCount > 0
               ? Math.round((matchedCount / materialCount) * 100)
               : 0,
+            unitConversions: {
+              exact: materialResults.filter((m) => m.unitNormalization.confidence === 'exact').length,
+              estimated: materialResults.filter((m) => m.unitNormalization.confidence === 'estimated').length,
+              assumed: materialResults.filter((m) => m.unitNormalization.confidence === 'assumed').length,
+            },
           },
           llmStrategy,
         },
@@ -343,15 +355,30 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     b: number;
     c: number;
     d: number;
+    unitNormalization: NormalizationResult;
   } {
     // Normalize material name for lookup
     const normalizedName = material.name.toLowerCase().replace(/[\s_-]+/g, '_');
     const factor = this.findEmissionFactor(normalizedName);
 
+    // CRITICAL: Convert input quantity to kg before applying kgCO2e/kg factors.
+    // Without this, m³/m²/tonne inputs produce silently wrong results.
+    // e.g. 50 m³ concrete × 0.132 kgCO2e/kg = 6.6 (WRONG)
+    //      50 m³ × 2400 kg/m³ × 0.132 = 15,840 (CORRECT — 240x difference)
+    const normResult = normalizeToKg(material.name, material.quantity, material.unit);
+
+    if (normResult.confidence === 'assumed') {
+      logger.warn('MaterialOracle: unit normalization used fallback assumption', {
+        material: material.name,
+        originalUnit: material.unit,
+        method: normResult.method,
+      });
+    }
+
     if (!factor) {
       // Unknown material - use conservative average estimate (0.5 kgCO2e/kg)
       const estimatedFactor = 0.5;
-      const totalCO2e = material.quantity * estimatedFactor;
+      const totalCO2e = normResult.quantityKg * estimatedFactor;
       return {
         name: material.name,
         quantity: material.quantity,
@@ -365,16 +392,18 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
         b: totalCO2e * 0.02,
         c: totalCO2e * 0.06,
         d: totalCO2e * -0.05,
+        unitNormalization: normResult,
       };
     }
 
-    const qty = material.quantity;
-    const a1_a3 = qty * factor.a1_a3;
-    const a4 = qty * factor.a4;
-    const a5 = qty * factor.a5;
-    const b = qty * factor.b;
-    const c = qty * factor.c;
-    const d = qty * factor.d;
+    // Apply factors to normalized kg quantity
+    const qtyKg = normResult.quantityKg;
+    const a1_a3 = qtyKg * factor.a1_a3;
+    const a4 = qtyKg * factor.a4;
+    const a5 = qtyKg * factor.a5;
+    const b = qtyKg * factor.b;
+    const c = qtyKg * factor.c;
+    const d = qtyKg * factor.d;
     // Total excludes D (beyond boundary, reported separately per EN 15978)
     const totalCO2e = a1_a3 + a4 + a5 + b + c;
 
@@ -391,6 +420,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
       b,
       c,
       d,
+      unitNormalization: normResult,
     };
   }
 
