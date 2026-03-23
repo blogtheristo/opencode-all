@@ -239,8 +239,10 @@ export class MemoryService {
     }
 
     const { data, error } = await client.rpc('forget_memory', {
-      memory_id: input.memoryId,
+      p_memory_id: input.memoryId,
       forget_reason: input.reason,
+      p_agent_id: input.agentId || 'system',
+      p_org_id: input.orgId,
     });
 
     if (error) {
@@ -426,6 +428,85 @@ export class MemoryService {
     }
 
     return data as string;
+  }
+
+  /**
+   * Run confidence decay on stale memories and forget those below threshold.
+   * Implements time-based decay: confidence * (halfLife / (halfLife + daysSinceAccess))
+   * Memories below threshold are auto-forgotten with 'decay-cron' agent attribution.
+   */
+  async decayStaleMemories(options?: {
+    halfLifeDays?: number;
+    decayThreshold?: number;
+    dryRun?: boolean;
+    orgId?: string;
+  }): Promise<{
+    decayedCount: number;
+    forgottenCount: number;
+    forgottenIds: string[];
+    dryRun: boolean;
+  }> {
+    const client = this.getClient();
+    if (!client) {
+      return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun: true };
+    }
+
+    const halfLifeDays = options?.halfLifeDays ?? 90;
+    const decayThreshold = options?.decayThreshold ?? 0.1;
+    const dryRun = options?.dryRun ?? false;
+    const orgId = options?.orgId ?? null;
+
+    const { data, error } = await client.rpc('decay_stale_memories', {
+      p_half_life_days: halfLifeDays,
+      p_decay_threshold: decayThreshold,
+      p_dry_run: dryRun,
+      p_org_id: orgId,
+    });
+
+    if (error) {
+      logger.error('Failed to run decay', { error: error.message });
+      return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun };
+    }
+
+    const rows = (data || []) as Array<{
+      memory_id: string;
+      org_id: string;
+      old_confidence: number;
+      new_confidence: number;
+      below_threshold: boolean;
+    }>;
+
+    const belowThreshold = rows.filter((r) => r.below_threshold);
+    const forgottenIds: string[] = [];
+
+    // Auto-forget memories below threshold (unless dry run)
+    if (!dryRun) {
+      for (const row of belowThreshold) {
+        const result = await this.forget({
+          memoryId: row.memory_id,
+          orgId: row.org_id,
+          reason: `confidence_decay: ${row.new_confidence.toFixed(3)} < ${decayThreshold}`,
+          agentId: 'decay-cron',
+        });
+        if (result.forgotten) {
+          forgottenIds.push(row.memory_id);
+        }
+      }
+    }
+
+    logger.info('Memory decay run complete', {
+      decayedCount: rows.length,
+      forgottenCount: forgottenIds.length,
+      dryRun,
+      orgId,
+    });
+
+    return {
+      decayedCount: rows.length,
+      forgottenCount: forgottenIds.length,
+      forgottenIds,
+      dryRun,
+    };
   }
 
   // ============ PRIVATE HELPERS ============

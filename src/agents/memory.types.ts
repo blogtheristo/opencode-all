@@ -119,6 +119,8 @@ export interface MemoryForgetInput {
   orgId: string;
   /** Reason for forgetting (audit trail) */
   reason: string;
+  /** Agent performing the forget (audit attribution, KYA-S §10.4) */
+  agentId?: string;
 }
 
 /** Result of a forget operation */
