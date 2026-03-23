@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOA (Bring Your Own Agents) with industry agent landscape mapping, open-source strategy recommendation (BSL license), npm package structure, revenue model, competitive gap analysis
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOP (Bring Your Own Processes) section, strengthened zero-friction data sovereignty principle, added ProcessConfig interface pattern
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Initial research — mapped open data sources to DWS products and agents, Bloomberg alternative analysis, customer data input strategy
 
@@ -21,7 +22,7 @@ Document Status:
 
 ***
 
-**Version:** 1.1
+**Version:** 1.2
 **Effective Date:** 2026-03-23
 **Last Updated:** 2026-03-23
 **Status:** Active
@@ -387,7 +388,259 @@ const customerComplianceProcess: ProcessConfig = {
 
 ---
 
-## 9. Key Open Data APIs — Quick Reference
+## 9. Bring Your Own Agents (BYOA) — Industry Agent Landscape
+
+**Design principle: The customer's agents are welcome.** DWS ships 35+ built-in agents. Customers can also bring their own agents — industry-specific tools, vendor agents, or open-source frameworks — and plug them into the DWS orchestration layer. Any agent that implements `AgentConfig` joins the registry.
+
+### 9.1 Industry Agents — What Exists vs. What DWS Provides
+
+#### Construction & Real Estate
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| Autodesk Construction IQ | Enterprise | Risk management, document analysis | `construction`, `mars` |
+| Buildots | Startup ($60M) | 360° camera progress tracking | `sitesense` (weather/safety focus) |
+| Nplan | Startup ($31M) | AI scheduling from historical data | `schedule-genius` |
+| OpenSpace | Startup ($102M) | Photo documentation + progress | `argus` (satellite-level) |
+| Alice Technologies | Startup ($7.5M) | Deep RL schedule optimization | `schedule-genius` |
+| IFCOpenShell | Open source (1.8K stars) | BIM/IFC parsing | — (complementary) |
+| SpeckleOS | Open source (1.2K stars) | AEC data interoperability | — (complementary) |
+
+**Gap DWS fills:** No open-source construction COMPLIANCE agent exists. Buildots/OpenSpace do vision, not regulatory compliance. DWS `mars` + `sitesense` + `material-oracle` is the only integrated stack.
+
+#### Manufacturing & Industrial
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| SAP Joule | Enterprise | Generative AI copilot for SAP ERP | — (DWS connects to SAP via BYOD) |
+| Siemens Industrial Copilot | Enterprise | Plant engineering, automation code gen | `vulcan` (steel compliance focus) |
+| PTC ThingWorx | Enterprise | Predictive maintenance, IIoT | — (different scope) |
+| Sight Machine | Startup ($73M) | Quality, throughput, sustainability analytics | `quality-gate` |
+| Landing AI | Startup (Andrew Ng) | Visual inspection for manufacturing defects | — (complementary) |
+| Eclipse Ditto | Open source (500 stars) | Digital twin framework | — (complementary) |
+
+**Gap DWS fills:** Manufacturing has big vendors (SAP, Siemens) but NO open-source compliance agents. DWS industry agents (`vulcan`, `helios`, `prometheus`) cover EU ETS/CBAM compliance that SAP Joule doesn't touch.
+
+#### Energy & Utilities
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| Persefoni | Startup ($101M) | Carbon accounting (PCAF-aligned) | `compliance` + `emissions-data-analyst` |
+| Watershed | Startup ($100M+) | Enterprise carbon accounting | `compliance` (broader EU scope) |
+| Plan A | Startup (€27M, EU) | CSRD/ESRS carbon accounting | `athena` (compliance intelligence) |
+| Normative | Startup (Swedish) | Carbon accounting | `emissions-data-analyst` |
+| Electricity Maps | Open source (3.5K stars) | Real-time electricity carbon intensity | — (potential data source) |
+| PyPSA | Open source (1.2K stars) | Power system analysis | — (complementary) |
+
+**Gap DWS fills:** Persefoni/Watershed are single-tenant SaaS focused on carbon accounting only. DWS provides multi-agent scoring across ETS + CBAM + CSRD + EU AI Act + industry-specific regulations — broader and deeper.
+
+#### Financial Services
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| Bloomberg Terminal AI | Enterprise ($31K/yr) | Financial analytics + NLP | `viability` (open data default) |
+| S&P Capital IQ | Enterprise ($12K+/yr) | Financial research, ESG scoring | `compliance` (EU-focused) |
+| MSCI ESG Manager | Enterprise | ESG ratings for asset managers | `emissions-data-analyst` |
+| OpenBB | Open source (35K+ stars) | Financial terminal, MCP support | — (recommended data layer) |
+| QuantLib | Open source (5.5K stars) | Quantitative finance library | — (complementary) |
+
+**Gap DWS fills:** Bloomberg/S&P focus on SEC/FINRA (US regulation). EU regulatory compliance (CSRD/CBAM/ETS/EU AI Act) is underserved by all major financial data providers.
+
+#### Logistics & Supply Chain
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| project44 | Startup ($420M+) | Supply chain visibility, real-time tracking | `logistics` + `hermes` |
+| FourKites | Startup ($200M+) | Predictive ETAs, visibility | `logistics` |
+| Blue Yonder | Enterprise (Panasonic) | Demand planning, fulfillment optimization | — (different scope) |
+| OR-Tools | Open source (11K stars, Google) | Route optimization, scheduling | — (complementary, potential integration) |
+| OptaPlanner | Open source (3.5K stars, Red Hat) | Constraint solver for planning | — (complementary) |
+
+**Gap DWS fills:** CBAM-specific cross-border trade compliance is brand new (2026 enforcement). Nobody has production agents for carbon-adjusted trade logistics. DWS `neptune` (maritime) + `logistics` + `hermes` cover this.
+
+#### Agriculture & Food
+
+| Vendor/Product | Type | What It Does | DWS Equivalent |
+|---------------|------|-------------|----------------|
+| — | — | Almost no AI agents for EU Farm-to-Fork compliance | `ceres` |
+
+**Gap DWS fills:** EU Farm-to-Fork strategy compliance has virtually zero AI agent coverage. DWS `ceres` is first-to-market.
+
+### 9.2 Open-Source Agent Frameworks — Competitive Landscape
+
+| Framework | Stars | Backer | Language | Enterprise Product | License |
+|-----------|-------|--------|----------|-------------------|---------|
+| **LangChain** | ~100K | Sequoia ($25M+) | Python/JS | LangSmith | MIT |
+| **AutoGen** | ~38K | Microsoft | Python | Azure AI | MIT |
+| **LlamaIndex** | ~38K | $35M+ | Python | LlamaCloud | MIT |
+| **CrewAI** | ~25K | $18M Series A | Python | CrewAI Enterprise | MIT |
+| **Semantic Kernel** | ~23K | Microsoft | C#/Python | Azure integration | MIT |
+| **DSPy** | ~20K | Stanford | Python | — (academic) | MIT |
+| **Swarm** | ~18K | OpenAI | Python | — (experimental) | MIT |
+| **Haystack** | ~18K | deepset ($30M+) | Python | deepset Cloud | Apache 2.0 |
+
+**Critical observation:** ALL frameworks are horizontal/general-purpose and Python-first. NONE focus on:
+1. **EU industrial compliance** — zero coverage
+2. **TypeScript** — DWS is TypeScript-first, the only agent platform that matches modern web stacks
+3. **Industry-specific agents** — general frameworks require months of customization per industry
+4. **Validated data sources** — no framework ships with real, citable emission factors
+
+### 9.3 BYOA Interface — How Customers Plug In Their Own Agents
+
+```typescript
+// Customer registers their own agent — zero friction
+import { BaseAgent, agentRegistry } from '@dws/agents';
+
+class CustomerSapAgent extends BaseAgent {
+  getConfig() {
+    return {
+      name: 'customer-sap-procurement',
+      description: 'Customer SAP procurement compliance check',
+      capabilities: ['procurement', 'compliance', 'sap'],
+      model: 'customer-hosted',  // customer's own LLM
+      tools: [],                 // customer defines their own tools
+    };
+  }
+
+  async execute(context, input) {
+    // Customer's own logic — calls their SAP API
+    const sapResult = await fetch(process.env.CUSTOMER_SAP_ENDPOINT, { ... });
+    return {
+      agentName: 'customer-sap-procurement',
+      result: sapResult,
+      confidence: 0.85,
+      reasoning: 'SAP procurement compliance check via customer API',
+      recommendations: [],
+      metadata: { source: 'customer-sap' },
+    };
+  }
+}
+
+// Register — now discoverable by all DWS orchestrators
+agentRegistry.register(new CustomerSapAgent());
+```
+
+**What this enables:**
+- Customer's SAP agent participates in DWS workflows alongside built-in agents
+- Atlas (chief of staff) can delegate to customer agents
+- Customer agents can delegate to DWS agents
+- Full audit trail regardless of agent source
+
+---
+
+## 10. Open-Source Strategy — Should DWS Open-Source Agents?
+
+**Recommendation: YES — open-source under BSL (Business Source License).**
+
+### 10.1 The Playbook That Works
+
+Every successful open-source company follows the same pattern:
+
+| Company | Open Source | Enterprise Revenue | Revenue |
+|---------|-----------|-------------------|---------|
+| Elastic | Elasticsearch | Elastic Cloud | $1.26B/yr |
+| Databricks | Apache Spark, MLflow | Databricks Platform | $2.4B ARR |
+| MongoDB | MongoDB | Atlas (managed) | $2B+ ARR |
+| Grafana Labs | Grafana, Loki | Grafana Cloud | $300M+ ARR |
+| HashiCorp | Terraform (BSL) | HCP | $616M (acquired by IBM) |
+| Hugging Face | Transformers | Hub/Inference | $200M+ ARR |
+
+**Pattern:** Give away the framework → charge for running it at scale (hosting, observability, support, governance).
+
+### 10.2 Why BSL (Not MIT or Apache 2.0)
+
+| License | Protection | Problem |
+|---------|-----------|---------|
+| MIT/Apache 2.0 | None | AWS/Azure can fork and offer as competing service |
+| AGPL | Source-share requirement | Scares some enterprises |
+| **BSL** | **Non-compete clause + time-delayed open source** | **Best of both worlds** |
+| SSPL | Extreme protection | Too aggressive for EU enterprise buyers |
+
+**BSL specifics:**
+- Source code fully visible (EU procurement auditors can inspect)
+- Free for internal use, self-hosting, research, education
+- Competitors cannot offer DWS agents as a competing managed service
+- Converts to Apache 2.0 after 4 years (builds long-term community trust)
+- Precedent: HashiCorp, MariaDB, Sentry, CockroachDB all use BSL
+
+### 10.3 What to Open-Source vs. Keep Proprietary
+
+| Layer | Open (BSL) | Why Open |
+|-------|-----------|----------|
+| Agent framework (`BaseAgent`, types, event bus) | YES | Standard adoption, community extensions |
+| Individual agents (all 35+) | YES (basic versions) | Market share, trust, contributions |
+| Scoring algorithms (deterministic compliance) | YES | **EU AI Act Article 15 requires transparency** |
+| Industry agents (Vulcan, Helios, Neptune, etc.) | YES (basic) | First-mover for industry standards |
+| MCP server + agent discovery | YES | Ecosystem interop with Claude, other LLMs |
+| Data connectors (BYOD adapters) | YES | Community builds connectors we can't |
+| EU AI Act Article 12 logging | YES | Shows compliance approach |
+
+| Layer | Proprietary (SaaS) | Why Proprietary |
+|-------|-------------------|-----------------|
+| Multi-tenant orchestration | YES | Core revenue — scale, isolation, SLA |
+| Enterprise governance (RBAC, SIEM, SOC2) | YES | Enterprise differentiation |
+| Premium data feeds (Bloomberg, Refinitiv connectors) | YES | High-value integrations |
+| Managed cloud infrastructure | YES | Revenue — hosting + operations |
+| Training & certification program | YES | Revenue + ecosystem lock-in |
+| Enterprise support & SLA | YES | Revenue |
+
+### 10.4 Revenue Model
+
+| Tier | Price | Includes |
+|------|-------|---------|
+| **Community** | Free (BSL) | All agents, self-hosted, community support, open data |
+| **Professional** | €99/user/month | DWS Cloud (managed), premium data feeds, email support |
+| **Enterprise** | €499/user/month | Multi-tenant, SSO/SAML, SLA, dedicated support, custom agents |
+| **Sovereign** | Custom | EU-only infra, Article 12 logging, on-premise, audit certification |
+
+### 10.5 npm Package Structure
+
+```
+@dws/agents (BSL licensed, TypeScript-first)
+├── @dws/agent-core           # BaseAgent, types, event bus, MCP
+├── @dws/agent-compliance     # EU compliance scoring (ETS, CBAM, CSRD, AI Act)
+├── @dws/agent-sitesense      # Construction site safety
+├── @dws/agent-material       # Material carbon (openEPD integration)
+├── @dws/agent-emissions      # Emissions data analysis
+├── @dws/agent-mcp            # MCP server for agent discovery
+├── @dws/data-connectors      # BYOD adapters (Eurostat, EEA, Open-Meteo, etc.)
+├── @dws/industry-steel       # Vulcan — steel & metals
+├── @dws/industry-energy      # Helios — energy & renewables
+├── @dws/industry-maritime    # Neptune — maritime & shipping
+├── @dws/industry-agriculture # Ceres — agriculture & fertilizers
+├── @dws/industry-hydrogen    # Prometheus — hydrogen & energy transition
+├── @dws/industry-construction # Mars — construction & buildings
+├── @dws/industry-cement      # Gaia — cement & earth materials
+└── @dws/industry-battery     # BESS — battery energy storage
+```
+
+### 10.6 Why This Works for DWS Specifically
+
+1. **TypeScript-first** — every other framework is Python. TypeScript web developers are underserved.
+2. **EU compliance focus** — no competitor has open-source EU compliance agents. First mover wins.
+3. **Validated data** — agents use real, citable emission factors (not made-up numbers). Builds instant trust.
+4. **Industry specialization** — general frameworks (LangChain, CrewAI) can't compete with domain-specific agents.
+5. **MCP native** — aligns with Anthropic/Claude MCP ecosystem direction.
+6. **BYOD + BYOP + BYOA** — zero-friction adoption. Customer keeps their data, processes, AND existing agents.
+7. **EU AI Act compliance** — open scoring algorithms satisfy Article 15 transparency requirement.
+
+### 10.7 Industry Gaps — Where DWS Has No Competition
+
+| Gap | Enforcement Date | Competition | DWS Agent |
+|-----|-----------------|-------------|-----------|
+| CBAM cross-border carbon compliance | 2026 | Zero open-source agents | `compliance` + `neptune` + `logistics` |
+| EU AI Act agent registration | August 2026 | Zero open-source tools | `athena` + `sovereignty-monitor` |
+| Construction EU taxonomy compliance | 2025+ | No integrated agent | `mars` + `sitesense` + `material-oracle` |
+| Maritime IMO EEXI/CII compliance | 2023+ | Minimal AI coverage | `neptune` |
+| Farm-to-Fork sustainability | 2025+ | Virtually zero | `ceres` |
+| BESS lifecycle compliance | Emerging | Zero | `bess` |
+| Multi-industry deterministic scoring | N/A | No open alternative | All 16+ agents with delegation |
+
+**Window of opportunity:** CSRD/CBAM enforcement 2025-2026. The first open-source EU compliance agent framework to reach 5,000+ GitHub stars becomes the de facto standard. After that, enterprise buyers default to the standard.
+
+---
+
+## 11. Key Open Data APIs — Quick Reference
 
 | API | Base URL | Auth | Format | Rate Limit |
 |-----|----------|------|--------|------------|
@@ -409,7 +662,7 @@ const customerComplianceProcess: ProcessConfig = {
 
 ---
 
-## 10. Sources
+## 12. Sources
 
 - EEA EU ETS Data: https://www.eea.europa.eu/en/datahub
 - Apitalks EU ETS API: https://api.store
