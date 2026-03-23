@@ -93,7 +93,7 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - Sales motion: Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers x EUR 36K avg = EUR 900K ARR.
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
-- NVIDIA Connect Partner, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
+- NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
 **When a seat is taken, it's gone. Deputy Captain seats are unlimited.**
