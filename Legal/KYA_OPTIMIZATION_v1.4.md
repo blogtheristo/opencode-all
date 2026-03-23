@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 12.1 Memory-Driven Financial Intelligence — fact extraction (PR-254) as data feed for per-customer financial optimization; client memory enables personalized ROI calculations, retention risk scoring, upsell opportunity detection; dual LWM+client memory architecture positions KYA-O as the only governance layer covering both domain knowledge and relationship knowledge; cross-referenced KYA-S §10 Memory Audit Trail; updated Related Documents
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
@@ -34,7 +35,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Architecture Standard v1.6 (KYA-O)
+**Version:** KYA Architecture Standard v1.7 (KYA-O)
 **Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -786,9 +787,63 @@ Lifetime Oy's contribution is the **governance layer** that makes autoresearch e
 
 ---
 
-## 12. Conclusion
+## 12. Memory-Driven Financial Intelligence (v1.7)
 
-The KYA Architecture Standard v1.6 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
+*Added: 23.03.2026 | PR-254 (agent-memory-fact-extraction)*
+
+The Agent Memory System (PR-254) creates a new data feed for the KYA-O financial layer. Previously, financial optimization relied on aggregated industry metrics and ERP data. With fact extraction, agents now build **per-customer financial profiles** from every interaction — enabling personalized ROI calculations, retention risk scoring, and upsell opportunity detection.
+
+### 12.1 Dual Memory Architecture for Financial Value
+
+| Memory Layer | Financial Intelligence | KYA-O Impact |
+|-------------|----------------------|-------------|
+| **LWM (Domain)** | Industry benchmarks, regulatory thresholds, emission factors | Powers the 20-industry financial value layer (§5) |
+| **Client Memory** | Customer-specific facts: revenue, preferences, deadlines, pain points | Enables per-customer Proxy-to-Scale mapping (§9) |
+
+**Key insight:** LWM tells you "CBAM threshold is €150K" (domain knowledge). Client memory tells you "ACME Corp's CBAM exposure is €2.3M and their CFO wants quarterly reports" (relationship knowledge). The combination enables financial optimization that neither could achieve alone.
+
+### 12.2 Fact-to-Value Pipeline
+
+```
+Conversation: "We need to reduce CBAM exposure by Q3, budget is €500K"
+  ↓ Fact extraction (PR-254)
+  ↓
+Facts stored:
+  {subject: "customer", predicate: "cbam_deadline", value: "Q3 2026", confidence: 1.0}
+  {subject: "customer", predicate: "compliance_budget", value: "500000", confidence: 1.0}
+  ↓
+Financial agent retrieves facts + LWM benchmarks:
+  - CBAM sector average: €1.2M exposure
+  - Customer stated budget: €500K
+  - Deadline: Q3 2026 (6 months)
+  ↓
+Personalized recommendation:
+  "Phase 1 CBAM optimization: €180K, 45% exposure reduction in 3 months"
+```
+
+### 12.3 Memory-Enhanced Financial Metrics
+
+| Metric | Without Client Memory | With Client Memory |
+|--------|----------------------|-------------------|
+| ROI calculation | Industry average (generic) | Customer-specific (personalized) |
+| Retention risk | Binary (active/churned) | Scored by engagement pattern + stated concerns |
+| Upsell timing | Quarterly batch | Triggered by extracted facts ("budget approved", "expansion planned") |
+| Compliance urgency | Regulatory calendar | Customer-specific deadlines + stated priorities |
+
+### 12.4 Governance (KYA-S §10 Cross-Reference)
+
+All memory-derived financial intelligence is governed by the Memory Audit Trail (`Legal/KYA_SECURITY_v1.2.md` §10):
+
+- Every fact extraction is logged with agent_id and source_text_hash
+- Financial recommendations citing client memory facts carry provenance chain
+- Customer-facing reports include fact attribution: "Based on your stated budget of €500K (conversation, 23.03.2026)"
+- GDPR Article 22: automated decisions based on profiling require transparency — memory provenance provides it
+
+---
+
+## 13. Conclusion
+
+The KYA Architecture Standard v1.7 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 
 Three principles govern this architecture:
 
@@ -804,8 +859,11 @@ Combined with **KYA governance** (identity attribution, capability gating, foren
 
 ### Related Documents
 
-- `Legal/KYA_SECURITY_v1.2.md` — Companion: Know Your Agent v1.2 (REQUIRED FOUNDATION)
+- `Legal/KYA_SECURITY_v1.2.md` — Companion: Know Your Agent v1.5 (REQUIRED FOUNDATION, §10 Memory Audit Trail)
 - `DWS_SECURITY_STANDARD.md` — Section 18: KYA & BYO Agent Security
+- `Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md` — Agent Memory System operations manual
+- `src/agents/fact-extraction.service.ts` — Fact extraction pipeline (PR-254)
+- `src/agents/memory.service.ts` — Memory store/recall/forget/profile service
 - `docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md` — Autoresearch methodology field note
 - `16-INDUSTRIES.md` — 16 EU-regulated industries
 - `src/identity/ats-engine.ts` — ATS engine implementation

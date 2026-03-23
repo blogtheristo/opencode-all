@@ -24,6 +24,7 @@ import logger from '../utils/logger.js';
 import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import { memoryService } from '../agents/memory.service.js';
+import { factExtractionService } from '../agents/fact-extraction.service.js';
 import type { AgentContext } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
 
@@ -194,6 +195,23 @@ function buildToolList(): MCPToolDefinition[] {
         },
       },
       required: ['entity_id', 'entity_type'],
+    },
+  });
+
+  // Fact extraction tool
+  tools.push({
+    name: 'dws_extract_facts',
+    description: 'Extract structured facts (subject-predicate-value triples) from text using LLM. Facts are persisted as memories for later recall and profile building.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        text: { type: 'string', description: 'Text to extract facts from (conversation, document, etc.)' },
+        source: { type: 'string', description: 'Source identifier (e.g., conversation, email, document)' },
+        persist: { type: 'boolean', description: 'Whether to store extracted facts as memories (default: true)' },
+        min_confidence: { type: 'number', description: 'Minimum confidence to persist a fact (0-1, default: 0.7)' },
+        customer_id: { type: 'string', description: 'Optional customer ID to scope extracted facts' },
+      },
+      required: ['text'],
     },
   });
 
@@ -402,6 +420,18 @@ async function executeToolCall(
       args.entity_type as 'customer' | 'organization',
       context.orgId,
     );
+  }
+
+  // Fact extraction
+  if (toolName === 'dws_extract_facts') {
+    return factExtractionService.extract({
+      text: args.text as string,
+      orgId: context.orgId,
+      customerId: args.customer_id as string | undefined,
+      source: (args.source as string) || 'mcp',
+      persist: args.persist !== false,
+      minConfidence: (args.min_confidence as number) || 0.7,
+    });
   }
 
   // Agent tools — strip "dws_" prefix and convert underscores back to hyphens
