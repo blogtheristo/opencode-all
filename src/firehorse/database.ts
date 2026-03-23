@@ -243,12 +243,12 @@ class FirehorseDatabase {
     const { count, error } = await this.supabase
       .from('firehorse_events')
       .select('*', { count: 'exact', head: true })
-      .in('event_type', ['cold_1_sent', 'cold_2_sent', 'cold_3_sent'])
+      .eq('event_type', EventType.EmailSent)
       .gte('created_at', todayStart.toISOString());
 
     if (error) {
       console.error('Error fetching today send count:', error);
-      return 0;
+      throw new Error(`Failed to fetch today's send count: ${error.message}`);
     }
 
     return count ?? 0;
