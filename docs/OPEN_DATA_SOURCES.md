@@ -85,6 +85,9 @@ DWS IQ 6 currently integrates these validated data sources (in `src/compliance/`
 | **Sandbag Carbon Price Viewer** | sandbag.be/carbon-price-viewer | Web | Open (historical) | compliance-researcher |
 | **ECB SDW — Carbon-related** | data.ecb.europa.eu | SDMX REST | Open | compliance |
 | **IPCC Emission Factor Database** | efdb.apps.ghgprotocol.org | Download | Open | material-oracle |
+| **Climate TRACE** | climatetrace.org/data | REST API (beta), bulk CSV | CC 4.0 (free) | compliance, argus |
+| **Climatiq** | climatiq.io | REST JSON | Free tier + paid | material-oracle, emissions-data-analyst |
+| **Ember** | ember-energy.org/data | Download | Open | compliance |
 
 **Integration priority:** Oil Price API for real-time EU ETS carbon price → feeds into `ets-calculator.ts` and `cbam-calculator.ts`.
 
@@ -133,6 +136,9 @@ The Bloomberg Terminal costs ~$24,000/year per seat. Here is what it provides an
 | **Visual Crossing** | visualcrossing.com | REST JSON | Free tier (1000 calls/day) | sitesense |
 | **Tomorrow.io** | tomorrow.io/weather-api | REST JSON | Free tier | sitesense |
 | **FMI Open Data** (Finland) | en.ilmatieteenlaitos.fi/open-data | REST (WFS/WMS) | CC-BY 4.0 | sitesense |
+| **MET Norway** | api.met.no | REST JSON (free) | Norwegian Open Gov License | sitesense |
+| **DWD Open Data** (Germany) | dwd.de/EN/ourservices/opendata | Bulk download | Free (German law) | sitesense |
+| **Copernicus CDS** | cds.climate.copernicus.eu | Python cdsapi | Free (registration) | construction, sitesense |
 
 **Integration priority:** Open-Meteo (no API key, open-source) as default → customer can upgrade to Visual Crossing for construction-specific safety thresholds.
 
@@ -147,6 +153,7 @@ The Bloomberg Terminal costs ~$24,000/year per seat. Here is what it provides an
 | **PRB (Finnish company registry)** | avoindata.prh.fi | REST JSON | CC-BY 4.0 | sales-outreach, viability |
 | **LEI (Legal Entity Identifiers)** | gleif.org/en/lei-data | REST, bulk download | Open | compliance, sales-outreach |
 | **OpenCorporates** | opencorporates.com | REST | Free tier (limited) | sales-outreach |
+| **BRIS** (EU Business Registers) | openbris.eu/api/v1 | REST | Free (official EU) | compliance, sales-outreach |
 
 **Integration priority:** PRH (Finnish companies) for Nordic market, GLEIF for global entity identification, Wikirate for open ESG scores.
 
@@ -167,7 +174,7 @@ The Bloomberg Terminal costs ~$24,000/year per seat. Here is what it provides an
 | Source | URL | API | License | DWS Agent |
 |--------|-----|-----|---------|-----------|
 | **OpenStreetMap** | openstreetmap.org | Overpass API | ODbL | sitesense, logistics |
-| **Copernicus Open Access** | scihub.copernicus.eu | REST | Open | argus |
+| **Copernicus Data Space** | dataspace.copernicus.eu | openEO, Sentinel Hub, STAC | Free | argus |
 | **INSPIRE Geoportal** (EU) | inspire-geoportal.ec.europa.eu | WMS/WFS | Open | construction |
 | **Paikkatietoikkuna** (Finland) | paikkatietoikkuna.fi | WMS/WFS | CC-BY 4.0 | construction, sitesense |
 
@@ -221,10 +228,18 @@ When a customer says "I want Bloomberg data," they typically mean:
 | **Commodity data** | Metals, energy, agriculture | World Bank commodity prices | Less granular |
 | **Chat/messaging** | Bloomberg IB chat | Not relevant to DWS | N/A |
 
+**Bloomberg's real moat** is NOT the data (most is available elsewhere) — it's:
+1. **IB Chat network** — 350K+ users, OTC trades happen here (irreplaceable)
+2. **Fixed income pricing** — no open alternative for OTC bond pricing
+3. **Convenience** — everything in one interface
+
+For DWS IQ 6's compliance/ESG/industrial use cases, open alternatives fully cover the requirement.
+
 **DWS approach:** We don't replace Bloomberg. We provide:
-1. **Open data default** — good enough for 80% of compliance/reporting use cases
+1. **Open data default** — covers 80% of compliance/reporting use cases at zero cost
 2. **Bloomberg connector** — customer plugs in their Bloomberg B-PIPE or Refinitiv feed
 3. **Data normalization** — all sources feed into the same agent scoring engine
+4. **OpenBB integration** — open-source financial platform with MCP server support (aligns with DWS MCP architecture)
 
 ---
 
@@ -296,6 +311,10 @@ const carbonPriceConfig: DataSourceConfig = {
 | World Bank | api.worldbank.org/v2 | None | JSON, XML | Generous |
 | OECD | sdmx.oecd.org/public/rest | None | SDMX, JSON | Generous |
 | OpenBB | Python SDK (local) | None (local) | Python objects | N/A |
+| Climate TRACE | api.climatetrace.org | API key (free) | JSON | TBD |
+| Climatiq | api.climatiq.io/data/v1 | API key (free tier) | JSON | 100/month free |
+| Copernicus CDS | cds.climate.copernicus.eu | Registration | NetCDF, GRIB | Generous |
+| BRIS | openbris.eu/api/v1 | None | JSON | Generous |
 
 ---
 
@@ -326,3 +345,14 @@ const carbonPriceConfig: DataSourceConfig = {
 - Sustainable Finance Daily (free ESG sources): https://sustainablefinancedaily.com/sustainable-finance-insights/esg-data-and-analytics/10-free-esg-data-sources-and-scores/
 - GLEIF: https://www.gleif.org/en/lei-data
 - PRH Open Data: https://avoindata.prh.fi
+- Climate TRACE: https://climatetrace.org/data
+- Climatiq: https://www.climatiq.io/
+- Copernicus Data Space: https://dataspace.copernicus.eu/
+- Copernicus CDS: https://cds.climate.copernicus.eu/
+- BRIS: https://openbris.eu/api/v1
+- MET Norway: https://api.met.no/
+- DWD Open Data: https://www.dwd.de/EN/ourservices/opendata/opendata.html
+- Ember: https://ember-energy.org/data/
+- FRED: https://fred.stlouisfed.org/
+- One Click LCA: https://oneclicklca.com/
+- 2050 Materials: https://www.2050materials.com/
