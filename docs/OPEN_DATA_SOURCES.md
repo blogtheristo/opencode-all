@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Added BYOP (Bring Your Own Processes) section, strengthened zero-friction data sovereignty principle, added ProcessConfig interface pattern
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-open-data-sources-BMEJ0 | Date: 23.03.2026 | Changes: Initial research — mapped open data sources to DWS products and agents, Bloomberg alternative analysis, customer data input strategy
 
 Session Links & References:
@@ -20,7 +21,7 @@ Document Status:
 
 ***
 
-**Version:** 1.0
+**Version:** 1.1
 **Effective Date:** 2026-03-23
 **Last Updated:** 2026-03-23
 **Status:** Active
@@ -37,7 +38,9 @@ This document maps open data sources to DWS IQ 6 products and agents. It defines
 | **Premium** | Licensed commercial feeds | $$$ | Bloomberg, Refinitiv, MSCI ESG |
 | **Customer** | Customer's own ERP/ESG/internal data | N/A | SAP, Dynamics 365, Worldfavor |
 
-**Customer choice principle:** DWS ships with Open tier built-in. Customers bring their own Premium or Customer data via connectors.
+**Customer choice principle:** DWS ships with Open tier built-in. Customers connect their own data sources — Premium feeds, internal ERP, proprietary databases — without friction, without gatekeeping, without asking permission. Every agent accepts any data source that implements the `DataSourceConfig` interface. Plug in, score, done.
+
+**Zero-friction data sovereignty:** The customer's data stays in the customer's infrastructure. DWS agents query it — they never copy, cache, or exfiltrate it beyond the configured TTL. The customer owns their data pipeline end-to-end.
 
 ---
 
@@ -269,34 +272,122 @@ For DWS IQ 6's compliance/ESG/industrial use cases, open alternatives fully cove
 
 ## 7. Data Source Configuration Pattern
 
-Every agent should support pluggable data sources:
+**Design principle: Connect anything, question nothing.** Every DWS agent accepts any data source that implements the interface below. Customer brings Bloomberg? Works. Customer brings their own proprietary REST API? Works. Customer brings a CSV on a network share? Works (via adapter). No approval workflow, no vendor lock-in, no gatekeeping.
 
 ```typescript
 interface DataSourceConfig {
   tier: 'open' | 'premium' | 'customer';
-  source: string;           // e.g. 'openbb', 'bloomberg', 'eurostat'
+  source: string;           // e.g. 'openbb', 'bloomberg', 'eurostat', 'my-internal-api'
   apiKey?: string;           // for premium sources
-  endpoint?: string;         // custom endpoint override
+  endpoint?: string;         // custom endpoint override — customer points to their own API
   cacheTtl: number;          // seconds (default: 86400 for open, 300 for premium)
   fallback?: DataSourceConfig; // fallback if primary fails
+  dataResidency?: string;    // e.g. 'eu-north1', 'customer-premise' — data never leaves this zone
 }
 
-// Example: Carbon price data source chain
+// Example 1: Carbon price — open data default
 const carbonPriceConfig: DataSourceConfig = {
   tier: 'open',
   source: 'oilpriceapi',
-  cacheTtl: 3600,           // 1 hour cache
+  cacheTtl: 3600,
   fallback: {
     tier: 'open',
-    source: 'sandbag',
-    cacheTtl: 86400,         // 24 hour cache (historical only)
+    source: 'ember',
+    cacheTtl: 86400,
   }
+};
+
+// Example 2: Customer plugs in their Bloomberg feed — zero questions asked
+const customerBloomberg: DataSourceConfig = {
+  tier: 'premium',
+  source: 'bloomberg-bpipe',
+  endpoint: 'https://customer-bloomberg-proxy.internal:8194',
+  apiKey: process.env.CUSTOMER_BLOOMBERG_KEY,
+  cacheTtl: 300,
+  dataResidency: 'customer-premise',
+  fallback: carbonPriceConfig,  // falls back to open data if Bloomberg is down
+};
+
+// Example 3: Customer's own internal ESG database
+const customerEsgDb: DataSourceConfig = {
+  tier: 'customer',
+  source: 'customer-esg-api',
+  endpoint: process.env.CUSTOMER_ESG_ENDPOINT,  // customer provides their own URL
+  apiKey: process.env.CUSTOMER_ESG_KEY,
+  cacheTtl: 600,
+  dataResidency: 'eu-north1',
 };
 ```
 
+**How it works at runtime:**
+1. Agent checks if customer has configured a data source for the needed capability
+2. If yes → use customer source, respect `dataResidency` constraint
+3. If no → fall back to open tier (always available, always free)
+4. If open tier fails → log warning, return partial result with confidence penalty
+
+**No vendor lock-in:** Switching from Bloomberg to Refinitiv is a config change, not a code change. Switching from open to premium is the same `DataSourceConfig` interface.
+
 ---
 
-## 8. Key Open Data APIs — Quick Reference
+## 8. Bring Your Own Processes (BYOP)
+
+Data is only half the story. Enterprise customers also have their own processes — approval workflows, scoring models, compliance checklists, escalation chains. DWS agents must accept these without question.
+
+**Design principle: The customer's process is the correct process.** DWS provides default workflows. Customers override any step with their own logic. No "our way or the highway."
+
+```typescript
+interface ProcessConfig {
+  name: string;                    // e.g. 'compliance-approval', 'carbon-scoring'
+  type: 'default' | 'customer';
+  steps: ProcessStep[];
+  escalation?: EscalationConfig;   // customer's own escalation chain
+}
+
+interface ProcessStep {
+  id: string;
+  action: string;                  // 'score' | 'approve' | 'notify' | 'custom-webhook'
+  handler: string;                 // DWS agent name OR customer webhook URL
+  timeout?: number;                // seconds before escalation
+  requiredApprovers?: string[];    // customer's own approval list
+}
+
+// Example: Customer overrides compliance approval with their own chain
+const customerComplianceProcess: ProcessConfig = {
+  name: 'compliance-approval',
+  type: 'customer',
+  steps: [
+    { id: 'score', action: 'score', handler: 'compliance-agent' },          // DWS scores
+    { id: 'review', action: 'custom-webhook', handler: 'https://customer.internal/api/compliance-review' },  // Customer reviews
+    { id: 'approve', action: 'approve', handler: 'https://customer.internal/api/approval-chain', requiredApprovers: ['cso@customer.com', 'cfo@customer.com'] },
+    { id: 'notify', action: 'notify', handler: 'https://customer.internal/api/slack-notify' },
+  ],
+};
+```
+
+**What customers bring:**
+
+| Process Type | Default (DWS) | Customer Override |
+|-------------|---------------|-------------------|
+| **Compliance scoring** | DWS 16-agent deterministic scoring | Customer's own risk model + thresholds |
+| **Approval workflows** | Auto-approve below threshold | SAP workflow, ServiceNow, Jira approval chains |
+| **Escalation chains** | Email to admin | PagerDuty, OpsGenie, customer's own chain |
+| **Reporting cadence** | Quarterly CSRD cycle | Customer's own schedule (monthly, weekly, event-driven) |
+| **Data validation** | DWS schema validation | Customer's own business rules + edge case handling |
+| **Notification channels** | Email (SES/Resend) | Slack, Teams, customer webhook, SMS |
+| **Audit trail** | DWS Aiwen logging | Customer's own SIEM (Splunk, Sentinel, QRadar) |
+
+**How it works:**
+1. DWS ships with sensible defaults — every workflow works out of the box
+2. Customer configures overrides via `ProcessConfig` — any step, any webhook
+3. DWS agents call the customer's endpoint at the right point in the workflow
+4. If customer endpoint is down → fall back to DWS default (with warning)
+5. Full audit trail regardless of who handles each step
+
+**BYOP + BYOD together:** Customer brings their SAP data (BYOD) AND their SAP approval workflow (BYOP). DWS agents orchestrate both without forcing the customer to change how they work.
+
+---
+
+## 9. Key Open Data APIs — Quick Reference
 
 | API | Base URL | Auth | Format | Rate Limit |
 |-----|----------|------|--------|------------|
@@ -318,7 +409,7 @@ const carbonPriceConfig: DataSourceConfig = {
 
 ---
 
-## 9. Sources
+## 10. Sources
 
 - EEA EU ETS Data: https://www.eea.europa.eu/en/datahub
 - Apitalks EU ETS API: https://api.store
