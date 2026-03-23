@@ -58,14 +58,6 @@ function extractVersion(md) {
   return m ? m[1] : 'unknown';
 }
 
-/**
- * Extract the latest session date from the first "- Version: X.X | ... | Date: DD.MM.YYYY" line.
- */
-function extractDate(md) {
-  const m = md.match(/Date:\s*(\d{2}\.\d{2}\.\d{4})/);
-  return m ? m[1] : '';
-}
-
 function mdToHtml(md, titleBase, lang, version, date) {
   let html = md;
   // Stash fenced code blocks
@@ -139,7 +131,7 @@ function mdToHtml(md, titleBase, lang, version, date) {
     '</body>',
     '</html>',
   ].join('\n');
-table{border-collapse:collapse;width:100%;margin:20px 0}
+}
 
 /**
  * Extract a date string from the markdown.
