@@ -46,6 +46,7 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { contentRoutes } from './contentms/index.js';
 import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
@@ -244,6 +245,9 @@ app.use('/mcp', createMCPRouter());
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/captain', captainRoutes);
+
+// Firehorse ContentMS (content pipeline: blog, email, social, digest)
+app.use('/api/v1/content', contentRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
