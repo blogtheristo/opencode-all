@@ -26,18 +26,39 @@ export function requestTimeout(timeoutMs?: number) {
 
   return (req: Request, res: Response, next: NextFunction): void => {
     const timer = setTimeout(() => {
-      if (!res.headersSent) {
-        logger.warn('Request timeout exceeded', {
-          path: req.path,
-          method: req.method,
-          timeoutMs: timeout,
-          correlationId: req.headers['x-correlation-id'],
-        });
-        next(new AppError(
-          `Request timeout after ${timeout}ms`,
-          408,
-          'REQUEST_TIMEOUT',
-        ));
+      // If the response is already in progress or finished, just make sure
+      // the underlying connection is torn down to avoid further work.
+      if (res.headersSent || res.writableEnded) {
+        if (!req.destroyed) {
+          req.destroy();
+        }
+        return;
+      }
+
+      // Mark the request as timed out so downstream logic can short-circuit.
+      (req as any).timedout = true;
+
+      logger.warn('Request timeout exceeded', {
+        path: req.path,
+        method: req.method,
+        timeoutMs: timeout,
+        correlationId: req.headers['x-correlation-id'],
+      });
+
+      // Send a 408 response and actively terminate the connection to prevent
+      // any further writes from downstream handlers.
+      res.status(408).json({
+        status: 'error',
+        code: 'REQUEST_TIMEOUT',
+        message: `Request timeout after ${timeout}ms`,
+      });
+
+      // Ensure the response/connection are fully closed.
+      if (!res.writableEnded) {
+        res.end();
+      }
+      if (!req.destroyed) {
+        req.destroy();
       }
     }, timeout);
 
