@@ -250,7 +250,10 @@ fi
 # Step 4: SHA256 checksum
 # ---------------------------------------------------------------------------
 log_info "Step 3/6: Creating SHA256 checksum..."
-sha256sum "$DUMP_FILE" > "$CHECKSUM_FILE"
+(
+  cd "$(dirname "$DUMP_FILE")" && \
+    sha256sum "$(basename "$DUMP_FILE")"
+) > "$CHECKSUM_FILE"
 log_ok "Checksum: $(cat "$CHECKSUM_FILE" | cut -d' ' -f1 | head -c 16)..."
 
 # ---------------------------------------------------------------------------
