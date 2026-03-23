@@ -9,7 +9,7 @@
 
 ## First Lines (Paragraph 1)
 
-I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 
 ---
 
@@ -31,22 +31,22 @@ We're at ~7k€/month MRR with 100% retention, now expanding from energy/industr
 ### Customization Tips:
 
 **For Angel Investors:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 >
 > We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 150k€ BA + 500k€ VC SAFE round (€3.8M cap). Would love to share our traction and Series A roadmap if you're interested in climate tech / B2B SaaS.
 
 **For VC Firms:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 >
 > We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 500k€ VC SAFE round (€3.8M cap, bridge to Series A 2026). Happy to share our deck and customer case studies if this fits your thesis.
 
 **For ESG/CSRD Consulting Partners:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 >
 > We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm looking for ESG/CSRD consulting teams as early design partners to test where Fit for 55 / CSRD reporting workflows can be automated on real client cases. Would this be interesting for your team?
 
 **For Construction/Infrastructure Prospects:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 >
 > We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. We help portfolio owners automate Fit for 55 / CSRD reporting – from 40-80 hours of manual Excel work to audit-ready reports in 4 weeks. Would love to show you how it works.
 
@@ -135,7 +135,7 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ## Quick Copy-Paste (Plain Text)
 
 ```
-I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+I'm Risto Anton, Founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
 
 We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 150k€ BA + 500k€ VC SAFE round and looking for ESG/CSRD consulting teams as early design partners to test where Fit for 55 / CSRD reporting workflows can be automated on real client cases.
 ```
