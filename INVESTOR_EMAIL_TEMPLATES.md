@@ -37,7 +37,7 @@ Hi [First name],
 
 I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. Think: autonomous compliance agents for steel mills, construction sites, and chemical plants — governed by our KYA (Know Your Agent) standard with hardware-attested isolation and court-defensible audit trails.
 
-We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA, Microsoft, Google, AWS, and Groq. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
+We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA, Microsoft, Google, AWS, IBM, and Acer Finland. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
 
 The moat: our **Lifetime World Model** — 15,000+ EU regulatory documents indexed across 20 industries, 7 years and 6 platform versions to build. Not a fine-tuned GPT. A proprietary regulatory intelligence graph.
 
@@ -98,7 +98,7 @@ Hi [First name],
 
 I'm building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. The governance layer (KYA — Know Your Agent) provides hardware-attested isolation and court-defensible audit trails that reduce D&O insurance premiums by 8-12%.
 
-We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Connect Partner, Microsoft Founders Hub, Google, AWS (Consulting Partner), Groq, Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
+We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Connect Partner, Microsoft Founders Hub, Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
 
 I'm offering seats in a **SAFE at EUR 3.8M cap** — from EUR 50K Industry Captain seats (8 available, one per industry) to a single EUR 500K Fleet Admiral seat with board observer rights.
 
@@ -153,7 +153,7 @@ Lifetime Oy
 - **Fit for 55 / EPBD** — hard mandates hitting 2025-2028
 
 ### Moat (Three Pillars)
-- **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years to build (3-5 years to replicate)
+- **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years and 6 versions to build, roadmap through v8 (3-5 years to replicate)
 - **Edge deployment** — NVIDIA Jetson at industrial sites (2-3 years to replicate)
 - **Model-agnostic orchestration** — swap any LLM, intelligence lives in the World Model (1-2 years to replicate)
 
@@ -176,16 +176,18 @@ Lifetime Oy
 
 ### Team
 - **Risto Anton Päärni** — Founder & CEO
-  - 35 years industrial IT, construction, infrastructure
+  - 35 years of domain expertise in industrial IT, construction, and infrastructure — the moat is the founder. Not a first-time founder learning the industry; a career operator encoding decades of compliance knowledge into AI agents.
   - EU regulation expertise (Fit for 55, EPBD, AI Act)
   - Board roles: Lifetime Group companies
 - **Lucille Santiago** — Logistics & Office
+- **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026
 - **Advisors:**
-  - Dr. Jarno Varteva — Metropolia University of Applied Sciences
-  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences
+  - Hanna Robertsson — CEO (Industry & Strategic Advisory)
+  - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
+  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 
 ### Partnerships
-- **NVIDIA Connect Partner**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
+- **NVIDIA Connect Partner**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - Three **InvestEU Portal** listings (INPO-20254383)
 - 100% EU data residency (Finland, Germany, Netherlands)
 

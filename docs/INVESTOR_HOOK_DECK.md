@@ -50,7 +50,7 @@ NVIDIA Jetson Orin Nano. EUR 500 per device. 7-15 watts. Solar-capable. Runs AI 
 ### Three pillars. Each takes years to build. Together they're a moat.
 
 **Pillar 1: The Lifetime World Model — proprietary intelligence.**
-15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build. 3-5 years to replicate.
+15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build — now at version 6 with a roadmap through version 8. 3-5 years to replicate.
 
 **Pillar 2: Edge deployment — hardware+software integration.**
 AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. Model quantization, OT-network security, power management — engineering problems, not software features. A competitor would need to redesign their entire architecture. 2-3 years to replicate.
@@ -86,13 +86,13 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - Industry-specific regulatory intelligence and compliance alerts
 
 **The company:**
-- Lifetime Oy (Finland) — 35-year industrial IT veteran as founder/CEO
-- Team: Lucille Santiago (Logistics & Office)
-- Advisors: Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
+- Lifetime Oy (Finland) — 35 years of domain expertise concentrated in the founder. Not learning the industry — encoding it into AI agents.
+- Team: Lucille Santiago (Logistics & Office). First €50K of raise funds senior technical hire by Q3 2026.
+- Advisors: Hanna Robertsson (CEO, Industry & Strategic), Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
-- NVIDIA Connect Partner, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), Groq, Acer Finland, Konfitech
+- NVIDIA Connect Partner, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
 **When a seat is taken, it's gone. Deputy Captain seats are unlimited.**
