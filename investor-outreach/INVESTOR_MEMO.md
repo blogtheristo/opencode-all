@@ -291,6 +291,10 @@ Timeframe:                 ~2 years (2024→2026)
 - **Experience:** 35+ years in industrial management, enterprise software, and AI infrastructure
 - **Expertise:** SAP integration, regulatory compliance, agentic AI orchestration
 - **Track Record:** Successful enterprise deployments, Fortune 500 client projects
+- **Logistics & Office:** Lucille Santiago
+- **Advisors:**
+  - Dr. Jarno Varteva — Metropolia University of Applied Sciences
+  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences
 - **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)
 - **Third-Party Validation:**
   - Crunchbase Growth Score: 91

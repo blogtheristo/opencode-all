@@ -87,10 +87,12 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 
 **The company:**
 - Lifetime Oy (Finland) — 35-year industrial IT veteran as founder/CEO
+- Team: Lucille Santiago (Logistics & Office)
+- Advisors: Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
 - 2-month sales sprint: June 15 – August 15, 2026
 - Three InvestEU Portal listings (INPO-20254383)
-- NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS, Groq
+- NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS, Groq, Acer Finland
 - 100% EU data residency (Finland, Germany, Netherlands)
 
 **When a seat is taken, it's gone. Deputy Captain seats are unlimited.**
