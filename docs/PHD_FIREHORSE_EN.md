@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
@@ -36,10 +37,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 24.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.5 — Harness Engineering and Forensic Telemetry: harness-forensics connection, court-defensible harness, KYA hardware attestation)
+  - Publication Status: DRAFT (V2.9 — Carbon Balance Sheet as motivating thesis; double-entry bookkeeping for CO2, three PhD research questions)
 
 
 ---
@@ -106,6 +107,30 @@ This thesis covers the DWS10.com store implementation, serving 30+ products acro
 | Consulting Services | Hourly, Monthly, Workshops | €98 - €6,250 |
 | Training & Coaching | AI Koulutus, Coach, Mentor | €499 - €6,250 |
 | Digital Products | Glossaries, Web Pages | €0.99 - €799 |
+
+### 1.4 Motivating Thesis: The Carbon Balance Sheet
+
+The central hypothesis motivating this doctoral research is that EU climate compliance — spanning ETS, CBAM, CSRD, and the EU Taxonomy — is not a reporting problem but a **ledger problem**. The same physical quantity of CO2e flows through multiple regulatory touchpoints: a steel mill's ETS surrender becomes an importer's CBAM embedded emission, becomes a construction company's CSRD Scope 3 upstream disclosure, and determines their Taxonomy alignment. Current compliance tools treat each regulation as a separate reporting workflow, producing duplicated data, inconsistent factors, and ±40% Scope 3 uncertainty.
+
+This thesis proposes that carbon compliance requires **double-entry bookkeeping** — the same architectural solution that financial accounting adopted centuries ago. Every compliance event produces a journal entry (debit or credit) in dual units (EUR and tCO2e). The resulting carbon balance sheet provides a net carbon position that is auditable, reconcilable, and machine-readable.
+
+**Why this frames the Firehorse operations research:**
+
+The Firehorse Operations Model (Sections 3–13) documents the engineering infrastructure — multi-agent orchestration, edge deployment, ERP integration, regulatory intelligence — required to build a carbon balance sheet that works across 20 EU-regulated industries. Without the harness architecture (Section 14.12), the cross-industry ledger cannot maintain audit integrity. Without the MCP orchestration, the cross-regulation reconciliation cannot happen in real-time. Without the edge deployment, industrial sites cannot contribute verified emissions data.
+
+**Three research questions emerge from the carbon balance sheet thesis:**
+
+1. **Structural isomorphism:** Is the analogy between financial double-entry bookkeeping and carbon compliance tracking formally valid, or merely metaphorical? Can the same data structures, reconciliation algorithms, and audit guarantees transfer?
+
+2. **Cross-vertical intelligence:** Does a multi-industry carbon ledger produce emergent intelligence that single-vertical tools cannot replicate? Specifically: when a steel mill's verified ETS emissions replace a construction company's CBAM default values, does the accuracy improvement (hypothesized ±3% vs ±40%) materialize in practice?
+
+3. **Network effects in compliance data:** At what scale (number of industries, entities, transactions) does the cross-regulation reconciliation become self-reinforcing — where adding one more industry to the ledger improves data quality for all existing industries?
+
+**The role of open source connectors:**
+
+A carbon balance sheet requires verified data from heterogeneous industrial systems — ERP platforms (SAP, IFS, Dynamics, Visma, Jeeves), EU registries (EUTL, CBAM Transitional Registry), emission factor databases (EEA, IPCC), IoT sensors, and ESG platforms (Worldfavor, PositionGreen). This thesis argues that these connectors must be **open source** (MIT-licensed) for three reasons: (1) auditability — auditors must inspect the data path from source system to ledger entry, not trust a vendor's black box; (2) network effect acceleration — open source lowers adoption barriers, enabling the cross-vertical intelligence to emerge faster; (3) regulatory defensibility — EU AI Act Article 12 requires auditable AI pipelines, which open source satisfies by design. The connector architecture extends the ERP integration patterns already implemented in DWS (`src/integrations/erp/`), treating each connector as a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API.
+
+These questions extend beyond the Firehorse e-commerce operations into the domain of **compliance infrastructure design** — the transition from "tools that generate reports" to "infrastructure that maintains a system of record for carbon." The DWS 7 implementation (Phase 2.6, PRs 093A–093H) provides the empirical test bed.
 
 ---
 
@@ -1353,6 +1378,10 @@ This thesis contributes:
 12. Customer-Facing MVP Features — API Key Management, Usage Metering with 3-tier billing, Compliance Report Export; Firehorse operations model transition to customer-deliverable SaaS
 13. PostgreSQL Columnar HTAP Architecture — Single-database HTAP via pg_duckdb + TimescaleDB on Aiven EU; DWS Data Standard creation governing storage engines, extension registry, retention policies, EU regulatory compliance; 4-phase rollout for Firehorse operations data
 14. Two-Tier HTAP Architecture — Aiven-first mandate, TimescaleDB Hypercore for production, pg_duckdb for edge analytics; validates managed-provider constraint as architectural driver
+15. Harness Engineering and Forensic Telemetry — court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness
+16. LWM Product-Market Validation — Qantic GmbH energy sector case study, first external market validation
+17. Agent Memory Fact Extraction Pipeline — LLM-based fact extraction, dual memory architecture, KYA-first ordering
+18. Carbon Balance Sheet Thesis — EU climate compliance as ledger problem; double-entry bookkeeping for CO2 with dual-unit entries (EUR + tCO2e); three PhD research questions: structural isomorphism, cross-vertical intelligence, network effects in compliance data; DWS 7 Phase 2.6 as empirical test bed
 
 ### 13.3 Future Work
 

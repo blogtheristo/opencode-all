@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { validate } from '../middleware/validate.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
+import { costBreakdownToLedger, type LedgerCreditOptions } from '../compliance/debit-credit-ledger.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { ESRS_REGISTRY, getMandatoryDisclosures, TOTAL_DISCLOSURES, MANDATORY_DISCLOSURES } from '../compliance/esrs-registry.js';
 import { estimateETSCost } from '../compliance/ets-calculator.js';
@@ -359,6 +360,71 @@ router.get('/benchmarks/:sector', async (req: Request, res: Response, next: Next
     next(err);
   }
 });
+
+/**
+ * POST /api/v1/compliance/ledger
+ * Transform compliance assessment into debit-credit ledger view.
+ * CFO-friendly: shows compliance costs as debits and offsets as credits.
+ */
+const LedgerSchema = AssessmentSchema.extend({
+  freeAllocationEur: z.number().min(0).optional(),
+  verifiedLowerCarbonEur: z.number().min(0).optional(),
+  greenFinancingEur: z.number().min(0).optional(),
+});
+
+router.post(
+  '/ledger',
+  validate({ body: LedgerSchema }),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body = req.body;
+
+      const scoringInput: ComplianceScoringInput = {
+        industry: body.industry,
+        dataPoints: body.dataPoints,
+        annualEmissions: body.annualEmissions,
+        importValue: body.importValue,
+        hasTransitionPlan: body.hasTransitionPlan,
+        hasEmissionsMonitoring: body.hasEmissionsMonitoring,
+        hasSupplyChainDD: body.hasSupplyChainDD,
+      };
+
+      const result = scoreCompliance(scoringInput);
+
+      const creditOptions: LedgerCreditOptions = {
+        freeAllocationEur: body.freeAllocationEur,
+        verifiedLowerCarbonEur: body.verifiedLowerCarbonEur,
+        greenFinancingEur: body.greenFinancingEur,
+      };
+
+      const ledger = result.costBreakdown
+        ? costBreakdownToLedger(result.costBreakdown, creditOptions)
+        : costBreakdownToLedger({
+          etsCostEur: 0,
+          cbamCostEur: 0,
+          csrdReportingCostEur: 0,
+          totalCostEur: 0,
+          carbonPriceEur: 65,
+        });
+
+      logger.info('Compliance ledger generated', {
+        company: body.companyName,
+        debits: ledger.totalDebitsEur,
+        credits: ledger.totalCreditsEur,
+        net: ledger.netPositionEur,
+      });
+
+      res.status(200).json({
+        company: body.companyName,
+        industry: body.industry,
+        overallScore: result.overallScore,
+        ledger,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 /**
  * POST /api/v1/compliance/cost-estimate

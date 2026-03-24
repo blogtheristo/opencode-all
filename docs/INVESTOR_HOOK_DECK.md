@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added carbon balance sheet thesis as fundraising one-liner. Slide 1 now leads with "carbon balance sheet" framing. Added Slide 0 (one-liner). Updated moat to include debit-credit ledger and cross-vertical intelligence.
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries (was 16). Sales sprint June 15 – August 15.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: New 3-slide investor hook deck. Leads with EUR 333k cost advantage, explains deep tech moat (LWM + edge + orchestration), closes with Captain seats CTA.
 
@@ -21,6 +22,23 @@ Document Status:
   - Publication Status: ACTIVE
 
 ***
+
+---
+
+## Slide 0 — The One-Liner
+
+### Carbon balance sheet infrastructure for industrial Europe.
+
+**Lifetime builds the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro.**
+
+A steel mill's ETS surrender (debit) flows through to a construction company's CBAM import (debit), becomes their CSRD Scope 3 disclosure, and determines their Taxonomy alignment (credit). Same carbon, four regulatory touchpoints, one auditable ledger.
+
+50,000+ EU companies need this by 2028. We're shipping it now.
+
+- EUR 7K MRR live. 100% retention. 5 paying customers.
+- 20 EU-regulated industries. 18 AI agents. 13 open data sources baked in.
+- DWS 7 ships persistent carbon balance sheet July 2026.
+- EUR 650K SAFE at EUR 3.8M cap. Bridge to Series A 2026.
 
 ---
 
@@ -49,16 +67,16 @@ NVIDIA Jetson Orin Nano. EUR 500 per device. 7-15 watts. Solar-capable. Runs AI 
 
 ### Three pillars. Each takes years to build. Together they're a moat.
 
-**Pillar 1: The Lifetime World Model — proprietary intelligence.**
+**Pillar 1: The Carbon Balance Sheet — ledger infrastructure.**
+Double-entry bookkeeping for CO2. Every compliance event produces a journal entry — debit or credit, in both EUR and tCO2e. ETS surrender = debit. Free allocation = credit. CBAM certificate purchase = debit. The same tonne flows across ETS, CBAM, CSRD, and Taxonomy — four regulations, one ledger. When customer A's verified emissions become customer B's actual CBAM factor (instead of regulatory defaults), both ledgers get more accurate. That's a network effect. No competitor has this. 3-5 years to replicate.
+
+**Pillar 2: The Lifetime World Model — proprietary intelligence.**
 15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build — now at version 6 with a roadmap through version 8. 3-5 years to replicate.
 
-**Pillar 2: Edge deployment — hardware+software integration.**
-AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. Model quantization, OT-network security, power management — engineering problems, not software features. A competitor would need to redesign their entire architecture. 2-3 years to replicate.
+**Pillar 3: Edge deployment + model-agnostic orchestration.**
+AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. EUR 17K/year vs EUR 350K/year cloud. Replace Claude with any LLM tomorrow — the platform still works. The intelligence lives in the World Model and the carbon ledger, not the model provider. Built on Model Context Protocol (MCP). 2-3 years to replicate.
 
-**Pillar 3: Model-agnostic orchestration — the swap test.**
-Replace Claude with a different LLM tomorrow. The platform still works. The intelligence lives in the World Model, not the model provider. External LLMs are commodities. The LWM is the brain that makes them useful for compliance. Built on Model Context Protocol (MCP). 1-2 years to replicate.
-
-**DWS IQ 6 is the orchestration platform. The Lifetime World Model is the proprietary intelligence layer. Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach.**
+**DWS IQ is carbon balance sheet infrastructure. The Lifetime World Model is the regulatory intelligence. Together they turn commodity AI into a compliance engine that tracks every tonne like every euro — and runs where cloud can't reach.**
 
 ---
 

@@ -17,8 +17,10 @@ export interface EmissionFactor {
   factor: number;           // tonnes CO2e per unit
   unit: string;             // per tonne, per MWh, per m³, etc.
   source: string;
-  methodology: 'ets-benchmark' | 'cbam-default' | 'ipcc-2006' | 'eu-reference';
+  methodology: 'ets-benchmark' | 'cbam-default' | 'ipcc-2006' | 'eu-reference' | 'ghg-protocol' | 'eutl';
   year: number;
+  /** ISO date when this factor was last verified against the source */
+  lastVerified?: string;
 }
 
 /**
@@ -64,6 +66,11 @@ export const ETS_EMISSION_FACTORS: EmissionFactor[] = [
  * CBAM product default emission factors.
  * Used when importers lack verified supplier-specific data.
  * Per CBAM Implementing Regulation 2023/1773, Art. 4.
+ *
+ * STALENESS WARNING: Machine-readable CBAM API planned for 2026 but not live.
+ * These values are manually extracted from EUR-Lex PDF. Check quarterly for amendments.
+ * Last verified: 2026-03-24 | Regulation version: 2023/1773 | Stale after: 180 days
+ * Verify at: https://eur-lex.europa.eu/eli/reg_impl/2023/1773/oj
  */
 export const CBAM_DEFAULT_FACTORS: EmissionFactor[] = [
   // CBAM Annex I products
