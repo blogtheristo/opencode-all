@@ -70,7 +70,7 @@ DWS 7 ships the compliance engine and proves product-market fit with 16 customer
 | **Memory** | pgvector + RAG on GPU inference | Optical interconnects for model serving (silicon photonics) |
 | **Body** | Acer GN100 (Blackwell) + Cloud Run | Feynman on-premise appliance + edge nodes |
 | **Hands** | Jetson Orin Nano edge | BlueField-5 DPU edge with hardware KYA |
-| **Ledger** | In-memory debit-credit transform (PR-892) | Persistent carbon balance sheet with cross-entity reconciliation |
+| **Ledger** | Persistent carbon balance sheet (DWS 7 Phase 2.6) | Cross-entity reconciliation, supply chain graph, network effect |
 | **Data Mesh** | 13 open sources, static fallback | 18+ sources, real-time feeds, enterprise connectors |
 
 ---
@@ -183,9 +183,9 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 
 ## Phase 1B: Carbon Balance Sheet (Q1-Q2 2028)
 
-**Goal:** Transform the in-memory debit-credit ledger (PR-892) into a persistent, auditable carbon balance sheet.
+**Goal:** Evolve the persistent carbon balance sheet (DWS 7 Phase 2.6) into a cross-entity reconciliation engine with supply chain graph intelligence.
 
-**Prerequisite:** DWS 7 ships debit-credit ledger (Phase 2, 2026), 16 customers generating ledger data.
+**Prerequisite:** DWS 7 ships persistent carbon ledger, chart of carbon accounts, CFO dashboard (Phase 2.6, Jul 2026). 16 customers generating ledger data by Phase 6 (Q4 2027).
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
@@ -329,7 +329,7 @@ DWS 7 customers get DWS 8 as an upgrade path. DWS 7 continues as "DWS 7 LTS" for
 
 | DWS 7 Deliverable | DWS 8 Evolution |
 |-------------------|-----------------|
-| Debit-credit ledger (in-memory transform, PR-892) | Persistent carbon balance sheet with GL integration |
+| Persistent carbon balance sheet (Phase 2.6, PRs 093A–093H) | Cross-entity reconciliation, supply chain graph, network effect |
 | 13 open data sources | 18+ sources with enterprise add-ons and network effect |
 | Scoring engine (deterministic, per-company) | Cross-entity reconciliation, supply chain graph |
 | BESS calculator (Qantic integration) | Portfolio-level carbon flow across asset classes |
