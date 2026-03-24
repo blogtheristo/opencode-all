@@ -1,15 +1,24 @@
 /**
- * EMBER Climate — EU ETS Carbon Price Feed
+ * EU ETS Carbon Price Feed — Multi-Source Cascade
  *
  * Replaces hardcoded EUR 65/tCO2e in emission-factors.ts with
- * live/cached carbon price from EMBER open data.
+ * live/cached carbon price from multiple open data sources.
+ *
+ * Source cascade (first success wins):
+ *   1. EMBER Climate API (daily CSV, CC BY 4.0, no key)
+ *   2. Sandbag Carbon Price Tracker (near-realtime, open)
+ *   3. Static fallback EUR 65 (2024 EU ETS average)
+ *
+ * Future additions (require paid/licensed access):
+ *   - ICE Endex EUA Futures (real-time, requires ICE data license)
+ *   - ECB SDW (Statistical Data Warehouse, free but delayed)
  *
  * Data: https://ember-climate.org/data/data-tools/carbon-price-viewer/
- * API: https://api.ember-climate.org/v1/ (public, no key required for basic)
- * Fallback: ECB Statistical Data Warehouse (SDW)
- * License: CC BY 4.0
+ * Sandbag: https://sandbag.be/carbon-price-viewer/
+ * ICE Endex: https://www.theice.com/products/197/EUA-Futures (licensed)
+ * License: CC BY 4.0 (EMBER), open (Sandbag)
  *
- * Code-Version: 1.0
+ * Code-Version: 1.1
  * Introduced-In: PR-TBD
  * Date: 2026-03-24
  * Owner: Lifetime Oy
@@ -25,7 +34,7 @@ export interface CarbonPrice {
   /** Date of the price (YYYY-MM-DD) */
   date: string;
   /** Data source used */
-  source: 'ember-live' | 'ember-cached' | 'fallback-static';
+  source: 'ember-live' | 'ember-cached' | 'sandbag-live' | 'sandbag-cached' | 'fallback-static';
   /** When this data was fetched */
   fetchedAt: string;
 }
@@ -36,7 +45,7 @@ export interface CarbonPriceHistory {
   avgPrice30d: number;
   minPrice30d: number;
   maxPrice30d: number;
-  source: 'ember-live' | 'ember-cached' | 'fallback-static';
+  source: 'ember-live' | 'ember-cached' | 'sandbag-live' | 'sandbag-cached' | 'fallback-static';
   fetchedAt: string;
 }
 
@@ -68,40 +77,48 @@ const HISTORY_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 /**
  * Get latest EU ETS carbon price.
  *
- * Priority: 1) in-memory cache  2) EMBER API  3) static fallback (EUR 65)
+ * Cascade: 1) cache  2) EMBER API  3) Sandbag  4) static fallback (EUR 65)
  *
- * No API key required for basic access.
+ * No API key required for EMBER or Sandbag.
  */
 export async function getCarbonPrice(): Promise<CarbonPrice> {
   // 1. Check cache
   if (priceCache && priceCache.expiresAt > Date.now()) {
-    return { ...priceCache.data, source: 'ember-cached' };
+    const cachedSource = priceCache.data.source.replace('-live', '-cached') as CarbonPrice['source'];
+    return { ...priceCache.data, source: cachedSource };
   }
 
   // 2. Try EMBER API
   try {
     const price = await fetchEmberLatestPrice();
-
-    // Cache it
     priceCache = { data: price, expiresAt: Date.now() + PRICE_CACHE_TTL_MS };
-
-    logger.info('EMBER carbon price fetched', {
-      price: price.priceEur,
-      date: price.date,
-    });
-
+    logger.info('EMBER carbon price fetched', { price: price.priceEur, date: price.date });
     return price;
-  } catch (err) {
-    logger.error('EMBER API call failed, using static fallback', {
-      error: err instanceof Error ? err.message : String(err),
+  } catch (emberErr) {
+    logger.warn('EMBER API failed, trying Sandbag', {
+      error: emberErr instanceof Error ? emberErr.message : String(emberErr),
     });
-    return {
-      priceEur: STATIC_PRICE_EUR,
-      date: new Date().toISOString().slice(0, 10),
-      source: 'fallback-static',
-      fetchedAt: new Date().toISOString(),
-    };
   }
+
+  // 3. Try Sandbag Carbon Price Tracker
+  try {
+    const price = await fetchSandbagLatestPrice();
+    priceCache = { data: price, expiresAt: Date.now() + PRICE_CACHE_TTL_MS };
+    logger.info('Sandbag carbon price fetched', { price: price.priceEur, date: price.date });
+    return price;
+  } catch (sandbagErr) {
+    logger.warn('Sandbag API failed, using static fallback', {
+      error: sandbagErr instanceof Error ? sandbagErr.message : String(sandbagErr),
+    });
+  }
+
+  // 4. Static fallback
+  return {
+    priceEur: STATIC_PRICE_EUR,
+    date: new Date().toISOString().slice(0, 10),
+    source: 'fallback-static',
+    fetchedAt: new Date().toISOString(),
+  };
 }
 
 /**
@@ -226,6 +243,35 @@ async function fetchEmberHistory(): Promise<CarbonPriceHistory> {
     minPrice30d: priceValues.length > 0 ? Math.min(...priceValues) : STATIC_PRICE_EUR,
     maxPrice30d: priceValues.length > 0 ? Math.max(...priceValues) : STATIC_PRICE_EUR,
     source: 'ember-live',
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+// ============ SANDBAG API ============
+
+/** Sandbag Carbon Price Tracker — secondary source.
+ * Near-realtime EU ETS pricing. Open access, no API key.
+ * https://sandbag.be/carbon-price-viewer/ */
+const SANDBAG_API_URL = 'https://sandbag.be/api/carbon-price/latest';
+
+async function fetchSandbagLatestPrice(): Promise<CarbonPrice> {
+  const response = await fetch(SANDBAG_API_URL, {
+    headers: { 'Accept': 'application/json' },
+    signal: AbortSignal.timeout(10_000),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Sandbag API ${response.status}: ${response.statusText}`);
+  }
+
+  const data = await response.json() as Record<string, unknown>;
+  const priceEur = typeof data.price === 'number' ? round2(data.price) : STATIC_PRICE_EUR;
+  const date = typeof data.date === 'string' ? data.date : new Date().toISOString().slice(0, 10);
+
+  return {
+    priceEur,
+    date,
+    source: 'sandbag-live',
     fetchedAt: new Date().toISOString(),
   };
 }

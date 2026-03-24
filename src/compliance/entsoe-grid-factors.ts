@@ -95,6 +95,31 @@ const STATIC_FALLBACK: Record<string, number> = {
   EU: 230,
 };
 
+/**
+ * National authority overrides for domestic compliance reporting.
+ * Finnish auditors may require Energiavirasto figure over ENTSO-E EU-wide data.
+ * Source: Finnish Energy Authority (Energiavirasto) annual reports.
+ */
+const NATIONAL_AUTHORITY_OVERRIDES: Record<string, {
+  factor: number;
+  source: string;
+  year: number;
+}> = {
+  FI: { factor: 68, source: 'Energiavirasto 2024 annual report', year: 2024 },
+};
+
+/**
+ * Get national authority grid factor if available.
+ * Use for domestic reporting where national regulator figure is required.
+ */
+export function getNationalGridFactor(country: string): {
+  factor: number;
+  source: string;
+  year: number;
+} | undefined {
+  return NATIONAL_AUTHORITY_OVERRIDES[country.toUpperCase()];
+}
+
 // ============ IN-MEMORY CACHE ============
 
 interface CacheEntry {
