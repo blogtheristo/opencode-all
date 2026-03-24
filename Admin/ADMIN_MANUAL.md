@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 28 (Carbon Balance Sheet & Compliance Ledger) — debit-credit architecture, open source connectors, DWS 7 Phase 2.6 plan; updated Section 11 Multi-Agent Orchestration with memory service (PR-871), memory decay (PR-876-878), ContentMS (PR-873); updated Section 10 Backup with Supabase automated scripts (PR-882); updated 16→20 industries throughout; added Firehorse ContentMS, company-to-ERP resolver, EC3 Material Database to capabilities; PR gap analysis from 50 latest PRs
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 22.03.2026 | Changes: Version bump (2.7 already applied externally), skills guide finalized
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 21.03.2026 | Changes: Updated Section 27 skills inventory (7→20 skills: 17 slash commands + 3 discipline skills), added gstack workflow, discipline skills (verification-gate, design-first, dual-folder-sync), skills guide reference (docs/DWS_SKILLS_GUIDE.md, Learn/DWS_SKILLS_GUIDE_v1.0.html)
   - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
@@ -34,7 +35,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 11.03.2026
+  - Last Modified: 24.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -74,6 +75,7 @@ Document Status:
 25. [Emergency Procedures](#emergency-procedures)
 26. [Training](#training)
 27. [Claude Code Project Engineering Structure](#claude-code-project-engineering-structure) ⭐ **NEW in v2.6**
+28. [Carbon Balance Sheet & Compliance Ledger](#carbon-balance-sheet--compliance-ledger) ⭐ **NEW in v2.9**
 
 **Appendices**
 - [Appendix A: CEO Cockpit Morning Briefing](#appendix-a-ceo-cockpit-morning-briefing)
@@ -3026,6 +3028,93 @@ cp .mcp.json.example .mcp.json
 cd dws6.com/dashboard/firehorse/v9-react && npm run dev  # Frontend
 npm run dev  # Backend (root)
 ```
+
+---
+
+## Section 28: Carbon Balance Sheet & Compliance Ledger
+
+*Added: v2.9 (24.03.2026) — PR-892, thesis v3.29/v2.9*
+
+### 28.1 Overview
+
+The Carbon Balance Sheet is DWS IQ's core compliance infrastructure — a double-entry bookkeeping system for CO2 that tracks carbon across multiple EU regulations (ETS, CBAM, CSRD, EU Taxonomy) in dual units (EUR and tCO2e).
+
+**Key principle:** Carbon compliance is a ledger problem, not a reporting problem. The same tonne of CO2e flows through multiple regulatory touchpoints. The debit-credit ledger reconciles them.
+
+### 28.2 Debit-Credit Architecture
+
+Every compliance event produces a journal entry:
+
+| Event | Debit (liability) | Credit (asset) | Regulation |
+|---|---|---|---|
+| ETS allowance surrender | tCO2e + EUR | — | EU ETS |
+| Free allocation received | — | tCO2e | EU ETS |
+| CBAM certificate purchase | EUR + tCO2e | — | CBAM |
+| CBAM origin carbon price deduction | — | EUR | CBAM |
+| Verified offset retirement | — | tCO2e | Voluntary |
+
+**Net carbon position** = Total liabilities (debits) − Total assets (credits)
+
+**Implementation:** `src/compliance/debit-credit-ledger.ts` (V1 in-memory), promoted to persistent ledger in DWS 7 Phase 2.6.
+
+### 28.3 Open Source Connectors (MIT-Licensed)
+
+The ledger depends on open source connectors for data ingestion from industrial systems:
+
+| Connector | Source Systems | Status |
+|---|---|---|
+| **ERP** | SAP S/4HANA, IFS Cloud, Dynamics 365, Monitor, Visma, Jeeves | `src/integrations/erp/` (active) |
+| **ETS/Registry** | EU Transaction Log (EUTL), national registries | Planned (Phase 2.6) |
+| **CBAM** | CBAM Transitional Registry, customs | Planned (Phase 2.6) |
+| **Emission factors** | EEA GHG Inventory, IPCC, EU ETS benchmarks | `src/compliance/emission-factors.ts` (active) |
+| **IoT/edge** | NVIDIA Jetson Orin Nano, energy meters | Edge deployment active (GN100) |
+| **ESG platforms** | Worldfavor, PositionGreen, CDP | `src/integrations/esg/` (active) |
+| **EC3 Material Database** | Building Transparency EC3 | Dashboard added (PR-880) |
+| **Company-to-ERP resolver** | Nordic construction company registry | `src/integrations/erp/` (PR-867) |
+
+**Why MIT-licensed:** Auditability (auditors inspect source code, not vendor black boxes), regulatory defensibility (EU AI Act Art 12), and network effect acceleration (lower adoption barriers for 50,000+ CSRD-obligated companies).
+
+### 28.4 DWS 7 Phase 2.6 Implementation Plan (May–July 2026)
+
+8 planned PRs (093A–093H):
+
+1. Persistent carbon ledger (append-only, corrections as reverse entries)
+2. Dual-unit entries (EUR + tCO2e, carbon price at entry time)
+3. Chart of carbon accounts (ESRS E1 scopes)
+4. Cross-regulation reconciliation (ETS ↔ CBAM ↔ CSRD)
+5. Ledger-native compliance scoring
+6. CFO dashboard (balance sheet view with drill-down)
+7. ERP GL sync (SAP/IFS/Dynamics general ledger)
+8. XBRL export (machine-readable CSRD reports)
+
+### 28.5 Recent Feature Updates (PRs 843–892)
+
+Features shipped since last admin manual update (v2.8, 22.03.2026):
+
+| PR | Feature | Admin Impact |
+|---|---|---|
+| **PR-892** | Debit-credit compliance ledger + 18 open data sources | This section |
+| **PR-882** | Automated Supabase backup/restore scripts | Backup procedures updated |
+| **PR-880** | EC3 Material Database dashboard | New data source for carbon factors |
+| **PR-878** | Memory Dashboard + pg_cron decay | Agent memory now auto-decays stale facts |
+| **PR-876** | Memory confidence decay + forget() agent | KYA-compliant memory lifecycle |
+| **PR-875** | Memory audit trail + contradiction resolution | Court-defensible agent memory |
+| **PR-873** | Firehorse ContentMS MVP | Content pipeline for blog, email, outreach |
+| **PR-871** | Unified memory service + hybrid search + MCP tools | Agent memory searchable via MCP |
+| **PR-870** | Firehorse expanded to 20 industries | Was 16, now 20 EU-regulated industries |
+| **PR-867** | Company-to-ERP resolver (Nordic construction) | Auto-resolves company → ERP system |
+| **PR-865** | US Cloud vs EU Sovereign pricing tiers | Dual pricing model |
+| **PR-864** | PDF preview, payment UI, DB seeding | Store checkout improvements |
+| **PR-857** | Superpowers framework + composable skills | 3 sample skills added |
+| **PR-854** | Qantic energy partnership + BESS calculator | First external LWM validation |
+| **PR-852** | BESS compliance API | Battery energy storage compliance |
+| **PR-846** | 8 Dependabot vulnerability fixes | 7 high, 1 low resolved |
+
+### 28.6 Operational Notes
+
+- **Backup automation (PR-882):** Supabase backup/restore scripts now available at `scripts/db-backup.sh` and `scripts/db-restore.sh`. Automated daily backups with 30-day retention.
+- **Memory decay (PR-876-878):** Agent memory facts decay over time via pg_cron. Stale facts below confidence threshold are auto-archived. Dashboard at `/dashboard/memory`.
+- **20 industries:** All documentation should now reference 20 EU-regulated industries (was 16). Industries added: energy/BESS, chemicals, textiles, food processing.
 
 ---
 
