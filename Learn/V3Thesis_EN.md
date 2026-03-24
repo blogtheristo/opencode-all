@@ -2696,7 +2696,34 @@ The DWS IQ platform already implements the in-memory debit-credit transform (`sr
 7. **ERP GL sync** — carbon entries pushed to SAP/IFS/Dynamics general ledger
 8. **XBRL export** — machine-readable CSRD reports from ledger data
 
-#### 10.17.5 Research Contribution
+#### 10.17.5 Open Source Input: Connectors as the Data Ingestion Layer
+
+A carbon balance sheet is only as accurate as the data that enters it. The ledger architecture depends on **open source connectors** to ingest verified emissions data from heterogeneous industrial systems. Without standardized, auditable data pipelines, the double-entry model collapses into the same manual-entry problem it replaces.
+
+The DWS connector architecture follows the ERP integration patterns established in `src/integrations/erp/` (Section 10.9), extending them to carbon-specific data sources:
+
+| Connector Type | Source Systems | Data Flow | License Model |
+|---|---|---|---|
+| **ERP connectors** | SAP S/4HANA, IFS Cloud, Dynamics 365, Monitor, Visma, Jeeves | Production volumes, energy consumption, material inputs → ledger debit entries | Open source (MIT) |
+| **ETS/Registry connectors** | EU Transaction Log (EUTL), national registries | Allowance balances, surrenders, free allocations → ledger credit/debit | Open source (MIT) |
+| **CBAM connectors** | CBAM Transitional Registry, customs declarations | Imported goods embedded emissions, certificates purchased → ledger debit | Open source (MIT) |
+| **Emission factor feeds** | EEA GHG Inventory, IPCC, EU ETS benchmarks | Validated factors for Scope 1/2/3 calculations | Open data + open source parser |
+| **IoT/edge connectors** | NVIDIA Jetson Orin Nano, industrial sensors, energy meters | Real-time energy consumption, Scope 1 direct measurements → ledger debit | Open source (MIT) |
+| **ESG platform connectors** | Worldfavor, PositionGreen, CDP | Third-party ESG scores, Scope 3 supplier data → ledger entries | Open source (MIT) |
+
+**Why open source matters for compliance infrastructure:**
+
+1. **Auditability:** Proprietary connectors are black boxes. When an auditor asks "how did this emission factor enter the ledger?", the answer must be inspectable source code — not a vendor's API documentation. Open source connectors make the entire data path from source system to ledger entry transparent and reproducible.
+
+2. **Network effect acceleration:** The cross-vertical intelligence thesis (Section 10.17.3) depends on data flowing from many industries into one ledger. Open source connectors lower the adoption barrier — a steel mill's IT team can deploy the SAP connector, verify the code, and contribute upstream improvements. Proprietary connectors create vendor lock-in that slows network growth.
+
+3. **Regulatory defensibility:** EU AI Act Article 12 requires logging of AI system operations. When AI agents generate ledger entries from connector data, the entire pipeline — connector code, transformation logic, agent decision — must be auditable. Open source satisfies this requirement by design.
+
+4. **Community validation:** Emission factor databases change annually. Open source connectors enable community-driven maintenance — when the EEA publishes updated GHG inventory data, any contributor can submit a PR updating the factor feed, and the change is reviewed in the open.
+
+The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the 50,000+ EU companies requiring CSRD compliance by 2028 can adopt the infrastructure without vendor dependency.
+
+#### 10.17.6 Research Contribution
 
 This concluding section contributes three findings:
 

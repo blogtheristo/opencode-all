@@ -2590,7 +2590,34 @@ DWS IQ -alusta toteuttaa jo muistinvaraisen veloitus-hyvitys-muunnoksen (`src/co
 7. **ERP-pääkirjan synkronointi** — hiilikirjaukset siirretty SAP/IFS/Dynamics-pääkirjaan
 8. **XBRL-vienti** — koneluettavat CSRD-raportit kirjanpitodatasta
 
-#### 10.17.5 Tutkimuspanos
+#### 10.17.5 Avoin lähdekoodi: Konnektorit tietojen syöttökerroksena
+
+Hiilitase on vain niin tarkka kuin siihen syötetty data. Kirjanpitoarkkitehtuuri perustuu **avoimen lähdekoodin konnektoreihin**, jotka syöttävät varmennettua päästödataa heterogeenisistä teollisuusjärjestelmistä. Ilman standardoituja, auditoitavia tietoputkia kahdenkertaisen kirjanpidon malli romahtaa samaksi manuaalisen syötön ongelmaksi, jonka se korvaa.
+
+DWS-konnektoriarkkitehtuuri seuraa ERP-integraatiomalleja, jotka on perustettu hakemistoon `src/integrations/erp/` (osio 10.9), laajentaen ne hiilispesifisiin tietolähteisiin:
+
+| Konnektorityyppi | Lähdejärjestelmät | Tietovirta | Lisenssimalli |
+|---|---|---|---|
+| **ERP-konnektorit** | SAP S/4HANA, IFS Cloud, Dynamics 365, Monitor, Visma, Jeeves | Tuotantomäärät, energiankulutus, materiaalisyötteet → kirjanpidon veloituskirjaukset | Avoin lähdekoodi (MIT) |
+| **ETS/rekisterikonnektorit** | EU Transaction Log (EUTL), kansalliset rekisterit | Päästöoikeussaldot, luovutukset, ilmaisallokaatiot → kirjanpidon hyvitys/veloitus | Avoin lähdekoodi (MIT) |
+| **CBAM-konnektorit** | CBAM-siirtymärekisteri, tulliluokitukset | Tuontitavaroiden sisällytetyt päästöt, hankitut sertifikaatit → kirjanpidon veloitus | Avoin lähdekoodi (MIT) |
+| **Päästökerroinsyötteet** | EEA GHG Inventory, IPCC, EU ETS -vertailuarvot | Validoidut kertoimet Scope 1/2/3 -laskelmiin | Avoin data + avoimen lähdekoodin jäsennin |
+| **IoT/reunakonnektorit** | NVIDIA Jetson Orin Nano, teollisuusanturit, energiamittarit | Reaaliaikainen energiankulutus, Scope 1 suorat mittaukset → kirjanpidon veloitus | Avoin lähdekoodi (MIT) |
+| **ESG-alustakonnektorit** | Worldfavor, PositionGreen, CDP | Kolmannen osapuolen ESG-pisteet, Scope 3 toimittajadata → kirjanpitokirjaukset | Avoin lähdekoodi (MIT) |
+
+**Miksi avoin lähdekoodi on tärkeä vaatimustenmukaisuusinfrastruktuurille:**
+
+1. **Auditoitavuus:** Suljetun lähdekoodin konnektorit ovat mustia laatikoita. Kun tilintarkastaja kysyy "miten tämä päästökerroin tuli kirjanpitoon?", vastauksen on oltava tarkastettavissa oleva lähdekoodi — ei toimittajan API-dokumentaatio. Avoimen lähdekoodin konnektorit tekevät koko tietopolun lähdejärjestelmästä kirjanpitokirjaukseen läpinäkyväksi ja toistettavaksi.
+
+2. **Verkostovaikutuksen kiihdytys:** Poikkitoimialainen älykkyys -teesi (osio 10.17.3) edellyttää datan virtausta monilta toimialoilta yhteen kirjanpitoon. Avoimen lähdekoodin konnektorit laskevat käyttöönoton kynnystä — terästehtaan IT-tiimi voi ottaa käyttöön SAP-konnektorin, verifioida koodin ja kontribuoida parannuksia. Suljetun lähdekoodin konnektorit luovat toimittajalukon, joka hidastaa verkoston kasvua.
+
+3. **Sääntelypuolustettavuus:** EU:n tekoälysäädöksen artikla 12 vaatii AI-järjestelmien toiminnan lokitusta. Kun AI-agentit tuottavat kirjanpitokirjauksia konnektoridatasta, koko putki — konnektorikoodi, muunnoslogiikka, agenttipäätös — on oltava auditoitavissa. Avoin lähdekoodi täyttää tämän vaatimuksen suunnittelultaan.
+
+4. **Yhteisön validointi:** Päästökerroindatakannat muuttuvat vuosittain. Avoimen lähdekoodin konnektorit mahdollistavat yhteisövetoisen ylläpidon — kun EEA julkaisee päivitetyn GHG-inventaarion, kuka tahansa kontribuuttori voi lähettää PR:n päivittäen kerroinsyötteen, ja muutos katselmoidaan avoimesti.
+
+Konnektorikerros muuttaa hiilitaseen yksittäisen yrityksen työkalusta **monitenanttivaatimustenmukaisuusverkostoksi**. Jokainen konnektori on standardoitu adapteri (syöttöskeema → kirjanpitokirjaus), joka liittyy kirjanpidon append-only-syöttörajapintaan. Avoimen lähdekoodin malli varmistaa, että 50 000+ EU-yritystä, jotka tarvitsevat CSRD-vaatimustenmukaisuutta vuoteen 2028 mennessä, voivat ottaa infrastruktuurin käyttöön ilman toimittajariippuvuutta.
+
+#### 10.17.6 Tutkimuspanos
 
 Tämä päätösosio tuottaa kolme löydöstä:
 
