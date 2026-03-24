@@ -19,6 +19,7 @@ import { scoreCompliance, type ComplianceScoringInput, type DataPointStatus } fr
 import { estimateETSCost } from '../compliance/ets-calculator.js';
 import { estimateCBAMCost } from '../compliance/cbam-calculator.js';
 import { generateReport } from '../compliance/report-generator.js';
+import { costBreakdownToLedger } from '../compliance/debit-credit-ledger.js';
 
 // ============ REGULATORY THRESHOLDS ============
 
@@ -356,6 +357,9 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
             ets: etsCost,
             cbam: cbamCost,
           },
+          ledger: scoringResult.costBreakdown
+            ? costBreakdownToLedger(scoringResult.costBreakdown)
+            : undefined,
           report,
           llmRiskAssessment,
         },
