@@ -1,12 +1,20 @@
 # DWS6 Investor Memo
 
 **Company:** DWS6 (Lifetime Oy)
-**Sector:** Climate Tech / Construction & Infrastructure SaaS / ESG/CSRD Compliance Automation
+**Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 3.0
-**Last Updated:** March 14, 2026
+**Document Version:** 4.0
+**Last Updated:** March 24, 2026
 **Status:** Active Fundraising
 **Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+
+---
+
+## The One-Liner
+
+**Lifetime builds the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro.**
+
+Every EU company filing CSRD needs a carbon balance sheet. We build the ledger infrastructure that tracks carbon debits (ETS surrenders, CBAM imports, compliance costs) and carbon credits (free allocations, offsets, avoided emissions) across 20 industries. Same carbon, four regulatory touchpoints, one auditable ledger.
 
 ---
 
@@ -19,6 +27,7 @@
 - Customer LTV: €70k–€120k annual value per logo
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
+- Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
 
 **Sales Motion:**
 Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
