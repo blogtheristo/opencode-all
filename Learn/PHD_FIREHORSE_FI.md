@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen faktojen poiminta subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM + asiakasmuisti), kolme suorituskerrosta (Firehorse-tilakonemasiina, ERP-liittimet, KYA-hallinta); KYA-ensisijainen PR-järjestys oikeudellisesti pätevään muistin auditointipolkuun; lisätty avainpanos #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 14.2.1 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiatapaustutkimus — ensimmäinen ulkoinen markkinavalidointi, 21 693 €/vuosi BESS-vaatimustenmukaisuustuotos, Firehorse-mallin siirrettävyys energiasektorille vahvistettu); lisätty avainpanos #16; päivitetty 16→20 toimialaa LWM-osioissa
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
@@ -36,10 +37,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 24.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
+  - Publication Status: DRAFT (V2.9 — Hiilitase motivoivana teesinä; kahdenkertainen kirjanpito CO2:lle, kolme tohtoritutkimuskysymystä)
 ---
 
 ## Tiivistelmä
@@ -104,6 +105,26 @@ Tämä tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuote
 | Konsultointipalvelut | Tunti-, kuukausi-, tyopajahinnoittelu | 98 - 6 250 EUR |
 | Koulutus & Valmennus | AI Koulutus, Coach, Mentor | 499 - 6 250 EUR |
 | Digitaaliset tuotteet | Sanastot, verkkosivut | 0,99 - 799 EUR |
+
+### 1.4 Motivoiva teesi: Hiilitase
+
+Tämän tohtoritutkimuksen keskeinen hypoteesi on, että EU:n ilmastovaatimustenmukaisuus — ETS, CBAM, CSRD ja EU-taksonomia — ei ole raportointiongelma vaan **kirjanpito-ongelma**. Sama fyysinen CO2e-määrä kulkee useiden sääntelykontaktipisteiden läpi: terästehtaan ETS-luovutus muuttuu tuojan CBAM-sisällytetyksi päästöksi, rakennusyhtiön CSRD Scope 3 -ylävirran ilmoitukseksi ja taksonomialinjauksen määritteeksi. Nykyiset vaatimustenmukaisuustyökalut käsittelevät jokaisen säännöksen erillisenä raportointityönkulkuna, mikä tuottaa päällekkäistä dataa, epäjohdonmukaisia kertoimia ja ±40 % Scope 3 -epävarmuutta.
+
+Tämä tutkielma esittää, että hiilivaatimustenmukaisuus vaatii **kahdenkertaisen kirjanpidon** — saman arkkitehtuurisen ratkaisun, jonka kirjanpito otti käyttöön vuosisatoja sitten. Jokainen vaatimustenmukaisuustapahtuma tuottaa kirjanpitokirjauksen (veloitus tai hyvitys) kaksoisyksiköissä (EUR ja tCO2e). Tuloksena syntyvä hiilitase antaa nettohiiliposition, joka on auditoitava, täsmäytettävä ja koneluettava.
+
+**Miksi tämä kehystää Firehorse-toimintatutkimuksen:**
+
+Firehorse-toimintamalli (osiot 3–13) dokumentoi insinööri-infrastruktuurin — moniagenttiorkestroinnin, reunakäyttöönoton, ERP-integraation, sääntely-älykkyyden — joka vaaditaan hiilitaseen rakentamiseen 20 EU-reguloidulle toimialalle. Ilman harness-arkkitehtuuria (osio 14.12) poikkitoimialainen kirjanpito ei voi ylläpitää auditoinnin eheyttä. Ilman MCP-orkestrointia poikkisääntelyinen täsmäytys ei voi tapahtua reaaliajassa. Ilman reunakäyttöönottoa teollisuuslaitokset eivät voi tuottaa varmennettua päästödataa.
+
+**Kolme tutkimuskysymystä nousee hiilitaseteesistä:**
+
+1. **Rakenteellinen isomorfismi:** Onko analogia kirjanpidon kahdenkertaisen kirjanpidon ja hiilivaatimustenmukaisuuden seurannan välillä muodollisesti pätevä vai pelkästään metaforinen? Voivatko samat tietorakenteet, täsmäytysalgoritmit ja auditointitakuut siirtyä?
+
+2. **Poikkitoimialainen älykkyys:** Tuottaako monitoimialainen hiilikirjanpito emergenttia älykkyyttä, jota yksitoimialainen työkalu ei voi replikoida? Erityisesti: kun terästehtaan varmennetut ETS-päästöt korvaavat rakennusyhtiön CBAM-oletusarvot, toteutuuko tarkkuusparannus (hypoteesi ±3 % vs. ±40 %) käytännössä?
+
+3. **Verkostovaikutukset vaatimustenmukaisuusdatassa:** Missä mittakaavassa (toimialojen, entiteettien, transaktioiden lukumäärä) poikkisääntelyinen täsmäytys muuttuu itseään vahvistavaksi — jossa yhden toimialan lisääminen kirjanpitoon parantaa datan laatua kaikille olemassa oleville toimialoille?
+
+Nämä kysymykset ulottuvat Firehorse-verkkokauppatoimintojen yli **vaatimustenmukaisuusinfrastruktuurin suunnittelun** alueelle — siirtymä "työkaluista jotka tuottavat raportteja" "infrastruktuuriin joka ylläpitää tietojärjestelmää hiilelle." DWS 7 -toteutus (Phase 2.6, PR:t 093A–093H) tarjoaa empiirisen testialustan.
 
 ---
 
@@ -1342,6 +1363,10 @@ Tämä tutkielma kontribuoi:
 12. Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti; osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
 13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
 14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
+15. Harness Engineering ja forensiikkatelemetria — oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena
+16. LWM:n tuotemarkkinavalidointi — Qantic GmbH energiasektorin tapaustutkimus, ensimmäinen ulkoinen markkinavalidointi
+17. Agenttimuistin faktojen poimintaputki — LLM-pohjainen faktojen poiminta, kaksoismuistiarkkitehtuuri, KYA-ensisijaisuusjärjestys
+18. Hiilitaseteesi — EU:n ilmastovaatimustenmukaisuus kirjanpito-ongelmana; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); kolme tohtoritutkimuskysymystä: rakenteellinen isomorfismi, poikkitoimialainen älykkyys, verkostovaikutukset vaatimustenmukaisuusdatassa; DWS 7 Phase 2.6 empiirisenä testialustana
 
 ### 13.3 Tuleva tyo
 
