@@ -65,8 +65,10 @@
                         <li><a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
                         <!-- Industries flyout -->
                         <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Industries ▸</a>
+                            <a href="#" class="ironclad-primary">Dual Use Industries ▸</a>
                             <ul class="ironclad-submenu">
+                                <li><a href="${basePath}dual-use-industries/" style="color: #d4a843; font-weight: 600;">All Dual Use Industries</a></li>
+                                <li class="ironclad-separator"></li>
                                 <li><a href="${basePath}construction/">Construction</a></li>
                                 <li><a href="${basePath}logistics/">Logistics</a></li>
                                 <li><a href="${basePath}manufacturing/">Manufacturing</a></li>
