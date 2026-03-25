@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
@@ -40,7 +41,7 @@ Document Status:
   - Last Modified: 24.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.9 — Carbon Balance Sheet as motivating thesis; double-entry bookkeeping for CO2, three PhD research questions)
+  - Publication Status: DRAFT (V3.0 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap)
 
 
 ---
@@ -1742,6 +1743,40 @@ For Firehorse operations serving EU-regulated industries, the harness must satis
 
 **Research contribution:** This section demonstrates that **harness engineering is not one-size-fits-all.** The EU regulatory context requires a fundamentally different harness design — one that prioritizes traceability, human oversight, and legal defensibility over speed. OpenAI's 3.5 PR/engineer/day metric is irrelevant when the primary metric is compliance assurance and audit readiness.
 
+### 14.13 LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI
+
+**Source:** LeWorldModel (arXiv:2603.19312, Maes et al., March 2026); LWM sequencing analysis in `docs/field-notes/2026-03-25-lwm-phase2-technical-gap-analysis.md`.
+
+**Context:** The Lifetime World Model serves dual roles: regulatory intelligence engine (Phase 1, current) and physical planning system (Phase 2, future). This section documents the sequencing strategy and the technical gap between phases, framing the PhD research agenda.
+
+#### 14.13.1 Three-Phase Sequencing
+
+**Phase 1 (Current):** LWM as regulatory intelligence engine — 15,000+ EU documents, 18 AI agents, carbon balance sheet with cross-regulation reconciliation. Revenue-generating. Validated by 6 customers (KELA, Taksi Helsinki, Uber, Bolt, Limo Helsinki, Sixt).
+
+**Phase 2 (Post-SAFE):** LWM adds physical planning via latent space models (LeWorldModel-style JEPA architecture). Helsinki healthcare fleet pilot. The carbon ledger provides regulatory constraints for physical planning decisions.
+
+**Phase 3 (Series A):** Full dual-use product — compliance infrastructure + edge Physical AI across 5 industries.
+
+**Key insight for PhD research:** Compliance data feeds physical planning. Not the reverse. This inverts the typical world model narrative and represents a novel architectural contribution.
+
+#### 14.13.2 LeWorldModel as External Validation
+
+LeWorldModel (Maes, Le Lidec, Scieur, LeCun, Balestriero, 2026) demonstrates stable JEPA training from raw pixels using only 2 loss terms (prediction + SIGReg). 15M parameters, single GPU, 48x faster planning than foundation model alternatives. The SIGReg regularizer (Cramer-Wold theorem, isotropic Gaussian prior) solves the representation collapse problem that plagued prior JEPA approaches.
+
+This validates the world model category but does not validate Lifetime's specific product. The honest framing: Lifetime builds domain-specific regulatory infrastructure on commodity AI.
+
+#### 14.13.3 Phase 2 Technical Gap
+
+Three unsolved problems for PhD investigation:
+
+1. **Input modality gap:** Text-based regulatory graph → latent planner expecting visual/sensor input. Proposed bridge: OpenUSD digital twin encoding both physical and regulatory metadata.
+
+2. **Scale gap:** LeWorldModel tested in controlled simulation (PushT, Reacher). Industrial environments are uncontrolled, long-horizon, sparse-reward. Scalability is research.
+
+3. **Regulatory-physical integration:** Physical planner proposes → regulatory engine validates → KYA governance enforces. KYA v1.4 (Firecracker MicroVM kill-switches) is the only Phase 2 component already built.
+
+**Research contribution:** The compliance-first world model thesis — that regulatory infrastructure must precede physical planning capability — provides a concrete research programme connecting LeWorldModel's theoretical advances to industrial deployment in regulated EU environments.
+
 ---
 
 ## Appendix G: Glossary
@@ -1787,7 +1822,8 @@ For Firehorse operations serving EU-regulated industries, the harness must satis
 **Key Contributions:**
 1-14. (See VERSION AND AGENT HISTORY)
 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
+16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 16.03.2026*
-*Version: 2.6*
+*Last updated: 25.03.2026*
+*Version: 3.0*

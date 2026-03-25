@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.29
+Version: 3.30
 
 Sessions & Modifications:
+  - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 10.18 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A), LeWorldModel-validointi (arXiv:2603.19312), Phase 2 teknisen aukon analyysi, Persefoni/Sweep-vertailuarvot; lisätty avainpanos #21
   - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 10.17 (Johtopäätökset: Hiilitase vaatimustenmukaisuusinfrastruktuurina) — kahdenkertaisen kirjanpidon malli CO2:lle ETS/CBAM/CSRD/Taksonomiassa, poikkitoimialainen älykkyys kirjanpitojen kautta, DWS 7 Phase 2.6 toteutussuunnitelma; lisätty avainpanos #20
   - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen strukturoitu faktojen poiminta keskusteluista subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM domainitieto + asiakassuhdemuisti), kolme puuttuvaa suorituskerrosta tunnistettu (Firehorse-tilakonemasiina, ERP-liitin, KYA-hallintakehys); päivitetty PR-tiekartta KYA-ensisijaisuusjärjestyksellä; lisätty avainpanos #20; huomioitu KYA Standard v1.4 sisäinen / v1.1 julkinen ero
   - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 10.7.3 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiasektorin tapaustutkimus — ensimmäinen ulkoinen validointi LWM:n kaupallisesta arvosta rakennusalan ulkopuolella, 21 693 €/vuosi BESS-vaatimustenmukaisuuskustannuslaskelma, 6 toimialan laajennuspolku MAN-tyyppisille asiakkaille, Solution Factory -malli vahvistettu); päivitetty 16→20 toimialaa LWM-osioissa; uudelleennumeroitu 10.7.3→10.7.4 Orchestration Studio
@@ -52,10 +53,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 14.03.2026
+  - Last Modified: 25.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.25 — Harness Engineering -osio: OpenAI:n 8 periaatetta, DWS 6-kerroksinen L0-L6, empiirinen 52,8%→66,5% tulos, EU-harness-eroavaisuus)
+  - Publication Status: DRAFT (V3.30 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, Phase 2 teknisen aukon analyysi)
 
 ---
 
@@ -2629,6 +2630,50 @@ Tämä päätösosio tuottaa kolme löydöstä:
 
 Firehorse-tuotevalmistuksen toimintamalli, dokumentoitu edellisissä 16 osiossa, tarjosi insinööriperustan — harness-arkkitehtuurin, moniagenttiorkestroinnin, reunakäyttöönoton ja sääntely-älykkyyden — joka vaaditaan tämän hiilitaseinfrastruktuurin rakentamiseen. Johtopäätös on, että alustan kilpailullinen vallihauha ei ole mikään yksittäinen agentti tai säännösmoduuli, vaan kirjanpito joka yhdistää ne kaikki.
 
+### 10.18 LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn
+
+#### 10.18.1 Strateginen konteksti
+
+Lifetime World Model (LWM) toimii "Muisti"-kerroksena Aivot-Muisti-Keho-Kädet-arkkitehtuurissa. Sijoittaja- ja markkina-analyysi (maaliskuu 2026) paljasti kehystysristiriidan: alustaa markkinoitiin samanaikaisesti "hiilitaseinfrastruktuurina" (vaatimustenmukaisuus-SaaS), "55B parametrin fyysinen tekoäly" (maailmamalli) ja "autonominen terveydenhuollon laivasto" (robotiikka). Jokainen tarina kohdistuu eri sijoittajiin eri vaiheissa.
+
+Tämä osio dokumentoi ratkaisun: kolmivaiheisen sekvensointistrategian, jossa jokainen vaihe rahoittaa ja deriskeeraa seuraavan.
+
+#### 10.18.2 Kolme vaihetta
+
+**Vaihe 1 (Nykyinen — 650K EUR SAFE):** LWM = sääntely-älymoottori. 15 000+ EU-sääntelydokumenttia indeksoituna 20 toimialalla, 18 AI-agenttia, hiilitase poikkisääntelyisellä täsmäytyksellä. Liikevaihtotavoite: 900K EUR ARR.
+
+**Vaihe 2 (SAFE:n jälkeen — Helsingin pilotti):** LWM = sääntely-älykkyys + fyysinen suunnittelu. LeWorldModel-tyylinen latentti suunnittelu yhdistettynä sääntelytieto­graafiin. KELA-tuettu terveydenhuollon laivastopilotti NVIDIA-laitteistolla (Acer GN-100).
+
+**Vaihe 3 (Series A 2027):** LWM = täysi kaksikäyttötuote. Hiilitase + reunafyysinen tekoäly rakennusalalla, terveydenhuollossa, teollisuudessa, energiassa ja puolustuksessa.
+
+#### 10.18.3 Ulkoinen validointi: LeWorldModel (arXiv:2603.19312)
+
+Maaliskuussa 2026 Maes, Le Lidec, Scieur, LeCun ja Balestriero julkaisivat LeWorldModel-tutkimuksen — ensimmäinen JEPA-arkkitehtuuri (Joint Embedding Predictive Architecture), joka kouluttautuu stabiilisti alusta loppuun raakapikseleistä. Keskeiset löydökset:
+
+- **Yksinkertaisuus:** 2 häviötermiä (ennustus + SIGReg-regulaattori) korvaa 6+ hyperparametria
+- **Tehokkuus:** 15M parametria, yksi GPU, ~1 sekunti suunnitteluun vs 47 sekuntia DINO-WM:llä, 200x vähemmän tokeneita
+- **Tulokset:** 96 % onnistumisprosentti PushT-manipulaatiotehtävässä
+
+Samanaikaisesti LeCun perusti AMI Labsin (1,03 miljardin dollarin siemenrahoitus) ja Fei-Fei Li keräsi 1 miljardin dollarin World Labsille — 2 miljardia dollaria kolmessa viikossa maailmamalliyhtiöille.
+
+#### 10.18.4 Vaiheen 2 teknisen aukon analyysi
+
+Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
+
+1. **Syötemodaalien kuilu:** LeWorldModel odottaa pikselisyötteitä. LWM vaihe 1 toimii strukturoidulla sääntelytekstillä. Realistisin silta on digitaalinen kaksonen (OpenUSD-skenaarion esitys).
+
+2. **Skaalan kuilu:** LeWorldModel testattu kontrolloidussa simulaatiossa. Teolliset ympäristöt ovat kontrolloimattomia, pitkän aikahorisontin ja harvan palautteen ympäristöjä. Tämä on tutkimusta, ei insinööritiedettä.
+
+3. **Sääntely-fyysinen integraatio:** Miten fyysinen suunnitelma (nosturin liike, ajoneuvon reitti) validoidaan hiilitasetta vasten ennen toteutusta? Ehdotettu arkkitehtuuri: fyysinen suunnittelija ehdottaa → sääntely-moottori validoi → KYA-hallintaportti valvoo.
+
+**Keskeinen oivallus:** Vaiheen 1 tulokset (sääntelygraafi, hiilitase, KYA-hallinta) ovat vaiheen 2 syötteitä. Vaatimustenmukaisuusdata syöttää fyysistä suunnittelua — ei toisinpäin.
+
+#### 10.18.5 Tutkimuspanos
+
+1. **Sekvensointikuri:** Tuotteen kehystämisen tulee vastata sen nykyisiä kykyjä, ei tulevaisuuden visiota.
+2. **Vaatimustenmukaisuus ensin -maailmamalliteesi:** Oivallus, että vaatimustenmukaisuusdata syöttää fyysistä suunnittelua, on uusi arkkitehtuurillinen kontribuutio.
+3. **Vaiheen 2 tekninen rajaus:** Kolme ratkaisematonta ongelmaa tarjoavat konkreettisen tutkimusohjelman.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2639,9 +2684,9 @@ Firehorse-tuotevalmistuksen toimintamalli, dokumentoitu edellisissä 16 osiossa,
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.29 — Hiilitase johtopäätöksenä (kahdenkertainen kirjanpito CO2:lle)
-**Versio:** 3.29
-**Viimeisin päivitys:** 24.03.2026
+**Tila:** DRAFT - V3.30 — LWM-sekvensointistrategia (vaatimustenmukaisuus→laivasto→Series A)
+**Versio:** 3.30
+**Viimeisin päivitys:** 25.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2673,6 +2718,7 @@ Firehorse-tuotevalmistuksen toimintamalli, dokumentoitu edellisissä 16 osiossa,
 18. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti lukitsee TimescaleDB 2.25.x Hypercore hyväksytyksi tuotantostandardiksi; pg_duckdb rajoitettu reunalaitteelle Aiven-sallittujen listan vuoksi; GN100-reunatietokanta käyttöönotettu täydellä laajennuspaketilla
 19. Harness Engineering — OpenAI:n 8 harness engineering -periaatteen analyysi DWS IQ 6 -arkkitehtuuria vasten; empiirinen löydös: pelkkä harness-parannus tuottaa 52,8%→66,5% tulosparannuksen (malli muuttumaton); DWS:n L0-L6 kuusikerroksinen arkkitehtuuri formaalina harness-kehyksenä; EU-regulaatio vaatii perustavanlaatuisesti erilaisen harnessin (jäljitettävyys + ihminen silmukassa vs Silicon Valleyn nopeusoptimointi)
 20. Hiilitase — Johtopäätös: EU:n ilmastovaatimustenmukaisuus (ETS, CBAM, CSRD, taksonomia) on rakenteellisesti isomorfinen kirjanpidon kanssa; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); poikkisääntelyinen täsmäytys jaettujen kirjanpitokirjausten kautta; poikkitoimialainen älykkyys -teesi (monitoimialainen kirjanpito tuottaa emergenttia dataa jota yksitoimialainen työkalu ei voi replikoida); DWS 7 Phase 2.6 toteutussuunnitelma (8 PR:ää, pysyvä kirjanpito, talousjohtajan kojelauta, ERP-pääkirjan synkronointi, XBRL-vienti)
+21. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A) sijoittajanarratiivien ristiriitojen ratkaisemiseksi; LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi (syötemodaali, skaala, sääntely-fyysinen integraatio); vaatimustenmukaisuus ensin -maailmamalliteesi; Persefoni/Sweep-markkinavertailut
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
