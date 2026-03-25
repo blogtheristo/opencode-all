@@ -98,6 +98,7 @@
                                 <li><a href="${basePath}careers/">Careers</a></li>
                                 <li><a href="${basePath}partners/">Partners</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
+                                <li><a href="${basePath}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
                                 <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
