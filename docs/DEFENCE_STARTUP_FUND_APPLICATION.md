@@ -13,9 +13,10 @@ Branch: claude/defence-startup-fund-qsJBJ
 **Tuote:** DWS IQ Aegis — Dual-Use AI Platform
 **Rahasto:** Defence Startup Fund (Riihimäen Tilat ja Kehitys Oy / Riihimäen kaupunki)
 **Deadline:** 31.3.2026
-**Hakusivusto:** https://defencestartupfund.com
+**Hakusivusto:** https://investinriihimaki.com/defence/ (virallinen) | https://defencestartupfund.com (promootio)
 **DEFINE:** https://www.definefinland.fi/en/
-**Yhteyshenkilöt:** Henrietta Hirvonen (hirvonen@redstone.vc), Teemu Seppälä (seppala@riihimaki.fi)
+**Rahoitusmalli:** €20 000 avustus + startupin oma €20 000 omarahoitusosuus (matching)
+**Yhteyshenkilöt:** Henrietta Hirvonen (hirvonen@redstone.vc), Teemu Seppälä (seppala@riihimaki.fi), Laura Manner-Raappana (RTOY)
 
 ---
 
@@ -37,7 +38,7 @@ Branch: claude/defence-startup-fund-qsJBJ
 
 ## 2. Tiivistelmä (Executive Summary)
 
-Lifetime Oy hakee Defence Startup Fundin 20 000 euron rahoitusta ja 20 000 euron in-kind-tukea **DWS IQ Aegis** -alustan markkinavalmiuden vahvistamiseen puolustus- ja kaksoiskäyttösektorilla.
+Lifetime Oy hakee Defence Startup Fundin **20 000 euron avustusta** (matching-mallilla: startup sijoittaa vastaavat 20 000 €) **DWS IQ Aegis** -alustan markkinavalmiuden vahvistamiseen puolustus- ja kaksoiskäyttösektorilla.
 
 **DWS IQ Aegis** on EU-suvereeni tekoälyalusta, joka palvelee puolustus- ja kaksoiskäyttöyritysten tarpeita autonomisten AI-agenttien avulla. Alusta yhdistää:
 
@@ -151,7 +152,7 @@ DWS IQ Aegis on **autonominen AI-agenttialusta** joka tuottaa auditoitavia tulok
 
 ## 8. Rahoituksen käyttösuunnitelma
 
-### 8.1 Defence Startup Fund (€20 000 + €20 000 in-kind)
+### 8.1 Defence Startup Fund -avustus (€20 000)
 
 | Käyttökohde | Summa | Aikataulu |
 |-------------|-------|-----------|
@@ -159,16 +160,27 @@ DWS IQ Aegis on **autonominen AI-agenttialusta** joka tuottaa auditoitavia tulok
 | **EU AI Act Art. 12 -lokituksen sertifiointivalmistelu** | €5 000 | Q2–Q3 2026 |
 | **Puolustusalan asiakasvalidointi (pilot)** | €4 000 | Q3 2026 |
 | **DEFINE-ekosysteemitapahtumat ja -verkostoituminen** | €3 000 | Q2–Q4 2026 |
-| **Yhteensä** | **€20 000** | |
+| **Yhteensä avustus** | **€20 000** | |
 
-### 8.2 In-kind-tuen hyödyntäminen
+### 8.2 Lifetime Oy:n omarahoitusosuus (€20 000 matching)
+
+| Käyttökohde | Summa | Aikataulu |
+|-------------|-------|-----------|
+| **DWS IQ Aegis -kehitys (puolustusominaisuudet)** | €10 000 | Q2 2026 |
+| **Infrastruktuuri (EU-suvereeni hosting, Firecracker MicroVM)** | €5 000 | Q2 2026 |
+| **Riihimäen toimipisteen perustaminen** | €3 000 | Q2 2026 |
+| **ISO 27001 -esivalmistelutyö** | €2 000 | Q3 2026 |
+| **Yhteensä omarahoitus** | **€20 000** | |
+
+### 8.3 DEFINE-ekosysteemin hyödyntäminen
 
 | Resurssi | Tarve |
 |---------|-------|
-| Toimitilat Riihimäellä | Tukikohta DEFINE-ekosysteemin ytimessä |
-| Mentorointi | Go-to-market puolustuskanavissa |
-| Testausmahdollisuudet | Agenttien validointi puolustuskontekstissa |
-| Verkostointituki | Yhteydet loppukäyttäjiin ja sijoittajiin |
+| Toimitilat Riihimäellä | Tukikohta DEFINE Innovation Hubissa |
+| Mentorointi | Go-to-market puolustuskanavissa (Redstone VC) |
+| Testausmahdollisuudet | Agenttien validointi puolustuskontekstissa (3D-tulostus, AI GPU) |
+| Verkostointituki | Yhteydet PV:n loppukäyttäjiin, sijoittajiin, ICEYE:hen |
+| NATO DIANA | VTT-operoimat testiympäristöt Otaniemessä ja Oulussa |
 
 ---
 
