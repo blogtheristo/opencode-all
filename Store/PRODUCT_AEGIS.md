@@ -7,7 +7,7 @@ availability: "in_stock"
 condition: "new"
 google_product_category: "Software > Business & Productivity Software"
 image_link: "https://dws10.com/DWS_IQ2026.png"
-brand: "DWS IQ"
+brand: "DWS IQ — GodAgents"
 storeCategory: "platform"
 type: "one-time"
 priceNote: "€59,990 one-time platform deployment + €599/mo subscription"
@@ -96,7 +96,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Scope Principle
 
-**We are the Agent Outcome Factory.** DWS IQ Aegis delivers sovereign, auditable outcomes through autonomous AI agents — not dashboards or manual reports. Defence supply chains get continuous compliance, orbital intelligence alerts, and agent governance as automated deliverables. Every agent action is Article 12 logged and KYA governed.
+**We are the Agent Outcome Factory.** DWS IQ Aegis deploys GodAgents — industry-specific autonomous AI agents — that deliver sovereign, auditable outcomes. Not dashboards or manual reports. Defence supply chains get continuous compliance, orbital intelligence alerts, and agent governance as automated deliverables. Every GodAgent action is Article 12 logged and KYA governed.
 
 ## Distribution Strategy
 

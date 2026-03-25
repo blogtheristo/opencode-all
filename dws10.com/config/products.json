@@ -8,9 +8,9 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18 AI agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 16 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "18 AI agents with MCP protocol and CLI access",
+        "18+ GodAgents with MCP protocol and CLI access",
         "Automate Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
@@ -1118,9 +1118,9 @@
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Deploy 8 AI agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "description": "Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
       "features": [
-        "8 specialized climate compliance agents",
+        "8 specialized GodAgents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
@@ -1148,9 +1148,9 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Standalone dual-use AI platform for all 20 EU-regulated industries. Software-only — no hardware bundled. Packages sovereignty monitoring, orbital intelligence (ICEYE SAR), agent governance (KYA), and EU AI Act compliance for government agencies, military industry enterprises, and dual-use manufacturing supply chains. EU-only: European cloud or enterprise private cloud.",
+      "description": "Standalone dual-use GodAgent platform for all 20 EU-regulated industries. Software-only — no hardware bundled. Packages sovereignty monitoring, orbital intelligence (ICEYE SAR), KYA agent governance, and EU AI Act compliance for government agencies, military industry enterprises, and dual-use manufacturing supply chains. EU-only: European cloud or enterprise private cloud.",
       "features": [
-        "20 EU industries — dual-use compliance across all sectors",
+        "20 EU industries — GodAgents for dual-use compliance",
         "EU-only — European cloud or enterprise private cloud",
         "KYA agent governance — identity, isolation, kill authority"
       ],
