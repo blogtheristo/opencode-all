@@ -8,6 +8,7 @@ Version: 2.0
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: r6bU3 | Date: 23.01.2026 | Changes: Initial product catalog structure, Google Merchant schema, file naming conventions
   - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block; added full 30-product catalog table from products.json; added product lifecycle stages; added Store Product Format section
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-define-application-guide-gS1du | Date: 25.03.2026 | Changes: Added DWS IQ Climate Intelligence (DWS-CLIMATE-001) and DWS IQ Aegis (DWS-AEGIS-001) platform products; 30→32 products
 
 Session Links & References:
   - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/product-catalog/README.md
@@ -28,9 +29,9 @@ Managed By: Product Management & Marketing
 
 ---
 
-## 📦 Complete Product Catalog (30 Products)
+## 📦 Complete Product Catalog (32 Products)
 
-Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-02.
+Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-25.
 
 ### Platform Products
 
@@ -42,6 +43,8 @@ Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-02.
 | FH-OMNI-001 | Firehorse Omnichannel Next | €499 | one-time | platform | active |
 | FH-RPT-001 | DWS IQ Report | €1,999 | one-time | platform | active |
 | FH-CMS-001 | Firehorse Content Management | €2,999 | one-time | platform | active |
+| DWS-CLIMATE-001 | DWS IQ Climate Intelligence | €2,999/mo | monthly + €4,990 setup | platform | active |
+| DWS-AEGIS-001 | DWS IQ Aegis | €4,999/mo | monthly + €9,990 setup | platform | active |
 
 ### Advisory & Training
 
