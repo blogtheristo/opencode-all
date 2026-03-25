@@ -14,6 +14,8 @@ Branch: claude/defence-startup-fund-qsJBJ
 **Rahasto:** Defence Startup Fund (Riihimäen Tilat ja Kehitys Oy / Riihimäen kaupunki)
 **Deadline:** 31.3.2026
 **Hakusivusto:** https://defencestartupfund.com
+**DEFINE:** https://www.definefinland.fi/en/
+**Yhteyshenkilöt:** Henrietta Hirvonen (hirvonen@redstone.vc), Teemu Seppälä (seppala@riihimaki.fi)
 
 ---
 
@@ -233,7 +235,21 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 
 ---
 
-## 14. Liitteet
+## 14. Rahaston taustatiedot
+
+| Tieto | Arvo |
+|-------|------|
+| **Rahaston kokonaispääoma** | 500 000 € (250 000 € Riihimäen kaupunki + 250 000 € RTOY) |
+| **Yksittäinen tuki** | Enintään 20 000 € per yritys |
+| **DEFINE kokonaisbudjetti** | ~2 milj. € (Sitra 800K€ + kumppanit 510K€ + kaupunki + RTOY) |
+| **Rahoittajat** | EU (osarahoitus), Sitra, OP Häme, Riihimäen kaupunki, RTOY |
+| **Hallinnoija** | Riihimäen Tilat ja Kehitys Oy (RTOY) |
+| **Dealflow Manager** | Henrietta Hirvonen, Redstone VC (hirvonen@redstone.vc) |
+| **Teknologia- ja innovaatiojohtaja** | Teemu Seppälä, Riihimäen kaupunki (seppala@riihimaki.fi) |
+
+**Huom:** DEFINE Accelerator Spring 2026 -haku sulkeutui 2.3.2026. Autumn 2026 -haku avautuu arviolta huhtikuu–toukokuu 2026. Defence Startup Fund (tukirahasto) on erillinen instrumentti kiihdyttämöstä.
+
+## 15. Liitteet
 
 1. `Store/PRODUCT_AEGIS.md` — DWS IQ Aegis -tuotekortti
 2. `docs/DEFINE_APPLICATION_GUIDE.md` — DEFINE-ekosysteemiopas
