@@ -105,7 +105,7 @@ Persefoni raised $9.7M Series A on $1.8M ARR in carbon accounting (April 2021). 
 
 Lifetime has EUR 7K MRR, 100% retention, a 7-year head start on a regulatory intelligence engine spanning 20 EU industries, and EUR 17K/year edge deployment vs EUR 350K/year cloud.
 
-EUR 3.8M cap for a shipping product with government-validated customers in a EUR 25B forced compliance market is early-stage pricing by any carbon SaaS benchmark.
+EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a higher implied valuation with less traction. Lifetime has more customers, a government payer, edge deployment, and a 7-year knowledge graph they do not have.
 
 ### 9. "What is the roadmap beyond this round?"
 
