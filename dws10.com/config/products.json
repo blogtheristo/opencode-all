@@ -1148,13 +1148,13 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Dual-use AI platform for defence and sovereign operations. The Agent Outcome Factory for NATO-country enterprises. Packages orbital intelligence (ICEYE SAR), sovereignty monitoring, agent governance (KYA), and EU AI Act compliance into a hardened platform. EU-sovereign by design — Finnish hosting, no CLOUD Act exposure. Admiral Seat in the DWS IQ Captain programme.",
+      "description": "Standalone dual-use AI platform for all 20 EU-regulated industries. Software-only — no hardware bundled. Packages sovereignty monitoring, orbital intelligence (ICEYE SAR), agent governance (KYA), and EU AI Act compliance for government agencies, military industry enterprises, and dual-use manufacturing supply chains. EU-only: European cloud or enterprise private cloud.",
       "features": [
-        "Orbital intelligence via ICEYE SAR satellite",
-        "EU-sovereign hosting with zero CLOUD Act exposure",
+        "20 EU industries — dual-use compliance across all sectors",
+        "EU-only — European cloud or enterprise private cloud",
         "KYA agent governance — identity, isolation, kill authority"
       ],
-      "priceNote": "€59,990 one-time — includes Admiral Seat, 12-month platform licence, and DEFINE programme support",
+      "priceNote": "€59,990 one-time platform deployment + €599/mo subscription",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",

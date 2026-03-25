@@ -10,7 +10,7 @@ image_link: "https://dws10.com/DWS_IQ2026.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€59,990 — includes Admiral Seat, 12-month platform licence, DEFINE programme support"
+priceNote: "€59,990 one-time platform deployment + €599/mo subscription"
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -20,11 +20,11 @@ mpn: "DWS-AEGIS-2026"
 
 ## Product Overview
 
-DWS IQ Aegis is the defence and dual-use variant of the DWS IQ platform. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform for defence contractors, dual-use companies, and NATO-country enterprises.
+DWS IQ Aegis is a standalone dual-use AI platform covering all 20 EU-regulated industries for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
 
 Named after Athena's shield — Aegis provides protection through intelligence, not just walls.
 
-**Why Aegis exists:** Defence supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection. Aegis does.
+**Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 20 industries. Aegis does.
 
 ## Agents Included
 
@@ -68,10 +68,11 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 ## Target Market
 
-- **Primary:** Defence contractors and dual-use companies in NATO countries
-- **Secondary:** Critical infrastructure operators (energy, transport, telecom)
-- **Tertiary:** Government agencies with AI sovereignty requirements
-- **Geography:** EU/NATO, with Finland/Nordics as home market
+- **Primary:** Government agencies (EU member states, defence ministries)
+- **Secondary:** Military industry enterprises (defence contractors, shipyards, aerospace)
+- **Tertiary:** Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)
+- **Geography:** EU only — platform available exclusively on European cloud or enterprise private cloud
+- **Industries:** All 20 EU-regulated industries under dual-use scope
 
 ### DEFINE / Defence Tech Hub Alignment
 
@@ -114,21 +115,21 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Technical Requirements
 
-- **Deployment:** EU Sovereign Cloud only (Aiwen environment, europe-north1 Finland)
+- **Deployment:** European cloud only (Aiwen environment, europe-north1 Finland) or enterprise private cloud
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, dual-use export control (Reg. 2021/821)
-- **Edge option:** NVIDIA Jetson Orin Nano for field deployment (Lifetime Fleet)
+- **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
 - **Certifications roadmap:** ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
 
 ## Pricing
 
 | Tier | Price | Included |
 |------|-------|----------|
-| **Admiral Seat** | €59,990 one-time | All 6 agents, 12-month licence, Admiral Seat in Captain programme, DEFINE programme support, quarterly CEO briefing |
-| **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, ICEYE AOI budget |
-| **Government** | Custom | On-premise deployment, air-gapped option, security clearance support |
+| **Aegis Platform** | €59,990 one-time + €599/mo | All 6 agents, 20 industries, EU sovereign deployment, Article 12 logging, KYA governance |
+| **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, ICEYE AOI budget, private cloud deployment |
+| **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
 
-**Admiral Seat** is the dual-use industry seat in the DWS IQ Captain programme — equivalent to a Platinum Captain seat but for defence and dual-use verticals. Admiral Seat holders direct the dual-use/defence roadmap and get priority access to ICEYE orbital intelligence, KYA agent governance, and DEFINE accelerator support.
+Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
 
 ## Strategic Partnerships
 

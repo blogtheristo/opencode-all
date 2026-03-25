@@ -44,7 +44,7 @@ Source of truth: `dws10.com/config/products.json`. Last synced: 2026-03-25.
 | FH-RPT-001 | DWS IQ Report | €1,999 | one-time | platform | active |
 | FH-CMS-001 | Firehorse Content Management | €2,999 | one-time | platform | active |
 | DWS-CLIMATE-001 | DWS IQ Climate Intelligence | €2,999/mo | monthly + €4,990 setup | platform | active |
-| DWS-AEGIS-001 | DWS IQ Aegis | €59,990 | one-time (Admiral Seat + 12-month licence) | platform | active |
+| DWS-AEGIS-001 | DWS IQ Aegis | €59,990 + €599/mo | one-time + subscription | platform | active |
 
 ### Advisory & Training
 
