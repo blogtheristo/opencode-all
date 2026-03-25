@@ -94,12 +94,23 @@ SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligen
 
 **Our edge:** Agent-delivered outcomes (not dashboards), EU-sovereign hosting, deterministic scoring (auditable, reproducible), ERP integration (SAP, IFS, Dynamics), €2,999/mo vs. €200k consultant engagements.
 
+## Scope Principle
+
+**We are the Agent Outcome Factory.** DWS IQ delivers measurable compliance outcomes through autonomous AI agents — not dashboards, not reports, not consulting hours. Agents observe data, think through regulations, and act by producing audit-ready deliverables. Every product ships agent-delivered outcomes as the primary value unit.
+
 ## Distribution Strategy
 
-1. **Direct** — dws10.com store, enterprise sales
-2. **IFS Cloud Marketplace** — Nordic industrial installed base (priority path)
-3. **SAP Store** — Firehorse product line (Phase 2)
-4. **Partner channel** — Accounting firms, ESG consultancies
+**Priority channels — all connected ERPs:**
+
+1. **IFS Cloud Marketplace** — Nordic industrial installed base (Saab, Volvo, Konecranes)
+2. **Visma** — Nordic SME/mid-market ERP footprint
+3. **SAP Store** — Firehorse product line, S/4HANA integration
+4. **Microsoft AppSource** — Dynamics 365 connector
+5. **Monitor ERP** — Swedish manufacturing mid-market
+6. **Jeeves** — Nordic manufacturing ERP
+7. **AWS Marketplace** — Cloud-native distribution
+8. **Direct** — dws10.com store, enterprise sales
+9. **Partner channel** — Accounting firms, ESG consultancies
 
 ## Technical Requirements
 

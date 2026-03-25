@@ -93,19 +93,33 @@ Finland opened a NATO DIANA (Defence Innovation Accelerator for the North Atlant
 
 ## 5. Relevance for Lifetime Oy / DWS IQ
 
-DWS IQ's industrial AI agents, EU compliance scoring (ETS, CBAM, CSRD, EU AI Act), and sovereign data architecture are dual-use capabilities relevant to:
+### Scope Principle: The Agent Outcome Factory
 
-- Defence supply chain compliance and emissions tracking
-- Sovereign AI agent orchestration (EU data residency)
-- Industrial sensor fusion and edge AI (NVIDIA Jetson / Lifetime Fleet)
-- Construction site safety and logistics (SiteSense, ScheduleGenius)
+**We are the Agent Outcome Factory.** Lifetime Oy builds DWS IQ — a platform that delivers measurable outcomes through autonomous AI agents, not dashboards or consulting hours. Agents observe, think, and act autonomously to produce audit-ready deliverables. This principle applies to both civilian and dual-use products.
 
-### Potential Application Angles
+### Two Platform Products
 
-1. **EU Compliance for Defence Supply Chains** — CBAM, ETS, CSRD scoring for defence procurement
-2. **Sovereign AI Platform** — Multi-agent orchestration with EU data residency guarantees
-3. **Edge AI for Defence** — Lifetime Fleet (IoT/robots) on NVIDIA Jetson for field operations
-4. **Site Safety & Logistics** — SiteSense agent for defence construction and logistics sites
+| Product | SKU | Target | Price |
+|---------|-----|--------|-------|
+| **DWS IQ Climate Intelligence** | DWS-CLIMATE-001 | CSRD-obligated industrials (50,000+ in EU) | €2,999/mo |
+| **DWS IQ Aegis** | DWS-AEGIS-001 | Defence contractors, dual-use, NATO enterprises | €4,999/mo |
+
+**DWS IQ Aegis** is the defence-specific product for DEFINE/Defence Tech Hub application. Named after Athena's shield — it packages sovereignty monitoring, orbital intelligence (ICEYE SAR), agent governance (KYA), and EU AI Act compliance into a hardened platform.
+
+**DWS IQ Climate Intelligence** serves the civilian side — same compliance engine, different market. Defence supply chains need both.
+
+### Distribution — All Connected ERPs as Priority Channels
+
+IFS, Visma, SAP, Microsoft Dynamics, Monitor ERP, Jeeves — all are priority channels. Plus SAP Store, AWS Marketplace, and Microsoft AppSource for marketplace distribution. Firehorse product line stays and expands to all partner stores.
+
+### Application Angles for DEFINE
+
+1. **EU Compliance for Defence Supply Chains** — CBAM, ETS, CSRD scoring for defence procurement (DWS IQ Climate Intelligence agents)
+2. **Sovereign AI Platform** — Multi-agent orchestration with EU data residency guarantees (DWS IQ Aegis)
+3. **Orbital Intelligence** — ICEYE SAR target labeling via Argus agent (DWS IQ Aegis)
+4. **Agent Governance** — KYA (Know Your Agent) standard for multi-agent control rooms (DWS IQ Aegis)
+5. **Edge AI for Defence** — Lifetime Fleet (IoT/robots) on NVIDIA Jetson for field operations
+6. **Site Safety & Logistics** — SiteSense agent for defence construction and logistics sites
 
 ## 6. Links
 

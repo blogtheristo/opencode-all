@@ -93,12 +93,24 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 **Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), ICEYE orbital integration (Helsinki neighbor), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
 
+## Scope Principle
+
+**We are the Agent Outcome Factory.** DWS IQ Aegis delivers sovereign, auditable outcomes through autonomous AI agents — not dashboards or manual reports. Defence supply chains get continuous compliance, orbital intelligence alerts, and agent governance as automated deliverables. Every agent action is Article 12 logged and KYA governed.
+
 ## Distribution Strategy
 
-1. **Direct** — Enterprise sales to defence contractors
-2. **DEFINE/Defence Tech Hub** — Programme participation and ecosystem sales
-3. **IFS Cloud Marketplace** — IFS serves Nordic defence/industrial (Saab, BAE Systems Nordic)
-4. **Government procurement** — Finnish Defence Forces, EU agencies
+**Priority channels — all connected ERPs:**
+
+1. **IFS Cloud Marketplace** — IFS serves Nordic defence/industrial (Saab, BAE Systems Nordic)
+2. **SAP Store** — Defence supply chain S/4HANA integration
+3. **Microsoft AppSource** — Dynamics 365 for defence contractors
+4. **Visma** — Nordic government and public sector
+5. **Monitor ERP** — Swedish defence manufacturing
+6. **Jeeves** — Nordic defence supply chain
+7. **AWS Marketplace** — NATO-standard cloud distribution
+8. **DEFINE/Defence Tech Hub** — Programme participation and ecosystem sales
+9. **Direct** — Enterprise sales to defence contractors
+10. **Government procurement** — Finnish Defence Forces, EU agencies
 
 ## Technical Requirements
 
