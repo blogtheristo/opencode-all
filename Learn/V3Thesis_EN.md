@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.29
+Version: 3.30
 
 Sessions & Modifications:
+  - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 10.18 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing (compliance→fleet→Series A), LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration), investor objection handling with Persefoni/Sweep comparables; added Key Contribution #21
   - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 10.17 (Conclusion: Carbon Balance Sheet as Compliance Infrastructure) — debit-credit ledger thesis, double-entry bookkeeping for CO2 across ETS/CBAM/CSRD/Taxonomy, cross-vertical intelligence via ledger reconciliation, DWS 7 Phase 2.6 implementation plan; added Key Contribution #20 (was #20 Agent Memory — renumbered to #21)
   - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based structured fact extraction from conversations to subject-predicate-value triples, dual memory architecture (LWM domain knowledge + client relationship memory), three missing execution layers identified (Firehorse state machine, ERP connector layer, KYA governance wrapper); updated PR roadmap with KYA-first ordering (255→KYA audit→257→256→259→258); added Key Contribution #20; noted KYA Standard v1.4 internal / v1.1 public delta
   - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 10.7.3 LWM Product-Market Validation (Qantic GmbH energy sector case study — first external validation of LWM commercial value outside construction, €21,693/year BESS compliance cost calculation, 6-industry expansion path for MAN-type clients, Solution Factory model confirmed); updated 16→20 industries in LWM sections; renumbered 10.7.3→10.7.4 Orchestration Studio
@@ -52,10 +53,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 14.03.2026
+  - Last Modified: 25.03.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.25 — Harness Engineering section: OpenAI 8 principles, DWS 6-layer L0-L6, empirical 52.8%→66.5% result, EU harness divergence)
+  - Publication Status: DRAFT (V3.30 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap analysis)
 
 ---
 
@@ -2735,6 +2736,67 @@ This concluding section contributes three findings:
 
 The Firehorse Product Manufacturing Operating Model, documented across the preceding 16 sections, provided the engineering foundation — harness architecture, multi-agent orchestration, edge deployment, and regulatory intelligence — required to build this carbon balance sheet infrastructure. The conclusion is that the platform's competitive moat is not any single agent or regulation module, but the ledger that connects them all.
 
+### 10.18 LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI
+
+#### 10.18.1 Strategic Context
+
+The Lifetime World Model (LWM) serves as the "Memory" layer in the Brain-Memory-Body-Hands architecture. However, investor and market analysis (March 2026) revealed a framing contradiction: the platform was simultaneously pitched as "carbon balance sheet infrastructure" (compliance SaaS), "55B parameter Physical AI" (world model), and "autonomous healthcare fleet" (robotics). Each story targets different investors at different stages and invites questions the codebase cannot yet answer.
+
+This section documents the resolution: a three-phase sequencing strategy where each phase funds and de-risks the next.
+
+#### 10.18.2 The Three Phases
+
+**Phase 1 (Current — EUR 650K SAFE):** LWM = regulatory intelligence engine. 15,000+ EU regulatory documents indexed across 20 industries, 18 AI agents, carbon balance sheet with cross-regulation reconciliation (ETS ↔ CBAM ↔ CSRD ↔ Taxonomy). Revenue target: EUR 900K ARR. Ships DWS 7 with persistent carbon balance sheet (July 2026).
+
+**Phase 2 (Post-SAFE — Helsinki Pilot):** LWM = regulatory intelligence + physical planning. LeWorldModel-style latent planning bolted onto the regulatory knowledge graph. KELA-backed healthcare fleet pilot on NVIDIA hardware (Acer GN-100). The carbon ledger provides constraint data for physical planning decisions.
+
+**Phase 3 (Series A 2027):** LWM = full dual-use product. Carbon balance sheet + edge Physical AI across construction, healthcare, manufacturing, energy, and defence. The sequencing ensures each phase is funded by the previous one's revenue.
+
+#### 10.18.3 External Validation: LeWorldModel (arXiv:2603.19312)
+
+In March 2026, Maes, Le Lidec, Scieur, LeCun, and Balestriero published LeWorldModel — the first Joint Embedding Predictive Architecture (JEPA) that trains stably end-to-end from raw pixels. Key findings relevant to LWM:
+
+- **Simplicity:** 2 loss terms (prediction + SIGReg regularizer) replace 6+ hyperparameters, frozen encoders, stop-gradients, and EMA hacks
+- **Efficiency:** 15M parameters, single GPU, ~1 second planning vs 47 seconds for DINO-WM, 200x fewer tokens
+- **Results:** 96% success rate on PushT manipulation task (beats DINO-WM's 92% even without proprioceptive inputs)
+
+Concurrently, LeCun launched AMI Labs ($1.03B seed, March 2026) and Fei-Fei Li raised $1B for World Labs — $2B in three weeks for world model companies. This validates the category but does not validate Lifetime's specific product. The honest framing: Lifetime builds domain-specific regulatory infrastructure on top of commodity AI, not general-purpose world models.
+
+#### 10.18.4 Phase 2 Technical Gap Analysis
+
+Three unsolved problems bridge Phase 1 to Phase 2:
+
+1. **Input modality gap:** LeWorldModel expects pixel observations. LWM Phase 1 operates on structured regulatory text. The most realistic bridge is a digital twin (OpenUSD scene representation) that encodes both physical layout and regulatory metadata.
+
+2. **Scale gap:** LeWorldModel tested on controlled simulation (PushT, Reacher). Industrial environments are uncontrolled, long-horizon, and sparse-reward. Whether latent planning scales to construction sites is research, not engineering.
+
+3. **Regulatory-physical integration:** How does a physical plan (crane movement, vehicle route) get validated against the carbon ledger before execution? The proposed architecture: physical planner proposes actions → regulatory engine validates against carbon budget → KYA governance gate enforces or blocks. KYA v1.4 (Firecracker MicroVM kill-switches) is the only Phase 2 component already built.
+
+**Key insight:** Phase 1 outputs (regulatory graph, carbon ledger, KYA governance) are Phase 2 inputs. The sequencing is not just a fundraising story — it is technically correct. Compliance data feeds physical planning. Not the other way around.
+
+#### 10.18.5 Market Positioning and Comparable Companies
+
+Analysis of carbon compliance SaaS benchmarks:
+
+| Company | Round | Revenue | Year |
+|---------|-------|---------|------|
+| Persefoni | Series A ($9.7M) | $1.8M ARR | 2021 |
+| Sweep | Series A ($22M) | Early revenue | 2021 |
+| Workiva | IPO | ~$100M ARR | 2014 |
+| Lifetime | SAFE (EUR 650K) | EUR 84K ARR | 2026 |
+
+Lifetime's EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a higher implied valuation with less traction. Lifetime has more customers (6), a government payer (KELA), edge deployment (EUR 17K/year vs EUR 350K/year cloud), and a 7-year regulatory knowledge graph.
+
+#### 10.18.6 Research Contribution
+
+This section contributes three findings:
+
+1. **Sequencing discipline:** The framing of a product should match its current capabilities, not its future vision. Presenting Phase 3 capabilities in a Phase 1 fundraise creates contradictions that informed investors will catch. The three-phase model demonstrates how startup storytelling can be honest and ambitious simultaneously.
+
+2. **Compliance-first world model thesis:** The insight that compliance data feeds physical planning (not the reverse) is a novel architectural contribution. A construction site digital twin has nothing to optimize without verified emissions data. A healthcare fleet robot has no billing path without KELA integration. This inverts the typical world model narrative (physics first, compliance later) and may generalize to other regulated industries.
+
+3. **Phase 2 technical scoping:** The three unsolved problems (input modality, scale, regulatory-physical integration) provide a concrete research agenda that connects LeWorldModel's theoretical advances to industrial application. The digital twin bridge via OpenUSD is identified as the most realistic near-term path.
+
 ---
 
 **Document Information:**
@@ -2745,9 +2807,9 @@ The Firehorse Product Manufacturing Operating Model, documented across the prece
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.29
-**Version:** 3.29
-**Last Modified:** 24.03.2026
+**Status:** DRAFT - V3.30
+**Version:** 3.30
+**Last Modified:** 25.03.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2780,6 +2842,7 @@ The Firehorse Product Manufacturing Operating Model, documented across the prece
 18. Two-Tier HTAP Architecture — Aiven-first mandate locks TimescaleDB 2.25.x Hypercore as approved standard for managed production (10-100× analytics, 98% compression); pg_duckdb (50-600× OLAP) relegated to edge device only due to Aiven whitelist; GN100 edge PostgreSQL deployed with full extension stack for ad-hoc analytics
 19. Harness Engineering — Analysis of OpenAI's 8 harness engineering principles against DWS IQ 6 architecture; empirical finding that harness improvements alone yield 52.8%→66.5% benchmark gains (model unchanged); DWS's L0-L6 six-layer architecture as formal harness framework; EU regulation requires fundamentally different harness (traceability + human-in-the-loop vs Silicon Valley speed optimization)
 20. Carbon Balance Sheet — Conclusion that EU climate compliance (ETS, CBAM, CSRD, Taxonomy) is structurally isomorphic to financial accounting; double-entry bookkeeping for CO2 with dual-unit entries (EUR + tCO2e); cross-regulation reconciliation via shared ledger entries; cross-vertical intelligence thesis (multi-industry ledger produces emergent data no single-vertical tool can replicate); DWS 7 Phase 2.6 implementation plan (8 PRs, persistent ledger, CFO dashboard, ERP GL sync, XBRL export)
+21. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A) resolving investor narrative contradictions; LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis identifying three unsolved problems (input modality, scale, regulatory-physical integration); compliance-first world model thesis (compliance data feeds physical planning, not the reverse); Persefoni/Sweep market comparables positioning EUR 3.8M cap below carbon SaaS benchmarks
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

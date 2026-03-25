@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 14.13 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi, LeWorldModel-validointi (arXiv:2603.19312), vaiheen 2 teknisen aukon analyysi, vaatimustenmukaisuus ensin -maailmamalliteesi; lisätty avainpanos #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen faktojen poiminta subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM + asiakasmuisti), kolme suorituskerrosta (Firehorse-tilakonemasiina, ERP-liittimet, KYA-hallinta); KYA-ensisijainen PR-järjestys oikeudellisesti pätevään muistin auditointipolkuun; lisätty avainpanos #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 14.2.1 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiatapaustutkimus — ensimmäinen ulkoinen markkinavalidointi, 21 693 €/vuosi BESS-vaatimustenmukaisuustuotos, Firehorse-mallin siirrettävyys energiasektorille vahvistettu); lisätty avainpanos #16; päivitetty 16→20 toimialaa LWM-osioissa
@@ -40,7 +41,7 @@ Document Status:
   - Last Modified: 24.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.9 — Hiilitase motivoivana teesinä; kahdenkertainen kirjanpito CO2:lle, kolme tohtoritutkimuskysymystä)
+  - Publication Status: DRAFT (V3.0 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, vaiheen 2 tekninen aukko)
 ---
 
 ## Tiivistelmä
@@ -1729,6 +1730,38 @@ Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin o
 
 **Tutkimuspanos:** Tämä osio osoittaa, että **harness engineering ei ole yksi koko kaikille.** EU-regulaatiokonteksti vaatii perustavanlaatuisesti erilaisen harness-suunnittelun — sellaisen, joka priorisoi jäljitettävyyttä, ihmisen valvontaa ja oikeudellista puolustettavuutta nopeuden sijaan. OpenAI:n 3,5 PR/insinööri/päivä -mittari on irrelevantti, kun ensisijainen mittari on vaatimustenmukaisuuden varmistaminen ja auditointivalmius.
 
+### 14.13 LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn
+
+**Lähde:** LeWorldModel (arXiv:2603.19312, Maes ym., maaliskuu 2026); LWM-sekvensointianalyysi tiedostossa `docs/field-notes/2026-03-25-lwm-phase2-technical-gap-analysis.md`.
+
+**Konteksti:** Lifetime World Model palvelee kaksoisroolia: sääntely-älymoottori (vaihe 1, nykyinen) ja fyysinen suunnittelujärjestelmä (vaihe 2, tuleva). Tämä osio dokumentoi sekvensointistrategian ja vaiheiden välisen teknisen aukon.
+
+#### 14.13.1 Kolmivaiheinen sekvensointi
+
+**Vaihe 1 (Nykyinen):** LWM sääntely-älymoottorina — 15 000+ EU-dokumenttia, 18 AI-agenttia, hiilitase poikkisääntelyisellä täsmäytyksellä. Liikevaihtoa tuottava. 6 asiakasta (KELA, Taksi Helsinki, Uber, Bolt, Limo Helsinki, Sixt).
+
+**Vaihe 2 (SAFE:n jälkeen):** LWM lisää fyysisen suunnittelun latenttitila-mallien kautta (LeWorldModel-tyylinen JEPA-arkkitehtuuri). Helsingin terveydenhuollon laivastopilotti.
+
+**Vaihe 3 (Series A):** Täysi kaksikäyttötuote — vaatimustenmukaisuusinfrastruktuuri + reunafyysinen tekoäly 5 toimialalla.
+
+**Keskeinen oivallus:** Vaatimustenmukaisuusdata syöttää fyysistä suunnittelua. Ei toisinpäin.
+
+#### 14.13.2 LeWorldModel ulkoisena validointina
+
+LeWorldModel (Maes, Le Lidec, Scieur, LeCun, Balestriero, 2026) osoittaa stabiilin JEPA-koulutuksen raakapikseleistä vain 2 häviötermillä (ennustus + SIGReg). 15M parametria, yksi GPU, 48x nopeampi suunnittelu. SIGReg-regulaattori (Cramér-Wold-lause, isotrooppinen Gaussin priori) ratkaisee esityksen romahdusongelman.
+
+#### 14.13.3 Vaiheen 2 tekninen aukko
+
+Kolme ratkaisematonta ongelmaa tohtoritutkimukselle:
+
+1. **Syötemodaalien kuilu:** Tekstipohjainen sääntelygraafi → visuaalisia/anturisyötteitä odottava latentti suunnittelija. Ehdotettu silta: OpenUSD-digitaalikaksonen.
+
+2. **Skaalan kuilu:** LeWorldModel testattu kontrolloidussa simulaatiossa. Teolliset ympäristöt ovat kontrolloimattomia, pitkän aikahorisontin ja harvan palautteen ympäristöjä.
+
+3. **Sääntely-fyysinen integraatio:** Fyysinen suunnittelija ehdottaa → sääntely-moottori validoi → KYA-hallintaportti valvoo. KYA v1.4 on ainoa vaiheen 2 komponentti, joka on jo rakennettu.
+
+**Tutkimuspanos:** Vaatimustenmukaisuus ensin -maailmamalliteesi — sääntelyinfrastruktuurin on edellettävä fyysisen suunnittelun kykyä — tarjoaa konkreettisen tutkimusohjelman, joka yhdistää LeWorldModelin teoreettiset edistysaskeleet teolliseen käyttöönottoon EU-reguloiduissa ympäristöissä.
+
 ---
 
 ## Liite G: Sanasto
@@ -1774,7 +1807,8 @@ Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin o
 **Keskeiset kontribuutiot:**
 1-14. (Katso VERSION AND AGENT HISTORY)
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
+16. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A); LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi; vaatimustenmukaisuus ensin -maailmamalliteesi tohtoritutkimusohjelmana
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 16.03.2026*
-*Versio: 2.6*
+*Viimeksi päivitetty: 25.03.2026*
+*Versio: 3.0*
