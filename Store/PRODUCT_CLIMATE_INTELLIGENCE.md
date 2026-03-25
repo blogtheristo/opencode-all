@@ -7,7 +7,7 @@ availability: "in_stock"
 condition: "new"
 google_product_category: "Software > Business & Productivity Software"
 image_link: "https://dws10.com/DWS_IQ2026.png"
-brand: "DWS IQ"
+brand: "DWS IQ — GodAgents"
 storeCategory: "platform"
 type: "monthly"
 priceNote: "€2,999/mo + €4,990 one-time setup"
@@ -20,7 +20,7 @@ mpn: "DWS-CLIMATE-2026"
 
 ## Product Overview
 
-DWS IQ Climate Intelligence is a purpose-built AI agent platform that automates EU climate compliance for industrial companies. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized AI agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
+DWS IQ Climate Intelligence is a purpose-built AI agent platform that automates EU climate compliance for industrial companies. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized GodAgents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
 
 **Why agents, not dashboards:** Dashboards show you data. Agents deliver outcomes. Climate Intelligence agents observe your emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.
 
@@ -92,11 +92,11 @@ SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligen
 | Sweep / Plan A | Manual data collection. No ERP integration. No deterministic scoring. |
 | Big 4 consultants | €200-500k engagements. One-time reports, not continuous compliance. |
 
-**Our edge:** Agent-delivered outcomes (not dashboards), EU-sovereign hosting, deterministic scoring (auditable, reproducible), ERP integration (SAP, IFS, Dynamics), €2,999/mo vs. €200k consultant engagements.
+**Our edge:** GodAgent-delivered outcomes (not dashboards), EU-sovereign hosting, deterministic scoring (auditable, reproducible), ERP integration (SAP, IFS, Dynamics), €2,999/mo vs. €200k consultant engagements.
 
 ## Scope Principle
 
-**We are the Agent Outcome Factory.** DWS IQ delivers measurable compliance outcomes through autonomous AI agents — not dashboards, not reports, not consulting hours. Agents observe data, think through regulations, and act by producing audit-ready deliverables. Every product ships agent-delivered outcomes as the primary value unit.
+**We are the Agent Outcome Factory.** DWS IQ deploys GodAgents — industry-specific autonomous AI agents — that deliver measurable compliance outcomes. Not dashboards, not reports, not consulting hours. GodAgents observe data, think through regulations, and act by producing audit-ready deliverables. Every product ships GodAgent-delivered outcomes as the primary value unit.
 
 ## Distribution Strategy
 
