@@ -1,6 +1,6 @@
 ---
 title: "DWS IQ Aegis"
-price: "4999.00"
+price: "59990.00"
 currency: "EUR"
 sku: "DWS-AEGIS-001"
 availability: "in_stock"
@@ -9,8 +9,8 @@ google_product_category: "Software > Business & Productivity Software"
 image_link: "https://dws10.com/DWS_IQ2026.png"
 brand: "DWS IQ"
 storeCategory: "platform"
-type: "monthly"
-priceNote: "€4,999/mo + €9,990 one-time setup"
+type: "one-time"
+priceNote: "€59,990 — includes Admiral Seat, 12-month platform licence, DEFINE programme support"
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -124,11 +124,11 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 | Tier | Price | Included |
 |------|-------|----------|
-| **Professional** | €4,999/mo + €9,990 setup | All 6 agents, sovereignty assessment, Article 12 logging |
+| **Admiral Seat** | €59,990 one-time | All 6 agents, 12-month licence, Admiral Seat in Captain programme, DEFINE programme support, quarterly CEO briefing |
 | **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, ICEYE AOI budget |
 | **Government** | Custom | On-premise deployment, air-gapped option, security clearance support |
 
-Annual commitment: 2 months free. DEFINE programme members: setup fee waived.
+**Admiral Seat** is the dual-use industry seat in the DWS IQ Captain programme — equivalent to a Platinum Captain seat but for defence and dual-use verticals. Admiral Seat holders direct the dual-use/defence roadmap and get priority access to ICEYE orbital intelligence, KYA agent governance, and DEFINE accelerator support.
 
 ## Strategic Partnerships
 
