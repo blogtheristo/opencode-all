@@ -98,6 +98,7 @@
                                 <li><a href="${basePath}careers/">Careers</a></li>
                                 <li><a href="${basePath}partners/">Partners</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
+                                <li><a href="${basePath}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
                                 <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
@@ -146,7 +147,7 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${basePath}compliance/">Compliance Hub</a></li>
                                 <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
-                                <li><a href="${basePath}dual-use/">Dual-Use Policy</a></li>
+                                <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
                         <!-- Other Pages flyout -->
@@ -203,13 +204,17 @@
                     <a href="#" class="ironclad-link">Products ▾</a>
                     <ul class="ironclad-dropdown ironclad-dropdown-wide">
                         <li><a href="${basePath}products/dwsiq.html" class="ironclad-primary">DWS IQ Platform v6</a></li>
+                        <li><a href="${basePath}products/climate-intelligence.html" style="color: #4ade80; font-weight: 600;">DWS IQ Climate Intelligence</a></li>
+                        <li><a href="${basePath}dual-use/" style="color: #d4a843; font-weight: 600;">DWS IQ Aegis — Dual-Use</a></li>
+                        <li class="ironclad-separator"></li>
                         <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
                         <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
                         <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
+                        <li><a href="${basePath}products/firehorse-reports.html">DWS IQ Report</a></li>
+                        <li class="ironclad-separator"></li>
                         <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
                         <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>
                         <li><a href="${basePath}products/consulting-fit55.html">Consulting Fit for 55</a></li>
-                        <li><a href="${basePath}products/firehorse-reports.html">DWS IQ Report</a></li>
                         <li><a href="${basePath}products/consulting.html">Consulting – Hourly</a></li>
                         <li class="ironclad-separator"></li>
                         <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic</a></li>
