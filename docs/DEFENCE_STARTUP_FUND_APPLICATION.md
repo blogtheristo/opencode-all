@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Defence Startup Fund Application — Lifetime Oy
-Version: 1.0
+Version: 2.0
 Date: 2026-03-25
 Owner: Risto Päärni
 Agent: Claude (Opus 4.6)
@@ -10,7 +10,7 @@ Branch: claude/defence-startup-fund-qsJBJ
 # Defence Startup Fund — Hakemus
 
 **Hakija:** Lifetime Oy
-**Tuote:** DWS IQ Aegis — Dual-Use AI Platform
+**Tuote:** DWS IQ Aegis — Dual-Use AI Platform + Lifetime Fleet IoT
 **Rahasto:** Defence Startup Fund (Riihimäen Tilat ja Kehitys Oy / Riihimäen kaupunki)
 **Deadline:** 31.3.2026
 **Hakusivusto:** https://investinriihimaki.com/defence/ (virallinen) | https://defencestartupfund.com (promootio)
@@ -29,10 +29,12 @@ Branch: claude/defence-startup-fund-qsJBJ
 | **ALV-tunnus** | FI07724079 |
 | **Osoite** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
 | **Toimitusjohtaja** | Risto Anton Päärni |
+| **Puhelin** | 0400319010 |
 | **Sähköposti** | risto.paarni@lifetime.fi |
 | **Verkkosivut** | https://dws10.com |
-| **Perustusvuosi** | Rekisteröity Suomessa |
+| **Rahoitusmalli** | Tulorahoitus (liikevaihtorahoitteinen, ei ulkoista pääomaa) |
 | **NATO-maa** | Kyllä (Suomi, NATO-jäsen 2023) |
+| **Tiimi** | Risto Anton Päärni (CEO, yrittäjä), Lucille Päärni (liiketoiminnan kehitys) |
 
 ---
 
@@ -46,6 +48,9 @@ Lifetime Oy hakee Defence Startup Fundin **20 000 euron avustusta** (matching-ma
 - **EU-suvereeniuden valvonnan** (CLOUD Act -altistumisen tunnistus)
 - **AI-agenttien hallintamallin** (KYA — Know Your Agent)
 - **EU AI Act -vaatimustenmukaisuuden** (Artikla 12 -lokitus)
+- **Lifetime Fleet IoT** — mobiilisensorit ja reunalaskenta (NVIDIA Jetson Orin Nano + Acer Veriton GN100)
+
+Lifetime Oy toimii **tulorahoituksella**. Nykyisiä logistiikka-asiakkaitamme ovat **Kela, Uber, Bolt ja Taksi Helsinki** (MRR €10K, 100% retentio, 17 vuoden operaattorisuhteet). Dual-use-alustamme rakentuu tälle vahvalle logistiikkaosaamiselle.
 
 Yhtäkään muuta eurooppalaista alustaa ei ole suunniteltu palvelemaan puolustusalan toimitusketjujen kaksoisvaatimuksia: sekä puolustusalan sääntely (kaksoiskäyttöasetus 2021/821) että ilmastosääntely (CSRD, CBAM, ETS) samasta järjestelmästä.
 
@@ -87,12 +92,34 @@ DWS IQ Aegis on **autonominen AI-agenttialusta** joka tuottaa auditoitavia tulok
 | **ComplianceAgent** | Kaksoiskäyttö + ilmastocompliance | Vientivalvonta, CSRD, CBAM, ETS |
 | **SiteSenseAgent** | Puolustusrakentamisen turvallisuus | Kenttäoperaatiot, logistiikka, nosturiturvallisuus |
 
-### 4.3 Tekninen arkkitehtuuri
+### 4.3 Lifetime Fleet IoT — Mobiilisensorit ja reunalaskenta
+
+Lifetime Fleet on DWS IQ Aegisin fyysinen toteutuskerros ("Hands"):
+
+| Komponentti | Kuvaus |
+|-------------|--------|
+| **NVIDIA Jetson Orin Nano** | Reunalaskenta kentällä — kaikki AI-inferenssi paikallisesti |
+| **Acer Veriton GN100** | Edge-palvelin: ARM 10-ydin 3.9GHz, 120GB RAM, NVIDIA GB10 GPU |
+| **Mobiilisensorit** | Lämpötila, kosteus, tuuli, paine, melu, pöly, tärinä, valo |
+| **OpenSandbox v1.5** | Agenttien eristys efemeerisissä Docker-kontteja |
+| **TimescaleDB** | Aikasarjadata reunalaitteilla — ei pilviviivettä |
+| **Kill-switch** | Sub-5ms kryptografinen pysäytys per agentti, <50ms koko laivastolle |
+
+**4-kumppanin laitteistoekosysteemi:**
+- **NVIDIA** — Laskentaperusta (Jetson Orin Nano, Grace Blackwell, CUDA 12.8+)
+- **Acer** — Laitteisto (Veriton GN100, 20 ydintä, 120GB RAM)
+- **Siemens** — Data (Xcelerator PLC -telemetria, reaaliaikainen teollisuusdata)
+- **ABB** — Energia (ABB Ability -energiarajapinta, Fit for 55 -raportointi)
+
+**Puolustuskäyttö:** Kenttäoperaatioiden tilannekuva, logistiikan optimointi, autonomisten järjestelmien hallinta rajatulla autonomialla (KYA 11% -sääntö: <11% automaattisesti, 11-25% ihmisen katselmointi, >25% automaattinen palautus).
+
+### 4.4 Tekninen arkkitehtuuri
 
 - **Deployment:** Vain eurooppalainen pilvi (europe-north1, Suomi) tai yrityksen oma private cloud
 - **Eristys:** Firecracker MicroVM per agentti — ei jaettua tenanttia
 - **Compliance:** EU AI Act Art. 12, NIS2, GDPR, kaksoiskäyttöasetus 2021/821
 - **Sertifiointipolku:** ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
+- **KYA Trust Scoring:** ≥80 Full Agency / 50-79 Restricted / <50 Suspended / 0 Quarantine
 
 ---
 
@@ -106,6 +133,7 @@ DWS IQ Aegis on **autonominen AI-agenttialusta** joka tuottaa auditoitavia tulok
 | Satelliittikuvat | Teollisuuskohteiden valvonta | Tiedustelu ja infrastruktuurin muutostunnistus |
 | Suvereenisuus | GDPR-vaatimustenmukaisuus | Puolustustiedon datasuvereenisuus |
 | Agentinhallinta | Yritysten AI governance | Puolustusluokiteltu agenttihallinta |
+| IoT/sensorit | Logistiikan seuranta (Kela, Uber, Bolt, Taksi Helsinki) | Kenttäoperaatioiden tilannekuva ja kaluston seuranta |
 | Paikkakohtainen turvallisuus | Rakennustyömaiden turvallisuus | Puolustusrakentamisen ja logistiikan turvallisuus |
 
 ### 5.2 Miksi tämä on relevanttia puolustukselle
@@ -144,9 +172,33 @@ DWS IQ Aegis on **autonominen AI-agenttialusta** joka tuottaa auditoitavia tulok
 
 | Henkilö | Rooli | Tausta |
 |---------|-------|--------|
-| **Risto Anton Päärni** | CEO & perustaja | Full-stack arkkitehti, 20+ vuotta teollisuuden digitalisaatio, EU-sääntelyasiantuntemus |
+| **Risto Anton Päärni** | CEO & perustaja, yrittäjä | Full-stack arkkitehti, 20+ vuotta teollisuuden digitalisaatio, EU-sääntelyasiantuntemus, logistiikka-alan kokemus (Kela, Uber, Bolt, Taksi Helsinki) |
+| **Lucille Päärni** | Liiketoiminnan kehitys | Kansainväliset verkostot, asiakassuhteet, markkinoiden kehittäminen |
 
 *Tiimi laajenee DEFINE-ekosysteemin ja rahoituksen myötä.*
+
+---
+
+## 7b. Logistiikkaosaaminen ja nykyiset asiakkaat
+
+Lifetime Oy:llä on vahva logistiikka-alan kokemus, joka toimii perustana puolustuslogistiikan ratkaisuille:
+
+**Nykyiset logistiikka-asiakkaat:**
+- **Kela** — Suomen sosiaalivakuutuslaitos, KELA-kuljetuslogistiikka (17 vuoden operaattorisuhteet)
+- **Uber** — Kansainvälinen liikkuvuusalusta
+- **Bolt** — Eurooppalainen liikkuvuusalusta
+- **Taksi Helsinki** — Pääkaupunkiseudun taksiliikenne
+
+**Liiketoiminnan tunnusluvut:**
+- MRR: €10K (kuukausittainen toistuva liikevaihto)
+- Retentio: 100%, nolla churn
+- Rahoitusmalli: Tulorahoitus — liiketoiminta on kannattavaa ilman ulkoista rahoitusta
+
+**Puolustuslogistiikkaan skaalautuminen:**
+- Reaaliaikainen kaluston seuranta ja optimointi → puolustuslogistiikan tilannekuva
+- Mobiilisensorit ja IoT-laitteet kenttäolosuhteissa → kenttäoperaatioiden monitorointi
+- Skaalautuva alusta tuhansille samanaikaisille kuljetuksille → huoltovarmuuslogistiikka
+- Toimintavarmuus kriittisissa operaatioissa → puolustusvalmiuden tuki
 
 ---
 
@@ -215,7 +267,10 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 | Kumppani | Integraatio | Status |
 |---------|-------------|--------|
 | **ICEYE** (Espoo) | SAR-satelliittidata Argus-agentille | Aktiivinen |
-| **NVIDIA** | Jetson Orin Nano edge-AI | ISV-kumppani (vahvistettu) |
+| **NVIDIA** | Jetson Orin Nano + Grace Blackwell edge-AI, Lifetime Fleet IoT | ISV-kumppani (vahvistettu) |
+| **Acer** | Veriton GN100 edge-palvelin (120GB RAM, NVIDIA GB10) | Laitteistokumppani |
+| **Siemens** | Xcelerator PLC -telemetria, reaaliaikainen teollisuusdata | Datakumppani |
+| **ABB** | ABB Ability -energiarajapinta, Fit for 55 -raportointi | Energiakumppani |
 | **VTT** | Tutkimusyhteistyö, DIANA-ohjelma | Ekosysteemikumppani |
 | **Shufti** | Agentti-identiteetin verifiointi (KYA) | Kumppanuus käynnissä |
 
@@ -224,12 +279,14 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 ## 12. Miksi Lifetime Oy?
 
 1. **Tuote on olemassa** — DWS IQ 6 on live-alusta 18+ AI-agentilla, ei pelkkä idea
-2. **EU-suvereeni suunnittelultaan** — Suomalainen hosting (europe-north1), ei CLOUD Act -altistumista
-3. **Ainoa dual-compliance-alusta** — Puolustus + ilmasto yhdestä järjestelmästä
-4. **ICEYE-naapuri** — Espoo-Espoo yhteistyö SAR-tiedustelussa
-5. **Skaalautuva** — Agenttialusta palvelee kaikkia 20 EU:n säänneltyä toimialaa
-6. **KYA — Know Your Agent** — Ainoa agenttihallintamalli markkinoilla
-7. **Suomalainen NATO-yhtiö** — Luotettava alkuperä puolustusekosysteemissä
+2. **Todistettu liiketoiminta** — Logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; tulorahoituksella toimiva yhtiö (MRR €10K, 100% retentio)
+3. **EU-suvereeni suunnittelultaan** — Suomalainen hosting (europe-north1), ei CLOUD Act -altistumista
+4. **Ainoa dual-compliance-alusta** — Puolustus + ilmasto yhdestä järjestelmästä
+5. **Lifetime Fleet IoT** — Mobiilisensorit ja reunalaskenta kentälle (NVIDIA Jetson + Acer Veriton GN100)
+6. **ICEYE-naapuri** — Espoo-Espoo yhteistyö SAR-tiedustelussa
+7. **KYA — Know Your Agent** — Ainoa agenttihallintamalli markkinoilla (sub-5ms kill-switch)
+8. **4 teknologiakumppania** — NVIDIA, Acer, Siemens, ABB
+9. **Suomalainen NATO-yhtiö** — Luotettava alkuperä puolustusekosysteemissä
 
 ---
 
@@ -241,7 +298,7 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 | **Y-tunnus** | 0772407-9 |
 | **CEO** | Risto Anton Päärni |
 | **Sähköposti** | risto.paarni@lifetime.fi |
-| **Puhelin** | *lisää* |
+| **Puhelin** | 0400319010 |
 | **Osoite** | Laidunmaanraitti 2 A 25, 02330 Espoo |
 | **Tuotesivu** | https://dws10.com |
 
