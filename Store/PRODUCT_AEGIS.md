@@ -30,7 +30,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 | Agent | Capability | Domain |
 |-------|-----------|--------|
-| ArgusAgent | AI orbital target labeling via ICEYE SAR satellite | Intelligence, supply chain visibility |
+| ArgusAgent | AI orbital target labeling via SAR satellite data | Intelligence, supply chain visibility |
 | SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification | Data sovereignty |
 | Article12Logger | EU AI Act audit trails for all AI decisions | Regulatory compliance |
 | KYA Engine | Know Your Agent — identity verification, isolation, kill authority | Agent governance |
@@ -40,11 +40,11 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 ## Core Capabilities
 
 ### Orbital Intelligence (Argus)
-- ICEYE SAR satellite integration (world's largest SAR constellation, Espoo-based)
+- SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)
 - All-weather, day/night industrial target detection
 - 20 DWS industry classifications from orbit
 - Change detection alerts for infrastructure monitoring
-- Pipeline: AOI → ICEYE Catalog API → AI labeling → KYA governance → Article 12 audit trail
+- Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail
 
 ### Sovereignty Assessment
 - CLOUD Act exposure scoring (US vs. EU-sovereign providers)
@@ -92,7 +92,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | C3.ai Defence | Dashboard platform, not agent outcomes. US-hosted. |
 | Big 4 defence consulting | Advisory only. No autonomous agents. No orbital intelligence. |
 
-**Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), ICEYE orbital integration (Helsinki neighbor), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
+**Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
 
 ## Scope Principle
 
@@ -126,7 +126,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 | Tier | Price | Included |
 |------|-------|----------|
 | **Aegis Platform** | €59,990 one-time + €599/mo | All 6 agents, 20 industries, EU sovereign deployment, Article 12 logging, KYA governance |
-| **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, ICEYE AOI budget, private cloud deployment |
+| **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment |
 | **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
 
 Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
@@ -135,7 +135,7 @@ Aegis is a standalone product — not part of the Captain investor programme. So
 
 | Partner | Integration | Status |
 |---------|------------|--------|
-| ICEYE | SAR satellite data for Argus agent | Active (Espoo neighbour) |
+| ICEYE | SAR satellite data compatibility for Argus agent | Target integration (Espoo-based) |
 | Shufti | Agent identity verification for KYA | Partnership pending |
 | NVIDIA | Jetson Orin Nano edge deployment | ISV Partner (confirmed) |
 | VTT | Research collaboration, DIANA programme | Ecosystem partner |
