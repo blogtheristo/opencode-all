@@ -10,34 +10,37 @@
  */
 
 import nodemailer from 'nodemailer';
-import { appendFileSync, mkdirSync } from 'fs';
+import { mkdir, appendFile } from 'fs/promises';
 import { join } from 'path';
 
 // ============================================================================
 // EMAIL AUDIT LOGGER — Local JSONL log of every outbound email
 // Catches shadow sends by rogue agents. No body content (privacy).
+// Async I/O to avoid blocking the event loop under bursty volume.
 // ============================================================================
 
-function auditLogEmail(entry: {
+const auditLogPath = join(process.cwd(), 'logs', 'email-audit.jsonl');
+let logDirReady = false;
+
+async function auditLogEmail(entry: {
   from: string;
   to: string;
   subject: string;
   transport: string;
   contentLength: number;
   callerStack: string;
-}): void {
+}): Promise<void> {
   try {
-    const logsDir = join(process.cwd(), 'logs');
-    mkdirSync(logsDir, { recursive: true });
+    if (!logDirReady) {
+      await mkdir(join(process.cwd(), 'logs'), { recursive: true });
+      logDirReady = true;
+    }
     const record = {
       timestamp: new Date().toISOString(),
       pid: process.pid,
       ...entry,
     };
-    appendFileSync(
-      join(logsDir, 'email-audit.jsonl'),
-      JSON.stringify(record) + '\n'
-    );
+    await appendFile(auditLogPath, JSON.stringify(record) + '\n');
   } catch {
     // Audit logging must never break email delivery
   }
@@ -91,7 +94,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<{ ok: boolea
       replyTo: replyTo ?? undefined,
       headers: headers as Record<string, string> | undefined,
     });
-    auditLogEmail({ from, to, subject, transport: 'ses-smtp', contentLength, callerStack });
+    await auditLogEmail({ from, to, subject, transport: 'ses-smtp', contentLength, callerStack });
     return { ok: true, transport: 'ses-smtp' };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
