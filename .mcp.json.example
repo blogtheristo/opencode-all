@@ -1,80 +1,15 @@
 {
   "mcpServers": {
     "GitHub Official": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ],
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_personal_access_token_here"
       }
     },
-    "Docker Hub": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "HUB_PAT_TOKEN",
-        "mcp/dockerhub",
-        "--transport=stdio",
-        "--username=your-dockerhub-username"
-      ],
-      "env": {
-        "HUB_PAT_TOKEN": "your_docker_hub_pat_here"
-      }
-    },
-    "Cloud Run": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GOOGLE_APPLICATION_CREDENTIALS",
-        "-v",
-        "C:/Users/you/.config/gcloud:/gcloud",
-        "mcp/cloud-run-mcp"
-      ],
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "/gcloud/application_default_credentials.json"
-      }
-    },
-    "Upstash Redis": {
+    "Supabase Official": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic/redis-mcp@latest"
-      ],
-      "env": {
-        "REDIS_URL": "redis://user:password@host:port"
-      }
-    },
-    "MCP Hub": {
-      "_type": "coordination-hub",
-      "_port": 8765,
-      "_endpoints": {
-        "hub": "http://localhost:8765"
-      }
-    },
-    "Supabase Official (Docker)": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "SUPABASE_ACCESS_TOKEN",
-        "-e",
-        "SUPABASE_PROJECT_REF",
-        "dws6-supabase-official-mcp:latest"
-      ],
+      "args": ["-y", "@anthropic/supabase-mcp@latest"],
       "env": {
         "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
         "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"

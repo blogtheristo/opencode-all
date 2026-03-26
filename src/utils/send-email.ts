@@ -12,6 +12,38 @@
  */
 
 import nodemailer from 'nodemailer';
+import { appendFileSync, mkdirSync } from 'fs';
+import { join } from 'path';
+
+// ============================================================================
+// EMAIL AUDIT LOGGER — Local JSONL log of every outbound email
+// Catches shadow sends by rogue agents. No body content (privacy).
+// ============================================================================
+
+function auditLogEmail(entry: {
+  from: string;
+  to: string;
+  subject: string;
+  transport: string;
+  contentLength: number;
+  callerStack: string;
+}): void {
+  try {
+    const logsDir = join(process.cwd(), 'logs');
+    mkdirSync(logsDir, { recursive: true });
+    const record = {
+      timestamp: new Date().toISOString(),
+      pid: process.pid,
+      ...entry,
+    };
+    appendFileSync(
+      join(logsDir, 'email-audit.jsonl'),
+      JSON.stringify(record) + '\n'
+    );
+  } catch {
+    // Audit logging must never break email delivery
+  }
+}
 
 function createSmtpTransport(): nodemailer.Transporter | null {
   const host = process.env.SMTP_HOST;
@@ -43,6 +75,8 @@ export interface SendEmailOptions {
 
 export async function sendEmail(options: SendEmailOptions): Promise<{ ok: boolean; transport?: string; error?: string }> {
   const { from, to, subject, html, text, replyTo, headers } = options;
+  const callerStack = new Error().stack?.split('\n').slice(2, 5).join(' <- ') || 'unknown';
+  const contentLength = (html?.length || 0) + (text?.length || 0);
 
   // 1. Try SMTP (Amazon SES)
   const smtp = createSmtpTransport();
@@ -57,6 +91,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<{ ok: boolea
         replyTo: replyTo ?? undefined,
         headers: headers as Record<string, string> | undefined,
       });
+      auditLogEmail({ from, to, subject, transport: 'smtp', contentLength, callerStack });
       return { ok: true, transport: 'smtp' };
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -87,7 +122,10 @@ export async function sendEmail(options: SendEmailOptions): Promise<{ ok: boolea
         },
         body: JSON.stringify(resBody),
       });
-      if (response.ok) return { ok: true, transport: 'resend' };
+      if (response.ok) {
+        auditLogEmail({ from, to, subject, transport: 'resend', contentLength, callerStack });
+        return { ok: true, transport: 'resend' };
+      }
       const errBody = await response.text();
       return { ok: false, error: `Resend ${response.status}: ${errBody}` };
     } catch (err) {
