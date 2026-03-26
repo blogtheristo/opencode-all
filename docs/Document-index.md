@@ -426,12 +426,15 @@ Other important documentation.
 | NVIDIA Inception | `/docs/NVIDIA_INCEPTION_IMPROVEMENTS.md` | ACTIVE | NVIDIA program |
 | Create PR Instructions | `/CREATE_PR_INSTRUCTIONS.md` | ACTIVE | PR workflow |
 | Ollama (Cloud & Local) | `/docs/Ollama.md` | ACTIVE | Ollama cloud (NVIDIA B300), local edge, OpenClaw integration |
+| DEFINE Application Guide | `/docs/DEFINE_APPLICATION_GUIDE.md` | ACTIVE | DEFINE Accelerator & Defence Tech Hub guide |
+| DEFINE Fundraising Study Note | `/docs/DEFINE_FUNDRAISING_STUDY_NOTE.md` | ACTIVE | DEFINE as fundraising catalyst, investor pipeline |
+| Defence Startup Fund Application | `/docs/DEFENCE_STARTUP_FUND_APPLICATION.md` | ACTIVE | Defence Startup Fund hakemus (€20K + €20K matching), Lifetime Oy |
 
 ---
 
 ## Document Statistics
 
-**Last Updated:** 11.03.2026
+**Last Updated:** 26.03.2026
 
 | Metric | Value |
 |--------|-------|
