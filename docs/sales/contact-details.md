@@ -21,3 +21,15 @@
 - **LinkedIn:** https://fi.linkedin.com/in/ristoanton/fi
 - **X:** https://x.com/blogtheristo
 - **Public email:** risto@onelifetime.world *(for newsletters and public press releases)*
+
+---
+
+## Business Cards — External Contacts
+
+### ArcticStartup Media Oy
+
+**Event & Media — Arctic 15 organizer (V1 launch event June 15, 2026)**
+
+- **Address:** Lapinlahdenkatu 16, Helsinki, 00180, Finland
+- **Email:** hello@arcticstartup.com
+- **Website:** https://arcticstartup.com
