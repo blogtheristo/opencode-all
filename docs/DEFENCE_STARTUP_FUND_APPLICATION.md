@@ -266,7 +266,7 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 
 | Kumppani | Integraatio | Status |
 |---------|-------------|--------|
-| **ICEYE** (Espoo) | SAR-satelliittidata Argus-agentille | Ekosysteemikumppani (integraatio kehitysvaiheessa) |
+| **ICEYE** (Espoo) | SAR-satelliittidata Argus-agentille | DEFINE-ekosysteemin perustajajäsen; integraatio suunniteltu DEFINE-ohjelman kautta |
 | **NVIDIA** | Jetson Orin Nano + Grace Blackwell edge-AI, Lifetime Fleet IoT | ISV-kumppani (vahvistettu) |
 | **Acer** | Veriton GN100 edge-palvelin (120GB RAM, NVIDIA GB10) | Laitteistokumppani |
 | **Siemens** | Xcelerator PLC -telemetria, reaaliaikainen teollisuusdata | Datakumppani |
