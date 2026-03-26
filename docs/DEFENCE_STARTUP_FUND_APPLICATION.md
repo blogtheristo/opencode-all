@@ -52,7 +52,7 @@ Lifetime Oy hakee Defence Startup Fundin **20 000 euron avustusta** (matching-ma
 
 Lifetime Oy toimii **tulorahoituksella**. Nykyisiä logistiikka-asiakkaitamme ovat **Kela, Uber, Bolt ja Taksi Helsinki** (MRR €7K, 100% retentio, 17 vuoden operaattorisuhteet). Dual-use-alustamme rakentuu tälle vahvalle logistiikkaosaamiselle.
 
-DEFINE on EU-osarahoitteinen hanke (EAKR/InvestEU), ja Lifetime Oy:n osallistuminen tukee suoraan InvestEU:n puolustus- ja turvallisuusinnovaatioikkunan tavoitteita.
+DWS IQ on InvestEU-portaaliin julkaistu hanke (INPO-20254383, jätetty 25.12.2025 — Euroopan komissio).
 
 Yhtäkään muuta eurooppalaista alustaa ei ole suunniteltu palvelemaan puolustusalan toimitusketjujen kaksoisvaatimuksia: sekä puolustusalan sääntely (kaksoiskäyttöasetus 2021/821) että ilmastosääntely (CSRD, CBAM, ETS) samasta järjestelmästä.
 
