@@ -205,11 +205,12 @@ function formatCell(value: unknown): string {
   return String(value).slice(0, 60);
 }
 
-function error(msg: string): never {
+function error(msg: string, hint?: string): never {
   if (process.stderr.isTTY) {
     console.error(`\x1b[31m✗ ${msg}\x1b[0m`);
+    if (hint) console.error(`  ${hint}`);
   } else {
-    console.error(`error: ${msg}`);
+    console.error(JSON.stringify({ error: msg, ...(hint ? { hint } : {}) }));
   }
   process.exit(1);
 }
@@ -241,50 +242,81 @@ async function cmdAgent(name: string): Promise<void> {
   output(result);
 }
 
-async function cmdRun(name: string, inputJson: string, useStdin: boolean, useFirst: boolean): Promise<void> {
+async function cmdRun(name: string, inputJson: string, useStdin: boolean, useFirst: boolean, dryRun: boolean): Promise<void> {
   let agentName = name;
   let input: Record<string, unknown>;
 
   if (useFirst) {
     // --first: read agent list from stdin, pick the first one
     const stdinData = await readStdin();
-    if (!stdinData) error('--first requires piped input (e.g., dws discover carbon | dws run --first)');
+    if (!stdinData) error(
+      '--first requires piped input',
+      'dws discover carbon | dws run --first --input \'{"query":"scope 1"}\'',
+    );
     try {
       const parsed = JSON.parse(stdinData);
       const agents = Array.isArray(parsed) ? parsed : parsed.agents || [];
-      if (agents.length === 0) error('--first: no agents found in input');
+      if (agents.length === 0) error('No agents found in piped input', 'dws discover <capability> | dws run --first');
       agentName = agents[0].name || agents[0];
-      if (typeof agentName !== 'string') error('--first: could not extract agent name from input');
+      if (typeof agentName !== 'string') error('Could not extract agent name from input');
     } catch (e) {
-      if (e instanceof Error && e.message.startsWith('--first')) throw e;
-      error(`--first: invalid JSON on stdin`);
+      if (e instanceof Error && (e.message.includes('requires piped') || e.message.includes('No agents'))) throw e;
+      error('Invalid JSON on stdin', 'Pipe valid JSON: dws discover carbon | dws run --first');
     }
     // Parse --input if provided alongside --first
     if (inputJson) {
       try {
         input = JSON.parse(inputJson);
       } catch {
-        error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`);
+        error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
       }
     } else {
       input = {};
     }
   } else if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error('--stdin specified but no data on stdin');
+    if (!stdinData) error('--stdin specified but no data on stdin', 'echo \'{"industry":"steel"}\' | dws run compliance --stdin');
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`);
+      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`, 'Pipe valid JSON: echo \'{"key":"value"}\' | dws run <agent> --stdin');
     }
   } else if (inputJson) {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`);
+      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
     }
   } else {
     input = {};
+  }
+
+  if (dryRun) {
+    const preview = {
+      dryRun: true,
+      action: 'agent.execute',
+      agent: agentName,
+      endpoint: `POST ${API_URL}/api/agents/${encodeURIComponent(agentName)}/execute`,
+      payload: { context: { projectId: PROJECT_ID, sessionId: SESSION_ID }, input },
+      note: 'No changes made. Remove --dry-run to execute.',
+    };
+    output(preview, (d) => {
+      const p = d as typeof preview;
+      return [
+        '',
+        fmt.bold('  Dry Run — Agent Execution Preview'),
+        '',
+        `  Agent      ${fmt.cyan(p.agent)}`,
+        `  Endpoint   POST /api/agents/${encodeURIComponent(p.agent)}/execute`,
+        `  Project    ${PROJECT_ID}`,
+        `  Session    ${SESSION_ID}`,
+        `  Input      ${JSON.stringify(input)}`,
+        '',
+        fmt.dim('  No changes made. Remove --dry-run to execute.'),
+        '',
+      ].join('\n');
+    });
+    return;
   }
 
   info(`Running agent: ${agentName}...`);
@@ -305,25 +337,53 @@ async function cmdWorkflows(): Promise<void> {
   output(result);
 }
 
-async function cmdWorkflow(name: string, inputJson: string, useStdin: boolean): Promise<void> {
+async function cmdWorkflow(name: string, inputJson: string, useStdin: boolean, dryRun: boolean): Promise<void> {
   let input: Record<string, unknown>;
 
   if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error('--stdin specified but no data on stdin');
+    if (!stdinData) error('--stdin specified but no data on stdin', 'echo \'{"key":"value"}\' | dws workflow <name> --stdin');
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error(`Invalid JSON on stdin`);
+      error('Invalid JSON on stdin', 'Pipe valid JSON: echo \'{"key":"value"}\' | dws workflow <name> --stdin');
     }
   } else if (inputJson) {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      error(`Invalid JSON in --input`);
+      error('Invalid JSON in --input', 'Use valid JSON: --input \'{"key":"value"}\'');
     }
   } else {
     input = {};
+  }
+
+  if (dryRun) {
+    const preview = {
+      dryRun: true,
+      action: 'workflow.trigger',
+      workflow: name,
+      endpoint: `POST ${API_URL}/api/agents/workflow/${encodeURIComponent(name)}`,
+      payload: { context: { projectId: PROJECT_ID, sessionId: SESSION_ID }, input },
+      note: 'No changes made. Remove --dry-run to execute.',
+    };
+    output(preview, (d) => {
+      const p = d as typeof preview;
+      return [
+        '',
+        fmt.bold('  Dry Run — Workflow Trigger Preview'),
+        '',
+        `  Workflow   ${fmt.cyan(p.workflow)}`,
+        `  Endpoint   POST /api/agents/workflow/${encodeURIComponent(p.workflow)}`,
+        `  Project    ${PROJECT_ID}`,
+        `  Session    ${SESSION_ID}`,
+        `  Input      ${JSON.stringify(input)}`,
+        '',
+        fmt.dim('  No changes made. Remove --dry-run to execute.'),
+        '',
+      ].join('\n');
+    });
+    return;
   }
 
   info(`Running workflow: ${name}...`);
@@ -470,17 +530,16 @@ async function cmdStatus(): Promise<void> {
 }
 
 async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
-  const s = spinner(`Running ${name}...`);
-
   let input: Record<string, unknown> = {};
   if (inputJson) {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      s.stop();
-      error(`Invalid JSON in --input`);
+      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
     }
   }
+
+  const s = spinner(`Running ${name}...`);
 
   try {
     const result = await api(`/api/agents/${name}/execute`, 'POST', {
@@ -528,17 +587,23 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
 
   if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error('--stdin specified but no data on stdin');
+    if (!stdinData) error(
+      '--stdin specified but no data on stdin',
+      'echo \'{"provider":"supabase-eu","region":"europe-north1"}\' | dws sovereignty-assess --stdin',
+    );
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`);
+      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`, 'Pipe valid JSON with provider and region fields');
     }
   } else if (inputJson) {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`);
+      error(
+        `Invalid JSON in --input: ${inputJson.slice(0, 100)}`,
+        'dws sovereignty-assess --input \'{"provider":"supabase-eu","region":"europe-north1","rlsEnabled":true}\'',
+      );
     }
   } else {
     input = {};
@@ -713,17 +778,51 @@ async function cmdQuickstart(): Promise<void> {
 
 // ============ KYA COMMANDS ============
 
-async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boolean): Promise<void> {
-  console.error(`⚠️  Initiating Leash Snap for session: ${sessionId}`);
+async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boolean, dryRun: boolean, skipConfirm: boolean): Promise<void> {
+  const payload = { sessionId, reason, forceCascade, source: 'cli' };
+
+  if (dryRun) {
+    const preview = {
+      dryRun: true,
+      action: 'kya.snap',
+      endpoint: `POST ${API_URL}/api/v1/kya/snap`,
+      payload,
+      note: 'No changes made. Remove --dry-run to execute.',
+    };
+    output(preview, () => [
+      '',
+      fmt.bold('  Dry Run — Leash Snap Preview'),
+      '',
+      `  Session      ${fmt.cyan(sessionId)}`,
+      `  Reason       ${reason}`,
+      `  Cascade      ${forceCascade ? fmt.red('YES') : 'no'}`,
+      `  Endpoint     POST /api/v1/kya/snap`,
+      '',
+      fmt.dim('  No agents terminated. Remove --dry-run to execute.'),
+      '',
+    ].join('\n'));
+    return;
+  }
+
+  // Confirmation gate for destructive action
+  if (!skipConfirm && process.stdin.isTTY) {
+    const readline = await import('readline');
+    const rl = readline.createInterface({ input: process.stdin, output: process.stderr });
+    const answer = await new Promise<string>(resolve => rl.question(
+      `${fmt.yellow('⚠')} Terminate agents in session ${sessionId}? [y/N] `, resolve,
+    ));
+    rl.close();
+    if (answer.toLowerCase() !== 'y' && answer.toLowerCase() !== 'yes') {
+      console.error('Aborted.');
+      process.exit(0);
+    }
+  }
+
+  console.error(`Initiating Leash Snap for session: ${sessionId}`);
   const s = spinner('Executing TC-4 Chain Termination...');
 
   try {
-    const result = await api('/api/v1/kya/snap', 'POST', {
-      sessionId,
-      reason,
-      forceCascade,
-      source: 'cli-simulation',
-    });
+    const result = await api('/api/v1/kya/snap', 'POST', payload);
     s.stop();
 
     const r = result as {
@@ -742,7 +841,7 @@ async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boole
       console.log(`  Reason:      ${r.reason}`);
       console.log(`  Terminated:  ${fmt.red(String(r.agentsTerminated))} agent(s)`);
       console.log(`  Duration:    ${fmt.green(r.durationMs + 'ms')}`);
-      console.log(`  Source:      ${fmt.dim('DWS CLI (Simulation)')}`);
+      console.log(`  Source:      ${fmt.dim('DWS CLI')}`);
       console.log('');
     }
   } catch (err) {
@@ -754,6 +853,209 @@ async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boole
 async function cmdKyaStatus(sessionId: string): Promise<void> {
   const result = await api(`/api/v1/kya/status/${encodeURIComponent(sessionId)}`);
   output(result);
+}
+
+// ============ SUBCOMMAND HELP ============
+
+const SUBCOMMAND_HELP: Record<string, string> = {
+  agents: `dws agents — List all registered agents
+
+Options:
+  --json      Force JSON output
+  --quiet     Suppress info messages
+
+Examples:
+  dws agents
+  dws agents --json
+  dws agents | jq '.[].name'`,
+
+  agent: `dws agent <name> — Get details for a specific agent
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws agent compliance
+  dws agent sitesense --json
+  dws agent material-oracle`,
+
+  run: `dws run <agent> — Execute an agent
+
+Options:
+  --input '{...}'   JSON input payload
+  --stdin           Read JSON input from stdin
+  --first           Pick first agent from piped discover output
+  --dry-run         Preview what would be sent without executing
+  --json            Force JSON output
+
+Examples:
+  dws run compliance --input '{"industry":"steel","regulations":["ets","cbam"]}'
+  dws run sitesense --input '{"temperature":28,"humidity":75,"windSpeed":15}'
+  echo '{"industry":"steel"}' | dws run compliance --stdin
+  dws discover carbon | dws run --first --input '{"query":"scope 1"}'
+  dws run compliance --input '{"industry":"cement"}' --dry-run`,
+
+  discover: `dws discover <capability> — Find agents by capability tag
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws discover compliance
+  dws discover carbon
+  dws discover safety
+  dws discover compliance | jq '.[0].name'`,
+
+  workflows: `dws workflows — List available multi-agent workflows
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws workflows
+  dws workflows --json
+  dws workflows | jq '.[].name'`,
+
+  workflow: `dws workflow <name> — Trigger a multi-agent workflow
+
+Options:
+  --input '{...}'   JSON input payload
+  --stdin           Read JSON input from stdin
+  --dry-run         Preview what would be sent without executing
+  --json            Force JSON output
+
+Examples:
+  dws workflow compliance-assessment --input '{"industry":"steel"}'
+  dws workflow construction-full --input '{"siteId":"site-1"}'
+  echo '{"domain":"mysite.eu"}' | dws workflow seo-pipeline --stdin
+  dws workflow compliance-assessment --input '{"industry":"cement"}' --dry-run`,
+
+  events: `dws events — Show recent agent events
+
+Options:
+  --pattern <p>   Filter events by pattern (glob)
+  --limit <N>     Maximum number of events to return
+  --json          Force JSON output
+
+Examples:
+  dws events
+  dws events --pattern "compliance.*"
+  dws events --pattern "agent.*" --limit 10
+  watch -n 5 'dws events --limit 5 --json'`,
+
+  health: `dws health — Check backend and MCP health
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws health
+  dws health --json
+  dws health --json | jq '.backend.status'`,
+
+  status: `dws status — Platform overview with health, agents, usage
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws status
+  dws status --json`,
+
+  config: `dws config — Show current CLI configuration
+
+Examples:
+  dws config
+  dws config --json`,
+
+  init: `dws init — Interactive setup wizard (or use flags for non-interactive)
+
+Options:
+  --url <url>       API URL (default: http://localhost:8080)
+  --token <jwt>     API token
+  --project <id>    Default project ID
+
+Examples:
+  dws init
+  dws init --url http://api.dws.eu --token eyJ... --project my-project
+  dws init > .env`,
+
+  scenario: `dws scenario [name] — Run preconfigured usage scenarios
+
+Available scenarios: quickstart, construction, manufacturing, logistics, energy, sovereignty
+
+Options:
+  --json      Force JSON output
+
+Examples:
+  dws scenario
+  dws scenario construction
+  dws scenario quickstart --json
+  dws scenario manufacturing | jq '.commands[0].cmd'`,
+
+  quickstart: `dws quickstart — First-time setup & connection check
+
+Examples:
+  dws quickstart`,
+
+  kya: `dws kya <subcommand> — Know Your Agent safety controls
+
+Subcommands:
+  snap <session_id>    Trigger a Leash Snap (TC-4 termination)
+  status <session_id>  Check KYA trust score for a session
+
+Options (snap):
+  --reason <code>       Reason code (default: MANUAL_SNAP)
+  --force-cascade       Cascade termination to child agents
+  --yes                 Skip confirmation prompt
+  --dry-run             Preview termination without executing
+
+Examples:
+  dws kya status session-abc123
+  dws kya snap session-abc123 --reason TRUST_VIOLATION
+  dws kya snap session-abc123 --force-cascade --yes
+  dws kya snap session-abc123 --dry-run`,
+
+  'sovereignty-assess': `dws sovereignty-assess — Scan database for EU sovereignty compliance
+
+Options:
+  --input '{...}'   JSON config payload
+  --stdin           Read JSON config from stdin
+  --json            Force JSON output
+
+Examples:
+  dws sovereignty-assess --input '{"provider":"supabase-eu","region":"europe-north1","rlsEnabled":true}'
+  dws sovereignty-assess --input '{"provider":"aws","region":"eu-west-1"}'
+  echo '{"provider":"hetzner","region":"helsinki"}' | dws sovereignty-assess --stdin`,
+
+  mcp: `dws mcp <subcommand> — Model Context Protocol operations
+
+Subcommands:
+  tools                List available MCP tools
+  call <tool> --args   Call an MCP tool directly
+
+Options (call):
+  --args '{...}'      JSON arguments for the tool
+
+Examples:
+  dws mcp tools
+  dws mcp tools --json
+  dws mcp call compliance-check --args '{"industry":"steel"}'`,
+
+  version: `dws version — Show CLI version info
+
+Examples:
+  dws version
+  dws version --json`,
+};
+
+function showSubcommandHelp(command: string): boolean {
+  const help = SUBCOMMAND_HELP[command];
+  if (help) {
+    console.log(help);
+    return true;
+  }
+  return false;
 }
 
 // ============ HELP ============
@@ -877,7 +1179,7 @@ function parseArgs(argv: string[]): {
     if (arg.startsWith('--')) {
       const key = arg.slice(2);
       // Boolean flags
-      if (key === 'stdin' || key === 'help' || key === 'quiet' || key === 'version' || key === 'json' || key === 'first' || key === 'force-cascade') {
+      if (key === 'stdin' || key === 'help' || key === 'quiet' || key === 'version' || key === 'json' || key === 'first' || key === 'force-cascade' || key === 'dry-run' || key === 'yes' || key === 'force') {
         flags[key] = 'true';
       } else {
         i++;
@@ -916,10 +1218,23 @@ async function main(): Promise<void> {
     return;
   }
 
-  if (flags.help || command === 'help' || command === '--help' || command === '-h') {
+  // Subcommand --help: dws <command> --help
+  if (flags.help === 'true' && command !== 'help') {
+    if (!showSubcommandHelp(command)) {
+      console.log(HELP);
+    }
+    return;
+  }
+
+  if (command === 'help' || command === '--help' || command === '-h') {
+    // dws help <command> → show subcommand help
+    if (subcommand && showSubcommandHelp(subcommand)) return;
     console.log(HELP);
     return;
   }
+
+  const dryRun = flags['dry-run'] === 'true';
+  const skipConfirm = flags.yes === 'true' || flags.force === 'true';
 
   try {
     switch (command) {
@@ -936,23 +1251,34 @@ async function main(): Promise<void> {
         break;
 
       case 'agent':
-        if (!subcommand) error('Usage: dws agent <name>');
+        if (!subcommand) error(
+          'No agent name specified.',
+          'dws agent <name>\n  Available: dws agents',
+        );
         await cmdAgent(subcommand);
         break;
 
       case 'run':
-        if (!subcommand && flags.first !== 'true') error('Usage: dws run <agent-name> --input \'{...}\' or --stdin or --first');
+        if (!subcommand && flags.first !== 'true') error(
+          'No agent name specified.',
+          'dws run <agent> --input \'{"key":"value"}\'\n  dws run <agent> --stdin\n  dws discover <capability> | dws run --first\n  Available agents: dws agents',
+        );
         if (flags.first === 'true') {
-          await cmdRun(subcommand || '', flags.input || '', flags.stdin === 'true', true);
+          await cmdRun(subcommand || '', flags.input || '', flags.stdin === 'true', true, dryRun);
         } else if (flags.stdin === 'true') {
-          await cmdRun(subcommand || '', '', true, false);
+          await cmdRun(subcommand || '', '', true, false, dryRun);
+        } else if (dryRun) {
+          await cmdRun(subcommand || '', flags.input || '', false, false, true);
         } else {
           await cmdQuickRun(subcommand || '', flags.input || '');
         }
         break;
 
       case 'discover':
-        if (!subcommand) error('Usage: dws discover <capability>');
+        if (!subcommand) error(
+          'No capability specified.',
+          'dws discover <capability>\n  Examples: dws discover compliance | dws discover carbon | dws discover safety',
+        );
         await cmdDiscover(subcommand);
         break;
 
@@ -961,8 +1287,11 @@ async function main(): Promise<void> {
         break;
 
       case 'workflow':
-        if (!subcommand) error('Usage: dws workflow <name> --input \'{...}\'');
-        await cmdWorkflow(subcommand, flags.input || '', flags.stdin === 'true');
+        if (!subcommand) error(
+          'No workflow name specified.',
+          'dws workflow <name> --input \'{"key":"value"}\'\n  Available: dws workflows',
+        );
+        await cmdWorkflow(subcommand, flags.input || '', flags.stdin === 'true', dryRun);
         break;
 
       case 'events':
@@ -988,16 +1317,25 @@ async function main(): Promise<void> {
       case 'kya':
         if (subcommand === 'snap') {
           const kyaSessionId = positional[1];
-          if (!kyaSessionId) error('Usage: dws kya snap <session_id> --reason <code>');
+          if (!kyaSessionId) error(
+            'No session ID specified.',
+            'dws kya snap <session_id> --reason <code>\n  dws kya snap session-abc --reason TRUST_VIOLATION --yes',
+          );
           const kyaReason = flags.reason || 'MANUAL_SNAP';
           const forceCascade = flags['force-cascade'] === 'true';
-          await cmdKyaSnap(kyaSessionId, kyaReason, forceCascade);
+          await cmdKyaSnap(kyaSessionId, kyaReason, forceCascade, dryRun, skipConfirm);
         } else if (subcommand === 'status') {
           const kyaStatusId = positional[1];
-          if (!kyaStatusId) error('Usage: dws kya status <session_id>');
+          if (!kyaStatusId) error(
+            'No session ID specified.',
+            'dws kya status <session_id>',
+          );
           await cmdKyaStatus(kyaStatusId);
         } else {
-          error('Usage: dws kya [snap <session_id> --reason <code> | status <session_id>]');
+          error(
+            'Unknown kya subcommand.',
+            'dws kya snap <session_id> --reason <code>\n  dws kya status <session_id>',
+          );
         }
         break;
 
@@ -1010,28 +1348,33 @@ async function main(): Promise<void> {
           await cmdMcpTools();
         } else if (subcommand === 'call') {
           const toolName = positional[1];
-          if (!toolName) error('Usage: dws mcp call <tool-name> --args \'{...}\'');
+          if (!toolName) error(
+            'No tool name specified.',
+            'dws mcp call <tool-name> --args \'{"key":"value"}\'\n  Available tools: dws mcp tools',
+          );
           await cmdMcpCall(toolName, flags.args || '');
         } else {
-          error('Usage: dws mcp [tools|call <tool> --args \'{...}\']');
+          error(
+            'Unknown mcp subcommand.',
+            'dws mcp tools\n  dws mcp call <tool> --args \'{"key":"value"}\'',
+          );
         }
         break;
 
-      default:
-        console.error(`dws: unknown command '${command}'\n`);
-        console.error('Did you mean one of these?');
-        // Simple fuzzy suggestion
-        const commands = ['agents', 'agent', 'run', 'discover', 'workflows', 'workflow', 'events', 'health', 'status', 'config', 'mcp', 'version', 'help'];
-        const suggestions = commands
+      default: {
+        const allCommands = [
+          'agents', 'agent', 'run', 'discover', 'workflows', 'workflow',
+          'events', 'health', 'status', 'config', 'mcp', 'kya',
+          'scenario', 'quickstart', 'init', 'sovereignty-assess', 'version', 'help',
+        ];
+        const suggestions = allCommands
           .filter((c) => c.startsWith(command[0]) || levenshtein(command, c) <= 3)
           .slice(0, 3);
-        if (suggestions.length > 0) {
-          for (const s of suggestions) {
-            console.error(`    dws ${s}`);
-          }
-        }
-        console.error(`\nRun 'dws help' for full usage.`);
-        process.exit(1);
+        const hint = suggestions.length > 0
+          ? suggestions.map(s => `dws ${s}`).join('\n  ') + '\n  Run \'dws help\' for full usage.'
+          : 'Run \'dws help\' for full usage.';
+        error(`Unknown command '${command}'.`, hint);
+      }
     }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);

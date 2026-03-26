@@ -139,23 +139,28 @@ Current CLI: `cli/src/cli.ts` (v1.1.0, zero dependencies)
 |---|---------|---------------|-------|
 | 1 | Non-interactive | PASS | All commands use flags, `dws init` is the only interactive command (acceptable as setup wizard) |
 | 2 | Progressive help | PASS | `dws` shows subcommands, `dws <cmd> --help` shows details |
-| 3 | --help with examples | PARTIAL | Main help has examples, subcommand help could add more examples |
+| 3 | --help with examples | PASS | Every subcommand has `--help` with examples (v1.2.0) |
 | 4 | Flags + stdin | PASS | Supports `--stdin`, `--input`, piping between commands |
-| 5 | Actionable errors | PARTIAL | Errors exist but could include "correct invocation" hints more consistently |
+| 5 | Actionable errors | PASS | All errors include correct invocation hints (v1.2.0) |
 | 6 | Idempotent commands | PASS | Read-only commands are naturally idempotent; `run` commands are stateless |
-| 7 | --dry-run | MISSING | No `--dry-run` flag on destructive operations |
-| 8 | --yes / --force | MISSING | No confirmation bypass flags (few destructive commands exist currently) |
+| 7 | --dry-run | PASS | Added for `run`, `workflow`, `kya snap` (v1.2.0) |
+| 8 | --yes / --force | PASS | Added for `kya snap`; confirmation gate on destructive actions (v1.2.0) |
 | 9 | Predictable structure | PARTIAL | Mix of `dws <resource>` and `dws <verb> <resource>` — e.g., `dws agents` vs `dws run <name>` |
 | 10 | Return data on success | PASS | Commands return structured results with IDs, scores, URLs |
 | 11 | JSON output | PASS | Auto-detects TTY vs pipe; `--json` flag available |
 
-### Action Items
+### Implemented in v1.2.0 (PR this session)
 
-1. **Add examples to every subcommand --help** — Pattern-matchable invocations
-2. **Add actionable error messages** — Show correct invocation when flags are missing
-3. **Add --dry-run** — For `dws run`, `dws workflow`, `dws scenario` commands
-4. **Add --yes flag** — For future destructive commands (deploy, delete)
-5. **Standardize command structure** — Consider `dws agent list` / `dws agent run <name>` pattern
+1. **Per-subcommand --help with examples** — 17 subcommands, each with Options + Examples sections
+2. **Actionable error messages** — Every error includes hint with correct invocation
+3. **--dry-run** — For `dws run`, `dws workflow`, `dws kya snap` — shows preview without executing
+4. **--yes / --force** — Skips confirmation on `dws kya snap`; confirmation gate added for destructive actions
+5. **dws help <command>** — `dws help run` works alongside `dws run --help`
+
+### Remaining (v1.3.0 candidates)
+
+1. **Standardize command structure** — Consider `dws agent list` / `dws agent run <name>` resource+verb pattern
+2. **--dry-run for sovereignty-assess** — Lower priority (read-only assessment)
 
 ### Existing Strengths (Already Aligned)
 
