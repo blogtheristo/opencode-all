@@ -626,11 +626,84 @@ Default deployment. All agent execution, MCP protocol, and Firehorse services ru
 4. Update CLI `DWS_API_URL` to route Firehorse calls to their Cloud Run services
 5. Remove `docker-compose.yml` requirement from developer/customer setup
 
-### Tier 2b: Private Cloud (Customer-Managed Kubernetes)
+### Tier 2b: Private Cloud (Customer-Managed)
 
 For enterprise customers requiring full data sovereignty, air-gapped environments, or regulatory mandates prohibiting shared cloud (defense, critical infrastructure, banking).
 
-**Delivery model:** Lifetime provides Helm charts + container images. Customer deploys on their own Kubernetes cluster.
+**Delivery options ranked by admin skill requirement:**
+
+| Option | Customer needs | Admin skill | Build priority |
+|--------|---------------|-------------|----------------|
+| **Docker Compose bundle** | 1 Linux VM + Docker | Linux + Docker basics | ✅ First (covers 80%) |
+| **VM appliance (OVA/QCOW2)** | VMware/Proxmox/Hyper-V | Import VM, set .env | 📋 Second |
+| **Kamal deploy** | 1 Linux VM + SSH access | Minimal (Lifetime pushes updates) | 📋 Third |
+| **Helm charts (K8s)** | Kubernetes cluster | K8s admin | 📋 Only on customer demand |
+
+#### Option A: Docker Compose Bundle (DEFAULT for private cloud)
+
+Lowest admin overhead. Customer needs one Linux VM with Docker installed.
+
+```
+dws-private-cloud/
+├── docker-compose.yml          # All 6 services + Redis
+├── .env.example                # Customer fills in: DB URL, JWT secret, LLM keys
+├── install.sh                  # Pull images, validate .env, start, health check
+├── update.sh                   # Pull new images, rolling restart, verify health
+├── backup.sh                   # Database + config backup
+├── monitor.sh                  # Service health (cron-friendly, JSON output)
+└── README.md                   # Admin guide (Linux + Docker basics)
+```
+
+```bash
+# Customer install (one-time)
+git clone <private-registry>/dws-private-cloud
+cp .env.example .env            # Fill in secrets
+./install.sh                    # Pulls images, starts services, runs health check
+
+# Customer update (when Lifetime releases new version)
+./update.sh                     # Zero-downtime rolling restart
+
+# Health check (add to cron)
+./monitor.sh                    # Returns JSON: service statuses, latencies
+./monitor.sh --alert            # Exits non-zero if any service unhealthy
+```
+
+**Services in docker-compose.yml:**
+```yaml
+services:
+  dws-backend:        # Port 8080 — Backend + 18+ agents + /mcp
+  mcp-gateway:        # Port 8081 — MCP Gateway
+  firehorse-reports:  # Port 8084 — Report Engine
+  firehorse-auto:     # Port 8085 — Automation
+  firehorse-dms:      # Port 8086 — Content DMS
+  redis:              # Port 6379 — Job queue + caching
+  # Customer provides external PostgreSQL + pgvector
+```
+
+**Requirements:** Ubuntu 22.04+ or RHEL 9+, Docker 24+, 4 CPU / 8GB RAM minimum, PostgreSQL 15+ with pgvector (external).
+
+#### Option B: VM Appliance
+
+Pre-built VM image with everything installed. Customer imports into their hypervisor.
+
+- Format: OVA (VMware), QCOW2 (Proxmox/KVM), VHD (Hyper-V)
+- Contains: Ubuntu + Docker + all DWS services pre-configured
+- Admin sets `.env` values on first boot via `dws setup` wizard
+- Updates via `dws update` command from inside the VM
+- Closest to GDX Spark model but as virtual infrastructure
+
+#### Option C: Kamal Deploy (Lifetime-Managed Push)
+
+Customer provides SSH access to a Linux VM. Lifetime pushes updates remotely using Kamal (from 37signals).
+
+- No Docker knowledge needed on customer side
+- Lifetime runs `kamal deploy` — handles image pull, health check, rollover
+- Customer responsibility: keep VM running, provide SSH key
+- Best for customers who want "managed" but on their own hardware
+
+#### Option D: Helm Charts (K8s — only when demanded)
+
+For customers with existing Kubernetes clusters who explicitly request Helm.
 
 ```
 CUSTOMER KUBERNETES CLUSTER (GKE / EKS / AKS / on-prem K8s)
@@ -643,48 +716,67 @@ CUSTOMER KUBERNETES CLUSTER (GKE / EKS / AKS / on-prem K8s)
   │   ├── statefulset/redis           — Redis (or customer-managed)
   │   └── ingress/dws-api             — TLS termination, JWT validation
   ├── namespace: dws-db
-  │   └── Customer-managed PostgreSQL + pgvector (or Supabase self-hosted)
+  │   └── Customer-managed PostgreSQL + pgvector
   └── namespace: dws-monitoring
       └── Prometheus + Grafana (health, agent execution metrics)
 ```
 
-**Private Cloud deliverables (planned):**
+**Private Cloud deliverables:**
 
 | Artifact | Purpose | Status |
 |----------|---------|--------|
-| `helm/dws-iq/` | Helm chart for full platform | 📋 Planned |
-| `helm/values-private.yaml` | Private cloud defaults (no external deps) | 📋 Planned |
+| `private-cloud/docker-compose.yml` | Docker Compose bundle (default) | 📋 Build first |
+| `private-cloud/install.sh` | One-command install + health check | 📋 Build first |
 | Container images (OCI) | All services as container images | 🔧 Partial (backend + MCP gateway exist) |
-| `scripts/private-cloud-install.sh` | One-command install verification | 📋 Planned |
-| Air-gap bundle | Tarball with all images + charts for offline install | 📋 Planned |
-
-**Private Cloud requirements on customer side:**
-- Kubernetes 1.28+ (GKE, EKS, AKS, OpenShift, or vanilla K8s)
-- PostgreSQL 15+ with pgvector extension
-- TLS certificates (customer-managed or cert-manager)
-- DNS entry for API endpoint
-- Optional: GPU nodes for local LLM inference (otherwise uses customer's LLM API keys)
+| VM appliance (OVA/QCOW2) | Pre-built VM image | 📋 Second priority |
+| `helm/dws-iq/` | Helm chart (only on demand) | 📋 Only when customer demands |
+| Air-gap bundle | Tarball with all images for offline install | 📋 Planned |
 
 **What Lifetime provides vs. customer manages:**
 
 | Responsibility | Lifetime | Customer |
 |----------------|----------|----------|
-| Container images + Helm charts | ✅ | |
+| Container images + install scripts | ✅ | |
 | Agent code + updates | ✅ | |
 | KYA governance engine | ✅ | |
-| Kubernetes cluster | | ✅ |
+| Linux VM / K8s cluster | | ✅ |
 | PostgreSQL database | | ✅ |
 | TLS / networking / DNS | | ✅ |
-| Secrets management | | ✅ |
-| Monitoring + alerting | Template provided | ✅ Operates |
+| Secrets management (.env) | Template provided | ✅ Fills in values |
+| Monitoring + alerting | `monitor.sh` provided | ✅ Integrates to their stack |
 | LLM API keys (Groq/Claude/Gemini) | | ✅ |
 
-**CLI for private cloud:** Same `dws` CLI, different `DWS_API_URL` pointing to customer's ingress:
+**CLI for private cloud:** Same `dws` CLI, different `DWS_API_URL`:
 
 ```bash
 dws config set api-url https://dws-api.customer-internal.com
 dws health   # Verifies connectivity to private deployment
 ```
+
+### Admin Skill Matrix
+
+| Tier | Role | Required Skills | Nice-to-Have |
+|------|------|-----------------|--------------|
+| **Tier 1** (workstation) | End user | Install Node.js, run CLI commands | JSON reading |
+| **Tier 2a** (Cloud Run) | None (Lifetime manages) | — | — |
+| **Tier 2b** (Docker Compose) | IT admin | Linux CLI, Docker basics, `.env` config, cron | Networking, TLS certs |
+| **Tier 2b** (VM appliance) | IT admin | Import VM, set `.env` | Hypervisor basics |
+| **Tier 2b** (Kamal) | Minimal | Provide SSH access, keep VM running | — |
+| **Tier 2b** (Helm/K8s) | Platform engineer | Kubernetes, Helm, networking, secrets mgmt | Prometheus/Grafana |
+| **Tier 3** (GDX Spark) | Site operator | Physical setup, network cable, `dws edge` CLI | Docker for troubleshooting |
+
+### Health Monitoring by Tier
+
+| Tier | How admin sees health | Auto-refresh |
+|------|----------------------|--------------|
+| **Tier 1** | `dws health` CLI output (JSON) | Manual |
+| **Tier 2a** | Dashboard `/health` page (5 service checks, 30s poll) | ✅ 30s |
+| **Tier 2a** | Control Room `/agents` (per-agent CPU/mem/status) | ✅ Real-time |
+| **Tier 2a** | Situation Room `/agents` (executive alerts + metrics) | ✅ Real-time |
+| **Tier 2b** | `./monitor.sh` (JSON, cron-friendly) | Via cron |
+| **Tier 2b** | Dashboard `/health` (same as 2a, pointed at private URL) | ✅ 30s |
+| **Tier 3** | `dws edge status` (planned) | Manual |
+| **Tier 3** | Dashboard `/health` with edge service checks (planned) | 📋 Planned |
 
 ### Tier 3: GDX Spark (Edge Device)
 
