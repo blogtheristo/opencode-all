@@ -10,7 +10,7 @@ image_link: "https://dws10.com/DWS_IQ2026.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€59,990 one-time platform deployment + €599/mo subscription"
+priceNote: "€59,990 one-time platform deployment + €999/mo subscription"
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -130,7 +130,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 | Tier | Price | Included |
 |------|-------|----------|
-| **Aegis Platform** | €59,990 one-time + €599/mo | All 6 agents, 20 industries, EU sovereign deployment, Article 12 logging, KYA governance |
+| **Aegis Platform** | €59,990 one-time + €999/mo | 18+ agents, 20 industries, dedicated K8s cluster, Article 12 logging, KYA governance |
 | **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment |
 | **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
 
