@@ -7,10 +7,10 @@ availability: "in_stock"
 condition: "new"
 google_product_category: "Software > Business & Productivity Software"
 image_link: "https://dws10.com/DWS_IQ2026.png"
-brand: "DWS IQ — GodAgents"
+brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€59,990 one-time platform deployment + €599/mo subscription"
+priceNote: "€59,990 one-time platform deployment + €999/mo subscription"
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -96,7 +96,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Scope Principle
 
-**We are the Agent Outcome Factory.** DWS IQ Aegis deploys GodAgents — industry-specific autonomous AI agents — that deliver sovereign, auditable outcomes. Not dashboards or manual reports. Defence supply chains get continuous compliance, orbital intelligence alerts, and agent governance as automated deliverables. Every GodAgent action is Article 12 logged and KYA governed.
+**We are the Agent Outcome Factory.** DWS IQ Aegis deploys AI agents — industry-specific autonomous AI agents — that deliver sovereign, auditable outcomes. Not dashboards or manual reports. Defence supply chains get continuous compliance, orbital intelligence alerts, and agent governance as automated deliverables. Every AI agent action is Article 12 logged and KYA governed.
 
 ## Distribution Strategy
 
@@ -108,24 +108,29 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 4. **Visma** — Nordic government and public sector
 5. **Monitor ERP** — Swedish defence manufacturing
 6. **Jeeves** — Nordic defence supply chain
-7. **AWS Marketplace** — NATO-standard cloud distribution
-8. **DEFINE/Defence Tech Hub** — Programme participation and ecosystem sales
-9. **Direct** — Enterprise sales to defence contractors
-10. **Government procurement** — Finnish Defence Forces, EU agencies
+7. **DEFINE/Defence Tech Hub** — Programme participation and ecosystem sales
+8. **Direct** — Enterprise sales to defence contractors
+9. **Government procurement** — Finnish Defence Forces, EU agencies
 
 ## Technical Requirements
 
-- **Deployment:** European cloud only (Aiwen environment, europe-north1 Finland) or enterprise private cloud
+- **Deployment:** Single-tenant Kubernetes (Helm chart) on UpCloud UKS, Helsinki DC (fi-hel1 / fi-hel2). Enterprise private cloud option available.
+- **Infrastructure:** UpCloud Managed Kubernetes — Finnish-owned, Tesi-backed, ISO 27001, CISPE member, zero CLOUD Act exposure
+- **Database:** UpCloud Managed PostgreSQL + pgvector (HA, automated backups, Helsinki DC)
+- **Cache:** UpCloud Managed Valkey/Redis
+- **GPU:** NVIDIA L40S nodes available for local LLM inference
+- **SLA:** 99.999% (UpCloud infrastructure)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, dual-use export control (Reg. 2021/821)
 - **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
 - **Certifications roadmap:** ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
+- **Availability:** August 2026
 
 ## Pricing
 
 | Tier | Price | Included |
 |------|-------|----------|
-| **Aegis Platform** | €59,990 one-time + €599/mo | All 6 agents, 20 industries, EU sovereign deployment, Article 12 logging, KYA governance |
+| **Aegis Platform** | €59,990 one-time + €999/mo | 18+ agents, 20 industries, dedicated K8s cluster, Article 12 logging, KYA governance |
 | **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment |
 | **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
 

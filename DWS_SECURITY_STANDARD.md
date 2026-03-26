@@ -1145,6 +1145,53 @@ All tools exposed via MCP `tools/list`:
 - **Deprecation policy:** Deprecated tools remain available for 90 days with warning in description
 - **Breaking change notification:** `tools/list_changed` capability enabled — clients notified on tool updates
 
+### 17.4 Local MCP Server Ban (Post-Clawdbot — 2026-03-26)
+
+> **PERMANENT SECURITY RULE.** This section documents the permanent ban on local MCP servers following the clawdbot security incident.
+
+**Incident summary:** Malicious MCP server processes running locally on developer workstation were used as a C2 (command and control) channel. The attack vector exploited `.mcp.json` auto-discovery to inject unauthorized tool calls.
+
+**Permanent rules:**
+
+| Rule | Scope | Enforcement |
+|------|-------|-------------|
+| **No local MCP servers on workstations** | All users (developers + enterprise customers) | `.mcp.json` removed; CLI connects to Cloud Run `/mcp` only |
+| **No community MCP skill auto-install** | All environments | Manual approval required; no registry auto-pull |
+| **No Docker on customer workstations** | Enterprise customers | All services run on Cloud Run (Tier 2a) or customer K8s (Tier 2b) |
+| **MCP only via Cloud Run** | Production | All MCP tool calls routed through `dws6run6/mcp` or `mcp-gateway` Cloud Run services |
+| **Edge MCP via GDX Spark only** | Field deployments | Edge device with KYA governance; no ad-hoc local MCP |
+
+**Allowed exceptions (DWS core team only):**
+- Local MCP for development with explicit risk acceptance documented in PR
+- CI/CD pipeline MCP for automated testing (ephemeral, no persistent state)
+
+**Detection:** Monitor for unauthorized `.mcp.json` files via pre-commit hooks and `git status` checks in session startup.
+
+**See also:** AGENTS.md Section 20 (Deployment Architecture), CLAUDE.md Email Rules (Resend ban from same incident).
+
+### 17.5 Infrastructure Sovereignty Rule (CLOUD Act — 2026-03-26)
+
+> **PERMANENT SECURITY RULE.** DWS production services MUST run on EU-owned infrastructure. US CLOUD Act (2018) allows US courts to compel US-owned companies to hand over data regardless of server location.
+
+**The rule:** No US-owned cloud provider (Google, AWS, Azure) for DWS production customer data. EU hosting on US cloud is NOT sovereign.
+
+| Status | Provider | CLOUD Act Exposure | DWS Policy |
+|--------|----------|-------------------|------------|
+| **Approved (EU-sovereign)** | Scaleway (French, Iliad) | None | **DWS IQ 6**: Serverless containers, multi-tenant SaaS |
+| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi) | None | **Aegis**: Managed K8s (UKS) + Helm, Helsinki DC, single-tenant enterprise |
+| **Approved (EU-sovereign)** | Clever Cloud (French) | None | Alternative PaaS |
+| **Approved (EU-sovereign)** | OVHcloud (French, public) | None | K8s workloads |
+| **Approved (EU-sovereign)** | Hetzner (German, family) | None | VMs, DB hosting, Aiven infra |
+| **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None | Enterprise K8s (German market) |
+| **Transitional** | Google Cloud Run | Yes (US-owned) | Dev + early production only. Migrate to DWS IQ 6 (Scaleway) or Aegis (UpCloud). |
+| **Banned** | AWS, Azure | Yes (US-owned) | Never use for DWS services |
+| **Yellow flag** | Aiven (Finnish, US VC) | Unclear (US investors) | DB layer on Hetzner infra only |
+| **Dead** | Nebula / Telia Cloud 9 | N/A (dissolved Oct 2023) | Not an option |
+
+**Migration timeline:** See AGENTS.md Section 20 for phased migration plan.
+
+**Enforcement:** New services MUST target EU-sovereign providers. Existing Google Cloud Run services migrate per the phased plan. Any new GCP service creation requires explicit sovereignty exception documented in PR.
+
 ---
 
 ## 18. References
