@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Defence Startup Fund Application — Lifetime Oy
-Version: 2.0
+Version: 2.1
 Date: 2026-03-25
 Owner: Risto Päärni
 Agent: Claude (Opus 4.6)
@@ -50,7 +50,7 @@ Lifetime Oy hakee Defence Startup Fundin **20 000 euron avustusta** (matching-ma
 - **EU AI Act -vaatimustenmukaisuuden** (Artikla 12 -lokitus)
 - **Lifetime Fleet IoT** — mobiilisensorit ja reunalaskenta (NVIDIA Jetson Orin Nano + Acer Veriton GN100)
 
-Lifetime Oy toimii **tulorahoituksella**. Nykyisiä logistiikka-asiakkaitamme ovat **Kela, Uber, Bolt ja Taksi Helsinki** (MRR €10K, 100% retentio, 17 vuoden operaattorisuhteet). Dual-use-alustamme rakentuu tälle vahvalle logistiikkaosaamiselle.
+Lifetime Oy toimii **tulorahoituksella**. Nykyisiä logistiikka-asiakkaitamme ovat **Kela, Uber, Bolt ja Taksi Helsinki** (MRR €7K, 100% retentio, 17 vuoden operaattorisuhteet). Dual-use-alustamme rakentuu tälle vahvalle logistiikkaosaamiselle.
 
 Yhtäkään muuta eurooppalaista alustaa ei ole suunniteltu palvelemaan puolustusalan toimitusketjujen kaksoisvaatimuksia: sekä puolustusalan sääntely (kaksoiskäyttöasetus 2021/821) että ilmastosääntely (CSRD, CBAM, ETS) samasta järjestelmästä.
 
@@ -190,7 +190,7 @@ Lifetime Oy:llä on vahva logistiikka-alan kokemus, joka toimii perustana puolus
 - **Taksi Helsinki** — Pääkaupunkiseudun taksiliikenne
 
 **Liiketoiminnan tunnusluvut:**
-- MRR: €10K (kuukausittainen toistuva liikevaihto)
+- MRR: €7K (kuukausittainen toistuva liikevaihto)
 - Retentio: 100%, nolla churn
 - Rahoitusmalli: Tulorahoitus — liiketoiminta on kannattavaa ilman ulkoista rahoitusta
 
@@ -266,7 +266,7 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 
 | Kumppani | Integraatio | Status |
 |---------|-------------|--------|
-| **ICEYE** (Espoo) | SAR-satelliittidata Argus-agentille | Aktiivinen |
+| **ICEYE** (Espoo) | SAR-satelliittidata Argus-agentille | Ekosysteemikumppani (integraatio kehitysvaiheessa) |
 | **NVIDIA** | Jetson Orin Nano + Grace Blackwell edge-AI, Lifetime Fleet IoT | ISV-kumppani (vahvistettu) |
 | **Acer** | Veriton GN100 edge-palvelin (120GB RAM, NVIDIA GB10) | Laitteistokumppani |
 | **Siemens** | Xcelerator PLC -telemetria, reaaliaikainen teollisuusdata | Datakumppani |
@@ -279,7 +279,7 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 ## 12. Miksi Lifetime Oy?
 
 1. **Tuote on olemassa** — DWS IQ 6 on live-alusta 18+ AI-agentilla, ei pelkkä idea
-2. **Todistettu liiketoiminta** — Logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; tulorahoituksella toimiva yhtiö (MRR €10K, 100% retentio)
+2. **Todistettu liiketoiminta** — Logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; tulorahoituksella toimiva yhtiö (MRR €7K, 100% retentio)
 3. **EU-suvereeni suunnittelultaan** — Suomalainen hosting (europe-north1), ei CLOUD Act -altistumista
 4. **Ainoa dual-compliance-alusta** — Puolustus + ilmasto yhdestä järjestelmästä
 5. **Lifetime Fleet IoT** — Mobiilisensorit ja reunalaskenta kentälle (NVIDIA Jetson + Acer Veriton GN100)
