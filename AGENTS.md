@@ -69,14 +69,18 @@ dws version                    # Show CLI version
 dws run compliance --input '{"industry":"steel"}'
 dws config                     # Show current configuration
 
-# MCP Hub
-cd mcp-hub && python server.py
+# MCP (server-side only — no local MCP servers)
+dws mcp tools                  # List tools from Cloud Run /mcp
+dws mcp call <tool> --args '{}' # Call tool via Cloud Run
 
-# Docker
-docker-compose -f docker-compose.hybrid.yml up -d
+# Docker (CI/CD image builds only — NOT required on workstation)
+# docker-compose -f docker-compose.hybrid.yml up -d  # DEPRECATED: services moving to Cloud Run
+# See Section 20: Deployment Architecture for current model
 ```
 
 ### Important: Always use `npm run dev` while iterating. Avoid production builds during agent sessions.
+
+### Important: Docker is NOT required on developer or customer workstations. All services run on Cloud Run. Docker is only used for building container images in CI/CD pipelines. See Section 20.
 
 ---
 
@@ -302,28 +306,37 @@ Development agent coordination via file-based signals. Commands: `node coordinat
 
 ## 11. MCP Orchestration
 
-### Hub (`mcp-hub/server.py`)
+> **2026-03-26 SECURITY UPDATE:** All local MCP servers permanently removed from developer/customer workstations following the clawdbot incident. MCP protocol is now **server-side only** — accessible via Cloud Run `/mcp` endpoint or CLI `dws mcp` commands. See Section 20 for full deployment architecture.
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/` | GET | Service info |
-| `/health` | GET | Health check with MCP server status |
-| `/workflows/execute` | POST | Execute workflow (fan-out, reflection, sequential) |
-| `/pipelines/bim-carbon` | POST | BIM carbon analysis pipeline |
+### MCP Access Model (Post-Clawdbot)
+
+```
+BEFORE (vulnerable):  Workstation → local .mcp.json → local MCP servers → tools
+AFTER  (secure):      Workstation → dws CLI → Cloud Run /mcp → server-side MCP tools
+```
+
+**Banned:** `.mcp.json` on customer workstations, local MCP server processes, community MCP skill auto-install.
+**Allowed:** `.mcp.json` in CI/CD pipelines, Cloud Run service-to-service MCP, developer workstations for DWS core team only (with explicit risk acceptance).
+
+### Server-Side MCP Endpoints
+
+| Endpoint | Location | Purpose |
+|----------|----------|---------|
+| `dws6run6/mcp` | Cloud Run | Agent MCP server (JSON-RPC 2.0, all 18+ agents as tools) |
+| `mcp-gateway` | Cloud Run | MCP Gateway (Supabase, GitHub integration) |
+
+### CLI MCP Commands
+
+```bash
+dws mcp tools                           # List all MCP tools (from Cloud Run)
+dws mcp call <tool> --args '{...}'     # Call MCP tool via Cloud Run
+```
 
 ### Workflow Patterns
 
 1. **Fan-Out**: Parallel task distribution to multiple agents
 2. **Reflection**: Self-review and iterative improvement
 3. **Sequential**: Step-by-step with dependencies
-
-### Active MCP Servers
-
-| Server | Purpose |
-|--------|---------|
-| Docker MCP | Container management, GitHub integration |
-| ZenFree | Security scanning (replaced Snyk) |
-| Agent Browser | Web testing, UI verification, competitive intelligence (native Rust, vercel-labs/agent-browser) |
 
 ---
 
@@ -533,8 +546,209 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 | KYA Trust Framework | 🔧 Partial | `kya-engine.ts` terminateChain() works; full 6-stage gate spec only |
 | LWM (Lifetime World Model) | 📋 External | MCP URL configured, served as external dependency |
 | Temporal.io orchestration | 📋 Planned | Docker compose config, no workflow code |
+| No-Docker workstation architecture | ✅ Shipped | CLI-only workstation, Cloud Run services, Section 20 |
+| Private Cloud (Helm) delivery | 📋 Planned | Helm charts for customer-managed K8s, Section 20 Tier 2b |
+| GDX Spark edge deployment | 📋 Planned | Jetson Orin Nano + Firecracker, shipped device model |
+| Local MCP servers | ❌ Removed | Permanently banned post-clawdbot (2026-03-26) |
 
 **Key:** ✅ Shipped (working code, tests, API) | 🔧 In Progress (code exists, gaps remain) | 📋 Planned (docs/spec only)
+
+---
+
+## 20. Deployment Architecture — No Docker on Workstation
+
+> **Added 2026-03-26.** Post-clawdbot security incident. Enterprise customers MUST NOT need Docker or local MCP servers on their workstations. All agent execution happens server-side (Cloud Run) or on shipped edge hardware (GDX Spark).
+
+### Three-Tier Deployment Model
+
+```
+TIER 1: ENTERPRISE WORKSTATION (clean — nothing to install except CLI)
+  └── dws CLI (zero-dep Node.js, npm -g install)
+       └── All commands --> Cloud Run API (JWT auth, TLS)
+       └── No Docker, no local MCP, no local containers
+
+TIER 2: CLOUD RUN (europe-north1 — all services, EU-sovereign)
+  ├── dws6run6              — Backend + 18+ agents + /mcp endpoint
+  ├── mcp-gateway           — MCP Gateway (Python FastMCP)
+  ├── firehorse-reports     — Report Engine (move from local Docker)
+  ├── firehorse-automation  — Automation service (move from local Docker)
+  ├── firehorse-dms         — Content DMS (move from local Docker)
+  └── Redis (Cloud Memorystore or Upstash) — replaces local Redis
+
+TIER 3: GDX SPARK (edge device, shipped to customer site)
+  └── Control Room / Situation Room
+       ├── Local inference (Llama 3.3 on Jetson Orin Nano)
+       ├── Fleet telemetry agent (offline-capable)
+       ├── SiteSense (offline safety scoring)
+       ├── KYA v1.4 governance (hardware kill-switch)
+       └── Firecracker MicroVM isolation per agent
+```
+
+### Tier 1: Enterprise Workstation
+
+The customer workstation runs **only the DWS CLI**. Zero local services, zero Docker, zero MCP servers.
+
+```bash
+# Install
+npm install -g @lifetime/dws-cli
+
+# Configure (one-time)
+dws config set api-url https://dws6run6-xxxx.europe-north1.run.app
+dws config set api-token <JWT>
+
+# Use
+dws agents                                    # List agents
+dws run compliance --input '{"industry":"steel"}'  # Execute agent
+dws workflow compliance-assessment             # Multi-agent workflow
+dws mcp tools                                 # List MCP tools
+dws health                                    # Check connectivity
+```
+
+**Security posture:** No attack surface on customer workstation. No local processes, no open ports, no Docker daemon, no MCP servers that could be hijacked (clawdbot vector eliminated).
+
+### Tier 2a: Cloud Run (Lifetime-Managed SaaS)
+
+Default deployment. All agent execution, MCP protocol, and Firehorse services run on Google Cloud Run (europe-north1, EU-sovereign). Lifetime manages infrastructure.
+
+| Service | Image | Port | Memory | CPU | Min/Max | Status |
+|---------|-------|------|--------|-----|---------|--------|
+| `dws6run6` | `backend:latest` | 8080 | 512Mi | 1 | 0/10 | ✅ Deployed |
+| `mcp-gateway` | `mcp-gateway:latest` | 8080 | 512Mi | 1 | 0/3 | ✅ Deployed |
+| `firehorse-reports` | `firehorse-reports:latest` | 8084 | 1Gi | 1 | 0/5 | 📋 Migration planned |
+| `firehorse-automation` | `firehorse-automation:latest` | 8085 | 512Mi | 1 | 0/3 | 📋 Migration planned |
+| `firehorse-dms` | `firehorse-dms:latest` | 8086 | 512Mi | 1 | 0/3 | 📋 Migration planned |
+| Redis | Cloud Memorystore / Upstash | 6379 | — | — | managed | 📋 Migration planned |
+
+**Migration path for Firehorse services:**
+1. Each service already has a Dockerfile (`Firehorse/docker-compose.yml` services)
+2. Add `cloudbuild.yaml` per service (same pattern as `mcp-servers/cloud-run-gateway/cloudbuild.yaml`)
+3. Configure secrets via Google Secret Manager
+4. Update CLI `DWS_API_URL` to route Firehorse calls to their Cloud Run services
+5. Remove `docker-compose.yml` requirement from developer/customer setup
+
+### Tier 2b: Private Cloud (Customer-Managed Kubernetes)
+
+For enterprise customers requiring full data sovereignty, air-gapped environments, or regulatory mandates prohibiting shared cloud (defense, critical infrastructure, banking).
+
+**Delivery model:** Lifetime provides Helm charts + container images. Customer deploys on their own Kubernetes cluster.
+
+```
+CUSTOMER KUBERNETES CLUSTER (GKE / EKS / AKS / on-prem K8s)
+  ├── namespace: dws-iq
+  │   ├── deployment/dws-backend      — Backend + agents + /mcp
+  │   ├── deployment/mcp-gateway      — MCP Gateway
+  │   ├── deployment/firehorse-reports — Report Engine
+  │   ├── deployment/firehorse-auto   — Automation
+  │   ├── deployment/firehorse-dms    — Content DMS
+  │   ├── statefulset/redis           — Redis (or customer-managed)
+  │   └── ingress/dws-api             — TLS termination, JWT validation
+  ├── namespace: dws-db
+  │   └── Customer-managed PostgreSQL + pgvector (or Supabase self-hosted)
+  └── namespace: dws-monitoring
+      └── Prometheus + Grafana (health, agent execution metrics)
+```
+
+**Private Cloud deliverables (planned):**
+
+| Artifact | Purpose | Status |
+|----------|---------|--------|
+| `helm/dws-iq/` | Helm chart for full platform | 📋 Planned |
+| `helm/values-private.yaml` | Private cloud defaults (no external deps) | 📋 Planned |
+| Container images (OCI) | All services as container images | 🔧 Partial (backend + MCP gateway exist) |
+| `scripts/private-cloud-install.sh` | One-command install verification | 📋 Planned |
+| Air-gap bundle | Tarball with all images + charts for offline install | 📋 Planned |
+
+**Private Cloud requirements on customer side:**
+- Kubernetes 1.28+ (GKE, EKS, AKS, OpenShift, or vanilla K8s)
+- PostgreSQL 15+ with pgvector extension
+- TLS certificates (customer-managed or cert-manager)
+- DNS entry for API endpoint
+- Optional: GPU nodes for local LLM inference (otherwise uses customer's LLM API keys)
+
+**What Lifetime provides vs. customer manages:**
+
+| Responsibility | Lifetime | Customer |
+|----------------|----------|----------|
+| Container images + Helm charts | ✅ | |
+| Agent code + updates | ✅ | |
+| KYA governance engine | ✅ | |
+| Kubernetes cluster | | ✅ |
+| PostgreSQL database | | ✅ |
+| TLS / networking / DNS | | ✅ |
+| Secrets management | | ✅ |
+| Monitoring + alerting | Template provided | ✅ Operates |
+| LLM API keys (Groq/Claude/Gemini) | | ✅ |
+
+**CLI for private cloud:** Same `dws` CLI, different `DWS_API_URL` pointing to customer's ingress:
+
+```bash
+dws config set api-url https://dws-api.customer-internal.com
+dws health   # Verifies connectivity to private deployment
+```
+
+### Tier 3: GDX Spark (Edge Device)
+
+For customers needing local compute (control rooms, situation rooms, offline sites), Lifetime ships a **GDX Spark** edge device pre-configured with containers.
+
+| Component | Hardware | Purpose |
+|-----------|----------|---------|
+| NVIDIA Jetson Orin Nano | 7-15W, ARM64 | Local LLM inference, agent execution |
+| Acer Veriton GN100 | Desktop AI Factory | Development sandbox, higher compute |
+
+**What runs on GDX Spark:**
+- Offline-capable agents (SiteSense, fleet telemetry, schedule optimization)
+- Local Llama 3.3 inference (no cloud dependency for latency-critical operations)
+- KYA v1.4 governance engine with hardware-enforced kill-switch
+- Firecracker MicroVM per agent (isolation)
+- Secure tunnel to Cloud Run for non-latency-critical work
+
+**What does NOT run on GDX Spark:**
+- Compliance scoring (requires full regulation database — Cloud Run only)
+- ERP connectors (require VPN/API to customer ERP — Cloud Run only)
+- MCP Gateway (protocol coordination — Cloud Run only)
+
+### CLI Agent Management Commands
+
+All agents are manageable via CLI. No GUI-only operations exist.
+
+```bash
+# Agent lifecycle
+dws agents                              # List all agents with status
+dws agents --format json                # Machine-readable output
+dws run <agent> --input '{...}'         # Execute agent
+dws run <agent> --stdin                 # Pipe input from another command
+dws discover <capability>              # Find agents by tag
+
+# Multi-agent workflows
+dws workflow list                       # List available workflows
+dws workflow <name> --input '{...}'     # Execute workflow
+dws events --pattern 'compliance*'     # Monitor agent events
+
+# MCP (server-side only, no local MCP)
+dws mcp tools                           # List MCP tools (from Cloud Run)
+dws mcp call <tool> --args '{...}'     # Call MCP tool
+
+# Health & diagnostics
+dws health                              # Backend + MCP health
+dws status                              # Platform status + uptime
+dws config                              # Show current config
+
+# Edge device (GDX Spark)
+dws edge status                         # GDX Spark device health (planned)
+dws edge agents                         # List agents running on edge (planned)
+dws edge sync                           # Sync edge ↔ cloud state (planned)
+```
+
+### Security Rules (Post-Clawdbot)
+
+| Rule | Enforcement |
+|------|-------------|
+| **No local MCP servers** | `.mcp.json` removed from workstations; CLI connects to Cloud Run `/mcp` only |
+| **No local Docker requirement** | All services run on Cloud Run; Docker only used for CI/CD image builds |
+| **No community MCP skills** | Auto-install from registries permanently banned (DWS_SECURITY_STANDARD.md) |
+| **JWT auth on all endpoints** | Every CLI → Cloud Run call requires valid JWT bearer token |
+| **EU data residency** | Cloud Run in europe-north1; Supabase in EU; no US transit |
+| **Edge device KYA governance** | GDX Spark agents run in Firecracker MicroVMs with kill-switch |
 
 ---
 
@@ -550,7 +764,7 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 
 ---
 
-**Document Version:** 2.3
-**Last Updated:** March 20, 2026
+**Document Version:** 2.4
+**Last Updated:** March 26, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026

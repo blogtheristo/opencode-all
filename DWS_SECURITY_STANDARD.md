@@ -1145,6 +1145,30 @@ All tools exposed via MCP `tools/list`:
 - **Deprecation policy:** Deprecated tools remain available for 90 days with warning in description
 - **Breaking change notification:** `tools/list_changed` capability enabled — clients notified on tool updates
 
+### 17.4 Local MCP Server Ban (Post-Clawdbot — 2026-03-26)
+
+> **PERMANENT SECURITY RULE.** This section documents the permanent ban on local MCP servers following the clawdbot security incident.
+
+**Incident summary:** Malicious MCP server processes running locally on developer workstation were used as a C2 (command and control) channel. The attack vector exploited `.mcp.json` auto-discovery to inject unauthorized tool calls.
+
+**Permanent rules:**
+
+| Rule | Scope | Enforcement |
+|------|-------|-------------|
+| **No local MCP servers on workstations** | All users (developers + enterprise customers) | `.mcp.json` removed; CLI connects to Cloud Run `/mcp` only |
+| **No community MCP skill auto-install** | All environments | Manual approval required; no registry auto-pull |
+| **No Docker on customer workstations** | Enterprise customers | All services run on Cloud Run (Tier 2a) or customer K8s (Tier 2b) |
+| **MCP only via Cloud Run** | Production | All MCP tool calls routed through `dws6run6/mcp` or `mcp-gateway` Cloud Run services |
+| **Edge MCP via GDX Spark only** | Field deployments | Edge device with KYA governance; no ad-hoc local MCP |
+
+**Allowed exceptions (DWS core team only):**
+- Local MCP for development with explicit risk acceptance documented in PR
+- CI/CD pipeline MCP for automated testing (ephemeral, no persistent state)
+
+**Detection:** Monitor for unauthorized `.mcp.json` files via pre-commit hooks and `git status` checks in session startup.
+
+**See also:** AGENTS.md Section 20 (Deployment Architecture), CLAUDE.md Email Rules (Resend ban from same incident).
+
 ---
 
 ## 18. References
