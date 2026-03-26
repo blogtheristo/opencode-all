@@ -1,10 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.2.0
+> **Version:** 1.3.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-03-15 — Codebase audit update: real metrics (1846 commits, 342/247 PRs, 15 agents, 52 migrations, 38 workflows), Phase 1 progress tracking (Claude Code, claude/status-report-mvp-vbug1)
+> **Updated:** 2026-03-24 — Added carbon balance sheet (Phase 2.6, PRs 093A–093H) as Series A fundable infrastructure; debit-credit ledger promoted from DWS 8 to DWS 7
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -12,11 +12,11 @@
 
 ## Executive Summary
 
-DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **247 planned pull requests** organized in 6 phases.
+DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **261 planned pull requests** organized in 6 phases.
 
 **Actual velocity (audited 2026-03-15):** 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 247-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.
 
-**Why 247, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 247 PRs over 22 months = ~11 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.
+**Why 261, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 261 PRs over 22 months = ~12 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.
 
 ---
 
@@ -69,10 +69,10 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | Phase | Period | Theme | PRs | Milestone |
 |-------|--------|-------|-----|-----------|
 | **1** | Feb–Apr 2026 | **Launch & Stabilize** | 45 | V1.0 production launch, first 3 paying customers |
-| **2** | May–Jul 2026 | **Compliance Engine** | 48 | Full Fit-for-55 coverage, EU AI Act compliance |
+| **2** | May–Jul 2026 | **Compliance Engine + Carbon Balance Sheet** | 56 | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger |
 | **3** | Aug–Oct 2026 | **Scale & Harden** | 44 | 8 customers, ISO 27001 initiated, SOC 2 prep |
 | **4** | Nov 2026–Jan 2027 | **Intelligence Layer** | 40 | Agentic AI workflows, IoT pipeline live |
-| **5** | Feb–May 2027 | **Market Expansion** | 38 | 16 customers, supplier portal, partner ecosystem |
+| **5** | Feb–May 2027 | **Market Expansion** | 44 | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
 | **6** | Jun–Dec 2027 | **DWS7 Release** | 32 | V7.0 GA, investor metrics dashboard, profitability |
 
 ---
@@ -166,7 +166,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 2: Compliance Engine (May–Jul 2026) — 48 PRs
+## Phase 2: Compliance Engine (May–Jul 2026) — 56 PRs
 
 ### 2.1 EU ETS Module (PRs 046–057)
 
@@ -240,6 +240,35 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 091 | Industry-specific compliance templates (batch 1: cement, steel, chemicals) | P0 | Pre-configured for top 3 industries |
 | 092 | Industry-specific compliance templates (batch 2: aluminum, fertilizers, hydrogen) | P1 | Next 3 CBAM-covered industries |
 | 093 | Regulatory readiness score per customer | P1 | Weighted score across all applicable regulations |
+
+### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093H)
+
+**Why now (not DWS 8):** The debit-credit ledger is the Series A story. Investors fund infrastructure, not features. A persistent carbon balance sheet that unifies ETS + CBAM + CSRD into one auditable ledger is the moat — and it must be demonstrable before fundraising.
+
+**Foundation:** The in-memory `costBreakdownToLedger()` transform already ships in DWS 6 (`src/compliance/debit-credit-ledger.ts`). Phase 2.6 persists it, adds dual-unit accounting, and connects it to the compliance modules above.
+
+**The pitch:** *"From 'How do we guess our footprint?' to 'How do we reconcile our carbon balance sheet?'"*
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 093A | Persistent carbon ledger table | P0 | Immutable append-only ledger in Supabase. Schema: `(id, org_id, entry_type, category, amount_eur, amount_tco2e, regulation, source_id, verified, description, created_at)`. RLS enforced. No UPDATE/DELETE — corrections are reverse entries. Builds on PR 075 (audit trail) and PR 097 (mutation logging) |
+| 093B | Dual-unit entries (EUR + tCO2e) | P0 | Every compliance entry carries both financial (EUR) and physical (tCO2e) amounts. Carbon price at time of entry preserved for audit trail. ETS surrender = debit (EUR + tCO2e). Free allocation = credit. CBAM certificate = debit. Links PR 050 (ETS financial exposure) to PR 062 (CBAM certificate cost) through the same ledger |
+| 093C | Chart of carbon accounts | P1 | Standardized account structure mapping to ESRS E1: Scope 1 Direct (ETS), Scope 2 Indirect (grid), Scope 3 Upstream (CBAM imports), Scope 3 Downstream, Offsets/Credits, Free Allocation. Every entry in PRs 046–093 maps to one account. CFO sees a balance sheet, not a spreadsheet |
+| 093D | ETS ↔ CBAM ↔ CSRD cross-regulation reconciliation | P0 | The same tonne of CO2e that appears as an ETS surrender debit for a steel mill becomes a CBAM embedded emission for the importer, becomes a CSRD Scope 3 upstream disclosure for the buyer. One ledger entry, three regulatory views. Transforms PR 085 (cross-regulation data sharing) from data copying to ledger reconciliation |
+| 093E | Ledger-native compliance scoring | P0 | Refactor scoring engine to read from ledger entries instead of computing from scratch. Score = f(ledger balance). Deterministic, auditable, reproducible. Every score traces back to specific debit/credit entries with source citations |
+| 093F | Carbon balance dashboard (CFO view) | P1 | Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen |
+| 093G | ERP GL sync (carbon → financial ledger) | P1 | Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors) |
+| 093H | XBRL/iXBRL export from ledger | P1 | Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts |
+
+**What this enables for fundraising:**
+
+| Investor Question | Answer with Carbon Balance Sheet |
+|-------------------|----------------------------------|
+| "What's your moat?" | Double-entry carbon bookkeeping across ETS + CBAM + CSRD. No competitor has this. |
+| "How sticky is this?" | Carbon ledger is the system of record. Same switching cost as changing your ERP. |
+| "What's the TAM?" | Every EU company filing CSRD needs a carbon balance sheet. 50,000+ companies by 2028. |
+| "How do you expand?" | More industries on the ledger = cross-vertical intelligence. Network effect. |
+| "Show me the product." | CFO dashboard: carbon liabilities, assets, net position, regulatory drill-down (PR 093F). |
 
 ---
 
@@ -380,7 +409,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 5: Market Expansion (Feb–May 2027) — 38 PRs
+## Phase 5: Market Expansion (Feb–May 2027) — 44 PRs
 
 ### 5.1 Supplier CBAM Portal (PRs 178–186)
 
@@ -426,7 +455,34 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 205 | Partner referral tracking | P2 | Attribution for partner-sourced customers |
 | 206 | Integration with One Click LCA (bidirectional) | P1 | Import LCA data, export compliance status |
 
-### 5.4 Mobile & Accessibility (PRs 207–215)
+### 5.4 Open-Source Agent Framework (PRs 207A–207F)
+
+**Strategic context:** Research analysis in `docs/OPEN_DATA_SOURCES.md` §10 recommends open-sourcing the agent framework under Apache 2.0 while keeping compliance knowledge proprietary. Modeled after deepset/Haystack (EU-based, Apache 2.0, Airbus/LEGO/European Commission customers).
+
+**Core insight:** The compliance knowledge is the moat, not the framework. Nobody forks your emission factors.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 207A | Extract `@dws/agent-core` package (BaseAgent, types, event bus) | P1 | Separate agent primitives into publishable npm package under Apache 2.0 |
+| 207B | Open-source ERP connectors (SAP, IFS, Dynamics adapters) | P1 | Network effect — every contributed connector improves the platform |
+| 207C | Open-source MCP server implementations | P1 | Aligns with AAIF (Linux Foundation), ecosystem interop with Claude/Anthropic |
+| 207D | Open-source CLI tooling (`dws` command) | P2 | Developer experience, bottom-up adoption, "try before you buy" |
+| 207E | Publish basic compliance rule parser (regulation → checklist) | P2 | Demonstrates capability without exposing scoring engine |
+| 207F | Community setup: CONTRIBUTING.md, issue templates, CI for open repo | P1 | Clear open/proprietary boundaries from day one |
+
+**What stays proprietary (never open-source):**
+- Multi-agent orchestration with compliance scoring (core IP)
+- Validated regulatory knowledge bases (emission factors, ESRS registry, CBAM models)
+- Lifetime World Model (EU Regulations + Industry Models)
+- Enterprise governance (RBAC, audit trails, Article 12 logging)
+- Report engine with signed reports
+- Pre-built industrial sector workflows
+
+**Licensing:** Apache 2.0 (not BSL). Maximizes EU public procurement compatibility, avoids fork risk (Redis→Valkey, HashiCorp→OpenTofu cautionary tales).
+
+**Year 1 targets:** 5,000+ GitHub stars | 10,000+ npm weekly downloads | 50+ community contributors
+
+### 5.5 Mobile & Accessibility (PRs 207–215)
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
@@ -527,10 +583,12 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | Supplier Portal | 9 | 5 |
 | Industry Verticals | 12 | 5 |
 | Partner Ecosystem | 8 | 5 |
+| Open-Source Agent Framework | 6 | 5 |
 | Mobile & i18n | 9 | 5 |
 | Investor & Financial | 9 | 6 |
+| Carbon Balance Sheet | 8 | 2 |
 | Advanced Features | 13 | 6 |
-| **Total** | **247** | |
+| **Total** | **261** | |
 
 ---
 
@@ -631,7 +689,7 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 | Security breach before ISO 27001 | Critical | Daily security scans (existing), pentest (PR 099) |
 | Groq API pricing increase | Medium | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 (NVIDIA Blackwell, in-house) provides immediate fallback inference for Llama 3.3 70B and Mistral Large without cloud dependency |
 | Edge AI hardware supply issues | Medium | Cloud-only fallback mode for IoT pipeline |
-| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform |
+| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity |
 | Team scaling challenges | Medium | AI-assisted development (Claude Code), modular architecture |
 
 ---
@@ -1077,7 +1135,7 @@ GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items 
 | 5 | 252 | DRIVE Hyperion fleet evaluation | P3 | Autonomous driving | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles |
 | 3 | 253 | cuDF pilot for compliance bulk assessment | P2 | cuDF ($120B structured data) | GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration |
 
-**Updated totals:** 253 PRs (was 247) across 6 phases.
+**Updated totals:** 261 PRs (was 253) across 6 phases.
 
 ### Strategic Context
 

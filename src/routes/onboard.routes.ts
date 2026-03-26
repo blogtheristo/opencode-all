@@ -18,6 +18,7 @@ import { getMandatoryDisclosures } from '../compliance/esrs-registry.js';
 import { Errors } from '../middleware/error-handler.js';
 import logger from '../utils/logger.js';
 import { createClient } from '@supabase/supabase-js';
+import { onboardingEmailService } from '../services/onboarding-email.service.js';
 
 const router = Router();
 
@@ -144,6 +145,13 @@ router.post(
         gaps: baselineResult.gaps.length,
         regulations: body.regulations,
       });
+
+      // Fire-and-forget: send Day 0 welcome email
+      const userEmail = (req as any).user?.email;
+      if (userEmail) {
+        onboardingEmailService.sendWelcome(userEmail, body.companyName, body.industry)
+          .catch(() => { /* logged internally, never blocks onboarding */ });
+      }
 
       res.status(201).json({
         status: 'onboarding_complete',

@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 12.1 Memory-Driven Financial Intelligence — fact extraction (PR-254) as data feed for per-customer financial optimization; client memory enables personalized ROI calculations, retention risk scoring, upsell opportunity detection; dual LWM+client memory architecture positions KYA-O as the only governance layer covering both domain knowledge and relationship knowledge; cross-referenced KYA-S §10 Memory Audit Trail; updated Related Documents
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Standalone split from combined KYA Standard. Research-as-a-Service positioning, Agentic Efficiency Law (§6.1), Stacking Effect (§6.2), Orchestrator Layer (§8.1), 19-industry financial value layer, Proxy-to-Scale Mapping (§9), Autonomous Hyperparameter Tuning (§10), Ownership & Attribution Clarification (§11). ATS autoresearch factor corrected to A×0.25. Clean Karpathy attribution (no ownership claims). Gemini-informed wedge industries + Grok financial layer merged
@@ -34,7 +35,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Architecture Standard v1.6 (KYA-O)
+**Version:** KYA Architecture Standard v1.7 (KYA-O)
 **Status:** Production-Ready (Q2 2026 Launch — Agent Self-Optimization Governance & Financial ROI Layer)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -258,7 +259,7 @@ v1.4 adds a new fault classification to the existing fault attribution system (s
 
 This class is stored in the `kya_fault_attribution` Supabase table alongside existing fault classes (`LOGIC_FAULT`, `INTEGRATION_FAULT`, `MANIFEST_FAULT`, `OPERATOR_FAULT`). RLS policies apply identically.
 
-**Tiered Fault Fees (v1.6):** Fault investigation fees are tiered by industry risk — see `Legal/KYA_SECURITY_v1.2.md` §9.5. Tier 1 (Critical Emissions) pays EUR 15/fault with 4h SLA; Tier 3 (Wedge) pays EUR 5/fault with 12h SLA. `AUTORESEARCH_FAULT` follows the same tier pricing but with a mandatory 30-day Clawback window on any associated Alpha-Share revenue.
+**Tiered Fault Fees (v1.6):** Fault investigation fees are tiered by industry risk — see `Legal/KYA_SECURITY_v1.2.md` §9.5. Tier 1 (Critical Emissions) pays EUR 15/fault with 4h SLA; Tier 3 (Wedge) pays EUR 5/fault with 12h SLA. `AUTORESEARCH_FAULT` follows the same tier pricing. For Enterprise World (Tier 4) customers on Alpha-Share, a mandatory 30-day deferral window applies to associated Alpha-Share revenue.
 
 ---
 
@@ -329,9 +330,14 @@ How KYA generates revenue for Lifetime Oy:
 | **Fault Attribution** | EUR 5.00 per fault investigation record | Incident frequency x severity |
 | **Compliance Certificates** | EUR 500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
 | **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Alpha-Share** (v1.6) | **Decline-to-Scale** of attributed efficiency gains (see below) | Financial attribution from Firehorse → Supabase |
+| **SaaS Platform** (v1.7) | Monthly subscription: EUR 499–1,999/mo (Enterprise: custom) | Customer count x tier |
+| **API Transactions** (v1.7) | Per agent operation — usage-based | Agent sessions x operations x frequency |
 
-**Alpha-Share Decline-to-Scale Model (v1.6):**
+### Alpha-Share — Enterprise World Tier 4 Only (v1.7)
+
+> **SCOPE CHANGE (v1.7):** Alpha-Share is no longer offered to standard DWS6 SaaS customers (Tiers 1–3). It is reserved exclusively for **Enterprise World** customers at pricing **Tier 4** — large-scale industrial deployments where value-based pricing is understood and preferred. Standard customers use SaaS subscription + API transaction fees.
+
+**Alpha-Share Decline-to-Scale Model (Enterprise World Tier 4):**
 
 | Gain Bracket | Revenue Share | Rationale |
 |-------------|--------------|-----------|
@@ -339,22 +345,16 @@ How KYA generates revenue for Lifetime Oy:
 | EUR 1M–10M | **8%** | Established value, scaling phase |
 | Above EUR 10M | **5%** | Enterprise-scale; lower share retains large accounts |
 
-**Clawback Clause (v1.6) → Performance Guarantee (v1.6 revised):**
+**Why Tier 4 only:** Alpha-Share requires sophisticated buyers who understand value-based pricing. SaaS-era customers see revenue sharing as risk, not alignment. Enterprise World customers — large industrials, sovereign deployments — see it as proof that DWS has skin in the game.
 
-This clause operates at **two layers** with identical economics but different framing:
-
-**Internal (Revenue Recognition):** Lifetime Oy defers Alpha-Share revenue for 30 days post-production deployment. If an optimization causes an `INTEGRATION_FAULT` or `AUTORESEARCH_FAULT` within the deferral window, revenue is never recognized for that period. This protects revenue recognition integrity and aligns internal incentives with production stability.
-
-**Customer-Facing (Contract Language):** Presented as a **"Performance Guarantee"** — if a KYA-O optimization causes a verified production fault within 30 days, the client receives a service credit equal to that period's Alpha-Share. The word "clawback" never appears in customer contracts.
+**Performance Guarantee (all tiers):**
 
 | Layer | Term Used | Mechanism | Procurement Impact |
 |-------|-----------|-----------|-------------------|
-| Internal (Lifetime Oy) | Revenue Deferral | Alpha-Share not recognized for 30 days | N/A — invisible to client |
-| Customer contract | Performance Guarantee | Service credit issued on verified fault | **Positive** — signals confidence |
+| SaaS (Tiers 1–3) | SLA Credit | Service credit issued on verified production fault within 30 days | **Standard** — industry norm |
+| Enterprise World (Tier 4) | Performance Guarantee | Service credit equal to that period's Alpha-Share on verified fault | **Positive** — signals confidence |
 
-**Why the split matters:** "We guarantee our optimizations" closes deals. "We'll claw back revenue if things break" stalls them. Same economics, opposite sales psychology.
-
-**Verification Credit Rebate (v1.6):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
+**Verification Credit Rebate (Enterprise World Tier 4 only):** 10% of all Alpha-Share revenue is returned to the client as **"Verification Credits"** — redeemable against KYA-S verification events (EUR 1.20/event). This creates a flywheel: the more an agent optimizes (KYA-O), the more security verification the client can afford (KYA-S)
 
 ### 5.5 Platform Revenue Projections (19 Industries, 2026–2030)
 
@@ -442,7 +442,7 @@ This clause operates at **two layers** with identical economics but different fr
 | **Identity attribution** | Enterprise SSO / Foundry permissions | KYC/KYB-verified identity → agent session binding | **KYA** — legally attributable |
 | **Autoresearch** | Not offered (manual model tuning) | Governed self-optimization with financial attribution | **KYA** — unique capability |
 | **EU compliance** | Generic (GDPR, some SOC 2) | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55 | **KYA** — EU-first |
-| **Revenue model** | Platform license (annual contract) | Per-event + Alpha-Share (scales with value created) | **KYA** — aligned incentives |
+| **Revenue model** | Platform license (annual contract) | SaaS + API (Tiers 1–3); Alpha-Share for Enterprise World Tier 4 | **KYA** — flexible pricing |
 | **Industry depth** | Defense, healthcare, energy (3–5 deep) | 20 industries with per-industry proxy metrics | **KYA** — wider + deeper |
 | **Data residency** | US-primary (FedRAMP) | EU-primary (Finland/Germany, GDPR-native) | Context-dependent |
 
@@ -787,9 +787,63 @@ Lifetime Oy's contribution is the **governance layer** that makes autoresearch e
 
 ---
 
-## 12. Conclusion
+## 12. Memory-Driven Financial Intelligence (v1.7)
 
-The KYA Architecture Standard v1.6 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
+*Added: 23.03.2026 | PR-254 (agent-memory-fact-extraction)*
+
+The Agent Memory System (PR-254) creates a new data feed for the KYA-O financial layer. Previously, financial optimization relied on aggregated industry metrics and ERP data. With fact extraction, agents now build **per-customer financial profiles** from every interaction — enabling personalized ROI calculations, retention risk scoring, and upsell opportunity detection.
+
+### 12.1 Dual Memory Architecture for Financial Value
+
+| Memory Layer | Financial Intelligence | KYA-O Impact |
+|-------------|----------------------|-------------|
+| **LWM (Domain)** | Industry benchmarks, regulatory thresholds, emission factors | Powers the 20-industry financial value layer (§5) |
+| **Client Memory** | Customer-specific facts: revenue, preferences, deadlines, pain points | Enables per-customer Proxy-to-Scale mapping (§9) |
+
+**Key insight:** LWM tells you "CBAM threshold is €150K" (domain knowledge). Client memory tells you "ACME Corp's CBAM exposure is €2.3M and their CFO wants quarterly reports" (relationship knowledge). The combination enables financial optimization that neither could achieve alone.
+
+### 12.2 Fact-to-Value Pipeline
+
+```
+Conversation: "We need to reduce CBAM exposure by Q3, budget is €500K"
+  ↓ Fact extraction (PR-254)
+  ↓
+Facts stored:
+  {subject: "customer", predicate: "cbam_deadline", value: "Q3 2026", confidence: 1.0}
+  {subject: "customer", predicate: "compliance_budget", value: "500000", confidence: 1.0}
+  ↓
+Financial agent retrieves facts + LWM benchmarks:
+  - CBAM sector average: €1.2M exposure
+  - Customer stated budget: €500K
+  - Deadline: Q3 2026 (6 months)
+  ↓
+Personalized recommendation:
+  "Phase 1 CBAM optimization: €180K, 45% exposure reduction in 3 months"
+```
+
+### 12.3 Memory-Enhanced Financial Metrics
+
+| Metric | Without Client Memory | With Client Memory |
+|--------|----------------------|-------------------|
+| ROI calculation | Industry average (generic) | Customer-specific (personalized) |
+| Retention risk | Binary (active/churned) | Scored by engagement pattern + stated concerns |
+| Upsell timing | Quarterly batch | Triggered by extracted facts ("budget approved", "expansion planned") |
+| Compliance urgency | Regulatory calendar | Customer-specific deadlines + stated priorities |
+
+### 12.4 Governance (KYA-S §10 Cross-Reference)
+
+All memory-derived financial intelligence is governed by the Memory Audit Trail (`Legal/KYA_SECURITY_v1.2.md` §10):
+
+- Every fact extraction is logged with agent_id and source_text_hash
+- Financial recommendations citing client memory facts carry provenance chain
+- Customer-facing reports include fact attribution: "Based on your stated budget of €500K (conversation, 23.03.2026)"
+- GDPR Article 22: automated decisions based on profiling require transparency — memory provenance provides it
+
+---
+
+## 13. Conclusion
+
+The KYA Architecture Standard v1.7 (KYA-O) delivers **agent self-optimization governance** — the financial, optimization, and orchestration layers that transform agent self-improvement from a research curiosity into an enterprise-grade competitive moat with audit trails CISOs trust and efficiency gains CTOs measure.
 
 Three principles govern this architecture:
 
@@ -805,8 +859,11 @@ Combined with **KYA governance** (identity attribution, capability gating, foren
 
 ### Related Documents
 
-- `Legal/KYA_SECURITY_v1.2.md` — Companion: Know Your Agent v1.2 (REQUIRED FOUNDATION)
+- `Legal/KYA_SECURITY_v1.2.md` — Companion: Know Your Agent v1.5 (REQUIRED FOUNDATION, §10 Memory Audit Trail)
 - `DWS_SECURITY_STANDARD.md` — Section 18: KYA & BYO Agent Security
+- `Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md` — Agent Memory System operations manual
+- `src/agents/fact-extraction.service.ts` — Fact extraction pipeline (PR-254)
+- `src/agents/memory.service.ts` — Memory store/recall/forget/profile service
 - `docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md` — Autoresearch methodology field note
 - `16-INDUSTRIES.md` — 16 EU-regulated industries
 - `src/identity/ats-engine.ts` — ATS engine implementation

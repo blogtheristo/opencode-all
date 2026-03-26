@@ -110,7 +110,7 @@ Return JSON: {
 
     let synthesis = { overallFieldRisk: 50, immediateActions: [], safetyStatus: 'caution', fieldNarrative: '' };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.fieldNarrative = llmResponse.content.slice(0, 300);
     }

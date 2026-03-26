@@ -221,7 +221,7 @@ BESS compliance cost analysis:
 
 Return JSON: { "summary", "riskFactors": [], "recommendations": [], "taxonomyNarrative" }`,
         );
-        try { synthesis = JSON.parse(llmResult.content); } catch { synthesis.summary = llmResult.content.slice(0, 300); }
+        try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.summary = llmResult.content.slice(0, 300); }
       } catch {
         synthesis.summary = `BESS ${battery.powerMw}MW/${battery.energyMwh}MWh: €${complianceCost.totalCostEur}/year compliance cost`;
       }

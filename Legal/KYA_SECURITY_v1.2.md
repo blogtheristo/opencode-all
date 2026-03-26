@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10 Memory Audit Trail — court-defensible provenance for agent memory mutations (store, supersede, forget, extract); fact extraction governance (PR-254 wiring); memory contradiction resolution requires KYA attestation before PR-255 deployment; CSRD/EU AI Act Article 12 compliance for AI-generated memory; added memory_audit_log schema; cross-referenced Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 13.03.2026 | Changes: External review integration — ATS Hard Stop (V>0 nullifies A factor, §3.1). Cold-Start Latency Penalty added to L factor (§4.1). 5ms behavioral guardrail confirmed as security containment (§2.5). U.S. Executive Order 14110 + OECD AI Principles added to compliance (§8). D&O Insurance safe harbor positioning (§8.1). KYA-S/KYA-O internal naming convention (§1). Tiered Fault Attribution fees by industry risk (§9.5)
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Added SOC 2 Type II and ISO 42001 (AI Management Systems) to compliance alignment (§8). Dual acronym KYA retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
@@ -35,7 +36,7 @@ Related Documents:
 ***
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Security Standard v1.4 (KYA-S)
+**Version:** KYA Security Standard v1.5 (KYA-S)
 **Status:** Implementation Ready (Q1 2026 Launch)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -638,7 +639,106 @@ Fault attribution investigation costs vary by industry risk tier. Higher-risk in
 
 ---
 
-## 10. Conclusion
+## 10. Memory Audit Trail (v1.5)
+
+*Added: 23.03.2026 | PR-254 (agent-memory-fact-extraction)*
+
+Agent memory is a security surface. When agents store facts about customers, resolve contradictions between conflicting memories, or forget data on GDPR request, each mutation must be **attributed, timestamped, and immutably logged** — or the memory system becomes an unauditable black box that fails compliance review.
+
+### 10.1 Memory Mutations Requiring KYA Attestation
+
+| Operation | Security Concern | KYA Requirement |
+|-----------|-----------------|-----------------|
+| **Store** | Agent writes arbitrary data to persistent memory | Log agent_id, source, confidence, org_id; validate against Capability Manifest |
+| **Supersede** | Agent replaces existing fact with new one | Log old_memory_id, new_memory_id, reason, agent_id; **human review if confidence delta > 0.3** |
+| **Forget** | Agent soft-deletes memory (GDPR, correction) | Log memory_id, reason, agent_id; immutable audit entry (forget is never hard-delete) |
+| **Extract** | Agent extracts facts from conversation text | Log source_text_hash (not content — privacy), facts_count, agent_id, confidence scores |
+
+### 10.2 Contradiction Resolution Governance
+
+When a new fact contradicts an existing fact (e.g., "ACME has 250 employees" superseded by "ACME has 300 employees"), the KYA audit trail must capture:
+
+```
+MEMORY SUPERSEDE AUDIT LOG:
+  timestamp:      2026-03-23T14:30:00Z
+  agent_id:       compliance-agent-001
+  agent_ats:      0.87
+  old_memory_id:  mem-abc-123
+  old_content:    "ACME has 250 employees"
+  old_confidence: 0.9
+  new_memory_id:  mem-def-456
+  new_content:    "ACME has 300 employees"
+  new_confidence: 1.0
+  new_source:     "annual-report-2025"
+  reason:         "temporal_supersede: newer source with higher confidence"
+  kya_decision:   "auto_approved (confidence_delta < 0.3)"
+  firehorse_log:  "FH-2026-03-23-14300"
+```
+
+**Hard rule:** Contradiction resolution (PR-255) MUST NOT ship without this KYA audit trail. Resolving memory conflicts with no provenance for *why* one fact superseded another fails CSRD audit and EU AI Act Article 12 logging requirements.
+
+### 10.3 Fact Extraction Governance
+
+The fact extraction pipeline (PR-254) converts unstructured conversation text into structured subject-predicate-value triples. KYA governs this process:
+
+| Guardrail | Enforcement |
+|-----------|-------------|
+| **Extraction scope** | Agent Capability Manifest must declare `memory:extract` permission |
+| **Confidence floor** | Facts below 0.7 confidence are NOT persisted (configurable per tenant) |
+| **Source attribution** | Every extracted fact carries `source: "fact-extraction"` + source_text_hash |
+| **Duplicate prevention** | Cosine similarity > 0.95 triggers dedup, not double-store |
+| **PII filtering** | Extraction prompt explicitly prohibits extracting personal data without consent flag |
+| **Rate limiting** | Max 100 fact extractions per agent per hour (prevent memory flooding) |
+
+### 10.4 Memory Audit Log Schema
+
+```sql
+-- Extends existing memory_audit_log table
+CREATE TABLE IF NOT EXISTS memory_audit_log (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  operation     text NOT NULL CHECK (operation IN ('store', 'supersede', 'forget', 'extract')),
+  agent_id      text NOT NULL,
+  agent_ats     float,
+  memory_id     uuid,
+  old_memory_id uuid,           -- For supersede operations
+  org_id        text NOT NULL,
+  customer_id   uuid,
+  reason        text,
+  metadata      jsonb DEFAULT '{}',
+  created_at    timestamptz DEFAULT now()
+) PARTITION BY RANGE (created_at);
+
+-- RLS: tenant isolation
+ALTER TABLE memory_audit_log ENABLE ROW LEVEL SECURITY;
+CREATE POLICY memory_audit_org_isolation ON memory_audit_log
+  FOR ALL USING (org_id = current_setting('app.org_id', true));
+
+-- 7-year retention per GDPR (partitioned monthly)
+```
+
+### 10.5 ATS Impact
+
+Memory violations affect the Agent Trust Score:
+
+| Violation | ATS Penalty |
+|-----------|-------------|
+| Unauthorized memory store (no `memory:store` in manifest) | V += 1 (−0.25) |
+| Supersede without audit log entry | V += 1 (−0.25) |
+| Attempt to hard-delete (bypass soft-delete) | V += 2 (−0.50), session frozen |
+| Memory flooding (>100 extractions/hour) | D += 10 (−0.50) |
+| PII extraction without consent flag | V += 1 (−0.25), GDPR incident logged |
+
+### 10.6 Cross-References
+
+- `src/agents/memory.service.ts` — Memory store/recall/forget implementation
+- `src/agents/fact-extraction.service.ts` — Fact extraction pipeline (PR-254)
+- `Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md` — Operations manual
+- `supabase/migrations/047_hybrid_memory_search.sql` — Hybrid search function
+- Thesis: V3Thesis_EN Section 10.10.7, PHD_FIREHORSE_EN Section 14.6.4
+
+---
+
+## 11. Conclusion
 
 The KYA Security Standard provides a complete governance framework for autonomous AI agents operating in industrial environments. By combining hardware-level isolation, real-time identity triggers, forensic observability, agent identity watermarking, and behavioral guardrails, Lifetime Oy delivers the infrastructure that makes BYO agents safe for regulated industries.
 

@@ -37,7 +37,7 @@ Hi [First name],
 
 I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. Think: autonomous compliance agents for steel mills, construction sites, and chemical plants — governed by our KYA (Know Your Agent) standard with hardware-attested isolation and court-defensible audit trails.
 
-We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA, Microsoft, Google, AWS, and Groq. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
+We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA Connect Partner (Groq), Microsoft, Google, AWS, IBM, Acer Finland, and Konfitech. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
 
 The moat: our **Lifetime World Model** — 15,000+ EU regulatory documents indexed across 20 industries, 7 years and 6 platform versions to build. Not a fine-tuned GPT. A proprietary regulatory intelligence graph.
 
@@ -46,7 +46,7 @@ I'm offering seats in a **SAFE round at EUR 3.8M cap**:
 - **Fleet Admiral** — EUR 500K (1 seat, board observer, first refusal on follow-on)
 - **Captain** — EUR 150K (strategy briefings, priority pilot routing)
 - **Industry Captain** — EUR 50K (named captain of 1 of 20 EU industries)
-- **Deputy Captain** — open entry, unlimited seats
+- **Deputy Captain** — EUR 5,000, unlimited seats
 
 If this fits your thesis, would you be open to a **20-minute call** to walk through the KYA governance framework and our path to **EUR 900K ARR by end of 2026**?
 
@@ -73,7 +73,7 @@ I'm building **DWS IQ 6** — a platform that governs AI agent swarms across 20 
 We're live with **EUR 7K/month MRR, 100% retention**, and I'm offering 8 Industry Captain seats — one per industry tranche:
 
 - **Industry Captain** — EUR 50K: Named captain of [industry]. Annual briefings, industry-specific regulatory intelligence, priority pilot routing.
-- **Deputy Captain** — open entry, unlimited: Quarterly briefings, upgrade path.
+- **Deputy Captain** — EUR 5,000, unlimited: Quarterly briefings, upgrade path.
 
 As someone who's lived the [industry] compliance problem, you'd be the ideal captain for that vertical.
 
@@ -98,7 +98,7 @@ Hi [First name],
 
 I'm building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. The governance layer (KYA — Know Your Agent) provides hardware-attested isolation and court-defensible audit trails that reduce D&O insurance premiums by 8-12%.
 
-We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Inception, Microsoft Founders Hub, Google, AWS, Groq. 100% EU data residency (Finland, Germany).
+We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Connect Partner (Groq), Microsoft Founders Hub, Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
 
 I'm offering seats in a **SAFE at EUR 3.8M cap** — from EUR 50K Industry Captain seats (8 available, one per industry) to a single EUR 500K Fleet Admiral seat with board observer rights.
 
@@ -133,15 +133,16 @@ Lifetime Oy
 
 ## Key Talking Points (For Calls)
 
-### Traction
+### Traction & Sales Motion
 - **EUR 7K/month MRR** (March 2026, 100% retention, zero churn)
 - **5+ paying/pilot accounts**
+- **Sales motion:** Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers at average EUR 36K ARR = EUR 900K.
 - **Sales sprint:** June 15 – August 15, 2026 (2 months, 100% sales focus)
 
 ### Product — KYA Governance
 - **DWS IQ 6** — train and run enterprise AI agent swarms safely
 - **KYA (Know Your Agent)** — hardware-attested isolation, court-defensible audit trails
-- **Alpha-Share revenue model** — Decline-to-Scale: 12% (first EUR 1M), 8% (EUR 1-10M), 5% (above EUR 10M)
+- **Dual revenue model** — SaaS subscription + API fees (Tiers 1–3); Alpha-Share Decline-to-Scale reserved for Enterprise World Tier 4 only
 - **Performance Guarantee** — 30-day service credit on verified fault (replaces "clawback")
 - **D&O Insurance angle** — 8-12% premium reduction for KYA-certified agents
 - **Edge AI** — NVIDIA Jetson Orin Nano, works offline, solar-capable, 7-15W
@@ -153,14 +154,14 @@ Lifetime Oy
 - **Fit for 55 / EPBD** — hard mandates hitting 2025-2028
 
 ### Moat (Three Pillars)
-- **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years to build (3-5 years to replicate)
+- **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years and 6 versions to build, roadmap through v8 (3-5 years to replicate)
 - **Edge deployment** — NVIDIA Jetson at industrial sites (2-3 years to replicate)
 - **Model-agnostic orchestration** — swap any LLM, intelligence lives in the World Model (1-2 years to replicate)
 
 ### Business Model
 - **Per-industry value:** EUR 180K–EUR 50M annually per enterprise
-- **Alpha-Share:** Declining % of value delivered — aligns incentives
-- **Target:** EUR 900K ARR by end of 2026
+- **Dual model:** SaaS (Tiers 1–3) + Alpha-Share (Enterprise World Tier 4) — broad market + value-aligned enterprise
+- **Target:** EUR 900K ARR by end of 2026 (25 customers x EUR 36K avg)
 
 ### Seat Structure
 
@@ -169,19 +170,25 @@ Lifetime Oy
 | **Fleet Admiral** | EUR 500,000 | 1 | Board observer, first refusal on follow-on, annual 1:1 |
 | **Captain** | EUR 150,000 | Limited | Strategy briefings, priority pilots, Situation Room |
 | **Industry Captain** | EUR 50,000 | 8 | Named captain of 1 of 20 industries |
-| **Deputy Captain** | Open | Unlimited | Quarterly briefings, upgrade path |
+| **Deputy Captain** | EUR 5,000 | Unlimited | Quarterly briefings, upgrade path |
 
 - **Valuation cap:** EUR 3.8M
 - **Instrument:** SAFE with 20% discount
 
 ### Team
 - **Risto Anton Päärni** — Founder & CEO
-  - 35 years industrial IT, construction, infrastructure
+  - 35 years of domain expertise in industrial IT, construction, and infrastructure — the moat is the founder. Not a first-time founder learning the industry; a career operator encoding decades of compliance knowledge into AI agents.
   - EU regulation expertise (Fit for 55, EPBD, AI Act)
   - Board roles: Lifetime Group companies
+- **Lucille Santiago** — Logistics & Office
+- **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026
+- **Advisors:**
+  - Hannamari Robertsson — CEO, Robertsson Oy (ESG & Business Consulting, PhD research, keynote speaker: Alma Talent, Rastor, Professio)
+  - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
+  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 
 ### Partnerships
-- **NVIDIA Inception**, Microsoft Founders Hub (L1-L4), Google, AWS, Groq
+- **NVIDIA Connect Partner (Groq)**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - Three **InvestEU Portal** listings (INPO-20254383)
 - 100% EU data residency (Finland, Germany, Netherlands)
 

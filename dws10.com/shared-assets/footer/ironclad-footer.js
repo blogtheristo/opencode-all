@@ -67,7 +67,8 @@
             <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
-            <h4>Industries</h4>
+            <h4>Dual Use Industries</h4>
+            <a href="/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
             <a href="/construction/">Construction</a>
             <a href="/energy/">Energy</a>
             <a href="/manufacturing/">Manufacturing</a>

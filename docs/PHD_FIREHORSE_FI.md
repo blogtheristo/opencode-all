@@ -10,9 +10,12 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 14.13 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi, LeWorldModel-validointi (arXiv:2603.19312), vaiheen 2 teknisen aukon analyysi, vaatimustenmukaisuus ensin -maailmamalliteesi; lisätty avainpanos #19
+  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
+  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen faktojen poiminta subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM + asiakasmuisti), kolme suorituskerrosta (Firehorse-tilakonemasiina, ERP-liittimet, KYA-hallinta); KYA-ensisijainen PR-järjestys oikeudellisesti pätevään muistin auditointipolkuun; lisätty avainpanos #17
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 14.2.1 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiatapaustutkimus — ensimmäinen ulkoinen markkinavalidointi, 21 693 €/vuosi BESS-vaatimustenmukaisuustuotos, Firehorse-mallin siirrettävyys energiasektorille vahvistettu); lisätty avainpanos #16; päivitetty 16→20 toimialaa LWM-osioissa
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
@@ -35,10 +38,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 24.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.5 — Harness Engineering ja forensiikkatelemetria: harness-forensiikka-yhteys, oikeudellisesti pätevä harness, KYA-laitteistotodennus)
+  - Publication Status: DRAFT (V3.0 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, vaiheen 2 tekninen aukko)
 ---
 
 ## Tiivistelmä
@@ -103,6 +106,30 @@ Tämä tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuote
 | Konsultointipalvelut | Tunti-, kuukausi-, tyopajahinnoittelu | 98 - 6 250 EUR |
 | Koulutus & Valmennus | AI Koulutus, Coach, Mentor | 499 - 6 250 EUR |
 | Digitaaliset tuotteet | Sanastot, verkkosivut | 0,99 - 799 EUR |
+
+### 1.4 Motivoiva teesi: Hiilitase
+
+Tämän tohtoritutkimuksen keskeinen hypoteesi on, että EU:n ilmastovaatimustenmukaisuus — ETS, CBAM, CSRD ja EU-taksonomia — ei ole raportointiongelma vaan **kirjanpito-ongelma**. Sama fyysinen CO2e-määrä kulkee useiden sääntelykontaktipisteiden läpi: terästehtaan ETS-luovutus muuttuu tuojan CBAM-sisällytetyksi päästöksi, rakennusyhtiön CSRD Scope 3 -ylävirran ilmoitukseksi ja taksonomialinjauksen määritteeksi. Nykyiset vaatimustenmukaisuustyökalut käsittelevät jokaisen säännöksen erillisenä raportointityönkulkuna, mikä tuottaa päällekkäistä dataa, epäjohdonmukaisia kertoimia ja ±40 % Scope 3 -epävarmuutta.
+
+Tämä tutkielma esittää, että hiilivaatimustenmukaisuus vaatii **kahdenkertaisen kirjanpidon** — saman arkkitehtuurisen ratkaisun, jonka kirjanpito otti käyttöön vuosisatoja sitten. Jokainen vaatimustenmukaisuustapahtuma tuottaa kirjanpitokirjauksen (veloitus tai hyvitys) kaksoisyksiköissä (EUR ja tCO2e). Tuloksena syntyvä hiilitase antaa nettohiiliposition, joka on auditoitava, täsmäytettävä ja koneluettava.
+
+**Miksi tämä kehystää Firehorse-toimintatutkimuksen:**
+
+Firehorse-toimintamalli (osiot 3–13) dokumentoi insinööri-infrastruktuurin — moniagenttiorkestroinnin, reunakäyttöönoton, ERP-integraation, sääntely-älykkyyden — joka vaaditaan hiilitaseen rakentamiseen 20 EU-reguloidulle toimialalle. Ilman harness-arkkitehtuuria (osio 14.12) poikkitoimialainen kirjanpito ei voi ylläpitää auditoinnin eheyttä. Ilman MCP-orkestrointia poikkisääntelyinen täsmäytys ei voi tapahtua reaaliajassa. Ilman reunakäyttöönottoa teollisuuslaitokset eivät voi tuottaa varmennettua päästödataa.
+
+**Kolme tutkimuskysymystä nousee hiilitaseteesistä:**
+
+1. **Rakenteellinen isomorfismi:** Onko analogia kirjanpidon kahdenkertaisen kirjanpidon ja hiilivaatimustenmukaisuuden seurannan välillä muodollisesti pätevä vai pelkästään metaforinen? Voivatko samat tietorakenteet, täsmäytysalgoritmit ja auditointitakuut siirtyä?
+
+2. **Poikkitoimialainen älykkyys:** Tuottaako monitoimialainen hiilikirjanpito emergenttia älykkyyttä, jota yksitoimialainen työkalu ei voi replikoida? Erityisesti: kun terästehtaan varmennetut ETS-päästöt korvaavat rakennusyhtiön CBAM-oletusarvot, toteutuuko tarkkuusparannus (hypoteesi ±3 % vs. ±40 %) käytännössä?
+
+3. **Verkostovaikutukset vaatimustenmukaisuusdatassa:** Missä mittakaavassa (toimialojen, entiteettien, transaktioiden lukumäärä) poikkisääntelyinen täsmäytys muuttuu itseään vahvistavaksi — jossa yhden toimialan lisääminen kirjanpitoon parantaa datan laatua kaikille olemassa oleville toimialoille?
+
+**Avoimen lähdekoodin konnektorien rooli:**
+
+Hiilitase vaatii varmennettua dataa heterogeenisistä teollisuusjärjestelmistä — ERP-alustoista (SAP, IFS, Dynamics, Visma, Jeeves), EU-rekistereistä (EUTL, CBAM-siirtymärekisteri), päästökerroindatakannoista (EEA, IPCC), IoT-antureista ja ESG-alustoista (Worldfavor, PositionGreen). Tämä tutkielma esittää, että näiden konnektorien tulee olla **avointa lähdekoodia** (MIT-lisensoituja) kolmesta syystä: (1) auditoitavuus — tilintarkastajien on pystyttävä tarkastamaan tietopolku lähdejärjestelmästä kirjanpitokirjaukseen, ei luottamaan toimittajan mustaan laatikkoon; (2) verkostovaikutuksen kiihdytys — avoin lähdekoodi laskee käyttöönoton kynnystä, mahdollistaen poikkitoimialaisen älykkyyden syntymisen nopeammin; (3) sääntelypuolustettavuus — EU:n tekoälysäädöksen artikla 12 vaatii auditoitavia AI-putkia, ja avoin lähdekoodi täyttää tämän vaatimuksen suunnittelultaan. Konnektoriarkkitehtuuri laajentaa DWS:ssä jo toteutettuja ERP-integraatiomalleja (`src/integrations/erp/`), käsitellen jokaista konnektoria standardoituna adapterina (syöttöskeema → kirjanpitokirjaus), joka liittyy kirjanpidon append-only-syöttörajapintaan.
+
+Nämä kysymykset ulottuvat Firehorse-verkkokauppatoimintojen yli **vaatimustenmukaisuusinfrastruktuurin suunnittelun** alueelle — siirtymä "työkaluista jotka tuottavat raportteja" "infrastruktuuriin joka ylläpitää tietojärjestelmää hiilelle." DWS 7 -toteutus (Phase 2.6, PR:t 093A–093H) tarjoaa empiirisen testialustan.
 
 ---
 
@@ -1180,6 +1207,43 @@ Lifetime Scope Signals (LSS) -protokolla — alun perin suunniteltu deterministi
 
 **Vaikutus Firehorse-toimintamalliin:** Koulutuskoordinointi validoi LSS:n yleiskäyttöisenä deterministisenä koordinointimekanismina — sama protokolla orkestroi sekä ohjelmistokehitysagentteja (Liite F) että ML-koulutusputkia, vähentäen operatiivista monimutkaisuutta Firehorse-asiakkaille, jotka tarvitsevat molempia kyvykkyyksiä.
 
+#### 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254)
+
+*Sessio: claude/agent-memory-fact-extraction-gLEss | Päiväys: 23.03.2026*
+
+EMPO²:n teoreettinen kehys (osio 14.6.2) operationalisoitiin **faktojen poimintaputkella** — ensimmäinen tuotantototeutus ei-parametrisesta muistipäivityspolusta Firehorse-toimintamallissa.
+
+**Kaksoismuistiarkkitehtuuri:**
+
+| Kerros | Rooli | Firehorse-vaikutus |
+|--------|-------|-------------------|
+| **LWM** | Domainitieto (säädökset, päästökertoimet, toimialamallit) | Mahdollistaa *mitä* agentti voi analysoida |
+| **Asiakasmuisti** | Suhdetieto (mieltymykset, päätökset, avoimet asiat) | Mahdollistaa *personoidun* analyysin asiakaskohtaisesti |
+
+Faktojen poimintaputki muuntaa strukturoimattoman keskustelutekstin strukturoiduiksi subjekti-predikaatti-arvo -kolmikoiksi LLM-pohjaisella poiminnalla (Claude Haiku), luottamuspisteytyksellä, duplikaattitunnistuksella kosinisimilaarisuudella (pgvector) ja tallennuksella `fact`-tyyppisinä muisteina semantic_memories-tauluun.
+
+**Kolme suorituskerrosta toiminnalliseen muistiin:**
+
+1. **Firehorse-tilakonemasiina** — Toimii poimittujen faktojen perusteella. Fakta "asiakkaan määräaika Q2 2026" täytyy laukaista eskalaatiotyönkulku, ei vain säilöä tietokantaan.
+
+2. **ERP-liitinkerros** — Syöttää livedataa Visma/IFS/SAP/Dynamicsista muistiin. Asiakasmuisti tallentaa ilmaistut mieltymykset; ERP paljastaa todellisen käyttäytymisen.
+
+3. **KYA-hallintakehys (v1.4 sisäinen / v1.1 julkinen)** — Käärii jokaisen muistimutaation auditoitavalla alkuperällä. Kriittinen havainto: **ristiriitojen ratkaisu (PR-255) ilman KYA-todistusta tarkoittaa muistiristiriitojen ratkaisemista ilman auditointipolkua *miksi* yksi fakta syrjäytti toisen.** Oikeudellisesti pätevä auditointiketju: "fakta A korvasi faktan B ajanhetkellä X, hyväksyjä agentti Y, kirjattu Firehorseen" — vaaditaan CSRD:n ja EU AI Act artikla 12:n noudattamiseen.
+
+**KYA-ensisijainen PR-järjestys:**
+
+| Prioriteetti | PR | Ominaisuus |
+|-------------|-----|-----------|
+| 1 | 254 | Faktojen poiminta ✅ |
+| 2 | 255 | Ristiriitojen ratkaisu |
+| 3 | — | KYA-muistin auditointipolku |
+| 4 | 257 | Luottamuksen rappeutumispisteytys |
+| 5 | 256 | Konsolidoinnin ajastettu tehtävä |
+| 6 | 259 | Liitin-synkronointi |
+| 7 | 258 | Supermemory MCP EU |
+
+**Avainpanos #17:** Ensimmäinen tuotannon faktojen poimintaputki EU-yhteensopivaan teolliseen tekoälyyn, osoittaen kaksois-LWM/asiakasmuistiarkkitehtuurin ja tunnistaen kolmikerroksisen suorituspuutteen (tilakonemasiina, ERP-liittimet, KYA-hallinta), joka on välttämätön oikeudellisesti pätevään yrityksen tekoälymuistiin säännellyillä toimialoilla.
+
 ---
 
 ### 14.7 Toimitusjohtajan automaatioagenttiryhmä
@@ -1304,6 +1368,10 @@ Tämä tutkielma kontribuoi:
 12. Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti; osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
 13. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus
 14. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti, TimescaleDB Hypercore tuotantoon, pg_duckdb reunalaitteelle; vahvistaa hallinnoidun palveluntarjoajan rajoitteet arkkitehtuurin ohjaajana
+15. Harness Engineering ja forensiikkatelemetria — oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena
+16. LWM:n tuotemarkkinavalidointi — Qantic GmbH energiasektorin tapaustutkimus, ensimmäinen ulkoinen markkinavalidointi
+17. Agenttimuistin faktojen poimintaputki — LLM-pohjainen faktojen poiminta, kaksoismuistiarkkitehtuuri, KYA-ensisijaisuusjärjestys
+18. Hiilitaseteesi — EU:n ilmastovaatimustenmukaisuus kirjanpito-ongelmana; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); kolme tohtoritutkimuskysymystä: rakenteellinen isomorfismi, poikkitoimialainen älykkyys, verkostovaikutukset vaatimustenmukaisuusdatassa; DWS 7 Phase 2.6 empiirisenä testialustana
 
 ### 13.3 Tuleva tyo
 
@@ -1662,6 +1730,38 @@ Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin o
 
 **Tutkimuspanos:** Tämä osio osoittaa, että **harness engineering ei ole yksi koko kaikille.** EU-regulaatiokonteksti vaatii perustavanlaatuisesti erilaisen harness-suunnittelun — sellaisen, joka priorisoi jäljitettävyyttä, ihmisen valvontaa ja oikeudellista puolustettavuutta nopeuden sijaan. OpenAI:n 3,5 PR/insinööri/päivä -mittari on irrelevantti, kun ensisijainen mittari on vaatimustenmukaisuuden varmistaminen ja auditointivalmius.
 
+### 14.13 LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn
+
+**Lähde:** LeWorldModel (arXiv:2603.19312, Maes ym., maaliskuu 2026); LWM-sekvensointianalyysi tiedostossa `docs/field-notes/2026-03-25-lwm-phase2-technical-gap-analysis.md`.
+
+**Konteksti:** Lifetime World Model palvelee kaksoisroolia: sääntely-älymoottori (vaihe 1, nykyinen) ja fyysinen suunnittelujärjestelmä (vaihe 2, tuleva). Tämä osio dokumentoi sekvensointistrategian ja vaiheiden välisen teknisen aukon.
+
+#### 14.13.1 Kolmivaiheinen sekvensointi
+
+**Vaihe 1 (Nykyinen):** LWM sääntely-älymoottorina — 15 000+ EU-dokumenttia, 18 AI-agenttia, hiilitase poikkisääntelyisellä täsmäytyksellä. Liikevaihtoa tuottava. 6 asiakasta (KELA, Taksi Helsinki, Uber, Bolt, Limo Helsinki, Sixt).
+
+**Vaihe 2 (SAFE:n jälkeen):** LWM lisää fyysisen suunnittelun latenttitila-mallien kautta (LeWorldModel-tyylinen JEPA-arkkitehtuuri). Helsingin terveydenhuollon laivastopilotti.
+
+**Vaihe 3 (Series A):** Täysi kaksikäyttötuote — vaatimustenmukaisuusinfrastruktuuri + reunafyysinen tekoäly 5 toimialalla.
+
+**Keskeinen oivallus:** Vaatimustenmukaisuusdata syöttää fyysistä suunnittelua. Ei toisinpäin.
+
+#### 14.13.2 LeWorldModel ulkoisena validointina
+
+LeWorldModel (Maes, Le Lidec, Scieur, LeCun, Balestriero, 2026) osoittaa stabiilin JEPA-koulutuksen raakapikseleistä vain 2 häviötermillä (ennustus + SIGReg). 15M parametria, yksi GPU, 48x nopeampi suunnittelu. SIGReg-regulaattori (Cramér-Wold-lause, isotrooppinen Gaussin priori) ratkaisee esityksen romahdusongelman.
+
+#### 14.13.3 Vaiheen 2 tekninen aukko
+
+Kolme ratkaisematonta ongelmaa tohtoritutkimukselle:
+
+1. **Syötemodaalien kuilu:** Tekstipohjainen sääntelygraafi → visuaalisia/anturisyötteitä odottava latentti suunnittelija. Ehdotettu silta: OpenUSD-digitaalikaksonen.
+
+2. **Skaalan kuilu:** LeWorldModel testattu kontrolloidussa simulaatiossa. Teolliset ympäristöt ovat kontrolloimattomia, pitkän aikahorisontin ja harvan palautteen ympäristöjä.
+
+3. **Sääntely-fyysinen integraatio:** Fyysinen suunnittelija ehdottaa → sääntely-moottori validoi → KYA-hallintaportti valvoo. KYA v1.4 on ainoa vaiheen 2 komponentti, joka on jo rakennettu.
+
+**Tutkimuspanos:** Vaatimustenmukaisuus ensin -maailmamalliteesi — sääntelyinfrastruktuurin on edellettävä fyysisen suunnittelun kykyä — tarjoaa konkreettisen tutkimusohjelman, joka yhdistää LeWorldModelin teoreettiset edistysaskeleet teolliseen käyttöönottoon EU-reguloiduissa ympäristöissä.
+
 ---
 
 ## Liite G: Sanasto
@@ -1707,7 +1807,8 @@ Firehorse-operaatioissa, jotka palvelevat EU-reguloituja toimialoja, harnessin o
 **Keskeiset kontribuutiot:**
 1-14. (Katso VERSION AND AGENT HISTORY)
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
+16. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A); LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi; vaatimustenmukaisuus ensin -maailmamalliteesi tohtoritutkimusohjelmana
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 16.03.2026*
-*Versio: 2.6*
+*Viimeksi päivitetty: 25.03.2026*
+*Versio: 3.0*

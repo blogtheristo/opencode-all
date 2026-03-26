@@ -34,11 +34,15 @@ import type {
 } from './types.js';
 import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
+import { MemoryService, memoryService } from './memory.service.js';
 
 export abstract class BaseAgent {
   protected config: AgentConfig;
   private supabase: SupabaseClient | null = null;
   private llmClient: LLMClient | null | undefined = undefined; // undefined = not yet initialized
+
+  /** Shared memory service for store/recall/forget/profile operations */
+  protected readonly memory: MemoryService = memoryService;
 
   constructor(config: AgentConfig) {
     this.config = {
@@ -120,11 +124,13 @@ export abstract class BaseAgent {
       logIterations: true,
     };
 
-    // Merge agent-specific tools with built-in tools
+    // Merge agent-specific tools with built-in tools (including memory)
     const allTools: ToolDefinition[] = [
       ...(tools || []),
       BUILTIN_TOOLS.query_database,
       BUILTIN_TOOLS.emit_event,
+      BUILTIN_TOOLS.memory_store,
+      BUILTIN_TOOLS.memory_recall,
     ];
 
     // Only include delegation tool if allowed

@@ -1,18 +1,18 @@
 ---
 VERSION AND AGENT HISTORY
 Document: Qantic Partnership — Internal Playbook
-Version: 1.0
+Version: 1.1
 Created: 2026-03-21
 Author: Claude Opus 4.6 (DWS IQ 6 Agent)
 Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: INTERNAL ONLY — Never share with Qantic
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/verify-nda-signatures-rdgOj | Date: 21.03.2026 | Changes: Added Section 6 — DocuSign NDA status, account details, signing workflow, Thomas contact verified
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 23.03.2026 | Changes: Added DocuSign readiness to call cheat sheet. NDA can be sent digitally within minutes of call ending.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Created from expansion strategy removed from deal proposal. Separate internal-only playbook for Risto's eyes only.
 
 Document Status:
-  - Last Modified: 21.03.2026
+  - Last Modified: 23.03.2026
   - Classification: STRICTLY INTERNAL — Lifetime Oy Strategy
   - Publication Status: NEVER SHARE WITH QANTIC OR CLIENTS
 ---
@@ -30,6 +30,15 @@ Three lines. That's it.
 1. **Credibility:** "Your clients will research both of us. DWS10 gives them confidence."
 2. **Expansion:** "We cover 20 EU-regulated industries — as your client base grows beyond energy, you don't need a new vendor."
 3. **Close:** "Name one pilot client. We send the NDA same day."
+
+### DocuSign Ready
+
+NDA is ready to send via DocuSign immediately after the call:
+- Template: `Partners/NDA_TEMPLATE_EU_2026.md` (EU Trade Secrets Directive 2016/943 compliant)
+- Integration: `src/integrations/docusign/` (built 21-22.03)
+- Verification: `scripts/verify-nda-signatures.ts`
+- Thomas signs digitally — no printing, scanning, or mailing
+- Signature status trackable programmatically
 
 ### What NOT to say on 26.03
 

@@ -108,7 +108,7 @@ Return JSON: {
 
     let synthesis = { keyFindings: [], actionableInsights: [], intelligenceSummary: '' };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.intelligenceSummary = llmResponse.content.slice(0, 300);
     }

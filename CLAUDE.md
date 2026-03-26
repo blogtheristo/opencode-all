@@ -19,6 +19,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
 | **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
+| **Skills Guide** | `docs/DWS_SKILLS_GUIDE.md` | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -100,13 +101,13 @@ The script (`scripts/gen-thesis-html.cjs`):
 
 ## Project Overview
 
-**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
+**DWS IQ 6** is a platform to **run enterprise industrial AI agents safely** following DWS standards. It provides multi-agent delegation with EU compliance scoring, ERP integration, and sales automation.
 
 **Architecture: Brain-Memory-Body-Hands**
-- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
-- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
-- **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
+- **Brain**: DWS IQ 6 Platform (Multi-Agent Orchestration via delegation & event bus — 16+ TypeScript agents with deterministic scoring)
+- **Memory**: Lifetime World Model (EU Regulations + Industry Models — *external dependency, not built in this repo*)
+- **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
+- **Hands**: Lifetime Fleet (IoT/Robots — *specification phase*)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
@@ -429,7 +430,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 | 1 | CLI exists | `npx tsx cli/src/cli.ts <command>` |
 | 2 | Output is JSON | All CLI output structured JSON |
 | 3 | MCP tools exposed | `/mcp` endpoint, `tools/list` returns all agents |
-| 4 | Claude Code Skills exist | `.claude/commands/*.md` (6 skills) |
+| 4 | Claude Code Skills exist | `.claude/commands/*.md` (17 skills) + `skills/*/SKILL.md` (3 discipline skills) |
 | 5 | Docs are markdown | All standards are `.md` in repo root |
 
 ```bash
@@ -438,9 +439,13 @@ dws run compliance --input '{"reg":"CSRD"}'
 dws workflow compliance-assessment
 ```
 
-**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`, `/sovereignty-assess`, `/flow-status`, `/email`. Every new agent MUST have a corresponding skill.
+**Skills in `.claude/commands/`:** `/compliance-check`, `/agent-run`, `/workflow`, `/discover-agents`, `/site-safety`, `/carbon-analysis`, `/remote-control`, `/sovereignty-assess`, `/flow-status`, `/email`, `/simplify`. Every new agent MUST have a corresponding skill.
 
 **gstack Skills (development workflow, based on Garry Tan's gstack):** `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro`. Recommended flow: plan → review → ship → retro. See AGENTS.md Section 16.
+
+**Discipline Skills (hard gates in `skills/*/SKILL.md`):** `verification-gate` (no completion without evidence), `design-first` (3+ file changes need design approval), `dual-folder-sync` (root/landing-pages sync). Agents follow these automatically.
+
+**Full skills guide:** `docs/DWS_SKILLS_GUIDE.md` | HTML: `Learn/DWS_SKILLS_GUIDE_v1.0.html`
 
 **MCP:** Server at `/mcp`, JSON-RPC 2.0. Every new agent is auto-discoverable via `tools/list`.
 

@@ -8,6 +8,7 @@ Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
 Status: DRAFT — INTERNAL ONLY (prospect stage, no NDA signed)
 
 Sessions & Modifications:
+  - Version: 5.4 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 23.03.2026 | Changes: Updated NDA readiness — DocuSign eSignature integration built, NDA template EU 2016/943 compliant, signature verification script ready. All documents can be sent digitally same-day after 26.03 call.
   - Version: 5.3 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Moved expansion strategy to internal playbook (docs/partnerships/qantic-internal-playbook.md). Deal proposal stays focused on current deal scope only.
   - Version: 5.2 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added expansion framing — "20 industries, one vendor" one-liner for 26.03 call. LWM details held back until BESS pilot proves itself.
   - Version: 5.1 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 8 — Mutual Credibility Window sales argument (DWS10.com as Qantic's compliance credibility layer for their clients' due diligence)
@@ -19,7 +20,7 @@ Sessions & Modifications:
   - Version: 1.1 (market-research) | Date: 21.03.2026 | Changes: Competitive analysis + deal analysis Section 11
 
 Document Status:
-  - Last Modified: 21.03.2026
+  - Last Modified: 23.03.2026
   - Classification: CONFIDENTIAL — Partnership Strategy
   - Publication Status: INTERNAL ONLY
 ---
@@ -287,7 +288,7 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 | Q-System JSON export format | After NDA | HIGH — unlocks Phase 2 |
 | Sample dispatch data (anonymized) | After NDA | HIGH — validates API integration |
 | Named pilot client for Phase 1 | 26.03 call | HIGH — first revenue |
-| Signed NDA | Before any technical sharing | REQUIRED |
+| Signed NDA (via DocuSign — ready to send) | Before any technical sharing | REQUIRED |
 | Signed LOI | After commercial terms agreed | REQUIRED |
 
 ---
@@ -297,7 +298,7 @@ Qantic embeds DWS IQ compliance as a module inside Q-System. Their clients see c
 | # | Action | Owner | Deadline |
 |---|--------|-------|----------|
 | 1 | Scoping call — ask the pipeline question | Risto + Thomas | 26.03.2026 |
-| 2 | Send NDA for countersignature | Risto | Same day as call |
+| 2 | Send NDA via DocuSign for digital signature | Risto | Same day as call |
 | 3 | Identify first pilot client (MAN or Naturstrom) | Thomas | 02.04.2026 |
 | 4 | Product deal for pilot client | Risto | April 2026 |
 | 5 | Receive Q-System JSON format | Thomas | After NDA |

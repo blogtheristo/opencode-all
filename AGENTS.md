@@ -13,14 +13,16 @@
 
 ## 1. Project Context
 
-**DWS IQ 6** is a platform to **train and run enterprise industrial agent swarms safely** following DWS standards. It governs autonomous AI agents across 20 EU-regulated industries with hardware-attested isolation (KYA Standard), court-defensible audit trails (Firehorse), and governed self-optimization (autoresearch).
+**DWS IQ 6** is a platform to **run enterprise industrial AI agents safely** following DWS standards. It provides multi-agent delegation with EU compliance scoring, ERP integration, and sales automation.
 
 **Architecture:** Brain-Memory-Body-Hands
 
-- **Brain**: DWS IQ 6 Platform (Agent Swarm Training & Orchestration — KYA-governed)
-- **Memory**: Lifetime World Model (Climate LLM + EU Regulations + Industry Models)
-- **Body**: Firehorse Suite (Forensic Telemetry, Reports, Automation, Content DMS, Omnichannel)
-- **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
+- **Brain**: DWS IQ 6 Platform (Multi-Agent Orchestration via delegation & event bus — 16+ TypeScript agents with deterministic scoring)
+- **Memory**: Lifetime World Model (EU Regulations + Industry Models — *external dependency, not built in this repo*)
+- **Body**: Firehorse Suite (Omnichannel sales automation ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
+- **Hands**: Lifetime Fleet (IoT/Robots — *specification phase*)
+
+**Maturity key:** ✅ Shipped | 🔧 Skeleton/In Progress | 📋 Planning Only
 
 **Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
@@ -200,7 +202,7 @@ dws6/
 
 ## 7. Agent Ecosystem (V2)
 
-8 platform agents, 10 dev agents, 7 team agents, 2 workflow agents, MCP orchestration, BYO agents.
+16+ platform agents (TypeScript classes with deterministic scoring), Claude Code skills (prompt-based orchestration), MCP orchestration hub.
 → Architecture diagrams, agent details, input/output schemas: [docs/AGENT_ECOSYSTEM.md](docs/AGENT_ECOSYSTEM.md)
 
 ### Platform Agents (Runtime)
@@ -483,9 +485,56 @@ Deterministic scoring (CSRD × 0.50 + ETS × 0.25 + CBAM × 0.25), no LLM depend
 
 ## 18. BYO Agent Lifecycle & KYA Trust Framework
 
+> **Status: SPECIFICATION** — The KYA lifecycle is documented but `kya-engine.ts` only implements `terminateChain()`. Hardware attestation and Firecracker isolation are not implemented in this repo.
+
 KYA (Know Your Agent) 6-stage gate: Registration → IDV → KYB → Capability Review → Sandbox → Runtime Monitoring.
-Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine. Firecracker MicroVM isolation.
+Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine. Firecracker MicroVM isolation (planned).
 → Full protocol, manifest schema, sandbox stages, forensic logging: [docs/KYA_BYO_LIFECYCLE.md](docs/KYA_BYO_LIFECYCLE.md)
+
+---
+
+## 19. Product Maturity Matrix (Truth Table)
+
+> Added 2026-03-22. Honest internal assessment of codebase maturity vs market positioning.
+>
+> **Market context:** DWS IQ 6 and Firehorse are actively sold on dws10.com (€4,999 platform + €6,500 Climate Reporting Starter Bundle). Three logistics operators in pilot (€7k–14k MRR, 12+ months retention). Product is real, deployed Dec 2025, V1.0 Feb 2026.
+
+### Platform Core
+
+| Component | Status | Evidence |
+|-----------|--------|----------|
+| Express backend (22+ routes) | ✅ Shipped | `src/app.ts` — production middleware, Cloud Run europe-north1 |
+| Compliance engine (CSRD/ETS/CBAM/Fit for 55/EU AI Act Art.12) | ✅ Shipped | Deterministic scoring, 82 ESRS disclosures, EU-sourced emission factors |
+| 16+ TypeScript agents | ✅ Shipped | `src/agents/*.agent.ts` — real business logic, observe-think-act loop |
+| CLI (`dws` command) | ✅ Shipped | `cli/src/cli.ts` — zero-dep, JSON output, MCP passthrough |
+| MCP Agent Protocol (JSON-RPC 2.0) | ✅ Shipped | `/mcp` endpoint, agents discoverable via `tools/list` |
+| Auth (JWT + Supabase) | ✅ Shipped | Login/register, rate limiting, GDPR-compliant |
+| React dashboard (V10) | ✅ Shipped | v10-react — 36+ components, Vite + React 19.2, Firehorse pipeline view |
+| Agent delegation (multi-agent) | ✅ Shipped | BaseAgent delegation with depth cap (5), event bus |
+| ERP connectors (SAP/IFS/D365/Monitor/Visma/Jeeves) | ✅ Shipped | Auth + sync + Supabase persistence (this PR) |
+
+### Firehorse Suite
+
+| Component | Status | Evidence |
+|-----------|--------|----------|
+| Firehorse Omnichannel (sales automation) | ✅ Shipped | `src/firehorse/` — state machine, scheduler, 15 routes, mounted in app.ts |
+| Firehorse Signal-Based Sales | ✅ Shipped | Migration 012, ULTRA/HIGH correlation, approval workflow |
+| Firehorse Signed Reports (DocuSign) | ✅ Shipped | `src/firehorse/signed-reports.ts` — eSignature integration |
+| Firehorse Report Module | ✅ Shipped | `src/firehorse/report-module.ts` — Board Pack, Annual Report, Compliance, Carbon formats. Pulls from compliance engine + ERP data |
+| Firehorse Automation (workflows) | ✅ Shipped | `src/firehorse/workflow-engine.ts` — 4 templates (compliance, lead-nurture, ERP sync, carbon). Supabase persistence |
+| Firehorse ContentMS | 📋 Planned | Architecture documented, zero implementation code |
+
+### Infrastructure & Security
+
+| Component | Status | Evidence |
+|-----------|--------|----------|
+| GDPR/NIS2 data residency | ✅ Shipped | Cloud Run europe-north1, Supabase EU |
+| EU AI Act Article 12 lineage | ✅ Shipped | Aiwen overlay, agent execution logging |
+| KYA Trust Framework | 🔧 Partial | `kya-engine.ts` terminateChain() works; full 6-stage gate spec only |
+| LWM (Lifetime World Model) | 📋 External | MCP URL configured, served as external dependency |
+| Temporal.io orchestration | 📋 Planned | Docker compose config, no workflow code |
+
+**Key:** ✅ Shipped (working code, tests, API) | 🔧 In Progress (code exists, gaps remain) | 📋 Planned (docs/spec only)
 
 ---
 

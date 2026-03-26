@@ -4,9 +4,12 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.27
+Version: 3.30
 
 Sessions & Modifications:
+  - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 10.18 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A), LeWorldModel-validointi (arXiv:2603.19312), Phase 2 teknisen aukon analyysi, Persefoni/Sweep-vertailuarvot; lisätty avainpanos #21
+  - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 10.17 (Johtopäätökset: Hiilitase vaatimustenmukaisuusinfrastruktuurina) — kahdenkertaisen kirjanpidon malli CO2:lle ETS/CBAM/CSRD/Taksonomiassa, poikkitoimialainen älykkyys kirjanpitojen kautta, DWS 7 Phase 2.6 toteutussuunnitelma; lisätty avainpanos #20
+  - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen strukturoitu faktojen poiminta keskusteluista subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM domainitieto + asiakassuhdemuisti), kolme puuttuvaa suorituskerrosta tunnistettu (Firehorse-tilakonemasiina, ERP-liitin, KYA-hallintakehys); päivitetty PR-tiekartta KYA-ensisijaisuusjärjestyksellä; lisätty avainpanos #20; huomioitu KYA Standard v1.4 sisäinen / v1.1 julkinen ero
   - Version: 3.27 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 10.7.3 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiasektorin tapaustutkimus — ensimmäinen ulkoinen validointi LWM:n kaupallisesta arvosta rakennusalan ulkopuolella, 21 693 €/vuosi BESS-vaatimustenmukaisuuskustannuslaskelma, 6 toimialan laajennuspolku MAN-tyyppisille asiakkaille, Solution Factory -malli vahvistettu); päivitetty 16→20 toimialaa LWM-osioissa; uudelleennumeroitu 10.7.3→10.7.4 Orchestration Studio
   - Version: 3.26 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 8 Tulokset ja analyysi v3.16–3.25 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon-järjestelmä, asiakkaiden MVP-ominaisuudet (API-avaimet, mittarointi, raportit), PostgreSQL HTAP -arkkitehtuuri, A/B-testauksen tulosten integrointi, päivitetty vaatimustenmukaisuusvalmius (EU AI Act Art 12 toteutettu), päivitetty SWOT strategisilla kumppanuuksilla; lisätty uusi osio 8.7 A/B-testauksen ja palautekanavien tulokset
   - Version: 3.25 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 10.16 (Harness Engineering — promptisuunnittelusta järjestelmäsuunnitteluun): OpenAI:n 8 periaatetta, DWS IQ 6 vertailu 6-kerroksisella L0-L6-arkkitehtuurilla, empiirinen tulos (52,8%→66,5% pelkällä harness-parannuksella), EU-regulaatio vaatii erilaisen harnessin; lisätty avainpanos #19
@@ -50,10 +53,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 14.03.2026
+  - Last Modified: 25.03.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.25 — Harness Engineering -osio: OpenAI:n 8 periaatetta, DWS 6-kerroksinen L0-L6, empiirinen 52,8%→66,5% tulos, EU-harness-eroavaisuus)
+  - Publication Status: DRAFT (V3.30 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, Phase 2 teknisen aukon analyysi)
 
 ---
 
@@ -1783,6 +1786,57 @@ Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
 
 3. **EMPO²-muistiarkkitehtuurin yhdenmukaisuus:** EMPO²:n (arXiv:2602.23008) itsenäisesti validoima hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri vastaa DWS LWM -suunnittelua — tarjoten akateemisen perustan insinööri-intuitiolla tehdylle toteutusvalinnalle.
 
+### 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254)
+
+*Sessio: claude/agent-memory-fact-extraction-gLEss | Päiväys: 23.03.2026*
+
+EMPO²:n teoreettinen kehys (osio 10.10.4) operationalisoitiin **agenttimuistin faktojen poimintaputkella** — ensimmäinen tuotantototeutus ei-parametrisesta muistipäivityspolusta. Tämä ratkaisee kriittisen puutteen: agentit, jotka keskustelevat asiakkaiden kanssa mutta eivät säilytä strukturoitua tietoa sessioiden välillä.
+
+**Arkkitehtuuri — kaksoismuistimalli:**
+
+| Kerros | Tietotyyppi | Lähde | Esimerkki |
+|--------|------------|-------|-----------|
+| **LWM (Lifetime World Model)** | Domainitieto | EU-säädökset, päästökertoimet, toimialamallit | "CBAM-raja on 150 000 EUR" |
+| **Asiakasmuisti** | Suhdetieto | Keskustelut, sähköpostit, kokoukset | "ACME Corp suosii viikkoraportteja" |
+
+LWM tarjoaa *mitä agentti tietää maailmasta*; asiakasmuisti tarjoaa *mitä agentti tietää tästä asiakkaasta*. Kumpikaan yksinään ei riitä — agentti, joka tuntee EU-säädökset mutta unohtaa asiakkaan toimialan, kysyy samat kysymykset joka sessiossa.
+
+**Faktojen poimintaputki:**
+
+```
+Keskusteluteksti
+  → LLM-poiminta (Claude Haiku, strukturoitu kehote)
+  → JSON-taulukko: {subjekti, predikaatti, arvo, luottamus, kategoria}
+  → Luottamussuodatin (≥0,7 kynnysarvo)
+  → Duplikaattitunnistus (kosinisimilaarisuus >0,95 pgvectorissa)
+  → Tallennus `fact`-tyyppisenä semantic_memories-tauluun
+  → Käytettävissä hakuun hybridihakuna (vektori + teksti)
+```
+
+**Kolme puuttuvaa suorituskerrosta:**
+
+Faktojen poiminta yksinään luo *passiivista tietoa*. Kolme lisäkerrosta vaaditaan tiedon *toiminnallistamiseen*:
+
+1. **Firehorse-tilakonemasiina** — Suorituskerros, joka toimii muistin ja LWM:n tiedon perusteella. Ilman sitä alustalla on tieto mutta ei toimintakykyä.
+
+2. **ERP-liitinkerros** — Reaalimaailman datasyöte. Muisti ja LWM ovat vain yhtä hyviä kuin Visma/IFS/SAP:sta tuleva data. Asiakasmuisti tallentaa *ilmaistut* mieltymykset; ERP-data paljastaa *todellisen* käyttäytymisen.
+
+3. **KYA-hallintakehys** — Luottamuskerros. Asiakasmuisti + LWM ilman todistusta on chatbot. KYA (Know Your AI, sisäinen v1.4 / julkinen v1.1) käärii jokaisen muistipäätöksen auditoitavalla alkuperällä: "fakta A korvasi faktan B ajanhetkellä X, hyväksyjä agentti Y, kirjattu Firehorseen." Tämä on välttämätöntä EU-vaatimustenmukaisuusauditoinneissa CSRD:n ja EU AI Act artikla 12:n nojalla.
+
+**KYA-ensisijainen PR-järjestys:**
+
+| Prioriteetti | PR | Ominaisuus | Tila |
+|-------------|-----|-----------|------|
+| 1 | 254 | Faktojen poiminta | ✅ Toimitettu |
+| 2 | 255 | Ristiriitojen ratkaisu | Vaatii muistivaraston |
+| 3 | — | KYA-muistin auditointipolku | Vaatii ristiriitojen ratkaisun |
+| 4 | 257 | Luottamuksen rappeutumispisteytys | Itsenäinen |
+| 5 | 256 | Konsolidoinnin ajastettu tehtävä | Vaatii rappeutumispisteytyksen |
+| 6 | 259 | Liitin-synkronointi | Vaatii vakaan muisti-API:n |
+| 7 | 258 | Supermemory MCP EU-itseisännöinti | Infrastruktuuri, viimeinen |
+
+**Avainpanos #20:** Ensimmäinen tuotantototeutus agenttimuistin faktojen poiminnasta EU-yhteensopivalla teollisella tekoälyalustalla, osoittaen kaksois-LWM/asiakasmuistiarkkitehtuurin ja tunnistaen kolmikerroksisen suorituspuutteen (tilakonemasiina, ERP-liittimet, KYA-hallinta), joka vaaditaan toiminnalliseen yrityksen tekoälymuistiin.
+
 ---
 
 ## 10.11 Toimitusjohtajan automaatioagenttiryhmä
@@ -2496,6 +2550,130 @@ Tämä osio tuottaa kolme löydöstä harness engineering -keskusteluun:
 
 3. **Empiirinen vahvistus:** 52,8 % → 66,5 % parannus pelkällä harness-parannuksella (ei mallin vaihtoa) validoi DWS:n investoinnin järjestelmäarkkitehtuuriin mallivalinnan sijaan. Kuusikerroksinen arkkitehtuuri, DWS-dokumenttistandardi ja progressiivinen paljastaminen ovat kaikki harness engineering -käytäntöjä, jotka kehitettiin itsenäisesti ennen OpenAI:n julkaisua.
 
+### 10.17 Johtopäätökset: Hiilitase vaatimustenmukaisuusinfrastruktuurina
+
+#### 10.17.1 Raportoinnista täsmäytykseen
+
+Tämän opinnäytetyön keskeinen löydös on, että EU:n ilmastovaatimustenmukaisuus ETS:n, CBAM:n, CSRD:n ja EU-taksonomian osalta ei ole raportointiongelma — se on **kirjanpito-ongelma**. Sama hiilidioksidiekvivalenttitonni, joka kirjataan terästehtaan ETS-päästöoikeuksien luovutuksena (veloitus), muuttuu tuojan CBAM-sisällytetyksi päästöksi, CSRD-raportin Scope 3 ylävirran ilmoitukseksi ja rakennusyhtiön taksonomialinjauksen määritteeksi. Neljä sääntelykontaktipistettä, yksi fyysinen suure.
+
+Nykyiset vaatimustenmukaisuustyökalut käsittelevät jokaisen säännöksen itsenäisenä raportointityönkulkuna. Tämä tuottaa päällekkäistä tietojen syöttöä, epäjohdonmukaisia päästökertoimia ja vailla täsmäytystä olevia toisiinsa liittyviä velvoitteita. Tuloksena yritykset raportoivat saman hiilitapahtuman eri tavoin eri säännöksissä, tilintarkastajat eivät voi ristiinvarmistaa, ja Scope 3 -arviot kantavat ±40 % epävarmuutta koska ne perustuvat kustannuspohjaisiin arvioihin transaktiovarmennettujen tietojen sijaan.
+
+#### 10.17.2 Kahdenkertainen kirjanpito CO2:lle
+
+Tämä opinnäytetyö esittää, että hiilivaatimustenmukaisuus vaatii saman arkkitehtuurisen ratkaisun, jonka kirjanpito otti käyttöön vuosisatoja sitten: **kahdenkertaisen kirjanpidon**. Jokainen vaatimustenmukaisuustapahtuma tuottaa kirjanpitokirjauksen — veloitus tai hyvitys — kaksoisyksiköissä (EUR ja tCO2e):
+
+| Vaatimustenmukaisuustapahtuma | Veloitus (velka) | Hyvitys (varallisuus) | Säännös |
+|---|---|---|---|
+| ETS-päästöoikeuksien luovutus | tCO2e päästetty + EUR kustannus | — | EU ETS |
+| Ilmaisallokaation vastaanotto | — | tCO2e allokoitu | EU ETS |
+| CBAM-sertifikaatin hankinta | EUR maksettu + tCO2e tuotu | — | CBAM |
+| CBAM-alkuperämaan hiilivähennys | — | EUR jo maksettu alkuperämaassa | CBAM |
+| Varmennetun päästökompensaation poisto | — | tCO2e kompensoitu | Vapaaehtoinen / Taksonomia |
+
+Hiilitase — kokonaisvelat (veloitukset) miinus kokonaisvarat (hyvitykset) — antaa talousjohtajalle **nettohiiliposition**, joka on auditoitava, täsmäytettävä ja koneluettava (XBRL/iXBRL).
+
+#### 10.17.3 Poikkisääntelyinen täsmäytys
+
+Veloitus-hyvitys-kirjanpito mahdollistaa sen, mitä mikään nykyinen työkalu ei tarjoa: **poikkisääntelyisen täsmäytyksen**. Kun terästehtaan ETS-tiedot ja rakennusyhtiön CBAM-tiedot kulkevat saman kirjanpidon kautta, järjestelmä voi varmistaa, että sisällytetyt päästöt vastaavat todellisia tuotantopäästöjä. Tämä poistaa riippuvuuden CBAM-oletusarvoista (jotka yliarvioivat 20-50 %) ja tuottaa transaktiovarmennetun Scope 3 -datan ±3 % tarkkuudella ±40 %:n kustannuspohjaisen arvion sijaan.
+
+Tämä on myös **verkostovaikutus**: kun Asiakas A:n varmennetut päästöt parantavat Asiakas B:n CBAM-kertoimen tarkkuutta, molemmat hyötyvät. Mitä enemmän toimialoja kirjanpidossa, sitä enemmän poikkitoimialaista älykkyyttä syntyy.
+
+#### 10.17.4 Toteutus: DWS 7 Phase 2.6
+
+DWS IQ -alusta toteuttaa jo muistinvaraisen veloitus-hyvitys-muunnoksen (`src/compliance/debit-credit-ledger.ts`), joka toimitetaan V1:ssä. DWS 7 Phase 2.6 (touko–heinäkuu 2026) ylentää tämän pysyväksi hiilitaseeksi 8 suunnitellulla PR:llä (093A–093H):
+
+1. **Pysyvä hiilikirjanpito** — muuttumaton append-only-taulu, korjaukset käänteiskirjauksina
+2. **Kaksoisyksikkökirjaukset** — EUR + tCO2e jokaisessa kirjauksessa, hiilen hinta tallennettuna kirjaushetkellä
+3. **Hiilitilikartta** — standardoitu tilirakenne ESRS E1 -scopejen mukaisesti
+4. **Poikkisääntelyinen täsmäytys** — ETS ↔ CBAM ↔ CSRD jaettujen kirjanpitokirjausten kautta
+5. **Kirjanpitonatiivi pisteytys** — vaatimustenmukaisuuspisteet johdettu kirjanpidon saldosta
+6. **Talousjohtajan kojelauta** — taseenäkymä porautumisella säännöksittäin, scopeittain ja entiteeteittäin
+7. **ERP-pääkirjan synkronointi** — hiilikirjaukset siirretty SAP/IFS/Dynamics-pääkirjaan
+8. **XBRL-vienti** — koneluettavat CSRD-raportit kirjanpitodatasta
+
+#### 10.17.5 Avoin lähdekoodi: Konnektorit tietojen syöttökerroksena
+
+Hiilitase on vain niin tarkka kuin siihen syötetty data. Kirjanpitoarkkitehtuuri perustuu **avoimen lähdekoodin konnektoreihin**, jotka syöttävät varmennettua päästödataa heterogeenisistä teollisuusjärjestelmistä. Ilman standardoituja, auditoitavia tietoputkia kahdenkertaisen kirjanpidon malli romahtaa samaksi manuaalisen syötön ongelmaksi, jonka se korvaa.
+
+DWS-konnektoriarkkitehtuuri seuraa ERP-integraatiomalleja, jotka on perustettu hakemistoon `src/integrations/erp/` (osio 10.9), laajentaen ne hiilispesifisiin tietolähteisiin:
+
+| Konnektorityyppi | Lähdejärjestelmät | Tietovirta | Lisenssimalli |
+|---|---|---|---|
+| **ERP-konnektorit** | SAP S/4HANA, IFS Cloud, Dynamics 365, Monitor, Visma, Jeeves | Tuotantomäärät, energiankulutus, materiaalisyötteet → kirjanpidon veloituskirjaukset | Avoin lähdekoodi (MIT) |
+| **ETS/rekisterikonnektorit** | EU Transaction Log (EUTL), kansalliset rekisterit | Päästöoikeussaldot, luovutukset, ilmaisallokaatiot → kirjanpidon hyvitys/veloitus | Avoin lähdekoodi (MIT) |
+| **CBAM-konnektorit** | CBAM-siirtymärekisteri, tulliluokitukset | Tuontitavaroiden sisällytetyt päästöt, hankitut sertifikaatit → kirjanpidon veloitus | Avoin lähdekoodi (MIT) |
+| **Päästökerroinsyötteet** | EEA GHG Inventory, IPCC, EU ETS -vertailuarvot | Validoidut kertoimet Scope 1/2/3 -laskelmiin | Avoin data + avoimen lähdekoodin jäsennin |
+| **IoT/reunakonnektorit** | NVIDIA Jetson Orin Nano, teollisuusanturit, energiamittarit | Reaaliaikainen energiankulutus, Scope 1 suorat mittaukset → kirjanpidon veloitus | Avoin lähdekoodi (MIT) |
+| **ESG-alustakonnektorit** | Worldfavor, PositionGreen, CDP | Kolmannen osapuolen ESG-pisteet, Scope 3 toimittajadata → kirjanpitokirjaukset | Avoin lähdekoodi (MIT) |
+
+**Miksi avoin lähdekoodi on tärkeä vaatimustenmukaisuusinfrastruktuurille:**
+
+1. **Auditoitavuus:** Suljetun lähdekoodin konnektorit ovat mustia laatikoita. Kun tilintarkastaja kysyy "miten tämä päästökerroin tuli kirjanpitoon?", vastauksen on oltava tarkastettavissa oleva lähdekoodi — ei toimittajan API-dokumentaatio. Avoimen lähdekoodin konnektorit tekevät koko tietopolun lähdejärjestelmästä kirjanpitokirjaukseen läpinäkyväksi ja toistettavaksi.
+
+2. **Verkostovaikutuksen kiihdytys:** Poikkitoimialainen älykkyys -teesi (osio 10.17.3) edellyttää datan virtausta monilta toimialoilta yhteen kirjanpitoon. Avoimen lähdekoodin konnektorit laskevat käyttöönoton kynnystä — terästehtaan IT-tiimi voi ottaa käyttöön SAP-konnektorin, verifioida koodin ja kontribuoida parannuksia. Suljetun lähdekoodin konnektorit luovat toimittajalukon, joka hidastaa verkoston kasvua.
+
+3. **Sääntelypuolustettavuus:** EU:n tekoälysäädöksen artikla 12 vaatii AI-järjestelmien toiminnan lokitusta. Kun AI-agentit tuottavat kirjanpitokirjauksia konnektoridatasta, koko putki — konnektorikoodi, muunnoslogiikka, agenttipäätös — on oltava auditoitavissa. Avoin lähdekoodi täyttää tämän vaatimuksen suunnittelultaan.
+
+4. **Yhteisön validointi:** Päästökerroindatakannat muuttuvat vuosittain. Avoimen lähdekoodin konnektorit mahdollistavat yhteisövetoisen ylläpidon — kun EEA julkaisee päivitetyn GHG-inventaarion, kuka tahansa kontribuuttori voi lähettää PR:n päivittäen kerroinsyötteen, ja muutos katselmoidaan avoimesti.
+
+Konnektorikerros muuttaa hiilitaseen yksittäisen yrityksen työkalusta **monitenanttivaatimustenmukaisuusverkostoksi**. Jokainen konnektori on standardoitu adapteri (syöttöskeema → kirjanpitokirjaus), joka liittyy kirjanpidon append-only-syöttörajapintaan. Avoimen lähdekoodin malli varmistaa, että 50 000+ EU-yritystä, jotka tarvitsevat CSRD-vaatimustenmukaisuutta vuoteen 2028 mennessä, voivat ottaa infrastruktuurin käyttöön ilman toimittajariippuvuutta.
+
+#### 10.17.6 Tutkimuspanos
+
+Tämä päätösosio tuottaa kolme löydöstä:
+
+1. **Arkkitehtuurinen oivallus:** Hiilivaatimustenmukaisuus on rakenteellisesti isomorfinen kirjanpidon kanssa. Kahdenkertainen kirjanpito ei ole metafora — se on teknisesti oikea tietorakenne hiilen seurantaan useiden säännösten, entiteettien ja toimitusketjujen yli. Tämä löydös syntyi DWS-vaatimustenmukaisuusmoottorin käytännön toteutuksesta 20 EU-reguloidulla toimialalla.
+
+2. **Poikkitoimialainen älykkyys -teesi:** Monitoimialainen hiilikirjanpito tuottaa emergenttia älykkyyttä, jota yksitoimialainen työkalu ei voi replikoida. Terästehtaan ETS-luovutus korreloi rakennusalan CSRD-ilmoituksen kanssa samasta toimitusketjusta. Tämä korrelaatio on näkyvissä vain kun molemmat toimialat jakavat saman kirjanpitomuodon — validoiden tässä opinnäytetyössä kuvatun alusta-arkkitehtuurin.
+
+3. **Infrastruktuurin rahoittaminen, ei ominaisuuksien:** Hiilitase edustaa siirtymää "vaatimustenmukaisuusraportointityökalusta" "vaatimustenmukaisuusinfrastruktuuriksi" — sama ero kuin taulukkolaskennan ja ERP-järjestelmän välillä. Tällä arkkitehtuurivalinnalla on strategisia vaikutuksia yrityssitouttavuuteen (vaihtokustannus vastaa kirjanpitojärjestelmän vaihtamista), markkinoiden ajoitukseen (50 000+ EU-yritystä tarvitsee tämän vuoteen 2028 mennessä) ja verkostovaikutuksiin (enemmän toimialoja kirjanpidossa = tarkempi poikkisääntelyinen data).
+
+Firehorse-tuotevalmistuksen toimintamalli, dokumentoitu edellisissä 16 osiossa, tarjosi insinööriperustan — harness-arkkitehtuurin, moniagenttiorkestroinnin, reunakäyttöönoton ja sääntely-älykkyyden — joka vaaditaan tämän hiilitaseinfrastruktuurin rakentamiseen. Johtopäätös on, että alustan kilpailullinen vallihauha ei ole mikään yksittäinen agentti tai säännösmoduuli, vaan kirjanpito joka yhdistää ne kaikki.
+
+### 10.18 LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn
+
+#### 10.18.1 Strateginen konteksti
+
+Lifetime World Model (LWM) toimii "Muisti"-kerroksena Aivot-Muisti-Keho-Kädet-arkkitehtuurissa. Sijoittaja- ja markkina-analyysi (maaliskuu 2026) paljasti kehystysristiriidan: alustaa markkinoitiin samanaikaisesti "hiilitaseinfrastruktuurina" (vaatimustenmukaisuus-SaaS), "55B parametrin fyysinen tekoäly" (maailmamalli) ja "autonominen terveydenhuollon laivasto" (robotiikka). Jokainen tarina kohdistuu eri sijoittajiin eri vaiheissa.
+
+Tämä osio dokumentoi ratkaisun: kolmivaiheisen sekvensointistrategian, jossa jokainen vaihe rahoittaa ja deriskeeraa seuraavan.
+
+#### 10.18.2 Kolme vaihetta
+
+**Vaihe 1 (Nykyinen — 650K EUR SAFE):** LWM = sääntely-älymoottori. 15 000+ EU-sääntelydokumenttia indeksoituna 20 toimialalla, 18 AI-agenttia, hiilitase poikkisääntelyisellä täsmäytyksellä. Liikevaihtotavoite: 900K EUR ARR.
+
+**Vaihe 2 (SAFE:n jälkeen — Helsingin pilotti):** LWM = sääntely-älykkyys + fyysinen suunnittelu. LeWorldModel-tyylinen latentti suunnittelu yhdistettynä sääntelytieto­graafiin. KELA-tuettu terveydenhuollon laivastopilotti NVIDIA-laitteistolla (Acer GN-100).
+
+**Vaihe 3 (Series A 2027):** LWM = täysi kaksikäyttötuote. Hiilitase + reunafyysinen tekoäly rakennusalalla, terveydenhuollossa, teollisuudessa, energiassa ja puolustuksessa.
+
+#### 10.18.3 Ulkoinen validointi: LeWorldModel (arXiv:2603.19312)
+
+Maaliskuussa 2026 Maes, Le Lidec, Scieur, LeCun ja Balestriero julkaisivat LeWorldModel-tutkimuksen — ensimmäinen JEPA-arkkitehtuuri (Joint Embedding Predictive Architecture), joka kouluttautuu stabiilisti alusta loppuun raakapikseleistä. Keskeiset löydökset:
+
+- **Yksinkertaisuus:** 2 häviötermiä (ennustus + SIGReg-regulaattori) korvaa 6+ hyperparametria
+- **Tehokkuus:** 15M parametria, yksi GPU, ~1 sekunti suunnitteluun vs 47 sekuntia DINO-WM:llä, 200x vähemmän tokeneita
+- **Tulokset:** 96 % onnistumisprosentti PushT-manipulaatiotehtävässä
+
+Samanaikaisesti LeCun perusti AMI Labsin (1,03 miljardin dollarin siemenrahoitus) ja Fei-Fei Li keräsi 1 miljardin dollarin World Labsille — 2 miljardia dollaria kolmessa viikossa maailmamalliyhtiöille.
+
+#### 10.18.4 Vaiheen 2 teknisen aukon analyysi
+
+Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
+
+1. **Syötemodaalien kuilu:** LeWorldModel odottaa pikselisyötteitä. LWM vaihe 1 toimii strukturoidulla sääntelytekstillä. Realistisin silta on digitaalinen kaksonen (OpenUSD-skenaarion esitys).
+
+2. **Skaalan kuilu:** LeWorldModel testattu kontrolloidussa simulaatiossa. Teolliset ympäristöt ovat kontrolloimattomia, pitkän aikahorisontin ja harvan palautteen ympäristöjä. Tämä on tutkimusta, ei insinööritiedettä.
+
+3. **Sääntely-fyysinen integraatio:** Miten fyysinen suunnitelma (nosturin liike, ajoneuvon reitti) validoidaan hiilitasetta vasten ennen toteutusta? Ehdotettu arkkitehtuuri: fyysinen suunnittelija ehdottaa → sääntely-moottori validoi → KYA-hallintaportti valvoo.
+
+**Keskeinen oivallus:** Vaiheen 1 tulokset (sääntelygraafi, hiilitase, KYA-hallinta) ovat vaiheen 2 syötteitä. Vaatimustenmukaisuusdata syöttää fyysistä suunnittelua — ei toisinpäin.
+
+#### 10.18.5 Tutkimuspanos
+
+1. **Sekvensointikuri:** Tuotteen kehystämisen tulee vastata sen nykyisiä kykyjä, ei tulevaisuuden visiota.
+2. **Vaatimustenmukaisuus ensin -maailmamalliteesi:** Oivallus, että vaatimustenmukaisuusdata syöttää fyysistä suunnittelua, on uusi arkkitehtuurillinen kontribuutio.
+3. **Vaiheen 2 tekninen rajaus:** Kolme ratkaisematonta ongelmaa tarjoavat konkreettisen tutkimusohjelman.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2506,9 +2684,9 @@ Tämä osio tuottaa kolme löydöstä harness engineering -keskusteluun:
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.26 — Tulososioiden päivitys v3.16–3.25 todisteilla, A/B-testauksen palautekanavat
-**Versio:** 3.26
-**Viimeisin päivitys:** 16.03.2026
+**Tila:** DRAFT - V3.30 — LWM-sekvensointistrategia (vaatimustenmukaisuus→laivasto→Series A)
+**Versio:** 3.30
+**Viimeisin päivitys:** 25.03.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2539,6 +2717,8 @@ Tämä osio tuottaa kolme löydöstä harness engineering -keskusteluun:
 17. PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — Yksitietokantainen HTAP pg_duckdb + TimescaleDB:llä Aiven EU:ssa; DWS-tietostandardin luominen tallennusmoottoreiden, laajennusrekisterin, säilytyspolitiikkojen ja EU-sääntelynmukaisuuden (GDPR, EU AI Act Art 12, NIS2, CSRD, EU Data Act) hallintaan; 4-vaiheinen käyttöönotto tauluosioinista lakehouse-integraatioon
 18. Kaksitasoinen HTAP-arkkitehtuuri — Aiven-first mandaatti lukitsee TimescaleDB 2.25.x Hypercore hyväksytyksi tuotantostandardiksi; pg_duckdb rajoitettu reunalaitteelle Aiven-sallittujen listan vuoksi; GN100-reunatietokanta käyttöönotettu täydellä laajennuspaketilla
 19. Harness Engineering — OpenAI:n 8 harness engineering -periaatteen analyysi DWS IQ 6 -arkkitehtuuria vasten; empiirinen löydös: pelkkä harness-parannus tuottaa 52,8%→66,5% tulosparannuksen (malli muuttumaton); DWS:n L0-L6 kuusikerroksinen arkkitehtuuri formaalina harness-kehyksenä; EU-regulaatio vaatii perustavanlaatuisesti erilaisen harnessin (jäljitettävyys + ihminen silmukassa vs Silicon Valleyn nopeusoptimointi)
+20. Hiilitase — Johtopäätös: EU:n ilmastovaatimustenmukaisuus (ETS, CBAM, CSRD, taksonomia) on rakenteellisesti isomorfinen kirjanpidon kanssa; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); poikkisääntelyinen täsmäytys jaettujen kirjanpitokirjausten kautta; poikkitoimialainen älykkyys -teesi (monitoimialainen kirjanpito tuottaa emergenttia dataa jota yksitoimialainen työkalu ei voi replikoida); DWS 7 Phase 2.6 toteutussuunnitelma (8 PR:ää, pysyvä kirjanpito, talousjohtajan kojelauta, ERP-pääkirjan synkronointi, XBRL-vienti)
+21. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A) sijoittajanarratiivien ristiriitojen ratkaisemiseksi; LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi (syötemodaali, skaala, sääntely-fyysinen integraatio); vaatimustenmukaisuus ensin -maailmamalliteesi; Persefoni/Sweep-markkinavertailut
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

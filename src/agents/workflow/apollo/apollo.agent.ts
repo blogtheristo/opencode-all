@@ -154,7 +154,7 @@ Return JSON: {
       apolloBriefing: '',
     };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.apolloBriefing = llmResponse.content.slice(0, 300);
     }

@@ -13,6 +13,8 @@ import {
 import { scheduler } from './scheduler';
 import { db } from './database';
 import { LeadCountry } from './types';
+import { FirehorseReportModule } from './report-module';
+import { FirehorseWorkflowEngine } from './workflow-engine';
 
 const router = Router();
 
@@ -453,6 +455,167 @@ router.get('/signals/stats', async (req: Request, res: Response) => {
       error: 'Internal server error',
       message: error.message
     });
+  }
+});
+
+// ============================================================================
+// REPORT MODULE
+// ============================================================================
+
+/**
+ * Generate a report (Board Pack, Annual Report, Compliance Summary, Carbon Footprint)
+ * POST /firehorse/reports/generate
+ */
+router.post('/reports/generate', async (req: Request, res: Response) => {
+  try {
+    const { organizationId, format, periodStart, periodEnd, industry, options } = req.body;
+
+    if (!organizationId || !format || !periodStart || !periodEnd || !industry) {
+      return res.status(400).json({
+        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry'
+      });
+    }
+
+    const validFormats = ['board-pack', 'annual-report', 'compliance-summary', 'carbon-footprint'];
+    if (!validFormats.includes(format)) {
+      return res.status(400).json({ error: `Invalid format. Must be one of: ${validFormats.join(', ')}` });
+    }
+
+    const report = await FirehorseReportModule.generate({
+      organizationId,
+      format,
+      periodStart,
+      periodEnd,
+      industry,
+      options,
+    });
+
+    res.json({ success: true, report });
+  } catch (error: any) {
+    console.error('Error generating report:', error);
+    res.status(500).json({ error: 'Report generation failed', message: error.message });
+  }
+});
+
+/**
+ * Get report as markdown (for PDF conversion / download)
+ * POST /firehorse/reports/markdown
+ */
+router.post('/reports/markdown', async (req: Request, res: Response) => {
+  try {
+    const { organizationId, format, periodStart, periodEnd, industry, options } = req.body;
+
+    if (!organizationId || !format || !periodStart || !periodEnd || !industry) {
+      return res.status(400).json({
+        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry'
+      });
+    }
+
+    const report = await FirehorseReportModule.generate({
+      organizationId,
+      format,
+      periodStart,
+      periodEnd,
+      industry,
+      options,
+    });
+
+    const markdown = FirehorseReportModule.toMarkdown(report);
+
+    res.type('text/markdown').send(markdown);
+  } catch (error: any) {
+    console.error('Error generating markdown report:', error);
+    res.status(500).json({ error: 'Report generation failed', message: error.message });
+  }
+});
+
+/**
+ * List previously generated reports
+ * GET /firehorse/reports?organizationId=xxx
+ */
+router.get('/reports', async (req: Request, res: Response) => {
+  try {
+    const organizationId = req.query.organizationId as string;
+
+    if (!organizationId) {
+      return res.status(400).json({ error: 'organizationId query parameter required' });
+    }
+
+    const reports = await FirehorseReportModule.listReports(organizationId);
+    res.json({ success: true, reports, count: reports.length });
+  } catch (error: any) {
+    console.error('Error listing reports:', error);
+    res.status(500).json({ error: 'Failed to list reports', message: error.message });
+  }
+});
+
+// ============================================================================
+// WORKFLOW ENGINE (Firehorse Automation)
+// ============================================================================
+
+/**
+ * List workflow templates
+ * GET /firehorse/workflows/templates
+ */
+router.get('/workflows/templates', (req: Request, res: Response) => {
+  const templates = FirehorseWorkflowEngine.listTemplates();
+  res.json({ success: true, templates });
+});
+
+/**
+ * Create a workflow (from template or custom)
+ * POST /firehorse/workflows
+ */
+router.post('/workflows', async (req: Request, res: Response) => {
+  try {
+    const { templateId, definition, createdBy } = req.body;
+
+    if (!templateId && !definition) {
+      return res.status(400).json({ error: 'Either templateId or definition is required' });
+    }
+
+    const workflow = await FirehorseWorkflowEngine.createWorkflow(
+      templateId || null,
+      definition || null,
+      createdBy || 'api',
+    );
+
+    res.json({ success: true, workflow });
+  } catch (error: any) {
+    console.error('Error creating workflow:', error);
+    res.status(500).json({ error: 'Failed to create workflow', message: error.message });
+  }
+});
+
+/**
+ * Execute a workflow
+ * POST /firehorse/workflows/:id/execute
+ */
+router.post('/workflows/:id/execute', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { input } = req.body;
+
+    const execution = await FirehorseWorkflowEngine.execute(id, input || {});
+    res.json({ success: true, execution });
+  } catch (error: any) {
+    console.error('Error executing workflow:', error);
+    res.status(500).json({ error: 'Workflow execution failed', message: error.message });
+  }
+});
+
+/**
+ * List workflow executions
+ * GET /firehorse/workflows/executions?workflowId=xxx
+ */
+router.get('/workflows/executions', async (req: Request, res: Response) => {
+  try {
+    const workflowId = req.query.workflowId as string | undefined;
+    const executions = await FirehorseWorkflowEngine.listExecutions(workflowId);
+    res.json({ success: true, executions, count: executions.length });
+  } catch (error: any) {
+    console.error('Error listing executions:', error);
+    res.status(500).json({ error: 'Failed to list executions', message: error.message });
   }
 });
 

@@ -184,6 +184,14 @@ class EmailService {
   }
 
   /**
+   * Send a raw email with custom HTML (no template wrapping).
+   * Used by onboarding drip sequences and custom notifications.
+   */
+  async sendRawEmail(options: EmailOptions): Promise<void> {
+    await this.sendEmail(options);
+  }
+
+  /**
    * Send multiple emails sequentially via SES SMTP.
    * Returns empty array (batch IDs were Resend-specific, now removed).
    */

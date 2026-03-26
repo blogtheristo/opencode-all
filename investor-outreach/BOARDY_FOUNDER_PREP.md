@@ -2,7 +2,7 @@
 
 **Prepared:** February 8, 2026
 **Last Updated:** March 14, 2026
-**Founder:** Risto Anton Paarni, CEO & Founder
+**Founder & CEO:** Risto Anton Paarni
 **Company:** Lifetime Oy (DWS IQ 6 platform)
 **Location:** Helsinki, Finland
 
@@ -107,8 +107,8 @@ We've deliberately positioned as the "operations compliance layer" — not a pla
 Our moats:
 1. **KYA Standard** — Hardware-attested agent governance with D&O safe harbor proof. No competitor has an equivalent. KYA-S certification reduces D&O insurance premiums by 8–12% (EU AI Act Article 99 compliance).
 2. **ERP connectors** — No carbon compliance competitor has Nordic ERP connectors (Visma, Monitor, Jeeves). Persefoni, Greenly, Sweep = zero ERP connectors.
-3. **Alpha-Share revenue model** — 7.5% of verified efficiency gains on top of base SaaS. Revenue scales with customer success. Performance Guarantee (forward-looking credits) de-risks adoption.
-4. **Agentic Efficiency Law** — Governed agent swarms compound efficiency gains across the fleet. More agents deployed → more data → better optimization → higher Alpha-Share → more customer value. This is the network effect for industrial AI.
+3. **Dual revenue model** — SaaS subscription + API transactions for standard customers (Tiers 1–3). Alpha-Share (Decline-to-Scale) reserved for Enterprise World Tier 4 only — large industrials who understand value-based pricing.
+4. **Agentic Efficiency Law** — Governed agent swarms compound efficiency gains across the fleet. More agents deployed → more data → better optimization → higher platform revenue → more customer value. This is the network effect for industrial AI.
 5. **Operations compliance position** — Different question than design LCA. Recurring subscription vs. one-time assessment.
 6. **Finland first-mover** — Finland implements EU directives first. Build here, prove here, expand.
 
@@ -229,7 +229,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **Market:** 49,000 EU companies, mandatory CSRD filing, no automated ERP-to-report tool exists.
 
-**Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), Alpha-Share (7.5% of verified gains), ERP connectors (no competitor has Nordic ERPs), Agentic Efficiency Law (fleet-level compounding).
+**Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), dual revenue model (SaaS + Enterprise World Alpha-Share), ERP connectors (no competitor has Nordic ERPs), Agentic Efficiency Law (fleet-level compounding).
 
 **Raise:** €650K SAFE, €3.8M cap. Fleet Admiral (€500K) + 8 Captain Seats (€50K each). Deputy Captain unlimited, price TBD.
 
