@@ -1,12 +1,77 @@
 # Oppimispäiväkirja / aikataulu
 
+***
+**VERSION AND AGENT HISTORY**
+
+- **Document:** Oppimispäiväkirja / aikataulu
+- **Languages Available:** FI
+- **Version:** 2.0
+- **Date:** 26.03.2026
+- **Owner:** Risto Päärni
+- **Agent:** Claude (Opus 4.6)
+- **Branch:** claude/defence-startup-fund-qsJBJ
+- **Sessions & Modifications:**
+  - 2.0 (26.03.2026, Claude Opus 4.6): Laajennettu aikajana 09/2023 alkaen. Lisätty Firehorse-konseptointi (syksy 2023), Microsoft Founders Hub / Oqtane / Azure (2024), Microsoft-teknologian siivoaminen (01–02/2025), ja kesä 2025 siirtymä nykyiseen teknologiapinoon.
+  - 1.0 (22.02.2026): Alkuperäinen oppimispäiväkirja elokuu 2025 — helmikuu 2026.
+- **Document Status:** ACTIVE
+
+***
+
 **Opiskelija:** Risto Anton Päärni
 **Hanke:** DWS IQ 6 — teollinen ilmastoäly ja vaatimustenmukaisuusalusta
-**Jakso:** elokuu 2025 — helmikuu 2026
+**Jakso:** syyskuu 2023 — maaliskuu 2026 (jatkuva)
 
-Oppimispäiväkirja dokumentoi DWS IQ 6 -pilotin etenemisen viikkotasolla: suunnittelusta ja rekrytoinnista kohti tuotantovalmista EU-sääntelyn automaatioalustaa.
+Oppimispäiväkirja dokumentoi DWS IQ -hankkeen etenemisen alkukonseptoinnista nykyiseen tuotantovalmiiseen EU-sääntelyn automaatioalustaan.
 
 ---
+
+## Syyskuu–joulukuu 2023 — Firehorse-konseptin synty ja AI-työkalujen alkuajat
+
+| Vko | pvm | Tunnit | Aihe | Hanke / projekti | Tarkasti |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 36–39 | 1.9.–30.9.2023 | 80 | Firehorse-toimintamallin konseptointi aloitettu: miten tuottaa tekoälyllä nopeasti kehittyvin teknologioin uusia tuotteita? Google Gemini V1 (tuolloin Bard) julkaistiin juuri — ensimmäiset kokeilut Geminin ja ChatGPT:n kanssa. Prompt engineering -perusteiden opiskelu ja vertailu: mikä AI-malli soveltuu tuotekehitykseen? | Firehorse-konsepti / AI-työkalut | RA |
+| 40–44 | 1.10.–3.11.2023 | 80 | AI-avusteisen tuotekehitysmallin validointi. Gemini V1:n ja ChatGPT:n systemaattinen vertailu: tuotekuvaukset, tekninen dokumentaatio, koodin generointi, markkinointimateriaalit. Firehorse-nimi vakiintui toimintamallille. Google AI Studio -kokeilut (Gemini API alkuvaihe). Päivittäinen 4h ohjelmointityö Visual Studio Code -ympäristössä | Firehorse-konsepti / AI-vertailu | RA |
+| 45–48 | 6.11.–1.12.2023 | 80 | Ensimmäiset tuoteideat ja markkinakartoitus. AI-työkalujen vertailu tuotekehityksessä: Gemini V1 vahva tekstintuotannossa, ChatGPT (GPT-4) parempi koodin generoinnissa. Firehorse-mallin ydinajatus: AI tuottaa, ihminen ohjaa ja validoi. Azure AI Services -palveluiden kartoitus (OpenAI API Azuren kautta) | Firehorse-konsepti / markkinatutkimus | RA |
+| 49–52 | 4.12.–31.12.2023 | 60 | Loppuvuoden arviointi: Firehorse-konsepti osoittautunut toimivaksi. AI-avusteinen tuotekehitys 5–10× nopeampaa kuin perinteinen. Microsoft Founders Hub -jäsenyyden hyödyntämisen suunnittelu vuodelle 2024. Teknologia-alustan valinta: .NET Aspire + Oqtane + Azure | Firehorse-konsepti / suunnittelu | RA |
+
+## Tammikuu–kesäkuu 2024 — Microsoft Founders Hub, DWS 5 ja .NET Aspire
+
+| Vko | pvm | Tunnit | Aihe | Hanke / projekti | Tarkasti |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1–4 | 1.1.–28.1.2024 | 80 | Microsoft Founders Hub -jäsenyyden täysimittainen hyödyntäminen aloitettu. DWS 5 -hanke käynnistetty Oqtane-julkaisujärjestelmällä (.NET 8/Blazor) ja Azure Container Services -infrastruktuurilla. .NET Aspire -orkestroinnin opiskelu: Aspire lupasi yksinkertaistaa mikropalveluarkkitehtuurin hallintaa. Päivittäinen 4h ohjelmointityö Visual Studio 2022:lla ja Visual Studio Code:lla | DWS 5 / Microsoft Founders Hub | RA |
+| 5–8 | 29.1.–25.2.2024 | 80 | Oqtane-alustan konfigurointi ja räätälöinti. Azure-ympäristöjen pystytys (Container Apps, SQL Database, Blob Storage, Key Vault). .NET Aspire AppHost -projektin luominen: service discovery, health checks, telemetria. Azure AI Services -integraatio: OpenAI GPT-4 Azuren kautta, Azure Cognitive Services | DWS 5 / Oqtane / Azure | RA |
+| 9–13 | 26.2.–31.3.2024 | 80 | .NET Aspire -kehitys jatkuu: dashboard, distributed tracing, service-to-service -kommunikaatio. Azure Container Apps -deployment-putkien rakentaminen. Google Gemini 1.0 Pro julkaistiin (helmikuu 2024) — testaus ja vertailu Azure OpenAI:hin. Ensimmäiset tuotesivut Oqtane-pohjalla | DWS 5 / .NET Aspire / Azure AI | RA |
+| 14–17 | 1.4.–28.4.2024 | 80 | DWS 5 -alustan kehitys: Oqtane-moduulien räätälöinti, Blazor-komponenttien kehitys, Azure SQL -tietokantarakenteet. Azure AI Services -laajentaminen: Azure Document Intelligence, Azure AI Search. Gemini 1.5 Pro julkaistiin (huhtikuu 2024) — konteksti-ikkunan kasvu 1M tokeniin mullistava | DWS 5 / Oqtane / Azure AI | RA |
+| 18–22 | 29.4.–2.6.2024 | 80 | .NET Aspire GA-julkaisu (toukokuu 2024). Aspire-päivitykset ja uudelleenkonfigurointi. Azure Container Apps -ympäristön optimointi. Kasvava turhautuminen: Oqtane on WordPress-tyyppinen perinteinen julkaisujärjestelmä — ei sovellu AI-agenttien orkestrointiin, reaaliaikaiseen datankäsittelyyn eikä moderniin SaaS-arkkitehtuuriin. Visual Studio -ohjelmointityö jatkuu 4h/pv | DWS 5 / Oqtane / arviointi | RA |
+| 23–26 | 3.6.–30.6.2024 | 80 | DWS 5 -alustan rajoitusten lopullinen dokumentointi: (1) Oqtane CMS ei tue agenttiorkestrointia, (2) .NET/Blazor-ekosysteemi liian raskas SPA:ksi, (3) Azure-kustannukset skaalautuvat huonosti startupille, (4) Aspire-orkestrointi hyvä mutta sidottu Azure-ekosysteemiin. Päätös: tarvitaan alustan vaihto | DWS 5 / kriittinen arviointi | RA |
+
+## Heinäkuu–joulukuu 2024 — Alustan arviointi ja teknologiapäätös
+
+| Vko | pvm | Tunnit | Aihe | Hanke / projekti | Tarkasti |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 27–31 | 1.7.–4.8.2024 | 80 | Vaihtoehtoisten teknologiapinojen systemaattinen arviointi. React 19 + Vite + TypeScript vs. .NET Blazor. Supabase (PostgreSQL + Realtime + Auth) vs. Azure SQL + Azure AD. Claude AI (Anthropic) vs. Azure OpenAI. Proof-of-concept -testit uudella pinolla | DWS / alustan arviointi | RA |
+| 32–35 | 5.8.–1.9.2024 | 80 | Supabase-testaus: Realtime-tilaukset, Row Level Security, pgvector-vektorihaku. Claude API (Anthropic) -integraation testaus — kontekstin laatu ja koodin generointi merkittävästi parempaa kuin Azure OpenAI. Cloudflare Workers/Pages -arviointi: edge-suorituskyky ja kustannustehokkuus | DWS / teknologiatestaus | RA |
+| 36–40 | 2.9.–6.10.2024 | 80 | Lopullinen teknologiapäätös: React + Vite + Supabase + Claude AI + Cloudflare + GCP. Google Gemini 1.5 Flash (nopea, halpa) hyödyllinen bulkkitehtäviin. Uuden arkkitehtuurin suunnittelu: Brain-Memory-Body-Hands -malli. DWS versio 5 → 6 -siirtymä | DWS IQ 6 / arkkitehtuuri | RA |
+| 41–44 | 7.10.–3.11.2024 | 80 | Siirtymäsuunnitelma Oqtane → React/Vite/Supabase. Tietojen migraatiosuunnitelma Azure SQL → Supabase PostgreSQL. .NET Aspire -oppien dokumentointi (service discovery, health checks → vastaavat Express-middlewaressa). Microsoft Founders Hub 3 vuoden jäsenyys päättymässä | DWS IQ 6 / siirtymäsuunnitelma | RA |
+| 45–48 | 4.11.–1.12.2024 | 80 | Azure-resurssien inventointi ja alasajosuunnitelma. Koodin porttaus: Blazor-komponentit → React-komponentit, C# backend → TypeScript/Express. Supabase-projektin luominen (europe-north1, Helsinki) | DWS IQ 6 / migraatio | RA |
+| 49–52 | 2.12.–31.12.2024 | 60 | Viimeiset Azure-kehitystyöt. Datan vienti Azure SQL:stä. Uuden DWS IQ 6 -repositorion perustaminen (blogtheristo/dws6). Joululomalla ensimmäiset commitit uudelle alustalle | DWS IQ 6 / käynnistys | RA |
+
+## Tammikuu–helmikuu 2025 — Microsoft-teknologian siivoaminen ja puhdas alku
+
+| Vko | pvm | Tunnit | Aihe | Hanke / projekti | Tarkasti |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1–4 | 1.1.–31.1.2025 | 80 | Microsoft-teknologian täydellinen siivoaminen: Oqtane-koodipohjan arkistointi, Azure-resurssien alasajo (Container Apps, SQL Database, Blob Storage, Key Vault, Azure AI Services). Founders Hub -jäsenyyden päättyminen. .NET Aspire -projektin arkistointi. Visual Studio -lisenssien päättyminen | DWS / Microsoft-siivoaminen | RA |
+| 5–8 | 1.2.–28.2.2025 | 80 | Uuden teknologiapinon täysimittainen käyttöönotto: React 19, Vite, TypeScript, TailwindCSS, Supabase (PostgreSQL + Auth + Realtime), Claude AI (Anthropic). Cloudflare Pages/Workers (US-pilvi), Google Cloud Run europe-north1 (EU-pilvi). Puhdas alku ilman Microsoft-riippuvuuksia. Kehitystyökalu: VS Code + Claude Code (Cursor myöhemmin) | DWS IQ 6 / uusi teknologiapino | RA |
+
+## Maaliskuu–heinäkuu 2025 — Uuden alustan kehitys ja tuotekatalogi
+
+| Vko | pvm | Tunnit | Aihe | Hanke / projekti | Tarkasti |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 9–13 | 1.3.–31.3.2025 | 80 | DWS IQ 6 -alustan perustaminen: Express-backend, Supabase-tietokanta, JWT-autentikaatio, Helmet-tietoturva. Ensimmäiset AI-agentit (ComplianceAgent, SiteSenseAgent). EU Fit for 55 -sääntelyn mallintaminen 16 toimialalle | DWS IQ 6 / perustaminen | RA |
+| 14–17 | 1.4.–30.4.2025 | 80 | Agenttiarkkitehtuurin kehitys: GodAgent-pohjarakenne, MCP (Model Context Protocol) -integraatio. Firehorse-tuotesarjan käynnistys: Omnichannel, Report Engine. dws6.com ja dws10.com -sivustojen rakentaminen | DWS IQ 6 / agentit | RA |
+| 18–22 | 1.5.–8.6.2025 | 80 | Tuotteiden kehitys Firehorse-mallilla: AI generoi, ihminen validoi. Verkkokaupan perustaminen (dws10.com/buy). Ensimmäiset tuotteet kauppaan. Claude AI ensisijaiseksi kehitystyökaluksi (korvaa Gemini/ChatGPT tuotekehityksessä) | DWS IQ 6 / Firehorse | RA |
+| 23–26 | 9.6.–30.6.2025 | 80 | Tuotekatalogi kasvaa. Google Merchant -syöte. Verkkokaupan kategorianavigointi. onelifetime.world-sivusto. CI/CD-putkien kehitys (GitHub Actions) | DWS IQ 6 / verkkokauppa | RA |
+| 27–31 | 1.7.–31.7.2025 | 80 | DWS IQ 6 -alustan vakiintuminen. Tuotekatalogi kasvaa ~30 tuotteeseen (dws10.com/buy). Firehorse-malli todistettu: AI-avusteinen tuotekehitys tuottaa markkinakelpoisia tuotteita. 15 CI/CD-työnkulkua toiminnassa | DWS IQ 6 / tuotekatalogi | RA |
 
 ## Elokuu–syyskuu 2025 — Suunnittelu ja konseptointi
 
@@ -89,12 +154,34 @@ Oppimispäiväkirja dokumentoi DWS IQ 6 -pilotin etenemisen viikkotasolla: suunn
 
 | Mittari | Arvo |
 | :--- | :--- |
-| Jakso | elokuu 2025 — helmikuu 2026 (7 kk) |
-| Git-commitit (elo 2025 →) | ~1 170 |
-| Pull requestit | ~543 |
+| Jakso | syyskuu 2023 — maaliskuu 2026 (30 kk, jatkuva) |
+| Työtunteja yhteensä (arvio) | ~3 600 h (ohjelmointityö, suunnittelu, opiskelu, reflektointi) |
+| Viikkorakenne (2024–2026) | 4 h/pv ohjelmointia (ma–pe) + 8 h/vko reflektointi ja lopputyön kirjoittaminen |
+| Git-commitit (koko hanke) | ~3 000 (PR #950 mennessä) |
+| Pull requestit | ~950 |
 | Sivustot | dws6.com, dws10.com, onelifetime.world, lifetime.fi |
-| Toimialat (Fit for 55) | 16 EU-toimialaa |
+| Tuotteet verkkokaupassa | ~30 kpl (dws10.com/buy) |
+| Toimialat (Fit for 55) | 16 EU-toimialaa, 20 säänneltyä toimialaa |
 | CI/CD-työnkulut | 15 GitHub Actions -työnkulkua |
-| AI-mallit | Claude (Anthropic), Gemini, Groq, LlamaStack |
-| Pilviympäristöt | US (Cloudflare), EU (GCP + Supabase), Aiwen (EU AI Act) |
+| AI-mallit (käytetty kehityksessä) | Google Gemini (2023–), ChatGPT (2023–), Claude (2025–, ensisijainen), Groq, LlamaStack |
+| Kehitysympäristöt | Visual Studio 2022 (2024), Visual Studio Code (2023–), Cursor (2025–), Claude Code (2025–) |
+| Teknologiapinot | .NET Aspire / Oqtane / Azure (2024, korvattu) → React / Vite / Supabase / Cloudflare / GCP (2025–) |
+| Pilviympäristöt | Azure (2024, päättynyt) → US (Cloudflare), EU (GCP + Supabase), Aiwen (EU AI Act) |
 | Tietoturvakorjaukset | 4 kriittistä, 18 kooditason, OWASP Top 10 |
+| InvestEU-hanke | INPO-20254383 (julkaistu Euroopan komission InvestEU-portaalissa 25.12.2025) |
+
+---
+
+## Viikkorakenne (tyypillinen viikko 2024–2026)
+
+| Päivä | Tunnit | Sisältö |
+| :--- | :--- | :--- |
+| Maanantai | 4 h | Ohjelmointi: uudet ominaisuudet, arkkitehtuuri |
+| Tiistai | 4 h | Ohjelmointi: integraatiot, testaus, virheenkorjaus |
+| Keskiviikko | 4 h | Ohjelmointi: käyttöliittymä, tuotekehitys |
+| Torstai | 4 h | Ohjelmointi: tietoturva, infrastruktuuri, CI/CD |
+| Perjantai | 4 h | Ohjelmointi: dokumentointi, tuoteviimeistely |
+| Lauantai | 8 h | Reflektointi ja lopputyön kirjoittaminen: viikon oppien dokumentointi, oppimispäiväkirjan päivitys, Master Thesis -tutkimustyö, lähteiden kerääminen, teoreettisen viitekehyksen täydentäminen |
+| **Yhteensä** | **28 h/vko** | |
+
+Reflektointipäivän sisältö vaihtelee viikosta riippuen: teoreettisen viitekehyksen kirjoittaminen, tutkimusmenetelmien opiskelu, EU-sääntelyn analyysi, teknologia-arviointi, tai oppimispäiväkirjan täydentäminen.
