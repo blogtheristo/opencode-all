@@ -1,6 +1,6 @@
 {
   "name": "@dws/cli",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "DWS IQ CLI — Run compliance agents, trigger workflows, query events from any terminal. Built for agents.",
   "type": "module",
   "bin": {
