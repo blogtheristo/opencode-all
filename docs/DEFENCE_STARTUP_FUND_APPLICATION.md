@@ -103,7 +103,7 @@ Lifetime Fleet on DWS IQ Aegisin fyysinen toteutuskerros ("Hands"):
 | **NVIDIA Jetson Orin Nano** | Reunalaskenta kentällä — kaikki AI-inferenssi paikallisesti |
 | **Acer Veriton GN100** | Edge-palvelin: ARM 10-ydin 3.9GHz, 120GB RAM, NVIDIA GB10 GPU |
 | **Mobiilisensorit** | Lämpötila, kosteus, tuuli, paine, melu, pöly, tärinä, valo |
-| **OpenSandbox v1.5** | Agenttien eristys efemeerisissä Docker-kontteja |
+| **OpenSandbox v1.5** | Agenttien eristys efemeerisissä Docker-konteissa |
 | **TimescaleDB** | Aikasarjadata reunalaitteilla — ei pilviviivettä |
 | **Kill-switch** | Sub-5ms kryptografinen pysäytys per agentti, <50ms koko laivastolle |
 
