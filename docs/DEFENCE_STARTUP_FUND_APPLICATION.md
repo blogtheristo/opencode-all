@@ -231,6 +231,8 @@ Lifetime Oy:llä on vahva logistiikka-alan kokemus, joka toimii perustana puolus
 | **ISO 27001 -esivalmistelutyö** | €2 000 | Q3 2026 |
 | **Yhteensä omarahoitus** | **€20 000** | |
 
+Omarahoitus katetaan tulorahoituksella nykyisestä liiketoiminnasta sekä DWS IQ- sekä Firehorse-tuotteiden sekä konsultoinnin myyntituloilla.
+
 ### 8.3 DEFINE-ekosysteemin hyödyntäminen
 
 | Resurssi | Tarve |
@@ -245,11 +247,12 @@ Lifetime Oy:llä on vahva logistiikka-alan kokemus, joka toimii perustana puolus
 
 ## 9. Riihimäki-sitoumus
 
-Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosysteemiä:
+Lifetime Oy sitoutuu siirtämään pääkonttorinsa kokonaisuudessaan Esposta Riihimäelle. Myös perustajat muuttavat Riihimäelle.
 
+- **Pääkonttori Riihimäelle** — täysi sitoumus DEFINE-ekosysteemiin, ei pelkkä sivutoimipiste
 - **Riihimäen sijainti** palvelee yhteyksiä Panssariprikaatiin ja puolustusalan toimijoihin
 - **DEFINE Innovation Hub** tarjoaa infrastruktuurin (3D-tulostus, AI GPU, coworking)
-- **Espoon pääkonttori** (nykyinen) + **Riihimäen DEFINE-toimipiste** = kaksi solmupistettä
+- **Perustajat paikan päällä** — päivittäinen läsnäolo ekosysteemissä
 
 ---
 
