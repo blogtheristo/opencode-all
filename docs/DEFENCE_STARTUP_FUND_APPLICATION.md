@@ -285,7 +285,7 @@ Lifetime Oy sitoutuu perustamaan toimipisteen Riihimäelle osana DEFINE-ekosyste
 
 ## 12. Miksi Lifetime Oy?
 
-1. **Tuote on olemassa** — DWS IQ 6 on live-alusta 18+ AI-agentilla, ei pelkkä idea
+1. **DWS IQ 6 tuote on olemassa** — Virallinen live-alusta 18+ AI-agentilla (PR #950, n. 3 000 commitia tehty. DWS IQ V1 launch Arctic15 06/2026)
 2. **Todistettu liiketoiminta** — Logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; tulorahoituksella toimiva yhtiö (MRR €7K, 100% retentio)
 3. **EU-suvereeni suunnittelultaan** — Suomalainen hosting (europe-north1), ei CLOUD Act -altistumista
 4. **Ainoa dual-compliance-alusta** — Puolustus + ilmasto yhdestä järjestelmästä
