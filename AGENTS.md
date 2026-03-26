@@ -586,7 +586,7 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 | **Clever Cloud** | France | Independent | PaaS (Docker) | No | Yes (addon) | Yes (addon) | Low |
 | **OVHcloud** | France | Public (Euronext) | Managed K8s only | No | Yes | Yes | Medium-High |
 | **Hetzner** | Germany | Family-owned | VMs only | No | Self-host | Self-host | High |
-| **UpCloud** | Finland | Tesi-backed | VMs + K8s | No | Self-host | Self-host | Medium |
+| **UpCloud** | Finland | Tesi-backed | Managed K8s (UKS) | No (K8s min 1 node) | Yes (managed) | Yes (Valkey/Redis) | Low-Medium |
 | **STACKIT** | Germany | Schwarz Group (Lidl) | Managed K8s | No | Yes | Yes | Medium-High |
 
 **Providers evaluated and rejected:**
@@ -600,17 +600,24 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 | **Telia Cloud 9** | Sweden | Nebula remnant. Basic OpenStack VMs, no serverless, no managed DB. Not competitive. |
 | **Aiven** | Finland | DB-only (not compute). US VC investors create CLOUD Act yellow flag. OK for DB layer on Hetzner infra. |
 
-**Migration plan — phased approach:**
+**Migration plan — two sovereign paths:**
+
+| Path | Stack | Best For | Timeline |
+|------|-------|----------|----------|
+| **Path A: Scaleway** | Serverless Containers + Managed PostgreSQL + Managed Redis | Lifetime SaaS (Tier 2a) — scale-to-zero, lowest ops | When first customer demands sovereignty proof |
+| **Path B: UpCloud + Helm** | UKS (Managed K8s) + Managed PostgreSQL + Managed Valkey + Helm charts | Finnish sovereign K8s (Tier 2a or 2b) — "made in Finland" story | When Finnish/Nordic customer prefers Finnish infra |
+
+Both paths are valid. They can coexist — different customers may prefer different sovereignty profiles.
 
 | Phase | Action | Timeline |
 |-------|--------|----------|
-| **Phase 0 (now)** | Google Cloud Run europe-north1 — acceptable for development + early production | Current |
-| **Phase 1** | Migrate backend (`dws6run6`) to Scaleway Serverless Containers (Paris/Amsterdam) | When first enterprise customer demands sovereignty proof |
-| **Phase 2** | Migrate MCP Gateway to Scaleway | Same sprint as Phase 1 |
-| **Phase 3** | Migrate Firehorse services to Scaleway (or Docker Compose on Hetzner for cost) | Following sprint |
-| **Phase 4** | Database to Scaleway Managed PostgreSQL or Aiven-on-Hetzner | When Supabase CLOUD Act risk becomes customer blocker |
+| **Phase 0 (now)** | Google Cloud Run europe-north1 — transitional, development + early production | Current |
+| **Phase 1** | Build Helm charts (`helm/dws-iq/`) — works on both UpCloud UKS and Scaleway Kapsule | Next |
+| **Phase 2** | Migrate backend to UpCloud UKS Helsinki or Scaleway Serverless Containers | When customer demands |
+| **Phase 3** | Migrate database to UpCloud Managed PostgreSQL or Scaleway Managed PostgreSQL | Same sprint |
+| **Phase 4** | Migrate Firehorse services (same target as backend) | Following sprint |
 
-**Why Scaleway is the primary target:**
+**Why Scaleway (serverless path):**
 - Only EU provider with true scale-to-zero serverless containers (direct Cloud Run replacement)
 - Same deployment model: push Docker image → auto-scale → pay per request
 - Managed PostgreSQL with pgvector + managed Redis included
@@ -618,14 +625,26 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 - 100% French-owned (Iliad Group), zero CLOUD Act exposure
 - Lowest migration effort — Dockerfile stays identical, only deploy commands change
 
+**Why UpCloud + Helm (Finnish K8s path):**
+- Finnish-owned, Helsinki HQ, Tesi (Finnish Industry Investment) backed
+- 2 Helsinki DCs (fi-hel1, fi-hel2) — HA within Finland
+- Managed K8s (UKS): CNCF-conformant, full Helm support, no limitations vs GKE/EKS
+- **Free control plane** (dev, up to 30 nodes) + **zero egress** + **free load balancer**
+- Managed PostgreSQL (HA, automated backups, extensions) + Managed Valkey/Redis
+- GPU nodes (NVIDIA L40S) for local LLM inference
+- 99.999% SLA, ISO 27001, CISPE member
+- HPA + VPA + Cluster Autoscaler (no scale-to-zero for cluster, but pods auto-scale)
+- Gap: no managed container registry (use GitHub CR or self-host Harbor)
+- "Made in Finland" sovereignty story — same country as Lifetime Oy
+
 **Database sovereignty options (ranked):**
 
 | Option | Sovereignty | Managed? | Cost | Best For |
 |--------|------------|----------|------|----------|
-| Scaleway Managed PostgreSQL | French-owned | Yes | ~EUR 20+/mo | Simplicity (one vendor) |
+| UpCloud Managed PostgreSQL | Finnish-owned, Helsinki DC | Yes (HA, backups) | Competitive | Finnish sovereignty + managed |
+| Scaleway Managed PostgreSQL | French-owned | Yes | ~EUR 20+/mo | Simplicity (one vendor with Scaleway compute) |
 | Aiven on Hetzner infra | Finnish company + German infra | Yes | ~EUR 89+/mo | Best managed DB experience |
 | Self-hosted on Hetzner VM | German family-owned | No (DIY) | ~EUR 4+/mo | Cost optimization |
-| Self-hosted on UpCloud | Finnish Tesi-backed | No (DIY) | ~EUR 10+/mo | Finnish sovereignty preference |
 
 **Tier 2b (private cloud) exists for customers who require sovereignty under their own infrastructure control** — air-gapped, defense, critical infrastructure, banking regulators who mandate on-premises compute.
 
@@ -634,16 +653,25 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 ```
 TIER 1: ENTERPRISE WORKSTATION (clean — nothing to install except CLI)
   └── dws CLI (zero-dep Node.js, npm -g install)
-       └── All commands --> Cloud Run API (JWT auth, TLS)
+       └── All commands --> EU-sovereign API (JWT auth, TLS)
        └── No Docker, no local MCP, no local containers
 
-TIER 2: EU-SOVEREIGN CLOUD (Scaleway target, Cloud Run transitional)
-  ├── dws6run6              — Backend + 18+ agents + /mcp endpoint
-  ├── mcp-gateway           — MCP Gateway (Python FastMCP)
-  ├── firehorse-reports     — Report Engine (move from local Docker)
-  ├── firehorse-automation  — Automation service (move from local Docker)
-  ├── firehorse-dms         — Content DMS (move from local Docker)
-  └── Redis (Cloud Memorystore or Upstash) — replaces local Redis
+TIER 2: EU-SOVEREIGN CLOUD (two paths, Cloud Run transitional)
+  │
+  ├── PATH A: SCALEWAY (French, serverless, scale-to-zero)
+  │   ├── Serverless Containers  — Backend + agents + /mcp
+  │   ├── Serverless Containers  — MCP Gateway + Firehorse services
+  │   ├── Managed PostgreSQL     — pgvector, EU-only
+  │   └── Managed Redis          — Job queue + caching
+  │
+  └── PATH B: UPCLOUD + HELM (Finnish, K8s, Helsinki DC)
+      ├── UKS namespace: dws-iq  — All services via Helm chart
+      │   ├── dws-backend        — Backend + agents + /mcp
+      │   ├── mcp-gateway        — MCP Gateway
+      │   ├── firehorse-*        — Report, Automation, DMS
+      │   └── ingress            — TLS, JWT validation
+      ├── Managed PostgreSQL     — HA, Helsinki DC, automated backups
+      └── Managed Valkey/Redis   — Job queue + caching
 
 TIER 3: GDX SPARK (edge device, shipped to customer site)
   └── Control Room / Situation Room
