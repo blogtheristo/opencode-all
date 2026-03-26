@@ -46,7 +46,7 @@ Lifetime Oy hakee Defence Startup Fundin **20 000 euron avustusta** (matching-ma
 
 - **Satelliittitiedustelun** (ICEYE SAR -integraatio)
 - **EU-suvereeniuden valvonnan** (CLOUD Act -altistumisen tunnistus)
-- **AI-agenttien hallintamallin** (KYA — Know Your Agent)
+- **Agenttien hallintamallistandardi KYA 1.x** (Know Your Agent)
 - **EU AI Act -vaatimustenmukaisuuden** (Artikla 12 -lokitus)
 - **Lifetime Fleet IoT** — mobiilisensorit ja reunalaskenta (NVIDIA Jetson Orin Nano + Acer Veriton GN100)
 
