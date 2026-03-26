@@ -1177,13 +1177,13 @@ All tools exposed via MCP `tools/list`:
 
 | Status | Provider | CLOUD Act Exposure | DWS Policy |
 |--------|----------|-------------------|------------|
-| **Approved (EU-sovereign)** | Scaleway (French, Iliad) | None | Path A: Serverless containers (scale-to-zero) |
-| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi) | None | Path B: Managed K8s (UKS) + Helm, Helsinki DC, managed PostgreSQL/Valkey |
+| **Approved (EU-sovereign)** | Scaleway (French, Iliad) | None | **DWS IQ 6**: Serverless containers, multi-tenant SaaS |
+| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi) | None | **Aegis**: Managed K8s (UKS) + Helm, Helsinki DC, single-tenant enterprise |
 | **Approved (EU-sovereign)** | Clever Cloud (French) | None | Alternative PaaS |
 | **Approved (EU-sovereign)** | OVHcloud (French, public) | None | K8s workloads |
 | **Approved (EU-sovereign)** | Hetzner (German, family) | None | VMs, DB hosting, Aiven infra |
 | **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None | Enterprise K8s (German market) |
-| **Transitional** | Google Cloud Run | Yes (US-owned) | Dev + early production only. Migrate to Path A or B. |
+| **Transitional** | Google Cloud Run | Yes (US-owned) | Dev + early production only. Migrate to DWS IQ 6 (Scaleway) or Aegis (UpCloud). |
 | **Banned** | AWS, Azure | Yes (US-owned) | Never use for DWS services |
 | **Yellow flag** | Aiven (Finnish, US VC) | Unclear (US investors) | DB layer on Hetzner infra only |
 | **Dead** | Nebula / Telia Cloud 9 | N/A (dissolved Oct 2023) | Not an option |

@@ -600,32 +600,39 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 | **Telia Cloud 9** | Sweden | Nebula remnant. Basic OpenStack VMs, no serverless, no managed DB. Not competitive. |
 | **Aiven** | Finland | DB-only (not compute). US VC investors create CLOUD Act yellow flag. OK for DB layer on Hetzner infra. |
 
-**Migration plan — two sovereign paths:**
+**Two products, two sovereign paths:**
 
-| Path | Stack | Best For | Timeline |
-|------|-------|----------|----------|
-| **Path A: Scaleway** | Serverless Containers + Managed PostgreSQL + Managed Redis | Lifetime SaaS (Tier 2a) — scale-to-zero, lowest ops | When first customer demands sovereignty proof |
-| **Path B: UpCloud + Helm** | UKS (Managed K8s) + Managed PostgreSQL + Managed Valkey + Helm charts | Finnish sovereign K8s (Tier 2a or 2b) — "made in Finland" story | When Finnish/Nordic customer prefers Finnish infra |
+| Product | Path | Stack | Target Customer |
+|---------|------|-------|-----------------|
+| **DWS IQ 6** | Path A: Scaleway | Serverless Containers + Managed PostgreSQL + Managed Redis | SaaS customers — scale-to-zero, lowest ops, pay-per-use |
+| **Aegis** | Path B: UpCloud + Helm | UKS (Managed K8s) + Managed PostgreSQL + Managed Valkey + Helm charts | Enterprise customers — Finnish sovereign K8s, dedicated infra, full control |
 
-Both paths are valid. They can coexist — different customers may prefer different sovereignty profiles.
+**DWS IQ 6** is the cloud-native SaaS product. Serverless, scales to zero, Lifetime manages everything.
+**Aegis** is the sovereign enterprise product. Dedicated K8s cluster per customer, Helm-deployed, Finnish infrastructure, customer can audit everything.
+
+Both products share the same codebase, same agents, same CLI. The difference is where and how they run.
 
 | Phase | Action | Timeline |
 |-------|--------|----------|
 | **Phase 0 (now)** | Google Cloud Run europe-north1 — transitional, development + early production | Current |
-| **Phase 1** | Build Helm charts (`helm/dws-iq/`) — works on both UpCloud UKS and Scaleway Kapsule | Next |
-| **Phase 2** | Migrate backend to UpCloud UKS Helsinki or Scaleway Serverless Containers | When customer demands |
-| **Phase 3** | Migrate database to UpCloud Managed PostgreSQL or Scaleway Managed PostgreSQL | Same sprint |
-| **Phase 4** | Migrate Firehorse services (same target as backend) | Following sprint |
+| **Phase 1** | Build Helm charts (`helm/dws-iq/`) — enables Aegis on UpCloud UKS | Next |
+| **Phase 2a** | DWS IQ 6: Migrate backend to Scaleway Serverless Containers | When customer demands sovereignty |
+| **Phase 2b** | Aegis: Deploy first customer cluster on UpCloud UKS Helsinki | When enterprise customer signs |
+| **Phase 3** | Migrate databases to UpCloud Managed PostgreSQL (Aegis) or Scaleway (DWS IQ 6) | Same sprint |
+| **Phase 4** | Migrate Firehorse services (same target as backend per product) | Following sprint |
 
-**Why Scaleway (serverless path):**
+#### DWS IQ 6 — Scaleway (Serverless SaaS)
+
 - Only EU provider with true scale-to-zero serverless containers (direct Cloud Run replacement)
 - Same deployment model: push Docker image → auto-scale → pay per request
 - Managed PostgreSQL with pgvector + managed Redis included
 - Paris, Amsterdam, Warsaw regions (all EU)
 - 100% French-owned (Iliad Group), zero CLOUD Act exposure
 - Lowest migration effort — Dockerfile stays identical, only deploy commands change
+- Multi-tenant: all customers share infrastructure, isolated by JWT + RLS
 
-**Why UpCloud + Helm (Finnish K8s path):**
+#### Aegis — UpCloud + Helm (Finnish Sovereign Enterprise)
+
 - Finnish-owned, Helsinki HQ, Tesi (Finnish Industry Investment) backed
 - 2 Helsinki DCs (fi-hel1, fi-hel2) — HA within Finland
 - Managed K8s (UKS): CNCF-conformant, full Helm support, no limitations vs GKE/EKS
@@ -633,9 +640,10 @@ Both paths are valid. They can coexist — different customers may prefer differ
 - Managed PostgreSQL (HA, automated backups, extensions) + Managed Valkey/Redis
 - GPU nodes (NVIDIA L40S) for local LLM inference
 - 99.999% SLA, ISO 27001, CISPE member
-- HPA + VPA + Cluster Autoscaler (no scale-to-zero for cluster, but pods auto-scale)
+- HPA + VPA + Cluster Autoscaler
 - Gap: no managed container registry (use GitHub CR or self-host Harbor)
-- "Made in Finland" sovereignty story — same country as Lifetime Oy
+- Single-tenant: dedicated K8s cluster per enterprise customer
+- "Made in Finland" — same country as Lifetime Oy, same datacenter city as HQ
 
 **Database sovereignty options (ranked):**
 
@@ -656,16 +664,16 @@ TIER 1: ENTERPRISE WORKSTATION (clean — nothing to install except CLI)
        └── All commands --> EU-sovereign API (JWT auth, TLS)
        └── No Docker, no local MCP, no local containers
 
-TIER 2: EU-SOVEREIGN CLOUD (two paths, Cloud Run transitional)
+TIER 2: EU-SOVEREIGN CLOUD (Cloud Run transitional)
   │
-  ├── PATH A: SCALEWAY (French, serverless, scale-to-zero)
+  ├── DWS IQ 6 — SCALEWAY (French, serverless, multi-tenant SaaS)
   │   ├── Serverless Containers  — Backend + agents + /mcp
   │   ├── Serverless Containers  — MCP Gateway + Firehorse services
   │   ├── Managed PostgreSQL     — pgvector, EU-only
   │   └── Managed Redis          — Job queue + caching
   │
-  └── PATH B: UPCLOUD + HELM (Finnish, K8s, Helsinki DC)
-      ├── UKS namespace: dws-iq  — All services via Helm chart
+  └── AEGIS — UPCLOUD + HELM (Finnish, K8s, single-tenant enterprise)
+      ├── UKS namespace: aegis   — Dedicated cluster per customer
       │   ├── dws-backend        — Backend + agents + /mcp
       │   ├── mcp-gateway        — MCP Gateway
       │   ├── firehorse-*        — Report, Automation, DMS
