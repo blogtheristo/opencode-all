@@ -1,14 +1,20 @@
-<!-- VERSION AND AGENT HISTORY
-Document: Defence Startup Fund Application — Lifetime Oy
-Version: 2.1
-Date: 2026-03-25
-Owner: Risto Päärni
-Agent: Claude (Opus 4.6)
-Branch: claude/defence-startup-fund-qsJBJ
--->
-
 # Defence Startup Fund — Hakemus
 
+***
+**VERSION AND AGENT HISTORY**
+
+- **Document:** Defence Startup Fund Application — Lifetime Oy
+- **Languages Available:** FI
+- **Version:** 2.0
+- **Date:** 25.03.2026
+- **Owner:** Risto Päärni
+- **Agent:** Claude (Opus 4.6)
+- **Branch:** claude/defence-startup-fund-qsJBJ
+- **Sessions & Modifications:**
+  - 2.0 (25.03.2026, Claude Opus 4.6): Initial version prepared for Defence Startup Fund application.
+- **Document Status:** Draft
+
+***
 **Hakija:** Lifetime Oy
 **Tuote:** DWS IQ Aegis — Dual-Use AI Platform + Lifetime Fleet IoT
 **Rahasto:** Defence Startup Fund (Riihimäen Tilat ja Kehitys Oy / Riihimäen kaupunki)
