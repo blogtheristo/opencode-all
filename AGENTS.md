@@ -559,6 +559,21 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 
 > **Added 2026-03-26.** Post-clawdbot security incident. Enterprise customers MUST NOT need Docker or local MCP servers on their workstations. All agent execution happens server-side (Cloud Run) or on shipped edge hardware (GDX Spark).
 
+### EU Data Sovereignty — Platform Guarantee (ALL Tiers)
+
+**EU AI Act compliance and data sovereignty are NOT optional features.** They apply to every deployment tier, not just private cloud.
+
+| Guarantee | How enforced | Tier |
+|-----------|-------------|------|
+| **EU data residency** | Cloud Run europe-north1 (Finland), Supabase EU | All |
+| **EU AI Act Article 12 lineage** | Aiwen overlay, agent execution logging | All |
+| **GDPR-compliant architecture** | No US data transit, EU-only processing | All |
+| **NIS2 incident response** | Documented in DWS_SECURITY_STANDARD.md | All |
+| **Agent audit trail** | Every agent execution logged with reasoning lineage | All |
+| **KYA governance** | Know Your Agent trust scoring on all agents | All |
+
+**Tier 2b (private cloud) exists for customers who require sovereignty under their own infrastructure control** — not because other tiers lack sovereignty. Examples: defense contractors, critical infrastructure operators, banking regulators who mandate on-premises compute regardless of cloud provider's EU hosting.
+
 ### Three-Tier Deployment Model
 
 ```
@@ -628,7 +643,7 @@ Default deployment. All agent execution, MCP protocol, and Firehorse services ru
 
 ### Tier 2b: Private Cloud (Customer-Managed)
 
-For enterprise customers requiring full data sovereignty, air-gapped environments, or regulatory mandates prohibiting shared cloud (defense, critical infrastructure, banking).
+For enterprise customers who require sovereignty **under their own infrastructure control** — air-gapped environments, defense, critical infrastructure, or banking regulators who mandate on-premises compute. All tiers are EU AI Act compliant and EU-sovereign; Tier 2b adds customer-controlled infrastructure.
 
 **Delivery options ranked by admin skill requirement:**
 
