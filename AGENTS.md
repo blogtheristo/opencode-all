@@ -559,20 +559,75 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 
 > **Added 2026-03-26.** Post-clawdbot security incident. Enterprise customers MUST NOT need Docker or local MCP servers on their workstations. All agent execution happens server-side (Cloud Run) or on shipped edge hardware (GDX Spark).
 
-### EU Data Sovereignty — Platform Guarantee (ALL Tiers)
+### EU Data Sovereignty — Platform Guarantee (ALL Tiers) (CRITICAL RULE)
 
-**EU AI Act compliance and data sovereignty are NOT optional features.** They apply to every deployment tier, not just private cloud.
+**DWS services MUST be truly sovereign.** EU hosting on US-owned cloud is NOT sovereign — the US CLOUD Act (2018) allows US courts to compel US-owned companies (Google, AWS, Azure) to hand over data regardless of server location. EU AI Act, GDPR, and NIS2 require real sovereignty, not just EU datacenter addresses.
+
+**The Sovereignty Rule:** DWS production services MUST run on **EU-owned infrastructure** — no US parent company, no CLOUD Act exposure. Google Cloud Run is acceptable for development and transition only. Production migration target is EU-sovereign cloud.
 
 | Guarantee | How enforced | Tier |
 |-----------|-------------|------|
-| **EU data residency** | Cloud Run europe-north1 (Finland), Supabase EU | All |
+| **EU-owned infrastructure** | Migrate from Google Cloud Run to EU-sovereign provider (Scaleway, etc.) | All |
+| **No CLOUD Act exposure** | No US-owned cloud provider for production data | All |
+| **EU data residency** | EU-only datacenters (Finland, France, Germany) | All |
 | **EU AI Act Article 12 lineage** | Aiwen overlay, agent execution logging | All |
 | **GDPR-compliant architecture** | No US data transit, EU-only processing | All |
 | **NIS2 incident response** | Documented in DWS_SECURITY_STANDARD.md | All |
 | **Agent audit trail** | Every agent execution logged with reasoning lineage | All |
 | **KYA governance** | Know Your Agent trust scoring on all agents | All |
 
-**Tier 2b (private cloud) exists for customers who require sovereignty under their own infrastructure control** — not because other tiers lack sovereignty. Examples: defense contractors, critical infrastructure operators, banking regulators who mandate on-premises compute regardless of cloud provider's EU hosting.
+#### EU-Sovereign Cloud Provider Assessment (2026-03-26)
+
+**Evaluated providers (all 100% EU-owned, zero CLOUD Act exposure):**
+
+| Provider | Country | Owner | Cloud Run Equivalent | Scale-to-Zero | Managed PostgreSQL+pgvector | Managed Redis | Migration Effort |
+|----------|---------|-------|---------------------|---------------|----------------------------|---------------|-----------------|
+| **Scaleway** | France | Iliad Group | Serverless Containers | Yes | Yes | Yes | Low |
+| **Clever Cloud** | France | Independent | PaaS (Docker) | No | Yes (addon) | Yes (addon) | Low |
+| **OVHcloud** | France | Public (Euronext) | Managed K8s only | No | Yes | Yes | Medium-High |
+| **Hetzner** | Germany | Family-owned | VMs only | No | Self-host | Self-host | High |
+| **UpCloud** | Finland | Tesi-backed | VMs + K8s | No | Self-host | Self-host | Medium |
+| **STACKIT** | Germany | Schwarz Group (Lidl) | Managed K8s | No | Yes | Yes | Medium-High |
+
+**Providers evaluated and rejected:**
+
+| Provider | Country | Why Rejected |
+|----------|---------|-------------|
+| **Google Cloud Run** | US | CLOUD Act — US courts can compel data handover regardless of EU hosting |
+| **AWS** | US | CLOUD Act |
+| **Azure** | US | CLOUD Act |
+| **Nebula (Finland)** | Finland → Sweden | Dissolved Oct 2023. Absorbed into Telia (Swedish state telco). Brand dead. |
+| **Telia Cloud 9** | Sweden | Nebula remnant. Basic OpenStack VMs, no serverless, no managed DB. Not competitive. |
+| **Aiven** | Finland | DB-only (not compute). US VC investors create CLOUD Act yellow flag. OK for DB layer on Hetzner infra. |
+
+**Migration plan — phased approach:**
+
+| Phase | Action | Timeline |
+|-------|--------|----------|
+| **Phase 0 (now)** | Google Cloud Run europe-north1 — acceptable for development + early production | Current |
+| **Phase 1** | Migrate backend (`dws6run6`) to Scaleway Serverless Containers (Paris/Amsterdam) | When first enterprise customer demands sovereignty proof |
+| **Phase 2** | Migrate MCP Gateway to Scaleway | Same sprint as Phase 1 |
+| **Phase 3** | Migrate Firehorse services to Scaleway (or Docker Compose on Hetzner for cost) | Following sprint |
+| **Phase 4** | Database to Scaleway Managed PostgreSQL or Aiven-on-Hetzner | When Supabase CLOUD Act risk becomes customer blocker |
+
+**Why Scaleway is the primary target:**
+- Only EU provider with true scale-to-zero serverless containers (direct Cloud Run replacement)
+- Same deployment model: push Docker image → auto-scale → pay per request
+- Managed PostgreSQL with pgvector + managed Redis included
+- Paris, Amsterdam, Warsaw regions (all EU)
+- 100% French-owned (Iliad Group), zero CLOUD Act exposure
+- Lowest migration effort — Dockerfile stays identical, only deploy commands change
+
+**Database sovereignty options (ranked):**
+
+| Option | Sovereignty | Managed? | Cost | Best For |
+|--------|------------|----------|------|----------|
+| Scaleway Managed PostgreSQL | French-owned | Yes | ~EUR 20+/mo | Simplicity (one vendor) |
+| Aiven on Hetzner infra | Finnish company + German infra | Yes | ~EUR 89+/mo | Best managed DB experience |
+| Self-hosted on Hetzner VM | German family-owned | No (DIY) | ~EUR 4+/mo | Cost optimization |
+| Self-hosted on UpCloud | Finnish Tesi-backed | No (DIY) | ~EUR 10+/mo | Finnish sovereignty preference |
+
+**Tier 2b (private cloud) exists for customers who require sovereignty under their own infrastructure control** — air-gapped, defense, critical infrastructure, banking regulators who mandate on-premises compute.
 
 ### Three-Tier Deployment Model
 
@@ -582,7 +637,7 @@ TIER 1: ENTERPRISE WORKSTATION (clean — nothing to install except CLI)
        └── All commands --> Cloud Run API (JWT auth, TLS)
        └── No Docker, no local MCP, no local containers
 
-TIER 2: CLOUD RUN (europe-north1 — all services, EU-sovereign)
+TIER 2: EU-SOVEREIGN CLOUD (Scaleway target, Cloud Run transitional)
   ├── dws6run6              — Backend + 18+ agents + /mcp endpoint
   ├── mcp-gateway           — MCP Gateway (Python FastMCP)
   ├── firehorse-reports     — Report Engine (move from local Docker)
@@ -621,9 +676,12 @@ dws health                                    # Check connectivity
 
 **Security posture:** No attack surface on customer workstation. No local processes, no open ports, no Docker daemon, no MCP servers that could be hijacked (clawdbot vector eliminated).
 
-### Tier 2a: Cloud Run (Lifetime-Managed SaaS)
+### Tier 2a: EU-Sovereign Cloud (Lifetime-Managed SaaS)
 
-Default deployment. All agent execution, MCP protocol, and Firehorse services run on Google Cloud Run (europe-north1, EU-sovereign). Lifetime manages infrastructure.
+Default deployment. All agent execution, MCP protocol, and Firehorse services run server-side. Lifetime manages infrastructure.
+
+**Current:** Google Cloud Run (europe-north1) — transitional, acceptable for development and early production.
+**Target:** Scaleway Serverless Containers (Paris/Amsterdam) — EU-sovereign, zero CLOUD Act exposure. Migration triggered by first enterprise customer requiring sovereignty proof.
 
 | Service | Image | Port | Memory | CPU | Min/Max | Status |
 |---------|-------|------|--------|-----|---------|--------|

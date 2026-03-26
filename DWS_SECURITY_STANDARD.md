@@ -1169,6 +1169,29 @@ All tools exposed via MCP `tools/list`:
 
 **See also:** AGENTS.md Section 20 (Deployment Architecture), CLAUDE.md Email Rules (Resend ban from same incident).
 
+### 17.5 Infrastructure Sovereignty Rule (CLOUD Act — 2026-03-26)
+
+> **PERMANENT SECURITY RULE.** DWS production services MUST run on EU-owned infrastructure. US CLOUD Act (2018) allows US courts to compel US-owned companies to hand over data regardless of server location.
+
+**The rule:** No US-owned cloud provider (Google, AWS, Azure) for DWS production customer data. EU hosting on US cloud is NOT sovereign.
+
+| Status | Provider | CLOUD Act Exposure | DWS Policy |
+|--------|----------|-------------------|------------|
+| **Approved (EU-sovereign)** | Scaleway (French, Iliad) | None | Primary migration target |
+| **Approved (EU-sovereign)** | Clever Cloud (French) | None | Alternative PaaS |
+| **Approved (EU-sovereign)** | OVHcloud (French, public) | None | K8s workloads |
+| **Approved (EU-sovereign)** | Hetzner (German, family) | None | VMs, DB hosting |
+| **Approved (EU-sovereign)** | UpCloud (Finnish, Tesi) | None | Finnish preference |
+| **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None | Enterprise K8s |
+| **Transitional** | Google Cloud Run | Yes (US-owned) | Dev + early production only. Migrate to Scaleway. |
+| **Banned** | AWS, Azure | Yes (US-owned) | Never use for DWS services |
+| **Yellow flag** | Aiven (Finnish, US VC) | Unclear (US investors) | DB layer on Hetzner infra only |
+| **Dead** | Nebula / Telia Cloud 9 | N/A (dissolved Oct 2023) | Not an option |
+
+**Migration timeline:** See AGENTS.md Section 20 for phased migration plan.
+
+**Enforcement:** New services MUST target EU-sovereign providers. Existing Google Cloud Run services migrate per the phased plan. Any new GCP service creation requires explicit sovereignty exception documented in PR.
+
 ---
 
 ## 18. References
