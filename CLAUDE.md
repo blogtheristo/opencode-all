@@ -235,12 +235,14 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 ## Email Rules (CRITICAL)
 
 - **NEVER use `noreply@` addresses.** All emails from a real, replyable address.
-- **Transport priority:** Amazon SES (SMTP) is **primary**, Resend SDK is **fallback**. Both use the same verified sender.
-- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
+- **Transport: Amazon SES (SMTP) ONLY.** Resend SDK removed 2026-03-26 (suspected account compromise). Do NOT re-add Resend.
+- **BANNED: resend.com / Resend SDK.** Never import, install, or reference `resend` package. Never add `RESEND_API_KEY` to any config. This is a permanent security rule — Resend was used as a C2 exfiltration channel in the Clawdbot incident.
+- **Default sender:** `risto@onelifetime.world` (verified in Amazon SES eu-north-1)
 - **Default recipient:** `risto@lifetime.fi`
 - **Verified domain:** `onelifetime.world` only. Do NOT use `dws6.com` or other domains.
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
-- **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES→Resend transport cascade).
+- **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES SMTP only).
+- **Audit trail:** Every outbound email logged to `logs/email-audit.jsonl` with callerStack + PID.
 
 ## Tech Stack
 

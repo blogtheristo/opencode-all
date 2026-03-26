@@ -39,6 +39,10 @@ dws6.com/**/.env.local
 dws6.com/**/.env.*.local
 dws6.com/**/config/*.local.js
 
+# --- RUNTIME LOGS ---
+logs/
+*.log
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/

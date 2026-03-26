@@ -4,21 +4,14 @@
  * Delivery: GitHub Actions workflow (.github/workflows/morning-briefing.yml)
  * fires Mon-Sat at 06:00 Helsinki via dual UTC crons (DST-safe).
  *
- * This module provides the send logic used by both the standalone script
- * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
+ * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
+ * Email delivery: Amazon SES (SMTP) only. Console fallback for dev.
  *
- * Email delivery priority:
- *   1. SMTP via nodemailer (primary — Amazon SES)
- *   2. Resend SDK (fallback)
- *   3. Console print (dev / no credentials)
- *
- * risto@onelifetime.world managed by Amazon SES.
+ * risto@onelifetime.world managed by Amazon SES eu-north-1.
  * SMTP env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE
- * Resend env var: RESEND_API_KEY (fallback)
  */
 
 import nodemailer from 'nodemailer';
-import { Resend } from 'resend';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
@@ -32,7 +25,7 @@ function createSmtpTransport(): nodemailer.Transporter | null {
   if (!host) return null;
 
   const port = parseInt(process.env.SMTP_PORT || '587', 10);
-  const secure = process.env.SMTP_SECURE === 'true'; // true = port 465 (SSL), false = STARTTLS
+  const secure = process.env.SMTP_SECURE === 'true';
 
   return nodemailer.createTransport({
     host,
@@ -64,7 +57,7 @@ async function sendMorningBriefing(): Promise<void> {
   });
   const subject = `CEO Cockpit ${dateStr}`;
 
-  // --- Primary: SMTP (Hetzner Helsinki) ---
+  // --- SES SMTP ---
   const smtpTransport = createSmtpTransport();
   if (smtpTransport) {
     try {
@@ -75,44 +68,16 @@ async function sendMorningBriefing(): Promise<void> {
         html,
         text,
       });
-      logger.info('CEO Cockpit sent via SMTP', { to: recipient, messageId: info.messageId });
+      logger.info('CEO Cockpit sent via SES SMTP', { to: recipient, messageId: info.messageId });
       return;
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('SMTP send failed, falling back to Resend', { error: msg });
-      // fall through to Resend
-    }
-  }
-
-  // --- Fallback: Resend ---
-  const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey) {
-    const resend = new Resend(resendKey);
-    try {
-      const { data: result, error } = await resend.emails.send({
-        from: fromAddress,
-        to: [recipient],
-        subject,
-        html,
-        text,
-      });
-
-      if (error) {
-        logger.error('Resend CEO Cockpit failed', { error: error.message });
-        return;
-      }
-
-      logger.info('CEO Cockpit sent via Resend', { to: recipient, id: result?.id });
-      return;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Resend CEO Cockpit error', { error: msg });
-      return;
+      logger.error('SES SMTP send failed', { error: msg });
     }
   }
 
   // --- Last resort: console ---
-  logger.warn('No email transport configured (SMTP_HOST or RESEND_API_KEY). Printing to console.');
+  logger.warn('No SMTP transport configured (SMTP_HOST). Printing to console.');
   console.log('\n' + text);
 }
 

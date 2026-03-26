@@ -1,26 +1,22 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service.
- * Priority: Amazon SES (SMTP) → Resend SDK (fallback).
+ * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
+ * All emails now use Amazon SES via SMTP only (src/utils/send-email.ts).
  *
  * Features:
- *   - SES via SMTP as primary transport (nodemailer)
- *   - Resend SDK as fallback when SES is unavailable or fails
- *   - Batch sending for digest/bulk emails (Resend /emails/batch)
+ *   - SES via SMTP as the sole transport (nodemailer)
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (for Amazon SES)
- *   RESEND_API_KEY       - Resend API key (fallback)
  *   EMAIL_FROM           - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL         - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
-import { Resend } from 'resend';
 import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
@@ -66,7 +62,6 @@ interface EmailLogEntry {
   error: string | null;
   metadata: Record<string, unknown> | null;
   transport?: string | null;
-  resend_email_id?: string | null;
 }
 
 // ============================================================
@@ -75,7 +70,6 @@ interface EmailLogEntry {
 
 class EmailService {
   private readonly fromAddress: string;
-  private readonly resend: Resend | null;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
@@ -84,24 +78,13 @@ class EmailService {
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    const apiKey = process.env.RESEND_API_KEY;
-    if (apiKey) {
-      this.resend = new Resend(apiKey);
-    } else {
-      this.resend = null;
-    }
-
     const hasSmtp = !!process.env.SMTP_HOST;
-    const hasResend = !!apiKey;
-    if (!hasSmtp && !hasResend) {
+    if (!hasSmtp) {
       logger.warn(
-        'No email transport configured (SMTP_HOST or RESEND_API_KEY). Emails will be logged but not delivered.'
+        'No SMTP transport configured (SMTP_HOST). Emails will be logged but not delivered.'
       );
     } else {
-      logger.info('Email service initialized', {
-        primary: hasSmtp ? 'SES (SMTP)' : 'Resend',
-        fallback: hasSmtp && hasResend ? 'Resend' : 'none',
-      });
+      logger.info('Email service initialized', { transport: 'SES (SMTP)' });
     }
   }
 
@@ -109,9 +92,6 @@ class EmailService {
   // PUBLIC METHODS
   // ----------------------------------------------------------
 
-  /**
-   * Send a welcome email to a newly registered user.
-   */
   async sendWelcomeEmail(to: string, name: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -122,9 +102,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a password reset email with a one-time link.
-   */
   async sendPasswordResetEmail(to: string, resetLink: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -134,9 +111,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Notify a user that a report is ready for download.
-   */
   async sendReportDeliveryEmail(
     to: string,
     reportName: string,
@@ -151,9 +125,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a generic notification email with custom subject and body text.
-   */
   async sendNotificationEmail(
     to: string,
     subject: string,
@@ -167,10 +138,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a pre-briefing email when a captain inquiry is booked.
-   * Includes deck link, term sheet, and what to prepare.
-   */
   async sendCaptainPreBriefing(
     to: string,
     name: string,
@@ -186,9 +153,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send an investor outreach email for initial contact.
-   */
   async sendInvestorOutreach(
     to: string,
     name: string,
@@ -204,9 +168,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send an invoice email with payment details.
-   */
   async sendInvoiceEmail(
     to: string,
     invoiceId: string,
@@ -231,53 +192,20 @@ class EmailService {
   }
 
   /**
-   * Send multiple emails in a single Resend batch request (up to 100).
-   * Returns array of Resend email IDs for tracking.
-   * Falls back to sequential sending via SES→Resend per-email if batch unavailable.
+   * Send multiple emails sequentially via SES SMTP.
+   * Returns empty array (batch IDs were Resend-specific, now removed).
    */
   async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
-    if (!this.resend) {
-      logger.info('Resend batch unavailable — sending sequentially via SES→Resend fallback', {
-        count: emails.length,
-      });
-      for (const e of emails) {
-        await this.sendEmail({ to: e.to, subject: e.subject, html: e.html, templateType: e.templateType });
-      }
-      return [];
+    for (const e of emails) {
+      await this.sendEmail({ to: e.to, subject: e.subject, html: e.html, templateType: e.templateType });
     }
-
-    const payload = emails.map((e) => ({
-      from: this.fromAddress,
-      to: [e.to],
-      subject: e.subject,
-      html: e.html,
-    }));
-
-    try {
-      const { data, error } = await this.resend.batch.send(payload);
-      if (error) {
-        throw new Error(`Resend batch error: ${error.message}`);
-      }
-      const results = data ?? [];
-      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
-      logger.info('Batch emails sent via Resend', { count: ids.length });
-      return ids;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Resend batch send failed', { error: msg, count: emails.length });
-      throw new Error(`Batch email delivery failed: ${msg}`);
-    }
+    return [];
   }
 
   // ----------------------------------------------------------
   // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
-  /**
-   * Send an email through SES (SMTP) primary → Resend fallback.
-   * Uses src/utils/send-email.ts which handles the SES→Resend cascade.
-   * Logs every attempt to Supabase when configured.
-   */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
 
@@ -336,10 +264,6 @@ class EmailService {
   // EMAIL LOGGING (SUPABASE)
   // ----------------------------------------------------------
 
-  /**
-   * Persist an email log entry to the Supabase email_logs table.
-   * Failures are logged but never propagated to the caller.
-   */
   private async logEmail(entry: EmailLogEntry): Promise<void> {
     if (!this.supabaseUrl || !this.supabaseServiceKey) {
       logger.debug('Supabase not configured - skipping email log persistence', {
@@ -379,5 +303,5 @@ class EmailService {
   }
 }
 
-// Export singleton instance (consistent with auth.service.ts pattern)
+// Export singleton instance
 export default new EmailService();
