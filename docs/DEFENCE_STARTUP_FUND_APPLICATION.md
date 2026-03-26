@@ -177,6 +177,11 @@ Lifetime Fleet on DWS IQ Aegisin fyysinen toteutuskerros ("Hands"):
 | **Risto Anton Päärni** | CEO & perustaja, yrittäjä | Full-stack arkkitehti, 20+ vuotta teollisuuden digitalisaatio, EU-sääntelyasiantuntemus, logistiikka-alan kokemus (Kela, Uber, Bolt, Taksi Helsinki) |
 | **Lucille Päärni** | Liiketoiminnan kehitys | Kansainväliset verkostot, asiakassuhteet, markkinoiden kehittäminen |
 
+**Yhteistyö:**
+- Metropolia-yliopisto, Smart Factory -koulutusohjelma
+- Acer Finland (GDX Spark -yhteistyö, Acer Veriton GN-100 -laitteistot)
+- NVIDIA Connect -ohjelma (Lifetime World Model -yhteistyö) — jäsen
+
 *Tiimi laajenee DEFINE-ekosysteemin ja rahoituksen myötä.*
 
 ---
