@@ -1148,10 +1148,10 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Standalone dual-use GodAgent platform for all 20 EU-regulated industries. Software-only — no hardware bundled. Packages sovereignty monitoring, orbital intelligence (ICEYE SAR), KYA agent governance, and EU AI Act compliance for government agencies, military industry enterprises, and dual-use manufacturing supply chains. EU-only: European cloud or enterprise private cloud.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18+ industrial AI agents for all 20 EU-regulated industries. Dedicated cluster per customer. Sovereignty monitoring, orbital intelligence (ICEYE SAR), KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
       "features": [
-        "20 EU industries — GodAgents for dual-use compliance",
-        "EU-only — European cloud or enterprise private cloud",
+        "Single-tenant — dedicated K8s cluster per customer on UpCloud Helsinki DC",
+        "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
         "KYA agent governance — identity, isolation, kill authority"
       ],
       "priceNote": "€59,990 one-time platform deployment + €599/mo subscription",
@@ -1163,7 +1163,7 @@
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
-        "availability": "in_stock",
+        "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "en"
