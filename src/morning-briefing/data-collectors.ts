@@ -837,11 +837,8 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
       check: () => tableExists('construction_leads'),
       description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
     },
-    {
-      id: '037',
-      check: () => columnExists('email_logs', 'resend_email_id'),
-      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
-    },
+    // Migration 037 (resend_email_id) removed — Resend SDK removed 2026-03-26 for security.
+    // Email delivery tracking now uses SES message IDs via email-audit.jsonl.
   ];
 
   const missing: Array<{ id: string; description: string }> = [];
