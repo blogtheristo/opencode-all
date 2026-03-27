@@ -136,6 +136,67 @@ router.post(
 );
 
 /**
+ * POST /api/v1/payments/webhook
+ * Payment webhook receiver (PayPal/Revolut).
+ * Verifies webhook signature before processing.
+ */
+router.post('/webhook', express.raw({ type: 'application/json' }), async (req: Request, res: Response) => {
+  const signature = req.headers['x-webhook-signature'] as string
+    || req.headers['paypal-transmission-sig'] as string
+    || '';
+  const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET;
+
+  // Verify webhook signature when secret is configured
+  if (webhookSecret) {
+    const crypto = await import('crypto');
+    const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+    const expected = crypto
+      .createHmac('sha256', webhookSecret)
+      .update(rawBody)
+      .digest('hex');
+
+    // Constant-time comparison to prevent timing attacks
+    const sigBuffer = Buffer.from(signature.padEnd(256, '\0'));
+    const expectedBuffer = Buffer.from(expected.padEnd(256, '\0'));
+    if (!crypto.timingSafeEqual(sigBuffer, expectedBuffer)) {
+      logger.warn('Payment webhook signature mismatch', {
+        ip: req.ip,
+      });
+      return res.status(401).json({ error: 'Invalid webhook signature' });
+    }
+  } else {
+    logger.warn('PAYMENT_WEBHOOK_SECRET not configured — webhook signature not verified');
+  }
+
+  try {
+    const event = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const eventType = event?.type || event?.event_type || 'unknown';
+
+    logger.info('Payment webhook received', {
+      type: eventType,
+      id: event?.id,
+    });
+
+    // Forward to payment service for processing
+    if (PAYMENT_API_URL) {
+      await fetch(`${PAYMENT_API_URL}/v1/payments/webhook`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event),
+      }).catch((err: Error) => {
+        logger.error('Payment webhook forwarding failed', { error: err.message });
+      });
+    }
+
+    return res.json({ received: true, type: eventType });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Payment webhook processing error', { error: msg });
+    return res.status(400).json({ error: 'Invalid webhook payload' });
+  }
+});
+
+/**
  * GET /api/v1/payments/health
  * Check if payment service is configured and reachable.
  */

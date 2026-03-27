@@ -1199,6 +1199,123 @@ function parseArgs(argv: string[]): {
   };
 }
 
+// ============ MVP: PROFILE, NOTIFICATIONS, DASHBOARD COMMANDS ============
+
+async function cmdProfile(): Promise<void> {
+  const s = spinner('Fetching profile...');
+  try {
+    const result = await api('/api/v1/user/profile');
+    s.stop();
+    output(result, (data) => {
+      const d = data as Record<string, unknown>;
+      const profile = d.profile as Record<string, unknown> | null;
+      const lines = [
+        fmt.bold('User Profile'),
+        `  Email: ${d.email || 'N/A'}`,
+        `  Role:  ${d.role || 'N/A'}`,
+      ];
+      if (profile) {
+        lines.push(`  Name:  ${profile.full_name || 'Not set'}`);
+        lines.push(`  Org:   ${profile.organization || 'Not set'}`);
+        lines.push(`  Lang:  ${profile.language || 'en'}`);
+        lines.push(`  TZ:    ${profile.timezone || 'Not set'}`);
+      }
+      return box('Profile', lines.join('\n'));
+    });
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdNotifications(): Promise<void> {
+  const s = spinner('Fetching notifications...');
+  try {
+    const result = await api('/api/v1/notifications') as {
+      notifications: Array<{ title: string; body: string; severity: string; read: boolean; created_at: string }>;
+      total: number;
+    };
+    s.stop();
+    output(result, (data) => {
+      const d = data as typeof result;
+      if (d.notifications.length === 0) {
+        return box('Notifications', 'No notifications');
+      }
+      const lines = d.notifications.map((n) => {
+        const icon = n.severity === 'critical' ? fmt.red('!') :
+          n.severity === 'warning' ? fmt.yellow('!') :
+          n.severity === 'success' ? fmt.green('✓') : '·';
+        const readMark = n.read ? '' : fmt.bold(' [NEW]');
+        return `  ${icon} ${n.title}${readMark}\n    ${n.body}`;
+      });
+      return box(`Notifications (${d.total})`, lines.join('\n'));
+    });
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdDashboard(): Promise<void> {
+  const s = spinner('Fetching dashboard summary...');
+  try {
+    const result = await api('/api/v1/dashboard/summary') as {
+      compliance: { overallScore: number; regulationsTracked: number; gapsIdentified: number; trend: string };
+      usage: { agentCallsUsed: number; agentCallsLimit: number; reportExportsUsed: number; reportExportsLimit: number };
+      agents: { totalAvailable: number; executionsToday: number };
+      system: { status: string; uptime: number };
+    };
+    s.stop();
+    output(result, (data) => {
+      const d = data as typeof result;
+      const uptimeHrs = Math.floor(d.system.uptime / 3600);
+      const uptimeMins = Math.floor((d.system.uptime % 3600) / 60);
+      const lines = [
+        fmt.bold('Compliance'),
+        `  Score: ${d.compliance.overallScore}/100  Trend: ${d.compliance.trend}`,
+        `  Regulations: ${d.compliance.regulationsTracked}  Gaps: ${d.compliance.gapsIdentified}`,
+        '',
+        fmt.bold('Usage'),
+        `  Agent calls:  ${progressBar(d.usage.agentCallsUsed, d.usage.agentCallsLimit)}`,
+        `  Report exports: ${progressBar(d.usage.reportExportsUsed, d.usage.reportExportsLimit)}`,
+        '',
+        fmt.bold('System'),
+        `  Status: ${d.system.status}  Uptime: ${uptimeHrs}h ${uptimeMins}m`,
+        `  Agents: ${d.agents.totalAvailable} available, ${d.agents.executionsToday} runs today`,
+      ];
+      return box('DWS IQ Dashboard', lines.join('\n'));
+    });
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
+async function cmdActivity(limit?: number): Promise<void> {
+  const s = spinner('Fetching activity...');
+  try {
+    const result = await api(`/api/v1/activity?limit=${limit || 10}`) as {
+      events: Array<{ type: string; title: string; description: string; severity: string; created_at: string }>;
+      total: number;
+    };
+    s.stop();
+    output(result, (data) => {
+      const d = data as typeof result;
+      if (d.events.length === 0) {
+        return box('Activity', 'No recent activity');
+      }
+      const lines = d.events.map((e) => {
+        const time = new Date(e.created_at).toLocaleTimeString();
+        return `  [${time}] ${e.title} — ${e.description}`;
+      });
+      return box(`Activity (${d.total} total)`, lines.join('\n'));
+    });
+  } catch (err) {
+    s.stop();
+    throw err;
+  }
+}
+
 // ============ MAIN ============
 
 async function main(): Promise<void> {
@@ -1343,6 +1460,22 @@ async function main(): Promise<void> {
         await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
+      case 'profile':
+        await cmdProfile();
+        break;
+
+      case 'notifications':
+        await cmdNotifications();
+        break;
+
+      case 'dashboard':
+        await cmdDashboard();
+        break;
+
+      case 'activity':
+        await cmdActivity(flags.limit ? parseInt(flags.limit) : undefined);
+        break;
+
       case 'mcp':
         if (subcommand === 'tools') {
           await cmdMcpTools();
@@ -1365,7 +1498,9 @@ async function main(): Promise<void> {
         const allCommands = [
           'agents', 'agent', 'run', 'discover', 'workflows', 'workflow',
           'events', 'health', 'status', 'config', 'mcp', 'kya',
-          'scenario', 'quickstart', 'init', 'sovereignty-assess', 'version', 'help',
+          'scenario', 'quickstart', 'init', 'sovereignty-assess',
+          'profile', 'notifications', 'dashboard', 'activity',
+          'version', 'help',
         ];
         const suggestions = allCommands
           .filter((c) => c.startsWith(command[0]) || levenshtein(command, c) <= 3)

@@ -41,7 +41,11 @@ import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
+import activityRoutes from './routes/activity.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
+import notificationRoutes from './routes/notification.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
+import { notificationService } from './services/notification.service.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -324,6 +328,15 @@ app.use('/api/investor-reports/cap-table', capTableRouter);
 // Memory dashboard (stats, audit, decay dry-run)
 app.use('/api/v1/memory', memoryRoutes);
 
+// Activity feed (real-time events, SSE stream)
+app.use('/api/v1/activity', activityRoutes);
+
+// Dashboard summary (aggregated metrics for MetricsHeader)
+app.use('/api/v1/dashboard', dashboardRoutes);
+
+// Notifications (in-app notifications with read/unread)
+app.use('/api/v1/notifications', notificationRoutes);
+
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
   const configPath = path.join(process.cwd(), 'config', 'project-delivery-status.json');
@@ -536,6 +549,10 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
+  // Notification service: listens to event bus, delivers notifications
+  notificationService.start();
+  logger.info('Notification delivery service started');
+
   // Start outreach digest scheduler (backup — primary is GitHub Actions).
   // On Cloud Run this may not fire reliably due to scale-to-zero,
   // but covers local dev and always-on deployments.
@@ -581,6 +598,7 @@ process.on('SIGTERM', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -594,6 +612,7 @@ process.on('SIGINT', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
