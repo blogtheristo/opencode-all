@@ -1,16 +1,16 @@
 # Social Scheduler — LinkedIn Post Queue
 #
-# Generates a LinkedIn draft based on the weekly content calendar,
-# enqueues it, and sends an approval digest email at 08:00 Helsinki Mon-Fri.
-#
-# CEO approves/edits/rejects posts via email reply.
+# PRIMARY DELIVERY: Local script (scripts/run-morning-emails.ps1 / .sh)
+# This workflow is kept as a MANUAL FALLBACK only.
+# Scheduled crons disabled 2026-03-27 to save Actions minutes.
 
 name: Social Scheduler
 
 on:
-  schedule:
-    - cron: '0 5 * * 1-5'   # 08:00 Helsinki in summer (EEST, UTC+3)
-    - cron: '0 6 * * 1-5'   # 08:00 Helsinki in winter (EET, UTC+2)
+  # DISABLED — delivery moved to local machine (2026-03-27).
+  # schedule:
+  #   - cron: '0 5 * * 1-5'
+  #   - cron: '0 6 * * 1-5'
 
   workflow_dispatch:
     inputs:

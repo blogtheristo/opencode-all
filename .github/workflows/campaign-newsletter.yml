@@ -1,10 +1,12 @@
+# PRIMARY DELIVERY: Local script (scripts/run-morning-emails.ps1 / .sh)
+# Scheduled crons disabled 2026-03-27 to save Actions minutes.
 name: Weekly Campaign Newsletter
 
 on:
-  schedule:
-    # Friday 05:00 and 06:00 UTC to cover Helsinki DST (08:00 Helsinki)
-    - cron: '0 5 * * 5'
-    - cron: '0 6 * * 5'
+  # DISABLED — delivery moved to local machine (2026-03-27).
+  # schedule:
+  #   - cron: '0 5 * * 5'
+  #   - cron: '0 6 * * 5'
   workflow_dispatch:
     inputs:
       force_send:

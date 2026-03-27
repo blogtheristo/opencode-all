@@ -3,13 +3,13 @@
  * Standalone Outreach Digest Sender
  *
  * Sends the daily outreach digest email outside of the Express server.
- * Designed for GitHub Actions cron, manual execution, or any CI/CD trigger.
+ * Designed for local cron, manual execution, or any CI/CD trigger.
  *
  * Usage:
  *   npx tsx scripts/send-outreach-digest.ts
  *
  * Required env vars:
- *   RESEND_API_KEY
+ *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for live data)
  *
  * Optional env vars:
@@ -17,17 +17,17 @@
  *   EMAIL_FROM (default: risto@onelifetime.world)
  *   OUTREACH_REPLY_TO_EMAIL (reply-to address)
  *   SKIP_TIME_CHECK (bypass Helsinki time guard)
+ *
+ * SECURITY: Resend SDK removed 2026-03-26 (suspected account compromise). SES only.
  */
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 import { generateDailyDigest } from '../src/outreach/daily-digest.js';
+import { sendEmail } from '../src/utils/send-email.js';
 
 async function main(): Promise<void> {
-  // Helsinki time guard: only send when Helsinki hour is 6.
-  // Two GitHub Actions cron entries (03:00 and 04:00 UTC) cover both DST
-  // offsets; the "wrong" one silently exits here.
   if (process.env.SKIP_TIME_CHECK !== 'true') {
     const helsinkiHour = parseInt(
       new Date().toLocaleString('en-US', {
@@ -50,10 +50,9 @@ async function main(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
   const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
-  const resendKey = process.env.RESEND_API_KEY;
 
-  if (!resendKey) {
-    console.error('ERROR: RESEND_API_KEY not configured.');
+  if (!process.env.SMTP_HOST) {
+    console.error('ERROR: SMTP_HOST not configured. Amazon SES (SMTP) is required.');
     process.exit(1);
   }
 
@@ -73,30 +72,22 @@ async function main(): Promise<void> {
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
-    },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      reply_to: replyToAddress,
-      subject,
-      html,
-      text: plainText,
-    }),
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text: plainText,
+    replyTo: replyToAddress,
+    headers: { 'X-DWS-Email-Type': 'outreach-digest' },
   });
 
-  if (response.ok) {
-    const result = await response.json();
-    console.log(`Sent via Resend. ID: ${(result as any).id}`);
+  if (result.ok) {
+    console.log(`Sent via ${result.transport}. Outreach digest delivered to ${recipient}`);
     return;
   }
 
-  const errorBody = await response.text();
-  console.error(`Resend failed (${response.status}): ${errorBody}`);
+  console.error(`Email delivery failed: ${result.error}`);
   process.exit(1);
 }
 

@@ -1,24 +1,19 @@
 # Construction Lead Scraper — Daily TED Tender Fetch + Email Digest
 #
-# Scrapes EU construction tenders from TED (Tenders Electronic Daily),
-# saves leads to data/leads.csv, and sends a morning email digest.
+# PRIMARY DELIVERY: Local script (scripts/run-morning-emails.ps1 / .sh)
+# This workflow is kept as a MANUAL FALLBACK only.
+# Scheduled crons disabled 2026-03-27 to save Actions minutes.
 #
-# Schedule: Every morning at 06:00 Helsinki time (Mon-Sat)
-# Helsinki = UTC+2 (winter, EET) / UTC+3 (summer, EEST)
-#
-# Two cron entries cover both DST offsets:
-#   03:00 UTC = 06:00 EEST (summer, late Mar – late Oct)
-#   04:00 UTC = 06:00 EET  (winter, late Oct – late Mar)
-#
-# The script has a Helsinki-time guard: it only runs when the
-# Helsinki hour is 6, so the "wrong" cron entry silently exits 0.
+# Note: Construction leads uses Python (fetch_tenders.py), not included
+# in the unified morning emails script yet. Run manually or re-enable cron.
 
 name: Construction Lead Scraper
 
 on:
-  schedule:
-    - cron: '0 3 * * 1-6'   # 06:00 Helsinki in summer (EEST, UTC+3)
-    - cron: '0 4 * * 1-6'   # 06:00 Helsinki in winter (EET, UTC+2)
+  # DISABLED — delivery moved to local machine (2026-03-27).
+  # schedule:
+  #   - cron: '0 3 * * 1-6'
+  #   - cron: '0 4 * * 1-6'
 
   workflow_dispatch:
     inputs:
