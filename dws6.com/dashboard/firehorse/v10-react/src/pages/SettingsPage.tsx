@@ -11,6 +11,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { useSettings } from '../hooks/useSettings';
 
 type Theme = 'dark' | 'light';
 type Locale = 'en' | 'fi' | 'de' | 'sv';
@@ -104,13 +105,8 @@ export function SettingsPage() {
     role: 'User',
   });
 
-  const [notifications, setNotifications] = useState<NotificationPrefs>({
-    emailAlerts: true,
-    complianceDeadlines: true,
-    carbonThresholds: false,
-    reportReady: true,
-    weeklyDigest: true,
-  });
+  // Settings persistence (Supabase + localStorage fallback)
+  const { settings, updateTheme, updateLocale, toggleNotification, synced: settingsSynced } = useSettings();
 
   // API keys (loaded from backend)
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
@@ -120,9 +116,6 @@ export function SettingsPage() {
 
   // Usage metering
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
-
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [locale, setLocale] = useState<Locale>('en');
 
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
@@ -159,19 +152,7 @@ export function SettingsPage() {
         }
       } catch { /* Auth not available */ }
 
-      // Load notification preferences from localStorage
-      try {
-        const savedPrefs = localStorage.getItem('dws_notification_prefs');
-        if (savedPrefs) {
-          setNotifications(JSON.parse(savedPrefs));
-        }
-      } catch { /* Fallback to defaults */ }
-
-      // Load theme and locale from localStorage
-      const savedTheme = localStorage.getItem('dws_theme') as Theme | null;
-      if (savedTheme) setTheme(savedTheme);
-      const savedLocale = localStorage.getItem('dws_locale') as Locale | null;
-      if (savedLocale) setLocale(savedLocale);
+      // Notification prefs, theme, locale loaded via useSettings hook
 
       const headers = await getAuthHeaders();
 
@@ -200,12 +181,8 @@ export function SettingsPage() {
   }, []);
 
   const handleNotificationToggle = useCallback((field: keyof NotificationPrefs) => {
-    setNotifications((prev) => {
-      const updated = { ...prev, [field]: !prev[field] };
-      localStorage.setItem('dws_notification_prefs', JSON.stringify(updated));
-      return updated;
-    });
-  }, []);
+    toggleNotification(field);
+  }, [toggleNotification]);
 
   const handleSaveProfile = useCallback(async () => {
     setSaving(true);
@@ -334,7 +311,10 @@ export function SettingsPage() {
         {/* Page Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">Settings</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage your account, preferences, and integrations</p>
+          <p className="text-sm text-gray-400 mt-1">
+            Manage your account, preferences, and integrations
+            {settingsSynced && <span className="ml-2 text-xs text-green-500">Synced</span>}
+          </p>
         </div>
 
         {/* Usage Metering Dashboard */}
@@ -450,15 +430,15 @@ export function SettingsPage() {
                 <button
                   onClick={() => handleNotificationToggle(key)}
                   className={`relative w-11 h-6 rounded-full transition-colors ${
-                    notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
+                    settings.notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
                   }`}
                   role="switch"
-                  aria-checked={notifications[key]}
+                  aria-checked={settings.notifications[key]}
                   aria-label={label}
                 >
                   <span
                     className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                      notifications[key] ? 'translate-x-5' : 'translate-x-0'
+                      settings.notifications[key] ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -541,9 +521,9 @@ export function SettingsPage() {
                 {(['dark', 'light'] as const).map((t) => (
                   <button
                     key={t}
-                    onClick={() => { setTheme(t); localStorage.setItem('dws_theme', t); }}
+                    onClick={() => updateTheme(t)}
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      theme === t
+                      settings.theme === t
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
                     }`}
@@ -559,8 +539,8 @@ export function SettingsPage() {
               <label htmlFor="locale" className="block text-sm text-gray-400 mb-2">Language / Locale</label>
               <select
                 id="locale"
-                value={locale}
-                onChange={(e) => { const v = e.target.value as Locale; setLocale(v); localStorage.setItem('dws_locale', v); }}
+                value={settings.locale}
+                onChange={(e) => updateLocale(e.target.value as Locale)}
                 className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {LOCALE_OPTIONS.map((opt) => (

@@ -52,4 +52,36 @@ if [ "$blocked" -ne 0 ]; then
   exit 1
 fi
 
+# ============ TypeScript & Lint Checks (staged .ts/.tsx files only) ============
+
+ts_files=""
+for f in $staged; do
+  case "$f" in
+    *.ts|*.tsx) ts_files="$ts_files $f" ;;
+  esac
+done
+
+if [ -n "$ts_files" ]; then
+  # TypeScript type check (if tsc is available)
+  if command -v npx >/dev/null 2>&1 && [ -f "tsconfig.json" ]; then
+    echo "[pre-commit] Running TypeScript check on staged files..."
+    if ! npx tsc --noEmit --pretty 2>/dev/null; then
+      echo ""
+      echo "[WARN] TypeScript errors found — commit proceeds (advisory)."
+      echo "       Run 'npm run build' to see full errors."
+    fi
+  fi
+
+  # ESLint check (if eslint config exists)
+  if command -v npx >/dev/null 2>&1 && [ -f "eslint.config.js" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ]; then
+    echo "[pre-commit] Running ESLint on staged .ts/.tsx files..."
+    # shellcheck disable=SC2086
+    if ! npx eslint --max-warnings 0 $ts_files 2>/dev/null; then
+      echo ""
+      echo "[WARN] ESLint warnings/errors found — commit proceeds (advisory)."
+      echo "       Run 'npm run lint' to fix."
+    fi
+  fi
+fi
+
 exit 0

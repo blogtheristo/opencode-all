@@ -226,6 +226,9 @@ app.use('/api/v1/firehorse', firehorseRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
+// V10 Dashboard agent routes — alias at /api/v1/agents for dashboard compatibility
+app.use('/api/v1/agents', agentRoutes);
+
 // Usage metering (MVP Feature 2)
 app.use('/api/v1/usage', usageRoutes);
 
