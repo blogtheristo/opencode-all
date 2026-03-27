@@ -200,6 +200,135 @@ router.post(
   },
 );
 
+// ============ DASHBOARD COMPATIBILITY: /run alias ============
+
+/**
+ * POST /api/agents/:name/run
+ * Alias for /execute — the V10 dashboard calls /run instead of /execute.
+ * Accepts a simplified body: { input: { ... } }
+ * Automatically generates context from auth token.
+ */
+router.post(
+  '/:name/run',
+  authenticateToken,
+  agentRateLimiter,
+  async (req: Request, res: Response) => {
+    const { name } = req.params;
+    const { input = {} } = req.body;
+
+    // Build context from auth token — dashboard doesn't send full context
+    const context: AgentContext = {
+      projectId: req.body.context?.projectId || `dashboard-${Date.now()}`,
+      userId: req.userId || 'unknown',
+      orgId: req.organizationId || req.body.context?.orgId || 'default',
+      sessionId: req.body.context?.sessionId || `run-${Date.now()}`,
+    };
+
+    logger.info('Agent run request (dashboard)', {
+      agent: name,
+      userId: context.userId,
+    });
+
+    try {
+      const startTime = Date.now();
+      const result = await agentRegistry.executeAgent(name, context, input);
+
+      res.status(200).json({
+        success: true,
+        agentName: result.agentName,
+        status: 'success',
+        confidence: result.confidence,
+        reasoning: result.reasoning,
+        recommendations: result.recommendations,
+        result: result.result,
+        durationMs: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      if (err.message.includes('not found')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: err.message,
+        });
+      }
+
+      res.status(500).json({
+        error: 'Agent Execution Error',
+        message: err.message || 'An unexpected error occurred during agent execution',
+      });
+    }
+  },
+);
+
+// ============ AGENT CHAT ENDPOINT ============
+
+/**
+ * POST /api/agents/:name/chat
+ * Conversational interface for agents — used by AgentChat component.
+ * Accepts: { message: string, conversationHistory?: Array }
+ * Returns: { reply: string, confidence: number, agentName: string }
+ */
+router.post(
+  '/:name/chat',
+  authenticateToken,
+  agentRateLimiter,
+  async (req: Request, res: Response) => {
+    const { name } = req.params;
+    const { message, conversationHistory = [] } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'message field is required and must be a string',
+      });
+    }
+
+    const context: AgentContext = {
+      projectId: `chat-${Date.now()}`,
+      userId: req.userId || 'unknown',
+      orgId: req.organizationId || 'default',
+      sessionId: req.body.sessionId || `chat-${Date.now()}`,
+    };
+
+    logger.info('Agent chat request', {
+      agent: name,
+      userId: context.userId,
+      messageLength: message.length,
+    });
+
+    try {
+      const startTime = Date.now();
+      const result = await agentRegistry.executeAgent(name, context, {
+        message,
+        conversationHistory,
+        mode: 'chat',
+      });
+
+      res.status(200).json({
+        reply: result.reasoning || 'Analysis complete. See result for details.',
+        confidence: result.confidence,
+        agentName: result.agentName,
+        result: result.result,
+        recommendations: result.recommendations,
+        durationMs: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      if (err.message.includes('not found')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: err.message,
+        });
+      }
+
+      res.status(500).json({
+        error: 'Agent Chat Error',
+        message: err.message || 'An unexpected error occurred',
+      });
+    }
+  },
+);
+
 // ============ DWS7: DISCOVERY, WORKFLOWS, EVENTS ============
 
 /**
