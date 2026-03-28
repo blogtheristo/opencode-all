@@ -20,6 +20,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
 | **Skills Guide** | `docs/DWS_SKILLS_GUIDE.md` | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each |
+| **Blog Standard** | `docs/BLOG_STANDARD.md` | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 

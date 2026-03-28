@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Added social share section (LinkedIn, X, Email, Copy Link), registered in CLAUDE.md standards table
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Initial creation — blog post standard for onelifetime.world/posts, covering structure, nav injection, product cards, dual-folder sync, and post registry
 
 Session Links & References:
@@ -20,7 +21,7 @@ Document Status:
 
 ***
 
-**Version:** 1.0
+**Version:** 1.1
 **Effective Date:** 2026-03-28
 **Last Updated:** 2026-03-28
 **Status:** Active
@@ -38,7 +39,8 @@ Document Status:
 7. [Product Cards](#7-product-cards)
 8. [Injection Script](#8-injection-script)
 9. [Checklist for Every New Post](#9-checklist-for-every-new-post)
-10. [Style Tokens](#10-style-tokens)
+10. [Social Share Section](#10-social-share-section)
+11. [Style Tokens](#11-style-tokens)
 
 ---
 
@@ -226,7 +228,35 @@ The script is located at `scripts/inject-blog-nav.cjs` and:
 
 ---
 
-## 10. Style Tokens
+## 10. Social Share Section
+
+Every post includes a social share bar between the prev/next nav and the product cards. Auto-injected by the script.
+
+### Share Channels
+
+| Channel | Icon | Behavior |
+|---------|------|----------|
+| LinkedIn | LinkedIn logo (SVG) | Opens LinkedIn share dialog with post URL |
+| X (Twitter) | X logo (SVG) | Opens tweet compose with title + URL + @LifetimeOy |
+| Email | Envelope (SVG) | Opens `mailto:` with subject + body + URL |
+| Copy Link | Link icon + "Copy link" | Copies URL to clipboard, shows "Copied!" confirmation |
+
+### Design
+
+- Icons are 36x36px circular buttons with dark glass background
+- Each has a brand-color hover state (LinkedIn blue, X blue, cyan for email/copy)
+- SVG icons use `#94a3b8` (muted gray) fill
+- "Copy link" button uses `navigator.clipboard.writeText()` with 2-second feedback
+
+### Privacy
+
+- No tracking pixels or analytics in share links
+- LinkedIn and X share dialogs are native platform dialogs (no SDK loaded)
+- No third-party JavaScript loaded for sharing
+
+---
+
+## 11. Style Tokens
 
 Consistent across all posts (from DWS Brand Standard dark theme):
 
