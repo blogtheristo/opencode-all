@@ -356,6 +356,32 @@
         }
         .chat-send:hover { background: var(--gold-600); }
 
+        /* TYPING INDICATOR */
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 0.75rem 1.25rem;
+            min-width: 60px;
+        }
+        .typing .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold-400);
+            animation: typing-bounce 1.4s ease-in-out infinite;
+        }
+        .typing .dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing-bounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .chat-input:disabled, .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* CAREERS SECTION */
         .careers-section {
             max-width: 1200px;
@@ -495,6 +521,14 @@
 </footer>
 
 <script>
+// Chat API endpoint — set to your Cloudflare Worker URL
+// Local dev: http://localhost:8787
+// Production: https://chat.dws6.com
+const CHAT_API = window.TEAM_CHAT_API || 'https://chat.dws6.com';
+
+// Conversation history per persona
+const conversations = {};
+
 const PERSONAS = [
     {
         id: 'risto',
@@ -621,11 +655,15 @@ function flipCard(id) {
     }, 400);
 }
 
-function sendMessage(id) {
+async function sendMessage(id) {
     const input = document.getElementById(`input-${id}`);
     const chat = document.getElementById(`chat-${id}`);
+    const sendBtn = input.parentElement.querySelector('.chat-send');
     const text = input.value.trim();
     if (!text) return;
+
+    // Initialize conversation history
+    if (!conversations[id]) conversations[id] = [];
 
     // User message
     const userMsg = document.createElement('div');
@@ -634,25 +672,73 @@ function sendMessage(id) {
     chat.appendChild(userMsg);
     input.value = '';
 
-    // Persona response (demo mode — replace with API call)
-    const persona = PERSONAS.find(p => p.id === id);
-    setTimeout(() => {
-        const reply = document.createElement('div');
-        reply.className = 'msg msg-system';
-        reply.textContent = `${persona.name} is an AI persona. Connect with the real team at risto@lifetime.fi to continue this conversation.`;
-        chat.appendChild(reply);
+    // Add to history
+    conversations[id].push({ role: 'user', content: text });
 
-        // Show a trait as flavor
-        const trait = persona.traits[Math.floor(Math.random() * persona.traits.length)];
-        const traitMsg = document.createElement('div');
-        traitMsg.className = 'msg msg-persona';
-        traitMsg.textContent = trait;
-        chat.appendChild(traitMsg);
-
-        chat.scrollTop = chat.scrollHeight;
-    }, 600);
-
+    // Typing indicator
+    const typing = document.createElement('div');
+    typing.className = 'msg msg-persona typing';
+    typing.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    chat.appendChild(typing);
     chat.scrollTop = chat.scrollHeight;
+
+    // Disable input while waiting
+    input.disabled = true;
+    sendBtn.disabled = true;
+
+    const persona = PERSONAS.find(p => p.id === id);
+
+    try {
+        const response = await fetch(CHAT_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                persona: id,
+                messages: conversations[id],
+            }),
+        });
+
+        typing.remove();
+
+        if (response.ok) {
+            const data = await response.json();
+            const reply = document.createElement('div');
+            reply.className = 'msg msg-persona';
+            reply.textContent = data.reply;
+            chat.appendChild(reply);
+            conversations[id].push({ role: 'assistant', content: data.reply });
+        } else {
+            // Fallback to demo mode
+            fallbackResponse(id, chat, persona);
+        }
+    } catch {
+        // Network error — fallback to demo mode
+        typing.remove();
+        fallbackResponse(id, chat, persona);
+    }
+
+    input.disabled = false;
+    sendBtn.disabled = false;
+    input.focus();
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function fallbackResponse(id, chat, persona) {
+    const system = document.createElement('div');
+    system.className = 'msg msg-system';
+    system.textContent = 'Live chat connecting soon. Here\'s a preview:';
+    chat.appendChild(system);
+
+    const trait = persona.traits[Math.floor(Math.random() * persona.traits.length)];
+    const traitMsg = document.createElement('div');
+    traitMsg.className = 'msg msg-persona';
+    traitMsg.textContent = trait;
+    chat.appendChild(traitMsg);
+
+    const contact = document.createElement('div');
+    contact.className = 'msg msg-system';
+    contact.textContent = 'Talk to the real team: risto@lifetime.fi';
+    chat.appendChild(contact);
 }
 </script>
 
