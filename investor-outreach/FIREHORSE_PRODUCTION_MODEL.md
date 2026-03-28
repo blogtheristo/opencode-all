@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Added Section 6 "You Could Build This With ChatGPT" objection handler — the factory vs tool argument, forward-looking model generation thesis (Opus 4.7+), competitive moat framing for investor conversations
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Firehorse Production Model investor briefing documenting the systematic product iteration engine, AI tooling strategy, product evolution from CSRD to Aegis, and academic validation (Metropolia 2026, LUT PhD 2027 planned)
 
 Session Links & References:
@@ -213,6 +214,45 @@ The Firehorse Production Model is the reason a EUR 650K SAFE at EUR 3.8M cap is 
 3. **Multi-product optionality** — The same production model that created CSRD reports created a dual-use defence platform. The next market signal could produce the next product.
 4. **Academic validation reduces risk** — Peer-reviewed methodology is harder to dismiss as "just another AI startup"
 
+### The "You Could Build This With ChatGPT" Objection
+
+Investors will hear this. Here is the answer.
+
+**The objection:** "Anyone can use ChatGPT/Codex to build software. What's your moat?"
+
+**The answer:** You are confusing the tool with the factory.
+
+Yes, anyone can prompt ChatGPT to generate code. Just like anyone can buy a CNC machine. The question is: can they run a production line?
+
+Consider what Lifetime Oy built with Anthropic Claude Opus 4.5 and 4.6:
+- 32 shipped products across 20 EU-regulated industries
+- 18 operational AI agents with deterministic compliance scoring
+- A dual-use defence platform (Aegis) priced 13x below Palantir
+- A peer-reviewed production methodology (Metropolia thesis 2026)
+- 100% customer retention over 15 months
+
+This was built with Claude Opus 4.5 and 4.6. Good models — but not perfect. Our harness engineering paper shows the raw model scored 52.8% on compliance tasks. The Firehorse Production Model's 6-layer harness architecture pushed that to 66.5%. The model improved. Our system improved more.
+
+**Now ask the real question: What happens when Opus 4.7 comes out?**
+
+Every model generation brings a step-change in capability. When Opus 4.5 arrived, we shipped the agent orchestration layer. When Opus 4.6 arrived, we shipped Aegis dual-use and the carbon balance sheet. Each model upgrade feeds directly into the Firehorse Production Model — the harness, the agents, the compliance scoring, the cross-vertical intelligence — and produces another wave of products.
+
+**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They don't have:
+- The harness (500+ lines of codified production rules in CLAUDE.md)
+- The agent ecosystem (18 agents with KYA governance)
+- The regulatory data (validated EU ETS/CBAM/CSRD sources, not hallucinated numbers)
+- The cross-vertical intelligence (20 industries feeding one world model)
+- The academic validation (thesis + planned PhD)
+- The customer feedback loops (5 customers, 100% retention, real compliance data)
+
+They have a blank prompt and a subscription. We have a factory.
+
+**The investment thesis is not "Claude is better than GPT." The investment thesis is: Lifetime Oy has built the production system that converts any frontier model improvement into shipped products faster than anyone else in EU compliance.**
+
+Opus 4.7 will arrive. GPT-6 will arrive. Llama 4 will arrive. Each one makes the Firehorse Production Model more powerful — because the model is the input, not the product. The production system is the product.
+
+**Invest now. You have no idea what breakthrough ships when the next model generation drops — but we have the factory ready to receive it.**
+
 ### Series A Positioning
 
 By the time Series A conversations begin (Q3–Q4 2026):
@@ -220,6 +260,7 @@ By the time Series A conversations begin (Q3–Q4 2026):
 - 25+ customers across multiple industries will prove cross-vertical viability
 - DWS IQ Aegis launch (August 2026) will demonstrate dual-use market expansion
 - PhD research plan (LUT 2027) signals long-term IP development trajectory
+- At least one more model generation (Opus 4.7 or equivalent) will have been absorbed by the production model, demonstrating the compounding thesis in practice
 
 ---
 
