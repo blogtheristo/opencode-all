@@ -27,9 +27,9 @@ const HEADLINE_TEXT = 'DWS DESIGN SYSTEMS';
 
 // ── Orb state ──────────────────────────────────────────────
 const orbs = [
-  { x: 0, y: 0, radius: 64, color: 'rgba(212, 168, 67, 0.35)', phase: 0, speed: 0.0008 },
-  { x: 0, y: 0, radius: 48, color: 'rgba(59, 130, 246, 0.25)', phase: Math.PI, speed: 0.0012 },
-  { x: 0, y: 0, radius: 36, color: 'rgba(212, 168, 67, 0.2)', phase: Math.PI / 2, speed: 0.001 },
+  { x: 0, y: 0, radius: 64, color: 'rgba(212, 168, 67, 0.18)', phase: 0, speed: 0.00015 },
+  { x: 0, y: 0, radius: 48, color: 'rgba(59, 130, 246, 0.12)', phase: Math.PI, speed: 0.00022 },
+  { x: 0, y: 0, radius: 36, color: 'rgba(212, 168, 67, 0.10)', phase: Math.PI / 2, speed: 0.00018 },
 ];
 
 // ── DOM refs ───────────────────────────────────────────────
@@ -192,8 +192,8 @@ function render(now) {
 
   // Animate orbs
   for (const orb of orbs) {
-    orb.x = W * 0.5 + Math.cos(now * orb.speed + orb.phase) * W * 0.28;
-    orb.y = H * 0.4 + Math.sin(now * orb.speed * 1.3 + orb.phase) * H * 0.25;
+    orb.x = W * 0.5 + Math.cos(now * orb.speed + orb.phase) * W * 0.12;
+    orb.y = H * 0.45 + Math.sin(now * orb.speed * 1.1 + orb.phase) * H * 0.10;
   }
 
   renderOrbs(orbs);
