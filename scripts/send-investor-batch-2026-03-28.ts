@@ -99,10 +99,10 @@ Business ID: 0772407-9 (Finland)`,
   },
   {
     label: '4/5 Juho Vehviläinen — Coventures',
-    subject: 'Carbon balance sheet infrastructure — Juho, quick intro via Boardy',
+    subject: 'Carbon balance sheet infrastructure — coffee in Helsinki?',
     body: `Hi Juho,
 
-Risto Päärni, Lifetime Oy (Espoo). Boardy suggested we connect — I think there's a natural overlap between what Coventures builds and where we're heading.
+Risto Päärni, Lifetime Oy (Espoo). I think there's a natural overlap between what Coventures builds and where we're heading.
 
 EU companies that can't account for their carbon exposure can't secure their supply chains. We built the infrastructure to fix that — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Every tonne tracked like every euro.
 
