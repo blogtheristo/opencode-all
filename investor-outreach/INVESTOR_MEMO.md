@@ -49,20 +49,20 @@ Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25
 - **Instrument:** SAFE (Simple Agreement for Future Equity)
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
-- **Total Round:** €650,000
+- **Total Round:** €950,000
 
 ### Seat Tiers
 
 | Tier | Investment | Seats Available |
 |------|-----------|-----------------|
 | **Fleet Admiral** | €500,000 | 1 |
-| **Captain** | €50,000 | 8 (one per industry tranche) |
+| **Captain** | €50,000 | 9 (each covering a cluster of EU-regulated industries, including dual-use) |
 | **Deputy Captain** | €5,000 | Unlimited |
 
-**Round math:** €500K (Fleet Admiral) + 8 × €50K (Captain Seats) = **€650K total**
+**Round math:** €500K (Fleet Admiral) + 9 × €50K (Captain Seats) = **€950K total**
 
 - **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
-- **Captain** — Named captain of one of 20 EU-regulated industries. Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
+- **Captain** — Named captain covering a cluster of 20 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
 - **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
 
 ---
