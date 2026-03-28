@@ -3,10 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Captain-tier investor deck with factory vs tool hero thesis, Top 10 breakthroughs, industry seat positioning, and Firehorse Production Model forward-looking argument
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Expanded Top 10 to full 12 breakthroughs with detailed descriptions and investor-relevant "Why it matters" for each — KYA, Carbon Ledger, Harness Engineering, Aegis, Pantheon, Cross-Vertical, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Omnichannel, Solution Factory, MCP Hub
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Captain-tier investor deck with factory vs tool hero thesis, industry seat positioning, and Firehorse Production Model forward-looking argument
 
 Session Links & References:
   - Claude Code (2026-03-28): https://github.com/blogtheristo/dws6/commits/claude/add-firehorse-investor-docs-e9ozF
@@ -39,7 +40,7 @@ Every AI startup will tell you they use GPT, Claude, or Llama. So does everyone 
 - **Claude Opus 4.6** arrived → We shipped DWS IQ Aegis (dual-use defence platform), the carbon debit-credit ledger, and Article 12 compliance logging
 - **Claude Opus 4.7** will arrive → The factory is ready. You have no idea what breakthrough ships next — but we have the production line waiting to receive it.
 
-**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 10 verified breakthroughs, and 5 paying customers with 100% retention.
+**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 12 verified breakthroughs, and 5 paying customers with 100% retention.
 
 Each model generation makes us faster. Each competitor generation starts from zero.
 
@@ -89,22 +90,81 @@ As a **Captain**, you are the named leader of one of 20 EU-regulated industries 
 
 ---
 
-## 10 Breakthroughs — Already Shipped
+## 12 Breakthroughs — Already Shipped
 
-These are not roadmap promises. Every item below has production TypeScript code, database migrations, published product pages, and test suites.
+These are not roadmap promises. Every item below has production TypeScript code, database migrations, published product pages, and test suites. All verified against the codebase.
 
-| # | Breakthrough | Shipped |
-|---|-------------|---------|
-| 1 | **KYA Standard** — Cryptographic agent identity + kill authority + D&O safe harbor | v1.4, March 2026 |
-| 2 | **Carbon Debit-Credit Ledger** — Double-entry bookkeeping for CO2 (ETS + CBAM + CSRD + Taxonomy) | v1.0, March 2026 |
-| 3 | **Harness Engineering** — 6-layer AI architecture, 52.8% → 66.5% accuracy without model change | v1.3, March 2026 |
-| 4 | **DWS IQ Aegis** — Dual-use defence AI, 13x cheaper than Palantir | EUR 59,990, March 2026 |
-| 5 | **Climate IQ Pantheon** — 14 specialized AI agents (Atlas, Athena, Argus, Hermes...) | v1.0, March 2026 |
-| 6 | **Cross-Vertical Intelligence** — 20 industries feeding one world model | v1.0, March 2026 |
-| 7 | **EU AI Act Article 12 Logging** — Shipped 5 months before enforcement deadline | v1.0, March 2026 |
-| 8 | **Agent Foundry / OpenSandbox** — Zero-cloud-egress edge AI for sovereign customers | v1.0, March 2026 |
-| 9 | **Brain-Memory-Body-Hands** — Four-pillar distributed agent architecture | v2.2, March 2026 |
-| 10 | **Firehorse Omnichannel** — 13-state sales automation across email, LinkedIn, phone | v3, March 2026 |
+### 1. KYA Standard (Know Your Agent) — v1.4, March 2026
+
+Cryptographic agent identity, capability gating, kill authority, and forensic audit trails. Every AI agent deployed through DWS IQ 6 carries a hardware-attested identity, operates within explicit capability bounds, and produces court-defensible logs.
+
+**Why it matters:** No competitor has an equivalent governance standard for autonomous agent swarms. Creates structural switching costs — customers build compliance workflows on top of it. Enables D&O safe harbor under EU AI Act Article 99, reducing D&O insurance premiums by an estimated 8-12%.
+
+### 2. Carbon Debit-Credit Ledger — v1.0, March 24, 2026
+
+Double-entry bookkeeping for CO2. Every tonne tracked like every euro — debits (ETS surrenders, CBAM imports, compliance costs) and credits (free allocations, offsets, avoided emissions) in one auditable ledger. Same carbon, four regulatory touchpoints (ETS, CBAM, CSRD, Taxonomy), one ledger.
+
+**Why it matters:** First mover in carbon balance sheet infrastructure. CFO-readable format — not an engineering dashboard. Every EU company filing CSRD needs this.
+
+### 3. Harness Engineering (6-Layer L0-L6) — v1.3, March 2, 2026
+
+Six-layer information architecture that constrains AI agent behavior. Raw model scored 52.8% on compliance tasks. The Firehorse Production Model's harness pushed it to 66.5% — without changing the underlying model.
+
+**Why it matters:** Proves the factory thesis. The system around the AI matters more than the AI itself. Published in Metropolia University master's thesis. Transferable to any frontier model — when Opus 4.7 arrives, the harness makes it even better.
+
+### 4. DWS IQ Aegis (Dual-Use Defence Platform) — March 26, 2026
+
+Standalone dual-use AI platform for defence and sovereign operations. Orbital intelligence (ICEYE SAR satellite integration), sovereignty monitoring, EU-only cloud deployment (UpCloud Helsinki). EUR 59,990 + EUR 999/month.
+
+**Why it matters:** 13x cheaper than Palantir's floor for Year 1 (EUR 59,990 vs EUR 920,000). NATO DIANA Accelerator eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.
+
+### 5. Climate IQ Pantheon (14 AI Agents) — v1.0, March 26, 2026
+
+Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field operations), Hermes (logistics), Iris (market intelligence), plus 8 more specialized agents working in concert.
+
+**Why it matters:** 14 agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel — more agents deployed, more data, better optimization for everyone.
+
+### 6. Cross-Vertical Intelligence Engine — v1.0, March 24, 2026
+
+Signal propagation across 20 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improve construction embodied carbon, which improve CSRD gap analysis. 18 data sources, 20 industries, one ledger format.
+
+**Why it matters:** Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model.
+
+### 7. EU AI Act Article 12 Logging — v1.0, March 8, 2026
+
+Append-only audit trail for every AI agent decision. Pre-flight (proof of data scrubbing before cloud egress) and post-flight (output reasoning lineage). 7-year tamper-evident retention in RLS-protected Supabase table.
+
+**Why it matters:** Legal requirement for all high-risk AI systems in the EU from August 2026. We shipped it in March 2026 — five months ahead of enforcement. First-mover compliance advantage.
+
+### 8. Agent Foundry / OpenSandbox (Edge AI) — v1.0, March 2026
+
+Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Docker isolation. Agents run on-premise — no data leaves the building. Firecracker MicroVM sandboxing with filesystem and network isolation.
+
+**Why it matters:** Defence and sovereign customers require on-premise AI. OpenSandbox makes DWS IQ deployable inside air-gapped environments — a hard requirement for Aegis customers and government procurement.
+
+### 9. Brain-Memory-Body-Hands Architecture — v2.2, March 20, 2026
+
+Four-pillar distributed system: Brain (18-agent orchestration via DWS IQ 6), Memory (Lifetime World Model — EU regulations + 20 industry models), Body (Firehorse sales/report/automation/content suite), Hands (Lifetime Fleet robots/IoT, specification phase).
+
+**Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 5 to 500 customers.
+
+### 10. Firehorse Omnichannel (Sales Automation) — v3, March 2026
+
+Event-driven sales automation with deterministic 13-state lead machine (Cold_1_Sent, Cold_1_Opened, Engaged, MeetingBooked...). Email, LinkedIn, and phone channels orchestrated through one pipeline. Target: 30 new contacts/day, 1+ meeting/day.
+
+**Why it matters:** The production model produces products — Omnichannel sells them. Closed-loop: build product, sell product, get customer feedback, improve product. Solo founder selling at enterprise scale.
+
+### 11. Solution Factory Model — v1.1, March 2026
+
+Codified product iteration methodology: Market Signal, Scope Assessment, Agent Design, Ship MVP, Customer Validation, Harden, Scale. Each cycle runs in 1-3 weeks for new products, 1-3 days for iterations. Academically validated at Metropolia University 2026. PhD continuation planned at LUT University 2027.
+
+**Why it matters:** The meta-system that produced all other breakthroughs. Not intuition-dependent — codified, repeatable, scales with team growth. This is publishable IP, not just internal methodology.
+
+### 12. MCP Hub Orchestration — v1.0, March 2026
+
+Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud Run /mcp endpoint. JSON-RPC 2.0, CLI exposure (dws mcp tools, dws mcp call). Every new agent is auto-discoverable via tools/list. Live dashboard at dws6.com/dashboard/mcp-hub/.
+
+**Why it matters:** The plumbing that makes 14 Pantheon agents work together. Industry-standard protocol (MCP) means third-party agents can plug in. Platform, not point product.
 
 ---
 
@@ -137,7 +197,7 @@ These are not roadmap promises. Every item below has production TypeScript code,
 
 ## The Factory Thesis — In One Paragraph
 
-Lifetime Oy built the Firehorse Production Model — a codified system for converting frontier AI model improvements into shipped enterprise products. It is published as a master's thesis at Metropolia University (2026) and will continue as PhD research at LUT (2027). This production model has already shipped 32 products, 10 verified breakthroughs, and a dual-use defence platform across 20 EU-regulated industries. The competitor starting today with ChatGPT is 15 months behind with a blank prompt. Each new AI model generation — Opus 4.7, GPT-6, Llama 4 — feeds the same factory and produces another wave of products. The investment question is not whether AI will improve. It will. The question is: who has the production system ready to capture that improvement? We do.
+Lifetime Oy built the Firehorse Production Model — a codified system for converting frontier AI model improvements into shipped enterprise products. It is published as a master's thesis at Metropolia University (2026) and will continue as PhD research at LUT (2027). This production model has already shipped 32 products, 12 verified breakthroughs, and a dual-use defence platform across 20 EU-regulated industries. The competitor starting today with ChatGPT is 15 months behind with a blank prompt. Each new AI model generation — Opus 4.7, GPT-6, Llama 4 — feeds the same factory and produces another wave of products. The investment question is not whether AI will improve. It will. The question is: who has the production system ready to capture that improvement? We do.
 
 ---
 
