@@ -138,14 +138,20 @@ Construction beachhead — these are the names you know:
 
 By August 15, 2026 (first sales cycle data for investors):
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Paying customers | 10+ | Current: 6 |
-| MRR | €30K-€40K | Current: €7K |
-| Construction logos | 3-5 flagship | Current: 2 pilots converting |
-| Pilot conversion rate | >50% | Tracking |
-| Sales cycle | <90 days | Pilot model enforces this |
-| Unit economics | Validated at scale | CAC €6K, LTV €70K+, proven at current scale |
+Antti inherits pipeline, not a blank sheet:
+- 2 warm construction pilots already converting (T2H Construction + Construction Co. B, each €80K annual value)
+- 88-contact executive database across Europe's top 11 construction firms (80_construction_CEO.md)
+- Risto's 35 years of construction domain relationships — warm intros, not cold calls
+- Arctic 15 (June 15) as forcing function for every pipeline conversation
+
+| Metric | Target | How | Status |
+|--------|--------|-----|--------|
+| Paying customers | 10+ | Convert 2 inherited pilots + close 2-4 new from Top 30 | Current: 6 |
+| MRR | €20K-€30K | Inherited pilots = +€13K, new logos fill the gap | Current: €7K |
+| Construction logos | 3-5 flagship | T2H + Co. B converting, add 1-3 from Skanska/NCC/PORR pipeline | Current: 2 pilots mid-stage |
+| Pilot conversion rate | >50% | 90-day proof-of-value model enforces this | Tracking |
+| Sales cycle | <90 days | €4,950 pilot → €8,950 contract, deadline-driven | Pilot model enforces |
+| Series A readiness | First sales cycle data | August 15 = investor decision point | On track |
 
 ---
 
