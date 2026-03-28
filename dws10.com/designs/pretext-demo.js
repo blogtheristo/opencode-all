@@ -176,6 +176,80 @@ function renderOrbs(orbData) {
   }
 }
 
+// ── Drag interaction ───────────────────────────────────────
+let dragIndex = -1;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+function hitTestOrb(px, py) {
+  for (let i = 0; i < orbs.length; i++) {
+    const orb = orbs[i];
+    const dx = px - orb.x;
+    const dy = py - orb.y;
+    if (dx * dx + dy * dy < (orb.radius + 16) * (orb.radius + 16)) return i;
+  }
+  return -1;
+}
+
+function getPointerPos(e, rect) {
+  const touch = e.touches ? e.touches[0] : e;
+  return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+}
+
+stage.addEventListener('mousedown', (e) => {
+  const rect = stage.getBoundingClientRect();
+  const pos = getPointerPos(e, rect);
+  const hit = hitTestOrb(pos.x, pos.y);
+  if (hit >= 0) {
+    dragIndex = hit;
+    dragOffsetX = orbs[hit].x - pos.x;
+    dragOffsetY = orbs[hit].y - pos.y;
+    stage.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+});
+
+stage.addEventListener('touchstart', (e) => {
+  const rect = stage.getBoundingClientRect();
+  const pos = getPointerPos(e, rect);
+  const hit = hitTestOrb(pos.x, pos.y);
+  if (hit >= 0) {
+    dragIndex = hit;
+    dragOffsetX = orbs[hit].x - pos.x;
+    dragOffsetY = orbs[hit].y - pos.y;
+    e.preventDefault();
+  }
+}, { passive: false });
+
+function onPointerMove(e) {
+  if (dragIndex < 0) {
+    // Show grab cursor on hover
+    const rect = stage.getBoundingClientRect();
+    const pos = getPointerPos(e, rect);
+    stage.style.cursor = hitTestOrb(pos.x, pos.y) >= 0 ? 'grab' : '';
+    return;
+  }
+  const rect = stage.getBoundingClientRect();
+  const pos = getPointerPos(e, rect);
+  orbs[dragIndex].x = pos.x + dragOffsetX;
+  orbs[dragIndex].y = pos.y + dragOffsetY;
+  scheduleRender();
+  e.preventDefault();
+}
+
+document.addEventListener('mousemove', onPointerMove);
+document.addEventListener('touchmove', onPointerMove, { passive: false });
+
+function onPointerUp() {
+  if (dragIndex >= 0) {
+    stage.style.cursor = '';
+    dragIndex = -1;
+  }
+}
+
+document.addEventListener('mouseup', onPointerUp);
+document.addEventListener('touchend', onPointerUp);
+
 // ── Main render ────────────────────────────────────────────
 let scheduled = false;
 
@@ -190,8 +264,10 @@ function render(now) {
 
   const gutter = Math.round(Math.max(24, W * 0.05));
 
-  // Animate orbs
-  for (const orb of orbs) {
+  // Animate orbs (skip dragged orb)
+  for (let i = 0; i < orbs.length; i++) {
+    if (i === dragIndex) continue;
+    const orb = orbs[i];
     orb.x = W * 0.5 + Math.cos(now * orb.speed + orb.phase) * W * 0.12;
     orb.y = H * 0.45 + Math.sin(now * orb.speed * 1.1 + orb.phase) * H * 0.10;
   }

@@ -84,7 +84,8 @@
       pointer-events: none;
       z-index: 3;
       will-change: transform;
-      filter: blur(2px);
+      filter: blur(1px);
+      transition: filter 0.2s;
     }
 
     .editorial-hint {
@@ -387,7 +388,7 @@
        ═══════════════════════════════════════════════════════ -->
   <section class="editorial-section">
     <div id="editorial-stage"></div>
-    <div class="editorial-hint" id="editorial-hint">Text laid out in JS via Pretext — zero DOM measurements — resize to reflow</div>
+    <div class="editorial-hint" id="editorial-hint">Drag the orbs &middot; Text reflows live &middot; Zero DOM measurements &middot; Powered by Pretext</div>
     <a class="pretext-badge" href="https://github.com/chenglou/pretext" target="_blank" rel="noreferrer">powered by @chenglou/pretext</a>
   </section>
 
