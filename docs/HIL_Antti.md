@@ -123,6 +123,7 @@ Construction beachhead — these are the names you know:
 - Finnish patriot. You sell a European product to European companies solving European regulations. The sovereignty story isn't marketing — it's the reason Martina Steffen at HOCHTIEF picks up your call instead of Palantir's.
 - Climate and security are your sales force. Every tonne of CO2 that needs tracking is a potential contract. Every regulation that needs compliance is a deadline. Deadlines are the best salespeople.
 - Honesty closes deals. "We have 6 customers. They all stayed. Here's why." That beats any TAM slide.
+- Email: antti@onelifetime.world
 
 ### Do Not
 
