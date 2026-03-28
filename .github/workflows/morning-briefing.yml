@@ -1,23 +1,22 @@
 # Morning Briefing — CEO Cockpit
 #
-# Sends the daily CEO Cockpit email at 06:00 Helsinki time, Mon-Sat.
-# Helsinki = UTC+2 (winter, EET) / UTC+3 (summer, EEST).
+# PRIMARY DELIVERY: Local systemd timer on the host machine.
+#   Install: ./scripts/run-morning-briefing.sh install
+#   Status:  ./scripts/run-morning-briefing.sh status
 #
-# Two cron entries cover both DST offsets:
-#   03:00 UTC = 06:00 EEST (summer, late Mar – late Oct)
-#   04:00 UTC = 06:00 EET  (winter, late Oct – late Mar)
+# This GitHub Actions workflow is kept as a MANUAL FALLBACK only.
+# Scheduled crons are disabled to save Actions minutes.
 #
-# The send script has a Helsinki-time guard: it only sends when the
-# Helsinki hour is 6, so the "wrong" entry silently exits 0.
-#
-# Also supports manual trigger via workflow_dispatch.
+# To re-enable scheduled delivery via Actions, uncomment the schedule block below.
 
 name: Morning Briefing
 
 on:
-  schedule:
-    - cron: '0 3 * * 1-6'   # 06:00 Helsinki in summer (EEST, UTC+3)
-    - cron: '0 4 * * 1-6'   # 06:00 Helsinki in winter (EET, UTC+2)
+  # DISABLED — delivery moved to local systemd timer (2026-03-27).
+  # Uncomment to re-enable GitHub Actions scheduled delivery:
+  # schedule:
+  #   - cron: '0 3 * * 1-6'   # 06:00 Helsinki in summer (EEST, UTC+3)
+  #   - cron: '0 4 * * 1-6'   # 06:00 Helsinki in winter (EET, UTC+2)
 
   workflow_dispatch:
     inputs:
@@ -47,13 +46,13 @@ jobs:
 
       - name: Send Morning Briefing Email
         env:
-          # Amazon SES (SMTP) — primary. risto@onelifetime.world verified in SES + Resend.
+          # Amazon SES (SMTP) — primary. risto@onelifetime.world verified in SES eu-north-1.
+          # SECURITY: Resend SDK removed 2026-03-26 (suspected account compromise). SES only.
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
           SMTP_SECURE: ${{ secrets.SMTP_SECURE || 'false' }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           EMAIL_FROM: risto@onelifetime.world

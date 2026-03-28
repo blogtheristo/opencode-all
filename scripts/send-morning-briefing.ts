@@ -9,7 +9,7 @@
  *   npx tsx scripts/send-morning-briefing.ts
  *
  * Required env vars:
- *   RESEND_API_KEY
+ *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for live data)
  *
  * Optional env vars:
@@ -52,8 +52,8 @@ async function main(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 
-  if (!process.env.SMTP_HOST && !process.env.RESEND_API_KEY) {
-    console.error('ERROR: Neither SMTP_HOST (SES) nor RESEND_API_KEY configured.');
+  if (!process.env.SMTP_HOST) {
+    console.error('ERROR: SMTP_HOST not configured. Amazon SES (SMTP) is required.');
     process.exit(1);
   }
 

@@ -8,12 +8,14 @@
  *      Finds all captains with next_action_date = today and sends a briefing for each.
  *
  * Required env vars:
- *   RESEND_API_KEY
+ *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY
  *
  * Optional env vars:
  *   CAPTAIN_BRIEFING_EMAIL (default: risto@lifetime.fi)
  *   EMAIL_FROM (default: risto@onelifetime.world)
+ *
+ * SECURITY: Resend SDK removed 2026-03-26 (suspected account compromise). SES only.
  */
 
 import dotenv from 'dotenv';
@@ -24,6 +26,7 @@ import {
   buildCaptainBriefingHtml,
   buildCaptainBriefingPlainText,
 } from '../src/captain-briefing/briefing-template.js';
+import { sendEmail } from '../src/utils/send-email.js';
 
 // ============================================================================
 // SUPABASE HELPER (for auto-mode captain discovery)
@@ -57,7 +60,6 @@ async function findTodaysCaptains(): Promise<string[]> {
     }
 
     const rows = (await response.json()) as Array<{ person_name: string }>;
-    // Deduplicate by name
     const names = [...new Set(rows.map(r => r.person_name).filter(Boolean))];
     return names;
   } catch (err) {
@@ -77,10 +79,9 @@ async function sendBriefingEmail(
 ): Promise<boolean> {
   const recipient = process.env.CAPTAIN_BRIEFING_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const resendKey = process.env.RESEND_API_KEY;
 
-  if (!resendKey) {
-    console.log('\n--- No RESEND_API_KEY, printing to console ---\n');
+  if (!process.env.SMTP_HOST) {
+    console.log('\n--- No SMTP_HOST, printing to console ---\n');
     console.log(text);
     return true;
   }
@@ -94,33 +95,24 @@ async function sendBriefingEmail(
 
   console.log(`Sending: "${subject}" → ${recipient}`);
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text,
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
+      'X-DWS-Email-Type': 'captain-briefing',
+      'X-DWS-Captain': captainName,
     },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      subject,
-      html,
-      text,
-      headers: {
-        'X-DWS-Email-Type': 'captain-briefing',
-        'X-DWS-Captain': captainName,
-      },
-    }),
   });
 
-  if (response.ok) {
-    const result = (await response.json()) as { id: string };
-    console.log(`Sent captain briefing for ${captainName} (id: ${result.id})`);
+  if (result.ok) {
+    console.log(`Sent captain briefing for ${captainName} via ${result.transport}`);
     return true;
   }
 
-  const errorBody = await response.text();
-  console.error(`Failed to send briefing for ${captainName}:`, response.status, errorBody);
+  console.error(`Failed to send briefing for ${captainName}: ${result.error}`);
   return false;
 }
 
@@ -145,7 +137,6 @@ async function main(): Promise<void> {
 
     console.log(`Found ${captainNames.length} captain(s): ${captainNames.join(', ')}`);
   } else {
-    // Named captain mode
     const name = args.filter(a => !a.startsWith('--')).join(' ').trim();
     if (!name) {
       console.error('Usage:');

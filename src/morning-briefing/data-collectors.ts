@@ -287,19 +287,21 @@ async function collectProductChange(): Promise<string> {
  * Check for recent delivery milestones.
  */
 async function collectDeliveryChange(): Promise<string> {
-  // Check Firehorse leads that moved to responded/converted yesterday
+  // Check Firehorse leads that moved to Engaged/Meeting_Booked yesterday
+  // Valid lead_state enum: New, Cold_1_Sent, Cold_1_Opened, Cold_1_Clicked,
+  // Cold_2_Sent, Cold_3_Sent, Engaged, Meeting_Booked, Disqualified, Parked
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
   const converted = await supabaseFetch<Array<{ state: string }>>(
-    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(Engaged,Meeting_Booked)`
   );
 
   if (converted && converted.length > 0) {
-    const responded = converted.filter((l) => l.state === 'responded').length;
-    const won = converted.filter((l) => l.state === 'converted').length;
+    const engaged = converted.filter((l) => l.state === 'Engaged').length;
+    const booked = converted.filter((l) => l.state === 'Meeting_Booked').length;
     const parts: string[] = [];
-    if (responded > 0) parts.push(`${responded} responded`);
-    if (won > 0) parts.push(`${won} converted`);
+    if (engaged > 0) parts.push(`${engaged} engaged`);
+    if (booked > 0) parts.push(`${booked} meetings booked`);
     return parts.join(', ');
   }
 
@@ -683,6 +685,7 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
 /**
  * Collect new captain seat inquiries (status = 'new').
  * Shows all unprocessed inquiries so the CEO can follow up same day.
+ * Note: requires migration 034_captain_inquiries.sql to be applied.
  */
 async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
   const inquiries = await supabaseFetch<CaptainInquiryItem[]>(
@@ -837,11 +840,8 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
       check: () => tableExists('construction_leads'),
       description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
     },
-    {
-      id: '037',
-      check: () => columnExists('email_logs', 'resend_email_id'),
-      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
-    },
+    // Migration 037 (resend_email_id) removed — Resend SDK removed 2026-03-26 for security.
+    // Email delivery tracking now uses SES message IDs via email-audit.jsonl.
   ];
 
   const missing: Array<{ id: string; description: string }> = [];

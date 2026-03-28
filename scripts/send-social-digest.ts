@@ -9,12 +9,14 @@
  *      Sends approval digest for existing pending posts.
  *
  * Required env vars:
- *   RESEND_API_KEY
+ *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY
  *
  * Optional env vars:
  *   SOCIAL_DIGEST_EMAIL (default: risto@lifetime.fi)
  *   EMAIL_FROM (default: risto@onelifetime.world)
+ *
+ * SECURITY: Resend SDK removed 2026-03-26 (suspected account compromise). SES only.
  */
 
 import dotenv from 'dotenv';
@@ -26,6 +28,7 @@ import {
   buildApprovalDigestHtml,
   buildApprovalDigestPlainText,
 } from '../src/social-scheduler/approval-digest.js';
+import { sendEmail } from '../src/utils/send-email.js';
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
@@ -62,10 +65,9 @@ async function main(): Promise<void> {
 
   const recipient = process.env.SOCIAL_DIGEST_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const resendKey = process.env.RESEND_API_KEY;
 
-  if (!resendKey) {
-    console.log('\n--- No RESEND_API_KEY, printing to console ---\n');
+  if (!process.env.SMTP_HOST) {
+    console.log('\n--- No SMTP_HOST, printing to console ---\n');
     console.log(text);
     return;
   }
@@ -79,30 +81,19 @@ async function main(): Promise<void> {
 
   console.log(`\nSending: "${subject}" → ${recipient}`);
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
-    },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      subject,
-      html,
-      text,
-      headers: {
-        'X-DWS-Email-Type': 'social-digest',
-      },
-    }),
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text,
+    headers: { 'X-DWS-Email-Type': 'social-digest' },
   });
 
-  if (response.ok) {
-    const result = (await response.json()) as { id: string };
-    console.log(`Social digest sent (id: ${result.id})`);
+  if (result.ok) {
+    console.log(`Social digest sent via ${result.transport}`);
   } else {
-    const errorBody = await response.text();
-    console.error('Failed to send social digest:', response.status, errorBody);
+    console.error(`Failed to send social digest: ${result.error}`);
     process.exit(1);
   }
 }

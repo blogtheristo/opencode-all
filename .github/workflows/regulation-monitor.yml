@@ -1,19 +1,16 @@
 # EU Regulation Monitor — CBAM/CSRD/Fit for 55 News Digest
 #
-# Fetches regulatory news from EU RSS feeds, classifies by regulation,
-# and sends a digest at 05:30 Helsinki Mon-Fri (before morning briefing).
-#
-# Items flagged as "urgent" or "customer impact" flow into:
-#   1. CEO inbox (this email)
-#   2. Morning briefing (via data-collectors integration)
-#   3. Social scheduler (LinkedIn content ideas)
+# PRIMARY DELIVERY: Local script (scripts/run-morning-emails.ps1 / .sh)
+# This workflow is kept as a MANUAL FALLBACK only.
+# Scheduled crons disabled 2026-03-27 to save Actions minutes.
 
 name: EU Regulation Monitor
 
 on:
-  schedule:
-    - cron: '30 2 * * 1-5'   # 05:30 Helsinki in summer (EEST, UTC+3)
-    - cron: '30 3 * * 1-5'   # 05:30 Helsinki in winter (EET, UTC+2)
+  # DISABLED — delivery moved to local machine (2026-03-27).
+  # schedule:
+  #   - cron: '30 2 * * 1-5'
+  #   - cron: '30 3 * * 1-5'
 
   workflow_dispatch: {}
 

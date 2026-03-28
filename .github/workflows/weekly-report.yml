@@ -5,11 +5,14 @@
 # Product Agent compiles final report; creates GitHub issue and emails report.
 # Email: risto@onelifetime.world (Amazon SES) → risto@lifetime.fi
 
+# PRIMARY DELIVERY: Local script (scripts/run-morning-emails.ps1 / .sh)
+# Scheduled crons disabled 2026-03-27 to save Actions minutes.
 name: Weekly Report
 
 on:
-  schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 09:00 UTC
+  # DISABLED — delivery moved to local machine (2026-03-27).
+  # schedule:
+  #   - cron: '0 9 * * 1'
   workflow_dispatch:
 
 permissions:
