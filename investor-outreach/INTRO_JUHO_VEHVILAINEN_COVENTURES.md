@@ -28,20 +28,21 @@ AGENT HISTORY:
 
 ## Strategy
 
-- Warm intro via Boardy — not cold outreach
+- Warm intro — not cold outreach
 - Lead with sovereignty infrastructure (resonates with defence portfolio)
 - Connect his venture builder pattern (corporate spinout) to our pattern (regulatory consolidation)
 - Helsinki local — coffee ask, low friction
+- Do NOT mention Boardy in any external communication (not public)
 - Do NOT mention Fleet Admiral, robotics, Jetson, world models, or hardware
 - Story A only: carbon balance sheet infrastructure
 
 ## Draft Email
 
-**Subject:** Carbon balance sheet infrastructure — Juho, quick intro via Boardy
+**Subject:** Carbon balance sheet infrastructure — coffee in Helsinki?
 
 Hi Juho,
 
-Risto Päärni, Lifetime Oy (Espoo). Boardy suggested we connect — I think there's a natural overlap between what Coventures builds and where we're heading.
+Risto Päärni, Lifetime Oy (Espoo). I think there's a natural overlap between what Coventures builds and where we're heading.
 
 EU companies that can't account for their carbon exposure can't secure their supply chains. We built the infrastructure to fix that — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and Taxonomy. Every tonne tracked like every euro.
 
