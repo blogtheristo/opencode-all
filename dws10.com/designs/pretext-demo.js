@@ -27,9 +27,9 @@ const HEADLINE_TEXT = 'DWS DESIGN SYSTEMS';
 
 // ── Orb state ──────────────────────────────────────────────
 const orbs = [
-  { x: 0, y: 0, radius: 64, color: 'rgba(212, 168, 67, 0.18)', phase: 0, speed: 0.00015 },
-  { x: 0, y: 0, radius: 48, color: 'rgba(59, 130, 246, 0.12)', phase: Math.PI, speed: 0.00022 },
-  { x: 0, y: 0, radius: 36, color: 'rgba(212, 168, 67, 0.10)', phase: Math.PI / 2, speed: 0.00018 },
+  { x: 0, y: 0, radius: 32, color: 'rgba(212, 168, 67, 0.45)', phase: 0, speed: 0.00015 },
+  { x: 0, y: 0, radius: 24, color: 'rgba(59, 130, 246, 0.35)', phase: Math.PI, speed: 0.00022 },
+  { x: 0, y: 0, radius: 18, color: 'rgba(212, 168, 67, 0.30)', phase: Math.PI / 2, speed: 0.00018 },
 ];
 
 // ── DOM refs ───────────────────────────────────────────────
