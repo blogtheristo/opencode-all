@@ -27,9 +27,9 @@ const HEADLINE_TEXT = 'DWS DESIGN SYSTEMS';
 
 // ── Orb state ──────────────────────────────────────────────
 const orbs = [
-  { x: 0, y: 0, radius: 32, color: 'rgba(212, 168, 67, 0.45)', phase: 0, speed: 0.00015 },
-  { x: 0, y: 0, radius: 24, color: 'rgba(59, 130, 246, 0.35)', phase: Math.PI, speed: 0.00022 },
-  { x: 0, y: 0, radius: 18, color: 'rgba(212, 168, 67, 0.30)', phase: Math.PI / 2, speed: 0.00018 },
+  { x: 0, y: 0, radius: 28, color: 'rgba(212, 168, 67, 0.40)', phase: 0, speed: 0.000025 },
+  { x: 0, y: 0, radius: 20, color: 'rgba(59, 130, 246, 0.30)', phase: Math.PI, speed: 0.000035 },
+  { x: 0, y: 0, radius: 14, color: 'rgba(212, 168, 67, 0.25)', phase: Math.PI / 2, speed: 0.00003 },
 ];
 
 // ── DOM refs ───────────────────────────────────────────────
@@ -126,7 +126,7 @@ function layoutColumn(prepared, startCursor, region, lineHeight, obstacles) {
     let availRight = region.x + region.width;
 
     for (const orb of obstacles) {
-      const interval = getOrbIntervals(orb, bandTop, bandBottom, 24);
+      const interval = getOrbIntervals(orb, bandTop, bandBottom, 10);
       if (!interval) continue;
 
       // If orb overlaps the left side, push left in
