@@ -80,25 +80,33 @@ run_script() {
 # ---------------------------------------------------------------------------
 # 1. GIT PULL — always latest code
 # ---------------------------------------------------------------------------
-log "Pulling latest code..."
 BEFORE=$(git rev-parse HEAD)
-
 git fetch origin main --quiet 2>/dev/null || true
-git reset --hard origin/main --quiet 2>/dev/null || true
+REMOTE=$(git rev-parse origin/main 2>/dev/null || echo "$BEFORE")
 
-AFTER=$(git rev-parse HEAD)
+if [ "$BEFORE" = "$REMOTE" ]; then
+  log "Repo UP TO DATE (${BEFORE:0:8})"
+  CHANGES=false
+else
+  BEHIND=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo "?")
+  log "Repo BEHIND by $BEHIND commits (${BEFORE:0:8} -> ${REMOTE:0:8})"
+  log "Pulling latest code..."
+  git reset --hard origin/main --quiet 2>/dev/null || true
+  AFTER=$(git rev-parse HEAD)
+  log "Updated to ${AFTER:0:8}"
 
-if [ "$BEFORE" != "$AFTER" ]; then
-  log "Updated: $BEFORE → $AFTER"
-  CHANGES=true
+  # Show what changed
+  git log --oneline "$BEFORE..$AFTER" 2>/dev/null | head -10 | while read -r line; do
+    log "  $line"
+  done
 
   # Reinstall deps if package.json changed
   if git diff --name-only "$BEFORE" "$AFTER" | grep -q 'package.json'; then
     log "package.json changed — running npm ci..."
     npm ci --omit=dev 2>&1 | tail -5
   fi
-else
-  CHANGES=false
+
+  CHANGES=true
 fi
 
 # ---------------------------------------------------------------------------

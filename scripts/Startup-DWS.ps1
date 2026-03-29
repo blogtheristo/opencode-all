@@ -42,19 +42,63 @@ Write-Log '=== DWS Startup ==='
 
 if (Test-Path "$RepoRoot\.git") {
     Push-Location $RepoRoot
-    Write-Log 'Pulling latest code...'
-    $pullResult = git pull origin main 2>&1
-    Write-Log "Git: $pullResult"
 
-    # npm ci if package.json changed
-    $changed = git diff --name-only HEAD~1 HEAD 2>$null
-    if ($changed -match 'package\.json') {
-        Write-Log 'package.json changed — running npm ci...'
-        npm ci --omit=dev 2>&1 | Select-Object -Last 3 | ForEach-Object { Write-Log $_ }
+    # Fetch remote state
+    Write-Log 'Fetching remote...'
+    git fetch origin main 2>&1 | Out-Null
+
+    # Compare local vs remote
+    $localHash  = (git rev-parse HEAD 2>$null).Trim()
+    $remoteHash = (git rev-parse origin/main 2>$null).Trim()
+    $localBranch = (git branch --show-current 2>$null).Trim()
+
+    if ($localHash -eq $remoteHash) {
+        Write-Log "Repo UP TO DATE ($($localHash.Substring(0,8))) on branch: $localBranch"
+    } else {
+        $behindCount = (git rev-list --count HEAD..origin/main 2>$null).Trim()
+        Write-Log "Repo BEHIND by $behindCount commits ($($localHash.Substring(0,8)) -> $($remoteHash.Substring(0,8)))"
+
+        # Check for uncommitted local changes
+        $dirty = git status --porcelain 2>$null
+        if ($dirty) {
+            Write-Log "WARNING: Local changes detected — stashing before pull"
+            git stash push -m "auto-stash-startup-$(Get-Date -Format 'yyyyMMdd-HHmmss')" 2>&1 | ForEach-Object { Write-Log "  $_" }
+            $stashed = $true
+        }
+
+        # Pull latest
+        Write-Log 'Pulling latest code...'
+        $pullResult = git pull origin main 2>&1
+        Write-Log "Git: $pullResult"
+
+        # Pop stash if we stashed
+        if ($stashed) {
+            Write-Log 'Restoring local changes...'
+            $popResult = git stash pop 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                Write-Log "WARNING: Stash pop had conflicts — check manually. Stash kept."
+            } else {
+                Write-Log "Local changes restored OK"
+            }
+        }
+
+        # npm ci if package.json changed
+        $changed = git diff --name-only "$localHash" HEAD 2>$null
+        if ($changed -match 'package\.json') {
+            Write-Log 'package.json changed — running npm ci...'
+            npm ci --omit=dev 2>&1 | Select-Object -Last 3 | ForEach-Object { Write-Log $_ }
+        }
+
+        # Log what changed
+        $newCommits = git log --oneline "$localHash..HEAD" 2>$null
+        Write-Log "New commits pulled:"
+        $newCommits | ForEach-Object { Write-Log "  $_" }
     }
+
     Pop-Location
 } else {
-    Write-Log "WARN: Repo not found at $RepoRoot"
+    Write-Log "WARN: Repo not found at $RepoRoot — cloning..."
+    git clone git@github.com:blogtheristo/dws6.git $RepoRoot 2>&1 | ForEach-Object { Write-Log $_ }
 }
 
 # ---------------------------------------------------------------------------
