@@ -67,7 +67,7 @@ if [ -n "$ts_files" ]; then
     echo "[pre-commit] SKIP_TSC=1 — skipping TypeScript check."
   elif command -v npx >/dev/null 2>&1 && [ -f "tsconfig.json" ]; then
     echo "[pre-commit] Running TypeScript check..."
-    if ! npx tsc --noEmit --pretty 2>&1; then
+    if ! npx --no-install tsc --noEmit --pretty 2>&1; then
       echo ""
       echo "BLOCKED: TypeScript errors found. Fix them or bypass with: SKIP_TSC=1 git commit ..."
       exit 1
