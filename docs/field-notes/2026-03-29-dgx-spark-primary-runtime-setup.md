@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Opus 4.6 | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Deployment complete — 4 containers healthy, Cloudflare Tunnel live (heartbeat.dws6.com), systemd auto-start, CORS hardened (LAN-only), syntax fixes in data-collectors.ts and briefing-template.ts
   - Version: 1.0 | Tool: Claude Opus 4.6 | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Initial setup — DGX Spark as primary runtime, GitHub Actions as failover, SSH deploy, heartbeat system, model routing
 
 Document Status:
@@ -35,7 +36,7 @@ Related Documents:
 │  │  DWS Backend  │  │  Cron Runner  │  │  Heartbeat   │  │
 │  │  :8080        │  │  :8081        │  │  :9999       │  │
 │  │  16 agents    │  │  23 cron jobs │  │  health API  │  │
-│  │  node-cron    │  │  mirrors GHA  │  │  CORS: *     │  │
+│  │  node-cron    │  │  mirrors GHA  │  │  LAN-only    │  │
 │  └──────────────┘  └──────────────┘  └──────────────┘  │
 │                                                          │
 │  ┌──────────────┐  ┌──────────────┐                     │
@@ -47,18 +48,39 @@ Related Documents:
 │                                                          │
 │  SSH: admin100@192.168.101.113                           │
 └──────────────────┬──────────────────────────────────────┘
-                   │ heartbeat every 30s
+                   │ Cloudflare Tunnel (systemd)
+                   ▼
+┌─────────────────────────────────────────────────────────┐
+│          CLOUDFLARE TUNNEL (dgx-heartbeat)               │
+│  heartbeat.dws6.com → localhost:9999                     │
+│  Tunnel ID: b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b       │
+└──────────────────┬──────────────────────────────────────┘
+                   │ HTTPS
                    ▼
 ┌─────────────────────────────────────────────────────────┐
 │              GITHUB ACTIONS (FAILOVER)                   │
 │                                                          │
 │  Each scheduled workflow:                                │
-│    1. Checks DGX Spark heartbeat                         │
-│    2. If alive → skip (exit 0)                           │
-│    3. If down → run job (take over)                      │
+│    1. curl https://heartbeat.dws6.com/health             │
+│    2. If 200 → skip (exit 0)                             │
+│    3. If 503 / unreachable → run job (take over)         │
 │    4. workflow_dispatch always runs                       │
 └─────────────────────────────────────────────────────────┘
 ```
+
+## Deployment Status (29.03.2026)
+
+All services verified live:
+
+| Container | Status | Port | Verified |
+|-----------|--------|------|----------|
+| dws-redis | healthy | 6379 | `redis-cli ping` → PONG |
+| dws-backend | healthy | 8080 | `curl localhost:8080/api/health` → 200 |
+| dws-cron | healthy | 8081 | 17 enabled jobs running |
+| dws-heartbeat | healthy | 9999 | `curl localhost:9999/health` → 200 |
+| cloudflared | systemd active | — | `curl https://heartbeat.dws6.com/health` → 200 |
+
+**GitHub secret:** `DGX_SPARK_HEARTBEAT_URL` = `https://heartbeat.dws6.com/health`
 
 ## Hardware & System Limits
 

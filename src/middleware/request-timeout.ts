@@ -22,7 +22,7 @@ const DEFAULT_TIMEOUT_MS = 30_000; // 30 seconds
  * @param timeoutMs - Max request duration in milliseconds (default: 30s)
  */
 export function requestTimeout(timeoutMs?: number) {
-  const timeout = timeoutMs ?? parseInt(process.env.REQUEST_TIMEOUT_MS || '', 10) || DEFAULT_TIMEOUT_MS;
+  const timeout = timeoutMs ?? (parseInt(process.env.REQUEST_TIMEOUT_MS || '', 10) || DEFAULT_TIMEOUT_MS);
 
   return (req: Request, res: Response, next: NextFunction): void => {
     const timer = setTimeout(() => {
