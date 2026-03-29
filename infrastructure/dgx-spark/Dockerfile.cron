@@ -14,7 +14,7 @@ RUN groupadd -r dws && useradd -r -g dws -s /bin/false dws
 
 # Copy package files and install
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
+RUN npm install --omit=dev --ignore-scripts && npm cache clean --force
 
 # Copy source and scripts
 COPY src/ ./src/
