@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.0
 
 Sessions & Modifications:
+  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Added Section 29 (DGX Spark Primary 24/7 Runtime) — full admin documentation for DGX Spark setup, SSH access, day-runner, script auto-discovery, failover, troubleshooting
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 28 (Carbon Balance Sheet & Compliance Ledger) — debit-credit architecture, open source connectors, DWS 7 Phase 2.6 plan; updated Section 11 Multi-Agent Orchestration with memory service (PR-871), memory decay (PR-876-878), ContentMS (PR-873); updated Section 10 Backup with Supabase automated scripts (PR-882); updated 16→20 industries throughout; added Firehorse ContentMS, company-to-ERP resolver, EC3 Material Database to capabilities; PR gap analysis from 50 latest PRs
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 22.03.2026 | Changes: Version bump (2.7 already applied externally), skills guide finalized
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 21.03.2026 | Changes: Updated Section 27 skills inventory (7→20 skills: 17 slash commands + 3 discipline skills), added gstack workflow, discipline skills (verification-gate, design-first, dual-folder-sync), skills guide reference (docs/DWS_SKILLS_GUIDE.md, Learn/DWS_SKILLS_GUIDE_v1.0.html)
@@ -35,7 +36,7 @@ Session Links & References:
 
 Document Status:
   - Created: 23.11.2025
-  - Last Modified: 24.03.2026
+  - Last Modified: 29.03.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ✅ ACTIVE
@@ -3115,6 +3116,181 @@ Features shipped since last admin manual update (v2.8, 22.03.2026):
 - **Backup automation (PR-882):** Supabase backup/restore scripts now available at `scripts/db-backup.sh` and `scripts/db-restore.sh`. Automated daily backups with 30-day retention.
 - **Memory decay (PR-876-878):** Agent memory facts decay over time via pg_cron. Stale facts below confidence threshold are auto-archived. Dashboard at `/dashboard/memory`.
 - **20 industries:** All documentation should now reference 20 EU-regulated industries (was 16). Industries added: energy/BESS, chemicals, textiles, food processing.
+
+---
+
+## Section 29: DGX Spark — Primary 24/7 Runtime
+
+### 29.1 Overview
+
+DGX Spark (Acer Veriton GN100) is the primary compute runtime for all DWS IQ agents, cron jobs, and scheduled tasks. GitHub Actions is failover only — workflows check DGX Spark heartbeat before running.
+
+| Spec | Value |
+|------|-------|
+| **Hardware** | NVIDIA Grace Blackwell GB10 Superchip |
+| **RAM** | 128GB unified memory |
+| **Storage** | 3TB NVMe |
+| **OS** | NVIDIA DGX Spark 7.4.0 (Ubuntu, Linux 6.17, aarch64) |
+| **Hostname** | gn100-cb5d |
+| **IP** | 192.168.101.113 (Wi-Fi wlP9s9) |
+| **SSH** | admin100@192.168.101.113 |
+| **Web Console** | https://gn100-cb5d:9090/ (Cockpit) |
+
+### 29.2 Architecture
+
+```
+DGX Spark (24/7, autonomous)              Win11 (on laptop open)
+├── dws-backend    :8080  (16 agents)     ├── Startup-DWS.ps1 (at logon)
+├── dws-cron       :8081  (23 cron jobs)  │   - git pull
+├── dws-heartbeat  :9999  (health API)    │   - check DGX Spark heartbeat
+├── redis          :6379  (job queue)     │   - run missed daily tasks
+├── Ollama         :11434 (native)        └── Install-DailyTasks.ps1 (one-time)
+│   ├── llama3.3:70b    (~40GB)
+│   └── qwen2.5-coder:32b (~20GB)        GitHub Actions (failover)
+└── day-runner.sh (systemd, every 5min)   ├── Checks heartbeat before each run
+    ├── git pull if behind                ├── Skips if DGX Spark alive
+    ├── docker compose up                 └── Runs job if DGX Spark down
+    ├── scan scripts/daily/
+    ├── scan scripts/hourly/
+    └── scan scripts/on-deploy/
+```
+
+### 29.3 First-Time Setup (Run Once)
+
+SSH into DGX Spark and run:
+
+```bash
+ssh admin100@192.168.101.113
+
+# Set git identity (first time only)
+git config --global user.email "risto.paarni@lifetime.fi"
+git config --global user.name "DGX Spark"
+
+# Clone or update repo
+cd ~/dws6 && git pull origin main
+
+# Run first-boot (installs everything)
+bash infrastructure/dgx-spark/first-boot.sh
+```
+
+The first-boot script:
+1. Installs Node.js 22 (if not present)
+2. Runs `npm ci`
+3. Pulls Ollama models (llama3.3:70b, qwen2.5-coder:32b)
+4. Copies `.env` from repo root (or creates from `.env.example`)
+5. Installs systemd services (day-runner timer + docker service)
+6. Generates SSH key for GitHub Actions deploy
+
+After first-boot, edit `.env` with real API keys:
+
+```bash
+nano ~/dws6/infrastructure/dgx-spark/.env
+```
+
+### 29.4 SSH Access from Win11
+
+Add to `~\.ssh\config`:
+
+```
+Host dgx-spark
+  HostName 192.168.101.113
+  User admin100
+  IdentityFile ~/.ssh/id_ed25519
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  LocalForward 11435 localhost:11434
+  LocalForward 9998 localhost:9999
+  LocalForward 8081 localhost:8081
+```
+
+Then: `ssh dgx-spark`
+
+Port forwards provide:
+- `localhost:11435` → Ollama API (for Cursor/Cline)
+- `localhost:9998` → Heartbeat dashboard
+- `localhost:8081` → Cron runner status
+
+### 29.5 Daily Operations
+
+DGX Spark is autonomous. The day-runner (systemd timer, every 5 minutes):
+1. Checks if repo is behind — pulls if needed
+2. Copies `.env` if missing or stale
+3. Rebuilds Docker if Dockerfiles changed
+4. Restarts unhealthy containers
+5. Runs scripts in `scripts/daily/`, `scripts/hourly/`, `scripts/on-deploy/`
+
+**Check status from Win11:**
+
+```powershell
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Status
+```
+
+**Or via SSH:**
+
+```bash
+ssh admin100@192.168.101.113
+systemctl status dws-day-runner.timer    # Day runner active?
+systemctl status dws-docker.service      # Docker containers up?
+docker ps                                # Running containers
+curl -s http://localhost:9999/health     # Heartbeat status
+curl -s http://localhost:8081/status     # Cron job status
+journalctl -u dws-day-runner --since today  # Today's logs
+```
+
+### 29.6 Script Convention (Auto-Discovery)
+
+Drop a script in the right folder and it runs automatically. No config needed.
+
+| Folder | Runs | Example |
+|--------|------|---------|
+| `scripts/daily/*.sh` or `*.ts` | Once per day (03:00–06:00 UTC) | `db-backup.sh`, `morning-emails.sh` |
+| `scripts/hourly/*.sh` or `*.ts` | Once per hour | Health checks |
+| `scripts/on-deploy/*.sh` or `*.ts` | After every git pull with new commits | `generate-google-feed.sh`, `inject-blog-nav.sh` |
+
+State tracked in `logs/day-runner-state.json` to prevent double-runs.
+
+### 29.7 Failover Behavior
+
+| DGX Spark Status | GitHub Actions |
+|-----------------|----------------|
+| Healthy | Skips scheduled runs (exit 0) |
+| Degraded | Runs jobs (partial services down) |
+| Down / Unreachable | Runs all jobs (full takeover) |
+| No heartbeat URL configured | Runs as primary (backwards compatible) |
+
+**GitHub secret required:** `DGX_SPARK_HEARTBEAT_URL` — public URL of heartbeat service (via Cloudflare Tunnel or ngrok). Without this secret, GitHub Actions runs as primary.
+
+**GitHub secret for auto-deploy:** `DGX_SPARK_SSH_KEY` — private SSH key matching DGX Spark's `~/.ssh/authorized_keys`.
+
+### 29.8 Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| Containers not running | `ssh dgx-spark "cd ~/dws6/infrastructure/dgx-spark && docker compose up -d"` |
+| Day-runner not running | `ssh dgx-spark "sudo systemctl start dws-day-runner.timer"` |
+| Ollama not responding | `ssh dgx-spark "systemctl status ollama"` then `sudo systemctl restart ollama` |
+| Repo stuck on wrong branch | `ssh dgx-spark "cd ~/dws6 && git checkout main && git pull origin main"` |
+| .env missing/stale | Day-runner auto-copies from repo root every 5min. Or manually: `cp ~/dws6/.env ~/dws6/infrastructure/dgx-spark/.env` |
+| SSH connection refused | Check firewall: `ssh dgx-spark "sudo ufw status"`. Check sshd: `systemctl status sshd` |
+| Model not found in Ollama | `ssh dgx-spark "ollama pull llama3.3:70b"` |
+
+### 29.9 Related Files
+
+| File | Purpose |
+|------|---------|
+| `infrastructure/dgx-spark/docker-compose.yml` | All Docker services |
+| `infrastructure/dgx-spark/day-runner.sh` | Systemd auto-runner (every 5min) |
+| `infrastructure/dgx-spark/first-boot.sh` | One-time setup script |
+| `infrastructure/dgx-spark/cron-runner.ts` | 23 cron jobs mirroring GitHub Actions |
+| `infrastructure/dgx-spark/heartbeat.ts` | Health aggregator |
+| `infrastructure/dgx-spark/Deploy-DgxSpark.ps1` | Win11 PowerShell control |
+| `infrastructure/dgx-spark/.env.example` | Environment template |
+| `.github/actions/dgx-failover-check/action.yml` | Reusable failover check |
+| `.github/workflows/deploy-dgx-spark.yml` | Auto-deploy on merge to main |
+| `scripts/Startup-DWS.ps1` | Win11 logon script |
+| `scripts/Install-DailyTasks.ps1` | Win11 Task Scheduler installer |
+| `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` | Architecture field note |
+| `docs/field-notes/2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md` | SSH/firewall hardening |
 
 ---
 
