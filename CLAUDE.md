@@ -211,6 +211,18 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 
 **Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
 
+### Ollama Model Rule (CRITICAL)
+
+**Never pull, remove, or change Ollama models without human approval.** Model changes are strategic decisions affecting cost, performance, memory budget, and agent compatibility.
+
+1. **Always run `ollama list` first** — report what's installed before suggesting changes
+2. **Never auto-pull models** in scripts, first-boot, or day-runner
+3. **Never auto-remove models** — even if they look unused, the human may be testing them
+4. **Report missing models** — warn and show the manual command, don't execute it
+5. **Memory budget matters** — 128GB is finite. Every model competes for inference RAM.
+
+Scripts may only: list models, check if required models exist, warn if missing.
+
 ### Git Branch Awareness Rule (CRITICAL)
 
 **Before telling the user to run ANY file or command, verify which branch contains that file.**

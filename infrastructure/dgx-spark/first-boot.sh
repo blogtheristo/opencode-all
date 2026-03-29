@@ -67,38 +67,39 @@ npm ci --omit=dev
 # ---------------------------------------------------------------------------
 # 3. Ollama models
 # ---------------------------------------------------------------------------
-# Required models for DWS agents
-REQUIRED_MODELS=("llama3.3:70b" "qwen2.5-coder:32b")
-
-# Models that waste disk — remove if found
-UNUSED_MODELS=("gemma3:1b" "qwen:32b" "qwen2.5-coder:latest")
-
+# ---------------------------------------------------------------------------
+# Ollama: REPORT ONLY — never pull or remove models automatically.
+# Model changes are strategic decisions requiring human approval.
+# ---------------------------------------------------------------------------
 if command -v ollama &>/dev/null; then
-  INSTALLED=$(ollama list 2>/dev/null | tail -n +2 | awk '{print $1}')
-  log "Installed models: ${INSTALLED:-none}"
-
-  # Remove unused models
-  for model in "${UNUSED_MODELS[@]}"; do
-    if echo "$INSTALLED" | grep -q "^${model}$"; then
-      log "Removing unused model: $model"
-      ollama rm "$model" || warn "Failed to remove $model"
-    fi
-  done
-
-  # Pull only missing required models
-  for model in "${REQUIRED_MODELS[@]}"; do
-    if echo "$INSTALLED" | grep -q "^${model}$"; then
-      log "Model already installed: $model — skipping"
-    else
-      log "Pulling required model: $model"
-      ollama pull "$model" || warn "$model pull failed — retry later"
-    fi
-  done
-
-  log "Final model inventory:"
+  log "Ollama status:"
   ollama list
+
+  # Check required models
+  INSTALLED=$(ollama list 2>/dev/null | tail -n +2 | awk '{print $1}')
+  REQUIRED=("llama3.3:70b" "qwen2.5-coder:32b")
+  MISSING=()
+
+  for model in "${REQUIRED[@]}"; do
+    if echo "$INSTALLED" | grep -q "^${model}$"; then
+      log "  OK: $model"
+    else
+      MISSING+=("$model")
+      warn "  MISSING: $model — needed by DWS agents"
+    fi
+  done
+
+  if [ ${#MISSING[@]} -gt 0 ]; then
+    warn ""
+    warn "Required models missing. To install manually:"
+    for model in "${MISSING[@]}"; do
+      warn "  ollama pull $model"
+    done
+    warn ""
+    warn "This script does NOT auto-pull models. Model changes require human approval."
+  fi
 else
-  warn "Ollama not installed — install from https://ollama.com then re-run"
+  warn "Ollama not installed — install from https://ollama.com"
 fi
 
 # ---------------------------------------------------------------------------
