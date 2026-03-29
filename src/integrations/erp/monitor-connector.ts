@@ -29,6 +29,7 @@ import {
   InventoryTransaction,
   CostTransaction
 } from './types';
+import { getSupabaseClient } from '../../config/supabase.js';
 
 export class MonitorERPConnector extends BaseERPConnector {
   private accessToken?: string;
@@ -143,8 +144,26 @@ export class MonitorERPConnector extends BaseERPConnector {
       // Transform and store orders
       const transformedOrders = orders.map((order) => this.transformProductionOrder(order));
 
-      // TODO: Store in database (Supabase)
-      // await this.storeProductionOrders(transformedOrders);
+      // Persist to Supabase
+      const client = getSupabaseClient();
+      if (client && transformedOrders.length > 0) {
+        const { error } = await client
+          .from('erp_production_orders')
+          .upsert(
+            transformedOrders.map((o) => ({
+              id: o.id,
+              erp_provider: ERPProvider.MONITOR,
+              organization_id: this.monitorConfig.companyId,
+              order_data: o,
+              synced_at: new Date().toISOString(),
+            })),
+            { onConflict: 'id' },
+          );
+
+        if (error) {
+          this.logger.error('Failed to persist production orders', { error: error.message });
+        }
+      }
 
       this.logger.info(`Successfully synced ${orders.length} production orders`);
 
@@ -333,8 +352,23 @@ export class MonitorERPConnector extends BaseERPConnector {
   }
 
   private async pushMaintenanceToERP(operation: any): Promise<SyncResult> {
-    // TODO: Get pending maintenance events from DWS database
-    const events: MaintenanceEvent[] = [];
+    // Fetch pending maintenance events from DWS database
+    let events: MaintenanceEvent[] = [];
+    const client = getSupabaseClient();
+    if (client) {
+      const { data, error } = await client
+        .from('maintenance_events')
+        .select('*')
+        .eq('organization_id', this.monitorConfig.companyId)
+        .eq('sync_status', 'pending')
+        .limit(50);
+
+      if (!error && data) {
+        events = data as MaintenanceEvent[];
+      } else if (error) {
+        this.logger.error('Failed to fetch maintenance events', { error: error.message });
+      }
+    }
 
     for (const event of events) {
       try {
