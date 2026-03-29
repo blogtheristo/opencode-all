@@ -3274,7 +3274,42 @@ State tracked in `logs/day-runner-state.json` to prevent double-runs.
 | SSH connection refused | Check firewall: `ssh dgx-spark "sudo ufw status"`. Check sshd: `systemctl status sshd` |
 | Model not found in Ollama | `ssh dgx-spark "ollama pull llama3.3:70b"` |
 
-### 29.9 Related Files
+### 29.9 GitHub Repository Secrets
+
+Manage at: https://github.com/blogtheristo/dws6/settings/secrets/actions
+
+| Secret | Purpose | Rotate via |
+|--------|---------|------------|
+| `CLOUDFLARE_API_TOKEN` | Cache purge for landing pages sync | Cloudflare → Profile → API Tokens (Google SSO via `risto.paarni2024@lifetime.fi`) |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account identifier | Cloudflare dashboard → Account ID (sidebar) |
+| `CLOUDFLARE_ZONE_ID_DWS10` | Zone ID for dws10.com | Cloudflare → dws10.com → Overview → Zone ID |
+| `CLOUDFLARE_ZONE_ID_ONELIFETIME` | Zone ID for onelifetime.world | Cloudflare → onelifetime.world → Overview → Zone ID |
+| `DGX_SPARK_SSH_KEY` | Private SSH key for auto-deploy to DGX Spark | `ssh-keygen -t ed25519` on DGX Spark, paste private key |
+| `DGX_SPARK_HOST` | DGX Spark IP address (192.168.101.113) | Update if IP changes |
+| `DGX_SPARK_KNOWN_HOSTS` | Pinned SSH host key (prevents MITM) | `ssh-keyscan -t ed25519 192.168.101.113` on trusted network |
+| `DGX_SPARK_HEARTBEAT_URL` | Public URL of heartbeat service for failover | Set when Cloudflare Tunnel or ngrok is configured |
+| `SUPABASE_URL` | Supabase project URL | Supabase dashboard → Settings → API |
+| `SUPABASE_SERVICE_KEY` | Supabase service role key | Supabase dashboard → Settings → API |
+| `GROQ_API_KEY` | Groq API for LLM fallback | https://console.groq.com/keys |
+| `EMAIL_FROM` | Default sender email | Verified in Amazon SES eu-north-1 |
+| `GCP_SA_KEY` | Google Cloud service account key | GCP Console → IAM → Service Accounts |
+| `SNYK_TOKEN` | Snyk security scanning | https://app.snyk.io/account |
+| `SCW_ACCESS_KEY` | Scaleway API access key | Scaleway Console → Credentials |
+| `SCW_SECRET_KEY` | Scaleway API secret key | Scaleway Console → Credentials |
+| `SCW_ORGANIZATION_ID` | Scaleway organization ID | Scaleway Console → Organization |
+| `SCW_PROJECT_ID` | Scaleway project ID | Scaleway Console → Project Settings |
+| `SCW_NAMESPACE_ID` | Scaleway container namespace | Scaleway Console → Serverless Containers |
+
+**Deleted secrets (do NOT re-add):**
+- `RESEND_API_KEY` — Resend banned (suspected C2 channel in Clawdbot incident). Email via Amazon SES only.
+- `CLOUDFLARE_APII_TOKEN` — typo duplicate of `CLOUDFLARE_API_TOKEN`. No workflows referenced it.
+- `DEEPSEEK_API_KEY` — unused, can be removed.
+
+**Cloudflare login:** Google SSO via `risto.paarni2024@lifetime.fi` at https://dash.cloudflare.com/login
+
+**API token rotation:** https://dash.cloudflare.com/profile/api-tokens → find token → Roll → copy new value → update GitHub secret.
+
+### 29.10 Related Files
 
 | File | Purpose |
 |------|---------|
