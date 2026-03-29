@@ -936,7 +936,53 @@ async function collectHilTodos(): Promise<HilTodosData> {
     });
   }
 
-  // 3. Fetch all open todos from the table (oldest first)
+  // 3. DGX Spark model status — check heartbeat for missing/degraded models
+  try {
+    const dgxHeartbeatUrl = process.env.DGX_SPARK_HEARTBEAT_URL || 'http://localhost:9999';
+    const statusResp = await fetch(`${dgxHeartbeatUrl}/status`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (statusResp.ok) {
+      const status = (await statusResp.json()) as {
+        system: string;
+        services: Array<{ name: string; status: string }>;
+        models: Record<string, string>;
+      };
+      // If Ollama service is down, create a TODO
+      const ollamaService = status.services?.find((s) => s.name === 'ollama');
+      if (ollamaService && ollamaService.status === 'down') {
+        await upsertHilTodo({
+          category: 'model_update',
+          description: 'DGX Spark: Ollama service is DOWN — models unavailable. SSH in and check: systemctl status ollama',
+          context: { system: status.system, services: status.services },
+          dedup_key: `model_update:ollama_down:${new Date().toISOString().slice(0, 10)}`,
+        });
+      }
+      // If system is degraded, flag it
+      if (status.system === 'degraded') {
+        const downServices = status.services
+          ?.filter((s) => s.status === 'down')
+          .map((s) => s.name)
+          .join(', ');
+        await upsertHilTodo({
+          category: 'model_update',
+          description: `DGX Spark DEGRADED — down services: ${downServices}`,
+          context: { system: status.system, downServices },
+          dedup_key: `model_update:degraded:${new Date().toISOString().slice(0, 10)}`,
+        });
+      }
+    }
+  } catch {
+    // DGX Spark unreachable — create a TODO so HIL knows
+    await upsertHilTodo({
+      category: 'model_update',
+      description: 'DGX Spark heartbeat UNREACHABLE — check if machine is online and heartbeat container is running',
+      context: { checked_at: new Date().toISOString() },
+      dedup_key: `model_update:unreachable:${new Date().toISOString().slice(0, 10)}`,
+    });
+  }
+
+  // 4. Fetch all open todos from the table (oldest first)
   try {
     const openResp = await fetch(
       `${SUPABASE_URL}/rest/v1/hil_todos` +

@@ -67,7 +67,7 @@ const jobs: CronJob[] = [
     name: 'morning-briefing',
     schedule: '0 4 * * 1-6',
     workflow: 'morning-briefing.yml',
-    command: `node -e "fetch('${BACKEND_URL}/api/captain/briefing', {method:'POST'}).then(r=>console.log(r.status))"`,
+    command: 'npx tsx scripts/send-morning-briefing.ts',
     enabled: true,
   },
   {
