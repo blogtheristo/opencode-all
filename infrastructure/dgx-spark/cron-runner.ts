@@ -46,14 +46,14 @@ const jobs: CronJob[] = [
     name: 'daily-site-backup',
     schedule: '0 2 * * *',
     workflow: 'daily-site-backup.yml',
-    command: 'npx tsx scripts/daily-site-backup.ts',
+    command: 'bash scripts/backup-sites.sh',
     enabled: true,
   },
   {
     name: 'daily-db-backup',
     schedule: '30 2 * * *',
     workflow: 'daily-db-backup.yml',
-    command: 'npx tsx scripts/daily-db-backup.ts',
+    command: 'bash scripts/db-daily-backup.sh',
     enabled: true,
   },
   {
@@ -102,86 +102,55 @@ const jobs: CronJob[] = [
     name: 'regulation-monitor',
     schedule: '30 3 * * 1-5',
     workflow: 'regulation-monitor.yml',
-    command: 'npx tsx scripts/regulation-monitor.ts',
+    command: 'npx tsx scripts/send-regulation-digest.ts',
     enabled: true,
   },
-  {
-    name: 'daily-claude-backup',
-    schedule: '0 6 * * *',
-    workflow: 'daily-claude-backup.yml',
-    command: 'npx tsx scripts/daily-claude-backup.ts',
-    enabled: true,
-  },
-  {
-    name: 'daily-backup',
-    schedule: '55 23 * * *',
-    workflow: 'daily-backup.yml',
-    command: 'npx tsx scripts/daily-backup.ts',
-    enabled: true,
-  },
+  // daily-claude-backup: GHA-only (backs up .claude sessions to git commit)
+  // daily-backup: GHA-only (creates git archive of intellectual assets)
 
   // --- WEEKLY ---
   {
     name: 'weekly-report',
     schedule: '0 9 * * 1',
     workflow: 'weekly-report.yml',
-    command: 'npx tsx scripts/weekly-report.ts',
+    command: 'npx tsx scripts/send-weekly-report-email.ts',
     enabled: true,
   },
   {
     name: 'campaign-newsletter',
     schedule: '0 5 * * 5',
     workflow: 'campaign-newsletter.yml',
-    command: 'npx tsx scripts/campaign-newsletter.ts',
+    command: 'npx tsx scripts/send-campaign-newsletter.ts',
     enabled: true,
   },
   {
     name: 'market-research-weekly',
     schedule: '0 7 * * 1',
     workflow: 'market-research-weekly.yml',
-    command: 'npx tsx scripts/market-research-weekly.ts',
+    command: 'python3 scripts/collect_market_research.py',
     enabled: true,
   },
-  {
-    name: 'roadmap-weekly-tracker',
-    schedule: '0 8 * * 1',
-    workflow: 'roadmap-weekly-tracker.yml',
-    command: 'npx tsx scripts/roadmap-weekly-tracker.ts',
-    enabled: true,
-  },
+  // roadmap-weekly-tracker: GHA-only (creates GitHub issue with roadmap summary)
   {
     name: 'agents-md-freshness',
     schedule: '0 6 * * 1',
     workflow: 'agents-md-freshness.yml',
-    command: 'npx tsx scripts/agents-md-freshness.ts',
+    command: 'node scripts/verify-agents-md.mjs --json',
     enabled: true,
   },
   {
     name: 'golden-principle-scan',
     schedule: '30 6 * * 1',
     workflow: 'golden-principle-scan.yml',
-    command: 'npx tsx scripts/golden-principle-scan.ts',
+    command: 'node scripts/golden-principle-check.mjs --json',
     enabled: true,
   },
-  {
-    name: 'housekeeping-weekly',
-    schedule: '0 3 * * 0',
-    workflow: 'housekeeping-weekly.yml',
-    command: 'npx tsx scripts/housekeeping-weekly.ts',
-    enabled: true,
-  },
+  // housekeeping-weekly: GHA-only (inline shell checks in workflow)
   {
     name: 'security-audit-enhanced',
     schedule: '0 2 * * 1',
     workflow: 'security-audit-enhanced.yml',
     command: 'npm audit --json > /app/logs/npm-audit.json 2>&1',
-    enabled: true,
-  },
-  {
-    name: 'security-scan-weekly',
-    schedule: '0 21 * * 0',
-    workflow: 'security-scan-weekly.yml',
-    command: 'npx tsx scripts/security-scan.ts',
     enabled: true,
   },
   {
@@ -194,26 +163,14 @@ const jobs: CronJob[] = [
 
   // --- BIWEEKLY / MONTHLY ---
   {
-    name: 'biweekly-auth-security-audit',
-    schedule: '0 2 1,15 * *',
-    workflow: 'biweekly-auth-security-audit.yml',
-    command: 'npx tsx scripts/auth-security-audit.ts',
-    enabled: true,
-  },
-  {
     name: 'security-scan-biweekly',
     schedule: '30 2 1 * *',
     workflow: 'security-scan-biweekly.yml',
-    command: 'npx tsx scripts/security-scan-biweekly.ts',
+    command: 'python3 scripts/scan_critical_bugs.py --full --output /app/logs/critical-bugs-report.md',
     enabled: true,
   },
-  {
-    name: 'monthly-security-audit-enhanced',
-    schedule: '0 0 1 * *',
-    workflow: 'monthly-security-audit-enhanced.yml',
-    command: 'npx tsx scripts/monthly-security-audit.ts',
-    enabled: true,
-  },
+  // biweekly-auth-security-audit: GHA-only (no standalone script)
+  // monthly-security-audit-enhanced: GHA-only (no standalone script)
 ];
 
 // ---------------------------------------------------------------------------
