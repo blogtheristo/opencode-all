@@ -183,6 +183,9 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | GN100 NVIDIA GPG Key Fix | `/docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` | 2026-02-27 | NVIDIA Workbench repo key renewal | GN100, NVIDIA, Maintenance |
 | GN100 Ollama Dev Environment | `/docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` | 2026-03-01 | Ollama, Cursor, Cline, Claude Code setup | GN100, Ollama, Local Dev |
 | GN100 Docker CUDA Validation | `/docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` | 2026-03-11 | Docker GPU validation and ARM64 container policy | GN100, Docker, CUDA, ARM64 |
+| DocuSign eSignature Integration | `/docs/field-notes/2026-03-21-docusign-esignature-integration.md` | 2026-03-21 | DocuSign developer setup and NDA flow | DocuSign, NDA, Legal |
+| Security Vulnerability Assessment | `/docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` | 2026-02-21 | OpenClaw security audit findings | Security, CORS, Shell, MCP |
+| DGX Spark Primary Runtime Setup | `/docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` | 2026-03-29 | DGX Spark 24/7 runtime architecture, failover, model routing | GN100, DGX Spark, Infrastructure, Ollama |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
