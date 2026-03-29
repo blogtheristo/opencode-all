@@ -589,6 +589,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   config_gap:        '#c084fc',
   manual:            '#00d4aa',
   pending_migration: '#ff4444',
+  model_update:      '#76b900',
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -597,6 +598,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   config_gap:        'CFG',
   manual:            'MANUAL',
   pending_migration: 'SQL',
+  model_update:      'MODEL',
 };
 
 function renderHilTodosHtml(data: HilTodosData): string {

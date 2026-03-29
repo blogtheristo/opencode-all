@@ -154,6 +154,25 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
+### Script Automation Rule (CRITICAL)
+
+**Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
+
+| Folder | Runs | Auto-discovered by |
+|--------|------|--------------------|
+| `scripts/daily/*.{ts,sh}` | Once per day (03:00–06:00 UTC) | DGX Spark `day-runner.sh` |
+| `scripts/hourly/*.{ts,sh}` | Once per hour | DGX Spark `day-runner.sh` |
+| `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh` |
+| `scripts/*.ps1` | Via Windows Task Scheduler | `Install-DailyTasks.ps1` (run once) |
+
+**When creating a new script:**
+1. Put it in the right convention folder (`daily/`, `hourly/`, or `on-deploy/`)
+2. It will run automatically on DGX Spark — no config, no workflow, no remembering
+3. For Win11 PowerShell scripts, add an entry to `Install-DailyTasks.ps1`
+4. GitHub Actions workflows are **failover only** — DGX Spark is primary
+
+**Forbidden pattern:** Creating a script in `scripts/` root with instructions "run this manually". That script will be forgotten within 24 hours.
+
 ### Leverage Patterns
 
 - **Inline Planning:** Emit `PLAN: 1. [step] — [why]` before executing multi-step tasks.
@@ -192,6 +211,37 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 
 **Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
 
+### Ollama Model Rule (CRITICAL)
+
+**Never pull, remove, or change Ollama models without human approval.** Model changes are strategic decisions affecting cost, performance, memory budget, and agent compatibility.
+
+1. **Always run `ollama list` first** — report what's installed before suggesting changes
+2. **Never auto-pull models** in scripts, first-boot, or day-runner
+3. **Never auto-remove models** — even if they look unused, the human may be testing them
+4. **Report missing models** — warn and show the manual command, don't execute it
+5. **Memory budget matters** — 128GB is finite. Every model competes for inference RAM.
+
+Scripts may only: list models, check if required models exist, warn if missing.
+
+### Git Branch Awareness Rule (CRITICAL)
+
+**Before telling the user to run ANY file or command, verify which branch contains that file.**
+
+| Situation | Correct instruction |
+|-----------|-------------------|
+| File is on a feature branch, PR not merged | `git fetch origin <branch> && git checkout <branch>` THEN run |
+| File is on main, user is on main | `git pull origin main` THEN run |
+| File is on main, user is on feature branch | Merge main first or cherry-pick |
+| File was just created in this session | Tell user which branch has it and how to get there |
+
+**Forbidden:** Telling the user to run a file without confirming it exists on their current branch. `git pull origin main` does NOT give you files from unmerged PRs.
+
+**Checklist before giving run instructions:**
+1. Which branch is the file on?
+2. Is the PR merged?
+3. Which branch is the user currently on?
+4. Do they need to checkout/fetch first?
+
 ### Failure Modes to Avoid
 
 1. Making wrong assumptions without checking
@@ -209,6 +259,7 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 13. Not using DWS document standard
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
+16. Telling user to run files that don't exist on their current branch
 
 ## Lifetime Oy Legal Identity Rule (CRITICAL)
 
@@ -323,16 +374,32 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 
 ## Development Commands
 
-```bash
+### PowerShell-First Rule (CRITICAL)
+
+**Always use PowerShell commands and `.ps1` scripts.** The primary development environment is Windows 11 with PowerShell. When creating scripts, deployment tools, or providing CLI commands:
+
+1. **Create `.ps1` scripts** — not `.sh` bash scripts (bash is secondary for DGX Spark / Linux)
+2. **Use PowerShell syntax** in examples and documentation (e.g. `.\script.ps1`, not `./script.sh`)
+3. **DGX Spark deploy:** `.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1` (not `deploy.sh`)
+4. If a bash script exists, always provide a PowerShell equivalent alongside it
+5. Exception: scripts that run ON the DGX Spark (Linux) can be bash
+
+```powershell
 # Backend
 npm run dev       # Express backend with hot reload
 npm run build     # Build TypeScript
 npm run test      # Vitest
 npm run lint      # ESLint
 
-# Dashboard (dws6.com/dashboard/firehorse/v9-react/)
+# Dashboard (dws6.com\dashboard\firehorse\v9-react\)
 npm run dev       # Vite dev server
 npm run build     # Production build
+
+# DGX Spark (primary runtime)
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1              # Full deploy
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Status      # Check status
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Models      # Pull Ollama models
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -SshConfig   # SSH config for Cursor
 
 # Docker
 docker-compose -f docker-compose.hybrid.yml up -d

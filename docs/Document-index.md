@@ -180,9 +180,54 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
 | Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
+| AI Safety Report 2026 | `/docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md` | 2026-02-06 | International AI safety report | AI Safety, Regulation |
+| Brockman Agentic Dev | `/docs/field-notes/2026-02-06-brockman-agentic-software-development.md` | 2026-02-06 | Retooling teams for agentic software | Agentic, Teams, Strategy |
+| EU Alden Biesen Single Market | `/docs/field-notes/2026-02-11-eu-alden-biesen-single-market-info-note.md` | 2026-02-11 | EU single market as superpower | EU, Single Market, Policy |
+| Unsloth MoE Fine-Tuning | `/docs/field-notes/2026-02-13-unsloth-moe-fine-tuning-split-lora.md` | 2026-02-13 | 12x faster MoE fine-tuning with Split LoRA | LLM, Fine-Tuning, MoE |
+| Moltworker OpenClaw Assistant | `/docs/field-notes/2026-02-15-moltworker-openclaw-dws-assistant.md` | 2026-02-15 | Self-hosted AI agent for DWS | OpenClaw, Agent, Self-Hosted |
+| Tech Backlog PyJWT Conflict | `/docs/field-notes/2026-02-15-tech-backlog-pyjwt-redis-conflict.md` | 2026-02-15 | PyJWT dependency conflict | Python, Dependencies, Backlog |
+| NVIDIA Blackwell Ultra | `/docs/field-notes/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md` | 2026-02-16 | 50x agentic AI inference | NVIDIA, Blackwell, Inference |
+| Zvec Embedded Vector DB | `/docs/field-notes/2026-02-16-zvec-embedded-vector-db-european-alternatives.md` | 2026-02-16 | EU vector DB for sensors and robots | Vector DB, EU, IoT |
+| Morning Email 0600 Incident | `/docs/field-notes/2026-02-17-morning-email-0600-eest-incident.md` | 2026-02-17 | CEO cockpit email failures and fix | Email, Incident, SES |
+| Claude Code Hetzner Incident | `/docs/field-notes/2026-02-21-claude-code-hetzner-branch-incident.md` | 2026-02-21 | Allow-once branch incident | Security, Incident, Claude Code |
+| Security Vulnerability Assessment | `/docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` | 2026-02-21 | OpenClaw security audit findings | Security, CORS, Shell, MCP |
+| MCP Server Expansion | `/docs/field-notes/2026-02-23-mcp-server-expansion-cloudrun-lwm-claude.md` | 2026-02-23 | CloudRun, LWM, Claude session sync | MCP, CloudRun, LWM |
 | GN100 NVIDIA GPG Key Fix | `/docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md` | 2026-02-27 | NVIDIA Workbench repo key renewal | GN100, NVIDIA, Maintenance |
 | GN100 Ollama Dev Environment | `/docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` | 2026-03-01 | Ollama, Cursor, Cline, Claude Code setup | GN100, Ollama, Local Dev |
+| Grok LWM Planning | `/docs/field-notes/2026-03-04-grok-advice-lwm-planning-multi-tool.md` | 2026-03-04 | LWM planning phase and multi-tool workflow | LWM, Grok, Planning |
+| DGX Spark Hardened Firewall | `/docs/field-notes/2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md` | 2026-03-06 | Firewall hardening, rejecting SSH/Ollama | DGX Spark, Security, Firewall |
+| EU AI Act Omnibus Article 12 | `/docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md` | 2026-03-08 | Robot industry vs Article 12 compliance | EU AI Act, Robotics, Compliance |
+| NVIDIA Connect ISV Approved | `/docs/field-notes/2026-03-08-nvidia-connect-isv-approved.md` | 2026-03-08 | NVIDIA ISV program application approved | NVIDIA, Partner, ISV |
+| Shufti KYA BYO Partner | `/docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md` | 2026-03-09 | KYA and Bring Your Own framework | Shufti, KYA, Partnership |
+| Shufti KYA Technical Reqs | `/docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md` | 2026-03-09 | KYA technical requirements for Shufti | Shufti, KYA, Technical |
+| Acer-DGX Sandbox Strategy | `/docs/field-notes/2026-03-10-acer-dgx-sandbox-strategy.md` | 2026-03-10 | Zero-budget AI powerhouse strategy | DGX Spark, Strategy, Hardware |
+| Grok/Gemini 35% Uplift Validation | `/docs/field-notes/2026-03-10-grok-gemini-35pct-uplift-validation.md` | 2026-03-10 | KYA leash-aware uplift claim | KYA, Validation, Grok |
+| Grok/Gemini KYA Review Input | `/docs/field-notes/2026-03-10-grok-gemini-kya-review-input.md` | 2026-03-10 | KYA standard review input | KYA, Review, Grok, Gemini |
+| Karpathy Autoresearch | `/docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md` | 2026-03-10 | Agent swarms tuning neural networks | Autoresearch, Agent Swarm, Karpathy |
+| KYA Financial Projections | `/docs/field-notes/2026-03-10-kya-financial-projections.md` | 2026-03-10 | 20-industry value model | KYA, Financial, Projections |
+| NIST KYA Review Input | `/docs/field-notes/2026-03-10-nist-kya-grok-gemini-review-input.md` | 2026-03-10 | NIST submission review | KYA, NIST, Review |
+| Palantir AIP Partner Outreach | `/docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md` | 2026-03-10 | Partner outreach and connector strategy | Palantir, AIP, Partnership |
+| SES DKIM Setup | `/docs/field-notes/2026-03-10-ses-dkim-setup-success.md` | 2026-03-10 | Amazon SES DKIM for onelifetime.world | SES, DKIM, Email |
+| V1 Aiven Plan Decision | `/docs/field-notes/2026-03-10-v1-aiven-plan-decision.md` | 2026-03-10 | Developer + Startup plan decision | Aiven, Database, Decision |
 | GN100 Docker CUDA Validation | `/docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` | 2026-03-11 | Docker GPU validation and ARM64 container policy | GN100, Docker, CUDA, ARM64 |
+| Postgres Columnar HTAP | `/docs/field-notes/2026-03-12-postgres-columnar-htap-evaluation.md` | 2026-03-12 | Columnar and HTAP extension evaluation | PostgreSQL, Columnar, HTAP |
+| GN100 Edge PostgreSQL Setup | `/docs/field-notes/2026-03-13-acer-gn100-edge-postgres-setup.md` | 2026-03-13 | TimescaleDB + pg_duckdb + pgvector | GN100, PostgreSQL, Edge |
+| DWS Autoresearch Methodology | `/docs/field-notes/2026-03-13-dws-autoresearch-methodology.md` | 2026-03-13 | Karpathy-inspired autonomous validation | Autoresearch, Methodology |
+| Agent Browser Native Rust | `/docs/field-notes/2026-03-14-agent-browser-native-rust-integration.md` | 2026-03-14 | Native Rust browser integration | Agent, Browser, Rust |
+| OpenClaw Autoresearch Feature Plan | `/docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md` | 2026-03-14 | DWS 6 and 7 feature plan | OpenClaw, Autoresearch, Roadmap |
+| Investor Materials Audit | `/docs/field-notes/2026-03-15-investor-materials-audit.md` | 2026-03-15 | State of play and MVP feature prompts | Investor, Audit, MVP |
+| NVIDIA GTC 2026 Keynote | `/docs/field-notes/2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md` | 2026-03-16 | DWS architecture impact assessment | NVIDIA, GTC, Architecture |
+| Pentesting Plan DWS6 | `/docs/field-notes/2026-03-16-pentesting-plan-dws6.md` | 2026-03-16 | Full platform penetration testing plan | Security, Pentesting |
+| Shufti EU Compliance DPA | `/docs/field-notes/2026-03-17-shufti-eu-compliance-dpa-inquiry.md` | 2026-03-17 | EU compliance and DPA inquiry | Shufti, GDPR, DPA |
+| DocuSign eSignature Integration | `/docs/field-notes/2026-03-21-docusign-esignature-integration.md` | 2026-03-21 | DocuSign developer setup and NDA flow | DocuSign, NDA, Legal |
+| TED eProcurement Lead Sourcing | `/docs/field-notes/2026-03-21-ted-eprocurement-ontology-lead-sourcing.md` | 2026-03-21 | Construction lead sourcing via TED | TED, eProcurement, Leads |
+| LWM Phase 2 Gap Analysis | `/docs/field-notes/2026-03-25-lwm-phase2-technical-gap-analysis.md` | 2026-03-25 | From regulatory intelligence to latent planning | LWM, Gap Analysis, Planning |
+| Aegis Pricing Study | `/docs/field-notes/2026-03-26-aegis-pricing-study.md` | 2026-03-26 | Pricing study for Aegis | Pricing, Aegis, Strategy |
+| Best Local Models by RAM Tier | `/docs/field-notes/2026-03-26-best-local-models-by-ram-tier.md` | 2026-03-26 | Model recommendations per RAM tier | LLM, Models, Hardware |
+| CLI for Agents Design Patterns | `/docs/field-notes/2026-03-26-cli-for-agents-design-patterns.md` | 2026-03-26 | CLI design patterns for AI agents | CLI, Agents, Design |
+| Post-Incident CLI-First Migration | `/docs/field-notes/2026-03-26-post-incident-cli-first-migration.md` | 2026-03-26 | Security reset and CLI-first migration | Security, Incident, CLI |
+| SharpSync CAD-ERP BOM | `/docs/field-notes/2026-03-26-sharpsync-cad-erp-bom-integration.md` | 2026-03-26 | CAD-to-ERP BOM synchronization | SharpSync, CAD, ERP, BOM |
+| DGX Spark Primary Runtime Setup | `/docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` | 2026-03-29 | DGX Spark 24/7 runtime architecture, failover, model routing | GN100, DGX Spark, Infrastructure, Ollama |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
