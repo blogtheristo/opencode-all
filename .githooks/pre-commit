@@ -62,13 +62,15 @@ for f in $staged; do
 done
 
 if [ -n "$ts_files" ]; then
-  # TypeScript type check (if tsc is available)
-  if command -v npx >/dev/null 2>&1 && [ -f "tsconfig.json" ]; then
-    echo "[pre-commit] Running TypeScript check on staged files..."
-    if ! npx tsc --noEmit --pretty 2>/dev/null; then
+  # TypeScript type check (blocks commit unless SKIP_TSC=1)
+  if [ "${SKIP_TSC:-0}" = "1" ]; then
+    echo "[pre-commit] SKIP_TSC=1 — skipping TypeScript check."
+  elif command -v npx >/dev/null 2>&1 && [ -f "tsconfig.json" ]; then
+    echo "[pre-commit] Running TypeScript check..."
+    if ! npx tsc --noEmit --pretty 2>&1; then
       echo ""
-      echo "[WARN] TypeScript errors found — commit proceeds (advisory)."
-      echo "       Run 'npm run build' to see full errors."
+      echo "BLOCKED: TypeScript errors found. Fix them or bypass with: SKIP_TSC=1 git commit ..."
+      exit 1
     fi
   fi
 

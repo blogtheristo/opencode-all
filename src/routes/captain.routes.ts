@@ -2,7 +2,7 @@
  * Captain's Table — Public Application Route
  *
  * POST /api/v1/captain/apply — Receives captain seat applications from dws10.com/captain
- * No auth required (public lead form). Rate-limited. Sends notification via Resend.
+ * No auth required (public lead form). Rate-limited. Sends notification email + inserts into captain_inquiries.
  */
 
 import { Router, Request, Response } from 'express';
@@ -10,6 +10,7 @@ import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import emailService from '../services/email.service.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 const router = Router();
 
@@ -67,6 +68,23 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
     );
 
     logger.info('Captain application received', { name, email, industry, seat_type });
+
+    // Insert into captain_inquiries (non-blocking — email is primary)
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      const { error: dbError } = await supabase
+        .from('captain_inquiries')
+        .insert({
+          name,
+          email,
+          industry,
+          seat_level: seat_type,
+          message: message || null,
+        });
+      if (dbError) {
+        logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
+      }
+    }
 
     res.status(200).json({
       success: true,
