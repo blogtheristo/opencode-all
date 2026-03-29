@@ -76,11 +76,21 @@ fi
 # 4. Environment file
 # ---------------------------------------------------------------------------
 if [ ! -f "${INFRA_DIR}/.env" ]; then
-  log "Creating .env from example — EDIT THIS with real secrets"
-  cp "${INFRA_DIR}/.env.example" "${INFRA_DIR}/.env"
-  warn ">>> EDIT ${INFRA_DIR}/.env with real API keys before starting services <<<"
+  if [ -f "${REPO_DIR}/.env" ]; then
+    log "Copying .env from repo root (real secrets)"
+    cp "${REPO_DIR}/.env" "${INFRA_DIR}/.env"
+  else
+    log "Creating .env from example — EDIT THIS with real secrets"
+    cp "${INFRA_DIR}/.env.example" "${INFRA_DIR}/.env"
+    warn ">>> EDIT ${INFRA_DIR}/.env with real API keys before starting services <<<"
+  fi
 else
   log ".env already exists"
+  # Update if repo root has a newer copy
+  if [ -f "${REPO_DIR}/.env" ] && [ "${REPO_DIR}/.env" -nt "${INFRA_DIR}/.env" ]; then
+    log "Repo root .env is newer — updating"
+    cp "${REPO_DIR}/.env" "${INFRA_DIR}/.env"
+  fi
 fi
 
 # ---------------------------------------------------------------------------

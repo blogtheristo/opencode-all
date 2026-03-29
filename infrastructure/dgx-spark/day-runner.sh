@@ -110,6 +110,24 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 1b. ENV FILE — copy from repo root if dgx-spark/.env is missing or stale
+# ---------------------------------------------------------------------------
+if [ ! -f "${INFRA_DIR}/.env" ]; then
+  if [ -f "${REPO_DIR}/.env" ]; then
+    log ".env missing in dgx-spark/ — copying from repo root"
+    cp "${REPO_DIR}/.env" "${INFRA_DIR}/.env"
+  else
+    log "WARNING: No .env found anywhere — services will fail"
+  fi
+elif [ -f "${REPO_DIR}/.env" ]; then
+  # If repo root .env is newer, update dgx-spark copy
+  if [ "${REPO_DIR}/.env" -nt "${INFRA_DIR}/.env" ]; then
+    log ".env in repo root is newer — updating dgx-spark copy"
+    cp "${REPO_DIR}/.env" "${INFRA_DIR}/.env"
+  fi
+fi
+
+# ---------------------------------------------------------------------------
 # 2. DOCKER UP — rebuild if needed, restart unhealthy
 # ---------------------------------------------------------------------------
 cd "$INFRA_DIR"
