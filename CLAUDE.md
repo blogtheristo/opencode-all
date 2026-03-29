@@ -154,6 +154,25 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
+### Script Automation Rule (CRITICAL)
+
+**Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
+
+| Folder | Runs | Auto-discovered by |
+|--------|------|--------------------|
+| `scripts/daily/*.{ts,sh}` | Once per day (03:00–06:00 UTC) | DGX Spark `day-runner.sh` |
+| `scripts/hourly/*.{ts,sh}` | Once per hour | DGX Spark `day-runner.sh` |
+| `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh` |
+| `scripts/*.ps1` | Via Windows Task Scheduler | `Install-DailyTasks.ps1` (run once) |
+
+**When creating a new script:**
+1. Put it in the right convention folder (`daily/`, `hourly/`, or `on-deploy/`)
+2. It will run automatically on DGX Spark — no config, no workflow, no remembering
+3. For Win11 PowerShell scripts, add an entry to `Install-DailyTasks.ps1`
+4. GitHub Actions workflows are **failover only** — DGX Spark is primary
+
+**Forbidden pattern:** Creating a script in `scripts/` root with instructions "run this manually". That script will be forgotten within 24 hours.
+
 ### Leverage Patterns
 
 - **Inline Planning:** Emit `PLAN: 1. [step] — [why]` before executing multi-step tasks.
