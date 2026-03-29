@@ -11,8 +11,7 @@
 #   6. Starts everything
 #
 # Usage (SSH into DGX Spark, run once):
-#   curl -sfL https://raw.githubusercontent.com/blogtheristo/dws6/main/infrastructure/dgx-spark/first-boot.sh | bash
-#   # OR if repo is already cloned:
+#   git clone git@github.com:blogtheristo/dws6.git /home/admin100/dws6
 #   bash /home/admin100/dws6/infrastructure/dgx-spark/first-boot.sh
 #
 # Code-Version: 1.0.0
