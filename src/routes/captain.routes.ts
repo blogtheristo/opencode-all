@@ -69,10 +69,15 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
 
     logger.info('Captain application received', { name, email, industry, seat_type });
 
-    // Insert into captain_inquiries (non-blocking — email is primary)
+    res.status(200).json({
+      success: true,
+      message: 'Application received. We will contact you within 48 hours.',
+    });
+
+    // Fire-and-forget DB insert — never affects HTTP response
     const supabase = getSupabaseClient();
     if (supabase) {
-      const { error: dbError } = await supabase
+      supabase
         .from('captain_inquiries')
         .insert({
           name,
@@ -80,16 +85,16 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
           industry,
           seat_level: seat_type,
           message: message || null,
+        })
+        .then(({ error: dbError }) => {
+          if (dbError) {
+            logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
+          }
+        })
+        .catch((err) => {
+          logger.warn('Captain inquiry DB insert error', { error: err instanceof Error ? err.message : 'unknown', name, email });
         });
-      if (dbError) {
-        logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
-      }
     }
-
-    res.status(200).json({
-      success: true,
-      message: 'Application received. We will contact you within 48 hours.',
-    });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Captain application email failed', { error: errorMsg, name, email });
