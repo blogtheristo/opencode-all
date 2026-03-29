@@ -48,8 +48,22 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
+
           echo "${{ secrets.DGX_SPARK_SSH_KEY }}" > ~/.ssh/dgx_key
           chmod 600 ~/.ssh/dgx_key
+
+          # Pin host key — prevents MITM on deploy channel
+          # Set DGX_SPARK_KNOWN_HOSTS secret via:
+          #   ssh-keyscan -t ed25519 <DGX_IP> | base64 -w0
+          if [ -n "${{ secrets.DGX_SPARK_KNOWN_HOSTS }}" ]; then
+            echo "${{ secrets.DGX_SPARK_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          else
+            echo "::warning::DGX_SPARK_KNOWN_HOSTS not set — using ssh-keyscan (pin the key to prevent MITM)"
+            DGX_HOST="${{ secrets.DGX_SPARK_HOST }}"
+            DGX_HOST="${DGX_HOST:-192.168.101.113}"
+            ssh-keyscan -t ed25519 "${DGX_HOST}" >> ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 600 ~/.ssh/known_hosts
 
           DGX_HOST="${{ secrets.DGX_SPARK_HOST }}"
           DGX_HOST="${DGX_HOST:-192.168.101.113}"
@@ -59,7 +73,7 @@ jobs:
             HostName ${DGX_HOST}
             User admin100
             IdentityFile ~/.ssh/dgx_key
-            StrictHostKeyChecking no
+            StrictHostKeyChecking yes
             ConnectTimeout 10
             ServerAliveInterval 60
           EOF
