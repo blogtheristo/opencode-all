@@ -323,16 +323,32 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 
 ## Development Commands
 
-```bash
+### PowerShell-First Rule (CRITICAL)
+
+**Always use PowerShell commands and `.ps1` scripts.** The primary development environment is Windows 11 with PowerShell. When creating scripts, deployment tools, or providing CLI commands:
+
+1. **Create `.ps1` scripts** — not `.sh` bash scripts (bash is secondary for DGX Spark / Linux)
+2. **Use PowerShell syntax** in examples and documentation (e.g. `.\script.ps1`, not `./script.sh`)
+3. **DGX Spark deploy:** `.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1` (not `deploy.sh`)
+4. If a bash script exists, always provide a PowerShell equivalent alongside it
+5. Exception: scripts that run ON the DGX Spark (Linux) can be bash
+
+```powershell
 # Backend
 npm run dev       # Express backend with hot reload
 npm run build     # Build TypeScript
 npm run test      # Vitest
 npm run lint      # ESLint
 
-# Dashboard (dws6.com/dashboard/firehorse/v9-react/)
+# Dashboard (dws6.com\dashboard\firehorse\v9-react\)
 npm run dev       # Vite dev server
 npm run build     # Production build
+
+# DGX Spark (primary runtime)
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1              # Full deploy
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Status      # Check status
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Models      # Pull Ollama models
+.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -SshConfig   # SSH config for Cursor
 
 # Docker
 docker-compose -f docker-compose.hybrid.yml up -d
