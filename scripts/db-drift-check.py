@@ -27,8 +27,8 @@ Environment:
     REDIS_PORT             - Redis port (default: 6380)
 
 Author: DWS IQ Team
-Version: 2.0
-Date: 2026-02-10
+Version: 2.1
+Date: 2026-03-29
 """
 
 import argparse
@@ -153,7 +153,8 @@ def get_migration_tables() -> dict[str, list[str]]:
 
     for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
         content = f.read_text(encoding="utf-8", errors="replace")
-        # Match CREATE TABLE statements
+        # Strip single-line SQL comments to avoid false positives (e.g. "if")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
         for match in re.finditer(
             r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:public\.)?(\w+)",
             content,
@@ -163,6 +164,28 @@ def get_migration_tables() -> dict[str, list[str]]:
             tables.setdefault(table_name, []).append(f.name)
 
     return tables
+
+
+def get_migration_views() -> dict[str, list[str]]:
+    """Parse CREATE VIEW statements from migration files.
+    Returns {view_name: [migration_files_that_reference_it]}."""
+    views: dict[str, list[str]] = {}
+
+    if not MIGRATIONS_DIR.exists():
+        return views
+
+    for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        content = f.read_text(encoding="utf-8", errors="replace")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
+        for match in re.finditer(
+            r"CREATE\s+(?:OR\s+REPLACE\s+)?VIEW\s+(?:public\.)?(\w+)",
+            content,
+            re.IGNORECASE,
+        ):
+            view_name = match.group(1).lower()
+            views.setdefault(view_name, []).append(f.name)
+
+    return views
 
 
 def get_migration_files() -> list[dict]:
@@ -206,8 +229,10 @@ def run_plan(dry_run: bool = False):
     # 1. Parse migration files
     migration_files = get_migration_files()
     migration_tables = get_migration_tables()
+    migration_views = get_migration_views()
     print(f"[INFO] Found {len(migration_files)} migration files")
     print(f"[INFO] Found {len(migration_tables)} tables defined in migrations")
+    print(f"[INFO] Found {len(migration_views)} views defined in migrations")
 
     # 2. Check migration file safety
     unsafe_migrations = []
@@ -226,6 +251,7 @@ def run_plan(dry_run: bool = False):
     )
     for f in sorted(MIGRATIONS_DIR.glob("*.sql")):
         content = f.read_text(encoding="utf-8", errors="replace")
+        content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
         for match in rls_pattern.finditer(content):
             table_name = match.group(1)
             if table_name:
@@ -246,9 +272,11 @@ def run_plan(dry_run: bool = False):
 
     if live_tables:
         repo_tables = set(migration_tables.keys())
+        # Combine tables + views so views don't appear as "unmigrated tables"
+        repo_objects = repo_tables | set(migration_views.keys())
 
-        # Tables in DB but not in repo migrations
-        unmigrated = live_tables - repo_tables
+        # Tables/views in DB but not in repo migrations
+        unmigrated = live_tables - repo_objects
         # Tables in repo but not in DB
         unapplied = repo_tables - live_tables
 
