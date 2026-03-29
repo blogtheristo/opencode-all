@@ -75,7 +75,7 @@ async function runChecks(): Promise<void> {
 setInterval(runChecks, 30_000);
 runChecks();
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const cors = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET',
@@ -118,6 +118,39 @@ const server = http.createServer((req, res) => {
       failover: 'GitHub Actions (checks /health every 5min)',
       timestamp: new Date().toISOString(),
     }));
+    return;
+  }
+
+  // GET /api/models/approve?token=dws-model-YYYYMMDD — HIL approves model pull
+  if (req.url?.startsWith('/api/models/approve')) {
+    const url = new URL(req.url, `http://localhost:${PORT}`);
+    const token = url.searchParams.get('token');
+    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const expectedToken = `dws-model-${today}`;
+
+    if (token !== expectedToken) {
+      res.writeHead(403, { ...cors, 'Content-Type': 'text/html' });
+      res.end('<h1>Token expired</h1><p>Model approval tokens are valid for one day only. Check tomorrow\'s email.</p>');
+      return;
+    }
+
+    // Write approval state for the daily model check script to pick up
+    const fs = await import('fs');
+    const approveState = JSON.stringify({
+      approved: true,
+      date: new Date().toISOString().slice(0, 10),
+      approvedAt: new Date().toISOString(),
+    });
+    fs.writeFileSync('/home/admin100/dws6/logs/model-approve-state.json', approveState);
+
+    res.writeHead(200, { ...cors, 'Content-Type': 'text/html' });
+    res.end(`
+      <h1>Approved</h1>
+      <p>Model update approved at ${new Date().toISOString()}.</p>
+      <p>DGX Spark will pull missing models on the next day-runner cycle (within 5 minutes).</p>
+      <p><a href="/status">View system status</a></p>
+    `);
+    console.log(`[HEARTBEAT] Model update APPROVED by HIL at ${new Date().toISOString()}`);
     return;
   }
 
