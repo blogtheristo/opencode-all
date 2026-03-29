@@ -19,6 +19,14 @@ const PORT = Number(process.env.PORT || 9999);
 const CHECK_BACKEND = process.env.CHECK_BACKEND || 'http://dws-backend:8080/health';
 const CHECK_CRON = process.env.CHECK_CRON || 'http://dws-cron:8081/health';
 const CHECK_OLLAMA = process.env.CHECK_OLLAMA || 'http://host.docker.internal:11434/api/tags';
+const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
+
+// LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
+function isLanClient(req: http.IncomingMessage): boolean {
+  const ip = req.socket.remoteAddress || '';
+  return /^(::ffff:)?(192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.|127\.)/.test(ip)
+    || ip === '::1' || ip === '::ffff:127.0.0.1';
+}
 
 interface ServiceStatus {
   name: string;
@@ -76,33 +84,41 @@ setInterval(runChecks, 30_000);
 runChecks();
 
 const server = http.createServer(async (req, res) => {
-  const cors = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-  };
+  // Public endpoints (/ping, /health) — no CORS restriction, minimal info
+  // Private endpoints (/status, /api/*) — LAN-only OR token-gated
 
-  // GET /ping — minimal
+  // GET /ping — minimal latency check (public, safe)
   if (req.url === '/ping') {
-    res.writeHead(200, { ...cors, 'Content-Type': 'text/plain' });
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('pong');
     return;
   }
 
-  // GET /health — simple alive check for GitHub Actions failover
+  // GET /health — simple alive check for GitHub Actions failover (public, safe)
   if (req.url === '/health') {
     const code = systemStatus === 'down' ? 503 : 200;
-    res.writeHead(code, { ...cors, 'Content-Type': 'application/json' });
+    res.writeHead(code, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: systemStatus,
-      host: 'dgx-spark',
       timestamp: new Date().toISOString(),
     }));
     return;
   }
 
-  // GET / — full dashboard status (for Cursor / CC Mobile)
-  if (req.url === '/' || req.url === '/status') {
-    res.writeHead(200, { ...cors, 'Content-Type': 'application/json' });
+  // --- Private endpoints below: LAN-only or token-gated ---
+  const lan = isLanClient(req);
+  const url = new URL(req.url || '/', `http://localhost:${PORT}`);
+  const hasToken = STATUS_TOKEN && url.searchParams.get('token') === STATUS_TOKEN;
+
+  if (!lan && !hasToken) {
+    res.writeHead(403, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'forbidden', hint: 'LAN-only or ?token= required' }));
+    return;
+  }
+
+  // GET / or /status — full dashboard (LAN or token-gated)
+  if (req.url === '/' || url.pathname === '/status') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       host: 'dgx-spark',
       hardware: 'Acer Veriton GN100 — NVIDIA Grace Blackwell GB10 — 128GB',
@@ -122,14 +138,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   // GET /api/models/approve?token=dws-model-YYYYMMDD — HIL approves model pull
-  if (req.url?.startsWith('/api/models/approve')) {
-    const url = new URL(req.url, `http://localhost:${PORT}`);
-    const token = url.searchParams.get('token');
+  if (url.pathname === '/api/models/approve') {
+    const modelToken = url.searchParams.get('token');
     const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const expectedToken = `dws-model-${today}`;
 
-    if (token !== expectedToken) {
-      res.writeHead(403, { ...cors, 'Content-Type': 'text/html' });
+    if (modelToken !== expectedToken) {
+      res.writeHead(403, { 'Content-Type': 'text/html' });
       res.end('<h1>Token expired</h1><p>Model approval tokens are valid for one day only. Check tomorrow\'s email.</p>');
       return;
     }
@@ -143,12 +158,12 @@ const server = http.createServer(async (req, res) => {
     });
     fs.writeFileSync('/home/admin100/dws6/logs/model-approve-state.json', approveState);
 
-    res.writeHead(200, { ...cors, 'Content-Type': 'text/html' });
+    res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(`
       <h1>Approved</h1>
       <p>Model update approved at ${new Date().toISOString()}.</p>
       <p>DGX Spark will pull missing models on the next day-runner cycle (within 5 minutes).</p>
-      <p><a href="/status">View system status</a></p>
+      <p><a href="/">View system status</a></p>
     `);
     console.log(`[HEARTBEAT] Model update APPROVED by HIL at ${new Date().toISOString()}`);
     return;
