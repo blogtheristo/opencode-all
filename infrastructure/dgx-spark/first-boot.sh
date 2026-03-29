@@ -67,10 +67,35 @@ npm ci --omit=dev
 # ---------------------------------------------------------------------------
 # 3. Ollama models
 # ---------------------------------------------------------------------------
+# Required models for DWS agents
+REQUIRED_MODELS=("llama3.3:70b" "qwen2.5-coder:32b")
+
+# Models that waste disk — remove if found
+UNUSED_MODELS=("gemma3:1b" "qwen:32b" "qwen2.5-coder:latest")
+
 if command -v ollama &>/dev/null; then
-  log "Pulling Ollama models..."
-  ollama pull llama3.3:70b || warn "llama3.3:70b pull failed — retry later"
-  ollama pull qwen2.5-coder:32b || warn "qwen2.5-coder:32b pull failed — retry later"
+  INSTALLED=$(ollama list 2>/dev/null | tail -n +2 | awk '{print $1}')
+  log "Installed models: ${INSTALLED:-none}"
+
+  # Remove unused models
+  for model in "${UNUSED_MODELS[@]}"; do
+    if echo "$INSTALLED" | grep -q "^${model}$"; then
+      log "Removing unused model: $model"
+      ollama rm "$model" || warn "Failed to remove $model"
+    fi
+  done
+
+  # Pull only missing required models
+  for model in "${REQUIRED_MODELS[@]}"; do
+    if echo "$INSTALLED" | grep -q "^${model}$"; then
+      log "Model already installed: $model — skipping"
+    else
+      log "Pulling required model: $model"
+      ollama pull "$model" || warn "$model pull failed — retry later"
+    fi
+  done
+
+  log "Final model inventory:"
   ollama list
 else
   warn "Ollama not installed — install from https://ollama.com then re-run"
