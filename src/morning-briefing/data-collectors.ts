@@ -1044,6 +1044,9 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectHilTodos(),
   ]);
 
+  // Heartbeat upsert — prevents Supabase from pausing due to inactivity
+  await supabaseUpsertHeartbeat();
+
   return {
     date,
     dateFormatted,
@@ -1061,4 +1064,30 @@ export async function collectCockpitData(): Promise<CockpitData> {
     learnArtifacts,
     hilTodos,
   };
+}
+
+async function supabaseUpsertHeartbeat(): Promise<void> {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return;
+
+  try {
+    await fetch(`${url}/rest/v1/system_heartbeat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        Prefer: 'resolution=merge-duplicates',
+      },
+      body: JSON.stringify({
+        id: 'dws6',
+        last_beat: new Date().toISOString(),
+        source: 'morning-briefing',
+        version: process.env.npm_package_version || 'unknown',
+      }),
+    });
+  } catch (err) {
+    logger.warn('Heartbeat upsert failed', { error: err instanceof Error ? err.message : 'unknown' });
+  }
 }
