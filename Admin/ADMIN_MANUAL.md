@@ -3,9 +3,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
+  - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Updated Section 29 — DGX Spark fully deployed: 4 Docker containers healthy, Cloudflare Tunnel (heartbeat.dws6.com) as systemd service, §29.11 Cloudflare Tunnel setup, §29.12 Docker container reference, §29.9 secrets updated with live values, deployment verification checklist
   - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Added Section 29 (DGX Spark Primary 24/7 Runtime) — full admin documentation for DGX Spark setup, SSH access, day-runner, script auto-discovery, failover, troubleshooting
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 28 (Carbon Balance Sheet & Compliance Ledger) — debit-credit architecture, open source connectors, DWS 7 Phase 2.6 plan; updated Section 11 Multi-Agent Orchestration with memory service (PR-871), memory decay (PR-876-878), ContentMS (PR-873); updated Section 10 Backup with Supabase automated scripts (PR-882); updated 16→20 industries throughout; added Firehorse ContentMS, company-to-ERP resolver, EC3 Material Database to capabilities; PR gap analysis from 50 latest PRs
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 22.03.2026 | Changes: Version bump (2.7 already applied externally), skills guide finalized
@@ -3287,7 +3288,7 @@ Manage at: https://github.com/blogtheristo/dws6/settings/secrets/actions
 | `DGX_SPARK_SSH_KEY` | Private SSH key for auto-deploy to DGX Spark | `ssh-keygen -t ed25519` on DGX Spark, paste private key |
 | `DGX_SPARK_HOST` | DGX Spark IP address (192.168.101.113) | Update if IP changes |
 | `DGX_SPARK_KNOWN_HOSTS` | Pinned SSH host key (prevents MITM) | `ssh-keyscan -t ed25519 192.168.101.113` on trusted network |
-| `DGX_SPARK_HEARTBEAT_URL` | Public URL of heartbeat service for failover | Set when Cloudflare Tunnel or ngrok is configured |
+| `DGX_SPARK_HEARTBEAT_URL` | `https://heartbeat.dws6.com/health` — failover check | Reconfigure if tunnel changes |
 | `SUPABASE_URL` | Supabase project URL | Supabase dashboard → Settings → API |
 | `SUPABASE_SERVICE_KEY` | Supabase service role key | Supabase dashboard → Settings → API |
 | `GROQ_API_KEY` | Groq API for LLM fallback | https://console.groq.com/keys |
@@ -3309,7 +3310,107 @@ Manage at: https://github.com/blogtheristo/dws6/settings/secrets/actions
 
 **API token rotation:** https://dash.cloudflare.com/profile/api-tokens → find token → Roll → copy new value → update GitHub secret.
 
-### 29.10 Related Files
+### 29.10 Cloudflare Tunnel (heartbeat.dws6.com)
+
+The heartbeat service is exposed to the internet via a Cloudflare Tunnel so GitHub Actions can check DGX Spark health for failover decisions.
+
+**Tunnel details:**
+| Field | Value |
+|-------|-------|
+| Tunnel name | `dgx-heartbeat` |
+| Tunnel ID | `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` |
+| Public URL | `https://heartbeat.dws6.com/health` |
+| Local target | `http://localhost:9999` |
+| Systemd service | `cloudflared.service` (auto-starts on boot) |
+| Config file | `/etc/cloudflared/config.yml` |
+| Credentials | `/etc/cloudflared/b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b.json` |
+| User config (backup) | `~/.cloudflared/config.yml` |
+
+**Config file contents (`/etc/cloudflared/config.yml`):**
+```yaml
+tunnel: dgx-heartbeat
+credentials-file: /home/admin100/.cloudflared/b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b.json
+
+ingress:
+  - hostname: heartbeat.dws6.com
+    service: http://localhost:9999
+  - service: http_status:404
+```
+
+**Troubleshooting tunnel:**
+| Problem | Fix |
+|---------|-----|
+| 502 error | Heartbeat container not running: `docker compose up -d heartbeat` |
+| 1033 error | Tunnel not running: `sudo systemctl restart cloudflared` |
+| Tunnel config missing | `sudo cp ~/.cloudflared/config.yml /etc/cloudflared/` |
+| Check tunnel status | `cloudflared tunnel info dgx-heartbeat` |
+| Check systemd status | `sudo systemctl status cloudflared` |
+| View tunnel logs | `sudo journalctl -u cloudflared -f` |
+
+**Security:** Only `/ping` and `/health` are public (minimal info). `/status` and `/api/*` require LAN IP or `HEARTBEAT_STATUS_TOKEN`. The heartbeat never leaks hostname or internal IPs.
+
+### 29.11 Docker Containers
+
+All services run via Docker Compose from `~/dws6/infrastructure/dgx-spark/`.
+
+| Container | Image | Port | Health check | Purpose |
+|-----------|-------|------|-------------|---------|
+| `dws-redis` | `redis:7-alpine` | 6379 | `redis-cli ping` | Cache, queue |
+| `dws-backend` | `dgx-spark-dws-backend` | 8080 | `curl localhost:8080/api/health` | Express API server |
+| `dws-cron` | `dgx-spark-dws-cron` | 8081 (internal) | `curl localhost:8081/health` | 17 cron jobs |
+| `dws-heartbeat` | `dgx-spark-heartbeat` | 9999 | `curl localhost:9999/health` | Health aggregator for failover |
+
+**Common commands:**
+```bash
+# Status
+cd ~/dws6/infrastructure/dgx-spark && docker compose ps
+
+# Restart all
+docker compose down && docker compose up -d
+
+# Rebuild single container (e.g. after code fix)
+docker compose build --no-cache dws-backend && docker compose up -d --no-deps dws-backend
+
+# View logs
+docker logs dws-backend --tail 50
+docker logs dws-cron --tail 50
+docker logs dws-heartbeat --tail 50
+
+# Full rebuild from scratch
+docker compose down && docker compose build --no-cache && docker compose up -d
+```
+
+**Build context:** Dockerfiles use `context: ../../` (repo root) for backend/cron, and `context: ./` for heartbeat/redis.
+
+**Important:** After code fixes, always `git pull` on DGX Spark before rebuilding. The Docker build uses the local filesystem, not the Docker cache.
+
+### 29.12 Deployment Verification Checklist
+
+After any deployment or reboot, verify:
+
+```bash
+# 1. All containers healthy
+docker compose ps
+
+# 2. Backend responding
+curl http://localhost:8080/api/health
+
+# 3. Heartbeat responding
+curl http://localhost:9999/health
+
+# 4. Cloudflare Tunnel connected
+curl https://heartbeat.dws6.com/health
+
+# 5. Ollama running
+curl http://localhost:11434/api/tags | python3 -m json.tool
+
+# 6. Cloudflared service active
+sudo systemctl status cloudflared
+```
+
+All 6 checks should pass. If heartbeat returns healthy but Cloudflare returns 502/1033, restart the tunnel: `sudo systemctl restart cloudflared`.
+
+### 29.13 Related Files
 
 | File | Purpose |
 |------|---------|
