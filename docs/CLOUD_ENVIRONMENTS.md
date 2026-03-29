@@ -77,6 +77,7 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 #### DWS 6 Cloud US (Public)
 - **Account:** dws6.com (Cloudflare account)
+- **Login:** Google SSO via `risto.paarni2024@lifetime.fi`
 - **Scope:** Public-facing websites, store, landing pages, CDN
 - **Services managed:**
   - Cloudflare Pages — dws6.com, dws10.com, onelifetime.world
