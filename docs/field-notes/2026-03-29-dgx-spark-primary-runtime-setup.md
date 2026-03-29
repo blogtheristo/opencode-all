@@ -152,9 +152,9 @@ ssh -L 11435:localhost:11434 \
 
 | DGX Spark Status | GitHub Actions Behavior |
 |-----------------|------------------------|
-| **Healthy** | Skips scheduled runs (exit 0) |
-| **Degraded** | Runs scheduled jobs (partial services down) |
-| **Down** | Runs all scheduled jobs (full takeover) |
+| **Healthy** (200) | Skips scheduled runs (exit 0) |
+| **Degraded** (200) | Skips scheduled runs — DGX Spark still alive, avoids duplicate jobs |
+| **Down** (503) | Runs all scheduled jobs (full takeover) |
 | **No heartbeat URL** | Runs as primary (backwards compatible) |
 
 **Secret required:** Add `DGX_SPARK_HEARTBEAT_URL` to GitHub repository secrets. This should be the public URL of the heartbeat service (via Cloudflare Tunnel, ngrok, or public IP).

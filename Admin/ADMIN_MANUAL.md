@@ -3253,9 +3253,9 @@ State tracked in `logs/day-runner-state.json` to prevent double-runs.
 
 | DGX Spark Status | GitHub Actions |
 |-----------------|----------------|
-| Healthy | Skips scheduled runs (exit 0) |
-| Degraded | Runs jobs (partial services down) |
-| Down / Unreachable | Runs all jobs (full takeover) |
+| Healthy (200) | Skips scheduled runs (exit 0) |
+| Degraded (200) | Skips scheduled runs — DGX still alive, avoids duplicate jobs |
+| Down (503) / Unreachable | Runs all jobs (full takeover) |
 | No heartbeat URL configured | Runs as primary (backwards compatible) |
 
 **GitHub secret required:** `DGX_SPARK_HEARTBEAT_URL` — public URL of heartbeat service (via Cloudflare Tunnel or ngrok). Without this secret, GitHub Actions runs as primary.
