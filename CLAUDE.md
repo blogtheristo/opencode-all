@@ -211,6 +211,25 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 
 **Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
 
+### Git Branch Awareness Rule (CRITICAL)
+
+**Before telling the user to run ANY file or command, verify which branch contains that file.**
+
+| Situation | Correct instruction |
+|-----------|-------------------|
+| File is on a feature branch, PR not merged | `git fetch origin <branch> && git checkout <branch>` THEN run |
+| File is on main, user is on main | `git pull origin main` THEN run |
+| File is on main, user is on feature branch | Merge main first or cherry-pick |
+| File was just created in this session | Tell user which branch has it and how to get there |
+
+**Forbidden:** Telling the user to run a file without confirming it exists on their current branch. `git pull origin main` does NOT give you files from unmerged PRs.
+
+**Checklist before giving run instructions:**
+1. Which branch is the file on?
+2. Is the PR merged?
+3. Which branch is the user currently on?
+4. Do they need to checkout/fetch first?
+
 ### Failure Modes to Avoid
 
 1. Making wrong assumptions without checking
@@ -228,6 +247,7 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 13. Not using DWS document standard
 14. Deleting files without explicit approval
 15. Using new environment without verifying .gitignore and .env
+16. Telling user to run files that don't exist on their current branch
 
 ## Lifetime Oy Legal Identity Rule (CRITICAL)
 

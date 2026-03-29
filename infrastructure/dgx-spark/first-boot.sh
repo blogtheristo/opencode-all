@@ -42,7 +42,11 @@ if [ ! -d "$REPO_DIR/.git" ]; then
   git clone "$REPO_URL" "$REPO_DIR"
 else
   log "Repo exists at $REPO_DIR"
-  cd "$REPO_DIR" && git pull origin main
+  cd "$REPO_DIR"
+  CURRENT_BRANCH=$(git branch --show-current 2>/dev/null || echo "unknown")
+  log "Current branch: $CURRENT_BRANCH"
+  git fetch origin "$CURRENT_BRANCH" --quiet 2>/dev/null || true
+  git pull --ff-only 2>/dev/null || log "Pull skipped (divergent branches — run manually if needed)"
 fi
 
 cd "$REPO_DIR"
