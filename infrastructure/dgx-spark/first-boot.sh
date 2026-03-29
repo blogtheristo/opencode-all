@@ -22,7 +22,7 @@
 set -euo pipefail
 
 REPO_DIR="/home/admin100/dws6"
-REPO_URL="git@github.com:blogtheristo/dws6.git"
+REPO_URL_SSH="git@github.com:blogtheristo/dws6.git"
 INFRA_DIR="${REPO_DIR}/infrastructure/dgx-spark"
 
 G='\033[0;32m'
@@ -34,11 +34,41 @@ warn() { echo -e "${Y}[BOOT]${N} $*"; }
 err()  { echo -e "${R}[BOOT]${N} $*"; }
 
 # ---------------------------------------------------------------------------
-# 1. Clone repo if not present
+# 1. SSH key — generate BEFORE cloning (needed for private repo)
+# ---------------------------------------------------------------------------
+mkdir -p ~/.ssh
+if [ ! -f ~/.ssh/id_ed25519 ]; then
+  log "Generating SSH deploy key..."
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -C "dgx-spark-deploy"
+  echo ""
+  warn "=== ACTION REQUIRED ==="
+  warn "Add this PUBLIC key as a GitHub deploy key (read-only):"
+  warn "  Repo → Settings → Deploy keys → Add deploy key"
+  echo ""
+  cat ~/.ssh/id_ed25519.pub
+  echo ""
+  warn "Add the PRIVATE key as GitHub secret DGX_SPARK_SSH_KEY"
+  warn "Then re-run this script."
+  warn "=== ACTION REQUIRED ==="
+  echo ""
+  # Can't clone without the deploy key — exit early
+  if [ ! -d "$REPO_DIR/.git" ]; then
+    err "Cannot clone private repo without deploy key. Add key to GitHub, then re-run."
+    exit 1
+  fi
+else
+  log "SSH key exists"
+fi
+
+# Ensure GitHub host key is known (prevents interactive prompt)
+ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null || true
+
+# ---------------------------------------------------------------------------
+# 2. Clone repo if not present
 # ---------------------------------------------------------------------------
 if [ ! -d "$REPO_DIR/.git" ]; then
-  log "Cloning dws6 repo..."
-  git clone "$REPO_URL" "$REPO_DIR"
+  log "Cloning dws6 repo (SSH)..."
+  git clone "$REPO_URL_SSH" "$REPO_DIR"
 else
   log "Repo exists at $REPO_DIR"
   cd "$REPO_DIR"
@@ -51,7 +81,7 @@ fi
 cd "$REPO_DIR"
 
 # ---------------------------------------------------------------------------
-# 2. Node.js 22 (if not present)
+# 3. Node.js 22 (if not present)
 # ---------------------------------------------------------------------------
 if ! command -v node &>/dev/null || [[ "$(node -v)" != v22* ]]; then
   log "Installing Node.js 22..."
@@ -188,18 +218,7 @@ sudo systemctl enable dws-docker.service
 sudo systemctl start dws-day-runner.timer
 sudo systemctl start dws-docker.service
 
-# ---------------------------------------------------------------------------
-# 6. Generate SSH key for GitHub Actions (if not exists)
-# ---------------------------------------------------------------------------
-if [ ! -f ~/.ssh/id_ed25519 ]; then
-  log "Generating SSH key for GitHub Actions deploy..."
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -C "dgx-spark-deploy"
-  warn "Add this PUBLIC key to GitHub repo deploy keys:"
-  cat ~/.ssh/id_ed25519.pub
-  warn "Add the PRIVATE key as GitHub secret DGX_SPARK_SSH_KEY"
-else
-  log "SSH key already exists"
-fi
+# (SSH key generated in step 1, before clone)
 
 # ---------------------------------------------------------------------------
 # Done
