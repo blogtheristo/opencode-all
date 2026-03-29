@@ -82,8 +82,8 @@ services:
       LLM_FALLBACK: groq
       OLLAMA_MODEL: llama3.3:70b
       DWS_BACKEND_URL: http://dws-backend:8080
-      # Heartbeat — cron reports alive to backend
-      HEARTBEAT_URL: http://dws-backend:8080/api/heartbeat
+      # Heartbeat detection handled by the heartbeat container (:9999)
+      # No HEARTBEAT_URL — cron-runner skips the periodic POST
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
