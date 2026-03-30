@@ -199,17 +199,27 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 2. **No tables** — tables break on mobile paste and require reformatting
 3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
 4. **No split windows** — everything in ONE block, not multiple blocks
-5. **Add a `--- COPY ABOVE ---` marker** after the block so the user knows where content ends
+5. **No START COPY / END COPY markers** — just the content, nothing else
+6. **No angle brackets, backticks, or markdown around URLs** — plain text URLs only
 
-```
---- START COPY ---
-[All content here as plain text]
-[Use dashes for bullets, not markdown]
-[No tables, no bold, no headers inside]
---- END COPY ---
-```
+**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean. Markers like `--- START COPY ---` get pasted into the final output and look unprofessional.
 
-**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean.
+### Social Media Output Rule (CRITICAL)
+
+When writing tweets, LinkedIn posts, or any social media copy:
+
+1. **Never wrap content in START COPY / END COPY markers** — just output the text
+2. **Never wrap URLs in angle brackets `<>`, backticks, square brackets, or markdown** — plain text only
+3. **Never add code fences around the post** — output it as normal text
+4. **URLs MUST include the protocol** (`https://`) — bare domains like `dws10.com/page` get auto-wrapped in `<>` by renderers. Always write `https://dws10.com/page`
+5. **The characters `<` and `>` are BANNED from all output** — they corrupt copy-paste on every platform
+
+WRONG: `dws10.com/products/aegis.html` (renderer adds `<>`)
+WRONG: `<https://dws10.com>` (angle brackets)
+WRONG: `[link](https://dws10.com)` (markdown)
+RIGHT: https://dws10.com/products/aegis.html
+
+**This applies to ALL output containing URLs, not just social media.** No exceptions.
 
 ### Ollama Model Rule (CRITICAL)
 
