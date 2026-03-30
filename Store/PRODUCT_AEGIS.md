@@ -20,11 +20,11 @@ mpn: "DWS-AEGIS-2026"
 
 ## Product Overview
 
-DWS IQ Aegis is a standalone dual-use AI platform covering all 20 EU-regulated industries for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
+DWS IQ Aegis is a standalone dual-use AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
 
 Named after Athena's shield — Aegis provides protection through intelligence, not just walls.
 
-**Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 20 industries. Aegis does.
+**Why Aegis exists:** Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.
 
 ## Agents Included
 
@@ -35,6 +35,9 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 | Article12Logger | EU AI Act audit trails for all AI decisions | Regulatory compliance |
 | KYA Engine | Know Your Agent — identity verification, isolation, kill authority | Agent governance |
 | ComplianceAgent | Dual-use export control + EU climate compliance | Regulatory |
+| CrossVerticalIntel | Supply chain signal propagation across 21 industries | Intelligence |
+| GaiaAgent | Cement, lime & earth materials — dual-use critical raw material risk | Industry |
+| VulcanAgent | Steel & metals — ETS Phase 4, CBAM carbon declarations | Industry |
 | SiteSenseAgent | Defence construction site safety & logistics | Field operations |
 
 ## Core Capabilities
@@ -72,7 +75,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - **Secondary:** Military industry enterprises (defence contractors, shipyards, aerospace)
 - **Tertiary:** Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)
 - **Geography:** EU only — platform available exclusively on European cloud or enterprise private cloud
-- **Industries:** All 20 EU-regulated industries under dual-use scope
+- **Industries:** All 21 EU-regulated industries under dual-use scope (including lime/critical raw materials)
 
 ### DEFINE / Defence Tech Hub Alignment
 
@@ -121,7 +124,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **GPU:** NVIDIA L40S nodes available for local LLM inference
 - **SLA:** 99.999% (UpCloud infrastructure)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
-- **Compliance:** EU AI Act Article 12, NIS2, GDPR, dual-use export control (Reg. 2021/821)
+- **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
 - **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
 - **Certifications roadmap:** ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
 - **Availability:** August 2026
@@ -130,7 +133,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 | Tier | Price | Included |
 |------|-------|----------|
-| **Aegis Platform** | €59,990 one-time + €999/mo | 18+ agents, 20 industries, dedicated K8s cluster, Article 12 logging, KYA governance |
+| **Aegis Platform** | €59,990 one-time + €999/mo | 21+ agents, 21 industries, cross-vertical intelligence, dedicated K8s cluster, Article 12 logging, KYA governance |
 | **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment |
 | **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
 

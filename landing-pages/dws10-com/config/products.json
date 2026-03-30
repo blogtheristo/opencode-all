@@ -1148,11 +1148,11 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18+ industrial AI agents for all 20 EU-regulated industries. Dedicated cluster per customer. Sovereignty monitoring, orbital intelligence (ICEYE SAR), KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 21+ industrial AI agents across 21 EU-regulated industries including dual-use critical raw materials. Cross-vertical signal propagation detects compliance cascades invisible to single-industry tools. Sovereignty monitoring, KYA agent governance, EU AI Act Article 12 compliance. CER Directive, CRM Act, KRITIS, NIS2 coverage. Zero CLOUD Act exposure. Available August 2026.",
       "features": [
-        "Single-tenant — dedicated K8s cluster per customer on UpCloud Helsinki DC",
+        "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
         "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
-        "KYA agent governance — identity, isolation, kill authority"
+        "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
       ],
       "priceNote": "€59,990 one-time platform deployment + €999/mo subscription",
       "revolutLink": null,
