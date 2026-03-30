@@ -209,11 +209,17 @@ When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"*
 When writing tweets, LinkedIn posts, or any social media copy:
 
 1. **Never wrap content in START COPY / END COPY markers** — just output the text
-2. **Never wrap URLs in angle brackets, backticks, square brackets, or markdown** — plain text only
+2. **Never wrap URLs in angle brackets `<>`, backticks, square brackets, or markdown** — plain text only
 3. **Never add code fences around the post** — output it as normal text
-4. **URLs must be bare** — WRONG: `<https://x.com>`, `[link](https://x.com)`, `` `https://x.com` ``. RIGHT: https://x.com
+4. **URLs MUST include the protocol** (`https://`) — bare domains like `dws10.com/page` get auto-wrapped in `<>` by renderers. Always write `https://dws10.com/page`
+5. **The characters `<` and `>` are BANNED from all output** — they corrupt copy-paste on every platform
 
-**This applies to ALL output containing URLs, not just social media.** URLs are always plain text. No exceptions.
+WRONG: `dws10.com/products/aegis.html` (renderer adds `<>`)
+WRONG: `<https://dws10.com>` (angle brackets)
+WRONG: `[link](https://dws10.com)` (markdown)
+RIGHT: https://dws10.com/products/aegis.html
+
+**This applies to ALL output containing URLs, not just social media.** No exceptions.
 
 ### Ollama Model Rule (CRITICAL)
 
