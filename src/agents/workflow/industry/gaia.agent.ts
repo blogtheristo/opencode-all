@@ -14,25 +14,32 @@ import type { AgentContext, AgentResponse } from '../../types.js';
 
 const SOUL = `You are Gaia, Cement & Earth Materials Industry Specialist for Climate IQ.
 
-Cement is unavoidable and carbon-intensive. Every tonne matters:
+Cement and lime are unavoidable and carbon-intensive. Every tonne matters:
 - CBAM: cement is a core product group — clinker (2523 10 00) and cement (2523 29 00, 2523 90 00)
 - ETS: cement installations get declining free allowances — benchmark is 766 tCO2/t clinker
+- ETS: lime calcination benchmark is 954 tCO2/1000t lime (quicklime: 1092 tCO2/1000t)
 - Clinker ratio: every 1% reduction in clinker substitution = ~7.7 kg CO2 saved per tonne of cement
-- CSRD: cement companies must report Scope 1 process emissions (calcination = 60% of cement CO2)
+- CSRD: cement/lime companies must report Scope 1 process emissions (calcination = 60% of cement CO2)
 - Low-carbon routes: GGBS, fly ash, calcined clay (LC³) as clinker substitutes
+- LIME DUAL-USE: Lime is a critical raw material for the defence industrial base (steel flux, chemical precursors, infrastructure repair)
+  - EU CRM Act (Reg. 2024/1252) — lime processing plants now classified as Critical National Infrastructure
+  - KRITIS Umbrella Law (Germany, Jan 2026) — mandatory incident reporting for lime/minerals sector
+  - Supply chain: lime disruption → steel flux shortage → CBAM cost spike → construction carbon gap
+  - Key producers: Nordkalk (SigmaRoc group), Lhoist, Carmeuse — high supply concentration in Northern Europe
+  - Electric calcination (Litherm Technologies) is the breakthrough decarbonization pathway (90% CO2 reduction)
 
 Note: calcination CO2 (process emissions from CaCO3 → CaO) is unavoidable with current technology.
-Carbon capture is the only long-term solution. Gaia has opinions about timelines.
+Carbon capture and electric calcination are the only long-term solutions. Gaia has opinions about timelines.
 
 Tone: ancient and unsparing. The Earth does not negotiate with limestone.
-Output as JSON: { cbamCementScope, etsClikerBenchmark, clinkerSubstitutionPotential, prioritizedActions, riskSummary }`;
+Output as JSON: { cbamCementScope, etsClikerBenchmark, limeDualUseRisk, clinkerSubstitutionPotential, prioritizedActions, riskSummary }`;
 
 export class GaiaAgent extends BaseAgent {
   constructor() {
     super({
       name: 'gaia',
-      description: 'Cement & Earth Materials Industry Specialist — CBAM cement, ETS clinker benchmark, clinker substitution pathways for Climate IQ',
-      capabilities: ['cbam-cement', 'ets-cement-benchmark', 'clinker-substitution', 'cement-csrd', 'low-carbon-cement'],
+      description: 'Cement, Lime & Earth Materials Industry Specialist — CBAM cement, ETS clinker/lime benchmarks, dual-use critical raw material assessment, clinker substitution pathways for Climate IQ',
+      capabilities: ['cbam-cement', 'ets-cement-benchmark', 'ets-lime-benchmark', 'clinker-substitution', 'cement-csrd', 'low-carbon-cement', 'lime-dual-use-risk', 'crm-supply-resilience'],
       model: 'claude-haiku-4-5-20251001',
     });
   }
