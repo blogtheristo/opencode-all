@@ -859,8 +859,6 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)
 
 **Third-Party Validation:**
-- Crunchbase Growth Score: 91
-- Crunchbase Heat Score: 86
 
 **Partnerships:** NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 
