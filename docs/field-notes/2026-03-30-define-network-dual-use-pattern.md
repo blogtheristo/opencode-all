@@ -107,7 +107,7 @@ This is the **18 data sources × 21 industries × 1 ledger format** moat in acti
 
 1. **Demo scenario**: Use the Nordkalk pattern as the live demo for DEFINE Autumn 2026 batch
 2. **Defence Tech Hub**: Present at bi-monthly member lunch — "How a Finnish lime fire reveals NATO supply chain vulnerability"
-3. **Aegis positioning**: This pattern is native to DWS IQ Aegis (€4,999/mo) — defence-specific product
+3. **Aegis positioning**: This pattern is native to DWS IQ Aegis (€59,990 + €999/mo) — defence-specific product
 4. **ICEYE partnership**: Satellite monitoring of lime/mineral processing facilities as early-warning system
 
 ### Sources
