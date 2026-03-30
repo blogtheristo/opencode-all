@@ -24,7 +24,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - MRR: **€7K live run-rate**
 - Paying Customers: 5
 - Retention: 100% (zero churn)
-- Customer LTV: €70k–€120k annual value per logo
+- Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
@@ -271,7 +271,7 @@ Timeframe:                 ~2 years (2024→2026)
 ### Traction & Validation
 - **Current MRR:** €7K (March 2026) with 5 paying customers
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
-- **Customer LTV:** €70k–€120k annual value per logo
+- **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
 - **Platform Scale:** 18 agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
