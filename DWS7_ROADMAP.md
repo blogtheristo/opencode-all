@@ -1,10 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.3.0
+> **Version:** 1.4.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-03-24 — Added carbon balance sheet (Phase 2.6, PRs 093A–093H) as Series A fundable infrastructure; debit-credit ledger promoted from DWS 8 to DWS 7
+> **Updated:** 2026-03-30 — Added Aegis K8s AI Inference roadmap items (Phase 3.6, PRs 137A–137D) from KubeCon EU 2026 research; inference autoscaling, MIG GPU sharing, model versioning CRDs, edge-cloud inference split
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -70,7 +70,7 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 |-------|--------|-------|-----|-----------|
 | **1** | Feb–Apr 2026 | **Launch & Stabilize** | 45 | V1.0 production launch, first 3 paying customers |
 | **2** | May–Jul 2026 | **Compliance Engine + Carbon Balance Sheet** | 56 | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger |
-| **3** | Aug–Oct 2026 | **Scale & Harden** | 44 | 8 customers, ISO 27001 initiated, SOC 2 prep |
+| **3** | Aug–Oct 2026 | **Scale & Harden** | 48 | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra |
 | **4** | Nov 2026–Jan 2027 | **Intelligence Layer** | 40 | Agentic AI workflows, IoT pipeline live |
 | **5** | Feb–May 2027 | **Market Expansion** | 44 | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
 | **6** | Jun–Dec 2027 | **DWS7 Release** | 32 | V7.0 GA, investor metrics dashboard, profitability |
@@ -272,7 +272,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 3: Scale & Harden (Aug–Oct 2026) — 44 PRs
+## Phase 3: Scale & Harden (Aug–Oct 2026) — 48 PRs
 
 ### 3.1 Security Certifications (PRs 094–103)
 
@@ -342,6 +342,18 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 135 | ERP webhook receiver for real-time events | P2 | React to ERP changes instantly instead of polling |
 | 136 | ERP integration test suite | P0 | Mock-based tests for all 6 ERP connectors |
 | 137 | ERP connector SDK documentation | P2 | Guide for partners to build custom connectors |
+
+### 3.6 Aegis K8s AI Inference Infrastructure (PRs 137A–137D)
+
+> **Source:** KubeCon + CloudNativeCon Europe 2026 research (field note: `2026-03-30-kubecon-eu-2026-k8s-ai-inference.md`)
+> **Context:** 82% K8s AI adoption vs 7% daily production use. $255B inference market by 2030. 67% of AI compute is inference. These PRs close the adoption-production gap for Aegis defence/sovereign customers.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 137A | Aegis inference autoscaling (HPA + KEDA) | P0 | K8s Horizontal Pod Autoscaler policies for Aegis agents based on inference queue depth. KEDA scalers for GPU workload metrics. Ensures elastic scaling under variable inference load — defence customers have bursty workloads (crisis response, satellite pass windows). Target: scale 0→N agents in <30s. |
+| 137B | Multi-model GPU sharing via MIG | P1 | NVIDIA Multi-Instance GPU (MIG) configuration for L40S nodes on UpCloud UKS. Run multiple Aegis agents (ComplianceAgent, SovereigntyMonitor, ArgusAgent) on a single GPU with isolated VRAM partitions. Target: reduce per-customer GPU cost from €376/mo to <€200/mo. |
+| 137C | K8s-native model versioning CRDs | P1 | Custom Resource Definitions for model deployments on Aegis K8s clusters. Blue/green model updates for compliance agents without downtime. Model rollback in <60s. Critical for Article 12 audit continuity — every model version change must be logged with reasoning lineage. |
+| 137D | Edge-cloud inference split (Jetson + K8s) | P2 | Hybrid inference architecture combining Jetson Orin Nano edge inference with UpCloud K8s cloud inference. Model routing based on classification level, latency requirements, and data sovereignty constraints. Defence field operations need local inference for classified workloads + cloud inference for cross-vertical intelligence. |
 
 ---
 
