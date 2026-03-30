@@ -57,7 +57,7 @@ Yes, we are actively raising. I am attaching our investor memo below.
 
 Let me lead with something that happened today and shows exactly what we do. A fire broke out at a Nordkalk limestone facility in Finland this morning. Nordkalk is Northern Europe's leading limestone producer — part of the Sigmaroc group, EUR 400M revenue, operations across Finland, Sweden, Poland, and Spain.
 
-Why this matters for defence and resilience: lime is a classic dual-use material. Steel production depends on it as a flux agent — without civilian lime supply, the defence industrial base halts within weeks. Under the new German KRITIS law (January 2026), incidents like this now trigger mandatory security reporting. The EU Critical Raw Materials Act has granted 95 strategic projects the same security priority as military bases.
+Why this matters for defense and resilience: lime is a classic dual-use material. Steel production depends on it as a flux agent — without civilian lime supply, the defence industrial base halts within weeks. Under the new German KRITIS law (January 2026), incidents like this now trigger mandatory security reporting. The EU Critical Raw Materials Act has granted 95 strategic projects the same security priority as military bases.
 
 Our platform, DWS IQ 6, models this in real time. When our agents detect a lime facility disruption, the signal propagates automatically:
 
@@ -70,10 +70,12 @@ The numbers: EUR 7K MRR, 100% retention, 5 paying customers, EUR 650K SAFE at EU
 Full investor memo attached. Happy to jump on a 20-minute call to walk through the platform and the defence/resilience positioning in detail. What does your calendar look like this week or next?
 
 Best regards,
-Risto Anton Paarni
+Risto Anton Paarni (Päärni)
 Founder & CEO, Lifetime Oy
 +358 400 319 010
-risto@onelifetime.world
+risto@onelifetime.world (public)
+investor discussions (risto.paarni2024@lifetime.fi) GMeet
+our Jitsi meet is at https://dws10.com/meet
 https://dws10.com
 
 ## Attachments to Send
