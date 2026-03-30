@@ -1,14 +1,15 @@
 /**
- * Send 9 Final Draft investor outreach emails to risto@lifetime.fi
- * for review-and-forward workflow.
+ * Send 13 investor outreach emails — DIRECT when email known, self-send when not.
  *
  * Usage: npx tsx scripts/send-investor-batch-2026-03-30.ts
  *
+ * Fill in real email addresses below as you find them.
+ * null = self-send to risto@lifetime.fi for LinkedIn InMail.
+ *
  * Requires: SMTP_HOST, SMTP_USER, SMTP_PASS in .env
- * Sends TO: risto@lifetime.fi (self-send for review)
  * Sends FROM: risto@onelifetime.world
  *
- * Code-Version: 1.0
+ * Code-Version: 2.0
  * Introduced-In: PR-TBD
  * Branch: claude/investor-outreach-emails-2xLLf
  * Date: 2026-03-30
@@ -19,10 +20,11 @@ import 'dotenv/config';
 import { sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-const TO = 'risto@lifetime.fi';
+const SELF = 'risto@lifetime.fi';
 
 interface OutreachEmail {
   label: string;
+  to: string | null;  // null = self-send, fill in real address when known
   subject: string;
   body: string;
 }
@@ -30,7 +32,8 @@ interface OutreachEmail {
 const emails: OutreachEmail[] = [
   // ── 1. Giuseppe Lacerenza — Keen Venture Partners (WARM) ──────────
   {
-    label: '1/9 Giuseppe Lacerenza — Keen Venture Partners',
+    label: '1/13 Giuseppe Lacerenza — Keen Venture Partners',
+    to: null,  // TODO: find email
     subject: 'European carbon sovereignty infrastructure — dual-use angle',
     body: `Hi Giuseppe,
 
@@ -57,7 +60,8 @@ Business ID: 0772407-9 (Finland)`,
 
   // ── 2. Ferdinand Reynolds — SuperSeed Ventures ────────────────────
   {
-    label: '2/9 Ferdinand Reynolds — SuperSeed Ventures',
+    label: '2/13 Ferdinand Reynolds — SuperSeed Ventures',
+    to: null,  // TODO: find email
     subject: 'Supply chain carbon intelligence — warm intro',
     body: `Hi Ferdinand,
 
@@ -82,7 +86,8 @@ Business ID: 0772407-9 (Finland)`,
 
   // ── 3. Colin Brown — Sparkmind Capital ────────────────────────────
   {
-    label: '3/9 Colin Brown — Sparkmind Capital',
+    label: '3/13 Colin Brown — Sparkmind Capital',
+    to: null,  // TODO: find email
     subject: 'Carbon accounting as critical infrastructure — podcast angle?',
     body: `Hi Colin,
 
@@ -105,7 +110,8 @@ Business ID: 0772407-9 (Finland)`,
 
   // ── 4. Juho Vehviläinen — Coventures ─────────────────────────────
   {
-    label: '4/9 Juho Vehviläinen — Coventures',
+    label: '4/13 Juho Vehviläinen — Coventures',
+    to: null,  // TODO: find email
     subject: 'Carbon balance sheet infrastructure — coffee in Helsinki?',
     body: `Hi Juho,
 
@@ -134,7 +140,8 @@ Business ID: 0772407-9 (Finland)`,
 
   // ── 5. Markus Linder — Triple Impact Ventures ─────────────────────
   {
-    label: '5/9 Markus Linder — Triple Impact Ventures',
+    label: '5/13 Markus Linder — Triple Impact Ventures',
+    to: null,  // TODO: find email
     subject: 'Carbon balance sheet SaaS — planting a seed for when timing is right',
     body: `Hi Markus,
 
@@ -157,7 +164,8 @@ risto.paarni@lifetime.fi`,
 
   // ── 6. Philipp Rupprecht — Proximo Ventures (WARM) ────────────────
   {
-    label: '6/9 Philipp Rupprecht — Proximo Ventures',
+    label: '6/13 Philipp Rupprecht — Proximo Ventures',
+    to: null,  // TODO: find email
     subject: 'Intro — DWS IQ: Carbon Balance Sheet + EU Sovereign AI (Pre-seed, €650K SAFE)',
     body: `Hi Philipp,
 
@@ -179,7 +187,8 @@ risto.paarni@lifetime.fi`,
 
   // ── 7. Graeme Allen — Level Four Seven (WARM) ─────────────────────
   {
-    label: '7/9 Graeme Allen — Level Four Seven',
+    label: '7/13 Graeme Allen — Level Four Seven',
+    to: null,  // TODO: find email
     subject: 'Intro — DWS IQ: Carbon Balance Sheet Infrastructure (TRL 6-7, EU Deep Tech)',
     body: `Hi Graeme,
 
@@ -201,7 +210,8 @@ risto.paarni@lifetime.fi`,
 
   // ── 8. Steven Miller — Black Prism Capital Partners (WARM) ────────
   {
-    label: '8/9 Steven Miller — Black Prism Capital Partners',
+    label: '8/13 Steven Miller — Black Prism Capital Partners',
+    to: null,  // TODO: find email
     subject: 'Intro — Aegis: EU-Sovereign AI for Defense & Compliance (Dual-Use Deep Tech)',
     body: `Hi Steven,
 
@@ -219,9 +229,10 @@ CEO, Lifetime Oy
 risto.paarni@lifetime.fi`,
   },
 
-  // ── 9. Serge Koniski — Amundi Alpha Associates (COLD, pre-conference) ──
+  // ── 9. Serge Koniski — Amundi Alpha Associates (pre-conference) ───
   {
-    label: '9/9 Serge Koniski — Amundi Alpha Associates',
+    label: '9/13 Serge Koniski — Amundi Alpha Associates',
+    to: null,  // TODO: find email
     subject: 'Carbon compliance infrastructure for PE secondaries — PE Insights Zurich',
     body: `Hi Serge,
 
@@ -241,6 +252,102 @@ CEO, Lifetime Oy
 risto.paarni@lifetime.fi
 Business ID: 0772407-9 (Finland)`,
   },
+
+  // ── 10. Elena Laleh — Kline Hill Partners (pre-conference) ────────
+  {
+    label: '10/13 Elena Laleh — Kline Hill Partners',
+    to: null,  // TODO: find email
+    subject: 'Carbon compliance for GP-led portfolio companies — PE Insights Zurich',
+    body: `Hi Elena,
+
+Risto Päärni, CEO of Lifetime Oy (Helsinki). Your work on GP-led secondaries at Kline Hill, especially in the European mid-market, caught my attention.
+
+I'm building automated carbon compliance infrastructure for exactly the kind of portfolio companies KHP backs. Mid-market industrials face ETS, CBAM, and CSRD mandates but can't afford Big 4 consultants — we automate that at EUR 36K/year per company with 18 deterministic AI agents across 20 EU-regulated industries.
+
+The GP-led angle: when you're structuring a continuation vehicle around a single asset, carbon compliance readiness directly affects the LP pitch. Our carbon balance sheet gives auditable ESG data for LP reporting — not black-box ratings, but regulatory fact-based scores traceable to EUR-Lex source data.
+
+5 paying customers today (100% retention). Launching V1 at Arctic 15 in Helsinki on June 15.
+
+I see you're speaking at PE Insights Switzerland in June. Would be great to connect ahead of the event — or over coffee in Zurich if that's easier.
+
+Best,
+Risto Päärni
+CEO, Lifetime Oy
+risto.paarni@lifetime.fi
+Business ID: 0772407-9 (Finland)`,
+  },
+
+  // ── 11. Thomas Hallinger — Golding Capital Partners (pre-conference)
+  {
+    label: '11/13 Thomas Hallinger — Golding Capital Partners',
+    to: null,  // TODO: find email
+    subject: 'Carbon compliance scoring for PE secondaries — PE Insights Zurich',
+    body: `Hi Thomas,
+
+Risto Päärni, CEO of Lifetime Oy (Helsinki). I read your work on ESG due diligence for secondaries at Golding — it's exactly the problem we're solving with software.
+
+We build DWS IQ 6: automated carbon balance sheet infrastructure that scores ETS, CBAM, and CSRD compliance across 20 EU-regulated industries. 18 deterministic AI agents, auditable methodology, every score traces back to regulatory source data. No subjective ESG ratings.
+
+For Golding's secondaries portfolio: carbon compliance readiness is becoming a material factor in continuation fund valuations and LP reporting. Portfolio companies across DACH industrials face growing regulatory exposure — and the ones that can demonstrate automated, auditable compliance are worth more at exit.
+
+5 paying customers today (100% retention). Launching V1 at Arctic 15 in Helsinki on June 15.
+
+I see you're speaking at PE Insights Switzerland in June. Would be good to connect ahead of the event — happy to walk through how this works as a portfolio value-creation tool.
+
+Best,
+Risto Päärni
+CEO, Lifetime Oy
+risto.paarni@lifetime.fi
+Business ID: 0772407-9 (Finland)`,
+  },
+
+  // ── 12. Andrea Pompili — StepStone Group (pre-conference) ─────────
+  {
+    label: '12/13 Andrea Pompili — StepStone Group',
+    to: null,  // TODO: find email
+    subject: 'Deterministic carbon scoring for secondaries due diligence — PE Insights Zurich',
+    body: `Hi Andrea,
+
+Risto Päärni, CEO of Lifetime Oy (Helsinki). Your data-driven approach to secondaries at StepStone caught my attention — I'm building something with a similar philosophy for carbon compliance.
+
+DWS IQ 6 uses 18 deterministic AI agents to score ETS, CBAM, and CSRD compliance across 20 EU-regulated industries. Every score is auditable, repeatable, and traces to regulatory source data (EUR-Lex, EEA). No black-box ESG ratings — just regulatory fact-based compliance data that feeds directly into due diligence and LP reporting.
+
+The secondaries application: screen any asset or portfolio for carbon regulatory exposure in minutes instead of weeks. For single-asset continuation vehicles, compliance readiness directly affects valuation.
+
+5 paying customers today (100% retention). Launching V1 at Arctic 15 in Helsinki on June 15.
+
+I see you're speaking at PE Insights Switzerland in June. Would be great to connect ahead of the event.
+
+Best,
+Risto Päärni
+CEO, Lifetime Oy
+risto.paarni@lifetime.fi
+Business ID: 0772407-9 (Finland)`,
+  },
+
+  // ── 13. Cornelis Jansen — INKEF Capital (COLD, reframed) ──────────
+  {
+    label: '13/13 Cornelis Jansen — INKEF Capital',
+    to: null,  // TODO: find email — NOTE: anti-ESG thesis, lead with sovereignty/AI not carbon
+    subject: 'EU-sovereign industrial AI agents — frontier AI for regulated industries',
+    body: `Hi Cornelis,
+
+Risto Päärni, CEO of Lifetime Oy (Finland). Your thesis on European sovereignty in compute and frontier AI is exactly where we're building.
+
+We've deployed 18 deterministic AI agents across 20 EU-regulated industries — steel, cement, chemicals, aluminium, defence. EU-sovereign architecture: zero US cloud dependency, EU AI Act Article 12 compliance from day one, CLOUD Act-free infrastructure (Supabase EU, GCP europe-north1, Hetzner Helsinki).
+
+What makes this frontier: our Aegis framework brings defence-grade AI transparency to industrial compliance. Every agent decision has full reasoning lineage — the same audit trail the EU AI Act will require for high-risk systems. This isn't wrapper AI. It's deterministic scoring engines built for regulated environments where black-box outputs are unacceptable.
+
+5 paying customers today (€7K MRR, zero churn). Launching V1 at Arctic 15 in Helsinki on June 15. Raising €650K on a SAFE at €3.8M cap.
+
+Your check size (€0.5M–€7M) could anchor the round. Would welcome 20 minutes to walk through the architecture.
+
+Best,
+Risto Päärni
+CEO, Lifetime Oy
+risto.paarni@lifetime.fi
+Business ID: 0772407-9 (Finland)`,
+  },
 ];
 
 function textToHtml(text: string): string {
@@ -251,29 +358,33 @@ function textToHtml(text: string): string {
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 20px;">
-<p style="background: #fef3c7; padding: 10px 14px; border-radius: 6px; font-size: 13px; color: #92400e; margin-bottom: 20px;">
-<strong>REVIEW &amp; FORWARD</strong> — This email was self-sent for your review. Forward to the investor or copy into LinkedIn InMail.
-</p>
 ${escaped.split('\n\n').map(p => `<p style="margin: 0 0 14px 0;">${p.replace(/\n/g, '<br>')}</p>`).join('\n')}
 </body></html>`;
 }
 
 async function main() {
-  console.log('=== DWS Investor Outreach Batch Send (9 emails) ===');
+  console.log('=== DWS Investor Outreach — 13 Emails ===');
   console.log(`From: ${FROM}`);
-  console.log(`To: ${TO} (self-send for review)`);
-  console.log(`Emails: ${emails.length}`);
   console.log('');
 
   let sent = 0;
   let failed = 0;
+  let selfSent = 0;
 
   for (const email of emails) {
-    console.log(`Sending ${email.label}...`);
+    const recipient = email.to || SELF;
+    const isDirect = !!email.to;
+    const mode = isDirect ? 'DIRECT' : 'SELF-SEND (no email address)';
+
+    console.log(`${email.label}`);
+    console.log(`  To: ${recipient} [${mode}]`);
+
+    const subjectPrefix = isDirect ? '' : '[REVIEW & FORWARD] ';
+
     const result = await sendEmail({
       from: FROM,
-      to: TO,
-      subject: `[INVESTOR OUTREACH] ${email.subject}`,
+      to: recipient,
+      subject: `${subjectPrefix}${email.subject}`,
       html: textToHtml(email.body),
       text: email.body,
     });
@@ -281,6 +392,7 @@ async function main() {
     if (result.ok) {
       console.log(`  OK (${result.transport})`);
       sent++;
+      if (!isDirect) selfSent++;
     } else {
       console.log(`  FAILED: ${result.error}`);
       failed++;
@@ -293,7 +405,11 @@ async function main() {
   }
 
   console.log('');
-  console.log(`Done: ${sent} sent, ${failed} failed`);
+  console.log(`Done: ${sent} sent (${sent - selfSent} direct, ${selfSent} self-send), ${failed} failed`);
+  if (selfSent > 0) {
+    console.log(`\n⚠ ${selfSent} emails went to ${SELF} because investor email addresses are missing.`);
+    console.log('Fill in the "to" fields in this script and re-run to send directly.');
+  }
   process.exit(failed > 0 ? 1 : 0);
 }
 
