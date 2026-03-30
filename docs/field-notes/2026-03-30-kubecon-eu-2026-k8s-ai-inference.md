@@ -127,9 +127,50 @@ The 82/7 gap is exactly where DWS operates: **making AI agents work in productio
 
 ---
 
+## Impact on DWS IQ Aegis
+
+The KubeCon 2026 findings directly validate and strengthen the Aegis product positioning.
+
+### Why This Matters for Aegis
+
+Aegis is a single-tenant K8s-deployed AI platform (UpCloud Managed Kubernetes, Helsinki). The 82/7 gap is Aegis's entire value proposition: **defence and sovereign enterprises have K8s clusters but cannot operationalize AI agents in production daily.** Aegis closes that gap for the 21 EU-regulated dual-use industries.
+
+### Specific Impacts
+
+| KubeCon Finding | Aegis Impact | Action |
+|-----------------|-------------|--------|
+| K8s is the AI inference OS | Aegis is already K8s-native (Helm chart, single-tenant) — this validates the architecture choice over VM-based or SaaS-only approaches | No change needed — Aegis is ahead of the curve |
+| 82% adoption, 7% daily use | Aegis's 21+ autonomous agents are designed for daily production use (compliance scoring, sovereignty monitoring, orbital intelligence). This gap IS the market. | Marketing: lead with "from K8s adoption to daily AI production" messaging |
+| $255B inference market by 2030 | Aegis's €59,990 + €999/mo pricing captures enterprise inference value. At 62% gross margin, even a small share of the defence/sovereign slice is significant. | Pricing validated — Aegis is 13-77x cheaper than Palantir while being K8s-native |
+| 67% of AI compute is inference | Aegis agents (ComplianceAgent, ArgusAgent, SovereigntyMonitor) are inference-only workloads. No training on customer infrastructure. This aligns with the compute shift. | Emphasize inference-only positioning in sales — no GPU training costs for customers |
+| GPU-aware scheduling becoming core | Aegis on UpCloud L40S nodes benefits from K8s GPU scheduling improvements. As K8s GPU scheduling matures, Aegis deployment becomes simpler and cheaper. | Track K8s GPU Operator improvements for Aegis Helm chart |
+| 19.9M cloud native developers | Large talent pool for Aegis deployment and customization. K8s skills are no longer scarce — customers can operate Aegis without specialized ML infrastructure teams. | Reduces customer objection "we don't have the team to run this" |
+
+### Competitive Advantage Reinforcement
+
+The KubeCon data strengthens Aegis's position against every competitor:
+
+- **Palantir AIP** — Proprietary infrastructure, not K8s-native. As K8s becomes the standard, Palantir's lock-in becomes a liability. Aegis runs on any K8s cluster.
+- **Anduril Lattice** — Hardware-first approach. The 67% inference compute shift means software-defined inference (Aegis) wins over hardware-defined platforms.
+- **C3.ai Defence** — Dashboard/SaaS model. The 82/7 gap shows that dashboards don't equal production AI. Aegis's autonomous agents actually run daily.
+
+### Aegis Roadmap Items from KubeCon
+
+1. **Inference autoscaling** — Implement K8s HPA (Horizontal Pod Autoscaler) policies for Aegis agents based on inference queue depth. The 67% inference compute figure means customers will demand elastic scaling.
+2. **Multi-model GPU sharing** — Use MIG (Multi-Instance GPU) on L40S nodes to run multiple Aegis agents on a single GPU. Reduces per-customer infrastructure cost below the current €376/mo.
+3. **K8s-native model versioning** — CRDs for model deployments, enabling blue/green model updates for compliance agents without downtime. Critical for Article 12 audit continuity.
+4. **Edge-cloud inference split** — Combine Jetson Orin Nano edge inference (already in roadmap) with K8s cloud inference for hybrid deployments. Defence customers need this for field operations.
+
+### Bottom Line
+
+KubeCon 2026 confirms that Aegis is architecturally positioned in exactly the right place: K8s-native, inference-focused, enterprise-grade. The 82/7 gap is a $255B market opportunity, and Aegis is one of very few EU-sovereign platforms that can close it for defence and dual-use industries. **No pivot needed — accelerate.**
+
+---
+
 ## Related DWS Field Notes
 
 - `2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md` — NVIDIA GTC 2026 hardware/platform announcements
 - `2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md` — Blackwell Ultra inference architecture
 - `2026-03-10-acer-dgx-sandbox-strategy.md` — Edge inference sandbox strategy
 - `2026-03-29-dgx-spark-primary-runtime-setup.md` — DGX Spark as primary inference runtime
+- `2026-03-26-aegis-pricing-study.md` — Aegis pricing analysis and competitor benchmarking
