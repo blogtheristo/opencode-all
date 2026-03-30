@@ -147,3 +147,14 @@ Aegis is a standalone product — not part of the Captain investor programme. So
 | Shufti | Agent identity verification for KYA | Partnership pending |
 | NVIDIA | Jetson Orin Nano edge deployment | ISV Partner (confirmed) |
 | VTT | Research collaboration, DIANA programme | Ecosystem partner |
+
+## K8s AI Inference Roadmap
+
+> Source: KubeCon + CloudNativeCon Europe 2026 (Amsterdam). See `docs/field-notes/2026-03-30-kubecon-eu-2026-k8s-ai-inference.md`.
+
+| # | Item | DWS7 PR | Target | Description |
+|---|------|---------|--------|-------------|
+| 1 | Inference autoscaling | 137A | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
+| 2 | Multi-model GPU sharing | 137B | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo). |
+| 3 | Model versioning CRDs | 137C | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes. |
+| 4 | Edge-cloud inference split | 137D | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. |
