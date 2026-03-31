@@ -210,6 +210,12 @@ const SOURCES = [
     outPrefix: 'Learn/DWS7_ROADMAP_v',
     lang:      'en',
   },
+  {
+    src:       'Learn/Claude-memo.md',
+    titleBase: 'Claude Skills Implementation Memo — Decisions & Competitive Edge',
+    outPrefix: 'Learn/Claude-memo_v',
+    lang:      'en',
+  },
 ];
 
 SOURCES.forEach(f => {
