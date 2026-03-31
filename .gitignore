@@ -111,6 +111,7 @@ claude-sessions/
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
 investor-outreach/ready_to_send*/
+scripts/investor-contacts.local.json
 
 # --- REPO ARTIFACTS (directory listings, temp files accidentally committed) ---
 diret
