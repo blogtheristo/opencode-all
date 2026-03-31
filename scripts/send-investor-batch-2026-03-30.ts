@@ -1,30 +1,67 @@
 /**
  * Send 13 investor outreach emails — DIRECT when email known, self-send when not.
  *
- * Usage: npx tsx scripts/send-investor-batch-2026-03-30.ts
+ * Usage:
+ *   npx tsx scripts/send-investor-batch-2026-03-30.ts --dry-run     # preview, no emails sent
+ *   npx tsx scripts/send-investor-batch-2026-03-30.ts --confirm      # actually send emails
  *
- * Fill in real email addresses below as you find them.
- * null = self-send to risto@lifetime.fi for LinkedIn InMail.
+ * Investor email addresses are loaded from scripts/investor-contacts.local.json
+ * (gitignored — never committed). Create the file with:
+ *   { "Giuseppe Lacerenza": "g@example.com", "Ferdinand Reynolds": "f@example.com" }
+ * Keys must match the label names. Missing/null = self-send to risto@lifetime.fi.
  *
  * Requires: SMTP_HOST, SMTP_USER, SMTP_PASS in .env
  * Sends FROM: risto@onelifetime.world
  *
- * Code-Version: 2.0
- * Introduced-In: PR-TBD
+ * Code-Version: 3.0
+ * Introduced-In: PR-940
  * Branch: claude/investor-outreach-emails-2xLLf
- * Date: 2026-03-30
+ * Date: 2026-03-31
  * Owner: Claude Opus 4.6
  */
 
 import 'dotenv/config';
+import { readFileSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const SELF = 'risto@lifetime.fi';
 
+// --- Safety gate: require --confirm to send, default to --dry-run ---
+const args = process.argv.slice(2);
+const DRY_RUN = !args.includes('--confirm');
+if (DRY_RUN && !args.includes('--dry-run')) {
+  console.log('No --confirm flag. Running in DRY-RUN mode (no emails sent).');
+  console.log('Use --confirm to actually send emails.\n');
+}
+
+// --- Load investor emails from gitignored local file ---
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const contactsPath = join(__dirname, 'investor-contacts.local.json');
+let contactEmails: Record<string, string> = {};
+if (existsSync(contactsPath)) {
+  try {
+    contactEmails = JSON.parse(readFileSync(contactsPath, 'utf-8'));
+    console.log(`Loaded ${Object.keys(contactEmails).length} email addresses from investor-contacts.local.json`);
+  } catch (e) {
+    console.error(`Warning: Could not parse ${contactsPath}:`, e);
+  }
+} else {
+  console.log('No investor-contacts.local.json found — all emails will be self-sent.');
+  console.log(`Create ${contactsPath} with { "Name": "email@example.com" } to send directly.\n`);
+}
+
+function resolveRecipient(label: string): string | null {
+  for (const [name, email] of Object.entries(contactEmails)) {
+    if (label.includes(name) && email) return email;
+  }
+  return null;
+}
+
 interface OutreachEmail {
   label: string;
-  to: string | null;  // null = self-send, fill in real address when known
   subject: string;
   body: string;
 }
@@ -33,7 +70,6 @@ const emails: OutreachEmail[] = [
   // ── 1. Giuseppe Lacerenza — Keen Venture Partners (WARM) ──────────
   {
     label: '1/13 Giuseppe Lacerenza — Keen Venture Partners',
-    to: null,  // TODO: find email
     subject: 'European carbon sovereignty infrastructure — dual-use angle',
     body: `Hi Giuseppe,
 
@@ -61,7 +97,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 2. Ferdinand Reynolds — SuperSeed Ventures ────────────────────
   {
     label: '2/13 Ferdinand Reynolds — SuperSeed Ventures',
-    to: null,  // TODO: find email
     subject: 'Supply chain carbon intelligence — warm intro',
     body: `Hi Ferdinand,
 
@@ -87,7 +122,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 3. Colin Brown — Sparkmind Capital ────────────────────────────
   {
     label: '3/13 Colin Brown — Sparkmind Capital',
-    to: null,  // TODO: find email
     subject: 'Carbon accounting as critical infrastructure — podcast angle?',
     body: `Hi Colin,
 
@@ -111,7 +145,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 4. Juho Vehviläinen — Coventures ─────────────────────────────
   {
     label: '4/13 Juho Vehviläinen — Coventures',
-    to: null,  // TODO: find email
     subject: 'Carbon balance sheet infrastructure — coffee in Helsinki?',
     body: `Hi Juho,
 
@@ -141,7 +174,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 5. Markus Linder — Triple Impact Ventures ─────────────────────
   {
     label: '5/13 Markus Linder — Triple Impact Ventures',
-    to: null,  // TODO: find email
     subject: 'Carbon balance sheet SaaS — planting a seed for when timing is right',
     body: `Hi Markus,
 
@@ -165,7 +197,6 @@ risto.paarni@lifetime.fi`,
   // ── 6. Philipp Rupprecht — Proximo Ventures (WARM) ────────────────
   {
     label: '6/13 Philipp Rupprecht — Proximo Ventures',
-    to: null,  // TODO: find email
     subject: 'Intro — DWS IQ: Carbon Balance Sheet + EU Sovereign AI (Pre-seed, €650K SAFE)',
     body: `Hi Philipp,
 
@@ -188,7 +219,6 @@ risto.paarni@lifetime.fi`,
   // ── 7. Graeme Allen — Level Four Seven (WARM) ─────────────────────
   {
     label: '7/13 Graeme Allen — Level Four Seven',
-    to: null,  // TODO: find email
     subject: 'Intro — DWS IQ: Carbon Balance Sheet Infrastructure (TRL 6-7, EU Deep Tech)',
     body: `Hi Graeme,
 
@@ -211,7 +241,6 @@ risto.paarni@lifetime.fi`,
   // ── 8. Steven Miller — Black Prism Capital Partners (WARM) ────────
   {
     label: '8/13 Steven Miller — Black Prism Capital Partners',
-    to: null,  // TODO: find email
     subject: 'Intro — Aegis: EU-Sovereign AI for Defense & Compliance (Dual-Use Deep Tech)',
     body: `Hi Steven,
 
@@ -232,7 +261,6 @@ risto.paarni@lifetime.fi`,
   // ── 9. Serge Koniski — Amundi Alpha Associates (pre-conference) ───
   {
     label: '9/13 Serge Koniski — Amundi Alpha Associates',
-    to: null,  // TODO: find email
     subject: 'Carbon compliance infrastructure for PE secondaries — PE Insights Zurich',
     body: `Hi Serge,
 
@@ -256,7 +284,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 10. Elena Laleh — Kline Hill Partners (pre-conference) ────────
   {
     label: '10/13 Elena Laleh — Kline Hill Partners',
-    to: null,  // TODO: find email
     subject: 'Carbon compliance for GP-led portfolio companies — PE Insights Zurich',
     body: `Hi Elena,
 
@@ -280,7 +307,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 11. Thomas Hallinger — Golding Capital Partners (pre-conference)
   {
     label: '11/13 Thomas Hallinger — Golding Capital Partners',
-    to: null,  // TODO: find email
     subject: 'Carbon compliance scoring for PE secondaries — PE Insights Zurich',
     body: `Hi Thomas,
 
@@ -304,7 +330,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 12. Andrea Pompili — StepStone Group (pre-conference) ─────────
   {
     label: '12/13 Andrea Pompili — StepStone Group',
-    to: null,  // TODO: find email
     subject: 'Deterministic carbon scoring for secondaries due diligence — PE Insights Zurich',
     body: `Hi Andrea,
 
@@ -328,7 +353,6 @@ Business ID: 0772407-9 (Finland)`,
   // ── 13. Cornelis Jansen — INKEF Capital (COLD, reframed) ──────────
   {
     label: '13/13 Cornelis Jansen — INKEF Capital',
-    to: null,  // TODO: find email — NOTE: anti-ESG thesis, lead with sovereignty/AI not carbon
     subject: 'EU-sovereign industrial AI agents — frontier AI for regulated industries',
     body: `Hi Cornelis,
 
@@ -363,21 +387,31 @@ ${escaped.split('\n\n').map(p => `<p style="margin: 0 0 14px 0;">${p.replace(/\n
 }
 
 async function main() {
-  console.log('=== DWS Investor Outreach — 13 Emails ===');
+  const mode = DRY_RUN ? 'DRY-RUN' : 'LIVE';
+  console.log(`=== DWS Investor Outreach — 13 Emails [${mode}] ===`);
   console.log(`From: ${FROM}`);
   console.log('');
 
   let sent = 0;
   let failed = 0;
   let selfSent = 0;
+  let directSend = 0;
 
   for (const email of emails) {
-    const recipient = email.to || SELF;
-    const isDirect = !!email.to;
-    const mode = isDirect ? 'DIRECT' : 'SELF-SEND (no email address)';
+    const directEmail = resolveRecipient(email.label);
+    const recipient = directEmail || SELF;
+    const isDirect = !!directEmail;
+    const tag = isDirect ? 'DIRECT' : 'SELF-SEND (no email address)';
 
     console.log(`${email.label}`);
-    console.log(`  To: ${recipient} [${mode}]`);
+    console.log(`  To: ${recipient} [${tag}]`);
+
+    if (DRY_RUN) {
+      console.log('  SKIPPED (dry-run)');
+      if (isDirect) directSend++;
+      else selfSent++;
+      continue;
+    }
 
     const subjectPrefix = isDirect ? '' : '[REVIEW & FORWARD] ';
 
@@ -393,6 +427,7 @@ async function main() {
       console.log(`  OK (${result.transport})`);
       sent++;
       if (!isDirect) selfSent++;
+      else directSend++;
     } else {
       console.log(`  FAILED: ${result.error}`);
       failed++;
@@ -405,10 +440,14 @@ async function main() {
   }
 
   console.log('');
-  console.log(`Done: ${sent} sent (${sent - selfSent} direct, ${selfSent} self-send), ${failed} failed`);
-  if (selfSent > 0) {
-    console.log(`\n⚠ ${selfSent} emails went to ${SELF} because investor email addresses are missing.`);
-    console.log('Fill in the "to" fields in this script and re-run to send directly.');
+  if (DRY_RUN) {
+    console.log(`DRY-RUN complete: ${directSend} would send direct, ${selfSent} would self-send.`);
+    console.log('Run with --confirm to actually send.');
+  } else {
+    console.log(`Done: ${sent} sent (${directSend} direct, ${selfSent} self-send), ${failed} failed`);
+    if (selfSent > 0) {
+      console.log(`\n${selfSent} emails went to ${SELF} — add addresses to investor-contacts.local.json and re-run.`);
+    }
   }
   process.exit(failed > 0 ? 1 : 0);
 }
