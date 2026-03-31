@@ -186,7 +186,7 @@ export async function distributeContent(
           // STATUS: PLANNED — linkedin-service.ts is a stub (console.log only).
           // PhantomBuster was evaluated but not deployed.
           // No messages have ever been sent via automation.
-          // TODO: Connect to LinkedIn Marketing API or approved third-party tool.
+          // Next step: Connect to LinkedIn Marketing API or approved third-party tool.
           logger.warn('Omnichannel: LinkedIn target is PLANNED — not connected to live API', {
             content_id: item.id,
             status: 'dry_run',

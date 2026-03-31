@@ -399,9 +399,26 @@ export class MonitorERPConnector extends BaseERPConnector {
 
     operation.recordsProcessed = response.data.length;
 
-    // TODO: Store in DWS database
+    // Store maintenance work orders in DWS database
+    const client = getSupabaseClient();
+    if (client && response.data.length > 0) {
+      const { error } = await client.from('erp_maintenance_orders').upsert(
+        response.data.map((wo: any) => ({
+          external_id: wo.id || wo.work_order_id,
+          provider: 'monitor',
+          status: wo.status,
+          data: wo,
+          synced_at: new Date().toISOString(),
+        })),
+        { onConflict: 'external_id,provider' }
+      );
+      if (error) {
+        this.logger.warn('Failed to store maintenance orders', { error: error.message });
+        operation.recordsFailed = response.data.length;
+      }
+    }
 
-    return this.createSyncResult(operation, true);
+    return this.createSyncResult(operation, operation.recordsFailed === 0);
   }
 
   // ============================================================================

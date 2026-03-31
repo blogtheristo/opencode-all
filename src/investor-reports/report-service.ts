@@ -207,9 +207,30 @@ export class ReportService {
    * Get key milestones for the month (product launches, team hires, etc.)
    */
   async getKeyMilestones(targetMonth: Date): Promise<KeyEvent[]> {
-    // For now, return manual milestones
-    // TODO: Could be stored in a separate milestones table
     const milestones: KeyEvent[] = [];
+
+    // Fetch milestones from key_events table if available
+    try {
+      const monthStart = this.getFirstDayOfMonth(targetMonth);
+      const nextMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 1);
+      const { data: events } = await this.supabase
+        .from('key_events')
+        .select('*')
+        .gte('event_date', monthStart.toISOString().split('T')[0])
+        .lt('event_date', nextMonth.toISOString().split('T')[0])
+        .order('event_date', { ascending: true });
+
+      if (events) {
+        milestones.push(...events.map((e: any) => ({
+          date: e.event_date,
+          description: e.description,
+          category: e.category || 'product',
+          impact: e.impact,
+        })));
+      }
+    } catch {
+      // key_events table may not exist yet — continue with auto-detected milestones
+    }
 
     // Check if we crossed €10k MRR this month
     const monthStart = this.getFirstDayOfMonth(targetMonth);

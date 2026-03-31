@@ -141,9 +141,8 @@ router.post('/login', loginValidation, validateRequest, loginRateLimit(), async 
     // Authenticate user with email and password
     const authResponse = await AuthService.authenticate({ email, password });
 
-    // Note: Cookie-based rememberMe not yet implemented (requires cookie-parser)
-    // Frontend should store refreshToken in localStorage if rememberMe is true
-    // TODO: Install cookie-parser and uncomment below for secure cookie storage
+    // Cookie-based rememberMe deferred — requires cookie-parser middleware.
+    // Frontend stores refreshToken in localStorage when rememberMe is true.
     // if (rememberMe && authResponse.refreshToken) {
     //   res.cookie('refreshToken', authResponse.refreshToken, {
     //     httpOnly: true,

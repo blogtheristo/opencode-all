@@ -5,6 +5,7 @@
 
 import express, { Router, Request, Response } from 'express';
 import logger from '../utils/logger.js';
+import { authenticateToken } from '../middleware/auth.middleware.js';
 
 const router: Router = express.Router();
 
@@ -12,10 +13,9 @@ const router: Router = express.Router();
  * GET /api/v1/user/profile
  * Get current user profile
  */
-router.get('/profile', async (req: Request, res: Response) => {
+router.get('/profile', authenticateToken, async (req: Request, res: Response) => {
   try {
-    // TODO: Get user from authenticated request
-    const userId = (req as any).userId;
+    const userId = req.userId;
 
     logger.info('User profile request', { userId });
 
@@ -36,9 +36,9 @@ router.get('/profile', async (req: Request, res: Response) => {
  * PUT /api/v1/user/profile
  * Update user profile
  */
-router.put('/profile', async (req: Request, res: Response) => {
+router.put('/profile', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId;
+    const userId = req.userId;
     const updates = req.body;
 
     logger.info('User profile update', { userId, fields: Object.keys(updates) });

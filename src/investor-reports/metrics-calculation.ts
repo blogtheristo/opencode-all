@@ -326,9 +326,26 @@ export class MetricsCalculationService {
     // Calculate average LTV
     const avgLTV = customers.reduce((sum, c) => sum + (c.lifetime_value || 0), 0) / customers.length;
 
-    // CAC estimation (simplified - total marketing/sales spend / new customers)
-    // TODO: Get actual marketing/sales expenses from transactions
-    const estimatedCAC = 1000; // Placeholder
+    // CAC estimation — attempt to fetch marketing/sales expenses from transactions
+    let estimatedCAC = 1000; // Fallback if no transaction data available
+    try {
+      const { data: expenses } = await this.supabase
+        .from('transactions')
+        .select('amount')
+        .in('category', ['marketing', 'sales', 'advertising'])
+        .gte('created_at', new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString());
+
+      if (expenses && expenses.length > 0) {
+        const totalSpend = expenses.reduce((sum: number, e: any) => sum + Math.abs(e.amount || 0), 0);
+        const monthlySpend = totalSpend / 3; // 90-day window → monthly average
+        const newCustomersPerMonth = customers.filter(c =>
+          new Date(c.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+        ).length || 1;
+        estimatedCAC = Math.round(monthlySpend / newCustomersPerMonth);
+      }
+    } catch {
+      // Transactions table may not exist yet — use fallback
+    }
 
     const ltvCacRatio = estimatedCAC > 0 ? avgLTV / estimatedCAC : 0;
     const paybackMonths = arpu > 0 ? estimatedCAC / arpu : 0;
