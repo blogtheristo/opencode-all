@@ -25,7 +25,7 @@ AGENT HISTORY:
 | 2 | Alexander Söderberg | Head of Portfolio Digital Transformation | Triton Partners | Frankfurt/Stockholm | TODO | Draft ready |
 | 3 | Christopher Fielding | Operating Partner | Hg Capital | London | TODO | Draft ready |
 | 4 | Olof Faxander | Operating Partner | Nordic Capital | Stockholm/Helsinki | TODO | Draft ready |
-| 5 | Heidi Erha | Operating Partner | CapMan | Helsinki | TODO | Draft ready |
+| 5 | Pia Kall | Managing Partner, CapMan Buyout | CapMan | Helsinki | TODO | Draft ready — NOTE: original "Heidi Erha" was incorrect (she's CEO of Arkken, not CapMan). Pia Kall confirmed via PE Insights speaker network. |
 
 ## Key Refinement: SFDR Article 8/9
 
