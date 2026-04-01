@@ -28,7 +28,9 @@ AGENT HISTORY:
 
 ## The One-Liner
 
-**DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.**
+**EN:** DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
+
+**FI:** DWS IQ Aegis — teollisuustiedustelualusta EU:n säännellyille toimialoille. Suvereeni tekoäly, Suomessa ylläpidetty (reuna/private), CLOUD Act -vapaa.
 
 No US cloud. No CLOUD Act exposure. Every agent decision logged, governed, and auditable under EU AI Act Article 12.
 
