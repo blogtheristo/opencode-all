@@ -78,11 +78,11 @@ Olof,
 
 Following up on my earlier note — I want to sharpen the angle that is most relevant to your work on AI portfolio operations and the Sweden AI Commission.
 
-We built Aegis as a governed AI agent platform for EU-regulated industries. The core problem: 20 EU industries face overlapping regulations (ETS, CBAM, CSRD, NIS2, EU AI Act), and no platform provides cross-vertical signal propagation with court-defensible audit trails. Our KYA Standard (Know Your Agent) provides hardware-attested agent identity, capability gating, and forensic-grade logging — the governance framework that EU AI Act Article 12 demands.
+We built Aegis as a governed AI agent platform for EU-regulated industries. The core problem: 21 EU industries face overlapping regulations (ETS, CBAM, CSRD, NIS2, EU AI Act), and no platform provides cross-vertical signal propagation with court-defensible audit trails. Our KYA Standard (Know Your Agent) provides hardware-attested agent identity, capability gating, and forensic-grade logging — the governance framework that EU AI Act Article 12 demands.
 
-You built Motherbrain — you understand what it takes to govern autonomous AI at scale. Aegis applies that discipline to industrial compliance across defence, steel, cement, construction, and 16 more EU-regulated industries.
+You built Motherbrain — you understand what it takes to govern autonomous AI at scale. Aegis applies that discipline to industrial compliance across defence, steel, cement, construction, and 17 more EU-regulated industries.
 
-For Investor AB's portfolio: any industrial company facing CBAM, ETS, or CSRD is a potential deployment. Defence supply chain visibility is the highest-value use case, but the platform serves all 20 industries.
+For Investor AB's portfolio: any industrial company facing CBAM, ETS, or CSRD is a potential deployment. Defence supply chain visibility is the highest-value use case, but the platform serves all 21 industries.
 
 Key facts:
 - Single-tenant sovereign AI on Finnish infrastructure (UpCloud, Helsinki DC)
