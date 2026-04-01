@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Memo — DWS IQ Aegis (Defence & Sovereignty)
-Version: 1.0
+Version: 1.1
 Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/review-investment-decision-0zTSR
@@ -9,6 +9,7 @@ Story Lock: Defence Supply Chain Resilience + Sovereign AI + Dual-Use Intelligen
 Audience: Defence & Resilience VCs (Sentris, Keen, Join Capital, Vsquared, NATO Innovation Fund, OTB)
 
 AGENT HISTORY:
+- v1.1 (2026-04-01): Updated one-liner to "intelligence interceptor" framing — sharper for defence VCs. Old: "autonomous compliance intelligence" (too generic). New: sovereign + CLOUD Act-free in the first sentence.
 - v1.0 (2026-04-01): Created after Sentris Capital rejection. Root cause: general investor memo led with "Climate Tech" — defence VCs pattern-matched to "not our mandate." This memo inverts the framing: defence supply chain resilience first, carbon compliance as a defence capability. Same company, same numbers, different lens.
 -->
 
@@ -27,7 +28,7 @@ AGENT HISTORY:
 
 ## The One-Liner
 
-**Aegis gives EU defence supply chains autonomous compliance intelligence — one sovereign ledger tracking carbon exposure, export control, and supply chain resilience across 20 regulated industries.**
+**DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.**
 
 No US cloud. No CLOUD Act exposure. Every agent decision logged, governed, and auditable under EU AI Act Article 12.
 
