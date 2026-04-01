@@ -43,9 +43,9 @@ Key questions posed:
 
 | Requirement | Status | Notes |
 |-------------|--------|-------|
-| EU-only processing confirmation | PENDING | Awaiting Hassaan's response |
-| DPA (Data Processing Agreement) | PENDING | Need signed DPA before PoC |
-| Sub-processor list | PENDING | Required for GDPR Article 28 |
+| EU-only processing confirmation | **CONFIRMED** | Shufti compliance team confirmed 2026-03-31 |
+| DPA (Data Processing Agreement) | **RECEIVED** | Shufti DPA shared by Haris, under legal review |
+| Sub-processor list | PENDING | Awaiting review of DPA annexes |
 | Data deletion policy | PENDING | Must align with DWS data retention standard |
 
 ## Decision Tree
