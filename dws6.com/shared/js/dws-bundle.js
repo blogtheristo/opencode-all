@@ -58,8 +58,21 @@ window.DWS.setOnline = setOnline;
   }
   
   function handleCallback() {
-    // TODO: OIDC callback handler for Supabase/Google OAuth
-    console.log('OAuth callback handler - to be implemented');
+    // OIDC callback handler for Supabase/Google OAuth
+    // Extract access_token from URL hash fragment (implicit grant flow)
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const accessToken = params.get('access_token');
+    const refreshToken = params.get('refresh_token');
+
+    if (accessToken) {
+      setToken(accessToken);
+      if (refreshToken) {
+        try { localStorage.setItem('dws_refresh_token', refreshToken); } catch (e) { /* ignore */ }
+      }
+      // Clean up URL hash
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   }
   
   function logout() {

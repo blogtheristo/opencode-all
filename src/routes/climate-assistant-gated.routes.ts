@@ -14,6 +14,7 @@ import crypto from 'crypto';
 import logger from '../utils/logger.js';
 import GatedService, { UserTier, LeadCaptureData } from '../services/climate-assistant-gated.service.js';
 import { optionalAuth, authenticateToken, requireRole } from '../middleware/auth.middleware.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 // SECURITY FIX #3: Validate ADMIN_API_KEY at startup
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
@@ -111,13 +112,28 @@ router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, 
     
     // If user is authenticated (token was validated by optionalAuth middleware)
     if (req.userId) {
-      // TODO: In production, fetch user's actual subscription tier from database
-      // For now, all authenticated users get 'guest' tier
-      effectiveTier = 'guest';
-      logger.debug('Authenticated user detected', { 
-        userId: req.userId, 
+      // Fetch user's subscription tier from database
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('subscription_tier')
+          .eq('user_id', req.userId)
+          .single();
+
+        if (profile?.subscription_tier) {
+          effectiveTier = profile.subscription_tier as UserTier;
+        } else {
+          // Fallback: all authenticated users get 'guest' tier
+          effectiveTier = 'guest';
+        }
+      } else {
+        effectiveTier = 'guest';
+      }
+      logger.debug('Authenticated user detected', {
+        userId: req.userId,
         email: req.userEmail,
-        assignedTier: effectiveTier 
+        assignedTier: effectiveTier
       });
     }
 
