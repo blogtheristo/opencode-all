@@ -318,7 +318,7 @@ Where AI Processing requires transmission of Personal Data to AI model providers
 
 ## ARTICLE 14. MISCELLANEOUS PROVISIONS
 
-**14.1** This Data Processing Agreement is governed by Finnish law. The courts of Helsinki, Finland have exclusive jurisdiction to hear any dispute arising out or relating to this DPA.
+**14.1** This Data Processing Agreement is governed by Finnish law. Espoon käräjäoikeus (Espoo District Court) has exclusive jurisdiction to hear any dispute arising out or relating to this DPA.
 
 **14.2** This Agreement supersedes all prior written and oral agreements relating to Personal Data. Any amendment of this DPA shall only be valid if it is in writing and signed by authorized representatives of the Customer and DWS IQ Oy.
 
@@ -500,6 +500,57 @@ A TIA must be completed for each USA-based Sub-processor. The assessment should 
 - [Groq Data Processing Addendum](https://console.groq.com/docs/legal/customer-data-processing-addendum)
 - [Groq Services Agreement](https://console.groq.com/docs/legal/services-agreement)
 - [EDPB Recommendations 01/2020 on supplementary measures](https://edpb.europa.eu/our-work-tools/our-documents/recommendations/recommendations-012020-measures-supplement-transfer_en)
+
+---
+
+## ANNEX D: DORA COMPLIANCE (Where Applicable)
+
+This annex applies when the Customer is a financial entity subject to Regulation (EU) 2022/2554 (Digital Operational Resilience Act — DORA), or when services provided by Lifetime Oy or its Sub-processors constitute ICT services to financial entities.
+
+### D.1 DORA Article 30 Contractual Provisions
+
+In addition to the GDPR-based provisions of this DPA, the following DORA-specific provisions apply:
+
+| DORA Requirement (Art. 30) | DPA Coverage |
+|---|---|
+| **Service level descriptions** | Defined in the Service Agreement; SLA targets per service tier |
+| **Data processing locations** | Article 11.1 (EU default), Annex A (Sub-processor locations) |
+| **ICT incident notification** | Article 9 (48-hour breach notification), extended to cover major ICT incidents |
+| **Audit and inspection rights** | Article 12 (annual audit with 30-day notice) |
+| **Exit strategy and transition** | Article 13.3 (30-day data export), Section D.2 below |
+| **Sub-outsourcing conditions** | Article 7 (30-day advance notice, right to object) |
+| **Termination rights** | Article 13; extended DORA termination rights in D.3 below |
+
+### D.2 Exit Strategy and Transition Assistance
+
+**D.2.1** Upon termination or expiration of the Contract, Lifetime Oy shall provide transition assistance for a period of ninety (90) days, including:
+
+- Data export in machine-readable format (JSON, CSV)
+- API access for automated data migration
+- Documentation of data schemas and integration points
+- Reasonable technical support for data migration
+
+**D.2.2** Transition assistance shall be provided at Lifetime Oy's standard professional services rates, unless otherwise agreed in the Service Agreement.
+
+### D.3 DORA-Specific Termination Rights
+
+**D.3.1** The Customer may terminate the Contract with immediate effect if:
+
+- Lifetime Oy materially breaches its DORA-related obligations and fails to remedy within 30 days
+- A competent authority requires termination for financial stability reasons
+- Concentration risk assessments indicate excessive reliance on a single ICT provider
+
+### D.4 Concentration Risk
+
+**D.4.1** Lifetime Oy shall, upon request, provide the Customer with information necessary for the Customer's ICT concentration risk assessment, including:
+
+- List of other financial entities using the same Services
+- Dependencies on critical Sub-processors
+- Geographic concentration of processing infrastructure
+
+### D.5 Applicability to Sub-processors
+
+When Shufti Pro Limited provides KYC/IDV services that constitute ICT services to a financial entity Customer, the DORA provisions of this Annex shall flow down to Shufti Pro via the sub-processing agreement between Lifetime Oy and Shufti Pro.
 
 ---
 
