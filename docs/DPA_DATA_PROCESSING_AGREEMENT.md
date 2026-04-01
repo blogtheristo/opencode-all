@@ -2,7 +2,7 @@
 
 **DWS IQ 6 Platform — Customer Implementation**
 
-Version 1.0 — February 5, 2026
+Version 1.1 — April 1, 2026
 
 ---
 
@@ -258,7 +258,7 @@ Where AI Processing is performed as part of the Services:
 
 **10.1** DWS IQ Oy undertakes to reasonably cooperate with the Customer in order to guarantee the handling of requests from Data Subjects to exercise the rights stipulated by the Data Protection Regulations within the time frames and in accordance with the terms set by those Data Protection Regulations. In this regard, DWS IQ Oy undertakes to inform the Customer of any requests submitted by a Data Subject to exercise such rights.
 
-**10.2** Customer's rights requests are managed via the DWS IQ 6 Platform administration panel. For any privacy issue related to a third-party or topics not supported by the Platform, requests can be sent to **[PRIVACY_EMAIL]**.
+**10.2** Customer's rights requests are managed via the DWS IQ 6 Platform administration panel. For any privacy issue related to a third-party or topics not supported by the Platform, requests can be sent to **privacy@lifetime.fi**.
 
 ---
 
@@ -330,10 +330,10 @@ Where AI Processing requires transmission of Personal Data to AI model providers
 
 ## ARTICLE 15. CONTACT
 
-- **DWS IQ Oy DPO**: [DPO_EMAIL]
-- **Privacy Team**: [PRIVACY_EMAIL]
-- **Notification of Data Breach**: [SECURITY_EMAIL]
-- **DWS IQ 6 Privacy Policy**: [PRIVACY_POLICY_URL]
+- **DWS IQ Oy DPO**: dpo@lifetime.fi
+- **Privacy Team**: privacy@lifetime.fi
+- **Notification of Data Breach**: security@lifetime.fi
+- **DWS IQ 6 Privacy Policy**: https://dws10.com/legal-hub/
 
 ---
 
@@ -349,8 +349,11 @@ The following Sub-processors are authorized to process Personal Data on behalf o
 | **Anthropic PBC** | AI language model services (Claude API) | USA* | Anonymized/pseudonymized compliance analysis data |
 | **Groq Inc.** | AI inference acceleration | USA* | Anonymized/pseudonymized AI processing data |
 | **Temporal Technologies Inc.** | Workflow orchestration | EU | Workflow metadata, task identifiers |
+| **Shufti Pro Limited** | Identity verification (KYC/IDV) | EU only | Biometric data (facial images), identity documents, verification results |
 
 *\* For USA-based Sub-processors, Standard Contractual Clauses (SCC) and additional supplementary measures are in place. Data minimization and pseudonymization are applied before any cross-border transfer. See Annex C for SCC implementation details.*
+
+*\*\* Shufti Pro processes biometric data (GDPR Article 9 special category) exclusively within EU/EEA data centers. EU-only processing confirmed by Shufti compliance team (March 2026). Biometric data is deleted after verification completion per agreed retention schedule.*
 
 **Note**: This list is subject to updates. The Customer will be notified thirty (30) days in advance of any changes in accordance with Article 7.4.
 
@@ -502,10 +505,10 @@ A TIA must be completed for each USA-based Sub-processor. The assessment should 
 
 *This document is a template and must be reviewed by legal counsel before use. Placeholder values marked with [BRACKETS] must be replaced with actual values before execution.*
 
-**DWS IQ Oy**
-[ADDRESS]
-Business ID: [Y-TUNNUS]
-Helsinki, Finland
+**Lifetime Oy** (trading as DWS IQ)
+Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+Business ID: 0772407-9
+VAT ID: FI07724079
 
 ---
 
