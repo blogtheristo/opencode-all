@@ -1,20 +1,67 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Defense & Sovereignty Investor Landscape — Aegis Positioning
-Version: 1.0
-Date: 2026-03-28
+Version: 1.1
+Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
-Branch: claude/add-investor-contact-FSWNH
+Branch: claude/review-investment-decision-0zTSR
 Status: Reference — Research Output
 
 AGENT HISTORY:
 - v1.0 (2026-03-28): Web research across 12 EU defense/sovereignty funds actively deploying capital 2025-2026. Tiered by proximity to DWS IQ Aegis thesis. Sources cited.
+- v1.1 (2026-04-01): Added memo assignment table after Sentris rejection post-mortem. All defence/sovereignty investors get INVESTOR_MEMO_AEGIS.md, not the general climate memo. Added Sentris to Passed section. Added Faxander/Hernell follow-up flags. Added DEFINE Finland.
 -->
 
 # Defense & Sovereignty Investor Landscape — Aegis Positioning
 
 **Purpose:** Reference list of EU defense tech and sovereignty-focused investors actively writing checks (2025-2026), mapped to DWS IQ Aegis positioning (EU sovereign AI compliance infrastructure, industrial dual-use).
 
-**Date:** 2026-03-28
+**Date:** 2026-03-28 (updated 2026-04-01)
+
+---
+
+## CRITICAL: Memo Assignment Rule
+
+**All defence/sovereignty investors on this list get `INVESTOR_MEMO_AEGIS.md` — NOT the general `INVESTOR_MEMO.md`.**
+
+The general memo leads with "Climate Tech / Carbon Balance Sheet Infrastructure." Defence VCs pattern-match to "not my mandate." The Aegis memo leads with "Defence & Resilience / Sovereign AI Infrastructure / Dual-Use Supply Chain Intelligence."
+
+This rule was learned from the Sentris Capital rejection (2026-04-01). See `docs/field-notes/2026-04-01-sentris-rejection-post-mortem.md`.
+
+---
+
+## Pipeline Status & Memo Tracker
+
+| Investor | Status | Memo Sent | Action Needed |
+|----------|--------|-----------|---------------|
+| Sentris Capital (Erik Kurist) | **PASSED** | Climate memo (wrong) | None — lesson learned |
+| Olof Faxander (Gungnir Capital) | Contacted | Climate memo (wrong) | **FOLLOW-UP: resend with Aegis memo** |
+| Olof Hernell (Investor AB) | Contacted | Climate memo (wrong) | **FOLLOW-UP: resend with Aegis memo** |
+| Keen Venture Partners (Giuseppe) | In pipeline | Not yet | Send Aegis memo |
+| Join Capital (Jan Borgstadt) | Not contacted | Not yet | Send Aegis memo |
+| Vsquared Ventures | Not contacted | Not yet | Send Aegis memo |
+| NATO Innovation Fund | Not contacted | Not yet | Send Aegis memo |
+| OTB Ventures | Not contacted | Not yet | Send Aegis memo |
+| DEFINE Finland | Not contacted | Not yet | Send Aegis memo |
+| Tesi | Not contacted | Not yet | Send Aegis memo |
+| Lifeline Ventures | Not contacted | Not yet | Send Aegis memo |
+| FiBAN DEFSEC | Not contacted | Not yet | Send Aegis memo |
+| DTCP Project Liberty | Not contacted | Not yet | Send Aegis memo |
+| Darkstar Coalition | Not contacted | Not yet | Send Aegis memo |
+| Hyperion Fund | Not contacted | Not yet | Send Aegis memo |
+| Prima Materia | Not contacted | Not yet | Send Aegis memo |
+
+---
+
+## Passed
+
+### Sentris Capital — Tallinn, Estonia
+- **Contact:** Erik Kurist (Investment Associate)
+- **Thesis:** European Defence & Resilience
+- **Status:** PASSED (2026-04-01)
+- **Reason:** "Does not appear to align directly with our defense and resilience investment mandate"
+- **Root Cause:** Sent general climate memo instead of Aegis defence-first memo
+- **Lesson:** Defence VCs need defence-first framing. Carbon compliance as a capability, not the identity.
+- **Re-approach:** No. Quarterly update list only.
 
 ---
 
