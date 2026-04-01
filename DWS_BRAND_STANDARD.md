@@ -61,6 +61,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 19 | Onboarding Wizard Standard | First-run experience (v10-react) |
 | 20 | Compliance Score Widget Standard | Dashboard compliance ring (v10-react) |
 | 21 | CLI Rich Output Standard | CLI human-readable formatting |
+| 22 | Product Pitch Lines | Canonical one-liners (EN/FI) |
 
 ---
 
@@ -1496,10 +1497,28 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 ---
 
+## 22. Product Pitch Lines
+
+Canonical one-liners for investor materials, landing pages, and sales outreach. Both language versions MUST be updated together.
+
+### DWS IQ Aegis
+
+**EN:** DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
+
+**FI (kotimainen):** DWS IQ Aegis — teollisuustiedustelualusta EU:n säännellyille toimialoille. Suvereeni tekoäly, Suomessa ylläpidetty (reuna/private), CLOUD Act -vapaa.
+
+**Translation notes:**
+- "intelligence interceptor" → "teollisuustiedustelualusta" (industrial intelligence platform) — not "tiedustelun torjuntajärjestelmä" which means counter-intelligence
+- "dual-use industries" → "säännellyt toimialat" (regulated industries) — dual-use is determined by end-use, not by industry classification
+- "(reuna/private)" added in FI version — clarifies edge-deployed, not public cloud
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.5 | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes |
 | v2.4 | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
 | v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |
