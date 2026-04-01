@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Erik Kurist, Sentris Capital
-Version: 1.0
-Date: 2026-03-30
+Version: 1.1
+Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
-Branch: claude/review-investor-inquiry-luvCh
-Status: Final Draft
+Branch: claude/review-investment-decision-0zTSR
+Status: PASSED — Rejection received 2026-04-01
 Story Lock: Defence & Resilience + Carbon Compliance + EU Sovereignty
 Intro Type: Warm Inbound (Boardy platform — Erik reached out first)
 
 AGENT HISTORY:
 - v1.0 (2026-03-30): Initial draft. Warm inbound via Boardy. Led with dual-use/defence resilience angle — carbon balance sheet as critical infrastructure for EU defence supply chain compliance. Sentris is EU defence & resilience VC headquartered in Estonia. Strong thesis fit: EU sovereignty, industrial compliance, defence supply chain resilience.
+- v1.1 (2026-04-01): REJECTION RECEIVED. Erik passed — "does not appear to align directly with our defense and resilience investment mandate." Root cause: sent general INVESTOR_MEMO.md (v4.0) which leads with "Climate Tech / Carbon Balance Sheet Infrastructure." Defence VC pattern-matched to "not defence." Created INVESTOR_MEMO_AEGIS.md as defence-first alternative. Lesson: all defence/sovereignty VCs get the Aegis memo, not the climate memo.
 -->
 
 # Investor Intro Note — Erik Kurist, Sentris Capital
@@ -84,8 +85,19 @@ https://dws10.com
 
 ## Follow-Up Plan
 
-| Day | Action |
-|-----|--------|
-| Day 0 (today) | Reply with memo + deck |
-| Day 5 | If no response: short follow-up referencing Arctic 15 timeline |
-| Day 10 | If no response: final note, offer quarterly update list |
+| Day | Action | Status |
+|-----|--------|--------|
+| Day 0 (2026-03-30) | Reply with memo + deck | DONE |
+| Day 2 (2026-04-01) | **REJECTION RECEIVED** | See post-mortem below |
+
+## Post-Mortem — Rejection (2026-04-01)
+
+**Erik's response:** "Unfortunately, after further review, the DWS6 solution does not appear to align directly with our defense and resilience investment mandate, so I will not be able to proceed with further diligence."
+
+**Root cause:** Sent general INVESTOR_MEMO.md (v4.0) which leads with "Climate Tech / Carbon Balance Sheet Infrastructure." Defence VC pattern-matched to "not defence."
+
+**Fix applied:** Created `INVESTOR_MEMO_AEGIS.md` — defence-first investor memo. All remaining defence/sovereignty VCs will receive the Aegis memo, not the climate memo.
+
+**Re-approach?** No. Erik was clear. File for quarterly update list only. The lesson applies to Faxander (Gungnir), Hernell (Investor AB), and all untouched defence pipeline contacts.
+
+**Full post-mortem:** `docs/field-notes/2026-04-01-sentris-rejection-post-mortem.md`
