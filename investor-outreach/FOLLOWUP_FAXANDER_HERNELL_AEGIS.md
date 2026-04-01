@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Follow-Up Emails — Faxander (Gungnir) & Hernell (Investor AB) — Aegis Reframe
-Version: 1.0
+Version: 1.1
 Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/review-investment-decision-0zTSR
@@ -9,6 +9,7 @@ Story Lock: Defence supply chain resilience + sovereign AI + Aegis memo
 Context: Both received climate-framed outreach on 2026-03-31. Sentris rejection (2026-04-01) proved climate framing fails with defence VCs. These follow-ups reframe with Aegis memo attached.
 
 AGENT HISTORY:
+- v1.1 (2026-04-01): Added "intelligence interceptor" one-liner as Faxander email opener. Punchy sovereign-first framing for defence VC.
 - v1.0 (2026-04-01): Created after Sentris post-mortem. Resend both contacts with defence-first Aegis memo. Subject line approved by human.
 -->
 
@@ -35,6 +36,8 @@ AGENT HISTORY:
 Subject: EU sovereign AI for defence supply chains — CLOUD Act-free, court-defensible, Finnish-hosted
 
 Olof,
+
+DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
 
 Following up on my earlier note with a sharper lens on the defence and dual-use angle — this is the positioning that matters for Gungnir's thesis.
 
@@ -75,11 +78,11 @@ Olof,
 
 Following up on my earlier note — I want to sharpen the angle that is most relevant to your work on AI portfolio operations and the Sweden AI Commission.
 
-We built Aegis as a governed AI agent platform for EU-regulated industries. The core problem: 20 EU industries face overlapping regulations (ETS, CBAM, CSRD, NIS2, EU AI Act), and no platform provides cross-vertical signal propagation with court-defensible audit trails. Our KYA Standard (Know Your Agent) provides hardware-attested agent identity, capability gating, and forensic-grade logging — the governance framework that EU AI Act Article 12 demands.
+We built Aegis as a governed AI agent platform for EU-regulated industries. The core problem: 21 EU industries face overlapping regulations (ETS, CBAM, CSRD, NIS2, EU AI Act), and no platform provides cross-vertical signal propagation with court-defensible audit trails. Our KYA Standard (Know Your Agent) provides hardware-attested agent identity, capability gating, and forensic-grade logging — the governance framework that EU AI Act Article 12 demands.
 
-You built Motherbrain — you understand what it takes to govern autonomous AI at scale. Aegis applies that discipline to industrial compliance across defence, steel, cement, construction, and 16 more EU-regulated industries.
+You built Motherbrain — you understand what it takes to govern autonomous AI at scale. Aegis applies that discipline to industrial compliance across defence, steel, cement, construction, and 17 more EU-regulated industries.
 
-For Investor AB's portfolio: any industrial company facing CBAM, ETS, or CSRD is a potential deployment. Defence supply chain visibility is the highest-value use case, but the platform serves all 20 industries.
+For Investor AB's portfolio: any industrial company facing CBAM, ETS, or CSRD is a potential deployment. Defence supply chain visibility is the highest-value use case, but the platform serves all 21 industries.
 
 Key facts:
 - Single-tenant sovereign AI on Finnish infrastructure (UpCloud, Helsinki DC)

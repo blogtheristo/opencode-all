@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Memo — DWS IQ Aegis (Defence & Sovereignty)
-Version: 1.0
+Version: 1.1
 Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/review-investment-decision-0zTSR
@@ -9,6 +9,7 @@ Story Lock: Defence Supply Chain Resilience + Sovereign AI + Dual-Use Intelligen
 Audience: Defence & Resilience VCs (Sentris, Keen, Join Capital, Vsquared, NATO Innovation Fund, OTB)
 
 AGENT HISTORY:
+- v1.1 (2026-04-01): Updated one-liner to "intelligence interceptor" framing — sharper for defence VCs. Old: "autonomous compliance intelligence" (too generic). New: sovereign + CLOUD Act-free in the first sentence.
 - v1.0 (2026-04-01): Created after Sentris Capital rejection. Root cause: general investor memo led with "Climate Tech" — defence VCs pattern-matched to "not our mandate." This memo inverts the framing: defence supply chain resilience first, carbon compliance as a defence capability. Same company, same numbers, different lens.
 -->
 
@@ -27,7 +28,7 @@ AGENT HISTORY:
 
 ## The One-Liner
 
-**Aegis gives EU defence supply chains autonomous compliance intelligence — one sovereign ledger tracking carbon exposure, export control, and supply chain resilience across 20 regulated industries.**
+**DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.**
 
 No US cloud. No CLOUD Act exposure. Every agent decision logged, governed, and auditable under EU AI Act Article 12.
 
@@ -49,14 +50,14 @@ EU defence industrial supply chains face a regulatory collision that no existing
 
 ## The Solution: Aegis
 
-DWS IQ Aegis is a single-tenant sovereign AI platform deployed on Finnish infrastructure. It provides autonomous compliance intelligence across 20 EU-regulated industries, including dual-use critical raw materials and defence supply chains.
+DWS IQ Aegis is a single-tenant sovereign AI platform deployed on Finnish infrastructure. It provides autonomous compliance intelligence across 21 EU-regulated industries, including dual-use critical raw materials and defence supply chains.
 
 ### Architecture
 
 | Layer | Component | Purpose |
 |-------|-----------|---------|
 | **Infrastructure** | UpCloud Managed Kubernetes (Helsinki DC) | Finnish-owned, zero CLOUD Act exposure |
-| **Agents** | 18+ industrial AI agents | Deterministic scoring across 20 industries |
+| **Agents** | 18+ industrial AI agents | Deterministic scoring across 21 industries |
 | **Governance** | KYA Standard v1.6 | Hardware-attested agent identity, capability gating, court-defensible audit trails |
 | **Compliance** | EU AI Act Article 12 logging | Every AI decision logged with reasoning lineage |
 | **Isolation** | Single-tenant Kubernetes + Firecracker MicroVM | Dedicated cluster per customer, no shared tenancy |
@@ -69,7 +70,7 @@ DWS IQ Aegis is a single-tenant sovereign AI platform deployed on Finnish infras
 | **SovereigntyMonitor** | CLOUD Act exposure detection, EU data residency verification | Sovereign infrastructure assurance |
 | **VulcanAgent** | Steel and metals — ETS Phase 4, CBAM carbon declarations | Steel is sovereign capability; flux/alloy supply chain monitoring |
 | **GaiaAgent** | Cement, lime, earth materials — critical raw material assessment | Dual-use critical raw materials under EU CRM Act |
-| **CrossVerticalIntel** | Supply chain signal propagation across 20 industries | One disruption, five industries affected, one auditable ledger |
+| **CrossVerticalIntel** | Supply chain signal propagation across 21 industries | One disruption, five industries affected, one auditable ledger |
 | **MaterialOracle** | Embodied carbon tracking, sustainable procurement | Defence procurement carbon cost visibility |
 | **SiteSenseAgent** | Site safety scoring, logistics optimization, EN 13001 crane monitoring | Defence construction and fortification site safety |
 
@@ -142,7 +143,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | **CLOUD Act Exposure** | Yes | Yes | Yes | **None** |
 | **EU AI Act Compliance** | Roadmap | None | None | **Article 12 native** |
 | **Agent Governance** | Proprietary | Hardware-focused | Dashboard | **KYA Standard (court-defensible)** |
-| **Cross-Vertical Intelligence** | Single-vertical | Hardware/sensors | Single-vertical | **20 industries, one ledger** |
+| **Cross-Vertical Intelligence** | Single-vertical | Hardware/sensors | Single-vertical | **21 industries, one ledger** |
 | **Carbon/CBAM Compliance** | None | None | None | **Native (ETS, CBAM, CSRD)** |
 | **Dual-Use Export Control** | Partial | Partial | None | **Reg. 2021/821 native** |
 | **EU Certification Roadmap** | None announced | None announced | None announced | **ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026), PiTuKri audited** |
@@ -181,7 +182,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | Retention | 100% (zero churn) |
 | Customer LTV | EUR 70K–120K annual value per logo |
 | Platform | 18 AI agents, 32 products, 5 cloud environments |
-| Industries | 20 EU-regulated verticals |
+| Industries | 21 EU-regulated verticals |
 | Time Savings | 40+ hours/month saved per customer |
 
 **Sales Timeline:**
@@ -246,7 +247,7 @@ Enterprise and government pricing on request.
 **Round math:** EUR 200K (Fleet Admiral) + 9 x EUR 50K (Captain) = EUR 650K total
 
 - **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
-- **Captain** — Named captain covering a cluster of 20 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
+- **Captain** — Named captain covering a cluster of 21 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
 - **Deputy Captain** — Open tier, unlimited seats. EUR 5,000. Quarterly briefings, upgrade path to Captain.
 
 ### Use of Funds (EUR 650K)
