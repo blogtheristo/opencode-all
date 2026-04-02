@@ -48,7 +48,7 @@ const pipeline: Contact[] = [
   // Wave 2: PE/Defence (sent 2026-03-31)
   { name: 'Markku Moilanen', firm: 'Ensto / EQT', role: 'CEO Ensto + EQT Industrial Advisor', dateSent: '2026-03-31', wave: 'PE', priority: 1, status: 'sent', notes: '3 hats: customer + EQT channel + Teknologiateollisuus 1800 companies' },
   { name: 'Christopher Kindt', firm: 'Hg Capital', role: 'Partner, Head of Value Creation', dateSent: '2026-03-31', wave: 'PE', priority: 2, status: 'sent', notes: '900+ GenAI projects, Anthropic PE Day' },
-  { name: 'Mikael Männik', firm: 'Hg Capital', role: 'Director, Nordic Region', dateSent: '2026-03-31', wave: 'PE', priority: 3, status: 'sent', notes: 'Warm intro path to Fielding' },
+  { name: 'Mikael Männik', firm: 'Hg Capital', role: 'Director, Nordic Region', dateSent: '2026-03-31', wave: 'PE', priority: 3, status: 'follow-up-1', notes: 'REPLIED 2026-04-02, MEMO SENT 2026-04-02 (Investor_HG_memo.pdf + email). Warm intro path to Fielding. Next: follow up in 5 days if no reply' },
   { name: 'Pia Kåll', firm: 'CapMan', role: 'CEO', dateSent: '2026-03-31', wave: 'PE', priority: 4, status: 'sent', notes: 'Ex-Outotec, Espoo neighbour, Arctic 15' },
   { name: 'Marc Schiekofer', firm: 'Triton Partners', role: 'Operating Partner', dateSent: '2026-03-31', wave: 'PE', priority: 5, status: 'sent', notes: 'Ex-Planetly, Code Gaia board' },
   { name: 'Olof Faxander', firm: 'Gungnir Capital', role: 'Chairman', dateSent: '2026-03-31', wave: 'PE', priority: 6, status: 'sent', notes: 'Defence VC, ex-CEO SSAB + Sandvik' },

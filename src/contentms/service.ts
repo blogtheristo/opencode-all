@@ -107,7 +107,7 @@ export async function createContent(input: CreateContentInput): Promise<ContentI
 
   // Auto-classify if no regulation tags provided
   let regulationTags = parsed.regulation_tags;
-  let confidence = parsed.ai_classification_confidence;
+  let confidence: number | undefined;
   if (!regulationTags || regulationTags.length === 0) {
     const classification = classifyDocument({
       title: parsed.title,

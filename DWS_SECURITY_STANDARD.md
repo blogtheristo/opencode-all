@@ -1503,5 +1503,5 @@ IDV providers (e.g., Shufti Pro) are treated as NIS2 sub-processors (Section 7.4
 **Document Version:** 1.9
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
-**Approved by:** Risto Rautakorpi (DPO, risto@lifetime.fi)
+**Approved by:** Risto Anton Päärni (DPO, dpo@lifetime.fi)
 **Next Review:** August 2026

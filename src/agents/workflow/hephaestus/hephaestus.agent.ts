@@ -108,7 +108,7 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { overallFieldRisk: 50, immediateActions: [], safetyStatus: 'caution', fieldNarrative: '' };
+    let synthesis = { overallFieldRisk: 50, immediateActions: [] as string[], safetyStatus: 'caution', fieldNarrative: '' };
     try {
       synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {

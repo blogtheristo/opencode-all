@@ -1,4 +1,4 @@
-# Shufti EU Compliance & DPA Inquiry — In Progress (Escalated to Shufti Legal)
+# Shufti EU Compliance & DPA Inquiry — DPA Received, Under Legal Review
 
 **Date:** 2026-03-17
 **Author:** Risto Paarni
@@ -43,12 +43,13 @@ Key questions posed:
 
 | Requirement | Status | Notes |
 |-------------|--------|-------|
-| EU-only processing confirmation | IN PROGRESS | Haris escalated to Shufti Compliance (2026-04-01) |
-| DPA (Data Processing Agreement) | IN PROGRESS | Haris escalated to Shufti Legal (2026-04-01) |
-| Sub-processor list | PENDING | Expected in DPA when received |
-| Data deletion policy | PENDING | Expected in DPA when received |
+| EU-only processing confirmation | **CONFIRMED** | Shufti compliance team confirmed 2026-03-31 |
+| DPA (Data Processing Agreement) | **RECEIVED** | Shufti DPA shared by Haris, under legal review |
+| Sub-processor list | PENDING | Awaiting review of DPA annexes |
+| Data deletion policy | PENDING | Must align with DWS data retention standard |
 
 **Update 2026-04-01:** Haris (Shufti) internally escalated to @Compliance Shufti and @Shufti Legal requesting EU data processing confirmation and standard DPA. See `2026-04-01-shufti-dpa-haris-escalation.md`.
+**Update 2026-03-31:** Shufti compliance confirmed EU-only processing. DPA received from Haris, now under legal review.
 
 ## Decision Tree
 

@@ -96,10 +96,10 @@ export class Article12Logger {
       scrubber_version: entry.scrubberVersion ?? this.scrubberVersion,
       risk_classification: entry.riskClassification ?? 'high',
       // Post-flight fields left null until logPostFlight() is called
-      thinking_block_hash: null,
-      decision_summary: null,
-      input_token_count: null,
-      output_token_count: null,
+      thinking_block_hash: null as string | null,
+      decision_summary: null as string | null,
+      input_token_count: null as number | null,
+      output_token_count: null as number | null,
     };
 
     const { data, error } = await this.supabase
