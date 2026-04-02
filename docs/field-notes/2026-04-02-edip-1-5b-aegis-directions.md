@@ -1,13 +1,18 @@
 # EDIP EUR 1.5B Work Programme — Aegis Strategic Directions
 
 VERSION AND AGENT HISTORY
-Version: 1.1
+Version: 1.2
 Date: 2026-04-02
 Author: Claude Code (claude/create-aegis-note-gNQ2q)
 Owner: Lifetime Oy
 Status: Active
 Source: https://ec.europa.eu/commission/presscorner/detail/en/ip_26_752
 Related: INVESTOR_MEMO_AEGIS.md, 2026-03-30-define-network-dual-use-pattern.md
+
+AGENT HISTORY:
+- v1.2 (2026-04-02): Added FAST fund deep research (timelines, eligibility, structure), investor contacts (Emil Bordin / D11Z, Bill Fields / Blu Ventures). Boardy honest assessment retained.
+- v1.1 (2026-04-02): Boardy honest reassessment — FAST is the only direct funding angle, production ramp-up = customer sourcing, joint procurement needs a prime.
+- v1.0 (2026-04-02): Initial note from IP/26/752 press release.
 ---
 
 ## What Happened
@@ -39,24 +44,89 @@ Before the action plan: three of these angles are real but at different temperat
 
 ## Directions for Aegis
 
-### 1. Apply to FAST (EUR 100M equity fund) — ONLY DIRECT FUNDING ANGLE
+### 1. FAST Fund (EUR 100M) — ONLY DIRECT FUNDING ANGLE
 
-**What:** Fund Accelerating Defence Supply Chains Transformation — equity support for defence start-ups, SMEs, and small mid-caps.
+**What:** Fund Accelerating Defence Supply Chains Transformation — Article 14 of Regulation (EU) 2025/2643. EUR 100M EU contribution into Defence Equity Facility 2.0 (DEF 2.0), targeting EUR 1B total through EIB and Member State co-funding.
 
-**Why Aegis qualifies:**
-- Sovereign AI platform (Finnish-hosted, zero CLOUD Act exposure)
-- Defence supply chain intelligence across 21 EU-regulated industries
-- Existing dual-use capability proven (Nordkalk lime cascade = steel → cement → defence industrial base)
-- EU AI Act Article 12 native compliance — no competitor has this
-- Price point (EUR 72K Year 1) accessible to defence SMEs who are the FAST target
+#### How FAST Actually Works (Critical Nuance)
 
-**Critical question:** What is the FAST application timeline? Calls opened 31 March 2026. If the window is weeks not months, this is urgent. If it's an ongoing programme, there's time to prepare properly.
+FAST is **NOT a direct grant you apply for on the EU Funding & Tenders Portal.** It operates as a fund-of-funds through the EIF:
 
-**Action items:**
-1. **URGENT:** Check EU Funding & Tenders Portal for FAST-specific call text and deadline
-2. Prepare Aegis as "defence supply chain transformation" tool — reframe from compliance to resilience
-3. Align investor memo language with EDIP terminology: "production capacity," "supply chain resilience," "technological advancement"
-4. Highlight cross-vertical signal propagation as EDIP-relevant: one disruption affects multiple defence supply chains simultaneously
+```
+EU Commission (EUR 100M) → EIF (DEF 2.0 fund-of-funds)
+                              → selects sub-fund managers (PE/VC)
+                                 → sub-funds invest in defence SMEs
+```
+
+**Translation:** Lifetime Oy cannot apply to FAST directly. VC/PE fund managers apply to EIF for sub-fund allocation. Those sub-funds then invest in defence SMEs like Lifetime Oy. The path to FAST money is through a FAST-participating VC, not through a grant application.
+
+#### FAST Timeline
+
+| Date | Event |
+|------|-------|
+| 30 March 2026 | EDIP work programme adopted |
+| 31 March 2026 | First EDIP calls visible on Funding & Tenders Portal |
+| 30 April 2026 | Submission period opens (for grant-based IRA calls) |
+| May 2026 | Q&A webinar (recording on EDIP webpage) |
+| Q2/Q3 2026 | EIF Call for Expression of Interest for DEF 2.0 sub-fund managers |
+| October 2026 | First IRA call deadline |
+| February 2027 | Second IRA call deadline |
+
+**Contact for EDIP questions:** DEFIS-EDIP-Proposals@ec.europa.eu
+
+#### Aegis Eligibility Check
+
+| Requirement | Lifetime Oy Status |
+|-------------|-------------------|
+| EU establishment | Finland — PASS |
+| Not third-country controlled | Finnish-owned, CEO Risto Päärni — PASS |
+| SME (under 250 employees, under EUR 50M turnover) | Small team, well under thresholds — PASS |
+| Defence supply chain | Dual-use AI for 21 regulated industries including defence — PASS |
+| Buy European (65% EU component costs) | Finnish-hosted, UpCloud Helsinki, EU stack — PASS |
+| Growth stage (FAST targets growth, not pre-seed) | EUR 7K MRR, 5 paying customers — BORDERLINE (early for growth-stage VC) |
+
+**Boardy note:** The "growth stage" requirement is the risk. FAST/DEF 2.0 sub-funds are PE/VC funds looking for growth-stage. Lifetime Oy at EUR 7K MRR is seed-stage. Two paths: (a) get in early with a seed-stage sub-fund, or (b) grow to EUR 50K+ MRR first. The SAFE round at EUR 650K is the bridge.
+
+#### Action Items (Revised)
+
+1. **Find VCs applying to DEF 2.0 sub-fund allocation** — they will be your path to FAST money. The EIF Call for Expression of Interest (Q2/Q3 2026) will reveal which fund managers are participating
+2. **Position for BraveTechEU (EUR 35.3M)** as an alternative — this IS a direct application for start-ups/SMEs, separate from the fund-of-funds structure
+3. **Consider IRA direct grants** — consortia apply via Funding & Tenders Portal, 35-50% cost coverage. Deadline October 2026. Lifetime Oy could join a consortium as the compliance/AI component
+4. Align investor memo with EDIP terminology: "production capacity," "supply chain resilience," "technological advancement"
+
+#### Key Links
+
+- EU Funding & Tenders Portal (EDIP calls): https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals?frameworkProgramme=44181033
+- DG DEFIS EDIP page: https://defence-industry-space.ec.europa.eu/eu-defence-industry/edip-dedicated-programme-defence_en
+- EIF Defence Equity Facility: https://www.eif.org/flagship-initiatives/investeu/defence-equity-facility
+- EDIP Regulation 2025/2643 (EUR-Lex): https://eur-lex.europa.eu/eli/reg/2025/2643/oj/eng
+
+### 1b. Investor Network — FAST/Defence Alignment
+
+Two contacts in network with direct thesis alignment to Aegis + EDIP:
+
+#### Emil Bordin — D11Z. Ventures (Munich)
+
+- **Role:** VC Analyst at D11Z. Ventures
+- **Thesis:** B2B deep tech, AI infrastructure, cybersecurity, and defence software
+- **Ticket:** EUR 100K–EUR 1.5M
+- **Speed:** 2-week decision process
+- **Stage:** European pre-seed/seed
+- **Relevance:** Direct SAFE investor candidate AND has defence software thesis alignment. D11Z could potentially apply as a DEF 2.0 sub-fund manager, making them a dual play (direct investment + FAST pipeline)
+- **Status:** Warm intro available (recent conversation)
+- **LinkedIn:** https://www.linkedin.com/in/ACoAADq_2z0B72tr-6FIwFHg2jxEAPI9ZBoJRgo
+
+#### Bill Fields — Blu Ventures
+
+- **Role:** Venture Partner at Blu Ventures
+- **Background:** Ex-NSA, US Navy Information Warfare Officer
+- **Thesis:** Defence tech, dual-use, cybersecurity (pre-seed to Series A)
+- **Edge:** DoD ecosystem access, government contract navigation
+- **Relevance:** Not EU-native, but dual-use defence software is his exact thesis. US defence money is flowing into EU sovereign tech. Could bridge US defence network to EU sovereign Aegis positioning
+- **Status:** Warm intro available
+- **LinkedIn:** https://www.linkedin.com/in/ACoAAAFJ9qkBzUVykQSkYRhJD21yQJYToFGTx-o
+
+**Boardy note on Bill Fields:** US-based investor in an EU-sovereign product creates a narrative tension. Aegis's pitch is "zero CLOUD Act exposure." Having a US defence investor is fine for credibility, but if he takes a board seat, verify it doesn't compromise the "not controlled by third-country entities" EDIP eligibility (Article 9). Equity is fine. Control is the line.
 
 ### 2. Sell to EDIP-Funded Facilities (EUR 700M+ creates customers, not funding)
 
