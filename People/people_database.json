@@ -584,5 +584,105 @@
       "created_by": "risto-001",
       "updated_by": "risto-001"
     }
+  },
+  {
+    "id": "pia-kruse-001",
+    "type": "customer",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Pia",
+      "last_name": "Kruse",
+      "full_name": "Pia Kruse",
+      "title": "Head of Sustainability",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/pia-kruse-b42b682",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "NCC Building Nordics",
+      "department": "Sustainability",
+      "role": "Head of Sustainability",
+      "location": {
+        "city": "Oslo",
+        "country": "Norway",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "MS Biology (Ecology, Indoor Air, Microbiology) Copenhagen; Executive MBA BI Norwegian Business School; Strategic Leadership Stockholm School of Economics",
+      "expertise": [
+        "CSRD/ESRS Reporting",
+        "EU Taxonomy Alignment",
+        "GRI Standards",
+        "GHG Protocol",
+        "CDP Disclosure",
+        "ISO 14001",
+        "ISO 9001",
+        "ISO 45001",
+        "BREEAM Certification",
+        "Construction Sustainability",
+        "Multi-Jurisdiction Compliance",
+        "EU Regulatory Frameworks"
+      ],
+      "languages": [
+        "Norwegian",
+        "Danish",
+        "English",
+        "Swedish"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "customer",
+        "prospect",
+        "construction",
+        "sustainability",
+        "CSRD",
+        "ESRS",
+        "EPBD",
+        "EU-taxonomy",
+        "NCC",
+        "compliance",
+        "fit-for-55",
+        "GRI",
+        "GHG",
+        "CDP",
+        "BREEAM",
+        "multi-jurisdiction",
+        "NO-DK-FI",
+        "linkedin-first-view",
+        "sales-pipeline"
+      ],
+      "products": [
+        "dws-iq",
+        "firehorse"
+      ],
+      "interests": [
+        "CSRD-ESRS multi-jurisdiction reporting",
+        "EU Taxonomy CapEx/OpEx alignment",
+        "EPBD embodied carbon compliance",
+        "ERP integration for carbon data",
+        "Multi-country data consolidation (NO/DK/FI)"
+      ],
+      "engagement_level": "medium",
+      "last_contact": "2026-04-02",
+      "next_action": "Send construction compliance brief via LinkedIn InMail",
+      "notes": "20+ year Nordic construction sustainability veteran. Career: Skanska (3y) → AF Gruppen (4y) → Veidekke (3y) → NCC Building Nordics (Oct 2021–present). Board member EU Commission FP7 ChemXchange consortium. Skills are near-perfect match for DWS IQ platform. KEY INSIGHT: She knows every standard we cover — don't explain CSRD. Lead with the data layer, ERP integration, and the multi-jurisdiction pain point (managing NO/DK/FI compliance simultaneously). NCC Building Nordics covers Norway, Denmark, and Finland."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-04-02T07:00:00Z",
+      "updated_at": "2026-04-02T07:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-quirky-shockley"
+    }
   }
 ]
