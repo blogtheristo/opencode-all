@@ -481,19 +481,22 @@ Every content/landing page MUST have a hero section as the first visual element 
 
 ### Font Stack
 
-**Web applications (landing pages, dashboards):**
+**Primary typeface:** Inter (all weights: 400, 500, 600, 700)
+
 ```css
 font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 ```
 
-**Google Fonts import (required in `<head>` for all HTML):**
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-```
+**Loading method depends on document classification:**
 
-Inter is the DWS standard typeface. System font stack serves as fallback for offline/print scenarios. Inter loads from Google Fonts CDN (< 100KB, cached globally).
+| Classification | Method | Source |
+|---------------|--------|--------|
+| Public (landing pages, blog, dashboards) | Google Fonts CDN | `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">` |
+| Confidential / Sales / Internal | Self-hosted `@font-face` | `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf` |
+
+**Why self-host for confidential documents:** Loading from `fonts.googleapis.com` / `fonts.gstatic.com` triggers external network requests when opened, leaking document access to Google. Confidential briefs must work offline and in locked-down enterprise environments.
+
+System font stack (`-apple-system`, `Segoe UI`) serves as fallback when Inter is unavailable.
 
 ### Type Scale
 

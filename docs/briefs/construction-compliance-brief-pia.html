@@ -4,10 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSRD + EPBD + Fit for 55: Compliance Architecture for Nordic Construction Groups</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Self-hosted Inter — no external network requests (confidential document) */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+        }
+
         @page {
             size: A4;
             margin: 0;
@@ -21,6 +48,7 @@
             line-height: 1.55;
             color: #1a202c;
             background: #e2e8f0;
+            counter-reset: page-counter;
         }
 
         /* Each page is an explicit A4 box */
@@ -31,10 +59,10 @@
             margin: 10px auto;
             padding: 0;
             position: relative;
-            overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
+            counter-increment: page-counter;
         }
 
         @media print {
@@ -48,8 +76,7 @@
                 margin: 0;
                 box-shadow: none;
                 page-break-after: always;
-                min-height: 0;
-                height: 297mm;
+                overflow: visible;
             }
             .page:last-child { page-break-after: avoid; }
         }
@@ -72,7 +99,6 @@
         .page-content {
             flex: 1;
             padding: 6mm 20mm 4mm 20mm;
-            overflow: hidden;
         }
 
         /* Page footer — repeats on every page */
@@ -107,8 +133,6 @@
                 margin: 0;
                 box-shadow: none;
                 page-break-after: always;
-                min-height: 0;
-                height: 297mm;
                 background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%) !important;
             }
         }
@@ -306,6 +330,11 @@
         .contact .name { font-size: 11pt; font-weight: 700; color: #0f172a; }
         .contact .details { font-size: 9pt; color: #64748b; margin-top: 3px; }
 
+        /* CSS counter for page numbers */
+        .page-number::after {
+            content: counter(page-counter);
+        }
+
         strong { font-weight: 600; }
     </style>
 </head>
@@ -324,7 +353,7 @@
     </div>
     <div class="cover-footer">
         <span>&copy; Lifetime Oy 2026</span>
-        <span>Page 1 of 5</span>
+        <span>Cover</span>
     </div>
 </div>
 
@@ -332,7 +361,7 @@
 <div class="page">
     <div class="page-header">
         <span><strong>Lifetime Oy</strong> &mdash; CSRD + EPBD + Fit for 55: Compliance Architecture</span>
-        <span>Confidential | Page 2 of 5</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
     </div>
     <div class="page-content">
 
@@ -428,7 +457,7 @@
 <div class="page">
     <div class="page-header">
         <span><strong>Lifetime Oy</strong> &mdash; CSRD + EPBD + Fit for 55: Compliance Architecture</span>
-        <span>Confidential | Page 3 of 5</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
     </div>
     <div class="page-content">
 
@@ -502,7 +531,7 @@
 <div class="page">
     <div class="page-header">
         <span><strong>Lifetime Oy</strong> &mdash; CSRD + EPBD + Fit for 55: Compliance Architecture</span>
-        <span>Confidential | Page 4 of 5</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
     </div>
     <div class="page-content">
 
@@ -578,7 +607,7 @@
 <div class="page">
     <div class="page-header">
         <span><strong>Lifetime Oy</strong> &mdash; CSRD + EPBD + Fit for 55: Compliance Architecture</span>
-        <span>Confidential | Page 5 of 5</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
     </div>
     <div class="page-content">
 

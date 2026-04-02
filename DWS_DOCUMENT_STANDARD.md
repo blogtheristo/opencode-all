@@ -622,14 +622,57 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_me
 
 ### 8.4 HTML Styling Standard (DWS Brand)
 
-**DWS brand CSS (used by Generate-PDFs.ps1 and all HTML documents):**
+**Font loading — two modes based on document classification:**
 
+| Classification | Font Loading | Reason |
+|---------------|-------------|--------|
+| **Confidential / Sales / Internal** | Self-hosted `@font-face` from `docs/assets/fonts/` | No external network requests — document works offline and in locked-down environments |
+| **Public (landing pages, blog)** | Google Fonts CDN `<link>` tag | Performance, caching, CDN delivery |
+
+**Self-hosted font (confidential documents):**
+
+Font files: `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf`
+
+```css
+/* Self-hosted Inter — no external network requests (confidential document) */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+}
+```
+
+**Google Fonts (public pages only):**
 ```html
-<!-- Required in <head> for all HTML documents -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
+
+**DWS brand CSS:**
 
 ```css
 body {
@@ -687,29 +730,46 @@ All HTML documents intended for browser print-to-PDF MUST include:
     position: relative;
     display: flex;
     flex-direction: column;
+    counter-increment: page-counter;
 }
 
 @media print {
     .page {
         margin: 0;
-        height: 297mm;
         page-break-after: always;
+        overflow: visible;  /* NEVER overflow: hidden — clips content silently */
     }
     .page:last-child { page-break-after: avoid; }
 }
 ```
 
-**3. Visible page headers and footers** (NOT @page CSS — browsers ignore those):
+**NEVER use `overflow: hidden` on `.page` or `.page-content` in print mode.** Different browser print engines, font fallback, and user scaling can push content slightly beyond expected bounds. Hidden overflow silently truncates text without visual warning. Use `overflow: visible` and rely on page breaks.
+
+**NEVER use fixed `height: 297mm` on `.page` in print mode.** Use `min-height` only. Fixed height + flex children = content truncation when rendering varies across browsers/DPI.
+
+**3. Visible page headers and footers with CSS counters** (NOT @page CSS — browsers ignore those):
+
+```css
+body { counter-reset: page-counter; }
+.page { counter-increment: page-counter; }
+.page-number::after { content: counter(page-counter); }
+```
+
 ```html
 <div class="page">
-    <div class="page-header">Lifetime Oy | Document Title | Confidential</div>
+    <div class="page-header">
+        <span>Lifetime Oy | Document Title</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
+    </div>
     <div class="page-content"><!-- content --></div>
     <div class="page-footer">
         <span>© Lifetime Oy 2026</span>
-        <span>Page X of Y</span>
+        <span>Confidential</span>
     </div>
 </div>
 ```
+
+**NEVER hard-code page numbers** (e.g., "Page 3 of 5"). Use CSS counters so numbers stay accurate when content changes.
 
 **Why:** Browser print-to-PDF ignores CSS `@page` rules for headers, footers, and page counters. Explicit page divs with visible header/footer elements render reliably in Chrome, Edge, and Firefox print-to-PDF.
 
@@ -739,10 +799,14 @@ All HTML documents intended for browser print-to-PDF MUST include:
 Before finalizing any PDF document, verify:
 
 - [ ] File size < 10 MB (preferably 1-5 MB)
-- [ ] Inter font loads (Google Fonts `<link>` in `<head>`)
+- [ ] Inter font loads (self-hosted `@font-face` for confidential docs, Google Fonts CDN for public)
+- [ ] No external network requests in confidential documents (no Google Fonts `<link>`)
 - [ ] `print-color-adjust: exact` in `@media print` block
 - [ ] All backgrounds render in print preview (cover pages, table headers)
 - [ ] Explicit `<div class="page">` structure with visible headers/footers (NOT @page CSS)
+- [ ] No `overflow: hidden` on `.page` or `.page-content` (clips content silently in print)
+- [ ] No fixed `height: 297mm` in print — use `min-height` only
+- [ ] Page numbers use CSS counters (never hard-coded)
 - [ ] All tables render correctly
 - [ ] Page breaks are appropriate (one `page-break-after: always` per page div)
 - [ ] Headers and footers are consistent across all pages

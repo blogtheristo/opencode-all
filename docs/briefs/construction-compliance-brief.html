@@ -4,29 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSRD + EPBD + Fit for 55: Compliance Architecture for Nordic Construction Groups</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Self-hosted Inter — no external network requests (confidential document) */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+        }
+
         @page {
             size: A4;
             margin: 25mm 20mm 25mm 20mm;
-            @bottom-center {
-                content: "Lifetime Oy — Confidential";
-                font-size: 8pt;
-                color: #94a3b8;
-            }
-            @bottom-right {
-                content: counter(page) " / " counter(pages);
-                font-size: 8pt;
-                color: #94a3b8;
-            }
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
         }
 
         body {
