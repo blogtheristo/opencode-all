@@ -13,17 +13,18 @@ import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 
 // SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
+const _jwtSecret = process.env.JWT_SECRET;
+if (!_jwtSecret) {
   const errorMsg = 'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
-if (JWT_SECRET.length < 32) {
+if (_jwtSecret.length < 32) {
   const errorMsg = 'FATAL: JWT_SECRET must be at least 32 characters long for adequate security.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
+const JWT_SECRET: string = _jwtSecret;
 
 const JWT_EXPIRES_IN = '24h';
 const JWT_REFRESH_EXPIRES_IN = '7d';

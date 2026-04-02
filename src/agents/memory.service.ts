@@ -604,7 +604,7 @@ export class MemoryService {
       orgId: row.org_id as string,
       memoryType: row.memory_type as MemoryItem['memoryType'],
       content: row.content as string,
-      similarity: undefined,
+      similarity: undefined as number | undefined,
       metadata: (row.metadata || {}) as Record<string, unknown>,
       createdAt: row.created_at as string,
       accessedAt: row.accessed_at as string | undefined,

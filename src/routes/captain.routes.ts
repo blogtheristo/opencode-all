@@ -91,7 +91,7 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
             logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
           }
         })
-        .catch((err) => {
+        .catch((err: unknown) => {
           logger.warn('Captain inquiry DB insert error', { error: err instanceof Error ? err.message : 'unknown', name, email });
         });
     }

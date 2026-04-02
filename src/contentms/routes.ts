@@ -113,7 +113,7 @@ const LearningQuerySchema = z.object({
 
 const StatusTransitionSchema = z.object({
   status: z.nativeEnum(ContentStatus, {
-    errorMap: () => ({ message: `Invalid status. Valid: ${Object.values(ContentStatus).join(', ')}` }),
+    error: `Invalid status. Valid: ${Object.values(ContentStatus).join(', ')}`,
   }),
 });
 
@@ -125,7 +125,7 @@ const HilReviewerSchema = z.object({
 
 const ArtifactPublishSchema = z.object({
   artifact_type: z.nativeEnum(ArtifactType, {
-    errorMap: () => ({ message: `Invalid artifact_type. Valid: ${Object.values(ArtifactType).join(', ')}` }),
+    error: `Invalid artifact_type. Valid: ${Object.values(ArtifactType).join(', ')}`,
   }),
   publisher_id: z.string().min(1, 'publisher_id is required'),
   publisher_name: z.string().min(1, 'publisher_name is required'),
