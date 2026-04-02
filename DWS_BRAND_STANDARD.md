@@ -481,11 +481,22 @@ Every content/landing page MUST have a hero section as the first visual element 
 
 ### Font Stack
 
+**Primary typeface:** Inter (all weights: 400, 500, 600, 700)
+
 ```css
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 ```
 
-No custom web fonts. System fonts load instantly and feel native on every OS.
+**Loading method depends on document classification:**
+
+| Classification | Method | Source |
+|---------------|--------|--------|
+| Public (landing pages, blog, dashboards) | Google Fonts CDN | `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">` |
+| Confidential / Sales / Internal | Self-hosted `@font-face` | `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf` |
+
+**Why self-host for confidential documents:** Loading from `fonts.googleapis.com` / `fonts.gstatic.com` triggers external network requests when opened, leaking document access to Google. Confidential briefs must work offline and in locked-down enterprise environments.
+
+System font stack (`-apple-system`, `Segoe UI`) serves as fallback when Inter is unavailable.
 
 ### Type Scale
 
