@@ -941,30 +941,47 @@
 <body>
     <!-- Navigation will be injected by ironclad-nav.js -->
 
+    <!-- Easter Banner — auto-removes after April 7, 2026 -->
+    <div id="easter-banner" style="display:none; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%); padding: 32px 20px; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <img src="/static/images/Eastern2026.jpg" alt="Happy Easter from Lifetime Oy" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+            <p style="font-size: 1.3rem; color: #92400e; font-weight: 700; margin: 0;">Happy Easter from the DWS IQ Team!</p>
+            <p style="font-size: 1rem; color: #a16207; margin: 8px 0 0;">Wishing you peace, renewal, and a productive spring. We're back in full force after the holiday.</p>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var expiry = new Date('2026-04-07T23:59:59');
+        if (new Date() < expiry) {
+            document.getElementById('easter-banner').style.display = 'block';
+        }
+    })();
+    </script>
+
     <!-- €500K CAMPAIGN HERO SECTION -->
     <!-- €500K CAMPAIGN HERO SECTION -->
     <section class="campaign-hero" style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); color: white; padding: 100px 0; text-align: center; position: relative; overflow: hidden;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 999px; padding: 10px 26px; display: inline-block; margin-bottom: 24px; font-weight: 600; font-size: 0.95rem; color: #e2e8f0;">
-                Fit for 55 · 2026 Compliance
+                Nordic Construction · Sustainability Intelligence
             </div>
 
             <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 18px; line-height: 1.15; text-shadow: 0 2px 10px rgba(0,0,0,0.35);">
-                The Era of "Paperwork Compliance" is Over.
+                One EN 15978 data pipeline for CSRD + EPBD across the Nordics.
             </h1>
             <p style="font-size: clamp(1.1rem, 2vw, 1.35rem); max-width: 940px; margin: 0 auto 40px; color: #e2e8f0;">
-                Fit for 55 means real risk—millions in lost tenders, tens of thousands in fines, and stranded assets. DWS IQ 6 turns regulatory burden into a real-time competitive advantage with Climate Intelligent Industrial Automation.
+                Replace three-country spreadsheet reconciliation with governed ERP + BIM ingestion (Visma, IFS, Dynamics, SAP) and traceable outputs for auditors and tenders.
             </p>
 
             <div style="max-width: 980px; margin: 0 auto 40px; display: grid; gap: 16px; text-align: left;">
                 <div style="background: rgba(15, 23, 42, 0.35); border: 1px solid rgba(255, 255, 255, 0.12); border-left: 4px solid #f87171; padding: 20px 22px; border-radius: 14px;">
-                    <strong style="color: #fca5a5;">STOP THE LIABILITY:</strong> Move beyond generic templates. Our NIS2 & CSRD-ready Edge Computing captures data at the source, eliminating the "spreadsheet gap" that leads to heavy fines.
+                    <strong style="color: #fca5a5;">TRACEABLE SOURCES:</strong> EN 15978 stages A1–D, fed by EPDs + country grid factors, with traceable source links and versioned factors.
                 </div>
                 <div style="background: rgba(15, 23, 42, 0.35); border: 1px solid rgba(255, 255, 255, 0.12); border-left: 4px solid #38bdf8; padding: 20px 22px; border-radius: 14px;">
-                    <strong style="color: #7dd3fc;">WIN THE TENDER:</strong> Deploy Government-Grade Dashboards trusted by the EU. When millions are on the line, don’t just report—prove your compliance in real-time.
+                    <strong style="color: #7dd3fc;">ONE MODEL, THREE OUTPUTS:</strong> YM decree, BR18 LCA, NS 3720, plus ESRS E1 — one governed data model across Finland, Denmark, and Norway.
                 </div>
                 <div style="background: rgba(15, 23, 42, 0.35); border: 1px solid rgba(255, 255, 255, 0.12); border-left: 4px solid #34d399; padding: 20px 22px; border-radius: 14px;">
-                    <strong style="color: #6ee7b7;">SECURE THE ASSET:</strong> Transform your industrial portfolio from a "Climate Risk" into a "Climate Asset" with the only platform designed for the complexity of the 2026 regulatory landscape.
+                    <strong style="color: #6ee7b7;">BID ADVANTAGE:</strong> Portfolio-level carbon + compliance dashboard by entity, project, and country.
                 </div>
             </div>
 
@@ -1008,7 +1025,7 @@
     <section id="risk-calculator" style="padding: 80px 0; background: rgba(15, 23, 42, 0.5);">
         <div class="sticky-cta">
             <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-                <p>Fit for 55 risk is financial risk. Stay tender-ready.</p>
+                <p>Nordic sustainability compliance. One pipeline, three jurisdictions.</p>
                 <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true">Secure Your Market Position</a>
             </div>
         </div>
@@ -1086,7 +1103,7 @@
                     <p style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 24px;">&euro;3.8M cap &middot; 20% discount &middot; First tranche</p>
 
                     <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; color: #cbd5e1;">
-                        Own a vertical on Europe's Fit for 55 platform. Not a passive investment — a founding crew seat with your name on it.
+                        Own a vertical on Europe's Nordic sustainability intelligence platform. Not a passive investment — a founding crew seat with your name on it.
                     </p>
 
                     <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
@@ -1125,7 +1142,7 @@
                             – One login for your whole portfolio
                         </li>
                         <li style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: #cbd5e1; font-size: 0.95rem;">
-                            – Fit for 55 reports in days, not months
+                            – CSRD + EPBD reports in days, not months
                         </li>
                         <li style="padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: #cbd5e1; font-size: 0.95rem;">
                             – From spreadsheets to live dashboards
@@ -1184,30 +1201,13 @@
         </div>
     </section>
 
-    <!-- Easter Banner — auto-removes after April 7, 2026 -->
-    <div id="easter-banner" style="display:none; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%); padding: 32px 20px; text-align: center;">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <img src="/static/images/Eastern2026.jpg" alt="Happy Easter from Lifetime Oy" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
-            <p style="font-size: 1.3rem; color: #92400e; font-weight: 700; margin: 0;">Happy Easter from the DWS IQ Team!</p>
-            <p style="font-size: 1rem; color: #a16207; margin: 8px 0 0;">Wishing you peace, renewal, and a productive spring. We're back in full force after the holiday.</p>
-        </div>
-    </div>
-    <script>
-    (function() {
-        var expiry = new Date('2026-04-07T23:59:59');
-        if (new Date() < expiry) {
-            document.getElementById('easter-banner').style.display = 'block';
-        }
-    })();
-    </script>
-
     <section class="hero">
         <div class="container">
             <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; padding: 12px 24px; border-radius: 50px; display: inline-block; margin-bottom: 20px; font-weight: 600;">
-                🚀 2026 FLAGSHIP: CLIMATE REPORTING STARTER BUNDLE | Fit for 55 Compliance
+                🚀 2026 FLAGSHIP: NORDIC SUSTAINABILITY STARTER | CSRD + EPBD + EN 15978
             </div>
-            <h2>The Fit for 55 Compliance Starter</h2>
-            <p>The fastest path to automated carbon reporting for EU mid-market companies. Combine our Industrial Brain (DWS IQ) with Last-Mile Automation (Firehorse Report). <strong>Generating €7k MRR today from logistics pilots (Logistics Operator 1, Logistics Operator 2, Logistics Operator 3).</strong></p>
+            <h2>The Nordic Sustainability Starter</h2>
+            <p>Governed ERP + BIM ingestion with traceable outputs for Nordic construction and industrial companies. Combine our Industrial Brain (DWS IQ) with Last-Mile Automation (Firehorse Report). <strong>Generating €7k MRR today from logistics pilots (Logistics Operator 1, Logistics Operator 2, Logistics Operator 3).</strong></p>
             
             <div style="margin: 40px auto; max-width: 900px;">
                 <a href="https://github.com/blogtheristo/dws6" target="_blank">
@@ -1286,7 +1286,7 @@
                     <h4 style="color: #60a5fa;">🧠 BRAIN = DWS IQ 6 Platform</h4>
                     <ul>
                         <li><strong>Multi-agent AI orchestration</strong> across all industries</li>
-                        <li>Real-time climate-intelligent decision making</li>
+                        <li>Climate-intelligent decision making with daily automated ingestion</li>
                         <li>Tech: Multi-provider LLM (Anthropic Claude, Groq, OpenAI-compatible), MCP Agent Protocol</li>
                         <li>Deploy: Google Cloud Run (europe-north1, GDPR)</li>
                         <li><strong style="color: #4ade80;">STATUS: PILOT PHASE (RUNNING)</strong></li>
@@ -1299,7 +1299,7 @@
                     <ul>
                         <li><strong>Specialized LLM</strong> with climate-intelligent industry knowledge</li>
                         <li>Knowledge: EU Fit for 55, EPBD, ETS, CBAM, CSRD regulations</li>
-                        <li>Carbon factors: 50+ materials, industry best practices</li>
+                        <li>EN 15978 stages A1–D, supplier EPDs, country grid factors</li>
                         <li><strong>Cross-vertical intelligence:</strong> Logistics insights → Construction</li>
                         <li>Network effects: Each vertical makes ALL verticals smarter</li>
                     </ul>
@@ -1344,7 +1344,7 @@
                     </p>
                     <ul style="list-style: none; font-size: 1.1rem; padding-left: 0;">
                         <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>100% retention</strong> for 12+ months (no churn)</li>
-                        <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>15-25% efficiency gains</strong> (real-time fleet carbon tracking)</li>
+                        <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>15-25% efficiency gains</strong> (automated fleet carbon tracking)</li>
                         <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>40 hours/month saved</strong> per customer</li>
                         <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>€70k-120k annual value</strong> per customer</li>
                         <li style="margin-bottom: 10px; color: #cbd5e1;">✅ <strong>NCC + T2H</strong> are target partners for our first construction DWS IQ Private Cloud pilots (in discussion to find tight product-market fit, not yet signed).</li>
