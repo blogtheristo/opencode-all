@@ -378,7 +378,14 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.headers['x-admin-key'] as string;
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks (consistent with other admin endpoints)
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuffer = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -398,7 +405,14 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.headers['x-admin-key'] as string;
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
