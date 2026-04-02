@@ -20,6 +20,8 @@ import { ETS_CARBON_PRICE_EUR, CBAM_CERTIFICATE_PRICE_EUR } from '../compliance/
 import { getBenchmark, compareAgainstBenchmark } from '../compliance/eu-benchmarks.js';
 import { fetchPublicComplianceData } from '../compliance/public-data-fetcher.js';
 import { extractComplianceData } from '../compliance/esg-report-extractor.js';
+import { calculateConstructionCompliance, getJurisdictionContext, benchmarkProject, type BuildingProject } from '../compliance/construction-compliance.js';
+import { generateTimeline, getTrackedRegulations } from '../compliance/regulatory-timeline.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -458,6 +460,118 @@ router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) 
   } catch (err) {
     next(err);
   }
+});
+
+// ============ CONSTRUCTION COMPLIANCE (EN 15978) ============
+
+const ConstructionProjectSchema = z.object({
+  projectId: z.string().min(1),
+  name: z.string().min(1),
+  jurisdiction: z.enum(['NO', 'DK', 'FI', 'SE', 'EU']),
+  buildingType: z.enum(['residential', 'commercial', 'industrial', 'mixed']),
+  grossFloorArea: z.number().positive(),
+  heatedArea: z.number().positive().optional(),
+  materials: z.array(z.object({
+    name: z.string(),
+    category: z.enum(['concrete', 'steel', 'timber', 'insulation', 'aluminium', 'glass', 'brick', 'other']),
+    quantity: z.number().positive(),
+    unit: z.enum(['tonnes', 'm3', 'm2']),
+    emissionFactor: z.number().positive(),
+    factorSource: z.enum(['epd', 'generic', 'co2data.fi', 'epd-norge', 'dansk-beton']),
+    epdReference: z.string().optional(),
+  })),
+  transport: z.array(z.object({
+    description: z.string(),
+    distanceKm: z.number().positive(),
+    mode: z.enum(['truck', 'rail', 'ship', 'electric-truck']),
+    tonnage: z.number().positive(),
+  })).default([]),
+  siteEnergy: z.array(z.object({
+    type: z.enum(['diesel', 'electricity', 'lpg', 'district-heat']),
+    quantity: z.number().positive(),
+    unit: z.enum(['litres', 'kWh', 'MWh']),
+  })).default([]),
+  annualOperationalEnergy: z.number().min(0).optional(),
+  designLifetime: z.number().min(1).max(200).optional(),
+  hasBimModel: z.boolean().optional(),
+  erpSystem: z.enum(['visma', 'ifs-cloud', 'dynamics-365', 'other']).optional(),
+});
+
+/**
+ * POST /api/v1/compliance/construction/assess
+ * Run EN 15978 lifecycle assessment for a building project.
+ * Returns lifecycle stage breakdown, EPBD compliance, cost exposure.
+ */
+router.post(
+  '/construction/assess',
+  validate({ body: ConstructionProjectSchema }),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const project = req.body as BuildingProject;
+
+      logger.info('Construction compliance assessment requested', {
+        projectId: project.projectId,
+        jurisdiction: project.jurisdiction,
+        grossFloorArea: project.grossFloorArea,
+        materials: project.materials.length,
+      });
+
+      const result = calculateConstructionCompliance(project);
+
+      // Add benchmark comparison
+      const benchmark = benchmarkProject(
+        result.totalEmbodiedCarbonPerM2,
+        project.buildingType,
+      );
+
+      logger.info('Construction compliance assessment completed', {
+        projectId: project.projectId,
+        embodiedCarbonPerM2: result.totalEmbodiedCarbonPerM2,
+        epbdCompliant: result.epbd.epbdCompliant,
+        dataQuality: result.dataQuality,
+      });
+
+      res.status(200).json({
+        ...result,
+        benchmark,
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
+/**
+ * GET /api/v1/compliance/construction/jurisdiction/:code
+ * Get jurisdiction-specific compliance context (national standards, grid factors, benchmarks).
+ */
+router.get('/construction/jurisdiction/:code', (req: Request, res: Response) => {
+  const code = req.params.code.toUpperCase() as 'NO' | 'DK' | 'FI' | 'SE' | 'EU';
+  const validCodes = ['NO', 'DK', 'FI', 'SE', 'EU'];
+
+  if (!validCodes.includes(code)) {
+    res.status(400).json({ error: `Invalid jurisdiction code. Valid: ${validCodes.join(', ')}` });
+    return;
+  }
+
+  const context = getJurisdictionContext(code);
+  res.json(context);
+});
+
+// ============ REGULATORY TIMELINE ============
+
+/**
+ * GET /api/v1/compliance/timeline
+ * Get full regulatory timeline with urgency classification and deadlines.
+ */
+router.get('/timeline', (req: Request, res: Response) => {
+  const timeline = generateTimeline();
+  const regulations = getTrackedRegulations();
+
+  res.json({
+    ...timeline,
+    regulations,
+  });
 });
 
 export default router;
