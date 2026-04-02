@@ -128,8 +128,8 @@ Return JSON: {
       criticalPath: '',
       deliveryForecast: 'unknown',
       delayDays: 0,
-      bottlenecks: [],
-      alternatives: [],
+      bottlenecks: [] as string[],
+      alternatives: [] as string[],
       operationalBriefing: '',
     };
     try {

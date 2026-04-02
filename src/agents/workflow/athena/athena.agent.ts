@@ -105,7 +105,7 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { deadlineSummary: '', criticalGaps: [], prioritizedActions: [], riskNarrative: '' };
+    let synthesis = { deadlineSummary: '', criticalGaps: [] as string[], prioritizedActions: [] as string[], riskNarrative: '' };
     try {
       synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
