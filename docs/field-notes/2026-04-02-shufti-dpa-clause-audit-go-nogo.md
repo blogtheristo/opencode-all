@@ -107,23 +107,39 @@ Shufti Pro shared their standard DPA (v1.0, adopted 2024-12-17). This is a claus
 **DPA says:** Clause 6.4 mentions injunctive relief. No liability cap or indemnity clause in the DPA itself.
 **Assessment:** Liability likely governed by the main Services Agreement. Must verify the main agreement's liability terms before signing.
 
-## Stephen Ullman Director Audit
+## Stephen Ullman Director Audit — VERIFIED
 
 **DPA signatory:** Stephen Ullman, Director, Shufti Pro Limited
 
-**Observations:**
-- The DPA spelling is "Ullman" (single 'l'). User referenced "Uhlman" — verify correct spelling.
-- Shufti Pro Limited is incorporated in England and Wales (company reg needed for verification)
-- Registered address: Coppergate House, 10 Whites Row, E1 7NF, London — this is a Spitalfields serviced office address (WeWork/similar), common for tech companies but not indicative of major physical presence
-- Companies House verification recommended before signature — confirm Stephen Ullman is listed as active director with authority to sign
+**Companies House verification (2026-04-02):**
+- **Company Number:** 11039567
+- **Status:** Active (private limited company)
+- **Incorporated:** 31 October 2017
+- **Registered Office:** Coppergate House, 10 Whites Row, London, E1 7NF — matches DPA
+- **SIC Codes:** 62012 (software development), 63110 (data processing/hosting)
+- **Last accounts filed:** 31 December 2024 — current
+- **Last confirmation statement:** 22 December 2025 — current
+- **LEI:** 984500AF891013CE9D42
+- **Funding:** $20M Series A (March 2022), led by Updata Partners
+- **Valuation:** ~71.4M GBP
 
-**Action items:**
-1. Search Companies House for "Shufti Pro Limited" — confirm active status and company number
-2. Verify Stephen Ullman is listed as current director (not resigned/removed)
-3. Verify the registered address matches Companies House records
-4. Check filing history — are annual accounts/confirmation statements up to date?
+**Stephen James Ullman — CONFIRMED as director:**
+- **Role:** CFO and Board Director
+- **Qualifications:** ACA (ICAEW), BA Accounting & Finance (University of Essex)
+- **Prior role:** CFO & COO at My EU Pay (regulated payments institution, ~4.75 years)
+- **Sources:** Companies House officers list, Dun & Bradstreet, The Org, RocketReach
 
-**Note:** Companies House records are public at https://find-and-update.company-information.service.gov.uk — Risto should verify this directly. Cannot be done programmatically without API key.
+**Other current directors:**
+- Victor Fredung (Swedish, DOB May 1991, appointed Oct 2018) — co-founder/CEO
+- Braden Snyder (American, DOB Sep 1961, appointed Nov 2023) — Updata Partners board seat
+
+**Persons with Significant Control (2 active):**
+- Shahid UK Holdings Limited (UK reg. 13849223) — 25-50% shares
+- Grundbulten 106742 Ab (Swedish reg. 559356-9519)
+
+**Assessment:** Stephen Ullman is a legitimate, verified director with appropriate qualifications (ICAEW-chartered accountant, regulated payments background). Company filings are current. No red flags on the signatory. The DPA spelling "Ullman" is correct.
+
+**Source:** https://find-and-update.company-information.service.gov.uk/company/11039567
 
 ## Additional Issues Found
 
@@ -138,7 +154,32 @@ The DPA does not prohibit Shufti from using Lifetime Oy's customer biometric dat
 
 The DPA template says "entered into on _____ day of February, 2026" but it's now April 2026. Minor — update to current date when signing.
 
-### C. Missing Notification Email
+### C. TeleSign Sub-Processor — HIGH RISK (noyb Complaint)
+
+**Critical finding from research:** noyb filed a GDPR complaint (June 2023) with the Belgian DPA alleging TeleSign secretly profiles half the world's mobile phone users via data from BICS (Belgian interconnection provider). TeleSign assigns "trust scores" (0-300) to phone numbers and sells these to TikTok, Microsoft, Salesforce. Potential fine: up to 236M EUR. Case still pending as of April 2026.
+
+**Impact on DPA:** TeleSign is listed in Annex II for "SMS delivery and two-factor authentication". If Shufti's use of TeleSign involves the contested trust-scoring functionality, Lifetime Oy inherits regulatory exposure.
+
+**Required action:** Ask Shufti on call with Haris:
+1. What data flows to TeleSign — is it only SMS delivery or also trust scoring?
+2. Can TeleSign be replaced with an EU-based SMS provider?
+3. If Belgian DPA rules against TeleSign, what is Shufti's contingency plan?
+
+### D. Twilio/SendGrid — MODERATE RISK (Repeated Incidents)
+
+Research found multiple security incidents:
+- July 2024: ShinyHunters leaked 33M Authy phone numbers via unauthenticated API
+- September 2024: 12,000 call records exposed
+- April 2025: 848,000 SendGrid customer records allegedly for sale
+- Class action investigation underway re Authy leak
+
+**Impact:** Twilio handles "OTP delivery, video recording (KYC)" per Annex II. The video recording function means biometric data transits Twilio infrastructure.
+
+### E. IPStack Transfer Mechanism — Outdated
+
+IPStack privacy policy still references EU-US Privacy Shield, invalidated July 2020 (Schrems II). Transfer mechanism may be non-compliant. Low severity (IP geolocation only, not biometric).
+
+### F. Missing Notification Email
 
 Clause 2.4 breach notification email is blank: "___________________". Must be filled with `risto.paarni@lifetime.fi`.
 
@@ -152,12 +193,15 @@ Clauses reference "Data Processing Schedule of the Agreement" for nature, purpos
 |---|-------|----------|-------------------|------------|
 | 1 | No EU-only clause | CRITICAL | YES | Add EU-only processing addendum |
 | 2 | US sub-processors (Twilio video!) | CRITICAL | YES | Confirm EU-only config disables US routing |
-| 3 | No Art. 9 legal basis | MODERATE | NO (but recommended) | Add reference in Annex I |
-| 4 | No per-verification retention | MODERATE | Negotiable | Clarify retention policy |
-| 5 | 14-day objection period | MODERATE | NO (but recommended) | Negotiate to 30 days |
-| 6 | No ML training prohibition | CRITICAL | YES | Add ML training prohibition clause |
-| 7 | Stephen Ullman verification | CRITICAL | YES | Verify via Companies House |
-| 8 | Missing Data Processing Schedule | MODERATE | YES | Request from Shufti |
+| 3 | TeleSign noyb/Belgian DPA complaint | CRITICAL | YES | Clarify data flows, contingency plan |
+| 4 | No ML training prohibition | CRITICAL | YES | Add ML training prohibition clause |
+| 5 | No Art. 9 legal basis | MODERATE | NO (but recommended) | Add reference in Annex I |
+| 6 | No per-verification retention | MODERATE | Negotiable | Clarify retention policy |
+| 7 | 14-day objection period | MODERATE | NO (but recommended) | Negotiate to 30 days |
+| 8 | Twilio repeated security incidents | MODERATE | Negotiable | Assess Shufti's incident response posture |
+| 9 | IPStack outdated transfer mechanism | LOW | NO | Confirm DPF replaces Privacy Shield |
+| 10 | Missing Data Processing Schedule | MODERATE | YES | Request from Shufti |
+| 11 | Stephen Ullman verification | ~~CRITICAL~~ | RESOLVED | Verified via Companies House — ICAEW ACA, legitimate |
 
 **VERDICT: CONDITIONAL GO**
 
