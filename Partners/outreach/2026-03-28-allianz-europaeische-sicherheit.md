@@ -6,7 +6,7 @@
 **Version:** 1.0
 **Created:** 2026-03-28
 **Owner:** Lifetime Oy
-**Status:** Lead — Initial Contact
+**Status:** Outreach Sent (2026-04-02 via info@sicherheits-allianz.de)
 **Type:** Strategic Partner / Membership Partner
 
 ---
@@ -16,6 +16,7 @@
 | Version | Date | Agent | Action |
 |---------|------|-------|--------|
 | 1.0 | 2026-03-28 | Claude (Opus 4.6) | Created partner outreach record |
+| 1.1 | 2026-04-02 | Claude (Opus 4.6) | Email sent — introduced DWS IQ Aegis, DEFINE Accelerator, seeking German opportunities |
 
 ---
 
@@ -66,7 +67,8 @@
 
 ## 4. Recommended Actions
 
-- [ ] Attend the 2026-03-31 video conference (20:30 CET) to assess fit
+- [x] ~~Attend the 2026-03-31 video conference (20:30 CET) to assess fit~~
+- [x] Send outreach email introducing DWS IQ Aegis & DEFINE Accelerator (2026-04-02)
 - [ ] Evaluate membership or strategic partnership potential after initial meeting
 - [ ] Identify if defense/drone sector compliance is a viable DWS IQ 6 use case
 - [ ] If positive: schedule follow-up bilateral call with Andrej Novak
@@ -86,4 +88,17 @@ Based on current information, potential tiers:
 
 ---
 
-*Next review: After 2026-03-31 video conference attendance.*
+---
+
+## 6. Outreach Email Summary (2026-04-02)
+
+**Sent to:** info@sicherheits-allianz.de
+**Language:** German
+**Key points communicated:**
+- Introduced Lifetime Oy and DWS IQ Aegis (EU-sovereign dual-use AI platform)
+- Highlighted KI-Compliance (CSRD, ETS, CBAM, NIS2, EU AI Act), SAR orbital intelligence, KYA governance
+- Mentioned acceptance into DEFINE Accelerator (https://www.definefinland.fi/en/accelerator/)
+- Requested leads on similar accelerator programs, funding, and networks in Germany
+- Expressed interest in continued exchange
+
+*Next review: When reply is received from Allianz für Europäische Sicherheit e. V.*
