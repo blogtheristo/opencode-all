@@ -28,7 +28,7 @@
 | **Address** | Kolonnenstr. 8, 10827 Berlin, Germany |
 | **Email** | info@sicherheits-allianz.de |
 | **Chair** | Andrej Novak (Vorsitzender) |
-| **Web** | www.linktr.ee/sicherheitsallianz |
+| **Web** | https://linktr.ee/sicherheitsallianz |
 | **Focus** | European security policy, defense technology, geopolitics |
 
 ---
