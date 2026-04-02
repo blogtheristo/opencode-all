@@ -1,7 +1,7 @@
 # EDIP EUR 1.5B Work Programme — Aegis Strategic Directions
 
 VERSION AND AGENT HISTORY
-Version: 1.2
+Version: 1.3
 Date: 2026-04-02
 Author: Claude Code (claude/create-aegis-note-gNQ2q)
 Owner: Lifetime Oy
@@ -10,6 +10,7 @@ Source: https://ec.europa.eu/commission/presscorner/detail/en/ip_26_752
 Related: INVESTOR_MEMO_AEGIS.md, 2026-03-30-define-network-dual-use-pattern.md
 
 AGENT HISTORY:
+- v1.3 (2026-04-02): Boardy pushback: FAST is 12-month pipeline not today. IRA consortium elevated to fastest EDIP money path. Business Finland replaced with EAS (Estonian entity). Honest ARR gap acknowledged.
 - v1.2 (2026-04-02): Added FAST fund deep research (timelines, eligibility, structure), investor contacts (Emil Bordin / D11Z, Bill Fields / Blu Ventures). Boardy honest assessment retained.
 - v1.1 (2026-04-02): Boardy honest reassessment — FAST is the only direct funding angle, production ramp-up = customer sourcing, joint procurement needs a prime.
 - v1.0 (2026-04-02): Initial note from IP/26/752 press release.
@@ -83,16 +84,16 @@ EU Commission (EUR 100M) → EIF (DEF 2.0 fund-of-funds)
 | SME (under 250 employees, under EUR 50M turnover) | Small team, well under thresholds — PASS |
 | Defence supply chain | Dual-use AI for 21 regulated industries including defence — PASS |
 | Buy European (65% EU component costs) | Finnish-hosted, UpCloud Helsinki, EU stack — PASS |
-| Growth stage (FAST targets growth, not pre-seed) | EUR 7K MRR, 5 paying customers — BORDERLINE (early for growth-stage VC) |
+| Growth stage (FAST targets growth, not pre-seed) | EUR 7K MRR, 5 paying customers — **NOT READY.** DEF 2.0 sub-funds target EUR 500K+ ARR. |
 
-**Boardy note:** The "growth stage" requirement is the risk. FAST/DEF 2.0 sub-funds are PE/VC funds looking for growth-stage. Lifetime Oy at EUR 7K MRR is seed-stage. Two paths: (a) get in early with a seed-stage sub-fund, or (b) grow to EUR 50K+ MRR first. The SAFE round at EUR 650K is the bridge.
+**Boardy note:** Don't sugar-coat this. FAST/DEF 2.0 sub-funds are PE/VC funds looking for growth-stage companies with EUR 500K+ ARR. Lifetime Oy at EUR 7K MRR (EUR 84K ARR) is 6x below the floor. You're not borderline — you're early. The SAFE bridge doesn't fix this for FAST. Emil Bordin can still invest via SAFE at seed terms, but positioning Aegis as "FAST-ready" today is a credibility risk. **Position as: "FAST pipeline in 12 months"** — build ARR to EUR 300K+ first, then approach DEF 2.0 sub-funds.
 
-#### Action Items (Revised)
+#### Action Items (Revised — FAST is a 2027 play)
 
-1. **Find VCs applying to DEF 2.0 sub-fund allocation** — they will be your path to FAST money. The EIF Call for Expression of Interest (Q2/Q3 2026) will reveal which fund managers are participating
-2. **Position for BraveTechEU (EUR 35.3M)** as an alternative — this IS a direct application for start-ups/SMEs, separate from the fund-of-funds structure
-3. **Consider IRA direct grants** — consortia apply via Funding & Tenders Portal, 35-50% cost coverage. Deadline October 2026. Lifetime Oy could join a consortium as the compliance/AI component
-4. Align investor memo with EDIP terminology: "production capacity," "supply chain resilience," "technological advancement"
+1. **Do NOT position as FAST-ready today** — track DEF 2.0 sub-fund manager announcements (EIF Call for Expression of Interest, Q2/Q3 2026) for future pipeline. Target: approach DEF 2.0 sub-funds when ARR reaches EUR 300K+
+2. **Emil Bordin (D11Z) can still invest via SAFE** — his defence thesis aligns regardless of FAST. Don't pitch "FAST fund" to him; pitch "defence supply chain seed"
+3. **BraveTechEU (EUR 35.3M)** — direct application for start-ups/SMEs, no ARR floor. This is closer than FAST
+4. **IRA consortium is the real 2026 play** — see Section 1c below
 
 #### Key Links
 
@@ -127,6 +128,40 @@ Two contacts in network with direct thesis alignment to Aegis + EDIP:
 - **LinkedIn:** https://www.linkedin.com/in/ACoAAAFJ9qkBzUVykQSkYRhJD21yQJYToFGTx-o
 
 **Boardy note on Bill Fields:** US-based investor in an EU-sovereign product creates a narrative tension. Aegis's pitch is "zero CLOUD Act exposure." Having a US defence investor is fine for credibility, but if he takes a board seat, verify it doesn't compromise the "not controlled by third-country entities" EDIP eligibility (Article 9). Equity is fine. Control is the line.
+
+### 1c. IRA Consortium — FASTEST ROUTE TO EDIP MONEY (2026)
+
+**This is the underweighted angle.** EDIP Industrial Reinforcement Actions (IRA) are direct lump-sum grants at 35% of eligible costs (up to 50% for SME-majority consortia). Unlike FAST, IRA doesn't require EUR 500K+ ARR — it requires a consortium with a credible defence industrial project.
+
+**How it works:**
+- Consortia apply via EU Funding & Tenders Portal
+- First call deadline: October 2026
+- Second call deadline: February 2027
+- 35-50% of eligible costs covered by grant
+- Aegis joins as the compliance/AI component of a consortium led by a defence industrial company
+
+**Why this is the fastest path:**
+- No ARR floor — you contribute capability, not revenue history
+- SME-majority consortia get 50% cost coverage (higher than standard 35%)
+- You get EDIP money AND a customer relationship with the consortium lead
+- The consortium lead handles the heavy application (Aegis is a component, not the applicant)
+
+**What you need:** A consortium lead — a defence industrial company (Finnish, Nordic, or EU) building something under EDIP scope (counter-drone, missiles, ammunition, air defence). Aegis is their compliance/AI backbone.
+
+**Where to find consortium leads:**
+- EAS (Enterprise Estonia) — Estonian defence industrial network, DWS IQ OU entity
+- Finnish Defence Industries (AFDA) — association of Finnish defence companies
+- DEFINE Network — already in your network, dual-use focus
+- Arctic 15 (June 2026) — defence industrial contacts
+- EDIP info days / Q&A webinars (May 2026) — consortium matchmaking events
+
+**Action items:**
+1. **Check EU Funding & Tenders Portal** for IRA call text — understand what consortium roles are defined
+2. **Contact EAS** (not Business Finland — see note below) about EDIP consortium matchmaking
+3. **Prepare a "consortium component pitch"** — one-pager showing what Aegis adds to an IRA consortium (compliance stack, sovereignty credentials, AI agents)
+4. **Attend EDIP Q&A webinar** (May 2026) — these events often have consortium formation networking
+
+**Entity note:** Business Finland's EDF liaison is blocked for Lifetime Oy. The correct path is **EAS (Enterprise Estonia)** via DWS IQ OU (Estonian entity). EAS actively supports Estonian companies in EU defence programmes and has EDIP programme office relationships.
 
 ### 2. Sell to EDIP-Funded Facilities (EUR 700M+ creates customers, not funding)
 
@@ -184,11 +219,15 @@ Two contacts in network with direct thesis alignment to Aegis + EDIP:
 | Date | Action |
 |------|--------|
 | 2026-04-02 | This note created — EDIP EUR 1.5B announced |
-| 2026-04-07 | Review FAST call details on EU Funding & Tenders Portal |
-| 2026-04-15 | Draft FAST application positioning document |
+| 2026-04-07 | Review IRA call text on EU Funding & Tenders Portal — understand consortium roles |
+| 2026-04-10 | Email Emil Bordin (D11Z) — SAFE pitch, defence supply chain seed |
+| 2026-04-15 | Contact EAS (Enterprise Estonia) re: EDIP consortium matchmaking via DWS IQ OU |
+| 2026-04-15 | Draft consortium component pitch — one-pager for IRA consortium leads |
 | 2026-04-30 | Update investor memo with EDIP market tailwind |
-| 2026-05-15 | Defence production ramp-up use case document ready |
-| 2026-06-15 | Arctic 15 pitch — include EDIP context |
+| 2026-05-XX | Attend EDIP Q&A webinar — consortium networking |
+| 2026-06-15 | Arctic 15 — defence industrial contacts for IRA consortium |
+| 2026-10-XX | IRA first call deadline — consortium application submitted |
+| 2027-H1 | FAST pipeline — approach DEF 2.0 sub-funds when ARR reaches EUR 300K+ |
 
 ## Source
 
