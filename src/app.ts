@@ -41,6 +41,7 @@ import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
+import { openApiRouter } from './openapi.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -503,6 +504,9 @@ initErrorTracking().catch(() => { /* logged internally */ });
 
 // Error tracking middleware — captures exceptions before error handler formats response
 app.use(errorTrackingMiddleware());
+
+// OpenAPI documentation (GET /api/docs, GET /api/docs/openapi.json)
+app.use(openApiRouter);
 
 // 404 handler — must be after all routes
 app.use(notFoundHandler);
