@@ -47,15 +47,14 @@
   4. Discussion of the security situation in Europe & the world
   5. Miscellaneous
 
-**Bank details provided:**
-- IBAN: DE60 1009 0000 3059 2320 01
-- BIC: BEVODEBBXXX
-- Bank: Berliner Volksbank
+**Bank details provided (redacted in repo):**
+- Full IBAN/BIC and bank details are stored in the CRM/notes system under reference "Allianz für Europäische Sicherheit e. V. — 2026-03-28 bank details".
 
 ---
 
 ## 3. Relevance to DWS / Lifetime Oy
 
+## 3. Relevance to DWS / Lifetime Oy
 | Area | Relevance |
 |------|-----------|
 | **EU Security & Defense** | Aligns with DWS EU compliance focus (CSRD, ETS, CBAM, EU AI Act) — defense sector is a major EU regulatory domain |
