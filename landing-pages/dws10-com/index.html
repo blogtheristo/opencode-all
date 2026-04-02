@@ -941,6 +941,23 @@
 <body>
     <!-- Navigation will be injected by ironclad-nav.js -->
 
+    <!-- Easter Banner — auto-removes after April 7, 2026 -->
+    <div id="easter-banner" style="display:none; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%); padding: 32px 20px; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <img src="/static/images/Eastern2026.jpg" alt="Happy Easter from Lifetime Oy" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+            <p style="font-size: 1.3rem; color: #92400e; font-weight: 700; margin: 0;">Happy Easter from the DWS IQ Team!</p>
+            <p style="font-size: 1rem; color: #a16207; margin: 8px 0 0;">Wishing you peace, renewal, and a productive spring. We're back in full force after the holiday.</p>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var expiry = new Date('2026-04-07T23:59:59');
+        if (new Date() < expiry) {
+            document.getElementById('easter-banner').style.display = 'block';
+        }
+    })();
+    </script>
+
     <!-- €500K CAMPAIGN HERO SECTION -->
     <!-- €500K CAMPAIGN HERO SECTION -->
     <section class="campaign-hero" style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); color: white; padding: 100px 0; text-align: center; position: relative; overflow: hidden;">
@@ -1183,23 +1200,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Easter Banner — auto-removes after April 7, 2026 -->
-    <div id="easter-banner" style="display:none; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%); padding: 32px 20px; text-align: center;">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <img src="/static/images/Eastern2026.jpg" alt="Happy Easter from Lifetime Oy" style="max-width: 400px; width: 100%; height: auto; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
-            <p style="font-size: 1.3rem; color: #92400e; font-weight: 700; margin: 0;">Happy Easter from the DWS IQ Team!</p>
-            <p style="font-size: 1rem; color: #a16207; margin: 8px 0 0;">Wishing you peace, renewal, and a productive spring. We're back in full force after the holiday.</p>
-        </div>
-    </div>
-    <script>
-    (function() {
-        var expiry = new Date('2026-04-07T23:59:59');
-        if (new Date() < expiry) {
-            document.getElementById('easter-banner').style.display = 'block';
-        }
-    })();
-    </script>
 
     <section class="hero">
         <div class="container">
