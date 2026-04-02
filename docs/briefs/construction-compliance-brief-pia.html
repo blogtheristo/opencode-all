@@ -32,14 +32,31 @@
             line-height: 1.6;
             color: #1a202c;
             background: white;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media print {
+            body {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
         }
 
         .cover {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
             color: white;
             padding: 50px 40px;
-            margin: -25mm -20mm 30px -20mm;
+            margin: 0 0 30px 0;
             page-break-after: avoid;
+        }
+
+        @media print {
+            .cover {
+                margin: -25mm -20mm 30px -20mm;
+            }
         }
 
         .cover h1 {
