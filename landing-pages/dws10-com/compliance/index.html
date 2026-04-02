@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CI Power - EU Compliance Engine | DWS IQ</title>
-    <meta name="description" content="CI Power V2 — EN 15978 lifecycle assessment, regulatory timeline, multi-jurisdiction compliance (NO/DK/FI/SE + EU baseline). CSRD, EPBD, ETS2, CBAM, Fit for 55. DWS IQ Platform by Lifetime Oy.">
+    <meta name="description" content="CI Power V2 — EN 15978 lifecycle assessment, regulatory timeline, multi-jurisdiction compliance (EU baseline, SE/NO/DK/FI). CSRD, EPBD, ETS2, CBAM, Fit for 55. DWS IQ Platform by Lifetime Oy.">
     <meta name="keywords" content="EU compliance, CSRD, EPBD, ETS2, CBAM, Fit for 55, EN 15978, construction compliance, Nordic, lifecycle assessment">
     <meta name="author" content="Lifetime Oy">
     <meta name="robots" content="index, follow">
@@ -327,7 +327,8 @@
             font-size: 0.85rem;
         }
 
-        .jurisdiction-table td { font-size: 0.9rem; }
+        .jurisdiction-table td,
+        .jurisdiction-table tbody th { font-size: 0.9rem; font-weight: normal; text-align: left; }
         .jurisdiction-table tbody tr:hover { background: #f8fafc; }
 
         .flag { font-size: 1.2rem; margin-right: 6px; }
@@ -517,46 +518,47 @@
             </div>
 
             <table class="jurisdiction-table">
+                <caption style="caption-side: top; text-align: left; font-size: 0.85rem; color: #64748b; padding: 12px 20px 8px; font-weight: 500;">National LCA standards, grid emission factors, and common ERP systems by Nordic jurisdiction. Sources: EEA GHG Inventory 2024, national building codes.</caption>
                 <thead>
                     <tr>
-                        <th>Jurisdiction</th>
-                        <th>National Standard</th>
-                        <th>LCA Method</th>
-                        <th>Grid Factor (kgCO2e/kWh)</th>
-                        <th>Common ERP</th>
+                        <th scope="col">Jurisdiction</th>
+                        <th scope="col">National Standard</th>
+                        <th scope="col">LCA Method</th>
+                        <th scope="col">Grid Factor (kgCO2e/kWh)</th>
+                        <th scope="col">Common ERP</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="flag">&#x1F1F3;&#x1F1F4;</span> Norway</td>
+                        <th scope="row"><span class="flag">&#x1F1F3;&#x1F1F4;</span> Norway</th>
                         <td>NS 3720:2018</td>
                         <td>TEK17 + NS 3031</td>
                         <td><span class="grid-factor">0.008</span></td>
                         <td>Visma, Unit4</td>
                     </tr>
                     <tr>
-                        <td><span class="flag">&#x1F1E9;&#x1F1F0;</span> Denmark</td>
+                        <th scope="row"><span class="flag">&#x1F1E9;&#x1F1F0;</span> Denmark</th>
                         <td>BR18 LCA (from 2023)</td>
                         <td>DS/EN 15978 + BR18 Annex 2</td>
                         <td><span class="grid-factor">0.149</span></td>
                         <td>Visma, Dynamics 365</td>
                     </tr>
                     <tr>
-                        <td><span class="flag">&#x1F1EB;&#x1F1EE;</span> Finland</td>
+                        <th scope="row"><span class="flag">&#x1F1EB;&#x1F1EE;</span> Finland</th>
                         <td>YM decree 2025</td>
                         <td>EN 15978 + One Click LCA</td>
                         <td><span class="grid-factor">0.072</span></td>
                         <td>Visma, IFS Cloud</td>
                     </tr>
                     <tr>
-                        <td><span class="flag">&#x1F1F8;&#x1F1EA;</span> Sweden</td>
+                        <th scope="row"><span class="flag">&#x1F1F8;&#x1F1EA;</span> Sweden</th>
                         <td>Boverkets klimatdeklaration</td>
                         <td>EN 15978 + Boverkets</td>
                         <td><span class="grid-factor">0.013</span></td>
                         <td>Visma, IFS Cloud</td>
                     </tr>
                     <tr>
-                        <td><span class="flag">&#x1F1EA;&#x1F1FA;</span> EU (generic)</td>
+                        <th scope="row"><span class="flag">&#x1F1EA;&#x1F1FA;</span> EU (generic)</th>
                         <td>EN 15978:2011</td>
                         <td>EN 15978</td>
                         <td><span class="grid-factor">0.230</span></td>
