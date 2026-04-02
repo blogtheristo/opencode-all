@@ -178,12 +178,11 @@ One data ingestion from ERP. Multiple regulatory outputs. No duplicate data entr
 
 ### Investment
 
-| Package | Setup | Annual |
-|---------|-------|--------|
-| **Climate Reporting Starter** | EUR 6,500 | EUR 1,999/year |
-| Includes: DWS IQ Base + Firehorse Report Module + Kickoff Workshop | | |
-
-Custom enterprise pricing available for multi-country deployments with dedicated ERP integration support.
+| Package | Price | Scope |
+|---------|-------|-------|
+| **Enterprise Navigator** (Pilot, 4 weeks) | EUR 24,900 | 1 country, 3 reference projects, full ERP connector setup. Deliverables: ESRS E1 draft, EPBD-ready assessment, EU Taxonomy calculation, team training. |
+| **Enterprise Premium** (Annual) | EUR 49,900/year | All 3 jurisdictions (NO/DK/FI), unlimited projects, real-time dashboard, quarterly reports, dedicated support. |
+| **Enterprise Nordic** (Full deployment) | EUR 89,900/year | Custom SLA, private cloud option, dedicated integration engineer. |
 
 ### Contact
 
