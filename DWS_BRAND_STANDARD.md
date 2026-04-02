@@ -481,11 +481,19 @@ Every content/landing page MUST have a hero section as the first visual element 
 
 ### Font Stack
 
+**Web applications (landing pages, dashboards):**
 ```css
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 ```
 
-No custom web fonts. System fonts load instantly and feel native on every OS.
+**Google Fonts import (required in `<head>` for all HTML):**
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+Inter is the DWS standard typeface. System font stack serves as fallback for offline/print scenarios. Inter loads from Google Fonts CDN (< 100KB, cached globally).
 
 ### Type Scale
 
