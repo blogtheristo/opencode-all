@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 14.15 (Master Thesis Dual-Version Architecture: v3.30.50 Metropolia freeze); confirmed PHD Firehorse as canonical home for detailed research sections moved from master thesis restructuring (10.6-10.18 → Sections 14.1-14.14); added Key Contribution #18; updated footer
   - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Appendix F (Claude Code Engineering Structure) with expanded skills inventory (6→21 skills, 4 subagents, secret-scan hook); added Section 14.14 (Competitive Analysis: Domain-Specific vs Generic AI Harness); added Key Contribution #20
   - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
@@ -1831,6 +1832,20 @@ Six competitive differentiators identified:
 
 **Research significance:** At the token budget level, breadth is counterproductive for regulated domains. Loading 136 generic skills consumes context window capacity that domain-specific agents need for regulatory reasoning. The DWS6 constraint of <150 words per discipline skill is a token budget optimization enabling deeper domain reasoning. This validates the harness engineering thesis (Section 14.12): a 21-skill domain-specific harness outperforms a 136-skill generic harness when regulatory precision matters.
 
+### 14.15 Master Thesis Dual-Version Architecture
+
+The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-assisted research process — nearly double the 40-50 page Metropolia submission target. Rather than permanently deleting research content, a dual-version architecture was adopted:
+
+**v3.30.50 (Frozen, 50 pages):** Restructured for Metropolia submission. Sections 10.6-10.18 consolidated into a summary section (10.6 "Extended Research Contributions") with cross-references to this PHD Firehorse document. Section 5 expanded from 0.7 to ~4 pages. Appendices trimmed from 8 to 4. This file receives only HIL (Human-in-the-Loop) edits — no automated AI updates.
+
+**v3.32+ (Living, 82 pages):** Continues accumulating research findings as before. Every new version entry is a timestamped record of research progression.
+
+**PHD Firehorse as canonical home:** Sections 14.1-14.14 of this document now serve as the authoritative detailed documentation for content summarized in the master thesis v3.30.50. The master thesis explicitly cross-references "PHD Firehorse Sections 14.X" for each summarized topic.
+
+**Research contribution:** This dual-version pattern demonstrates a practical methodology for AI-assisted academic writing where research velocity systematically exceeds institutional format constraints. The pattern preserves intellectual property while meeting submission requirements — a recurring challenge as AI accelerates research documentation.
+
+**Key Contribution #18:** Dual-version thesis architecture as methodological contribution to AI-assisted academic writing.
+
 ---
 
 **Key Contributions:**
@@ -1838,7 +1853,8 @@ Six competitive differentiators identified:
 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
 16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme
 17. Domain-Specific vs Generic AI Harness — Competitive analysis against ECC (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust zones, gstack workflow, agent-first rule); token budget analysis showing depth outperforms breadth for regulated domains; validates harness engineering thesis
+18. Dual-Version Thesis Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; PHD Firehorse confirmed as canonical home for detailed sections (14.1-14.14); demonstrates methodology for AI-assisted academic writing where research velocity exceeds format constraints
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 31.03.2026*
-*Version: 3.1*
+*Last updated: 03.04.2026*
+*Version: 3.2*

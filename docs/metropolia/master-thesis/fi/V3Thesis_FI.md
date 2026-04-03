@@ -4,9 +4,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.31
+Version: 3.32
 
 Sessions & Modifications:
+  - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 10.19 (Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys); lisätty avainpanos #23; luotu jäädytetty V3Thesis_EN_v3.30.50.md (50-sivuinen Metropolia-versio) säilyttäen 82-sivuinen elävä dokumentti; päivitetty alatunniste kaksoisversioarkkitehtuurilla
   - Version: 3.31 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty osio 10.13.3 (Taitojen inventaario 6→21 taitoa, 4 aliagenttia, 4 kurinpitotaitoa); lisätty osio 10.13.7 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness — vertailu ECC 136-taidon kehykseen, kuusi kilpailuetua dokumentoitu); lisätty avainpanos #22
   - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 10.18 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A), LeWorldModel-validointi (arXiv:2603.19312), Phase 2 teknisen aukon analyysi, Persefoni/Sweep-vertailuarvot; lisätty avainpanos #21
   - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 10.17 (Johtopäätökset: Hiilitase vaatimustenmukaisuusinfrastruktuurina) — kahdenkertaisen kirjanpidon malli CO2:lle ETS/CBAM/CSRD/Taksonomiassa, poikkitoimialainen älykkyys kirjanpitojen kautta, DWS 7 Phase 2.6 toteutussuunnitelma; lisätty avainpanos #20
@@ -54,10 +55,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 25.03.2026
+  - Last Modified: 03.04.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.30 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, Phase 2 teknisen aukon analyysi)
+  - Publication Status: DRAFT (V3.32 — Opinnäytetyön versiointistrategia: v3.30.50 jäädytetty Metropolia-versio + 82-sivuinen elävä dokumentti jatkuu)
 
 ---
 
@@ -2719,6 +2720,38 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 2. **Vaatimustenmukaisuus ensin -maailmamalliteesi:** Oivallus, että vaatimustenmukaisuusdata syöttää fyysistä suunnittelua, on uusi arkkitehtuurillinen kontribuutio.
 3. **Vaiheen 2 tekninen rajaus:** Kolme ratkaisematonta ongelmaa tarjoavat konkreettisen tutkimusohjelman.
 
+### 10.19 Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys
+
+#### 10.19.1 Motivaatio
+
+Versioon 3.31 mennessä opinnäytetyö oli kasvanut 82 sivuun ja yli 26 000 sanaan — lähes kaksinkertainen Metropolian 40-50 sivun tavoitteeseen nähden. Yksityiskohtaisen tutkimussisällön pysyvän menetyksen sijaan omaksuttiin kaksoisversioarkkitehtuuri.
+
+#### 10.19.2 Kaksoisversioarkkitehtuuri
+
+| Versio | Tiedosto | Sivut | Tila | Tarkoitus |
+|--------|----------|-------|------|-----------|
+| v3.30.50 | `V3Thesis_EN_v3.30.50.md` | ~50 | JÄÄDYTETTY | Metropolia-palautusversio |
+| v3.32+ | `V3Thesis_EN.md` / `V3Thesis_FI.md` | ~82 | Elävä | Täydellinen tutkimustietue |
+| v3.2+ | `PHD_FIREHORSE_EN.md` / `_FI.md` | — | Elävä | Tohtorintutkimuksen liitedokumentti |
+
+v3.30.50-uudelleenrakenne toteutettiin neljällä muunnoksella:
+
+1. **Osion 5 laajennus** — 0,7 sivusta ~4 sivuun kattaen infrastruktuurin käyttöönoton, agenttiarkkitehtuurin, koordinoinnin Lifetime Scope Signals -protokollalla, 31 agentin evoluution, asiakkaiden perehdytyksen ja avainmittarit
+2. **Osion 10 konsolidointi** — Yksityiskohtaiset osiot 10.6-10.18 korvattu osiolla 10.6 "Laajennetut tutkimuspanokset (Yhteenveto)" sisältäen 1 kappaleen tiivistelmät PHD Firehorse -ristiviittauksilla
+3. **Liitteiden karsinta** — 8 liitettä vähennetty 4:ään (säilytetty Solution Factory Canvas, LSS-protokolla, Karpathyn periaatteet, Sanasto)
+4. **Sisällön säilyttäminen** — Kaikki poistettu sisältö on jo olemassa PHD Firehorse -liitedokumentissa
+
+#### 10.19.3 Versiointisäännöt
+
+- v3.30.50-tiedostot ovat **HIL-only** (Human-in-the-Loop) — ei Claude Code -muokkauksia jäädytyksen jälkeen
+- 82-sivuinen elävä dokumentti jatkaa versiointia normaalisti (3.32, 3.33, ...)
+- PHD Firehorse jatkuu itsenäisesti (3.2, 3.3, ...)
+- Elävien dokumenttien versioidenpäivityksissä tulee mainita, jos sisältö koskee myös jäädytettyä versiota kopioi-liitä-ehdotusten kautta
+
+#### 10.19.4 Tutkimuspanos
+
+**Avainpanos #23:** Kaksoisversiostrategia osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset. 82-sivuinen elävä dokumentti säilyttää täydellisen tutkimuslinjan (38 versiomerkintää, 22 avainkontribuutiota), kun taas 50-sivuinen jäädytetty versio täyttää oppilaitoksen vaatimukset menettämättä henkistä omaisuutta. Malli voi yleistyä muihin nopeasti eteneviin tutkimusprojekteihin, jotka käyttävät tekoälyavusteista dokumentointia.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2729,9 +2762,9 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.30 — LWM-sekvensointistrategia (vaatimustenmukaisuus→laivasto→Series A)
-**Versio:** 3.30
-**Viimeisin päivitys:** 25.03.2026
+**Tila:** DRAFT - V3.32 — Opinnäytetyön versiointistrategia (v3.30.50 jäädytys + 82-sivuinen jatkuu)
+**Versio:** 3.32
+**Viimeisin päivitys:** 03.04.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2765,6 +2798,7 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 20. Hiilitase — Johtopäätös: EU:n ilmastovaatimustenmukaisuus (ETS, CBAM, CSRD, taksonomia) on rakenteellisesti isomorfinen kirjanpidon kanssa; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); poikkisääntelyinen täsmäytys jaettujen kirjanpitokirjausten kautta; poikkitoimialainen älykkyys -teesi (monitoimialainen kirjanpito tuottaa emergenttia dataa jota yksitoimialainen työkalu ei voi replikoida); DWS 7 Phase 2.6 toteutussuunnitelma (8 PR:ää, pysyvä kirjanpito, talousjohtajan kojelauta, ERP-pääkirjan synkronointi, XBRL-vienti)
 21. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A) sijoittajanarratiivien ristiriitojen ratkaisemiseksi; LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi (syötemodaali, skaala, sääntely-fyysinen integraatio); vaatimustenmukaisuus ensin -maailmamalliteesi; Persefoni/Sweep-markkinavertailut
 22. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi everything-claude-code-kehystä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -tuotesääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; taitoinventaarion kasvu 6:sta 21:een tuotantotaitoon 4:llä estävällä kurinpitoportilla; validoi harness engineering -teesin (osio 10.16)
+23. Opinnäytetyön versiointistrategia — Kaksoisversioarkkitehtuuri: v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset; säilyttää täydellisen tutkimuslinjan täyttäen samalla oppilaitoksen vaatimukset
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

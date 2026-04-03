@@ -10,9 +10,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 14.15 (Pro gradun kaksoisversioarkkitehtuuri: v3.30.50 Metropolia-jäädytys); vahvistettu PHD Firehorse kanoniseksi kodiksi yksityiskohtaisille tutkimusosioille, jotka siirretty pro gradun uudelleenrakenteessa (10.6-10.18 → osiot 14.1-14.14); lisätty avainpanos #18; päivitetty alatunniste
   - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty Liite F (Claude Code -suunnittelurakenne) laajennetulla taitoinventaariolla (6→21 taitoa, 4 aliagenttia, salaisuuksien skannaushook); lisätty osio 14.14 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness); lisätty avainpanos #20
   - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 14.13 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi, LeWorldModel-validointi (arXiv:2603.19312), vaiheen 2 teknisen aukon analyysi, vaatimustenmukaisuus ensin -maailmamalliteesi; lisätty avainpanos #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
@@ -1817,6 +1818,20 @@ Kuusi tunnistettua kilpailuetua:
 
 **Tutkimuksellinen merkitys:** Token-budjetin tasolla leveys on haitallista säännellyillä toimialoilla. 136 geneerisen taidon lataaminen kuluttaa konteksti-ikkunan kapasiteettia, jota toimialakohtaiset agentit tarvitsevat sääntelyn päättelyyn. DWS6:n <150 sanan rajoitus kurinpitotaidoille on token-budjetin optimointi syvempään toimialapäättelyyn. Tämä validoi harness engineering -teesin (osio 14.12).
 
+### 14.15 Pro gradun kaksoisversioarkkitehtuuri
+
+Pro gradu (V3Thesis) kasvoi 82 sivuun ja yli 26 000 sanaan tekoälyavusteisen tutkimusprosessin aikana — lähes kaksinkertainen Metropolian 40-50 sivun palautustavoitteeseen nähden. Tutkimussisällön pysyvän poistamisen sijaan omaksuttiin kaksoisversioarkkitehtuuri:
+
+**v3.30.50 (Jäädytetty, 50 sivua):** Uudelleenrakennettu Metropolia-palautusta varten. Osiot 10.6-10.18 konsolidoitu tiivistelmäosioksi (10.6 "Laajennetut tutkimuspanokset") ristiviittauksilla tähän PHD Firehorse -dokumenttiin. Osio 5 laajennettu 0,7:stä ~4 sivuun. Liitteet karsittu 8:sta 4:ään. Tiedosto vastaanottaa vain HIL (Human-in-the-Loop) -muokkauksia — ei automatisoituja tekoälypäivityksiä.
+
+**v3.32+ (Elävä, 82 sivua):** Jatkaa tutkimuslöydösten keräämistä kuten ennenkin. Jokainen uusi versiomerkintä on aikaleimattu tutkimuksen etenemisen tallenne.
+
+**PHD Firehorse kanonisena kotina:** Tämän dokumentin osiot 14.1-14.14 toimivat nyt auktoritatiivisena yksityiskohtaisena dokumentaationa pro gradun v3.30.50:ssa tiivistetyille sisällöille. Pro gradu viittaa eksplisiittisesti "PHD Firehorse osiot 14.X" jokaiseen tiivistettyyn aiheeseen.
+
+**Tutkimuspanos:** Kaksoisversiomalli osoittaa käytännön menetelmän tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää järjestelmällisesti oppilaitoksen formaattirajoitukset. Malli säilyttää henkisen omaisuuden täyttäen samalla palautusvaatimukset — toistuva haaste tekoälyn nopeuttaessa tutkimusdokumentointia.
+
+**Avainpanos #18:** Kaksoisversioarkkitehtuuri menetelmällisenä kontribuutiona tekoälyavusteiseen akateemiseen kirjoittamiseen.
+
 ---
 
 **Keskeiset kontribuutiot:**
@@ -1824,7 +1839,8 @@ Kuusi tunnistettua kilpailuetua:
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
 16. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A); LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi; vaatimustenmukaisuus ensin -maailmamalliteesi tohtoritutkimusohjelmana
 17. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi ECC:tä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -sääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; validoi harness engineering -teesin
+18. Kaksoisversioarkkitehtuuri — v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; PHD Firehorse vahvistettu kanoniseksi kodiksi yksityiskohtaisille osioille (14.1-14.14); osoittaa menetelmän tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää formaattirajoitukset
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 31.03.2026*
-*Versio: 3.1*
+*Viimeksi päivitetty: 03.04.2026*
+*Versio: 3.2*
