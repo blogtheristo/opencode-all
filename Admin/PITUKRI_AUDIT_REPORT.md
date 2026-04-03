@@ -1,8 +1,8 @@
 ---
 title: PiTuKri v1.1 Security Audit Report
-version: 1.0
+version: 1.1
 created: 2026-03-30
-last_modified: 2026-03-30
+last_modified: 2026-04-03
 author: Claude Code (Opus 4.6)
 language: en
 classification: INTERNAL
@@ -15,15 +15,16 @@ document_type: Security Audit Report
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/update-pitukri-criteria-OhPDo | Date: 03.04.2026 | Changes: Added Section 10 — PiTuKri transition to national criteria library (kansallinen kriteeristöpankki). PiTuKri + Julkri cloud sections replaced by new framework (VM/Traficom, autumn 2026). Comment deadline 13.04.2026. Updated Phase 4 plan and conclusion. Source: vm.fi announcement + valtioneuvosto.fi.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/pitukri-security-audit-S5cx5 | Date: 30.03.2026 | Changes: Corrected to official PiTuKri structure (52 criteria, 11 subdivisions with codes EE/TJ/HT/FT/YP/JT/SA/PK/KT/MH/JP); added audit conclusion section; added service termination (JP) subdivision; cross-referenced ISO 27017, C5, CSA CCM, Katakri
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/pitukri-security-audit-S5cx5 | Date: 30.03.2026 | Changes: Initial PiTuKri v1.1 audit of DWS IQ 6 platform — 52 criteria assessed across 11 subdivisions, 81% compliance baseline, 12 prioritized recommendations, 4-phase improvement plan
 
 Document Status:
   - Created: 30.03.2026
-  - Last Modified: 30.03.2026
+  - Last Modified: 03.04.2026
   - Language: English
   - Languages Available: EN
   - Publication Status: ACTIVE
@@ -235,12 +236,14 @@ PiTuKri cross-references: ISO/IEC 27001:2013, ISO/IEC 27017:2015, Germany C5, CS
 
 **Expected result: 95% to 98%**
 
-### Phase 4: Certification (Q3-Q4 2026)
+### Phase 4: Certification & Criteria Transition (Q3-Q4 2026)
 
 | Task | Deliverable | Owner |
 |------|------------|-------|
 | Align PiTuKri evidence with ISO 27001 ISMS | Evidence package | Compliance |
 | PiTuKri self-assessment submission | Assessment report for Traficom | Compliance + Security |
+| Map PiTuKri evidence to new national criteria library | Gap analysis + mapping document | Compliance + Security |
+| Participate in criteria library comment round (deadline 13.04.2026) | Written comments to VM | Security + Legal |
 
 ---
 
@@ -300,14 +303,73 @@ The platform's strongest PiTuKri differentiators:
 
 **Full compliance achievable by Q3 2026** with the 4-phase plan in Section 5. The PiTuKri evidence package should feed directly into the ISO 27001 Stage 1 audit (TÜV Rheinland, Q3 2026 target).
 
-**Note:** PiTuKri v1.1 is being replaced by a new national criteria library (announced early 2025 by Ministry of Finance + Traficom), merging PiTuKri and Julkri. Current compliance work remains valid and transfers to the new framework.
+**Note:** PiTuKri v1.1 is being replaced by a new national criteria library — see **Section 10** below for full transition details and action items.
 
 **PiTuKri assessment tool (Excel) for ongoing self-assessment:**
 https://kyberturvallisuuskeskus.fi/sites/default/files/media/file/PiTuKri_arviointityokalu_v1_01.xlsx
 
 ---
 
+## 10. PiTuKri Transition: National Criteria Library (Kansallinen kriteeristöpankki)
+
+### 10.1 What Is Changing
+
+The Finnish Ministry of Finance (VM) and Traficom/NCSC-FI announced that **PiTuKri v1.1 will be replaced** by a new **national criteria library (kansallinen kriteeristöpankki)**. The new framework also absorbs the cloud services sections of **Julkri** (Julkisen hallinnon tietoturvallisuuden arviointikriteeristö — public administration security assessment criteria).
+
+**Key facts:**
+
+| Item | Detail |
+|------|--------|
+| **What is replaced** | PiTuKri v1.1 (52 criteria, Traficom) + Julkri cloud sections (Information Management Board) |
+| **Replaced by** | Kansallinen kriteeristöpankki (national criteria library) |
+| **Led by** | Ministry of Finance (VM) + Traficom/NCSC-FI |
+| **Work started** | Early 2025 |
+| **Draft completed** | December 2025 |
+| **Piloting** | Early 2026 — Traficom piloting draft in cloud service assessments |
+| **Comment deadline** | **13 April 2026** (lausuntokierros) |
+| **Finalization** | Autumn 2026 |
+| **Future scope** | Criteria library will expand to cover subject areas beyond cloud |
+
+### 10.2 Design Principles of the New Framework
+
+The new criteria were developed with these guidelines:
+1. **Leverage existing western frameworks** — extensive use of international cloud security criteria and best practices
+2. **Account for national security classifications** — address risks specific to Finnish classified information
+3. **Support risk management** — help public authorities with practical risk management, not just checkbox compliance
+4. **No single framework sufficed** — Finland found that no single existing western framework met national needs, hence a new synthesis
+
+### 10.3 Impact on DWS IQ 6
+
+**Current PiTuKri audit work remains valid.** The 11 subdivisions (EE/TJ/HT/FT/YP/JT/SA/PK/KT/MH/JP) and 52 criteria assessed in this report map to international standards (ISO 27001, ISO 27017, C5, CSA CCM, Katakri) that the new framework also builds upon.
+
+**Transition strategy:**
+1. **Continue current improvement plan** (Phases 1-3) — all controls transfer to the new framework
+2. **Submit comments by 13 April 2026** — participate in the VM consultation round to influence final criteria
+3. **Map existing evidence** — once the new criteria library is published (autumn 2026), create a mapping from current PiTuKri evidence to new criteria
+4. **ISO 27001 remains on track** — the Q3 2026 TÜV Rheinland certification is independent of the PiTuKri transition
+
+### 10.4 Action Items
+
+| # | Action | Deadline | Owner | Status |
+|---|--------|----------|-------|--------|
+| 1 | Review draft criteria library when available from VM | 06.04.2026 | Security + Compliance | PENDING |
+| 2 | Submit comments to VM consultation (lausuntokierros) | **13.04.2026** | Security + Legal | PENDING |
+| 3 | Monitor Traficom pilot results | Q2 2026 | Compliance | PENDING |
+| 4 | Create PiTuKri → new criteria mapping document | Autumn 2026 (after publication) | Compliance + Security | PLANNED |
+| 5 | Update this audit report to new criteria structure | Autumn 2026 | Security | PLANNED |
+| 6 | Update all public-facing PiTuKri references (landing pages, investor materials) | Autumn 2026 | Marketing + Compliance | PLANNED |
+
+### 10.5 Sources
+
+- VM announcement: https://vm.fi/-/pilvipalvelujen-turvallisuuskriteerit-uudistuvat-uusi-kansallinen-kriteeristopankki-tulossa-kayttoon
+- English version: https://vm.fi/en/-/security-criteria-for-cloud-services-to-be-updated-with-launch-of-new-national-criteria-library
+- Valtioneuvosto: https://valtioneuvosto.fi/en/-/10623/security-criteria-for-cloud-services-to-be-updated-with-launch-of-new-national-criteria-library
+- Traficom blog: https://www.traficom.fi/fi/tilastot-ja-julkaisut/blogit/uusi-kriteeristo-ohjaa-pilvipalveluiden-turvalliseen-kayttoon
+- Current PiTuKri v1.1 (NCSC-FI): https://www.kyberturvallisuuskeskus.fi/fi/julkaisut/pilvipalveluiden-turvallisuuden-arviointikriteeristo-pitukri
+
+---
+
 *Report prepared by: Claude Code (Opus 4.6)*
-*Session: claude/pitukri-security-audit-S5cx5*
+*Sessions: claude/pitukri-security-audit-S5cx5, claude/update-pitukri-criteria-OhPDo*
 *Repository: blogtheristo/dws6 (private)*
 *Next review: 30.06.2026 (quarterly)*
