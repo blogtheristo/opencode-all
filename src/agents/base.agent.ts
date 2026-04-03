@@ -18,6 +18,9 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { createLLMClient, LLMClient } from './llm-client.js';
 import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { telemetryService } from './telemetry.service.js';
+import { checkpointService } from './session-checkpoint.service.js';
+import type { SessionState } from './session-checkpoint.types.js';
 import type {
   AgentConfig,
   AgentContext,
@@ -143,18 +146,35 @@ export abstract class BaseAgent {
       allTools.push(BUILTIN_TOOLS.fetch_external);
     }
 
-    // Build initial conversation
-    const messages: import('./types.js').LLMMessage[] = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userMessage },
-    ];
+    // ASTA Phase 1: Try to recover from a checkpoint (interruption recovery)
+    let messages: import('./types.js').LLMMessage[];
+    let startIteration = 0;
+    const recovered = await checkpointService.recover(
+      context.sessionId, context.orgId, this.config.name,
+    );
+
+    if (recovered && recovered.agentName === this.config.name) {
+      messages = recovered.messages;
+      startIteration = recovered.iterationIndex;
+      logger.info('Resuming from checkpoint', {
+        agent: this.config.name,
+        session: context.sessionId,
+        iteration: startIteration,
+      });
+    } else {
+      // Build fresh conversation
+      messages = [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
+      ];
+    }
 
     const iterations: AgentLoopIteration[] = [];
     let totalInput = 0;
     let totalOutput = 0;
     let model = client.model;
 
-    for (let i = 0; i < loopConfig.maxIterations; i++) {
+    for (let i = startIteration; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
       // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
@@ -177,6 +197,24 @@ export abstract class BaseAgent {
 
       // If no tool calls, the agent is done thinking
       if (!response.toolCalls || response.toolCalls.length === 0 || response.stopReason === 'end_turn') {
+        // ASTA: Skip detection — agent answered without using tools on first iteration
+        if (i === 0 && !recovered) {
+          telemetryService.recordInvocation({
+            agentName: this.config.name,
+            toolName: '_none',
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome: 'skip',
+            durationMs: Date.now() - iterStart,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: 0,
+            chainLength: 0,
+            iterationIndex: i,
+            timestamp: new Date().toISOString(),
+          });
+        }
+
         iterations.push({
           iteration: i,
           phase: 'think',
@@ -199,8 +237,16 @@ export abstract class BaseAgent {
         toolCalls,
       });
 
-      // Execute all tool calls in parallel
-      const toolResults = await executeTools(toolCalls, context);
+      // Execute all tool calls with ASTA telemetry metadata
+      const toolResults = await executeTools(toolCalls, context, {
+        iterationIndex: i,
+        agentName: this.config.name,
+      });
+
+      // ASTA: Partial failure context injection
+      // When some tools succeed and some fail, tell the LLM what happened
+      const successes = toolResults.filter((r) => !r.isError);
+      const failures = toolResults.filter((r) => r.isError);
 
       // Add tool results to conversation
       for (const result of toolResults) {
@@ -208,6 +254,16 @@ export abstract class BaseAgent {
           role: 'tool',
           content: JSON.stringify(result.result),
           toolCallId: result.toolCallId,
+        });
+      }
+
+      if (failures.length > 0 && successes.length > 0) {
+        // Inject partial failure context so the LLM can work with available data
+        const failNames = failures.map((f) => f.name).join(', ');
+        const succNames = successes.map((s) => s.name).join(', ');
+        messages.push({
+          role: 'system',
+          content: `Note: tools ${succNames} succeeded but ${failNames} failed. Proceed with available data. Do not retry failed tools unless you have new information to provide them.`,
         });
       }
 
@@ -226,7 +282,19 @@ export abstract class BaseAgent {
         agent: this.config.name,
         iteration: i,
         toolCalls: toolCalls.map((tc) => tc.name),
+        failures: failures.length,
       });
+
+      // ASTA Phase 1: Save checkpoint after each act phase (non-blocking)
+      checkpointService.checkpoint(context, {
+        messages,
+        iterationIndex: i + 1,
+        partialResults: toolResults,
+        checkpointedAt: new Date().toISOString(),
+        agentName: this.config.name,
+        systemPrompt,
+        userMessage,
+      }).catch(() => { /* non-blocking */ });
     }
 
     // Extract final content from last assistant message
@@ -239,6 +307,9 @@ export abstract class BaseAgent {
     if (loopConfig.logIterations && iterations.length > 0) {
       await this.logLoopIterations(context, iterations);
     }
+
+    // ASTA: Clear checkpoint on successful completion (non-blocking)
+    checkpointService.clear(context.sessionId, this.config.name).catch(() => { /* non-blocking */ });
 
     return {
       content: finalContent,
