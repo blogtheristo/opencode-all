@@ -44,64 +44,17 @@
           }
         ]
       }
-    ]
-  },
-  "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
-  ],
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/session-start.sh"
-          }
-        ]
-      }
     ],
-    "Stop": [
+    "PreToolUse": [
       {
-        "matcher": "",
+        "matcher": "Bash|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/session-stop.sh"
+            "command": "./.claude/hooks/secret-scan.sh"
           }
         ]
       }
     ]
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/session-start.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/session-stop.sh"
-          }
-        ]
-      }
-    ]
-  },
-  "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
-  ]
+  }
 }
