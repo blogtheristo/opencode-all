@@ -1199,6 +1199,148 @@ function parseArgs(argv: string[]): {
   };
 }
 
+// ============ KNOWLEDGE BASE ============
+
+async function cmdKB(
+  subcommand: string,
+  flags: Record<string, string>,
+  positional: string[],
+): Promise<void> {
+  switch (subcommand) {
+    case 'compile': {
+      const full = flags.full === 'true';
+      const s = spinner(`Compiling knowledge base${full ? ' (full)' : ''}...`);
+      try {
+        const result = await api('/api/agents/kb/execute', 'POST', {
+          context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+          input: { operation: 'compile', full },
+        }, 120_000);
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'ask': {
+      const question = positional[1] || flags.input;
+      if (!question) error(
+        'No question provided.',
+        'dws kb ask "your question here"\n  dws kb ask "question" --save',
+      );
+      const save = flags.save === 'true';
+      const s = spinner('Researching...');
+      try {
+        const result = await api('/api/agents/kb/execute', 'POST', {
+          context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+          input: { operation: 'ask', question, save },
+        }, 60_000);
+        s.stop();
+        const res = result as { result?: { answer?: string } };
+        if (res.result?.answer && !JSON_MODE) {
+          console.log(res.result.answer);
+        } else {
+          output(result);
+        }
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'research': {
+      const question = positional[1] || flags.input;
+      if (!question) error(
+        'No research question provided.',
+        'dws kb research "your complex question here"',
+      );
+      const s = spinner('Deep research in progress...');
+      try {
+        const result = await api('/api/agents/kb/execute', 'POST', {
+          context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+          input: { operation: 'research', question },
+        }, 180_000);
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'lint': {
+      const s = spinner('Running health check...');
+      try {
+        const result = await api('/api/agents/kb/execute', 'POST', {
+          context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+          input: { operation: 'lint' },
+        }, 60_000);
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'ingest': {
+      const file = positional[1];
+      if (!file) error(
+        'No file path provided.',
+        'dws kb ingest path/to/file.md\n  dws kb ingest paper.pdf',
+      );
+      const result = await api('/api/agents/kb/execute', 'POST', {
+        context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+        input: { operation: 'ingest', file },
+      });
+      output(result);
+      break;
+    }
+
+    case 'status': {
+      const result = await api('/api/agents/kb/execute', 'POST', {
+        context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+        input: { operation: 'status' },
+      });
+      const res = result as { result?: Record<string, unknown> };
+      if (res.result && !JSON_MODE) {
+        const r = res.result;
+        console.log(fmt.bold('Knowledge Base Status'));
+        console.log('');
+        console.log(`  Raw sources    ${fmt.cyan(String(r.rawCount || 0))}`);
+        console.log(`  Wiki articles  ${fmt.green(String(r.articleCount || 0))}`);
+        if (r.healthScore !== null && r.healthScore !== undefined) {
+          const score = r.healthScore as number;
+          const color = score >= 80 ? fmt.green : score >= 50 ? fmt.yellow : fmt.red;
+          console.log(`  Health         ${color(String(score) + '%')}`);
+        }
+        if (r.lastCompile) console.log(`  Last compile   ${fmt.dim(String(r.lastCompile))}`);
+        if (r.lastLint) console.log(`  Last lint      ${fmt.dim(String(r.lastLint))}`);
+        console.log('');
+      } else {
+        output(result);
+      }
+      break;
+    }
+
+    default:
+      error(
+        `Unknown kb subcommand '${subcommand}'.`,
+        'dws kb compile [--full]         Compile raw → wiki\n' +
+        '  dws kb ask "question" [--save]  Q&A against wiki\n' +
+        '  dws kb research "question"      Deep research\n' +
+        '  dws kb lint                     Health check\n' +
+        '  dws kb status                   Show stats\n' +
+        '  dws kb ingest <file>            Add raw source',
+      );
+  }
+}
+
 // ============ MAIN ============
 
 async function main(): Promise<void> {
@@ -1343,6 +1485,10 @@ async function main(): Promise<void> {
         await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
+      case 'kb':
+        await cmdKB(subcommand || 'status', flags, positional);
+        break;
+
       case 'mcp':
         if (subcommand === 'tools') {
           await cmdMcpTools();
@@ -1364,7 +1510,7 @@ async function main(): Promise<void> {
       default: {
         const allCommands = [
           'agents', 'agent', 'run', 'discover', 'workflows', 'workflow',
-          'events', 'health', 'status', 'config', 'mcp', 'kya',
+          'events', 'health', 'status', 'config', 'mcp', 'kya', 'kb',
           'scenario', 'quickstart', 'init', 'sovereignty-assess', 'version', 'help',
         ];
         const suggestions = allCommands
