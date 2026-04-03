@@ -166,7 +166,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | **Staff Access** | EU-only personnel |
 | **ISO 27001** | Q3 2026 |
 | **SOC 2 Type II** | Q4 2026 |
-| **PiTuKri** | Audited — Traficom NCSC-FI cloud security criteria v1.1, 52 criteria |
+| **PiTuKri** | Audited — Traficom NCSC-FI cloud security criteria v1.1, 52 criteria (transitioning to national criteria library autumn 2026) |
 | **CISPE** | Member |
 | **Compliance** | GDPR, NIS2, EU AI Act, CER Directive, EU CRM Act, KRITIS, dual-use export control (Reg. 2021/821) |
 | **SLA** | 99.999% (UpCloud infrastructure) |

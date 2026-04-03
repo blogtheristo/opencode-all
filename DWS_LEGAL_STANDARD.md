@@ -197,7 +197,7 @@ Shufti Pro fits **Tier 1 — Integration Partner** (EUR 2,500/year). They are a 
 
 | Certification | Target | Auditor | Status |
 |---------------|--------|---------|--------|
-| **PiTuKri** | Completed | Internal + TÜV Rheinland | ✅ Audited |
+| **PiTuKri** | Completed | Internal + TÜV Rheinland | ✅ Audited (v1.1 — transitioning to national criteria library autumn 2026) |
 | **ISO 27001** | **Q3 2026** | TÜV Rheinland | Gap assessment Q1 2026 |
 | **SOC 2 Type II** | **Q4 2026** | Deloitte/EY | Roadmap |
 | **IEC 62443** | Q1 2027 | TBD | Planned (IoT/Fleet) |

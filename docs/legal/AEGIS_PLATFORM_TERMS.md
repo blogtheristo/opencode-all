@@ -46,7 +46,7 @@ This document will contain the Terms of Service for DWS IQ Aegis, the single-ten
 
 ### 6. Security and Compliance
 - ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
-- PiTuKri audited
+- PiTuKri audited (v1.1, transitioning to national criteria library autumn 2026)
 - EU AI Act Article 12 logging
 - KYA agent governance framework
 - Annual security assessment report
