@@ -1,6 +1,6 @@
 ---
 title: PiTuKri v1.1 Security Audit Report
-version: 1.1
+version: 1.2
 created: 2026-03-30
 last_modified: 2026-04-03
 author: Claude Code (Opus 4.6)
