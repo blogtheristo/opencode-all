@@ -715,7 +715,14 @@ export function registerBuiltinTools(): void {
     }
   });
 
+  // Knowledge Base tool handlers
+  import('./kb.agent.js').then(({ registerKBToolHandlers }) => {
+    registerKBToolHandlers();
+  }).catch((err) => {
+    logger.debug('KB tool handlers not available (optional)', { error: err.message });
+  });
+
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
   });
 }
