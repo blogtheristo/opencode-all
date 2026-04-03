@@ -13,7 +13,7 @@
 
 // ============ TYPES ============
 
-export type RegulationId = 'csrd' | 'epbd' | 'ets2' | 'cbam' | 'fit-for-55' | 'eu-ai-act' | 'eu-taxonomy';
+export type RegulationId = 'csrd' | 'epbd' | 'ets2' | 'cbam' | 'fit-for-55' | 'eu-ai-act' | 'eu-taxonomy' | 'red-iii' | 'eed' | 'energy-digitalisation';
 
 export type UrgencyLevel = 'overdue' | 'critical' | 'urgent' | 'upcoming' | 'planned';
 
@@ -193,6 +193,78 @@ const REGULATORY_DEADLINES: RegulatoryDeadline[] = [
     source: 'Reg. 2024/1689, Art. 113(1)',
     scope: 'Providers of high-risk AI systems in EU market',
     actionItems: ['Classify AI system risk level', 'Implement Article 12 logging', 'Document training data governance'],
+  },
+
+  // RED III (Renewable Energy Directive)
+  {
+    id: 'red-iii-target-2030',
+    regulation: 'red-iii',
+    regulationName: 'RED III',
+    milestone: '42.5% renewable energy target (binding)',
+    description: 'EU must achieve at least 42.5% share of energy from renewable sources (binding), with aspiration of 45%',
+    date: '2030-01-01',
+    source: 'Dir. (EU) 2023/2413, Art. 3(1)',
+    scope: 'All EU Member States, energy producers',
+    actionItems: ['Assess current renewable share vs 42.5% target', 'Develop renewable deployment roadmap', 'Report renewable share in CSRD E1 disclosures'],
+  },
+  {
+    id: 'red-iii-transport-2030',
+    regulation: 'red-iii',
+    regulationName: 'RED III',
+    milestone: 'Transport sector renewable target',
+    description: '14.5% renewable share in transport OR 29% renewables in final energy consumption in transport sector',
+    date: '2030-01-01',
+    source: 'Dir. (EU) 2023/2413, Art. 25',
+    scope: 'Fuel suppliers, transport operators',
+    actionItems: ['Map transport fuel mix', 'Plan biofuel/e-fuel/hydrogen integration', 'Assess fleet electrification timeline'],
+  },
+
+  // Energy Efficiency Directive (EED) Recast
+  {
+    id: 'eed-energy-audits-2026',
+    regulation: 'eed',
+    regulationName: 'EED Recast',
+    milestone: 'Enhanced energy audit requirements',
+    description: 'Large enterprises must conduct energy audits every 4 years. Companies with >85 TJ annual consumption must implement energy management systems (ISO 50001)',
+    date: '2026-10-11',
+    source: 'Dir. (EU) 2023/1791, Art. 11',
+    scope: 'Large enterprises (>250 employees), high-consumption companies (>85 TJ/yr)',
+    actionItems: ['Assess annual energy consumption vs 85 TJ threshold', 'Commission energy audit or implement ISO 50001', 'Document energy efficiency measures'],
+  },
+  {
+    id: 'eed-data-centres-2026',
+    regulation: 'eed',
+    regulationName: 'EED Recast',
+    milestone: 'Data centre sustainability reporting',
+    description: 'Data centres with installed IT power demand >= 500 kW must report key sustainability indicators (PUE, renewable share, waste heat reuse)',
+    date: '2026-05-15',
+    source: 'Dir. (EU) 2023/1791, Art. 12',
+    scope: 'Data centre operators (>= 500 kW IT power)',
+    actionItems: ['Calculate PUE and water usage effectiveness', 'Report renewable energy share', 'Assess waste heat reuse potential'],
+  },
+
+  // Energy Digitalisation Roadmap
+  {
+    id: 'energy-digital-roadmap-2026',
+    regulation: 'energy-digitalisation',
+    regulationName: 'Energy Digitalisation Roadmap',
+    milestone: 'Strategic Roadmap on AI in Energy published',
+    description: 'EC Strategic Roadmap on Digitalisation and AI in Energy Sector — defines digital readiness expectations for grid operators, utilities, and data centres',
+    date: '2026-04-01',
+    source: 'EC Affordable Energy Action Plan (Feb 2025), Action 5',
+    scope: 'All EU energy sector operators',
+    actionItems: ['Review roadmap requirements', 'Develop digitalisation strategy', 'Assess AI readiness for grid optimisation'],
+  },
+  {
+    id: 'energy-efficiency-consultation-2026',
+    regulation: 'eed',
+    regulationName: 'Post-2030 Energy Efficiency Framework',
+    milestone: 'Call for evidence deadline',
+    description: 'Public consultation on Post-2030 Energy Efficiency Framework closes — contribute to shape post-2030 requirements',
+    date: '2026-04-16',
+    source: 'energy.ec.europa.eu (launched 20 March 2026)',
+    scope: 'Energy companies, industry associations, public',
+    actionItems: ['Submit consultation response by 16 April 2026', 'Align internal efficiency targets with expected post-2030 framework', 'Monitor outcome for new obligations'],
   },
 
   // EU Taxonomy
