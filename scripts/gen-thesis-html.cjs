@@ -205,6 +205,12 @@ const SOURCES = [
     lang:      'fi',
   },
   {
+    src:       'Learn/V3Thesis_EN_v3.30.50.md',
+    titleBase: 'Firehorse Product Manufacturing Operating Model — Metropolia v3.30.50 (EN, FROZEN)',
+    outPrefix: 'Learn/V3Thesis_EN_v',
+    lang:      'en',
+  },
+  {
     src:       'Learn/DWS7_ROADMAP.md',
     titleBase: 'DWS7 Roadmap — From Pilot to 16 Paying Industrial Customers',
     outPrefix: 'Learn/DWS7_ROADMAP_v',
