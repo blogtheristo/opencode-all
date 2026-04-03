@@ -24,7 +24,7 @@
 
 **Maturity key:** ✅ Shipped | 🔧 Skeleton/In Progress | 📋 Planning Only
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -218,6 +218,7 @@ dws6/
 | `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
 | `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
+| `kb` | KBAgent | List all files in kb/raw/ with their paths, sizes, and modification timestamps. Use to discover raw sources that need compilation. | Llama 3.3 70B |
 | `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
 | `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
 | `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
