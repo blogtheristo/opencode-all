@@ -38,19 +38,6 @@ block() {
   exit 2
 }
 
-allow() {
-  reason="$1"
-  log_decision "ALLOW" "$reason"
-  exit 0
-}
-
-ask_user() {
-  reason="$1"
-  log_decision "ASK" "$reason"
-  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"%s"}}' "$reason"
-  exit 0
-}
-
 # --- DENY LIST: destructive patterns (exit 2) ---
 
 # rm with force/recursive on broad paths
@@ -103,40 +90,9 @@ printf '%s' "$COMMAND" | grep -qiE '^git[[:space:]]+rm[[:space:]]' && block "git
 printf '%s' "$COMMAND" | grep -qiE '[;&|][[:space:]]*git[[:space:]]+rm[[:space:]]' && block "git rm — use git mv to rename with _OLD suffix instead"
 
 # Ollama models — require human approval (CLAUDE.md: strategic decisions)
-printf '%s' "$COMMAND" | grep -qiE 'ollama[[:space:]]+(pull|rm|remove|delete)[[:space:]]' && ask_user "Ollama model change requires human approval"
+printf '%s' "$COMMAND" | grep -qiE 'ollama[[:space:]]+(pull|rm|remove|delete)[[:space:]]' && block "Ollama model change blocked — run manually after review"
 
-# --- ALLOW LIST: safe patterns (exit 0) ---
-
-# npm/npx/node tooling
-case "$COMMAND" in
-  'npm run '*|'npm install'*|'npm test'*|'npm audit'*|'npx '*) allow "npm/npx command" ;;
-  'node '*|'tsx '*|'vitest '*) allow "Node.js tooling" ;;
-esac
-
-# Safe git commands
-case "$COMMAND" in
-  'git status'*|'git diff'*|'git log'*|'git add '*|'git commit '*) allow "Safe git command" ;;
-  'git branch'*|'git checkout'*|'git fetch'*|'git pull'*|'git stash'*) allow "Safe git command" ;;
-  'git push '*|'git push') allow "git push (non-force)" ;;
-  'git mv '*) allow "git mv" ;;
-  'git remote'*|'git show'*|'git rev-parse'*|'git merge'*) allow "Safe git command" ;;
-esac
-
-# Read-only commands
-case "$COMMAND" in
-  'ls'*|'pwd'*|'echo '*|'cat '*|'head '*|'tail '*|'wc '*) allow "Read-only command" ;;
-  'find '*|'grep '*|'rg '*|'which '*|'type '*|'file '*) allow "Read-only command" ;;
-  'diff '*|'tree '*|'du '*|'df '*) allow "Read-only command" ;;
-esac
-
-# Build/test commands
-case "$COMMAND" in
-  'make'*|'cargo '*|'python '*|'pip '*) allow "Build/test command" ;;
-  'docker '*|'docker-compose '*) allow "Docker command" ;;
-  'gh '*) allow "GitHub CLI" ;;
-  'chmod '*|'mkdir '*|'cp '*|'mv '*) allow "File operation" ;;
-esac
-
-# --- DEFAULT: ASK for anything not matched ---
-
-ask_user "Command not in allow/deny list: review needed"
+# --- DEFAULT: ALLOW anything not in the deny list ---
+# The deny list above catches dangerous commands. Everything else flows silently.
+# This prevents decision fatigue from constant permission prompts.
+exit 0
