@@ -931,8 +931,9 @@ export class DesignerAgent extends BaseAgent {
 
 // ============ LOCAL TESTS (VITEST) ============
 
-if (import.meta.vitest) {
-  const { describe, it, expect } = import.meta.vitest;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+if ((import.meta as any).vitest) {
+  const { describe, it, expect } = (import.meta as any).vitest;
 
   describe('classifyComplexity', () => {
   it('classifies purely visual style changes as safe without engineer review', () => {

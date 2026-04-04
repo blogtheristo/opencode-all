@@ -450,7 +450,7 @@ export class KBAgent extends BaseAgent {
 
     // Use longer loop for deep research
     const savedLoop = this.config.loop;
-    this.config.loop = { ...savedLoop, maxIterations: 25 };
+    this.config.loop = { maxIterations: 25, allowDelegation: savedLoop?.allowDelegation ?? false, logIterations: savedLoop?.logIterations ?? false };
 
     const userMsg = `Conduct deep research on this question. Write analysis articles and a final report.\n\n${question}`;
     const loopResult = await this.runLoop(context, RESEARCH_PROMPT, userMsg, KB_TOOLS);

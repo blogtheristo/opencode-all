@@ -74,7 +74,7 @@ const validateRequest = (req: Request, res: Response, next: express.NextFunction
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 // ============ ROUTES ============
@@ -87,14 +87,14 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
   try {
     const agents = agentRegistry.listAgents();
 
-    res.status(200).json({
+    return res.status(200).json({
       agents,
       count: agents.length,
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to list agents', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list agents',
     });
@@ -119,13 +119,13 @@ router.get('/:name', authenticateToken, (req: Request, res: Response) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       agent: agent.getConfig(),
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to get agent details', { error: err.message, agent: req.params.name });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get agent details',
     });
@@ -172,7 +172,7 @@ router.post(
     try {
       const result = await agentRegistry.executeAgent(name, context, input);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         result,
         timestamp: new Date().toISOString(),
@@ -192,7 +192,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Execution Error',
         message: err.message || 'An unexpected error occurred during agent execution',
       });
@@ -233,7 +233,7 @@ router.post(
       const startTime = Date.now();
       const result = await agentRegistry.executeAgent(name, context, input);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         agentName: result.agentName,
         status: 'success',
@@ -252,7 +252,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Execution Error',
         message: err.message || 'An unexpected error occurred during agent execution',
       });
@@ -304,7 +304,7 @@ router.post(
         mode: 'chat',
       });
 
-      res.status(200).json({
+      return res.status(200).json({
         reply: result.reasoning || 'Analysis complete. See result for details.',
         confidence: result.confidence,
         agentName: result.agentName,
@@ -321,7 +321,7 @@ router.post(
         });
       }
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Agent Chat Error',
         message: err.message || 'An unexpected error occurred',
       });
@@ -340,7 +340,7 @@ router.get('/discover/:capability', authenticateToken, (req: Request, res: Respo
     const { capability } = req.params;
     const agents = agentRegistry.discoverAgents(capability);
 
-    res.status(200).json({
+    return res.status(200).json({
       capability,
       agents,
       count: agents.length,
@@ -348,7 +348,7 @@ router.get('/discover/:capability', authenticateToken, (req: Request, res: Respo
     });
   } catch (err: any) {
     logger.error('Agent discovery failed', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to discover agents',
     });
@@ -369,14 +369,14 @@ router.get('/workflows', authenticateToken, (_req: Request, res: Response) => {
       timeoutMs: wf.timeoutMs,
     }));
 
-    res.status(200).json({
+    return res.status(200).json({
       workflows,
       count: workflows.length,
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to list workflows', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list workflows',
     });
@@ -429,7 +429,7 @@ router.post(
         stepResults[key] = value;
       }
 
-      res.status(200).json({
+      return res.status(200).json({
         success: execution.status === 'completed',
         execution: {
           ...execution,
@@ -444,7 +444,7 @@ router.post(
         userId: context.userId,
       });
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Workflow Execution Error',
         message: err.message || 'An unexpected error occurred during workflow execution',
       });
@@ -464,7 +464,7 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
 
     const events = eventBus.getRecentEvents(pattern, limit);
 
-    res.status(200).json({
+    return res.status(200).json({
       events,
       count: events.length,
       pattern: pattern || '*',
@@ -472,7 +472,7 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
     });
   } catch (err: any) {
     logger.error('Failed to get events', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get events',
     });

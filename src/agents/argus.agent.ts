@@ -331,7 +331,7 @@ export class ArgusAgent extends BaseAgent {
 
       const response: AgentResponse = {
         agentName: this.config.name,
-        result: scanResult,
+        result: scanResult as unknown as Record<string, unknown>,
         confidence: this.computeOverallConfidence(governedTargets),
         reasoning: `Orbital scan of ${areaKm2.toFixed(1)} km² processed ${images.length} SAR images. ` +
           `Detected ${governedTargets.length} industrial targets across ${industrySummary.length} industries. ` +

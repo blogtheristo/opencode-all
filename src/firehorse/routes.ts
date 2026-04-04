@@ -40,10 +40,10 @@ router.post('/webhooks/email-opened', async (req: Request, res: Response) => {
       opened_at: opened_at ? new Date(opened_at) : new Date(),
     });
 
-    res.json({ success: true });
+    return res.json({ success: true });
   } catch (error) {
     console.error('Error handling email opened:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -66,10 +66,10 @@ router.post('/webhooks/link-clicked', async (req: Request, res: Response) => {
       clicked_at: clicked_at ? new Date(clicked_at) : new Date(),
     });
 
-    res.json({ success: true });
+    return res.json({ success: true });
   } catch (error) {
     console.error('Error handling link clicked:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -92,10 +92,10 @@ router.post('/webhooks/email-reply', async (req: Request, res: Response) => {
       replied_at: replied_at ? new Date(replied_at) : new Date(),
     });
 
-    res.json({ success: true });
+    return res.json({ success: true });
   } catch (error) {
     console.error('Error handling email reply:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -118,10 +118,10 @@ router.post('/webhooks/meeting-booked', async (req: Request, res: Response) => {
       booked_at: booked_at ? new Date(booked_at) : new Date(),
     });
 
-    res.json({ success: true });
+    return res.json({ success: true });
   } catch (error) {
     console.error('Error handling meeting booked:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -136,10 +136,10 @@ router.post('/webhooks/meeting-booked', async (req: Request, res: Response) => {
 router.post('/jobs/daily', async (req: Request, res: Response) => {
   try {
     await scheduler.runManually('daily');
-    res.json({ success: true, message: 'Daily job completed' });
+    return res.json({ success: true, message: 'Daily job completed' });
   } catch (error) {
     console.error('Error running daily job:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -150,10 +150,10 @@ router.post('/jobs/daily', async (req: Request, res: Response) => {
 router.post('/jobs/cold2', async (req: Request, res: Response) => {
   try {
     await scheduler.runManually('cold2');
-    res.json({ success: true, message: 'Cold 2 job completed' });
+    return res.json({ success: true, message: 'Cold 2 job completed' });
   } catch (error) {
     console.error('Error running Cold 2 job:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -164,10 +164,10 @@ router.post('/jobs/cold2', async (req: Request, res: Response) => {
 router.post('/jobs/cold3', async (req: Request, res: Response) => {
   try {
     await scheduler.runManually('cold3');
-    res.json({ success: true, message: 'Cold 3 job completed' });
+    return res.json({ success: true, message: 'Cold 3 job completed' });
   } catch (error) {
     console.error('Error running Cold 3 job:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -220,10 +220,10 @@ router.post('/leads', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to create lead' });
     }
 
-    res.json({ success: true, lead: data });
+    return res.json({ success: true, lead: data });
   } catch (error) {
     console.error('Error creating lead:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -240,10 +240,10 @@ router.get('/leads/:id', async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Lead not found' });
     }
 
-    res.json({ success: true, lead });
+    return res.json({ success: true, lead });
   } catch (error) {
     console.error('Error fetching lead:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -266,10 +266,10 @@ router.get('/leads/:id/events', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to fetch events' });
     }
 
-    res.json({ success: true, events: data });
+    return res.json({ success: true, events: data });
   } catch (error) {
     console.error('Error fetching events:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -292,10 +292,10 @@ router.get('/leads/:id/tasks', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to fetch tasks' });
     }
 
-    res.json({ success: true, tasks: data });
+    return res.json({ success: true, tasks: data });
   } catch (error) {
     console.error('Error fetching tasks:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -322,7 +322,7 @@ router.get('/signals/pending', async (req: Request, res: Response) => {
       });
     }
 
-    res.json({
+    return res.json({
       signals: data || [],
       count: data?.length || 0,
       timestamp: new Date().toISOString()
@@ -330,7 +330,7 @@ router.get('/signals/pending', async (req: Request, res: Response) => {
 
   } catch (error: any) {
     console.error('Unexpected error in /signals/pending:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal server error',
       message: error.message
     });
@@ -367,7 +367,7 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
 
     console.log(`✅ Signal approved: ${id} - ${data.company_name}`);
 
-    res.json({
+    return res.json({
       success: true,
       signal: data,
       message: 'Signal approved'
@@ -375,7 +375,7 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
 
   } catch (error: any) {
     console.error('Unexpected error in /signals/:id/approve:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal server error',
       message: error.message
     });
@@ -410,7 +410,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
 
     console.log(`❌ Signal rejected: ${id} - ${data.company_name}`);
 
-    res.json({
+    return res.json({
       success: true,
       signal: data,
       message: 'Signal rejected'
@@ -418,7 +418,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
 
   } catch (error: any) {
     console.error('Unexpected error in /signals/:id/reject:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal server error',
       message: error.message
     });
@@ -444,14 +444,14 @@ router.get('/signals/stats', async (req: Request, res: Response) => {
       });
     }
 
-    res.json({
+    return res.json({
       stats: data || [],
       timestamp: new Date().toISOString()
     });
 
   } catch (error: any) {
     console.error('Unexpected error in /signals/stats:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal server error',
       message: error.message
     });
@@ -490,10 +490,10 @@ router.post('/reports/generate', async (req: Request, res: Response) => {
       options,
     });
 
-    res.json({ success: true, report });
+    return res.json({ success: true, report });
   } catch (error: any) {
     console.error('Error generating report:', error);
-    res.status(500).json({ error: 'Report generation failed', message: error.message });
+    return res.status(500).json({ error: 'Report generation failed', message: error.message });
   }
 });
 
@@ -522,10 +522,10 @@ router.post('/reports/markdown', async (req: Request, res: Response) => {
 
     const markdown = FirehorseReportModule.toMarkdown(report);
 
-    res.type('text/markdown').send(markdown);
+    return res.type('text/markdown').send(markdown);
   } catch (error: any) {
     console.error('Error generating markdown report:', error);
-    res.status(500).json({ error: 'Report generation failed', message: error.message });
+    return res.status(500).json({ error: 'Report generation failed', message: error.message });
   }
 });
 
@@ -542,10 +542,10 @@ router.get('/reports', async (req: Request, res: Response) => {
     }
 
     const reports = await FirehorseReportModule.listReports(organizationId);
-    res.json({ success: true, reports, count: reports.length });
+    return res.json({ success: true, reports, count: reports.length });
   } catch (error: any) {
     console.error('Error listing reports:', error);
-    res.status(500).json({ error: 'Failed to list reports', message: error.message });
+    return res.status(500).json({ error: 'Failed to list reports', message: error.message });
   }
 });
 
@@ -580,10 +580,10 @@ router.post('/workflows', async (req: Request, res: Response) => {
       createdBy || 'api',
     );
 
-    res.json({ success: true, workflow });
+    return res.json({ success: true, workflow });
   } catch (error: any) {
     console.error('Error creating workflow:', error);
-    res.status(500).json({ error: 'Failed to create workflow', message: error.message });
+    return res.status(500).json({ error: 'Failed to create workflow', message: error.message });
   }
 });
 
@@ -597,10 +597,10 @@ router.post('/workflows/:id/execute', async (req: Request, res: Response) => {
     const { input } = req.body;
 
     const execution = await FirehorseWorkflowEngine.execute(id, input || {});
-    res.json({ success: true, execution });
+    return res.json({ success: true, execution });
   } catch (error: any) {
     console.error('Error executing workflow:', error);
-    res.status(500).json({ error: 'Workflow execution failed', message: error.message });
+    return res.status(500).json({ error: 'Workflow execution failed', message: error.message });
   }
 });
 
@@ -612,10 +612,10 @@ router.get('/workflows/executions', async (req: Request, res: Response) => {
   try {
     const workflowId = req.query.workflowId as string | undefined;
     const executions = await FirehorseWorkflowEngine.listExecutions(workflowId);
-    res.json({ success: true, executions, count: executions.length });
+    return res.json({ success: true, executions, count: executions.length });
   } catch (error: any) {
     console.error('Error listing executions:', error);
-    res.status(500).json({ error: 'Failed to list executions', message: error.message });
+    return res.status(500).json({ error: 'Failed to list executions', message: error.message });
   }
 });
 

@@ -40,6 +40,7 @@ export interface ComplianceGap {
   gap: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
   disclosureId?: string;
+  category?: string;
 }
 
 export interface CostBreakdown {
