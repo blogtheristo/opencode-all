@@ -95,7 +95,7 @@ const validate = (req: Request, res: Response, next: any) => {
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 /**
@@ -273,13 +273,13 @@ router.get('/leads', (req: Request, res: Response) => {
   try {
     const leads = GatedService.getLeads();
     logger.info('Admin accessed leads', { ip: req.ip, count: leads.length });
-    res.status(200).json({
+    return res.status(200).json({
       count: leads.length,
       leads,
     });
   } catch (error: any) {
     logger.error('Failed to get leads', { error: error.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Failed to get leads',
       // Don't expose internal error details in production
       message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',

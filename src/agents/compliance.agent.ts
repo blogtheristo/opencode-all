@@ -420,7 +420,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     measures: ComplianceInput['currentMeasures'],
     emissions: number,
     importValue: number,
-  ): { regulation: string; score: number; status: string; dataPointsProvided: number; dataPointsRequired: number } {
+  ): { regulation: string; score: number; status: string; dataQuality: string; dataPointsProvided: number; dataPointsRequired: number } {
     const weights = MEASURE_WEIGHTS[regulation] || MEASURE_WEIGHTS['fit-for-55'];
     let score = 0;
 

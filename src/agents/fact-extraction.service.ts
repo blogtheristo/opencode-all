@@ -208,7 +208,7 @@ export class FactExtractionService {
   /** Lazy-initialize LLM client */
   private getLLMClient(): LLMClient | null {
     if (this.llmClient) return this.llmClient;
-    this.llmClient = createLLMClient('claude-haiku', { mode: 'agent' });
+    this.llmClient = createLLMClient('claude-haiku', undefined, 'agent');
     return this.llmClient;
   }
 }

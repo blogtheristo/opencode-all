@@ -206,7 +206,7 @@ export class MemoryService {
 
         // Touch recalled memories (update access tracking)
         for (const mem of memories) {
-          client.rpc('touch_memory', { memory_id: mem.id }).catch(() => {});
+          client.rpc('touch_memory', { memory_id: mem.id }).then(() => {}, () => {});
         }
       }
     } else {
