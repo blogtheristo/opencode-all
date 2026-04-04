@@ -211,6 +211,12 @@ const SOURCES = [
     lang:      'en',
   },
   {
+    src:       'Learn/V3Thesis_FI_v3.30.50.md',
+    titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — Metropolia v3.30.50 (FI, JÄÄDYTETTY)',
+    outPrefix: 'Learn/V3Thesis_FI_v',
+    lang:      'fi',
+  },
+  {
     src:       'Learn/DWS7_ROADMAP.md',
     titleBase: 'DWS7 Roadmap — From Pilot to 16 Paying Industrial Customers',
     outPrefix: 'Learn/DWS7_ROADMAP_v',
