@@ -98,7 +98,9 @@ printf '%s' "$COMMAND" | grep -qiE '[;&|][[:space:]]*sudo[[:space:]]' && block "
 printf '%s' "$COMMAND" | grep -qiE 'exec\([[:space:]]*[`"'"'"'].*\$' && block "exec() with string interpolation — use execFile() with argument arrays"
 
 # git rm — Never Delete Files rule (CLAUDE.md: always rename to _OLD)
-printf '%s' "$COMMAND" | grep -qiE 'git[[:space:]]+rm[[:space:]]' && block "git rm — use git mv to rename with _OLD suffix instead"
+# Only match git rm as a command, not inside commit messages or strings
+printf '%s' "$COMMAND" | grep -qiE '^git[[:space:]]+rm[[:space:]]' && block "git rm — use git mv to rename with _OLD suffix instead"
+printf '%s' "$COMMAND" | grep -qiE '[;&|][[:space:]]*git[[:space:]]+rm[[:space:]]' && block "git rm — use git mv to rename with _OLD suffix instead"
 
 # Ollama models — require human approval (CLAUDE.md: strategic decisions)
 printf '%s' "$COMMAND" | grep -qiE 'ollama[[:space:]]+(pull|rm|remove|delete)[[:space:]]' && ask_user "Ollama model change requires human approval"

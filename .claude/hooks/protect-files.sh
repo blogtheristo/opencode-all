@@ -50,4 +50,13 @@ case "$file" in
     exit 0 ;;
 esac
 
+# BLOCK: .md files in public site folders (CLAUDE.md: Never Publish .md to Public Sites)
+if echo "$file" | grep -qiE '\.(md|markdown)$'; then
+  public_dirs="^(dws10\.com|dws6\.com|onelifetime\.world|landing-pages)"
+  if echo "$file" | grep -qiE "$public_dirs"; then
+    echo "Blocked: Cannot write .md file to public site folder: $file. Convert to HTML first." >&2
+    exit 2
+  fi
+fi
+
 exit 0
