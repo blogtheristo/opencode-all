@@ -67,6 +67,14 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 
 ## 0. Store Identity — Sovereign AI Store
 
+**Competitive Positioning (vs SAP Business AI, IBM watsonx, Palantir AIP):**
+- **EU Data Residency** — hosted in Finland, zero CLOUD Act exposure (SAP/IBM/Palantir are US-hosted)
+- **AI Agents, Not Dashboards** — autonomous compliance outputs, 90% less manual work than legacy enterprise tools
+- **ERP Native** — connects to SAP, IFS, Dynamics 365, Monitor, Visma (not locked to one vendor)
+- **EU AI Act Compliant** — Article 12 logging, KYA governance, deterministic scoring built in
+- **Enterprise + SME** — serves both segments; SAP/IBM/Palantir are enterprise-only
+- On public pages, reference competitors **implicitly** ("Unlike US-hosted platforms..."), not by name
+
 All DWS store pages MUST display the store identity info box above the product grid.
 
 **Component:**
@@ -75,7 +83,7 @@ All DWS store pages MUST display the store identity info box above the product g
     <div class="store-identity-icon">🏪</div>
     <div class="store-identity-content">
         <h2 class="store-identity-title">Sovereign AI for Enterprises and SMEs</h2>
-        <p class="store-identity-subtitle">EU-sovereign products, compliance tools, and expert services — from €0.99 to enterprise scale.</p>
+        <p class="store-identity-subtitle">EU-sovereign products, compliance tools, and expert services for enterprises and SMEs.</p>
     </div>
     <div class="store-identity-badges">
         <span class="sovereignty-badge eu-data">EU Data Residency</span>
