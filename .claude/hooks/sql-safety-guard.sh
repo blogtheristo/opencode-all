@@ -32,14 +32,21 @@ if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
   exit 0
 fi
 
-# Skip git commit messages — SQL keywords in commit text are not actual SQL
+# Only fire on actual SQL execution commands — skip everything else
+# SQL keywords inside node/npx/git/echo/commit commands are string literals, not real SQL
+IS_SQL_CMD=0
 case "$COMMAND" in
-  'git commit'*|'git log'*|'git show'*|'git diff'*) exit 0 ;;
+  psql*|'supabase db'*|'supabase migration'*) IS_SQL_CMD=1 ;;
+  # Skip all non-SQL commands early — git, node, npx, echo, etc.
+  git*|node*|npx*|npm*|echo*|cat*|ls*|cp*|mv*|mkdir*|chmod*|curl*|wget*) IS_SQL_CMD=0 ;;
+  *) # For compound commands (&&, |), check if first segment is SQL
+     FIRST_CMD=$(printf '%s' "$COMMAND" | sed 's/[;&|].*//' | xargs)
+     case "$FIRST_CMD" in
+       psql*|'supabase db'*|'supabase migration'*) IS_SQL_CMD=1 ;;
+     esac ;;
 esac
 
-# Quick check: does this command contain SQL-like content?
-HAS_SQL=0
-printf '%s' "$COMMAND" | grep -qiE '(CREATE[[:space:]]+TABLE|ALTER[[:space:]]+TABLE|DROP[[:space:]]+TABLE|INSERT[[:space:]]+INTO|CREATE[[:space:]]+FUNCTION|BEGIN;|psql|supabase[[:space:]]+db|cron\.schedule)' && HAS_SQL=1
+HAS_SQL="$IS_SQL_CMD"
 
 if [ "$HAS_SQL" -eq 0 ]; then
   exit 0
