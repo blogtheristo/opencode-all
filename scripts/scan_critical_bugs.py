@@ -56,10 +56,7 @@ def _should_skip_line(line: str, pattern: str) -> bool:
         return True
 
     # If this pattern is looking for eval(...) calls, do not flag simple_eval(...)
-    if "eval" in pattern and re.search(r"\bsimple_eval\s*\(", line):
-        return True
-
-    return False
+    return "eval" in pattern and bool(re.search(r"\bsimple_eval\s*\(", line))
 
 
 # Import ZenFree for runtime pattern detection

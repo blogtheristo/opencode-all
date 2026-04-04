@@ -69,7 +69,12 @@ output-metadata.json
 Thumbs.db
 *.iml
 .idea/
-.claude/
+# Ignore .claude contents but whitelist hooks + settings for team safety nets
+.claude/*
+!.claude/hooks/
+!.claude/settings.local.json
+.claude/hooks/audit/
+.claude/command-log.txt
 claude-output.json
 review-output.json
 nul
