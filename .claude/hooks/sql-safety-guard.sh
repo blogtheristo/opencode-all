@@ -1,6 +1,6 @@
 #!/bin/sh
-# DWS6 Claude Code Hook: Boardy SQL Safety Guard
-# Enforces Boardy's SQL safety rules on Bash commands containing SQL
+# DWS6 Claude Code Hook: SQL Safety Guard
+# Enforces SQL safety rules on Bash commands containing SQL
 # Upgraded: Supabase patterns + Aiwen Article 12 immutability
 #
 # Checks:
@@ -13,7 +13,7 @@
 # 7. pg_cron jobs that mutate data
 #
 # Requires: jq
-# See: CLAUDE.md "Safety Rules for SQL (Boardy Enforced)"
+# See: CLAUDE.md "Safety Rules for SQL"
 
 set -e
 
@@ -32,6 +32,11 @@ if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
   exit 0
 fi
 
+# Skip git commit messages — SQL keywords in commit text are not actual SQL
+case "$COMMAND" in
+  'git commit'*|'git log'*|'git show'*|'git diff'*) exit 0 ;;
+esac
+
 # Quick check: does this command contain SQL-like content?
 HAS_SQL=0
 printf '%s' "$COMMAND" | grep -qiE '(CREATE[[:space:]]+TABLE|ALTER[[:space:]]+TABLE|DROP[[:space:]]+TABLE|INSERT[[:space:]]+INTO|CREATE[[:space:]]+FUNCTION|BEGIN;|psql|supabase[[:space:]]+db|cron\.schedule)' && HAS_SQL=1
@@ -43,14 +48,14 @@ fi
 log_block() {
   reason="$1"
   printf '%s | SQL-BLOCK | %s | %s\n' "$TIMESTAMP" "$reason" "$COMMAND" >> "$AUDIT_LOG" 2>/dev/null || true
-  printf '[BOARDY] %s\n' "$reason" >&2
+  printf '[SQL-GUARD] %s\n' "$reason" >&2
   exit 2
 }
 
 log_ask() {
   reason="$1"
   printf '%s | SQL-ASK | %s | %s\n' "$TIMESTAMP" "$reason" "$COMMAND" >> "$AUDIT_LOG" 2>/dev/null || true
-  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[BOARDY] %s"}}' "$reason"
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[SQL-GUARD] %s"}}' "$reason"
   exit 0
 }
 
@@ -77,14 +82,14 @@ fi
 # --- Check 3: CREATE TABLE without RLS ---
 if printf '%s' "$COMMAND" | grep -qiE 'CREATE[[:space:]]+TABLE'; then
   if ! printf '%s' "$COMMAND" | grep -qiE 'ENABLE[[:space:]]+ROW[[:space:]]+LEVEL[[:space:]]+SECURITY'; then
-    log_block "CREATE TABLE without ENABLE ROW LEVEL SECURITY. Boardy requires RLS on every Supabase table."
+    log_block "CREATE TABLE without ENABLE ROW LEVEL SECURITY. RLS is required on every Supabase table."
   fi
 fi
 
 # --- Check 4: DROP TABLE without approval comment ---
 if printf '%s' "$COMMAND" | grep -qiE 'DROP[[:space:]]+TABLE'; then
-  if ! printf '%s' "$COMMAND" | grep -qiE '--[[:space:]]*(APPROVED|approved|boardy-approved)'; then
-    log_block "DROP TABLE without approval comment (-- APPROVED or -- boardy-approved required)."
+  if ! printf '%s' "$COMMAND" | grep -qiE -- '--[[:space:]]*(APPROVED|approved)'; then
+    log_block "DROP TABLE without approval comment (-- APPROVED required)."
   fi
 fi
 
@@ -108,5 +113,5 @@ if printf '%s' "$COMMAND" | grep -qiE 'cron\.schedule'; then
 fi
 
 # All checks passed
-printf '%s | SQL-ALLOW | Passed Boardy checks | %s\n' "$TIMESTAMP" "$COMMAND" >> "$AUDIT_LOG" 2>/dev/null || true
+printf '%s | SQL-ALLOW | All checks passed | %s\n' "$TIMESTAMP" "$COMMAND" >> "$AUDIT_LOG" 2>/dev/null || true
 exit 0
