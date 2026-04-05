@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added actual March 2026 invoice data (€18.74 total, dws-iq-backend project, Serverless Containers CPU+Memory, Free Tier offset); corrected project name from dws-iq-6 → dws-iq-backend to match existing account; recorded Scaleway customer ID 78e26603-c820-4617-b0d2-f8589eb7693b
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — owner account is admin@dws6.com (product-scoped), NOT risto.paarni2024@lifetime.fi. Risto's account for this implementation is being deleted. Rationale: DWS6 product infra isolation; aligns with existing dws6.com (Cloudflare) ownership pattern.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Initial — Scaleway Generative APIs as EU-primary inference for Climate Assistant; account setup recipe (Lifetime Oy org, Google SSO, IAM API key); cost envelope (MVP free, V1 cheap); routing decision: Scaleway → NIM → Groq
 
@@ -70,7 +71,7 @@ behaviour barely shifts.
 
 | Field | Value |
 |---|---|
-| Project name | `dws-iq-6` |
+| Project name | `dws-iq-backend` (already exists — per March 2026 invoice) |
 | Region default | `fr-par` (Paris) |
 | Backup region | `nl-ams` (Amsterdam) |
 
@@ -81,7 +82,7 @@ Do **not** reuse your SSO session in code. Create a dedicated scoped key:
 1. Console → Identity & Access Management → API Keys → **Generate new**
 2. Name: `dws6-climate-assistant-prod`
 3. Bearer: `Application` (not a user identity)
-4. Preferred project: `dws-iq-6`
+4. Preferred project: `dws-iq-backend`
 5. Permission set: `GenerativeApisFullAccess`
 6. Copy the **Secret Key** — shown only once, becomes `SCW_SECRET_KEY`
 7. Copy the **Access Key** (public half, for logs)
@@ -121,6 +122,48 @@ Expected: a plausible one-sentence answer about Carbon Border Adjustment
 Mechanism in <2s with <€0.001 cost. If `401 Unauthorized`, the key is wrong.
 If `403`, the key lacks `GenerativeApisFullAccess`.
 
+## Actual billing — March 2026 (first real invoice)
+
+Scaleway invoice issued 2026-04-01 for billing period March 2026.
+
+| Field | Value |
+|---|---|
+| Scaleway customer ID | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| Customer of record | Lifetime Oy (0772407-9) — admin@dws6.com |
+| Invoice date | 2026-03-31 |
+| Due date | 2026-04-11 |
+| Period | 2026-03-01 → 2026-03-31 UTC |
+| Project | `dws-iq-backend` |
+| Resources | 5 |
+| **Total** | **€18.74** |
+
+### Line items
+
+| Product | Usage | Gross | Notes |
+|---|---|---|---|
+| Serverless Containers CPU (fr-par) | 1,918,678 vcpu_ss | €19.19 | Climate Assistant backend container uptime |
+| Serverless Containers Memory (fr-par) | 1,918,678 gb_ss | €1.92 | Matches CPU-seconds 1:1 |
+| Serverless Free Tier offset | — | -€2.40 | WW free-tier offer auto-applied (-€2.00 + -€0.40) |
+| Registry Storage (fr) | 744 GB-hours | €0.03 | Container Registry holding the Docker image |
+| Pack plan | 1 plan | €0.00 | Bundled subscription line |
+| **Month total** | | **€18.74** | |
+
+### Observations
+
+- March usage is **Serverless Containers** (not Generative APIs). The
+  current Scaleway footprint hosts the DWS6 backend container; LLM inference
+  via Generative APIs is about to be added on top (zero marginal cost in
+  free tier).
+- CPU-seconds = GB-seconds × 1 → 1 vCPU with 1 GB RAM container running
+  continuously ≈ 1.92M seconds/month ≈ 22.2 days of 24/7 uptime (so the
+  container was up ~74% of the month, consistent with a cold-start
+  serverless model that scales to zero when idle).
+- €18.74/month baseline for the entire DWS6 backend is cheap. Adding
+  Climate Assistant inference on top stays inside Generative APIs free
+  tier (1M tok/mo) until customer volume ramps.
+- Free-tier offer -€2.40 confirms we are on the Scaleway "Free Tier
+  World Wide" offer — continues automatically each month.
+
 ## Cost envelope
 
 | Stage | Volume | Scaleway cost |
@@ -155,7 +198,7 @@ IAM, and audit logs cleanly separated. Each project gets its own IAM API key.
 
 ```
 Scaleway Organization:  Lifetime Oy  (Business ID 0772407-9)
-├── Project: dws-iq-6          Climate Assistant, agents, LLM inference
+├── Project: dws-iq-backend          Climate Assistant, agents, LLM inference
 │     └── Generative APIs · Instances · Object Storage
 ├── Project: dws-iq-aegis      V1 — audit trail, KYA evidence, Article 12
 │     └── Dedibox · Object Storage (Object Lock) · Private Network
