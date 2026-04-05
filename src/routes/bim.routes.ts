@@ -21,20 +21,17 @@ const router: Router = express.Router();
 // ---------------------------------------------------------------------------
 // Supabase service client (uses service_role key — bypasses RLS)
 //
-// Lazy accessor: do NOT call createClient at module-top with possibly-empty
-// env vars — the supabase-js v2 constructor throws "supabaseUrl is required"
-// on empty strings, which crashes test boot (see PR #982 CI). Instead, defer
-// to the shared getSupabaseClient() helper which returns null when env is
-// unset (graceful degradation) and is trivially mockable in tests.
+// Truly lazy accessor: called per-request so tests and late env configuration
+// work correctly. getSupabaseClient() internally caches the SupabaseClient
+// instance once env vars are present (no performance penalty from repeated
+// calls) and returns null otherwise (graceful degradation).
 // ---------------------------------------------------------------------------
-const _supabase = getSupabaseClient();
-// All routes below assume a configured Supabase client; fail fast per-request
-// rather than at import time so the rest of the app can still boot.
 function sb() {
-  if (!_supabase) {
+  const client = getSupabaseClient();
+  if (!client) {
     throw new Error('Supabase client not configured (SUPABASE_URL / SUPABASE_SERVICE_KEY)');
   }
-  return _supabase;
+  return client;
 }
 
 // ---------------------------------------------------------------------------
@@ -168,7 +165,7 @@ router.post(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('BIM project creation error', { error: msg });
-      res.status(500).json({ error: msg });
+      res.status(500).json({ error: 'An internal error occurred while creating the BIM project', errorId: 'BIM_CREATE_ERROR' });
     }
   },
 );
@@ -201,7 +198,7 @@ router.get('/projects', authenticateToken, async (req: Request, res: Response) =
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('BIM projects list error', { error: msg });
-    res.status(500).json({ error: msg });
+    res.status(500).json({ error: 'An internal error occurred while listing BIM projects', errorId: 'BIM_LIST_ERROR' });
   }
 });
 
@@ -242,7 +239,7 @@ router.get(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('BIM project fetch error', { error: msg });
-      res.status(500).json({ error: msg });
+      res.status(500).json({ error: 'An internal error occurred while fetching the BIM project', errorId: 'BIM_FETCH_ERROR' });
     }
   },
 );
@@ -330,7 +327,7 @@ router.post(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Carbon calculation error', { error: msg });
-      res.status(500).json({ error: msg });
+      res.status(500).json({ error: 'An internal error occurred while saving the carbon calculation', errorId: 'CARBON_CALC_ERROR' });
     }
   },
 );
@@ -357,7 +354,7 @@ router.get('/emission-factors', async (req: Request, res: Response) => {
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Emission factors fetch error', { error: msg });
-    res.status(500).json({ error: msg });
+    res.status(500).json({ error: 'An internal error occurred while fetching emission factors', errorId: 'EMISSION_FACTORS_ERROR' });
   }
 });
 
