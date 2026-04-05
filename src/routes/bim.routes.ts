@@ -22,8 +22,9 @@ const router: Router = express.Router();
 // Supabase service client (uses service_role key — bypasses RLS)
 //
 // Truly lazy accessor: called per-request so tests and late env configuration
-// work correctly. getSupabaseClient() caches the client internally once env
-// vars are present and returns null otherwise (graceful degradation).
+// work correctly. getSupabaseClient() internally caches the SupabaseClient
+// instance once env vars are present (no performance penalty from repeated
+// calls) and returns null otherwise (graceful degradation).
 // ---------------------------------------------------------------------------
 function sb() {
   const client = getSupabaseClient();
@@ -164,7 +165,7 @@ router.post(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('BIM project creation error', { error: msg });
-      res.status(500).json({ error: 'An internal error occurred while creating the BIM project' });
+      res.status(500).json({ error: 'An internal error occurred while creating the BIM project', errorId: 'BIM_CREATE_ERROR' });
     }
   },
 );
@@ -197,7 +198,7 @@ router.get('/projects', authenticateToken, async (req: Request, res: Response) =
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('BIM projects list error', { error: msg });
-    res.status(500).json({ error: 'An internal error occurred while listing BIM projects' });
+    res.status(500).json({ error: 'An internal error occurred while listing BIM projects', errorId: 'BIM_LIST_ERROR' });
   }
 });
 
@@ -238,7 +239,7 @@ router.get(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('BIM project fetch error', { error: msg });
-      res.status(500).json({ error: 'An internal error occurred while fetching the BIM project' });
+      res.status(500).json({ error: 'An internal error occurred while fetching the BIM project', errorId: 'BIM_FETCH_ERROR' });
     }
   },
 );
@@ -326,7 +327,7 @@ router.post(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Carbon calculation error', { error: msg });
-      res.status(500).json({ error: 'An internal error occurred while saving the carbon calculation' });
+      res.status(500).json({ error: 'An internal error occurred while saving the carbon calculation', errorId: 'CARBON_CALC_ERROR' });
     }
   },
 );
@@ -353,7 +354,7 @@ router.get('/emission-factors', async (req: Request, res: Response) => {
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Emission factors fetch error', { error: msg });
-    res.status(500).json({ error: 'An internal error occurred while fetching emission factors' });
+    res.status(500).json({ error: 'An internal error occurred while fetching emission factors', errorId: 'EMISSION_FACTORS_ERROR' });
   }
 });
 
