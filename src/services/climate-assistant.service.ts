@@ -375,11 +375,30 @@ async function callInference(
   ): Promise<InferenceResult | null> => {
     try {
       return await fn();
-    } catch (e: any) {
-      lastError = e;
-      if (e.code === 'RATE_LIMITED') rateLimited = true;
-      if (e.code !== 'RETRYABLE' && e.code !== 'RATE_LIMITED') throw e;
-      logger.warn(`${name} failed, trying next provider`, { error: e.message });
+    } catch (e: unknown) {
+      const error =
+        e instanceof Error ? e : new Error(typeof e === 'string' ? e : 'Unknown provider error');
+
+      const providerError = error as Error & { code?: string };
+
+      // Network/transport failures from fetch() are commonly surfaced as a
+      // TypeError without a provider-specific code. Treat them as retryable so
+      // inference can fail over to the next configured provider.
+      if (!providerError.code && error instanceof TypeError) {
+        providerError.code = 'RETRYABLE';
+      }
+
+      lastError = providerError;
+      if (providerError.code === 'RATE_LIMITED') rateLimited = true;
+      if (
+        providerError.code !== 'RETRYABLE' &&
+        providerError.code !== 'RATE_LIMITED'
+      ) {
+        throw providerError;
+      }
+      logger.warn(`${name} failed, trying next provider`, {
+        error: providerError.message,
+      });
       return null;
     }
   };
