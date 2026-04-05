@@ -190,7 +190,7 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 | **June 15, 2026** | V1 Launch at Arctic 15 (Helsinki) | Public market validation |
 | **June 15 – Aug 15** | 100% sales sprint | Your industry gets priority routing |
 | **August 15, 2026** | First sales cycle data | Hard data for Series A |
-| **August 2026** | Aegis dual-use launch | Defence vertical opens |
+| **August 2026** | Aegis public dual-use rollout | Defence vertical opens |
 | **Q3-Q4 2026** | Series A process | EUR 15M+ pre-money target |
 
 ---
