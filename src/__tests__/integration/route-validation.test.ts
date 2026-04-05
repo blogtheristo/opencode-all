@@ -34,8 +34,14 @@ function mockRes(): Response & { _status: number; _json: any } {
   const res = {
     _status: 200,
     _json: null,
-    status(code: number) { this._status = code; return this; },
-    json(data: any) { this._json = data; return this; },
+    status(code: number) {
+      this._status = code;
+      return this;
+    },
+    json(data: any) {
+      this._json = data;
+      return this;
+    },
     headersSent: false,
   } as unknown as Response & { _status: number; _json: any };
   return res;
@@ -290,7 +296,11 @@ describe('Compliance Scoring Pipeline (Integration)', () => {
     expect(score.overallScore).toBeLessThanOrEqual(100);
     expect(score.regulationScores).toBeDefined();
 
-    const report = generateReport(input, score);
+    const report = generateReport(score, {
+      name: 'Test Steel Co',
+      industry: 'steel',
+      country: 'FI',
+    });
     expect(report.reportId).toBeDefined();
     expect(report.summary.overallScore).toBe(score.overallScore);
     expect(report.gaps.length).toBeGreaterThan(0);
@@ -337,10 +347,7 @@ describe('Compliance Scoring Pipeline (Integration)', () => {
       dataPoints: [],
     });
 
-    const report = generateReport(
-      { industry: 'steel', annualEmissions: 75000 },
-      score,
-    );
+    const report = generateReport({ industry: 'steel', annualEmissions: 75000 }, score);
     expect(report.summary).toBeDefined();
   });
 });

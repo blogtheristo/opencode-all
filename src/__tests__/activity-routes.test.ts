@@ -21,38 +21,44 @@ import request from 'supertest';
 import express, { Express, Request, Response, NextFunction } from 'express';
 
 // ── Record what the route calls on supabase ──────────────────────────────
-const recorder = {
-  orFilter: null as string | null,
-  tablesQueried: [] as string[],
-};
-
-// Holds responses to return per from() invocation (in order)
-const responseQueue: Array<{ data: unknown; count: number }> = [];
-
-function chainable(response: { data: unknown; count: number }) {
-  const chain: Record<string, unknown> = {
-    select: vi.fn().mockReturnThis(),
-    eq: vi.fn().mockReturnThis(),
-    in: vi.fn().mockReturnThis(),
-    or: vi.fn((clause: string) => {
-      recorder.orFilter = clause;
-      return chain;
-    }),
-    order: vi.fn().mockReturnThis(),
-    range: vi.fn().mockResolvedValue({ ...response, error: null }),
-    // Thenable for chains that don't terminate in .range (memberships lookup)
-    then: (resolve: (v: unknown) => void) => resolve({ ...response, error: null }),
+// Hoisted so the vi.mock() factory below (which is itself hoisted above
+// all top-level `const` declarations) can safely close over them.
+const { recorder, responseQueue, fakeSupabase } = vi.hoisted(() => {
+  const rec = {
+    orFilter: null as string | null,
+    tablesQueried: [] as string[],
   };
-  return chain;
-}
+  const queue: Array<{ data: unknown; count: number }> = [];
 
-const fakeSupabase = {
-  from: vi.fn((table: string) => {
-    recorder.tablesQueried.push(table);
-    const next = responseQueue.shift() || { data: [], count: 0 };
-    return chainable(next);
-  }),
-};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function chainable(response: { data: unknown; count: number }): any {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const chain: Record<string, any> = {
+      select: (..._args: unknown[]) => chain,
+      eq: (..._args: unknown[]) => chain,
+      in: (..._args: unknown[]) => chain,
+      or: (clause: string) => {
+        rec.orFilter = clause;
+        return chain;
+      },
+      order: (..._args: unknown[]) => chain,
+      range: async () => ({ ...response, error: null }),
+      // Thenable for chains that don't terminate in .range (memberships lookup)
+      then: (resolve: (v: unknown) => void) => resolve({ ...response, error: null }),
+    };
+    return chain;
+  }
+
+  const supa = {
+    from: (table: string) => {
+      rec.tablesQueried.push(table);
+      const next = queue.shift() || { data: [], count: 0 };
+      return chainable(next);
+    },
+  };
+
+  return { recorder: rec, responseQueue: queue, fakeSupabase: supa };
+});
 
 vi.mock('../config/supabase.js', () => ({
   getSupabaseClient: () => fakeSupabase,
