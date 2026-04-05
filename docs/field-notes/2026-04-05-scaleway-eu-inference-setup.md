@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Clarified that March 2026 cost comes from an existing live assistant container (not idle infra); recorded that Scaleway Startup Program application was declined — only standard Free Tier Worldwide offer applies; confirmed account continuity on admin@dws6.com since the Lifetime Oy organization is already configured there
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added actual March 2026 invoice data (€18.74 total, dws-iq-backend project, Serverless Containers CPU+Memory, Free Tier offset); corrected project name from dws-iq-6 → dws-iq-backend to match existing account; recorded Scaleway customer ID 78e26603-c820-4617-b0d2-f8589eb7693b
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — owner account is admin@dws6.com (product-scoped), NOT risto.paarni2024@lifetime.fi. Risto's account for this implementation is being deleted. Rationale: DWS6 product infra isolation; aligns with existing dws6.com (Cloudflare) ownership pattern.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Initial — Scaleway Generative APIs as EU-primary inference for Climate Assistant; account setup recipe (Lifetime Oy org, Google SSO, IAM API key); cost envelope (MVP free, V1 cheap); routing decision: Scaleway → NIM → Groq
@@ -151,9 +152,22 @@ Scaleway invoice issued 2026-04-01 for billing period March 2026.
 ### Observations
 
 - March usage is **Serverless Containers** (not Generative APIs). The
-  current Scaleway footprint hosts the DWS6 backend container; LLM inference
-  via Generative APIs is about to be added on top (zero marginal cost in
-  free tier).
+  current Scaleway footprint hosts **an already-live assistant container**
+  serving customers from `fr-par`. This is not idle infra — it is a real
+  workload generating the €18.74 in real costs. LLM inference via
+  Generative APIs is about to be added on top (zero marginal cost in free
+  tier for the first 1M tok/month).
+- **IMPORTANT — identify the running assistant**: the live container
+  predates this session's climate-assistant.service.ts rewrite. Before
+  deploying a new Climate Assistant container, we must confirm whether
+  the existing one is (a) the same codebase on an older image we can
+  redeploy over, or (b) a separate assistant (e.g. a DWS 6 dashboard
+  chat widget) that should coexist. Check the Scaleway console
+  Containers page for image repo + deploy history.
+- **Scaleway Startup Program: not accepted.** Only the standard
+  "Free Tier Worldwide" offer applies (−€2.40/month auto-offset visible
+  in the March invoice). No bonus credits. Cost projections in this
+  note therefore assume retail pricing with standard free tier only.
 - CPU-seconds = GB-seconds × 1 → 1 vCPU with 1 GB RAM container running
   continuously ≈ 1.92M seconds/month ≈ 22.2 days of 24/7 uptime (so the
   container was up ~74% of the month, consistent with a cold-start
