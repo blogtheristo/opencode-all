@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
+  - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Answered Scaleway Startup Program cloud-share question — 65% (range 60-75%) of total cloud expenditure dedicated to Scaleway; full cloud wallet breakdown showing why 35% cannot move (Supabase/Cloudflare/Anthropic sticky dependencies)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Recorded the actual answer submitted to Scaleway Startup Program — range €1,000-€3,000/month (sweet spot centered on €2,000 steady-state)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added per-client 12-month cost economics (Conservative €580, Moderate €1,200, Heavy €3,300 per NCC-sized enterprise client); added Scaleway Startup Program form answer (€20,000 / 12-month expenditure) with line-item breakdown and range (€15k-€30k); added technical breakdown chapter for application material
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added three one-liner variants for (re)applying to Scaleway Startup Program — sovereignty-first (A, recommended), product-first (B), punchy two-sentence (C); covers DWS IQ 6 + Firehorse product lines and the EU-sovereignty / CLOUD Act rationale
@@ -378,6 +379,31 @@ Divide by 12: €20,000 / 12 = €1,667/month average. Round to headline:
 - **€2,000 / month** — steady-state at month 12 (recommended answer)
 - **€1,500 / month** — trailing 12-month average (if they want the ramp-up smoothed)
 - **€20 / month** — current actual (honest, but looks small)
+
+### Scaleway share of total cloud expenditure
+
+Form question: *"What percentage of your cloud expenditures will you
+dedicate to Scaleway products?"*
+
+**Answer: 65%** (range if asked: 60-75%)
+
+### Full cloud wallet breakdown (where every euro goes)
+
+| Provider | % total | Why not Scaleway |
+|---|---|---|
+| **Scaleway** | **65-70%** | Primary EU compute, Gen APIs, Object Storage, PG, Registry |
+| Supabase (AWS eu-central-1) | 10-15% | Managed Auth + Realtime + pgvector stack, EU-resident, sticky |
+| Cloudflare | 5-10% | Global edge CDN/Pages/Workers — no Scaleway equivalent |
+| Google Cloud | 5-10% | Legacy Cloud Run migrating to Scaleway; gws CLI for Workspace |
+| Anthropic (Claude API) | 5-10% | Agent reasoning + reports where Claude beats Llama (EU endpoint) |
+| AWS SES | <2% | Transactional email only (eu-north-1) |
+| Hetzner | <2% | V3 Jitsi + email backup |
+| NVIDIA (DGX Cloud/NIM) | <5% | Strategic V1.5+, Connect Partner |
+
+**Defence under scrutiny**: 65% is honest about unavoidable dependencies
+(Supabase, Cloudflare edge) while signalling genuine sovereignty
+commitment. Not 100% (impossible — we'd be lying), not 30% (would
+signal weak commitment).
 
 ### Answer submitted to Scaleway Startup Program (2026-04-05)
 
