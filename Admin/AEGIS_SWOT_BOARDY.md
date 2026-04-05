@@ -76,3 +76,23 @@ Aegis has a **real structural wedge** (sovereign hosting + Article 12/26 evidenc
 2. Sweep Article 99 references from all public + pitch materials.
 3. Convert "live" claims on the dual-use export agent into a logged, dated stress-test with a real scenario.
 4. Confirm EDIP DEF 2.0 sub-fund criteria alignment in writing before committing the timing thesis to investors.
+
+---
+
+## Critical Path to Fundable (Sequenced)
+
+1. **Fix Article 99 sweep (today).** Before anything else goes to an investor. One bad citation kills credibility.
+2. **DEFINE Finland decision (April/May).** If accepted, that's your defence credibility anchor. Everything else accelerates from there.
+3. **BAE Jukka response (2–3 weeks).** Even a "not now" reply tells you if the compliance-subcontractor angle lands with a Tier 1 prime.
+4. **One named design partner in defence (before Arctic 15).** Doesn't need to be a signed contract. A letter of intent from a Finnish government body or defence contractor changes the entire investor narrative.
+5. **Arctic 15 launch (June 15).** Public proof point. Aegis needs to be demo-ready, not just described.
+6. **EDIP DEF 2.0 sub-fund call (Q2/Q3).** By then you need: DEFINE status, one defence reference, Article 99 clean docs. That's the funding window.
+
+### Dependency Chain
+
+```
+Article 99 sweep ──► DEFINE accept ──► BAE warm reply ──► Design partner LOI ──► Arctic 15 demo ──► EDIP DEF 2.0 submission
+    (today)          (Apr/May)          (2-3 wks)         (before Jun 15)         (Jun 15)            (Q2/Q3 2026)
+```
+
+Each step unlocks the next. Miss step 1 and everything downstream is contaminated. Miss step 2 and you lose the defence credibility anchor before Arctic 15.
