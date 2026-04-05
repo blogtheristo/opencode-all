@@ -105,9 +105,8 @@ export async function sendDigestEmail(
     ? `Evidence Vault — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
     : `Evidence Vault Weekly — Week ${getWeekNumber(new Date())}`;
 
-  await emailService.send({
+  await emailService.sendRawEmail({
     to,
-    from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
     subject,
     html: digest.html,
   });

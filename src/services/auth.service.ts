@@ -10,19 +10,21 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 // SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
+const _jwtSecret = process.env.JWT_SECRET;
+if (!_jwtSecret) {
   const errorMsg = 'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
-if (JWT_SECRET.length < 32) {
+if (_jwtSecret.length < 32) {
   const errorMsg = 'FATAL: JWT_SECRET must be at least 32 characters long for adequate security.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
+const JWT_SECRET: string = _jwtSecret;
 
 const JWT_EXPIRES_IN = '24h';
 const JWT_REFRESH_EXPIRES_IN = '7d';
@@ -312,27 +314,103 @@ class AuthService {
   }
 
   /**
-   * Find user by email - integrates with user store
-   * TODO: Replace with Supabase query in production
+   * Find user by email — Supabase first, in-memory fallback for dev.
    */
   private async findUserByEmail(email: string): Promise<StoredUser | null> {
     const normalizedEmail = email.toLowerCase().trim();
+
+    const client = getSupabaseClient();
+    if (client) {
+      try {
+        const { data, error } = await client
+          .from('users')
+          .select('id, email, password_hash, first_name, last_name, role, access_level')
+          .eq('email', normalizedEmail)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          logger.error('Supabase user lookup failed', { error: error.message });
+        }
+
+        if (data) {
+          return {
+            id: data.id,
+            email: data.email,
+            passwordHash: data.password_hash,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            role: data.role || 'dws_iq_standard',
+            accessLevel: data.access_level || 'free',
+          };
+        }
+      } catch (err) {
+        logger.warn('Supabase query error, falling back to in-memory', {
+          error: (err as Error).message,
+        });
+      }
+    }
+
+    // In-memory fallback for development
     return devUserStore.get(normalizedEmail) || null;
   }
 
   /**
-   * Register a new user (for development/testing)
-   * TODO: Replace with Supabase integration in production
+   * Register a new user — Supabase first, in-memory fallback for dev.
    */
   async registerUser(email: string, password: string, userData?: Partial<StoredUser>): Promise<User> {
     const normalizedEmail = email.toLowerCase().trim();
+    const passwordHash = await this.hashPassword(password);
+    const userId = `user-${crypto.randomUUID()}`;
 
+    const client = getSupabaseClient();
+    if (client) {
+      // Check if user already exists in Supabase
+      const { data: existing } = await client
+        .from('users')
+        .select('id')
+        .eq('email', normalizedEmail)
+        .single();
+
+      if (existing) {
+        throw new Error('User already exists');
+      }
+
+      const { data, error } = await client
+        .from('users')
+        .insert({
+          id: userId,
+          email: normalizedEmail,
+          password_hash: passwordHash,
+          first_name: userData?.firstName || null,
+          last_name: userData?.lastName || null,
+          role: userData?.role || 'dws_iq_standard',
+          access_level: userData?.accessLevel || 'free',
+        })
+        .select('id, email, first_name, last_name, role, access_level')
+        .single();
+
+      if (error) {
+        logger.error('Supabase user registration failed', { error: error.message });
+        throw new Error('Registration failed');
+      }
+
+      if (data) {
+        logger.info('User registered (Supabase)', { userId: data.id });
+        return {
+          id: data.id,
+          email: data.email,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          role: data.role,
+          accessLevel: data.access_level,
+        };
+      }
+    }
+
+    // In-memory fallback for development
     if (devUserStore.has(normalizedEmail)) {
       throw new Error('User already exists');
     }
-
-    const passwordHash = await this.hashPassword(password);
-    const userId = `user-${crypto.randomUUID()}`;
 
     const storedUser: StoredUser = {
       id: userId,
@@ -345,8 +423,7 @@ class AuthService {
     };
 
     devUserStore.set(normalizedEmail, storedUser);
-
-    logger.info('User registered', { userId });
+    logger.info('User registered (in-memory)', { userId });
 
     return {
       id: storedUser.id,
@@ -397,15 +474,28 @@ class AuthService {
   }
 
   /**
-   * Mark a user's email as verified in the user store.
+   * Mark a user's email as verified — Supabase first, in-memory fallback.
    */
-  markEmailVerified(email: string): boolean {
+  async markEmailVerified(email: string): Promise<boolean> {
     const normalizedEmail = email.toLowerCase().trim();
+
+    const client = getSupabaseClient();
+    if (client) {
+      const { error } = await client
+        .from('users')
+        .update({ email_verified: true, updated_at: new Date().toISOString() })
+        .eq('email', normalizedEmail);
+
+      if (!error) {
+        logger.info('Email verified (Supabase)', { email: normalizedEmail });
+        return true;
+      }
+      logger.warn('Supabase email verification update failed', { error: error.message });
+    }
+
+    // In-memory fallback
     const user = devUserStore.get(normalizedEmail);
     if (!user) return false;
-
-    // The StoredUser type doesn't have emailVerified, but we track it
-    // In production this would be a Supabase column update
     logger.info('Email verified for user', { userId: user.id });
     return true;
   }
@@ -454,6 +544,25 @@ class AuthService {
       return false;
     }
 
+    const newHash = await this.hashPassword(newPassword);
+
+    // Try Supabase first
+    const client = getSupabaseClient();
+    if (client) {
+      const { error } = await client
+        .from('users')
+        .update({ password_hash: newHash, updated_at: new Date().toISOString() })
+        .eq('email', data.email);
+
+      if (!error) {
+        passwordResetTokens.delete(token);
+        logger.info('Password reset successful (Supabase)', { email: data.email });
+        return true;
+      }
+      logger.warn('Supabase password update failed, trying in-memory', { error: error.message });
+    }
+
+    // In-memory fallback
     const user = devUserStore.get(data.email);
     if (!user) {
       passwordResetTokens.delete(token);
@@ -461,14 +570,10 @@ class AuthService {
       return false;
     }
 
-    // Hash new password and update user
-    user.passwordHash = await this.hashPassword(newPassword);
+    user.passwordHash = newHash;
     devUserStore.set(data.email, user);
-
-    // Delete the token (single-use)
     passwordResetTokens.delete(token);
 
-    // Revoke all existing tokens for this user (force re-login)
     logger.info('Password reset successful', { userId: user.id });
     return true;
   }

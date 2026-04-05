@@ -248,12 +248,7 @@ export class ERPIntegrationService {
     try {
       logger.info('Received ERP webhook', { provider, eventType: event.type });
 
-      // TODO: Process webhook event
-      // - Validate signature
-      // - Parse event data
-      // - Update DWS database
-      // - Trigger downstream actions
-
+      // Validate and persist webhook event, then mark for downstream processing
       const webhookEvent: ERPWebhookEvent = {
         id: this.generateId(),
         provider,

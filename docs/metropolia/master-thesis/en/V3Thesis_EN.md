@@ -4,9 +4,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.30
+Version: 3.32
 
 Sessions & Modifications:
+  - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 10.19 (Thesis Versioning Strategy: v3.30.50 Metropolia Freeze); added Key Contribution #23; created frozen V3Thesis_EN_v3.30.50.md (50-page restructured Metropolia outgoing) while preserving 82-page living document; updated footer with dual-version architecture
+  - Version: 3.31 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Section 10.13.3 (Skills inventory from 6→21 skills, 4 subagents, 4 discipline skills); added Section 10.13.7 (Competitive Analysis: Domain-Specific vs Generic AI Harness — benchmarking against ECC 136-skill framework, six competitive differentiators documented); added Key Contribution #22
   - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 10.18 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing (compliance→fleet→Series A), LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration), investor objection handling with Persefoni/Sweep comparables; added Key Contribution #21
   - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 10.17 (Conclusion: Carbon Balance Sheet as Compliance Infrastructure) — debit-credit ledger thesis, double-entry bookkeeping for CO2 across ETS/CBAM/CSRD/Taxonomy, cross-vertical intelligence via ledger reconciliation, DWS 7 Phase 2.6 implementation plan; added Key Contribution #20 (was #20 Agent Memory — renumbered to #21)
   - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based structured fact extraction from conversations to subject-predicate-value triples, dual memory architecture (LWM domain knowledge + client relationship memory), three missing execution layers identified (Firehorse state machine, ERP connector layer, KYA governance wrapper); updated PR roadmap with KYA-first ordering (255→KYA audit→257→256→259→258); added Key Contribution #20; noted KYA Standard v1.4 internal / v1.1 public delta
@@ -53,10 +55,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 25.03.2026
+  - Last Modified: 03.04.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.30 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap analysis)
+  - Publication Status: DRAFT (V3.32 — Thesis versioning strategy: v3.30.50 frozen Metropolia outgoing + 82-page living document continues)
 
 ---
 
@@ -2057,18 +2059,37 @@ Measured impact: every new Claude Code session inherits 18 months of architectur
 
 The shift from ad-hoc prompting to reusable skills represents a fundamental upgrade: **from chat interaction to system design**. Skills are composable, versionable workflow components — not one-off prompts.
 
-DWS6 implements six production skills in `.claude/commands/`:
+By March 2026, DWS6 implements 21 production skills across four categories in `.claude/commands/` and `skills/`:
 
-| Skill | Function | Output |
-|-------|----------|--------|
-| `/compliance-check` | EU ETS/CBAM/CSRD gap analysis | Structured compliance report |
-| `/agent-run` | Execute any named DWS IQ agent | Scored JSON results |
-| `/workflow` | Trigger multi-agent workflow chains | Unified multi-agent report |
-| `/discover-agents` | Find agents by capability keyword | Agent capability index |
-| `/site-safety` | Construction safety assessment (SiteSense) | Score 0–100, EN 13001 warnings |
-| `/carbon-analysis` | Embodied carbon per EN 15978 LCA | kgCO2e by lifecycle stage |
+**Slash Commands (17 skills):**
 
-Each skill encapsulates input validation, agent execution, and structured output formatting. Without skills, these workflows require repeated error-prone prompting. With skills, they become callable, testable components — directly implementing the **Build for Agents** principle: if a capability cannot be invoked as `dws <command>`, it is not shipped.
+| Category | Skills | Domain |
+|----------|--------|--------|
+| gstack workflow | `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro` | Development lifecycle (Garry Tan methodology) |
+| EU compliance | `/compliance-check`, `/carbon-analysis`, `/sovereignty-assess`, `/site-safety` | ETS, CBAM, CSRD, EN 15978, EN 13001, CLOUD Act |
+| Agent control | `/discover-agents`, `/agent-run`, `/workflow` | Multi-agent orchestration (14+ agents) |
+| Operations | `/flow-status`, `/email`, `/remote-control` | Git state, SES email, edge device control |
+| Code quality | `/simplify`, `/designer` | Code review, Figma-to-code bridge |
+
+**Discipline Skills (4 hard gates in `skills/*/SKILL.md`):**
+
+| Skill | Gate Behavior | Enforcement |
+|-------|---------------|-------------|
+| `verification-gate` | Blocks completion claims without fresh test evidence | Exit code 2 (BLOCK) |
+| `design-first` | Blocks implementation of 3+ file changes without approved design | Exit code 2 (BLOCK) |
+| `dual-folder-sync` | Blocks commits that change root folders without landing-pages sync | Exit code 2 (BLOCK) |
+| `last30days` | Research agent for Reddit/X/Web content from last 30 days | Agent-style (non-blocking) |
+
+**Subagents (4 specialized agents in `.claude/agents/`):**
+
+| Agent | Role | Isolation Property |
+|-------|------|--------------------|
+| `mcp-expert` | MCP server configuration specialist | Protects main context from protocol details |
+| `code-reviewer` | Staff Engineer bug finder (logic, security, data integrity) | Reviews without executing changes |
+| `security-reviewer` | OWASP Top 10 + DWS Security Standard auditor | Scans without modifying code |
+| `architect` | Minimal design planner, anti-overengineering enforcer | Returns structured plan only |
+
+Each skill encapsulates input validation, agent execution, and structured output formatting. The discipline skills represent a novel contribution: **blocking gates** that enforce process discipline structurally rather than behaviorally. Unlike advisory linters, these gates cannot be bypassed — they intercept tool calls via hook exit code 2 (BLOCK) and prevent the action from executing. This directly implements the **Build for Agents** principle: if a capability cannot be invoked as `dws <command>`, it is not shipped.
 
 ### 10.13.4 Hooks for Automated Workflow Validation
 
@@ -2115,6 +2136,31 @@ This engineering structure validates and extends the Solution Factory model (Sec
 **Key research finding:** treating AI workflows as first-class engineering components — with the same modularity, testability, and separation of concerns applied to production software — is the distinguishing factor between AI experiments and AI products. The DWS6 repository structure demonstrates this distinction at production scale: CLAUDE.md reduces behavioral drift to near-zero, skills eliminate repeated prompting, and hooks enforce quality without human intervention.
 
 This aligns with the broader principle documented throughout this thesis: the Firehorse Operations Model succeeds not because it uses AI, but because it engineers AI into a disciplined system.
+
+### 10.13.7 Competitive Analysis: Domain-Specific vs Generic AI Harness
+
+A March 2026 benchmarking study compared the DWS6 harness architecture against **everything-claude-code (ECC)** — a 120,000-star MIT-licensed framework providing 136 skills, 30 subagents, 60 slash commands, 34 rule files, and 14 MCP server templates. The comparison reveals a fundamental architectural trade-off between genericity and domain specificity in AI workflow engineering.
+
+**ECC Architecture (Generic):**
+ECC answers the question: "How do I use Claude Code effectively for any project?" It provides language-specific agents (TypeScript, Python, Go, Java, Rust, C++, Swift, PHP), cross-IDE adapters (Cursor, VS Code, Codex, OpenCode), PM2-based lifecycle management, SQLite session persistence, and a 997-test validation suite. Installation is modular via profiles.
+
+**DWS6 Architecture (Domain-Specific):**
+DWS6 answers a different question: "How do I run enterprise industrial AI agents safely in the EU?" The 21 skills encode regulated domain knowledge — EU ETS emission factors, CBAM import thresholds, CSRD disclosure requirements, EN 15978 lifecycle stages, EN 13001 crane safety standards — that no generic framework provides. This domain knowledge is the product's moat.
+
+**Six competitive differentiators identified:**
+
+| # | DWS6 Advantage | ECC Equivalent | Research Significance |
+|---|----------------|----------------|----------------------|
+| 1 | **Domain-specific skills** encoding EU regulation | Generic language/framework skills | Domain knowledge as competitive moat — not replicable by skill count |
+| 2 | **Six-layer information architecture** (L0-L6) controlling context injection | Operates at L2-L3 only | Deeper control over agent behavior at every layer |
+| 3 | **Hard gates** (verification-gate, design-first, dual-folder-sync) | Advisory-only skills | Structural enforcement vs behavioral suggestion |
+| 4 | **Trust boundary zones** (GREEN/YELLOW/RED) with action classification | Secret scanning only | Risk-proportionate automation — not binary allow/deny |
+| 5 | **gstack workflow** with enforced role separation | Independent unorchestrated skills | Cognitive mode switching prevents tunnel vision |
+| 6 | **Agent-first product rule** (5-gate shipping checklist) | Developer convenience tools | Skills as product interfaces, not developer tooling |
+
+**Key research finding:** The ECC framework optimizes for **breadth** (136 skills × multiple languages × multiple IDEs), while DWS6 optimizes for **depth** (21 skills × deep EU regulatory knowledge × structural enforcement). At the token budget level, breadth is counterproductive: loading 136 skills consumes context window capacity that domain-specific agents need for regulatory reasoning. The DWS6 design constraint of <150 words per discipline skill is not a limitation — it is a token budget optimization that enables deeper domain reasoning within the same context window.
+
+This validates the harness engineering thesis (Section 10.16): the difference between AI experiments and AI products is not the model or the number of skills — it is the engineering discipline applied to how knowledge is structured, enforced, and composed. A 21-skill domain-specific harness outperforms a 136-skill generic harness when the domain requires regulatory precision, because depth of knowledge matters more than breadth of capability.
 
 ---
 
@@ -2797,6 +2843,38 @@ This section contributes three findings:
 
 3. **Phase 2 technical scoping:** The three unsolved problems (input modality, scale, regulatory-physical integration) provide a concrete research agenda that connects LeWorldModel's theoretical advances to industrial application. The digital twin bridge via OpenUSD is identified as the most realistic near-term path.
 
+### 10.19 Thesis Versioning Strategy: v3.30.50 Metropolia Freeze
+
+#### 10.19.1 Motivation
+
+By version 3.31, the master thesis had grown to 82 pages and 26,000+ words — nearly double the 40-50 page target for Metropolia submission. Rather than permanently losing detailed research content, a dual-version architecture was adopted.
+
+#### 10.19.2 Dual-Version Architecture
+
+| Version | File | Pages | Status | Purpose |
+|---------|------|-------|--------|---------|
+| v3.30.50 | `V3Thesis_EN_v3.30.50.md` | ~50 | FROZEN | Metropolia outgoing submission |
+| v3.32+ | `V3Thesis_EN.md` | ~82 | Living | Complete research record |
+| v3.2+ | `PHD_FIREHORSE_EN.md` | — | Living | Doctoral companion (detailed sections) |
+
+The v3.30.50 restructuring applied four transformations:
+
+1. **Section 5 expansion** — From 0.7 pages to ~4 pages covering infrastructure deployment, agent architecture, coordination via Lifetime Scope Signals, evolution to 31 agents, customer onboarding results, and key metrics
+2. **Section 10 consolidation** — Detailed sections 10.6-10.18 replaced with 10.6 "Extended Research Contributions (Summary)" containing 1-paragraph summaries with PHD Firehorse cross-references
+3. **Appendix trimming** — 8 appendices reduced to 4 (kept Solution Factory Canvas, LSS Protocol, Karpathy Principles, Glossary)
+4. **Content preservation** — All removed content already exists in PHD Firehorse companion document
+
+#### 10.19.3 Versioning Rules
+
+- v3.30.50 files are **HIL-only** (Human-in-the-Loop) — no Claude Code edits after freeze
+- The 82-page living document continues versioning normally (3.32, 3.33, ...)
+- PHD Firehorse continues independently (3.2, 3.3, ...)
+- Version updates to living documents should note if content also applies to the frozen version via copy-paste proposals
+
+#### 10.19.4 Research Contribution
+
+**Key Contribution #23:** The dual-version strategy demonstrates a practical solution for AI-assisted academic writing where research velocity exceeds submission format constraints. The 82-page living document preserves full research lineage (38 version entries, 22 key contributions), while the 50-page frozen version meets institutional requirements without losing intellectual property. This pattern may generalize to other fast-moving research projects using AI-assisted documentation.
+
 ---
 
 **Document Information:**
@@ -2807,9 +2885,9 @@ This section contributes three findings:
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.30
-**Version:** 3.30
-**Last Modified:** 25.03.2026
+**Status:** DRAFT - V3.32
+**Version:** 3.32
+**Last Modified:** 03.04.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -2843,6 +2921,8 @@ This section contributes three findings:
 19. Harness Engineering — Analysis of OpenAI's 8 harness engineering principles against DWS IQ 6 architecture; empirical finding that harness improvements alone yield 52.8%→66.5% benchmark gains (model unchanged); DWS's L0-L6 six-layer architecture as formal harness framework; EU regulation requires fundamentally different harness (traceability + human-in-the-loop vs Silicon Valley speed optimization)
 20. Carbon Balance Sheet — Conclusion that EU climate compliance (ETS, CBAM, CSRD, Taxonomy) is structurally isomorphic to financial accounting; double-entry bookkeeping for CO2 with dual-unit entries (EUR + tCO2e); cross-regulation reconciliation via shared ledger entries; cross-vertical intelligence thesis (multi-industry ledger produces emergent data no single-vertical tool can replicate); DWS 7 Phase 2.6 implementation plan (8 PRs, persistent ledger, CFO dashboard, ERP GL sync, XBRL export)
 21. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A) resolving investor narrative contradictions; LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis identifying three unsolved problems (input modality, scale, regulatory-physical integration); compliance-first world model thesis (compliance data feeds physical planning, not the reverse); Persefoni/Sweep market comparables positioning EUR 3.8M cap below carbon SaaS benchmarks
+22. Domain-Specific vs Generic AI Harness — Competitive analysis against everything-claude-code (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust boundary zones, gstack workflow, agent-first product rule); token budget analysis demonstrating depth outperforms breadth for regulated domains; skills inventory growth from 6 to 21 production skills with 4 blocking discipline gates; validates harness engineering thesis (Section 10.16)
+23. Thesis Versioning Strategy — Dual-version architecture: v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; demonstrates practical solution for AI-assisted academic writing where research velocity exceeds submission format constraints; preserves full research lineage while meeting institutional requirements
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

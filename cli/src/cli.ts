@@ -34,8 +34,14 @@ import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  fmt, table, spinner, box, progressBar,
-  formatAgentList, formatHealth, formatComplianceResult,
+  fmt,
+  table,
+  spinner,
+  box,
+  progressBar,
+  formatAgentList,
+  formatHealth,
+  formatComplianceResult,
 } from './format.js';
 
 // ============ VERSION ============
@@ -102,16 +108,18 @@ async function api(
   } catch (err) {
     if (err instanceof Error) {
       if (err.name === 'AbortError') {
-        throw new Error(`Request timed out after ${timeoutMs / 1000}s — is the backend running at ${API_URL}?`);
+        throw new Error(
+          `Request timed out after ${timeoutMs / 1000}s — is the backend running at ${API_URL}?`,
+        );
       }
       // Improve connection refused errors
       if (err.message.includes('ECONNREFUSED') || err.message.includes('fetch failed')) {
         throw new Error(
           `Cannot connect to ${API_URL}\n` +
-          `  Possible fixes:\n` +
-          `  1. Start the backend: npm run dev\n` +
-          `  2. Set DWS_API_URL if using a different host/port\n` +
-          `  3. Check if the server is behind a firewall`,
+            `  Possible fixes:\n` +
+            `  1. Start the backend: npm run dev\n` +
+            `  2. Set DWS_API_URL if using a different host/port\n` +
+            `  3. Check if the server is behind a firewall`,
         );
       }
     }
@@ -122,12 +130,12 @@ async function api(
 }
 
 async function mcpCall(method: string, params?: Record<string, unknown>): Promise<unknown> {
-  const result = await api('/mcp', 'POST', {
+  const result = (await api('/mcp', 'POST', {
     jsonrpc: '2.0',
     id: Date.now(),
     method,
     params,
-  }) as { result?: unknown; error?: { message: string } };
+  })) as { result?: unknown; error?: { message: string } };
 
   if (result.error) {
     throw new Error(`MCP error: ${result.error.message}`);
@@ -226,7 +234,7 @@ function info(msg: string): void {
 async function cmdAgents(): Promise<void> {
   const s = spinner('Fetching agents...');
   try {
-    const result = await api('/api/agents') as {
+    const result = (await api('/api/agents')) as {
       agents: Array<{ name: string; description: string; capabilities: string[]; model: string }>;
     };
     s.stop();
@@ -242,25 +250,37 @@ async function cmdAgent(name: string): Promise<void> {
   output(result);
 }
 
-async function cmdRun(name: string, inputJson: string, useStdin: boolean, useFirst: boolean, dryRun: boolean): Promise<void> {
+async function cmdRun(
+  name: string,
+  inputJson: string,
+  useStdin: boolean,
+  useFirst: boolean,
+  dryRun: boolean,
+): Promise<void> {
   let agentName = name;
   let input: Record<string, unknown>;
 
   if (useFirst) {
     // --first: read agent list from stdin, pick the first one
     const stdinData = await readStdin();
-    if (!stdinData) error(
-      '--first requires piped input',
-      'dws discover carbon | dws run --first --input \'{"query":"scope 1"}\'',
-    );
+    if (!stdinData)
+      error(
+        '--first requires piped input',
+        'dws discover carbon | dws run --first --input \'{"query":"scope 1"}\'',
+      );
     try {
       const parsed = JSON.parse(stdinData);
       const agents = Array.isArray(parsed) ? parsed : parsed.agents || [];
-      if (agents.length === 0) error('No agents found in piped input', 'dws discover <capability> | dws run --first');
+      if (agents.length === 0)
+        error('No agents found in piped input', 'dws discover <capability> | dws run --first');
       agentName = agents[0].name || agents[0];
       if (typeof agentName !== 'string') error('Could not extract agent name from input');
     } catch (e) {
-      if (e instanceof Error && (e.message.includes('requires piped') || e.message.includes('No agents'))) throw e;
+      if (
+        e instanceof Error &&
+        (e.message.includes('requires piped') || e.message.includes('No agents'))
+      )
+        throw e;
       error('Invalid JSON on stdin', 'Pipe valid JSON: dws discover carbon | dws run --first');
     }
     // Parse --input if provided alongside --first
@@ -268,24 +288,37 @@ async function cmdRun(name: string, inputJson: string, useStdin: boolean, useFir
       try {
         input = JSON.parse(inputJson);
       } catch {
-        error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
+        error(
+          `Invalid JSON in --input: ${inputJson.slice(0, 100)}`,
+          'Use valid JSON: --input \'{"key":"value"}\'',
+        );
       }
     } else {
       input = {};
     }
   } else if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error('--stdin specified but no data on stdin', 'echo \'{"industry":"steel"}\' | dws run compliance --stdin');
+    if (!stdinData)
+      error(
+        '--stdin specified but no data on stdin',
+        'echo \'{"industry":"steel"}\' | dws run compliance --stdin',
+      );
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`, 'Pipe valid JSON: echo \'{"key":"value"}\' | dws run <agent> --stdin');
+      error(
+        `Invalid JSON on stdin: ${stdinData.slice(0, 100)}`,
+        'Pipe valid JSON: echo \'{"key":"value"}\' | dws run <agent> --stdin',
+      );
     }
   } else if (inputJson) {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
+      error(
+        `Invalid JSON in --input: ${inputJson.slice(0, 100)}`,
+        'Use valid JSON: --input \'{"key":"value"}\'',
+      );
     }
   } else {
     input = {};
@@ -337,16 +370,28 @@ async function cmdWorkflows(): Promise<void> {
   output(result);
 }
 
-async function cmdWorkflow(name: string, inputJson: string, useStdin: boolean, dryRun: boolean): Promise<void> {
+async function cmdWorkflow(
+  name: string,
+  inputJson: string,
+  useStdin: boolean,
+  dryRun: boolean,
+): Promise<void> {
   let input: Record<string, unknown>;
 
   if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error('--stdin specified but no data on stdin', 'echo \'{"key":"value"}\' | dws workflow <name> --stdin');
+    if (!stdinData)
+      error(
+        '--stdin specified but no data on stdin',
+        'echo \'{"key":"value"}\' | dws workflow <name> --stdin',
+      );
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error('Invalid JSON on stdin', 'Pipe valid JSON: echo \'{"key":"value"}\' | dws workflow <name> --stdin');
+      error(
+        'Invalid JSON on stdin',
+        'Pipe valid JSON: echo \'{"key":"value"}\' | dws workflow <name> --stdin',
+      );
     }
   } else if (inputJson) {
     try {
@@ -412,8 +457,14 @@ async function cmdHealth(): Promise<void> {
   s.stop();
 
   const data: { backend: Record<string, unknown>; mcp: Record<string, unknown> } = {
-    backend: backendHealth.status === 'fulfilled' ? backendHealth.value as Record<string, unknown> : { error: (backendHealth as PromiseRejectedResult).reason?.message },
-    mcp: mcpHealth.status === 'fulfilled' ? mcpHealth.value as Record<string, unknown> : { error: (mcpHealth as PromiseRejectedResult).reason?.message },
+    backend:
+      backendHealth.status === 'fulfilled'
+        ? (backendHealth.value as Record<string, unknown>)
+        : { error: (backendHealth as PromiseRejectedResult).reason?.message },
+    mcp:
+      mcpHealth.status === 'fulfilled'
+        ? (mcpHealth.value as Record<string, unknown>)
+        : { error: (mcpHealth as PromiseRejectedResult).reason?.message },
   };
   output(data, (d) => formatHealth(d as typeof data));
 }
@@ -425,8 +476,7 @@ async function cmdInit(): Promise<void> {
   const readline = await import('readline');
   const rl = readline.createInterface({ input: process.stdin, output: process.stderr });
 
-  const ask = (q: string): Promise<string> =>
-    new Promise(resolve => rl.question(q, resolve));
+  const ask = (q: string): Promise<string> => new Promise((resolve) => rl.question(q, resolve));
 
   console.error(box('DWS IQ Setup', 'Configure your CLI connection to the DWS IQ platform.'));
   console.error('');
@@ -485,11 +535,12 @@ async function cmdStatus(): Promise<void> {
   ]);
   s.stop();
 
-  const health = results[0].status === 'fulfilled' ? results[0].value as Record<string, unknown> : null;
-  const agents = results[1].status === 'fulfilled'
-    ? (results[1].value as { agents?: unknown[] }).agents
-    : null;
-  const usage = results[2].status === 'fulfilled' ? results[2].value as Record<string, unknown> : null;
+  const health =
+    results[0].status === 'fulfilled' ? (results[0].value as Record<string, unknown>) : null;
+  const agents =
+    results[1].status === 'fulfilled' ? (results[1].value as { agents?: unknown[] }).agents : null;
+  const usage =
+    results[2].status === 'fulfilled' ? (results[2].value as Record<string, unknown>) : null;
 
   if (JSON_MODE) {
     output({ health, agents: agents?.length, usage });
@@ -507,7 +558,9 @@ async function cmdStatus(): Promise<void> {
     const tier = (usage as { tierName?: string }).tierName || 'Free';
     lines.push(`  Plan       ${fmt.cyan(tier)}`);
 
-    const u = (usage as { usage?: Record<string, { used: number; limit: number; percentage: number }> }).usage;
+    const u = (
+      usage as { usage?: Record<string, { used: number; limit: number; percentage: number }> }
+    ).usage;
     if (u) {
       for (const [key, metric] of Object.entries(u)) {
         const label = key.replace(/([A-Z])/g, ' $1').trim();
@@ -535,7 +588,10 @@ async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
     try {
       input = JSON.parse(inputJson);
     } catch {
-      error(`Invalid JSON in --input: ${inputJson.slice(0, 100)}`, 'Use valid JSON: --input \'{"key":"value"}\'');
+      error(
+        `Invalid JSON in --input: ${inputJson.slice(0, 100)}`,
+        'Use valid JSON: --input \'{"key":"value"}\'',
+      );
     }
   }
 
@@ -551,7 +607,9 @@ async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
     // Try to format compliance results nicely
     const r = result as Record<string, unknown>;
     if (r.overallScore !== undefined || r.regulations) {
-      output(result, (d) => formatComplianceResult(d as Parameters<typeof formatComplianceResult>[0]));
+      output(result, (d) =>
+        formatComplianceResult(d as Parameters<typeof formatComplianceResult>[0]),
+      );
     } else {
       output(result);
     }
@@ -562,7 +620,7 @@ async function cmdQuickRun(name: string, inputJson: string): Promise<void> {
 }
 
 async function cmdMcpTools(): Promise<void> {
-  const result = await mcpCall('tools/list') as { tools: unknown[] };
+  const result = (await mcpCall('tools/list')) as { tools: unknown[] };
   output(result.tools);
 }
 
@@ -587,14 +645,18 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
 
   if (useStdin) {
     const stdinData = await readStdin();
-    if (!stdinData) error(
-      '--stdin specified but no data on stdin',
-      'echo \'{"provider":"supabase-eu","region":"europe-north1"}\' | dws sovereignty-assess --stdin',
-    );
+    if (!stdinData)
+      error(
+        '--stdin specified but no data on stdin',
+        'echo \'{"provider":"supabase-eu","region":"europe-north1"}\' | dws sovereignty-assess --stdin',
+      );
     try {
       input = JSON.parse(stdinData);
     } catch {
-      error(`Invalid JSON on stdin: ${stdinData.slice(0, 100)}`, 'Pipe valid JSON with provider and region fields');
+      error(
+        `Invalid JSON on stdin: ${stdinData.slice(0, 100)}`,
+        'Pipe valid JSON with provider and region fields',
+      );
     }
   } else if (inputJson) {
     try {
@@ -621,23 +683,32 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
     const r = result as Record<string, unknown>;
     if (!JSON_MODE && process.stdout.isTTY) {
       const res = r.result as Record<string, unknown>;
-      const score = res?.overallScore as number ?? 0;
-      const tier = res?.tier as string ?? 'unknown';
+      const score = (res?.overallScore as number) ?? 0;
+      const tier = (res?.tier as string) ?? 'unknown';
       const gaps = (res?.gaps as unknown[])?.length ?? 0;
-      const exposed = res?.cloudActExposed as boolean ?? false;
+      const exposed = (res?.cloudActExposed as boolean) ?? false;
 
-      const tierColor = tier === 'sovereign' ? fmt.green : tier === 'compliant' ? fmt.cyan : tier === 'partial' ? fmt.yellow : fmt.red;
+      const tierColor =
+        tier === 'sovereign'
+          ? fmt.green
+          : tier === 'compliant'
+            ? fmt.cyan
+            : tier === 'partial'
+              ? fmt.yellow
+              : fmt.red;
 
       console.log('');
       console.log(fmt.bold('  Sovereignty Assessment'));
       console.log('');
-      console.log(`  Score      ${score >= 70 ? fmt.green(String(score)) : score >= 40 ? fmt.yellow(String(score)) : fmt.red(String(score))}/100`);
+      console.log(
+        `  Score      ${score >= 70 ? fmt.green(String(score)) : score >= 40 ? fmt.yellow(String(score)) : fmt.red(String(score))}/100`,
+      );
       console.log(`  Tier       ${tierColor(tier.toUpperCase())}`);
       console.log(`  CLOUD Act  ${exposed ? fmt.red('EXPOSED') : fmt.green('Free')}`);
       console.log(`  Gaps       ${gaps > 0 ? fmt.yellow(String(gaps)) : fmt.green('0')}`);
       console.log('');
 
-      const recs = r.recommendations as string[] ?? [];
+      const recs = (r.recommendations as string[]) ?? [];
       if (recs.length > 0) {
         console.log(fmt.dim('  Recommendations:'));
         recs.slice(0, 5).forEach((rec, i) => {
@@ -647,7 +718,9 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
       }
 
       // HIL escalation notice
-      const hil = (res as Record<string, unknown>)?.hilEscalation as Record<string, unknown> | undefined;
+      const hil = (res as Record<string, unknown>)?.hilEscalation as
+        | Record<string, unknown>
+        | undefined;
       if (hil?.required) {
         console.log(fmt.yellow('  ⚠ Low confidence — escalated to human review'));
         console.log(fmt.dim(`    Reason: ${hil.reason}`));
@@ -664,45 +737,93 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
 
 // ============ SCENARIO SHORTCUTS ============
 
-const SCENARIOS: Record<string, { description: string; commands: Array<{ label: string; cmd: string }> }> = {
+const SCENARIOS: Record<
+  string,
+  { description: string; commands: Array<{ label: string; cmd: string }> }
+> = {
   construction: {
     description: 'Construction site compliance & safety monitoring',
     commands: [
-      { label: 'Site safety check', cmd: 'dws run sitesense --input \'{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}\'' },
-      { label: 'Carbon footprint', cmd: 'dws run material-oracle --input \'{"materials":[{"name":"concrete","quantity":500,"unit":"m3"}]}\'' },
-      { label: 'Full assessment', cmd: 'dws workflow construction-full --input \'{"siteId":"site-1"}\'' },
+      {
+        label: 'Site safety check',
+        cmd: 'dws run sitesense --input \'{"temperature":28,"humidity":75,"windSpeed":15,"workerCount":50}\'',
+      },
+      {
+        label: 'Carbon footprint',
+        cmd: 'dws run material-oracle --input \'{"materials":[{"name":"concrete","quantity":500,"unit":"m3"}]}\'',
+      },
+      {
+        label: 'Full assessment',
+        cmd: 'dws workflow construction-full --input \'{"siteId":"site-1"}\'',
+      },
     ],
   },
   manufacturing: {
     description: 'Manufacturing emissions tracking & ETS compliance',
     commands: [
-      { label: 'ETS compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["ets","cbam"]}\'' },
-      { label: 'Emissions analysis', cmd: 'dws run emissions-data-analyst --input \'{"query":"scope 1 total by facility"}\'' },
-      { label: 'Quality gate', cmd: 'dws run quality-gate --input \'{"productId":"batch-2026-03"}\'' },
+      {
+        label: 'ETS compliance',
+        cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["ets","cbam"]}\'',
+      },
+      {
+        label: 'Emissions analysis',
+        cmd: 'dws run emissions-data-analyst --input \'{"query":"scope 1 total by facility"}\'',
+      },
+      {
+        label: 'Quality gate',
+        cmd: 'dws run quality-gate --input \'{"productId":"batch-2026-03"}\'',
+      },
     ],
   },
   logistics: {
     description: 'Fleet emissions, route optimization & CSRD reporting',
     commands: [
-      { label: 'Fleet emissions', cmd: 'dws run emissions-data-analyst --input \'{"query":"fleet fuel consumption by route"}\'' },
-      { label: 'CSRD check', cmd: 'dws run compliance --input \'{"industry":"logistics","regulations":["csrd","fit-for-55"]}\'' },
-      { label: 'Competitor scan', cmd: 'dws run competitor-surveillance --input \'{"industry":"logistics","region":"EU"}\'' },
+      {
+        label: 'Fleet emissions',
+        cmd: 'dws run emissions-data-analyst --input \'{"query":"fleet fuel consumption by route"}\'',
+      },
+      {
+        label: 'CSRD check',
+        cmd: 'dws run compliance --input \'{"industry":"logistics","regulations":["csrd","fit-for-55"]}\'',
+      },
+      {
+        label: 'Competitor scan',
+        cmd: 'dws run competitor-surveillance --input \'{"industry":"logistics","region":"EU"}\'',
+      },
     ],
   },
   energy: {
     description: 'Energy grid optimization & Fit for 55 compliance',
     commands: [
-      { label: 'Fit for 55', cmd: 'dws run compliance --input \'{"industry":"energy","regulations":["ets","fit-for-55"]}\'' },
-      { label: 'Emissions report', cmd: 'dws run emissions-data-analyst --input \'{"query":"total GHG by source"}\'' },
-      { label: 'SEO pipeline', cmd: 'dws workflow seo-pipeline --input \'{"domain":"energy-portal.eu"}\'' },
+      {
+        label: 'Fit for 55',
+        cmd: 'dws run compliance --input \'{"industry":"energy","regulations":["ets","fit-for-55"]}\'',
+      },
+      {
+        label: 'Emissions report',
+        cmd: 'dws run emissions-data-analyst --input \'{"query":"total GHG by source"}\'',
+      },
+      {
+        label: 'SEO pipeline',
+        cmd: 'dws workflow seo-pipeline --input \'{"domain":"energy-portal.eu"}\'',
+      },
     ],
   },
   sovereignty: {
     description: 'Database sovereignty assessment & EU compliance',
     commands: [
-      { label: 'Assess Supabase EU', cmd: 'dws sovereignty-assess --input \'{"provider":"supabase-eu","region":"europe-north1","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":85}\'' },
-      { label: 'Check AWS exposure', cmd: 'dws sovereignty-assess --input \'{"provider":"aws","region":"eu-west-1","encryptionAtRest":true,"encryptionInTransit":true}\'' },
-      { label: 'Full sovereign audit', cmd: 'dws sovereignty-assess --input \'{"provider":"hetzner","region":"helsinki","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":100,"backupRegion":"frankfurt","accessControlMethod":"rbac","gdprDsarProcess":true,"gdprDeletionProcess":true,"gdprConsentManagement":true}\'' },
+      {
+        label: 'Assess Supabase EU',
+        cmd: 'dws sovereignty-assess --input \'{"provider":"supabase-eu","region":"europe-north1","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":85}\'',
+      },
+      {
+        label: 'Check AWS exposure',
+        cmd: 'dws sovereignty-assess --input \'{"provider":"aws","region":"eu-west-1","encryptionAtRest":true,"encryptionInTransit":true}\'',
+      },
+      {
+        label: 'Full sovereign audit',
+        cmd: 'dws sovereignty-assess --input \'{"provider":"hetzner","region":"helsinki","encryptionAtRest":true,"encryptionInTransit":true,"rlsEnabled":true,"rlsCoverage":100,"backupRegion":"frankfurt","accessControlMethod":"rbac","gdprDsarProcess":true,"gdprDeletionProcess":true,"gdprConsentManagement":true}\'',
+      },
     ],
   },
   quickstart: {
@@ -710,7 +831,10 @@ const SCENARIOS: Record<string, { description: string; commands: Array<{ label: 
     commands: [
       { label: 'Health check', cmd: 'dws health' },
       { label: 'List agents', cmd: 'dws agents' },
-      { label: 'Demo compliance', cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'' },
+      {
+        label: 'Demo compliance',
+        cmd: 'dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'',
+      },
       { label: 'List workflows', cmd: 'dws workflows' },
     ],
   },
@@ -733,7 +857,7 @@ async function cmdScenario(name?: string): Promise<void> {
     scenario: name,
     description: scenario.description,
     commands: scenario.commands,
-    hint: 'Copy and run any command above, or pipe: dws scenario construction | jq \'.commands[0].cmd\'',
+    hint: "Copy and run any command above, or pipe: dws scenario construction | jq '.commands[0].cmd'",
   });
 }
 
@@ -757,10 +881,12 @@ async function cmdQuickstart(): Promise<void> {
 
   console.error('\n2/3  Discovering agents...');
   try {
-    const result = await api('/api/agents') as { agents: Array<{ name: string; description: string }> };
+    const result = (await api('/api/agents')) as {
+      agents: Array<{ name: string; description: string }>;
+    };
     const agents = result.agents || [];
     console.error(`     Found ${agents.length} agent(s)`);
-    agents.slice(0, 5).forEach(a => console.error(`     - ${a.name}: ${a.description}`));
+    agents.slice(0, 5).forEach((a) => console.error(`     - ${a.name}: ${a.description}`));
     if (agents.length > 5) console.error(`     ... and ${agents.length - 5} more`);
   } catch {
     console.error('     Could not list agents');
@@ -773,12 +899,22 @@ async function cmdQuickstart(): Promise<void> {
   console.error('     dws run compliance --input \'{"industry":"steel","regulations":["csrd"]}\'');
   console.error('');
 
-  output({ status: 'ready', apiUrl: API_URL, hint: 'Run: dws scenario <name> for guided workflows' });
+  output({
+    status: 'ready',
+    apiUrl: API_URL,
+    hint: 'Run: dws scenario <name> for guided workflows',
+  });
 }
 
 // ============ KYA COMMANDS ============
 
-async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boolean, dryRun: boolean, skipConfirm: boolean): Promise<void> {
+async function cmdKyaSnap(
+  sessionId: string,
+  reason: string,
+  forceCascade: boolean,
+  dryRun: boolean,
+  skipConfirm: boolean,
+): Promise<void> {
   const payload = { sessionId, reason, forceCascade, source: 'cli' };
 
   if (dryRun) {
@@ -789,18 +925,20 @@ async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boole
       payload,
       note: 'No changes made. Remove --dry-run to execute.',
     };
-    output(preview, () => [
-      '',
-      fmt.bold('  Dry Run — Leash Snap Preview'),
-      '',
-      `  Session      ${fmt.cyan(sessionId)}`,
-      `  Reason       ${reason}`,
-      `  Cascade      ${forceCascade ? fmt.red('YES') : 'no'}`,
-      `  Endpoint     POST /api/v1/kya/snap`,
-      '',
-      fmt.dim('  No agents terminated. Remove --dry-run to execute.'),
-      '',
-    ].join('\n'));
+    output(preview, () =>
+      [
+        '',
+        fmt.bold('  Dry Run — Leash Snap Preview'),
+        '',
+        `  Session      ${fmt.cyan(sessionId)}`,
+        `  Reason       ${reason}`,
+        `  Cascade      ${forceCascade ? fmt.red('YES') : 'no'}`,
+        `  Endpoint     POST /api/v1/kya/snap`,
+        '',
+        fmt.dim('  No agents terminated. Remove --dry-run to execute.'),
+        '',
+      ].join('\n'),
+    );
     return;
   }
 
@@ -808,9 +946,9 @@ async function cmdKyaSnap(sessionId: string, reason: string, forceCascade: boole
   if (!skipConfirm && process.stdin.isTTY) {
     const readline = await import('readline');
     const rl = readline.createInterface({ input: process.stdin, output: process.stderr });
-    const answer = await new Promise<string>(resolve => rl.question(
-      `${fmt.yellow('⚠')} Terminate agents in session ${sessionId}? [y/N] `, resolve,
-    ));
+    const answer = await new Promise<string>((resolve) =>
+      rl.question(`${fmt.yellow('⚠')} Terminate agents in session ${sessionId}? [y/N] `, resolve),
+    );
     rl.close();
     if (answer.toLowerCase() !== 'y' && answer.toLowerCase() !== 'yes') {
       console.error('Aborted.');
@@ -1179,7 +1317,18 @@ function parseArgs(argv: string[]): {
     if (arg.startsWith('--')) {
       const key = arg.slice(2);
       // Boolean flags
-      if (key === 'stdin' || key === 'help' || key === 'quiet' || key === 'version' || key === 'json' || key === 'first' || key === 'force-cascade' || key === 'dry-run' || key === 'yes' || key === 'force') {
+      if (
+        key === 'stdin' ||
+        key === 'help' ||
+        key === 'quiet' ||
+        key === 'version' ||
+        key === 'json' ||
+        key === 'first' ||
+        key === 'force-cascade' ||
+        key === 'dry-run' ||
+        key === 'yes' ||
+        key === 'force'
+      ) {
         flags[key] = 'true';
       } else {
         i++;
@@ -1231,8 +1380,14 @@ async function cmdProfile(): Promise<void> {
 async function cmdNotifications(): Promise<void> {
   const s = spinner('Fetching notifications...');
   try {
-    const result = await api('/api/v1/notifications') as {
-      notifications: Array<{ title: string; body: string; severity: string; read: boolean; created_at: string }>;
+    const result = (await api('/api/v1/notifications')) as {
+      notifications: Array<{
+        title: string;
+        body: string;
+        severity: string;
+        read: boolean;
+        created_at: string;
+      }>;
       total: number;
     };
     s.stop();
@@ -1242,9 +1397,14 @@ async function cmdNotifications(): Promise<void> {
         return box('Notifications', 'No notifications');
       }
       const lines = d.notifications.map((n) => {
-        const icon = n.severity === 'critical' ? fmt.red('!') :
-          n.severity === 'warning' ? fmt.yellow('!') :
-          n.severity === 'success' ? fmt.green('✓') : '·';
+        const icon =
+          n.severity === 'critical'
+            ? fmt.red('!')
+            : n.severity === 'warning'
+              ? fmt.yellow('!')
+              : n.severity === 'success'
+                ? fmt.green('✓')
+                : '·';
         const readMark = n.read ? '' : fmt.bold(' [NEW]');
         return `  ${icon} ${n.title}${readMark}\n    ${n.body}`;
       });
@@ -1259,9 +1419,19 @@ async function cmdNotifications(): Promise<void> {
 async function cmdDashboard(): Promise<void> {
   const s = spinner('Fetching dashboard summary...');
   try {
-    const result = await api('/api/v1/dashboard/summary') as {
-      compliance: { overallScore: number; regulationsTracked: number; gapsIdentified: number; trend: string };
-      usage: { agentCallsUsed: number; agentCallsLimit: number; reportExportsUsed: number; reportExportsLimit: number };
+    const result = (await api('/api/v1/dashboard/summary')) as {
+      compliance: {
+        overallScore: number;
+        regulationsTracked: number;
+        gapsIdentified: number;
+        trend: string;
+      };
+      usage: {
+        agentCallsUsed: number;
+        agentCallsLimit: number;
+        reportExportsUsed: number;
+        reportExportsLimit: number;
+      };
       agents: { totalAvailable: number; executionsToday: number };
       system: { status: string; uptime: number };
     };
@@ -1294,8 +1464,14 @@ async function cmdDashboard(): Promise<void> {
 async function cmdActivity(limit?: number): Promise<void> {
   const s = spinner('Fetching activity...');
   try {
-    const result = await api(`/api/v1/activity?limit=${limit || 10}`) as {
-      events: Array<{ type: string; title: string; description: string; severity: string; created_at: string }>;
+    const result = (await api(`/api/v1/activity?limit=${limit || 10}`)) as {
+      events: Array<{
+        type: string;
+        title: string;
+        description: string;
+        severity: string;
+        created_at: string;
+      }>;
       total: number;
     };
     s.stop();
@@ -1313,6 +1489,165 @@ async function cmdActivity(limit?: number): Promise<void> {
   } catch (err) {
     s.stop();
     throw err;
+  }
+}
+
+// ============ KNOWLEDGE BASE ============
+
+async function cmdKB(
+  subcommand: string,
+  flags: Record<string, string>,
+  positional: string[],
+): Promise<void> {
+  switch (subcommand) {
+    case 'compile': {
+      const full = flags.full === 'true';
+      const s = spinner(`Compiling knowledge base${full ? ' (full)' : ''}...`);
+      try {
+        const result = await api(
+          '/api/agents/kb/execute',
+          'POST',
+          {
+            context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+            input: { operation: 'compile', full },
+          },
+          120_000,
+        );
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'ask': {
+      const question = positional[1] || flags.input;
+      if (!question)
+        error(
+          'No question provided.',
+          'dws kb ask "your question here"\n  dws kb ask "question" --save',
+        );
+      const save = flags.save === 'true';
+      const s = spinner('Researching...');
+      try {
+        const result = await api(
+          '/api/agents/kb/execute',
+          'POST',
+          {
+            context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+            input: { operation: 'ask', question, save },
+          },
+          60_000,
+        );
+        s.stop();
+        const res = result as { result?: { answer?: string } };
+        if (res.result?.answer && !JSON_MODE) {
+          console.log(res.result.answer);
+        } else {
+          output(result);
+        }
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'research': {
+      const question = positional[1] || flags.input;
+      if (!question)
+        error('No research question provided.', 'dws kb research "your complex question here"');
+      const s = spinner('Deep research in progress...');
+      try {
+        const result = await api(
+          '/api/agents/kb/execute',
+          'POST',
+          {
+            context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+            input: { operation: 'research', question },
+          },
+          180_000,
+        );
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'lint': {
+      const s = spinner('Running health check...');
+      try {
+        const result = await api(
+          '/api/agents/kb/execute',
+          'POST',
+          {
+            context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+            input: { operation: 'lint' },
+          },
+          60_000,
+        );
+        s.stop();
+        output(result);
+      } catch (err) {
+        s.stop();
+        throw err;
+      }
+      break;
+    }
+
+    case 'ingest': {
+      const file = positional[1];
+      if (!file)
+        error('No file path provided.', 'dws kb ingest path/to/file.md\n  dws kb ingest paper.pdf');
+      const result = await api('/api/agents/kb/execute', 'POST', {
+        context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+        input: { operation: 'ingest', file },
+      });
+      output(result);
+      break;
+    }
+
+    case 'status': {
+      const result = await api('/api/agents/kb/execute', 'POST', {
+        context: { projectId: PROJECT_ID, sessionId: SESSION_ID },
+        input: { operation: 'status' },
+      });
+      const res = result as { result?: Record<string, unknown> };
+      if (res.result && !JSON_MODE) {
+        const r = res.result;
+        console.log(fmt.bold('Knowledge Base Status'));
+        console.log('');
+        console.log(`  Raw sources    ${fmt.cyan(String(r.rawCount || 0))}`);
+        console.log(`  Wiki articles  ${fmt.green(String(r.articleCount || 0))}`);
+        if (r.healthScore !== null && r.healthScore !== undefined) {
+          const score = r.healthScore as number;
+          const color = score >= 80 ? fmt.green : score >= 50 ? fmt.yellow : fmt.red;
+          console.log(`  Health         ${color(String(score) + '%')}`);
+        }
+        if (r.lastCompile) console.log(`  Last compile   ${fmt.dim(String(r.lastCompile))}`);
+        if (r.lastLint) console.log(`  Last lint      ${fmt.dim(String(r.lastLint))}`);
+        console.log('');
+      } else {
+        output(result);
+      }
+      break;
+    }
+
+    default:
+      error(
+        `Unknown kb subcommand '${subcommand}'.`,
+        'dws kb compile [--full]         Compile raw → wiki\n' +
+          '  dws kb ask "question" [--save]  Q&A against wiki\n' +
+          '  dws kb research "question"      Deep research\n' +
+          '  dws kb lint                     Health check\n' +
+          '  dws kb status                   Show stats\n' +
+          '  dws kb ingest <file>            Add raw source',
+      );
   }
 }
 
@@ -1368,18 +1703,17 @@ async function main(): Promise<void> {
         break;
 
       case 'agent':
-        if (!subcommand) error(
-          'No agent name specified.',
-          'dws agent <name>\n  Available: dws agents',
-        );
+        if (!subcommand)
+          error('No agent name specified.', 'dws agent <name>\n  Available: dws agents');
         await cmdAgent(subcommand);
         break;
 
       case 'run':
-        if (!subcommand && flags.first !== 'true') error(
-          'No agent name specified.',
-          'dws run <agent> --input \'{"key":"value"}\'\n  dws run <agent> --stdin\n  dws discover <capability> | dws run --first\n  Available agents: dws agents',
-        );
+        if (!subcommand && flags.first !== 'true')
+          error(
+            'No agent name specified.',
+            'dws run <agent> --input \'{"key":"value"}\'\n  dws run <agent> --stdin\n  dws discover <capability> | dws run --first\n  Available agents: dws agents',
+          );
         if (flags.first === 'true') {
           await cmdRun(subcommand || '', flags.input || '', flags.stdin === 'true', true, dryRun);
         } else if (flags.stdin === 'true') {
@@ -1392,10 +1726,11 @@ async function main(): Promise<void> {
         break;
 
       case 'discover':
-        if (!subcommand) error(
-          'No capability specified.',
-          'dws discover <capability>\n  Examples: dws discover compliance | dws discover carbon | dws discover safety',
-        );
+        if (!subcommand)
+          error(
+            'No capability specified.',
+            'dws discover <capability>\n  Examples: dws discover compliance | dws discover carbon | dws discover safety',
+          );
         await cmdDiscover(subcommand);
         break;
 
@@ -1404,10 +1739,11 @@ async function main(): Promise<void> {
         break;
 
       case 'workflow':
-        if (!subcommand) error(
-          'No workflow name specified.',
-          'dws workflow <name> --input \'{"key":"value"}\'\n  Available: dws workflows',
-        );
+        if (!subcommand)
+          error(
+            'No workflow name specified.',
+            'dws workflow <name> --input \'{"key":"value"}\'\n  Available: dws workflows',
+          );
         await cmdWorkflow(subcommand, flags.input || '', flags.stdin === 'true', dryRun);
         break;
 
@@ -1434,19 +1770,17 @@ async function main(): Promise<void> {
       case 'kya':
         if (subcommand === 'snap') {
           const kyaSessionId = positional[1];
-          if (!kyaSessionId) error(
-            'No session ID specified.',
-            'dws kya snap <session_id> --reason <code>\n  dws kya snap session-abc --reason TRUST_VIOLATION --yes',
-          );
+          if (!kyaSessionId)
+            error(
+              'No session ID specified.',
+              'dws kya snap <session_id> --reason <code>\n  dws kya snap session-abc --reason TRUST_VIOLATION --yes',
+            );
           const kyaReason = flags.reason || 'MANUAL_SNAP';
           const forceCascade = flags['force-cascade'] === 'true';
           await cmdKyaSnap(kyaSessionId, kyaReason, forceCascade, dryRun, skipConfirm);
         } else if (subcommand === 'status') {
           const kyaStatusId = positional[1];
-          if (!kyaStatusId) error(
-            'No session ID specified.',
-            'dws kya status <session_id>',
-          );
+          if (!kyaStatusId) error('No session ID specified.', 'dws kya status <session_id>');
           await cmdKyaStatus(kyaStatusId);
         } else {
           error(
@@ -1476,15 +1810,20 @@ async function main(): Promise<void> {
         await cmdActivity(flags.limit ? parseInt(flags.limit) : undefined);
         break;
 
+      case 'kb':
+        await cmdKB(subcommand || 'status', flags, positional);
+        break;
+
       case 'mcp':
         if (subcommand === 'tools') {
           await cmdMcpTools();
         } else if (subcommand === 'call') {
           const toolName = positional[1];
-          if (!toolName) error(
-            'No tool name specified.',
-            'dws mcp call <tool-name> --args \'{"key":"value"}\'\n  Available tools: dws mcp tools',
-          );
+          if (!toolName)
+            error(
+              'No tool name specified.',
+              'dws mcp call <tool-name> --args \'{"key":"value"}\'\n  Available tools: dws mcp tools',
+            );
           await cmdMcpCall(toolName, flags.args || '');
         } else {
           error(
@@ -1496,18 +1835,37 @@ async function main(): Promise<void> {
 
       default: {
         const allCommands = [
-          'agents', 'agent', 'run', 'discover', 'workflows', 'workflow',
-          'events', 'health', 'status', 'config', 'mcp', 'kya',
-          'scenario', 'quickstart', 'init', 'sovereignty-assess',
-          'profile', 'notifications', 'dashboard', 'activity',
-          'version', 'help',
+          'agents',
+          'agent',
+          'run',
+          'discover',
+          'workflows',
+          'workflow',
+          'events',
+          'health',
+          'status',
+          'config',
+          'mcp',
+          'kya',
+          'kb',
+          'scenario',
+          'quickstart',
+          'init',
+          'sovereignty-assess',
+          'profile',
+          'notifications',
+          'dashboard',
+          'activity',
+          'version',
+          'help',
         ];
         const suggestions = allCommands
           .filter((c) => c.startsWith(command[0]) || levenshtein(command, c) <= 3)
           .slice(0, 3);
-        const hint = suggestions.length > 0
-          ? suggestions.map(s => `dws ${s}`).join('\n  ') + '\n  Run \'dws help\' for full usage.'
-          : 'Run \'dws help\' for full usage.';
+        const hint =
+          suggestions.length > 0
+            ? suggestions.map((s) => `dws ${s}`).join('\n  ') + "\n  Run 'dws help' for full usage."
+            : "Run 'dws help' for full usage.";
         error(`Unknown command '${command}'.`, hint);
       }
     }

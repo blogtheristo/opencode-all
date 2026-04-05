@@ -1,43 +1,48 @@
 # KYA Standard v1.5 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
-  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
-  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Research-as-a-Service positioning, Agentic Efficiency Law (§11.1), Stacking Effect principle (§11.2), Orchestrator Layer architecture (§12.1), technical takeaways for implementers (§11.3), Gemini-informed conceptual upgrades merged with Grok financial layer
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety Layer), updated ATS formula with autoresearch delta (+A×0.15), financial multiplier column in trust score table, per-industry efficiency gains (9–22%), Capability Manifest v1.2 with autoresearch extensions, inline Karpathy field note, €14–38B projected EU-wide impact by 2030, Grok-informed financial ROI layer
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Add Financial Value Model (§9) — per-industry KYA revenue sizing for 16 EU-regulated industries, verification volume economics, insurance & liability reduction framework, carbon penalty avoidance ROI, Autoresearch Optimization Protocol (§10) inspired by Karpathy nanochat agent swarm methodology
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§8) — Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution in Supabase (§8.4), Agent Trust Score formula with executable engine (src/identity/ats-engine.ts)
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
+
+- Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in Regulatory Penalty Avoidance — corrected from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context, per PR #976 sweep pattern
+- Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
+- Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Research-as-a-Service positioning, Agentic Efficiency Law (§11.1), Stacking Effect principle (§11.2), Orchestrator Layer architecture (§12.1), technical takeaways for implementers (§11.3), Gemini-informed conceptual upgrades merged with Grok financial layer
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Singularity-Ready upgrade — Pillar 4 (Autoresearch & Singularity Safety Layer), updated ATS formula with autoresearch delta (+A×0.15), financial multiplier column in trust score table, per-industry efficiency gains (9–22%), Capability Manifest v1.2 with autoresearch extensions, inline Karpathy field note, €14–38B projected EU-wide impact by 2030, Grok-informed financial ROI layer
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Add Financial Value Model (§9) — per-industry KYA revenue sizing for 16 EU-regulated industries, verification volume economics, insurance & liability reduction framework, carbon penalty avoidance ROI, Autoresearch Optimization Protocol (§10) inspired by Karpathy nanochat agent swarm methodology
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Add Subagent Registry (§8) — Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution in Supabase (§8.4), Agent Trust Score formula with executable engine (src/identity/ats-engine.ts)
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (Identity Attribution, Capability Gating, Forensic Observability), Firecracker MicroVM isolation architecture, Multi-Agent Control Room use case, Shufti partnership positioning
 
 Document Status:
-  - Created: 09.03.2026
-  - Last Modified: 10.03.2026
-  - Language: English
-  - Languages Available: EN
-  - Publication Status: ACTIVE
-  - Classification: PARTNER
-  - Document Type: Technical Standard / Partner Proposal
+
+- Created: 09.03.2026
+- Last Modified: 05.04.2026
+- Language: English
+- Languages Available: EN
+- Publication Status: ACTIVE
+- Classification: PARTNER
+- Document Type: Technical Standard / Partner Proposal
 
 Related Documents:
-  - Legal/KYA_SECURITY_v1.2.md (Successor: Know Your Agent v1.2 — security/identity split)
-  - Legal/KYA_OPTIMIZATION_v1.4.md (Successor: Know Your Architecture v1.4 — financial/optimization split)
-  - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
-  - docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
-  - docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)
-  - docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology field note)
-  - src/cloudflare/tenant-sandbox.ts (Sandbox isolation implementation)
-  - 16-INDUSTRIES.md (16 EU-regulated industries)
-  - src/agents/argus.agent.ts (Argus — AI Orbital Target Labeling agent)
-  - src/integrations/iceye/client.ts (ICEYE SAR satellite API client)
-  - src/integrations/iceye/types.ts (Orbital target labeling type definitions)
-  - .claude/commands/orbital-eye.md (Orbital Eye skill for Claude Code)
 
-***
+- Legal/KYA_SECURITY_v1.2.md (Successor: Know Your Agent v1.2 — security/identity split)
+- Legal/KYA_OPTIMIZATION_v1.4.md (Successor: Know Your Architecture v1.4 — financial/optimization split)
+- DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
+- docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
+- docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)
+- docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md (Autoresearch methodology field note)
+- src/cloudflare/tenant-sandbox.ts (Sandbox isolation implementation)
+- 16-INDUSTRIES.md (16 EU-regulated industries)
+- src/agents/argus.agent.ts (Argus — AI Orbital Target Labeling agent)
+- src/integrations/iceye/client.ts (ICEYE SAR satellite API client)
+- src/integrations/iceye/types.ts (Orbital target labeling type definitions)
+- .claude/commands/orbital-eye.md (Orbital Eye skill for Claude Code)
+
+---
 
 **DWS IQ Platform | Lifetime Oy**
 **Version:** KYA Standard v1.5
@@ -56,10 +61,10 @@ Related Documents:
 
 **KYA** expands as **Know Your Agent** (security & identity — The No) or **Know Your Architecture** (financial optimization & agent self-optimization governance — The More) depending on audience. The same three letters cover both with zero overlap in content. This is intentional semantic engineering that gives CISOs and CFOs exactly what they need under one trusted brand.
 
-| Document | KYA Expansion | Audience | Function |
-|----------|--------------|----------|----------|
-| `KYA_SECURITY_v1.2.md` | Know Your **Agent** (v1.5) | CISOs, Security Architects, Regulators | The No — identity, isolation, kill, forensics, **memory audit trail** |
-| `KYA_OPTIMIZATION_v1.4.md` | Know Your **Architecture** (v1.7) | CFOs, CTOs, Product Leaders | The More — efficiency, attribution, ROI, **memory-driven financial intelligence** |
+| Document                   | KYA Expansion                     | Audience                               | Function                                                                          |
+| -------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------- |
+| `KYA_SECURITY_v1.2.md`     | Know Your **Agent** (v1.5)        | CISOs, Security Architects, Regulators | The No — identity, isolation, kill, forensics, **memory audit trail**             |
+| `KYA_OPTIMIZATION_v1.4.md` | Know Your **Architecture** (v1.7) | CFOs, CTOs, Product Leaders            | The More — efficiency, attribution, ROI, **memory-driven financial intelligence** |
 
 ---
 
@@ -75,21 +80,22 @@ The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresea
 - **Projected ROI:** 8–22x within 18 months in heavy-industry deployments (energy savings + tender wins + carbon-credit monetization)
 
 **The "Karpathy Stack" applied to Industry:**
+
 - **Proxy Metrics** — Identify small-scale simulations (depth=12) that correlate to full-scale success (depth=24)
 - **Autonomous Iteration** — Agents propose, code, and test hundreds of micro-adjustments
 - **Additive Scaling** — Validated "wins" are promoted to the production-grade system
 
-| What Changed | v1.1 | v1.4 |
-|--------------|------|------|
-| Pillars | 3 (Identity, Capability, Forensics) | **4** (+ Autoresearch & Agent Self-Optimization Governance Safety) |
-| ATS Formula | `1.0 - V×0.25 - L - D×0.05` | `1.0 - V×0.25 - L - D×0.05 + A×0.15` |
-| Trust Score Table | 4 tiers, no financial column | **4 tiers + Financial Multiplier per tier** |
-| Financial Layer | None | **Per-industry ROI, €14–38B EU-wide by 2030** |
-| Manifest Schema | v1.1 (paths only) | **v1.2 (+ autoresearch, target metrics, financial attribution)** |
-| Positioning | Model-as-a-Service | **Research-as-a-Service** |
-| Named Laws | None | **Agentic Efficiency Law, Stacking Effect** |
-| Swarm Management | Manual | **Orchestrator Layer (kill early, promote winners)** |
-| Compliance | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ Autoresearch audit trail for Art. 12/14** |
+| What Changed      | v1.1                                    | v1.4                                                               |
+| ----------------- | --------------------------------------- | ------------------------------------------------------------------ |
+| Pillars           | 3 (Identity, Capability, Forensics)     | **4** (+ Autoresearch & Agent Self-Optimization Governance Safety) |
+| ATS Formula       | `1.0 - V×0.25 - L - D×0.05`             | `1.0 - V×0.25 - L - D×0.05 + A×0.15`                               |
+| Trust Score Table | 4 tiers, no financial column            | **4 tiers + Financial Multiplier per tier**                        |
+| Financial Layer   | None                                    | **Per-industry ROI, €14–38B EU-wide by 2030**                      |
+| Manifest Schema   | v1.1 (paths only)                       | **v1.2 (+ autoresearch, target metrics, financial attribution)**   |
+| Positioning       | Model-as-a-Service                      | **Research-as-a-Service**                                          |
+| Named Laws        | None                                    | **Agentic Efficiency Law, Stacking Effect**                        |
+| Swarm Management  | Manual                                  | **Orchestrator Layer (kill early, promote winners)**               |
+| Compliance        | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ Autoresearch audit trail for Art. 12/14**                      |
 
 ---
 
@@ -100,6 +106,7 @@ The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresea
 Every agent session is cryptographically anchored to a KYC-verified human or entity. This ensures legal accountability for autonomous actions within the DWS10 Control Room.
 
 **Implementation:**
+
 - Agent session tokens are bound to a verified user identity (Shufti IDV or equivalent)
 - Session-to-identity binding is immutable and stored in the KYA ledger
 - Legal chain of custody: `Agent Action → Session Token → Verified Identity → Legal Entity`
@@ -123,13 +130,13 @@ Using real-time risk telemetry (via API partners), DWS IQ dynamically adjusts an
 
 **Dynamic Permission Model:**
 
-| Risk Signal | Response Time | Action |
-|-------------|---------------|--------|
-| AML flag raised | < 5 seconds | Egress blocked, sandbox restricted |
-| Document expired | < 30 seconds | Session paused, re-verification required |
-| Anomalous behavior detected | < 1 second | Hypervisor trap, session frozen |
-| Risk score recovery | < 10 seconds | Permissions restored to previous level |
-| Autoresearch budget exceeded | < 1 second | Optimization loop halted, results preserved |
+| Risk Signal                  | Response Time | Action                                      |
+| ---------------------------- | ------------- | ------------------------------------------- |
+| AML flag raised              | < 5 seconds   | Egress blocked, sandbox restricted          |
+| Document expired             | < 30 seconds  | Session paused, re-verification required    |
+| Anomalous behavior detected  | < 1 second    | Hypervisor trap, session frozen             |
+| Risk score recovery          | < 10 seconds  | Permissions restored to previous level      |
+| Autoresearch budget exceeded | < 1 second    | Optimization loop halted, results preserved |
 
 ### 2.3 Pillar 3: Forensic Observability — The Firehorse Audit Trail (now logs autoresearch)
 
@@ -139,16 +146,17 @@ The Lifetime Firehorse product line serves as the ecosystem's tamper-proof "flig
 
 **What Firehorse Records:**
 
-| Layer | Data Captured | Retention |
-|-------|---------------|-----------|
-| Syscall | All file I/O, process spawns, IPC | 90 days (configurable) |
-| Network | Every egress/ingress request, DNS lookups | 90 days |
-| MCP Tool | Tool invocations, parameters, responses | 1 year |
-| Token Usage | Input/output tokens per agent per session | 1 year |
-| Identity Events | KYA score changes, permission adjustments | 5 years (EU AI Act Article 12) |
-| **Autoresearch** (v1.4) | **Experiment proposals, validation deltas, parameter diffs, stack rankings** | **5 years (IP + liability)** |
+| Layer                   | Data Captured                                                                | Retention                      |
+| ----------------------- | ---------------------------------------------------------------------------- | ------------------------------ |
+| Syscall                 | All file I/O, process spawns, IPC                                            | 90 days (configurable)         |
+| Network                 | Every egress/ingress request, DNS lookups                                    | 90 days                        |
+| MCP Tool                | Tool invocations, parameters, responses                                      | 1 year                         |
+| Token Usage             | Input/output tokens per agent per session                                    | 1 year                         |
+| Identity Events         | KYA score changes, permission adjustments                                    | 5 years (EU AI Act Article 12) |
+| **Autoresearch** (v1.4) | **Experiment proposals, validation deltas, parameter diffs, stack rankings** | **5 years (IP + liability)**   |
 
 **Audit Chain:**
+
 ```
 Agent Syscall → Firehorse Telemetry → KYA Session → Verified Identity
      │                  │                  │              │
@@ -191,15 +199,15 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 
 **Guardrails:**
 
-| Guardrail | Enforcement |
-|-----------|-------------|
-| **Scope lock** | Autoresearch can only tune parameters declared in Capability Manifest `target_metrics` |
-| **Budget cap** | Max experiments, max tokens, max compute-hours per session — enforced at VMM |
-| **No isolation weakening** | MicroVM boundaries, kernel isolation, egress rules are NEVER tunable |
-| **Human gate for production** | All parameter changes require human sign-off before production deployment |
-| **Rollback window** | 24h automatic rollback if any security metric degrades |
-| **Breach simulation** | Every parameter set must pass adversarial breach simulation before promotion |
-| **Out-of-scope penalty** | Unauthorized autoresearch attempts → ATS drops 40 points, session frozen |
+| Guardrail                     | Enforcement                                                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------- |
+| **Scope lock**                | Autoresearch can only tune parameters declared in Capability Manifest `target_metrics` |
+| **Budget cap**                | Max experiments, max tokens, max compute-hours per session — enforced at VMM           |
+| **No isolation weakening**    | MicroVM boundaries, kernel isolation, egress rules are NEVER tunable                   |
+| **Human gate for production** | All parameter changes require human sign-off before production deployment              |
+| **Rollback window**           | 24h automatic rollback if any security metric degrades                                 |
+| **Breach simulation**         | Every parameter set must pass adversarial breach simulation before promotion           |
+| **Out-of-scope penalty**      | Unauthorized autoresearch attempts → ATS drops 40 points, session frozen               |
 
 **This turns Karpathy's "wild" capability into enterprise-grade, auditable, financially quantifiable intelligence.**
 
@@ -212,6 +220,7 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 **Agent:** Argus (named after Argus Panoptes, the all-seeing giant of Greek mythology)
 
 **Pipeline:**
+
 ```
 ┌───────────────────────────────────────────────────────────────┐
 │  KYA Vision — Orbital Target Labeling Pipeline                │
@@ -243,20 +252,21 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 
 **20 Industries — SAR Detectability Tiers:**
 
-| Tier | Industries | SAR Detectability | Method |
-|------|-----------|-------------------|--------|
-| **Tier 1** (8) | Power, Steel, Cement, Chemicals, Aviation, Maritime, Transport, Construction | **High** — distinct metallic/geometric SAR signatures | Direct SAR pattern matching |
-| **Tier 2** (8) | Agriculture, Waste, Aluminium, Pulp/Paper, Petroleum, Food, Glass, Mining | **Medium** — identifiable with multi-temporal analysis | SAR + temporal change detection |
-| **Tier 3** (4) | Fintech, Pharma, Cybersecurity, Healthcare | **Low** — buildings look like generic urban | Co-location inference + external data fusion |
+| Tier           | Industries                                                                   | SAR Detectability                                      | Method                                       |
+| -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------- |
+| **Tier 1** (8) | Power, Steel, Cement, Chemicals, Aviation, Maritime, Transport, Construction | **High** — distinct metallic/geometric SAR signatures  | Direct SAR pattern matching                  |
+| **Tier 2** (8) | Agriculture, Waste, Aluminium, Pulp/Paper, Petroleum, Food, Glass, Mining    | **Medium** — identifiable with multi-temporal analysis | SAR + temporal change detection              |
+| **Tier 3** (4) | Fintech, Pharma, Cybersecurity, Healthcare                                   | **Low** — buildings look like generic urban            | Co-location inference + external data fusion |
 
 **ICEYE Integration:**
 
-| API | Purpose | DWS Usage |
-|-----|---------|-----------|
+| API             | Purpose                                   | DWS Usage                                        |
+| --------------- | ----------------------------------------- | ------------------------------------------------ |
 | **Tasking API** | Command satellites to acquire new imagery | On-demand high-res spotlight over specific sites |
-| **Catalog API** | Search 60k+ archive images | Baseline monitoring, historical change detection |
+| **Catalog API** | Search 60k+ archive images                | Baseline monitoring, historical change detection |
 
 **SAR Physics for Industry Detection:**
+
 - **Metallic structures** (steel mills, refineries) → high backscatter (bright in SAR)
 - **Water/flat surfaces** (ports, runways) → low backscatter (dark, specular reflection)
 - **Urban/industrial** → mixed bright/dark with geometric double-bounce patterns
@@ -265,16 +275,17 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 
 **KYA Vision Governance Rules:**
 
-| Rule | Enforcement |
-|------|-------------|
-| Every orbital label gets Firehorse trace ID | Immutable — `fh-argus-{session}-{target}` |
-| Confidence < 50% → human review required | Agent cannot finalize classification |
-| Wedge industries → always human review | Orbital detection too uncertain for auto-classification |
-| Agent KYA score < 50 → labeling suspended | Low-trust agents cannot classify targets |
-| Change detection deltas > 50% → compliance alert | Auto-triggers ETS/CBAM cross-reference |
-| All SAR data → EU data residency | ICEYE ISO 27001 + DWS europe-north1 storage |
+| Rule                                             | Enforcement                                             |
+| ------------------------------------------------ | ------------------------------------------------------- |
+| Every orbital label gets Firehorse trace ID      | Immutable — `fh-argus-{session}-{target}`               |
+| Confidence < 50% → human review required         | Agent cannot finalize classification                    |
+| Wedge industries → always human review           | Orbital detection too uncertain for auto-classification |
+| Agent KYA score < 50 → labeling suspended        | Low-trust agents cannot classify targets                |
+| Change detection deltas > 50% → compliance alert | Auto-triggers ETS/CBAM cross-reference                  |
+| All SAR data → EU data residency                 | ICEYE ISO 27001 + DWS europe-north1 storage             |
 
 **Why ICEYE + DWS (Both Finnish):**
+
 - Same regulatory environment (Finnish/EU jurisdiction)
 - Same customer base (Nordic heavy industry, EU-regulated sectors)
 - ICEYE provides the eyes (SAR constellation), DWS provides the brain (KYA-governed AI labeling)
@@ -302,12 +313,12 @@ A = autoresearch improvement factor (capped, validated on industry proxy metrics
 
 ### 3.2 KYA Trust Score Ranges (v1.4 — with Financial Multiplier)
 
-| ATS Range | KYA Score | Permission Level | Financial Multiplier (16 industries) | Decision |
-|-----------|-----------|-----------------|---------------------------------------|----------|
-| >= 0.80 | >= 80 | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr | **GO + Monetize** |
-| 0.50–0.79 | 50–79 | Restricted + limited autoresearch | 1.3–2.0x | **GO** (limited) |
-| < 0.50 | < 50 | Suspended — human review required | — | **NO_GO** |
-| = 0.00 | = 0 | Frozen — agent terminated | — | **NO_GO** |
+| ATS Range | KYA Score | Permission Level                  | Financial Multiplier (16 industries) | Decision          |
+| --------- | --------- | --------------------------------- | ------------------------------------ | ----------------- |
+| >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr             | **GO + Monetize** |
+| 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                             | **GO** (limited)  |
+| < 0.50    | < 50      | Suspended — human review required | —                                    | **NO_GO**         |
+| = 0.00    | = 0       | Frozen — agent terminated         | —                                    | **NO_GO**         |
 
 ---
 
@@ -321,13 +332,13 @@ Every BYO process is encapsulated in a dedicated MicroVM.
 
 **Properties:**
 
-| Property | Value |
-|----------|-------|
-| Boot time | < 125 ms |
-| Memory overhead | < 5 MB per MicroVM |
-| Guest kernel | Isolated per sandbox |
-| Host kernel access | None (paravirtualized) |
-| Storage | Ephemeral by default, persistent opt-in |
+| Property           | Value                                   |
+| ------------------ | --------------------------------------- |
+| Boot time          | < 125 ms                                |
+| Memory overhead    | < 5 MB per MicroVM                      |
+| Guest kernel       | Isolated per sandbox                    |
+| Host kernel access | None (paravirtualized)                  |
+| Storage            | Ephemeral by default, persistent opt-in |
 
 ### 4.2 No Shared Kernel Access
 
@@ -358,13 +369,13 @@ Network traffic is gated at the VMM (Virtual Machine Monitor) layer. Agents have
 
 **Egress Policy Rules:**
 
-| Rule | Enforcement |
-|------|-------------|
-| Default deny | All outbound blocked unless KYA-whitelisted |
-| Per-session whitelist | Endpoints approved per agent per session |
-| DNS interception | All DNS queries routed through DWS resolver |
-| TLS inspection | Optional MitM for enterprise tier (with consent) |
-| Rate limiting | Per-agent bandwidth caps enforced at VMM |
+| Rule                  | Enforcement                                      |
+| --------------------- | ------------------------------------------------ |
+| Default deny          | All outbound blocked unless KYA-whitelisted      |
+| Per-session whitelist | Endpoints approved per agent per session         |
+| DNS interception      | All DNS queries routed through DWS resolver      |
+| TLS inspection        | Optional MitM for enterprise tier (with consent) |
+| Rate limiting         | Per-agent bandwidth caps enforced at VMM         |
 
 ---
 
@@ -374,12 +385,12 @@ Network traffic is gated at the VMM (Virtual Machine Monitor) layer. Agents have
 
 A Tier-1 client initiates a complex task in the Control Room (managing 16 proprietary industrial models). The client simultaneously deploys four heterogeneous agents:
 
-| # | Agent | Role | Provider |
-|---|-------|------|----------|
-| 1 | Microsoft CoWork | Documentation / PM | Microsoft |
-| 2 | Tencent Workbuddy | Supply-Chain APIs | Tencent |
-| 3 | Clawbot | Mechanical Optimization | OpenClaw |
-| 4 | Anthropic Cowork | Strategy / Logic | Anthropic |
+| #   | Agent             | Role                    | Provider  |
+| --- | ----------------- | ----------------------- | --------- |
+| 1   | Microsoft CoWork  | Documentation / PM      | Microsoft |
+| 2   | Tencent Workbuddy | Supply-Chain APIs       | Tencent   |
+| 3   | Clawbot           | Mechanical Optimization | OpenClaw  |
+| 4   | Anthropic Cowork  | Strategy / Logic        | Anthropic |
 
 ### The Execution
 
@@ -418,15 +429,15 @@ If the Tencent agent attempts to access a resource reserved for the Clawbot, the
 Each model runs in its own sandbox within the Control Room, serving one of the 16 EU-regulated industries under Fit for 55:
 
 | Tier 1: Critical Emissions (Direct ETS + CBAM) | Tier 2: Important Emissions (ESR + Indirect ETS) |
-|-------------------------------------------------|---------------------------------------------------|
-| 1. Power & Heat Generation | 9. Agriculture & Livestock |
-| 2. Iron & Steel Production | 10. Waste Management & Recycling |
-| 3. Cement & Lime Production | 11. Aluminium Production |
-| 4. Chemicals & Petrochemicals | 12. Pulp, Paper & Printing |
-| 5. Aviation | 13. Petroleum Refining |
-| 6. Maritime Shipping | 14. Food & Beverage Processing |
-| 7. Road Transport & Logistics | 15. Glass & Ceramics Production |
-| 8. Construction & Buildings | 16. Mining & Quarrying |
+| ---------------------------------------------- | ------------------------------------------------ |
+| 1. Power & Heat Generation                     | 9. Agriculture & Livestock                       |
+| 2. Iron & Steel Production                     | 10. Waste Management & Recycling                 |
+| 3. Cement & Lime Production                    | 11. Aluminium Production                         |
+| 4. Chemicals & Petrochemicals                  | 12. Pulp, Paper & Printing                       |
+| 5. Aviation                                    | 13. Petroleum Refining                           |
+| 6. Maritime Shipping                           | 14. Food & Beverage Processing                   |
+| 7. Road Transport & Logistics                  | 15. Glass & Ceramics Production                  |
+| 8. Construction & Buildings                    | 16. Mining & Quarrying                           |
 
 BYO agents interact with these models through gated MCP tool interfaces — never directly with the model data or weights.
 
@@ -436,12 +447,12 @@ BYO agents interact with these models through gated MCP tool interfaces — neve
 
 KYA integrates with the DWS IQ sandbox staging model:
 
-| Stage | Runtime | Isolation | KYA Gate |
-|-------|---------|-----------|----------|
-| 1 | SDK native | No network, read-only FS | L1 IDV only |
-| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU | L1 + L2 (provenance) |
-| 2 | Cloud Run ephemeral | Sandboxed by default | L1 + L2 + L3 (capability) |
-| 3 | Production (Firecracker MicroVM) | Full hardware isolation | All 5 layers active |
+| Stage | Runtime                          | Isolation                       | KYA Gate                  |
+| ----- | -------------------------------- | ------------------------------- | ------------------------- |
+| 1     | SDK native                       | No network, read-only FS        | L1 IDV only               |
+| 1.5   | Acer Veriton GN100 (Helsinki)    | Ephemeral Docker, air-gapped EU | L1 + L2 (provenance)      |
+| 2     | Cloud Run ephemeral              | Sandboxed by default            | L1 + L2 + L3 (capability) |
+| 3     | Production (Firecracker MicroVM) | Full hardware isolation         | All 5 layers active       |
 
 ---
 
@@ -487,14 +498,14 @@ Customer Request
 
 ## 8. Compliance Alignment (v1.4 Enhanced)
 
-| Regulation | KYA Coverage |
-|------------|-------------|
-| **EU AI Act** (Article 12) | Forensic logging, human oversight, traceability — **now includes autoresearch decision trail** |
-| **EU AI Act** (Article 14) | Human-in-the-loop via KYA score thresholds — **autoresearch requires human gate for production** |
-| **NIS2 Directive** | Supply chain security for BYO agents, incident reporting |
-| **GDPR** | Data residency (EU-only), right to erasure (agent data) |
-| **Fit for 55** | 16 industrial models comply with ETS/CBAM/CSRD — **automated audit-ready financial & emissions impact reports** |
-| **DORA** | ICT risk management for financial sector agents |
+| Regulation                 | KYA Coverage                                                                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **EU AI Act** (Article 12) | Forensic logging, human oversight, traceability — **now includes autoresearch decision trail**                  |
+| **EU AI Act** (Article 14) | Human-in-the-loop via KYA score thresholds — **autoresearch requires human gate for production**                |
+| **NIS2 Directive**         | Supply chain security for BYO agents, incident reporting                                                        |
+| **GDPR**                   | Data residency (EU-only), right to erasure (agent data)                                                         |
+| **Fit for 55**             | 16 industrial models comply with ETS/CBAM/CSRD — **automated audit-ready financial & emissions impact reports** |
+| **DORA**                   | ICT risk management for financial sector agents                                                                 |
 
 ---
 
@@ -508,10 +519,10 @@ Upon initialization, each subagent signs a Capability Manifest declaring its per
 
 **Default Testing Manifest:**
 
-| Path | Access | Description |
-|------|--------|-------------|
-| `/mock-api/` | Read/Write | Mock API endpoints for testing |
-| `/temp-db/` | Read/Write | Temporary database for sandbox operations |
+| Path             | Access     | Description                                        |
+| ---------------- | ---------- | -------------------------------------------------- |
+| `/mock-api/`     | Read/Write | Mock API endpoints for testing                     |
+| `/temp-db/`      | Read/Write | Temporary database for sandbox operations          |
 | `/prod-secrets/` | **DENIED** | Production secrets — access triggers KYA Violation |
 
 **Manifest Schema v1.2 (with Autoresearch Extensions):**
@@ -540,13 +551,13 @@ Upon initialization, each subagent signs a Capability Manifest declaring its per
 
 If a subagent attempts to access a denied path (e.g., `/prod-secrets/`), the following enforcement sequence executes:
 
-| Step | Action | Latency |
-|------|--------|---------|
-| 1 | Path access intercepted by sandbox monitor | < 1 ms |
-| 2 | KYA Violation logged to Firehorse audit trail | < 5 ms |
-| 3 | Subagent session terminated | < 50 ms |
-| 4 | Operator notified (webhook + dashboard alert) | < 1 s |
-| 5 | KYA Trust Score reduced by 40 points | Immediate |
+| Step | Action                                        | Latency   |
+| ---- | --------------------------------------------- | --------- |
+| 1    | Path access intercepted by sandbox monitor    | < 1 ms    |
+| 2    | KYA Violation logged to Firehorse audit trail | < 5 ms    |
+| 3    | Subagent session terminated                   | < 50 ms   |
+| 4    | Operator notified (webhook + dashboard alert) | < 1 s     |
+| 5    | KYA Trust Score reduced by 40 points          | Immediate |
 
 **Violation Log Entry:**
 
@@ -601,13 +612,13 @@ When a subagent produces an incorrect result or triggers a violation, the system
 
 **Fault Classification:**
 
-| Fault Class | Responsible Component | Example |
-|-------------|----------------------|---------|
-| `LOGIC_FAULT` | Logic Subagent | Agent produced incorrect calculation, hallucinated data, or violated business rules |
-| `INTEGRATION_FAULT` | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch |
-| `MANIFEST_FAULT` | Capability Manifest | Manifest too permissive or missing deny rules |
-| `OPERATOR_FAULT` | Human Operator | Misconfigured agent parameters, wrong model selected |
-| `AUTORESEARCH_FAULT` (v1.4) | Autoresearch Loop | Self-optimization produced regression, exceeded budget, or modified out-of-scope parameter |
+| Fault Class                 | Responsible Component    | Example                                                                                    |
+| --------------------------- | ------------------------ | ------------------------------------------------------------------------------------------ |
+| `LOGIC_FAULT`               | Logic Subagent           | Agent produced incorrect calculation, hallucinated data, or violated business rules        |
+| `INTEGRATION_FAULT`         | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch                                     |
+| `MANIFEST_FAULT`            | Capability Manifest      | Manifest too permissive or missing deny rules                                              |
+| `OPERATOR_FAULT`            | Human Operator           | Misconfigured agent parameters, wrong model selected                                       |
+| `AUTORESEARCH_FAULT` (v1.4) | Autoresearch Loop        | Self-optimization produced regression, exceeded budget, or modified out-of-scope parameter |
 
 **Supabase Schema (`kya_fault_attribution`):**
 
@@ -664,6 +675,7 @@ Error Detected
 ```
 
 **Why Supabase (separate from Firehorse)?**
+
 - Firehorse is an **immutable audit trail** (append-only, forensic) — fault attribution needs **mutable state** (resolved/unresolved)
 - Supabase provides **RLS**, **real-time subscriptions** (dashboard alerts), and **queryable JSONB** for evidence payloads
 - Fault attribution is an **operational concern** (who fixes it?), not a **compliance concern** (what happened?)
@@ -682,61 +694,61 @@ KYA v1.4 quantifies and attributes financial upside from governed autoresearch:
 
 **Tier 1: Critical Emissions — High KYA Value (Fit for 55 Core)**
 
-| # | Industry | Autoresearch Efficiency Gain | Primary Value Driver | Financial Value per Enterprise (€/yr) |
-|---|----------|------------------------------|----------------------|---------------------------------------|
-| 1 | Power & Heat Generation | 9–15% energy efficiency | Self-tuned process agents reduce ETS/CBAM cost | **€560k–€2.2M** |
-| 2 | Iron & Steel Production | 11–15% energy efficiency | Supply chain carbon optimization | **€1M–€5.1M** |
-| 3 | Cement & Lime Production | 10–14% process optimization | Kiln efficiency + CBAM material passports | **€524k–€3.1M** |
-| 4 | Chemicals & Petrochemicals | 9–13% energy efficiency | Process emissions + hydrogen transition | **€848k–€4.2M** |
-| 5 | Aviation | 7–12% fuel optimization | SAF compliance + route optimization | **€230k–€1.1M** |
-| 6 | Maritime Shipping | 8–12% fuel & maintenance | Voyage emissions + FuelEU compliance | **€336k–€1.6M** |
-| 7 | Road Transport & Logistics | 9–12% fleet optimization | ETS2 readiness + zero-emission transition | **€272k–€1.1M** |
-| 8 | Construction & Buildings | 11–22% predictive maintenance & yield | EPBD + lifecycle carbon + BIM integration | **€1.1M–€5.4M** |
+| #   | Industry                   | Autoresearch Efficiency Gain          | Primary Value Driver                           | Financial Value per Enterprise (€/yr) |
+| --- | -------------------------- | ------------------------------------- | ---------------------------------------------- | ------------------------------------- |
+| 1   | Power & Heat Generation    | 9–15% energy efficiency               | Self-tuned process agents reduce ETS/CBAM cost | **€560k–€2.2M**                       |
+| 2   | Iron & Steel Production    | 11–15% energy efficiency              | Supply chain carbon optimization               | **€1M–€5.1M**                         |
+| 3   | Cement & Lime Production   | 10–14% process optimization           | Kiln efficiency + CBAM material passports      | **€524k–€3.1M**                       |
+| 4   | Chemicals & Petrochemicals | 9–13% energy efficiency               | Process emissions + hydrogen transition        | **€848k–€4.2M**                       |
+| 5   | Aviation                   | 7–12% fuel optimization               | SAF compliance + route optimization            | **€230k–€1.1M**                       |
+| 6   | Maritime Shipping          | 8–12% fuel & maintenance              | Voyage emissions + FuelEU compliance           | **€336k–€1.6M**                       |
+| 7   | Road Transport & Logistics | 9–12% fleet optimization              | ETS2 readiness + zero-emission transition      | **€272k–€1.1M**                       |
+| 8   | Construction & Buildings   | 11–22% predictive maintenance & yield | EPBD + lifecycle carbon + BIM integration      | **€1.1M–€5.4M**                       |
 
 **Tier 2: Important Emissions — Moderate KYA Value (Fit for 55 Extended)**
 
-| # | Industry | Autoresearch Efficiency Gain | Primary Value Driver | Financial Value per Enterprise (€/yr) |
-|---|----------|------------------------------|----------------------|---------------------------------------|
-| 9 | Agriculture & Livestock | 8–18% yield + waste reduction | Farm carbon + methane tracking | **€118k–€572k** |
-| 10 | Waste Management & Recycling | 11–18% resource yield uplift | Methane capture + circular economy | **€92k–€348k** |
-| 11 | Aluminium Production | 10–15% energy optimization | Renewable electricity + CBAM | **€524k–€2.1M** |
-| 12 | Pulp, Paper & Printing | 8–14% process optimization | Forestry carbon + supply chain | **€114k–€460k** |
-| 13 | Petroleum Refining | 9–15% energy efficiency | Decline pathway + SAF production | **€530k–€2.1M** |
-| 14 | Food & Beverage Processing | 8–16% yield + waste reduction | Agricultural supply chain carbon | **€104k–€396k** |
-| 15 | Glass & Ceramics Production | 9–14% process optimization | Process emissions + material tracking | **€112k–€448k** |
-| 16 | Mining & Quarrying | 11–18% predictive maintenance | Extraction emissions + CRM compliance | **€168k–€672k** |
+| #   | Industry                     | Autoresearch Efficiency Gain  | Primary Value Driver                  | Financial Value per Enterprise (€/yr) |
+| --- | ---------------------------- | ----------------------------- | ------------------------------------- | ------------------------------------- |
+| 9   | Agriculture & Livestock      | 8–18% yield + waste reduction | Farm carbon + methane tracking        | **€118k–€572k**                       |
+| 10  | Waste Management & Recycling | 11–18% resource yield uplift  | Methane capture + circular economy    | **€92k–€348k**                        |
+| 11  | Aluminium Production         | 10–15% energy optimization    | Renewable electricity + CBAM          | **€524k–€2.1M**                       |
+| 12  | Pulp, Paper & Printing       | 8–14% process optimization    | Forestry carbon + supply chain        | **€114k–€460k**                       |
+| 13  | Petroleum Refining           | 9–15% energy efficiency       | Decline pathway + SAF production      | **€530k–€2.1M**                       |
+| 14  | Food & Beverage Processing   | 8–16% yield + waste reduction | Agricultural supply chain carbon      | **€104k–€396k**                       |
+| 15  | Glass & Ceramics Production  | 9–14% process optimization    | Process emissions + material tracking | **€112k–€448k**                       |
+| 16  | Mining & Quarrying           | 11–18% predictive maintenance | Extraction emissions + CRM compliance | **€168k–€672k**                       |
 
 **Tier 3: Wedge Industries — High Agent Density, High Autoresearch Value (v1.4 NEW)**
 
 These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale.
 
-| # | Industry | Autoresearch Application | Proxy Metric (depth=12 equivalent) | Financial Value per Enterprise (€/yr) |
-|---|----------|--------------------------|-------------------------------------|---------------------------------------|
-| 17 | Fintech & Trading | Agents tune alpha-discovery models on 1-hour "proxy" markets before scaling to live trading | Sharpe ratio on synthetic market data | **€2M–€15M** |
-| 18 | Pharma & Biotech | Swarms optimize protein folding simulations, tuning energy loss functions autonomously | Binding affinity prediction accuracy | **€5M–€50M** (Time to Molecule -15–20%) |
-| 19 | Cybersecurity | Autoresearch on anomaly detection thresholds — reduce false positives while maintaining sensitivity | SOC alert-to-breach detection ratio | **€500k–€3M** (alert fatigue reduction) |
+| #   | Industry          | Autoresearch Application                                                                            | Proxy Metric (depth=12 equivalent)    | Financial Value per Enterprise (€/yr)   |
+| --- | ----------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------- | --------------------------------------- |
+| 17  | Fintech & Trading | Agents tune alpha-discovery models on 1-hour "proxy" markets before scaling to live trading         | Sharpe ratio on synthetic market data | **€2M–€15M**                            |
+| 18  | Pharma & Biotech  | Swarms optimize protein folding simulations, tuning energy loss functions autonomously              | Binding affinity prediction accuracy  | **€5M–€50M** (Time to Molecule -15–20%) |
+| 19  | Cybersecurity     | Autoresearch on anomaly detection thresholds — reduce false positives while maintaining sensitivity | SOC alert-to-breach detection ratio   | **€500k–€3M** (alert fatigue reduction) |
 
 ### 10.2 KYA Revenue Model
 
 **How KYA generates revenue for Lifetime Oy:**
 
-| Revenue Stream | Unit Economics | Scale Driver |
-|----------------|---------------|--------------|
-| **Verification Events** | €1.20 per KYA verification event | Agent sessions x industries x frequency |
-| **Continuous Monitoring** | €0.30 per L5 webhook processed | Risk signal volume from Shufti/IDV |
-| **Fault Attribution** | €5.00 per fault investigation record | Incident frequency x severity |
-| **Compliance Certificates** | €500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles |
-| **Insurance Premium Reduction** | 8–15% cyber insurance discount | KYA-certified enterprises get lower premiums |
-| **Autoresearch Revenue Share** (v1.4) | 5–12% of attributed efficiency gains | Financial attribution from Firehorse → Supabase |
+| Revenue Stream                        | Unit Economics                         | Scale Driver                                    |
+| ------------------------------------- | -------------------------------------- | ----------------------------------------------- |
+| **Verification Events**               | €1.20 per KYA verification event       | Agent sessions x industries x frequency         |
+| **Continuous Monitoring**             | €0.30 per L5 webhook processed         | Risk signal volume from Shufti/IDV              |
+| **Fault Attribution**                 | €5.00 per fault investigation record   | Incident frequency x severity                   |
+| **Compliance Certificates**           | €500 per quarterly KYA compliance cert | Enterprise count x quarterly cycles             |
+| **Insurance Premium Reduction**       | 8–15% cyber insurance discount         | KYA-certified enterprises get lower premiums    |
+| **Autoresearch Revenue Share** (v1.4) | 5–12% of attributed efficiency gains   | Financial attribution from Firehorse → Supabase |
 
 **Platform Revenue Projections (19 industries):**
 
-| Year | Enterprises on KYA | Avg. KYA Events/yr | Revenue (€M) |
-|------|-------------------|---------------------|---------------|
-| 2026 (launch) | 10–25 | 50,000 | €0.6–€1.5M |
-| 2027 (CBAM + ETS2 + Wedge) | 60–150 | 80,000 | €5.8–€14.4M |
-| 2028 (EPBD + Fintech/Pharma) | 150–400 | 120,000 | €21.6–€57.6M |
-| 2030 (Fit for 55 + full wedge) | 400–1,000 | 200,000 | €96M–€240M |
+| Year                           | Enterprises on KYA | Avg. KYA Events/yr | Revenue (€M) |
+| ------------------------------ | ------------------ | ------------------ | ------------ |
+| 2026 (launch)                  | 10–25              | 50,000             | €0.6–€1.5M   |
+| 2027 (CBAM + ETS2 + Wedge)     | 60–150             | 80,000             | €5.8–€14.4M  |
+| 2028 (EPBD + Fintech/Pharma)   | 150–400            | 120,000            | €21.6–€57.6M |
+| 2030 (Fit for 55 + full wedge) | 400–1,000          | 200,000            | €96M–€240M   |
 
 **Cumulative projected impact: €18–48 billion annual protected/created value across 19 sectors by 2030** through KYA-governed agent swarms. Tracked automatically via Firehorse → Supabase revenue-attribution tables.
 
@@ -745,42 +757,45 @@ These industries are not Fit for 55 core but have extremely high autonomous agen
 KYA certification directly reduces enterprise risk exposure:
 
 **Cyber Insurance:**
+
 - KYA-certified agent deployments qualify for **8–15% premium reduction** on cyber liability policies
 - Forensic observability (Pillar 3) provides the evidence trail insurers require for claims defense
 - Fault attribution (§9.4) separates agent liability from operator liability — reducing blanket coverage requirements
 
 **Regulatory Penalty Avoidance:**
-- EU AI Act Article 99: fines up to **€35M or 7% of annual global turnover** for non-compliance
+
+- EU AI Act Art. 99(4): fines up to **€15M or 3% of annual global turnover** for high-risk deployer non-compliance (Art. 99(3): €35M/7% for Art. 5 prohibited practices)
 - NIS2 Directive: fines up to **€10M or 2% of annual global turnover**
 - GDPR: fines up to **€20M or 4% of annual global turnover**
 - KYA's audit trail + identity attribution provides the "reasonable measures" defense
 
 **Carbon Penalty Avoidance:**
+
 - ETS non-compliance: **€100/tCO2 penalty** (on top of market price, currently ~€60/tCO2)
 - CBAM miscalculation: retroactive border adjustment + administrative fines
 - KYA-governed agents produce auditable carbon calculations — reducing misreporting risk
 
 ### 10.4 Financial Value per KYA Layer
 
-| KYA Layer | Financial Value | Who Pays |
-|-----------|----------------|----------|
-| **L1** — Identity Attribution | Legal liability assignment → insurance discount | Enterprise (platform fee) |
-| **L2** — Agent Provenance | Supply chain risk reduction → vendor trust | Enterprise (per-agent fee) |
-| **L3** — Capability Gating | Prevents unauthorized access → avoided breach costs | Enterprise (platform fee) |
-| **L4** — Runtime Behavior | Real-time anomaly detection → prevented incidents | Enterprise (monitoring fee) |
-| **L5** — Continuous Risk | Regulatory compliance evidence → penalty avoidance | Enterprise + Insurer (shared) |
-| **Autoresearch** (v1.4) | Self-optimization ROI → efficiency gains → revenue share | Enterprise + Lifetime Oy (shared) |
+| KYA Layer                     | Financial Value                                          | Who Pays                          |
+| ----------------------------- | -------------------------------------------------------- | --------------------------------- |
+| **L1** — Identity Attribution | Legal liability assignment → insurance discount          | Enterprise (platform fee)         |
+| **L2** — Agent Provenance     | Supply chain risk reduction → vendor trust               | Enterprise (per-agent fee)        |
+| **L3** — Capability Gating    | Prevents unauthorized access → avoided breach costs      | Enterprise (platform fee)         |
+| **L4** — Runtime Behavior     | Real-time anomaly detection → prevented incidents        | Enterprise (monitoring fee)       |
+| **L5** — Continuous Risk      | Regulatory compliance evidence → penalty avoidance       | Enterprise + Insurer (shared)     |
+| **Autoresearch** (v1.4)       | Self-optimization ROI → efficiency gains → revenue share | Enterprise + Lifetime Oy (shared) |
 
 ### 10.5 Competitive Moat: Why KYA Cannot Be Replicated Cheaply
 
-| Barrier | Detail |
-|---------|--------|
-| **Hardware isolation** | Firecracker MicroVM expertise is rare; most competitors use container-level isolation (breakable) |
-| **Identity provider integration** | Shufti/IDV webhook pipeline is live; competitors would need 6–12 months to integrate |
+| Barrier                                       | Detail                                                                                                                                    |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Hardware isolation**                        | Firecracker MicroVM expertise is rare; most competitors use container-level isolation (breakable)                                         |
+| **Identity provider integration**             | Shufti/IDV webhook pipeline is live; competitors would need 6–12 months to integrate                                                      |
 | **19-industry regulatory + domain knowledge** | Lifetime World Model encodes 15k+ EU regulations + fintech/pharma/cyber domain models — competitors would need to build this from scratch |
-| **Forensic audit trail** | Firehorse is a purpose-built telemetry system, not a bolted-on logging library |
-| **Fault attribution** | No competitor has automated liability mapping between agent layers |
-| **Autoresearch governance** (v1.4) | No competitor has governed self-optimization with financial attribution at scale |
+| **Forensic audit trail**                      | Firehorse is a purpose-built telemetry system, not a bolted-on logging library                                                            |
+| **Fault attribution**                         | No competitor has automated liability mapping between agent layers                                                                        |
+| **Autoresearch governance** (v1.4)            | No competitor has governed self-optimization with financial attribution at scale                                                          |
 
 ---
 
@@ -800,12 +815,12 @@ Individual 0.5% gains are noise. Twenty stacked 0.5% gains are a **competitive m
 
 This is the core financial insight of KYA v1.4: autoresearch doesn't produce one big breakthrough — it produces dozens of small, additive improvements that compound into transformative performance:
 
-| Gain per Change | Changes Stacked | Compound Effect | Industry Example |
-|-----------------|-----------------|-----------------|------------------|
-| 0.5% | 5 | 2.5% | Marginal ETS reporting accuracy |
-| 0.5% | 10 | 5.1% | Noticeable CBAM cost reduction |
-| 0.5% | 20 | 10.5% | **Competitive moat** — tender-winning efficiency |
-| 0.5% | 30 | 16.1% | **Market disruption** — fundamentally lower cost structure |
+| Gain per Change | Changes Stacked | Compound Effect | Industry Example                                           |
+| --------------- | --------------- | --------------- | ---------------------------------------------------------- |
+| 0.5%            | 5               | 2.5%            | Marginal ETS reporting accuracy                            |
+| 0.5%            | 10              | 5.1%            | Noticeable CBAM cost reduction                             |
+| 0.5%            | 20              | 10.5%           | **Competitive moat** — tender-winning efficiency           |
+| 0.5%            | 30              | 16.1%           | **Market disruption** — fundamentally lower cost structure |
 
 **The stacking effect explains why autoresearch ROI compounds:** early experiments yield modest gains, but the 700th experiment builds on all 699 previous improvements.
 
@@ -826,7 +841,7 @@ Every improvement must be validated as additive before stacking. A change that i
 
 ## 12. Field Note: Karpathy Autoresearch (March 2026)
 
-> *This field note is the empirical foundation for KYA v1.4 Pillar 4. Full analysis in `docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md`.*
+> _This field note is the empirical foundation for KYA v1.4 Pillar 4. Full analysis in `docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md`._
 
 Karpathy, three days ago:
 
@@ -843,7 +858,7 @@ Karpathy, three days ago:
 >
 > ...All LLM frontier labs will do this. It's the final boss battle... You spin up a swarm of agents, you have them collaborate to tune smaller models, you promote the most promising ideas to increasingly larger scales, and humans (optionally) contribute on the edges.
 >
-> And more generally, *any* metric you care about that is reasonably efficient to evaluate (or that has more efficient proxy metrics such as training a smaller network) can be autoresearched by an agent swarm. It's worth thinking about whether your problem falls into this bucket too. Do the same."
+> And more generally, _any_ metric you care about that is reasonably efficient to evaluate (or that has more efficient proxy metrics such as training a smaller network) can be autoresearched by an agent swarm. It's worth thinking about whether your problem falls into this bucket too. Do the same."
 
 **KYA v1.4 implementation note:** The above workflow is now natively supported inside every MicroVM. All 700+ change proposals, validation deltas, and stack rankings are captured in the Firehorse trail. Unauthorized or out-of-scope autoresearch attempts instantly drop ATS by 40 points and freeze the session. This turns Karpathy's "wild" capability into enterprise-grade, auditable, financially quantifiable intelligence.
 
@@ -900,13 +915,13 @@ To move autoresearch from single-agent experiments to production-scale swarms, K
 
 **Orchestrator Rules:**
 
-| Rule | Purpose |
-|------|---------|
+| Rule                  | Purpose                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------- |
 | **Early termination** | Kill experiments that show no improvement after N iterations — save compute budget |
-| **Priority queue** | Rank experiments by expected delta x cost ratio — run cheapest high-impact first |
-| **Parallel workers** | Multiple MicroVMs run experiments simultaneously — limited by budget cap |
-| **Winner promotion** | Validated improvements are stacked and promoted to larger-scale validation |
-| **Failure learning** | Failed experiments are logged; the swarm uses failures to plan next experiments |
+| **Priority queue**    | Rank experiments by expected delta x cost ratio — run cheapest high-impact first   |
+| **Parallel workers**  | Multiple MicroVMs run experiments simultaneously — limited by budget cap           |
+| **Winner promotion**  | Validated improvements are stacked and promoted to larger-scale validation         |
+| **Failure learning**  | Failed experiments are logged; the swarm uses failures to plan next experiments    |
 
 This isn't just "better AI" — it's the **automation of the Scientific Method** itself, governed by KYA identity attribution and forensic observability.
 
@@ -916,15 +931,15 @@ This isn't just "better AI" — it's the **automation of the Scientific Method**
 
 KYA has multiple tunable parameters that directly affect security posture and financial performance:
 
-| Parameter | Current Value | Tunable Range | Impact |
-|-----------|--------------|---------------|--------|
-| ATS violation weight (Vx) | 0.25 | 0.10–0.40 | False positive rate vs security |
-| Latency penalty (L threshold) | 500ms | 200ms–1000ms | Performance vs security |
-| Denied access weight (Dx) | 0.05 | 0.02–0.15 | Agent usability vs lockdown |
-| Autoresearch bonus (Ax) | 0.15 (capped) | 0.05–0.20 | Reward vs score inflation |
-| Trust recovery rate | Manual | 0.01–0.10 per hour | Session uptime vs caution |
-| Session TTL extension | +5 on approval | +1 to +10 | Session efficiency |
-| Sandbox boot timeout | 125ms | 50ms–500ms | Cost vs cold-start |
+| Parameter                     | Current Value  | Tunable Range      | Impact                          |
+| ----------------------------- | -------------- | ------------------ | ------------------------------- |
+| ATS violation weight (Vx)     | 0.25           | 0.10–0.40          | False positive rate vs security |
+| Latency penalty (L threshold) | 500ms          | 200ms–1000ms       | Performance vs security         |
+| Denied access weight (Dx)     | 0.05           | 0.02–0.15          | Agent usability vs lockdown     |
+| Autoresearch bonus (Ax)       | 0.15 (capped)  | 0.05–0.20          | Reward vs score inflation       |
+| Trust recovery rate           | Manual         | 0.01–0.10 per hour | Session uptime vs caution       |
+| Session TTL extension         | +5 on approval | +1 to +10          | Session efficiency              |
+| Sandbox boot timeout          | 125ms          | 50ms–500ms         | Cost vs cold-start              |
 
 ### 13.3 Agent Swarm Optimization
 
@@ -969,13 +984,13 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ### 13.4 Target Metrics for Autoresearch
 
-| Metric | Current Baseline | Optimization Target | Financial Impact |
-|--------|-----------------|---------------------|------------------|
-| False-positive suspension rate | ~5% | < 2% | +€30k/yr per enterprise (reduced agent downtime) |
-| Breach detection latency | < 1s | < 200ms | Insurance premium reduction |
-| Session uptime | 94% | > 98% | +€15k/yr per enterprise (productivity) |
-| Verification cost per event | €1.20 | < €0.80 | +33% margin improvement |
-| Sandbox boot time | 125ms | < 80ms | Better UX, higher adoption |
+| Metric                         | Current Baseline | Optimization Target | Financial Impact                                 |
+| ------------------------------ | ---------------- | ------------------- | ------------------------------------------------ |
+| False-positive suspension rate | ~5%              | < 2%                | +€30k/yr per enterprise (reduced agent downtime) |
+| Breach detection latency       | < 1s             | < 200ms             | Insurance premium reduction                      |
+| Session uptime                 | 94%              | > 98%               | +€15k/yr per enterprise (productivity)           |
+| Verification cost per event    | €1.20            | < €0.80             | +33% margin improvement                          |
+| Sandbox boot time              | 125ms            | < 80ms              | Better UX, higher adoption                       |
 
 ---
 
@@ -989,11 +1004,11 @@ The Agentic Efficiency Law guarantees that every deployed model has room for imp
 
 ### Identity Provider Integration Points
 
-| KYA Layer | Required Capability | Protocol |
-|-----------|-------------------|----------|
-| L1 — Identity Attribution | Real-time IDV (document + face match + AML) | REST API, < 30s response |
-| L2 — Agent Provenance | KYB (business/organization verification) | REST API |
-| L5 — Continuous Risk | Risk change notifications | Webhook (push), < 5s delivery |
+| KYA Layer                 | Required Capability                         | Protocol                      |
+| ------------------------- | ------------------------------------------- | ----------------------------- |
+| L1 — Identity Attribution | Real-time IDV (document + face match + AML) | REST API, < 30s response      |
+| L2 — Agent Provenance     | KYB (business/organization verification)    | REST API                      |
+| L5 — Continuous Risk      | Risk change notifications                   | Webhook (push), < 5s delivery |
 
 Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 19 industries, multi-agent sessions, and autoresearch loops, this creates volume at scale — not one-off KYC checks.
 

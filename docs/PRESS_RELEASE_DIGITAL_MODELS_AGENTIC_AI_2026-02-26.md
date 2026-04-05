@@ -108,7 +108,7 @@ DWS IQ runs entirely within EU cloud infrastructure (Google Cloud Run, europe-no
 
 ### About DWS IQ 6
 
-DWS IQ 6 is an enterprise-grade industrial climate intelligence and compliance platform developed by Lifetime Oy, Helsinki. It automates EU climate compliance — Fit for 55, ETS, CBAM, CSRD — across 16 regulated industries through a multi-agent AI architecture. The platform is available via the DWS AI Supermarket at dws10.com and is deployed on EU-sovereign cloud infrastructure (Google Cloud Run, europe-north1).
+DWS IQ 6 is an enterprise-grade industrial climate intelligence and compliance platform developed by Lifetime Oy, Helsinki. It automates EU climate compliance — Fit for 55, ETS, CBAM, CSRD — across 16 regulated industries through a multi-agent AI architecture. The platform is available via the DWS Sovereign AI Store at dws10.com and is deployed on EU-sovereign cloud infrastructure (Google Cloud Run, europe-north1).
 
 **Industries served:** Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviation, Maritime, Road Transport, Construction & Buildings, Agriculture, Waste Management, Aluminium, Pulp & Paper, Petroleum Refining, Food & Beverage, Glass & Ceramics, Mining & Quarrying.
 

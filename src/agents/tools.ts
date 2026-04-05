@@ -11,6 +11,8 @@
  */
 
 import logger from '../utils/logger.js';
+import { telemetryService } from './telemetry.service.js';
+import type { ToolTelemetryEvent } from './telemetry.types.js';
 import type {
   ToolDefinition,
   ToolCall,
@@ -34,13 +36,42 @@ export function registerToolHandler(name: string, handler: ToolHandler): void {
   logger.debug('Tool handler registered', { tool: name });
 }
 
-/** Execute a tool call and return the result */
+/** Default tool execution timeout (30s) */
+const TOOL_TIMEOUT_MS = 30_000;
+
+/**
+ * Execute a tool call and return the result.
+ * ASTA Phase 1: Records telemetry, enforces timeout.
+ *
+ * @param call - The tool call from the LLM
+ * @param context - Agent execution context
+ * @param meta - Optional chain metadata for telemetry (set by executeTools)
+ */
 export async function executeTool(
   call: ToolCall,
   context: AgentContext,
+  meta?: { chainPosition: number; chainLength: number; iterationIndex: number; agentName: string },
 ): Promise<ToolResult> {
   const handler = toolHandlers.get(call.name);
   if (!handler) {
+    // Record unknown tool as error telemetry
+    if (meta) {
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome: 'error',
+        durationMs: 0,
+        errorMessage: `Unknown tool: ${call.name}`,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+      });
+    }
     return {
       toolCallId: call.id,
       name: call.name,
@@ -50,10 +81,38 @@ export async function executeTool(
   }
 
   const startTime = Date.now();
+  let outcome: ToolTelemetryEvent['outcome'] = 'success';
+  let errorMessage: string | undefined;
+
   try {
-    const result = await handler(call.arguments, context);
+    // Timeout wrapper: prevents hung tools from blocking the chain
+    const result = await Promise.race([
+      handler(call.arguments, context),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
+      ),
+    ]);
     const durationMs = Date.now() - startTime;
     logger.debug('Tool executed', { tool: call.name, durationMs });
+
+    // Record success telemetry
+    if (meta) {
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome: 'success',
+        durationMs,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     return {
       toolCallId: call.id,
       name: call.name,
@@ -62,7 +121,30 @@ export async function executeTool(
     };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('Tool execution failed', { tool: call.name, error: msg });
+    const durationMs = Date.now() - startTime;
+    outcome = msg.includes('timed out') ? 'timeout' : 'error';
+    errorMessage = msg;
+    logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
+
+    // Record failure telemetry
+    if (meta) {
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome,
+        durationMs,
+        errorMessage,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     return {
       toolCallId: call.id,
       name: call.name,
@@ -72,12 +154,41 @@ export async function executeTool(
   }
 }
 
-/** Execute multiple tool calls in parallel */
+/**
+ * Execute multiple tool calls using Promise.allSettled for partial failure resilience.
+ * ASTA Phase 1: passes chain metadata for telemetry, handles partial failures gracefully.
+ */
 export async function executeTools(
   calls: ToolCall[],
   context: AgentContext,
+  meta?: { iterationIndex: number; agentName: string },
 ): Promise<ToolResult[]> {
-  return Promise.all(calls.map((call) => executeTool(call, context)));
+  const chainLength = calls.length;
+  const results = await Promise.allSettled(
+    calls.map((call, idx) =>
+      executeTool(call, context, meta ? {
+        chainPosition: idx,
+        chainLength,
+        iterationIndex: meta.iterationIndex,
+        agentName: meta.agentName,
+      } : undefined),
+    ),
+  );
+
+  return results.map((settled, idx) => {
+    if (settled.status === 'fulfilled') {
+      return settled.value;
+    }
+    // Promise.allSettled rejection — shouldn't happen since executeTool catches internally,
+    // but handle defensively
+    const msg = settled.reason instanceof Error ? settled.reason.message : 'Unknown error';
+    return {
+      toolCallId: calls[idx].id,
+      name: calls[idx].name,
+      result: { error: msg },
+      isError: true,
+    };
+  });
 }
 
 // ============ BUILT-IN TOOL DEFINITIONS ============
@@ -604,7 +715,14 @@ export function registerBuiltinTools(): void {
     }
   });
 
+  // Knowledge Base tool handlers
+  import('./kb.agent.js').then(({ registerKBToolHandlers }) => {
+    registerKBToolHandlers();
+  }).catch((err) => {
+    logger.debug('KB tool handlers not available (optional)', { error: err.message });
+  });
+
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
   });
 }

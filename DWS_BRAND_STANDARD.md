@@ -61,10 +61,19 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 19 | Onboarding Wizard Standard | First-run experience (v10-react) |
 | 20 | Compliance Score Widget Standard | Dashboard compliance ring (v10-react) |
 | 21 | CLI Rich Output Standard | CLI human-readable formatting |
+| 22 | Product Pitch Lines | Canonical one-liners (EN/FI) |
 
 ---
 
-## 0. Store Identity — The AI Supermarket
+## 0. Store Identity — Sovereign AI Store
+
+**Competitive Positioning (vs SAP Business AI, IBM watsonx, Palantir AIP):**
+- **EU Data Residency** — hosted in Finland, zero CLOUD Act exposure (SAP/IBM/Palantir are US-hosted)
+- **AI Agents, Not Dashboards** — autonomous compliance outputs, 90% less manual work than legacy enterprise tools
+- **ERP Native** — connects to SAP, IFS, Dynamics 365, Monitor, Visma (not locked to one vendor)
+- **EU AI Act Compliant** — Article 12 logging, KYA governance, deterministic scoring built in
+- **Enterprise + SME** — serves both segments; SAP/IBM/Palantir are enterprise-only
+- On public pages, reference competitors **implicitly** ("Unlike US-hosted platforms..."), not by name
 
 All DWS store pages MUST display the store identity info box above the product grid.
 
@@ -73,8 +82,8 @@ All DWS store pages MUST display the store identity info box above the product g
 <div class="store-identity">
     <div class="store-identity-icon">🏪</div>
     <div class="store-identity-content">
-        <h2 class="store-identity-title">The AI Supermarket for Enterprises and SMEs</h2>
-        <p class="store-identity-subtitle">EU-sovereign AI products, compliance tools, and expert services — from €0.99 to enterprise scale.</p>
+        <h2 class="store-identity-title">Sovereign AI for Enterprises and SMEs</h2>
+        <p class="store-identity-subtitle">EU-sovereign products, compliance tools, and expert services for enterprises and SMEs.</p>
     </div>
     <div class="store-identity-badges">
         <span class="sovereignty-badge eu-data">EU Data Residency</span>
@@ -480,11 +489,22 @@ Every content/landing page MUST have a hero section as the first visual element 
 
 ### Font Stack
 
+**Primary typeface:** Inter (all weights: 400, 500, 600, 700)
+
 ```css
-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 ```
 
-No custom web fonts. System fonts load instantly and feel native on every OS.
+**Loading method depends on document classification:**
+
+| Classification | Method | Source |
+|---------------|--------|--------|
+| Public (landing pages, blog, dashboards) | Google Fonts CDN | `<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">` |
+| Confidential / Sales / Internal | Self-hosted `@font-face` | `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf` |
+
+**Why self-host for confidential documents:** Loading from `fonts.googleapis.com` / `fonts.gstatic.com` triggers external network requests when opened, leaking document access to Google. Confidential briefs must work offline and in locked-down enterprise environments.
+
+System font stack (`-apple-system`, `Segoe UI`) serves as fallback when Inter is unavailable.
 
 ### Type Scale
 
@@ -606,7 +626,7 @@ Pages should reference the DWS IQ logo or a dedicated favicon:
 | Product | `{Product Name} - {Price} \| DWS IQ Platform` | Product features + price + EU sovereignty |
 | Compliance | `{Regulation} Compliance \| DWS IQ Platform` | Regulation scope + how DWS solves it |
 | Legal | `{Policy Name} \| DWS IQ Platform` | What the policy covers |
-| Store | `AI Supermarket - Enterprise Products \| DWS IQ Platform` | Product range + pricing range |
+| Store | `Sovereign AI Store - Enterprise Products \| DWS IQ Platform` | Product range + pricing range |
 
 ### Keyword Strategy
 
@@ -1496,10 +1516,28 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 ---
 
+## 22. Product Pitch Lines
+
+Canonical one-liners for investor materials, landing pages, and sales outreach. Both language versions MUST be updated together.
+
+### DWS IQ Aegis
+
+**EN:** DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
+
+**FI (kotimainen):** DWS IQ Aegis — teollisuustiedustelualusta EU:n säännellyille toimialoille. Suvereeni tekoäly, Suomessa ylläpidetty (reuna/private), CLOUD Act -vapaa.
+
+**Translation notes:**
+- "intelligence interceptor" → "teollisuustiedustelualusta" (industrial intelligence platform) — not "tiedustelun torjuntajärjestelmä" which means counter-intelligence
+- "dual-use industries" → "säännellyt toimialat" (regulated industries) — dual-use is determined by end-use, not by industry classification
+- "(reuna/private)" added in FI version — clarifies edge-deployed, not public cloud
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.5 | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes |
 | v2.4 | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2 | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern |
 | v2.1 | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world |

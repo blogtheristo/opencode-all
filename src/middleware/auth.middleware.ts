@@ -56,10 +56,10 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
 
     logger.debug('Token verified successfully', { userId: decoded.userId, role: decoded.role });
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Token verification failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify token',
     });
@@ -103,10 +103,10 @@ export const authenticateTokenFromCookie = async (req: Request, res: Response, n
 
     logger.debug('Cookie token verified successfully', { userId: decoded.userId });
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Cookie token verification failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify token',
     });
@@ -155,10 +155,10 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
       });
     }
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Auth check failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to check authentication',
     });
@@ -223,10 +223,10 @@ export const requireRole = (allowedRoles: UserRole[]) => {
         requiredRoles: allowedRoles,
       });
 
-      next();
+      return next();
     } catch (error) {
       logger.error('Role check failed', { error });
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Server error',
         message: 'Failed to verify user role',
       });
@@ -277,10 +277,10 @@ export const requireOrgAdmin = async (req: Request, res: Response, next: NextFun
     }
 
     req.organizationId = orgId;
-    next();
+    return next();
   } catch (error) {
     logger.error('Org admin check failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify organization access',
     });

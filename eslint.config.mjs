@@ -107,6 +107,10 @@ export default tseslint.config(
           selector: 'CallExpression[callee.property.name="exec"][callee.object.name="child_process"]',
           message: 'SECURITY: Do not use child_process.exec(). Use child_process.execFile() with argument arrays. String interpolation in shell commands enables injection attacks.',
         },
+        {
+          selector: 'CallExpression[callee.property.name="spawn"] Property[key.name="shell"][value.value=true]',
+          message: 'SECURITY: Do not use spawn with shell:true. It enables command injection. Use spawn without shell option or use execFile().',
+        },
       ],
     },
   },

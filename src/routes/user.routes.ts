@@ -23,9 +23,8 @@ const router = Router();
 // Supabase service client
 const supabaseUrl = process.env.SUPABASE_URL || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = supabaseUrl && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+const supabase =
+  supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
 // All user routes require authentication
 router.use(authenticateToken);
@@ -235,7 +234,8 @@ router.put(
         updated_at: new Date().toISOString(),
       };
       if (prefs.emailAlerts !== undefined) dbPrefs.email_alerts = prefs.emailAlerts;
-      if (prefs.complianceDeadlines !== undefined) dbPrefs.compliance_deadlines = prefs.complianceDeadlines;
+      if (prefs.complianceDeadlines !== undefined)
+        dbPrefs.compliance_deadlines = prefs.complianceDeadlines;
       if (prefs.carbonThresholds !== undefined) dbPrefs.carbon_thresholds = prefs.carbonThresholds;
       if (prefs.reportReady !== undefined) dbPrefs.report_ready = prefs.reportReady;
       if (prefs.weeklyDigest !== undefined) dbPrefs.weekly_digest = prefs.weeklyDigest;

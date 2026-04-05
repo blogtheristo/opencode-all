@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json
-import sys
 import re
+import sys
 
 try:
     input_data = json.load(sys.stdin)
@@ -63,8 +63,7 @@ Invalid:
     sys.exit(0)
 
 # Validate release version format
-if branch_name.startswith("release/"):
-    if not re.match(r'^release/v\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$', branch_name):
+if branch_name.startswith("release/") and not re.match(r'^release/v\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$', branch_name):
         reason = f"""❌ Invalid release version: {branch_name}
 
 Release branches must follow semantic versioning:

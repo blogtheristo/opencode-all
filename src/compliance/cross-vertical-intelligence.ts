@@ -154,6 +154,14 @@ export const SUPPLY_CHAIN_GRAPH: SupplyChainLink[] = [
 
   // Fertilizers feed into agriculture (not tracked) but also loop through transport
   { from: 'fertilizers', to: 'transport', material: 'Fertilizer logistics', carbonShare: 0.02, regulatoryLinks: ['csrd-scope3'] },
+
+  // Lime — dual-use critical raw material (Nordkalk/SigmaRoc pattern, 2026-03-30)
+  // Lime is THE upstream dependency for steel (flux), cement (clinker), and chemicals (calcium carbide)
+  { from: 'lime', to: 'steel', material: 'Lime flux (impurity removal in BF/BOF)', carbonShare: 0.08, regulatoryLinks: ['ets', 'cbam', 'csrd-scope3'] },
+  { from: 'lime', to: 'cement', material: 'Limestone feedstock (calcination)', carbonShare: 0.60, regulatoryLinks: ['ets', 'cbam', 'csrd-scope3'] },
+  { from: 'lime', to: 'chemicals', material: 'Calcium carbide precursor', carbonShare: 0.05, regulatoryLinks: ['ets', 'csrd-scope3'] },
+  { from: 'lime', to: 'construction', material: 'Quicklime for mortar, soil stabilization', carbonShare: 0.04, regulatoryLinks: ['csrd-scope3', 'taxonomy'] },
+  { from: 'lime', to: 'energy', material: 'Flue-gas desulphurisation (FGD)', carbonShare: 0.02, regulatoryLinks: ['ets', 'csrd-scope3'] },
 ];
 
 // ============ CROSS-VERTICAL SIGNALS ============
@@ -211,14 +219,33 @@ export const CROSS_VERTICAL_SIGNALS: CrossVerticalSignal[] = [
     description: 'Chemical industry ammonia emissions (1.619 tCO2e/t) cascade through fertilizer and manufacturing supply chains. CSRD Scope 3 makes this visible.',
     propagationFactor: 0.10,
   },
+  // Lime dual-use disruption signal — discovered via Nordkalk fire analysis (2026-03-30)
+  // Pattern: lime facility disruption → steel flux shortage → CBAM cost spike → construction carbon gap → CSRD E1 degradation
+  {
+    id: 'SIG-DUALUSE-LIME-STEEL',
+    originIndustry: 'lime',
+    originRegulation: 'EU CRM Act (Reg. 2024/1252) + KRITIS Umbrella Law',
+    affectedIndustries: ['steel', 'cement', 'chemicals', 'construction'],
+    description: 'Lime facility disruption (fire, sabotage, supply constraint) cascades through steel (flux shortage → quality/output drop), cement (calcination feedstock), and chemicals (calcium carbide). Under KRITIS law (Jan 2026), dual-use facility incidents trigger mandatory reporting. PRISMEX campaign (Jan 2026) specifically targets Northern European industrial control systems. A single lime plant outage can stress-test the entire steel→construction CBAM chain.',
+    propagationFactor: 0.08, // Lime is 8% of steel embodied carbon via flux
+  },
+  {
+    id: 'SIG-CRM-SUPPLY-RESILIENCE',
+    originIndustry: 'lime',
+    originRegulation: 'EU CRM Act (Reg. 2024/1252)',
+    affectedIndustries: ['steel', 'cement', 'construction', 'energy'],
+    description: 'EU CRMA second round (Jan 2026) granted 95 strategic projects same security priority as military bases. Lime processing plants now classified as Critical National Infrastructure. Supply concentration risk: Nordkalk controls majority of Northern European lime supply. Single-point-of-failure for Finnish/Swedish steel sector.',
+    propagationFactor: 0.12, // Higher because of supply concentration
+  },
 ];
 
 // ============ INDUSTRY UNIVERSE ============
 
-/** All 20 industries in the Lifetime World Model */
+/** All 21 industries in the Lifetime World Model */
 export const LWM_INDUSTRIES = [
   'steel', 'cement', 'aluminium', 'chemicals', 'fertilizers',
   'hydrogen', 'energy', 'manufacturing', 'construction', 'transport',
+  'lime', // Added 2026-03-30: dual-use critical raw material (Nordkalk pattern)
   // Extended universe (scored with manufacturing/default benchmarks)
   'maritime', 'aviation', 'mining', 'pulp-paper', 'food-beverage',
   'textiles', 'electronics', 'automotive', 'pharmaceuticals', 'real-estate',

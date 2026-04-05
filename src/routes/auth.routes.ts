@@ -57,7 +57,7 @@ const validateRequest = (req: Request, res: Response, next: any) => {
       details: sanitizedErrors,  // Return sanitized errors, not raw
     });
   }
-  next();
+  return next();
 };
 
 // ============ ROUTES ============
@@ -100,7 +100,7 @@ router.post('/register', registerValidation, validateRequest, async (req: Reques
       email: user.email,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: 'Registration successful. Check your email to verify your account.',
       user: {
         email: user.email,
@@ -120,7 +120,7 @@ router.post('/register', registerValidation, validateRequest, async (req: Reques
       });
     }
 
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Registration failed',
       message: 'An error occurred during registration. Please try again later.',
     });
@@ -141,9 +141,8 @@ router.post('/login', loginValidation, validateRequest, loginRateLimit(), async 
     // Authenticate user with email and password
     const authResponse = await AuthService.authenticate({ email, password });
 
-    // Note: Cookie-based rememberMe not yet implemented (requires cookie-parser)
-    // Frontend should store refreshToken in localStorage if rememberMe is true
-    // TODO: Install cookie-parser and uncomment below for secure cookie storage
+    // Cookie-based rememberMe deferred — requires cookie-parser middleware.
+    // Frontend stores refreshToken in localStorage when rememberMe is true.
     // if (rememberMe && authResponse.refreshToken) {
     //   res.cookie('refreshToken', authResponse.refreshToken, {
     //     httpOnly: true,
@@ -288,14 +287,14 @@ router.post('/refresh', async (req: Request, res: Response) => {
 
     logger.info('Access token refreshed successfully');
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Token refreshed',
       token: newAccessToken,
       expiresIn: 86400, // 24 hours
     });
   } catch (error: any) {
     logger.error('Token refresh error', { error: error.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Token refresh failed',
       message: 'An error occurred while refreshing the token. Please try again later.',
     });

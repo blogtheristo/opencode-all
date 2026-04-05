@@ -14,6 +14,7 @@ import crypto from 'crypto';
 import logger from '../utils/logger.js';
 import GatedService, { UserTier, LeadCaptureData } from '../services/climate-assistant-gated.service.js';
 import { optionalAuth, authenticateToken, requireRole } from '../middleware/auth.middleware.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 // SECURITY FIX #3: Validate ADMIN_API_KEY at startup
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
@@ -94,7 +95,7 @@ const validate = (req: Request, res: Response, next: any) => {
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 /**
@@ -111,13 +112,28 @@ router.post('/chat', publicRateLimiter, optionalAuth, chatValidation, validate, 
     
     // If user is authenticated (token was validated by optionalAuth middleware)
     if (req.userId) {
-      // TODO: In production, fetch user's actual subscription tier from database
-      // For now, all authenticated users get 'guest' tier
-      effectiveTier = 'guest';
-      logger.debug('Authenticated user detected', { 
-        userId: req.userId, 
+      // Fetch user's subscription tier from database
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('subscription_tier')
+          .eq('user_id', req.userId)
+          .single();
+
+        if (profile?.subscription_tier) {
+          effectiveTier = profile.subscription_tier as UserTier;
+        } else {
+          // Fallback: all authenticated users get 'guest' tier
+          effectiveTier = 'guest';
+        }
+      } else {
+        effectiveTier = 'guest';
+      }
+      logger.debug('Authenticated user detected', {
+        userId: req.userId,
         email: req.userEmail,
-        assignedTier: effectiveTier 
+        assignedTier: effectiveTier
       });
     }
 
@@ -257,13 +273,13 @@ router.get('/leads', (req: Request, res: Response) => {
   try {
     const leads = GatedService.getLeads();
     logger.info('Admin accessed leads', { ip: req.ip, count: leads.length });
-    res.status(200).json({
+    return res.status(200).json({
       count: leads.length,
       leads,
     });
   } catch (error: any) {
     logger.error('Failed to get leads', { error: error.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Failed to get leads',
       // Don't expose internal error details in production
       message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',

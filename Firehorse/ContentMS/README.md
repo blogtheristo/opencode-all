@@ -22,7 +22,7 @@ Document Status:
 
 ***
 
-> **Status: PLANNED** — This sub-product has no implementation code yet. This README describes the planned architecture. See AGENTS.md §19 Product Maturity Matrix for full status.
+> **Status: SHIPPED** — TypeScript service at `src/contentms/` with 11 modules, 22 API routes at `/api/v1/content`, 18 MCP tools, 5 AI agents (Document Classifier, Expiration Tracker, Search, Access Controller, Archive Manager), HIL review workflow, artifact publisher, Supabase persistence with in-memory fallback. Wired into `src/app.ts` line 258. See `src/__tests__/contentms.test.ts` for 45 tests.
 
 ## Overview
 
