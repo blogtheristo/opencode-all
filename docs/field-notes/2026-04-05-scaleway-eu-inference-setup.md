@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.11
+Version: 1.12
 
 Sessions & Modifications:
+  - Version: 1.12 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added DGX Spark contingency pivot plan (scenario A accepted / scenario B rejected); audit concludes do-NOT-reduce-Scaleway-spend during 21-day review (trust-preserving, avoids rejection ground #1); 7-step execution timeline D+0 → D+35 if rejected; upgraded personal-reminders.json entries to red severity for decision day
   - Version: 1.11 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — 78e26603-c820-4617-b0d2-f8589eb7693b is the Scaleway **Project ID** (not customer ID) for project dws-iq-backend; captured console project description as breadcrumb back to this field note
   - Version: 1.10 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Confirmed Startup Program re-application submission (auto-reply received from startup-program@scaleway.com) — 21 business day review, expected decision by ~2026-05-06; added follow-up to open list
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Captured Scaleway Startup Program admission T&C key clauses — 3-month cooldown, max 3 applications (1 used, 2 remaining), rejection grounds, Scaleway S.A.S. legal counterparty details, next retry window 2026-07-05 if rejected again
@@ -513,6 +514,52 @@ Startup Program team (startup-program@scaleway.com) stating review will
 complete **within 21 business days**. Expected decision by **~2026-05-06**
 (accounting for French Labour Day 2026-05-01). If no response by then,
 ping startup-program@scaleway.com as per their confirmation email.
+
+## Contingency: DGX Spark pivot plan (if rejected)
+
+**Pre-decision posture (2026-04-05 → 2026-05-06):**
+Do NOT reduce Scaleway spend during the 21-day review window. Shutting
+down mid-review = visible usage signal that maps directly to their
+rejection ground #1 ("sole intention is to obtain service credits").
+~€13 pro-rated for the review window is trust-preserving spend.
+Keep the existing assistant container running as-is.
+
+**If ACCEPTED (scenario A):**
+Deploy Climate Assistant on Scaleway Generative APIs, credits cover
+6-12 months. DGX Spark becomes sovereignty backstop for on-prem
+customers. No conflict — complementary.
+
+**If REJECTED (scenario B) — DGX Spark pivot:**
+
+Hardware: DGX Spark ~€3.5-4k one-time, ~€10-30/mo electricity,
+~50 tok/s Llama 70B Q4, ideal for small-N MVP clients + batch
+workloads. Weakness: residential SLA, poor multi-tenant scaling past
+~5 concurrent enterprise users, not suitable for Firehorse real-time.
+
+Execution timeline:
+
+| Day | Action |
+|---|---|
+| D+0 (rejection notice) | Thank-you reply, log reasons, confirm 2026-07-05 retry window |
+| D+1 | Order DGX Spark (~€3.5k, 2-3 wk lead time) |
+| D+7 | Scaleway → keep only Object Storage WORM + Container Registry (~€2-5/mo total) |
+| D+14 | DGX delivered, provision at Espoo, install DGX OS + NIM + Tailscale |
+| D+21 | Deploy climate-assistant.service.ts against DGX NIM via tunnel; add DGX_API_URL as primary provider |
+| D+28 | Cut Scaleway Containers fully, update customer DPAs to list on-prem Espoo |
+| D+35 | Strengthen July re-application with DGX ownership story |
+
+**Minimum Scaleway footprint under rejection:**
+Object Storage (WORM, €2-5/mo) + Container Registry (€0.03/mo).
+Preserves paying-customer status for 2026-07-05 re-application and
+keeps customer CSRD evidence in EU datacenter (hard to replicate
+on-prem without disproportionate effort).
+
+**Re-application narrative upgrade (2026-07-05):**
+"Deployed DGX Spark on-prem for primary inference (~€3.5k capex sunk,
+NVIDIA Connect Partner). Scaleway = EU object storage + burst-inference
+provider. Customer DPAs list both Scaleway (EU DC) + Lifetime Oy
+(on-prem Espoo)." → Stronger pitch: shows real commitment, removes
+credit-shopping suspicion entirely, de-risks credit investment.
 
 ## Open follow-ups
 
