@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 1.10
 
 Sessions & Modifications:
+  - Version: 1.10 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Confirmed Startup Program re-application submission (auto-reply received from startup-program@scaleway.com) — 21 business day review, expected decision by ~2026-05-06; added follow-up to open list
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Captured Scaleway Startup Program admission T&C key clauses — 3-month cooldown, max 3 applications (1 used, 2 remaining), rejection grounds, Scaleway S.A.S. legal counterparty details, next retry window 2026-07-05 if rejected again
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added Scaleway Startup Program final answer — "expectations + why accept us" (3 expectations: sovereign runway, technical relationship, co-marketing; 5 reasons: paying customer, clear trajectory, architecturally locked to EU, Nordic gap-fill, public stack transparency)
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Answered Scaleway Startup Program cloud-share question — 65% (range 60-75%) of total cloud expenditure dedicated to Scaleway; full cloud wallet breakdown showing why 35% cannot move (Supabase/Cloudflare/Anthropic sticky dependencies)
@@ -505,10 +506,17 @@ Reference: Scaleway Startup Program Admission Terms and Conditions
 **Next retry window if rejected again:** 2026-07-05 (3 months from
 this submission). One application remaining after that.
 
+**Submission confirmed:** 2026-04-05. Auto-reply received from Scaleway
+Startup Program team (startup-program@scaleway.com) stating review will
+complete **within 21 business days**. Expected decision by **~2026-05-06**
+(accounting for French Labour Day 2026-05-01). If no response by then,
+ping startup-program@scaleway.com as per their confirmation email.
+
 ## Open follow-ups
 
 - [x] Scaleway account created as Lifetime Oy via `admin@dws6.com` Google SSO (05.04.2026)
 - [ ] Delete parallel account on `risto.paarni2024@lifetime.fi` (wrong-first-attempt cleanup)
+- [ ] Watch inbox for Scaleway Startup Program decision (expected by ~2026-05-06); ping startup-program@scaleway.com if silence past deadline
 - [ ] Generate IAM key scoped `GenerativeApisFullAccess` named `dws6-climate-assistant-prod`, paste `SCW_SECRET_KEY` to deploy target
 - [ ] DGX wiring (separate field note) — inference server choice, tunnel/VPN, model set
 - [ ] NIM_API_KEY — request NVIDIA Connect Partner credits for build.nvidia.com or DGX Cloud EU
