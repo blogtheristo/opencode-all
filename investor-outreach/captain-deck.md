@@ -112,9 +112,9 @@ Six-layer information architecture that constrains AI agent behavior. Raw model 
 
 **Why it matters:** Proves the factory thesis. The system around the AI matters more than the AI itself. Published in Metropolia University master's thesis. Transferable to any frontier model — when Opus 4.7 arrives, the harness makes it even better.
 
-### 4. DWS IQ Aegis (Dual-Use Defence Platform) — March 26, 2026
+### 4. DWS IQ Aegis (Dual-Use Defence Platform) — Internal MVP, March 26, 2026
 
-Standalone dual-use AI platform for defence and sovereign operations. Orbital intelligence (ICEYE SAR satellite integration), sovereignty monitoring, EU-only cloud deployment (UpCloud Helsinki). EUR 59,990 + EUR 999/month.
+Standalone dual-use AI platform for defence and sovereign operations. Orbital intelligence (ICEYE SAR satellite integration), sovereignty monitoring, EU-only cloud deployment (UpCloud Helsinki). Internal MVP completed March 26, 2026; public dual-use launch targeted for August 2026. EUR 59,990 + EUR 999/month.
 
 **Why it matters:** 13x cheaper than Palantir's floor for Year 1 (EUR 59,990 vs EUR 920,000). NATO DIANA Accelerator eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.
 
