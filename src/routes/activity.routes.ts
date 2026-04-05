@@ -42,6 +42,10 @@ interface ActivityEvent {
  * Get paginated activity feed. Fetches from Supabase activity_events table,
  * falls back to in-memory event bus events.
  */
+// UUID v4 format check — userId comes from JWT but we're interpolating into
+// Supabase .or() filter strings, so belt-and-braces validation.
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.userId!;
@@ -50,10 +54,47 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     const typeFilter = req.query.type as string | undefined;
 
     if (supabase) {
+      if (!UUID_RE.test(userId)) {
+        res.status(400).json({ error: 'Invalid user identifier' });
+        return;
+      }
+
+      // Service role bypasses RLS, so we must replicate the
+      // "users read own activity_events" policy manually here
+      // (see supabase/migrations/053_notifications_activity.sql).
+      // Without this scoping, visibility='org' events from ANY
+      // organization would leak cross-tenant.
+      const { data: memberships, error: memError } = await supabase
+        .from('organization_members')
+        .select('organization_id')
+        .eq('user_id', userId)
+        .eq('status', 'active');
+
+      if (memError) {
+        logger.error('Activity feed membership lookup error', {
+          userId,
+          error: memError.message,
+        });
+        throw memError;
+      }
+
+      const orgIds = (memberships || [])
+        .map((m: { organization_id: string | null }) => m.organization_id)
+        .filter((id): id is string => typeof id === 'string' && UUID_RE.test(id));
+
+      // Build visibility-scoped filter:
+      //   - own private events  (visibility='user' AND user_id=me)
+      //   - public events       (visibility='public')
+      //   - org events ONLY for orgs I'm an active member of
+      const orClauses = [`and(visibility.eq.user,user_id.eq.${userId})`, `visibility.eq.public`];
+      if (orgIds.length > 0) {
+        orClauses.push(`and(visibility.eq.org,organization_id.in.(${orgIds.join(',')}))`);
+      }
+
       let query = supabase
         .from('activity_events')
         .select('*', { count: 'exact' })
-        .or(`user_id.eq.${userId},visibility.eq.org`)
+        .or(orClauses.join(','))
         .order('created_at', { ascending: false })
         .range(offset, offset + limit - 1);
 

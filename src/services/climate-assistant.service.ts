@@ -2,15 +2,21 @@
  * Climate Assistant Service
  * AI-powered climate compliance assistant with EU-first inference routing.
  *
- * Provider routing (EU data residency):
- *   1. PRIMARY  — Scaleway Generative APIs (Paris/Amsterdam, EU residency)
- *                 Env: SCW_SECRET_KEY + SCW_GENERATIVE_API_URL
- *                 Model: llama-3.3-70b-instruct (free tier: 1M tokens/month)
- *   2. FALLBACK — Groq (US, used only if Scaleway unreachable)
- *                 Env: GROQ_API_KEY
- *                 Model: llama-3.3-70b-versatile
+ * Provider routing (EU-first, three-tier failover):
+ *   1. PRIMARY   — Scaleway Generative APIs (Paris/Amsterdam, EU residency)
+ *                  Env: SCW_SECRET_KEY + SCW_GENERATIVE_API_URL
+ *                  Model: llama-3.3-70b-instruct (free tier: 1M tokens/month)
+ *   2. SECONDARY — NVIDIA NIM (strategic, Connect Partner benefit)
+ *                  Env: NIM_API_KEY + NIM_API_URL
+ *                  Model: meta/llama-3.3-70b-instruct (default)
+ *                  Can be DGX Cloud EU, build.nvidia.com, or self-hosted NIM
+ *   3. TERTIARY  — Groq (US, fallback only if Scaleway + NIM both unreachable)
+ *                  Env: GROQ_API_KEY
+ *                  Model: llama-3.3-70b-versatile
  *
- * Both endpoints are OpenAI-compatible (/v1/chat/completions).
+ * All endpoints are OpenAI-compatible (/v1/chat/completions).
+ * Failover triggers on RATE_LIMITED or RETRYABLE errors; 401/403 are fatal
+ * and do NOT cascade to the next provider.
  *
  * Budget:  DAILY_BUDGET_USD = $1.00/day combined
  * Max:     MAX_TOKENS per response = 1024
@@ -28,8 +34,7 @@ import logger from '../utils/logger.js';
 // Primary provider: Scaleway Generative APIs (EU data residency).
 // OpenAI-compatible endpoint. Model name differs slightly from Groq.
 const SCW_API_URL =
-  process.env.SCW_GENERATIVE_API_URL ||
-  'https://api.scaleway.ai/v1/chat/completions';
+  process.env.SCW_GENERATIVE_API_URL || 'https://api.scaleway.ai/v1/chat/completions';
 const SCW_MODEL = process.env.SCW_MODEL || 'llama-3.3-70b-instruct';
 
 // Secondary provider: NVIDIA NIM (strategic, Connect Partner benefit).
@@ -37,8 +42,7 @@ const SCW_MODEL = process.env.SCW_MODEL || 'llama-3.3-70b-instruct';
 // DGX Cloud EU region, NVIDIA AI Enterprise, or a self-hosted NIM container
 // (EU-residency via Lifetime DGX/Jetson edge).
 const NIM_API_URL =
-  process.env.NIM_API_URL ||
-  'https://integrate.api.nvidia.com/v1/chat/completions';
+  process.env.NIM_API_URL || 'https://integrate.api.nvidia.com/v1/chat/completions';
 const NIM_MODEL = process.env.NIM_MODEL || 'meta/llama-3.3-70b-instruct';
 
 // Fallback provider: Groq (US). Since the Dec 2025 NVIDIA×Groq licensing
@@ -49,11 +53,11 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 // Pricing per token (USD) - Llama 3.1 70B
-const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000;  // $0.00000059
+const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000; // $0.00000059
 const OUTPUT_COST_PER_TOKEN = 0.79 / 1_000_000; // $0.00000079
 
 // Daily budget limit
-const DAILY_BUDGET_USD = 1.00;
+const DAILY_BUDGET_USD = 1.0;
 
 // Max tokens per response (keep responses concise)
 const MAX_TOKENS = 1024;
@@ -67,15 +71,15 @@ let supabase: SupabaseClient | null = null;
  */
 function getSupabaseClient(): SupabaseClient | null {
   if (supabase) return supabase;
-  
+
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-  
+
   if (!supabaseUrl || !supabaseKey) {
     logger.warn('Supabase not configured. Usage tracking disabled.');
     return null;
   }
-  
+
   supabase = createClient(supabaseUrl, supabaseKey);
   return supabase;
 }
@@ -98,16 +102,16 @@ interface DailyUsage {
 async function getTodaysUsage(): Promise<DailyUsage | null> {
   const client = getSupabaseClient();
   if (!client) return null; // Supabase not configured
-  
+
   const today = new Date().toISOString().split('T')[0];
-  
+
   try {
     const { data, error } = await client
       .from('climate_assistant_usage')
       .select('*')
       .eq('date', today)
       .single();
-    
+
     if (error) {
       if (error.code === 'PGRST116') {
         // No record found for today - return zero usage (expected scenario)
@@ -123,7 +127,7 @@ async function getTodaysUsage(): Promise<DailyUsage | null> {
       logger.error('Error fetching usage from Supabase', { error });
       return null;
     }
-    
+
     return data as DailyUsage;
   } catch (error: any) {
     logger.error('Exception fetching usage', { error: error.message });
@@ -150,7 +154,7 @@ async function isBudgetExceeded(): Promise<boolean> {
     logger.warn('Usage tracking unavailable (Supabase error), allowing request');
     return false;
   }
-  
+
   const cost = getCost(usage);
   return cost >= DAILY_BUDGET_USD;
 }
@@ -165,10 +169,10 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
     logger.warn('Supabase not available, skipping usage tracking');
     return null;
   }
-  
+
   const today = new Date().toISOString().split('T')[0];
   const cost = inputTokens * INPUT_COST_PER_TOKEN + outputTokens * OUTPUT_COST_PER_TOKEN;
-  
+
   try {
     // Use atomic increment function to handle concurrent requests
     const { data, error } = await client.rpc('increment_climate_usage', {
@@ -177,15 +181,15 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
       output_tokens_delta: outputTokens,
       cost_delta: cost,
     });
-    
+
     if (error) {
       logger.error('Error tracking usage in Supabase', { error });
       return null;
     }
-    
+
     const usage = data as DailyUsage;
     const dailyCost = getCost(usage);
-    
+
     logger.info('Usage tracked in Supabase', {
       inputTokens,
       outputTokens,
@@ -194,7 +198,7 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
       remainingBudget: `$${(DAILY_BUDGET_USD - dailyCost).toFixed(4)}`,
       requests: usage.requests,
     });
-    
+
     return usage;
   } catch (error: any) {
     logger.error('Exception tracking usage', { error: error.message });
@@ -301,8 +305,7 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     const updatedUsage = await trackUsage(result.inputTokens, result.outputTokens);
 
     const requestCost =
-      result.inputTokens * INPUT_COST_PER_TOKEN +
-      result.outputTokens * OUTPUT_COST_PER_TOKEN;
+      result.inputTokens * INPUT_COST_PER_TOKEN + result.outputTokens * OUTPUT_COST_PER_TOKEN;
 
     logger.info('Response generated', {
       inputTokens: result.inputTokens,
@@ -529,9 +532,7 @@ async function callGroq(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const err: any = new Error(
-      `Groq API error (${response.status}): ${JSON.stringify(errorData)}`,
-    );
+    const err: any = new Error(`Groq API error (${response.status}): ${JSON.stringify(errorData)}`);
     if (response.status === 429) err.code = 'RATE_LIMITED';
     else if (response.status >= 500) err.code = 'RETRYABLE';
     throw err;
@@ -570,7 +571,7 @@ export async function getUsageStats(): Promise<{
   const usage = await getTodaysUsage();
   const cost = getCost(usage);
   const today = new Date().toISOString().split('T')[0];
-  
+
   return {
     date: usage?.date || today,
     requests: usage?.requests || 0,
@@ -580,11 +581,7 @@ export async function getUsageStats(): Promise<{
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
     percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
-    provider: process.env.SCW_SECRET_KEY
-      ? 'scaleway'
-      : process.env.NIM_API_KEY
-        ? 'nim'
-        : 'groq',
+    provider: process.env.SCW_SECRET_KEY ? 'scaleway' : process.env.NIM_API_KEY ? 'nim' : 'groq',
     model: process.env.SCW_SECRET_KEY
       ? SCW_MODEL
       : process.env.NIM_API_KEY
@@ -597,11 +594,7 @@ export async function getUsageStats(): Promise<{
  * Health check for the AI service — true if any inference provider configured.
  */
 export async function healthCheck(): Promise<boolean> {
-  const ok = !!(
-    process.env.SCW_SECRET_KEY ||
-    process.env.NIM_API_KEY ||
-    process.env.GROQ_API_KEY
-  );
+  const ok = !!(process.env.SCW_SECRET_KEY || process.env.NIM_API_KEY || process.env.GROQ_API_KEY);
   if (!ok) {
     logger.warn('No inference provider configured (SCW_SECRET_KEY, NIM_API_KEY, or GROQ_API_KEY)');
   }
