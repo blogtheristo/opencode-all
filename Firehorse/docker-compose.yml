@@ -13,13 +13,13 @@ services:
       dockerfile: api/Dockerfile
     container_name: firehorse-reports
     ports:
-      - "8084:8084"
+      - "127.0.0.1:8084:8084"
     environment:
       - PORT=8084
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_KEY=${SUPABASE_KEY}
       - TEMPLATES_DIR=/app/templates
-      - CORS_ORIGINS=*
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,https://dws6.com,https://dws10.com}
     volumes:
       - ./templates:/app/templates:ro
       - ./reports:/app/reports
@@ -39,14 +39,14 @@ services:
       dockerfile: Dockerfile
     container_name: firehorse-automation
     ports:
-      - "8085:8085"
+      - "127.0.0.1:8085:8085"
     environment:
       - PORT=8085
       - REPORT_ENGINE_URL=http://firehorse-reports:8084
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_KEY=${SUPABASE_KEY}
       - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
-      - CORS_ORIGINS=*
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,https://dws6.com,https://dws10.com}
     depends_on:
       - firehorse-reports
     healthcheck:
@@ -65,13 +65,13 @@ services:
       dockerfile: Dockerfile
     container_name: firehorse-dms
     ports:
-      - "8086:8086"
+      - "127.0.0.1:8086:8086"
     environment:
       - PORT=8086
       - SUPABASE_URL=${SUPABASE_URL}
       - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
       - SUPABASE_BUCKET=${SUPABASE_BUCKET:-firehorse-documents}
-      - CORS_ORIGINS=*
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,https://dws6.com,https://dws10.com}
       - SIGNED_URL_EXPIRY_SECONDS=900
     depends_on:
       - firehorse-reports
@@ -89,7 +89,7 @@ services:
     image: redis:7-alpine
     container_name: firehorse-redis
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:

@@ -35,7 +35,7 @@ function scheduledAt(daysFromNow: number): string {
     millisecond: 0,
   });
 
-  return helsinkiTime.toUTC().toISO();
+  return helsinkiTime.toUTC().toISO()!;
 }
 
 // ============================================================================

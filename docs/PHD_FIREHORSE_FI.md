@@ -10,9 +10,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 14.15 (Pro gradun kaksoisversioarkkitehtuuri: v3.30.50 Metropolia-jäädytys); vahvistettu PHD Firehorse kanoniseksi kodiksi yksityiskohtaisille tutkimusosioille, jotka siirretty pro gradun uudelleenrakenteessa (10.6-10.18 → osiot 14.1-14.14); lisätty avainpanos #18; päivitetty alatunniste
+  - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty Liite F (Claude Code -suunnittelurakenne) laajennetulla taitoinventaariolla (6→21 taitoa, 4 aliagenttia, salaisuuksien skannaushook); lisätty osio 14.14 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness); lisätty avainpanos #20
   - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 14.13 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi, LeWorldModel-validointi (arXiv:2603.19312), vaiheen 2 teknisen aukon analyysi, vaatimustenmukaisuus ensin -maailmamalliteesi; lisätty avainpanos #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen faktojen poiminta subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM + asiakasmuisti), kolme suorituskerrosta (Firehorse-tilakonemasiina, ERP-liittimet, KYA-hallinta); KYA-ensisijainen PR-järjestys oikeudellisesti pätevään muistin auditointipolkuun; lisätty avainpanos #17
@@ -1590,16 +1592,13 @@ Tämä liite dokumentoi konkreettiset rakennemallit, jotka toteuttavat tämän p
 **CLAUDE.md projektimuistina**
 `CLAUDE.md`-tiedosto repositorion juuressa ei ole dokumentaatio — se on ensisijainen älysubstraatti jokaiselle tekoälysessiolle. Se koodaa standardit, rajoitteet, arkkitehtuuripäätökset, sähköpostisäännöt, tietoturvakontrollit ja ehdottomat vaatimukset yhteen tiedostoon, jonka jokainen Claude Code -sessio lukee automaattisesti. Tämä eliminoi käyttäytymisessä ajautumisen ja poistaa tarpeen toistaa kontekstia jokaisessa sessiossa.
 Mittari: yli 2 000 riviä institutionaalista tietämystä (brändi-, asiakirja-, tietoturva-, käyttöönottos- ja sähköpostisäännöt) peritään jokaisessa sessiossa nollalla marginaalikustannuksella.
-**Taidot uudelleenkäytettävinä työnkulkukomponentteina**
-Kuusi tuotantotaitoa `.claude/commands/`-kansiossa muuntavat ad hoc -kehottamisen kutsuttaviksi, dokumentoiduiksi, testattaviksi työnkulkukomponenteiksi:
-| Taito | Toimiala |
-|-------|----------|
-| `/compliance-check` | EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi |
-| `/agent-run` | Suorita mikä tahansa DWS IQ -agentti CLI:n kautta |
-| `/workflow` | Ketjuta useita agentteja yhdistetyiksi raporteiksi |
-| `/discover-agents` | Agenttikyvykkyyksien löytäminen |
-| `/site-safety` | Rakennustyömaan turvallisuus (EN 13001) |
-| `/carbon-analysis` | Rakennetun hiilen elinkaariarviointi |
+**Taidot uudelleenkäytettävinä työnkulkukomponentteina (laajennettu maaliskuu 2026)**
+Maaliskuuhun 2026 mennessä taitoinventaario kasvoi 6:sta 21:een tuotantotaitoon neljässä kategoriassa:
+- **17 slash-komentoa** `.claude/commands/`-kansiossa: gstack-kehitystyönkulku (6), EU-vaatimustenmukaisuus (4), agenttien hallinta (3), toiminnot (3), koodin laatu (2)
+- **4 kurinpitotaitoa** `skills/*/SKILL.md`-tiedostoissa: `verification-gate` (estää valmistumisilmoitukset ilman todistetta), `design-first` (estää 3+ tiedoston muutokset ilman suunnitelmaa), `dual-folder-sync` (estää juurimuutokset ilman landing-pages-synkronointia), `last30days` (tutkimusagentti)
+- **4 erikoistunutta aliagenttia** `.claude/agents/`-kansiossa: `mcp-expert`, `code-reviewer`, `security-reviewer`, `architect`
+- **Salaisuuksien skannaushook**: PreToolUse-hook joka skannaa 14 salaisuusmallia (AWS, GitHub, Stripe, Anthropic jne.) audit-kirjauksella
+Kurinpitotaidot edustavat uutta kontribuutiota: **estävät portit** valvotaan hook-paluukoodilla 2 (ESTÄ), jota agentin käyttäytyminen ei voi ohittaa. Tämä on rakenteellinen valvonta — välttämätöntä säännellyillä toimialoilla.
 **Koukut automaattisena laadunvalvontana**
 Git-koukut (`.githooks/`) valvovat rakenteellisia invariantteja:
 - Haaranimen nimeämiskäytäntö (`claude/<ominaisuus>-<id>`)
@@ -1802,13 +1801,46 @@ Kolme ratkaisematonta ongelmaa tohtoritutkimukselle:
 | **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathyn malli: validoi muutokset pienellä mallilla ennen tuotantoskaalausta |
 | **RLS** | Rivitason suojaus | Tietokantatason pääsynhallinta käyttäjä-/organisaatiokohtaisesti |
 
+### 14.14 Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness
+
+Maaliskuussa 2026 suoritettu vertailututkimus vertasi DWS6-harness-arkkitehtuuria **everything-claude-code (ECC)** -kehykseen — 120 000 tähden avoimen lähdekoodin kehykseen, joka tarjoaa 136 taitoa, 30 aliagenttia ja 60 slash-komentoa.
+
+**Perustavanlaatuinen kompromissi:** ECC optimoi **leveyteen** (136 taitoa × 8 kieltä × 5 IDE:tä); DWS6 optimoi **syvyyteen** (21 taitoa × syvä EU-sääntelyn tuntemus × rakenteellinen valvonta).
+
+Kuusi tunnistettua kilpailuetua:
+
+1. **Toimialakohtaiset taidot** koodaavat EU-sääntelyä (ETS, CBAM, CSRD, EN 15978, EN 13001) — ei toistettavissa geneerisellä taitomäärällä
+2. **Kuusikerroksinen tietoarkkitehtuuri** (L0-L6) hallitsee kontekstin injektointia jokaisella kerroksella — ECC toimii vain tasoilla L2-L3
+3. **Kovat portit** (verification-gate, design-first, dual-folder-sync) paluukoodilla 2 (ESTÄ) — ECC:n taidot ovat vain neuvoa-antavia
+4. **Luottamusvyöhykkeet** (VIHREÄ/KELTAINEN/PUNAINEN) riskisuhteutetulla toimintaluokittelulla — ECC:llä vain binäärinen salaisuuksien skannaus
+5. **gstack-työnkulku** pakotetulla kognitiivisella roolierottelulla — ECC:n taidot ovat itsenäisiä ja orkesteroimattomia
+6. **Agentti-ensin -tuotesääntö** (5-portin tarkistuslista: CLI, JSON-tuloste, MCP-työkalu, Claude-taito, markdown-dokumentit) — taidot tuoterajapintoina
+
+**Tutkimuksellinen merkitys:** Token-budjetin tasolla leveys on haitallista säännellyillä toimialoilla. 136 geneerisen taidon lataaminen kuluttaa konteksti-ikkunan kapasiteettia, jota toimialakohtaiset agentit tarvitsevat sääntelyn päättelyyn. DWS6:n <150 sanan rajoitus kurinpitotaidoille on token-budjetin optimointi syvempään toimialapäättelyyn. Tämä validoi harness engineering -teesin (osio 14.12).
+
+### 14.15 Pro gradun kaksoisversioarkkitehtuuri
+
+Pro gradu (V3Thesis) kasvoi 82 sivuun ja yli 26 000 sanaan tekoälyavusteisen tutkimusprosessin aikana — lähes kaksinkertainen Metropolian 40-50 sivun palautustavoitteeseen nähden. Tutkimussisällön pysyvän poistamisen sijaan omaksuttiin kaksoisversioarkkitehtuuri:
+
+**v3.30.50 (Jäädytetty, 50 sivua):** Uudelleenrakennettu Metropolia-palautusta varten. Osiot 10.6-10.18 konsolidoitu tiivistelmäosioksi (10.6 "Laajennetut tutkimuspanokset") ristiviittauksilla tähän PHD Firehorse -dokumenttiin. Osio 5 laajennettu 0,7:stä ~4 sivuun. Liitteet karsittu 8:sta 4:ään. Tiedosto vastaanottaa vain HIL (Human-in-the-Loop) -muokkauksia — ei automatisoituja tekoälypäivityksiä.
+
+**v3.32+ (Elävä, 82 sivua):** Jatkaa tutkimuslöydösten keräämistä kuten ennenkin. Jokainen uusi versiomerkintä on aikaleimattu tutkimuksen etenemisen tallenne.
+
+**PHD Firehorse kanonisena kotina:** Tämän dokumentin osiot 14.1-14.14 toimivat nyt auktoritatiivisena yksityiskohtaisena dokumentaationa pro gradun v3.30.50:ssa tiivistetyille sisällöille. Pro gradu viittaa eksplisiittisesti "PHD Firehorse osiot 14.X" jokaiseen tiivistettyyn aiheeseen.
+
+**Tutkimuspanos:** Kaksoisversiomalli osoittaa käytännön menetelmän tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää järjestelmällisesti oppilaitoksen formaattirajoitukset. Malli säilyttää henkisen omaisuuden täyttäen samalla palautusvaatimukset — toistuva haaste tekoälyn nopeuttaessa tutkimusdokumentointia.
+
+**Avainpanos #18:** Kaksoisversioarkkitehtuuri menetelmällisenä kontribuutiona tekoälyavusteiseen akateemiseen kirjoittamiseen.
+
 ---
 
 **Keskeiset kontribuutiot:**
 1-14. (Katso VERSION AND AGENT HISTORY)
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
 16. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A); LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi; vaatimustenmukaisuus ensin -maailmamalliteesi tohtoritutkimusohjelmana
+17. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi ECC:tä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -sääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; validoi harness engineering -teesin
+18. Kaksoisversioarkkitehtuuri — v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; PHD Firehorse vahvistettu kanoniseksi kodiksi yksityiskohtaisille osioille (14.1-14.14); osoittaa menetelmän tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää formaattirajoitukset
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 25.03.2026*
-*Versio: 3.0*
+*Viimeksi päivitetty: 03.04.2026*
+*Versio: 3.2*

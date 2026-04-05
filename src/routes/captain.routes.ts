@@ -86,14 +86,16 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
           seat_level: seat_type,
           message: message || null,
         })
-        .then(({ error: dbError }) => {
-          if (dbError) {
-            logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
-          }
-        })
-        .catch((err) => {
-          logger.warn('Captain inquiry DB insert error', { error: err instanceof Error ? err.message : 'unknown', name, email });
-        });
+        .then(
+          ({ error: dbError }) => {
+            if (dbError) {
+              logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
+            }
+          },
+          (err: unknown) => {
+            logger.warn('Captain inquiry DB insert error', { error: err instanceof Error ? err.message : 'unknown', name, email });
+          },
+        );
     }
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';

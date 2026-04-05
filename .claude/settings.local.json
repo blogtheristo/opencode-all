@@ -17,11 +17,7 @@
       "Bash(gh run:*)"
     ]
   },
-  "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
-  ],
+  "enabledMcpjsonServers": ["Supabase MCP", "Upstash Redis", "MCP Hub"],
   "hooks": {
     "SessionStart": [
       {
@@ -34,31 +30,62 @@
         ]
       }
     ],
-    "Stop": [
+    "PreToolUse": [
       {
-        "matcher": "",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/session-stop.sh"
+            "command": "./.claude/hooks/pretooluse-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "./.claude/hooks/secret-scan.sh"
+          },
+          {
+            "type": "command",
+            "command": "./.claude/hooks/log-commands.sh"
+          },
+          {
+            "type": "command",
+            "command": "./.claude/hooks/sql-safety-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/protect-files.sh"
+          },
+          {
+            "type": "command",
+            "command": "./.claude/hooks/secret-scan.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__github__create_pull_request",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/require-tests-for-pr.sh"
           }
         ]
       }
-    ]
-  },
-  "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
-  ],
-  "hooks": {
-    "SessionStart": [
+    ],
+    "PostToolUse": [
       {
-        "matcher": "",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/session-start.sh"
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0"
+          },
+          {
+            "type": "command",
+            "command": "npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0"
           }
         ]
       }
@@ -70,38 +97,13 @@
           {
             "type": "command",
             "command": "./.claude/hooks/session-stop.sh"
+          },
+          {
+            "type": "command",
+            "command": "./.claude/hooks/auto-commit.sh"
           }
         ]
       }
     ]
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/session-start.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./.claude/hooks/session-stop.sh"
-          }
-        ]
-      }
-    ]
-  },
-  "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
-  ]
+  }
 }

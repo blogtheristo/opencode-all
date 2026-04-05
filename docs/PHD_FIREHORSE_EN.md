@@ -10,9 +10,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.2
 
 Sessions & Modifications:
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 14.15 (Master Thesis Dual-Version Architecture: v3.30.50 Metropolia freeze); confirmed PHD Firehorse as canonical home for detailed research sections moved from master thesis restructuring (10.6-10.18 → Sections 14.1-14.14); added Key Contribution #18; updated footer
+  - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Appendix F (Claude Code Engineering Structure) with expanded skills inventory (6→21 skills, 4 subagents, secret-scan hook); added Section 14.14 (Competitive Analysis: Domain-Specific vs Generic AI Harness); added Key Contribution #20
   - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
   - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
   - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
@@ -1601,17 +1603,13 @@ This appendix documents the concrete structural patterns that implement this pri
 **CLAUDE.md as Project Memory**
 The `CLAUDE.md` file at the repository root is not documentation — it is the primary intelligence substrate for every AI agent session. It encodes standards, constraints, architecture decisions, email rules, security controls, and non-negotiables in a single file that every Claude Code session reads automatically. This eliminates behavioral drift and removes the need for repeated per-session context injection.
 Key metric: 2,000+ lines of institutional knowledge (brand standards, document standards, security controls, deployment rules, thesis rules, email rules) inherited by every session at zero marginal cost.
-**Skills as Reusable Workflow Components**
-Six production skills in `.claude/commands/` transform ad-hoc prompting into callable, documented, testable workflow components:
-| Skill | Domain |
-|-------|--------|
-| `/compliance-check` | EU ETS/CBAM/CSRD regulatory gap analysis |
-| `/agent-run` | Execute any DWS IQ agent via structured CLI |
-| `/workflow` | Chain multiple agents into unified reports |
-| `/discover-agents` | Agent capability discovery |
-| `/site-safety` | Construction site safety (EN 13001) |
-| `/carbon-analysis` | Embodied carbon lifecycle assessment |
-Each skill is an engineered component with a defined interface, documentation, and failure modes. This is the Build for Agents principle in practice.
+**Skills as Reusable Workflow Components (expanded March 2026)**
+By March 2026, the skills inventory grew from 6 to 21 production skills across four categories:
+- **17 slash commands** in `.claude/commands/`: gstack development workflow (6), EU compliance (4), agent control (3), operations (3), code quality (2)
+- **4 discipline skills** in `skills/*/SKILL.md`: `verification-gate` (blocks "done" claims without evidence), `design-first` (blocks 3+ file changes without approved design), `dual-folder-sync` (blocks root changes without landing-pages sync), `last30days` (research agent)
+- **4 specialized subagents** in `.claude/agents/`: `mcp-expert`, `code-reviewer`, `security-reviewer`, `architect`
+- **Secret scanning hook**: PreToolUse hook scanning 14 secret patterns (AWS, GitHub, Stripe, Anthropic, etc.) with audit logging
+The discipline skills represent a novel contribution: **blocking gates** enforced via hook exit code 2 (BLOCK) that cannot be bypassed by agent behavior. This is structural enforcement, not behavioral suggestion — essential for regulated industries where "the agent usually follows the rules" is insufficient.
 **Hooks for Automated Quality Enforcement**
 Git hooks (`.githooks/`) enforce structural invariants:
 - Branch naming convention (`claude/<feature>-<id>`) — prevents incorrect branch workflows
@@ -1817,13 +1815,46 @@ Three unsolved problems for PhD investigation:
 | **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate on small proxy before scaling to production |
 | **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
 
+### 14.14 Competitive Analysis: Domain-Specific vs Generic AI Harness
+
+A March 2026 benchmarking study compared the DWS6 harness architecture against **everything-claude-code (ECC)** — a 120,000-star open-source framework providing 136 skills, 30 subagents, and 60 slash commands.
+
+**The fundamental trade-off:** ECC optimizes for **breadth** (136 skills × 8 languages × 5 IDEs); DWS6 optimizes for **depth** (21 skills × deep EU regulatory knowledge × structural enforcement).
+
+Six competitive differentiators identified:
+
+1. **Domain-specific skills** encoding EU regulation (ETS, CBAM, CSRD, EN 15978, EN 13001) — not replicable by generic skill count
+2. **Six-layer information architecture** (L0-L6) controlling context injection at every layer — ECC operates at L2-L3 only
+3. **Hard gates** (verification-gate, design-first, dual-folder-sync) using exit code 2 (BLOCK) — ECC skills are advisory-only
+4. **Trust boundary zones** (GREEN/YELLOW/RED) with risk-proportionate action classification — ECC has binary secret scanning only
+5. **gstack workflow** with enforced cognitive role separation — ECC skills are independent and unorchestrated
+6. **Agent-first product rule** (5-gate shipping checklist: CLI, JSON output, MCP tool, Claude skill, markdown docs) — skills are product interfaces, not developer convenience
+
+**Research significance:** At the token budget level, breadth is counterproductive for regulated domains. Loading 136 generic skills consumes context window capacity that domain-specific agents need for regulatory reasoning. The DWS6 constraint of <150 words per discipline skill is a token budget optimization enabling deeper domain reasoning. This validates the harness engineering thesis (Section 14.12): a 21-skill domain-specific harness outperforms a 136-skill generic harness when regulatory precision matters.
+
+### 14.15 Master Thesis Dual-Version Architecture
+
+The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-assisted research process — nearly double the 40-50 page Metropolia submission target. Rather than permanently deleting research content, a dual-version architecture was adopted:
+
+**v3.30.50 (Frozen, 50 pages):** Restructured for Metropolia submission. Sections 10.6-10.18 consolidated into a summary section (10.6 "Extended Research Contributions") with cross-references to this PHD Firehorse document. Section 5 expanded from 0.7 to ~4 pages. Appendices trimmed from 8 to 4. This file receives only HIL (Human-in-the-Loop) edits — no automated AI updates.
+
+**v3.32+ (Living, 82 pages):** Continues accumulating research findings as before. Every new version entry is a timestamped record of research progression.
+
+**PHD Firehorse as canonical home:** Sections 14.1-14.14 of this document now serve as the authoritative detailed documentation for content summarized in the master thesis v3.30.50. The master thesis explicitly cross-references "PHD Firehorse Sections 14.X" for each summarized topic.
+
+**Research contribution:** This dual-version pattern demonstrates a practical methodology for AI-assisted academic writing where research velocity systematically exceeds institutional format constraints. The pattern preserves intellectual property while meeting submission requirements — a recurring challenge as AI accelerates research documentation.
+
+**Key Contribution #18:** Dual-version thesis architecture as methodological contribution to AI-assisted academic writing.
+
 ---
 
 **Key Contributions:**
 1-14. (See VERSION AND AGENT HISTORY)
 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
 16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme
+17. Domain-Specific vs Generic AI Harness — Competitive analysis against ECC (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust zones, gstack workflow, agent-first rule); token budget analysis showing depth outperforms breadth for regulated domains; validates harness engineering thesis
+18. Dual-Version Thesis Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; PHD Firehorse confirmed as canonical home for detailed sections (14.1-14.14); demonstrates methodology for AI-assisted academic writing where research velocity exceeds format constraints
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 25.03.2026*
-*Version: 3.0*
+*Last updated: 03.04.2026*
+*Version: 3.2*

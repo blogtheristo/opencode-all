@@ -106,7 +106,7 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { keyFindings: [], actionableInsights: [], intelligenceSummary: '' };
+    let synthesis = { keyFindings: [] as string[], actionableInsights: [] as string[], intelligenceSummary: '' };
     try {
       synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {

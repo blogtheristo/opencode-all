@@ -25,6 +25,8 @@ import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
 import { memoryService } from '../agents/memory.service.js';
 import { factExtractionService } from '../agents/fact-extraction.service.js';
+import { telemetryService } from '../agents/telemetry.service.js';
+import { checkpointService } from '../agents/session-checkpoint.service.js';
 import type { AgentContext } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
 
@@ -195,6 +197,34 @@ function buildToolList(): MCPToolDefinition[] {
         },
       },
       required: ['entity_id', 'entity_type'],
+    },
+  });
+
+  // ASTA Phase 1: Tool telemetry
+  tools.push({
+    name: 'dws_tool_telemetry',
+    description: 'Get aggregated tool-use metrics for an agent (invocation rate, skip rate, failure rate, partial failures). Part of the ASTA adaptation framework.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        agent_name: { type: 'string', description: 'Agent name to get metrics for' },
+        window_hours: { type: 'number', description: 'Time window in hours (default: 24)' },
+      },
+      required: ['agent_name'],
+    },
+  });
+
+  // ASTA Phase 1: Session checkpoints
+  tools.push({
+    name: 'dws_session_checkpoint',
+    description: 'Recover or inspect a session checkpoint for an interrupted agent session. Returns the saved state if available.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        session_id: { type: 'string', description: 'Session ID to recover' },
+        agent_name: { type: 'string', description: 'Agent name' },
+      },
+      required: ['session_id', 'agent_name'],
     },
   });
 
@@ -420,6 +450,31 @@ async function executeToolCall(
       args.entity_type as 'customer' | 'organization',
       context.orgId,
     );
+  }
+
+  // ASTA: Tool telemetry
+  if (toolName === 'dws_tool_telemetry') {
+    const agentName = args.agent_name as string;
+    const windowHours = (args.window_hours as number) || 24;
+    return telemetryService.getMetrics(agentName, windowHours);
+  }
+
+  // ASTA: Session checkpoint recovery
+  if (toolName === 'dws_session_checkpoint') {
+    const sessionId = args.session_id as string;
+    const agentName = args.agent_name as string;
+    const state = await checkpointService.recover(sessionId, context.orgId, agentName);
+    if (!state) {
+      return { found: false, message: 'No checkpoint found or checkpoint expired' };
+    }
+    return {
+      found: true,
+      agentName: state.agentName,
+      iterationIndex: state.iterationIndex,
+      checkpointedAt: state.checkpointedAt,
+      messageCount: state.messages.length,
+      partialResultCount: state.partialResults.length,
+    };
   }
 
   // Fact extraction

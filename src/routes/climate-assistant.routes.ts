@@ -49,7 +49,7 @@ const validateRequest = (req: Request, res: Response, next: any) => {
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 /**

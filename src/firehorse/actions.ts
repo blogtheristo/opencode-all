@@ -147,7 +147,7 @@ export async function sendLinkedInDM(action: SendLinkedInDMAction): Promise<void
     reason: 'LinkedIn API client not implemented — message prepared but not sent',
   });
   await logEvent({
-    event_type: 'linkedin_dm_skipped',
+    event_type: EventType.linkedin_dm_skipped,
     lead_id,
     metadata: { template_id, linkedin_url, message_length: message.length },
   });

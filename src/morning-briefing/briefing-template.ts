@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData, CaptainInquiriesData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -641,7 +641,7 @@ function renderHilTodosHtml(data: HilTodosData): string {
 
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
-      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">HIL TODO (${data.todos.length} open)</h3>
       ${rows}
       <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
     </td></tr>`;

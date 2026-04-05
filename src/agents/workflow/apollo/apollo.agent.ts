@@ -148,7 +148,7 @@ Return JSON: {
 
     let synthesis = {
       contentAngle: '',
-      outreachSequence: [],
+      outreachSequence: [] as string[],
       seoOpportunity: '',
       contentBrief: '',
       apolloBriefing: '',

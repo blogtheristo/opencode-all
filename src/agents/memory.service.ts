@@ -206,7 +206,7 @@ export class MemoryService {
 
         // Touch recalled memories (update access tracking)
         for (const mem of memories) {
-          client.rpc('touch_memory', { memory_id: mem.id }).catch(() => {});
+          client.rpc('touch_memory', { memory_id: mem.id }).then(() => {}, () => {});
         }
       }
     } else {
@@ -604,7 +604,7 @@ export class MemoryService {
       orgId: row.org_id as string,
       memoryType: row.memory_type as MemoryItem['memoryType'],
       content: row.content as string,
-      similarity: undefined,
+      similarity: undefined as number | undefined,
       metadata: (row.metadata || {}) as Record<string, unknown>,
       createdAt: row.created_at as string,
       accessedAt: row.accessed_at as string | undefined,

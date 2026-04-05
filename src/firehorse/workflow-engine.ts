@@ -387,11 +387,15 @@ export const FirehorseWorkflowEngine = {
       case 'generate_report': {
         const format = step.config.format as string;
         try {
-          const reportModule = new FirehorseReportModule();
+          const reportModule = FirehorseReportModule;
+          const now = new Date().toISOString().split('T')[0];
+          const yearStart = `${new Date().getFullYear()}-01-01`;
           const report = await reportModule.generate({
-            orgId: (input.orgId as string) || 'workflow',
+            organizationId: (input.orgId as string) || 'workflow',
             format: format as 'board-pack' | 'annual-report' | 'compliance-summary' | 'carbon-footprint',
             industry: (input.industry as string) || 'manufacturing',
+            periodStart: yearStart,
+            periodEnd: now,
           });
           return {
             action: 'generate_report',

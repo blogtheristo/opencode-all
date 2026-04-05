@@ -4,9 +4,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.30
+Version: 3.32
 
 Sessions & Modifications:
+  - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 10.19 (Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys); lisätty avainpanos #23; luotu jäädytetty V3Thesis_EN_v3.30.50.md (50-sivuinen Metropolia-versio) säilyttäen 82-sivuinen elävä dokumentti; päivitetty alatunniste kaksoisversioarkkitehtuurilla
+  - Version: 3.31 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty osio 10.13.3 (Taitojen inventaario 6→21 taitoa, 4 aliagenttia, 4 kurinpitotaitoa); lisätty osio 10.13.7 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness — vertailu ECC 136-taidon kehykseen, kuusi kilpailuetua dokumentoitu); lisätty avainpanos #22
   - Version: 3.30 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 10.18 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A), LeWorldModel-validointi (arXiv:2603.19312), Phase 2 teknisen aukon analyysi, Persefoni/Sweep-vertailuarvot; lisätty avainpanos #21
   - Version: 3.29 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 10.17 (Johtopäätökset: Hiilitase vaatimustenmukaisuusinfrastruktuurina) — kahdenkertaisen kirjanpidon malli CO2:lle ETS/CBAM/CSRD/Taksonomiassa, poikkitoimialainen älykkyys kirjanpitojen kautta, DWS 7 Phase 2.6 toteutussuunnitelma; lisätty avainpanos #20
   - Version: 3.28 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen strukturoitu faktojen poiminta keskusteluista subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM domainitieto + asiakassuhdemuisti), kolme puuttuvaa suorituskerrosta tunnistettu (Firehorse-tilakonemasiina, ERP-liitin, KYA-hallintakehys); päivitetty PR-tiekartta KYA-ensisijaisuusjärjestyksellä; lisätty avainpanos #20; huomioitu KYA Standard v1.4 sisäinen / v1.1 julkinen ero
@@ -53,10 +55,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 25.03.2026
+  - Last Modified: 03.04.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.30 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, Phase 2 teknisen aukon analyysi)
+  - Publication Status: DRAFT (V3.32 — Opinnäytetyön versiointistrategia: v3.30.50 jäädytetty Metropolia-versio + 82-sivuinen elävä dokumentti jatkuu)
 
 ---
 
@@ -2006,18 +2008,37 @@ Mitattu vaikutus: jokainen uusi Claude Code -sessio perii 18 kuukauden arkkiteht
 
 Siirtymä ad hoc -kehotteista uudelleenkäytettäviin taitoihin edustaa perustavanlaatuista arkkitehtuurista parannusta: **chat-vuorovaikutuksesta järjestelmäsuunnitteluun**. Taidot ovat koottavia, versioituja työnkulkukomponentteja — ei kertakäyttöisiä kehotteita.
 
-DWS6 toteuttaa kuusi tuotantotaitoa `.claude/commands/`-kansiossa:
+Maaliskuuhun 2026 mennessä DWS6 toteuttaa 21 tuotantotaitoa neljässä kategoriassa `.claude/commands/`- ja `skills/`-kansioissa:
 
-| Taito | Toiminto | Tuloste |
-|-------|----------|---------|
-| `/compliance-check` | EU ETS/CBAM/CSRD-vaatimustenmukaisuusanalyysi | Jäsennelty vaatimustenmukaisuusraportti |
-| `/agent-run` | Suorita mikä tahansa nimetty DWS IQ -agentti | Pisteytetyt JSON-tulokset |
-| `/workflow` | Käynnistä moniagenttisten työnkulkuketjut | Yhdistetty moniagenttiraportti |
-| `/discover-agents` | Etsi agentit ominaisuusavainsanalla | Agenttikyvykkyyshakemisto |
-| `/site-safety` | Rakennustyömaan turvallisuusarviointi (SiteSense) | Pisteet 0–100, EN 13001 -varoitukset |
-| `/carbon-analysis` | Rakennettu hiili EN 15978 elinkaariarvioinnin mukaan | kgCO2e elinkaarivaiheen mukaan |
+**Slash-komennot (17 taitoa):**
 
-Jokainen taito kapsuloi syötteiden validoinnin, agenttien suorituksen ja jäsennellyn tulosteen muotoilun. Ilman taitoja nämä työnkulut vaativat toistuvia virhealttiita kehotteita. Taitojen avulla niistä tulee kutsuttavia, testattavia komponentteja — toteuttaen suoraan **Build for Agents** -periaatteen: jos ominaisuutta ei voi kutsua komennolla `dws <komento>`, sitä ei toimiteta.
+| Kategoria | Taidot | Toimiala |
+|-----------|--------|----------|
+| gstack-työnkulku | `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro` | Kehityksen elinkaari (Garry Tan -menetelmä) |
+| EU-vaatimustenmukaisuus | `/compliance-check`, `/carbon-analysis`, `/sovereignty-assess`, `/site-safety` | ETS, CBAM, CSRD, EN 15978, EN 13001, CLOUD Act |
+| Agenttien hallinta | `/discover-agents`, `/agent-run`, `/workflow` | Moniagenttiorkestrerointi (14+ agenttia) |
+| Toiminnot | `/flow-status`, `/email`, `/remote-control` | Git-tila, SES-sähköposti, reunalaitteen hallinta |
+| Koodin laatu | `/simplify`, `/designer` | Koodin tarkastus, Figma-koodisiltä |
+
+**Kurinpitotaidot (4 kovaa porttia `skills/*/SKILL.md`-tiedostoissa):**
+
+| Taito | Porttilogiikka | Valvonta |
+|-------|----------------|----------|
+| `verification-gate` | Estää valmistumisilmoitukset ilman tuoretta testitodistetta | Paluukoodi 2 (ESTÄ) |
+| `design-first` | Estää 3+ tiedoston muutokset ilman hyväksyttyä suunnitelmaa | Paluukoodi 2 (ESTÄ) |
+| `dual-folder-sync` | Estää commitit jotka muuttavat juurikansioita ilman landing-pages-synkronointia | Paluukoodi 2 (ESTÄ) |
+| `last30days` | Tutkimusagentti Reddit/X/Web-sisällölle viimeiseltä 30 päivältä | Agenttityylinen (ei-estävä) |
+
+**Aliagentit (4 erikoistunutta agenttia `.claude/agents/`-kansiossa):**
+
+| Agentti | Rooli | Eristysominaisuus |
+|---------|-------|--------------------|
+| `mcp-expert` | MCP-palvelinkonfiguraation asiantuntija | Suojaa pääkontekstin protokollatiedoilta |
+| `code-reviewer` | Staff Engineer -virheiden etsijä (logiikka, tietoturva, tietojen eheys) | Tarkastaa ilman muutosten tekemistä |
+| `security-reviewer` | OWASP Top 10 + DWS Security Standard -auditoija | Skannaa ilman koodin muokkaamista |
+| `architect` | Minimalistinen suunnittelija, ylisuunnittelun ehkäisijä | Palauttaa vain jäsennellyn suunnitelman |
+
+Jokainen taito kapsuloi syötteiden validoinnin, agenttien suorituksen ja jäsennellyn tulosteen muotoilun. Kurinpitotaidot edustavat uutta kontribuutiota: **estävät portit**, jotka valvovat prosessikuria rakenteellisesti eikä käyttäytymispohjaisesti. Toisin kuin neuvoa-antavat linterit, näitä portteja ei voi ohittaa — ne sieppaavat työkalukutsut hook-paluukoodilla 2 (ESTÄ) ja estävät toiminnon suorittamisen. Tämä toteuttaa suoraan **Build for Agents** -periaatteen: jos ominaisuutta ei voi kutsua komennolla `dws <komento>`, sitä ei toimiteta.
 
 ### 10.13.4 Koukut automaattisena laadunvalvontana
 
@@ -2064,6 +2085,31 @@ Tämä suunnittelurakenne validoi ja laajentaa Solution Factory -mallia (osio 5)
 **Keskeinen tutkimustulos:** tekoälytyönkulkujen käsitteleminen ensiluokkaisina ohjelmistokomponentteina — samalla modulaarisuudella, testattavuudella ja vastuiden erottelulla kuin tuotanto-ohjelmistossa — on erottava tekijä tekoälykokeilujen ja tekoälytuotteiden välillä. DWS6-repositorion rakenne osoittaa tämän eron tuotantomittakaavassa: CLAUDE.md vähentää käyttäytymisessä ajautumisen lähes nollaan, taidot eliminoivat toistuvan kehottamisen, ja koukut valvovat laatua ilman ihmisen puuttumista.
 
 Tämä on linjassa tässä opinnäytetyössä dokumentoidun laajemman periaatteen kanssa: Firehorse Operations Model menestyy ei siksi, että se käyttää tekoälyä, vaan siksi, että se suunnittelee tekoälyn kurinalaiseksi järjestelmäksi.
+
+### 10.13.7 Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness
+
+Maaliskuussa 2026 suoritettu vertailututkimus vertasi DWS6-harness-arkkitehtuuria **everything-claude-code (ECC)** -kehykseen — 120 000 tähden MIT-lisensoituun kehykseen, joka tarjoaa 136 taitoa, 30 aliagenttia, 60 slash-komentoa, 34 sääntötiedostoa ja 14 MCP-palvelinmallia. Vertailu paljastaa perustavanlaatuisen arkkitehtuurisen kompromissin geneerisyyden ja toimialaspesifisyyden välillä.
+
+**ECC-arkkitehtuuri (geneerinen):**
+ECC vastaa kysymykseen: "Kuinka käytän Claude Codea tehokkaasti missä tahansa projektissa?" Se tarjoaa kielikohtaiset agentit (TypeScript, Python, Go, Java, Rust, C++, Swift, PHP), IDE-adapterit, PM2-elinkaarenhallinta, SQLite-sessiopersisteenssi ja 997-testin validointisarja.
+
+**DWS6-arkkitehtuuri (toimialakohtainen):**
+DWS6 vastaa eri kysymykseen: "Kuinka ajetaan yritystason teollisia tekoälyagentteja turvallisesti EU:ssa?" 21 taitoa koodaavat säänneltyä toimialatietämystä — EU ETS -päästökertoimet, CBAM-tuontirajat, CSRD-tiedonantovaatimukset, EN 15978 -elinkaaren vaiheet, EN 13001 -nosturiturvallisuusstandardit — joita mikään geneerinen kehys ei tarjoa. Tämä toimialatietämys on tuotteen kilpailuvallihauta.
+
+**Kuusi tunnistettua kilpailuetua:**
+
+| # | DWS6-etu | ECC-vastine | Tutkimuksellinen merkitys |
+|---|----------|-------------|---------------------------|
+| 1 | **Toimialakohtaiset taidot** koodaavat EU-sääntelyä | Geneeriset kieli-/kehystaidot | Toimialatietämys kilpailuvallihautana |
+| 2 | **Kuusikerroksinen tietoarkkitehtuuri** (L0-L6) | Toimii vain tasoilla L2-L3 | Syvempi hallinta agentin käyttäytymiseen |
+| 3 | **Kovat portit** (verification-gate, design-first, dual-folder-sync) | Vain neuvoa-antavat taidot | Rakenteellinen valvonta vs käyttäytymisehdotus |
+| 4 | **Luottamusvyöhykkeet** (VIHREÄ/KELTAINEN/PUNAINEN) | Vain salaisuuksien skannaus | Riskisuhteutettu automaatio |
+| 5 | **gstack-työnkulku** pakotetulla roolierottelulla | Itsenäiset orkestroitumattomat taidot | Kognitiivisen tilan vaihtaminen |
+| 6 | **Agentti-ensin -tuotesääntö** (5-portin toimitustarkistuslista) | Kehittäjän apuvälineet | Taidot tuoterajapintoina |
+
+**Keskeinen tutkimustulos:** ECC-kehys optimoi **leveyteen** (136 taitoa × useita kieliä × useita IDE:itä), kun taas DWS6 optimoi **syvyyteen** (21 taitoa × syvä EU-sääntelyn tuntemus × rakenteellinen valvonta). Token-budjetin tasolla leveys on haitallista: 136 taidon lataaminen kuluttaa konteksti-ikkunan kapasiteettia, jota toimialakohtaiset agentit tarvitsevat sääntelyn päättelyyn. DWS6:n <150 sanan rajoitus kurinpitotaidoille ei ole rajoitus — se on token-budjetin optimointi, joka mahdollistaa syvemmän toimialapäättelyn samassa konteksti-ikkunassa.
+
+Tämä validoi harness engineering -teesin (osio 10.16): ero tekoälykokeilujen ja tekoälytuotteiden välillä ei ole malli tai taitojen määrä — se on suunnittelukuri, joka sovelletaan tiedon rakenteiseen, valvontaan ja koostamiseen. 21 taidon toimialakohtainen harness ylittää 136 taidon geneerisen harnessin, kun toimiala vaatii sääntelyn tarkkuutta, koska tietämyksen syvyys on tärkeämpää kuin kyvykkyyden laajuus.
 
 ---
 
@@ -2674,6 +2720,38 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 2. **Vaatimustenmukaisuus ensin -maailmamalliteesi:** Oivallus, että vaatimustenmukaisuusdata syöttää fyysistä suunnittelua, on uusi arkkitehtuurillinen kontribuutio.
 3. **Vaiheen 2 tekninen rajaus:** Kolme ratkaisematonta ongelmaa tarjoavat konkreettisen tutkimusohjelman.
 
+### 10.19 Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys
+
+#### 10.19.1 Motivaatio
+
+Versioon 3.31 mennessä opinnäytetyö oli kasvanut 82 sivuun ja yli 26 000 sanaan — lähes kaksinkertainen Metropolian 40-50 sivun tavoitteeseen nähden. Yksityiskohtaisen tutkimussisällön pysyvän menetyksen sijaan omaksuttiin kaksoisversioarkkitehtuuri.
+
+#### 10.19.2 Kaksoisversioarkkitehtuuri
+
+| Versio | Tiedosto | Sivut | Tila | Tarkoitus |
+|--------|----------|-------|------|-----------|
+| v3.30.50 | `V3Thesis_EN_v3.30.50.md` | ~50 | JÄÄDYTETTY | Metropolia-palautusversio |
+| v3.32+ | `V3Thesis_EN.md` / `V3Thesis_FI.md` | ~82 | Elävä | Täydellinen tutkimustietue |
+| v3.2+ | `PHD_FIREHORSE_EN.md` / `_FI.md` | — | Elävä | Tohtorintutkimuksen liitedokumentti |
+
+v3.30.50-uudelleenrakenne toteutettiin neljällä muunnoksella:
+
+1. **Osion 5 laajennus** — 0,7 sivusta ~4 sivuun kattaen infrastruktuurin käyttöönoton, agenttiarkkitehtuurin, koordinoinnin Lifetime Scope Signals -protokollalla, 31 agentin evoluution, asiakkaiden perehdytyksen ja avainmittarit
+2. **Osion 10 konsolidointi** — Yksityiskohtaiset osiot 10.6-10.18 korvattu osiolla 10.6 "Laajennetut tutkimuspanokset (Yhteenveto)" sisältäen 1 kappaleen tiivistelmät PHD Firehorse -ristiviittauksilla
+3. **Liitteiden karsinta** — 8 liitettä vähennetty 4:ään (säilytetty Solution Factory Canvas, LSS-protokolla, Karpathyn periaatteet, Sanasto)
+4. **Sisällön säilyttäminen** — Kaikki poistettu sisältö on jo olemassa PHD Firehorse -liitedokumentissa
+
+#### 10.19.3 Versiointisäännöt
+
+- v3.30.50-tiedostot ovat **HIL-only** (Human-in-the-Loop) — ei Claude Code -muokkauksia jäädytyksen jälkeen
+- 82-sivuinen elävä dokumentti jatkaa versiointia normaalisti (3.32, 3.33, ...)
+- PHD Firehorse jatkuu itsenäisesti (3.2, 3.3, ...)
+- Elävien dokumenttien versioidenpäivityksissä tulee mainita, jos sisältö koskee myös jäädytettyä versiota kopioi-liitä-ehdotusten kautta
+
+#### 10.19.4 Tutkimuspanos
+
+**Avainpanos #23:** Kaksoisversiostrategia osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset. 82-sivuinen elävä dokumentti säilyttää täydellisen tutkimuslinjan (38 versiomerkintää, 22 avainkontribuutiota), kun taas 50-sivuinen jäädytetty versio täyttää oppilaitoksen vaatimukset menettämättä henkistä omaisuutta. Malli voi yleistyä muihin nopeasti eteneviin tutkimusprojekteihin, jotka käyttävät tekoälyavusteista dokumentointia.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2684,9 +2762,9 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.30 — LWM-sekvensointistrategia (vaatimustenmukaisuus→laivasto→Series A)
-**Versio:** 3.30
-**Viimeisin päivitys:** 25.03.2026
+**Tila:** DRAFT - V3.32 — Opinnäytetyön versiointistrategia (v3.30.50 jäädytys + 82-sivuinen jatkuu)
+**Versio:** 3.32
+**Viimeisin päivitys:** 03.04.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2719,6 +2797,8 @@ Kolme ratkaisematonta ongelmaa yhdistää vaiheen 1 vaiheeseen 2:
 19. Harness Engineering — OpenAI:n 8 harness engineering -periaatteen analyysi DWS IQ 6 -arkkitehtuuria vasten; empiirinen löydös: pelkkä harness-parannus tuottaa 52,8%→66,5% tulosparannuksen (malli muuttumaton); DWS:n L0-L6 kuusikerroksinen arkkitehtuuri formaalina harness-kehyksenä; EU-regulaatio vaatii perustavanlaatuisesti erilaisen harnessin (jäljitettävyys + ihminen silmukassa vs Silicon Valleyn nopeusoptimointi)
 20. Hiilitase — Johtopäätös: EU:n ilmastovaatimustenmukaisuus (ETS, CBAM, CSRD, taksonomia) on rakenteellisesti isomorfinen kirjanpidon kanssa; kahdenkertainen kirjanpito CO2:lle kaksoisyksikkökirjauksilla (EUR + tCO2e); poikkisääntelyinen täsmäytys jaettujen kirjanpitokirjausten kautta; poikkitoimialainen älykkyys -teesi (monitoimialainen kirjanpito tuottaa emergenttia dataa jota yksitoimialainen työkalu ei voi replikoida); DWS 7 Phase 2.6 toteutussuunnitelma (8 PR:ää, pysyvä kirjanpito, talousjohtajan kojelauta, ERP-pääkirjan synkronointi, XBRL-vienti)
 21. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A) sijoittajanarratiivien ristiriitojen ratkaisemiseksi; LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi (syötemodaali, skaala, sääntely-fyysinen integraatio); vaatimustenmukaisuus ensin -maailmamalliteesi; Persefoni/Sweep-markkinavertailut
+22. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi everything-claude-code-kehystä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -tuotesääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; taitoinventaarion kasvu 6:sta 21:een tuotantotaitoon 4:llä estävällä kurinpitoportilla; validoi harness engineering -teesin (osio 10.16)
+23. Opinnäytetyön versiointistrategia — Kaksoisversioarkkitehtuuri: v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset; säilyttää täydellisen tutkimuslinjan täyttäen samalla oppilaitoksen vaatimukset
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

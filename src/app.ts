@@ -41,6 +41,7 @@ import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
+import { openApiRouter } from './openapi.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -378,7 +379,14 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.headers['x-admin-key'] as string;
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks (consistent with other admin endpoints)
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuffer = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -398,7 +406,14 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.headers['x-admin-key'] as string;
 
-  if (!adminKey || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -503,6 +518,9 @@ initErrorTracking().catch(() => { /* logged internally */ });
 
 // Error tracking middleware — captures exceptions before error handler formats response
 app.use(errorTrackingMiddleware());
+
+// OpenAPI documentation (GET /api/docs, GET /api/docs/openapi.json)
+app.use(openApiRouter);
 
 // 404 handler — must be after all routes
 app.use(notFoundHandler);

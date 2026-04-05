@@ -6,21 +6,21 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
-| Standard | File | Scope |
-|----------|------|-------|
-| **Brand Standard** | `DWS_BRAND_STANDARD.md` | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges |
-| **Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Document formatting, sections, metadata |
-| **Gamma UI Guidelines** | `UI_SKILLS_GAMMA.md` | Tailwind, Radix UI, accessibility, animations |
-| **Security Standard** | `DWS_SECURITY_STANDARD.md` | AI safety, enterprise security framework |
-| **Security Compliance** | `Admin/SECURITY_COMPLIANCE.md` | Deployment, controls, certifications, vendor risk |
-| **Market Research Standard** | `DWS_MARKET_RESEARCH_STANDARD.md` | Competitive intelligence, product improvement, data collection |
-| **Site Quality Standards** | `SITE_QUALITY_STANDARDS.md` | Code quality, **code formatting**, components, nav, logos, CTA, testing |
-| **Cloud Environments** | `docs/CLOUD_ENVIRONMENTS.md` | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency |
-| **Product Catalog** | `product-catalog/README.md` | Product catalog structure, Store Product Format, Google Merchant fields |
-| **Data Standard** | `DWS_DATA_STANDARD.md` | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance |
+| Standard                          | File                                        | Scope                                                                                                           |
+| --------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                          |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                         |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                   |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                        |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                               |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                  |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                         |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                        |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                         |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance           |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
-| **Skills Guide** | `docs/DWS_SKILLS_GUIDE.md` | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each |
-| **Blog Standard** | `docs/BLOG_STANDARD.md` | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                             |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                   |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -28,11 +28,11 @@ Before making any UI changes, agents MUST consult these files:
 
 Files in `Store/` use **YAML frontmatter** — NOT the DWS Document Standard header.
 
-| Location | Format |
-|----------|--------|
-| `Store/*.md` | YAML frontmatter (`title`, `price`, `sku`) |
-| `dws10.com/config/products.json` | JSON (primary product source, ~30 products) |
-| Everything else | DWS Document Standard (VERSION AND AGENT HISTORY block) |
+| Location                         | Format                                                  |
+| -------------------------------- | ------------------------------------------------------- |
+| `Store/*.md`                     | YAML frontmatter (`title`, `price`, `sku`)              |
+| `dws10.com/config/products.json` | JSON (primary product source, ~30 products)             |
+| Everything else                  | DWS Document Standard (VERSION AND AGENT HISTORY block) |
 
 **Never put DWS Document Standard headers in `Store/*.md` files.** The YAML parser will fail and the product will be excluded from the Google Merchant feed.
 
@@ -64,12 +64,12 @@ When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Se
 
 When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **"opinnäytetyö"**, ALL 4 thesis files MUST be updated together:
 
-| # | File (source of truth) | Learn/ copy | Language | Version |
-|---|------------------------|-------------|----------|---------|
-| 1 | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | `Learn/V3Thesis_EN.md` | English | Metropolia (v3.x) |
-| 2 | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | `Learn/V3Thesis_FI.md` | Finnish | Metropolia (v3.x) |
-| 3 | `docs/PHD_FIREHORSE_EN.md` | `Learn/PHD_FIREHORSE_EN.md` | English | PHD Firehorse (v1.x) |
-| 4 | `docs/PHD_FIREHORSE_FI.md` | `Learn/PHD_FIREHORSE_FI.md` | Finnish | PHD Firehorse (v1.x) |
+| #   | File (source of truth)                            | Learn/ copy                 | Language | Version              |
+| --- | ------------------------------------------------- | --------------------------- | -------- | -------------------- |
+| 1   | `docs/metropolia/master-thesis/en/V3Thesis_EN.md` | `Learn/V3Thesis_EN.md`      | English  | Metropolia (v3.x)    |
+| 2   | `docs/metropolia/master-thesis/fi/V3Thesis_FI.md` | `Learn/V3Thesis_FI.md`      | Finnish  | Metropolia (v3.x)    |
+| 3   | `docs/PHD_FIREHORSE_EN.md`                        | `Learn/PHD_FIREHORSE_EN.md` | English  | PHD Firehorse (v1.x) |
+| 4   | `docs/PHD_FIREHORSE_FI.md`                        | `Learn/PHD_FIREHORSE_FI.md` | Finnish  | PHD Firehorse (v1.x) |
 
 **ALL thesis files are PRIVATE.** Never publish to `dws10.com/`, `landing-pages/`, or `onelifetime.world/`.
 
@@ -85,11 +85,13 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 Every `Learn/*.html` file MUST display a visible version badge at the top of the page body.
 
 **Use the generator script — never hand-craft HTML:**
+
 ```bash
 node scripts/gen-thesis-html.cjs
 ```
 
 The script (`scripts/gen-thesis-html.cjs`):
+
 - **Auto-detects version** from `Version: X.X` in the markdown — no manual filename updates needed
 - **Auto-derives output filename** as `Learn/{name}_v{version}.html`
 - **Injects a version banner** at the top of every HTML:
@@ -105,10 +107,11 @@ The script (`scripts/gen-thesis-html.cjs`):
 **DWS IQ 6** is a platform to **run enterprise industrial AI agents safely** following DWS standards. It provides multi-agent delegation with EU compliance scoring, ERP integration, and sales automation.
 
 **Architecture: Brain-Memory-Body-Hands**
+
 - **Brain**: DWS IQ 6 Platform (Multi-Agent Orchestration via delegation & event bus — 16+ TypeScript agents with deterministic scoring)
-- **Memory**: Lifetime World Model (EU Regulations + Industry Models — *external dependency, not built in this repo*)
+- **Memory**: Lifetime World Model (EU Regulations + Industry Models — _external dependency, not built in this repo_)
 - **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
-- **Hands**: Lifetime Fleet (IoT/Robots — *specification phase*)
+- **Hands**: Lifetime Fleet (IoT/Robots — _specification phase_)
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
@@ -117,6 +120,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 ### Critical Behaviors
 
 1. **Assumption Surfacing** — Before implementing anything non-trivial, state assumptions explicitly. Never silently fill in ambiguous requirements.
+
    ```
    ASSUMPTIONS I'M MAKING:
    1. [assumption]
@@ -133,14 +137,14 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 6. **Validated Mock Data Rule (CRITICAL)** — MVP features MAY use mock/static data, but that data MUST come from validated, citable sources — never invented numbers. Every mock value must have a `source` field or comment citing the real data source.
 
-   | Data Type | Acceptable Sources | Example |
-   |-----------|-------------------|---------|
-   | Emission factors | EU ETS benchmarks (Reg. 2021/447), CBAM defaults (Reg. 2023/1773), IPCC 2006 | `factor: 1.328, source: 'EU ETS Benchmark 2021-2025'` |
-   | Sector averages | EEA GHG Inventory, Eurostat SBS/env_ac_ainah_r2 | `avgEmissions: 185000, source: 'EEA GHG Inventory 2024'` |
-   | Carbon prices | ECB SDW, ICE/ECX auction data | `price: 65, source: 'EU ETS 2024 average'` |
-   | Regulatory thresholds | Official regulation text (EUR-Lex) | `CBAM_IMPORT_THRESHOLD: 150000` (from Reg. 2023/956) |
-   | ESRS disclosures | EFRAG ESRS 2023 final set | 82 disclosures mapped in `esrs-registry.ts` |
-   | Company data | Company ESG reports, annual reports | Extracted via `esg-report-extractor.ts` |
+   | Data Type             | Acceptable Sources                                                           | Example                                                  |
+   | --------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------- |
+   | Emission factors      | EU ETS benchmarks (Reg. 2021/447), CBAM defaults (Reg. 2023/1773), IPCC 2006 | `factor: 1.328, source: 'EU ETS Benchmark 2021-2025'`    |
+   | Sector averages       | EEA GHG Inventory, Eurostat SBS/env_ac_ainah_r2                              | `avgEmissions: 185000, source: 'EEA GHG Inventory 2024'` |
+   | Carbon prices         | ECB SDW, ICE/ECX auction data                                                | `price: 65, source: 'EU ETS 2024 average'`               |
+   | Regulatory thresholds | Official regulation text (EUR-Lex)                                           | `CBAM_IMPORT_THRESHOLD: 150000` (from Reg. 2023/956)     |
+   | ESRS disclosures      | EFRAG ESRS 2023 final set                                                    | 82 disclosures mapped in `esrs-registry.ts`              |
+   | Company data          | Company ESG reports, annual reports                                          | Extracted via `esg-report-extractor.ts`                  |
 
    **Reference files:** `src/compliance/emission-factors.ts` (ETS/CBAM factors), `src/compliance/eu-benchmarks.ts` (sector averages), `src/compliance/esrs-registry.ts` (ESRS disclosures).
 
@@ -150,7 +154,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 8. **Dead Code Hygiene** — After refactoring, list now-unused code and ask before removing.
 
-9. **Never Delete Files — Always Rename to _OLD (CRITICAL)** — NEVER use `git rm` or delete. When "delete" is mentioned, rename the file by appending `_OLD` to the filename (before the extension). **Always ask the human for confirmation first** before renaming. No exceptions. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
+9. **Never Delete Files — Always Rename to \_OLD (CRITICAL)** — NEVER use `git rm` or delete. When "delete" is mentioned, rename the file by appending `_OLD` to the filename (before the extension). **Always ask the human for confirmation first** before renaming. No exceptions. Deleted files lose git history. Exception: temp/generated files (`.tmp`, `node_modules/`, `dist/`).
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
@@ -158,14 +162,15 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 **Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
 
-| Folder | Runs | Auto-discovered by |
-|--------|------|--------------------|
-| `scripts/daily/*.{ts,sh}` | Once per day (03:00–06:00 UTC) | DGX Spark `day-runner.sh` |
-| `scripts/hourly/*.{ts,sh}` | Once per hour | DGX Spark `day-runner.sh` |
-| `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh` |
-| `scripts/*.ps1` | Via Windows Task Scheduler | `Install-DailyTasks.ps1` (run once) |
+| Folder                        | Runs                                    | Auto-discovered by                  |
+| ----------------------------- | --------------------------------------- | ----------------------------------- |
+| `scripts/daily/*.{ts,sh}`     | Once per day (03:00–06:00 UTC)          | DGX Spark `day-runner.sh`           |
+| `scripts/hourly/*.{ts,sh}`    | Once per hour                           | DGX Spark `day-runner.sh`           |
+| `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh`           |
+| `scripts/*.ps1`               | Via Windows Task Scheduler              | `Install-DailyTasks.ps1` (run once) |
 
 **When creating a new script:**
+
 1. Put it in the right convention folder (`daily/`, `hourly/`, or `on-deploy/`)
 2. It will run automatically on DGX Spark — no config, no workflow, no remembering
 3. For Win11 PowerShell scripts, add an entry to `Install-DailyTasks.ps1`
@@ -182,6 +187,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 ### Output Standards
 
 After any modification:
+
 ```
 CHANGES MADE:
 - [file]: [what changed and why]
@@ -237,16 +243,17 @@ Scripts may only: list models, check if required models exist, warn if missing.
 
 **Before telling the user to run ANY file or command, verify which branch contains that file.**
 
-| Situation | Correct instruction |
-|-----------|-------------------|
+| Situation                                  | Correct instruction                                           |
+| ------------------------------------------ | ------------------------------------------------------------- |
 | File is on a feature branch, PR not merged | `git fetch origin <branch> && git checkout <branch>` THEN run |
-| File is on main, user is on main | `git pull origin main` THEN run |
-| File is on main, user is on feature branch | Merge main first or cherry-pick |
-| File was just created in this session | Tell user which branch has it and how to get there |
+| File is on main, user is on main           | `git pull origin main` THEN run                               |
+| File is on main, user is on feature branch | Merge main first or cherry-pick                               |
+| File was just created in this session      | Tell user which branch has it and how to get there            |
 
 **Forbidden:** Telling the user to run a file without confirming it exists on their current branch. `git pull origin main` does NOT give you files from unmerged PRs.
 
 **Checklist before giving run instructions:**
+
 1. Which branch is the file on?
 2. Is the PR merged?
 3. Which branch is the user currently on?
@@ -275,15 +282,15 @@ Scripts may only: list models, check if required models exist, warn if missing.
 
 Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoices, and legal documents:
 
-| Field | Value |
-|-------|-------|
-| **Company Name** | Lifetime Oy |
-| **Business Identity Code (Y-tunnus)** | 0772407-9 |
-| **VAT ID (ALV-tunnus)** | FI07724079 |
-| **Registered Address** | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
-| **Country** | Finland |
-| **CEO** | Risto Anton Päärni |
-| **Email** | risto.paarni@lifetime.fi |
+| Field                                 | Value                                         |
+| ------------------------------------- | --------------------------------------------- |
+| **Company Name**                      | Lifetime Oy                                   |
+| **Business Identity Code (Y-tunnus)** | 0772407-9                                     |
+| **VAT ID (ALV-tunnus)**               | FI07724079                                    |
+| **Registered Address**                | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| **Country**                           | Finland                                       |
+| **CEO**                               | Risto Anton Päärni                            |
+| **Email**                             | risto.paarni@lifetime.fi                      |
 
 **Never use any other Business ID.** If you see a different BUID (e.g. 3464035-4), it is wrong — always correct to `0772407-9`.
 
@@ -347,12 +354,12 @@ dws6/
 
 Landing pages exist in TWO locations and MUST be updated in BOTH:
 
-| Site | Root Folder (source of truth) | Landing Pages Folder (production) |
-|------|-------------------------------|-----------------------------------|
-| dws6.com | `dws6.com/` | `landing-pages/dws6-com/` |
-| dws10.com | `dws10.com/` | `landing-pages/dws10-com/` |
-| onelifetime.world | `onelifetime.world/` | `landing-pages/onelifetime-world/` |
-| lifetime.fi | `lifetime.fi/` | `landing-pages/lifetime-fi/` *(coming)* |
+| Site              | Root Folder (source of truth) | Landing Pages Folder (production)       |
+| ----------------- | ----------------------------- | --------------------------------------- |
+| dws6.com          | `dws6.com/`                   | `landing-pages/dws6-com/`               |
+| dws10.com         | `dws10.com/`                  | `landing-pages/dws10-com/`              |
+| onelifetime.world | `onelifetime.world/`          | `landing-pages/onelifetime-world/`      |
+| lifetime.fi       | `lifetime.fi/`                | `landing-pages/lifetime-fi/` _(coming)_ |
 
 **Workflow:** Update root folder FIRST → Test on Cloudflare Workers → THEN copy to landing-pages. Never update landing-pages first.
 
@@ -470,6 +477,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 ```
 
 **Worktree locations:**
+
 - Windows: `F:\2026\Repos2026\.claude-worktrees\dws6\` (MUST be F: drive, NOT C:\Users\)
 - macOS/iOS: `~/.claude-worktrees/dws6/`
 - Linux/Chromebook: `../.claude-worktrees/dws6/`
@@ -488,29 +496,46 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 ## 2026 EU AI Act Compliance
 
-| File/Folder | Behavior | Reason |
-|-------------|----------|--------|
-| `.gitignore` | **Shared** (inherited) | All worktrees use same ignore rules |
-| `.venv/` | **Symlinked** | Saves space, consistent packages |
-| `.mcp.json` | **Copied** | MCP server connections — **CRITICAL** for tool access |
-| `.env` | **Copied** | May need worktree-specific values |
-| `.env.mcp` | **Copied** | MCP Hub environment config |
-| `.env.local` | **Copied** | Local environment overrides |
-| `.cursorrules` | **Copied** | Cursor IDE rules |
-| `.claude/` | **Copied** | Session-specific Claude settings + permissions |
-| `node_modules/` | **Not shared** | Run `npm install` per worktree |
+| File/Folder     | Behavior               | Reason                                                |
+| --------------- | ---------------------- | ----------------------------------------------------- |
+| `.gitignore`    | **Shared** (inherited) | All worktrees use same ignore rules                   |
+| `.venv/`        | **Symlinked**          | Saves space, consistent packages                      |
+| `.mcp.json`     | **Copied**             | MCP server connections — **CRITICAL** for tool access |
+| `.env`          | **Copied**             | May need worktree-specific values                     |
+| `.env.mcp`      | **Copied**             | MCP Hub environment config                            |
+| `.env.local`    | **Copied**             | Local environment overrides                           |
+| `.cursorrules`  | **Copied**             | Cursor IDE rules                                      |
+| `.claude/`      | **Copied**             | Session-specific Claude settings + permissions        |
+| `node_modules/` | **Not shared**         | Run `npm install` per worktree                        |
+
+## Claude Code Safety Hooks (CRITICAL)
+
+**12 hooks** in `.claude/hooks/`, configured in `.claude/settings.local.json`. Zero permission prompts — block or allow, never ask.
+
+| Event                    | Hooks                                                                             | What They Do                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| SessionStart             | `session-start.sh`                                                                | Injects trust boundary (GREEN/YELLOW/RED zones), checks branch + MCP                      |
+| PreToolUse (Bash)        | `pretooluse-guard.sh`, `secret-scan.sh`, `log-commands.sh`, `sql-safety-guard.sh` | Block destructive commands, detect 14 secret patterns, audit all Bash, enforce SQL safety |
+| PreToolUse (Edit/Write)  | `protect-files.sh`, `secret-scan.sh`                                              | Block .env/.key writes, .md in public folders, detect secrets                             |
+| PreToolUse (PR)          | `require-tests-for-pr.sh`                                                         | Tests must pass before PR creation                                                        |
+| PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
+| Stop                     | `session-stop.sh`, `auto-commit.sh`                                               | Governance checklist, auto-commit on feature branches                                     |
+
+**Key blocks:** `rm -rf`, `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiwen audit table mutations.
+
+**Full reference:** `Admin/ADMIN_MANUAL.md` Section 30 | `.claude/hooks/README.md`
 
 ## Build for Agents (CRITICAL — 2026 Product Rule)
 
 **Every DWS product MUST be agent-accessible.** Before shipping any product/feature, verify all 5:
 
-| # | Requirement | DWS Implementation |
-|---|-------------|-------------------|
-| 1 | CLI exists | `npx tsx cli/src/cli.ts <command>` |
-| 2 | Output is JSON | All CLI output structured JSON |
-| 3 | MCP tools exposed | `/mcp` endpoint, `tools/list` returns all agents |
-| 4 | Claude Code Skills exist | `.claude/commands/*.md` (17 skills) + `skills/*/SKILL.md` (3 discipline skills) |
-| 5 | Docs are markdown | All standards are `.md` in repo root |
+| #   | Requirement              | DWS Implementation                                                              |
+| --- | ------------------------ | ------------------------------------------------------------------------------- |
+| 1   | CLI exists               | `npx tsx cli/src/cli.ts <command>`                                              |
+| 2   | Output is JSON           | All CLI output structured JSON                                                  |
+| 3   | MCP tools exposed        | `/mcp` endpoint, `tools/list` returns all agents                                |
+| 4   | Claude Code Skills exist | `.claude/commands/*.md` (17 skills) + `skills/*/SKILL.md` (3 discipline skills) |
+| 5   | Docs are markdown        | All standards are `.md` in repo root                                            |
 
 ```bash
 dws agents                              # List all agents
@@ -544,11 +569,11 @@ dws workflow compliance-assessment
 - [ ] Run `git status` before first commit to verify no sensitive files staged
 - [ ] `.venv` symlink points to main repo's virtual environment
 - [ ] Docker is running and MCP containers are healthy
-**Cloud accounts:**
-| Account | Scope |
-|---------|-------|
-| `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
-| dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
+      **Cloud accounts:**
+      | Account | Scope |
+      |---------|-------|
+      | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+      | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
 
 **Environments:**
 | Environment | Provider | Purpose |
@@ -567,17 +592,22 @@ dws workflow compliance-assessment
 - GitHub auto-deletes branches after merge
 
 ### Merge Conflict Resolution (CRITICAL)
+
 1. **Locally if possible** — `git fetch origin main && git merge origin/main`, resolve conflicts in the worktree, commit, and push.
 2. **Human resolves in GitHub PR web UI** — If local resolution fails or conflicts are too complex, push the branch, tell the human what conflicts exist, and wait. After resolution on GitHub, `git pull` then push.
 
 ### Auto-Push Rule (CRITICAL)
+
 When a PR exists for the current branch, every completed task MUST end with commit + push. Do not wait for the user to ask. Exception: user says "don't push yet".
 
 ### Session Handover Protocol (CRITICAL)
+
 When context window is getting full:
+
 1. `git status` → commit + push any changes
 2. Verify `nothing to commit, working tree clean`
 3. Provide continuation prompt:
+
 ```
 JATKA EDELLISTÄ SESSIOTA / CONTINUE PREVIOUS SESSION
 Branch: <branch> | Commit: <hash> — <message> | PR: <url>
@@ -586,7 +616,9 @@ Start: git pull origin <branch>
 ```
 
 ### Branch Auto-Deletion After Merge (CRITICAL)
+
 After PR merge, GitHub deletes the branch. To continue work:
+
 ```bash
 git fetch origin main && git rebase origin/main
 git push -u origin claude/<feature>-<id> --force
@@ -594,6 +626,7 @@ git push -u origin claude/<feature>-<id> --force
 ```
 
 ### Worktree Best Practices
+
 Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`. Never create manually. Scripts verify .gitignore, copy .env files, symlink .venv, standardize locations.
 
 **Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
@@ -606,6 +639,7 @@ The January 2026 security incident was caused by manual worktree creation withou
 4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
 
 **DO NOT create worktrees manually.** Always use the provided scripts:
+
 ```bash
 # Windows
 .\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
@@ -629,13 +663,13 @@ See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-
 
 ### Safety Rules for SQL (Boardy Enforced)
 
-| Rule | Enforcement |
-|------|-------------|
-| Every migration wrapped in `BEGIN`/`COMMIT` | `db-drift-check.py --verify` |
-| RLS enabled on all new tables | Drift check flags missing RLS |
-| No `DROP TABLE` without explicit approval | PR review gate |
-| No `SECURITY DEFINER` on public functions | Lint rule in drift check |
-| `service_role` key never in client code | `.env` + gitignore audit |
+| Rule                                        | Enforcement                   |
+| ------------------------------------------- | ----------------------------- |
+| Every migration wrapped in `BEGIN`/`COMMIT` | `db-drift-check.py --verify`  |
+| RLS enabled on all new tables               | Drift check flags missing RLS |
+| No `DROP TABLE` without explicit approval   | PR review gate                |
+| No `SECURITY DEFINER` on public functions   | Lint rule in drift check      |
+| `service_role` key never in client code     | `.env` + gitignore audit      |
 
 ### Known Failure Modes (Boardy Watches For)
 
@@ -647,17 +681,21 @@ See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-
 ### Using Boardy in Reviews
 
 When reviewing database migrations, infrastructure changes, or security-sensitive code:
+
 - Apply Boardy's priorities (prod safety, idempotency, drift control, security)
 - Flag violations of the safety rules table above
 - Use direct, practical language — no sugar-coating
 - Propose fixes, not just complaints
+
 ### PR Creation
+
 - Use Claude Code session for PRs when actively working in that worktree (better context)
 - Use `gh pr create` in terminal for batch/admin PRs
 
 ## Session Environment Detection (CRITICAL)
 
 Specify environment in message text (NOT as slash commands):
+
 - `win` or `win11` → Windows 11: full tooling (`gh`, PowerShell, VS Code/Cursor)
 - `mobile` → Mobile/web: no `gh`, no PowerShell, compare-link PRs only
 - `chromebook` → Chromebook (Linux): bash, `gh` may be available, no PowerShell
@@ -666,6 +704,7 @@ Specify environment in message text (NOT as slash commands):
 **Good:** `win11 — updating admin manual` | **Bad:** `/win` (triggers skill lookup error)
 
 **Auto-detection fallback:**
+
 - Mobile: `local_proxy@127.0.0.1` in git remote
 - Win11: `github.com` remote + `win32`/`MINGW64_NT` platform
 - Chromebook: `github.com` remote + native `linux` platform

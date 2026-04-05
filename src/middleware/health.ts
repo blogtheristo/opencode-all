@@ -103,7 +103,7 @@ export async function healthCheck(_req: Request, res: Response): Promise<void> {
 
   // Return 200 even when degraded (Cloud Run should keep serving)
   // Return 503 only if we want Cloud Run to restart the container
-  const httpStatus = overall === 'down' ? 503 : 200;
+  const httpStatus = (overall as string) === 'down' ? 503 : 200;
 
   res.status(httpStatus).json(response);
 }

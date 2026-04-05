@@ -258,7 +258,7 @@ Where AI Processing is performed as part of the Services:
 
 **10.1** DWS IQ Oü undertakes to reasonably cooperate with the Customer in order to guarantee the handling of requests from Data Subjects to exercise the rights stipulated by the Data Protection Regulations within the time frames and in accordance with the terms set by those Data Protection Regulations. In this regard, DWS IQ Oü undertakes to inform the Customer of any requests submitted by a Data Subject to exercise such rights.
 
-**10.2** Customer's rights requests are managed via the DWS IQ 6 Platform administration panel. For any privacy issue related to a third-party or topics not supported by the Platform, requests can be sent to **legal@lifetime.fi**.
+**10.2** Customer's rights requests are managed via the DWS IQ 6 Platform administration panel. For any privacy issue related to a third-party or topics not supported by the Platform, requests can be sent to **privacy@lifetime.fi**.
 
 ---
 
@@ -318,7 +318,7 @@ Where AI Processing requires transmission of Personal Data to AI model providers
 
 ## ARTICLE 14. MISCELLANEOUS PROVISIONS
 
-**14.1** This Data Processing Agreement is governed by Finnish law. The courts of Helsinki, Finland have exclusive jurisdiction to hear any dispute arising out or relating to this DPA.
+**14.1** This Data Processing Agreement is governed by Finnish law. Espoon käräjäoikeus (Espoo District Court) has exclusive jurisdiction to hear any dispute arising out or relating to this DPA.
 
 **14.2** This Agreement supersedes all prior written and oral agreements relating to Personal Data. Any amendment of this DPA shall only be valid if it is in writing and signed by authorized representatives of the Customer and DWS IQ Oü.
 
@@ -330,10 +330,11 @@ Where AI Processing requires transmission of Personal Data to AI model providers
 
 ## ARTICLE 15. CONTACT
 
-- **DWS IQ Oü DPO**: risto@lifetime.fi
-- **Privacy Team**: legal@lifetime.fi
+- **DWS IQ Oü DPO** (Risto Anton Päärni, CEO Lifetime Oy): dpo@lifetime.fi
+- **Privacy Team**: privacy@lifetime.fi
 - **Notification of Data Breach**: security@lifetime.fi
 - **DWS IQ 6 Privacy Policy**: https://dws10.com/privacy-policy/
+- **Legal Hub**: https://dws10.com/legal-hub/
 
 ---
 
@@ -341,16 +342,19 @@ Where AI Processing requires transmission of Personal Data to AI model providers
 
 The following Sub-processors are authorized to process Personal Data on behalf of the Customer in connection with the DWS IQ 6 Services:
 
-| Sub-processor | Purpose | Data Location | Data Processed |
-|---|---|---|---|
-| **Supabase Inc.** | Database hosting, authentication, real-time services | EU (Finland/Germany) | All platform data, user authentication data |
-| **Google Cloud (Google LLC)** | Cloud Run compute services, AI APIs (Gemini) | EU (Finland) | Application processing data, AI inference data |
-| **Cloudflare Inc.** | CDN, edge computing (Workers), DDoS protection | EU edge nodes | Web traffic metadata, cached content |
-| **Anthropic PBC** | AI language model services (Claude API) | USA* | Anonymized/pseudonymized compliance analysis data |
-| **Groq Inc.** | AI inference acceleration | USA* | Anonymized/pseudonymized AI processing data |
-| **Temporal Technologies Inc.** | Workflow orchestration | EU | Workflow metadata, task identifiers |
+| Sub-processor                  | Purpose                                              | Data Location        | Data Processed                                                           |
+| ------------------------------ | ---------------------------------------------------- | -------------------- | ------------------------------------------------------------------------ |
+| **Supabase Inc.**              | Database hosting, authentication, real-time services | EU (Finland/Germany) | All platform data, user authentication data                              |
+| **Google Cloud (Google LLC)**  | Cloud Run compute services, AI APIs (Gemini)         | EU (Finland)         | Application processing data, AI inference data                           |
+| **Cloudflare Inc.**            | CDN, edge computing (Workers), DDoS protection       | EU edge nodes        | Web traffic metadata, cached content                                     |
+| **Anthropic PBC**              | AI language model services (Claude API)              | USA\*                | Anonymized/pseudonymized compliance analysis data                        |
+| **Groq Inc.**                  | AI inference acceleration                            | USA\*                | Anonymized/pseudonymized AI processing data                              |
+| **Temporal Technologies Inc.** | Workflow orchestration                               | EU                   | Workflow metadata, task identifiers                                      |
+| **Shufti Pro Limited**         | Identity verification (KYC/IDV)                      | EU only              | Biometric data (facial images), identity documents, verification results |
 
-*\* For USA-based Sub-processors, Standard Contractual Clauses (SCC) and additional supplementary measures are in place. Data minimization and pseudonymization are applied before any cross-border transfer. See Annex C for SCC implementation details.*
+_\* For USA-based Sub-processors, Standard Contractual Clauses (SCC) and additional supplementary measures are in place. Data minimization and pseudonymization are applied before any cross-border transfer. See Annex C for SCC implementation details._
+
+_\*\* Shufti Pro processes biometric data (GDPR Article 9 special category) exclusively within EU/EEA data centers. EU-only processing confirmed by Shufti compliance team (March 2026). Biometric data is deleted after verification completion per agreed retention schedule._
 
 **Note**: This list is subject to updates. The Customer will be notified thirty (30) days in advance of any changes in accordance with Article 7.4.
 
@@ -419,12 +423,13 @@ This annex documents the Standard Contractual Clauses (SCC) arrangements in plac
 
 ### C.1 SCC Status by Sub-processor
 
-| Sub-processor | SCC Mechanism | Module | Status | Reference |
-|---|---|---|---|---|
-| **Anthropic PBC** | Incorporated into Commercial Terms of Service | Module 2 (C→P) + Module 3 (P→P) | Automatic upon ToS acceptance | [Anthropic Privacy Center — DPA](https://privacy.claude.com/en/articles/7996862-how-do-i-view-and-sign-your-data-processing-addendum-dpa) |
-| **Groq Inc.** | Incorporated into Groq Services Agreement | Module 2 (C→P) + Module 3 (P→P) | Automatic upon Services Agreement acceptance | [Groq Data Processing Addendum](https://console.groq.com/docs/legal/customer-data-processing-addendum) |
+| Sub-processor     | SCC Mechanism                                 | Module                          | Status                                       | Reference                                                                                                                                 |
+| ----------------- | --------------------------------------------- | ------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Anthropic PBC** | Incorporated into Commercial Terms of Service | Module 2 (C→P) + Module 3 (P→P) | Automatic upon ToS acceptance                | [Anthropic Privacy Center — DPA](https://privacy.claude.com/en/articles/7996862-how-do-i-view-and-sign-your-data-processing-addendum-dpa) |
+| **Groq Inc.**     | Incorporated into Groq Services Agreement     | Module 2 (C→P) + Module 3 (P→P) | Automatic upon Services Agreement acceptance | [Groq Data Processing Addendum](https://console.groq.com/docs/legal/customer-data-processing-addendum)                                    |
 
 **Key notes:**
+
 - Both providers incorporate SCCs directly into their service agreements — no separate SCC signing is required
 - Both include Module 2 (Controller to Processor) and Module 3 (Processor to Processor) of the EU SCCs per Commission Implementing Decision (EU) 2021/914
 - Both also cover UK SCCs via jurisdiction-specific addenda
@@ -458,6 +463,7 @@ The following steps must be completed before the DPA is executed with a Customer
 A TIA must be completed for each USA-based Sub-processor. The assessment should cover:
 
 **Section 1: Transfer Details**
+
 - Data exporter: DWS IQ Oü (Finland)
 - Data importer: [Sub-processor name] (USA)
 - Categories of data transferred: [As defined in Article 2.5]
@@ -465,30 +471,33 @@ A TIA must be completed for each USA-based Sub-processor. The assessment should 
 - Transfer mechanism: Standard Contractual Clauses (Module 2/3)
 
 **Section 2: Assessment of Third Country Laws**
+
 - Relevant USA surveillance laws (FISA 702, EO 12333)
 - Applicability of EU-US Data Privacy Framework
 - Sub-processor's certifications and commitments regarding government access requests
 
 **Section 3: Supplementary Measures**
+
 - Technical measures (pseudonymization, encryption, minimization)
 - Contractual measures (DPA provisions, no model training clause)
 - Organizational measures (access controls, staff training)
 
 **Section 4: Conclusion**
+
 - Overall risk assessment: [Low / Medium / High]
 - Decision: [Proceed with transfer / Proceed with additional measures / Suspend transfer]
 - Review date: [Next review date, at least annually]
 
 ### C.4 Ongoing Obligations
 
-| Obligation | Frequency | Responsible |
-|---|---|---|
-| Review Sub-processor DPA terms for changes | Quarterly | DPO / Legal |
-| Update TIA per Sub-processor | Annually or upon material change | DPO / Legal |
-| Verify supplementary measures effectiveness | Annually | Technical Lead + DPO |
-| Archive updated DPA copies | Upon any change notification | Compliance |
-| Customer notification of Sub-processor changes | 30 days advance per Article 7.4 | DPO |
-| Regulatory landscape review (EU-US transfers) | Quarterly | Legal |
+| Obligation                                     | Frequency                        | Responsible          |
+| ---------------------------------------------- | -------------------------------- | -------------------- |
+| Review Sub-processor DPA terms for changes     | Quarterly                        | DPO / Legal          |
+| Update TIA per Sub-processor                   | Annually or upon material change | DPO / Legal          |
+| Verify supplementary measures effectiveness    | Annually                         | Technical Lead + DPO |
+| Archive updated DPA copies                     | Upon any change notification     | Compliance           |
+| Customer notification of Sub-processor changes | 30 days advance per Article 7.4  | DPO                  |
+| Regulatory landscape review (EU-US transfers)  | Quarterly                        | Legal                |
 
 ### C.5 References
 
@@ -500,11 +509,62 @@ A TIA must be completed for each USA-based Sub-processor. The assessment should 
 
 ---
 
-*This document is a template and must be reviewed by legal counsel before use. Placeholder values marked with [BRACKETS] must be replaced with actual values before execution.*
+## ANNEX D: DORA COMPLIANCE (Where Applicable)
 
-**DWS IQ Oü**
-(Subsidiary of Lifetime Oy, Y-tunnus: 0772407-9)
-Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+This annex applies when the Customer is a financial entity subject to Regulation (EU) 2022/2554 (Digital Operational Resilience Act — DORA), or when services provided by Lifetime Oy or its Sub-processors constitute ICT services to financial entities.
+
+### D.1 DORA Article 30 Contractual Provisions
+
+In addition to the GDPR-based provisions of this DPA, the following DORA-specific provisions apply:
+
+| DORA Requirement (Art. 30)       | DPA Coverage                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------ |
+| **Service level descriptions**   | Defined in the Service Agreement; SLA targets per service tier                 |
+| **Data processing locations**    | Article 11.1 (EU default), Annex A (Sub-processor locations)                   |
+| **ICT incident notification**    | Article 9 (48-hour breach notification), extended to cover major ICT incidents |
+| **Audit and inspection rights**  | Article 12 (annual audit with 30-day notice)                                   |
+| **Exit strategy and transition** | Article 13.3 (30-day data export), Section D.2 below                           |
+| **Sub-outsourcing conditions**   | Article 7 (30-day advance notice, right to object)                             |
+| **Termination rights**           | Article 13; extended DORA termination rights in D.3 below                      |
+
+### D.2 Exit Strategy and Transition Assistance
+
+**D.2.1** Upon termination or expiration of the Contract, Lifetime Oy shall provide transition assistance for a period of ninety (90) days, including:
+
+- Data export in machine-readable format (JSON, CSV)
+- API access for automated data migration
+- Documentation of data schemas and integration points
+- Reasonable technical support for data migration
+
+**D.2.2** Transition assistance shall be provided at Lifetime Oy's standard professional services rates, unless otherwise agreed in the Service Agreement.
+
+### D.3 DORA-Specific Termination Rights
+
+**D.3.1** The Customer may terminate the Contract with immediate effect if:
+
+- Lifetime Oy materially breaches its DORA-related obligations and fails to remedy within 30 days
+- A competent authority requires termination for financial stability reasons
+- Concentration risk assessments indicate excessive reliance on a single ICT provider
+
+### D.4 Concentration Risk
+
+**D.4.1** Lifetime Oy shall, upon request, provide the Customer with information necessary for the Customer's ICT concentration risk assessment, including:
+
+- List of other financial entities using the same Services
+- Dependencies on critical Sub-processors
+- Geographic concentration of processing infrastructure
+
+### D.5 Applicability to Sub-processors
+
+When Shufti Pro Limited provides KYC/IDV services that constitute ICT services to a financial entity Customer, the DORA provisions of this Annex shall flow down to Shufti Pro via the sub-processing agreement between Lifetime Oy and Shufti Pro.
+
+---
+
+_This document is a template and must be reviewed by legal counsel before use. Placeholder values marked with [BRACKETS] must be replaced with actual values before execution._
+
+**DWS IQ Oü** (Estonian subsidiary of Lifetime Oy, established Q2/2026)
+Parent company: **Lifetime Oy**, Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+Business ID (parent): 0772407-9 · VAT ID (parent): FI07724079
 
 ---
 
@@ -512,14 +572,14 @@ Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 
 For **DWS IQ Oü**:
 
-Name: ____________________________
-Title: ____________________________
-Date: ____________________________
-Signature: ________________________
+Name: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Title: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Date: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Signature: \***\*\*\*\*\***\_\_\_\_\***\*\*\*\*\***
 
 For **the Customer**:
 
-Name: ____________________________
-Title: ____________________________
-Date: ____________________________
-Signature: ________________________
+Name: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Title: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Date: \***\*\*\*\*\*\*\***\_\_\_\_\***\*\*\*\*\*\*\***
+Signature: \***\*\*\*\*\***\_\_\_\_\***\*\*\*\*\***
