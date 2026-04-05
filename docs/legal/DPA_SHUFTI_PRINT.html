@@ -206,7 +206,7 @@
     <div class="print-header">
       <h1>Data Processing Agreement</h1>
       <p class="parties">Between Lifetime Oy and Shufti Pro Limited</p>
-      <p class="version">Version 1.1 &mdash; April 1, 2026</p>
+      <p class="version">Version 1.3 &mdash; April 5, 2026</p>
     </div>
 
     <p>This Data Processing Agreement (&ldquo;DPA&rdquo;) is entered into between:</p>
@@ -329,6 +329,15 @@
       and does not route verifications to non-EU manual reviewers. Lifetime Oy accepts this
       trade-off in favour of full EU data sovereignty.
     </p>
+    <p>
+      <strong>2.2.3 Liability Allocation for EU-Only Mode:</strong> Shufti Pro remains liable under
+      Article 9 for service failures, SLA breaches, and defects in the Identity Verification
+      Services as delivered. Lifetime Oy retains sole responsibility for downstream decisions based
+      on verification outputs and shall maintain an internal secondary verification layer to handle
+      borderline or uncertain results. Neither party shall be liable to the other for accuracy
+      variance that is a direct and documented consequence of EU-only mode, provided both parties
+      have performed their obligations under this DPA.
+    </p>
 
     <!-- ARTICLE 3 -->
     <h2>Article 3. Obligations of the Data Processor</h2>
@@ -382,6 +391,14 @@
     <div class="clause">
       <strong>4.4</strong> Upon termination, all Personal Data shall be securely deleted within
       <strong>thirty (30) days</strong> and a deletion certificate provided to Lifetime Oy.
+    </div>
+    <div class="clause">
+      <strong>4.5 AI Act Article 12 Audit Trail.</strong> The deletion obligations in Articles 4.1
+      and 4.2 apply to raw biometric data and document images. Verification metadata retained under
+      Article 4.3 (verification result, confidence score, timestamp, pseudonymous subject
+      identifier, and audit hash) is maintained by Lifetime Oy for the retention period required
+      under EU AI Act Article 12 (automatic logging for high-risk AI systems), independently of
+      Shufti Pro&rsquo;s deletion obligations under this DPA.
     </div>
 
     <!-- ARTICLE 5 -->
@@ -462,8 +479,11 @@
     </div>
     <div class="clause"><strong>8.3</strong> Audit results shall be confidential.</div>
     <div class="clause">
-      <strong>8.4</strong> Shufti Pro shall provide upon request: SOC 2 Type II report, ISO 27001
-      certificate, or equivalent certification evidence.
+      <strong>8.4</strong> Shufti Pro shall deliver to Lifetime Oy,
+      <strong>annually and without further request</strong>, its current SOC 2 Type II report, ISO
+      27001 certificate, or equivalent certification evidence. Upon request, Shufti Pro shall
+      provide any additional supporting documentation reasonably required for Lifetime Oy&rsquo;s
+      own compliance audits.
     </div>
 
     <!-- ARTICLE 9 -->
@@ -555,7 +575,7 @@
         FI07724079
       </p>
       <p>This document must be reviewed by legal counsel before execution.</p>
-      <p>DPA v1.1 &mdash; April 2026</p>
+      <p>DPA v1.3 &mdash; April 2026</p>
     </div>
   </body>
 </html>
