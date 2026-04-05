@@ -1842,11 +1842,11 @@ Koodiasi tarkkaillaan — kirjoita sen mukaisesti."
 
 **Kielet:** English, Suomi
 **Liittyvät dokumentit:**
-- [English Version](../en/V3Thesis_EN_v3.30.50.md)
-- [English Living Document](../en/V3Thesis_EN.md)
+- [English Version](V3Thesis_EN_v3.30.50.md)
+- [English Living Document](V3Thesis_EN.md)
 - [Finnish Living Document](V3Thesis_FI.md)
-- [PHD Firehorse (EN)](../../../docs/PHD_FIREHORSE_EN.md)
-- [PHD Firehorse (FI)](../../../docs/PHD_FIREHORSE_FI.md)
+- [PHD Firehorse (EN)](../docs/PHD_FIREHORSE_EN.md)
+- [PHD Firehorse (FI)](../docs/PHD_FIREHORSE_FI.md)
 
 **Keskeiset kontribuutiot (Yhteenveto — täydellinen lista osiossa 10.2 ja PHD Firehorse -liitedokumentissa):**
 1. Lifetime Scope Signals -protokolla — Uusi moniagenttikoordinointiviitekehys
