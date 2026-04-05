@@ -1,0 +1,18 @@
+{
+  "$schema": "Personal date-based reminders for morning briefing surfacing. Checked daily; items within 7 days surface as amber, within 1 day as red.",
+  "owner": "risto.paarni@lifetime.fi",
+  "items": [
+    {
+      "id": "SCW-STARTUP-DECISION-2026-05-06",
+      "dueDate": "2026-05-06",
+      "category": "vendor-decision",
+      "severity": "amber",
+      "title": "Scaleway Startup Program decision due",
+      "detail": "21 business days from 2026-04-05 submission. If no reply by this date, email startup-program@scaleway.com to ping. Application #2 of 3 allowed; next retry window 2026-07-05 if rejected.",
+      "source": "docs/field-notes/2026-04-05-scaleway-eu-inference-setup.md",
+      "actionOnDueDate": "Check inbox for Scaleway decision. If silence, send follow-up email.",
+      "createdAt": "2026-04-05",
+      "acknowledged": false
+    }
+  ]
+}
