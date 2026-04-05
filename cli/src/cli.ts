@@ -1364,9 +1364,15 @@ async function cmdProfile(): Promise<void> {
         `  Role:  ${d.role || 'N/A'}`,
       ];
       if (profile) {
-        lines.push(`  Name:  ${profile.full_name || 'Not set'}`);
-        lines.push(`  Org:   ${profile.organization || 'Not set'}`);
-        lines.push(`  Lang:  ${profile.language || 'en'}`);
+        // API response shape (user_profiles table): first_name, last_name,
+        // display_name, locale, timezone. Organization comes from a separate
+        // organization_members join and is not in /user/profile — omit here.
+        const first = (profile.first_name as string | null) || '';
+        const last = (profile.last_name as string | null) || '';
+        const displayName =
+          (profile.display_name as string | null) || `${first} ${last}`.trim() || 'Not set';
+        lines.push(`  Name:  ${displayName}`);
+        lines.push(`  Lang:  ${profile.locale || 'en'}`);
         lines.push(`  TZ:    ${profile.timezone || 'Not set'}`);
       }
       return box('Profile', lines.join('\n'));

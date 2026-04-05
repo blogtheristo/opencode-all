@@ -152,8 +152,24 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  * Server-Sent Events (SSE) for real-time activity updates.
  * Dashboard connects to this for live feed.
  */
-router.get('/stream', (req: Request, res: Response) => {
+router.get('/stream', async (req: Request, res: Response) => {
   const userId = req.userId!;
+
+  // Cross-tenant safety: build the set of orgs this user can see events for.
+  // Without this filter, eventBus.subscribe('*') would leak every org's
+  // events to every connected user. Mirrors the scoping in GET /.
+  const allowedOrgIds = new Set<string>();
+  if (supabase && UUID_RE.test(userId)) {
+    const { data: memberships } = await supabase
+      .from('organization_members')
+      .select('organization_id')
+      .eq('user_id', userId)
+      .eq('status', 'active');
+    for (const m of memberships || []) {
+      const id = (m as { organization_id: string | null }).organization_id;
+      if (typeof id === 'string' && UUID_RE.test(id)) allowedOrgIds.add(id);
+    }
+  }
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
@@ -167,6 +183,12 @@ router.get('/stream', (req: Request, res: Response) => {
 
   // Subscribe to all event bus events
   const unsubscribe = eventBus.subscribe('*', async (event) => {
+    // Only forward events belonging to an org this user is an active member of.
+    // Events without an orgId (system-wide) are dropped from user streams to
+    // avoid accidentally leaking internal telemetry.
+    if (!event.orgId || !allowedOrgIds.has(event.orgId)) {
+      return;
+    }
     const sseData: ActivityEvent = {
       id: `evt-${Date.now()}`,
       type: 'agent_execution',
