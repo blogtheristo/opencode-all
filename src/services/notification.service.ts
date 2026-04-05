@@ -318,15 +318,28 @@ class NotificationService {
   private async getOrgUsers(orgId: string): Promise<{ id: string; email: string }[]> {
     if (!supabase || !orgId) return [];
 
-    const { data, error } = await supabase
-      .from('user_profiles')
-      .select('user_id, email')
+    const { data: members, error: membersError } = await supabase
+      .from('organization_members')
+      .select('user_id')
       .eq('organization_id', orgId)
       .limit(50);
 
+    if (membersError || !members || members.length === 0) return [];
+
+    const userIds = members
+      .map((member: { user_id: string | null }) => member.user_id)
+      .filter((userId): userId is string => Boolean(userId));
+
+    if (userIds.length === 0) return [];
+
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('id, email')
+      .in('id', userIds);
+
     if (error || !data) return [];
-    return data.map((u: { user_id: string; email: string }) => ({
-      id: u.user_id,
+    return data.map((u: { id: string; email: string }) => ({
+      id: u.id,
       email: u.email,
     }));
   }
