@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.12
+Version: 1.13
 
 Sessions & Modifications:
+  - Version: 1.13 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Explicit confirmation that admin@dws6.com managing the Scaleway account is the correct, settled ownership model — product-scoped identity (isolation, continuity, succession, DPA clarity); risto.paarni2024@lifetime.fi parallel account being deleted
   - Version: 1.12 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added DGX Spark contingency pivot plan (scenario A accepted / scenario B rejected); audit concludes do-NOT-reduce-Scaleway-spend during 21-day review (trust-preserving, avoids rejection ground #1); 7-step execution timeline D+0 → D+35 if rejected; upgraded personal-reminders.json entries to red severity for decision day
   - Version: 1.11 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — 78e26603-c820-4617-b0d2-f8589eb7693b is the Scaleway **Project ID** (not customer ID) for project dws-iq-backend; captured console project description as breadcrumb back to this field note
   - Version: 1.10 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Confirmed Startup Program re-application submission (auto-reply received from startup-program@scaleway.com) — 21 business day review, expected decision by ~2026-05-06; added follow-up to open list
@@ -76,6 +77,23 @@ behaviour barely shifts.
 | Address | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland | Legal address |
 | Owner / admin email | **admin@dws6.com** | Product-scoped identity. Isolates DWS IQ 6 product infra from Risto's personal dev accounts. Extends the existing dws6.com (Cloudflare) ownership pattern to Scaleway (EU compute + inference). |
 | Auth method | **Google SSO** via `admin@dws6.com` | Google Workspace account for the dws6.com domain |
+
+**Ownership model (settled 2026-04-05):** `admin@dws6.com` manages
+the Scaleway account as the product-scoped service identity — this is
+the correct arrangement and replaces the earlier attempt on
+`risto.paarni2024@lifetime.fi` (being deleted). Rationale:
+
+- **Isolation** — DWS IQ 6 product infra is separated from Risto's
+  personal/dev cloud accounts; audit trails, billing, IAM keys all
+  scoped to the product.
+- **Continuity** — matches the existing ownership pattern already in
+  use for dws6.com (Cloudflare) and Google Workspace for the dws6.com
+  domain.
+- **Succession** — a product-scoped mailbox survives founder
+  transitions; a personal Google account does not.
+- **DPA / legal** — Lifetime Oy (Business ID 0772407-9) is still the
+  legal customer of record on the invoice; `admin@dws6.com` is just
+  the operational identity used for console access and IAM.
 
 ### Project inside the organization
 
