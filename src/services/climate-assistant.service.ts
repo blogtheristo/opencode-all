@@ -1,20 +1,23 @@
 /**
  * Climate Assistant Service
- * AI-powered climate compliance assistant using Groq API
+ * AI-powered climate compliance assistant with EU-first inference routing.
  *
- * Configuration:
- * - Provider: Groq (fastest inference)
- * - Model: Llama 3.1 70B Versatile
- * - Daily budget: $1.00
- * - Max tokens per response: 1024
+ * Provider routing (EU data residency):
+ *   1. PRIMARY  — Scaleway Generative APIs (Paris/Amsterdam, EU residency)
+ *                 Env: SCW_SECRET_KEY + SCW_GENERATIVE_API_URL
+ *                 Model: llama-3.3-70b-instruct (free tier: 1M tokens/month)
+ *   2. FALLBACK — Groq (US, used only if Scaleway unreachable)
+ *                 Env: GROQ_API_KEY
+ *                 Model: llama-3.3-70b-versatile
  *
- * Groq Pricing (Llama 3.1 70B):
- * - Input: $0.59 per 1M tokens
- * - Output: $0.79 per 1M tokens
+ * Both endpoints are OpenAI-compatible (/v1/chat/completions).
  *
- * Usage Tracking:
- * - Persisted in Supabase for serverless/multi-instance deployment
- * - Prevents budget overruns across cold starts and multiple instances
+ * Budget:  DAILY_BUDGET_USD = $1.00/day combined
+ * Max:     MAX_TOKENS per response = 1024
+ * Tracking: persisted in Supabase (survives cold starts + multi-instance)
+ *
+ * Code-Version: 2.0.0
+ * Introduced-In: claude/build-mvp-features-Eq6py (EU-residency hardening)
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -22,11 +25,16 @@ import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
 
-// Model: Llama 3.3 70B on Groq (fast + cheap)
-const MODEL = 'llama-3.3-70b-versatile';
+// Primary provider: Scaleway Generative APIs (EU data residency).
+// OpenAI-compatible endpoint. Model name differs slightly from Groq.
+const SCW_API_URL =
+  process.env.SCW_GENERATIVE_API_URL ||
+  'https://api.scaleway.ai/v1/chat/completions';
+const SCW_MODEL = process.env.SCW_MODEL || 'llama-3.3-70b-instruct';
 
-// Groq API endpoint
+// Fallback provider: Groq (US). Used only if Scaleway unreachable.
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 // Pricing per token (USD) - Llama 3.1 70B
 const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000;  // $0.00000059
@@ -227,11 +235,14 @@ export interface ChatResponse {
 export async function processMessage(request: ChatRequest): Promise<ChatResponse> {
   const { message, conversationHistory = [] } = request;
 
-  // Check API key
-  if (!process.env.GROQ_API_KEY) {
-    logger.error('GROQ_API_KEY not configured');
+  // Check API keys — at least one inference provider must be configured.
+  const hasScaleway = !!process.env.SCW_SECRET_KEY;
+  const hasGroq = !!process.env.GROQ_API_KEY;
+  if (!hasScaleway && !hasGroq) {
+    logger.error('No inference provider configured (need SCW_SECRET_KEY or GROQ_API_KEY)');
     return {
-      content: 'Climate Assistant is not configured. Please set GROQ_API_KEY.',
+      content:
+        'Climate Assistant is not configured. Please set SCW_SECRET_KEY (EU) or GROQ_API_KEY (US fallback).',
       model: 'error',
     };
   }
@@ -254,107 +265,206 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     };
   }
 
+  // Build messages (limit history to save tokens)
+  const recentHistory = conversationHistory.slice(-4);
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...recentHistory,
+    { role: 'user', content: message },
+  ];
+
   logger.info('Processing message', {
     messageLength: message.length,
     historyLength: conversationHistory.length,
-    model: MODEL,
-    provider: 'groq',
+    primaryProvider: hasScaleway ? 'scaleway' : 'groq',
   });
 
   try {
-    // Build messages (limit history to save tokens)
-    const recentHistory = conversationHistory.slice(-4);
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...recentHistory,
-      { role: 'user', content: message },
-    ];
-
-    // Call Groq API (OpenAI-compatible)
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: messages,
-        max_completion_tokens: MAX_TOKENS,  // Note: Groq uses max_completion_tokens, not max_tokens
-        temperature: 0.7,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      logger.error('Groq API error', {
-        status: response.status,
-        error: errorData,
-        requestBody: {
-          model: MODEL,
-          messageCount: messages.length,
-          maxCompletionTokens: MAX_TOKENS,
-        },
-      });
-
-      if (response.status === 401) {
-        throw new Error('API authentication failed. Check GROQ_API_KEY.');
-      }
-      if (response.status === 429) {
-        throw new Error('Rate limit exceeded. Please try again later.');
-      }
-      // Include error details for debugging
-      const errorObj = errorData as { error?: { message?: string }; message?: string };
-      const errorMessage = errorObj?.error?.message || errorObj?.message || JSON.stringify(errorData);
-      throw new Error(`Groq API error (${response.status}): ${errorMessage}`);
-    }
-
-    const data = await response.json() as {
-      choices?: Array<{ message?: { content?: string } }>;
-      usage?: { prompt_tokens?: number; completion_tokens?: number };
-      model?: string;
-    };
-
-    // Extract content
-    const content = data.choices?.[0]?.message?.content || 'I could not generate a response.';
+    const result = await callInference(messages, { hasScaleway, hasGroq });
 
     // Track usage and get updated totals
-    const inputTokens = data.usage?.prompt_tokens || 0;
-    const outputTokens = data.usage?.completion_tokens || 0;
-    const updatedUsage = await trackUsage(inputTokens, outputTokens);
+    const updatedUsage = await trackUsage(result.inputTokens, result.outputTokens);
 
     const requestCost =
-      inputTokens * INPUT_COST_PER_TOKEN +
-      outputTokens * OUTPUT_COST_PER_TOKEN;
+      result.inputTokens * INPUT_COST_PER_TOKEN +
+      result.outputTokens * OUTPUT_COST_PER_TOKEN;
 
     logger.info('Response generated', {
-      inputTokens,
-      outputTokens,
+      inputTokens: result.inputTokens,
+      outputTokens: result.outputTokens,
       cost: `$${requestCost.toFixed(6)}`,
-      model: data.model,
-      provider: 'groq',
+      model: result.model,
+      provider: result.provider,
     });
 
     // Use returned usage to avoid extra query, fallback to fresh query if tracking failed
     const dailyCost = updatedUsage ? getCost(updatedUsage) : getCost(await getTodaysUsage());
 
     return {
-      content,
-      model: data.model || MODEL,
+      content: result.content,
+      model: result.model,
       usage: {
-        inputTokens,
-        outputTokens,
+        inputTokens: result.inputTokens,
+        outputTokens: result.outputTokens,
         cost: requestCost,
         dailyCost: dailyCost,
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
   } catch (error: any) {
-    logger.error('API error', {
-      error: error.message,
-    });
+    // Rate limit — return friendly message rather than throwing
+    if (error.code === 'RATE_LIMITED') {
+      logger.warn('All providers rate-limited', { message: error.message });
+      return {
+        content:
+          "I'm currently rate-limited by my inference providers. Please try again in a minute.",
+        model: 'rate-limited',
+      };
+    }
+    logger.error('Inference error (all providers failed)', { error: error.message });
     throw new Error(error.message || 'Failed to process message. Please try again.');
   }
+}
+
+// ============ INFERENCE ROUTING ============
+
+interface InferenceResult {
+  content: string;
+  model: string;
+  provider: 'scaleway' | 'groq';
+  inputTokens: number;
+  outputTokens: number;
+}
+
+interface ProviderAvailability {
+  hasScaleway: boolean;
+  hasGroq: boolean;
+}
+
+/**
+ * Try Scaleway first (EU residency), fall back to Groq (US) on 5xx/429/network.
+ * Authentication errors (401/403) on a provider are NOT retried — they indicate
+ * a misconfiguration to be fixed, not a transient failure.
+ */
+async function callInference(
+  messages: Array<{ role: string; content: string }>,
+  { hasScaleway, hasGroq }: ProviderAvailability,
+): Promise<InferenceResult> {
+  let lastError: Error | null = null;
+  let rateLimited = false;
+
+  if (hasScaleway) {
+    try {
+      return await callScaleway(messages);
+    } catch (e: any) {
+      lastError = e;
+      if (e.code === 'RATE_LIMITED') rateLimited = true;
+      // Only fall through to Groq on retryable failures
+      if (e.code !== 'RETRYABLE' && e.code !== 'RATE_LIMITED') throw e;
+      logger.warn('Scaleway failed, falling back to Groq', { error: e.message });
+    }
+  }
+
+  if (hasGroq) {
+    try {
+      return await callGroq(messages);
+    } catch (e: any) {
+      lastError = e;
+      if (e.code === 'RATE_LIMITED') rateLimited = true;
+    }
+  }
+
+  if (rateLimited) {
+    const err: any = new Error(lastError?.message || 'All providers rate-limited');
+    err.code = 'RATE_LIMITED';
+    throw err;
+  }
+  throw lastError || new Error('No inference provider available');
+}
+
+async function callScaleway(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(SCW_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SCW_SECRET_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: SCW_MODEL,
+      messages,
+      max_tokens: MAX_TOKENS,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(
+      `Scaleway API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    // 401/403/400 → no code → treated as fatal (fix config, don't fall back)
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || SCW_MODEL,
+    provider: 'scaleway',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
+}
+
+async function callGroq(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(GROQ_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages,
+      max_completion_tokens: MAX_TOKENS, // Groq uses max_completion_tokens
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(
+      `Groq API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || GROQ_MODEL,
+    provider: 'groq',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
 }
 
 /**
@@ -385,20 +495,18 @@ export async function getUsageStats(): Promise<{
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
     percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
-    provider: 'groq',
-    model: MODEL,
+    provider: process.env.SCW_SECRET_KEY ? 'scaleway' : 'groq',
+    model: process.env.SCW_SECRET_KEY ? SCW_MODEL : GROQ_MODEL,
   };
 }
 
 /**
- * Health check for the AI service
+ * Health check for the AI service — true if any inference provider configured.
  */
 export async function healthCheck(): Promise<boolean> {
-  if (!process.env.GROQ_API_KEY) {
-    logger.warn('GROQ_API_KEY not configured');
-    return false;
-  }
-  return true;
+  const ok = !!(process.env.SCW_SECRET_KEY || process.env.GROQ_API_KEY);
+  if (!ok) logger.warn('No inference provider configured (SCW_SECRET_KEY or GROQ_API_KEY)');
+  return ok;
 }
 
 export default {
