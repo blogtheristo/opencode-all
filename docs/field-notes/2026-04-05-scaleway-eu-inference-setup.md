@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added Scaleway Startup Program final answer — "expectations + why accept us" (3 expectations: sovereign runway, technical relationship, co-marketing; 5 reasons: paying customer, clear trajectory, architecturally locked to EU, Nordic gap-fill, public stack transparency)
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Answered Scaleway Startup Program cloud-share question — 65% (range 60-75%) of total cloud expenditure dedicated to Scaleway; full cloud wallet breakdown showing why 35% cannot move (Supabase/Cloudflare/Anthropic sticky dependencies)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Recorded the actual answer submitted to Scaleway Startup Program — range €1,000-€3,000/month (sweet spot centered on €2,000 steady-state)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added per-client 12-month cost economics (Conservative €580, Moderate €1,200, Heavy €3,300 per NCC-sized enterprise client); added Scaleway Startup Program form answer (€20,000 / 12-month expenditure) with line-item breakdown and range (€15k-€30k); added technical breakdown chapter for application material
@@ -427,6 +428,45 @@ on the €2,000/mo steady-state backed by the per-client economics above.
 | M4-M6 | €500-€1,000 | First paid pilots, dedicated PG |
 | M7-M9 | €1,200-€1,800 | 5-10 clients live, Object Storage growing |
 | M10-M12 | €2,000-€3,000 | 15-20 clients + first Dedibox enterprise |
+
+## Scaleway Startup Program — expectations & "why accept us" answer
+
+Form question: *"Please share with us your expectations towards the
+program, and let us know why we should accept you into our program."*
+Submitted 2026-04-05.
+
+**Three expectations:**
+
+1. **Sovereign EU compute runway.** Credits let us migrate the last
+   15-20% of workloads off Google Cloud Run onto Scaleway Serverless
+   Containers + Generative APIs over 6 months, without early-stage
+   credit pressure dictating architecture.
+2. **Technical relationship, not just billing discount.** Direct access
+   to Scaleway specialists on Generative APIs (Llama 3.3 70B routing,
+   rate-limit headroom beyond 1M tok/mo), Managed PostgreSQL (pgvector
+   at scale for reasoning ledger), Object Storage Object Lock (WORM
+   evidence packs for EU AI Act Article 12 logging). Compliance
+   customers ask hard questions; we need named contacts, not guesses.
+3. **Co-marketing on EU sovereignty.** Scaleway publicly named as our
+   EU inference/compute backbone on onelifetime.world/Partners,
+   dws10.com/legal-hub, customer DPAs. Reference-customer + case-study
+   on offer post-pilot in Nordic sustainability-tech segment.
+
+**Why accept us (five reasons):**
+
+- Already paying customer (admin@dws6.com, customer ID
+  78e26603-c820-4617-b0d2-f8589eb7693b, €18.74 March 2026 invoice,
+  project dws-iq-backend) — not hypothetical.
+- Clear €1-3k/mo trajectory with 65% Scaleway-committed, growing to
+  €5k+/mo as NCC-sized enterprise pilots convert.
+- Architecturally locked into EU-resident compute (GDPR Art. 28,
+  EU AI Act Art. 12, CSRD ESRS evidence retention) — cannot churn to
+  AWS/GCP for a better promo, de-risks the credit investment.
+- Closes Nordic enterprise-compliance gap in Scaleway's customer base
+  (Finnish/Swedish/Norwegian/Danish construction, manufacturing, ESG
+  reporting buyers actively shopping for non-US inference).
+- Publicly open about the stack — every customer conversation mentions
+  Scaleway by name. Credits accelerate exposure that continues either way.
 
 ## Open follow-ups
 
