@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Recorded the actual answer submitted to Scaleway Startup Program — range €1,000-€3,000/month (sweet spot centered on €2,000 steady-state)
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added per-client 12-month cost economics (Conservative €580, Moderate €1,200, Heavy €3,300 per NCC-sized enterprise client); added Scaleway Startup Program form answer (€20,000 / 12-month expenditure) with line-item breakdown and range (€15k-€30k); added technical breakdown chapter for application material
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added three one-liner variants for (re)applying to Scaleway Startup Program — sovereignty-first (A, recommended), product-first (B), punchy two-sentence (C); covers DWS IQ 6 + Firehorse product lines and the EU-sovereignty / CLOUD Act rationale
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Clarified that March 2026 cost comes from an existing live assistant container (not idle infra); recorded that Scaleway Startup Program application was declined — only standard Free Tier Worldwide offer applies; confirmed account continuity on admin@dws6.com since the Lifetime Oy organization is already configured there
@@ -377,6 +378,19 @@ Divide by 12: €20,000 / 12 = €1,667/month average. Round to headline:
 - **€2,000 / month** — steady-state at month 12 (recommended answer)
 - **€1,500 / month** — trailing 12-month average (if they want the ramp-up smoothed)
 - **€20 / month** — current actual (honest, but looks small)
+
+### Answer submitted to Scaleway Startup Program (2026-04-05)
+
+**Range answered: €1,000 – €3,000 / month** (sweet spot)
+
+- Floor €1,000/mo: covers baseline infra + early customer ramp (M4-M6)
+- Midpoint ~€2,000/mo: steady-state at month 12 with 15-20 clients
+- Ceiling €3,000/mo: heavier utilisation + first Dedibox dedicated
+  enterprise customer
+
+This range is defensible under follow-up scrutiny: wide enough to
+absorb ramp-up uncertainty, narrow enough to look thoughtful, centered
+on the €2,000/mo steady-state backed by the per-client economics above.
 
 ### Monthly ramp-up trajectory (for context if they probe)
 
