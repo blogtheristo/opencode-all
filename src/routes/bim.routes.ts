@@ -156,7 +156,10 @@ router.post(
 
       if (error) {
         logger.error('BIM project insert failed', { error: error.message });
-        res.status(500).json({ error: 'Failed to create BIM project', detail: error.message });
+        res.status(500).json({
+          error: 'An internal error occurred while creating the BIM project',
+          errorId: 'BIM_CREATE_ERROR',
+        });
         return;
       }
 
@@ -315,7 +318,10 @@ router.post(
 
       if (error) {
         logger.error('Carbon calculation insert failed', { error: error.message });
-        res.status(500).json({ error: 'Failed to save carbon calculation', detail: error.message });
+        res.status(500).json({
+          error: 'An internal error occurred while saving the carbon calculation',
+          errorId: 'CARBON_CALC_ERROR',
+        });
         return;
       }
 
@@ -346,7 +352,11 @@ router.get('/emission-factors', async (req: Request, res: Response) => {
       .order('material');
 
     if (error) {
-      res.status(500).json({ error: error.message });
+      logger.error('Emission factors query failed', { error: error.message, country });
+      res.status(500).json({
+        error: 'An internal error occurred while fetching emission factors',
+        errorId: 'EMISSION_FACTORS_ERROR',
+      });
       return;
     }
 
