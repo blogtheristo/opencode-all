@@ -109,7 +109,7 @@ CREATE POLICY "users update own notifications"
 CREATE TABLE IF NOT EXISTS public.activity_events (
   id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id          UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-  organization_id  UUID,
+  organization_id  UUID REFERENCES public.organizations(id) ON DELETE SET NULL,
   type             TEXT NOT NULL,
   title            TEXT NOT NULL,
   description      TEXT,
