@@ -16,15 +16,12 @@ import { z } from 'zod';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import { validate } from '../middleware/validate.js';
 import logger from '../utils/logger.js';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 const router = Router();
 
-// Supabase service client
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase =
-  supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
+// Supabase service client (shared, uses SUPABASE_SERVICE_KEY)
+const supabase = getSupabaseClient();
 
 // All user routes require authentication
 router.use(authenticateToken);

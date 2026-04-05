@@ -13,20 +13,9 @@
 
 import logger from '../utils/logger.js';
 import { eventBus, type DWSEvent } from '../agents/event-bus.js';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/supabase.js';
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey =
-  process.env.SUPABASE_SERVICE_KEY ||
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  '';
-
-if (supabaseUrl && !supabaseServiceKey) {
-  logger.warn('Supabase notifications disabled: missing SUPABASE_SERVICE_KEY');
-}
-const supabase = supabaseUrl && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+const supabase = getSupabaseClient();
 
 // ============ TYPES ============
 
@@ -70,7 +59,8 @@ const NOTIFICATION_RULES: NotificationRule[] = [
     prefKey: 'compliance_deadlines',
     severity: 'warning',
     titleFn: () => 'Compliance Score Changed',
-    bodyFn: (e) => `Your compliance score changed to ${e.payload.newScore ?? 'N/A'}. ${e.payload.reason ?? ''}`,
+    bodyFn: (e) =>
+      `Your compliance score changed to ${e.payload.newScore ?? 'N/A'}. ${e.payload.reason ?? ''}`,
     channel: 'both',
   },
   {
@@ -78,7 +68,8 @@ const NOTIFICATION_RULES: NotificationRule[] = [
     prefKey: 'compliance_deadlines',
     severity: 'critical',
     titleFn: () => 'Compliance Deadline Approaching',
-    bodyFn: (e) => `Regulation ${e.payload.regulation ?? ''} deadline is in ${e.payload.daysRemaining ?? '?'} days.`,
+    bodyFn: (e) =>
+      `Regulation ${e.payload.regulation ?? ''} deadline is in ${e.payload.daysRemaining ?? '?'} days.`,
     channel: 'both',
   },
   {
@@ -86,7 +77,8 @@ const NOTIFICATION_RULES: NotificationRule[] = [
     prefKey: 'carbon_thresholds',
     severity: 'critical',
     titleFn: () => 'Carbon Threshold Exceeded',
-    bodyFn: (e) => `Carbon emissions for ${e.payload.scope ?? 'your organization'} exceeded the threshold: ${e.payload.value ?? 'N/A'} tCO2e.`,
+    bodyFn: (e) =>
+      `Carbon emissions for ${e.payload.scope ?? 'your organization'} exceeded the threshold: ${e.payload.value ?? 'N/A'} tCO2e.`,
     channel: 'both',
   },
   {
@@ -155,7 +147,11 @@ class NotificationService {
   }
 
   /** Get notifications for a user (paginated). */
-  async getNotifications(userId: string, limit = 20, offset = 0): Promise<{
+  async getNotifications(
+    userId: string,
+    limit = 20,
+    offset = 0,
+  ): Promise<{
     notifications: Notification[];
     total: number;
   }> {
@@ -243,7 +239,10 @@ class NotificationService {
         }
 
         // Send email notification
-        if ((rule.channel === 'email' || rule.channel === 'both') && prefs?.email_alerts !== false) {
+        if (
+          (rule.channel === 'email' || rule.channel === 'both') &&
+          prefs?.email_alerts !== false
+        ) {
           await this.sendEmailNotification(user.email, notification);
         }
       }
@@ -259,18 +258,16 @@ class NotificationService {
   private async storeNotification(notification: Notification): Promise<void> {
     if (!supabase) return;
 
-    const { error } = await supabase
-      .from('notifications')
-      .insert({
-        user_id: notification.user_id,
-        type: notification.type,
-        title: notification.title,
-        body: notification.body,
-        severity: notification.severity,
-        metadata: notification.metadata,
-        read: false,
-        created_at: new Date().toISOString(),
-      });
+    const { error } = await supabase.from('notifications').insert({
+      user_id: notification.user_id,
+      type: notification.type,
+      title: notification.title,
+      body: notification.body,
+      severity: notification.severity,
+      metadata: notification.metadata,
+      read: false,
+      created_at: new Date().toISOString(),
+    });
 
     if (error) {
       logger.error('Failed to store notification', {

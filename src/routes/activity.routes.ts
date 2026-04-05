@@ -14,16 +14,12 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/supabase.js';
 import { eventBus } from '../agents/event-bus.js';
 
 const router = Router();
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = supabaseUrl && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+const supabase = getSupabaseClient();
 
 router.use(authenticateToken);
 
@@ -88,9 +84,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
       type: 'agent_execution' as const,
       title: `Agent event: ${e.type}`,
       description: `${e.source} — ${e.type}`,
-      severity: e.priority === 'critical' ? 'critical' as const
-        : e.priority === 'high' ? 'warning' as const
-        : 'info' as const,
+      severity:
+        e.priority === 'critical'
+          ? ('critical' as const)
+          : e.priority === 'high'
+            ? ('warning' as const)
+            : ('info' as const),
       metadata: e.payload || {},
       created_at: e.timestamp,
     }));
@@ -132,9 +131,8 @@ router.get('/stream', (req: Request, res: Response) => {
       type: 'agent_execution',
       title: `Agent event: ${event.type}`,
       description: `${event.source} — ${event.type}`,
-      severity: event.priority === 'critical' ? 'critical'
-        : event.priority === 'high' ? 'warning'
-        : 'info',
+      severity:
+        event.priority === 'critical' ? 'critical' : event.priority === 'high' ? 'warning' : 'info',
       metadata: event.payload,
       created_at: event.timestamp,
     };

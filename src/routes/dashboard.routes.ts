@@ -14,17 +14,13 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/supabase.js';
 import { UsageMeteringService } from '../services/usage-metering.service.js';
 import { eventBus } from '../agents/event-bus.js';
 
 const router = Router();
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-const supabase = supabaseUrl && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+const supabase = getSupabaseClient();
 
 router.use(authenticateToken);
 
@@ -163,9 +159,7 @@ router.get('/summary', async (req: Request, res: Response, next: NextFunction) =
     const recentEvents = eventBus.getRecentEvents('agent.*');
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
-    const executionsToday = recentEvents.filter(
-      (e) => new Date(e.timestamp) >= todayStart,
-    ).length;
+    const executionsToday = recentEvents.filter((e) => new Date(e.timestamp) >= todayStart).length;
 
     const summary: DashboardSummary = {
       compliance: complianceData,
