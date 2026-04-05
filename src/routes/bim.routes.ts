@@ -12,7 +12,7 @@
 
 import express, { Router, Request, Response } from 'express';
 import { body, param, validationResult } from 'express-validator';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 
@@ -20,21 +20,29 @@ const router: Router = express.Router();
 
 // ---------------------------------------------------------------------------
 // Supabase service client (uses service_role key — bypasses RLS)
+//
+// Lazy accessor: do NOT call createClient at module-top with possibly-empty
+// env vars — the supabase-js v2 constructor throws "supabaseUrl is required"
+// on empty strings, which crashes test boot (see PR #982 CI). Instead, defer
+// to the shared getSupabaseClient() helper which returns null when env is
+// unset (graceful degradation) and is trivially mockable in tests.
 // ---------------------------------------------------------------------------
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const _supabase = getSupabaseClient();
+// All routes below assume a configured Supabase client; fail fast per-request
+// rather than at import time so the rest of the app can still boot.
+function sb() {
+  if (!_supabase) {
+    throw new Error('Supabase client not configured (SUPABASE_URL / SUPABASE_SERVICE_KEY)');
+  }
+  return _supabase;
+}
 
 // ---------------------------------------------------------------------------
 // Authorization helper
 // ---------------------------------------------------------------------------
 
-async function assertOrgMember(
-  userId: string,
-  orgId: string,
-  res: Response
-): Promise<boolean> {
-  const { data, error } = await supabase
+async function assertOrgMember(userId: string, orgId: string, res: Response): Promise<boolean> {
+  const { data, error } = await sb()
     .from('organization_members')
     .select('user_id')
     .eq('organization_id', orgId)
@@ -76,11 +84,22 @@ const validateRequest = (req: Request, res: Response): boolean => {
 };
 
 const EN15978_STAGES = [
-  'a1_raw_materials', 'a2_transport', 'a3_manufacturing',
-  'a4_transport_to_site', 'a5_construction',
-  'b1_use', 'b2_maintenance', 'b3_repair', 'b4_replacement',
-  'b5_refurbishment', 'b6_operational_energy', 'b7_operational_water',
-  'c1_deconstruction', 'c2_transport_eol', 'c3_waste_processing', 'c4_disposal',
+  'a1_raw_materials',
+  'a2_transport',
+  'a3_manufacturing',
+  'a4_transport_to_site',
+  'a5_construction',
+  'b1_use',
+  'b2_maintenance',
+  'b3_repair',
+  'b4_replacement',
+  'b5_refurbishment',
+  'b6_operational_energy',
+  'b7_operational_water',
+  'c1_deconstruction',
+  'c2_transport_eol',
+  'c3_waste_processing',
+  'c4_disposal',
   'd_reuse_recovery',
 ] as const;
 
@@ -98,7 +117,9 @@ router.post(
     body('project_code').optional().isString().trim(),
     body('location').optional().isString().trim(),
     body('gross_floor_area_m2').optional().isFloat({ min: 0 }),
-    body('building_type').optional().isIn(['residential', 'commercial', 'industrial', 'infrastructure']),
+    body('building_type')
+      .optional()
+      .isIn(['residential', 'commercial', 'industrial', 'infrastructure']),
     body('file_format').optional().isIn(['ifc', 'ifczip', 'bcf', 'json', 'xml']),
   ],
   async (req: Request, res: Response) => {
@@ -106,13 +127,20 @@ router.post(
 
     try {
       const {
-        org_id, project_name, project_code, bim_file_url,
-        country, location, gross_floor_area_m2, building_type, file_format,
+        org_id,
+        project_name,
+        project_code,
+        bim_file_url,
+        country,
+        location,
+        gross_floor_area_m2,
+        building_type,
+        file_format,
       } = req.body;
 
-      if (!await assertOrgMember(req.userId!, org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await sb()
         .from('bim_projects')
         .insert({
           org_id,
@@ -156,9 +184,9 @@ router.get('/projects', authenticateToken, async (req: Request, res: Response) =
       return;
     }
 
-    if (!await assertOrgMember(req.userId!, orgId, res)) return;
+    if (!(await assertOrgMember(req.userId!, orgId, res))) return;
 
-    const { data, error } = await supabase
+    const { data, error } = await sb()
       .from('bim_projects')
       .select('*')
       .eq('org_id', orgId)
@@ -188,7 +216,7 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      const { data: project, error: projErr } = await supabase
+      const { data: project, error: projErr } = await sb()
         .from('bim_projects')
         .select('*')
         .eq('id', req.params.id)
@@ -199,10 +227,10 @@ router.get(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, project.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, project.org_id, res))) return;
 
       // Fetch associated carbon calculation (latest)
-      const { data: carbon } = await supabase
+      const { data: carbon } = await sb()
         .from('carbon_calculations')
         .select('*')
         .eq('bim_project_id', project.id)
@@ -244,7 +272,7 @@ router.post(
       const { projectId } = req.params;
 
       // Verify project exists and user belongs to its org
-      const { data: project, error: projErr } = await supabase
+      const { data: project, error: projErr } = await sb()
         .from('bim_projects')
         .select('id, org_id, gross_floor_area_m2')
         .eq('id', projectId)
@@ -255,7 +283,7 @@ router.post(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, project.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, project.org_id, res))) return;
 
       // Build calculation row from EN 15978 stage values
       const calcRow: Record<string, any> = {
@@ -269,15 +297,20 @@ router.post(
 
       // Optional fields
       for (const field of [
-        'kg_co2e_per_m2', 'csrd_status', 'ets_status', 'cbam_status',
-        'fit55_score', 'materials_breakdown', 'calculation_method',
+        'kg_co2e_per_m2',
+        'csrd_status',
+        'ets_status',
+        'cbam_status',
+        'fit55_score',
+        'materials_breakdown',
+        'calculation_method',
       ]) {
         if (req.body[field] !== undefined) {
           calcRow[field] = req.body[field];
         }
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await sb()
         .from('carbon_calculations')
         .insert(calcRow)
         .select()
@@ -290,10 +323,7 @@ router.post(
       }
 
       // Update project status to 'extracted'
-      await supabase
-        .from('bim_projects')
-        .update({ status: 'extracted' })
-        .eq('id', projectId);
+      await sb().from('bim_projects').update({ status: 'extracted' }).eq('id', projectId);
 
       logger.info('Carbon calculation saved', { id: data.id, projectId });
       res.status(201).json(data);
@@ -312,7 +342,7 @@ router.get('/emission-factors', async (req: Request, res: Response) => {
   try {
     const country = (req.query.country as string) || 'FI';
 
-    const { data, error } = await supabase
+    const { data, error } = await sb()
       .from('emission_factors')
       .select('*')
       .eq('country', country.toUpperCase())

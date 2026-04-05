@@ -42,7 +42,9 @@ let mockAuthResult: 'ok' | 'unauthenticated' | 'wrong-org' = 'ok';
 vi.mock('../middleware/auth.middleware.js', () => ({
   authenticateToken: vi.fn((req: any, res: any, next: any) => {
     if (mockAuthResult === 'unauthenticated') {
-      return res.status(401).json({ error: 'Unauthorized', message: 'No authentication token provided' });
+      return res
+        .status(401)
+        .json({ error: 'Unauthorized', message: 'No authentication token provided' });
     }
     // Attach identity to request (mirrors the real middleware)
     req.userId = 'user-test-123';
@@ -113,15 +115,20 @@ describe('POST /api/grok-consent/:orgId/grant', () => {
   });
 
   it('grants consent and returns 201', async () => {
-    mockGrantConsent.mockResolvedValue(undefined);
+    mockGrantConsent.mockResolvedValue({ kya: {} });
     const res = await request(app)
       .post('/api/grok-consent/org-abc/grant')
       .send({ allowedCategories: ['climate'], note: 'Test grant' });
     expect(res.status).toBe(201);
     expect(res.body.granted).toBe(true);
     expect(res.body.orgId).toBe('org-abc');
+    // Route passes callerKyaScore as 5th arg (undefined when no x-kya-score header)
     expect(mockGrantConsent).toHaveBeenCalledWith(
-      'org-abc', 'user-test-123', ['climate'], 'Test grant',
+      'org-abc',
+      'user-test-123',
+      ['climate'],
+      'Test grant',
+      undefined,
     );
   });
 
@@ -158,13 +165,19 @@ describe('POST /api/grok-consent/:orgId/revoke', () => {
   });
 
   it('revokes consent successfully', async () => {
-    mockRevokeConsent.mockResolvedValue(undefined);
+    mockRevokeConsent.mockResolvedValue({ kya: {} });
     const res = await request(app)
       .post('/api/grok-consent/org-abc/revoke')
       .send({ reason: 'No longer needed' });
     expect(res.status).toBe(200);
     expect(res.body.granted).toBe(false);
-    expect(mockRevokeConsent).toHaveBeenCalledWith('org-abc', 'user-test-123', 'No longer needed');
+    // Route passes callerKyaScore as 4th arg (undefined when no x-kya-score header)
+    expect(mockRevokeConsent).toHaveBeenCalledWith(
+      'org-abc',
+      'user-test-123',
+      'No longer needed',
+      undefined,
+    );
   });
 
   it('returns 403 when caller org does not match path param', async () => {
@@ -243,9 +256,9 @@ describe('GrokConsentService.revokeConsent — missing record', () => {
     mockAuthResult = 'ok';
     const app = await buildApp();
 
-    mockRevokeConsent.mockResolvedValue(undefined);
+    mockRevokeConsent.mockResolvedValue({ kya: {} });
     await request(app).post('/api/grok-consent/org-abc/revoke').send({ reason: 'test' });
     expect(mockRevokeConsent).toHaveBeenCalledOnce();
-    expect(mockRevokeConsent).toHaveBeenCalledWith('org-abc', 'user-test-123', 'test');
+    expect(mockRevokeConsent).toHaveBeenCalledWith('org-abc', 'user-test-123', 'test', undefined);
   });
 });

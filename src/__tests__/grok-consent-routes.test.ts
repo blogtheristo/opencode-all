@@ -38,6 +38,19 @@ vi.mock('../utils/logger.js', () => ({
   },
 }));
 
+// ── Pass-through auth middleware so test injection (above the router) wins.
+// Without this, router.use(authenticateToken) would 401 every request because
+// no Authorization header is set on supertest calls.
+vi.mock('../middleware/auth.middleware.js', async () => {
+  const { Request, Response, NextFunction } = await import('express');
+  void Request;
+  void Response;
+  void NextFunction;
+  return {
+    authenticateToken: (_req: unknown, _res: unknown, next: (err?: unknown) => void) => next(),
+  };
+});
+
 // ── Imports after mocks ────────────────────────────────────────────────────
 import grokConsentRoutes from '../routes/grok-consent.routes.js';
 import { grokConsentService } from '../services/grok-consent.service.js';
@@ -58,10 +71,13 @@ function buildApp(callerOrgId: string | null, callerUserId = USER_ID): Express {
   const app = express();
   app.use(express.json());
 
-  // Simulate what authenticateToken middleware injects onto the request
+  // Simulate what authenticateToken middleware injects onto the request.
+  // The real middleware sets req.organizationId (not req.orgId) — see
+  // src/middleware/auth.middleware.ts:279. The route reads this via
+  // getCallerOrgId(req) in src/routes/grok-consent.routes.ts.
   app.use((req: Request, _res: Response, next: NextFunction) => {
     if (callerOrgId !== null) {
-      (req as unknown as Record<string, unknown>).orgId = callerOrgId;
+      (req as unknown as Record<string, unknown>).organizationId = callerOrgId;
     }
     (req as unknown as Record<string, unknown>).userId = callerUserId;
     next();
@@ -183,7 +199,7 @@ describe('Grok Consent Routes', () => {
 
   describe('POST /:orgId/grant — grant consent', () => {
     it('returns 201 with correct grant response on success', async () => {
-      vi.mocked(grokConsentService.grantConsent).mockResolvedValue(undefined);
+      vi.mocked(grokConsentService.grantConsent).mockResolvedValue({ kya: {} as never });
 
       const app = buildApp(ORG_ID);
       const res = await request(app)
@@ -199,7 +215,7 @@ describe('Grok Consent Routes', () => {
     });
 
     it('records custom allowedCategories when provided', async () => {
-      vi.mocked(grokConsentService.grantConsent).mockResolvedValue(undefined);
+      vi.mocked(grokConsentService.grantConsent).mockResolvedValue({ kya: {} as never });
 
       const categories = ['climate', 'cbam'];
       const app = buildApp(ORG_ID);
@@ -217,12 +233,10 @@ describe('Grok Consent Routes', () => {
     });
 
     it('uses default categories when allowedCategories is omitted', async () => {
-      vi.mocked(grokConsentService.grantConsent).mockResolvedValue(undefined);
+      vi.mocked(grokConsentService.grantConsent).mockResolvedValue({ kya: {} as never });
 
       const app = buildApp(ORG_ID);
-      const res = await request(app)
-        .post(`/api/grok-consent/${ORG_ID}/grant`)
-        .send({});
+      const res = await request(app).post(`/api/grok-consent/${ORG_ID}/grant`).send({});
 
       expect(res.status).toBe(201);
       expect(res.body.allowedCategories).toEqual(['climate', 'carbon', 'compliance']);
@@ -234,9 +248,7 @@ describe('Grok Consent Routes', () => {
       );
 
       const app = buildApp(ORG_ID);
-      const res = await request(app)
-        .post(`/api/grok-consent/${ORG_ID}/grant`)
-        .send({});
+      const res = await request(app).post(`/api/grok-consent/${ORG_ID}/grant`).send({});
 
       expect(res.status).toBe(500);
       expect(res.body.error).toBeDefined();
@@ -247,7 +259,7 @@ describe('Grok Consent Routes', () => {
 
   describe('POST /:orgId/revoke — revoke consent', () => {
     it('returns 200 with correct revoke response on success', async () => {
-      vi.mocked(grokConsentService.revokeConsent).mockResolvedValue(undefined);
+      vi.mocked(grokConsentService.revokeConsent).mockResolvedValue({ kya: {} as never });
 
       const app = buildApp(ORG_ID);
       const res = await request(app)
@@ -263,13 +275,11 @@ describe('Grok Consent Routes', () => {
     });
 
     it('passes the revocation reason to the service', async () => {
-      vi.mocked(grokConsentService.revokeConsent).mockResolvedValue(undefined);
+      vi.mocked(grokConsentService.revokeConsent).mockResolvedValue({ kya: {} as never });
 
       const reason = 'User withdrew consent per GDPR Art. 7(3)';
       const app = buildApp(ORG_ID);
-      await request(app)
-        .post(`/api/grok-consent/${ORG_ID}/revoke`)
-        .send({ reason });
+      await request(app).post(`/api/grok-consent/${ORG_ID}/revoke`).send({ reason });
 
       const mockCall = vi.mocked(grokConsentService.revokeConsent).mock.calls[0];
       expect(mockCall[0]).toBe(ORG_ID);
@@ -283,9 +293,7 @@ describe('Grok Consent Routes', () => {
       );
 
       const app = buildApp(ORG_ID);
-      const res = await request(app)
-        .post(`/api/grok-consent/${ORG_ID}/revoke`)
-        .send({});
+      const res = await request(app).post(`/api/grok-consent/${ORG_ID}/revoke`).send({});
 
       expect(res.status).toBe(500);
       expect(res.body.error).toBeDefined();
@@ -296,8 +304,20 @@ describe('Grok Consent Routes', () => {
 
   describe('GET /:orgId/audit — Article 12 audit log', () => {
     const mockEvents = [
-      { id: 'evt-1', org_id: ORG_ID, model: 'grok-3', status: 'ok', logged_at: '2026-03-01T09:00:00Z' },
-      { id: 'evt-2', org_id: ORG_ID, model: 'grok-3', status: 'error', logged_at: '2026-03-01T08:00:00Z' },
+      {
+        id: 'evt-1',
+        org_id: ORG_ID,
+        model: 'grok-3',
+        status: 'ok',
+        logged_at: '2026-03-01T09:00:00Z',
+      },
+      {
+        id: 'evt-2',
+        org_id: ORG_ID,
+        model: 'grok-3',
+        status: 'error',
+        logged_at: '2026-03-01T08:00:00Z',
+      },
     ];
 
     it('returns audit events with compliance metadata', async () => {
@@ -365,9 +385,7 @@ describe('Grok Consent Routes', () => {
     });
 
     it('returns 500 when the audit service throws', async () => {
-      vi.mocked(grokConsentService.getAuditLog).mockRejectedValue(
-        new Error('Database error'),
-      );
+      vi.mocked(grokConsentService.getAuditLog).mockRejectedValue(new Error('Database error'));
 
       const app = buildApp(ORG_ID);
       const res = await request(app).get(`/api/grok-consent/${ORG_ID}/audit`);
@@ -390,9 +408,9 @@ describe('Grok Consent Routes', () => {
     it('throws when no orgId is provided to a Grok LLMClient', async () => {
       const client = new LLMClient(grokConfig);
 
-      await expect(
-        client.chat([{ role: 'user', content: 'Hello' }]),
-      ).rejects.toThrow(/requires orgId/i);
+      await expect(client.chat([{ role: 'user', content: 'Hello' }])).rejects.toThrow(
+        /requires orgId/i,
+      );
 
       // Consent should not be checked when orgId is absent
       expect(grokConsentService.checkConsent).not.toHaveBeenCalled();
@@ -441,16 +459,14 @@ describe('Grok Consent Routes', () => {
       vi.mocked(grokConsentService.logInferenceEvent).mockResolvedValue(undefined);
 
       // Stub the underlying fetch call so no real network request is made.
-      const fetchSpy = vi
-        .spyOn(globalThis as any, 'fetch')
-        .mockResolvedValue({
-          ok: false,
-          status: 401,
-          statusText: 'Unauthorized',
-          headers: { get: () => null },
-          json: async () => ({ error: { message: 'Unauthorized' } }),
-          text: async () => 'Unauthorized',
-        } as any);
+      const fetchSpy = vi.spyOn(globalThis as any, 'fetch').mockResolvedValue({
+        ok: false,
+        status: 401,
+        statusText: 'Unauthorized',
+        headers: { get: () => null },
+        json: async () => ({ error: { message: 'Unauthorized' } }),
+        text: async () => 'Unauthorized',
+      } as any);
 
       const client = new LLMClient(grokConfig);
 
