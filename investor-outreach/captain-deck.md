@@ -23,7 +23,7 @@ Document Status:
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Round:** EUR 650K SAFE at EUR 3.8M cap
-**This document:** Captain Tier — EUR 50,000 | 8 seats (one per industry tranche)
+**This document:** Captain Tier — EUR 50,000 | 8 seats (one per grouped industry tranche covering 20 EU-regulated verticals)
 **Date:** March 28, 2026
 
 ---
