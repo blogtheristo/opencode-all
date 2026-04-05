@@ -3,15 +3,16 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Initial — Scaleway Generative APIs as EU-primary inference for Climate Assistant; account setup recipe (Lifetime Oy org, Google SSO via risto.paarni2024@lifetime.fi, IAM API key); cost envelope (MVP free, V1 cheap); routing decision: Scaleway → NIM → Groq
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — owner account is admin@dws6.com (product-scoped), NOT risto.paarni2024@lifetime.fi. Risto's account for this implementation is being deleted. Rationale: DWS6 product infra isolation; aligns with existing dws6.com (Cloudflare) ownership pattern.
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Initial — Scaleway Generative APIs as EU-primary inference for Climate Assistant; account setup recipe (Lifetime Oy org, Google SSO, IAM API key); cost envelope (MVP free, V1 cheap); routing decision: Scaleway → NIM → Groq
 
 Session Links & References:
   - Scaleway Generative APIs privacy: https://www.scaleway.com/en/docs/generative-apis/reference-content/data-privacy/
   - Scaleway DPA (PDF): https://www-uploads.scaleway.com/DPA_2024_ENG_b0abb5cc26.pdf
-  - CLAUDE.md Cloud Environments § (risto.paarni2024@lifetime.fi → GCP, Supabase, backend, AI agents, development)
+  - CLAUDE.md Cloud Environments § — dws6.com (Cloudflare) ownership pattern now extended to Scaleway via admin@dws6.com
   - CLAUDE.md Legal Identity Rule § (Lifetime Oy 0772407-9)
   - Related commit: 4ad74e7 (Scaleway EU-primary swap)
   - Related commit: bf218e2 (NVIDIA NIM third route + DPA transparency)
@@ -62,8 +63,8 @@ behaviour barely shifts.
 | Business ID | 0772407-9 | For EU VAT-exempt B2B billing |
 | VAT ID | FI07724079 | EU reverse-charge |
 | Address | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland | Legal address |
-| Owner / admin email | **risto.paarni2024@lifetime.fi** | Per CLAUDE.md Cloud Environments table (GCP/Supabase/backend/AI-agents are all on this account) |
-| Auth method | **Google SSO** | Same identity provider as GCP + Supabase |
+| Owner / admin email | **admin@dws6.com** | Product-scoped identity. Isolates DWS IQ 6 product infra from Risto's personal dev accounts. Extends the existing dws6.com (Cloudflare) ownership pattern to Scaleway (EU compute + inference). |
+| Auth method | **Google SSO** via `admin@dws6.com` | Google Workspace account for the dws6.com domain |
 
 ### Project inside the organization
 
@@ -176,7 +177,9 @@ first does NOT give you Generative APIs and splits billing.
 
 ## Open follow-ups
 
-- [ ] Human (Risto): create Scaleway account as Lifetime Oy via Google SSO, generate IAM key, paste `SCW_SECRET_KEY` to deploy target
+- [x] Scaleway account created as Lifetime Oy via `admin@dws6.com` Google SSO (05.04.2026)
+- [ ] Delete parallel account on `risto.paarni2024@lifetime.fi` (wrong-first-attempt cleanup)
+- [ ] Generate IAM key scoped `GenerativeApisFullAccess` named `dws6-climate-assistant-prod`, paste `SCW_SECRET_KEY` to deploy target
 - [ ] DGX wiring (separate field note) — inference server choice, tunnel/VPN, model set
 - [ ] NIM_API_KEY — request NVIDIA Connect Partner credits for build.nvidia.com or DGX Cloud EU
 - [ ] Add `docs/DWS_DATA_STANDARD.md` paragraph noting Scaleway as the EU inference processor of record
