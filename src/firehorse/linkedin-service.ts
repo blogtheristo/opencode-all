@@ -1,14 +1,21 @@
 /**
- * Firehorse Omnichannel — LinkedIn Marketing API Service
+ * Firehorse Omnichannel — LinkedIn Service (Posts API + DM queue)
  *
- * Sends messages via LinkedIn Marketing API (OAuth 2.0).
- * Requires LINKEDIN_ACCESS_TOKEN and LINKEDIN_ORGANIZATION_ID.
+ * DMs (send): LinkedIn's Messaging API is RESTRICTED to Marketing Developer
+ * Platform / Sales Navigator API members. A normal LinkedIn Developer App
+ * CANNOT send DMs via api.linkedin.com/v2/messages. Unofficial scrapers
+ * (PhantomBuster, Dux-Soup, raw session cookies) violate the LinkedIn User
+ * Agreement and risk account suspension — we do NOT use them. Therefore
+ * send() queues the outreach to the audit log so a human operator sends
+ * manually from their own LinkedIn inbox.
  *
- * Fallback: logs message to audit trail when API is not configured.
+ * Posts (createPost): uses the approved v2 Posts API for organization
+ * feed posts — this IS allowed with a standard Marketing Developer App
+ * and LINKEDIN_ACCESS_TOKEN.
  *
- * Code-Version: 2.0.0
- * Introduced-In: PR-TBD (v1 features — LinkedIn API integration)
- * Date: 2026-03-28
+ * Code-Version: 2.1.0
+ * Introduced-In: claude/build-mvp-features-Eq6py (merged with main v2.0.0)
+ * Date: 2026-04-05
  * Owner: Claude Code (Opus 4.6)
  */
 
@@ -47,66 +54,27 @@ class LinkedInService {
   }
 
   /**
-   * Send a LinkedIn message via the Messaging API.
-   * Falls back to audit logging when API is not configured.
+   * Queue a LinkedIn DM for manual human send.
+   *
+   * Does NOT call api.linkedin.com/v2/messages — that endpoint is restricted
+   * to LinkedIn Marketing Developer Platform / Sales Navigator API members
+   * (gated to approved Marketing Partners). A normal LinkedIn Developer App
+   * cannot send DMs over the wire. Instead, we log the outreach so a human
+   * operator sends the message manually from their LinkedIn inbox —
+   * preserving audit trail and compliance.
    */
   async send(payload: LinkedInDMPayload): Promise<LinkedInApiResponse> {
     const { to, message, lead_id } = payload;
-    const token = this.getAccessToken();
 
-    if (!token) {
-      logger.info('LinkedIn DM queued (API not configured)', {
-        to,
-        lead_id,
-        messageLength: message.length,
-      });
-      return { success: true, messageId: `queued-${lead_id}` };
-    }
+    logger.info('LinkedIn DM queued for manual send', {
+      lead_id,
+      recipient: to,
+      messageLength: message.length,
+      channel: 'linkedin_manual',
+      note: 'LinkedIn Messaging API is restricted — operator must send from inbox',
+    });
 
-    // Normalize recipient to URN format
-    const recipientUrn = to.startsWith('urn:li:') ? to : await this.resolveProfileUrn(to);
-    if (!recipientUrn) {
-      logger.warn('Could not resolve LinkedIn profile URN', { to, lead_id });
-      return { success: false, error: 'Could not resolve recipient URN' };
-    }
-
-    try {
-      const response = await fetch(`${this.baseUrl}/messages`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          'LinkedIn-Version': '202401',
-        },
-        body: JSON.stringify({
-          recipients: [recipientUrn],
-          body: { text: message },
-          messageType: 'MEMBER_TO_MEMBER',
-        }),
-      });
-
-      if (!response.ok) {
-        const errorBody = await response.text();
-        logger.error('LinkedIn API error', {
-          status: response.status,
-          body: errorBody,
-          lead_id,
-        });
-        return { success: false, error: `LinkedIn API ${response.status}: ${errorBody}` };
-      }
-
-      const data = await response.json().catch(() => ({}));
-      const messageId = (data as Record<string, unknown>).id as string || `sent-${Date.now()}`;
-
-      logger.info('LinkedIn DM sent', { to: recipientUrn, lead_id, messageId });
-      return { success: true, messageId };
-    } catch (err) {
-      logger.error('LinkedIn send failed', {
-        error: (err as Error).message,
-        lead_id,
-      });
-      return { success: false, error: (err as Error).message };
-    }
+    return { success: true, messageId: `queued-${lead_id}` };
   }
 
   /**
@@ -130,7 +98,7 @@ class LinkedInService {
       const response = await fetch(`${this.baseUrl}/posts`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
           'LinkedIn-Version': '202401',
         },
@@ -179,7 +147,7 @@ class LinkedInService {
         `${this.baseUrl}/people/(vanityName:${encodeURIComponent(match[1])})`,
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             'LinkedIn-Version': '202401',
           },
         },
@@ -187,7 +155,7 @@ class LinkedInService {
 
       if (!response.ok) return null;
 
-      const data = await response.json() as Record<string, unknown>;
+      const data = (await response.json()) as Record<string, unknown>;
       return (data.id as string) ? `urn:li:person:${data.id}` : null;
     } catch {
       return null;
@@ -195,7 +163,8 @@ class LinkedInService {
   }
 
   /**
-   * Check if LinkedIn integration is configured.
+   * Check if LinkedIn integration is configured for POSTS (feed/share API).
+   * DM sending is never "configured" — DMs always queue for manual send.
    */
   isConfigured(): boolean {
     return !!this.getAccessToken();

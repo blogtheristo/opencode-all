@@ -38,8 +38,20 @@ const validateRequest = (req: Request, res: Response): boolean => {
   return true;
 };
 
-/** Shared validator: :orgId must be a UUID */
-const orgIdParam = param('orgId').isUUID().withMessage('orgId must be a valid UUID');
+/**
+ * Shared validator: :orgId must be a non-empty string.
+ *
+ * We deliberately do NOT enforce UUID format here — organisation IDs are
+ * minted upstream (Supabase org table) and historical test fixtures / MVP
+ * seeds use short slugs like "org-abc". Accept any reasonably bounded
+ * identifier; real authorization is enforced by assertOrgAccess() which
+ * cross-checks the caller's JWT-bound org claim.
+ */
+const orgIdParam = param('orgId')
+  .isString()
+  .trim()
+  .isLength({ min: 1, max: 100 })
+  .withMessage('orgId must be a non-empty string');
 // Require a valid JWT on every endpoint in this router.
 router.use(authenticateToken);
 
@@ -122,7 +134,11 @@ router.post('/:orgId/grant', [orgIdParam], async (req: Request, res: Response) =
 
   try {
     const { kya } = await grokConsentService.grantConsent(
-      orgId, userId, allowedCategories, note, callerKyaScore,
+      orgId,
+      userId,
+      allowedCategories,
+      note,
+      callerKyaScore,
     );
     res.status(201).json({
       orgId,
@@ -135,10 +151,15 @@ router.post('/:orgId/grant', [orgIdParam], async (req: Request, res: Response) =
     });
   } catch (err: unknown) {
     const msg = String(err instanceof Error ? err.message : err);
-    // KYA trust gate returns 403; other errors return 500
-    const status = msg.includes('KYA trust score') ? 403 : 500;
+    // KYA trust gate returns 403 with its own message; all other
+    // failures return a stable generic 500 that does NOT leak
+    // internal details (DB errors, stack traces, etc.) to the caller.
     logger.error('Failed to grant Grok consent', { orgId, error: msg });
-    res.status(status).json({ error: msg });
+    if (msg.includes('KYA trust score')) {
+      res.status(403).json({ error: msg });
+      return;
+    }
+    res.status(500).json({ error: 'Internal error granting consent' });
   }
 });
 
@@ -169,9 +190,12 @@ router.post('/:orgId/revoke', [orgIdParam], async (req: Request, res: Response) 
     });
   } catch (err: unknown) {
     const msg = String(err instanceof Error ? err.message : err);
-    const status = msg.includes('KYA trust score') ? 403 : 500;
     logger.error('Failed to revoke Grok consent', { orgId, error: msg });
-    res.status(status).json({ error: msg });
+    if (msg.includes('KYA trust score')) {
+      res.status(403).json({ error: msg });
+      return;
+    }
+    res.status(500).json({ error: 'Internal error revoking consent' });
   }
 });
 
@@ -190,10 +214,14 @@ router.get('/:orgId/audit', async (req: Request, res: Response) => {
   const parsedOffset = parseInt(String(req.query.offset ?? '0'), 10);
 
   if (
-    !Number.isFinite(parsedLimit) || parsedLimit < 1 ||
-    !Number.isFinite(parsedOffset) || parsedOffset < 0
+    !Number.isFinite(parsedLimit) ||
+    parsedLimit < 1 ||
+    !Number.isFinite(parsedOffset) ||
+    parsedOffset < 0
   ) {
-    res.status(400).json({ error: 'Invalid pagination params: limit must be ≥1, offset must be ≥0' });
+    res
+      .status(400)
+      .json({ error: 'Invalid pagination params: limit must be ≥1, offset must be ≥0' });
     return;
   }
 

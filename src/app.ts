@@ -41,8 +41,12 @@ import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
+import activityRoutes from './routes/activity.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
+import notificationRoutes from './routes/notification.routes.js';
 import { openApiRouter } from './openapi.js';
 import { terminateChain } from './identity/kya-engine.js';
+import { notificationService } from './services/notification.service.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -80,18 +84,23 @@ const __dirname = path.dirname(__filename);
 // ============ MIDDLEWARE ============
 
 // Security headers - configured to allow static HTML pages with inline scripts
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        connectSrc: [
+          "'self'",
+          'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
+        ],
+      },
     },
-  },
-}));
+  }),
+);
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
@@ -105,7 +114,7 @@ const defaultOrigins = [
 ];
 
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
   : defaultOrigins;
 
 const corsOptions = {
@@ -134,7 +143,13 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Session-Id',
+    'X-Admin-Key',
+    'X-Correlation-ID',
+  ],
 };
 app.use(cors(corsOptions));
 
@@ -267,8 +282,8 @@ app.use('/api/v1/kya', kyaWebhookRoutes);
 // KYA CLI Snap endpoint (simulation trigger for demo)
 app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['authorization']?.replace('Bearer ', '')
-    || req.headers['x-admin-key'];
+  const provided =
+    req.headers['authorization']?.replace('Bearer ', '') || req.headers['x-admin-key'];
 
   if (adminKey && provided) {
     const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
@@ -325,13 +340,27 @@ app.use('/api/investor-reports/cap-table', capTableRouter);
 // Memory dashboard (stats, audit, decay dry-run)
 app.use('/api/v1/memory', memoryRoutes);
 
+// Activity feed (real-time events, SSE stream)
+app.use('/api/v1/activity', activityRoutes);
+
+// Dashboard summary (aggregated metrics for MetricsHeader)
+app.use('/api/v1/dashboard', dashboardRoutes);
+
+// Notifications (in-app notifications with read/unread)
+app.use('/api/v1/notifications', notificationRoutes);
+
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
   const configPath = path.join(process.cwd(), 'config', 'project-delivery-status.json');
   const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
   try {
     const raw = fs.readFileSync(configPath, 'utf-8');
-    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    const data = JSON.parse(raw) as {
+      timestamp?: string;
+      mvp?: number;
+      v1?: number;
+      dws7?: number;
+    };
     res.json({
       timestamp: data.timestamp ?? fallback.timestamp,
       mvp: data.mvp ?? fallback.mvp,
@@ -444,11 +473,17 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`,
         },
-      }
+      },
     );
 
     if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
-    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    const rows = (await fetchRes.json()) as Array<{
+      name: string;
+      email: string;
+      industry: string;
+      seat_level: string;
+      status: string;
+    }>;
     if (rows.length === 0) {
       res.status(404).json({ error: 'Inquiry not found' });
       return;
@@ -457,19 +492,16 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
     const inquiry = rows[0];
 
     // Update status
-    const updateRes = await fetch(
-      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
+    const updateRes = await fetch(`${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ status }),
+    });
 
     if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
 
@@ -482,7 +514,7 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           inquiry.email,
           inquiry.name,
           inquiry.industry,
-          inquiry.seat_level
+          inquiry.seat_level,
         );
         emailSent = true;
         logger.info('Captain pre-briefing email sent', {
@@ -514,7 +546,9 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
 // Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
 // Called without app arg — we use errorTrackingMiddleware() below instead of
 // Sentry's own Express handler, so ordering is explicit and predictable.
-initErrorTracking().catch(() => { /* logged internally */ });
+initErrorTracking().catch(() => {
+  /* logged internally */
+});
 
 // Error tracking middleware — captures exceptions before error handler formats response
 app.use(errorTrackingMiddleware());
@@ -554,24 +588,31 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
+  // Notification service: listens to event bus, delivers notifications
+  notificationService.start();
+  logger.info('Notification delivery service started');
+
   // Start outreach digest scheduler (backup — primary is GitHub Actions).
   // On Cloud Run this may not fire reliably due to scale-to-zero,
   // but covers local dev and always-on deployments.
   outreachScheduler.start();
 
   // Initialize email queue (Redis Streams)
-  emailQueue.initialize().then((ready) => {
-    if (ready) {
-      emailQueue.start();
-      logger.info('Email queue worker started (Redis Streams)');
-    } else {
-      logger.info('Email queue unavailable — emails will be sent directly');
-    }
-  }).catch((err) => {
-    logger.warn('Email queue init error — emails will be sent directly', {
-      error: err.message,
+  emailQueue
+    .initialize()
+    .then((ready) => {
+      if (ready) {
+        emailQueue.start();
+        logger.info('Email queue worker started (Redis Streams)');
+      } else {
+        logger.info('Email queue unavailable — emails will be sent directly');
+      }
+    })
+    .catch((err) => {
+      logger.warn('Email queue init error — emails will be sent directly', {
+        error: err.message,
+      });
     });
-  });
 });
 
 // ============ PROCESS ERROR HANDLERS ============
@@ -599,6 +640,7 @@ process.on('SIGTERM', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -612,6 +654,7 @@ process.on('SIGINT', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

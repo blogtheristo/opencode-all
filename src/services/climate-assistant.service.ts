@@ -1,20 +1,29 @@
 /**
  * Climate Assistant Service
- * AI-powered climate compliance assistant using Groq API
+ * AI-powered climate compliance assistant with EU-first inference routing.
  *
- * Configuration:
- * - Provider: Groq (fastest inference)
- * - Model: Llama 3.1 70B Versatile
- * - Daily budget: $1.00
- * - Max tokens per response: 1024
+ * Provider routing (EU-first, three-tier failover):
+ *   1. PRIMARY   — Scaleway Generative APIs (Paris/Amsterdam, EU residency)
+ *                  Env: SCW_SECRET_KEY + SCW_GENERATIVE_API_URL
+ *                  Model: llama-3.3-70b-instruct (free tier: 1M tokens/month)
+ *   2. SECONDARY — NVIDIA NIM (strategic, Connect Partner benefit)
+ *                  Env: NIM_API_KEY + NIM_API_URL
+ *                  Model: meta/llama-3.3-70b-instruct (default)
+ *                  Can be DGX Cloud EU, build.nvidia.com, or self-hosted NIM
+ *   3. TERTIARY  — Groq (US, fallback only if Scaleway + NIM both unreachable)
+ *                  Env: GROQ_API_KEY
+ *                  Model: llama-3.3-70b-versatile
  *
- * Groq Pricing (Llama 3.1 70B):
- * - Input: $0.59 per 1M tokens
- * - Output: $0.79 per 1M tokens
+ * All endpoints are OpenAI-compatible (/v1/chat/completions).
+ * Failover triggers on RATE_LIMITED or RETRYABLE errors; 401/403 are fatal
+ * and do NOT cascade to the next provider.
  *
- * Usage Tracking:
- * - Persisted in Supabase for serverless/multi-instance deployment
- * - Prevents budget overruns across cold starts and multiple instances
+ * Budget:  DAILY_BUDGET_USD = $1.00/day combined
+ * Max:     MAX_TOKENS per response = 1024
+ * Tracking: persisted in Supabase (survives cold starts + multi-instance)
+ *
+ * Code-Version: 2.0.0
+ * Introduced-In: claude/build-mvp-features-Eq6py (EU-residency hardening)
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -22,18 +31,33 @@ import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
 
-// Model: Llama 3.3 70B on Groq (fast + cheap)
-const MODEL = 'llama-3.3-70b-versatile';
+// Primary provider: Scaleway Generative APIs (EU data residency).
+// OpenAI-compatible endpoint. Model name differs slightly from Groq.
+const SCW_API_URL =
+  process.env.SCW_GENERATIVE_API_URL || 'https://api.scaleway.ai/v1/chat/completions';
+const SCW_MODEL = process.env.SCW_MODEL || 'llama-3.3-70b-instruct';
 
-// Groq API endpoint
+// Secondary provider: NVIDIA NIM (strategic, Connect Partner benefit).
+// Default endpoint is build.nvidia.com free preview; override to point at a
+// DGX Cloud EU region, NVIDIA AI Enterprise, or a self-hosted NIM container
+// (EU-residency via Lifetime DGX/Jetson edge).
+const NIM_API_URL =
+  process.env.NIM_API_URL || 'https://integrate.api.nvidia.com/v1/chat/completions';
+const NIM_MODEL = process.env.NIM_MODEL || 'meta/llama-3.3-70b-instruct';
+
+// Fallback provider: Groq (US). Since the Dec 2025 NVIDIA×Groq licensing
+// deal, Groq's LPU is part of NVIDIA's inference stack — but GroqCloud
+// itself is still US-hosted, so we keep it as the tertiary (non-EU) path.
+// See docs/field-notes/2026-04-05-nvidia-groq-deal-inference-stack.md.
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 // Pricing per token (USD) - Llama 3.1 70B
-const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000;  // $0.00000059
+const INPUT_COST_PER_TOKEN = 0.59 / 1_000_000; // $0.00000059
 const OUTPUT_COST_PER_TOKEN = 0.79 / 1_000_000; // $0.00000079
 
 // Daily budget limit
-const DAILY_BUDGET_USD = 1.00;
+const DAILY_BUDGET_USD = 1.0;
 
 // Max tokens per response (keep responses concise)
 const MAX_TOKENS = 1024;
@@ -47,15 +71,15 @@ let supabase: SupabaseClient | null = null;
  */
 function getSupabaseClient(): SupabaseClient | null {
   if (supabase) return supabase;
-  
+
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-  
+
   if (!supabaseUrl || !supabaseKey) {
     logger.warn('Supabase not configured. Usage tracking disabled.');
     return null;
   }
-  
+
   supabase = createClient(supabaseUrl, supabaseKey);
   return supabase;
 }
@@ -78,16 +102,16 @@ interface DailyUsage {
 async function getTodaysUsage(): Promise<DailyUsage | null> {
   const client = getSupabaseClient();
   if (!client) return null; // Supabase not configured
-  
+
   const today = new Date().toISOString().split('T')[0];
-  
+
   try {
     const { data, error } = await client
       .from('climate_assistant_usage')
       .select('*')
       .eq('date', today)
       .single();
-    
+
     if (error) {
       if (error.code === 'PGRST116') {
         // No record found for today - return zero usage (expected scenario)
@@ -103,7 +127,7 @@ async function getTodaysUsage(): Promise<DailyUsage | null> {
       logger.error('Error fetching usage from Supabase', { error });
       return null;
     }
-    
+
     return data as DailyUsage;
   } catch (error: any) {
     logger.error('Exception fetching usage', { error: error.message });
@@ -130,7 +154,7 @@ async function isBudgetExceeded(): Promise<boolean> {
     logger.warn('Usage tracking unavailable (Supabase error), allowing request');
     return false;
   }
-  
+
   const cost = getCost(usage);
   return cost >= DAILY_BUDGET_USD;
 }
@@ -145,10 +169,10 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
     logger.warn('Supabase not available, skipping usage tracking');
     return null;
   }
-  
+
   const today = new Date().toISOString().split('T')[0];
   const cost = inputTokens * INPUT_COST_PER_TOKEN + outputTokens * OUTPUT_COST_PER_TOKEN;
-  
+
   try {
     // Use atomic increment function to handle concurrent requests
     const { data, error } = await client.rpc('increment_climate_usage', {
@@ -157,15 +181,15 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
       output_tokens_delta: outputTokens,
       cost_delta: cost,
     });
-    
+
     if (error) {
       logger.error('Error tracking usage in Supabase', { error });
       return null;
     }
-    
+
     const usage = data as DailyUsage;
     const dailyCost = getCost(usage);
-    
+
     logger.info('Usage tracked in Supabase', {
       inputTokens,
       outputTokens,
@@ -174,7 +198,7 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
       remainingBudget: `$${(DAILY_BUDGET_USD - dailyCost).toFixed(4)}`,
       requests: usage.requests,
     });
-    
+
     return usage;
   } catch (error: any) {
     logger.error('Exception tracking usage', { error: error.message });
@@ -227,11 +251,17 @@ export interface ChatResponse {
 export async function processMessage(request: ChatRequest): Promise<ChatResponse> {
   const { message, conversationHistory = [] } = request;
 
-  // Check API key
-  if (!process.env.GROQ_API_KEY) {
-    logger.error('GROQ_API_KEY not configured');
+  // Check API keys — at least one inference provider must be configured.
+  const hasScaleway = !!process.env.SCW_SECRET_KEY;
+  const hasNIM = !!process.env.NIM_API_KEY;
+  const hasGroq = !!process.env.GROQ_API_KEY;
+  if (!hasScaleway && !hasNIM && !hasGroq) {
+    logger.error(
+      'No inference provider configured (need SCW_SECRET_KEY, NIM_API_KEY, or GROQ_API_KEY)',
+    );
     return {
-      content: 'Climate Assistant is not configured. Please set GROQ_API_KEY.',
+      content:
+        'Climate Assistant is not configured. Please set SCW_SECRET_KEY (EU), NIM_API_KEY (NVIDIA), or GROQ_API_KEY (US fallback).',
       model: 'error',
     };
   }
@@ -254,107 +284,273 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
     };
   }
 
+  // Build messages (limit history to save tokens)
+  const recentHistory = conversationHistory.slice(-4);
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...recentHistory,
+    { role: 'user', content: message },
+  ];
+
   logger.info('Processing message', {
     messageLength: message.length,
     historyLength: conversationHistory.length,
-    model: MODEL,
-    provider: 'groq',
+    primaryProvider: hasScaleway ? 'scaleway' : hasNIM ? 'nim' : 'groq',
   });
 
   try {
-    // Build messages (limit history to save tokens)
-    const recentHistory = conversationHistory.slice(-4);
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...recentHistory,
-      { role: 'user', content: message },
-    ];
-
-    // Call Groq API (OpenAI-compatible)
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: messages,
-        max_completion_tokens: MAX_TOKENS,  // Note: Groq uses max_completion_tokens, not max_tokens
-        temperature: 0.7,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      logger.error('Groq API error', {
-        status: response.status,
-        error: errorData,
-        requestBody: {
-          model: MODEL,
-          messageCount: messages.length,
-          maxCompletionTokens: MAX_TOKENS,
-        },
-      });
-
-      if (response.status === 401) {
-        throw new Error('API authentication failed. Check GROQ_API_KEY.');
-      }
-      if (response.status === 429) {
-        throw new Error('Rate limit exceeded. Please try again later.');
-      }
-      // Include error details for debugging
-      const errorObj = errorData as { error?: { message?: string }; message?: string };
-      const errorMessage = errorObj?.error?.message || errorObj?.message || JSON.stringify(errorData);
-      throw new Error(`Groq API error (${response.status}): ${errorMessage}`);
-    }
-
-    const data = await response.json() as {
-      choices?: Array<{ message?: { content?: string } }>;
-      usage?: { prompt_tokens?: number; completion_tokens?: number };
-      model?: string;
-    };
-
-    // Extract content
-    const content = data.choices?.[0]?.message?.content || 'I could not generate a response.';
+    const result = await callInference(messages, { hasScaleway, hasNIM, hasGroq });
 
     // Track usage and get updated totals
-    const inputTokens = data.usage?.prompt_tokens || 0;
-    const outputTokens = data.usage?.completion_tokens || 0;
-    const updatedUsage = await trackUsage(inputTokens, outputTokens);
+    const updatedUsage = await trackUsage(result.inputTokens, result.outputTokens);
 
     const requestCost =
-      inputTokens * INPUT_COST_PER_TOKEN +
-      outputTokens * OUTPUT_COST_PER_TOKEN;
+      result.inputTokens * INPUT_COST_PER_TOKEN + result.outputTokens * OUTPUT_COST_PER_TOKEN;
 
     logger.info('Response generated', {
-      inputTokens,
-      outputTokens,
+      inputTokens: result.inputTokens,
+      outputTokens: result.outputTokens,
       cost: `$${requestCost.toFixed(6)}`,
-      model: data.model,
-      provider: 'groq',
+      model: result.model,
+      provider: result.provider,
     });
 
     // Use returned usage to avoid extra query, fallback to fresh query if tracking failed
     const dailyCost = updatedUsage ? getCost(updatedUsage) : getCost(await getTodaysUsage());
 
     return {
-      content,
-      model: data.model || MODEL,
+      content: result.content,
+      model: result.model,
       usage: {
-        inputTokens,
-        outputTokens,
+        inputTokens: result.inputTokens,
+        outputTokens: result.outputTokens,
         cost: requestCost,
         dailyCost: dailyCost,
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
   } catch (error: any) {
-    logger.error('API error', {
-      error: error.message,
-    });
+    // Rate limit — return friendly message rather than throwing
+    if (error.code === 'RATE_LIMITED') {
+      logger.warn('All providers rate-limited', { message: error.message });
+      return {
+        content:
+          "I'm currently rate-limited by my inference providers. Please try again in a minute.",
+        model: 'rate-limited',
+      };
+    }
+    logger.error('Inference error (all providers failed)', { error: error.message });
     throw new Error(error.message || 'Failed to process message. Please try again.');
   }
+}
+
+// ============ INFERENCE ROUTING ============
+
+interface InferenceResult {
+  content: string;
+  model: string;
+  provider: 'scaleway' | 'nim' | 'groq';
+  inputTokens: number;
+  outputTokens: number;
+}
+
+interface ProviderAvailability {
+  hasScaleway: boolean;
+  hasNIM: boolean;
+  hasGroq: boolean;
+}
+
+/**
+ * Route order: Scaleway (EU) → NVIDIA NIM → Groq (US).
+ * Fall through only on retryable/rate-limit errors; auth (401/403) on a
+ * provider is a fatal config bug, not a transient failure.
+ */
+async function callInference(
+  messages: Array<{ role: string; content: string }>,
+  { hasScaleway, hasNIM, hasGroq }: ProviderAvailability,
+): Promise<InferenceResult> {
+  let lastError: Error | null = null;
+  let rateLimited = false;
+
+  const tryProvider = async (
+    name: string,
+    fn: () => Promise<InferenceResult>,
+  ): Promise<InferenceResult | null> => {
+    try {
+      return await fn();
+    } catch (e: unknown) {
+      const error =
+        e instanceof Error ? e : new Error(typeof e === 'string' ? e : 'Unknown provider error');
+
+      const providerError = error as Error & { code?: string };
+
+      // Network/transport failures from fetch() are commonly surfaced as a
+      // TypeError without a provider-specific code. Treat them as retryable so
+      // inference can fail over to the next configured provider.
+      if (!providerError.code && error instanceof TypeError) {
+        providerError.code = 'RETRYABLE';
+      }
+
+      lastError = providerError;
+      if (providerError.code === 'RATE_LIMITED') rateLimited = true;
+      if (
+        providerError.code !== 'RETRYABLE' &&
+        providerError.code !== 'RATE_LIMITED'
+      ) {
+        throw providerError;
+      }
+      logger.warn(`${name} failed, trying next provider`, {
+        error: providerError.message,
+      });
+      return null;
+    }
+  };
+
+  if (hasScaleway) {
+    const r = await tryProvider('scaleway', () => callScaleway(messages));
+    if (r) return r;
+  }
+  if (hasNIM) {
+    const r = await tryProvider('nim', () => callNIM(messages));
+    if (r) return r;
+  }
+  if (hasGroq) {
+    const r = await tryProvider('groq', () => callGroq(messages));
+    if (r) return r;
+  }
+
+  if (rateLimited) {
+    const err: any = new Error(lastError?.message || 'All providers rate-limited');
+    err.code = 'RATE_LIMITED';
+    throw err;
+  }
+  throw lastError || new Error('No inference provider available');
+}
+
+async function callScaleway(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(SCW_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SCW_SECRET_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: SCW_MODEL,
+      messages,
+      max_tokens: MAX_TOKENS,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(
+      `Scaleway API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    // 401/403/400 → no code → treated as fatal (fix config, don't fall back)
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || SCW_MODEL,
+    provider: 'scaleway',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
+}
+
+async function callNIM(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(NIM_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.NIM_API_KEY}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      model: NIM_MODEL,
+      messages,
+      max_tokens: MAX_TOKENS,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(
+      `NVIDIA NIM API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || NIM_MODEL,
+    provider: 'nim',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
+}
+
+async function callGroq(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(GROQ_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages,
+      max_completion_tokens: MAX_TOKENS, // Groq uses max_completion_tokens
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(`Groq API error (${response.status}): ${JSON.stringify(errorData)}`);
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || GROQ_MODEL,
+    provider: 'groq',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
 }
 
 /**
@@ -375,7 +571,7 @@ export async function getUsageStats(): Promise<{
   const usage = await getTodaysUsage();
   const cost = getCost(usage);
   const today = new Date().toISOString().split('T')[0];
-  
+
   return {
     date: usage?.date || today,
     requests: usage?.requests || 0,
@@ -385,20 +581,24 @@ export async function getUsageStats(): Promise<{
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
     percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
-    provider: 'groq',
-    model: MODEL,
+    provider: process.env.SCW_SECRET_KEY ? 'scaleway' : process.env.NIM_API_KEY ? 'nim' : 'groq',
+    model: process.env.SCW_SECRET_KEY
+      ? SCW_MODEL
+      : process.env.NIM_API_KEY
+        ? NIM_MODEL
+        : GROQ_MODEL,
   };
 }
 
 /**
- * Health check for the AI service
+ * Health check for the AI service — true if any inference provider configured.
  */
 export async function healthCheck(): Promise<boolean> {
-  if (!process.env.GROQ_API_KEY) {
-    logger.warn('GROQ_API_KEY not configured');
-    return false;
+  const ok = !!(process.env.SCW_SECRET_KEY || process.env.NIM_API_KEY || process.env.GROQ_API_KEY);
+  if (!ok) {
+    logger.warn('No inference provider configured (SCW_SECRET_KEY, NIM_API_KEY, or GROQ_API_KEY)');
   }
-  return true;
+  return ok;
 }
 
 export default {
