@@ -32,7 +32,19 @@ const SCW_API_URL =
   'https://api.scaleway.ai/v1/chat/completions';
 const SCW_MODEL = process.env.SCW_MODEL || 'llama-3.3-70b-instruct';
 
-// Fallback provider: Groq (US). Used only if Scaleway unreachable.
+// Secondary provider: NVIDIA NIM (strategic, Connect Partner benefit).
+// Default endpoint is build.nvidia.com free preview; override to point at a
+// DGX Cloud EU region, NVIDIA AI Enterprise, or a self-hosted NIM container
+// (EU-residency via Lifetime DGX/Jetson edge).
+const NIM_API_URL =
+  process.env.NIM_API_URL ||
+  'https://integrate.api.nvidia.com/v1/chat/completions';
+const NIM_MODEL = process.env.NIM_MODEL || 'meta/llama-3.3-70b-instruct';
+
+// Fallback provider: Groq (US). Since the Dec 2025 NVIDIA×Groq licensing
+// deal, Groq's LPU is part of NVIDIA's inference stack — but GroqCloud
+// itself is still US-hosted, so we keep it as the tertiary (non-EU) path.
+// See docs/field-notes/2026-04-05-nvidia-groq-deal-inference-stack.md.
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
@@ -237,12 +249,15 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
 
   // Check API keys — at least one inference provider must be configured.
   const hasScaleway = !!process.env.SCW_SECRET_KEY;
+  const hasNIM = !!process.env.NIM_API_KEY;
   const hasGroq = !!process.env.GROQ_API_KEY;
-  if (!hasScaleway && !hasGroq) {
-    logger.error('No inference provider configured (need SCW_SECRET_KEY or GROQ_API_KEY)');
+  if (!hasScaleway && !hasNIM && !hasGroq) {
+    logger.error(
+      'No inference provider configured (need SCW_SECRET_KEY, NIM_API_KEY, or GROQ_API_KEY)',
+    );
     return {
       content:
-        'Climate Assistant is not configured. Please set SCW_SECRET_KEY (EU) or GROQ_API_KEY (US fallback).',
+        'Climate Assistant is not configured. Please set SCW_SECRET_KEY (EU), NIM_API_KEY (NVIDIA), or GROQ_API_KEY (US fallback).',
       model: 'error',
     };
   }
@@ -276,11 +291,11 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
   logger.info('Processing message', {
     messageLength: message.length,
     historyLength: conversationHistory.length,
-    primaryProvider: hasScaleway ? 'scaleway' : 'groq',
+    primaryProvider: hasScaleway ? 'scaleway' : hasNIM ? 'nim' : 'groq',
   });
 
   try {
-    const result = await callInference(messages, { hasScaleway, hasGroq });
+    const result = await callInference(messages, { hasScaleway, hasNIM, hasGroq });
 
     // Track usage and get updated totals
     const updatedUsage = await trackUsage(result.inputTokens, result.outputTokens);
@@ -331,47 +346,55 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
 interface InferenceResult {
   content: string;
   model: string;
-  provider: 'scaleway' | 'groq';
+  provider: 'scaleway' | 'nim' | 'groq';
   inputTokens: number;
   outputTokens: number;
 }
 
 interface ProviderAvailability {
   hasScaleway: boolean;
+  hasNIM: boolean;
   hasGroq: boolean;
 }
 
 /**
- * Try Scaleway first (EU residency), fall back to Groq (US) on 5xx/429/network.
- * Authentication errors (401/403) on a provider are NOT retried — they indicate
- * a misconfiguration to be fixed, not a transient failure.
+ * Route order: Scaleway (EU) → NVIDIA NIM → Groq (US).
+ * Fall through only on retryable/rate-limit errors; auth (401/403) on a
+ * provider is a fatal config bug, not a transient failure.
  */
 async function callInference(
   messages: Array<{ role: string; content: string }>,
-  { hasScaleway, hasGroq }: ProviderAvailability,
+  { hasScaleway, hasNIM, hasGroq }: ProviderAvailability,
 ): Promise<InferenceResult> {
   let lastError: Error | null = null;
   let rateLimited = false;
 
-  if (hasScaleway) {
+  const tryProvider = async (
+    name: string,
+    fn: () => Promise<InferenceResult>,
+  ): Promise<InferenceResult | null> => {
     try {
-      return await callScaleway(messages);
+      return await fn();
     } catch (e: any) {
       lastError = e;
       if (e.code === 'RATE_LIMITED') rateLimited = true;
-      // Only fall through to Groq on retryable failures
       if (e.code !== 'RETRYABLE' && e.code !== 'RATE_LIMITED') throw e;
-      logger.warn('Scaleway failed, falling back to Groq', { error: e.message });
+      logger.warn(`${name} failed, trying next provider`, { error: e.message });
+      return null;
     }
-  }
+  };
 
+  if (hasScaleway) {
+    const r = await tryProvider('scaleway', () => callScaleway(messages));
+    if (r) return r;
+  }
+  if (hasNIM) {
+    const r = await tryProvider('nim', () => callNIM(messages));
+    if (r) return r;
+  }
   if (hasGroq) {
-    try {
-      return await callGroq(messages);
-    } catch (e: any) {
-      lastError = e;
-      if (e.code === 'RATE_LIMITED') rateLimited = true;
-    }
+    const r = await tryProvider('groq', () => callGroq(messages));
+    if (r) return r;
   }
 
   if (rateLimited) {
@@ -420,6 +443,49 @@ async function callScaleway(
     content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
     model: data.model || SCW_MODEL,
     provider: 'scaleway',
+    inputTokens: data.usage?.prompt_tokens || 0,
+    outputTokens: data.usage?.completion_tokens || 0,
+  };
+}
+
+async function callNIM(
+  messages: Array<{ role: string; content: string }>,
+): Promise<InferenceResult> {
+  const response = await fetch(NIM_API_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.NIM_API_KEY}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      model: NIM_MODEL,
+      messages,
+      max_tokens: MAX_TOKENS,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    const err: any = new Error(
+      `NVIDIA NIM API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
+    if (response.status === 429) err.code = 'RATE_LIMITED';
+    else if (response.status >= 500) err.code = 'RETRYABLE';
+    throw err;
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+    model?: string;
+  };
+
+  return {
+    content: data.choices?.[0]?.message?.content || 'I could not generate a response.',
+    model: data.model || NIM_MODEL,
+    provider: 'nim',
     inputTokens: data.usage?.prompt_tokens || 0,
     outputTokens: data.usage?.completion_tokens || 0,
   };
@@ -495,8 +561,16 @@ export async function getUsageStats(): Promise<{
     budget: DAILY_BUDGET_USD,
     remaining: Math.round((DAILY_BUDGET_USD - cost) * 10000) / 10000,
     percentUsed: Math.round((cost / DAILY_BUDGET_USD) * 100),
-    provider: process.env.SCW_SECRET_KEY ? 'scaleway' : 'groq',
-    model: process.env.SCW_SECRET_KEY ? SCW_MODEL : GROQ_MODEL,
+    provider: process.env.SCW_SECRET_KEY
+      ? 'scaleway'
+      : process.env.NIM_API_KEY
+        ? 'nim'
+        : 'groq',
+    model: process.env.SCW_SECRET_KEY
+      ? SCW_MODEL
+      : process.env.NIM_API_KEY
+        ? NIM_MODEL
+        : GROQ_MODEL,
   };
 }
 
@@ -504,8 +578,14 @@ export async function getUsageStats(): Promise<{
  * Health check for the AI service — true if any inference provider configured.
  */
 export async function healthCheck(): Promise<boolean> {
-  const ok = !!(process.env.SCW_SECRET_KEY || process.env.GROQ_API_KEY);
-  if (!ok) logger.warn('No inference provider configured (SCW_SECRET_KEY or GROQ_API_KEY)');
+  const ok = !!(
+    process.env.SCW_SECRET_KEY ||
+    process.env.NIM_API_KEY ||
+    process.env.GROQ_API_KEY
+  );
+  if (!ok) {
+    logger.warn('No inference provider configured (SCW_SECRET_KEY, NIM_API_KEY, or GROQ_API_KEY)');
+  }
   return ok;
 }
 

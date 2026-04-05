@@ -620,6 +620,92 @@
             </ul>
         </div>
 
+        <h2 id="upstream-infrastructure-processors--dpas">Upstream Infrastructure Processors & DPAs</h2>
+
+        <p>
+            DWS IQ 6 routes customer data through a small set of vetted
+            infrastructure processors. Each has a published Data Processing
+            Agreement (GDPR Art. 28) and EU Standard Contractual Clauses where
+            applicable. This transparency supports buyer due diligence and
+            consortium-grade procurement.
+        </p>
+
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Processor</th>
+                        <th>Role in stack</th>
+                        <th>Data residency</th>
+                        <th>DPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scaleway</strong></td>
+                        <td>Primary LLM inference (Climate Assistant)</td>
+                        <td>EU — Paris, Amsterdam</td>
+                        <td><a href="https://www-uploads.scaleway.com/DPA_2024_ENG_b0abb5cc26.pdf" target="_blank" rel="noopener">DPA (PDF)</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hetzner</strong></td>
+                        <td>EU compute, email, backup infrastructure</td>
+                        <td>EU — Falkenstein, Nuremberg, Helsinki</td>
+                        <td><a href="https://www.hetzner.com/AV/DPA_en.pdf" target="_blank" rel="noopener">DPA (PDF)</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supabase</strong></td>
+                        <td>PostgreSQL, Auth, Realtime, Storage</td>
+                        <td>EU — Frankfurt (eu-central-1)</td>
+                        <td><a href="https://supabase.com/downloads/docs/Supabase+DPA+231214.pdf" target="_blank" rel="noopener">DPA (PDF)</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Cloud</strong></td>
+                        <td>Cloud Run backend, Cloud Storage</td>
+                        <td>EU — europe-north1 (Hamina, Finland)</td>
+                        <td><a href="https://cloud.google.com/terms/data-processing-addendum" target="_blank" rel="noopener">DPA</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloudflare</strong></td>
+                        <td>Edge CDN, Pages, Workers, DNS</td>
+                        <td>Global edge (EU-region routing where supported)</td>
+                        <td><a href="https://www.cloudflare.com/cloudflare-customer-dpa/" target="_blank" rel="noopener">DPA</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Anthropic</strong></td>
+                        <td>Claude LLM (agent reasoning, reports)</td>
+                        <td>EU endpoint available on Enterprise tier</td>
+                        <td><a href="https://www.anthropic.com/legal/dpa" target="_blank" rel="noopener">DPA</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Groq</strong></td>
+                        <td>LLM inference fallback (non-EU customers, admin)</td>
+                        <td>US — see <a href="/posts/nvidia-groq-deal-2026.html">NVIDIA × Groq</a></td>
+                        <td><a href="https://console.groq.com/docs/legal/customer-data-processing-addendum" target="_blank" rel="noopener">DPA (EU SCCs in ToS)</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVIDIA</strong></td>
+                        <td>NIM inference (planned V1), DGX Cloud, Connect Partner</td>
+                        <td>EU region available (DGX Cloud Frankfurt)</td>
+                        <td><a href="https://www.nvidia.com/en-us/agreements/cloud-services/data-processing-addendum/" target="_blank" rel="noopener">DPA</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amazon Web Services (SES)</strong></td>
+                        <td>Transactional email (only sender; see email rules)</td>
+                        <td>EU — eu-north-1 (Stockholm)</td>
+                        <td><a href="https://aws.amazon.com/service-terms/" target="_blank" rel="noopener">AWS DPA (GDPR)</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
+            <em>Last reviewed: 5 April 2026. The canonical list of sub-processors
+            is delivered to consortium members under NDA as part of the
+            onboarding pack. Contact <a href="mailto:office@dws10.com">office@dws10.com</a>
+            for the detailed sub-processor registry.</em>
+        </p>
+
         <h2>Legal & Governance Documentation</h2>
 
         <p>The following templates and frameworks are available to qualified partners and consortium members:</p>
