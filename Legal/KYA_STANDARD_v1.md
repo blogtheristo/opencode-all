@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in Regulatory Penalty Avoidance — corrected from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context, per PR #976 sweep pattern
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Research-as-a-Service positioning, Agentic Efficiency Law (§11.1), Stacking Effect principle (§11.2), Orchestrator Layer architecture (§12.1), technical takeaways for implementers (§11.3), Gemini-informed conceptual upgrades merged with Grok financial layer
@@ -19,7 +20,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 09.03.2026
-- Last Modified: 10.03.2026
+- Last Modified: 05.04.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE

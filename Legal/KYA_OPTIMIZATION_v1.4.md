@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep — corrected penalty tier from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context; softened "safe harbor" framing to "Art. 12 + Art. 26 deployer evidence for D&O AI-governance coverage" per PR #976 sweep pattern
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 12.1 Memory-Driven Financial Intelligence — fact extraction (PR-254) as data feed for per-customer financial optimization; client memory enables personalized ROI calculations, retention risk scoring, upsell opportunity detection; dual LWM+client memory architecture positions KYA-O as the only governance layer covering both domain knowledge and relationship knowledge; cross-referenced KYA-S §10 Memory Audit Trail; updated Related Documents
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: External review integration — ATS formula changed to multiplicative with V>0 Hard Stop (§3.1). Carbon Credit Arbitrage value driver for Fit for 55 sectors (§5.1.1). D&O Insurance positioning (§5.6.1). Parametric Insurance Integration (§5.6.2). Spectral Convergence Test + Ablation Attribution for Proxy-to-Scale (§9.4). Revenue model changed to Decline-to-Scale with Performance Guarantee (§5.4, split: internal revenue deferral + customer-facing service credit). Verification Credit Rebate (§5.4). W&B Prompts + Arthur.ai/Arize competitive positioning (§5.9). Karpathy attribution footnote (§11.2). Industry-tiered fault fees cross-ref (§4.2). KYA-O internal naming convention. D&O investor note section drafted (docs/field-notes/)
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Healthcare/MedTech added as 20th industry (Tier 3). Third-party validation gate for A factor (anti-gaming). KS-test/Jensen-Shannon divergence added to Proxy-to-Scale transfer validation. Spearman rank correlation specified. Palantir AIP competitive positioning (§5.9). SOC 2 Type II + ISO 42001 compliance. Revenue share narrowed to 7.5% flat Alpha-Share. Dual acronym KYA retained as tiered entry strategy (Shield/Sword)
@@ -18,7 +19,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 10.03.2026
-- Last Modified: 15.03.2026
+- Last Modified: 05.04.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
