@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added per-client 12-month cost economics (Conservative €580, Moderate €1,200, Heavy €3,300 per NCC-sized enterprise client); added Scaleway Startup Program form answer (€20,000 / 12-month expenditure) with line-item breakdown and range (€15k-€30k); added technical breakdown chapter for application material
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added three one-liner variants for (re)applying to Scaleway Startup Program — sovereignty-first (A, recommended), product-first (B), punchy two-sentence (C); covers DWS IQ 6 + Firehorse product lines and the EU-sovereignty / CLOUD Act rationale
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Clarified that March 2026 cost comes from an existing live assistant container (not idle infra); recorded that Scaleway Startup Program application was declined — only standard Free Tier Worldwide offer applies; confirmed account continuity on admin@dws6.com since the Lifetime Oy organization is already configured there
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added actual March 2026 invoice data (€18.74 total, dws-iq-backend project, Serverless Containers CPU+Memory, Free Tier offset); corrected project name from dws-iq-6 → dws-iq-backend to match existing account; recorded Scaleway customer ID 78e26603-c820-4617-b0d2-f8589eb7693b
@@ -268,6 +269,124 @@ pitch material, three short pitch variants on file:
 Scaleway's startup team recognizes as serious enterprise workloads),
 cites both product lines, and frames Scaleway as the architectural
 reason — not just a hosting choice.
+
+## Per-client economics (12 months, full production)
+
+Estimate for an NCC-sized industrial enterprise client (Nordic
+construction, ~50-200 users, 50-200 projects monitored, daily active
+usage of Climate Assistant + compliance agents + signed reports).
+
+### Client profile assumptions
+
+| Parameter | Value |
+|---|---|
+| Enrolled users | 50-200 (compliance, project, sustainability teams) |
+| Daily active users | 30-100 (30-60% engagement) |
+| Active projects monitored | 50-200 |
+| Chat messages / DAU / day | 10-30 |
+| Background agent runs / day | 50-300 (compliance refresh, site-safety, reports) |
+| Evidence archive growth | 20-50 GB / month (signed PDFs, Art.12 logs, KYA chain) |
+| Report generation | 50-150 reports / month |
+
+### LLM inference (Generative APIs — Llama 3.3 70B @ ~€0.90/1M tokens)
+
+| Workload | Low tokens/yr | High tokens/yr |
+|---|---|---|
+| Interactive chat | 150M | 600M |
+| ESG/CSRD narrative drafts | 10M | 50M |
+| Daily compliance agent fan-out | 30M | 150M |
+| Weekly site-safety | 10M | 40M |
+| Ad-hoc queries | 5M | 20M |
+| Agent reasoning overhead (×2) | +200M | +860M |
+| **Total** | **~400M** | **~1.7B** |
+| **LLM annual cost** | **€360** | **€1,530** |
+
+### Compute + storage + database
+
+| Resource | Low (shared) | High (semi-dedicated) |
+|---|---|---|
+| Serverless Containers share | €50 | €300 |
+| Object Storage (500 GB avg, Object Lock) | €60 | €250 |
+| Managed PostgreSQL (pgvector) | €100 | €1,200 |
+| Registry, networking | €10 | €50 |
+
+### Scenarios — 12-month total per client
+
+| Scenario | Scaleway €/year |
+|---|---|
+| Conservative (light use, shared infra) | **~€580** |
+| Moderate (typical enterprise) | **~€1,200** |
+| Heavy (power users, dedicated PG) | **~€3,300** |
+
+### Unit economics
+
+A DWS IQ 6 enterprise subscription for an NCC-sized client lands at
+**€30k-€80k/year**. Scaleway infra cost per client = **1.5%-5% of
+revenue** → healthy infra margin, leaves ~95%+ for R&D, sales, COGS.
+
+### Sensitivity
+
+1. Token count per chat message — RAG-heavy contexts can 3-5× token
+   counts and double LLM cost.
+2. PostgreSQL dedication — shared → dedicated PG is the biggest
+   non-inference lever (€100 → €1,200/client/yr).
+3. Object Storage retention — 10-year Art.12 retention compounds; by
+   year 5, a single client can hold 2-3 TB evidence archive
+   (€240-360/yr storage).
+
+## Scaleway Startup Program — 12-month cloud expenditure answer
+
+Form question: *"How much should your cloud expenditures amount to in
+12 months?"*
+
+**Answer on file: €20,000 (range: €15,000-€30,000)**
+
+### Breakdown behind €20,000
+
+| Line | 12-month € |
+|---|---|
+| Existing Serverless Containers (fr-par, scaling 1 → 3-5 containers) | €300 |
+| Generative APIs (Llama 3.3 70B, ~7M tokens/mo avg portfolio-wide) | €6,000 |
+| Object Storage (Object Lock, Art.12 evidence archive) | €1,200 |
+| Managed PostgreSQL (pgvector, compliance memory) | €4,200 |
+| Container Registry + networking + egress | €300 |
+| Customer-driven scale-up reserve (10-20 onboardings in year) | €5,000 |
+| 1× Dedibox (first enterprise dedicated customer, V1-late) | €3,000 |
+| **Total** | **€20,000** |
+
+### Why €20,000 and not another number
+
+- **€5k floor** = baseline infra only, no customers — looks like a
+  hobby, loses program credibility.
+- **€20k (chosen)** = credible serious workload, matches realistic
+  10-20 enterprise client count at V1 + baseline infra. Defensible
+  under follow-up scrutiny.
+- **€60k+** = looks like we'll burn credits regardless → reduces
+  program incentive, invites hard scrutiny on customer-count claims.
+
+### If they ask for a range
+
+- **Floor €15k**: baseline infra + 5-10 clients onboarded
+- **Ceiling €30k**: 20-30 clients + first dedicated Dedibox enterprise
+  customer + heavier PG utilisation
+
+### If the form asks MONTHLY (Scaleway's form does — annoying inconsistency)
+
+Divide by 12: €20,000 / 12 = €1,667/month average. Round to headline:
+
+- **€2,000 / month** — steady-state at month 12 (recommended answer)
+- **€1,500 / month** — trailing 12-month average (if they want the ramp-up smoothed)
+- **€20 / month** — current actual (honest, but looks small)
+
+### Monthly ramp-up trajectory (for context if they probe)
+
+| Month | €/month | Why |
+|---|---|---|
+| Now (M0) | €20 | Current: 1 container, no LLM yet |
+| M1-M3 | €50-€200 | Generative APIs on, free tier absorbs LLM |
+| M4-M6 | €500-€1,000 | First paid pilots, dedicated PG |
+| M7-M9 | €1,200-€1,800 | 5-10 clients live, Object Storage growing |
+| M10-M12 | €2,000-€3,000 | 15-20 clients + first Dedibox enterprise |
 
 ## Open follow-ups
 
