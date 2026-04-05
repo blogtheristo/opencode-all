@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added three one-liner variants for (re)applying to Scaleway Startup Program — sovereignty-first (A, recommended), product-first (B), punchy two-sentence (C); covers DWS IQ 6 + Firehorse product lines and the EU-sovereignty / CLOUD Act rationale
   - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Clarified that March 2026 cost comes from an existing live assistant container (not idle infra); recorded that Scaleway Startup Program application was declined — only standard Free Tier Worldwide offer applies; confirmed account continuity on admin@dws6.com since the Lifetime Oy organization is already configured there
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added actual March 2026 invoice data (€18.74 total, dws-iq-backend project, Serverless Containers CPU+Memory, Free Tier offset); corrected project name from dws-iq-6 → dws-iq-backend to match existing account; recorded Scaleway customer ID 78e26603-c820-4617-b0d2-f8589eb7693b
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — owner account is admin@dws6.com (product-scoped), NOT risto.paarni2024@lifetime.fi. Risto's account for this implementation is being deleted. Rationale: DWS6 product infra isolation; aligns with existing dws6.com (Cloudflare) ownership pattern.
@@ -231,6 +232,42 @@ first does NOT give you Generative APIs and splits billing.
 | DWS IQ (core AI, Climate Assistant) | Scaleway Generative APIs + Instances | Serverless, elastic, EU residency, free tier for MVP |
 | DWS IQ Aegis (governance, KYA, Art. 12 evidence) | Dedibox + Object Storage (Object Lock) | Single-tenant, tamper-evident, audit-grade. Aegis sells sovereign evidence — multi-tenant cloud weakens that pitch. |
 | Firehorse (omnichannel, reports, automation) | Instances by default + Dedibox on demand | Tier-1 enterprise customers (manufacturing, defense-adjacent) will contractually require single-tenant. Offer Dedibox as "dedicated tier" SKU. |
+
+## Scaleway Startup Program — application one-liners
+
+First application was declined (see v1.3 note). For re-application or
+pitch material, three short pitch variants on file:
+
+### Variant A — Sovereignty-first (recommended)
+
+> Lifetime Oy runs DWS IQ 6 (EU-sovereign AI agents for climate
+> compliance — CSRD, CBAM, ETS) and the Firehorse suite (omnichannel
+> sales, signed compliance reports, industrial automation); we need
+> Scaleway as our EU-processor-of-record so customer prompts, ledgers,
+> and ERP-integrated data never leave French/Dutch jurisdiction and
+> never cross the US CLOUD Act boundary.
+
+### Variant B — Product-first
+
+> DWS IQ 6 is a multi-agent EU compliance platform (16 industrial AI
+> agents for CSRD/CBAM/ETS) paired with Firehorse, our omnichannel sales
+> + signed-reporting + automation suite for manufacturing clients —
+> Scaleway is our chosen sovereign EU inference and compute backbone to
+> guarantee GDPR Art. 28 processor lineage end-to-end.
+
+### Variant C — Punchy two-sentence
+
+> Lifetime Oy ships DWS IQ 6 (EU-sovereign industrial AI agents for
+> CSRD, CBAM, ETS, EU AI Act) and Firehorse (omnichannel sales, signed
+> reports, automation) to regulated European manufacturers. We run on
+> Scaleway to keep every prompt, ledger entry, and customer record
+> inside EU jurisdiction — no US CLOUD Act exposure, no transatlantic
+> hop, EU SCCs auto-bound.
+
+**Recommendation: Variant A.** Directly names CSRD/CBAM/ETS (frameworks
+Scaleway's startup team recognizes as serious enterprise workloads),
+cites both product lines, and frames Scaleway as the architectural
+reason — not just a hosting choice.
 
 ## Open follow-ups
 
