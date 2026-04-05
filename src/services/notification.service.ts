@@ -34,11 +34,10 @@ interface Notification {
   user_id: string;
   type: string;
   title: string;
-  body: string;
-  severity: 'info' | 'warning' | 'critical' | 'success';
+  body: string | null;
+  severity: 'info' | 'warning' | 'critical' | 'success' | 'error';
   metadata: Record<string, unknown>;
   read: boolean;
-  channel: 'in_app' | 'email' | 'both';
 }
 
 interface NotificationPreferences {
