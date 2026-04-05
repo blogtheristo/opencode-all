@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.10
+Version: 1.11
 
 Sessions & Modifications:
+  - Version: 1.11 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Correction — 78e26603-c820-4617-b0d2-f8589eb7693b is the Scaleway **Project ID** (not customer ID) for project dws-iq-backend; captured console project description as breadcrumb back to this field note
   - Version: 1.10 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Confirmed Startup Program re-application submission (auto-reply received from startup-program@scaleway.com) — 21 business day review, expected decision by ~2026-05-06; added follow-up to open list
   - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Captured Scaleway Startup Program admission T&C key clauses — 3-month cooldown, max 3 applications (1 used, 2 remaining), rejection grounds, Scaleway S.A.S. legal counterparty details, next retry window 2026-07-05 if rejected again
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added Scaleway Startup Program final answer — "expectations + why accept us" (3 expectations: sovereign runway, technical relationship, co-marketing; 5 reasons: paying customer, clear trajectory, architecturally locked to EU, Nordic gap-fill, public stack transparency)
@@ -136,7 +137,8 @@ Scaleway invoice issued 2026-04-01 for billing period March 2026.
 
 | Field | Value |
 |---|---|
-| Scaleway customer ID | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| Scaleway Project ID | `78e26603-c820-4617-b0d2-f8589eb7693b` (`dws-iq-backend`, created ~Feb 2026) |
+| Project description (in Scaleway console) | "DWS IQ Climate Assistant API - EU hosted find field note of this climate assistant API" — breadcrumb points back to this file |
 | Customer of record | Lifetime Oy (0772407-9) — admin@dws6.com |
 | Invoice date | 2026-03-31 |
 | Due date | 2026-04-11 |
@@ -456,9 +458,9 @@ Submitted 2026-04-05.
 
 **Why accept us (five reasons):**
 
-- Already paying customer (admin@dws6.com, customer ID
-  78e26603-c820-4617-b0d2-f8589eb7693b, €18.74 March 2026 invoice,
-  project dws-iq-backend) — not hypothetical.
+- Already paying customer (admin@dws6.com, project
+  `dws-iq-backend`, Project ID 78e26603-c820-4617-b0d2-f8589eb7693b,
+  €18.74 March 2026 invoice) — not hypothetical.
 - Clear €1-3k/mo trajectory with 65% Scaleway-committed, growing to
   €5k+/mo as NCC-sized enterprise pilots convert.
 - Architecturally locked into EU-resident compute (GDPR Art. 28,
