@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Captured Scaleway Startup Program admission T&C key clauses — 3-month cooldown, max 3 applications (1 used, 2 remaining), rejection grounds, Scaleway S.A.S. legal counterparty details, next retry window 2026-07-05 if rejected again
   - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Added Scaleway Startup Program final answer — "expectations + why accept us" (3 expectations: sovereign runway, technical relationship, co-marketing; 5 reasons: paying customer, clear trajectory, architecturally locked to EU, Nordic gap-fill, public stack transparency)
   - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Answered Scaleway Startup Program cloud-share question — 65% (range 60-75%) of total cloud expenditure dedicated to Scaleway; full cloud wallet breakdown showing why 35% cannot move (Supabase/Cloudflare/Anthropic sticky dependencies)
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-Eq6py | Date: 05.04.2026 | Changes: Recorded the actual answer submitted to Scaleway Startup Program — range €1,000-€3,000/month (sweet spot centered on €2,000 steady-state)
@@ -467,6 +468,42 @@ Submitted 2026-04-05.
   reporting buyers actively shopping for non-US inference).
 - Publicly open about the stack — every customer conversation mentions
   Scaleway by name. Credits accelerate exposure that continues either way.
+
+## Scaleway Startup Program — admission T&C (key clauses)
+
+Reference: Scaleway Startup Program Admission Terms and Conditions
+(accepted 2026-04-05 as part of re-application).
+
+**Timing & cadence:**
+- Applications before 15th of month → evaluated that month; notified
+  by end of month.
+- Three possible results: **admitted**, **waiting list** (up to 3 months
+  deferral), or **rejected** (with detailed reasons).
+- **3-month cooldown** between applications.
+- **Maximum 3 applications per applicant.** We have already used 1
+  (rejected, see v1.3 note) → 2 attempts remaining.
+
+**Rejection grounds to avoid:**
+1. Sole intention is to obtain service credits (i.e. no real usage plan).
+2. Project is past break-even and no longer needs SCALEWAY support.
+3. Application is not sufficiently detailed/exhaustive.
+
+**Selection criteria (what Scaleway looks for):**
+- Promising project with limited funds and immediate IT infra need.
+- Ideal showcase of Scaleway services or multicloud usage.
+- Project attractive enough Scaleway might use it themselves.
+
+**Implications for us:**
+- Our current re-application (submitted 2026-04-05, detailed technical
+  breakdown + €1-3k/mo trajectory + EU sovereignty thesis) directly
+  addresses rejection grounds #1 and #3.
+- Rejection ground #2 (past break-even) — not applicable, we're pre-revenue
+  on DWS IQ 6 product line despite Lifetime Oy being an established entity.
+- Legal counterparty: Scaleway S.A.S., 8 rue de la Ville l'Evêque,
+  75008 Paris, share capital €214,410.50, RCS Paris 433 115 904.
+
+**Next retry window if rejected again:** 2026-07-05 (3 months from
+this submission). One application remaining after that.
 
 ## Open follow-ups
 
