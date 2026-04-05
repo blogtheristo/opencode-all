@@ -135,42 +135,202 @@ router.post(
   }
 );
 
+function getRawBodyBuffer(body: unknown): Buffer {
+  if (Buffer.isBuffer(body)) {
+    return body;
+  }
+
+  if (typeof body === 'string') {
+    return Buffer.from(body, 'utf8');
+  }
+
+  return Buffer.from(JSON.stringify(body ?? {}), 'utf8');
+}
+
+function decodeSignature(signature: string, expectedLength: number): Buffer | null {
+  const trimmedSignature = signature.trim();
+  if (!trimmedSignature) {
+    return null;
+  }
+
+  if (/^[\da-fA-F]+$/.test(trimmedSignature) && trimmedSignature.length % 2 === 0) {
+    const decodedHex = Buffer.from(trimmedSignature, 'hex');
+    if (decodedHex.length === expectedLength) {
+      return decodedHex;
+    }
+  }
+
+  try {
+    const decodedBase64 = Buffer.from(trimmedSignature, 'base64');
+    if (decodedBase64.length === expectedLength) {
+      return decodedBase64;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+async function verifyHmacWebhookSignature(signature: string, rawBody: Buffer, webhookSecret: string): Promise<boolean> {
+  const crypto = await import('crypto');
+  const expectedDigest = crypto
+    .createHmac('sha256', webhookSecret)
+    .update(rawBody)
+    .digest();
+  const providedDigest = decodeSignature(signature, expectedDigest.length);
+
+  if (!providedDigest || providedDigest.length !== expectedDigest.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(providedDigest, expectedDigest);
+}
+
+async function getPayPalAccessToken(): Promise<string | null> {
+  const clientId = process.env.PAYPAL_CLIENT_ID;
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+  const apiBaseUrl = process.env.PAYPAL_API_BASE_URL || 'https://api-m.paypal.com';
+
+  if (!clientId || !clientSecret) {
+    return null;
+  }
+
+  const auth = Buffer.from(`${clientId}:${clientSecret}`, 'utf8').toString('base64');
+  const response = await fetch(`${apiBaseUrl}/v1/oauth2/token`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${auth}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'grant_type=client_credentials',
+  });
+
+  if (!response.ok) {
+    const responseText = await response.text().catch(() => '');
+    logger.warn('PayPal OAuth token request failed', {
+      status: response.status,
+      body: responseText,
+    });
+    return null;
+  }
+
+  const tokenResponse = await response.json() as { access_token?: string };
+  return tokenResponse.access_token || null;
+}
+
+async function verifyPayPalWebhookSignature(req: Request, rawBody: Buffer): Promise<boolean> {
+  const webhookId = process.env.PAYPAL_WEBHOOK_ID;
+  const apiBaseUrl = process.env.PAYPAL_API_BASE_URL || 'https://api-m.paypal.com';
+  const transmissionId = req.headers['paypal-transmission-id'];
+  const transmissionTime = req.headers['paypal-transmission-time'];
+  const transmissionSig = req.headers['paypal-transmission-sig'];
+  const certUrl = req.headers['paypal-cert-url'];
+  const authAlgo = req.headers['paypal-auth-algo'];
+
+  if (
+    !webhookId ||
+    typeof transmissionId !== 'string' ||
+    typeof transmissionTime !== 'string' ||
+    typeof transmissionSig !== 'string' ||
+    typeof certUrl !== 'string' ||
+    typeof authAlgo !== 'string'
+  ) {
+    return false;
+  }
+
+  const accessToken = await getPayPalAccessToken();
+  if (!accessToken) {
+    return false;
+  }
+
+  let webhookEvent: unknown;
+  try {
+    webhookEvent = JSON.parse(rawBody.toString('utf8'));
+  } catch {
+    return false;
+  }
+
+  const response = await fetch(`${apiBaseUrl}/v1/notifications/verify-webhook-signature`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      auth_algo: authAlgo,
+      cert_url: certUrl,
+      transmission_id: transmissionId,
+      transmission_sig: transmissionSig,
+      transmission_time: transmissionTime,
+      webhook_id: webhookId,
+      webhook_event: webhookEvent,
+    }),
+  });
+
+  if (!response.ok) {
+    const responseText = await response.text().catch(() => '');
+    logger.warn('PayPal webhook verification request failed', {
+      status: response.status,
+      body: responseText,
+    });
+    return false;
+  }
+
+  const verificationResponse = await response.json() as { verification_status?: string };
+  return verificationResponse.verification_status === 'SUCCESS';
+}
+
 /**
  * POST /api/v1/payments/webhook
  * Payment webhook receiver (PayPal/Revolut).
  * Verifies webhook signature before processing.
  */
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req: Request, res: Response) => {
-  const signature = req.headers['x-webhook-signature'] as string
-    || req.headers['paypal-transmission-sig'] as string
-    || '';
+  const rawBody = getRawBodyBuffer(req.body);
   const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET;
+  const customSignatureHeader = req.headers['x-webhook-signature'];
+  const paypalSignatureHeader = req.headers['paypal-transmission-sig'];
 
-  // Verify webhook signature when secret is configured
-  if (webhookSecret) {
-    const crypto = await import('crypto');
-    const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
-    const expected = crypto
-      .createHmac('sha256', webhookSecret)
-      .update(rawBody)
-      .digest('hex');
+  try {
+    if (typeof customSignatureHeader === 'string') {
+      if (!webhookSecret) {
+        logger.warn('PAYMENT_WEBHOOK_SECRET not configured for x-webhook-signature verification', {
+          ip: req.ip,
+        });
+        return res.status(401).json({ error: 'Invalid webhook signature' });
+      }
 
-    // Constant-time comparison to prevent timing attacks
-    const sigBuffer = Buffer.from(signature.padEnd(256, '\0'));
-    const expectedBuffer = Buffer.from(expected.padEnd(256, '\0'));
-    if (!crypto.timingSafeEqual(sigBuffer, expectedBuffer)) {
-      logger.warn('Payment webhook signature mismatch', {
+      const isValidCustomSignature = await verifyHmacWebhookSignature(
+        customSignatureHeader,
+        rawBody,
+        webhookSecret
+      );
+
+      if (!isValidCustomSignature) {
+        logger.warn('Payment webhook signature mismatch', {
+          ip: req.ip,
+        });
+        return res.status(401).json({ error: 'Invalid webhook signature' });
+      }
+    } else if (typeof paypalSignatureHeader === 'string') {
+      const isValidPayPalSignature = await verifyPayPalWebhookSignature(req, rawBody);
+
+      if (!isValidPayPalSignature) {
+        logger.warn('PayPal webhook signature mismatch', {
+          ip: req.ip,
+        });
+        return res.status(401).json({ error: 'Invalid webhook signature' });
+      }
+    } else {
+      logger.warn('Payment webhook received without a supported signature header', {
         ip: req.ip,
       });
       return res.status(401).json({ error: 'Invalid webhook signature' });
     }
-  } else {
-    logger.warn('PAYMENT_WEBHOOK_SECRET not configured — webhook signature not verified');
-  }
 
-  try {
-    const event = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const eventType = event?.type || event?.event_type || 'unknown';
+    const event = JSON.parse(rawBody.toString('utf8')) as Record<string, unknown>;
+    const eventType = (event?.type as string) || (event?.event_type as string) || 'unknown';
 
     logger.info('Payment webhook received', {
       type: eventType,
