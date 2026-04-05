@@ -33,11 +33,12 @@ router.use(authenticateToken);
 // ============ SCHEMAS ============
 
 const ProfileUpdateSchema = z.object({
-  fullName: z.string().min(1).max(200).optional(),
-  organization: z.string().max(200).optional(),
-  jobTitle: z.string().max(100).optional(),
-  country: z.string().length(2).optional(),
-  language: z.enum(['en', 'fi', 'de', 'sv']).optional(),
+  firstName: z.string().min(1).max(100).optional(),
+  lastName: z.string().min(1).max(100).optional(),
+  displayName: z.string().min(1).max(200).optional(),
+  avatarUrl: z.string().url().max(500).optional(),
+  phone: z.string().max(50).optional(),
+  locale: z.enum(['en', 'fi', 'de', 'sv']).optional(),
   timezone: z.string().max(50).optional(),
 });
 
@@ -72,10 +73,11 @@ router.get('/profile', async (req: Request, res: Response, next: NextFunction) =
       return;
     }
 
+    // user_profiles.id is the PK and references auth.users(id) — see migration 007
     const { data: profile, error } = await supabase
       .from('user_profiles')
       .select('*')
-      .eq('user_id', userId)
+      .eq('id', userId)
       .single();
 
     if (error && error.code !== 'PGRST116') {
@@ -89,13 +91,15 @@ router.get('/profile', async (req: Request, res: Response, next: NextFunction) =
       email: req.userEmail,
       role: req.userRole,
       profile: profile || {
-        user_id: userId,
-        full_name: null,
-        organization: null,
-        job_title: null,
-        country: null,
-        language: 'en',
+        id: userId,
+        email: req.userEmail,
+        first_name: null,
+        last_name: null,
+        display_name: null,
+        avatar_url: null,
+        phone: null,
         timezone: 'Europe/Helsinki',
+        locale: 'en',
         created_at: new Date().toISOString(),
       },
     });
@@ -124,21 +128,23 @@ router.put(
         return;
       }
 
-      // Map camelCase to snake_case for Supabase
+      // Map camelCase → snake_case. PK is `id` per migration 007.
       const dbUpdates: Record<string, unknown> = {
-        user_id: userId,
+        id: userId,
+        email: req.userEmail,
         updated_at: new Date().toISOString(),
       };
-      if (updates.fullName !== undefined) dbUpdates.full_name = updates.fullName;
-      if (updates.organization !== undefined) dbUpdates.organization = updates.organization;
-      if (updates.jobTitle !== undefined) dbUpdates.job_title = updates.jobTitle;
-      if (updates.country !== undefined) dbUpdates.country = updates.country;
-      if (updates.language !== undefined) dbUpdates.language = updates.language;
+      if (updates.firstName !== undefined) dbUpdates.first_name = updates.firstName;
+      if (updates.lastName !== undefined) dbUpdates.last_name = updates.lastName;
+      if (updates.displayName !== undefined) dbUpdates.display_name = updates.displayName;
+      if (updates.avatarUrl !== undefined) dbUpdates.avatar_url = updates.avatarUrl;
+      if (updates.phone !== undefined) dbUpdates.phone = updates.phone;
+      if (updates.locale !== undefined) dbUpdates.locale = updates.locale;
       if (updates.timezone !== undefined) dbUpdates.timezone = updates.timezone;
 
       const { data, error } = await supabase
         .from('user_profiles')
-        .upsert(dbUpdates, { onConflict: 'user_id' })
+        .upsert(dbUpdates, { onConflict: 'id' })
         .select()
         .single();
 

@@ -1,15 +1,29 @@
 /**
- * Firehorse Omnichannel Next Pilot - LinkedIn Service
- * CustomerPilotLoop v1
+ * Firehorse Omnichannel - LinkedIn DM Outreach (queue only)
  *
- * This is a simplified LinkedIn DM service.
- * In production, integrate with:
- * - LinkedIn API (official)
- * - PhantomBuster
- * - Dux-Soup
- * - LinkedHelper
- * - etc.
+ * IMPORTANT: LinkedIn's Messaging API is RESTRICTED.
+ *
+ * Direct DM sending via api.linkedin.com/v2/messages requires membership in
+ * LinkedIn's Marketing Developer Platform / Sales Navigator API program,
+ * which is gated to approved Marketing Partners. A normal LinkedIn Developer
+ * App (even one with a valid OAuth client) CANNOT send DMs.
+ *
+ * Unofficial scrapers (PhantomBuster, Dux-Soup, LinkHelper, raw session
+ * cookies) violate the LinkedIn User Agreement and risk account suspension.
+ * We do NOT use them.
+ *
+ * Therefore this service does NOT attempt to send DMs over the wire. It
+ * queues the outreach to a log so a human can send the message manually
+ * from their own LinkedIn inbox, preserving audit trail + compliance.
+ *
+ * For publishing posts to LinkedIn (feed/share API), see
+ * src/social-scheduler/publisher.ts — that uses the real, approved v2 API.
+ *
+ * Code-Version: 2.0.0
+ * Introduced-In: claude/build-mvp-features-Eq6py
  */
+
+import logger from '../utils/logger.js';
 
 interface LinkedInDMPayload {
   to: string; // LinkedIn profile URL or member ID
@@ -19,70 +33,34 @@ interface LinkedInDMPayload {
 
 class LinkedInService {
   /**
-   * Send LinkedIn DM
-   * This is a stub - replace with actual LinkedIn integration
+   * Queue a LinkedIn DM for manual human send.
+   *
+   * Does NOT call the LinkedIn API — the Messaging API is restricted to
+   * approved Marketing Partners. Instead, logs the outreach so a human
+   * operator can copy the message and send it from their LinkedIn inbox.
    */
   async send(payload: LinkedInDMPayload): Promise<void> {
     const { to, message, lead_id } = payload;
 
-    // Log DM (for development)
-    console.log('='.repeat(80));
-    console.log('💼 LINKEDIN DM SEND');
-    console.log('='.repeat(80));
-    console.log(`To: ${to}`);
-    console.log(`Lead ID: ${lead_id}`);
-    console.log('-'.repeat(80));
-    console.log(message);
-    console.log('='.repeat(80));
-
-    // TODO: Integrate with actual LinkedIn service
-    // Example with PhantomBuster:
-    /*
-    const phantombuster = require('phantombuster');
-    const phantom = new phantombuster.Phantombuster(process.env.PHANTOMBUSTER_API_KEY);
-
-    await phantom.launch({
-      agentId: process.env.LINKEDIN_DM_AGENT_ID,
-      argument: {
-        profileUrl: to,
-        message,
-        sessionCookie: process.env.LINKEDIN_SESSION_COOKIE,
-      },
+    logger.info('LinkedIn DM queued for manual send', {
+      lead_id,
+      recipient: to,
+      message_length: message.length,
+      channel: 'linkedin_manual',
+      note: 'LinkedIn Messaging API is restricted — operator must send from inbox',
     });
-    */
-
-    // Example with direct LinkedIn API (requires OAuth):
-    /*
-    const axios = require('axios');
-
-    await axios.post('https://api.linkedin.com/v2/messages', {
-      recipients: [to],
-      subject: 'DWS IQ 6 Platform',
-      body: {
-        text: message,
-      },
-    }, {
-      headers: {
-        'Authorization': `Bearer ${process.env.LINKEDIN_ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    */
-
-    // Simulate async DM send
-    await new Promise((resolve) => setTimeout(resolve, 100));
   }
 
   /**
-   * Check if LinkedIn integration is configured
+   * LinkedIn DM sending is never automatically "configured" — DMs always
+   * require manual human send (see class comment). Returns false so callers
+   * fall back to email or skip the LinkedIn step.
+   *
+   * For LinkedIn feed/share posting (a different, approved API), see
+   * src/social-scheduler/publisher.ts.
    */
   isConfigured(): boolean {
-    // Check if necessary env vars are set
-    return !!(
-      process.env.LINKEDIN_API_KEY ||
-      process.env.PHANTOMBUSTER_API_KEY ||
-      process.env.LINKEDIN_SESSION_COOKIE
-    );
+    return false;
   }
 }
 
