@@ -363,42 +363,69 @@ export const SEED_INSTALLATIONS: InstallationProfile[] = [
 // ============ NeMo DataDesigner SCHEMA ============
 
 /**
- * Column configuration types matching NeMo DataDesigner API.
- * These map to DataDesigner's column config classes for synthetic generation.
+ * Column configuration types aligned with NeMo DataDesigner API.
+ *
+ * NeMo DataDesigner uses a discriminated union on `column_type` field:
+ *   "sampler" | "expression" | "llm-text" | "llm-judge" | "llm-structured"
+ *   | "llm-code" | "validation" | "seed-dataset" | "embedding" | "image" | "custom"
+ *
+ * Sampler types: "uuid" | "category" | "subcategory" | "uniform" | "gaussian"
+ *   | "bernoulli" | "poisson" | "scipy" | "person" | "datetime" | "timedelta"
+ *
+ * Source: github.com/NVIDIA-NeMo/DataDesigner (Apache 2.0)
+ *   packages/data-designer-config/src/data_designer/config/column_configs.py
  */
 export interface SamplerColumnConfig {
   name: string;
-  type: 'SamplerColumnConfig';
-  params: { values: string[] | number[]; weights?: number[] };
+  column_type: 'sampler';
+  sampler_type: 'category' | 'uniform' | 'gaussian' | 'uuid' | 'person' | 'datetime';
+  params: { values?: string[] | number[]; weights?: number[]; low?: number; high?: number };
+  drop?: boolean;
 }
 
 export interface ExpressionColumnConfig {
   name: string;
-  type: 'ExpressionColumnConfig';
-  expression: string;
-  /** Python expression using random, math, numpy */
+  column_type: 'expression';
+  /** Jinja2 expression string — can reference other columns and Python builtins */
+  expr: string;
+  dtype?: 'int' | 'float' | 'str' | 'bool';
+  drop?: boolean;
 }
 
 export interface LLMTextColumnConfig {
   name: string;
-  type: 'LLMTextColumnConfig';
+  column_type: 'llm-text';
+  model_alias: string;
+  /** Jinja2 prompt template — use {{ column_name }} for interpolation */
+  prompt: string;
+  system_prompt?: string;
+  max_tokens?: number;
+  drop?: boolean;
+}
+
+export interface LLMJudgeColumnConfig {
+  name: string;
+  column_type: 'llm-judge';
   model_alias: string;
   prompt: string;
-  /** Max tokens for LLM generation */
-  max_tokens?: number;
+  scores: Array<{ name: string; description: string; options: Record<string, string> }>;
+  drop?: boolean;
 }
 
 export interface LookupColumnConfig {
   name: string;
-  type: 'LookupColumnConfig';
-  source_column: string;
-  lookup_table: Record<string, unknown>;
+  column_type: 'expression';
+  /** Expression-based lookup via Jinja2 dict access */
+  expr: string;
+  dtype: 'str';
+  drop?: boolean;
 }
 
 export type ColumnConfig =
   | SamplerColumnConfig
   | ExpressionColumnConfig
   | LLMTextColumnConfig
+  | LLMJudgeColumnConfig
   | LookupColumnConfig;
 
 export interface ValidationConfig {
@@ -409,12 +436,17 @@ export interface ValidationConfig {
   max_retries: number;
 }
 
+/**
+ * Top-level schema matching NeMo DataDesigner's DataDesignerConfig.
+ * Can be serialized to YAML via DataDesignerConfigBuilder.write_config().
+ */
 export interface NeMoDatasetSchema {
   dataset_name: string;
   version: string;
   description: string;
   target_rows: number;
   columns: ColumnConfig[];
+  model_configs?: Array<{ alias: string; model: string; provider?: string }>;
   validation: ValidationConfig;
   metadata: {
     regulation: string;
@@ -422,6 +454,17 @@ export interface NeMoDatasetSchema {
     created: string;
     owner: string;
   };
+}
+
+// ============ HELPERS ============
+
+/**
+ * Build a Jinja2 dict-lookup expression for NeMo DataDesigner.
+ * Converts [key, value] pairs into: {{ {"key1": "val1", "key2": "val2"}[installation_id] }}
+ */
+function buildLookupExpr(pairs: string[][]): string {
+  const entries = pairs.map(([k, v]) => `"${k}": "${v}"`).join(', ');
+  return `{{ {${entries}}[installation_id] }}`;
 }
 
 // ============ SCHEMA BUILDER ============
@@ -437,8 +480,6 @@ export interface NeMoDatasetSchema {
  */
 export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
   const installationIds = SEED_INSTALLATIONS.map((i) => i.id);
-  const productionRoutes = [...new Set(SEED_INSTALLATIONS.map((i) => i.productionRoute))];
-  const countries = [...new Set(SEED_INSTALLATIONS.map((i) => i.country))];
 
   return {
     dataset_name: 'DWS_IQ_CBAM_StressTest_v1',
@@ -448,22 +489,30 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       'for stress-testing DWS IQ compliance agents. Generated via NVIDIA NeMo ' +
       'DataDesigner with LLM-as-Judge validation.',
     target_rows: 100_000,
+    model_configs: [
+      { alias: 'nv-nemotron-3-70b', model: 'nvidia/nemotron-3-70b-instruct', provider: 'nim' },
+      {
+        alias: 'nv-nemotron-4-340b-instruct',
+        model: 'nvidia/nemotron-4-340b-instruct',
+        provider: 'nim',
+      },
+    ],
     columns: [
       // === DECLARANT INFO ===
       {
         name: 'declaration_id',
-        type: 'ExpressionColumnConfig',
-        expression:
-          'f\'CBAM-{random.choice(["2026","2027"])}-Q{random.randint(1,4)}-{random.randint(100000,999999)}\'',
+        column_type: 'expression',
+        expr: 'f\'CBAM-{random.choice(["2026","2027"])}-Q{random.randint(1,4)}-{random.randint(100000,999999)}\'',
       },
       {
         name: 'declarant_eori',
-        type: 'ExpressionColumnConfig',
-        expression: "f'FI{random.randint(1000000,9999999)}00'",
+        column_type: 'expression',
+        expr: "f'FI{random.randint(1000000,9999999)}00'",
       },
       {
         name: 'reporting_period',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: ['2026-Q1', '2026-Q2', '2026-Q3', '2026-Q4', '2027-Q1', '2027-Q2'],
           weights: [0.25, 0.25, 0.2, 0.15, 0.1, 0.05],
@@ -473,70 +522,73 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       // === INSTALLATION & PRODUCT ===
       {
         name: 'installation_id',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: { values: installationIds },
       },
       {
         name: 'origin_country',
-        type: 'LookupColumnConfig',
-        source_column: 'installation_id',
-        lookup_table: Object.fromEntries(SEED_INSTALLATIONS.map((i) => [i.id, i.country])),
+        column_type: 'expression',
+        expr: buildLookupExpr(SEED_INSTALLATIONS.map((i) => [i.id, i.country])),
+        dtype: 'str',
       },
       {
         name: 'production_method',
-        type: 'LookupColumnConfig',
-        source_column: 'installation_id',
-        lookup_table: Object.fromEntries(SEED_INSTALLATIONS.map((i) => [i.id, i.productionRoute])),
+        column_type: 'expression',
+        expr: buildLookupExpr(SEED_INSTALLATIONS.map((i) => [i.id, i.productionRoute])),
+        dtype: 'str',
       },
       {
         name: 'sector',
-        type: 'LookupColumnConfig',
-        source_column: 'installation_id',
-        lookup_table: Object.fromEntries(SEED_INSTALLATIONS.map((i) => [i.id, i.sector])),
+        column_type: 'expression',
+        expr: buildLookupExpr(SEED_INSTALLATIONS.map((i) => [i.id, i.sector])),
+        dtype: 'str',
       },
       {
         name: 'cn_code',
-        type: 'LookupColumnConfig',
-        source_column: 'installation_id',
-        lookup_table: Object.fromEntries(
+        column_type: 'expression',
+        expr: buildLookupExpr(
           SEED_INSTALLATIONS.map((i) => {
             const sectorCodes = CBAM_CN_CODES[i.sector as keyof typeof CBAM_CN_CODES];
             return [i.id, sectorCodes?.codes[0] ?? 'UNKNOWN'];
           }),
         ),
+        dtype: 'str',
       },
       {
         name: 'import_quantity_tonnes',
-        type: 'ExpressionColumnConfig',
-        expression: 'round(random.uniform(50, 25000), 2)',
+        column_type: 'expression',
+        expr: 'round(random.uniform(50, 25000), 2)',
       },
 
       // === EMISSIONS DATA ===
       {
         name: 'embedded_emissions_direct',
-        type: 'ExpressionColumnConfig',
-        expression: 'round(random.uniform(0.3, 18.0), 4)',
+        column_type: 'expression',
+        expr: 'round(random.uniform(0.3, 18.0), 4)',
       },
       {
         name: 'embedded_emissions_indirect',
-        type: 'ExpressionColumnConfig',
-        expression: 'round(random.uniform(0.0, 5.0), 4)',
+        column_type: 'expression',
+        expr: 'round(random.uniform(0.0, 5.0), 4)',
       },
       {
         name: 'uses_default_values',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: { values: ['true', 'false'], weights: [0.35, 0.65] },
       },
       {
         name: 'carbon_price_paid_origin',
-        type: 'ExpressionColumnConfig',
-        expression: 'round(random.choice([0, 0, 0, random.uniform(5, 65)]), 2)',
+        column_type: 'expression',
+        expr: 'round(random.choice([0, 0, 0, random.uniform(5, 65)]), 2)',
       },
 
       // === ENERGY & PRODUCTION CONTEXT ===
       {
         name: 'energy_source_primary',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: [
             'coal',
@@ -555,12 +607,13 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       },
       {
         name: 'electricity_consumption_mwh_per_tonne',
-        type: 'ExpressionColumnConfig',
-        expression: 'round(random.uniform(0.05, 15.0), 3)',
+        column_type: 'expression',
+        expr: 'round(random.uniform(0.05, 15.0), 3)',
       },
       {
         name: 'precursor_materials',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: [
             'iron ore, coke, limestone',
@@ -578,7 +631,7 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       // === MILL TEST CERTIFICATE (MTC) NARRATIVE ===
       {
         name: 'mtc_narrative',
-        type: 'LLMTextColumnConfig',
+        column_type: 'llm-text',
         model_alias: 'nv-nemotron-3-70b',
         max_tokens: 1024,
         prompt:
@@ -607,7 +660,8 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       // === VERIFICATION METADATA ===
       {
         name: 'verifier_accreditation',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: [
             'TUV SUD (DE-V-0012)',
@@ -622,7 +676,8 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       },
       {
         name: 'verification_methodology',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: [
             'ISO 14064-3:2019 (reasonable assurance)',
@@ -638,7 +693,8 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       // === ANOMALY INJECTION (for agent testing) ===
       {
         name: 'anomaly_type',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: [
             'none',
@@ -655,7 +711,8 @@ export function buildCBAMStressTestSchema(): NeMoDatasetSchema {
       },
       {
         name: 'anomaly_severity',
-        type: 'SamplerColumnConfig',
+        column_type: 'sampler',
+        sampler_type: 'category',
         params: {
           values: ['none', 'low', 'medium', 'high', 'critical'],
           weights: [0.4, 0.15, 0.2, 0.15, 0.1],
