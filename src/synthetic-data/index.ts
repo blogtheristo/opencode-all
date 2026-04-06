@@ -8,7 +8,7 @@
  *
  * Orchestrates the full synthetic data generation pipeline:
  *   1. Schema definition (cbam-schema.ts) — NeMo DataDesigner config
- *   2. Seed ground truth (seed-dataset.ts) — 50 hand-vetted CBAM filings
+ *   2. Seed ground truth (seed-dataset.ts) — 55 CBAM filings (50 clean + 5 Red Team negatives)
  *   3. LLM-as-Judge validation (llm-judge.ts) — quality gate
  *   4. Compute strategy (compute-strategy.ts) — NVIDIA infrastructure
  *
@@ -84,7 +84,7 @@ import { COMPUTE_STRATEGY, getInfrastructureSummary } from './compute-strategy.j
 
 /**
  * Run the full pipeline in deterministic mode (no LLM calls).
- * This validates all 50 seed filings against the real CBAM calculator
+ * This validates all 55 seed filings against the real CBAM calculator
  * and produces a DD-ready summary.
  */
 export function runDeterministicPipeline(): {

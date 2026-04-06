@@ -15,7 +15,7 @@
  *
  * Actions:
  *   - health-check: Verify pipeline integration with CBAM calculator
- *   - run-pipeline: Run deterministic validation on all 50 seed filings
+ *   - run-pipeline: Run deterministic validation on all 55 seed filings (50 clean + 5 Red Team)
  *   - validate-record: Validate a single synthetic record
  *   - simulation-matrix: Compute the full combination matrix
  *   - dd-summary: Generate investor due diligence summary

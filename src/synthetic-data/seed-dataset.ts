@@ -6,7 +6,8 @@
  * Date: 2026-04-06
  * Owner: Lifetime Oy (risto.paarni@lifetime.fi)
  *
- * These 50 seed records represent the 2026 definitive CBAM regime.
+ * These 55 seed records represent the 2026 definitive CBAM regime.
+ * 50 clean ground truth + 5 "Red Team" negatives for LLM-as-Judge training.
  * In NVIDIA NeMo DataDesigner, these act as "Ground Truth" — the
  * generation logic uses them to extrapolate millions of variations.
  *
@@ -34,7 +35,7 @@ import {
 // ============ TYPES ============
 
 export interface SeedFiling {
-  /** Unique seed ID (SEED-001 through SEED-050) */
+  /** Unique seed ID (SEED-001 through SEED-055) */
   id: string;
   /** CBAM declaration for calculator integration */
   declaration: CBAMDeclaration;
@@ -49,8 +50,14 @@ export interface SeedFiling {
   expectedEmissionFactor: number;
   /** Source citation for the emission factor */
   source: string;
-  /** Anomaly injection (none for seed data — these are clean ground truth) */
-  anomalyType: 'none';
+  /** Anomaly type: 'none' for clean ground truth, named type for Red Team negatives */
+  anomalyType:
+    | 'none'
+    | 'route-narrative-mismatch'
+    | 'missing-precursor'
+    | 'grid-greenwash'
+    | 'process-emission-mismatch'
+    | 'rounding-fraud';
   /** CN code from CBAM Annex I */
   cnCode: string;
   /** Expected CBAM obligation category */
@@ -73,6 +80,7 @@ function seed(
   source: string,
   carbonPricePaid?: number,
   category: SeedFiling['expectedCategory'] = 'medium-risk',
+  anomaly: SeedFiling['anomalyType'] = 'none',
 ): SeedFiling {
   return {
     id,
@@ -99,7 +107,7 @@ function seed(
     },
     expectedEmissionFactor: emissionFactor,
     source,
-    anomalyType: 'none',
+    anomalyType: anomaly,
     cnCode,
     expectedCategory: category,
   };
@@ -930,6 +938,116 @@ export const SEED_FILINGS: SeedFiling[] = [
     'EEA 2024 — Bosnia older lignite plant 1.1 tCO2e/MWh (low efficiency)',
     undefined,
     'high-risk',
+  ),
+
+  // ==============================
+  // RED TEAM NEGATIVES (5 seeds)
+  // These pass deterministic validation (mathematically plausible)
+  // but contain logical impossibilities for LLM-as-Judge to detect.
+  // ==============================
+
+  // RED-1: "Greenwashing Steel" — EAF route claimed but MTC describes 100% virgin iron ore
+  // (EAF uses scrap, not ore). Emission 0.2 is below EAF minimum (~0.4).
+  // Judge test: route-narrative mismatch + suspiciously low EAF emission.
+  seed(
+    'SEED-051',
+    'IN-RED-STEEL',
+    'IN',
+    'steel',
+    'Hot-rolled flat products',
+    'Electric Arc Furnace (EAF)',
+    ['grid electricity (coal-dominant)', 'natural gas'],
+    5000,
+    0.2,
+    '7206',
+    'RED TEAM — Greenwashing steel: EAF route + virgin ore narrative + 0.2 tCO2e/t (impossible for IN grid)',
+    undefined,
+    'low-risk',
+    'route-narrative-mismatch',
+  ),
+
+  // RED-2: "Ghost Precursor Cement" — Valid cement emission but no clinker origin declared.
+  // CBAM requires precursor (clinker) embedded emissions. 0.4 tCO2e/t is plausible for
+  // blended cement but not without declaring clinker source.
+  // Judge test: missing precursor declaration.
+  seed(
+    'SEED-052',
+    'VN-RED-CEM',
+    'VN',
+    'cement',
+    'Portland cement',
+    'Dry process rotary kiln',
+    ['coal'],
+    10000,
+    0.4,
+    '2523 29',
+    'RED TEAM — Ghost precursor: valid emission but no clinker origin in MTC narrative',
+    undefined,
+    'low-risk',
+    'missing-precursor',
+  ),
+
+  // RED-3: "Dirty Grid Aluminium" — Claims 2.1 tCO2e/t from India coal-grid smelter
+  // but narrative says "local grid electricity" implying hydropower-level emissions.
+  // India coal-grid smelting should be 15-18 tCO2e/t, not 2.1.
+  // Judge test: grid factor vs claimed emission inconsistency.
+  seed(
+    'SEED-053',
+    'IN-RED-ALU',
+    'IN',
+    'aluminium',
+    'Unwrought aluminium',
+    'Hall-Héroult electrolysis',
+    ['grid electricity (coal-dominant)'],
+    3000,
+    2.1,
+    '7601 10',
+    'RED TEAM — Dirty grid greenwash: IN coal-grid claims 2.1 tCO2e/t (should be 15-18)',
+    undefined,
+    'low-risk',
+    'grid-greenwash',
+  ),
+
+  // RED-4: "Hydrogen Hallucination" — SMR (Steam Methane Reforming) process described
+  // in narrative but reports 1.0 tCO2e/t which matches green hydrogen (PEM electrolysis).
+  // Grey hydrogen (SMR) should be 9-12 tCO2e/t.
+  // Judge test: process-emission mismatch.
+  seed(
+    'SEED-054',
+    'SA-RED-H2',
+    'SA',
+    'hydrogen',
+    'Hydrogen',
+    'Steam Methane Reforming (SMR)',
+    ['natural gas'],
+    1000,
+    1.0,
+    '2804 10 00',
+    'RED TEAM — Hydrogen hallucination: SMR process claims 1.0 tCO2e/t (green H2 level, should be 9-12)',
+    undefined,
+    'low-risk',
+    'process-emission-mismatch',
+  ),
+
+  // RED-5: "Rounding Fraud" — Each sub-process emission is just below physical minimum,
+  // resulting in total below threshold. Ammonia at 1.6 tCO2e/t is below Haber-Bosch
+  // minimum (~1.75 for best-in-class EU plant). Plausible mathematically, impossible physically.
+  // Judge test: sub-process values below physical minimums.
+  seed(
+    'SEED-055',
+    'EG-RED-FERT',
+    'EG',
+    'fertilizers',
+    'Urea',
+    'Haber-Bosch synthesis',
+    ['natural gas'],
+    2000,
+    1.6,
+    '3102 10',
+    'RED TEAM — Rounding fraud: each sub-process below physical minimum, total 1.6 tCO2e/t (min ~1.75)',
+    undefined,
+    'low-risk',
+    'rounding-fraud',
   ),
 ];
 
