@@ -11,6 +11,7 @@
 
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
+import { CBAM_CN_CODES } from '../../../synthetic-data/cbam-schema.js';
 
 const SOUL = `You are Gaia, Cement & Earth Materials Industry Specialist for Climate IQ.
 
@@ -38,8 +39,18 @@ export class GaiaAgent extends BaseAgent {
   constructor() {
     super({
       name: 'gaia',
-      description: 'Cement, Lime & Earth Materials Industry Specialist — CBAM cement, ETS clinker/lime benchmarks, dual-use critical raw material assessment, clinker substitution pathways for Climate IQ',
-      capabilities: ['cbam-cement', 'ets-cement-benchmark', 'ets-lime-benchmark', 'clinker-substitution', 'cement-csrd', 'low-carbon-cement', 'lime-dual-use-risk', 'crm-supply-resilience'],
+      description:
+        'Cement, Lime & Earth Materials Industry Specialist — CBAM cement, ETS clinker/lime benchmarks, dual-use critical raw material assessment, clinker substitution pathways for Climate IQ',
+      capabilities: [
+        'cbam-cement',
+        'ets-cement-benchmark',
+        'ets-lime-benchmark',
+        'clinker-substitution',
+        'cement-csrd',
+        'low-carbon-cement',
+        'lime-dual-use-risk',
+        'crm-supply-resilience',
+      ],
       model: 'claude-haiku-4-5-20251001',
     });
   }
@@ -49,14 +60,33 @@ export class GaiaAgent extends BaseAgent {
     const { agentRegistry } = await import('../../index.js');
     const annualEmissions = typeof input.annualEmissions === 'number' ? input.annualEmissions : 0;
     const importValue = typeof input.importValue === 'number' ? input.importValue : 0;
-    const clinkerRatioPct = typeof input.clinkerRatioPct === 'number' ? input.clinkerRatioPct : null;
-    const annualProduction = typeof input.annualProduction === 'number' ? input.annualProduction : 0;
+    const clinkerRatioPct =
+      typeof input.clinkerRatioPct === 'number' ? input.clinkerRatioPct : null;
+    const annualProduction =
+      typeof input.annualProduction === 'number' ? input.annualProduction : 0;
     const cementType = typeof input.cementType === 'string' ? input.cementType : 'CEM I';
-    const currentMeasures = (typeof input.currentMeasures === 'object' && input.currentMeasures !== null)
-      ? input.currentMeasures as Record<string, boolean>
-      : { carbonReporting: false, emissionsMonitoring: false, supplyChainDueDiligence: false, aiSystemLogging: false };
+    const currentMeasures =
+      typeof input.currentMeasures === 'object' && input.currentMeasures !== null
+        ? (input.currentMeasures as Record<string, boolean>)
+        : {
+            carbonReporting: false,
+            emissionsMonitoring: false,
+            supplyChainDueDiligence: false,
+            aiSystemLogging: false,
+          };
 
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { annualEmissions, importValue, clinkerRatioPct }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { annualEmissions, importValue, clinkerRatioPct },
+      output: null,
+      status: 'started',
+      duration_ms: 0,
+      created_at: new Date().toISOString(),
+    });
 
     let complianceResult: AgentResponse | null = null;
     try {
@@ -70,12 +100,26 @@ export class GaiaAgent extends BaseAgent {
       });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: {}, output: null, status: 'error', error_message: msg, duration_ms: Date.now() - startTime, created_at: new Date().toISOString() });
+      await this.logExecution({
+        agent_name: this.config.name,
+        user_id: context.userId,
+        org_id: context.orgId,
+        session_id: context.sessionId,
+        project_id: context.projectId,
+        input: {},
+        output: null,
+        status: 'error',
+        error_message: msg,
+        duration_ms: Date.now() - startTime,
+        created_at: new Date().toISOString(),
+      });
       throw err;
     }
 
     const ETS_CLINKER_BENCHMARK = 766; // tCO2/1000t clinker
-    const carbonSavingPerPctClikerReduction = annualProduction > 0 ? (annualProduction * 0.077) : null;
+    const cbamCementCodes = CBAM_CN_CODES.cement.codes; // Source: CBAM Annex I via cbam-schema.ts
+    const carbonSavingPerPctClikerReduction =
+      annualProduction > 0 ? annualProduction * 0.077 : null;
 
     const llmResult = await this.callLLM(
       `${SOUL}
@@ -86,6 +130,7 @@ Cement client data:
 - Clinker ratio: ${clinkerRatioPct !== null ? `${clinkerRatioPct}%` : 'not provided'}
 - Annual emissions: ${annualEmissions.toLocaleString()} tCO2e
 - Import value: EUR ${importValue.toLocaleString()}
+- CBAM CN codes in scope: ${cbamCementCodes.join(', ')} (${cbamCementCodes.length} codes)
 - ETS clinker benchmark: ${ETS_CLINKER_BENCHMARK} tCO2/1000t
 - Carbon saving per 1% clinker reduction: ${carbonSavingPerPctClikerReduction ? `${carbonSavingPerPctClikerReduction.toLocaleString()} tCO2` : 'calculate from production volume'}
 - Compliance score: ${complianceResult?.result?.overallScore ?? 'n/a'}/100
@@ -93,20 +138,53 @@ Cement client data:
 Return JSON: { "cbamCementScope", "etsClikerBenchmark", "clinkerSubstitutionPotential", "prioritizedActions": [], "riskSummary" }`,
     );
 
-    let synthesis = { cbamCementScope: '', etsClikerBenchmark: '', clinkerSubstitutionPotential: '', prioritizedActions: [] as string[], riskSummary: '' };
-    try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
+    let synthesis = {
+      cbamCementScope: '',
+      etsClikerBenchmark: '',
+      clinkerSubstitutionPotential: '',
+      prioritizedActions: [] as string[],
+      riskSummary: '',
+    };
+    try {
+      synthesis = { ...synthesis, ...JSON.parse(llmResult.content) };
+    } catch {
+      synthesis.riskSummary = llmResult.content.slice(0, 200);
+    }
 
     const durationMs = Date.now() - startTime;
     const response: AgentResponse = {
       agentName: this.config.name,
-      result: { cementType, clinkerRatioPct, annualProduction, carbonSavingPerPctClikerReduction, etsBenchmark: ETS_CLINKER_BENCHMARK, ...synthesis, baseCompliance: complianceResult?.result ?? null },
+      result: {
+        cementType,
+        clinkerRatioPct,
+        annualProduction,
+        carbonSavingPerPctClikerReduction,
+        etsBenchmark: ETS_CLINKER_BENCHMARK,
+        ...synthesis,
+        baseCompliance: complianceResult?.result ?? null,
+      },
       confidence: complianceResult ? complianceResult.confidence : 0.55,
       reasoning: `Gaia assessed cement sector. Type: ${cementType}. Clinker ratio: ${clinkerRatioPct ?? 'unknown'}%. ETS benchmark: ${ETS_CLINKER_BENCHMARK} tCO2/1000t.`,
       recommendations: synthesis.prioritizedActions,
-      metadata: { durationMs, llmModel: llmResult.model, llmTokens: llmResult.inputTokens + llmResult.outputTokens },
+      metadata: {
+        durationMs,
+        llmModel: llmResult.model,
+        llmTokens: llmResult.inputTokens + llmResult.outputTokens,
+      },
     };
 
-    await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { annualEmissions }, output: response, status: 'completed', duration_ms: durationMs, created_at: new Date().toISOString() });
+    await this.logExecution({
+      agent_name: this.config.name,
+      user_id: context.userId,
+      org_id: context.orgId,
+      session_id: context.sessionId,
+      project_id: context.projectId,
+      input: { annualEmissions },
+      output: response,
+      status: 'completed',
+      duration_ms: durationMs,
+      created_at: new Date().toISOString(),
+    });
     return response;
   }
 }
