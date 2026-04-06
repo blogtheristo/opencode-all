@@ -74,6 +74,20 @@ const STEEL_CN_GROUPS = {
   },
 } as const;
 
+/**
+ * Dynamic CN code checker — covers full CBAM Annex I iron & steel scope.
+ * Preferred over array lookup for downstream filtering of variable-length CN codes
+ * (e.g., '7208 51 20' should match the 7208 base).
+ * Source: Regulation (EU) 2023/956 Annex I, Section 3
+ */
+export const isCBAMSteelAndIron = (cnCode: string): boolean => {
+  const code = parseInt(cnCode.substring(0, 4));
+  if (isNaN(code)) return false;
+  const isIronSteelBase = code >= 7201 && code <= 7229;
+  const isDownstreamProducts = code >= 7301 && code <= 7326;
+  return isIronSteelBase || isDownstreamProducts;
+};
+
 const SOUL = `You are Vulcan, Steel & Metals Industry Specialist for Climate IQ.
 
 Steel is the most ETS-intensive CBAM sector. Your job:
