@@ -13,81 +13,67 @@
 
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
+import { CBAM_CN_CODES } from '../../../synthetic-data/cbam-schema.js';
 
-const SOUL = `You are Vulcan, Steel & Metals Industry Specialist for Climate IQ.
+/**
+ * Full CBAM Annex I steel CN codes imported from cbam-schema.ts (single source of truth).
+ * 42 codes: 7201–7229 (raw materials, flat products, long products, stainless, alloy)
+ *         + 7301–7326 (tubes, pipes, structures, downstream articles)
+ *
+ * Source: Regulation (EU) 2023/956, Annex I — Iron and Steel
+ */
+const STEEL_CBAM_CN_CODES = CBAM_CN_CODES.steel.codes;
 
-Steel is the most ETS-intensive CBAM sector. Your job:
-- ETS Phase 4: steel installations have ZERO free allowances from 2026. No exceptions.
-- CBAM: steel importers must declare embedded carbon content per tonne by CN code.
-- Blast furnace route: ~1.8–2.2t CO2/t steel. Electric arc: ~0.4–0.6t CO2/t steel.
-- Scrap availability is a compliance lever, not just a cost lever.
+/**
+ * CN code groupings for compliance analysis context.
+ * Grouped by production stage / product type for LLM assessment.
+ */
+const STEEL_CN_GROUPS = {
+  rawMaterials: {
+    label: 'Raw materials & intermediates',
+    codes: ['7201', '7202', '7203', '7204', '7205', '7206', '7207'],
+    note: 'Pig iron, ferro-alloys, scrap, granules, powder, ingots, semi-finished',
+  },
+  flatProducts: {
+    label: 'Flat-rolled products',
+    codes: ['7208', '7209', '7210', '7211', '7212'],
+    note: 'Hot-rolled, cold-rolled, clad/plated/coated, narrow strip',
+  },
+  longProducts: {
+    label: 'Long products',
+    codes: ['7213', '7214', '7215', '7216', '7217'],
+    note: 'Bars, rods, angles, shapes, sections, wire',
+  },
+  stainlessAlloy: {
+    label: 'Stainless & alloy steels',
+    codes: [
+      '7218',
+      '7219',
+      '7220',
+      '7221',
+      '7222',
+      '7223',
+      '7224',
+      '7225',
+      '7226',
+      '7227',
+      '7228',
+      '7229',
+    ],
+    note: 'Stainless semi-finished, flat, wire rod, bars, wire + other alloy equivalents',
+  },
+  tubesPipes: {
+    label: 'Tubes, pipes & fittings',
+    codes: ['7301', '7302', '7303', '7304', '7305', '7306', '7307'],
+    note: 'Sheet piling, railway track, cast iron/seamless/welded tubes, fittings',
+  },
+  downstream: {
+    label: 'Downstream steel articles',
+    codes: ['7308', '7309', '7310', '7311', '7318', '7326'],
+    note: 'Structures, reservoirs, tanks, containers, bolts/nuts/screws, other articles',
+  },
+} as const;
 
-Tone: direct as a forge hammer. Steel clients don't need softening. They need numbers.
-Output as JSON: { etsFreeAllowanceGap, cbamCarbonContent, productionRouteRisk, prioritizedActions, riskSummary }`;
-
-// Steel-specific ETS thresholds
-const STEEL_ETS_FREE_ALLOWANCE_PHASE4_END = '2025-12-31'; // Free allowances phase out
-// Full CBAM Annex I steel scope: Chapter 72 (iron & steel) + Chapter 73 (articles of iron/steel)
-// Source: Regulation (EU) 2023/956 Annex I, Section 3 (Iron and steel)
-const STEEL_CBAM_CN_CODES = [
-  // 72xx — Iron and steel (primary + semi-finished + flat/long products)
-  '7201',
-  '7202',
-  '7203',
-  '7204',
-  '7205', // Pig iron, ferro-alloys, ferrous waste, granules, powder
-  '7206',
-  '7207',
-  '7208',
-  '7209',
-  '7210', // Iron ingots, semis, flat-rolled ≥600mm
-  '7211',
-  '7212',
-  '7213',
-  '7214',
-  '7215', // Flat-rolled <600mm, bars/rods, wire, angles
-  '7216',
-  '7217', // Angles/shapes/sections, wire
-  '7218',
-  '7219',
-  '7220',
-  '7221',
-  '7222', // Stainless steel: ingots, flat ≥600mm, flat <600mm, bars, wire
-  '7223',
-  '7224',
-  '7225',
-  '7226',
-  '7227', // Stainless wire, alloy steel ingots, flat ≥600mm, flat <600mm, bars
-  '7228',
-  '7229', // Alloy steel bars/rods, alloy steel wire
-  // 73xx — Articles of iron or steel (downstream, CBAM scope)
-  '7301',
-  '7302',
-  '7303',
-  '7304',
-  '7305', // Sheet piling, rail track, tubes cast iron, tubes seamless, tubes welded
-  '7306',
-  '7307',
-  '7308',
-  '7309',
-  '7310', // Tubes other, fittings, structures, reservoirs, tanks
-  '7311',
-  '7312',
-  '7313',
-  '7314',
-  '7315', // Containers gas, stranded wire, barbed wire, cloth, chain
-  '7316',
-  '7317',
-  '7318',
-  '7319',
-  '7320', // Anchors, nails, screws/bolts, needles/pins, springs
-  '7321',
-  '7322',
-  '7323',
-  '7324',
-  '7325', // Stoves, radiators, table/kitchen, sanitary, cast articles
-  '7326', // Other articles of iron or steel
-];
 /**
  * Dynamic CN code checker — covers full CBAM Annex I iron & steel scope.
  * Preferred over array lookup for downstream filtering of variable-length CN codes
@@ -102,6 +88,28 @@ export const isCBAMSteelAndIron = (cnCode: string): boolean => {
   return isIronSteelBase || isDownstreamProducts;
 };
 
+const SOUL = `You are Vulcan, Steel & Metals Industry Specialist for Climate IQ.
+
+Steel is the most ETS-intensive CBAM sector. Your job:
+- ETS Phase 4: steel installations have ZERO free allowances from 2026. No exceptions.
+- CBAM: steel importers must declare embedded carbon content per tonne by CN code.
+- Full CBAM scope: 42 CN codes across 6 product groups:
+  * Raw materials (7201-7207): pig iron, ferro-alloys, scrap, semi-finished
+  * Flat products (7208-7212): hot-rolled, cold-rolled, coated, narrow
+  * Long products (7213-7217): bars, rods, angles, sections, wire
+  * Stainless & alloy (7218-7229): stainless flat/long + other alloy steels
+  * Tubes & pipes (7301-7307): sheet piling, railway, seamless/welded tubes
+  * Downstream articles (7308-7326): structures, tanks, fasteners, other articles
+- Blast furnace route: ~1.8–2.2t CO2/t steel. Electric arc: ~0.4–0.6t CO2/t steel.
+- Scrap availability is a compliance lever, not just a cost lever.
+- Stainless/alloy steels have different benchmark values — do not use carbon steel defaults.
+- Downstream articles (7308-7326) require precursor emission tracing back to crude steel.
+
+Tone: direct as a forge hammer. Steel clients don't need softening. They need numbers.
+Output as JSON: { etsFreeAllowanceGap, cbamCarbonContent, productionRouteRisk, cnCodeCoverage, prioritizedActions, riskSummary }`;
+
+// Steel-specific ETS thresholds
+const STEEL_ETS_FREE_ALLOWANCE_PHASE4_END = '2025-12-31'; // Free allowances phase out
 const BLAST_FURNACE_EMISSION_FACTOR = 2.0; // tCO2/t steel (mid-range)
 const EAF_EMISSION_FACTOR = 0.5; // tCO2/t steel (mid-range)
 
@@ -114,6 +122,8 @@ export class VulcanAgent extends BaseAgent {
       capabilities: [
         'steel-ets-compliance',
         'cbam-steel-carbon-content',
+        'cbam-stainless-alloy',
+        'cbam-downstream-articles',
         'blast-furnace-eaf-analysis',
         'metals-industry-compliance',
         'steel-decarbonization-pathways',
@@ -196,6 +206,11 @@ export class VulcanAgent extends BaseAgent {
         ? 'ETS Phase 4: free allowances for steel have ended — full auctioning now applies'
         : `ETS free allowance phase-out approaching: ${STEEL_ETS_FREE_ALLOWANCE_PHASE4_END}`;
 
+    // Build CN code group summary for LLM context
+    const cnGroupSummary = Object.values(STEEL_CN_GROUPS)
+      .map((g) => `  * ${g.label} (${g.codes[0]}–${g.codes[g.codes.length - 1]}): ${g.note}`)
+      .join('\n');
+
     const llmResult = await this.callLLM(
       `${SOUL}
 
@@ -206,7 +221,9 @@ Steel client data:
 - Annual emissions: ${annualEmissions.toLocaleString()} tCO2e
 - Import value: EUR ${importValue.toLocaleString()}
 - CBAM applies: ${cbamApplies}
-- CN codes in scope: ${STEEL_CBAM_CN_CODES.length} codes (Ch.72 iron/steel + Ch.73 articles)
+- Total CN codes in scope: ${STEEL_CBAM_CN_CODES.length} (full CBAM Annex I iron & steel)
+- CN code groups:
+${cnGroupSummary}
 - ${etsPhase4PressureNote}
 - Compliance score from Athena: ${complianceResult?.result?.overallScore ?? 'n/a'}/100
 - Compliance gaps: ${JSON.stringify(complianceResult?.result?.gaps ?? [])}
@@ -215,6 +232,7 @@ Return JSON: {
   "etsFreeAllowanceGap": "description of ETS allowance gap and urgency",
   "cbamCarbonContent": "CBAM carbon content status and declaration requirements",
   "productionRouteRisk": "risk specific to blast furnace vs EAF pathway",
+  "cnCodeCoverage": "which CN code groups the client's products fall under and any gaps",
   "prioritizedActions": ["action1", "action2", "action3"],
   "riskSummary": "2-sentence summary for a steel CFO"
 }`,
@@ -224,6 +242,7 @@ Return JSON: {
       etsFreeAllowanceGap: '',
       cbamCarbonContent: '',
       productionRouteRisk: '',
+      cnCodeCoverage: '',
       prioritizedActions: [] as string[],
       riskSummary: '',
     };
@@ -242,12 +261,13 @@ Return JSON: {
         emissionFactor,
         expectedEmissions,
         cbamApplies,
+        cbamCnCodeCount: STEEL_CBAM_CN_CODES.length,
         etsPhase4PressureNote,
         ...synthesis,
         baseCompliance: complianceResult?.result ?? null,
       },
       confidence: complianceResult ? complianceResult.confidence * 0.9 + 0.1 : 0.5,
-      reasoning: `Vulcan assessed ${industry} sector. Production route: ${productionRoute} (${emissionFactor} tCO2/t). CBAM applies: ${cbamApplies}. ${etsPhase4PressureNote}.`,
+      reasoning: `Vulcan assessed ${industry} sector (${STEEL_CBAM_CN_CODES.length} CN codes). Production route: ${productionRoute} (${emissionFactor} tCO2/t). CBAM applies: ${cbamApplies}. ${etsPhase4PressureNote}.`,
       recommendations: synthesis.prioritizedActions,
       metadata: {
         durationMs,
