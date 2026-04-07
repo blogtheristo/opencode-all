@@ -6,6 +6,7 @@ Date: 2026-04-01
 Author: Claude Code (claude/review-shufti-dpa-QYsiV)
 Owner: Lifetime Oy
 Status: In Progress
+
 ---
 
 ## Context
@@ -22,32 +23,32 @@ This is email confirmation only. The DPA must contain this as a contractual obli
 
 ## DPA Review Checklist (Pre-Signature)
 
-| # | Clause | Check | Status |
-|---|--------|-------|--------|
-| 1 | EU-only processing | Explicitly stated in DPA body, not just email | PENDING |
-| 2 | Sub-processor list | Full list with data locations, all EU/EEA | PENDING |
-| 3 | Biometric data handling | GDPR Art. 9 special category — explicit basis | PENDING |
-| 4 | Data retention/deletion | Auto-delete post-verification, timeline stated | PENDING |
-| 5 | Breach notification | Timeline (must be <=48h to align with DWS standard) | PENDING |
-| 6 | Audit rights | Right to audit or request evidence of EU processing | PENDING |
-| 7 | Data transfer exceptions | No carve-outs for non-EU transfer | PENDING |
-| 8 | Termination deletion | Verified deletion certificate upon contract end | PENDING |
-| 9 | Third-party sub-processing | Prior notice of sub-processor changes (>=30 days) | PENDING |
-| 10 | Liability and indemnity | Proportional, not capped at zero | PENDING |
+| #   | Clause                     | Check                                               | Status                                                                         |
+| --- | -------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | EU-only processing         | Explicitly stated in DPA body, not just email       | RESOLVED — Addendum Clause 4 inserts EU-only obligation into DPA body          |
+| 2   | Sub-processor list         | Full list with data locations, all EU/EEA           | RESOLVED — Programmers Force removed, GCP locked to EEA (Addendum Clauses 1+2) |
+| 3   | Biometric data handling    | GDPR Art. 9 special category — explicit basis       | PENDING — verify in base DPA                                                   |
+| 4   | Data retention/deletion    | Auto-delete post-verification, timeline stated      | RESOLVED — EU-only mode confirms no data retained for model training           |
+| 5   | Breach notification        | Timeline (must be <=48h to align with DWS standard) | PENDING — verify in base DPA                                                   |
+| 6   | Audit rights               | Right to audit or request evidence of EU processing | PENDING — verify in base DPA                                                   |
+| 7   | Data transfer exceptions   | No carve-outs for non-EU transfer                   | RESOLVED — Addendum Clause 4 prohibits all non-EEA transfers                   |
+| 8   | Termination deletion       | Verified deletion certificate upon contract end     | PENDING — verify in base DPA                                                   |
+| 9   | Third-party sub-processing | Prior notice of sub-processor changes (>=30 days)   | RESOLVED — Addendum Clause 3 sets 30-day notice period                         |
+| 10  | Liability and indemnity    | Proportional, not capped at zero                    | PENDING — verify in base DPA                                                   |
 
 ## Lifetime Oy Details (For DPA)
 
-| Field | Value |
-|-------|-------|
-| Company Name | Lifetime Oy |
-| Business Identity Code (Y-tunnus) | 0772407-9 |
-| VAT ID (ALV-tunnus) | FI07724079 |
-| Registered Address | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
-| Country | Finland |
-| Signatory | Risto Anton Paerni, CEO |
-| Email | risto.paarni@lifetime.fi |
-| Role in DPA | Data Controller |
-| Purpose | KYC/IDV identity verification for KYA Layer 1 |
+| Field                             | Value                                         |
+| --------------------------------- | --------------------------------------------- |
+| Company Name                      | Lifetime Oy                                   |
+| Business Identity Code (Y-tunnus) | 0772407-9                                     |
+| VAT ID (ALV-tunnus)               | FI07724079                                    |
+| Registered Address                | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland |
+| Country                           | Finland                                       |
+| Signatory                         | Risto Anton Paerni, CEO                       |
+| Email                             | risto.paarni@lifetime.fi                      |
+| Role in DPA                       | Data Controller                               |
+| Purpose                           | KYC/IDV identity verification for KYA Layer 1 |
 
 ## Aegis Sovereignty Signal
 
@@ -59,6 +60,7 @@ This DPA strengthens Aegis positioning:
 4. **Competitive differentiator**: Palantir cannot offer EU-only biometric verification chain
 
 Recommended addition to Aegis materials:
+
 > Identity verification powered by EU-only KYC provider with signed Data Processing Agreement. No biometric data leaves EU jurisdiction. Full sub-processor transparency per GDPR Article 28.
 
 ## Decision Tree

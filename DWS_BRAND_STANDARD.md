@@ -1702,6 +1702,24 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 
 - "intelligence interceptor" → "teollisuustiedustelualusta" (industrial intelligence platform) — not "tiedustelun torjuntajärjestelmä" which means counter-intelligence
 - "dual-use industries" → "säännellyt toimialat" (regulated industries) — dual-use is determined by end-use, not by industry classification
+
+### DWS IQ Aegis — Sovereign Identity (KYA Layer 1)
+
+**EN:** EU-only biometric identity verification. No model training on customer data. No non-EU manual review. Your biometric data never leaves EU jurisdiction — not for training, not for review, not for anything.
+
+**FI (kotimainen):** Biometrinen henkilöllisyyden varmennus vain EU:ssa. Ei mallikoulutusta asiakastiedoilla. Ei EU:n ulkopuolista manuaalista tarkistusta. Biometriset tietosi eivät koskaan poistu EU:n lainkäyttöalueelta — eivät koulutukseen, tarkistukseen eivätkä mihinkään muuhunkaan.
+
+**Sovereignty selling points (defense/regulated buyers):**
+
+- EU-only KYC/IDV via signed DPA with Shufti Pro (EU-only mode, GCP EEA-locked)
+- Programmers Force (Pakistan) removed from sub-processor chain — zero non-EU data access
+- No biometric data used for AI model training — your face is not their training set
+- No manual verification routed outside EU — no human reviewer in a non-EU jurisdiction sees your documents
+- 30-day sub-processor change notification — full transparency, right to object
+- KYA compliance argument: sovereignty is a feature, not a trade-off
+
+**Use in:** Aegis product page, defense/government proposals, NIS2 compliance materials, investor sovereignty section, KYA Layer 1 documentation
+
 - "(reuna/private)" added in FI version — clarifies edge-deployed, not public cloud
 
 ### DWS IQ Platform (Series A / Investor)
@@ -1734,6 +1752,7 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                           |
 | v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
 | v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |
 | v2.4    | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
