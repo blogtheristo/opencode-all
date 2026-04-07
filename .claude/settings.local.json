@@ -15,7 +15,7 @@
       "Bash(node scripts/gen-thesis-html.cjs)",
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
-      "Read(//f/2026/Repos2026/dws6/**)",
+      "Read($CLAUDE_PROJECT_DIR/**)",
       "Bash(gh pr:*)"
     ]
   },
