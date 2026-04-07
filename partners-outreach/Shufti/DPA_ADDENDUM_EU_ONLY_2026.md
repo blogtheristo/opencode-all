@@ -93,6 +93,14 @@ The Data Controller accepts these constraints. The absence of model training and
 
 ---
 
+## Clause 5: Breach Notification — 48h/72h Chain
+
+**5.1** The 48-hour breach notification deadline in the base DPA (Article 6.1) is an internal processor-to-controller deadline. It provides Lifetime Oy with a 24-hour assessment window before the statutory 72-hour obligation to notify the Finnish Data Protection Authority (Tietosuojavaltuutetun toimisto) per GDPR Article 33.
+
+**5.2** Lifetime Oy shall maintain an internal breach response procedure to ensure supervisory authority notification within the 72-hour statutory window following receipt of Shufti Pro's notice.
+
+---
+
 ## General Provisions
 
 **Conflict.** In the event of any conflict between this Addendum and the base DPA, this Addendum shall prevail.
@@ -111,15 +119,15 @@ For **Lifetime Oy** (Data Controller):
 
 Name: Risto Anton Päärni
 Title: CEO
-Date: ********\_\_\_\_********
-Signature: ********\_\_\_\_********
+Date: **\*\*\*\***\_\_\_\_**\*\*\*\***
+Signature: **\*\*\*\***\_\_\_\_**\*\*\*\***
 
 For **Shufti Pro Limited** (Data Processor):
 
-Name: ********\_\_\_\_********
-Title: ********\_\_\_\_********
-Date: ********\_\_\_\_********
-Signature: ********\_\_\_\_********
+Name: **\*\*\*\***\_\_\_\_**\*\*\*\***
+Title: **\*\*\*\***\_\_\_\_**\*\*\*\***
+Date: **\*\*\*\***\_\_\_\_**\*\*\*\***
+Signature: **\*\*\*\***\_\_\_\_**\*\*\*\***
 
 ---
 
