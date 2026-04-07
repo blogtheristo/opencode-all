@@ -7,7 +7,7 @@
  * Steel sector specialist: ETS Phase 4 (highest scrutiny), CBAM carbon
  * content declarations, blast furnace vs. electric arc emissions pathways.
  *
- * Input: { industry?: 'steel'|'aluminium'|'metals', annualEmissions, importValue, currentMeasures? }
+ * Input: { industry?: 'steel'|'metals', annualEmissions, importValue, currentMeasures? }
  * Output: steel-specific compliance assessment with ETS allowance gap and CBAM carbon content status
  */
 
