@@ -4,7 +4,7 @@
 > **Version:** 1.4.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-03-30 — Added Aegis K8s AI Inference roadmap items (Phase 3.6, PRs 137A–137D) from KubeCon EU 2026 research; inference autoscaling, MIG GPU sharing, model versioning CRDs, edge-cloud inference split
+> **Updated:** 2026-03-30 — Added Aegis K8s AI Inference roadmap items (Phase 3.6, PRs 137A–137D) from KubeCon EU 2026 research; inference autoscaling, MIG GPU sharing, model versioning CRDs, edge-cloud inference split; CLI Evolution section (50 PRs across 6 phases) and Tangled research reference (Claude Code, claude/research-cli-ai-agents-9m5Vh)
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -558,6 +558,75 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 245 | Advanced RBAC: custom roles and permissions | P1 | Customers define their own role/permission combinations |
 | 246 | Bulk data import/export (CSV, Excel, API) | P1 | Mass data operations for initial setup and migration |
 | 247 | DWS IQ 7.0 GA release packaging | P0 | Final release: changelog, migration, marketing, launch |
+
+---
+
+## CLI Evolution (Cross-Phase, 50 PRs)
+
+> **Principle:** If it can't be done via `dws <command>`, it's not shipped.
+> **Architecture:** Zero dependencies. Pure Node.js. Pipeable. JSON-native.
+> **Entry point:** `cli/src/cli.ts` | Package: `@dws/cli`
+> **Full roadmap:** `docs/DWS7_CLI_ROADMAP.md`
+
+### Current State (DWS6, March 2026)
+
+The DWS CLI ships with 31 registered agents, 4 workflows, MCP tool integration, 5 industry scenarios, and dual-mode output (human TTY / machine JSON). Zero runtime dependencies.
+
+```bash
+dws agents                              # List all 31 agents
+dws run compliance --input '{...}'      # Execute agent
+dws workflow compliance-assessment      # Multi-agent workflow
+dws discover carbon                     # Find by capability
+dws mcp tools                           # MCP tool listing
+dws scenario construction              # Industry quickstart
+echo '{}' | dws run compliance --stdin  # Pipe JSON in
+dws status | jq .agents                 # Pipe JSON out
+```
+
+### CLI PRs Mapped to Phases
+
+| Phase | CLI PRs | Theme | Key Deliverables |
+|-------|---------|-------|-----------------|
+| **1** (Feb–Apr 2026) | CLI-001 → CLI-008 | Safety & observability | `--dry-run`, `--plan`, Y/n confirmation, `--trace`, `--verbose` |
+| **2** (May–Jul 2026) | CLI-009 → CLI-018 | Context & memory | `dws history`, `--project` context injection, `--compact`, config files |
+| **3** (Aug–Oct 2026) | CLI-019 → CLI-026 | Model routing & performance | `--model-tier fast/standard/reasoning`, parallel agent execution, `--timeout` |
+| **4** (Nov–Jan 2027) | CLI-027 → CLI-036 | Ecosystem & extensibility | Plugin system, `--format table/csv/yaml`, `dws batch run`, JSONL processing |
+| **5** (Feb–May 2027) | CLI-037 → CLI-044 | Enterprise & compliance | `dws audit` (Article 12 export), `dws login` (OAuth), `dws org switch`, multi-tenant |
+| **6** (Jun–Dec 2027) | CLI-045 → CLI-050 | Edge & IoT | `dws fleet list/deploy/logs`, `dws stream emissions`, WebSocket → JSONL piping |
+
+### Phase 1 CLI: Safety (P0)
+
+| PR | Title | Effort |
+|----|-------|--------|
+| CLI-001 | `--dry-run` flag for `dws run` — preview without execution | 50 LOC |
+| CLI-002 | `--plan` flag for `dws workflow` — show steps, no execute | 40 LOC |
+| CLI-005 | Y/n confirmation before workflow execution | 30 LOC |
+| CLI-007 | `--trace` flag — stream agentic loop iterations to stderr | 80 LOC |
+
+### Phase 2 CLI: Memory (P0–P1)
+
+| PR | Title | Effort |
+|----|-------|--------|
+| CLI-009 | `dws history` — query execution log by project/agent | 80 LOC |
+| CLI-010 | `--project` flag — auto-inject last N results as context | 60 LOC |
+| CLI-015 | Config file loader (`~/.dws/config.json` + `.dws.json`) | 80 LOC |
+
+### Phase 5 CLI: Enterprise (P0)
+
+| PR | Title | Effort |
+|----|-------|--------|
+| CLI-037 | `dws audit` — EU AI Act Article 12 execution log viewer | 100 LOC |
+| CLI-040 | `dws login` — device code OAuth flow | 150 LOC |
+| CLI-042 | `dws org switch` / `dws org list` — multi-tenant context | 50 LOC |
+
+### Design Constraints
+
+1. **Zero dependencies** — No npm packages. Pure Node.js + TypeScript.
+2. **JSON-native** — Every command outputs valid JSON when piped. Human-friendly when TTY.
+3. **Pipeable** — `dws discover compliance | dws run --first --stdin`
+4. **Backward compatible** — New flags are additive. Existing commands never break.
+5. **Offline-capable** — `dws help`, `dws config`, `dws scenario` work without backend.
+6. **EU data residency** — All data flows through EU endpoints by default.
 
 ---
 
@@ -1204,6 +1273,7 @@ These capabilities are **production-ready in DWS6** on branch `claude/modernize-
 | `SITE_QUALITY_STANDARDS.md` | Agent-Driven UI Patterns | Frontend patterns for agent results, workflows, events |
 | `docs/CLOUD_ENVIRONMENTS.md` | §13: MCP Agent Server | Deployment, endpoints, event streaming architecture |
 | `DWS7_ROADMAP.md` | Agent Evolution Roadmap (this section) | Track what shipped early vs what remains |
+| `docs/DWS7_CLI_ROADMAP.md` | CLI Roadmap (50 PRs, 6 phases) | Terminal-native agent platform: dry-run, memory, model routing, batch, fleet |
 
 ### What Still Needs DWS7 Phase 4
 
