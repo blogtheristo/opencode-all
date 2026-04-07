@@ -959,17 +959,34 @@
 `;
 
   // Inject Nordic theme CSS + IBM Plex Sans fonts (v3.2)
-  const nordicThemeLink = document.createElement('link');
-  nordicThemeLink.rel = 'stylesheet';
-  nordicThemeLink.href = (getBasePath() || '/') + 'shared-assets/nordic-theme.css';
-  document.head.appendChild(nordicThemeLink);
+  const ensureStylesheetLink = (id, href) => {
+    if (document.getElementById(id)) return;
 
-  const fontsLink = document.createElement('link');
-  fontsLink.rel = 'stylesheet';
-  fontsLink.href =
-    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap';
-  document.head.appendChild(fontsLink);
+    const existingLink = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).find(
+      (link) => link.getAttribute('href') === href
+    );
 
+    if (existingLink) {
+      existingLink.id = existingLink.id || id;
+      return;
+    }
+
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+  };
+
+  ensureStylesheetLink(
+    'ironclad-nordic-theme-link',
+    (getBasePath() || '/') + 'shared-assets/nordic-theme.css'
+  );
+
+  ensureStylesheetLink(
+    'ironclad-fonts-link',
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap'
+  );
   // Inject CSS
   const styleElement = document.createElement('style');
   styleElement.textContent = navCSS;
