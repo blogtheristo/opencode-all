@@ -9,7 +9,7 @@ Version: 1.1
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/synthetic-data-pipeline-TK1Lp | Date: 06.04.2026 | Changes: Initial — built complete synthetic data pipeline: CBAM schema (NeMo DataDesigner), LLM-as-Judge validation, 50 seed filings, compute strategy, SyntheticDataAgent (Agent 19), daily health check
-- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vulcan-cn-codes-pr-dv519 | Date: 06.04.2026 | Changes: Vulcan CN code expansion (12 → 55 codes), Red Team seed negatives documentation, isCBAMSteelAndIron() helper
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vulcan-cn-codes-pr-dv519 | Date: 06.04.2026 | Changes: Vulcan CN code expansion (12 → 42 explicit codes, 55 heading range), Red Team seed negatives documentation, isCBAMSteelAndIron() helper
 
 Session Links & References:
 
@@ -119,17 +119,21 @@ The 50 clean seeds are ground truth — but a pipeline that only validates corre
 
 These negatives are critical for DD: they prove the LLM-as-Judge + deterministic validator pipeline catches real-world fraud patterns, not just format errors.
 
-### Vulcan CN Code Expansion (12 → 52 codes)
+### Vulcan CN Code Expansion (12 → 42 explicit codes)
 
-The Vulcan agent (`src/agents/workflow/industry/vulcan.agent.ts`) previously covered only CN codes 7206–7217 (12 codes: semi-finished flat/long steel products). This was expanded to the full CBAM Annex I steel & iron scope:
+The Vulcan agent (`src/agents/workflow/industry/vulcan.agent.ts`) previously covered only CN codes 7206–7217 (12 codes: semi-finished flat/long steel products). Expanded to 42 explicit codes across 6 product groups, imported from `cbam-schema.ts` as single source of truth:
 
-| Range     | Count  | Coverage                                                                                                 |
-| --------- | ------ | -------------------------------------------------------------------------------------------------------- |
-| 7201–7229 | 29     | Chapter 72: pig iron, ferro-alloys, scrap, granules, all flat-rolled, bars, wire, stainless, alloy steel |
-| 7301–7326 | 26     | Chapter 73: sheet piling, rails, tubes, fittings, structures, containers, chain, fasteners, castings     |
-| **Total** | **55** | Full CBAM Annex I Sections 3.1–3.2 (source: Reg. 2023/956 Annex I)                                       |
+| Group               | Codes                 | Count  | Coverage                                               |
+| ------------------- | --------------------- | ------ | ------------------------------------------------------ |
+| Raw materials       | 7201–7207             | 7      | Pig iron, ferro-alloys, scrap, granules, powder, semis |
+| Flat products       | 7208–7212             | 5      | Hot-rolled, cold-rolled, coated, narrow strip          |
+| Long products       | 7213–7217             | 5      | Bars, rods, angles, shapes, sections, wire             |
+| Stainless & alloy   | 7218–7229             | 12     | Stainless/alloy semi-finished, flat, bars, wire        |
+| Tubes & fittings    | 7301–7307             | 7      | Sheet piling, rails, cast iron/seamless/welded tubes   |
+| Downstream articles | 7308–7311, 7318, 7326 | 6      | Structures, reservoirs, containers, fasteners          |
+| **Total**           |                       | **42** | CBAM Annex I Sections 3.1–3.2 (Reg. 2023/956)          |
 
-New exported helper: `isCBAMSteelAndIron(cnCode: string): boolean` — accepts 4-digit headings or 8-digit full CN codes, returns true if within CBAM steel & iron scope.
+Range-based helper `isCBAMSteelAndIron(cnCode: string): boolean` covers the full 7201–7229 + 7301–7326 heading space (55 possible headings) for forward-compatible matching of future CN code additions. Accepts 4-digit headings or 8-digit full CN codes.
 
 ### Daily Health Check (`scripts/daily/synthetic-data-health.ts`)
 
