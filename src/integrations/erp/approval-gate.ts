@@ -20,6 +20,7 @@ import {
   SyncOperation,
   SyncResult
 } from './types';
+import emailService from '../../services/email.service.js';
 
 const logger = pino({ name: 'erp-approval-gate' });
 
@@ -348,18 +349,20 @@ export class ApprovalGateManager extends EventEmitter {
   }
 
   private async sendApprovalNotifications(request: ApprovalRequest): Promise<void> {
-    // TODO: Implement notification channels
-
     if (this.config.notificationChannels.includes('email')) {
-      // await sendEmail(...)
+      const recipient = process.env.ERP_APPROVAL_EMAIL || process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
+      await emailService.sendNotificationEmail(
+        recipient,
+        `ERP Approval Required: ${request.operationType} [${request.riskLevel}]`,
+        `An ERP operation requires approval.\n\nOperation: ${request.operationType}\nRisk Level: ${request.riskLevel}\nProvider: ${request.provider}\nRequest ID: ${request.id}\n\nPlease review and approve or reject this operation.`
+      );
     }
 
     if (this.config.notificationChannels.includes('slack')) {
-      // await sendSlack(...)
+      logger.info('Slack approval notification (not yet connected)', { requestId: request.id });
     }
 
     if (this.config.notificationChannels.includes('mcp')) {
-      // Emit MCP event for agent notification
       logger.info('MCP approval notification', { requestId: request.id });
     }
   }

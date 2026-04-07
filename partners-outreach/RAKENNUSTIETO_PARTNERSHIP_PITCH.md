@@ -99,7 +99,7 @@ Olen Risto Paarni, DWS IQ -alustan perustaja. Rakennamme operatiivisen vaatimust
 
 Laura,
 
-I'm Risto Paarni, founder of DWS IQ — an operations compliance platform for EU regulatory reporting (CSRD, ETS, CBAM). We pull data from ERP systems and auto-generate quarterly reports for regulators.
+I'm Risto Paarni, Founder of DWS IQ — an operations compliance platform for EU regulatory reporting (CSRD, ETS, CBAM). We pull data from ERP systems and auto-generate quarterly reports for regulators.
 
 **Connection to Rakennustieto:** We use CO2data.fi emission factors and RTS EPD data as the basis for our calculations. Rakennustieto owns the first link in the data chain — design-phase material data. We extend that chain into operations compliance.
 

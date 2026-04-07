@@ -4,7 +4,7 @@
  * GET /api/climate-assistant/health - Health check
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
@@ -42,61 +42,67 @@ const validateRequest = (req: Request, res: Response, next: any) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Climate assistant validation error', {
-      errors: errors.array().map(e => e.msg)
+      errors: errors.array().map((e) => e.msg),
     });
     return res.status(400).json({
       error: 'Validation Error',
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 /**
  * POST /api/climate-assistant
  * Process a chat message and return AI response
  */
-router.post('/', aiRateLimiter, chatValidation, validateRequest, async (req: Request, res: Response) => {
-  try {
-    const { message, conversationHistory } = req.body;
+router.post(
+  '/',
+  aiRateLimiter,
+  chatValidation,
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { message, conversationHistory } = req.body;
 
-    logger.info('Climate assistant request', {
-      ip: req.ip,
-      messagePreview: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
-    });
+      logger.info('Climate assistant request', {
+        ip: req.ip,
+        messagePreview: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
+      });
 
-    const response = await ClimateAssistantService.processMessage({
-      message,
-      conversationHistory,
-    });
+      const response = await ClimateAssistantService.processMessage({
+        message,
+        conversationHistory,
+      });
 
-    res.status(200).json({
-      content: response.content,
-      message: response.content, // Alias for frontend compatibility
-      model: response.model,
-      usage: response.usage,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error: any) {
-    logger.error('Climate assistant error', { error: error.message });
+      res.status(200).json({
+        content: response.content,
+        message: response.content, // Alias for frontend compatibility
+        model: response.model,
+        usage: response.usage,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      logger.error('Climate assistant error', { error: error.message });
 
-    // Determine appropriate status code
-    let statusCode = 500;
-    if (error.message.includes('authentication')) statusCode = 401;
-    if (error.message.includes('Rate limit')) statusCode = 429;
+      // Determine appropriate status code
+      let statusCode = 500;
+      if (error.message.includes('authentication')) statusCode = 401;
+      if (error.message.includes('Rate limit')) statusCode = 429;
 
-    res.status(statusCode).json({
-      error: 'Climate Assistant Error',
-      message: error.message || 'An unexpected error occurred',
-    });
-  }
-});
+      res.status(statusCode).json({
+        error: 'Climate Assistant Error',
+        message: error.message || 'An unexpected error occurred',
+      });
+    }
+  },
+);
 
 /**
  * GET /api/climate-assistant/health
  * Health check endpoint
  */
-router.get('/health', async (req: Request, res: Response) => {
+router.get('/health', async (_req: Request, res: Response) => {
   try {
     const isHealthy = await ClimateAssistantService.healthCheck();
 
@@ -122,7 +128,7 @@ router.get('/health', async (req: Request, res: Response) => {
  * GET /api/climate-assistant/usage
  * Get current daily usage statistics
  */
-router.get('/usage', async (req: Request, res: Response) => {
+router.get('/usage', async (_req: Request, res: Response) => {
   try {
     const stats = await ClimateAssistantService.getUsageStats();
 

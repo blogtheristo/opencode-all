@@ -24,10 +24,10 @@ class TestRenderCompact(unittest.TestCase):
 
         result = render.render_compact(report)
 
-        self.assertIn("test topic", result)
-        self.assertIn("2026-01-01", result)
-        self.assertIn("both", result)
-        self.assertIn("gpt-5.2", result)
+        assert "test topic" in result
+        assert "2026-01-01" in result
+        assert "both" in result
+        assert "gpt-5.2" in result
 
     def test_renders_reddit_items(self):
         report = schema.Report(
@@ -52,9 +52,9 @@ class TestRenderCompact(unittest.TestCase):
 
         result = render.render_compact(report)
 
-        self.assertIn("R1", result)
-        self.assertIn("Test Thread", result)
-        self.assertIn("r/test", result)
+        assert "R1" in result
+        assert "Test Thread" in result
+        assert "r/test" in result
 
     def test_shows_coverage_tip_for_reddit_only(self):
         report = schema.Report(
@@ -67,7 +67,7 @@ class TestRenderCompact(unittest.TestCase):
 
         result = render.render_compact(report)
 
-        self.assertIn("xAI key", result)
+        assert "xAI key" in result
 
 
 class TestRenderContextSnippet(unittest.TestCase):
@@ -82,8 +82,8 @@ class TestRenderContextSnippet(unittest.TestCase):
 
         result = render.render_context_snippet(report)
 
-        self.assertIn("Claude Code Skills", result)
-        self.assertIn("Last 30 Days", result)
+        assert "Claude Code Skills" in result
+        assert "Last 30 Days" in result
 
 
 class TestRenderFullReport(unittest.TestCase):
@@ -100,16 +100,16 @@ class TestRenderFullReport(unittest.TestCase):
 
         result = render.render_full_report(report)
 
-        self.assertIn("# test topic", result)
-        self.assertIn("## Models Used", result)
-        self.assertIn("gpt-5.2", result)
+        assert "# test topic" in result
+        assert "## Models Used" in result
+        assert "gpt-5.2" in result
 
 
 class TestGetContextPath(unittest.TestCase):
     def test_returns_path_string(self):
         result = render.get_context_path()
-        self.assertIsInstance(result, str)
-        self.assertIn("last30days.context.md", result)
+        assert isinstance(result, str)
+        assert "last30days.context.md" in result
 
 
 if __name__ == "__main__":

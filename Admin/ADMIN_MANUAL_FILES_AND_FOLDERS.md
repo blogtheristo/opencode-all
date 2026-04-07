@@ -1,15 +1,16 @@
 # Admin Manual: Files and Folders Structure
 
-***
+---
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
   - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
   - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
   - Version: 1.3 | Tool: Claude Code | Session: bold-herschel | Commit: (pending) | Date: 13.02.2026 | Changes: Added Claude Session Backup System documentation
+  - Version: 1.4 | Tool: Cursor | Session: claude/amazon-ses-google-drive | Commit: (pending) | Date: 13.03.2026 | Changes: Added ClaudeCode root-folder policy and secret triage rules (Admin/Claudecode_Secrets)
 
 Session Links & References:
   - Claude Code (IjtD0): https://github.com/blogtheristo/dws6/commits/claude/site-quality-standards-IjtD0
@@ -24,10 +25,10 @@ Document Status:
 
 ---
 
-**Document Version**: 1.3
-**Last Updated**: February 13, 2026 (Session bold-herschel)
+**Document Version**: 1.4
+**Last Updated**: March 13, 2026 (Session claude/amazon-ses-google-drive)
 **Maintainer**: Risto Anton Päärni (risto@lifetime.fi)
-**Session Update**: Claude Session Backup System
+**Session Update**: ClaudeCode folder policy and secret triage
 
 ---
 
@@ -1417,9 +1418,28 @@ This is a **PRIVATE** repository. Only actual secrets are gitignored:
 | MCP configs | `mcp-hub/`, `mcp-servers/` | Deployment documentation |
 | VS Code config | `.vscode/tasks.json` | Shared sync task definitions |
 
+### ClaudeCode Folder Placement Policy (March 2026)
+
+To keep managed settings visible and avoid over-classifying non-secret files:
+
+- `ClaudeCode/` lives at repository root and is tracked in Git.
+- Only genuinely secret-bearing files belong in `Admin/Claudecode_Secrets/`.
+- Before moving any file out of `ClaudeCode/`, scan contents for key/secret patterns first.
+- If no actual secret value exists, keep the file in `ClaudeCode/`.
+
+**Current rule application:**
+- `ClaudeCode/managed-settings.json.example` remains in root `ClaudeCode/` (template only, no live key material).
+- `Admin/Claudecode_Secrets/` is reserved for files that contain real credentials, tokens, private keys, or equivalent sensitive values.
+
 ---
 
 ## Changelog
+
+### 2026-03-13 - ClaudeCode Root Folder Policy & Secret Triage
+- Added explicit policy: `ClaudeCode/` must live at repo root
+- Added rule: only true secret-bearing files move to `Admin/Claudecode_Secrets/`
+- Added mandatory scan-first process before moving files to secret storage
+- Updated document version to 1.4
 
 ### 2026-02-13 - Claude Session Backup System, PR Workflow & Environment Detection
 - Added Claude Session Backup System section documenting automated daily backups

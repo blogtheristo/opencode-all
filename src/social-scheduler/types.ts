@@ -6,7 +6,7 @@
  */
 
 export type PostStatus = 'draft' | 'pending_approval' | 'approved' | 'scheduled' | 'published' | 'rejected';
-export type PostPlatform = 'linkedin' | 'twitter';
+export type PostPlatform = 'linkedin' | 'twitter' | 'x';
 export type PostCategory = 'thought_leadership' | 'product_update' | 'compliance_news' | 'case_study' | 'webinar_promo' | 'hiring';
 
 export interface SocialPost {

@@ -405,6 +405,59 @@ async function syncUsageToStripe(
 // Webhook Handlers
 // ============================================================================
 
+/**
+ * Verify Stripe webhook signature using HMAC-SHA256.
+ * Implements Stripe's v1 signature scheme without requiring the Stripe SDK.
+ * Compatible with Cloudflare Workers (uses Web Crypto API).
+ */
+async function verifyStripeSignature(
+  payload: string,
+  signatureHeader: string,
+  secret: string,
+): Promise<boolean> {
+  // Parse signature header: t=timestamp,v1=signature
+  const parts = signatureHeader.split(',');
+  const timestamp = parts.find(p => p.startsWith('t='))?.slice(2);
+  const sig = parts.find(p => p.startsWith('v1='))?.slice(3);
+
+  if (!timestamp || !sig) return false;
+
+  // Reject timestamps older than 5 minutes (replay protection)
+  const age = Math.floor(Date.now() / 1000) - parseInt(timestamp, 10);
+  if (isNaN(age) || age > 300) return false;
+
+  // Compute expected signature: HMAC-SHA256(secret, timestamp + '.' + payload)
+  const signedPayload = `${timestamp}.${payload}`;
+  const encoder = new TextEncoder();
+
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+
+  const signatureBytes = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    encoder.encode(signedPayload),
+  );
+
+  // Convert to hex string for comparison
+  const expected = Array.from(new Uint8Array(signatureBytes))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+
+  // Timing-safe comparison
+  if (expected.length !== sig.length) return false;
+  let result = 0;
+  for (let i = 0; i < expected.length; i++) {
+    result |= expected.charCodeAt(i) ^ sig.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 async function handleStripeWebhook(
   request: Request,
   env: Env
@@ -416,17 +469,23 @@ async function handleStripeWebhook(
   
   const body = await request.text();
 
-  // SECURITY FIX: Wrap JSON.parse in try/catch to prevent unsafe deserialization (CWE-502).
-  // Webhook bodies from external sources must never be trusted to be valid JSON.
+  // Verify Stripe webhook signature (HMAC-SHA256)
+  const webhookSecret = env.STRIPE_WEBHOOK_SECRET;
+  if (!webhookSecret) {
+    return new Response('Webhook secret not configured', { status: 500 });
+  }
+
+  const isValid = await verifyStripeSignature(body, signature, webhookSecret);
+  if (!isValid) {
+    return new Response('Invalid signature', { status: 401 });
+  }
+
   let event: { type: string; data: { object: Record<string, unknown> } };
   try {
     event = JSON.parse(body);
   } catch {
     return new Response('Invalid JSON payload', { status: 400 });
   }
-
-  // TODO: Verify webhook signature using Stripe's SDK (stripe.webhooks.constructEvent)
-  // The current approach trusts the parsed body without cryptographic verification.
   
   switch (event.type) {
     case 'customer.subscription.created':

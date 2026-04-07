@@ -10,6 +10,8 @@
     <meta property="og:description" content="Become an Industry Captain — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://dws10.com/captain/">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <style>
         /* ── DWS Brand Standard Dark Theme Tokens ── */
         :root {
@@ -576,22 +578,134 @@
             margin-right: auto;
         }
 
-        .cta-email {
-            display: inline-block;
-            background: white;
-            color: #1d4ed8;
-            padding: 16px 40px;
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all var(--transition-base);
+        /* (cta-email removed — form now uses Tally embed) */
+
+        /* ── Application Form ── */
+        .apply-form-section {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 80px 24px;
         }
 
-        .cta-email:hover {
+        .apply-form {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 40px 36px;
+        }
+
+        .apply-form h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .apply-form .form-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--text-accent);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #475569;
+        }
+
+        .form-group select option {
+            background: #1e293b;
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .apply-form { padding: 28px 20px; }
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+            transition: all var(--transition-base);
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 15px 40px rgba(0, 102, 204, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .form-success h3 {
+            font-size: 1.5rem;
+            color: var(--text-success);
+            margin-bottom: 12px;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         /* Boilerplate */
@@ -635,20 +749,7 @@
 
         .contact-info a:hover { text-decoration: underline; }
 
-        /* Footer */
-        footer {
-            background: var(--bg-nav);
-            color: var(--text-secondary);
-            padding: 32px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-nav);
-        }
-
-        footer a {
-            color: var(--text-accent);
-            text-decoration: none;
-        }
+        /* (footer CSS removed — ironclad-footer.js handles it) */
 
         /* Sovereignty badges */
         .sovereignty-badge {
@@ -711,7 +812,7 @@
 
 <body>
     <!-- Ironclad Nav (DWS Brand Standard) -->
-    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <!-- ── GAMMA HERO ── -->
     <section class="hero-ultra">
@@ -723,7 +824,7 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="badge-dot"></span>
-                    <span>8 Platinum Seats Open — First Tranche</span>
+                    <span>3 Fleet Admiral Seats Open — First Tranche</span>
                 </div>
 
                 <h1 class="hero-title">
@@ -734,17 +835,17 @@
                 <p class="hero-subtitle">
                     Mold your industry on Europe's leading Fit for 55 platform.
                     Own a vertical. Shape the product. Lead the compliance wave
-                    across 16 EU regulated industries.
+                    across 21 EU regulated industries.
                 </p>
 
                 <div class="hero-stats">
                     <div class="stat-card">
-                        <span class="stat-value">8</span>
-                        <span class="stat-label">Platinum Seats Open</span>
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">Fleet Admiral Seats Open</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-value">&euro;50k</span>
-                        <span class="stat-label">SAFE per Seat</span>
+                        <span class="stat-value">&euro;200k</span>
+                        <span class="stat-label">SAFE per Fleet Admiral</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-value">&euro;3.8M</span>
@@ -753,12 +854,12 @@
                 </div>
 
                 <div class="hero-actions">
-                    <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="btn-hero-primary">
-                        <span>Claim Your Seat</span>
+                    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true" class="btn-hero-primary" target="_blank" rel="noopener">
+                        <span>Book a Captain Briefing</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="#seats" class="btn-hero-secondary">
-                        <span>View Open Seats</span>
+                    <a href="/captain/deck/" class="btn-hero-secondary">
+                        <span>View Captain Deck</span>
                     </a>
                 </div>
 
@@ -767,7 +868,7 @@
                     <div class="trust-badges">
                         <span class="trust-item">InvestEU Project</span>
                         <span class="trust-item">EU Data Residency</span>
-                        <span class="trust-item">NVIDIA Inception</span>
+                        <span class="trust-item">NVIDIA Connect ISV Partner</span>
                         <span class="trust-item">GDPR Compliant</span>
                     </div>
                 </div>
@@ -783,14 +884,15 @@
                         <span class="visual-title">Captain Seat Board — First Tranche</span>
                     </div>
                     <div class="visual-content">
-                        <div class="visual-seat"><span class="industry">Power & Heat Generation</span><span class="vs-open">OPEN</span></div>
-                        <div class="visual-seat"><span class="industry">Iron & Steel</span><span class="vs-open">OPEN</span></div>
-                        <div class="visual-seat"><span class="industry">Cement & Lime</span><span class="vs-open">OPEN</span></div>
-                        <div class="visual-seat"><span class="industry">Chemicals & Petrochemicals</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry" style="color: var(--color-gold);">Dual-Use &amp; Defence</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Construction &amp; Buildings</span><span class="vs-filling">FILLING</span></div>
+                        <div class="visual-seat"><span class="industry">Energy</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Iron &amp; Steel</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Cement &amp; Lime</span><span class="vs-open">OPEN</span></div>
+                        <div class="visual-seat"><span class="industry">Chemicals &amp; Petrochemicals</span><span class="vs-open">OPEN</span></div>
                         <div class="visual-seat"><span class="industry">Aviation</span><span class="vs-open">OPEN</span></div>
                         <div class="visual-seat"><span class="industry">Maritime Shipping</span><span class="vs-open">OPEN</span></div>
-                        <div class="visual-seat"><span class="industry">Road Transport & Logistics</span><span class="vs-open">OPEN</span></div>
-                        <div class="visual-seat"><span class="industry">Construction & Buildings</span><span class="vs-filling">FILLING</span></div>
+                        <div class="visual-seat"><span class="industry">Road Transport &amp; Logistics</span><span class="vs-open">OPEN</span></div>
                     </div>
                     <div class="visual-footer">
                         <span><strong>EUR 3.8M cap</strong> &middot; 20% discount &middot; SAFE notes</span>
@@ -818,7 +920,7 @@
                 <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-accent); font-weight: 600; margin-bottom: 8px;">Pillar 1</div>
                 <div style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Proprietary Intelligence</div>
                 <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
-                    15,000+ EU regulatory documents indexed across 16 industries. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph built over seven years. 3-5 years to replicate.
+                    15,000+ EU regulatory documents indexed across 21 industries. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph built over seven years. 3-5 years to replicate.
                 </p>
             </div>
             <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 24px;">
@@ -847,26 +949,23 @@
         </div>
     </section>
 
-    <!-- ── PRESS RELEASE BODY (dark) ── -->
+    <!-- ── THE CAPTAIN MODEL ── -->
     <section class="content-section" style="padding-top: 0;">
-        <div class="section-label">Press Release</div>
-        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 32px;">Helsinki, 15 February 2026</div>
+        <div class="section-label">The Captain Model</div>
 
-        <h2 class="section-title">Lifetime Oy Opens Platinum Industry Captain Seats for Europe's Leading Fit for 55 Platform</h2>
+        <h2 class="section-title">Not a Generic Angel Round. A Seat at the Table.</h2>
 
         <div class="body-text">
             <p>
-                <strong>HELSINKI —</strong>
-                Lifetime Oy today announced the opening of Platinum Industry Captain seats for
-                <strong>DWS IQ 6</strong>, the industrial climate intelligence platform covering
-                ETS, CBAM, CSRD, EPBD, and 12 more EU mandates across 16 regulated industries.
+                <strong>DWS IQ 6</strong> covers ETS, CBAM, CSRD, EPBD, and 12 more EU mandates
+                across 21 regulated industries. We're not looking for passive capital — we're
+                recruiting <strong>founding crew members</strong> who know their vertical inside out.
             </p>
 
             <p>
-                The company is seeking operators who know their vertical inside out — not passive investors,
-                but founding crew members who will shape how the platform serves their industry.
-                Each Platinum Captain owns one of 16 EU industry verticals on the platform,
-                with status, visibility, and direct influence over the product roadmap.
+                Each Fleet Admiral owns one of 21 EU industry verticals on the platform.
+                You get status, visibility, and direct influence over how the product serves
+                your industry. Capital plus domain knowledge — that's the deal.
             </p>
         </div>
 
@@ -881,7 +980,7 @@
         </div>
 
         <div class="benefits-box">
-            <h3>As a Platinum Industry Captain, you:</h3>
+            <h3>As a Fleet Admiral, you:</h3>
             <ul>
                 <li>Own your vertical on the platform — named, acknowledged, permanent</li>
                 <li>Get founding login access to the World Model + Situation Room Reports</li>
@@ -895,19 +994,19 @@
 
         <div class="body-text">
             <p>
-                The first tranche raises <strong>EUR 500,000</strong> through 8 Platinum Industry Captain
-                seats at <strong>EUR 50,000 SAFE</strong> each, with Deputy Captain seats available at
-                EUR 25,000 for rising stars who want to learn the ropes and build toward Platinum.
-                The remaining 8 Platinum seats open in a second tranche at a higher valuation.
+                The first tranche raises <strong>EUR 650,000</strong> through 3 Fleet Admiral
+                seats at <strong>EUR 200,000 SAFE</strong> each, with Captain seats available at
+                EUR 50,000 for operators who want active involvement and a path to Fleet Admiral.
+                Additional Fleet Admiral seats open in a second tranche at a higher valuation.
             </p>
 
             <p>
-                Construction is filling now. Seven more first-tranche verticals are open.
+                Construction is filling now. Fleet Admiral and Captain seats are open across all verticals.
             </p>
         </div>
 
         <div class="seat-grid" id="seats">
-            <h3>Industry Captain Seats — First Tranche (EUR 3.8M cap)</h3>
+            <h3>Industry Seats — First Tranche (EUR 3.8M cap)</h3>
             <table>
                 <thead>
                     <tr>
@@ -917,14 +1016,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1</td><td>Power & Heat Generation</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>2</td><td>Iron & Steel</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>3</td><td>Cement & Lime</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>4</td><td>Chemicals & Petrochemicals</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>5</td><td>Aviation</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>6</td><td>Maritime Shipping</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>7</td><td>Road Transport & Logistics</td><td><span class="badge-open">OPEN</span></td></tr>
-                    <tr><td>8</td><td>Construction & Buildings</td><td><span class="badge-filling">FILLING</span></td></tr>
+                    <tr><td>1</td><td>Dual-Use &amp; Defence</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>2</td><td>Construction &amp; Buildings</td><td><span class="badge-filling">FILLING</span></td></tr>
+                    <tr><td>3</td><td>Energy</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>4</td><td>Iron &amp; Steel</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>5</td><td>Cement &amp; Lime</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>6</td><td>Chemicals &amp; Petrochemicals</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>7</td><td>Aviation</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>8</td><td>Maritime Shipping</td><td><span class="badge-open">OPEN</span></td></tr>
+                    <tr><td>9</td><td>Road Transport &amp; Logistics</td><td><span class="badge-open">OPEN</span></td></tr>
                 </tbody>
             </table>
         </div>
@@ -953,12 +1053,12 @@
         </div>
 
         <div class="deputy-note">
-            <h3>Deputy Captain — EUR 25,000 SAFE</h3>
+            <h3>Captain — EUR 50,000 SAFE</h3>
             <p>
-                Deputy seats are available alongside Platinum for operators who want active involvement
-                at a lower entry point. Deputies attend quarterly briefings, provide one industry introduction
-                per quarter, and hold first right of refusal to upgrade to Platinum if a seat opens.
-                Not a discount seat — an apprentice captain with real responsibilities.
+                Captain seats are available alongside Fleet Admiral for operators who want active involvement
+                and a path to Fleet Admiral. Captains attend quarterly briefings, provide one industry introduction
+                per quarter, and hold first right of refusal to upgrade to Fleet Admiral if a seat opens.
+                Not a discount seat — an operator with real responsibilities.
             </p>
         </div>
 
@@ -966,7 +1066,7 @@
             <p>
                 DWS IQ 6 already generates EUR 7-14k MRR with EUR 59,900 in signed pilots.
                 The platform runs on EUR 15-50/month infrastructure with strategic technology
-                partners including Google, AWS, Groq, and NVIDIA. The regulatory
+                partners including Google, AWS, IBM, NVIDIA, and Groq. The regulatory
                 wave — CBAM, CSRD, ETS2, EPBD — guarantees demand through 2030 and beyond.
             </p>
 
@@ -982,14 +1082,266 @@
         </div>
     </section>
 
-    <!-- ── CTA ── -->
-    <section class="cta-section">
-        <h3>Claim Your Industry</h3>
-        <p>8 Platinum Captain seats. EUR 50,000 SAFE. EUR 3.8M cap. Best terms before the second tranche.</p>
-        <a href="mailto:risto@lifetime.fi?subject=Industry%20Captain%20—%20Platinum%20Seat%20Inquiry" class="cta-email">
-            Contact risto@lifetime.fi
-        </a>
+    <!-- ── WHAT YOU'RE ORCHESTRATING (Architecture) ── -->
+    <section style="background: rgba(15, 23, 42, 0.5); padding: 80px 0;">
+        <div style="max-width: 1100px; margin: 0 auto; padding: 0 24px;">
+            <div class="section-label" style="text-align: center;">What You're Orchestrating</div>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 16px;">Brain &middot; Memory &middot; Body &middot; Hands</h2>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 1.05rem; max-width: 700px; margin: 0 auto 48px;">
+                As Captain you don't just invest — you direct an ecosystem. Here is the architecture under your command.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+                <!-- Brain -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-top: 4px solid #60a5fa; border-radius: var(--radius-lg); padding: 28px;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">&#129504;</div>
+                    <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 8px;">Brain</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-accent); font-weight: 600; margin-bottom: 12px;">DWS IQ 6 Platform</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">
+                        18 specialized AI agents orchestrated via MCP. Compliance, emissions, safety, SEO, logistics — all running concurrently.
+                    </p>
+                    <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">Multi-agent orchestration</li>
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">CLI + JSON pipeline access</li>
+                        <li style="padding: 4px 0;">Model-agnostic (Claude, Gemini, Groq)</li>
+                    </ul>
+                </div>
+
+                <!-- Memory -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-top: 4px solid #a78bfa; border-radius: var(--radius-lg); padding: 28px;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">&#128218;</div>
+                    <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 8px;">Memory</h3>
+                    <p style="font-size: 0.85rem; color: #a78bfa; font-weight: 600; margin-bottom: 12px;">Lifetime World Model</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">
+                        Proprietary climate intelligence layer. 15,000+ EU regulatory documents indexed. 7 years of domain knowledge encoded.
+                    </p>
+                    <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">21 industry vertical knowledge</li>
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">ETS, CBAM, CSRD, EPBD coverage</li>
+                        <li style="padding: 4px 0;">3-5 years to replicate</li>
+                    </ul>
+                </div>
+
+                <!-- Body -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-top: 4px solid #10b981; border-radius: var(--radius-lg); padding: 28px;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">&#9881;&#65039;</div>
+                    <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 8px;">Body</h3>
+                    <p style="font-size: 0.85rem; color: #10b981; font-weight: 600; margin-bottom: 12px;">Firehorse Suite</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">
+                        Automation, reports, content management, omnichannel. The operational layer that turns intelligence into action.
+                    </p>
+                    <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">Automated compliance reports</li>
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">Event-driven workflows</li>
+                        <li style="padding: 4px 0;">Zero-touch audit trails</li>
+                    </ul>
+                </div>
+
+                <!-- Hands -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-top: 4px solid #f59e0b; border-radius: var(--radius-lg); padding: 28px;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">&#129302;</div>
+                    <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 8px;">Hands</h3>
+                    <p style="font-size: 0.85rem; color: #f59e0b; font-weight: 600; margin-bottom: 12px;">Lifetime Fleet</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">
+                        Edge AI on NVIDIA Jetson. IoT sensors. Drones. Physical execution at construction sites, factories, vessels — where cloud can't reach.
+                    </p>
+                    <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">&lt;100ms edge inference</li>
+                        <li style="padding: 4px 0; border-bottom: 1px solid var(--border-subtle);">Offline-capable (solar-ready)</li>
+                        <li style="padding: 4px 0;">&euro;333k/year cloud cost savings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 24px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg);">
+                <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; max-width: 700px; margin: 0 auto;">
+                    <strong style="color: var(--text-primary);">As Captain, you see all four layers.</strong>
+                    Your industry dashboard shows the Brain's agent decisions, the Memory's regulatory intelligence,
+                    the Body's automation status, and the Hands' edge device telemetry — all in one Situation Room.
+                </p>
+            </div>
+        </div>
     </section>
+
+    <!-- ── CTA: Three paths to engage ── -->
+    <section class="cta-section" style="padding: 80px 24px;">
+        <h3 style="margin-bottom: 8px;">Next Steps</h3>
+        <p style="margin-bottom: 40px;">Three ways to move forward — pick the one that fits where you are.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 0 auto 48px;">
+            <!-- 1. Book a briefing -->
+            <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1DyUgoT9843UcDY-1WszAtYf5u3u59q_yQ7XrCyLsf6VoayAlAUsJxjgRnsweT0eia3ZANXXey?gv=true"
+               target="_blank" rel="noopener"
+               style="background: white; color: #1d4ed8; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128197;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Book a Captain Briefing</div>
+                <div style="font-size: 0.9rem; color: #64748b; font-weight: 400;">30-min call with the CEO. Learn the seat structure, ask questions, see the Situation Room.</div>
+            </a>
+            <!-- 2. View the deck -->
+            <a href="/captain/deck/"
+               style="background: rgba(255,255,255,0.1); color: white; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128196;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Captain Deck &amp; Term Sheet</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">SAFE terms, seat benefits, financial projections, and the full term sheet — ready to review or forward.</div>
+            </a>
+            <!-- 3. Send inquiry -->
+            <a href="#captain-inquiry"
+               style="background: rgba(255,255,255,0.1); color: white; padding: 28px 24px; border-radius: 12px; text-decoration: none; text-align: center; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#9993;&#65039;</div>
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Send a Seat Inquiry</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); font-weight: 400;">Quick form — pick your industry, tell us about yourself, and we'll send the relevant brief within 24 hours.</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ── INQUIRY FORM (Supabase Direct Insert) ── -->
+    <section id="captain-inquiry" style="background: var(--bg-primary); padding: 80px 0;">
+        <div style="max-width: 640px; margin: 0 auto; padding: 0 24px;">
+            <div class="section-label" style="text-align: center;">Seat Inquiry</div>
+            <h2 class="section-title" style="text-align: center;">Which Industry Is Yours?</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; font-size: 1rem;">
+                We'll respond within 24 hours with the relevant industry brief, SAFE term sheet, and a calendar link.
+            </p>
+
+            <form id="captainForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label for="ci-name" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Full Name</label>
+                    <input id="ci-name" type="text" name="name" required autocomplete="name" placeholder="e.g. Anna Virtanen"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label for="ci-email" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Email</label>
+                    <input id="ci-email" type="email" name="email" required autocomplete="email" placeholder="anna@company.com"
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+                <div>
+                    <label for="ci-industry" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Industry of Interest</label>
+                    <select id="ci-industry" name="industry" required
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; cursor: pointer;">
+                        <option value="" disabled selected>Select your industry</option>
+                        <optgroup label="First Tranche (Open Now)">
+                            <option value="Power &amp; Heat Generation">Power &amp; Heat Generation</option>
+                            <option value="Iron &amp; Steel">Iron &amp; Steel</option>
+                            <option value="Cement &amp; Lime">Cement &amp; Lime</option>
+                            <option value="Chemicals &amp; Petrochemicals">Chemicals &amp; Petrochemicals</option>
+                            <option value="Aviation">Aviation</option>
+                            <option value="Maritime Shipping">Maritime Shipping</option>
+                            <option value="Road Transport &amp; Logistics">Road Transport &amp; Logistics</option>
+                            <option value="Construction &amp; Buildings">Construction &amp; Buildings</option>
+                        </optgroup>
+                        <optgroup label="Second Tranche (Coming)">
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Waste Management">Waste Management</option>
+                            <option value="Aluminium">Aluminium</option>
+                            <option value="Pulp &amp; Paper">Pulp &amp; Paper</option>
+                            <option value="Petroleum Refining">Petroleum Refining</option>
+                            <option value="Food &amp; Beverage">Food &amp; Beverage</option>
+                            <option value="Glass &amp; Ceramics">Glass &amp; Ceramics</option>
+                            <option value="Mining">Mining</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Seat Level</label>
+                    <div style="display: flex; gap: 12px;" id="ci-seat-group">
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid #d4a843; border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat_level" value="fleet_admiral" checked style="display: none;">
+                            <span style="font-weight: 600; color: #d4a843;">Fleet Admiral &euro;200k</span>
+                        </label>
+                        <label style="flex: 1; padding: 14px 16px; background: var(--bg-surface); border: 2px solid var(--border-subtle); border-radius: var(--radius-md); cursor: pointer; text-align: center; transition: all 0.2s;">
+                            <input type="radio" name="seat_level" value="captain" style="display: none;">
+                            <span style="font-weight: 600; color: var(--text-accent);">Captain &euro;50k</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <label for="ci-message" style="display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500;">Anything you'd like us to know? (optional)</label>
+                    <textarea id="ci-message" name="message" rows="3" placeholder="Your background, specific questions, or timeline..."
+                        style="width: 100%; padding: 14px 16px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-primary); font-size: 1rem; outline: none; resize: vertical; font-family: inherit; transition: border 0.2s;"
+                        onfocus="this.style.borderColor='#60a5fa'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+                </div>
+                <button type="submit" id="captainSubmitBtn"
+                    style="padding: 16px 32px; background: linear-gradient(135deg, #b8860b 0%, #d4a843 100%); color: #0f172a; font-size: 1.1rem; font-weight: 700; border: none; border-radius: var(--radius-full); cursor: pointer; box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3); transition: all 0.25s;">
+                    Submit Seat Inquiry
+                </button>
+                <p id="captainFormError" style="display: none; text-align: center; font-size: 0.9rem; color: #f87171; margin-top: -8px;"></p>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-secondary); margin-top: -8px;">
+                    We'll respond within 24 hours. No spam, no mailing list.
+                </p>
+            </form>
+
+            <!-- Success state -->
+            <div id="captainFormSuccess" style="display: none; text-align: center; padding: 48px 24px;">
+                <div style="font-size: 3rem; margin-bottom: 16px;">&#9989;</div>
+                <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px;">Inquiry Received</h3>
+                <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.7;">
+                    We'll send you the industry brief, SAFE term sheet, and a calendar link within 24 hours.<br>
+                    In the meantime, you can <a href="/captain/deck/" style="color: var(--text-accent); text-decoration: underline;">view the Captain Deck</a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    (function() {
+        var SUPABASE_URL = 'https://kpucuwwfhuwurdxyjjtz.supabase.co';
+        var SUPABASE_ANON_KEY = 'sb_publishable_mZtEHU2k4WolHxePGF6g3w_tdkMCWRh';
+
+        var form = document.getElementById('captainForm');
+        var btn = document.getElementById('captainSubmitBtn');
+        var errEl = document.getElementById('captainFormError');
+
+        // Radio button visual toggle
+        document.querySelectorAll('input[name="seat_level"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('input[name="seat_level"]').forEach(function(r) {
+                    r.closest('label').style.borderColor = 'rgba(255,255,255,0.1)';
+                });
+                this.closest('label').style.borderColor = this.value === 'platinum' ? '#d4a843' : '#60a5fa';
+            });
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errEl.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            var data = new FormData(form);
+            var payload = {
+                name: data.get('name'),
+                email: data.get('email'),
+                industry: data.get('industry'),
+                seat_level: data.get('seat_level'),
+                message: data.get('message') || null
+            };
+
+            fetch(SUPABASE_URL + '/rest/v1/captain_inquiries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function(res) {
+                if (!res.ok) throw new Error('Submission failed (' + res.status + ')');
+                form.style.display = 'none';
+                document.getElementById('captainFormSuccess').style.display = 'block';
+            })
+            .catch(function(err) {
+                errEl.textContent = 'Something went wrong. Please try again or email risto@lifetime.fi directly.';
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Submit Seat Inquiry';
+            });
+        });
+    })();
+    </script>
 
     <!-- ── Boilerplate ── -->
     <div class="boilerplate">
@@ -1000,13 +1352,13 @@
                 Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach.
                 Edge AI deployment saves customers <strong style="color: var(--text-primary);">&euro;333,000 per year</strong>
                 versus cloud-only competitors. EU-sovereign infrastructure. 100% EU data residency.
-                Three InvestEU Portal listings (INPO-20254383). Backed by NVIDIA, Google, AWS, and Groq.
+                Three InvestEU Portal listings (INPO-20254383). Backed by NVIDIA (Groq), Google, AWS, and IBM.
             </p>
 
             <div class="contact-info">
                 <strong>Media & Investor Contact:</strong><br>
                 Risto Paarni, Founder & CEO<br>
-                <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a><br>
+                <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a><br>
                 Lifetime Oy — Helsinki, Finland<br>
                 <a href="https://dws10.com">dws10.com</a>
             </div>

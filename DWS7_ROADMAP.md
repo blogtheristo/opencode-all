@@ -1,10 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.1.0
+> **Version:** 1.4.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-03-09 — Added CLI Evolution section (50 PRs across 6 phases), Tangled research reference (Claude Code, claude/research-cli-ai-agents-9m5Vh)
+> **Updated:** 2026-03-30 — Added Aegis K8s AI Inference roadmap items (Phase 3.6, PRs 137A–137D) from KubeCon EU 2026 research; inference autoscaling, MIG GPU sharing, model versioning CRDs, edge-cloud inference split; CLI Evolution section (50 PRs across 6 phases) and Tangled research reference (Claude Code, claude/research-cli-ai-agents-9m5Vh)
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -12,9 +12,11 @@
 
 ## Executive Summary
 
-DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, 6 AI agents, MCP orchestration, ERP connectors, 60+ landing pages, and 15 CI/CD workflows. But the gap between "pilot with €7k MRR" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **247 pull requests** organized in 6 phases.
+DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **261 planned pull requests** organized in 6 phases.
 
-**Why 247, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 247 PRs over 22 months = ~11 PRs/week — ambitious but achievable with AI-assisted development.
+**Actual velocity (audited 2026-03-15):** 342 PRs already merged (#132→#829), 1,846 total commits. March 2026 pace: 10 PRs/day, 43 commits/day. The 247-PR roadmap plan has been exceeded in raw PR count, but many PRs are feature additions, fixes, and infrastructure — the roadmap PRs represent specific product milestones that are tracked below.
+
+**Why 261, not 500:** Every PR here represents real, necessary work. Inflating to 500 would require splitting atomic changes or inventing unnecessary features. 261 PRs over 22 months = ~12 PRs/week — ambitious but achievable with AI-assisted development. Current velocity (10 PRs/day) exceeds this target.
 
 ---
 
@@ -67,19 +69,32 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | Phase | Period | Theme | PRs | Milestone |
 |-------|--------|-------|-----|-----------|
 | **1** | Feb–Apr 2026 | **Launch & Stabilize** | 45 | V1.0 production launch, first 3 paying customers |
-| **2** | May–Jul 2026 | **Compliance Engine** | 48 | Full Fit-for-55 coverage, EU AI Act compliance |
-| **3** | Aug–Oct 2026 | **Scale & Harden** | 44 | 8 customers, ISO 27001 initiated, SOC 2 prep |
+| **2** | May–Jul 2026 | **Compliance Engine + Carbon Balance Sheet** | 56 | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger |
+| **3** | Aug–Oct 2026 | **Scale & Harden** | 48 | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra |
 | **4** | Nov 2026–Jan 2027 | **Intelligence Layer** | 40 | Agentic AI workflows, IoT pipeline live |
-| **5** | Feb–May 2027 | **Market Expansion** | 38 | 16 customers, supplier portal, partner ecosystem |
+| **5** | Feb–May 2027 | **Market Expansion** | 44 | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
 | **6** | Jun–Dec 2027 | **DWS7 Release** | 32 | V7.0 GA, investor metrics dashboard, profitability |
 
 ---
 
 ## Phase 1: Launch & Stabilize (Feb–Apr 2026) — 45 PRs
 
+### Phase 1 Progress (Audited 2026-03-15)
+
+| Area | Planned | Actual Status | Readiness |
+|------|---------|---------------|-----------|
+| Testing Foundation (PRs 001–012) | 12 PRs | 17 test files exist, no coverage gate yet | 55% |
+| Backend Hardening (PRs 013–022) | 10 PRs | Express running, JWT+Helmet, email dual-transport | 75% |
+| Dashboard Production (PRs 023–033) | 11 PRs | v9-react working, missing error boundaries/loading | 60% |
+| Deployment & DevOps (PRs 034–040) | 7 PRs | 38 CI/CD workflows, no staging env | 85% |
+| Customer Onboarding (PRs 041–045) | 5 PRs | Auth exists, no wizard or welcome flow | 40% |
+| **Phase 1 Total** | **45 PRs** | **Mixed — infra ahead, onboarding behind** | **65%** |
+
+**Key finding:** Infrastructure (CI/CD, email, agents, MCP) is ahead of schedule. Customer-facing features (onboarding, dashboard resilience, compliance engine) are behind. The platform is strong but the product experience is incomplete.
+
 ### 1.1 Testing Foundation (PRs 001–012)
 
-The codebase has 3 test files (390 lines). This is the #1 risk for production.
+The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remains a top risk.
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
@@ -151,7 +166,7 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 
 ---
 
-## Phase 2: Compliance Engine (May–Jul 2026) — 48 PRs
+## Phase 2: Compliance Engine (May–Jul 2026) — 56 PRs
 
 ### 2.1 EU ETS Module (PRs 046–057)
 
@@ -226,9 +241,38 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 | 092 | Industry-specific compliance templates (batch 2: aluminum, fertilizers, hydrogen) | P1 | Next 3 CBAM-covered industries |
 | 093 | Regulatory readiness score per customer | P1 | Weighted score across all applicable regulations |
 
+### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093H)
+
+**Why now (not DWS 8):** The debit-credit ledger is the Series A story. Investors fund infrastructure, not features. A persistent carbon balance sheet that unifies ETS + CBAM + CSRD into one auditable ledger is the moat — and it must be demonstrable before fundraising.
+
+**Foundation:** The in-memory `costBreakdownToLedger()` transform already ships in DWS 6 (`src/compliance/debit-credit-ledger.ts`). Phase 2.6 persists it, adds dual-unit accounting, and connects it to the compliance modules above.
+
+**The pitch:** *"From 'How do we guess our footprint?' to 'How do we reconcile our carbon balance sheet?'"*
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 093A | Persistent carbon ledger table | P0 | Immutable append-only ledger in Supabase. Schema: `(id, org_id, entry_type, category, amount_eur, amount_tco2e, regulation, source_id, verified, description, created_at)`. RLS enforced. No UPDATE/DELETE — corrections are reverse entries. Builds on PR 075 (audit trail) and PR 097 (mutation logging) |
+| 093B | Dual-unit entries (EUR + tCO2e) | P0 | Every compliance entry carries both financial (EUR) and physical (tCO2e) amounts. Carbon price at time of entry preserved for audit trail. ETS surrender = debit (EUR + tCO2e). Free allocation = credit. CBAM certificate = debit. Links PR 050 (ETS financial exposure) to PR 062 (CBAM certificate cost) through the same ledger |
+| 093C | Chart of carbon accounts | P1 | Standardized account structure mapping to ESRS E1: Scope 1 Direct (ETS), Scope 2 Indirect (grid), Scope 3 Upstream (CBAM imports), Scope 3 Downstream, Offsets/Credits, Free Allocation. Every entry in PRs 046–093 maps to one account. CFO sees a balance sheet, not a spreadsheet |
+| 093D | ETS ↔ CBAM ↔ CSRD cross-regulation reconciliation | P0 | The same tonne of CO2e that appears as an ETS surrender debit for a steel mill becomes a CBAM embedded emission for the importer, becomes a CSRD Scope 3 upstream disclosure for the buyer. One ledger entry, three regulatory views. Transforms PR 085 (cross-regulation data sharing) from data copying to ledger reconciliation |
+| 093E | Ledger-native compliance scoring | P0 | Refactor scoring engine to read from ledger entries instead of computing from scratch. Score = f(ledger balance). Deterministic, auditable, reproducible. Every score traces back to specific debit/credit entries with source citations |
+| 093F | Carbon balance dashboard (CFO view) | P1 | Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen |
+| 093G | ERP GL sync (carbon → financial ledger) | P1 | Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors) |
+| 093H | XBRL/iXBRL export from ledger | P1 | Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts |
+
+**What this enables for fundraising:**
+
+| Investor Question | Answer with Carbon Balance Sheet |
+|-------------------|----------------------------------|
+| "What's your moat?" | Double-entry carbon bookkeeping across ETS + CBAM + CSRD. No competitor has this. |
+| "How sticky is this?" | Carbon ledger is the system of record. Same switching cost as changing your ERP. |
+| "What's the TAM?" | Every EU company filing CSRD needs a carbon balance sheet. 50,000+ companies by 2028. |
+| "How do you expand?" | More industries on the ledger = cross-vertical intelligence. Network effect. |
+| "Show me the product." | CFO dashboard: carbon liabilities, assets, net position, regulatory drill-down (PR 093F). |
+
 ---
 
-## Phase 3: Scale & Harden (Aug–Oct 2026) — 44 PRs
+## Phase 3: Scale & Harden (Aug–Oct 2026) — 48 PRs
 
 ### 3.1 Security Certifications (PRs 094–103)
 
@@ -299,6 +343,18 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 | 136 | ERP integration test suite | P0 | Mock-based tests for all 6 ERP connectors |
 | 137 | ERP connector SDK documentation | P2 | Guide for partners to build custom connectors |
 
+### 3.6 Aegis K8s AI Inference Infrastructure (PRs 137A–137D)
+
+> **Source:** KubeCon + CloudNativeCon Europe 2026 research (field note: `2026-03-30-kubecon-eu-2026-k8s-ai-inference.md`)
+> **Context:** 82% K8s AI adoption vs 7% daily production use. $255B inference market by 2030. 67% of AI compute is inference. These PRs close the adoption-production gap for Aegis defence/sovereign customers.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 137A | Aegis inference autoscaling (HPA + KEDA) | P0 | K8s Horizontal Pod Autoscaler policies for Aegis agents based on inference queue depth. KEDA scalers for GPU workload metrics. Ensures elastic scaling under variable inference load — defence customers have bursty workloads (crisis response, satellite pass windows). Target: scale 0→N agents in <30s. |
+| 137B | Multi-model GPU sharing via MIG | P1 | NVIDIA Multi-Instance GPU (MIG) configuration for L40S nodes on UpCloud UKS. Run multiple Aegis agents (ComplianceAgent, SovereigntyMonitor, ArgusAgent) on a single GPU with isolated VRAM partitions. Target: reduce per-customer GPU cost from €376/mo to <€200/mo. |
+| 137C | K8s-native model versioning CRDs | P1 | Custom Resource Definitions for model deployments on Aegis K8s clusters. Blue/green model updates for compliance agents without downtime. Model rollback in <60s. Critical for Article 12 audit continuity — every model version change must be logged with reasoning lineage. |
+| 137D | Edge-cloud inference split (Jetson + K8s) | P2 | Hybrid inference architecture combining Jetson Orin Nano edge inference with UpCloud K8s cloud inference. Model routing based on classification level, latency requirements, and data sovereignty constraints. Defence field operations need local inference for classified workloads + cloud inference for cross-vertical intelligence. |
+
 ---
 
 ## Phase 4: Intelligence Layer (Nov 2026–Jan 2027) — 40 PRs
@@ -365,7 +421,7 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 
 ---
 
-## Phase 5: Market Expansion (Feb–May 2027) — 38 PRs
+## Phase 5: Market Expansion (Feb–May 2027) — 44 PRs
 
 ### 5.1 Supplier CBAM Portal (PRs 178–186)
 
@@ -411,7 +467,34 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 | 205 | Partner referral tracking | P2 | Attribution for partner-sourced customers |
 | 206 | Integration with One Click LCA (bidirectional) | P1 | Import LCA data, export compliance status |
 
-### 5.4 Mobile & Accessibility (PRs 207–215)
+### 5.4 Open-Source Agent Framework (PRs 207A–207F)
+
+**Strategic context:** Research analysis in `docs/OPEN_DATA_SOURCES.md` §10 recommends open-sourcing the agent framework under Apache 2.0 while keeping compliance knowledge proprietary. Modeled after deepset/Haystack (EU-based, Apache 2.0, Airbus/LEGO/European Commission customers).
+
+**Core insight:** The compliance knowledge is the moat, not the framework. Nobody forks your emission factors.
+
+| PR | Title | Priority | Description |
+|----|-------|----------|-------------|
+| 207A | Extract `@dws/agent-core` package (BaseAgent, types, event bus) | P1 | Separate agent primitives into publishable npm package under Apache 2.0 |
+| 207B | Open-source ERP connectors (SAP, IFS, Dynamics adapters) | P1 | Network effect — every contributed connector improves the platform |
+| 207C | Open-source MCP server implementations | P1 | Aligns with AAIF (Linux Foundation), ecosystem interop with Claude/Anthropic |
+| 207D | Open-source CLI tooling (`dws` command) | P2 | Developer experience, bottom-up adoption, "try before you buy" |
+| 207E | Publish basic compliance rule parser (regulation → checklist) | P2 | Demonstrates capability without exposing scoring engine |
+| 207F | Community setup: CONTRIBUTING.md, issue templates, CI for open repo | P1 | Clear open/proprietary boundaries from day one |
+
+**What stays proprietary (never open-source):**
+- Multi-agent orchestration with compliance scoring (core IP)
+- Validated regulatory knowledge bases (emission factors, ESRS registry, CBAM models)
+- Lifetime World Model (EU Regulations + Industry Models)
+- Enterprise governance (RBAC, audit trails, Article 12 logging)
+- Report engine with signed reports
+- Pre-built industrial sector workflows
+
+**Licensing:** Apache 2.0 (not BSL). Maximizes EU public procurement compatibility, avoids fork risk (Redis→Valkey, HashiCorp→OpenTofu cautionary tales).
+
+**Year 1 targets:** 5,000+ GitHub stars | 10,000+ npm weekly downloads | 50+ community contributors
+
+### 5.5 Mobile & Accessibility (PRs 207–215)
 
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
@@ -581,10 +664,12 @@ dws status | jq .agents                 # Pipe JSON out
 | Supplier Portal | 9 | 5 |
 | Industry Verticals | 12 | 5 |
 | Partner Ecosystem | 8 | 5 |
+| Open-Source Agent Framework | 6 | 5 |
 | Mobile & i18n | 9 | 5 |
 | Investor & Financial | 9 | 6 |
+| Carbon Balance Sheet | 8 | 2 |
 | Advanced Features | 13 | 6 |
-| **Total** | **247** | |
+| **Total** | **261** | |
 
 ---
 
@@ -685,7 +770,7 @@ This roadmap is tracked by the `roadmap-weekly-tracker.yml` GitHub Actions workf
 | Security breach before ISO 27001 | Critical | Daily security scans (existing), pentest (PR 099) |
 | Groq API pricing increase | Medium | Multi-LLM fallback, self-hosted option (PR 161). Acer Veriton GN100 (NVIDIA Blackwell, in-house) provides immediate fallback inference for Llama 3.3 70B and Mistral Large without cloud dependency |
 | Edge AI hardware supply issues | Medium | Cloud-only fallback mode for IoT pipeline |
-| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform |
+| Competitor acquires market share | Medium | Speed to market on unified Fit-for-55 platform; open-source framework (Phase 5.4) creates ecosystem gravity |
 | Team scaling challenges | Medium | AI-assisted development (Claude Code), modular architecture |
 
 ---
@@ -1109,6 +1194,48 @@ Record every weekly correction here to maintain reasoning lineage.
 |------|------|------------|--------|--------|
 | W07 | 2026-02-12 | Initial roadmap created | Baseline: 247 PRs across 6 phases | Codebase analysis + competitive research |
 | W09 | 2026-02-24 | **DWS7 Agent Modernization — 6 critical fixes implemented in DWS6** | Ship now for DWS6 customers, not wait for DWS7 Phase 4. Accelerates PRs 078, 079, 138–150 | Session: claude/modernize-dws7-77v2B |
+| W12 | 2026-03-16 | **NVIDIA GTC 2026 — 6 roadmap additions** | NemoClaw/OpenClaw (Phase 2), Groq 3 LPU (Phase 3), cuDF structured data (Phase 3), Vera Rubin infra (Phase 4), DRIVE Hyperion fleet (Phase 5), DWS 8 roadmap created (Feynman 2028) | Field note: 2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md |
+
+---
+
+## NVIDIA GTC 2026 — Technology Integration Plan
+
+*Added: 2026-03-16 | Session: claude/nvidia-gtc-2026-notes-cYO48*
+*Source: Jensen Huang GTC 2026 Keynote (March 16, 2026, SAP Center, San Jose)*
+
+GTC 2026 announced 7 platform shifts. 5 directly impact DWS architecture. Items are mapped to existing phases — no new phases required.
+
+### GTC 2026 → DWS 7 Mapping
+
+| Phase | New PR | Title | Priority | Source Technology | Description |
+|-------|--------|-------|----------|-------------------|-------------|
+| 2 | 248 | NemoClaw/OpenClaw agent sandbox evaluation | P1 | NemoClaw stack | Evaluate OpenShell Runtime as KYA-compatible agent sandbox. Map to existing BaseAgent framework. Test Nemotron open-source models as Climate LLM candidates vs Llama 3.3 70B |
+| 2 | 249 | NVIDIA Agent Toolkit as MCP tool provider | P2 | NemoClaw stack | Integrate NVIDIA Agent Toolkit tools into DWS MCP server. Expands agent capabilities via NVIDIA-backed tooling |
+| 3 | 250 | Groq 3 LPU inference benchmarking | P1 | Groq acquisition ($20B, full asset purchase) | Benchmark DWS agent latency on Groq 3 LPU vs GPU inference. Disaggregated inference: GPU for context, LPU for reasoning. NVIDIA now owns training AND inference silicon. Ships Q3 2026 |
+| 4 | 251 | Vera Rubin infrastructure planning | P2 | Vera Rubin platform | Plan next-gen sovereign on-premise hardware. 10x perf/watt vs Blackwell. Monitor EU cloud availability (AWS/Azure/GCP). Shipping H2 2026 |
+| 5 | 252 | DRIVE Hyperion fleet evaluation | P3 | Autonomous driving | Evaluate NVIDIA DRIVE Hyperion for Lifetime Fleet autonomous logistics on industrial sites. SiteSense agent monitoring for autonomous vehicles |
+| 3 | 253 | cuDF pilot for compliance bulk assessment | P2 | cuDF ($120B structured data) | GPU-accelerated DataFrame processing on GN100 for bulk ETS/CBAM calculations (10,000+ records). Replace Pandas with cuDF in workflow/ and Firehorse/ Python pipelines. Complement pg_duckdb database-level acceleration |
+
+**Updated totals:** 261 PRs (was 253) across 6 phases.
+
+### Strategic Context
+
+- **NVIDIA ISV Partnership:** Lifetime Oy is approved NVIDIA Connect ISV Partner (2026-03-08). GTC announcements unlock: NemoClaw early access, Vera Rubin allocation via partner channel, Groq 3 beta testing, "Built on NVIDIA" co-marketing.
+- **Groq dependency strengthened:** DWS already uses Groq as provider in `src/agents/llm-client.ts`. NVIDIA's $20B Groq acquisition aligns DWS inference stack with NVIDIA ecosystem. GN100 (Blackwell) provides independent fallback.
+- **$1T order book:** Combined Blackwell + Vera Rubin orders through 2027 signal sustained NVIDIA infrastructure investment — safe to build on.
+
+### DWS 8 Horizon Items (Not DWS 7)
+
+These technologies are tracked for DWS 8 (2028+), not DWS 7:
+
+| Technology | Why DWS 8 | Timeline |
+|-----------|-----------|----------|
+| Feynman architecture (Rosa CPU, LP40, BlueField-5) | Purpose-built agentic CPU not available until 2028 | 2028 |
+| Silicon photonics | Optical interconnects for sovereign on-premise — lower power, higher density | 2028 |
+| Space-1 orbital data centers | Validates edge paradigm but no commercial application yet | 2029+ |
+| DLSS 5 neural rendering | Gaming tech — only relevant if DWS builds Omniverse digital twin visualization | N/A |
+
+See `DWS8_ROADMAP.md` for full DWS 8 planning.
 
 ---
 
@@ -1203,5 +1330,79 @@ These endpoints are **live** after the modernization and ready for customer-faci
 
 ---
 
+## DWS 7 MVP V1 Feature List (Audited 2026-03-15)
+
+Complete feature inventory for DWS 7 MVP V1, based on codebase audit of 1,846 commits and 342 merged PRs.
+
+### Shipped Features (Working)
+
+| # | Feature | Components | Readiness |
+|---|---------|------------|-----------|
+| 1 | **Agent Swarm Platform** | 15 AI agents (8 platform + 7 specialized), BaseAgent framework, Llama 3.3 70B | 85% |
+| 2 | **MCP Orchestration** | 6 MCP servers, JSON-RPC 2.0, `/mcp` endpoint, SSE events, workflows | 80% |
+| 3 | **CLI Interface** | `dws agents`, `dws run`, `dws workflow`, structured JSON output | 75% |
+| 4 | **17 Claude Code Skills** | /compliance-check, /agent-run, /workflow, /discover-agents, /site-safety, /carbon-analysis, /remote-control, /sovereignty-assess, /flow-status, /email, /plan-ceo-review, /plan-eng-review, /review, /ship, /browse, /retro, /simplify | 90% |
+| 5 | **Backend API** | Express/TS, JWT auth, Helmet, CORS, versioned routes | 75% |
+| 6 | **Database** | Supabase PostgreSQL, 52 migrations, pgvector, RLS, EU data residency (europe-north1) | 80% |
+| 7 | **Email System** | SES SMTP primary + Resend fallback, templates, batch, webhook processing | 90% |
+| 8 | **CI/CD Pipeline** | 38 GitHub workflows, branch validation, security checks, auto-deploy | 85% |
+| 9 | **Landing Pages** | 3 sites on Cloudflare Pages (dws10.com, dws6.com, onelifetime.world) | 85% |
+| 10 | **DWS Store** | 4 products, YAML frontmatter, Google Merchant feed, ironclad-nav | 85% |
+| 11 | **Security Framework** | KYA governance standard, EU AI Act Article 12, GDPR, SRI hashes, schema drift checks | 80% |
+| 12 | **Docker Infrastructure** | hybrid compose, Lightpanda browser, Jitsi video, Cloud Run deployment | 70% |
+| 13 | **Agent Browser** | Lightpanda headless (Rust CDP), `/browse` skill for QA automation | 75% |
+| 14 | **Firehorse Report** | Report engine (Python), European templates, PDF generation | 70% |
+| 15 | **Firehorse Omnichannel** | Multi-channel communication, email sequences | 65% |
+
+### Partial Features (In Progress)
+
+| # | Feature | What Exists | What's Missing | Readiness |
+|---|---------|-------------|----------------|-----------|
+| 16 | **React Dashboard** | v9-react, Vite 7, React 19, TailwindCSS, auth hook, pages | Error boundaries, loading states, responsive layout | 60% |
+| 17 | **Compliance Engine** | Compliance agent, CSRD/ETS/CBAM agents exist | Real scoring engine, data models, calculators (stub data) | 45% |
+| 18 | **ERP Integrations** | Connector scaffolding for SAP, IFS, Dynamics, Monitor, Visma, Jeeves | Production-verified connections, data mapping | 50% |
+| 19 | **ESG Integrations** | Worldfavor, PositionGreen connector stubs | End-to-end data flow | 50% |
+| 20 | **Test Suite** | 17 test files, Vitest configured | Coverage gate, integration tests, E2E smoke tests | 55% |
+| 21 | **Customer Onboarding** | Auth (register/login/JWT) | Onboarding wizard, welcome emails, first-run assessment | 30% |
+| 22 | **Firehorse Automation** | Automation module, state machine | Production workflows, trigger system | 60% |
+| 23 | **Firehorse ContentMS** | DMS schema, templates | Content pipeline, versioning | 55% |
+| 24 | **ICEYE SAR Integration** | Argus agent, trade integration module | Live satellite data pipeline | 40% |
+| 25 | **Firehorse Mobile** | Mobile app package (zip), Situation Control rooms | Production build, app store deployment | 45% |
+
+### Not Started (Phase 2+)
+
+| # | Feature | Target Phase |
+|---|---------|-------------|
+| 26 | Aiwen EU AI Act compliance layer | Phase 2 |
+| 27 | Multi-tenancy / tenant isolation | Phase 3 |
+| 28 | ISO 27001 / SOC 2 certification | Phase 3 |
+| 29 | IoT pipeline (Jetson Orin Nano) | Phase 4 |
+| 30 | XBRL/XML regulatory export | Phase 2 |
+| 31 | Supplier self-service portal (CBAM) | Phase 2 |
+| 32 | On-premise AI inference (GN100) | Phase 3 |
+| 33 | Temporal.io workflow orchestration | Phase 4 |
+| 34 | Climate LLM fine-tuning | Phase 4 |
+| 35 | Partner ecosystem (5 partners) | Phase 5 |
+
+### Readiness Summary
+
+| Scope | Features | Avg Readiness |
+|-------|----------|---------------|
+| Shipped (working) | 15 features | **80%** |
+| Partial (in progress) | 10 features | **49%** |
+| Not started | 10 features | **0%** |
+| **DWS IQ 6 V1 (Platform)** | **25 features** | **75%** |
+| **DWS 7 MVP V1 (Full Product)** | **35 features** | **55%** |
+
+### Critical Path to Ship
+
+1. **Compliance engine** (45% → 80%) — Build CSRD data model + real scoring. This IS the product.
+2. **Dashboard resilience** (60% → 80%) — Error boundaries, loading states. Enterprise-grade UX.
+3. **Customer onboarding** (30% → 70%) — 4-step wizard. Without this, every customer needs hand-holding.
+4. **Test coverage** (55% → 70%) — Coverage gate + critical path tests. Confidence to deploy.
+5. **1 ERP integration verified** (50% → 75%) — Prove the data pipeline works end-to-end.
+
+---
+
 *This document is auto-tracked weekly. See `.github/workflows/roadmap-weekly-tracker.yml`.*
-*Last updated: 2026-03-01*
+*Last updated: 2026-03-15*

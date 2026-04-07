@@ -64,8 +64,8 @@ This SWOT analysis evaluates the DWS6 project's product building capabilities fr
 │  │ O1. EU Fit for 55 mandate     │  │ T1. Big Tech market entry          │   │
 │  │     (forced demand 2025-2035)  │  │     (Microsoft, Google)            │   │
 │  │                                 │  │                                     │   │
-│  │ O2. Solution Factory model    │  │ T2. Startup credit expiration      │   │
-│  │     replication (8 verticals)  │  │     (12 months from now)           │   │
+│  │ O2. Solution Factory model    │  │ T2. Subscription cost scaling      │   │
+│  │     replication (8 verticals)  │  │     (Cursor Pro + Claude Max)      │   │
 │  │                                 │  │                                     │   │
 │  │ O3. NCC government partnership │  │ T3. EU AI Act evolution           │   │
 │  │     (defense sector access)    │  │     (classification changes)       │   │
@@ -132,7 +132,7 @@ This SWOT analysis evaluates the DWS6 project's product building capabilities fr
 | ID | Threat | Probability | Impact | Response Strategy |
 |----|--------|-------------|--------|-------------------|
 | T1 | Big Tech entry | Medium | High | Speed to market, vertical depth |
-| T2 | Credit expiration | Certain | High | Revenue before credits expire |
+| T2 | Subscription cost scaling | Medium | Medium | Revenue growth covers tool costs |
 | T3 | AI Act evolution | Low | Medium | Conservative risk classification |
 | T4 | Incumbent adaptation | Medium | Medium | Cost advantage, edge AI moat |
 | T5 | Economic downturn | Medium | Medium | SME focus, ROI guarantee |
@@ -164,7 +164,7 @@ This SWOT analysis evaluates the DWS6 project's product building capabilities fr
 | Strategy | Description | Priority |
 |----------|-------------|----------|
 | **ST1: Speed to market before Big Tech** | Use +62% velocity (S7) to establish market position before T1 | Critical |
-| **ST2: Revenue before credit expiration** | Convert €10k MRR evidence (S1) to sustainable revenue before T2 | Critical |
+| **ST2: Revenue covers tool subscriptions** | Convert €10k MRR evidence (S1) to sustainable revenue covering Cursor Pro + Claude Max costs | High |
 | **ST3: Multi-vertical resilience** | Use 8 verticals (S5) to reduce customer concentration risk (T6) | High |
 
 ### WT Strategies (Weaknesses → Threats)
@@ -195,7 +195,7 @@ PROBABILITY   │         │   W5    │   W1    │
 ```
 
 **Critical Risks (High Probability + High Impact):**
-- T2: Startup credit expiration → Must achieve revenue targets
+- T2: Subscription cost scaling → Must achieve revenue targets to cover tool costs
 - W1: Single developer dependency → Must document and plan team expansion
 
 ---
@@ -224,7 +224,7 @@ PROBABILITY   │         │   W5    │   W1    │
 
 ## Conclusion
 
-The DWS6 project demonstrates strong product building capabilities with validated customer demand, novel technical innovations, and significant cost advantages. The primary risks are execution-dependent (credit expiration, customer concentration) rather than fundamental to the model.
+The DWS6 project demonstrates strong product building capabilities with validated customer demand, novel technical innovations, and significant cost advantages. The primary risks are execution-dependent (subscription cost scaling, customer concentration) rather than fundamental to the model.
 
 **Overall Assessment:** **Strong with manageable risks**
 

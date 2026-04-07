@@ -128,12 +128,12 @@ Return JSON: {
       criticalPath: '',
       deliveryForecast: 'unknown',
       delayDays: 0,
-      bottlenecks: [],
-      alternatives: [],
+      bottlenecks: [] as string[],
+      alternatives: [] as string[],
       operationalBriefing: '',
     };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.operationalBriefing = llmResponse.content.slice(0, 300);
     }

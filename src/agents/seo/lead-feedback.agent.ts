@@ -315,7 +315,7 @@ export class LeadFeedbackAgent extends BaseAgent {
         dealCount: data.dealCount,
         totalArv: data.totalArv,
         topKeywords: Array.from(data.keywords).slice(0, 10),
-        contentGaps: [],
+        contentGaps: [] as string[],
       }))
       .sort((a, b) => b.totalArv - a.totalArv);
   }

@@ -22,7 +22,7 @@ I'd value your perspective on two things:
 Would you have 30 minutes for a call in the coming weeks? Happy to work around your schedule.
 
 Best regards,
-Risto Paarni
+Risto Anton Päärni
 Founder, DWS IQ 6
 risto@onelifetime.world
 
