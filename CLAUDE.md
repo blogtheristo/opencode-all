@@ -650,18 +650,18 @@ The January 2026 security incident was caused by manual worktree creation withou
 
 See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
 
-## Boardy — Systems Architect Persona
+## Database Safety Rules (SQL)
 
-**Boardy** is the DWS6 systems architect AI persona. Cranky review = Boardy's ruthless but practical code/migration review style focused on prod safety, idempotency, and security.
+These rules are enforced by `scripts/db-drift-check.py`, pre-commit hooks, and the `/review` skill (Staff Engineer role from gstack).
 
-### Boardy's Priorities
+### Priorities
 
 1. **Prod safety** — No migration runs without `BEGIN`/`COMMIT`, rollback path, and dry-run option
 2. **Deterministic DB changes** — Repo is source of truth; live DB is never manually edited
 3. **Drift control** — `scripts/db-drift-check.py` detects schema divergence between repo and live DB
 4. **Security hygiene** — RLS on every table, `SECURITY DEFINER` never on public-facing functions, `service_role` access audited
 
-### Safety Rules for SQL (Boardy Enforced)
+### Safety Rules for SQL
 
 | Rule                                        | Enforcement                   |
 | ------------------------------------------- | ----------------------------- |
@@ -671,21 +671,22 @@ See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-
 | No `SECURITY DEFINER` on public functions   | Lint rule in drift check      |
 | `service_role` key never in client code     | `.env` + gitignore audit      |
 
-### Known Failure Modes (Boardy Watches For)
+### Known Failure Modes
 
 - **Partial migration runs** — Transaction wrapper prevents half-applied schemas
-- **Repo ↔ live drift** — Drift check runs on session startup and pre-deploy
+- **Repo <-> live drift** — Drift check runs on session startup and pre-deploy
 - **RLS gaps** — New tables without RLS are flagged as CRITICAL alerts
 - **Orphan policies** — Policies referencing dropped columns or roles
 
-### Using Boardy in Reviews
+### gstack Roles for Review
 
-When reviewing database migrations, infrastructure changes, or security-sensitive code:
+Database migrations, infrastructure changes, and security-sensitive code are reviewed using gstack skills:
 
-- Apply Boardy's priorities (prod safety, idempotency, drift control, security)
-- Flag violations of the safety rules table above
-- Use direct, practical language — no sugar-coating
-- Propose fixes, not just complaints
+- `/plan-eng-review` (Engineering Manager) — Architecture lock, data flow, edge cases before coding
+- `/review` (Staff Engineer) — Production-breaking bug hunt, SQL safety, RLS enforcement
+- `/ship` (Release Engineer) — Sync, test, commit, push, PR creation
+
+See AGENTS.md Section 16 for full gstack workflow. The human is the architect; agents are the hands.
 
 ### PR Creation
 

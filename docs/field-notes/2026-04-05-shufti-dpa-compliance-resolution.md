@@ -59,12 +59,12 @@ From: compliance@shufti.com (via Haris R., 2026-04-02)
 ## Next Steps
 
 - [x] Update field notes (this file)
-- [ ] Incorporate 4 clauses into Shufti DPA (partners-outreach/Shufti/)
-- [ ] Reply to Haris R. confirming incorporation + signature readiness
-- [ ] Decide manual-verification trade-off (Option 1+3 proposed)
-- [ ] Add Shufti to `docs/DPA_DATA_PROCESSING_AGREEMENT.md` Annex A with EU-only note
+- [x] Incorporate 4 clauses into Shufti DPA — `partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md` (2026-04-07)
+- [x] Reply to Haris R. confirming incorporation + signature readiness (2026-04-07)
+- [x] Decide manual-verification trade-off — **Option 1+3 accepted**: EU-only mode (no model training, no manual review) + own secondary verification layer in `src/integrations/idv/shufti.ts`. Sovereignty story > marginal accuracy. (2026-04-07)
+- [x] Add Shufti to `docs/DPA_DATA_PROCESSING_AGREEMENT.md` Annex A with EU-only note (done in v1.1)
 - [ ] Update `2026-04-01-shufti-dpa-review-aegis-sovereignty.md` checklist (items 1, 2, 4, 9 → RESOLVED)
-- [ ] Update Aegis messaging: "EU-only biometric IDV; no model training on customer data; no non-EU manual review"
+- [x] Update Aegis messaging: "EU-only biometric IDV; no model training on customer data; no non-EU manual review" (2026-04-07)
 
 ## Relation to Prior Field Notes
 

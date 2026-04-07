@@ -18,9 +18,9 @@
 **Architecture:** Brain-Memory-Body-Hands
 
 - **Brain**: DWS IQ 6 Platform (Multi-Agent Orchestration via delegation & event bus — 16+ TypeScript agents with deterministic scoring)
-- **Memory**: Lifetime World Model (EU Regulations + Industry Models — *external dependency, not built in this repo*)
+- **Memory**: Lifetime World Model (EU Regulations + Industry Models — _external dependency, not built in this repo_)
 - **Body**: Firehorse Suite (Omnichannel sales automation ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
-- **Hands**: Lifetime Fleet (IoT/Robots — *specification phase*)
+- **Hands**: Lifetime Fleet (IoT/Robots — _specification phase_)
 
 **Maturity key:** ✅ Shipped | 🔧 Skeleton/In Progress | 📋 Planning Only
 
@@ -175,11 +175,11 @@ dws6/
 
 ### Endpoints
 
-| Method | Path | Auth | Description |
-|--------|------|------|-------------|
-| `GET` | `/api/agents` | JWT | List all registered agents |
-| `GET` | `/api/agents/:name` | JWT | Get agent details |
-| `POST` | `/api/agents/:name/execute` | JWT + Rate limit | Execute agent |
+| Method | Path                        | Auth             | Description                |
+| ------ | --------------------------- | ---------------- | -------------------------- |
+| `GET`  | `/api/agents`               | JWT              | List all registered agents |
+| `GET`  | `/api/agents/:name`         | JWT              | Get agent details          |
+| `POST` | `/api/agents/:name/execute` | JWT + Rate limit | Execute agent              |
 
 ### Execute Request
 
@@ -211,29 +211,29 @@ dws6/
 
 ### Platform Agents (Runtime)
 
-| Agent | Name | Purpose | Model |
-|-------|------|---------|-------|
-| `customer-sat` | CustomerSat | Customer health scoring, churn prediction, retention | Llama 3.3 70B |
-| `sitesense` | SiteSense | Site safety scoring, weather risk, worker capacity | Llama 3.3 70B |
-| `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
-| `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
-| `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
-| `synthetic-data` | SyntheticDataAgent | CBAM synthetic data pipeline — generates, validates, and stress-tests  | Llama 3.3 70B |
-| `kb` | KBAgent | List all files in kb/raw/ with their paths, sizes, and modification timestamps. Use to discover raw sources that need compilation. | Llama 3.3 70B |
-| `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
-| `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
-| `sovereignty-monitor` | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure | Llama 3.3 70B |
-| `designer` | **Designer** (V2) | Design-to-code bridge: Figma→prototype, style changes, components, edge case audit | Claude Sonnet 4 |
-| `argus` | ArgusAgent | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5. | Llama 3.3 70B |
-| `compliance-researcher` | ComplianceResearcherAgent | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments | Llama 3.3 70B |
-| `construction` | ConstructionAgent | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B |
-| `deepwiki-extractor` | DeepWikiExtractorAgent | Analyzes GitHub repositories via DeepWiki to plan extraction of specific functionality into self-contained, dependency-free code | Llama 3.3 70B |
-| `emissions-data-analyst` | EmissionsDataAnalystAgent | Analyzes emissions and sustainability data using natural language queries with EU regulatory context (ETS, CSRD, CBAM, EN 15978) | Llama 3.3 70B |
-| `logistics` | LogisticsAgent | Orchestrates fleet compliance, route optimization, driver dispatch, and supply chain carbon tracking for EU-regulated logistics operations | Llama 3.3 70B |
-| `sales-outreach` | SalesOutreachAgent | Researches target companies and drafts personalized B2B outreach emails for DWS climate compliance products | Llama 3.3 70B |
-| `compliance` | Compliance (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
-| `quality-gate` | QualityGate (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
-| `sovereignty-monitor` | SovereigntyMonitor (V2) | Database sovereignty assessment | Llama 3.3 70B |
+| Agent                    | Name                        | Purpose                                                                                                                                                               | Model           |
+| ------------------------ | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `customer-sat`           | CustomerSat                 | Customer health scoring, churn prediction, retention                                                                                                                  | Llama 3.3 70B   |
+| `sitesense`              | SiteSense                   | Site safety scoring, weather risk, worker capacity                                                                                                                    | Llama 3.3 70B   |
+| `schedule-genius`        | ScheduleGenius              | Timeline optimization, resource allocation                                                                                                                            | Llama 3.3 70B   |
+| `material-oracle`        | MaterialOracle              | Carbon tracking, sustainable procurement                                                                                                                              | Llama 3.3 70B   |
+| `viability`              | Viability                   | Unit economics, financial health, LTV                                                                                                                                 | Llama 3.3 70B   |
+| `synthetic-data`         | SyntheticDataAgent          | CBAM synthetic data pipeline — generates, validates, and stress-tests                                                                                                 | Llama 3.3 70B   |
+| `kb`                     | KBAgent                     | List all files in kb/raw/ with their paths, sizes, and modification timestamps. Use to discover raw sources that need compilation.                                    | Llama 3.3 70B   |
+| `compliance`             | **Compliance** (V2)         | EU regulatory compliance monitoring                                                                                                                                   | Llama 3.3 70B   |
+| `quality-gate`           | **QualityGate** (V2)        | Deployment readiness, quality scoring                                                                                                                                 | Llama 3.3 70B   |
+| `sovereignty-monitor`    | **SovereigntyMonitor** (V2) | Database sovereignty assessment, CLOUD Act exposure                                                                                                                   | Llama 3.3 70B   |
+| `designer`               | **Designer** (V2)           | Design-to-code bridge: Figma→prototype, style changes, components, edge case audit                                                                                    | Claude Sonnet 4 |
+| `argus`                  | ArgusAgent                  | AI orbital target labeling — detects and classifies industrial targets across 20 DWS industries from ICEYE SAR satellite imagery. KYA Vision Pillar 5.                | Llama 3.3 70B   |
+| `compliance-researcher`  | ComplianceResearcherAgent   | Researches EU climate regulations (CSRD, ETS, CBAM, Fit for 55, NIS2, EU AI Act, Taxonomy) and generates compliance reports with impact assessments                   | Llama 3.3 70B   |
+| `construction`           | ConstructionAgent           | Orchestrates construction project compliance by coordinating SiteSense, MaterialOracle, ScheduleGenius, and Viability agents with Finnish/EU construction regulations | Llama 3.3 70B   |
+| `deepwiki-extractor`     | DeepWikiExtractorAgent      | Analyzes GitHub repositories via DeepWiki to plan extraction of specific functionality into self-contained, dependency-free code                                      | Llama 3.3 70B   |
+| `emissions-data-analyst` | EmissionsDataAnalystAgent   | Analyzes emissions and sustainability data using natural language queries with EU regulatory context (ETS, CSRD, CBAM, EN 15978)                                      | Llama 3.3 70B   |
+| `logistics`              | LogisticsAgent              | Orchestrates fleet compliance, route optimization, driver dispatch, and supply chain carbon tracking for EU-regulated logistics operations                            | Llama 3.3 70B   |
+| `sales-outreach`         | SalesOutreachAgent          | Researches target companies and drafts personalized B2B outreach emails for DWS climate compliance products                                                           | Llama 3.3 70B   |
+| `compliance`             | Compliance (V2)             | EU regulatory compliance monitoring                                                                                                                                   | Llama 3.3 70B   |
+| `quality-gate`           | QualityGate (V2)            | Deployment readiness, quality scoring                                                                                                                                 | Llama 3.3 70B   |
+| `sovereignty-monitor`    | SovereigntyMonitor (V2)     | Database sovereignty assessment                                                                                                                                       | Llama 3.3 70B   |
 
 ---
 
@@ -247,6 +247,7 @@ V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output s
 **Why:** At Anthropic, designers now ship production code with no engineer in the loop. They paste Figma screenshots into Claude Code and get functional prototypes. They implement front-end changes directly in the codebase. They make state management changes. They file GitHub issues and Claude proposes fixes that they review and ship. This agent brings that workflow to DWS IQ 6 — enabling non-technical designers to ship production code safely.
 
 **The Anthropic Pattern:**
+
 1. Designer takes Figma mockup → pastes into Claude Code → gets functional prototype
 2. Designer implements typefaces, colors, spacing, layout directly in codebase
 3. Designer makes state management changes (with engineer review)
@@ -254,6 +255,7 @@ V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output s
 5. Designer maps edge cases during design phase, before engineering starts
 
 **Capabilities:**
+
 - `screenshot-to-code` — Convert Figma/design screenshots to working React + TailwindCSS
 - `style-implementation` — Implement visual changes (colors, fonts, spacing, layout) directly
 - `component-creation` — Generate new UI components with all states and edge cases
@@ -263,6 +265,7 @@ V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output s
 - `design-review` — Review components against design system, accessibility, responsive standards
 
 **Input:**
+
 ```typescript
 {
   action: "screenshot-to-code" | "style-change" | "component-create" |
@@ -284,6 +287,7 @@ V2 agents: Compliance, Quality Gate, Sovereignty Monitor — full input/output s
 **Safety model:** Visual-only changes (CSS, spacing, colors) are `safe` to ship without engineer review. State management changes always require engineer review. The agent classifies every change and flags when an engineer should review before shipping.
 
 **CLI:**
+
 ```bash
 dws run designer --input '{"action":"style-change","description":"make the primary button larger with rounded corners"}'
 dws run designer --input '{"action":"edge-case-audit","description":"user profile settings form"}'
@@ -322,10 +326,10 @@ AFTER  (secure):      Workstation → dws CLI → Cloud Run /mcp → server-side
 
 ### Server-Side MCP Endpoints
 
-| Endpoint | Location | Purpose |
-|----------|----------|---------|
+| Endpoint       | Location  | Purpose                                                  |
+| -------------- | --------- | -------------------------------------------------------- |
 | `dws6run6/mcp` | Cloud Run | Agent MCP server (JSON-RPC 2.0, all 18+ agents as tools) |
-| `mcp-gateway` | Cloud Run | MCP Gateway (Supabase, GitHub integration) |
+| `mcp-gateway`  | Cloud Run | MCP Gateway (Supabase, GitHub integration)               |
 
 ### CLI MCP Commands
 
@@ -368,18 +372,18 @@ dws mcp call <tool> --args '{...}'     # Call MCP tool via Cloud Run
 
 ### File Locations
 
-| Resource | Path |
-|----------|------|
-| Agent implementations | `src/agents/` |
-| Agent registry | `src/agents/index.ts` |
-| Agent API routes | `src/agents/routes.ts` |
-| Agent types | `src/agents/types.ts` |
-| Signal registry | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Signal coordinator | `.workflows/agents/coordinator.cjs` |
-| MCP Hub | `mcp-hub/server.py` |
-| AgentFoundry configs | `AgentFoundry/configs/` |
-| Workflow agents | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
-| Tests | `src/__tests__/` |
+| Resource              | Path                                               |
+| --------------------- | -------------------------------------------------- |
+| Agent implementations | `src/agents/`                                      |
+| Agent registry        | `src/agents/index.ts`                              |
+| Agent API routes      | `src/agents/routes.ts`                             |
+| Agent types           | `src/agents/types.ts`                              |
+| Signal registry       | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json`     |
+| Signal coordinator    | `.workflows/agents/coordinator.cjs`                |
+| MCP Hub               | `mcp-hub/server.py`                                |
+| AgentFoundry configs  | `AgentFoundry/configs/`                            |
+| Workflow agents       | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
+| Tests                 | `src/__tests__/`                                   |
 
 ### External CLIs & Add-ons
 
@@ -387,14 +391,14 @@ See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, F
 
 ### Environment Variables (Agent-relevant)
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `GROQ_API_KEY` | Yes | Groq API for Llama inference |
-| `SUPABASE_URL` | Yes | Database connection |
-| `SUPABASE_SERVICE_KEY` | Yes | Database auth |
-| `JWT_SECRET` | Yes | API authentication |
-| `ANTHROPIC_API_KEY` | Optional | Claude for complex reasoning |
-| `PORT` | Optional | Server port (default 3000) |
+| Variable               | Required | Purpose                      |
+| ---------------------- | -------- | ---------------------------- |
+| `GROQ_API_KEY`         | Yes      | Groq API for Llama inference |
+| `SUPABASE_URL`         | Yes      | Database connection          |
+| `SUPABASE_SERVICE_KEY` | Yes      | Database auth                |
+| `JWT_SECRET`           | Yes      | API authentication           |
+| `ANTHROPIC_API_KEY`    | Optional | Claude for complex reasoning |
+| `PORT`                 | Optional | Server port (default 3000)   |
 
 ---
 
@@ -404,12 +408,13 @@ See [Section 16](#16-rise-of-clis--external-add-ons): **our output** (DWS CLI, F
 
 ### Our output: DWS CLI & Firehorse CLI
 
-| CLI | Invocation | Purpose |
-|-----|------------|---------|
-| **DWS CLI** | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable. |
-| **Firehorse** | Via DWS CLI + API + dashboard | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
+| CLI           | Invocation                          | Purpose                                                                                                                                                       |
+| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **DWS CLI**   | `dws` (or `npx tsx cli/src/cli.ts`) | Platform CLI: list/run agents, trigger workflows, discover by capability, health, MCP tools. Zero deps, JSON-only, pipeable.                                  |
+| **Firehorse** | Via DWS CLI + API + dashboard       | Firehorse Suite (Report, Omnichannel, Automation, Content DMS) is agent-accessible via `dws run`, `dws workflow`, and `/api/`; same Build for Agents pattern. |
 
 **DWS CLI commands (v1.1.0):**
+
 ```bash
 dws agents                              # List all agents (JSON)
 dws agents --format table               # Human-readable table output
@@ -440,52 +445,52 @@ dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 
 ### Important add-on: Google Workspace CLI (`gws`)
 
-| Item | Detail |
-|------|--------|
-| **Repo** | https://github.com/googleworkspace/cli |
-| **Install** | `npm install -g @googleworkspace/cli` |
-| **What it is** | One CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin — dynamically built from Google Discovery Service. Zero boilerplate, structured JSON output. |
+| Item               | Detail                                                                                                                                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo**           | https://github.com/googleworkspace/cli                                                                                                                                                                                             |
+| **Install**        | `npm install -g @googleworkspace/cli`                                                                                                                                                                                              |
+| **What it is**     | One CLI for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin — dynamically built from Google Discovery Service. Zero boilerplate, structured JSON output.                                                                         |
 | **Why it matters** | 40+ agent skills included; MCP server (`gws mcp -s drive,gmail,calendar`); Gemini CLI extension. Fits the same "Build for Agents" pattern: every response is structured JSON, so LLMs can manage Workspace without custom tooling. |
-| **Auth** | `gws auth setup` (interactive), service account, or exported credentials for headless/CI. |
-| **Use with DWS** | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills. |
+| **Auth**           | `gws auth setup` (interactive), service account, or exported credentials for headless/CI.                                                                                                                                          |
+| **Use with DWS**   | Optional add-on for agents that need to read/write Google Drive, send Gmail, or manage Calendar/Sheets/Docs; pair with MCP client config or OpenClaw skills.                                                                       |
 
 **Disclaimer:** Not an officially supported Google product (Apache-2.0). Use for automation and agent workflows where Google Workspace integration is required.
 
 ### Important add-on: gstack (Claude Code Skill System)
 
-| Item | Detail |
-|------|--------|
-| **Repo** | https://github.com/blogtheristo/gstack |
-| **Origin** | Designed by Garry Tan (Y Combinator President & CEO) |
-| **What it is** | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts. |
+| Item               | Detail                                                                                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo**           | https://github.com/blogtheristo/gstack                                                                                                                         |
+| **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                           |
+| **What it is**     | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts.                |
 | **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
-| **License** | MIT |
+| **License**        | MIT                                                                                                                                                            |
 
 **Six Skills (adapted for DWS6):**
 
-| Skill | Role | Claude Code Command | Purpose |
-|-------|------|---------------------|---------|
-| Plan (CEO) | Founder/CEO | `/plan-ceo-review` | 10-star product review, scope challenge, strategic fit |
-| Plan (Eng) | Engineering Manager | `/plan-eng-review` | Architecture lock, data flow, edge cases, security |
-| Review | Staff Engineer | `/review` | Production-breaking bug hunt, security, DWS compliance |
-| Ship | Release Engineer | `/ship` | Automated sync, test, commit, push, PR creation |
-| Browse | QA Engineer | `/browse` | Browser automation, screenshots, UI verification |
-| Retro | Engineering Manager | `/retro` | Weekly velocity analysis, work patterns, recommendations |
+| Skill      | Role                | Claude Code Command | Purpose                                                  |
+| ---------- | ------------------- | ------------------- | -------------------------------------------------------- |
+| Plan (CEO) | Founder/CEO         | `/plan-ceo-review`  | 10-star product review, scope challenge, strategic fit   |
+| Plan (Eng) | Engineering Manager | `/plan-eng-review`  | Architecture lock, data flow, edge cases, security       |
+| Review     | Staff Engineer      | `/review`           | Production-breaking bug hunt, security, DWS compliance   |
+| Ship       | Release Engineer    | `/ship`             | Automated sync, test, commit, push, PR creation          |
+| Browse     | QA Engineer         | `/browse`           | Browser automation, screenshots, UI verification         |
+| Retro      | Engineering Manager | `/retro`            | Weekly velocity analysis, work patterns, recommendations |
 
 **Recommended workflow:** `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
 
-**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, Boardy security checks, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, SQL safety rules, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
 
 ### Important add-on: Agent Browser (`agent-browser`)
 
-| Item | Detail |
-|------|--------|
-| **Repo** | https://github.com/vercel-labs/agent-browser |
-| **Install** | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`) |
-| **What it is** | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead. |
+| Item               | Detail                                                                                                                                                                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo**           | https://github.com/vercel-labs/agent-browser                                                                                                                                                                     |
+| **Install**        | `npm install -g agent-browser && agent-browser install` (also: `cargo install agent-browser`, `brew install agent-browser`)                                                                                      |
+| **What it is**     | Native Rust headless browser automation CLI for AI agents. 140+ commands. Communicates directly with Chrome via CDP — no Node.js/Playwright runtime overhead.                                                    |
 | **Why it matters** | 1.6x faster cold start, 18x less memory, 99x smaller install vs Playwright MCP. Snapshot+Refs system saves ~93% context window by returning compact element references (`@e1`, `@e2`) instead of full DOM trees. |
-| **Key commands** | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage` |
-| **Use with DWS** | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI. |
+| **Key commands**   | `open <url>`, `snapshot` (accessibility tree with refs), `click @e1`, `fill @e2 "text"`, `screenshot`, `get text`, `wait`, `find role/text/label`, `network route`, `cookies`, `storage`                         |
+| **Use with DWS**   | UI verification for dws10.com store, competitive intelligence (EU regulation monitoring), automated testing of landing pages, form-fill testing, screenshot-based QA. Pairs with agent workflows via CLI.        |
 
 **Architecture:** Rust CLI (cold start <50ms) → CDP WebSocket → Chrome. Supports headed/headless modes, multiple isolated sessions, AES-256-GCM encrypted session storage, and device emulation.
 
@@ -516,42 +521,42 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 
 ### Platform Core
 
-| Component | Status | Evidence |
-|-----------|--------|----------|
-| Express backend (22+ routes) | ✅ Shipped | `src/app.ts` — production middleware, Cloud Run europe-north1 |
+| Component                                                     | Status     | Evidence                                                                |
+| ------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| Express backend (22+ routes)                                  | ✅ Shipped | `src/app.ts` — production middleware, Cloud Run europe-north1           |
 | Compliance engine (CSRD/ETS/CBAM/Fit for 55/EU AI Act Art.12) | ✅ Shipped | Deterministic scoring, 82 ESRS disclosures, EU-sourced emission factors |
-| 16+ TypeScript agents | ✅ Shipped | `src/agents/*.agent.ts` — real business logic, observe-think-act loop |
-| CLI (`dws` command) | ✅ Shipped | `cli/src/cli.ts` — zero-dep, JSON output, MCP passthrough |
-| MCP Agent Protocol (JSON-RPC 2.0) | ✅ Shipped | `/mcp` endpoint, agents discoverable via `tools/list` |
-| Auth (JWT + Supabase) | ✅ Shipped | Login/register, rate limiting, GDPR-compliant |
-| React dashboard (V10) | ✅ Shipped | v10-react — 36+ components, Vite + React 19.2, Firehorse pipeline view |
-| Agent delegation (multi-agent) | ✅ Shipped | BaseAgent delegation with depth cap (5), event bus |
-| ERP connectors (SAP/IFS/D365/Monitor/Visma/Jeeves) | ✅ Shipped | Auth + sync + Supabase persistence (this PR) |
+| 16+ TypeScript agents                                         | ✅ Shipped | `src/agents/*.agent.ts` — real business logic, observe-think-act loop   |
+| CLI (`dws` command)                                           | ✅ Shipped | `cli/src/cli.ts` — zero-dep, JSON output, MCP passthrough               |
+| MCP Agent Protocol (JSON-RPC 2.0)                             | ✅ Shipped | `/mcp` endpoint, agents discoverable via `tools/list`                   |
+| Auth (JWT + Supabase)                                         | ✅ Shipped | Login/register, rate limiting, GDPR-compliant                           |
+| React dashboard (V10)                                         | ✅ Shipped | v10-react — 36+ components, Vite + React 19.2, Firehorse pipeline view  |
+| Agent delegation (multi-agent)                                | ✅ Shipped | BaseAgent delegation with depth cap (5), event bus                      |
+| ERP connectors (SAP/IFS/D365/Monitor/Visma/Jeeves)            | ✅ Shipped | Auth + sync + Supabase persistence (this PR)                            |
 
 ### Firehorse Suite
 
-| Component | Status | Evidence |
-|-----------|--------|----------|
-| Firehorse Omnichannel (sales automation) | ✅ Shipped | `src/firehorse/` — state machine, scheduler, 15 routes, mounted in app.ts |
-| Firehorse Signal-Based Sales | ✅ Shipped | Migration 012, ULTRA/HIGH correlation, approval workflow |
-| Firehorse Signed Reports (DocuSign) | ✅ Shipped | `src/firehorse/signed-reports.ts` — eSignature integration |
-| Firehorse Report Module | ✅ Shipped | `src/firehorse/report-module.ts` — Board Pack, Annual Report, Compliance, Carbon formats. Pulls from compliance engine + ERP data |
-| Firehorse Automation (workflows) | ✅ Shipped | `src/firehorse/workflow-engine.ts` — 4 templates (compliance, lead-nurture, ERP sync, carbon). Supabase persistence |
-| Firehorse ContentMS | 📋 Planned | Architecture documented, zero implementation code |
+| Component                                | Status     | Evidence                                                                                                                          |
+| ---------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Firehorse Omnichannel (sales automation) | ✅ Shipped | `src/firehorse/` — state machine, scheduler, 15 routes, mounted in app.ts                                                         |
+| Firehorse Signal-Based Sales             | ✅ Shipped | Migration 012, ULTRA/HIGH correlation, approval workflow                                                                          |
+| Firehorse Signed Reports (DocuSign)      | ✅ Shipped | `src/firehorse/signed-reports.ts` — eSignature integration                                                                        |
+| Firehorse Report Module                  | ✅ Shipped | `src/firehorse/report-module.ts` — Board Pack, Annual Report, Compliance, Carbon formats. Pulls from compliance engine + ERP data |
+| Firehorse Automation (workflows)         | ✅ Shipped | `src/firehorse/workflow-engine.ts` — 4 templates (compliance, lead-nurture, ERP sync, carbon). Supabase persistence               |
+| Firehorse ContentMS                      | 📋 Planned | Architecture documented, zero implementation code                                                                                 |
 
 ### Infrastructure & Security
 
-| Component | Status | Evidence |
-|-----------|--------|----------|
-| GDPR/NIS2 data residency | ✅ Shipped | Cloud Run europe-north1, Supabase EU |
-| EU AI Act Article 12 lineage | ✅ Shipped | Aiwen overlay, agent execution logging |
-| KYA Trust Framework | 🔧 Partial | `kya-engine.ts` terminateChain() works; full 6-stage gate spec only |
-| LWM (Lifetime World Model) | 📋 External | MCP URL configured, served as external dependency |
-| Temporal.io orchestration | 📋 Planned | Docker compose config, no workflow code |
-| No-Docker workstation architecture | ✅ Shipped | CLI-only workstation, Cloud Run services, Section 20 |
-| Private Cloud (Helm) delivery | 📋 Planned | Helm charts for customer-managed K8s, Section 20 Tier 2b |
-| GDX Spark edge deployment | 📋 Planned | Jetson Orin Nano + Firecracker, shipped device model |
-| Local MCP servers | ❌ Removed | Permanently banned post-clawdbot (2026-03-26) |
+| Component                          | Status      | Evidence                                                            |
+| ---------------------------------- | ----------- | ------------------------------------------------------------------- |
+| GDPR/NIS2 data residency           | ✅ Shipped  | Cloud Run europe-north1, Supabase EU                                |
+| EU AI Act Article 12 lineage       | ✅ Shipped  | Aiwen overlay, agent execution logging                              |
+| KYA Trust Framework                | 🔧 Partial  | `kya-engine.ts` terminateChain() works; full 6-stage gate spec only |
+| LWM (Lifetime World Model)         | 📋 External | MCP URL configured, served as external dependency                   |
+| Temporal.io orchestration          | 📋 Planned  | Docker compose config, no workflow code                             |
+| No-Docker workstation architecture | ✅ Shipped  | CLI-only workstation, Cloud Run services, Section 20                |
+| Private Cloud (Helm) delivery      | 📋 Planned  | Helm charts for customer-managed K8s, Section 20 Tier 2b            |
+| GDX Spark edge deployment          | 📋 Planned  | Jetson Orin Nano + Firecracker, shipped device model                |
+| Local MCP servers                  | ❌ Removed  | Permanently banned post-clawdbot (2026-03-26)                       |
 
 **Key:** ✅ Shipped (working code, tests, API) | 🔧 In Progress (code exists, gaps remain) | 📋 Planned (docs/spec only)
 
@@ -567,61 +572,61 @@ Trust score: ≥80 Full Agency, 50–79 Restricted, <50 Suspended, 0 Quarantine.
 
 **The Sovereignty Rule:** DWS production services MUST run on **EU-owned infrastructure** — no US parent company, no CLOUD Act exposure. Google Cloud Run is acceptable for development and transition only. Production migration target is EU-sovereign cloud.
 
-| Guarantee | How enforced | Tier |
-|-----------|-------------|------|
-| **EU-owned infrastructure** | Migrate from Google Cloud Run to EU-sovereign provider (Scaleway, etc.) | All |
-| **No CLOUD Act exposure** | No US-owned cloud provider for production data | All |
-| **EU data residency** | EU-only datacenters (Finland, France, Germany) | All |
-| **EU AI Act Article 12 lineage** | Aiwen overlay, agent execution logging | All |
-| **GDPR-compliant architecture** | No US data transit, EU-only processing | All |
-| **NIS2 incident response** | Documented in DWS_SECURITY_STANDARD.md | All |
-| **Agent audit trail** | Every agent execution logged with reasoning lineage | All |
-| **KYA governance** | Know Your Agent trust scoring on all agents | All |
+| Guarantee                        | How enforced                                                            | Tier |
+| -------------------------------- | ----------------------------------------------------------------------- | ---- |
+| **EU-owned infrastructure**      | Migrate from Google Cloud Run to EU-sovereign provider (Scaleway, etc.) | All  |
+| **No CLOUD Act exposure**        | No US-owned cloud provider for production data                          | All  |
+| **EU data residency**            | EU-only datacenters (Finland, France, Germany)                          | All  |
+| **EU AI Act Article 12 lineage** | Aiwen overlay, agent execution logging                                  | All  |
+| **GDPR-compliant architecture**  | No US data transit, EU-only processing                                  | All  |
+| **NIS2 incident response**       | Documented in DWS_SECURITY_STANDARD.md                                  | All  |
+| **Agent audit trail**            | Every agent execution logged with reasoning lineage                     | All  |
+| **KYA governance**               | Know Your Agent trust scoring on all agents                             | All  |
 
 #### EU-Sovereign Cloud Provider Assessment (2026-03-26)
 
 **Evaluated providers (all 100% EU-owned, zero CLOUD Act exposure):**
 
-| Provider | Country | Owner | Cloud Run Equivalent | Scale-to-Zero | Managed PostgreSQL+pgvector | Managed Redis | Migration Effort |
-|----------|---------|-------|---------------------|---------------|----------------------------|---------------|-----------------|
-| **Scaleway** | France | Iliad Group | Serverless Containers | Yes | Yes | Yes | Low |
-| **Clever Cloud** | France | Independent | PaaS (Docker) | No | Yes (addon) | Yes (addon) | Low |
-| **OVHcloud** | France | Public (Euronext) | Managed K8s only | No | Yes | Yes | Medium-High |
-| **Hetzner** | Germany | Family-owned | VMs only | No | Self-host | Self-host | High |
-| **UpCloud** | Finland | Tesi-backed | Managed K8s (UKS) | No (K8s min 1 node) | Yes (managed) | Yes (Valkey/Redis) | Low-Medium |
-| **STACKIT** | Germany | Schwarz Group (Lidl) | Managed K8s | No | Yes | Yes | Medium-High |
+| Provider         | Country | Owner                | Cloud Run Equivalent  | Scale-to-Zero       | Managed PostgreSQL+pgvector | Managed Redis      | Migration Effort |
+| ---------------- | ------- | -------------------- | --------------------- | ------------------- | --------------------------- | ------------------ | ---------------- |
+| **Scaleway**     | France  | Iliad Group          | Serverless Containers | Yes                 | Yes                         | Yes                | Low              |
+| **Clever Cloud** | France  | Independent          | PaaS (Docker)         | No                  | Yes (addon)                 | Yes (addon)        | Low              |
+| **OVHcloud**     | France  | Public (Euronext)    | Managed K8s only      | No                  | Yes                         | Yes                | Medium-High      |
+| **Hetzner**      | Germany | Family-owned         | VMs only              | No                  | Self-host                   | Self-host          | High             |
+| **UpCloud**      | Finland | Tesi-backed          | Managed K8s (UKS)     | No (K8s min 1 node) | Yes (managed)               | Yes (Valkey/Redis) | Low-Medium       |
+| **STACKIT**      | Germany | Schwarz Group (Lidl) | Managed K8s           | No                  | Yes                         | Yes                | Medium-High      |
 
 **Providers evaluated and rejected:**
 
-| Provider | Country | Why Rejected |
-|----------|---------|-------------|
-| **Google Cloud Run** | US | CLOUD Act — US courts can compel data handover regardless of EU hosting |
-| **AWS** | US | CLOUD Act |
-| **Azure** | US | CLOUD Act |
-| **Nebula (Finland)** | Finland → Sweden | Dissolved Oct 2023. Absorbed into Telia (Swedish state telco). Brand dead. |
-| **Telia Cloud 9** | Sweden | Nebula remnant. Basic OpenStack VMs, no serverless, no managed DB. Not competitive. |
-| **Aiven** | Finland | DB-only (not compute). US VC investors create CLOUD Act yellow flag. OK for DB layer on Hetzner infra. |
+| Provider             | Country          | Why Rejected                                                                                           |
+| -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------ |
+| **Google Cloud Run** | US               | CLOUD Act — US courts can compel data handover regardless of EU hosting                                |
+| **AWS**              | US               | CLOUD Act                                                                                              |
+| **Azure**            | US               | CLOUD Act                                                                                              |
+| **Nebula (Finland)** | Finland → Sweden | Dissolved Oct 2023. Absorbed into Telia (Swedish state telco). Brand dead.                             |
+| **Telia Cloud 9**    | Sweden           | Nebula remnant. Basic OpenStack VMs, no serverless, no managed DB. Not competitive.                    |
+| **Aiven**            | Finland          | DB-only (not compute). US VC investors create CLOUD Act yellow flag. OK for DB layer on Hetzner infra. |
 
 **Two products, two sovereign paths:**
 
-| Product | Path | Stack | Target Customer |
-|---------|------|-------|-----------------|
-| **DWS IQ 6** | Path A: Scaleway | Serverless Containers + Managed PostgreSQL + Managed Redis | SaaS customers — scale-to-zero, lowest ops, pay-per-use |
-| **Aegis** | Path B: UpCloud + Helm | UKS (Managed K8s) + Managed PostgreSQL + Managed Valkey + Helm charts | Enterprise customers — Finnish sovereign K8s, dedicated infra, full control |
+| Product      | Path                   | Stack                                                                 | Target Customer                                                             |
+| ------------ | ---------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **DWS IQ 6** | Path A: Scaleway       | Serverless Containers + Managed PostgreSQL + Managed Redis            | SaaS customers — scale-to-zero, lowest ops, pay-per-use                     |
+| **Aegis**    | Path B: UpCloud + Helm | UKS (Managed K8s) + Managed PostgreSQL + Managed Valkey + Helm charts | Enterprise customers — Finnish sovereign K8s, dedicated infra, full control |
 
 **DWS IQ 6** is the cloud-native SaaS product. Serverless, scales to zero, Lifetime manages everything.
 **Aegis** is the sovereign enterprise product. Dedicated K8s cluster per customer, Helm-deployed, Finnish infrastructure, customer can audit everything.
 
 Both products share the same codebase, same agents, same CLI. The difference is where and how they run.
 
-| Phase | Action | Timeline |
-|-------|--------|----------|
-| **Phase 0 (now)** | Google Cloud Run europe-north1 — transitional, development + early production | Current |
-| **Phase 1** | Build Helm charts (`helm/dws-iq/`) — enables Aegis on UpCloud UKS | Next |
-| **Phase 2a** | DWS IQ 6: Migrate backend to Scaleway Serverless Containers | When customer demands sovereignty |
-| **Phase 2b** | Aegis: Deploy first customer cluster on UpCloud UKS Helsinki | When enterprise customer signs |
-| **Phase 3** | Migrate databases to UpCloud Managed PostgreSQL (Aegis) or Scaleway (DWS IQ 6) | Same sprint |
-| **Phase 4** | Migrate Firehorse services (same target as backend per product) | Following sprint |
+| Phase             | Action                                                                         | Timeline                          |
+| ----------------- | ------------------------------------------------------------------------------ | --------------------------------- |
+| **Phase 0 (now)** | Google Cloud Run europe-north1 — transitional, development + early production  | Current                           |
+| **Phase 1**       | Build Helm charts (`helm/dws-iq/`) — enables Aegis on UpCloud UKS              | Next                              |
+| **Phase 2a**      | DWS IQ 6: Migrate backend to Scaleway Serverless Containers                    | When customer demands sovereignty |
+| **Phase 2b**      | Aegis: Deploy first customer cluster on UpCloud UKS Helsinki                   | When enterprise customer signs    |
+| **Phase 3**       | Migrate databases to UpCloud Managed PostgreSQL (Aegis) or Scaleway (DWS IQ 6) | Same sprint                       |
+| **Phase 4**       | Migrate Firehorse services (same target as backend per product)                | Following sprint                  |
 
 #### DWS IQ 6 — Scaleway (Serverless SaaS)
 
@@ -649,12 +654,12 @@ Both products share the same codebase, same agents, same CLI. The difference is 
 
 **Database sovereignty options (ranked):**
 
-| Option | Sovereignty | Managed? | Cost | Best For |
-|--------|------------|----------|------|----------|
-| UpCloud Managed PostgreSQL | Finnish-owned, Helsinki DC | Yes (HA, backups) | Competitive | Finnish sovereignty + managed |
-| Scaleway Managed PostgreSQL | French-owned | Yes | ~EUR 20+/mo | Simplicity (one vendor with Scaleway compute) |
-| Aiven on Hetzner infra | Finnish company + German infra | Yes | ~EUR 89+/mo | Best managed DB experience |
-| Self-hosted on Hetzner VM | German family-owned | No (DIY) | ~EUR 4+/mo | Cost optimization |
+| Option                      | Sovereignty                    | Managed?          | Cost        | Best For                                      |
+| --------------------------- | ------------------------------ | ----------------- | ----------- | --------------------------------------------- |
+| UpCloud Managed PostgreSQL  | Finnish-owned, Helsinki DC     | Yes (HA, backups) | Competitive | Finnish sovereignty + managed                 |
+| Scaleway Managed PostgreSQL | French-owned                   | Yes               | ~EUR 20+/mo | Simplicity (one vendor with Scaleway compute) |
+| Aiven on Hetzner infra      | Finnish company + German infra | Yes               | ~EUR 89+/mo | Best managed DB experience                    |
+| Self-hosted on Hetzner VM   | German family-owned            | No (DIY)          | ~EUR 4+/mo  | Cost optimization                             |
 
 **Tier 2b (private cloud) exists for customers who require sovereignty under their own infrastructure control** — air-gapped, defense, critical infrastructure, banking regulators who mandate on-premises compute.
 
@@ -721,16 +726,17 @@ Default deployment. All agent execution, MCP protocol, and Firehorse services ru
 **Current:** Google Cloud Run (europe-north1) — transitional, acceptable for development and early production.
 **Target:** Scaleway Serverless Containers (Paris/Amsterdam) — EU-sovereign, zero CLOUD Act exposure. Migration triggered by first enterprise customer requiring sovereignty proof.
 
-| Service | Image | Port | Memory | CPU | Min/Max | Status |
-|---------|-------|------|--------|-----|---------|--------|
-| `dws6run6` | `backend:latest` | 8080 | 512Mi | 1 | 0/10 | ✅ Deployed |
-| `mcp-gateway` | `mcp-gateway:latest` | 8080 | 512Mi | 1 | 0/3 | ✅ Deployed |
-| `firehorse-reports` | `firehorse-reports:latest` | 8084 | 1Gi | 1 | 0/5 | 📋 Migration planned |
-| `firehorse-automation` | `firehorse-automation:latest` | 8085 | 512Mi | 1 | 0/3 | 📋 Migration planned |
-| `firehorse-dms` | `firehorse-dms:latest` | 8086 | 512Mi | 1 | 0/3 | 📋 Migration planned |
-| Redis | Cloud Memorystore / Upstash | 6379 | — | — | managed | 📋 Migration planned |
+| Service                | Image                         | Port | Memory | CPU | Min/Max | Status               |
+| ---------------------- | ----------------------------- | ---- | ------ | --- | ------- | -------------------- |
+| `dws6run6`             | `backend:latest`              | 8080 | 512Mi  | 1   | 0/10    | ✅ Deployed          |
+| `mcp-gateway`          | `mcp-gateway:latest`          | 8080 | 512Mi  | 1   | 0/3     | ✅ Deployed          |
+| `firehorse-reports`    | `firehorse-reports:latest`    | 8084 | 1Gi    | 1   | 0/5     | 📋 Migration planned |
+| `firehorse-automation` | `firehorse-automation:latest` | 8085 | 512Mi  | 1   | 0/3     | 📋 Migration planned |
+| `firehorse-dms`        | `firehorse-dms:latest`        | 8086 | 512Mi  | 1   | 0/3     | 📋 Migration planned |
+| Redis                  | Cloud Memorystore / Upstash   | 6379 | —      | —   | managed | 📋 Migration planned |
 
 **Migration path for Firehorse services:**
+
 1. Each service already has a Dockerfile (`Firehorse/docker-compose.yml` services)
 2. Add `cloudbuild.yaml` per service (same pattern as `mcp-servers/cloud-run-gateway/cloudbuild.yaml`)
 3. Configure secrets via Google Secret Manager
@@ -743,12 +749,12 @@ For enterprise customers who require sovereignty **under their own infrastructur
 
 **Delivery options ranked by admin skill requirement:**
 
-| Option | Customer needs | Admin skill | Build priority |
-|--------|---------------|-------------|----------------|
-| **Docker Compose bundle** | 1 Linux VM + Docker | Linux + Docker basics | ✅ First (covers 80%) |
-| **VM appliance (OVA/QCOW2)** | VMware/Proxmox/Hyper-V | Import VM, set .env | 📋 Second |
-| **Kamal deploy** | 1 Linux VM + SSH access | Minimal (Lifetime pushes updates) | 📋 Third |
-| **Helm charts (K8s)** | Kubernetes cluster | K8s admin | 📋 Only on customer demand |
+| Option                       | Customer needs          | Admin skill                       | Build priority             |
+| ---------------------------- | ----------------------- | --------------------------------- | -------------------------- |
+| **Docker Compose bundle**    | 1 Linux VM + Docker     | Linux + Docker basics             | ✅ First (covers 80%)      |
+| **VM appliance (OVA/QCOW2)** | VMware/Proxmox/Hyper-V  | Import VM, set .env               | 📋 Second                  |
+| **Kamal deploy**             | 1 Linux VM + SSH access | Minimal (Lifetime pushes updates) | 📋 Third                   |
+| **Helm charts (K8s)**        | Kubernetes cluster      | K8s admin                         | 📋 Only on customer demand |
 
 #### Option A: Docker Compose Bundle (DEFAULT for private cloud)
 
@@ -780,14 +786,15 @@ cp .env.example .env            # Fill in secrets
 ```
 
 **Services in docker-compose.yml:**
+
 ```yaml
 services:
-  dws-backend:        # Port 8080 — Backend + 18+ agents + /mcp
-  mcp-gateway:        # Port 8081 — MCP Gateway
-  firehorse-reports:  # Port 8084 — Report Engine
-  firehorse-auto:     # Port 8085 — Automation
-  firehorse-dms:      # Port 8086 — Content DMS
-  redis:              # Port 6379 — Job queue + caching
+  dws-backend: # Port 8080 — Backend + 18+ agents + /mcp
+  mcp-gateway: # Port 8081 — MCP Gateway
+  firehorse-reports: # Port 8084 — Report Engine
+  firehorse-auto: # Port 8085 — Automation
+  firehorse-dms: # Port 8086 — Content DMS
+  redis: # Port 6379 — Job queue + caching
   # Customer provides external PostgreSQL + pgvector
 ```
 
@@ -834,28 +841,28 @@ CUSTOMER KUBERNETES CLUSTER (GKE / EKS / AKS / on-prem K8s)
 
 **Private Cloud deliverables:**
 
-| Artifact | Purpose | Status |
-|----------|---------|--------|
-| `private-cloud/docker-compose.yml` | Docker Compose bundle (default) | 📋 Build first |
-| `private-cloud/install.sh` | One-command install + health check | 📋 Build first |
-| Container images (OCI) | All services as container images | 🔧 Partial (backend + MCP gateway exist) |
-| VM appliance (OVA/QCOW2) | Pre-built VM image | 📋 Second priority |
-| `helm/dws-iq/` | Helm chart (only on demand) | 📋 Only when customer demands |
-| Air-gap bundle | Tarball with all images for offline install | 📋 Planned |
+| Artifact                           | Purpose                                     | Status                                   |
+| ---------------------------------- | ------------------------------------------- | ---------------------------------------- |
+| `private-cloud/docker-compose.yml` | Docker Compose bundle (default)             | 📋 Build first                           |
+| `private-cloud/install.sh`         | One-command install + health check          | 📋 Build first                           |
+| Container images (OCI)             | All services as container images            | 🔧 Partial (backend + MCP gateway exist) |
+| VM appliance (OVA/QCOW2)           | Pre-built VM image                          | 📋 Second priority                       |
+| `helm/dws-iq/`                     | Helm chart (only on demand)                 | 📋 Only when customer demands            |
+| Air-gap bundle                     | Tarball with all images for offline install | 📋 Planned                               |
 
 **What Lifetime provides vs. customer manages:**
 
-| Responsibility | Lifetime | Customer |
-|----------------|----------|----------|
-| Container images + install scripts | ✅ | |
-| Agent code + updates | ✅ | |
-| KYA governance engine | ✅ | |
-| Linux VM / K8s cluster | | ✅ |
-| PostgreSQL database | | ✅ |
-| TLS / networking / DNS | | ✅ |
-| Secrets management (.env) | Template provided | ✅ Fills in values |
-| Monitoring + alerting | `monitor.sh` provided | ✅ Integrates to their stack |
-| LLM API keys (Groq/Claude/Gemini) | | ✅ |
+| Responsibility                     | Lifetime              | Customer                     |
+| ---------------------------------- | --------------------- | ---------------------------- |
+| Container images + install scripts | ✅                    |                              |
+| Agent code + updates               | ✅                    |                              |
+| KYA governance engine              | ✅                    |                              |
+| Linux VM / K8s cluster             |                       | ✅                           |
+| PostgreSQL database                |                       | ✅                           |
+| TLS / networking / DNS             |                       | ✅                           |
+| Secrets management (.env)          | Template provided     | ✅ Fills in values           |
+| Monitoring + alerting              | `monitor.sh` provided | ✅ Integrates to their stack |
+| LLM API keys (Groq/Claude/Gemini)  |                       | ✅                           |
 
 **CLI for private cloud:** Same `dws` CLI, different `DWS_API_URL`:
 
@@ -866,39 +873,40 @@ dws health   # Verifies connectivity to private deployment
 
 ### Admin Skill Matrix
 
-| Tier | Role | Required Skills | Nice-to-Have |
-|------|------|-----------------|--------------|
-| **Tier 1** (workstation) | End user | Install Node.js, run CLI commands | JSON reading |
-| **Tier 2a** (Cloud Run) | None (Lifetime manages) | — | — |
-| **Tier 2b** (Docker Compose) | IT admin | Linux CLI, Docker basics, `.env` config, cron | Networking, TLS certs |
-| **Tier 2b** (VM appliance) | IT admin | Import VM, set `.env` | Hypervisor basics |
-| **Tier 2b** (Kamal) | Minimal | Provide SSH access, keep VM running | — |
-| **Tier 2b** (Helm/K8s) | Platform engineer | Kubernetes, Helm, networking, secrets mgmt | Prometheus/Grafana |
-| **Tier 3** (GDX Spark) | Site operator | Physical setup, network cable, `dws edge` CLI | Docker for troubleshooting |
+| Tier                         | Role                    | Required Skills                               | Nice-to-Have               |
+| ---------------------------- | ----------------------- | --------------------------------------------- | -------------------------- |
+| **Tier 1** (workstation)     | End user                | Install Node.js, run CLI commands             | JSON reading               |
+| **Tier 2a** (Cloud Run)      | None (Lifetime manages) | —                                             | —                          |
+| **Tier 2b** (Docker Compose) | IT admin                | Linux CLI, Docker basics, `.env` config, cron | Networking, TLS certs      |
+| **Tier 2b** (VM appliance)   | IT admin                | Import VM, set `.env`                         | Hypervisor basics          |
+| **Tier 2b** (Kamal)          | Minimal                 | Provide SSH access, keep VM running           | —                          |
+| **Tier 2b** (Helm/K8s)       | Platform engineer       | Kubernetes, Helm, networking, secrets mgmt    | Prometheus/Grafana         |
+| **Tier 3** (GDX Spark)       | Site operator           | Physical setup, network cable, `dws edge` CLI | Docker for troubleshooting |
 
 ### Health Monitoring by Tier
 
-| Tier | How admin sees health | Auto-refresh |
-|------|----------------------|--------------|
-| **Tier 1** | `dws health` CLI output (JSON) | Manual |
-| **Tier 2a** | Dashboard `/health` page (5 service checks, 30s poll) | ✅ 30s |
-| **Tier 2a** | Control Room `/agents` (per-agent CPU/mem/status) | ✅ Real-time |
-| **Tier 2a** | Situation Room `/agents` (executive alerts + metrics) | ✅ Real-time |
-| **Tier 2b** | `./monitor.sh` (JSON, cron-friendly) | Via cron |
-| **Tier 2b** | Dashboard `/health` (same as 2a, pointed at private URL) | ✅ 30s |
-| **Tier 3** | `dws edge status` (planned) | Manual |
-| **Tier 3** | Dashboard `/health` with edge service checks (planned) | 📋 Planned |
+| Tier        | How admin sees health                                    | Auto-refresh |
+| ----------- | -------------------------------------------------------- | ------------ |
+| **Tier 1**  | `dws health` CLI output (JSON)                           | Manual       |
+| **Tier 2a** | Dashboard `/health` page (5 service checks, 30s poll)    | ✅ 30s       |
+| **Tier 2a** | Control Room `/agents` (per-agent CPU/mem/status)        | ✅ Real-time |
+| **Tier 2a** | Situation Room `/agents` (executive alerts + metrics)    | ✅ Real-time |
+| **Tier 2b** | `./monitor.sh` (JSON, cron-friendly)                     | Via cron     |
+| **Tier 2b** | Dashboard `/health` (same as 2a, pointed at private URL) | ✅ 30s       |
+| **Tier 3**  | `dws edge status` (planned)                              | Manual       |
+| **Tier 3**  | Dashboard `/health` with edge service checks (planned)   | 📋 Planned   |
 
 ### Tier 3: GDX Spark (Edge Device)
 
 For customers needing local compute (control rooms, situation rooms, offline sites), Lifetime ships a **GDX Spark** edge device pre-configured with containers.
 
-| Component | Hardware | Purpose |
-|-----------|----------|---------|
-| NVIDIA Jetson Orin Nano | 7-15W, ARM64 | Local LLM inference, agent execution |
-| Acer Veriton GN100 | Desktop AI Factory | Development sandbox, higher compute |
+| Component               | Hardware           | Purpose                              |
+| ----------------------- | ------------------ | ------------------------------------ |
+| NVIDIA Jetson Orin Nano | 7-15W, ARM64       | Local LLM inference, agent execution |
+| Acer Veriton GN100      | Desktop AI Factory | Development sandbox, higher compute  |
 
 **What runs on GDX Spark:**
+
 - Offline-capable agents (SiteSense, fleet telemetry, schedule optimization)
 - Local Llama 3.3 inference (no cloud dependency for latency-critical operations)
 - KYA v1.4 governance engine with hardware-enforced kill-switch
@@ -906,6 +914,7 @@ For customers needing local compute (control rooms, situation rooms, offline sit
 - Secure tunnel to Cloud Run for non-latency-critical work
 
 **What does NOT run on GDX Spark:**
+
 - Compliance scoring (requires full regulation database — Cloud Run only)
 - ERP connectors (require VPN/API to customer ERP — Cloud Run only)
 - MCP Gateway (protocol coordination — Cloud Run only)
@@ -944,14 +953,14 @@ dws edge sync                           # Sync edge ↔ cloud state (planned)
 
 ### Security Rules (Post-Clawdbot)
 
-| Rule | Enforcement |
-|------|-------------|
-| **No local MCP servers** | `.mcp.json` removed from workstations; CLI connects to Cloud Run `/mcp` only |
-| **No local Docker requirement** | All services run on Cloud Run; Docker only used for CI/CD image builds |
-| **No community MCP skills** | Auto-install from registries permanently banned (DWS_SECURITY_STANDARD.md) |
-| **JWT auth on all endpoints** | Every CLI → Cloud Run call requires valid JWT bearer token |
-| **EU data residency** | Cloud Run in europe-north1; Supabase in EU; no US transit |
-| **Edge device KYA governance** | GDX Spark agents run in Firecracker MicroVMs with kill-switch |
+| Rule                            | Enforcement                                                                  |
+| ------------------------------- | ---------------------------------------------------------------------------- |
+| **No local MCP servers**        | `.mcp.json` removed from workstations; CLI connects to Cloud Run `/mcp` only |
+| **No local Docker requirement** | All services run on Cloud Run; Docker only used for CI/CD image builds       |
+| **No community MCP skills**     | Auto-install from registries permanently banned (DWS_SECURITY_STANDARD.md)   |
+| **JWT auth on all endpoints**   | Every CLI → Cloud Run call requires valid JWT bearer token                   |
+| **EU data residency**           | Cloud Run in europe-north1; Supabase in EU; no US transit                    |
+| **Edge device KYA governance**  | GDX Spark agents run in Firecracker MicroVMs with kill-switch                |
 
 ---
 
