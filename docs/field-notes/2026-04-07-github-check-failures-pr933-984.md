@@ -110,24 +110,17 @@ Workflows appearing/disappearing in blocks (Dependency Review, submit-pypi) and 
 
 ## Fix (Gitleaks)
 
-In `.github/workflows/secret-scan-gitleaks.yml`, change:
+**Two issues found:**
 
-```yaml
-permissions:
-  contents: read
-  security-events: write
-```
+1. **Permissions bug** — Missing `pull-requests: read` (403 on PR commits API)
+2. **License issue** — `gitleaks/gitleaks-action@v2` requires a paid license for non-open-source repos. Only the gitleaks CLI binary is free/open-source (MIT license).
 
-To:
+**Solution:** Replace `gitleaks-action@v2` with direct CLI install + run. The CLI is MIT-licensed, no API token needed, and scans git log ranges directly:
 
-```yaml
-permissions:
-  contents: read
-  pull-requests: read
-  security-events: write
-```
+- PR events: scan `base.sha..head.sha` (only the PR diff)
+- Push to main: scan `before..sha` (only the new commits)
 
-Then re-run on any open PR to verify.
+No `GITHUB_TOKEN` or `pull-requests` permission needed — the CLI reads the local git repo directly.
 
 ## Remaining Next Steps
 
