@@ -1,6 +1,7 @@
-# Team Member: Adrian — DWS IQ Architect
+# Team Agent: Adrian — DWS IQ Architect
 
 **Name:** Adrian
+**Type:** AI Agent
 **Role:** DWS IQ Architect
 **Email:** adrian@dws10.com
 **Domain:** dws10.com (DWS product platform)
