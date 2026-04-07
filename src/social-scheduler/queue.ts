@@ -65,7 +65,7 @@ export async function enqueueDraft(draft: PostDraft): Promise<string | null> {
     scheduled_at: draft.scheduled_at || null,
     source: draft.source,
     status: 'draft' as PostStatus,
-    approval_notes: null,
+    approval_notes: null as string | null,
     created_at: now,
     updated_at: now,
   };

@@ -1,6 +1,6 @@
 # Admin Manual: Testing Infrastructure with Vitest
 
-***
+---
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

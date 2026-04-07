@@ -162,7 +162,7 @@ export default function SettingsScreen() {
 
       {/* Version */}
       <View style={styles.version}>
-        <Text style={styles.versionText}>Firehorse Mobile v1.0.0</Text>
+        <Text style={styles.versionText}>Firehorse Mobile v2.0.0</Text>
         <Text style={styles.versionSubtext}>DWS IQ 6 Platform</Text>
         <View style={styles.flagsContainer}>
           <Text style={styles.flag}>🇸🇪</Text>

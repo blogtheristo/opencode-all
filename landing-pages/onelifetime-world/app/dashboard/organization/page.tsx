@@ -168,9 +168,24 @@ export default function OrganizationPage() {
         });
       
       if (error) throw error;
-      
-      // TODO: Send invitation email via backend
-      
+
+      // Send invitation email via backend API
+      try {
+        await fetch('/api/organization/invite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: inviteEmail,
+            role: inviteRole,
+            token,
+            organizationId: organization.id,
+            organizationName: organization.name,
+          }),
+        });
+      } catch (emailErr) {
+        console.warn('Invitation email could not be sent:', emailErr);
+      }
+
       setMessage({ type: 'success', text: `Invitation sent to ${inviteEmail}` });
       setInviteEmail('');
       setShowInviteForm(false);

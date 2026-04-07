@@ -35,14 +35,14 @@
       <g:title>Climate Reporting Starter Bundle</g:title>
       <g:description>&lt;h1&gt;Climate Reporting Starter Bundle&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €8,800 (One-time Setup) + €1,999 / year
-&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, DWS IQ Report Module, and Kickoff Workshop.&lt;/p&gt;
+&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.&lt;/p&gt;
 &lt;h2&gt;Description&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;The Flagship Offer for 2026.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (DWS IQ Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
+&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (Firehorse Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
 &lt;h2&gt;What's Inside?&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;DWS IQ Base (Value €4,999):&lt;/strong&gt; The industrial AI platform deployed in your cloud. Validates and stores your operational data.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DWS IQ Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firehorse Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Kickoff Package (Value €3,000):&lt;/strong&gt; Expert scoping and setup to ensure the first report is perfect.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Total Value:&lt;/strong&gt; €9,998
@@ -52,7 +52,7 @@
 You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot;a consultant.&quot; You need to pass your audit. This bundle delivers the specific outcome: &lt;strong&gt;A compliant, automated Annual Report.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Usage Scenario&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Month 1:&lt;/strong&gt; We deploy DWS IQ and map your data.
-&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the DWS IQ Report template.
+&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the Firehorse Report template.
 &lt;strong&gt;Month 3:&lt;/strong&gt; You generate your first automated Board Pack.
 &lt;strong&gt;Month 4:&lt;/strong&gt; You pass your audit.&lt;/p&gt;
 &lt;h2&gt;Ideal For&lt;/h2&gt;
@@ -85,14 +85,14 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>FH-RPT-001</g:id>
-      <g:title>DWS IQ Report</g:title>
+      <g:title>Firehorse Report</g:title>
       <g:description>&lt;p&gt;Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automated Fit for 55 dashboards&lt;/li&gt;&lt;li&gt;SAP integration with real-time data&lt;/li&gt;&lt;li&gt;4-week validation included&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-rpt-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1999 EUR</g:price>
-      <g:brand>DWS IQ</g:brand>
+      <g:brand>Firehorse</g:brand>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>

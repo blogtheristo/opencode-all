@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulcan — The Forge Hammer of Steel | DWS Pantheon</title>
+    <meta name="description" content="Steel & Metals specialist. Direct as a forge hammer. ETS Phase 4, CBAM carbon declarations, blast furnace vs. EAF pathways. Zero free allowances from 2026.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(180deg, #1a0505 0%, #0f172a 40%, #0a1628 100%); }
+        .marble-glow { text-shadow: 0 0 60px rgba(220, 38, 38, 0.3); }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(220, 38, 38, 0.15); }
+        @keyframes forge-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(220, 38, 38, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(249, 115, 22, 0.5); }
+        }
+        .forge-pulse { animation: forge-glow 2s ease-in-out infinite; display: inline-block; }
+        .steel-card { border: 1px solid rgba(220, 38, 38, 0.12); background: rgba(15, 23, 42, 0.8); }
+        .pathway { border-left: 3px solid; padding-left: 1rem; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO -->
+    <header class="py-20 md:py-32 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-xs uppercase tracking-[0.4em] text-red-400 mb-6">The Steel & Metals Forge</p>
+            <div class="text-8xl md:text-9xl mb-6 forge-pulse">&#x2692;&#xFE0F;</div>
+            <h1 class="text-5xl md:text-7xl font-black marble-glow mb-4">VULCAN</h1>
+            <p class="text-xl md:text-2xl text-red-300 font-light mb-2">Roman God of Fire &amp; the Forge</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">Hits things with a hammer until they become steel, then hits you with numbers until you comply with ETS. Direct. Unambiguous. Zero free allowances from 2026.</p>
+
+            <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3">
+                <span class="w-3 h-3 bg-red-400 rounded-full animate-pulse"></span>
+                <span class="text-red-300 font-bold text-lg">Every Pathway &middot; Every tCO&sub2;</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+
+        <!-- Steelmaking Pathways Comparison -->
+        <section class="mb-16">
+            <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gray-950 rounded-xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold text-red-400 uppercase tracking-wider">Carbon Intensity by Steelmaking Pathway</h3>
+                        <span class="text-xs text-slate-500 font-mono">tCO&sub2; per tonne crude steel</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="pathway border-red-500">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-bold text-red-300">BF-BOF (Blast Furnace)</p>
+                                    <p class="text-xs text-slate-500">Traditional integrated steelmaking &middot; Coal-based reduction</p>
+                                </div>
+                                <span class="text-2xl font-black text-red-400">1.8&ndash;2.2</span>
+                            </div>
+                        </div>
+                        <div class="pathway border-yellow-500">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-bold text-yellow-300">BF-BOF + 30% Scrap</p>
+                                    <p class="text-xs text-slate-500">Blended route &middot; What competitors call "green" steel</p>
+                                </div>
+                                <span class="text-2xl font-black text-yellow-400">1.2&ndash;1.5</span>
+                            </div>
+                        </div>
+                        <div class="pathway border-green-500">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-bold text-green-300">EAF + Renewable Grid</p>
+                                    <p class="text-xs text-slate-500">Electric Arc Furnace &middot; Actual green steel</p>
+                                </div>
+                                <span class="text-2xl font-black text-green-400">0.4&ndash;0.6</span>
+                            </div>
+                        </div>
+                        <div class="pathway border-teal-500">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-bold text-teal-300">H&sub2;-DRI + EAF</p>
+                                    <p class="text-xs text-slate-500">Hydrogen Direct Reduction &middot; Near-zero carbon</p>
+                                </div>
+                                <span class="text-2xl font-black text-teal-400">0.1&ndash;0.3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mythology & Voice -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-red-400 mb-6">The Myth</h2>
+            <div class="glass rounded-2xl p-8">
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-red-300">Vulcan</strong> was the Roman god of fire, metalworking, and the forge. In DWS mythology, he's distinct from Hephaestus &mdash; where Hephaestus reads the construction site, Vulcan lives inside the steel mill. He knows the temperature of every furnace, the carbon content of every heat, and the ETS exposure of every installation.</p>
+                <p class="text-lg text-slate-300 mb-6">Direct as a forge hammer. When a competitor claims "green steel" at 1.2 tCO&sub2;/t, Vulcan knows it's a BF-BOF with 30% scrap blend &mdash; not the EAF + renewable grid that would actually qualify. He doesn't soften the numbers. He doesn't need to.</p>
+                <blockquote class="border-l-4 border-red-500 pl-6 py-4 my-6 bg-red-950/30 rounded-r-lg">
+                    <p class="text-xl text-red-200 italic">"Blast furnace: 1.8&ndash;2.2 tCO&sub2;/t. EAF: 0.4&ndash;0.6 tCO&sub2;/t. Zero free allowances from 2026. You don't need softening, you need numbers."</p>
+                    <cite class="text-sm text-red-500 mt-2 block">&mdash; Vulcan, destroying a greenwash claim in exactly 3 data points</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-red-400 mb-8 text-center">The Forge Capabilities</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">Steel ETS Compliance</h3>
+                    <p class="text-sm text-slate-400">Phase 4 allowance tracking. Free allocation decline curves. Carbon price exposure modelling. Installation-level reporting.</p>
+                </div>
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">CBAM Steel Carbon Content</h3>
+                    <p class="text-sm text-slate-400">Embedded emissions per product. Quarterly reporting. Actual vs. default values. Third-party verification readiness.</p>
+                </div>
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">BF vs. EAF Analysis</h3>
+                    <p class="text-sm text-slate-400">Pathway comparison. Scrap ratio impact. Carbon intensity curves. Transition economics and timeline modelling.</p>
+                </div>
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">Metals Industry Compliance</h3>
+                    <p class="text-sm text-slate-400">Aluminium, copper, zinc, ferroalloys. Each metal pathway with specific emission factors and CBAM requirements.</p>
+                </div>
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">Decarbonization Pathways</h3>
+                    <p class="text-sm text-slate-400">H&sub2;-DRI, CCUS, electrification roadmaps. Cost curves, timeline, technology readiness. What's real vs. what's PowerPoint.</p>
+                </div>
+                <div class="steel-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-red-300 mb-2">Greenwash Detection</h3>
+                    <p class="text-sm text-slate-400">Cross-references competitor claims with Argus satellite thermal signatures. BF thermal pattern ≠ EAF claim. Green Claims Directive Article 2(2).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center mb-16">
+            <a href="/assistant/" class="inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-red-500/20 transition-all hover:-translate-y-1">
+                &#x2692;&#xFE0F; Summon Vulcan
+            </a>
+            <p class="text-slate-500 text-sm mt-4">Opens the DWS IQ Assistant with steel &amp; metals capabilities</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-red-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; Steel &amp; Metals Intelligence &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

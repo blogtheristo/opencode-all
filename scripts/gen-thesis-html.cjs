@@ -53,16 +53,9 @@ function escHtml(s) {
  * Returns e.g. "3.17" or "1.7"
  */
 function extractVersion(md) {
-  const m = md.match(/^Version:\s*(\S+)/m);
+  // Match "Version: X.X" with optional markdown formatting (bold, blockquote prefix)
+  const m = md.match(/^\s*>?\s*\*{0,2}Version:?\*{0,2}\s*(\S+)/m);
   return m ? m[1] : 'unknown';
-}
-
-/**
- * Extract the latest session date from the first "- Version: X.X | ... | Date: DD.MM.YYYY" line.
- */
-function extractDate(md) {
-  const m = md.match(/Date:\s*(\d{2}\.\d{2}\.\d{4})/);
-  return m ? m[1] : '';
 }
 
 function mdToHtml(md, titleBase, lang, version, date) {
@@ -140,6 +133,51 @@ function mdToHtml(md, titleBase, lang, version, date) {
   ].join('\n');
 }
 
+/**
+ * Extract a date string from the markdown.
+ *
+ * Supports:
+ *   - "Date: DD.MM.YYYY" (original thesis format)
+ *   - ISO dates "YYYY-MM-DD" in:
+ *       - Top-level header lines (e.g. "# Title — 2026-03-01")
+ *       - "Updated:" / "Created:" metadata lines
+ *       - Anywhere in the document as a final fallback
+ *
+ * @param {string} md
+ * @returns {string}
+ */
+function extractDate(md) {
+  if (typeof md !== 'string') {
+    return '';
+  }
+
+  // 1) Original format: "Date: DD.MM.YYYY"
+  const euDateMatch = md.match(/^Date:\s*([0-3]\d\.[0-1]\d\.\d{4})/mi);
+  if (euDateMatch && euDateMatch[1]) {
+    return euDateMatch[1];
+  }
+
+  // 2) ISO date in top-level header, e.g. "# DWS7 Roadmap — 2026-03-01"
+  const headerIsoMatch = md.match(/^#.*?\b(\d{4}-\d{2}-\d{2})\b/m);
+  if (headerIsoMatch && headerIsoMatch[1]) {
+    return headerIsoMatch[1];
+  }
+
+  // 3) ISO date in metadata lines like "Updated: 2026-03-01" or "Created: 2026-03-01"
+  const metaIsoMatch = md.match(/^(Updated|Created)\s*:\s*(\d{4}-\d{2}-\d{2})/mi);
+  if (metaIsoMatch && metaIsoMatch[2]) {
+    return metaIsoMatch[2];
+  }
+
+  // 4) Fallback: first ISO date anywhere in the document
+  const anyIsoMatch = md.match(/\b(\d{4}-\d{2}-\d{2})\b/);
+  if (anyIsoMatch && anyIsoMatch[1]) {
+    return anyIsoMatch[1];
+  }
+
+  return '';
+}
+
 // Source files — version and output filename are auto-derived from the markdown
 const SOURCES = [
   {
@@ -165,6 +203,30 @@ const SOURCES = [
     titleBase: 'PHD Firehorse — Väitöstutkimus (FI)',
     outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
     lang:      'fi',
+  },
+  {
+    src:       'Learn/V3Thesis_EN_v3.30.50.md',
+    titleBase: 'Firehorse Product Manufacturing Operating Model — Metropolia v3.30.50 (EN, FROZEN)',
+    outPrefix: 'Learn/V3Thesis_EN_v',
+    lang:      'en',
+  },
+  {
+    src:       'Learn/V3Thesis_FI_v3.30.50.md',
+    titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — Metropolia v3.30.50 (FI, JÄÄDYTETTY)',
+    outPrefix: 'Learn/V3Thesis_FI_v',
+    lang:      'fi',
+  },
+  {
+    src:       'Learn/DWS7_ROADMAP.md',
+    titleBase: 'DWS7 Roadmap — From Pilot to 16 Paying Industrial Customers',
+    outPrefix: 'Learn/DWS7_ROADMAP_v',
+    lang:      'en',
+  },
+  {
+    src:       'Learn/Claude-memo.md',
+    titleBase: 'Claude Skills Implementation Memo — Decisions & Competitive Edge',
+    outPrefix: 'Learn/Claude-memo_v',
+    lang:      'en',
   },
 ];
 

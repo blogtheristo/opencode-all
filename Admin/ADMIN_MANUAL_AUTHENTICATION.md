@@ -1,6 +1,6 @@
 # 👨‍💼 ADMIN MANUAL: Authentication System
 
-***
+---
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

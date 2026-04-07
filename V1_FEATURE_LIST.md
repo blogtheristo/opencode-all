@@ -1,7 +1,7 @@
 # DWS IQ 6 - V1.0 Feature List
 ## Launch Date: February 23, 2026 (16 days remaining)
 
-**Status as of:** February 7, 2026
+**Status as of:** March 10, 2026
 **Document Owner:** Risto Anton Päärni
 **Purpose:** Track what's built vs what's missing for V1.0 launch
 
@@ -21,6 +21,7 @@
 | 8 | Payment Integration | Backend Ready | 70% |
 | 9 | Email System | Implemented | 75% |
 | 10 | Documentation & CI/CD | Complete | 95% |
+| 11 | V1 EU-Sovereign Migration (Aiven) | Plan decided | 5% |
 
 **Overall V1.0 Readiness: ~75%** (up from 48% on Jan 3)
 
@@ -77,8 +78,10 @@
 - Report Engine API: 6 endpoints ready
 - Automation Service: 5 endpoints ready
 
+#### What's NEW (March 2026):
+- Template editor UI: TemplateEditorPage for custom report templates (JSON config, Supabase report_templates)
+
 #### What's MISSING:
-- Template editor UI (frontend)
 - PDF preview in browser
 - Workflow builder UI (frontend)
 
@@ -109,9 +112,17 @@
 - **NEW:** `dws6.com/dashboard/firehorse/v10-react/src/pages/SettingsPage.tsx` - Settings page
 - **NEW:** `dws6.com/dashboard/firehorse/v10-react/src/components/AgentChat.tsx` - Agent chat interface
 
+#### What's NEW (March 2026):
+- React Router (react-router-dom) — /login, /reset-password, /, /settings, /carbon, /reports, /billing, /agents
+- ProtectedRoute / PublicRoute for auth gating
+- ProfileMenu + HamburgerMenu: Billing nav link
+
+#### What's NEW (March 2026):
+- PWA configuration: vite-plugin-pwa, manifest (DWS IQ Dashboard), service worker, Supabase runtime cache
+- Template Editor: TemplateEditorPage at /templates, CRUD for custom report templates (Supabase report_templates)
+
 #### What's MISSING:
-- PWA configuration
-- Offline support
+- Offline support (basic service worker in place)
 - Advanced mobile responsive polish
 
 **Completion:** 70%
@@ -213,8 +224,11 @@
 - `Firehorse/supabase-schema-templates.sql` - Template schema (800+ lines)
 - **NEW:** `supabase/migrations/015_email_templates.sql` - Email template storage
 
+#### What's NEW (March 2026):
+- `scripts/seed-demo-projects.ts` - Demo projects seed script (run after 042_projects_dashboard.sql)
+- `supabase/migrations/042_projects_dashboard.sql` - Projects table for dashboard portfolio
+
 #### What's MISSING:
-- Database seeding script (sample/demo data)
 - Backup/restore automation
 
 **Completion:** 92%
@@ -236,8 +250,11 @@
 - `src/cloudflare/revolut-checkout-worker.ts` - Revolut checkout Worker
 - `supabase/migrations/008_payment_integration.sql` - Payment DB schema
 
+#### What's NEW (March 2026):
+- Payment checkout flow: BillingPage "Upgrade" calls /api/v1/payments/subscribe, redirects to PayPal/Revolut
+- Express payment proxy routes (PAYMENT_API_URL, SUPABASE_JWT_SECRET for dashboard auth)
+
 #### What's MISSING:
-- Payment UI components in dashboard
 - Stripe integration (PayPal + Revolut cover EU market)
 - Usage-based billing metering (foundation in migration 014)
 
@@ -292,6 +309,31 @@
 - ✅ Environment variable handling
 
 **Completion:** 95%
+
+---
+
+### 11. V1 EU-Sovereign Migration (Target: 02.08.2026)
+**Status:** Plan decided — Aiven Developer + Startup
+
+**Decision (10.03.2026):** Use Aiven for PostgreSQL migration from Supabase per DWS_SOVEREIGNTY_STANDARD.md.
+
+| Plan | Use Case | Price | Resources |
+|------|----------|-------|-----------|
+| **Developer** | Dev/staging | $5/mo | 8 GB storage, 1 GB RAM, 1 CPU |
+| **Startup** | Production | $75/mo | 99.99% SLA, HA options |
+
+**Total:** ~$80/mo. Aiven is Finnish (Helsinki), ISO 27001, pgvector-compatible.
+
+#### What's PLANNED:
+- [ ] Provision Aiven Developer (eu-north-1)
+- [ ] Provision Aiven Startup (eu-north-1)
+- [ ] Migrate Supabase schema → Aiven (`pg_dump` / `pg_restore`)
+- [ ] Keycloak setup (auth replacement)
+- [ ] MinIO or UpCloud Object Storage (file storage)
+
+**Field note:** docs/field-notes/2026-03-10-v1-aiven-plan-decision.md
+
+**Completion:** 5% (plan decided)
 
 ---
 
@@ -454,7 +496,7 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 4. 5 AI agents (SiteSense, ScheduleGenius, MaterialOracle, CustomerSat, Viability)
 5. Carbon tracking display
 6. Enterprise ERP connectors (SAP, IFS, Dynamics, Visma, Jeeves, Monitor)
-7. Payment backend (PayPal, Revolut)
+7. Payment backend (PayPal, Revolut) + Billing UI in dashboard
 8. Email service (transactional)
 9. Full database schema with RLS
 
@@ -462,14 +504,44 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 - Mobile app (React Native) store submission
 - OAuth/SSO (Google, Microsoft)
 - BIM/IFC file parser
-- Payment UI in dashboard
 - Advanced agent memory persistence
 - LlamaStack integration
 - PWA + offline support
 
 ---
 
-**Document Version:** 2.1
+---
+
+## MVP Gap Analysis (March 22, 2026)
+
+### Closed Since Last Update
+
+| # | Gap | Resolution | Date |
+|---|-----|-----------|------|
+| 1 | PDF Preview in browser | Implemented — iframe viewer with Supabase signed URL + fallback HTML preview | 2026-03-22 |
+| 2 | Payment UI wiring | BillingPage now shows current plan from Supabase, usage stats, invoice history | 2026-03-22 |
+| 3 | Database seeding | Comprehensive seed script covers projects, reports, subscription_plans, agent_executions | 2026-03-22 |
+
+### Still Open
+
+| # | Gap | Priority | Status | Target |
+|---|-----|----------|--------|--------|
+| 1 | Mobile App screens | V1.1 | Foundation only — deferred | Q2 2026 |
+| 2 | OAuth/SSO (Google, Microsoft) | V1.1 | Not started | Q2 2026 |
+| 3 | Email production credentials | High | Service ready, needs API keys | ASAP |
+| 4 | Workflow Builder UI | V1.1 | Backend state machine ready | Q2 2026 |
+| 5 | Full agent test suite | Medium | Partial coverage | Q2 2026 |
+| 6 | Stripe payment | V1.1 | PayPal + Revolut sufficient for EU | Q3 2026 |
+| 7 | EU-Sovereign Migration | Low | Plan decided (Aiven) | Aug 2026 |
+| 8 | LlamaStack integration | V1.1 | Groq fallback works | Q2 2026 |
+
+### Architecture Diagram
+
+See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
+
+---
+
+**Document Version:** 2.3
 **Created:** January 3, 2026
-**Last Updated:** February 7, 2026
-**Status:** SPRINT WEEK 5 COMPLETE - 75% ready, on track for Feb 23 launch
+**Last Updated:** March 22, 2026
+**Status:** Gap analysis updated — PDF preview, payment UI, DB seeding implemented

@@ -40,11 +40,7 @@ def is_mainline_openai_model(model_id: str) -> bool:
 
     # Exclude variants
     excludes = ["mini", "nano", "chat", "codex", "pro", "preview", "turbo"]
-    for exc in excludes:
-        if exc in model_lower:
-            return False
-
-    return True
+    return all(exc not in model_lower for exc in excludes)
 
 
 def select_openai_model(
@@ -107,10 +103,10 @@ def select_openai_model(
 
 
 def select_xai_model(
-    api_key: str,
+    api_key: str,  # noqa: ARG001
     policy: str = "latest",
     pin: str | None = None,
-    mock_models: list[dict] | None = None,
+    mock_models: list[dict] | None = None,  # noqa: ARG001
 ) -> str:
     """Select the best xAI model based on policy.
 

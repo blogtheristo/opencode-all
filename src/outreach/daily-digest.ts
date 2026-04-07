@@ -17,12 +17,11 @@
 import logger from '../utils/logger.js';
 import { getNudgeTemplate, isMaxedOut } from './cadence.js';
 import type {
+  DigestThread,
   EnrichedThread,
   OutreachPipeline,
   OutreachStatus,
   StatusBucket,
-  DigestThread,
-  DigestPipelineSection,
 } from './types.js';
 
 const PIPELINES: OutreachPipeline[] = ['investor', 'customer', 'partner'];
@@ -37,7 +36,13 @@ const PIPELINE_TAGS: Record<OutreachPipeline, string> = {
   partner: 'PART',
 };
 
-const OPEN_STATUSES: OutreachStatus[] = ['new', 'researched', 'intro_requested', 'intro_made', 'contacted'];
+const OPEN_STATUSES: OutreachStatus[] = [
+  'new',
+  'researched',
+  'intro_requested',
+  'intro_made',
+  'contacted',
+];
 const ACTIVE_STATUSES: OutreachStatus[] = ['responded', 'meeting_booked', 'in_negotiation'];
 const WAITING_STATUSES: OutreachStatus[] = ['intro_made', 'contacted'];
 
@@ -85,7 +90,7 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 
 async function getAllActiveThreads(): Promise<EnrichedThread[]> {
   return supabaseFetch(
-    `v_outreach_enriched?status=not.in.(converted,passed,parked)&order=pipeline.asc,next_action_date.asc`
+    `v_outreach_enriched?status=not.in.(converted,passed,parked)&order=pipeline.asc,next_action_date.asc`,
   );
 }
 
@@ -188,7 +193,7 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
         WAITING_STATUSES.includes(t.status) &&
         !t.overdue &&
         !t.due_today &&
-        t.waiting_days !== null
+        t.waiting_days !== null,
     )
     .sort((a, b) => {
       const d = (b.waiting_days ?? 0) - (a.waiting_days ?? 0);
@@ -228,7 +233,7 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
         t.bucket !== 'active' &&
         !WAITING_STATUSES.includes(t.status) &&
         t.next_action_date &&
-        t.next_action_date > today
+        t.next_action_date > today,
     )
     .sort((a, b) => {
       const d = (a.next_action_date || '').localeCompare(b.next_action_date || '');
@@ -253,7 +258,16 @@ function buildBuckets(threads: EnrichedThread[], today: string): DigestBuckets {
     };
   }
 
-  return { overdue, today: todayList, waiting, active_deals, active_deals_overflow, upcoming, upcoming_overflow, totals };
+  return {
+    overdue,
+    today: todayList,
+    waiting,
+    active_deals,
+    active_deals_overflow,
+    upcoming,
+    upcoming_overflow,
+    totals,
+  };
 }
 
 // ============================================================================
@@ -266,7 +280,7 @@ function renderBucketPlainText(
   title: string,
   threads: BucketedThread[],
   lineFormatter: (t: BucketedThread) => string,
-  overflow?: number
+  overflow?: number,
 ): void {
   if (threads.length === 0) return;
 
@@ -343,7 +357,7 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
       }
       return `${dueFlag}${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
     },
-    buckets.active_deals_overflow
+    buckets.active_deals_overflow,
   );
 
   // UPCOMING (count per pipeline, capped at 15)
@@ -378,7 +392,7 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
   lines.push('  1) Put the token first (T:XXXX)');
   lines.push('  2) One command per reply');
   lines.push('  3) Only the first non-quoted line is processed');
-  lines.push('  4) If the format is wrong, you\'ll get an error reply with the valid examples');
+  lines.push("  4) If the format is wrong, you'll get an error reply with the valid examples");
   lines.push('');
   lines.push('DWS IQ 6 Outreach');
 
@@ -390,10 +404,19 @@ function formatPlainText(buckets: DigestBuckets, dateStr: string): string {
 // ============================================================================
 
 function escapeHtml(str: string): string {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extraFlag?: string): string {
+function htmlThreadRow(
+  t: BucketedThread,
+  flag: string,
+  flagColor: string,
+  extraFlag?: string,
+): string {
   const org = t.org ? ` (${escapeHtml(t.org)})` : '';
   const tag = PIPELINE_TAGS[t.pipeline];
   let action = t.next_action || `Follow up with ${t.name}`;
@@ -404,8 +427,12 @@ function htmlThreadRow(t: BucketedThread, flag: string, flagColor: string, extra
     action = getNudgeTemplate(t.pipeline, t.nudge_count);
   }
 
-  const flagHtml = flag ? `<span style="color: ${flagColor}; font-weight: 600;">${flag}</span> ` : '';
-  const extraFlagHtml = extraFlag ? `<span style="color: #ffaa00; font-weight: 600;">${extraFlag}</span> ` : '';
+  const flagHtml = flag
+    ? `<span style="color: ${flagColor}; font-weight: 600;">${flag}</span> `
+    : '';
+  const extraFlagHtml = extraFlag
+    ? `<span style="color: #ffaa00; font-weight: 600;">${extraFlag}</span> `
+    : '';
 
   return `
     <div style="padding: 8px 0; border-bottom: 1px solid #222;">
@@ -422,7 +449,7 @@ function htmlBucketSection(
   threads: BucketedThread[],
   rowRenderer: (t: BucketedThread) => string,
   overflow?: number,
-  extraInfo?: string
+  extraInfo?: string,
 ): string {
   if (threads.length === 0 && !extraInfo) return '';
 
@@ -450,32 +477,26 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
     return `${PIPELINE_LABELS[p]}: ${s.total} (${s.open} open, ${s.active} active)`;
   }).join(' &nbsp;|&nbsp; ');
 
-  const upcomingOverflow = buckets.upcoming_overflow > 0 ? ` (+${buckets.upcoming_overflow} more)` : '';
+  const upcomingOverflow =
+    buckets.upcoming_overflow > 0 ? ` (+${buckets.upcoming_overflow} more)` : '';
   const upcomingInfo =
     buckets.upcoming.length > 0
       ? `<p style="margin: 0; font-size: 12px; color: #666;">${buckets.upcoming.length} threads scheduled${upcomingOverflow}</p>`
       : '';
 
   const sections = [
-    htmlBucketSection(
-      `OVERDUE (${buckets.overdue.length})`,
-      buckets.overdue,
-      (t) => htmlThreadRow(t, 'OVERDUE', '#ff4444')
+    htmlBucketSection(`OVERDUE (${buckets.overdue.length})`, buckets.overdue, (t) =>
+      htmlThreadRow(t, 'OVERDUE', '#ff4444'),
     ),
-    htmlBucketSection(
-      `TODAY (${buckets.today.length})`,
-      buckets.today,
-      (t) => htmlThreadRow(t, 'TODAY', '#ffaa00')
+    htmlBucketSection(`TODAY (${buckets.today.length})`, buckets.today, (t) =>
+      htmlThreadRow(t, 'TODAY', '#ffaa00'),
     ),
-    htmlBucketSection(
-      `WAITING (${buckets.waiting.length})`,
-      buckets.waiting,
-      (t) => {
-        const days = t.waiting_days ?? 0;
-        const org = t.org ? ` (${escapeHtml(t.org)})` : '';
-        const tag = PIPELINE_TAGS[t.pipeline];
-        const action = t.next_action || 'Awaiting response';
-        return `
+    htmlBucketSection(`WAITING (${buckets.waiting.length})`, buckets.waiting, (t) => {
+      const days = t.waiting_days ?? 0;
+      const org = t.org ? ` (${escapeHtml(t.org)})` : '';
+      const tag = PIPELINE_TAGS[t.pipeline];
+      const action = t.next_action || 'Awaiting response';
+      return `
           <div style="padding: 8px 0; border-bottom: 1px solid #222;">
             <div style="font-size: 13px; color: #e0e0e0;">
               <span style="color: #888; font-weight: 600;">${days}d</span>
@@ -485,8 +506,7 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
             </div>
             <div style="font-size: 12px; color: #aaa; margin-top: 2px;">→ ${escapeHtml(action)}</div>
           </div>`;
-      }
-    ),
+    }),
     htmlBucketSection(
       `ACTIVE DEALS (${buckets.active_deals.length}${buckets.active_deals_overflow > 0 ? ` + ${buckets.active_deals_overflow}` : ''})`,
       buckets.active_deals,
@@ -499,11 +519,9 @@ function formatHtml(buckets: DigestBuckets, dateStr: string): string {
         }
         return htmlThreadRow(t, '', '#00d4aa', dueFlag);
       },
-      buckets.active_deals_overflow
+      buckets.active_deals_overflow,
     ),
-    buckets.upcoming.length > 0
-      ? htmlBucketSection('UPCOMING', [], () => '', 0, upcomingInfo)
-      : '',
+    buckets.upcoming.length > 0 ? htmlBucketSection('UPCOMING', [], () => '', 0, upcomingInfo) : '',
   ]
     .filter(Boolean)
     .join('');
@@ -589,35 +607,32 @@ export async function sendDailyDigestEmail(): Promise<void> {
   });
   const subject = `Outreach ${dateStr}`;
 
-  const resendKey = process.env.RESEND_API_KEY;
+  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
 
-  if (!resendKey) {
-    logger.warn('RESEND_API_KEY not configured. Printing digest to console.');
+  if (!hasTransport) {
+    logger.warn('No SMTP or RESEND_API_KEY configured. Printing digest to console.');
     console.log('\n' + plainText);
     return;
   }
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
-    },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [recipient],
-      reply_to: replyToAddress,
-      subject,
-      html,
-      text: plainText,
-    }),
+  const { sendEmail } = await import('../utils/send-email.js');
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    replyTo: replyToAddress,
+    subject,
+    html,
+    text: plainText,
   });
 
-  if (response.ok) {
-    logger.info('Daily digest sent via Resend', { to: recipient, replyTo: replyToAddress });
+  if (result.ok) {
+    logger.info('Daily digest sent', {
+      to: recipient,
+      transport: result.transport,
+      replyTo: replyToAddress,
+    });
     return;
   }
 
-  const errorBody = await response.text();
-  logger.error('Resend daily digest failed', { status: response.status, error: errorBody });
+  logger.error('Daily digest send failed', { error: result.error });
 }

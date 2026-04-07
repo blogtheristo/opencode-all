@@ -3,10 +3,11 @@
 # Morning workflow: create feature branch, run build and tests, then ready for implementation.
 #
 # Usage:
-#   ./morning-feature-workflow.sh [feature-name] [--skip-build] [--skip-test] [--run-fix-agent] [--use-worktree]
+#   ./morning-feature-workflow.sh [feature-name] [--pr <number>] [--skip-build] [--skip-test] [--run-fix-agent] [--use-worktree]
 #
 # Examples:
 #   ./morning-feature-workflow.sh compliance-dashboard
+#   ./morning-feature-workflow.sh --pr 769 --use-worktree
 #   ./morning-feature-workflow.sh v2-carbon-reporting --run-fix-agent
 #
 set -e
@@ -17,18 +18,33 @@ SKIP_TEST=false
 RUN_FIX_AGENT=false
 USE_WORKTREE=false
 FEATURE_NAME=""
+PR_NUMBER=""
 
-for arg in "$@"; do
-    case "$arg" in
-        --skip-build)     SKIP_BUILD=true ;;
-        --skip-test)      SKIP_TEST=true ;;
-        --run-fix-agent)  RUN_FIX_AGENT=true ;;
-        --use-worktree)   USE_WORKTREE=true ;;
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --skip-build)     SKIP_BUILD=true; shift ;;
+        --skip-test)      SKIP_TEST=true; shift ;;
+        --run-fix-agent)  RUN_FIX_AGENT=true; shift ;;
+        --use-worktree)   USE_WORKTREE=true; shift ;;
+        --pr)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: --pr requires a value"
+                exit 1
+            fi
+            PR_NUMBER="${2:-}"
+            shift 2
+            ;;
+        --pr=*)
+            PR_NUMBER="${1#*=}"
+            shift
+            ;;
         -*)
-            # skip flags
+            # unknown flags are ignored to preserve compatibility
+            shift
             ;;
         *)
-            [ -z "$FEATURE_NAME" ] && FEATURE_NAME="$arg"
+            [ -z "$FEATURE_NAME" ] && FEATURE_NAME="$1"
+            shift
             ;;
     esac
 done
@@ -39,8 +55,14 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
 DATE_STR="$(date +%Y%m%d)"
-NAME="${FEATURE_NAME:-morning-$DATE_STR}"
-BRANCH_NAME="claude/$NAME"
+if [[ -n "$PR_NUMBER" ]]; then
+    BRANCH_NAME="claude/pr-$PR_NUMBER"
+    WORKTREE_NAME="pr-$PR_NUMBER"
+else
+    NAME="${FEATURE_NAME:-morning-$DATE_STR}"
+    BRANCH_NAME="claude/$NAME"
+    WORKTREE_NAME=""
+fi
 
 echo ""
 echo "========================================"
@@ -51,8 +73,13 @@ echo ""
 if [ "$USE_WORKTREE" = true ]; then
     WT_SCRIPT="$REPO_ROOT/scripts/new-claude-worktree.sh"
     [ -f "$WT_SCRIPT" ] || { echo "Error: $WT_SCRIPT not found"; exit 1; }
-    echo "[Worktree mode] Creating worktree for branch: $BRANCH_NAME"
-    "$WT_SCRIPT" "$BRANCH_NAME" "$BASE_BRANCH"
+    if [[ -n "$PR_NUMBER" ]]; then
+        echo "[Worktree mode] Creating PR worktree: #$PR_NUMBER ($BRANCH_NAME)"
+        "$WT_SCRIPT" "$BRANCH_NAME" "$BASE_BRANCH" --worktree-name "$WORKTREE_NAME"
+    else
+        echo "[Worktree mode] Creating worktree for branch: $BRANCH_NAME"
+        "$WT_SCRIPT" "$BRANCH_NAME" "$BASE_BRANCH"
+    fi
     echo "Worktree created. Cd into the worktree and run build/test there."
     exit 0
 fi
