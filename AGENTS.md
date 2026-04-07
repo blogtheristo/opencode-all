@@ -475,7 +475,7 @@ dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 
 | Item               | Detail                                                                                                                                                         |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Repo**           | https://github.com/blogtheristo/gstack                                                                                                                         |
+| **Repo**           | https://github.com/garrytan/gstack                                                                                                                             |
 | **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                           |
 | **What it is**     | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts.                |
 | **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
