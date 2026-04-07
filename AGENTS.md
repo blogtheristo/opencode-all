@@ -30,12 +30,16 @@
 
 ## 1b. Team
 
-| Name   | Role             | Email                    | Scope                                                        |
-| ------ | ---------------- | ------------------------ | ------------------------------------------------------------ |
-| Risto  | CEO              | risto.paarni@lifetime.fi | Founder, product direction, final approval                   |
-| Adrian | DWS IQ Architect | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design |
+| Name   | Role               | Email                    | Scope                                                         | gstack Role         | Persona              |
+| ------ | ------------------ | ------------------------ | ------------------------------------------------------------- | ------------------- | -------------------- |
+| Risto  | CEO / Founder      | risto.paarni@lifetime.fi | Product vision, regulatory strategy, customer relationships   | Founder/CEO         | `docs/HIL_Risto.md`  |
+| Adrian | DWS IQ Architect   | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design  | —                   | —                    |
+| Marcus | CTO / Co-Founder   | marcus@onelifetime.world | Engineering org, technical moat, Series A due diligence       | Engineering Manager | `docs/HIL_Marcus.md` |
+| Sofia  | CFO / Finance Lead | sofia@onelifetime.world  | Unit economics, Alpha-Share pricing, investor relations, D&O  | —                   | `docs/HIL_Sofia.md`  |
+| Antti  | VP Sales / GTM     | antti@onelifetime.world  | Enterprise pilots, construction vertical, Nordic/DACH markets | —                   | `docs/HIL_Antti.md`  |
+| Emily  | HR & People Ops    | emily@onelifetime.world  | Hiring, onboarding, Captain program, team culture             | —                   | `docs/HIL_Emily.md`  |
 
-**gstack roles** (AI agent personas, not people): Founder/CEO, Engineering Manager, Staff Engineer, Release Engineer, QA Engineer. See Section 16.
+**gstack skill mapping:** Risto owns `/plan-ceo-review` (Founder/CEO). Marcus owns `/plan-eng-review` (Engineering Manager) and `/retro` (weekly retrospective). `/review` (Staff Engineer), `/ship` (Release Engineer), and `/browse` (QA Engineer) are shared team skills. See Section 16.
 
 ---
 

@@ -4,6 +4,7 @@
 **Role:** DWS IQ Architect
 **Email:** adrian@dws10.com
 **Domain:** dws10.com (DWS product platform)
+**gstack Role:** — (architecture ownership sits between `/plan-eng-review` and `/review`)
 
 ## Context
 
