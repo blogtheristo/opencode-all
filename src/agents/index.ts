@@ -43,6 +43,7 @@ import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
 import { MarsAgent } from './workflow/industry/mars.agent.js';
 import { BESSAgent } from './workflow/industry/bess.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
+import { TalosAgent } from './workflow/industry/talos.agent.js';
 import { ArgusAgent } from './argus.agent.js';
 import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { DesignerAgent } from './designer.agent.js';
@@ -216,6 +217,7 @@ export class AgentRegistry {
     this.register(new MarsAgent()); // Construction & Buildings
     this.register(new GaiaAgent()); // Cement & Earth Materials
     this.register(new BESSAgent()); // Battery Energy Storage — Q-System integration
+    this.register(new TalosAgent()); // Aluminium — CBAM indirect emissions, grid carbon
 
     // KYA Vision — Orbital Target Labeling (ICEYE SAR partnership)
     this.register(new ArgusAgent()); // All-seeing orbital eye — 20-industry detection

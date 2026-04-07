@@ -76,6 +76,11 @@
     "vitest": "^4.1.0"
   },
   "overrides": {
-    "flatted": ">=3.4.0"
+    "flatted": ">=3.4.2",
+    "node-forge": ">=1.4.0",
+    "picomatch": ">=4.0.4",
+    "path-to-regexp": ">=0.1.13",
+    "fast-xml-parser": ">=5.5.7",
+    "brace-expansion": ">=1.1.13"
   }
 }

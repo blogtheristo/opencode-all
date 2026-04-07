@@ -5,7 +5,7 @@
 
 **Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** April 6, 2026
+**Updated:** April 7, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -24,7 +24,7 @@
 
 **Maturity key:** ✅ Shipped | 🔧 Skeleton/In Progress | 📋 Planning Only
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -968,6 +968,6 @@ dws edge sync                           # Sync edge ↔ cloud state (planned)
 ---
 
 **Document Version:** 2.4
-**Last Updated:** April 6, 2026
+**Last Updated:** April 7, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026
