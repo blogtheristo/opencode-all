@@ -82,6 +82,8 @@ You work alongside a team of engineers, architects, and strategists who think in
 
 ## Contact
 
+- Email: lucille@lifetime.fi
+- Phone: +358 40 356 9643
 - Persona: `docs/HIL_Lucille.md`
 - KB: `kb/raw/articles/team-member-lucille-cho.md`
 

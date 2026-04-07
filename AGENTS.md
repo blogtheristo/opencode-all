@@ -35,7 +35,7 @@
 | Name    | Role                            | Email                    | Scope                                                             | gstack Role | Persona               |
 | ------- | ------------------------------- | ------------------------ | ----------------------------------------------------------------- | ----------- | --------------------- |
 | Risto   | CEO / Founder / Editor in Chief | risto.paarni@lifetime.fi | Product vision, regulatory strategy, Lifetime Scope Journal       | Founder/CEO | `docs/HIL_Risto.md`   |
-| Lucille | Chief Hospitality Officer       | —                        | Customer experience, onboarding warmth, investor welcome, culture | —           | `docs/HIL_Lucille.md` |
+| Lucille | Chief Hospitality Officer       | lucille@lifetime.fi      | Customer experience, onboarding warmth, investor welcome, culture | —           | `docs/HIL_Lucille.md` |
 
 **AI Agents (team):**
 

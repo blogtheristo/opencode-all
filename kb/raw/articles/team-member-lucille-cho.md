@@ -3,6 +3,8 @@
 **Name:** Lucille
 **Type:** Human (HIL)
 **Role:** Chief Hospitality Officer
+**Email:** lucille@lifetime.fi
+**Phone:** +358 40 356 9643
 **Persona:** `docs/HIL_Lucille.md`
 
 ## Context
