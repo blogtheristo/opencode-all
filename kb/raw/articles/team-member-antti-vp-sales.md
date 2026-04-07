@@ -11,11 +11,14 @@ Antti closes the enterprise pilots that become Series A proof points. Constructi
 
 ## Skills
 
+- Sales pipeline tracking and enterprise prospect sequencing
+- NCC, YIT/Skanska-tier target management (Top 30 accounts)
 - Nordic enterprise sales: construction, infrastructure, heavy industry
 - Construction vocabulary: embodied carbon per EN 15978, lifecycle assessment A1-D
 - Regulatory-driven sales: CBAM, CSRD, EPBD, ETS deadlines as sales force
-- Finnish and Swedish fluent, German conversational — Nordic and DACH markets without interpreters
+- Finnish and Swedish fluent, German conversational — Nordic and DACH markets
 - Pilot-to-contract conversion machine
+- Owns the outbound motion end-to-end
 
 ## Sales Motion
 

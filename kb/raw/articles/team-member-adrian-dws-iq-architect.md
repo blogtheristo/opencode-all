@@ -5,7 +5,7 @@
 **Role:** DWS IQ Architect
 **Email:** adrian@dws10.com
 **Domain:** dws10.com (DWS product platform)
-**gstack Role:** — (architecture ownership sits between `/plan-eng-review` and `/review`)
+**gstack Role:** `/cso` (security architecture) + `/review` (architecture completeness)
 
 ## Context
 
@@ -20,7 +20,8 @@ agent delegation, event bus design, and EU compliance scoring pipelines.
 - Brain-Memory-Body-Hands architectural pattern ownership
 - Agent delegation and event bus design
 - Integration architecture (ERP, ESG, MCP)
-- Technical review of architectural changes
+- Partner integration architecture reviews (compatibility assessment)
+- Security architecture via `/cso` (OWASP Top 10, STRIDE)
 
 ## Contact
 

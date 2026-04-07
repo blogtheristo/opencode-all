@@ -13,9 +13,9 @@ Lucille is the Chief Hospitality Officer at Lifetime Oy. She owns the human expe
 
 ## Skills
 
-- Customer experience design and onboarding flows
-- Investor and Captain welcome sequences
-- Partner and stakeholder hospitality
+- Post-contract customer onboarding — handoff from signed contract to live customer
+- Captain investor welcome sequences and quarterly briefing tone
+- Pilot kickoff experience design
 - Event and meeting experience management
 - Brand warmth and tone across all human touchpoints
 - Culture stewardship — ensuring the team feels as good as the product works

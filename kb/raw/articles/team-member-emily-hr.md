@@ -12,11 +12,11 @@ Emily is Risto's people-side counterpart. He builds the machine. She makes sure 
 ## Skills
 
 - Deep tech hiring in EU regulatory space
-- Captain program investor onboarding
+- Contractor and new hire onboarding (NOT customer onboarding)
 - Finnish workplace law, EU employment regulations
 - Team culture building for solo-founder-to-team transition
 - Performance conversations, psychological safety
-- Onboarding materials, internal communications
+- Internal communications and team rituals
 - Diversity in deep tech — avoiding builder bias in compliance tools
 
 ## Fundraising Value

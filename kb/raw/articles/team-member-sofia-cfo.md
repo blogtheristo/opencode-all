@@ -11,12 +11,13 @@ Sofia bridges Risto's systems thinking with the language of capital markets, D&O
 
 ## Skills
 
+- Partner deal structuring (Shufti model — DPA, revenue share, EU-only clauses)
+- Pricing strategy: Alpha-Share model, pilot → ARR conversion economics
+- Investor DD prep: unit economics packet, financial projections
 - Nordic corporate finance, D&O insurance positioning
 - Unit economics validation: €7K MRR, 100% retention, 75%+ gross margin, 10:1 LTV:CAC
-- Alpha-Share pricing model ownership
 - IFRS reporting, Finnish tax law, EU reporting obligations
-- KYA safe harbor economics — 8-12% D&O premium reduction as recurring measurable saving
-- Investor deck financial sections, board materials, pricing strategy
+- KYA safe harbor economics — 8-12% D&O premium reduction
 - CFO-to-CFO communication at YIT/Skanska-tier companies
 
 ## Fundraising Value

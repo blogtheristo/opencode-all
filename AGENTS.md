@@ -32,25 +32,86 @@
 
 **Humans (HIL):**
 
-| Name    | Role                            | Email                    | Scope                                                             | gstack Role | Persona               |
-| ------- | ------------------------------- | ------------------------ | ----------------------------------------------------------------- | ----------- | --------------------- |
-| Risto   | CEO / Founder / Editor in Chief | risto.paarni@lifetime.fi | Product vision, regulatory strategy, Lifetime Scope Journal       | Founder/CEO | `docs/HIL_Risto.md`   |
-| Lucille | Chief Hospitality Officer       | lucille@lifetime.fi      | Customer experience, onboarding warmth, investor welcome, culture | —           | `docs/HIL_Lucille.md` |
+| Name    | Role                            | Email                    | Scope                                                                              | gstack Role | Persona               |
+| ------- | ------------------------------- | ------------------------ | ---------------------------------------------------------------------------------- | ----------- | --------------------- |
+| Risto   | CEO / Founder / Editor in Chief | risto.paarni@lifetime.fi | Product vision, regulatory strategy, Lifetime Scope Journal, partner relationships | Founder/CEO | `docs/HIL_Risto.md`   |
+| Lucille | Chief Hospitality Officer       | lucille@lifetime.fi      | Post-contract customer onboarding, human touch in engagement, culture              | —           | `docs/HIL_Lucille.md` |
 
 **AI Agents (team):**
 
-| Name   | Role               | Email                    | Scope                                                         | gstack Role         | Persona              |
-| ------ | ------------------ | ------------------------ | ------------------------------------------------------------- | ------------------- | -------------------- |
-| Rocky  | CEO Agent          | —                        | CEO-level strategic decisions, product direction, fundraising | Founder/CEO         | —                    |
-| Adrian | DWS IQ Architect   | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design  | —                   | —                    |
-| Marcus | CTO / Co-Founder   | marcus@onelifetime.world | Engineering org, technical moat, Series A due diligence       | Engineering Manager | `docs/HIL_Marcus.md` |
-| Sofia  | CFO / Finance Lead | sofia@onelifetime.world  | Unit economics, Alpha-Share pricing, investor relations, D&O  | —                   | `docs/HIL_Sofia.md`  |
-| Antti  | VP Sales / GTM     | antti@onelifetime.world  | Enterprise pilots, construction vertical, Nordic/DACH markets | —                   | `docs/HIL_Antti.md`  |
-| Emily  | HR & People Ops    | emily@onelifetime.world  | Hiring, onboarding, Captain program, team culture             | —                   | `docs/HIL_Emily.md`  |
+| Name   | Role               | Email                    | Scope                                                                       | gstack Role         | Persona              |
+| ------ | ------------------ | ------------------------ | --------------------------------------------------------------------------- | ------------------- | -------------------- |
+| Rocky  | CEO Agent          | —                        | Investor narrative, round positioning, Arctic 15 prep, "why now, why us"    | Founder/CEO         | —                    |
+| Adrian | DWS IQ Architect   | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, partner integration reviews | `/cso` + `/review`  | —                    |
+| Marcus | CTO / Co-Founder   | marcus@onelifetime.world | Technical DD, architecture reviews, partner integration onboarding          | Engineering Manager | `docs/HIL_Marcus.md` |
+| Sofia  | CFO / Finance Lead | sofia@onelifetime.world  | Partner deal structuring (Shufti model), pricing, investor DD prep          | —                   | `docs/HIL_Sofia.md`  |
+| Antti  | VP Sales / GTM     | antti@onelifetime.world  | Sales pipeline, enterprise sequencing, NCC/YIT/Skanska-tier targets         | —                   | `docs/HIL_Antti.md`  |
+| Emily  | HR & People Ops    | emily@onelifetime.world  | Hiring, contractor onboarding, team culture (NOT customer onboarding)       | —                   | `docs/HIL_Emily.md`  |
 
-**Lifetime Scope Journal:** Risto is Editor in Chief. The journal is Lifetime Oy's publication channel for industry research, EU compliance insights, and product thought leadership.
+**Lifetime Scope Journal:** Risto is Editor in Chief. Industry research, EU compliance insights, and product thought leadership.
 
-**gstack skill mapping:** Rocky + Risto own `/plan-ceo-review` (Founder/CEO). Marcus owns `/plan-eng-review` (Engineering Manager) and `/retro` (weekly retrospective). `/review` (Staff Engineer), `/ship` (Release Engineer), and `/browse` (QA Engineer) are shared team skills. See Section 16.
+**gstack skill mapping:** Rocky + Risto own `/plan-ceo-review`. Marcus owns `/plan-eng-review` + `/retro`. Adrian owns `/cso` (security architecture) + `/review` (architecture completeness). `/ship`, `/browse`, `/qa` are shared. See Section 16.
+
+### Identified Gaps (April 2026)
+
+| Gap                         | Description                                                                               | Proposed Fix                                                                            |
+| --------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Investor pipeline agent** | Rocky sets narrative, but nobody tracks follow-ups, logs responses, sends sequences       | New agent or Rocky scope expansion with Supabase `outreach_contacts` automation         |
+| **Media outreach**          | Lifetime Scope Journal has no journalist pitch, press release, or coverage tracking agent | New agent: PR/Media agent, or expand Risto's HIL scope with automation                  |
+| **Partner outreach**        | Shufti negotiation was all Risto. No structured agent flow for partner pipeline           | Assign Antti (GTM) + Sofia (deal structure) with routing triggers                       |
+| **Adrian callable**         | No gstack command = not orchestratable in structured flows                                | Mapped to `/cso` + `/review` (architecture focus). Custom `/architect-review` if needed |
+
+### Business Process Routing Map
+
+Triggers → agent routing. This is the orchestration layer — who gets invoked for what.
+
+```
+INVESTOR FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: New investor contact / Arctic 15 lead / Captain inquiry
+  → Rocky: narrative framing, GO/PIVOT/STOP on lead quality
+  → Risto: personal outreach (5 emails/day)
+  → Sofia: DD prep, unit economics packet
+  → Lucille: Captain welcome sequence (post-commit)
+  Pipeline: Supabase outreach_contacts → Rocky qualifies → Risto sends → Sofia supports DD → Lucille welcomes
+  GAP: No agent tracks follow-ups/responses (manual today)
+
+SALES FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Enterprise inquiry / regulation deadline / conference lead
+  → Antti: qualifies prospect, sequences outreach (3/day, Top 30)
+  → Risto: joins technical architecture calls
+  → Sofia: pricing (Alpha-Share, pilot → ARR)
+  → Marcus: pilot delivery, SAP/IFS/D365 integration readiness
+  → Lucille: post-contract onboarding, pilot kickoff
+  Pipeline: Antti qualifies → Risto demos → Sofia prices → Marcus delivers → Lucille onboards
+
+PARTNER FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Integration opportunity / ISV program / data partnership
+  → Risto: strategic positioning, relationship ownership
+  → Antti: construction partner sourcing (reseller expansion)
+  → Adrian: architecture review for integration compatibility
+  → Marcus: technical integration onboarding
+  → Sofia: deal structuring (Shufti model, revenue share)
+  Pipeline: Risto initiates → Adrian reviews arch → Marcus integrates → Sofia structures → Antti scales
+
+ONBOARDING FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Contract signed / Captain seat purchased
+  → Lucille: welcome experience, Day 0 engagement (HUMAN)
+  → Emily: contractor/hire onboarding (if team expansion)
+  → Marcus: technical setup, data connection
+  Pipeline: Contract → Lucille welcomes → Marcus connects data → Day 3 nudge → Day 7 check-in
+
+MEDIA FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Daily content calendar / press event / product launch
+  → Risto: Editor in Chief, daily review (24h auto-publish gate)
+  → AI generation: 21 posts/week EN+FI (800-day campaign)
+  → Newsletter: Friday 08:00 Helsinki (7 posts, 1 per pillar)
+  GAP: No agent for journalist pitch, press release distribution, coverage tracking
+```
 
 ---
 
