@@ -227,7 +227,7 @@ All DWS pages use dark theme by default.
 | `--gradient-primary`  | `linear-gradient(135deg, #2563eb, #1d4ed8)` | Primary buttons, active states |
 | `--gradient-featured` | `linear-gradient(135deg, #f59e0b, #d97706)` | Featured badges                |
 | `--shadow-hover`      | `0 15px 30px rgba(0,0,0,0.4)`               | Card hover                     |
-| `--color-jitsi`       | `#oea5e9`                                   | Video meeting accents          |
+| `--color-jitsi`       | `#0ea5e9`                                   | Video meeting accents          |
 | `--color-email`       | `#8b5cf6`                                   | Email feature accents          |
 
 ---
