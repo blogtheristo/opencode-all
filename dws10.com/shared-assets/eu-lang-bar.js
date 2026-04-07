@@ -34,7 +34,7 @@
   var currentLang = localStorage.getItem('dws-lang') || 'en';
 
   // Language subdirectory mapping (only languages with pages get redirects)
-  var langPaths = { fi: '/fi/', sv: '/sv/', en: '/' };
+  var langPaths = { fi: '/fi/', sv: '/sv/', de: '/de/', fr: '/fr/', en: '/' };
 
   var barCSS =
     '/* === DWS10.com European Language Bar v1.0 === */\n' +
@@ -177,18 +177,7 @@
             return;
           }
         }
-        // DE and FR: no pages yet — just store preference, show "Coming soon" toast
-        if (lang === 'de' || lang === 'fr') {
-          var label = lang === 'de' ? 'Deutsch' : 'Fran\u00e7ais';
-          var toast = document.createElement('div');
-          toast.textContent = label + ' — coming soon';
-          toast.style.cssText =
-            'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0A2463;color:#FFD166;padding:10px 24px;border-radius:8px;font-size:0.9rem;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);';
-          document.body.appendChild(toast);
-          setTimeout(function () {
-            toast.remove();
-          }, 2500);
-        }
+        // All 5 languages now have pages — no "coming soon" toast needed
       });
     });
   });
