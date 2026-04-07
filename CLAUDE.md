@@ -572,7 +572,8 @@ dws workflow compliance-assessment
       **Cloud accounts:**
       | Account | Scope |
       |---------|-------|
-      | `risto.paarni2024@lifetime.fi` | GCP, Supabase, backend, AI agents, development |
+      | `risto.paarni2024@lifetime.fi` | GCP, backend, AI agents, development |
+      | `blogtheristo` (GitHub SSO) | Supabase (login via GitHub — Google login removed by Supabase) |
       | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
 
 **Environments:**
