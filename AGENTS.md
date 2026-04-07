@@ -54,12 +54,12 @@
 
 ### Identified Gaps (April 2026)
 
-| Gap                         | Description                                                                               | Proposed Fix                                                                            |
-| --------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Investor pipeline agent** | Rocky sets narrative, but nobody tracks follow-ups, logs responses, sends sequences       | New agent or Rocky scope expansion with Supabase `outreach_contacts` automation         |
-| **Media outreach**          | Lifetime Scope Journal has no journalist pitch, press release, or coverage tracking agent | New agent: PR/Media agent, or expand Risto's HIL scope with automation                  |
-| **Partner outreach**        | Shufti negotiation was all Risto. No structured agent flow for partner pipeline           | Assign Antti (GTM) + Sofia (deal structure) with routing triggers                       |
-| **Adrian callable**         | No gstack command = not orchestratable in structured flows                                | Mapped to `/cso` + `/review` (architecture focus). Custom `/architect-review` if needed |
+| Gap                         | Description                                                                               | Status                                                                                 |
+| --------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Investor pipeline agent** | Rocky sets narrative, but nobody tracks follow-ups, logs responses, sends sequences       | RESOLVED: `scripts/daily/flow-investor-outreach.ts` routes to Risto/Sofia/Lucille      |
+| **Media outreach**          | Lifetime Scope Journal has no journalist pitch, press release, or coverage tracking agent | PARTIAL: `scripts/daily/flow-media-outreach.ts` handles content calendar. PR agent TBD |
+| **Partner outreach**        | Shufti negotiation was all Risto. No structured agent flow for partner pipeline           | RESOLVED: `scripts/daily/flow-partner-outreach.ts` routes to Risto/Antti/Sofia/Adrian  |
+| **Adrian callable**         | No gstack command = not orchestratable in structured flows                                | RESOLVED: Mapped to `/cso` + `/review`. Routed in partner flow for arch reviews        |
 
 ### Business Process Routing Map
 
@@ -112,6 +112,18 @@ Trigger: Daily content calendar / press event / product launch
   → Newsletter: Friday 08:00 Helsinki (7 posts, 1 per pillar)
   GAP: No agent for journalist pitch, press release distribution, coverage tracking
 ```
+
+**Automation scripts (DGX Spark `day-runner.sh` auto-discovered):**
+
+| Script                                      | Flow       | Agents Routed               | Supabase Tables                                                   |
+| ------------------------------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
+| `scripts/daily/flow-investor-outreach.ts`   | Investor   | Risto, Sofia, Lucille       | `outreach_threads`, `captain_inquiries`, `outreach_daily_tasks`   |
+| `scripts/daily/flow-sales-outreach.ts`      | Sales      | Antti, Sofia, Lucille       | `outreach_threads`, `customer_onboarding`, `outreach_daily_tasks` |
+| `scripts/daily/flow-partner-outreach.ts`    | Partner    | Risto, Antti, Sofia, Adrian | `outreach_threads`, `outreach_daily_tasks`                        |
+| `scripts/daily/flow-customer-onboarding.ts` | Onboarding | Lucille, Marcus             | `customer_onboarding`, `outreach_threads`                         |
+| `scripts/daily/flow-media-outreach.ts`      | Media      | Risto                       | `content_calendar` (migration 057)                                |
+| `scripts/daily/flow-orchestrator-digest.ts` | ALL        | —                           | `outreach_daily_tasks` → combined email                           |
+| `scripts/lib/flow-utils.ts`                 | Shared     | —                           | Query helpers, task creation, digest email                        |
 
 ---
 
