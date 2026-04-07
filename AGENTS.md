@@ -28,6 +28,105 @@
 
 ---
 
+## 1b. Team
+
+**Humans (HIL):**
+
+| Name    | Role                            | Email                    | Scope                                                                              | gstack Role | Persona               |
+| ------- | ------------------------------- | ------------------------ | ---------------------------------------------------------------------------------- | ----------- | --------------------- |
+| Risto   | CEO / Founder / Editor in Chief | risto.paarni@lifetime.fi | Product vision, regulatory strategy, Lifetime Scope Journal, partner relationships | Founder/CEO | `docs/HIL_Risto.md`   |
+| Lucille | Chief Hospitality Officer       | lucille@lifetime.fi      | Post-contract customer onboarding, human touch in engagement, culture              | —           | `docs/HIL_Lucille.md` |
+
+**AI Agents (team):**
+
+| Name   | Role               | Email                    | Scope                                                                       | gstack Role         | Persona              |
+| ------ | ------------------ | ------------------------ | --------------------------------------------------------------------------- | ------------------- | -------------------- |
+| Rocky  | CEO Agent          | —                        | Investor narrative, round positioning, Arctic 15 prep, "why now, why us"    | Founder/CEO         | —                    |
+| Adrian | DWS IQ Architect   | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, partner integration reviews | `/cso` + `/review`  | —                    |
+| Marcus | CTO / Co-Founder   | marcus@onelifetime.world | Technical DD, architecture reviews, partner integration onboarding          | Engineering Manager | `docs/HIL_Marcus.md` |
+| Sofia  | CFO / Finance Lead | sofia@onelifetime.world  | Partner deal structuring (Shufti model), pricing, investor DD prep          | —                   | `docs/HIL_Sofia.md`  |
+| Antti  | VP Sales / GTM     | antti@onelifetime.world  | Sales pipeline, enterprise sequencing, NCC/YIT/Skanska-tier targets         | —                   | `docs/HIL_Antti.md`  |
+| Emily  | HR & People Ops    | emily@onelifetime.world  | Hiring, contractor onboarding, team culture (NOT customer onboarding)       | —                   | `docs/HIL_Emily.md`  |
+
+**Lifetime Scope Journal:** Risto is Editor in Chief. Industry research, EU compliance insights, and product thought leadership.
+
+**gstack skill mapping:** Rocky + Risto own `/plan-ceo-review`. Marcus owns `/plan-eng-review` + `/retro`. Adrian owns `/cso` (security architecture) + `/review` (architecture completeness). `/ship`, `/browse`, `/qa` are shared. See Section 16.
+
+### Identified Gaps (April 2026)
+
+| Gap                         | Description                                                                               | Status                                                                                 |
+| --------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Investor pipeline agent** | Rocky sets narrative, but nobody tracks follow-ups, logs responses, sends sequences       | RESOLVED: `scripts/daily/flow-investor-outreach.ts` routes to Risto/Sofia/Lucille      |
+| **Media outreach**          | Lifetime Scope Journal has no journalist pitch, press release, or coverage tracking agent | PARTIAL: `scripts/daily/flow-media-outreach.ts` handles content calendar. PR agent TBD |
+| **Partner outreach**        | Shufti negotiation was all Risto. No structured agent flow for partner pipeline           | RESOLVED: `scripts/daily/flow-partner-outreach.ts` routes to Risto/Antti/Sofia/Adrian  |
+| **Adrian callable**         | No gstack command = not orchestratable in structured flows                                | RESOLVED: Mapped to `/cso` + `/review`. Routed in partner flow for arch reviews        |
+
+### Business Process Routing Map
+
+Triggers → agent routing. This is the orchestration layer — who gets invoked for what.
+
+```
+INVESTOR FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: New investor contact / Arctic 15 lead / Captain inquiry
+  → Rocky: narrative framing, GO/PIVOT/STOP on lead quality
+  → Risto: personal outreach (5 emails/day)
+  → Sofia: DD prep, unit economics packet
+  → Lucille: Captain welcome sequence (post-commit)
+  Pipeline: Supabase outreach_contacts → Rocky qualifies → Risto sends → Sofia supports DD → Lucille welcomes
+  GAP: No agent tracks follow-ups/responses (manual today)
+
+SALES FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Enterprise inquiry / regulation deadline / conference lead
+  → Antti: qualifies prospect, sequences outreach (3/day, Top 30)
+  → Risto: joins technical architecture calls
+  → Sofia: pricing (Alpha-Share, pilot → ARR)
+  → Marcus: pilot delivery, SAP/IFS/D365 integration readiness
+  → Lucille: post-contract onboarding, pilot kickoff
+  Pipeline: Antti qualifies → Risto demos → Sofia prices → Marcus delivers → Lucille onboards
+
+PARTNER FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Integration opportunity / ISV program / data partnership
+  → Risto: strategic positioning, relationship ownership
+  → Antti: construction partner sourcing (reseller expansion)
+  → Adrian: architecture review for integration compatibility
+  → Marcus: technical integration onboarding
+  → Sofia: deal structuring (Shufti model, revenue share)
+  Pipeline: Risto initiates → Adrian reviews arch → Marcus integrates → Sofia structures → Antti scales
+
+ONBOARDING FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Contract signed / Captain seat purchased
+  → Lucille: welcome experience, Day 0 engagement (HUMAN)
+  → Emily: contractor/hire onboarding (if team expansion)
+  → Marcus: technical setup, data connection
+  Pipeline: Contract → Lucille welcomes → Marcus connects data → Day 3 nudge → Day 7 check-in
+
+MEDIA FLOW (DGX Spark: scripts/daily/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trigger: Daily content calendar / press event / product launch
+  → Risto: Editor in Chief, daily review (24h auto-publish gate)
+  → AI generation: 21 posts/week EN+FI (800-day campaign)
+  → Newsletter: Friday 08:00 Helsinki (7 posts, 1 per pillar)
+  GAP: No agent for journalist pitch, press release distribution, coverage tracking
+```
+
+**Automation scripts (DGX Spark `day-runner.sh` auto-discovered):**
+
+| Script                                      | Flow       | Agents Routed               | Supabase Tables                                                   |
+| ------------------------------------------- | ---------- | --------------------------- | ----------------------------------------------------------------- |
+| `scripts/daily/flow-investor-outreach.ts`   | Investor   | Risto, Sofia, Lucille       | `outreach_threads`, `captain_inquiries`, `outreach_daily_tasks`   |
+| `scripts/daily/flow-sales-outreach.ts`      | Sales      | Antti, Sofia, Lucille       | `outreach_threads`, `customer_onboarding`, `outreach_daily_tasks` |
+| `scripts/daily/flow-partner-outreach.ts`    | Partner    | Risto, Antti, Sofia, Adrian | `outreach_threads`, `outreach_daily_tasks`                        |
+| `scripts/daily/flow-customer-onboarding.ts` | Onboarding | Lucille, Marcus             | `customer_onboarding`, `outreach_threads`                         |
+| `scripts/daily/flow-media-outreach.ts`      | Media      | Risto                       | `content_calendar` (migration 057)                                |
+| `scripts/daily/flow-orchestrator-digest.ts` | ALL        | —                           | `outreach_daily_tasks` → combined email                           |
+| `scripts/lib/flow-utils.ts`                 | Shared     | —                           | Query helpers, task creation, digest email                        |
+
+---
+
 ## 2. Development Environment
 
 ### Setup
@@ -458,28 +557,58 @@ dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 
 ### Important add-on: gstack (Claude Code Skill System)
 
-| Item               | Detail                                                                                                                                                         |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Repo**           | https://github.com/blogtheristo/gstack                                                                                                                         |
-| **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                           |
-| **What it is**     | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts.                |
-| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
-| **License**        | MIT                                                                                                                                                            |
+| Item               | Detail                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo**           | https://github.com/garrytan/gstack                                                                                                                              |
+| **Version**        | v0.15.16.0 (2026-04-07) — multiple releases per day, very active development                                                                                    |
+| **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                            |
+| **What it is**     | 23+ specialist roles as slash commands for Claude Code. Virtual engineering team with structured sprint: Think → Plan → Build → Review → Test → Ship → Reflect. |
+| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase.  |
+| **Install**        | `~/.claude/skills/gstack/` (global) or vendored. Team mode: `./setup --team`. Requires: Claude Code, Git, Bun v1.0+.                                            |
+| **Multi-agent**    | Supports 8 AI coding agents: Claude Code, OpenAI Codex CLI, OpenCode, Cursor, Factory Droid, Slate, Kiro, OpenClaw. Setup: `./setup --host <name>`.             |
+| **License**        | MIT                                                                                                                                                             |
 
-**Six Skills (adapted for DWS6):**
+**Full gstack skills (31 total, DWS6 uses bolded ones):**
 
-| Skill      | Role                | Claude Code Command | Purpose                                                  |
-| ---------- | ------------------- | ------------------- | -------------------------------------------------------- |
-| Plan (CEO) | Founder/CEO         | `/plan-ceo-review`  | 10-star product review, scope challenge, strategic fit   |
-| Plan (Eng) | Engineering Manager | `/plan-eng-review`  | Architecture lock, data flow, edge cases, security       |
-| Review     | Staff Engineer      | `/review`           | Production-breaking bug hunt, security, DWS compliance   |
-| Ship       | Release Engineer    | `/ship`             | Automated sync, test, commit, push, PR creation          |
-| Browse     | QA Engineer         | `/browse`           | Browser automation, screenshots, UI verification         |
-| Retro      | Engineering Manager | `/retro`            | Weekly velocity analysis, work patterns, recommendations |
+| Category     | Skill                    | Role                   | Purpose                                                           |
+| ------------ | ------------------------ | ---------------------- | ----------------------------------------------------------------- |
+| **Planning** | `/office-hours`          | YC Partner             | Product interrogation with 6 forcing questions                    |
+| **Planning** | **`/plan-ceo-review`**   | Founder/CEO            | 10-star product review, 4 scope modes, strategic fit              |
+| **Planning** | **`/plan-eng-review`**   | Engineering Manager    | Architecture lock, data flow, edge cases, test plan               |
+| Planning     | `/plan-design-review`    | Senior Designer        | Rates dimensions 0-10, AI Slop detection                          |
+| Planning     | `/plan-devex-review`     | DX Lead                | Developer personas, TTHW benchmarking, friction tracing           |
+| Planning     | `/autoplan`              | Pipeline               | Runs CEO → design → eng review automatically                      |
+| Design       | `/design-consultation`   | Designer               | Build design system, research landscape, creative risks           |
+| Design       | `/design-shotgun`        | Designer               | 4-6 AI mockup variants, comparison board                          |
+| Design       | `/design-html`           | Designer               | Mockup to production HTML (Pretext, 30KB, zero deps)              |
+| Design       | `/design-review`         | Designer               | Audit then fix with atomic commits                                |
+| **Review**   | **`/review`**            | Staff Engineer         | Bug hunt, auto-fixes, completeness gaps, DWS compliance           |
+| Review       | `/devex-review`          | DX Lead                | Live DX audit, times TTHW, screenshots errors                     |
+| Review       | `/qa`                    | QA Lead                | Test, find bugs, fix with atomic commits, regression tests        |
+| Review       | `/qa-only`               | QA Lead                | Report only, no code changes                                      |
+| Review       | `/investigate`           | Debugger               | Root-cause debugging, no fixes without investigation              |
+| Review       | `/codex`                 | Second Opinion         | OpenAI Codex CLI review (adversarial, consultation modes)         |
+| Review       | `/cso`                   | Chief Security Officer | OWASP Top 10 + STRIDE, 8/10+ confidence gate                      |
+| **Shipping** | **`/ship`**              | Release Engineer       | Sync main, test, audit coverage, push, open PR                    |
+| Shipping     | `/land-and-deploy`       | Release Engineer       | Merge PR, wait for CI/deploy, verify production health            |
+| Shipping     | `/canary`                | SRE                    | Post-deploy monitoring (console errors, perf, page failures)      |
+| Shipping     | `/benchmark`             | Performance            | Page load times, Core Web Vitals, resource sizes                  |
+| Shipping     | `/document-release`      | Tech Writer            | Update all docs to match shipped changes                          |
+| **Reflect**  | **`/retro`**             | Engineering Manager    | Weekly retro, per-person breakdowns, `/retro global` across repos |
+| **Browser**  | **`/browse`**            | QA Engineer            | Real Chromium, real clicks, screenshots (~100ms per command)      |
+| Browser      | `/open-gstack-browser`   | Browser                | GStack Browser with sidebar, anti-bot stealth, model routing      |
+| Browser      | `/setup-browser-cookies` | Browser                | Import cookies from Chrome/Arc/Brave/Edge                         |
+| Browser      | `/pair-agent`            | Multi-Agent            | Share browser with any AI agent; scoped tokens, tab isolation     |
+| Safety       | `/careful`               | Guard                  | Warns before destructive commands                                 |
+| Safety       | `/freeze`                | Guard                  | Lock file edits to one directory                                  |
+| Safety       | `/guard`                 | Guard                  | `/careful` + `/freeze` combined                                   |
+| Utility      | `/learn`                 | Memory                 | Cross-session learnings (review, search, prune, export)           |
 
-**Recommended workflow:** `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
+**Recommended workflow:** `/office-hours` → `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
 
-**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, SQL safety rules, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+**DWS adaptations:** Bolded skills are customized for DWS6 standards — Build for Agents rule, SQL safety rules, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+
+**Recent (April 2026):** `/pair-agent` multi-agent browser coordination with 4-layer prompt injection defense, team install mode (`./setup --team`), community security contributions. Designed for 10-15 concurrent sessions via Conductor.
 
 ### Important add-on: Agent Browser (`agent-browser`)
 
