@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 import {
   resolveCompanyERP,
   resolveCompanyERPBatch,
-  listRegisteredCompanies
+  listRegisteredCompanies,
 } from '../integrations/erp/company-erp-resolver';
 import { ERPProvider } from '../integrations/erp/types';
 
@@ -47,7 +47,7 @@ describe('Company ERP Resolver', () => {
       expect(result.found).toBe(false);
       expect(result.erpProvider).toBeNull();
       expect(result.warning).toContain('Random Corp');
-      expect(result.warning).toContain('tarkista käsin');
+      expect(result.warning).toContain('Tarkista käsin');
     });
 
     it('case-insensitive exact match', () => {
@@ -91,7 +91,7 @@ describe('Company ERP Resolver', () => {
         'NCC Building',
         'Sweco Finland',
         'SRV Rakennus',
-        'Random Corp'
+        'Random Corp',
       ]);
 
       expect(results).toHaveLength(5);
@@ -108,8 +108,8 @@ describe('Company ERP Resolver', () => {
     it('returns all registered companies', () => {
       const companies = listRegisteredCompanies();
       expect(companies.length).toBeGreaterThanOrEqual(4);
-      expect(companies.map(c => c.name)).toContain('Skanska AB');
-      expect(companies.map(c => c.name)).toContain('SRV Rakennus');
+      expect(companies.map((c) => c.name)).toContain('Skanska AB');
+      expect(companies.map((c) => c.name)).toContain('SRV Rakennus');
     });
 
     it('returns a copy (not the original array)', () => {

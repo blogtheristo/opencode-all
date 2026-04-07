@@ -9,6 +9,7 @@ Version: 2.6
 Sessions & Modifications:
 
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
+- Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-industrial-rebrand-glOfb | Date: 06.04.2026 | Changes: Nordic Industrial rebrand — added Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, trilingual homepage (FI/SV/EN), "Built in Finland" footer badge, Mistral AI sovereign inference reference
 - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
 - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
@@ -24,7 +25,7 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 08.03.2026
+- Last Modified: 06.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -226,8 +227,66 @@ All DWS pages use dark theme by default.
 | `--gradient-primary`  | `linear-gradient(135deg, #2563eb, #1d4ed8)` | Primary buttons, active states |
 | `--gradient-featured` | `linear-gradient(135deg, #f59e0b, #d97706)` | Featured badges                |
 | `--shadow-hover`      | `0 15px 30px rgba(0,0,0,0.4)`               | Card hover                     |
-| `--color-jitsi`       | `#oea5e9`                                   | Video meeting accents          |
+| `--color-jitsi`       | `#0ea5e9`                                   | Video meeting accents          |
 | `--color-email`       | `#8b5cf6`                                   | Email feature accents          |
+
+---
+
+## 2.1 Nordic Industrial Palette (v2.5)
+
+**Introduced:** April 2026 (Nordic Industrial Rebrand)
+**Rationale:** Silicon Valley never builds for the Nordic/EU market specifically. Our visual identity should be unmistakably Finnish/Nordic/European — not generic enterprise blue.
+**CSS Source:** `dws10.com/shared-assets/nordic-theme.css`
+
+### Color Tokens
+
+| Token                 | Hex       | Usage                                           |
+| --------------------- | --------- | ----------------------------------------------- |
+| `--nordic-navy`       | `#0A2463` | Primary — authority, trust (Kone/Wärtsilä feel) |
+| `--nordic-navy-light` | `#0e3080` | Hover states, gradients                         |
+| `--nordic-navy-dark`  | `#071a4a` | Deep backgrounds                                |
+| `--nordic-steel`      | `#3E3E3E` | Industrial gray — machines, infrastructure      |
+| `--nordic-pine`       | `#3A5A40` | Sustainability — Finnish forests                |
+| `--nordic-pine-light` | `#4a7a52` | Success states                                  |
+| `--nordic-birch`      | `#F5F0E8` | Warm white — birch bark (light sections)        |
+| `--nordic-snow`       | `#FAFBFC` | Clean white — page backgrounds                  |
+| `--nordic-yellow`     | `#FFD166` | Innovation accent — Nordic light                |
+| `--nordic-red`        | `#D62828` | Urgency — tender deadlines, alerts              |
+| `--nordic-ice`        | `#B8D4E3` | Light blue — Nordic sky, atmosphere             |
+
+### Typography
+
+| Role     | Font                    | Weight             | Source              |
+| -------- | ----------------------- | ------------------ | ------------------- |
+| Headings | IBM Plex Sans Condensed | 600, 700           | Google Fonts (free) |
+| Body     | IBM Plex Sans           | 400, 500, 600, 700 | Google Fonts (free) |
+| Code     | IBM Plex Mono           | 400                | Google Fonts (free) |
+
+**Why IBM Plex:** Designed by IBM for technical/industrial contexts. Open-source. Excellent Nordic character support (ä, ö, å, ü, ø, æ). Avenir Next was considered but requires commercial license.
+
+### Multilingual URL Structure
+
+| Language          | URL             | Status |
+| ----------------- | --------------- | ------ |
+| English (default) | `dws10.com/`    | Active |
+| Finnish           | `dws10.com/fi/` | Active |
+| Swedish           | `dws10.com/sv/` | Active |
+| German            | `dws10.com/de/` | Active |
+| French            | `dws10.com/fr/` | Active |
+
+All pages include `hreflang` alternate links for SEO.
+
+### European Language Bar
+
+**Script:** `dws10.com/shared-assets/eu-lang-bar.js`
+**Scope:** Homepage and key landing pages only (not global via ironclad-nav.js)
+**Order:** Suomi | Svenska | Deutsch | Français | English + EU flag
+**Purpose:** Signals "This is a European brand and product line"
+**Storage:** `localStorage('dws-lang')` — shared with ironclad-nav.js
+
+### "Built in Finland" Footer Badge
+
+Added to `ironclad-footer.js` v1.2. Displays Finnish flag SVG + "Built in Finland · EU Sovereign AI · Finnish Jurisdiction" above the footer columns on every page.
 
 ---
 
@@ -1676,7 +1735,7 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
-| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes                                                                                                                                                                                                                                                                                                                                                                                              |
+| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |
 | v2.4    | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2    | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern                                                                                                                                                                                                                                                   |
 | v2.1    | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world                                                                                                                                                                                                                                                                                                                                  |

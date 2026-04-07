@@ -5,6 +5,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.2 — Nordic Industrial rebrand: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
  * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
  * v2.0 — Comprehensive Home menu with flyouts
@@ -13,30 +14,32 @@
  * The script will automatically inject the navigation at the start of <body>
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    // Determine base path based on current location
-    const getBasePath = () => {
-        const path = window.location.pathname;
-        const depth = (path.match(/\//g) || []).length - 1;
-        if (depth === 0 || path === '/' || path === '/index.html') return '';
-        return '../'.repeat(depth);
-    };
+  // Determine base path based on current location
+  const getBasePath = () => {
+    const path = window.location.pathname;
+    const depth = (path.match(/\//g) || []).length - 1;
+    if (depth === 0 || path === '/' || path === '/index.html') return '';
+    return '../'.repeat(depth);
+  };
 
-    const basePath = getBasePath();
+  const basePath = getBasePath();
 
-    // Language configuration (expandable — add new languages here)
-    const ironcladLanguages = [
-        { code: 'en', label: 'English' },
-        { code: 'fi', label: 'Suomeksi' },
-        { code: 'sv', label: 'Svenska' }
-    ];
-    const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
-    const ironcladCurrentLabel = (ironcladLanguages.find(l => l.code === ironcladCurrentLang) || ironcladLanguages[0]).label;
+  // Language configuration (expandable — add new languages here)
+  const ironcladLanguages = [
+    { code: 'en', label: 'English' },
+    { code: 'fi', label: 'Suomeksi' },
+    { code: 'sv', label: 'Svenska' },
+  ];
+  const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
+  const ironcladCurrentLabel = (
+    ironcladLanguages.find((l) => l.code === ironcladCurrentLang) || ironcladLanguages[0]
+  ).label;
 
-    // Navigation HTML (Gamma-aligned with hamburger support)
-    const navHTML = `
+  // Navigation HTML (Gamma-aligned with hamburger support)
+  const navHTML = `
 <!-- DWS10.com Iron Clad / Gamma Navigation v3.0 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
@@ -283,7 +286,7 @@
                         <span class="ironclad-lang-arrow">&#9662;</span>
                     </button>
                     <ul class="ironclad-lang-dropdown">
-                        ${ironcladLanguages.map(l => '<li><button class="ironclad-lang-option' + (l.code === ironcladCurrentLang ? ' ironclad-lang-active' : '') + '" data-lang="' + l.code + '">' + l.label + '</button></li>').join('\n                        ')}
+                        ${ironcladLanguages.map((l) => '<li><button class="ironclad-lang-option' + (l.code === ironcladCurrentLang ? ' ironclad-lang-active' : '') + '" data-lang="' + l.code + '">' + l.label + '</button></li>').join('\n                        ')}
                     </ul>
                 </li>
 
@@ -312,8 +315,8 @@
 </header>
 `;
 
-    // Navigation CSS
-    const navCSS = `
+  // Navigation CSS
+  const navCSS = `
 /* ============================================
    IRONCLAD NAVIGATION - DWS10.com v3.0
    Gamma-aligned with mobile hamburger menu
@@ -955,167 +958,216 @@
 }
 `;
 
-    // Inject CSS
-    const styleElement = document.createElement('style');
-    styleElement.textContent = navCSS;
-    document.head.appendChild(styleElement);
+  // Inject Nordic theme CSS + IBM Plex Sans fonts (v3.2)
+  const ensureStylesheetLink = (id, href) => {
+    if (document.getElementById(id)) return;
 
-    // Inject Navigation HTML at the start of body
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if navigation already exists
-        if (document.querySelector('.ironclad-header')) {
-            return;
+    const existingLink = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).find(
+      (link) => link.getAttribute('href') === href
+    );
+
+    if (existingLink) {
+      existingLink.id = existingLink.id || id;
+      return;
+    }
+
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+  };
+
+  ensureStylesheetLink(
+    'ironclad-nordic-theme-link',
+    (getBasePath() || '/') + 'shared-assets/nordic-theme.css'
+  );
+
+  ensureStylesheetLink(
+    'ironclad-fonts-link',
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap'
+  );
+  // Inject CSS
+  const styleElement = document.createElement('style');
+  styleElement.textContent = navCSS;
+  document.head.appendChild(styleElement);
+
+  // Inject Navigation HTML at the start of body
+  document.addEventListener('DOMContentLoaded', function () {
+    // Check if navigation already exists
+    if (document.querySelector('.ironclad-header')) {
+      return;
+    }
+
+    // Create nav element
+    const navContainer = document.createElement('div');
+    navContainer.innerHTML = navHTML;
+
+    // Insert at the beginning of body
+    document.body.insertBefore(navContainer.firstElementChild, document.body.firstChild);
+
+    // Create backdrop element
+    const backdrop = document.createElement('div');
+    backdrop.className = 'ironclad-backdrop';
+    document.body.appendChild(backdrop);
+
+    // Highlight store link when on /buy
+    const pathname = window.location.pathname || '';
+    if (pathname === '/buy' || pathname === '/buy/' || pathname.endsWith('/buy/index.html')) {
+      const storeLink = document.querySelector('.ironclad-store-link');
+      if (storeLink) {
+        storeLink.classList.add('ironclad-active');
+      }
+    }
+
+    // ---- Mobile Hamburger Menu Logic ----
+    const hamburger = document.querySelector('.ironclad-hamburger');
+    const nav = document.querySelector('.ironclad-nav');
+    const closeBtn = document.querySelector('.ironclad-close');
+
+    function openMenu() {
+      nav.classList.add('open');
+      backdrop.classList.add('active');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      backdrop.classList.remove('active');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener('click', function () {
+        if (nav.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
         }
+      });
+    }
 
-        // Create nav element
-        const navContainer = document.createElement('div');
-        navContainer.innerHTML = navHTML;
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeMenu);
+    }
 
-        // Insert at the beginning of body
-        document.body.insertBefore(navContainer.firstElementChild, document.body.firstChild);
+    backdrop.addEventListener('click', closeMenu);
 
-        // Create backdrop element
-        const backdrop = document.createElement('div');
-        backdrop.className = 'ironclad-backdrop';
-        document.body.appendChild(backdrop);
-
-        // Highlight store link when on /buy
-        const pathname = window.location.pathname || '';
-        if (pathname === '/buy' || pathname === '/buy/' || pathname.endsWith('/buy/index.html')) {
-            const storeLink = document.querySelector('.ironclad-store-link');
-            if (storeLink) {
-                storeLink.classList.add('ironclad-active');
-            }
-        }
-
-        // ---- Mobile Hamburger Menu Logic ----
-        const hamburger = document.querySelector('.ironclad-hamburger');
-        const nav = document.querySelector('.ironclad-nav');
-        const closeBtn = document.querySelector('.ironclad-close');
-
-        function openMenu() {
-            nav.classList.add('open');
-            backdrop.classList.add('active');
-            hamburger.classList.add('active');
-            hamburger.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMenu() {
-            nav.classList.remove('open');
-            backdrop.classList.remove('active');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                if (nav.classList.contains('open')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeMenu);
-        }
-
-        backdrop.addEventListener('click', closeMenu);
-
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && nav.classList.contains('open')) {
-                closeMenu();
-            }
-        });
-
-        // ---- Mobile tap-to-expand dropdowns and submenus ----
-        const mobileQuery = window.matchMedia('(max-width: 900px)');
-
-        // Find all links that have a dropdown or submenu as next sibling
-        document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function(link) {
-            const sibling = link.nextElementSibling;
-            if (!sibling) return;
-            const isDropdown = sibling.classList.contains('ironclad-dropdown');
-            const isSubmenu = sibling.classList.contains('ironclad-submenu');
-            if (!isDropdown && !isSubmenu) return;
-
-            link.addEventListener('click', function(e) {
-                if (mobileQuery.matches) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    sibling.classList.toggle('expanded');
-                } else if (link.getAttribute('href') === '#') {
-                    // Prevent hash jump on desktop for # links
-                    e.preventDefault();
-                }
-            });
-        });
-
-        // Reset mobile state on resize to desktop
-        mobileQuery.addEventListener('change', function(e) {
-            if (!e.matches) {
-                closeMenu();
-                // Remove all expanded classes
-                document.querySelectorAll('.ironclad-dropdown.expanded, .ironclad-submenu.expanded').forEach(function(el) {
-                    el.classList.remove('expanded');
-                });
-            }
-        });
-
-        // ---- Language Selector Logic ----
-        const langToggle = document.querySelector('.ironclad-lang-toggle');
-        const langDropdown = document.querySelector('.ironclad-lang-dropdown');
-
-        if (langToggle && langDropdown) {
-            // Toggle dropdown on click (mobile-friendly)
-            langToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const isOpen = langDropdown.classList.contains('open');
-                langDropdown.classList.toggle('open');
-                langToggle.setAttribute('aria-expanded', !isOpen);
-            });
-
-            // Handle language selection
-            document.querySelectorAll('.ironclad-lang-option').forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const lang = btn.getAttribute('data-lang');
-                    localStorage.setItem('dws-lang', lang);
-
-                    // Update toggle display
-                    var codeEl = langToggle.querySelector('.ironclad-lang-code');
-                    if (codeEl) codeEl.textContent = lang.toUpperCase();
-
-                    // Update active state
-                    document.querySelectorAll('.ironclad-lang-option').forEach(function(b) {
-                        b.classList.remove('ironclad-lang-active');
-                    });
-                    btn.classList.add('ironclad-lang-active');
-
-                    // Close dropdown
-                    langDropdown.classList.remove('open');
-                    langToggle.setAttribute('aria-expanded', 'false');
-
-                    // Dispatch custom event for page-level reactions
-                    window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
-                });
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
-                    langDropdown.classList.remove('open');
-                    langToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-
-        console.log('Iron Clad / Gamma Navigation v3.1 loaded (language selector + mobile hamburger)');
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        closeMenu();
+      }
     });
+
+    // ---- Mobile tap-to-expand dropdowns and submenus ----
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+    // Find all links that have a dropdown or submenu as next sibling
+    document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function (link) {
+      const sibling = link.nextElementSibling;
+      if (!sibling) return;
+      const isDropdown = sibling.classList.contains('ironclad-dropdown');
+      const isSubmenu = sibling.classList.contains('ironclad-submenu');
+      if (!isDropdown && !isSubmenu) return;
+
+      link.addEventListener('click', function (e) {
+        if (mobileQuery.matches) {
+          e.preventDefault();
+          e.stopPropagation();
+          sibling.classList.toggle('expanded');
+        } else if (link.getAttribute('href') === '#') {
+          // Prevent hash jump on desktop for # links
+          e.preventDefault();
+        }
+      });
+    });
+
+    // Reset mobile state on resize to desktop
+    mobileQuery.addEventListener('change', function (e) {
+      if (!e.matches) {
+        closeMenu();
+        // Remove all expanded classes
+        document
+          .querySelectorAll('.ironclad-dropdown.expanded, .ironclad-submenu.expanded')
+          .forEach(function (el) {
+            el.classList.remove('expanded');
+          });
+      }
+    });
+
+    // ---- Language Selector Logic ----
+    const langToggle = document.querySelector('.ironclad-lang-toggle');
+    const langDropdown = document.querySelector('.ironclad-lang-dropdown');
+
+    if (langToggle && langDropdown) {
+      // Toggle dropdown on click (mobile-friendly)
+      langToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = langDropdown.classList.contains('open');
+        langDropdown.classList.toggle('open');
+        langToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      // Handle language selection
+      document.querySelectorAll('.ironclad-lang-option').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = btn.getAttribute('data-lang');
+          localStorage.setItem('dws-lang', lang);
+
+          // Update toggle display
+          var codeEl = langToggle.querySelector('.ironclad-lang-code');
+          if (codeEl) codeEl.textContent = lang.toUpperCase();
+
+          // Update active state
+          document.querySelectorAll('.ironclad-lang-option').forEach(function (b) {
+            b.classList.remove('ironclad-lang-active');
+          });
+          btn.classList.add('ironclad-lang-active');
+
+          // Close dropdown
+          langDropdown.classList.remove('open');
+          langToggle.setAttribute('aria-expanded', 'false');
+
+          // Dispatch custom event for page-level reactions
+          window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
+
+          // v3.2: Redirect to language subdirectory if available
+          // Only redirect for homepage-level pages (where /fi/ and /sv/ exist)
+          var currentPath = window.location.pathname;
+          var isHomepage =
+            currentPath === '/' ||
+            currentPath === '/index.html' ||
+            currentPath === '/fi/' ||
+            currentPath === '/fi/index.html' ||
+            currentPath === '/sv/' ||
+            currentPath === '/sv/index.html';
+          if (isHomepage) {
+            var targetPath = lang === 'en' ? '/' : '/' + lang + '/';
+            if (currentPath !== targetPath && currentPath !== targetPath + 'index.html') {
+              window.location.href = targetPath;
+              return;
+            }
+          }
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
+          langDropdown.classList.remove('open');
+          langToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    console.log('Iron Clad / Gamma Navigation v3.1 loaded (language selector + mobile hamburger)');
+  });
 })();

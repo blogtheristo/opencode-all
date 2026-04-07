@@ -5,6 +5,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.2 — 2026-04-06: Nordic Industrial rebrand — "Built in Finland" badge, IBM Plex Sans font
  * v1.1 — 2026-03-15: Add Firehorse Mobile Google Play badge
  * v1.0 — Initial release: 5-column links, payment methods, legal bar, locale buttons
  *
@@ -12,12 +13,14 @@
  * replacing any existing <footer> or <div class="footer"> element.
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    const footerCSS = `
-/* === DWS10.com Iron Clad Footer v1.1 === */
-.ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: system-ui, -apple-system, sans-serif; }
+  const footerCSS = `
+/* === DWS10.com Iron Clad Footer v1.2 === */
+.ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; }
+.ironclad-footer-finland { max-width: 1200px; margin: 0 auto; padding: 16px 20px 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
+.ironclad-footer-finland svg { flex-shrink: 0; }
 .ironclad-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
 .ironclad-footer a:hover { color: #60a5fa; }
 .ironclad-footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
@@ -54,9 +57,13 @@
 }
 `;
 
-    const footerHTML = `
-<!-- DWS10.com Iron Clad Footer v1.0 -->
+  const footerHTML = `
+<!-- DWS10.com Iron Clad Footer v1.2 — Nordic Industrial -->
 <footer class="ironclad-footer">
+    <div class="ironclad-footer-finland">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect y="5" width="20" height="4" fill="#003580"/><rect x="6" width="4" height="14" fill="#003580"/></svg>
+        Built in Finland &middot; EU Sovereign AI &middot; Finnish Jurisdiction
+    </div>
     <div class="ironclad-footer-columns">
         <div class="ironclad-footer-col">
             <h4>Products</h4>
@@ -147,26 +154,28 @@
 </footer>
 `;
 
-    function init() {
-        // Inject CSS
-        var style = document.createElement('style');
-        style.textContent = footerCSS;
-        document.head.appendChild(style);
+  function init() {
+    // Inject CSS
+    var style = document.createElement('style');
+    style.textContent = footerCSS;
+    document.head.appendChild(style);
 
-        // Remove any existing footer
-        var oldFooters = document.querySelectorAll('footer, div.footer');
-        oldFooters.forEach(function(el) { el.remove(); });
+    // Remove any existing footer
+    var oldFooters = document.querySelectorAll('footer, div.footer');
+    oldFooters.forEach(function (el) {
+      el.remove();
+    });
 
-        // Inject footer HTML before </body>
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = footerHTML.trim();
-        var footerEl = wrapper.firstElementChild;
-        document.body.appendChild(footerEl);
-    }
+    // Inject footer HTML before </body>
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = footerHTML.trim();
+    var footerEl = wrapper.firstElementChild;
+    document.body.appendChild(footerEl);
+  }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

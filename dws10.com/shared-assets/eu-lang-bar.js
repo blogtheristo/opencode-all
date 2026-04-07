@@ -1,108 +1,184 @@
 /**
- * EU Language Bar — DWS10.com
+ * DWS10.com European Language Bar v1.0
+ * Introduced-In: PR-TBD
  * Code-Version: 1.0
- * Date: 2026-04-07
+ * Branch: claude/nordic-industrial-rebrand-glOfb
+ * Date: 2026-04-06
  * Owner: Lifetime Oy
  *
- * Injects a compact language switcher bar at the top of every page.
- * Supports: EN, DE, FR (extensible to FI, SV later).
+ * European-first language selector with EU flag.
+ * Order: Suomi | Svenska | Deutsch | Francais | English + EU flag
+ * Signals: "This is a European brand and product line."
+ *
+ * Usage: Add to homepage and landing pages only (not global via ironclad-nav.js):
+ * <script src="/shared-assets/eu-lang-bar.js"></script>
+ *
+ * Shares localStorage key 'dws-lang' with ironclad-nav.js
+ * Auto-injects a thin language bar below the ironclad header
+ *
+ * v1.0 — Initial release: FI | SV | DE | FR | EN + EU flag
  */
+
 (function () {
   'use strict';
 
-  const LANGUAGES = [
-    { code: 'en', label: 'EN', path: '/' },
-    { code: 'de', label: 'DE', path: '/de/' },
-    { code: 'fr', label: 'FR', path: '/fr/' },
+  // European language order — local languages first, English last
+  var languages = [
+    { code: 'fi', label: 'Suomi', flag: '&#x1F1EB;&#x1F1EE;' },
+    { code: 'sv', label: 'Svenska', flag: '&#x1F1F8;&#x1F1EA;' },
+    { code: 'de', label: 'Deutsch', flag: '&#x1F1E9;&#x1F1EA;' },
+    { code: 'fr', label: 'Fran\u00e7ais', flag: '&#x1F1EB;&#x1F1F7;' },
+    { code: 'en', label: 'English', flag: '&#x1F1EC;&#x1F1E7;' },
   ];
 
-  // Detect current language from <html lang> or URL path
-  function detectCurrentLang() {
-    var htmlLang = document.documentElement.lang || 'en';
-    var shortLang = htmlLang.split('-')[0].toLowerCase();
-    var match = LANGUAGES.find(function (l) {
-      return l.code === shortLang;
-    });
-    if (match) return match.code;
-    // Fallback: check URL path
-    var path = window.location.pathname;
-    for (var i = 0; i < LANGUAGES.length; i++) {
-      if (LANGUAGES[i].path !== '/' && path.startsWith(LANGUAGES[i].path)) {
-        return LANGUAGES[i].code;
-      }
+  var currentLang = localStorage.getItem('dws-lang') || 'en';
+
+  // Language subdirectory mapping (only languages with pages get redirects)
+  var langPaths = { fi: '/fi/', sv: '/sv/', de: '/de/', fr: '/fr/', en: '/' };
+
+  var barCSS =
+    '/* === DWS10.com European Language Bar v1.0 === */\n' +
+    '.eu-lang-bar {\n' +
+    '    background: linear-gradient(90deg, #0A2463 0%, #0e3080 50%, #0A2463 100%);\n' +
+    '    border-bottom: 1px solid rgba(255,255,255,0.08);\n' +
+    '    padding: 7px 0;\n' +
+    '    text-align: center;\n' +
+    "    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;\n" +
+    '    font-size: 0.8rem;\n' +
+    '    position: sticky;\n' +
+    '    top: 68px;\n' +
+    '    z-index: 49;\n' +
+    '}\n' +
+    '.eu-lang-bar-inner {\n' +
+    '    display: flex;\n' +
+    '    justify-content: center;\n' +
+    '    align-items: center;\n' +
+    '    gap: 2px;\n' +
+    '    max-width: 1200px;\n' +
+    '    margin: 0 auto;\n' +
+    '    padding: 0 16px;\n' +
+    '}\n' +
+    '.eu-lang-btn {\n' +
+    '    background: none;\n' +
+    '    border: 1px solid transparent;\n' +
+    '    color: rgba(226, 232, 240, 0.7);\n' +
+    '    padding: 3px 10px;\n' +
+    '    border-radius: 4px;\n' +
+    '    cursor: pointer;\n' +
+    '    font-size: 0.8rem;\n' +
+    '    font-family: inherit;\n' +
+    '    transition: all 0.2s;\n' +
+    '    white-space: nowrap;\n' +
+    '}\n' +
+    '.eu-lang-btn:hover {\n' +
+    '    color: #e2e8f0;\n' +
+    '    border-color: rgba(255,255,255,0.2);\n' +
+    '}\n' +
+    '.eu-lang-btn.active {\n' +
+    '    color: #FFD166;\n' +
+    '    font-weight: 600;\n' +
+    '    border-color: rgba(255, 209, 102, 0.3);\n' +
+    '    background: rgba(255, 209, 102, 0.08);\n' +
+    '}\n' +
+    '.eu-lang-sep {\n' +
+    '    color: rgba(100, 116, 139, 0.5);\n' +
+    '    font-size: 0.7rem;\n' +
+    '    margin: 0 1px;\n' +
+    '}\n' +
+    '.eu-lang-flag {\n' +
+    '    display: inline-flex;\n' +
+    '    align-items: center;\n' +
+    '    margin-left: 10px;\n' +
+    '    padding-left: 10px;\n' +
+    '    border-left: 1px solid rgba(255,255,255,0.12);\n' +
+    '    gap: 6px;\n' +
+    '    color: rgba(226, 232, 240, 0.6);\n' +
+    '    font-size: 0.75rem;\n' +
+    '    font-weight: 600;\n' +
+    '    letter-spacing: 0.04em;\n' +
+    '}\n' +
+    '@media (max-width: 480px) {\n' +
+    '    .eu-lang-btn { padding: 3px 6px; font-size: 0.75rem; }\n' +
+    '    .eu-lang-flag { font-size: 0.7rem; margin-left: 6px; padding-left: 6px; }\n' +
+    '}\n';
+
+  // Inject CSS
+  var style = document.createElement('style');
+  style.textContent = barCSS;
+  document.head.appendChild(style);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Build language buttons
+    var btns = languages
+      .map(function (l) {
+        return (
+          '<button class="eu-lang-btn' +
+          (l.code === currentLang ? ' active' : '') +
+          '" data-lang="' +
+          l.code +
+          '">' +
+          l.label +
+          '</button>'
+        );
+      })
+      .join('<span class="eu-lang-sep">|</span>');
+
+    // EU flag SVG (12-star circle on blue)
+    var euFlag =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="15" viewBox="0 0 810 540" aria-label="European Union">' +
+      '<rect width="810" height="540" fill="#003399"/>' +
+      '<g fill="#FC0" transform="translate(405,270)">' +
+      '<g id="s12"><g id="s6"><g id="s3"><g id="s1"><path d="M0-120l11.3 34.7h36.5l-29.5 21.4 11.3 34.7L0-50.7l-29.5 21.4 11.3-34.7-29.5-21.4h36.5z"/></g>' +
+      '<use href="#s1" transform="rotate(60)"/></g>' +
+      '<use href="#s3" transform="rotate(120)"/></g>' +
+      '<use href="#s6" transform="rotate(180)"/></g></g></svg>';
+
+    var barHTML =
+      '<div class="eu-lang-bar"><div class="eu-lang-bar-inner">' +
+      btns +
+      '<span class="eu-lang-flag">' +
+      euFlag +
+      ' European Union</span>' +
+      '</div></div>';
+
+    // Insert after the ironclad header
+    var header = document.querySelector('.ironclad-header');
+    if (header) {
+      var barEl = document.createElement('div');
+      barEl.innerHTML = barHTML;
+      header.parentNode.insertBefore(barEl.firstElementChild, header.nextSibling);
     }
-    return 'en';
-  }
 
-  function createBar() {
-    var currentLang = detectCurrentLang();
+    // Handle clicks
+    document.querySelectorAll('.eu-lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var lang = btn.getAttribute('data-lang');
+        localStorage.setItem('dws-lang', lang);
 
-    var bar = document.createElement('div');
-    bar.id = 'eu-lang-bar';
-    bar.setAttribute('role', 'navigation');
-    bar.setAttribute('aria-label', 'Language selection');
-    bar.style.cssText =
-      'background:#1e293b;border-bottom:1px solid rgba(255,255,255,0.08);' +
-      'padding:6px 0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,' +
-      '"Segoe UI",Roboto,sans-serif;font-size:0.85rem;position:relative;z-index:1000;';
-
-    var inner = document.createElement('div');
-    inner.style.cssText =
-      'max-width:1200px;margin:0 auto;display:flex;align-items:center;' +
-      'justify-content:center;gap:6px;padding:0 16px;';
-
-    // EU flag icon (text fallback)
-    var flag = document.createElement('span');
-    flag.textContent = '\uD83C\uDDEA\uD83C\uDDFA';
-    flag.style.cssText = 'margin-right:6px;font-size:1rem;';
-    inner.appendChild(flag);
-
-    LANGUAGES.forEach(function (lang) {
-      var isActive = lang.code === currentLang;
-      var el = document.createElement(isActive ? 'span' : 'a');
-
-      el.textContent = lang.label;
-      if (!isActive) {
-        el.href = lang.path;
-        el.hreflang = lang.code;
-      }
-      el.style.cssText =
-        'padding:4px 10px;border-radius:4px;text-decoration:none;font-weight:' +
-        (isActive ? '700' : '400') +
-        ';color:' +
-        (isActive ? '#fff' : '#94a3b8') +
-        ';background:' +
-        (isActive ? 'rgba(59,130,246,0.3)' : 'transparent') +
-        ';transition:all 0.2s;display:inline-block;';
-
-      if (!isActive) {
-        el.addEventListener('mouseenter', function () {
-          this.style.color = '#e2e8f0';
-          this.style.background = 'rgba(255,255,255,0.08)';
+        // Update active state
+        document.querySelectorAll('.eu-lang-btn').forEach(function (b) {
+          b.classList.remove('active');
         });
-        el.addEventListener('mouseleave', function () {
-          this.style.color = '#94a3b8';
-          this.style.background = 'transparent';
-        });
-      }
+        btn.classList.add('active');
 
-      inner.appendChild(el);
+        // Update ironclad-nav.js language code if present
+        var navCode = document.querySelector('.ironclad-lang-code');
+        if (navCode) navCode.textContent = lang.toUpperCase();
+
+        // Dispatch event
+        window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
+
+        // Redirect to language subdirectory if available
+        if (langPaths[lang]) {
+          var target = langPaths[lang];
+          var current = window.location.pathname;
+          if (current !== target && current !== target + 'index.html') {
+            window.location.href = target;
+            return;
+          }
+        }
+        // All 5 languages now have pages — no "coming soon" toast needed
+      });
     });
-
-    bar.appendChild(inner);
-    return bar;
-  }
-
-  // Insert at the very top of <body>
-  function inject() {
-    if (document.getElementById('eu-lang-bar')) return;
-    var bar = createBar();
-    document.body.insertBefore(bar, document.body.firstChild);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inject);
-  } else {
-    inject();
-  }
+  });
 })();
