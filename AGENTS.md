@@ -483,28 +483,58 @@ dws mcp call dws_compliance --args '{...}'  # Direct MCP tool call
 
 ### Important add-on: gstack (Claude Code Skill System)
 
-| Item               | Detail                                                                                                                                                         |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Repo**           | https://github.com/garrytan/gstack                                                                                                                             |
-| **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                           |
-| **What it is**     | Six cognitive modes for Claude Code — separates planning, review, shipping, QA, and retrospective into distinct skills with role-based prompts.                |
-| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase. |
-| **License**        | MIT                                                                                                                                                            |
+| Item               | Detail                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Repo**           | https://github.com/garrytan/gstack                                                                                                                              |
+| **Version**        | v0.15.16.0 (2026-04-07) — multiple releases per day, very active development                                                                                    |
+| **Origin**         | Designed by Garry Tan (Y Combinator President & CEO)                                                                                                            |
+| **What it is**     | 23+ specialist roles as slash commands for Claude Code. Virtual engineering team with structured sprint: Think → Plan → Build → Review → Test → Ship → Reflect. |
+| **Why it matters** | "Planning is not review, review is not shipping, founder taste is not engineering rigor." Each mode enforces a different standard of rigor at the right phase.  |
+| **Install**        | `~/.claude/skills/gstack/` (global) or vendored. Team mode: `./setup --team`. Requires: Claude Code, Git, Bun v1.0+.                                            |
+| **Multi-agent**    | Supports 8 AI coding agents: Claude Code, OpenAI Codex CLI, OpenCode, Cursor, Factory Droid, Slate, Kiro, OpenClaw. Setup: `./setup --host <name>`.             |
+| **License**        | MIT                                                                                                                                                             |
 
-**Six Skills (adapted for DWS6):**
+**Full gstack skills (31 total, DWS6 uses bolded ones):**
 
-| Skill      | Role                | Claude Code Command | Purpose                                                  |
-| ---------- | ------------------- | ------------------- | -------------------------------------------------------- |
-| Plan (CEO) | Founder/CEO         | `/plan-ceo-review`  | 10-star product review, scope challenge, strategic fit   |
-| Plan (Eng) | Engineering Manager | `/plan-eng-review`  | Architecture lock, data flow, edge cases, security       |
-| Review     | Staff Engineer      | `/review`           | Production-breaking bug hunt, security, DWS compliance   |
-| Ship       | Release Engineer    | `/ship`             | Automated sync, test, commit, push, PR creation          |
-| Browse     | QA Engineer         | `/browse`           | Browser automation, screenshots, UI verification         |
-| Retro      | Engineering Manager | `/retro`            | Weekly velocity analysis, work patterns, recommendations |
+| Category     | Skill                    | Role                   | Purpose                                                           |
+| ------------ | ------------------------ | ---------------------- | ----------------------------------------------------------------- |
+| **Planning** | `/office-hours`          | YC Partner             | Product interrogation with 6 forcing questions                    |
+| **Planning** | **`/plan-ceo-review`**   | Founder/CEO            | 10-star product review, 4 scope modes, strategic fit              |
+| **Planning** | **`/plan-eng-review`**   | Engineering Manager    | Architecture lock, data flow, edge cases, test plan               |
+| Planning     | `/plan-design-review`    | Senior Designer        | Rates dimensions 0-10, AI Slop detection                          |
+| Planning     | `/plan-devex-review`     | DX Lead                | Developer personas, TTHW benchmarking, friction tracing           |
+| Planning     | `/autoplan`              | Pipeline               | Runs CEO → design → eng review automatically                      |
+| Design       | `/design-consultation`   | Designer               | Build design system, research landscape, creative risks           |
+| Design       | `/design-shotgun`        | Designer               | 4-6 AI mockup variants, comparison board                          |
+| Design       | `/design-html`           | Designer               | Mockup to production HTML (Pretext, 30KB, zero deps)              |
+| Design       | `/design-review`         | Designer               | Audit then fix with atomic commits                                |
+| **Review**   | **`/review`**            | Staff Engineer         | Bug hunt, auto-fixes, completeness gaps, DWS compliance           |
+| Review       | `/devex-review`          | DX Lead                | Live DX audit, times TTHW, screenshots errors                     |
+| Review       | `/qa`                    | QA Lead                | Test, find bugs, fix with atomic commits, regression tests        |
+| Review       | `/qa-only`               | QA Lead                | Report only, no code changes                                      |
+| Review       | `/investigate`           | Debugger               | Root-cause debugging, no fixes without investigation              |
+| Review       | `/codex`                 | Second Opinion         | OpenAI Codex CLI review (adversarial, consultation modes)         |
+| Review       | `/cso`                   | Chief Security Officer | OWASP Top 10 + STRIDE, 8/10+ confidence gate                      |
+| **Shipping** | **`/ship`**              | Release Engineer       | Sync main, test, audit coverage, push, open PR                    |
+| Shipping     | `/land-and-deploy`       | Release Engineer       | Merge PR, wait for CI/deploy, verify production health            |
+| Shipping     | `/canary`                | SRE                    | Post-deploy monitoring (console errors, perf, page failures)      |
+| Shipping     | `/benchmark`             | Performance            | Page load times, Core Web Vitals, resource sizes                  |
+| Shipping     | `/document-release`      | Tech Writer            | Update all docs to match shipped changes                          |
+| **Reflect**  | **`/retro`**             | Engineering Manager    | Weekly retro, per-person breakdowns, `/retro global` across repos |
+| **Browser**  | **`/browse`**            | QA Engineer            | Real Chromium, real clicks, screenshots (~100ms per command)      |
+| Browser      | `/open-gstack-browser`   | Browser                | GStack Browser with sidebar, anti-bot stealth, model routing      |
+| Browser      | `/setup-browser-cookies` | Browser                | Import cookies from Chrome/Arc/Brave/Edge                         |
+| Browser      | `/pair-agent`            | Multi-Agent            | Share browser with any AI agent; scoped tokens, tab isolation     |
+| Safety       | `/careful`               | Guard                  | Warns before destructive commands                                 |
+| Safety       | `/freeze`                | Guard                  | Lock file edits to one directory                                  |
+| Safety       | `/guard`                 | Guard                  | `/careful` + `/freeze` combined                                   |
+| Utility      | `/learn`                 | Memory                 | Cross-session learnings (review, search, prune, export)           |
 
-**Recommended workflow:** `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
+**Recommended workflow:** `/office-hours` → `/plan-ceo-review` → `/plan-eng-review` → implement (test-first) → `/review` → `/ship` → `/retro` (weekly)
 
-**DWS adaptations:** All six skills are customized for DWS6 standards — Build for Agents rule, SQL safety rules, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+**DWS adaptations:** Bolded skills are customized for DWS6 standards — Build for Agents rule, SQL safety rules, dual-folder sync, RLS enforcement, and DWS Document Standard compliance are integrated into the review and shipping phases.
+
+**Recent (April 2026):** `/pair-agent` multi-agent browser coordination with 4-layer prompt injection defense, team install mode (`./setup --team`), community security contributions. Designed for 10-15 concurrent sessions via Conductor.
 
 ### Important add-on: Agent Browser (`agent-browser`)
 
