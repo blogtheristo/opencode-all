@@ -1,9 +1,15 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { getCarbonPrice, getCarbonPriceEur, clearCarbonPriceCache } from '../compliance/ember-carbon-price.js';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import {
+  getCarbonPrice,
+  getCarbonPriceEur,
+  clearCarbonPriceCache,
+} from '../compliance/ember-carbon-price.js';
 
 describe('ember-carbon-price', () => {
   beforeEach(() => {
     clearCarbonPriceCache();
+    // Mock global fetch so tests don't hit external APIs
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network disabled in test')));
   });
 
   it('returns static fallback when EMBER API is unreachable', async () => {
