@@ -74,14 +74,18 @@ if [ -n "$ts_files" ]; then
     fi
   fi
 
-  # ESLint check (if eslint config exists)
-  if command -v npx >/dev/null 2>&1 && [ -f "eslint.config.js" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ]; then
+  # ESLint check (blocks commit — quality gate)
+  if command -v npx >/dev/null 2>&1 && { [ -f "eslint.config.js" ] || [ -f "eslint.config.mjs" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ]; }; then
     echo "[pre-commit] Running ESLint on staged .ts/.tsx files..."
     # shellcheck disable=SC2086
-    if ! npx eslint --max-warnings 0 $ts_files 2>/dev/null; then
+    if ! npx --no-install eslint --max-warnings 0 $ts_files 2>&1; then
       echo ""
-      echo "[WARN] ESLint warnings/errors found — commit proceeds (advisory)."
-      echo "       Run 'npm run lint' to fix."
+      echo "BLOCKED: ESLint errors found. Fix them or bypass with: SKIP_LINT=1 git commit ..."
+      if [ "${SKIP_LINT:-0}" = "1" ]; then
+        echo "[pre-commit] SKIP_LINT=1 — bypassing ESLint block."
+      else
+        exit 1
+      fi
     fi
   fi
 fi
