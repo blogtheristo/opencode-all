@@ -1,11 +1,11 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.1
+ * DWS10.com Iron Clad / Gamma Navigation v3.2
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
- * v3.2 — Nordic Industrial rebrand: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
+ * v3.2 — Nordic Industrial rebrand: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect; duplicate-include guard
  * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
  * v2.0 — Comprehensive Home menu with flyouts
@@ -16,6 +16,10 @@
 
 (function () {
   'use strict';
+
+  // Duplicate-include guard: prevent double injection of nav, theme, and font links
+  if (window.__ironcladNavLoaded) return;
+  window.__ironcladNavLoaded = true;
 
   // Determine base path based on current location
   const getBasePath = () => {
@@ -37,6 +41,7 @@
   const ironcladCurrentLabel = (
     ironcladLanguages.find((l) => l.code === ironcladCurrentLang) || ironcladLanguages[0]
   ).label;
+
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
@@ -959,38 +964,22 @@
 `;
 
   // Inject Nordic theme CSS + IBM Plex Sans fonts (v3.2)
-  const ensureStylesheetLink = (id, href) => {
-    if (document.getElementById(id)) return;
+  const nordicThemeLink = document.createElement('link');
+  nordicThemeLink.rel = 'stylesheet';
+  nordicThemeLink.href = (getBasePath() || '/') + 'shared-assets/nordic-theme.css';
+  document.head.appendChild(nordicThemeLink);
 
-    const existingLink = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).find(
-      (link) => link.getAttribute('href') === href
-    );
+  const fontsLink = document.createElement('link');
+  fontsLink.rel = 'stylesheet';
+  fontsLink.href =
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap';
+  document.head.appendChild(fontsLink);
 
-    if (existingLink) {
-      existingLink.id = existingLink.id || id;
-      return;
-    }
-
-    const link = document.createElement('link');
-    link.id = id;
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
-  };
-
-  ensureStylesheetLink(
-    'ironclad-nordic-theme-link',
-    (getBasePath() || '/') + 'shared-assets/nordic-theme.css'
-  );
-
-  ensureStylesheetLink(
-    'ironclad-fonts-link',
-    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap'
-  );
   // Inject CSS
   const styleElement = document.createElement('style');
   styleElement.textContent = navCSS;
   document.head.appendChild(styleElement);
+
 
   // Inject Navigation HTML at the start of body
   document.addEventListener('DOMContentLoaded', function () {
@@ -1156,6 +1145,7 @@
               return;
             }
           }
+
         });
       });
 
@@ -1168,6 +1158,8 @@
       });
     }
 
-    console.log('Iron Clad / Gamma Navigation v3.1 loaded (language selector + mobile hamburger)');
+    console.log(
+      'Iron Clad / Gamma Navigation v3.2 loaded (theme/font injection + language redirect + mobile hamburger)',
+    );
   });
 })();

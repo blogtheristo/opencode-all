@@ -1,11 +1,11 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.1
+ * DWS10.com Iron Clad / Gamma Navigation v3.2
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
- * v3.2 — Nordic Industrial rebrand: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
+ * v3.2 — Nordic Industrial rebrand: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect; duplicate-include guard
  * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
  * v2.0 — Comprehensive Home menu with flyouts
@@ -16,6 +16,10 @@
 
 (function () {
   'use strict';
+
+  // Duplicate-include guard: prevent double injection of nav, theme, and font links
+  if (window.__ironcladNavLoaded) return;
+  window.__ironcladNavLoaded = true;
 
   // Determine base path based on current location
   const getBasePath = () => {
@@ -37,6 +41,7 @@
   const ironcladCurrentLabel = (
     ironcladLanguages.find((l) => l.code === ironcladCurrentLang) || ironcladLanguages[0]
   ).label;
+
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
@@ -975,6 +980,7 @@
   styleElement.textContent = navCSS;
   document.head.appendChild(styleElement);
 
+
   // Inject Navigation HTML at the start of body
   document.addEventListener('DOMContentLoaded', function () {
     // Check if navigation already exists
@@ -1139,6 +1145,7 @@
               return;
             }
           }
+
         });
       });
 
@@ -1151,6 +1158,8 @@
       });
     }
 
-    console.log('Iron Clad / Gamma Navigation v3.1 loaded (language selector + mobile hamburger)');
+    console.log(
+      'Iron Clad / Gamma Navigation v3.2 loaded (theme/font injection + language redirect + mobile hamburger)',
+    );
   });
 })();
