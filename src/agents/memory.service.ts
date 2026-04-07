@@ -15,20 +15,20 @@
  * Owner: Lifetime Oy
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import type {
-  MemoryItem,
-  MemoryStoreInput,
-  MemoryStoreResult,
-  MemoryRecallInput,
-  MemoryRecallResult,
+  MemoryCacheEntry,
   MemoryForgetInput,
   MemoryForgetResult,
+  MemoryItem,
+  MemoryProfile,
+  MemoryRecallInput,
+  MemoryRecallResult,
+  MemoryStoreInput,
+  MemoryStoreResult,
   MemorySupersedeInput,
   MemorySupersedeResult,
-  MemoryProfile,
-  MemoryCacheEntry,
   ProfileFact,
 } from './memory.types.js';
 
@@ -99,9 +99,7 @@ export class MemoryService {
 
     // Check for near-duplicates (similarity > 0.95)
     if (embedding) {
-      const duplicate = await this.findDuplicate(
-        client, embedding, input.orgId, input.customerId,
-      );
+      const duplicate = await this.findDuplicate(client, embedding, input.orgId, input.customerId);
       if (duplicate) {
         logger.debug('Memory duplicate detected', { duplicateOf: duplicate });
         // Touch the existing memory instead of creating new
@@ -206,7 +204,10 @@ export class MemoryService {
 
         // Touch recalled memories (update access tracking)
         for (const mem of memories) {
-          client.rpc('touch_memory', { memory_id: mem.id }).then(() => {}, () => {});
+          client.rpc('touch_memory', { memory_id: mem.id }).then(
+            () => {},
+            () => {},
+          );
         }
       }
     } else {
@@ -263,7 +264,7 @@ export class MemoryService {
   async getProfile(
     entityId: string,
     entityType: 'customer' | 'organization',
-    orgId: string,
+    _orgId: string,
   ): Promise<MemoryProfile> {
     const client = this.getClient();
     const emptyProfile: MemoryProfile = {
@@ -295,15 +296,15 @@ export class MemoryService {
 
     // Extract facts from knowledge/fact type memories
     const facts: ProfileFact[] = data
-      .filter((m: Record<string, unknown>) =>
-        m.memory_type === 'fact' || m.memory_type === 'knowledge'
+      .filter(
+        (m: Record<string, unknown>) => m.memory_type === 'fact' || m.memory_type === 'knowledge',
       )
       .map((m: Record<string, unknown>) => ({
-        subject: (m.metadata as Record<string, unknown>)?.subject as string || entityId,
-        predicate: (m.metadata as Record<string, unknown>)?.predicate as string || 'knows',
+        subject: ((m.metadata as Record<string, unknown>)?.subject as string) || entityId,
+        predicate: ((m.metadata as Record<string, unknown>)?.predicate as string) || 'knows',
         value: m.content as string,
         confidence: m.confidence as number,
-        source: m.source as string || 'unknown',
+        source: (m.source as string) || 'unknown',
         lastUpdated: m.created_at as string,
       }));
 
@@ -319,9 +320,7 @@ export class MemoryService {
     const episodes = data
       .filter((m: Record<string, unknown>) => m.memory_type === 'episode')
       .slice(0, 5);
-    const recentContext = episodes
-      .map((e: Record<string, unknown>) => e.content)
-      .join(' | ');
+    const recentContext = episodes.map((e: Record<string, unknown>) => e.content).join(' | ');
 
     return {
       entityId,
@@ -522,7 +521,7 @@ export class MemoryService {
       const response = await fetch('https://api.openai.com/v1/embeddings', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.embeddingApiKey}`,
+          Authorization: `Bearer ${this.embeddingApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -536,7 +535,7 @@ export class MemoryService {
         return null;
       }
 
-      const data = await response.json() as {
+      const data = (await response.json()) as {
         data: Array<{ embedding: number[] }>;
       };
       return data.data[0].embedding;

@@ -20,12 +20,7 @@
  *   - Results consumed by: src/agents/compliance.agent.ts (stress testing)
  */
 
-import {
-  type NeMoDatasetSchema,
-  type InstallationProfile,
-  SEED_INSTALLATIONS,
-  isEmissionWithinBounds,
-} from './cbam-schema.js';
+import { type NeMoDatasetSchema, SEED_INSTALLATIONS } from './cbam-schema.js';
 import { calculateCBAM, type CBAMDeclaration } from '../compliance/cbam-calculator.js';
 import { CBAM_DEFAULT_FACTORS } from '../compliance/emission-factors.js';
 
@@ -112,11 +107,8 @@ export function validateDeterministic(record: Record<string, unknown>): {
   violations: string[];
 } {
   const violations: string[] = [];
-  const installationId = record.installation_id as string;
   const sector = record.sector as string;
   const emissionDirect = record.embedded_emissions_direct as number;
-  const emissionIndirect = record.embedded_emissions_indirect as number;
-  const cnCode = record.cn_code as string;
   const productionMethod = record.production_method as string;
   const usesDefaults = record.uses_default_values === 'true';
   const verifier = record.verifier_accreditation as string;

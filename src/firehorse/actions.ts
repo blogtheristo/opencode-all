@@ -4,16 +4,14 @@
  */
 
 import {
-  Lead,
-  LeadState,
+  type ChangeStateAction,
+  type CreateTaskAction,
   EventType,
-  TaskType,
-  ReplyIntent,
-  SendEmailAction,
-  ChangeStateAction,
-  LogEventAction,
-  CreateTaskAction,
-  SendLinkedInDMAction,
+  type Lead,
+  type LogEventAction,
+  type ReplyIntent,
+  type SendEmailAction,
+  type SendLinkedInDMAction,
 } from './types';
 import { db } from './database';
 import { emailService } from './email-service';
@@ -216,40 +214,28 @@ export async function createTask(action: CreateTaskAction): Promise<void> {
 /**
  * Update last engagement timestamp
  */
-export async function updateLastEngagement(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateLastEngagement(leadId: string, timestamp: Date): Promise<void> {
   await db.updateLastEngagement(leadId, timestamp);
 }
 
 /**
  * Update Cold 1 sent timestamp
  */
-export async function updateCold1SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold1SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold1SentAt(leadId, timestamp);
 }
 
 /**
  * Update Cold 2 sent timestamp
  */
-export async function updateCold2SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold2SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold2SentAt(leadId, timestamp);
 }
 
 /**
  * Update Cold 3 sent timestamp
  */
-export async function updateCold3SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold3SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold3SentAt(leadId, timestamp);
 }
 
@@ -260,7 +246,7 @@ export async function storeReply(
   leadId: string,
   replyText: string,
   intent: ReplyIntent,
-  confidence?: number
+  confidence?: number,
 ): Promise<void> {
   await db.createReply({
     lead_id: leadId,

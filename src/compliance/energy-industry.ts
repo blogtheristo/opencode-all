@@ -28,10 +28,14 @@
  * Owner: Lifetime Oy
  */
 
-import { getFactorsForSector, ETS_CARBON_PRICE_EUR, type EmissionFactor } from './emission-factors.js';
-import { calculateETS, type ETSInstallation, type ETSCalculationResult } from './ets-calculator.js';
+import { ETS_CARBON_PRICE_EUR } from './emission-factors.js';
+import { calculateETS, type ETSCalculationResult, type ETSInstallation } from './ets-calculator.js';
 import { getBenchmark, type SectorBenchmark } from './eu-benchmarks.js';
-import { scoreCompliance, type ComplianceScoringInput, type ScoringResult } from './scoring-engine.js';
+import {
+  type ComplianceScoringInput,
+  scoreCompliance,
+  type ScoringResult,
+} from './scoring-engine.js';
 
 // ============ TYPES ============
 
@@ -134,16 +138,16 @@ export interface EnergySectorAnalysis {
  * Sources: IPCC 2006 Guidelines, EEA GHG Inventory 2024
  */
 const FUEL_EMISSION_FACTORS: Record<FuelType, number> = {
-  'coal': 0.900,          // Source: IPCC 2006 hard coal combustion
-  'natural-gas': 0.370,   // Source: IPCC 2006 natural gas combined cycle
-  'oil': 0.650,           // Source: IPCC 2006 fuel oil combustion
-  'nuclear': 0.012,       // Source: IPCC lifecycle (construction+fuel cycle)
-  'wind': 0.011,          // Source: IPCC lifecycle (manufacturing+installation)
-  'solar': 0.045,         // Source: IPCC lifecycle (panel manufacturing)
-  'hydro': 0.024,         // Source: IPCC lifecycle (dam construction)
-  'biomass': 0.230,       // Source: IPCC 2006 (sustainable biomass, net)
-  'geothermal': 0.038,    // Source: IPCC lifecycle
-  'hydrogen': 0.000,      // Source: zero direct emissions (upstream in H2 production)
+  coal: 0.9, // Source: IPCC 2006 hard coal combustion
+  'natural-gas': 0.37, // Source: IPCC 2006 natural gas combined cycle
+  oil: 0.65, // Source: IPCC 2006 fuel oil combustion
+  nuclear: 0.012, // Source: IPCC lifecycle (construction+fuel cycle)
+  wind: 0.011, // Source: IPCC lifecycle (manufacturing+installation)
+  solar: 0.045, // Source: IPCC lifecycle (panel manufacturing)
+  hydro: 0.024, // Source: IPCC lifecycle (dam construction)
+  biomass: 0.23, // Source: IPCC 2006 (sustainable biomass, net)
+  geothermal: 0.038, // Source: IPCC lifecycle
+  hydrogen: 0.0, // Source: zero direct emissions (upstream in H2 production)
 };
 
 /** Renewable fuel types per RED III Art. 2(1) */
@@ -160,10 +164,7 @@ const RED_III_TARGET_2030 = 42.5; // Source: Dir. (EU) 2023/2413, Art. 3(1)
  */
 export function assessEnergyCompliance(profile: EnergyCompanyProfile): EnergyComplianceResult {
   // 1. Calculate emissions from fuel mix
-  const calculatedEmissions = calculateFuelMixEmissions(
-    profile.annualOutputMwh,
-    profile.fuelMix,
-  );
+  const calculatedEmissions = calculateFuelMixEmissions(profile.annualOutputMwh, profile.fuelMix);
   const effectiveEmissions = profile.reportedEmissions ?? calculatedEmissions;
 
   // 2. Calculate renewable share
@@ -221,10 +222,7 @@ export function assessEnergyCompliance(profile: EnergyCompanyProfile): EnergyCom
 /**
  * Calculate total emissions from a fuel mix and annual output.
  */
-export function calculateFuelMixEmissions(
-  annualMwh: number,
-  fuelMix: FuelMixEntry[],
-): number {
+export function calculateFuelMixEmissions(annualMwh: number, fuelMix: FuelMixEntry[]): number {
   let total = 0;
   for (const entry of fuelMix) {
     const mwh = annualMwh * (entry.percentage / 100);
@@ -256,45 +254,70 @@ function analyzeEnergySector(
 
   // Risks
   if (fossilShare > 50) {
-    risks.push(`High fossil fuel dependency (${fossilShare}%) — stranded asset risk under Fit for 55 pathway`);
+    risks.push(
+      `High fossil fuel dependency (${fossilShare}%) — stranded asset risk under Fit for 55 pathway`,
+    );
   }
   if (emissions > 100_000) {
-    risks.push(`Annual ETS cost exposure: EUR ${(annualCarbonCostEur / 1_000_000).toFixed(1)}M at current carbon price`);
+    risks.push(
+      `Annual ETS cost exposure: EUR ${(annualCarbonCostEur / 1_000_000).toFixed(1)}M at current carbon price`,
+    );
   }
   if (renewableShare < RED_III_TARGET_2030) {
-    risks.push(`Below RED III 2030 target: ${renewableShare.toFixed(1)}% vs ${RED_III_TARGET_2030}% — gap of ${(RED_III_TARGET_2030 - renewableShare).toFixed(1)} pp`);
+    risks.push(
+      `Below RED III 2030 target: ${renewableShare.toFixed(1)}% vs ${RED_III_TARGET_2030}% — gap of ${(RED_III_TARGET_2030 - renewableShare).toFixed(1)} pp`,
+    );
   }
   if (!profile.measures.hasDigitalisationStrategy) {
-    risks.push('No digitalisation strategy — EU Strategic Roadmap on AI in Energy requires digital readiness (Action Plan Action 5)');
+    risks.push(
+      'No digitalisation strategy — EU Strategic Roadmap on AI in Energy requires digital readiness (Action Plan Action 5)',
+    );
   }
   if (profile.subSector === 'data-centres' && emissions > 5_000) {
-    risks.push('Subject to Data Centre Energy Efficiency Package (Q1 2026) — carbon-neutral data centres by 2030 target');
+    risks.push(
+      'Subject to Data Centre Energy Efficiency Package (Q1 2026) — carbon-neutral data centres by 2030 target',
+    );
   }
   if (!profile.measures.hasTransitionPlan) {
-    risks.push('Missing climate transition plan — CSRD E1-1 mandatory disclosure for energy sector');
+    risks.push(
+      'Missing climate transition plan — CSRD E1-1 mandatory disclosure for energy sector',
+    );
   }
 
   // Opportunities
   if (renewableShare > 30) {
-    opportunities.push('Strong renewable base — position for EU Taxonomy-aligned green financing (Activity 4.1-4.3)');
+    opportunities.push(
+      'Strong renewable base — position for EU Taxonomy-aligned green financing (Activity 4.1-4.3)',
+    );
   }
   if (profile.measures.hasGridFlexibility) {
-    opportunities.push('Grid flexibility ready — demand-side response monetisation under electricity market reform');
+    opportunities.push(
+      'Grid flexibility ready — demand-side response monetisation under electricity market reform',
+    );
   }
   if (profile.measures.hasEnergyStoragePlan) {
-    opportunities.push('Energy storage deployment — supports grid balancing and qualifies for Taxonomy Activity 4.10');
+    opportunities.push(
+      'Energy storage deployment — supports grid balancing and qualifies for Taxonomy Activity 4.10',
+    );
   }
   if (profile.measures.hasDigitalisationStrategy) {
-    opportunities.push('Digital-ready — positioned for EU AI in Energy Roadmap opportunities (grid optimisation, predictive maintenance)');
+    opportunities.push(
+      'Digital-ready — positioned for EU AI in Energy Roadmap opportunities (grid optimisation, predictive maintenance)',
+    );
   }
-  opportunities.push('EU Electrification Strategy (Q1 2026) creates demand for clean power — growth opportunity');
+  opportunities.push(
+    'EU Electrification Strategy (Q1 2026) creates demand for clean power — growth opportunity',
+  );
   if (fossilShare < 30) {
-    opportunities.push('Low fossil share qualifies for green bond framework under EU Green Bond Standard');
+    opportunities.push(
+      'Low fossil share qualifies for green bond framework under EU Green Bond Standard',
+    );
   }
 
   return {
     digitalisationRoadmapScope: true, // All energy companies in scope
-    ets2Exposure: profile.subSector === 'district-heating' || profile.subSector === 'gas-distribution',
+    ets2Exposure:
+      profile.subSector === 'district-heating' || profile.subSector === 'gas-distribution',
     gridFlexibilityReady: profile.measures.hasGridFlexibility,
     dataCentreRegulationScope: profile.subSector === 'data-centres',
     strandedAssetRiskLevel,
@@ -325,12 +348,13 @@ export function checkRedIIICompliance(renewableShare: number): {
     compliant: renewableShare >= RED_III_TARGET_2030,
     gap: Math.round(gap * 10) / 10,
     target: RED_III_TARGET_2030,
-    status: renewableShare >= RED_III_TARGET_2030
-      ? 'Meets RED III 2030 binding target'
-      : renewableShare >= 35
-        ? 'Approaching target — on track with current trajectory'
-        : renewableShare >= 20
-          ? 'Below target — accelerated renewable deployment needed'
-          : 'Significantly below target — urgent transition plan required',
+    status:
+      renewableShare >= RED_III_TARGET_2030
+        ? 'Meets RED III 2030 binding target'
+        : renewableShare >= 35
+          ? 'Approaching target — on track with current trajectory'
+          : renewableShare >= 20
+            ? 'Below target — accelerated renewable deployment needed'
+            : 'Significantly below target — urgent transition plan required',
   };
 }

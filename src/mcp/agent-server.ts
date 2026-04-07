@@ -19,7 +19,7 @@
  *   - dws_workflow: Trigger a multi-agent workflow
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import logger from '../utils/logger.js';
 import { agentRegistry } from '../agents/index.js';
 import { eventBus } from '../agents/event-bus.js';
@@ -33,7 +33,7 @@ import type { MemoryType } from '../agents/memory.types.js';
 // ============ SUPPORTED WORKFLOWS REGISTRY ============
 // Single source of truth — used in tool descriptions, validation, and error messages.
 const SUPPORTED_WORKFLOWS = ['compliance-assessment', 'construction-full', 'seo-pipeline'] as const;
-type SupportedWorkflow = typeof SUPPORTED_WORKFLOWS[number];
+export type SupportedWorkflow = (typeof SUPPORTED_WORKFLOWS)[number];
 
 // ============ MCP PROTOCOL TYPES ============
 
@@ -84,7 +84,8 @@ function buildToolList(): MCPToolDefinition[] {
   // Meta-tool: discover by capability
   tools.push({
     name: 'dws_discover',
-    description: 'Find DWS IQ agents by capability tag (e.g., "compliance", "carbon", "construction").',
+    description:
+      'Find DWS IQ agents by capability tag (e.g., "compliance", "carbon", "construction").',
     inputSchema: {
       type: 'object',
       properties: {
@@ -120,7 +121,8 @@ function buildToolList(): MCPToolDefinition[] {
   // Meta-tool: event history
   tools.push({
     name: 'dws_events',
-    description: 'Get recent events from the DWS IQ event bus. Useful for monitoring agent activity and compliance events.',
+    description:
+      'Get recent events from the DWS IQ event bus. Useful for monitoring agent activity and compliance events.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -139,7 +141,8 @@ function buildToolList(): MCPToolDefinition[] {
   // Memory tools
   tools.push({
     name: 'dws_memory_store',
-    description: 'Store a fact, preference, or knowledge as a persistent agent memory. Memories are embedded for vector search and scoped to the organization.',
+    description:
+      'Store a fact, preference, or knowledge as a persistent agent memory. Memories are embedded for vector search and scoped to the organization.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -157,14 +160,18 @@ function buildToolList(): MCPToolDefinition[] {
 
   tools.push({
     name: 'dws_memory_recall',
-    description: 'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
+    description:
+      'Search stored memories using hybrid search (vector similarity + text matching). Returns the most relevant memories for the query.',
     inputSchema: {
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Natural language search query' },
         memory_type: { type: 'string', description: 'Filter by memory type (optional)' },
         limit: { type: 'number', description: 'Maximum results (default: 5)' },
-        similarity_threshold: { type: 'number', description: 'Minimum similarity 0-1 (default: 0.5)' },
+        similarity_threshold: {
+          type: 'number',
+          description: 'Minimum similarity 0-1 (default: 0.5)',
+        },
       },
       required: ['query'],
     },
@@ -172,7 +179,8 @@ function buildToolList(): MCPToolDefinition[] {
 
   tools.push({
     name: 'dws_memory_forget',
-    description: 'Soft-delete a memory by ID. Marked as expired for audit compliance, not hard-deleted.',
+    description:
+      'Soft-delete a memory by ID. Marked as expired for audit compliance, not hard-deleted.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -185,7 +193,8 @@ function buildToolList(): MCPToolDefinition[] {
 
   tools.push({
     name: 'dws_memory_profile',
-    description: 'Get an aggregated profile built from stored memories for a customer or organization. Returns facts, preferences, and recent context.',
+    description:
+      'Get an aggregated profile built from stored memories for a customer or organization. Returns facts, preferences, and recent context.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -203,7 +212,8 @@ function buildToolList(): MCPToolDefinition[] {
   // ASTA Phase 1: Tool telemetry
   tools.push({
     name: 'dws_tool_telemetry',
-    description: 'Get aggregated tool-use metrics for an agent (invocation rate, skip rate, failure rate, partial failures). Part of the ASTA adaptation framework.',
+    description:
+      'Get aggregated tool-use metrics for an agent (invocation rate, skip rate, failure rate, partial failures). Part of the ASTA adaptation framework.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -217,7 +227,8 @@ function buildToolList(): MCPToolDefinition[] {
   // ASTA Phase 1: Session checkpoints
   tools.push({
     name: 'dws_session_checkpoint',
-    description: 'Recover or inspect a session checkpoint for an interrupted agent session. Returns the saved state if available.',
+    description:
+      'Recover or inspect a session checkpoint for an interrupted agent session. Returns the saved state if available.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -231,15 +242,31 @@ function buildToolList(): MCPToolDefinition[] {
   // Fact extraction tool
   tools.push({
     name: 'dws_extract_facts',
-    description: 'Extract structured facts (subject-predicate-value triples) from text using LLM. Facts are persisted as memories for later recall and profile building.',
+    description:
+      'Extract structured facts (subject-predicate-value triples) from text using LLM. Facts are persisted as memories for later recall and profile building.',
     inputSchema: {
       type: 'object',
       properties: {
-        text: { type: 'string', description: 'Text to extract facts from (conversation, document, etc.)' },
-        source: { type: 'string', description: 'Source identifier (e.g., conversation, email, document)' },
-        persist: { type: 'boolean', description: 'Whether to store extracted facts as memories (default: true)' },
-        min_confidence: { type: 'number', description: 'Minimum confidence to persist a fact (0-1, default: 0.7)' },
-        customer_id: { type: 'string', description: 'Optional customer ID to scope extracted facts' },
+        text: {
+          type: 'string',
+          description: 'Text to extract facts from (conversation, document, etc.)',
+        },
+        source: {
+          type: 'string',
+          description: 'Source identifier (e.g., conversation, email, document)',
+        },
+        persist: {
+          type: 'boolean',
+          description: 'Whether to store extracted facts as memories (default: true)',
+        },
+        min_confidence: {
+          type: 'number',
+          description: 'Minimum confidence to persist a fact (0-1, default: 0.7)',
+        },
+        customer_id: {
+          type: 'string',
+          description: 'Optional customer ID to scope extracted facts',
+        },
       },
       required: ['text'],
     },
@@ -341,10 +368,12 @@ async function handleMCPRequest(
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{
-              type: 'text',
-              text: JSON.stringify(result, null, 2),
-            }],
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2),
+              },
+            ],
           },
         };
       } catch (err: unknown) {
@@ -353,10 +382,12 @@ async function handleMCPRequest(
           jsonrpc: '2.0',
           id,
           result: {
-            content: [{
-              type: 'text',
-              text: JSON.stringify({ error: msg }),
-            }],
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify({ error: msg }),
+              },
+            ],
             isError: true,
           },
         };
@@ -493,10 +524,12 @@ async function executeToolCall(
   if (toolName.startsWith('dws_')) {
     const agentName = toolName.slice(4).replace(/_/g, '-');
     // Support both wrapped ({input: {...}}) and flat schema formats
-    const input = (args.input as Record<string, unknown>) || (() => {
-      const { projectId: _pid, ...rest } = args;
-      return rest;
-    })();
+    const input =
+      (args.input as Record<string, unknown>) ||
+      (() => {
+        const { projectId: _pid, ...rest } = args;
+        return rest;
+      })();
     return agentRegistry.executeAgent(agentName, context, input);
   }
 
@@ -575,7 +608,9 @@ async function executeWorkflow(
     }
 
     default:
-      throw new Error(`Unknown workflow: ${workflowName}. Available: ${SUPPORTED_WORKFLOWS.join(', ')}`);
+      throw new Error(
+        `Unknown workflow: ${workflowName}. Available: ${SUPPORTED_WORKFLOWS.join(', ')}`,
+      );
   }
 }
 

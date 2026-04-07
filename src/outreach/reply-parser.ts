@@ -25,10 +25,7 @@
 
 import crypto from 'crypto';
 import type { OutreachStatus } from './types.js';
-import {
-  generateSignalToken,
-  resolveStatus as resolveSignalStatus,
-} from '../signals/signal-token.js';
+import { generateSignalToken } from '../signals/signal-token.js';
 
 // ============================================================================
 // TYPES

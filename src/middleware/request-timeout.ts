@@ -10,8 +10,7 @@
  * Date: 2026-03-21
  */
 
-import { Request, Response, NextFunction } from 'express';
-import { AppError } from './error-handler.js';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 const DEFAULT_TIMEOUT_MS = 30_000; // 30 seconds
@@ -22,7 +21,8 @@ const DEFAULT_TIMEOUT_MS = 30_000; // 30 seconds
  * @param timeoutMs - Max request duration in milliseconds (default: 30s)
  */
 export function requestTimeout(timeoutMs?: number) {
-  const timeout = timeoutMs ?? (parseInt(process.env.REQUEST_TIMEOUT_MS || '', 10) || DEFAULT_TIMEOUT_MS);
+  const timeout =
+    timeoutMs ?? (parseInt(process.env.REQUEST_TIMEOUT_MS || '', 10) || DEFAULT_TIMEOUT_MS);
 
   return (req: Request, res: Response, next: NextFunction): void => {
     const timer = setTimeout(() => {

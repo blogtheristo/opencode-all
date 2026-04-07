@@ -26,18 +26,18 @@ import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import {
-  runDeterministicPipeline,
-  healthCheck,
-  SEED_FILINGS,
-  getSeedSectorDistribution,
-  getSeedRiskDistribution,
-  getSeedEmissionAverages,
-  validateDeterministic,
-  validateAgainstCalculator,
-  computeSimulationMatrix,
+  COMPUTE_STRATEGY as _COMPUTE_STRATEGY,
+  getInfrastructureSummary as _getInfrastructureSummary,
   buildCBAMStressTestSchema,
-  COMPUTE_STRATEGY,
-  getInfrastructureSummary,
+  computeSimulationMatrix,
+  getSeedEmissionAverages,
+  getSeedRiskDistribution,
+  getSeedSectorDistribution,
+  healthCheck,
+  runDeterministicPipeline,
+  SEED_FILINGS,
+  validateAgainstCalculator,
+  validateDeterministic,
 } from '../synthetic-data/index.js';
 
 type SyntheticAction =

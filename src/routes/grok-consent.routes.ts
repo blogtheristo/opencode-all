@@ -13,8 +13,8 @@
  *   GET    /grok-consent/:orgId/audit    — Paginated Article 12 audit log
  */
 
-import express, { Router, Request, Response } from 'express';
-import { param, query, validationResult } from 'express-validator';
+import express, { type Request, type Response, type Router } from 'express';
+import { query as _query, param, validationResult } from 'express-validator';
 import { grokConsentService } from '../services/grok-consent.service.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';

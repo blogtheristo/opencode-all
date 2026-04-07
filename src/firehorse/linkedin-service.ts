@@ -134,6 +134,7 @@ class LinkedInService {
    * Resolve a LinkedIn profile URL to a URN.
    * Returns null if resolution fails.
    */
+  // @ts-expect-error Reserved for LinkedIn API integration — not yet called
   private async resolveProfileUrn(profileUrl: string): Promise<string | null> {
     // Extract vanity name from URL patterns like linkedin.com/in/username
     const match = profileUrl.match(/linkedin\.com\/in\/([^/?#]+)/);

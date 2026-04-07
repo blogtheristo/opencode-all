@@ -3,11 +3,11 @@
  * CustomerPilotLoop v1
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import {
   handleEmailOpened,
-  handleLinkClicked,
   handleEmailReply,
+  handleLinkClicked,
   handleMeetingBooked,
 } from './state-machine';
 import { scheduler } from './scheduler';
@@ -133,7 +133,7 @@ router.post('/webhooks/meeting-booked', async (req: Request, res: Response) => {
  * Manually trigger daily new leads job
  * POST /firehorse/jobs/daily
  */
-router.post('/jobs/daily', async (req: Request, res: Response) => {
+router.post('/jobs/daily', async (_req: Request, res: Response) => {
   try {
     await scheduler.runManually('daily');
     return res.json({ success: true, message: 'Daily job completed' });
@@ -147,7 +147,7 @@ router.post('/jobs/daily', async (req: Request, res: Response) => {
  * Manually trigger Cold 2 follow-up job
  * POST /firehorse/jobs/cold2
  */
-router.post('/jobs/cold2', async (req: Request, res: Response) => {
+router.post('/jobs/cold2', async (_req: Request, res: Response) => {
   try {
     await scheduler.runManually('cold2');
     return res.json({ success: true, message: 'Cold 2 job completed' });
@@ -161,7 +161,7 @@ router.post('/jobs/cold2', async (req: Request, res: Response) => {
  * Manually trigger Cold 3 follow-up job
  * POST /firehorse/jobs/cold3
  */
-router.post('/jobs/cold3', async (req: Request, res: Response) => {
+router.post('/jobs/cold3', async (_req: Request, res: Response) => {
   try {
     await scheduler.runManually('cold3');
     return res.json({ success: true, message: 'Cold 3 job completed' });
@@ -307,7 +307,7 @@ router.get('/leads/:id/tasks', async (req: Request, res: Response) => {
  * Get pending signals (ULTRA + HIGH correlation)
  * GET /firehorse/signals/pending
  */
-router.get('/signals/pending', async (req: Request, res: Response) => {
+router.get('/signals/pending', async (_req: Request, res: Response) => {
   try {
     const { data, error } = await (db as any).supabase
       .from('firehorse_signals_pending_approval')
@@ -318,21 +318,20 @@ router.get('/signals/pending', async (req: Request, res: Response) => {
       console.error('Error fetching pending signals:', error);
       return res.status(500).json({
         error: 'Failed to fetch signals',
-        message: error.message
+        message: error.message,
       });
     }
 
     return res.json({
       signals: data || [],
       count: data?.length || 0,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-
   } catch (error: any) {
     console.error('Unexpected error in /signals/pending:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -351,7 +350,7 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
       .update({
         status: 'approved',
         message_final: message_final || null,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', id)
       .select()
@@ -361,7 +360,7 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
       console.error(`Error approving signal ${id}:`, error);
       return res.status(500).json({
         error: 'Failed to approve signal',
-        message: error.message
+        message: error.message,
       });
     }
 
@@ -370,14 +369,13 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
     return res.json({
       success: true,
       signal: data,
-      message: 'Signal approved'
+      message: 'Signal approved',
     });
-
   } catch (error: any) {
     console.error('Unexpected error in /signals/:id/approve:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -394,7 +392,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
       .from('firehorse_signals')
       .update({
         status: 'rejected',
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', id)
       .select()
@@ -404,7 +402,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
       console.error(`Error rejecting signal ${id}:`, error);
       return res.status(500).json({
         error: 'Failed to reject signal',
-        message: error.message
+        message: error.message,
       });
     }
 
@@ -413,14 +411,13 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
     return res.json({
       success: true,
       signal: data,
-      message: 'Signal rejected'
+      message: 'Signal rejected',
     });
-
   } catch (error: any) {
     console.error('Unexpected error in /signals/:id/reject:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -429,7 +426,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
  * Get signal collection statistics
  * GET /firehorse/signals/stats
  */
-router.get('/signals/stats', async (req: Request, res: Response) => {
+router.get('/signals/stats', async (_req: Request, res: Response) => {
   try {
     const { data, error } = await (db as any).supabase
       .from('firehorse_signals_metrics')
@@ -440,20 +437,19 @@ router.get('/signals/stats', async (req: Request, res: Response) => {
       console.error('Error fetching signal stats:', error);
       return res.status(500).json({
         error: 'Failed to fetch stats',
-        message: error.message
+        message: error.message,
       });
     }
 
     return res.json({
       stats: data || [],
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-
   } catch (error: any) {
     console.error('Unexpected error in /signals/stats:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message
+      message: error.message,
     });
   }
 });
@@ -472,13 +468,15 @@ router.post('/reports/generate', async (req: Request, res: Response) => {
 
     if (!organizationId || !format || !periodStart || !periodEnd || !industry) {
       return res.status(400).json({
-        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry'
+        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry',
       });
     }
 
     const validFormats = ['board-pack', 'annual-report', 'compliance-summary', 'carbon-footprint'];
     if (!validFormats.includes(format)) {
-      return res.status(400).json({ error: `Invalid format. Must be one of: ${validFormats.join(', ')}` });
+      return res
+        .status(400)
+        .json({ error: `Invalid format. Must be one of: ${validFormats.join(', ')}` });
     }
 
     const report = await FirehorseReportModule.generate({
@@ -507,7 +505,7 @@ router.post('/reports/markdown', async (req: Request, res: Response) => {
 
     if (!organizationId || !format || !periodStart || !periodEnd || !industry) {
       return res.status(400).json({
-        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry'
+        error: 'Missing required fields: organizationId, format, periodStart, periodEnd, industry',
       });
     }
 
@@ -557,7 +555,7 @@ router.get('/reports', async (req: Request, res: Response) => {
  * List workflow templates
  * GET /firehorse/workflows/templates
  */
-router.get('/workflows/templates', (req: Request, res: Response) => {
+router.get('/workflows/templates', (_req: Request, res: Response) => {
   const templates = FirehorseWorkflowEngine.listTemplates();
   res.json({ success: true, templates });
 });
@@ -623,7 +621,7 @@ router.get('/workflows/executions', async (req: Request, res: Response) => {
 // HEALTH CHECK
 // ============================================================================
 
-router.get('/health', (req: Request, res: Response) => {
+router.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', service: 'firehorse-pilot' });
 });
 
