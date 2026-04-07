@@ -97,7 +97,14 @@ The Data Controller accepts these constraints. The absence of model training and
 
 **5.1** The 48-hour breach notification deadline in the base DPA (Article 6.1) is an internal processor-to-controller deadline. It provides Lifetime Oy with a 24-hour assessment window before the statutory 72-hour obligation to notify the Finnish Data Protection Authority (Tietosuojavaltuutetun toimisto) per GDPR Article 33.
 
-**5.2** Lifetime Oy shall maintain an internal breach response procedure to ensure supervisory authority notification within the 72-hour statutory window following receipt of Shufti Pro's notice.
+**5.2** Upon receipt of Shufti Pro's 48-hour breach notification, Lifetime Oy shall execute the following internal procedure:
+
+- **T+0h:** Log breach receipt in Supabase `breach_notifications` table with timestamp, breach category, and affected data subjects estimate.
+- **T+0–12h:** Assess severity — determine if breach involves biometric data (Art. 9), scale of data subjects affected, and likelihood of risk to rights and freedoms.
+- **T+12–20h:** Prepare notification to Tietosuojavaltuutetun toimisto (Finnish DPA) using the authority's online form. Draft data subject notification if required under GDPR Article 34.
+- **T+20–24h (hard deadline):** Submit notification to Finnish DPA. This leaves 48h buffer before the statutory 72h GDPR Article 33 deadline expires.
+
+Automated daily monitoring (`scripts/daily/check-breach-deadlines.ts`) alerts at 24h (internal review deadline) and 48h (last call before statutory 72h). All checks are logged to Supabase `audit_log` for traceability.
 
 ---
 

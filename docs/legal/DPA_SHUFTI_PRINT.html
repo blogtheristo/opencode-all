@@ -451,9 +451,34 @@
       <strong>6.4</strong> The 48-hour notification deadline in Article 6.1 is an internal
       processor-to-controller deadline, designed to provide Lifetime Oy with sufficient time to
       assess the breach and fulfil its obligation to notify the Finnish Data Protection Authority
-      (Tietosuojavaltuutetun toimisto) within 72 hours per GDPR Article 33. Lifetime Oy shall
-      maintain an internal breach response procedure to ensure supervisory authority notification
-      within the statutory 72-hour window following receipt of Shufti Pro&rsquo;s notice.
+      (Tietosuojavaltuutetun toimisto) within 72 hours per GDPR Article 33.
+    </div>
+    <div class="clause">
+      <strong>6.5 Internal Breach Response Procedure.</strong> Upon receipt of Shufti Pro&rsquo;s
+      48-hour breach notification, Lifetime Oy shall execute the following:
+      <ul>
+        <li>
+          <strong>T+0h:</strong> Log breach receipt in
+          <code>logs/breach-notifications.jsonl</code> with timestamp, breach category, and affected
+          data subjects estimate.
+        </li>
+        <li>
+          <strong>T+0&ndash;12h:</strong> Assess severity &mdash; determine if breach involves
+          biometric data (Art. 9), scale of data subjects affected, and likelihood of risk to rights
+          and freedoms.
+        </li>
+        <li>
+          <strong>T+12&ndash;20h:</strong> Prepare notification to Tietosuojavaltuutetun toimisto
+          (Finnish DPA) using the authority&rsquo;s online form. Draft data subject notification if
+          required under GDPR Article 34.
+        </li>
+        <li>
+          <strong>T+20&ndash;24h (hard deadline):</strong> Submit notification to Finnish DPA. This
+          leaves 48h buffer before the statutory 72h GDPR Article 33 deadline expires.
+        </li>
+      </ul>
+      Automated daily monitoring (<code>scripts/daily/check-breach-deadlines.sh</code>) alerts if
+      any active breach approaches the 24h assessment window or 72h statutory deadline.
     </div>
 
     <!-- ARTICLE 7 -->
