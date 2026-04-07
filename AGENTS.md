@@ -30,16 +30,26 @@
 
 ## 1b. Team
 
+**Humans (HIL):**
+
+| Name   | Role                            | Email                    | Scope                                                        | gstack Role | Persona             |
+| ------ | ------------------------------- | ------------------------ | ------------------------------------------------------------ | ----------- | ------------------- |
+| Risto  | CEO / Founder / Editor in Chief | risto.paarni@lifetime.fi | Product vision, regulatory strategy, Lifetime Scope Journal  | Founder/CEO | `docs/HIL_Risto.md` |
+| Adrian | DWS IQ Architect                | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design | —           | —                   |
+
+**AI Agents (team):**
+
 | Name   | Role               | Email                    | Scope                                                         | gstack Role         | Persona              |
 | ------ | ------------------ | ------------------------ | ------------------------------------------------------------- | ------------------- | -------------------- |
-| Risto  | CEO / Founder      | risto.paarni@lifetime.fi | Product vision, regulatory strategy, customer relationships   | Founder/CEO         | `docs/HIL_Risto.md`  |
-| Adrian | DWS IQ Architect   | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design  | —                   | —                    |
+| Rocky  | CEO Agent          | —                        | CEO-level strategic decisions, product direction, fundraising | Founder/CEO         | —                    |
 | Marcus | CTO / Co-Founder   | marcus@onelifetime.world | Engineering org, technical moat, Series A due diligence       | Engineering Manager | `docs/HIL_Marcus.md` |
 | Sofia  | CFO / Finance Lead | sofia@onelifetime.world  | Unit economics, Alpha-Share pricing, investor relations, D&O  | —                   | `docs/HIL_Sofia.md`  |
 | Antti  | VP Sales / GTM     | antti@onelifetime.world  | Enterprise pilots, construction vertical, Nordic/DACH markets | —                   | `docs/HIL_Antti.md`  |
 | Emily  | HR & People Ops    | emily@onelifetime.world  | Hiring, onboarding, Captain program, team culture             | —                   | `docs/HIL_Emily.md`  |
 
-**gstack skill mapping:** Risto owns `/plan-ceo-review` (Founder/CEO). Marcus owns `/plan-eng-review` (Engineering Manager) and `/retro` (weekly retrospective). `/review` (Staff Engineer), `/ship` (Release Engineer), and `/browse` (QA Engineer) are shared team skills. See Section 16.
+**Lifetime Scope Journal:** Risto is Editor in Chief. The journal is Lifetime Oy's publication channel for industry research, EU compliance insights, and product thought leadership.
+
+**gstack skill mapping:** Rocky + Risto own `/plan-ceo-review` (Founder/CEO). Marcus owns `/plan-eng-review` (Engineering Manager) and `/retro` (weekly retrospective). `/review` (Staff Engineer), `/ship` (Release Engineer), and `/browse` (QA Engineer) are shared team skills. See Section 16.
 
 ---
 

@@ -1,7 +1,7 @@
 # Team Member: Risto — CEO / Founder
 
 **Name:** Risto Anton Päärni
-**Role:** CEO / Founder
+**Role:** CEO / Founder / Editor in Chief, Lifetime Scope Journal
 **Email:** risto.paarni@lifetime.fi (corporate), risto@onelifetime.world (product)
 **gstack Role:** Founder/CEO (`/plan-ceo-review`)
 **Persona:** `docs/HIL_Risto.md`
@@ -18,6 +18,7 @@ Finnish industrial AI founder with 35+ years of enterprise software and ICT infr
 - Edge AI deployment: NVIDIA Jetson Orin Nano
 - Systems architecture: Brain-Memory-Body-Hands pattern
 - Content: blog posts, LinkedIn, investor communications
+- Editor in Chief: Lifetime Scope Journal (industry research, EU compliance insights, thought leadership)
 
 ## gstack Responsibilities
 
