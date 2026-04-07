@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/synthetic-data-pipeline-TK1Lp | Date: 06.04.2026 | Changes: Initial — built complete synthetic data pipeline: CBAM schema (NeMo DataDesigner), LLM-as-Judge validation, 50 seed filings, compute strategy, SyntheticDataAgent (Agent 19), daily health check
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vulcan-cn-codes-pr-dv519 | Date: 06.04.2026 | Changes: Vulcan CN code expansion (12 → 42 explicit codes, 55 heading range), Red Team seed negatives documentation, isCBAMSteelAndIron() helper
 
 Session Links & References:
 
@@ -21,7 +22,7 @@ Session Links & References:
 Document Status:
 
 - Created: 06.04.2026
-- Last Modified: 06.04.2026
+- Last Modified: 06.04.2026 (v1.1)
 - Language: English
 - Publication Status: ACTIVE
 
@@ -103,6 +104,36 @@ Registered in agent registry with 6 actions:
 - `simulation-matrix` — compute full combination matrix (96 base × 1000 variations)
 - `dd-summary` — investor due diligence summary
 - `seed-analytics` — seed dataset statistics
+
+### Red Team Seed Negatives (5 adversarial filings in `seed-dataset.ts`)
+
+The 50 clean seeds are ground truth — but a pipeline that only validates correct data proves nothing. 5 Red Team negatives are designed to break naive validators:
+
+| #   | Name                   | Attack Vector                                                                       | Expected Outcome                                                    |
+| --- | ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 1   | Greenwash Steel        | BF-BOF installation claims 0.42 tCO2e/t (EAF-level emissions from a blast furnace)  | REJECT — emission-energy mismatch, physically impossible for BF-BOF |
+| 2   | Ghost Precursor Cement | Cement plant with 0.00 tCO2e/t precursor emissions despite clinker production       | REJECT — zero precursor on clinker route violates thermodynamics    |
+| 3   | Dirty Grid Aluminium   | Smelter claims 2.50 tCO2e/t with 0.95 tCO2e/MWh grid factor (should be ~16 tCO2e/t) | REJECT — indirect emissions impossibly low for given grid factor    |
+| 4   | Hydrogen Hallucination | Grey hydrogen (SMR) claims 0.80 tCO2e/t (green hydrogen levels)                     | REJECT — SMR process minimum ~9 tCO2e/t without CCS                 |
+| 5   | Rounding Fraud         | Steel filing with emissions rounded to exactly 1.000000 tCO2e/t                     | REJECT — suspiciously precise, likely fabricated value              |
+
+These negatives are critical for DD: they prove the LLM-as-Judge + deterministic validator pipeline catches real-world fraud patterns, not just format errors.
+
+### Vulcan CN Code Expansion (12 → 42 explicit codes)
+
+The Vulcan agent (`src/agents/workflow/industry/vulcan.agent.ts`) previously covered only CN codes 7206–7217 (12 codes: semi-finished flat/long steel products). Expanded to 42 explicit codes across 6 product groups, imported from `cbam-schema.ts` as single source of truth:
+
+| Group               | Codes                 | Count  | Coverage                                               |
+| ------------------- | --------------------- | ------ | ------------------------------------------------------ |
+| Raw materials       | 7201–7207             | 7      | Pig iron, ferro-alloys, scrap, granules, powder, semis |
+| Flat products       | 7208–7212             | 5      | Hot-rolled, cold-rolled, coated, narrow strip          |
+| Long products       | 7213–7217             | 5      | Bars, rods, angles, shapes, sections, wire             |
+| Stainless & alloy   | 7218–7229             | 12     | Stainless/alloy semi-finished, flat, bars, wire        |
+| Tubes & fittings    | 7301–7307             | 7      | Sheet piling, rails, cast iron/seamless/welded tubes   |
+| Downstream articles | 7308–7311, 7318, 7326 | 6      | Structures, reservoirs, containers, fasteners          |
+| **Total**           |                       | **42** | CBAM Annex I Sections 3.1–3.2 (Reg. 2023/956)          |
+
+Range-based helper `isCBAMSteelAndIron(cnCode: string): boolean` covers the full 7201–7229 + 7301–7326 heading space (55 possible headings) for forward-compatible matching of future CN code additions. Accepts 4-digit headings or 8-digit full CN codes.
 
 ### Daily Health Check (`scripts/daily/synthetic-data-health.ts`)
 
