@@ -9,8 +9,8 @@
  *   Dashboard polling       → GET  /api/situation-room/reports
  */
 
-import express, { Router, Request, Response } from 'express';
-import { body, query, param, validationResult } from 'express-validator';
+import express, { type Request, type Response, type Router } from 'express';
+import { body, param, query, validationResult } from 'express-validator';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
@@ -128,7 +128,7 @@ router.post(
 
       if (!(await assertOrgMember(req.userId!, org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .insert({
           org_id,
@@ -183,7 +183,7 @@ router.get(
 
       if (!(await assertOrgMember(req.userId!, orgId, res))) return;
 
-      let qb = supabase
+      let qb = supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('org_id', orgId)
@@ -229,7 +229,7 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('id', req.params.id)
@@ -280,7 +280,7 @@ router.patch(
       }
 
       // Fetch first to get org_id for membership check
-      const { data: existing } = await supabase
+      const { data: existing } = await supabase!
         .from('situation_room_reports')
         .select('org_id')
         .eq('id', req.params.id)
@@ -293,7 +293,7 @@ router.patch(
 
       if (!(await assertOrgMember(req.userId!, existing.org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .update(updates)
         .eq('id', req.params.id)

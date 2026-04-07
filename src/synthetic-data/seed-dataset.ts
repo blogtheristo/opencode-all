@@ -26,11 +26,7 @@
  * - DESNZ UK Grid Factor 2024
  */
 
-import {
-  calculateCBAM,
-  type CBAMDeclaration,
-  type CBAMImport,
-} from '../compliance/cbam-calculator.js';
+import { calculateCBAM, type CBAMDeclaration } from '../compliance/cbam-calculator.js';
 
 // ============ TYPES ============
 

@@ -122,6 +122,7 @@ function salesEmail(ctx: ProspectContext): EmailContent {
   const org = ctx.orgName || 'your company';
   const segment = ctx.customerSegment || 'EU-regulated industry';
   const angle = ctx.ourAngle || `automate CSRD compliance reporting for ${segment} companies`;
+  void angle; // Reserved for personalised email body in v2
 
   const subject = `${org} — Automate CSRD Compliance with DWS IQ`;
 

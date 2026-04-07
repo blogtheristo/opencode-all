@@ -26,7 +26,7 @@
  * Introduced-In: claude/build-mvp-features-Eq6py (EU-residency hardening)
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
@@ -393,10 +393,7 @@ async function callInference(
 
       lastError = providerError;
       if (providerError.code === 'RATE_LIMITED') rateLimited = true;
-      if (
-        providerError.code !== 'RETRYABLE' &&
-        providerError.code !== 'RATE_LIMITED'
-      ) {
+      if (providerError.code !== 'RETRYABLE' && providerError.code !== 'RATE_LIMITED') {
         throw providerError;
       }
       logger.warn(`${name} failed, trying next provider`, {
@@ -420,11 +417,12 @@ async function callInference(
   }
 
   if (rateLimited) {
-    const err: any = new Error(lastError?.message || 'All providers rate-limited');
+    const finalError = lastError as Error | null;
+    const err: any = new Error(finalError?.message || 'All providers rate-limited');
     err.code = 'RATE_LIMITED';
     throw err;
   }
-  throw lastError || new Error('No inference provider available');
+  throw (lastError as Error | null) || new Error('No inference provider available');
 }
 
 async function callScaleway(

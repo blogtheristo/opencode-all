@@ -14,30 +14,34 @@
  * All concrete agents extend this class and implement the abstract execute() method.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
-import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { createLLMClient, type LLMClient } from './llm-client.js';
+import { BUILTIN_TOOLS, executeTools } from './tools.js';
 import { telemetryService } from './telemetry.service.js';
 import { checkpointService } from './session-checkpoint.service.js';
-import type { SessionState } from './session-checkpoint.types.js';
+
 import type {
   AgentConfig,
   AgentContext,
-  AgentResponse,
   AgentExecutionLog,
-  GovernancePolicy,
-  PolicyCheckResult,
+  AgentLoopConfig,
+  AgentLoopIteration,
+  AgentResponse,
   GovernanceAuditEntry,
+  GovernancePolicy,
+  LLMResponse,
+  PolicyCheckResult,
   SandboxContext,
   ToolDefinition,
-  LLMResponse,
-  AgentLoopIteration,
-  AgentLoopConfig,
 } from './types.js';
-import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
+import {
+  buildSDKSandboxConfig,
+  getSandboxStage,
+  validateNIS2Compliance,
+} from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
-import { MemoryService, memoryService } from './memory.service.js';
+import { type MemoryService, memoryService } from './memory.service.js';
 
 export abstract class BaseAgent {
   protected config: AgentConfig;
@@ -71,10 +75,7 @@ export abstract class BaseAgent {
    * Existing agents: implement this directly with deterministic logic + callLLM().
    * New agents: can call runLoop() from within execute() for agentic behavior.
    */
-  abstract execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse>;
+  abstract execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse>;
 
   // ============ DWS7: AGENTIC LOOP (Fix #1) ============
 
@@ -150,7 +151,9 @@ export abstract class BaseAgent {
     let messages: import('./types.js').LLMMessage[];
     let startIteration = 0;
     const recovered = await checkpointService.recover(
-      context.sessionId, context.orgId, this.config.name,
+      context.sessionId,
+      context.orgId,
+      this.config.name,
     );
 
     if (recovered && recovered.agentName === this.config.name) {
@@ -196,7 +199,11 @@ export abstract class BaseAgent {
       model = response.model;
 
       // If no tool calls, the agent is done thinking
-      if (!response.toolCalls || response.toolCalls.length === 0 || response.stopReason === 'end_turn') {
+      if (
+        !response.toolCalls ||
+        response.toolCalls.length === 0 ||
+        response.stopReason === 'end_turn'
+      ) {
         // ASTA: Skip detection — agent answered without using tools on first iteration
         if (i === 0 && !recovered) {
           telemetryService.recordInvocation({
@@ -286,22 +293,27 @@ export abstract class BaseAgent {
       });
 
       // ASTA Phase 1: Save checkpoint after each act phase (non-blocking)
-      checkpointService.checkpoint(context, {
-        messages,
-        iterationIndex: i + 1,
-        partialResults: toolResults,
-        checkpointedAt: new Date().toISOString(),
-        agentName: this.config.name,
-        systemPrompt,
-        userMessage,
-      }).catch(() => { /* non-blocking */ });
+      checkpointService
+        .checkpoint(context, {
+          messages,
+          iterationIndex: i + 1,
+          partialResults: toolResults,
+          checkpointedAt: new Date().toISOString(),
+          agentName: this.config.name,
+          systemPrompt,
+          userMessage,
+        })
+        .catch(() => {
+          /* non-blocking */
+        });
     }
 
     // Extract final content from last assistant message
     const lastAssistant = [...messages].reverse().find((m) => m.role === 'assistant');
-    const finalContent = typeof lastAssistant?.content === 'string'
-      ? lastAssistant.content
-      : JSON.stringify(lastAssistant?.content || {});
+    const finalContent =
+      typeof lastAssistant?.content === 'string'
+        ? lastAssistant.content
+        : JSON.stringify(lastAssistant?.content || {});
 
     // Log iterations to Supabase if configured
     if (loopConfig.logIterations && iterations.length > 0) {
@@ -309,7 +321,9 @@ export abstract class BaseAgent {
     }
 
     // ASTA: Clear checkpoint on successful completion (non-blocking)
-    checkpointService.clear(context.sessionId, this.config.name).catch(() => { /* non-blocking */ });
+    checkpointService.clear(context.sessionId, this.config.name).catch(() => {
+      /* non-blocking */
+    });
 
     return {
       content: finalContent,
@@ -350,7 +364,10 @@ export abstract class BaseAgent {
    */
   protected soulPrompt: string | null = null;
 
-  protected async callLLM(prompt: string, systemPromptOverride?: string): Promise<{
+  protected async callLLM(
+    prompt: string,
+    systemPromptOverride?: string,
+  ): Promise<{
     content: string;
     model: string;
     inputTokens: number;
@@ -373,9 +390,10 @@ export abstract class BaseAgent {
     }
 
     // Priority: explicit override > soulPrompt > generic fallback
-    const systemContent = systemPromptOverride
-      ?? this.soulPrompt
-      ?? `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
+    const systemContent =
+      systemPromptOverride ??
+      this.soulPrompt ??
+      `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
 
     try {
       const response = await client.chat([
@@ -534,7 +552,9 @@ export abstract class BaseAgent {
         },
         confidence: 1,
         reasoning: `Execution blocked by governance: ${enforced.map((e) => e.reason).join('; ')}`,
-        recommendations: ['Contact administrator to adjust governance policies or request approval'],
+        recommendations: [
+          'Contact administrator to adjust governance policies or request approval',
+        ],
         metadata: { governance: audit },
       };
     }
@@ -557,37 +577,77 @@ export abstract class BaseAgent {
 
         if (!state || now - state.windowStart > window_ms) {
           BaseAgent.rateLimitState.set(key, { count: 1, windowStart: now });
-          return { policyId: policy.id, allowed: true, reason: 'Within rate limit', enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: true,
+            reason: 'Within rate limit',
+            enforcement: policy.enforcement,
+          };
         }
 
         state.count++;
         if (state.count > maxCalls) {
-          return { policyId: policy.id, allowed: false, reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`, enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: false,
+            reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`,
+            enforcement: policy.enforcement,
+          };
         }
-        return { policyId: policy.id, allowed: true, reason: `Rate limit OK: ${state.count}/${maxCalls}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Rate limit OK: ${state.count}/${maxCalls}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'cost-limit': {
         const maxCost = (policy.config.max_daily_eur as number) || 50;
-        return { policyId: policy.id, allowed: true, reason: `Cost limit: EUR ${maxCost}/day (tracking active)`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Cost limit: EUR ${maxCost}/day (tracking active)`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'approval-required': {
-        return { policyId: policy.id, allowed: false, reason: 'Human approval required before execution', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: false,
+          reason: 'Human approval required before execution',
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'data-boundary': {
         const allowedRegions = (policy.config.allowed_regions as string[]) || ['EU'];
-        return { policyId: policy.id, allowed: true, reason: `Data boundary: ${allowedRegions.join(', ')}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Data boundary: ${allowedRegions.join(', ')}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'autonomy-tier': {
         const maxTier = (policy.config.max_tier as number) || 2;
-        return { policyId: policy.id, allowed: true, reason: `Autonomy tier ≤ ${maxTier}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Autonomy tier ≤ ${maxTier}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       default:
-        return { policyId: policy.id, allowed: true, reason: 'Unknown policy type - passing', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: 'Unknown policy type - passing',
+          enforcement: policy.enforcement,
+        };
     }
   }
 

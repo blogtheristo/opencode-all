@@ -12,7 +12,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse } from './types.js';
+import type { LLMMessage, LLMResponse, ToolCall, ToolDefinition } from './types.js';
 
 // ============ PROVIDER CONFIGURATION ============
 
@@ -63,7 +63,7 @@ const ANTHROPIC_CONFIG = (): LLMClientConfig | null => {
  *   hil (human-in-loop): Anthropic → Ollama  (quality-first for human requests)
  */
 export function resolveProvider(
-  agentModel: string,
+  _agentModel: string,
   opts?: { orgId?: string; mode?: LLMMode },
 ): LLMClientConfig | null {
   const mode = opts?.mode || 'agent';

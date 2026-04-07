@@ -11,7 +11,7 @@
  *   const score = scoreCompliance(extracted);
  */
 
-import { ESRS_REGISTRY, getMandatoryDisclosures, type ESRSDisclosure } from './esrs-registry.js';
+import { type ESRSDisclosure, getMandatoryDisclosures } from './esrs-registry.js';
 import type { ComplianceScoringInput, DataPointStatus } from './scoring-engine.js';
 import { getBenchmark } from './eu-benchmarks.js';
 import logger from '../utils/logger.js';
@@ -152,7 +152,7 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   const employeeMatch = text.match(
     /(?:employees?|workforce|headcount|FTE)[:\s]+(?:approximately\s+)?([0-9,.]+)/i,
   );
-  const employeeCount = employeeMatch ? parseInt(employeeMatch[1].replace(/,/g, ''), 10) : 0;
+  void (employeeMatch ? parseInt(employeeMatch[1].replace(/,/g, ''), 10) : 0);
 
   // Revenue
   const revenueMatch = text.match(

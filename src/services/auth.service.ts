@@ -15,7 +15,8 @@ import { getSupabaseClient } from '../config/supabase.js';
 // SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
 const _jwtSecret = process.env.JWT_SECRET;
 if (!_jwtSecret) {
-  const errorMsg = 'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
+  const errorMsg =
+    'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
@@ -64,6 +65,7 @@ interface StoredUser {
 }
 
 // User repository interface - implement with Supabase in production
+// @ts-expect-error Reserved for Supabase user repository integration
 interface UserRepository {
   findByEmail(email: string): Promise<StoredUser | null>;
 }
@@ -79,15 +81,18 @@ const emailVerificationTokens = new Map<string, { email: string; expiresAt: numb
 const passwordResetTokens = new Map<string, { email: string; expiresAt: number }>();
 
 // Periodic cleanup for expired tokens (every 10 minutes)
-setInterval(() => {
-  const now = Date.now();
-  for (const [token, data] of emailVerificationTokens.entries()) {
-    if (data.expiresAt < now) emailVerificationTokens.delete(token);
-  }
-  for (const [token, data] of passwordResetTokens.entries()) {
-    if (data.expiresAt < now) passwordResetTokens.delete(token);
-  }
-}, 10 * 60 * 1000).unref();
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [token, data] of emailVerificationTokens.entries()) {
+      if (data.expiresAt < now) emailVerificationTokens.delete(token);
+    }
+    for (const [token, data] of passwordResetTokens.entries()) {
+      if (data.expiresAt < now) passwordResetTokens.delete(token);
+    }
+  },
+  10 * 60 * 1000,
+).unref();
 
 // SECURITY FIX #4: Token blacklist for revocation
 // Uses Redis in production, falls back to in-memory for development
@@ -99,14 +104,17 @@ const tokenBlacklist = new Map<string, number>();
 
 // Clean expired tokens from blacklist periodically (every 5 minutes)
 // Only used when Redis is not available
-setInterval(() => {
-  const now = Date.now();
-  for (const [hash, expiry] of tokenBlacklist.entries()) {
-    if (expiry < now) {
-      tokenBlacklist.delete(hash);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [hash, expiry] of tokenBlacklist.entries()) {
+      if (expiry < now) {
+        tokenBlacklist.delete(hash);
+      }
     }
-  }
-}, 5 * 60 * 1000);
+  },
+  5 * 60 * 1000,
+);
 
 // Flag to track if Redis is available
 let useRedis = false;
@@ -151,7 +159,7 @@ class AuthService {
         accessLevel: user.accessLevel,
       },
       JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      { expiresIn: JWT_EXPIRES_IN },
     );
   }
 
@@ -166,7 +174,7 @@ class AuthService {
         type: 'refresh',
       },
       JWT_SECRET,
-      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+      { expiresIn: JWT_REFRESH_EXPIRES_IN },
     );
   }
 
@@ -184,7 +192,7 @@ class AuthService {
       }
 
       return jwt.verify(token, JWT_SECRET, {
-        algorithms: ['HS256'],  // SECURITY FIX #9: Explicitly specify algorithm
+        algorithms: ['HS256'], // SECURITY FIX #9: Explicitly specify algorithm
       });
     } catch (error) {
       logger.warn('Token verification failed', { error: (error as Error).message });
@@ -211,7 +219,7 @@ class AuthService {
     } else {
       // In-memory fallback
       const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
-      const expiryTimestamp = Date.now() + (expiresIn * 1000);
+      const expiryTimestamp = Date.now() + expiresIn * 1000;
       tokenBlacklist.set(tokenHash, expiryTimestamp);
       logger.info('Token revoked (in-memory)', { tokenHash: tokenHash.substring(0, 16) });
     }
@@ -268,7 +276,11 @@ class AuthService {
     const { email, password } = params;
 
     // Hash email for logging (GDPR compliance - don't log PII)
-    const emailHash = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex').substring(0, 16);
+    const emailHash = crypto
+      .createHash('sha256')
+      .update(email.toLowerCase())
+      .digest('hex')
+      .substring(0, 16);
     logger.info('Authentication attempt', { emailHash });
 
     // Fetch user from database
@@ -357,7 +369,11 @@ class AuthService {
   /**
    * Register a new user — Supabase first, in-memory fallback for dev.
    */
-  async registerUser(email: string, password: string, userData?: Partial<StoredUser>): Promise<User> {
+  async registerUser(
+    email: string,
+    password: string,
+    userData?: Partial<StoredUser>,
+  ): Promise<User> {
     const normalizedEmail = email.toLowerCase().trim();
     const passwordHash = await this.hashPassword(password);
     const userId = `user-${crypto.randomUUID()}`;
@@ -446,7 +462,11 @@ class AuthService {
     const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
     emailVerificationTokens.set(token, { email: email.toLowerCase().trim(), expiresAt });
     logger.info('Email verification token generated', {
-      emailHash: crypto.createHash('sha256').update(email.toLowerCase()).digest('hex').substring(0, 16),
+      emailHash: crypto
+        .createHash('sha256')
+        .update(email.toLowerCase())
+        .digest('hex')
+        .substring(0, 16),
     });
     return token;
   }
@@ -514,7 +534,11 @@ class AuthService {
     // But only store a real token if the user exists.
     if (!user) {
       logger.info('Password reset requested for non-existent email', {
-        emailHash: crypto.createHash('sha256').update(normalizedEmail).digest('hex').substring(0, 16),
+        emailHash: crypto
+          .createHash('sha256')
+          .update(normalizedEmail)
+          .digest('hex')
+          .substring(0, 16),
       });
       return null;
     }

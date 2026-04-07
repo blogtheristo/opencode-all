@@ -16,11 +16,11 @@
 
 import logger from '../utils/logger.js';
 import {
-  ContentItem,
+  type ContentItem,
+  ContentLanguage,
   ContentStatus,
   ContentType,
-  ContentLanguage,
-  PublishResult,
+  type PublishResult,
 } from './types.js';
 import MarkdownIt from 'markdown-it';
 import DOMPurify from 'isomorphic-dompurify';
@@ -131,10 +131,9 @@ export function renderLearningHtml(item: ContentItem): string {
   );
 
   const bodyHtml = item.body_html || renderMarkdownToHtml(item.body_markdown);
-  const tags = [
-    ...(item.regulation_tags || []),
-    ...(item.custom_tags || []),
-  ].map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join(' ');
+  const tags = [...(item.regulation_tags || []), ...(item.custom_tags || [])]
+    .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
+    .join(' ');
 
   const lang = item.language === ContentLanguage.FI ? 'fi' : 'en';
 
@@ -207,7 +206,7 @@ export async function publishLearningArticle(item: ContentItem): Promise<Publish
   }
 
   try {
-    const _html = renderLearningHtml(item);
+    void renderLearningHtml(item);
 
     // MVP: HTML is rendered and ready. In production, this writes to
     // the customer's portal storage (Supabase Storage or CDN).

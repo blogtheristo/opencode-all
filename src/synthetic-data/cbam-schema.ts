@@ -19,8 +19,6 @@
  * - src/compliance/cbam-calculator.ts — existing CBAM obligation calculator
  */
 
-import { CBAM_DEFAULT_FACTORS, ETS_EMISSION_FACTORS } from '../compliance/emission-factors.js';
-
 // ============ CBAM CN CODES (Combined Nomenclature) ============
 
 /**

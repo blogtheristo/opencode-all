@@ -12,7 +12,7 @@
  */
 
 import logger from '../utils/logger.js';
-import { eventBus, type DWSEvent } from '../agents/event-bus.js';
+import { type DWSEvent, eventBus } from '../agents/event-bus.js';
 import { getSupabaseClient } from '../config/supabase.js';
 
 const supabase = getSupabaseClient();
@@ -27,6 +27,7 @@ interface Notification {
   severity: 'info' | 'warning' | 'critical' | 'success' | 'error';
   metadata: Record<string, unknown>;
   read: boolean;
+  channel?: 'in_app' | 'email' | 'both';
 }
 
 interface NotificationPreferences {
@@ -199,7 +200,7 @@ class NotificationService {
       .update({ read: true })
       .eq('user_id', userId)
       .eq('read', false)
-      .select('*', { count: 'exact', head: true });
+      .select('*');
 
     if (error) {
       logger.error('Failed to mark all read', { userId, error: error.message });
@@ -282,8 +283,9 @@ class NotificationService {
       const { notificationTemplate } = await import('./email-templates.js');
       const { sendEmail } = await import('../utils/send-email.js');
 
-      const html = notificationTemplate(notification.title, notification.body);
+      const html = notificationTemplate(notification.title, notification.body ?? '');
       await sendEmail({
+        from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
         to: email,
         subject: `[DWS IQ] ${notification.title}`,
         html,
