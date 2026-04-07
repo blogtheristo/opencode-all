@@ -1,15 +1,15 @@
-# DWS Gamma Brand Standard v2.5
+# DWS Gamma Brand Standard v2.6
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
 - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-industrial-rebrand-glOfb | Date: 06.04.2026 | Changes: Nordic Industrial rebrand — added Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, trilingual homepage (FI/SV/EN), "Built in Finland" footer badge, Mistral AI sovereign inference reference
-
 - Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
 - Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
@@ -264,15 +264,15 @@ All DWS pages use dark theme by default.
 
 **Why IBM Plex:** Designed by IBM for technical/industrial contexts. Open-source. Excellent Nordic character support (ä, ö, å, ü, ø, æ). Avenir Next was considered but requires commercial license.
 
-### Trilingual URL Structure
+### Multilingual URL Structure
 
-| Language          | URL             | Status  |
-| ----------------- | --------------- | ------- |
-| English (default) | `dws10.com/`    | Active  |
-| Finnish           | `dws10.com/fi/` | Active  |
-| Swedish           | `dws10.com/sv/` | Active  |
-| German            | `dws10.com/de/` | Planned |
-| French            | `dws10.com/fr/` | Planned |
+| Language          | URL             | Status |
+| ----------------- | --------------- | ------ |
+| English (default) | `dws10.com/`    | Active |
+| Finnish           | `dws10.com/fi/` | Active |
+| Swedish           | `dws10.com/sv/` | Active |
+| German            | `dws10.com/de/` | Active |
+| French            | `dws10.com/fr/` | Active |
 
 All pages include `hreflang` alternate links for SEO.
 
@@ -1704,13 +1704,38 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 - "dual-use industries" → "säännellyt toimialat" (regulated industries) — dual-use is determined by end-use, not by industry classification
 - "(reuna/private)" added in FI version — clarifies edge-deployed, not public cloud
 
+### DWS IQ Platform (Series A / Investor)
+
+**EN:** DWS IQ — the first pre-trained Compliance Immune System for the European Green Deal. 10,000 years of regulatory edge cases, simulated before your first audit.
+
+**FI (kotimainen):** DWS IQ — ensimmäinen esikoulutettu vaatimustenmukaisuuden immuunijärjestelmä Euroopan vihreälle sopimukselle. 10 000 vuotta sääntelytapauksia simuloituna ennen ensimmäistä auditointia.
+
+**Translation notes:**
+
+- "Compliance Immune System" → "vaatimustenmukaisuuden immuunijärjestelmä" — direct translation works in Finnish B2B context
+- "European Green Deal" → "Euroopan vihreä sopimus" — official Finnish EU translation
+- Use in Arctic 15 pitch decks, investor one-pagers, and Series A materials only
+
+### Synthetic Nervous System (Technical / Partner)
+
+**EN:** NVIDIA NeMo DataDesigner powers DWS IQ's Synthetic Nervous System — manufacturing regulatory friction at scale so your compliance agents are battle-tested before day one.
+
+**FI (kotimainen):** NVIDIA NeMo DataDesigner tehostaa DWS IQ:n synteettistä hermostoa — tuottaa sääntelykitkaa mittakaavassa, jotta vaatimustenmukaisuusagentit ovat taisteluvalmiita ennen ensimmäistä päivää.
+
+**Translation notes:**
+
+- "Synthetic Nervous System" → "synteettinen hermosto" — direct, technical Finnish
+- "battle-tested" → "taisteluvalmiita" — strong B2B Finnish, acceptable in industrial context
+- Use in NVIDIA co-marketing, technical partner materials, and deep-dive investor decks
+
 ---
 
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes                                                                                                                                                                                                                                                                                                                                                                                              |
+| v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
+| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |
 | v2.4    | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
 | v2.2    | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern                                                                                                                                                                                                                                                   |
 | v2.1    | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world                                                                                                                                                                                                                                                                                                                                  |

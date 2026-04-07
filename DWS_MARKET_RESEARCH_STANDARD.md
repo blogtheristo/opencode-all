@@ -1,28 +1,33 @@
 # DWS Market Research Standard v1.0
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-interceptor-drone-estimate-KCXVm | Date: 30.03.2026 | Changes: Added Nordic factory interceptor drone TAM estimate — 8,500 units across 4,400 sites, EUR 1.5–3.5B market, full analysis in docs/market-research/nordic-factory-interceptor-drone-estimate.md
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Added Qantic GmbH (Berlin) as adjacent competitor for DWS IQ Platform — energy simulation company with CSRD gap, full analysis in docs/market-research/qantic-energy-analysis.md
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
-  - Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
+
+- Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Synthetic Nervous System as competitive moat (§8.2), updated NVIDIA partnership row with NeMo DataDesigner integration, added Arctic 15 investor narrative reference
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-interceptor-drone-estimate-KCXVm | Date: 30.03.2026 | Changes: Added Nordic factory interceptor drone TAM estimate — 8,500 units across 4,400 sites, EUR 1.5–3.5B market, full analysis in docs/market-research/nordic-factory-interceptor-drone-estimate.md
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Added Qantic GmbH (Berlin) as adjacent competitor for DWS IQ Platform — energy simulation company with CSRD gap, full analysis in docs/market-research/qantic-energy-analysis.md
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS competitor tracking row — Aiven, Supabase, Neon, PlanetScale, Timescale Cloud as competitors for Database Sovereignty as a Service product
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added Strategic Partnership Registry (§8.1) — NVIDIA Connect ISV Partner as first entry, partnership integration checklist
+- Version: 1.0 | Tool: Claude Code | Session: 01Uyf3ZyeW3UQhotzJVEpo7s | Date: 14.02.2026 | Changes: Initial market research standard — competitive intelligence framework, product improvement cycle, data collection workflows
 
 Session Links & References:
-  - Claude Code (01Uyf3ZyeW3UQhotzJVEpo7s): https://claude.ai/code/session_01Uyf3ZyeW3UQhotzJVEpo7s
+
+- Claude Code (01Uyf3ZyeW3UQhotzJVEpo7s): https://claude.ai/code/session_01Uyf3ZyeW3UQhotzJVEpo7s
 
 Document Status:
-  - Created: 14.02.2026
-  - Last Modified: 30.03.2026
-  - Language: EN
-  - Languages Available: EN
-  - Publication Status: ACTIVE
 
-***
+- Created: 14.02.2026
+- Last Modified: 06.04.2026
+- Language: EN
+- Languages Available: EN
+- Publication Status: ACTIVE
+
+---
 
 **Effective Date:** February 2026
 **Scope:** All DWS products across dws6.com, dws10.com, onelifetime.world, lifetime.fi
@@ -86,24 +91,24 @@ Every DWS product competes in a market. This standard ensures:
 
 Every DWS product MUST have a defined competitor set. Competitors are categorized:
 
-| Category | Definition | Example |
-|----------|-----------|---------|
-| **Direct** | Same product, same market | Zoom vs Firehorse V3 video |
-| **Indirect** | Different product, solves same problem | Manual audit firms vs Firehorse V2 |
-| **Adjacent** | Different market, could expand into ours | Autodesk BIM360 adding compliance |
-| **Substitute** | Different approach entirely | In-house dev team vs buying DWS IQ |
+| Category       | Definition                               | Example                            |
+| -------------- | ---------------------------------------- | ---------------------------------- |
+| **Direct**     | Same product, same market                | Zoom vs Firehorse V3 video         |
+| **Indirect**   | Different product, solves same problem   | Manual audit firms vs Firehorse V2 |
+| **Adjacent**   | Different market, could expand into ours | Autodesk BIM360 adding compliance  |
+| **Substitute** | Different approach entirely              | In-house dev team vs buying DWS IQ |
 
 ### 3.2 Competitor Tracking per Product
 
-| DWS Product | Direct Competitors | Indirect Competitors | Track |
-|-------------|-------------------|---------------------|-------|
-| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams | Jitsi.org (free), Whereby, Proton | Pricing, features, EU hosting |
-| **Firehorse V3 Email** | Gmail, Outlook, Proton Mail | Migadu, Fastmail, Tutanota | Storage, price, sovereignty |
-| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore | Manual audit firms, Buildots | Speed, accuracy, price |
-| **DWS IQ Platform** (€4,999) | Sphera, Ecoinvent, SimaPro | Worldfavor, PositionGreen, Qantic (energy simulation, adjacent) | Coverage, EU focus, AI, CSRD gap |
-| **Consulting Services** | McKinsey, Deloitte, KPMG | Freelancer platforms, in-house | Pricing, domain expertise |
-| **LWM V1** (€250k) | None (category-creating) | OpenAI, Anthropic (general AI) | Model size, domain specificity |
-| **DSaaS** (€499–€4,999/mo) | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud | Sovereignty enforcement, compliance automation, HTAP, pricing |
+| DWS Product                     | Direct Competitors                      | Indirect Competitors                                            | Track                                                         |
+| ------------------------------- | --------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Firehorse V3 SME** (€9.99/mo) | Zoom, Google Meet, Microsoft Teams      | Jitsi.org (free), Whereby, Proton                               | Pricing, features, EU hosting                                 |
+| **Firehorse V3 Email**          | Gmail, Outlook, Proton Mail             | Migadu, Fastmail, Tutanota                                      | Storage, price, sovereignty                                   |
+| **Firehorse V2 Reports** (€15k) | Autodesk BIM360, Procore                | Manual audit firms, Buildots                                    | Speed, accuracy, price                                        |
+| **DWS IQ Platform** (€4,999)    | Sphera, Ecoinvent, SimaPro              | Worldfavor, PositionGreen, Qantic (energy simulation, adjacent) | Coverage, EU focus, AI, CSRD gap                              |
+| **Consulting Services**         | McKinsey, Deloitte, KPMG                | Freelancer platforms, in-house                                  | Pricing, domain expertise                                     |
+| **LWM V1** (€250k)              | None (category-creating)                | OpenAI, Anthropic (general AI)                                  | Model size, domain specificity                                |
+| **DSaaS** (€499–€4,999/mo)      | Aiven (managed PG), Supabase Enterprise | Neon, PlanetScale, Timescale Cloud                              | Sovereignty enforcement, compliance automation, HTAP, pricing |
 
 ### 3.3 Supabase Schema: `competitors`
 
@@ -136,15 +141,15 @@ CREATE TABLE competitors (
 
 **Data Points Collected Per Competitor:**
 
-| Data Point | Source | Frequency |
-|------------|--------|-----------|
-| **Pricing** | Competitor website, G2, Capterra | Weekly |
-| **Feature list** | Changelog, blog, product page | Weekly |
-| **Customer count** | Press releases, social proof | Monthly |
-| **Funding/M&A** | Crunchbase, press | Weekly |
-| **New integrations** | Changelog, partnerships | Weekly |
-| **EU compliance claims** | Website, documentation | Monthly |
-| **Review sentiment** | G2, Trustpilot, Capterra | Monthly |
+| Data Point               | Source                           | Frequency |
+| ------------------------ | -------------------------------- | --------- |
+| **Pricing**              | Competitor website, G2, Capterra | Weekly    |
+| **Feature list**         | Changelog, blog, product page    | Weekly    |
+| **Customer count**       | Press releases, social proof     | Monthly   |
+| **Funding/M&A**          | Crunchbase, press                | Weekly    |
+| **New integrations**     | Changelog, partnerships          | Weekly    |
+| **EU compliance claims** | Website, documentation           | Monthly   |
+| **Review sentiment**     | G2, Trustpilot, Capterra         | Monthly   |
 
 ### 4.2 Supabase Schema: `competitor_products`
 
@@ -203,33 +208,40 @@ Each product in `product-catalog/` SHOULD have a `competitive-analysis.md` file 
 # [Product] — Competitive Analysis
 
 ## Market Position
+
 [One paragraph: where this product sits in the market]
 
 ## Competitor Matrix
 
-| Feature | DWS Product | Competitor A | Competitor B | Competitor C |
-|---------|------------|-------------|-------------|-------------|
-| Price | €X/mo | €Y/mo | €Z/mo | Free |
-| EU Hosted | ✅ | ❌ | ✅ | ❌ |
-| E2E Encrypted | ✅ | ✅ | ❌ | ✅ |
-| [Feature N] | ... | ... | ... | ... |
+| Feature       | DWS Product | Competitor A | Competitor B | Competitor C |
+| ------------- | ----------- | ------------ | ------------ | ------------ |
+| Price         | €X/mo       | €Y/mo        | €Z/mo        | Free         |
+| EU Hosted     | ✅          | ❌           | ✅           | ❌           |
+| E2E Encrypted | ✅          | ✅           | ❌           | ✅           |
+| [Feature N]   | ...         | ...          | ...          | ...          |
 
 ## Price Benchmarking
+
 [Table comparing pricing tiers]
 
 ## Gaps We Must Close
+
 [Numbered list of features competitors have that we lack]
 
 ## Our Unique Advantages
+
 [Numbered list of differentiators]
 
 ## Recommended Product Improvements
+
 [Numbered, prioritized list — each item becomes a PIP]
 
 ## Data Sources
+
 [Links to competitor pages, review sites, press releases]
 
 ## Last Updated
+
 [Date and method: automated/manual]
 ```
 
@@ -240,6 +252,7 @@ product-catalog/[Product]/[Version]/competitive-analysis.md
 ```
 
 Examples:
+
 - `product-catalog/Firehorse/V3/competitive-analysis.md`
 - `product-catalog/Firehorse/V2/competitive-analysis.md`
 - `product-catalog/LWM/V1/competitive-analysis.md`
@@ -259,20 +272,24 @@ Title: [PIP] [Product] — [Short description]
 Labels: pip, [product-name], [priority]
 
 ## Market Evidence
+
 - Competitor: [Name]
 - Signal: [What they did / what we lack]
 - Source: [URL or data reference]
 - Impact Score: [1-5]
 
 ## Proposed Improvement
+
 [What we should build/change]
 
 ## Expected Impact
+
 - Revenue: [estimate]
 - Competitive: [close gap / create advantage]
 - Effort: [S/M/L]
 
 ## Priority
+
 - [ ] Critical (losing deals)
 - [ ] High (competitor advantage)
 - [ ] Medium (nice to have)
@@ -281,10 +298,10 @@ Labels: pip, [product-name], [priority]
 
 ### 6.2 PIP Review Cadence
 
-| Cadence | Action | Owner |
-|---------|--------|-------|
-| **Weekly** | New PIPs reviewed, triaged | Product Manager |
-| **Monthly** | PIPs prioritized against roadmap | Product Strategy |
+| Cadence       | Action                                               | Owner            |
+| ------------- | ---------------------------------------------------- | ---------------- |
+| **Weekly**    | New PIPs reviewed, triaged                           | Product Manager  |
+| **Monthly**   | PIPs prioritized against roadmap                     | Product Strategy |
 | **Quarterly** | PIPs closed/archived, competitive analysis refreshed | Cross-functional |
 
 ---
@@ -295,12 +312,12 @@ Labels: pip, [product-name], [priority]
 
 This standard builds on existing DWS6 infrastructure:
 
-| Component | Location | Purpose |
-|-----------|----------|---------|
-| `scripts/collect_signals.py` | Sales signal scraper | Extend for competitor monitoring |
-| `scripts/signal_targets.json` | Target companies | Add competitor URLs |
-| `firehorse_signals` (Supabase) | Sales signals table | Reference schema |
-| `.github/workflows/roadmap-weekly-tracker.yml` | DWS7 roadmap tracker | Coordinate timing |
+| Component                                      | Location             | Purpose                          |
+| ---------------------------------------------- | -------------------- | -------------------------------- |
+| `scripts/collect_signals.py`                   | Sales signal scraper | Extend for competitor monitoring |
+| `scripts/signal_targets.json`                  | Target companies     | Add competitor URLs              |
+| `firehorse_signals` (Supabase)                 | Sales signals table  | Reference schema                 |
+| `.github/workflows/roadmap-weekly-tracker.yml` | DWS7 roadmap tracker | Coordinate timing                |
 
 ### 7.2 New Workflow: `market-research-weekly.yml`
 
@@ -308,7 +325,7 @@ This standard builds on existing DWS6 infrastructure:
 name: Weekly Market Research Collection
 on:
   schedule:
-    - cron: '0 7 * * 1'  # Every Monday 07:00 UTC
+    - cron: "0 7 * * 1" # Every Monday 07:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -318,7 +335,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - run: pip install -r scripts/requirements-signals.txt
       - run: python scripts/collect_market_data.py
         env:
@@ -339,13 +356,13 @@ jobs:
 
 **Current Store Products (25 total):**
 
-| Store Category | Count | Products |
-|----------------|-------|----------|
-| `platform` | 6 | DWS IQ, Firehorse Auto/Report/CMS/Omnichannel, Climate Bundle |
-| `ai-cloud` | 5 | AWS Consultancy, AI Agent Eng, AI Consultant Day, AI Consulting Agentic, Sovereignty Cloud |
-| `advisory` | 6 | Workshop 3D, Consulting Hourly, Expert Advisory, Fit55 Specialist, AI Koulutus, Business Mentor, Lean Project, Omnichannel MM |
-| `digital` | 6 | M365, Web Pages, Proton Email, Data Services, Design Gold, Cloud-Ready Teams, Agentti Sanasto |
-| `communication` | 2 | Firehorse V3 SME (€9.99), Firehorse V3 Professional (€19.99) |
+| Store Category  | Count | Products                                                                                                                      |
+| --------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `platform`      | 6     | DWS IQ, Firehorse Auto/Report/CMS/Omnichannel, Climate Bundle                                                                 |
+| `ai-cloud`      | 5     | AWS Consultancy, AI Agent Eng, AI Consultant Day, AI Consulting Agentic, Sovereignty Cloud                                    |
+| `advisory`      | 6     | Workshop 3D, Consulting Hourly, Expert Advisory, Fit55 Specialist, AI Koulutus, Business Mentor, Lean Project, Omnichannel MM |
+| `digital`       | 6     | M365, Web Pages, Proton Email, Data Services, Design Gold, Cloud-Ready Teams, Agentti Sanasto                                 |
+| `communication` | 2     | Firehorse V3 SME (€9.99), Firehorse V3 Professional (€19.99)                                                                  |
 
 ---
 
@@ -353,12 +370,13 @@ jobs:
 
 Track confirmed technology partnerships that create competitive moats and co-sell opportunities.
 
-| Partner | Program | Status | Confirmed | Competitive Impact |
-|---------|---------|--------|-----------|-------------------|
-| NVIDIA | Connect ISV Partner | Confirmed | 2026-03-08 | Certified compute layer — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network |
-| Qantic GmbH | Energy Simulation Partnership | NDA Sent | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom) |
+| Partner     | Program                       | Status    | Confirmed  | Competitive Impact                                                                                                                                                                              |
+| ----------- | ----------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NVIDIA      | Connect ISV Partner           | Confirmed | 2026-03-08 | Certified compute layer + NeMo DataDesigner integration — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network, Synthetic Nervous System for regulatory data generation |
+| Qantic GmbH | Energy Simulation Partnership | NDA Sent  | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom)                                                                      |
 
 **Partnership integration checklist (per partner):**
+
 - [x] Official confirmation received
 - [x] Badge/status on relevant product pages
 - [x] Investor page updated (remove "applied", show confirmed)
@@ -368,6 +386,32 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 - [ ] Co-marketing materials prepared
 
 **Rule:** Every confirmed partnership MUST appear in this registry within 24 hours of confirmation. Update `DWS_BRAND_STANDARD.md` badge system and `Admin/SECURITY_COMPLIANCE.md` infrastructure table simultaneously.
+
+---
+
+## 8.2 Competitive Moat: Synthetic Nervous System
+
+The **Synthetic Nervous System** is DWS IQ's primary technical moat for Series A positioning. It leverages the NVIDIA Connect ISV partnership to solve the "data scarcity" problem in EU regulatory compliance.
+
+**Core thesis:** Real-world compliance failure data (audit strikes, fraudulent MTCs, carbon leakage) is currently rare because CBAM/CSRD enforcement cycles are unprecedented. DWS IQ manufactures this data synthetically.
+
+| Moat Dimension       | Legacy Competitor            | DWS IQ + NVIDIA                      |
+| -------------------- | ---------------------------- | ------------------------------------ |
+| Training Data        | Customer-provided (Reactive) | Synthetic Nervous System (Proactive) |
+| Regulation Readiness | 2024 Standards               | 2027+ Simulated Edge Cases           |
+| Compute Partner      | General Cloud                | NVIDIA Connect ISV (Lifetime Oy)     |
+| Logic Layer          | Hard-coded rules             | Agentic Reasoning (NVIDIA NeMo)      |
+
+**Key technical components:**
+
+- **NVIDIA NeMo DataDesigner** — generates high-fidelity synthetic regulatory data (Mill Test Certificates, emission declarations, audit scenarios)
+- **NVIDIA NIM (Nemotron-3-8B)** — "Data-Generator" and "LLM-as-a-Judge" for validation
+- **EU 2025/2547 baked into schema** — every synthetic row audited for regulatory logic before agent training
+- **NVIDIA Vera Rubin architecture** — scales to Tier-1 industrial supply chain throughput
+
+**Investor narrative:** "10,000 years of regulatory edge cases simulated in weeks." See `docs/field-notes/2026-04-06-series-a-technical-narrative-synthetic-nervous-system.md` for full Arctic 15 pitch.
+
+**Target event:** Arctic 15 Deal Room (June 2026)
 
 ---
 
@@ -385,17 +429,21 @@ Generated every Monday after data collection. Stored in `docs/market-research/`.
 # Market Brief — Week XX, YYYY
 
 ## Key Signals This Week
+
 1. [Signal with impact score]
 2. [Signal with impact score]
 
 ## Pricing Changes Detected
+
 | Competitor | Product | Old Price | New Price | Our Price |
 |...
 
 ## New PIPs Filed
+
 - [PIP-XXX] [Description]
 
 ## Action Items
+
 - [ ] [Action for product team]
 ```
 
@@ -420,13 +468,13 @@ Full analysis across all products. Presented at quarterly product review.
 
 ## 11. Relationship to Other Standards
 
-| Standard | Relationship |
-|----------|-------------|
-| `DWS_DOCUMENT_STANDARD.md` | All market research docs follow document metadata format |
-| `DWS_BRAND_STANDARD.md` | Product positioning must align with brand categories |
-| `DWS_SECURITY_STANDARD.md` | Data collection must not expose credentials |
+| Standard                    | Relationship                                             |
+| --------------------------- | -------------------------------------------------------- |
+| `DWS_DOCUMENT_STANDARD.md`  | All market research docs follow document metadata format |
+| `DWS_BRAND_STANDARD.md`     | Product positioning must align with brand categories     |
+| `DWS_SECURITY_STANDARD.md`  | Data collection must not expose credentials              |
 | `product-catalog/README.md` | Product catalog is the source of truth for product specs |
-| `config/products.json` | Store products define the scope of competitive tracking |
+| `config/products.json`      | Store products define the scope of competitive tracking  |
 
 ---
 

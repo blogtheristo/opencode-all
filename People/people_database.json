@@ -34,11 +34,7 @@
         "Product Strategy",
         "Enterprise Sales"
       ],
-      "languages": [
-        "Finnish",
-        "English",
-        "Swedish"
-      ],
+      "languages": ["Finnish", "English", "Swedish"],
       "certifications": []
     },
     "relationship": {
@@ -58,10 +54,7 @@
         "active",
         "vip"
       ],
-      "products": [
-        "firehorse",
-        "dws-iq"
-      ],
+      "products": ["firehorse", "dws-iq"],
       "interests": [
         "Carbon reporting and sustainability",
         "Construction digitalization",
@@ -132,14 +125,7 @@
         "Fit for 55 Compliance",
         "Natural Language Processing"
       ],
-      "languages": [
-        "English",
-        "Finnish",
-        "Swedish",
-        "Norwegian",
-        "Danish",
-        "German"
-      ],
+      "languages": ["English", "Finnish", "Swedish", "Norwegian", "Danish", "German"],
       "certifications": []
     },
     "relationship": {
@@ -159,10 +145,7 @@
         "active",
         "no-dpa"
       ],
-      "products": [
-        "firehorse",
-        "dws-iq"
-      ],
+      "products": ["firehorse", "dws-iq"],
       "interests": [
         "Portfolio risk assessment",
         "Fit for 55 compliance monitoring",
@@ -625,12 +608,7 @@
         "Multi-Jurisdiction Compliance",
         "EU Regulatory Frameworks"
       ],
-      "languages": [
-        "Norwegian",
-        "Danish",
-        "English",
-        "Swedish"
-      ],
+      "languages": ["Norwegian", "Danish", "English", "Swedish"],
       "certifications": []
     },
     "relationship": {
@@ -655,10 +633,7 @@
         "linkedin-first-view",
         "sales-pipeline"
       ],
-      "products": [
-        "dws-iq",
-        "firehorse"
-      ],
+      "products": ["dws-iq", "firehorse"],
       "interests": [
         "CSRD-ESRS multi-jurisdiction reporting",
         "EU Taxonomy CapEx/OpEx alignment",
@@ -668,8 +643,11 @@
       ],
       "engagement_level": "medium",
       "last_contact": "2026-04-02",
-      "next_action": "Send construction compliance brief via LinkedIn InMail",
-      "notes": "20+ year Nordic construction sustainability veteran. Career: Skanska (3y) → AF Gruppen (4y) → Veidekke (3y) → NCC Building Nordics (Oct 2021–present). Board member EU Commission FP7 ChemXchange consortium. Skills are near-perfect match for DWS IQ platform. KEY INSIGHT: She knows every standard we cover — don't explain CSRD. Lead with the data layer, ERP integration, and the multi-jurisdiction pain point (managing NO/DK/FI compliance simultaneously). NCC Building Nordics covers Norway, Denmark, and Finland."
+      "thread_token": "YPGW53RPFQ",
+      "outreach_status": "contacted",
+      "outreach_channel": "LinkedIn Sales Navigator",
+      "next_action": "Wait for LinkedIn response. If no reply by 2026-04-09, send follow-up InMail with construction compliance brief.",
+      "notes": "20+ year Nordic construction sustainability veteran. Career: Skanska (3y) → AF Gruppen (4y) → Veidekke (3y) → NCC Building Nordics (Oct 2021–present). Board member EU Commission FP7 ChemXchange consortium. Skills are near-perfect match for DWS IQ platform. KEY INSIGHT: She knows every standard we cover — don't explain CSRD. Lead with the data layer, ERP integration, and the multi-jurisdiction pain point (managing NO/DK/FI compliance simultaneously). NCC Building Nordics covers Norway, Denmark, and Finland. OUTREACH LOG: 2026-04-02 — Contacted via LinkedIn Sales Navigator. Identified as real person behind placeholder 'Sustainability Director (NCC AB)' T:YPGW53RPFQ."
     },
     "business": {
       "contract_value": 0,
@@ -680,9 +658,9 @@
     },
     "metadata": {
       "created_at": "2026-04-02T07:00:00Z",
-      "updated_at": "2026-04-02T07:00:00Z",
+      "updated_at": "2026-04-06T12:00:00Z",
       "created_by": "risto-001",
-      "updated_by": "claude-quirky-shockley"
+      "updated_by": "claude-code"
     }
   }
 ]

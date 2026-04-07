@@ -5,7 +5,7 @@
 
 **Version:** 2.2
 **Created:** January 3, 2026
-**Updated:** April 5, 2026
+**Updated:** April 7, 2026
 **Owner:** Lifetime Oy
 **Status:** Active
 
@@ -24,7 +24,7 @@
 
 **Maturity key:** ✅ Shipped | 🔧 Skeleton/In Progress | 📋 Planning Only
 
-**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
+**Tech stack:** React 19, Vite 7, TypeScript 5.6, TailwindCSS 4, Express 4.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19.19, Supabase (PostgreSQL + pgvector), Groq (Llama 3.3 70B), Claude, Google Cloud Run (europe-north1), Cloudflare Workers/Pages, NVIDIA Jetson Orin Nano.
 
 ---
 
@@ -218,6 +218,7 @@ dws6/
 | `schedule-genius` | ScheduleGenius | Timeline optimization, resource allocation | Llama 3.3 70B |
 | `material-oracle` | MaterialOracle | Carbon tracking, sustainable procurement | Llama 3.3 70B |
 | `viability` | Viability | Unit economics, financial health, LTV | Llama 3.3 70B |
+| `synthetic-data` | SyntheticDataAgent | CBAM synthetic data pipeline — generates, validates, and stress-tests  | Llama 3.3 70B |
 | `kb` | KBAgent | List all files in kb/raw/ with their paths, sizes, and modification timestamps. Use to discover raw sources that need compilation. | Llama 3.3 70B |
 | `compliance` | **Compliance** (V2) | EU regulatory compliance monitoring | Llama 3.3 70B |
 | `quality-gate` | **QualityGate** (V2) | Deployment readiness, quality scoring | Llama 3.3 70B |
@@ -967,6 +968,6 @@ dws edge sync                           # Sync edge ↔ cloud state (planned)
 ---
 
 **Document Version:** 2.4
-**Last Updated:** April 5, 2026
+**Last Updated:** April 7, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
 **Next Review:** April 4, 2026
