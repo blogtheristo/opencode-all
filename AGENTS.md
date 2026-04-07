@@ -28,6 +28,17 @@
 
 ---
 
+## 1b. Team
+
+| Name   | Role             | Email                    | Scope                                                        |
+| ------ | ---------------- | ------------------------ | ------------------------------------------------------------ |
+| Risto  | CEO              | risto.paarni@lifetime.fi | Founder, product direction, final approval                   |
+| Adrian | DWS IQ Architect | adrian@dws10.com         | Platform architecture, Brain-Memory-Body-Hands, agent design |
+
+**gstack roles** (AI agent personas, not people): Founder/CEO, Engineering Manager, Staff Engineer, Release Engineer, QA Engineer. See Section 16.
+
+---
+
 ## 2. Development Environment
 
 ### Setup
