@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Morning Emails — Unified Local Runner (Linux/macOS)
+# Morning Brief V2 — Unified Local Runner (DGX Spark)
 #
-# Runs ALL daily email digests from this machine. Replaces 7 GitHub Actions workflows.
-# Trigger: systemd timer at 05:00 EET, or on machine startup.
+# Sends Morning Brief V2 (one combined email) + Friday/Monday extras.
+# DGX Spark owns the autonomous business process layer; GitHub Actions for CI/CD only.
+# Trigger: systemd timer at 03:00 UTC, or on machine startup.
 #
 # Usage:
 #   ./scripts/run-morning-emails.sh              # Run all morning emails
@@ -68,25 +69,23 @@ send_all() {
   log "========== MORNING EMAILS START =========="
   log "Day: $(date '+%a %Y-%m-%d %H:%M') | MonSat=$IS_MON_SAT Weekday=$IS_WEEKDAY Fri=$IS_FRIDAY Mon=$IS_MONDAY"
 
-  # 1. EU Regulation Monitor (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Regulation Digest" scripts/send-regulation-digest.ts
+  # --- Morning Brief V2 (Mon-Sat) ---
+  # Replaces 5 separate emails with ONE combined brief:
+  #   - CEO Cockpit (was: send-morning-briefing.ts)
+  #   - Outreach Digest (was: send-outreach-digest.ts)
+  #   - Captain Briefing (was: send-captain-briefing.ts)
+  #   - Regulation Digest (was: send-regulation-digest.ts)
+  #   - Social Digest (was: send-social-digest.ts)
+  # Old scripts kept in scripts/ but NO LONGER CALLED here.
+  # flow-orchestrator-digest.ts also replaced (moved out of scripts/daily/).
+  [ "$IS_MON_SAT" -eq 1 ] && run_script "Morning Brief V2" scripts/send-morning-brief-v2.ts
 
-  # 2. CEO Cockpit Morning Briefing (Mon-Sat)
-  [ "$IS_MON_SAT" -eq 1 ] && run_script "CEO Cockpit" scripts/send-morning-briefing.ts
+  # --- Standalone emails (not replaced by V2) ---
 
-  # 3. Outreach Digest (Mon-Sat)
-  [ "$IS_MON_SAT" -eq 1 ] && run_script "Outreach Digest" scripts/send-outreach-digest.ts
-
-  # 4. Captain Pre-Briefing (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Captain Briefing" scripts/send-captain-briefing.ts --auto
-
-  # 5. Social Digest / LinkedIn Queue (Mon-Fri)
-  [ "$IS_WEEKDAY" -eq 1 ] && run_script "Social Digest" scripts/send-social-digest.ts
-
-  # 6. Weekly Campaign Newsletter (Friday only)
+  # Weekly Campaign Newsletter (Friday only, different audience: subscribers)
   [ "$IS_FRIDAY" -eq 1 ] && run_script "Campaign Newsletter" scripts/send-campaign-newsletter.ts
 
-  # 7. Weekly Report (Monday only)
+  # Weekly Report (Monday only)
   [ "$IS_MONDAY" -eq 1 ] && run_script "Weekly Report" scripts/send-weekly-report-email.ts
 
   log "========== MORNING EMAILS DONE =========="
@@ -131,10 +130,10 @@ UNIT
 
   cat > "$service_dir/dws6-morning-emails.timer" <<UNIT
 [Unit]
-Description=Morning Emails Timer (05:00 Helsinki, daily)
+Description=Morning Brief V2 Timer (03:00 UTC daily — DGX Spark owns business process layer)
 
 [Timer]
-OnCalendar=*-*-* 05:00 Europe/Helsinki
+OnCalendar=*-*-* 03:00 UTC
 Persistent=true
 RandomizedDelaySec=60
 
@@ -152,7 +151,7 @@ UNIT
   systemctl --user disable dws6-morning-briefing.timer 2>/dev/null || true
 
   echo "Installed:"
-  echo "  - Timer: 05:00 Helsinki daily"
+  echo "  - Timer: 03:00 UTC daily (DGX Spark business process layer)"
   echo "  - Service: also runs on login (Persistent=true catches missed runs)"
   systemctl --user list-timers dws6-morning-emails.timer --no-pager 2>/dev/null || true
 }
