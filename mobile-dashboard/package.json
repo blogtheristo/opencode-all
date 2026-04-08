@@ -131,6 +131,8 @@
     "@react-native-community/cli-server-api": ">=20.0.0",
     "flatted": ">=3.4.2",
     "@tootallnate/once": ">=3.0.1",
-    "brace-expansion": ">=1.1.13"
+    "brace-expansion": ">=1.1.13",
+    "@xmldom/xmldom": ">=0.8.12",
+    "defu": ">=6.1.5"
   }
 }
