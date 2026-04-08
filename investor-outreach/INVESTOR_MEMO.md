@@ -125,13 +125,23 @@ Agent-governed decisions create personal liability exposure for directors and of
 
 ## EU Sovereign Infrastructure — Identity + Payment Stack
 
+**Lifetime Oy is 100% Finnish-owned, zero US investor jurisdiction exposure.** The company, the infrastructure, the data, and the cap table are all EU-sovereign. This is not a feature — it is the foundation everything else is built on.
+
 **DWS IQ rakentuu EU:n valtion infrastruktuurin päälle, EUDI Wallet (12/2026) + digitaalinen euro (~2029). Identity + payment stack on EU-sovereign by design, ei kolmannen osapuolen varassa.**
 
 ### The Sovereignty Thesis
 
-Every competitor in compliance automation relies on US-cloud-dependent vendors for identity verification and payment processing. Shufti Pro (Google Cloud), Veriff (AWS), Sumsub (AWS), IDnow (US-owned) — all exposed to the US CLOUD Act (18 U.S.C. § 2713). Their DPA clauses say "EU-only." US federal law says otherwise.
+Sovereignty starts with ownership. Every European compliance/IDV competitor that took US private equity lost their sovereignty:
 
-DWS IQ does not accept "almost sovereign." We reject vendors that market EU compliance while running on US-jurisdicted infrastructure. This is not a risk tolerance decision — it is a disqualifying condition.
+- **IDnow** (Munich) → 96% Corsair Capital (New York, $295M) → CLOUD Act exposed
+- **Digidentity** (The Hague) → 100% Solera/Vista Equity Partners (US) → CLOUD Act exposed
+- **Onfido** (London) → Acquired by Entrust (US) → CLOUD Act exposed
+
+Under the US CLOUD Act (18 U.S.C. § 2713), a US parent company can be compelled to produce data from any subsidiary, regardless of where that data is stored. A German GmbH owned by a New York PE firm is as exposed as a Delaware LLC.
+
+**Lifetime Oy has no US investors, no US parent, no US board seats.** Finnish company (Y-tunnus 0772407-9), Finnish CEO, EU-only infrastructure. No US entity in the ownership chain means no CLOUD Act hook — not today, not after Series A. The lead investor requirement (EU/EEA-domiciled) is a structural protection, not a preference.
+
+Beyond ownership, every competitor in compliance automation relies on US-cloud-dependent vendors for identity verification and payment processing. Shufti Pro (Google Cloud), Veriff (AWS), Sumsub (AWS) — all exposed even without US ownership. DWS IQ does not accept "almost sovereign." We reject vendors that market EU compliance while running on US-jurisdicted infrastructure. This is not a risk tolerance decision — it is a disqualifying condition.
 
 ### What the EU Is Building
 
