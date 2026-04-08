@@ -353,6 +353,22 @@ H1 2027:           EUDI Wallet as primary KYA L1 — no third-party IDV vendor
 
 ---
 
+## 8. Investor Memo Language (v5.2)
+
+Source: Boardy feedback (2026-04-08)
+
+> "DWS IQ rakentuu EU:n valtion infrastruktuurin päälle, EUDI Wallet (12/2026) + digitaalinen euro (~2028). Identity + payment stack on EU-sovereign by design, ei kolmannen osapuolen varassa."
+
+This single sentence communicates three things to investors:
+
+1. **Burning platform** — US-cloud-dependent vendors (Shufti, Veriff, Stripe, Jumio) are structurally non-compliant with EU law. EU regulation progressively excludes them. Every competitor using these vendors is exposed.
+2. **Moat** — EU state infrastructure (EUDI Wallet + Digital Euro) is a competitive advantage that US competitors cannot replicate. You cannot build EUDI integration from outside the EU regulatory framework.
+3. **Timing** — 12/2026 (EUDI live) and ~2028 (Digital Euro) are concrete regulatory deadlines, not aspirational roadmap items. The market is being created by law.
+
+**For Investor Memo v5.2:** Use verbatim. This is the sovereignty thesis in one sentence.
+
+---
+
 ## References
 
 - Shufti DPA: `partners-outreach/Shufti/Shufti Data Processing Agreement 26022026.docx`
