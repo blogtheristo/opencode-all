@@ -155,25 +155,41 @@ For DWS IQ customers using KYA verification, a credit-based model:
 
 ## 5. Recommendation
 
-**SHUFTI AS TRANSITIONAL PROVIDER. NEITHER SHUFTI NOR SUMSUB IS EU-SOVEREIGN.**
+**REJECTED. NEITHER SHUFTI NOR SUMSUB MEETS THE AEGIS SOVEREIGNTY STANDARD.**
 
-Rationale:
+Aegis does not accept "almost sovereign" solutions. A vendor running on US-jurisdicted cloud infrastructure (GCP, AWS, Azure) is not EU-sovereign — regardless of DPA clauses, EU-only mode toggles, or compliance team assurances. This is a hard no.
 
-1. **26–46% cost savings** vs Sumsub across all volume scenarios
-2. **Zero switching cost** — DPA signed, EU addendum ready, integration architecture designed
-3. **No monthly minimum** — critical for SaaS with variable verification volume
-4. **NOT EU-sovereign** — GCP (US CLOUD Act) undermines all DPA clauses. This is a structural limitation shared by both Shufti and Sumsub.
-5. **KYA Layer 1 ready** — Shufti webhook integration already designed for real-time risk scoring
+### Why Both Fail
 
-Sumsub has the same CLOUD Act problem (AWS/GCP) plus costs more and has no existing DPA. Neither vendor meets the DWS sovereignty standard.
+| Vendor     | Company jurisdiction | Cloud infra       | CLOUD Act exposed | Aegis verdict |
+| ---------- | -------------------- | ----------------- | ----------------- | ------------- |
+| Shufti Pro | UK                   | Google Cloud (US) | YES               | **REJECTED**  |
+| Sumsub     | UK                   | AWS/GCP (US)      | YES               | **REJECTED**  |
+
+"Almost sovereign" is not sovereign. A DPA clause cannot override US federal law. EU-only mode on US cloud is marketing, not compliance.
+
+### What Aegis Requires
+
+An IDV provider for Aegis production use MUST meet ALL of the following:
+
+1. **EU-incorporated company** — not UK, not US, not any third country
+2. **EU-sovereign cloud infrastructure** — OVHcloud, Hetzner, Scaleway, or self-hosted in EU — no US parent company
+3. **Zero CLOUD Act exposure** — no US entity anywhere in the data processing chain
+4. **GDPR Art. 28 compliant DPA** — with real substance behind the clauses, not just paper
+5. **Biometric data (Art. 9) processing exclusively under EU jurisdiction** — no exceptions
+
+### Aegis Competitive Position
+
+This is the Aegis selling point: **we reject what others accept.** Every competitor using Shufti, Sumsub, Onfido, or Jumio on US cloud is exposed. They sign DPA addendums and call it sovereign. We don't.
+
+EU regulation is a compounding moat (GDPR → Schrems II → AI Act → NIS2 → DORA). Every year the bar rises. Vendors who accepted "almost sovereign" today will be non-compliant tomorrow. Aegis is already on the right side of that line.
 
 ### Next Steps
 
-1. Sign Shufti DPA EU-only addendum (`partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md`) — best available contractual protection
-2. Negotiate Enterprise rate for 10k+ volume ($0.80–$0.90/check target)
-3. Implement DWS Credit Program pricing in `dws10.com/config/products.json`
-4. Build Shufti integration in `src/integrations/idv/shufti.ts`
-5. **PRIORITY: Scout EU-sovereign IDV providers** — EU company + EU cloud (OVHcloud, Hetzner, Scaleway) + no CLOUD Act exposure. This is the target state for Aegis.
+1. **DO NOT integrate Shufti or Sumsub into Aegis production** — the DPA work is useful reference material but does not change the sovereignty verdict
+2. **Scout EU-sovereign IDV providers** — EU company + EU cloud + zero CLOUD Act exposure. This is the #1 priority for KYA Layer 1.
+3. **Evaluate build-vs-buy** — if no EU-sovereign IDV vendor exists at competitive quality, assess building KYA Layer 1 identity verification on DWS-controlled EU infrastructure
+4. **Shufti DPA and pricing analysis retained** — useful for cost benchmarking and as negotiation reference when evaluating EU-sovereign alternatives
 
 ---
 
@@ -210,35 +226,35 @@ Shufti Pro uses **Google Cloud Platform (GCP)** as infrastructure. Google (Alpha
 | Contractual mitigation         | MEDIUM (DPA addendum provides legal basis to challenge, but cannot override US law) |
 | **Overall risk**               | **MEDIUM — accepted with documentation**                                            |
 
-### Mitigation
+### Why DPA Clauses Do Not Mitigate This
 
-1. **DPA addendum signed** — EU-only clause, 30-day sub-processor notice, Programmers Force removed
-2. **CLOUD Act resistance clause** — request Shufti to add: "Processor shall challenge any third-country authority request and notify Controller within 72 hours"
-3. **Minimize data exposure** — only send minimum required data to Shufti (document image + selfie), delete after verification
-4. **Document the trade-off** — this is an accepted risk, not an unknown risk
-5. **Long-term: evaluate EU-sovereign IDV providers** — if one emerges on non-US cloud (OVHcloud, Hetzner), reassess
+Shufti confirmed all 5 DPA amendment points. They will sign whatever we ask. But:
+
+- A DPA clause saying "EU-only" does not override 18 U.S.C. § 2713
+- A sub-processor removal does not change the cloud operator's jurisdiction
+- A 30-day notification period is irrelevant if a US court issues a gag order
+
+**Paper compliance ≠ actual compliance.** Shufti's DPA is well-intentioned but structurally unenforceable against US law.
 
 ### EU Regulation as Structural Moat
 
 EU data protection law is not just compliance — it is a **deliberate market barrier** designed to prevent non-EU actors like Shufti from operating freely in EU markets. And it works:
 
-- **GDPR (2018):** Forced global vendors to localize or exit. Many US SMB SaaS tools never entered EU.
-- **Schrems II (2020):** Invalidated Privacy Shield. Every US-cloud-dependent vendor now operates in legal grey zone.
-- **EU AI Act (2024/2025):** Art. 10 (data governance) + Art. 15 (transparency) add new requirements for biometric AI — Shufti's "no model training on EU data" mode is a direct consequence.
-- **NIS2 (2024):** Critical infrastructure supply chain requirements will hit IDV vendors serving EU banks/infra.
-- **DORA (2025):** Financial sector ICT risk management — IDV providers to EU financial institutions face direct scrutiny.
+- **GDPR (2018):** Forced global vendors to localize or exit
+- **Schrems II (2020):** Invalidated Privacy Shield. Every US-cloud-dependent vendor now operates in legal grey zone
+- **EU AI Act (2024/2025):** Art. 10 + Art. 15 add new requirements for biometric AI
+- **NIS2 (2024):** Critical infrastructure supply chain requirements hit IDV vendors
+- **DORA (2025):** Financial sector ICT risk management — direct scrutiny of IDV providers
 
-**Each new regulation tightens the noose on non-EU-sovereign vendors.** Shufti can customize DPA clauses, but they cannot change the structural reality: UK company, US cloud, non-EU jurisdiction.
-
-**DWS/Aegis position:** DWS uses only services that genuinely comply with EU law. We do not accept "EU-only mode" marketing from vendors running on US-jurisdicted infrastructure and call it sovereign. If the underlying cloud is CLOUD Act-exposed, the service is not EU-sovereign — regardless of what the DPA says.
+**Each new regulation raises the bar.** Shufti can customize DPA clauses, but they cannot change the structural reality: UK company, US cloud, non-EU jurisdiction. The gap between what they promise and what they can deliver grows every year.
 
 ### Conclusion
 
-**Shufti is NOT EU-sovereign.** UK company, US cloud (GCP), CLOUD Act-exposed. The DPA addendum is the best they can offer, but it does not change the jurisdictional reality.
+**Shufti and Sumsub are REJECTED for Aegis production use.**
 
-**For DWS/Aegis production use:** Shufti can serve as a transitional IDV provider with the DPA addendum in place, but it does **not** meet the DWS sovereignty standard. The search for a true EU-sovereign IDV provider (EU company, EU cloud, no CLOUD Act exposure) is an active priority.
+Aegis does not accept "almost sovereign." This is not a risk to mitigate — it is a disqualifying condition. Our competitors accept these vendors and call it compliant. We don't. That is the Aegis selling point.
 
-**For the market:** EU regulation is a **compounding moat**. Every new regulation (GDPR → Schrems II → AI Act → NIS2 → DORA) makes it harder for non-sovereign vendors to operate in EU. This is by design. Vendors who cannot demonstrate true EU sovereignty will be progressively excluded — and DWS will be on the right side of that line.
+Find an EU-sovereign IDV provider or build one.
 
 ---
 
